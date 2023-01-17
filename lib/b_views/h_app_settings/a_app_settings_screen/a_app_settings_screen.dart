@@ -26,19 +26,23 @@ class AppSettingsScreen extends StatelessWidget {
 
           /// CHANGE LANGUAGE
           SettingsWideButton(
-            verse: const Verse(text: 'phid_changeLanguage', translate: true,),
+            verse: const Verse(
+              text: 'Language . اللغة', //'phid_changeLanguage',
+              translate: false,
+            ),
             onTap: () => onChangeAppLanguageTap(context),
             icon: Iconz.language,
           ),
 
           const DotSeparator(),
 
-          /// ABOUT
-          SettingsWideButton(
-            verse: const Verse(text: 'phid_about_bldrsnet', translate: true),
-            onTap: () => onAboutBldrsTap(context),
-            icon: Iconz.bldrsNameSquare,
-          ),
+          /// PLAN : ENHANCE - DESIGN - DEVELOP : ABOUT BLDRS SCREEN
+          // /// ABOUT
+          // SettingsWideButton(
+          //   verse: const Verse(text: 'phid_about_bldrsnet', translate: true),
+          //   onTap: () => onAboutBldrsTap(context),
+          //   icon: Iconz.bldrsNameSquare,
+          // ),
 
           /// FEEDBACK
           SettingsWideButton(

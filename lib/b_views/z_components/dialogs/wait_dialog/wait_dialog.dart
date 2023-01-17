@@ -95,19 +95,18 @@ class WaitDialog extends StatelessWidget {
             SizedBox(
               width: _screenWidth,
               height: _screenHeight,
-              // color: Colorz.black125,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
 
-                  const SuperVerse(
-                    verse: Verse(
+                  SuperVerse(
+                    verse: const Verse(
                       text: 'phid_loading',
                       casing: Casing.upperCase,
                       translate: true,
                     ),
-                    size: 5,
-                    scaleFactor: 2,
+                    size: 4,
+                    scaleFactor: _screenWidth * 0.004,
                     shadow: true,
                     italic: true,
                     weight: VerseWeight.black,
@@ -135,9 +134,10 @@ class WaitDialog extends StatelessWidget {
               ),
             ),
 
-            const Pyramids(
+            Pyramids(
               pyramidType: PyramidType.crystalYellow,
               loading: true,
+              onPyramidTap: canManuallyGoBack == null ? null : () => Nav.goBack(context: context),
             ),
 
           ],

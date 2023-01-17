@@ -43,69 +43,8 @@ class AuthorSearchScreenView extends StatelessWidget {
 
         ValueListenableBuilder(
             valueListenable: isSearching,
-            child: Bubble(
-              bubbleHeaderVM: const BubbleHeaderVM(
-                headlineVerse: Verse(
-                  text: 'phid_share_invitation_link',
-                  translate: true,
-                ),
-              ),
-              width: Bubble.bubbleWidth(context),
-              margin: Scale.constantHorizontal10,
-              columnChildren: <Widget>[
-
-                SizedBox(
-                  width: Bubble.clearWidth(context),
-                  child: const SuperVerse(
-                    verse: Verse(
-                      pseudo: 'This Link is available for one time use only, '
-                          'to allow its reciever to be redirected to '
-                          'creating new author account for your Business page',
-                      text: 'phids_author_invitation_link_description',
-                      translate: true,
-                    ),
-                    weight: VerseWeight.thin,
-                    maxLines: 5,
-                    centered: false,
-                    color: Colorz.white125,
-                  ),
-                ),
-
-                const SuperVerse(
-                  verse: Verse(
-                    text: 'phid_invitation_link_com',
-                    translate: true,
-                    pseudo: 'Invitation link . com',
-                  ),
-                  maxLines: 2,
-                  margin: 10,
-                  weight: VerseWeight.thin,
-                  italic: true,
-                  color: Colorz.cyan255,
-                ),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: const <Widget>[
-                    DreamBox(
-                      height: 50,
-                      color: Colorz.yellow255,
-                      icon: Iconz.share,
-                      iconSizeFactor: 0.5,
-                      iconColor: Colorz.black230,
-                      verse: Verse(
-                        text: 'phid_share',
-                        translate: true,
-                      ),
-                      verseColor: Colorz.black230,
-                      verseScaleFactor: 1.2,
-                    ),
-                  ],
-                ),
-
-              ],
-            ),
-            builder: (_, bool _isSearching, Widget childA){
+            child: const InviteAuthorByLinkBubble(),
+            builder: (_, bool _isSearching, Widget inviteAuthorByLinkBubble){
 
               return ValueListenableBuilder(
                 valueListenable: isLoading,
@@ -152,7 +91,7 @@ class AuthorSearchScreenView extends StatelessWidget {
                   /// NOT SEARCHING
                   else {
 
-                    return childA;
+                    return const SizedBox(); //inviteAuthorByLinkBubble;
 
                   }
 
@@ -166,6 +105,82 @@ class AuthorSearchScreenView extends StatelessWidget {
       ],
     );
     // --------------------
+  }
+  /// --------------------------------------------------------------------------
+}
+
+class InviteAuthorByLinkBubble extends StatelessWidget {
+  /// --------------------------------------------------------------------------
+  const InviteAuthorByLinkBubble({
+    Key key
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    return Bubble(
+                  bubbleHeaderVM: const BubbleHeaderVM(
+                    headlineVerse: Verse(
+                      text: 'phid_share_invitation_link',
+                      translate: true,
+                    ),
+                  ),
+                  width: Bubble.bubbleWidth(context),
+                  margin: Scale.constantHorizontal10,
+                  columnChildren: <Widget>[
+
+                    SizedBox(
+                      width: Bubble.clearWidth(context),
+                      child: const SuperVerse(
+                        verse: Verse(
+                          pseudo: 'This Link is available for one time use only, '
+                              'to allow its reciever to be redirected to '
+                              'creating new author account for your Business page',
+                          text: 'phids_author_invitation_link_description',
+                          translate: true,
+                        ),
+                        weight: VerseWeight.thin,
+                        maxLines: 5,
+                        centered: false,
+                        color: Colorz.white125,
+                      ),
+                    ),
+
+                    const SuperVerse(
+                      verse: Verse(
+                        text: 'phid_invitation_link_com',
+                        translate: true,
+                        pseudo: 'Invitation link . com',
+                      ),
+                      maxLines: 2,
+                      margin: 10,
+                      weight: VerseWeight.thin,
+                      italic: true,
+                      color: Colorz.cyan255,
+                    ),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: const <Widget>[
+                        DreamBox(
+                          height: 50,
+                          color: Colorz.yellow255,
+                          icon: Iconz.share,
+                          iconSizeFactor: 0.5,
+                          iconColor: Colorz.black230,
+                          verse: Verse(
+                            text: 'phid_share',
+                            translate: true,
+                          ),
+                          verseColor: Colorz.black230,
+                          verseScaleFactor: 1.2,
+                        ),
+                      ],
+                    ),
+
+                  ],
+                );
+
   }
   /// --------------------------------------------------------------------------
 }
