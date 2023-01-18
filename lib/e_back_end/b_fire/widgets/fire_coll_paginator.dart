@@ -90,6 +90,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
         /// LISTEN TO STREAM CHANGES
         _initializeStreamListener();
 
+          await _triggerLoading(setTo: false);
       });
 
       _isInit = false;
@@ -283,13 +284,19 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   Widget build(BuildContext context) {
 
     return ValueListenableBuilder(
-        valueListenable: _paginatorController.paginatorMaps,
+        valueListenable: _loading,
         child: widget.child,
-        builder: (_, List<Map<String, dynamic>> maps, Widget child){
+        builder: (_, bool _isLoading, Widget child){
 
-          // Mapper.blogMaps(maps, invoker: 'FireCollPaginator : builder');
+          return ValueListenableBuilder(
+              valueListenable: _paginatorController.paginatorMaps,
+              builder: (_, List<Map<String, dynamic>> maps, Widget xChild){
 
-          return widget.builder(context, maps, _loading.value, child);
+                // Mapper.blogMaps(maps, invoker: 'FireCollPaginator : builder');
+
+                return widget.builder(context, maps, _isLoading, child);
+
+              });
 
         }
     );

@@ -68,6 +68,7 @@ class UsersProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
+  /*
   void _setAuthModel({
     @required AuthModel setTo,
     @required bool notify,
@@ -80,6 +81,7 @@ class UsersProvider extends ChangeNotifier {
     }
 
   }
+   */
   // --------------------
   /// TESTED : WORKS PERFECT
   void clearMyUserModelAndAuthModel({
@@ -317,15 +319,8 @@ class UsersProvider extends ChangeNotifier {
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
 
     /// _myUserModel
-    UsersProvider.proSetMyUserAndAuthModels(
-      context: context,
-      userModel: null,
-      notify: false,
-    );
-    /// _myAuthModel
-    _usersProvider._setAuthModel(
-      setTo: null,
-      notify: false,
+    _usersProvider.clearMyUserModelAndAuthModel(
+      notify: notify,
     );
 
     // /// _myDeviceContacts

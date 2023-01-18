@@ -236,35 +236,6 @@ class PhraseProvider extends ChangeNotifier {
   }
   // -----------------------------------------------------------------------------
 
-  /// WIPE OUT
-
-  // --------------------
-  static void wipeOut({
-    @required BuildContext context,
-    @required bool notify,
-  }){
-
-    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
-
-    /// _currentLangCode
-    _phraseProvider._setCurrentLanguage(
-      code: 'en',
-      notify: false,
-    );
-
-    _phraseProvider._phidsPendingTranslation = [];
-    _phraseProvider._usedXPhrases = [];
-
-    /// _basicPhrases
-    _phraseProvider.setMainPhrases(
-        setTo: <Phrase>[],
-        notify: notify
-    );
-
-
-  }
-  // -----------------------------------------------------------------------------
-
   /// USED X PHRASES => for dev only
 
   // --------------------
@@ -353,6 +324,45 @@ class PhraseProvider extends ChangeNotifier {
     if (notify == true){
       notifyListeners();
     }
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// WIPE OUT
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void wipeOut({
+    @required BuildContext context,
+    @required bool notify,
+  }){
+
+    /*
+        String _currentLangCode = 'en';
+        List<Phrase> _mainPhrases = <Phrase>[];
+        List<String> _usedXPhrases = <String>[];
+        List<String> _phidsPendingTranslation = <String>[];
+     */
+
+    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+
+    /// _currentLangCode
+    _phraseProvider._setCurrentLanguage(
+      code: 'en',
+      notify: false,
+    );
+
+    _phraseProvider._phidsPendingTranslation = [];
+    _phraseProvider._usedXPhrases = [];
+
+    /// _basicPhrases
+    _phraseProvider.setMainPhrases(
+        setTo: <Phrase>[],
+        notify: notify
+    );
+
+
+
 
   }
   // -----------------------------------------------------------------------------

@@ -86,6 +86,7 @@ class _HeroicFlyerState extends State<HeroicFlyer> {
     // }
 
     FlyerProtocols.disposeRenderedFlyer(
+      context: context,
       mounted: mounted,
       flyerModel: renderedSmallFlyer,
       invoker: 'HeroicFlyer',
