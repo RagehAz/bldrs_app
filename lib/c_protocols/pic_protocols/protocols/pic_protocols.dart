@@ -1,6 +1,8 @@
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:bldrs/a_models/x_ui/ui_image_cache_model.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/ldb/pic_ldb_ops.dart';
 import 'package:bldrs/c_protocols/pic_protocols/storage/pic_storage_ops.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
@@ -105,13 +107,46 @@ class PicProtocols {
     return _output;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<ui.Image> fetchPicUiImage(String path) async {
+  /// TASK : TEST ME
+  static Future<ui.Image> fetchPicUiImage({
+    @required BuildContext context,
+    @required String path,
+  }) async {
     ui.Image _theImage;
 
     if (path != null){
-      final PicModel _picModel = await PicProtocols.fetchPic(path);
-      _theImage = await Floaters.getUiImageFromUint8List(_picModel?.bytes);
+
+      final Cacher _cacher = UiProvider.proGetCacher(
+          context: context,
+          cacherID: path,
+          listen: false,
+      );
+
+      /// PIC IS PRO-CACHED
+      if (_cacher != null){
+        _theImage = _cacher.image;
+      }
+
+      /// PIC IS NOT PRO-CACHED
+      else {
+
+        final PicModel _picModel = await PicProtocols.fetchPic(path);
+        _theImage = await Floaters.getUiImageFromUint8List(_picModel?.bytes);
+
+        /// PRO-CACHE IF POSSIBLE
+        if (_theImage != null){
+          UiProvider.proStoreCacher(
+              context: context,
+              notify: false,
+              cacher: Cacher(
+                id: path,
+                image: _theImage,
+              ),
+          );
+        }
+
+      }
+
     }
 
     return _theImage;

@@ -157,7 +157,7 @@ class AuthFireOps {
         userModel: _userModel,
       );
 
-      _authModel.blogAuthModel(invoker: 'signInByEmailAndPassword');
+      // _authModel.blogAuthModel(invoker: 'signInByEmailAndPassword');
     }
 
     return _authModel;

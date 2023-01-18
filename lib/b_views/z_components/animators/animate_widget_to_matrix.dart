@@ -92,7 +92,7 @@ class __AnimatedChildState extends State<_AnimatedChild> with TickerProviderStat
       curve: widget.curve ?? Curves.easeInExpo,
     );
 
-    blog('initState matrix animator');
+    // blog('initState matrix animator');
     play();
 
   }
@@ -117,7 +117,7 @@ class __AnimatedChildState extends State<_AnimatedChild> with TickerProviderStat
   // --------------------------------------------------------------------------
   Future<void> play() async {
 
-    blog('should play the damn animation : ${_animationController.value}');
+    // blog('should play the damn animation : ${_animationController.value}');
     await _animationController.forward(from: 0);
 
     if (widget.onAnimationEnds != null){

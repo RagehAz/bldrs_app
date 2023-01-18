@@ -41,6 +41,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   // -----------------------------------------------------------------------------
   final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
+  final ScrollController _scrollController = ScrollController();
   // --------------------
   /// KEYBOARD VISIBILITY
   StreamSubscription<bool> _keyboardSubscription;
@@ -187,6 +188,7 @@ class _HomeScreenState extends State<HomeScreen> {
         sectionButtonIsOn: true,
         // navBarIsOn: false,
         appBarType: AppBarType.main,
+        listenToHideLayout: true,
         onBack: () => Nav.onLastGoBackInHomeScreen(context,),
         child: Stack(
           children: <Widget>[
@@ -207,7 +209,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 /// HOME FLYERS
                 else {
-                  return const HomeFlyersGrid();
+                  return HomeFlyersGrid(
+                    scrollController: _scrollController,
+                  );
                 }
 
               },

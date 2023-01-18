@@ -96,7 +96,7 @@ class _FilteredImage extends StatefulWidget {
 
     ui.Image _output;
 
-    blog('processImage : input : ${input.runtimeType} : input is Uint8List ${input is Uint8List}');
+    // blog('processImage : input : ${input.runtimeType} : input is Uint8List ${input is Uint8List}');
 
     if (
         input != null &&
