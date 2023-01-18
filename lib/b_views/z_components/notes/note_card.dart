@@ -17,7 +17,6 @@ import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-
 import 'package:flutter/material.dart';
 
 class NoteCard extends StatelessWidget {
@@ -139,7 +138,7 @@ class NoteCard extends StatelessWidget {
 
               /// NOTIFICATION CONTENT
               SizedBox(
-                width: _bodyWidth - _moreButtonSize,
+                width: _bodyWidth - _moreButtonSize - Ratioz.appBarMargin,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -155,6 +154,10 @@ class NoteCard extends StatelessWidget {
                       ),
                       maxLines: 5,
                       centered: false,
+                      // textDirection: TextDir.autoSwitchTextDirection(
+                      //     context: context,
+                      //     val: noteModel?.title,
+                      // ),
                     ),
 
                     /// TIME STAMP
@@ -184,10 +187,20 @@ class NoteCard extends StatelessWidget {
                       weight: VerseWeight.thin,
                       maxLines: 20,
                       centered: false,
+                      // textDirection: TextDir.autoSwitchTextDirection(
+                      //     context: context,
+                      //     val: noteModel?.body,
+                      // ),
                     ),
 
                   ],
                 ),
+              ),
+
+              /// SPACER
+              const SizedBox(
+                width: Ratioz.appBarMargin,
+                height: Ratioz.appBarMargin,
               ),
 
               /// MORE BUTTON

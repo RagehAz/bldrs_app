@@ -28,8 +28,8 @@ class ContactButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final bool _showVerse = forceShowVerse ??
-        ContactModel.checkContactIsSocialMedia(contactModel?.type) == false;
+    final bool _isSocialMediaContact = ContactModel.checkContactIsSocialMedia(contactModel?.type);
+    final bool _showVerse = forceShowVerse ?? _isSocialMediaContact == false;
 
     return DreamBox(
       key: const ValueKey<String>('ContactButton'),
@@ -40,7 +40,7 @@ class ContactButton extends StatelessWidget {
       verse: _showVerse == true ? Verse.plain(contactModel?.value) : null,
       verseWeight: VerseWeight.thin,
       verseItalic: true,
-      iconSizeFactor: _showVerse == true ? 0.6 : 1,
+      iconSizeFactor: _isSocialMediaContact == true ? 1 : 0.6,
       bubble: false,
       color: Colorz.white10,
       textDirection: TextDirection.ltr,

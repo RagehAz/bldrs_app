@@ -175,7 +175,7 @@ class _BubbleContents extends StatelessWidget {
           BubbleHeader(
             viewModel: headerViewModel.copyWith(
                 headerWidth: headerViewModel?.headerWidth ??
-                    (width == null ? null : width - 20)
+                    (width == null ? null : width-20)
             ),
           ),
 

@@ -99,7 +99,6 @@ Future<void> onDeleteMyAccount(BuildContext context) async {
         translate: true,
       ),
       dialogBodyVerse: const Verse(
-        pseudo: 'Are you sure you want to delete your Account ?',
         text: 'phid_delete_account_description',
         translate: true,
       ),
@@ -148,7 +147,7 @@ Future<void> onDeleteMyAccount(BuildContext context) async {
 /// TESTED : WORKS PERFECT
 Future<bool> _authorshipDeletionCheckups(BuildContext context) async {
 
-  bool _canDeleteAndExitMyBzz = false;
+  bool _canDelete = false;
 
   final UserModel _userModel = UsersProvider.proGetMyUserModel(
     context: context,
@@ -159,7 +158,7 @@ Future<bool> _authorshipDeletionCheckups(BuildContext context) async {
 
     final bool _userIsAuthor = UserModel.checkUserIsAuthor(_userModel);
 
-    blog('_userIsAuthor : $_userIsAuthor');
+    // blog('_userIsAuthor : $_userIsAuthor');
 
     /// USER IS AN AUTHOR
     if (_userIsAuthor == true){
@@ -183,73 +182,69 @@ Future<bool> _authorshipDeletionCheckups(BuildContext context) async {
       if (Mapper.checkCanLoopList(_myBzzICreated) == true){
 
         /// SHOW WILL DELETE BZZ DIALOG
-        _canDeleteAndExitMyBzz = await Dialogs.bzzBannersDialog(
+        _canDelete = await Dialogs.bzzBannersDialog(
           context: context,
           bzzModels: _myBzzICreated,
           titleVerse: const Verse(
-            pseudo: 'Your business Accounts Will be permanently deleted',
-            text: 'phid_bz_will_be_deleted',
+            text: 'phid_delete_bz_accounts_?',
             translate: true,
           ),
           bodyVerse: Verse(
-            text: 'You have created ${_myBzzICreated.length} business accounts which will be permanently deleted if you continue.',
+            text: 'phid_bzz_deletion_warning',
             variables: _myBzzICreated.length,
             translate: true,
           ),
           confirmButtonVerse: const Verse(
-            text: 'phid_delete_all',
+            text: 'phid_delete',
             translate: true,
           ),
         );
+        // blog('_authorshipDeletionCheckups received : $_canDelete');
 
       }
       /// USER HAS NO CREATED BZZ BUT MIGHT BE AUTHOR IN OTHERS
       else {
-        _canDeleteAndExitMyBzz = true;
+        _canDelete = true;
       }
 
       /// USER IS AUTHOR BUT DID NOT CREATE ANY BZZ
-      if (Mapper.checkCanLoopList(_myBzzIDidNotCreate) == true && _canDeleteAndExitMyBzz == true){
+      if (_canDelete == true){
+        if (Mapper.checkCanLoopList(_myBzzIDidNotCreate) == true){
 
-        /// SHOW WILL EXIT BZZ DIALOG
-        _canDeleteAndExitMyBzz = await Dialogs.bzzBannersDialog(
-          context: context,
-          bzzModels: _myBzzIDidNotCreate,
-          titleVerse: const Verse(
-            pseudo: 'Delete your membership in these Business accounts',
-            text: 'phid_delete_bz_membership',
-            translate: true,
-          ),
-          bodyVerse: Verse(
-            pseudo: 'You are a member in ${_myBzzIDidNotCreate.length} business accounts which you will delete your membership in each of them if you continue.',
-            text: 'phid_delete_bz_membership_description',
-            translate: true,
-            variables: _myBzzIDidNotCreate.length,
-          ),
-          confirmButtonVerse: const Verse(
-            text: 'phid_continue',
-            translate: true,
-          ),
-        );
+            /// SHOW WILL EXIT BZZ DIALOG
+            _canDelete = await Dialogs.bzzBannersDialog(
+              context: context,
+              bzzModels: _myBzzIDidNotCreate,
+              titleVerse: const Verse(
+                text: 'phid_delete_bz_membership',
+                translate: true,
+              ),
+              bodyVerse: Verse(
+                text: 'phid_delete_bz_membership_description',
+                translate: true,
+                variables: _myBzzIDidNotCreate.length,
+              ),
+              confirmButtonVerse: const Verse(
+                text: 'phid_exit',
+                translate: true,
+              ),
+            );
 
-      }
-      /// BOGUS USE CASE,
-      else {
-        _canDeleteAndExitMyBzz = true;
+          }
       }
 
     }
 
     /// USER IS NOT AN AUTHOR
     else {
-      _canDeleteAndExitMyBzz = true;
+      _canDelete = true;
     }
 
   }
 
-  blog('_canDeleteAndExitMyBzz : $_canDeleteAndExitMyBzz');
+  // blog('_authorshipDeletionCheckups _canDelete : $_canDelete');
 
-  return _canDeleteAndExitMyBzz;
+  return _canDelete;
 }
 // --------------------
 /// TESTED : WORKS PERFECT
@@ -299,7 +294,7 @@ Future<bool> reAuthenticateUser({
         unawaited(TopDialog.showTopDialog(
           context: context,
           firstVerse: const Verse(
-            text: 'phid_wrong_password',
+            text: 'phid_wrongPassword',
             translate: true,
           ),
           secondVerse: const Verse(
