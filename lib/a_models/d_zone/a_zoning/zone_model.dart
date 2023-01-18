@@ -430,17 +430,32 @@ class ZoneModel {
 
     if (zone != null){
 
-      if (zone.countryName != null && zone.countryName != '...'){
+      final String _countryName = Flag.getCountryNameByCurrentLang(
+        context: context,
+        countryID: zone.countryID,
+      );
 
-        _line = zone?.countryName;
+      final String _cityName = CityModel.translateCity(
+        context: context,
+        city: zone.cityModel,
+      );
 
-        if (zone.cityName != null && zone.cityName != '...'){
+      final String _districtName = DistrictModel.translateDistrict(
+        context: context,
+        district: zone.districtModel,
+      );
 
-          _line = '${zone?.cityName}, ${zone?.countryName}';
+      if (_countryName != null && _countryName != '...'){
 
-          if (zone.districtName != null && zone.districtName != '...'){
+        _line = _countryName;
 
-            _line = '${zone?.districtName}, ${zone?.cityName}, ${zone?.countryName}';
+        if (_cityName != null && _cityName != '...'){
+
+          _line = '$_cityName, $_countryName';
+
+          if (_districtName != null && _districtName != '...'){
+
+            _line = '$_districtName, $_cityName, $_countryName';
 
           }
 
