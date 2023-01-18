@@ -93,13 +93,13 @@ class TopicsExpandingTile extends StatelessWidget {
       width: width ?? PageBubble.width(context),
       firstHeadline: Verse(
         text: groupName,
-        translate: false,
+        translate: true,
         // casing: Casing.upperCase,
       ),
-      secondHeadline: const Verse(
-        text: 'phid_notifications',
-        translate: true,
-      ),
+      // secondHeadline: const Verse(
+      //   text: 'phid_notifications',
+      //   translate: true,
+      // ),
       initiallyExpanded: true,
       margin: const EdgeInsets.only(bottom: 10),
       child: Column(
