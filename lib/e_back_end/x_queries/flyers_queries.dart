@@ -51,7 +51,7 @@ FireQueryModel homeWallFlyersPaginationQuery(BuildContext context){
       aCollName: FireColl.flyers,
     ),
     limit: 4,
-    orderBy: const QueryOrderBy(fieldName: 'times.published', descending: true),
+    // orderBy: const QueryOrderBy(fieldName: 'times.published', descending: true),
     finders: <FireFinder>[
 
       /// FLYER TYPE

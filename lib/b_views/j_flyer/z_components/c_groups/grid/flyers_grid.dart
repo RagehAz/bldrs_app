@@ -142,7 +142,7 @@ class FlyersGrid extends StatelessWidget {
         return ZoomableFlyersGrid(
           gridWidth: gridWidth,
           gridHeight: gridHeight,
-          flyersIDs: flyersIDs,
+          flyersIDs: flyersIDs ?? FlyerModel.getFlyersIDsFromFlyers(flyers),
           columnCount: numberOfColumnsOrRows,
           onFlyerNotFound: onFlyerNotFound,
           showAddFlyerButton: showAddFlyerButton,

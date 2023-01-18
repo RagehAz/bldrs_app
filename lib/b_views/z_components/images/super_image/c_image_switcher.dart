@@ -204,7 +204,10 @@ class ImageSwitcher extends StatelessWidget {
       // );
 
       return FutureBuilder(
-        future: PicProtocols.fetchPicUiImage(pic),
+        future: PicProtocols.fetchPicUiImage(
+          context: context,
+          path: pic,
+        ),
         builder: (_, AsyncSnapshot<ui.Image> snap){
 
           return RawImage(

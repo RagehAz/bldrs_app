@@ -1,8 +1,10 @@
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
 import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
+import 'package:bldrs/a_models/x_ui/ui_image_cache_model.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
+import 'package:bldrs/main.dart';
 import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
@@ -315,7 +317,6 @@ class UiProvider extends ChangeNotifier {
   FlyerType _currentSavedFlyerTypeTab = FlyerType.general;
   // --------------------
   FlyerType get currentSavedFlyerTypeTab => _currentSavedFlyerTypeTab;
-
   // --------------------
   /// TESTED : WORKS PERFECT
   void setCurrentFlyerTypeTab({
@@ -338,7 +339,6 @@ class UiProvider extends ChangeNotifier {
   BzTab _currentBzTab = BzTab.flyers;
   // --------------------
   BzTab get currentBzTab => _currentBzTab;
-
   // --------------------
   /// TESTED : WORKS PERFECT
   void setCurrentBzTab({
@@ -539,6 +539,96 @@ class UiProvider extends ChangeNotifier {
   }){
     final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
     return _uiProvider.layoutIsVisible;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// IMAGES
+
+  // --------------------
+  List<Cacher> _cachers = const <Cacher>[];
+  List<Cacher> get cacher => _cachers;
+  // --------------------
+  ///
+  Cacher _getCacher(String cacherID){
+    return Cacher.getCacherFromCachers(
+        cachers: _cachers,
+        cacherID: cacherID
+    );
+  }
+  // --------------------
+  ///
+  void _storeCacher({
+    @required Cacher cacher,
+    @required bool notify,
+  }){
+
+    _cachers = Cacher.addCacherToCachers(
+      cachers: _cachers,
+      cacher: cacher,
+      overrideExisting: false,
+    );
+
+    if (notify == true){
+      notifyListeners();
+    }
+
+  }
+  // --------------------
+  ///
+  void _disposeCacher({
+    @required String cacherID,
+    @required bool notify,
+}){
+
+    _cachers = Cacher.disposeCacherInCachers(
+      cachers: _cachers,
+      cacherID: cacherID,
+    );
+
+    if (notify == true){
+      notifyListeners();
+    }
+
+  }
+  // --------------------
+  ///
+  static Cacher proGetCacher({
+    @required BuildContext context,
+    @required bool listen,
+    @required String cacherID,
+  }){
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
+    return _uiProvider._getCacher(cacherID);
+  }
+  // --------------------
+  ///
+  static void proStoreCacher({
+    @required BuildContext context,
+    @required Cacher cacher,
+    @required bool notify,
+  }){
+      final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+      _uiProvider._storeCacher(
+        cacher: cacher,
+        notify: notify,
+      );
+    }
+  // --------------------
+  ///
+  static void proDisposeCacher({
+    @required BuildContext context,
+    @required String cacherID,
+    @required bool notify,
+  }){
+
+    final UiProvider _uiProvider = Provider.of<UiProvider>(BldrsAppStarter.navigatorKey.currentContext,
+        listen: false,
+    );
+
+    _uiProvider._disposeCacher(
+      cacherID: cacherID,
+      notify: notify,
+    );
   }
   // -----------------------------------------------------------------------------
 

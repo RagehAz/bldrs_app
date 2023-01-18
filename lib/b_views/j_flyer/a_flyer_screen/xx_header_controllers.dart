@@ -275,17 +275,21 @@ Future<void> onFollowTap({
 
   else {
 
+    final bool _goToFlyerPreview = flyerID != null;
+    final String _routeName = _goToFlyerPreview == true ? Routing.flyerPreview : Routing.bzPreview;
+    final String argument = _goToFlyerPreview == true ? flyerID : bzModel.id;
+
     await Dialogs.youNeedToBeSignedInDialog(
       context: context,
-      afterHomeRouteArgument: flyerID != null ? Routing.flyerPreview : Routing.bzPreview,
-      afterHomeRouteName: flyerID ?? bzModel.id,
+      afterHomeRouteName: _routeName,
+      afterHomeRouteArgument: argument,
     );
 
   }
 
 }
 // --------------------
-/// ON CALL
+/// TESTED : WORKS PERFECT
 Future<void> onCallTap({
   @required BuildContext context,
   @required BzModel bzModel,
@@ -297,21 +301,15 @@ Future<void> onCallTap({
   /// USER IS NOT SIGNED IN
   if (_userModel == null){
 
-    /// TASK : IF SIGN IN DIALOG DIVERTS TO SIGN IN, WE NEED TO STORE THIS FLYER TO AUTO VIEW AFTER SIGN IN OR SIGN UP
-    // UiProvider.proSetAfterHomeRoute(
-    //     context: context,
-    //     routeName: routeName,
-    //     arguments: arguments,
-    //     notify: notify
-    // );
+    final bool _goToFlyerPreview = flyerModel?.id != null;
+    final String _routeName = _goToFlyerPreview == true ? Routing.flyerPreview : Routing.bzPreview;
+    final String argument = _goToFlyerPreview == true ? flyerModel?.id : bzModel.id;
 
     await Dialogs.youNeedToBeSignedInDialog(
       context: context,
-      afterHomeRouteArgument: flyerModel?.id != null ? Routing.flyerPreview : Routing.bzPreview,
-      afterHomeRouteName: flyerModel?.id ?? bzModel.id,
+      afterHomeRouteName: _routeName,
+      afterHomeRouteArgument: argument,
     );
-
-
 
   }
 
