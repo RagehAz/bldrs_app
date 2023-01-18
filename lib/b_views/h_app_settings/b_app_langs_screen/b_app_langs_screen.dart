@@ -31,6 +31,10 @@ class AppLangsScreen extends StatelessWidget {
     // --------------------
     const List<Lang> _languagesModels = Lang.allLanguages;
     final List<MapModel> _languageMaps = Lang.getLingoNamesMapModels(_languagesModels);
+    final String _currentLang = PhraseProvider.proGetCurrentLangCode(
+        context: context,
+        listen: true,
+    );
     // --------------------
     return FloatingLayout(
       columnChildren: <Widget>[
@@ -43,6 +47,7 @@ class AppLangsScreen extends StatelessWidget {
 
           return SettingsWideButton(
             verse: Verse.plain(_langs.value),
+            isOn: _currentLang != _langs.key,
             onTap: () => _tapLanguage(context, _langs.key),
           );
 
