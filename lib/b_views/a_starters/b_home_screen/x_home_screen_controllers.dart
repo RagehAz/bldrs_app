@@ -160,7 +160,7 @@ List<NavModel> generateMainNavModels({
       iconColor: Colorz.nothing,
       titleVerse: ZoneModel.generateObeliskVerse(
           context: context,
-          zone: currentZone
+          zone: currentZone,
       ),
     ),
 
