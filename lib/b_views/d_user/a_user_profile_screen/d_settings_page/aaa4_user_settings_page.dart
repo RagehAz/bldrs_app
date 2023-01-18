@@ -21,20 +21,20 @@ class UserSettingsPage extends StatelessWidget {
 
         const DotSeparator(color: Colorz.yellow80,),
 
-        /// INVITE BZZ
-        SettingsWideButton(
-          verse: const Verse(
-            text: 'phid_invite_bzz_you_know',
-            translate: true,
-          ),
-          icon: Iconz.bz,
-          color: Colorz.yellow255,
-          verseColor: Colorz.black255,
-          iconColor: Colorz.black255,
-          onTap: () => onInviteBusinessesTap(context),
-        ),
-
-        const DotSeparator(),
+        // /// INVITE BZZ
+        // SettingsWideButton(
+        //   verse: const Verse(
+        //     text: 'phid_invite_bzz_you_know',
+        //     translate: true,
+        //   ),
+        //   icon: Iconz.bz,
+        //   color: Colorz.yellow255,
+        //   verseColor: Colorz.black255,
+        //   iconColor: Colorz.black255,
+        //   onTap: () => onInviteBusinessesTap(context),
+        // ),
+        //
+        // const DotSeparator(),
 
         /// EDIT PROFILE
         SettingsWideButton(
