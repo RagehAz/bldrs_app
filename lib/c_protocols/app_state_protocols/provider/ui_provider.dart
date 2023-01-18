@@ -549,7 +549,7 @@ class UiProvider extends ChangeNotifier {
   List<Cacher> get cacher => _cachers;
   // --------------------
   ///
-  Cacher _getCacher(String cacherID){
+  Cacher getCacher(String cacherID){
     return Cacher.getCacherFromCachers(
         cachers: _cachers,
         cacherID: cacherID
@@ -557,7 +557,7 @@ class UiProvider extends ChangeNotifier {
   }
   // --------------------
   ///
-  void _storeCacher({
+  void storeCacher({
     @required Cacher cacher,
     @required bool notify,
   }){
@@ -597,8 +597,9 @@ class UiProvider extends ChangeNotifier {
     @required bool listen,
     @required String cacherID,
   }){
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
-    return _uiProvider._getCacher(cacherID);
+    return null;
+    // final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
+    // return _uiProvider._getCacher(cacherID);
   }
   // --------------------
   ///
@@ -607,11 +608,11 @@ class UiProvider extends ChangeNotifier {
     @required Cacher cacher,
     @required bool notify,
   }){
-      final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-      _uiProvider._storeCacher(
-        cacher: cacher,
-        notify: notify,
-      );
+      // final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+      // _uiProvider._storeCacher(
+      //   cacher: cacher,
+      //   notify: notify,
+      // );
     }
   // --------------------
   ///

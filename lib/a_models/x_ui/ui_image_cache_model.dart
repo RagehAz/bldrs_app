@@ -95,7 +95,7 @@ class Cacher {
 
       if (_cacher != null){
         _output.removeWhere((c) => c.id == cacherID);
-        _cacher.image.dispose();
+        // _cacher.image.dispose();
       }
 
     }

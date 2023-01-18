@@ -20,18 +20,18 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
-class FeedBack extends StatefulWidget {
+class FeedbackScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const FeedBack({
+  const FeedbackScreen({
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   @override
-  _FeedBackState createState() => _FeedBackState();
+  _FeedbackScreenState createState() => _FeedbackScreenState();
   /// --------------------------------------------------------------------------
 }
 
-class _FeedBackState extends State<FeedBack> {
+class _FeedbackScreenState extends State<FeedbackScreen> {
   // -----------------------------------------------------------------------------
   TextEditingController _feedbackController;
   // -----------------------------------------------------------------------------

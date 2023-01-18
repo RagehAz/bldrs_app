@@ -23,11 +23,15 @@ Future<void> onUserNoteTap({
 
   noteModel.blogNoteModel(invoker: 'onUserNoteTap');
 
-  if (noteModel?.navTo?.name != Routing.myUserNotesPage){
+  if (
+      noteModel?.navTo?.name != Routing.myUserNotesPage ||
+      noteModel?.navTo?.name != Routing.myBzNotesPage
+  ){
 
     await NootNavToProtocols.onNootTap(
       context: context,
       noteModel: noteModel,
+      startFromHome: false,
     );
 
   }
@@ -190,3 +194,23 @@ Future<void> onNoteButtonTap({
 
 }
 // -----------------------------------------------------------------------------
+
+bool canTapNoteBubble(NoteModel noteModel){
+
+  if (noteModel == null){
+    return false;
+  }
+  else if (
+      noteModel.navTo.name == Routing.myUserNotesPage
+      ||
+      noteModel.navTo.name == Routing.myBzNotesPage
+      ||
+      noteModel.navTo.name == null
+  ){
+    return false;
+  }
+  else {
+    return true;
+  }
+
+}
