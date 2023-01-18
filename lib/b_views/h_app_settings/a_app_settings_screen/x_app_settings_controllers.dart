@@ -53,7 +53,7 @@ Future<void> onFeedbackTap(BuildContext context) async {
   await Nav.goToNewScreen(
     context: context,
     pageTransitionType: PageTransitionType.fade,
-    screen: const FeedBack(),
+    screen: const FeedbackScreen(),
   );
 }
 // --------------------

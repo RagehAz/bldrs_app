@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
+import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -12,6 +13,8 @@ import 'package:bldrs/b_views/z_components/poster/note_poster_builder.dart';
 import 'package:bldrs/b_views/z_components/poster/structure/x_note_poster_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/main.dart';
 import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
@@ -57,6 +60,8 @@ class NoteCard extends StatelessWidget {
     /// BZ
     if (noteModel.parties.senderType == PartyType.bz){
 
+      blog('BZ TAPPED');
+
       await Nav.jumpToBzPreviewScreen(
         bzID: noteModel.parties.senderID,
       );
@@ -73,19 +78,29 @@ class NoteCard extends StatelessWidget {
     }
 
     /// BLDRS
-    // else if (noteModel.parties.senderType == PartyType.bldrs){
+    else if (noteModel.parties.senderType == PartyType.bldrs){
+
       // await Nav.jumpToBldrsPreviewScreen(
       //     context: context,
       // );
-    // }
+
+      await onFeedbackTap(BldrsAppStarter.navigatorKey.currentContext);
+
+    }
 
     /// COUNTRY
-    // else if (noteModel.parties.senderType == PartyType.country){
+    else if (noteModel.parties.senderType == PartyType.country){
       // await Nav.jumpToCountryPreviewScreen(
       //     context: context,
       //     countryID: noteModel.parties.senderID,
       // );
-    // }
+
+      blog('COUNTRY CANNOT BE PREVIEWED');
+    }
+
+    else {
+      blog('NoteCard._onSenderBalloonTap() : ERROR : senderType not found');
+    }
 
   }
   // --------------------
@@ -204,6 +219,7 @@ class NoteCard extends StatelessWidget {
               ),
 
               /// MORE BUTTON
+              if (onNoteOptionsTap != null)
               DreamBox(
                 height: _moreButtonSize,
                 width: _moreButtonSize,

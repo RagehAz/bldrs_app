@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
+import 'package:bldrs/b_views/d_user/a_user_profile_screen/b_notes_page/x2_user_notes_page_controllers.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/d_bz_notes_page/bz_notes_page_controllers.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/pull_to_refresh.dart';
@@ -16,7 +17,6 @@ import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
 import 'package:bldrs/e_back_end/z_helpers/pagination_controller.dart';
 import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
 
 class BzNotesPage extends StatefulWidget {
@@ -183,18 +183,17 @@ class _BzNotesPageState extends State<BzNotesPage>{
   /// TESTED : WORKS PERFECT
   Function _onNoteTap(NoteModel _note) {
 
-    if (_note == null){
-      return null;
-    }
-    else if (_note.navTo.name == Routing.myBzNotesPage || _note.navTo.name == null){
-      return null;
-    }
-    else {
+    if (canTapNoteBubble(_note) == true){
       return () => onBzNoteTap(
-        context: context,
-        noteModel: _note,
-      );
+            context: context,
+            noteModel: _note,
+          );
     }
+
+    else {
+      return null;
+    }
+
   }
   // -----------------------------------------------------------------------------
   @override

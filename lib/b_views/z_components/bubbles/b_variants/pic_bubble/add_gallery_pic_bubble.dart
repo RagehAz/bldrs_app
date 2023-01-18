@@ -248,7 +248,7 @@ class _FilePicSplitter extends StatelessWidget {
     else if (bubbleType == BubbleType.userPic){
 
       return Balloona(
-        balloonWidth: picWidth,
+        size: picWidth,
         loading: false,
         pic: picModel,
         balloonType: BalloonType.thinking,

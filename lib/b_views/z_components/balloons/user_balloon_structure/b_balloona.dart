@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 class Balloona extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const Balloona({
-    @required this.balloonWidth,
+    @required this.size,
     this.pic,
     this.loading,
     this.onTap,
@@ -21,7 +21,7 @@ class Balloona extends StatelessWidget {
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final double balloonWidth;
+  final double size;
   final Function onTap;
   final dynamic pic;
   final BalloonType balloonType;
@@ -34,39 +34,39 @@ class Balloona extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final CustomClipper _clipper = Balloon.getBalloonClipPath(balloonType) ;
+    final CustomClipper _clipper = Balloon.getBalloonClipPath(BalloonType.speaking); //balloonType) ;
 
-    return SizedBox(
-      width: balloonWidth,
-      height: balloonWidth,
-      child: GestureDetector(
-        onTap: onTap,
-        child: shadowIsOn == true ?
-        ClipShadowPath(
-          clipper: _clipper,
-          shadow: Shadower.basicOuterShadow,
-          child: BalloonComponents(
+    return ClipShadowPath(
+      clipper: _clipper,
+      shadow: Shadower.basicOuterShadow,
+      shadowIsOn: shadowIsOn,
+      child: Stack(
+        children: <Widget>[
+
+          /// ICON LAYER
+          BalloonComponents(
             pic: pic,
             loading: loading,
             balloonColor: balloonColor,
-            balloonWidth: balloonWidth,
+            balloonWidth: size,
             blackAndWhite: blackAndWhite,
             child: child,
           ),
-        )
-            :
-        ClipPath(
-          clipper: _clipper,
-          child: BalloonComponents(
-            pic: pic,
-            loading: loading,
-            balloonColor: balloonColor,
-            balloonWidth: balloonWidth,
-            blackAndWhite: blackAndWhite,
-            child: child,
-          ),
-        ),
 
+          /// TAP LAYER
+          SizedBox(
+            width: size,
+            height: size,
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: onTap,
+                splashColor: Colorz.white10,
+              ),
+            ),
+          ),
+
+        ],
       ),
     );
 
