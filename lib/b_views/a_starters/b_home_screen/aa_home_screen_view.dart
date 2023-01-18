@@ -5,7 +5,6 @@ import 'package:bldrs/b_views/z_components/layouts/pull_to_refresh.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
 import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_paginator.dart';
 import 'package:bldrs/e_back_end/x_queries/flyers_queries.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:scale/scale.dart';
 import 'package:flutter/material.dart';
 
@@ -20,8 +19,6 @@ class HomeFlyersGrid extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
-    blog('fuck');
 
     return FireCollPaginator(
       key: const ValueKey<String>('UserHomeScreen_FireCollPaginator'),
@@ -44,7 +41,7 @@ class HomeFlyersGrid extends StatelessWidget {
           fromJSON: false,
         );
 
-        blog('fuck2 : ${_wallFlyers.length} : isLoading : $isLoading');
+        // blog('fuck2 : ${_wallFlyers.length} : isLoading : $isLoading');
 
         return PullToRefresh(
           onRefresh: () => onRefreshHomeWall(context),
