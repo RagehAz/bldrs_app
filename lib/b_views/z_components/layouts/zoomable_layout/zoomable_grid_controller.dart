@@ -327,6 +327,7 @@ class ZoomableGridController {
   }){
     final double _scale = calculateMaxScale(context);
     final double _spacing = getSpacing(context);
+    // final int _lang = TextDir.checkAppIsLeftToRight(context) ? 1 : -1;
     return - (((_smallItemWidth + _spacing) * columnIndex) * _scale);
   }
   // --------------------
@@ -360,10 +361,15 @@ class ZoomableGridController {
         itemIndex: itemIndex,
     ));
 
+    /// APP IS LEFT TO RIGHT INDEX
+    final int _ltrIndex = itemIndex % _columnsCount;
+    /// APP IS RIGHT TO LEFT INDEX
+    final int _reverseIndex = _columnsCount - (itemIndex % _columnsCount) - 1;
+
     await _zoomToMatrix(_getZoomMatrix(
       context: context,
       rowIndex: 0,
-      columnIndex: itemIndex % _columnsCount,
+      columnIndex: TextDir.checkAppIsLeftToRight(context) ? _ltrIndex : _reverseIndex,
     ));
 
     setNotifier(
