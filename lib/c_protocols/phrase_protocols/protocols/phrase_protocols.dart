@@ -154,7 +154,10 @@ class PhraseProtocols {
       if (showWaitDialog == true){
         pushWaitDialog(
           context: context,
-          verse: const Verse(text: 'Syncing', translate: false),
+          verse: const Verse(
+              text: 'phid_uploading',
+              translate: true,
+          ),
         );
       }
 

@@ -140,7 +140,10 @@ class BzFCMTopicsScreenView extends StatelessWidget {
         TileBubble(
           bubbleWidth: PageBubble.clearWidth(context),
           bubbleHeaderVM: BubbleHeaderVM(
-            headlineVerse: Verse.plain('All Notifications'),
+            headlineVerse: const Verse(
+              text: 'phid_all_notifications',
+              translate: true,
+            ),
             leadingIcon: Iconz.notification,
             leadingIconSizeFactor: 0.6,
             leadingIconBoxColor: _allIsOn == true ? Colorz.green255 : Colorz.white10,
@@ -169,25 +172,28 @@ class BzFCMTopicsScreenView extends StatelessWidget {
               );
 
               return TileBubble(
-                  bubbleWidth: PageBubble.clearWidth(context),
-                  bubbleHeaderVM: BubbleHeaderVM(
-                      headlineVerse: Verse.plain(topic.description),
-                      leadingIcon: topic.icon,
-                      leadingIconSizeFactor: 0.6,
-                      leadingIconBoxColor: _isSelected == true ? Colorz.green255 : Colorz.white10,
-                      hasSwitch: true,
-                      switchValue: _isSelected,
-                      onSwitchTap: (bool value) => _onSwitchAuthorSubscriptionToTopic(
-                        context: context,
-                        value: value,
-                        topicID: topic.id,
-                      ),
+                bubbleWidth: PageBubble.clearWidth(context),
+                bubbleHeaderVM: BubbleHeaderVM(
+                  headlineVerse: Verse(
+                    text: 'phid_${topic.id}',
+                    translate: true,
                   ),
-                  onTileTap: () => _onSwitchAuthorSubscriptionToTopic(
+                  leadingIcon: topic.icon,
+                  leadingIconSizeFactor: 0.6,
+                  leadingIconBoxColor: _isSelected == true ? Colorz.green255 : Colorz.white10,
+                  hasSwitch: true,
+                  switchValue: _isSelected,
+                  onSwitchTap: (bool value) => _onSwitchAuthorSubscriptionToTopic(
                     context: context,
-                    value: !_isSelected,
+                    value: value,
                     topicID: topic.id,
                   ),
+                ),
+                onTileTap: () => _onSwitchAuthorSubscriptionToTopic(
+                  context: context,
+                  value: !_isSelected,
+                  topicID: topic.id,
+                ),
               );
 
             },
