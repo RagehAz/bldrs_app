@@ -354,8 +354,13 @@ class DistrictModel{
     String langCode,
   }){
 
-    final Phrase _districtName = Phrase.searchFirstPhraseByLang(
+    Phrase _districtName = Phrase.searchFirstPhraseByLang(
       langCode: langCode ?? Localizer.getCurrentLangCode(context),
+      phrases: district?.phrases,
+    );
+
+    _districtName ??= Phrase.searchFirstPhraseByLang(
+      langCode: 'en',
       phrases: district?.phrases,
     );
 

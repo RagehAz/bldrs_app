@@ -185,6 +185,10 @@ class BubbleHeader extends StatelessWidget {
               onSwitch: viewModel.onSwitchTap,
             ),
 
+          // const SizedBox(
+          //   width: 5,
+          // ),
+
           if (viewModel.hasMoreButton == true)
             DreamBox(
               height: moreButtonSize,
@@ -192,7 +196,7 @@ class BubbleHeader extends StatelessWidget {
               icon: Iconz.more,
               iconSizeFactor: 0.6,
               onTap: viewModel.onMoreButtonTap,
-              margins: const EdgeInsets.symmetric(horizontal: 5),
+              // margins: const EdgeInsets.symmetric(horizontal: 5),
             ),
 
         ],
