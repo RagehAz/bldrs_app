@@ -1135,15 +1135,16 @@ class NoteModel {
       receiverID: AuthFireOps.superUserID(),
       receiverType: PartyType.user,
     ),
-    title: null,
-    body: null,
+    title: 'Hello',
+    body: 'Bldrs',
     sentTime: null,
     topic: TopicModel.userGeneralNews,
-    navTo: const TriggerModel(
-      name: Routing.myUserNotesPage,
-      done: [],
-      argument: null,
-    ),
+    navTo: null,
+    // navTo: const TriggerModel(
+    //   name: Routing.myUserNotesPage,
+    //   done: [],
+    //   argument: null,
+    // ),
     // sendFCM: true,
     // dismissible: true,
   );

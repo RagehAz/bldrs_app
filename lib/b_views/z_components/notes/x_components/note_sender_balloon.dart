@@ -4,11 +4,11 @@ import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';
-import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/b_balloona.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class NoteSenderBalloon extends StatelessWidget {
@@ -31,7 +31,7 @@ class NoteSenderBalloon extends StatelessWidget {
     if (noteModel == null){
 
       return Balloona(
-        balloonWidth: balloonWidth,
+        size: balloonWidth,
         loading: false,
         onTap: onTap,
       );
@@ -43,15 +43,12 @@ class NoteSenderBalloon extends StatelessWidget {
       /// BLDRS
       if (noteModel.parties.senderType == PartyType.bldrs){
 
-        return GestureDetector(
+        return DreamBox(
+          width: balloonWidth,
+          height: balloonWidth,
+          icon: Iconz.bldrsNameSquare,
+          iconSizeFactor: 0.8,
           onTap: onTap,
-          child: const SizedBox(
-            width: balloonWidth,
-            height: balloonWidth,
-            child: BldrsName(
-              size: balloonWidth,
-            ),
-          ),
         );
 
       }
@@ -68,7 +65,7 @@ class NoteSenderBalloon extends StatelessWidget {
             final UserModel _userModel = snap.data;
 
             return Balloona(
-              balloonWidth: balloonWidth,
+              size: balloonWidth,
               pic: _userModel?.picPath,
               loading: false,
               onTap: onTap,
@@ -81,12 +78,6 @@ class NoteSenderBalloon extends StatelessWidget {
       /// BZ
       else if (noteModel.parties.senderType == PartyType.bz){
 
-          // return BzLogo(
-          //   width: balloonWidth,
-          //   image: noteModel.parties.senderImageURL,
-          //   zeroCornerIsOn: false,
-          //   onTap: onTap,
-          // );
           return FutureBuilder<BzModel>(
               future: BzProtocols.fetchBz(
                 context: context,
@@ -101,6 +92,8 @@ class NoteSenderBalloon extends StatelessWidget {
                   image: noteModel.parties.senderImageURL ?? _bzModel?.logoPath,
                   isVerified: _bzModel?.isVerified,
                   zeroCornerIsOn: false,
+                  onTap: onTap,
+
                 );
 
               }
