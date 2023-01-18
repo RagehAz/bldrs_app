@@ -75,7 +75,7 @@ class SuperRage7Screen extends StatelessWidget {
 
                   Balloona(
                     loading: false,
-                    balloonWidth: 150,
+                    size: 150,
                     balloonType: BalloonType.speaking,
                     balloonColor: Colorz.white255,
                     shadowIsOn: true,

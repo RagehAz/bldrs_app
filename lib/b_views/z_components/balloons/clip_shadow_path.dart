@@ -7,26 +7,39 @@ class ClipShadowPath extends StatelessWidget {
     @required this.shadow,
     @required this.clipper,
     @required this.child,
+    @required this.shadowIsOn,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final Shadow shadow;
   final CustomClipper<Path> clipper;
+  final bool shadowIsOn;
   final Widget child;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      key: UniqueKey(),
-      painter: _ClipShadowPainter(
-        clipper: clipper,
-        shadow: shadow,
-      ),
-      child: ClipPath(
+
+    if (shadowIsOn == true){
+      return CustomPaint(
+        key: UniqueKey(),
+        painter: _ClipShadowPainter(
           clipper: clipper,
-          child: child,
-      ),
-    );
+          shadow: shadow,
+        ),
+        child: ClipPath(
+            clipper: clipper,
+            child: child,
+        ),
+      );
+    }
+
+    else {
+      return ClipPath(
+        clipper: clipper,
+        child: child,
+      );
+    }
+
   }
   /// --------------------------------------------------------------------------
 }

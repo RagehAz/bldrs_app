@@ -73,10 +73,9 @@ class FollowButton extends StatelessWidget {
                     ),
 
                     /// FOLLOW TEXT
-                    if (_followIsOn == false)
                       SuperVerse(
-                        verse: const Verse(
-                          text: 'phid_follow',
+                        verse: Verse(
+                          text: _followIsOn == true ? 'phid_following' : 'phid_follow',
                           translate: true,
                         ),
                         color: _followIconColor,

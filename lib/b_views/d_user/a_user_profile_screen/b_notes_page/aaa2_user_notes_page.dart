@@ -14,7 +14,6 @@ import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
 import 'package:bldrs/e_back_end/z_helpers/pagination_controller.dart';
 import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
 
 class UserNotesPage extends StatefulWidget {
@@ -185,18 +184,17 @@ class _UserNotesPageState extends State<UserNotesPage> {
   /// TESTED : WORKS PERFECT
   Function _onNoteTap(NoteModel _note) {
 
-    if (_note == null){
-      return null;
-    }
-    else if (_note.navTo.name == Routing.myUserNotesPage || _note.navTo.name == null){
-      return null;
-    }
-    else {
+    if (canTapNoteBubble(_note) == true){
       return () => onUserNoteTap(
         context: context,
         noteModel: _note,
       );
     }
+
+    else {
+      return null;
+    }
+
   }
   // -----------------------------------------------------------------------------
   @override
