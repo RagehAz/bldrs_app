@@ -21,6 +21,7 @@ class Bubble extends StatelessWidget {
     this.margin,
     this.corners,
     this.areTopCentered = true,
+    this.onBubbleDoubleTap,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -33,6 +34,7 @@ class Bubble extends StatelessWidget {
   final dynamic margin;
   final dynamic corners;
   final bool areTopCentered;
+  final Function onBubbleDoubleTap;
   // -----------------------------------------------------------------------------
   static double clearWidth(BuildContext context, {double bubbleWidthOverride}) {
     final double _bubbleWidth = bubbleWidth(context, bubbleWidthOverride: bubbleWidthOverride);
@@ -116,7 +118,7 @@ class Bubble extends StatelessWidget {
           borderRadius: _corners,
         ),
         alignment: _alignment,
-        child: onBubbleTap == null ?
+        child: onBubbleTap == null && onBubbleDoubleTap == null?
 
         _bubbleContents
 
@@ -126,7 +128,8 @@ class Bubble extends StatelessWidget {
           color: Colorz.nothing,
           child: InkWell(
             onTap: onBubbleTap,
-            splashColor: Colorz.yellow255,
+            onDoubleTap: onBubbleDoubleTap,
+            splashColor: onBubbleTap == null ? Colorz.nothing : Colorz.yellow255,
             borderRadius: _corners,
             child: _bubbleContents,
           ),
