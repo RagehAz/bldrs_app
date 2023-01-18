@@ -360,8 +360,13 @@ class CityModel {
     String langCode,
   }) {
 
-    final Phrase _phrase = Phrase.searchFirstPhraseByLang(
+    Phrase _phrase = Phrase.searchFirstPhraseByLang(
         langCode: langCode ?? Localizer.getCurrentLangCode(context),
+        phrases: city?.phrases
+    );
+
+    _phrase ??= Phrase.searchFirstPhraseByLang(
+        langCode: 'en',
         phrases: city?.phrases
     );
 

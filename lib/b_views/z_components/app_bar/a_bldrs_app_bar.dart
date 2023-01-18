@@ -8,12 +8,9 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:provider/provider.dart';
 import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/drafters/shadowers.dart';
-
-
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:widget_fader/widget_fader.dart';
@@ -125,7 +122,7 @@ class BldrsAppBar extends StatelessWidget {
         selector: (_, UiProvider uiProvider) => uiProvider.layoutIsVisible,
         builder: (_, bool isVisible, Widget child) {
 
-          blog('bldrs app bar isVisible: $isVisible');
+          // blog('bldrs app bar isVisible: $isVisible');
 
           return IgnorePointer(
             ignoring: !isVisible,
