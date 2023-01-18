@@ -54,7 +54,7 @@ class TopicModel {
   /// TESTED : WORKS PERFECT
   static const Map<String, List<TopicModel>> userTopicMap = {
     // ------------------------------------------------
-    'General' : <TopicModel>[
+    'phid_general_notifications' : <TopicModel>[
       // --------------------
       /// GENERAL USER NOTES
       TopicModel(
@@ -71,7 +71,7 @@ class TopicModel {
       ),
     ],
     // ------------------------------------------------
-    'Flyers Reviews' : <TopicModel>[
+    'phid_flyers_Reviews_notifications' : <TopicModel>[
       // --------------------
       /// MY REVIEW RECEIVED REPLY
       TopicModel(
@@ -96,7 +96,7 @@ class TopicModel {
       // --------------------
     ],
     // ------------------------------------------------
-    'New flyers' : <TopicModel>[
+    'phid_new_flyers_notifications' : <TopicModel>[
       // --------------------
       /// A FOLLOWED BZ PUBLISHED FLYER
       TopicModel(
@@ -119,7 +119,7 @@ class TopicModel {
   /// TESTED : WORKS PERFECT
   static const Map<String, List<TopicModel>> bzTopicsMap = {
     // ------------------------------------------------
-    'General' : <TopicModel>[
+    'phid_general_notifications' : <TopicModel>[
       // --------------------
       /// GENERAL BZ NOTES
       TopicModel(
@@ -138,7 +138,7 @@ class TopicModel {
       // --------------------
     ],
     // ------------------------------------------------
-    'Flyers' : <TopicModel>[
+    'phid_flyers_notifications' : <TopicModel>[
       // --------------------
       /// MY BZ FLYER IS VERIFIED
       TopicModel(
@@ -156,7 +156,7 @@ class TopicModel {
       // --------------------
     ],
     // ------------------------------------------------
-    'Team' : <TopicModel>[
+    'phid_team_notifications' : <TopicModel>[
       // --------------------
       /// A SENT AUTHORSHIP RECEIVED REPLY
       TopicModel(
@@ -181,7 +181,7 @@ class TopicModel {
       // --------------------
     ],
     // ------------------------------------------------
-    'Users Engagement' : <TopicModel>[
+    'phid_user_engagement_notifications' : <TopicModel>[
       // --------------------
       /// A USER FOLLOWED MY BZ
       TopicModel(

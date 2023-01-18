@@ -111,7 +111,10 @@ class UserFCMTopicsScreenView extends StatelessWidget {
         TileBubble(
           bubbleWidth: PageBubble.clearWidth(context),
           bubbleHeaderVM: BubbleHeaderVM(
-            headlineVerse: Verse.plain('All Notifications'),
+            headlineVerse: const Verse(
+              text: 'phid_all_notifications',
+              translate: true,
+            ),
             leadingIcon: Iconz.notification,
             leadingIconSizeFactor: 0.6,
             leadingIconBoxColor: _allIsOn == true ? Colorz.green255 : Colorz.white10,
@@ -142,7 +145,10 @@ class UserFCMTopicsScreenView extends StatelessWidget {
             return TileBubble(
               bubbleWidth: PageBubble.clearWidth(context),
               bubbleHeaderVM: BubbleHeaderVM(
-                headlineVerse: Verse.plain(topic.description),
+                headlineVerse: Verse(
+                  text: 'phid_${topic.id}',
+                  translate: true,
+                ),
                 leadingIcon: topic.icon,
                 leadingIconSizeFactor: 0.6,
                 leadingIconBoxColor: _isSelected == true ? Colorz.green255 : Colorz.white10,
