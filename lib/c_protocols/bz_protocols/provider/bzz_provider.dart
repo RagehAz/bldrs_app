@@ -62,7 +62,7 @@ class BzzProvider extends ChangeNotifier {
     _bzzProvider.clearFollowedBzz(notify: false);
 
     /// _myActiveBz
-    _bzzProvider.clearMyActiveBz(notify: false);
+    _bzzProvider.clearMyActiveBz(notify: notify);
 
     /// _pendingAuthorshipInvitationsUsersIDs
     // _bzzProvider.setPendingAuthorshipInvitations(

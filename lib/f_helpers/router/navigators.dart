@@ -353,6 +353,9 @@ class Nav {
       listen: false,
     );
 
+    blog('autoNavigateFromHomeScreen : _afterHomeRoute : ${_afterHomeRoute?.name} : '
+        'arg : ${_afterHomeRoute?.arguments}');
+
     if (_afterHomeRoute != null){
 
       Future<void> _goTo;
@@ -683,6 +686,8 @@ class Nav {
 
      */
 
+    blog('jumpToFlyerReviewScreen  the damn route is : ${flyerIDAndReviewID.toString()}');
+
     assert(flyerIDAndReviewID != null, 'flyerIDAndReviewID is null');
     assert(flyerIDAndReviewID is String, 'flyerIDAndReviewID is not a String');
 
@@ -747,10 +752,10 @@ class Nav {
   }
    */
   // -----------------------------------------------------------------------------
-  static Future<void> jumpToAuthScreen() async {
+  static Future<void> jumpToAuthScreen(BuildContext context) async {
 
     await Nav.goToNewScreen(
-      context: BldrsAppStarter.navigatorKey.currentContext,
+      context: context, //BldrsAppStarter.navigatorKey.currentContext,
       screen: const AuthScreen(),
     );
 

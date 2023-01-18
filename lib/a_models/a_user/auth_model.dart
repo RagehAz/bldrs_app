@@ -847,6 +847,142 @@ class AuthModel {
 
     return _userIsSignedIn;
   }
+  // --------------------
+  /// TASK : TEST ME
+  static bool checkAuthModelsAreIdentical({
+    @required AuthModel auth1,
+    @required AuthModel auth2,
+  }){
+
+    if (auth1 == null && auth2 == null) {
+      return true;
+    }
+
+    else if (auth1 == null || auth2 == null) {
+      return false;
+    }
+    else {
+
+      if (
+      UserModel.usersAreIdentical(user1: auth1.userModel, user2: auth2.userModel) == true &&
+      auth1.firstTimer == auth2.firstTimer &&
+      auth1.authSucceeds == auth2.authSucceeds &&
+      auth1.authError == auth2.authError &&
+      /// UserCredential
+      Mapper.checkMapsAreIdentical(map1: auth1.profile, map2: auth2.profile) == true &&
+      auth1.isNewUser == auth2.isNewUser &&
+      auth1.userCredentialProviderId == auth2.userCredentialProviderId &&
+      auth1.username == auth2.username &&
+      /// AuthCredential
+      auth1.authCredentialProviderId == auth2.authCredentialProviderId &&
+      auth1.authCredentialToken == auth2.authCredentialToken &&
+      auth1.signInMethod == auth2.signInMethod &&
+      /// FirebaseAuth.currentUser
+      auth1.email == auth2.email &&
+      auth1.displayName == auth2.displayName &&
+      auth1.emailVerified == auth2.emailVerified &&
+      auth1.isAnonymous == auth2.isAnonymous &&
+      auth1.phoneNumber == auth2.phoneNumber &&
+      auth1.photoURL == auth2.photoURL &&
+      auth1.refreshToken == auth2.refreshToken &&
+      auth1.tenantId == auth2.tenantId &&
+      auth1.uid == auth2.uid &&
+      auth1.providerData?.toString() == auth2.providerData?.toString() &&
+      /// FirebaseAuth.currentUser.metadata
+      Timers.checkTimesAreIdentical(
+        accuracy: TimeAccuracy.microSecond,
+        time1: auth1.creationTime,
+        time2: auth2.creationTime
+      ) == true &&
+      Timers.checkTimesAreIdentical(
+        accuracy: TimeAccuracy.microSecond,
+        time1: auth1.lastSignInTime,
+        time2: auth2.lastSignInTime
+      ) == true &&
+      /// facebookLoginResult
+      auth1.facebookLoginResultMessage == auth2.facebookLoginResultMessage &&
+      /// facebookLoginResult.status
+      auth1.facebookLoginResultStatusIndex == auth2.facebookLoginResultStatusIndex &&
+      auth1.facebookLoginResultStatusName == auth2.facebookLoginResultStatusName &&
+      /// facebookLoginResult.accessToken
+      auth1.facebookLoginResultToken == auth2.facebookLoginResultToken &&
+      auth1.facebookLoginResultAppId == auth2.facebookLoginResultAppId &&
+      Mapper.checkListsAreIdentical(
+        list1: auth1.facebookLoginResultDeclinedPermission,
+        list2: auth2.facebookLoginResultDeclinedPermission
+      ) == true &&
+      Timers.checkTimesAreIdentical(
+        accuracy: TimeAccuracy.microSecond,
+        time1: auth1.facebookLoginResultExpires,
+        time2: auth2.facebookLoginResultExpires
+      ) == true &&
+      Mapper.checkListsAreIdentical(
+        list1: auth1.facebookLoginResultGrantedPermission,
+        list2: auth2.facebookLoginResultGrantedPermission
+      ) == true &&
+      auth1.facebookLoginResultGraphDomain == auth2.facebookLoginResultGraphDomain &&
+      auth1.facebookLoginResultIsExpired == auth2.facebookLoginResultIsExpired &&
+      Timers.checkTimesAreIdentical(
+        accuracy: TimeAccuracy.microSecond,
+        time1: auth1.facebookLoginResultLastRefresh,
+        time2: auth2.facebookLoginResultLastRefresh
+      ) == true &&
+      auth1.facebookLoginResultUserID == auth2.facebookLoginResultUserID &&
+      /// facebookAuthCredential
+      auth1.facebookAuthCredentialAccessToken == auth2.facebookAuthCredentialAccessToken &&
+      auth1.facebookAuthCredentialRawNonce == auth2.facebookAuthCredentialRawNonce &&
+      auth1.facebookAuthCredentialSecret == auth2.facebookAuthCredentialSecret &&
+      auth1.facebookAuthCredentialToken == auth2.facebookAuthCredentialToken &&
+      auth1.facebookAuthCredentialSignInMethod == auth2.facebookAuthCredentialSignInMethod &&
+      auth1.facebookAuthCredentialProviderId == auth2.facebookAuthCredentialProviderId &&
+      auth1.facebookAuthCredentialIdToken == auth2.facebookAuthCredentialIdToken &&
+      /// googleAuthProvider
+      auth1.googleAuthProviderParameters?.toString() == auth2.googleAuthProviderParameters?.toString() &&
+      Mapper.checkListsAreIdentical(
+        list1: auth1.googleAuthProviderScopes,
+        list2: auth2.googleAuthProviderScopes
+      ) == true &&
+      auth1.googleAuthProviderProviderId == auth2.googleAuthProviderProviderId &&
+      /// googleSignIn
+      Mapper.checkListsAreIdentical(
+        list1: auth1.googleSignInScopes,
+        list2: auth2.googleSignInScopes
+      ) == true &&
+      auth1.googleSignInClientId == auth2.googleSignInClientId &&
+      auth1.googleSignInHostedDomain == auth2.googleSignInHostedDomain &&
+      /// googleSignIn.signInOption
+      auth1.googleSignInSignInOptionIndex == auth2.googleSignInSignInOptionIndex &&
+      auth1.googleSignInSignInOptionName == auth2.googleSignInSignInOptionName &&
+      /// googleSignIn.currentUser
+      auth1.googleSignInDisplayName == auth2.googleSignInDisplayName &&
+      auth1.googleSignInEmail == auth2.googleSignInEmail &&
+      auth1.googleSignInId == auth2.googleSignInId &&
+      auth1.googleSignInPhotoUrl == auth2.googleSignInPhotoUrl &&
+      auth1.googleSignInServerAuthCode == auth2.googleSignInServerAuthCode &&
+      // auth1.googleSignInAuthentication == auth2.googleSignInAuthentication &&
+      // auth1.googleSignInAuthHeaders?.toString() == auth2.googleSignInAuthHeaders?.toString() &&
+      /// googleSignInAccount
+      auth1.googleSignInAccountServerAuthCode == auth2.googleSignInAccountServerAuthCode &&
+      auth1.googleSignInAccountPhotoUrl == auth2.googleSignInAccountPhotoUrl &&
+      auth1.googleSignInAccountId == auth2.googleSignInAccountId &&
+      auth1.googleSignInAccountEmail == auth2.googleSignInAccountEmail &&
+      auth1.googleSignInAccountDisplayName == auth2.googleSignInAccountDisplayName &&
+      // auth1.googleSignInAccountAuthHeaders == auth2.googleSignInAccountAuthHeaders &&
+      // auth1.googleSignInAccountAuthentication == auth2.googleSignInAccountAuthentication &&
+      /// googleSignInAuthentication
+      auth1.googleSignInAuthenticationIdToken == auth2.googleSignInAuthenticationIdToken &&
+      auth1.googleSignInAuthenticationAccessToken == auth2.googleSignInAuthenticationAccessToken
+      ){
+        return true;
+      }
+      else {
+        return false;
+      }
+
+    }
+
+
+  }
   // -----------------------------------------------------------------------------
 
   /// TESTING
@@ -936,5 +1072,115 @@ class AuthModel {
     return _model;
 
   }
+  // -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+  // --------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+  // --------------------
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is AuthModel){
+      _areIdentical = checkAuthModelsAreIdentical(
+        auth1: this,
+        auth2: other,
+      );
+    }
+
+    return _areIdentical;
+  }
+  // --------------------
+  @override
+  int get hashCode =>
+      userModel.hashCode^
+      firstTimer.hashCode^
+      authSucceeds.hashCode^
+      authError.hashCode^
+      /// UserCredential
+      profile.hashCode^
+      isNewUser.hashCode^
+      userCredentialProviderId.hashCode^
+      username.hashCode^
+      /// AuthCredential
+      authCredentialProviderId.hashCode^
+      authCredentialToken.hashCode^
+      signInMethod.hashCode^
+      /// FirebaseAuth.currentUser
+      email.hashCode^
+      displayName.hashCode^
+      emailVerified.hashCode^
+      isAnonymous.hashCode^
+      phoneNumber.hashCode^
+      photoURL.hashCode^
+      refreshToken.hashCode^
+      tenantId.hashCode^
+      uid.hashCode^
+      providerData.hashCode^
+      /// FirebaseAuth.currentUser.metadata
+      creationTime.hashCode^
+      lastSignInTime.hashCode^
+      /// facebookLoginResult
+      facebookLoginResultMessage.hashCode^
+      facebookLoginResultToken.hashCode^
+      /// facebookLoginResult.status
+      facebookLoginResultStatusIndex.hashCode^
+      facebookLoginResultStatusName.hashCode^
+      /// facebookLoginResult.accessToken
+      facebookLoginResultAppId.hashCode^
+      facebookLoginResultDeclinedPermission.hashCode^
+      facebookLoginResultExpires.hashCode^
+      facebookLoginResultGrantedPermission.hashCode^
+      facebookLoginResultGraphDomain.hashCode^
+      facebookLoginResultIsExpired.hashCode^
+      facebookLoginResultLastRefresh.hashCode^
+      facebookLoginResultUserID.hashCode^
+      /// facebookAuthCredential
+      facebookAuthCredentialAccessToken.hashCode^
+      facebookAuthCredentialRawNonce.hashCode^
+      facebookAuthCredentialSecret.hashCode^
+      facebookAuthCredentialToken.hashCode^
+      facebookAuthCredentialSignInMethod.hashCode^
+      facebookAuthCredentialProviderId.hashCode^
+      facebookAuthCredentialIdToken.hashCode^
+      /// googleAuthProvider
+      googleAuthProviderParameters.hashCode^
+      googleAuthProviderScopes.hashCode^
+      googleAuthProviderProviderId.hashCode^
+      /// googleSignIn
+      googleSignInScopes.hashCode^
+      googleSignInClientId.hashCode^
+      googleSignInHostedDomain.hashCode^
+      /// googleSignIn.signInOption
+      googleSignInSignInOptionIndex.hashCode^
+      googleSignInSignInOptionName.hashCode^
+      /// googleSignIn.currentUser
+      googleSignInDisplayName.hashCode^
+      googleSignInEmail.hashCode^
+      googleSignInId.hashCode^
+      googleSignInPhotoUrl.hashCode^
+      googleSignInServerAuthCode.hashCode^
+      // @required this.googleSignInAuthentication,
+      // @required this.googleSignInAuthHeaders,
+      /// googleSignInAccount
+      googleSignInAccountServerAuthCode.hashCode^
+      googleSignInAccountPhotoUrl.hashCode^
+      googleSignInAccountId.hashCode^
+      googleSignInAccountEmail.hashCode^
+      googleSignInAccountDisplayName.hashCode^
+      // googleSignInAccountAuthHeaders.hashCode^
+      // googleSignInAccountAuthentication.hashCode^
+      /// googleSignInAuthentication
+      googleSignInAuthenticationIdToken.hashCode^
+      googleSignInAuthenticationAccessToken.hashCode;
   // -----------------------------------------------------------------------------
 }

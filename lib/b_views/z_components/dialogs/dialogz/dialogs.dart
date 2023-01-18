@@ -157,7 +157,7 @@ class Dialogs {
           notify: true,
       );
 
-      await Nav.jumpToAuthScreen();
+      await Nav.jumpToAuthScreen(context);
 
     }
 
