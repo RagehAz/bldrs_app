@@ -49,6 +49,8 @@ class NoteSenderBalloon extends StatelessWidget {
           icon: Iconz.bldrsNameSquare,
           iconSizeFactor: 0.8,
           onTap: onTap,
+          onDoubleTap: (){
+            noteModel?.blogNoteModel(invoker: 'NoteSenderBalloon bldrs doubleTap');},
         );
 
       }
