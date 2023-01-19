@@ -10,6 +10,7 @@ import 'package:bldrs/b_views/d_user/a_user_profile_screen/a_user_profile_screen
 import 'package:bldrs/b_views/d_user/e_user_preview_screen/user_preview_screen.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/f_bz/f_bz_preview_screen/a_bz_preview_screen.dart';
+import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/a_app_settings_screen.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/a_flyer_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
@@ -425,6 +426,11 @@ class Nav {
             flyerIDAndReviewID: _afterHomeRoute?.arguments,
           ); break;
       // --------------------
+        case Routing.appSettings:
+          _goTo = Nav.goToNewScreen(
+            context: context,
+            screen: const AppSettingsScreen(),
+          ); break;
       /// PLAN : ADD COUNTRIES PREVIEW SCREEN
       /*
        case Routing.countryPreview:
