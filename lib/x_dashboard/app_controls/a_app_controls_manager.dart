@@ -133,23 +133,12 @@ class _AppControlsManagerState extends State<AppControlsManager> {
                       appControlsModel: _appControls,
                       mounted: mounted,
                     ),
-                    // onSwitchTap: (bool val){
-                    //
-                    //   blog('switchShowAllFlyersInHomeWall : val : $val');
-                    //
-                    //   setNotifier(
-                    //       notifier: _appControls,
-                    //       mounted: mounted,
-                    //       value: _appControls.value.copyWith(
-                    //           showAllFlyersInHome: val,
-                    //         ),
-                    //   );
-                    //
-                    // }
+
                   ),
                   secondLineVerse: const Verse(
                     text: 'Show all flyers for beta version, this means no query parameters will '
-                        'be used to fetch flyers, like: public, verified, zone, Keywords, etc.',
+                        'be used to fetch flyers, like: public, verified, zone, Keywords, etc.\n'
+                        'Yet,, it still need to increase AppControlsVersion in GlobalAppState',
                     translate: false,
                   ),
                 ),
