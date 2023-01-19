@@ -26,6 +26,7 @@ class ZoomableFlyersGrid extends StatefulWidget {
     this.onFlyerNotFound,
     this.selectionMode,
     this.onFlyerOptionsTap,
+    this.scrollController,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -38,6 +39,7 @@ class ZoomableFlyersGrid extends StatefulWidget {
   final Function onFlyerNotFound;
   final bool selectionMode;
   final Function(FlyerModel flyerModel) onFlyerOptionsTap;
+  final ScrollController scrollController;
   /// --------------------------------------------------------------------------
   @override
   State<ZoomableFlyersGrid> createState() => _ZoomableFlyersGridState();
@@ -64,11 +66,14 @@ class _ZoomableFlyersGridState extends State<ZoomableFlyersGrid> {
   void initState() {
     super.initState();
 
+    blog('w.scrollController : ${widget.scrollController.hashCode}');
+
     _controller = initializeBldrsZoomableGridController(
       context: context,
       columnsCount: widget.columnCount,
       gridWidth: widget.gridWidth,
       gridHeight: widget.gridHeight,
+      scrollController: widget.scrollController,
     );
 
   }
@@ -96,7 +101,17 @@ class _ZoomableFlyersGridState extends State<ZoomableFlyersGrid> {
     if (
     Mapper.checkListsAreIdentical(list1: widget.flyersIDs, list2: oldWidget.flyersIDs) == false
     ) {
-      setState(() {});
+      setState(() {
+
+        // _controller = initializeBldrsZoomableGridController(
+        //   context: context,
+        //   columnsCount: widget.columnCount,
+        //   gridWidth: widget.gridWidth,
+        //   gridHeight: widget.gridHeight,
+        //   scrollController: widget.scrollController,
+        // );
+
+      });
     }
   }
   // --------------------
