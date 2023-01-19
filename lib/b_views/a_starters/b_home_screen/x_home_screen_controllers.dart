@@ -23,6 +23,7 @@ import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart'
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
+import 'package:bldrs/e_back_end/z_helpers/pagination_controller.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -231,7 +232,12 @@ Future<void> onNavigate({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> onRefreshHomeWall(BuildContext context) async {
+Future<void> onRefreshHomeWall({
+  @required BuildContext context,
+  @required PaginationController paginationController,
+  @required ValueNotifier<bool> loading,
+  @required bool mounted,
+}) async {
   // final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
   // final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: true);
   // final SectionClass.Section _currentSection = _keywordsProvider.currentSection;
@@ -244,6 +250,22 @@ Future<void> onRefreshHomeWall(BuildContext context) async {
   // );
 
   blog('onRefreshHomeWall : SHOULD REFRESH SCREEN');
+
+  setNotifier(notifier: loading, mounted: mounted, value: false);
+
+  await Future.delayed(const Duration(milliseconds: 200), (){
+
+    // paginationController.clear(
+    //   mounted: mounted,
+    // );
+
+    // paginationController.
+
+    setNotifier(notifier: loading, mounted: mounted, value: true);
+
+  });
+
+
 
 }
 // -----------------------------------------------------------------------------

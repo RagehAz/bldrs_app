@@ -14,6 +14,7 @@ ZoomableGridController initializeBldrsZoomableGridController({
   @required int columnsCount,
   double gridWidth,
   double gridHeight,
+  ScrollController scrollController,
 }){
 
   final double _screenWidth = gridWidth ?? UiProvider.proGetScreenDimensions(context: context,
@@ -51,6 +52,7 @@ ZoomableGridController initializeBldrsZoomableGridController({
     gridHeight: _screenHeight,
     gridWidth: _screenWidth,
 
+    scrollController: scrollController,
   );
 
   return _controller;

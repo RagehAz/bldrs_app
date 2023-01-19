@@ -117,32 +117,39 @@ class _AppControlsManagerState extends State<AppControlsManager> {
                 ),
 
                 TileBubble(
+                  key: const ValueKey<String>('Tile_bubble_show_ll_flyers'),
                   bubbleHeaderVM: BubbleHeaderVM(
                     headlineVerse: const Verse(
-                      text: 'Show only Verified Flyers',
+                      text: 'Show All Flyers in Home Screen',
                       translate: false,
                     ),
                     leadingIcon: Iconz.notification,
                     leadingIconSizeFactor: 0.5,
-                    switchValue: controls.showOnlyVerifiedFlyersInHomeWall,
-                    onSwitchTap: (bool val) => switchOnlyShowVerifiedFlyersInHomeWall(
+                    hasSwitch: true,
+                    switchValue: controls.showAllFlyersInHome,
+                    onSwitchTap: (bool val) => switchShowAllFlyersInHomeWall(
                       context: context,
                       value: val,
                       appControlsModel: _appControls,
                       mounted: mounted,
                     ),
+                    // onSwitchTap: (bool val){
+                    //
+                    //   blog('switchShowAllFlyersInHomeWall : val : $val');
+                    //
+                    //   setNotifier(
+                    //       notifier: _appControls,
+                    //       mounted: mounted,
+                    //       value: _appControls.value.copyWith(
+                    //           showAllFlyersInHome: val,
+                    //         ),
+                    //   );
+                    //
+                    // }
                   ),
-                  bulletPoints: const <Verse>[
-                    Verse(text: 'Audit States are :-', translate: false,),
-                    Verse(text: 'null', translate: false,),
-                    Verse(text: 'verified', translate: false,),
-                    Verse(text: 'suspended', translate: false,),
-                    Verse(text: 'banned', translate: false,),
-                  ],
                   secondLineVerse: const Verse(
-                    text: 'Only verified flyers will be shown in Home screen wall.\n'
-                        'if switched off, Audit state will be neglected in its search query showing both null and verified Audit states.\n'
-                        'But still banned and suspended flyers will not be viewed.\n',
+                    text: 'Show all flyers for beta version, this means no query parameters will '
+                        'be used to fetch flyers, like: public, verified, zone, Keywords, etc.',
                     translate: false,
                   ),
                 ),
