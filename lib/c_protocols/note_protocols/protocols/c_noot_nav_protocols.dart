@@ -75,6 +75,7 @@ class NootNavToProtocols {
       case Routing.myBzTeamPage         : return true; break;
       case Routing.editBz               : return true; break;
       case Routing.flyerEditor          : return true; break;
+      case Routing.appSettings          : return true; break;
 
       // case Routing.flyerScreen          : return true; break;
       // case Routing.ragehDashBoard       : return true; break;

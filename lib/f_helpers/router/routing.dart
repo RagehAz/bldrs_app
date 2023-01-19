@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/a_starters/b_home_screen/a_home_screen.dart';
 import 'package:bldrs/b_views/b_auth/a_auth_screen/a_auth_screen.dart';
 import 'package:bldrs/b_views/c_main_search/a_main_search_screen/a_main_search_screen.dart';
 import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/a_saved_flyers_screen.dart';
+import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/a_app_settings_screen.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/b_animated_logo_screen.dart';
 import 'package:flutter/material.dart';
@@ -53,6 +54,8 @@ class Routing {
   // --------------------
   static const String myUserScreen = '/myUserScreen';
   static const String myUserNotesPage = '/myUserNotesPage';
+
+  static const String appSettings = '/appSettings';
   // -----------------------------------------------------------------------------
 
   /// ROUTER
@@ -101,6 +104,10 @@ class Routing {
     /// s20
       case Routing.search:
         return Nav.fadeToScreen(const MainSearchScreen(), settings);
+        break;
+    // --------------------------
+      case Routing.appSettings:
+        return Nav.fadeToScreen(const AppSettingsScreen(), settings);
         break;
     // --------------------------
     /*

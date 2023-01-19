@@ -7,6 +7,7 @@ import 'package:bldrs/b_views/b_auth/x_auth_controllers.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 
 class EmailAuthScreen extends StatefulWidget {
@@ -117,7 +118,18 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
       scaffoldKey: _scaffoldKey,
       pyramidsAreOn: true,
       skyType: SkyType.black,
-      appBarType: AppBarType.non,
+      appBarType: AppBarType.basic,
+      onBack: () async {
+
+        if (_isSigningIn.value == true){
+          await Nav.goBack(context: context);
+        }
+
+        else {
+          _switchSignIn();
+        }
+
+      },
       child: EmailAuthScreenView(
         appBarType: AppBarType.non,
         formKey: _formKey,

@@ -284,14 +284,16 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
         blog('disposeRenderedFlyer (LightBigFlyer) : '
             '${_flyer.value.id} => disposing flyer[$i] ''SLIDE ');
 
-        _flyer.value.slides[i].uiImage?.dispose();
+        /// TASK : DISPOSE_IMAGIFIED_FLYER_ISSUE
+        // _flyer.value.slides[i].uiImage?.dispose();
       }
     }
     // ------->
     blog('disposeRenderedFlyer (LightBigFlyer) : '
         '${_flyer.value.id} => disposing AUTHOR PIC : '
         '${_flyer.value?.authorImage == null ? 'NULL' : 'NOT NULL'}');
-    _flyer.value?.authorImage?.dispose();
+    /// TASK : DISPOSE_IMAGIFIED_FLYER_ISSUE
+    // _flyer.value?.authorImage?.dispose();
     // ------->
     _flyer.dispose();
     _loading?.dispose();
