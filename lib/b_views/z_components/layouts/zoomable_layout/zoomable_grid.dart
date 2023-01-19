@@ -74,6 +74,7 @@ class _ZoomableGridState extends State<ZoomableGrid>  with SingleTickerProviderS
         zoomingCurve: widget.controller.zoomingCurve,
         zoomedItemFadeInDuration: widget.controller.zoomedItemFadeInDuration,
         zoomedItemFadeInCurve: widget.controller.zoomedItemFadeInCurve,
+        scrollController: widget.controller.scrollController,
       );
     }
 

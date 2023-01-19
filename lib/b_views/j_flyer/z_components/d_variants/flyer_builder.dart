@@ -173,42 +173,48 @@ class _FutureFlyerBuilderState extends State<_FutureFlyerBuilder> {
 
     await _triggerLoading(setTo: true);
 
-    FlyerModel _flyer = widget.flyerModel ?? await FlyerProtocols.fetchFlyer(
-      context: context,
-      flyerID: widget.flyerID,
-    );
+    if (mounted == true){
 
-    if (_flyer != null) {
+      FlyerModel _flyer = widget.flyerModel ?? await FlyerProtocols.fetchFlyer(
+        context: context,
+        flyerID: widget.flyerID,
+      );
 
-      if (widget.renderFlyer == RenderFlyer.firstSlide && mounted) {
-        _flyer = await FlyerProtocols.renderSmallFlyer(
-          context: context,
-          flyerModel: _flyer,
-        );
+      if (_flyer != null) {
+
+        if (widget.renderFlyer == RenderFlyer.firstSlide && mounted) {
+          _flyer = await FlyerProtocols.renderSmallFlyer(
+            context: context,
+            flyerModel: _flyer,
+          );
+        }
+
+        else if (widget.renderFlyer == RenderFlyer.allSlides && mounted) {
+          _flyer = await FlyerProtocols.renderBigFlyer(
+            context: context,
+            flyerModel: _flyer,
+          );
+        }
+
+        // ignore: invariant_booleans
+        if (mounted == true){
+          setState(() {
+            _flyerModel = _flyer;
+          });
+        }
+
       }
 
-      else if (widget.renderFlyer == RenderFlyer.allSlides && mounted) {
-        _flyer = await FlyerProtocols.renderBigFlyer(
-          context: context,
-          flyerModel: _flyer,
-        );
-      }
+      else {
 
-      if (mounted == true){
-        setState(() {
-          _flyerModel = _flyer;
-        });
+        if (widget.onFlyerNotFound != null) {
+          widget.onFlyerNotFound();
+        }
+
       }
 
     }
 
-    else {
-
-      if (widget.onFlyerNotFound != null) {
-        widget.onFlyerNotFound();
-      }
-
-    }
 
     await _triggerLoading(setTo: false);
 

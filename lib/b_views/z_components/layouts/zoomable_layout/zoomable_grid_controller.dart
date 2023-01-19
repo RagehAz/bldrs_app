@@ -19,7 +19,7 @@ class ZoomableGridController {
   CurvedAnimation _animation;
   CurvedAnimation get animation => _animation;
   // --------------------
-  final ScrollController _scrollController = ScrollController();
+  ScrollController _scrollController;
   ScrollController get scrollController => _scrollController;
   // --------------------
   final ValueNotifier<bool> _isZoomed = ValueNotifier(false);
@@ -58,6 +58,7 @@ class ZoomableGridController {
     /// TOP WIDGET FADE IN CURVE
     Curve zoomedItemFadeInCurve = Curves.easeInOutCubic,
 
+    ScrollController scrollController,
   }) {
 
     /// GRID DIMENSIONS
@@ -83,6 +84,8 @@ class ZoomableGridController {
     _zoomingCurve = zoomingCurve;
     _zoomedItemFadeInDuration = zoomedItemFadeInDuration;
     _zoomedItemFadeInCurve = zoomedItemFadeInCurve;
+
+    _scrollController = scrollController ?? ScrollController();
 
     if (vsync != null){
 
