@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/d_variants/c_add_flyer_button
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_builder.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_selection_stack.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/small_flyer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/layouts/zoomable_layout/zoomable_grid.dart';
 import 'package:bldrs/b_views/z_components/layouts/zoomable_layout/zoomable_grid_controller.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
@@ -231,7 +232,12 @@ class _ZoomableFlyersGridState extends State<ZoomableFlyersGrid> {
         },
       ),
 
-      itemCount: widget.flyersIDs?.length ?? 0,
+      itemCount: FlyerDim.flyerGridNumberOfSlots(
+        flyersCount: widget.flyersIDs?.length ?? 0,
+        addFlyerButtonIsOn: widget.showAddFlyerButton,
+        isLoadingGrid: false,
+        numberOfColumnsOrRows: _controller.columnsCount,
+      ),
       builder: (int index) {
         // ---------------------------------------------
         /// AUTHOR MODE FOR FIRST INDEX ADD FLYER BUTTON
