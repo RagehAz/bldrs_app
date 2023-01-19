@@ -44,7 +44,7 @@ class Standards {
   // --------------------
   /// APP LINKS
   // -------
-  /// TASK : add android and ios app store link
+  /// TASK : bldrs_app_publish_link add android and ios app store link : and do bldrs web as well
   static const String iosAppStoreLink = 'www.apple.com';
   static const String androidAppStoreLink = 'www.google.com';
   // --------------------

@@ -1,17 +1,16 @@
+import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/password_bubble/password_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/layouts/custom_layouts/floating_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-
 import 'package:flutter/material.dart';
+import 'package:scale/scale.dart';
 
 class EmailAuthScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -86,15 +85,10 @@ class EmailAuthScreenView extends StatelessWidget {
         valueListenable: isSigningIn,
         builder: (_, bool _isSigningIn, Widget child){
 
-          return ListView(
-            physics: const BouncingScrollPhysics(),
-            children: <Widget>[
-
-              /// TOP SPACER
-              const SizedBox(
-                width: 20,
-                height: 20,
-              ),
+          return FloatingList(
+            // physics: const BouncingScrollPhysics(),
+            // padding: Stratosphere.stratosphereSandwich,
+            columnChildren: <Widget>[
 
               /// ENTER E-MAIL
               TextFieldBubble(
@@ -135,92 +129,86 @@ class EmailAuthScreenView extends StatelessWidget {
                 ),
               ),
 
-              /// SIGN IN - SIGN UP - SWITCHER BUTTONS
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
+              const SizedBox(height: 5),
 
-                  DreamBox(
-                    height: _buttonHeight,
-                    width: _buttonHeight,
-                    // verse:  'Back',
-                    icon: Iconizer.superBackIcon(context),
-                    iconSizeFactor: 0.7,
-                    margins: 10,
-                    color: Colorz.white20,
-                    onTap: () => Nav.goBack(
-                      context: context,
-                      invoker: 'EmailAuthScreenView',
-                    ),
-                  ),
+              /// SIGN IN BUTTON
+              if (_isSigningIn == true)
+              DreamBox(
+                height: _buttonHeight,
+                verseScaleFactor: _verseScaleFactor,
+                color: _isSigningIn ? Colorz.yellow255 : Colorz.white20,
+                verse: const Verse(
+                  text: 'phid_signIn',
+                  translate: true,
+                ),
+                verseColor: _isSigningIn ? Colorz.black255 : Colorz.white255,
+                verseWeight: VerseWeight.black,
+                margins: const EdgeInsets.only(bottom: 5),
+                onTap: _isSigningIn ? onSignin : switchSignIn,
+              ),
 
-                  const Expander(),
+              /// REGISTER BUTTON
+              // if (isSigningIn == true)
+              DreamBox(
+                height: _buttonHeight,
+                width: 150,
+                verseScaleFactor: _verseScaleFactor,
+                verseMaxLines: 2,
+                verse: Verse(
+                  text: _isSigningIn ? 'phid_create' : 'phid_register',
+                  translate: true,
+                ),
+                secondLine: const Verse(
+                  text: 'phid_new_account',
+                  translate: true,
+                ),
+                verseColor: _isSigningIn ? Colorz.white255 : Colorz.black255,
+                secondLineColor: _isSigningIn ? Colorz.white255 : Colorz.black255,
+                color: _isSigningIn ? Colorz.white20 : Colorz.yellow255,
+                margins: const EdgeInsets.only(bottom: 5),
+                onTap: _isSigningIn ? switchSignIn : onSignup,
+              ),
 
-                  /// REGISTER BUTTON
-                  // if (isSigningIn == true)
-                  DreamBox(
-                    height: _buttonHeight,
-                    width: 150,
-                    verseScaleFactor: _verseScaleFactor,
-                    verseMaxLines: 2,
-                    verse: Verse(
-                      text: _isSigningIn ? 'phid_create' : 'phid_register',
-                      translate: true,
-                    ),
-                    secondLine: const Verse(
-                      text: 'phid_new_account',
-                      translate: true,
-                    ),
-                    verseColor: _isSigningIn ? Colorz.white255 : Colorz.black255,
-                    secondLineColor: _isSigningIn ? Colorz.white255 : Colorz.black255,
-                    color: _isSigningIn ? Colorz.white20 : Colorz.yellow255,
-                    margins: EdgeInsets.zero,
-                    onTap: _isSigningIn ? switchSignIn : onSignup,
-                  ),
+              const SizedBox(height: 10),
 
-                  /// SIGN IN BUTTON
-                  // if (isSigningIn == true)
-                  DreamBox(
-                    height: _buttonHeight,
-                    verseScaleFactor: _verseScaleFactor,
-                    color: _isSigningIn ? Colorz.yellow255 : Colorz.white20,
-                    verse: const Verse(
-                      text: 'phid_signIn',
-                      translate: true,
-                    ),
-                    verseColor: _isSigningIn ? Colorz.black255 : Colorz.white255,
-                    verseWeight: VerseWeight.black,
-                    margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
-                    onTap: _isSigningIn ? onSignin : switchSignIn,
-                  ),
+              /// BY USING BLDRS.NET YOU AGREE TO OUR
+              if (_isSigningIn == true)
+              SuperVerse(
+                width: Scale.screenWidth(context) * 0.8,
+                verse: const Verse(
+                  text: 'phid_by_using_bldrs_you_agree_to_our',
+                  translate: true,
+                ),
+                weight: VerseWeight.thin,
+                maxLines: 5,
+                size: 1,
+              ),
 
-                  // /// (SWITCH TO SIGN-UP) => SIGN IN EXISTING ACCOUNT BUTTON
-                  // if (isSigningIn == false)
-                  //   DreamBox(
-                  //     height: _buttonHeight,
-                  //     verseScaleFactor: _verseScaleFactor,
-                  //     width: 150,
-                  //     verse:  'Sign in',
-                  //     secondLine: 'Existing account',
-                  //     verseMaxLines: 2,
-                  //     color: Colorz.white20,
-                  //     onTap: switchSignIn,
-                  //   ),
-                  //
-                  // /// SIGN-UP BUTTON
-                  // if (isSigningIn == false)
-                  //   DreamBox(
-                  //     height: _buttonHeight,
-                  //     verseScaleFactor: _verseScaleFactor,
-                  //     color: Colorz.yellow255,
-                  //     verse: Wordz.register(context),
-                  //     verseColor: Colorz.black230,
-                  //     verseWeight: VerseWeight.black,
-                  //     margins: const EdgeInsets.all(10),
-                  //     onTap: onSignup,
-                  //   ),
+              /// BY SIGNING UP YOU AGREE TO OUR
+              if (_isSigningIn == false)
+              SuperVerse(
+                width: Scale.screenWidth(context) * 0.8,
+                verse: const Verse(
+                  text: 'phid_by_signing_up_you_agree_to_our',
+                  translate: true,
+                ),
+                weight: VerseWeight.thin,
+                maxLines: 5,
+                size: 1,
+              ),
 
-                ],
+              /// TERMS OF SERVICE AND PRIVACY POLICY
+              SuperVerse(
+                width: Scale.screenWidth(context) * 0.8,
+                verse: const Verse(
+                  text: 'phid_terms_of_service_and_privacy_policy',
+                  translate: true,
+                ),
+                weight: VerseWeight.thin,
+                maxLines: 5,
+                labelColor: Colorz.blue80,
+                size: 1,
+                onTap: () => onTermsAndRegulationsTap(context),
               ),
 
               const Horizon(),
