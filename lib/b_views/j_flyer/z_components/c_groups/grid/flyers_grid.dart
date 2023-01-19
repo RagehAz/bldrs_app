@@ -149,6 +149,7 @@ class FlyersGrid extends StatelessWidget {
           onSelectFlyer: onSelectFlyer,
           selectionMode: selectionMode,
           onFlyerOptionsTap: onFlyerOptionsTap,
+          scrollController: scrollController,
         );
       }
       // --------------------

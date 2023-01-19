@@ -27,24 +27,87 @@ FireQueryModel allFlyersPaginationQuery(){
 ///
 FireQueryModel homeWallFlyersPaginationQuery(BuildContext context){
 
-  final FlyerType flyerType =  ChainsProvider.proGetHomeWallFlyerType(
-    context: context,
-    listen: true,
-  );
+  final AppControlsModel _appControl = GeneralProvider.proGerAppControls(context);
 
-  final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(
-    context: context,
-    listen: true,
-  );
+  List<FireFinder> _finders = [];
 
-  final String phid = ChainsProvider.proGetHomeWallPhid(
+  if (_appControl.showAllFlyersInHome == true){
+    _finders = [];
+  }
+
+  else {
+
+    final FlyerType flyerType =  ChainsProvider.proGetHomeWallFlyerType(
       context: context,
       listen: true,
-  );
+    );
 
-  final AppControlsModel appControls = GeneralProvider.proGerAppControls(context);
+    final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(
+      context: context,
+      listen: true,
+    );
 
-  // blog('homeWallFlyersPaginationQuery() flyerType: $flyerType : appControls?.showOnlyVerifiedFlyersInHomeWall: ${appControls?.showOnlyVerifiedFlyersInHomeWall}');
+    final String phid = ChainsProvider.proGetHomeWallPhid(
+        context: context,
+        listen: true,
+    );
+
+    const bool _showOnlyVerifiedFlyersInHomeWall = false;
+
+    // blog('homeWallFlyersPaginationQuery() flyerType: $flyerType : appControls?.showOnlyVerifiedFlyersInHomeWall: ${appControls?.showOnlyVerifiedFlyersInHomeWall}');
+
+    _finders = <FireFinder>[
+
+          /// FLYER TYPE
+          if (flyerType != null)
+          FireFinder(
+            field: 'flyerType',
+            comparison: FireComparison.equalTo,
+            value: FlyerTyper.cipherFlyerType(flyerType),
+          ),
+
+          /// COUNTRY
+          if (_currentZone != null && _currentZone.countryID != null)
+          FireFinder(
+            field: 'zone.countryID',
+            comparison: FireComparison.equalTo,
+            value: _currentZone.countryID,
+          ),
+
+          /// CITY
+          if (_currentZone != null && _currentZone.cityID != null)
+          FireFinder(
+            field: 'zone.cityID',
+            comparison: FireComparison.equalTo,
+            value: _currentZone.cityID,
+          ),
+
+          if (_currentZone != null && _currentZone.districtID != null)
+            FireFinder(
+              field: 'zone.districtID',
+              comparison: FireComparison.equalTo,
+              value: _currentZone.districtID,
+            ),
+
+          /// KEYWORDS IDS : phid_k's
+          if (phid != null)
+          FireFinder(
+            field: 'keywordsIDs',
+            comparison: FireComparison.arrayContains,
+            value: phid,
+          ),
+
+          if (_showOnlyVerifiedFlyersInHomeWall == true)
+            FireFinder(
+              field: 'auditState',
+              comparison: FireComparison.equalTo,
+              value: FlyerModel.cipherAuditState(AuditState.verified),
+            ),
+
+        ];
+
+  }
+
 
   return FireQueryModel(
     collRef: Fire.getSuperCollRef(
@@ -52,55 +115,7 @@ FireQueryModel homeWallFlyersPaginationQuery(BuildContext context){
     ),
     limit: 4,
     // orderBy: const QueryOrderBy(fieldName: 'times.published', descending: true),
-    finders: <FireFinder>[
-
-      /// FLYER TYPE
-      if (flyerType != null)
-      FireFinder(
-        field: 'flyerType',
-        comparison: FireComparison.equalTo,
-        value: FlyerTyper.cipherFlyerType(flyerType),
-      ),
-
-      /// COUNTRY
-      if (_currentZone != null && _currentZone.countryID != null)
-      FireFinder(
-        field: 'zone.countryID',
-        comparison: FireComparison.equalTo,
-        value: _currentZone.countryID,
-      ),
-
-      /// CITY
-      if (_currentZone != null && _currentZone.cityID != null)
-      FireFinder(
-        field: 'zone.cityID',
-        comparison: FireComparison.equalTo,
-        value: _currentZone.cityID,
-      ),
-
-      if (_currentZone != null && _currentZone.districtID != null)
-        FireFinder(
-          field: 'zone.districtID',
-          comparison: FireComparison.equalTo,
-          value: _currentZone.districtID,
-        ),
-
-      /// KEYWORDS IDS : phid_k's
-      if (phid != null)
-      FireFinder(
-        field: 'keywordsIDs',
-        comparison: FireComparison.arrayContains,
-        value: phid,
-      ),
-
-      if (appControls?.showOnlyVerifiedFlyersInHomeWall == true)
-        FireFinder(
-          field: 'auditState',
-          comparison: FireComparison.equalTo,
-          value: FlyerModel.cipherAuditState(AuditState.verified),
-        ),
-
-    ],
+    finders: _finders,
   );
 }
 // -----------------------------------------------------------------------------

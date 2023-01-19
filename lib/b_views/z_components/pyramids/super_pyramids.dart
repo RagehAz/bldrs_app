@@ -29,6 +29,7 @@ class SuperPyramids extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Selector<UiProvider, bool>(
+      key: const ValueKey('SuperPyramids_tree'),
       selector: (_, UiProvider uiProvider) => uiProvider.layoutIsVisible,
       builder: (_, bool isVisible, Widget child) {
 
@@ -44,7 +45,7 @@ class SuperPyramids extends StatelessWidget {
       },
 
       child: Stack(
-            key: const ValueKey('SuperPyramids'),
+            key: const ValueKey('SuperPyramids_stack'),
             children: <Widget>[
 
               /// SINGLE PYRAMID

@@ -1,37 +1,57 @@
 import 'package:bldrs/a_models/x_utilities/xx_app_controls_model.dart';
-import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/general_provider.dart';
+import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
+import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/real/app_controls_real_ops.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
-Future<void> switchOnlyShowVerifiedFlyersInHomeWall({
+Future<void> switchShowAllFlyersInHomeWall({
   @required BuildContext context,
   @required ValueNotifier<AppControlsModel> appControlsModel,
   @required bool value,
   @required bool mounted,
 }) async {
 
-  blog('switch switchWallFlyersAuditState');
+  blog('switch switchShowAllFlyersInHomeWall');
+
+  final AppControlsModel _newModel = appControlsModel.value.copyWith(
+    showAllFlyersInHome: value,
+  );
+
+  await AppControlsRealOps.updateGlobalAppControls(
+    newAppControlsModel: _newModel,
+  );
+
+  /// CLEAR LDB
+  await LDBOps.deleteAllMapsAtOnce(
+    docName: LDBDoc.appControls,
+  );
+
+  /// FETCH
+  await GeneralProvider.fetchAppControls(
+    context: context,
+  );
+
+  /// SET IN PROVIDER
+  final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
+  _generalProvider.setAppControls(
+      setTo: _newModel,
+      notify: true,
+  );
 
   setNotifier(
       notifier: appControlsModel,
       mounted: mounted,
-      value: appControlsModel.value.copyWith(
-        showOnlyVerifiedFlyersInHomeWall: value,
-      ),
+      value: _newModel,
   );
 
-  await AppControlsRealOps.updateGlobalAppControls(
-    newAppControlsModel: appControlsModel.value,
-  );
-
-  await TopDialog.showTopDialog(
-    context: context,
-    firstVerse: Verse.plain('showOnlyVerifiedFlyersInHomeWall updated to : $value'),
-    color: Colorz.green255,
-  );
+  // await TopDialog.showTopDialog(
+  //   context: context,
+  //   firstVerse: Verse.plain('show All Flyers In Home updated to : ${_newModel.showAllFlyersInHome}'),
+  //   color: Colorz.green255,
+  // );
 
 }
 // -----------------------------------------------------------------------------
