@@ -37,7 +37,12 @@ class AnimateWidgetToMatrix extends StatelessWidget {
         child: child,
       );
     }
-
+    else if (canAnimate == false && matrix != null){
+      return Transform(
+        transform: matrix,
+        child: child,
+      );
+    }
     else {
       return child;
     }

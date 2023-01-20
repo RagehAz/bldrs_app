@@ -1029,7 +1029,7 @@ class Dialogs {
           blurLayerIsOn: true,
           canTapSlide: false,
           canPinch: false,
-          canAnimateMatrix: true,
+          // canAnimateMatrix: true,
           canUseFilter: false,
         ),
       ),

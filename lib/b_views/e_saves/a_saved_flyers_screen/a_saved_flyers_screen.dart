@@ -28,17 +28,17 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen>  {
    bool get wantKeepAlive => true;
    */
   // -----------------------------------------------------------------------------
-  ScrollController _scrollController;
+  final ScrollController _scrollController = ScrollController();
   // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
-    _scrollController = ScrollController();
   }
   // --------------------
   @override
   void dispose() {
-    _scrollController.dispose();
+    /// SCROLL_CONTROLLER_IS_DISPOSED_IN_ZOOMABLE_GRID_CONTROLLER
+    // _scrollController.dispose(); // so do not dispose here, kept for reference
     super.dispose();
   }
   // -----------------------------------------------------------------------------
