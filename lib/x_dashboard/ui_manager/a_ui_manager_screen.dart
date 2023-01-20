@@ -15,6 +15,7 @@ import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/x_dashboard/ui_manager/voice_note_test/voice_note_test_screen.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/a_lock_screen/lock_test_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/animations_lab.dart';
@@ -208,6 +209,20 @@ class UIManager extends StatelessWidget {
             await Nav.goToNewScreen(
               context: context,
               screen: const SoundsTestScreen(),
+            );
+
+          },
+        ),
+
+        /// VOICE NOTE
+        WideButton(
+          verse: Verse.plain('Voice note'),
+          icon: Iconz.advertise,
+          onTap: () async {
+
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const VoiceNoteScreen(),
             );
 
           },
