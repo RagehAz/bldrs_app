@@ -39,7 +39,13 @@ Future<void> initializeLogoScreen({
 
   UiProvider.proSetScreenDimensions(
     context: context,
-    notify: true,
+    notify: false,
+  );
+
+  UiProvider.proSetLayoutIsVisible(
+      context: context,
+      setTo: true,
+      notify: true,
   );
 
   /// USER MODEL
