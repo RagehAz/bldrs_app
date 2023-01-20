@@ -22,7 +22,7 @@ class SingleSlide extends StatelessWidget {
     @required this.onSlideBackTap,
     @required this.onDoubleTap,
     @required this.canTapSlide,
-    @required this.canAnimateMatrix,
+    // @required this.canAnimateMatrix,
     @required this.slideShadowIsOn,
     @required this.blurLayerIsOn,
     @required this.canUseFilter,
@@ -40,7 +40,7 @@ class SingleSlide extends StatelessWidget {
   final bool slideShadowIsOn;
   final bool blurLayerIsOn;
   final bool canTapSlide;
-  final bool canAnimateMatrix;
+  // final bool canAnimateMatrix;
   final bool canUseFilter;
   final bool canPinch;
   /// --------------------------------------------------------------------------
@@ -82,7 +82,7 @@ class SingleSlide extends StatelessWidget {
           flyerBoxWidth: flyerBoxWidth,
           flyerBoxHeight: flyerBoxHeight,
           onDoubleTap: onDoubleTap,
-          canAnimateMatrix: canAnimateMatrix,
+          canAnimateMatrix: slideModel.animationCurve != null,
           slideModel: slideModel,
           canUseFilter: canUseFilter,
           canTapSlide: canTapSlide,

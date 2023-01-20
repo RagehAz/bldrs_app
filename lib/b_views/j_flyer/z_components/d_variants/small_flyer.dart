@@ -73,7 +73,7 @@ class SmallFlyer extends StatelessWidget {
                 blurLayerIsOn: bluerLayerIsOn,
                 canTapSlide: false,
                 slideShadowIsOn: slideShadowIsOn,
-                canAnimateMatrix: canAnimateMatrix,
+                // canAnimateMatrix: canAnimateMatrix,
                 canUseFilter: canUseFilter,
                 canPinch: false,
               ),

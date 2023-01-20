@@ -19,7 +19,7 @@ class FlyerBuilder extends StatelessWidget {
   // -----------------------------------------------------------------------------
   final String flyerID;
   final double flyerBoxWidth;
-  final Function onFlyerNotFound;
+  final Function(String flyerID) onFlyerNotFound;
   final FlyerModel flyerModel;
   final RenderFlyer renderFlyer;
   final Widget Function(FlyerModel flyerModel) builder;
@@ -94,7 +94,7 @@ class _FutureFlyerBuilder extends StatefulWidget {
   // -----------------------------------------------------------------------------
   final String flyerID;
   final double flyerBoxWidth;
-  final Function onFlyerNotFound;
+  final Function(String flyerID) onFlyerNotFound;
   final RenderFlyer renderFlyer;
   final Widget Function(FlyerModel flyerModel) builder;
   final FlyerModel flyerModel;
@@ -208,7 +208,7 @@ class _FutureFlyerBuilderState extends State<_FutureFlyerBuilder> {
       else {
 
         if (widget.onFlyerNotFound != null) {
-          widget.onFlyerNotFound();
+          widget.onFlyerNotFound(widget.flyerID);
         }
 
       }
