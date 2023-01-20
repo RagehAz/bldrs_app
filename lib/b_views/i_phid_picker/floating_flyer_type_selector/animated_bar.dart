@@ -1,6 +1,7 @@
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:scale/scale.dart';
 
@@ -42,11 +43,13 @@ class AnimatedBar extends StatelessWidget {
 
         final double _val = tween.evaluate(curvedAnimation);
 
+        // return const SizedBox();
+
         return SizedBox(
           width: _screenWidth,
           height: _appBarBoxHeight,
           child: Stack(
-            alignment: Alignment.topLeft,
+            alignment: Aligners.superTopAlignment(context), //Alignment.topLeft,
             children: <Widget>[
 
               Positioned(
@@ -59,7 +62,7 @@ class AnimatedBar extends StatelessWidget {
                     height: _appBarBoxHeight,
                     // color: Colorz.bloodTest,
                     padding: EdgeInsets.only(left: _val * _screenWidth),
-                    alignment: Alignment.centerLeft,
+                    alignment: Aligners.superCenterAlignment(context),
                     child: child,
                   ),
                 ),

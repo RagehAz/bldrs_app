@@ -27,10 +27,12 @@ class CenterDialog extends StatelessWidget {
     @required this.onOk,
     @required this.color,
     @required this.copyOnTap,
+    this.bodyCentered = true,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final Verse bodyVerse;
+  final bool bodyCentered;
   final Verse title;
   final bool boolDialog;
   final double height;
@@ -92,6 +94,7 @@ class CenterDialog extends StatelessWidget {
     Function onOk,
     bool invertButtons = false,
     bool copyOnTap,
+    bool bodyCentered = true,
   }) async {
 
     final bool _result = await showDialog(
@@ -106,6 +109,7 @@ class CenterDialog extends StatelessWidget {
         onOk: onOk,
         invertButtons: invertButtons,
         copyOnTap: copyOnTap,
+        bodyCentered: bodyCentered,
         child: child,
       ),
     );
@@ -257,6 +261,7 @@ class CenterDialog extends StatelessWidget {
                             ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              // crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
 
                                 /// TITLE
@@ -291,7 +296,11 @@ class CenterDialog extends StatelessWidget {
                                     child: SuperVerse(
                                       verse: bodyVerse,
                                       maxLines: 20,
-                                      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: Ratioz.appBarMargin),
+                                      margin: const EdgeInsets.symmetric(
+                                          vertical: 5,
+                                          horizontal: Ratioz.appBarMargin * 2,
+                                      ),
+                                      centered: bodyCentered,
                                     ),
                                   ),
 
