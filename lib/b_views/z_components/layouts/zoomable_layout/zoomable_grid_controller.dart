@@ -115,6 +115,8 @@ class ZoomableGridController {
     _isZoomed.dispose();
     _animationController.dispose();
     _animation.dispose();
+
+    /// SCROLL_CONTROLLER_IS_DISPOSED_IN_ZOOMABLE_GRID_CONTROLLER
     _scrollController.dispose();
   }
   // -----------------------------------------------------------------------------
