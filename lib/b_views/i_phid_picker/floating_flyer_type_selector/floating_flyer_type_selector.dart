@@ -28,7 +28,7 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
   // -----------------------------------------------------------------------------
   List<CurvedAnimation> _linesControllers = <CurvedAnimation>[];
   AnimationController _logoAniController;
-  List<Map<String, dynamic>> _linesMap = <Map<String, dynamic>>[];
+  List<Map<String, dynamic>> _linesMaps = <Map<String, dynamic>>[];
   final Tween<double> _tween = Tween<double>(begin: 0, end: 1);
   // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -64,9 +64,9 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
           bldrsChains: _bldrsChains,
       );
 
-      blog('_flyerTypes : $_flyerTypes');
+      blog('FloatingFlyerTypeSelector init : _flyerTypes : $_flyerTypes');
 
-    _linesMap = <Map<String, dynamic>>[
+    _linesMaps = <Map<String, dynamic>>[
       ...List.generate(_flyerTypes.length, (index){
 
         final FlyerType _flyerType = _flyerTypes[index];
@@ -132,7 +132,7 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
   List<CurvedAnimation> _initializedLinesAnimations(){
 
     final List<CurvedAnimation> _animations = <CurvedAnimation>[];
-    for (final Map<String, dynamic> map in _linesMap){
+    for (final Map<String, dynamic> map in _linesMaps){
       final CurvedAnimation _curvedAni = CurvedAnimation(
         parent: _logoAniController,
         curve: Interval(map['first'], map['second'], curve: Curves.easeOut,),
@@ -162,6 +162,9 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
   @override
   Widget build(BuildContext context) {
     // --------------------
+
+    Mapper.blogMaps(_linesMaps, invoker: 'FloatingFlyerTypeSelector');
+
     return SafeArea(
       child: Material(
         color: Colorz.nothing,
@@ -182,7 +185,7 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
 
                   ...List.generate(_linesControllers.length, (index){
 
-                    final FlyerType _flyerType = FlyerTyper.decipherFlyerType(_linesMap[index]['verse']);
+                    final FlyerType _flyerType = FlyerTyper.decipherFlyerType(_linesMaps[index]['verse']);
                     final String _phid = FlyerTyper.getFlyerTypePhid(flyerType: _flyerType);
                     final String _translation = Verse.transBake(context, _phid);
 
@@ -190,7 +193,7 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
                       curvedAnimation: _linesControllers[index],
                       tween: _tween,
                       text: _translation,
-                      verseColor: _linesMap[index]['color'],
+                      verseColor: _linesMaps[index]['color'],
                       onTap: () => _exit(
                         context: context,
                         flyerType: _flyerType,

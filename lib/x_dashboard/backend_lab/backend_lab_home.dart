@@ -12,6 +12,7 @@ import 'package:bldrs/x_dashboard/backend_lab/fire_tests/pagination_test_screen.
 import 'package:bldrs/x_dashboard/backend_lab/fire_tests/streaming_test.dart';
 import 'package:bldrs/x_dashboard/backend_lab/google_ads_test/google_ads_test_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/ldb_viewer/ldb_manager_screen.dart';
+import 'package:bldrs/x_dashboard/backend_lab/permissions_tests/permissions_test_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/real_tests/real_http_test_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/real_tests/real_test_screen.dart';
 import 'package:bldrs/x_dashboard/provider_viewer/provider_viewer_screen.dart';
@@ -212,7 +213,7 @@ class BackendLabHome extends StatelessWidget {
         const DotSeparator(),
         // ---------------------------------------------------
 
-        /// DECK MODEL
+        /// GOOGLE ADS TEST
         WideButton(
           verse: Verse.plain('Google ads test'),
           icon: Iconz.flyerCollection,
@@ -220,6 +221,21 @@ class BackendLabHome extends StatelessWidget {
             await Nav.goToNewScreen(
               context: context,
               screen: const GoogleAdsTestScreen(),
+            );
+          },
+        ),
+
+        const DotSeparator(),
+        // ---------------------------------------------------
+
+        /// PERMISSIONS TEST
+        WideButton(
+          verse: Verse.plain('Permissions test'),
+          icon: Iconz.yellowAlert,
+          onTap: () async {
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const PermissionScreen(),
             );
           },
         ),
