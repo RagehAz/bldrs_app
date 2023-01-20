@@ -554,7 +554,10 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
               canAnimateSlides: true,
               canPinch: false,
               canUseFilter: false,
-              showGallerySlide: widget.showGallerySlide,
+              showGallerySlide: canShowGalleryPage(
+                bzModel: flyerModel?.bzModel,
+                canShowGallerySlide: checkFlyerHeroTagHasGalleryFlyerID('flyer/${flyerModel.id}'),
+              ),
             ),
 
             /// HEADER

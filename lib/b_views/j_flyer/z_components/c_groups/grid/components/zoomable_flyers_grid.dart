@@ -221,6 +221,7 @@ class _ZoomableFlyersGridState extends State<ZoomableFlyersGrid> {
           return LightBigFlyer(
             flyerBoxWidth: _controller.getBigItemWidth(context),
             renderedFlyer: flyerModel,
+            // showGallerySlide: true,
             onHorizontalExit: () async {
               await _controller.zoomOut(
                 mounted: true,
