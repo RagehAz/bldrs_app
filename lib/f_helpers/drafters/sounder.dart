@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
+import 'package:flutter/material.dart';
 import 'package:numeric/numeric.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
@@ -96,6 +97,35 @@ class Sounder  {
     }
 
   }
+  // -----------------------------------------------------------------------------
+
+  /// PLAY FILE
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> playFile({
+    @required String filePath,
+  }) async {
+
+    if (filePath != null){
+
+      final AudioPlayer _audioPlayer = _getPlayer();
+      await tryAndCatch(
+        invoker: 'playAssetSound',
+        functions: () async {
+          await _audioPlayer.setFilePath(filePath,
+            initialPosition: Duration.zero,
+            preload: true,
+          );
+          await _audioPlayer.play();
+        },
+      );
+
+    }
+
+  }
+  // --------------------
+
   // -----------------------------------------------------------------------------
 
   /// FCM SOUNDS
