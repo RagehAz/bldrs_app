@@ -37,7 +37,7 @@ class ZoomableFlyersGrid extends StatefulWidget {
   final int columnCount;
   final bool showAddFlyerButton;
   final Function(FlyerModel flyerModel) onSelectFlyer;
-  final Function onFlyerNotFound;
+  final Function(String flyerID) onFlyerNotFound;
   final bool selectionMode;
   final Function(FlyerModel flyerModel) onFlyerOptionsTap;
   final ScrollController scrollController;
@@ -67,7 +67,7 @@ class _ZoomableFlyersGridState extends State<ZoomableFlyersGrid> {
   void initState() {
     super.initState();
 
-    blog('w.scrollController : ${widget.scrollController.hashCode}');
+    // blog('w.scrollController : ${widget.scrollController.hashCode}');
 
     _controller = initializeBldrsZoomableGridController(
       context: context,

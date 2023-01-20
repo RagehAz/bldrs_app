@@ -58,7 +58,7 @@ class FlyerSlidesShelf extends StatelessWidget {
                   onSlideBackTap: null,
                   onDoubleTap: null,
                   canTapSlide: false,
-                  canAnimateMatrix: true,
+                  // canAnimateMatrix: true,
                   slideShadowIsOn: true,
                   blurLayerIsOn: true,
                   canUseFilter: false,

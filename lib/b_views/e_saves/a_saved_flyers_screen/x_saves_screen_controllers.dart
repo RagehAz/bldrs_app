@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
@@ -65,12 +67,14 @@ Future<void> autoRemoveSavedFlyerThatIsNotFound({
     flyerIDToRemove: flyerID,
   );
 
-  await UserProtocols.renovate(
-    context: context,
-    newPic: null,
-    newUser: _myUpdatedModel,
-    oldUser: _userModel,
-  );
+  /// NOT TESTED : BUT IT WAS REPEATING AFTER DELETING SOME BZ FOR EACH FLYER AND TOOK TOO LONG
+  /// FOR EACH FLYER TO DELETE AND RENOVATE
+  unawaited(UserProtocols.renovate(
+      context: context,
+      newPic: null,
+      newUser: _myUpdatedModel,
+      oldUser: _userModel,
+    ));
 
   final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
   _flyersProvider.removeFlyerFromProFlyers(

@@ -91,7 +91,7 @@ class HeroicFlyersGrid extends StatelessWidget {
               flyerModel: _flyer,
               flyerBoxWidth: _gridSlotWidth,
               onFlyerNotFound: onFlyerNotFound == null || _flyerID == null ?
-              null : () => onFlyerNotFound(_flyerID),
+              null : (String flyerID) => onFlyerNotFound(_flyerID),
               renderFlyer: RenderFlyer.firstSlide,
               builder: (FlyerModel smallFlyer) {
 

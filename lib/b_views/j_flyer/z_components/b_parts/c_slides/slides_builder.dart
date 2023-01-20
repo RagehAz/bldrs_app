@@ -115,7 +115,7 @@ class SlidesBuilder extends StatelessWidget {
                 canTapSlide: canTapSlides,
                 slideShadowIsOn: showSlidesShadows,
                 blurLayerIsOn: showSlidesBlurLayers,
-                canAnimateMatrix: canAnimateSlides,
+                // canAnimateMatrix: _slide.animationCurve != null,// && canAnimateSlides == true,
                 canUseFilter: canUseFilter,
                 canPinch: canPinch,
               );
