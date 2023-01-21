@@ -8,7 +8,6 @@ import 'package:bldrs/x_dashboard/backend_lab/permissions_tests/permission_butto
 import 'package:bldrs/x_dashboard/zz_widgets/dashboard_layout.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class PermissionScreen extends StatelessWidget {
 
