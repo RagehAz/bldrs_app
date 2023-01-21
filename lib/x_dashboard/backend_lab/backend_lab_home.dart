@@ -16,6 +16,7 @@ import 'package:bldrs/x_dashboard/backend_lab/permissions_tests/permissions_test
 import 'package:bldrs/x_dashboard/backend_lab/real_tests/real_http_test_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/real_tests/real_test_screen.dart';
 import 'package:bldrs/x_dashboard/provider_viewer/provider_viewer_screen.dart';
+import 'package:bldrs/x_dashboard/zones_manager/location_test/locations_test_screen.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/dashboard_layout.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
@@ -175,7 +176,7 @@ class BackendLabHome extends StatelessWidget {
           onTap: () async {
             await Nav.goToNewScreen(
               context: context,
-              screen: const RealHttpTestScreen(),
+              screen: const LocationsTestScreen(),
             );
           },
         ),
