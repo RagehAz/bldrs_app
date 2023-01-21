@@ -17,6 +17,25 @@ enum VerseWeight {
   thin,
 }
 
+/// task : add selectable text feature
+//             SelectableText(
+//               text,
+//               toolbarOptions: const ToolbarOptions(
+//                 selectAll: true,
+//                 copy: true,
+//               ),
+//               textAlign: TextAlign.center,
+//               style: TextStyle(
+//                 color: Colorz.white255,
+//                 fontFamily: Words.bodyFont(context),
+//                 fontStyle: FontStyle.italic,
+//                 decoration: TextDecoration.none,
+//                 fontSize: MediaQuery.of(context).size.height * 0.02,
+//                 letterSpacing: 0.75,
+//               ),
+//             ),
+
+
 /// TASK : need to study Text_theme.dart class and text sizes
 class SuperVerse extends StatelessWidget {
   /// --------------------------------------------------------------------------
