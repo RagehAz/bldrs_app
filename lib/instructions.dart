@@ -35,7 +35,9 @@
 /// steps to DEPLOY bldr_web
 /*
 // 1 - flutter build web
-// 2 - fix build/web/main.dart.js in line 27435 and put this => else a.xZ(0,s,"Bldrs.net",b)},
+// 2 - fix build/web/main.dart.js in line 27435 and put this =>
+// [else a.xZ(0,s,"Bldrs.net",b)},]
+// [else a.nX(0,s,"Bldrs.net",b)},]
 // 3 - firebase deploy
 */
 // -----------------------------------------------------------------------------
