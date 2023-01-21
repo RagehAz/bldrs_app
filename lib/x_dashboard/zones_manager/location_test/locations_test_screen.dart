@@ -102,19 +102,24 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
 
           final Position _position = await LocationOps.getCurrentPosition();
 
-          blog('got position = $_position');
+          if (_position != null){
 
-          final GeoPoint _geoPoint = GeoPoint(_position?.latitude, _position?.longitude);
+            blog('got position = $_position');
 
-          blog('made geo point aho $_geoPoint');
+            final GeoPoint _geoPoint = GeoPoint(_position?.latitude, _position?.longitude);
 
-          setState(() {
-            _point = _geoPoint;
-          });
+            blog('made geo point aho $_geoPoint');
 
-          blog('getting place marks');
+            setState(() {
+              _point = _geoPoint;
+            });
 
-          await _getCountryData(geoPoint: _geoPoint);
+            blog('getting place marks');
+
+            await _getCountryData(geoPoint: _geoPoint);
+
+          }
+
         },
         onError: (String e) {
           blog('ERROR IS : $e');
