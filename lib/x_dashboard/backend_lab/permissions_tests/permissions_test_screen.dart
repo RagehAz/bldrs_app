@@ -1,4 +1,9 @@
-import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
+import 'package:bldrs/b_views/z_components/buttons/wide_button.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/permissions/permits.dart';
+import 'package:bldrs/f_helpers/permissions/permits_protocols.dart';
 import 'package:bldrs/x_dashboard/backend_lab/permissions_tests/permission_button.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/dashboard_layout.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
@@ -11,150 +16,63 @@ class PermissionScreen extends StatelessWidget {
     Key key
   }) : super(key: key);
 
-  List<dynamic> list(){
-
-    return [
-      {
-        'permission': Permission.calendar,
-        'name': 'calendar',
-        'icon': Iconz.calendar,
-      },
-      {
-        'permission': Permission.camera,
-        'name': 'camera',
-        'icon': Iconz.camera,
-      },
-      {
-        'permission': Permission.contacts,
-        'name': 'contacts',
-        'icon': Iconz.phone,
-      },
-      {
-        'permission': Permission.location,
-        'name': 'location',
-        'icon': Iconz.locationPinBlack,
-      },
-      {
-        'permission': Permission.locationAlways,
-        'name': 'locationAlways',
-        'icon': Iconz.locationPin,
-      },
-      {
-        'permission': Permission.locationWhenInUse,
-        'name': 'locationWhenInUse',
-        'icon': Iconz.flyerPin,
-      },
-      {
-        'permission': Permission.mediaLibrary,
-        'name': 'mediaLibrary',
-        'icon': Iconz.phoneGallery,
-      },
-      {
-        'permission': Permission.microphone,
-        'name': 'microphone',
-        'icon': Iconz.circleDot,
-      },
-      {
-        'permission': Permission.phone,
-        'name': 'phone',
-        'icon': Iconz.mobilePhone,
-      },
-      {
-        'permission': Permission.photos,
-        'name': 'photos',
-        'icon': Iconz.gallery,
-      },
-      {
-        'permission': Permission.photosAddOnly,
-        'name': 'photosAddOnly',
-        'icon': Iconz.gallery,
-      },
-      {
-        'permission': Permission.reminders,
-        'name': 'reminders',
-        'icon': Iconz.calendar,
-      },
-      {
-        'permission': Permission.sensors,
-        'name': 'sensors',
-        'icon': Iconz.target,
-      },
-      {
-        'permission': Permission.sms,
-        'name': 'sms',
-        'icon': Iconz.balloonSpeaking,
-      },
-      {
-        'permission': Permission.speech,
-        'name': 'speech',
-        'icon': Iconz.normalUser,
-      },
-      {
-        'permission': Permission.storage,
-        'name': 'storage',
-        'icon': Iconz.form,
-      },
-      {
-        'permission': Permission.ignoreBatteryOptimizations,
-        'name': 'ignoreBatteryOptimizations',
-        'icon': Icons.battery_0_bar_sharp,
-      },
-      {
-        'permission': Permission.notification,
-        'name': 'notification',
-        'icon': Iconz.notification,
-      },
-      {
-        'permission': Permission.accessMediaLocation,
-        'name': 'accessMediaLocation',
-        'icon': Icons.mediation,
-      },
-      {
-        'permission': Permission.activityRecognition,
-        'name': 'activityRecognition',
-        'icon': Icons.running_with_errors,
-      },
-      {
-        'permission': Permission.unknown,
-        'name': 'unknown',
-        'icon': Icons.question_mark,
-      },
-      {
-        'permission': Permission.bluetooth,
-        'name': 'bluetooth',
-        'icon' : Icons.bluetooth,
-      },
-    ];
-
-  }
-
   @override
   Widget build(BuildContext context) {
     // --------------------
-    return DashBoardLayout(
-      listWidgets: <Widget>[
 
-        SuperVerse(
-          verse: Verse.plain('Note :\n'
-              '- Single tap to Check permission\n'
-              '- Long tap to Request permission'),
-          italic: true,
-          margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-          weight: VerseWeight.thin,
-          color: Colorz.yellow200,
-          maxLines: 5,
-          centered: false,
+    final List<Map<String, dynamic>> _permits = Permit.allPermissionsMaps();
+
+    return DashBoardLayout(
+      appBarWidgets: [
+
+        AppBarButton(
+          icon: Iconz.gears,
+          onTap: () => Permit.jumpToAppSettingsScreen(),
         ),
 
-        ...List.generate(list().length, (index){
+      ],
+      listWidgets: <Widget>[
 
-          final Map<String, dynamic> _map = list()[index];
+        // SuperVerse(
+        //   verse: Verse.plain('Note :\n'
+        //       '- Single tap to Check permission\n'
+        //       '- Long tap to Request permission'),
+        //   italic: true,
+        //   margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+        //   weight: VerseWeight.thin,
+        //   color: Colorz.yellow200,
+        //   maxLines: 5,
+        //   centered: false,
+        // ),
 
-          return PermissionButton(
-            text: _map['name'],
-            icon: _map['icon'],
-            permission: _map['permission'],
-          );
+        WideButton(
+          verse: Verse.plain('old geo location permission'),
+          onTap: () async {
+
+            final bool _isGranted = await PermitProtocol.fetchLocationPermitB(
+                context: context,
+            );
+
+            blog('is granted : $_isGranted');
+
+          }
+        ),
+
+        ...List.generate(_permits.length, (index){
+
+          final Map<String, dynamic> _map = _permits[index];
+
+          if (_map == null){
+            return const DotSeparator();
+          }
+
+          else {
+            return PermissionButton(
+              text: _map['name'],
+              icon: _map['icon'],
+              permission: _map['permission'],
+            );
+          }
 
         }),
 

@@ -8,15 +8,18 @@ import 'package:bldrs/b_views/z_components/cropper/cropping_screen.dart';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
+import 'package:bldrs/f_helpers/permissions/permits.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
+import 'package:bldrs/f_helpers/permissions/permits_protocols.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image/image.dart' as img;
 import 'package:mapper/mapper.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:wechat_camera_picker/wechat_camera_picker.dart';
 
@@ -141,136 +144,144 @@ class PicMaker {
     List<AssetEntity> selectedAssets,
   }) async {
 
-    final List<AssetEntity> pickedAssets = await AssetPicker.pickAssets(
-      context,
-      pickerConfig: AssetPickerConfig(
-
-        /// ASSETS SELECTION
-        maxAssets: maxAssets,
-        selectedAssets: selectedAssets,
-
-        /// ASSETS TYPE
-        requestType: RequestType.image,
-
-        // /// GRID AND SIZING
-        // gridCount: 4,
-        // gridThumbnailSize: defaultAssetGridPreviewSize,
-        // pageSize: defaultAssetsPerPage,
-        // pathThumbnailSize: defaultPathThumbnailSize,
-        // previewThumbnailSize: ThumbnailSize.square(50),
-        // shouldRevertGrid: false,
-        //
-        // /// THEME
-        // pickerTheme: ThemeData.dark(),
-        // textDelegate: const AssetPickerTextDelegate(),
-        // themeColor: Colorz.bloodTest,
-        //
-        // /// SCROLLING
-        // keepScrollOffset: false,
-        // specialItemPosition: SpecialItemPosition.none,
-        //
-        // /// PERMISSION
-        // limitedPermissionOverlayPredicate: (PermissionState permissionState){
-        //   blog('pickMultipleImages : permissionState : $permissionState');
-        //   return true;
-        // },
-        //
-        // /// LOADING
-        // loadingIndicatorBuilder: (BuildContext context, bool loading){
-        //   return Loading(loading: loading);
-        // },
-        //
-        // /// ASSET NAME
-        // pathNameBuilder: (AssetPathEntity assetPathEntity){
-        //   blog('assetPathEntity : $assetPathEntity');
-        //   return 'Fuck you';
-        // },
-        // sortPathDelegate: SortPathDelegate.common,
-        //
-        // /// WHO THE FUCK ARE YOU
-        // selectPredicate: (BuildContext xxx, AssetEntity assetEntity, bool wtf) async {
-        //   blog('pickMultipleImages : ${assetEntity.id} : wtf : $wtf');
-        //   return wtf;
-        // },
-        // specialItemBuilder: (BuildContext xyz, AssetPathEntity assetPathEntity, int number){
-        //   return const SizedBox();;
-        // },
-        // specialPickerType: SpecialPickerType.wechatMoment,
-        //
-        // filterOptions: FilterOptionGroup(
-        //   audioOption: const FilterOption(
-        //     durationConstraint: DurationConstraint(
-        //       allowNullable: false,
-        //       max: const Duration(days: 1),
-        //       min: Duration.zero,
-        //     ),
-        //     needTitle: true,
-        //     sizeConstraint: SizeConstraint(
-        //       maxHeight: 100000,
-        //       minHeight: 0,
-        //       ignoreSize: true,
-        //       maxWidth: 100000,
-        //       minWidth: 0,
-        //     ),
-        //   ),
-        //   containsEmptyAlbum: true,
-        //   containsLivePhotos: true,
-        //   containsPathModified: true,
-        //   createTimeCond: DateTimeCond(
-        //     ignore: true,
-        //     min: DateTime.now(),
-        //     max: DateTime.now(),
-        //   ),
-        //   imageOption: FilterOption(
-        //     sizeConstraint: SizeConstraint(
-        //       maxHeight: 100000,
-        //       minHeight: 0,
-        //       ignoreSize: true,
-        //       maxWidth: 100000,
-        //       minWidth: 0,
-        //     ),
-        //     needTitle: true,
-        //     durationConstraint: DurationConstraint(
-        //       allowNullable: false,
-        //       max: const Duration(days: 1),
-        //       min: Duration.zero,
-        //     ),
-        //   ),
-        //   onlyLivePhotos: false,
-        //   orders: <OrderOption>[
-        //     OrderOption(
-        //       asc: false,
-        //       type: OrderOptionType.createDate,
-        //     ),
-        //   ],
-        //     updateTimeCond: DateTimeCond(
-        //     ignore: true,
-        //     min: 0,
-        //     max: ,
-        //   ),
-        //   videoOption: FilterOption(
-        //     sizeConstraint: SizeConstraint(
-        //       maxHeight: 100000,
-        //       minHeight: 0,
-        //       ignoreSize: true,
-        //       maxWidth: 100000,
-        //       minWidth: 0,
-        //     ),
-        //   ),
-        // ),
-
-      ),
-    );
-
     final List<Uint8List> _output = <Uint8List>[];
 
-    if (Mapper.checkCanLoopList(pickedAssets) == true){
+    final bool _canPick = await PermitProtocol.fetchGalleryPermit(
+      context: context,
+    );
 
-      for (final AssetEntity asset in pickedAssets){
+    if (_canPick == true){
 
-        final Uint8List _bytes = await Floaters.getUint8ListFromFile(await asset.file);
+      final List<AssetEntity> pickedAssets = await AssetPicker.pickAssets(
+        context,
+        pickerConfig: AssetPickerConfig(
 
-        _output.add(_bytes);
+          /// ASSETS SELECTION
+          maxAssets: maxAssets,
+          selectedAssets: selectedAssets,
+
+          /// ASSETS TYPE
+          requestType: RequestType.image,
+
+          // /// GRID AND SIZING
+          // gridCount: 4,
+          // gridThumbnailSize: defaultAssetGridPreviewSize,
+          // pageSize: defaultAssetsPerPage,
+          // pathThumbnailSize: defaultPathThumbnailSize,
+          // previewThumbnailSize: ThumbnailSize.square(50),
+          // shouldRevertGrid: false,
+          //
+          // /// THEME
+          // pickerTheme: ThemeData.dark(),
+          // textDelegate: const AssetPickerTextDelegate(),
+          // themeColor: Colorz.bloodTest,
+          //
+          // /// SCROLLING
+          // keepScrollOffset: false,
+          // specialItemPosition: SpecialItemPosition.none,
+          //
+          // /// PERMISSION
+          // limitedPermissionOverlayPredicate: (PermissionState permissionState){
+          //   blog('pickMultipleImages : permissionState : $permissionState');
+          //   return true;
+          // },
+          //
+          // /// LOADING
+          // loadingIndicatorBuilder: (BuildContext context, bool loading){
+          //   return Loading(loading: loading);
+          // },
+          //
+          // /// ASSET NAME
+          // pathNameBuilder: (AssetPathEntity assetPathEntity){
+          //   blog('assetPathEntity : $assetPathEntity');
+          //   return 'Fuck you';
+          // },
+          // sortPathDelegate: SortPathDelegate.common,
+          //
+          // /// WHO THE FUCK ARE YOU
+          // selectPredicate: (BuildContext xxx, AssetEntity assetEntity, bool wtf) async {
+          //   blog('pickMultipleImages : ${assetEntity.id} : wtf : $wtf');
+          //   return wtf;
+          // },
+          // specialItemBuilder: (BuildContext xyz, AssetPathEntity assetPathEntity, int number){
+          //   return const SizedBox();;
+          // },
+          // specialPickerType: SpecialPickerType.wechatMoment,
+          //
+          // filterOptions: FilterOptionGroup(
+          //   audioOption: const FilterOption(
+          //     durationConstraint: DurationConstraint(
+          //       allowNullable: false,
+          //       max: const Duration(days: 1),
+          //       min: Duration.zero,
+          //     ),
+          //     needTitle: true,
+          //     sizeConstraint: SizeConstraint(
+          //       maxHeight: 100000,
+          //       minHeight: 0,
+          //       ignoreSize: true,
+          //       maxWidth: 100000,
+          //       minWidth: 0,
+          //     ),
+          //   ),
+          //   containsEmptyAlbum: true,
+          //   containsLivePhotos: true,
+          //   containsPathModified: true,
+          //   createTimeCond: DateTimeCond(
+          //     ignore: true,
+          //     min: DateTime.now(),
+          //     max: DateTime.now(),
+          //   ),
+          //   imageOption: FilterOption(
+          //     sizeConstraint: SizeConstraint(
+          //       maxHeight: 100000,
+          //       minHeight: 0,
+          //       ignoreSize: true,
+          //       maxWidth: 100000,
+          //       minWidth: 0,
+          //     ),
+          //     needTitle: true,
+          //     durationConstraint: DurationConstraint(
+          //       allowNullable: false,
+          //       max: const Duration(days: 1),
+          //       min: Duration.zero,
+          //     ),
+          //   ),
+          //   onlyLivePhotos: false,
+          //   orders: <OrderOption>[
+          //     OrderOption(
+          //       asc: false,
+          //       type: OrderOptionType.createDate,
+          //     ),
+          //   ],
+          //     updateTimeCond: DateTimeCond(
+          //     ignore: true,
+          //     min: 0,
+          //     max: ,
+          //   ),
+          //   videoOption: FilterOption(
+          //     sizeConstraint: SizeConstraint(
+          //       maxHeight: 100000,
+          //       minHeight: 0,
+          //       ignoreSize: true,
+          //       maxWidth: 100000,
+          //       minWidth: 0,
+          //     ),
+          //   ),
+          // ),
+
+        ),
+      );
+
+      if (Mapper.checkCanLoopList(pickedAssets) == true){
+
+        for (final AssetEntity asset in pickedAssets){
+
+          final Uint8List _bytes = await Floaters.getUint8ListFromFile(await asset.file);
+
+          _output.add(_bytes);
+        }
+
       }
 
     }
@@ -334,85 +345,97 @@ class PicMaker {
     @required BuildContext context,
   }) async {
 
-    final AssetEntity entity = await CameraPicker.pickFromCamera(
-      context,
-      pickerConfig: CameraPickerConfig(
-
-        /// TURNS - ORIENTATION
-        // cameraQuarterTurns: 1, // DEFAULT
-        lockCaptureOrientation: DeviceOrientation.portraitUp, // DEFAULT
-
-        /// AUDIO
-        // enableAudio: true, // DEFAULT
-
-        /// EXPOSURE
-        // enableExposureControlOnPoint: true, // DEFAULT
-        // enableSetExposure: true, // DEFAULT
-
-        /// ZOOMING
-        // enablePinchToZoom: true, // DEFAULT
-        // enablePullToZoomInRecord: true, // DEFAULT
-
-        /// PREVIEW
-        // enableScaledPreview: true, // DEFAULT
-        // shouldAutoPreviewVideo: false, // DEFAULT
-        // shouldDeletePreviewFile: false, // DEFAULT
-
-        /// VIDEO
-        // enableRecording: false, // DEFAULT
-        // enableTapRecording: false, // DEFAULT
-        // onlyEnableRecording: false, // DEFAULT
-        // maximumRecordingDuration: const Duration(seconds: 15), // DEFAULT
-
-        /// FORMAT
-        imageFormatGroup: DeviceChecker.deviceIsIOS() == true ? ImageFormatGroup.bgra8888 : ImageFormatGroup.jpeg, // DEFAULT
-        // resolutionPreset: ResolutionPreset.max, // DEFAULT
-
-        /// CAMERA
-        // preferredLensDirection: CameraLensDirection.back, // DEFAULT
-
-        /// THEME - TEXTS
-        textDelegate: Localizer.appIsArabic(context) == true ?
-        const ArabicCameraPickerTextDelegate()
-        :
-        const EnglishCameraPickerTextDelegate(),
-
-        // theme: ThemeData.dark(),
-
-        // onError: (Object object, StackTrace trace){
-        //   blog('onError : $object : trace : $trace');
-        // },
-        //
-        // foregroundBuilder: (BuildContext ctx, CameraController cameraController){
-        //   blog('onXFileCaptured : cameraController.cameraId : ${cameraController?.cameraId}');
-        //   return Container();
-        // },
-        //
-        // onEntitySaving: (BuildContext xxx, CameraPickerViewType cameraPickerViewType, File file) async {
-        //   blog('onEntitySaving : cameraPickerViewType : ${cameraPickerViewType.name} : file : ${file.path}');
-        // },
-        //
-        // onXFileCaptured: (XFile xFile, CameraPickerViewType cameraPickerViewType){
-        //   blog('onXFileCaptured : cameraPickerViewType : ${cameraPickerViewType.name} : xFile : ${xFile.path}');
-        //   return true;
-        // },
-        //
-        // previewTransformBuilder: (BuildContext xyz, CameraController cameraController, Widget widget){
-        //   blog('onXFileCaptured : cameraController.cameraId : ${cameraController.cameraId}');
-        //   return Container();
-        // },
-
-      ),
+    final bool _canShoot = await PermitProtocol.fetchCameraPermit(
+      context: context,
     );
 
-    if (entity == null){
-      return null;
+    if (_canShoot == true){
+      final AssetEntity entity = await CameraPicker.pickFromCamera(
+        context,
+        pickerConfig: CameraPickerConfig(
+
+          /// TURNS - ORIENTATION
+          // cameraQuarterTurns: 1, // DEFAULT
+          lockCaptureOrientation: DeviceOrientation.portraitUp, // DEFAULT
+
+          /// AUDIO
+          // enableAudio: true, // DEFAULT
+
+          /// EXPOSURE
+          // enableExposureControlOnPoint: true, // DEFAULT
+          // enableSetExposure: true, // DEFAULT
+
+          /// ZOOMING
+          // enablePinchToZoom: true, // DEFAULT
+          // enablePullToZoomInRecord: true, // DEFAULT
+
+          /// PREVIEW
+          // enableScaledPreview: true, // DEFAULT
+          // shouldAutoPreviewVideo: false, // DEFAULT
+          // shouldDeletePreviewFile: false, // DEFAULT
+
+          /// VIDEO
+          // enableRecording: false, // DEFAULT
+          // enableTapRecording: false, // DEFAULT
+          // onlyEnableRecording: false, // DEFAULT
+          // maximumRecordingDuration: const Duration(seconds: 15), // DEFAULT
+
+          /// FORMAT
+          imageFormatGroup: DeviceChecker.deviceIsIOS() == true ? ImageFormatGroup.bgra8888 : ImageFormatGroup.jpeg, // DEFAULT
+          // resolutionPreset: ResolutionPreset.max, // DEFAULT
+
+          /// CAMERA
+          // preferredLensDirection: CameraLensDirection.back, // DEFAULT
+
+          /// THEME - TEXTS
+          textDelegate: Localizer.appIsArabic(context) == true ?
+          const ArabicCameraPickerTextDelegate()
+          :
+          const EnglishCameraPickerTextDelegate(),
+
+          // theme: ThemeData.dark(),
+
+          // onError: (Object object, StackTrace trace){
+          //   blog('onError : $object : trace : $trace');
+          // },
+          //
+          // foregroundBuilder: (BuildContext ctx, CameraController cameraController){
+          //   blog('onXFileCaptured : cameraController.cameraId : ${cameraController?.cameraId}');
+          //   return Container();
+          // },
+          //
+          // onEntitySaving: (BuildContext xxx, CameraPickerViewType cameraPickerViewType, File file) async {
+          //   blog('onEntitySaving : cameraPickerViewType : ${cameraPickerViewType.name} : file : ${file.path}');
+          // },
+          //
+          // onXFileCaptured: (XFile xFile, CameraPickerViewType cameraPickerViewType){
+          //   blog('onXFileCaptured : cameraPickerViewType : ${cameraPickerViewType.name} : xFile : ${xFile.path}');
+          //   return true;
+          // },
+          //
+          // previewTransformBuilder: (BuildContext xyz, CameraController cameraController, Widget widget){
+          //   blog('onXFileCaptured : cameraController.cameraId : ${cameraController.cameraId}');
+          //   return Container();
+          // },
+
+        ),
+      );
+
+      if (entity == null){
+        return null;
+      }
+
+      else {
+        final File _file = await entity?.file;
+        final Uint8List _bytes = await Floaters.getUint8ListFromFile(_file);
+        return _bytes;
+      }
+
     }
-    else {
-      final File _file = await entity?.file;
-      final Uint8List _bytes = await Floaters.getUint8ListFromFile(_file);
-      return _bytes;
-    }
+
+      else {
+        return null;
+      }
 
   }
   // -----------------------------------------------------------------------------

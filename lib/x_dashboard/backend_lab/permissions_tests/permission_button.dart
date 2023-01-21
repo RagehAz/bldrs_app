@@ -1,7 +1,6 @@
-
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/f_helpers/permissions/permits.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +26,8 @@ class PermissionButton extends StatefulWidget {
 
 class _PermissionButtonState extends State<PermissionButton> {
   // -----------------------------------------------------------------------------
+  PermissionStatus _status;
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
@@ -50,7 +51,7 @@ class _PermissionButtonState extends State<PermissionButton> {
 
       _triggerLoading(setTo: true).then((_) async {
 
-        /// FUCK
+        await _checkSetSPermissionStatus();
 
         await _triggerLoading(setTo: false);
       });
@@ -76,112 +77,75 @@ class _PermissionButtonState extends State<PermissionButton> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
-  Future<void> blogPermission({
-    @required Permission permission,
-    @required BuildContext context,
-  }) async {
+  /// TESTED : WORKS PERFECT
+  Future<void> _checkSetSPermissionStatus() async {
 
-    String _blog;
+    final PermissionStatus _stat = await widget.permission.status;
 
-    if (permission == null){
-      _blog = 'permission is null';
-    }
-    else {
+    setState(() {
+      _status = _stat;
+    });
 
-      final PermissionStatus _status = await permission.status;
-
-      final String _statusName = _status.name;
-      final int _statusIndex = _status.index;
-
-      final bool _statusIsDenied = _status.isDenied;
-      final bool _perDenied = await permission.isDenied;
-
-      final bool _statusIsGranted = _status.isGranted;
-      final bool _perIsGranted = await permission.isGranted;
-
-      final bool _statusIsRestricted = _status.isRestricted;
-      final bool _perIsRestricted = await permission.isRestricted;
-
-      final bool _statusIsLimited = _status.isLimited;
-      final bool _perIsLimited = await permission.isLimited;
-
-      final bool _perIsPermanentlyDenied = await permission.isPermanentlyDenied;
-      final bool _perShouldShowRequestRationale = await permission.shouldShowRequestRationale;
-
-      _blog =
-          '[ toString() ]         : ${permission.toString()}\n'
-          '[ name ]                : $_statusName\n'
-          '[ index ]                : $_statusIndex\n'
-          '\n'
-          '[ Granted ]            : $_statusIsGranted : $_perIsGranted\n'
-          '[ Denied ]              : $_statusIsDenied : $_perDenied\n'
-          '\n'
-          '[ Restricted ]         : $_statusIsRestricted : $_perIsRestricted\n'
-          '[ Limited ]              : $_statusIsLimited : $_perIsLimited\n'
-          '\n'
-          '[ Permanently denied ] : $_perIsPermanentlyDenied\n'
-          '\n'
-          '[ shouldRationale ]       : $_perShouldShowRequestRationale\n'
-          ;
-
-    }
-
-    await CenterDialog.showCenterDialog(
-      context: context,
-      titleVerse: Verse.plain(permission?.toString()),
-      bodyVerse: Verse(
-        translate: false,
-        text: _blog,
-      ),
-      bodyCentered: false,
-    );
 
   }
   // --------------------
-  Future<void> requestPermission({
+  /// TESTED : WORKS PERFECT
+  Future<void> _requestPermit({
     @required Permission permission,
     @required BuildContext context,
   }) async {
 
-      // final PermissionStatus _status =
-      await permission.request();
-
-      await blogPermission(
+      final bool _granted = await Permit.requestPermission(
         context: context,
-        permission : permission,
+        permission: permission,
       );
+
+      if (_granted == true){
+        await _checkSetSPermissionStatus();
+      }
 
     }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    return FutureBuilder(
-      future: widget.permission.status,
-      builder: (_, AsyncSnapshot<PermissionStatus> snap){
+    const double _height = 40;
 
-        final PermissionStatus _status = snap.data;
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
 
-        return DreamBox(
-          height: 50,
-          width: 300,
-          verse: Verse.plain(widget.text),
-          icon: widget.icon,
-          iconSizeFactor: 0.7,
-          verseCentered: false,
-          iconColor: _status?.isGranted == true ? Colorz.green255 : Colorz.white255,
-          onTap: () => blogPermission(
-            permission: widget.permission,
-            context: context,
+          DreamBox(
+            height: _height,
+            width: 250,
+            verse: Verse.plain(widget.text),
+            icon: widget.icon,
+            iconSizeFactor: 0.7,
+            verseCentered: false,
+            iconColor: _status?.isGranted == true ? Colorz.green255 : Colorz.white255,
+            onTap: () => Permit.blogPermission(
+              permission: widget.permission,
+              context: context,
+            ),
           ),
-          onLongTap: () => requestPermission(
-            permission: widget.permission,
-            context: context,
-          ),
-        );
 
-      },
+          DreamBox(
+            height: _height,
+            width: _height,
+            icon: _status.isGranted == true ? Iconz.check : Iconz.xSmall,
+            iconSizeFactor: 0.6,
+            onTap: () => _requestPermit(
+              permission: widget.permission,
+              context: context,
+            ),
+          ),
+
+        ],
+      ),
     );
+
   }
   // -----------------------------------------------------------------------------
 }
