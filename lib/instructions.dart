@@ -145,3 +145,17 @@ free zone
   dalware
  */
 // ---------------------------------------------------------------------------
+
+/// To run on my Note3 mobile,
+/// flutter run --release -d 4d00c32746ba80bf
+
+/// To run on all emulators',
+/// flutter run --debug -d all', //'flutter run -d all',
+
+/// Google Maps API key',
+///'AIzaSyDQGuhqhKu1mSdNxAbS_BCP8NfCB1ENmaI',
+
+/// 'Google Maps Platform API key',
+/// 'AIzaSyDp6MMLw2LJflspqJ0x2uZCmQuZ32vS3XU', // AIzaSyD5CBTWvMaL6gU0X7gfdcnkpFmo-aNfgx4
+
+// ---------------------------------------------------------------------------
