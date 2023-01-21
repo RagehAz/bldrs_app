@@ -31,6 +31,10 @@ flu# Miscellaneous
 .pub/
 /build/
 
+# Android related
+**/android/key.properties
+**/android/app/key.jks
+
 # Web related
 lib/generated_plugin_registrant.dart
 /node_modules
