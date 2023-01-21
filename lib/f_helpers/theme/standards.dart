@@ -36,7 +36,10 @@ class Standards {
   /// ?
   // -------
   // static const String txt = 'google-site-verification=wxjFdASVfSXbvutUts55hGKlLCfazk2Tyv_TlG_vCv8';
-  // static const String aRecord = '199.36.158.100';
+  // --------------------
+  /// ANDROID KEY THING
+  // -------
+  // static const String appKeyDetails = 'CN=Rageh Azzazi, OU=Bldrs.net, O=Bldrs.net, L=Cairo, ST=Cairo, C=eg';
   // --------------------
   /// IOS PUSH NOTIFICATIONS
   // -------

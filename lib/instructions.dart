@@ -14,6 +14,15 @@
  */
 // -----------------------------------------------------------------------------
 
+/// CREATE ANDROID KEYSTORE
+
+// --------------------
+/*
+/// RUN THIS COMMAND
+ keytool -genkey -v -keystore /projects/bldrs/key.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias upload
+ */
+// -----------------------------------------------------------------------------
+
 /// WEB BUILDING
 
 // --------------------
