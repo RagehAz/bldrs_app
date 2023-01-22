@@ -312,7 +312,7 @@ class RecordModel {
   /// MODIFIERS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
   static List<RecordModel> insertRecordToRecords({
     @required List<RecordModel> records,
     @required RecordModel record,
@@ -320,7 +320,7 @@ class RecordModel {
 
     final List<RecordModel> _output = <RecordModel>[...?records];
 
-    if (Mapper.checkCanLoopList(_output) == true){
+    if (Mapper.checkCanLoopList(records) == true){
 
       final bool _recordsContainRecord = recordsContainRecord(
         records: _output,
@@ -362,7 +362,7 @@ class RecordModel {
   static List<RecordModel> cleanDuplicateUsers({
     @required List<RecordModel> records,
   }){
-    List<RecordModel> _output = <RecordModel>[];
+    final List<RecordModel> _output = <RecordModel>[];
 
     if (Mapper.checkCanLoopList(records) == true){
 
@@ -373,14 +373,8 @@ class RecordModel {
             userID: rec.userID,
         );
 
-        if (_contains == true){
-          // do nothing
-        }
-        else {
-          _output = insertRecordToRecords(
-              records: _output,
-              record: rec,
-          );
+        if (_contains == false){
+          _output.add(rec);
         }
 
       }
@@ -394,7 +388,7 @@ class RecordModel {
   /// CHECKERS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
   static bool recordsContainRecord({
     @required List<RecordModel> records,
     @required RecordModel record,
@@ -402,7 +396,7 @@ class RecordModel {
 
     bool _contains = false;
 
-    if (Mapper.checkCanLoopList(records) && record != null){
+    if (Mapper.checkCanLoopList(records) == true && record != null){
 
       for (final RecordModel rec in records){
 

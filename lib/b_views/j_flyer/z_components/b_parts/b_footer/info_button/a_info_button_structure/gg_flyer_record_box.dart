@@ -50,7 +50,7 @@ class FlyerRecordsBox extends StatelessWidget {
               path: realNodePath,
               limit: 6,
             ),
-            scrollController: ScrollController(),
+            // scrollController: ScrollController(),
             builder: (_, List<Map<String, dynamic>> maps, bool loading, Widget child){
 
               List<RecordModel> _records = RecordModel.decipherRecords(
