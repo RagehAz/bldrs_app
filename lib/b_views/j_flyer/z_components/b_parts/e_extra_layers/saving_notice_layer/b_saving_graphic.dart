@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 
@@ -23,34 +24,31 @@ class SavedGraphic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Container(
-      width: flyerBoxWidth,
-      height: flyerBoxHeight,
-      color: Colorz.yellow200,
-      child: Stack(
-        alignment: Alignment.center,
-        children: <Widget>[
+    return FlyerBox(
+      flyerBoxWidth: flyerBoxWidth,
+      // height: flyerBoxHeight,
+      boxColor: Colorz.yellow200,
+      stackWidgets: <Widget>[
 
-          ankh,
+        ankh,
 
-          Positioned(
-            bottom: flyerBoxWidth * 0.58,
-            child: SuperVerse(
-              verse: Verse(
-                text: isStarGraphic ? 'phid_nice' : isSaved ? 'phid_saved' : 'phid_unsaved',
-                translate: true,
-                casing: Casing.upperCase,
-              ),
-              size: 5,
-              scaleFactor: 3,
-              weight: VerseWeight.black,
-              italic: true,
-              shadow: true,
+        Positioned(
+          bottom: flyerBoxWidth * 0.58,
+          child: SuperVerse(
+            verse: Verse(
+              text: isStarGraphic ? 'phid_nice' : isSaved ? 'phid_saved' : 'phid_unsaved',
+              translate: true,
+              casing: Casing.upperCase,
             ),
+            size: 5,
+            scaleFactor: 3,
+            weight: VerseWeight.black,
+            italic: true,
+            shadow: true,
           ),
+        ),
 
-        ],
-      ),
+      ],
     );
 
   }
