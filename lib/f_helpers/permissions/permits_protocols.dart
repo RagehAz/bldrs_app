@@ -1,3 +1,4 @@
+import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
 import 'package:bldrs/f_helpers/permissions/permits.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -52,12 +53,20 @@ class PermitProtocol {
     @required BuildContext context,
   }) async {
 
-    final bool _permissionGranted = await Permit.requestPermission(
+    if (DeviceChecker.deviceIsIOS() == true){
+      return true;
+    }
+    else {
+
+      final bool _permissionGranted = await Permit.requestPermission(
         context: context,
         permission: Permission.camera,
       );
 
-    return _permissionGranted;
+      return _permissionGranted;
+
+    }
+
   }
   // -----------------------------------------------------------------------------
 
