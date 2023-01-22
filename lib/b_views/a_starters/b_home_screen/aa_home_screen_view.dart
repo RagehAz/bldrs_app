@@ -23,6 +23,8 @@ class HomeFlyersGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    // blog('Building home screen paginator view');
+
     return FireCollPaginator(
       key: const ValueKey<String>('UserHomeScreen_FireCollPaginator'),
       paginationQuery: homeWallFlyersPaginationQuery(context),

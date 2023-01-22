@@ -358,7 +358,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
   @override
   Widget build(BuildContext context) {
 
-    blog('fak yo');
+    blog('Building phids picker screen');
 
     return ObeliskLayout(
       globalKey: _globalKey,

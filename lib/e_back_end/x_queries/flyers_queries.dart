@@ -54,7 +54,8 @@ FireQueryModel homeWallFlyersPaginationQuery(BuildContext context){
 
     const bool _showOnlyVerifiedFlyersInHomeWall = false;
 
-    // blog('homeWallFlyersPaginationQuery() flyerType: $flyerType : appControls?.showOnlyVerifiedFlyersInHomeWall: ${appControls?.showOnlyVerifiedFlyersInHomeWall}');
+    // blog('homeWallFlyersPaginationQuery() flyerType: $flyerType : phid : $phid : appControls?'
+    //     '.showAllFlyersInHome: ${_appControl?.showAllFlyersInHome}');
 
     _finders = <FireFinder>[
 
