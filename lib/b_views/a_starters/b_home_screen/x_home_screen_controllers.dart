@@ -31,7 +31,6 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
@@ -216,7 +215,7 @@ Future<void> onNavigate({
       await Nav.goToNewScreen(
         context: context,
         screen: _navModel.screen,
-        pageTransitionType: PageTransitionType.fade,
+        // pageTransitionType: PageTransitionType.bottomToTop,
       );
     }
 
