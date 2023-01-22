@@ -46,6 +46,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
   final ScrollController _reviewPageVerticalController = ScrollController();
   final TextEditingController _reviewTextController = TextEditingController();
   final ValueNotifier<FlyerCounterModel> _flyerCounter = ValueNotifier(null);
+  final ValueNotifier<bool> _isSharing = ValueNotifier(false);
   // --------------------
   final ValueNotifier<bool> _infoButtonExpanded = ValueNotifier(false);
   // --------------------
@@ -106,6 +107,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
     _infoButtonExpanded.dispose();
     _canShowConvertibleReviewButton.dispose();
     _loading.dispose();
+    _isSharing.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -214,6 +216,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
                 infoButtonType: _infoButtonType,
                 flyerIsSaved: widget.flyerIsSaved,
                 flyerCounter: _flyerCounter,
+                isSharing: _isSharing,
               ),
 
               /// INFO BUTTON

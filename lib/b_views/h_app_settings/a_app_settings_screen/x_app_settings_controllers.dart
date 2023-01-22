@@ -62,18 +62,12 @@ Future<void> onTermsAndTap(BuildContext context) async {
 
   await Launcher.launchURL(Standards.termsAndRegulationsURL);
 
-  // await Nav.goToNewScreen(
-  //   context: context,
-  //   pageTransitionType: PageTransitionType.fade,
-  //   screen: const TermsScreen(),
-  // );
-
 }
-
+// --------------------
+/// TESTED : WORKS PERFECT
 Future<void> onPrivacyTap(BuildContext context) async {
 
   await Launcher.launchURL(Standards.privacyPolicyURL);
-
 
 }
 // --------------------

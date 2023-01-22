@@ -53,6 +53,7 @@ class PermitProtocol {
     @required BuildContext context,
   }) async {
 
+    /// IOS HANDLES PERMISSION DIALOG NATIVELY
     if (DeviceChecker.deviceIsIOS() == true){
       return true;
     }
