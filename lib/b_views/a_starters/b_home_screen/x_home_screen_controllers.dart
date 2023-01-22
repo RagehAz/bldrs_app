@@ -317,6 +317,8 @@ Future<void> _setActivePhidK({
   @required FlyerType flyerType,
 }) async {
 
+  // blog('setActivePhidK : phidK : $phidK : for flyerType : $flyerType');
+
   const bool deactivated = false;
 
   /// WORKS GOOD : BUT DEPRECATED
