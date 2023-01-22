@@ -49,7 +49,7 @@ Future<void> onEditProfileTap(BuildContext context) async {
 
   await Nav.goToNewScreen(
       context: context,
-      screen: NewUserEditor(
+      screen: UserEditorScreen(
         userModel: _myUserModel,
         reAuthBeforeConfirm: true,
         validateOnStartup: true,
