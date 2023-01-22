@@ -214,10 +214,10 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onSearchCancelled() async {
-    setNotifier(notifier: _foundChains, mounted: mounted, value: []);
+    setNotifier(notifier: _foundChains, mounted: mounted, value: <Chain>[]);
     setNotifier(notifier: _isSearching, mounted: mounted, value: false);
     setNotifier(notifier: _searchText, mounted: mounted, value: '');
-    setNotifier(notifier: _searchController, mounted: mounted, value: '');
+    _searchController.text = '';
   }
   // -----------------------------------------------------------------------------
 
@@ -357,6 +357,8 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    blog('fak yo');
 
     return ObeliskLayout(
       globalKey: _globalKey,
