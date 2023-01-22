@@ -1,6 +1,7 @@
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
@@ -145,13 +146,14 @@ class Permit {
       if (_granted == false){
 
         final PermissionStatus _status = await permission.request();
+        final bool _isDeniedOnIOS = DeviceChecker.deviceIsIOS() && _status.isDenied == true;
 
         if (_status.isGranted == true){
           _granted = true;
         }
 
         /// PERMANENTLY DENIED
-        else if(_status.isPermanentlyDenied == true){
+        else if(_status.isPermanentlyDenied == true || _isDeniedOnIOS == true){
           blog('requestPermission: permission is permanently denied');
           await allowPermissionDialog(
             context: context,

@@ -2,26 +2,77 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CADisableMinimumFrameDurationOnPhone</key>
-	<true/>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
-	<key>CFBundleDisplayName</key>
-	<string>Bldrs.net</string>
-	<key>CFBundleExecutable</key>
-	<string>$(EXECUTABLE_NAME)</string>
+    <!-------------------------------------------------------------------->
+    <!-- MORE PERMISSIONS KEYS IN THE BELOW LINK -->
+    <!-- https://github.com/eclectifyTutorials/YT_Tutroial_Permission_Handler/blob/main/ios/Info.plist#L59 -->
+    <!-------------------------------------------------------------------->
+
+    <!-- APP IDs -->
+
+    <!----------------------------->
 	<key>CFBundleIdentifier</key>
 	<string>com.bldrs.net</string>
+    <!----------------------------->
+    <key>CFBundleName</key>
+    <string>bldrs_app</string>
+    <!-------------------------------------------------------------------->
+
+    <!-- FIRE BASE ID -->
+
+    <!----------------------------->
+    <key>GADApplicationIdentifier</key>
+    <string>ca-app-pub-1416346029613600~5098797361</string>
+    <!-------------------------------------------------------------------->
+
+    <!-- APP NAME -->
+
+    <!----------------------------->
+    <key>CFBundleDisplayName</key>
+    <string>Bldrs.net</string>
+    <!-------------------------------------------------------------------->
+
+    <!-- APP VERSION -->
+
+    <!----------------------------->
+	<key>CFBundleVersion</key>
+    <string>3.0.0</string>
+    <!----------------------------->
+    <key>CFBundleShortVersionString</key>
+    <string>3.0</string>
+    <!-------------------------------------------------------------------->
+
+    <!-- APP LANGUAGE -->
+
+    <!----------------------------->
+    <key>CFBundleDevelopmentRegion</key>
+    <string>en</string>
+    <!-------------------------------------------------------------------->
+
+    <!-- SYSTEM -->
+
+    <!----------------------------->
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+    <!----------------------------->
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<!----------------------------->
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
-	<key>CFBundleName</key>
-	<string>bldrs_app</string>
+	<!----------------------------->
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
-	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<!----------------------------->
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<!----------------------------->
+	<key>LSRequiresIPhoneOS</key>
+   	<true/>
+    <!-------------------------------------------------------------------->
+
+    <!-- URL TYPES -->
+
+    <!----------------------------->
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -36,39 +87,156 @@
 		</dict>
 		<dict/>
 	</array>
-	<key>CFBundleVersion</key>
-	<string>1.0.1</string>
+    <!-------------------------------------------------------------------->
+
+    <!-- NOTIFICATIONS -->
+
+    <!----------------------------->
 	<key>FIRMessagingAutoRegisterEnabledflag</key>
 	<true/>
+    <!-------------------------------------------------------------------->
+
+    <!-- FIREBASE APP DELEGATE -->
+
+    <!----------------------------->
 	<key>FirebaseAppDelegateProxyEnabled</key>
 	<true/>
+    <!-------------------------------------------------------------------->
+
+    <!-- DYNAMIC LINKS -->
+
+    <!----------------------------->
 	<key>FirebaseDynamicLinksCustomDomains</key>
 	<array>
 		<string>https://www.bldrs.net/flyer</string>
 	</array>
-	<key>GADApplicationIdentifier</key>
-	<string>ca-app-pub-1416346029613600~5098797361</string>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
+	<!-------------------------------------------------------------------->
+
+	<!-- SECURITY -->
+
+	<!----------------------------->
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<!-------------------------------------------------------------------->
+
+	<!-- CAMERA PERMISSION -->
+
+	<!----------------------------->
 	<key>NSCameraUsageDescription</key>
 	<string>Bldrs.net requires access to device's Camera</string>
+	<!-------------------------------------------------------------------->
+
+	<!-- PHOTO LIBRARY PERMISSION -->
+
+	<!----------------------------->
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>Bldrs.net requires access to add Images to your photos</string>
+	<!----------------------------->
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Bldrs.net requires access to device's photo library</string>
+	<!-------------------------------------------------------------------->
+
+	<!-- CONTACTS PERMISSION -->
+
+	<!----------------------------->
 	<key>NSContactsUsageDescription</key>
 	<string>Bldrs.net requires access to your contacts</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Bldrs.net requires access to your Location</string>
+	<!-------------------------------------------------------------------->
+
+	<!-- LOCATION PERMISSION -->
+
+	<!----------------------------->
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Bldrs.net requires access to your Location</string>
+	<!----------------------------->
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Bldrs.net requires access to your Location</string>
+	<!----------------------------->
+    <key>NSLocationUsageDescription</key>
+	<string>Bldrs.net requires access to your Location</string>
+	<!----------------------------->
+    <key>NSLocationAlwaysUsageDescription</key>
+	<string>Bldrs.net requires to Always access your Location</string>
+	<!-------------------------------------------------------------------->
+
+	<!-- MEDIA LIBRARY PERMISSION -->
+
+	<!----------------------------->
+    <key>NSAppleMusicUsageDescription</key>
+    <string>Bldrs.net requires access to your music files</string>
+	<!----------------------------->
+    <key>kTCCServiceMediaLibrary</key>
+    <string>Bldrs.net requires access to Media Libraries</string>
+	<!-------------------------------------------------------------------->
+
+
+	<!-- MICROPHONE PERMISSION -->
+
+	<!----------------------------->
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Bldrs.net requires access to your microphone</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Bldrs.net requires access to add Images to your photos</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Bldrs.net requires access to device's photo library</string>
+	<!-------------------------------------------------------------------->
+
+	<!-- UI -->
+
+	<!----------------------------->
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	<!----------------------------->
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
+	<!-------------------------------------------------------------------->
+
+	<!-- SPLASH SCREEN-->
+
+	<!----------------------------->
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<!----------------------------->
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	<!-------------------------------------------------------------------->
+
+	<!-- ORIENTATION -->
+
+	<!----------------------------->
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<!-------------------------------------------------------------------->
+
+	<!-- IPAD ORIENTATION -->
+
+	<!----------------------------->
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<!-------------------------------------------------------------------->
+
+	<!-- STATUS BAR-->
+
+	<!----------------------------->
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+	<!----------------------------->
+	<key>UIStatusBarHidden</key>
+    <false/>
+	<!-------------------------------------------------------------------->
+
+	<!-- GOOGLE ADS -->
+
+	<!----------------------------->
 	<key>SKAdNetworkItems</key>
 	<array>
 		<dict>
@@ -272,31 +440,7 @@
 			<string>3qcr597p9d.skadnetwork</string>
 		</dict>
 	</array>
-	<key>UIApplicationSupportsIndirectInputEvents</key>
-	<true/>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>fetch</string>
-		<string>remote-notification</string>
-	</array>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
-	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
-	<key>UIStatusBarHidden</key>
-	<false/>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-	</array>
-	<key>UISupportedInterfaceOrientations~ipad</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
+	<!-------------------------------------------------------------------->
+
 </dict>
 </plist>
