@@ -197,18 +197,46 @@ class EmailAuthScreenView extends StatelessWidget {
                 size: 1,
               ),
 
-              /// TERMS OF SERVICE AND PRIVACY POLICY
+              /// TERMS OF SERVICE
               SuperVerse(
                 width: Scale.screenWidth(context) * 0.8,
                 verse: const Verse(
-                  text: 'phid_terms_of_service_and_privacy_policy',
+                  text: 'phid_terms_of_service',
                   translate: true,
                 ),
                 weight: VerseWeight.thin,
                 maxLines: 5,
                 labelColor: Colorz.blue80,
                 size: 1,
-                onTap: () => onTermsAndRegulationsTap(context),
+                onTap: () => onTermsAndTap(context),
+              ),
+
+              /// TERMS OF SERVICE
+              SuperVerse(
+                width: Scale.screenWidth(context) * 0.8,
+                verse: const Verse(
+                  text: 'phid_and',
+                  translate: true,
+                ),
+                weight: VerseWeight.thin,
+                maxLines: 5,
+                // labelColor: Colorz.blue80,
+                size: 1,
+                onTap: () => onTermsAndTap(context),
+              ),
+
+              /// PRIVACY POLICY
+              SuperVerse(
+                width: Scale.screenWidth(context) * 0.8,
+                verse: const Verse(
+                  text: 'phid_privacy_policy',
+                  translate: true,
+                ),
+                weight: VerseWeight.thin,
+                maxLines: 5,
+                labelColor: Colorz.blue80,
+                size: 1,
+                onTap: () => onPrivacyTap(context),
               ),
 
               const Horizon(),
