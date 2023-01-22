@@ -34,7 +34,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
-const String devVersion = '1.0.4';
+const String devVersion = '1.0.5';
 
 Future<void> main() async {
   /// -----------------------------------------------------------------------------
