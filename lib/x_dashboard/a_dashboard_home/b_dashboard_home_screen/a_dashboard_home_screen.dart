@@ -13,6 +13,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/c_protocols/app_state_protocols/provider/general_provider.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
+import 'package:bldrs/main.dart';
 import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -370,7 +371,7 @@ class DashBoardHomeScreen extends StatelessWidget {
             height: 50,
             child: SuperVerse(
               verse: Verse(
-                text: "You've been Blding for ( $_youHaveBeenHereFor ) days",
+                text: "You've been Blding ($devVersion) for ( $_youHaveBeenHereFor ) days",
                 translate: false,
               ),
               size: 1,
