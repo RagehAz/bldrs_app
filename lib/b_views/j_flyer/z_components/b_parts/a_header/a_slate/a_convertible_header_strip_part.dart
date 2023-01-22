@@ -72,15 +72,13 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
         ),
 
         /// LOGO
-        Center(
-          child: BzLogo(
-            key: const ValueKey<String>('ConvertibleHeaderStripPart_BzLogo'),
-            width: logoMinWidth * logoSizeRatioTween.value,
-            image: flyerModel.bzLogoImage ?? flyerModel.bzModel?.logoPath,
-            isVerified: flyerModel?.bzModel?.isVerified,
-            corners: logoCorners,
-            zeroCornerIsOn: flyerModel.showsAuthor,
-          ),
+        BzLogo(
+          key: const ValueKey<String>('ConvertibleHeaderStripPart_BzLogo'),
+          width: logoMinWidth * logoSizeRatioTween.value,
+          image: flyerModel.bzLogoImage ?? flyerModel.bzModel?.logoPath,
+          isVerified: flyerModel?.bzModel?.isVerified,
+          corners: logoCorners,
+          zeroCornerIsOn: flyerModel.showsAuthor,
         ),
 
         /// MIDDLE SPACER
