@@ -163,6 +163,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
     /// WHEN AFTER HOME ROUTE IS DEFINED => works as loading screen until didChangedDependencies methods finish
     if (_afterHomeRoute != null){
+
+      blog('building home screen for after home route');
+
       return MainLayout(
         skyType: SkyType.non,
         onBack: () async {
@@ -191,6 +194,8 @@ class _HomeScreenState extends State<HomeScreen> {
         currentZone: _currentZone,
       );
 
+      // blog('building home screen with Layoutttt');
+
       return MainLayout(
         key: const ValueKey<String>('mainLayout'),
         sectionButtonIsOn: true,
@@ -204,7 +209,7 @@ class _HomeScreenState extends State<HomeScreen> {
             /// PAGE CONTENTS
             ValueListenableBuilder(
               valueListenable: _loading,
-              builder: (_, bool loading, Widget child){
+              builder: (_, bool loading, Widget homeFlyersGrid){
 
                 /// LOADING
                 if (loading == true) {
@@ -218,14 +223,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 /// HOME FLYERS
                 else {
-                  return HomeFlyersGrid(
-                    scrollController: _scrollController,
-                    paginationController: _paginationController,
-                    loading: _loading,
-                  );
+                  return homeFlyersGrid;
                 }
 
               },
+              child: HomeFlyersGrid(
+                scrollController: _scrollController,
+                paginationController: _paginationController,
+                loading: _loading,
+              ),
             ),
 
             /// PYRAMIDS NAVIGATOR

@@ -28,6 +28,8 @@ class SuperPyramids extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    // blog('SuperPyramids.build() : ${context.hashCode}');
+
     return Selector<UiProvider, bool>(
       key: const ValueKey('SuperPyramids_tree'),
       selector: (_, UiProvider uiProvider) => uiProvider.layoutIsVisible,

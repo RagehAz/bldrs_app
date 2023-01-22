@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/b_city_phids_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
@@ -5,12 +7,15 @@ import 'package:bldrs/b_views/a_starters/a_logo_screen/b_animated_logo_screen.da
 import 'package:bldrs/b_views/i_phid_picker/floating_flyer_type_selector/animated_bar.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
+import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
+import 'package:numeric/numeric.dart';
+import 'package:scale/scale.dart';
 
 class FloatingFlyerTypeSelector extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -26,7 +31,7 @@ class FloatingFlyerTypeSelector extends StatefulWidget {
 class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> with TickerProviderStateMixin {
   // -----------------------------------------------------------------------------
   List<CurvedAnimation> _linesControllers = <CurvedAnimation>[];
-  AnimationController _logoAniController;
+  AnimationController _animationController;
   List<Map<String, dynamic>> _linesMaps = <Map<String, dynamic>>[];
   final Tween<double> _tween = Tween<double>(begin: 0, end: 1);
   // -----------------------------------------------------------------------------
@@ -83,7 +88,7 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
     ];
 
     /// LOGO CONTROLLERS
-    _logoAniController = AnimationController(
+    _animationController = AnimationController(
       duration: Duration(milliseconds: FlyerTyper.flyerTypesList.length * 300 + 150),
       reverseDuration: Duration(milliseconds: FlyerTyper.flyerTypesList.length * 200 + 150),
       vsync: this,
@@ -104,7 +109,7 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
 
       _triggerLoading(setTo: true).then((_) async {
 
-        await _logoAniController.forward(from: 0);
+        await _animationController.forward(from: 0);
 
         await _triggerLoading(setTo: false);
       });
@@ -117,7 +122,7 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
   @override
   void dispose() {
     _loading.dispose();
-    _logoAniController.dispose();
+    _animationController.dispose();
 
     if (Mapper.checkCanLoopList(_linesControllers) == true){
       for (final CurvedAnimation cont in _linesControllers){
@@ -133,7 +138,7 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
     final List<CurvedAnimation> _animations = <CurvedAnimation>[];
     for (final Map<String, dynamic> map in _linesMaps){
       final CurvedAnimation _curvedAni = CurvedAnimation(
-        parent: _logoAniController,
+        parent: _animationController,
         curve: Interval(map['first'], map['second'], curve: Curves.easeOut,),
         reverseCurve: Interval(map['first'], map['second'], curve: Curves.easeOut,),
       );
@@ -143,14 +148,14 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
     return _animations;
   }
   // -----------------------------------------------------------------------------
-  Future<void> _exit({
+  Future<void> _onFlyerTypeTap({
     @required BuildContext context,
     @required FlyerType flyerType,
   }) async {
 
-    blog('TAPPED ON $flyerType');
+    // blog('Floating flyer type selector : onFlyerTypeTap : TAPPED ON $flyerType');
 
-    await _logoAniController.reverse();
+    await _animationController.reverse();
     await Nav.goBack(
       context: context,
       passedData: flyerType,
@@ -160,15 +165,26 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    // --------------------
 
     // Mapper.blogMaps(_linesMaps, invoker: 'FloatingFlyerTypeSelector');
+
+    final double _screenWidth = Scale.screenWidth(context);
+
+    final double hypotenuse = calculatePyramidHypotenuse(
+        side:_screenWidth ,
+    );
+
+    final double _horizontalShift = (((hypotenuse - _screenWidth) * 0.5)
+                                  + (_screenWidth * 0.5))
+                                  * -1;
+
+    final double _verticalShift   = _horizontalShift;
 
     return SafeArea(
       child: Material(
         color: Colorz.nothing,
         child: GestureDetector(
-          onTap: () => _exit(
+          onTap: () => _onFlyerTypeTap(
               context: context,
               flyerType: null,
             ),
@@ -178,7 +194,31 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
               ),
             direction: DismissiblePageDismissDirection.endToStart,
             startingOpacity: 0.5,
-            child: Column(
+            minScale: 1,
+            child: SizedBox(
+              width: _screenWidth,
+              height: Scale.screenHeight(context),
+              child: Stack(
+                alignment: Aligners.superTopAlignment(context),
+                children: <Widget>[
+
+                  /// BACKGROUND TRIANGLE
+                  Positioned(
+                    top: _verticalShift,
+                    left: _horizontalShift,
+                    child: Transform.rotate(
+                      angle: Numeric.degreeToRadian(45),
+                      child: Center(
+                        child: Container(
+                          width:  hypotenuse,
+                          height: hypotenuse,
+                          color: Colorz.black200,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
 
@@ -193,7 +233,7 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
                       tween: _tween,
                       text: _translation,
                       verseColor: _linesMaps[index]['color'],
-                      onTap: () => _exit(
+                      onTap: () => _onFlyerTypeTap(
                         context: context,
                         flyerType: _flyerType,
                       ),
@@ -205,11 +245,24 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
                 ],
 
               ),
+
+                ],
+
+              ),
+            ),
           ),
         ),
       ),
     );
-    // --------------------
+
   }
   // -----------------------------------------------------------------------------
+}
+
+double calculatePyramidHypotenuse({
+  @required double side
+}) {
+  /// side^2 * side^2 = hypotenuse^2
+  final double _sideSquared = Numeric.calculateDoublePower(num: side, power: 2);
+  return sqrt(_sideSquared + _sideSquared);
 }

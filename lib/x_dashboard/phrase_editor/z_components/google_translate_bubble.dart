@@ -117,6 +117,7 @@ class _GoogleTranslateBubbleState extends State<GoogleTranslateBubble> {
                     context: context,
                     copy: value,
                 ),
+                maxLines: 10,
               );
 
             }
