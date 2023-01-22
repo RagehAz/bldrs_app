@@ -115,6 +115,7 @@ class InfoButtonStarter extends StatelessWidget {
             infoPageVerticalController: infoPageVerticalController,
             inFlight: inFlight,
             flyerCounter: flyerCounter,
+            onVerticalBounce: _canTapInfoButton() ? onInfoButtonTap : null,
           ),
 
         ),
