@@ -109,7 +109,7 @@ Future<void> _addImagesForNewFlyer({
         context: context,
         // maxAssets: 10,
         aspectRatio: FlyerDim.flyerAspectRatio(forceMaxHeight: true),
-        cropAfterPick: true,
+        cropAfterPick: false,
         resizeToWidth: Standards.slideWidthPixels,
       );
 
@@ -125,7 +125,7 @@ Future<void> _addImagesForNewFlyer({
         context: context,
         // maxAssets: 10,
         aspectRatio: FlyerDim.flyerAspectRatio(forceMaxHeight: true),
-        cropAfterPick: true,
+        cropAfterPick: false,
         resizeToWidth: Standards.slideWidthPixels,
       );
 

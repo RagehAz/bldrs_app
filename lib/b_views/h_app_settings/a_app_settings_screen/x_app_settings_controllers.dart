@@ -58,15 +58,22 @@ Future<void> onFeedbackTap(BuildContext context) async {
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> onTermsAndRegulationsTap(BuildContext context) async {
+Future<void> onTermsAndTap(BuildContext context) async {
 
-  await Launcher.launchURL('https://www.bldrs.net/#/terms');
+  await Launcher.launchURL(Standards.termsAndRegulationsURL);
 
   // await Nav.goToNewScreen(
   //   context: context,
   //   pageTransitionType: PageTransitionType.fade,
   //   screen: const TermsScreen(),
   // );
+
+}
+
+Future<void> onPrivacyTap(BuildContext context) async {
+
+  await Launcher.launchURL(Standards.privacyPolicyURL);
+
 
 }
 // --------------------
