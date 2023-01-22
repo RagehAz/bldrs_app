@@ -38,54 +38,56 @@ class BzLogo extends StatelessWidget {
       zeroCornerIsOn: zeroCornerIsOn,
     );
     // --------------------
-    return SizedBox(
-      height: width,
-      width: width,
-      child: Stack(
-        children: <Widget>[
+    return Center(
+      child: SizedBox(
+        height: width,
+        width: width,
+        child: Stack(
+          children: <Widget>[
 
-          /// LOGO
-          DreamBox(
-            height: width,
-            width: width,
-            margins: margins,
-            corners: bzLogoCorners,
-            icon: image,
-            /// TAKE CARE
-            bubble: shadowIsOn,
-            onTap: onTap,
+            /// LOGO
+            DreamBox(
+              height: width,
+              width: width,
+              margins: margins,
+              corners: bzLogoCorners,
+              icon: image,
+              /// TAKE CARE
+              bubble: shadowIsOn,
+              onTap: onTap,
 
-          ),
-
-          /// VERIFIED ICON
-          if (isVerified == true)
-          SuperPositioned(
-              enAlignment: Alignment.topLeft,
-              horizontalOffset: width * 0.00,
-              verticalOffset: width * 0.00,
-              child: BldrsImage(
-                width: width * 0.2,
-                height: width * 0.2,
-                pic: Iconz.bzBadgeWhite,
-                iconColor: Colorz.yellow255,
-              ),
-          ),
-
-          if (isVerified == true)
-            SuperPositioned(
-              enAlignment: Alignment.topLeft,
-              horizontalOffset: width * 0.00,
-              verticalOffset: width * 0.00,
-              child: BldrsImage(
-                width: width * 0.2,
-                height: width * 0.2,
-                pic: Iconz.check,
-                iconColor: Colorz.black255,
-                scale: 0.5,
-              ),
             ),
 
-        ],
+            /// VERIFIED ICON
+            if (isVerified == true)
+            SuperPositioned(
+                enAlignment: Alignment.topLeft,
+                horizontalOffset: width * 0.00,
+                verticalOffset: width * 0.00,
+                child: BldrsImage(
+                  width: width * 0.2,
+                  height: width * 0.2,
+                  pic: Iconz.bzBadgeWhite,
+                  iconColor: Colorz.yellow255,
+                ),
+            ),
+
+            if (isVerified == true)
+              SuperPositioned(
+                enAlignment: Alignment.topLeft,
+                horizontalOffset: width * 0.00,
+                verticalOffset: width * 0.00,
+                child: BldrsImage(
+                  width: width * 0.2,
+                  height: width * 0.2,
+                  pic: Iconz.check,
+                  iconColor: Colorz.black255,
+                  scale: 0.5,
+                ),
+              ),
+
+          ],
+        ),
       ),
     );
     // --------------------
