@@ -199,6 +199,7 @@ class Launcher {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> shareFlyer({
     @required BuildContext context,
     @required LinkModel flyerLink,

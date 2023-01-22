@@ -66,7 +66,15 @@ Future<void> onReviewButtonTap({
 Future<void> onShareFlyer({
   @required BuildContext context,
   @required FlyerModel flyerModel,
+  @required ValueNotifier<bool> isSharing,
+  // @required bool mounted,
 }) async {
+
+  setNotifier(
+      notifier: isSharing,
+      mounted: true, //mounted,
+      value: true,
+  );
 
   final String _flyerLink = await BldrsShareLink.generateFlyerLink(
       context: context,
@@ -91,6 +99,11 @@ Future<void> onShareFlyer({
 
   ]);
 
+  setNotifier(
+    notifier: isSharing,
+    mounted: true, //mounted,
+    value: false,
+  );
 
 }
 // -----------------------------------------------------------------------------
