@@ -18,6 +18,7 @@ class FlyerFooterButtons extends StatelessWidget {
     @required this.inFlight,
     @required this.infoButtonType,
     @required this.flyerIsSaved,
+    @required this.isSharing,
     @required this.flyerCounter,
     Key key
   }) : super(key: key);
@@ -29,6 +30,7 @@ class FlyerFooterButtons extends StatelessWidget {
   final bool inFlight;
   final InfoButtonType infoButtonType;
   final ValueNotifier<bool> flyerIsSaved;
+  final ValueNotifier<bool> isSharing;
   final ValueNotifier<FlyerCounterModel> flyerCounter;
   /// --------------------------------------------------------------------------
   bool _canShowElement(){
@@ -70,17 +72,25 @@ class FlyerFooterButtons extends StatelessWidget {
 
               /// SHARE
               if (_canShow == true)
-                FooterButton(
-                  count: counter?.shares,
-                  flyerBoxWidth: flyerBoxWidth,
-                  icon: Iconz.share,
-                  phid: 'phid_share',
-                  isOn: false,
-                  canTap: !tinyMode,
-                  onTap: () => onShareFlyer(
-                    context: context,
-                    flyerModel: flyerModel,
-                  ),
+                ValueListenableBuilder(valueListenable: isSharing,
+                    builder: (_, bool _isSharing, Widget child){
+
+                      return FooterButton(
+                        count: counter?.shares,
+                        flyerBoxWidth: flyerBoxWidth,
+                        icon: Iconz.share,
+                        phid: 'phid_share',
+                        isOn: false,
+                        canTap: !tinyMode,
+                        isLoading: _isSharing,
+                        onTap: () => onShareFlyer(
+                          context: context,
+                          flyerModel: flyerModel,
+                          isSharing: isSharing,
+                        ),
+                      );
+
+                    }
                 ),
 
               if (_canShow == true)
