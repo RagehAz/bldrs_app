@@ -394,6 +394,7 @@ class FlyerTyper{
       case propertyChainID:     return FlyerType.property;    break;
     /// CONSTRUCTION
       case designChainID:       return FlyerType.design;      break;
+      case designChainID2:      return FlyerType.design;      break;
       case undertakingChainID:  return FlyerType.undertaking; break;
       case tradesChainID:       return FlyerType.trade;       break;
     /// SUPPLIES
@@ -479,6 +480,7 @@ class FlyerTyper{
   // --------------------
   static const String propertyChainID =     'phid_k_flyer_type_property';
   static const String designChainID =       'phid_s_group_dz_type';
+  static const String designChainID2 =      'phid_k_flyer_type_design';
   static const String undertakingChainID =  'phid_s_propertyLicense';
   static const String tradesChainID =       'phid_k_flyer_type_trades';
   static const String productChainID =      'phid_k_flyer_type_product';
