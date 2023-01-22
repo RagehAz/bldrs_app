@@ -35,10 +35,27 @@ class PermitProtocol {
     bool _canPick = per.hasAccess;
 
     if (_canPick == false){
-      _canPick = await Permit.requestPermission(
+
+
+      final bool _canOpenStorage = await Permit.requestPermission(
         context: context,
         permission: Permission.storage,
       );
+
+      if (DeviceChecker.deviceIsIOS() == true){
+
+        final bool _cnaOpenPhotos = await Permit.requestPermission(
+          context: context,
+          permission: Permission.photos,
+        );
+
+        _canPick = _cnaOpenPhotos == true && _canOpenStorage == true;
+      }
+
+      else {
+        _canPick = _canOpenStorage;
+      }
+
     }
 
     return _canPick;
@@ -53,11 +70,13 @@ class PermitProtocol {
     @required BuildContext context,
   }) async {
 
-    /// IOS HANDLES PERMISSION DIALOG NATIVELY
-    if (DeviceChecker.deviceIsIOS() == true){
-      return true;
-    }
-    else {
+    // CameraPicker().pickerConfig.
+
+    // /// IOS HANDLES PERMISSION DIALOG NATIVELY
+    // if (DeviceChecker.deviceIsIOS() == true){
+    //   return true;
+    // }
+    // else {
 
       final bool _permissionGranted = await Permit.requestPermission(
         context: context,
@@ -66,7 +85,7 @@ class PermitProtocol {
 
       return _permissionGranted;
 
-    }
+    // }
 
   }
   // -----------------------------------------------------------------------------
