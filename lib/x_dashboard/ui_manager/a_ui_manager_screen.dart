@@ -406,7 +406,7 @@ class UIManager extends StatelessWidget {
 
             await Nav.goToNewScreen(
               context: context,
-              screen: NewUserEditor(
+              screen: UserEditorScreen(
                 canGoBack: true,
                 userModel: UsersProvider.proGetMyUserModel(context: context, listen: false),
                 onFinish: (){},

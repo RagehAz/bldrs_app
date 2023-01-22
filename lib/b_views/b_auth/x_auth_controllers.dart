@@ -352,7 +352,7 @@ Future<void> _goToUserEditorForFirstTime({
 
   await Nav.goToNewScreen(
       context: context,
-      screen: NewUserEditor(
+      screen: UserEditorScreen(
         userModel: authModel.userModel,
         reAuthBeforeConfirm: false,
         canGoBack: false,
