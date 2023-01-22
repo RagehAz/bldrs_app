@@ -20,6 +20,7 @@ class FooterButton extends StatelessWidget {
     @required this.canTap,
     @required this.count,
     this.color,
+    this.isLoading = false,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -31,6 +32,7 @@ class FooterButton extends StatelessWidget {
   final bool canTap;
   final int count;
   final Color color;
+  final bool isLoading;
   // --------------------
   @override
   Widget build(BuildContext context) {
@@ -86,6 +88,7 @@ class FooterButton extends StatelessWidget {
               childAlignment: Alignment.topCenter,
               splashColor: isOn ? Colorz.black255 : Colorz.yellow255,
               bubble: false,
+              loading: isLoading,
               subChild: SizedBox(
                 width: _buttonSize * 0.8,
                 height: _buttonSize * 0.9,
