@@ -28,9 +28,9 @@ import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
-class NewUserEditor extends StatefulWidget {
+class UserEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const NewUserEditor({
+  const UserEditorScreen({
     @required this.userModel,
     @required this.onFinish,
     @required this.canGoBack,
@@ -48,11 +48,11 @@ class NewUserEditor extends StatefulWidget {
   final bool validateOnStartup;
   /// --------------------------------------------------------------------------
   @override
-  _NewUserEditorState createState() => _NewUserEditorState();
+  _UserEditorScreenState createState() => _UserEditorScreenState();
   /// --------------------------------------------------------------------------
 }
 
-class _NewUserEditorState extends State<NewUserEditor> {
+class _UserEditorScreenState extends State<UserEditorScreen> {
   // -----------------------------------------------------------------------------
   final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
   ConfirmButtonModel _confirmButtonModel;
