@@ -59,7 +59,7 @@ class AppSettingsScreen extends StatelessWidget {
           SettingsWideButton(
             verse: const Verse(text: 'phid_termsRegulations', translate: true,),
             icon: Iconz.terms,
-            onTap: () => onTermsAndRegulationsTap(context),
+            onTap: () => onTermsAndTap(context),
           ),
 
           // /// INVITE FRIENDS

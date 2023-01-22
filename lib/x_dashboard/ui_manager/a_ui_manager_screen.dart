@@ -169,7 +169,7 @@ class UIManager extends StatelessWidget {
 
         /// IMAGE TEST SCREEN
         WideButton(
-          verse: Verse.plain('Images testing'),
+          verse: Verse.plain('IMAGING testing'),
           icon: Iconz.camera,
           onTap: () async {
 

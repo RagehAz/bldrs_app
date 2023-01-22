@@ -45,6 +45,11 @@ class Standards {
   // -------
   // static String bldrsPushKeyID = 'PA59ZYRS79';
   // --------------------
+  /// TERMS - PRIVACY URLs
+  // -------
+  static String termsAndRegulationsURL = 'https://www.bldrs.net/#/terms';
+  static String privacyPolicyURL = 'https://www.bldrs.net/#/privacy';
+  // --------------------
   /// APP LINKS
   // -------
   /// TASK : bldrs_app_publish_link add android and ios app store link : and do bldrs web as well
