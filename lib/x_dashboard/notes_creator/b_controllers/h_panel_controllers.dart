@@ -87,7 +87,7 @@ void clearNote({
   setNotifier(
       notifier: draftNote.receiversModels,
       mounted: mounted,
-      value: [],
+      value: <dynamic>[],
   );
 
   draftNote.titleController.clear();

@@ -293,7 +293,7 @@ Future<void> onSelectReceiverType({
       setNotifier(
           notifier: receiversModels,
           mounted: mounted,
-          value: [],
+          value: <dynamic>[],
       );
 
       setNotifier(
@@ -433,7 +433,7 @@ void clearReceivers({
   setNotifier(
       notifier: receiversModels,
       mounted: mounted,
-      value: [],
+      value: <dynamic>[],
   );
 
 }
