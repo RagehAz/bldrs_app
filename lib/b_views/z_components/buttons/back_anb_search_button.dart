@@ -112,7 +112,9 @@ class BackAndSearchButton extends StatelessWidget {
               await Nav.goToNewScreen(
                 context: context,
                 screen: const MainSearchScreen(),
-                pageTransitionType: Nav.superHorizontalTransition(context, inverse: true),
+                pageTransitionType: Nav.superHorizontalTransition(context,
+                    // inverse: false,
+                ),
               );
             }
 
