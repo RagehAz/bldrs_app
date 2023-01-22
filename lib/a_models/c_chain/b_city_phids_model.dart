@@ -6,7 +6,6 @@ import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/x_utilities/map_model.dart';
 import 'package:mapper/mapper.dart';
 import 'package:stringer/stringer.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
 @immutable
@@ -264,6 +263,9 @@ class CityPhidsModel {
         cityPhidsModel: cityPhidsModel,
       );
 
+      // Stringer.blogStrings(strings: _phids, invoker: 'getFlyerTypesByCityPhids');
+
+
       if (Mapper.checkCanLoopList(_phids) == true){
 
         for (final String phid in _phids){
@@ -276,6 +278,8 @@ class CityPhidsModel {
               phid: phid,
               bldrsChains: bldrsChains,
             );
+
+            // blog('phid => $phid =>> _isPhidK : $_isPhidK : _flyerType : $_flyerType');
 
             if (_flyerType != null && _output.contains(_flyerType) == false){
               _output.add(_flyerType);
@@ -310,7 +314,7 @@ class CityPhidsModel {
         chainID: _rootChainID,
       );
 
-      blog('root chain id is ($_rootChainID) : flyerType : ($_output) : for this phid ($phid)');
+      // blog('root chain id is ($_rootChainID) : flyerType : ($_output) : for this phid ($phid)');
 
     }
 
