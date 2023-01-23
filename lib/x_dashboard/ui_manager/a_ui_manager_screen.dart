@@ -3,10 +3,10 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/a_static_logo_screen.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/b_animated_logo_screen.dart';
-import 'package:bldrs/b_views/d_user/b_user_editor_screen/new_user_editor.dart';
-import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/new_bz_editor.dart';
-import 'package:bldrs/b_views/f_bz/c_author_editor_screen/new_author_editor.dart';
-import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/new_flyer_editor.dart';
+import 'package:bldrs/b_views/d_user/b_user_editor_screen/user_editor_screen.dart';
+import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/bz_editor_screen.dart';
+import 'package:bldrs/b_views/f_bz/c_author_editor_screen/a_author_editor_screen.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/x_flyer_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/buttons/wide_button.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/super_headline.dart';
@@ -434,7 +434,7 @@ class UIManager extends StatelessWidget {
 
             await Nav.goToNewScreen(
               context: context,
-              screen: NewBzEditor(
+              screen: BzEditorScreen(
                 // checkLastSession: true,
                 validateOnStartup: true,
                 bzModel: _bzModel,
@@ -459,7 +459,7 @@ class UIManager extends StatelessWidget {
 
             await Nav.goToNewScreen(
               context: context,
-              screen: NewAuthorEditor(
+              screen: AuthorEditorScreen(
                 bzModel: _bzModel,
                 author: _bzModel.authors.first,
               ),
@@ -488,7 +488,7 @@ class UIManager extends StatelessWidget {
 
             await Nav.goToNewScreen(
               context: context,
-              screen: NewFlyerEditor(
+              screen: FlyerEditorScreen(
                 flyerToEdit: _flyer,
                 validateOnStartup: false,
               ),

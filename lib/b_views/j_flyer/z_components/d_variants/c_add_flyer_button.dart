@@ -9,7 +9,7 @@ import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/new_flyer_editor.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/x_flyer_editor_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -33,7 +33,7 @@ class AddFlyerButton extends StatelessWidget {
 
       final dynamic _result = await Nav.goToNewScreen(
         context: context,
-        screen: const NewFlyerEditor(
+        screen: const FlyerEditorScreen(
           validateOnStartup: false,
         ),
       );

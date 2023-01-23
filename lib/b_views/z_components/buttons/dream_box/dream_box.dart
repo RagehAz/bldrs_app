@@ -51,7 +51,7 @@ class DreamBox extends StatelessWidget {
     this.secondLineScaleFactor = 1,
     this.loading = false,
     this.iconBackgroundColor,
-    this.onDeactivatedTap,
+    this.onDisabledTap,
     this.verseHighlight,
     this.verseHighlightColor = Colorz.bloodTest,
     this.onLongTap,
@@ -97,7 +97,7 @@ class DreamBox extends StatelessWidget {
   final double secondLineScaleFactor;
   final bool loading;
   final Color iconBackgroundColor;
-  final Function onDeactivatedTap;
+  final Function onDisabledTap;
   final ValueNotifier<dynamic> verseHighlight;
   final Color verseHighlightColor;
   final Function onLongTap;
@@ -302,7 +302,7 @@ class DreamBox extends StatelessWidget {
           ),
 
         /// --- RIPPLE & TAP LAYER
-        if (onTap != null || onDeactivatedTap != null || onLongTap != null || onDoubleTap != null)
+        if (onTap != null || onDisabledTap != null || onLongTap != null || onDoubleTap != null)
           DreamBoxTapLayer(
             key: const ValueKey<String>('DreamBoxTapLayer'),
             width: width,
@@ -313,7 +313,7 @@ class DreamBox extends StatelessWidget {
             onTapDown: onTapDown,
             onTapCancel: onTapCancel,
             deactivated: isDisabled,
-            onDeactivatedTap: onDeactivatedTap,
+            onDeactivatedTap: onDisabledTap,
             onLongTap: onLongTap,
             onDoubleTap: onDoubleTap,
           ),

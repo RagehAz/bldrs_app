@@ -237,7 +237,7 @@ class _FilePicSplitter extends StatelessWidget {
     if (bubbleType == BubbleType.bzLogo || bubbleType == BubbleType.authorPic ){
       return BzLogo(
         width: picWidth,
-        image: picModel,
+        image: picModel ?? Colorz.white10,
         isVerified: false,
         // margins: const EdgeInsets.all(10),
         corners: _picBorders,
