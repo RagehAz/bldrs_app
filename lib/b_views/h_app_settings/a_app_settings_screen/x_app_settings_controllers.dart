@@ -16,7 +16,7 @@ import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/new_bz_editor.dart';
+import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/bz_editor_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -100,7 +100,7 @@ Future<void> onCreateNewBzTap(BuildContext context) async {
 
   await Nav.goToNewScreen(
       context: context,
-      screen: const NewBzEditor(
+      screen: const BzEditorScreen(
         // bzModel: null,
         // validateOnStartup: false,
         // checkLastSession: true,

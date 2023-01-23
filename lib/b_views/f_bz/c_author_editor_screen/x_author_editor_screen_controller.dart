@@ -19,7 +19,7 @@ import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:bldrs/b_views/f_bz/c_author_editor_screen/new_author_editor.dart';
+import 'package:bldrs/b_views/f_bz/c_author_editor_screen/a_author_editor_screen.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
@@ -90,7 +90,7 @@ Future<void> loadAuthorEditorSession({
       // -------------------------
       await Nav.replaceScreen(
         context: context,
-        screen: NewAuthorEditor(
+        screen: AuthorEditorScreen(
           bzModel: bzModel,
           author: _initialAuthor,
           checkLastSession: false,

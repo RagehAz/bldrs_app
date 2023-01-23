@@ -16,6 +16,7 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/pic_bubble/add_gal
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/zone_selection_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/next_button.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/floating_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/pages_layout.dart';
@@ -55,6 +56,7 @@ class UserEditorScreen extends StatefulWidget {
 class _UserEditorScreenState extends State<UserEditorScreen> {
   // -----------------------------------------------------------------------------
   final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
+  final PageController _pageController = PageController();
   ConfirmButtonModel _confirmButtonModel;
   // -----------------------------------------------------------------------------
   bool _canValidate = true;
@@ -150,6 +152,8 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
     _loading.dispose();
     _draftUser.value?.dispose();
     _draftUser?.dispose();
+    _pageController.dispose();
+    _progressBarModel.dispose();
 
     super.dispose();
   }
@@ -317,6 +321,18 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
     }
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _onNextTap() async {
+
+    await NextButton.onNextTap(
+      context: context,
+      mounted: mounted,
+      pageController: _pageController,
+      progressBarModel: _progressBarModel,
+    );
+
+  }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -341,6 +357,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
             key: draft?.formKey,
             child: PagerBuilder(
               progressBarModel: _progressBarModel,
+              pageController: _pageController,
               pageBubbles: <Widget>[
 
                 /// PIC - GENDER
@@ -390,6 +407,21 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                         draft: _draftUser,
                         mounted: mounted,
                       ),
+                    ),
+
+                    /// NEXT
+                    NextButton(
+                      onTap: _onNextTap,
+                      canGoNext:  Formers.picValidator(
+                        context: context,
+                        pic: draft?.picModel,
+                        canValidate: true,
+                      ) == null &&
+                      Formers.genderValidator(
+                          context: context,
+                          gender: draft.gender,
+                          canValidate: true,
+                      ) == null,
                     ),
 
                   ],
@@ -493,6 +525,29 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       ),
                     ),
 
+                    /// NEXT
+                    NextButton(
+                      onTap: _onNextTap,
+                      canGoNext: Formers.personNameValidator(
+                        context: context,
+                        name: draft?.nameController?.text,
+                        canValidate: true,
+                        // focusNode: draft?.nameNode,
+                      ) == null &&
+                      Formers.jobTitleValidator(
+                        context: context,
+                        jobTitle: draft?.titleController?.text,
+                        canValidate: true,
+                        // focusNode: draft?.titleNode,
+                      ) == null &&
+                      Formers.companyNameValidator(
+                        context: context,
+                        companyName: draft?.companyController?.text,
+                        canValidate: true,
+                        // focusNode: draft?.companyNode,
+                      ) == null,
+                    ),
+
                     const Horizon(
                       heightFactor: 0,
                     ),
@@ -524,6 +579,18 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                         selectCountryIDOnly: false,
                         canValidate: _canValidate,
                       ),
+                    ),
+
+                    /// NEXT
+                    NextButton(
+                      onTap: _onNextTap,
+                      canGoNext: Formers.zoneValidator(
+                        context: context,
+                        zoneModel: draft?.zone,
+                        selectCountryAndCityOnly: true,
+                        selectCountryIDOnly: false,
+                        canValidate: true,
+                      ) == null,
                     ),
 
                   ],
@@ -610,6 +677,25 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                         // focusNode: draft?.emailNode,
                       ),
                     ),
+
+                    // /// NEXT
+                    // NextButton(
+                    //   onTap: _onNextTap,
+                    //   canGoNext:  Formers.contactsPhoneValidator(
+                    //     contacts: draft?.contacts,
+                    //     zoneModel: draft?.zone,
+                    //     canValidate: _canValidate,
+                    //     context: context,
+                    //     isRequired: false,
+                    //     // focusNode: draft?.phoneNode,
+                    //   ) == null &&
+                    //               Formers.contactsEmailValidator(
+                    //     context: context,
+                    //     contacts: draft?.contacts,
+                    //     canValidate: _canValidate,
+                    //     // focusNode: draft?.emailNode,
+                    //   ) == null,
+                    // ),
 
                     const Horizon(
                       heightFactor: 0,

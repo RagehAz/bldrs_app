@@ -7,11 +7,13 @@ class PagerBuilder extends StatefulWidget {
   const PagerBuilder({
     @required this.pageBubbles,
     this.progressBarModel,
+    this.pageController,
     Key key
   }) : super(key: key);
   // --------------------------------------------------------------------------
   final List<Widget> pageBubbles;
   final ValueNotifier<ProgressBarModel> progressBarModel;
+  final PageController pageController;
   // --------------------------------------------------------------------------
   @override
   _PagerBuilderState createState() => _PagerBuilderState();
@@ -21,7 +23,7 @@ class PagerBuilder extends StatefulWidget {
 class _PagerBuilderState extends State<PagerBuilder> {
   // -----------------------------------------------------------------------------
   ValueNotifier<ProgressBarModel> _progressBarModel;
-  final PageController _pageController = PageController();
+  PageController _pageController;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -42,16 +44,22 @@ class _PagerBuilderState extends State<PagerBuilder> {
 
     _initializeProgressBarModel();
 
+    _pageController = widget.pageController ?? PageController();
+
   }
   // --------------------
   @override
   void dispose() {
     _loading.dispose();
-    _pageController.dispose();
+
+    if (widget.pageController == null){
+      _pageController.dispose();
+    }
 
     if (widget.progressBarModel == null){
       _progressBarModel.dispose();
     }
+
     super.dispose();
   }
   // --------------------
