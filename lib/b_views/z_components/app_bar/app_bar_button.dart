@@ -43,7 +43,7 @@ class AppBarButton extends StatelessWidget {
       bubble: bubble,
       onTap: onTap,
       isDisabled: isDeactivated,
-      onDeactivatedTap: onDeactivatedTap,
+      onDisabledTap: onDeactivatedTap,
       verseMaxLines: 2,
       // loading: loading,
     );

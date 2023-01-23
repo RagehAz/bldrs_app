@@ -113,7 +113,7 @@ class AppSettingsScreen extends StatelessWidget {
                     color: Colorz.yellow50,
                     isDisabled: !_userIsOnline,
                     onTap: () => onCreateNewBzTap(context),
-                    onDeactivatedTap: () async {
+                    onDisabledTap: () async {
 
                       await Dialogs.youNeedToBeSignedInDialog(
                         context: context,

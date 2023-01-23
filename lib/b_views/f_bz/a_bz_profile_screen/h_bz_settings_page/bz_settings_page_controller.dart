@@ -14,7 +14,7 @@ import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bldrs/main.dart';
-import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/new_bz_editor.dart';
+import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/bz_editor_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 /// => TAMAM
@@ -31,7 +31,7 @@ Future<void> onEditBzButtonTap({
 
   await Nav.goToNewScreen(
     context: context,
-    screen: NewBzEditor(
+    screen: BzEditorScreen(
       bzModel: bzModel,
       // checkLastSession: true,
       // validateOnStartup: false,
