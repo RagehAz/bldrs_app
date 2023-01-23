@@ -29,7 +29,6 @@ import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
@@ -351,7 +350,6 @@ Future<void> _setActivePhidK({
                           '${Verse.transBake(context, 'phid_inn')} '
                           '$_cityName';
 
-
     await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: Verse(
@@ -376,9 +374,8 @@ Future<void> _setActivePhidK({
               translate: true,
             ),
             width: 133,
-            onTap: () => Launcher.shareLink(
+            onTap: () => Launcher.shareBldrsWebsiteURL(
               context : context,
-              link: Standards.bldrsWebSiteLink,
             ),
           ),
 

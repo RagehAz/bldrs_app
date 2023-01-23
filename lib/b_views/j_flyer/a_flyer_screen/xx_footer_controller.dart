@@ -1,5 +1,4 @@
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/x_utilities/link_model.dart';
 import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/a_flyer_reviews_screen.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
@@ -83,12 +82,10 @@ Future<void> onShareFlyer({
 
   await Future.wait(<Future>[
 
-    Launcher.shareFlyer(
+    Launcher.shareURL(
       context: context,
-      flyerLink: LinkModel(
-        url: _flyerLink,
-        description: flyerModel.description,
-      ),
+      url: _flyerLink,
+      subject: flyerModel.headline,
     ),
 
     if (AuthModel.userIsSignedIn() == true)

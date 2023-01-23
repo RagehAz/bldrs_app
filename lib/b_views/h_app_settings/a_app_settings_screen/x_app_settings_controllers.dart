@@ -74,20 +74,9 @@ Future<void> onPrivacyTap(BuildContext context) async {
 /// TESTED : WORKS PERFECT
 Future<void> onInviteFriendsTap(BuildContext context) async {
 
-  // final bool _result = await CenterDialog.showCenterDialog(
-  //   context: context,
-  //   title: 'Share App Link ?',
-  //   body: LinkModel.bldrsWebSiteLink.url,
-  //   boolDialog: true,
-  // );
-  //
-  // if (_result == true){
-
-  await Launcher.shareLink(
+  await Launcher.shareBldrsWebsiteURL(
     context: context,
-    link: Standards.bldrsWebSiteLink,
   );
-  // }
 
 }
 // -----------------------------------------------------------------------------

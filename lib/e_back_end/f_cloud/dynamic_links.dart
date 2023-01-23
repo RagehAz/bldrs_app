@@ -6,12 +6,14 @@ import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
+import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:mapper/mapper.dart';
 import 'package:numeric/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
@@ -362,14 +364,16 @@ class BldrsShareLink{
           flyerID: flyerID,
         );
 
+        final String _title = await  _createFlyerShareLinkTitle(
+          context: context,
+          flyerType: _flyer.flyerType,
+          langCode: 'en',
+        );
+
         final Uri _uri = await DynamicLinks.generateURI(
           // '$bldrsURLPrefix/flyer=${AuthFireOps.superUserID()}';
           dynamicLink: '${DynamicLinks.https_ll_bldrs_page_link_l_flyer_page}/$flyerID/$slideIndex',
-          title: _createFlyerShareLinkTitle(
-            context: context,
-            flyerType: _flyer.flyerType,
-            langCode: 'en',
-          ),
+          title: _title,
           description: _flyer.headline,
           picURL: _posterURL,
           log: true,
@@ -385,18 +389,24 @@ class BldrsShareLink{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String _createFlyerShareLinkTitle({
+  static Future<String> _createFlyerShareLinkTitle({
     @required BuildContext context,
     @required FlyerType flyerType,
     @required String langCode, /// PLAN : IMPLEMENT ME
-  }){
+  }) async {
 
     final String _phid = FlyerTyper.getFlyerTypePhid(
       flyerType: flyerType,
       pluralTranslation: false,
     );
 
-    return xPhrase(context, _phid);
+    final Phrase _flyerTypePhidPhrase = await PhraseProtocols.fetchPhid(
+      lang: Localizer.getCurrentLangCode(context),
+      phid: _phid,
+    );
+
+
+    return _flyerTypePhidPhrase?.value;
 
   }
   // --------------------
