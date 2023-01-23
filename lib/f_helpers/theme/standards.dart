@@ -1,6 +1,5 @@
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
-import 'package:bldrs/a_models/x_utilities/link_model.dart';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
 import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
@@ -46,6 +45,10 @@ class Standards {
   // -------
   // static String bldrsPushKeyID = 'PA59ZYRS79';
   // --------------------
+  /// WEB SITE
+  // -------
+  static String bldrsWebSiteURL = 'https://www.bldrs.net';
+  // -------
   /// TERMS - PRIVACY URLs
   // -------
   static String termsAndRegulationsURL = 'https://www.bldrs.net/#/terms';
@@ -54,18 +57,19 @@ class Standards {
   /// APP LINKS
   // -------
   /// TASK : bldrs_app_publish_link add android and ios app store link : and do bldrs web as well
-  static const String iosAppStoreLink = 'www.apple.com';
-  static const String androidAppStoreLink = 'www.google.com';
+  static const String iosAppStoreURL = 'www.apple.com';
+  static const String androidAppStoreURL = 'www.google.com';
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String getBldrsAppUpdateLink(BuildContext context){
 
     String _url;
 
     if (DeviceChecker.deviceIsIOS() == true){
-      _url = iosAppStoreLink;
+      _url = iosAppStoreURL;
     }
     else if (DeviceChecker.deviceIsAndroid() == true){
-      _url = androidAppStoreLink;
+      _url = androidAppStoreURL;
     }
 
     return _url;
@@ -90,6 +94,7 @@ class Standards {
   // --------------------
   static const int flyerMaxDaysToUpdate = 3; // 3 days to update flyer
   // --------------------
+  /// TESTED : WORKS PERFECT
   static int getMaxSlidesCount({
     @required BzAccountType bzAccountType,
   }) {
@@ -179,23 +184,4 @@ class Standards {
   // static const double notePosterWidthPixels = 1000; // NotePosterBox.standardSize.width
    */
   // -----------------------------------------------------------------------------
-
-  /// STANDARD BLDRS LINKS
-
-  // --------------------
-  static const LinkModel bldrsWebSiteLink = LinkModel(
-    url: 'www.bldrs.net',
-    description: 'Download Bldrs.net App',
-  );
-  // --------------------
-  static const LinkModel bldrsAppStoreLink = LinkModel(
-    url: 'www.google.com', // temp
-    description: 'Download Bldrs.net App',
-  );
-  // --------------------
-  static const LinkModel bldrsPlayStoreLink = LinkModel(
-    url: 'www.google.com', // temp
-    description: 'Download Bldrs.net App',
-  );
-// -----------------------------------------------------------------------------
 }
