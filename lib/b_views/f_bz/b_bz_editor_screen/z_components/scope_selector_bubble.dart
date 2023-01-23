@@ -148,6 +148,10 @@ class _ScopeSelectorBubbleState extends State<ScopeSelectorBubble> {
                   ...List.generate(widget.flyerTypes.length, (index){
 
                     final FlyerType _flyerType = widget.flyerTypes[index];
+                    final List<String> _flyerTypePhids = SpecModel.getPhidsFromSpecsFilteredByFlyerType(
+                      specs: widget.selectedSpecs,
+                      flyerType: _flyerType,
+                    );
 
                     return Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -185,7 +189,7 @@ class _ScopeSelectorBubbleState extends State<ScopeSelectorBubble> {
                             if (Mapper.checkCanLoopList(_phids) == true)
                               PhidsViewer(
                                 pageWidth: _phidsZoneWidth,
-                                phids: _phids,
+                                phids: _flyerTypePhids,
                                 onPhidTap: (String phid){
                                   blog('scopeSelectorBubble : onPhidTap : phid: $phid');
                                 },
