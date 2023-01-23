@@ -20,6 +20,7 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/phids_bubble/multi
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/zone_selection_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/next_button.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/floating_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/pages_layout.dart';
@@ -30,9 +31,9 @@ import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
-class NewFlyerEditor extends StatefulWidget {
+class FlyerEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
-  const NewFlyerEditor({
+  const FlyerEditorScreen({
     @required this.validateOnStartup,
     this.flyerToEdit,
     Key key,
@@ -42,13 +43,14 @@ class NewFlyerEditor extends StatefulWidget {
   final bool validateOnStartup;
   /// --------------------------------------------------------------------------
   @override
-  _NewFlyerEditorState createState() => _NewFlyerEditorState();
+  _FlyerEditorScreenState createState() => _FlyerEditorScreenState();
   /// --------------------------------------------------------------------------
 }
 
-class _NewFlyerEditorState extends State<NewFlyerEditor> with AutomaticKeepAliveClientMixin{
+class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKeepAliveClientMixin{
   // -----------------------------------------------------------------------------
   final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
+  final PageController _pageController = PageController();
   ConfirmButtonModel _confirmButtonModel;
   // -----------------------------------------------------------------------------
   /// to keep out of screen objects alive
@@ -138,6 +140,8 @@ class _NewFlyerEditorState extends State<NewFlyerEditor> with AutomaticKeepAlive
     _loading.dispose();
     draftNotifier.value.dispose();
     draftNotifier.dispose();
+    _progressBarModel.dispose();
+    _pageController.dispose();
 
     super.dispose();
   }
@@ -305,6 +309,18 @@ class _NewFlyerEditorState extends State<NewFlyerEditor> with AutomaticKeepAlive
     }
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _onNextTap() async {
+
+    await NextButton.onNextTap(
+      context: context,
+      mounted: mounted,
+      pageController: _pageController,
+      progressBarModel: _progressBarModel,
+    );
+
+  }
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -336,6 +352,7 @@ class _NewFlyerEditorState extends State<NewFlyerEditor> with AutomaticKeepAlive
             key: _draft?.formKey,
             child: PagerBuilder(
               progressBarModel: _progressBarModel,
+              pageController: _pageController,
               pageBubbles: <Widget>[
 
                 /// SLIDES - HEADLINE
@@ -379,6 +396,21 @@ class _NewFlyerEditorState extends State<NewFlyerEditor> with AutomaticKeepAlive
                         headline: _draft?.headline?.text,
                         canValidate: _canValidate,
                       ),
+                    ),
+
+                    /// NEXT
+                    NextButton(
+                      onTap: _onNextTap,
+                      canGoNext: Formers.slidesValidator(
+                        context: context,
+                        draftFlyer: draftNotifier.value,
+                        canValidate: true,
+                      ) == null &&
+                      Formers.flyerHeadlineValidator(
+                        context: context,
+                        headline: _draft?.headline?.text,
+                        canValidate: _canValidate,
+                      ) == null,
                     ),
 
                     const Horizon(heightFactor: 0,),
@@ -456,7 +488,7 @@ class _NewFlyerEditorState extends State<NewFlyerEditor> with AutomaticKeepAlive
                       key: const ValueKey<String>('bz_scope_bubble'),
                       // pasteFunction: () async {
                       //   final String _text = await TextMod.paste();
-                      //   _draftNotifier.value  = _draft.copyWith(
+                      //   _draftNotifier.value  = _draft?.copyWith(
                       //     description: _text,
                       //   );
                       //   setState(() {
@@ -490,6 +522,21 @@ class _NewFlyerEditorState extends State<NewFlyerEditor> with AutomaticKeepAlive
                       ),
                     ),
 
+                    /// NEXT
+                    NextButton(
+                      onTap: _onNextTap,
+                      canGoNext: Formers.flyerTypeValidator(
+                        context: context,
+                        draft: _draft,
+                        canValidate: true,
+                      ) == null &&
+                      Formers.paragraphValidator(
+                        context: context,
+                        text: _draft?.description,
+                        canValidate: _canValidate,
+                      ) == null,
+                    ),
+
                     const Horizon(heightFactor: 0,),
 
                   ],
@@ -520,6 +567,16 @@ class _NewFlyerEditorState extends State<NewFlyerEditor> with AutomaticKeepAlive
                       canValidate: _canValidate,
                     ),
 
+                    /// NEXT
+                    NextButton(
+                      onTap: _onNextTap,
+                      canGoNext:  Formers.flyerPhidsValidator(
+                        phids: _draft?.keywordsIDs,
+                        context: context,
+                        canValidate: true,
+                      ) == null,
+                    ),
+
                   ],
                 ),
 
@@ -546,6 +603,16 @@ class _NewFlyerEditorState extends State<NewFlyerEditor> with AutomaticKeepAlive
                       ),
                     ),
 
+                    /// NEXT
+                    NextButton(
+                      onTap: _onNextTap,
+                      canGoNext: Formers.pdfValidator(
+                        context: context,
+                        canValidate: true,
+                        pdfModel: _draft?.pdfModel,
+                      ) == null,
+                    ),
+
                   ],
                 ),
 
@@ -563,17 +630,14 @@ class _NewFlyerEditorState extends State<NewFlyerEditor> with AutomaticKeepAlive
                       ),
                       bulletPoints: const <Verse>[
                         Verse(
-                          pseudo: 'Select The city you would like this flyer to target',
                           text: 'phid_select_city_you_want_to_target',
                           translate: true,
                         ),
                         Verse(
-                          pseudo: 'Each flyer can target only one city',
                           text: 'phid_each_flyer_target_one_city',
                           translate: true,
                         ),
                         Verse(
-                          pseudo: 'Selecting district increases the probability of this flyer to gain more views in that district',
                           text: 'phid_selecting_district_focuses_search',
                           translate: true,
                         ),
@@ -592,6 +656,18 @@ class _NewFlyerEditorState extends State<NewFlyerEditor> with AutomaticKeepAlive
                         selectCountryIDOnly: false,
                         canValidate: _canValidate,
                       ),
+                    ),
+
+                    /// NEXT
+                    NextButton(
+                      onTap: _onNextTap,
+                      canGoNext: Formers.zoneValidator(
+                        context: context,
+                        zoneModel: _draft?.zone,
+                        selectCountryAndCityOnly: true,
+                        selectCountryIDOnly: false,
+                        canValidate: true,
+                      ) == null,
                     ),
 
                   ],

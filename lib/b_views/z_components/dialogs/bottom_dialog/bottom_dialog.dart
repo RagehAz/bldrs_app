@@ -406,7 +406,7 @@ class BottomDialog extends StatelessWidget {
       verseMaxLines: 2,
       onTap: onTap,
       isDisabled: isDeactivated,
-      onDeactivatedTap: onDeactivatedTap,
+      onDisabledTap: onDeactivatedTap,
       color: color,
     );
 
