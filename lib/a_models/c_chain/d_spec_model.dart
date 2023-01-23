@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
+import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/cupertino.dart';
@@ -658,6 +659,36 @@ class SpecModel {
     }
 
     return _specs;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static List<String> getPhidsFromSpecsFilteredByFlyerType({
+    @required FlyerType flyerType,
+    @required List<SpecModel> specs,
+  }){
+    final List<String> _output = <String>[];
+
+    if (flyerType != null && Mapper.checkCanLoopList(specs) == true) {
+
+      for (final SpecModel spec in specs) {
+        if (spec.value is String && Phider.checkIsPhidK(spec.value) == true) {
+
+          final String _chainIDBySpec = spec.pickerChainID;
+
+          final String _chainIDByFlyerType = FlyerTyper.concludeChainIDByFlyerType(
+              flyerType: flyerType,
+          );
+
+          if (_chainIDBySpec == _chainIDByFlyerType) {
+            _output.add(spec.value);
+          }
+
+        }
+      }
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
   /*
