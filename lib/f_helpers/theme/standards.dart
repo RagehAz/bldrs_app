@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/a_models/x_utilities/link_model.dart';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
+import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
 
 /// TASK : should be saved on firestore to be able to edit them from dashboard
@@ -15,7 +16,7 @@ class Standards {
   /// APP STANDARDS
 
   // --------------------
-  static const String appVersion = '1.0.1';
+  static const String appVersion = bldrsAppVersion;
   static const String androidPackageName = 'com.bldrs.net';
   static const String iosBundleID = 'com.bldrs.net';
   static const String appStoreID = '161803398875';
