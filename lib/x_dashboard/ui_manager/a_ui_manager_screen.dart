@@ -396,9 +396,11 @@ class UIManager extends StatelessWidget {
         // ------------------------------------------------
 
         /// NEW EDITORS
+        if (isRage7() == true)
         SuperHeadline(verse: Verse.plain('New Editors'),),
 
         /// NEW USER EDITOR
+        if (isRage7() == true)
         WideButton(
           verse: Verse.plain('New User Editor'),
           icon: Iconz.users,
@@ -420,6 +422,7 @@ class UIManager extends StatelessWidget {
         ),
 
         /// NEW BZ EDITOR
+        if (isRage7() == true)
         WideButton(
           verse: Verse.plain('New Bz Editor'),
           icon: Iconz.bz,
@@ -445,6 +448,7 @@ class UIManager extends StatelessWidget {
         ),
 
         /// NEW AUTHOR EDITOR
+        if (isRage7() == true)
         WideButton(
           verse: Verse.plain('New Author Editor'),
           icon: Iconz.cleopatra,
@@ -469,6 +473,7 @@ class UIManager extends StatelessWidget {
         ),
 
         /// NEW FLYER EDITOR
+        if (isRage7() == true)
         WideButton(
           verse: Verse.plain('New Flyer Editor'),
           icon: Iconz.addFlyer,

@@ -273,7 +273,7 @@ class MainLayout extends StatelessWidget {
                 ),
 
                 /// ONLY_FOR_BLDRS_DASHBOARD_VERSION
-                if (UsersProvider.proGetMyUserModel(context: context, listen: true,)?.isAdmin == true)
+                if (isRage7() == true)
                 PyramidsAdminPanel(
                   isInTransScreen: isInPhrasesScreen,
                   pyramidsAreOn: pyramidsAreOn,

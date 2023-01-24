@@ -70,7 +70,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
   // --------------------
   @override
   void dispose() {
-    _scrollController.dispose();
+    // _scrollController.dispose();
     _loading.dispose();
     _paginatorController.dispose();
     super.dispose();

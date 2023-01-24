@@ -8,6 +8,7 @@ import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/c_protocols/chain_protocols/protocols/a_chain_protocols.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/real/chain_real_ops.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/x_dashboard/chains_editor/b_chain_editor_screen.dart';
@@ -79,6 +80,7 @@ class _ChainsManagerState extends State<ChainsManager> {
       listWidgets: <Widget>[
 
         /// GO TO CHAINS EDITOR SCREEN
+      if (isRage7() == true)
         Bubble(
           bubbleHeaderVM: const BubbleHeaderVM(
             headlineVerse: Verse(
@@ -131,6 +133,7 @@ class _ChainsManagerState extends State<ChainsManager> {
         ),
 
         /// SEPARATOR
+        if (isRage7() == true)
         const DotSeparator(),
 
         /// GO TO CHAINS PICKING SCREEN
