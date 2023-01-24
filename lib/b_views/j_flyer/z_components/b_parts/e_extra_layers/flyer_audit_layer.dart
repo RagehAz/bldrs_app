@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
+import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:widget_fader/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:numeric/numeric.dart';
@@ -61,12 +62,14 @@ class FlyerAuditLayer extends StatelessWidget {
                   child: Center(
                     child: WidgetFader(
                       fadeType: FadeType.repeatAndReverse,
-                      duration: const Duration(seconds: 2),
+                      duration: const Duration(seconds: 3),
                       child: SuperVerse(
+                        width: flyerBoxWidth * 0.8,
                         verse: Verse(
                           text: _phid,
                           translate: true,
                         ),
+                        centered: !TextDir.checkAppIsLeftToRight(context),
                         weight: VerseWeight.black,
                         italic: true,
                         scaleFactor: flyerBoxWidth * 0.008,

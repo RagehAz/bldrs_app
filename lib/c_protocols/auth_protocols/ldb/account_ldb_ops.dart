@@ -1,0 +1,109 @@
+
+
+import 'package:bldrs/a_models/a_user/account_model.dart';
+import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
+import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
+import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
+
+class AccountLDBOps {
+  // -----------------------------------------------------------------------------
+
+  const AccountLDBOps();
+
+  // -----------------------------------------------------------------------------
+
+  /// INSERT
+
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> insertAccount({
+    @required AccountModel account,
+  }) async {
+    if (account != null && account.id != null) {
+      await LDBOps.insertMap(
+        docName: LDBDoc.accounts,
+        input: account.toMap(),
+      );
+    }
+  }
+  // -----------------------------------------------------------------------------
+
+  /// READ
+
+  // --------------------
+  /// TASK : TEST ME
+  static Future<AccountModel> readAccount({
+    @required String id,
+  }) async {
+
+    final Map<String, dynamic> _map = await LDBOps.readMap(
+      docName: LDBDoc.accounts,
+      id: id,
+    );
+
+    return AccountModel.decipher(_map);
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<List<AccountModel>> realAllAccounts() async {
+    final List<AccountModel> _output = <AccountModel>[];
+
+    final List<Map<String, dynamic>> _maps = await LDBOps.readAllMaps(
+      docName: LDBDoc.accounts,
+    );
+
+    if (Mapper.checkCanLoopList(_maps) == true){
+      for (final Map<String, dynamic> _map in _maps){
+        _output.add(AccountModel.decipher(_map));
+      }
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// DELETE
+
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> deleteAccount({
+    @required String id,
+  }) async {
+    if (id != null) {
+      await LDBOps.deleteMap(
+        docName: LDBDoc.accounts,
+        objectID: id,
+      );
+    }
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> deleteAllAccounts() async {
+
+    await LDBOps.deleteAllMapsAtOnce(
+      docName: LDBDoc.accounts,
+    );
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// CHECKERS
+
+  // --------------------
+  /// TASK : TEST ME
+  static Future<bool> rememberMeIsOn() async {
+
+    final List<AccountModel> _accounts = await realAllAccounts();
+
+    if (Mapper.checkCanLoopList(_accounts) == true){
+      return true;
+    }
+    else {
+      return false;
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+  void f (){}
+}

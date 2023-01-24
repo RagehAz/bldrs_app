@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/b_city_phids_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
@@ -8,12 +6,13 @@ import 'package:bldrs/b_views/i_phid_picker/floating_flyer_type_selector/animate
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
-import 'package:mapper/mapper.dart';
+import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
 import 'package:numeric/numeric.dart';
 import 'package:scale/scale.dart';
 
@@ -133,6 +132,7 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   List<CurvedAnimation> _initializedLinesAnimations(){
 
     final List<CurvedAnimation> _animations = <CurvedAnimation>[];
@@ -147,7 +147,8 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
 
     return _animations;
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _onFlyerTypeTap({
     @required BuildContext context,
     @required FlyerType flyerType,
@@ -170,15 +171,18 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
 
     final double _screenWidth = Scale.screenWidth(context);
 
-    final double hypotenuse = calculatePyramidHypotenuse(
+    final double hypotenuse = Numeric.pythagorasHypotenuse(
         side:_screenWidth ,
     );
 
-    final double _horizontalShift = (((hypotenuse - _screenWidth) * 0.5)
+    final double _ltrLeftShift =    (((hypotenuse - _screenWidth) * 0.5)
                                   + (_screenWidth * 0.5))
                                   * -1;
 
-    final double _verticalShift   = _horizontalShift;
+    final double _rtlLeftShift = _ltrLeftShift + Scale.screenWidth(context);
+    final bool _appIsLTR = TextDir.checkAppIsLeftToRight(context);
+    final double _horizontalShift = _appIsLTR == true ? _ltrLeftShift : _rtlLeftShift;
+    final double _verticalShift   = _ltrLeftShift;
 
     return SafeArea(
       child: Material(
@@ -237,7 +241,10 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
                         context: context,
                         flyerType: _flyerType,
                       ),
-                      icon: FlyerTyper.flyerTypeIcon(flyerType: _flyerType, isOn: true),
+                      icon: FlyerTyper.flyerTypeIcon(
+                          flyerType: _flyerType,
+                          isOn: true,
+                      ),
                     );
 
                   }),
@@ -257,12 +264,4 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
 
   }
   // -----------------------------------------------------------------------------
-}
-
-double calculatePyramidHypotenuse({
-  @required double side
-}) {
-  /// side^2 * side^2 = hypotenuse^2
-  final double _sideSquared = Numeric.calculateDoublePower(num: side, power: 2);
-  return sqrt(_sideSquared + _sideSquared);
 }
