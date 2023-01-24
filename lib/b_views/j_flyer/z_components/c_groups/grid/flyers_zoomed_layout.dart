@@ -33,10 +33,12 @@ ZoomableGridController initializeBldrsZoomableGridController({
   );
 
   /// ZOOMED FLYER ALIGNMENT : IF YOU WANT TO CENTER
-  // final double _zoomedInFlyerHeight = BldrsAppBar.width(context) * FlyerDim.xFlyerBoxHeightRatioToWidth;
-  // final double _topPaddingOnZoomIn = (_screenHeight - _zoomedInFlyerHeight) / 2;
+  final double _zoomedInFlyerHeight = (_screenWidth - 10) * FlyerDim.flyerHeightRatioToWidth(
+    forceMaxRatio: false,
+  );
+  final double _topPaddingOnZoomIn = (_screenHeight - _zoomedInFlyerHeight) / 2;
   /// IF YOU WANT TO ALIGN TO TOP
-  const double _topPaddingOnZoomIn = 10;
+  // const double _topPaddingOnZoomIn = 10;
 
   final ZoomableGridController _controller = ZoomableGridController()..initialize(
     topPaddingOnZoomedOut: Stratosphere.smallAppBarStratosphere,
