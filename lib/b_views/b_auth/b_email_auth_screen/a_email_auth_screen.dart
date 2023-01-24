@@ -44,7 +44,7 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
   // --------------------
-  final ValueNotifier<bool> _isRememberingMe = ValueNotifier(false);
+  final ValueNotifier<bool> _isRememberingMe = ValueNotifier(true);
   List<AccountModel> _myAccounts = [];
   // --------------------
   final FocusNode _passwordNode = FocusNode();
