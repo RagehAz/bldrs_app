@@ -869,7 +869,7 @@ class Dialogs {
         text: 'phid_cancel',
         translate: true,
       ),
-      height: Scale.screenHeight(context) * 0.85,
+      height: Scale.screenHeight(context) * 0.8,
       child: Container(
         width: CenterDialog.getWidth(context),
         height: _gridHeight,
