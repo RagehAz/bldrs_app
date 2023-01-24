@@ -32,11 +32,14 @@ class LDBDoc {
       /// MAIN
       case LDBDoc.flyers: return 'id';
       case LDBDoc.bzz: return 'id';
-      case LDBDoc.users: return 'id';
-      case LDBDoc.authModel: return 'uid';
       case LDBDoc.notes: return 'id';
       case LDBDoc.pics: return 'path';
       case LDBDoc.pdfs: return 'path';
+      // -------------
+      /// USER
+      case LDBDoc.users: return 'id';
+      case LDBDoc.authModel: return 'uid';
+      case LDBDoc.accounts: return 'id';
       // -------------
       /// CHAINS
       case LDBDoc.bldrsChains: return 'id';
@@ -78,11 +81,14 @@ class LDBDoc {
   /// MAIN
   static const String flyers = 'flyers';
   static const String bzz = 'bzz';
-  static const String users = 'users';
-  static const String authModel = 'authModel';
   static const String notes = 'notes';
   static const String pics = 'pics';
   static const String pdfs = 'pdfs';
+  // --------------------
+  /// USER
+  static const String users = 'users';
+  static const String authModel = 'authModel';
+  static const String accounts = 'accounts';
   // --------------------
   /// CHAINS
   static const String bldrsChains = 'chains';
@@ -121,11 +127,14 @@ class LDBDoc {
     Verse(text: 'Main', translate: false),
     flyers,
     bzz,
-    users,
-    authModel,
     notes,
     pics,
     pdfs,
+
+    Verse(text: 'User', translate: false),
+    users,
+    authModel,
+    accounts,
 
     Verse(text: 'Chains', translate: false),
     bldrsChains,

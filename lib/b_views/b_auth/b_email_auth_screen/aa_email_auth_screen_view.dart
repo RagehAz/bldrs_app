@@ -1,15 +1,21 @@
+import 'package:bldrs/a_models/a_user/account_model.dart';
+import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/password_bubble/password_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
+import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/floating_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
 import 'package:scale/scale.dart';
 
 class EmailAuthScreenView extends StatelessWidget {
@@ -29,6 +35,10 @@ class EmailAuthScreenView extends StatelessWidget {
     @required this.appBarType,
     @required this.passwordNode,
     @required this.confirmPasswordNode,
+    @required this.isRememberingMe,
+    @required this.onSwitchRememberMe,
+    @required this.onSelectAccount,
+    @required this.myAccounts,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -46,6 +56,10 @@ class EmailAuthScreenView extends StatelessWidget {
   final AppBarType appBarType;
   final FocusNode passwordNode;
   final FocusNode confirmPasswordNode;
+  final ValueNotifier<bool> isRememberingMe;
+  final Function(bool rememberMe) onSwitchRememberMe;
+  final Function(int index) onSelectAccount;
+  final List<AccountModel> myAccounts;
   /// --------------------------------------------------------------------------
   void _onSubmitted({
     @required bool signingIn,
@@ -111,6 +125,49 @@ class EmailAuthScreenView extends StatelessWidget {
                   translate: false,
                 ),
                 validator: emailValidator,
+                columnChildren: <Widget>[
+
+                  if (Mapper.checkCanLoopList(myAccounts) == true)
+                  Row(
+                    mainAxisAlignment:  MainAxisAlignment.end,
+                    children: <Widget>[
+
+                        ...List.generate(myAccounts.length, (index) {
+                          final AccountModel _account = myAccounts[index];
+
+                          return FutureBuilder(
+                            future: UserProtocols.fetch(
+                              context: context,
+                              userID: _account.id,
+                            ),
+                            builder: (_, AsyncSnapshot<UserModel> snap) {
+
+                              final UserModel _userModel = snap.data;
+                              final String _userEmail = ContactModel.getValueFromContacts(
+                                contacts: _userModel?.contacts,
+                                contactType: ContactType.email,
+                              );
+
+                              return ValueListenableBuilder(
+                                  valueListenable: emailController,
+                                  builder: (_, TextEditingValue currentEmail, Widget child) {
+                                    return DreamBox(
+                                      height: 35,
+                                      width: 35,
+                                      icon: _userModel?.picPath,
+                                      margins: 5,
+                                      greyscale: _userEmail != currentEmail.text,
+                                      onTap: () => onSelectAccount(index),
+                                    );
+                                  });
+                            },
+                          );
+                        }),
+                      ],
+                    ),
+
+
+                ],
               ),
 
               /// PASSWORD - CONFIRMATION
@@ -127,6 +184,26 @@ class EmailAuthScreenView extends StatelessWidget {
                   signingIn: _isSigningIn,
                   isOnConfirmPassword: false,
                 ),
+              ),
+
+              /// REMEMBER ME
+              ValueListenableBuilder(
+                valueListenable: isRememberingMe,
+                builder: (_, bool rememberMe, Widget child){
+
+                  return TileBubble(
+                bubbleHeaderVM: BubbleHeaderVM(
+                  headlineVerse: const Verse(
+                    text: 'phid_remember_me',
+                    translate: true,
+                  ),
+                  switchValue: rememberMe,
+                  hasSwitch: true,
+                  onSwitchTap: onSwitchRememberMe,
+                ),
+              );
+
+              },
               ),
 
               const SizedBox(height: 5),

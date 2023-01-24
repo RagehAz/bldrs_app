@@ -27,6 +27,15 @@ class UsersProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
+  static UserModel proGetMyUserModel({
+    @required BuildContext context,
+    @required bool listen
+  }){
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: listen);
+    return _usersProvider.myUserModel;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static void proSetMyUserAndAuthModels({
     @required BuildContext context,
     @required UserModel userModel,
@@ -292,19 +301,9 @@ class UsersProvider extends ChangeNotifier {
     }
   }
   */
-  // -----------------------------------------------------------------------------
 
-  /// PRO FETCHERS
+  // final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
 
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static UserModel proGetMyUserModel({
-    @required BuildContext context,
-    @required bool listen
-  }){
-    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: listen);
-    return _usersProvider.myUserModel;
-  }
   // -----------------------------------------------------------------------------
 
   /// WIPE OUT

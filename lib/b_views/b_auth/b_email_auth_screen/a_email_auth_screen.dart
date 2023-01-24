@@ -1,14 +1,17 @@
 import 'dart:async';
 
+import 'package:bldrs/a_models/a_user/account_model.dart';
 import 'package:bldrs/b_views/b_auth/b_email_auth_screen/aa_email_auth_screen_view.dart';
+import 'package:bldrs/b_views/b_auth/x_auth_controllers.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/b_views/b_auth/x_auth_controllers.dart';
+import 'package:bldrs/c_protocols/auth_protocols/ldb/account_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
 
 class EmailAuthScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -35,19 +38,68 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
         });
       }
     }
-  }  // --------------------
+  }
+  // --------------------
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
+  // --------------------
+  final ValueNotifier<bool> _isRememberingMe = ValueNotifier(false);
+  List<AccountModel> _myAccounts = [];
   // --------------------
   final FocusNode _passwordNode = FocusNode();
   final FocusNode _confirmPasswordNode = FocusNode();
   // --------------------
   final ValueNotifier<bool> _isSigningIn = ValueNotifier(true);
   // -----------------------------------------------------------------------------
+  /// --- LOADING
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
+  // --------------------
+  Future<void> _triggerLoading({@required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+    );
+  }
+  // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
+  }
+  // --------------------
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+    if (_isInit && mounted) {
+
+      _triggerLoading(setTo: true).then((_) async {
+        // -------------------------------
+        final List<AccountModel> myAccounts = await AccountLDBOps.realAllAccounts();
+
+        if (Mapper.checkCanLoopList(myAccounts) == true){
+
+          setNotifier(
+              notifier: _isRememberingMe,
+              mounted: mounted,
+              value: true,
+          );
+
+          _setAccount(myAccounts[0]);
+
+          setState(() {
+            _myAccounts = myAccounts;
+          });
+
+        }
+
+        // -------------------------------
+        await _triggerLoading(setTo: false);
+      });
+
+      _isInit = false;
+    }
+    super.didChangeDependencies();
   }
   // --------------------
   @override
@@ -56,6 +108,8 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
     _passwordController.dispose();
     _confirmPasswordController.dispose();
     _isSigningIn.dispose();
+    _loading.dispose();
+    _isRememberingMe.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -70,6 +124,7 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _onSignin() async {
 
     Keyboard.closeKeyboard(context);
@@ -84,6 +139,7 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
         password: _passwordController.text,
         formKey: _formKey,
         mounted: mounted,
+        rememberMe: _isRememberingMe.value,
       );
 
 
@@ -91,6 +147,7 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   Future<void> _onSignup() async {
 
     Keyboard.closeKeyboard(context);
@@ -105,9 +162,42 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
         password: _passwordController.text,
         passwordConfirmation: _confirmPasswordController.text,
         formKey: _formKey,
+        rememberMe: _isRememberingMe.value,
       );
 
     }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void _onSwitchRememberMe(bool value) {
+
+    setNotifier(
+        notifier: _isRememberingMe,
+        mounted: mounted,
+        value: value,
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void _onSelectAccount(int index){
+    if (Mapper.checkCanLoopList(_myAccounts) == true){
+      _setAccount(_myAccounts[index]);
+    }
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void _setAccount(AccountModel account){
+
+    _emailController.text = account.email;
+    _passwordController.text = account.password;
+
+    setNotifier(
+        notifier: _isSigningIn,
+        mounted: mounted,
+        value: true,
+    );
 
   }
   // -----------------------------------------------------------------------------
@@ -158,6 +248,10 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
         onSignin: _onSignin,
         onSignup: _onSignup,
         isSigningIn: _isSigningIn,
+        isRememberingMe: _isRememberingMe,
+        onSwitchRememberMe: _onSwitchRememberMe,
+        onSelectAccount: _onSelectAccount,
+        myAccounts: _myAccounts,
       ),
 
     );
