@@ -218,7 +218,12 @@ Future<void> onNavigate({
       );
     }
 
-    setNotifier(notifier: progressBarModel, mounted: mounted, value: ProgressBarModel.emptyModel());
+    setNotifier(
+        notifier: progressBarModel,
+        mounted: mounted,
+        value: ProgressBarModel.emptyModel(),
+    );
+
     UiProvider.proSetPyramidsAreExpanded(context: context, setTo: false, notify: true);
 
   });
