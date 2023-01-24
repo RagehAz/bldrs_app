@@ -870,9 +870,15 @@ class AuthorModel {
     @required AuthorModel author1,
     @required AuthorModel author2,
   }){
-    bool _areIdentical = false;
+    bool _identical = false;
 
-    if (author1 != null && author2 != null){
+    if (author1 == null && author2 == null){
+      _identical = true;
+    }
+    else if (author1 == null || author2 == null){
+      _identical = false;
+    }
+    else if (author1 != null && author2 != null){
 
       if (
 
@@ -895,12 +901,12 @@ class AuthorModel {
           ) == true
 
       ){
-        _areIdentical = true;
+        _identical = true;
       }
 
     }
 
-    return _areIdentical;
+    return _identical;
   }
   // --------------------
   /// TESTED : WORKS PERFECT

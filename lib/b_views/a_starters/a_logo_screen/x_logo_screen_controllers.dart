@@ -422,13 +422,15 @@ Future<void> _refreshUserDeviceModel(BuildContext context) async {
 
     LDBOps.wipeOutEntireLDB(
       /// MAIN
-      // flyers: true,
-      // bzz: true,
-      // users: true,
-      authModel: false,
-      // notes: true, // not sure why
+      // flyers: true, // WHY WOULD YOU DO THIS
+      // bzz: true, // WHY WOULD YOU DO THIS
+      notes: false,
       pics: false,
       pdfs: false,
+      /// USER
+      users: false,
+      authModel: false,
+      accounts: false,
       /// CHAIN
       bldrsChains: false,
       pickers: false,
@@ -474,11 +476,13 @@ Future<void> _dailyRefreshLDB(BuildContext context) async {
       /// MAIN
       // flyers: true,
       // bzz: true,
-      // users: true,
-      authModel: false, // need my authModel to prevent re-auth everyday
       notes: false, // I do not think we need to refresh notes everyday
       pics: false, // I do not think we need to refresh pics everyday
       pdfs: false, // i do not think that fetched pdfs are changed frequently by authors,
+      /// USER
+      users: false,
+      authModel: false, // need my authModel to prevent re-auth everyday
+      accounts: false, // keep accounts until user decides to not "remember me trigger"
       /// CHAIN
       bldrsChains: false, // keep the chains man, if chains updated - appState protocols handles this
       pickers: false, // same as chains
