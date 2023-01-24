@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
+import 'package:bldrs/b_views/f_bz/c_author_editor_screen/a_author_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -164,6 +166,11 @@ class AuthorshipRespondingProtocols{
         ),
       );
 
+      await _goToAuthorEditor(
+        context: context,
+        bzID: bzModel.id,
+      );
+
       /// NOTE : a system reboot is required at that point
       /// to allow home screen re-init my bzz notes stream to include this bz
       /// and listen to its live notes
@@ -173,7 +180,6 @@ class AuthorshipRespondingProtocols{
       );
 
     }
-
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -215,6 +221,32 @@ class AuthorshipRespondingProtocols{
     await NoteEvent.sendAuthorshipAcceptanceNote(
       context: context,
       bzID: noteModel.parties.senderID,
+    );
+
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> _goToAuthorEditor({
+    @required BuildContext context,
+    @required String bzID,
+  }) async {
+
+    final BzModel _bzModel = await BzProtocols.fetchBz(
+      context: context,
+      bzID: bzID,
+    );
+
+    final AuthorModel _authorModel = AuthorModel.getAuthorFromAuthorsByID(
+      authors: _bzModel.authors,
+      authorID: AuthFireOps.superUserID(),
+    );
+
+    await Nav.goToNewScreen(
+      context: context,
+      screen: AuthorEditorScreen(
+          author: _authorModel,
+          bzModel: _bzModel,
+      ),
     );
 
   }

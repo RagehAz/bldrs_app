@@ -65,7 +65,20 @@ class MyBzScreen extends StatelessWidget {
 
               blog('my bz screen should go back now yabn el a7ba : $_bzModel : $_authorsContainMyUserID');
 
-              return const GoBackWidget();
+              return GoBackWidget(
+                onGoBack: () async {
+
+                  if (_authorsContainMyUserID == false){
+
+                    _bzzPro.removeBzFromMyBzz(
+                        bzID: bzID,
+                        notify: true,
+                    );
+
+                  }
+
+                },
+              );
 
             }
 

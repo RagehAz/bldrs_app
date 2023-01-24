@@ -5,19 +5,22 @@ import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 
 class GoBackWidget extends StatefulWidget {
-
+  // -----------------------------------------------------------------------------
   const GoBackWidget({
+    this.onGoBack,
     Key key
   }) : super(key: key);
-
+  // -----------------------------------------------------------------------------
+  final Function onGoBack;
+  // -----------------------------------------------------------------------------
   @override
   State<GoBackWidget> createState() => _GoBackWidgetState();
-
+  // -----------------------------------------------------------------------------
 }
 
 class _GoBackWidgetState extends State<GoBackWidget> {
   /// Stream<List<NoteModel>> _receivedNotesStream;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
@@ -36,6 +39,11 @@ class _GoBackWidgetState extends State<GoBackWidget> {
 
       _triggerLoading(setTo: true).then((_) async {
         // -------------------------------
+
+        if (widget.onGoBack != null){
+          widget.onGoBack();
+        }
+
         await Nav.pushHomeAndRemoveAllBelow(
           context: context,
           invoker: 'GoBackWidgetTest',

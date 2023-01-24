@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:mapper/mapper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -240,6 +241,7 @@ class BzzProvider extends ChangeNotifier {
       }
 
       if (notify == true){
+        blog('pro: removeBzFromMyBzz : should remove and notify');
         notifyListeners();
       }
 
