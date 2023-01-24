@@ -24,14 +24,12 @@ class AuthFireOps {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static User superFirebaseUser() {
-    final User _user = FirebaseAuth.instance.currentUser;
-    return _user;
+    return FirebaseAuth.instance.currentUser;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static String superUserID() {
-    final String userID = superFirebaseUser()?.uid;
-    return userID;
+    return superFirebaseUser()?.uid;
   }
   // -----------------------------------------------------------------------------
 

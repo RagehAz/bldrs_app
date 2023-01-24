@@ -83,86 +83,89 @@ class DashBoardHomeScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
   List<DashButtonModel> _getButtons(){
 
-    const List<DashButtonModel> _buttons = <DashButtonModel>[
+    final List<DashButtonModel> _buttons = <DashButtonModel>[
       // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       /// TEST LAB
-      DashButtonModel(
+      const DashButtonModel(
         verse: 'Test Lab',
         icon: Iconz.lab,
         screen: TestLab(),
       ),
       null,
       /// BACK END LAB
-      DashButtonModel(
+      const DashButtonModel(
         verse: 'Backend Lab',
         icon: Iconz.form,
         screen: BackendLabHome(),
       ),
       /// UI MANAGER
-      DashButtonModel(
+      const DashButtonModel(
         verse:  'UI\nManager',
         icon: Iconz.dvDonaldDuck,
         screen: UIManager(),
       ),
       // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       /// PHRASES EDITOR
-      DashButtonModel(
+      if (isRage7() == true)
+      const DashButtonModel(
         verse:  'Phrase\nEditor',
         icon: Iconz.language,
         screen: PhraseEditorScreen(),
-      ),
+      ), if (isRage7() == false) null,
       /// CHAINS EDITOR
-      DashButtonModel(
+      const DashButtonModel(
         verse:  'Chains\nManager',
         icon: Iconz.keyword,
         screen: ChainsManager(),
       ),
       /// SPEC PICKER manager
-      DashButtonModel(
+      if (isRage7() == true)
+      const DashButtonModel(
         verse:  'Spec Picker\nManager',
         icon: Iconz.more,
         screen: SpecPickerManager(),
-      ),
+      ), if (isRage7() == false) null,
       /// HASHTAG
-      DashButtonModel(
+      const DashButtonModel(
         verse:  'HashTag\nManager',
         icon: Iconz.hashtag,
         screen: HashTagManager(),
       ),
       // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       /// USERS MANAGER
-      DashButtonModel(
+      const DashButtonModel(
         verse:  'Users Manager',
         icon: Iconz.users,
         screen: UsersManagerScreen(),
       ),
       /// BZZ MANAGER
-      DashButtonModel(
+      const DashButtonModel(
         verse:  'Businesses Manager',
         icon: Iconz.bz,
         screen: BzzManagerScreen(),
       ),
       /// ZONES EDITOR
-      DashButtonModel(
+      if (isRage7() == true)
+      const DashButtonModel(
         verse:  'Zones\nManager',
         icon: Iconz.earth,
         screen: ZonesManagerScreen(),
-      ),
+      ), if (isRage7() == false) null,
       /// CURRENCIES
-      DashButtonModel(
+      const DashButtonModel(
         verse:  'Currency\nManager',
         icon: Iconz.dollar,
         screen: CurrencyManagerScreen(),
       ),
       // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       /// FLYERS AUDITOR
-      DashButtonModel(
+      const DashButtonModel(
         verse:  'Flyers Auditor',
         icon: Iconz.verifyFlyer,
         screen: FlyersAuditor(),
       ),
       /// ALL FLYERS
-      DashButtonModel(
+      const DashButtonModel(
         verse:  'All Flyers',
         icon: Iconz.flyerScale,
         screen: AllFlyersScreen(),
@@ -170,24 +173,25 @@ class DashBoardHomeScreen extends StatelessWidget {
       /// EMPTY
       null,
       /// STATISTICS
-      DashButtonModel(
+      const DashButtonModel(
         verse:  'Statistics',
         icon: Iconz.statistics,
         screen: GeneralStatistics(),
       ),
       // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       /// NOTES CREATOR
-      DashButtonModel(
+      if (isRage7() == true)
+      const DashButtonModel(
         verse:  'Notes\nCreator',
         icon: Iconz.notification,
         screen: NotesCreatorScreen(),
-      ),
+      ), if (isRage7() == false) null,
       /// EMPTY
       null,
       /// EMPTY
       null,
       /// APP CONTROLS
-      DashButtonModel(
+      const DashButtonModel(
         verse:  'App Controls',
         icon: Iconz.dashBoard,
         screen: AppControlsManager(),
@@ -198,7 +202,7 @@ class DashBoardHomeScreen extends StatelessWidget {
       /// EMPTY
       null,
       /// DEVICE INFO
-      DashButtonModel(
+      const DashButtonModel(
         verse: 'Device Info',
         icon: Iconz.mobilePhone,
         screen: DeviceInfoScreen(),
@@ -209,7 +213,7 @@ class DashBoardHomeScreen extends StatelessWidget {
       /// EMPTY
       null,
       /// EMPTY
-      DashButtonModel(
+      const DashButtonModel(
         verse: 'Golden Scrolls',
         icon: Iconz.dvGouran,
         iconColor: Colorz.yellow200,

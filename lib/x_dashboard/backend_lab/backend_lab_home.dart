@@ -2,6 +2,7 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator
 import 'package:bldrs/b_views/z_components/buttons/wide_button.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/x_dashboard/backend_lab/cache_viewer/cache_viewer_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/cloud_tests/cloud_functions_test.dart';
 import 'package:bldrs/x_dashboard/backend_lab/cloud_tests/dynamic_links_test_screen.dart';
@@ -65,6 +66,7 @@ class BackendLabHome extends StatelessWidget {
         // ---------------------------------------------------
 
         /// FIRE PAGINATOR TEST
+        if (isRage7() == true)
         WideButton(
           verse: Verse.plain('Fire paginator test'),
           icon: Iconz.statistics,
@@ -77,6 +79,7 @@ class BackendLabHome extends StatelessWidget {
         ),
 
         /// FIRE STREAMING TEST
+        if (isRage7() == true)
         WideButton(
           verse: Verse.plain('Fire Streaming test'),
           icon: Iconz.statistics,
@@ -89,6 +92,7 @@ class BackendLabHome extends StatelessWidget {
         ),
 
         /// FIRE STORAGE TEST
+        if (isRage7() == true)
         WideButton(
           verse: Verse.plain('Storage test'),
           icon: Iconz.phoneGallery,
@@ -104,6 +108,7 @@ class BackendLabHome extends StatelessWidget {
         // ---------------------------------------------------
 
         /// CLOUD FUNCTIONS TEST
+        if (isRage7() == true)
         WideButton(
           verse: Verse.plain('Cloud Functions test'),
           icon: Iconz.gears,
@@ -143,6 +148,7 @@ class BackendLabHome extends StatelessWidget {
         // ---------------------------------------------------
 
         /// REAL TEST
+        if (isRage7() == true)
         WideButton(
           verse: Verse.plain('REAL TEST'),
           icon: Iconz.clock,
@@ -155,6 +161,7 @@ class BackendLabHome extends StatelessWidget {
         ),
 
         /// REAL HTTP TEST
+        if (isRage7() == true)
         WideButton(
           verse: Verse.plain('REAL HTTP TEST'),
           icon: Iconz.clock,
@@ -166,6 +173,7 @@ class BackendLabHome extends StatelessWidget {
           },
         ),
 
+        if (isRage7() == true)
         const DotSeparator(),
         // ---------------------------------------------------
 
