@@ -580,7 +580,7 @@ class Nav {
 
     UiProvider.proSetAfterHomeRoute(
       context: context,
-      routeName: Routing.myBzScreen,
+      routeName: Routing.myBzTeamPage,
       arguments: bzID,
       notify: true,
     );
