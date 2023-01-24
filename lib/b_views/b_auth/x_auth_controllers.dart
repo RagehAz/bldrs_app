@@ -1,11 +1,13 @@
 import 'dart:async';
 
+import 'package:bldrs/a_models/a_user/account_model.dart';
 import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
+import 'package:bldrs/c_protocols/auth_protocols/ldb/account_ldb_ops.dart';
 import 'package:bldrs/c_protocols/auth_protocols/ldb/auth_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
@@ -78,12 +80,14 @@ Future<void> authByApple(BuildContext context) async {
    */
 }
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> authByEmailSignIn({
   @required BuildContext context,
   @required String email,
   @required String password,
   @required GlobalKey<FormState> formKey,
   @required bool mounted,
+  @required bool rememberMe,
 }) async {
 
   /// A - PREPARE FOR AUTH AND CHECK VALIDITY
@@ -110,10 +114,23 @@ Future<void> authByEmailSignIn({
       password: password,
     );
 
-    await _controlAuthResult(
-      context: context,
-      authModel: _authModel,
-    );
+    await Future.wait(<Future>[
+
+      _rememberOrForgetAccount(
+        rememberMe: rememberMe,
+        account: AccountModel(
+          id: _authModel?.uid,
+          email: email,
+          password: password,
+        ),
+      ),
+
+      _controlAuthResult(
+        context: context,
+        authModel: _authModel,
+      ),
+
+    ]);
 
     if (mounted == true){
       await WaitDialog.closeWaitDialog(context);
@@ -127,12 +144,14 @@ Future<void> authByEmailSignIn({
 
 }
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> authByEmailRegister({
   @required BuildContext context,
   @required String email,
   @required String password,
   @required String passwordConfirmation,
   @required GlobalKey<FormState> formKey,
+  @required bool rememberMe,
 }) async {
 
   /// A - PREPARE FOR AUTH AND CHECK VALIDITY
@@ -162,10 +181,24 @@ Future<void> authByEmailRegister({
         password: password
     );
 
-    await _controlAuthResult(
-        context: context,
-        authModel: _authModel
-    );
+    await Future.wait(<Future>[
+
+      _rememberOrForgetAccount(
+        rememberMe: rememberMe,
+        account: AccountModel(
+          id: _authModel?.uid,
+          email: email,
+          password: password,
+        ),
+      ),
+
+      _controlAuthResult(
+          context: context,
+          authModel: _authModel
+      ),
+
+    ]);
+
 
     await WaitDialog.closeWaitDialog(context);
 
@@ -182,6 +215,7 @@ Future<void> authByEmailRegister({
 /// CONTROLLING AUTH RESULT
 
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> _controlAuthResult({
   @required BuildContext context,
   @required AuthModel authModel,
@@ -229,6 +263,7 @@ Future<void> _controlAuthResult({
 
 }
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> _controlAuthFailure({
   @required BuildContext context,
   @required AuthModel authModel,
@@ -338,6 +373,7 @@ Future<void> showMissingFieldsDialog({
 }
 */
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> _goToLogoScreen(BuildContext context) async {
   await Nav.goBackToLogoScreen(
       context: context,
@@ -345,6 +381,7 @@ Future<void> _goToLogoScreen(BuildContext context) async {
   );
 }
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> _goToUserEditorForFirstTime({
   @required BuildContext context,
   @required AuthModel authModel,
@@ -372,6 +409,7 @@ Future<void> _goToUserEditorForFirstTime({
 /// EMAIL AUTH VALIDATION
 
 // --------------------
+/// TESTED : WORKS PERFECT
 bool _prepareForEmailAuthOps({
   @required BuildContext context,
   @required GlobalKey<FormState> formKey,
@@ -392,5 +430,29 @@ bool _prepareForEmailAuthOps({
 
 
   return _allFieldsAreValid;
+}
+// -----------------------------------------------------------------------------
+
+/// REMEMBERING ME
+
+// --------------------
+/// TASK : TEST ME
+Future<void> _rememberOrForgetAccount({
+  @required AccountModel account,
+  @required bool rememberMe,
+}) async {
+
+  if (rememberMe == true){
+    await AccountLDBOps.insertAccount(
+        account: account,
+    );
+  }
+
+  else {
+    await AccountLDBOps.deleteAccount(
+        id: account?.id,
+    );
+  }
+
 }
 // -----------------------------------------------------------------------------

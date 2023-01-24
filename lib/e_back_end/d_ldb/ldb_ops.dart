@@ -301,11 +301,13 @@ class LDBOps {
     /// MAIN
     bool flyers = true,
     bool bzz = true,
-    bool users = true,
-    bool authModel = true,
     bool notes = true,
     bool pics = true,
     bool pdfs = true,
+    /// USER
+    bool users = true,
+    bool authModel = true,
+    bool accounts = true,
     /// CHAINS
     bool bldrsChains = true,
     bool pickers = true,
@@ -336,11 +338,13 @@ class LDBOps {
     /// MAIN
     if (flyers == true) {_docs.add(LDBDoc.flyers);}
     if (bzz == true) {_docs.add(LDBDoc.bzz);}
-    if (users == true) {_docs.add(LDBDoc.users);}
-    if (authModel == true) {_docs.add(LDBDoc.authModel);}
     if (notes == true) {_docs.add(LDBDoc.notes);}
     if (pics == true) {_docs.add(LDBDoc.pics);}
     if (pdfs == true) {_docs.add(LDBDoc.pdfs);}
+    /// MAIN
+    if (users == true) {_docs.add(LDBDoc.users);}
+    if (authModel == true) {_docs.add(LDBDoc.authModel);}
+    if (accounts == true) {_docs.add(LDBDoc.accounts);}
     /// CHAINS
     if (bldrsChains == true) {_docs.add(LDBDoc.bldrsChains);}
     if (pickers == true) {_docs.add(LDBDoc.pickers);}
