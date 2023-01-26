@@ -28,7 +28,7 @@ class FlyerFireOps {
   /// CREATE
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<String> createEmptyFlyerDocToGetFlyerID({
     @required String bzID,
   }) async {

@@ -1,7 +1,6 @@
 import 'package:bldrs/c_protocols/authorship_protocols/b_authorship_sending.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/d_authorship_responding.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/e_authorship_entry.dart';
-import 'package:bldrs/c_protocols/authorship_protocols/f_authorship_exit.dart';
 /// => TAMAM
 class AuthorshipProtocols {
   /// --------------------------------------------------------------------------
@@ -37,16 +36,16 @@ class AuthorshipProtocols {
   /// EXIT
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static const removeMeFromBz = AuthorshipExitProtocols.removeMeFromBz;
-  // --------------------
+  /// DEPRECATED
+  // static const removeMeFromBz = AuthorshipExitProtocols.removeMeFromBz;
+  // // --------------------
+  // // /// TESTED : WORKS PERFECT
+  // static const deleteMyAuthorPic = AuthorshipExitProtocols.deleteMyAuthorPic;
+  // // --------------------
   // /// TESTED : WORKS PERFECT
-  static const deleteMyAuthorPic = AuthorshipExitProtocols.deleteMyAuthorPic;
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static const removeFlyerlessAuthor = AuthorshipExitProtocols.removeFlyerlessAuthor;
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static const removeBzTracesAfterDeletion = AuthorshipExitProtocols.removeBzTracesAfterDeletion;
+  // static const removeFlyerlessAuthor = AuthorshipExitProtocols.removeFlyerlessAuthor;
+  // // --------------------
+  // /// TESTED : WORKS PERFECT
+  // static const removeBzTracesAfterDeletion = AuthorshipExitProtocols.removeBzTracesAfterDeletion;
   /// --------------------------------------------------------------------------
 }
