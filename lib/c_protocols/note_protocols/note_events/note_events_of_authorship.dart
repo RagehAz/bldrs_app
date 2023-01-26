@@ -7,9 +7,9 @@ import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
-import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
@@ -34,8 +34,7 @@ class NoteEventsOfAuthorship {
 
     blog('NoteEventsOfAuthorship.sendAuthorshipInvitationNote : START');
 
-    final String _title = await transPhid(
-        context: context,
+    final String _title = await PhraseProtocols.translate(
         phid: 'phid_you_are_invited_to_become_author',
         langCode: userModelToSendTo.language,
     );
@@ -97,8 +96,7 @@ class NoteEventsOfAuthorship {
 
     blog('NoteEventsOfAuthorship.sendAuthorshipCancellationNote : START');
 
-    final String _title = await transPhid(
-        context: context,
+    final String _title = await PhraseProtocols.translate(
         phid: 'phid_membership_invitation_is_cancelled',
         langCode: userModelToSendTo.language,
     );
@@ -163,8 +161,7 @@ class NoteEventsOfAuthorship {
       listen: false,
     );
 
-    final String _title = await transPhid(
-        context: context,
+    final String _title = await PhraseProtocols.translate(
         phid: 'phid_membership_invitation_is_accepted',
         langCode: senderModel.language,
     );
@@ -216,8 +213,7 @@ class NoteEventsOfAuthorship {
       listen: false,
     );
 
-    final String _title = await transPhid(
-        context: context,
+    final String _title = await PhraseProtocols.translate(
         phid: 'phid_membership_invitation_is_declined',
         langCode: senderModel.language,
     );

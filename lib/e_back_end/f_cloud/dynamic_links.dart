@@ -1,28 +1,28 @@
 // ignore_for_file: constant_identifier_names
 import 'dart:async';
+
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
-import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
-import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:mapper/mapper.dart';
-import 'package:numeric/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
+import 'package:numeric/numeric.dart';
 
 /*
 
@@ -400,13 +400,12 @@ class BldrsShareLink{
       pluralTranslation: false,
     );
 
-    final Phrase _flyerTypePhidPhrase = await PhraseProtocols.fetchPhid(
-      lang: Localizer.getCurrentLangCode(context),
+    final String _flyerTypeTranslation = await PhraseProtocols.translate(
+      langCode: langCode ?? Localizer.getCurrentLangCode(context),
       phid: _phid,
     );
 
-
-    return _flyerTypePhidPhrase?.value;
+    return _flyerTypeTranslation;
 
   }
   // --------------------

@@ -115,27 +115,45 @@ class PhraseProtocols {
    */
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<Phrase> fetchPhid({
-    @required String lang,
+  static Future<Phrase> _fetchPhid({
+    @required String langCode,
     @required String phid,
   }) async {
 
-    Phrase _output = await PhraseRealOps.readPhraseByLang(
-      lang: lang,
+    Phrase _phrase = await PhraseLDBOps.searchPhraseByIDAndCode(
+      phid: phid,
+      langCode: langCode,
+    );
+
+    _phrase ??= await PhraseRealOps.readPhraseByLang(
+      lang: langCode,
       phid: phid,
     );
 
-    _output ??= await PhraseRealOps.readPhraseByLang(
+    _phrase ??= await PhraseRealOps.readPhraseByLang(
       lang: 'en',
       phid: phid,
     );
 
-    _output ??= Phrase(
+    _phrase ??= Phrase(
       value: phid,
       id: phid,
     );
 
-    return _output;
+    return _phrase;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<String> translate({
+    @required String langCode,
+    @required String phid,
+  }) async {
+    final Phrase _phrase = await _fetchPhid(
+      langCode: langCode,
+      phid: phid,
+    );
+
+    return _phrase?.value;
   }
   // -----------------------------------------------------------------------------
 
