@@ -938,6 +938,48 @@ class FlyerModel {
   }
   // -----------------------------------------------------------------------------
 
+  /// MODIFIERS
+
+  // --------------------
+  /// TASK : TEST ME
+  static FlyerModel migrateOwnership({
+    @required BuildContext context,
+    @required FlyerModel flyerModel,
+    @required String newOwnerID,
+    @required BzModel bzModel,
+  }){
+
+    FlyerModel _output = flyerModel;
+
+    if (flyerModel == null || newOwnerID == null || bzModel == null){
+      return _output;
+    }
+    else {
+
+      final bool _imAuthorInThisBz = AuthorModel.checkImAuthorInBzOfThisFlyer(
+        context: context,
+        flyerModel: flyerModel,
+      );
+
+      final bool _newOwnerIsCreator = AuthorModel.checkUserIsCreatorAuthor(
+        bzModel: bzModel,
+        userID: newOwnerID,
+      );
+
+      if (_newOwnerIsCreator == true && _imAuthorInThisBz == true) {
+
+        _output= flyerModel.copyWith(
+          authorID: newOwnerID,
+        );
+
+      }
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
   /// EQUALITY
 
   // --------------------

@@ -431,9 +431,11 @@ class NotesProvider extends ChangeNotifier {
   /// PRO NOTES OPS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static void proAuthorResignationNotesRemovalOps({
     @required BuildContext context,
     @required String bzIDResigned,
+    bool notify = true,
   }){
 
     final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
@@ -443,7 +445,7 @@ class NotesProvider extends ChangeNotifier {
     // );
     _notesProvider.removeAllObeliskNoteNumbersRelatedToBzID(
         bzID: bzIDResigned,
-        notify: true
+        notify: notify,
     );
 
   }

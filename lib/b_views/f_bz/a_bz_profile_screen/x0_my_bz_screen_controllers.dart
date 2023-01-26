@@ -60,6 +60,8 @@ Future<void> onMyActiveBzStreamChanged({
   @required BzzProvider bzzProvider,
 }) async {
 
+  /// REF : BZ_STREAM_OPENS_ON_ACTIVE_BZ_AND_UPDATES_LOCALLY
+
   if (newMap == null){
 
     // blog('onMyActiveBzStreamChanged : THE NEW BITCH MAP IS NULL NOW AND WE CAN DO SOME STUFF HEREEEEEEEEEEEEEEEEEE');
@@ -89,10 +91,12 @@ Future<void> onMyActiveBzStreamChanged({
 
       if (_authorsContainMyUserID == false){
 
-        await _myBzResignationProtocol(
-          context: context,
-          newBzFromStream: _newBz,
-        );
+
+
+        // await _myBzResignationProtocol(
+        //   context: context,
+        //   newBzFromStream: _newBz,
+        // );
 
       }
 
@@ -157,11 +161,11 @@ Future<void> _myBzResignationProtocol({
         streamedBzModelWithoutMyID: newBzFromStream
     );
 
-    /// 11 - GO BACK HOME
-    await Nav.goBack(
-      context: context,
-      invoker: '_myBzResignationProtocol',
-    );
+    // /// 11 - GO BACK HOME
+    // await Nav.goBack(
+    //   context: context,
+    //   invoker: '_myBzResignationProtocol',
+    // );
 
     /// 12 - CLEAR MY ACTIVE BZ
     // _bzzProvider.clearMyActiveBz(

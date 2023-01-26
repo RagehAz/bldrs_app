@@ -151,7 +151,6 @@ class AuthorshipRespondingProtocols{
       await CenterDialog.showCenterDialog(
         context: context,
         titleVerse: Verse(
-          pseudo: 'You have become an Author in ${bzModel.name}',
           text: 'phid_great_!',
           translate: true,
           variables: bzModel.name,
@@ -265,17 +264,15 @@ class AuthorshipRespondingProtocols{
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: const Verse(
-        pseudo: 'Decline invitation ?',
         text: 'phid_decline_invitation_?',
         translate: true,
       ),
       bodyVerse: const Verse(
-        pseudo: 'This will reject the invitation and you will not be added as an author.',
         text: 'phid_decline_invitation_description',
         translate: true,
       ),
       confirmButtonVerse: const Verse(
-        text: 'phid_decline_invitation',
+        text: 'phid_decline',
         translate: true,
       ),
       boolDialog: true,

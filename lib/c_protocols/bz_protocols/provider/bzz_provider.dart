@@ -226,6 +226,19 @@ class BzzProvider extends ChangeNotifier {
     );
   }
   // --------------------
+  /// TASK : TEST ME
+  static void proRemoveBzFromMyBzz({
+    @required BuildContext context,
+    @required String bzID,
+    @required bool notify,
+  }){
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    _bzzProvider.removeBzFromMyBzz(
+      bzID: bzID,
+      notify: true,
+    );
+  }
+  // --------------------
   /// TESTED : WORKS PERFECT
   void removeBzFromMyBzz({
     @required String bzID,
