@@ -1,3 +1,4 @@
+import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:translator/translator.dart';
 /// => TAMAM
@@ -36,10 +37,17 @@ class GoogleTranslate {
     }
 
     else {
-      final Translation _translation = await getTranslator().translate(
-        input,
-        from: from,
-        to: to,
+
+      Translation _translation;
+
+      await tryAndCatch(
+        functions: () async {
+          _translation = await getTranslator().translate(
+            input,
+            from: from,
+            to: to,
+          );
+        },
       );
 
       return _translation?.text;

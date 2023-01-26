@@ -17,7 +17,6 @@ import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:stringer/stringer.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 /// => TAMAM
 class AuthorshipExitProtocols {
   // -----------------------------------------------------------------------------
@@ -90,8 +89,8 @@ class AuthorshipExitProtocols {
     // update my model everywhere
 
     /// REMOVE ME FROM PRO MY BZZ
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-    _bzzProvider.removeBzFromMyBzz(
+    BzzProvider.proRemoveBzFromMyBzz(
+      context: context,
       bzID: streamedBzModelWithoutMyID.id,
       notify: true,
     );
