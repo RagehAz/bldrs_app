@@ -7,14 +7,12 @@ import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/x0_my_bz_screen_controlle
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/obelisk_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
-import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/e_back_end/b_fire/widgets/fire_doc_streamer.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/go_back_widget.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -71,12 +69,12 @@ class MyBzScreen extends StatelessWidget {
                 onGoBack: () async {
 
                   /// REF: fuck_this_shit_will_come_back_to_you
-                  if (_authorsContainMyUserID == false){
-                    await AuthorshipProtocols.removeMeFromBz(
-                        context: BldrsAppStarter.navigatorKey.currentContext,
-                        streamedBzModelWithoutMyID: _bzModel
-                    );
-                  }
+                  // if (_authorsContainMyUserID == false){
+                  //   await AuthorshipProtocols.removeMeFromBz(
+                  //       context: BldrsAppStarter.navigatorKey.currentContext,
+                  //       streamedBzModelWithoutMyID: _bzModel
+                  //   );
+                  // }
 
                 },
               );
