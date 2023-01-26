@@ -235,6 +235,7 @@ class WipeUserProtocols {
             authorID: userModel.id,
           );
 
+          /// TASK : onRemoveMyselfWhileDeletingMyUserAccount
           return NewAuthorshipExit.onRemoveMySelf(
             context: context,
             bzModel: _oldBz,

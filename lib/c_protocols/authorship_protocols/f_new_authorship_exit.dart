@@ -7,6 +7,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
@@ -22,7 +23,6 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 /// => TAMAM
@@ -36,6 +36,11 @@ class NewAuthorshipExit {
   /// EXIT HIMSELF
 
   // --------------------
+
+  static Future<void> onRemoveMyselfWhileDeletingMyUserAccount() async {
+
+  }
+
   /// TESTED : WORKS PERFECT
   static Future<void> onRemoveMySelf({
     @required BuildContext context,
@@ -103,7 +108,7 @@ class NewAuthorshipExit {
 
       /// GO HOME
       await Nav.pushHomeAndRemoveAllBelow(
-          context: BldrsAppStarter.navigatorKey.currentContext,
+          context: getContext(),
           invoker: 'NewAuthorshipExit.onRemoveMySelf',
       );
 
@@ -181,7 +186,7 @@ class NewAuthorshipExit {
     @required bool isBzDeleted,
   }) async {
 
-    final BuildContext _context = BldrsAppStarter.navigatorKey.currentContext;
+    final BuildContext _context = getContext();
 
     final BzModel bzModel = await BzProtocols.fetchBz(
       context: _context,
@@ -246,7 +251,7 @@ class NewAuthorshipExit {
 
     /// GO HOME
     await Nav.pushHomeAndRemoveAllBelow(
-      context: BldrsAppStarter.navigatorKey.currentContext,
+      context: getContext(),
       invoker: 'NewAuthorshipExit.onRemoveMySelf',
     );
 
@@ -268,12 +273,13 @@ class NewAuthorshipExit {
     /// REMOVE AUTHOR FROM BZ MODEL
     final BzModel _newBz = BzModel.removeAuthor(
         oldBz: bzModel,
-        authorID: authorModel.userID,
+        authorID: authorModel?.userID,
     );
 
     await Future.wait(<Future>[
 
       /// MIGRATE OWNERSHIP OF ALL MY FLYERS TO BZ CREATOR AND TURN OFF SHOW AUTHOR
+      if (authorModel != null)
       _migrateAuthorFlyersToBzCreator(
         context: context,
         bzModel: _newBz,
@@ -359,7 +365,7 @@ class NewAuthorshipExit {
     @required String bzID,
   }) async {
 
-    final BuildContext _context = BldrsAppStarter.navigatorKey.currentContext;
+    final BuildContext _context = getContext();
 
     /// (only i can) : REMOVE BZ & BZ TOPICS FROM MY USER MODEL
     final UserModel _oldUser = UsersProvider.proGetMyUserModel(
@@ -552,7 +558,7 @@ class NewAuthorshipExit {
     @required bool isBzDeleted,
   }) async {
 
-    final BuildContext _context = BldrsAppStarter.navigatorKey.currentContext;
+    final BuildContext _context = getContext();
 
     if (isBzDeleted == true){
 

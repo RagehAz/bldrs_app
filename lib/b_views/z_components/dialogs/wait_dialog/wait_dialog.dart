@@ -1,14 +1,13 @@
 import 'dart:async';
 
-import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
+import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:scale/scale.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-
-import 'package:bldrs/main.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:scale/scale.dart';
 
 void pushWaitDialog({
   @required BuildContext context,
@@ -23,7 +22,7 @@ void pushWaitDialog({
 }
 
 void closeWaitDialog(BuildContext context){
-  unawaited(WaitDialog.closeWaitDialog(BldrsAppStarter.navigatorKey.currentContext));
+  unawaited(WaitDialog.closeWaitDialog(getContext()));
 }
 
 class WaitDialog extends StatelessWidget {
@@ -70,7 +69,7 @@ class WaitDialog extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> closeWaitDialog(BuildContext context) async {
-    final BuildContext _context = BldrsAppStarter.navigatorKey.currentContext;
+    final BuildContext _context = getContext();
     await Nav.goBack(
       context: _context,
       invoker: 'closeWaitDialog',

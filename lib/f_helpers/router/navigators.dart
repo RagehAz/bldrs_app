@@ -21,16 +21,15 @@ import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/e_back_end/h_caching/cache_ops.dart';
-import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
-import 'package:bldrs/main.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:mapper/mapper.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
@@ -180,7 +179,7 @@ class Nav {
 
       if (addPostFrameCallback == true){
         SchedulerBinding.instance.addPostFrameCallback((_) {
-          final BuildContext _context = BldrsAppStarter.navigatorKey.currentContext;
+          final BuildContext _context = getContext();
           Navigator.pop(_context, passedData);
         });
       }
@@ -452,7 +451,7 @@ class Nav {
 
       /// CLEAR AFTER HOME ROUTE
       UiProvider.proClearAfterHomeRoute(
-        context: BldrsAppStarter.navigatorKey.currentContext,
+        context: getContext(),
         notify: true,
       );
 
@@ -605,14 +604,14 @@ class Nav {
     if (userID != null){
 
       final UserModel _userModel = await UserProtocols.fetch(
-        context: BldrsAppStarter.navigatorKey.currentContext,
+        context: getContext(),
         userID: userID,
       );
 
       if (_userModel != null){
 
         await Nav.goToNewScreen(
-          context: BldrsAppStarter.navigatorKey.currentContext,
+          context: getContext(),
           screen: UserPreviewScreen(
             userModel: _userModel,
           ),
@@ -634,14 +633,14 @@ class Nav {
     if (bzID != null){
 
       final BzModel _bzModel = await BzProtocols.fetchBz(
-        context: BldrsAppStarter.navigatorKey.currentContext,
+        context: getContext(),
         bzID: bzID,
       );
 
       if (_bzModel != null){
 
         await Nav.goToNewScreen(
-          context: BldrsAppStarter.navigatorKey.currentContext,
+          context: getContext(),
           screen: BzPreviewScreen(
             bzModel: _bzModel,
           ),
@@ -661,7 +660,7 @@ class Nav {
     if (flyerID != null){
 
       await Nav.goToNewScreen(
-        context: BldrsAppStarter.navigatorKey.currentContext,
+        context: getContext(),
         screen: FlyerPreviewScreen(
           flyerID: flyerID,
           // reviewID: ,
@@ -707,7 +706,7 @@ class Nav {
       if (_flyerID != null){
 
         await Nav.goToNewScreen(
-          context: BldrsAppStarter.navigatorKey.currentContext,
+          context: getContext(),
           screen: FlyerPreviewScreen(
             flyerID: _flyerID,
             reviewID: _reviewID,
@@ -761,7 +760,7 @@ class Nav {
   static Future<void> jumpToAuthScreen(BuildContext context) async {
 
     await Nav.goToNewScreen(
-      context: context, //BldrsAppStarter.navigatorKey.currentContext,
+      context: context, //getContext(),
       screen: const AuthScreen(),
     );
 

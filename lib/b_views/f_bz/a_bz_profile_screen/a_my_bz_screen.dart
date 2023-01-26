@@ -129,7 +129,8 @@ class MyBzScreen extends StatelessWidget {
                         text: BzTabber.getBzTabPhid(bzTab: _bzTab),
                         translate: true,
                       ),
-                      icon: BzTabber.getBzTabIcon(_bzTab),
+                      icon: _bzTab == BzTab.about ? _bzModel.logoPath : BzTabber.getBzTabIcon(_bzTab),
+                      iconSizeFactor: _bzTab == BzTab.about ? 1 : null,
                       screen: MyBzScreenPages.pages[index],
                     );
 

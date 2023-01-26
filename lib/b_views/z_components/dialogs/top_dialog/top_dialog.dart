@@ -6,13 +6,11 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
-import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/drafters/shadowers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-
-import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:scale/scale.dart';
 
 class TopDialog extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -56,7 +54,7 @@ class TopDialog extends StatelessWidget {
     int milliseconds = 5000,
   }) async {
 
-    final BuildContext _context = BldrsAppStarter.navigatorKey.currentContext;
+    final BuildContext _context = getContext();
 
     await closeTopDialog(_context);
 

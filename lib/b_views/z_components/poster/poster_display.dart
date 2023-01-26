@@ -2,12 +2,12 @@ import 'dart:typed_data';
 
 import 'package:bldrs/a_models/j_poster/poster_type.dart';
 import 'package:bldrs/b_views/z_components/poster/structure/poster_switcher.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:scale/scale.dart';
 import 'package:screenshot/screenshot.dart';
 
 class PosterDisplay extends StatelessWidget {
@@ -35,7 +35,7 @@ class PosterDisplay extends StatelessWidget {
   }) async{
 
     final ScreenshotController _controller = controller ?? ScreenshotController();
-    final BuildContext _context = BldrsAppStarter.navigatorKey.currentContext;
+    final BuildContext _context = getContext();
     final double _screenWidth = Scale.screenWidth(_context);
     final double _finalDesiredWidth = finalDesiredPicWidth ?? Standards.posterDimensions.width;
     // final double _posterHeight = NotePosterBox.getBoxHeight(width);
