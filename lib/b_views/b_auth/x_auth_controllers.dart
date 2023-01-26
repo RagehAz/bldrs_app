@@ -222,7 +222,7 @@ Future<void> _controlAuthResult({
 }) async {
 
   /// B1. IF AUTH FAILS
-  if (authModel.authSucceeds == false){
+  if (authModel.authSucceeds == false || authModel?.userModel == null){
     await _controlAuthFailure(
       context: context,
       authModel: authModel,
