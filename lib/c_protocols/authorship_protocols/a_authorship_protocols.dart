@@ -40,7 +40,7 @@ class AuthorshipProtocols {
   /// TESTED : WORKS PERFECT
   static const removeMeFromBz = AuthorshipExitProtocols.removeMeFromBz;
   // --------------------
-  /// TESTED : WORKS PERFECT
+  // /// TESTED : WORKS PERFECT
   static const deleteMyAuthorPic = AuthorshipExitProtocols.deleteMyAuthorPic;
   // --------------------
   /// TESTED : WORKS PERFECT

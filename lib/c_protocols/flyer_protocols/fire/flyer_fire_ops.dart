@@ -175,7 +175,7 @@ class FlyerFireOps {
     blog('_deleteFlyerDoc : END');
 
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
   /*
   /// TESTED : WORKS PERFECT
   static Future<BzModel> deleteMultipleBzFlyers({
@@ -326,7 +326,7 @@ class FlyerFireOps {
 //
 // }
  */
-  // -----------------------------------------------------------------------------
+  // --------------------
   ///
   static Future<void> onReportFlyer({
     @required BuildContext context,
