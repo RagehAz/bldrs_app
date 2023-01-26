@@ -39,9 +39,11 @@ Future<void> prepareFastPhidCreation({
 
   if (untranslatedVerse != null){
 
-    searchController.text = untranslatedVerse.text;
-    idTextController.text = untranslatedVerse.text;
-    enTextController.text = TextMod.removeTextBeforeLastSpecialCharacter(untranslatedVerse.pseudo, '#') ?? '';
+    if (mounted == true){
+      searchController.text = untranslatedVerse.text;
+      idTextController.text = untranslatedVerse.text;
+      enTextController.text = TextMod.removeTextBeforeLastSpecialCharacter(untranslatedVerse.pseudo, '#') ?? '';
+    }
 
     onPhrasesSearchSubmit(
       isSearching: isSearching,
@@ -53,13 +55,17 @@ Future<void> prepareFastPhidCreation({
       mounted: mounted,
     );
 
-    await Sliders.slideToNext(
-      pageController: pageController,
-      numberOfSlides: 2,
-      currentSlide: 0,
-    );
+    if (mounted == true) {
+      await Sliders.slideToNext(
+        pageController: pageController,
+        numberOfSlides: 2,
+        currentSlide: 0,
+      );
+    }
 
-    Formers.focusOnNode(enNode);
+    if (mounted == true){
+      Formers.focusOnNode(enNode);
+    }
 
   }
 

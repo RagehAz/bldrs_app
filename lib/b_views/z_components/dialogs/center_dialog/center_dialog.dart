@@ -105,7 +105,7 @@ class CenterDialog extends StatelessWidget {
         height: height,
         boolDialog: boolDialog,
         confirmButtonVerse: confirmButtonVerse,
-        color: color,
+        color: color ?? Colorz.skyDarkBlue,
         onOk: onOk,
         invertButtons: invertButtons,
         copyOnTap: copyOnTap,

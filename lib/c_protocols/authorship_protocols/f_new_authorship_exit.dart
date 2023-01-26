@@ -20,10 +20,12 @@ import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
-
+/// => TAMAM
 class NewAuthorshipExit {
   // -----------------------------------------------------------------------------
 
@@ -34,29 +36,34 @@ class NewAuthorshipExit {
   /// EXIT HIMSELF
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onRemoveMySelf({
     @required BuildContext context,
     @required AuthorModel authorModel,
     @required BzModel bzModel,
+    @required bool showConfirmDialog,
   }) async {
 
-    /// SHOW CONFIRM DIALOG
-    final bool _canDelete = await _deleteMyselfConfirmationDialogs(
-      context: context,
-    );
+    bool _canDelete = true;
+
+    if (showConfirmDialog == true){
+      /// SHOW CONFIRM DIALOG
+      _canDelete = await _deleteMyselfConfirmationDialogs(
+        context: context,
+      );
+    }
 
     if (_canDelete == true){
 
-      /// (only i can) : GO TO HOME SCREEN
-      await _goBackToHomeScreen(
-        context: context,
+      /// THIS PREVENTS BZ STREAM FROM FIRING (onIGotRemoved) METHOD
+      await Nav.goBackUntil(
+          context: context,
+          routeName: '/',
       );
 
       /// SHOW WAIT DIALOG
       _showRemovingAuthorWaitDialog(
         context: context,
-        authorName: authorModel.name, // authorName != userName
         isBzDeleted: false,
       );
 
@@ -88,15 +95,16 @@ class NewAuthorshipExit {
         sendToUserAuthorExitNote: false,
       );
 
-      /// CLOSE WAIT DIALOG
-      await _closeWaitDialog(
-        context: context,
-      );
-
       /// SHOW SUCCESS CENTER DIALOG
       await _showRemovedAuthorSuccessDialog(
         context: context,
         isBzDeleted: false,
+      );
+
+      /// GO HOME
+      await Nav.pushHomeAndRemoveAllBelow(
+          context: BldrsAppStarter.navigatorKey.currentContext,
+          invoker: 'NewAuthorshipExit.onRemoveMySelf',
       );
 
     }
@@ -107,7 +115,7 @@ class NewAuthorshipExit {
   /// KICK OUT
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onRemoveOtherAuthor({
     @required BuildContext context,
     @required AuthorModel authorModel,
@@ -124,7 +132,6 @@ class NewAuthorshipExit {
       /// SHOW WAIT DIALOG
       _showRemovingAuthorWaitDialog(
         context: context,
-        authorName: authorModel.name, // authorName != userName
         isBzDeleted: false,
       );
 
@@ -167,20 +174,23 @@ class NewAuthorshipExit {
   /// I GOT REMOVED
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onIGotRemoved({
     @required BuildContext context,
-    @required AuthorModel authorModel,
     @required String bzID, // this should not include my id
     @required bool isBzDeleted,
   }) async {
 
+    final BuildContext _context = BldrsAppStarter.navigatorKey.currentContext;
+
     final BzModel bzModel = await BzProtocols.fetchBz(
-      context: context,
+      context: _context,
       bzID: bzID,
     );
 
-    if (bzModel != null) {
+    blog('bzModel == null : ${bzModel == null}');
+
+    if (bzModel != null){
 
     // final bool _authorsContainMyUserID = AuthorModel.checkAuthorsContainUserID(
     //   authors: bzModel?.authors,
@@ -190,15 +200,14 @@ class NewAuthorshipExit {
 
     /// SHOW NOTICE CENTER DIALOG
     await _iGotDeletedNoticeDialog(
-      context: context,
+      context: _context,
       bzID: bzModel.id,
       isBzDeleted: isBzDeleted,
     );
 
     /// SHOW WAIT DIALOG
     _showRemovingAuthorWaitDialog(
-      context: context,
-      authorName: authorModel.name,
+      context: _context,
       isBzDeleted: isBzDeleted,
     );
 
@@ -211,13 +220,13 @@ class NewAuthorshipExit {
       /// (only i can) : RENOVATE MY USER MODEL
       /// (only i can) : REMOVE BZ NOTES FROM OBELISK NUMBERS
       _doAllMyUserRemovalFromBzOps(
-        context: context,
+        context: _context,
         bzID: bzModel.id,
       ),
 
       /// (only i can) : UPDATE BZ LOCALLY
       BzProtocols.deleteLocally(
-        context: context,
+        context: _context,
         bzID: bzModel.id,
         invoker: 'onIGotRemoved',
       ),
@@ -226,16 +235,20 @@ class NewAuthorshipExit {
 
     /// CLOSE WAIT DIALOG
     await _closeWaitDialog(
-      context: context,
+      context: _context,
     );
 
     /// SHOW SUCCESS CENTER DIALOG
     await _showRemovedAuthorSuccessDialog(
-      context: context,
+      context: _context,
       isBzDeleted: isBzDeleted,
     );
 
-    /// NO NEED TO GO BACK AS THIS RUNS WHILE GOING BACK FROM MyBzScreen
+    /// GO HOME
+    await Nav.pushHomeAndRemoveAllBelow(
+      context: BldrsAppStarter.navigatorKey.currentContext,
+      invoker: 'NewAuthorshipExit.onRemoveMySelf',
+    );
 
     }
 
@@ -245,7 +258,7 @@ class NewAuthorshipExit {
   /// FLYER MIGRATION
 
   // --------------------
-  /// TASK : TEST ME
+    /// TESTED : WORKS PERFECT
   static Future<void> _migrateFlyersAndRemoveAuthorAndRenovateBz({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -281,7 +294,7 @@ class NewAuthorshipExit {
 
   }
   // --------------------
-  /// TASK : TEST ME
+    /// TESTED : WORKS PERFECT
   static Future<void> _migrateAuthorFlyersToBzCreator({
     @required BuildContext context,
     @required AuthorModel authorModel,
@@ -313,7 +326,7 @@ class NewAuthorshipExit {
 
   }
   // --------------------
-  /// TASK : TEST ME
+    /// TESTED : WORKS PERFECT
   static Future<void> _migrateTheFlyer({
     @required BuildContext context,
     @required String flyerID,
@@ -340,14 +353,20 @@ class NewAuthorshipExit {
   /// HANDLE USER CHANGES
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> _doAllMyUserRemovalFromBzOps({
     @required BuildContext context,
     @required String bzID,
   }) async {
 
+    final BuildContext _context = BldrsAppStarter.navigatorKey.currentContext;
+
     /// (only i can) : REMOVE BZ & BZ TOPICS FROM MY USER MODEL
-    final UserModel _oldUser = UsersProvider.proGetMyUserModel(context: context, listen: false);
+    final UserModel _oldUser = UsersProvider.proGetMyUserModel(
+        context: _context,
+        listen: false,
+    );
+
     /// REMOVE BZ ID
     UserModel _newUser = UserModel.removeBzIDFromUserBzzIDs(bzIDToRemove: bzID, oldUser: _oldUser);
     /// REMOVE BZ TOPICS
@@ -358,7 +377,7 @@ class NewAuthorshipExit {
       /// (only i can) : UNSUBSCRIBE FROM BZ FCM TOPICS
       NoteProtocols.unsubscribeFromAllBzTopics(
         bzID: bzID,
-        context: context,
+        context: _context,
         renovateUser: false,
       ),
 
@@ -370,7 +389,7 @@ class NewAuthorshipExit {
 
       /// (only i can) : RENOVATE MY USER MODEL
       UserProtocols.renovate(
-        context: context,
+        context: _context,
         newUser: _newUser,
         oldUser: _oldUser,
         newPic: null,
@@ -380,14 +399,14 @@ class NewAuthorshipExit {
 
     /// (only i can) : REMOVE BZ FROM PRO MY BZZ
     BzzProvider.proRemoveBzFromMyBzz(
-      context: context,
+      context: _context,
       bzID: bzID,
       notify: true,
     );
 
     /// (only i can) : REMOVE BZ NOTES FROM OBELISK NUMBERS
     NotesProvider.proAuthorResignationNotesRemovalOps(
-      context: context,
+      context: _context,
       bzIDResigned: bzID,
       notify: true,
     );
@@ -398,7 +417,7 @@ class NewAuthorshipExit {
   /// DIALOGS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<bool> _deleteMyselfConfirmationDialogs({
     @required BuildContext context,
   }) async {
@@ -407,8 +426,8 @@ class NewAuthorshipExit {
     /// confirm you want to delete yourself
     final bool _canDeleteMyself = await Dialogs.confirmProceed(
       context: context,
-      titleVerse: const Verse(text: 'phid_exit_bz_account', translate: true), /// TASK : TRANSLATE ME
-      bodyVerse: const Verse(text: 'phid_exit_bz_account_body', translate: true), /// TASK : TRANSLATE ME
+      titleVerse: const Verse(text: 'phid_exit_bz_account', translate: true),
+      bodyVerse: const Verse(text: 'phid_exit_bz_account_body', translate: true),
       invertButtons: true,
     );
 
@@ -417,8 +436,8 @@ class NewAuthorshipExit {
       /// confirm you agree on flyers migration
       final bool _canMigrateFlyers = await Dialogs.confirmProceed(
         context: context,
-        titleVerse: const Verse(text: 'phid_migrate_flyers_?', translate: true), /// TASK : TRANSLATE ME
-        bodyVerse: const Verse(text: 'phid_migrate_flyers_body', translate: true), /// TASK : TRANSLATE ME
+        titleVerse: const Verse(text: 'phid_migrate_flyers_?', translate: true),
+        bodyVerse: const Verse(text: 'phid_migrate_flyers_body', translate: true),
         invertButtons: true,
       );
 
@@ -431,7 +450,7 @@ class NewAuthorshipExit {
     return _canProceed;
   }
   // --------------------
-  /// TASK : TEST ME
+    /// TESTED : WORKS PERFECT
   static Future<bool> _deleteOtherAuthorConfirmationDialog({
     @required BuildContext context,
   }) async {
@@ -440,8 +459,9 @@ class NewAuthorshipExit {
     /// confirm you want to delete yourself
     final bool _canDeleteOtherAuthor = await Dialogs.confirmProceed(
       context: context,
-      titleVerse: const Verse(text: 'phid_delete_author_?', translate: true), /// TASK : TRANSLATE ME
-      bodyVerse: const Verse(text: 'phid_delete_author_body', translate: true), /// TASK : TRANSLATE ME
+      titleVerse: const Verse(text: 'phid_remove_author_?', translate: true),
+      /// TRANSLATE ME
+      bodyVerse: const Verse(text: 'phid_delete_author_body', translate: true),
       invertButtons: true,
     );
 
@@ -452,7 +472,7 @@ class NewAuthorshipExit {
     return _canProceed;
   }
   // --------------------
-  /// TASK : TEST ME
+    /// TESTED : WORKS PERFECT
   static Future<void> _iGotDeletedNoticeDialog({
     @required BuildContext context,
     @required bool isBzDeleted,
@@ -502,13 +522,12 @@ class NewAuthorshipExit {
     /// TESTED : WORKS PERFECT
   static void _showRemovingAuthorWaitDialog({
     @required BuildContext context,
-    @required String authorName,
     @required bool isBzDeleted,
   }) {
 
     final String _waitText = isBzDeleted == true
-      ? Verse.transBake(context, 'phid_removing_bz') /// TASK : TRANSLATE ME
-      : Verse.transBake(context, 'phid_removing_author'); /// TASK : TRANSLATE ME
+      ? Verse.transBake(context, 'phid_removing_bz')
+      : Verse.transBake(context, 'phid_removing_author');
 
     pushWaitDialog(
         context: context,
@@ -527,18 +546,20 @@ class NewAuthorshipExit {
     await WaitDialog.closeWaitDialog(context);
   }
   // --------------------
-  /// TASK : TEST ME
+    /// TESTED : WORKS PERFECT
   static Future<void> _showRemovedAuthorSuccessDialog({
     @required BuildContext context,
     @required bool isBzDeleted,
   }) async {
 
+    final BuildContext _context = BldrsAppStarter.navigatorKey.currentContext;
+
     if (isBzDeleted == true){
 
       await Dialogs.centerNotice(
-        context: context,
+        context: _context,
         verse: const Verse(
-          text: 'phid_bz_has_been_removed', // TASK : TRANSLATE ME
+          text: 'phid_bz_has_been_removed',
           translate: true,
         ),
       );
@@ -548,29 +569,15 @@ class NewAuthorshipExit {
     else {
 
       await Dialogs.centerNotice(
-        context: context,
+        context: _context,
         verse: const Verse(
-          text: 'phid_Author_has_been_removed_successfully', // TASK : TRANSLATE ME
+          text: 'phid_Author_has_been_removed_successfully',
           translate: true,
         ),
       );
 
     }
 
-  }
-  // -----------------------------------------------------------------------------
-
-  /// NAVIGATION
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> _goBackToHomeScreen({
-    @required BuildContext context,
-  }) async {
-    await Nav.goBackToLogoScreen(
-      context: context,
-      animatedLogoScreen: true,
-    );
   }
   // -----------------------------------------------------------------------------
 }
