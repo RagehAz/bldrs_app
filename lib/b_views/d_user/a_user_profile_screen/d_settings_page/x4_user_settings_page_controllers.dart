@@ -184,6 +184,7 @@ Future<bool> _authorshipDeletionCheckups(BuildContext context) async {
         /// SHOW WILL DELETE BZZ DIALOG
         _canDelete = await Dialogs.bzzBannersDialog(
           context: context,
+          invertButtons: true,
           bzzModels: _myBzzICreated,
           titleVerse: const Verse(
             text: 'phid_delete_bz_accounts_?',
@@ -201,6 +202,7 @@ Future<bool> _authorshipDeletionCheckups(BuildContext context) async {
         );
         // blog('_authorshipDeletionCheckups received : $_canDelete');
 
+
       }
       /// USER HAS NO CREATED BZZ BUT MIGHT BE AUTHOR IN OTHERS
       else {
@@ -215,6 +217,7 @@ Future<bool> _authorshipDeletionCheckups(BuildContext context) async {
             _canDelete = await Dialogs.bzzBannersDialog(
               context: context,
               bzzModels: _myBzzIDidNotCreate,
+              invertButtons: true,
               titleVerse: const Verse(
                 text: 'phid_delete_bz_membership',
                 translate: true,
@@ -269,6 +272,7 @@ Future<bool> reAuthenticateUser({
       titleVerse: dialogTitleVerse,
       bodyVerse: dialogBodyVerse,
       confirmButtonVerse: confirmButtonVerse,
+      invertButtons: true,
       userModel: _userModel,
     );
 

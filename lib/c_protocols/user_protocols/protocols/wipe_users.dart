@@ -102,12 +102,6 @@ class WipeUserProtocols {
 
     await Future.wait(<Future>[
 
-      // /// ALL AUTHORS PICS
-      // _deleteAllMyAuthorPics(
-      //   context: context,
-      //   userModel: userModel,
-      // ),
-
       /// BZZ I CREATED
       _deleteBzzICreatedProtocol(
         context: context,
