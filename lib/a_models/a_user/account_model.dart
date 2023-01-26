@@ -17,7 +17,7 @@ class AccountModel {
   /// CYPHERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap(){
     return {
       'id': id,
@@ -27,7 +27,7 @@ class AccountModel {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static AccountModel decipher(Map<String, dynamic> map){
     if(map == null){
       return null;
@@ -44,7 +44,7 @@ class AccountModel {
   /// CHECKER
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static bool checkAccountsAreIdentical({
     @required AccountModel account1,
     @required AccountModel account2,

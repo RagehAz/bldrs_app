@@ -16,7 +16,7 @@ class AccountLDBOps {
   /// INSERT
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> insertAccount({
     @required AccountModel account,
   }) async {
@@ -32,7 +32,7 @@ class AccountLDBOps {
   /// READ
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<AccountModel> readAccount({
     @required String id,
   }) async {
@@ -45,7 +45,7 @@ class AccountLDBOps {
     return AccountModel.decipher(_map);
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<List<AccountModel>> realAllAccounts() async {
     final List<AccountModel> _output = <AccountModel>[];
 
@@ -87,23 +87,4 @@ class AccountLDBOps {
 
   }
   // -----------------------------------------------------------------------------
-
-  /// CHECKERS
-
-  // --------------------
-  /// TASK : TEST ME
-  static Future<bool> rememberMeIsOn() async {
-
-    final List<AccountModel> _accounts = await realAllAccounts();
-
-    if (Mapper.checkCanLoopList(_accounts) == true){
-      return true;
-    }
-    else {
-      return false;
-    }
-
-  }
-  // -----------------------------------------------------------------------------
-  void f (){}
 }
