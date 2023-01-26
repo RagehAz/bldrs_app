@@ -3,16 +3,13 @@ import 'dart:async';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
+import 'package:bldrs/c_protocols/authorship_protocols/f_new_authorship_exit.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
@@ -62,18 +59,25 @@ Future<void> onMyActiveBzStreamChanged({
 
   /// REF : BZ_STREAM_OPENS_ON_ACTIVE_BZ_AND_UPDATES_LOCALLY
 
-  if (newMap == null){
+  final BzModel _newBz = BzModel.decipherBz(
+    map: newMap,
+    fromJSON: false,
+  );
+
+  if (_newBz == null){
 
     // blog('onMyActiveBzStreamChanged : THE NEW BITCH MAP IS NULL NOW AND WE CAN DO SOME STUFF HEREEEEEEEEEEEEEEEEEE');
+    //  await NewAuthorshipExit.onIGotRemoved(
+    //    context: context,
+    //    bzID: _oldBz?.id,
+    //    isBzDeleted: true,
+    //  );
+
 
   }
 
   else {
 
-    final BzModel _newBz = BzModel.decipherBz(
-      map: newMap,
-      fromJSON: false,
-    );
 
     final bool _areIdentical = BzModel.checkBzzAreIdentical(
       bz1: bzzProvider.myActiveBz,
@@ -91,12 +95,11 @@ Future<void> onMyActiveBzStreamChanged({
 
       if (_authorsContainMyUserID == false){
 
-
-
-        // await _myBzResignationProtocol(
-        //   context: context,
-        //   newBzFromStream: _newBz,
-        // );
+        await NewAuthorshipExit.onIGotRemoved(
+          context: context,
+          bzID: _newBz.id,
+          isBzDeleted: false, //map == null,
+        );
 
       }
 
@@ -118,65 +121,6 @@ Future<void> onMyActiveBzStreamChanged({
     }
 
   }
-
-}
-// --------------------
-Future<void> _myBzResignationProtocol({
-  @required BuildContext context,
-  @required BzModel newBzFromStream,
-}) async {
-
-  /// THIS METHOD RUNS WHEN STREAMED BZ MODEL DOES NOT INCLUDE MY USER ID
-  // description
-  // if bz model is updated and does not include me in its authors any more
-  // that means I have been deleted from the team
-  // so we need to clear the bz and all its related stuff as follows
-
-  /// 1 - CHECK IF I'M STILL IN THE TEAM
-  final bool _authorsContainMyUserID = AuthorModel.checkAuthorsContainUserID(
-    authors: newBzFromStream.authors,
-    userID: AuthFireOps.superUserID(),
-  );
-
-  /// 2 - WHEN I GOT REMOVED FROM THE BZ TEAM
-  if (_authorsContainMyUserID == false){
-
-    /// 3 - SHOW NOTICE DIALOG
-    await CenterDialog.showCenterDialog(
-      context: context,
-      titleVerse: const Verse(
-        pseudo: 'This Business account is not available',
-        text: 'phid_bz_account_is_unavailable',
-        translate: true,
-      ),
-      bodyVerse: const Verse(
-        pseudo: 'Your account does not have access to this business account',
-        text: 'phid_no_access_to_this_account',
-        translate: true,
-      ),
-    );
-
-    await AuthorshipProtocols.removeMeFromBz(
-        context: context,
-        streamedBzModelWithoutMyID: newBzFromStream
-    );
-
-    // /// 11 - GO BACK HOME
-    // await Nav.goBack(
-    //   context: context,
-    //   invoker: '_myBzResignationProtocol',
-    // );
-
-    /// 12 - CLEAR MY ACTIVE BZ
-    // _bzzProvider.clearMyActiveBz(
-    //     notify: false
-    // );
-    // _bzzProvider.clearActiveBzFlyers(
-    //     notify: true,
-    // );
-
-  }
-
 
 }
 // -----------------------------------------------------------------------------

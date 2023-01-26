@@ -305,6 +305,8 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
       progressBarModel: _progressBarModel,
     );
 
+    _controlConfirmButton();
+
   }
   // -----------------------------------------------------------------------------
   @override

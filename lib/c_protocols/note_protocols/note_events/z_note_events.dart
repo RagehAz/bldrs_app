@@ -263,7 +263,7 @@ class NoteEvent {
       title: _title,
       body: _body,
       sentTime: DateTime.now(),
-      function: NoteFunProtocols.createDeleteAllBzzFlyersLocally(
+      function: NoteFunProtocols.createDeleteAllBzFlyersLocally(
         bzID: bzModel.id,
       ),
       topic: TopicModel.bakeTopicID(

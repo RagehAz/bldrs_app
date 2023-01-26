@@ -168,6 +168,9 @@ class NoteEventsOfBzTeamManagement {
         argument: bzModel.id,
         done: const [],
       ),
+      function: NoteFunProtocols.createDeleteAllBzFlyersLocally(
+          bzID: bzModel.id,
+      ),
     );
 
     await NoteProtocols.composeToOneReceiver(

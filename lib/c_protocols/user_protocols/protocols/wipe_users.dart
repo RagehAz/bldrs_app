@@ -4,9 +4,8 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
-import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/c_team_page/bz_team_page_controllers.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
+import 'package:bldrs/c_protocols/authorship_protocols/f_new_authorship_exit.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
@@ -103,11 +102,11 @@ class WipeUserProtocols {
 
     await Future.wait(<Future>[
 
-      /// ALL AUTHORS PICS
-      _deleteAllMyAuthorPics(
-        context: context,
-        userModel: userModel,
-      ),
+      // /// ALL AUTHORS PICS
+      // _deleteAllMyAuthorPics(
+      //   context: context,
+      //   userModel: userModel,
+      // ),
 
       /// BZZ I CREATED
       _deleteBzzICreatedProtocol(
@@ -134,7 +133,8 @@ class WipeUserProtocols {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// DEPRECATED
+  /*
   static Future<void> _deleteAllMyAuthorPics({
     @required BuildContext context,
     @required UserModel userModel,
@@ -166,6 +166,7 @@ class WipeUserProtocols {
     blog('UserProtocol.deleteAllMyAuthorPics : END');
 
   }
+   */
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _deleteBzzICreatedProtocol({
@@ -240,19 +241,27 @@ class WipeUserProtocols {
             authorID: userModel.id,
           );
 
-          /// TASK => SHOULD REWRITE THE BZ EXIT PROTOCOL
-          return onDeleteAuthorFromBz(
+          return NewAuthorshipExit.onRemoveMySelf(
             context: context,
-            oldBz: _oldBz,
+            bzModel: _oldBz,
             authorModel: _authorModel,
-            showWaitingDialog: false,
-            showConfirmationDialog: false,
-            sendToUserAuthorExitNote: false,
-          ).then((value) => NoteProtocols.unsubscribeFromAllBzTopics(
-            context: context,
-            bzID: _oldBz.id,
-            renovateUser: true,
-          ));
+            showConfirmDialog: false,
+          );
+
+          //
+          // /// TASK => SHOULD REWRITE THE BZ EXIT PROTOCOL
+          // return onDeleteAuthorFromBz(
+          //   context: context,
+          //   oldBz: _oldBz,
+          //   authorModel: _authorModel,
+          //   showWaitingDialog: false,
+          //   showConfirmationDialog: false,
+          //   sendToUserAuthorExitNote: false,
+          // ).then((value) => NoteProtocols.unsubscribeFromAllBzTopics(
+          //   context: context,
+          //   bzID: _oldBz.id,
+          //   renovateUser: true,
+          // ));
 
         }),
 
