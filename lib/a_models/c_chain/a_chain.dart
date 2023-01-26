@@ -30,24 +30,18 @@ class Chain {
     @required dynamic son,
     @required bool isLastSonInPath,
   }) {
-
-
-    if (isLastSonInPath == false){
+    if (isLastSonInPath == false) {
       sons.add(son);
-    }
-
-    else {
+    } else {
       final bool _contains = Stringer.checkStringsContainString(
         strings: Stringer.getStringsFromDynamics(dynamics: sons),
         string: son,
       );
-      if (_contains == false){
+      if (_contains == false) {
         sons.add(son);
       }
     }
-
   }
-
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -57,7 +51,7 @@ class Chain {
   Chain copyWith({
     String id,
     dynamic sons,
-  }){
+  }) {
     return Chain(
       id: id ?? this.id,
       sons: sons ?? this.sons,
@@ -71,13 +65,12 @@ class Chain {
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> cipherBldrsChains({
     @required List<Chain> chains,
-  }){
+  }) {
     Map<String, dynamic> _map = {
       'id': bldrsChainsMapID,
     };
 
-    if (Mapper.checkCanLoopList(chains) == true){
-
+    if (Mapper.checkCanLoopList(chains) == true) {
       final List<String> paths = ChainPathConverter.generateChainsPaths(
         parentID: '',
         chains: chains,
@@ -85,8 +78,7 @@ class Chain {
 
       // Stringer.blogStrings(strings: paths);
 
-      for (int i = 0; i < paths.length; i++){
-
+      for (int i = 0; i < paths.length; i++) {
         final String _path = paths[i];
 
         final String _key = Phider.generatePhidPathUniqueKey(
@@ -95,7 +87,7 @@ class Chain {
         // final String _pathWithPhidIndex =
 
         /// THIS KEY IS UNIQUE
-        if (_map[_key] == null){
+        if (_map[_key] == null) {
           _map = Mapper.insertPairInMap(
             map: _map,
             key: _key,
@@ -108,9 +100,7 @@ class Chain {
           blog('cipherChainSPaths : error here key is taken : _key $_key : ${_map[_key]}');
           throw Error();
         }
-
       }
-
     }
 
     return _map;
@@ -123,7 +113,6 @@ class Chain {
     List<Chain> _bldrsChains;
 
     if (map != null) {
-
       final List<dynamic> _dynamicsValues = map.values.toList();
       _dynamicsValues.remove(RealColl.bldrsChains);
 
@@ -134,7 +123,6 @@ class Chain {
       _bldrsChains = ChainPathConverter.createChainsFromPaths(
         paths: Phider.removePathsIndexes(_paths),
       );
-
     }
 
     return _bldrsChains;
@@ -145,58 +133,50 @@ class Chain {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  Map<String, dynamic> toMapOLD(){
-    return
-      {
-        'id': id,
-        'sons': _cipherSonsOLD(sons),
-      };
+  Map<String, dynamic> toMapOLD() {
+    return {
+      'id': id,
+      'sons': _cipherSonsOLD(sons),
+    };
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static dynamic _cipherSonsOLD(dynamic sons){
+  static dynamic _cipherSonsOLD(dynamic sons) {
     /// can either be DataCreator or List<String> or List<Chain>
     final bool _sonsAreChains = checkIsChains(sons);
     final bool _sonsArePhids = Phider.checkIsPhids(sons);
     final bool _sonsAreDataCreator = DataCreation.checkIsDataCreator(sons);
 
-    if (_sonsAreChains == true){
+    if (_sonsAreChains == true) {
       return cipherChainsOLD(sons); // List<Map<String, dynamic>>
-    }
-    else if (_sonsArePhids == true){
+    } else if (_sonsArePhids == true) {
       return sons; // List<String>
-    }
-    else if ( _sonsAreDataCreator == true){
+    } else if (_sonsAreDataCreator == true) {
       return DataCreation.cipherDataCreator(sons);
-    }
-    else {
+    } else {
       return null;
     }
-
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<Map<String, dynamic>> cipherChainsOLD(List<Chain> chains){
-
+  static List<Map<String, dynamic>> cipherChainsOLD(List<Chain> chains) {
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
-    if (Mapper.checkCanLoopList(chains) == true){
-
-      for (final Chain chain in chains){
+    if (Mapper.checkCanLoopList(chains) == true) {
+      for (final Chain chain in chains) {
         final Map<String, dynamic> _map = chain.toMapOLD();
         _maps.add(_map);
       }
-
     }
 
     return _maps;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Chain decipherChainOLD(Map<String, dynamic> map){
+  static Chain decipherChainOLD(Map<String, dynamic> map) {
     Chain _chain;
 
-    if (map != null){
+    if (map != null) {
       _chain = Chain(
         id: map['id'],
         sons: _decipherSonsOLD(map['sons']),
@@ -207,18 +187,16 @@ class Chain {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static dynamic _decipherSonsOLD(dynamic sons){
+  static dynamic _decipherSonsOLD(dynamic sons) {
     dynamic _output;
 
-    if (sons != null){
-
+    if (sons != null) {
       // blog('_decipherSons  : sons type (${sons.runtimeType.toString()}) : son ($sons)');
 
       /// CHAINS AND STRINGS ARE LIST<dynamic>
-      if (sons is List<dynamic>){
-
+      if (sons is List<dynamic>) {
         /// FIRST SON IS STRING => SONS ARE STRINGS
-        if (sons[0] is String){
+        if (sons[0] is String) {
           _output = Stringer.getStringsFromDynamics(dynamics: sons);
         }
 
@@ -226,33 +204,30 @@ class Chain {
         else {
           _output = decipherChainsOLD(sons);
         }
-
       }
 
       /// DATA CREATOR IS STRING
-      else if (sons is String){
-        final bool _isDataCreator = TextMod.removeTextAfterFirstSpecialCharacter(sons, '_') == 'DataCreator';
-        if (_isDataCreator == true){
+      else if (sons is String) {
+        final bool _isDataCreator =
+            TextMod.removeTextAfterFirstSpecialCharacter(sons, '_') == 'DataCreator';
+        if (_isDataCreator == true) {
           _output = DataCreation.decipherDataCreator(sons);
         }
       }
-
     }
 
-    return  _output;
+    return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<Chain> decipherChainsOLD(List<dynamic> maps){
+  static List<Chain> decipherChainsOLD(List<dynamic> maps) {
     final List<Chain> _chains = <Chain>[];
 
-    if (Mapper.checkCanLoopList(maps) == true){
-
-      for (final Map<String, dynamic> map in maps){
+    if (Mapper.checkCanLoopList(maps) == true) {
+      for (final Map<String, dynamic> map in maps) {
         final Chain _chain = decipherChainOLD(map);
         _chains.add(_chain);
       }
-
     }
 
     return _chains;
@@ -268,7 +243,6 @@ class Chain {
     @required PickerModel picker,
     @required bool onlyUseCityChains,
   }) {
-
     final List<String> _filteredIDs = <String>[];
     Chain _filteredChain = ChainsProvider.proFindChainByID(
       context: context,
@@ -276,27 +250,21 @@ class Chain {
       onlyUseCityChains: onlyUseCityChains,
     );
 
-    if (
-    Mapper.checkCanLoopList(_filteredChain?.sons)
-        &&
-        Mapper.checkCanLoopList(picker?.range)
-    ) {
-
+    if (Mapper.checkCanLoopList(_filteredChain?.sons) && Mapper.checkCanLoopList(picker?.range)) {
       final List<String> _rangeIDs = Stringer.getStringsFromDynamics(
         dynamics: picker.range,
       );
 
       for (final String son in _filteredChain.sons) {
-
         final bool _rangeContainsThisID = Stringer.checkStringsContainString(
-          strings: _rangeIDs,
-          string: son,
-        ) == true;
+              strings: _rangeIDs,
+              string: son,
+            ) ==
+            true;
 
         if (_rangeContainsThisID == true) {
           _filteredIDs.add(son);
         }
-
       }
 
       _filteredChain = Chain(
@@ -313,10 +281,10 @@ class Chain {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkIsChains(dynamic sons){
+  static bool checkIsChains(dynamic sons) {
     bool _areChains = false;
 
-    if (sons.runtimeType.toString() == 'List<Chain>'){
+    if (sons.runtimeType.toString() == 'List<Chain>') {
       _areChains = true;
     }
 
@@ -328,25 +296,21 @@ class Chain {
     @required Chain chain1,
     @required Chain chain2,
     bool blogDifferences = false,
-  }){
+  }) {
     bool _areIdentical = false;
 
-    if (chain1 !=null && chain2 != null){
-
-      if (chain1.id == chain2.id){
-
+    if (chain1 != null && chain2 != null) {
+      if (chain1.id == chain2.id) {
         final bool _chainsSonsAreIdentical = checkChainsSonsAreIdentical(
           chain1: chain1,
           chain2: chain2,
           blogDifferences: blogDifferences,
         );
 
-        if (_chainsSonsAreIdentical == true){
+        if (_chainsSonsAreIdentical == true) {
           _areIdentical = true;
         }
-
       }
-
     }
 
     return _areIdentical;
@@ -357,8 +321,7 @@ class Chain {
     @required Chain chain1,
     @required Chain chain2,
     bool blogDifferences = false,
-  }){
-
+  }) {
     bool _sonsAreIdentical = false;
 
     final bool sonsAisChains = checkIsChains(chain1.sons);
@@ -369,16 +332,11 @@ class Chain {
     final bool sonsBisDataCreator = DataCreation.checkIsDataCreator(chain2.sons);
     final bool sonsBIsPhids = Phider.checkIsPhids(chain2.sons);
 
-    if (
-    sonsAisChains == sonsBisChains
-        &&
-        sonsAisDataCreator == sonsBisDataCreator
-        &&
-        sonsBIsPhids == sonsAisPhids
-    ){
-
+    if (sonsAisChains == sonsBisChains &&
+        sonsAisDataCreator == sonsBisDataCreator &&
+        sonsBIsPhids == sonsAisPhids) {
       /// IF SONS ARE CHAINS
-      if (sonsAisChains == true){
+      if (sonsAisChains == true) {
         _sonsAreIdentical = checkChainsListsAreIdentical(
           chains1: chain1.sons,
           chains2: chain2.sons,
@@ -386,24 +344,23 @@ class Chain {
       }
 
       /// IF SONS ARE PHIDS
-      if (sonsAisPhids == true){
-        _sonsAreIdentical = Mapper.checkListsAreIdentical(
-            list1: chain1.sons,
-            list2: chain2.sons
-        );
+      if (sonsAisPhids == true) {
+        _sonsAreIdentical = Mapper.checkListsAreIdentical(list1: chain1.sons, list2: chain2.sons);
       }
 
       /// IF SONS ARE DATA CREATORS
-      if (sonsAisDataCreator == true){
+      if (sonsAisDataCreator == true) {
         _sonsAreIdentical = chain1.sons?.toString() == chain2.sons?.toString();
       }
-
     }
 
-    if (_sonsAreIdentical == false && blogDifferences == true){
-      blog('xxx ~~~> checkChainsSonsAreIdentical : TAKE CARE : _sonsAreIdentical : $_sonsAreIdentical');
-      blog('xxx ~~~> sonsAisChains : $sonsAisChains : sonsAisDataCreator : $sonsAisDataCreator : sonsAisPhids : $sonsAisPhids');
-      blog('xxx ~~~> sonsBisChains : $sonsBisChains : sonsBisDataCreator : $sonsBisDataCreator : sonsBIsPhids : $sonsBIsPhids');
+    if (_sonsAreIdentical == false && blogDifferences == true) {
+      blog(
+          'xxx ~~~> checkChainsSonsAreIdentical : TAKE CARE : _sonsAreIdentical : $_sonsAreIdentical');
+      blog(
+          'xxx ~~~> sonsAisChains : $sonsAisChains : sonsAisDataCreator : $sonsAisDataCreator : sonsAisPhids : $sonsAisPhids');
+      blog(
+          'xxx ~~~> sonsBisChains : $sonsBisChains : sonsBisDataCreator : $sonsBisDataCreator : sonsBIsPhids : $sonsBIsPhids');
       blog('xxx ~~~> chain1.sons : ${chain1.sons}');
       blog('xxx ~~~> chain2.sons : ${chain2.sons}');
       blog('xxx ~~~> checkChainsSonsAreIdentical - TAMAM KEDA !');
@@ -417,47 +374,32 @@ class Chain {
     @required List<Chain> chains1,
     @required List<Chain> chains2,
     bool blogDifferences = false,
-  }){
+  }) {
     bool _listsAreIdentical = false;
 
-    if (
-    Mapper.checkCanLoopList(chains1) == true
-        &&
-        Mapper.checkCanLoopList(chains2) == true
-    ){
-
-
-
-      if (chains1.length == chains2.length){
-
+    if (Mapper.checkCanLoopList(chains1) == true && Mapper.checkCanLoopList(chains2) == true) {
+      if (chains1.length == chains2.length) {
         // blog('checkChainsListsAreIdentical : chains1.length (${chains1.length}) == chains2.length (${chains2.length})');
 
-        for (int i = 0; i < chains1.length; i++){
-
+        for (int i = 0; i < chains1.length; i++) {
           final bool _twoChainsAreIdentical = checkChainsAreIdentical(
             chain1: chains1[i],
             chain2: chains2[i],
           );
 
-
-          if (_twoChainsAreIdentical == false){
+          if (_twoChainsAreIdentical == false) {
             // final String _areIdentical = _twoChainsAreIdentical ? 'ARE IDENTICAL' : 'ARE NOT IDENTICAL ------------ X OPS X';
             // blog('($i : ${chains1[i].id} ) <=> ( ${chains2[i].id} ) : $_areIdentical');
             _listsAreIdentical = false;
             break;
-          }
-          else {
-
+          } else {
             _listsAreIdentical = true;
           }
-
         }
-
       }
-
     }
 
-    if (_listsAreIdentical == false && blogDifferences == true){
+    if (_listsAreIdentical == false && blogDifferences == true) {
       blogChainsDifferences(
         chains1: chains1,
         chains2: chains2,
@@ -472,28 +414,23 @@ class Chain {
     @required List<Chain> chains1,
     @required List<Chain> chains2,
     bool blogDifferences = true,
-  }){
+  }) {
+    final List<String> _pathsA =
+        ChainPathConverter.generateChainsPaths(parentID: '', chains: chains1);
 
-    final List<String> _pathsA = ChainPathConverter.generateChainsPaths(
-        parentID: '',
-        chains: chains1
-    );
-
-    final List<String> _pathsB = ChainPathConverter.generateChainsPaths(
-        parentID: '',
-        chains: chains2
-    );
+    final List<String> _pathsB =
+        ChainPathConverter.generateChainsPaths(parentID: '', chains: chains2);
 
     // Stringer.blogStrings(strings: _pathsA, invoker: '_pathsA');
     // Stringer.blogStrings(strings: _pathsB, invoker: '_pathsB');
     // blog('checkChainsListPathsAreIdentical : _pathsA.length (${_pathsA.length}) == _pathsB.length (${_pathsB.length})');
 
     final bool _identical = Mapper.checkListsAreIdentical(
-        list1: _pathsA,
-        list2: _pathsB,
+      list1: _pathsA,
+      list2: _pathsB,
     );
 
-    if (_identical == false && blogDifferences == true){
+    if (_identical == false && blogDifferences == true) {
       Stringer.blogStringsListsDifferences(
         strings1: _pathsA,
         strings2: _pathsB,
@@ -501,14 +438,13 @@ class Chain {
     }
 
     return _identical;
-
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkChainsPathsAreIdentical({
     @required Chain chain1,
     @required Chain chain2,
-  }){
+  }) {
     return checkChainsListPathsAreIdentical(
       chains1: [chain1],
       chains2: [chain2],
@@ -519,19 +455,18 @@ class Chain {
   static bool checkChainIncludeThisPhid({
     @required Chain chain,
     @required String phid,
-  }){
+  }) {
     bool _includes = false;
 
-    if (chain != null && phid != null){
-
+    if (chain != null && phid != null) {
       /// IF ITS CHAIN ID
-      if (Phider.removeIndexFromPhid(phid: chain.id) == Phider.removeIndexFromPhid(phid: phid)){
+      if (Phider.removeIndexFromPhid(phid: chain.id) == Phider.removeIndexFromPhid(phid: phid)) {
         _includes = true;
         // blog('boss : chain ${chain.id} includes $phid : $_includes');
       }
 
       /// IF NOT CHAIN ID SEARCH STRINGS SONS
-      else if (Phider.checkIsPhids(chain.sons) == true){
+      else if (Phider.checkIsPhids(chain.sons) == true) {
         _includes = Stringer.checkStringsContainString(
           strings: Phider.removePhidsIndexes(chain.sons),
           string: Phider.removeIndexFromPhid(phid: phid),
@@ -540,17 +475,14 @@ class Chain {
       }
 
       /// IF NOT CHAIN ID SEARCH CHAINS SONS
-      else if (checkIsChains(chain.sons) == true){
+      else if (checkIsChains(chain.sons) == true) {
         _includes = checkChainsIncludeThisPhid(
           chains: chain.sons,
           phid: Phider.removeIndexFromPhid(phid: phid),
         );
         // blog('boss : chain ${chain.id} CHAINS SONS includes $phid : $_includes');
       }
-
-    }
-
-    else {
+    } else {
       blog('boss : chain NULL includes $phid : $_includes');
     }
 
@@ -561,25 +493,19 @@ class Chain {
   static bool checkChainsIncludeThisPhid({
     @required List<Chain> chains,
     @required String phid,
-  }){
+  }) {
     bool _includes = false;
 
-    if (Mapper.checkCanLoopList(chains) == true && phid != null){
+    if (Mapper.checkCanLoopList(chains) == true && phid != null) {
+      for (final Chain chain in chains) {
+        final bool _chainIncludes =
+            checkChainIncludeThisPhid(chain: chain, phid: Phider.removeIndexFromPhid(phid: phid));
 
-      for (final Chain chain in chains){
-
-        final bool _chainIncludes = checkChainIncludeThisPhid(
-            chain: chain,
-            phid: Phider.removeIndexFromPhid(phid: phid)
-        );
-
-        if (_chainIncludes == true){
+        if (_chainIncludes == true) {
           _includes = true;
           break;
         }
-
       }
-
     }
 
     return _includes;
@@ -590,18 +516,24 @@ class Chain {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getChainBlogTreeSpacing(int level){
-
-    final String _space =
-    level == 0 ? '-->' :
-    level == 1 ? '---->' :
-    level == 2 ? '------>' :
-    level == 3 ? '-------->' :
-    level == 4 ? '---------->' :
-    level == 5 ? '------------>' :
-    level == 6 ? '-------------->' :
-    level == 7 ? '---------------->' :
-    '---------------->';
+  static String getChainBlogTreeSpacing(int level) {
+    final String _space = level == 0
+        ? '-->'
+        : level == 1
+            ? '---->'
+            : level == 2
+                ? '------>'
+                : level == 3
+                    ? '-------->'
+                    : level == 4
+                        ? '---------->'
+                        : level == 5
+                            ? '------------>'
+                            : level == 6
+                                ? '-------------->'
+                                : level == 7
+                                    ? '---------------->'
+                                    : '---------------->';
 
     return _space;
   }
@@ -609,75 +541,52 @@ class Chain {
   /// TESTED : WORKS PERFECT
   void blogChain({
     int level = 0,
-  }){
-
+  }) {
     final String _space = getChainBlogTreeSpacing(level);
 
-    if (id != null){
-      if (DataCreation.checkIsDataCreator(sons) == true){
+    if (id != null) {
+      if (DataCreation.checkIsDataCreator(sons) == true) {
         blog('$_space $level : $id : sonsDataCreator :  ${sons.toString()}');
         // blogChains(sons, level: level + 1);
-      }
-
-      else if (Phider.checkIsPhids(sons) == true){
+      } else if (Phider.checkIsPhids(sons) == true) {
         blog('$_space $level : $id : <Phid>${sons.toString()}');
         // blogChains(sons, level: level + 1);
-      }
-
-      else if (checkIsChains(sons) == true){
+      } else if (checkIsChains(sons) == true) {
         blog('$_space $level : <Chain>{$id} :-');
         blogChains(sons, level: level);
-      }
-
-      else {
+      } else {
         blog('$_space $level : $id : sons |${sons.runtimeType}| :  ${sons.toString()}');
       }
-
-    }
-
-    else {
+    } else {
       blog('chain is null');
     }
-
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void blogChains(List<Chain> chains, {int level = 0}){
-
-    if (Mapper.checkCanLoopList(chains) == true){
-
+  static void blogChains(List<Chain> chains, {int level = 0}) {
+    if (Mapper.checkCanLoopList(chains) == true) {
       // int _count = 1;
-      for (final Chain chain in chains){
+      for (final Chain chain in chains) {
         // blog('--- --- --- --- --->>> BLOGGING CHAIN : $_count / ${chains.length} chains');
 
-        chain?.blogChain(level: level+1);
-
+        chain?.blogChain(level: level + 1);
 
         // _count++;
       }
-
-    }
-    else {
+    } else {
       final String _space = getChainBlogTreeSpacing(level);
       blog('$_space $level : NO CHAINS TO BLOG');
     }
-
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void blogChainsPaths(List<Chain> chains){
-
-    if (Mapper.checkCanLoopList(chains) == true){
-
-      final List<String> _paths = ChainPathConverter.generateChainsPaths(
-          parentID: '',
-          chains: chains
-      );
+  static void blogChainsPaths(List<Chain> chains) {
+    if (Mapper.checkCanLoopList(chains) == true) {
+      final List<String> _paths =
+          ChainPathConverter.generateChainsPaths(parentID: '', chains: chains);
 
       ChainPathConverter.blogPaths(_paths);
-
     }
-
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -685,46 +594,39 @@ class Chain {
     @required List<Chain> chains1,
     @required List<Chain> chains2,
     String invoker,
-  }){
+  }) {
     blog('blogChainsDifferences : $invoker :  START');
 
-    if (chains1 == null){
+    if (chains1 == null) {
       blog('--> chains1 is null');
     }
-    if (chains1?.isEmpty == true){
+    if (chains1?.isEmpty == true) {
       blog('--> chains1 is empty');
     }
-    if (chains2 == null){
+    if (chains2 == null) {
       blog('--> chains2 is null');
     }
-    if (chains2?.isEmpty == true){
+    if (chains2?.isEmpty == true) {
       blog('--> chains2 is empty');
     }
-    if (Mapper.checkCanLoopList(chains1) == true && Mapper.checkCanLoopList(chains2) == true){
-
-      if (chains1.length != chains2.length){
+    if (Mapper.checkCanLoopList(chains1) == true && Mapper.checkCanLoopList(chains2) == true) {
+      if (chains1.length != chains2.length) {
         blog('--> chains1.length (${chains1.length}) != chains2.length (${chains2.length})');
       }
 
-
-      for (int i = 0; i < chains1.length; i++){
-
+      for (int i = 0; i < chains1.length; i++) {
         final bool _twoChainsAreIdentical = checkChainsAreIdentical(
           chain1: chains1[i],
           chain2: chains2[i],
         );
 
-        if (_twoChainsAreIdentical == false){
-
-          final String _areIdentical = _twoChainsAreIdentical ? 'ARE IDENTICAL' : 'ARE NOT IDENTICAL ------------ X OPS X';
+        if (_twoChainsAreIdentical == false) {
+          final String _areIdentical =
+              _twoChainsAreIdentical ? 'ARE IDENTICAL' : 'ARE NOT IDENTICAL ------------ X OPS X';
           blog('($i : ${chains1[i].id} ) <=> ( ${chains2[i].id} ) : $_areIdentical');
-
         }
-
       }
-
     }
-
 
     blog('blogChainsDifferences : END');
   }
@@ -733,28 +635,21 @@ class Chain {
   static void blogChainsPathsDifferences({
     @required List<Chain> chains1,
     @required List<Chain> chains2,
-  }){
+  }) {
+    final List<String> _paths1 =
+        ChainPathConverter.generateChainsPaths(parentID: '', chains: chains1);
 
-    final List<String> _paths1 = ChainPathConverter.generateChainsPaths(
-        parentID: '',
-        chains: chains1
-    );
-
-    final List<String> _paths2 = ChainPathConverter.generateChainsPaths(
-        parentID: '',
-        chains: chains2
-    );
+    final List<String> _paths2 =
+        ChainPathConverter.generateChainsPaths(parentID: '', chains: chains2);
 
     Stringer.blogStringsListsDifferences(
-        strings1: _paths1,
-        strings2: _paths2,
+      strings1: _paths1,
+      strings2: _paths2,
     );
-
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void blogSon(dynamic son){
-
+  static void blogSon(dynamic son) {
     final bool _isChain = son is Chain;
     final bool _isChains = Chain.checkIsChains(son);
     final bool _isPhid = Phider.checkIsPhid(son);
@@ -762,27 +657,22 @@ class Chain {
     final bool _isDataCreator = DataCreation.checkIsDataCreator(son);
 
     /// BLOGGING
-    if (_isChains){
+    if (_isChains) {
       final List<Chain> chains = son;
       blog('Chains : ${chains.length} chains');
-    }
-    else if (_isChain){
+    } else if (_isChain) {
       final Chain chain = son;
       blog('chain : ${chain.id}');
-    }
-    else if (_isPhids){
+    } else if (_isPhids) {
       final List<String> _phids = son;
       blog('Phids : $_phids');
-    }
-    else if (_isPhid){
+    } else if (_isPhid) {
       final String phid = son;
       blog('Phid : $phid');
-    }
-    else if (_isDataCreator){
+    } else if (_isDataCreator) {
       final DataCreator dataCreator = son;
       blog('DataCreator : $dataCreator');
     }
-
   }
   // -----------------------------------------------------------------------------
 
@@ -790,15 +680,13 @@ class Chain {
 
   // --------------------
   /// TASK : TEST ME
-  static List<String> getChainsIDs(List<Chain> chains){
+  static List<String> getChainsIDs(List<Chain> chains) {
     final List<String> chainsIDs = <String>[];
 
-    if (Mapper.checkCanLoopList(chains) == true){
-
-      for (final Chain chain in chains){
+    if (Mapper.checkCanLoopList(chains) == true) {
+      for (final Chain chain in chains) {
         chainsIDs.add(chain.id);
       }
-
     }
 
     return chainsIDs;
@@ -807,22 +695,17 @@ class Chain {
   /// TESTED : WORKS PERFECT
   static List<String> getOnlyChainSonsIDs({
     @required Chain chain,
-  }){
-
+  }) {
     /// NOTE : THIS GETS IDS OF ONLY "CHAIN SONS" OF THE GIVEN CHAIN
     final List<String> _chainSonsIDs = <String>[];
 
-    if (chain != null && Mapper.checkCanLoopList(chain.sons) == true){
-
-      for (final dynamic son in chain.sons){
-
-        if (son is Chain){
+    if (chain != null && Mapper.checkCanLoopList(chain.sons) == true) {
+      for (final dynamic son in chain.sons) {
+        if (son is Chain) {
           final Chain _chain = son;
           _chainSonsIDs.add(_chain.id);
         }
-
       }
-
     }
 
     return _chainSonsIDs;
@@ -832,41 +715,29 @@ class Chain {
   static Chain getChainFromChainsByID({
     @required String chainID,
     @required List<Chain> chains,
-  }){
+  }) {
     /// gets first matching "either parent or nested chain" in the input chains trees,
 
     Chain _chain;
 
-    if (Mapper.checkCanLoopList(chains) == true){
-
-
-      for (final Chain chain in chains){
-
-        if (
-            Phider.removeIndexFromPhid(phid: chain?.id)
-            ==
-            Phider.removeIndexFromPhid(phid: chainID)
-        ){
+    if (Mapper.checkCanLoopList(chains) == true) {
+      for (final Chain chain in chains) {
+        if (Phider.removeIndexFromPhid(phid: chain?.id) ==
+            Phider.removeIndexFromPhid(phid: chainID)) {
           _chain = chain;
           break;
-        }
-
-        else if (checkIsChains(chain?.sons) == true){
-
+        } else if (checkIsChains(chain?.sons) == true) {
           final Chain _son = getChainFromChainsByID(
             chainID: Phider.removeIndexFromPhid(phid: chainID),
             chains: chain?.sons,
           );
 
-          if (_son != null){
+          if (_son != null) {
             _chain = _son;
             break;
           }
-
         }
-
       }
-
     }
 
     return _chain;
@@ -876,24 +747,17 @@ class Chain {
   static String getRootChainIDOfPhid({
     @required List<Chain> allChains,
     @required String phid,
-  }){
-
+  }) {
     String _chainID;
 
-    if (Mapper.checkCanLoopList(allChains) == true && phid != null){
+    if (Mapper.checkCanLoopList(allChains) == true && phid != null) {
+      final List<Chain> _chains =
+          ChainPathConverter.findPhidRelatedChains(chains: allChains, phid: phid);
 
-      final List<Chain> _chains = ChainPathConverter.findPhidRelatedChains(
-          chains: allChains,
-          phid: phid
-      );
-
-      if (Mapper.checkCanLoopList(_chains) == true){
-
+      if (Mapper.checkCanLoopList(_chains) == true) {
         final Chain _chain = _chains.first;
         _chainID = _chain.id;
-
       }
-
     }
 
     return _chainID;
@@ -903,28 +767,17 @@ class Chain {
   static List<String> getOnlyChainsIDsFromPhids({
     @required List<Chain> allChains,
     @required List<String> phids,
-  }){
+  }) {
     final List<String> _chainsIDs = <String>[];
 
-    if (
-    Mapper.checkCanLoopList(allChains) == true
-        &&
-        Mapper.checkCanLoopList(phids) == true
-    ){
+    if (Mapper.checkCanLoopList(allChains) == true && Mapper.checkCanLoopList(phids) == true) {
+      for (final String phid in phids) {
+        final String _chainID = getRootChainIDOfPhid(allChains: allChains, phid: phid);
 
-      for (final String phid in phids){
-
-        final String _chainID = getRootChainIDOfPhid(
-            allChains: allChains,
-            phid: phid
-        );
-
-        if (_chainID != null){
+        if (_chainID != null) {
           _chainsIDs.add(_chainID);
         }
-
       }
-
     }
 
     return _chainsIDs;
@@ -934,28 +787,17 @@ class Chain {
   static List<Chain> getChainsFromChainsByIDs({
     List<String> phids,
     List<Chain> allChains,
-  }){
+  }) {
     final List<Chain> _foundChains = <Chain>[];
 
-    if (
-    Mapper.checkCanLoopList(phids) == true
-        &&
-        Mapper.checkCanLoopList(allChains) == true
-    ){
+    if (Mapper.checkCanLoopList(phids) == true && Mapper.checkCanLoopList(allChains) == true) {
+      for (final String id in phids) {
+        final Chain _chain = getChainFromChainsByID(chainID: id, chains: allChains);
 
-      for (final String id in phids){
-
-        final Chain _chain = getChainFromChainsByID(
-            chainID: id,
-            chains: allChains
-        );
-
-        if (_chain != null){
+        if (_chain != null) {
           _foundChains.add(_chain);
         }
-
       }
-
     }
 
     return _foundChains;
@@ -964,26 +806,19 @@ class Chain {
   /// TESTED : WORKS PERFECT
   static List<String> getOnlyPhidsSonsFromChain({
     @required Chain chain,
-  }){
+  }) {
     final List<String> _phids = <String>[];
 
-    if (chain != null){
-
-      if (Phider.checkIsPhids(chain.sons) == true){
-
+    if (chain != null) {
+      if (Phider.checkIsPhids(chain.sons) == true) {
         _phids.addAll(chain.sons);
-
-      }
-      else if (checkIsChains(chain.sons) == true){
-
+      } else if (checkIsChains(chain.sons) == true) {
         final List<String> _allNestedStrings = getOnlyPhidsSonsFromChains(
           chains: chain.sons,
         );
 
         _phids.addAll(_allNestedStrings);
-
       }
-
     }
 
     return _phids;
@@ -992,21 +827,17 @@ class Chain {
   /// TESTED : WORKS PERFECT
   static List<String> getOnlyPhidsSonsFromChains({
     @required List<Chain> chains,
-  }){
+  }) {
     final List<String> _phids = <String>[];
 
-    if (Mapper.checkCanLoopList(chains) == true){
-
-      for (final Chain chain in chains){
-
+    if (Mapper.checkCanLoopList(chains) == true) {
+      for (final Chain chain in chains) {
         final List<String> _strings = getOnlyPhidsSonsFromChain(
           chain: chain,
         );
 
         _phids.addAll(_strings);
-
       }
-
     }
 
     return _phids;
@@ -1020,17 +851,12 @@ class Chain {
   static Chain addChainsToSonsIfPossible({
     @required List<Chain> chainsToAdd,
     @required Chain chainToTake,
-  }){
+  }) {
     Chain _output = chainToTake;
 
-    if (
-    Mapper.checkCanLoopList(chainsToAdd) == true
-        &&
-        chainToTake != null
-        &&
-        checkIsChains(chainToTake.sons) == true
-    ){
-
+    if (Mapper.checkCanLoopList(chainsToAdd) == true &&
+        chainToTake != null &&
+        checkIsChains(chainToTake.sons) == true) {
       final List<Chain> _newSons = <Chain>[
         ...chainToTake.sons,
         ...chainsToAdd,
@@ -1040,7 +866,6 @@ class Chain {
         id: chainToTake.id,
         sons: _newSons,
       );
-
     }
 
     return _output;
@@ -1050,8 +875,7 @@ class Chain {
   static List<String> removeAllChainIDsFromKeywordsIDs({
     @required List<Chain> allChains,
     @required List<String> phids,
-  }){
-
+  }) {
     /// GET ALL CHAINS IDS
     final List<String> _chainsIDs = getOnlyChainsIDsFromPhids(
       allChains: allChains,
@@ -1079,7 +903,6 @@ class Chain {
     @required String newPhid,
     @required Chain sourceChain,
   }) async {
-
     List<String> _modifiedPaths = <String>[];
     // int _numberOfModifiedPaths = 0;
     // final List<String> _pathsContainingOldPhid = ChainPathConverter.findPathsContainingPhid(
@@ -1091,10 +914,8 @@ class Chain {
       chain: sourceChain,
     );
 
-    if (Mapper.checkCanLoopList(_chainPaths)){
-
-      for (int i = 0; i< _chainPaths.length; i++){
-
+    if (Mapper.checkCanLoopList(_chainPaths)) {
+      for (int i = 0; i < _chainPaths.length; i++) {
         final String _path = _chainPaths[i];
 
         final bool _pathContainOldPhid = TextCheck.stringContainsSubString(
@@ -1103,15 +924,14 @@ class Chain {
         );
 
         /// PATH CONTAINS OLD PHID
-        if (_pathContainOldPhid == true){
+        if (_pathContainOldPhid == true) {
           final List<String> _nodes = ChainPathConverter.splitPathNodes(_path);
 
           /// get level / index of the old phid
           final int _index = _nodes.indexOf(oldPhid);
 
           /// loop in all paths
-          if (_index != -1){
-
+          if (_index != -1) {
             // _numberOfModifiedPaths++;
 
             // final bool _result = await CenterDialog.showCenterDialog(
@@ -1142,7 +962,6 @@ class Chain {
             // }
 
           }
-
         }
 
         /// PATH DOES NOT CONTAIN OLD PHID
@@ -1152,9 +971,7 @@ class Chain {
             path: _path,
           );
         }
-
       }
-
     }
 
     final List<Chain> _output = ChainPathConverter.createChainsFromPaths(paths: _modifiedPaths);
@@ -1166,15 +983,14 @@ class Chain {
   static List<Chain> replaceChainInChains({
     @required List<Chain> chains,
     @required Chain chainToReplace,
-  }){
+  }) {
     List<Chain> _output = <Chain>[];
 
-    if (Mapper.checkCanLoopList(chains) == true && chainToReplace != null){
-
+    if (Mapper.checkCanLoopList(chains) == true && chainToReplace != null) {
       final int _index = chains.indexWhere((chain) => chainToReplace.id == chain.id);
 
       /// WHEN NO CHAIN TO UPDATE FOUND
-      if (_index == -1){
+      if (_index == -1) {
         _output = chains;
       }
 
@@ -1184,7 +1000,6 @@ class Chain {
         chains.insert(_index, chainToReplace);
         _output = <Chain>[...chains];
       }
-
     }
 
     return _output;
@@ -1194,22 +1009,18 @@ class Chain {
   static List<Chain> removeAllPhidsNotUsedInThisList({
     @required List<Chain> chains,
     @required List<String> usedPhids,
-  }){
+  }) {
     List<Chain> _output;
 
-    if (chains != null){
-
-      if (Mapper.checkCanLoopList(usedPhids) == true){
-
+    if (chains != null) {
+      if (Mapper.checkCanLoopList(usedPhids) == true) {
         final List<Chain> _foundPathsChains = ChainPathConverter.findPhidsRelatedChains(
           chains: chains,
           phids: usedPhids,
         );
 
         _output = _foundPathsChains;
-
       }
-
     }
 
     return _output;
@@ -1219,28 +1030,24 @@ class Chain {
   static Chain addPathToChain({
     @required Chain chain,
     @required String path,
-  }){
+  }) {
     // blog('addPathToChain : START');
 
     Chain _output = chain;
 
-    if (chain != null && path != null){
-
+    if (chain != null && path != null) {
       final List<String> _chainPaths = ChainPathConverter.generateChainsPaths(
         parentID: chain.id,
         chains: chain.sons,
       );
 
-      final List<String> _updated = ChainPathConverter.addPathToPaths(
-          paths: _chainPaths,
-          path: path
-      );
+      final List<String> _updated =
+          ChainPathConverter.addPathToPaths(paths: _chainPaths, path: path);
 
       _output = ChainPathConverter.createChainFromPaths(
         chainID: chain.id,
         paths: _updated,
       );
-
     }
 
     // blog('addPathToChain : END');
@@ -1251,15 +1058,14 @@ class Chain {
   static List<Chain> addPathToChains({
     @required List<Chain> chains,
     @required String path,
-  }){
+  }) {
     blog('addPathToChains : START');
 
     List<Chain> _output = chains;
 
     // blog('addPathToChains : _output.length : ${_output?.length}');
 
-    if (chains != null && path != null){
-
+    if (chains != null && path != null) {
       final List<String> _chainPaths = ChainPathConverter.generateChainsPaths(
         parentID: '',
         chains: chains,
@@ -1267,13 +1073,10 @@ class Chain {
 
       // blog('addPathToChains : _chainPaths.length : ${_chainPaths.length}');
 
-      final List<String> _updated = ChainPathConverter.addPathToPaths(
-          paths: _chainPaths,
-          path: path
-      );
+      final List<String> _updated =
+          ChainPathConverter.addPathToPaths(paths: _chainPaths, path: path);
 
       // blog('addPathToChains : _updated.length : ${_updated.length}');
-
 
       _output = ChainPathConverter.createChainsFromPaths(
         paths: _updated,
@@ -1285,7 +1088,6 @@ class Chain {
 
     // blog('addPathToChains : _output.length : ${_output.length}');
 
-
     blog('addPathToChains : END');
     return _output;
   }
@@ -1294,26 +1096,20 @@ class Chain {
   static List<Chain> addPathsToChains({
     @required List<Chain> chains,
     @required List<String> paths,
-  }){
+  }) {
     List<Chain> _output = <Chain>[];
 
-    if (Mapper.checkCanLoopList(chains) == true){
-
+    if (Mapper.checkCanLoopList(chains) == true) {
       _output = chains;
 
-      if (Mapper.checkCanLoopList(paths) == true){
-
-        for (final String path in paths){
-
+      if (Mapper.checkCanLoopList(paths) == true) {
+        for (final String path in paths) {
           _output = addPathToChains(
             chains: chains,
             path: path,
           );
-
         }
-
       }
-
     }
 
     return _output;
@@ -1323,13 +1119,12 @@ class Chain {
   static Chain removePathFromChain({
     @required Chain chain,
     @required String path,
-  }){
+  }) {
     // blog('addPathToChain : START');
 
     Chain _output = chain;
 
-    if (chain != null && path != null){
-
+    if (chain != null && path != null) {
       final List<String> _chainPaths = ChainPathConverter.generateChainsPaths(
         parentID: chain.id,
         chains: chain.sons,
@@ -1346,7 +1141,6 @@ class Chain {
         chainID: chain.id,
         paths: _updated,
       );
-
     }
 
     // blog('addPathToChain : END');
@@ -1357,13 +1151,12 @@ class Chain {
   static List<Chain> removePathFromChains({
     @required List<Chain> chains,
     @required String path,
-  }){
+  }) {
     // blog('addPathToChain : START');
 
     List<Chain> _output = chains;
 
-    if (Mapper.checkCanLoopList(chains) == true && path != null){
-
+    if (Mapper.checkCanLoopList(chains) == true && path != null) {
       final List<String> _chainsPaths = ChainPathConverter.generateChainsPaths(
         parentID: '',
         chains: chains,
@@ -1379,7 +1172,6 @@ class Chain {
       _output = ChainPathConverter.createChainsFromPaths(
         paths: _updated,
       );
-
     }
 
     // blog('addPathToChain : END');
@@ -1390,20 +1182,13 @@ class Chain {
   static List<Chain> removePathsFromChains({
     @required List<Chain> chains,
     @required List<String> paths,
-  }){
+  }) {
     List<Chain> _chains = chains;
 
-    if (Mapper.checkCanLoopList(_chains) == true && Mapper.checkCanLoopList(paths) == true){
-
-      for (final String path in paths){
-
-        _chains = removePathFromChains(
-            chains: _chains,
-            path: path
-        );
-
+    if (Mapper.checkCanLoopList(_chains) == true && Mapper.checkCanLoopList(paths) == true) {
+      for (final String path in paths) {
+        _chains = removePathFromChains(chains: _chains, path: path);
       }
-
     }
 
     return _chains;
@@ -1414,19 +1199,13 @@ class Chain {
     @required Chain chain,
     @required String pathToRemove,
     @required String pathToReplace,
-  }){
+  }) {
     Chain _output = chain;
 
-    if (
-    chain !=null
-        &&
-        pathToRemove != null
-        &&
-        pathToReplace != null
-        &&
-        pathToRemove != pathToReplace
-    ){
-
+    if (chain != null &&
+        pathToRemove != null &&
+        pathToReplace != null &&
+        pathToRemove != pathToReplace) {
       final List<String> _chainPaths = ChainPathConverter.generateChainsPaths(
         parentID: chain.id,
         chains: chain.sons,
@@ -1448,7 +1227,6 @@ class Chain {
         chainID: chain.id,
         paths: _afterInsert,
       );
-
     }
 
     return _output;
@@ -1459,19 +1237,13 @@ class Chain {
     @required List<Chain> chains,
     @required String pathToRemove,
     @required String pathToReplace,
-  }){
+  }) {
     List<Chain> _output = chains;
 
-    if (
-    Mapper.checkCanLoopList(chains) == true
-        &&
-        pathToRemove != null
-        &&
-        pathToReplace != null
-        &&
-        pathToRemove != pathToReplace
-    ){
-
+    if (Mapper.checkCanLoopList(chains) == true &&
+        pathToRemove != null &&
+        pathToReplace != null &&
+        pathToRemove != pathToReplace) {
       final List<String> _chainPaths = ChainPathConverter.generateChainsPaths(
         parentID: '',
         chains: chains,
@@ -1492,7 +1264,6 @@ class Chain {
       _output = ChainPathConverter.createChainsFromPaths(
         paths: _afterInsert,
       );
-
     }
 
     return _output;
@@ -1503,12 +1274,10 @@ class Chain {
 
   // --------------------
   /// TEST : WORKS PERFECT
-  static Chain dummyChain(){
-
+  static Chain dummyChain() {
     return const Chain(
       id: 'dummyx',
       sons: <Chain>[
-
         Chain(
           id: 'phid_A',
           sons: <String>['phid_A0', 'phid_A2', 'phid_A1'],
@@ -1546,10 +1315,71 @@ class Chain {
         //   id: 'sons strings keda test',
         //   sons: <String>['phidXX', 'phidYY', 'phidZZ'],
         // ),
-
       ],
     );
+  }
+  // -----------------------------------------------------------------------------
 
+  /// SORTING
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Chain sortChainAlphabetically(Chain chain) {
+    Chain _output = chain;
+
+    if (chain != null && chain.sons != null) {
+
+      final dynamic sons = chain.sons;
+      final bool _sonsAreChains = checkIsChains(sons);
+      final bool _sonsArePhids = Phider.checkIsPhids(sons);
+      final bool _sonsAreDataCreator = DataCreation.checkIsDataCreator(sons);
+
+      if (_sonsAreChains == true) {
+        final List<Chain> _newSons = sortChainsAlphabetically(sons);
+        _output = Chain(
+          id: chain.id,
+          sons: _newSons,
+        );
+      }
+
+      else if (_sonsArePhids == true) {
+        _output = Chain(id: chain.id, sons: Phider.sortPhidsAlphabetically(sons));
+      }
+
+      else if (_sonsAreDataCreator == true) {
+        _output = chain;
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<Chain> sortChainsAlphabetically(List<Chain> chains) {
+    final List<Chain> _output = <Chain>[];
+
+    if (Mapper.checkCanLoopList(chains) == true){
+
+      List<String> _ids = getChainsIDs(chains);
+      _ids = Phider.sortPhidsAlphabetically(_ids);
+
+      for (final String id in _ids){
+
+        Chain _chain = getChainFromChainsByID(
+            chainID: id,
+            chains: chains
+        );
+
+        _chain = sortChainAlphabetically(_chain);
+
+        _output.add(_chain);
+
+      }
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
@@ -1562,14 +1392,13 @@ class Chain {
    */
   // --------------------
   @override
-  bool operator == (Object other){
-
+  bool operator ==(Object other) {
     if (identical(this, other)) {
       return true;
     }
 
     bool _areIdentical = false;
-    if (other is Chain){
+    if (other is Chain) {
       _areIdentical = checkChainsPathsAreIdentical(
         chain1: this,
         chain2: other,
@@ -1580,9 +1409,7 @@ class Chain {
   }
   // --------------------
   @override
-  int get hashCode =>
-      id.hashCode^
-      sons.hashCode;
+  int get hashCode => id.hashCode ^ sons.hashCode;
   // -----------------------------------------------------------------------------
 }
 

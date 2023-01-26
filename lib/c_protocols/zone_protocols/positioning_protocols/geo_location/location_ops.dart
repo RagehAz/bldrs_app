@@ -1,6 +1,6 @@
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/permissions/permits_protocols.dart';
-import 'package:bldrs/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
@@ -49,7 +49,7 @@ class LocationOps {
     // ///
 
     final bool _canGetPosition = await PermitProtocol.fetchLocationPermitA(
-        context: BldrsAppStarter.navigatorKey.currentContext,
+        context: getContext(),
     );
 
     if (_canGetPosition == true){

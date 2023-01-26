@@ -21,9 +21,9 @@ class MyBzScreenPages extends StatelessWidget {
   /// --------------------------------------------------------------------------
   static const List<Widget> pages = <Widget>[
 
-    BzFlyersPage(),
-
     BzAboutPage(),
+
+    BzFlyersPage(),
 
     BzTeamPage(),
 

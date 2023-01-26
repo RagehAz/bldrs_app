@@ -30,8 +30,8 @@ class BzTabber {
   // --------------------
   /// TESTED: WORKS PERFECT
   static const List<BzTab> bzTabsList = <BzTab>[
-    BzTab.flyers,
     BzTab.about,
+    BzTab.flyers,
     BzTab.team,
     BzTab.notes,
     // BzTab.targets,

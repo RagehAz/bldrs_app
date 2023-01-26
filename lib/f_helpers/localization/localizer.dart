@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
@@ -43,8 +44,7 @@ class Localizer {
   Map<String, String> _localizedValues;
   // --------------------
   static Localizer of(BuildContext context) {
-    final BuildContext _context = BldrsAppStarter.navigatorKey.currentContext;
-    return Localizations.of<Localizer>(_context, Localizer);
+    return Localizations.of<Localizer>(getContext(), Localizer);
   }
   // -----------------------------------------------------------------------------
 

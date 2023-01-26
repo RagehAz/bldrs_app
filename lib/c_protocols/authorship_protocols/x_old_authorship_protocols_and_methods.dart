@@ -402,7 +402,7 @@
 //   }) async {
 //
 //     unawaited(TopDialog.showTopDialog(
-//       context: BldrsAppStarter.navigatorKey.currentContext,
+//       context: getContext(),
 //       firstVerse: const Verse(
 //         text: 'phid_author_and_flyers_have_been_removed',
 //         translate: true,
