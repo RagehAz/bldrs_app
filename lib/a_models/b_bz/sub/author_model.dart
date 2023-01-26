@@ -536,10 +536,10 @@ class AuthorModel {
 
     final int _index = getAuthorIndexByAuthorID(
       authors: _output,
-      authorID: authorToReplace.userID,
+      authorID: authorToReplace?.userID,
     );
 
-    if (_index != -1){
+    if (_index != -1 && authorToReplace != null){
 
       _output.removeAt(_index);
       _output.insert(_index, authorToReplace);
@@ -701,16 +701,16 @@ class AuthorModel {
           authorID: authorID
       );
 
-      blog('removeFlyerIDToAuthor : author flyers was : ${_oldAuthor.flyersIDs}');
+      blog('removeFlyerIDToAuthor : author flyers was : ${_oldAuthor?.flyersIDs}');
 
       final List<String> _updatedFlyersIDs = Stringer.removeStringsFromStrings(
-        removeFrom: _oldAuthor.flyersIDs,
+        removeFrom: _oldAuthor?.flyersIDs,
         removeThis: <String>[flyerID],
       );
 
       blog('removeFlyerIDToAuthor : author flyers is : $_updatedFlyersIDs');
 
-      final AuthorModel _newAuthor = _oldAuthor.copyWith(
+      final AuthorModel _newAuthor = _oldAuthor?.copyWith(
         flyersIDs: _updatedFlyersIDs,
       );
 
@@ -1016,8 +1016,9 @@ class AuthorModel {
     if (flyer != null && bzModel != null && myID != null){
 
       final bool _thisIsMyFlyer = flyer.authorID == myID;
+      final bool _imCreator = checkImCreatorInThisBz(bzModel: bzModel);
 
-      if (_thisIsMyFlyer == true){
+      if (_thisIsMyFlyer == true || _imCreator == true){
         _canDelete = true;
       }
 

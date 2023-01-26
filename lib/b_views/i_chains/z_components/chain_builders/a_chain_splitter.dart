@@ -130,6 +130,7 @@ class ChainSplitter extends StatelessWidget {
     // --------------------
     /// IF SONS IS PHIDS
     else if (Phider.checkIsPhids(chainOrChainsOrSonOrSons) == true){
+
       return ChainsBuilder(
         width: _width,
         sons: chainOrChainsOrSonOrSons,

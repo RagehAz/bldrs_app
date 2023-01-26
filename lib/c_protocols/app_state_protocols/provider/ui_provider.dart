@@ -622,7 +622,7 @@ class UiProvider extends ChangeNotifier {
     @required bool notify,
   }){
 
-    final UiProvider _uiProvider = Provider.of<UiProvider>(BldrsAppStarter.navigatorKey.currentContext,
+    final UiProvider _uiProvider = Provider.of<UiProvider>(getContext(),
         listen: false,
     );
 
@@ -701,7 +701,7 @@ bool localAssetExists({
     return true;
   }
 }
-  // --------------------
+// --------------------
 /// TESTED : WORKS PERFECT
 String getLocalAssetPath({
   @required BuildContext context,
@@ -715,5 +715,10 @@ String getLocalAssetPath({
   );
 
   return _path;
+}
+// -----------------------------------------------------------------------------
+/// TESTED : WORKS PERFECT
+BuildContext getContext(){
+  return BldrsAppStarter.navigatorKey.currentContext;
 }
 // -----------------------------------------------------------------------------

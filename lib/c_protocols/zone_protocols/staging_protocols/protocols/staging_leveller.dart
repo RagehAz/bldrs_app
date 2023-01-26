@@ -5,12 +5,12 @@ import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_protocols.dart';
-import 'package:mapper/mapper.dart';
-import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
 
 /*
 
@@ -372,7 +372,7 @@ class StagingLeveller {
         if (Mapper.checkCanLoopList(_districts) == true){
 
           await Dialogs.errorDialog(
-            context: BldrsAppStarter.navigatorKey.currentContext,
+            context: getContext(),
             titleVerse: Verse.plain('Something is seriously going wrong here'),
             bodyVerse: Verse.plain('District stages have not been updated,,, take care !'),
           );
