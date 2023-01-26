@@ -29,7 +29,7 @@ class MyBzScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     /// NO NEED TO REBUILD WHEN BZ MODEL CHANGES
-    final BzzProvider _bzzPro = Provider.of<BzzProvider>(context, listen: false);
+    final BzzProvider _bzzPro = Provider.of<BzzProvider>(context, listen: true);
     final String bzID = _bzzPro.myActiveBz?.id;
     blog('MyBzScreen : bzID : $bzID : initialTab : $initialTab');
     // --------------------
@@ -50,39 +50,38 @@ class MyBzScreen extends StatelessWidget {
       },
       builder: (_, Map<String, dynamic> map){
 
+        final BzModel _bzModel = BzModel.decipherBz(
+          map: map,
+          fromJSON: false,
+        );
 
-        return Selector<BzzProvider, BzModel>(
-          selector: (_, bzzProvider) => bzzProvider.myActiveBz,
-          child: Container(),
-          builder: (_, BzModel _bzModel, Widget child){
+        final bool _authorsContainMyUserID = AuthorModel.checkAuthorsContainUserID(
+          authors: _bzModel?.authors,
+          userID: AuthFireOps.superUserID(),
+        );
 
-            final bool _authorsContainMyUserID = AuthorModel.checkAuthorsContainUserID(
-              authors: _bzModel?.authors,
-              userID: AuthFireOps.superUserID(),
-            );
+        if (_bzModel == null || _authorsContainMyUserID == false){
 
-            if (_bzModel == null || _authorsContainMyUserID == false){
+          blog('my bz screen should go back now yabn el a7ba : $_bzModel : $_authorsContainMyUserID');
 
-              blog('my bz screen should go back now yabn el a7ba : $_bzModel : $_authorsContainMyUserID');
+          return GoBackWidget(
+            onGoBack: () async {
 
-              return GoBackWidget(
-                onGoBack: () async {
+              // /// REF: fuck_this_shit_will_come_back_to_you
+              // if (_authorsContainMyUserID == false){
+              //   await NewAuthorshipExit.onIGotRemoved(
+              //       context: context,
+              //       bzID: bzID,
+              //       isBzDeleted: false, //map == null,
+              //   );
+              // }
 
-                  // /// REF: fuck_this_shit_will_come_back_to_you
-                  // if (_authorsContainMyUserID == false){
-                  //   await NewAuthorshipExit.onIGotRemoved(
-                  //       context: context,
-                  //       bzID: bzID,
-                  //       isBzDeleted: false, //map == null,
-                  //   );
-                  // }
+            },
+          );
 
-                },
-              );
+        }
 
-            }
-
-            else {
+        else {
 
               return ObeliskLayout(
                 initiallyExpanded: true,
@@ -141,9 +140,6 @@ class MyBzScreen extends StatelessWidget {
               );
 
             }
-
-          },
-        );
 
       },
     );

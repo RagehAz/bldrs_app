@@ -6,10 +6,10 @@ import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
@@ -44,8 +44,7 @@ class NoteEventsOfBzFlyersManagement {
       flyerID: flyerID,
     );
 
-    final String _title = await transPhid(
-        context: context,
+    final String _title = await PhraseProtocols.translate(
         phid: 'phid_flyer_has_been_updated',
         langCode: _userModel?.language,
     );
@@ -106,14 +105,12 @@ class NoteEventsOfBzFlyersManagement {
       userID: _bzModel?.authors?.first?.userID,
     );
 
-    final String _title = await transPhid(
-        context: context,
+    final String _title = await PhraseProtocols.translate(
         phid: 'phid_flyer_has_been_verified',
         langCode: _userModel?.language,
     );
 
-    final String _body = await transPhid(
-      context: context,
+    final String _body = await PhraseProtocols.translate(
       phid: 'phid_flyer_is_public_now_and_can_be_seen',
       langCode: _userModel?.language,
     );

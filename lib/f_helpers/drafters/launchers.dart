@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
@@ -10,7 +9,7 @@ import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart' as Launch;
-
+/// => TAMAM
 class Launcher {
   // -----------------------------------------------------------------------------
 
@@ -210,52 +209,17 @@ class Launcher {
     @required BuildContext context,
   }) async {
 
-    final Phrase _tagLinePhrase = await PhraseProtocols.fetchPhid(
-        lang: Localizer.getCurrentLangCode(context),
+    final String _tagLine = await PhraseProtocols.translate(
+        langCode: Localizer.getCurrentLangCode(context),
         phid: 'phid_bldrsTagLine',
     );
 
     await shareURL(
       context: context,
       url: Standards.bldrsWebSiteURL,
-      subject: _tagLinePhrase.value,
+      subject: _tagLine,
     );
 
   }
-  // -----------------------------------------------------------------------------
-  /*
-  // -----------------------------------------------------------------------------
-/// old method test
-void _onShare(BuildContext context) async {
-  // A builder is used to retrieve the context immediately
-  // surrounding the RaisedButton.
-  //
-  // The context's `findRenderObject` returns the first
-  // RenderObject in its descendant tree when it's not
-  // a RenderObjectWidget. The RaisedButton's RenderObject
-  // has its position and size after it's built.
-  final RenderBox box = context.findRenderObject();
-
-  List<String> imagePaths = <String>[Iconz.DumUniverse, Iconz.DumBusinessLogo];
-
-
-  if (imagePaths.isNotEmpty) {
-    await Share.shareFiles(imagePaths,
-        text: 'text',
-        subject: 'subject',
-        sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
-  } else {
-    await Share.share(
-        'text',
-        subject: 'subject',
-        sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
-  }
-}
-/// old method test
-// void _onShareWithEmptyOrigin(BuildContext context) async {
-//   await Share.share("text");
-// }
-  // -----------------------------------------------------------------------------
- */
   // -----------------------------------------------------------------------------
 }

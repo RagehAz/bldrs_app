@@ -13,7 +13,7 @@ import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:stringer/stringer.dart';
-/// => TAAMAM
+/// => TAMAM
 @immutable
 class AuthorModel {
   /// --------------------------------------------------------------------------
