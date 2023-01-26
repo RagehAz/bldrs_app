@@ -68,11 +68,12 @@ class MyBzScreen extends StatelessWidget {
               return GoBackWidget(
                 onGoBack: () async {
 
-                  /// REF: fuck_this_shit_will_come_back_to_you
+                  // /// REF: fuck_this_shit_will_come_back_to_you
                   // if (_authorsContainMyUserID == false){
-                  //   await AuthorshipProtocols.removeMeFromBz(
-                  //       context: BldrsAppStarter.navigatorKey.currentContext,
-                  //       streamedBzModelWithoutMyID: _bzModel
+                  //   await NewAuthorshipExit.onIGotRemoved(
+                  //       context: context,
+                  //       bzID: bzID,
+                  //       isBzDeleted: false, //map == null,
                   //   );
                   // }
 

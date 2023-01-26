@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
+import 'package:bldrs/c_protocols/authorship_protocols/f_new_authorship_exit.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
@@ -106,7 +107,7 @@ class NoteFunProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static TriggerModel createDeleteAllBzzFlyersLocally({
+  static TriggerModel createDeleteAllBzFlyersLocally({
     @required String bzID,
   }){
     return TriggerModel(
@@ -214,12 +215,13 @@ class NoteFunProtocols {
           blog('3--> Switcher : FIRING : END');
           break;
       // ----------
-      /// ADD ME AS NEW AUTHOR TO BZ
+      /// REMOVE BZ TRACES AFTER DELETION
         case funRemoveBzTracesAfterDeletion:
           blog('2--> Switcher : FIRING : REMOVE BZ TRACES FOR (${trigger.argument}) : START');
-          await AuthorshipProtocols.removeBzTracesAfterDeletion(
+          await NewAuthorshipExit.onIGotRemoved(
             context: context,
             bzID: trigger.argument,
+            isBzDeleted: true,
           );
           blog('3--> Switcher : FIRING : END');
           break;

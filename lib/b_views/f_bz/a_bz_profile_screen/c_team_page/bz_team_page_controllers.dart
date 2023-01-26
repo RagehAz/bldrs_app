@@ -1,29 +1,23 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/b_views/f_bz/c_author_editor_screen/a_author_editor_screen.dart';
 import 'package:bldrs/b_views/f_bz/c_author_editor_screen/b_author_role_editor_screen.dart';
 import 'package:bldrs/b_views/f_bz/d_author_search_screen/a_author_search_screen.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
-import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
-import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
-import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
+import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
+import 'package:bldrs/c_protocols/authorship_protocols/f_new_authorship_exit.dart';
+import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs/main.dart';
-import 'package:bldrs/b_views/f_bz/c_author_editor_screen/a_author_editor_screen.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -204,61 +198,78 @@ Future<void> onDeleteAuthorFromBz({
   @required bool sendToUserAuthorExitNote,
 }) async {
 
-  bool _result;
-
-  if (showConfirmationDialog == true){
-    _result = await CenterDialog.showCenterDialog(
+  if (authorModel.userID == AuthFireOps.superUserID()){
+    await NewAuthorshipExit.onRemoveMySelf(
       context: context,
-      titleVerse: Verse(
-        text: '${Verse.transBake(context, 'phid_remove')} ${authorModel.name} ?',
-        translate: false,
-      ),
-      bodyVerse: Verse(
-        text: '${authorModel.name} ${Verse.transBake(context, 'phid_and_all_his_flyers_will_be_deleted_as_well')}',
-        translate: false,
-      ),
-      boolDialog: true,
+      authorModel: authorModel,
+      bzModel: oldBz,
+      showConfirmDialog: true,
     );
   }
+
   else {
-    _result = true;
-  }
-
-  if (_result == true){
-
-    final bool _authorHasFlyers = AuthorModel.checkAuthorHasFlyers(
-      author: authorModel,
+    await NewAuthorshipExit.onRemoveOtherAuthor(
+        context: context,
+        authorModel: authorModel,
+        bzModel: oldBz,
     );
-
-    /// REMOVE AUTHOR HAS FLYERS
-    if (_authorHasFlyers == true){
-
-      await _removeAuthorWhoHasFlyers(
-        context: context,
-        authorModel: authorModel,
-        oldBz: oldBz,
-        showWaitDialog: showWaitingDialog,
-        showConfirmationDialog: showConfirmationDialog,
-        sendToUserAuthorExitNote: sendToUserAuthorExitNote,
-      );
-
-    }
-
-    /// REMOVE AUTHOR HAS NO FLYERS
-    else {
-
-      await _removeAuthorWhoHasNoFlyers(
-        context: context,
-        authorModel: authorModel,
-        oldBz: oldBz,
-        showWaitDialog: showWaitingDialog,
-        showConfirmationDialog: showConfirmationDialog,
-        sendToUserAuthorExitNote: sendToUserAuthorExitNote,
-      );
-
-    }
-
   }
+
+  // bool _result;
+  //
+  // if (showConfirmationDialog == true){
+  //   _result = await CenterDialog.showCenterDialog(
+  //     context: context,
+  //     titleVerse: Verse(
+  //       text: '${Verse.transBake(context, 'phid_remove')} ${authorModel.name} ?',
+  //       translate: false,
+  //     ),
+  //     bodyVerse: Verse(
+  //       text: '${authorModel.name} ${Verse.transBake(context, 'phid_and_all_his_flyers_will_be_deleted_as_well')}',
+  //       translate: false,
+  //     ),
+  //     boolDialog: true,
+  //   );
+  // }
+  // else {
+  //   _result = true;
+  // }
+  //
+  // if (_result == true){
+  //
+  //   final bool _authorHasFlyers = AuthorModel.checkAuthorHasFlyers(
+  //     author: authorModel,
+  //   );
+  //
+  //   /// REMOVE AUTHOR HAS FLYERS
+  //   if (_authorHasFlyers == true){
+  //
+  //     await _removeAuthorWhoHasFlyers(
+  //       context: context,
+  //       authorModel: authorModel,
+  //       oldBz: oldBz,
+  //       showWaitDialog: showWaitingDialog,
+  //       showConfirmationDialog: showConfirmationDialog,
+  //       sendToUserAuthorExitNote: sendToUserAuthorExitNote,
+  //     );
+  //
+  //   }
+  //
+  //   /// REMOVE AUTHOR HAS NO FLYERS
+  //   else {
+  //
+  //     await _removeAuthorWhoHasNoFlyers(
+  //       context: context,
+  //       authorModel: authorModel,
+  //       oldBz: oldBz,
+  //       showWaitDialog: showWaitingDialog,
+  //       showConfirmationDialog: showConfirmationDialog,
+  //       sendToUserAuthorExitNote: sendToUserAuthorExitNote,
+  //     );
+  //
+  //   }
+  //
+  // }
 
 }
 // --------------------
@@ -280,209 +291,6 @@ Future<void> _onShowCanNotRemoveAuthorDialog({
     //   translate: true,
     // ),
   );
-
-}
-// -----------------------------------------------------------------------------
-
-/// DELETE AUTHOR WHO HAS FLYERS
-
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<void> _removeAuthorWhoHasFlyers({
-  @required BuildContext context,
-  @required AuthorModel authorModel,
-  @required BzModel oldBz,
-  @required bool showWaitDialog,
-  @required bool showConfirmationDialog,
-  @required bool sendToUserAuthorExitNote,
-}) async {
-
-  bool _result;
-
-  if (showConfirmationDialog == true){
-    _result = await _showDeleteAllAuthorFlyers(
-      context: context,
-      authorModel: authorModel,
-    );
-  }
-  else {
-    _result = true;
-  }
-
-  if (_result == true){
-
-    if (showWaitDialog == true){
-      pushWaitDialog(
-        context: context,
-        verse: Verse(
-          text: '${Verse.transBake(context, 'phid_removing')} ${authorModel.name}',
-          translate: false,
-        ),
-      );
-    }
-
-    /// DELETE ALL AUTHOR FLYERS EVERY WHERE THEN UPDATE BZ EVERYWHERE
-    final List<FlyerModel> _flyers = await FlyerProtocols.fetchFlyers(
-      context: context,
-      flyersIDs: authorModel.flyersIDs,
-    );
-
-
-    await FlyerProtocols.wipeFlyers(
-      context: context,
-      bzModel: oldBz,
-      showWaitDialog: false,
-      flyers: _flyers,
-      isDeletingBz: false,
-    );
-
-    /// AS WIPE FLYERS RENOVATES BZ,, WE NEED TO REFETCH
-    final BzModel _oldBz = await BzProtocols.refetch(
-        context: context,
-        bzID: oldBz.id,
-    );
-
-    /// REMOVE AUTHOR MODEL FROM BZ MODEL
-    final BzModel _newBz = BzModel.removeAuthor(
-      oldBz: _oldBz,
-      authorID: authorModel.userID,
-    );
-
-    /// UPDATE BZ ON FIREBASE
-    await BzProtocols.renovateBz(
-      context: context,
-      newBz: _newBz,
-      oldBz: _oldBz,
-      navigateToBzInfoPageOnEnd: false,
-      showWaitDialog: false,
-      newLogo: null,
-    );
-
-
-    /// SEND AUTHOR DELETION NOTES
-    await NoteEvent.sendAuthorDeletionNotes(
-      context: context,
-      bzModel: _newBz,
-      deletedAuthor: authorModel,
-      sendToUserAuthorExitNote: sendToUserAuthorExitNote,
-    );
-
-    if (showWaitDialog == true){
-      await WaitDialog.closeWaitDialog(context);
-    }
-
-    /// SHOW CONFIRMATION DIALOG
-    if (showConfirmationDialog == true){
-      await _showAuthorRemovalConfirmationDialog(
-        context: context,
-        bzModel: _newBz,
-        deletedAuthor: authorModel,
-      );
-    }
-
-  }
-
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<bool> _showDeleteAllAuthorFlyers({
-  @required BuildContext context,
-  @required AuthorModel authorModel,
-}) async {
-
-  final bool _result = await CenterDialog.showCenterDialog(
-    context: context,
-    titleVerse: const Verse(
-      text: 'phid_delete_all_flyers',
-      translate: true,
-    ),
-    bodyVerse: Verse(
-      text: '${authorModel.flyersIDs.length} ${Verse.transBake(context, 'flyers_will_be_permanently_deleted')}',
-      translate: false,
-    ),
-    height: 400,
-    boolDialog: true,
-    confirmButtonVerse: Verse(
-      text: '${Verse.transBake(context, 'delete_flyers_and_remove')} ${authorModel.name}',
-      translate: false,
-    ),
-    child: Container(
-      width: CenterDialog.getWidth(context),
-      height: 200,
-      color: Colorz.white10,
-      alignment: Alignment.center,
-      child: FlyersGrid(
-        scrollController: ScrollController(),
-        flyersIDs: authorModel.flyersIDs,
-        scrollDirection: Axis.horizontal,
-        gridWidth: CenterDialog.getWidth(context) - 10,
-        gridHeight: 200,
-        numberOfColumnsOrRows: 1,
-        screenName: 'showDeleteAllAuthorFlyersGrid',
-        isHeroicGrid: true,
-      ),
-    ),
-  );
-
-  return _result;
-}
-// -----------------------------------------------------------------------------
-
-/// DELETE AUTHOR WHO HAS NO FLYERS
-
-// ----------------------------------
-/// TESTED : WORKS PERFECT
-Future<void> _removeAuthorWhoHasNoFlyers({
-  @required BuildContext context,
-  @required AuthorModel authorModel,
-  @required BzModel oldBz,
-  @required bool showConfirmationDialog,
-  @required bool showWaitDialog,
-  @required bool sendToUserAuthorExitNote,
-}) async {
-
-  /// REMOVE AUTHOR MODEL FROM BZ MODEL
-  await AuthorshipProtocols.removeFlyerlessAuthor(
-    context: context,
-    oldBz: oldBz,
-    author: authorModel,
-  );
-
-  /// SEND AUTHOR DELETION NOTES
-  await NoteEvent.sendAuthorDeletionNotes(
-    context: context,
-    bzModel: oldBz,
-    deletedAuthor: authorModel,
-    sendToUserAuthorExitNote: sendToUserAuthorExitNote,
-  );
-
-  /// SHOW CONFIRMATION DIALOG
-  if (showConfirmationDialog == true){
-    await _showAuthorRemovalConfirmationDialog(
-      context: context,
-      bzModel: oldBz,
-      deletedAuthor: authorModel,
-    );
-  }
-
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<void> _showAuthorRemovalConfirmationDialog({
-  @required BuildContext context,
-  @required BzModel bzModel,
-  @required AuthorModel deletedAuthor,
-}) async {
-
-  unawaited(TopDialog.showTopDialog(
-    context: BldrsAppStarter.navigatorKey.currentContext,
-    firstVerse: const Verse(
-      text: 'phid_author_and_flyers_have_been_removed',
-      translate: true,
-    ),
-    color: Colorz.green255,
-    textColor: Colorz.white255,
-  ));
 
 }
 // -----------------------------------------------------------------------------
