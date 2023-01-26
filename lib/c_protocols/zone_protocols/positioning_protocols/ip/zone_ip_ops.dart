@@ -85,7 +85,7 @@ class ZoneIPOps {
           );
 
           /// RECEIVED DATA
-          if (_response.statusCode == 200) {
+          if (_response?.statusCode == 200) {
 
             final Map<String, dynamic> _countryData = json.decode(_response.body);
 
