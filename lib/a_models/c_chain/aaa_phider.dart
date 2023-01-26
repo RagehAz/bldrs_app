@@ -2,11 +2,16 @@
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/c_chain/dd_data_creation.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:mapper/mapper.dart';
 import 'package:numeric/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../x_secondary/phrase_model.dart';
 
 class Phider {
   // -----------------------------------------------------------------------------
@@ -552,7 +557,7 @@ class Phider {
     return _temp == '##';
   }
   // --------------------
-  ///  NEED TEST
+  /// TASK : TEST ME
   static bool checkIsPhidK(String text){
     bool _isPhidK= false;
 
@@ -576,7 +581,7 @@ class Phider {
     return _isPhidK;
   }
   // --------------------
-  ///  NEED TEST
+  /// TASK : TEST ME
   static bool checkIsPhidS(String text){
     bool _isPhidK= false;
 
@@ -601,9 +606,39 @@ class Phider {
   }
   // -----------------------------------------------------------------------------
 
+  /// SORTING ALPHABETICALLY
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> sortPhidsAlphabetically(List<String> phids){
+    List<String> _output = [];
+
+    if (Mapper.checkCanLoopList(phids) == true){
+
+      final BuildContext _context = getContext();
+      final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(_context, listen: false);
+
+      List<Phrase> _phrases = [];
+      for (final String phid in phids){
+        final String _translation = _phraseProvider.translatePhid(phid);
+        final Phrase _phrase = Phrase(id: phid, value: _translation);
+        _phrases.add(_phrase);
+      }
+
+      _phrases = Phrase.sortNamesAlphabetically(_phrases);
+
+      _output = Phrase.getPhrasesIDs(_phrases);
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
   /// GETTER
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String getPossibleID(dynamic son){
 
     String _id;

@@ -1,12 +1,11 @@
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
-import 'package:bldrs/main.dart';
-import 'package:scale/scale.dart';
-
-import 'package:flutter/material.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:flutter/material.dart';
+import 'package:scale/scale.dart';
 /// => TAMAM
 class FlyerDim {
   /// --------------------------------------------------------------------------
@@ -77,8 +76,9 @@ class FlyerDim {
 
       const double _xFlyerBoxHeightRatioToWidth = 1.74;
 
-      final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(BldrsAppStarter.navigatorKey.currentContext);
-      final double _screenWidth = Scale.screenWidth(BldrsAppStarter.navigatorKey.currentContext);
+      final BuildContext context = getContext();
+      final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
+      final double _screenWidth = Scale.screenWidth(context);
       final double _maxFlyerWidth = _screenWidth - 20;
       final double _maxFlyerHeight = _maxFlyerWidth * _xFlyerBoxHeightRatioToWidth;
       final double _maxAllowableFlyerHeight = _screenHeight - 20;

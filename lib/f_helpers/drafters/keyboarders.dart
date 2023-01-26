@@ -1,10 +1,10 @@
 import 'dart:async';
+
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
@@ -76,7 +76,7 @@ class Keyboard {
     /// SOLUTION 4
     // final bool _keyboardIsOn = KeyboardVisibilityProvider.isKeyboardVisible(context);
     /// FINAL SOLUTION ISA
-    final BuildContext _context = BldrsAppStarter.navigatorKey.currentContext;
+    final BuildContext _context = getContext();
     final UiProvider _uiProvider = Provider.of<UiProvider>(_context, listen: false);
     final bool _keyboardIsOn = _uiProvider.keyboardIsOn;
     if (_keyboardIsOn == true){

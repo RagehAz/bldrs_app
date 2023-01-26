@@ -540,7 +540,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
                 context: context,
               );
 
-              // final BuildContext _context = context; //BldrsAppStarter.navigatorKey.currentContext;
+              // final BuildContext _context = context; //getContext();
 
               final Uint8List _bytes = await ScreenshotController().captureFromWidget(
                 // NotePoster(

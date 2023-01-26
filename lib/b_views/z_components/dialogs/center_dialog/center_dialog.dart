@@ -272,6 +272,7 @@ class CenterDialog extends StatelessWidget {
                                   child: title == null ? Container()
                                       :
                                   SuperVerse(
+                                    width: _dialogWidth * 0.9,
                                     verse: title,
                                     color: Colorz.yellow255,
                                     shadow: true,
@@ -294,6 +295,7 @@ class CenterDialog extends StatelessWidget {
                                     width: _dialogWidth,
                                     // height: _bodyZoneHeight,
                                     child: SuperVerse(
+                                      width: _dialogWidth * 0.9,
                                       verse: bodyVerse,
                                       maxLines: 20,
                                       margin: const EdgeInsets.symmetric(
