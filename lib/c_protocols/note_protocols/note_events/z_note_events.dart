@@ -1,21 +1,21 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/x_reviews_controller.dart';
-import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
+import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
+import 'package:bldrs/c_protocols/note_protocols/note_events/bz_flyers_management_note_events.dart';
+import 'package:bldrs/c_protocols/note_protocols/note_events/note_events_of_authorship.dart';
+import 'package:bldrs/c_protocols/note_protocols/note_events/note_events_of_bz_team_management.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.dart';
-import 'package:bldrs/c_protocols/note_protocols/note_events/note_events_of_authorship.dart';
-import 'package:bldrs/c_protocols/note_protocols/note_events/bz_flyers_management_note_events.dart';
-import 'package:bldrs/c_protocols/note_protocols/note_events/note_events_of_bz_team_management.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
 
@@ -123,8 +123,7 @@ class NoteEvent {
       userModel: _myUserModel,
     );
 
-    final String _title = await transPhid(
-      context: context,
+    final String _title = await PhraseProtocols.translate(
       phid: 'phid_you_have_new_flyer_review',
       langCode: _myUserModel?.language,
     );
@@ -182,8 +181,7 @@ class NoteEvent {
       userID: _myAuthorModel.userID,
     );
 
-    final String _title = await transPhid(
-      context: context,
+    final String _title = await PhraseProtocols.translate(
       phid: 'phid_you_have_new_flyer_review',
       langCode: _userModel?.language,
     );
@@ -239,14 +237,12 @@ class NoteEvent {
       userID: bzModel?.authors?.first?.userID,
     );
 
-    final String _title = await transPhid(
-      context: context,
+    final String _title = await PhraseProtocols.translate(
       phid: 'phid_ur_bz_is_verified_now',
       langCode: _userModel?.language,
     );
 
-    final String _body = await transPhid(
-      context: context,
+    final String _body = await PhraseProtocols.translate(
       phid: 'phid_you_may_publish_without_verification',
       langCode: _userModel?.language,
     );

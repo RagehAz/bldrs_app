@@ -478,7 +478,7 @@ class Dialogs {
         text: 'phid_enter_your_password',
         translate: true,
       ),
-      height: Scale.screenHeight(context) * 0.6,
+      height: Scale.screenHeight(context) * 0.7,
       onOk: () async {
 
         await CenterDialog.closeCenterDialog(context);
@@ -745,6 +745,7 @@ class Dialogs {
     @required Verse bodyVerse,
     Verse confirmButtonVerse,
     bool boolDialog = true,
+    bool invertButtons = false,
   }) async {
 
     final bool _result = await CenterDialog.showCenterDialog(
@@ -753,7 +754,8 @@ class Dialogs {
       bodyVerse: bodyVerse,
       boolDialog: boolDialog,
       confirmButtonVerse: confirmButtonVerse,
-      height: Scale.screenHeight(context) * 0.85,
+      invertButtons: invertButtons,
+      height: Scale.screenHeight(context) * 0.7,
       child: UserBanner(
         userModel: userModel,
       ),
@@ -783,7 +785,7 @@ class Dialogs {
       bodyVerse: bodyVerse,
       confirmButtonVerse: confirmButtonVerse,
       boolDialog: boolDialog,
-      height: Scale.screenHeight(context) * 0.85,
+      height: Scale.screenHeight(context) * 0.7,
       invertButtons: invertButtons,
       child: BzBanner(
         boxWidth: CenterDialog.clearWidth(context),
@@ -805,6 +807,7 @@ class Dialogs {
     @required Verse bodyVerse,
     Verse confirmButtonVerse,
     bool boolDialog = true,
+    bool invertButtons = false,
   }) async {
 
     final double _gridHeight = Scale.screenHeight(context) * 0.5;
@@ -815,7 +818,8 @@ class Dialogs {
       bodyVerse: bodyVerse,
       confirmButtonVerse: confirmButtonVerse,
       boolDialog: boolDialog,
-      height: Scale.screenHeight(context) * 0.85,
+      invertButtons: invertButtons,
+      height: Scale.screenHeight(context) * 0.7,
       child: Container(
         width: CenterDialog.getWidth(context),
         height: _gridHeight,
@@ -869,7 +873,7 @@ class Dialogs {
         text: 'phid_cancel',
         translate: true,
       ),
-      height: Scale.screenHeight(context) * 0.8,
+      height: Scale.screenHeight(context) * 0.7,
       child: Container(
         width: CenterDialog.getWidth(context),
         height: _gridHeight,
@@ -918,7 +922,7 @@ class Dialogs {
       bodyVerse: bodyVerse,
       boolDialog: boolDialog,
       confirmButtonVerse: confirmButtonVerse,
-      height: Scale.screenHeight(context) * 0.85,
+      height: Scale.screenHeight(context) * 0.7,
       child: Container(
         width: CenterDialog.getWidth(context),
         height: _gridHeight,

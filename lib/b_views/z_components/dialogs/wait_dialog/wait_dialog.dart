@@ -23,7 +23,7 @@ void pushWaitDialog({
 }
 
 void closeWaitDialog(BuildContext context){
-  unawaited(WaitDialog.closeWaitDialog(context));
+  unawaited(WaitDialog.closeWaitDialog(BldrsAppStarter.navigatorKey.currentContext));
 }
 
 class WaitDialog extends StatelessWidget {

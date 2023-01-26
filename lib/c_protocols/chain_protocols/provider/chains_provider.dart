@@ -8,12 +8,11 @@ import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/protocols/a_chain_protocols.dart';
 import 'package:bldrs/c_protocols/city_phids_protocols/real/city_phids_real_ops.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/ldb/phrase_ldb_ops.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/c_protocols/picker_protocols/protocols/picker_protocols.dart';
-import 'package:mapper/mapper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
 // final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
@@ -872,25 +871,6 @@ class ChainsProvider extends ChangeNotifier {
     return _chainsProvider.getPhidIcon(context: context, son: son);
   }
   // -----------------------------------------------------------------------------o
-}
-
-Future<String> transPhid({
-  @required BuildContext context,
-  @required String phid,
-  @required String langCode,
-}) async {
-
-  // final Phrase _phrase = await PhraseProtocols.fetchPhid(
-  //     phid: phid,
-  //     lang: langCode,
-  // );
-
-  final Phrase _phrase = await PhraseLDBOps.searchPhraseByIDAndCode(
-    phid: phid,
-    langCode: langCode ?? 'en',
-  );
-
-  return _phrase?.value;
 }
 
 /*
