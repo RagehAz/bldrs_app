@@ -62,10 +62,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "37ac82e8107c4b724b836a0d250216ae03145d0f"
+      resolved-ref: b25ba7bce17dee0901ed502cb2a62d305bd608fb
       url: "https://github.com/RagehAz/bldrs_theme.git"
     source: git
-    version: "1.0.2"
+    version: "1.0.3"
   boolean_selector:
     dependency: transitive
     description:
@@ -837,10 +837,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "3ee1e4a2286d9bca42f38022648a47d64ab91652"
+      resolved-ref: "45640d87389684fb3993e33ece03dbdfc26bda43"
       url: "https://github.com/RagehAz/mapper.git"
     source: git
-    version: "0.0.4"
+    version: "0.0.5"
   matcher:
     dependency: transitive
     description:
@@ -1221,10 +1221,19 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "99eeee7994fabceb1f59aef3485f2b2990e61092"
+      resolved-ref: ca9b15f5f7a36887f9fe9e86ba2e0aabceb983df
       url: "https://github.com/RagehAz/stringer.git"
     source: git
-    version: "0.0.2"
+    version: "0.0.3"
+  super_box:
+    dependency: transitive
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: d3d64890d356156e5f55fed76bce54771a053515
+      url: "https://github.com/RagehAz/super_box.git"
+    source: git
+    version: "0.0.3"
   super_image:
     dependency: "direct main"
     description:
@@ -1234,6 +1243,15 @@ packages:
       url: "https://github.com/RagehAz/super_image.git"
     source: git
     version: "0.0.4"
+  super_text:
+    dependency: transitive
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: d41c20296fb904c17e53bc6fe33ba4f337abb1e4
+      url: "https://github.com/RagehAz/super_text.git"
+    source: git
+    version: "0.0.3"
   synchronized:
     dependency: transitive
     description:
