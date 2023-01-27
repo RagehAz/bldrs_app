@@ -7,6 +7,7 @@ import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
@@ -114,10 +115,6 @@ class DynamicLinks {
       final String _link = dynamicLinkData?.link?.path;
 
       blogPendingDynamicLinkData(dynamicLinkData);
-      // await Dialogs.centerNotice(
-      //     context: context,
-      //     verse: Verse.plain('onLink : $_link, and can navigate baby'),
-      // );
 
       await _jumpByReceivedDynamicLink(
         link: _link,
@@ -143,36 +140,39 @@ class DynamicLinks {
     /// /user-page/userID
     /// /business-page/bzID
 
-    if (link != null){
+    if (link != null) {
 
-      final List<String> _nodes = ChainPathConverter.splitPathNodes(link);
+      final bool _canNav = UiProvider.proGetCanNavOnDynamicLink();
 
-      if (Mapper.checkCanLoopList(_nodes) == true){
+      if (_canNav == true) {
 
-        final String _firstNode = _nodes.first;
+        UiProvider.proSetCanNavOnDynamicLink(
+          setTo: false,
+          notify: true,
+        );
 
-        if (_firstNode == flyer_page){
-          await BldrsShareLink.jumpToFlyerScreenByLink(
+        final List<String> _nodes = ChainPathConverter.splitPathNodes(link);
+
+        if (Mapper.checkCanLoopList(_nodes) == true) {
+          final String _firstNode = _nodes.first;
+
+          if (_firstNode == flyer_page) {
+            await BldrsShareLink.jumpToFlyerScreenByLink(
               link: link,
-          );
-        }
-
-        else if (_firstNode == user_page){
-          await BldrsShareLink.jumpToUserScreenByLink(
+            );
+          } else if (_firstNode == user_page) {
+            await BldrsShareLink.jumpToUserScreenByLink(
               link: link,
-          );
-        }
-
-        else if (_firstNode == bz_page){
-          await BldrsShareLink.jumpToBzScreenByLink(
+            );
+          } else if (_firstNode == bz_page) {
+            await BldrsShareLink.jumpToBzScreenByLink(
               link: link,
-          );
+            );
+          }
         }
 
       }
-
     }
-
   }
   // -----------------------------------------------------------------------------
 
