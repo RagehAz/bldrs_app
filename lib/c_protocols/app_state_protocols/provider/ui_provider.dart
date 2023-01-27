@@ -542,6 +542,49 @@ class UiProvider extends ChangeNotifier {
   }
   // -----------------------------------------------------------------------------
 
+  /// NAV ON DYNAMIC LINK
+
+  // --------------------
+  bool _canNavOnDynamicLink = true;
+  bool get canNavOnDynamicLink => _canNavOnDynamicLink;
+  // --------------------
+  ///
+  void _setCanDynamicNav({
+    @required bool setTo,
+    @required bool notify,
+  }){
+
+    if (_canNavOnDynamicLink != setTo){
+      _canNavOnDynamicLink = setTo;
+    }
+
+    if (notify == true){
+      notifyListeners();
+    }
+
+  }
+  // --------------------
+  ///
+  static void proSetCanNavOnDynamicLink({
+    @required bool setTo,
+    @required bool notify,
+  }){
+
+    final UiProvider _uiProvider = Provider.of<UiProvider>(getContext(), listen: false);
+    _uiProvider._setCanDynamicNav(
+      setTo: setTo,
+      notify: notify,
+    );
+
+  }
+  // --------------------
+  ///
+  static bool proGetCanNavOnDynamicLink(){
+    final UiProvider _uiProvider = Provider.of<UiProvider>(getContext(), listen: false);
+    return _uiProvider.canNavOnDynamicLink;
+  }
+  // -----------------------------------------------------------------------------
+
   /// IMAGES
 
   // --------------------
@@ -631,6 +674,7 @@ class UiProvider extends ChangeNotifier {
       notify: notify,
     );
   }
+
   // -----------------------------------------------------------------------------
 
   /// WIPE OUT
