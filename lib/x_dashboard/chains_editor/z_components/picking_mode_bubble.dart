@@ -110,7 +110,7 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
         flyerTypes: [_selectedType],
     );
 
-    _typesStrings = Stringer.sortAlphabetically2(_typesStrings);
+    _typesStrings = Stringer.sortAlphabetically(_typesStrings);
     final String _typesString = Stringer.generateStringFromStrings(strings: _typesStrings) ?? 'All Flyer Types';
 
     final String _cityString = _onlyCityChains == true ? 'City Chains' : 'All Chains';

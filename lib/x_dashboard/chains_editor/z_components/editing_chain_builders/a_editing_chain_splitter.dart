@@ -5,12 +5,11 @@ import 'package:bldrs/a_models/c_chain/dd_data_creation.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/f_phid_button.dart';
 import 'package:bldrs/b_views/i_chains/z_components/chain_builders/a_chain_splitter.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
-import 'package:bldrs/b_views/z_components/artworks/bldrs_name.dart';
+import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:numeric/numeric.dart';
 import 'package:stringer/stringer.dart';
-
 import 'package:bldrs/x_dashboard/chains_editor/z_components/editing_chain_builders/c_editing_chain_builder.dart';
 import 'package:bldrs/x_dashboard/chains_editor/z_components/editing_chain_builders/b_editing_chains_builder.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
@@ -205,7 +204,7 @@ class EditingChainSplitter extends StatelessWidget {
     /// OTHERWISE
     else {
 
-      return const BldrsName(size: 40);
+      return const NoResultFound();
 
     }
     // --------------------
