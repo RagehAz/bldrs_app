@@ -34,6 +34,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
+      //https://bldrs.page.link/qdX1
 const String bldrsAppVersion = '3.0.5';
 
 Future<void> main() async {
