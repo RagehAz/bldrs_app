@@ -136,10 +136,10 @@ class Staging {
   }){
 
     Map<String, dynamic> _map = {
-      '1_empty_stage': Stringer.sortAlphabetically2(emptyStageIDs),
-      '2_bzz_stage': Stringer.sortAlphabetically2(bzzStageIDs),
-      '3_flyers_stage': Stringer.sortAlphabetically2(flyersStageIDs),
-      '4_public_stage': Stringer.sortAlphabetically2(publicStageIDs),
+      '1_empty_stage': Stringer.sortAlphabetically(emptyStageIDs),
+      '2_bzz_stage': Stringer.sortAlphabetically(bzzStageIDs),
+      '3_flyers_stage': Stringer.sortAlphabetically(flyersStageIDs),
+      '4_public_stage': Stringer.sortAlphabetically(publicStageIDs),
     };
 
     if (toLDB) {
