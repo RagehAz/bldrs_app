@@ -173,25 +173,22 @@ class Nav {
 
     await CacheOps.wipeCaches();
 
-    if (context != null){
-      blog('Nav.goBack : invoker : $invoker');
-
-
-      if (addPostFrameCallback == true){
+    if (addPostFrameCallback == true){
         SchedulerBinding.instance.addPostFrameCallback((_) {
-          final BuildContext _context = getContext();
-          Navigator.pop(_context, passedData);
+          Navigator.pop(getContext(), passedData);
         });
       }
 
-      else {
+    else {
         await Future.delayed(Duration.zero, (){
-          Navigator.pop(context, passedData);
+          Navigator.pop(getContext(), passedData);
         });
       }
 
-
-    }
+    UiProvider.proSetCanNavOnDynamicLink(
+        setTo: true,
+        notify: true,
+      );
 
   }
   // --------------------
@@ -658,6 +655,8 @@ class Nav {
   }) async {
 
     if (flyerID != null){
+
+      blog('jumping to flyer preview screen');
 
       await Nav.goToNewScreen(
         context: getContext(),
