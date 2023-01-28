@@ -12,6 +12,7 @@ class AnimateWidgetToMatrix extends StatelessWidget {
     this.curve = Curves.easeInExpo,
     this.onAnimationEnds,
     this.replayOnRebuild = false,
+    this.repeat = true,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -23,6 +24,7 @@ class AnimateWidgetToMatrix extends StatelessWidget {
   final Curve curve;
   final Function onAnimationEnds;
   final bool replayOnRebuild;
+  final bool repeat;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -34,6 +36,7 @@ class AnimateWidgetToMatrix extends StatelessWidget {
         curve: curve,
         onAnimationEnds: onAnimationEnds,
         replayOnRebuild: replayOnRebuild,
+        repeat: repeat,
         child: child,
       );
     }
@@ -60,6 +63,7 @@ class _AnimatedChild extends StatefulWidget {
     @required this.curve,
     @required this.onAnimationEnds,
     @required this.replayOnRebuild,
+    @required this.repeat,
     // @required this.origin,
     Key key
   }) : super(key: key);
@@ -70,6 +74,7 @@ class _AnimatedChild extends StatefulWidget {
   final Curve curve;
   final Function onAnimationEnds;
   final bool replayOnRebuild;
+  final bool repeat;
   // final Offset origin;
   /// --------------------------------------------------------------------------
   @override
@@ -123,7 +128,13 @@ class __AnimatedChildState extends State<_AnimatedChild> with TickerProviderStat
   Future<void> play() async {
 
     // blog('should play the damn animation : ${_animationController.value}');
-    await _animationController.forward(from: 0);
+
+    if (widget.repeat == true){
+      await _animationController.repeat(reverse: false);
+    }
+    else {
+      await _animationController.forward(from: 0);
+    }
 
     if (widget.onAnimationEnds != null){
       widget.onAnimationEnds();

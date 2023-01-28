@@ -349,7 +349,7 @@ class SpecModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   void blogSpec() {
-    blog('BLOGGING SPEC : specsListID : ( $pickerChainID ) : value : ( ${value.toString()} )');
+    blog('BLOGGING SPEC : specsListID : ( $pickerChainID ) : value : ( $value )');
   }
   // --------------------
   /// TESTED : WORKS PERFECT

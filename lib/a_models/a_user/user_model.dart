@@ -801,8 +801,8 @@ class UserModel {
     zone?.blogZone();
     need?.blogNeed();
     blog('contactsArePublic : $contactsArePublic');
-    blog('savedFlyers : ${savedFlyers?.toString()}');
-    blog('followedBzz : ${followedBzz.toString()}');
+    blog('savedFlyers : $savedFlyers');
+    blog('followedBzz : $followedBzz');
     ContactModel.blogContacts(
       contacts: contacts,
       invoker: 'user contacts',

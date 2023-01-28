@@ -130,7 +130,7 @@ class MapModel{
 
   // --------------------
   void blogMapModel(){
-    blog('< $key : ${value.toString()} >');
+    blog('< $key : $value >');
   }
   // --------------------
   static void blogMapModels({
@@ -429,7 +429,7 @@ class MapModel{
 
   // --------------------
   @override
-  String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+  String toString() => 'MapModel(key: $key, value: $value)';
   // --------------------
   @override
   bool operator == (Object other){

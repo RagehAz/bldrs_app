@@ -55,6 +55,7 @@ class SlideImage extends StatelessWidget {
             flyerBoxHeight: flyerBoxHeight,
           ),
           canAnimate: canAnimateMatrix,
+          repeat: false,
           child: SuperFilteredImage(
             width: flyerBoxWidth,
             height: flyerBoxHeight,
