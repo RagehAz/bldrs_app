@@ -159,7 +159,7 @@ class SlideModel {
         'filterID : ($filterID) : '
         'picFit : ($picFit) : '
         'hasCustomMatrix : (${matrix != Matrix4.identity()}) : '
-        'animationCurve : (${animationCurve.toString()}) : '
+        'animationCurve : ($animationCurve) : '
         'width : (${dimensions?.width}) : '
         'height : (${dimensions?.height}) : '
     );

@@ -136,10 +136,10 @@ class _PDFScreenState extends State<PDFScreen> {
                   );
                 },
                 onError: (dynamic error){
-                  blog('onError : error.runtimeType : ${error.runtimeType} : error : ${error.toString()}');
+                  blog('onError : error.runtimeType : ${error.runtimeType} : error : $error');
                 },
                 onPageError: (int x, dynamic error){
-                  blog('onPageError : x : $x : error.runtimeType : ${error.runtimeType} : error : ${error.toString()}');
+                  blog('onPageError : x : $x : error.runtimeType : ${error.runtimeType} : error : $error}');
                 },
                 onLinkHandler: (String link){
                   blog('onLinkHandler : link : $link');

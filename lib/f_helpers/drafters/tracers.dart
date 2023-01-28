@@ -11,7 +11,7 @@ void blog(dynamic msg, {String invoker}){
   assert((){
     // log(msg.toString());
     // ignore: avoid_print
-    print(msg?.toString());
+    print(msg);
     return true;
   }(), '_');
 

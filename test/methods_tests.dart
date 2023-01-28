@@ -406,7 +406,7 @@ void main() {
 
     final List<String> _expectation = <String>['#VAR01', '#VAR02'];
 
-    blog('things are ${_things.toString()}');
+    blog('things are $_things');
 
     // final bool _base65IsNotURL = ObjectChecker.objectIsURL(_base64) == false;
 

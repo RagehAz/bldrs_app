@@ -38,7 +38,7 @@ class Trinity {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogMatrix(Matrix4 matrix){
-    blog('BLOGGING MATRIX\n${matrix.toString()}');
+    blog('BLOGGING MATRIX\n$matrix');
   }
   // -----------------------------------------------------------------------------
 

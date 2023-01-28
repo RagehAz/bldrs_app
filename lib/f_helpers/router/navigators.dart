@@ -690,7 +690,7 @@ class Nav {
 
      */
 
-    blog('jumpToFlyerReviewScreen  the damn route is : ${flyerIDAndReviewID.toString()}');
+    blog('jumpToFlyerReviewScreen  the damn route is : $flyerIDAndReviewID');
 
     assert(flyerIDAndReviewID != null, 'flyerIDAndReviewID is null');
     assert(flyerIDAndReviewID is String, 'flyerIDAndReviewID is not a String');
