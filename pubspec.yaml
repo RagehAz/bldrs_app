@@ -4,10 +4,10 @@ publish_to: "none"
 # --------------------------------------------------------------------------------
 # https://developer.android.com/studio/publish/versioning
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 3.0.0
+version: 3.0.6
 # INSTRUCTIONS WHEN CHANGING APP VERSION
-# -> change in ios/runner/info.pList
-# -> change in Standards.appVersion;
+# -> change in ios/runner/info.pList ( CFBundleVersion )
+# -> change in Standards.appVersion; ( bldrsAppVersion )
 # --------------------------------------------------------------------------------
 environment:
   sdk: ">=2.10.5 <3.0.0"
