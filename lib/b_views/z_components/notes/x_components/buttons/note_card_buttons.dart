@@ -65,6 +65,13 @@ class NoteCardButtons extends StatelessWidget {
         );
       }
 
+      else if (noteModel.poll.reply == PollModel.expired){
+        _output = const Verse(
+          text: 'phid_expired',
+          translate: true,
+        );
+      }
+
       else {
         _output = Verse(
           text: noteModel.poll.reply,
