@@ -287,9 +287,7 @@ Future<bool> reAuthenticateUser({
 
       /// NO PASSWORD PROVIDED
       if (_passwordIsCorrect == null){
-
         _canContinue = false;
-
       }
 
       /// ON WRONG PASSWORD
@@ -334,7 +332,7 @@ Future<bool> _checkPassword({
 
   final String _password = await Dialogs.showPasswordDialog(context);
 
-  if (_password.isNotEmpty == true){
+  if (_password?.isNotEmpty == true){
 
     final AuthModel _authModel = await AuthLDBOps.readAuthModel();
 

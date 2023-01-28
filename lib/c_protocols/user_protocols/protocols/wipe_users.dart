@@ -236,28 +236,11 @@ class WipeUserProtocols {
             authorID: userModel.id,
           );
 
-          /// TASK : onRemoveMyselfWhileDeletingMyUserAccount
-          return NewAuthorshipExit.onRemoveMySelf(
+          return NewAuthorshipExit.onRemoveMyselfWhileDeletingMyUserAccount(
             context: context,
             bzModel: _oldBz,
             authorModel: _authorModel,
-            showConfirmDialog: false,
           );
-
-          //
-          // /// TASK => SHOULD REWRITE THE BZ EXIT PROTOCOL
-          // return onDeleteAuthorFromBz(
-          //   context: context,
-          //   oldBz: _oldBz,
-          //   authorModel: _authorModel,
-          //   showWaitingDialog: false,
-          //   showConfirmationDialog: false,
-          //   sendToUserAuthorExitNote: false,
-          // ).then((value) => NoteProtocols.unsubscribeFromAllBzTopics(
-          //   context: context,
-          //   bzID: _oldBz.id,
-          //   renovateUser: true,
-          // ));
 
         }),
 
@@ -282,13 +265,6 @@ class WipeUserProtocols {
     blog('UserProtocol._deleteNonAuthorUserProtocol : START');
 
     await Future.wait(<Future>[
-
-      /// UNSUBSCRIBE
-      NoteProtocols.unsubscribeFromAllBzzTopics(
-        renovateUser: false,
-        context: context,
-        bzzIDs: userModel.myBzzIDs,
-      ),
 
       /// WIPE NOTES
       NoteProtocols.wipeAllNotes(
