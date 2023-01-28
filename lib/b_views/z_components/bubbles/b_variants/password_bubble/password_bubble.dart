@@ -18,6 +18,7 @@ class PasswordBubbles extends StatelessWidget {
     @required this.confirmPasswordNode,
     this.boxWidth,
     this.isTheSuperKeyboardField = false,
+    this.goOnKeyboardGo = true,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -32,9 +33,24 @@ class PasswordBubbles extends StatelessWidget {
   final AppBarType appBarType;
   final FocusNode passwordNode;
   final FocusNode confirmPasswordNode;
+  final bool goOnKeyboardGo;
+  /// --------------------------------------------------------------------------
+  TextInputAction _getTextInputAction(){
+
+    if (showPasswordOnly == true){
+      return goOnKeyboardGo ? TextInputAction.go : TextInputAction.next;
+    }
+
+    else {
+      return TextInputAction.next;
+    }
+
+  }
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    final TextInputAction _keyboardAction = _getTextInputAction();
 
     return Column(
 
@@ -55,7 +71,7 @@ class PasswordBubbles extends StatelessWidget {
           textController: passwordController,
           textDirection: TextDirection.ltr,
           keyboardTextInputType: TextInputType.visiblePassword,
-          keyboardTextInputAction: showPasswordOnly ? TextInputAction.go : TextInputAction.next,
+          keyboardTextInputAction: _keyboardAction,
           validator: passwordValidator,
           bulletPoints: const <Verse>[
             Verse(text: 'phid_min6Char', translate: true,),
@@ -92,7 +108,7 @@ class PasswordBubbles extends StatelessWidget {
             textController: passwordConfirmationController,
             textDirection: TextDirection.ltr,
             keyboardTextInputType: TextInputType.visiblePassword,
-            keyboardTextInputAction: TextInputAction.done,
+            keyboardTextInputAction: _keyboardAction,
             validator: passwordConfirmationValidator,
             bulletPoints: const <Verse>[
               Verse(text: 'phid_min6Char', translate: true),

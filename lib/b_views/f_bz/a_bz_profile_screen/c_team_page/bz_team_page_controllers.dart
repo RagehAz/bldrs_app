@@ -217,62 +217,6 @@ Future<void> onDeleteAuthorFromBz({
     );
   }
 
-  // bool _result;
-  //
-  // if (showConfirmationDialog == true){
-  //   _result = await CenterDialog.showCenterDialog(
-  //     context: context,
-  //     titleVerse: Verse(
-  //       text: '${Verse.transBake(context, 'phid_remove')} ${authorModel.name} ?',
-  //       translate: false,
-  //     ),
-  //     bodyVerse: Verse(
-  //       text: '${authorModel.name} ${Verse.transBake(context, 'phid_and_all_his_flyers_will_be_deleted_as_well')}',
-  //       translate: false,
-  //     ),
-  //     boolDialog: true,
-  //   );
-  // }
-  // else {
-  //   _result = true;
-  // }
-  //
-  // if (_result == true){
-  //
-  //   final bool _authorHasFlyers = AuthorModel.checkAuthorHasFlyers(
-  //     author: authorModel,
-  //   );
-  //
-  //   /// REMOVE AUTHOR HAS FLYERS
-  //   if (_authorHasFlyers == true){
-  //
-  //     await _removeAuthorWhoHasFlyers(
-  //       context: context,
-  //       authorModel: authorModel,
-  //       oldBz: oldBz,
-  //       showWaitDialog: showWaitingDialog,
-  //       showConfirmationDialog: showConfirmationDialog,
-  //       sendToUserAuthorExitNote: sendToUserAuthorExitNote,
-  //     );
-  //
-  //   }
-  //
-  //   /// REMOVE AUTHOR HAS NO FLYERS
-  //   else {
-  //
-  //     await _removeAuthorWhoHasNoFlyers(
-  //       context: context,
-  //       authorModel: authorModel,
-  //       oldBz: oldBz,
-  //       showWaitDialog: showWaitingDialog,
-  //       showConfirmationDialog: showConfirmationDialog,
-  //       sendToUserAuthorExitNote: sendToUserAuthorExitNote,
-  //     );
-  //
-  //   }
-  //
-  // }
-
 }
 // --------------------
 /// TESTED : WORKS PERFECT
