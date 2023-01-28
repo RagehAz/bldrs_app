@@ -471,6 +471,7 @@ class Dialogs {
   static Future<String> showPasswordDialog(BuildContext context) async {
 
     final TextEditingController _password = TextEditingController();
+    bool _canProceed = false;
 
     await CenterDialog.showCenterDialog(
       context: context,
@@ -483,6 +484,7 @@ class Dialogs {
 
         await CenterDialog.closeCenterDialog(context);
         Keyboard.closeKeyboard(context);
+        _canProceed = true;
 
       },
       child: PasswordBubbles(
@@ -499,12 +501,24 @@ class Dialogs {
         ),
         passwordConfirmationController: null,
         passwordConfirmationValidator: null,
-        onSubmitted: (String text) => CenterDialog.closeCenterDialog(context),
+        goOnKeyboardGo: false,
+        onSubmitted: (String text) async {
+          await CenterDialog.closeCenterDialog(context);
+          _canProceed = true;
+        },
         // isTheSuperKeyboardField: false,
       ),
     );
 
-    return _password.text;
+    _password.dispose();
+
+    if (_canProceed == true){
+      return _password.text;
+    }
+    else {
+      return null;
+    }
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT

@@ -21,7 +21,6 @@ import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
@@ -36,11 +35,43 @@ class NewAuthorshipExit {
   /// EXIT HIMSELF
 
   // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> onRemoveMyselfWhileDeletingMyUserAccount({
+    @required BuildContext context,
+    @required AuthorModel authorModel,
+    @required BzModel bzModel,
+  }) async {
 
-  static Future<void> onRemoveMyselfWhileDeletingMyUserAccount() async {
+      /// REMOVE AUTHOR FROM BZ MODEL
+      /// MIGRATE OWNERSHIP OF ALL MY FLYERS TO BZ CREATOR AND TURN OFF SHOW AUTHOR
+      /// RENOVATE BZ
+      await _migrateFlyersAndRemoveAuthorAndRenovateBz(
+        context: context,
+        bzModel: bzModel,
+        authorModel: authorModel,
+      );
+
+      /// (only i can) : REMOVE BZ FROM PRO MY BZZ
+      /// (only i can) : REMOVE BZ & BZ TOPICS FROM MY USER MODEL
+      /// (only i can) : UNSUBSCRIBE FROM BZ FCM TOPICS
+      /// (only i can) : WIPE AUTHOR PIC
+      /// (only i can) : RENOVATE MY USER MODEL
+      /// (only i can) : REMOVE BZ NOTES FROM OBELISK NUMBERS
+      await _doAllMyUserRemovalFromBzOps(
+        context: context,
+        bzID: bzModel.id,
+      );
+
+      /// (only i can) : SEND authorExit NOTES
+      await NoteEvent.sendAuthorDeletionNotes(
+        context: context,
+        bzModel: bzModel,
+        deletedAuthor: authorModel,
+        sendToUserAuthorExitNote: false,
+      );
 
   }
-
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onRemoveMySelf({
     @required BuildContext context,
@@ -193,15 +224,9 @@ class NewAuthorshipExit {
       bzID: bzID,
     );
 
-    blog('bzModel == null : ${bzModel == null}');
+    // blog('bzModel == null : ${bzModel == null}');
 
     if (bzModel != null){
-
-    // final bool _authorsContainMyUserID = AuthorModel.checkAuthorsContainUserID(
-    //   authors: bzModel?.authors,
-    //   userID: AuthFireOps.superUserID(),
-    // );
-    // assert(_authorsContainMyUserID == false, 'I should not be in authors list anymore');
 
     /// SHOW NOTICE CENTER DIALOG
     await _iGotDeletedNoticeDialog(

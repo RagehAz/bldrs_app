@@ -215,6 +215,8 @@ Future<void> setUserAndAuthModelsAndCompleteUserZoneLocally({
 /// TESTED : WORKS PERFECT
 Future<void> _initializeAppState(BuildContext context) async {
 
+  final BuildContext context = getContext();
+
   // blog('_initializeAppState : START');
 
   if (AuthModel.userIsSignedIn() == true){

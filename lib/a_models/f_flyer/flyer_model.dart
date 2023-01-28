@@ -941,7 +941,7 @@ class FlyerModel {
   /// MODIFIERS
 
   // --------------------
-  /// TASK : TEST ME
+    /// TESTED : WORKS PERFECT
   static FlyerModel migrateOwnership({
     @required BuildContext context,
     @required FlyerModel flyerModel,
