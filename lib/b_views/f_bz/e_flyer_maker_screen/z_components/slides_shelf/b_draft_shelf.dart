@@ -52,10 +52,12 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
   }
    */
   // -----------------------------------------------------------------------------
+  /*
   @override
   void initState() {
     super.initState();
   }
+   */
   // --------------------
   @override
   void dispose(){

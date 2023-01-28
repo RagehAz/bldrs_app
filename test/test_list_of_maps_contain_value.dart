@@ -66,8 +66,8 @@ void main() {
 
     blog('_expectedString : $_expectedString');
     blog('_decipheredToString : $_decipheredToString');
-    blog('_color.toString() : ${_color.toString()}');
-    blog('_deciphered.toString() : ${_deciphered.toString()}');
+    blog('_color.toString() : $_color');
+    blog('_deciphered.toString() : $_deciphered');
 
     expect(_expectedString, _decipheredToString);
   });

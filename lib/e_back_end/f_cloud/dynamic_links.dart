@@ -302,7 +302,7 @@ class DynamicLinks {
     }
     else {
       blog('blogURI $invoker : uri : $uri');
-      blog('blogURI $invoker : uri.toString : ${uri.toString()}');
+      blog('blogURI $invoker : uri.toString : $uri');
       blog('blogURI $invoker : uri.path : ${uri?.path}');
       blog('blogURI $invoker : uri.hashCode : ${uri?.hashCode}');
       blog('blogURI $invoker : uri.data : ${uri?.data}');

@@ -294,7 +294,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
       {'pic' : _file,       'text' : 'FILE\n${Filers.getFileSizeInMb(_file)} MB'},
       {'pic' : _uInts,        'text' : 'uInt8List\n${Numeric.roundFractions(_uInts?.length?.toDouble() ?? 0.0 / (1024 * 1024), 2)}'},
       {'pic' : imgImage,    'text' : 'imgImage\n${Numeric.roundFractions(imgImage?.getBytes()?.length?.toDouble() ?? 0 / (1024 * 1024), 2)} MB'},
-      {'pic' : uiImage,     'text' : 'uiImage\n${uiImage?.toString()}'},
+      {'pic' : uiImage,     'text' : 'uiImage\n$uiImage'},
       {'pic' : _ldbBase64,  'text' : 'LDB-Base64\n ${Numeric.formatNumToSeparatedKilos(number: _ldbBase64?.codeUnits?.length)} units'},
       {'pic' : _ldbInts,    'text' : 'LDB-ints\n${Numeric.roundFractions(_ldbInts?.length?.toDouble()??0/ (1024 * 1024), 2)} MB'},
     ];

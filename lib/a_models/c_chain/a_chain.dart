@@ -546,16 +546,16 @@ class Chain {
 
     if (id != null) {
       if (DataCreation.checkIsDataCreator(sons) == true) {
-        blog('$_space $level : $id : sonsDataCreator :  ${sons.toString()}');
+        blog('$_space $level : $id : sonsDataCreator :  $sons');
         // blogChains(sons, level: level + 1);
       } else if (Phider.checkIsPhids(sons) == true) {
-        blog('$_space $level : $id : <Phid>${sons.toString()}');
+        blog('$_space $level : $id : <Phid>$sons');
         // blogChains(sons, level: level + 1);
       } else if (checkIsChains(sons) == true) {
         blog('$_space $level : <Chain>{$id} :-');
         blogChains(sons, level: level);
       } else {
-        blog('$_space $level : $id : sons |${sons.runtimeType}| :  ${sons.toString()}');
+        blog('$_space $level : $id : sons |${sons.runtimeType}| :  $sons');
       }
     } else {
       blog('chain is null');

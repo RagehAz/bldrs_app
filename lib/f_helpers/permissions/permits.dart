@@ -321,7 +321,7 @@ class Permit {
       final bool _perShouldShowRequestRationale = await permission.shouldShowRequestRationale;
 
       _blog =
-          '[ toString() ]         : ${permission.toString()}\n'
+          '[ toString() ]         : $permission\n'
           '[ name ]                : $_statusName\n'
           '[ index ]                : $_statusIndex\n'
           '\n'

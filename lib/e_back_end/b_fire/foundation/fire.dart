@@ -976,7 +976,7 @@ String pathOfSubDoc({
             // primaryKey: 'id',
           );
 
-          blog('docs IDs : ${_docIDs.toString()}');
+          blog('docs IDs : $_docIDs');
 
           await _deleteCollectionDocsByIDs(
             collName: collName,
@@ -1070,7 +1070,7 @@ String pathOfSubDoc({
             // primaryKey: 'id',
           );
 
-          blog('docs IDs : ${_docIDs.toString()}');
+          blog('docs IDs : $_docIDs');
 
           await _deleteSubCollectionDocsBySubDocsIDs(
             collName: collName,
