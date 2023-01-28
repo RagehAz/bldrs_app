@@ -335,7 +335,7 @@ class Filers {
         // blog('getFileFromURL : _tempPath : $_tempPath');
 
         /// create a new file in temporary path with random file name.
-        _file = File('$_tempPath${(_rng.nextInt(100)).toString()}'); // .png');
+        _file = File('$_tempPath${_rng.nextInt(100)}'); // .png');
         // blog('getFileFromURL : _file : $_file');
 
 
@@ -478,7 +478,7 @@ class Filers {
       blog('blogFile : $invoker : file.parent : ${file.parent}');
       // blog('blogFile : $invoker : file.resolveSymbolicLinksSync() : ${file.resolveSymbolicLinksSync()}');
       blog('blogFile : $invoker : file.lengthSync() : ${file.lengthSync()}');
-      blog('blogFile : $invoker : file.toString() : ${file.toString()}');
+      blog('blogFile : $invoker : file.toString() : $file');
       blog('blogFile : $invoker : file.lastAccessedSync() : ${file.lastAccessedSync()}');
       blog('blogFile : $invoker : file.lastModifiedSync() : ${file.lastModifiedSync()}');
       // blog('blogFile : $invoker : file.openSync() : ${file.openSync()}');

@@ -52,7 +52,7 @@ class _ConnectivitySensorState extends State<ConnectivitySensor> {
 
           await _onConnectivityChanged(_connected);
 
-          blog('CONNECTIVITY HAD CHANGED TO : ${result.toString()}');
+          blog('CONNECTIVITY HAD CHANGED TO : $result');
 
         });
 

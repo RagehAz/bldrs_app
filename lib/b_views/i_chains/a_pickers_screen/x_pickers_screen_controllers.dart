@@ -205,7 +205,7 @@ void _updateSelectedSpecsAndRefinePickers({
     // ------------------------------------
     /// C - WHEN SOMETHING GOES WRONG
     else {
-      blog('RED ALERT : result : ${specPickerResult.toString()}');
+      blog('RED ALERT : result : $specPickerResult');
     }
     // ------------------------------------
   }

@@ -108,7 +108,7 @@ class CloudFunction {
 
     on Exception catch (error){
       blog('callFunction : error.message    : ${error.runtimeType}');
-      blog('callFunction : error.toString() : ${error.toString()}');
+      blog('callFunction : error.toString() : $error');
 
       final bool _unauthenticated = TextCheck.stringContainsSubString(
         string: error.toString(),
