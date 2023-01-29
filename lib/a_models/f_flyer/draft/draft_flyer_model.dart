@@ -59,7 +59,7 @@ class DraftFlyer{
   final TextEditingController headline;
   final List<String> trigram;
   final FocusNode headlineNode;
-  final String description;
+  final TextEditingController description;
   final FocusNode descriptionNode;
   final FlyerType flyerType;
   final PublishState publishState;
@@ -136,7 +136,7 @@ class DraftFlyer{
       headline: TextEditingController(),
       trigram: const [],
       headlineNode: FocusNode(),
-      description: '',
+      description: TextEditingController(),
       descriptionNode: FocusNode(),
       flyerType: _flyerType,
       publishState: PublishState.draft,
@@ -180,7 +180,7 @@ class DraftFlyer{
       headline: TextEditingController(text: flyer.headline),
       trigram: flyer.trigram,
       headlineNode: FocusNode(),
-      description: flyer.description,
+      description: TextEditingController(text: flyer.description),
       descriptionNode: FocusNode(),
       flyerType: flyer.flyerType,
       publishState: flyer.publishState,
@@ -230,7 +230,7 @@ class DraftFlyer{
       id: draft.id,
       headline: draft.headline.text,
       trigram: Stringer.createTrigram(input: draft.headline.text),
-      description: draft.description,
+      description: draft.description.text,
       flyerType: draft.flyerType,
       publishState: isPublishing == true ? PublishState.published : draft.publishState,
       auditState: draft.bzModel.isVerified == true ? AuditState.verified : AuditState.pending,
@@ -263,7 +263,7 @@ class DraftFlyer{
         'id' : draft.id,
         'headline' : draft.headline.text,
         'trigram' : Stringer.createTrigram(input: draft.headline.text),
-        'description' : draft.description,
+        'description' : draft.description.text,
         'flyerType' : FlyerTyper.cipherFlyerType(draft.flyerType),
         'publishState' : FlyerModel.cipherPublishState(draft.publishState),
         'auditState' : FlyerModel.cipherAuditState(draft.auditState),
@@ -300,7 +300,7 @@ class DraftFlyer{
         id: map['id'],
         headline: TextEditingController(text: map['headline']),
         trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram']),
-        description: map['description'],
+        description: TextEditingController(text: map['description']),
         flyerType: FlyerTyper.decipherFlyerType(map['flyerType']),
         publishState: FlyerModel.decipherFlyerState(map['publishState']),
         auditState: FlyerModel.decipherAuditState(map['auditState']),
@@ -457,8 +457,10 @@ class DraftFlyer{
   // --------------------
   /// TESTED : WORKS PERFECT
   void dispose(){
+    headline.dispose();
     headlineNode.dispose();
     descriptionNode.dispose();
+    description.dispose();
   }
   // -----------------------------------------------------------------------------
 
@@ -845,7 +847,9 @@ class DraftFlyer{
     if (draft1 == null && draft2 == null){
       _areIdentical = true;
     }
-
+    else if (draft1 == null || draft2 == null){
+      _areIdentical = false;
+    }
     else if (draft1 != null && draft2 != null){
 
       if (
@@ -883,6 +887,7 @@ class DraftFlyer{
       );
     }
 
+    blog('checkDraftsAreIdentical : _areIdentical = $_areIdentical');
     return _areIdentical;
   }
   // -----------------------------------------------------------------------------
