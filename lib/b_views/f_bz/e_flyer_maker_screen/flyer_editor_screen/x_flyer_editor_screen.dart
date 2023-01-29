@@ -28,6 +28,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
+import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 
@@ -210,7 +211,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
     ) == null;
     final bool _descriptionIsValid = Formers.paragraphValidator(
       context: context,
-      text: draftNotifier.value?.description,
+      text: draftNotifier.value?.description?.text,
       canValidate: true,
     ) == null;
 
@@ -509,17 +510,37 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                       maxLength: 5000,
                       maxLines: 7,
                       keyboardTextInputType: TextInputType.multiline,
-                      initialText: _draft?.description,
+                      textController: _draft?.description,
                       validator: (String text) => Formers.paragraphValidator(
                         context: context,
-                        text: _draft?.description,
+                        text: _draft?.description?.text,
                         canValidate: _canValidate,
                       ),
-                      onTextChanged: (String text) => onUpdateFlyerDescription(
-                        draftNotifier: draftNotifier,
-                        text: text,
-                        mounted: mounted,
-                      ),
+                      pasteFunction: () async {
+
+                        final String _text = await TextMod.paste();
+
+                        blog('pasteFunction _text: $_text');
+
+                        _draft?.description?.text = _text;
+
+                        // onUpdateFlyerDescription(
+                        //   draftNotifier: draftNotifier,
+                        //   text: _text,
+                        //   mounted: mounted,
+                        // );
+                        //
+                        // setState(() {
+                        //
+                        // });
+
+                      },
+
+                      // onTextChanged: (String text) => onUpdateFlyerDescription(
+                      //   draftNotifier: draftNotifier,
+                      //   text: text,
+                      //   mounted: mounted,
+                      // ),
                     ),
 
                     /// NEXT
@@ -532,7 +553,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                       ) == null &&
                       Formers.paragraphValidator(
                         context: context,
-                        text: _draft?.description,
+                        text: _draft?.description?.text,
                         canValidate: _canValidate,
                       ) == null,
                     ),
