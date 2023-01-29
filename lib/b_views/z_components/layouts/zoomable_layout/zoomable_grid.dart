@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
 import 'package:widget_fader/widget.dart';
@@ -154,70 +155,77 @@ class _ZoomableGridState extends State<ZoomableGrid>  with SingleTickerProviderS
       valueListenable: _controller.isZoomed,
       builder: (_, bool isZoomed, Widget child){
 
-        return Stack(
-          alignment: Alignment.topCenter,
-          children: <Widget>[
+        return GestureDetector(
+          onHorizontalDragUpdate: isZoomed == false ? null : (details) {
+            blog('prevent swipe gestures from affecting the PageView');
+          },
+          onHorizontalDragEnd: isZoomed == false ? null : (details) {
+            blog('prevent swipe gestures from affecting the PageView');
+          },
+          child: Stack(
+            alignment: Alignment.topCenter,
+            children: <Widget>[
 
-            /// ZOOMABLE GRID
-            child,
+              /// ZOOMABLE GRID
+              child,
 
-            /// THE BIG ITEM ON TOP OF GRID AFTER ZOOMING IN
-            if (isZoomed == true && widget.bigItem != null)
-              IgnorePointer(
-                ignoring: !isZoomed,
-                child: WidgetFader(
-                  fadeType: FadeType.fadeIn,
-                  duration: _controller.zoomedItemFadeInDuration,
-                  curve: _controller.zoomedItemFadeInCurve,
-                  child: Stack (
-                    alignment: Alignment.topCenter,
-                    children: [
+              /// THE BIG ITEM ON TOP OF GRID AFTER ZOOMING IN
+              if (isZoomed == true && widget.bigItem != null)
+                IgnorePointer(
+                  ignoring: !isZoomed,
+                  child: WidgetFader(
+                    fadeType: FadeType.fadeIn,
+                    duration: _controller.zoomedItemFadeInDuration,
+                    curve: _controller.zoomedItemFadeInCurve,
+                    child: Stack (
+                      alignment: Alignment.topCenter,
+                      children: [
 
-                      /// BACKGROUND BLACK FOOTPRINT
-                      if (widget.bigItemFootprint != null)
-                      Container( // => THIS TREE STARTING HERE IS USED TWICE : COPY THIS TEXT TO FIND WHERE
-                        width: _bigItemWidth,
-                        height: _bigItemHeight,
-                        margin: _topPaddingOnZoomedIn,
-                        alignment: Alignment.topCenter,
-                        child: widget.bigItemFootprint,
-                      ),
+                        /// BACKGROUND BLACK FOOTPRINT
+                        if (widget.bigItemFootprint != null)
+                        Container( // => THIS TREE STARTING HERE IS USED TWICE : COPY THIS TEXT TO FIND WHERE
+                          width: _bigItemWidth,
+                          height: _bigItemHeight,
+                          margin: _topPaddingOnZoomedIn,
+                          alignment: Alignment.topCenter,
+                          child: widget.bigItemFootprint,
+                        ),
 
-                      /// BIG FLYER
-                      DismissiblePage(
-                        key: const ValueKey<String>('FullScreenFlyer_DismissiblePage'),
-                        onDismissed: () => _onDismissBigItem(),
-                        isFullScreen: false,
-                        dragSensitivity: .4,
-                        maxTransformValue: 4,
-                        minScale: 1,
-                        reverseDuration: Ratioz.duration150ms,
-                        /// BACKGROUND
-                        // startingOpacity: 1,
-                        backgroundColor: Colors.transparent,
-                        // dragStartBehavior: DragStartBehavior.start,
-                        // direction: DismissiblePageDismissDirection.vertical,
-
-                        child: Material(
-                          color: Colors.transparent,
-                          type: MaterialType.transparency,
-                          child: Container( // => THIS TREE STARTING HERE IS USED TWICE : COPY THIS TEXT TO FIND WHERE
-                            width: _bigItemWidth,
-                            height: _bigItemHeight,
-                            margin: _topPaddingOnZoomedIn,
-                            alignment: Alignment.topCenter,
-                            child: widget.bigItem,
+                        /// BIG FLYER
+                        DismissiblePage(
+                          key: const ValueKey<String>('FullScreenFlyer_DismissiblePage'),
+                          onDismissed: () => _onDismissBigItem(),
+                          // isFullScreen: true,
+                          dragSensitivity: .4,
+                          maxTransformValue: 4,
+                          minScale: 0.9,
+                          reverseDuration: Ratioz.duration150ms,
+                          /// BACKGROUND
+                          // startingOpacity: 1,
+                          backgroundColor: Colors.transparent,
+                          // dragStartBehavior: DragStartBehavior.start,
+                          // direction: DismissiblePageDismissDirection.vertical,
+                          child: Material(
+                            color: Colors.transparent,
+                            type: MaterialType.transparency,
+                            child: Container( // => THIS TREE STARTING HERE IS USED TWICE : COPY THIS TEXT TO FIND WHERE
+                              width: _bigItemWidth,
+                              height: _bigItemHeight,
+                              margin: _topPaddingOnZoomedIn,
+                              alignment: Alignment.topCenter,
+                              child: widget.bigItem,
+                            ),
                           ),
                         ),
-                      ),
 
-                    ],
+                      ],
 
+                    ),
                   ),
                 ),
-              ),
 
-          ],
+            ],
+          ),
         );
 
       },
