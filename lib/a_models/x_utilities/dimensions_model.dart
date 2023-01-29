@@ -1,7 +1,5 @@
-import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
-import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -119,9 +117,11 @@ class Dimensions {
       Uint8List _uInt8List;
       // -----------------------------------------------------------o
       if (_isURL == true) {
-        final File _file = await Filers.getFileFromURL(image);
-        _uInt8List = _file.readAsBytesSync();
+        // final File _file = await Filers.getFileFromURL(image);
+        _uInt8List = await Floaters.getUint8ListFromURL(image);
+        // _uInt8List = _file.readAsBytesSync();
         // await null;
+        blog('superDimensions : image : $image');
         _decodedImage = await Floaters.getUiImageFromUint8List(_uInt8List);
       }
       // --------------------------o
@@ -213,6 +213,16 @@ class Dimensions {
   }) {
     /// height / width = graphicHeight / graphicWidth
     return (graphicHeight * width) / graphicWidth;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static double concludeWidthByDimensions({
+    @required double height,
+    @required double graphicWidth,
+    @required double graphicHeight,
+  }) {
+    /// height / width = graphicHeight / graphicWidth
+    return (graphicWidth * height) / graphicHeight;
   }
   // -----------------------------------------------------------------------------
 

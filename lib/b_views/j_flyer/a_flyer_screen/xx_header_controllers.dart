@@ -65,36 +65,35 @@ Future<void> onTriggerHeader({
   @required bool mounted,
 }) async {
 
-  await _triggerProgressBarOpacity(
-    context: context,
-    progressBarOpacity: progressBarOpacity,
-    mounted: mounted,
-  );
+    await _triggerProgressBarOpacity(
+      context: context,
+      progressBarOpacity: progressBarOpacity,
+      mounted: mounted,
+    );
 
+    /// HEADER ANIMATION
+    _animateHeaderExpansion(
+      context: context,
+      headerAnimationController: headerAnimationController,
+      verticalController: verticalController,
+      headerIsExpanded: headerIsExpanded,
+    );
 
-  /// HEADER ANIMATION
-  _animateHeaderExpansion(
-    context: context,
-    headerAnimationController: headerAnimationController,
-    verticalController: verticalController,
-    headerIsExpanded: headerIsExpanded,
-  );
+    /// HEADER EXPANSION
+    _triggerHeaderExpansion(
+      context: context,
+      notify: false,
+      headerIsExpanded: headerIsExpanded,
+      mounted: mounted,
+    );
 
-  /// HEADER EXPANSION
-  _triggerHeaderExpansion(
-    context: context,
-    notify: false,
-    headerIsExpanded: headerIsExpanded,
-    mounted: mounted,
-  );
-
-  /// HEADER FADING
-  _triggerHeaderPageOpacity(
-    context: context,
-    notify: false,
-    headerPageOpacity: headerPageOpacity,
-    mounted: mounted,
-  );
+    /// HEADER FADING
+    _triggerHeaderPageOpacity(
+      context: context,
+      notify: false,
+      headerPageOpacity: headerPageOpacity,
+      mounted: mounted,
+    );
 
   // blog('_onHeaderTap : headerIsExpanded is : ${headerIsExpanded.value}');
 }
