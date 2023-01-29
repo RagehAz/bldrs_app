@@ -16,6 +16,7 @@ import 'package:bldrs/x_dashboard/backend_lab/ldb_viewer/ldb_manager_screen.dart
 import 'package:bldrs/x_dashboard/backend_lab/permissions_tests/permissions_test_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/real_tests/real_http_test_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/real_tests/real_test_screen.dart';
+import 'package:bldrs/x_dashboard/backend_lab/web_scrapper/web_scrapping_test_screen.dart';
 import 'package:bldrs/x_dashboard/provider_viewer/provider_viewer_screen.dart';
 import 'package:bldrs/x_dashboard/zones_manager/location_test/locations_test_screen.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/dashboard_layout.dart';
@@ -245,6 +246,21 @@ class BackendLabHome extends StatelessWidget {
             await Nav.goToNewScreen(
               context: context,
               screen: const PermissionScreen(),
+            );
+          },
+        ),
+
+        const DotSeparator(),
+        // ---------------------------------------------------
+
+        /// WEB SCRAPPING TEST
+        WideButton(
+          verse: Verse.plain('Web Scrapper'),
+          icon: Iconz.comWebsite,
+          onTap: () async {
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const WebScrappingTestScreen(),
             );
           },
         ),

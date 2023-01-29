@@ -334,7 +334,7 @@ static img.Image decodeToImgImage({
     if (ObjectCheck.isAbsoluteURL(url) == true){
 
       _uints = await Rest.readBytes(
-        rawLink: url,
+        rawLink: url.trim(),
         invoker: 'getUint8ListFromURL',
       );
 

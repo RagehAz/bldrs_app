@@ -793,7 +793,7 @@ packages:
     source: hosted
     version: "1.3.0"
   html:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: html
       sha256: d9793e10dbe0e6c364f4c59bf3e01fb33a9b2a674bc7a1081693dba0614b6269
@@ -1030,10 +1030,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: c6d0acc91c1abf6b52cf5b372836ed1fd0281537
+      resolved-ref: d211521edfd62950f7c757674d6b15c4f573113e
       url: "https://github.com/RagehAz/numeric.git"
     source: git
-    version: "1.0.1"
+    version: "1.0.4"
   package_info_plus:
     dependency: "direct main"
     description:
@@ -1400,10 +1400,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "51c1cf9d4cd70fe72ce0521b40316c6bf2d16e12"
+      resolved-ref: "25c8e5ef4d0b336f6acccb1a7704328796d2a8df"
       url: "https://github.com/RagehAz/super_image.git"
     source: git
-    version: "0.0.4"
+    version: "0.0.5"
   super_text:
     dependency: transitive
     description:

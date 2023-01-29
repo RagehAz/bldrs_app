@@ -234,6 +234,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
         return HeaderBox(
           key: const ValueKey<String>('FlyerHeader_HeaderBox'),
           onHeaderTap: widget.onHeaderTap,
+          headerIsExpanded: widget.headerIsExpanded,
           headerBorders: _headerBorders,
           flyerBoxWidth: widget.flyerBoxWidth,
           headerColor: _headerColor,
