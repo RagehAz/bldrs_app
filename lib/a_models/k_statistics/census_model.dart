@@ -369,6 +369,8 @@ class CensusModel {
 
     if (map != null){
 
+      Mapper.blogMap(map);
+
       _output = CensusModel(
         id: map['id'] ?? id,
         totalUsers: map['totalUsers'],
