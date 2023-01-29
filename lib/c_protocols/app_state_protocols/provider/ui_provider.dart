@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
 import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
 import 'package:bldrs/a_models/x_ui/ui_image_cache_model.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/main.dart';
 import 'package:scale/scale.dart';
@@ -548,7 +549,7 @@ class UiProvider extends ChangeNotifier {
   bool _canNavOnDynamicLink = true;
   bool get canNavOnDynamicLink => _canNavOnDynamicLink;
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   void _setCanDynamicNav({
     @required bool setTo,
     @required bool notify,
@@ -564,7 +565,7 @@ class UiProvider extends ChangeNotifier {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static void proSetCanNavOnDynamicLink({
     @required bool setTo,
     @required bool notify,
@@ -578,10 +579,55 @@ class UiProvider extends ChangeNotifier {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static bool proGetCanNavOnDynamicLink(){
     final UiProvider _uiProvider = Provider.of<UiProvider>(getContext(), listen: false);
     return _uiProvider.canNavOnDynamicLink;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// LOADING VERSE
+
+  // --------------------
+  Verse _loadingVerse;
+  Verse get loadingVerse => _loadingVerse;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void _setLoadingVerse({
+    @required Verse verse,
+    @required bool notify,
+  }){
+
+    if (_loadingVerse != verse) {
+      _loadingVerse = verse;
+
+      if (notify == true) {
+        notifyListeners();
+      }
+    }
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void proSetLoadingVerse({
+    @required Verse verse,
+    bool notify = true,
+  }){
+
+    final UiProvider _uiProvider = Provider.of<UiProvider>(getContext(), listen: false);
+    _uiProvider._setLoadingVerse(
+      verse: verse,
+      notify: notify,
+    );
+
+  }
+  // --------------------
+  ///
+  static void clearLoadingVerse() {
+    final UiProvider _uiProvider = Provider.of<UiProvider>(getContext(), listen: false);
+    _uiProvider._setLoadingVerse(
+      verse: null,
+      notify: true,
+    );
   }
   // -----------------------------------------------------------------------------
 

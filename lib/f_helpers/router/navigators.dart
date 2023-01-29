@@ -171,6 +171,7 @@ class Nav {
     bool addPostFrameCallback = false,
   }) async {
 
+    UiProvider.clearLoadingVerse();
     await CacheOps.wipeCaches();
 
     if (addPostFrameCallback == true){
