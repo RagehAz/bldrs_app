@@ -34,13 +34,15 @@ class FlyerSelectionStack extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    final bool _selectionMode = selectionMode ?? false;
+
     final bool _showAuditLayer = FlyerAuditLayer.showAuditLayer(flyerModel?.auditState);
     final bool _showOptionsButton = onFlyerOptionsTap != null;
 
     final bool _canBuildSelectionStack =
          _showAuditLayer == true
              ||
-         selectionMode == true
+         _selectionMode == true
              ||
          _showOptionsButton == true;
 
@@ -66,7 +68,7 @@ class FlyerSelectionStack extends StatelessWidget {
 
           /// FLYER
             AbsorbPointer(
-              absorbing: selectionMode,
+              absorbing: _selectionMode,
               child: flyerWidget,
             ),
 
@@ -78,7 +80,7 @@ class FlyerSelectionStack extends StatelessWidget {
             ),
 
           /// IS-SELECTED GRAPHIC LAYER
-          if (selectionMode == true && onSelectFlyer != null)
+          if (_selectionMode == true && onSelectFlyer != null)
             Consumer<FlyersProvider>(
               builder: (_, FlyersProvider flyersProvider, Widget child){
 
@@ -94,7 +96,7 @@ class FlyerSelectionStack extends StatelessWidget {
             ),
 
           /// TAP LAYER
-          if (selectionMode == true && onSelectFlyer != null)
+          if (_selectionMode == true && onSelectFlyer != null)
             DreamBox(
               height: _flyerBoxHeight,
               width: flyerBoxWidth,
