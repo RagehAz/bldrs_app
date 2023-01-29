@@ -5,6 +5,8 @@ import 'package:bldrs/a_models/d_zone/x_money/big_mac.dart';
 import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
@@ -712,6 +714,10 @@ class ExoticMethods {
   /// CENSUS
 
   // --------------------
+  static void setLoadingText(String text) {
+    UiProvider.proSetLoadingVerse(verse: Verse(text: text, translate: false));
+  }
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> scanAllDBAndCreateInitialCensuses({
     @required BuildContext context,
@@ -726,6 +732,10 @@ class ExoticMethods {
 
     if (_go == true){
 
+      pushWaitDialog(context: context);
+
+      setLoadingText('Scanning Users');
+
       /// ALL USERS
       await ExoticMethods.readAllUserModels(
         limit: 900,
@@ -736,6 +746,8 @@ class ExoticMethods {
 
         },
       );
+
+      setLoadingText('Scanning Businesses');
 
       /// ALL BZZ
       await ExoticMethods.readAllBzzModels(
@@ -771,6 +783,8 @@ class ExoticMethods {
         },
       );
 
+      setLoadingText('Scanning Flyers');
+
       /// ALL FLYERS
       await ExoticMethods.readAllFlyers(
         limit: 1000,
@@ -796,6 +810,10 @@ class ExoticMethods {
 
         },
       );
+
+      setLoadingText('Scanning Done');
+
+      closeWaitDialog(context);
 
       await Dialogs.centerNotice(
           context: context,

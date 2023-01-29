@@ -7,6 +7,7 @@ import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart'
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:scale/scale.dart';
 
 void pushWaitDialog({
@@ -128,6 +129,20 @@ class WaitDialog extends StatelessWidget {
 
                   const Loading(loading: true),
 
+                  /// LOADING VERSE
+                  Selector<UiProvider, Verse>(
+                    selector: (_, UiProvider uiProvider) => uiProvider.loadingVerse,
+                    builder: (BuildContext context, Verse verse, Widget child) {
+                      if (verse == null) {
+                        return const SizedBox();
+                      } else {
+                        return SuperVerse(
+                          verse: verse,
+                          color: Colorz.yellow200,
+                        );
+                      }
+                    },
+                  ),
 
                 ],
               ),
