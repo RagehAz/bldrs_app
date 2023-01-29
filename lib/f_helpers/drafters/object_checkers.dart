@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
+import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -45,30 +46,14 @@ class ObjectCheck {
     bool _isValidURL = false;
 
     if (object != null && object is String) {
-      // ----------------------------------
-      /*
-      /// INITIAL CHECK
-      final bool _startsWithHttp = TextCheck.textStartsWithAny(
-        text: object,
-        listThatMightIncludeText: <String>['h', 'ht','htt','http',],
-      );
-      final bool _startsWithWWW = TextCheck.textStartsWithAny(
-        text: object,
-        listThatMightIncludeText: <String>['www', 'ww','w'],
-      );
-      if (_startsWithHttp == true || _startsWithWWW == true){
-        _isValidURL = true;
-      }
-       */
-      // ----------------------------------
-      /// - EXTRA CHECK
-      // if (_isValidURL == false){
+      final String _url = object.trim();
 
-      _isValidURL = Uri.parse(object).isAbsolute;
-
-      // }
-      ///
-      // ----------------------------------
+      tryAndCatch(
+        functions: () {
+          final parsedUri = Uri.parse(_url);
+          _isValidURL = parsedUri.isAbsolute;
+        },
+      );
     }
 
     return _isValidURL;

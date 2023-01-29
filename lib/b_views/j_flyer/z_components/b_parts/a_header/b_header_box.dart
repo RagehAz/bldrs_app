@@ -8,6 +8,7 @@ class HeaderBox extends StatelessWidget {
     @required this.headerColor,
     @required this.headerBorders,
     @required this.child,
+    this.headerIsExpanded,
     this.onHeaderTap,
     Key key
   }) : super(key: key);
@@ -19,28 +20,49 @@ class HeaderBox extends StatelessWidget {
   final Color headerColor;
   final BorderRadius headerBorders;
   final Widget child;
+  final ValueNotifier<bool> headerIsExpanded;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    return GestureDetector(
-      onTap: onHeaderTap,
-      child: Container(
-        width: flyerBoxWidth,
-        height: headerHeightTween is Animation<double> ? headerHeightTween.value : headerHeightTween,
-        decoration: BoxDecoration(
-          color: headerColor,
-          borderRadius: headerBorders,
-        ),
-        alignment: Alignment.topCenter,
-        child: SingleChildScrollView(
-          physics: const NeverScrollableScrollPhysics(),
-          scrollDirection: Axis.horizontal,
-          padding: EdgeInsets.zero,
-          child: child,
-        ),
+    final Widget tree = Container(
+      width: flyerBoxWidth,
+      height: headerHeightTween is Animation<double> ? headerHeightTween.value : headerHeightTween,
+      decoration: BoxDecoration(
+        color: headerColor,
+        borderRadius: headerBorders,
+      ),
+      alignment: Alignment.topCenter,
+      child: SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        padding: EdgeInsets.zero,
+        child: child,
       ),
     );
+
+    if (headerIsExpanded == null){
+      return GestureDetector(
+        onTap: onHeaderTap,
+          child: tree,
+      );
+    }
+
+    else {
+
+      return ValueListenableBuilder(
+          valueListenable: headerIsExpanded,
+          builder: (_, bool isExpanded, Widget widgetTree){
+
+            return GestureDetector(
+              onTap: isExpanded == true ? null : onHeaderTap,
+              child: widgetTree,
+            );
+
+          },
+        child: tree,
+      );
+    }
 
   }
   // -----------------------------------------------------------------------------

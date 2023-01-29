@@ -321,25 +321,25 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
   // --------------------
   Future<void> _onHeaderTap() async {
 
-    await onTriggerHeader(
-      context: context,
-      headerAnimationController: _headerAnimationController,
-      verticalController: _headerScrollController,
-      headerIsExpanded: _headerIsExpanded,
-      progressBarOpacity: _progressBarOpacity,
-      headerPageOpacity: _headerPageOpacity,
-      mounted: mounted,
-    );
-
-    final bool _tinyMode = FlyerDim.isTinyMode(context, widget.flyerBoxWidth);
-
-    if (_headerIsExpanded.value  == true && _tinyMode == false){
-      await readBzCounters(
-        bzID: _flyer.value?.bzModel?.id,
-        bzCounters: _bzCounters,
+      await onTriggerHeader(
+        context: context,
+        headerAnimationController: _headerAnimationController,
+        verticalController: _headerScrollController,
+        headerIsExpanded: _headerIsExpanded,
+        progressBarOpacity: _progressBarOpacity,
+        headerPageOpacity: _headerPageOpacity,
         mounted: mounted,
       );
-    }
+
+      final bool _tinyMode = FlyerDim.isTinyMode(context, widget.flyerBoxWidth);
+
+      if (_headerIsExpanded.value == true && _tinyMode == false) {
+        await readBzCounters(
+          bzID: _flyer.value?.bzModel?.id,
+          bzCounters: _bzCounters,
+          mounted: mounted,
+        );
+      }
 
   }
   // --------------------
