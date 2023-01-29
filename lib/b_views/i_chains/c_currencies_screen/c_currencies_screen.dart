@@ -40,7 +40,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
   // --------------------
   final ValueNotifier<bool> _showAllCurrencies = ValueNotifier<bool>(false);
   // --------------------
-  final PageController _pageController = PageController();
+  // final PageController _pageController = PageController();
   // -----------------------------------------------------------------------------
   /*
   /// --- LOADING
@@ -83,7 +83,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
     _searchController.dispose();
     _isSearching.dispose();
     _showAllCurrencies.dispose();
-    _pageController.dispose();
+    // _pageController.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -93,7 +93,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
       searchController: _searchController,
       isSearching: _isSearching,
       foundCurrencies: _foundCurrencies,
-      pageController: _pageController,
+      pageController: null, //_pageController,
       mounted: mounted,
     );
   }
