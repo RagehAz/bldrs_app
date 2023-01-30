@@ -77,7 +77,7 @@ class FlyerDim {
       const double _xFlyerBoxHeightRatioToWidth = 1.74;
 
       final BuildContext context = getContext();
-      final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
+      final double _screenHeight = Scale.screenHeight(context);
       final double _screenWidth = Scale.screenWidth(context);
       final double _maxFlyerWidth = _screenWidth - 20;
       final double _maxFlyerHeight = _maxFlyerWidth * _xFlyerBoxHeightRatioToWidth;
@@ -107,7 +107,7 @@ class FlyerDim {
     );
 
     // if (checkFlyerIsFullScreen(context, flyerBoxWidth) == true){
-    //   return Scale.superScreenHeightWithoutSafeArea(context);
+    //   return Scale.screenHeight(context);
     // }
     //
     // else {

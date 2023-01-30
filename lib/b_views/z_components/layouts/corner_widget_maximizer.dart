@@ -217,7 +217,7 @@ class _MaximizerState extends State<_Maximizer> with SingleTickerProviderStateMi
 
               return Container(
                 width: Scale.screenWidth(context),
-                height: Scale.superScreenHeightWithoutSafeArea(context),
+                height: Scale.screenHeight(context),
                 color: _backgroundColor,
               );
 

@@ -27,7 +27,7 @@ class CurrencyManagerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context) - 10;
+    final double _screenHeight = Scale.screenHeight(context) - 10;
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
     final List<CurrencyModel> _currencies = _zoneProvider.allCurrencies;
 

@@ -101,7 +101,7 @@ class _LockScreenState extends State<LockScreen> {
       appBarType: AppBarType.basic,
       child: Container(
         width: Scale.screenWidth(context),
-        height: Scale.superScreenHeightWithoutSafeArea(context),
+        height: Scale.screenHeight(context),
         color: Colorz.black50,
         alignment: Alignment.center,
         child: Column(

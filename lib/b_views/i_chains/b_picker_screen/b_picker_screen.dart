@@ -147,7 +147,7 @@ class _PickerScreenState extends State<PickerScreen> {
     // --------------------
     widget.picker?.blogPicker(invoker: 'PickerScreen');
     // --------------------
-    final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
+    final double _screenHeight = Scale.screenHeight(context);
     final String _chainID = widget.picker?.chainID;
     final AppBarType _appBarType = _getAppBarType();
     // --------------------

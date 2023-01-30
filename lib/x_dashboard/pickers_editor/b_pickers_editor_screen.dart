@@ -199,7 +199,7 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
       ],
       child: Container(
         width: Scale.screenWidth(context),
-        height: Scale.superScreenHeightWithoutSafeArea(context),
+        height: Scale.screenHeight(context),
         alignment: Alignment.topCenter,
         child: ValueListenableBuilder(
           valueListenable: _tempPickers,

@@ -238,7 +238,7 @@ class _PickersScreenState extends State<PickersScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
+    final double _screenHeight = Scale.screenHeight(context);
 
     return MainLayout(
       skyType: SkyType.black,
