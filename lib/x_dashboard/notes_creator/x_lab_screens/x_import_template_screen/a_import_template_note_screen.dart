@@ -105,7 +105,7 @@ class _ImportTemplateNoteScreenState extends State<ImportTemplateNoteScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
+    final double _screenHeight = Scale.screenHeight(context);
 
     return MainLayout(
       appBarType: AppBarType.basic,

@@ -89,7 +89,7 @@ class _PDFScreenState extends State<PDFScreen> {
       progressBarModel: _progressBarModel,
       child: PageBubble(
         appBarType: AppBarType.basic,
-        screenHeightWithoutSafeArea: Scale.superScreenHeightWithoutSafeArea(context),
+        screenHeightWithoutSafeArea: Scale.screenHeight(context),
 
         /// --------------------
 
