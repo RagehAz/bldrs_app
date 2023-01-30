@@ -17,9 +17,12 @@ ZoomableGridController initializeBldrsZoomableGridController({
   ScrollController scrollController,
 }){
 
-  final double _screenWidth = gridWidth ?? UiProvider.proGetScreenDimensions(context: context,
+  final double _screenWidth = gridWidth ?? UiProvider.proGetScreenDimensions(
+      context: context,
       listen: false).width;
-  final double _screenHeight = gridHeight ?? UiProvider.proGetScreenDimensions(context: context,
+
+  final double _screenHeight = gridHeight ?? UiProvider.proGetScreenDimensions(
+      context: context,
       listen: false).height;
   // const double _spacingRatio = 0.0;
 
@@ -33,16 +36,22 @@ ZoomableGridController initializeBldrsZoomableGridController({
   );
 
   /// ZOOMED FLYER ALIGNMENT : IF YOU WANT TO CENTER
-  final double _zoomedInFlyerHeight = (_screenWidth - 10) * FlyerDim.flyerHeightRatioToWidth(
-    forceMaxRatio: false,
+  // final double _zoomedInFlyerHeight = (_screenWidth - 10) * FlyerDim.flyerHeightRatioToWidth(
+  //   forceMaxRatio: false,
+  // );
+
+  /// THIS_IS_THE_PLACE_WHERE_YPU_NEED_TO_FIX_FLYER_ALIGNMENT
+  final double _zoomedInFlyerHeight = FlyerDim.flyerHeightByFlyerWidth(
+      flyerBoxWidth: _screenWidth - 10,
+      forceMaxHeight: false,
   );
-  final double _topPaddingOnZoomIn = (_screenHeight - _zoomedInFlyerHeight) / 2;
+  const double _topPaddingOnZoomIn = 10; //Stratosphere.smallAppBarStratosphere - 10;
   /// IF YOU WANT TO ALIGN TO TOP
   // const double _topPaddingOnZoomIn = 10;
 
   final ZoomableGridController _controller = ZoomableGridController()..initialize(
     topPaddingOnZoomedOut: Stratosphere.smallAppBarStratosphere,
-    topPaddingOnZoomedIn: _topPaddingOnZoomIn, //Stratosphere.smallAppBarStratosphere - 10,
+    topPaddingOnZoomedIn: _topPaddingOnZoomIn,
 
     smallItemWidth: _gridFlyerWidth,
     smallItemHeight: _gridFlyerWidth * FlyerDim.flyerHeightRatioToWidth(
