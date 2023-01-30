@@ -318,7 +318,7 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
       child: Container(
         key: const ValueKey<String>('ChainsEditorScreenViews'),
         width: Scale.screenWidth(context),
-        height: Scale.superScreenHeightWithoutSafeArea(context),
+        height: Scale.screenHeight(context),
         alignment: Alignment.topCenter,
         child: ValueListenableBuilder(
           valueListenable: _isSearching,

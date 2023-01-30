@@ -141,7 +141,7 @@ class MainLayout extends StatelessWidget {
     AppBarType appBarType = AppBarType.basic,
   }){
 
-    return  Scale.superScreenHeightWithoutSafeArea(context)
+    return  Scale.screenHeight(context)
             -
             BldrsAppBar.height(context, appBarType);
 

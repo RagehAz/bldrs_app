@@ -112,7 +112,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
+    final double _screenHeight = Scale.screenHeight(context);
     final double _scrollableHeight = _getScrollableHeight(_screenHeight);
     // --------------------
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);

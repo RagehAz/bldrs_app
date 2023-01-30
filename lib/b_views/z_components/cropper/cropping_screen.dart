@@ -145,7 +145,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
+    final double _screenHeight = Scale.screenHeight(context);
 
     return MainLayout(
       title: const Verse(

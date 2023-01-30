@@ -92,7 +92,7 @@ class _ZoningLabState extends State<ZoningLab> {
   @override
   Widget build(BuildContext context) {
 
-    final double _screenHeightWithoutSafeArea = Scale.superScreenHeightWithoutSafeArea(context);
+    final double _screenHeightWithoutSafeArea = Scale.screenHeight(context);
     const AppBarType _appBarType = AppBarType.basic;
 
     return MainLayout(

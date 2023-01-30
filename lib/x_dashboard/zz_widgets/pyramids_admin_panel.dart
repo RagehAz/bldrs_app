@@ -44,7 +44,7 @@ class PyramidsAdminPanel extends StatelessWidget {
 
       return Container(
         width: Scale.screenWidth(context),
-        height: Scale.superScreenHeightWithoutSafeArea(context),
+        height: Scale.screenHeight(context),
         alignment: Alignment.bottomRight,
         child: Padding(
           padding: const EdgeInsets.only(right: 10, bottom: 40),
