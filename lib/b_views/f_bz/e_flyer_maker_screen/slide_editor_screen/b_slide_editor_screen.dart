@@ -139,7 +139,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
+    final double _screenHeight = Scale.screenHeight(context);
     final double _slideZoneHeight = SlideEditorSlidePart.getSlideZoneHeight(context, _screenHeight);
     final double _controlPanelHeight = SlideEditorControlPanel.getControlPanelHeight(context, _screenHeight);
     // --------------------

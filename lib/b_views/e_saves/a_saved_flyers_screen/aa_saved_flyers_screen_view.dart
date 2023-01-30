@@ -40,7 +40,7 @@ class SavedFlyersScreenView extends StatelessWidget {
       ),
       numberOfColumnsOrRows: 3,
       isHeroicGrid: false,
-      gridHeight: Scale.superScreenHeightWithoutSafeArea(context),
+      gridHeight: Scale.screenHeight(context),
       gridWidth: Scale.screenWidth(context),
       // showAddFlyerButton: false,
       // scrollDirection: Axis.vertical,

@@ -156,7 +156,7 @@ class _BzzManagerScreenState extends State<BzzManagerScreen> {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
+    final double _screenHeight = Scale.screenHeight(context);
     // --------------------
 
     return MainLayout(

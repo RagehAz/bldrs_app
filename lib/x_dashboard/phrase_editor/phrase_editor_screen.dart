@@ -161,7 +161,7 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
+    final double _screenHeight = Scale.screenHeight(context);
 
     return MainLayout(
       isInPhrasesScreen: true,
@@ -311,7 +311,7 @@ class _PhraseEditorScreenState extends State<PhraseEditorScreen> {
       ],
       child: Container(
         width: Scale.screenWidth(context),
-        height: Scale.superScreenHeightWithoutSafeArea(context),
+        height: Scale.screenHeight(context),
         alignment: Alignment.topCenter,
         child: ValueListenableBuilder(
           valueListenable: _tempMixedPhrases,

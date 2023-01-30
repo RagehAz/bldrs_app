@@ -44,7 +44,7 @@ class PhraseCreatorPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     final double _screenWidth = Scale.screenWidth(context);
-    final double _screenHeight = Scale.superScreenHeightWithoutSafeArea(context);
+    final double _screenHeight = Scale.screenHeight(context);
     // --------------------
     return SizedBox(
       key: const ValueKey<String>('PhraseCreatorPage'),
