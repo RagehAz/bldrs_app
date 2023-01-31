@@ -30,7 +30,7 @@ class AuthScreenView extends StatelessWidget {
           height: Ratioz.appBarMargin,
         ),
 
-        /// TASK : - FACEBOOK - GOOGLE - APPLE AUTH WILL BE IN V1.1
+        /// PLAN : - FACEBOOK - GOOGLE - APPLE AUTH WILL BE IN V1.1
         // /// --- CONTINUE WITH APPLE
         // if (DeviceChecker.deviceIsIOS() == true)
         //   MainButton(
