@@ -9,15 +9,15 @@ import 'package:bldrs/b_views/z_components/notes/note_card.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_paginator.dart';
 import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
-import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
-import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/x_dashboard/notes_creator/b_controllers/x_notes_viewer_screen_controllers.dart';
 import 'package:bldrs/x_dashboard/notes_creator/z_components/buttons/note_party_button.dart';
+import 'package:fire/fire.dart';
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
+import 'package:scale/scale.dart';
 
 class NotesViewerScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------

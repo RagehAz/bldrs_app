@@ -799,7 +799,7 @@ class Dialogs {
       bodyVerse: bodyVerse,
       confirmButtonVerse: confirmButtonVerse,
       boolDialog: boolDialog,
-      height: Scale.screenHeight(context) * 0.7,
+      height: Scale.screenHeight(context) * 0.8,
       invertButtons: invertButtons,
       child: BzBanner(
         boxWidth: CenterDialog.clearWidth(context),
@@ -928,7 +928,7 @@ class Dialogs {
     bool boolDialog = true,
   }) async {
 
-    final double _gridHeight = Scale.screenHeight(context) * 0.5;
+    final double _gridHeight = Scale.screenHeight(context) * 0.4;
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,

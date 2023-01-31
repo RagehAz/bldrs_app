@@ -312,8 +312,6 @@ Future<void> setUserAndAuthModelsLocallyAndOnLDB({
     notify: false,
   );
 
-  /// TASK : SHOULD SAVE AUTH MODEL ON LDB TO HAVE IT WHEN USER CLOSES AND REOPENS THE APP
-
   // await LDBOps.insertMap(
   //     primaryKey: primaryKey,
   //     docName: LDBDoc.auth,

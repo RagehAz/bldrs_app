@@ -15,7 +15,7 @@ import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
+import 'package:fire/fire.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm_starter.dart';
 import 'package:bldrs/e_back_end/e_fcm/z_noot_controller.dart';
@@ -34,7 +34,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
-const String bldrsAppVersion = '3.0.7+2';
+const String bldrsAppVersion = '3.0.7+3';
 
 Future<void> main() async {
   /// -----------------------------------------------------------------------------

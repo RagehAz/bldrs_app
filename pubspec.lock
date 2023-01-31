@@ -396,6 +396,15 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "5.2.5"
+  fire:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: e603e154646c8c949b363f452002e413b8172283
+      url: "https://github.com/RagehAz/fire.git"
+    source: git
+    version: "0.0.2"
   firebase_app_check:
     dependency: "direct main"
     description:

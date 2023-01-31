@@ -5,10 +5,8 @@ import 'package:bldrs/a_models/x_utilities/xx_app_controls_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/general_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
-import 'package:bldrs/e_back_end/b_fire/fire_models/fire_query_model.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
+import 'package:fire/fire.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 
