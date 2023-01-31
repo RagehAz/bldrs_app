@@ -1,6 +1,5 @@
-import 'package:bldrs/e_back_end/b_fire/fire_models/fire_query_model.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
+import 'package:fire/fire.dart';
 // -----------------------------------------------------------------------------
 
 /// ALL BZZ PAGINATION

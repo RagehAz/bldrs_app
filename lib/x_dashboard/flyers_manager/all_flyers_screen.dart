@@ -1,17 +1,17 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
-import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_paginator.dart';
 import 'package:bldrs/e_back_end/x_queries/flyers_queries.dart';
-import 'package:bldrs/e_back_end/z_helpers/pagination_controller.dart';
-import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:fire/fire.dart';
 import 'package:flutter/material.dart';
+import 'package:scale/scale.dart';
 
 class AllFlyersScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------

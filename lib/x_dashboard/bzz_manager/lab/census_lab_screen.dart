@@ -532,7 +532,6 @@ class _CensusLabScreenState extends State<CensusLabScreen> {
                     _census.blogCensus();
                     await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
 
-
                   },
                 ),
 

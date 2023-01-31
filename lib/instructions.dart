@@ -81,13 +81,13 @@ git remote remove origin
  3. open the new created project in new window
  4. clean lib file
  5. clean tests file
- 6. create package files - move code - do magic
- 7. adjust pubspec.yaml
+ 6. adjust pubspec.yaml
    - description
    - environment: sdk: ">=2.10.5 <3.0.0"
    - homepage
    - add dependencies if any
    - add publish_to: none after version
+ 7. create package files - move code - do magic
  8. write the exports in the lib file
  X. add lint rules in analysis.options
  9. attach github

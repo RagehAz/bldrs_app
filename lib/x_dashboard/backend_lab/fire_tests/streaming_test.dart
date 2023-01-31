@@ -1,22 +1,20 @@
 import 'dart:async';
+
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/wide_button.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/e_back_end/b_fire/fire_models/fire_query_model.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
-import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_streamer.dart';
-import 'package:bldrs/e_back_end/b_fire/widgets/fire_doc_streamer.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/dashboard_layout.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:clock_rebuilder/clock_rebuilder.dart';
 import 'package:colorizer/colorizer.dart';
+import 'package:fire/fire.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:numeric/numeric.dart';
 import 'package:scale/scale.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 
 class StreamingTest extends StatefulWidget {
   /// --------------------------------------------------------------------------

@@ -8,9 +8,9 @@ import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/e_back_end/b_fire/widgets/fire_coll_streamer.dart';
 import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
+import 'package:fire/fire.dart';
 import 'package:mapper/mapper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';

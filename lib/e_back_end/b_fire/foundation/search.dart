@@ -1,9 +1,8 @@
 import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
-import 'package:bldrs/e_back_end/b_fire/fire_models/fire_finder.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/fire.dart';
-import 'package:mapper/mapper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fire/fire.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:mapper/mapper.dart';
 // -----------------------------------------------------------------------------
 
 /// GENERAL
