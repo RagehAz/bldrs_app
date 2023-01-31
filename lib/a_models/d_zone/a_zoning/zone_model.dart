@@ -280,9 +280,9 @@ class ZoneModel {
   void blogZone({String invoker = 'ZONE - PRINT'}) {
     blog('$invoker ------------------------------- START');
 
-    blog('IDs [ $districtID - $cityID - $countryID ]');
-    blog('names [ $districtName - $cityName - $countryName ]');
-    blog('models [ districtModelExists: ${districtModel != null} / cityModelExists : ${cityModel != null} / countryModelExists : ${countryModel != null} ]');
+    blog('  IDs [ $districtID - $cityID - $countryID ]');
+    blog('  names [ $districtName - $cityName - $countryName ]');
+    blog('  models [ districtModelExists: ${districtModel != null} / cityModelExists : ${cityModel != null} / countryModelExists : ${countryModel != null} ]');
 
     blog('$invoker ------------------------------- END');
   }

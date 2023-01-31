@@ -364,12 +364,12 @@ class NeedModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   void blogNeed(){
-    blog('needType : $needType');
-    blog('description : $notes');
-    blog('flyerIDs : $flyerIDs');
-    blog('bzzIDs : $bzzIDs');
-    blog('scope : $scope');
-    blog('position : $location');
+    blog('NEED - BLOG : needType : $needType');
+    blog('  description : $notes');
+    blog('  flyerIDs : $flyerIDs');
+    blog('  bzzIDs : $bzzIDs');
+    blog('  scope : $scope');
+    blog('  position : $location');
   }
   // -----------------------------------------------------------------------------
 

@@ -3,6 +3,7 @@ import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart'
 import 'package:bldrs/f_helpers/drafters/animators.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
@@ -1168,10 +1169,17 @@ class FlyerDim {
     @required BuildContext context,
     @required double gridZoneHeight,
     @required int numberOfRows,
-    double spacingRatio = _spacingRatio,
+    double spacingRatio,
     bool forceMaxHeight = false,
   }){
 
+    final double _ratio = spacingRatio ?? _spacingRatio;
+
+    blog('numberOfRows : $numberOfRows');
+    blog('gridZoneHeight : $gridZoneHeight : spacingRatio : $_ratio');
+    blog('thing : ${flyerHeightRatioToWidth(forceMaxRatio: forceMaxHeight)}');
+    assert(numberOfRows > 0, 'numberOfRows must be greater than 0');
+    assert(gridZoneHeight > 0, 'gridZoneHeight must be greater than 0');
 
     final double _flyerBoxWidth =
         gridZoneHeight
@@ -1179,7 +1187,7 @@ class FlyerDim {
         (
             (numberOfRows * flyerHeightRatioToWidth(forceMaxRatio: forceMaxHeight))
             +
-            (numberOfRows * spacingRatio) + spacingRatio
+            (numberOfRows * _ratio) + _ratio
         );
 
     /// REVERSE MATH TEST

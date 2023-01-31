@@ -115,6 +115,9 @@ dependencies:
   rest:
     git:
       url: https://github.com/RagehAz/rest.git
+  fire:
+    git:
+      url: https://github.com/RagehAz/fire.git
   # ------------------------------------
   # MY HELPERS
   bldrs_theme:
