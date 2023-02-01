@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/b_bz/draft/draft_bz.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
+import 'package:ldb/ldb.dart';
 import 'package:mapper/mapper.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -21,6 +21,7 @@ class BzLDBOps {
 
     await LDBOps.insertMap(
       docName: LDBDoc.bzz,
+      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.bzz),
       input: bzModel.toMap(toJSON: true),
       // allowDuplicateIDs: false,
     );
@@ -34,6 +35,7 @@ class BzLDBOps {
 
     await LDBOps.insertMaps(
       docName: LDBDoc.bzz,
+      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.bzz),
       inputs: BzModel.cipherBzz(
         bzz: bzz,
         toJSON: true,
@@ -95,6 +97,7 @@ class BzLDBOps {
 
     await LDBOps.insertMap(
       docName: LDBDoc.bzz,
+      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.bzz),
       input: bzModel.toMap(toJSON: true),
     );
 
@@ -111,6 +114,7 @@ class BzLDBOps {
 
     await LDBOps.deleteMap(
       docName: LDBDoc.bzz,
+      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.bzz),
       objectID: bzID,
     );
 
@@ -136,6 +140,7 @@ class BzLDBOps {
 
       await LDBOps.insertMap(
         docName: LDBDoc.bzEditor,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.bzEditor),
         input: draft.toLDB(),
       );
 
@@ -153,6 +158,7 @@ class BzLDBOps {
     final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
       ids: <String>[bzID],
       docName: LDBDoc.bzEditor,
+      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.bzEditor),
     );
 
     if (Mapper.checkCanLoopList(_maps) == true){
@@ -173,6 +179,7 @@ class BzLDBOps {
     await LDBOps.deleteMap(
       objectID: bzID,
       docName: LDBDoc.bzEditor,
+      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.bzEditor),
     );
 
   }
@@ -190,6 +197,7 @@ class BzLDBOps {
 
       await LDBOps.insertMap(
         docName: LDBDoc.authorEditor,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.authorEditor),
         input: authorModel.toMap(includePicModel: true),
       );
 
@@ -206,6 +214,7 @@ class BzLDBOps {
     final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
       ids: <String>[authorID],
       docName: LDBDoc.authorEditor,
+      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.authorEditor),
     );
 
     if (Mapper.checkCanLoopList(_maps) == true){
@@ -221,6 +230,7 @@ class BzLDBOps {
     await LDBOps.deleteMap(
       objectID: authorID,
       docName: LDBDoc.authorEditor,
+      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.authorEditor),
     );
   }
   // -----------------------------------------------------------------------------

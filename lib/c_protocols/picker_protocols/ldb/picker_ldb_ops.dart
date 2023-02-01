@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
+import 'package:ldb/ldb.dart';
 import 'package:mapper/mapper.dart';
 import 'package:flutter/material.dart';
 
@@ -21,12 +21,13 @@ class PickerLDBOps{
     @required FlyerType flyerType,
   }) async {
 
-    if (Mapper.checkCanLoopList(pickers) == true){
+    if (Mapper.checkCanLoopList(pickers) == true) {
       await LDBOps.insertMap(
         docName: LDBDoc.pickers,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.pickers),
         input: {
-          'id' : PickerModel.getPickersIDByFlyerType(flyerType),
-          'pickers' : PickerModel.cipherPickers(pickers),
+          'id': PickerModel.getPickersIDByFlyerType(flyerType),
+          'pickers': PickerModel.cipherPickers(pickers),
         },
       );
     }
@@ -46,6 +47,7 @@ class PickerLDBOps{
 
     final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
         docName: LDBDoc.pickers,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.pickers),
         ids: <String>[PickerModel.getPickersIDByFlyerType(flyerType)]
     );
 
@@ -73,6 +75,7 @@ class PickerLDBOps{
     if (Mapper.checkCanLoopList(pickers) == true){
       await LDBOps.insertMap(
         docName: LDBDoc.pickers,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.pickers),
         input: {
           'id' : PickerModel.getPickersIDByFlyerType(flyerType),
           'pickers' : PickerModel.cipherPickers(pickers),
@@ -94,6 +97,7 @@ class PickerLDBOps{
 
     await LDBOps.deleteMap(
         docName: LDBDoc.pickers,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.pickers),
         objectID: PickerModel.getPickersIDByFlyerType(flyerType)
     );
 

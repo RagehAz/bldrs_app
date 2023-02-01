@@ -7,7 +7,7 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/ldb/b_city_
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
+import 'package:ldb/ldb.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fire/fire.dart';
@@ -467,7 +467,8 @@ class ZoneSearchOps {
     final List<Map<String, dynamic>> _foundMaps = await LDBOps.searchLDBDocTrigram(
       searchValue: cityName,
       docName: LDBDoc.cities,
-      langCode: langCode,
+      searchField: 'phrases.$langCode.trigram',
+      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.cities),
     );
 
     final List<CityModel> _foundCities = CityModel.decipherCities(

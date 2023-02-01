@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
+import 'package:ldb/ldb.dart';
 import 'package:mapper/mapper.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +22,7 @@ class FlyerLDBOps {
 
     await LDBOps.insertMap(
       docName: LDBDoc.flyers,
+      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.flyers),
       input: flyerModel.toMap(toJSON: true),
     );
 
@@ -35,6 +36,7 @@ class FlyerLDBOps {
 
       await LDBOps.insertMaps(
         docName: LDBDoc.flyers,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.flyers),
         inputs: FlyerModel.cipherFlyers(
           flyers: flyers,
           toJSON: true,
@@ -74,6 +76,7 @@ class FlyerLDBOps {
     final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
       ids: flyersIDs,
       docName: LDBDoc.flyers,
+      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.flyers),
     );
 
     final List<FlyerModel> _flyers = FlyerModel.decipherFlyers(
@@ -93,6 +96,7 @@ class FlyerLDBOps {
 
     await LDBOps.insertMap(
       docName: LDBDoc.flyers,
+      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.flyers),
       input: flyer.toMap(toJSON: true),
     );
 
@@ -107,6 +111,7 @@ class FlyerLDBOps {
 
     await LDBOps.deleteMaps(
       docName: LDBDoc.flyers,
+      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.flyers),
       ids: flyersIDs,
     );
 
@@ -132,6 +137,7 @@ class FlyerLDBOps {
 
       await LDBOps.insertMap(
         docName: LDBDoc.flyerMaker,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.flyerMaker),
         input: DraftFlyer.draftToLDB(draftFlyer),
       );
 
@@ -148,6 +154,7 @@ class FlyerLDBOps {
     final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
       ids: <String>[flyerID],
       docName: LDBDoc.flyerMaker,
+      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.flyerMaker),
     );
 
     if (Mapper.checkCanLoopList(_maps) == true){
@@ -165,6 +172,7 @@ class FlyerLDBOps {
     await LDBOps.deleteMap(
       objectID: flyerID,
       docName: LDBDoc.flyerMaker,
+      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.flyerMaker),
     );
 
   }
@@ -182,6 +190,7 @@ class FlyerLDBOps {
 
       await LDBOps.insertMap(
         docName: LDBDoc.reviewEditor,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.reviewEditor),
         input: review.toMap(toJSON: true, includeID: true),
       );
 
@@ -198,6 +207,7 @@ class FlyerLDBOps {
     final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
       ids: <String>[reviewID],
       docName: LDBDoc.reviewEditor,
+      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.reviewEditor),
     );
 
     if (Mapper.checkCanLoopList(_maps) == true){
@@ -219,6 +229,7 @@ class FlyerLDBOps {
     await LDBOps.deleteMap(
       objectID: reviewID,
       docName: LDBDoc.reviewEditor,
+      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.reviewEditor),
     );
 
   }
