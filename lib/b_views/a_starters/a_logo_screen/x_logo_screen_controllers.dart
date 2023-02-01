@@ -18,7 +18,7 @@ import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
+import 'package:ldb/ldb.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -260,7 +260,7 @@ Future<void> _initializeAppState(BuildContext context) async {
 
         /// LDB VERSION
         if (_globalState.ldbVersion > _userState.ldbVersion){
-          await LDBOps.wipeOutEntireLDB();
+          await LDBDoc.wipeOutEntireLDB();
           _userAppState = _userAppState.copyWith(
             ldbVersion: _globalState.ldbVersion,
           );
@@ -422,7 +422,7 @@ Future<void> _refreshUserDeviceModel(BuildContext context) async {
 
     UserProtocols.refreshUserDeviceModel(context: context),
 
-    LDBOps.wipeOutEntireLDB(
+    LDBDoc.wipeOutEntireLDB(
       /// MAIN
       // flyers: true, // WHY WOULD YOU DO THIS
       // bzz: true, // WHY WOULD YOU DO THIS
@@ -470,11 +470,11 @@ Future<void> _refreshUserDeviceModel(BuildContext context) async {
 /// TESTED : WORKS PERFECT
 Future<void> _dailyRefreshLDB(BuildContext context) async {
 
-  final bool _shouldRefresh = await LDBOps.checkShouldRefreshLDB(context);
+  final bool _shouldRefresh = await LDBDoc.checkShouldRefreshLDB(context);
 
   if (_shouldRefresh == true){
 
-    await LDBOps.wipeOutEntireLDB(
+    await LDBDoc.wipeOutEntireLDB(
       /// MAIN
       // flyers: true,
       // bzz: true,

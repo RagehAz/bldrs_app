@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
+import 'package:ldb/ldb.dart';
 import 'package:mapper/mapper.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -23,6 +23,7 @@ class CensusLDBOps {
 
       await LDBOps.insertMap(
           docName: LDBDoc.census,
+          primaryKey: LDBDoc.getPrimaryKey(LDBDoc.census),
           input: census.toMap(toLDB: true),
       );
 
@@ -44,6 +45,7 @@ class CensusLDBOps {
 
       await LDBOps.insertMaps(
         docName: LDBDoc.census,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.census),
         inputs: _maps,
       );
 
@@ -64,8 +66,9 @@ class CensusLDBOps {
     if (id != null){
 
       final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
-          docName: LDBDoc.census,
-          ids: <String>[id],
+        docName: LDBDoc.census,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.census),
+        ids: <String>[id],
       );
 
       if (Mapper.checkCanLoopList(_maps) == true){
@@ -94,8 +97,9 @@ class CensusLDBOps {
     if (id != null){
 
       await LDBOps.deleteMap(
-          docName: LDBDoc.census,
-          objectID: id,
+        docName: LDBDoc.census,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.census),
+        objectID: id,
       );
 
     }

@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
+import 'package:ldb/ldb.dart';
 import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 
@@ -20,6 +20,7 @@ class AuthLDBOps {
     if (authModel != null){
       await LDBOps.insertMap(
         docName: LDBDoc.authModel,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.authModel),
         input: authModel.toMap(toJSON: true),
       );
 
@@ -75,6 +76,7 @@ class AuthLDBOps {
 
       await LDBOps.insertMap(
         docName: LDBDoc.authModel,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.authModel),
         input: newAuthModel.toMap(toJSON: true),
       );
 
@@ -100,6 +102,7 @@ class AuthLDBOps {
       await LDBOps.deleteMap(
         objectID: uid,
         docName: LDBDoc.authModel,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.authModel),
       );
 
       blog('AuthLDBOps : deleteAuthModel : deleted AuthModel of uid : $uid');

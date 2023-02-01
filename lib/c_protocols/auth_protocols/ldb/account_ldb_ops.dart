@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/a_user/account_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
+import 'package:ldb/ldb.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 
@@ -21,6 +21,7 @@ class AccountLDBOps {
     if (account != null && account.id != null) {
       await LDBOps.insertMap(
         docName: LDBDoc.accounts,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.accounts),
         input: account.toMap(),
       );
     }
@@ -37,6 +38,7 @@ class AccountLDBOps {
 
     final Map<String, dynamic> _map = await LDBOps.readMap(
       docName: LDBDoc.accounts,
+      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.accounts),
       id: id,
     );
 
@@ -71,6 +73,7 @@ class AccountLDBOps {
     if (id != null) {
       await LDBOps.deleteMap(
         docName: LDBDoc.accounts,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.accounts),
         objectID: id,
       );
     }

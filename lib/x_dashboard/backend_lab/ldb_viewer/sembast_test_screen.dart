@@ -2,15 +2,14 @@ import 'package:bldrs/a_models/x_ui/keyboard_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
-import 'package:bldrs/e_back_end/d_ldb/sembast_api.dart';
+import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
+import 'package:ldb/ldb.dart';
 import 'package:colorizer/colorizer.dart';
 import 'package:mapper/mapper.dart';
 import 'package:numeric/numeric.dart';
 import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-
 import 'package:bldrs/x_dashboard/backend_lab/ldb_viewer/ldb_manager_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/ldb_viewer/ldb_viewer_screen.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/dashboard_layout.dart';
@@ -87,6 +86,7 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
     await LDBOps.insertMap(
       input: _map,
       docName: _docName,
+      primaryKey: LDBDoc.getPrimaryKey(_docName),
     );
 
     await _readAllMaps();
@@ -106,6 +106,7 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
     await LDBOps.insertMaps(
       inputs: _maps,
       docName: _docName,
+      primaryKey: LDBDoc.getPrimaryKey(_docName),
     );
 
     await _readAllMaps();
@@ -113,7 +114,7 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
   // --------------------
   Future<void> _readAllMaps() async {
 
-    final List<Map<String, Object>> _readMaps = await Sembast.readAll(
+    final List<Map<String, Object>> _readMaps = await LDBOps.readAllMaps(
       docName: _docName,
     );
 
@@ -145,6 +146,7 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
     await LDBOps.insertMap(
       docName: _docName,
       input: _newMap,
+      primaryKey: LDBDoc.getPrimaryKey(_docName),
     );
 
     await _readAllMaps();
@@ -169,6 +171,7 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
     await LDBOps.deleteMap(
         objectID: map['id'],
         docName: _docName,
+        primaryKey: LDBDoc.getPrimaryKey(_docName),
     );
 
     await _readAllMaps();
@@ -256,11 +259,11 @@ class _SembastTestScreenState extends State<SembastTestScreen> {
                 onTap: _readAllMaps,
               ),
 
-              /// UPDATE
-              SmallFuckingButton(
-                verse:  'Update',
-                onTap: _updateMap,
-              ),
+              // /// UPDATE
+              // SmallFuckingButton(
+              //   verse:  'Update',
+              //   onTap: _updateMap,
+              // ),
 
               /// DELETE ALL
               SmallFuckingButton(

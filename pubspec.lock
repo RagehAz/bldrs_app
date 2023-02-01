@@ -905,6 +905,15 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.4.7"
+  ldb:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: a3be0714f7b9447bbcf3a7bd5b9730541eed2201
+      url: "https://github.com/RagehAz/ldb.git"
+    source: git
+    version: "0.0.1"
   lint:
     dependency: "direct dev"
     description:

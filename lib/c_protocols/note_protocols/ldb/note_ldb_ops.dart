@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
+import 'package:ldb/ldb.dart';
 import 'package:flutter/material.dart';
 
 class NoteLDBOps {
@@ -18,6 +18,7 @@ class NoteLDBOps {
 
     await LDBOps.insertMaps(
       docName: LDBDoc.notes,
+      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.notes),
       inputs: NoteModel.cipherNotesModels(
           notes: notes,
           toJSON: true
