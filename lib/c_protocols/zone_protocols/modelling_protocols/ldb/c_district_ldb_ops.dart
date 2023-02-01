@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
+import 'package:ldb/ldb.dart';
 import 'package:mapper/mapper.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -21,6 +21,7 @@ class DistrictLDBOps {
 
     await LDBOps.insertMap(
       docName: LDBDoc.districts,
+      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.districts),
       input: districtModel?.toMap(
         toJSON: true,
         toLDB: true,
@@ -38,6 +39,7 @@ class DistrictLDBOps {
 
       await LDBOps.insertMaps(
         docName: LDBDoc.districts,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.districts),
         inputs: DistrictModel.cipherDistrictsMaps(
           districts: districts,
           toLDB: true,
@@ -83,6 +85,7 @@ class DistrictLDBOps {
 
       final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
         docName: LDBDoc.districts,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.districts),
         ids: districtsIDs,
       );
 
@@ -128,6 +131,7 @@ class DistrictLDBOps {
     await LDBOps.deleteMap(
       objectID: districtID,
       docName: LDBDoc.districts,
+      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.districts),
     );
 
   }

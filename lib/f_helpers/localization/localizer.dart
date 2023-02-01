@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
+import 'package:ldb/ldb.dart';
 import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
 import 'package:fire/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
@@ -100,6 +100,7 @@ class Localizer {
       id: LDBDoc.langCode,
       docName: LDBDoc.langCode,
       fieldName: LDBDoc.langCode,
+      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.langCode),
     );
     final String _languageCode = _langCode ?? Lang.englishLingo.code;
     return _concludeLocaleByLingoCode(_languageCode);
@@ -233,6 +234,7 @@ class Localizer {
 
     await LDBOps.insertMap(
         docName: LDBDoc.langCode,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.langCode),
         input: {
           'id': LDBDoc.langCode,
           LDBDoc.langCode: languageCode,

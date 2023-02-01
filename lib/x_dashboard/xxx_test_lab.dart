@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
@@ -24,6 +25,7 @@ import 'package:bldrs/x_dashboard/zzzzz_test_lab/test_widgets/is_connected_butto
 import 'package:bldrs/x_dashboard/zzzzz_test_lab/test_widgets/is_signed_in_button.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mapper/mapper.dart';
 import 'package:provider/provider.dart';
 import 'package:scale/scale.dart';
@@ -54,6 +56,9 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
   Future<void> _fastTest(BuildContext context) async {
 
     /// ---------------- >>>
+
+    final String packageName = await rootBundle.loadString('pubspec.yaml');
+    blog('packageName : $packageName');
 
   }
   // -------------------------------------------------

@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
+import 'package:ldb/ldb.dart';
 /// => TAMAM
 class CountryLDBOps {
   // -----------------------------------------------------------------------------
@@ -17,6 +17,7 @@ class CountryLDBOps {
 
     await LDBOps.insertMap(
       docName: LDBDoc.countries,
+      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.countries),
       input: country?.toMap(
         toLDB: true,
       ),
@@ -54,6 +55,7 @@ class CountryLDBOps {
 
     await LDBOps.deleteMap(
       docName: LDBDoc.countries,
+      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.countries),
       objectID: countryID,
     );
 

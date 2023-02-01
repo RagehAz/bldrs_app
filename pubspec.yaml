@@ -118,6 +118,9 @@ dependencies:
   fire:
     git:
       url: https://github.com/RagehAz/fire.git
+  ldb:
+    git:
+      url: https://github.com/RagehAz/ldb.git
   # ------------------------------------
   # MY HELPERS
   bldrs_theme:

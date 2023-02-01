@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
+import 'package:ldb/ldb.dart';
 import 'package:mapper/mapper.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -19,6 +19,7 @@ class ChainLDBOps {
 
     await LDBOps.insertMap(
       docName: LDBDoc.bldrsChains,
+      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.bldrsChains),
       input: Chain.cipherBldrsChains(chains: chains),
     );
 

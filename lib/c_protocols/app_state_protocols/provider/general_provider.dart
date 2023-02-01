@@ -14,7 +14,7 @@ import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
+import 'package:ldb/ldb.dart';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
 import 'package:mapper/mapper.dart';
 import 'package:flutter/material.dart';
@@ -54,6 +54,7 @@ class GeneralProvider extends ChangeNotifier {
       if (_appState != null){
         await LDBOps.insertMap(
           docName: LDBDoc.appState,
+          primaryKey: LDBDoc.getPrimaryKey(LDBDoc.appState),
           input: _appState.toMap(),
         );
       }
@@ -96,6 +97,7 @@ class GeneralProvider extends ChangeNotifier {
       if (_model != null){
         await LDBOps.insertMap(
           docName: LDBDoc.appControls,
+          primaryKey: LDBDoc.getPrimaryKey(LDBDoc.appControls),
           input: _model.toMap(),
         );
       }

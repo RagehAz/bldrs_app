@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/a_user/draft/draft_user.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
+import 'package:ldb/ldb.dart';
 import 'package:mapper/mapper.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +24,7 @@ class UserLDBOps {
       await LDBOps.insertMap(
         // allowDuplicateIDs: false,
         docName: LDBDoc.users,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.users),
         input: userModel.toMap(
           toJSON: true,
         ),
@@ -41,6 +42,7 @@ class UserLDBOps {
       await LDBOps.insertMaps(
         // allowDuplicateIDs: false,
         docName: LDBDoc.users,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.users),
         inputs: UserModel.cipherUsers(
           users: users,
           toJSON: true,
@@ -106,6 +108,7 @@ class UserLDBOps {
       await LDBOps.insertMap(
         // allowDuplicateIDs: false,
         docName: LDBDoc.users,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.users),
         input: userModel.toMap(
           toJSON: true,
         ),
@@ -124,6 +127,7 @@ class UserLDBOps {
 
     await LDBOps.deleteMap(
       docName: LDBDoc.users,
+      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.users),
       objectID: userID,
     );
 
@@ -142,6 +146,7 @@ class UserLDBOps {
 
       await LDBOps.insertMap(
         docName: LDBDoc.userEditor,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.userEditor),
         input: draft.toLDB(),
       );
 
@@ -158,6 +163,7 @@ class UserLDBOps {
     final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
       ids: <String>[userID],
       docName: LDBDoc.userEditor,
+      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.userEditor),
     );
 
     if (Mapper.checkCanLoopList(_maps) == true){
@@ -175,6 +181,7 @@ class UserLDBOps {
     await LDBOps.deleteMap(
       objectID: userID,
       docName: LDBDoc.userEditor,
+      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.userEditor),
     );
 
   }
