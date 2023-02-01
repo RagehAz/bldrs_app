@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
+import 'package:ldb/ldb.dart';
 import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 
@@ -21,6 +21,7 @@ class PDFLDBOps {
 
       await LDBOps.insertMap(
         docName: LDBDoc.pdfs,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.pdfs),
         input: pdfModel.toMap(includeBytes: true),
       );
 
@@ -40,6 +41,7 @@ class PDFLDBOps {
 
       final List<Map<String, dynamic>> maps = await LDBOps.readMaps(
         docName: LDBDoc.pdfs,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.pdfs),
         ids: [path],
       );
 
@@ -64,6 +66,7 @@ class PDFLDBOps {
     if (TextCheck.isEmpty(path) == false){
       await LDBOps.deleteMap(
         docName: LDBDoc.pdfs,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.pdfs),
         objectID: path,
       );
     }
@@ -84,6 +87,7 @@ class PDFLDBOps {
       _exists = await LDBOps.checkMapExists(
         id: path,
         docName: LDBDoc.pdfs,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.pdfs),
       );
 
     }

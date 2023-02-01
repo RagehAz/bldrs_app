@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
+import 'package:ldb/ldb.dart';
 import 'package:mapper/mapper.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -28,6 +28,7 @@ class PhraseLDBOps {
       await LDBOps.insertMaps(
         inputs: _allMaps,
         docName: LDBDoc.mainPhrases,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.mainPhrases),
         allowDuplicateIDs: true,
       );
 
@@ -45,6 +46,7 @@ class PhraseLDBOps {
       await LDBOps.insertMaps(
         inputs: Phrase.cipherMixedLangPhrasesToMaps(phrases: countriesMixedLangsPhrases),
         docName: LDBDoc.countriesPhrases,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.countriesPhrases),
         allowDuplicateIDs: true,
       );
 
@@ -129,6 +131,7 @@ class PhraseLDBOps {
       final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
         ids: [phid],
         docName: LDBDoc.mainPhrases,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.mainPhrases),
       );
 
       if (Mapper.checkCanLoopList(_maps) == true){

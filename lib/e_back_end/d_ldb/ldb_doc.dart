@@ -1,4 +1,11 @@
+// ignore_for_file: always_put_control_body_on_new_line
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:ldb/ldb.dart';
+import 'package:bldrs/f_helpers/drafters/timers.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
+import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
+import 'package:numeric/numeric.dart';
 
 /*
 
@@ -165,5 +172,147 @@ class LDBDoc {
     langCode,
 
   ];
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+
+  /// LDB REFRESH - DAILY WIPE
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<bool> checkShouldRefreshLDB(BuildContext context) async {
+    bool _shouldRefresh = true;
+
+    /// NOTE : if did not find last wipe dateTime => will wipe
+    /// if found and its more than {24 hours} => will wipe
+    /// if found and its less than {24 hours} => will not wipe
+
+    final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
+      ids: ['theLastWipeMap'],
+      docName: LDBDoc.theLastWipe,
+      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.theLastWipe),
+    );
+
+    if (Mapper.checkCanLoopList(_maps) == true){
+
+      final DateTime _lastWipe = Timers.decipherTime(
+          time: _maps.first['time'],
+          fromJSON: true,
+      );
+
+      double _diff = Timers.calculateTimeDifferenceInHours(
+          from: _lastWipe,
+          to: DateTime.now(),
+      )?.toDouble();
+
+      _diff = Numeric.modulus(_diff);
+
+      // blog('checkShouldRefreshLDB : _diff : $_diff < ${Standards.dailyLDBWipeIntervalInHours} hrs = ${_diff < Standards.dailyLDBWipeIntervalInHours}');
+
+      /// ONLY WHEN NOT EXCEEDED THE TIME SHOULD NOT REFRESH
+      if (_diff != null && _diff < Standards.dailyLDBWipeIntervalInHours){
+        _shouldRefresh = false;
+      }
+
+    }
+
+    await LDBOps.insertMap(
+      // allowDuplicateIDs: false,
+      docName: LDBDoc.theLastWipe,
+      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.theLastWipe),
+      input: {
+        'id': 'theLastWipeMap',
+        'time': Timers.cipherTime(time: DateTime.now(), toJSON: true),
+      },
+    );
+
+    return _shouldRefresh;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// WIPE OUT
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> wipeOutEntireLDB({
+    /// MAIN
+    bool flyers = true,
+    bool bzz = true,
+    bool notes = true,
+    bool pics = true,
+    bool pdfs = true,
+    /// USER
+    bool users = true,
+    bool authModel = true,
+    bool accounts = true,
+    /// CHAINS
+    bool bldrsChains = true,
+    bool pickers = true,
+    /// ZONES
+    bool countries = true,
+    bool cities = true,
+    bool districts = true,
+    bool staging = true,
+    bool census = true,
+    /// PHRASES
+    bool mainPhrases = true,
+    bool countriesPhrases = true,
+    /// EDITORS
+    bool userEditor = true,
+    bool bzEditor = true,
+    bool authorEditor = true,
+    bool flyerMaker = true,
+    bool reviewEditor = true,
+    /// SETTINGS
+    bool theLastWipe = true,
+    bool appState = true,
+    bool appControls = true,
+    bool langCode = true,
+  }) async {
+
+    final List<String> _docs = <String>[];
+
+    /// MAIN
+    if (flyers == true) {_docs.add(LDBDoc.flyers);}
+    if (bzz == true) {_docs.add(LDBDoc.bzz);}
+    if (notes == true) {_docs.add(LDBDoc.notes);}
+    if (pics == true) {_docs.add(LDBDoc.pics);}
+    if (pdfs == true) {_docs.add(LDBDoc.pdfs);}
+    /// MAIN
+    if (users == true) {_docs.add(LDBDoc.users);}
+    if (authModel == true) {_docs.add(LDBDoc.authModel);}
+    if (accounts == true) {_docs.add(LDBDoc.accounts);}
+    /// CHAINS
+    if (bldrsChains == true) {_docs.add(LDBDoc.bldrsChains);}
+    if (pickers == true) {_docs.add(LDBDoc.pickers);}
+    if (census == true) {_docs.add(LDBDoc.census);}
+    /// ZONES
+    if (countries == true) {_docs.add(LDBDoc.countries);}
+    if (cities == true) {_docs.add(LDBDoc.cities);}
+    if (districts == true) {_docs.add(LDBDoc.districts);}
+    if (staging == true) {_docs.add(LDBDoc.staging);}
+    /// PHRASES
+    if (mainPhrases == true) {_docs.add(LDBDoc.mainPhrases);}
+    if (countriesPhrases == true) {_docs.add(LDBDoc.countriesPhrases);}
+    /// EDITORS
+    if (userEditor == true) {_docs.add(LDBDoc.userEditor);}
+    if (bzEditor == true) {_docs.add(LDBDoc.bzEditor);}
+    if (authorEditor == true) {_docs.add(LDBDoc.authorEditor);}
+    if (flyerMaker == true) {_docs.add(LDBDoc.flyerMaker);}
+    if (reviewEditor == true) {_docs.add(LDBDoc.reviewEditor);}
+    /// SETTINGS
+    if (theLastWipe == true) {_docs.add(LDBDoc.theLastWipe);}
+    if (appState == true) {_docs.add(LDBDoc.appState);}
+    if (appControls == true) {_docs.add(LDBDoc.appControls);}
+    if (langCode == true) {_docs.add(LDBDoc.langCode);}
+
+    await Future.wait(<Future>[
+      ...List.generate(_docs.length, (index){
+        return LDBOps.deleteAllMapsAtOnce(
+            docName: _docs[index],
+        );
+      }),
+    ]);
+
+  }
+  // -----------------------------------------------------------------------------
+  void f(){}
 }

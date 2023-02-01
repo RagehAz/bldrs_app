@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
+import 'package:ldb/ldb.dart';
 import 'package:mapper/mapper.dart';
 import 'package:flutter/cupertino.dart';
 /// => TAMAM
@@ -283,8 +283,9 @@ class CensusRealOps {
       ];
 
       await LDBOps.deleteMaps(
-          docName: LDBDoc.census,
-          ids: _idsToDeleteInLDB,
+        docName: LDBDoc.census,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.census),
+        ids: _idsToDeleteInLDB,
       );
 
     }

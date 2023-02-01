@@ -10,7 +10,7 @@ import 'package:bldrs/b_views/z_components/texting/customs/super_headline.dart';
 import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/census_protocols/real/census_real_ops.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
+import 'package:ldb/ldb.dart';
 import 'package:bldrs/x_dashboard/zzz_exotic_methods/exotic_methods.dart';
 import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -595,6 +595,7 @@ class _CensusLabScreenState extends State<CensusLabScreen> {
                     await LDBOps.deleteMaps(
                       ids: ['egy', 'kwt'],
                       docName: LDBDoc.census,
+                      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.census),
                     );
                     await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
 

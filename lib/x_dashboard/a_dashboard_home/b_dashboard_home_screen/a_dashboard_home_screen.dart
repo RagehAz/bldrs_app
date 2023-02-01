@@ -11,7 +11,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/general_provider.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
+import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/main.dart';
 import 'package:scale/scale.dart';
@@ -259,7 +259,7 @@ class DashBoardHomeScreen extends StatelessWidget {
       await Future.wait(<Future>[
 
         /// WIPE OUT LDB
-        LDBOps.wipeOutEntireLDB(),
+        LDBDoc.wipeOutEntireLDB(),
 
         /// WIPE OUT PRO
         GeneralProvider.wipeOutAllProviders(context),

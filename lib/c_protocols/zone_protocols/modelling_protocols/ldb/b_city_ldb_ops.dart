@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_ops.dart';
+import 'package:ldb/ldb.dart';
 import 'package:mapper/mapper.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -22,6 +22,7 @@ class CityLDBOps{
     await LDBOps.insertMap(
       // allowDuplicateIDs: false, DEFAULT
       docName: LDBDoc.cities,
+      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.cities),
       input: city?.toMap(
         toJSON: true,
         toLDB: true,
@@ -39,6 +40,7 @@ class CityLDBOps{
 
       await LDBOps.insertMaps(
         docName: LDBDoc.cities,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.cities),
         inputs: CityModel.cipherCities(
           cities: cities,
           toLDB: true,
@@ -86,6 +88,7 @@ class CityLDBOps{
 
       final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
         docName: LDBDoc.cities,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.cities),
         ids: citiesIDs,
       );
 
@@ -110,8 +113,9 @@ class CityLDBOps{
   }) async {
 
     await LDBOps.deleteMap(
-        objectID: cityID,
-        docName: LDBDoc.cities,
+      objectID: cityID,
+      docName: LDBDoc.cities,
+      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.cities),
     );
 
   }
