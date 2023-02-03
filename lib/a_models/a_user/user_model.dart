@@ -650,7 +650,7 @@ class UserModel {
     return _newUser;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static UserModel addBzIDToUserFollows({
     @required UserModel oldUser,
     @required BzModel bzToFollow,
@@ -668,7 +668,7 @@ class UserModel {
     return _newUser;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static UserModel removeBzIDFromUserFollows({
     @required UserModel oldUser,
     @required String bzIDToUnFollow,
@@ -687,7 +687,7 @@ class UserModel {
     return _newUser;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static UserModel addFlyerToSavedFlyers({
     @required UserModel oldUser,
     @required FlyerModel flyerModel,
@@ -705,7 +705,7 @@ class UserModel {
     return _newUser;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static UserModel removeFlyerFromSavedFlyers({
     @required UserModel oldUser,
     @required String flyerIDToRemove,
