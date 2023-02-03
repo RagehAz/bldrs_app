@@ -31,6 +31,25 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+/*
+
+wall order logic		        scoring logic
+order dependencies		      scoring dependencies
+following		                views
+user interets		            sliding depth
+ads - boosted flyers		    saves
+trending		                bcard taps
+time stamp		              follows
+keywords relevancy		      calls
+		                        reports
+		                        hide
+		                        invites
+		                        shares
+		                        review replies
+
+ */
+
 /// => TAMAM
 // -----------------------------------------------------------------------------
 
