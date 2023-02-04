@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:mapper/mapper.dart';
-import 'package:bldrs/f_helpers/drafters/shadowers.dart';
+
 import 'package:bldrs_theme/bldrs_theme.dart';
 
 import 'package:flutter/material.dart';

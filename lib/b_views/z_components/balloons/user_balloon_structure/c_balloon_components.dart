@@ -1,7 +1,7 @@
 import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:colorizer/colorizer.dart';
-import 'package:bldrs/f_helpers/drafters/shadowers.dart';
+
 import 'package:bldrs_theme/bldrs_theme.dart';
 
 import 'package:flutter/material.dart';
