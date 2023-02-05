@@ -1,7 +1,6 @@
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
@@ -165,7 +164,7 @@ class FlyerDim {
     final double _flyerBottomCorners = flyerBottomCornerValue(flyerBoxWidth);
 
     return Borderers.cornerOnly(
-      context: context,
+      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
       enTopLeft: _flyerTopCorners,
       enBottomLeft: _flyerBottomCorners,
       enBottomRight: _flyerBottomCorners,
@@ -272,7 +271,7 @@ class FlyerDim {
 
     if (zeroCornerIsOn == true){
       return Borderers.cornerOnly(
-          context: context,
+          appIsLTR: UiProvider.checkAppIsLeftToRight(context),
           enTopLeft: _logoRoundCorners,
           enBottomLeft: _logoRoundCorners,
           enBottomRight: 0,
@@ -307,11 +306,11 @@ class FlyerDim {
     final double _zeroCornerValue = zeroCornerIsOn == true ? 0 : _roundCornerValue;
 
     return cornersOverride ?? Borderers.cornerOnly(
-            context: context,
-            enTopLeft: _roundCornerValue,
-            enBottomLeft: _roundCornerValue,
-            enBottomRight: _zeroCornerValue,
-            enTopRight: _roundCornerValue);
+        appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+        enTopLeft: _roundCornerValue,
+        enBottomLeft: _roundCornerValue,
+        enBottomRight: _zeroCornerValue,
+        enTopRight: _roundCornerValue);
   }
   // -----------------------------------------------------------------------------
 
@@ -425,7 +424,7 @@ class FlyerDim {
     );
 
     return Borderers.cornerOnly(
-        context: context,
+        appIsLTR: UiProvider.checkAppIsLeftToRight(context),
         enTopLeft: _authorImageCorners,
         enBottomLeft: 0,
         enBottomRight: _authorImageCorners,
@@ -506,14 +505,14 @@ class FlyerDim {
     final double followBTCornerBR = flyerBoxWidth * 0.021;
 
     final BorderRadius followCorners = Borderers.cornerOnly(
-      context: context,
+      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
       enTopLeft: followBTCornerTL,
       enBottomLeft: followBTCornerBL,
       enBottomRight: followBTCornerBR,
       enTopRight: followBTCornerTR,
     );
     final BorderRadius callCorners = Borderers.cornerOnly(
-      context: context,
+      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
       enTopLeft: followBTCornerBL,
       enBottomLeft: followBTCornerTL,
       enBottomRight: followBTCornerTR,
@@ -610,7 +609,7 @@ class FlyerDim {
     final double _bottomCorner = footerBoxBottomCornerValue(flyerBoxWidth);
 
     return Borderers.cornerOnly(
-      context: context,
+      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
       enBottomLeft: _bottomCorner,
       enBottomRight: _bottomCorner,
       enTopLeft: 0,

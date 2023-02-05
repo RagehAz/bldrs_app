@@ -1,7 +1,7 @@
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_color.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:flutter/material.dart';
+import 'package:scale/scale.dart';
 
 class StaticStrip extends StatelessWidget {
   /// --------------------------------------------------------------------------

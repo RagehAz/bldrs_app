@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
@@ -164,7 +164,7 @@ class BottomDialog extends StatelessWidget {
   // --------------------
   static BorderRadius dialogCorners(BuildContext context) {
     final BorderRadius _dialogCorners = Borderers.cornerOnly(
-      context: context,
+      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
       enTopLeft: Ratioz.bottomSheetCorner,
       enBottomLeft: 0,
       enBottomRight: 0,
@@ -179,7 +179,7 @@ class BottomDialog extends StatelessWidget {
   // --------------------
   static BorderRadius dialogClearCorners(BuildContext context) {
     final BorderRadius _corners = Borderers.cornerOnly(
-      context: context,
+      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
       enBottomRight: 0,
       enBottomLeft: 0,
       enTopRight: dialogClearCornerValue(),
@@ -201,7 +201,7 @@ class BottomDialog extends StatelessWidget {
     await showModalBottomSheet(
         shape: RoundedRectangleBorder(
             borderRadius: Borderers.cornerOnly(
-              context: context,
+              appIsLTR: UiProvider.checkAppIsLeftToRight(context),
               enTopLeft: Ratioz.bottomSheetCorner,
               enBottomLeft: 0,
               enBottomRight: 0,
