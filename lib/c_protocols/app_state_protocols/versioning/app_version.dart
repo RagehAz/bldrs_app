@@ -1,11 +1,10 @@
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:numeric/numeric.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
-
-import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:stringer/stringer.dart';
 
 class AppVersion {
   // -----------------------------------------------------------------------------

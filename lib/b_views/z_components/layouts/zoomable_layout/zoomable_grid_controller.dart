@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'dart:typed_data';
-import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
-import 'package:scale/scale.dart';
+
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
+import 'package:scale/scale.dart';
 /// => TAMAM
 class ZoomableGridController {
   // --------------------------------------------------------------------------
@@ -201,7 +202,7 @@ class ZoomableGridController {
 
     return Scale.superInsets(
       context: context,
-      appIsLeftToRight: TextDir.checkAppIsLeftToRight(context),
+      appIsLeftToRight: UiProvider.checkAppIsLeftToRight(context),
       enLeft: getSpacing(context),
       top: _topPaddingOnZoomedOut,
       enRight: getSpacing(context),
@@ -332,7 +333,7 @@ class ZoomableGridController {
   }){
     final double _scale = calculateMaxScale(context);
     final double _spacing = getSpacing(context);
-    // final int _lang = TextDir.checkAppIsLeftToRight(context) ? 1 : -1;
+    // final int _lang = UiProvider.checkAppIsLeftToRight(context) ? 1 : -1;
     return - (((_smallItemWidth + _spacing) * columnIndex) * _scale);
   }
   // --------------------
@@ -374,7 +375,7 @@ class ZoomableGridController {
     await _zoomToMatrix(_getZoomMatrix(
       context: context,
       rowIndex: 0,
-      columnIndex: TextDir.checkAppIsLeftToRight(context) ? _ltrIndex : _reverseIndex,
+      columnIndex: UiProvider.checkAppIsLeftToRight(context) ? _ltrIndex : _reverseIndex,
     ));
 
     setNotifier(

@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
@@ -17,8 +18,6 @@ import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/x_dashboard/xxxx_specialized_labs.dart';
 import 'package:bldrs/x_dashboard/zzzzz_test_lab/test_widgets/is_connected_button.dart';
@@ -29,6 +28,7 @@ import 'package:flutter/services.dart';
 import 'package:mapper/mapper.dart';
 import 'package:provider/provider.dart';
 import 'package:scale/scale.dart';
+import 'package:stringer/stringer.dart';
 import 'package:widget_fader/widget_fader.dart';
 
 class TestLab extends StatefulWidget {
@@ -239,7 +239,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
     final String _phone  = TextMod.nullifyNumberIfOnlyCountryCode(
       number: text,
-      countryID: 'egy',
+      countryPhoneCode: Flag.getCountryPhoneCode('egy'),
     );
 
     setNotifier(notifier: _highlightedText, mounted: mounted, value: _phone);

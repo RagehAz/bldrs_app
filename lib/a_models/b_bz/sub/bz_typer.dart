@@ -1,9 +1,9 @@
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
-import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
+import 'package:stringer/stringer.dart';
 
 enum BzSection {
   realestate,
@@ -363,7 +363,7 @@ class BzTyper {
     String _output = '$_bzTypesOneString\n$_formTranslated';
 
     /// ENGLISH
-    if (TextDir.checkAppIsLeftToRight(context) == false){
+    if (UiProvider.checkAppIsLeftToRight(context) == false){
 
       if (oneLine == true){
         _output = '$_formTranslated, $_bzTypesOneString';

@@ -1,7 +1,6 @@
-// -----------------------------------------------------------------------------
-import 'package:mapper/mapper.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
+import 'package:stringer/stringer.dart';
 
 enum DataCreator{
 

@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:provider/provider.dart';
+import 'package:stringer/stringer.dart';
 
 class Keyboard {
   // -----------------------------------------------------------------------------
@@ -150,7 +150,6 @@ class Keyboard {
       default: return null;
     }
 
-
   }
   // --------------------
   /*
@@ -198,16 +197,15 @@ class Keyboard {
     delegate.hideToolbar();
   }
   // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> copyToClipboard({
     @required BuildContext context,
     @required String copy,
     int milliseconds,
   }) async {
 
-    await Clipboard.setData(
-        ClipboardData(
-          text: copy,
-        )
+    await TextClipBoard.copy(
+        copy: copy,
     );
 
     if (milliseconds != 0){

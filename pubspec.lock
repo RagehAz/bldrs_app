@@ -1400,10 +1400,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: ca9b15f5f7a36887f9fe9e86ba2e0aabceb983df
+      resolved-ref: e7f0298f527a1935a2d1b7189436fbb71754880e
       url: "https://github.com/RagehAz/stringer.git"
     source: git
-    version: "0.0.3"
+    version: "1.0.1"
   super_box:
     dependency: transitive
     description:

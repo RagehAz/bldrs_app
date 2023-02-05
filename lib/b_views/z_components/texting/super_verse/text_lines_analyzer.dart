@@ -1,5 +1,6 @@
-import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:stringer/stringer.dart';
 
 class TextLinesAnalyzer extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -35,6 +36,7 @@ class TextLinesAnalyzer extends StatelessWidget {
           textDirection: TextDir.autoSwitchTextDirection(
             val: text,
             context: context,
+            appIsLTR: UiProvider.checkAppIsLeftToRight(context)
           ),
         );
 

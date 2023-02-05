@@ -4,10 +4,10 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box_tap_layer
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box_verse.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/the_box_of_dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:scale/scale.dart';
-import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -238,7 +238,7 @@ class DreamBox extends StatelessWidget {
         DreamBoxIconVerseSecondLine(
           key: const ValueKey<String>('DreamBoxIconVerseSecondLine'),
           verse: verse,
-          textDirection: textDirection ?? TextDir.getAppLangTextDirection(context),
+          textDirection: textDirection ?? UiProvider.getAppTextDir(context),
           icon: icon,
           loading: loading,
           height: height,
