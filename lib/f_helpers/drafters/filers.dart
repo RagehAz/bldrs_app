@@ -3,19 +3,19 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
 
-import 'package:rest/rest.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
-import 'package:mapper/mapper.dart';
-import 'package:numeric/numeric.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:image/image.dart' as img;
+import 'package:mapper/mapper.dart';
+import 'package:numeric/numeric.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:rest/rest.dart';
+import 'package:stringer/stringer.dart';
 
 class Filers {
   // -----------------------------------------------------------------------------

@@ -13,21 +13,19 @@ import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/b_zone_search_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_protocols.dart';
-import 'package:mapper/mapper.dart';
-import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
-import 'package:scale/scale.dart';
-import 'package:stringer/stringer.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
+import 'package:scale/scale.dart';
+import 'package:stringer/stringer.dart';
 
 class CitiesScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -399,7 +397,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
                         size: 1,
                         margin: Scale.superInsets(
                           context: context,
-                          appIsLeftToRight: TextDir.checkAppIsLeftToRight(context),
+                          appIsLeftToRight: UiProvider.checkAppIsLeftToRight(context),
                           bottom: 20,
                           enRight: 10,
                         ),

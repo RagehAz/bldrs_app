@@ -21,8 +21,6 @@ import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/e_back_end/h_caching/cache_ops.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
@@ -32,6 +30,7 @@ import 'package:flutter/services.dart';
 import 'package:mapper/mapper.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:stringer/stringer.dart';
 /// => TAMAM
 class Nav {
   // -----------------------------------------------------------------------------
@@ -284,7 +283,7 @@ class Nav {
     /// NOTE: IMAGINE OPENING AN ENGLISH BOOK => NEXT PAGE COMES FROM RIGHT TO LEFT
 
     /// LEFT TO RIGHT (EN)
-    if (TextDir.checkAppIsLeftToRight(context) == true){
+    if (UiProvider.checkAppIsLeftToRight(context) == true){
 
       return inverse == false ?
       /// NORMAL : <--- RIGHT TO LEFT (LIKE A BOOK)

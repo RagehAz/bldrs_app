@@ -17,18 +17,16 @@ import 'package:bldrs/b_views/z_components/texting/keyboard_screen/keyboard_scre
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_leveller.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_protocols.dart';
-import 'package:mapper/mapper.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-
-
 import 'package:bldrs/x_dashboard/zones_manager/zone_editors/b_city_editor/city_editor_bubble.dart';
 import 'package:bldrs/x_dashboard/zones_manager/zone_editors/c_district_editor/create_district_screen.dart';
 import 'package:bldrs/x_dashboard/zones_manager/zone_editors/c_district_editor/edit_district_screen.dart';
 import 'package:bldrs/x_dashboard/zones_manager/zone_editors/components/zone_stage_bubble.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
+import 'package:stringer/stringer.dart';
 
 class EditCityScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------

@@ -23,7 +23,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   void initState() {
     super.initState();
     _videoPlayerController = VideoPlayerController.network(
-      /// using http is not petmitted on android devices starting Android 9 (pie) and higher
+      /// using http is not permitted on android devices starting Android 9 (pie) and higher
         'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
         videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true))
       ..initialize()

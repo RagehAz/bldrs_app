@@ -2,10 +2,9 @@ import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
-
-import 'package:bldrs/x_dashboard/phrase_editor/z_components/phrase_builder_bubble.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/x_dashboard/phrase_editor/x_phrase_editor_controllers.dart';
+import 'package:bldrs/x_dashboard/phrase_editor/z_components/phrase_builder_bubble.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -128,7 +127,10 @@ class PhrasesViewerPage extends StatelessWidget {
                   // enPhrases: _enSearchedPhrases,
                   // arPhrases: _arSearchedPhrases,
                   scrollController: scrollController,
-                  onCopyValue: (String value) => TextMod.controllerCopy(context, value),
+                  onCopyValue: (String value) => Keyboard.copyToClipboard(
+                      context: context,
+                      copy: value,
+                  ),
                   onDeletePhraseTap: _onDeletePhraseTap,
                   onEditPhraseTap: _onEditPhraseTap,
                   onSelectPhrase: _onSelectPhrase,
@@ -159,7 +161,10 @@ class PhrasesViewerPage extends StatelessWidget {
             mixedPhrases: tempPhrases,
             // enPhrases: enPhrases,
             // arPhrases: arPhrases,
-            onCopyValue: (String value) => TextMod.controllerCopy(context, value),
+            onCopyValue: (String value) => Keyboard.copyToClipboard(
+                context: context,
+                copy: value,
+            ),
             onEditPhraseTap: _onEditPhraseTap,
             onDeletePhraseTap: _onDeletePhraseTap,
             onSelectPhrase: _onSelectPhrase,

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/j_flyer/b_slide_full_screen/a_slide_full_screen.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
@@ -11,7 +12,6 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/dashboard_layout.dart';
@@ -176,10 +176,11 @@ Future<Map<String, dynamic>> getWebsiteData(String url) async {
   // --------------------
   ///
   Future<void> _onPaste() async {
-    final String _text = await TextMod.paste();
+    final String _text = await TextClipBoard.paste();
     _controller.text = _text;
   }
-
+  // --------------------
+  ///
   List<String> getUrlsFromSite(String url) {
   final urls = <String>[];
 
