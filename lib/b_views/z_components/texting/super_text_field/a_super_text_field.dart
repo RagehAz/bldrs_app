@@ -6,13 +6,11 @@ import 'package:bldrs/b_views/z_components/texting/super_text_field/b_super_text
 import 'package:bldrs/b_views/z_components/texting/super_text_field/c_text_field_form_switcher.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
-import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-
-
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:stringer/stringer.dart';
 
 /// => TAMAM
 class SuperTextField extends StatefulWidget {
@@ -376,6 +374,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
         value: TextDir.autoSwitchTextDirection(
           val: widget.textController?.text,
           context: context,
+          appIsLTR: UiProvider.checkAppIsLeftToRight(context)
         ),
     );
 
@@ -575,6 +574,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
         value: TextDir.autoSwitchTextDirection(
           val: val,
           context: context,
+          appIsLTR: UiProvider.checkAppIsLeftToRight(context),
         ),
     );
 
@@ -683,6 +683,7 @@ class _SuperTextFieldState extends State<SuperTextField> {
               context: context,
               definedDirection: widget.textDirection,
               detectedDirection: textDirection,
+              appIsLTR: UiProvider.checkAppIsLeftToRight(context),
             );
 
             /// CAN OBSCURE

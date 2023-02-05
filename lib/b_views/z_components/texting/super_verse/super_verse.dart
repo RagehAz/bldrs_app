@@ -1,14 +1,15 @@
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
-import 'package:colorizer/colorizer.dart';
-import 'package:numeric/numeric.dart';
-import 'package:scale/scale.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:flutter/material.dart';
-export 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 /// ONLY_FOR_BLDRS_DASHBOARD_VERSION
 import 'package:bldrs/x_dashboard/phrase_editor/x_phrase_editor_controllers.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:colorizer/colorizer.dart';
+import 'package:flutter/material.dart';
+import 'package:numeric/numeric.dart';
+import 'package:scale/scale.dart';
+
+export 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 
 enum VerseWeight {
   black,
@@ -555,7 +556,7 @@ class SuperVerse extends StatelessWidget {
         verse: verse,
       );
 
-      final bool _appIsLeftToRight = TextDir.checkAppIsLeftToRight(context);
+      final bool _appIsLeftToRight = UiProvider.checkAppIsLeftToRight(context);
 
       return SuperVerseBox(
         width: width,

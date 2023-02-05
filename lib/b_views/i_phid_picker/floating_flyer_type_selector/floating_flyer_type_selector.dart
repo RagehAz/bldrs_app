@@ -4,9 +4,9 @@ import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/b_animated_logo_screen.dart';
 import 'package:bldrs/b_views/i_phid_picker/floating_flyer_type_selector/animated_bar.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
-import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
@@ -180,7 +180,7 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
                                   * -1;
 
     final double _rtlLeftShift = _ltrLeftShift + Scale.screenWidth(context);
-    final bool _appIsLTR = TextDir.checkAppIsLeftToRight(context);
+    final bool _appIsLTR = UiProvider.checkAppIsLeftToRight(context);
     final double _horizontalShift = _appIsLTR == true ? _ltrLeftShift : _rtlLeftShift;
     final double _verticalShift   = _ltrLeftShift;
 

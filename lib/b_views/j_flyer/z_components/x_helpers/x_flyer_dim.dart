@@ -2,7 +2,6 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart';
 import 'package:bldrs/f_helpers/drafters/borderers.dart';
-import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
@@ -661,7 +660,7 @@ class FlyerDim {
 
     return Scale.superInsets(
       context: context,
-      appIsLeftToRight: TextDir.checkAppIsLeftToRight(context),
+      appIsLeftToRight: UiProvider.checkAppIsLeftToRight(context),
       top: _spacing,
       bottom: _spacing,
       enLeft: _spacing,
@@ -1215,7 +1214,7 @@ class FlyerDim {
 
     return Scale.superInsets(
       context: context,
-      appIsLeftToRight: TextDir.checkAppIsLeftToRight(context),
+      appIsLeftToRight: UiProvider.checkAppIsLeftToRight(context),
       enLeft: gridSpacingValue,
       top: isVertical == true ? topPaddingValue : gridSpacingValue,
       enRight: isVertical == true ? gridSpacingValue : bottomPaddingValue,

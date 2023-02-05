@@ -4,12 +4,11 @@ import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelis
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk_verses_builder.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:provider/provider.dart';
 import 'package:scale/scale.dart';
-import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
-import 'package:flutter/material.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 
 class Obelisk extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -175,7 +174,7 @@ class Obelisk extends StatelessWidget {
               children: <Widget>[
 
                 /// ICONS
-                if (TextDir.checkAppIsLeftToRight(context) == true)
+                if (UiProvider.checkAppIsLeftToRight(context) == true)
                   ObeliskIconsBuilder(
                     navModels: navModels,
                     progressBarModel: progressBarModel,
@@ -190,7 +189,7 @@ class Obelisk extends StatelessWidget {
                 ),
 
                 /// ICONS
-                if (TextDir.checkAppIsLeftToRight(context) == false)
+                if (UiProvider.checkAppIsLeftToRight(context) == false)
                   ObeliskIconsBuilder(
                     navModels: navModels,
                     progressBarModel: progressBarModel,

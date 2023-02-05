@@ -1,8 +1,8 @@
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:stringer/stringer.dart';
 
 class LocalAssetChecker extends StatefulWidget {
   /// --------------------------------------------------------------------------

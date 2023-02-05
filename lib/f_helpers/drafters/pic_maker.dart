@@ -2,13 +2,13 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
+
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/z_components/cropper/cropping_screen.dart';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/permissions/permits_protocols.dart';
@@ -18,6 +18,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image/image.dart' as img;
 import 'package:mapper/mapper.dart';
+import 'package:stringer/stringer.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:wechat_camera_picker/wechat_camera_picker.dart';
 

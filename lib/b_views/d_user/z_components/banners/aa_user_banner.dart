@@ -11,13 +11,12 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
+import 'package:stringer/stringer.dart';
 
 class UserBanner extends StatelessWidget {
   /// --------------------------------------------------------------------------

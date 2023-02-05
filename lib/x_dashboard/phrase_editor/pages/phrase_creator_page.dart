@@ -1,19 +1,17 @@
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:scale/scale.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
-
-
-
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/x_dashboard/phrase_editor/z_components/google_translate_bubble.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:scale/scale.dart';
+import 'package:stringer/stringer.dart';
 
 class PhraseCreatorPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -75,7 +73,10 @@ class PhraseCreatorPage extends StatelessWidget {
               translate: false,
             ),
             textController: idController,
-            onBubbleTap: () => TextMod.controllerCopy(context, idController.text),
+            onBubbleTap: () => Keyboard.copyToClipboard(
+                context: context,
+                copy: idController.text,
+            ),
             pasteFunction: () => TextMod.controllerPaste(idController),
             keyboardTextInputAction: TextInputAction.next,
             onSubmitted: (String text){
@@ -131,7 +132,10 @@ class PhraseCreatorPage extends StatelessWidget {
               translate: false,
             ),
             textController: enController,
-            onBubbleTap: () => TextMod.controllerCopy(context, enController.text),
+            onBubbleTap: () => Keyboard.copyToClipboard(
+                context: context,
+                copy: enController.text,
+            ),
             pasteFunction: () => TextMod.controllerPaste(enController),
             keyboardTextInputAction: TextInputAction.next,
             onSubmitted: (String text){
@@ -160,7 +164,10 @@ class PhraseCreatorPage extends StatelessWidget {
               translate: false,
             ),
             textController: arController,
-            onBubbleTap: () => TextMod.controllerCopy(context, arController.text),
+            onBubbleTap: () => Keyboard.copyToClipboard(
+                context: context,
+                copy: arController.text,
+            ),
             pasteFunction: () => TextMod.controllerPaste(arController),
             textDirection: TextDirection.ltr,
             keyboardTextInputAction: TextInputAction.done,

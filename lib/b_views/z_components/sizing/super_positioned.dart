@@ -1,4 +1,4 @@
-import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:flutter/material.dart';
 
 class SuperPositioned extends StatelessWidget {
@@ -95,7 +95,7 @@ class SuperPositioned extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final bool _isLTR = TextDir.checkAppIsLeftToRight(context);
+    final bool _isLTR = UiProvider.checkAppIsLeftToRight(context);
 
     /// LEFT TO RIGHT ( ENGLISH )
     if (_isLTR == true){

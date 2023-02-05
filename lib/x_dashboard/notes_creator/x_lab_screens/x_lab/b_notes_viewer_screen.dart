@@ -9,8 +9,8 @@ import 'package:bldrs/b_views/z_components/notes/note_card.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
-import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/x_dashboard/notes_creator/b_controllers/x_notes_viewer_screen_controllers.dart';
 import 'package:bldrs/x_dashboard/notes_creator/z_components/buttons/note_party_button.dart';
@@ -165,7 +165,7 @@ class _NotesViewerScreenState extends State<NotesViewerScreen> {
                           size: 1,
                           margin: Scale.superInsets(
                             context: context,
-                            appIsLeftToRight: TextDir.checkAppIsLeftToRight(context),
+                            appIsLeftToRight: UiProvider.checkAppIsLeftToRight(context),
                             enLeft: 20,
                           ),
                           weight: VerseWeight.thin,

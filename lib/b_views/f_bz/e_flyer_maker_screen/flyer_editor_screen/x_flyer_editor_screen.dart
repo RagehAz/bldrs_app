@@ -28,9 +28,9 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
+import 'package:stringer/stringer.dart';
 
 class FlyerEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -518,7 +518,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                       ),
                       pasteFunction: () async {
 
-                        final String _text = await TextMod.paste();
+                        final String _text = await TextClipBoard.paste();
 
                         blog('pasteFunction _text: $_text');
 

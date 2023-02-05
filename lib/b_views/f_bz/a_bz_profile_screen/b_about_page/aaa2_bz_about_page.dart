@@ -18,12 +18,12 @@ import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/e_back_end/j_ads/google_ad.dart';
-import 'package:mapper/mapper.dart';
-import 'package:scale/scale.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
 import 'package:provider/provider.dart';
+import 'package:scale/scale.dart';
+import 'package:stringer/stringer.dart';
 
 class BzAboutPage extends StatelessWidget {
   /// --------------------------------------------------------------------------

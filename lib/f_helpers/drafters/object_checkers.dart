@@ -1,14 +1,14 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'dart:ui' as ui;
 
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image/image.dart' as img;
-import 'dart:ui' as ui;
+import 'package:stringer/stringer.dart';
 
 extension FileExtention on FileSystemEntity {
   String get fileNameWithExtension {

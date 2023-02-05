@@ -1,3 +1,5 @@
+import 'dart:ui' as ui;
+
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
@@ -6,12 +8,10 @@ import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart'
 import 'package:bldrs/c_protocols/pic_protocols/ldb/pic_ldb_ops.dart';
 import 'package:bldrs/c_protocols/pic_protocols/storage/pic_storage_ops.dart';
 import 'package:bldrs/f_helpers/drafters/floaters.dart';
-import 'package:mapper/mapper.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'dart:ui' as ui;
-
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
+import 'package:stringer/stringer.dart';
 
 class PicProtocols {
   // -----------------------------------------------------------------------------

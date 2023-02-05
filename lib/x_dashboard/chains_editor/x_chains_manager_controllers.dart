@@ -2,8 +2,8 @@ import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
-import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/a_pickers_screen.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
@@ -14,17 +14,15 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/chain_protocols/protocols/a_chain_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:scale/scale.dart';
-import 'package:stringer/stringer.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-
 import 'package:bldrs/x_dashboard/chains_editor/b_chain_editor_screen.dart';
 import 'package:bldrs/x_dashboard/chains_editor/c_path_editor_screen.dart';
 import 'package:bldrs/x_dashboard/chains_editor/z_components/chain_tree_viewer/b_chain_tree_viewer.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:scale/scale.dart';
+import 'package:stringer/stringer.dart';
 // -----------------------------------------------------------------------------
 
 /// NAVIGATION

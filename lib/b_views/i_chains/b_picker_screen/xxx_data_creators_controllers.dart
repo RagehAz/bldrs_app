@@ -3,8 +3,8 @@ import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/c_chain/dd_data_creation.dart';
-import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
 import 'package:bldrs/b_views/i_chains/c_currencies_screen/c_currencies_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -13,14 +13,13 @@ import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:numeric/numeric.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-
-import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:numeric/numeric.dart';
+import 'package:provider/provider.dart';
+import 'package:stringer/stringer.dart';
 // -----------------------------------------------------------------------------
 
 /// CURRENCY DATA CREATOR

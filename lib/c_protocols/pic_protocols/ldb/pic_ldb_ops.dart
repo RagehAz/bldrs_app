@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:ldb/ldb.dart';
 import 'package:mapper/mapper.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
+import 'package:stringer/stringer.dart';
 
 class PicLDBOps {
   // -----------------------------------------------------------------------------

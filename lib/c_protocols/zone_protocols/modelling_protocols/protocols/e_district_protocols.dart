@@ -6,9 +6,9 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/ldb/c_distr
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/real/d_district_real_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_leveller.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_protocols.dart';
-import 'package:mapper/mapper.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
+import 'package:stringer/stringer.dart';
 /// => TAMAM
 class DistrictProtocols {
   // -----------------------------------------------------------------------------

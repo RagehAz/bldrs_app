@@ -1,17 +1,15 @@
+import 'package:bldrs/b_views/i_chains/z_components/expander_button/f_phid_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
-import 'package:bldrs/b_views/i_chains/z_components/expander_button/f_phid_button.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/phids_bubble/add_keywords_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
-import 'package:mapper/mapper.dart';
-import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
-import 'package:scale/scale.dart';
-
-
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
+import 'package:scale/scale.dart';
 
 class PhidsBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -124,7 +122,7 @@ class PhidsBubble extends StatelessWidget {
                           return Padding(
                             padding: Scale.superInsets(
                               context: context,
-                              appIsLeftToRight: TextDir.checkAppIsLeftToRight(context),
+                              appIsLeftToRight: UiProvider.checkAppIsLeftToRight(context),
                               enRight: Ratioz.appBarPadding,
                               bottom: Ratioz.appBarPadding,
                             ),
