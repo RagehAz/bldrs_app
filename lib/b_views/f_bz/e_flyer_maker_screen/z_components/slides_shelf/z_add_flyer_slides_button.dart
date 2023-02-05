@@ -1,14 +1,14 @@
+import 'package:bldrs/b_views/j_flyer/z_components/c_groups/draft_shelf/e_draft_shelf_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/c_groups/draft_shelf/e_draft_shelf_slide.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
-import 'package:bldrs/f_helpers/drafters/borderers.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-
 import 'package:flutter/material.dart';
+import 'package:scale/scale.dart';
 
 class AddSlidesButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -132,7 +132,7 @@ class NewSlideImagePickerButton extends StatelessWidget {
     final double _topCorners = _topFlyerCorners - _spacing;
 
     final BorderRadius _upperBoxCorners = Borderers.cornerOnly(
-      context: context,
+      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
       enTopLeft: _topCorners,
       enTopRight: _topCorners,
       enBottomRight: _topCorners,
@@ -140,7 +140,7 @@ class NewSlideImagePickerButton extends StatelessWidget {
     );
 
     final BorderRadius _bottomBoxCorners = Borderers.cornerOnly(
-      context: context,
+      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
       enTopLeft: _topCorners,
       enTopRight: _topCorners,
       enBottomRight: _bottomFlyerCorners - _spacing,
