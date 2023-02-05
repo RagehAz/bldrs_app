@@ -2,16 +2,16 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/x_secondary/app_state.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:fire/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:fire/fire.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:bldrs/a_models/x_secondary/app_state.dart';
 import 'package:flutter/material.dart';
+import 'package:stringer/stringer.dart';
 /// => TAMAM
 class UserFireOps {
   // -----------------------------------------------------------------------------

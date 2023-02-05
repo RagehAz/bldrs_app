@@ -4,7 +4,9 @@ import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
 import 'package:bldrs/a_models/x_ui/ui_image_cache_model.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
+import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:bldrs/main.dart';
 import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -22,6 +24,35 @@ enum SearchingModel{
 /// => TAMAM
 // final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
 class UiProvider extends ChangeNotifier {
+  // -----------------------------------------------------------------------------
+
+    /// APP DIRECTION
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkAppIsLeftToRight(BuildContext context) {
+
+    if (Words.textDirection(context) == 'ltr') {
+      return true;
+    }
+
+    else {
+      return false;
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static TextDirection getAppTextDir(BuildContext context) {
+
+    if (Provider.of<PhraseProvider>(context, listen: false).currentLangCode == 'en') {
+      return TextDirection.ltr;
+    }
+
+    else {
+      return TextDirection.rtl;
+    }
+  }
   // -----------------------------------------------------------------------------
 
   /// SCREEN DIMENSIONS

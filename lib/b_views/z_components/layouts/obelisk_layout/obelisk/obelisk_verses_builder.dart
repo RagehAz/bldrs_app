@@ -3,7 +3,6 @@ import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dar
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk_verse.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
-import 'package:bldrs/f_helpers/drafters/text_directioners.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:widget_fader/widget_fader.dart';
@@ -63,7 +62,7 @@ class ObeliskVersesBuilder extends StatelessWidget {
         ),
         child: Column(
           mainAxisAlignment: Obelisk.stuffAlignment(isCross: false),
-          crossAxisAlignment: TextDir.checkAppIsLeftToRight(context) ?
+          crossAxisAlignment: UiProvider.checkAppIsLeftToRight(context) ?
           CrossAxisAlignment.start
               :
           CrossAxisAlignment.end,

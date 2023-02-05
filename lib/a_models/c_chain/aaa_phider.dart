@@ -4,12 +4,11 @@ import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/c_chain/dd_data_creation.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
+import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:numeric/numeric.dart';
-import 'package:bldrs/f_helpers/drafters/text_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/text_mod.dart';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:stringer/stringer.dart';
 
 import '../x_secondary/phrase_model.dart';
 
@@ -136,6 +135,7 @@ class Phider {
       }
 
       /// IF HAS NO INDEX => KEEP PHID AS IS
+      ///
       else {
         _output = phid;
       }
