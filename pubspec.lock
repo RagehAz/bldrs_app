@@ -1409,10 +1409,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: addfe10ba38217193cf4ccc839e241fbc2f09b56
+      resolved-ref: "672ee27edc6d5c599690e6b5aea17d1fe1517f78"
       url: "https://github.com/RagehAz/super_box.git"
     source: git
-    version: "1.0.1"
+    version: "1.0.3"
   super_image:
     dependency: "direct main"
     description:
