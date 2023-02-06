@@ -3,13 +3,13 @@ import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/phids_bubble/add_keywords_button.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:scale/scale.dart';
+import 'package:super_box/super_box.dart';
 
 class PhidsBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -98,13 +98,13 @@ class PhidsBubble extends StatelessWidget {
             ),
             decoration: BoxDecoration(
               color: Colorz.white10,
-              borderRadius: DreamBox.boxCorners,
+              borderRadius: SuperBoxController.boxCornersValue,
             ),
             child: Scroller(
               controller: scrollController,
               isOn: maxLines != null,
               child: ClipRRect(
-                borderRadius: DreamBox.boxCorners,
+                borderRadius: SuperBoxController.boxCornersValue,
                 child: SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
                   controller: scrollController,
