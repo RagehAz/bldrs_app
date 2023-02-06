@@ -80,7 +80,6 @@ class ZoneIPOps {
           final Response _response = await Rest.get(
             context: context,
             rawLink: _url,
-            showErrorDialog: false,
             invoker: '_getZoneByIP_ipApi',
           );
 
@@ -162,7 +161,6 @@ class ZoneIPOps {
           final Response _response = await Rest.get(
             context: context,
             rawLink: _url,
-            showErrorDialog: false,
             invoker: '_getZoneByIP_ipRegistry',
           );
 

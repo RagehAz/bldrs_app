@@ -1194,7 +1194,6 @@ String generateStringsList_index_hh_i_mm_i_ss({
     final http.Response _response = await Rest.get(
       rawLink: url,
       context: null,
-      showErrorDialog: false,
       invoker: 'getInternetUTCTime',
     );
 

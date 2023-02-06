@@ -1,14 +1,12 @@
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
-/// ONLY_FOR_BLDRS_DASHBOARD_VERSION
-import 'package:bldrs/x_dashboard/phrase_editor/x_phrase_editor_controllers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:colorizer/colorizer.dart';
 import 'package:flutter/material.dart';
 import 'package:numeric/numeric.dart';
 import 'package:scale/scale.dart';
-
+import 'package:super_text/super_text.dart';
 export 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 
 enum VerseWeight {
@@ -18,26 +16,6 @@ enum VerseWeight {
   thin,
 }
 
-/// task : add selectable text feature
-//             SelectableText(
-//               text,
-//               toolbarOptions: const ToolbarOptions(
-//                 selectAll: true,
-//                 copy: true,
-//               ),
-//               textAlign: TextAlign.center,
-//               style: TextStyle(
-//                 color: Colorz.white255,
-//                 fontFamily: Words.bodyFont(context),
-//                 fontStyle: FontStyle.italic,
-//                 decoration: TextDecoration.none,
-//                 fontSize: MediaQuery.of(context).size.height * 0.02,
-//                 letterSpacing: 0.75,
-//               ),
-//             ),
-
-
-/// TASK : need to study Text_theme.dart class and text sizes
 class SuperVerse extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SuperVerse({
@@ -169,37 +147,6 @@ class SuperVerse extends StatelessWidget {
   /// SCALES
 
   // --------------------
-  static double verseLabelHeight(int verseSize, double screenHeight) {
-    return (verseSize == 0) ?
-    screenHeight * Ratioz.fontSize0 * 1.42 // -- 8 -- A77A
-        :
-    (verseSize == 1) ?
-    screenHeight * Ratioz.fontSize1 * 1.42 // -- 10 -- Nano
-        :
-    (verseSize == 2) ?
-    screenHeight * Ratioz.fontSize2 * 1.42 // -- 12 -- Micro
-        :
-    (verseSize == 3) ?
-    screenHeight * Ratioz.fontSize3 * 1.42 // -- 14 -- Mini
-        :
-    (verseSize == 4) ?
-    screenHeight * Ratioz.fontSize4 * 1.42 // -- 16 -- Medium
-        :
-    (verseSize == 5) ?
-    screenHeight * Ratioz.fontSize5 * 1.42 // -- 20 -- Macro
-        :
-    (verseSize == 6) ?
-    screenHeight * Ratioz.fontSize6 * 1.42 // -- 24 -- Big
-        :
-    (verseSize == 7) ?
-    screenHeight * Ratioz.fontSize7 * 1.42 // -- 28 -- Massive
-        :
-    (verseSize == 8) ?
-    screenHeight * Ratioz.fontSize8 * 1.42 // -- 28 -- Gigantic
-        :
-    screenHeight * Ratioz.fontSize1 * 1.42;
-  }
-  // --------------------
   /// TESTED : ACCEPTED
   static double superVerseRealHeight({
     @required BuildContext context,
@@ -211,7 +158,7 @@ class SuperVerse extends StatelessWidget {
     final double _sidePaddingValues = superVerseSidePaddingValues(context, size);
     final double _sidePaddings = hasLabelBox == false ? 0 : _sidePaddingValues;
     final double _verseHeight =
-        (superVerseSizeValue(context, size, sizeFactor) * 1.438)
+        (_superVerseSizeValue(context, size, sizeFactor) * 1.438)
             +
             (_sidePaddings * 0.25 * 0);
 
@@ -290,24 +237,12 @@ class SuperVerse extends StatelessWidget {
         ;
     return _sidePaddingValues;
   }
-  // --------------------
-  static double superVerseLabelMargin({
-    @required BuildContext context,
-    @required int verseSize,
-    @required double scalingFactor,
-    @required bool labelIsOn,
-  }) {
-    final double _sidePaddingValues = superVerseSidePaddingValues(context, verseSize);
-    final double _sidePaddings = labelIsOn == false ? 0 : _sidePaddingValues;
-    final double _superVerseLabelMargin = _sidePaddings * 0.25;
-    return _superVerseLabelMargin;
-  }
   // -----------------------------------------------------------------------------
 
   /// SIZING
 
   // --------------------
-  static double superVerseSizeValue(
+  static double _superVerseSizeValue(
       BuildContext context,
       int verseSize,
       double scalingFactor
@@ -381,15 +316,15 @@ class SuperVerse extends StatelessWidget {
     final String _verseFont = superVerseFont(context, weight);
     final FontStyle _verseStyle = italic == true ? FontStyle.italic : FontStyle.normal;
     final double _scalingFactor = scaleFactor ?? 1;
-    final double _verseSizeValue = superVerseSizeValue(context, size, _scalingFactor);
+    final double _verseSizeValue = _superVerseSizeValue(context, size, _scalingFactor);
     final double _verseLetterSpacing = superVerseLetterSpacing(weight, _verseSizeValue);
-    final double _verseWordSpacing = superVerseWordSpacing(_verseSizeValue);
+    final double _verseWordSpacing = _superVerseWordSpacing(_verseSizeValue);
     final FontWeight _verseWeight = superVerseWeight(weight);
 
     /// --- SHADOWS -----------------------------------------------
     // const double _shadowBlur = 0;
     const double _shadowYOffset = 0;
-    final double _shadowXOffset = superVerseXOffset(weight, _verseSizeValue);
+    final double _shadowXOffset = _superVerseXOffset(weight, _verseSizeValue);
     final double _secondShadowXOffset = -0.35 * _shadowXOffset;
 
     final Color _defaultLeftShadow = Colorizer.checkColorIsBlack(color) == true ? Colorz.white200 : Colorz.black230;
@@ -441,19 +376,10 @@ class SuperVerse extends StatelessWidget {
   }
   // -----------------------------------------------------------------------------
 
-  /// ALIGNMENT
-
-  // --------------------
-  static dynamic getTextAlign({
-    @required bool centered,
-  }) {
-    return centered == true ? TextAlign.center : TextAlign.start;
-  }
-  // -----------------------------------------------------------------------------
-
   /// WEIGHT
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static FontWeight superVerseWeight(VerseWeight weight) {
     final FontWeight _verseWeight =
     weight == VerseWeight.thin ? FontWeight.w100
@@ -472,6 +398,7 @@ class SuperVerse extends StatelessWidget {
   /// FONT
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String superVerseFont(BuildContext context, VerseWeight weight) {
     final String _verseFont =
     weight == VerseWeight.thin ? Words.bodyFont(context)
@@ -490,6 +417,7 @@ class SuperVerse extends StatelessWidget {
   /// LETTER SPACING
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static double superVerseLetterSpacing(VerseWeight weight, double verseSizeValue) {
     final double _verseLetterSpacing =
     weight == VerseWeight.thin ? verseSizeValue * 0.035
@@ -504,7 +432,8 @@ class SuperVerse extends StatelessWidget {
     return _verseLetterSpacing;
   }
   // --------------------
-  static double superVerseWordSpacing(double verseSize) {
+  /// TESTED : WORKS PERFECT
+  static double _superVerseWordSpacing(double verseSize) {
     final double _verseWordSpacing =
     // weight == VerseWeight.thin ? verseSize * 0.1 :
     // weight == VerseWeight.regular ? verseSize * 0.1 :
@@ -518,7 +447,60 @@ class SuperVerse extends StatelessWidget {
   /// SHADOW
 
   // --------------------
-  static double superVerseXOffset(VerseWeight weight, double verseSize) {
+  /// TESTED : WORKS PERFECT
+  static List<Shadow> _theVerseShadows({
+    @required BuildContext context,
+    @required int size,
+    @required bool shadowIsOn,
+    @required Color textColor,
+    @required double scaleFactor,
+    @required VerseWeight weight,
+    @required Color shadowColor,
+  }){
+
+    if (shadowIsOn == true){
+
+      final double _verseSizeValue = _superVerseSizeValue(context, size, scaleFactor);
+      const double _shadowYOffset = 0;
+      final double _shadowXOffset = _superVerseXOffset(weight, _verseSizeValue);
+      final double _secondShadowXOffset = -0.35 * _shadowXOffset;
+
+      final Color _defaultLeftShadow = Colorizer.checkColorIsBlack(textColor) == true ?
+      Colorz.white200
+          :
+      Colorz.black230;
+
+      final Color _leftShadow = shadowColor ?? _defaultLeftShadow;
+
+      final Color _rightShadow = Colorizer.checkColorIsBlack(textColor) == true ?
+      Colorz.white80
+          :
+      Colorz.white20;
+
+      return  <Shadow>[
+
+          if (shadowIsOn == true)
+            Shadow(
+              color: _leftShadow,
+              offset: Offset(_shadowXOffset, _shadowYOffset),
+            ),
+
+          Shadow(
+            color: _rightShadow,
+            offset: Offset(_secondShadowXOffset, _shadowYOffset),
+          )
+
+        ];
+    }
+
+    else {
+      return [];
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static double _superVerseXOffset(VerseWeight weight, double verseSize) {
     final double _shadowXOffset =
     weight == VerseWeight.thin ? verseSize * -0.07
         :
@@ -535,493 +517,49 @@ class SuperVerse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (verse == null){
-      return const SizedBox();
-    }
+    final double _verseSizeValue = _superVerseSizeValue(context, size, scaleFactor);
 
-    else {
-
-      final double verseSizeValue = superVerseSizeValue(context, size, scaleFactor);
-      final double _labelHeight = superVerseRealHeight(
-        context: context,
-        size: size,
-        sizeFactor: scaleFactor,
-        hasLabelBox: labelColor != null,
-      );
-      final double _dotSize = verseSizeValue * 0.3;
-
-      /// PLAN : SHOULD DELETE OR CREATE A SWITCH FOR THIS AFTER TRANSLATING EVERYTHING
-      final bool _shouldTranslateButNotFound = Verse.checkShouldTranslateButNotFound(
+    return SuperText(
+      text: Verse.bakeVerseToString(
         context: context,
         verse: verse,
-      );
-
-      final bool _appIsLeftToRight = UiProvider.checkAppIsLeftToRight(context);
-
-      return SuperVerseBox(
-        width: width,
-        onTap: onTap,
-        margin: margin,
-        centered: centered,
-        textDirection: textDirection,
-        appIsLeftToRight: _appIsLeftToRight,
-        leadingDot: leadingDot,
-        redDot: redDot,
-        /// ONLY_FOR_BLDRS_DASHBOARD_VERSION
-        onDoubleTap: _shouldTranslateButNotFound == false ? null : () => goToFastTranslator(
-          context: context,
-          verse: verse,
-        ),
-        children: <Widget>[
-
-          if (leadingDot == true)
-            _LeadingDot(
-              dotSize: _dotSize,
-              color: color,
-            ),
-
-          _TheVerse(
-            verse: verse,
-            maxLines: maxLines,
-            color: _shouldTranslateButNotFound == true ? Colorz.red255.withGreen(150).withBlue(100) : color,
-            centered: centered,
-            scaleFactor: scaleFactor,
-            size: size,
-            italic: italic,
-            labelColor: labelColor,
-            weight: weight,
-            shadow: shadow,
-            shadowColor: shadowColor,
-            highlight: highlight,
-            highlightColor: highlightColor,
-            strikeThrough: strikeThrough,
-            textDirection: textDirection,
-          ),
-
-          if (redDot == true)
-            _RedDot(
-              labelHeight: _labelHeight,
-              labelColor: labelColor,
-              dotSize: _dotSize,
-            ),
-
-        ],
-      );
-
-    }
-
-  }
-  // -----------------------------------------------------------------------------
-}
-
-class SuperVerseBox extends StatelessWidget {
-  /// --------------------------------------------------------------------------
-  const SuperVerseBox({
-    @required this.onTap,
-    @required this.margin,
-    @required this.centered,
-    @required this.leadingDot,
-    @required this.redDot,
-    @required this.children,
-    @required this.width,
-    @required this.textDirection,
-    @required this.appIsLeftToRight,
-    this.onDoubleTap,
-    Key key
-  }) : super(key: key);
-  /// --------------------------------------------------------------------------
-  final Function onTap;
-  final dynamic margin;
-  final bool centered;
-  final bool leadingDot;
-  final bool redDot;
-  final List<Widget> children;
-  final Function onDoubleTap;
-  final double width;
-  final TextDirection textDirection;
-  final bool appIsLeftToRight;
-  // --------------------------------------------------------------------------
-  /// TESTED : WORKS PERFECT
-  static MainAxisAlignment _getMainAxisAlignment({
-    @required bool centered,
-    @required TextDirection textDirection,
-    @required bool appIsLeftToRight,
-  }){
-
-    if (centered == true){
-      return MainAxisAlignment.center;
-    }
-
-    else {
-
-      if (textDirection == null){
-        return MainAxisAlignment.start;
-      }
-      else {
-
-        /// APP IS LTR (ENGLISH)
-        if (appIsLeftToRight == true){
-
-          if (textDirection == TextDirection.ltr){
-            return MainAxisAlignment.start;
-          }
-          else {
-            return MainAxisAlignment.end;
-          }
-
-        }
-
-        /// APP IS RTL (ARABIC)
-        else {
-
-          if (textDirection == TextDirection.rtl){
-            return MainAxisAlignment.start;
-          }
-          else {
-            return MainAxisAlignment.end;
-          }
-
-
-        }
-
-      }
-
-    }
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static CrossAxisAlignment _getCrossAxisAlignment({
-    @required bool redDot,
-    @required bool leadingDot,
-  }){
-    return
-      redDot == true ?
-      CrossAxisAlignment.center
-          :
-      leadingDot == true ?
-      CrossAxisAlignment.start
-          :
-      CrossAxisAlignment.center;
-  }
-  // -----------------------------------------------------------------------------
-  @override
-  Widget build(BuildContext context) {
-
-    return GestureDetector(
-      key: const ValueKey<String>('SuperVerseBox'),
-      onTap: onTap,
-      onDoubleTap: onDoubleTap,
-      child: Container(
-        width: width,
-        margin: Scale.superMargins(margin: margin),
-        child: Row(
-          mainAxisAlignment: _getMainAxisAlignment(
-            appIsLeftToRight: appIsLeftToRight,
-            centered: centered,
-            textDirection: textDirection,
-          ),
-          crossAxisAlignment: _getCrossAxisAlignment(
-            leadingDot: leadingDot,
-            redDot: redDot,
-          ),
-          mainAxisSize: MainAxisSize.min,
-          children: children,
-        ),
       ),
-    );
-
-  }
-  // -----------------------------------------------------------------------------
-}
-
-class _LeadingDot extends StatelessWidget {
-  /// --------------------------------------------------------------------------
-  const _LeadingDot({
-    @required this.dotSize,
-    @required this.color,
-    Key key
-  }) : super(key: key);
-  /// --------------------------------------------------------------------------
-  final double dotSize;
-  final Color color;
-  /// --------------------------------------------------------------------------
-  static Widget dot({
-    @required double dotSize,
-    @required Color color,
-  }){
-    return Container(
-      width: dotSize,
-      height: dotSize,
-      decoration: BoxDecoration(
-        color: color,
-        shape: BoxShape.circle,
-      ),
-    );
-  }
-  // -----------------------------------------------------------------------------
-  @override
-  Widget build(BuildContext context) {
-
-    return Container(
-      key: const ValueKey<String>('the_leading_dot'),
-      padding: EdgeInsets.all(dotSize),
-      margin: EdgeInsets.only(top: dotSize),
-      child: dot(
-        dotSize: dotSize,
-        color: color,
-      ),
-    );
-
-  }
-  // -----------------------------------------------------------------------------
-}
-
-class _RedDot extends StatelessWidget {
-  /// --------------------------------------------------------------------------
-  const _RedDot({
-    @required this.labelHeight,
-    @required this.labelColor,
-    @required this.dotSize,
-    Key key
-  }) : super(key: key);
-  /// --------------------------------------------------------------------------
-  final double labelHeight;
-  final Color labelColor;
-  final double dotSize;
-  /// --------------------------------------------------------------------------
-  @override
-  Widget build(BuildContext context) {
-
-    return Container(
-      key: const ValueKey<String>('the_red_dot'),
-      height: labelHeight,
-      margin: labelColor == null ?
-      EdgeInsets.symmetric(horizontal: labelHeight * 0.2)
-          :
-      EdgeInsets.symmetric(
-          horizontal: labelHeight * 0.05
-      ),
-      alignment: Alignment.topCenter,
-      child: Padding(
-        padding: labelColor == null ?
-        EdgeInsets.only(top: labelHeight * 0.2)
-            :
-        EdgeInsets.only(top: labelHeight * 0.05),
-        child: _LeadingDot.dot(
-          dotSize: dotSize,
-          color: Colorz.red255,
-        ),
-      ),
-    );
-
-  }
-  // -----------------------------------------------------------------------------
-}
-
-class _TheVerse extends StatelessWidget {
-  /// --------------------------------------------------------------------------
-  const _TheVerse({
-    @required this.verse,
-    this.highlight,
-    this.size = 2,
-    this.labelColor,
-    this.maxLines = 1,
-    this.centered = true,
-    this.color = Colorz.white255,
-    this.shadow = false,
-    this.italic = false,
-    this.weight = VerseWeight.bold,
-    this.scaleFactor = 1,
-    this.strikeThrough = false,
-    this.highlightColor = Colorz.bloodTest,
-    this.shadowColor,
-    this.textDirection = TextDirection.ltr,
-    Key key
-  }) : super(key: key);
-  /// --------------------------------------------------------------------------
-  final Verse verse;
-  final int size;
-  final Color labelColor;
-  final ValueNotifier<dynamic> highlight;
-  final int maxLines;
-  final bool centered;
-  final Color color;
-  final bool shadow;
-  final bool italic;
-  final VerseWeight weight;
-  final double scaleFactor;
-  final bool strikeThrough;
-  final Color highlightColor;
-  final Color shadowColor;
-  final TextDirection textDirection;
-  // --------------------------------------------------------------------------
-  /// TESTED : WORKS PERFECT
-  static List<TextSpan> _generateTextSpans({
-    @required String verse,
-    @required String highlighted,
-    @required TextStyle defaultStyle,
-    @required Color highlightColor,
-  }){
-    if (highlighted == null || highlighted.isEmpty || !verse.toLowerCase().contains(highlighted.trim().toLowerCase())) {
-      return [ TextSpan(text: verse) ];
-    }
-
-    else {
-
-      final Iterable<Match> matches = highlighted.toLowerCase().allMatches(verse.toLowerCase());
-      int lastMatchEnd = 0;
-
-      final List<TextSpan> children = <TextSpan>[];
-
-      for (var i = 0; i < matches.length; i++) {
-        final Match match = matches.elementAt(i);
-
-        if (match.start != lastMatchEnd) {
-
-          children.add(
-              TextSpan(
-                text: verse.substring(lastMatchEnd, match.start),
-                style: defaultStyle,
-              )
-          );
-
-        }
-
-        children.add(
-            TextSpan(
-              text: verse.substring(match.start, match.end),
-              style: defaultStyle.copyWith(backgroundColor: highlightColor),
-            )
-        );
-
-        if (i == matches.length - 1 && match.end != verse.length) {
-          children.add(
-              TextSpan(
-                text: verse.substring(match.end, verse.length),
-                style: defaultStyle,
-              )
-          );
-        }
-
-        lastMatchEnd = match.end;
-      }
-      return children;
-
-    }
-  }
-  // -----------------------------------------------------------------------------
-  @override
-  Widget build(BuildContext context) {
-
-    /// VERSE IS NULL
-    if (Verse.isEmpty(verse) == true){
-      return const SizedBox();
-    }
-
-    /// VERSE HAS VALUE
-    else {
-      // --------------------
-      final double _sidePaddingValues = SuperVerse.superVerseSidePaddingValues(context, size);
-      final double _sidePaddings = labelColor == null ? 0 : _sidePaddingValues;
-      // --------------------
-      final double _labelCornerValues = SuperVerse.superVerseLabelCornerValue(context, size);
-      final double _labelCorner = labelColor == null ? 0 : _labelCornerValues;
-      // --------------------
-      final TextAlign _textAlign = SuperVerse.getTextAlign(centered: centered);
-      // --------------------
-      final TextStyle _style = SuperVerse.createStyle(
+      highlight: highlight,
+      boxWidth: width,
+      // boxHeight: boxHeight,
+      lineHeight: _verseSizeValue * 1.42,
+      maxLines: maxLines,
+      margins: margin,
+      wordSpacing: _superVerseWordSpacing(_verseSizeValue),
+      letterSpacing: SuperVerse.superVerseLetterSpacing(weight, _verseSizeValue),
+      textColor: color,
+      boxColor: labelColor,
+      // highlightColor: highlightColor,
+      weight: SuperVerse.superVerseWeight(weight),
+      font: superVerseFont(context, weight),
+      italic: italic,
+      shadows: _theVerseShadows(
         context: context,
-        color: color,
-        weight: weight,
-        italic: italic,
         size: size,
-        shadowIsOn: shadow,
         scaleFactor: scaleFactor,
-        strikeThrough: strikeThrough,
-      );
-      // --------------------
-      final String _verse = Verse.bakeVerseToString(
-        context: context,
-        verse: verse,
-      );
-      // --------------------
-      return Flexible(
-        key: const ValueKey<String>('a_verse'),
-        child: Container(
-          padding: EdgeInsets.only(
-            right: _sidePaddings,
-            left: _sidePaddings,
-          ),
-          margin: EdgeInsets.all(_sidePaddings * 0.25),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(_labelCorner)),
-            color: labelColor,
-          ),
-          child:
-          highlight == null ?
-          Text(
-              _verse,
-            softWrap: false,
-            overflow: TextOverflow.ellipsis,
-            maxLines: maxLines,
-            textAlign: _textAlign,
-            textScaleFactor: 1,
-            textDirection: textDirection,
-            // locale: Localizer.getSupportedLocales()[1],
-            style: SuperVerse.createStyle(
-              context: context,
-              color: color,
-              weight: weight,
-              italic: italic,
-              size: size,
-              shadowIsOn: shadow,
-              shadowColor: shadowColor,
-              scaleFactor: scaleFactor,
-              strikeThrough: strikeThrough,
-            ),
-          )
-              :
-          ValueListenableBuilder(
-              valueListenable: highlight,
-              builder: (_, dynamic _highlight, Widget child){
-
-                String _highLightedText ='';
-
-                if (_highlight is TextEditingValue){
-                  final TextEditingValue _t = _highlight;
-                  _highLightedText = _t.text;
-                }
-
-                else if (_highlight is String){
-                  _highLightedText = _highlight;
-                }
-
-                return RichText(
-                  maxLines: maxLines,
-                  textAlign: _textAlign,
-                  overflow: TextOverflow.ellipsis,
-                  softWrap: false,
-                  textDirection: textDirection,
-                  // textScaleFactor: 1,
-                  text: TextSpan(
-                    style: _style,
-                    children: _generateTextSpans(
-                      verse: _verse,
-                      highlighted: _highLightedText,
-                      defaultStyle: _style,
-                      highlightColor: highlightColor,
-                    ),
-                  ),
-                );
-
-
-              }
-          ),
-        ),
-      );
-      // --------------------
-    }
+        shadowIsOn: shadow,
+        textColor: color,
+        weight: weight,
+        shadowColor: shadowColor,
+      ),
+      // line: line,
+      // lineStyle: lineStyle,
+      // lineColor: lineColor,
+      // lineThickness: lineThickness,
+      leadingDot: leadingDot,
+      redDot: redDot,
+      centered: centered,
+      textDirection: textDirection ?? UiProvider.getAppTextDir(context),
+      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+      onTap: onTap,
+      // onDoubleTap: onDoubleTap,
+      // package: package,
+    );
 
   }
   // -----------------------------------------------------------------------------
