@@ -16,11 +16,9 @@ class SuperBoxTestScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-
     const double _height = 40;
-
     const EdgeInsets _margins = EdgeInsets.only(bottom: 10);
-
+    // --------------------
     return MainLayout(
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,

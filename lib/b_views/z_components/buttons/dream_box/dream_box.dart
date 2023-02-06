@@ -1,8 +1,12 @@
+import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
+import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
+import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:super_box/super_box.dart';
+import 'dart:ui' as ui;
 
 class DreamBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -97,80 +101,18 @@ class DreamBox extends StatelessWidget {
   final Color verseHighlightColor;
   final Function onLongTap;
   final Function onDoubleTap;
-  /// --------------------------------------------------------------------------
-  // static Color getIconColor({
-  //   bool blackAndWhite = false,
-  //   bool inActiveMode = false,
-  //   Color colorOverride}) {
-  //   if (blackAndWhite == true || inActiveMode == true) {
-  //     return Colorz.white30;
-  //   } else {
-  //     return colorOverride;
-  //   }
-  // }
-  // // --------------------
-  // static double graphicWidth({
-  //   dynamic icon,
-  //   double height,
-  //   bool loading,
-  //   double iconSizeFactor,
-  // }) {
-  //   if (icon == null && loading == false) {
-  //     return 0;
-  //   } else if (ObjectCheck.fileExtensionOf(icon) == 'svg' ||
-  //       ObjectCheck.fileExtensionOf(icon) == 'jpg' ||
-  //       ObjectCheck.fileExtensionOf(icon) == 'jpeg' ||
-  //       ObjectCheck.fileExtensionOf(icon) == 'png') {
-  //     return height * iconSizeFactor;
-  //   } else {
-  //     return height;
-  //   }
-  // }
-  // // --------------------
-  // static double iconMargin({
-  //   dynamic icon,
-  //   double height,
-  //   double graphicWidth,
-  //   String verse,
-  // }) {
-  //   if (verse == null || icon == null) {
-  //     return 0;
-  //   } else {
-  //     return (height - graphicWidth) / 2;
-  //   }
-  // }
-  // // --------------------
-  // static Color boxColor({bool blackAndWhite, Color color}) {
-  //   if (blackAndWhite == true && color != Colorz.nothing) {
-  //     return Colorz.grey80;
-  //   } else if (color == Colorz.nothing && blackAndWhite == true) {
-  //     return Colorz.nothing;
-  //   } else {
-  //     return color;
-  //   }
-  // }
-  // // --------------------
-  // static BorderRadius boxCorners = Borderers.constantCornersAll12;
-  // // --------------------
-  // static BorderRadius getBoxCorners({
-  //   @required BuildContext context,
-  //   @required dynamic cornersOverride,
-  // }) {
-  //   if (cornersOverride == null) {
-  //     return boxCorners;
-  //   } else {
-  //     return Borderers.getCornersAsBorderRadius(context, cornersOverride ?? 0);
-  //   }
-  // }
-  // -----------------------------------------------------------------------------
-  @override
-  Widget build(BuildContext context) {
-    // --------------------
+  // --------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
+  Widget getChild({
+    @required BuildContext context,
+    @required dynamic theIcon,
+    bool isLoading,
+  }) {
     return SuperBox(
       // package: 'bldrs_theme',
       height: height,
       width: width,
-      icon: icon,
+      icon: theIcon,
       iconSizeFactor: iconSizeFactor,
       color: color,
       corners: corners,
@@ -201,7 +143,7 @@ class DreamBox extends StatelessWidget {
       secondTextColor: secondLineColor,
       redDot: redDot,
       secondTextScaleFactor: secondLineScaleFactor,
-      loading: loading,
+      loading: isLoading ?? loading,
       iconBackgroundColor: iconBackgroundColor,
       onDisabledTap: onDisabledTap,
       textHighlight: verseHighlight,
@@ -220,7 +162,75 @@ class DreamBox extends StatelessWidget {
           )),
       subChild: subChild,
     );
-    // --------------------
   }
-// -----------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    /// WITHOUT ICON
+    if (icon == null) {
+      return getChild(
+        context: context,
+        theIcon: null,
+      );
+    }
+
+    /// WITH ICON
+    else {
+
+      final bool isURL = ObjectCheck.isAbsoluteURL(icon);
+      final bool isRaster = ObjectCheck.objectIsJPGorPNG(icon);
+      final bool isSVG = ObjectCheck.objectIsSVG(icon);
+      final bool isFile = ObjectCheck.objectIsFile(icon);
+      final bool isPicPath = ObjectCheck.objectIsPicPath(icon);
+      final bool isPicModel = icon is PicModel;
+      final bool _isBytes = ObjectCheck.objectIsUint8List(icon);
+      final bool _isBase64 = ObjectCheck.isBase64(icon);
+      final bool _isUiImage = ObjectCheck.objectIsUiImage(icon);
+      final bool _isImgImage = ObjectCheck.objectIsImgImage(icon);
+
+      /// CAN VIEW
+      if (isURL ||
+          isRaster ||
+          isSVG ||
+          isFile ||
+          _isBytes ||
+          _isBase64 ||
+          _isUiImage ||
+          _isImgImage ||
+          isPicModel) {
+        return getChild(
+          context: context,
+          theIcon: icon,
+        );
+      }
+
+      /// PIC PATH
+      else if (isPicPath == true) {
+        return FutureBuilder(
+          future: PicProtocols.fetchPicUiImage(
+            context: context,
+            path: icon,
+          ),
+          builder: (_, AsyncSnapshot<ui.Image> snap) {
+            return getChild(
+              context: context,
+              theIcon: snap.data,
+              isLoading: snap.connectionState == ConnectionState.waiting,
+            );
+          },
+        );
+      }
+
+      else {
+        return getChild(
+          context: context,
+          theIcon: icon,
+        );
+      }
+    }
+
+    // -----------------------------------------------------------------------------
+  }
+  // --------------------------------------------------------------------------
 }
