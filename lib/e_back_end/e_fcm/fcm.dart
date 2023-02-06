@@ -654,7 +654,6 @@ class FCM {
         // 'Content-Type': 'application/json',
         // 'Authorization': 'key=$fcmServerKey',
       },
-      showErrorDialog: true,
       invoker: 'readMySubscribedTopics',
     );
 

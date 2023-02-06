@@ -315,7 +315,6 @@ class Filers {
       final http.Response _response = await Rest.get(
         context: null,
         rawLink: url,
-        showErrorDialog: false,
         // timeout: 60,
         invoker: 'getFileFromURL',
       );
