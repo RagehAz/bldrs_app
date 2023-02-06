@@ -1,5 +1,4 @@
 import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/flagbox_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
@@ -11,12 +10,11 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:numeric/numeric.dart';
 import 'package:scale/scale.dart';
-
-
 import 'package:bldrs/x_dashboard/currency_manager/x_currency_manager_controllers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:super_box/super_box.dart';
 
 class CurrencyManagerScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -71,7 +69,7 @@ class CurrencyManagerScreen extends StatelessWidget {
                   child: Container(
                     width: _clearWidth,
                     decoration: BoxDecoration(
-                      borderRadius: DreamBox.boxCorners,
+                      borderRadius: SuperBoxController.boxCornersValue,
                       color: Colorz.white10,
                     ),
                     margin: const EdgeInsets.only(bottom: 5),

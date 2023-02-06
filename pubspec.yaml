@@ -141,11 +141,14 @@ dependencies:
   stringer:
     git:
       url: https://github.com/RagehAz/stringer.git
+  super_text:
+    git:
+      url: https://github.com/RagehAz/super_text.git
+  super_box:
+    git:
+      url: https://github.com/RagehAz/super_box.git
   # ------------------------------------
   # MY UN-USED PACKAGES
-  #  super_box:
-  #    git:
-  #      url: https://github.com/RagehAz/super_box.git
   #  bldrs_ui:
   #    git:
   #      url: https://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@github.com/Bldrs-net/bldrs_ui.git
