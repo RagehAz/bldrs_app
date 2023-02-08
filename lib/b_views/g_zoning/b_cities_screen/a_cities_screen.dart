@@ -397,7 +397,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
                         size: 1,
                         margin: Scale.superInsets(
                           context: context,
-                          appIsLeftToRight: UiProvider.checkAppIsLeftToRight(context),
+                          appIsLTR: UiProvider.checkAppIsLeftToRight(context),
                           bottom: 20,
                           enRight: 10,
                         ),

@@ -158,7 +158,7 @@ class SuperVerse extends StatelessWidget {
     final double _sidePaddingValues = superVerseSidePaddingValues(context, size);
     final double _sidePaddings = hasLabelBox == false ? 0 : _sidePaddingValues;
     final double _verseHeight =
-        (_superVerseSizeValue(context, size, sizeFactor) * 1.438)
+        (superVerseSizeValue(context, size, sizeFactor) * 1.438)
             +
             (_sidePaddings * 0.25 * 0);
 
@@ -242,7 +242,7 @@ class SuperVerse extends StatelessWidget {
   /// SIZING
 
   // --------------------
-  static double _superVerseSizeValue(
+  static double superVerseSizeValue(
       BuildContext context,
       int verseSize,
       double scalingFactor
@@ -316,9 +316,9 @@ class SuperVerse extends StatelessWidget {
     final String _verseFont = superVerseFont(context, weight);
     final FontStyle _verseStyle = italic == true ? FontStyle.italic : FontStyle.normal;
     final double _scalingFactor = scaleFactor ?? 1;
-    final double _verseSizeValue = _superVerseSizeValue(context, size, _scalingFactor);
+    final double _verseSizeValue = superVerseSizeValue(context, size, _scalingFactor);
     final double _verseLetterSpacing = superVerseLetterSpacing(weight, _verseSizeValue);
-    final double _verseWordSpacing = _superVerseWordSpacing(_verseSizeValue);
+    final double _verseWordSpacing = superVerseWordSpacing(_verseSizeValue);
     final FontWeight _verseWeight = superVerseWeight(weight);
 
     /// --- SHADOWS -----------------------------------------------
@@ -433,7 +433,7 @@ class SuperVerse extends StatelessWidget {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static double _superVerseWordSpacing(double verseSize) {
+  static double superVerseWordSpacing(double verseSize) {
     final double _verseWordSpacing =
     // weight == VerseWeight.thin ? verseSize * 0.1 :
     // weight == VerseWeight.regular ? verseSize * 0.1 :
@@ -448,19 +448,19 @@ class SuperVerse extends StatelessWidget {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<Shadow> _theVerseShadows({
+  static List<Shadow> verseShadows({
     @required BuildContext context,
     @required int size,
     @required bool shadowIsOn,
     @required Color textColor,
     @required double scaleFactor,
     @required VerseWeight weight,
-    @required Color shadowColor,
+    Color shadowColor,
   }){
 
     if (shadowIsOn == true){
 
-      final double _verseSizeValue = _superVerseSizeValue(context, size, scaleFactor);
+      final double _verseSizeValue = superVerseSizeValue(context, size, scaleFactor);
       const double _shadowYOffset = 0;
       final double _shadowXOffset = _superVerseXOffset(weight, _verseSizeValue);
       final double _secondShadowXOffset = -0.35 * _shadowXOffset;
@@ -517,7 +517,7 @@ class SuperVerse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _verseSizeValue = _superVerseSizeValue(context, size, scaleFactor);
+    final double _verseSizeValue = superVerseSizeValue(context, size, scaleFactor);
 
     return SuperText(
       text: Verse.bakeVerseToString(
@@ -527,10 +527,10 @@ class SuperVerse extends StatelessWidget {
       highlight: highlight,
       boxWidth: width,
       // boxHeight: boxHeight,
-      lineHeight: _verseSizeValue * 1.42,
+      textHeight: _verseSizeValue * 1.42,
       maxLines: maxLines,
       margins: margin,
-      wordSpacing: _superVerseWordSpacing(_verseSizeValue),
+      wordSpacing: superVerseWordSpacing(_verseSizeValue),
       letterSpacing: SuperVerse.superVerseLetterSpacing(weight, _verseSizeValue),
       textColor: color,
       boxColor: labelColor,
@@ -538,7 +538,7 @@ class SuperVerse extends StatelessWidget {
       weight: SuperVerse.superVerseWeight(weight),
       font: superVerseFont(context, weight),
       italic: italic,
-      shadows: _theVerseShadows(
+      shadows: verseShadows(
         context: context,
         size: size,
         scaleFactor: scaleFactor,

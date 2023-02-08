@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
+import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +43,7 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
     // --------------------
     /// HEIGHT
     const int _textSize = 4;
-    final double _buttonHeight = SuperTextField.getFieldHeight(
+    final double _buttonHeight = BldrsTextField.getFieldHeight(
       context: context,
       minLines: 1,
       textSize: _textSize,
@@ -67,7 +67,7 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
         /// NUMBER TEXT FIELD
         Form(
           key: formKey,
-          child: SuperTextField(
+          child: BldrsTextField(
             appBarType: appBarType,
             globalKey: formKey,
             titleVerse: const Verse(

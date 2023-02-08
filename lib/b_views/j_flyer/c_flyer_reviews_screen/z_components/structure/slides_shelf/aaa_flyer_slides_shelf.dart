@@ -45,7 +45,7 @@ class FlyerSlidesShelf extends StatelessWidget {
               return Container(
                 margin: Scale.superInsets(
                   context: context,
-                  appIsLeftToRight: UiProvider.checkAppIsLeftToRight(context),
+                  appIsLTR: UiProvider.checkAppIsLeftToRight(context),
                   enRight: 5,
                 ),
                 alignment: Alignment.center,

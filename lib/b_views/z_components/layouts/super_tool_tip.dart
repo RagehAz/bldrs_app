@@ -43,7 +43,7 @@ class SuperToolTip extends StatelessWidget {
         height: 70,
         margin: Scale.superInsets(
           context: context,
-          appIsLeftToRight: UiProvider.checkAppIsLeftToRight(context),
+          appIsLTR: UiProvider.checkAppIsLeftToRight(context),
           enLeft: Ratioz.appBarMargin,
           enRight: Ratioz.appBarMargin * 5,
           top: 20,
