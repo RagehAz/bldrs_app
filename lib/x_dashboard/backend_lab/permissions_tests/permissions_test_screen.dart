@@ -1,4 +1,3 @@
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/buttons/wide_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -7,6 +6,7 @@ import 'package:bldrs/f_helpers/permissions/permits_protocols.dart';
 import 'package:bldrs/x_dashboard/backend_lab/permissions_tests/permission_button.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/dashboard_layout.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class PermissionScreen extends StatelessWidget {

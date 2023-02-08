@@ -82,6 +82,15 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.1"
+  bubbles:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "33f0c033d0e7f3b8a2cdf2482f0d22eddad5a599"
+      url: "https://github.com/RagehAz/bubbles.git"
+    source: git
+    version: "0.0.1"
   camera:
     dependency: transitive
     description:

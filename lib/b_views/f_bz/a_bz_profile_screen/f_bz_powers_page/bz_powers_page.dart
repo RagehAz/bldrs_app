@@ -1,11 +1,10 @@
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class BzPowersPage extends StatelessWidget {
