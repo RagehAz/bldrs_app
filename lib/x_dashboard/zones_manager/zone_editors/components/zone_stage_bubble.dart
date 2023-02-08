@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -39,7 +39,7 @@ class ZoneStageSwitcherBubble extends StatelessWidget {
 
     return TileBubble(
       bubbleWidth: _bubbleWidth,
-      bubbleHeaderVM: BubbleHeaderVM(
+      bubbleHeaderVM: BldrsBubbleHeaderVM(
         leadingIcon: Iconz.pyramid,
         leadingIconIsBubble: true,
         leadingIconBoxColor: Colorz.grey50,

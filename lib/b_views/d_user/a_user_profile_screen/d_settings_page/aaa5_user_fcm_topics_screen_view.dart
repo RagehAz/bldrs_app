@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/notes/topics_editor/topics_expanding_tile.dart';
@@ -110,7 +110,7 @@ class UserFCMTopicsScreenView extends StatelessWidget {
         /// ALL SWITCHER
         TileBubble(
           bubbleWidth: PageBubble.clearWidth(context),
-          bubbleHeaderVM: BubbleHeaderVM(
+          bubbleHeaderVM: BldrsBubbleHeaderVM(
             headlineVerse: const Verse(
               text: 'phid_all_notifications',
               translate: true,
@@ -144,7 +144,7 @@ class UserFCMTopicsScreenView extends StatelessWidget {
 
             return TileBubble(
               bubbleWidth: PageBubble.clearWidth(context),
-              bubbleHeaderVM: BubbleHeaderVM(
+              bubbleHeaderVM: BldrsBubbleHeaderVM(
                 headlineVerse: Verse(
                   text: 'phid_${topic.id}',
                   translate: true,

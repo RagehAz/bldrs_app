@@ -1,19 +1,19 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/c_team_page/bz_team_page_controllers.dart';
 import 'package:bldrs/b_views/f_bz/d_author_search_screen/x_author_search_controllers.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/users_tile_buttons_list.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:scale/scale.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
+import 'package:scale/scale.dart';
 
 class AuthorSearchScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -119,67 +119,67 @@ class InviteAuthorByLinkBubble extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Bubble(
-                  bubbleHeaderVM: const BubbleHeaderVM(
-                    headlineVerse: Verse(
-                      text: 'phid_share_invitation_link',
-                      translate: true,
-                    ),
-                  ),
-                  width: Bubble.bubbleWidth(context),
-                  margin: Scale.constantHorizontal10,
-                  columnChildren: <Widget>[
+      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+        headlineVerse: const Verse(
+          text: 'phid_share_invitation_link',
+          translate: true,
+        ),
+      ),
+      width: Bubble.bubbleWidth(context),
+      margin: Scale.constantHorizontal10,
+      columnChildren: <Widget>[
 
-                    SizedBox(
-                      width: Bubble.clearWidth(context),
-                      child: const SuperVerse(
-                        verse: Verse(
-                          pseudo: 'This Link is available for one time use only, '
-                              'to allow its reciever to be redirected to '
-                              'creating new author account for your Business page',
-                          text: 'phids_author_invitation_link_description',
-                          translate: true,
-                        ),
-                        weight: VerseWeight.thin,
-                        maxLines: 5,
-                        centered: false,
-                        color: Colorz.white125,
-                      ),
-                    ),
+        SizedBox(
+          width: Bubble.clearWidth(context),
+          child: const SuperVerse(
+            verse: Verse(
+              pseudo: 'This Link is available for one time use only, '
+                  'to allow its reciever to be redirected to '
+                  'creating new author account for your Business page',
+              text: 'phids_author_invitation_link_description',
+              translate: true,
+            ),
+            weight: VerseWeight.thin,
+            maxLines: 5,
+            centered: false,
+            color: Colorz.white125,
+          ),
+        ),
 
-                    const SuperVerse(
-                      verse: Verse(
-                        text: 'phid_invitation_link_com',
-                        translate: true,
-                        pseudo: 'Invitation link . com',
-                      ),
-                      maxLines: 2,
-                      margin: 10,
-                      weight: VerseWeight.thin,
-                      italic: true,
-                      color: Colorz.cyan255,
-                    ),
+        const SuperVerse(
+          verse: Verse(
+            text: 'phid_invitation_link_com',
+            translate: true,
+            pseudo: 'Invitation link . com',
+          ),
+          maxLines: 2,
+          margin: 10,
+          weight: VerseWeight.thin,
+          italic: true,
+          color: Colorz.cyan255,
+        ),
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: const <Widget>[
-                        DreamBox(
-                          height: 50,
-                          color: Colorz.yellow255,
-                          icon: Iconz.share,
-                          iconSizeFactor: 0.5,
-                          iconColor: Colorz.black230,
-                          verse: Verse(
-                            text: 'phid_share',
-                            translate: true,
-                          ),
-                          verseColor: Colorz.black230,
-                          verseScaleFactor: 1.2,
-                        ),
-                      ],
-                    ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: const <Widget>[
+            DreamBox(
+              height: 50,
+              color: Colorz.yellow255,
+              icon: Iconz.share,
+              iconSizeFactor: 0.5,
+              iconColor: Colorz.black230,
+              verse: Verse(
+                text: 'phid_share',
+                translate: true,
+              ),
+              verseColor: Colorz.black230,
+              verseScaleFactor: 1.2,
+            ),
+          ],
+        ),
 
-                  ],
-                );
+      ],
+    );
 
   }
   /// --------------------------------------------------------------------------

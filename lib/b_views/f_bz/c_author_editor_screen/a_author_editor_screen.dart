@@ -6,7 +6,7 @@ import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/f_bz/c_author_editor_screen/x_author_editor_screen_controller.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/contact_field_editor_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/pic_bubble/add_gallery_pic_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
@@ -370,8 +370,8 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     /// NAME
                     TextFieldBubble(
                       key: const ValueKey<String>('name'),
-                      bubbleHeaderVM: const BubbleHeaderVM(
-                        headlineVerse: Verse(
+                      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                        headlineVerse: const Verse(
                           text: 'phid_author_name',
                           translate: true,
                         ),
@@ -409,8 +409,8 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     /// TITLE
                     TextFieldBubble(
                       formKey: _formKey,
-                      bubbleHeaderVM: const BubbleHeaderVM(
-                        headlineVerse: Verse(
+                      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                        headlineVerse: const Verse(
                           text: 'phid_job_title',
                           translate: true,
                         ),
@@ -474,8 +474,8 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       focusNode: _phoneNode,
                       appBarType: AppBarType.basic,
                       isFormField: true,
-                      headerViewModel: const BubbleHeaderVM(
-                        headlineVerse: Verse(
+                      headerViewModel: BldrsBubbleHeaderVM.bake(
+                        headlineVerse: const Verse(
                           text: 'phid_phone',
                           translate: true,
                         ),
@@ -511,8 +511,8 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       focusNode: _emailNode,
                       appBarType: AppBarType.basic,
                       isFormField: true,
-                      headerViewModel: const BubbleHeaderVM(
-                        headlineVerse: Verse(
+                      headerViewModel: BldrsBubbleHeaderVM.bake(
+                        headlineVerse: const Verse(
                           text: 'phid_emailAddress',
                           translate: true,
                         ),

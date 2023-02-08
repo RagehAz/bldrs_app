@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/x_utilities/xx_app_controls_model.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -118,7 +118,7 @@ class _AppControlsManagerState extends State<AppControlsManager> {
 
                 TileBubble(
                   key: const ValueKey<String>('Tile_bubble_show_ll_flyers'),
-                  bubbleHeaderVM: BubbleHeaderVM(
+                  bubbleHeaderVM: BldrsBubbleHeaderVM(
                     headlineVerse: const Verse(
                       text: 'Show All Flyers in Home Screen',
                       translate: false,

@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/a_user/account_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/password_bubble/password_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
@@ -108,9 +108,9 @@ class EmailAuthScreenView extends StatelessWidget {
 
               /// ENTER E-MAIL
               TextFieldBubble(
-                bubbleHeaderVM: const BubbleHeaderVM(
+                bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                   redDot: true,
-                  headlineVerse: Verse(
+                  headlineVerse: const Verse(
                     text: 'phid_emailAddress',
                     translate: true,
                   ),
@@ -195,7 +195,7 @@ class EmailAuthScreenView extends StatelessWidget {
                 builder: (_, bool rememberMe, Widget child){
 
                   return TileBubble(
-                bubbleHeaderVM: BubbleHeaderVM(
+                bubbleHeaderVM: BldrsBubbleHeaderVM(
                   headlineVerse: const Verse(
                     text: 'phid_remember_me',
                     translate: true,

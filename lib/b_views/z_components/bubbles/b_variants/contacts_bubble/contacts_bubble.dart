@@ -1,11 +1,10 @@
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/a_profile_page/x1_user_profile_page_controllers.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/buttons/contact_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-
+import 'package:bubbles/bubbles.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +31,7 @@ class ContactsBubble extends StatelessWidget {
     return AbsorbPointer(
       absorbing: !canLaunchOnTap,
       child: Bubble(
-        bubbleHeaderVM: BubbleHeaderVM(
+        bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
           headlineVerse: const Verse(text: 'phid_contacts', translate: true),
           headerWidth: Bubble.clearWidth(context) - 20,
         ),

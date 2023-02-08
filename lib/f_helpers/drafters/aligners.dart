@@ -1,5 +1,6 @@
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:scale/scale.dart';
 
 class Aligners {
   // -----------------------------------------------------------------------------
@@ -7,94 +8,111 @@ class Aligners {
   const Aligners();
 
   // -----------------------------------------------------------------------------
+
+  /// POSITION IN RIGHT ALIGNMENT
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Alignment superTopAlignment(BuildContext context) {
-    return UiProvider.checkAppIsLeftToRight(context) ?
-    Alignment.topLeft
-        :
-    Alignment.topRight;
+
+    return Aligner.top(
+      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+      // inverse: false,
+    );
+
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Alignment superBottomAlignment(BuildContext context) {
-    return UiProvider.checkAppIsLeftToRight(context) ?
-    Alignment.bottomLeft
-        :
-    Alignment.bottomRight;
+
+    return Aligner.bottom(
+      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+      // inverse: false,
+    );
+
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Alignment superCenterAlignment(BuildContext context) {
-    return UiProvider.checkAppIsLeftToRight(context) ?
-    Alignment.centerLeft
-        :
-    Alignment.centerRight;
+
+    return Aligner.center(
+      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+    );
+
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Alignment superInverseCenterAlignment(BuildContext context) {
-    return UiProvider.checkAppIsLeftToRight(context) ?
-    Alignment.centerRight
-        :
-    Alignment.centerLeft;
+
+    return Aligner.center(
+      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+      inverse: true,
+    );
+
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Alignment superInverseTopAlignment(BuildContext context) {
-    return UiProvider.checkAppIsLeftToRight(context) ?
-    Alignment.topRight
-        :
-    Alignment.topLeft;
+
+    return Aligner.top(
+      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+      inverse: true,
+    );
+
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Alignment superInverseBottomAlignment(BuildContext context) {
-    return UiProvider.checkAppIsLeftToRight(context) ?
-    Alignment.bottomRight
-        :
-    Alignment.bottomLeft;
+
+    return Aligner.bottom(
+      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+      inverse: true,
+    );
+
   }
   // -----------------------------------------------------------------------------
-  /// gets [right position] of object that [aligns left] when app is english (LTR)
+
+  /// POSITION IN RIGHT ALIGNMENT
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static double rightPositionInLeftAlignmentEn(BuildContext context, double offsetFromRight) {
-    double _rightOffset;
 
-    /// when in English
-    if (UiProvider.checkAppIsLeftToRight(context) == true) {
-      /// right offset position should be programmatic
-      _rightOffset = null;
-    }
+    return Aligner.rightOffsetInLeftAlignmentEn(
+        appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+        offsetFromRight: offsetFromRight
+    );
 
-    /// when in Arabic
-    else {
-      /// right offset position should have the offset value
-      _rightOffset = offsetFromRight;
-    }
-
-    return _rightOffset;
   }
-  // -----------------------------------------------------------------------------
-  /// gets [left position] of object that [aligns left] when app is english (LTR)
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static double leftPositionInLeftAlignmentEn(BuildContext context, double offsetFromLeft) {
-    double _leftOffset;
 
-    /// when in English
-    if (UiProvider.checkAppIsLeftToRight(context) == true) {
-      /// left offset position should have the offset value
-      _leftOffset = offsetFromLeft;
-    }
+    return Aligner.leftOffsetInLeftAlignmentEn(
+        appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+        offsetFromLeft: offsetFromLeft
+    );
 
-    /// when in Arabic
-    else {
-      /// left offset position should be programmatic
-      _leftOffset = null;
-    }
-
-    return _leftOffset;
   }
-  // -----------------------------------------------------------------------------
-  /// gets [right position] of object that [aligns right] when app is english (LTR)
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static double rightPositionInRightAlignmentEn(BuildContext context, double offsetFromRight) {
-    return leftPositionInLeftAlignmentEn(context, offsetFromRight);
+
+    return Aligner.rightOffsetInRightAlignmentEn(
+        appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+        offsetFromRight: offsetFromRight
+    );
+
   }
-  // -----------------------------------------------------------------------------
-  /// gets [left position] of object that [aligns right] when app is english (LTR)
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static double leftPositionInRightAlignmentEn(BuildContext context, double offsetFromLeft) {
-    return rightPositionInLeftAlignmentEn(context, offsetFromLeft);
+
+    return Aligner.leftOffsetInRightAlignmentEn(
+        appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+        offsetFromLeft: offsetFromLeft
+    );
+
   }
   // -----------------------------------------------------------------------------
 }

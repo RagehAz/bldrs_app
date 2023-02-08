@@ -5,18 +5,18 @@ import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:stringer/stringer.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bldrs/x_dashboard/chains_editor/x_chains_manager_controllers.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
+import 'package:stringer/stringer.dart';
 
 class ChainsPickingModeBubble extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -157,8 +157,8 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
   Widget build(BuildContext context) {
 
     return Bubble(
-      bubbleHeaderVM: const BubbleHeaderVM(
-        headlineVerse: Verse(
+      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+        headlineVerse: const Verse(
           text: 'Picking mode',
           translate: false,
         ),
@@ -169,7 +169,7 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
         /// SELECT FLYER TYPE
         Bubble(
           width: Bubble.clearWidth(context),
-          bubbleHeaderVM: BubbleHeaderVM(
+          bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
             headlineVerse: const Verse(
               text: 'Flyer Types',
               translate: false,
@@ -221,7 +221,7 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
         /// SWITCH CITY CHAIN ONLY - ALL BLDRS CHAINS
         Bubble(
           width: Bubble.clearWidth(context),
-          bubbleHeaderVM: BubbleHeaderVM(
+          bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
               headlineVerse: const Verse(
                 text: 'City Chains Only',
                 translate: false,
@@ -239,7 +239,7 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
         /// SWITCH MULTIPLE SELECTION - SINGLE SELECTION
         Bubble(
           width: Bubble.clearWidth(context),
-          bubbleHeaderVM: BubbleHeaderVM(
+          bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
               headlineVerse: const Verse(
                 text: 'Multiple Selection mode',
                 translate: false,
@@ -257,7 +257,7 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
         /// ZONE SELECTION
         Bubble(
           width: Bubble.clearWidth(context),
-          bubbleHeaderVM: BubbleHeaderVM(
+          bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
             headlineVerse: _onlyCityChains == true ?
             ZoneModel.generateInZoneVerse(context: context, zoneModel: _zone)
                 :
