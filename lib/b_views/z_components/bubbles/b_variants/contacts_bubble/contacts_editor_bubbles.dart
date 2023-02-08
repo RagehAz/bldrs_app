@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/contact_field_editor_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
@@ -74,7 +74,7 @@ class ContactsEditorsBubbles extends StatelessWidget {
             else {
               return ContactFieldEditorBubble(
                 formKey: globalKey,
-                headerViewModel: BubbleHeaderVM(
+                headerViewModel: BldrsBubbleHeaderVM.bake(
                     headlineVerse: Verse(
                       text: ContactModel.getContactTypePhid(
                         context: context,

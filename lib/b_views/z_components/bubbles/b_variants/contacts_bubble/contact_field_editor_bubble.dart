@@ -1,7 +1,5 @@
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_bullet_points.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_text_field.dart';
@@ -9,6 +7,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 
@@ -166,9 +165,9 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
           validator: () => widget.validator(_textController.text),
         ),
         bubbleHeaderVM: widget.headerViewModel,
-      width: _bubbleWidth,
-        columnChildren: <Widget>[
+        width: _bubbleWidth,
 
+        columnChildren: <Widget>[
           /// BULLET POINTS
           if (widget.bulletPoints != null)
             BulletPoints(
@@ -203,7 +202,7 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
                 focusNode: widget.focusNode,
                 appBarType: widget.appBarType,
                 globalKey: widget.formKey,
-                titleVerse: widget.headerViewModel?.headlineVerse,
+                titleVerse: Verse.plain(widget.headerViewModel?.headlineText),
                 width: fieldWidth,
                 isFormField: widget.isFormField,
                 initialValue: paste == '' ? widget.initialTextValue : null,

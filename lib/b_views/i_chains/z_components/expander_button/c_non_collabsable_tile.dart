@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/b_expanding_tile.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class NonCollapsableTile extends StatelessWidget {
@@ -42,7 +42,7 @@ class NonCollapsableTile extends StatelessWidget {
     return Bubble(
       width: width,
       bubbleColor: ExpandingTile.getExpandedColor(expansionColor: expansionColor),
-      bubbleHeaderVM: BubbleHeaderVM(
+      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
         headlineVerse: Verse(
           text: firstHeadline?.text,
           translate: firstHeadline?.translate,

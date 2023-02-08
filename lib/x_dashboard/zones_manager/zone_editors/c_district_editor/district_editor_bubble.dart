@@ -1,18 +1,18 @@
 import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
 
 class DistrictEditorBubble extends StatefulWidget {
   // -----------------------------------------------------------------------------
@@ -146,7 +146,7 @@ class _DistrictEditorBubbleState extends State<DistrictEditorBubble> {
     final bool _identical = DistrictModel.checkDistrictsAreIdentical(_draftDistrict, widget.districtModel);
 
     return Bubble(
-      bubbleHeaderVM: BubbleHeaderVM(
+      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
         headlineVerse: Verse.plain('Edit ${_draftDistrict?.id}'),
         leadingIcon: Iconz.reload,
         leadingIconSizeFactor: 0.7,
@@ -162,7 +162,7 @@ class _DistrictEditorBubbleState extends State<DistrictEditorBubble> {
 
             return TextFieldBubble(
               bubbleWidth: _clearWidth,
-              bubbleHeaderVM: BubbleHeaderVM(
+              bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                   headlineVerse: Verse.plain('Name ( ${_phrase.langCode} )'),
                   leadingIcon: Iconz.xSmall,
                   leadingIconIsBubble: true,

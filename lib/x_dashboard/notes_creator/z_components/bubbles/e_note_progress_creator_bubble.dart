@@ -1,16 +1,14 @@
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
-import 'package:widget_fader/widget_fader.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/static_progress_bar.dart';
+import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
-
-
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
+import 'package:widget_fader/widget_fader.dart';
 
 class NoteProgressCreatorBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -45,7 +43,7 @@ class NoteProgressCreatorBubble extends StatelessWidget {
       min: 0.2,
       ignorePointer: isDeactivated,
       child: TileBubble(
-        bubbleHeaderVM: BubbleHeaderVM(
+        bubbleHeaderVM: BldrsBubbleHeaderVM(
           leadingIcon: Iconz.reload,
           leadingIconSizeFactor: 0.5,
           leadingIconBoxColor: note?.progress != null ? Colorz.green255 : Colorz.grey50,

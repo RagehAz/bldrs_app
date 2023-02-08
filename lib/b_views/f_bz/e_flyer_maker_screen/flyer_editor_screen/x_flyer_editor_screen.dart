@@ -14,7 +14,7 @@ import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shel
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/specs_selector/b_phids_selector_bubble.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/pdf_bubble/pdf_selection_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/phids_bubble/multiple_choice_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
@@ -371,8 +371,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                     /// FLYER HEADLINE
                     TextFieldBubble(
                       key: const ValueKey<String>('flyer_headline_text_field'),
-                      bubbleHeaderVM: const BubbleHeaderVM(
-                        headlineVerse: Verse(
+                      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                        headlineVerse: const Verse(
                           text: 'phid_flyer_headline',
                           translate: true,
                         ),
@@ -496,8 +496,8 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                       //
                       //   });
                       // },
-                      bubbleHeaderVM: const BubbleHeaderVM(
-                        headlineVerse: Verse(
+                      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                        headlineVerse: const Verse(
                           text: 'phid_flyer_description',
                           translate: true,
                         ),

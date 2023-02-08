@@ -15,8 +15,7 @@ import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/d_user/d_user_search_screen/search_users_screen.dart';
 import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/a_saved_flyers_screen.dart';
 import 'package:bldrs/b_views/f_bz/g_search_bzz_screen/search_bzz_screen.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -42,17 +41,18 @@ import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
-import 'package:numeric/numeric.dart';
-import 'package:stringer/stringer.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
+import 'package:numeric/numeric.dart';
 import 'package:screenshot/screenshot.dart';
+import 'package:stringer/stringer.dart';
 import 'package:widget_fader/widget_fader.dart';
 
 class LocalNootTestScreen extends StatefulWidget {
@@ -404,7 +404,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
             },
             child: Bubble(
-              bubbleHeaderVM: BubbleHeaderVM(
+              bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                 headlineVerse: Verse.plain('Send $_notificationTypeString Notification'),
               ),
               columnChildren: <Widget>[
@@ -412,7 +412,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                 /// GLOBAL - LOCAL SWITCH
                 TileBubble(
                   bubbleWidth: _clearWidth,
-                  bubbleHeaderVM: BubbleHeaderVM(
+                  bubbleHeaderVM: BldrsBubbleHeaderVM(
                       headlineVerse: Verse.plain('is $_notificationTypeString'),
                       hasSwitch: true,
                       switchValue: isGlobal,
@@ -467,7 +467,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
                 /// TITLE
                 TextFieldBubble(
-                  bubbleHeaderVM: BubbleHeaderVM(
+                  bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                     headlineVerse: Verse.plain('Title'),
                   ),
                   bubbleWidth: _clearWidth,
@@ -495,7 +495,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
                 /// BODY
                 TextFieldBubble(
-                  bubbleHeaderVM: BubbleHeaderVM(
+                  bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                     headlineVerse: Verse.plain('Body'),
                   ),
                   bubbleWidth: _clearWidth,
@@ -525,7 +525,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                 /// BIG ICON
                 TileBubble(
                   bubbleWidth: Bubble.clearWidth(context),
-                  bubbleHeaderVM: BubbleHeaderVM(
+                  bubbleHeaderVM: BldrsBubbleHeaderVM(
                     headerWidth: Bubble.clearWidth(context) - 20,
                     leadingIcon: Iconz.balloonCircle,
                     headlineVerse: Verse.plain('LargeIcon'),
@@ -629,7 +629,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                   ignorePointer: !_posterIsOn,
                   child: TileBubble(
                     bubbleWidth: Bubble.clearWidth(context),
-                    bubbleHeaderVM: BubbleHeaderVM(
+                    bubbleHeaderVM: BldrsBubbleHeaderVM(
                       headerWidth: Bubble.clearWidth(context) - 20,
                       leadingIcon: Iconz.phoneGallery,
                       headlineVerse: Verse.plain('Poster'),
@@ -874,7 +874,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                   ignorePointer: _deviceIsIOS,
                   child: TileBubble(
                     bubbleWidth: Bubble.clearWidth(context),
-                    bubbleHeaderVM: BubbleHeaderVM(
+                    bubbleHeaderVM: BldrsBubbleHeaderVM(
                       headerWidth: Bubble.clearWidth(context) - 20,
                       leadingIcon: Iconz.phoneGallery,
                       headlineVerse: Verse.plain(
@@ -1013,7 +1013,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                   ignorePointer: !isGlobal || _deviceIsIOS,
                   child: TileBubble(
                     bubbleWidth: Bubble.clearWidth(context),
-                    bubbleHeaderVM: const BubbleHeaderVM(
+                    bubbleHeaderVM: const BldrsBubbleHeaderVM(
                       headlineVerse: Verse(
                         text: 'Buttons',
                         translate: false,
@@ -1092,7 +1092,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                 /// CAN BE DISMISSED
                 TileBubble(
                   bubbleWidth: _clearWidth,
-                  bubbleHeaderVM: BubbleHeaderVM(
+                  bubbleHeaderVM: BldrsBubbleHeaderVM(
                     headlineVerse: Verse.plain('Dismissible'),
                     hasSwitch: true,
                     switchValue: _canBeDismissedWithoutTapping,

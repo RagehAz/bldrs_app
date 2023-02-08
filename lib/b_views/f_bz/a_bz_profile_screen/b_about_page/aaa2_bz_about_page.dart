@@ -3,8 +3,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/bz_authors_bubble/bz_authors_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/contacts_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/paragraph_bubble/paragraph_bubble.dart';
@@ -135,8 +134,8 @@ class AboutBzBubbles extends StatelessWidget {
         /// ABOUT
         if (TextCheck.isEmpty(bzModel?.about) == false)
           ParagraphBubble(
-            headerViewModel: const BubbleHeaderVM(
-              headlineVerse: Verse(
+            headerViewModel: BldrsBubbleHeaderVM.bake(
+              headlineVerse: const Verse(
                 text: 'phid_about_us',
                 translate: true,
               ),
@@ -150,8 +149,8 @@ class AboutBzBubbles extends StatelessWidget {
         /// SCOPE
         if (Mapper.checkCanLoopList(bzModel?.scope) == true)
           Bubble(
-            bubbleHeaderVM: const BubbleHeaderVM(
-              headlineVerse: Verse(
+            bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+              headlineVerse: const Verse(
                 text: 'phid_scopeOfServices',
                 translate: true,
               ),

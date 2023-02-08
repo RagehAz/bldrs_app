@@ -2,13 +2,13 @@ import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/c_chain/dd_data_creation.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
-import 'package:bldrs/b_views/i_chains/z_components/specs/data_creators/xx_data_creator_field_row.dart';
 import 'package:bldrs/b_views/i_chains/b_picker_screen/xxx_data_creators_controllers.dart';
+import 'package:bldrs/b_views/i_chains/z_components/specs/data_creators/xx_data_creator_field_row.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class NumberDataCreator extends StatefulWidget {
@@ -97,8 +97,8 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
       bubbleColor: Formers.validatorBubbleColor(
         validator: () => _validator(_textController.text),
       ),
-      bubbleHeaderVM: const BubbleHeaderVM(
-        headlineVerse: Verse(
+      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+        headlineVerse: const Verse(
           text: 'phid_add_with_dots',
           translate: true,
         ),

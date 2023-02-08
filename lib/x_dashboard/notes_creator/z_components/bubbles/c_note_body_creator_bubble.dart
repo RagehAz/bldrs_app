@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 
@@ -24,7 +24,7 @@ class NoteBodyCreatorBubble extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return TextFieldBubble(
-      bubbleHeaderVM: BubbleHeaderVM(
+      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
         headlineVerse: Verse.plain('Note Body'),
         leadingIcon: Iconz.bxDesignsOff,
         leadingIconSizeFactor: 0.8,

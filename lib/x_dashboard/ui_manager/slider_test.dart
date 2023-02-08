@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -88,7 +88,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               appBarType: AppBarType.basic,
               keyboardTextInputType: TextInputType.number,
               textController: _minController,
-              bubbleHeaderVM: BubbleHeaderVM(
+              bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                 headlineVerse: Verse.plain('Set Min value'),
                 leadingIcon: Iconz.plus,
                 onLeadingIconTap: () {
@@ -107,7 +107,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               appBarType: AppBarType.basic,
               keyboardTextInputType: TextInputType.number,
               textController: _maxController,
-              bubbleHeaderVM: BubbleHeaderVM(
+              bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                 headlineVerse: Verse.plain('Set Max value'),
                 leadingIcon: Iconz.plus,
                 onLeadingIconTap: () {
@@ -126,7 +126,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               appBarType: AppBarType.basic,
               keyboardTextInputType: TextInputType.number,
               textController: _divisionsController,
-              bubbleHeaderVM: BubbleHeaderVM(
+              bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                 headlineVerse: Verse.plain('Set divisions'),
                 leadingIcon: Iconz.plus,
                 onLeadingIconTap: () {

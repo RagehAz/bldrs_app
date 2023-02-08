@@ -2,8 +2,8 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/d_labels/fff_author_label.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class BzAuthorsBubble extends StatelessWidget {
@@ -20,8 +20,8 @@ class BzAuthorsBubble extends StatelessWidget {
     // --------------------
     return Bubble(
       width: BldrsAppBar.width(context),
-      bubbleHeaderVM: const BubbleHeaderVM(
-        headlineVerse: Verse(
+      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+        headlineVerse: const Verse(
           text: 'phid_team',
           translate: true,
         ),

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/x_secondary/feedback_model.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -167,8 +167,8 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
 
           TextFieldBubble(
             appBarType: AppBarType.basic,
-            bubbleHeaderVM: const BubbleHeaderVM(
-              headlineVerse: Verse(
+            bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+              headlineVerse: const Verse(
                 text: 'phid_feedback',
                 translate: true,
               ),

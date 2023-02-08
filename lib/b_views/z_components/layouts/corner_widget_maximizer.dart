@@ -1,14 +1,13 @@
-import 'package:widget_fader/widget_fader.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/super_positioned.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart';
-import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
+import 'package:scale/scale.dart';
+import 'package:widget_fader/widget_fader.dart';
 
 class CornerWidgetMaximizer extends StatelessWidget {
   /// --------------------------------------------------------------------------
