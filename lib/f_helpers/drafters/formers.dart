@@ -222,7 +222,7 @@ class Formers {
         /// SHORT NAME
         if (_companyNameIsShort == true){
 
-          _message =  '${Verse.transBake(context, 'phid_name_should_be_longer_than')}'
+          _message =  '${Verse.transBake(context, 'phid_name_should_be_longer_than')} '
                       '${Standards.minCompanyNameLength} '
                       '${Verse.transBake(context, 'phid_characters')}';
 
