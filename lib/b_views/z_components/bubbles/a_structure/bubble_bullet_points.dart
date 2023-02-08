@@ -1,10 +1,8 @@
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:mapper/mapper.dart';
-
-
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
 
 class BulletPoints extends StatelessWidget {
   /// --------------------------------------------------------------------------

@@ -1,8 +1,7 @@
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/c_pdf_screen.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_bullet_points.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_title.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
@@ -16,6 +15,7 @@ import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class PDFSelectionBubble extends StatefulWidget {
@@ -116,8 +116,8 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
               ),
             ),
             width: Bubble.bubbleWidth(context),
-            bubbleHeaderVM: const BubbleHeaderVM(
-              headlineVerse: Verse(
+            bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+              headlineVerse: const Verse(
                 text: 'phid_pdf_attachment',
                 translate: true,
               ),

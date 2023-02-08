@@ -1,15 +1,13 @@
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_type.dart';
-import 'package:widget_fader/widget_fader.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/poster/note_poster_builder.dart';
-
-
 import 'package:bldrs/x_dashboard/notes_creator/z_components/buttons/note_poster_button.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
+import 'package:widget_fader/widget_fader.dart';
 
 class PosterCreatorBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -39,7 +37,7 @@ class PosterCreatorBubble extends StatelessWidget {
       min: 0.2,
       ignorePointer: isDeactivated == true,
       child: TileBubble(
-        bubbleHeaderVM: BubbleHeaderVM(
+        bubbleHeaderVM: BldrsBubbleHeaderVM(
           headlineVerse: const Verse(
             text: 'Poster',
             translate: false,

@@ -11,7 +11,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/a_he
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/a_single_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/password_bubble/password_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -576,7 +576,7 @@ class Dialogs {
 
                 TextFieldBubble(
                   formKey: _keyboardModel.globalKey,
-                  bubbleHeaderVM: BubbleHeaderVM(
+                  bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                     headlineVerse: _keyboardModel.titleVerse,
                   ),
                   appBarType: AppBarType.non,

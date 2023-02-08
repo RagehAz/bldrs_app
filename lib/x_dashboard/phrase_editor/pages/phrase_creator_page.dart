@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -56,7 +56,7 @@ class PhraseCreatorPage extends StatelessWidget {
           /// ID
           TextFieldBubble(
             formKey: globalKey,
-            bubbleHeaderVM: BubbleHeaderVM(
+            bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
               headlineVerse: const Verse(
                 text: 'Key',
                 translate: false,
@@ -115,7 +115,7 @@ class PhraseCreatorPage extends StatelessWidget {
           /// ENGLISH
           TextFieldBubble(
             formKey: globalKey,
-            bubbleHeaderVM: BubbleHeaderVM(
+            bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
               headlineVerse: const Verse(
                 text: 'English',
                 translate: false,
@@ -148,7 +148,7 @@ class PhraseCreatorPage extends StatelessWidget {
           /// ARABIC
           TextFieldBubble(
             formKey: globalKey,
-            bubbleHeaderVM: BubbleHeaderVM(
+            bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
               headlineVerse: const Verse(
                 text: 'عربي',
                 translate: false,

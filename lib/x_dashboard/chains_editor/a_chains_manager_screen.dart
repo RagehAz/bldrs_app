@@ -1,6 +1,5 @@
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/buttons/wide_button.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
@@ -83,10 +82,7 @@ class _ChainsManagerState extends State<ChainsManager> {
       if (isRage7() == true)
         Bubble(
           bubbleHeaderVM: const BubbleHeaderVM(
-            headlineVerse: Verse(
-              text: 'Editing mode',
-              translate: false,
-            ),
+            headlineText: 'Editing mode',
           ),
           bubbleColor: Colorz.white20,
           columnChildren: <Widget>[
@@ -144,8 +140,8 @@ class _ChainsManagerState extends State<ChainsManager> {
 
         /// TESTING METHODS
         Bubble(
-          bubbleHeaderVM: const BubbleHeaderVM(
-            headlineVerse: Verse(
+          bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+            headlineVerse: const Verse(
               text: 'Testers',
               translate: false,
             ),

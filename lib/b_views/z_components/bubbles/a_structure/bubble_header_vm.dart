@@ -1,16 +1,16 @@
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_switcher.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 export 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 
 @immutable
-class BubbleHeaderVM {
+class BldrsBubbleHeaderVM {
   /// --------------------------------------------------------------------------
-  const BubbleHeaderVM({
+  const BldrsBubbleHeaderVM({
     this.headerWidth,
     this.leadingIcon,
     this.leadingIconSizeFactor = 1,
@@ -44,7 +44,51 @@ class BubbleHeaderVM {
   final Function onMoreButtonTap;
   final bool redDot;
   /// --------------------------------------------------------------------------
-  BubbleHeaderVM copyWith({
+  static BubbleHeaderVM bake({
+    double headerWidth,
+    dynamic leadingIcon,
+    double leadingIconSizeFactor = 1,
+    Color leadingIconBoxColor,
+    bool leadingIconIsBubble = false,
+    Function onLeadingIconTap,
+    bool hasSwitch = false,
+    bool hasMoreButton = false,
+    Verse headlineVerse,
+    Color headlineColor = Colorz.white255,
+    bool centered = false,
+    bool switchValue = false,
+    ValueChanged<bool> onSwitchTap,
+    Function onMoreButtonTap,
+    bool redDot = false,
+    VerseWeight weight = VerseWeight.black,
+}){
+
+    final BuildContext context = getContext();
+
+    return BubbleHeaderVM(
+      headerWidth: headerWidth,
+      leadingIcon: leadingIcon,
+      leadingIconSizeFactor: leadingIconSizeFactor,
+      leadingIconBoxColor: leadingIconBoxColor,
+      leadingIconIsBubble: leadingIconIsBubble,
+      onLeadingIconTap: onLeadingIconTap,
+      hasSwitch: hasSwitch,
+      hasMoreButton: hasMoreButton,
+      headlineText: Verse.bakeVerseToString(context: context, verse: headlineVerse),
+      headlineColor: headlineColor,
+      switchValue: switchValue,
+      onSwitchTap: onSwitchTap,
+      onMoreButtonTap: onMoreButtonTap,
+      redDot: redDot,
+      centered: centered,
+      font: SuperVerse.superVerseFont(context, weight),
+      headlineHighlight: headlineVerse.notifier,
+      headlineHeight: SuperVerse.superVerseSizeValue(context, 2, 1),
+      // moreButtonIcon: Iconz.more,
+      // moreButtonIconSizeFactor: 0.6,
+    );
+  }
+  BldrsBubbleHeaderVM copyWith({
     double headerWidth,
     dynamic leadingIcon,
     double leadingIconSizeFactor,
@@ -61,7 +105,7 @@ class BubbleHeaderVM {
     Function onLeadingIconTap,
     bool centered,
   }){
-    return BubbleHeaderVM(
+    return BldrsBubbleHeaderVM(
       headerWidth: headerWidth ?? this.headerWidth,
       leadingIcon: leadingIcon ?? this.leadingIcon,
       leadingIconSizeFactor: leadingIconSizeFactor ?? this.leadingIconSizeFactor,
@@ -89,7 +133,7 @@ class BubbleHeader extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final BubbleHeaderVM viewModel;
+  final BldrsBubbleHeaderVM viewModel;
   // -----------------------------------------------------------------------------
   static const double iconBoxSize = 30;
   static const double switcherButtonWidth = 50;

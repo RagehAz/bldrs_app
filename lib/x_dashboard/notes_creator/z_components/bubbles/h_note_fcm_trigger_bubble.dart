@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
 
@@ -33,7 +33,7 @@ class NoteAndFCMTriggersBubble extends StatelessWidget {
         /// SEND NOTE
         TileBubble(
           bubbleWidth: _tileWidth,
-          bubbleHeaderVM: BubbleHeaderVM(
+          bubbleHeaderVM: BldrsBubbleHeaderVM(
             headlineVerse: const Verse(
               text: 'Send Note',
               translate: false,
@@ -56,7 +56,7 @@ class NoteAndFCMTriggersBubble extends StatelessWidget {
         /// SEND FCM
         TileBubble(
           bubbleWidth: _tileWidth,
-          bubbleHeaderVM: BubbleHeaderVM(
+          bubbleHeaderVM: BldrsBubbleHeaderVM(
             headlineVerse: const Verse(
               text: 'Send FCM',
               translate: false,

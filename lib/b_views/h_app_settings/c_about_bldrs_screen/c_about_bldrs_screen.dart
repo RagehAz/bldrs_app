@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/paragraph_bubble/paragraph_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -33,29 +33,29 @@ class AboutBldrsScreen extends StatelessWidget {
       skyType: SkyType.non,
       child: ListView(
         physics: const BouncingScrollPhysics(),
-        children: const <Widget>[
+        children: <Widget>[
 
-          Stratosphere(),
+          const Stratosphere(),
 
           /// LOGO
-          LogoSlogan(
+          const LogoSlogan(
             sizeFactor: 0.7,
             showSlogan: true,
           ),
 
-          DotSeparator(),
+          const DotSeparator(),
 
           /// BLDRS.NET
           ParagraphBubble(
             maxLines: 1000,
             bubbleColor: Colorz.white20,
-            headerViewModel: BubbleHeaderVM(
-              headlineVerse: Verse(
+            headerViewModel: BldrsBubbleHeaderVM.bake(
+              headlineVerse: const Verse(
                 text: 'phid_bldrsFullName',
                 translate: true,
               ),
             ),
-            paragraph: Verse(
+            paragraph: const Verse(
               text: 'Is the Network of builders\n'
                     'categorizing major Bldrs sectors as\n'
                     'Real-estate, Construction & Supplies.\n',
@@ -64,7 +64,7 @@ class AboutBldrsScreen extends StatelessWidget {
           ),
 
           /// SO
-          ParagraphBubble(
+          const ParagraphBubble(
             bubbleColor: Colorz.white20,
             headerViewModel: BubbleHeaderVM(),
             paragraph: Verse(
@@ -75,9 +75,9 @@ class AboutBldrsScreen extends StatelessWidget {
             ),
           ),
 
-          DotSeparator(),
+          const DotSeparator(),
 
-          SuperHeadline(
+          const SuperHeadline(
             verse: Verse(
               pseudo: 'Bldrs.net Business types',
               text: 'phid_bldrs_bzz_types',
@@ -86,8 +86,8 @@ class AboutBldrsScreen extends StatelessWidget {
           ),
 
           /// DEVELOPERS
-          TileBubble(
-            bubbleHeaderVM: BubbleHeaderVM(
+          const TileBubble(
+            bubbleHeaderVM: BldrsBubbleHeaderVM(
               headlineVerse: Verse(
                   text: 'phid_developers',
                   translate: true,
@@ -107,8 +107,8 @@ class AboutBldrsScreen extends StatelessWidget {
           ),
 
           /// BROKERS
-          TileBubble(
-            bubbleHeaderVM: BubbleHeaderVM(
+          const TileBubble(
+            bubbleHeaderVM: BldrsBubbleHeaderVM(
               headlineVerse: Verse(
                 text: 'phid_brokers',
                 translate: true,
@@ -128,8 +128,8 @@ class AboutBldrsScreen extends StatelessWidget {
           ),
 
           /// DESIGNERS
-          TileBubble(
-            bubbleHeaderVM: BubbleHeaderVM(
+          const TileBubble(
+            bubbleHeaderVM: BldrsBubbleHeaderVM(
               headlineVerse: Verse(
                 text: 'phid_designers',
                 translate: true,
@@ -149,8 +149,8 @@ class AboutBldrsScreen extends StatelessWidget {
             ),
 
           /// CONTRACTORS
-          TileBubble(
-            bubbleHeaderVM: BubbleHeaderVM(
+          const TileBubble(
+            bubbleHeaderVM: BldrsBubbleHeaderVM(
               headlineVerse: Verse(
                 text: 'phid_contractors',
                 translate: true,
@@ -170,8 +170,8 @@ class AboutBldrsScreen extends StatelessWidget {
           ),
 
           /// ARTISANS
-          TileBubble(
-            bubbleHeaderVM: BubbleHeaderVM(
+          const TileBubble(
+            bubbleHeaderVM: BldrsBubbleHeaderVM(
               headlineVerse: Verse(
                 text: 'phid_artisans',
                 translate: true,
@@ -189,8 +189,8 @@ class AboutBldrsScreen extends StatelessWidget {
           ),
 
           /// MANUFACTURERS
-          TileBubble(
-            bubbleHeaderVM: BubbleHeaderVM(
+          const TileBubble(
+            bubbleHeaderVM: BldrsBubbleHeaderVM(
               headlineVerse: Verse(
                 text: 'phid_manufacturers',
                 translate: true,
@@ -210,8 +210,8 @@ class AboutBldrsScreen extends StatelessWidget {
           ),
 
           /// SUPPLIERS
-          TileBubble(
-            bubbleHeaderVM: BubbleHeaderVM(
+         const TileBubble(
+            bubbleHeaderVM: BldrsBubbleHeaderVM(
               headlineVerse: Verse(
                 text: 'phid_suppliers',
                 translate: true,
@@ -234,9 +234,9 @@ class AboutBldrsScreen extends StatelessWidget {
             )
           ),
 
-          DotSeparator(color: Colorz.yellow80),
+          const DotSeparator(color: Colorz.yellow80),
 
-          Horizon(),
+          const Horizon(),
 
         ],
       ),

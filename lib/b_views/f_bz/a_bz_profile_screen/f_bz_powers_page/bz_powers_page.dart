@@ -1,5 +1,4 @@
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -23,14 +22,14 @@ class BzPowersPage extends StatelessWidget {
       padding: Stratosphere.stratosphereSandwich,
       children: <Widget>[
 
-        const Bubble(
-          bubbleHeaderVM: BubbleHeaderVM(
-            headlineVerse: Verse(
+        Bubble(
+          bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+            headlineVerse: const Verse(
               text: 'phid_get_more_slides',
               translate: true,
             ),
           ),
-          columnChildren: <Widget>[
+          columnChildren: const <Widget>[
 
             // SuperVerse(
             //   verse: Verse(
@@ -46,81 +45,81 @@ class BzPowersPage extends StatelessWidget {
 
         const DotSeparator(),
 
-        const Bubble(
-          bubbleHeaderVM: BubbleHeaderVM(
-            headlineVerse: Verse(
+        Bubble(
+          bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+            headlineVerse: const Verse(
               text: 'phid_get_more_ankhs',
               translate: true,
             ),
           ),
-          columnChildren: <Widget>[],
-        ),
-
-        const DotSeparator(),
-
-        const Bubble(
-          bubbleHeaderVM: BubbleHeaderVM(
-            headlineVerse: Verse(
-              text: 'phid_get_pro_account',
-              translate: true,
-            ),
-          ),
-          columnChildren: <Widget>[],
-        ),
-
-        const DotSeparator(),
-
-        const Bubble(
-          bubbleHeaderVM: BubbleHeaderVM(
-            headlineVerse: Verse(
-              text: 'phid_get_master_account',
-              translate: true,
-            ),
-          ),
-          columnChildren: <Widget>[],
-        ),
-
-        const DotSeparator(),
-
-        const Bubble(
-          bubbleHeaderVM: BubbleHeaderVM(
-            headlineVerse: Verse(
-              text: 'phid_boost_flyer',
-              translate: true,
-            ),
-          ),
-          columnChildren: <Widget>[],
-        ),
-
-        const DotSeparator(),
-
-        const Bubble(
-          bubbleHeaderVM: BubbleHeaderVM(
-            headlineVerse: Verse(
-              text: 'phid_create_ad',
-              translate: true,
-            ),
-          ),
-          columnChildren: <Widget>[],
-        ),
-
-        const DotSeparator(),
-
-        const Bubble(
-          bubbleHeaderVM: BubbleHeaderVM(
-            headlineVerse: Verse(
-              text: 'phid_sponsor_bldrs_in_ur_city',
-              translate: true,
-            ),
-          ),
-          columnChildren: <Widget>[],
+          columnChildren: const <Widget>[],
         ),
 
         const DotSeparator(),
 
         Bubble(
-          bubbleHeaderVM: const BubbleHeaderVM(
-            headlineVerse: Verse(
+          bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+            headlineVerse: const Verse(
+              text: 'phid_get_pro_account',
+              translate: true,
+            ),
+          ),
+          columnChildren: const <Widget>[],
+        ),
+
+        const DotSeparator(),
+
+        Bubble(
+          bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+            headlineVerse: const Verse(
+              text: 'phid_get_master_account',
+              translate: true,
+            ),
+          ),
+          columnChildren: const <Widget>[],
+        ),
+
+        const DotSeparator(),
+
+        Bubble(
+          bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+            headlineVerse: const Verse(
+              text: 'phid_boost_flyer',
+              translate: true,
+            ),
+          ),
+          columnChildren: const <Widget>[],
+        ),
+
+        const DotSeparator(),
+
+        Bubble(
+          bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+            headlineVerse: const Verse(
+              text: 'phid_create_ad',
+              translate: true,
+            ),
+          ),
+          columnChildren: const <Widget>[],
+        ),
+
+        const DotSeparator(),
+
+        Bubble(
+          bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+            headlineVerse: const Verse(
+              text: 'phid_sponsor_bldrs_in_ur_city',
+              translate: true,
+            ),
+          ),
+          columnChildren: const <Widget>[],
+        ),
+
+        const DotSeparator(),
+
+        Bubble(
+          bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+            headlineVerse: const Verse(
               text: 'phid_get_marketing_material',
               translate: true,
             ),

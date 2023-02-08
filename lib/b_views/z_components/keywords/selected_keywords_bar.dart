@@ -1,10 +1,11 @@
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/f_phid_button.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:scale/scale.dart';
-import 'package:flutter/material.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bubbles/bubbles.dart';
+import 'package:flutter/material.dart';
+import 'package:scale/scale.dart';
 
 class SelectedPhidsBar extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -31,7 +32,9 @@ class SelectedPhidsBar extends StatelessWidget {
     @required BuildContext context,
     @required bool includeMargins,
   }){
-    final double _bubbleHeightWithoutChildren = Bubble.getHeightWithoutChildren(context);
+    final double _bubbleHeightWithoutChildren = Bubble.getHeightWithoutChildren(
+      headlineHeight: SuperVerse.superVerseSizeValue(context, 2, 1),
+    );
     final double _childrenHeight = getChildrenHeight(context);
     final double _marginsHeight = includeMargins ? Ratioz.appBarMargin * 2 : 0;
     return _bubbleHeightWithoutChildren + _childrenHeight + _marginsHeight;
@@ -52,7 +55,7 @@ class SelectedPhidsBar extends StatelessWidget {
     // --------------------
     return Bubble(
       width: _screenWidth,
-      bubbleHeaderVM: BubbleHeaderVM(
+      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
         headlineVerse: Verse(
           text: _screenTitle,
           translate: false,

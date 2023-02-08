@@ -13,7 +13,7 @@ import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/bz_editor_controller.dart'
 import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/z_components/scope_selector_bubble.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/contact_field_editor_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/phids_bubble/multiple_choice_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/pic_bubble/add_gallery_pic_bubble.dart';
@@ -444,7 +444,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                     /// BZ NAME
                     TextFieldBubble(
                       formKey: draft?.formKey,
-                      bubbleHeaderVM: BubbleHeaderVM(
+                      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                         headlineVerse: Verse(
                           text: _companyNameBubbleTitle,
                           translate: true,
@@ -614,8 +614,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                     /// BZ ABOUT
                     TextFieldBubble(
                       formKey: draft?.formKey,
-                      bubbleHeaderVM: const BubbleHeaderVM(
-                        headlineVerse: Verse(
+                      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                        headlineVerse: const Verse(
                           text: 'phid_about',
                           translate: true,
                         ),
@@ -757,8 +757,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       focusNode: draft?.phoneNode,
                       appBarType: AppBarType.basic,
                       isFormField: true,
-                      headerViewModel: const BubbleHeaderVM(
-                        headlineVerse: Verse(
+                      headerViewModel: BldrsBubbleHeaderVM.bake(
+                        headlineVerse: const Verse(
                           text: 'phid_phone',
                           translate: true,
                         ),
@@ -794,8 +794,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       focusNode: draft?.emailNode,
                       appBarType: AppBarType.basic,
                       isFormField: true,
-                      headerViewModel: const BubbleHeaderVM(
-                        headlineVerse: Verse(
+                      headerViewModel: BldrsBubbleHeaderVM.bake(
+                        headlineVerse: const Verse(
                           text: 'phid_emailAddress',
                           translate: true,
                         ),
@@ -827,8 +827,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                     /// WEBSITE
                     ContactFieldEditorBubble(
                       key: const ValueKey<String>('website'),
-                      headerViewModel: const BubbleHeaderVM(
-                        headlineVerse: Verse(
+                      headerViewModel: BldrsBubbleHeaderVM.bake(
+                        headlineVerse: const Verse(
                           text: 'phid_website',
                           translate: true,
                         ),

@@ -9,7 +9,7 @@ import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/d_user/b_user_editor_screen/x_user_editor_controllers.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/contact_field_editor_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/gender_bubble/gender_editor_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/pic_bubble/add_gallery_pic_bubble.dart';
@@ -434,8 +434,8 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                     /// NAME
                     TextFieldBubble(
                       key: const ValueKey<String>('name'),
-                      bubbleHeaderVM: const BubbleHeaderVM(
-                        headlineVerse: Verse(
+                      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                        headlineVerse: const Verse(
                           text: 'phid_name',
                           translate: true,
                         ),
@@ -465,8 +465,8 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                     /// JOB TITLE
                     TextFieldBubble(
                       key: const ValueKey<String>('title'),
-                      bubbleHeaderVM: const BubbleHeaderVM(
-                        headlineVerse: Verse(
+                      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                        headlineVerse: const Verse(
                           text: 'phid_occupation',
                           translate: true,
                         ),
@@ -496,8 +496,8 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                     /// COMPANY NAME
                     TextFieldBubble(
                       key: const ValueKey<String>('company'),
-                      bubbleHeaderVM: const BubbleHeaderVM(
-                        headlineVerse: Verse(
+                      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                        headlineVerse: const Verse(
                           text: 'phid_companyName',
                           translate: true,
                         ),
@@ -607,8 +607,8 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       focusNode: draft?.phoneNode,
                       appBarType: AppBarType.basic,
                       isFormField: true,
-                      headerViewModel: const BubbleHeaderVM(
-                        headlineVerse: Verse(
+                      headerViewModel: BldrsBubbleHeaderVM.bake(
+                        headlineVerse: const Verse(
                           text: 'phid_phone',
                           translate: true,
                         ),
@@ -647,8 +647,8 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       focusNode: draft?.emailNode,
                       appBarType: AppBarType.basic,
                       isFormField: true,
-                      headerViewModel: const BubbleHeaderVM(
-                        headlineVerse: Verse(
+                      headerViewModel: BldrsBubbleHeaderVM.bake(
+                        headlineVerse: const Verse(
                           text: 'phid_emailAddress',
                           translate: true,
                         ),
