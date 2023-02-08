@@ -217,7 +217,7 @@ class AuthorCard extends StatelessWidget {
           width: _bubbleWidth,
           padding: Scale.superInsets(
             context: context,
-            appIsLeftToRight: UiProvider.checkAppIsLeftToRight(context),
+            appIsLTR: UiProvider.checkAppIsLeftToRight(context),
             enLeft: authorPicSize,
           ),
           child: Column(

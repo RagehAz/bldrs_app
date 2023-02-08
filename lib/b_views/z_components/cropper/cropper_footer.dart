@@ -75,7 +75,7 @@ class CropperFooter extends StatelessWidget {
                   itemCount: bytezz.length,
                   padding: Scale.superInsets(
                     context: context,
-                    appIsLeftToRight: UiProvider.checkAppIsLeftToRight(context),
+                    appIsLTR: UiProvider.checkAppIsLeftToRight(context),
                     enRight: _screenWidth * 0.5,
                   ),
                   itemBuilder: (_, int index){
@@ -90,7 +90,7 @@ class CropperFooter extends StatelessWidget {
                           height: _miniImageHeight,
                           margin: Scale.superInsets(
                             context: context,
-                            appIsLeftToRight: UiProvider.checkAppIsLeftToRight(context),
+                            appIsLTR: UiProvider.checkAppIsLeftToRight(context),
                             enRight: 5,
                           ),
                           decoration: BoxDecoration(

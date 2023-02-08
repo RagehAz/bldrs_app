@@ -16,6 +16,7 @@ class PasswordBubbles extends StatelessWidget {
     @required this.passwordConfirmationValidator,
     @required this.passwordNode,
     @required this.confirmPasswordNode,
+    @required this.isObscured,
     this.boxWidth,
     this.isTheSuperKeyboardField = false,
     this.goOnKeyboardGo = true,
@@ -34,6 +35,7 @@ class PasswordBubbles extends StatelessWidget {
   final FocusNode passwordNode;
   final FocusNode confirmPasswordNode;
   final bool goOnKeyboardGo;
+  final ValueNotifier<bool> isObscured;
   /// --------------------------------------------------------------------------
   TextInputAction _getTextInputAction(){
 
@@ -76,7 +78,7 @@ class PasswordBubbles extends StatelessWidget {
           bulletPoints: const <Verse>[
             Verse(text: 'phid_min6Char', translate: true,),
           ],
-          canObscure: true,
+          isObscured: isObscured,
           onSubmitted: (String text){
 
             if (onSubmitted != null){
@@ -113,7 +115,7 @@ class PasswordBubbles extends StatelessWidget {
             bulletPoints: const <Verse>[
               Verse(text: 'phid_min6Char', translate: true),
             ],
-            canObscure: true,
+            isObscured: isObscured,
             onSubmitted: onSubmitted,
           ),
 

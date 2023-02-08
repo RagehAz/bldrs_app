@@ -1290,10 +1290,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: fb5ee616290a92aef4cb379f384ca0b825e776f1
+      resolved-ref: "5a485a9538c8c751fc48d17235b2105cd04433e1"
       url: "https://github.com/RagehAz/scale.git"
     source: git
-    version: "0.0.4"
+    version: "0.0.5"
   screenshot:
     dependency: "direct main"
     description:
@@ -1401,10 +1401,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: f3cf231bfd753928b79362fc42409b78f217aecf
+      resolved-ref: "6daee8d4d3154a34ee86cb331cacd75f5b5a17a2"
       url: "https://github.com/RagehAz/super_box.git"
     source: git
-    version: "1.0.4"
+    version: "1.0.5"
   super_image:
     dependency: "direct main"
     description:
@@ -1419,10 +1419,19 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: fa3d499086d9bdd76817a5b4a779dd2860bdfd4a
+      resolved-ref: c53ee09fd9b2611638a61c188ec403b6fc9c7c64
       url: "https://github.com/RagehAz/super_text.git"
     source: git
-    version: "0.0.6"
+    version: "0.0.7"
+  super_text_field:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "41dc5a22ffbf11af3de9effa4427ea203a8b5208"
+      url: "https://github.com/RagehAz/super_text_field.git"
+    source: git
+    version: "0.0.3"
   synchronized:
     dependency: transitive
     description:
@@ -1483,10 +1492,10 @@ packages:
     dependency: "direct main"
     description:
       name: url_launcher
-      sha256: "698fa0b4392effdc73e9e184403b627362eb5fbf904483ac9defbb1c2191d809"
+      sha256: e8f2efc804810c0f2f5b485f49e7942179f56eabcfe81dce3387fec4bb55876b
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "6.1.8"
+    version: "6.1.9"
   url_launcher_android:
     dependency: transitive
     description:
@@ -1499,10 +1508,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_ios
-      sha256: bb328b24d3bccc20bdf1024a0990ac4f869d57663660de9c936fb8c043edefe3
+      sha256: "0a5af0aefdd8cf820dd739886efb1637f1f24489900204f50984634c07a54815"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "6.0.18"
+    version: "6.1.0"
   url_launcher_linux:
     dependency: transitive
     description:

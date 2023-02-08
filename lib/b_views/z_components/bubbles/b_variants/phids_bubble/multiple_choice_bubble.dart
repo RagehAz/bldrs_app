@@ -2,15 +2,14 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/texting/super_text_field/super_validator.dart';
+import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_validator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:stringer/stringer.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-
-import 'package:flutter/material.dart';
 
 class MultipleChoiceBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -76,7 +75,7 @@ class MultipleChoiceBubble extends StatelessWidget {
 
           /// VALIDATOR
           if (validator != null)
-            SuperValidator(
+            BldrsValidator(
               width: Bubble.clearWidth(context) - 20,
               validator: validator,
               autoValidate: autoValidate,

@@ -202,7 +202,7 @@ class ZoomableGridController {
 
     return Scale.superInsets(
       context: context,
-      appIsLeftToRight: UiProvider.checkAppIsLeftToRight(context),
+      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
       enLeft: getSpacing(context),
       top: _topPaddingOnZoomedOut,
       enRight: getSpacing(context),
