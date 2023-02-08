@@ -10,16 +10,15 @@ import 'package:bldrs/b_views/i_chains/z_components/chain_builders/c_chain_build
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/f_phid_button.dart';
 import 'package:bldrs/b_views/i_chains/z_components/pickers/data_creator_splitter.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
-import 'package:numeric/numeric.dart';
-import 'package:stringer/stringer.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
+import 'package:numeric/numeric.dart';
 import 'package:provider/provider.dart';
+import 'package:stringer/stringer.dart';
 
 enum ChainSecondLinesType {
   non,

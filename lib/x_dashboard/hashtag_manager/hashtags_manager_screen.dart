@@ -4,8 +4,7 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/i_phid_picker/floating_flyer_type_selector/floating_flyer_type_selector.dart';
 import 'package:bldrs/b_views/i_phid_picker/phids_picker_screen.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/wide_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -16,6 +15,7 @@ import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/dashboard_layout.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:page_transition/page_transition.dart';
@@ -122,7 +122,7 @@ class _HashTagManagerState extends State<HashTagManager> {
           child: TextFieldBubble(
             formKey: _formKey,
             isFormField: true,
-            bubbleHeaderVM: BubbleHeaderVM(
+            bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
               headlineVerse: Verse.plain('add Hashtag'),
             ),
             appBarType: AppBarType.non,
@@ -155,7 +155,7 @@ class _HashTagManagerState extends State<HashTagManager> {
           // bubbleColor: bubbleColor,
           // margins: margins,
           // corners: corners,
-          bubbleHeaderVM: BubbleHeaderVM(
+          bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
             headlineVerse: Verse.plain('Found hashtags'),
           ),
           columnChildren: <Widget>[

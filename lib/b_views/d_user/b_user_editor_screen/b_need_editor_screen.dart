@@ -5,9 +5,8 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_bullet_points.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/zone_selection_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
@@ -24,6 +23,7 @@ import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class NeedEditorScreen extends StatefulWidget {
@@ -273,8 +273,8 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                   TextFieldBubble(
                     key: const ValueKey<String>('need_description_button'),
                     formKey: _formKey,
-                    bubbleHeaderVM: const BubbleHeaderVM(
-                      headlineVerse: Verse(
+                    bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                      headlineVerse: const Verse(
                         text: 'phid_extra_notes',
                         translate: true,
 

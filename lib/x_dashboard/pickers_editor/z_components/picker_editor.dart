@@ -4,20 +4,18 @@ import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/b_expanding_tile.dart';
 import 'package:bldrs/b_views/i_chains/z_components/specs/spec_label.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_bullet_points.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/line_bubble/line_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-
-
 import 'package:bldrs/x_dashboard/pickers_editor/x_pickers_editor_controller.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
 
 class PickerEditingTile extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -57,7 +55,7 @@ class PickerEditingTile extends StatelessWidget {
               LineBubble(
                 width: _clearWidth,
                 child: BubbleHeader(
-                  viewModel: BubbleHeaderVM(
+                  viewModel: BldrsBubbleHeaderVM(
                     hasMoreButton: true,
                     onMoreButtonTap: (){
                       blog('should open chain screen for this ChainID: ${picker.chainID}');
@@ -81,7 +79,7 @@ class PickerEditingTile extends StatelessWidget {
               LineBubble(
                 width: _clearWidth,
                 child: BubbleHeader(
-                  viewModel: BubbleHeaderVM(
+                  viewModel: BldrsBubbleHeaderVM(
                     headerWidth: _clearWidth,
                     hasSwitch: true,
                     headlineVerse: const Verse(
@@ -104,7 +102,7 @@ class PickerEditingTile extends StatelessWidget {
               LineBubble(
                 width: _clearWidth,
                 child: BubbleHeader(
-                  viewModel: BubbleHeaderVM(
+                  viewModel: BldrsBubbleHeaderVM(
                     headerWidth: _clearWidth,
                     hasSwitch: true,
                     headlineVerse: const Verse(
@@ -127,7 +125,7 @@ class PickerEditingTile extends StatelessWidget {
               LineBubble(
                 width: _clearWidth,
                 child: BubbleHeader(
-                  viewModel: BubbleHeaderVM(
+                  viewModel: BldrsBubbleHeaderVM(
                     headlineColor: picker?.unitChainID == null ? Colorz.black200 : Colorz.white255,
                     headerWidth: _clearWidth,
                     headlineVerse: Verse(
@@ -156,7 +154,7 @@ class PickerEditingTile extends StatelessWidget {
 
                       /// HEADLINE
                       BubbleHeader(
-                        viewModel: BubbleHeaderVM(
+                        viewModel: BldrsBubbleHeaderVM(
                           headlineColor: _hasRange == false ? Colorz.black200 : Colorz.white255,
                           hasMoreButton: true,
                           onMoreButtonTap: (){
@@ -210,7 +208,7 @@ class PickerEditingTile extends StatelessWidget {
 
                       /// HEADLINE
                       BubbleHeader(
-                        viewModel: BubbleHeaderVM(
+                        viewModel: BldrsBubbleHeaderVM(
                           headlineColor: _hasBlockers == false ? Colorz.black200 : Colorz.white255,
                           hasMoreButton: true,
                           onMoreButtonTap: (){
@@ -256,7 +254,7 @@ class PickerEditingTile extends StatelessWidget {
                                   width: _clearWidth,
                                   alignment: Alignment.centerLeft,
                                   child: BubbleHeader(
-                                    viewModel: BubbleHeaderVM(
+                                    viewModel: BldrsBubbleHeaderVM(
                                       headlineVerse: Verse(
                                         text: _blocker.value.toString(),
                                         translate: false,

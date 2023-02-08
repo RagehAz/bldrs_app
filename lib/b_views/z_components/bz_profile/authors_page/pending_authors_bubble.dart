@@ -2,13 +2,12 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/d_user/z_components/future_user_tile_button.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/c_team_page/bz_team_page_controllers.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
-import 'package:mapper/mapper.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
 
 class PendingAuthorsBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -28,8 +27,8 @@ class PendingAuthorsBubble extends StatelessWidget {
     if (Mapper.checkCanLoopList(_bzModel.pendingAuthors) == true){
 
       return Bubble(
-        bubbleHeaderVM: const BubbleHeaderVM(
-          headlineVerse: Verse(
+        bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+          headlineVerse: const Verse(
             text: 'phid_pending_invitation_requests',
             translate: true,
           ),

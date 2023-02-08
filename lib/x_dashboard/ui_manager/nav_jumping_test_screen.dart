@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/wide_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -47,7 +47,7 @@ class _NavJumpingTestScreenState extends State<NavJumpingTestScreen> {
 
           /// START FROM HOME SCREEN SWITCH
           TileBubble(
-            bubbleHeaderVM: BubbleHeaderVM(
+            bubbleHeaderVM: BldrsBubbleHeaderVM(
               headlineVerse: Verse.plain('Start from Home Screen'),
               hasSwitch: true,
               switchValue: _canStartFromHomeScreen,
