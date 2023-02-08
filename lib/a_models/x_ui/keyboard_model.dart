@@ -14,7 +14,7 @@ class KeyboardModel {
     this.textInputAction = TextInputAction.done,
     this.textInputType = TextInputType.text,
     this.focusNode,
-    this.canObscure = false,
+    this.isObscured,
     this.counterIsOn = false,
     this.isFormField = false,
     this.onChanged,
@@ -35,7 +35,7 @@ class KeyboardModel {
   final TextInputAction textInputAction;
   final TextInputType textInputType;
   final FocusNode focusNode;
-  final bool canObscure;
+  final ValueNotifier<bool> isObscured;
   final bool counterIsOn;
   final bool isFormField;
 
@@ -62,7 +62,7 @@ class KeyboardModel {
     TextInputAction textInputAction,
     TextInputType textInputType,
     FocusNode focusNode,
-    bool canObscure,
+    ValueNotifier<bool> isObscured,
     bool counterIsOn,
     bool isFormField,
     ValueChanged<String> onChanged,
@@ -83,7 +83,7 @@ class KeyboardModel {
       textInputAction: textInputAction ?? this.textInputAction,
       textInputType: textInputType ?? this.textInputType,
       focusNode: focusNode ?? this.focusNode,
-      canObscure: canObscure ?? this.canObscure,
+      isObscured: isObscured ?? this.isObscured,
       counterIsOn: counterIsOn ?? this.counterIsOn,
       isFormField: isFormField ?? this.isFormField,
       onChanged: onChanged ?? this.onChanged,
@@ -148,7 +148,7 @@ class KeyboardModel {
         modelA.textInputAction == modelB.textInputAction &&
         modelA.textInputType == modelB.textInputType &&
         modelA.focusNode == modelB.focusNode &&
-        modelA.canObscure == modelB.canObscure &&
+        modelA.isObscured == modelB.isObscured &&
         modelA.counterIsOn == modelB.counterIsOn &&
         modelA.isFormField == modelB.isFormField &&
         modelA.onChanged == modelB.onChanged &&
@@ -203,7 +203,7 @@ class KeyboardModel {
       textInputAction.hashCode^
       textInputType .hashCode^
       focusNode.hashCode^
-      canObscure.hashCode^
+      isObscured.hashCode^
       counterIsOn.hashCode^
       isFormField.hashCode^
       onChanged.hashCode^

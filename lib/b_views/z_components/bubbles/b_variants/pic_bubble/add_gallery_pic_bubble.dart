@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/b_bal
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/texting/super_text_field/super_validator.dart';
+import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_validator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
@@ -170,11 +170,9 @@ class AddImagePicBubble extends StatelessWidget {
           ),
 
           if (validator != null)
-            SuperValidator(
+            BldrsValidator(
               width: _bubbleClearWidth,
               validator: validator,
-              // autoValidate: true,
-              focusNode: null,
             ),
 
         ]

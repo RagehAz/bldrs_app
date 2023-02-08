@@ -11,7 +11,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
+import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
@@ -317,7 +317,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
     const int numberOfLines = 1;
     const int _textSize = 2;
     const double _sizeFactor = 1; // 1.5429 max factor before box starts expanding
-    final double _concludedHeight = SuperTextField.getFieldHeight(
+    final double _concludedHeight = BldrsTextField.getFieldHeight(
       context: context,
       minLines: numberOfLines,
       textSize: _textSize,
@@ -420,7 +420,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                         children: [
                           Form(
                             key: _formKey,
-                            child: SuperTextField(
+                            child: BldrsTextField(
                               appBarType: AppBarType.basic,
                               globalKey: globalKey,
                               titleVerse: Verse.plain('test Lab'),

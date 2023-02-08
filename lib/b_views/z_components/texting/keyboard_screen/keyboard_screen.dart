@@ -198,7 +198,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                 maxLength: _keyboardModel.maxLength,
                 hintVerse: _keyboardModel.hintVerse,
                 counterIsOn: _keyboardModel.counterIsOn,
-                canObscure: _keyboardModel.canObscure,
+                isObscured: _keyboardModel.isObscured,
                 keyboardTextInputType: _keyboardModel.textInputType,
                 keyboardTextInputAction: _keyboardModel.textInputAction,
                 autoFocus: true,

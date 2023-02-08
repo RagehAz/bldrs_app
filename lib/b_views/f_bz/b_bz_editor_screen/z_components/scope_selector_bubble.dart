@@ -2,17 +2,17 @@ import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/f_phid_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_keywords.dart';
-import 'package:widget_fader/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/texting/super_text_field/super_validator.dart';
+import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_validator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
+import 'package:widget_fader/widget_fader.dart';
 
 class ScopeSelectorBubble extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -273,7 +273,7 @@ class _ScopeSelectorBubbleState extends State<ScopeSelectorBubble> {
 
           /// VALIDATOR
           if (widget.validator != null)
-            SuperValidator(
+            BldrsValidator(
               width: Bubble.clearWidth(context) - 20,
               validator: widget.validator,
               autoValidate: widget.autoValidate,
