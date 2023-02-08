@@ -659,7 +659,7 @@ class FlyerDim {
 
     return Scale.superInsets(
       context: context,
-      appIsLeftToRight: UiProvider.checkAppIsLeftToRight(context),
+      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
       top: _spacing,
       bottom: _spacing,
       enLeft: _spacing,
@@ -1213,7 +1213,7 @@ class FlyerDim {
 
     return Scale.superInsets(
       context: context,
-      appIsLeftToRight: UiProvider.checkAppIsLeftToRight(context),
+      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
       enLeft: gridSpacingValue,
       top: isVertical == true ? topPaddingValue : gridSpacingValue,
       enRight: isVertical == true ? gridSpacingValue : bottomPaddingValue,

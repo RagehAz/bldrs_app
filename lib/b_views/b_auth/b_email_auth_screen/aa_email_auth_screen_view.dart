@@ -39,6 +39,7 @@ class EmailAuthScreenView extends StatelessWidget {
     @required this.onSwitchRememberMe,
     @required this.onSelectAccount,
     @required this.myAccounts,
+    @required this.isObscured,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -60,6 +61,7 @@ class EmailAuthScreenView extends StatelessWidget {
   final Function(bool rememberMe) onSwitchRememberMe;
   final Function(int index) onSelectAccount;
   final List<AccountModel> myAccounts;
+  final ValueNotifier<bool> isObscured;
   /// --------------------------------------------------------------------------
   void _onSubmitted({
     @required bool signingIn,
@@ -184,6 +186,7 @@ class EmailAuthScreenView extends StatelessWidget {
                   signingIn: _isSigningIn,
                   isOnConfirmPassword: false,
                 ),
+                isObscured: isObscured,
               ),
 
               /// REMEMBER ME

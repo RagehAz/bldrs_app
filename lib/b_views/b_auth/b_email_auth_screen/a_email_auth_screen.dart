@@ -46,6 +46,8 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
   // --------------------
   final ValueNotifier<bool> _isRememberingMe = ValueNotifier(true);
   List<AccountModel> _myAccounts = [];
+
+  final ValueNotifier<bool> _isObscured = ValueNotifier(true);
   // --------------------
   final FocusNode _passwordNode = FocusNode();
   final FocusNode _confirmPasswordNode = FocusNode();
@@ -110,6 +112,7 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
     _isSigningIn.dispose();
     _loading.dispose();
     _isRememberingMe.dispose();
+    _isObscured.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -252,6 +255,7 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
         onSwitchRememberMe: _onSwitchRememberMe,
         onSelectAccount: _onSelectAccount,
         myAccounts: _myAccounts,
+        isObscured: _isObscured,
       ),
 
     );

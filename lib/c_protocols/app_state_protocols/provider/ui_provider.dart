@@ -309,40 +309,6 @@ class UiProvider extends ChangeNotifier {
   }
   // -----------------------------------------------------------------------------
 
-  /// TEXT FIELD OBSCURED
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  bool _textFieldsObscured = true;
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  bool get textFieldsObscured => _textFieldsObscured;
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  void triggerTextFieldsObscured({
-    @required bool notify,
-    bool setObscuredTo
-  }){
-
-    if (setObscuredTo == null){
-      _textFieldsObscured = !_textFieldsObscured;
-    }
-
-    else {
-
-      if(_textFieldsObscured != setObscuredTo){
-        _textFieldsObscured = setObscuredTo;
-      }
-
-    }
-
-    if (notify == true){
-      notifyListeners();
-    }
-
-  }
-  // -----------------------------------------------------------------------------
-
   /// SAVED FLYERS TAB CURRENT FLYER TYPE
 
   // --------------------
@@ -773,8 +739,6 @@ class UiProvider extends ChangeNotifier {
     // _uiProvider.setKeyboard(model: null, notify: false, invoker: 'Ui provider wipeOut');
     /// _keyboardIsOn
     _uiProvider.setKeyboardIsOn(setTo: false, notify: false);
-    /// _textFieldsObscured
-    _uiProvider.triggerTextFieldsObscured(setObscuredTo: true, notify: false);
     /// _currentSavedFlyerTypeTab
     _uiProvider.setCurrentFlyerTypeTab(flyerType: FlyerType.general, notify: false);
     /// _currentBzTab

@@ -2,7 +2,7 @@ import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dart';
-import 'package:bldrs/b_views/z_components/texting/super_text_field/super_validator.dart';
+import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_validator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
@@ -98,7 +98,7 @@ class TileBubble extends StatelessWidget {
         Padding(
           padding: Scale.superInsets(
             context: context,
-            appIsLeftToRight: UiProvider.checkAppIsLeftToRight(context),
+            appIsLTR: UiProvider.checkAppIsLeftToRight(context),
             enLeft: iconBoxWidth,
           ),
           child: BulletPoints(
@@ -172,11 +172,10 @@ class TileBubble extends StatelessWidget {
           ),
 
         if (validator != null)
-          SuperValidator(
+          BldrsValidator(
             width: _clearWidth,
             validator: validator,
             autoValidate: autoValidate,
-            focusNode: null,
           ),
 
       ],

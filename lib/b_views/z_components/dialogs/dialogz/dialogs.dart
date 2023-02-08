@@ -470,6 +470,7 @@ class Dialogs {
   static Future<String> showPasswordDialog(BuildContext context) async {
 
     final TextEditingController _password = TextEditingController();
+    final ValueNotifier<bool> _isObscured = ValueNotifier(true);
     bool _canProceed = false;
 
     await CenterDialog.showCenterDialog(
@@ -505,11 +506,13 @@ class Dialogs {
           await CenterDialog.closeCenterDialog(context);
           _canProceed = true;
         },
+        isObscured: _isObscured,
         // isTheSuperKeyboardField: false,
       ),
     );
 
     _password.dispose();
+    _isObscured.dispose();
 
     if (_canProceed == true){
       return _password.text;
@@ -585,7 +588,7 @@ class Dialogs {
                   bubbleWidth: _clearWidth,
                   hintVerse: _keyboardModel.hintVerse,
                   counterIsOn: _keyboardModel.counterIsOn,
-                  canObscure: _keyboardModel.canObscure,
+                  isObscured: _keyboardModel.isObscured,
                   keyboardTextInputType: _keyboardModel.textInputType,
                   keyboardTextInputAction: _keyboardModel.textInputAction,
                   autoFocus: true,
@@ -647,6 +650,10 @@ class Dialogs {
         ),
       ),
     );
+
+    if (keyboardModel != null){
+      keyboardModel.isObscured?.dispose();
+    }
 
     return _text;
   }

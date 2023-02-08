@@ -383,7 +383,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
             alignment: Alignment.centerLeft,
             margin: Scale.superInsets(
               context: context,
-              appIsLeftToRight: UiProvider.checkAppIsLeftToRight(context),
+              appIsLTR: UiProvider.checkAppIsLeftToRight(context),
               top: _screenWidth * 0.07,
             ),
             child: Column(

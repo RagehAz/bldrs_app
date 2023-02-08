@@ -165,7 +165,7 @@ class _NotesViewerScreenState extends State<NotesViewerScreen> {
                           size: 1,
                           margin: Scale.superInsets(
                             context: context,
-                            appIsLeftToRight: UiProvider.checkAppIsLeftToRight(context),
+                            appIsLTR: UiProvider.checkAppIsLeftToRight(context),
                             enLeft: 20,
                           ),
                           weight: VerseWeight.thin,

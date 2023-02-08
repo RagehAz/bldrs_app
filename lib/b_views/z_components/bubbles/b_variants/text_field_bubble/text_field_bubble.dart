@@ -4,15 +4,14 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header.dar
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
-import 'package:bldrs/b_views/z_components/texting/super_text_field/a_super_text_field.dart';
+import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/a_super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:mapper/mapper.dart';
+import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:mapper/mapper.dart';
 
 class TextFieldBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -33,7 +32,7 @@ class TextFieldBubble extends StatelessWidget {
     this.textController,
     this.keyboardTextInputType = TextInputType.text,
     this.onTextChanged,
-    this.canObscure = false,
+    this.isObscured,
     this.isFormField,
     this.onSavedForForm,
     this.keyboardTextInputAction,
@@ -78,7 +77,7 @@ class TextFieldBubble extends StatelessWidget {
   final TextInputType keyboardTextInputType;
   final ValueChanged<String> onTextChanged;
   final ValueChanged<String> onSubmitted;
-  final bool canObscure;
+  final ValueNotifier<bool> isObscured;
   final bool isFormField;
   final ValueChanged<String> onSavedForForm;
   final TextInputAction keyboardTextInputAction;
@@ -126,7 +125,7 @@ class TextFieldBubble extends StatelessWidget {
     @required bool hasPasteButton,
   }){
 
-    final double fieldHeight = SuperTextField.getFieldHeight(
+    final double fieldHeight = BldrsTextField.getFieldHeight(
       context: context,
       minLines: 1,
       textSize: 2,
@@ -151,7 +150,7 @@ class TextFieldBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double fieldHeight = SuperTextField.getFieldHeight(
+    final double fieldHeight = BldrsTextField.getFieldHeight(
       context: context,
       minLines: 1,
       textSize: 2,
@@ -160,12 +159,12 @@ class TextFieldBubble extends StatelessWidget {
       withCounter: false,
     );
     final double leadingIconSize = leadingIcon == null ? 0 : fieldHeight;
-    final double obscureBtSize = canObscure == false ? 0 : fieldHeight;
+    final double obscureBtSize = isObscured == null ? 0 : fieldHeight;
     final double fieldWidth = getFieldWidth(
       context: context,
       bubbleWidth: bubbleWidth,
       leadingIcon: leadingIcon,
-      showUnObscure: canObscure,
+      showUnObscure: isObscured != null,
       hasPasteButton: pasteFunction != null,
     );
     // --------------------
@@ -227,7 +226,7 @@ class TextFieldBubble extends StatelessWidget {
                     const SizedBox(width: 5,),
 
                   /// TEXT FIELD
-                  SuperTextField(
+                  BldrsTextField(
                     appBarType: appBarType,
                     globalKey: formKey,
                     titleVerse: bubbleHeaderVM.headlineVerse,
@@ -252,20 +251,19 @@ class TextFieldBubble extends StatelessWidget {
                     textSize: textSize,
                     minLines: minLines,
                     onTap: onFieldTap,
-                    canObscure: canObscure,
+                    isObscured: isObscured,
                     autoValidate: autoValidate,
                   ),
 
                   /// SPACER
-                  if (canObscure == true)
+                  if (isObscured != null)
                     const SizedBox(width: 5,),
 
                   /// OBSCURE BUTTON
-                  if (canObscure == true)
-                    Consumer<UiProvider>(
-                      builder: (_, UiProvider uiPro, Widget child){
-
-                        final bool obscured = uiPro.textFieldsObscured;
+                  if (isObscured != null)
+                    ValueListenableBuilder(
+                      valueListenable: isObscured,
+                      builder: (_, bool obscured, Widget child){
 
                         return DreamBox(
                           height: obscureBtSize,
@@ -277,7 +275,7 @@ class TextFieldBubble extends StatelessWidget {
                           bubble: false,
                           corners: SuperVerse.superVerseLabelCornerValue(context, 3),
                           onTap: (){
-                            uiPro.triggerTextFieldsObscured(notify: true);
+                            setNotifier(notifier: isObscured, mounted: true, value: !obscured);
                           },
                           // boxFunction: horusOnTapCancel== null ? (){} : horusOnTapCancel, // this prevents keyboard action from going to next field in the form
                         );
