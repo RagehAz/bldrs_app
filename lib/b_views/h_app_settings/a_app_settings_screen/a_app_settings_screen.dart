@@ -1,15 +1,15 @@
 import 'package:bldrs/a_models/a_user/auth_model.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubbles_separator.dart';
+import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/settings_wide_button.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/floating_layout.dart';
-import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/main.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:super_image/super_image.dart';
 
