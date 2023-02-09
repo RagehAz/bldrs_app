@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/d_settings_page/x4_user_settings_page_controllers.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/a_user_balloon.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/buttons/tile_buttons/bz_tile_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/zone_line.dart';
@@ -12,7 +13,7 @@ import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:stringer/stringer.dart';
@@ -53,7 +54,7 @@ class UserBanner extends StatelessWidget {
     }
 
     return Verse(
-      text: _string,
+      id: _string,
       translate: false,
     );
 
@@ -110,7 +111,7 @@ class UserBanner extends StatelessWidget {
     final bool _userIsAuthor = UserModel.checkUserIsAuthor(userModel);
     // --------------------
     return Bubble(
-      bubbleHeaderVM: const BubbleHeaderVM(),
+      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(),
       childrenCentered: true,
       onBubbleTap: _onTap,
       columnChildren: <Widget>[
@@ -135,7 +136,7 @@ class UserBanner extends StatelessWidget {
         /// USER NAME
         SuperVerse(
           verse: Verse(
-            text: _userName,
+            id: _userName,
             translate: false,
           ),
           shadow: true,
@@ -166,7 +167,7 @@ class UserBanner extends StatelessWidget {
         /// JOINED AT
         SuperVerse(
           verse: Verse(
-            text: Timers.generateString_in_bldrs_since_month_yyyy(context, userModel?.createdAt),
+            id: Timers.generateString_in_bldrs_since_month_yyyy(context, userModel?.createdAt),
             translate: false,
           ),
           weight: VerseWeight.thin,
@@ -177,7 +178,7 @@ class UserBanner extends StatelessWidget {
         /// SEPARATOR
         if (_userIsAuthor == true)
         SeparatorLine(
-          width: Bubble.clearWidth(context) * 0.5,
+          width: Bubble.clearWidth(context: context) * 0.5,
           withMargins: true,
         ),
 
@@ -185,7 +186,7 @@ class UserBanner extends StatelessWidget {
         if (_userIsAuthor == true)
           const SuperVerse(
             verse: Verse(
-              text: 'phid_author_in',
+              id: 'phid_author_in',
               translate: true,
             ),
             weight: VerseWeight.thin,

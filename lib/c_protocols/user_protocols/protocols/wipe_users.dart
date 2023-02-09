@@ -45,7 +45,7 @@ class WipeUserProtocols {
       pushWaitDialog(
         context: context,
         verse: const Verse(
-          text: 'phid_deleting_your_account',
+          id: 'phid_deleting_your_account',
           translate: true,
         ),
       );

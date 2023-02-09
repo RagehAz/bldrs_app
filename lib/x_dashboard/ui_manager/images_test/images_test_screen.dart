@@ -37,7 +37,7 @@ import 'package:bldrs/x_dashboard/backend_lab/ldb_viewer/ldb_viewer_screen.dart'
 import 'package:bldrs/x_dashboard/ui_manager/bldrs_icons_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/images_test/image_tile.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image/image.dart' as img;
@@ -397,17 +397,17 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
                 context: context,
                 screen: KeyboardScreen(
                   screenTitleVerse: const Verse(
-                    text: 'Crop Image',
+                    id: 'Crop Image',
                     translate: false,
                   ),
                   keyboardModel: KeyboardModel.standardModel().copyWith(
                     textInputType: TextInputType.number,
                     titleVerse: const Verse(
-                      text: 'Add new width',
+                      id: 'Add new width',
                       translate: false,
                     ),
                     hintVerse: Verse(
-                      text: 'width was ${uiImage?.width}',
+                      id: 'width was ${uiImage?.width}',
                       translate: false,
                     ),
                   ),
@@ -552,7 +552,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
                   create: (_) => PhraseProvider(),
                   child: PosterSwitcher(
                     posterType: PosterType.flyer,
-                    width: Bubble.clearWidth(context),
+                    width: Bubble.clearWidth(context: context),
                     model: _flyer,
                     modelHelper: _flyer.bzModel,
                   ),

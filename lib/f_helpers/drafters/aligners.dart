@@ -1,8 +1,10 @@
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
-
+/// => TAMAM
 class Aligners {
+  // -----------------------------------------------------------------------------
+  /// BLDRS ALIGNERS CLASS
   // -----------------------------------------------------------------------------
 
   const Aligners();

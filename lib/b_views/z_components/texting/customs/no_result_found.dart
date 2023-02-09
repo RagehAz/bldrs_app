@@ -20,7 +20,7 @@ class NoResultFound extends StatelessWidget {
     return SuperVerse(
       key: const ValueKey<String>('NoResultFound'),
       verse: verse ?? const Verse(
-        text: 'phid_nothing_found',
+        id: 'phid_nothing_found',
         translate: true,
         casing: Casing.upperCase,
       ),

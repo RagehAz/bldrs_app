@@ -65,7 +65,7 @@ class Dialogs {
     await TopDialog.showTopDialog(
       context: context,
       firstVerse: firstLine ?? const Verse(
-        text: 'phid_success',
+        id: 'phid_success',
         translate: true,
       ),
       secondVerse: secondLine,
@@ -115,17 +115,17 @@ class Dialogs {
     await CenterDialog.showCenterDialog(
       context: context,
       titleVerse:  const Verse(
-        text: 'phid_thanks_million',
+        id: 'phid_thanks_million',
         translate: true,
       ),
       bodyVerse: const Verse(
         pseudo: 'We will look into this matter and take the necessary '
             'action as soon as possible\n Thank you for helping out',
-        text: 'phid_we_will_look_into_it',
+        id: 'phid_we_will_look_into_it',
         translate: true,
       ),
       confirmButtonVerse: const Verse(
-        text: 'phid_most_welcome',
+        id: 'phid_most_welcome',
         translate: true,
       ),
     );
@@ -141,7 +141,7 @@ class Dialogs {
     final bool _go = await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: const Verse(
-        text: 'phid_you_need_to_sign_in',
+        id: 'phid_you_need_to_sign_in',
         translate: true,
       ),
       boolDialog: true,
@@ -177,7 +177,7 @@ class Dialogs {
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: titleVerse ?? const Verse(
-        text: 'phid_proceed_?',
+        id: 'phid_proceed_?',
         translate: true,
       ),
       bodyVerse: bodyVerse,
@@ -201,13 +201,13 @@ class Dialogs {
       context: context,
       invertButtons: true,
       titleVerse: titleVerse ?? const Verse(
-        text: 'phid_go_back_?',
+        id: 'phid_go_back_?',
         translate: true,
       ),
       bodyVerse: bodyVerse,
       boolDialog: true,
       confirmButtonVerse: confirmButtonVerse ?? const Verse(
-        text:'phid_go_back',
+        id:'phid_go_back',
         translate: true,
       ),
     );
@@ -229,15 +229,15 @@ class Dialogs {
     final bool result = await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: const Verse(
-        text: 'phid_discard_changes_?',
+        id: 'phid_discard_changes_?',
         translate: true,
       ),
       bodyVerse: const Verse(
-        text: 'phid_discard_changed_warning',
+        id: 'phid_discard_changed_warning',
         translate: true,
       ),
       confirmButtonVerse: const Verse(
-        text: 'phid_yes_discard',
+        id: 'phid_yes_discard',
         translate: true,
       ),
       boolDialog: true,
@@ -280,7 +280,7 @@ class Dialogs {
               ),
               // color: Colorz.bloodTest,
               verse: const Verse(
-                text: 'phid_no',
+                id: 'phid_no',
                 casing: Casing.upperCase,
                 translate: true,
               ),
@@ -300,7 +300,7 @@ class Dialogs {
               ),
               color: Colorz.green125,
               verse: const Verse(
-                text: 'phid_yes',
+                id: 'phid_yes',
                 casing: Casing.upperCase,
                 translate: true,
               ),
@@ -396,7 +396,7 @@ class Dialogs {
 
       if (_mapContainsTheError == true) {
         _errorReplyVerse = Verse(
-          text: map['reply'],
+          id: map['reply'],
           translate: true,
         );
         break;
@@ -404,7 +404,7 @@ class Dialogs {
 
       else {
         _errorReplyVerse = const Verse(
-          text: 'phid_somethingIsWrong',
+          id: 'phid_somethingIsWrong',
           translate: true,
         );
       }
@@ -419,7 +419,7 @@ class Dialogs {
     await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: const Verse(
-        text: 'phid_could_not_continue_title',
+        id: 'phid_could_not_continue_title',
         translate: true,
       ),
       bodyVerse: _errorReplyVerse,
@@ -432,11 +432,11 @@ class Dialogs {
     await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: const Verse(
-        text: 'phid_somethingIsWrong!',
+        id: 'phid_somethingIsWrong!',
         translate: true,
       ),
       bodyVerse: const Verse(
-        text: 'phid_please_try_again',
+        id: 'phid_please_try_again',
         translate: true,
       ),
     );
@@ -453,7 +453,7 @@ class Dialogs {
     await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: titleVerse ?? const Verse(
-        text: 'phid_somethingIsWrong',
+        id: 'phid_somethingIsWrong',
         translate: true,
       ),
       bodyVerse: bodyVerse,
@@ -476,7 +476,7 @@ class Dialogs {
     await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: const Verse(
-        text: 'phid_enter_your_password',
+        id: 'phid_enter_your_password',
         translate: true,
       ),
       height: Scale.screenHeight(context) * 0.7,
@@ -636,7 +636,7 @@ class Dialogs {
                     verseScaleFactor: 0.6,
                     margins: const EdgeInsets.symmetric(horizontal: 10),
                     verse: const Verse(
-                      text: 'phid_confirm',
+                      id: 'phid_confirm',
                       translate: true,
                       casing: Casing.upperCase,
                     ),
@@ -691,7 +691,7 @@ class Dialogs {
 
             const SuperVerse(
               verse: Verse(
-                text: 'phid_confirm_your_city',
+                id: 'phid_confirm_your_city',
                 translate: true,
                 casing: Casing.capitalizeFirstChar,
                 pseudo: 'Please confirm your city',
@@ -709,7 +709,7 @@ class Dialogs {
               return BottomDialog.wideButton(
                   context: context,
                   verse: Verse(
-                    text: _foundCityName,
+                    id: _foundCityName,
                     translate: false,
                   ),
                   icon: Flag.getCountryIcon(_foundCity.oldGetCountryID()),
@@ -742,11 +742,11 @@ class Dialogs {
     await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: const Verse(
-        text: 'phid_zone_is_not_available',
+        id: 'phid_zone_is_not_available',
         translate: true,
       ),
       bodyVerse: const Verse(
-        text: 'phid_zone_is_not_available_body',
+        id: 'phid_zone_is_not_available_body',
         translate: true,
       ),
     );
@@ -890,7 +890,7 @@ class Dialogs {
       titleVerse: titleVerse,
       bodyVerse: bodyVerse,
       confirmButtonVerse: confirmButtonVerse ?? const Verse(
-        text: 'phid_cancel',
+        id: 'phid_cancel',
         translate: true,
       ),
       height: Scale.screenHeight(context) * 0.7,

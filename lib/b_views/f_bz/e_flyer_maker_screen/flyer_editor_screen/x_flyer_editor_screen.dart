@@ -302,7 +302,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
     else {
       setState(() {
         _confirmButtonModel = ConfirmButtonModel(
-          firstLine: const Verse(text: 'phid_confirm_upload_flyer', translate: true),
+          firstLine: const Verse(id: 'phid_confirm_upload_flyer', translate: true),
           onTap: _onConfirmTap,
           isWide: true,
         );
@@ -332,7 +332,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
     return MainLayout(
       key: const ValueKey<String>('FlyerPublisherScreen'),
       title: Verse(
-        text: widget.flyerToEdit == null ? 'phid_createFlyer' : 'phid_edit_flyer',
+        id: widget.flyerToEdit == null ? 'phid_createFlyer' : 'phid_edit_flyer',
         translate: true,
       ),
       pyramidsAreOn: true,
@@ -373,7 +373,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                       key: const ValueKey<String>('flyer_headline_text_field'),
                       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                         headlineVerse: const Verse(
-                          text: 'phid_flyer_headline',
+                          id: 'phid_flyer_headline',
                           translate: true,
                         ),
                         redDot: true,
@@ -426,7 +426,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                     /// FLYER TYPE SELECTOR
                     MultipleChoiceBubble(
                       titleVerse: const Verse(
-                        text: 'phid_flyer_type',
+                        id: 'phid_flyer_type',
                         translate: true,
                       ),
                       // bulletPoints: <Verse>[
@@ -498,7 +498,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                       // },
                       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                         headlineVerse: const Verse(
-                          text: 'phid_flyer_description',
+                          id: 'phid_flyer_description',
                           translate: true,
                         ),
                       ),
@@ -646,20 +646,20 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                       zoneViewingEvent: ViewingEvent.flyerEditor,
                       depth: ZoneDepth.city,
                       titleVerse: const Verse(
-                        text: 'phid_flyer_target_city',
+                        id: 'phid_flyer_target_city',
                         translate: true,
                       ),
                       bulletPoints: const <Verse>[
                         Verse(
-                          text: 'phid_select_city_you_want_to_target',
+                          id: 'phid_select_city_you_want_to_target',
                           translate: true,
                         ),
                         Verse(
-                          text: 'phid_each_flyer_target_one_city',
+                          id: 'phid_each_flyer_target_one_city',
                           translate: true,
                         ),
                         Verse(
-                          text: 'phid_selecting_district_focuses_search',
+                          id: 'phid_selecting_district_focuses_search',
                           translate: true,
                         ),
                       ],

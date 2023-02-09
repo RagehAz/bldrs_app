@@ -193,7 +193,7 @@ class DataCreatorSplitter extends StatelessWidget {
     else {
       return const NoResultFound(
         color: Colorz.white50,
-        verse: Verse(text: '....', translate: false),
+        verse: Verse(id: '....', translate: false),
       );
     }
     // --------------------

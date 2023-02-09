@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 export 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 
@@ -61,33 +61,41 @@ class BldrsBubbleHeaderVM {
     Function onMoreButtonTap,
     bool redDot = false,
     VerseWeight weight = VerseWeight.black,
-}){
-
-    final BuildContext context = getContext();
-
-    return BubbleHeaderVM(
-      headerWidth: headerWidth,
-      leadingIcon: leadingIcon,
-      leadingIconSizeFactor: leadingIconSizeFactor,
-      leadingIconBoxColor: leadingIconBoxColor,
-      leadingIconIsBubble: leadingIconIsBubble,
-      onLeadingIconTap: onLeadingIconTap,
-      hasSwitch: hasSwitch,
-      hasMoreButton: hasMoreButton,
-      headlineText: Verse.bakeVerseToString(context: context, verse: headlineVerse),
-      headlineColor: headlineColor,
-      switchValue: switchValue,
-      onSwitchTap: onSwitchTap,
-      onMoreButtonTap: onMoreButtonTap,
-      redDot: redDot,
-      centered: centered,
-      font: SuperVerse.superVerseFont(context, weight),
-      headlineHighlight: headlineVerse.notifier,
-      headlineHeight: SuperVerse.superVerseSizeValue(context, 2, 1),
-      // moreButtonIcon: Iconz.more,
-      // moreButtonIconSizeFactor: 0.6,
-    );
-  }
+  }){
+    
+        final BuildContext context = getContext();
+    
+        return BubbleHeaderVM(
+          headerWidth: headerWidth,
+          leadingIcon: leadingIcon,
+          leadingIconSizeFactor: leadingIconSizeFactor,
+          leadingIconBoxColor: leadingIconBoxColor,
+          leadingIconIsBubble: leadingIconIsBubble,
+          onLeadingIconTap: onLeadingIconTap,
+          hasSwitch: hasSwitch,
+          hasMoreButton: hasMoreButton,
+          headlineText: Verse.bakeVerseToString(context: context, verse: headlineVerse),
+          headlineColor: headlineColor,
+          switchValue: switchValue,
+          onSwitchTap: onSwitchTap,
+          onMoreButtonTap: onMoreButtonTap,
+          redDot: redDot,
+          centered: centered,
+          font: SuperVerse.superVerseFont(context, weight),
+          headlineHighlight: headlineVerse?.notifier,
+          headlineHeight: SuperVerse.superVerseSizeValue(context, 2, 1) * 1.42,
+          appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+          textDirection: UiProvider.getAppTextDir(context),
+          // moreButtonIcon: Iconz.more,
+          // moreButtonIconSizeFactor: 0.6,
+          switchActiveColor: Colorz.yellow255,
+          switchDisabledColor: Colorz.grey255,
+          switchDisabledTrackColor: Colorz.grey80,
+          switchFocusColor: Colorz.white255,
+          switchTrackColor: Colorz.yellow80,
+        );
+      }
+  /// --------------------------------------------------------------------------
   BldrsBubbleHeaderVM copyWith({
     double headerWidth,
     dynamic leadingIcon,
@@ -158,7 +166,10 @@ class BubbleHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _bubbleWidth = viewModel.headerWidth ?? Bubble.clearWidth(context);
+    final double _bubbleWidth = Bubble.clearWidth(
+      context: context,
+      bubbleWidthOverride: viewModel.headerWidth,
+    );
     // --------------------
     /// LEADING ICON
     final bool _hasIcon = viewModel.leadingIcon != null;

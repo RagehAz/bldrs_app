@@ -112,7 +112,7 @@ class DataStripKey extends StatelessWidget {
       child: SuperVerse(
         labelColor: Colorz.nothing,
         verse: Verse(
-          text: dataKey,
+          id: dataKey,
           translate: false,
           casing: Casing.upperCase,
         ),

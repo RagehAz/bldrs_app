@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/targets/target_progress_bar.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 
@@ -22,7 +22,7 @@ class TargetCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _bubbleClearWidth = Bubble.clearWidth(context) - 10;
+    final double _bubbleClearWidth = Bubble.clearWidth(context: context) - 10;
     // final double _titleBoxWidth = _bubbleClearWidth / 2 + 20;
     // const double _titleBoxHeight = 30;
     final Progress _progress = target.progress;
@@ -43,7 +43,7 @@ class TargetCard extends StatelessWidget {
           /// TITLE
           SuperVerse(
             verse: Verse(
-              text: target.name,
+              id: target.name,
               translate: true,
             ),
             centered: false,
@@ -56,7 +56,7 @@ class TargetCard extends StatelessWidget {
           /// DESCRIPTION
           SuperVerse(
             verse: Verse(
-              text: target.description,
+              id: target.description,
               translate: true,
             ),
             centered: false,
@@ -83,7 +83,7 @@ class TargetCard extends StatelessWidget {
 
                 const SuperVerse(
                   verse: Verse(
-                    text: 'phid_instructions',
+                    id: 'phid_instructions',
                     translate: true,
                   ),
                   size: 3,
@@ -102,7 +102,7 @@ class TargetCard extends StatelessWidget {
                     itemBuilder: (_, index) {
                       return SuperVerse(
                         verse: Verse(
-                          text: target.instructions[index],
+                          id: target.instructions[index],
                           translate: true,
                         ),
                         leadingDot: true,
@@ -125,7 +125,7 @@ class TargetCard extends StatelessWidget {
                 width: _bubbleClearWidth,
                 height: 70,
                 verse: Verse(
-                  text: '#!# CLAIM ${target.reward.slides} Slides ',
+                  id: '#!# CLAIM ${target.reward.slides} Slides ',
                   translate: true,
                   variables: target.reward.slides,
                 ),

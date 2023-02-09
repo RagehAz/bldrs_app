@@ -158,12 +158,12 @@ class _ZoningLabState extends State<ZoningLab> {
                   depth: ZoneDepth.district,
                   currentZone: _bubbleZone,
                   titleVerse:  const Verse(
-                    text: 'Zoning test',
+                    id: 'Zoning test',
                     translate: false,
                   ),
                   bulletPoints:  const <Verse>[
-                    Verse(text: 'Fuck you', translate: false,),
-                    Verse(text: 'Bitch', translate: false,),
+                    Verse(id: 'Fuck you', translate: false,),
+                    Verse(id: 'Bitch', translate: false,),
                   ],
                   onZoneChanged: (ZoneModel zone){
 

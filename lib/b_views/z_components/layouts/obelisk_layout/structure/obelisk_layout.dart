@@ -69,14 +69,14 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
 
     if (Mapper.checkCanLoopList(widget.navModels) == true){
       _pageTitleVerse = Verse(
-        text: widget.navModels[0].titleVerse.text,
+        id: widget.navModels[0].titleVerse.id,
         translate: widget.navModels[0].titleVerse.translate,
-        notifier: ValueNotifier(widget.navModels[0].titleVerse.text),
+        notifier: ValueNotifier(widget.navModels[0].titleVerse.id),
       );
     }
     else {
       _pageTitleVerse = const Verse(
-        text: 'phid_keywords',
+        id: 'phid_keywords',
         translate: true,
       );
     }
@@ -139,7 +139,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
         setNotifier(
           notifier: _pageTitleVerse.notifier,
           mounted: mounted,
-          value: widget.navModels[_progressBarModel.value.index].titleVerse.text,
+          value: widget.navModels[_progressBarModel.value.index].titleVerse.id,
         );
 
       });
@@ -163,7 +163,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
       final Verse _oldTab = widget.navModels[_progressBarModel.value.index].titleVerse;
 
       /// ONLY WHEN THE TAB CHANGES FOR REAL IN THE EXACT MIDDLE BETWEEN BUTTONS
-      if (_newTab.text != _oldTab.text){
+      if (_newTab.id != _oldTab.id){
 
         // _uiProvider.setCurrentUserTab(_newTab);
         tabController.animateTo(_indexFromAnimation,
@@ -181,7 +181,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
     setNotifier(
         notifier: _pageTitleVerse.notifier,
         mounted: mounted,
-        value: widget.navModels[index].titleVerse.text,
+        value: widget.navModels[index].titleVerse.id,
     );
 
     blog('onRowTap index : $index : _pageTitle.value : ${_pageTitleVerse.notifier.value}');

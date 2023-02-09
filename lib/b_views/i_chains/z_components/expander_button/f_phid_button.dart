@@ -105,7 +105,7 @@ class PhidButton extends StatelessWidget {
         width: width,
         color: color,
         verse: Verse(
-          text: Phider.removeIndexFromPhid(phid: phid),
+          id: Phider.removeIndexFromPhid(phid: phid),
           translate: true,
         ),
         margins: margins,

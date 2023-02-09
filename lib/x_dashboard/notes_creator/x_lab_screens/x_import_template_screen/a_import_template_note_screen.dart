@@ -214,7 +214,7 @@ class _NotesBuilderPage extends StatelessWidget {
 
                 SuperVerse(
                   verse: Verse(
-                    text: _noteModel.id,
+                    id: _noteModel.id,
                     translate: false,
                   ),
                   centered: false,
@@ -268,7 +268,7 @@ class _NotesBuilderPage extends StatelessWidget {
     else {
       return const SuperVerse(
         verse: Verse(
-          text: 'No Notes in LDB found',
+          id: 'No Notes in LDB found',
           translate: false,
         ),
         color: Colorz.yellow200,

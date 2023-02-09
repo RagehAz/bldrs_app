@@ -62,7 +62,7 @@ class SlidesShelf extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
               child: SuperVerse(
                 verse: Verse(
-                  text: title,
+                  id: title,
                   translate: false,
                   casing: Casing.upperCase,
                 ),
@@ -111,7 +111,7 @@ class SlidesShelf extends StatelessWidget {
                         child: index < pics.length
                             ? SuperVerse(
                           verse: Verse(
-                            text: '${index + 1}',
+                            id: '${index + 1}',
                             translate: false,
                           ),
                           size: 1,
@@ -183,7 +183,7 @@ class SlidesShelf extends StatelessWidget {
                                     width: _flyerZoneWidth * 0.95,
                                     child: const SuperVerse(
                                       verse: Verse(
-                                        text: 'phid_add_photos',
+                                        id: 'phid_add_photos',
                                         translate: true,
                                         casing: Casing.capitalizeFirstChar,
                                       ),

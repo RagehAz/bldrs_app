@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 
@@ -62,7 +62,7 @@ class _FloatingDialogState extends State<FloatingDialog> {
       // actionBtFunction: widget.actionBtFunction,
       columnChildren: <Widget>[
         Container(
-          width: Bubble.clearWidth(context),
+          width: Bubble.clearWidth(context: context),
           height: _stripHeight,
           decoration: const BoxDecoration(
             color: Colorz.white10,
@@ -133,7 +133,7 @@ class _FloatingDialogState extends State<FloatingDialog> {
                 child: SuperVerse(
                   color: Colorz.black230,
                   verse: Verse(
-                    text: item,
+                    id: item,
                     translate: false,
                   ),
                 ),

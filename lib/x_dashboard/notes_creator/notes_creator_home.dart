@@ -22,7 +22,7 @@ class NotesCreatorScreen extends StatelessWidget {
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
       title: const Verse(
-        text: 'Send Note to',
+        id: 'Send Note to',
         translate: false,
       ),
       skyType: SkyType.black,

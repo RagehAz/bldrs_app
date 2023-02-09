@@ -20,12 +20,12 @@ class FCMTopicsScreen extends StatelessWidget {
     final Verse _title =
     partyType == PartyType.user ?
     const Verse(
-        text: 'phid_notifications_settings',
+        id: 'phid_notifications_settings',
         translate: true
     )
         :
     const Verse(
-        text: 'phid_bz_notifications_settings',
+        id: 'phid_bz_notifications_settings',
         translate: true
     );
     // --------------------

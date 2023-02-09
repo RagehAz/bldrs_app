@@ -224,12 +224,12 @@ Future<void> _showMaxSlidesReachedDialog(BuildContext context, int maxLength) as
   await CenterDialog.showCenterDialog(
     context: context,
     titleVerse: const Verse(
-      text: 'phid_max_slides_reached',
+      id: 'phid_max_slides_reached',
       translate: true,
     ),
     bodyVerse: Verse(
       pseudo: 'Can not add more than $maxLength images in one flyer',
-      text: 'phid_max_slides_reached_description',
+      id: 'phid_max_slides_reached_description',
       translate: true,
       variables: maxLength,
     ),
@@ -290,7 +290,7 @@ Future<void> onDeleteSlide({
       context: context,
       slideModel: _slide,
       titleVerse: const Verse(
-        text: 'phid_delete_slide_?',
+        id: 'phid_delete_slide_?',
         translate: true,
       ),
   );
@@ -338,7 +338,7 @@ Future<void> onMoreTap({
         /// DELETE
         BottomDialog.wideButton(
           context: context,
-          verse: const Verse(text: 'phid_delete', translate: true),
+          verse: const Verse(id: 'phid_delete', translate: true),
           verseCentered: true,
           onTap: () async {
             await Nav.goBack(
@@ -352,7 +352,7 @@ Future<void> onMoreTap({
         /// SAVE DRAFT
         BottomDialog.wideButton(
           context: context,
-          verse: const Verse(text: 'phid_save_draft', translate: true,),
+          verse: const Verse(id: 'phid_save_draft', translate: true,),
           verseCentered: true,
           onTap: () async {
             await Nav.goBack(
@@ -366,7 +366,7 @@ Future<void> onMoreTap({
         /// PUBLISH
         BottomDialog.wideButton(
           context: context,
-          verse: const Verse(text: 'phid_publish', translate: true),
+          verse: const Verse(id: 'phid_publish', translate: true),
           verseCentered: true,
           onTap: () async {
             await Nav.goBack(

@@ -82,7 +82,7 @@ class _PDFScreenState extends State<PDFScreen> {
     return MainLayout(
       loading: _loading,
       title: Verse(
-        text: '${widget.pdf.name}.pdf',
+        id: '${widget.pdf.name}.pdf',
         translate: false,
       ),
       appBarType: AppBarType.basic,

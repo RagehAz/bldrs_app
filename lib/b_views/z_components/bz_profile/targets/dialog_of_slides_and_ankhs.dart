@@ -22,7 +22,7 @@ class DialogOfSlidesAndAnkhs extends StatelessWidget {
         children: const <Widget>[
           SuperVerse(
             verse: Verse(
-              text: 'Blo blo blo',
+              id: 'Blo blo blo',
               translate: false,
             ),
             size: 1,
@@ -38,7 +38,7 @@ class DialogOfSlidesAndAnkhs extends StatelessWidget {
       children: const <Widget>[
         SuperVerse(
           verse:  Verse(
-            text: 'Blo blo blo',
+            id: 'Blo blo blo',
             translate: false,
           ),
           size: 1,

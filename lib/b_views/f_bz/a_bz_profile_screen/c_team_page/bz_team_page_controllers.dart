@@ -84,7 +84,7 @@ Future<void> onAuthorOptionsTap({
     BottomDialog.wideButton(
       context: context,
       verse: const Verse(
-        text: 'phid_change_team_role',
+        id: 'phid_change_team_role',
         translate: true,
       ),
       icon: Iconz.bz,
@@ -114,7 +114,7 @@ Future<void> onAuthorOptionsTap({
     BottomDialog.wideButton(
       context: context,
       verse: const Verse(
-        text: 'phid_edit_author_details',
+        id: 'phid_edit_author_details',
         translate: true,
       ),
       icon: Iconz.gears,
@@ -144,7 +144,7 @@ Future<void> onAuthorOptionsTap({
     BottomDialog.wideButton(
       context: context,
       verse: const Verse(
-        text: 'phid_remove_author_from_the_team',
+        id: 'phid_remove_author_from_the_team',
         translate: true,
       ),
       icon: Iconz.xSmall,
@@ -228,7 +228,7 @@ Future<void> _onShowCanNotRemoveAuthorDialog({
   await CenterDialog.showCenterDialog(
     context: context,
     titleVerse: Verse(
-      text: '${Verse.transBake(context, 'phid_you_cant_remove')} ${authorModel.name}',
+      id: '${Verse.transBake(context, 'phid_you_cant_remove')} ${authorModel.name}',
       translate: true,
       variables: authorModel.name,
     ),
@@ -270,11 +270,11 @@ Future<void> _onShowCanNotEditAuthorDialog({
   await CenterDialog.showCenterDialog(
     context: context,
     titleVerse: Verse(
-      text: '${Verse.transBake(context, 'phid_you_cant_edit')}\n${authorModel.name}',
+      id: '${Verse.transBake(context, 'phid_you_cant_edit')}\n${authorModel.name}',
       translate: false,
     ),
     bodyVerse: Verse(
-      text: '${authorModel.name} ${Verse.transBake(context, 'phid_is_only_who_can_edit_his_account')}',
+      id: '${authorModel.name} ${Verse.transBake(context, 'phid_is_only_who_can_edit_his_account')}',
       translate: false,
     ),
   );
@@ -316,7 +316,7 @@ Future<void> _onShowCanNotChangeAuthorRoleDialog({
   await CenterDialog.showCenterDialog(
     context: context,
     titleVerse: const Verse(
-      text: 'phid_you_cant_change_team_roles',
+      id: 'phid_you_cant_change_team_roles',
       translate: true,
     ),
     // bodyVerse: const Verse(
@@ -354,11 +354,11 @@ Future<void> onSendAuthorshipInvitation({
     final bool _result = await Dialogs.userDialog(
       context: context,
       titleVerse: const Verse(
-        text: 'phid_send_invitation_?',
+        id: 'phid_send_invitation_?',
         translate: true,
       ),
       bodyVerse: Verse(
-        text: _body,
+        id: _body,
         translate: false,
       ),
       userModel: selectedUser,
@@ -382,11 +382,11 @@ Future<void> onSendAuthorshipInvitation({
       unawaited(TopDialog.showTopDialog(
         context: context,
         firstVerse: const Verse(
-          text: 'phid_invitation_sent',
+          id: 'phid_invitation_sent',
           translate: true,
         ),
         secondVerse: Verse(
-          text: 'phid_authorship_invitation_is_sent',
+          id: 'phid_authorship_invitation_is_sent',
           translate: true,
           variables: selectedUser.name,
         ),
@@ -411,11 +411,11 @@ Future<void> onSendAuthorshipInvitation({
     await Dialogs.userDialog(
       context: context,
       titleVerse: const Verse(
-        text: 'phid_can_not_invite_user',
+        id: 'phid_can_not_invite_user',
         translate: true,
       ),
       bodyVerse: Verse(
-        text: _body,
+        id: _body,
         translate: true,
       ),
       userModel: selectedUser,
@@ -448,16 +448,16 @@ Future<void> onCancelSentAuthorshipInvitation({
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: const Verse(
-        text: 'phid_cancel_invitation_?',
+        id: 'phid_cancel_invitation_?',
         translate: true,
       ),
       bodyVerse: Verse(
-        text: _body,
+        id: _body,
         translate: true,
       ),
       boolDialog: true,
       confirmButtonVerse: const Verse(
-        text: 'phid_yes',
+        id: 'phid_yes',
         translate: true,
       ),
       invertButtons: true,
@@ -474,7 +474,7 @@ Future<void> onCancelSentAuthorshipInvitation({
       await TopDialog.showTopDialog(
         context: context,
         firstVerse: const Verse(
-          text: 'phid_invitation_is_cancelled',
+          id: 'phid_invitation_is_cancelled',
           translate: true,
         ),
         color: Colorz.green255,

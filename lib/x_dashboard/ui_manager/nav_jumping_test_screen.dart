@@ -37,7 +37,7 @@ class _NavJumpingTestScreenState extends State<NavJumpingTestScreen> {
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
       title: const Verse(
-        text: 'Nav Jumping Test Screen',
+        id: 'Nav Jumping Test Screen',
         translate: false,
       ),
       skyType: SkyType.black,
@@ -46,8 +46,8 @@ class _NavJumpingTestScreenState extends State<NavJumpingTestScreen> {
         children: <Widget>[
 
           /// START FROM HOME SCREEN SWITCH
-          TileBubble(
-            bubbleHeaderVM: BldrsBubbleHeaderVM(
+          BldrsTileBubble(
+            bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
               headlineVerse: Verse.plain('Start from Home Screen'),
               hasSwitch: true,
               switchValue: _canStartFromHomeScreen,

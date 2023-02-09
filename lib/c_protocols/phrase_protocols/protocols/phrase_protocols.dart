@@ -173,7 +173,7 @@ class PhraseProtocols {
         pushWaitDialog(
           context: context,
           verse: const Verse(
-              text: 'phid_uploading',
+              id: 'phid_uploading',
               translate: true,
           ),
         );

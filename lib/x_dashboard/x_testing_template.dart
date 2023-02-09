@@ -111,7 +111,7 @@ class TheStatelessScreen extends StatelessWidget {
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
       title: const Verse(
-        text: '',
+        id: '',
         translate: false,
       ),
       skyType: SkyType.black,

@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:widget_fader/widget_fader.dart';
@@ -42,25 +42,25 @@ class SpecsSelectorBubble extends StatelessWidget {
       child: Bubble(
         bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
           headlineVerse: const Verse(
-            text: 'phid_specifications',
+            id: 'phid_specifications',
             translate: true,
           ),
         ),
-        width: Bubble.bubbleWidth(context),
+        width: Bubble.bubbleWidth(context: context),
         columnChildren: <Widget>[
 
-          const BulletPoints(
+          const BldrsBulletPoints(
             bulletPoints: <Verse>[
               Verse(
                 pseudo: 'Add technical specification to describe flyer contents and help the search filters find your flyer',
-                text: 'phid_add_spec_to_help_search_filters',
+                id: 'phid_add_spec_to_help_search_filters',
                 translate: true,
               ),
             ],
           ),
 
           SpecsBuilder(
-            pageWidth: Bubble.clearWidth(context),
+            pageWidth: Bubble.clearWidth(context: context),
             specs: draft.specs,
             onSpecTap: onSpecTap,
             onDeleteSpec: onDeleteSpec,
@@ -69,7 +69,7 @@ class SpecsSelectorBubble extends StatelessWidget {
           DreamBox(
             height: PhidButton.getHeight(),
             verse: Verse(
-              text: Mapper.checkCanLoopList(draft.specs) ? 'phid_edit_specs' : 'phid_add_specs',
+              id: Mapper.checkCanLoopList(draft.specs) ? 'phid_edit_specs' : 'phid_add_specs',
               translate: true,
             ),
             bubble: false,

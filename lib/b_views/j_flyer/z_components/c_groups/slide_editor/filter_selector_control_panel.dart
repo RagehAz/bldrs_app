@@ -131,7 +131,7 @@ class FiltersSelectorControlPanel extends StatelessWidget {
                             alignment: Alignment.bottomCenter,
                             child: SuperVerse(
                               verse: Verse(
-                                text: _filter.id,
+                                id: _filter.id,
                                 translate: true,
                               ),
                               maxLines: 2,

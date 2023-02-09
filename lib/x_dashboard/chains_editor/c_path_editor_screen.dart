@@ -155,11 +155,11 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
       globalKey: GlobalKey<FormState>(),
       focusNode: FocusNode(),
       titleVerse: const Verse(
-        text: 'Edit path',
+        id: 'Edit path',
         translate: false,
       ),
       hintVerse: const Verse(
-        text: 'phid_aaa/phid_bbb ...',
+        id: 'phid_aaa/phid_bbb ...',
         translate: false,
       ),
       initialText: widget.path,
@@ -422,7 +422,7 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
                       verseScaleFactor: 0.6,
                       color: Colorz.blue80,
                       verse: const Verse(
-                        text: 'pick phid',
+                        id: 'pick phid',
                         translate: false,
                       ),
                       verseItalic: true,
@@ -440,7 +440,7 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
                       verseScaleFactor: 0.6,
                       color: Colorz.blue80,
                       verse: const Verse(
-                        text: 'Add "phid_"',
+                        id: 'Add "phid_"',
                         translate: false,
                       ),
                       verseItalic: true,
@@ -458,7 +458,7 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
                       verseScaleFactor: 0.6,
                       color: Colorz.blue80,
                       verse: const Verse(
-                        text: 'Add "/"',
+                        id: 'Add "/"',
                         translate: false,
                       ),
                       verseItalic: true,
@@ -474,7 +474,7 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
                       color: Colorz.green50,
                       verseScaleFactor: 0.6,
                       verse: const Verse(
-                        text: '- Confirm -',
+                        id: '- Confirm -',
                         translate: false,
                         casing: Casing.upperCase,
                       ),
@@ -515,7 +515,7 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
                       verseScaleFactor: 0.6,
                       color: Colorz.blue80,
                       verse: const Verse(
-                        text: 'Clear',
+                        id: 'Clear',
                         translate: false,
                       ),
                       verseItalic: true,
@@ -534,7 +534,7 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
                       verseScaleFactor: 0.6,
                       color: Colorz.blue80,
                       verse: const Verse(
-                        text: 'Remove last Node',
+                        id: 'Remove last Node',
                         translate: false,
                       ),
                       verseItalic: true,
@@ -553,7 +553,7 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
                       verseScaleFactor: 0.6,
                       color: Colorz.blue80,
                       verse: const Verse(
-                        text: 'Add Data creator',
+                        id: 'Add Data creator',
                         translate: false,
                       ),
                       verseItalic: true,

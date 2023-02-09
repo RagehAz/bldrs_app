@@ -66,7 +66,7 @@ class CitiesScreenBrowseView extends StatelessWidget {
                   final String _countryID = CityModel.getCountryIDFromCityID(cities.first.cityID);
                   return CountryTileButton(
                     verse: const Verse(
-                      text: 'phid_view_all_cities',
+                      id: 'phid_view_all_cities',
                       translate: true,
                     ),
                     countryID: _countryID,

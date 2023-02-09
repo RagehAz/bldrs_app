@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/x_dashboard/notes_creator/z_components/buttons/note_panel_button.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 
@@ -38,8 +38,8 @@ class NotePreviewPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _bubbleWidth = Bubble.bubbleWidth(context);
-    final double _clearWidth = Bubble.clearWidth(context);
+    final double _bubbleWidth = Bubble.bubbleWidth(context: context);
+    final double _clearWidth = Bubble.clearWidth(context: context);
     const double _sendButtonSize = (50 * 2) + 5.0;
     const double _buttonsZoneWidth = _sendButtonSize + 5 + _sendButtonSize;
     // --------------------
@@ -97,12 +97,12 @@ class NotePreviewPanel extends StatelessWidget {
                           verseScaleFactor: 0.9,
                           verseItalic: true,
                           verse: Verse(
-                            text: '${note?.sendFCM == true ? 'with FCM' : 'No FCM'} to',
+                            id: '${note?.sendFCM == true ? 'with FCM' : 'No FCM'} to',
                             translate: false,
                             casing: Casing.upperCase,
                           ),
                           secondLine: Verse(
-                            text: '${receiversModels.length} ${note?.parties?.receiverType == PartyType.bz ? 'bzz' : 'users'}',
+                            id: '${receiversModels.length} ${note?.parties?.receiverType == PartyType.bz ? 'bzz' : 'users'}',
                             translate: false,
                           ),
                           color: note?.sendFCM == true ? Colorz.bloodTest : Colorz.blue125,

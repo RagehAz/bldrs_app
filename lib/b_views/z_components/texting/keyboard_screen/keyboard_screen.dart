@@ -228,7 +228,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                       verseScaleFactor: 0.6,
                       margins: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                       verse: const Verse(
-                        text: 'phid_confirm',
+                        id: 'phid_confirm',
                         translate: true,
                         casing: Casing.upperCase,
                       ),

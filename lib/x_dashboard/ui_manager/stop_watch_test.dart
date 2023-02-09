@@ -83,7 +83,7 @@ class _StopWatchTestState extends State<StopWatchTest> {
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
       title: const Verse(
-        text: 'Stop watch test Screen',
+        id: 'Stop watch test Screen',
         translate: false,
       ),
       skyType: SkyType.black,

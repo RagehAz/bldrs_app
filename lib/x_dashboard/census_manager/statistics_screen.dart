@@ -26,7 +26,7 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/x_dashboard/bzz_manager/components/census_field_line.dart';
 import 'package:bldrs/x_dashboard/bzz_manager/lab/census_lab_screen.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 
@@ -150,7 +150,7 @@ class _GeneralStatisticsState extends State<GeneralStatistics> {
   @override
   Widget build(BuildContext context) {
 
-    final double _lineWidth = Bubble.clearWidth(context);
+    final double _lineWidth = Bubble.clearWidth(context: context);
 
     const double _depthButtonHeight = 35;
     final double _depthButtonsBoxWith = TileBubble.childWidth(context: context);
@@ -198,7 +198,7 @@ class _GeneralStatisticsState extends State<GeneralStatistics> {
       appBarType: AppBarType.basic,
       skyType: SkyType.black,
       pyramidType: PyramidType.crystalYellow,
-      title: const Verse(text: 'phid_statistics', translate: true),
+      title: const Verse(id: 'phid_statistics', translate: true),
       loading: _loading,
       pyramidButtons: <Widget>[
 
@@ -251,7 +251,7 @@ class _GeneralStatisticsState extends State<GeneralStatistics> {
                 // districtID: null,
               ),
               titleVerse:  const Verse(
-                text: 'Select a zone',
+                id: 'Select a zone',
                 translate: false,
               ),
               onZoneChanged: (ZoneModel zone) async {
@@ -272,8 +272,8 @@ class _GeneralStatisticsState extends State<GeneralStatistics> {
             ),
 
             /// DEPTH BUTTONS
-            TileBubble(
-              bubbleHeaderVM: BldrsBubbleHeaderVM(
+            BldrsTileBubble(
+              bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                 headlineVerse: Verse.plain('Depth'),
               ),
               child: SizedBox(
@@ -321,7 +321,7 @@ class _GeneralStatisticsState extends State<GeneralStatistics> {
 
                 /// GENERAL STATISTICS
                 InfoPageHeadline(
-                  verse: const Verse(text: 'phid_general_statistics', translate: true,),
+                  verse: const Verse(id: 'phid_general_statistics', translate: true,),
                   pageWidth: Scale.screenWidth(context),
                 ),
 
@@ -374,7 +374,7 @@ class _GeneralStatisticsState extends State<GeneralStatistics> {
 
                 /// BZZ STATISTICS
                 InfoPageHeadline(
-                  verse: const Verse(text: 'phid_bz_statistics', translate: true,),
+                  verse: const Verse(id: 'phid_bz_statistics', translate: true,),
                   pageWidth: Scale.screenWidth(context),
                 ),
 
@@ -498,7 +498,7 @@ class _GeneralStatisticsState extends State<GeneralStatistics> {
 
                 /// SAVES
                 InfoPageHeadline(
-                  verse: const Verse(text: 'phid_saves_statistics', translate: true),
+                  verse: const Verse(id: 'phid_saves_statistics', translate: true),
                   pageWidth: Scale.screenWidth(context),
                 ),
 
@@ -556,7 +556,7 @@ class _GeneralStatisticsState extends State<GeneralStatistics> {
 
                 /// FOLLOWS
                 InfoPageHeadline(
-                  verse: const Verse(text: 'phid_follows_statistics', translate: true,),
+                  verse: const Verse(id: 'phid_follows_statistics', translate: true,),
                   pageWidth: Scale.screenWidth(context),
                 ),
 
@@ -617,7 +617,7 @@ class _GeneralStatisticsState extends State<GeneralStatistics> {
 
                 /// CALLS
                 InfoPageHeadline(
-                  verse: const Verse(text: 'phid_calls_statistics', translate: true,),
+                  verse: const Verse(id: 'phid_calls_statistics', translate: true,),
                   pageWidth: Scale.screenWidth(context),
                 ),
 
@@ -676,7 +676,7 @@ class _GeneralStatisticsState extends State<GeneralStatistics> {
 
                 /// NEEDS
                 InfoPageHeadline(
-                  verse: const Verse(text: 'phid_needs_statistics', translate: true,),
+                  verse: const Verse(id: 'phid_needs_statistics', translate: true,),
                   pageWidth: Scale.screenWidth(context),
                 ),
 

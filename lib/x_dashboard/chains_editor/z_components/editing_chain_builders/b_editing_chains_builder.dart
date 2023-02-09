@@ -127,7 +127,7 @@ class EditingChainsBuilder extends StatelessWidget {
               key: const ValueKey<String>('add_button'),
               height: 60,
               width: _sonWidth,
-              verse:  const Verse(text: 'Add to path :', translate: false),
+              verse:  const Verse(id: 'Add to path :', translate: false),
               secondLine: Verse.plain('$previousPath/...'),
               icon: Iconz.plus,
               iconSizeFactor: 0.5,

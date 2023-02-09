@@ -28,7 +28,7 @@ class StopWatchController {
   // --------------------
   /// TESTED : WORKS PERFECT
   void dispose() {
-    _timer.dispose();
+    _timer?.dispose();
   }
   // -----------------------------------------------------------------------------
 

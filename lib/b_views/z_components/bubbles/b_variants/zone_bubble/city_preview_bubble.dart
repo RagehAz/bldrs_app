@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/flagbox_button.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:numeric/numeric.dart';
 
@@ -53,7 +53,7 @@ class CityPreviewBubble extends StatelessWidget {
     final String _populationLine = '$_cityPop / $_countryPop = $_percentage% of ${_countryNameEn.value} live here';
 
     return Bubble(
-      bubbleHeaderVM: const BubbleHeaderVM(),
+      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(),
       bubbleColor: Colorz.white20,
       childrenCentered: true,
       columnChildren: <Widget>[

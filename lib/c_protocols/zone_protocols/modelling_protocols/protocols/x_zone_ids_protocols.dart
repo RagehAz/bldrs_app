@@ -174,7 +174,7 @@ class ZoneIDsProtocols {
           context: context,
           countryID: incompleteZoneModel.countryID,
           // langCode:
-        )?.text;
+        )?.id;
 
         _output = _output.copyWith(
           countryName: _countryName,
@@ -189,7 +189,7 @@ class ZoneIDsProtocols {
           context: context,
           cityModel: _output.cityModel,
           // langCode:
-        )?.text;
+        )?.id;
 
         _output = _output.copyWith(
           cityName: _cityName,

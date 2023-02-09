@@ -61,7 +61,7 @@ class PasswordBubbles extends StatelessWidget {
         /// PASSWORD
         TextFieldBubble(
           bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
-            headlineVerse: const Verse(text: 'phid_password', translate: true),
+            headlineVerse: const Verse(id: 'phid_password', translate: true),
             redDot: true,
           ),
           focusNode: passwordNode,
@@ -75,7 +75,7 @@ class PasswordBubbles extends StatelessWidget {
           keyboardTextInputAction: _keyboardAction,
           validator: passwordValidator,
           bulletPoints: const <Verse>[
-            Verse(text: 'phid_min6Char', translate: true,),
+            Verse(id: 'phid_min6Char', translate: true,),
           ],
           isObscured: isObscured,
           onSubmitted: (String text){
@@ -97,7 +97,7 @@ class PasswordBubbles extends StatelessWidget {
           TextFieldBubble(
             bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
               headlineVerse: const Verse(
-                text: 'phid_confirmPassword',
+                id: 'phid_confirmPassword',
                 translate: true,
               ),
               redDot: true,
@@ -112,7 +112,7 @@ class PasswordBubbles extends StatelessWidget {
             keyboardTextInputAction: _keyboardAction,
             validator: passwordConfirmationValidator,
             bulletPoints: const <Verse>[
-              Verse(text: 'phid_min6Char', translate: true),
+              Verse(id: 'phid_min6Char', translate: true),
             ],
             isObscured: isObscured,
             onSubmitted: onSubmitted,

@@ -158,7 +158,7 @@ class _NotesViewerScreenState extends State<NotesViewerScreen> {
 
                         SuperVerse(
                           verse: Verse(
-                            text: 'from : ${_noteModel.parties.senderType} : ${_noteModel.parties.senderID} : ${_noteModel?.poll?.buttons}',
+                            id: 'from : ${_noteModel.parties.senderType} : ${_noteModel.parties.senderID} : ${_noteModel?.poll?.buttons}',
                             translate: false,
                           ),
                           italic: true,

@@ -64,7 +64,7 @@ class AuthScreenView extends StatelessWidget {
         /// --- CONTINUE WITH EMAIL
         MainButton(
           verse: const Verse(
-            text: 'phid_continueEmail',
+            id: 'phid_continueEmail',
             translate: true,
           ),
           icon: Iconz.comEmail,

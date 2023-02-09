@@ -56,7 +56,7 @@ class NextButton extends StatelessWidget {
       children: <Widget>[
         DreamBox(
           isDisabled: !canGoNext,
-          verse: const Verse(text: 'phid_next', translate: true),
+          verse: const Verse(id: 'phid_next', translate: true),
           verseScaleFactor: 0.7,
           height: 50,
           margins: 10,

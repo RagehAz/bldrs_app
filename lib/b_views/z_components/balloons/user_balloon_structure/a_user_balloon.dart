@@ -80,7 +80,7 @@ class UserBalloon extends StatelessWidget {
                 height: size * 0.4,
                 width: size * 0.5,
                 verse: const Verse(
-                  text: 'phid_edit',
+                  id: 'phid_edit',
                   translate: true,
                 ),
                 verseScaleFactor: 0.5,

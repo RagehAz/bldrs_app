@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/static_flyer/b_static_header.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class ShowAuthorSwitchBubble extends StatelessWidget {
@@ -24,18 +24,18 @@ class ShowAuthorSwitchBubble extends StatelessWidget {
     return Bubble(
       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
           headlineVerse: const Verse(
-            text: 'phid_show_author_on_flyer',
+            id: 'phid_show_author_on_flyer',
             translate: true,
           ),
           switchValue: draft.showsAuthor,
           hasSwitch: true,
           onSwitchTap: onSwitch
       ),
-      width: Bubble.bubbleWidth(context),
+      width: Bubble.bubbleWidth(context: context),
       columnChildren: <Widget>[
 
         StaticHeader(
-          flyerBoxWidth: Bubble.clearWidth(context),
+          flyerBoxWidth: Bubble.clearWidth(context: context),
           bzModel: bzModel,
           showHeaderLabels: true,
           authorID: draft.authorID,

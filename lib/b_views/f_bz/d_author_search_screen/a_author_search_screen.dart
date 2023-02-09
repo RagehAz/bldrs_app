@@ -78,11 +78,11 @@ class _AuthorSearchScreenState extends State<AuthorSearchScreen> {
     return MainLayout(
       skyType: SkyType.black,
       title: const Verse(
-        text: 'phid_add_author_to_the_team',
+        id: 'phid_add_author_to_the_team',
         translate: true,
       ),
       searchHintVerse: const Verse(
-        text: 'phid_search_user_by_name',
+        id: 'phid_search_user_by_name',
         translate: true,
       ),
       pyramidsAreOn: true,

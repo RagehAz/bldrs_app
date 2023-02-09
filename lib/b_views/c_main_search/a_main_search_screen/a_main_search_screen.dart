@@ -132,7 +132,7 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
                               '$_cityName, $_countryName';
 
     return Verse(
-      text: _hintText,
+      id: _hintText,
       translate: false,
     );
 
@@ -156,7 +156,7 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
     return MainLayout(
       appBarType: AppBarType.search,
       title: const Verse(
-        text: 'phid_search',
+        id: 'phid_search',
         translate: true,
         casing: Casing.capitalizeFirstChar,
       ),

@@ -164,18 +164,18 @@ class _PickerScreenState extends State<PickerScreen> {
         isSearching: null,
         mounted: mounted,
       ),
-      searchHintVerse: const Verse(text: 'phid_search_keywords', translate: true),
+      searchHintVerse: const Verse(id: 'phid_search_keywords', translate: true),
       // appBarBackButton: true,
       skyType: SkyType.black,
       title: Verse(
-        text: _chainID,
+        id: _chainID,
         translate: true,
       ),
       pyramidsAreOn: true,
       onBack: _onGoBack,
       confirmButtonModel: widget.isMultipleSelectionMode == false ? null : ConfirmButtonModel(
         firstLine: const Verse(
-          text: 'phid_confirm_selections',
+          id: 'phid_confirm_selections',
           translate: true,
         ),
         onTap: () => onGoBackFromPickerScreen(

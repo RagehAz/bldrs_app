@@ -97,7 +97,7 @@ class NotePartyButton extends StatelessWidget {
       return TileButton(
         width: width,
         height: height,
-        verse: const Verse(text: 'phid_bldrsFullName', translate: true),
+        verse: const Verse(id: 'phid_bldrsFullName', translate: true),
         icon: Iconz.bldrsNameSquare,
         iconSizeFactor: 0.7,
         onTap: onTap,

@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 
@@ -122,7 +122,7 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
             /// USER NAME
             SuperVerse(
               verse: Verse(
-                text: widget.authorModel.name,
+                id: widget.authorModel.name,
                 translate: false,
               ),
               shadow: true,
@@ -147,7 +147,7 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
               italic: true,
               weight: VerseWeight.thin,
               verse: Verse(
-                text: AuthorModel.getAuthorRolePhid(
+                id: AuthorModel.getAuthorRolePhid(
                   context: context,
                   role: widget.authorModel.role,
                 ),
@@ -173,7 +173,7 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
 
                   AuthorRoleButton(
                     verse: const Verse(
-                      text: 'phid_account_creator',
+                      id: 'phid_account_creator',
                       translate: true,
                     ),
                     isOn: role == AuthorRole.creator,
@@ -183,7 +183,7 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
 
                   AuthorRoleButton(
                     verse: const Verse(
-                      text: 'phid_team_member',
+                      id: 'phid_team_member',
                       translate: true
                     ),
                     isOn: role == AuthorRole.teamMember,
@@ -193,7 +193,7 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
 
                   AuthorRoleButton(
                     verse: const Verse(
-                      text: 'phid_account_moderator',
+                      id: 'phid_account_moderator',
                       translate: true,
                     ),
                     isOn: role == AuthorRole.moderator,

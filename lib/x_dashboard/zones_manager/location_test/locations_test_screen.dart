@@ -326,7 +326,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
                   context: context,
                   countryID: _countryID,
                   langCode: 'en',
-                )?.text,
+                )?.id,
               ),
 
               /// COUNTRY NAME AR
@@ -338,7 +338,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
                   context: context,
                   countryID: _countryID,
                   langCode: 'ar',
-                )?.text,
+                )?.id,
               ),
 
               /// CITY ID
@@ -358,7 +358,7 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
                   context: context,
                   cityModel: _cityModel,
                   langCode: 'en',
-                )?.text,
+                )?.id,
               ),
 
             ],

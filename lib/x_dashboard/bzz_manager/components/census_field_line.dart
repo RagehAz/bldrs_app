@@ -36,7 +36,7 @@ class CensusFieldLine extends StatelessWidget {
       width: width,
       icon: icon,
       verse: Verse(
-        text: '$_num : $_text',
+        id: '$_num : $_text',
         translate: false,
       ),
       iconSizeFactor: 0.7,

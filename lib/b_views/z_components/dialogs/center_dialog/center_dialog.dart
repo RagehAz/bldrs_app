@@ -138,12 +138,12 @@ class CenterDialog extends StatelessWidget {
 
     Verse _verse = boolDialog ?
     const Verse(
-      text: 'phid_yes',
+      id: 'phid_yes',
       translate: true,
     )
         :
     const Verse(
-      text: 'phid_ok',
+      id: 'phid_ok',
       translate: true,
     );
 
@@ -239,7 +239,7 @@ class CenterDialog extends StatelessWidget {
                             blog('tapping on dialog bubble');
 
                             if (copyOnTap == true){
-                              Keyboard.copyToClipboard(context: context, copy: title?.text);
+                              Keyboard.copyToClipboard(context: context, copy: title?.id);
                             }
 
                             Keyboard.closeKeyboard(context);
@@ -286,7 +286,7 @@ class CenterDialog extends StatelessWidget {
                                 ),
 
                                 /// BODY
-                                if (TextCheck.isEmpty(bodyVerse?.text) == false)
+                                if (TextCheck.isEmpty(bodyVerse?.id) == false)
                                   SizedBox(
                                     width: _dialogWidth,
                                     // height: _bodyZoneHeight,
@@ -342,7 +342,7 @@ class CenterDialog extends StatelessWidget {
                                         if (boolDialog == true && invertButtons == false)
                                           DialogButton(
                                             verse: const Verse(
-                                              text: 'phid_no',
+                                              id: 'phid_no',
                                               translate: true,
                                               casing: Casing.capitalizeFirstChar,
                                             ),
@@ -377,7 +377,7 @@ class CenterDialog extends StatelessWidget {
                                         if (boolDialog == true && invertButtons == true)
                                           DialogButton(
                                             verse: const Verse(
-                                              text: 'phid_no',
+                                              id: 'phid_no',
                                               translate: true,
                                               casing: Casing.capitalizeFirstChar,
                                             ),

@@ -11,7 +11,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 
@@ -49,7 +49,7 @@ class UserNeedsBanner extends StatelessWidget {
         /// IM CURRENTLY
         const SuperVerse(
           verse: Verse(
-            text: 'phid_im_currently',
+            id: 'phid_im_currently',
             translate: true,
           ),
           italic: true,
@@ -60,7 +60,7 @@ class UserNeedsBanner extends StatelessWidget {
         /// NEED TYPE
         SuperVerse(
           verse: Verse(
-            text: NeedModel.getNeedTypePhid(userModel?.need?.needType),
+            id: NeedModel.getNeedTypePhid(userModel?.need?.needType),
             translate: true,
           ),
           margin: const EdgeInsets.symmetric(horizontal: 30),
@@ -79,7 +79,7 @@ class UserNeedsBanner extends StatelessWidget {
         /// NOTES
         SuperVerse(
           verse: Verse(
-            text: userModel?.need?.notes,
+            id: userModel?.need?.notes,
             translate: false,
           ),
           labelColor: Colorz.white20,

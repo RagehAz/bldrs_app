@@ -22,7 +22,7 @@ class BzPreviewScreen extends StatelessWidget {
       skyType: SkyType.black,
       pyramidsAreOn: true,
       title: Verse(
-        text: bzModel?.name,
+        id: bzModel?.name,
         translate: false,
       ),
       appBarType: AppBarType.basic,

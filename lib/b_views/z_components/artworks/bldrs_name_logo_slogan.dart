@@ -54,7 +54,7 @@ class LogoSlogan extends StatelessWidget {
             width: _logoWidth,
             child: SuperVerse(
               verse: Verse(
-                text: Words.bldrsTagLine(context),
+                id: Words.bldrsTagLine(context),
                 pseudo: "The Builder's Network\nReal Estate\nConstruction\nSupplies",
                 translate: false,
                 casing: Casing.upperCase,
@@ -79,7 +79,7 @@ class LogoSlogan extends StatelessWidget {
               verse: Verse(
                 pseudo: 'Connect with\nArchitects,\nInterior designers, Contractors\nAnd Artisans',
                 translate: false,
-                text: Words.bldrsDescription(context),
+                id: Words.bldrsDescription(context),
               ),
               size: 3,
               weight: VerseWeight.thin,

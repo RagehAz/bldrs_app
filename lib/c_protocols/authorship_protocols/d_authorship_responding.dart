@@ -66,7 +66,7 @@ class AuthorshipRespondingProtocols{
         CenterDialog.showCenterDialog(
           context: context,
           titleVerse: const Verse(
-            text: 'phid_invitation_request_had_expired',
+            id: 'phid_invitation_request_had_expired',
             translate: true,
           ),
         ),
@@ -117,11 +117,11 @@ class AuthorshipRespondingProtocols{
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: const Verse(
-        text: 'phid_accept_invitation_?',
+        id: 'phid_accept_invitation_?',
         translate: true,
       ),
       bodyVerse: const Verse(
-        text: 'phid_accept_author_invitation_description',
+        id: 'phid_accept_author_invitation_description',
         translate: true,
       ),
       boolDialog: true,
@@ -134,7 +134,7 @@ class AuthorshipRespondingProtocols{
       pushWaitDialog(
         context: context,
         verse: Verse(
-          text: 'phid_adding_you_to_bz',
+          id: 'phid_adding_you_to_bz',
           translate: true,
           variables: bzModel.name,
         ),
@@ -151,16 +151,16 @@ class AuthorshipRespondingProtocols{
       await CenterDialog.showCenterDialog(
         context: context,
         titleVerse: Verse(
-          text: 'phid_great_!',
+          id: 'phid_great_!',
           translate: true,
           variables: bzModel.name,
         ),
         bodyVerse: const Verse(
-          text: 'phid_you_can_control_this_bz',
+          id: 'phid_you_can_control_this_bz',
           translate: true,
         ),
         confirmButtonVerse: const Verse(
-          text: 'phid_great_!',
+          id: 'phid_great_!',
           translate: true,
         ),
       );
@@ -264,15 +264,15 @@ class AuthorshipRespondingProtocols{
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: const Verse(
-        text: 'phid_decline_invitation_?',
+        id: 'phid_decline_invitation_?',
         translate: true,
       ),
       bodyVerse: const Verse(
-        text: 'phid_decline_invitation_description',
+        id: 'phid_decline_invitation_description',
         translate: true,
       ),
       confirmButtonVerse: const Verse(
-        text: 'phid_decline',
+        id: 'phid_decline',
         translate: true,
       ),
       boolDialog: true,

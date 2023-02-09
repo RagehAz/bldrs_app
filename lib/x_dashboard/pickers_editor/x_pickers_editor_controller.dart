@@ -53,7 +53,7 @@ Future<void> onSyncSpecPickers({
     await Dialogs.showSuccessDialog(
       context: context,
       firstLine: const Verse(
-        text: 'Sync Successful',
+        id: 'Sync Successful',
         translate: false,
       ),
     );
@@ -237,11 +237,11 @@ Future<void> onPickerChainIDTap({
     context: context,
     keyboardModel: KeyboardModel(
         titleVerse: const Verse(
-          text: 'Edit ChainID',
+          id: 'Edit ChainID',
           translate: false,
         ),
         hintVerse: const Verse(
-          text: 'Edit ChainID',
+          id: 'Edit ChainID',
           translate: false,
         ),
         initialText: _initialText,
@@ -301,11 +301,11 @@ Future<void> onPickerUnitChainIDTap({
     context: context,
     keyboardModel: KeyboardModel(
       titleVerse: const Verse(
-        text: 'Edit Unit ChainID',
+        id: 'Edit Unit ChainID',
         translate: false,
       ),
       hintVerse: const Verse(
-        text: 'Edit Unit ChainID',
+        id: 'Edit Unit ChainID',
         translate: false,
       ),
       initialText: _initialText,
@@ -554,7 +554,7 @@ Future<void> onHeadlineTap({
           /// SWITCH HEADLINE TO NORMAL PICKER
           BottomDialog.wideButton(
             context: context,
-            verse: const Verse(text: 'Switch to Normal Picker', translate: false),
+            verse: const Verse(id: 'Switch to Normal Picker', translate: false),
             onTap: () async {
 
               await Dialogs.closDialog(context);
@@ -572,7 +572,7 @@ Future<void> onHeadlineTap({
           /// CHANGE CHAIN ID
           BottomDialog.wideButton(
             context: context,
-            verse: const Verse(text: 'change ChainID', translate: false),
+            verse: const Verse(id: 'change ChainID', translate: false),
             onTap: () async {
 
               await Dialogs.closDialog(context);
@@ -590,7 +590,7 @@ Future<void> onHeadlineTap({
           /// DELETE
           BottomDialog.wideButton(
             context: context,
-            verse: const Verse(text: 'Delete', translate: false),
+            verse: const Verse(id: 'Delete', translate: false),
             onTap: () async {
 
               await Dialogs.closDialog(context);

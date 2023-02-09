@@ -62,7 +62,7 @@ class ZoneLine extends StatelessWidget {
             ),
 
             SuperVerse(
-              width: _zoneVerse.text.length > 20 ? _width - 20 - 20 - 5 : null,
+              width: _zoneVerse.id.length > 20 ? _width - 20 - 20 - 5 : null,
               verse: _zoneVerse,
               weight: VerseWeight.thin,
               italic: true,

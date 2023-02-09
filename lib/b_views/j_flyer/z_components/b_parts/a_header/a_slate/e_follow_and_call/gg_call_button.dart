@@ -78,7 +78,7 @@ class CallButton extends StatelessWidget {
                 /// FLYERS TEXT
                 SuperVerse(
                   verse: const Verse(
-                    text: 'phid_call',
+                    id: 'phid_call',
                     translate: true,
                   ),
                   size: 1,

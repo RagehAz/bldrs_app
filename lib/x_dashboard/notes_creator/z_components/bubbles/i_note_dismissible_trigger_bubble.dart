@@ -1,10 +1,8 @@
 // ignore_for_file: avoid_bool_literals_in_conditional_expressions
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
+import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
 import 'package:widget_fader/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
-import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
-
-
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -36,8 +34,8 @@ class NoteDismissibleTriggerBubble extends StatelessWidget {
       fadeType: note.sendFCM == true ? FadeType.stillAtMax : FadeType.stillAtMin,
       min: 0.2,
       ignorePointer: !note.sendFCM,
-      child: TileBubble(
-        bubbleHeaderVM: BldrsBubbleHeaderVM(
+      child: BldrsTileBubble(
+        bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
           headlineVerse: Verse.plain('Notification is Dismissible'),
           leadingIcon: Iconz.fingerTap,
           leadingIconSizeFactor: 0.5,
