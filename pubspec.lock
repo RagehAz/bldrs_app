@@ -82,6 +82,15 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.1"
+  bubbles:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "2bcd4b11689fc3c0562d31a8ee4f063b03dc3ab5"
+      url: "https://github.com/RagehAz/bubbles.git"
+    source: git
+    version: "0.0.5"
   camera:
     dependency: transitive
     description:
@@ -1401,10 +1410,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "6daee8d4d3154a34ee86cb331cacd75f5b5a17a2"
+      resolved-ref: e759292febc90d35f311ca5ffa7ca1cc80f23b71
       url: "https://github.com/RagehAz/super_box.git"
     source: git
-    version: "1.0.5"
+    version: "1.0.6"
   super_image:
     dependency: "direct main"
     description:
@@ -1419,19 +1428,19 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "430d3663449f4e43b4d66e87854812ecf2897ae1"
+      resolved-ref: "2e0eb04911edf3a51992cf6d6625291f8fcb57bd"
       url: "https://github.com/RagehAz/super_text.git"
     source: git
-    version: "0.0.10"
+    version: "0.0.11"
   super_text_field:
     dependency: "direct main"
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "715bc3d4834eab3f34bf934fa538095b7b2ceb8b"
+      resolved-ref: "72bd4b2b4b46d02fe1851cead12ca77af0a920d7"
       url: "https://github.com/RagehAz/super_text_field.git"
     source: git
-    version: "0.0.4"
+    version: "0.0.7"
   synchronized:
     dependency: transitive
     description:

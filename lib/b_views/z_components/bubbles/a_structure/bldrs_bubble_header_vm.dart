@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bldrs/lib/bubbles.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 export 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 
@@ -64,7 +64,9 @@ class BldrsBubbleHeaderVM {
   }){
     
         final BuildContext context = getContext();
-    
+
+        final double _textSizeValue = SuperVerse.superVerseRealHeight(context: context, size: 2, sizeFactor: 1, hasLabelBox: false);
+
         return BubbleHeaderVM(
           headerWidth: headerWidth,
           leadingIcon: leadingIcon,
@@ -83,7 +85,7 @@ class BldrsBubbleHeaderVM {
           centered: centered,
           font: SuperVerse.superVerseFont(context, weight),
           headlineHighlight: headlineVerse?.notifier,
-          headlineHeight: SuperVerse.superVerseSizeValue(context, 2, 1) * 1.42,
+          headlineHeight: _textSizeValue,
           appIsLTR: UiProvider.checkAppIsLeftToRight(context),
           textDirection: UiProvider.getAppTextDir(context),
           // moreButtonIcon: Iconz.more,
@@ -93,6 +95,10 @@ class BldrsBubbleHeaderVM {
           switchDisabledTrackColor: Colorz.grey80,
           switchFocusColor: Colorz.white255,
           switchTrackColor: Colorz.yellow80,
+
+          wordSpacing: SuperVerse.superVerseWordSpacing(_textSizeValue),
+          letterSpacing: SuperVerse.superVerseWordSpacing(_textSizeValue),
+          
         );
       }
   /// --------------------------------------------------------------------------

@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/a_pickers_screen.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_bullet_points.dart';
+import 'package:bldrs/b_views/z_components/texting/bullet_points/bldrs_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';

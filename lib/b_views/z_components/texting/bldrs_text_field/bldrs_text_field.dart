@@ -1,10 +1,10 @@
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bldrs/lib/bubbles.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:super_text_field/super_text_field.dart';
 
@@ -173,8 +173,7 @@ class BldrsTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _verseSizeValue = SuperVerse.superVerseSizeValue(context, textSize,
-        textScaleFactor) * 1.4;
+    final double _verseSizeValue = SuperVerse.superVerseSizeValue(context, textSize, textScaleFactor) * 1.4;
     final double _textFieldPadding = SuperVerse.superVerseSidePaddingValues(context, textSize);
     final EdgeInsets _scrollPadding = getFieldScrollPadding(
       context: context,

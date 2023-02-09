@@ -6,7 +6,7 @@ import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/f_bz/c_author_editor_screen/x_author_editor_screen_controller.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/contact_field_editor_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/pic_bubble/add_gallery_pic_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
@@ -368,7 +368,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     ),
 
                     /// NAME
-                    TextFieldBubble(
+                    BldrsTextFieldBubble(
                       key: const ValueKey<String>('name'),
                       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                         headlineVerse: const Verse(
@@ -407,7 +407,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     ),
 
                     /// TITLE
-                    TextFieldBubble(
+                    BldrsTextFieldBubble(
                       formKey: _formKey,
                       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                         headlineVerse: const Verse(

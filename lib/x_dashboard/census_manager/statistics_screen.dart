@@ -6,7 +6,7 @@ import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_headline.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/zone_selection_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -26,7 +26,7 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/x_dashboard/bzz_manager/components/census_field_line.dart';
 import 'package:bldrs/x_dashboard/bzz_manager/lab/census_lab_screen.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bldrs/lib/bubbles.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 

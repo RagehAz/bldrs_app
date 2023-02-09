@@ -14,7 +14,7 @@ import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shel
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/specs_selector/b_phids_selector_bubble.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/pdf_bubble/pdf_selection_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/phids_bubble/multiple_choice_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
@@ -369,7 +369,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                     ),
 
                     /// FLYER HEADLINE
-                    TextFieldBubble(
+                    BldrsTextFieldBubble(
                       key: const ValueKey<String>('flyer_headline_text_field'),
                       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                         headlineVerse: const Verse(
@@ -485,7 +485,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                     ),
 
                     /// FLYER DESCRIPTION
-                    TextFieldBubble(
+                    BldrsTextFieldBubble(
                       key: const ValueKey<String>('bz_scope_bubble'),
                       // pasteFunction: () async {
                       //   final String _text = await TextMod.paste();
