@@ -85,7 +85,7 @@ class DiscountPriceTag extends StatelessWidget {
                         padding: EdgeInsets.symmetric(horizontal: height * 0.05),
                         child: SuperVerse(
                           verse:  Verse(
-                            text: '$_discountPercentage %',
+                            id: '$_discountPercentage %',
                             translate: false,
                           ),
                           weight: VerseWeight.black,
@@ -99,7 +99,7 @@ class DiscountPriceTag extends StatelessWidget {
                       bottom: _percentagePosition,
                       child: const SuperVerse(
                         verse: Verse(
-                          text: 'phid_off',
+                          id: 'phid_off',
                           translate: true,
                           casing: Casing.upperCase,
                         ),
@@ -190,7 +190,7 @@ class DiscountPriceTag extends StatelessWidget {
                               padding: _paddings,
                               child: SuperVerse(
                                 verse: Verse(
-                                  text: _currencyID,
+                                  id: _currencyID,
                                   translate: true,
                                   casing: Casing.upperCase,
                                 ),

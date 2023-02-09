@@ -7,7 +7,7 @@ import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class DynamicLinksTestScreen extends StatefulWidget {

@@ -83,7 +83,7 @@ class ReviewViewBubble extends StatelessWidget {
                   /// USER NAME
                   SuperVerse(
                     verse: Verse(
-                      text: userModel?.name,
+                      id: userModel?.name,
                       translate: false,
                     ),
                   ),
@@ -91,7 +91,7 @@ class ReviewViewBubble extends StatelessWidget {
                   /// TIME
                     SuperVerse(
                       verse: Verse(
-                        text: Timers.calculateSuperTimeDifferenceString(
+                        id: Timers.calculateSuperTimeDifferenceString(
                           context: context,
                           from: reviewModel.time,
                           to: DateTime.now(),

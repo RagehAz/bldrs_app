@@ -296,7 +296,7 @@ class _TheStatefulScreenState extends State<DeckModelTester> {
                     return SuperVerse(
                       width: _parcelWidth,
                       // height: _parcelWidth * 0.5,
-                      verse: Verse(text: _phid, translate: true),
+                      verse: Verse(id: _phid, translate: true),
                       weight: VerseWeight.thin,
                       scaleFactor: 0.5,
                       size: 3,

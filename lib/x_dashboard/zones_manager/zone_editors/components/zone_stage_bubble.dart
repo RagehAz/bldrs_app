@@ -4,9 +4,8 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:scale/scale.dart';
-
-
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -37,9 +36,9 @@ class ZoneStageSwitcherBubble extends StatelessWidget {
       spacing: 5,
     );
 
-    return TileBubble(
+    return BldrsTileBubble(
       bubbleWidth: _bubbleWidth,
-      bubbleHeaderVM: BldrsBubbleHeaderVM(
+      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
         leadingIcon: Iconz.pyramid,
         leadingIconIsBubble: true,
         leadingIconBoxColor: Colorz.grey50,
@@ -73,7 +72,7 @@ class ZoneStageSwitcherBubble extends StatelessWidget {
                 color: _isSelected == true ? Colorz.yellow255 : Colorz.white10,
                 verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
                 verse: Verse(
-                  text: Staging.cipherStageType(_type),
+                  id: Staging.cipherStageType(_type),
                   translate: false,
                   casing: Casing.capitalizeFirstChar,
                 ),

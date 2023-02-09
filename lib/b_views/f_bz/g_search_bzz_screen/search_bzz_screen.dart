@@ -216,8 +216,8 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
 
     return MainLayout(
       skyType: SkyType.black,
-      title: const Verse(text: 'phid_search_bzz', translate: true),
-      searchHintVerse: const Verse(text: 'phid_search_bzz_hint', translate: true),
+      title: const Verse(id: 'phid_search_bzz', translate: true),
+      searchHintVerse: const Verse(id: 'phid_search_bzz_hint', translate: true),
       pyramidsAreOn: true,
       appBarType: AppBarType.search,
       onSearchSubmit: _onSearch,

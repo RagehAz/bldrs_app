@@ -70,7 +70,7 @@ class NoteRedDot extends StatelessWidget {
 
           SuperVerse(
             verse: Verse(
-              text: _count,
+              id: _count,
               translate: false,
             ),
             size: 0,

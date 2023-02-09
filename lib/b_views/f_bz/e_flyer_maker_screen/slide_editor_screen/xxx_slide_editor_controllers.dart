@@ -64,11 +64,11 @@ Future<void> onResetMatrix({
   final bool _go = await Dialogs.confirmProceed(
     context: context,
     titleVerse: const Verse(
-      text: 'phid_reset_orientation_?',
+      id: 'phid_reset_orientation_?',
       translate: true,
     ),
     bodyVerse: const Verse(
-      text: 'phid_this_will_reset_zoom_rotation_of_slide',
+      id: 'phid_this_will_reset_zoom_rotation_of_slide',
       translate: true,
     ),
     invertButtons: true,

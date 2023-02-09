@@ -23,7 +23,7 @@ class SuperBoxTestScreen extends StatelessWidget {
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
       title: const Verse(
-        text: 'Dialogs',
+        id: 'Dialogs',
         translate: false,
       ),
       skyType: SkyType.black,

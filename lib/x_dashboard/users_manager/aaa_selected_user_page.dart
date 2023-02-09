@@ -58,13 +58,13 @@ class SelectedUserPage extends StatelessWidget {
 
       /// IS ADMIN
       if (isRage7() == true)
-      TileBubble(
+      BldrsTileBubble(
         bubbleWidth: PageBubble.width(context),
-        bubbleHeaderVM: BldrsBubbleHeaderVM(
+        bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
           hasSwitch: true,
           switchValue: userModel.isAdmin,
           headlineVerse: const Verse(
-            text: 'is Admin',
+            id: 'is Admin',
             translate: false,
           ),
           onSwitchTap: (bool value) async {
@@ -72,11 +72,11 @@ class SelectedUserPage extends StatelessWidget {
             final bool _continue = await Dialogs.confirmProceed(
               context: context,
               titleVerse: const Verse(
-                text: 'Are you sure ?',
+                id: 'Are you sure ?',
                 translate: false,
               ),
               bodyVerse: Verse(
-                text: value == true ? '${userModel.name} will become an Admin' : '${userModel.name} will be removed from admins',
+                id: value == true ? '${userModel.name} will become an Admin' : '${userModel.name} will be removed from admins',
                 translate: false,
               ),
             );

@@ -67,7 +67,7 @@ class AddSlidesButton extends StatelessWidget {
                     /// CAMERA
                     NewSlideImagePickerButton(
                       line:const  Verse(
-                        text: 'phid_camera',
+                        id: 'phid_camera',
                         translate: true,
                       ),
                       icon: Iconz.camera,
@@ -78,7 +78,7 @@ class AddSlidesButton extends StatelessWidget {
                     /// GALLERY
                     NewSlideImagePickerButton(
                       line: const Verse(
-                        text: 'phid_gallery',
+                        id: 'phid_gallery',
                         translate: true,
                       ),
                       icon: Iconz.phoneGallery,

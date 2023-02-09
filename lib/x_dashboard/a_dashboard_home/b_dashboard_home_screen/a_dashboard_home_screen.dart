@@ -232,17 +232,17 @@ class DashBoardHomeScreen extends StatelessWidget {
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: const Verse(
-        text: 'Reboot System ?',
+        id: 'Reboot System ?',
         translate: false,
       ),
       bodyVerse: const Verse(
-        text: 'This will clear all local data, all cache in pro and in LDB, continue ?',
+        id: 'This will clear all local data, all cache in pro and in LDB, continue ?',
         translate: false,
       ),
       boolDialog: true,
       invertButtons: true,
       confirmButtonVerse: const Verse(
-        text: 'Reboot !',
+        id: 'Reboot !',
         translate: false,
       ),
     );
@@ -312,8 +312,8 @@ class DashBoardHomeScreen extends StatelessWidget {
 
         final bool _result = await Dialogs.goBackDialog(
           context: context,
-          titleVerse: const Verse(text: 'Exit Dashboard ?', translate: false),
-          confirmButtonVerse: const Verse(text: 'Exit', translate: false),
+          titleVerse: const Verse(id: 'Exit Dashboard ?', translate: false),
+          confirmButtonVerse: const Verse(id: 'Exit', translate: false),
         );
 
         if (_result == true){
@@ -333,7 +333,7 @@ class DashBoardHomeScreen extends StatelessWidget {
 
         AppBarButton(
           verse: const Verse(
-            text: 'Reboot System',
+            id: 'Reboot System',
             translate: false,
           ),
           icon: Iconz.reload,
@@ -351,7 +351,7 @@ class DashBoardHomeScreen extends StatelessWidget {
             height: 50,
             child: SuperVerse(
               verse: Verse(
-                text: 'Dear Lord\nPlease Bless this project to be in good use for humanity',
+                id: 'Dear Lord\nPlease Bless this project to be in good use for humanity',
                 translate: false,
               ),
               size: 1,
@@ -373,7 +373,7 @@ class DashBoardHomeScreen extends StatelessWidget {
             height: 50,
             child: SuperVerse(
               verse: Verse(
-                text: "You've been Blding ($bldrsAppVersion) for ( $_youHaveBeenHereFor ) days",
+                id: "You've been Blding ($bldrsAppVersion) for ( $_youHaveBeenHereFor ) days",
                 translate: false,
               ),
               size: 1,

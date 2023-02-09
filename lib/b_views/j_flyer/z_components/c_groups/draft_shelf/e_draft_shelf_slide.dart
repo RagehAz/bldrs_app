@@ -197,7 +197,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                   SlideHeadline(
                     flyerBoxWidth: DraftShelfSlide.flyerBoxWidth, /// i don't know why i decreased the 10
                     verse: Verse(
-                      text: widget.draftSlide.headline,
+                      id: widget.draftSlide.headline,
                       translate: false,
                     ),
                   ),

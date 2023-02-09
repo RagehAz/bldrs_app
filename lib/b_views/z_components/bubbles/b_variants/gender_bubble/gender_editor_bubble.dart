@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_validator.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class GenderBubble extends StatelessWidget {
@@ -25,7 +25,7 @@ class GenderBubble extends StatelessWidget {
     const int _numberOfButtons = 2;
     const int _numberOfInnerSpacing = _numberOfButtons - 1;
 
-    final double _bubbleClearWidth = Bubble.clearWidth(context);
+    final double _bubbleClearWidth = Bubble.clearWidth(context: context);
 
     final double _buttonWidth =
         (_bubbleClearWidth - (_numberOfInnerSpacing * _spacing)) / _numberOfButtons;
@@ -50,10 +50,10 @@ class GenderBubble extends StatelessWidget {
         ),
       ),
       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
-        headlineVerse: const Verse(text: 'phid_gender', translate: true),
+        headlineVerse: const Verse(id: 'phid_gender', translate: true),
         redDot: true,
       ),
-      width: Bubble.bubbleWidth(context),
+      width: Bubble.bubbleWidth(context: context),
       columnChildren: <Widget>[
         /// BUTTONS
         Row(
@@ -78,7 +78,7 @@ class GenderBubble extends StatelessWidget {
                 width: _buttonWidth,
                 color: _buttonColor,
                 verse: Verse(
-                  text: _genderPhid,
+                  id: _genderPhid,
                   translate: true,
                 ),
                 verseColor: _verseColor,
@@ -92,7 +92,7 @@ class GenderBubble extends StatelessWidget {
 
         /// VALIDATOR
         BldrsValidator(
-          width: Bubble.clearWidth(context),
+          width: Bubble.clearWidth(context: context),
           validator: () => Formers.genderValidator(
             context: context,
             gender: draftUser?.gender,

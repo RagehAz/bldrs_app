@@ -339,7 +339,7 @@ class FlyerFireOps {
         draggable: true,
         numberOfWidgets: 3,
         titleVerse: const Verse(
-          text: 'phid_report_flyer',
+          id: 'phid_report_flyer',
           translate: true,
         ),
         builder: (_){
@@ -350,7 +350,7 @@ class FlyerFireOps {
             BottomDialog.wideButton(
                 context: context,
                 verse: const Verse(
-                  text: 'phid_flyer_has_inapp_content',
+                  id: 'phid_flyer_has_inapp_content',
                   translate: true,
                   pseudo: 'Inappropriate content',
                 ),
@@ -368,7 +368,7 @@ class FlyerFireOps {
                 context: context,
                 verse: const Verse(
                   pseudo: 'Flyer content is not relevant to Bldrs.net',
-                  text: 'phid_flyer_has_irrelevant_content',
+                  id: 'phid_flyer_has_irrelevant_content',
                   translate: true,
                 ),
                 onTap: () async {
@@ -385,7 +385,7 @@ class FlyerFireOps {
                 context: context,
                 verse: const Verse(
                   pseudo: 'content violates copyrights',
-                  text: 'phid_flyer_has_copyright_violation',
+                  id: 'phid_flyer_has_copyright_violation',
                   translate: true,
                 ),
                 onTap: () async {

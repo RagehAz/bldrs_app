@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/x_dashboard/notes_creator/b_controllers/g_buttons_controller.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 import 'package:stringer/stringer.dart';
@@ -31,14 +31,14 @@ class NoteButtonsCreatorBubble extends StatelessWidget {
       boxWidth: TileBubble.childWidth(context: context),
     );
     // --------------------
-    final double _bubbleClearWidth = Bubble.clearWidth(context);
+    final double _bubbleClearWidth = Bubble.clearWidth(context: context);
     // --------------------
     final bool _noteHasButton = note?.poll?.buttons?.isNotEmpty;
     // --------------------
-    return TileBubble(
-      bubbleHeaderVM: BldrsBubbleHeaderVM(
+    return BldrsTileBubble(
+      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
         headlineVerse: const Verse(
-          text: 'Buttons',
+          id: 'Buttons',
           translate: false,
         ),
         leadingIcon: Iconz.pause,
@@ -74,7 +74,7 @@ class NoteButtonsCreatorBubble extends StatelessWidget {
                       height: 40,
                       width: _noteButtonButtonWidth,
                       verse: Verse(
-                        text: _phid,
+                        id: _phid,
                         translate: true,
                         casing: Casing.upperCase,
                       ),

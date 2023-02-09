@@ -8,7 +8,7 @@ import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class BzStatsBubble extends StatefulWidget {
@@ -96,7 +96,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
           return Bubble(
             bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
               headlineVerse: const Verse(
-                text: 'phid_stats',
+                id: 'phid_stats',
                 translate: true,
               ),
             ),
@@ -105,7 +105,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                 /// FOLLOWERS
                 StatsLine(
                   verse: Verse(
-                    text: '${_counter.follows} ${xPhrase( context, 'phid_followers')}',
+                    id: '${_counter.follows} ${xPhrase( context, 'phid_followers')}',
                     translate: false,
                   ),
                   icon: Iconz.follow,
@@ -114,7 +114,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                 /// CALLS
                 StatsLine(
                   verse: Verse(
-                    text: '${_counter.calls} ${xPhrase( context, 'phid_callsReceived')}',
+                    id: '${_counter.calls} ${xPhrase( context, 'phid_callsReceived')}',
                     translate: false,
                   ),
                   icon: Iconz.comPhone,
@@ -123,7 +123,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                 /// SLIDES & FLYERS
                 StatsLine(
                   verse: Verse(
-                    text: '${_counter.allSlides} '
+                    id: '${_counter.allSlides} '
                         '${xPhrase( context, 'phid_slidesPublished')} '
                         '${xPhrase( context, 'phid_inn')} '
                         '${_bzModel?.flyersIDs?.length} '
@@ -137,7 +137,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                 /// SAVES
                 StatsLine(
                   verse: Verse(
-                    text:  '${_counter.allSaves} ${xPhrase( context, 'phid_totalSaves')}',
+                    id:  '${_counter.allSaves} ${xPhrase( context, 'phid_totalSaves')}',
                     translate: false,
                   ),
                   icon: Iconz.saveOn,
@@ -146,7 +146,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                 /// VIEWS
                 StatsLine(
                   verse: Verse(
-                    text: '${_counter.allViews} ${xPhrase( context, 'phid_total_flyer_views')}',
+                    id: '${_counter.allViews} ${xPhrase( context, 'phid_total_flyer_views')}',
                     translate: false,
                   ),
                   icon: Iconz.viewsIcon,
@@ -155,7 +155,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                 /// SHARES
                 StatsLine(
                   verse: Verse(
-                    text: '${_counter.allShares} ${xPhrase( context, 'phid_totalShares')}',
+                    id: '${_counter.allShares} ${xPhrase( context, 'phid_totalShares')}',
                     translate: false,
                   ),
                   icon: Iconz.share,
@@ -164,7 +164,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                 /// BIRTH
                 StatsLine(
                   verse: Verse(
-                    text: Timers.generateString_in_bldrs_since_month_yyyy(context, _bzModel?.createdAt),
+                    id: Timers.generateString_in_bldrs_since_month_yyyy(context, _bzModel?.createdAt),
                     translate: false,
                   ),
                   icon: Iconz.calendar,

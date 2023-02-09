@@ -352,7 +352,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
                               padding: EdgeInsets.only(right: _val * 300),
                               child: const SuperVerse(
                                 verse: Verse(
-                                  text: 'phid_bldrsTagLine',
+                                  id: 'phid_bldrsTagLine',
                                   translate: true,
                                   casing: Casing.upperCase,
                                 ),
@@ -536,7 +536,7 @@ class AnimatedLine extends StatelessWidget {
         height: 35,
         child: SuperVerse(
           verse: Verse(
-            text: verse,
+            id: verse,
             casing: Casing.upperCase,
             translate: false,
           ),

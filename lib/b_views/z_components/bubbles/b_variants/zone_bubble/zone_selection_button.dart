@@ -48,7 +48,7 @@ class ZoneSelectionButton extends StatelessWidget {
           bubble: false,
           verse: loading == true ?
           const Verse(
-            text: 'phid_loading'  ,
+            id: 'phid_loading'  ,
             translate: true,
           )
               :

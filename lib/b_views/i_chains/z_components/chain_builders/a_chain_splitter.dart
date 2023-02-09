@@ -14,7 +14,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:numeric/numeric.dart';
 import 'package:provider/provider.dart';
@@ -88,7 +88,7 @@ class ChainSplitter extends StatelessWidget {
       return null;
     }
     else {
-      return Verse(text: _output, translate: false);
+      return Verse(id: _output, translate: false);
     }
 
   }
@@ -164,7 +164,7 @@ class ChainSplitter extends StatelessWidget {
         boxWidth: _width,
         icon: _chainsProvider.getPhidIcon(son: chainOrChainsOrSonOrSons, context: context),
         firstHeadline: Verse(
-          text: Phider.removeIndexFromPhid(phid: _chain.id),
+          id: Phider.removeIndexFromPhid(phid: _chain.id),
           translate: true,
         ),
         secondHeadline: createSecondLineVerse(secondLinesType, _chain.id),
@@ -216,7 +216,7 @@ class ChainSplitter extends StatelessWidget {
 
       return DataCreatorSplitter(
         height: 100,
-        width: Bubble.clearWidth(context) - 40,
+        width: Bubble.clearWidth(context: context) - 40,
         picker: _picker,
         appBarType: AppBarType.non,
         searchText: searchText,
@@ -283,7 +283,7 @@ class ChainSplitter extends StatelessWidget {
     else {
       return const NoResultFound(
         color: Colorz.white50,
-        verse: Verse(text: '.....', translate: false),
+        verse: Verse(id: '.....', translate: false),
       );
     }
     // --------------------

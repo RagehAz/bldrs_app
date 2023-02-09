@@ -241,7 +241,7 @@ class NeedModel {
       for (final NeedType type in needsTypes){
 
         final Verse _verse = Verse(
-          text: getNeedTypePhid(type),
+          id: getNeedTypePhid(type),
           translate: true,
           casing: casing,
         );

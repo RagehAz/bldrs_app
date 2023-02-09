@@ -13,7 +13,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/x_dashboard/pickers_editor/x_pickers_editor_controller.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 
@@ -62,7 +62,7 @@ class PickerEditingTile extends StatelessWidget {
                     },
                     headerWidth: _clearWidth,
                     headlineVerse: Verse(
-                      text: 'ChainID: ${picker.chainID}',
+                      id: 'ChainID: ${picker.chainID}',
                       translate: false,
                     ),
                   ),
@@ -83,7 +83,7 @@ class PickerEditingTile extends StatelessWidget {
                     headerWidth: _clearWidth,
                     hasSwitch: true,
                     headlineVerse: const Verse(
-                      text: 'Is Required',
+                      id: 'Is Required',
                       translate: false,
                     ),
                     switchValue: picker.isRequired,
@@ -106,7 +106,7 @@ class PickerEditingTile extends StatelessWidget {
                     headerWidth: _clearWidth,
                     hasSwitch: true,
                     headlineVerse: const Verse(
-                      text: 'Can pick many',
+                      id: 'Can pick many',
                       translate: false,
                     ),
                     switchValue: picker.canPickMany,
@@ -129,7 +129,7 @@ class PickerEditingTile extends StatelessWidget {
                     headlineColor: picker?.unitChainID == null ? Colorz.black200 : Colorz.white255,
                     headerWidth: _clearWidth,
                     headlineVerse: Verse(
-                      text: picker?.unitChainID == null ? 'No Unit Chain' : 'unitChainID: ${picker.unitChainID}',
+                      id: picker?.unitChainID == null ? 'No Unit Chain' : 'unitChainID: ${picker.unitChainID}',
                       translate: false,
                     ),
                     hasMoreButton: true,
@@ -161,7 +161,7 @@ class PickerEditingTile extends StatelessWidget {
                             blog('bisho bisho biiiisho');
                           },
                           headlineVerse: Verse(
-                            text: _hasRange == true ? 'Visible Range' : 'No range defined',
+                            id: _hasRange == true ? 'Visible Range' : 'No range defined',
                             translate: false,
                           ),
                           headerWidth: _clearWidth,
@@ -215,7 +215,7 @@ class PickerEditingTile extends StatelessWidget {
                             blog('bisho bisho biiiishodddddddddddd');
                           },
                           headlineVerse: Verse(
-                            text: _hasBlockers == true ? 'Chain Blockers' : 'No Blockers defined',
+                            id: _hasBlockers == true ? 'Chain Blockers' : 'No Blockers defined',
                             translate: false,
                           ),
                           headerWidth: _clearWidth,
@@ -227,7 +227,7 @@ class PickerEditingTile extends StatelessWidget {
                         width: _clearWidth,
                         child: const SuperVerse(
                           verse:  Verse(
-                            text: 'Values that deactivate specific pickers',
+                            id: 'Values that deactivate specific pickers',
                             translate: false,
                           ),
                           size: 1,
@@ -256,7 +256,7 @@ class PickerEditingTile extends StatelessWidget {
                                   child: BubbleHeader(
                                     viewModel: BldrsBubbleHeaderVM(
                                       headlineVerse: Verse(
-                                        text: _blocker.value.toString(),
+                                        id: _blocker.value.toString(),
                                         translate: false,
                                       ),
                                       headerWidth: _clearWidth,
@@ -267,7 +267,7 @@ class PickerEditingTile extends StatelessWidget {
                                 ),
 
                                 /// DEACT PICKERS IDS
-                                BulletPoints(
+                                BldrsBulletPoints(
                                   bubbleWidth: _clearWidth,
                                   bulletPoints: Verse.createVerses(
                                       strings: _blocker.pickersIDsToBlock,
@@ -298,7 +298,7 @@ class PickerEditingTile extends StatelessWidget {
                     DreamBox(
                       height: 40,
                       verse: const Verse(
-                        text: 'Switch\nHeadline',
+                        id: 'Switch\nHeadline',
                         translate: false,
                         casing: Casing.upperCase,
                       ),
@@ -318,7 +318,7 @@ class PickerEditingTile extends StatelessWidget {
                     DreamBox(
                       height: 40,
                       verse: const Verse(
-                        text: 'Delete',
+                        id: 'Delete',
                         translate: false,
                         casing: Casing.upperCase,
                       ),
@@ -341,7 +341,9 @@ class PickerEditingTile extends StatelessWidget {
           ),
         ),
 
-        SeparatorLine(width: Bubble.clearWidth(context) - 20),
+        SeparatorLine(
+            width: Bubble.clearWidth(context: context) - 20,
+        ),
 
       ],
     );

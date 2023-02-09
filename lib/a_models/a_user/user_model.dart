@@ -414,7 +414,7 @@ class UserModel {
   /// TESTED : WORKS PERFECT
   static Verse generateUserJobLine(UserModel userModel){
     return Verse(
-      text: userModel == null ? null : '${userModel?.title} @ ${userModel?.company}',
+      id: userModel == null ? null : '${userModel?.title} @ ${userModel?.company}',
       translate: false,
     );
   }

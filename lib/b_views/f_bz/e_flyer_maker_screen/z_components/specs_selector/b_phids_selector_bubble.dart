@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_valida
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:widget_fader/widget_fader.dart';
@@ -38,6 +38,8 @@ class PhidsSelectorBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    final double _bubbleClearWidth = Bubble.clearWidth(context: context);
+
     return WidgetFader(
       key: const ValueKey('PhidsSelectorBubble'),
       fadeType: draft?.flyerType == null ? FadeType.stillAtMin : FadeType.stillAtMax,
@@ -46,17 +48,17 @@ class PhidsSelectorBubble extends StatelessWidget {
       child: Bubble(
         bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
           headlineVerse: const Verse(
-            text: 'phid_keywords',
+            id: 'phid_keywords',
             translate: true,
           ),
         ),
-        width: Bubble.bubbleWidth(context),
+        width: Bubble.bubbleWidth(context: context),
         columnChildren: <Widget>[
 
-          const BulletPoints(
+          const BldrsBulletPoints(
             bulletPoints: <Verse>[
               Verse(
-                text: 'phid_add_keywords_to_help_search_filters',
+                id: 'phid_add_keywords_to_help_search_filters',
                 translate: true,
               ),
             ],
@@ -69,7 +71,7 @@ class PhidsSelectorBubble extends StatelessWidget {
 
                 if (Mapper.checkCanLoopList(draft?.keywordsIDs) == true){
                   return PhidsViewer(
-                    pageWidth: Bubble.clearWidth(context),
+                    pageWidth: _bubbleClearWidth,
                     phids: draft.keywordsIDs,
                     onPhidLongTap: onPhidLongTap,
                     onPhidTap: onPhidTap,
@@ -88,7 +90,7 @@ class PhidsSelectorBubble extends StatelessWidget {
           DreamBox(
             height: PhidButton.getHeight(),
             verse: Verse(
-              text: Mapper.checkCanLoopList(draft?.specs) ? 'phid_edit_keywords' : 'phid_add_keywords',
+              id: Mapper.checkCanLoopList(draft?.specs) ? 'phid_edit_keywords' : 'phid_add_keywords',
               translate: true,
             ),
             bubble: false,
@@ -103,7 +105,7 @@ class PhidsSelectorBubble extends StatelessWidget {
 
           /// VALIDATOR
           BldrsValidator(
-            width: Bubble.clearWidth(context) - 20,
+            width: _bubbleClearWidth - 20,
             validator: () => Formers.flyerPhidsValidator(
               phids: draft.keywordsIDs,
               context: context,

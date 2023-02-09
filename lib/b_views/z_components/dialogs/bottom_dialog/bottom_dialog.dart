@@ -412,7 +412,7 @@ class BottomDialog extends StatelessWidget {
   bool _titleIsOnCheck() {
     bool _isOn;
 
-    if (titleVerse == null || TextMod.removeSpacesFromAString(titleVerse?.text) == '') {
+    if (titleVerse == null || TextMod.removeSpacesFromAString(titleVerse?.id) == '') {
       _isOn = false;
     }
 

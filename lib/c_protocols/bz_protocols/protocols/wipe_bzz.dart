@@ -49,7 +49,7 @@ class WipeBzProtocols {
       pushWaitDialog(
         context: context,
         verse: Verse(
-          text: '${Verse.transBake(context, 'phid_deleting')} ${bzModel.name}',
+          id: '${Verse.transBake(context, 'phid_deleting')} ${bzModel.name}',
           translate: false,
           variables: bzModel.name,
         ),

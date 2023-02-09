@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.da
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 

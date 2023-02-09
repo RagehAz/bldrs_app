@@ -121,7 +121,7 @@ class CropperFooter extends StatelessWidget {
         child: ConfirmButton(
           confirmButtonModel: ConfirmButtonModel(
             firstLine: const Verse(
-              text: 'phid_crop_images',
+              id: 'phid_crop_images',
               translate: true,
             ),
             onTap: onCropImages,

@@ -72,7 +72,7 @@ List<NavModel> generateMainNavModels({
     NavModel(
       id: NavModel.getMainNavIDString(navID: MainNavModel.signIn),
       titleVerse: const Verse(
-        text: 'phid_sign',
+        id: 'phid_sign',
         translate: true,
       ),
       icon: Iconz.normalUser,
@@ -94,12 +94,12 @@ List<NavModel> generateMainNavModels({
       id: NavModel.getMainNavIDString(navID: MainNavModel.profile),
       titleVerse: userModel?.name == null ?
       const Verse(
-        text: 'phid_complete_my_profile',
+        id: 'phid_complete_my_profile',
         translate: true,
       )
           :
       Verse(
-        text: userModel.name,
+        id: userModel.name,
         translate: false,
       ),
       icon: userModel?.picPath ?? Iconz.normalUser,
@@ -114,7 +114,7 @@ List<NavModel> generateMainNavModels({
     NavModel(
       id: NavModel.getMainNavIDString(navID: MainNavModel.savedFlyers),
       titleVerse: const Verse(
-        text: 'phid_savedFlyers',
+        id: 'phid_savedFlyers',
         translate: true,
       ),
       icon: Iconz.saveOff,
@@ -137,7 +137,7 @@ List<NavModel> generateMainNavModels({
             bzID: _bzModel.id,
           ),
           titleVerse: Verse(
-            text: _bzModel.name,
+            id: _bzModel.name,
             translate: false,
           ),
           icon: _bzModel.logoPath,
@@ -188,7 +188,7 @@ List<NavModel> generateMainNavModels({
     NavModel(
       id: NavModel.getMainNavIDString(navID: MainNavModel.settings),
       titleVerse: const Verse(
-        text: 'phid_settings',
+        id: 'phid_settings',
         translate: true,
       ),
       icon: Iconz.more,
@@ -377,14 +377,14 @@ Future<void> _setActivePhidK({
     await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: Verse(
-          text: _title,
+          id: _title,
           translate: false,
       ),
       bodyVerse: const Verse(
         pseudo: 'The Bldrs in this city are adding flyers everyday to'
                 ' properly present their markets.'
                 '\nplease hold for couple of days and come back again.',
-        text: 'phid_businesses_are_still_adding_flyers',
+        id: 'phid_businesses_are_still_adding_flyers',
         translate: true,
       ),
       height: 400,
@@ -394,7 +394,7 @@ Future<void> _setActivePhidK({
 
           DialogButton(
             verse: const Verse(
-              text: 'phid_inform_a_friend',
+              id: 'phid_inform_a_friend',
               translate: true,
             ),
             width: 133,
@@ -405,7 +405,7 @@ Future<void> _setActivePhidK({
 
           DialogButton(
             verse: const Verse(
-              text: 'phid_go_back',
+              id: 'phid_go_back',
               translate: true,
             ),
             color: Colorz.yellow255,

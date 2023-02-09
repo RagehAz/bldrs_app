@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class DialogsTestScreen extends StatelessWidget {
@@ -25,7 +25,7 @@ class DialogsTestScreen extends StatelessWidget {
       appBarType: AppBarType.basic,
       pyramidsAreOn: true,
       title: const Verse(
-        text: 'Dialogs',
+        id: 'Dialogs',
         translate: false,
       ),
       skyType: SkyType.black,

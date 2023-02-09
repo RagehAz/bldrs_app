@@ -82,7 +82,7 @@ class BzReplyBubble extends StatelessWidget {
                     /// BZ NAME
                     SuperVerse(
                       verse: Verse(
-                        text: _bzModel?.name,
+                        id: _bzModel?.name,
                         translate: false,
                       ),
                     ),
@@ -90,7 +90,7 @@ class BzReplyBubble extends StatelessWidget {
                     /// TIME
                     SuperVerse(
                       verse: Verse(
-                        text: Timers.calculateSuperTimeDifferenceString(
+                        id: Timers.calculateSuperTimeDifferenceString(
                           context: context,
                           from: reviewModel.replyTime,
                           to: DateTime.now(),

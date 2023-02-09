@@ -176,7 +176,7 @@ class BzFireOps {
         draggable: true,
         numberOfWidgets: 3,
         titleVerse: const Verse(
-          text: 'phid_report_bz_account',
+          id: 'phid_report_bz_account',
           translate: true,
         ),
         builder: (_){
@@ -188,7 +188,7 @@ class BzFireOps {
                 context: context,
                 verse: const Verse(
                   pseudo: 'This Account published Inappropriate content',
-                  text: 'phid_account_published_inapp_content',
+                  id: 'phid_account_published_inapp_content',
                   translate: true,
                 ),
                 onTap: () async {
@@ -205,7 +205,7 @@ class BzFireOps {
                 context: context,
                 verse: const Verse(
                   pseudo: 'This Account violates copyrights',
-                  text: 'phid_account_published_copyright_violation',
+                  id: 'phid_account_published_copyright_violation',
                   translate: true,
                 ),
                 onTap: () async {

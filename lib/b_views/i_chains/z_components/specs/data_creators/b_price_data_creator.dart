@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class PriceDataCreator extends StatefulWidget {
@@ -97,7 +97,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
       ),
       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
         headlineVerse: const Verse(
-          text: 'phid_add_with_dots',
+          id: 'phid_add_with_dots',
           translate: true,
         ),
       ),
@@ -115,7 +115,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
           appBarType: widget.appBarType,
           hasUnit: true,
           hintVerse: const Verse(
-            text: 'phid_add_price',
+            id: 'phid_add_price',
             translate: true,
           ),
           validator: (String text) => _validator(_textController.text),

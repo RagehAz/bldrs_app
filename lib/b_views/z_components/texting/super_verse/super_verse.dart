@@ -112,7 +112,7 @@ class SuperVerse extends StatelessWidget {
 
         SuperVerse(
           verse: Verse(
-            text: Numeric.formatNumToSeparatedKilos(number: price, fractions: 3),
+            id: Numeric.formatNumToSeparatedKilos(number: price, fractions: 3),
             translate: false,
             casing: Casing.upperCase,
           ),
@@ -127,7 +127,7 @@ class SuperVerse extends StatelessWidget {
         if (currency != null)
           SuperVerse(
             verse: Verse(
-              text: currency,
+              id: currency,
               translate: true,
               casing: Casing.lowerCase,
             ),

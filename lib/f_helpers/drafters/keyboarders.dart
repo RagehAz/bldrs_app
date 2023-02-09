@@ -212,7 +212,7 @@ class Keyboard {
       await TopDialog.showTopDialog(
         context: context,
         firstVerse: const Verse(
-          text: 'phid_copied_to_clipboard',
+          id: 'phid_copied_to_clipboard',
           translate: true,
         ),
         secondVerse: Verse.plain(copy),

@@ -108,11 +108,11 @@ class UserFCMTopicsScreenView extends StatelessWidget {
         const Stratosphere(),
 
         /// ALL SWITCHER
-        TileBubble(
+        BldrsTileBubble(
           bubbleWidth: PageBubble.clearWidth(context),
-          bubbleHeaderVM: BldrsBubbleHeaderVM(
+          bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
             headlineVerse: const Verse(
-              text: 'phid_all_notifications',
+              id: 'phid_all_notifications',
               translate: true,
             ),
             leadingIcon: Iconz.notification,
@@ -142,11 +142,11 @@ class UserFCMTopicsScreenView extends StatelessWidget {
               topicModel: topic,
             );
 
-            return TileBubble(
+            return BldrsTileBubble(
               bubbleWidth: PageBubble.clearWidth(context),
-              bubbleHeaderVM: BldrsBubbleHeaderVM(
+              bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                 headlineVerse: Verse(
-                  text: 'phid_${topic.id}',
+                  id: 'phid_${topic.id}',
                   translate: true,
                 ),
                 leadingIcon: topic.icon,

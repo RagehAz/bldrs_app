@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/z_components/texting/customs/zone_line.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:scale/scale.dart';
@@ -62,7 +62,11 @@ class BzLongButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _bubbleWidth = Bubble.clearWidth(context, bubbleWidthOverride: boxWidth);
+    final double _bubbleWidth = Bubble.clearWidth(
+        context: context,
+        bubbleWidthOverride: boxWidth,
+    );
+
     final double _textZoneWidth =  _bubbleWidth - height - 20;
 
     return Bubble(
@@ -101,7 +105,7 @@ class BzLongButton extends StatelessWidget {
                       width: _textZoneWidth,
                       child: SuperVerse(
                         verse: Verse(
-                          text: bzModel?.name,
+                          id: bzModel?.name,
                           translate: false,
                         ),
                         centered: false,

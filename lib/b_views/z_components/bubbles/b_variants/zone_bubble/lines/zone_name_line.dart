@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class ZoneNameLine extends StatelessWidget {
@@ -15,7 +15,7 @@ class ZoneNameLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _clearWidth = Bubble.clearWidth(context);
+    final double _clearWidth = Bubble.clearWidth(context: context);
 
     return SuperVerse(
       width: _clearWidth,

@@ -363,7 +363,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
       onSearchSubmit: _onSearchCity,
       onSearchChanged: _onSearchCity,
       title: const Verse(
-        text: 'phid_selectCity',
+        id: 'phid_selectCity',
         translate: true,
       ),
       pyramidsAreOn: true,
@@ -372,7 +372,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
         invoker: 'SelectCityScreen',
       ),
       searchHintVerse: Verse(
-        text: '${xPhrase( context, 'phid_search_cities_of')} ${_countryName ?? '...'}',
+        id: '${xPhrase( context, 'phid_search_cities_of')} ${_countryName ?? '...'}',
         translate: false,
       ),
       loading: _loading,

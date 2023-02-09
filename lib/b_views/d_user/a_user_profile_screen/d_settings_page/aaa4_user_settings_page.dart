@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/buttons/settings_wide_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/floating_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class UserSettingsPage extends StatelessWidget {
@@ -39,7 +39,7 @@ class UserSettingsPage extends StatelessWidget {
         /// EDIT PROFILE
         SettingsWideButton(
           verse: const Verse(
-            text: 'phid_editProfile',
+            id: 'phid_editProfile',
             translate: true,
           ),
           icon: Iconz.gears,
@@ -49,7 +49,7 @@ class UserSettingsPage extends StatelessWidget {
         /// EDIT FCM TOPICS
         SettingsWideButton(
           verse: const Verse(
-            text: 'phid_notifications_settings',
+            id: 'phid_notifications_settings',
             translate: true,
           ),
           icon: Iconz.notification,
@@ -59,7 +59,7 @@ class UserSettingsPage extends StatelessWidget {
         /// DELETE MY ACCOUNT
         SettingsWideButton(
           verse: const Verse(
-            text: 'phid_delete_my_account',
+            id: 'phid_delete_my_account',
             translate: true,
           ),
           icon: Iconz.xSmall,
@@ -72,7 +72,7 @@ class UserSettingsPage extends StatelessWidget {
         /// SIGN OUT
         SettingsWideButton(
           verse: const Verse(
-            text: 'phid_signOut',
+            id: 'phid_signOut',
             translate: true,
           ),
           icon: Iconz.exit,

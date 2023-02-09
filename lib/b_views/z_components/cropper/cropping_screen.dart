@@ -148,7 +148,7 @@ class _CroppingScreenState extends State<CroppingScreen> {
 
     return MainLayout(
       title: const Verse(
-        text: 'phid_crop_images',
+        id: 'phid_crop_images',
         translate: true,
       ),
       appBarType: AppBarType.basic,

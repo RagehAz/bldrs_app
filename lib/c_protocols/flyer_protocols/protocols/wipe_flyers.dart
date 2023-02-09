@@ -47,7 +47,7 @@ class WipeFlyerProtocols {
         pushWaitDialog(
           context: context,
           verse: const Verse(
-            text: 'phid_deleting_flyer',
+            id: 'phid_deleting_flyer',
             translate: true,
           ),
         );
@@ -182,7 +182,7 @@ class WipeFlyerProtocols {
         pushWaitDialog(
           context: context,
           verse: const Verse(
-            text: 'phid_deleting_flyers',
+            id: 'phid_deleting_flyers',
             translate: true,
           ),
         );

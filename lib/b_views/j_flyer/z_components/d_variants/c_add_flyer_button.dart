@@ -97,7 +97,7 @@ class AddFlyerButton extends StatelessWidget {
               /// ADD NEW FLYER TEXT
               SuperVerse(
                 verse: const Verse(
-                  text: 'phid_add_new_flyer',
+                  id: 'phid_add_new_flyer',
                   casing: Casing.upperCase,
                   translate: true,
                 ),

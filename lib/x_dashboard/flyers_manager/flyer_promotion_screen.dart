@@ -90,7 +90,7 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
       await TopDialog.showTopDialog(
         context: context,
         firstVerse: const Verse(
-          text: 'phid_select_promotion_target_city',
+          id: 'phid_select_promotion_target_city',
           translate: true,
         ),
         color: Colorz.red255,
@@ -123,11 +123,11 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
         context: context,
         firstVerse: const Verse(
           pseudo: 'Flyer is successfully promoted',
-          text: 'phid_flyer_has_been_promoted',
+          id: 'phid_flyer_has_been_promoted',
           translate: true,
         ),
         secondVerse: Verse(
-          text: 'in ${_zone.cityName}, ${_zone.countryName}',
+          id: 'in ${_zone.cityName}, ${_zone.countryName}',
           translate: true,
           variables: [_zone.cityName, _zone.countryName],
         ),
@@ -149,7 +149,7 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
 
     return MainLayout(
       title: const Verse(
-        text: 'phid_flyer-promotion',
+        id: 'phid_flyer-promotion',
         translate: true,
       ),
       appBarType: AppBarType.basic,
@@ -176,12 +176,12 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
 
                 final Verse _verse = zoneModel == null ?
                 const Verse(
-                  text: 'phid_select_a_city',
+                  id: 'phid_select_a_city',
                   translate: true,
                 )
                     :
                 Verse(
-                  text: '#!#Promoting Flyer in\n$_cityName, $_countryName',
+                  id: '#!#Promoting Flyer in\n$_cityName, $_countryName',
                   translate: true,
                   variables: [_cityName, _countryName],
                 );
@@ -211,7 +211,7 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
             child: DreamBox(
               height: 50,
               verse:  const Verse(
-                text: 'phid_promote',
+                id: 'phid_promote',
                 translate: true,
                 casing: Casing.upperCase,
               ),

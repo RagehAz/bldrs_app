@@ -101,7 +101,7 @@ class WaitDialog extends StatelessWidget {
 
                   SuperVerse(
                     verse: const Verse(
-                      text: 'phid_loading',
+                      id: 'phid_loading',
                       casing: Casing.upperCase,
                       translate: true,
                     ),

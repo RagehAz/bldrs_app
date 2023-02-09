@@ -278,7 +278,7 @@ class _PickersScreenState extends State<PickersScreen> {
       ),
       confirmButtonModel: widget.isMultipleSelectionMode == false ? null : ConfirmButtonModel(
         firstLine: Verse(
-          text: 'phid_confirm_selections',
+          id: 'phid_confirm_selections',
           translate: true,
           variables: widget.pageTitleVerse,
         ),
@@ -319,7 +319,7 @@ class _PickersScreenState extends State<PickersScreen> {
       ),
       searchController: _searchTextController,
       searchHintVerse: const Verse(
-        text: 'phid_search_keywords',
+        id: 'phid_search_keywords',
         translate: true,
       ),
       child: Selector<ChainsProvider, List<Chain>>(
@@ -335,7 +335,7 @@ class _PickersScreenState extends State<PickersScreen> {
                 fadeType: FadeType.repeatAndReverse,
                 child: SuperVerse(
                   verse: Verse(
-                    text: 'phid_loading',
+                    id: 'phid_loading',
                     translate: true,
                     pseudo: 'Loading\n Please Wait',
                     casing: Casing.capitalizeFirstChar,

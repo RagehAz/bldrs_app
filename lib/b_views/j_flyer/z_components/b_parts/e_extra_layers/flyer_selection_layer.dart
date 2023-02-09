@@ -50,7 +50,7 @@ class FlyerSelectionLayer extends StatelessWidget {
               alignment: Alignment.center,
               child: SuperVerse(
                 verse: const Verse(
-                  text: 'phid_selected',
+                  id: 'phid_selected',
                   casing: Casing.upperCase,
                   translate: true,
                 ),

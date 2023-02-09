@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class NumberDataCreator extends StatefulWidget {
@@ -99,7 +99,7 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
       ),
       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
         headlineVerse: const Verse(
-          text: 'phid_add_with_dots',
+          id: 'phid_add_with_dots',
           translate: true,
         ),
       ),
@@ -120,7 +120,7 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
           textController: _textController,
           formKey: _formKey,
           hintVerse: Verse(
-            text: widget.picker.chainID,
+            id: widget.picker.chainID,
             translate: true,
           ),
           selectedUnitID: _selectedUnitID,

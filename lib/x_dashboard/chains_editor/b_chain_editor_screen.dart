@@ -155,7 +155,7 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
       await TopDialog.showTopDialog(
         context: context,
         firstVerse: const Verse(
-          text: "Can't re-order search result",
+          id: "Can't re-order search result",
           translate: false,
         ),
       );
@@ -183,11 +183,11 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
 
     return MainLayout(
       key: const ValueKey<String>('ChainsEditorScreen'),
-      title: const Verse(text: 'Chains',translate: false),
+      title: const Verse(id: 'Chains',translate: false),
       appBarType: AppBarType.search,
       searchController: _searchController,
       searchHintVerse: const Verse(
-        text: 'Search Chains',
+        id: 'Search Chains',
         translate: false,
       ),
       loading: _loading,
@@ -248,7 +248,7 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
                       /// BLOG CURRENT CHAIN PATHS
                       AppBarButton(
                           verse: const Verse(
-                            text: 'Blog\nPaths',
+                            id: 'Blog\nPaths',
                             translate: false,
                           ),
                           buttonColor: _identicalPaths == true ? Colorz.white20 : Colorz.bloodTest,
@@ -267,7 +267,7 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
                       /// BLOG CURRENT CHAIN
                       AppBarButton(
                         verse: const Verse(
-                          text: 'Blog\nChains',
+                          id: 'Blog\nChains',
                           translate: false,
                         ),
                         buttonColor: _identicalChains == true ? Colorz.white20 : Colorz.bloodTest,
@@ -279,7 +279,7 @@ class _ChainsEditorScreenState extends State<ChainsEditorScreen> {
                       /// SYNC BUTTON
                       AppBarButton(
                         verse: const Verse(
-                          text: 'Sync',
+                          id: 'Sync',
                           translate: false
                         ),
                         isDeactivated: _identicalPaths,

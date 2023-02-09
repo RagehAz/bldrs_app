@@ -18,7 +18,7 @@ import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 
@@ -347,7 +347,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
                   ),
                   bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                     headlineVerse: widget.titleVerse ?? const Verse(
-                      text: 'phid_location',
+                      id: 'phid_location',
                       translate: true,
                     ),
                     redDot: widget.isRequired,
@@ -360,11 +360,11 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
                     /// COUNTRY BUTTON
                     ZoneSelectionButton(
                       title: const Verse(
-                        text: 'phid_country',
+                        id: 'phid_country',
                         translate: true,
                       ),
                       verse: Verse(
-                        text: zone?.countryName,
+                        id: zone?.countryName,
                         translate: false,
                       ),
                       icon: zone?.icon ?? Iconz.circleDot,
@@ -376,11 +376,11 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
                     if (widget.depth == ZoneDepth.city || widget.depth == ZoneDepth.district)
                     ZoneSelectionButton(
                       title: const Verse(
-                        text: 'phid_city',
+                        id: 'phid_city',
                         translate: true,
                       ),
                       verse: Verse(
-                        text: zone?.cityName,
+                        id: zone?.cityName,
                         translate: false,
                       ),
                       onTap: () => _onCityButtonTap(context: context),
@@ -391,11 +391,11 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
                     if (widget.depth == ZoneDepth.district && _cityHasDistricts == true)
                       ZoneSelectionButton(
                         title: const Verse(
-                          text: 'phid_district',
+                          id: 'phid_district',
                           translate: true,
                         ),
                         verse: Verse(
-                          text: zone?.districtName,
+                          id: zone?.districtName,
                           translate: false,
                         ),
                         onTap: () => _onDistrictButtonTap(context: context),
@@ -404,7 +404,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
                     if (widget.validator != null)
                     BldrsValidator(
-                      width: Bubble.clearWidth(context) - 20,
+                      width: Bubble.clearWidth(context: context) - 20,
                       validator: _validator,
                       autoValidate: widget.autoValidate,
                     ),
@@ -413,7 +413,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
               );
 
             },
-            child: BulletPoints(
+            child: BldrsBulletPoints(
               bulletPoints: widget.bulletPoints,
             ),
           );

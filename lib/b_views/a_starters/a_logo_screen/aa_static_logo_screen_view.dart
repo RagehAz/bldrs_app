@@ -54,7 +54,7 @@ class LogoScreenView extends StatelessWidget {
               max: 0.8,
               child: SuperVerse(
                 verse: Verse(
-                  text: Words.loading(context),
+                  id: Words.loading(context),
                   casing: Casing.upperCase,
                   translate: false,
                 ),

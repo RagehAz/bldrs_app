@@ -30,7 +30,7 @@ class PickerProtocols {
 
     pushWaitDialog(
       context: context,
-      verse: const Verse(text: 'Uploading ChainK to RealTime Database', translate: false),
+      verse: const Verse(id: 'Uploading ChainK to RealTime Database', translate: false),
     );
 
     await PickerRealOps.createPickers(

@@ -43,7 +43,7 @@ class ValueBox extends StatelessWidget {
 
             SuperVerse(
               verse: Verse(
-                text: dataKey,
+                id: dataKey,
                 translate: false,
               ),
               weight: VerseWeight.thin,
@@ -53,7 +53,7 @@ class ValueBox extends StatelessWidget {
 
             SuperVerse(
               verse: Verse(
-                text: value.toString(),
+                id: value.toString(),
                 translate: false,
               ),
               size: 1,

@@ -270,7 +270,7 @@ class ZoneSelection {
       pushWaitDialog(
         context: context,
         verse: const Verse(
-          text: 'phid_loading',
+          id: 'phid_loading',
           translate: true,
         ),
       );

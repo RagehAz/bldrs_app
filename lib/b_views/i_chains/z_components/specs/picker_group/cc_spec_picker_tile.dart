@@ -88,7 +88,7 @@ class PickerTile extends StatelessWidget {
                       height: _specTileHeight,
                       child: SuperVerse(
                         verse: Verse(
-                          text: picker?.chainID,
+                          id: picker?.chainID,
                           translate: true,
                         ),
                         centered: false,

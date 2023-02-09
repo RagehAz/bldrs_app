@@ -204,8 +204,8 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
 
     return MainLayout(
       skyType: SkyType.black,
-      title: const Verse(text: 'phid_search_users', translate: true),
-      searchHintVerse: const Verse(text: 'phid_search_users_hint', translate: true),
+      title: const Verse(id: 'phid_search_users', translate: true),
+      searchHintVerse: const Verse(id: 'phid_search_users_hint', translate: true),
       pyramidsAreOn: true,
       appBarType: AppBarType.search,
       onSearchSubmit: _onSearch,
