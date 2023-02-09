@@ -702,7 +702,7 @@ class Formers {
                                   size: pdfModel.sizeMB,
                                   maxSize: Standards.maxFileSizeLimit,
                                   sizeLimitReached: _sizeLimitReached,
-                                ).text;
+                                ).id;
 
         }
 
@@ -821,9 +821,9 @@ class Formers {
 
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: const Verse(text: 'phid_complete_your_profile', translate: true),
+      titleVerse: const Verse(id: 'phid_complete_your_profile', translate: true),
       bodyVerse: Verse(
-        text: '${Verse.transBake(context, 'phid_required_fields')}'
+        id: '${Verse.transBake(context, 'phid_required_fields')}'
               '\n$_missingFieldsString',
         translate: false,
         variables: _missingFieldsString,

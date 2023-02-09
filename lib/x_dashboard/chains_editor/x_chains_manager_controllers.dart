@@ -100,7 +100,7 @@ Future<void> onChainsEditorScreenGoBack({
     await Dialogs.goBackDialog(
       context: context,
       bodyVerse: const Verse(
-        text: 'UnSynced Changes\nWill be lost\nFor Fucking ever',
+        id: 'UnSynced Changes\nWill be lost\nFor Fucking ever',
         translate: false,
       ),
       goBackOnConfirm: true,
@@ -176,16 +176,16 @@ Future<bool> _preSyncCheckups({
     context: context,
     height: 600,
     titleVerse: const Verse(
-      text: 'Chains Differences',
+      id: 'Chains Differences',
       translate: false,
     ),
     bodyVerse: const Verse(
-      text: 'Below is a comparison result of Chain changed\n'
+      id: 'Below is a comparison result of Chain changed\n'
           'Wish to upload the edited Chain',
       translate: false,
     ),
     boolDialog: true,
-    child: BulletPoints(
+    child: BldrsBulletPoints(
       bubbleWidth: CenterDialog.clearWidth(context),
       bulletPoints: Verse.createVerses(strings: _differencesLog, translate: false),
     ),
@@ -207,8 +207,8 @@ Future<void> _updateChain({
   ).whenComplete(
           () => Dialogs.showSuccessDialog(
             context: context,
-            firstLine: const Verse(text: 'updated Bldrs chain successfully', translate: false),
-            secondLine: const Verse(text: 'in ( Real/bldrsChains/ )', translate: false),
+            firstLine: const Verse(id: 'updated Bldrs chain successfully', translate: false),
+            secondLine: const Verse(id: 'in ( Real/bldrsChains/ )', translate: false),
           )
   );
 
@@ -293,7 +293,7 @@ Future<void> onChainsEditorPhidTap({
             /// EDIT
             BottomDialog.wideButton(
               context: context,
-              verse: const Verse(text: 'Edit', translate: false),
+              verse: const Verse(id: 'Edit', translate: false),
               onTap: () => onEditPhid(
                 context: context,
                 tempChains: tempChains,
@@ -308,7 +308,7 @@ Future<void> onChainsEditorPhidTap({
             /// DELETE
             BottomDialog.wideButton(
               context: context,
-              verse: const Verse(text: 'Delete', translate: false),
+              verse: const Verse(id: 'Delete', translate: false),
               onTap: () => onDeleteThePhid(
                 context: context,
                 tempChains: tempChains,
@@ -387,7 +387,7 @@ Future<void> onAddNewPath ({
 
     await Dialogs.showSuccessDialog(
       context: context,
-      firstLine: const Verse(text: 'New Path has been deleted', translate: false),
+      firstLine: const Verse(id: 'New Path has been deleted', translate: false),
       secondLine: Verse.plain(_typedPath),
     );
 
@@ -417,15 +417,15 @@ Future<void> onDeleteThePhid ({
   final bool _continue = await CenterDialog.showCenterDialog(
     context: context,
     titleVerse: const Verse(
-      text: 'Delete Paths ?',
+      id: 'Delete Paths ?',
       translate: false,
     ),
     bodyVerse: Verse(
-      text: '${_relatedPaths.length} paths will be deleted',
+      id: '${_relatedPaths.length} paths will be deleted',
       translate: false,
     ),
     boolDialog: true,
-    child: BulletPoints(
+    child: BldrsBulletPoints(
         bulletPoints: Verse.createVerses(strings: _relatedPaths, translate: false),
     ),
   );
@@ -445,7 +445,7 @@ Future<void> onDeleteThePhid ({
 
     await Dialogs.showSuccessDialog(
       context: context,
-      firstLine: Verse(text: '( $phid ) has been deleted', translate: false),
+      firstLine: Verse(id: '( $phid ) has been deleted', translate: false),
     );
 
   }
@@ -474,11 +474,11 @@ Future<void> onEditPhid({
       context: context,
       height: 500,
       titleVerse: const Verse(
-        text: 'Edit this path ?',
+        id: 'Edit this path ?',
         translate: false,
       ),
       bodyVerse: Verse(
-        text: 'old\n$path\n\nnew\n$_typedPath',
+        id: 'old\n$path\n\nnew\n$_typedPath',
         translate: false,
       ),
       boolDialog: true,
@@ -500,7 +500,7 @@ Future<void> onEditPhid({
 
       await Dialogs.showSuccessDialog(
         context: context,
-        firstLine: const Verse(text: 'Edit Successful', translate: false),
+        firstLine: const Verse(id: 'Edit Successful', translate: false),
       );
 
     }
@@ -632,7 +632,7 @@ Future<void> onResetTempChains({
   final bool _result = await Dialogs.bottomBoolDialog(
     context: context,
     titleVerse: const Verse(
-      text: 'Discard changes & Reset all Chains ?',
+      id: 'Discard changes & Reset all Chains ?',
       translate: false,
     ),
   );

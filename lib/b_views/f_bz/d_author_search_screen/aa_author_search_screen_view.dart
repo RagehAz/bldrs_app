@@ -11,7 +11,7 @@ import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 
@@ -70,7 +70,7 @@ class AuthorSearchScreenView extends StatelessWidget {
                           userModel: userModel,
                         ),
                         sideButtonVerse: const Verse(
-                          text: 'phid_invite',
+                          id: 'phid_invite',
                           translate: true,
                         ),
                         deactivatedUsersIDs: <String>[
@@ -121,22 +121,22 @@ class InviteAuthorByLinkBubble extends StatelessWidget {
     return Bubble(
       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
         headlineVerse: const Verse(
-          text: 'phid_share_invitation_link',
+          id: 'phid_share_invitation_link',
           translate: true,
         ),
       ),
-      width: Bubble.bubbleWidth(context),
+      width: Bubble.bubbleWidth(context: context),
       margin: Scale.constantHorizontal10,
       columnChildren: <Widget>[
 
         SizedBox(
-          width: Bubble.clearWidth(context),
+          width: Bubble.clearWidth(context: context),
           child: const SuperVerse(
             verse: Verse(
               pseudo: 'This Link is available for one time use only, '
                   'to allow its reciever to be redirected to '
                   'creating new author account for your Business page',
-              text: 'phids_author_invitation_link_description',
+              id: 'phids_author_invitation_link_description',
               translate: true,
             ),
             weight: VerseWeight.thin,
@@ -148,7 +148,7 @@ class InviteAuthorByLinkBubble extends StatelessWidget {
 
         const SuperVerse(
           verse: Verse(
-            text: 'phid_invitation_link_com',
+            id: 'phid_invitation_link_com',
             translate: true,
             pseudo: 'Invitation link . com',
           ),
@@ -169,7 +169,7 @@ class InviteAuthorByLinkBubble extends StatelessWidget {
               iconSizeFactor: 0.5,
               iconColor: Colorz.black230,
               verse: Verse(
-                text: 'phid_share',
+                id: 'phid_share',
                 translate: true,
               ),
               verseColor: Colorz.black230,

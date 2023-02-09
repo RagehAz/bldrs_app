@@ -4,7 +4,7 @@ import 'package:bldrs/e_back_end/f_cloud/google_translator.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:stringer/stringer.dart';
 
@@ -97,7 +97,7 @@ class _GoogleTranslateBubbleState extends State<GoogleTranslateBubble> {
 
     return Bubble(
       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
-        headlineVerse: const Verse(text: 'Google translate', translate: false),
+        headlineVerse: const Verse(id: 'Google translate', translate: false),
         leadingIcon: Iconz.comGooglePlus,
       ),
       childrenCentered: true,

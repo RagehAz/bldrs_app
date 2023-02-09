@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 
@@ -51,6 +51,8 @@ class ListLayout extends StatelessWidget {
     final double _bubbleHeight = _screenHeight - Ratioz.stratosphere - Ratioz.appBarSmallHeight - _verseHeight -
         (Ratioz.appBarMargin * 4);
     // --------------------
+    final double _clearWidth = Bubble.clearWidth(context: context);
+    // --------------------
     return MainLayout(
       skyType: sky,
       appBarType: AppBarType.basic,
@@ -90,10 +92,10 @@ class ListLayout extends StatelessWidget {
                 centered: true,
               ),
               childrenCentered: true,
-              width: Bubble.clearWidth(context),
+              width: Bubble.clearWidth(context: context),
               columnChildren: <Widget>[
                 SizedBox(
-                  width: Bubble.clearWidth(context) - 10,
+                  width: _clearWidth - 10,
                   height: _bubbleHeight - (Ratioz.appBarMargin * 5),
                   // color: Colorz.BloodTest,
                   child: MaxBounceNavigator(
@@ -107,7 +109,7 @@ class ListLayout extends StatelessWidget {
                           alignment: Aligners.superCenterAlignment(context),
                           child: DreamBox(
                             height: 40,
-                            width: Bubble.clearWidth(context) - 10,
+                            width: _clearWidth - 10,
                             icon: icons == null || icons.isEmpty ? null : icons[index],
                             iconSizeFactor: 0.8,
                             verse: mapModels[index].value,

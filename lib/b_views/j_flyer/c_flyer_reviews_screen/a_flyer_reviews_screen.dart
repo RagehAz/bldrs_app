@@ -23,7 +23,7 @@ class FlyerReviewsScreen extends StatelessWidget {
 
     return MainLayout(
       title: const Verse(
-        text: 'phid_flyer_reviews',
+        id: 'phid_flyer_reviews',
         translate: true,
       ),
       appBarType: AppBarType.basic,

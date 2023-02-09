@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 
@@ -29,7 +29,7 @@ class PendingAuthorsBubble extends StatelessWidget {
       return Bubble(
         bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
           headlineVerse: const Verse(
-            text: 'phid_pending_invitation_requests',
+            id: 'phid_pending_invitation_requests',
             translate: true,
           ),
         ),
@@ -44,12 +44,12 @@ class PendingAuthorsBubble extends StatelessWidget {
             final String _userID = _bzModel.pendingAuthors[index].userID;
 
             return FutureUserTileButton(
-              boxWidth: Bubble.clearWidth(context),
+              boxWidth: Bubble.clearWidth(context: context),
               userID: _userID,
               color: Colorz.white10,
               bubble: false,
               sideButtonVerse: const Verse(
-                text: 'phid_cancel',
+                id: 'phid_cancel',
                 translate: true,
               ),
               onSideButtonTap: () => onCancelSentAuthorshipInvitation(

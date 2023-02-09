@@ -114,7 +114,7 @@ class ChainTreeStrip extends StatelessWidget {
                       /// TRANSLATION
                       SuperVerse(
                         verse: Verse(
-                          text: Phider.removeIndexFromPhid(phid: phid),
+                          id: Phider.removeIndexFromPhid(phid: phid),
                           translate: true,
                         ),
                         italic: true,
@@ -126,7 +126,7 @@ class ChainTreeStrip extends StatelessWidget {
                       /// ID
                       SuperVerse(
                         verse: Verse(
-                          text: phid,
+                          id: phid,
                           translate: false,
                         ),
                         size: 1,

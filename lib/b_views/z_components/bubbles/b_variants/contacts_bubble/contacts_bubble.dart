@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.
 import 'package:bldrs/b_views/z_components/buttons/contact_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -32,8 +32,8 @@ class ContactsBubble extends StatelessWidget {
       absorbing: !canLaunchOnTap,
       child: Bubble(
         bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
-          headlineVerse: const Verse(text: 'phid_contacts', translate: true),
-          headerWidth: Bubble.clearWidth(context) - 20,
+          headlineVerse: const Verse(id: 'phid_contacts', translate: true),
+          headerWidth: Bubble.clearWidth(context: context) - 20,
         ),
         columnChildren: <Widget>[
 

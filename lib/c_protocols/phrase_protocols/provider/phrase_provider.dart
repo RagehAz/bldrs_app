@@ -38,7 +38,7 @@ class PhraseProvider extends ChangeNotifier {
     pushWaitDialog(
       context: context,
       verse: const Verse(
-        text: 'phid_change_app_lang_description',
+        id: 'phid_change_app_lang_description',
         translate: true,
       ),
     );

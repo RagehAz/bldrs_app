@@ -50,7 +50,7 @@ class AppBarTitle extends StatelessWidget {
             builder: (_, String value, Widget child){
 
               return _HeadlineSuperVerse(
-                title: pageTitleVerse.copyWith(text: value),
+                title: pageTitleVerse.copyWith(id: value),
                 width: width,
                 appBarRowWidgets: appBarRowWidgets,
                 backButtonIsOn: backButtonIsOn,

@@ -16,7 +16,7 @@ import 'package:bldrs/b_views/z_components/poster/structure/poster_switcher.dart
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:screenshot/screenshot.dart';
 
@@ -49,7 +49,7 @@ class FlyerPosterCreatorBubble extends StatelessWidget {
     return Bubble(
       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
         headlineVerse: const Verse(
-          text: 'phid_flyer_url_poster',
+          id: 'phid_flyer_url_poster',
           translate: true,
         ),
         // switchValue: true,//draft.showsAuthor,
@@ -59,14 +59,14 @@ class FlyerPosterCreatorBubble extends StatelessWidget {
         //   draft: draft,
         // ),
       ),
-      width: Bubble.bubbleWidth(context),
+      width: Bubble.bubbleWidth(context: context),
       columnChildren: <Widget>[
 
         Screenshot(
           controller: draft.posterController,
           child: PosterSwitcher(
             posterType: PosterType.flyer,
-            width: Bubble.clearWidth(context),
+            width: Bubble.clearWidth(context: context),
             model: draft,
             modelHelper: draft.bzModel,
           ),
@@ -117,7 +117,7 @@ Future<void> testPoster({
 
         SuperVerse.verseInfo(
           verse: Verse(
-            text: '$_kilo Kb : $_mega Mb',
+            id: '$_kilo Kb : $_mega Mb',
             translate: false,
           ),
         ),

@@ -1,11 +1,11 @@
 import 'package:bldrs/a_models/x_utilities/xx_app_controls_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
+import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/general_provider.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
@@ -111,16 +111,16 @@ class _AppControlsManagerState extends State<AppControlsManager> {
 
                 const SuperVerse(
                   verse: Verse(
-                    text: 'Wall Flyers',
+                    id: 'Wall Flyers',
                     translate: false,
                   ),
                 ),
 
-                TileBubble(
+                BldrsTileBubble(
                   key: const ValueKey<String>('Tile_bubble_show_ll_flyers'),
-                  bubbleHeaderVM: BldrsBubbleHeaderVM(
+                  bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                     headlineVerse: const Verse(
-                      text: 'Show All Flyers in Home Screen',
+                      id: 'Show All Flyers in Home Screen',
                       translate: false,
                     ),
                     leadingIcon: Iconz.notification,
@@ -136,7 +136,7 @@ class _AppControlsManagerState extends State<AppControlsManager> {
 
                   ),
                   secondLineVerse: const Verse(
-                    text: 'Show all flyers for beta version, this means no query parameters will '
+                    id: 'Show all flyers for beta version, this means no query parameters will '
                         'be used to fetch flyers, like: public, verified, zone, Keywords, etc.\n'
                         'Yet,, it still need to increase AppControlsVersion in GlobalAppState',
                     translate: false,

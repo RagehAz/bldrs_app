@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/z_components/static_progress_bar/static_progress_b
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:widget_fader/widget_fader.dart';
 
@@ -30,7 +30,7 @@ class NoteProgressCreatorBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _bubbleWidth = Bubble.bubbleWidth(context);
+    final double _bubbleWidth = Bubble.bubbleWidth(context: context);
     final double _bubbleChildWidth = TileBubble.childWidth(
       context: context,
       bubbleWidthOverride: _bubbleWidth,
@@ -42,8 +42,8 @@ class NoteProgressCreatorBubble extends StatelessWidget {
       fadeType: isDeactivated == true ? FadeType.stillAtMin : FadeType.stillAtMax,
       min: 0.2,
       ignorePointer: isDeactivated,
-      child: TileBubble(
-        bubbleHeaderVM: BldrsBubbleHeaderVM(
+      child: BldrsTileBubble(
+        bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
           leadingIcon: Iconz.reload,
           leadingIconSizeFactor: 0.5,
           leadingIconBoxColor: note?.progress != null ? Colorz.green255 : Colorz.grey50,

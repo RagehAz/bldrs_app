@@ -65,7 +65,7 @@ class FlyerAuditLayer extends StatelessWidget {
                       child: SuperVerse(
                         width: flyerBoxWidth * 0.8,
                         verse: Verse(
-                          text: _phid,
+                          id: _phid,
                           translate: true,
                         ),
                         centered: !UiProvider.checkAppIsLeftToRight(context),

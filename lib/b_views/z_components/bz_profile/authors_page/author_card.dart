@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/c_team_page/bz_team_page_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/d_labels/ffff_author_pic.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/buttons/contact_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card_details.dart';
@@ -13,7 +14,7 @@ import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart'
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 
@@ -72,7 +73,7 @@ class AuthorCard extends StatelessWidget {
     @required String companyName
   }){
     return Verse(
-      text: '$title @ $companyName',
+      id: '$title @ $companyName',
       translate: false,
     );
   }
@@ -119,7 +120,7 @@ class AuthorCard extends StatelessWidget {
     final Color _roleIconColor = _authorIsMaster == true ? null : Colorz.white255;
     // --------------------
     return Bubble(
-      bubbleHeaderVM: const BubbleHeaderVM(),
+      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(),
       width: _bubbleWidth,
       corners: bubbleCornerValue(),
       margin: const EdgeInsets.only(bottom: 10, right: 10, left: 10),
@@ -158,7 +159,7 @@ class AuthorCard extends StatelessWidget {
                         /// NAME
                         SuperVerse(
                           verse: Verse(
-                            text: author.name ?? '...',
+                            id: author.name ?? '...',
                             translate: false,
                           ),
                           size: 3,
@@ -225,7 +226,7 @@ class AuthorCard extends StatelessWidget {
               /// ROLE
               AuthorCardDetail(
                 verse: Verse(
-                  text: _rolePhid,
+                  id: _rolePhid,
                   translate: true,
                 ),
                 bubble: false,
@@ -237,7 +238,7 @@ class AuthorCard extends StatelessWidget {
               /// NUMBER OF FLYERS
               AuthorCardDetail(
                 verse: Verse(
-                  text: '${author.flyersIDs.length} ${xPhrase(context, 'phid_published_flyers')}',
+                  id: '${author.flyersIDs.length} ${xPhrase(context, 'phid_published_flyers')}',
                   translate: false,
                 ),
                 bubble: false,

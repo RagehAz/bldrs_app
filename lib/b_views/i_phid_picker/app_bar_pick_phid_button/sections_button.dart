@@ -41,7 +41,7 @@ class SectionsButton extends StatelessWidget {
     }
 
     return Verse(
-      text: _title,
+      id: _title,
       translate: true,
     );
   }
@@ -65,7 +65,7 @@ class SectionsButton extends StatelessWidget {
     }
 
     return Verse(
-      text: _body,
+      id: _body,
       translate: true,
     );
   }

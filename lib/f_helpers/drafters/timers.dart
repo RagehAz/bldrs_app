@@ -1143,30 +1143,30 @@ String generateStringsList_index_hh_i_mm_i_ss({
             context: context,
             zoneModel: ZoneProvider.proGetCurrentZone(context: context, listen: false),
         );
-        _zoneLine = _zoneLine.text != '...' ? _zoneLine : Verse(
+        _zoneLine = _zoneLine.id != '...' ? _zoneLine : Verse(
           /// PLAN : THIS NEEDS TRANSLATION : IN COMES LIKE THIS 'Africa/Cairo'
-          text: 'in $_timezone',
+          id: 'in $_timezone',
           translate: false,
         );
 
         await CenterDialog.showCenterDialog(
           context: context,
           titleVerse: const Verse(
-            text: 'phid_device_time_incorrect',
+            id: 'phid_device_time_incorrect',
             translate: true,
           ),
           bodyVerse: Verse(
             // pseudo: 'Please adjust you device clock and restart again\n\n$_secondLine\n$_thirdLine',
-              text: '${xPhrase(context, 'phid_adjust_your_clock')}\n\n'
+              id: '${xPhrase(context, 'phid_adjust_your_clock')}\n\n'
                     '${xPhrase(context, 'phid_actual_clock')}\n'
-                    '${_zoneLine.text}\n'
+                    '${_zoneLine.id}\n'
                     '$_dd_month_yyy_actual . $_hh_i_mm_ampm_actual\n\n'
                     '${xPhrase(context, 'phid_your_clock')}\n'
                     '$_dd_month_yyy_device . $_hh_i_mm_ampm_device',
               translate: false,
           ),
           confirmButtonVerse: const Verse(
-            text: 'phid_i_will_adjust_clock',
+            id: 'phid_i_will_adjust_clock',
             translate: true,
           ),
           onOk: onRestart,

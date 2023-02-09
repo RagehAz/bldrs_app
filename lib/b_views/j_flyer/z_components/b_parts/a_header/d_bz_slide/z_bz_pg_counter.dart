@@ -57,7 +57,7 @@ class BzPgCounter extends StatelessWidget {
             /// COUNT
             SuperVerse(
               verse: Verse(
-                text: Numeric.formatNumToSeparatedKilos(
+                id: Numeric.formatNumToSeparatedKilos(
                   number: count ?? 0,
                   fractions: 0,
                 ),

@@ -94,7 +94,7 @@ class SpecsWrapper extends StatelessWidget {
       final SpecModel _unit = getUnitSpec(picker, specs);
 
       _verse = Verse(
-        text: '${_value.value} ${xPhrase(context, _unit.value)}',
+        id: '${_value.value} ${xPhrase(context, _unit.value)}',
         translate: false,
       );
 
@@ -129,7 +129,7 @@ class SpecsWrapper extends StatelessWidget {
                     searchText: searchText,
                     xIsOn: xIsOn,
                     verse: Verse(
-                      text: Phider.removeIndexFromPhid(phid: _spec.value.toString()),
+                      id: Phider.removeIndexFromPhid(phid: _spec.value.toString()),
                       translate: true,
                     ),
                     onTap: () => onSpecTap(value: _spec, unit: null),

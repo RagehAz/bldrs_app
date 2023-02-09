@@ -38,7 +38,7 @@ class NoteCardButtons extends StatelessWidget {
   Verse _getResponseVerse(BuildContext context, NoteModel noteModel){
 
     Verse _output = const Verse(
-      text: 'phid_responded',
+      id: 'phid_responded',
       translate: true,
     );
 
@@ -46,35 +46,35 @@ class NoteCardButtons extends StatelessWidget {
 
       if (noteModel.poll.reply == PollModel.accept){
         _output = const Verse(
-          text: 'phid_accepted',
+          id: 'phid_accepted',
           translate: true,
         );
       }
 
       else if (noteModel.poll.reply == PollModel.decline){
         _output = const Verse(
-          text: 'phid_declined',
+          id: 'phid_declined',
           translate: true,
         );
       }
 
       else if (noteModel.poll.reply == PollModel.cancel){
         _output = const Verse(
-          text: 'phid_cancelled',
+          id: 'phid_cancelled',
           translate: true,
         );
       }
 
       else if (noteModel.poll.reply == PollModel.expired){
         _output = const Verse(
-          text: 'phid_expired',
+          id: 'phid_expired',
           translate: true,
         );
       }
 
       else {
         _output = Verse(
-          text: noteModel.poll.reply,
+          id: noteModel.poll.reply,
           translate: false,
         );
       }
@@ -119,7 +119,7 @@ class NoteCardButtons extends StatelessWidget {
                         width: _width,
                         height: 40,
                         verse: Verse(
-                          text: _phid,
+                          id: _phid,
                           translate: true,
                         ),
                         verseScaleFactor: 0.7,

@@ -114,7 +114,7 @@ class InstallmentsPriceTag extends StatelessWidget {
                         padding: _paddings,
                         child: SuperVerse(
                           verse: const Verse(
-                            text: '##/ 400 Months',
+                            id: '##/ 400 Months',
                             translate: false,
                           ),
                           size: 6,

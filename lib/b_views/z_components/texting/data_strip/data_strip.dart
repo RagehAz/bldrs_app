@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip_with_he
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 
@@ -75,7 +75,10 @@ class DataStrip extends StatelessWidget {
     /// DATA STRIP WITH HEADLINE IN THE ROW
     else {
 
-      final double _rowWidth = width ?? Bubble.clearWidth(context);
+      final double _rowWidth = Bubble.clearWidth(
+        bubbleWidthOverride: width,
+        context: context,
+      );
 
       return Container(
         key: const ValueKey<String>('DataStrip_tree'),
@@ -109,7 +112,7 @@ class DataStrip extends StatelessWidget {
                       child: DreamBox(
                         height: height,
                         verse: Verse(
-                          text: dataKey,
+                          id: dataKey,
                           translate: false,
                         ),
                         verseShadow: false,
@@ -143,7 +146,7 @@ class DataStrip extends StatelessWidget {
                     child:  DreamBox(
                       height: height,
                       verse: Verse(
-                        text: dataValue.toString(),
+                        id: dataValue.toString(),
                         translate: false,
                       ),
                       verseShadow: false,

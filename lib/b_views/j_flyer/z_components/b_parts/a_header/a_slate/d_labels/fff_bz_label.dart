@@ -45,7 +45,7 @@ class BzLabel extends StatelessWidget {
             width: _bzLabelWidth,
             margin: _bzLabelPaddings,
             verse: Verse(
-              text: bzModel?.name,
+              id: bzModel?.name,
               translate: false,
             ),
             centered: false,

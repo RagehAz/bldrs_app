@@ -457,8 +457,8 @@ class NewAuthorshipExit {
     /// confirm you want to delete yourself
     final bool _canDeleteMyself = await Dialogs.confirmProceed(
       context: context,
-      titleVerse: const Verse(text: 'phid_exit_bz_account', translate: true),
-      bodyVerse: const Verse(text: 'phid_exit_bz_account_body', translate: true),
+      titleVerse: const Verse(id: 'phid_exit_bz_account', translate: true),
+      bodyVerse: const Verse(id: 'phid_exit_bz_account_body', translate: true),
       invertButtons: true,
     );
 
@@ -467,8 +467,8 @@ class NewAuthorshipExit {
       /// confirm you agree on flyers migration
       final bool _canMigrateFlyers = await Dialogs.confirmProceed(
         context: context,
-        titleVerse: const Verse(text: 'phid_migrate_flyers_?', translate: true),
-        bodyVerse: const Verse(text: 'phid_migrate_flyers_body', translate: true),
+        titleVerse: const Verse(id: 'phid_migrate_flyers_?', translate: true),
+        bodyVerse: const Verse(id: 'phid_migrate_flyers_body', translate: true),
         invertButtons: true,
       );
 
@@ -490,9 +490,9 @@ class NewAuthorshipExit {
     /// confirm you want to delete yourself
     final bool _canDeleteOtherAuthor = await Dialogs.confirmProceed(
       context: context,
-      titleVerse: const Verse(text: 'phid_remove_author_?', translate: true),
+      titleVerse: const Verse(id: 'phid_remove_author_?', translate: true),
       /// TRANSLATE ME
-      bodyVerse: const Verse(text: 'phid_delete_author_body', translate: true),
+      bodyVerse: const Verse(id: 'phid_delete_author_body', translate: true),
       invertButtons: true,
     );
 
@@ -518,11 +518,11 @@ class NewAuthorshipExit {
       await Dialogs.bzBannerDialog(
         context: context,
         titleVerse: Verse(
-          text: _bzModel.name,
+          id: _bzModel.name,
           translate: false,
         ),
         bodyVerse: const Verse(
-          text: 'phid_bz_is_deleted_can_not_be_used',
+          id: 'phid_bz_is_deleted_can_not_be_used',
           translate: true,
         ),
         bzModel: _bzModel,
@@ -537,11 +537,11 @@ class NewAuthorshipExit {
       await CenterDialog.showCenterDialog(
         context: context,
         titleVerse: const Verse(
-          text: 'phid_bz_account_is_unavailable',
+          id: 'phid_bz_account_is_unavailable',
           translate: true,
         ),
         bodyVerse: const Verse(
-          text: 'phid_no_access_to_this_account',
+          id: 'phid_no_access_to_this_account',
           translate: true,
         ),
       );
@@ -563,7 +563,7 @@ class NewAuthorshipExit {
     pushWaitDialog(
         context: context,
         verse: Verse(
-          text: _waitText,
+          id: _waitText,
           translate: false,
         ),
       );
@@ -590,7 +590,7 @@ class NewAuthorshipExit {
       await Dialogs.centerNotice(
         context: _context,
         verse: const Verse(
-          text: 'phid_bz_has_been_removed',
+          id: 'phid_bz_has_been_removed',
           translate: true,
         ),
       );
@@ -602,7 +602,7 @@ class NewAuthorshipExit {
       await Dialogs.centerNotice(
         context: _context,
         verse: const Verse(
-          text: 'phid_Author_has_been_removed_successfully',
+          id: 'phid_Author_has_been_removed_successfully',
           translate: true,
         ),
       );

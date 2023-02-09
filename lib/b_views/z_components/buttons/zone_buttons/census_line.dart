@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/tile_buttons/a_tile_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/census_line_unit.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 
@@ -49,7 +49,10 @@ class CensusLine extends StatelessWidget {
 
     if (canShowCensus(censusModel: censusModel) == true){
 
-      final double _buttonWidth = width ?? Bubble.bubbleWidth(context);
+      final double _buttonWidth = Bubble.bubbleWidth(
+        bubbleWidthOverride: width,
+        context: context,
+      );
 
       final double _flagBoxSize = hasFlagSpace == true ? TileButton.defaultHeight : TileButton.defaultHeight;
       final double _censusUnitsTotalWidth = _buttonWidth - _flagBoxSize;

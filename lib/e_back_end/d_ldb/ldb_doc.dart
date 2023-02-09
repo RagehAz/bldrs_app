@@ -131,41 +131,41 @@ class LDBDoc {
 
   // --------------------
   static const List<dynamic> allDocs = <dynamic>[
-    Verse(text: 'Main', translate: false),
+    Verse(id: 'Main', translate: false),
     flyers,
     bzz,
     notes,
     pics,
     pdfs,
 
-    Verse(text: 'User', translate: false),
+    Verse(id: 'User', translate: false),
     users,
     authModel,
     accounts,
 
-    Verse(text: 'Chains', translate: false),
+    Verse(id: 'Chains', translate: false),
     bldrsChains,
     pickers,
 
-    Verse(text: 'Zones', translate: false),
+    Verse(id: 'Zones', translate: false),
     countries,
     cities,
     districts,
     staging,
     census,
 
-    Verse(text: 'Phrases', translate: false),
+    Verse(id: 'Phrases', translate: false),
     mainPhrases,
     countriesPhrases,
 
-    Verse(text: 'Editors', translate: false),
+    Verse(id: 'Editors', translate: false),
     userEditor,
     bzEditor,
     authorEditor,
     flyerMaker,
     reviewEditor,
 
-    Verse(text: 'Settings', translate: false),
+    Verse(id: 'Settings', translate: false),
     theLastWipe,
     appState,
     appControls,

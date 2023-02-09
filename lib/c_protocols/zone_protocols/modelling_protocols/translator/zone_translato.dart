@@ -26,7 +26,7 @@ class ZoneTranslator {
     if (countryID != null){
 
       _output = Verse(
-        text: Flag.translateCountry(
+        id: Flag.translateCountry(
           countryID: countryID,
           langCode: langCode ?? Localizer.getCurrentLangCode(context),
         ),
@@ -52,7 +52,7 @@ class ZoneTranslator {
 
     if (cityModel != null){
       _output = Verse(
-        text: CityModel.translateCity(
+        id: CityModel.translateCity(
           context: context,
           city: cityModel,
           langCode: langCode,
@@ -78,7 +78,7 @@ class ZoneTranslator {
 
     if (districtModel != null){
       _output = Verse(
-        text: DistrictModel.translateDistrict(
+        id: DistrictModel.translateDistrict(
           context: context,
           district: districtModel,
           langCode: langCode,

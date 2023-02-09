@@ -52,7 +52,7 @@ class ReviewCreatorBubble extends StatelessWidget {
                 /// USER NAME
                 SuperVerse(
                   verse: Verse(
-                    text: userModel?.name,
+                    id: userModel?.name,
                     translate: false,
                   ),
                 ),
@@ -62,7 +62,7 @@ class ReviewCreatorBubble extends StatelessWidget {
                   appBarType: AppBarType.basic,
                   globalKey: globalKey,
                   titleVerse: const Verse(
-                    text: 'phid_edit_review',
+                    id: 'phid_edit_review',
                     translate: true,
                   ),
                   width: _textBubbleWidth,
@@ -90,7 +90,7 @@ class ReviewCreatorBubble extends StatelessWidget {
 
                           return DreamBox(
                             verse: const Verse(
-                              text: 'phid_submit',
+                              id: 'phid_submit',
                               translate: true,
                               casing: Casing.upperCase,
                             ),

@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_valida
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:widget_fader/widget_fader.dart';
@@ -117,7 +117,7 @@ class _ScopeSelectorBubbleState extends State<ScopeSelectorBubble> {
   @override
   Widget build(BuildContext context) {
 
-    final double _phidsZoneWidth = Bubble.clearWidth(context) - ScopeSelectorBubble.typeButtonSize - 10;
+    final double _phidsZoneWidth = Bubble.clearWidth(context: context) - ScopeSelectorBubble.typeButtonSize - 10;
 
     return WidgetFader(
       fadeType: _flyerTypesExist == true ? FadeType.stillAtMax : FadeType.stillAtMin,
@@ -127,17 +127,17 @@ class _ScopeSelectorBubbleState extends State<ScopeSelectorBubble> {
         bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
           headlineVerse: widget.headlineVerse,
         ),
-        width: Bubble.bubbleWidth(context),
+        width: Bubble.bubbleWidth(context: context),
         columnChildren: <Widget>[
 
           /// BULLET POINTS
-          BulletPoints(
+          BldrsBulletPoints(
             bulletPoints: widget.bulletPoints,
           ),
 
           /// SPECS SELECTION BOXES
           SizedBox(
-            width: Bubble.clearWidth(context),
+            width: Bubble.clearWidth(context: context),
             // color: Colorz.bloodTest,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -178,7 +178,7 @@ class _ScopeSelectorBubbleState extends State<ScopeSelectorBubble> {
                           width: _phidsZoneWidth,
                           bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                             headlineVerse: Verse(
-                              text: FlyerTyper.getFlyerTypePhid(flyerType: _flyerType),
+                              id: FlyerTyper.getFlyerTypePhid(flyerType: _flyerType),
                               translate: true,
                             ),
                             headlineColor: Colorz.yellow200,
@@ -203,7 +203,7 @@ class _ScopeSelectorBubbleState extends State<ScopeSelectorBubble> {
                               height: PhidButton.getHeight(),
                               // width: Bubble.clearWidth(context),
                               verse: widget.addButtonVerse ?? Verse(
-                                text: Mapper.checkCanLoopList(_phids) ?
+                                id: Mapper.checkCanLoopList(_phids) ?
                                 'phid_add_bz_scope' // phid_edit_scope
                                     :
                                 'phid_add_bz_scope',
@@ -274,7 +274,7 @@ class _ScopeSelectorBubbleState extends State<ScopeSelectorBubble> {
           /// VALIDATOR
           if (widget.validator != null)
             BldrsValidator(
-              width: Bubble.clearWidth(context) - 20,
+              width: Bubble.clearWidth(context: context) - 20,
               validator: widget.validator,
               autoValidate: widget.autoValidate,
               focusNode: widget.focusNode,

@@ -77,7 +77,7 @@ class BzLogoBox extends StatelessWidget {
             height: width * _nameHeightRatio,
             child: SuperVerse(
               verse: Verse(
-                text: _bzName,
+                id: _bzName,
                 translate: false,
               ),
               weight: VerseWeight.black,

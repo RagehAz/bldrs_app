@@ -126,7 +126,7 @@ class MyBzScreen extends StatelessWidget {
                     return NavModel(
                       id: NavModel.getBzTabNavID(bzTab: _bzTab, bzID: _bzModel.id),
                       titleVerse: Verse(
-                        text: BzTabber.getBzTabPhid(bzTab: _bzTab),
+                        id: BzTabber.getBzTabPhid(bzTab: _bzTab),
                         translate: true,
                       ),
                       icon: _bzTab == BzTab.about ? _bzModel.logoPath : BzTabber.getBzTabIcon(_bzTab),

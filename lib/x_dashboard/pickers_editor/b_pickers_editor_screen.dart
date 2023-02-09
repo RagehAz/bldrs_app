@@ -250,7 +250,7 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
                     return WideButton(
                       key: const ValueKey<String>('add_button'),
                       verse: const Verse(
-                        text: 'Add',
+                        id: 'Add',
                         translate: false,
                       ),
                       onTap: () => onAddNewPickers(
@@ -273,7 +273,7 @@ class _SpecPickerEditorScreenState extends State<SpecPickerEditorScreen> {
                         key: ValueKey<String>(_picker.chainID),
                         picker: _picker,
                         secondLine: Verse(
-                          text: '$index : ${_picker.chainID}',
+                          id: '$index : ${_picker.chainID}',
                           translate: false,
                         ),
                         onTap: () => onHeadlineTap(

@@ -52,7 +52,7 @@ class SearchHistoryView extends StatelessWidget {
                   height: 50,
                   width: Scale.screenWidth(context) - (2 * Ratioz.appBarMargin) - 60,
                   verse: Verse(
-                    text: _searchRecord?.recordDetails.toString(),
+                    id: _searchRecord?.recordDetails.toString(),
                     translate: false,
                   ),
                   icon: Iconz.clock,

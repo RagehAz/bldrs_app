@@ -107,7 +107,7 @@ class SingleSlide extends StatelessWidget {
           key: const ValueKey<String>('SlideHeadline'),
           flyerBoxWidth: flyerBoxWidth,
           verse: Verse(
-            text: slideModel?.headline,
+            id: slideModel?.headline,
             translate: false,
           ),
         ),

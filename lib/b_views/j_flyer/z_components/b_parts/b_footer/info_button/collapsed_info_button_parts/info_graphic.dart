@@ -60,7 +60,7 @@ class InfoGraphic extends StatelessWidget {
                 duration: const Duration(milliseconds: 100),
                 child: const SuperVerse(
                   verse: Verse(
-                    text: 'phid_flyer_info',
+                    id: 'phid_flyer_info',
                     translate: true,
                     casing: Casing.capitalizeFirstChar,
                   ),

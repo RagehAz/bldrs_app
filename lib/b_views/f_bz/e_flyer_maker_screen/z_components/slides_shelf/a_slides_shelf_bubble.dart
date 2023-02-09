@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shel
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_validator.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class SlidesShelfBubble extends StatelessWidget {
@@ -36,11 +36,11 @@ class SlidesShelfBubble extends StatelessWidget {
       ),
       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
         headlineVerse: const Verse(
-          text: 'phid_flyerSlides',
+          id: 'phid_flyerSlides',
           translate: true,
         ),
       ),
-      width: Bubble.bubbleWidth(context),
+      width: Bubble.bubbleWidth(context: context),
       columnChildren: <Widget>[
 
         /// SLIDES SHELF
@@ -52,7 +52,7 @@ class SlidesShelfBubble extends StatelessWidget {
         ),
 
         BldrsValidator(
-          width: Bubble.clearWidth(context),
+          width: Bubble.clearWidth(context: context),
           validator: () => Formers.slidesValidator(
             context: context,
             draftFlyer: draftNotifier.value,

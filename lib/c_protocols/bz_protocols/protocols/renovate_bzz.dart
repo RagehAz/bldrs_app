@@ -56,7 +56,7 @@ class RenovateBzProtocols {
         pushWaitDialog(
           context: context,
           verse: const Verse(
-            text: 'phid_bz_section_selection_info',
+            id: 'phid_bz_section_selection_info',
             translate: true,
           ),
         );
@@ -114,12 +114,12 @@ class RenovateBzProtocols {
         unawaited(TopDialog.showTopDialog(
           context: context,
           firstVerse: const Verse(
-            text: 'phid_great_!',
+            id: 'phid_great_!',
             translate: true,
           ),
           secondVerse: const Verse(
             pseudo: 'Successfully updated your Business Account',
-            text: 'phid_updated_bz_successfully',
+            id: 'phid_updated_bz_successfully',
             translate: true,
           ),
           color: Colorz.green255,

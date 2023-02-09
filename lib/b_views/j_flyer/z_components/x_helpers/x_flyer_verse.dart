@@ -18,21 +18,21 @@ class FlyerVerses {
   }){
 
     Verse _output = Verse(
-      text: phid,
+      id: phid,
       translate: true,
     );
 
     final int _count = count ?? 0;
     if (_count >= 1000){
       _output = Verse(
-        text: counterCaliber(context, _count),
+        id: counterCaliber(context, _count),
         translate: false,
       );
     }
 
     if (isOn == true){
       _output = Verse(
-        text: phid,
+        id: phid,
         translate: true,
         casing: Casing.upperCase,
       );
@@ -102,7 +102,7 @@ class FlyerVerses {
           '${xPhrase( context, 'phid_flyers')}';
 
       return Verse(
-        text: _followersCounter,
+        id: _followersCounter,
         translate: false,
       );
 

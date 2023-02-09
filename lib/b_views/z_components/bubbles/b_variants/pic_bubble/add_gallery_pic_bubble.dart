@@ -14,7 +14,7 @@ import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 
@@ -88,7 +88,7 @@ class AddImagePicBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _bubbleClearWidth = Bubble.clearWidth(context);
+    final double _bubbleClearWidth = Bubble.clearWidth(context: context);
     // --------------------
     return Bubble(
         bubbleColor: Formers.validatorBubbleColor(

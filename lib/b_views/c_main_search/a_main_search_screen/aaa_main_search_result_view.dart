@@ -33,7 +33,7 @@ class SearchResultView extends StatelessWidget {
 
             return FlyersShelf(
               titleVerse: Verse(
-                text: _result.title,
+                id: _result.title,
                 translate: false,
               ),
               flyerSizeFactor: 0.45,

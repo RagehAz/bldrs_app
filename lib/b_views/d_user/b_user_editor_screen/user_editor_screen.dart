@@ -313,7 +313,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
     else {
       setState(() {
         _confirmButtonModel = ConfirmButtonModel(
-          firstLine: const Verse(text: 'phid_updateProfile', translate: true),
+          firstLine: const Verse(id: 'phid_updateProfile', translate: true),
           onTap: _onConfirmTap,
           isWide: true,
         );
@@ -340,7 +340,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
     return MainLayout(
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
-      title: const Verse(text: 'phid_updateProfile', translate: true),
+      title: const Verse(id: 'phid_updateProfile', translate: true),
       skyType: SkyType.black,
       loading: _loading,
       progressBarModel: _progressBarModel,
@@ -368,7 +368,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                     AddImagePicBubble(
                       formKey: draft?.formKey,
                       titleVerse: const Verse(
-                        text: 'phid_picture',
+                        id: 'phid_picture',
                         translate: true,
                       ),
                       redDot: true,
@@ -436,7 +436,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       key: const ValueKey<String>('name'),
                       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                         headlineVerse: const Verse(
-                          text: 'phid_name',
+                          id: 'phid_name',
                           translate: true,
                         ),
                         redDot: true,
@@ -467,7 +467,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       key: const ValueKey<String>('title'),
                       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                         headlineVerse: const Verse(
-                          text: 'phid_occupation',
+                          id: 'phid_occupation',
                           translate: true,
                         ),
                         redDot: true,
@@ -498,7 +498,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       key: const ValueKey<String>('company'),
                       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                         headlineVerse: const Verse(
-                          text: 'phid_companyName',
+                          id: 'phid_companyName',
                           translate: true,
                         ),
                         redDot: true,
@@ -609,7 +609,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       isFormField: true,
                       headerViewModel: BldrsBubbleHeaderVM.bake(
                         headlineVerse: const Verse(
-                          text: 'phid_phone',
+                          id: 'phid_phone',
                           translate: true,
                         ),
                         // redDot: false,
@@ -649,7 +649,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       isFormField: true,
                       headerViewModel: BldrsBubbleHeaderVM.bake(
                         headlineVerse: const Verse(
-                          text: 'phid_emailAddress',
+                          id: 'phid_emailAddress',
                           translate: true,
                         ),
                         redDot: true,

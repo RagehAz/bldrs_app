@@ -44,7 +44,7 @@ class ComposeBzProtocols {
     pushWaitDialog(
       context: context,
       verse: const Verse(
-        text: 'phid_creating_new_bz_account',
+        id: 'phid_creating_new_bz_account',
         translate: true,
       ),
     );
@@ -110,12 +110,12 @@ class ComposeBzProtocols {
     await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: const Verse(
-        text: 'phid_great_!',
+        id: 'phid_great_!',
         translate: true,
       ),
       bodyVerse: const Verse(
         pseudo: 'Successfully created your Business Account\n system will reboot now',
-        text: 'phid_created_bz_successfully',
+        id: 'phid_created_bz_successfully',
         translate: true,
       ),
       // color: Colorz.green255,

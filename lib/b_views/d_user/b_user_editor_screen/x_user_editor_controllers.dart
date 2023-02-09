@@ -87,7 +87,7 @@ Future<void> loadUserEditorLastSession({
     final bool _continue = await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: const Verse(
-        text: 'phid_load_last_session_data_q',
+        id: 'phid_load_last_session_data_q',
         translate: true,
       ),
       // bodyVerse: const Verse(
@@ -371,7 +371,7 @@ Future<void> confirmEdits({
     pushWaitDialog(
       context: context,
       verse: const Verse(
-        text: 'phid_updating_profile',
+        id: 'phid_updating_profile',
         translate: true,
       ),
     );
@@ -397,12 +397,12 @@ Future<void> confirmEdits({
     await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: const Verse(
-        text: 'phid_great_!',
+        id: 'phid_great_!',
         translate: true,
       ),
       bodyVerse: const Verse(
         pseudo: 'Successfully updated your user account',
-        text: 'phid_updated_your_profile_successfully',
+        id: 'phid_updated_your_profile_successfully',
         translate: true,
       ),
     );
@@ -483,16 +483,16 @@ Future<bool> _preConfirmCheckups({
       _canContinue = await reAuthenticateUser(
         context: context,
         dialogTitleVerse: const Verse(
-          text: 'phid_enter_your_password',
+          id: 'phid_enter_your_password',
           translate: true,
         ),
         dialogBodyVerse: const Verse(
           pseudo: 'Please add your password to be able to continue',
-          text: 'phid_enter_your_password_description',
+          id: 'phid_enter_your_password_description',
           translate: true,
         ),
         confirmButtonVerse: const Verse(
-          text: 'phid_continue',
+          id: 'phid_continue',
           translate: true,
         ),
       );
@@ -503,7 +503,7 @@ Future<bool> _preConfirmCheckups({
       _canContinue = await CenterDialog.showCenterDialog(
         context: context,
         bodyVerse: const Verse(
-            text: 'phid_you_want_to_continue',
+            id: 'phid_you_want_to_continue',
             translate: true,
             pseudo: 'Are you sure you want to continue ?'
         ),

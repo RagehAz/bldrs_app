@@ -111,7 +111,7 @@ class EmailAuthScreenView extends StatelessWidget {
                 bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                   redDot: true,
                   headlineVerse: const Verse(
-                    text: 'phid_emailAddress',
+                    id: 'phid_emailAddress',
                     translate: true,
                   ),
                 ),
@@ -123,7 +123,7 @@ class EmailAuthScreenView extends StatelessWidget {
                 keyboardTextInputType: TextInputType.emailAddress,
                 keyboardTextInputAction: TextInputAction.next,
                 hintVerse: const Verse(
-                  text: 'rageh@bldrs.net',
+                  id: 'rageh@bldrs.net',
                   translate: false,
                 ),
                 validator: emailValidator,
@@ -194,19 +194,19 @@ class EmailAuthScreenView extends StatelessWidget {
                 valueListenable: isRememberingMe,
                 builder: (_, bool rememberMe, Widget child){
 
-                  return TileBubble(
-                bubbleHeaderVM: BldrsBubbleHeaderVM(
-                  headlineVerse: const Verse(
-                    text: 'phid_remember_me',
-                    translate: true,
-                  ),
-                  switchValue: rememberMe,
-                  hasSwitch: true,
-                  onSwitchTap: onSwitchRememberMe,
-                ),
-              );
+                  return BldrsTileBubble(
+                    bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                      headlineVerse: const Verse(
+                        id: 'phid_remember_me',
+                        translate: true,
+                      ),
+                      switchValue: rememberMe,
+                      hasSwitch: true,
+                      onSwitchTap: onSwitchRememberMe,
+                    ),
+                  );
 
-              },
+                  },
               ),
 
               const SizedBox(height: 5),
@@ -218,7 +218,7 @@ class EmailAuthScreenView extends StatelessWidget {
                 verseScaleFactor: _verseScaleFactor,
                 color: _isSigningIn ? Colorz.yellow255 : Colorz.white20,
                 verse: const Verse(
-                  text: 'phid_signIn',
+                  id: 'phid_signIn',
                   translate: true,
                 ),
                 verseColor: _isSigningIn ? Colorz.black255 : Colorz.white255,
@@ -235,11 +235,11 @@ class EmailAuthScreenView extends StatelessWidget {
                 verseScaleFactor: _verseScaleFactor,
                 verseMaxLines: 2,
                 verse: Verse(
-                  text: _isSigningIn ? 'phid_create' : 'phid_register',
+                  id: _isSigningIn ? 'phid_create' : 'phid_register',
                   translate: true,
                 ),
                 secondLine: const Verse(
-                  text: 'phid_new_account',
+                  id: 'phid_new_account',
                   translate: true,
                 ),
                 verseColor: _isSigningIn ? Colorz.white255 : Colorz.black255,
@@ -256,7 +256,7 @@ class EmailAuthScreenView extends StatelessWidget {
               SuperVerse(
                 width: Scale.screenWidth(context) * 0.8,
                 verse: const Verse(
-                  text: 'phid_by_using_bldrs_you_agree_to_our',
+                  id: 'phid_by_using_bldrs_you_agree_to_our',
                   translate: true,
                 ),
                 weight: VerseWeight.thin,
@@ -269,7 +269,7 @@ class EmailAuthScreenView extends StatelessWidget {
               SuperVerse(
                 width: Scale.screenWidth(context) * 0.8,
                 verse: const Verse(
-                  text: 'phid_by_signing_up_you_agree_to_our',
+                  id: 'phid_by_signing_up_you_agree_to_our',
                   translate: true,
                 ),
                 weight: VerseWeight.thin,
@@ -281,7 +281,7 @@ class EmailAuthScreenView extends StatelessWidget {
               SuperVerse(
                 width: Scale.screenWidth(context) * 0.8,
                 verse: const Verse(
-                  text: 'phid_terms_of_service',
+                  id: 'phid_terms_of_service',
                   translate: true,
                 ),
                 weight: VerseWeight.thin,
@@ -295,7 +295,7 @@ class EmailAuthScreenView extends StatelessWidget {
               SuperVerse(
                 width: Scale.screenWidth(context) * 0.8,
                 verse: const Verse(
-                  text: 'phid_and',
+                  id: 'phid_and',
                   translate: true,
                 ),
                 weight: VerseWeight.thin,
@@ -309,7 +309,7 @@ class EmailAuthScreenView extends StatelessWidget {
               SuperVerse(
                 width: Scale.screenWidth(context) * 0.8,
                 verse: const Verse(
-                  text: 'phid_privacy_policy',
+                  id: 'phid_privacy_policy',
                   translate: true,
                 ),
                 weight: VerseWeight.thin,

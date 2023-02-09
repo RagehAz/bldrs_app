@@ -51,7 +51,7 @@ class ImageFilterAnimatedName extends StatelessWidget {
                       ),
                       child: SuperVerse(
                         verse: Verse(
-                          text: _filterModel.id,
+                          id: _filterModel.id,
                           casing: Casing.upperCase,
                           translate: true,
                         ),

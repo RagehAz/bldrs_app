@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_b
 import 'package:bldrs/b_views/z_components/poster/note_poster_builder.dart';
 import 'package:bldrs/x_dashboard/notes_creator/z_components/buttons/note_poster_button.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:widget_fader/widget_fader.dart';
 
@@ -25,7 +25,7 @@ class PosterCreatorBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _bubbleClearWidth = Bubble.clearWidth(context);
+    final double _bubbleClearWidth = Bubble.clearWidth(context: context);
     final double _bubbleChildWidth = TileBubble.childWidth(context: context);
     // --------------------
     final bool _posterHasValue = note?.poster?.type != null;
@@ -36,10 +36,10 @@ class PosterCreatorBubble extends StatelessWidget {
       fadeType: isDeactivated == true ? FadeType.stillAtMin : FadeType.stillAtMax,
       min: 0.2,
       ignorePointer: isDeactivated == true,
-      child: TileBubble(
-        bubbleHeaderVM: BldrsBubbleHeaderVM(
+      child: BldrsTileBubble(
+        bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
           headlineVerse: const Verse(
-            text: 'Poster',
+            id: 'Poster',
             translate: false,
           ),
           leadingIcon: Iconz.phoneGallery,

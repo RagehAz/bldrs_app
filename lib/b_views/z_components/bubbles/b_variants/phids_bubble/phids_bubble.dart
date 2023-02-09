@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/phids_bubble/add_k
 import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:scale/scale.dart';
@@ -68,7 +68,10 @@ class PhidsBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _width = Bubble.bubbleWidth(context, bubbleWidthOverride: bubbleWidth);
+    final double _width = Bubble.bubbleWidth(
+        context: context,
+        bubbleWidthOverride: bubbleWidth,
+    );
 
     /// the keyword bottom bubble corner when set in flyer info page
     final double _bottomPadding = FlyerDim.footerBoxBottomCornerValue(_width)
@@ -92,7 +95,7 @@ class PhidsBubble extends StatelessWidget {
         /// STRINGS
         if (Mapper.checkCanLoopList(phids) == true)
           Container(
-            width: Bubble.clearWidth(context, bubbleWidthOverride: bubbleWidth),
+            width: Bubble.clearWidth(context: context, bubbleWidthOverride: bubbleWidth),
             constraints: maxLines == null ? null : BoxConstraints(
               maxHeight: getMaxWrapHeight(maxLines: maxLines),
             ),

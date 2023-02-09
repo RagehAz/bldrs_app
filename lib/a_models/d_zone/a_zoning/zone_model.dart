@@ -414,7 +414,7 @@ class ZoneModel {
     }
 
     return Verse(
-      text: _text,
+      id: _text,
       translate: false,
     );
   }
@@ -465,7 +465,7 @@ class ZoneModel {
     }
 
     return Verse(
-      text: _line,
+      id: _line,
       translate: false,
     );
   }

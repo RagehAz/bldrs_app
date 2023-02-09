@@ -34,7 +34,7 @@ class BzTypesLine extends StatelessWidget {
       width: width,
       child: SuperVerse(
         verse: Verse(
-          text: _bzTypesString,
+          id: _bzTypesString,
           translate: false,
         ),
         maxLines: 4,

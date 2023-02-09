@@ -114,7 +114,7 @@ class _ConnectivitySensorState extends State<ConnectivitySensor> {
           await TopDialog.showTopDialog(
             context: context,
             firstVerse: const Verse(
-              text: 'phid_connected',
+              id: 'phid_connected',
               translate: true,
             ),
             color: Colorz.green255,
@@ -126,11 +126,11 @@ class _ConnectivitySensorState extends State<ConnectivitySensor> {
           await TopDialog.showTopDialog(
             context: context,
             firstVerse: const Verse(
-              text: 'phid_disconnected',
+              id: 'phid_disconnected',
               translate: true,
             ),
             secondVerse: const Verse(
-              text: 'phid_check_your_internet_connection',
+              id: 'phid_check_your_internet_connection',
               translate: true,
             ),
             color: Colorz.red255,

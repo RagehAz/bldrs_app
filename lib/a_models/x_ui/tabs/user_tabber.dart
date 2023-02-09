@@ -68,7 +68,7 @@ class UserTabber {
   }){
     final String _tabPhraseID = _getUserTabPhid(userTab);
     return Verse(
-      text: _tabPhraseID,
+      id: _tabPhraseID,
       translate: true,
     );
   }

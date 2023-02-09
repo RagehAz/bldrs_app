@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/lines/zone_name_line.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/super_headline.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class DistrictPreviewBubble extends StatelessWidget {
@@ -40,7 +40,7 @@ class DistrictPreviewBubble extends StatelessWidget {
 
 
     return Bubble(
-      bubbleHeaderVM: const BubbleHeaderVM(),
+      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(),
       bubbleColor: Colorz.white20,
       childrenCentered: true,
       columnChildren: <Widget>[

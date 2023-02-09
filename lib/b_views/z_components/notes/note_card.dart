@@ -16,7 +16,7 @@ import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:stringer/stringer.dart';
@@ -42,7 +42,7 @@ class NoteCard extends StatelessWidget {
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static double getBubbleWidth(BuildContext context) {
-    return Bubble.bubbleWidth(context);
+    return Bubble.bubbleWidth(context: context);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -50,7 +50,9 @@ class NoteCard extends StatelessWidget {
     @required BuildContext context,
     @required double widthOverride
   }) {
-    return Bubble.clearWidth(context, bubbleWidthOverride: widthOverride) - NoteSenderBalloon.balloonWidth - (Ratioz.appBarMargin);
+    return Bubble.clearWidth(
+        context: context,
+        bubbleWidthOverride: widthOverride) - NoteSenderBalloon.balloonWidth - (Ratioz.appBarMargin);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -114,7 +116,10 @@ class NoteCard extends StatelessWidget {
     final bool _noteHasButtons = Mapper.checkCanLoopList(noteModel?.poll?.buttons);
     // --------------------
     final double _bubbleWidth = bubbleWidth ?? getBubbleWidth(context);
-    final double _clearWidth = Bubble.clearWidth(context, bubbleWidthOverride: _bubbleWidth);
+    final double _clearWidth = Bubble.clearWidth(
+        context: context,
+        bubbleWidthOverride: _bubbleWidth,
+    );
     // --------------------
     return NoteRedDotWrapper(
       childWidth: _bubbleWidth,
@@ -160,7 +165,7 @@ class NoteCard extends StatelessWidget {
                     /// TITLE
                     SuperVerse(
                       verse: Verse(
-                        text: TextCheck.isEmpty(noteModel?.title) == false ?
+                        id: TextCheck.isEmpty(noteModel?.title) == false ?
                         noteModel?.title
                             :
                         'phid_title',
@@ -177,7 +182,7 @@ class NoteCard extends StatelessWidget {
                     /// TIME STAMP
                     SuperVerse(
                       verse: Verse(
-                        text: Timers.calculateSuperTimeDifferenceString(
+                        id: Timers.calculateSuperTimeDifferenceString(
                           context: context,
                           from: noteModel?.sentTime,
                           to: DateTime.now(),
@@ -195,7 +200,7 @@ class NoteCard extends StatelessWidget {
                     /// BODY
                     SuperVerse(
                       verse: Verse(
-                        text: TextCheck.isEmpty(noteModel?.body) == false ? noteModel?.body : '...',
+                        id: TextCheck.isEmpty(noteModel?.body) == false ? noteModel?.body : '...',
                         translate: false,
                       ),
                       weight: VerseWeight.thin,

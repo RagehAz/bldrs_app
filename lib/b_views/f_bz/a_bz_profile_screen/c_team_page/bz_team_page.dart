@@ -10,7 +10,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -141,7 +141,7 @@ class _BzTeamPageState extends State<BzTeamPage> {
                     verseCentered: false,
                     verse: const Verse(
                       pseudo: 'Add Authors to the team',
-                      text: 'phid_add_authors_to_the_team',
+                      id: 'phid_add_authors_to_the_team',
                       translate: true,
                     ),
                     icon: Iconz.plus,

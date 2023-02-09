@@ -51,7 +51,7 @@ class AddKeywordsButton extends StatelessWidget {
                         // if (title != null)
                         const SuperVerse(
                           verse: Verse(
-                            text: 'phid_add',
+                            id: 'phid_add',
                             translate: true,
                           ),
                           size: 1,
@@ -68,7 +68,7 @@ class AddKeywordsButton extends StatelessWidget {
                           children: const <Widget>[
                             SuperVerse(
                               verse: Verse(
-                                text: 'phid_keywords',
+                                id: 'phid_keywords',
                                 translate: true,
                               ),
                               size: 1,

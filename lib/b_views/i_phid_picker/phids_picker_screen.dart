@@ -167,7 +167,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
 
       final NavModel _navModel = NavModel(
         id: _chain.id,
-        titleVerse: Verse(text: _chain.id, translate: true),
+        titleVerse: Verse(id: _chain.id, translate: true),
         icon: ChainsProvider.proGetPhidIcon(context: context, son: _chain.id),
         iconSizeFactor: 1,
         screen: HashtagsBuilderPage(
@@ -373,7 +373,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
       isSearching: _isSearching,
       onBack: _onBack,
       searchHintVerse: const Verse(
-        text: 'phid_search',
+        id: 'phid_search',
         translate: true,
       ),
       // appBarRowWidgets: <Widget>[
@@ -446,7 +446,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
             final String _selectedKeywords = Verse.transBake(context, 'phid_selected_keywords');
 
             final Verse _verse = Verse(
-              text: '(${selectedPhids.length}) $_selectedKeywords',
+              id: '(${selectedPhids.length}) $_selectedKeywords',
               translate: false,
             );
 

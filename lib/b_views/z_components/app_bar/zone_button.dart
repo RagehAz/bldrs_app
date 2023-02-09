@@ -81,7 +81,7 @@ class ZoneButton extends StatelessWidget {
                   children: <Widget>[
                     SuperVerse(
                       verse: Verse(
-                        text: _firstRow ?? '',
+                        id: _firstRow ?? '',
                         translate: false,
                       ),
                       size: 1,
@@ -89,7 +89,7 @@ class ZoneButton extends StatelessWidget {
                     ),
                     SuperVerse(
                       verse: Verse(
-                        text: _secondRow ?? '',
+                        id: _secondRow ?? '',
                         translate: false,
                       ),
                       size: 1,

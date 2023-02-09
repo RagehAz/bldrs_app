@@ -96,7 +96,7 @@ class CitiesScreenSearchView extends StatelessWidget {
                     margin: _topMargin,
                     child: const SuperVerse(
                       verse: Verse(
-                        text: 'phid_no_result_found',
+                        id: 'phid_no_result_found',
                         translate: true,
                       ),
                       labelColor: Colorz.white10,

@@ -150,9 +150,9 @@ dependencies:
   super_text_field:
     git:
       url: https://github.com/RagehAz/super_text_field.git
-  bubbles:
-    git:
-      url: https://github.com/RagehAz/bubbles.git
+#  bubbles:
+#    git:
+#      url: https://github.com/RagehAz/bubbles.git
   # ------------------------------------
   # MY UN-USED PACKAGES
   #  bldrs_ui:

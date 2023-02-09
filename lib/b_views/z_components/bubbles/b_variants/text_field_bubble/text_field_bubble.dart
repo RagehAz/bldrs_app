@@ -8,7 +8,7 @@ import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 
@@ -139,7 +139,7 @@ class TextFieldBubble extends StatelessWidget {
     final double _obscureBtSize = showUnObscure == false ? 0 : fieldHeight;
     final double _obscureBtSpacing = showUnObscure == false ? 0 : 5;
     final double _pasteButtonWidthAndSpacing = hasPasteButton == true ? pasteButtonWidth + 5 : 0;
-    final double _bubbleClearWidth = Bubble.clearWidth(context, bubbleWidthOverride: bubbleWidth);
+    final double _bubbleClearWidth = Bubble.clearWidth(context: context, bubbleWidthOverride: bubbleWidth);
     final double _fieldWidth = _bubbleClearWidth - _leadingIconSize
         - _leadingAndFieldSpacing - _obscureBtSize - _obscureBtSpacing - _pasteButtonWidthAndSpacing;
 
@@ -167,7 +167,10 @@ class TextFieldBubble extends StatelessWidget {
       hasPasteButton: pasteFunction != null,
     );
     // --------------------
-    final double _bubbleWidth = Bubble.bubbleWidth(context, bubbleWidthOverride: bubbleWidth);
+    final double _bubbleWidth = Bubble.bubbleWidth(
+        context: context,
+        bubbleWidthOverride: bubbleWidth,
+    );
     // --------------------
 
     return Bubble(
@@ -196,7 +199,7 @@ class TextFieldBubble extends StatelessWidget {
 
           /// BULLET POINTS
           if (Mapper.checkCanLoopList(bulletPoints) == true)
-            BulletPoints(
+            BldrsBulletPoints(
               bubbleWidth: bubbleWidth,
               bulletPoints: bulletPoints,
             ),
@@ -298,7 +301,7 @@ class TextFieldBubble extends StatelessWidget {
                   height: fieldHeight,
                   width: pasteButtonWidth,
                   verse: const Verse(
-                    text: 'phid_paste',
+                    id: 'phid_paste',
                     translate: true,
                   ),
                   verseScaleFactor: 0.5,

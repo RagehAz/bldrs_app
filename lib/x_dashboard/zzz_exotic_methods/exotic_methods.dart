@@ -714,7 +714,7 @@ class ExoticMethods {
 
   // --------------------
   static void setLoadingText(String text) {
-    UiProvider.proSetLoadingVerse(verse: Verse(text: text, translate: false));
+    UiProvider.proSetLoadingVerse(verse: Verse(id: text, translate: false));
   }
   // --------------------
   /// TESTED : WORKS PERFECT

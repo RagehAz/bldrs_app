@@ -35,7 +35,7 @@ class PickerSplitter extends StatelessWidget {
       return PickersGroupHeadline(
         width: width,
         headline: Verse(
-          text: picker.chainID,
+          id: picker.chainID,
           translate: true,
           casing: Casing.upperCase,
         ),

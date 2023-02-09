@@ -17,7 +17,7 @@ import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/e_back_end/j_ads/google_ad.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:provider/provider.dart';
@@ -136,12 +136,12 @@ class AboutBzBubbles extends StatelessWidget {
           ParagraphBubble(
             headerViewModel: BldrsBubbleHeaderVM.bake(
               headlineVerse: const Verse(
-                text: 'phid_about_us',
+                id: 'phid_about_us',
                 translate: true,
               ),
             ),
             paragraph: Verse(
-              text: bzModel?.about,
+              id: bzModel?.about,
               translate: false,
             ),
           ),
@@ -151,7 +151,7 @@ class AboutBzBubbles extends StatelessWidget {
           Bubble(
             bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
               headlineVerse: const Verse(
-                text: 'phid_scopeOfServices',
+                id: 'phid_scopeOfServices',
                 translate: true,
               ),
             ),
@@ -198,7 +198,7 @@ class AboutBzBubbles extends StatelessWidget {
         if (showGallery == true)
           SuperVerse(
             verse: Verse(
-              text: '${xPhrase(context, 'phid_published_flyers_by')} ${bzModel?.name}',
+              id: '${xPhrase(context, 'phid_published_flyers_by')} ${bzModel?.name}',
               translate: false,
             ),
             centered: false,

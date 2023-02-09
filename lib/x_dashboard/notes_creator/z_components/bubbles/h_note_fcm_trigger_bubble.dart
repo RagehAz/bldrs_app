@@ -2,8 +2,6 @@ import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
-
-
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -31,11 +29,11 @@ class NoteAndFCMTriggersBubble extends StatelessWidget {
       children: <Widget>[
 
         /// SEND NOTE
-        TileBubble(
+        BldrsTileBubble(
           bubbleWidth: _tileWidth,
-          bubbleHeaderVM: BldrsBubbleHeaderVM(
+          bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
             headlineVerse: const Verse(
-              text: 'Send Note',
+              id: 'Send Note',
               translate: false,
             ),
             leadingIcon: Iconz.notification,
@@ -54,11 +52,11 @@ class NoteAndFCMTriggersBubble extends StatelessWidget {
         ),
 
         /// SEND FCM
-        TileBubble(
+        BldrsTileBubble(
           bubbleWidth: _tileWidth,
-          bubbleHeaderVM: BldrsBubbleHeaderVM(
+          bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
             headlineVerse: const Verse(
-              text: 'Send FCM',
+              id: 'Send FCM',
               translate: false,
             ),
             leadingIcon: Iconz.advertise,

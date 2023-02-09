@@ -154,7 +154,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
     pushWaitDialog(
       context: context,
       verse: const Verse(
-        text: 'phid_reloading',
+        id: 'phid_reloading',
         translate: true,
       ),
     );

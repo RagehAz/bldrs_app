@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/contact_field_editor_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class ContactsEditorsBubbles extends StatelessWidget {
@@ -76,7 +76,7 @@ class ContactsEditorsBubbles extends StatelessWidget {
                 formKey: globalKey,
                 headerViewModel: BldrsBubbleHeaderVM.bake(
                     headlineVerse: Verse(
-                      text: ContactModel.getContactTypePhid(
+                      id: ContactModel.getContactTypePhid(
                         context: context,
                         contactType: _contactType,
                       ),

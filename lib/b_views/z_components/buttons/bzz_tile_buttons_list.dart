@@ -67,7 +67,7 @@ class BzzTilesButtonsList extends StatelessWidget {
             return const SuperVerse(
               verse: Verse(
                 pseudo: 'No Businesses found',
-                text: 'phid_no_bzz_found',
+                id: 'phid_no_bzz_found',
                 translate: true,
               ),
             );
