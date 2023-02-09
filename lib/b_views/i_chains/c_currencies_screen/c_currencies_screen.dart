@@ -130,11 +130,11 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
     // --------------------
     return MainLayout(
       title: const Verse(
-        text: 'phid_select_currency',
+        id: 'phid_select_currency',
         translate: true,
       ),
       searchHintVerse: const Verse(
-        text: 'phid_search_currencies',
+        id: 'phid_search_currencies',
         translate: true,
       ),
       appBarType: AppBarType.search,
@@ -320,7 +320,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
                             return WideButton(
                               width: PageBubble.clearWidth(context) - 20,
                               verse: const Verse(
-                                text: 'phid_show_all_currencies',
+                                id: 'phid_show_all_currencies',
                                 translate: true,
                               ),
                               onTap: (){

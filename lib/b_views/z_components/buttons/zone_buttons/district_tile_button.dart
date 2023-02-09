@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/census_line.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/zone_button_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class WideDistrictButton extends StatelessWidget {
@@ -42,7 +42,7 @@ class WideDistrictButton extends StatelessWidget {
         DreamBox(
           isDisabled: !isActive,
           height: 40,
-          width: Bubble.bubbleWidth(context),
+          width: Bubble.bubbleWidth(context: context),
           iconSizeFactor: 0.8,
           verse: Verse.plain(_districtNameValue),
           bubble: false,

@@ -20,7 +20,7 @@ class RemainingSlidesCounter extends StatelessWidget {
       height: Ratioz.appBarButtonSize,
       // width: Ratioz.appBarButtonSize * 1.3,
       verse: Verse(
-          text: '$_numberOfSlides '
+          id: '$_numberOfSlides '
                 '${Verse.transBake(context, 'phid_slides')}',
           translate: false
       ),
@@ -28,7 +28,7 @@ class RemainingSlidesCounter extends StatelessWidget {
       verseMaxLines: 2,
       verseScaleFactor: 0.5,
       secondLine: const Verse(
-        text: 'phid_available',
+        id: 'phid_available',
         translate: true,
       ),
       secondLineScaleFactor: 0.9,
@@ -40,12 +40,12 @@ class RemainingSlidesCounter extends StatelessWidget {
           context: context,
           boolDialog: true,
           titleVerse: const Verse(
-            text: 'phid_no_slides_left',
+            id: 'phid_no_slides_left',
             translate: true,
           ),
           bodyVerse: const Verse(
             pseudo: "You don't have any more slides to add\nWould you wish to get more slides ?",
-            text: 'phid_no_slides_left_description',
+            id: 'phid_no_slides_left_description',
             translate: true,
           ),
         );

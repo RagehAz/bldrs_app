@@ -34,7 +34,7 @@ class IsSignedInButton extends StatelessWidget {
     return DreamBox(
       height: Ratioz.appBarButtonSize,
       verse: Verse(
-        text: _isSignedIn ? 'phid_signIn' : 'phid_signOut',
+        id: _isSignedIn ? 'phid_signIn' : 'phid_signOut',
         translate: true,
       ),
       color: _isSignedIn ? Colorz.green255 : Colorz.grey80,
@@ -45,9 +45,9 @@ class IsSignedInButton extends StatelessWidget {
 
         final bool _result = await CenterDialog.showCenterDialog(
           context: context,
-          titleVerse: const Verse(text: 'phid_sign_out_?', translate: true),
+          titleVerse: const Verse(id: 'phid_sign_out_?', translate: true),
           boolDialog: true,
-          confirmButtonVerse: const Verse(text: 'phid_signOut', translate: true),
+          confirmButtonVerse: const Verse(id: 'phid_signOut', translate: true),
         );
 
         if (_result == true){

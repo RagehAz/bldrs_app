@@ -94,7 +94,7 @@ class UserTileButtonsList extends StatelessWidget {
           else {
             return SuperVerse(
               verse: emptyListString ?? const Verse(
-                text: 'phid_no_users_found',
+                id: 'phid_no_users_found',
                 pseudo: 'No users found with this name',
                 translate: true,
               ),

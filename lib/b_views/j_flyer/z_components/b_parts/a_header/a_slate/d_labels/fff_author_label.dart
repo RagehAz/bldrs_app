@@ -92,7 +92,7 @@ class AuthorLabel extends StatelessWidget {
                       width: _authorLabelVersesWidth,
                       child: SuperVerse(
                         verse: Verse(
-                          text: _author?.name,
+                          id: _author?.name,
                           translate: false,
                         ),
                         centered: false,
@@ -105,7 +105,7 @@ class AuthorLabel extends StatelessWidget {
                       width: _authorLabelVersesWidth,
                       child: SuperVerse(
                         verse: Verse(
-                          text: _author?.title,
+                          id: _author?.title,
                           translate: false,
                         ),
                         size: 1,

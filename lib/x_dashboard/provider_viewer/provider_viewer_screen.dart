@@ -126,7 +126,7 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
             /// AUTH -------------------------------------------------------------
             const SuperVerse(
               verse: Verse(
-                text: 'Auth',
+                id: 'Auth',
                 translate: false,
               ),
             ),
@@ -155,7 +155,7 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
             /// USER -------------------------------------------------------------
             const SuperVerse(
               verse: Verse(
-                text: 'User',
+                id: 'User',
                 translate: false,
               ),
             ),
@@ -186,7 +186,7 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
             /// BZZ -------------------------------------------------------------
             const SuperVerse(
               verse: Verse(
-                text: 'Bzz',
+                id: 'Bzz',
                 translate: false,
               ),
             ),
@@ -244,7 +244,7 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
             /// ZONE -------------------------------------------------------------
             const SuperVerse(
               verse: Verse(
-                text: 'Zone',
+                id: 'Zone',
                 translate: false,
               ),
             ),
@@ -319,7 +319,7 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
             /// CHAINS -------------------------------------------------------------
             const SuperVerse(
               verse: Verse(
-                text: 'Chains',
+                id: 'Chains',
                 translate: false,
               ),
             ),
@@ -401,7 +401,7 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
             /// PHRASES -------------------------------------------------------------
             const SuperVerse(
               verse: Verse(
-                text: 'Phrases',
+                id: 'Phrases',
                 translate: false,
               ),
             ),
@@ -441,7 +441,7 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
             /// UI -------------------------------------------------------------
             const SuperVerse(
               verse: Verse(
-                text: 'UI',
+                id: 'UI',
                 translate: false,
               ),
             ),
@@ -484,7 +484,7 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
             /// CHAINS -------------------------------------------------------------
             const SuperVerse(
               verse: Verse(
-                text: 'TO AVOID SET STATE TECHNIQUES',
+                id: 'TO AVOID SET STATE TECHNIQUES',
                 translate: false,
               ),
             ),
@@ -497,7 +497,7 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
                   height: 50,
                   width: 300,
                   verse:  Verse(
-                    text: '_loading is : $_loading',
+                    id: '_loading is : $_loading',
                     translate: false,
                   ),
                   verseScaleFactor: 0.6,
@@ -517,7 +517,7 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
                     height: 50,
                     width: 300,
                     verse:  Verse(
-                      text: 'isLoading is : $isLoading',
+                      id: 'isLoading is : $isLoading',
                       translate: false,
                     ),
                     verseScaleFactor: 0.6,
@@ -538,7 +538,7 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
                   height: 50,
                   width: 50,
                   verse: const Verse(
-                    text: 'X',
+                    id: 'X',
                     translate: false,
                   ),
                   verseScaleFactor: 0.6,
@@ -599,7 +599,7 @@ class ProviderTestButton extends StatelessWidget {
       margins: const EdgeInsets.symmetric(vertical: 2.5),
       color: value == null ? Colorz.bloodTest : Colorz.green255,
       verse: Verse(
-        text: title,
+        id: title,
         translate: false,
       ),
       iconSizeFactor: 0.6,

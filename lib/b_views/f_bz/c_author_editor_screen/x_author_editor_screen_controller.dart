@@ -71,7 +71,7 @@ Future<void> loadAuthorEditorSession({
     final bool _continue = await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: const Verse(
-        text: 'phid_load_last_session_data_q',
+        id: 'phid_load_last_session_data_q',
         translate: true,
       ),
       // bodyVerse: const Verse(
@@ -325,16 +325,16 @@ Future<void> onConfirmAuthorUpdates({
   final bool _result = await CenterDialog.showCenterDialog(
     context: context,
     titleVerse: const Verse(
-      text: 'phid_confirm_edits_?',
+      id: 'phid_confirm_edits_?',
       translate: true,
     ),
     bodyVerse: const Verse(
-      text: 'phid_confirm_author_edits_note',
+      id: 'phid_confirm_author_edits_note',
       translate: true,
     ),
     boolDialog: true,
     confirmButtonVerse: const Verse(
-      text: 'phid_confirm',
+      id: 'phid_confirm',
       translate: true,
     ),
   );
@@ -344,7 +344,7 @@ Future<void> onConfirmAuthorUpdates({
     pushWaitDialog(
       context: context,
       verse: const Verse(
-        text: 'phid_updating_author_profile',
+        id: 'phid_updating_author_profile',
         translate: true,
       ),
     );
@@ -395,11 +395,11 @@ Future<void> onChangeAuthorRoleOps({
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: const Verse(
-        text: 'phid_confirm_author_role_?',
+        id: 'phid_confirm_author_role_?',
         translate: true,
       ),
       bodyVerse: Verse(
-        text: '${Verse.transBake(context, 'phid_this_will_change_the_role_of')}\n'
+        id: '${Verse.transBake(context, 'phid_this_will_change_the_role_of')}\n'
               '${oldAuthor.name}\n'
               '${Verse.transBake(context, 'phid_to')}'
               '${Verse.transBake(context, _rolePhid)}',
@@ -421,7 +421,7 @@ Future<void> onChangeAuthorRoleOps({
       pushWaitDialog(
         context: context,
         verse: const Verse(
-          text: 'phid_updating_author_profile',
+          id: 'phid_updating_author_profile',
           translate: true,
         ),
       );
@@ -517,7 +517,7 @@ Future<bool> _checkCanChangeRole({
       await CenterDialog.showCenterDialog(
         context: context,
         titleVerse: const Verse(
-          text: 'phid_cant_change_member_role',
+          id: 'phid_cant_change_member_role',
           translate: true,
         ),
       );
@@ -535,7 +535,7 @@ Future<bool> _checkCanChangeRole({
       await CenterDialog.showCenterDialog(
         context: context,
         titleVerse: const Verse(
-          text: 'phid_only_one_creator_allowed',
+          id: 'phid_only_one_creator_allowed',
           translate: true,
         ),
       );

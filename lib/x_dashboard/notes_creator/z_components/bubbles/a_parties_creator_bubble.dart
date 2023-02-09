@@ -10,7 +10,7 @@ import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart
 import 'package:bldrs/x_dashboard/notes_creator/b_controllers/b_parties_controllers.dart';
 import 'package:bldrs/x_dashboard/notes_creator/z_components/buttons/note_party_button.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class NotePartiesBubbles extends StatelessWidget {
@@ -31,7 +31,7 @@ class NotePartiesBubbles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _bubbleWidth = Bubble.bubbleWidth(context);
+    final double _bubbleWidth = Bubble.bubbleWidth(context: context);
     final double _halfBubbleWidth = (_bubbleWidth - 10) / 2;
     final double _halfBubbleChildWidth = TileBubble.childWidth(
       context: context,
@@ -46,11 +46,11 @@ class NotePartiesBubbles extends StatelessWidget {
         const SizedBox(width: 10, height: 10),
 
         /// SENDER
-        TileBubble(
+        BldrsTileBubble(
           bubbleWidth: _halfBubbleWidth,
-          bubbleHeaderVM: BldrsBubbleHeaderVM(
+          bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
             headlineVerse: const Verse(
-              text: 'Sender',
+              id: 'Sender',
               translate: false,
             ),
             leadingIcon: Iconz.phone,
@@ -106,11 +106,11 @@ class NotePartiesBubbles extends StatelessWidget {
         const SizedBox(width: 10, height: 10),
 
         /// RECEIVERS
-        TileBubble(
+        BldrsTileBubble(
           bubbleWidth: _halfBubbleWidth,
-          bubbleHeaderVM: BldrsBubbleHeaderVM(
+          bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
             headlineVerse: const Verse(
-              text: 'Receivers',
+              id: 'Receivers',
               translate: false,
             ),
             leadingIcon: Iconz.phone,

@@ -40,8 +40,8 @@ Future<void> prepareFastPhidCreation({
   if (untranslatedVerse != null){
 
     if (mounted == true){
-      searchController.text = untranslatedVerse.text;
-      idTextController.text = untranslatedVerse.text;
+      searchController.text = untranslatedVerse.id;
+      idTextController.text = untranslatedVerse.id;
       enTextController.text = TextMod.removeTextBeforeLastSpecialCharacter(untranslatedVerse.pseudo, '#') ?? '';
     }
 
@@ -278,7 +278,7 @@ Future<void> onConfirmEditPhrase({
 
     await Dialogs.showSuccessDialog(
       context: context,
-      firstLine: const Verse(text: 'Phrases Updated', translate: false),
+      firstLine: const Verse(id: 'Phrases Updated', translate: false),
     );
 
   }
@@ -307,8 +307,8 @@ Future<bool> _preEditCheck({
   ){
     await CenterDialog.showCenterDialog(
       context: context,
-      titleVerse: const Verse(text: 'Check inputs', translate: false),
-      bodyVerse: const Verse(text: 'The ID or one of the values is empty.', translate: false),
+      titleVerse: const Verse(id: 'Check inputs', translate: false),
+      bodyVerse: const Verse(id: 'The ID or one of the values is empty.', translate: false),
       color: Colorz.red255,
     );
 
@@ -396,7 +396,7 @@ Future<bool> _preEditCheck({
 
       _continueOps = await CenterDialog.showCenterDialog(
         context: context,
-        titleVerse: const Verse(text: '7aseb !', translate: false),
+        titleVerse: const Verse(id: '7aseb !', translate: false),
         boolDialog: true,
         bodyVerse: Verse.plain('$_alertMessage\n\n$_actionTypeMessage\n\nWanna continue uploading ?'),
       );
@@ -439,7 +439,7 @@ Future<void> onDeletePhrase({
 
   final bool _continue = await CenterDialog.showCenterDialog(
     context: context,
-    titleVerse: const Verse(text: 'Bgad ?', translate: false),
+    titleVerse: const Verse(id: 'Bgad ?', translate: false),
     boolDialog: true,
     bodyVerse:  Verse.plain('Delete This Phrase ?\n\nPhid : $phid'),
   );
@@ -474,7 +474,7 @@ Future<void> onDeletePhrase({
 
     await Dialogs.showSuccessDialog(
       context: context,
-      firstLine: const Verse(text: 'Phrase has been deleted', translate: false),
+      firstLine: const Verse(id: 'Phrase has been deleted', translate: false),
     );
 
   }
@@ -491,9 +491,9 @@ Future<void> onSelectPhrase({
 
   final bool _continue = await Dialogs.goBackDialog(
     context: context,
-    titleVerse: const Verse(text: 'Select This & go Back ?', translate: false),
+    titleVerse: const Verse(id: 'Select This & go Back ?', translate: false),
     bodyVerse: Verse.plain('$phid\n${xPhrase( context, phid)}'),
-    confirmButtonVerse: const Verse(text: 'Select & Back', translate: false),
+    confirmButtonVerse: const Verse(id: 'Select & Back', translate: false),
   );
 
   if (_continue == true){
@@ -556,7 +556,7 @@ Future<void> onSyncPhrases({
 
     await Dialogs.showSuccessDialog(
       context: context,
-      firstLine: const Verse(text: 'Sync Successful', translate: false),
+      firstLine: const Verse(id: 'Sync Successful', translate: false),
     );
 
   }
@@ -599,7 +599,7 @@ Future<void> showPhidsPendingTranslationDialog(BuildContext context) async {
   await BottomDialog.showStatefulBottomDialog(
     context: context,
     draggable: true,
-    titleVerse: const Verse(text: 'Phids Pending Translation', translate: false),
+    titleVerse: const Verse(id: 'Phids Pending Translation', translate: false),
     builder: (BuildContext xxx, Function setState){
 
       final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: true);
@@ -627,7 +627,7 @@ Future<void> showPhidsPendingTranslationDialog(BuildContext context) async {
 
                     final bool _result = await Dialogs.confirmProceed(
                       context: context,
-                      titleVerse: const Verse(text: 'phid_delete', translate: true),
+                      titleVerse: const Verse(id: 'phid_delete', translate: true),
                     );
 
                     if (_result == true){
@@ -674,7 +674,7 @@ Future<void> showPhidsPendingTranslationDialog(BuildContext context) async {
 
                 return BottomDialog.wideButton(
                   context: context,
-                  verse: const Verse(text: 'Clear All', translate: false),
+                  verse: const Verse(id: 'Clear All', translate: false),
                   onTap: () async {
 
                     _phraseProvider.setPhidsPendingTranslation(
@@ -719,7 +719,7 @@ Future<void> goToFastTranslator({
     verse: verse,
   );
 
-  await Keyboard.copyToClipboard(context: context, copy: verse.text);
+  await Keyboard.copyToClipboard(context: context, copy: verse.id);
 
 }
 

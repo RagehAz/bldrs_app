@@ -113,7 +113,7 @@ Future<void> onDeleteBzButtonTap({
       await TopDialog.showTopDialog(
         context: context,
         firstVerse: const Verse(
-          text: 'phid_bz_account_deleted_successfully',
+          id: 'phid_bz_account_deleted_successfully',
           translate: true,
         ),
         color: Colorz.green255,
@@ -200,16 +200,16 @@ Future<bool> _showConfirmDeleteBzDialog({
     bzModel: bzModel,
     invertButtons: true,
     titleVerse: Verse(
-      text: 'phid_delete_bz_account_?',
+      id: 'phid_delete_bz_account_?',
       translate: true,
       variables: bzModel.name,
     ),
     bodyVerse: const Verse(
-      text: 'phid_bz_deletion_warning',
+      id: 'phid_bz_deletion_warning',
       translate: true,
     ),
     confirmButtonVerse: const Verse(
-      text: 'phid_yes_delete',
+      id: 'phid_yes_delete',
       translate: true,
     ),
   );
@@ -228,11 +228,11 @@ Future<void> _showOnlyCreatorCanDeleteBzDialog({
   await CenterDialog.showCenterDialog(
     context: context,
     titleVerse: const Verse(
-      text: 'phid_cant_delete_account',
+      id: 'phid_cant_delete_account',
       translate: true,
     ),
     bodyVerse: Verse(
-      text: '$_creatorAuthorsString\n'
+      id: '$_creatorAuthorsString\n'
             '${Verse.transBake(context, 'phid_is_only_who_can_delete_this_bz')}',
       translate: false,
       variables: _creatorAuthorsString,
@@ -249,15 +249,15 @@ Future<bool> _showConfirmDeleteAllBzFlyersDialog({
   final bool _result = await Dialogs.flyersDialog(
     context: context,
     titleVerse: const Verse(
-      text: 'phid_all_bz_flyers_will_be_wiped',
+      id: 'phid_all_bz_flyers_will_be_wiped',
       translate: true,
     ),
     bodyVerse: const Verse(
-      text: 'phid_flyers_deletion_warning',
+      id: 'phid_flyers_deletion_warning',
       translate: true,
     ),
     confirmButtonVerse: Verse(
-      text: 'phid_delete_all_flyers',
+      id: 'phid_delete_all_flyers',
       translate: true,
       variables: bzModel.name,
     ),

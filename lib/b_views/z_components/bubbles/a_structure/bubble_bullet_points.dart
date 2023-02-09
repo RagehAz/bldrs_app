@@ -1,12 +1,12 @@
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:super_text/super_text.dart';
 
-class BulletPoints extends StatelessWidget {
+class BldrsBulletPoints extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const BulletPoints({
+  const BldrsBulletPoints({
     @required this.bulletPoints,
     this.bubbleWidth,
     this.centered,
@@ -20,47 +20,24 @@ class BulletPoints extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (Mapper.checkCanLoopList(bulletPoints) == false){
-      return const SizedBox();
-    }
+    final double _bubbleWidth = Bubble.clearWidth(
+      context: context,
+      bubbleWidthOverride: bubbleWidth,
+    );
 
-    else {
+    return BulletPoints(
+      boxWidth: _bubbleWidth,
+      bulletPoints: Verse.bakeVerses(
+        context: context,
+        verses: bulletPoints,
+      ),
+      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+      textDirection: UiProvider.getAppTextDir(context),
+      centered: centered,
 
-      final double _bubbleWidth = bubbleWidth ?? Bubble.clearWidth(context);
-
-      return Column(
-        crossAxisAlignment: centered == true ? CrossAxisAlignment.center : CrossAxisAlignment.start,
-        children: <Widget>[
-
-          ...List.generate(bulletPoints.length, (index){
-
-            return SizedBox(
-              width: _bubbleWidth,
-              child: SuperVerse(
-                verse: bulletPoints[index],
-                margin: 0,
-                // size: 2,
-                maxLines: 10,
-                centered: centered,
-                color: Colorz.blue255,
-                italic: true,
-                weight: VerseWeight.thin,
-                leadingDot: true,
-              ),
-            );
-
-          }),
-
-          Container(
-            width: _bubbleWidth - (Ratioz.appBarMargin * 2),
-            height: 0.5,
-            color: Colorz.blue125,
-            margin: const EdgeInsets.symmetric(vertical: 10),
-          ),
-
-        ],
-      );
-    }
+      // textColor: Colorz.blue255,
+      // showBottomLine: true,
+    );
 
   }
 /// --------------------------------------------------------------------------

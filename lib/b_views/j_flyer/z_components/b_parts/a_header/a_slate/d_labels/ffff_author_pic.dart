@@ -77,7 +77,7 @@ class AuthorPic extends StatelessWidget {
 
                   const SuperVerse(
                     verse: Verse(
-                      text: 'phid_add_author_to_the_team',
+                      id: 'phid_add_author_to_the_team',
                       pseudo: 'Add new Author',
                       translate: true,
                     ),

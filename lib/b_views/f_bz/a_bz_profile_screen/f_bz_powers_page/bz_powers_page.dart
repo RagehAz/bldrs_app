@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class BzPowersPage extends StatelessWidget {
@@ -17,6 +17,8 @@ class BzPowersPage extends StatelessWidget {
 
     // final BzModel _bzModel = BzzProvider.proGetActiveBzModel(context: context, listen: true);
 
+    final double _clearWidth = Bubble.clearWidth(context: context);
+
     return ListView(
       physics: const BouncingScrollPhysics(),
       padding: Stratosphere.stratosphereSandwich,
@@ -25,7 +27,7 @@ class BzPowersPage extends StatelessWidget {
         Bubble(
           bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
             headlineVerse: const Verse(
-              text: 'phid_get_more_slides',
+              id: 'phid_get_more_slides',
               translate: true,
             ),
           ),
@@ -48,7 +50,7 @@ class BzPowersPage extends StatelessWidget {
         Bubble(
           bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
             headlineVerse: const Verse(
-              text: 'phid_get_more_ankhs',
+              id: 'phid_get_more_ankhs',
               translate: true,
             ),
           ),
@@ -60,7 +62,7 @@ class BzPowersPage extends StatelessWidget {
         Bubble(
           bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
             headlineVerse: const Verse(
-              text: 'phid_get_pro_account',
+              id: 'phid_get_pro_account',
               translate: true,
             ),
           ),
@@ -72,7 +74,7 @@ class BzPowersPage extends StatelessWidget {
         Bubble(
           bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
             headlineVerse: const Verse(
-              text: 'phid_get_master_account',
+              id: 'phid_get_master_account',
               translate: true,
             ),
           ),
@@ -84,7 +86,7 @@ class BzPowersPage extends StatelessWidget {
         Bubble(
           bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
             headlineVerse: const Verse(
-              text: 'phid_boost_flyer',
+              id: 'phid_boost_flyer',
               translate: true,
             ),
           ),
@@ -96,7 +98,7 @@ class BzPowersPage extends StatelessWidget {
         Bubble(
           bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
             headlineVerse: const Verse(
-              text: 'phid_create_ad',
+              id: 'phid_create_ad',
               translate: true,
             ),
           ),
@@ -108,7 +110,7 @@ class BzPowersPage extends StatelessWidget {
         Bubble(
           bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
             headlineVerse: const Verse(
-              text: 'phid_sponsor_bldrs_in_ur_city',
+              id: 'phid_sponsor_bldrs_in_ur_city',
               translate: true,
             ),
           ),
@@ -120,7 +122,7 @@ class BzPowersPage extends StatelessWidget {
         Bubble(
           bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
             headlineVerse: const Verse(
-              text: 'phid_get_marketing_material',
+              id: 'phid_get_marketing_material',
               translate: true,
             ),
           ),
@@ -134,7 +136,7 @@ class BzPowersPage extends StatelessWidget {
             // ),
 
             Container(
-              width: Bubble.clearWidth(context),
+              width: Bubble.clearWidth(context: context),
               height: 100,
               margin:
               const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
@@ -146,18 +148,18 @@ class BzPowersPage extends StatelessWidget {
 
             SuperVerse.verseDot(
               verse: const Verse(
-                text: '#!# Download "Find us on Bldrs.net" printable banner',
+                id: '#!# Download "Find us on Bldrs.net" printable banner',
                 translate: true,
               ),
             ),
 
             Container(
-              width: Bubble.clearWidth(context),
+              width: _clearWidth,
               height: 100,
               margin: const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
               alignment: Alignment.center,
               child: Container(
-                width: Bubble.clearWidth(context) - 150,
+                width: _clearWidth - 150,
                 height: 100,
                 decoration: const BoxDecoration(
                   color: Colorz.bloodTest,
@@ -168,13 +170,13 @@ class BzPowersPage extends StatelessWidget {
 
             SuperVerse.verseDot(
               verse: const Verse(
-                text: '#!# Use Bldrs.net graphics to customize your own materials',
+                id: '#!# Use Bldrs.net graphics to customize your own materials',
                 translate: true,
               ),
             ),
 
             Container(
-              width: Bubble.clearWidth(context),
+              width: _clearWidth,
               height: 100,
               margin:
               const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),

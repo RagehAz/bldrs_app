@@ -138,8 +138,8 @@ class CollapsableTileState extends State<CollapsableTile> with SingleTickerProvi
         oldWidget.icon != widget.icon ||
         oldWidget.iconSizeFactor != widget.iconSizeFactor ||
         oldWidget.initiallyExpanded != widget.initiallyExpanded ||
-        oldWidget.firstHeadline?.text != widget.firstHeadline?.text ||
-        oldWidget.secondHeadline?.text != widget.secondHeadline?.text ||
+        oldWidget.firstHeadline?.id != widget.firstHeadline?.id ||
+        oldWidget.secondHeadline?.id != widget.secondHeadline?.id ||
         oldWidget.initialColor != widget.initialColor ||
         oldWidget.expansionColor != widget.expansionColor ||
         oldWidget.corners != widget.corners ||

@@ -60,7 +60,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
   Widget _button(String text) {
     return SuperVerse(
       verse: Verse(
-        text: text,
+        id: text,
         translate: false,
       ),
       labelColor: Colorz.white20,

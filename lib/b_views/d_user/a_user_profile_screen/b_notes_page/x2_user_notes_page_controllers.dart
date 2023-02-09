@@ -55,7 +55,7 @@ Future<void> onShowNoteOptions({
       draggable: true,
       numberOfWidgets: 1,
       titleVerse: const Verse(
-        text: 'phid_options',
+        id: 'phid_options',
         translate: true,
       ),
       buttonHeight: 50,
@@ -66,7 +66,7 @@ Future<void> onShowNoteOptions({
           BottomDialog.wideButton(
               context: context,
               verse: const Verse(
-                text: 'phid_delete',
+                id: 'phid_delete',
                 translate: true,
               ),
               height: 50,

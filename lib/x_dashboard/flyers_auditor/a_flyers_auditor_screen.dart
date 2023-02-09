@@ -122,7 +122,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
             return const Center(
               child: SuperVerse(
                 verse: Verse(
-                  text: 'No Flyers Left',
+                  id: 'No Flyers Left',
                   translate: false,
                 ),
                 weight: VerseWeight.black,

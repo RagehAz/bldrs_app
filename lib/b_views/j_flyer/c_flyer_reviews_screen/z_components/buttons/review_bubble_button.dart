@@ -46,7 +46,7 @@ class ReviewBubbleButton extends StatelessWidget {
       }
 
       return Verse(
-        text: _output,
+        id: _output,
         translate: false,
       );
     }

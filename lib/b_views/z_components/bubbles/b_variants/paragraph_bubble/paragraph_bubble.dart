@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/text_lines_analyzer.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 
@@ -51,7 +51,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
   void initState() {
     super.initState();
     _maxLines = widget.maxLines;
-    _canExpand = widget.paragraph.text.length > 100;
+    _canExpand = widget.paragraph.id.length > 100;
   }
   // --------------------
   @override
@@ -114,7 +114,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
         columnChildren: <Widget>[
 
           /// PARAGRAPH TEXT
-          if (widget.paragraph != null && widget.paragraph.text != '')
+          if (widget.paragraph != null && widget.paragraph.id != '')
             Padding(
               padding: Scale.superMargins(margin: widget.margins),
               child: SuperVerse(
@@ -127,9 +127,9 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
             ),
 
           /// ARROW
-          if (widget.paragraph != null && widget.paragraph.text != '')
+          if (widget.paragraph != null && widget.paragraph.id != '')
             TextLinesAnalyzer(
-              text: widget.paragraph.text.trim(),
+              text: widget.paragraph.id.trim(),
               textStyle: _paragraphTextStyle,
               maxLines: widget.maxLines,
               childIfWithinMaxLines: Container(),

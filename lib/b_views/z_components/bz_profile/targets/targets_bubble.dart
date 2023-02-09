@@ -45,7 +45,7 @@ class TargetsBubble extends StatelessWidget {
 
           const SuperVerse(
             verse: Verse(
-              text: 'phid_targets_main_description',
+              id: 'phid_targets_main_description',
               translate: true,
               pseudo: 'Achieving the below targets will put you on track, '
                   'and will give you an idea how to use Bldrs.net to acquire '

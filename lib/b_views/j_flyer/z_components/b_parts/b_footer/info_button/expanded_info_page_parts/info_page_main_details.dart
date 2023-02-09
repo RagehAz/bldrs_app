@@ -77,7 +77,7 @@ class InfoPageMainDetails extends StatelessWidget {
         StatsLine(
           bubbleWidth: pageWidth - 20,
           verse: Verse(
-            text: '${xPhrase(context, 'phid_flyer_type')} : ${xPhrase(context, _flyerTypePhid)}',
+            id: '${xPhrase(context, 'phid_flyer_type')} : ${xPhrase(context, _flyerTypePhid)}',
             translate: false,
           ),
           icon: FlyerTyper.flyerTypeIcon(flyerType: flyerModel.flyerType, isOn: false),
@@ -89,7 +89,7 @@ class InfoPageMainDetails extends StatelessWidget {
         StatsLine(
           bubbleWidth: pageWidth - 20,
           verse: Verse(
-            text: '${xPhrase(context, 'phid_since')} $_timeDifferance',
+            id: '${xPhrase(context, 'phid_since')} $_timeDifferance',
             translate: false,
           ),
           icon: Iconz.calendar,

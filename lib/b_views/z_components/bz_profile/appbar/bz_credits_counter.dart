@@ -79,7 +79,7 @@ class CreditsRow extends StatelessWidget {
           alignment: Aligners.superInverseCenterAlignment(context),
           child: SuperVerse(
             verse: Verse(
-              text: value,
+              id: value,
               translate: false,
             ),
             size: 1,

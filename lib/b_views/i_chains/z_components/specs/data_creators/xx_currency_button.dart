@@ -44,7 +44,7 @@ class CurrencyButton extends StatelessWidget {
         color: Colorz.blackSemi255,
         icon: icon ?? Flag.getCountryIcon(countryID.toLowerCase()),
         verse: Verse(
-          text: '${currency.symbol} . ${xPhrase(context, currency.id)}',
+          id: '${currency.symbol} . ${xPhrase(context, currency.id)}',
           translate: false,
         ),
         // translateSecondLine: false,

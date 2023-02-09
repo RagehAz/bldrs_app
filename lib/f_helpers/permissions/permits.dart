@@ -343,7 +343,7 @@ class Permit {
       titleVerse: Verse.plain(permission?.toString()),
       bodyVerse: Verse(
         translate: false,
-        text: _blog,
+        id: _blog,
       ),
       bodyCentered: false,
     );
@@ -363,11 +363,11 @@ class Permit {
     final bool _go = await Dialogs.confirmProceed(
         context: context,
         titleVerse: const Verse(
-          text: 'phid_permission_required',
+          id: 'phid_permission_required',
           translate: true,
         ),
       bodyVerse: Verse(
-        text: getPermissionWarningPhid(permission),
+        id: getPermissionWarningPhid(permission),
         translate: true,
       ),
     );

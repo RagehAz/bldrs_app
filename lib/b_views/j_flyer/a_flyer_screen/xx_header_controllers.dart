@@ -325,11 +325,11 @@ Future<void> onCallTap({
       await CenterDialog.showCenterDialog(
         context: context,
         titleVerse: const Verse(
-          text: 'phid_no_contacts_available',
+          id: 'phid_no_contacts_available',
           translate: true,
         ),
         bodyVerse: const Verse(
-          text: 'phid_reminder_will_be_sent_to_bz_for_phone',
+          id: 'phid_reminder_will_be_sent_to_bz_for_phone',
           translate: true,
         ),
       );
@@ -347,11 +347,11 @@ Future<void> onCallTap({
       await Dialogs.bzContactsDialog(
           context: context,
           titleVerse: const Verse(
-            text: 'phid_contact_directly',
+            id: 'phid_contact_directly',
             translate: true,
           ),
           bodyVerse: const Verse(
-            text: 'phid_select_author_to_contact',
+            id: 'phid_select_author_to_contact',
             translate: true,
           ),
           bzModel: bzModel,

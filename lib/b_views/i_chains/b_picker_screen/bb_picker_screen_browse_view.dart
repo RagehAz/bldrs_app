@@ -75,7 +75,7 @@ class PickerScreenBrowseView extends StatelessWidget {
     /// WHEN DATA CREATORS
     if (_sonsAreDataCreator == true) {
       _instructions = const Verse(
-        text: '##Specify this',
+        id: '##Specify this',
         translate: true
       );
     }
@@ -83,7 +83,7 @@ class PickerScreenBrowseView extends StatelessWidget {
     /// WHEN PHIDS
     else {
       _instructions = Verse(
-        text: picker?.canPickMany == true ?
+        id: picker?.canPickMany == true ?
         '##You may pick multiple specifications from this list'
             :
         '##You can pick only one specification from this list',

@@ -150,7 +150,7 @@ class _SearchBarState extends State<SearchBar> {
             globalKey: globalKey,
             // autofocus: false,
             titleVerse: const Verse(
-              text: 'phid_search',
+              id: 'phid_search',
               translate: true,
             ),
             // fieldIsFormField: true,
@@ -173,7 +173,7 @@ class _SearchBarState extends State<SearchBar> {
               }
             },
             hintVerse: widget.hintVerse ?? const Verse(
-              text: 'phid_search',
+              id: 'phid_search',
               translate: true,
             ),
             textColor: Colorz.yellow255,

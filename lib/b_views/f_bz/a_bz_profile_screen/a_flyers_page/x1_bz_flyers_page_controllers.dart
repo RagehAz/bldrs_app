@@ -70,7 +70,7 @@ Future<void> onFlyerBzOptionsTap({
           /// EDIT FLYER BUTTON
           BottomDialog.wideButton(
             context: context,
-            verse: const Verse(text: 'phid_edit_flyer', translate: true),
+            verse: const Verse(id: 'phid_edit_flyer', translate: true),
             verseCentered: true,
             onTap: () => _onEditFlyerButtonTap(
               context: context,
@@ -92,7 +92,7 @@ Future<void> onFlyerBzOptionsTap({
               context: context,
             ),
             /// --->
-            verse: const Verse(text: 'phid_delete_flyer', translate: true),
+            verse: const Verse(id: 'phid_delete_flyer', translate: true),
             onTap: () => _onDeleteFlyerButtonTap(
               context: context,
               flyer: flyer,
@@ -157,7 +157,7 @@ Future<void> _onCanNotDeleteFlyerDialog({
     context: context,
     titleVerse: const Verse(
       pseudo: 'Can not Delete Flyer',
-      text: 'phid_can_not_delete_flyer',
+      id: 'phid_can_not_delete_flyer',
       translate: true,
     ),
   );
@@ -194,7 +194,7 @@ Future<void> _onDeleteFlyerButtonTap({
     await TopDialog.showTopDialog(
       context: context,
       firstVerse: const Verse(
-        text: 'phid_flyer_has_been_deleted_successfully',
+        id: 'phid_flyer_has_been_deleted_successfully',
         translate: true,
       ),
       color: Colorz.green255,
@@ -230,12 +230,12 @@ Future<bool> _preFlyerDeleteCheckups({
     await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: const Verse(
-        text: 'phid_can_not_delete_flyer',
+        id: 'phid_can_not_delete_flyer',
         translate: true,
       ),
       bodyVerse: const Verse(
         pseudo: 'Only Business Account creator can Delete flyers',
-        text: 'phid_only_bz_creator_can_delete_flyer',
+        id: 'phid_only_bz_creator_can_delete_flyer',
         translate: true,
       ),
     );
@@ -248,16 +248,16 @@ Future<bool> _preFlyerDeleteCheckups({
     _canContinue = await Dialogs.flyerDialog(
       context: context,
       titleVerse: const Verse(
-        text: 'phid_delete_flyer',
+        id: 'phid_delete_flyer',
         translate: true,
       ),
       bodyVerse: const Verse(
         pseudo: 'This will delete this flyer and all its content and can not be retrieved any more',
-        text: 'phid_flyer_deletion_warning',
+        id: 'phid_flyer_deletion_warning',
         translate: true,
       ),
       confirmButtonVerse: const Verse(
-        text: 'phid_yes_delete',
+        id: 'phid_yes_delete',
         translate: true,
       ),
       invertButtons: true,

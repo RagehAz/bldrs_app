@@ -122,11 +122,11 @@ class CloudFunction {
           context: context,
           titleVerse: const Verse(
             pseudo: 'You Are not Signed in',
-            text: 'phid_your_not_signed_in',
+            id: 'phid_your_not_signed_in',
             translate: true,
           ),
           bodyVerse: const Verse(
-            text: 'phid_please_sign_in_first',
+            id: 'phid_please_sign_in_first',
             translate: true,
           ),
         );
@@ -135,11 +135,11 @@ class CloudFunction {
         await CenterDialog.showCenterDialog(
           context: context,
           titleVerse: const Verse(
-            text: 'phid_error',
+            id: 'phid_error',
             translate: true,
           ),
           bodyVerse: Verse(
-            text: error.toString(),
+            id: error.toString(),
             translate: false,
           ),
         );

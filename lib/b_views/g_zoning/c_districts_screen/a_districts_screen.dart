@@ -280,7 +280,7 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
       onSearchSubmit: _onSearchDistrict,
       onSearchChanged: _onSearchDistrict,
       title: const Verse(
-        text: 'phid_select_a_district',
+        id: 'phid_select_a_district',
         translate: true,
       ),
       pyramidsAreOn: true,
@@ -289,7 +289,7 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
         invoker: 'SelectDistrictScreen',
       ),
       searchHintVerse: Verse(
-        text: '${xPhrase( context, 'phid_search_districts_of')} $_cityName',
+        id: '${xPhrase( context, 'phid_search_districts_of')} $_cityName',
         translate: false,
       ),
       loading: _loading,

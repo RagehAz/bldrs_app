@@ -104,7 +104,7 @@ class KeyboardModel {
     return const KeyboardModel(
       titleVerse: null,
       hintVerse: Verse(
-        text: '...',
+        id: '...',
         translate: false,
       ),
       // minLines: 1,

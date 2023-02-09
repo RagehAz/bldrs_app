@@ -59,7 +59,7 @@ class DistrictsScreenBrowseView extends StatelessWidget {
 
               return WideCityButton(
                 verse: const Verse(
-                  text: 'phid_view_all_districts',
+                  id: 'phid_view_all_districts',
                   translate: true,
                 ),
                 city: cityModel,

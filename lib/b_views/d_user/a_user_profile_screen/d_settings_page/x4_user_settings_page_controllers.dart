@@ -95,15 +95,15 @@ Future<void> onDeleteMyAccount(BuildContext context) async {
     _continue = await reAuthenticateUser(
       context: context,
       dialogTitleVerse: const Verse(
-        text: 'phid_delete_your_account_?',
+        id: 'phid_delete_your_account_?',
         translate: true,
       ),
       dialogBodyVerse: const Verse(
-        text: 'phid_delete_account_description',
+        id: 'phid_delete_account_description',
         translate: true,
       ),
       confirmButtonVerse: const Verse(
-        text: 'phid_yes_delete',
+        id: 'phid_yes_delete',
         translate: true,
       ),
     );
@@ -122,15 +122,15 @@ Future<void> onDeleteMyAccount(BuildContext context) async {
       context: context,
       titleVerse: const Verse(
         pseudo: 'Account is Deleted Successfully',
-        text: 'phid_account_is_deleted',
+        id: 'phid_account_is_deleted',
         translate: true,
       ),
       bodyVerse: const Verse(
-        text: 'phid_it_has_been_an_honor',
+        id: 'phid_it_has_been_an_honor',
         translate: true,
       ),
       confirmButtonVerse: const Verse(
-        text: 'phid_the_honor_is_mine',
+        id: 'phid_the_honor_is_mine',
         translate: true,
       ),
     );
@@ -187,16 +187,16 @@ Future<bool> _authorshipDeletionCheckups(BuildContext context) async {
           invertButtons: true,
           bzzModels: _myBzzICreated,
           titleVerse: const Verse(
-            text: 'phid_delete_bz_accounts_?',
+            id: 'phid_delete_bz_accounts_?',
             translate: true,
           ),
           bodyVerse: Verse(
-            text: 'phid_bzz_deletion_warning',
+            id: 'phid_bzz_deletion_warning',
             variables: _myBzzICreated.length,
             translate: true,
           ),
           confirmButtonVerse: const Verse(
-            text: 'phid_delete',
+            id: 'phid_delete',
             translate: true,
           ),
         );
@@ -219,16 +219,16 @@ Future<bool> _authorshipDeletionCheckups(BuildContext context) async {
               bzzModels: _myBzzIDidNotCreate,
               invertButtons: true,
               titleVerse: const Verse(
-                text: 'phid_delete_bz_membership',
+                id: 'phid_delete_bz_membership',
                 translate: true,
               ),
               bodyVerse: Verse(
-                text: 'phid_delete_bz_membership_description',
+                id: 'phid_delete_bz_membership_description',
                 translate: true,
                 variables: _myBzzIDidNotCreate.length,
               ),
               confirmButtonVerse: const Verse(
-                text: 'phid_exit',
+                id: 'phid_exit',
                 translate: true,
               ),
             );
@@ -296,11 +296,11 @@ Future<bool> reAuthenticateUser({
         unawaited(TopDialog.showTopDialog(
           context: context,
           firstVerse: const Verse(
-            text: 'phid_wrongPassword',
+            id: 'phid_wrongPassword',
             translate: true,
           ),
           secondVerse: const Verse(
-            text: 'phid_please_try_again',
+            id: 'phid_please_try_again',
             translate: true,
           ),
         ));

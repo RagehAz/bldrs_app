@@ -102,7 +102,7 @@ class BzSlide extends StatelessWidget {
                 flyerBoxWidth: flyerBoxWidth,
                 count: _counter?.follows,
                 verse: const Verse(
-                  text: 'phid_followers',
+                  id: 'phid_followers',
                   translate: true,
                 ),
                 icon: Iconz.follow,
@@ -115,7 +115,7 @@ class BzSlide extends StatelessWidget {
                 flyerBoxWidth: flyerBoxWidth,
                 count: _counter?.calls,
                 verse: const Verse(
-                  text: 'phid_callsReceived',
+                  id: 'phid_callsReceived',
                   translate: true,
                 ),
                 icon: Iconz.comPhone,
@@ -128,7 +128,7 @@ class BzSlide extends StatelessWidget {
                 flyerBoxWidth: flyerBoxWidth,
                 count: bzModel.flyersIDs.length,
                 verse: const Verse(
-                  text: 'phid_published_flyers',
+                  id: 'phid_published_flyers',
                   translate: true,
                 ),
                 icon: Iconz.gallery,
@@ -141,7 +141,7 @@ class BzSlide extends StatelessWidget {
                 flyerBoxWidth: flyerBoxWidth,
                 count: _counter?.allSlides,
                 verse: const Verse(
-                  text: 'phid_slidesPublished',
+                  id: 'phid_slidesPublished',
                   translate: true,
                 ),
                 icon: Iconz.flyerScale,
@@ -154,7 +154,7 @@ class BzSlide extends StatelessWidget {
                 flyerBoxWidth: flyerBoxWidth,
                 count: _counter?.allViews,
                 verse: const Verse(
-                  text: 'phid_totalViews',
+                  id: 'phid_totalViews',
                   translate: true,
                 ),
                 icon: Iconz.viewsIcon,
@@ -167,7 +167,7 @@ class BzSlide extends StatelessWidget {
                 flyerBoxWidth: flyerBoxWidth,
                 count: _counter?.allShares,
                 verse: const Verse(
-                  text: 'phid_totalShares',
+                  id: 'phid_totalShares',
                   translate: true,
                 ),
                 icon: Iconz.share,
@@ -180,7 +180,7 @@ class BzSlide extends StatelessWidget {
                 flyerBoxWidth: flyerBoxWidth,
                 count: _counter?.allSaves,
                 verse: const Verse(
-                  text: 'phid_totalSaves',
+                  id: 'phid_totalSaves',
                   translate: true,
                 ),
                 icon: Iconz.saveOn,

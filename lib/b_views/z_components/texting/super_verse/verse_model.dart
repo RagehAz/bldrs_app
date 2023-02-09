@@ -20,7 +20,7 @@ enum Casing {
 class Verse {
   // -----------------------------------------------------------------------------
   const Verse({
-    @required this.text,
+    @required this.id,
     @required this.translate,
     this.casing = Casing.non,
     this.variables,
@@ -28,7 +28,7 @@ class Verse {
     this.notifier,
   });
   // -----------------------------------------------------------------------------
-  final String text;
+  final String id;
   final Casing casing;
   final bool translate;
   final dynamic variables;
@@ -41,7 +41,7 @@ class Verse {
   // --------------------
   /// TESTED : WORKS PERFECT
   Verse copyWith({
-    String text,
+    String id,
     Casing casing,
     bool translate,
     dynamic variables,
@@ -50,7 +50,7 @@ class Verse {
   }){
 
     return Verse(
-      text: text ?? this.text,
+      id: id ?? this.id,
       translate: translate ?? this.translate,
       casing: casing ?? this.casing,
       variables: variables ?? this.variables,
@@ -67,7 +67,7 @@ class Verse {
   /// TESTED : WORKS PERFECT
   static Verse threeDots(){
     return const Verse(
-      text: '...',
+      id: '...',
       translate: false,
     );
   }
@@ -79,7 +79,7 @@ class Verse {
   /// TESTED : WORKS PERFECT
   static Verse plain(String text){
     return Verse(
-      text: text ?? '',
+      id: text ?? '',
       translate: false,
     );
   }
@@ -87,7 +87,7 @@ class Verse {
   /// TESTED : WORKS PERFECT
   static Verse trans(String phid){
     return Verse(
-      text: phid,
+      id: phid,
       translate: true,
     );
   }
@@ -105,7 +105,7 @@ class Verse {
       for (final String string in strings){
 
         final Verse _verse = Verse(
-          text: string,
+          id: string,
           translate: translate,
           casing: casing,
         );
@@ -124,13 +124,38 @@ class Verse {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> getTextsFromVerses(List<Verse> verses){
+  static List<String> getVersesIDs(List<Verse> verses){
     final List<String> _output = <String>[];
 
     if (Mapper.checkCanLoopList(verses) == true){
 
       for (final Verse verse in verses){
-        _output.add(verse.text);
+        _output.add(verse.id);
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static List<String> bakeVerses({
+    @required List<Verse> verses,
+    @required BuildContext context,
+  }){
+    final List<String> _output = <String>[];
+
+    if (Mapper.checkCanLoopList(verses) == true){
+
+      for (final Verse verse in verses){
+
+        final String _baked = bakeVerseToString(
+            context: context,
+            verse: verse
+        );
+
+        _output.add(_baked);
+
       }
 
     }
@@ -150,8 +175,8 @@ class Verse {
 
     switch (verseCasing){
       case Casing.non:             return verse;                   break;
-      case Casing.lowerCase:       return verse.toLowerCase();     break;
-      case Casing.upperCase:       return verse.toUpperCase();     break;
+      case Casing.lowerCase:       return verse?.toLowerCase();     break;
+      case Casing.upperCase:       return verse?.toUpperCase();     break;
     // case VerseCasing.Proper:          return properVerse(verse);      break;
     // case VerseCasing.upperCamelCase:  return upperCemelVerse(verse);  break;
     // case VerseCasing.lowerCamelCase:  return lowelCamelVerse(verse);  break;
@@ -172,9 +197,9 @@ class Verse {
 
     bool _shouldButNotFound = false;
 
-    if (TextCheck.isEmpty(verse.text) == false && verse.translate == true){
+    if (TextCheck.isEmpty(verse.id) == false && verse.translate == true){
 
-      final String _translation = xPhrase(context, verse.text);
+      final String _translation = xPhrase(context, verse.id);
       if (_translation == null){
         _shouldButNotFound = true;
       }
@@ -212,9 +237,9 @@ class Verse {
 
     String _output;
 
-    if (verse != null && TextCheck.isEmpty(verse?.text) == false){
+    if (verse != null && TextCheck.isEmpty(verse?.id) == false){
 
-      _output = verse?.translate == true ? verse.text.trim() : verse?.text;
+      _output = verse?.translate == true ? verse.id.trim() : verse?.id;
 
       if (verse?.translate == true){
 
@@ -228,7 +253,7 @@ class Verse {
           if (_isPhid == true || _isCurrency == true || _isHeadline == true){
 
             final PhraseProvider _phraseProvider = phrasePro ?? Provider.of<PhraseProvider>(context, listen: false);
-            final String _foundXPhrase = xPhrase(context, verse.text, phrasePro: _phraseProvider);
+            final String _foundXPhrase = xPhrase(context, verse.id, phrasePro: _phraseProvider);
 
             /// X PHRASE NOT FOUND
             if (_foundXPhrase == null){
@@ -275,7 +300,7 @@ class Verse {
       phrasePro: phrasePro,
       context: context,
       verse: Verse(
-        text: phid,
+        id: phid,
         translate: true,
       ),
     );
@@ -290,7 +315,7 @@ class Verse {
     bool _isEmpty = true;
 
     if (verse != null){
-      if (TextCheck.isEmpty(verse.text) == false){
+      if (TextCheck.isEmpty(verse.id) == false){
         _isEmpty = false;
       }
     }
@@ -303,7 +328,7 @@ class Verse {
 
   // --------------------
   void blogVerse({String invoker = 'Blog'}){
-    blog('Verse.$invoker : ($text) : translate : $translate');
+    blog('Verse.$invoker : ($id) : translate : $translate');
   }
   // -----------------------------------------------------------------------------
 
@@ -326,7 +351,7 @@ class Verse {
     if (other is Verse){
 
       if (
-          other.text == text &&
+          other.id == id &&
           other.translate == translate &&
           other.casing == casing &&
           other.variables == variables &&
@@ -342,7 +367,7 @@ class Verse {
   // --------------------
   @override
   int get hashCode =>
-      text.hashCode^
+      id.hashCode^
       casing.hashCode^
       variables.hashCode^
       notifier.hashCode^

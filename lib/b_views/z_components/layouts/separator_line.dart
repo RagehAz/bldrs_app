@@ -1,5 +1,5 @@
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class SeparatorLine extends StatelessWidget {
@@ -28,7 +28,7 @@ class SeparatorLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _width = width ?? Bubble.clearWidth(context);
+    final double _width = width ?? Bubble.clearWidth(context: context);
 
     return Center(
       child: Container(

@@ -23,7 +23,7 @@ import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class NeedEditorScreen extends StatefulWidget {
@@ -152,6 +152,8 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
     //   listen: true,
     // );
 
+    final double _clearWidth = Bubble.clearWidth(context: context);
+
     return MainLayout(
       key: const ValueKey<String>('BzEditorScreen'),
       loading: _loading,
@@ -160,16 +162,16 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
       historyButtonIsOn: false,
       skyType: SkyType.black,
       title: const Verse(
-        text: 'phid_edit_needs',
+        id: 'phid_edit_needs',
         translate: true,
       ),
       confirmButtonModel: ConfirmButtonModel(
         firstLine: const Verse(
-          text: 'phid_confirm',
+          id: 'phid_confirm',
           translate: true,
         ),
         secondLine: const Verse(
-          text: 'phid_confirm',
+          id: 'phid_confirm',
           translate: true,
         ),
         onTap: () => onConfirmEditingNeed(),
@@ -187,14 +189,14 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
 
                   /// NEED TYPE SELECTION
                   Bubble(
-                      bubbleHeaderVM: const BubbleHeaderVM(),
+                      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(),
                       childrenCentered: true,
                       columnChildren: <Widget>[
 
                         /// WHAT ARE YOU LOOKING FOR
                         const SuperVerse(
                           verse: Verse(
-                            text: 'phid_what_are_you_looking_for',
+                            id: 'phid_what_are_you_looking_for',
                             translate: true,
                             casing: Casing.upperCase,
                           ),
@@ -207,16 +209,16 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                         ),
 
                         /// BULLET POINTS
-                        BulletPoints(
-                          bubbleWidth: Bubble.clearWidth(context) - 50,
+                        BldrsBulletPoints(
+                          bubbleWidth: _clearWidth - 50,
                           centered: true,
                           bulletPoints: const <Verse>[
                             Verse(
-                              text: 'phid_all_businesses_can_see_this',
+                              id: 'phid_all_businesses_can_see_this',
                               translate: true,
                             ),
                             Verse(
-                              text: 'phid_businesses_can_respond_and_ask_for_more_info',
+                              id: 'phid_businesses_can_respond_and_ask_for_more_info',
                               translate: true,
                             ),
 
@@ -230,9 +232,9 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                           final bool _isSelected = userModel.need.needType == _type;
 
                           return Bubble(
-                            width: Bubble.clearWidth(context),
+                            width: _clearWidth,
                             bubbleColor: _isSelected == true ? Colorz.yellow255 : Colorz.white10,
-                            bubbleHeaderVM: const BubbleHeaderVM(),
+                            bubbleHeaderVM: BldrsBubbleHeaderVM.bake(),
                             onBubbleTap: (){
 
                               setNotifier(
@@ -250,10 +252,10 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                             columnChildren: <Widget>[
 
                               SizedBox(
-                                width: Bubble.clearWidth(context),
+                                width: Bubble.clearWidth(context: context),
                                 child: SuperVerse(
                                   verse: Verse(
-                                    text: NeedModel.getNeedTypePhid(_type),
+                                    id: NeedModel.getNeedTypePhid(_type),
                                     translate: true,
                                   ),
                                   color: _isSelected == true ? Colorz.black255 : Colorz.white255,
@@ -275,7 +277,7 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                     formKey: _formKey,
                     bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                       headlineVerse: const Verse(
-                        text: 'phid_extra_notes',
+                        id: 'phid_extra_notes',
                         translate: true,
 
                       ),
@@ -283,7 +285,7 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                     // focusNode: _aboutNode,
                     appBarType: AppBarType.basic,
                     hintVerse: const Verse(
-                      text: 'phid_tell_businesses_what_you_looking_for',
+                      id: 'phid_tell_businesses_what_you_looking_for',
                       translate: true,
                     ),
                     counterIsOn: true,
@@ -314,7 +316,7 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                   ZoneSelectionBubble(
                     zoneViewingEvent: ViewingEvent.userEditor,
                     titleVerse: const Verse(
-                      text: 'phid_zone',
+                      id: 'phid_zone',
                       translate: true,
                     ),
                     isRequired: false,

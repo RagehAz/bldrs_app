@@ -310,7 +310,7 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
                 height: 100,
                 icon: Iconz.dvDonaldDuck,
                 verse: const Verse(
-                  text: 'ana ho',
+                  id: 'ana ho',
                   translate: false,
                 ),
                 onTap: () {
@@ -486,7 +486,7 @@ class TweenTest extends StatelessWidget {
         },
         child: const SuperVerse(
           verse: Verse(
-            text: 'WTF is this',
+            id: 'WTF is this',
             translate: false,
           ),
           size: 4,
@@ -513,7 +513,7 @@ class HeroMax extends StatelessWidget {
               height: 150,
               icon: Iconz.dvDonaldDuck,
               verse: const Verse(
-                text: 'ana ho',
+                id: 'ana ho',
                 translate: false,
               ),
               verseMaxLines: 2,

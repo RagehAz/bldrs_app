@@ -56,7 +56,7 @@ class DashButton extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: size * 0.05),
             child: SuperVerse(
               verse: Verse(
-                text: dashButtonModel.verse,
+                id: dashButtonModel.verse,
                 translate: false,
                 casing: Casing.upperCase,
               ),

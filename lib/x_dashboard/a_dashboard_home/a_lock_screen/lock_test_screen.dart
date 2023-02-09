@@ -112,7 +112,7 @@ class _LockScreenState extends State<LockScreen> {
               width: Scale.screenWidth(context) * 0.8,
               child: const SuperVerse(
                 verse: Verse(
-                  text: _message,
+                  id: _message,
                   translate: false,
                 ),
                 // size: 2,

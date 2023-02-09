@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 
@@ -57,7 +57,7 @@ class SelectedPhidsBar extends StatelessWidget {
       width: _screenWidth,
       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
         headlineVerse: Verse(
-          text: _screenTitle,
+          id: _screenTitle,
           translate: false,
         ),
       ),

@@ -223,7 +223,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
       onSearchSubmit: _onSearchCountry,
       onSearchChanged: _onSearchCountry,
       title: const Verse(
-        text: 'phid_select_a_country',
+        id: 'phid_select_a_country',
         translate: true,
       ),
       pyramidsAreOn: true,
@@ -232,7 +232,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
         invoker: 'SelectCountryScreen.BACK with null',
       ),
       searchHintVerse: const Verse(
-        text: 'phid_search_countries',
+        id: 'phid_search_countries',
         translate: true,
       ),
       loading: _loading,

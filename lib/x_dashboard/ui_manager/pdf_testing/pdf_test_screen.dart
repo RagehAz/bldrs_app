@@ -63,12 +63,12 @@ class _PDFTestingScreenState extends State<PDFTestingScreen> {
 
         final FlyerModel _flyerModel = await FlyerProtocols.fetchFlyer(
           context: context,
-          flyerID: _bzModel.flyersIDs.first,
+          flyerID: _bzModel?.flyersIDs?.first,
         );
 
         setState(() {
-          _flyerID = _flyerModel.id;
-          _bzID = _bzModel.id;
+          _flyerID = _flyerModel?.id;
+          _bzID = _bzModel?.id;
         });
 
         await _triggerLoading(setTo: false);

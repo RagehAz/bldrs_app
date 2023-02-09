@@ -70,7 +70,7 @@ class SpecsBuilder extends StatelessWidget {
                     /// SPEC PICKER NAME
                     SuperVerse(
                       verse: Verse(
-                        text: _picker?.chainID,
+                        id: _picker?.chainID,
                         translate: true,
                       ),
                       weight: VerseWeight.thin,

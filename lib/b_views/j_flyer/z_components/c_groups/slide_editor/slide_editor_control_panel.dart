@@ -67,7 +67,7 @@ class SlideEditorControlPanel extends StatelessWidget {
             size: _buttonSize,
             icon: Iconizer.superBackIcon(context),
             verse: const Verse(
-              text: 'phid_cancel',
+              id: 'phid_cancel',
               translate: true,
             ),
             onTap: onCancel,
@@ -82,7 +82,7 @@ class SlideEditorControlPanel extends StatelessWidget {
                   size: _buttonSize,
                   icon: Iconz.reload,
                   verse: const Verse(
-                    text: 'phid_reset',
+                    id: 'phid_reset',
                     translate: true,
                   ),
                   isDisabled: !_canResetMatrix,
@@ -106,7 +106,7 @@ class SlideEditorControlPanel extends StatelessWidget {
                         size: _buttonSize,
                         icon: animate == true ? Iconz.flyerScale : Iconz.flyer,
                         verse: Verse(
-                          text: animate == true ? 'phid_animated' : 'phid_static',
+                          id: animate == true ? 'phid_animated' : 'phid_static',
                           translate: true,
                         ),
                         isDisabled: !canReset,
@@ -148,7 +148,7 @@ class SlideEditorControlPanel extends StatelessWidget {
             size: _buttonSize,
             icon: Iconz.check,
             verse: const Verse(
-              text: 'phid_confirm',
+              id: 'phid_confirm',
               translate: true,
             ),
             onTap: onConfirm,

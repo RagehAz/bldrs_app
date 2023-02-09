@@ -45,7 +45,7 @@ import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -357,14 +357,14 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final double _clearWidth = Bubble.clearWidth(context);
+    final double _clearWidth = Bubble.clearWidth(context: context);
 
     final bool _posterIsOn = isGlobal == true && _progress == null;
     final String _notificationTypeString = isGlobal == true ? 'Global' : 'Local';
 
     final double _tileChildWidth = TileBubble.childWidth(
         context: context,
-        bubbleWidthOverride: Bubble.clearWidth(context)
+        bubbleWidthOverride: _clearWidth,
     );
 
     final bool _deviceIsIOS = DeviceChecker.deviceIsIOS();
@@ -410,9 +410,9 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
               columnChildren: <Widget>[
 
                 /// GLOBAL - LOCAL SWITCH
-                TileBubble(
+                BldrsTileBubble(
                   bubbleWidth: _clearWidth,
-                  bubbleHeaderVM: BldrsBubbleHeaderVM(
+                  bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                       headlineVerse: Verse.plain('is $_notificationTypeString'),
                       hasSwitch: true,
                       switchValue: isGlobal,
@@ -523,10 +523,10 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                 ),
 
                 /// BIG ICON
-                TileBubble(
-                  bubbleWidth: Bubble.clearWidth(context),
-                  bubbleHeaderVM: BldrsBubbleHeaderVM(
-                    headerWidth: Bubble.clearWidth(context) - 20,
+                BldrsTileBubble(
+                  bubbleWidth: _clearWidth,
+                  bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                    headerWidth: _clearWidth - 20,
                     leadingIcon: Iconz.balloonCircle,
                     headlineVerse: Verse.plain('LargeIcon'),
                   ),
@@ -627,10 +627,10 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                   fadeType: _posterIsOn == true ? FadeType.stillAtMax : FadeType.stillAtMin,
                   min: 0.35,
                   ignorePointer: !_posterIsOn,
-                  child: TileBubble(
-                    bubbleWidth: Bubble.clearWidth(context),
-                    bubbleHeaderVM: BldrsBubbleHeaderVM(
-                      headerWidth: Bubble.clearWidth(context) - 20,
+                  child: BldrsTileBubble(
+                    bubbleWidth: _clearWidth,
+                    bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                      headerWidth: _clearWidth - 20,
                       leadingIcon: Iconz.phoneGallery,
                       headlineVerse: Verse.plain('Poster'),
                     ),
@@ -872,10 +872,10 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                   fadeType: _deviceIsIOS == true ? FadeType.stillAtMin : FadeType.stillAtMax,
                   min: 0.2,
                   ignorePointer: _deviceIsIOS,
-                  child: TileBubble(
-                    bubbleWidth: Bubble.clearWidth(context),
-                    bubbleHeaderVM: BldrsBubbleHeaderVM(
-                      headerWidth: Bubble.clearWidth(context) - 20,
+                  child: BldrsTileBubble(
+                    bubbleWidth: _clearWidth,
+                    bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                      headerWidth: _clearWidth - 20,
                       leadingIcon: Iconz.phoneGallery,
                       headlineVerse: Verse.plain(
                           _progress == null ? 'Progress'
@@ -1011,11 +1011,11 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                   fadeType: isGlobal == true && _deviceIsIOS == false ? FadeType.stillAtMax : FadeType.stillAtMin,
                   min: 0.35,
                   ignorePointer: !isGlobal || _deviceIsIOS,
-                  child: TileBubble(
-                    bubbleWidth: Bubble.clearWidth(context),
-                    bubbleHeaderVM: const BldrsBubbleHeaderVM(
-                      headlineVerse: Verse(
-                        text: 'Buttons',
+                  child: BldrsTileBubble(
+                    bubbleWidth: _clearWidth,
+                    bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                      headlineVerse: const Verse(
+                        id: 'Buttons',
                         translate: false,
                       ),
                       leadingIcon: Iconz.pause,
@@ -1023,7 +1023,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                       leadingIconBoxColor: Colorz.grey50,
                     ),
                     secondLineVerse: Verse(
-                      text: _buttons.isEmpty == true ? ' '
+                      id: _buttons.isEmpty == true ? ' '
                           :
                       Stringer.generateStringFromStrings(strings: xPhrases(context, _buttons)),
                       translate: false,
@@ -1054,7 +1054,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                                   height: 40,
                                   width: 100,
                                   verse: Verse(
-                                    text: _phid,
+                                    id: _phid,
                                     translate: true,
                                     casing: Casing.upperCase,
                                   ),
@@ -1090,9 +1090,9 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                 ),
 
                 /// CAN BE DISMISSED
-                TileBubble(
+                BldrsTileBubble(
                   bubbleWidth: _clearWidth,
-                  bubbleHeaderVM: BldrsBubbleHeaderVM(
+                  bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                     headlineVerse: Verse.plain('Dismissible'),
                     hasSwitch: true,
                     switchValue: _canBeDismissedWithoutTapping,

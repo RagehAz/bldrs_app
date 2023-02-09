@@ -220,7 +220,7 @@ class PDFModel {
     if (sizeLimitReached == true){
 
       return Verse(
-        text: '${Verse.transBake(context, 'phid_max_limit_reached')} : $size$_mb / $maxSize $_mb',
+        id: '${Verse.transBake(context, 'phid_max_limit_reached')} : $size$_mb / $maxSize $_mb',
         translate: false,
       );
 
@@ -229,7 +229,7 @@ class PDFModel {
     else {
 
       return Verse(
-        text: '${Verse.transBake(context, 'phid_file_size')} : $size$_mb / $maxSize $_mb',
+        id: '${Verse.transBake(context, 'phid_file_size')} : $size$_mb / $maxSize $_mb',
         translate: false,
       );
 

@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/super_headline.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class AboutBldrsScreen extends StatelessWidget {
@@ -27,7 +27,7 @@ class AboutBldrsScreen extends StatelessWidget {
       appBarType: AppBarType.basic,
       historyButtonIsOn: false,
       title: const Verse(
-        text: 'phid_about_bldrsnet',
+        id: 'phid_about_bldrsnet',
         translate: true,
       ),
       skyType: SkyType.non,
@@ -51,12 +51,12 @@ class AboutBldrsScreen extends StatelessWidget {
             bubbleColor: Colorz.white20,
             headerViewModel: BldrsBubbleHeaderVM.bake(
               headlineVerse: const Verse(
-                text: 'phid_bldrsFullName',
+                id: 'phid_bldrsFullName',
                 translate: true,
               ),
             ),
             paragraph: const Verse(
-              text: 'Is the Network of builders\n'
+              id: 'Is the Network of builders\n'
                     'categorizing major Bldrs sectors as\n'
                     'Real-estate, Construction & Supplies.\n',
               translate: false,
@@ -64,11 +64,11 @@ class AboutBldrsScreen extends StatelessWidget {
           ),
 
           /// SO
-          const ParagraphBubble(
+          ParagraphBubble(
             bubbleColor: Colorz.white20,
-            headerViewModel: BubbleHeaderVM(),
-            paragraph: Verse(
-              text: 'So whenever you need to connect with a professional '
+            headerViewModel: BldrsBubbleHeaderVM.bake(),
+            paragraph: const Verse(
+              id: 'So whenever you need to connect with a professional '
                     'or a company in a specific field or trade to aid you in '
                     'building you projects, you have all Businesses here for you',
               translate: false,
@@ -80,23 +80,23 @@ class AboutBldrsScreen extends StatelessWidget {
           const SuperHeadline(
             verse: Verse(
               pseudo: 'Bldrs.net Business types',
-              text: 'phid_bldrs_bzz_types',
+              id: 'phid_bldrs_bzz_types',
               translate: true,
             ),
           ),
 
           /// DEVELOPERS
-          const TileBubble(
-            bubbleHeaderVM: BldrsBubbleHeaderVM(
-              headlineVerse: Verse(
-                  text: 'phid_developers',
+          BldrsTileBubble(
+            bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+              headlineVerse: const Verse(
+                  id: 'phid_developers',
                   translate: true,
               ),
               leadingIcon: Iconz.bxPropertiesOn,
             ),
             bubbleColor: Colorz.white20,
-            secondLineVerse: Verse(
-              text: 'Real-Estate developers, they control the construction '
+            secondLineVerse: const Verse(
+              id: 'Real-Estate developers, they control the construction '
                   'development over plots & lands, then lease property contracts '
                   'for sale or rent.\n'
                   '\n'
@@ -107,17 +107,17 @@ class AboutBldrsScreen extends StatelessWidget {
           ),
 
           /// BROKERS
-          const TileBubble(
-            bubbleHeaderVM: BldrsBubbleHeaderVM(
-              headlineVerse: Verse(
-                text: 'phid_brokers',
+          BldrsTileBubble(
+            bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+              headlineVerse: const Verse(
+                id: 'phid_brokers',
                 translate: true,
               ),
               leadingIcon: Iconz.bxPropertiesOn,
             ),
             bubbleColor: Colorz.white20,
-            secondLineVerse: Verse(
-              text: 'Real-Estate Brokerage individuals or companies, they '
+            secondLineVerse: const Verse(
+              id: 'Real-Estate Brokerage individuals or companies, they '
                     'consult, provide and assist you in your property purchasing '
                     'journey.\n'
                     '\n'
@@ -128,17 +128,17 @@ class AboutBldrsScreen extends StatelessWidget {
           ),
 
           /// DESIGNERS
-          const TileBubble(
-            bubbleHeaderVM: BldrsBubbleHeaderVM(
-              headlineVerse: Verse(
-                text: 'phid_designers',
+          BldrsTileBubble(
+            bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+              headlineVerse: const Verse(
+                id: 'phid_designers',
                 translate: true,
               ),
               leadingIcon: Iconz.bxDesignsOn,
             ),
             bubbleColor: Colorz.white20,
-            secondLineVerse: Verse(
-              text: 'Architects, Decorators, Landscapers, Engineers, '
+            secondLineVerse: const Verse(
+              id: 'Architects, Decorators, Landscapers, Engineers, '
                     'Planners and Designers of any urban construct you see in buildings'
                     ' inside-out and their surroundings\n'
                     '\n'
@@ -149,17 +149,17 @@ class AboutBldrsScreen extends StatelessWidget {
             ),
 
           /// CONTRACTORS
-          const TileBubble(
-            bubbleHeaderVM: BldrsBubbleHeaderVM(
-              headlineVerse: Verse(
-                text: 'phid_contractors',
+          BldrsTileBubble(
+            bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+              headlineVerse: const Verse(
+                id: 'phid_contractors',
                 translate: true,
               ),
               leadingIcon: Iconz.bzUndertakingOn,
             ),
             bubbleColor: Colorz.white20,
-            secondLineVerse: Verse(
-              text: 'The Builders of properties, they contract owners in '
+            secondLineVerse: const Verse(
+              id: 'The Builders of properties, they contract owners in '
                   'specific trades to build, they manage construction progress and'
                   ' quality then deliver contract deliverables\n'
                   '\n'
@@ -170,17 +170,17 @@ class AboutBldrsScreen extends StatelessWidget {
           ),
 
           /// ARTISANS
-          const TileBubble(
-            bubbleHeaderVM: BldrsBubbleHeaderVM(
-              headlineVerse: Verse(
-                text: 'phid_artisans',
+          BldrsTileBubble(
+            bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+              headlineVerse: const Verse(
+                id: 'phid_artisans',
                 translate: true,
               ),
               leadingIcon: Iconz.bxTradesOn,
             ),
             bubbleColor: Colorz.white20,
-            secondLineVerse: Verse(
-              text: 'Masons, Carpenters, Smiths, Glaziers, Technicians, '
+            secondLineVerse: const Verse(
+              id: 'Masons, Carpenters, Smiths, Glaziers, Technicians, '
                     'Artists, Artisans, Painters, Plasterers ... etc\n'
                     '\n'
                     'in Short... The Work-force and the actual builders of all constructs',
@@ -189,17 +189,17 @@ class AboutBldrsScreen extends StatelessWidget {
           ),
 
           /// MANUFACTURERS
-          const TileBubble(
-            bubbleHeaderVM: BldrsBubbleHeaderVM(
-              headlineVerse: Verse(
-                text: 'phid_manufacturers',
+          BldrsTileBubble(
+            bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+              headlineVerse: const Verse(
+                id: 'phid_manufacturers',
                 translate: true,
               ),
               leadingIcon: Iconz.bxProductsOn,
             ),
             bubbleColor: Colorz.white20,
-            secondLineVerse: Verse(
-              text: 'Factories and Workshops that fabricates & manufactures '
+            secondLineVerse: const Verse(
+              id: 'Factories and Workshops that fabricates & manufactures '
                     'all construction products and equipment\n'
                     '\n'
                     'in Other words... If you want customization or want to get a big batch of '
@@ -210,17 +210,17 @@ class AboutBldrsScreen extends StatelessWidget {
           ),
 
           /// SUPPLIERS
-         const TileBubble(
-            bubbleHeaderVM: BldrsBubbleHeaderVM(
-              headlineVerse: Verse(
-                text: 'phid_suppliers',
+         BldrsTileBubble(
+            bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+              headlineVerse: const Verse(
+                id: 'phid_suppliers',
                 translate: true,
               ),
               leadingIcon: Iconz.bxProductsOn,
             ),
             bubbleColor: Colorz.white20,
-            secondLineVerse: Verse(
-              text: 'Those companies that import, supply, transport, sell '
+            secondLineVerse: const Verse(
+              id: 'Those companies that import, supply, transport, sell '
                     'or rent construction products and equipment\n'
                     '\n'
                     'They Supply Floor, ceiling, wall products, paints, wood & '

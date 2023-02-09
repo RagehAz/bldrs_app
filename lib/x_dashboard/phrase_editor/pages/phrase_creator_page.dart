@@ -58,7 +58,7 @@ class PhraseCreatorPage extends StatelessWidget {
             formKey: globalKey,
             bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
               headlineVerse: const Verse(
-                text: 'Key',
+                id: 'Key',
                 translate: false,
               ),
               leadingIcon:  Iconz.xSmall,
@@ -69,7 +69,7 @@ class PhraseCreatorPage extends StatelessWidget {
 
             appBarType: appBarType,
             hintVerse: const Verse(
-              text: 'Phrase key',
+              id: 'Phrase key',
               translate: false,
             ),
             textController: idController,
@@ -91,7 +91,7 @@ class PhraseCreatorPage extends StatelessWidget {
                     height: 35,
                     width: 150,
                     verse: const Verse(
-                      text: 'Add [phid_] to ID',
+                      id: 'Add [phid_] to ID',
                       translate: false,
                     ),
                     verseScaleFactor: 0.6,
@@ -117,7 +117,7 @@ class PhraseCreatorPage extends StatelessWidget {
             formKey: globalKey,
             bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
               headlineVerse: const Verse(
-                text: 'English',
+                id: 'English',
                 translate: false,
               ),
               onLeadingIconTap: () => TextMod.controllerClear(enController),
@@ -128,7 +128,7 @@ class PhraseCreatorPage extends StatelessWidget {
             focusNode: enNode,
             appBarType: appBarType,
             hintVerse: const Verse(
-              text: 'English phrase',
+              id: 'English phrase',
               translate: false,
             ),
             textController: enController,
@@ -150,7 +150,7 @@ class PhraseCreatorPage extends StatelessWidget {
             formKey: globalKey,
             bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
               headlineVerse: const Verse(
-                text: 'عربي',
+                id: 'عربي',
                 translate: false,
               ),
               leadingIcon: Iconz.xSmall,
@@ -160,7 +160,7 @@ class PhraseCreatorPage extends StatelessWidget {
             focusNode: arNode,
             appBarType: appBarType,
             hintVerse: const Verse(
-              text: 'مصطلح عربي',
+              id: 'مصطلح عربي',
               translate: false,
             ),
             textController: arController,
@@ -180,7 +180,7 @@ class PhraseCreatorPage extends StatelessWidget {
             alignment: Aligners.superInverseCenterAlignment(context),
             child: DreamBox(
               verse: const Verse(
-                text: 'Confirm',
+                id: 'Confirm',
                 translate: false,
                 casing: Casing.upperCase,
               ),

@@ -23,7 +23,7 @@ import 'package:bldrs/x_dashboard/zones_manager/zone_editors/c_district_editor/c
 import 'package:bldrs/x_dashboard/zones_manager/zone_editors/c_district_editor/edit_district_screen.dart';
 import 'package:bldrs/x_dashboard/zones_manager/zone_editors/components/zone_stage_bubble.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:stringer/stringer.dart';
@@ -309,7 +309,7 @@ class _EditCityScreenState extends State<EditCityScreen> {
                   height: 50,
                   width: _bubbleWidth,
                   verse: Verse(
-                    text: '$_count Districts',
+                    id: '$_count Districts',
                     translate: false,
                     casing: Casing.upperCase,
                   ),
@@ -331,7 +331,7 @@ class _EditCityScreenState extends State<EditCityScreen> {
             icon: Iconz.plus,
             iconSizeFactor: 0.6,
             verse: const Verse(
-              text: 'Add new District',
+              id: 'Add new District',
               translate: false,
               casing: Casing.upperCase,
             ),
@@ -389,7 +389,7 @@ class _EditCityScreenState extends State<EditCityScreen> {
             width: _bubbleWidth,
             color: Colorz.bloodTest,
             verse: const Verse(
-              text: 'Delete city',
+              id: 'Delete city',
               translate: false,
               casing: Casing.upperCase,
             ),
@@ -403,7 +403,7 @@ class _EditCityScreenState extends State<EditCityScreen> {
             width: _bubbleWidth,
             color: Colorz.bloodTest,
             verse: Verse(
-              text: 'Reset Districts Stages of ${_city?.cityID}',
+              id: 'Reset Districts Stages of ${_city?.cityID}',
               translate: false,
               casing: Casing.upperCase,
             ),

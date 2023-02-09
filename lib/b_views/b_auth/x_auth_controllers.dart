@@ -101,7 +101,7 @@ Future<void> authByEmailSignIn({
     pushWaitDialog(
       context: context,
       verse: const Verse(
-        text: 'phid_signing_in',
+        id: 'phid_signing_in',
         translate: true,
       ),
     );
@@ -165,7 +165,7 @@ Future<void> authByEmailRegister({
     pushWaitDialog(
       context: context,
       verse: const Verse(
-        text: 'phid_creating_new_account',
+        id: 'phid_creating_new_account',
         translate: true,
       ),
     );

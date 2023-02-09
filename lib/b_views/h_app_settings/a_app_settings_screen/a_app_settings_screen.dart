@@ -9,7 +9,7 @@ import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/main.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:super_image/super_image.dart';
 
@@ -32,7 +32,7 @@ class AppSettingsScreen extends StatelessWidget {
           /// CHANGE LANGUAGE
           SettingsWideButton(
             verse: const Verse(
-              text: 'Language . اللغة', //'phid_changeLanguage',
+              id: 'Language . اللغة', //'phid_changeLanguage',
               translate: false,
             ),
             onTap: () => onChangeAppLanguageTap(context),
@@ -51,7 +51,7 @@ class AppSettingsScreen extends StatelessWidget {
 
           /// FEEDBACK
           SettingsWideButton(
-            verse: const Verse(text: 'phid_feedback', translate: true),
+            verse: const Verse(id: 'phid_feedback', translate: true),
             icon: Iconz.balloonThinking,
             isOn : _userIsOnline,
             onTap: () => onFeedbackTap(context),
@@ -59,14 +59,14 @@ class AppSettingsScreen extends StatelessWidget {
 
           /// TERMS AND REGULATIONS
           SettingsWideButton(
-            verse: const Verse(text: 'phid_termsRegulations', translate: true,),
+            verse: const Verse(id: 'phid_termsRegulations', translate: true,),
             icon: Iconz.terms,
             onTap: () => onTermsAndTap(context),
           ),
 
           /// INVITE FRIENDS
           SettingsWideButton(
-            verse: const Verse(text: 'phid_inviteFriends', translate: true,),
+            verse: const Verse(id: 'phid_inviteFriends', translate: true,),
             icon: Iconizer.shareAppIcon(),
             onTap: () => onInviteFriendsTap(context),
           ),
@@ -96,7 +96,7 @@ class AppSettingsScreen extends StatelessWidget {
                     opacity: _userIsOnline == true ? 1 : 0.5,
                     child: const SuperVerse(
                       verse: Verse(
-                          text: 'phid_createBzAccount',
+                          id: 'phid_createBzAccount',
                           translate: true,
                         casing: Casing.upperCase,
                       ),
@@ -135,7 +135,7 @@ class AppSettingsScreen extends StatelessWidget {
 
           /// SIGN OUT
           SettingsWideButton(
-            verse: const Verse(text: 'phid_signOut', translate: true),
+            verse: const Verse(id: 'phid_signOut', translate: true),
             icon: Iconz.exit,
             isOn: _userIsOnline,
             onTap: () => onSignOut(context),

@@ -87,7 +87,7 @@ class CropperPages extends StatelessWidget {
                 color: Colorz.black255,
                 child: const SuperVerse(
                   verse: Verse(
-                    text: 'phid_image_format_incompatible',
+                    id: 'phid_image_format_incompatible',
                     translate: true,
                   ),
                   maxLines: 3,

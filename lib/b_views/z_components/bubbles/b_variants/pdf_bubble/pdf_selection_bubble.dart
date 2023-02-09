@@ -15,7 +15,7 @@ import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class PDFSelectionBubble extends StatefulWidget {
@@ -115,10 +115,10 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                 canValidate: widget.canValidate,
               ),
             ),
-            width: Bubble.bubbleWidth(context),
+            width: Bubble.bubbleWidth(context: context),
             bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
               headlineVerse: const Verse(
-                text: 'phid_pdf_attachment',
+                id: 'phid_pdf_attachment',
                 translate: true,
               ),
             ),
@@ -126,21 +126,21 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
             columnChildren: <Widget>[
 
               /// BULLET POINTS
-              const BulletPoints(
+              const BldrsBulletPoints(
                 bulletPoints: <Verse>[
                   Verse(
                     pseudo:'You can attach a PDF File to this flyer.',
-                    text: 'phid_you_can_attach_flyer_pdf',
+                    id: 'phid_you_can_attach_flyer_pdf',
                     translate: true,
                   ),
                   Verse(
                     pseudo:'Anybody can view and download this PDF file.',
-                    text: 'phid_flyer_pdf_is_public',
+                    id: 'phid_flyer_pdf_is_public',
                     translate: true,
                   ),
                   Verse(
                     pseudo:'PDF file size can only be less than 3 Mb.',
-                    text: 'phid_pdf_size_less_than_3',
+                    id: 'phid_pdf_size_less_than_3',
                     translate: true,
                   ),
                 ],
@@ -155,7 +155,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                     /// TITLE
                     const BubbleTitle(
                       titleVerse: Verse(
-                        text: 'phid_pdf_file_name',
+                        id: 'phid_pdf_file_name',
                         translate: true,
                       ),
                       titleScaleFactor: 0.9,
@@ -202,9 +202,9 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
               BldrsTextField(
                 appBarType: widget.appBarType,
                 globalKey: globalKey,
-                width: Bubble.clearWidth(context),
+                width: Bubble.clearWidth(context: context),
                 titleVerse: const Verse(
-                  text: 'phid_pdf_file_name',
+                  id: 'phid_pdf_file_name',
                   translate: true,
                 ),
                 maxLines: 1,
@@ -285,7 +285,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                     DreamBox(
                       height: 50,
                       verse: const Verse(
-                        text: 'phid_view',
+                        id: 'phid_view',
                         translate: true,
                       ),
                       icon: Iconz.viewsIcon,
@@ -309,7 +309,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                           await Dialogs.topNotice(
                               context: context,
                               verse: const Verse(
-                                text: 'phid_can_not_open_file',
+                                id: 'phid_can_not_open_file',
                                 translate: true,
                               ),
                           );
@@ -334,7 +334,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                     DreamBox(
                       height: 50,
                       verse: const Verse(
-                        text: 'phid_remove',
+                        id: 'phid_remove',
                         translate: true,
                       ),
                       verseScaleFactor: 0.6,
@@ -353,7 +353,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                   DreamBox(
                     height: 50,
                     verse: Verse(
-                      text: _bytesExist == true || pdfModel?.path != null ? 'phid_replace_pdf' : 'phid_select_a_pdf',
+                      id: _bytesExist == true || pdfModel?.path != null ? 'phid_replace_pdf' : 'phid_select_a_pdf',
                       translate: true,
                     ),
                     verseScaleFactor: 0.6,

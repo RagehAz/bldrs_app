@@ -293,7 +293,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
 
                           SuperVerse(
                             verse: Verse(
-                              text: _text,
+                              id: _text,
                               translate: false,
                               casing: Casing.upperCase,
                             ),

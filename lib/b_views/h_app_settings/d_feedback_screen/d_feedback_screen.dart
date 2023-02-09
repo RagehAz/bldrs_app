@@ -78,11 +78,11 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
       await CenterDialog.showCenterDialog(
         context: context,
         titleVerse: const Verse(
-          text: 'phid_not_sent',
+          id: 'phid_not_sent',
           translate: true,
         ),
         bodyVerse: const Verse(
-          text: 'phid_somethingIsWrong',
+          id: 'phid_somethingIsWrong',
           translate: true,
         ),
       );
@@ -92,11 +92,11 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
       await CenterDialog.showCenterDialog(
         context: context,
         titleVerse: const Verse(
-          text: 'phid_thanks',
+          id: 'phid_thanks',
           translate: true,
         ),
         bodyVerse: const Verse(
-          text: 'phid_feedback_has_been_sent',
+          id: 'phid_feedback_has_been_sent',
           translate: true,
         ),
       );
@@ -123,7 +123,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
       appBarType: AppBarType.basic,
       historyButtonIsOn: false,
       title: const Verse(
-        text: 'phid_feedback',
+        id: 'phid_feedback',
         translate: true,
       ),
       skyType: SkyType.non,
@@ -135,7 +135,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
 
           const SuperVerse(
             verse: Verse(
-              text: 'phid_your_opinion_matters',
+              id: 'phid_your_opinion_matters',
               translate: true,
               casing: Casing.upperCase,
             ),
@@ -150,7 +150,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
               child: const SuperVerse(
                 verse: Verse(
                   pseudo: 'Tell us what you think about Bldrs.net, or what upgrades you might think of',
-                  text: 'phid_feedback_description',
+                  id: 'phid_feedback_description',
                   translate: true,
                 ),
                 margin: 5,
@@ -169,7 +169,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
             appBarType: AppBarType.basic,
             bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
               headlineVerse: const Verse(
-                text: 'phid_feedback',
+                id: 'phid_feedback',
                 translate: true,
               ),
               redDot: true,
@@ -189,7 +189,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
             height: 50,
             width: 200,
             verse: const Verse(
-              text: 'phid_send',
+              id: 'phid_send',
               translate: true
             ),
             verseColor: Colorz.black230,

@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_text_f
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class NumberDataCreatorFieldRow extends StatelessWidget {
@@ -53,7 +53,7 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
     );
     // --------------------
     /// WIDTH
-    final double _clearWidth = width ?? Bubble.clearWidth(context);
+    final double _clearWidth = width ?? Bubble.clearWidth(context: context);
     final double _unitButtonSpacer = hasUnit == true ? Ratioz.appBarMargin : 0;
     final double _unitButtonWidth = hasUnit == true ? 80 : 0;
     final double _textFieldWidth = _clearWidth - _unitButtonWidth - _unitButtonSpacer - 20;
@@ -71,7 +71,7 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
             appBarType: appBarType,
             globalKey: formKey,
             titleVerse: const Verse(
-              text: 'phid_number',
+              id: 'phid_number',
               translate: true,
             ),
             isFormField: true,
@@ -106,7 +106,7 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
 
 
                 Verse _verse = Verse(
-                  text: Phider.removeIndexFromPhid(phid: selectedUnitID),
+                  id: Phider.removeIndexFromPhid(phid: selectedUnitID),
                   translate: true,
                 );
 
@@ -118,7 +118,7 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
                       listen: false,
                   );
                   _verse = Verse(
-                    text: _currency.symbol,
+                    id: _currency.symbol,
                     translate: false,
                   );
                 }

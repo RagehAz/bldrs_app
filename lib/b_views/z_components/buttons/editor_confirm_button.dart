@@ -37,7 +37,7 @@ double getWidth({
     return BldrsAppBar.width(context);
   }
 
-  else if (model.firstLine.text.length > 20){
+  else if (model.firstLine.id.length > 20){
     return 200;
   }
   else {
@@ -104,7 +104,7 @@ class ConfirmButton extends StatelessWidget {
             ConfirmButton(
               confirmButtonModel: ConfirmButtonModel(
                 firstLine: const Verse(
-                  text: 'phid_skip',
+                  id: 'phid_skip',
                   translate: true,
                 ),
                 onTap: confirmButtonModel.onSkipTap,

@@ -66,7 +66,7 @@ class PickersScreenBrowseView extends StatelessWidget {
             '$_flyerTypesString';
     // ------
     return Verse(
-      text: _instructions,
+      id: _instructions,
       translate: false,
     );
   }
@@ -176,7 +176,7 @@ class PickersScreenBrowseView extends StatelessWidget {
               padding: Scale.constantMarginsAll20,
               child: const SuperVerse(
                 verse: Verse(
-                  text: 'phid_no_flyer_in_this_city',
+                  id: 'phid_no_flyer_in_this_city',
                   pseudo: 'No Available Flyers in This City yet',
                   translate: true,
                 ),

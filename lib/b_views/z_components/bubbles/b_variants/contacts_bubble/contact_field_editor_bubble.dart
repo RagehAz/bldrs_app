@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 
@@ -142,8 +142,8 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
     );
     // --------------------
     /// CLEAR WIDTH - SPACING
-    final double _bubbleWidth = BldrsAppBar.width(context,);
-    final double bubbleClearWidth = Bubble.clearWidth(context);
+    final double _bubbleWidth = BldrsAppBar.width(context);
+    final double bubbleClearWidth = Bubble.clearWidth(context: context);
     const double _spacer = 5;
     /// LEADING ICON SIZE
     final double leadingIconSize = widget.fieldLeadingIcon == null ? 0 : _textFieldHeight;
@@ -170,7 +170,7 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
         columnChildren: <Widget>[
           /// BULLET POINTS
           if (widget.bulletPoints != null)
-            BulletPoints(
+            BldrsBulletPoints(
               bulletPoints: widget.bulletPoints,
             ),
 
@@ -225,7 +225,7 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
                   height: _pasteButtonHeight,
                   width: _pasteButtonWidth,
                   verse:  const Verse(
-                    text: 'phid_paste',
+                    id: 'phid_paste',
                     translate: true,
                   ),
                   verseScaleFactor: 0.5,

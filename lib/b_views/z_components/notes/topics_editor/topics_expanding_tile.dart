@@ -92,7 +92,7 @@ class TopicsExpandingTile extends StatelessWidget {
     return ExpandingTile(
       width: width ?? PageBubble.width(context),
       firstHeadline: Verse(
-        text: groupName,
+        id: groupName,
         translate: true,
         // casing: Casing.upperCase,
       ),
@@ -108,7 +108,7 @@ class TopicsExpandingTile extends StatelessWidget {
 
           const SuperVerse(
             verse: Verse(
-              text: 'phid_i_want_to_be_notified_when',
+              id: 'phid_i_want_to_be_notified_when',
               translate: true,
             ),
             centered: false,

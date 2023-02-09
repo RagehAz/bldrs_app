@@ -26,7 +26,7 @@ class PickerHeadlineTile extends StatelessWidget {
       child: DreamBox(
         height: 40,
         verse: Verse(
-          text: picker.chainID,
+          id: picker.chainID,
           translate: true,
           casing: Casing.upperCase,
         ),

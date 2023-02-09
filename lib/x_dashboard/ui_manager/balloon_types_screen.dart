@@ -56,7 +56,7 @@ class BalloonTypesScreen extends StatelessWidget {
                       /// NEED NAME
                       SuperVerse(
                         verse: Verse(
-                          text: _needType.toString(),
+                          id: _needType.toString(),
                           translate: false,
                         ),
                         margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -66,7 +66,7 @@ class BalloonTypesScreen extends StatelessWidget {
                       /// BALLOON NAME
                       SuperVerse(
                         verse: Verse(
-                          text: Balloon.concludeBalloonByNeedType(_needType).toString(),
+                          id: Balloon.concludeBalloonByNeedType(_needType).toString(),
                           translate: false,
                         ),
                         margin: const EdgeInsets.symmetric(horizontal: 10),

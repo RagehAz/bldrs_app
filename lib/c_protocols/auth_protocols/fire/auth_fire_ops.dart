@@ -440,11 +440,11 @@ class AuthFireOps {
       await CenterDialog.showCenterDialog(
         context: context,
         titleVerse: const Verse(
-          text: 'phid_trouble_signing_out',
+          id: 'phid_trouble_signing_out',
           translate: true,
         ),
         bodyVerse: Verse(
-          text: error?.toString(),
+          id: error?.toString(),
           translate: false,
         ),
       );

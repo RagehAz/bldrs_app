@@ -15,7 +15,7 @@ import 'package:bldrs/x_dashboard/chains_editor/z_components/picking_mode_bubble
 import 'package:bldrs/x_dashboard/provider_viewer/provider_viewer_screen.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/dashboard_layout.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class ChainsManager extends StatefulWidget {
@@ -74,6 +74,10 @@ class _ChainsManagerState extends State<ChainsManager> {
   @override
   Widget build(BuildContext context) {
 
+    final double _clearWidth = Bubble.clearWidth(
+      context: context,
+    );
+
     return DashBoardLayout(
       pageTitle: 'Chains Manager',
       listWidgets: <Widget>[
@@ -88,10 +92,10 @@ class _ChainsManagerState extends State<ChainsManager> {
           columnChildren: <Widget>[
 
             WideButton(
-              width: Bubble.clearWidth(context),
+              width: Bubble.clearWidth(context: context),
               icon: Iconz.keywords,
               verse: const Verse(
-                text: 'Go to Chains Editor',
+                id: 'Go to Chains Editor',
                 translate: false,
               ),
               color: Colorz.blue80,
@@ -142,7 +146,7 @@ class _ChainsManagerState extends State<ChainsManager> {
         Bubble(
           bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
             headlineVerse: const Verse(
-              text: 'Testers',
+              id: 'Testers',
               translate: false,
             ),
           ),
@@ -151,7 +155,7 @@ class _ChainsManagerState extends State<ChainsManager> {
 
             /// CREATE BLDRS CHAIN
             ProviderTestButton(
-              width: Bubble.clearWidth(context),
+              width: _clearWidth,
               value: null,
               // icon: Iconz.keywords,
               // translate: false,
@@ -200,7 +204,7 @@ class _ChainsManagerState extends State<ChainsManager> {
             ),
             /// READ BLDRS CHAIN
             ProviderTestButton(
-              width: Bubble.clearWidth(context),
+              width: _clearWidth,
               value: false,
               title:  'READ Bldrs Chain',
               onTap: () async {
@@ -231,7 +235,7 @@ class _ChainsManagerState extends State<ChainsManager> {
             ),
             /// FETCH CHAINS
             ProviderTestButton(
-              width: Bubble.clearWidth(context),
+              width: _clearWidth,
               value: false,
               title:  'FETCH Bldrs Chains',
               onTap: () async {

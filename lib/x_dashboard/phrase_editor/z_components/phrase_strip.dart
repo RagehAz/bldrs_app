@@ -49,7 +49,7 @@ class PhraseStrip extends StatelessWidget {
           if (_idsAreTheSame == false)
             const SuperVerse(
               verse: Verse(
-                text: 'CAUTION : IDs Are Not The Same !!',
+                id: 'CAUTION : IDs Are Not The Same !!',
                 translate: false,
               ),
             ),
@@ -69,7 +69,7 @@ class PhraseStrip extends StatelessWidget {
                     children: <Widget>[
                       SuperVerse(
                         verse: Verse(
-                          text: 'en ID : ${enPhrase?.id}',
+                          id: 'en ID : ${enPhrase?.id}',
                           translate: false,
                         ),
                         highlight: searchController,
@@ -109,7 +109,7 @@ class PhraseStrip extends StatelessWidget {
 
                           SuperVerse(
                             verse: Verse(
-                              text: enPhrase?.value,
+                              id: enPhrase?.value,
                               translate: false,
                             ),
                             maxLines: 5,
@@ -120,7 +120,7 @@ class PhraseStrip extends StatelessWidget {
 
                           SuperVerse(
                             verse: Verse(
-                              text: arPhrase?.value,
+                              id: arPhrase?.value,
                               translate: false,
                             ),
                             maxLines: 5,
@@ -138,7 +138,7 @@ class PhraseStrip extends StatelessWidget {
                             width: BottomDialog.clearWidth(context),
                             height: 40,
                             verse: const Verse(
-                              text: 'Edit',
+                              id: 'Edit',
                               translate: false,
                               casing: Casing.upperCase,
                             ),
@@ -151,7 +151,7 @@ class PhraseStrip extends StatelessWidget {
                             width: BottomDialog.clearWidth(context),
                             height: 40,
                             verse: const Verse(
-                              text: 'Delete',
+                              id: 'Delete',
                               translate: false,
                               casing: Casing.upperCase,
                             ),
@@ -164,7 +164,7 @@ class PhraseStrip extends StatelessWidget {
                             width: BottomDialog.clearWidth(context),
                             height: 40,
                             verse: const Verse(
-                              text: 'Select',
+                              id: 'Select',
                               translate: false,
                               casing: Casing.upperCase,
                             ),
@@ -198,7 +198,7 @@ class PhraseStrip extends StatelessWidget {
                 /// EN VALUE
                 SuperVerse(
                   verse: Verse(
-                    text: enPhrase?.value,
+                    id: enPhrase?.value,
                     translate: false,
                   ),
                   labelColor: Colorz.white20,
@@ -209,7 +209,7 @@ class PhraseStrip extends StatelessWidget {
                 /// AR VALUE
                 SuperVerse(
                   verse: Verse(
-                    text: arPhrase?.value,
+                    id: arPhrase?.value,
                     translate: false,
                   ),
                   labelColor: Colorz.white20,

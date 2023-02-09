@@ -28,7 +28,7 @@ class BzPgFields extends StatelessWidget {
 
           const SuperVerse(
             verse: Verse(
-              text: 'phid_scopeOfServices',
+              id: 'phid_scopeOfServices',
               translate: true,
             ),
             weight: VerseWeight.thin,

@@ -44,7 +44,7 @@ class _BzAboutVerseState extends State<BzAboutVerse> {
 
           SuperVerse(
             verse: Verse(
-              text: '${xPhrase( context, 'phid_about')} ${widget.bzName}',
+              id: '${xPhrase( context, 'phid_about')} ${widget.bzName}',
               translate: false,
             ),
             weight: VerseWeight.thin,

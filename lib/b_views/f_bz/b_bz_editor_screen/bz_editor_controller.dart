@@ -47,7 +47,7 @@ Future<void> loadBzEditorLastSession({
     final bool _continue = await CenterDialog.showCenterDialog(
       context: context,
       titleVerse: const Verse(
-        text: 'phid_load_last_session_data_q',
+        id: 'phid_load_last_session_data_q',
         translate: true,
       ),
       // bodyVerse: const Verse(
@@ -146,7 +146,7 @@ Future<bool> _preUploadCheckups({
     _canContinue = await CenterDialog.showCenterDialog(
       context: context,
       bodyVerse: const Verse(
-        text: 'phid_you_want_to_continue',
+        id: 'phid_you_want_to_continue',
         translate: true,
       ),
       boolDialog: true,
@@ -490,17 +490,17 @@ Future<bool> _resetScopeDialog(BuildContext context) async {
   final bool _result = await CenterDialog.showCenterDialog(
     context: context,
     titleVerse: const Verse(
-      text: 'phid_reset_scope',
+      id: 'phid_reset_scope',
       translate: true,
     ),
     bodyVerse: const Verse(
       pseudo: 'This will delete all selected business scope keywords',
       translate: true,
-      text: 'phid_reset_scope_warning',
+      id: 'phid_reset_scope_warning',
     ),
     boolDialog: true,
     confirmButtonVerse: const Verse(
-      text: 'phid_reset',
+      id: 'phid_reset',
       translate: true,
     ),
 

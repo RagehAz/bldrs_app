@@ -21,7 +21,7 @@ class SuperToolTip extends StatelessWidget {
   // --------------------
   ///
   Duration _calculateShowDuration(){
-    final int _length = verse.text.split(' ').length;
+    final int _length = verse.id.split(' ').length;
     return Duration(milliseconds: _length * millisecondsPerWord);
   }
   // --------------------------------------------------------------------------
@@ -29,7 +29,7 @@ class SuperToolTip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (verse == null || TextCheck.isEmpty(verse.text) == true){
+    if (verse == null || TextCheck.isEmpty(verse.id) == true){
       return child;
     }
 

@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/z_components/texting/customs/stats_line.dart';
 import 'package:bldrs/f_helpers/drafters/filers.dart';
 import 'package:bldrs/f_helpers/drafters/timers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:numeric/numeric.dart';
@@ -43,8 +43,10 @@ class StatsFilesBuilder extends StatelessWidget {
             final int _mode = _stat.mode;
             final String _modeString = _stat.modeString();
             // ---
+            final double _clearWidth = Bubble.clearWidth(context: context);
+            // ---
             return Bubble(
-              bubbleHeaderVM: const BubbleHeaderVM(),
+              bubbleHeaderVM: BldrsBubbleHeaderVM.bake(),
               columnChildren: <Widget>[
 
                 /// TYPE
@@ -63,7 +65,7 @@ class StatsFilesBuilder extends StatelessWidget {
 
                 /// ACCESSED
                 StatsLine(
-                  bubbleWidth: Bubble.clearWidth(context),
+                  bubbleWidth: _clearWidth,
                   icon: Iconz.circleDot,
                   verse: Verse.plain('Accesses : $_accessed'),
                   color: color,
@@ -71,7 +73,7 @@ class StatsFilesBuilder extends StatelessWidget {
 
                 /// CHANGED
                 StatsLine(
-                    bubbleWidth: Bubble.clearWidth(context),
+                    bubbleWidth: _clearWidth,
                     icon: Iconz.circleDot,
                     verse: Verse.plain('Changed : $_changed'),
                   color: color,
@@ -79,7 +81,7 @@ class StatsFilesBuilder extends StatelessWidget {
 
                 /// MODIFIED
                 StatsLine(
-                  bubbleWidth: Bubble.clearWidth(context),
+                  bubbleWidth: _clearWidth,
                   icon: Iconz.circleDot,
                   verse: Verse.plain('Modified : $_modified'),
                   color: color,

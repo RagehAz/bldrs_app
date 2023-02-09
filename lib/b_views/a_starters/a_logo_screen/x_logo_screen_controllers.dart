@@ -322,17 +322,17 @@ Future<void> _showUpdateAppDialog(BuildContext context) async {
     context: context,
     titleVerse:  const Verse(
       pseudo: 'New App update is Available',
-      text: 'phid_new_app_update_available',
+      id: 'phid_new_app_update_available',
       translate: true
     ),
     bodyVerse: const Verse(
       pseudo: 'You need to update the app to continue',
-      text: 'phid_new_app_update_description',
+      id: 'phid_new_app_update_description',
       translate: true,
     ),
     confirmButtonVerse: const Verse(
       pseudo: 'Update Bldrs.net',
-      text: 'phid_update_bldrs_net',
+      id: 'phid_update_bldrs_net',
       translate: true,
     ),
   );

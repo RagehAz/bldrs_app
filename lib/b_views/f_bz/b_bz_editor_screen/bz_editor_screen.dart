@@ -314,7 +314,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
     else {
       setState(() {
         _confirmButtonModel = ConfirmButtonModel(
-          firstLine: const Verse(text: 'phid_updateProfile', translate: true),
+          firstLine: const Verse(id: 'phid_updateProfile', translate: true),
           onTap: _onConfirmTap,
           isWide: true,
         );
@@ -358,7 +358,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
       title: Verse(
-        text: widget.bzModel == null ? 'phid_createBzAccount' : 'phid_edit_bz_info',
+        id: widget.bzModel == null ? 'phid_createBzAccount' : 'phid_edit_bz_info',
         translate: true,
       ),
       skyType: SkyType.black,
@@ -421,7 +421,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       key: const ValueKey<String>('add_logo_bubble'),
                       picModel: draft?.logoPicModel,
                       titleVerse: const Verse(
-                        text: 'phid_businessLogo',
+                        id: 'phid_businessLogo',
                         translate: true,
                       ),
                       redDot: true,
@@ -446,7 +446,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       formKey: draft?.formKey,
                       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                         headlineVerse: Verse(
-                          text: _companyNameBubbleTitle,
+                          id: _companyNameBubbleTitle,
                           translate: true,
                         ),
                         redDot: true,
@@ -509,13 +509,13 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                     /// SECTION
                     MultipleChoiceBubble(
                       titleVerse: const Verse(
-                        text: 'phid_sections',
+                        id: 'phid_sections',
                         translate: true,
                       ),
                       buttonsVerses: Verse.createVerses(strings: _allSectionsPhids, translate: true),
                       selectedButtonsPhids: <String>[_selectedBzSectionPhid],
                       bulletPoints: const <Verse>[
-                        Verse(text: 'phid_select_only_one_section', translate: true,),
+                        Verse(id: 'phid_select_only_one_section', translate: true,),
                         // Verse(text: 'phid_bz_section_selection_info', translate: true,),
                       ],
                       validator: () => Formers.bzSectionValidator(
@@ -535,7 +535,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                     /// BZ TYPE
                     MultipleChoiceBubble(
                       titleVerse: const Verse(
-                        text: 'phid_bz_entity_type',
+                        id: 'phid_bz_entity_type',
                         translate: true,
                       ),
                       buttonsVerses: Verse.createVerses(strings: _allBzTypesButtons, translate: true),
@@ -543,7 +543,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       inactiveButtons: Verse.createVerses(strings: _inactiveBzTypesPhids, translate: true),
 
                       bulletPoints: const <Verse>[
-                        Verse(text: 'phid_select_bz_type', translate: true,),
+                        Verse(id: 'phid_select_bz_type', translate: true,),
                       ],
                       validator: () => Formers.bzTypeValidator(
                         context: context,
@@ -561,7 +561,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                     /// BZ FORM
                     MultipleChoiceBubble(
                       titleVerse: const Verse(
-                        text: 'phid_businessForm',
+                        id: 'phid_businessForm',
                         translate: true,
                       ),
                       // description: superPhrase(context, 'phid_businessForm_description'),
@@ -569,8 +569,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       selectedButtonsPhids: <String>[_selectedBzFormPhid],
                       inactiveButtons: Verse.createVerses(strings: _inactiveBzFormsPhids, translate: true),
                       bulletPoints: const <Verse>[
-                        Verse(text: 'phid_bz_form_pro_description', translate: true,),
-                        Verse(text: 'phid_bz_form_company_description', translate: true,),
+                        Verse(id: 'phid_bz_form_pro_description', translate: true,),
+                        Verse(id: 'phid_bz_form_company_description', translate: true,),
                       ],
                       validator: () => Formers.bzFormValidator(
                         context: context,
@@ -616,7 +616,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       formKey: draft?.formKey,
                       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                         headlineVerse: const Verse(
-                          text: 'phid_about',
+                          id: 'phid_about',
                           translate: true,
                         ),
                       ),
@@ -651,7 +651,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                     /// SCOPES SELECTOR
                     ScopeSelectorBubble(
                       headlineVerse: const Verse(
-                        text: 'phid_scopeOfServices',
+                        id: 'phid_scopeOfServices',
                         translate: true,
                       ),
                       flyerTypes: FlyerTyper.concludePossibleFlyerTypesByBzTypes(
@@ -663,7 +663,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       ),
                       bulletPoints: const <Verse>[
                         Verse(
-                          text: 'phid_select_atleast_one_scope_phid',
+                          id: 'phid_select_atleast_one_scope_phid',
                           translate: true,
                         )
                       ],
@@ -706,7 +706,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                     ZoneSelectionBubble(
                         zoneViewingEvent: ViewingEvent.bzEditor,
                         titleVerse: const Verse(
-                          text: 'phid_hqCity',
+                          id: 'phid_hqCity',
                           translate: true,
                         ),
                         currentZone: draft?.zone,
@@ -759,7 +759,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       isFormField: true,
                       headerViewModel: BldrsBubbleHeaderVM.bake(
                         headlineVerse: const Verse(
-                          text: 'phid_phone',
+                          id: 'phid_phone',
                           translate: true,
                         ),
                       ),
@@ -796,7 +796,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       isFormField: true,
                       headerViewModel: BldrsBubbleHeaderVM.bake(
                         headlineVerse: const Verse(
-                          text: 'phid_emailAddress',
+                          id: 'phid_emailAddress',
                           translate: true,
                         ),
                         redDot: true,
@@ -829,7 +829,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       key: const ValueKey<String>('website'),
                       headerViewModel: BldrsBubbleHeaderVM.bake(
                         headlineVerse: const Verse(
-                          text: 'phid_website',
+                          id: 'phid_website',
                           translate: true,
                         ),
                       ),

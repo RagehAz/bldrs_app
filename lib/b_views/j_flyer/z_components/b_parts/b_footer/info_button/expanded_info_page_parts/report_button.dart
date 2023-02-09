@@ -29,7 +29,7 @@ class ReportButton extends StatelessWidget {
     return DreamBox(
       height: 35,
       verse: Verse(
-        text: _buttonPhid,
+        id: _buttonPhid,
         translate: true,
       ),
       color: color,

@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/f_helpers/drafters/aligners.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:stringer/stringer.dart';
@@ -43,7 +43,8 @@ class MultipleChoiceBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _bubbleWidth = Bubble.bubbleWidth(context);
+    final double _bubbleWidth = Bubble.bubbleWidth(context: context);
+    final double _clearWidth = Bubble.clearWidth(context: context);
 
     return Bubble(
         width: _bubbleWidth,
@@ -59,13 +60,13 @@ class MultipleChoiceBubble extends StatelessWidget {
 
           /// BULLET POINTS
           if (bulletPoints != null)
-            BulletPoints(
+            BldrsBulletPoints(
               bulletPoints: bulletPoints,
             ),
 
           /// BUTTONS
           _ButtonsBuilder(
-            width: Bubble.clearWidth(context),
+            width: _clearWidth,
             buttonsVerses: buttonsVerses,
             onButtonTap: onButtonTap,
             selectedButtonsPhids: selectedButtonsPhids,
@@ -76,7 +77,7 @@ class MultipleChoiceBubble extends StatelessWidget {
           /// VALIDATOR
           if (validator != null)
             BldrsValidator(
-              width: Bubble.clearWidth(context) - 20,
+              width: _clearWidth - 20,
               validator: validator,
               autoValidate: autoValidate,
               focusNode: focusNode,
@@ -130,12 +131,12 @@ class _ButtonsBuilder extends StatelessWidget {
 
               final bool _isSelected = Stringer.checkStringsContainString(
                 strings: selectedButtonsPhids,
-                string: _buttonVerse.text,
+                string: _buttonVerse.id,
               );
 
               final bool _isDeactivated = Stringer.checkStringsContainString(
-                strings: Verse.getTextsFromVerses(inactiveButtons),
-                string: _buttonVerse.text,
+                strings: Verse.getVersesIDs(inactiveButtons),
+                string: _buttonVerse.id,
               );
 
               return _TheButton(
@@ -168,12 +169,12 @@ class _ButtonsBuilder extends StatelessWidget {
 
                 final bool _isSelected = Stringer.checkStringsContainString(
                   strings: selectedButtonsPhids,
-                  string: _buttonVerse.text,
+                  string: _buttonVerse.id,
                 );
 
                 final bool _isDeactivated = Stringer.checkStringsContainString(
-                  strings: Verse.getTextsFromVerses(inactiveButtons),
-                  string: _buttonVerse.text,
+                  strings: Verse.getVersesIDs(inactiveButtons),
+                  string: _buttonVerse.id,
                 );
 
                 return Align(

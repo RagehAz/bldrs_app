@@ -286,7 +286,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
     else {
       setState(() {
         _confirmButtonModel = ConfirmButtonModel(
-          firstLine: const Verse(text: 'phid_updateProfile', translate: true),
+          firstLine: const Verse(id: 'phid_updateProfile', translate: true),
           onTap: _onConfirmTap,
           isWide: true,
         );
@@ -320,7 +320,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
       historyButtonIsOn: false,
       skyType: SkyType.black,
       title: const Verse(
-        text: 'phid_edit_author_details',
+        id: 'phid_edit_author_details',
         translate: true,
       ),
       confirmButtonModel: _confirmButtonModel,
@@ -346,7 +346,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                         // width: BldrsAppBar.width(context),
                         picModel: authorModel.picModel,
                         titleVerse: const Verse(
-                          text: 'phid_author_picture',
+                          id: 'phid_author_picture',
                           translate: true,
                         ),
                         redDot: true,
@@ -372,7 +372,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       key: const ValueKey<String>('name'),
                       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                         headlineVerse: const Verse(
-                          text: 'phid_author_name',
+                          id: 'phid_author_name',
                           translate: true,
                         ),
                         redDot: true,
@@ -387,7 +387,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       keyboardTextInputAction: TextInputAction.next,
                       bulletPoints: const <Verse>[
                         Verse(
-                          text: 'phid_author_name_changing_note',
+                          id: 'phid_author_name_changing_note',
                           translate: true,
                         ),
                       ],
@@ -411,7 +411,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       formKey: _formKey,
                       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                         headlineVerse: const Verse(
-                          text: 'phid_job_title',
+                          id: 'phid_job_title',
                           translate: true,
                         ),
                         redDot: true,
@@ -476,7 +476,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       isFormField: true,
                       headerViewModel: BldrsBubbleHeaderVM.bake(
                         headlineVerse: const Verse(
-                          text: 'phid_phone',
+                          id: 'phid_phone',
                           translate: true,
                         ),
                       ),
@@ -513,7 +513,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       isFormField: true,
                       headerViewModel: BldrsBubbleHeaderVM.bake(
                         headlineVerse: const Verse(
-                          text: 'phid_emailAddress',
+                          id: 'phid_emailAddress',
                           translate: true,
                         ),
                         redDot: true,

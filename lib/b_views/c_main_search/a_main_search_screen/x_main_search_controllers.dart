@@ -344,12 +344,12 @@ Future<void> _handleSearchResult({
     await TopDialog.showTopDialog(
       context: context,
       firstVerse: const Verse(
-        text: 'phid_no_result_found',
+        id: 'phid_no_result_found',
         translate: true,
       ),
       secondVerse: const Verse(
         pseudo: 'Try again with different words',
-        text: 'phid_try_again_with_different_words',
+        id: 'phid_try_again_with_different_words',
         translate: true,
       ),
     );
