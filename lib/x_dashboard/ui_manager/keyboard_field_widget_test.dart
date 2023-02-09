@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
@@ -150,7 +150,7 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
 
                 const Stratosphere(bigAppBar: true),
 
-                TextFieldBubble(
+                BldrsTextFieldBubble(
                   bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                     headlineVerse: Verse.plain('AAA'),
                   ),
@@ -179,7 +179,7 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
                   color: Colorz.white20,
                 ),
 
-                TextFieldBubble(
+                BldrsTextFieldBubble(
                   bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                     headlineVerse: Verse.plain('BBB'),
                   ),
@@ -199,7 +199,7 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
                   color: Colorz.white20,
                 ),
 
-                TextFieldBubble(
+                BldrsTextFieldBubble(
                   bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                     headlineVerse: Verse.plain('CCC'),
                   ),
@@ -218,7 +218,7 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
                   color: Colorz.white20,
                 ),
 
-                TextFieldBubble(
+                BldrsTextFieldBubble(
                   bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                     headlineVerse: Verse.plain('DDD'),
                   ),

@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
@@ -59,7 +59,7 @@ class PasswordBubbles extends StatelessWidget {
       children: <Widget>[
 
         /// PASSWORD
-        TextFieldBubble(
+        BldrsTextFieldBubble(
           bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
             headlineVerse: const Verse(id: 'phid_password', translate: true),
             redDot: true,
@@ -94,7 +94,7 @@ class PasswordBubbles extends StatelessWidget {
 
         /// CONFIRM PASSWORD
         if (showPasswordOnly == false)
-          TextFieldBubble(
+          BldrsTextFieldBubble(
             bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
               headlineVerse: const Verse(
                 id: 'phid_confirmPassword',

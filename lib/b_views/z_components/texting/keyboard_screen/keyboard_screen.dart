@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/x_ui/keyboard_model.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -185,7 +185,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
               const Stratosphere(),
 
               /// TEXT FIELD
-              TextFieldBubble(
+              BldrsTextFieldBubble(
                 formKey: _globalKey,
                 bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                   headlineVerse: _keyboardModel.titleVerse,
