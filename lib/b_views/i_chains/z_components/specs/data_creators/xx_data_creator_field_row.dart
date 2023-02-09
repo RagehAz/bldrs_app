@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_text_f
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bldrs/lib/bubbles.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class NumberDataCreatorFieldRow extends StatelessWidget {

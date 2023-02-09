@@ -79,7 +79,7 @@ class _BldrsImagePathToUiImageState extends State<BldrsImagePathToUiImage> {
   @override
   void dispose() {
     _loading.dispose();
-    _uiImage?.dispose();
+    // _uiImage?.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------

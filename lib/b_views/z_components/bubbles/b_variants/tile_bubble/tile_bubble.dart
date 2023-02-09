@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
-import 'package:bldrs/lib/bubbles.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -66,7 +66,7 @@ class BldrsTileBubble extends StatelessWidget {
     return TileBubble(
       key: const ValueKey<String>('BldrsTileBubble'),
       textDirection: UiProvider.getAppTextDir(context),
-      font: SuperVerse.superVerseFont(context, VerseWeight.thin),
+      font: SuperVerse.superVerseFont(context, VerseWeight.bold),
       appIsLTR: UiProvider.checkAppIsLeftToRight(context),
       textColor: verseColor,
       autoValidate: autoValidate,

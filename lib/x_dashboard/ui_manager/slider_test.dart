@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -84,7 +84,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
 
             const Stratosphere(),
 
-            TextFieldBubble(
+            BldrsTextFieldBubble(
               appBarType: AppBarType.basic,
               keyboardTextInputType: TextInputType.number,
               textController: _minController,
@@ -103,7 +103,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               ),
             ),
 
-            TextFieldBubble(
+            BldrsTextFieldBubble(
               appBarType: AppBarType.basic,
               keyboardTextInputType: TextInputType.number,
               textController: _maxController,
@@ -122,7 +122,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
               ),
             ),
 
-            TextFieldBubble(
+            BldrsTextFieldBubble(
               appBarType: AppBarType.basic,
               keyboardTextInputType: TextInputType.number,
               textController: _divisionsController,

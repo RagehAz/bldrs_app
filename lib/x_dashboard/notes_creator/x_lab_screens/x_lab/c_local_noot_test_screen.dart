@@ -15,7 +15,7 @@ import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/d_user/d_user_search_screen/search_users_screen.dart';
 import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/a_saved_flyers_screen.dart';
 import 'package:bldrs/b_views/f_bz/g_search_bzz_screen/search_bzz_screen.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -45,7 +45,7 @@ import 'package:bldrs/f_helpers/drafters/sliders.dart';
 import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bldrs/lib/bubbles.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -466,7 +466,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                 // ),
 
                 /// TITLE
-                TextFieldBubble(
+                BldrsTextFieldBubble(
                   bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                     headlineVerse: Verse.plain('Title'),
                   ),
@@ -494,7 +494,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                 ),
 
                 /// BODY
-                TextFieldBubble(
+                BldrsTextFieldBubble(
                   bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                     headlineVerse: Verse.plain('Body'),
                   ),

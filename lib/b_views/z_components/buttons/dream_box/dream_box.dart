@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:bldrs/b_views/z_components/images/bldrs_image_path_to_ui_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
-import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
@@ -207,16 +207,13 @@ class DreamBox extends StatelessWidget {
 
       /// PIC PATH
       else if (isPicPath == true) {
-        return FutureBuilder(
-          future: PicProtocols.fetchPicUiImage(
-            context: context,
-            path: icon,
-          ),
-          builder: (_, AsyncSnapshot<ui.Image> snap) {
+        return BldrsImagePathToUiImage(
+          imagePath: icon,
+          builder: (bool loading, ui.Image uiImage) {
             return getChild(
               context: context,
-              theIcon: snap.data,
-              isLoading: snap.connectionState == ConnectionState.waiting,
+              theIcon: uiImage,
+              isLoading: loading,
             );
           },
         );

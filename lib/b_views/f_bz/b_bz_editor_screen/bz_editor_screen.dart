@@ -13,7 +13,7 @@ import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/bz_editor_controller.dart'
 import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/z_components/scope_selector_bubble.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/contact_field_editor_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/phids_bubble/multiple_choice_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/pic_bubble/add_gallery_pic_bubble.dart';
@@ -442,7 +442,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                     ),
 
                     /// BZ NAME
-                    TextFieldBubble(
+                    BldrsTextFieldBubble(
                       formKey: draft?.formKey,
                       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                         headlineVerse: Verse(
@@ -612,7 +612,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                   columnChildren: <Widget>[
 
                     /// BZ ABOUT
-                    TextFieldBubble(
+                    BldrsTextFieldBubble(
                       formKey: draft?.formKey,
                       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                         headlineVerse: const Verse(

@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/z_components/buttons/multi_button/a_multi_button.d
 import 'package:bldrs/b_views/z_components/notes/topics_editor/topics_expanding_tile.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bldrs/lib/bubbles.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class NoteTopicSelectorBubble extends StatelessWidget {

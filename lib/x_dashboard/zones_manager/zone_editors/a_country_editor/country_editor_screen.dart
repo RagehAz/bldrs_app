@@ -23,7 +23,7 @@ import 'package:bldrs/x_dashboard/zones_manager/zone_editors/b_city_editor/creat
 import 'package:bldrs/x_dashboard/zones_manager/zone_editors/b_city_editor/edit_city_screen.dart';
 import 'package:bldrs/x_dashboard/zones_manager/zone_editors/components/zone_stage_bubble.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bldrs/lib/bubbles.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:stringer/stringer.dart';
 

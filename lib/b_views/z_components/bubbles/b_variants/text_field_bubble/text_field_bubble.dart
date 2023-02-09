@@ -1,27 +1,16 @@
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_bullet_points.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
-import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bldrs/lib/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
 
-class TextFieldBubble extends StatelessWidget {
+class BldrsTextFieldBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const TextFieldBubble({
+  const BldrsTextFieldBubble({
     @required this.bubbleHeaderVM,
     @required this.appBarType,
-    // this.titleVerse,
-    // this.fieldIsRequired = false,
-    // this.actionBtIcon,
-    // this.onHeaderLeadinIconTap,
-
     this.formKey,
     this.bubbleWidth,
     this.hintVerse,
@@ -38,7 +27,6 @@ class TextFieldBubble extends StatelessWidget {
     this.initialText,
     this.validator,
     this.bulletPoints,
-    // this.loading = false,
     this.leadingIcon,
     this.pasteFunction,
     this.textDirection,
@@ -60,13 +48,6 @@ class TextFieldBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
 
   final BubbleHeaderVM bubbleHeaderVM;
-
-  // final Verse titleVerse;
-  // final bool fieldIsRequired;
-  // final String actionBtIcon;
-  // final Function onHeaderLeadinIconTap;
-
-
   final double bubbleWidth;
   final Verse hintVerse;
   final bool counterIsOn;
@@ -83,8 +64,7 @@ class TextFieldBubble extends StatelessWidget {
   final String initialText;
   final String Function(String) validator;
   final List<Verse> bulletPoints;
-  // final bool loading;
-  final String leadingIcon;
+  final dynamic leadingIcon;
   final Function pasteFunction;
   final TextDirection textDirection;
   final Color bubbleColor;
@@ -102,9 +82,9 @@ class TextFieldBubble extends StatelessWidget {
   final AppBarType appBarType;
   final bool autoValidate;
   /// --------------------------------------------------------------------------
-  static const double pasteButtonWidth = 50;
+  // static const double pasteButtonWidth = 50;
   // --------------------
-  static double _leadingIconSizeFactor(String leadingIcon){
+  static double _leadingIconSizeFactor(dynamic leadingIcon){
     final double _sizeFactor =
     leadingIcon == Iconz.comWebsite ||
         leadingIcon == Iconz.comEmail ||
@@ -116,209 +96,280 @@ class TextFieldBubble extends StatelessWidget {
     return _sizeFactor;
   }
   // --------------------
-  static double getFieldWidth({
-    @required String leadingIcon,
-    @required bool showUnObscure,
-    @required BuildContext context,
-    @required double bubbleWidth,
-    @required bool hasPasteButton,
-  }){
-
-    final double fieldHeight = BldrsTextField.getFieldHeight(
-      context: context,
-      minLines: 1,
-      textSize: 2,
-      scaleFactor: 1,
-      withBottomMargin: false,
-      withCounter: false,
-    );
-
-
-    final double _leadingIconSize = leadingIcon == null ? 0 : fieldHeight;
-    final double _leadingAndFieldSpacing = leadingIcon == null ? 0 : 5;
-    final double _obscureBtSize = showUnObscure == false ? 0 : fieldHeight;
-    final double _obscureBtSpacing = showUnObscure == false ? 0 : 5;
-    final double _pasteButtonWidthAndSpacing = hasPasteButton == true ? pasteButtonWidth + 5 : 0;
-    final double _bubbleClearWidth = Bubble.clearWidth(context: context, bubbleWidthOverride: bubbleWidth);
-    final double _fieldWidth = _bubbleClearWidth - _leadingIconSize
-        - _leadingAndFieldSpacing - _obscureBtSize - _obscureBtSpacing - _pasteButtonWidthAndSpacing;
-
-    return _fieldWidth;
-  }
+  // static double getFieldWidth({
+  //   @required String leadingIcon,
+  //   @required bool showUnObscure,
+  //   @required BuildContext context,
+  //   @required double bubbleWidth,
+  //   @required bool hasPasteButton,
+  // }){
+  //
+  //   final double fieldHeight = BldrsTextField.getFieldHeight(
+  //     context: context,
+  //     minLines: 1,
+  //     textSize: 2,
+  //     scaleFactor: 1,
+  //     withBottomMargin: false,
+  //     withCounter: false,
+  //   );
+  //
+  //
+  //   final double _leadingIconSize = leadingIcon == null ? 0 : fieldHeight;
+  //   final double _leadingAndFieldSpacing = leadingIcon == null ? 0 : 5;
+  //   final double _obscureBtSize = showUnObscure == false ? 0 : fieldHeight;
+  //   final double _obscureBtSpacing = showUnObscure == false ? 0 : 5;
+  //   final double _pasteButtonWidthAndSpacing = hasPasteButton == true ? pasteButtonWidth + 5 : 0;
+  //   final double _bubbleClearWidth = Bubble.clearWidth(context: context, bubbleWidthOverride: bubbleWidth);
+  //   final double _fieldWidth = _bubbleClearWidth - _leadingIconSize
+  //       - _leadingAndFieldSpacing - _obscureBtSize - _obscureBtSpacing - _pasteButtonWidthAndSpacing;
+  //
+  //   return _fieldWidth;
+  // }
   // -----------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    // --------------------
-    final double fieldHeight = BldrsTextField.getFieldHeight(
+
+    final double _textFieldPadding = SuperVerse.superVerseSidePaddingValues(context, textSize);
+    final EdgeInsets _scrollPadding = BldrsTextField.getFieldScrollPadding(
       context: context,
-      minLines: 1,
-      textSize: 2,
-      scaleFactor: 1,
-      withBottomMargin: false,
-      withCounter: false,
+      appBarType: appBarType,
     );
-    final double leadingIconSize = leadingIcon == null ? 0 : fieldHeight;
-    final double obscureBtSize = isObscured == null ? 0 : fieldHeight;
-    final double fieldWidth = getFieldWidth(
-      context: context,
+
+    final double _verseSizeValue = SuperVerse.superVerseSizeValue(context, textSize, 1) * 1.4;
+
+    return TextFieldBubble(
+      key: const ValueKey<String>('BldrsTextFieldBubble'),
+      bubbleHeaderVM: bubbleHeaderVM,
+      errorTextColor: Colorz.red255,
+      enabledBorderColor: Colorz.nothing,
+      focusedBorderColor: Colorz.yellow80,
+      // errorBorderColor: Colorz.red125,
+      focusedErrorBorderColor: Colorz.yellow80,
+      // fieldColor: ,
+      cursorColor: Colorz.yellow255,
       bubbleWidth: bubbleWidth,
+      bubbleColor: bubbleColor,
+      validator: validator,
+      autoValidate: autoValidate,
+      focusNode: focusNode,
+      minLines: minLines,
+      maxLength: maxLength,
+      maxLines: maxLines,
+      isObscured: isObscured,
+      formKey: formKey,
+      isFormField: isFormField,
+      keyboardTextInputAction: keyboardTextInputAction,
+      onSubmitted: onSubmitted,
+      keyboardTextInputType: keyboardTextInputType,
+      pasteFunction: pasteFunction,
+      textController: textController,
+      autoFocus: autoFocus,
+      bulletPoints: Verse.bakeVerses(verses: bulletPoints, context: context),
+      bulletPointsFont: SuperVerse.superVerseFont(context, VerseWeight.thin),
+      columnChildren: columnChildren,
+      counterIsOn: counterIsOn,
+      // fieldScrollController: null,
+      fieldScrollPadding: _scrollPadding,
+      // fieldTextCentered: false,
+      // fieldTextColor: Colorz.white255,
+      fieldTextDirection: textDirection ?? UiProvider.getAppTextDir(context),
+      fieldTextHeight: SuperVerse.superVerseRealHeight(context: context, size: textSize, sizeFactor: 1, hasLabelBox: false),
+      // fieldTextItalic: false,
+      fieldTextPadding: EdgeInsets.all(_textFieldPadding),
+      fieldTextWeight: SuperVerse.superVerseWeight(VerseWeight.thin),
+      hintText: Verse.bakeVerseToString(context: context, verse: hintVerse),
+      initialText: initialText,
+      isError: isError,
+      isLoading: isLoading,
       leadingIcon: leadingIcon,
-      showUnObscure: isObscured != null,
-      hasPasteButton: pasteFunction != null,
+      leadingIconSizeFactor: _leadingIconSizeFactor(leadingIcon),
+      loadingColor: Colorz.yellow255,
+      obscuredActiveColor: Colorz.yellow255,
+      // obscuredIcon: Iconz.viewsIcon,
+      onBubbleTap: onBubbleTap,
+      onFieldTap: onFieldTap,
+      onSavedForForm: onSavedForForm,
+      onTextChanged: onTextChanged,
+      pasteText: Verse.transBake(context, 'phid_paste'),
+
+      fieldLetterSpacing: SuperVerse.superVerseLetterSpacing(VerseWeight.thin, _verseSizeValue),
+      fieldTextFont: SuperVerse.superVerseFont(context, VerseWeight.thin),
+      // fieldCorners: 0,
+      fieldWordSpacing: SuperVerse.superVerseWordSpacing(_verseSizeValue),
     );
+
     // --------------------
-    final double _bubbleWidth = Bubble.bubbleWidth(
-        context: context,
-        bubbleWidthOverride: bubbleWidth,
-    );
-    // --------------------
-
-    return Bubble(
-        bubbleColor: Formers.validatorBubbleColor(
-          // canErrorize: true,
-          defaultColor: bubbleColor,
-          validator: () => Formers.bakeValidator(
-            validator: validator,
-            text: textController?.text,
-            keepEmbeddedBubbleColor: true,
-          ),
-        ),
-      bubbleHeaderVM: bubbleHeaderVM.copyWith(
-        headerWidth: _bubbleWidth - 20,
-      ),
-        // headerViewModel: BubbleHeaderVM(
-        //   headerWidth: _bubbleWidth - 20,
-        //   headlineVerse: titleVerse,
-        //   redDot: fieldIsRequired,
-        //   leadingIcon: actionBtIcon,
-        //   onLeadingIconTap: onHeaderLeadinIconTap,
-        // ),
-        width: _bubbleWidth,
-        onBubbleTap: onBubbleTap,
-        columnChildren: <Widget>[
-
-          /// BULLET POINTS
-          if (Mapper.checkCanLoopList(bulletPoints) == true)
-            BldrsBulletPoints(
-              bubbleWidth: bubbleWidth,
-              bulletPoints: bulletPoints,
-            ),
-
-          /// TEXT FIELD ROW
-          Stack(
-            alignment: Aligners.superInverseTopAlignment(context),
-            children: <Widget>[
-
-              /// TEXT FIELD
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-
-                  /// LEADING ICON
-                  if (leadingIcon != null)
-                    DreamBox(
-                      height: leadingIconSize,
-                      width: leadingIconSize,
-                      icon: leadingIcon,
-                      iconSizeFactor: _leadingIconSizeFactor(leadingIcon),
-                    ),
-
-                  /// SPACER
-                  if (leadingIcon != null)
-                    const SizedBox(width: 5,),
-
-                  /// TEXT FIELD
-                  BldrsTextField(
-                    appBarType: appBarType,
-                    globalKey: formKey,
-                    titleVerse: Verse.plain(bubbleHeaderVM.headlineText),
-                    width: fieldWidth,
-                    isFormField: isFormField,
-                    textDirection: textDirection,
-                    hintVerse: hintVerse,
-                    counterIsOn: counterIsOn,
-                    textInputType: keyboardTextInputType,
-                    maxLines: maxLines,
-                    maxLength: maxLength,
-                    textController: textController,
-                    onChanged: onTextChanged,
-                    onSubmitted: onSubmitted,
-                    onSavedForForm: onSavedForForm,
-                    textInputAction: keyboardTextInputAction,
-                    initialValue: initialText,
-                    validator: validator,
-                    focusNode: focusNode,
-                    autofocus: autoFocus,
-                    isFloatingField : isFloatingField,
-                    textSize: textSize,
-                    minLines: minLines,
-                    onTap: onFieldTap,
-                    isObscured: isObscured,
-                    autoValidate: autoValidate,
-                  ),
-
-                  /// SPACER
-                  if (isObscured != null)
-                    const SizedBox(width: 5,),
-
-                  /// OBSCURE BUTTON
-                  if (isObscured != null)
-                    ValueListenableBuilder(
-                      valueListenable: isObscured,
-                      builder: (_, bool obscured, Widget child){
-
-                        return DreamBox(
-                          height: obscureBtSize,
-                          width: obscureBtSize,
-                          color: obscured ? Colorz.nothing : Colorz.yellow200,
-                          icon: Iconz.viewsIcon,
-                          iconColor: obscured ? Colorz.white20 : Colorz.black230,
-                          iconSizeFactor: 0.7,
-                          bubble: false,
-                          corners: SuperVerse.superVerseLabelCornerValue(context, 3),
-                          onTap: (){
-                            setNotifier(notifier: isObscured, mounted: true, value: !obscured);
-                          },
-                          // boxFunction: horusOnTapCancel== null ? (){} : horusOnTapCancel, // this prevents keyboard action from going to next field in the form
-                        );
-
-                      },
-                    ),
-
-                ],
-              ),
-
-              /// LOADING INDICATOR
-              if (isLoading == true)
-              Loading(
-                size: 35,
-                loading: isLoading,
-              ),
-
-              /// TASK : MOVE PASTE BUTTON TO BE INSIDE THE ROW ABOVE JUST LIKE CONTACTS BUBBLE
-              if (pasteFunction != null)
-                DreamBox(
-                  height: fieldHeight,
-                  width: pasteButtonWidth,
-                  verse: const Verse(
-                    id: 'phid_paste',
-                    translate: true,
-                  ),
-                  verseScaleFactor: 0.5,
-                  verseWeight: VerseWeight.thin,
-                  verseItalic: true,
-                  color: Colorz.white10,
-                  onTap: pasteFunction,
-                ),
-
-            ],
-          ),
-
-          if (Mapper.checkCanLoopList(columnChildren) == true)
-          ...columnChildren,
-
-        ]
-    );
+    // final double fieldHeight = BldrsTextField.getFieldHeight(
+    //   context: context,
+    //   minLines: 1,
+    //   textSize: 2,
+    //   scaleFactor: 1,
+    //   withBottomMargin: false,
+    //   withCounter: false,
+    // );
+    // final double leadingIconSize = leadingIcon == null ? 0 : fieldHeight;
+    // final double obscureBtSize = isObscured == null ? 0 : fieldHeight;
+    // final double fieldWidth = getFieldWidth(
+    //   context: context,
+    //   bubbleWidth: bubbleWidth,
+    //   leadingIcon: leadingIcon,
+    //   showUnObscure: isObscured != null,
+    //   hasPasteButton: pasteFunction != null,
+    // );
+    // // --------------------
+    // final double _bubbleWidth = Bubble.bubbleWidth(
+    //     context: context,
+    //     bubbleWidthOverride: bubbleWidth,
+    // );
+    // // --------------------
+    //
+    // return Bubble(
+    //     bubbleColor: Formers.validatorBubbleColor(
+    //       // canErrorize: true,
+    //       defaultColor: bubbleColor,
+    //       validator: () => Formers.bakeValidator(
+    //         validator: validator,
+    //         text: textController?.text,
+    //         keepEmbeddedBubbleColor: true,
+    //       ),
+    //     ),
+    //   bubbleHeaderVM: bubbleHeaderVM.copyWith(
+    //     headerWidth: _bubbleWidth - 20,
+    //   ),
+    //     // headerViewModel: BubbleHeaderVM(
+    //     //   headerWidth: _bubbleWidth - 20,
+    //     //   headlineVerse: titleVerse,
+    //     //   redDot: fieldIsRequired,
+    //     //   leadingIcon: actionBtIcon,
+    //     //   onLeadingIconTap: onHeaderLeadinIconTap,
+    //     // ),
+    //     width: _bubbleWidth,
+    //     onBubbleTap: onBubbleTap,
+    //     columnChildren: <Widget>[
+    //
+    //       /// BULLET POINTS
+    //       if (Mapper.checkCanLoopList(bulletPoints) == true)
+    //         BldrsBulletPoints(
+    //           bubbleWidth: bubbleWidth,
+    //           bulletPoints: bulletPoints,
+    //         ),
+    //
+    //       /// TEXT FIELD ROW
+    //       Stack(
+    //         alignment: Aligners.superInverseTopAlignment(context),
+    //         children: <Widget>[
+    //
+    //           /// TEXT FIELD
+    //           Row(
+    //             crossAxisAlignment: CrossAxisAlignment.start,
+    //             children: <Widget>[
+    //
+    //               /// LEADING ICON
+    //               if (leadingIcon != null)
+    //                 DreamBox(
+    //                   height: leadingIconSize,
+    //                   width: leadingIconSize,
+    //                   icon: leadingIcon,
+    //                   iconSizeFactor: _leadingIconSizeFactor(leadingIcon),
+    //                 ),
+    //
+    //               /// SPACER
+    //               if (leadingIcon != null)
+    //                 const SizedBox(width: 5,),
+    //
+    //               /// TEXT FIELD
+    //               BldrsTextField(
+    //                 appBarType: appBarType,
+    //                 globalKey: formKey,
+    //                 titleVerse: Verse.plain(bubbleHeaderVM.headlineText),
+    //                 width: fieldWidth,
+    //                 isFormField: isFormField,
+    //                 textDirection: textDirection,
+    //                 hintVerse: hintVerse,
+    //                 counterIsOn: counterIsOn,
+    //                 textInputType: keyboardTextInputType,
+    //                 maxLines: maxLines,
+    //                 maxLength: maxLength,
+    //                 textController: textController,
+    //                 onChanged: onTextChanged,
+    //                 onSubmitted: onSubmitted,
+    //                 onSavedForForm: onSavedForForm,
+    //                 textInputAction: keyboardTextInputAction,
+    //                 initialValue: initialText,
+    //                 validator: validator,
+    //                 focusNode: focusNode,
+    //                 autofocus: autoFocus,
+    //                 isFloatingField : isFloatingField,
+    //                 textSize: textSize,
+    //                 minLines: minLines,
+    //                 onTap: onFieldTap,
+    //                 isObscured: isObscured,
+    //                 autoValidate: autoValidate,
+    //               ),
+    //
+    //               /// SPACER
+    //               if (isObscured != null)
+    //                 const SizedBox(width: 5,),
+    //
+    //               /// OBSCURE BUTTON
+    //               if (isObscured != null)
+    //                 ValueListenableBuilder(
+    //                   valueListenable: isObscured,
+    //                   builder: (_, bool obscured, Widget child){
+    //
+    //                     return DreamBox(
+    //                       height: obscureBtSize,
+    //                       width: obscureBtSize,
+    //                       color: obscured ? Colorz.nothing : Colorz.yellow200,
+    //                       icon: Iconz.viewsIcon,
+    //                       iconColor: obscured ? Colorz.white20 : Colorz.black230,
+    //                       iconSizeFactor: 0.7,
+    //                       bubble: false,
+    //                       corners: SuperVerse.superVerseLabelCornerValue(context, 3),
+    //                       onTap: (){
+    //                         setNotifier(notifier: isObscured, mounted: true, value: !obscured);
+    //                       },
+    //                       // boxFunction: horusOnTapCancel== null ? (){} : horusOnTapCancel, // this prevents keyboard action from going to next field in the form
+    //                     );
+    //
+    //                   },
+    //                 ),
+    //
+    //             ],
+    //           ),
+    //
+    //           /// LOADING INDICATOR
+    //           if (isLoading == true)
+    //           Loading(
+    //             size: 35,
+    //             loading: isLoading,
+    //           ),
+    //
+    //           /// TASK : MOVE PASTE BUTTON TO BE INSIDE THE ROW ABOVE JUST LIKE CONTACTS BUBBLE
+    //           if (pasteFunction != null)
+    //             DreamBox(
+    //               height: fieldHeight,
+    //               width: pasteButtonWidth,
+    //               verse: const Verse(
+    //                 id: 'phid_paste',
+    //                 translate: true,
+    //               ),
+    //               verseScaleFactor: 0.5,
+    //               verseWeight: VerseWeight.thin,
+    //               verseItalic: true,
+    //               color: Colorz.white10,
+    //               onTap: pasteFunction,
+    //             ),
+    //
+    //         ],
+    //       ),
+    //
+    //       if (Mapper.checkCanLoopList(columnChildren) == true)
+    //       ...columnChildren,
+    //
+    //     ]
+    // );
     // --------------------
   }
   // -----------------------------------------------------------------------------
