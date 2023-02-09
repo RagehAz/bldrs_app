@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
@@ -26,7 +26,7 @@ class NoteTitleCreatorBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return TextFieldBubble(
+    return BldrsTextFieldBubble(
       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
         leadingIcon: Iconz.bxDesignsOff,
         leadingIconSizeFactor: 0.8,

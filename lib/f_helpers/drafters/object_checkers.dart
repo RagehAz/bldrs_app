@@ -280,7 +280,20 @@ class ObjectCheck {
     bool _isPicPath = false;
 
     if (object != null && object is String){
-      _isPicPath = true;
+
+      final bool isURL = ObjectCheck.isAbsoluteURL(object);
+      final bool isRaster = ObjectCheck.objectIsJPGorPNG(object);
+      final bool isSVG = ObjectCheck.objectIsSVG(object);
+      final bool isBase64 = ObjectCheck.isBase64(object);
+
+      if (isURL == true || isRaster == true || isSVG == true || isBase64 == true){
+        _isPicPath = false;
+      }
+
+      else {
+        _isPicPath = true;
+      }
+
     }
 
     return _isPicPath;

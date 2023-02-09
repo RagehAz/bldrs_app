@@ -9,7 +9,7 @@ import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/d_user/b_user_editor_screen/x_user_editor_controllers.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_header_vm.dart';
+import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/contact_field_editor_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/gender_bubble/gender_editor_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/pic_bubble/add_gallery_pic_bubble.dart';
@@ -432,7 +432,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                   columnChildren: <Widget>[
 
                     /// NAME
-                    TextFieldBubble(
+                    BldrsTextFieldBubble(
                       key: const ValueKey<String>('name'),
                       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                         headlineVerse: const Verse(
@@ -463,7 +463,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                     ),
 
                     /// JOB TITLE
-                    TextFieldBubble(
+                    BldrsTextFieldBubble(
                       key: const ValueKey<String>('title'),
                       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                         headlineVerse: const Verse(
@@ -494,7 +494,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                     ),
 
                     /// COMPANY NAME
-                    TextFieldBubble(
+                    BldrsTextFieldBubble(
                       key: const ValueKey<String>('company'),
                       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                         headlineVerse: const Verse(
