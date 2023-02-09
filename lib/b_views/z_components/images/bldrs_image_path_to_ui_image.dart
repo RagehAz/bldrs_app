@@ -52,10 +52,12 @@ class _BldrsImagePathToUiImageState extends State<BldrsImagePathToUiImage> {
           path: widget.imagePath,
         );
 
-        setState(() {
-          _uiImage = _image;
-          _isFetching = false;
-        });
+        if (mounted == true){
+          setState(() {
+            _uiImage = _image;
+            _isFetching = false;
+          });
+        }
 
         await _triggerLoading(setTo: false);
       });
