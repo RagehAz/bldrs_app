@@ -19,7 +19,7 @@ import 'package:html/parser.dart' as html;
 import 'package:mapper/mapper.dart';
 import 'package:scale/scale.dart';
 import 'package:stringer/stringer.dart';
-import 'package:super_image/super_image/a_super_image.dart';
+import 'package:super_image/super_image.dart';
 
 class WebScrappingTestScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
