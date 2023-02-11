@@ -21,7 +21,7 @@ import 'package:bldrs/e_back_end/e_fcm/z_noot_controller.dart';
 import 'package:bldrs/e_back_end/i_app_check/app_check.dart';
 import 'package:bldrs/e_back_end/j_ads/google_ads.dart';
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:filers/filers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/firebase_options.dart';
@@ -34,7 +34,7 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:stringer/stringer.dart';
 
-const String bldrsAppVersion = '3.1.0';
+const String bldrsAppVersion = '3.1.1';
 
 Future<void> main() async {
   /// -----------------------------------------------------------------------------

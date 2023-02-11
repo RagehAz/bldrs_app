@@ -4,9 +4,8 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/pdf_protocols/ldb/pdf_ldb_ops.dart';
 import 'package:bldrs/c_protocols/pdf_protocols/storage/pdf_storage_ops.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
-import 'package:bldrs/f_helpers/drafters/filers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:stringer/stringer.dart';
 

@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/buttons/tile_buttons/a_tile_button.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 
 
@@ -33,7 +33,7 @@ class BzTileButton extends StatelessWidget {
     final double _height = height ?? TileButton.defaultHeight;
 
     return Stack(
-      alignment: Aligners.superCenterAlignment(context),
+      alignment: BldrsAligners.superCenterAlignment(context),
       children: <Widget>[
 
         TileButton(

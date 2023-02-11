@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/z_components/images/super_filter/color_layers.dart';
 import 'package:mapper/mapper.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:matrix2d/matrix2d.dart';
 /// => TAMAM : AI TESTED
@@ -42,7 +42,7 @@ class ImageFilterModel {
 
         final List<double> listB = <double>[
           ...matrixes[i] is ImageFilterModel ?
-          getStandardMatrix()
+          standardImageFilterMatrix
               :
           matrixes[i]
           ,
@@ -73,14 +73,12 @@ class ImageFilterModel {
   }
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT :
-  static List<double> getStandardMatrix(){
-    return <double>[
+  static List<double> standardImageFilterMatrix = <double>[
       1, 0, 0, 0, 0,
       0, 1, 0, 0, 0,
       0, 0, 1, 0, 0,
       0, 0, 0, 1, 0,
     ];
-  }
   // -----------------------------------------------------------------------------
   /// Create new filter from this filter with given opacity
   ImageFilterModel addOpacity(double value) {

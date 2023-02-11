@@ -10,7 +10,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:bldrs/f_helpers/drafters/timers.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
@@ -167,7 +167,7 @@ class UserBanner extends StatelessWidget {
         /// JOINED AT
         SuperVerse(
           verse: Verse(
-            id: Timers.generateString_in_bldrs_since_month_yyyy(context, userModel?.createdAt),
+            id: BldrsTimers.generateString_in_bldrs_since_month_yyyy(context, userModel?.createdAt),
             translate: false,
           ),
           weight: VerseWeight.thin,

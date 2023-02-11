@@ -9,8 +9,8 @@ import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_valida
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
-import 'package:bldrs/f_helpers/drafters/filers.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
+import 'package:filers/filers.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
@@ -325,7 +325,7 @@ class _PlusIconLayer extends StatelessWidget {
         return Container(
           width: AddImagePicBubble.picWidth,
           height: AddImagePicBubble.picWidth,
-          alignment: Aligners.superInverseBottomAlignment(context),
+          alignment: BldrsAligners.superInverseBottomAlignment(context),
           child: SuperVerse(
             verse: Verse.plain('${Filers.calculateSize(picModel.bytes.length, FileSizeUnit.megaByte)} ${xPhrase( context, 'phid_mega_byte')}'),
             size: 1,

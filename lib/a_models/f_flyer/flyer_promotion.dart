@@ -1,6 +1,6 @@
 import 'package:mapper/mapper.dart';
 import 'package:stringer/stringer.dart';
-import 'package:bldrs/f_helpers/drafters/timers.dart';
+import 'package:space_time/space_time.dart';
 import 'package:flutter/foundation.dart';
 
 @immutable

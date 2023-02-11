@@ -11,7 +11,7 @@ import 'package:bldrs/c_protocols/note_protocols/ldb/note_ldb_ops.dart';
 import 'package:mapper/mapper.dart';
 import 'package:scale/scale.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:filers/filers.dart';
 
 
 

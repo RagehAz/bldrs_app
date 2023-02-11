@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_footer_controller.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/e_footer_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/f_footer_button_spacer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -56,8 +56,8 @@ class FlyerFooterButtons extends StatelessWidget {
     final bool _canShow = _canShowElement();
 
     return Positioned(
-      right: Aligners.rightPositionInRightAlignmentEn(context, 0),
-      left: Aligners.leftPositionInRightAlignmentEn(context, 0),
+      right: BldrsAligners.rightPositionInRightAlignmentEn(context, 0),
+      left: BldrsAligners.leftPositionInRightAlignmentEn(context, 0),
       bottom: 0,
       child: ValueListenableBuilder(
         valueListenable: flyerCounter,

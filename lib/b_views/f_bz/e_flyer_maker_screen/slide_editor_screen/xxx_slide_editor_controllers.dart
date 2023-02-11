@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_gene
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:colorizer/colorizer.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:filers/filers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM

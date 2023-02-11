@@ -1,4 +1,4 @@
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:scale/scale.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 
@@ -22,7 +22,7 @@ class LoadingBar extends StatelessWidget {
       width: _screenWidth,
       height: 3,
       color: Colorz.white80,
-      alignment: Aligners.superCenterAlignment(context),
+      alignment: BldrsAligners.superCenterAlignment(context),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 4000),
         width: _screenWidth * progress / 100,

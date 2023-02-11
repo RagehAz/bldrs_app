@@ -1,7 +1,7 @@
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
@@ -46,7 +46,7 @@ class AnimatedBar extends StatelessWidget {
           width: _screenWidth,
           height: _appBarBoxHeight,
           child: Stack(
-            alignment: Aligners.superTopAlignment(context), //Alignment.topLeft,
+            alignment: BldrsAligners.superTopAlignment(context), //Alignment.topLeft,
             children: <Widget>[
 
               Positioned(
@@ -59,7 +59,7 @@ class AnimatedBar extends StatelessWidget {
                     height: _appBarBoxHeight,
                     // color: Colorz.bloodTest,
                     padding: EdgeInsets.only(left: _val * _screenWidth),
-                    alignment: Aligners.superCenterAlignment(context),
+                    alignment: BldrsAligners.superCenterAlignment(context),
                     child: child,
                   ),
                 ),

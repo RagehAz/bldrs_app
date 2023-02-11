@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 
 import 'package:flutter/material.dart';
@@ -33,7 +33,7 @@ class XButtonPart extends StatelessWidget {
 
       },
       child: Align(
-        alignment: Aligners.superTopAlignment(context),
+        alignment: BldrsAligners.superTopAlignment(context),
         child: DreamBox(
           width: headerBorders.topLeft.x * 2 - 10,
           height: headerBorders.topLeft.x * 2 - 10,

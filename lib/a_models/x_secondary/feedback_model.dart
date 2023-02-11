@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/k_statistics/record_model.dart';
 import 'package:mapper/mapper.dart';
-import 'package:bldrs/f_helpers/drafters/timers.dart';
+import 'package:space_time/space_time.dart';
 import 'package:flutter/foundation.dart';
 
 @immutable

@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelis
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/note_red_dot.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
@@ -116,7 +116,7 @@ class ObeliskIcon extends StatelessWidget {
                       isNano: false,
                       childWidth: Obelisk.circleWidth,
                     ),
-                    alignment: Aligners.superBottomAlignment(context),
+                    alignment: BldrsAligners.superBottomAlignment(context),
                     child: const SeparatorLine(
                       width: Obelisk.circleWidth * 0.4,
                     ),

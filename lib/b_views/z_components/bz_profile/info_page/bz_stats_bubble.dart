@@ -5,10 +5,10 @@ import 'package:bldrs/b_views/z_components/texting/customs/stats_line.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/bz_protocols/real/bz_record_real_ops.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:bldrs/f_helpers/drafters/timers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 
 class BzStatsBubble extends StatefulWidget {
@@ -164,7 +164,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                 /// BIRTH
                 StatsLine(
                   verse: Verse(
-                    id: Timers.generateString_in_bldrs_since_month_yyyy(context, _bzModel?.createdAt),
+                    id: BldrsTimers.generateString_in_bldrs_since_month_yyyy(context, _bzModel?.createdAt),
                     translate: false,
                   ),
                   icon: Iconz.calendar,
