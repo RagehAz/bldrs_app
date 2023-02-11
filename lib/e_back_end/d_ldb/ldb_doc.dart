@@ -1,7 +1,7 @@
 // ignore_for_file: always_put_control_body_on_new_line
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:ldb/ldb.dart';
-import 'package:bldrs/f_helpers/drafters/timers.dart';
+import 'package:space_time/space_time.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';

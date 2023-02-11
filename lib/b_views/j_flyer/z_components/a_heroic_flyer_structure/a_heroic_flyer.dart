@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/b_he
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:widget_fader/widget_fader.dart';
 

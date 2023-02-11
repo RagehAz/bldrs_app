@@ -19,7 +19,7 @@ import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dar
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:filers/filers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';

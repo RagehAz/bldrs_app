@@ -12,7 +12,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/d_bz_slide/z
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/report_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/fire/bz_fire_ops.dart';
-import 'package:bldrs/f_helpers/drafters/timers.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
@@ -83,7 +83,7 @@ class BzSlide extends StatelessWidget {
               BzSlideVerse(
                 key: const ValueKey<String>('max_header_BzPgVerse'),
                 flyerBoxWidth: flyerBoxWidth,
-                verse: Verse.plain(Timers.generateString_in_bldrs_since_month_yyyy(context, bzModel.createdAt)),
+                verse: Verse.plain(BldrsTimers.generateString_in_bldrs_since_month_yyyy(context, bzModel.createdAt)),
                 size: 2,
               ),
 

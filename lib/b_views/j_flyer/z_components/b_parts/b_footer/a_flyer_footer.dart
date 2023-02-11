@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/d_flyer_foot
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/a_info_button_structure/a_info_button_starter.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/real/flyer_record_real_ops.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:filers/filers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 

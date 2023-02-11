@@ -4,7 +4,7 @@ publish_to: "none"
 # --------------------------------------------------------------------------------
 # https://developer.android.com/studio/publish/versioning
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 3.1.0
+version: 3.1.1
 # INSTRUCTIONS WHEN CHANGING APP VERSION
 # -> change in ios/runner/info.pList ( CFBundleVersion )
 # -> change in Standards.appVersion; ( bldrsAppVersion )
@@ -110,6 +110,18 @@ dependencies:
   clock_rebuilder:
     git:
       url: https://github.com/RagehAz/clock_rebuilder.git
+  super_text:
+    git:
+      url: https://github.com/RagehAz/super_text.git
+  super_box:
+    git:
+      url: https://github.com/RagehAz/super_box.git
+  super_text_field:
+    git:
+      url: https://github.com/RagehAz/super_text_field.git
+  bubbles:
+    git:
+      url: https://github.com/RagehAz/bubbles.git
   # ------------------------------------
   # MY BACK END PACKAGES
   rest:
@@ -141,18 +153,12 @@ dependencies:
   stringer:
     git:
       url: https://github.com/RagehAz/stringer.git
-  super_text:
+  space_time:
     git:
-      url: https://github.com/RagehAz/super_text.git
-  super_box:
+      url: https://github.com/RagehAz/space_time.git
+  filers:
     git:
-      url: https://github.com/RagehAz/super_box.git
-  super_text_field:
-    git:
-      url: https://github.com/RagehAz/super_text_field.git
-  bubbles:
-    git:
-      url: https://github.com/RagehAz/bubbles.git
+      url: https://github.com/RagehAz/filers.git
   # ------------------------------------
   # MY UN-USED PACKAGES
   #  bldrs_ui:

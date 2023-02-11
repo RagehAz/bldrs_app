@@ -69,6 +69,7 @@ class Iconizer {
   /// SHARE ICON
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String shareAppIcon(){
 
     String _shareIcon = Iconz.share;
@@ -88,6 +89,7 @@ class Iconizer {
   /// DIRECTORY - LOCAL ASSET PATH
 
   // --------------------
+  ///
   static String imageDir({
     @required String prefix,
     @required String fileName,
@@ -126,6 +128,7 @@ class Iconizer {
     return '$prefix$directory$fileName';
   }
   // --------------------
+  ///
   static Future<List<String>> getLocalAssetsPaths() async {
 
     final String assets = await rootBundle.loadString('AssetManifest.json');

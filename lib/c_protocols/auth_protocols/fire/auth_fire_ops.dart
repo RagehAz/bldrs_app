@@ -2,19 +2,18 @@
 // import 'dart:developer';
 // import 'package:google_sign_in/google_sign_in.dart';
 // import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
-import 'package:flutter/material.dart';
 import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:filers/filers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class AuthFireOps {
   // -----------------------------------------------------------------------------

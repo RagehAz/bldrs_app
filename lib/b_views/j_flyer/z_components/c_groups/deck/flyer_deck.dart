@@ -1,6 +1,8 @@
-import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'dart:ui' as ui;
+
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
+import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/a_single_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/small_flyer.dart';
@@ -8,10 +10,9 @@ import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/sizing/super_positioned.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/animators.dart';
-import 'package:bldrs/f_helpers/drafters/floaters.dart';
-import 'package:numeric/numeric.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'dart:ui' as ui;
+import 'package:numeric/numeric.dart';
 
 class FlyerDeck extends StatelessWidget {
   // -----------------------------------------------------------------------------

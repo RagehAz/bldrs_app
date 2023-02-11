@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/a_he
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:filers/filers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';

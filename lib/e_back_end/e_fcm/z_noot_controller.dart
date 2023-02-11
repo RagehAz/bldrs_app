@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/c_noot_nav_protocols.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:filers/filers.dart';
 import 'package:bldrs/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';

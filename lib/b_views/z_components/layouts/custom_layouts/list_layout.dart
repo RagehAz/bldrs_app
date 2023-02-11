@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/z_components/layouts/navigation/max_bounce_navigat
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
@@ -106,7 +106,7 @@ class ListLayout extends StatelessWidget {
                       // padding: EdgeInsets.zero, /// AGAIN => ENTA EBN WES5A
                       itemBuilder: (BuildContext context, int index) {
                         return Align(
-                          alignment: Aligners.superCenterAlignment(context),
+                          alignment: BldrsAligners.superCenterAlignment(context),
                           child: DreamBox(
                             height: 40,
                             width: _clearWidth - 10,

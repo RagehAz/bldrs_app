@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:scale/scale.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 
@@ -24,7 +24,7 @@ class PickersGroupHeadline extends StatelessWidget {
       width: width ?? Scale.screenWidth(context),
       height: 50,
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      alignment: Aligners.superCenterAlignment(context),
+      alignment: BldrsAligners.superCenterAlignment(context),
       child: SuperVerse(
         verse: headline,
         weight: VerseWeight.black,

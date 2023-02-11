@@ -8,14 +8,12 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/versioning/app_version.dart';
-import 'package:bldrs/f_helpers/drafters/atlas.dart';
-import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/timers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mapper/mapper.dart';
 import 'package:numeric/numeric.dart';
+import 'package:space_time/space_time.dart';
 import 'package:stringer/stringer.dart';
 
 void main() {
@@ -502,8 +500,8 @@ void main() {
 
     final List<String> things = <String>['d', 'r'];
 
-    final bool isThingsSpecs = ObjectCheck.objectIsListOfSpecs(things);
-    final bool isSpecs = ObjectCheck.objectIsListOfSpecs(specsA);
+    final bool isThingsSpecs = SpecModel.objectIsListOfSpecs(things);
+    final bool isSpecs = SpecModel.objectIsListOfSpecs(specsA);
 
     expect(isSpecs, true);
     expect(isThingsSpecs, false);

@@ -10,9 +10,9 @@ import 'package:bldrs/b_views/z_components/animators/animate_widget_to_matrix.da
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/super_filtered_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/drafters/trinity.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
+import 'package:filers/filers.dart';
+import 'package:space_time/space_time.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -90,7 +90,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
           Container(
             width: DraftShelfSlide.flyerBoxWidth,
             height: DraftShelfSlide.slideNumberBoxHeight,
-            alignment: Aligners.superCenterAlignment(context),
+            alignment: BldrsAligners.superCenterAlignment(context),
             child: widget.number == null ?
             const SizedBox()
                 :

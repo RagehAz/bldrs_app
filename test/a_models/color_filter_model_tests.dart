@@ -15,7 +15,7 @@ void testCombineMatrixes() {
 /// AI GENERATED
 void testGetStandardMatrix() {
   final List<double> expectedOutput = <double>[    1, 0, 0, 0, 0,    0, 1, 0, 0, 0,    0, 0, 1, 0, 0,    0, 0, 0, 1, 0,  ];
-  final List<double> result = ImageFilterModel.getStandardMatrix();
+  final List<double> result = ImageFilterModel.standardImageFilterMatrix;
   expect(result, expectedOutput);
 }
 
