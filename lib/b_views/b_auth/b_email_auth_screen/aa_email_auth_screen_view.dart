@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/password_bubble/pa
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/layouts/custom_layouts/floating_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/custom_layouts/bldrs_floating_list.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -101,7 +101,7 @@ class EmailAuthScreenView extends StatelessWidget {
         valueListenable: isSigningIn,
         builder: (_, bool _isSigningIn, Widget child){
 
-          return FloatingList(
+          return BldrsFloatingList(
             // physics: const BouncingScrollPhysics(),
             // padding: Stratosphere.stratosphereSandwich,
             columnChildren: <Widget>[

@@ -923,6 +923,15 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.4.7"
+  layouts:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "0930a1135e650398cb6a000d21a382c9a68af1e7"
+      url: "https://github.com/RagehAz/layouts.git"
+    source: git
+    version: "0.0.1"
   ldb:
     dependency: "direct main"
     description:

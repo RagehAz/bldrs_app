@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/clocking/stop_watch/stop_watch_button
 import 'package:bldrs/b_views/z_components/clocking/stop_watch/stop_watch_controller.dart';
 import 'package:bldrs/b_views/z_components/clocking/stop_watch/stop_watch_counter_builder.dart';
 import 'package:bldrs/b_views/z_components/clocking/stop_watch/stop_watch_records_builder.dart';
-import 'package:bldrs/b_views/z_components/layouts/custom_layouts/floating_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/custom_layouts/bldrs_floating_list.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -87,7 +87,7 @@ class _StopWatchTestState extends State<StopWatchTest> {
         translate: false,
       ),
       skyType: SkyType.black,
-      child: FloatingList(
+      child: BldrsFloatingList(
         columnChildren: <Widget>[
 
           Container(
