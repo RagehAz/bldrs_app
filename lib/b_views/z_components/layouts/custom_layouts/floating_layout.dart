@@ -1,8 +1,7 @@
-import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
+import 'package:bldrs/b_views/z_components/layouts/custom_layouts/bldrs_floating_list.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:scale/scale.dart';
+import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
 import 'package:flutter/material.dart';
 
 class FloatingLayout extends StatelessWidget {
@@ -29,52 +28,11 @@ class FloatingLayout extends StatelessWidget {
       pyramidType: pyramidType,
       skyType: skyType,
       pyramidsAreOn: true,
-      child: FloatingList(
+      child: BldrsFloatingList(
         columnChildren: columnChildren,
       ),
     );
 
-  }
-/// --------------------------------------------------------------------------
-}
-
-class FloatingList extends StatelessWidget {
-  /// --------------------------------------------------------------------------
-  const FloatingList({
-    @required this.columnChildren,
-    this.crossAxisAlignment,
-    this.mainAxisAlignment,
-    Key key
-  }) : super(key: key);
-  /// --------------------------------------------------------------------------
-  final List<Widget> columnChildren;
-  final MainAxisAlignment mainAxisAlignment;
-  final CrossAxisAlignment crossAxisAlignment;
-  /// --------------------------------------------------------------------------
-  @override
-  Widget build(BuildContext context) {
-    // --------------------
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      child: Container(
-        width: Scale.screenWidth(context),
-        constraints: BoxConstraints(
-          minHeight: Scale.screenHeight(context),
-        ),
-        alignment: Alignment.center,
-        padding: Stratosphere.stratosphereSandwich,
-        child: Column(
-          mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.center,
-          crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
-          children: <Widget>[
-
-            ...columnChildren,
-
-          ],
-        ),
-      ),
-    );
-    // --------------------
   }
 /// --------------------------------------------------------------------------
 }

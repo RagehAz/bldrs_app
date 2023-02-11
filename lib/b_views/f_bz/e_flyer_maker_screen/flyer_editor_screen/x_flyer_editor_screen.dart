@@ -22,7 +22,7 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/zone_s
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/next_button.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/b_views/z_components/layouts/custom_layouts/floating_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/custom_layouts/bldrs_floating_list.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/pages_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
@@ -357,7 +357,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
               pageBubbles: <Widget>[
 
                 /// SLIDES - HEADLINE
-                FloatingList(
+                BldrsFloatingList(
                   columnChildren: <Widget>[
 
                     /// SHELVES
@@ -420,7 +420,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                 ),
 
                 /// TYPE - DESCRIPTION
-                FloatingList(
+                BldrsFloatingList(
                   columnChildren: <Widget>[
 
                     /// FLYER TYPE SELECTOR
@@ -564,7 +564,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                 ),
 
                 /// KEYWORDS
-                FloatingList(
+                BldrsFloatingList(
                   columnChildren: <Widget>[
 
                     /// PHIDS
@@ -602,7 +602,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                 ),
 
                 /// PDF
-                FloatingList(
+                BldrsFloatingList(
                   columnChildren: <Widget>[
 
                     /// PDF SELECTOR
@@ -638,7 +638,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                 ),
 
                 /// ZONE
-                FloatingList(
+                BldrsFloatingList(
                   columnChildren: <Widget>[
 
                     /// ZONE SELECTOR
@@ -695,7 +695,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                 ),
 
                 /// SHOW AUTHOR - POSTER
-                FloatingList(
+                BldrsFloatingList(
                   columnChildren: <Widget>[
 
                     /// SHOW FLYER AUTHOR

@@ -22,7 +22,7 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/zone_s
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/next_button.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/b_views/z_components/layouts/custom_layouts/floating_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/custom_layouts/bldrs_floating_list.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/pages_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
@@ -413,7 +413,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
               pageBubbles: <Widget>[
 
                 /// LOGO - NAME
-                FloatingList(
+                BldrsFloatingList(
                   columnChildren: <Widget>[
 
                     /// ADD LOGO
@@ -503,7 +503,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                 ),
 
                 /// SECTIONS - BZ TYPE - FORM
-                FloatingList(
+                BldrsFloatingList(
                   columnChildren: <Widget>[
 
                     /// SECTION
@@ -608,7 +608,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                 ),
 
                 /// ABOUT - SCOPE
-                FloatingList(
+                BldrsFloatingList(
                   columnChildren: <Widget>[
 
                     /// BZ ABOUT
@@ -699,7 +699,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                 ),
 
                 /// ZONE
-                FloatingList(
+                BldrsFloatingList(
                   columnChildren: <Widget>[
 
                     /// BZ ZONE
@@ -747,7 +747,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                 ),
 
                 /// PHONE - EMAIL - WEBSITE
-                FloatingList(
+                BldrsFloatingList(
                   columnChildren: <Widget>[
 
                     /// PHONE
