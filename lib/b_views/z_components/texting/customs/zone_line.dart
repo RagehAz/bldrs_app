@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/flagbox_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 
 import 'package:flutter/material.dart';
@@ -39,7 +39,7 @@ class ZoneLine extends StatelessWidget {
       width: _width - 20,
       // height: 35,
       margin: const EdgeInsets.symmetric(horizontal: 10),
-      alignment: centered == true ? Alignment.center : Aligners.superCenterAlignment(context),
+      alignment: centered == true ? Alignment.center : BldrsAligners.superCenterAlignment(context),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         physics: const NeverScrollableScrollPhysics(),

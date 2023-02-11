@@ -1,9 +1,9 @@
 import 'dart:ui' as ui;
 
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
-import 'package:bldrs/f_helpers/drafters/floaters.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
-import 'package:bldrs/f_helpers/drafters/trinity.dart';
+
+import 'package:filers/filers.dart';
+import 'package:space_time/space_time.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:colorizer/colorizer.dart';
 import 'package:flutter/material.dart';

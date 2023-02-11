@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
@@ -76,7 +76,7 @@ class CreditsRow extends StatelessWidget {
         Container(
           width: width * 0.65,
           height: Ratioz.appBarButtonSize * 0.4,
-          alignment: Aligners.superInverseCenterAlignment(context),
+          alignment: BldrsAligners.superInverseCenterAlignment(context),
           child: SuperVerse(
             verse: Verse(
               id: value,

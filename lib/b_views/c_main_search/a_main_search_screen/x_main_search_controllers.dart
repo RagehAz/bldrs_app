@@ -15,7 +15,7 @@ import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_search.dart' as Fly
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_search.dart';
 import 'package:bldrs/c_protocols/user_protocols/real/user_record_real_ops.dart';
 import 'package:mapper/mapper.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:filers/filers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

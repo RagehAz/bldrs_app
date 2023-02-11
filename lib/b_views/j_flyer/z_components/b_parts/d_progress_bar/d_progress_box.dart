@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:flutter/material.dart';
 
 class ProgressBox extends StatelessWidget {
@@ -19,7 +19,7 @@ class ProgressBox extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Align(
-      alignment: Aligners.superTopAlignment(context),
+      alignment: BldrsAligners.superTopAlignment(context),
       child: Container(
         width: FlyerDim.progressBarBoxWidth(flyerBoxWidth),
         height: FlyerDim.progressBarBoxHeight(flyerBoxWidth),
@@ -33,7 +33,7 @@ class ProgressBox extends StatelessWidget {
           children: <Widget>[
 
             Stack(
-              alignment: Aligners.superCenterAlignment(context),
+              alignment: BldrsAligners.superCenterAlignment(context),
               children: stripsStack,
             ),
 

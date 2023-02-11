@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 
 import 'package:flutter/material.dart';
@@ -89,7 +89,7 @@ class InstallmentsPriceTag extends StatelessWidget {
                       child: Container(
                         width: width,
                         height: height * 0.5,
-                        alignment: Aligners.superCenterAlignment(context),
+                        alignment: BldrsAligners.superCenterAlignment(context),
                         padding: _paddings,
                         child: FittedBox(
                           fit: BoxFit.fitWidth,
@@ -110,7 +110,7 @@ class InstallmentsPriceTag extends StatelessWidget {
                       child: Container(
                         width: width,
                         height: height * 0.5,
-                        alignment: Aligners.superCenterAlignment(context),
+                        alignment: BldrsAligners.superCenterAlignment(context),
                         padding: _paddings,
                         child: SuperVerse(
                           verse: const Verse(

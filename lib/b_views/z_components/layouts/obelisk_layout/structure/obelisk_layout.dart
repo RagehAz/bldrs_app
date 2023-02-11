@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/obel
 import 'package:bldrs/b_views/z_components/pyramids/super_pyramids.dart';
 import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/sliders.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:filers/filers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';

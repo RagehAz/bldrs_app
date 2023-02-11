@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:numeric/numeric.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 
@@ -48,7 +48,7 @@ class DiscountPriceTag extends StatelessWidget {
     // --------------------
     final double _flyerSizeFactor = FlyerDim.flyerFactorByFlyerWidth(context, flyerBoxWidth);
     final EdgeInsets _paddings = EdgeInsets.symmetric(horizontal: paddingValue);
-    final Alignment _superCenterAlignment = Aligners.superCenterAlignment(context);
+    final Alignment _superCenterAlignment = BldrsAligners.superCenterAlignment(context);
     const double _separatorLineWidth = 1;
     final double _priceWidth = width - height - _separatorLineWidth - paddingValue;
     // --------------------

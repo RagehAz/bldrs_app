@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/animators/animate_widget_to_matrix.da
 import 'package:bldrs/b_views/z_components/images/cc_zoomable_pic.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/super_filtered_image.dart';
-import 'package:bldrs/f_helpers/drafters/trinity.dart';
+import 'package:space_time/space_time.dart';
 import 'package:flutter/material.dart';
 
 class SlideImage extends StatelessWidget {

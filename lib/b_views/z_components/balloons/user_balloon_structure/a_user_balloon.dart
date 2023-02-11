@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/z_components/balloons/balloons.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/b_balloona.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -60,7 +60,7 @@ class UserBalloon extends StatelessWidget {
           /// IS AUTHOR ICON
           if (UserModel.checkUserIsAuthor(userModel) == true)
             Align(
-              alignment: Aligners.superInverseBottomAlignment(context),
+              alignment: BldrsAligners.superInverseBottomAlignment(context),
               child: DreamBox(
                 height: size * 0.4,
                 width: size * 0.4,
@@ -75,7 +75,7 @@ class UserBalloon extends StatelessWidget {
           /// EDIT BUTTON
           if (showEditButton == true)
             Align(
-              alignment: Aligners.superInverseTopAlignment(context),
+              alignment: BldrsAligners.superInverseTopAlignment(context),
               child: DreamBox(
                 height: size * 0.4,
                 width: size * 0.5,

@@ -37,10 +37,10 @@ packages:
     dependency: transitive
     description:
       name: args
-      sha256: "139d809800a412ebb26a3892da228b2d0ba36f0ef5d9a82166e5e52ec8d61611"
+      sha256: "4cab82a83ffef80b262ddedf47a0a8e56ee6fbf7fe21e6e768b02792034dd440"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.3.2"
+    version: "2.4.0"
   async:
     dependency: transitive
     description:
@@ -405,6 +405,15 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "5.2.5"
+  filers:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "5e3df82ac09f7c0a294d806c6f399bf8d4ced14d"
+      url: "https://github.com/RagehAz/filers.git"
+    source: git
+    version: "0.0.1"
   fire:
     dependency: "direct main"
     description:
@@ -1137,10 +1146,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider_linux
-      sha256: ab0987bf95bc591da42dffb38c77398fc43309f0b9b894dcc5d6f40c4b26c379
+      sha256: "2e32f1640f07caef0d3cb993680f181c79e54a3827b997d5ee221490d131fbd9"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.1.7"
+    version: "2.1.8"
   path_provider_platform_interface:
     dependency: transitive
     description:
@@ -1340,6 +1349,15 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.9.1"
+  space_time:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: bea0f2998b1158eeeb564a5dbe39f0208c9ce5b0
+      url: "https://github.com/RagehAz/space_time.git"
+    source: git
+    version: "0.0.1"
   sqflite:
     dependency: transitive
     description:
@@ -1401,7 +1419,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "6132c17232f0e507931a38c54c81d690aa9c0506"
+      resolved-ref: "896c4eb26b5945bc44ab9fff8459bca98a1e8f88"
       url: "https://github.com/RagehAz/stringer.git"
     source: git
     version: "1.0.1"
@@ -1419,10 +1437,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "25c8e5ef4d0b336f6acccb1a7704328796d2a8df"
+      resolved-ref: "39709b2e172a4d9654ac2d878bd253b8540b73ff"
       url: "https://github.com/RagehAz/super_image.git"
     source: git
-    version: "0.0.5"
+    version: "0.0.6"
   super_text:
     dependency: "direct main"
     description:

@@ -6,8 +6,8 @@ import 'package:bldrs/b_views/i_phid_picker/floating_flyer_type_selector/animate
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
+import 'package:filers/filers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:dismissible_page/dismissible_page.dart';
@@ -203,7 +203,7 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
               width: _screenWidth,
               height: Scale.screenHeight(context),
               child: Stack(
-                alignment: Aligners.superTopAlignment(context),
+                alignment: BldrsAligners.superTopAlignment(context),
                 children: <Widget>[
 
                   /// BACKGROUND TRIANGLE

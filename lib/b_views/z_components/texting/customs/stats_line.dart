@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 
 import 'package:flutter/material.dart';
@@ -34,7 +34,7 @@ class StatsLine extends StatelessWidget {
 
     return Container(
       width: bubbleWidth,
-      alignment: Aligners.superCenterAlignment(context),
+      alignment: BldrsAligners.superCenterAlignment(context),
       child: DreamBox(
         height: _height,
         width: bubbleWidth,

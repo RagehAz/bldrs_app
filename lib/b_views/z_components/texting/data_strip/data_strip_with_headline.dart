@@ -2,7 +2,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
@@ -108,7 +108,7 @@ class DataStripKey extends StatelessWidget {
     return Container(
       height: height,
       width: width,
-      alignment: Aligners.superCenterAlignment(context),
+      alignment: BldrsAligners.superCenterAlignment(context),
       child: SuperVerse(
         labelColor: Colorz.nothing,
         verse: Verse(
@@ -166,7 +166,7 @@ class DataStripValue extends StatelessWidget {
           borderRadius: Borderers.constantCornersAll10,
         ),
         child: Stack(
-          alignment: Aligners.superCenterAlignment(context),
+          alignment: BldrsAligners.superCenterAlignment(context),
           children: <Widget>[
 
             if (valueIsPercentage == true)

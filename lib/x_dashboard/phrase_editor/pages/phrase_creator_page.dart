@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/x_dashboard/phrase_editor/z_components/google_translate_bubble.dart';
@@ -177,7 +177,7 @@ class PhraseCreatorPage extends StatelessWidget {
 
 
           Align(
-            alignment: Aligners.superInverseCenterAlignment(context),
+            alignment: BldrsAligners.superInverseCenterAlignment(context),
             child: DreamBox(
               verse: const Verse(
                 id: 'Confirm',
