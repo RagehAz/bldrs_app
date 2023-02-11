@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:mapper/mapper.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/cupertino.dart';
 
 @immutable
@@ -140,67 +140,6 @@ class SpecModel {
 
   /// CHECKERS
 
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static bool checkSpecsAreIdentical(SpecModel spec1, SpecModel spec2) {
-    bool _areIdentical = false;
-
-    if (spec1 == null && spec2 == null){
-      _areIdentical = true;
-    }
-    else if (spec1 != null && spec2 != null) {
-      if (spec1.pickerChainID == spec2.pickerChainID) {
-        if (spec1.value == spec2.value) {
-          _areIdentical = true;
-        }
-      }
-    }
-
-    return _areIdentical;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static bool checkSpecsListsAreIdentical(List<SpecModel> specs1, List<SpecModel> specs2) {
-
-    bool _listsAreIdentical = false;
-
-    if (specs1 == null && specs2 == null){
-      _listsAreIdentical = true;
-    }
-    else if (specs1.isEmpty == true && specs2.isEmpty == true){
-      _listsAreIdentical = true;
-    }
-    else if (Mapper.checkCanLoopList(specs1) == true && Mapper.checkCanLoopList(specs2) == true){
-
-      if (specs1.length != specs2.length){
-        _listsAreIdentical = false;
-      }
-      else {
-
-        for (int i = 0; i < specs1.length; i++){
-
-          final SpecModel _spec1 = specs1[i];
-          final SpecModel _spec2 = specs2[i];
-
-          final bool _areIdentical = checkSpecsAreIdentical(_spec1, _spec2);
-
-          if (_areIdentical == false){
-            _listsAreIdentical = false;
-            break;
-          }
-
-          _listsAreIdentical = true;
-
-        }
-
-      }
-
-    }
-
-    // blog('specsListsAreIdentical : _listsAreIdentical : $_listsAreIdentical');
-
-    return _listsAreIdentical;
-  }
 // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkSpecsContainThisSpec({
@@ -713,16 +652,96 @@ class SpecModel {
       return _digits;
     }
    */
+  // -----------------------------------------------------------------------------
+
+  /// EQUALITY
+
   // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool objectIsListOfSpecs(dynamic object) {
+    bool _objectsListIsSpecs = false;
+
+    if (object != null) {
+      if (object.length > 0) {
+        if (object[0].runtimeType == SpecModel) {
+          _objectsListIsSpecs = true;
+        }
+      }
+    }
+
+    return _objectsListIsSpecs;
+  }
+    // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkSpecsAreIdentical(SpecModel spec1, SpecModel spec2) {
+    bool _areIdentical = false;
+
+    if (spec1 == null && spec2 == null){
+      _areIdentical = true;
+    }
+    else if (spec1 != null && spec2 != null) {
+      if (spec1.pickerChainID == spec2.pickerChainID) {
+        if (spec1.value == spec2.value) {
+          _areIdentical = true;
+        }
+      }
+    }
+
+    return _areIdentical;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkSpecsListsAreIdentical(List<SpecModel> specs1, List<SpecModel> specs2) {
+
+    bool _listsAreIdentical = false;
+
+    if (specs1 == null && specs2 == null){
+      _listsAreIdentical = true;
+    }
+    else if (specs1.isEmpty == true && specs2.isEmpty == true){
+      _listsAreIdentical = true;
+    }
+    else if (Mapper.checkCanLoopList(specs1) == true && Mapper.checkCanLoopList(specs2) == true){
+
+      if (specs1.length != specs2.length){
+        _listsAreIdentical = false;
+      }
+      else {
+
+        for (int i = 0; i < specs1.length; i++){
+
+          final SpecModel _spec1 = specs1[i];
+          final SpecModel _spec2 = specs2[i];
+
+          final bool _areIdentical = checkSpecsAreIdentical(_spec1, _spec2);
+
+          if (_areIdentical == false){
+            _listsAreIdentical = false;
+            break;
+          }
+
+          _listsAreIdentical = true;
+
+        }
+
+      }
+
+    }
+
+    // blog('specsListsAreIdentical : _listsAreIdentical : $_listsAreIdentical');
+
+    return _listsAreIdentical;
+  }
+  // -----------------------------------------------------------------------------
 
   /// OVERRIDES
 
-  // ----------------------------------------
+  // --------------------
   /*
      @override
      String toString() => 'MapModel(key: $key, value: ${value.toString()})';
      */
-  // ----------------------------------------
+  // --------------------
   @override
   bool operator == (Object other){
 
@@ -737,7 +756,7 @@ class SpecModel {
 
     return _areIdentical;
   }
-  // ----------------------------------------
+  // --------------------
   @override
   int get hashCode =>
       pickerChainID.hashCode^

@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
@@ -9,15 +10,14 @@ import 'package:bldrs/b_views/z_components/layouts/navigation/max_bounce_navigat
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip.dart';
-import 'package:bldrs/c_protocols/zone_protocols/positioning_protocols/geo_location/location_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
-import 'package:bldrs/f_helpers/drafters/error_helpers.dart';
-import 'package:numeric/numeric.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:bldrs/c_protocols/zone_protocols/positioning_protocols/geo_location/location_ops.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:numeric/numeric.dart';
 // import 'package:bldrs/f_helpers/router/navigators.dart';
 // import 'package:bldrs/x_dashboard/zones_manager/location_test/google_map_screen.dart';
 

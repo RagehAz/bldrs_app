@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/j_poster/poster_type.dart';
 import 'package:bldrs/b_views/z_components/poster/variants/aa_bz_poster.dart';
 import 'package:bldrs/b_views/z_components/poster/variants/aa_flyer_poster.dart';
 import 'package:bldrs/b_views/z_components/poster/variants/aa_image_poster.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 
 class PosterSwitcher extends StatelessWidget {

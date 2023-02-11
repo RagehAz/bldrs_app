@@ -1,4 +1,4 @@
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 
 import 'package:flutter/material.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
@@ -41,7 +41,7 @@ class ChainButtonBox extends StatelessWidget {
       opacity: isDisabled == true ? 0.3 : 1,
       child: Container(
         width: boxWidth,
-        alignment: inverseAlignment == true ? Aligners.superInverseCenterAlignment(context) : null,
+        alignment: inverseAlignment == true ? BldrsAligners.superInverseCenterAlignment(context) : null,
         // margin: const EdgeInsets.all(Ratioz.appBarPadding),
         child: child,
       ),

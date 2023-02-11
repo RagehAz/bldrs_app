@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:mapper/mapper.dart';
-import 'package:bldrs/f_helpers/drafters/timers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:space_time/space_time.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 
 @immutable

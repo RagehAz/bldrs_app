@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/review_bubble/a_review_box.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 
 import 'package:flutter/material.dart';
@@ -48,7 +48,7 @@ class ReviewBubbleBox extends StatelessWidget {
         borderRadius: ReviewBox.textBubbleCorners,
       ),
       padding: const EdgeInsets.all(_spacing),
-      alignment: Aligners.superTopAlignment(context),
+      alignment: BldrsAligners.superTopAlignment(context),
       child: child,
     );
 

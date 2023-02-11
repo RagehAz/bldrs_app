@@ -6,8 +6,7 @@ import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/b_picker_screen/b_picker_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
-import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/tracers.dart';
+import 'package:filers/filers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -182,7 +181,7 @@ void _updateSelectedSpecsAndRefinePickers({
     if (_specChain.sons.runtimeType == DataCreator) {}
     // ------------------------------------
     /// B - WHEN FROM LIST OF KWs
-    if (ObjectCheck.objectIsListOfSpecs(specPickerResult)) {
+    if (SpecModel.objectIsListOfSpecs(specPickerResult)) {
       // Spec.printSpecs(_allSelectedSpecs);
 
       setNotifier(

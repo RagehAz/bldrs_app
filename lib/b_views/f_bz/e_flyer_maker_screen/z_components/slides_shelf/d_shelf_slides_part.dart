@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shel
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/draft_shelf/e_draft_shelf_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +39,7 @@ class ShelfSlidesPart extends StatelessWidget {
       key: const ValueKey<String>('ShelfSlidesPart'),
       width: Scale.screenWidth(context),
       height: slideZoneHeight,
-      alignment: Aligners.superCenterAlignment(context),
+      alignment: BldrsAligners.superCenterAlignment(context),
       child: ValueListenableBuilder(
         valueListenable: loading,
         child: Container(

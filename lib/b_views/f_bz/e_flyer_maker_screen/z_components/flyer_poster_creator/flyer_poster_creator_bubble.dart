@@ -15,7 +15,7 @@ import 'package:bldrs/b_views/z_components/poster/poster_display.dart';
 import 'package:bldrs/b_views/z_components/poster/structure/poster_switcher.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
-import 'package:bldrs/f_helpers/drafters/filers.dart';
+import 'package:filers/filers.dart';
 import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:screenshot/screenshot.dart';

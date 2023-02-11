@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
-import 'package:bldrs/f_helpers/drafters/aligners.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +44,7 @@ class AddSlidesButton extends StatelessWidget {
           Container(
             width: _flyerBoxWidth,
             height: DraftShelfSlide.slideNumberBoxHeight,
-            alignment: Aligners.superCenterAlignment(context),
+            alignment: BldrsAligners.superCenterAlignment(context),
           ),
 
           /// SPACER
