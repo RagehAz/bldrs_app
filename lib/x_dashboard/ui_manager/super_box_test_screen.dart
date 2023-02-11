@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/z_components/layouts/custom_layouts/floating_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/custom_layouts/bldrs_floating_list.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
@@ -36,7 +36,7 @@ class SuperBoxTestScreen extends StatelessWidget {
         ),
 
       ],
-      child: FloatingList(
+      child: BldrsFloatingList(
         columnChildren: <Widget>[
 
           /// Without Icon
