@@ -4,7 +4,7 @@ publish_to: "none"
 # --------------------------------------------------------------------------------
 # https://developer.android.com/studio/publish/versioning
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 3.1.1
+version: 3.1.2
 # INSTRUCTIONS WHEN CHANGING APP VERSION
 # -> change in ios/runner/info.pList ( CFBundleVersion )
 # -> change in Standards.appVersion; ( bldrsAppVersion )
@@ -122,7 +122,10 @@ dependencies:
   bubbles:
     git:
       url: https://github.com/RagehAz/bubbles.git
-  # ------------------------------------
+  layouts:
+    git:
+      url: https://github.com/RagehAz/layouts.git
+  # ---------------------------
   # MY BACK END PACKAGES
   rest:
     git:
