@@ -1681,10 +1681,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: b8bf834eb539b6bd9ddffacad113ba8505b8fb3a
+      resolved-ref: "7c679ca6c5d1e767c3d67a4532467cff32fda2d7"
       url: "https://github.com/RagehAz/widget_fader.git"
     source: git
-    version: "0.0.2"
+    version: "0.0.4"
   win32:
     dependency: transitive
     description:
