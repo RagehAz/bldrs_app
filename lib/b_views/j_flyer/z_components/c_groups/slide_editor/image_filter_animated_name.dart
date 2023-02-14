@@ -15,29 +15,17 @@ class ImageFilterAnimatedName extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final ValueNotifier<ImageFilterModel> filterModel;
   final double flyerBoxWidth;
-  /// --------------------------------------------------------------------------
-  Future<bool> _rebuild() async {
-    await Future.delayed(const Duration(milliseconds: 50), () {});
-    return true;
-  }
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     return ValueListenableBuilder(
-        // key: const ValueKey<String>('ImageFilterAnimatedName'),
+        key: const ValueKey<String>('ImageFilterAnimatedName'),
         valueListenable: filterModel,
         builder: (_, ImageFilterModel _filterModel, Widget child){
 
-          return FutureBuilder(
-            future: _rebuild(),
-            builder: (_, AsyncSnapshot<bool> snapshot){
-
-              final bool _build = snapshot.connectionState == ConnectionState.waiting ?
-              false : true;
-
-              if (_build == true){
-                return WidgetFader(
+          return WidgetWaiter(
+            child: WidgetFader(
                   fadeType: FadeType.fadeOut,
                   child: Align(
                     alignment: Alignment.bottomCenter,
@@ -65,14 +53,7 @@ class ImageFilterAnimatedName extends StatelessWidget {
                       ),
                     ),
                   ),
-                );
-              }
-
-              else {
-                return const SizedBox.shrink();
-              }
-
-              },
+                ),
           );
 
         }
