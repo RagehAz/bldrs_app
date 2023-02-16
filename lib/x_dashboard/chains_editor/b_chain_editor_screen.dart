@@ -4,7 +4,6 @@ import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/b_views/i_chains/z_components/chain_builders/a_chain_splitter.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:scale/scale.dart';
 import 'package:filers/filers.dart';

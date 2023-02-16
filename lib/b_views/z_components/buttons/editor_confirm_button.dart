@@ -2,11 +2,11 @@
 
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/sizing/super_positioned.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-
 import 'package:flutter/material.dart';
+import 'package:scale/scale.dart';
 
 class ConfirmButtonModel{
   /// --------------------------------------------------------------------------
@@ -88,6 +88,7 @@ class ConfirmButton extends StatelessWidget {
       return SuperPositioned(
         key: const ValueKey<String>('EditorConfirmButton'),
         enAlignment: positionedAlignment,
+        appIsLTR: UiProvider.checkAppIsLeftToRight(context),
         child: _button,
       );
     }
@@ -96,6 +97,7 @@ class ConfirmButton extends StatelessWidget {
       return SuperPositioned(
         key: const ValueKey<String>('EditorConfirmButton'),
         enAlignment: positionedAlignment,
+        appIsLTR: UiProvider.checkAppIsLeftToRight(context),
         child: Row(
           children: <Widget>[
 

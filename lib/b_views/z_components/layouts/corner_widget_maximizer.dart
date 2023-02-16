@@ -1,10 +1,10 @@
+import 'package:animators/animators.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/sizing/super_positioned.dart';
-import 'package:animators/animators.dart';
-import 'package:filers/filers.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 import 'package:widget_fader/widget_fader.dart';
@@ -230,6 +230,7 @@ class _MaximizerState extends State<_Maximizer> with SingleTickerProviderStateMi
           enAlignment: Alignment.bottomLeft,
           horizontalOffset: 10,
           verticalOffset: MediaQuery.of(context).viewInsets.bottom + 5,
+          appIsLTR: UiProvider.checkAppIsLeftToRight(context),
           child: ScaleTransition(
               alignment: Alignment.bottomLeft,
               scale: _scaleAnimation,
