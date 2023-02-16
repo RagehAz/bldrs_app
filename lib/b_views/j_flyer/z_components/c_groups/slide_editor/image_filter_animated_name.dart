@@ -26,34 +26,34 @@ class ImageFilterAnimatedName extends StatelessWidget {
 
           return WidgetWaiter(
             child: WidgetFader(
-                  fadeType: FadeType.fadeOut,
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                          bottom: FlyerDim.footerBoxHeight(
-                            context: context,
-                            flyerBoxWidth: flyerBoxWidth,
-                            infoButtonExpanded: false,
-                          )
-                      ),
-                      child: SuperVerse(
-                        verse: Verse(
-                          id: _filterModel.id,
-                          casing: Casing.upperCase,
-                          translate: true,
-                        ),
-                        maxLines: 3,
-                        weight: VerseWeight.black,
-                        italic: true,
-                        size: 4,
-                        // shadow: true,
-                        color: Colorz.white200,
-                        scaleFactor: flyerBoxWidth * 0.005,
-                      ),
+              fadeType: FadeType.fadeOut,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      bottom: FlyerDim.footerBoxHeight(
+                        context: context,
+                        flyerBoxWidth: flyerBoxWidth,
+                        infoButtonExpanded: false,
+                      )
+                  ),
+                  child: SuperVerse(
+                    verse: Verse(
+                      id: _filterModel.id,
+                      casing: Casing.upperCase,
+                      translate: true,
                     ),
+                    maxLines: 3,
+                    weight: VerseWeight.black,
+                    italic: true,
+                    size: 4,
+                    // shadow: true,
+                    color: Colorz.white200,
+                    scaleFactor: flyerBoxWidth * 0.005,
                   ),
                 ),
+              ),
+            ),
           );
 
         }
