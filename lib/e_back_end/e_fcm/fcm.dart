@@ -645,7 +645,6 @@ class FCM {
     final String token = _myUserModel.device.token;
 
     final Response _result = await Rest.get(
-      context: context,
       rawLink: 'https://iid.googleapis.com/iid/info/$token?details=true',
       headers: {
         'Authorization': 'Bearer $fcmServerKey',
