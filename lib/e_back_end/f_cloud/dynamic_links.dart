@@ -22,6 +22,7 @@ import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:numeric/numeric.dart';
+import 'package:rest/rest.dart';
 import 'package:stringer/stringer.dart';
 
 /*
@@ -215,7 +216,7 @@ class DynamicLinks {
     }
 
     if (log == true){
-      DynamicLinks.blogURI(uri: _uri,);
+      Rest.blogURI(uri: _uri,);
     }
 
     return _uri;
@@ -268,7 +269,7 @@ class DynamicLinks {
       blog('PendingDynamicLinkData : ios.matchType : ${data?.ios?.matchType}');
       blog('PendingDynamicLinkData : ios.minimumVersion : ${data?.ios?.minimumVersion}');
       blog('PendingDynamicLinkData : utmParameters : ${data?.utmParameters}');
-      blogURI(
+      Rest.blogURI(
         uri: data?.link,
         invoker: 'PendingDynamicLinkData',
       );
@@ -286,44 +287,6 @@ class DynamicLinks {
     }
     else {
       Mapper.blogMap(shortDynamicLink.asMap());
-    }
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static void blogURI({
-    @required Uri uri,
-    String invoker = ':',
-  }){
-
-    if (uri == null){
-      blog('blogURI $invoker : uri is null');
-    }
-    else {
-      blog('blogURI $invoker : uri : $uri');
-      blog('blogURI $invoker : uri.toString : $uri');
-      blog('blogURI $invoker : uri.path : ${uri?.path}');
-      blog('blogURI $invoker : uri.hashCode : ${uri?.hashCode}');
-      blog('blogURI $invoker : uri.data : ${uri?.data}');
-      blog('blogURI $invoker : uri.queryParameters : ${uri?.queryParameters}');
-      blog('blogURI $invoker : uri.authority : ${uri?.authority}');
-      blog('blogURI $invoker : uri.fragment : ${uri?.fragment}');
-      blog('blogURI $invoker : uri.hasAbsolutePath : ${uri?.hasAbsolutePath}');
-      blog('blogURI $invoker : uri.hasAuthority : ${uri?.hasAuthority}');
-      blog('blogURI $invoker : uri.hasEmptyPath : ${uri?.hasEmptyPath}');
-      blog('blogURI $invoker : uri.hasFragment : ${uri?.hasFragment}');
-      blog('blogURI $invoker : uri.hasPort : ${uri?.hasPort}');
-      blog('blogURI $invoker : uri.hasQuery : ${uri?.hasQuery}');
-      blog('blogURI $invoker : uri.hasScheme : ${uri?.hasScheme}');
-      blog('blogURI $invoker : uri.query : ${uri?.query}');
-      blog('blogURI $invoker : uri.host : ${uri?.host}');
-      blog('blogURI $invoker : uri.isAbsolute : ${uri?.isAbsolute}');
-      blog('blogURI $invoker : uri.pathSegments : ${uri?.pathSegments}');
-      blog('blogURI $invoker : uri.port : ${uri?.port}');
-      blog('blogURI $invoker : uri.scheme : ${uri?.scheme}');
-      blog('blogURI $invoker : uri.userInfo : ${uri?.userInfo}');
-      blog('blogURI $invoker : uri.queryParametersAll : ${uri?.queryParametersAll}');
-      // blog('blogURI $invoker : link.origin : ${uri?.origin}'); // Unhandled Exception: Bad state: Origin is only applicable schemes http and https:
     }
 
   }

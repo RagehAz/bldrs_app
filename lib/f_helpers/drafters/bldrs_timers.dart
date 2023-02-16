@@ -336,7 +336,6 @@ class BldrsTimers {
 
     final http.Response _response = await Rest.get(
       rawLink: url,
-      context: null,
       invoker: 'getInternetUTCTime',
     );
 
