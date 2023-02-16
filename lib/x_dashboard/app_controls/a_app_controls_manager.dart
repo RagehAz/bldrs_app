@@ -3,7 +3,6 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_head
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/general_provider.dart';
@@ -12,6 +11,7 @@ import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bldrs/x_dashboard/app_controls/b_pricing_screen.dart';
 import 'package:bldrs/x_dashboard/app_controls/x_app_controls_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:scale/scale.dart';
 
 class AppControlsManager extends StatefulWidget {
   /// --------------------------------------------------------------------------

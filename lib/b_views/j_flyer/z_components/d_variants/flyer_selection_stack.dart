@@ -1,16 +1,17 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/e_footer_button.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/e_extra_layers/flyer_selection_layer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/e_extra_layers/flyer_audit_layer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/e_extra_layers/flyer_selection_layer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/sizing/super_positioned.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:scale/scale.dart';
 
 class FlyerSelectionStack extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -112,6 +113,7 @@ class FlyerSelectionStack extends StatelessWidget {
               enAlignment: Alignment.bottomRight,
               verticalOffset: FlyerDim.footerButtonMarginValue(flyerBoxWidth,),
               horizontalOffset: FlyerDim.footerButtonMarginValue(flyerBoxWidth,),
+              appIsLTR: UiProvider.checkAppIsLeftToRight(context),
               child: FooterButton(
                 icon: Iconz.more,
                 phid: 'phid_more',

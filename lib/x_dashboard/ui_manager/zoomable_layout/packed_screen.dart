@@ -4,13 +4,13 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/zoomable_layout/zoomable_grid.dart';
 import 'package:bldrs/b_views/z_components/layouts/zoomable_layout/zoomable_grid_controller.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:numeric/numeric.dart';
 import 'package:filers/filers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:scale/scale.dart';
 
 Future<void> onZoomInStart() async {
   blog('onZoomInStart');
