@@ -1,10 +1,10 @@
 import 'package:bldrs/b_views/z_components/buttons/wide_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:filers/filers.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/dashboard_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:scale/scale.dart';
 
 /// ============================================================================
 

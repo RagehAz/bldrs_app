@@ -9,7 +9,6 @@ import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
@@ -20,6 +19,7 @@ import 'package:bldrs/x_dashboard/phrase_editor/x_phrase_editor_controllers.dart
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
+import 'package:scale/scale.dart';
 import 'package:stringer/stringer.dart';
 
 class PathEditorScreen extends StatefulWidget {
