@@ -1326,10 +1326,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "3c956a386799f28539fef7f45056ccbf12acb66b"
+      resolved-ref: f643654a54ccb984d54910c22b49e0d3e2984b56
       url: "https://github.com/RagehAz/scale.git"
     source: git
-    version: "0.0.6"
+    version: "0.0.8"
   screenshot:
     dependency: "direct main"
     description:

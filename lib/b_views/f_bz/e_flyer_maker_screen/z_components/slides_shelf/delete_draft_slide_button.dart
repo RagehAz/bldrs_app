@@ -1,9 +1,10 @@
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/draft_shelf/e_draft_shelf_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/sizing/super_positioned.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:scale/scale.dart';
 
 class DeleteDraftSlideButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -25,6 +26,7 @@ class DeleteDraftSlideButton extends StatelessWidget {
 
     return SuperPositioned(
       enAlignment: Alignment.bottomCenter,
+      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
       child: Container(
         width: DraftShelfSlide.flyerBoxWidth,
         height: _boxHeight,

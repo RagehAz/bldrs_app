@@ -1,5 +1,5 @@
-import 'package:bldrs/b_views/z_components/sizing/super_positioned.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
@@ -152,6 +152,7 @@ class NoteRedDotWrapper extends StatelessWidget {
           SuperPositioned(
             enAlignment: Alignment.topRight,
             // horizontalOffset: -(NoteRedDot.size * 0.5),
+            appIsLTR: UiProvider.checkAppIsLeftToRight(context),
             child: NoteRedDot(
               count: count,
               isNano: isNano,

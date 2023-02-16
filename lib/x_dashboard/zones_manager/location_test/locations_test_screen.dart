@@ -7,7 +7,6 @@ import 'package:bldrs/b_views/z_components/buttons/flagbox_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/wide_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/max_bounce_navigator.dart';
-import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
@@ -18,6 +17,7 @@ import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:numeric/numeric.dart';
+import 'package:scale/scale.dart';
 // import 'package:bldrs/f_helpers/router/navigators.dart';
 // import 'package:bldrs/x_dashboard/zones_manager/location_test/google_map_screen.dart';
 
@@ -245,7 +245,6 @@ class _LocationsTestScreenState extends State<LocationsTestScreen> {
       onSearchCancelled: _onSearchCancelled,
       searchHintVerse: Verse.plain('Search Planet Earth'),
       searchController: _searchController,
-
       appBarRowWidgets: <Widget>[
 
         const Expander(),

@@ -1,10 +1,11 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/c_groups/deck/flyer_deck.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/static_flyer/b_static_header.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/c_groups/deck/flyer_deck.dart';
 import 'package:bldrs/b_views/z_components/poster/structure/x_note_poster_box.dart';
-import 'package:bldrs/b_views/z_components/sizing/super_positioned.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:scale/scale.dart';
 
 class BzPoster extends StatelessWidget {
   // -----------------------------------------------------------------------------
@@ -57,6 +58,7 @@ class BzPoster extends StatelessWidget {
             enAlignment: Alignment.bottomRight,
             verticalOffset: width * 0.04,
             horizontalOffset: width * 0.08,
+            appIsLTR: UiProvider.checkAppIsLeftToRight(context),
             child: FlyerDeck(
               maxPossibleWidth: _clearWidth * 0.9,
               deckHeight: width * 0.25,
