@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/d_variants/small_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/sizing/super_positioned.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
-import 'package:bldrs/f_helpers/drafters/animators.dart';
+import 'package:animators/animators.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:numeric/numeric.dart';

@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
-import 'package:bldrs/f_helpers/drafters/animators.dart';
+import 'package:animators/animators.dart';
 import 'package:filers/filers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';

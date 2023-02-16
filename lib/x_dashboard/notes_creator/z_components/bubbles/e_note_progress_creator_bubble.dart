@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_b
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/static_progress_bar.dart';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
-import 'package:bldrs/f_helpers/drafters/sliders.dart';
+import 'package:animators/animators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';

@@ -1,11 +1,9 @@
-import 'package:bldrs/f_helpers/drafters/animators.dart';
+import 'package:animators/animators.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:mapper/mapper.dart';
-import 'package:bldrs/f_helpers/drafters/sliders.dart';
-import 'package:filers/filers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
 ///=> TAMAM
 class ProgressBarModel {
   /// --------------------------------------------------------------------------
