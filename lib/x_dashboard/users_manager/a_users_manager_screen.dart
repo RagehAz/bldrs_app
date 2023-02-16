@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:scale/scale.dart';
-import 'package:bldrs/f_helpers/drafters/sliders.dart';
+import 'package:animators/animators.dart';
 import 'package:filers/filers.dart';
 import 'package:bldrs/x_dashboard/users_manager/aa_users_page.dart';
 import 'package:bldrs/x_dashboard/users_manager/aaa_selected_user_page.dart';

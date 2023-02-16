@@ -13,7 +13,7 @@ import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart'
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:mapper/mapper.dart';
 import 'package:scale/scale.dart';
-import 'package:bldrs/f_helpers/drafters/sliders.dart';
+import 'package:animators/animators.dart';
 import 'package:stringer/stringer.dart';
 import 'package:filers/filers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';

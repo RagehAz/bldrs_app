@@ -1,3 +1,4 @@
+import 'package:animators/animators.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
@@ -9,16 +10,15 @@ import 'package:bldrs/b_views/g_zoning/c_districts_screen/aa_districts_screen_se
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_protocols.dart';
-import 'package:stringer/stringer.dart';
-import 'package:filers/filers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
+import 'package:stringer/stringer.dart';
 
 class DistrictsScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------

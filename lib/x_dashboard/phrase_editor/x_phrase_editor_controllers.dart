@@ -10,7 +10,7 @@ import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.da
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:bldrs/f_helpers/drafters/sliders.dart';
+import 'package:animators/animators.dart';
 import 'package:filers/filers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/x_dashboard/phrase_editor/phrase_editor_screen.dart';

@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/ldb/phrase_ldb_ops.dart';
 import 'package:scale/scale.dart';
-import 'package:bldrs/f_helpers/drafters/sliders.dart';
+import 'package:animators/animators.dart';
 import 'package:filers/filers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 
