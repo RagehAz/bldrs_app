@@ -1309,10 +1309,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: c1b344c133d670dbe4e694423675823091cd48b7
+      resolved-ref: "81539a89eb55d8c25aa6f71f898884b3a55a8075"
       url: "https://github.com/RagehAz/rest.git"
     source: git
-    version: "0.0.5"
+    version: "0.0.7"
   rxdart:
     dependency: transitive
     description:
