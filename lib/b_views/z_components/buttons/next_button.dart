@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/f_helpers/drafters/sliders.dart';
+import 'package:animators/animators.dart';
 
 class NextButton extends StatelessWidget {
   // -----------------------------------------------------------------------------
@@ -42,8 +42,8 @@ class NextButton extends StatelessWidget {
     await Sliders.slideToIndex(
       pageController: pageController,
       toIndex: _nextIndex,
-      duration: const Duration(milliseconds: 500),
       curve: Curves.easeInOut,
+      // duration: const Duration(milliseconds: 500),
     );
 
   }
