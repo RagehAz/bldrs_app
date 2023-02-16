@@ -1,25 +1,21 @@
+import 'package:animators/animators.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/navigation/scroller.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/notes/note_card.dart';
 import 'package:bldrs/b_views/z_components/sizing/expander.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/note_protocols/ldb/note_ldb_ops.dart';
-import 'package:mapper/mapper.dart';
-import 'package:scale/scale.dart';
-import 'package:bldrs/f_helpers/drafters/sliders.dart';
-import 'package:filers/filers.dart';
-
-
-
-import 'package:bldrs/x_dashboard/notes_creator/x_lab_screens/x_import_template_screen/x_note_templates.dart';
 import 'package:bldrs/x_dashboard/notes_creator/b_controllers/h_panel_controllers.dart';
+import 'package:bldrs/x_dashboard/notes_creator/x_lab_screens/x_import_template_screen/x_note_templates.dart';
 import 'package:bldrs/x_dashboard/notes_creator/z_components/buttons/note_party_button.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
+import 'package:scale/scale.dart';
 
 class ImportTemplateNoteScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------

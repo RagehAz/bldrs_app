@@ -17,6 +17,15 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.2.2"
+  animators:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "98e86abcf2c52a5f649f98eefbeb0baf567437f2"
+      url: "https://github.com/RagehAz/animators.git"
+    source: git
+    version: "0.0.1"
   another_flushbar:
     dependency: "direct main"
     description:

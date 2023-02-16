@@ -9,7 +9,7 @@ import 'package:fire/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/scrollers.dart';
-import 'package:bldrs/f_helpers/drafters/sliders.dart';
+import 'package:animators/animators.dart';
 import 'package:filers/filers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
