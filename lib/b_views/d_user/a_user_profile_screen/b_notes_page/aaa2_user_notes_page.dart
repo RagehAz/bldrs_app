@@ -1,18 +1,20 @@
 import 'dart:async';
+
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/b_notes_page/x2_user_notes_page_controllers.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
-import 'package:bldrs/b_views/z_components/layouts/pull_to_refresh.dart';
 import 'package:bldrs/b_views/z_components/notes/note_card.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/fire/note_fire_ops.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
-import 'package:fire/fire.dart';
-import 'package:mapper/mapper.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
+import 'package:fire/fire.dart';
 import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
+import 'package:mapper/mapper.dart';
 
 class UserNotesPage extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -201,6 +203,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
 
     return PullToRefresh(
       onRefresh: _onRefresh,
+      indicatorColor: Colorz.yellow255,
       fadeOnBuild: true,
       child: showNotes == false ? const SizedBox() :
 

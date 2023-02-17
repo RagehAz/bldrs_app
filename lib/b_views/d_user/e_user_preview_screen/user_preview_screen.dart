@@ -2,11 +2,12 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/d_user/z_components/banners/a_user_profile_banners.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/b_views/z_components/layouts/pull_to_refresh.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
 import 'package:page_transition/page_transition.dart';
 
 class UserPreviewScreen extends StatelessWidget {
@@ -26,6 +27,7 @@ class UserPreviewScreen extends StatelessWidget {
       pyramidsAreOn: true,
       skyType: SkyType.black,
       child: PullToRefresh(
+        indicatorColor: Colorz.yellow255,
         onRefresh: () async {
 
           final UserModel _userModel = await UserProtocols.refetch(
