@@ -9,16 +9,17 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/co
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/paragraph_bubble/paragraph_bubble.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_banner.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_stats_bubble.dart';
-import 'package:bldrs/b_views/z_components/layouts/pull_to_refresh.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/e_back_end/j_ads/google_ad.dart';
-import 'package:filers/filers.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
 import 'package:mapper/mapper.dart';
 import 'package:provider/provider.dart';
 import 'package:scale/scale.dart';
@@ -46,6 +47,7 @@ class BzAboutPage extends StatelessWidget {
 
     if (bzModel == null){
       return PullToRefresh(
+        indicatorColor: Colorz.yellow255,
         fadeOnBuild: true,
         onRefresh: () async {
 
