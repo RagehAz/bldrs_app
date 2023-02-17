@@ -10,12 +10,14 @@ class BldrsBulletPoints extends StatelessWidget {
     @required this.bulletPoints,
     this.bubbleWidth,
     this.centered,
+    this.showBottomLine = true,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final List<Verse> bulletPoints;
   final double bubbleWidth;
   final bool centered;
+  final bool showBottomLine;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -36,9 +38,8 @@ class BldrsBulletPoints extends StatelessWidget {
       textDirection: UiProvider.getAppTextDir(context),
       centered: centered,
       font: SuperVerse.superVerseFont(context, VerseWeight.thin),
-      // showBottomLine: false,
+      showBottomLine: showBottomLine,
       // textColor: Colorz.blue255,
-      // showBottomLine: true,
     );
 
   }
