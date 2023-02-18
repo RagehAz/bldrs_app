@@ -203,7 +203,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
 
     return PullToRefresh(
       onRefresh: _onRefresh,
-      indicatorColor: Colorz.yellow255,
+      circleColor: Colorz.yellow255,
       fadeOnBuild: true,
       child: showNotes == false ? const SizedBox() :
 

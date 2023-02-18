@@ -937,7 +937,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "963780deb6e04b0e3ab2c1b095639c4b0e227d8b"
+      resolved-ref: b1840b7de178bf6157c5e0117715b4fcf46c3b4a
       url: "https://github.com/RagehAz/layouts.git"
     source: git
     version: "0.0.2"
