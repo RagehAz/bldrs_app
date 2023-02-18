@@ -214,7 +214,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
     );
 
     return PullToRefresh(
-      indicatorColor: Colorz.yellow255,
+      circleColor: Colorz.yellow255,
       onRefresh: _onRefresh,
       fadeOnBuild: true,
       child: showNotes == false ? const SizedBox() :
