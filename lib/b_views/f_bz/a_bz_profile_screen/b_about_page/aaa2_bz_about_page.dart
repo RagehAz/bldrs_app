@@ -47,7 +47,7 @@ class BzAboutPage extends StatelessWidget {
 
     if (bzModel == null){
       return PullToRefresh(
-        indicatorColor: Colorz.yellow255,
+        circleColor: Colorz.yellow255,
         fadeOnBuild: true,
         onRefresh: () async {
 

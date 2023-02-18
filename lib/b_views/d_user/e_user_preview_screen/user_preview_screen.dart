@@ -27,7 +27,7 @@ class UserPreviewScreen extends StatelessWidget {
       pyramidsAreOn: true,
       skyType: SkyType.black,
       child: PullToRefresh(
-        indicatorColor: Colorz.yellow255,
+        circleColor: Colorz.yellow255,
         onRefresh: () async {
 
           final UserModel _userModel = await UserProtocols.refetch(

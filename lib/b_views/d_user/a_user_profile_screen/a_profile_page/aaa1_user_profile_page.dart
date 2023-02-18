@@ -19,7 +19,7 @@ class UserProfilePage extends StatelessWidget {
 
     return PullToRefresh(
       fadeOnBuild: true,
-      indicatorColor: Colorz.yellow255,
+      circleColor: Colorz.yellow255,
       onRefresh: () async {
 
         final UserModel _userModel = await UserProtocols.refetch(
