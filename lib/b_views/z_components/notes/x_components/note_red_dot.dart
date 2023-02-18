@@ -52,7 +52,7 @@ class NoteRedDot extends StatelessWidget {
     final double _size = getSize(isNano: isNano);
     // --------------------
     return Container(
-      // width: _buttonWidth * 0.3,
+      width: _size * 0.3,
       height: _size,
       // margin: const EdgeInsets.all(buttonWidth * 0.1),
       constraints: BoxConstraints(
