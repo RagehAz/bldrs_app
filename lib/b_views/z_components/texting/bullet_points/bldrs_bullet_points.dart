@@ -11,6 +11,7 @@ class BldrsBulletPoints extends StatelessWidget {
     this.bubbleWidth,
     this.centered,
     this.showBottomLine = true,
+    this.verseSizeFactor = 1,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -18,6 +19,7 @@ class BldrsBulletPoints extends StatelessWidget {
   final double bubbleWidth;
   final bool centered;
   final bool showBottomLine;
+  final double verseSizeFactor;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class BldrsBulletPoints extends StatelessWidget {
 
     return BulletPoints(
       boxWidth: _bubbleWidth,
-      textHeight: SuperVerse.superVerseRealHeight(context: context, size: 2, sizeFactor: 1, hasLabelBox: false),
+      textHeight: SuperVerse.superVerseRealHeight(context: context, size: 2, sizeFactor: verseSizeFactor, hasLabelBox: false),
       bulletPoints: Verse.bakeVerses(
         context: context,
         verses: bulletPoints,

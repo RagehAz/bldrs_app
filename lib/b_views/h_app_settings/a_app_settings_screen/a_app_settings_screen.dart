@@ -16,15 +16,18 @@ import 'package:super_image/super_image.dart';
 
 class AppSettingsScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const AppSettingsScreen({Key key}) : super(key: key);
-
+  const AppSettingsScreen({
+    Key key
+  }) : super(key: key);
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     final bool _userIsOnline = AuthModel.userIsSignedIn();
 
     return FloatingLayout(
       columnChildren: <Widget>[
+
         const DotSeparator(
           color: Colorz.yellow80,
         ),
@@ -102,15 +105,19 @@ class AppSettingsScreen extends StatelessWidget {
           italic: true,
           color: Colorz.white125,
         ),
+
       ],
     );
+
   }
 // -----------------------------------------------------------------------------
 }
 
 class CreateNewBzButton extends StatelessWidget {
   // -----------------------------------------------------------------------------
-  const CreateNewBzButton({Key key}) : super(key: key);
+  const CreateNewBzButton({
+    Key key
+  }) : super(key: key);
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -163,9 +170,13 @@ class CreateNewBzButton extends StatelessWidget {
             child: BldrsBulletPoints(
               centered: true,
               showBottomLine: false,
-              bulletPoints: [
+              verseSizeFactor: 0.8,
+              bulletPoints: <Verse>[
+
                 Verse(id: 'phid_free_account_no_commissions', translate: true),
+
                 // Verse(id: 'phid_no_deal_commissions', translate: true),
+
                 Verse(id: 'phid_account_addons_are_purchasable', translate: true),
 
               ],
@@ -192,5 +203,5 @@ class CreateNewBzButton extends StatelessWidget {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
