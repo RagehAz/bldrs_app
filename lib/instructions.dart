@@ -159,3 +159,8 @@ free zone
 /// 'AIzaSyDp6MMLw2LJflspqJ0x2uZCmQuZ32vS3XU', // AIzaSyD5CBTWvMaL6gU0X7gfdcnkpFmo-aNfgx4
 
 // ---------------------------------------------------------------------------
+
+/// TO CLEAN TERMINAL LOGS
+/*
+flutter run | grep -vE "(FlutterJNI|EGL_emulation|InputMethodManager)"
+ */

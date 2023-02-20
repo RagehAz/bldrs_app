@@ -107,6 +107,11 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
             draftNotifier: draftNotifier,
             mounted: mounted,
           );
+          triggerCanValidateDraftBz(
+            draftNotifier: draftNotifier,
+            setTo: true,
+            mounted: mounted,
+          );
         }
         // -----------------------------
         if (widget.validateOnStartup == true){
@@ -122,6 +127,13 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
           _addSessionListeners();
         }
         // -------------------------------
+
+        draftNotifier.value.nameController.addListener(() {
+
+          blog('the fucking name is : ${draftNotifier.value.nameController.text}');
+
+        });
+
         await _triggerLoading(setTo: false);
       });
 
@@ -133,6 +145,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
   @override
   void dispose() {
     draftNotifier.value.disposeDraftBzFocusNodes();
+    draftNotifier.value.nameController.dispose();
+    draftNotifier.value.aboutController.dispose();
     draftNotifier.dispose();
     _loading.dispose();
     _progressBarModel.dispose();
@@ -143,17 +157,21 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
   /// TESTED : WORKS PERFECT
   void _addSessionListeners(){
 
+    blog('adding session listeners');
+
     draftNotifier.addListener(() async {
-
-      _stripsListener();
-
-      await saveBzEditorSession(
-        draftNotifier: draftNotifier,
-        mounted: mounted,
-      );
-
+      await _onDraftChanged();
     });
 
+  }
+  // --------------------
+  ///
+  Future<void> _onDraftChanged() async {
+    _stripsListener();
+    await saveBzEditorSession(
+      draftNotifier: draftNotifier,
+      mounted: mounted,
+    );
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -181,7 +199,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
     ) == null;
     final bool _nameIsValid = Formers.companyNameValidator(
       context: context,
-      companyName: draftNotifier.value?.name,
+      companyName: draftNotifier.value?.nameController?.text,
       canValidate: true,
     ) == null;
 
@@ -221,10 +239,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
 
     // -----------------
     /// STRIP 3 : ABOUT - SCOPE
-
     final bool _aboutIsValid = Formers.bzAboutValidator(
       context: context,
-      bzAbout: draftNotifier.value?.about,
+      bzAbout: draftNotifier.value?.aboutController?.text,
       canValidate: true,
     ) == null;
     final bool _scopeIsValid = Formers.bzScopeValidator(
@@ -373,39 +390,39 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
         valueListenable: draftNotifier,
         builder: (_, DraftBz draft, Widget child){
 
-          final String _companyNameBubbleTitle = draft?.bzForm == BzForm.individual ?
-          'phid_business_entity_name'
-              :
-          'phid_companyName';
+            final String _companyNameBubbleTitle = draft?.bzForm == BzForm.individual ?
+            'phid_business_entity_name'
+                :
+            'phid_companyName';
 
-          final String _selectedBzSectionPhid = BzTyper.getBzSectionPhid(
-            context: context,
-            bzSection: draft?.bzSection,
-          );
+            final String _selectedBzSectionPhid = BzTyper.getBzSectionPhid(
+              context: context,
+              bzSection: draft?.bzSection,
+            );
 
-          final List<String> _inactiveBzTypesPhids = BzTyper.getBzTypesPhids(
-            context: context,
-            bzTypes: draft?.inactiveBzTypes,
-            pluralTranslation: false,
-          );
+            final List<String> _inactiveBzTypesPhids = BzTyper.getBzTypesPhids(
+              context: context,
+              bzTypes: draft?.inactiveBzTypes,
+              pluralTranslation: false,
+            );
 
-          final List<String> _selectedBzTypesPhids = BzTyper.getBzTypesPhids(
-            context: context,
-            bzTypes: draft?.bzTypes,
-            pluralTranslation: false,
-          );
+            final List<String> _selectedBzTypesPhids = BzTyper.getBzTypesPhids(
+              context: context,
+              bzTypes: draft?.bzTypes,
+              pluralTranslation: false,
+            );
 
-          final String _selectedBzFormPhid = BzTyper.getBzFormPhid(
-            context: context,
-            bzForm: draft?.bzForm,
-          );
+            final String _selectedBzFormPhid = BzTyper.getBzFormPhid(
+              context: context,
+              bzForm: draft?.bzForm,
+            );
 
-          final List<String> _inactiveBzFormsPhids = BzTyper.getBzFormsPhids(
-            context: context,
-            bzForms: draft?.inactiveBzForms,
-          );
+            final List<String> _inactiveBzFormsPhids = BzTyper.getBzFormsPhids(
+              context: context,
+              bzForms: draft?.inactiveBzForms,
+            );
 
-          return Form(
+            return Form(
             key: draft?.formKey,
             child: PagerBuilder(
               progressBarModel: _progressBarModel,
@@ -461,22 +478,17 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       maxLines: 2,
                       // keyboardTextInputType: TextInputType.text,
                       keyboardTextInputAction: TextInputAction.next,
-                      initialText: draft?.name,
+                      textController: draftNotifier.value?.nameController,
 
                       // autoValidate: true,
                       validator: (String text) => Formers.companyNameValidator(
                         context: context,
-                        companyName: draft?.name,
+                        companyName: text,
                         canValidate: draft?.canValidate,
                       ),
-                      onTextChanged: (String text){
-
-                        setNotifier(
-                          notifier: draftNotifier,
-                          mounted: mounted,
-                          value: draft?.copyWith(name: text,),
-                        );
-
+                      onTextChanged: (String text) async {
+                        blog('the text is $text');
+                        await _onDraftChanged();
                       },
                     ),
 
@@ -490,7 +502,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       ) == null &&
                       Formers.companyNameValidator(
                         context: context,
-                        companyName: draft?.name,
+                        companyName: draft?.nameController?.text,
                         canValidate: true,
                       ) == null && _isInit == false,
                     ),
@@ -627,25 +639,18 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       maxLength: 1000,
                       maxLines: 20,
                       keyboardTextInputType: TextInputType.multiline,
-                      initialText: draft?.about,
+                      textController: draft?.aboutController,
 
                       // autoValidate: true,
                       validator: (String text) => Formers.bzAboutValidator(
                         context: context,
-                        bzAbout: draft?.about,
+                        bzAbout: text,
                         canValidate: draft?.canValidate,
                       ),
-                      onTextChanged: (String text){
-
-                        setNotifier(
-                          notifier: draftNotifier,
-                          mounted: mounted,
-                          value: draft?.copyWith(
-                            about: text,
-                          ),
-                        );
-
+                      onTextChanged: (String text) async {
+                        await _onDraftChanged();
                       },
+
                     ),
 
                     /// SCOPES SELECTOR
@@ -685,7 +690,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       onTap: _onNextTap,
                       canGoNext:  Formers.bzAboutValidator(
                         context: context,
-                        bzAbout: draft?.about,
+                        bzAbout: draft?.aboutController?.text,
                         canValidate: true,
                       ) == null &&
                       Formers.bzScopeValidator(
