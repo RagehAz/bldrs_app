@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:typed_data';
 
+import 'package:animators/animators.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
@@ -12,15 +13,13 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:mapper/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
-import 'package:bldrs/f_helpers/drafters/scrollers.dart';
-import 'package:filers/filers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
-
 import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:flutter/material.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:filers/filers.dart';
+import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
 
 /// => TAMAM
 // -----------------------------------------------------------------------------
@@ -177,7 +176,7 @@ Future<void> _addImagesForNewFlyer({
       }
 
       await Future.delayed(Ratioz.duration150ms,() async {
-        await Scrollers.scrollTo(
+        await Sliders.scrollTo(
           controller: scrollController,
           offset: scrollController?.position?.maxScrollExtent ?? 0 - flyerWidth,
         );
