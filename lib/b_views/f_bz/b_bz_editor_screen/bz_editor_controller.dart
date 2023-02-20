@@ -59,12 +59,17 @@ Future<void> loadBzEditorLastSession({
 
     if (_continue == true){
 
+      blog('name of the bz is : ${_lastSessionDraft.nameController.text}');
+
+      draftNotifier.value.nameController.text = _lastSessionDraft.nameController.text;
+      draftNotifier.value.aboutController.text = _lastSessionDraft.aboutController.text;
+
       setNotifier(
           notifier: draftNotifier,
           mounted: mounted,
           value: DraftBz.reAttachNodes(
             draftFromLDB: _lastSessionDraft,
-            draftWithNodes: draftNotifier.value,
+            originalDraft: draftNotifier.value,
           ),
       );
 
@@ -86,6 +91,9 @@ Future<void> saveBzEditorSession({
     setTo: true,
     mounted: mounted,
   );
+
+  blog('saving bz name : ${draftNotifier.value.nameController.text} : ${draftNotifier.value
+      .aboutController.text}');
 
   await BzLDBOps.saveBzEditorSession(
       draft: draftNotifier.value,
