@@ -136,6 +136,9 @@ dependencies:
   ldb:
     git:
       url: https://github.com/RagehAz/ldb.git
+  real:
+    git:
+      url: https://github.com/RagehAz/real.git
   # ------------------------------------
   # MY HELPERS
   bldrs_theme:

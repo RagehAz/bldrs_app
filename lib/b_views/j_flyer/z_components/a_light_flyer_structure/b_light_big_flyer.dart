@@ -400,7 +400,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
     else {
 
       final int _newIndex = await Sliders.slideToNextAndGetNewIndex(
-        slidingController: _horizontalSlidesController,
+        pageController: _horizontalSlidesController,
         numberOfSlides: (_flyer.value?.slides?.length ?? 0) + 1,
         currentSlide: _progressBarModel.value.index,
       );

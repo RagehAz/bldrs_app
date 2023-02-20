@@ -1,7 +1,7 @@
-import 'package:scale/scale.dart';
-import 'package:bldrs/f_helpers/drafters/scrollers.dart';
+import 'package:animators/animators.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:flutter/material.dart';
+import 'package:scale/scale.dart';
 
 /// GoHomeOnMaxBounce
 class MaxBounceNavigator extends StatefulWidget {
@@ -83,7 +83,7 @@ class _MaxBounceNavigatorState extends State<MaxBounceNavigator> {
         onNotification: (ScrollUpdateNotification details) {
 
           /// CAN SLIDE WHEN ( SLIDE LIMIT REACHED )
-          final bool _canSlide = Scrollers.checkCanSlide(
+          final bool _canSlide = Sliders.checkCanSlide(
             details: details,
             boxDistance: _boxDistance,
             numberOfBoxes: widget.numberOfScreens,

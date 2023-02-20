@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/review_protocols/fire/review_fire_ops.dart';
-import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
+import 'package:real/real.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';

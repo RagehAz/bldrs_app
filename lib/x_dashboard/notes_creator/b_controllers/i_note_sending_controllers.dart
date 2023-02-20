@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:animators/animators.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
@@ -9,9 +10,8 @@ import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
-import 'package:bldrs/f_helpers/drafters/scrollers.dart';
-import 'package:filers/filers.dart';
 import 'package:bldrs/x_dashboard/notes_creator/draft_note.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 
@@ -113,7 +113,7 @@ Future<void> onSendNote({
 
     await WaitDialog.closeWaitDialog(context);
 
-    await Scrollers.scrollToTop(
+    await Sliders.scrollToTop(
       controller: draftNote.scrollController,
     );
 
