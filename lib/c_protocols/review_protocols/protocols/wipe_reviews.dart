@@ -3,7 +3,7 @@ import 'package:bldrs/c_protocols/bz_protocols/real/bz_record_real_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/real/flyer_record_real_ops.dart';
 import 'package:fire/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
-import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
+import 'package:real/real.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:mapper/mapper.dart';
 import 'package:flutter/material.dart';

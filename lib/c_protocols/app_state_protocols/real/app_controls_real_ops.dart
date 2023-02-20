@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/x_utilities/xx_app_controls_model.dart';
-import 'package:bldrs/e_back_end/c_real/foundation/real.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:real/real.dart';
 /// => TAMAM
 class AppControlsRealOps{
   // -----------------------------------------------------------------------------
