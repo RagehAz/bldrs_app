@@ -23,10 +23,10 @@ class DraftBz {
     @required this.id,
     @required this.createdAt,
     @required this.accountType,
-    @required this.name,
+    @required this.nameController,
     @required this.trigram,
     @required this.zone,
-    @required this.about,
+    @required this.aboutController,
     @required this.position,
     @required this.contacts,
     @required this.authors,
@@ -57,10 +57,10 @@ class DraftBz {
   final String id;
   final DateTime createdAt;
   final BzAccountType accountType;
-  final String name;
+  final TextEditingController nameController;
   final List<String> trigram;
   final ZoneModel zone;
-  final String about;
+  final TextEditingController aboutController;
   final GeoPoint position;
   final List<ContactModel> contacts;
   final List<AuthorModel> authors;
@@ -160,10 +160,10 @@ class DraftBz {
       id: 'newDraft',
       createdAt: null,
       accountType: BzAccountType.standard,
-      name: '',
+      nameController: TextEditingController(),
       trigram: const [],
       zone: creatorUser.zone,
-      about: '',
+      aboutController: TextEditingController(),
       position: null,
       contacts: _contacts,
       authors: <AuthorModel>[_author],
@@ -210,13 +210,13 @@ class DraftBz {
       id: bzModel.id,
       createdAt: bzModel.createdAt,
       accountType: bzModel.accountType,
-      name: bzModel.name,
+      nameController: TextEditingController(text: bzModel.name),
       trigram: bzModel.trigram,
       zone: await ZoneModel.prepareZoneForEditing(
         context: context,
         zoneModel: bzModel.zone,
       ),
-      about: bzModel.about,
+      aboutController: TextEditingController(text: bzModel.about),
       position: bzModel.position,
       contacts: ContactModel.prepareContactsForEditing(
         countryID: bzModel.zone?.countryID,
@@ -256,15 +256,17 @@ class DraftBz {
   /// TESTED : WORKS PERFECT
   static DraftBz reAttachNodes({
     @required DraftBz draftFromLDB,
-    @required DraftBz draftWithNodes,
+    @required DraftBz originalDraft,
   }){
     return draftFromLDB.copyWith(
-      nameNode: draftWithNodes.nameNode,
-      aboutNode: draftWithNodes.aboutNode,
-      emailNode: draftWithNodes.emailNode,
-      websiteNode: draftWithNodes.websiteNode,
-      phoneNode: draftWithNodes.phoneNode,
-      formKey: draftWithNodes.formKey,
+      nameNode: originalDraft.nameNode,
+      aboutNode: originalDraft.aboutNode,
+      emailNode: originalDraft.emailNode,
+      websiteNode: originalDraft.websiteNode,
+      phoneNode: originalDraft.phoneNode,
+      formKey: originalDraft.formKey,
+      nameController: originalDraft.nameController,
+      aboutController: originalDraft.aboutController,
     );
   }
   // -----------------------------------------------------------------------------
@@ -285,12 +287,12 @@ class DraftBz {
       /// MIGHT HAVE CHANGED
       bzTypes: draft.bzTypes,
       bzForm: draft.bzForm,
-      name: draft.name,
-      trigram: Stringer.createTrigram(input: draft.name),
+      name: draft.nameController.text,
+      trigram: Stringer.createTrigram(input: draft.nameController.text),
       logoPath: draft.logoPicModel.path,
       scope: draft.scope,
       zone: draft.zone,
-      about: draft.about,
+      about: draft.aboutController.text,
       position: draft.position,
       contacts: ContactModel.bakeContactsAfterEditing(
         contacts: draft.contacts,
@@ -312,14 +314,16 @@ class DraftBz {
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toLDB(){
 
+    blog("map['name'] iss  should be ${nameController.text}");
+
     return {
       'id': id,
       'createdAt': Timers.cipherTime(time: createdAt, toJSON: true),
       'accountType': BzTyper.cipherBzAccountType(accountType),
-      'name': name,
+      'name': nameController.text,
       'trigram': trigram,
       'zone': zone?.toMap(),
-      'about': about,
+      'about': aboutController.text,
       'position': Atlas.cipherGeoPoint(point: position, toJSON: true),
       'contacts': ContactModel.cipherContacts(contacts),
       'authors': AuthorModel.cipherAuthors(authors),
@@ -359,14 +363,16 @@ class DraftBz {
     final BzSection _bzSection = BzTyper.decipherBzSection(map['bzSection']);
     final List<String> _scope = Stringer.getStringsFromDynamics(dynamics: map['scope']);
 
+    blog("map['name'] should be ${map['name']}");
+
     return DraftBz(
       id: map['id'],
       createdAt: Timers.decipherTime(time: map['createdAt'], fromJSON: true),
       accountType: BzTyper.decipherBzAccountType(map['accountType']),
-      name: map['name'],
+      nameController: TextEditingController(text: map['name']),
       trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram']),
       zone: ZoneModel.decipherZone(map['zone']),
-      about: map['about'],
+      aboutController: TextEditingController(text: map['about']),
       position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: true),
       contacts: ContactModel.decipherContacts(map['contacts']),
       authors: AuthorModel.decipherAuthors(map['authors']),
@@ -408,10 +414,10 @@ class DraftBz {
     String id,
     DateTime createdAt,
     BzAccountType accountType,
-    String name,
+    TextEditingController nameController,
     List<String> trigram,
     ZoneModel zone,
-    String about,
+    TextEditingController aboutController,
     GeoPoint position,
     List<ContactModel> contacts,
     List<AuthorModel> authors,
@@ -442,10 +448,10 @@ class DraftBz {
       id: id ?? this.id,
       createdAt: createdAt ?? this.createdAt,
       accountType: accountType ?? this.accountType,
-      name: name ?? this.name,
+      nameController: nameController ?? this.nameController,
       trigram: trigram ?? this.trigram,
       zone: zone ?? this.zone,
-      about: about ?? this.about,
+      aboutController: aboutController ?? this.aboutController,
       position: position ?? this.position,
       contacts: contacts ?? this.contacts,
       authors: authors ?? this.authors,
@@ -479,10 +485,10 @@ class DraftBz {
     bool id = false,
     bool createdAt = false,
     bool accountType = false,
-    bool name = false,
+    bool nameController = false,
     bool trigram = false,
     bool zone = false,
-    bool about = false,
+    bool aboutController = false,
     bool position = false,
     bool contacts = false,
     bool authors = false,
@@ -513,10 +519,10 @@ class DraftBz {
       id: id == true ? null : this.id,
       createdAt: createdAt == true ? null : this.createdAt,
       accountType: accountType == true ? null : this.accountType,
-      name: name == true ? null : this.name,
+      nameController: nameController == true ? null : this.nameController,
       trigram: trigram == true ? [] : this.trigram,
       zone: zone == true ? null : this.zone,
-      about: about == true ? null : this.about,
+      aboutController: aboutController == true ? null : this.aboutController,
       position: position == true ? null : this.position,
       contacts: contacts == true ? [] : this.contacts,
       authors: authors == true ? [] : this.authors,
@@ -625,10 +631,10 @@ class DraftBz {
     blog('id : $id');
     Timers.blogDateTime(createdAt);
     blog('accountType : ${BzTyper.cipherBzAccountType(accountType)}');
-    blog('name : $name');
+    blog('name : ${nameController?.text}');
     blog('trigram : $trigram');
     zone?.blogZone(invoker: 'DraftBz');
-    blog('about : $about');
+    blog('about : ${aboutController?.text}');
     Atlas.blogGeoPoint(point: position, invoker: 'DraftBz');
     ContactModel.blogContacts(contacts: contacts);
     AuthorModel.blogAuthors(authors: authors, invoker: 'DraftBz');
@@ -680,10 +686,10 @@ class DraftBz {
       draft1.id == draft2.id &&
           Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: draft1.createdAt, time2: draft2.createdAt) == true &&
           draft1.accountType == draft2.accountType &&
-          draft1.name == draft2.name &&
+          draft1.nameController.text   == draft2.nameController.text &&
           Mapper.checkListsAreIdentical(list1: draft1.trigram, list2: draft2.trigram) == true &&
           ZoneModel.checkZonesAreIdentical(zone1: draft1.zone, zone2: draft2.zone) == true &&
-          draft1.about == draft2.about &&
+          draft1.aboutController.text == draft2.aboutController.text &&
           Atlas.checkPointsAreIdentical(point1: draft1.position, point2: draft2.position) &&
           ContactModel.checkContactsListsAreIdentical(contacts1: draft1.contacts, contacts2: draft2.contacts) == true &&
           AuthorModel.checkAuthorsListsAreIdentical(authors1: draft1.authors, authors2: draft2.authors) == true &&
@@ -750,10 +756,10 @@ class DraftBz {
       id.hashCode^
       createdAt.hashCode^
       accountType.hashCode^
-      name.hashCode^
+      nameController.hashCode^
       trigram.hashCode^
       zone.hashCode^
-      about.hashCode^
+      aboutController.hashCode^
       position.hashCode^
       contacts.hashCode^
       authors.hashCode^

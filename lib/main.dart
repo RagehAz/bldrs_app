@@ -34,7 +34,7 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:stringer/stringer.dart';
 
-const String bldrsAppVersion = '3.1.3';
+const String bldrsAppVersion = '3.1.4';
 
 Future<void> main() async {
   /// -----------------------------------------------------------------------------
