@@ -149,8 +149,12 @@ class PicMaker {
 
     if (_canPick == true){
 
+      final Locale _locale = await Localizer.getCurrentLocaleFromLDB();
+
       final List<AssetEntity> pickedAssets = await AssetPicker.pickAssets(
         context,
+        // pageRouteBuilder: ,
+        useRootNavigator: true,
         pickerConfig: AssetPickerConfig(
 
           /// ASSETS SELECTION
@@ -161,16 +165,26 @@ class PicMaker {
           requestType: RequestType.image,
 
           // /// GRID AND SIZING
-          // gridCount: 4,
+          gridCount: 3,
           // gridThumbnailSize: defaultAssetGridPreviewSize,
-          // pageSize: defaultAssetsPerPage,
+          pageSize: 12,
           // pathThumbnailSize: defaultPathThumbnailSize,
           // previewThumbnailSize: ThumbnailSize.square(50),
           // shouldRevertGrid: false,
           //
           // /// THEME
-          // pickerTheme: ThemeData.dark(),
-          // textDelegate: const AssetPickerTextDelegate(),
+          // pickerTheme: ThemeData(
+          //   fontFamily: BldrsThemeFonts.fontBldrsHeadlineFont,
+          //   accentColor: Colorz.yellow255,
+          //   canvasColor: Colorz.blackSemi255,
+          //   textTheme: TextTheme(
+          //
+          //   ),
+          //   appBarTheme: AppBarTheme(
+          //     color: Colorz.black255,
+          //   ),
+          // ),
+          textDelegate: assetPickerTextDelegateFromLocale(_locale),
           // themeColor: Colorz.bloodTest,
           //
           // /// SCROLLING

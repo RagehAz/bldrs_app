@@ -74,7 +74,7 @@ class Localizer {
     @required bool mounted,
   }) async {
 
-    final Locale _locale = await Localizer.getLocaleFromSharedPref();
+    final Locale _locale = await Localizer.getCurrentLocaleFromLDB();
 
     setNotifier(
         notifier: locale,
@@ -95,7 +95,7 @@ class Localizer {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<Locale> getLocaleFromSharedPref() async {
+  static Future<Locale> getCurrentLocaleFromLDB() async {
     final String _langCode = await LDBOps.readField(
       id: LDBDoc.langCode,
       docName: LDBDoc.langCode,
