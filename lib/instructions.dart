@@ -115,11 +115,6 @@ git remote remove origin
   dart --no-sound-null-safety run
   flutter run --no-sound-null-safety
  */
-
-
-
-
-
 // -----------------------------------------------------------------------------
 
 /// BUSINESS STUFF
@@ -160,7 +155,12 @@ free zone
 
 // ---------------------------------------------------------------------------
 
-/// TO CLEAN TERMINAL LOGS
+/// CHAT GBT TEST REQUEST
 /*
-flutter run | grep -vE "(FlutterJNI|EGL_emulation|InputMethodManager)"
+
+for the following flutter method, write group of test methods in one test group to assure its
+perfectly working
+
  */
+
+// ---------------------------------------------------------------------------
