@@ -8,8 +8,6 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_validator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:filers/filers.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
@@ -26,7 +24,7 @@ enum BubbleType {
 }
 
 class AddImagePicBubble extends StatelessWidget {
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   const AddImagePicBubble({
     @required this.picModel,
     @required this.onAddPicture,
@@ -40,7 +38,7 @@ class AddImagePicBubble extends StatelessWidget {
     this.onPicLongTap,
     Key key,
   }) : super(key: key);
-  /// --------------------------------------------------------------------------
+  // --------------------
   final Function onAddPicture;
   final PicModel picModel;
   final Verse titleVerse;
@@ -51,7 +49,7 @@ class AddImagePicBubble extends StatelessWidget {
   final GlobalKey<FormState> formKey;
   final bool autoValidate;
   final Function onPicLongTap;
-  /// --------------------------------------------------------------------------
+  // --------------------
   static BorderRadius getPicBorder ({
     @required BuildContext context,
     @required BubbleType bubbleType,
@@ -80,7 +78,7 @@ class AddImagePicBubble extends StatelessWidget {
           :
       Borderers.cornerAll(context, corner);
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
   static const double picWidth = 100;
   static const double btZoneWidth = picWidth * 0.5;
   static const double btWidth = btZoneWidth * 0.8;
@@ -114,6 +112,7 @@ class AddImagePicBubble extends StatelessWidget {
 
               /// IMAGE BALLOON
               Stack(
+                alignment: Alignment.bottomCenter,
                 children: <Widget>[
 
                   /// PICTURE LAYER
@@ -233,10 +232,10 @@ class _FilePicSplitter extends StatelessWidget {
       picWidth: picWidth,
     );
 
-    if (bubbleType == BubbleType.bzLogo || bubbleType == BubbleType.authorPic ){
+    if (bubbleType == BubbleType.bzLogo || bubbleType == BubbleType.authorPic){
       return BzLogo(
         width: picWidth,
-        image: picModel ?? Colorz.bloodTest,
+        image: picModel?.path ?? picModel?.bytes ?? Colorz.bloodTest,
         isVerified: false,
         // margins: const EdgeInsets.all(10),
         corners: _picBorders,
@@ -249,7 +248,7 @@ class _FilePicSplitter extends StatelessWidget {
       return Balloona(
         size: picWidth,
         loading: false,
-        pic: picModel,
+        pic: picModel?.path ?? picModel?.bytes,
         balloonType: BalloonType.thinking,
         // onTap: () => onAddImage(ImagePickerType.galleryImage), /// no need due to tap layer below in tree
       );
@@ -260,7 +259,7 @@ class _FilePicSplitter extends StatelessWidget {
       return DreamBox(
         width: picWidth,
         height: picWidth,
-        icon: picModel,
+        icon: picModel?.path ?? picModel?.bytes,
         bubble: false,
         // onTap: () => onAddImage(ImagePickerType.galleryImage), /// no need due to tap layer below in tree
       );
@@ -316,26 +315,40 @@ class _PlusIconLayer extends StatelessWidget {
     else {
 
       /// SIZE IS NULL
-      if (picModel?.bytes == null || picModel.bytes.length < (3 * 1024 * 1024)){
+      if (picModel?.bytes == null){
         return const SizedBox();
       }
 
       /// SIZE
       else {
-        return Container(
+
+        final bool _isExceedingMaxSize = picModel.bytes.length > (3 * 1024 * 1024);
+
+        return SizedBox(
           width: AddImagePicBubble.picWidth,
           height: AddImagePicBubble.picWidth,
-          alignment: BldrsAligners.superInverseBottomAlignment(context),
-          child: SuperVerse(
-            verse: Verse.plain('${Filers.calculateSize(picModel.bytes.length, FileSizeUnit.megaByte)} ${xPhrase( context, 'phid_mega_byte')}'),
-            size: 1,
-            centered: false,
-            shadow: true,
-            labelColor: Colorz.red255,
+          // alignment: BldrsAligners.superInverseBottomAlignment(context),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+
+              SuperVerse(
+                width: AddImagePicBubble.picWidth * 0.6,
+                verse: Verse.plain('${Filers.calculateSize(picModel.bytes.length, FileSizeUnit.megaByte)} Mb'),
+                size: 1,
+                centered: true,
+                shadow: true,
+                labelColor: _isExceedingMaxSize ? Colorz.red255 : Colorz.black150,
+                maxLines: 2,
+                textDirection: TextDirection.ltr,
+                margin: 0,
+              ),
+
+            ],
           ),
         );
       }
-
     }
 
   }
