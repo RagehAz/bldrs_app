@@ -48,7 +48,7 @@ class WideCityButton extends StatelessWidget {
           iconSizeFactor: 0.8,
           verse: verse ?? Verse.plain(_cityNameValue),
           bubble: false,
-          verseScaleFactor: 0.8,
+          verseScaleFactor: 0.9 / 0.8,
           // textDirection: superTextDirection(context),
         ),
 

@@ -31,6 +31,7 @@ class CensusLineUnit extends StatelessWidget {
       icon: icon,
       color: Colorz.white10,
       iconSizeFactor: 0.6,
+      verseScaleFactor: 0.9/0.6,
       verseWeight: VerseWeight.thin,
       bubble: false,
       verse: Verse.plain(counterCaliber(context, number)),
