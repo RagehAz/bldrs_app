@@ -337,7 +337,6 @@ class _PlusIconLayer extends StatelessWidget {
                 width: AddImagePicBubble.picWidth * 0.6,
                 verse: Verse.plain('${Filers.calculateSize(picModel.bytes.length, FileSizeUnit.megaByte)} Mb'),
                 size: 1,
-                centered: true,
                 shadow: true,
                 labelColor: _isExceedingMaxSize ? Colorz.red255 : Colorz.black150,
                 maxLines: 2,

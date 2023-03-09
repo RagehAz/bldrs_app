@@ -47,7 +47,7 @@ class WideDistrictButton extends StatelessWidget {
           verse: Verse.plain(_districtNameValue),
           bubble: false,
           // margins: const EdgeInsets.symmetric(vertical: 5),
-          verseScaleFactor: 0.8,
+          verseScaleFactor: 0.9 / 0.8,
           // textDirection: superTextDirection(context),
         ),
 
