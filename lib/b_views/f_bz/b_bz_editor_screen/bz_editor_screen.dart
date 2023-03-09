@@ -386,18 +386,18 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
         goBackOnConfirm: true,
       ),
       confirmButtonModel: _confirmButtonModel,
-      appBarRowWidgets: [
-
-        AppBarButton(
-          verse: Verse.plain('blog'),
-          onTap: (){
-
-            draftNotifier.value.blogDraft();
-
-          },
-        ),
-
-      ],
+      // appBarRowWidgets: [
+      //
+      //   AppBarButton(
+      //     verse: Verse.plain('blog'),
+      //     onTap: (){
+      //
+      //       draftNotifier.value.blogDraft();
+      //
+      //     },
+      //   ),
+      //
+      // ],
       child: ValueListenableBuilder(
         valueListenable: draftNotifier,
         builder: (_, DraftBz draft, Widget child){
@@ -530,6 +530,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                 /// SECTIONS - BZ TYPE - FORM
                 BldrsFloatingList(
                   columnChildren: <Widget>[
+                    
                     /// SECTION
                     MultipleChoiceBubble(
                       titleVerse: const Verse(
