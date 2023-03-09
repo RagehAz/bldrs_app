@@ -257,9 +257,10 @@ class _ProtocolsTesterState extends State<ProtocolsTester> {
 
   }
   // --------------------
+  /*
   Future<void> _signOutAndSignInWithNewEmail() async {
-
   }
+   */
   // --------------------
   Future<void> _deleteFirebaseUser() async {
 

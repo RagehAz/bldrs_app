@@ -50,7 +50,7 @@ class TileButton extends StatelessWidget {
       verseCentered: verseCentered,
       secondLine: secondLine,
       secondLineScaleFactor: 1.2,
-      verseScaleFactor: 0.7,
+      verseScaleFactor: 0.8 / iconSizeFactor,
       secondVerseMaxLines: 1,
       bubble: false,
       color: color,
