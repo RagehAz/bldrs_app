@@ -49,6 +49,7 @@ class BzLogo extends StatelessWidget {
         width: width,
         child: Stack(
           children: <Widget>[
+
             /// LOGO
             DreamBox(
               height: width,

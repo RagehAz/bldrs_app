@@ -51,6 +51,7 @@ class ComposeBzProtocols {
 
     /// CREATE BZ ID
     final String _bzID = await BzFireOps.createEmptyBzDocToGetBzID();
+    assert(_bzID != null, 'bzID is null');
 
     /// OVERRIDE BZ ID
     final DraftBz _draftWithID = DraftBz.overrideBzID(
@@ -58,9 +59,11 @@ class ComposeBzProtocols {
       bzID: _bzID,
     );
 
+    blog('the draft is');
+    _draftWithID?.blogDraft();
+
     /// BAKE DRAFT TO INITIAL BZ
     BzModel _bzModel = DraftBz.toBzModel(_draftWithID);
-
 
     /// UPDATE MY USER MODEL
     await _addBzIdToMyUserModelAndRenovateAndSubscribeToAllBzTopics(

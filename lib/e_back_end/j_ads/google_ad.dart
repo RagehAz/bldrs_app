@@ -1,13 +1,15 @@
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/e_back_end/j_ads/google_ads.dart';
 import 'package:filers/filers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-class GoogleAd extends StatefulWidget {
+class GoogleAd extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const GoogleAd({
     @required this.adSize,
@@ -21,11 +23,53 @@ class GoogleAd extends StatefulWidget {
   final double scale;
   /// --------------------------------------------------------------------------
   @override
-  _GoogleAdState createState() => _GoogleAdState();
+  Widget build(BuildContext context) {
+
+    if (kDebugMode == true) {
+
+      return DreamBox(
+        height: adSize.height.toDouble(),
+        width: BldrsAppBar.width(context),//adSize.width.toDouble(),
+        icon: Iconz.advertise,
+        iconSizeFactor: 0.5,
+        iconColor: Colorz.white10,
+        bubble: false,
+        color: Colorz.white10,
+      );
+
+    }
+
+    else {
+      return GoogleAdStarter(
+        adSize: adSize,
+        scale: scale,
+        stretchToWidth: stretchToWidth,
+      );
+    }
+
+  }
   /// --------------------------------------------------------------------------
 }
 
-class _GoogleAdState extends State<GoogleAd> {
+class GoogleAdStarter extends StatefulWidget {
+  /// --------------------------------------------------------------------------
+  const GoogleAdStarter({
+    @required this.adSize,
+    this.stretchToWidth,
+    this.scale,
+    Key key
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
+  final AdSize adSize;
+  final double stretchToWidth;
+  final double scale;
+  /// --------------------------------------------------------------------------
+  @override
+  _GoogleAdStarterState createState() => _GoogleAdStarterState();
+  /// --------------------------------------------------------------------------
+}
+
+class _GoogleAdStarterState extends State<GoogleAdStarter> {
   // -----------------------------------------------------------------------------
   Ad _ad;
   // -----------------------------------------------------------------------------
@@ -69,7 +113,7 @@ class _GoogleAdState extends State<GoogleAd> {
   }
   // --------------------
   @override
-  void didUpdateWidget(covariant GoogleAd oldWidget) {
+  void didUpdateWidget(covariant GoogleAdStarter oldWidget) {
 
     if (
         widget.adSize.width != oldWidget.adSize.width ||

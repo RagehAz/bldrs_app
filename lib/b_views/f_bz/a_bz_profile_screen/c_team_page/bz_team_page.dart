@@ -146,7 +146,6 @@ class _BzTeamPageState extends State<BzTeamPage> {
                     ),
                     icon: Iconz.plus,
                     iconSizeFactor: 0.5,
-                    verseScaleFactor: 1.4,
                     margins: 10,
                     corners: AuthorCard.bubbleCornerValue(),
                     onTap: () => onGoToAddAuthorsScreen(context),
