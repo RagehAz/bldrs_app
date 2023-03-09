@@ -31,7 +31,9 @@ class BzFireOps {
     final DocumentReference<Object> _docRef = await Fire.createDoc(
       collName: FireColl.bzz,
       addDocID: true,
-      input: <String, dynamic>{},
+      input: <String, dynamic>{
+        'name': 'x',
+      },
     );
 
     blog('_createEmptyBzDocToGetBzID : END');

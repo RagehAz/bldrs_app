@@ -10,8 +10,8 @@ class StatsLine extends StatelessWidget {
   const StatsLine({
     @required this.icon,
     @required this.verse,
-    this.iconSizeFactor = 0.7,
-    this.verseScaleFactor = 0.85,
+    this.iconSizeFactor = 0.8,
+    this.verseScaleFactor = 1.5,
     this.onTap,
     this.bubbleWidth,
     this.color,
@@ -49,6 +49,7 @@ class StatsLine extends StatelessWidget {
         color: onTap == null ? color : Colorz.white20,
         verseCentered: false,
         onTap: onTap,
+        margins: const EdgeInsets.only(bottom: 2),
       ),
 
     );

@@ -41,7 +41,7 @@ class ContactButton extends StatelessWidget {
       verseWeight: VerseWeight.thin,
       verseItalic: true,
       iconSizeFactor: _isSocialMediaContact == true ? 1 : 0.6,
-      verseScaleFactor: _isSocialMediaContact == true ? 0.6 : 1,
+      verseScaleFactor: _isSocialMediaContact == true ? 0.7 : 0.7/0.6,
       bubble: false,
       color: Colorz.white10,
       textDirection: TextDirection.ltr,
