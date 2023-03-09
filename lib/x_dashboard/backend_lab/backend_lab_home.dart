@@ -14,6 +14,7 @@ import 'package:bldrs/x_dashboard/backend_lab/fire_tests/streaming_test.dart';
 import 'package:bldrs/x_dashboard/backend_lab/google_ads_test/google_ads_test_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/ldb_viewer/ldb_manager_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/permissions_tests/permissions_test_screen.dart';
+import 'package:bldrs/x_dashboard/backend_lab/protocols_tester/protocols_tester_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/real_tests/real_http_test_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/real_tests/real_test_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/web_scrapper/web_scrapping_test_screen.dart';
@@ -268,11 +269,21 @@ class BackendLabHome extends StatelessWidget {
         const DotSeparator(),
         // ---------------------------------------------------
 
+        /// PROTOCOLS TESTER
+        WideButton(
+          icon: Iconz.statistics,
+          verse: Verse.plain('Protocols Tester'),
+          onTap: () => Nav.goToNewScreen(
+              context: context,
+              screen: const ProtocolsTester(),
+          ),
+        ),
+
         const Horizon(),
 
       ],
     );
 
   }
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }

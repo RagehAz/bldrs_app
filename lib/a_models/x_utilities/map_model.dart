@@ -2,6 +2,7 @@ import 'package:mapper/mapper.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/foundation.dart';
 
+/// FUTURE : ERADICATE MAP MODEL AND ALWAYS USE Map<String, dynamic>
 @immutable
 class MapModel{
   /// --------------------------------------------------------------------------
@@ -266,9 +267,11 @@ class MapModel{
     return _output;
   }
   // --------------------
+  ///
   static List<MapModel> insertMapModel({
     @required List<MapModel> mapModels,
     @required MapModel mapModel,
+    bool replaceExistingID,
   }){
 
     List<MapModel> _output = mapModels ?? <MapModel>[];
@@ -298,6 +301,7 @@ class MapModel{
     return _output;
   }
   // --------------------
+  ///
   static List<MapModel> removeMapModel({
     @required List<MapModel> mapModels,
     @required String key,
@@ -318,6 +322,7 @@ class MapModel{
     return _output;
   }
   // --------------------
+  ///
   static List<MapModel> removeMapsWithThisValue({
     @required List<MapModel> mapModels,
     @required dynamic value,

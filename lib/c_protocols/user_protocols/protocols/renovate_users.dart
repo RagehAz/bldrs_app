@@ -420,15 +420,15 @@ class RenovateUserProtocols {
       /// TASK : ACTUALLY SHOULD REBOOT SYSTEM IF DEVICE CHANGED
       final bool _userIsUsingSameDevice = DeviceModel.checkDevicesAreIdentical(
         device1: _thisDevice,
-        device2: _oldUser.device,
+        device2: _oldUser?.device,
       );
 
-      final bool _shouldRefreshDevice = _oldUser.device == null || _userIsUsingSameDevice == false;
+      final bool _shouldRefreshDevice = _oldUser?.device == null || _userIsUsingSameDevice == false;
 
       blog(
           'refreshUserDeviceModel | '
           '_userIsUsingSameDevice : $_userIsUsingSameDevice | '
-          '_oldUser.device : ${_oldUser.device?.name} | '
+          '_oldUser.device : ${_oldUser?.device?.name} | '
           '_shouldRefreshDevice : $_shouldRefreshDevice'
       );
 
@@ -444,7 +444,7 @@ class RenovateUserProtocols {
         /// cheers
         UserModel _newUser = await UserProtocols.refetch(
             context: context,
-            userID: _oldUser.id,
+            userID: _oldUser?.id,
         );
 
         _newUser = _newUser?.copyWith(

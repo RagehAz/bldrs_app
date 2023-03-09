@@ -36,7 +36,6 @@ class PermitProtocol {
 
     if (_canPick == false){
 
-
       final bool _canOpenStorage = await Permit.requestPermission(
         context: context,
         permission: Permission.storage,
