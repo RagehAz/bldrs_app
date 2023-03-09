@@ -64,6 +64,8 @@ class MyBzScreen extends StatelessWidget {
 
           blog('my bz screen should go back now yabn el a7ba : $_bzModel : $_authorsContainMyUserID');
 
+          /// TASK : FIX ME
+          return const SizedBox();
           return GoBackWidget(
             onGoBack: () async {
 

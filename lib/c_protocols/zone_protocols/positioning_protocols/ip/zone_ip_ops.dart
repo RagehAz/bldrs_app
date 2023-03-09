@@ -122,12 +122,12 @@ class ZoneIPOps {
               }
             }
 
-            blog('_getZoneByIP_ipApi : found data : response body is : ${_response.body}');
+            blog('_getZoneByIP_ipApi : found data : response body is : ${_response?.body}');
           }
 
           /// NO DATA RECEIVED
           else {
-            blog('_getZoneByIP_ipApi : no data : response is : ${_response.body}');
+            blog('_getZoneByIP_ipApi : no data : response is : $_response');
           }
 
         }

@@ -17,13 +17,14 @@ import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
+import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:filers/filers.dart';
 import 'package:bldrs/x_dashboard/xxxx_specialized_labs.dart';
 import 'package:bldrs/x_dashboard/zzzzz_test_lab/test_widgets/is_connected_button.dart';
 import 'package:bldrs/x_dashboard/zzzzz_test_lab/test_widgets/is_signed_in_button.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:mapper/mapper.dart';
 import 'package:provider/provider.dart';
 import 'package:scale/scale.dart';
@@ -56,8 +57,19 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
 
     /// ---------------- >>>
 
-    final String packageName = await rootBundle.loadString('pubspec.yaml');
-    blog('packageName : $packageName');
+    // final String packageName = await rootBundle.loadString('pubspec.yaml');
+    // blog('packageName : $packageName');
+
+    final Reference _ref = Storage.getRefByNodes(
+      collName: 'email',
+      docName: 'google_play_badge.png',//'app_store_badge.png',//'rageh_label.png',
+    );
+    final String _url = await Storage.createURLByRef(
+      ref: _ref,
+    );
+
+    blog('ref is ($_url)');
+
 
   }
   // -------------------------------------------------
