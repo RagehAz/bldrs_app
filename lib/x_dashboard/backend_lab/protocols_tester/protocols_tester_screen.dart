@@ -25,6 +25,7 @@ class ProtocolsTester extends StatefulWidget {
 class _ProtocolsTesterState extends State<ProtocolsTester> {
   // -----------------------------------------------------------------------------
   static const String _userEmail = 'a_test_user@bldrs.net';
+  static const String _newUserEmail = 'b_test_user@bldrs.net';
   static const String _userPassword = '123456';
   static const ZoneModel _userZone = ZoneModel(
     countryID: 'egy',
@@ -44,13 +45,26 @@ class _ProtocolsTesterState extends State<ProtocolsTester> {
       },
     ),
 
-    /// 2. CHECK USER IS CREATED IN FIREBASE AUTH
-    'checkUserIsCreatedInFirebaseAuth' : const ProgressModel(
-      title: 'Check User is created',
+    /// 2. CHECK USER IS CREATED IN FIREBASE AUTH BY SIGN IN
+    'singInByEmail' : const ProgressModel(
+      title: 'Sign in by Email',
       state: ProgressState.nothing,
     ),
 
-    /// 3.
+    /// 3. CHANGE EMAIL
+    'changeEmail' : const ProgressModel(
+      title: 'Change Email',
+      state: ProgressState.nothing,
+      args: {
+        'from' : _userEmail,
+        'to': _newUserEmail,
+      },
+    ),
+
+    'deleteFirebaseUser' : const ProgressModel(
+      title: 'Delete Firebase User',
+      state: ProgressState.nothing,
+    ),
 
 
   };
@@ -141,15 +155,19 @@ class _ProtocolsTesterState extends State<ProtocolsTester> {
 
     await _triggerLoading(setTo: true);
 
-    await _startUserAuthTests();
+    await _register();
 
-    await _startCheckUserIsCreatedInFirebaseAuth();
+    await _signIn();
+
+    await _changeEmail();
+
+    await _deleteFirebaseUser();
 
     await _triggerLoading(setTo: false);
 
   }
   // --------------------
-  Future<void> _startUserAuthTests() async {
+  Future<void> _register() async {
 
     _setProtocolState(key: 'registerUserByEmailAndPassword', state: ProgressState.waiting);
 
@@ -182,9 +200,9 @@ class _ProtocolsTesterState extends State<ProtocolsTester> {
 
   }
   // --------------------
-  Future<void> _startCheckUserIsCreatedInFirebaseAuth() async {
+  Future<void> _signIn() async {
 
-    _setProtocolState(key: 'checkUserIsCreatedInFirebaseAuth', state: ProgressState.waiting);
+    _setProtocolState(key: 'singInByEmail', state: ProgressState.waiting);
 
     final AuthModel _authModel = await AuthFireOps.signInByEmailAndPassword(
         email: _userEmail,
@@ -193,14 +211,14 @@ class _ProtocolsTesterState extends State<ProtocolsTester> {
 
     if (_authModel.authSucceeds == true){
       _setProtocolState(
-        key: 'checkUserIsCreatedInFirebaseAuth',
+        key: 'singInByEmail',
         state: ProgressState.good,
         addArgs: _authModel.toMap(toJSON: true),
       );
     }
     else {
       _setProtocolState(
-        key: 'checkUserIsCreatedInFirebaseAuth',
+        key: 'singInByEmail',
         state: ProgressState.error,
         addArgs: {
           'error': _authModel.authError,
@@ -208,6 +226,60 @@ class _ProtocolsTesterState extends State<ProtocolsTester> {
       );
 
 
+
+    }
+
+  }
+  // --------------------
+  Future<void> _changeEmail() async {
+
+    _setProtocolState(key: 'changeEmail', state: ProgressState.waiting);
+
+    final bool _success = await AuthFireOps.updateUserEmail(
+        newEmail: _newUserEmail,
+    );
+
+    if (_success == true){
+      _setProtocolState(
+        key: 'changeEmail',
+        state: ProgressState.good,
+      );
+    }
+    else {
+      _setProtocolState(
+        key: 'changeEmail',
+        state: ProgressState.error,
+      );
+
+
+
+    }
+
+  }
+  // --------------------
+  Future<void> _signOutAndSignInWithNewEmail() async {
+
+  }
+  // --------------------
+  Future<void> _deleteFirebaseUser() async {
+
+    _setProtocolState(key: 'deleteFirebaseUser', state: ProgressState.waiting);
+
+    final bool _success = await AuthFireOps.deleteFirebaseUser(
+        userID: AuthFireOps.superUserID(),
+    );
+
+    if (_success == true){
+      _setProtocolState(
+        key: 'deleteFirebaseUser',
+        state: ProgressState.good,
+      );
+    }
+    else {
+      _setProtocolState(
+        key: 'deleteFirebaseUser',
+        state: ProgressState.error,
+      );
 
     }
 
