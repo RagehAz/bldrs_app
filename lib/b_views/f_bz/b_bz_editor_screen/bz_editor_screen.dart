@@ -386,6 +386,18 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
         goBackOnConfirm: true,
       ),
       confirmButtonModel: _confirmButtonModel,
+      appBarRowWidgets: [
+
+        AppBarButton(
+          verse: Verse.plain('blog'),
+          onTap: (){
+
+            draftNotifier.value.blogDraft();
+
+          },
+        ),
+
+      ],
       child: ValueListenableBuilder(
         valueListenable: draftNotifier,
         builder: (_, DraftBz draft, Widget child){
@@ -422,7 +434,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
               bzForms: draft?.inactiveBzForms,
             );
 
-            return Form(
+          return Form(
             key: draft?.formKey,
             child: PagerBuilder(
               progressBarModel: _progressBarModel,
@@ -443,7 +455,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       ),
                       redDot: true,
                       bubbleType: BubbleType.bzLogo,
-
                       // autoValidate: true,
                       validator: () => Formers.picValidator(
                         context: context,
@@ -467,7 +478,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                           translate: true,
                         ),
                         redDot: true,
-
                       ),
                       focusNode: draft?.nameNode,
                       appBarType: AppBarType.basic,
@@ -495,16 +505,19 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                     /// NEXT
                     NextButton(
                       onTap: _onNextTap,
-                      canGoNext:  Formers.picValidator(
-                        context: context,
-                        pic: draft?.logoPicModel,
-                        canValidate: true,
-                      ) == null &&
-                      Formers.companyNameValidator(
-                        context: context,
-                        companyName: draft?.nameController?.text,
-                        canValidate: true,
-                      ) == null && _isInit == false,
+                      canGoNext: Formers.picValidator(
+                                context: context,
+                                pic: draft?.logoPicModel,
+                                canValidate: true,
+                              ) ==
+                              null &&
+                          Formers.companyNameValidator(
+                                context: context,
+                                companyName: draft?.nameController?.text,
+                                canValidate: true,
+                              ) ==
+                              null &&
+                          _isInit == false,
                     ),
 
                     const Horizon(
@@ -517,17 +530,20 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                 /// SECTIONS - BZ TYPE - FORM
                 BldrsFloatingList(
                   columnChildren: <Widget>[
-
                     /// SECTION
                     MultipleChoiceBubble(
                       titleVerse: const Verse(
                         id: 'phid_sections',
                         translate: true,
                       ),
-                      buttonsVerses: Verse.createVerses(strings: _allSectionsPhids, translate: true),
+                      buttonsVerses:
+                          Verse.createVerses(strings: _allSectionsPhids, translate: true),
                       selectedButtonsPhids: <String>[_selectedBzSectionPhid],
                       bulletPoints: const <Verse>[
-                        Verse(id: 'phid_select_only_one_section', translate: true,),
+                        Verse(
+                          id: 'phid_select_only_one_section',
+                          translate: true,
+                        ),
                         // Verse(text: 'phid_bz_section_selection_info', translate: true,),
                       ],
                       validator: () => Formers.bzSectionValidator(
@@ -550,12 +566,16 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                         id: 'phid_bz_entity_type',
                         translate: true,
                       ),
-                      buttonsVerses: Verse.createVerses(strings: _allBzTypesButtons, translate: true),
+                      buttonsVerses:
+                          Verse.createVerses(strings: _allBzTypesButtons, translate: true),
                       selectedButtonsPhids: _selectedBzTypesPhids,
-                      inactiveButtons: Verse.createVerses(strings: _inactiveBzTypesPhids, translate: true),
-
+                      inactiveButtons:
+                          Verse.createVerses(strings: _inactiveBzTypesPhids, translate: true),
                       bulletPoints: const <Verse>[
-                        Verse(id: 'phid_select_bz_type', translate: true,),
+                        Verse(
+                          id: 'phid_select_bz_type',
+                          translate: true,
+                        ),
                       ],
                       validator: () => Formers.bzTypeValidator(
                         context: context,
@@ -577,12 +597,20 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                         translate: true,
                       ),
                       // description: superPhrase(context, 'phid_businessForm_description'),
-                      buttonsVerses: Verse.createVerses(strings: _allBzzFormsButtons, translate: true),
+                      buttonsVerses:
+                          Verse.createVerses(strings: _allBzzFormsButtons, translate: true),
                       selectedButtonsPhids: <String>[_selectedBzFormPhid],
-                      inactiveButtons: Verse.createVerses(strings: _inactiveBzFormsPhids, translate: true),
+                      inactiveButtons:
+                          Verse.createVerses(strings: _inactiveBzFormsPhids, translate: true),
                       bulletPoints: const <Verse>[
-                        Verse(id: 'phid_bz_form_pro_description', translate: true,),
-                        Verse(id: 'phid_bz_form_company_description', translate: true,),
+                        Verse(
+                          id: 'phid_bz_form_pro_description',
+                          translate: true,
+                        ),
+                        Verse(
+                          id: 'phid_bz_form_company_description',
+                          translate: true,
+                        ),
                       ],
                       validator: () => Formers.bzFormValidator(
                         context: context,
@@ -599,30 +627,31 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                     /// NEXT
                     NextButton(
                       onTap: _onNextTap,
-                      canGoNext:  Formers.bzSectionValidator(
-                        context: context,
-                        selectedSection: draft?.bzSection,
-                        canValidate: true,
-                      ) == null &&
-                      Formers.bzTypeValidator(
-                        context: context,
-                        selectedTypes: draft?.bzTypes,
-                        canValidate: true,
-                      ) == null &&
-                      Formers.bzFormValidator(
-                        context: context,
-                        bzForm: draft?.bzForm,
-                        canValidate: true,
-                      ) == null,
+                      canGoNext: Formers.bzSectionValidator(
+                                context: context,
+                                selectedSection: draft?.bzSection,
+                                canValidate: true,
+                              ) ==
+                              null &&
+                          Formers.bzTypeValidator(
+                                context: context,
+                                selectedTypes: draft?.bzTypes,
+                                canValidate: true,
+                              ) ==
+                              null &&
+                          Formers.bzFormValidator(
+                                context: context,
+                                bzForm: draft?.bzForm,
+                                canValidate: true,
+                              ) ==
+                              null,
                     ),
-
                   ],
                 ),
 
                 /// ABOUT - SCOPE
                 BldrsFloatingList(
                   columnChildren: <Widget>[
-
                     /// BZ ABOUT
                     BldrsTextFieldBubble(
                       formKey: draft?.formKey,
@@ -650,7 +679,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       onTextChanged: (String text) async {
                         await _onDraftChanged();
                       },
-
                     ),
 
                     /// SCOPES SELECTOR
@@ -659,9 +687,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                         id: 'phid_scopeOfServices',
                         translate: true,
                       ),
-                      flyerTypes: FlyerTyper.concludePossibleFlyerTypesByBzTypes(
-                          bzTypes: draft?.bzTypes
-                      ),
+                      flyerTypes:
+                          FlyerTyper.concludePossibleFlyerTypesByBzTypes(bzTypes: draft?.bzTypes),
                       selectedSpecs: SpecModel.generateSpecsByPhids(
                         context: context,
                         phids: draft?.scope,
@@ -688,25 +715,25 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                     /// NEXT
                     NextButton(
                       onTap: _onNextTap,
-                      canGoNext:  Formers.bzAboutValidator(
-                        context: context,
-                        bzAbout: draft?.aboutController?.text,
-                        canValidate: true,
-                      ) == null &&
-                      Formers.bzScopeValidator(
-                        context: context,
-                        scope: draft?.scope,
-                        canValidate: true,
-                      ) == null,
+                      canGoNext: Formers.bzAboutValidator(
+                                context: context,
+                                bzAbout: draft?.aboutController?.text,
+                                canValidate: true,
+                              ) ==
+                              null &&
+                          Formers.bzScopeValidator(
+                                context: context,
+                                scope: draft?.scope,
+                                canValidate: true,
+                              ) ==
+                              null,
                     ),
-
                   ],
                 ),
 
                 /// ZONE
                 BldrsFloatingList(
                   columnChildren: <Widget>[
-
                     /// BZ ZONE
                     ZoneSelectionBubble(
                         zoneViewingEvent: ViewingEvent.bzEditor,
@@ -719,42 +746,40 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                         // selectCountryAndCityOnly: true,
                         // selectCountryIDOnly: false,
                         validator: () => Formers.zoneValidator(
-                          context: context,
-                          zoneModel: draft?.zone,
-                          selectCountryAndCityOnly: true,
-                          selectCountryIDOnly: false,
-                          canValidate: draft?.canValidate,
-                        ),
-                        onZoneChanged: (ZoneModel zone){
-
+                              context: context,
+                              zoneModel: draft?.zone,
+                              selectCountryAndCityOnly: true,
+                              selectCountryIDOnly: false,
+                              canValidate: draft?.canValidate,
+                            ),
+                        onZoneChanged: (ZoneModel zone) {
                           setNotifier(
                             notifier: draftNotifier,
                             mounted: mounted,
-                            value: draft?.copyWith(zone: zone,),
+                            value: draft?.copyWith(
+                              zone: zone,
+                            ),
                           );
-
-                        }
-                    ),
+                        }),
 
                     /// NEXT
                     NextButton(
                       onTap: _onNextTap,
-                      canGoNext:  Formers.zoneValidator(
-                          context: context,
-                          zoneModel: draft?.zone,
-                          selectCountryAndCityOnly: true,
-                          selectCountryIDOnly: false,
-                          canValidate: true,
-                        ) == null,
+                      canGoNext: Formers.zoneValidator(
+                            context: context,
+                            zoneModel: draft?.zone,
+                            selectCountryAndCityOnly: true,
+                            selectCountryIDOnly: false,
+                            canValidate: true,
+                          ) ==
+                          null,
                     ),
-
                   ],
                 ),
 
                 /// PHONE - EMAIL - WEBSITE
                 BldrsFloatingList(
                   columnChildren: <Widget>[
-
                     /// PHONE
                     ContactFieldEditorBubble(
                       key: const ValueKey<String>('phone'),
@@ -869,7 +894,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                     const Horizon(
                       heightFactor: 0,
                     ),
-
                   ],
                 ),
 

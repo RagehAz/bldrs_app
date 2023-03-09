@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 import 'package:super_text_field/super_text_field.dart';
@@ -27,6 +28,8 @@ class BldrsValidator extends StatelessWidget {
       font: SuperVerse.superVerseFont(context, VerseWeight.thin),
       autoValidate: autoValidate,
       focusNode: focusNode,
+      textHeight: SuperVerse.superVerseRealHeight(context: context, size: 2, sizeFactor: 1, hasLabelBox: false),
+      errorTextColor: Colorz.red255,
       scrollPadding: EdgeInsets.only(
         bottom: Scale.screenHeight(context) * 0.3,
         top: Scale.screenHeight(context) * 0.3,

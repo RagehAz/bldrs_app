@@ -346,14 +346,15 @@ class ImageSwitcher extends StatelessWidget {
 
     /// NEITHER ANY OF ABOVE
     else {
-      return Image.asset(
-        Iconz.dvGouran,
-        key: const ValueKey<String>('SuperImage_other'),
-        fit: boxFit,
+      return Container(
+        // Iconz.dvGouran,
+        // key: const ValueKey<String>('SuperImage_other'),
+        // fit: boxFit,
         width: width,
         height: height,
-        errorBuilder: _errorBuilder,
-        scale: 1,
+        color: Colorz.yellow125,
+        // errorBuilder: _errorBuilder,
+        // scale: 1,
       );
     }
 

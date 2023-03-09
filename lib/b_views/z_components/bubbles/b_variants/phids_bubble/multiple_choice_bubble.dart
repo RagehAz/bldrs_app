@@ -240,7 +240,7 @@ class _TheButton extends StatelessWidget {
       VerseWeight.black
           :
       VerseWeight.bold,
-      verseScaleFactor: 0.6,
+      verseScaleFactor: 0.8,
       margins: const EdgeInsets.all(margins),
       onTap: onTap,
     );
