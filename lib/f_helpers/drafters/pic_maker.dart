@@ -6,10 +6,13 @@ import 'dart:typed_data';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/z_components/cropper/cropping_screen.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/permissions/permits_protocols.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -149,138 +152,13 @@ class PicMaker {
 
     if (_canPick == true){
 
-      final Locale _locale = await Localizer.getCurrentLocaleFromLDB();
-
       final List<AssetEntity> pickedAssets = await AssetPicker.pickAssets(
         context,
         // pageRouteBuilder: ,
         useRootNavigator: true,
-        pickerConfig: AssetPickerConfig(
-
-          /// ASSETS SELECTION
+        pickerConfig: await bldrsAssetPickerConfig(
           maxAssets: maxAssets,
           selectedAssets: selectedAssets,
-
-          /// ASSETS TYPE
-          requestType: RequestType.image,
-
-          // /// GRID AND SIZING
-          gridCount: 3,
-          // gridThumbnailSize: defaultAssetGridPreviewSize,
-          pageSize: 12,
-          // pathThumbnailSize: defaultPathThumbnailSize,
-          // previewThumbnailSize: ThumbnailSize.square(50),
-          // shouldRevertGrid: false,
-          //
-          // /// THEME
-          // pickerTheme: ThemeData(
-          //   fontFamily: BldrsThemeFonts.fontBldrsHeadlineFont,
-          //   accentColor: Colorz.yellow255,
-          //   canvasColor: Colorz.blackSemi255,
-          //   textTheme: TextTheme(
-          //
-          //   ),
-          //   appBarTheme: AppBarTheme(
-          //     color: Colorz.black255,
-          //   ),
-          // ),
-          textDelegate: assetPickerTextDelegateFromLocale(_locale),
-          // themeColor: Colorz.bloodTest,
-          //
-          // /// SCROLLING
-          // keepScrollOffset: false,
-          // specialItemPosition: SpecialItemPosition.none,
-          //
-          // /// PERMISSION
-          // limitedPermissionOverlayPredicate: (PermissionState permissionState){
-          //   blog('pickMultipleImages : permissionState : $permissionState');
-          //   return true;
-          // },
-          //
-          // /// LOADING
-          // loadingIndicatorBuilder: (BuildContext context, bool loading){
-          //   return Loading(loading: loading);
-          // },
-          //
-          // /// ASSET NAME
-          // pathNameBuilder: (AssetPathEntity assetPathEntity){
-          //   blog('assetPathEntity : $assetPathEntity');
-          //   return 'Fuck you';
-          // },
-          // sortPathDelegate: SortPathDelegate.common,
-          //
-          // /// WHO THE FUCK ARE YOU
-          // selectPredicate: (BuildContext xxx, AssetEntity assetEntity, bool wtf) async {
-          //   blog('pickMultipleImages : ${assetEntity.id} : wtf : $wtf');
-          //   return wtf;
-          // },
-          // specialItemBuilder: (BuildContext xyz, AssetPathEntity assetPathEntity, int number){
-          //   return const SizedBox();;
-          // },
-          // specialPickerType: SpecialPickerType.wechatMoment,
-          //
-          // filterOptions: FilterOptionGroup(
-          //   audioOption: const FilterOption(
-          //     durationConstraint: DurationConstraint(
-          //       allowNullable: false,
-          //       max: const Duration(days: 1),
-          //       min: Duration.zero,
-          //     ),
-          //     needTitle: true,
-          //     sizeConstraint: SizeConstraint(
-          //       maxHeight: 100000,
-          //       minHeight: 0,
-          //       ignoreSize: true,
-          //       maxWidth: 100000,
-          //       minWidth: 0,
-          //     ),
-          //   ),
-          //   containsEmptyAlbum: true,
-          //   containsLivePhotos: true,
-          //   containsPathModified: true,
-          //   createTimeCond: DateTimeCond(
-          //     ignore: true,
-          //     min: DateTime.now(),
-          //     max: DateTime.now(),
-          //   ),
-          //   imageOption: FilterOption(
-          //     sizeConstraint: SizeConstraint(
-          //       maxHeight: 100000,
-          //       minHeight: 0,
-          //       ignoreSize: true,
-          //       maxWidth: 100000,
-          //       minWidth: 0,
-          //     ),
-          //     needTitle: true,
-          //     durationConstraint: DurationConstraint(
-          //       allowNullable: false,
-          //       max: const Duration(days: 1),
-          //       min: Duration.zero,
-          //     ),
-          //   ),
-          //   onlyLivePhotos: false,
-          //   orders: <OrderOption>[
-          //     OrderOption(
-          //       asc: false,
-          //       type: OrderOptionType.createDate,
-          //     ),
-          //   ],
-          //     updateTimeCond: DateTimeCond(
-          //     ignore: true,
-          //     min: 0,
-          //     max: ,
-          //   ),
-          //   videoOption: FilterOption(
-          //     sizeConstraint: SizeConstraint(
-          //       maxHeight: 100000,
-          //       minHeight: 0,
-          //       ignoreSize: true,
-          //       maxWidth: 100000,
-          //       minWidth: 0,
-          //     ),
-          //   ),
-          // ),
-
         ),
       );
 
@@ -712,6 +590,258 @@ class PicMaker {
 
     // info.size.flipped.
     blog('blogPictureInfo : END');
+  }
+  // -----------------------------------------------------------------------------
+
+  /// PICKER CONFIG
+
+  // --------------------
+  static Future<AssetPickerConfig> bldrsAssetPickerConfig({
+    @required int maxAssets,
+    @required List<AssetEntity> selectedAssets,
+}) async {
+
+    final Locale _locale = await Localizer.getCurrentLocaleFromLDB();
+
+    final BuildContext _context = getContext();
+    final TextStyle _basicTextStyle = SuperVerse.createStyle(context: _context);
+
+    return AssetPickerConfig(
+
+          /// ASSETS SELECTION
+          maxAssets: maxAssets,
+          selectedAssets: selectedAssets,
+
+          /// ASSETS TYPE
+          requestType: RequestType.image,
+
+          /// GRID AND SIZING
+          gridCount: 3,
+          // gridThumbnailSize: defaultAssetGridPreviewSize,
+          pageSize: 12,
+          // pathThumbnailSize: defaultPathThumbnailSize,
+          // previewThumbnailSize: ThumbnailSize.square(50),
+          // shouldRevertGrid: false,
+
+          /// THEME
+          // themeColor: Colorz.yellow255, /// either use themeColor or pickerTheme
+          pickerTheme: ThemeData(
+            /// FONT
+            fontFamily: BldrsThemeFonts.fontBldrsHeadlineFont,
+            /// BACKGROUND COLOR
+            canvasColor: Colorz.blackSemi255,
+            /// BUTTON AND CHECK COLOR : DEPRECATED
+            // accentColor: Colorz.yellow255,
+            /// COLOR THEME
+            colorScheme: const ColorScheme(
+              // ----------------------------------------------------->
+              /// BRIGHTNESS
+              brightness: Brightness.dark,
+              /// DEVICE FOLDERS LIST BACKGROUND
+              background: Colorz.black200,
+              /// APP BAR BACKGROUND
+              surface: Colorz.black255,
+              /// BUTTON AND CHECK BACKGROUND COLOR
+              secondary: Colorz.yellow255,
+              /// DROPDOWN ARROW
+              primary: Colorz.blue255,
+              /// ERRORS
+              onError: Colorz.red255,
+              error: Colorz.red255,
+              // errorContainer: Colorz.white50,
+              // onErrorContainer: Colorz.white50,
+              /// UNKNOWN
+              onBackground: Colorz.nothing,
+              /// primary
+              onPrimary: Colorz.nothing,
+              // inversePrimary: Colorz.green50,
+              // primaryVariant: Colorz.white50, // deprecated on favor of primaryContainer
+              // onPrimaryContainer: Colorz.green50,
+              // primaryContainer: Colorz.white50,
+              /// surface
+              onSurface: Colorz.nothing,
+              // onSurfaceVariant: Colorz.green50,
+              // inverseSurface: Colorz.green50,
+              // surfaceTint: Colorz.green50,
+              // surfaceVariant: Colorz.green50,
+              // onInverseSurface: Colorz.green50,
+              /// secondary
+              onSecondary: Colorz.nothing, /// LAYER ON TOP OF BACKGROUND AND BEHIND THE IMAGE
+              // secondaryVariant: Colorz.white50, // deprecated on favor of secondaryContainer
+              // secondaryContainer: Colorz.green50,
+              // onSecondaryContainer: Colorz.green50,
+              /// tertiary
+              // onTertiary: Colorz.green50,
+              // onTertiaryContainer: Colorz.green50,
+              // tertiary: Colorz.green50,
+              // tertiaryContainer: Colorz.green50,
+              /// outline
+              // outline: Colorz.green50,
+              // outlineVariant: Colorz.green50,
+              // scrim: Colorz.green50,
+              // shadow: Colorz.green50,
+              // ----------------------------------------------------->
+            ),
+            textTheme: TextTheme(
+              ///DISPLAY
+              displayLarge: _basicTextStyle,
+              displayMedium: _basicTextStyle,
+              displaySmall: _basicTextStyle,
+              /// HEADLINE
+              headlineLarge: _basicTextStyle,
+              headlineMedium:_basicTextStyle,
+              headlineSmall: _basicTextStyle,
+              /// TITLE
+              titleLarge: _basicTextStyle,
+              titleMedium:_basicTextStyle,
+              titleSmall:_basicTextStyle,
+              /// BODY
+              bodyLarge:_basicTextStyle,
+              bodyMedium:_basicTextStyle,
+              bodySmall:_basicTextStyle,
+              /// LABEL
+              labelLarge:_basicTextStyle,
+              labelMedium:_basicTextStyle,
+              labelSmall:_basicTextStyle,
+              /// DEPRECATED
+              // headline2: ,
+              // headline1: ,
+              // button: ,
+              // bodyText2: ,
+              // bodyText1: ,
+              // caption: ,
+              // headline3: ,
+              // headline4: ,
+              // headline5: ,
+              // headline6: ,
+              // overline: ,
+              // subtitle1: ,
+              // subtitle2: ,
+            ),
+            appBarTheme: AppBarTheme(
+              /// BACKGROUND COLOR
+              // color: Colorz.darkGrey255, // backgroundColor: Colorz.black255,
+              // foregroundColor: Colorz.green255,
+              // shadowColor: Colorz.bloodTest,
+              centerTitle: false,
+              elevation: 10,
+              scrolledUnderElevation: 100,
+              // shape: ,
+              // surfaceTintColor: Colorz.bloodTest,
+              // systemOverlayStyle: SystemUiOverlayStyle.dark,
+              /// ICON
+              // actionsIconTheme: ,
+              // iconTheme: ,
+              /// TITLE
+              titleTextStyle: SuperVerse.superVerseDefaultStyle(getContext()),
+              titleSpacing: SuperVerse.superVerseWordSpacing(2),
+              // textTheme: , /// deprecated in favor of titleTextStyle & toolbarTextStyle
+              /// TOOL BAR
+              // toolbarTextStyle: ,
+              // toolbarHeight: ,
+              /// DEPRECATED
+              // backwardsCompatibility: ,
+              // brightness: Brightness.light,
+            ),
+          ),
+          textDelegate: assetPickerTextDelegateFromLocale(_locale),
+
+          /// SCROLLING
+          // keepScrollOffset: false,
+          // specialItemPosition: SpecialItemPosition.none,
+
+          /// PERMISSION
+          // limitedPermissionOverlayPredicate: (PermissionState permissionState){
+          //   blog('pickMultipleImages : permissionState : $permissionState');
+          //   return true;
+          // },
+
+          /// LOADING
+          // loadingIndicatorBuilder: (BuildContext context, bool loading){
+          //   return Loading(loading: loading);
+          // },
+
+          /// ASSET NAME
+          // pathNameBuilder: (AssetPathEntity assetPathEntity){
+          //   blog('assetPathEntity : $assetPathEntity');
+          //   return 'Fuck you';
+          // },
+          // sortPathDelegate: SortPathDelegate.common,
+
+          /// WHO THE FUCK ARE YOU
+          // selectPredicate: (BuildContext xxx, AssetEntity assetEntity, bool wtf) async {
+          //   blog('pickMultipleImages : ${assetEntity.id} : wtf : $wtf');
+          //   return wtf;
+          // },
+          // specialItemBuilder: (BuildContext xyz, AssetPathEntity assetPathEntity, int number){
+          //   return const SizedBox();;
+          // },
+          // specialPickerType: SpecialPickerType.wechatMoment,
+          //
+          // filterOptions: FilterOptionGroup(
+          //   audioOption: const FilterOption(
+          //     durationConstraint: DurationConstraint(
+          //       allowNullable: false,
+          //       max: const Duration(days: 1),
+          //       min: Duration.zero,
+          //     ),
+          //     needTitle: true,
+          //     sizeConstraint: SizeConstraint(
+          //       maxHeight: 100000,
+          //       minHeight: 0,
+          //       ignoreSize: true,
+          //       maxWidth: 100000,
+          //       minWidth: 0,
+          //     ),
+          //   ),
+          //   containsEmptyAlbum: true,
+          //   containsLivePhotos: true,
+          //   containsPathModified: true,
+          //   createTimeCond: DateTimeCond(
+          //     ignore: true,
+          //     min: DateTime.now(),
+          //     max: DateTime.now(),
+          //   ),
+          //   imageOption: FilterOption(
+          //     sizeConstraint: SizeConstraint(
+          //       maxHeight: 100000,
+          //       minHeight: 0,
+          //       ignoreSize: true,
+          //       maxWidth: 100000,
+          //       minWidth: 0,
+          //     ),
+          //     needTitle: true,
+          //     durationConstraint: DurationConstraint(
+          //       allowNullable: false,
+          //       max: const Duration(days: 1),
+          //       min: Duration.zero,
+          //     ),
+          //   ),
+          //   onlyLivePhotos: false,
+          //   orders: <OrderOption>[
+          //     OrderOption(
+          //       asc: false,
+          //       type: OrderOptionType.createDate,
+          //     ),
+          //   ],
+          //     updateTimeCond: DateTimeCond(
+          //     ignore: true,
+          //     min: 0,
+          //     max: ,
+          //   ),
+          //   videoOption: FilterOption(
+          //     sizeConstraint: SizeConstraint(
+          //       maxHeight: 100000,
+          //       minHeight: 0,
+          //       ignoreSize: true,
+          //       maxWidth: 100000,
+          //       minWidth: 0,
+          //     ),
+          //   ),
+          // ),
+
+        );
+
   }
   // -----------------------------------------------------------------------------
 }

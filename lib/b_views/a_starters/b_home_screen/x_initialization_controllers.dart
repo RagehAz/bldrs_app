@@ -122,10 +122,11 @@ Future<void> _controlMissingFieldsCase({
         validateOnStartup: true,
         // checkLastSession: true,
         onFinish: () async {
-          await Nav.goBack(
+
+          await Nav.restartAndRoute(
             context: context,
-            invoker: '_controlMissingFieldsCase',
           );
+
         },
       )
 

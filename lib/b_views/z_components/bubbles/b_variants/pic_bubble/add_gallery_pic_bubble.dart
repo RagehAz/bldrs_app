@@ -178,7 +178,7 @@ class AddImagePicBubble extends StatelessWidget {
     );
     // --------------------
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
 
 class _FilePicSplitter extends StatelessWidget {
@@ -226,6 +226,8 @@ class _FilePicSplitter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    picModel?.blogPic(invoker: 'what the pic');
+
     final BorderRadius _picBorders = _getPicBorder(
       context: context,
       bubbleType: bubbleType,
@@ -235,7 +237,7 @@ class _FilePicSplitter extends StatelessWidget {
     if (bubbleType == BubbleType.bzLogo || bubbleType == BubbleType.authorPic){
       return BzLogo(
         width: picWidth,
-        image: picModel?.path ?? picModel?.bytes ?? Colorz.bloodTest,
+        image: picModel?.bytes ?? picModel?.path ?? Colorz.bloodTest,
         isVerified: false,
         // margins: const EdgeInsets.all(10),
         corners: _picBorders,
@@ -248,7 +250,7 @@ class _FilePicSplitter extends StatelessWidget {
       return Balloona(
         size: picWidth,
         loading: false,
-        pic: picModel?.path ?? picModel?.bytes,
+        pic: picModel?.bytes ?? picModel?.path,
         balloonType: BalloonType.thinking,
         // onTap: () => onAddImage(ImagePickerType.galleryImage), /// no need due to tap layer below in tree
       );
@@ -259,14 +261,14 @@ class _FilePicSplitter extends StatelessWidget {
       return DreamBox(
         width: picWidth,
         height: picWidth,
-        icon: picModel?.path ?? picModel?.bytes,
+        icon: picModel?.bytes ?? picModel?.path,
         bubble: false,
         // onTap: () => onAddImage(ImagePickerType.galleryImage), /// no need due to tap layer below in tree
       );
     }
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
 
 class _PlusIconLayer extends StatelessWidget {
@@ -351,7 +353,7 @@ class _PlusIconLayer extends StatelessWidget {
     }
 
   }
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 // /// TASK : @deprecated

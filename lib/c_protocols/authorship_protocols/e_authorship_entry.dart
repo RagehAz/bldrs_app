@@ -97,7 +97,6 @@ class AuthorshipEntryProtocols {
       oldBz: _oldBz,
       newBz: _newBz,
       showWaitDialog: false,
-      navigateToBzInfoPageOnEnd: false,
       newLogo: null,
     );
 

@@ -4,9 +4,6 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
-import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
-import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_my_bz_screen.dart';
-import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
@@ -17,10 +14,7 @@ import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:filers/filers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
 class RenovateBzProtocols {
@@ -39,7 +33,7 @@ class RenovateBzProtocols {
     @required BzModel newBz,
     @required BzModel oldBz,
     @required bool showWaitDialog,
-    @required bool navigateToBzInfoPageOnEnd,
+    // @required bool navigateToBzInfoPageOnEnd,
     @required PicModel newLogo,
   }) async {
     blog('RenovateBzProtocol.renovateBz : START');
@@ -48,8 +42,6 @@ class RenovateBzProtocols {
       bz1: newBz,
       bz2: oldBz,
     );
-
-    if (_areIdentical == false){
 
       /// WAIT DIALOG
       if (showWaitDialog == true){
@@ -66,19 +58,22 @@ class RenovateBzProtocols {
       await Future.wait(<Future>[
 
         /// UPDATE BZ DOC
-        BzFireOps.update(newBz),
+        if (_areIdentical == false)
+          BzFireOps.update(newBz),
 
         /// UPDATE BZ LOGO
         if (newLogo != null)
           PicProtocols.renovatePic(newLogo),
 
         /// CENSUS
-        CensusListener.onRenovateBz(
-            newBz: newBz,
-            oldBz: oldBz
-        ),
+        if (_areIdentical == false)
+          CensusListener.onRenovateBz(
+              newBz: newBz,
+              oldBz: oldBz
+          ),
 
         /// UPDATE LOCALLY
+        if (_areIdentical == false)
         updateBzLocally(
             context: context,
             newBz: newBz,
@@ -92,42 +87,6 @@ class RenovateBzProtocols {
         await WaitDialog.closeWaitDialog(context);
       }
 
-      /// ON END NAVIGATION
-      if (navigateToBzInfoPageOnEnd == true){
-
-        await Nav.pushHomeAndRemoveAllBelow(
-          context: context,
-          invoker: 'renovateBz',
-        );
-
-        unawaited(
-            Nav.goToNewScreen(
-              context: context,
-              pageTransitionType: PageTransitionType.fade,
-              screen: const MyBzScreen(
-                initialTab: BzTab.about,
-              ),
-            )
-        );
-
-        /// SHOW SUCCESS DIALOG
-        unawaited(TopDialog.showTopDialog(
-          context: context,
-          firstVerse: const Verse(
-            id: 'phid_great_!',
-            translate: true,
-          ),
-          secondVerse: const Verse(
-            pseudo: 'Successfully updated your Business Account',
-            id: 'phid_updated_bz_successfully',
-            translate: true,
-          ),
-          color: Colorz.green255,
-          textColor: Colorz.white255,
-        ));
-
-      }
-
       // /// ON FAILURE
       // else {
       //
@@ -139,8 +98,6 @@ class RenovateBzProtocols {
       //   await _failureDialog(context);
       //
       // }
-
-    }
 
     blog('RenovateBzProtocol.renovateBz : END');
   }
@@ -277,7 +234,6 @@ class RenovateBzProtocols {
         newBz: _newBz,
         oldBz: oldBz,
         showWaitDialog: false,
-        navigateToBzInfoPageOnEnd: false,
         newLogo: null,
       ),
 

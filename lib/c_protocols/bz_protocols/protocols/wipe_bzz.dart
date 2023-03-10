@@ -263,7 +263,6 @@ class WipeBzProtocols {
         newBz: _newBz,
         oldBz: _oldBz,
         showWaitDialog: false,
-        navigateToBzInfoPageOnEnd: false,
         newLogo: null,
       );
 

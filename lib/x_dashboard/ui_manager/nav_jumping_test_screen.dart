@@ -66,7 +66,7 @@ class _NavJumpingTestScreenState extends State<NavJumpingTestScreen> {
 
               await Nav.autoNav(
                 context: context,
-                routeName: Routing.myBzScreen,
+                routeName: Routing.myBzFlyersPage,
                 arguments: _userModel.myBzzIDs.first,
                 startFromHome: _canStartFromHomeScreen,
               );

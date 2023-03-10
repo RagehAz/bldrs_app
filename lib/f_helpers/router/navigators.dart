@@ -360,11 +360,20 @@ class Nav {
       switch(_afterHomeRoute.name){
       // --------------------
       /// TESTED : WORKS PERFECT
-        case Routing.myBzScreen:
+        case Routing.myBzFlyersPage:
           _goTo = Nav.goToMyBzScreen(
             context: context,
             bzID: _afterHomeRoute.arguments,
             replaceCurrentScreen: false,
+          ); break;
+      // --------------------
+      /// TESTED : WORKS PERFECT
+        case Routing.myBzAboutPage:
+          _goTo = Nav.goToMyBzScreen(
+            context: context,
+            bzID: _afterHomeRoute.arguments,
+            replaceCurrentScreen: false,
+            initialTab: BzTab.about,
           ); break;
       // --------------------
       /// TESTED : WORKS PERFECT
@@ -586,6 +595,29 @@ class Nav {
       animatedLogoScreen: true,
     );
 
+
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> restartAndRoute({
+    @required BuildContext context,
+    String routeName,
+    dynamic arguments,
+  }) async {
+
+    if (routeName != null) {
+      UiProvider.proSetAfterHomeRoute(
+        context: context,
+        routeName: routeName,
+        arguments: arguments,
+        notify: true,
+      );
+    }
+
+    await Nav.pushNamedAndRemoveAllBelow(
+      context: context,
+      goToRoute: Routing.staticLogoScreen,
+    );
 
   }
   // -----------------------------------------------------------------------------
