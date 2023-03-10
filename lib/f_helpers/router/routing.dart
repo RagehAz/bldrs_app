@@ -33,7 +33,8 @@ class Routing {
   static const String search = '/SearchScreen';
   // --------------------
   static const String bzEditor = '/BzEditorScreen';
-  static const String myBzScreen = '/MyBzScreen';
+  static const String myBzFlyersPage = '/MyBzScreen';
+  static const String myBzAboutPage = '/MyBzScreen/AboutPage';
   static const String myBzNotesPage = '/MyBzScreen/NotesPage';
   static const String myBzTeamPage = '/MyBzScreen/TeamPage';
   static const String editBz = '/EditBzScreen';

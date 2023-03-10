@@ -317,7 +317,6 @@ class NewAuthorshipExit {
         newBz: _newBz,
         oldBz: bzModel,
         showWaitDialog: false,
-        navigateToBzInfoPageOnEnd: false,
         newLogo: null,
       ),
 

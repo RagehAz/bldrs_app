@@ -19,6 +19,7 @@ import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:mapper/mapper.dart';
 import 'package:filers/filers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -136,6 +137,12 @@ Future<void> onConfirmBzEdits({
 
     await BzLDBOps.deleteBzEditorSession(draftNotifier.value.id);
 
+    await Nav.restartAndRoute(
+      context: context,
+      routeName: Routing.myBzAboutPage,
+      arguments: draftNotifier.value.id,
+    );
+
   }
 
 }
@@ -186,12 +193,16 @@ Future<void> _uploadDraftBz({
 
   /// EDITING EXISTING BZ
   else {
+
+    blog('draftNotifier.value.hasNewLogo : ${draftNotifier.value.hasNewLogo}');
+    // DraftBz.toBzModel(draftNotifier.value).blogBz(invoker: 'what the bz');
+    blog('draftNotifier.value.logoPicModel.bytes.length : ${draftNotifier.value.logoPicModel.bytes.length}');
+
     await BzProtocols.renovateBz(
       context: context,
       newBz: DraftBz.toBzModel(draftNotifier.value),
       oldBz: oldBz,
       showWaitDialog: true,
-      navigateToBzInfoPageOnEnd: true,
       newLogo: draftNotifier.value.hasNewLogo == true ? draftNotifier.value.logoPicModel : null,
     );
   }
