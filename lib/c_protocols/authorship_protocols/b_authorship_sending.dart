@@ -47,7 +47,6 @@ class AuthorshipSendingProtocols {
       oldBz: oldBz,
       newBz: _newBz,
       showWaitDialog: false,
-      navigateToBzInfoPageOnEnd: false,
       newLogo: null,
     );
 

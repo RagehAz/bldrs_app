@@ -199,7 +199,6 @@ class FlyerVerificationProtocols {
     await BzProtocols.renovateBz(
         context: context,
         showWaitDialog: false,
-        navigateToBzInfoPageOnEnd: false,
         oldBz: bzModel,
         newLogo: null,
         newBz: bzModel.copyWith(
