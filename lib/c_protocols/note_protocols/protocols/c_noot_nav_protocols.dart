@@ -70,7 +70,7 @@ class NootNavToProtocols {
       case Routing.profileEditor        : return true; break;
       case Routing.search               : return true; break;
       case Routing.bzEditor             : return true; break;
-      case Routing.myBzScreen           : return true; break;
+      case Routing.myBzFlyersPage           : return true; break;
       case Routing.myBzNotesPage        : return true; break;
       case Routing.myBzTeamPage         : return true; break;
       case Routing.editBz               : return true; break;

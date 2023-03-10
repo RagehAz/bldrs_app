@@ -153,7 +153,6 @@ class WipeFlyerProtocols {
           newBz: _newBz,
           oldBz: oldBz,
           showWaitDialog: false,
-          navigateToBzInfoPageOnEnd: false,
           newLogo: null,
       );
 

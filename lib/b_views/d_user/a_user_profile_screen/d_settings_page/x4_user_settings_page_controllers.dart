@@ -17,6 +17,7 @@ import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:mapper/mapper.dart';
 import 'package:filers/filers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -56,9 +57,9 @@ Future<void> onEditProfileTap(BuildContext context) async {
         // checkLastSession: true,
         canGoBack: true,
         onFinish: () async {
-          await Nav.goBack(
+          await Nav.restartAndRoute(
             context: context,
-            invoker: 'onEditProfileTap',
+            routeName: Routing.myUserScreen,
           );
         },
       )
