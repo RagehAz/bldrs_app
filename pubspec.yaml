@@ -168,6 +168,8 @@ dependencies:
   animators:
     git:
       url: https://github.com/RagehAz/animators.git
+  amazon_image: ^0.0.5
+  flutter_html: ^3.0.0-alpha.6
   # ------------------------------------
   # MY UN-USED PACKAGES
   #  bldrs_ui:
