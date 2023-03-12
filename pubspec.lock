@@ -9,6 +9,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.17"
+  amazon_image:
+    dependency: "direct main"
+    description:
+      name: amazon_image
+      sha256: "72c9bf02b7feb7415de0a9566fff0cf0626bee0d5ecdbe804f34d7746917d45b"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.0.5"
   animated_text_kit:
     dependency: "direct main"
     description:
@@ -605,6 +613,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.3.0"
+  flutter_html:
+    dependency: "direct main"
+    description:
+      name: flutter_html
+      sha256: "342c7908f0a67bcec62b6e0f7cf23e23bafe7f64693665dd35be98d5e783bdfd"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.0.0-alpha.6"
   flutter_keyboard_visibility:
     dependency: "direct main"
     description:
@@ -1088,6 +1104,14 @@ packages:
       url: "https://github.com/RagehAz/numeric.git"
     source: git
     version: "1.0.5"
+  numerus:
+    dependency: transitive
+    description:
+      name: numerus
+      sha256: "436759d84f233b40107d0cc31cfa92d24e0960afeb2e506be70926d4cddffd9e"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.0"
   package_info_plus:
     dependency: "direct main"
     description:
