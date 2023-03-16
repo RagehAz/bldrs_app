@@ -8,7 +8,7 @@ import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/z_components/cropper/cropping_screen.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
-import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
+import 'package:devicer/devicer.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/permissions/permits_protocols.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';

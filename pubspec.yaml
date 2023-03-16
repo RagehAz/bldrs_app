@@ -170,6 +170,9 @@ dependencies:
   animators:
     git:
       url: https://github.com/RagehAz/animators.git
+  devicer:
+    git:
+      url: https://github.com/RagehAz/devicer.git
   # ------------------------------------
   # MY UN-USED PACKAGES
   #  bldrs_ui:

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/general_provider.dart';
-import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
+import 'package:devicer/devicer.dart';
 import 'package:filers/filers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';

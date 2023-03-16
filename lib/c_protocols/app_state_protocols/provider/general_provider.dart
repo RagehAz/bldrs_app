@@ -15,7 +15,7 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:ldb/ldb.dart';
-import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
+import 'package:devicer/devicer.dart';
 import 'package:mapper/mapper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

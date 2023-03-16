@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
-import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
+import 'package:devicer/devicer.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/foundation.dart';
 

@@ -1,7 +1,7 @@
 // ignore_for_file: constant_identifier_names
 import 'dart:async';
 
-import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
+import 'package:devicer/devicer.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
