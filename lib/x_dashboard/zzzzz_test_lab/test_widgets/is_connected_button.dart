@@ -1,8 +1,9 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/connectivity_sensor.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/general_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:devicer/devicer.dart';
 import 'package:flutter/material.dart';
 
 class IsConnectedButton extends StatelessWidget {
@@ -15,6 +16,10 @@ class IsConnectedButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return ConnectivitySensor(
+        onConnectivityChanged: (bool isConnected) => GeneralProvider.onConnectivityChanged(
+          context: context,
+          isConnected: isConnected,
+        ),
         builder: (bool connected, Widget child){
 
           return DreamBox(

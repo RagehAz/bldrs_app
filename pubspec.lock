@@ -363,10 +363,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "434202706496569b0813c63a34b38d28a0c22e8e"
+      resolved-ref: "26a24e1432a977898fb4c8d8f5e484503a9f4cae"
       url: "https://github.com/RagehAz/devicer.git"
     source: git
-    version: "0.0.2"
+    version: "0.0.3"
   dismissible_page:
     dependency: "direct main"
     description:
