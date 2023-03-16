@@ -6,9 +6,11 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout_stack
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/general_provider.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/pyramids_admin_panel.dart';
+import 'package:devicer/devicer.dart';
 import 'package:scale/scale.dart';
 import 'package:filers/filers.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
@@ -216,6 +218,10 @@ class MainLayout extends StatelessWidget {
           // right: ,
           // top: ,
           child: ConnectivitySensor(
+            onConnectivityChanged: (bool isConnected) => GeneralProvider.onConnectivityChanged(
+              context: context,
+              isConnected: isConnected,
+            ),
             child: Stack(
               children: <Widget>[
 
