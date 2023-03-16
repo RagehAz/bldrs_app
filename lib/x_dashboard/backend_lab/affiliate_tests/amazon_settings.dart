@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:io';
 
 /// Country key
@@ -71,14 +73,6 @@ const Map<CountryKey, String> codes = {
 };
 
 class AmazonPicSetting {
-  String _trackingId = 'flutter_amazon_image-22';
-  String _defaultCountry = 'US';
-
-  get trackingId => _trackingId;
-
-  get defaultCountry => _defaultCountry;
-
-  static final AmazonPicSetting _instance = AmazonPicSetting._internal();
 
   /// Set for amazon_image's globals setting.
   factory AmazonPicSetting() {
@@ -90,14 +84,26 @@ class AmazonPicSetting {
       if (!Platform.isAndroid && !Platform.isIOS) {
         return;
       }
-    } catch (e) {
+    }  on Exception catch (_) {
+
       return;
     }
-    var localName = Platform.localeName;
+    final localName = Platform.localeName;
     if (3 < localName.length) {
       _defaultCountry = localName.substring(3);
     }
   }
+
+  String _trackingId = 'flutter_amazon_image-22';
+  String _defaultCountry = 'US';
+
+  get trackingId => _trackingId;
+
+  get defaultCountry => _defaultCountry;
+
+  static final AmazonPicSetting _instance = AmazonPicSetting._internal();
+
+
 
   /// set amazon associates' Tracking ID
   void setTrackingId(String trackingId) {

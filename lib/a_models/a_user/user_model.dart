@@ -1055,12 +1055,7 @@ class UserModel {
     return _user;
   }
    */
-  // -----------------------------------------------------------------------------
-
-  /// EQUALITY
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
+   /// TESTED : WORKS PERFECT
   static bool usersAreIdentical({
     @required UserModel user1,
     @required UserModel user2,
