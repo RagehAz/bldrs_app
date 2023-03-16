@@ -147,7 +147,7 @@ class _AffiliateTestScreenState extends State<AffiliateTestScreen> {
       invoker: 'get from amazon',
     );
 
-      final dom.Document doc = parse(_res.body);
+    final dom.Document doc = parse(_res.body);
 
 
 

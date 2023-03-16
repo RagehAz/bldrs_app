@@ -1,6 +1,8 @@
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/x_secondary/app_state.dart';
 import 'package:bldrs/a_models/x_utilities/xx_app_controls_model.dart';
+import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 // import 'package:bldrs/a_models/x_utilities/xx_app_controls_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/search_provider.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
@@ -14,6 +16,7 @@ import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:ldb/ldb.dart';
 import 'package:devicer/devicer.dart';
 import 'package:mapper/mapper.dart';
@@ -176,10 +179,54 @@ class GeneralProvider extends ChangeNotifier {
     @required bool notify,
   }) {
 
-    _isConnected = isConnected;
+    if (isConnected != _isConnected) {
+      _isConnected = isConnected;
 
-    if(notify == true){
-      notifyListeners();
+      if (notify == true) {
+        notifyListeners();
+      }
+    }
+
+  }
+  // --------------------
+  static Future<void> onConnectivityChanged({
+    @required BuildContext context,
+    @required bool isConnected,
+  }) async {
+
+    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
+
+    _generalProvider.setConnectivity(
+      isConnected: isConnected,
+      notify: true,
+    );
+
+    /// SHOW CONNECTED DIALOG
+    if (isConnected == true){
+      await TopDialog.showTopDialog(
+        context: context,
+        firstVerse: const Verse(
+          id: 'phid_connected',
+          translate: true,
+        ),
+        color: Colorz.green255,
+        // seconds: 2,
+      );
+    }
+    /// SHOW DISCONNECTED DIALOG
+    else {
+      await TopDialog.showTopDialog(
+        context: context,
+        firstVerse: const Verse(
+          id: 'phid_disconnected',
+          translate: true,
+        ),
+        secondVerse: const Verse(
+          id: 'phid_check_your_internet_connection',
+          translate: true,
+        ),
+        color: Colorz.red255,
+      );
     }
 
   }
