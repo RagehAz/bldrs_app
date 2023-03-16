@@ -1,7 +1,7 @@
 import 'package:filers/filers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:bldrs/f_helpers/drafters/device_checkers.dart';
+import 'package:devicer/devicer.dart';
 
 enum AdFormat {
   appOpen,

@@ -1,26 +1,23 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:amazon_image/amazon_image.dart';
 import 'package:amazon_image/amazon_image_setting.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
-import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/x_dashboard/backend_lab/affiliate_tests/amazon_settings.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/dashboard_layout.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:html/dom.dart' as dom;
+import 'package:html/parser.dart';
 import 'package:http/http.dart';
 import 'package:rest/rest.dart';
 import 'package:stringer/stringer.dart';
 import 'package:super_image/super_image.dart';
-import 'package:html/parser.dart';
-import 'package:amazon_image/amazon_image.dart';
-import 'package:flutter_html/flutter_html.dart';
 class AffiliateTestScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const AffiliateTestScreen({
@@ -98,8 +95,7 @@ class _AffiliateTestScreenState extends State<AffiliateTestScreen> {
   Future<void> _getImageFromRawLink(String _rawLink) async {
 
     final Response _res = await Rest.get(
-      rawLink:
-          "https://www.amazon.com/AIOPR-Cordless-Circular-Guide-Blades/dp/B08NDRKJPT?pd_rd_w=Yol1h&content-id=amzn1.sym.a089f039-4dde-401a-9041-8b534ae99e65&pf_rd_p=a089f039-4dde-401a-9041-8b534ae99e65&pf_rd_r=6C4X0NZGP3TAVGY12BHC&pd_rd_wg=qK6eC&pd_rd_r=101e96a1-21d1-4c4c-b1f0-ce93bd96c953&pd_rd_i=B08NDRKJPT&psc=1&linkCode=li2&tag=bldrs07-20&linkId=7afc04f81bf57b98be8797a98ad2b24f&language=en_US&ref_=as_li_ss_il",
+      rawLink: 'https://www.amazon.com/AIOPR-Cordless-Circular-Guide-Blades/dp/B08NDRKJPT?pd_rd_w=Yol1h&content-id=amzn1.sym.a089f039-4dde-401a-9041-8b534ae99e65&pf_rd_p=a089f039-4dde-401a-9041-8b534ae99e65&pf_rd_r=6C4X0NZGP3TAVGY12BHC&pd_rd_wg=qK6eC&pd_rd_r=101e96a1-21d1-4c4c-b1f0-ce93bd96c953&pd_rd_i=B08NDRKJPT&psc=1&linkCode=li2&tag=bldrs07-20&linkId=7afc04f81bf57b98be8797a98ad2b24f&language=en_US&ref_=as_li_ss_il',
       invoker: 'get from amazon',
     );
 
@@ -129,7 +125,7 @@ class _AffiliateTestScreenState extends State<AffiliateTestScreen> {
   String getTheDamnLink() {
 
     const String trackingId = 'bldrs07-20';
-    final String domain = 'amazon.com'; //amazonDomains['US'];
+    const String domain = 'amazon.com'; //amazonDomains['US'];
     const String asin = 'B08NDRKJPT';
 
     // https://www.amazon.co.jp/gp/product/B00N8JJCNQ?tag=flutter_amazon_image-22
