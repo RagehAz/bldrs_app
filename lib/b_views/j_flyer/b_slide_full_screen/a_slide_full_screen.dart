@@ -1,5 +1,4 @@
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
-import 'package:bldrs/b_views/z_components/images/cc_zoomable_pic.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/super_filtered_image.dart';
 import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
@@ -7,6 +6,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:scale/scale.dart';
 import 'package:flutter/material.dart';
+import 'package:super_image/super_image.dart';
 
 class SlideFullScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -41,7 +41,7 @@ class SlideFullScreen extends StatelessWidget {
         height: _screenHeight,
         // color: Colorz.Yellow50,
         alignment: Alignment.center,
-        child: ZoomablePicture(
+        child: ZoomableImage(
           // onTap: null,
           // canZoom: true,
           isFullScreen: true,

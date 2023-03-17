@@ -1513,10 +1513,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: c4b3665e35548e6ebf601f60ee329de0330c463b
+      resolved-ref: becf6c4ab0029f89b9c1d665fb04801895c38f69
       url: "https://github.com/RagehAz/super_image.git"
     source: git
-    version: "1.0.0"
+    version: "1.0.1"
   super_text:
     dependency: "direct main"
     description:
