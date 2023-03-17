@@ -1,7 +1,7 @@
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
-import 'package:filers/filers.dart';
-import 'package:bldrs/f_helpers/permissions/permits_protocols.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:devicer/devicer.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
