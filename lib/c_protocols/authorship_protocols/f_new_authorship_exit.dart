@@ -21,7 +21,8 @@ import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/router/routing.dart';
+import 'package:layouts/layouts.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 /// => TAMAM
@@ -139,8 +140,9 @@ class NewAuthorshipExit {
 
       /// GO HOME
       await Nav.pushHomeAndRemoveAllBelow(
-          context: getContext(),
-          invoker: 'NewAuthorshipExit.onRemoveMySelf',
+        context: getContext(),
+        invoker: 'NewAuthorshipExit.onRemoveMySelf',
+        homeRoute: Routing.home,
       );
 
     }
@@ -278,6 +280,7 @@ class NewAuthorshipExit {
     await Nav.pushHomeAndRemoveAllBelow(
       context: getContext(),
       invoker: 'NewAuthorshipExit.onRemoveMySelf',
+      homeRoute: Routing.home,
     );
 
     }

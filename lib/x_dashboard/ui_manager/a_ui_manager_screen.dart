@@ -14,7 +14,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:layouts/layouts.dart';
 import 'package:bldrs/x_dashboard/ui_manager/stepper_test/stepper_test.dart';
 import 'package:bldrs/x_dashboard/ui_manager/super_box_test_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/voice_note_test/voice_note_test_screen.dart';

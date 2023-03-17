@@ -20,182 +20,19 @@ import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
-import 'package:bldrs/e_back_end/h_caching/cache_ops.dart';
-import 'package:filers/filers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
+import 'package:layouts/layouts.dart';
 import 'package:mapper/mapper.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:stringer/stringer.dart';
 /// => TAMAM
-class Nav {
+class BldrsNav {
   // -----------------------------------------------------------------------------
 
-  const Nav();
+  const BldrsNav();
 
-  // -----------------------------------------------------------------------------
-
-  /// GOING FORWARD
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static PageTransition<dynamic> slideToScreen(Widget screen, RouteSettings settings) {
-    return PageTransition<dynamic>(
-      child: screen,
-      type: PageTransitionType.bottomToTop,
-      // duration: Ratioz.durationFading200,
-      // reverseDuration: Ratioz.durationFading200,
-      curve: Curves.fastOutSlowIn,
-      settings: settings,
-    );
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static PageTransition<dynamic> fadeToScreen(Widget screen, RouteSettings settings) {
-    return PageTransition<dynamic>(
-      child: screen,
-      type: PageTransitionType.fade,
-      duration: Ratioz.duration150ms,
-      reverseDuration: Ratioz.duration150ms,
-      curve: Curves.fastOutSlowIn,
-      settings: settings,
-    );
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<dynamic> goToNewScreen({
-    @required BuildContext context,
-    @required Widget screen,
-    PageTransitionType pageTransitionType = PageTransitionType.bottomToTop,
-    Widget childCurrent,
-  }) async {
-
-    final dynamic _result = await Navigator.push(
-      context,
-      PageTransition<dynamic>(
-        type: pageTransitionType,
-        childCurrent: childCurrent,
-        child: screen,
-        // duration: Ratioz.durationFading200,
-        // reverseDuration: Ratioz.durationFading200,
-        curve: Curves.fastOutSlowIn,
-        alignment: Alignment.bottomCenter,
-      ),
-    );
-
-    return _result;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> goToRoute(BuildContext context, String routezName, {dynamic arguments}) async {
-    await Navigator.of(context).pushNamed(routezName, arguments: arguments);
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<dynamic> replaceScreen({
-    @required BuildContext context,
-    @required Widget screen,
-    PageTransitionType transitionType = PageTransitionType.bottomToTop,
-  }) async {
-
-    final dynamic _result = await Navigator.pushReplacement(
-        context,
-        PageTransition<dynamic>(
-          type: transitionType,
-          child: screen,
-          // duration: Ratioz.duration750ms,
-          // reverseDuration: Ratioz.duration750ms,
-          curve: Curves.fastOutSlowIn,
-          alignment: Alignment.bottomCenter,
-        )
-    );
-
-    return _result;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> pushNamedAndRemoveAllBelow({
-    @required BuildContext context,
-    @required String goToRoute,
-  }) async {
-
-    await Navigator.of(context).pushNamedAndRemoveUntil(goToRoute, (Route<dynamic> route) => false);
-
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> pushAndRemoveAllBelow({
-    @required BuildContext context,
-    @required Widget screen,
-  }) async {
-
-    await Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute<dynamic>(
-          builder: (_) => screen,
-        ),
-            (Route<dynamic> route) => false);
-
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> pushAndRemoveUntil({
-    @required BuildContext context,
-    @required Widget screen,
-  }) async {
-
-    await Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute<dynamic>(
-          builder: (_) => screen,
-        ),
-            (Route<dynamic> route) => route.isFirst);
-  }
-  // -----------------------------------------------------------------------------
-
-  /// GOING BACK
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> goBack({
-    @required BuildContext context,
-    String invoker,
-    dynamic passedData,
-    bool addPostFrameCallback = false,
-  }) async {
-
-    UiProvider.clearLoadingVerse();
-    await CacheOps.wipeCaches();
-
-    if (addPostFrameCallback == true){
-        SchedulerBinding.instance.addPostFrameCallback((_) {
-          Navigator.pop(getContext(), passedData);
-        });
-      }
-
-    else {
-        await Future.delayed(Duration.zero, (){
-          Navigator.pop(getContext(), passedData);
-        });
-      }
-
-    UiProvider.proSetCanNavOnDynamicLink(
-        setTo: true,
-        notify: true,
-      );
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> closeApp(BuildContext context) async {
-    await SystemNavigator.pop();
-  }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> goBackToLogoScreen({
@@ -205,7 +42,7 @@ class Nav {
 
 
     if (animatedLogoScreen){
-      await pushNamedAndRemoveAllBelow(
+      await Nav.pushNamedAndRemoveAllBelow(
         context: context,
         goToRoute: Routing.animatedLogoScreen,
       );
@@ -215,36 +52,10 @@ class Nav {
       /// we already remove this layer in
       // Navigator.popUntil(context, ModalRoute.withName(Routing.logoScreen));
 
-      await pushNamedAndRemoveAllBelow(
+      await Nav.pushNamedAndRemoveAllBelow(
         context: context,
         goToRoute: Routing.staticLogoScreen,
       );
-    }
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> goBackUntil({
-    @required BuildContext context,
-    @required String routeName,
-    bool addPostFrameCallback = false,
-  }) async {
-
-    if (context != null){
-
-      if (addPostFrameCallback == true){
-        SchedulerBinding.instance.addPostFrameCallback((_) {
-          Navigator.popUntil(context, ModalRoute.withName(routeName));
-        });
-      }
-
-      else {
-        await Future.delayed(Duration.zero, (){
-          Navigator.popUntil(context, ModalRoute.withName(routeName));
-        });
-      }
-
-
     }
 
   }
@@ -262,48 +73,6 @@ class Nav {
       goToRoute: Routing.home,
     );
 
-  }
-  // -----------------------------------------------------------------------------
-
-  /// I DON'T KNO ABOUT THIS SHIT
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> removeRouteBelow(BuildContext context, Widget screen) async {
-    Navigator.removeRouteBelow(context, MaterialPageRoute<dynamic>(builder: (BuildContext context) => screen));
-  }
-  // -----------------------------------------------------------------------------
-
-  /// TRANSITION
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static PageTransitionType superHorizontalTransition(BuildContext context, {bool inverse = false}) {
-
-    /// NOTE: IMAGINE OPENING AN ENGLISH BOOK => NEXT PAGE COMES FROM RIGHT TO LEFT
-
-    /// LEFT TO RIGHT (EN)
-    if (UiProvider.checkAppIsLeftToRight(context) == true){
-
-      return inverse == false ?
-      /// NORMAL : <--- RIGHT TO LEFT (LIKE A BOOK)
-      PageTransitionType.rightToLeftWithFade
-          :
-      /// INVERSE : ---> LEFT TO RIGHT
-      PageTransitionType.leftToRightWithFade;
-    }
-
-    /// RIGHT TO LEFT (AR)
-    else {
-      return inverse == false ?
-      /// NORMAL : ---> LEFT TO RIGHT (LIKE A BOOK)
-      PageTransitionType.leftToRightWithFade
-          :
-      /// INVERSE : <--- RIGHT TO LEFT
-      PageTransitionType.rightToLeftWithFade;
-    }
-
-  // -----------------------------------------------------------------------------
   }
   // -----------------------------------------------------------------------------
 
@@ -328,7 +97,7 @@ class Nav {
       );
 
       if (startFromHome == true){
-        await Nav.pushHomeAndRemoveAllBelow(
+        await pushHomeAndRemoveAllBelow(
           context: context,
           invoker: 'autoNav',
         );
@@ -361,7 +130,7 @@ class Nav {
       // --------------------
       /// TESTED : WORKS PERFECT
         case Routing.myBzFlyersPage:
-          _goTo = Nav.goToMyBzScreen(
+          _goTo = goToMyBzScreen(
             context: context,
             bzID: _afterHomeRoute.arguments,
             replaceCurrentScreen: false,
@@ -369,7 +138,7 @@ class Nav {
       // --------------------
       /// TESTED : WORKS PERFECT
         case Routing.myBzAboutPage:
-          _goTo = Nav.goToMyBzScreen(
+          _goTo = goToMyBzScreen(
             context: context,
             bzID: _afterHomeRoute.arguments,
             replaceCurrentScreen: false,
@@ -378,7 +147,7 @@ class Nav {
       // --------------------
       /// TESTED : WORKS PERFECT
         case Routing.myBzNotesPage:
-          _goTo = Nav.goToMyBzScreen(
+          _goTo = goToMyBzScreen(
             context: context,
             bzID: _afterHomeRoute.arguments,
             replaceCurrentScreen: false,
@@ -387,7 +156,7 @@ class Nav {
       // --------------------
       /// TESTED : WORKS PERFECT
         case Routing.myBzTeamPage:
-          _goTo = Nav.goToMyBzScreen(
+          _goTo = goToMyBzScreen(
             context: context,
             bzID: _afterHomeRoute.arguments,
             replaceCurrentScreen: false,
@@ -396,13 +165,13 @@ class Nav {
       // --------------------
       /// TESTED : WORKS PERFECT
         case Routing.myUserScreen:
-          _goTo = Nav.goToMyUserScreen(
+          _goTo = goToMyUserScreen(
             context: context,
           ); break;
       // --------------------
       /// TESTED : WORKS PERFECT
         case Routing.myUserNotesPage:
-          _goTo = Nav.goToMyUserScreen(
+          _goTo = goToMyUserScreen(
             context: context,
             userTab: UserTab.notifications,
           ); break;
@@ -524,7 +293,7 @@ class Nav {
     UserTab userTab = UserTab.profile,
   }) async {
 
-    await goToNewScreen(
+    await Nav.goToNewScreen(
       context: context,
       screen: UserProfileScreen(
         userTab: userTab,
@@ -590,7 +359,7 @@ class Nav {
       notify: true,
     );
 
-    await Nav.goBackToLogoScreen(
+    await goBackToLogoScreen(
       context: context,
       animatedLogoScreen: true,
     );

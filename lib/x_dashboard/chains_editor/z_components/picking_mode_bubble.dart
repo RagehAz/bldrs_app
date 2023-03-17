@@ -11,7 +11,7 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:filers/filers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:layouts/layouts.dart';
 import 'package:bldrs/x_dashboard/chains_editor/x_chains_manager_controllers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';

@@ -8,7 +8,7 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:mapper/mapper.dart';
 import 'package:filers/filers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:layouts/layouts.dart';
 import 'package:flutter/material.dart';
 
 class SearchUsersScreen extends StatefulWidget {

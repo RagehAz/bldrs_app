@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
 
@@ -64,7 +64,7 @@ class _NavJumpingTestScreenState extends State<NavJumpingTestScreen> {
             verse: Verse.plain('jump To My First Bz'),
             onTap: () async {
 
-              await Nav.autoNav(
+              await BldrsNav.autoNav(
                 context: context,
                 routeName: Routing.myBzFlyersPage,
                 arguments: _userModel.myBzzIDs.first,
@@ -79,7 +79,7 @@ class _NavJumpingTestScreenState extends State<NavJumpingTestScreen> {
             verse: Verse.plain('jump To My First Bz NOTES PAGE'),
             onTap: () async {
 
-              await Nav.autoNav(
+              await BldrsNav.autoNav(
                 context: context,
                 routeName: Routing.myBzNotesPage,
                 arguments: _userModel.myBzzIDs.first,
@@ -94,7 +94,7 @@ class _NavJumpingTestScreenState extends State<NavJumpingTestScreen> {
             verse: Verse.plain('jump To User Preview'),
             onTap: () async {
 
-              await Nav.autoNav(
+              await BldrsNav.autoNav(
                 context: context,
                 routeName: Routing.userPreview,
                 arguments: AuthFireOps.superUserID(),
@@ -109,7 +109,7 @@ class _NavJumpingTestScreenState extends State<NavJumpingTestScreen> {
             verse: Verse.plain('jump To Bz Preview'),
             onTap: () async {
 
-              await Nav.autoNav(
+              await BldrsNav.autoNav(
                 context: context,
                 routeName: Routing.bzPreview,
                 arguments: _userModel.myBzzIDs.first,
@@ -131,7 +131,7 @@ class _NavJumpingTestScreenState extends State<NavJumpingTestScreen> {
 
               if (_bzModel != null){
 
-                await Nav.autoNav(
+                await BldrsNav.autoNav(
                   context: context,
                   routeName: Routing.flyerPreview,
                   arguments: _bzModel.flyersIDs.first,
@@ -148,7 +148,7 @@ class _NavJumpingTestScreenState extends State<NavJumpingTestScreen> {
             verse: Verse.plain('jump To My User Screen'),
             onTap: () async {
 
-              await Nav.autoNav(
+              await BldrsNav.autoNav(
                 context: context,
                 routeName: Routing.myUserScreen,
                 startFromHome: _canStartFromHomeScreen,
@@ -162,7 +162,7 @@ class _NavJumpingTestScreenState extends State<NavJumpingTestScreen> {
             verse: Verse.plain('jump To My User NOTES PAGE'),
             onTap: () async {
 
-              await Nav.autoNav(
+              await BldrsNav.autoNav(
                 context: context,
                 routeName: Routing.myUserNotesPage,
                 startFromHome: _canStartFromHomeScreen,

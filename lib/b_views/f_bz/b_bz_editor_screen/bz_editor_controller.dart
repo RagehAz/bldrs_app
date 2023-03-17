@@ -19,10 +19,11 @@ import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:mapper/mapper.dart';
 import 'package:filers/filers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:layouts/layouts.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -137,7 +138,7 @@ Future<void> onConfirmBzEdits({
 
     await BzLDBOps.deleteBzEditorSession(draftNotifier.value.id);
 
-    await Nav.restartAndRoute(
+    await BldrsNav.restartAndRoute(
       context: context,
       routeName: Routing.myBzAboutPage,
       arguments: draftNotifier.value.id,
@@ -472,7 +473,7 @@ Future<void> onChangeBzScope({
 
   final List<String> _phids = await Nav.goToNewScreen(
     context: context,
-    pageTransitionType: Nav.superHorizontalTransition(context),
+    pageTransitionType: Nav.superHorizontalTransition(context: context),
     screen: PhidsPickerScreen(
       multipleSelectionMode: true,
       selectedPhids: draftNotifier.value.scope,

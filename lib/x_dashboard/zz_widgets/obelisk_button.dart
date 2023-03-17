@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/buttons/main_button.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:layouts/layouts.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 
 import 'package:flutter/material.dart';

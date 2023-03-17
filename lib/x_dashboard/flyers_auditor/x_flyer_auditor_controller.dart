@@ -11,7 +11,7 @@ import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.da
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/flyer_verification_protocols.dart';
 import 'package:fire/fire.dart';
 import 'package:filers/filers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:layouts/layouts.dart';
 
 
 import 'package:bldrs/x_dashboard/flyers_auditor/auditor_button.dart';

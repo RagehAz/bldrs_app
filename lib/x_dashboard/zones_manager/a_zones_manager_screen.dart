@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/z_components/app_bar/zone_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/pyramids/pyramid_floating_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:layouts/layouts.dart';
 import 'package:bldrs/x_dashboard/zones_manager/location_test/locations_test_screen.dart';
 import 'package:bldrs/x_dashboard/zones_manager/staging_test/staging_test_screen.dart';
 import 'package:bldrs/x_dashboard/zones_manager/x_zones_manager_controller.dart';
