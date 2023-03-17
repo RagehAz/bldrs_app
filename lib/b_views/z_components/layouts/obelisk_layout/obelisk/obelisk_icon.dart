@@ -1,14 +1,13 @@
+import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/a_models/x_utilities/map_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk.dart';
-import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/note_red_dot.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
-
-import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -119,6 +118,7 @@ class ObeliskIcon extends StatelessWidget {
                     alignment: BldrsAligners.superBottomAlignment(context),
                     child: const SeparatorLine(
                       width: Obelisk.circleWidth * 0.4,
+                      color: Colorz.yellow200,
                     ),
                   ),
                 ),
