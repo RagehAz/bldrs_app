@@ -10,7 +10,7 @@ import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:scale/scale.dart';
 import 'package:filers/filers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:layouts/layouts.dart';
 import 'package:bldrs/x_dashboard/pickers_editor/x_pickers_editor_controller.dart';
 import 'package:bldrs/x_dashboard/pickers_editor/z_components/picker_editor.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';

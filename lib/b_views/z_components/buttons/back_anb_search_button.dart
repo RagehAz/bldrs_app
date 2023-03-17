@@ -4,7 +4,7 @@ import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart'
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:filers/filers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:layouts/layouts.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 
 import 'package:flutter/material.dart';
@@ -112,8 +112,9 @@ class BackAndSearchButton extends StatelessWidget {
               await Nav.goToNewScreen(
                 context: context,
                 screen: const MainSearchScreen(),
-                pageTransitionType: Nav.superHorizontalTransition(context,
-                    // inverse: false,
+                pageTransitionType: Nav.superHorizontalTransition(
+                  context: context,
+                  // inverse: false,
                 ),
               );
             }

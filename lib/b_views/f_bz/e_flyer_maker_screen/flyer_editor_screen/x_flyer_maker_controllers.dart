@@ -22,7 +22,7 @@ import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:mapper/mapper.dart';
 import 'package:stringer/stringer.dart';
 import 'package:filers/filers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:layouts/layouts.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
@@ -363,7 +363,7 @@ Future<void> onFlyerPhidTap({
 
   final List<String> _phids = await Nav.goToNewScreen(
     context: context,
-    pageTransitionType: Nav.superHorizontalTransition(context),
+    pageTransitionType: Nav.superHorizontalTransition(context: context),
     screen: PhidsPickerScreen(
       multipleSelectionMode: true,
       selectedPhids: draftNotifier.value.keywordsIDs,

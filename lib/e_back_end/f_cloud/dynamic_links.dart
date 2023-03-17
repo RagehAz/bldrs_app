@@ -15,7 +15,7 @@ import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:filers/filers.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
@@ -394,7 +394,7 @@ class BldrsShareLink{
 
     blog('jumpToFlyerScreenByLink : link : ($link) : flyerID : $_flyerID : index : $_index');
 
-    await Nav.jumpToFlyerPreviewScreen(
+    await BldrsNav.jumpToFlyerPreviewScreen(
       flyerID: _flyerID,
       // index: _index,
     );
@@ -509,7 +509,7 @@ class BldrsShareLink{
 
     blog('jumpToBzScreenByLink : link : ($link) : _bzID : $_bzID');
 
-    await Nav.jumpToBzPreviewScreen(
+    await BldrsNav.jumpToBzPreviewScreen(
       bzID: _bzID,
     );
 
@@ -579,7 +579,7 @@ class BldrsShareLink{
 
     blog('jumpToUserScreenByLink : link : ($link) : _userID : $_userID');
 
-    await Nav.jumpToUserPreviewScreen(
+    await BldrsNav.jumpToUserPreviewScreen(
       userID: _userID,
     );
 

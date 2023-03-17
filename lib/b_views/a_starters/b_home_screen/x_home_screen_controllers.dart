@@ -27,7 +27,7 @@ import 'package:fire/fire.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:filers/filers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:layouts/layouts.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -300,7 +300,7 @@ Future<void> onSectionButtonTap(BuildContext context) async {
 
   final FlyerType flyerType = await Nav.goToNewScreen(
     context: context,
-    pageTransitionType: Nav.superHorizontalTransition(context, inverse: true),
+    pageTransitionType: Nav.superHorizontalTransition(context: context, inverse: true),
     screen: const FloatingFlyerTypeSelector(),
   );
 
@@ -308,7 +308,7 @@ Future<void> onSectionButtonTap(BuildContext context) async {
 
     final String phid = await Nav.goToNewScreen(
       context: context,
-      pageTransitionType: Nav.superHorizontalTransition(context),
+      pageTransitionType: Nav.superHorizontalTransition(context: context),
       screen: PhidsPickerScreen(
         chainsIDs: FlyerTyper.getChainsIDsPerViewingEvent(
           context: context,

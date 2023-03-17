@@ -12,7 +12,7 @@ import 'package:bldrs/x_dashboard/zz_widgets/pyramids_admin_panel.dart';
 import 'package:devicer/devicer.dart';
 import 'package:scale/scale.dart';
 import 'package:filers/filers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:layouts/layouts.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

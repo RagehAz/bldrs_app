@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:layouts/layouts.dart';
 import 'package:bldrs/x_dashboard/notes_creator/draft_note.dart';
 import 'package:bldrs/x_dashboard/notes_creator/x_lab_screens/x_import_template_screen/a_import_template_note_screen.dart';
 import 'package:filers/filers.dart';
