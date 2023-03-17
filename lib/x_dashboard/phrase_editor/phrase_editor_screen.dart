@@ -7,7 +7,7 @@ import 'package:bldrs/c_protocols/phrase_protocols/ldb/phrase_ldb_ops.dart';
 import 'package:scale/scale.dart';
 import 'package:animators/animators.dart';
 import 'package:filers/filers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:layouts/layouts.dart';
 import 'package:bldrs/x_dashboard/phrase_editor/lab/a_phrase_lab_screen.dart';
 import 'package:bldrs/x_dashboard/phrase_editor/pages/phrase_creator_page.dart';
 import 'package:bldrs/x_dashboard/phrase_editor/pages/phrases_viewer_page.dart';

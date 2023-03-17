@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:filers/filers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -499,7 +499,7 @@ class AuthFireOps {
 
     if (routeToLogoScreen == true) {
 
-      await Nav.goBackToLogoScreen(
+      await BldrsNav.goBackToLogoScreen(
         context: context,
         animatedLogoScreen: true,
       );

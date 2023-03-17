@@ -6,7 +6,7 @@ import 'package:mapper/mapper.dart';
 import 'package:numeric/numeric.dart';
 import 'package:flutter/foundation.dart';
 import 'package:scale/scale.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:layouts/layouts.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/a_lock_screen/lock_wheel.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';

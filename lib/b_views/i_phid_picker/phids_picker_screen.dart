@@ -16,7 +16,7 @@ import 'package:scale/scale.dart';
 import 'package:animators/animators.dart';
 import 'package:stringer/stringer.dart';
 import 'package:filers/filers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:layouts/layouts.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 

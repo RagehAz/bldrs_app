@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
 /// TAMAM
@@ -40,7 +40,7 @@ class NootNavToProtocols {
         final String _routeName = noteModel?.navTo?.name ?? _secondaryRouteName;
         final String _argument = noteModel?.navTo?.argument ?? _secondaryArgument;
 
-        await Nav.autoNav(
+        await BldrsNav.autoNav(
             context: context,
             routeName: _routeName,
             arguments: _argument,

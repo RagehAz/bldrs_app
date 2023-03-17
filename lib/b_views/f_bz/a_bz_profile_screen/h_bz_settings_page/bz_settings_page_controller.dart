@@ -13,7 +13,8 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/router/routing.dart';
+import 'package:layouts/layouts.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -91,7 +92,8 @@ Future<void> onDeleteBzButtonTap({
     // if (routeBackHome == true){
     await Nav.pushHomeAndRemoveAllBelow(
         context: context,
-        invoker: 'onDeleteBzButtonTap'
+        invoker: 'onDeleteBzButtonTap',
+        homeRoute: Routing.home,
     );
     // }
 

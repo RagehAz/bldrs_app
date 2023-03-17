@@ -120,10 +120,10 @@ packages:
     dependency: transitive
     description:
       name: camera_android
-      sha256: "16e46b32915fcbc53afc1f96ca868cd91495608935a20bd16f47b854bfed9b17"
+      sha256: "772c111c78f31f868b98dbf6dbeda8d6ff77acea773a92ea5705ee2f7949ebfb"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.10.4+3"
+    version: "0.10.5"
   camera_avfoundation:
     dependency: transitive
     description:
@@ -978,10 +978,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: d41b3ab300640ffcf778f5c3ea888fa57199d878
+      resolved-ref: "9d137f68ba2ecb7cc75d2fd54105bc9385c69565"
       url: "https://github.com/RagehAz/layouts.git"
     source: git
-    version: "0.0.4"
+    version: "0.0.6"
   ldb:
     dependency: "direct main"
     description:
@@ -1317,10 +1317,10 @@ packages:
     dependency: transitive
     description:
       name: pointycastle
-      sha256: db7306cf0249f838d1a24af52b5a5887c5bf7f31d8bb4e827d071dc0939ad346
+      sha256: "57b6b78df14175658f09c5dfcfc51a46ad9561a3504fe679913dab404d0cc0f2"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.6.2"
+    version: "3.7.0"
   process:
     dependency: transitive
     description:
