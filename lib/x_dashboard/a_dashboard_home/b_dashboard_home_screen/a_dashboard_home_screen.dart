@@ -1,48 +1,48 @@
 import 'dart:async';
 
-import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
+import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/general_provider.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
-import 'package:bldrs/main.dart';
-import 'package:scale/scale.dart';
-import 'package:space_time/space_time.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
+import 'package:bldrs/main.dart';
+import 'package:bldrs/x_dashboard/a_dashboard_home/a_lock_screen/lock_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/b_dashboard_home_screen/dash_button/dash_button.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/b_dashboard_home_screen/dash_button/dash_button_model.dart';
+import 'package:bldrs/x_dashboard/app_controls/a_app_controls_manager.dart';
 import 'package:bldrs/x_dashboard/backend_lab/backend_lab_home.dart';
-import 'package:bldrs/x_dashboard/hashtag_manager/hashtags_manager_screen.dart';
-import 'package:bldrs/x_dashboard/phrase_editor/phrase_editor_screen.dart';
-import 'package:bldrs/x_dashboard/chains_editor/a_chains_manager_screen.dart';
-import 'package:bldrs/x_dashboard/pickers_editor/a_pickers_manager_screen.dart';
-import 'package:bldrs/x_dashboard/device_info_reader/device_info_screen.dart';
-import 'package:bldrs/x_dashboard/users_manager/a_users_manager_screen.dart';
 import 'package:bldrs/x_dashboard/bzz_manager/a_bzz_manager_screen.dart';
-import 'package:bldrs/x_dashboard/zones_manager/a_zones_manager_screen.dart';
-import 'package:bldrs/x_dashboard/currency_manager/a_currency_manager_screen.dart';
-import 'package:bldrs/x_dashboard/flyers_manager/all_flyers_screen.dart';
-import 'package:bldrs/x_dashboard/flyers_auditor/a_flyers_auditor_screen.dart';
 import 'package:bldrs/x_dashboard/census_manager/statistics_screen.dart';
+import 'package:bldrs/x_dashboard/chains_editor/a_chains_manager_screen.dart';
+import 'package:bldrs/x_dashboard/currency_manager/a_currency_manager_screen.dart';
+import 'package:bldrs/x_dashboard/device_info_reader/device_info_screen.dart';
+import 'package:bldrs/x_dashboard/flyers_auditor/a_flyers_auditor_screen.dart';
+import 'package:bldrs/x_dashboard/flyers_manager/all_flyers_screen.dart';
+import 'package:bldrs/x_dashboard/hashtag_manager/hashtags_manager_screen.dart';
+import 'package:bldrs/x_dashboard/notes_creator/notes_creator_home.dart';
+import 'package:bldrs/x_dashboard/phrase_editor/phrase_editor_screen.dart';
+import 'package:bldrs/x_dashboard/pickers_editor/a_pickers_manager_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/a_ui_manager_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/golden_scrolls_screen.dart';
-import 'package:bldrs/x_dashboard/app_controls/a_app_controls_manager.dart';
-import 'package:bldrs/x_dashboard/notes_creator/notes_creator_home.dart';
+import 'package:bldrs/x_dashboard/users_manager/a_users_manager_screen.dart';
 import 'package:bldrs/x_dashboard/xxx_test_lab.dart';
+import 'package:bldrs/x_dashboard/zones_manager/a_zones_manager_screen.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/x_dashboard/a_dashboard_home/a_lock_screen/lock_test_screen.dart';
+import 'package:scale/scale.dart';
+import 'package:space_time/space_time.dart';
 /// TESTED : WORKS PERFECT
 Future<void> onPyramidAdminDoubleTap(BuildContext context) async {
 
@@ -365,6 +365,7 @@ class DashBoardHomeScreen extends StatelessWidget {
           const SeparatorLine(
             width: 200,
             thickness: 0.5,
+            color: Colorz.yellow200,
           ),
 
           /// YOU HAVE BEEN HERE FOR
