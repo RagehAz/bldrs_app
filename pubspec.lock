@@ -104,10 +104,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: d955ed712b4d2c44155e4bc6bb312f0c3c887ca8
+      resolved-ref: b0705c8d19ab14769806b047418e98256336dd56
       url: "https://github.com/RagehAz/bubbles.git"
     source: git
-    version: "0.0.6"
+    version: "0.0.7"
   camera:
     dependency: transitive
     description:
@@ -978,10 +978,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: b1840b7de178bf6157c5e0117715b4fcf46c3b4a
+      resolved-ref: d41b3ab300640ffcf778f5c3ea888fa57199d878
       url: "https://github.com/RagehAz/layouts.git"
     source: git
-    version: "0.0.2"
+    version: "0.0.4"
   ldb:
     dependency: "direct main"
     description:
