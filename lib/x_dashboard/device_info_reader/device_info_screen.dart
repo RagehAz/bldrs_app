@@ -2,11 +2,11 @@ import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip_with_he
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/dashboard_layout.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:devicer/devicer.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class DeviceInfoScreen extends StatefulWidget {

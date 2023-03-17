@@ -26,6 +26,7 @@ import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
 import 'package:scale/scale.dart';
 
 class GeneralStatistics extends StatefulWidget {

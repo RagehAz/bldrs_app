@@ -4,8 +4,8 @@ import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/struct
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
 import 'package:scale/scale.dart';
 
 class FlyerReviewsScreenView extends StatelessWidget {

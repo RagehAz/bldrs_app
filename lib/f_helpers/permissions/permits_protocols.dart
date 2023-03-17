@@ -1,5 +1,5 @@
-import 'package:devicer/devicer.dart';
 import 'package:bldrs/f_helpers/permissions/permits.dart';
+import 'package:devicer/devicer.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:wechat_camera_picker/wechat_camera_picker.dart';
