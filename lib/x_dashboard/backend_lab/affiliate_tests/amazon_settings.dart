@@ -97,9 +97,9 @@ class AmazonPicSetting {
   String _trackingId = 'flutter_amazon_image-22';
   String _defaultCountry = 'US';
 
-  get trackingId => _trackingId;
+  String get trackingId => _trackingId;
 
-  get defaultCountry => _defaultCountry;
+  String get defaultCountry => _defaultCountry;
 
   static final AmazonPicSetting _instance = AmazonPicSetting._internal();
 

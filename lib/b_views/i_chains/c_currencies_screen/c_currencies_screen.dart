@@ -6,15 +6,15 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_b
 import 'package:bldrs/b_views/z_components/buttons/wide_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
-import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:mapper/mapper.dart';
-import 'package:scale/scale.dart';
-import 'package:filers/filers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bubbles/bubbles.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
 import 'package:provider/provider.dart';
+import 'package:scale/scale.dart';
 
 class CurrenciesScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -229,7 +229,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
                       ),
                     ),
 
-                    const SeparatorLine(withMargins: true,),
+                    const SeparatorLine(withMargins: true, color: Colorz.yellow200),
 
                     /// USA DOLLAR
                     if (_currentCurrency?.id != CurrencyModel.usaCurrencyID)

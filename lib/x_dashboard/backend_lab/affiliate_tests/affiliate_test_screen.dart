@@ -1,11 +1,9 @@
 import 'dart:convert';
 import 'dart:typed_data';
-
 import 'package:amazon_image/amazon_image.dart';
 import 'package:amazon_image/amazon_image_setting.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
-import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/dashboard_layout.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
@@ -18,6 +16,7 @@ import 'package:http/http.dart';
 import 'package:rest/rest.dart';
 import 'package:stringer/stringer.dart';
 import 'package:super_image/super_image.dart';
+
 class AffiliateTestScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const AffiliateTestScreen({

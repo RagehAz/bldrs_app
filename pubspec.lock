@@ -104,10 +104,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "2bcd4b11689fc3c0562d31a8ee4f063b03dc3ab5"
+      resolved-ref: d955ed712b4d2c44155e4bc6bb312f0c3c887ca8
       url: "https://github.com/RagehAz/bubbles.git"
     source: git
-    version: "0.0.5"
+    version: "0.0.6"
   camera:
     dependency: transitive
     description:
