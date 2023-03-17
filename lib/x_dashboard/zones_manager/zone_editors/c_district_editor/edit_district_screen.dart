@@ -18,8 +18,8 @@ import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/x_dashboard/zones_manager/zone_editors/c_district_editor/district_editor_bubble.dart';
 import 'package:bldrs/x_dashboard/zones_manager/zone_editors/components/zone_stage_bubble.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
 import 'package:mapper/mapper.dart';
 
 class EditDistrictScreen extends StatefulWidget {

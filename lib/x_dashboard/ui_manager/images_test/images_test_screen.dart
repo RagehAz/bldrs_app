@@ -38,6 +38,7 @@ import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image/image.dart' as img;
+import 'package:layouts/layouts.dart';
 import 'package:numeric/numeric.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';

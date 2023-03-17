@@ -8,8 +8,8 @@ import 'package:bldrs/b_views/z_components/layouts/custom_layouts/bldrs_floating
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
 import 'package:scale/scale.dart';
 
 class DialogsTestScreen extends StatelessWidget {
