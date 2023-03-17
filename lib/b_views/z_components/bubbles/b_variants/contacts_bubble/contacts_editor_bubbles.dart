@@ -3,8 +3,8 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_head
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/contact_field_editor_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:filers/filers.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
 
 class ContactsEditorsBubbles extends StatelessWidget {
   /// --------------------------------------------------------------------------

@@ -4,8 +4,8 @@ import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelis
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk_verses_builder.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
 import 'package:mapper/mapper.dart';
 import 'package:provider/provider.dart';
 import 'package:scale/scale.dart';
