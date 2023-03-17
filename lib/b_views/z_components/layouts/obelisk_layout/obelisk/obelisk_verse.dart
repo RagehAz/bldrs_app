@@ -1,12 +1,11 @@
+import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk.dart';
-import 'package:bldrs/b_views/z_components/layouts/separator_line.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:scale/scale.dart';
-
-import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
+import 'package:scale/scale.dart';
 
 class ObeliskVerse extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -72,6 +71,7 @@ class ObeliskVerse extends StatelessWidget {
               child: SeparatorLine(
                 width: 100,
                 lineIsON: false,
+                color: Colorz.yellow200,
               ),
             ),
           );
