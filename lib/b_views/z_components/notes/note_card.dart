@@ -13,7 +13,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
 import 'package:filers/filers.dart';
@@ -63,7 +63,7 @@ class NoteCard extends StatelessWidget {
 
       blog('BZ TAPPED');
 
-      await Nav.jumpToBzPreviewScreen(
+      await BldrsNav.jumpToBzPreviewScreen(
         bzID: noteModel.parties.senderID,
       );
 
@@ -72,7 +72,7 @@ class NoteCard extends StatelessWidget {
     /// USER
     else if (noteModel.parties.senderType == PartyType.user){
 
-      await Nav.jumpToUserPreviewScreen(
+      await BldrsNav.jumpToUserPreviewScreen(
         userID: noteModel.parties.senderID,
       );
 

@@ -28,7 +28,6 @@ import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.da
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/x_dashboard/backend_lab/ldb_viewer/ldb_viewer_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/bldrs_icons_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/images_test/image_tile.dart';

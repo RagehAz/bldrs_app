@@ -6,7 +6,6 @@ import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/picker_protocols/protocols/picker_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
 import 'package:bldrs/x_dashboard/pickers_editor/b_pickers_editor_screen.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/dashboard_layout.dart';
 import 'package:flutter/material.dart';

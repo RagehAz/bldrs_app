@@ -8,7 +8,7 @@ import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:mapper/mapper.dart';
 import 'package:scale/scale.dart';
 import 'package:filers/filers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:layouts/layouts.dart';
 import 'package:crop_your_image/crop_your_image.dart';
 import 'package:flutter/material.dart';
 

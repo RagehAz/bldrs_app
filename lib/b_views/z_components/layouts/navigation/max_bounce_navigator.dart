@@ -1,5 +1,5 @@
 import 'package:animators/animators.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:layouts/layouts.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 

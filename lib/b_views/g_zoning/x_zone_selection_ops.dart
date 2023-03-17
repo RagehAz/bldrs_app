@@ -14,7 +14,8 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:bldrs/f_helpers/router/routing.dart';
+import 'package:layouts/layouts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -294,8 +295,9 @@ class ZoneSelection {
       await WaitDialog.closeWaitDialog(context);
 
       await Nav.pushHomeAndRemoveAllBelow(
-          context: context,
-          invoker: 'SelectCountryScreen._onCountryTap'
+        context: context,
+        invoker: 'SelectCountryScreen._onCountryTap',
+        homeRoute: Routing.home,
       );
 
     }

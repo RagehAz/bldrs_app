@@ -18,8 +18,9 @@ import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
 import 'package:bldrs/c_protocols/review_protocols/protocols/a_reviews_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:filers/filers.dart';
-import 'package:bldrs/f_helpers/router/navigators.dart';
+import 'package:layouts/layouts.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:fire/fire.dart';
 import 'package:flutter/material.dart';
@@ -442,7 +443,7 @@ Future<void> onReviewUserBalloonTap({
   @required UserModel userModel,
 }) async {
 
-  await Nav.jumpToUserPreviewScreen(
+  await BldrsNav.jumpToUserPreviewScreen(
     userID: userModel.id,
   );
 
@@ -453,7 +454,7 @@ Future<void> onReplyBzBalloonTap({
   @required BzModel bzModel,
 }) async {
 
-  await Nav.jumpToBzPreviewScreen(
+  await BldrsNav.jumpToBzPreviewScreen(
     bzID: bzModel.id,
   );
 
