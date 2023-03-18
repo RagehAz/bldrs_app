@@ -1,7 +1,6 @@
 import 'package:scale/scale.dart';
 import 'package:filers/filers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-
 import 'package:flutter/material.dart';
 
 class ListPusher extends StatefulWidget {
