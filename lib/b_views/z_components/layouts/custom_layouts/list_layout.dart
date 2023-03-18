@@ -2,7 +2,6 @@ import 'package:bldrs/a_models/d_zone/x_planet/continent_model.dart';
 import 'package:bldrs/a_models/x_utilities/map_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/navigation/max_bounce_navigator.dart';
 import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -10,6 +9,7 @@ import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
 import 'package:scale/scale.dart';
 
 class ListLayout extends StatelessWidget {
