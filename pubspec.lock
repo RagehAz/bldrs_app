@@ -1121,6 +1121,15 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.0"
+  night_sky:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: b0babf341a40f4a640138d1cb177a1fdf4c3ad85
+      url: "https://github.com/RagehAz/night_sky.git"
+    source: git
+    version: "0.0.1"
   nm:
     dependency: transitive
     description:
