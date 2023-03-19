@@ -15,7 +15,7 @@ import 'package:bldrs/b_views/z_components/buttons/next_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/bldrs_floating_list.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/pages_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
+import 'package:night_sky/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
