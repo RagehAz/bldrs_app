@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/bz_long_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
+import 'package:night_sky/night_sky.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/e_back_end/x_queries/bzz_queries.dart';
 import 'package:filers/filers.dart';

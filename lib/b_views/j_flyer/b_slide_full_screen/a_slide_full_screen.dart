@@ -3,7 +3,7 @@ import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_gene
 import 'package:bldrs/b_views/z_components/images/super_filter/super_filtered_image.dart';
 import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
+import 'package:night_sky/night_sky.dart';
 import 'package:scale/scale.dart';
 import 'package:flutter/material.dart';
 import 'package:super_image/super_image.dart';

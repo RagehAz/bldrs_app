@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/a_starters/b_home_screen/x_notes_controllers.dart'
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
+import 'package:night_sky/night_sky.dart';
 import 'package:bldrs/b_views/z_components/pyramids/super_pyramids.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/x_home_screen_controllers.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';

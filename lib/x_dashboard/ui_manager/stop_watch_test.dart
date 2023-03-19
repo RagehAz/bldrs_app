@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/z_components/clocking/stop_watch/stop_watch_counte
 import 'package:bldrs/b_views/z_components/clocking/stop_watch/stop_watch_records_builder.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/bldrs_floating_list.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/layouts/night_sky.dart';
+import 'package:night_sky/night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:filers/filers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
