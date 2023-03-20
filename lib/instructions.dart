@@ -96,7 +96,7 @@ git remote remove origin
    - open terminal in project window, cd to project directory
    - copy git repo https link to pubscpec.yaml homepage field
    - git init
-   - git remote add origin https://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@github.com/Bldrs-net/package_name.git
+   - git remote add origin ...............
    - commit and push (git add ., git commit -m "first commit", git push -u origin master)
    - go to github and check if it worked
  10. import package in bldrs project

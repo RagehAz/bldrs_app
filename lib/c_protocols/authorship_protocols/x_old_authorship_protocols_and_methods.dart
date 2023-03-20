@@ -43,7 +43,7 @@
 //     blog('WipeAuthorProtocols.deleteMyAuthorPicProtocol : START');
 //
 //     /// WIPE AUTHOR PIC
-//     await PicProtocols.wipePic(Storage.generateAuthorPicPath(
+//     await PicProtocols.wipePic(BldrStorage.generateAuthorPicPath(
 //       bzID: bzID,
 //       authorID: AuthFireOps.superUserID(),
 //     ));
@@ -126,7 +126,7 @@
 //     );
 //
 //     /// WIPE AUTHOR PIC
-//     await PicProtocols.wipePic(Storage.generateAuthorPicPath(
+//     await PicProtocols.wipePic(BldrStorage.generateAuthorPicPath(
 //       bzID: streamedBzModelWithoutMyID.id,
 //       authorID: _newUser.id,
 //     ));

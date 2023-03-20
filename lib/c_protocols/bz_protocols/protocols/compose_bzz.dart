@@ -17,7 +17,7 @@ import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_leveller.dart';
-import 'package:bldrs/e_back_end/g_storage/storage.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_paths_generators.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
@@ -211,7 +211,7 @@ class ComposeBzProtocols {
       final PicModel _picModel = await PicProtocols.fetchPic(userModel.picPath);
 
       final PicModel _authorModel = _picModel.copyWith(
-        path: Storage.generateAuthorPicPath(
+        path: BldrStorage.generateAuthorPicPath(
           bzID: bzID,
           authorID: userModel.id,
         ),

@@ -6,7 +6,6 @@ import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/real/bz_record_real_ops.dart';
-import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/city_phids_protocols/real/city_phids_real_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
@@ -15,12 +14,14 @@ import 'package:bldrs/c_protocols/flyer_protocols/real/flyer_record_real_ops.dar
 import 'package:bldrs/c_protocols/pdf_protocols/ldb/pdf_ldb_ops.dart';
 import 'package:bldrs/c_protocols/pic_protocols/ldb/pic_ldb_ops.dart';
 import 'package:bldrs/c_protocols/review_protocols/protocols/a_reviews_protocols.dart';
-import 'package:bldrs/e_back_end/g_storage/foundation/storage_paths.dart';
-import 'package:bldrs/e_back_end/g_storage/storage.dart';
-import 'package:mapper/mapper.dart';
+import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_listeners.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_paths_generators.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
 import 'package:provider/provider.dart';
+import 'package:storage/storage.dart';
 
 class WipeFlyerProtocols {
   // -----------------------------------------------------------------------------
@@ -105,7 +106,7 @@ class WipeFlyerProtocols {
 
         /// DELETE LDB SLIDES AND POSTER PICS + PDF
         PicLDBOps.deletePics(FlyerModel.getPicsPaths(flyerModel)),
-        PicLDBOps.deletePic(Storage.generateFlyerPosterPath(flyerModel.id)),
+        PicLDBOps.deletePic(BldrStorage.generateFlyerPosterPath(flyerModel.id)),
         PDFLDBOps.delete(flyerModel.pdfPath),
 
         /// CENSUS

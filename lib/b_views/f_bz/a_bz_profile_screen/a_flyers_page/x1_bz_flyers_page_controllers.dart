@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/x_flyer_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -14,12 +15,11 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
-import 'package:bldrs/e_back_end/g_storage/storage.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_paths_generators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/x_flyer_editor_screen.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 
@@ -55,7 +55,7 @@ Future<void> onFlyerBzOptionsTap({
 
           /// POSTER
           BldrsImage(
-            pic: Storage.generateFlyerPosterPath(flyer.id),
+            pic: BldrStorage.generateFlyerPosterPath(flyer.id),
             height: _posterHeight,
             width: _posterWidth,
             corners: BldrsAppBar.corners,

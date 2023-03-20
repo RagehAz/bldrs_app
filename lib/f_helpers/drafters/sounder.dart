@@ -1,12 +1,12 @@
 // ignore_for_file: constant_identifier_names
 import 'dart:async';
 
-import 'package:devicer/devicer.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:devicer/devicer.dart';
 import 'package:filers/filers.dart';
-import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:numeric/numeric.dart';
+import 'package:stringer/stringer.dart';
 
 class Sounder  {
   // -----------------------------------------------------------------------------
@@ -42,32 +42,84 @@ class Sounder  {
   }
   // -----------------------------------------------------------------------------
 
-  /// PLAY ASSET
+  /// PLAY SOUND
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> playAssetSound(String asset) async {
+  ///
+  static Future<void> playSound({
+    String mp3Asset,
+    String wavAssetForAndroid, // SOMETIMES WAV FILES WORK BETTER IN ANDROID
+    String filePath = '',
+    String url,
+    Map<String, String> urlHeaders,
+    bool preload = false,
+    Duration initialPosition = Duration.zero,
+    bool loop = false,
+    double initialVolume = 1,
+    bool canUseNetworkResourcesForLiveStreamingWhilePaused = false,
+    double initialSpeed = 1,
+  }) async {
 
-    final bool _isAndroid = DeviceChecker.deviceIsAndroid();
-    final bool _isIntroSound =
-            asset == BldrsThemeSounds.bldrs_intro_wav
-            ||
-            asset == BldrsThemeSounds.bldrs_intro;
-
-    if (_isAndroid == true && _isIntroSound == false){
-      /// PLAN : ACTIVATE VOICES ON ANDROID LATER IN YOUR LIFE WHEN THINGS BECOME LITTLE HAPPIER
-    }
-    else {
-      final AudioPlayer _audioPlayer = _getPlayer();
+    if (mp3Asset != null || filePath != null || url != null) {
       await tryAndCatch(
         invoker: 'playAssetSound',
         functions: () async {
-          await _audioPlayer.setAsset(asset);
+          final AudioPlayer _audioPlayer = _getPlayer();
+
+          /// SOUND ASSET
+          if (TextCheck.isEmpty(mp3Asset) == false) {
+            String _asset = mp3Asset;
+            if (DeviceChecker.deviceIsAndroid() == true) {
+              _asset = wavAssetForAndroid ?? mp3Asset;
+            }
+
+            await _audioPlayer.setAsset(
+              _asset,
+              preload: preload,
+              initialPosition: initialPosition,
+              // package: ,
+            );
+          }
+
+          /// SOUND FILE
+          else if (TextCheck.isEmpty(filePath) == false) {
+            await _audioPlayer.setFilePath(
+              filePath,
+              initialPosition: initialPosition,
+              preload: preload,
+            );
+          }
+
+          /// SOUND URL
+          else if (ObjectCheck.isAbsoluteURL(url) == true) {
+            await _audioPlayer.setUrl(
+              url,
+              headers: urlHeaders,
+              initialPosition: initialPosition,
+              preload: preload,
+            );
+          }
+
+          await Future.wait(<Future>[
+            /// VOLUME
+            if (initialVolume != 1) _audioPlayer.setVolume(initialVolume),
+
+            /// LOOPING
+            if (loop == true) _audioPlayer.setLoopMode(LoopMode.one),
+
+            /// INITIAL SPEED
+            if (initialSpeed != 1) _audioPlayer.setSpeed(initialSpeed),
+
+            /// NETWORK RESOURCE WHILE STREAMING
+            if (canUseNetworkResourcesForLiveStreamingWhilePaused == true)
+              _audioPlayer.setCanUseNetworkResourcesForLiveStreamingWhilePaused(true),
+          ]);
+
+          /// PLAY
           await _audioPlayer.play();
         },
       );
     }
-
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -83,50 +135,11 @@ class Sounder  {
         listLength: _sounds.length,
     );
 
-    await playAssetSound(_sounds[_index]);
+    await playSound(
+      mp3Asset: _sounds[_index],
+    );
 
   }
-  // --------------------
-  static Future<void> playIntro() async {
-
-    if (DeviceChecker.deviceIsAndroid() == true){
-      unawaited(Sounder.playAssetSound(BldrsThemeSounds.bldrs_intro_wav));
-    }
-
-    else {
-      unawaited(Sounder.playAssetSound(BldrsThemeSounds.bldrs_intro));
-    }
-
-  }
-  // -----------------------------------------------------------------------------
-
-  /// PLAY FILE
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> playFile({
-    @required String filePath,
-  }) async {
-
-    if (filePath != null){
-
-      final AudioPlayer _audioPlayer = _getPlayer();
-      await tryAndCatch(
-        invoker: 'playAssetSound',
-        functions: () async {
-          await _audioPlayer.setFilePath(filePath,
-            initialPosition: Duration.zero,
-            preload: true,
-          );
-          await _audioPlayer.play();
-        },
-      );
-
-    }
-
-  }
-  // --------------------
-
   // -----------------------------------------------------------------------------
 
   /// FCM SOUNDS
@@ -135,7 +148,7 @@ class Sounder  {
   static const String nicoleSaysBldrsDotNet = 'res_name_nicole';
   static const String justinaSaysBldrsDotNet = 'res_name_justina';
   // --------------------
-  static String getNootFilesPath(String fileNameWithoutExtension){
+  static String getFCMSoundFilePath(String fileNameWithoutExtension){
     return 'resource://raw/$fileNameWithoutExtension';
   }
   // --------------------
@@ -148,7 +161,22 @@ class Sounder  {
 
     final int _index = Numeric.createRandomIndex(listLength: _notiSounds.length);
 
-    return getNootFilesPath(_notiSounds[_index]);
+    return getFCMSoundFilePath(_notiSounds[_index]);
+  }
+  // -----------------------------------------------------------------------------
+}
+
+class BldrsSounder {
+  // -----------------------------------------------------------------------------
+
+  const BldrsSounder();
+
+  // -----------------------------------------------------------------------------
+  static Future<void> playIntro() async {
+    await Sounder.playSound(
+      wavAssetForAndroid: BldrsThemeSounds.bldrs_intro_wav,
+      mp3Asset: BldrsThemeSounds.bldrs_intro,
+    );
   }
   // -----------------------------------------------------------------------------
 }

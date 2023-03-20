@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
-import 'package:bldrs/e_back_end/g_storage/storage.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_paths_generators.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
@@ -168,7 +168,7 @@ class ImagifyFlyerProtocols {
       // UiProvider.proDisposeCacher(
       //   context: context,
       //   notify: false,
-      //   cacherID: Storage.generateAuthorPicPath(
+      //   cacherID: BldrStorage.generateAuthorPicPath(
       //     authorID: flyerModel.authorID,
       //     bzID: flyerModel.bzID,
       //   ),
@@ -298,7 +298,7 @@ class ImagifyFlyerProtocols {
       if (flyerModel.bzLogoImage == null){
 
         final ui.Image _logoImage = await PicProtocols.fetchPicUiImage(
-          path: Storage.generateBzLogoPath(flyerModel.bzID),
+          path: BldrStorage.generateBzLogoPath(flyerModel.bzID),
           context: context,
         );
 
@@ -332,7 +332,7 @@ class ImagifyFlyerProtocols {
 
         final ui.Image _authorImage = await PicProtocols.fetchPicUiImage(
           context: context,
-          path: Storage.generateAuthorPicPath(
+          path: BldrStorage.generateAuthorPicPath(
             authorID: flyerModel.authorID,
             bzID: flyerModel.bzID,
           ),
