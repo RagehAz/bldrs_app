@@ -8,11 +8,10 @@ import 'package:bldrs/a_models/b_bz/sub/target/target_progress.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
 import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/e_back_end/g_storage/storage.dart';
-import 'package:devicer/devicer.dart';
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:devicer/devicer.dart';
 import 'package:filers/filers.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +20,7 @@ import 'package:http/http.dart';
 import 'package:mapper/mapper.dart';
 import 'package:numeric/numeric.dart';
 import 'package:rest/rest.dart';
+import 'package:storage/storage.dart';
 import 'package:stringer/stringer.dart';
 
 /*
@@ -219,7 +219,7 @@ class FCM {
 
         /// SOUND
         playSound: true,
-        soundSource: Sounder.getNootFilesPath(Sounder.nicoleSaysBldrsDotNet),
+        soundSource: Sounder.getFCMSoundFilePath(Sounder.nicoleSaysBldrsDotNet),
         defaultRingtoneType: DefaultRingtoneType.Notification,
 
         /// LIGHTS
@@ -419,7 +419,7 @@ class FCM {
       wakeUpScreen: true,
 
       /// SOUND
-      customSound: Sounder.getNootFilesPath(Sounder.nicoleSaysBldrsDotNet),
+      customSound: Sounder.getFCMSoundFilePath(Sounder.nicoleSaysBldrsDotNet),
 
       /// DATA
       payload: payloadMap,

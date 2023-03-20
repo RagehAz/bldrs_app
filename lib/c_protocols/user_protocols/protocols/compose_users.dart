@@ -13,10 +13,11 @@ import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:bldrs/e_back_end/g_storage/storage.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_paths_generators.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
+import 'package:storage/storage.dart';
 import 'package:stringer/stringer.dart';
 
 /// => TAMAM
@@ -126,7 +127,7 @@ class ComposeUserProtocols {
       if (Mapper.checkCanLoopList(_bytes) == true){
 
         final Dimensions _dims = await Dimensions.superDimensions(_bytes);
-        final String _picPath = Storage.generateUserPicPath(userID);
+        final String _picPath = BldrStorage.generateUserPicPath(userID);
 
         await PicProtocols.composePic(
             PicModel(

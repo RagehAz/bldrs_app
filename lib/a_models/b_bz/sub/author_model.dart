@@ -7,9 +7,9 @@ import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/e_back_end/g_storage/storage.dart';
-import 'package:filers/filers.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_paths_generators.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:stringer/stringer.dart';
@@ -108,18 +108,18 @@ class AuthorModel {
     @required bool isCreator,
   }) async {
 
-    final PicModel _userPic = await PicProtocols.fetchPic(Storage.generateUserPicPath(userModel.id));
+    final PicModel _userPic = await PicProtocols.fetchPic(BldrStorage.generateUserPicPath(userModel.id));
 
     final AuthorModel _author = AuthorModel(
       userID: userModel.id,
       name: userModel.name,
-      picPath: Storage.generateAuthorPicPath(bzID: bzID, authorID: userModel.id),
+      picPath: BldrStorage.generateAuthorPicPath(bzID: bzID, authorID: userModel.id),
       title: 'Bldr',
       role: isCreator ? AuthorRole.creator : AuthorRole.teamMember,
       contacts: userModel.contacts,
       flyersIDs: const <String>[],
       picModel: _userPic.copyWith(
-        path: Storage.generateAuthorPicPath(
+        path: BldrStorage.generateAuthorPicPath(
           bzID: bzID,
           authorID: userModel.id,
         ),
@@ -773,7 +773,7 @@ class AuthorModel {
 
       for (final AuthorModel author in authors){
 
-        final String _picPath = Storage.generateAuthorPicPath(
+        final String _picPath = BldrStorage.generateAuthorPicPath(
           bzID: bzID,
           authorID: author.userID,
         );

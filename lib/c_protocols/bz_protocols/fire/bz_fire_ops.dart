@@ -153,7 +153,7 @@ class BzFireOps {
     @required String bzID,
   }) async {
 
-    await PicProtocols.wipePic(Storage.generateAuthorPicPath(
+    await PicProtocols.wipePic(BldrStorage.generateAuthorPicPath(
         bzID: bzID,
         authorID: authorModel.userID,
     ));

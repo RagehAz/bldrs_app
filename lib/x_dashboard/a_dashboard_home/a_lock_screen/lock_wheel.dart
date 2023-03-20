@@ -106,7 +106,9 @@ class LockWheel extends StatelessWidget {
             // ------
             onValueChanged: (dynamic value) async {
 
-              await Sounder.playAssetSound(BldrsThemeSounds.zip_wav);
+              await Sounder.playSound(
+                mp3Asset: BldrsThemeSounds.zip_wav,
+              );
 
               final int _index = value;
               final String _selectedIcon = standardLockIcons[_index].key;

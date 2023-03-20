@@ -134,7 +134,9 @@ class _SoundsTestScreenState extends State<SoundsTestScreen> {
               verse: Verse.plain(TextMod.removeTextBeforeLastSpecialCharacter(_sound, '/')),
               onTap: () async {
 
-                await Sounder.playAssetSound(_sound);
+                await Sounder.playSound(
+                  mp3Asset: _sound
+                );
 
               },
             );

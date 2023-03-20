@@ -8,13 +8,12 @@ import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
-import 'package:bldrs/e_back_end/g_storage/storage.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_paths_generators.dart';
 import 'package:colorizer/colorizer.dart';
-
-import 'package:mapper/mapper.dart';
 import 'package:filers/filers.dart';
-import 'package:space_time/space_time.dart';
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
+import 'package:space_time/space_time.dart';
 
 @immutable
 class DraftSlide {
@@ -109,7 +108,7 @@ class DraftSlide {
         flyerID: flyerID,
         picModel: PicModel(
           bytes: bytes,
-          path: Storage.generateFlyerSlidePath(flyerID: flyerID, slideIndex: index),
+          path: BldrStorage.generateFlyerSlidePath(flyerID: flyerID, slideIndex: index),
           meta: PicMetaModel(
             dimensions: _dimensions,
             ownersIDs: await FlyerModel.generateFlyerOwners(
@@ -641,7 +640,7 @@ class DraftSlide {
         final DraftSlide _updated = draft.copyWith(
           flyerID: flyerID,
           picModel: draft.picModel?.copyWith(
-            path: Storage.generateFlyerSlidePath(
+            path: BldrStorage.generateFlyerSlidePath(
                 flyerID: flyerID,
                 slideIndex: draft.slideIndex,
             ),

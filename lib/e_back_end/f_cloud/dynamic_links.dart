@@ -13,7 +13,7 @@ import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.da
 import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
-import 'package:bldrs/e_back_end/g_storage/storage.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_paths_generators.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
@@ -375,7 +375,7 @@ class BldrsShareLink{
   static Future<String> _createFlyerPosterURL({
     @required String flyerID,
   }) async {
-    final String _posterPath = Storage.generateFlyerPosterPath(flyerID);
+    final String _posterPath = BldrStorage.generateFlyerPosterPath(flyerID);
     final String _picURL = await FCM.getNootPicURLIfNotURL(_posterPath);
     return _picURL;
   }
@@ -491,7 +491,7 @@ class BldrsShareLink{
   static Future<String> _createBzPosterURL({
     @required String bzID,
   }) async {
-    final String _posterPath = Storage.generateBzLogoPath(bzID);
+    final String _posterPath = BldrStorage.generateBzLogoPath(bzID);
     final String _picURL = await FCM.getNootPicURLIfNotURL(_posterPath);
     return _picURL;
   }
@@ -561,7 +561,7 @@ class BldrsShareLink{
   static Future<String> _createUserPosterURL({
     @required String userID,
   }) async {
-    final String _posterPath = Storage.generateUserPicPath(userID);
+    final String _posterPath = BldrStorage.generateUserPicPath(userID);
     final String _picURL = await FCM.getNootPicURLIfNotURL(_posterPath);
     return _picURL;
   }

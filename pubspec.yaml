@@ -130,6 +130,12 @@ dependencies:
   night_sky:
     git:
       url: https://github.com/RagehAz/night_sky.git
+  mediators:
+    git:
+      url: https://github.com/RagehAz/mediators.git
+  dialogs:
+    git:
+      url: https://github.com/RagehAz/dialogs.git
   # ---------------------------
   # MY BACK END PACKAGES
   rest:
@@ -144,6 +150,12 @@ dependencies:
   real:
     git:
       url: https://github.com/RagehAz/real.git
+  storage:
+    git:
+      url: https://github.com/RagehAz/storage.git
+  authing:
+    git:
+      url: https://github.com/RagehAz/authing.git
   # ------------------------------------
   # MY HELPERS
   bldrs_theme:
@@ -176,7 +188,7 @@ dependencies:
   devicer:
     git:
       url: https://github.com/RagehAz/devicer.git
-  # ------------------------------------
+# ------------------------------------
   # MY UN-USED PACKAGES
   #  bldrs_ui:
   #    git:
