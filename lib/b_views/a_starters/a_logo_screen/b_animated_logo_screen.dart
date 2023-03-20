@@ -227,7 +227,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
   Future<void> _startAnimationSequence() async {
     // _isPlaying.value  = true;
     // _restartControllers();
-    unawaited(Sounder.playIntro());
+    unawaited(BldrsSounder.playIntro());
     await _animateLogoLine();
     // _isPlaying.value  = false;
   }

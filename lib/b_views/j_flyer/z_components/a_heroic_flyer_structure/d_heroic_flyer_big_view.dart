@@ -24,7 +24,10 @@ class HeroicFlyerBigView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   Future<void> _onDismiss(BuildContext context) async {
 
-    unawaited(Sounder.playAssetSound(BldrsThemeSounds.whip_long));
+    unawaited(Sounder.playSound(
+      mp3Asset: BldrsThemeSounds.whip_long,
+      wavAssetForAndroid: BldrsThemeSounds.whip_long_wav,
+    ));
 
     await Nav.goBack(
       context: context,

@@ -127,7 +127,7 @@ class _VoiceNoteScreenState extends State<VoiceNoteScreen> {
   ///
   Future<void> play() async {
     if (isRecorderReady == true){
-      await Sounder.playFile(filePath: _file?.path);
+      await Sounder.playSound(filePath: _file?.path);
     }
   }
 

@@ -1,4 +1,4 @@
-import 'package:bldrs/e_back_end/g_storage/foundation/storage_paths.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 class StoragePathGenerator {
@@ -122,5 +122,26 @@ class StoragePathGenerator {
   static String generateTestPosterPath (String id){
     return '${StorageColl.posters}/tests/$id';
   }
+  // -----------------------------------------------------------------------------
+}
+
+class BldrStorage {
+  // -----------------------------------------------------------------------------
+
+  const BldrStorage();
+  // -----------------------------------------------------------------------------
+
+  /// GENERATORS
+
+  // --------------------
+  /// TESTED: WORKS PERFECT
+  static const generateUserPicPath = StoragePathGenerator.generateUserPicPath;
+  static const generateBzLogoPath = StoragePathGenerator.generateBzLogoPath;
+  static const generateAuthorPicPath = StoragePathGenerator.generateAuthorPicPath;
+  static const generateBzPostPicPath = StoragePathGenerator.generateBzPostPicPath;
+  static const generateFlyerSlidePath = StoragePathGenerator.generateFlyerSlidePath;
+  static const generateFlyerPosterPath = StoragePathGenerator.generateFlyerPosterPath;
+  static const generateFlyerPDFPath = StoragePathGenerator.generateFlyerPDFPath;
+  static const generateTestPosterPath = StoragePathGenerator.generateTestPosterPath;
   // -----------------------------------------------------------------------------
 }

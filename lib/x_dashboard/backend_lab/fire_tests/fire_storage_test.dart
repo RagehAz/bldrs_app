@@ -10,8 +10,7 @@ import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/e_back_end/g_storage/foundation/storage_paths.dart';
-import 'package:bldrs/e_back_end/g_storage/foundation/storage_ref.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:bldrs/e_back_end/h_caching/cache_ops.dart';
 import 'package:bldrs/x_dashboard/backend_lab/ldb_viewer/ldb_viewer_screen.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/dashboard_layout.dart';
@@ -20,6 +19,7 @@ import 'package:filers/filers.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
+import 'package:storage/storage.dart';
 
 class PicProtocolsTest extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -168,7 +168,7 @@ class _PicProtocolsTestState extends State<PicProtocolsTest> {
           verse: Verse.plain('get URL by path'),
           onTap: () async {
 
-            final Reference _ref = StorageRef.getRefByNodes(
+            final Reference _ref = Storage.getRefByNodes(
               collName: StorageColl.users,
               docName: AuthFireOps.superUserID(),
             );

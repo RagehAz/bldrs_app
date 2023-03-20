@@ -106,7 +106,7 @@ class UserModel {
       name: user.displayName,
       trigram: Stringer.createTrigram(input: user.displayName),
       /// do not generate path here, it will be generated once we assign an a user pic
-      picPath: null, //Storage.generateUserPicPath(user.uid),
+      picPath: null, //BldrStorage.generateUserPicPath(user.uid),
       title: '',
       gender: Gender.male,
       zone: zone,

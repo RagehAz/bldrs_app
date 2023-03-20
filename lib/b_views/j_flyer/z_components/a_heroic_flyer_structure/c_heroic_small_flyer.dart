@@ -61,7 +61,11 @@ class HeroicSmallFlyer extends StatelessWidget {
 
     if (flyerIsBigNow == false){
 
-      unawaited(Sounder.playAssetSound(BldrsThemeSounds.whip_high));
+      unawaited(Sounder.playSound(
+          mp3Asset: BldrsThemeSounds.whip_high,
+          wavAssetForAndroid: BldrsThemeSounds.whip_high_wav,
+      )
+      );
 
       // flyerModel.blogFlyer(invoker: '_openFullScreenFlyer');
 
