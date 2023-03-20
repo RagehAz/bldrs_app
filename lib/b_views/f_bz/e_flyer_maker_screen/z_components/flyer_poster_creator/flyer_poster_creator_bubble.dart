@@ -14,9 +14,9 @@ import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart
 import 'package:bldrs/b_views/z_components/poster/poster_display.dart';
 import 'package:bldrs/b_views/z_components/poster/structure/poster_switcher.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/e_back_end/g_storage/storage.dart';
-import 'package:filers/filers.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_paths_generators.dart';
 import 'package:bubbles/bubbles.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:screenshot/screenshot.dart';
 
@@ -93,7 +93,7 @@ Future<void> testPoster({
 
   final PicModel _posterPicModel = PicModel(
     bytes: _bytes,
-    path: Storage.generateFlyerPosterPath(draft.id),
+    path: BldrStorage.generateFlyerPosterPath(draft.id),
     meta: PicMetaModel(
         dimensions: await Dimensions.superDimensions(_bytes),
         ownersIDs: await FlyerModel.generateFlyerOwners(

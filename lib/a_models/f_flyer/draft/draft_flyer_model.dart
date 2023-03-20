@@ -12,11 +12,11 @@ import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/pdf_protocols/protocols/pdf_protocols.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
-import 'package:bldrs/e_back_end/g_storage/storage.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_paths_generators.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
-import 'package:filers/filers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:screenshot/screenshot.dart';
@@ -245,7 +245,7 @@ class DraftFlyer{
       times: _publishTimes,
       priceTagIsOn: draft.priceTagIsOn,
       score: draft.score,
-      pdfPath: draft.pdfModel == null ? null : Storage.generateFlyerPDFPath(draft.id),
+      pdfPath: draft.pdfModel == null ? null : BldrStorage.generateFlyerPDFPath(draft.id),
 
     );
   }
@@ -574,7 +574,7 @@ class DraftFlyer{
           flyerID: flyerID,
         ),
         pdfModel: draft.pdfModel?.copyWith(
-          path: Storage.generateFlyerPDFPath(flyerID),
+          path: BldrStorage.generateFlyerPDFPath(flyerID),
         ),
       );
 

@@ -14,10 +14,10 @@ import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
-import 'package:bldrs/e_back_end/g_storage/storage.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_paths_generators.dart';
 import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
-import 'package:filers/filers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
@@ -194,7 +194,7 @@ Future<void> takeUserPicture({
           value: draft.value.copyWith(
               picModel: PicModel(
                 bytes: _bytes,
-                path: Storage.generateUserPicPath(draft.value.id),
+                path: BldrStorage.generateUserPicPath(draft.value.id),
                 meta: PicMetaModel(
                   dimensions: await Dimensions.superDimensions(_bytes),
                   ownersIDs: [draft.value.id],
