@@ -109,6 +109,7 @@ git remote remove origin
 
 /// NULL SAFETY ISSUE
 
+
 // --------------------
 /// until you upgrade to null safety code,, run these
 /*
@@ -164,3 +165,11 @@ perfectly working
  */
 
 // ---------------------------------------------------------------------------
+
+/// TO KILL DART TASKS
+// taskkill /F /IM dart.exe
+
+/// PUB PACKAGES LOCATION
+// C:\Users\rageh\AppData\Local\Pub
+// is deleted by
+// dart pub cache clean

@@ -113,7 +113,7 @@ class BldrsTimers {
       final String _hh = DateFormat('h').format(time);
       final String _mm = Numeric.formatNumberWithinDigits(num: time.minute, digits: 2);
       final String _ampm = DateFormat('a').format(time);
-      final String _day = Timers.generateDayName(context, time);
+      final String _day = Timers.generateDayName(time);
       final String _dd = '${time.day}';
       final String _monthPhid = getMonthPhidByInt(context, time.month);
       final String _month = xPhrase(context, _monthPhid);
@@ -155,11 +155,15 @@ class BldrsTimers {
     @required BuildContext context,
     @required DateTime time
   }){
-    final String _day = '${time.day}';
-    final String _monthPhid = getMonthPhidByInt(context, time.month);
+
+    final String _monthPhid = getMonthPhidByInt(context, time?.month);
     final String _month = xPhrase(context, _monthPhid);
-    final String _year = '${time.year}';
-    return '$_day $_month $_year';
+
+    return Timers.generateString_dd_I_MM_I_yyyy(
+      time: time,
+      monthString: _month,
+    );
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -277,10 +281,10 @@ class BldrsTimers {
 
         final String _dd_month_yyy_actual = translate_dd_month_yyyy(context: context,
             time: _dateTime);
-        final String _hh_i_mm_ampm_actual = Timers.generateString_hh_i_mm_ampm(context: context, time: _dateTime);
+        final String _hh_i_mm_ampm_actual = Timers.generateString_hh_i_mm_ampm(time: _dateTime);
 
         final String _dd_month_yyy_device = translate_dd_month_yyyy(context: context, time: _now);
-        final String _hh_i_mm_ampm_device = Timers.generateString_hh_i_mm_ampm(context: context, time: _now);
+        final String _hh_i_mm_ampm_device = Timers.generateString_hh_i_mm_ampm(time: _now);
 
         Verse _zoneLine = ZoneModel.generateInZoneVerse(
             context: context,
