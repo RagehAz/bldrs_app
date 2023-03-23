@@ -1,11 +1,6 @@
 // ignore_for_file: always_put_control_body_on_new_line
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:ldb/ldb.dart';
-import 'package:space_time/space_time.dart';
-import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:numeric/numeric.dart';
 
 /*
 
@@ -172,60 +167,6 @@ class LDBDoc {
     langCode,
 
   ];
-  // -----------------------------------------------------------------------------
-
-  /// LDB REFRESH - DAILY WIPE
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<bool> checkShouldRefreshLDB(BuildContext context) async {
-    bool _shouldRefresh = true;
-
-    /// NOTE : if did not find last wipe dateTime => will wipe
-    /// if found and its more than {24 hours} => will wipe
-    /// if found and its less than {24 hours} => will not wipe
-
-    final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
-      ids: ['theLastWipeMap'],
-      docName: LDBDoc.theLastWipe,
-      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.theLastWipe),
-    );
-
-    if (Mapper.checkCanLoopList(_maps) == true){
-
-      final DateTime _lastWipe = Timers.decipherTime(
-          time: _maps.first['time'],
-          fromJSON: true,
-      );
-
-      double _diff = Timers.calculateTimeDifferenceInHours(
-          from: _lastWipe,
-          to: DateTime.now(),
-      )?.toDouble();
-
-      _diff = Numeric.modulus(_diff);
-
-      // blog('checkShouldRefreshLDB : _diff : $_diff < ${Standards.dailyLDBWipeIntervalInHours} hrs = ${_diff < Standards.dailyLDBWipeIntervalInHours}');
-
-      /// ONLY WHEN NOT EXCEEDED THE TIME SHOULD NOT REFRESH
-      if (_diff != null && _diff < Standards.dailyLDBWipeIntervalInHours){
-        _shouldRefresh = false;
-      }
-
-    }
-
-    await LDBOps.insertMap(
-      // allowDuplicateIDs: false,
-      docName: LDBDoc.theLastWipe,
-      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.theLastWipe),
-      input: {
-        'id': 'theLastWipeMap',
-        'time': Timers.cipherTime(time: DateTime.now(), toJSON: true),
-      },
-    );
-
-    return _shouldRefresh;
-  }
   // -----------------------------------------------------------------------------
 
   /// WIPE OUT
