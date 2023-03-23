@@ -471,7 +471,9 @@ Future<void> _refreshUserDeviceModel(BuildContext context) async {
 /// TESTED : WORKS PERFECT
 Future<void> _dailyRefreshLDB(BuildContext context) async {
 
-  final bool _shouldRefresh = await LDBDoc.checkShouldRefreshLDB(context);
+  final bool _shouldRefresh = await LDBOps.checkShouldRefreshLDB(
+    // refreshDurationInHours: Standards.dailyLDBWipeIntervalInHours,
+  );
 
   if (_shouldRefresh == true){
 

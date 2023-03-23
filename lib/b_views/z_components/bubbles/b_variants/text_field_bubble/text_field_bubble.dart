@@ -33,7 +33,7 @@ class BldrsTextFieldBubble extends StatelessWidget {
     this.bubbleColor = Colorz.white10,
     this.onBubbleTap,
     this.isLoading = false,
-    this.isError = false,
+    // this.isError = false,
     this.columnChildren,
     this.onSubmitted,
     this.textSize = 2,
@@ -70,7 +70,7 @@ class BldrsTextFieldBubble extends StatelessWidget {
   final Color bubbleColor;
   final Function onBubbleTap;
   final bool isLoading;
-  final bool isError;
+  // final bool isError;
   final List<Widget> columnChildren;
   final int textSize;
   final int minLines;
@@ -180,7 +180,7 @@ class BldrsTextFieldBubble extends StatelessWidget {
       fieldTextWeight: SuperVerse.superVerseWeight(VerseWeight.thin),
       hintText: Verse.bakeVerseToString(context: context, verse: hintVerse),
       initialText: initialText,
-      isError: isError,
+      // isError: isError,
       isLoading: isLoading,
       leadingIcon: leadingIcon,
       leadingIconSizeFactor: _leadingIconSizeFactor(leadingIcon),
