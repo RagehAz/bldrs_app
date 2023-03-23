@@ -35,6 +35,7 @@ flu# Miscellaneous
 # Android related
 **/android/key.properties
 **/android/app/key.jks
+**/.gradle
 
 # Web related
 lib/generated_plugin_registrant.dart
