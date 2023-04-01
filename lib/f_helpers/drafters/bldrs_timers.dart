@@ -246,8 +246,8 @@ class BldrsTimers {
       hour: _dateTimeReceived.hour,
       minute: _dateTimeReceived.minute,
       second: _dateTimeReceived.second,
-      millisecond: 0,
-      microsecond: 0,
+      // millisecond: 0,
+      // microsecond: 0,
     );
 
     final String _timezone = _InternetUTCTimeMap['timezone'];
