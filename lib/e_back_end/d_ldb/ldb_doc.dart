@@ -1,5 +1,4 @@
 // ignore_for_file: always_put_control_body_on_new_line
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:ldb/ldb.dart';
 
 /*
@@ -125,42 +124,42 @@ class LDBDoc {
   /// ALL DOCS LIST
 
   // --------------------
-  static const List<dynamic> allDocs = <dynamic>[
-    Verse(id: 'Main', translate: false),
+  static const List<String> allDocs = <String>[
+    'headline: Main',
     flyers,
     bzz,
     notes,
     pics,
     pdfs,
 
-    Verse(id: 'User', translate: false),
+    'headline :User',
     users,
     authModel,
     accounts,
 
-    Verse(id: 'Chains', translate: false),
+    'headline: Chains',
     bldrsChains,
     pickers,
 
-    Verse(id: 'Zones', translate: false),
+    'headline: Zones',
     countries,
     cities,
     districts,
     staging,
     census,
 
-    Verse(id: 'Phrases', translate: false),
+    'headline: Phrases',
     mainPhrases,
     countriesPhrases,
 
-    Verse(id: 'Editors', translate: false),
+    'headline: Editors',
     userEditor,
     bzEditor,
     authorEditor,
     flyerMaker,
     reviewEditor,
 
-    Verse(id: 'Settings', translate: false),
+    'headline: Settings',
     theLastWipe,
     appState,
     appControls,
