@@ -2,6 +2,7 @@ import 'package:bldrs/b_views/z_components/buttons/wide_button.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/x_dashboard/backend_lab/affiliate_tests/affiliate_test_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/cache_viewer/cache_viewer_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/cloud_tests/cloud_functions_test.dart';
@@ -12,7 +13,6 @@ import 'package:bldrs/x_dashboard/backend_lab/fire_tests/fire_storage_test.dart'
 import 'package:bldrs/x_dashboard/backend_lab/fire_tests/pagination_test_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/fire_tests/streaming_test.dart';
 import 'package:bldrs/x_dashboard/backend_lab/google_ads_test/google_ads_test_screen.dart';
-import 'package:bldrs/x_dashboard/backend_lab/ldb_viewer/ldb_manager_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/permissions_tests/permissions_test_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/protocols_tester/protocols_tester_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/real_tests/real_http_test_screen.dart';
@@ -24,6 +24,7 @@ import 'package:bldrs/x_dashboard/zz_widgets/dashboard_layout.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
+import 'package:ldb/ldb.dart';
 
 class BackendLabHome extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -47,7 +48,9 @@ class BackendLabHome extends StatelessWidget {
           onTap: () async {
             await Nav.goToNewScreen(
               context: context,
-              screen: const LDBViewersScreen(),
+              screen: const LDBBrowserScreen(
+                docs: LDBDoc.allDocs,
+              ),
             );
           },
         ),
