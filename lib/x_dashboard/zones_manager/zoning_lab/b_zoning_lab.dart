@@ -18,7 +18,6 @@ import 'package:bldrs/b_views/z_components/buttons/wide_button.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/pages_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:night_sky/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/super_headline.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/json/currency_json_ops.dart';
@@ -33,13 +32,14 @@ import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/sta
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/real/staging_real_ops.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/x_dashboard/backend_lab/ldb_viewer/ldb_manager_screen.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
 import 'package:fire/fire.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
+import 'package:ldb/ldb.dart';
 import 'package:mapper/mapper.dart';
+import 'package:night_sky/night_sky.dart';
 import 'package:real/real.dart';
 import 'package:scale/scale.dart';
 import 'package:stringer/stringer.dart';
@@ -460,7 +460,7 @@ class _ZoningLabState extends State<ZoningLab> {
                   verse: Verse.plain('LDB Insert cities'),
                   onTap: () async {
 
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.cities);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.cities);
 
 
                     final List<CityModel> _cities = await CityRealOps.readCountryCities(
@@ -470,7 +470,7 @@ class _ZoningLabState extends State<ZoningLab> {
                       cities: _cities,
                     );
 
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.cities);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.cities);
 
                   },
                 ),
@@ -480,7 +480,7 @@ class _ZoningLabState extends State<ZoningLab> {
                   verse: Verse.plain('LDB READ cities'),
                   onTap: () async {
 
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.cities);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.cities);
 
                     final List<CityModel> _cities = await CityLDBOps.readCities(
                       citiesIDs: [
@@ -504,7 +504,7 @@ class _ZoningLabState extends State<ZoningLab> {
                   verse: Verse.plain('fetch Cities Of Country By Stagee'),
                   onTap: () async {
 
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.cities);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.cities);
 
                     final List<CityModel> _cities = await ZoneProtocols.fetchCitiesOfCountry(
                       countryID: 'egy',
@@ -513,7 +513,7 @@ class _ZoningLabState extends State<ZoningLab> {
 
                     CityModel.blogCities(_cities);
 
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.cities);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.cities);
 
                   },
                 ),
@@ -731,7 +731,7 @@ class _ZoningLabState extends State<ZoningLab> {
                   color: Colorz.green255,
                   onTap: () async {
 
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.districts);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.districts);
 
                     final List<DistrictModel> _diss = await DistrictRealOps.readCityDistricts(
                       cityID: 'egy+alexandria',
@@ -740,7 +740,7 @@ class _ZoningLabState extends State<ZoningLab> {
                       districtModel: _diss.first,
                     );
 
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.districts);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.districts);
 
                   },
                 ),
@@ -751,7 +751,7 @@ class _ZoningLabState extends State<ZoningLab> {
                   color: Colorz.green255,
                   onTap: () async {
 
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.districts);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.districts);
 
                     final List<DistrictModel> _diss = await DistrictRealOps.readCityDistricts(
                       cityID: 'egy+alexandria',
@@ -761,7 +761,7 @@ class _ZoningLabState extends State<ZoningLab> {
                       districts: _diss,
                     );
 
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.districts);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.districts);
 
                   },
                 ),
@@ -880,7 +880,7 @@ class _ZoningLabState extends State<ZoningLab> {
                   verse: Verse.plain('FETCH DISTRICT'),
                   onTap: () async {
 
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.districts);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.districts);
 
                     final DistrictModel _district = await ZoneProtocols.fetchDistrict(
                       districtID: null,// 'egy+alexandria+victoriaXXXXX',
@@ -888,7 +888,7 @@ class _ZoningLabState extends State<ZoningLab> {
 
                     _district?.blogDistrict();
 
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.districts);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.districts);
 
                   },
                 ),
@@ -898,7 +898,7 @@ class _ZoningLabState extends State<ZoningLab> {
                   verse: Verse.plain('FETCH multiple DISTRICTs'),
                   onTap: () async {
 
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.districts);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.districts);
 
                     final List<DistrictModel> _districts = await ZoneProtocols.fetchDistricts(
                       districtsIDs: null,
@@ -913,7 +913,7 @@ class _ZoningLabState extends State<ZoningLab> {
 
                     blog('fetched : ${_districts?.length} districts');
 
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.districts);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.districts);
 
                   },
                 ),
@@ -923,7 +923,7 @@ class _ZoningLabState extends State<ZoningLab> {
                   verse: Verse.plain('FETCH CITY DISTRICTS BY STAGE'),
                   onTap: () async {
 
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.districts);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.districts);
 
                     blog('fetched should get all');
 
@@ -939,7 +939,7 @@ class _ZoningLabState extends State<ZoningLab> {
 
                     blog('fetched : ${_districts?.length} districts');
 
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.districts);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.districts);
 
                   },
                 ),
@@ -952,7 +952,7 @@ class _ZoningLabState extends State<ZoningLab> {
                   verse: Verse.plain('FETCH CITY DISTRICTS BY STAGE'),
                   onTap: () async {
 
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.districts);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.districts);
 
                     blog('fetched should get all');
 
@@ -966,7 +966,7 @@ class _ZoningLabState extends State<ZoningLab> {
 
                     blog('fetched : ${_districts?.length} districts');
 
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.districts);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.districts);
 
                   },
                 ),
@@ -1031,9 +1031,9 @@ class _ZoningLabState extends State<ZoningLab> {
                   verse: Verse.plain('FETCH countries Staging'),
                   onTap: () async {
 
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.staging);
                     await StagingProtocols.fetchCountriesStaging();
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.staging);
 
                   },
                 ),
@@ -1043,9 +1043,9 @@ class _ZoningLabState extends State<ZoningLab> {
                   verse: Verse.plain('RE-FETCH countries Staging'),
                   onTap: () async {
 
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.staging);
                     await StagingProtocols.refetchCountiesStaging();
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.staging);
 
                   },
                 ),
@@ -1115,9 +1115,9 @@ class _ZoningLabState extends State<ZoningLab> {
                   verse: Verse.plain('FETCH Cities Staging'),
                   onTap: () async {
 
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.staging);
                     await StagingProtocols.fetchCitiesStaging(countryID: 'kwt');
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.staging);
 
                   },
                 ),
@@ -1127,9 +1127,9 @@ class _ZoningLabState extends State<ZoningLab> {
                   verse: Verse.plain('re-FETCH Cities Staging'),
                   onTap: () async {
 
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.staging);
                     await StagingProtocols.refetchCitiesStaging(countryID: 'kwt');
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.staging);
 
                   },
                 ),
@@ -1190,9 +1190,9 @@ class _ZoningLabState extends State<ZoningLab> {
                   verse: Verse.plain('FETCH DISTRICTS Staging'),
                   onTap: () async {
 
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.staging);
                     await StagingProtocols.fetchDistrictsStaging(cityID: 'egy+cairo');
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.staging);
 
                   },
                 ),
@@ -1202,9 +1202,9 @@ class _ZoningLabState extends State<ZoningLab> {
                   verse: Verse.plain('re-FETCH DISTRICTS Staging'),
                   onTap: () async {
 
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.staging);
                     await StagingProtocols.refetchDistrictsStaging(cityID: 'egy+cairo');
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.staging);
 
                   },
                 ),
@@ -1237,10 +1237,10 @@ class _ZoningLabState extends State<ZoningLab> {
                   // isActive: true,
                   onTap: () async {
 
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.staging);
                     final Staging _staging = await StagingRealOps.readCountriesStaging();
                     await StagingLDBOps.insertStaging(staging: _staging);
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.staging);
 
                   },
                 ),
@@ -1263,9 +1263,9 @@ class _ZoningLabState extends State<ZoningLab> {
                     // isActive: true,
                     onTap: () async {
 
-                      await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
+                      await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.staging);
                       await StagingLDBOps.deleteStaging(id: Staging.countriesStagingId);
-                      await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
+                      await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.staging);
 
                     }
                 ),
@@ -1276,9 +1276,9 @@ class _ZoningLabState extends State<ZoningLab> {
                     // isActive: true,
                     onTap: () async {
 
-                      await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
+                      await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.staging);
                       await StagingLDBOps.deleteStagings(ids: [Staging.countriesStagingId]);
-                      await LDBViewersScreen.goToLDBViewer(context, LDBDoc.staging);
+                      await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.staging);
 
                     }
                 ),

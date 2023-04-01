@@ -11,7 +11,6 @@ import 'package:bldrs/b_views/z_components/buttons/wide_button.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/pages_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:night_sky/night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/super_headline.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
@@ -20,13 +19,13 @@ import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/cens
 import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/census_protocols/real/census_real_ops.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/x_dashboard/backend_lab/ldb_viewer/ldb_manager_screen.dart';
 import 'package:bldrs/x_dashboard/zzz_exotic_methods/exotic_methods.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:ldb/ldb.dart';
+import 'package:night_sky/night_sky.dart';
 import 'package:scale/scale.dart';
 
 class CensusLabScreen extends StatefulWidget {
@@ -526,10 +525,10 @@ class _CensusLabScreenState extends State<CensusLabScreen> {
                   verse: Verse.plain('FETCH planet census'),
                   onTap: () async {
 
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.census);
                     final CensusModel _census = await CensusProtocols.fetchPlanetCensus();
                     _census.blogCensus();
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.census);
 
                   },
                 ),
@@ -544,12 +543,12 @@ class _CensusLabScreenState extends State<CensusLabScreen> {
                   verse: Verse.plain('FETCH Countries censuses by IDs'),
                   onTap: () async {
 
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.census);
                     final List<CensusModel> _censuses = await CensusProtocols.fetchCountriesCensusesByIDs(
                       countriesIDs: ['egy', 'kwt'],
                     );
                     CensusModel.blogCensuses(censuses: _censuses);
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.census);
 
 
                   },
@@ -560,10 +559,10 @@ class _CensusLabScreenState extends State<CensusLabScreen> {
                   verse: Verse.plain('REFETCH all available Countries censuses by IDs'),
                   onTap: () async {
 
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.census);
                     final List<CensusModel> _censuses = await CensusProtocols.refetchAllAvailableCountriesCensuses();
                     CensusModel.blogCensuses(censuses: _censuses);
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.census);
 
 
                   },
@@ -575,9 +574,9 @@ class _CensusLabScreenState extends State<CensusLabScreen> {
                   verse: Verse.plain('REFETCH Country Census'),
                   onTap: () async {
 
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.census);
                     await CensusProtocols.refetchCountryCensus(countryID: 'egy');
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.census);
 
 
                   },
@@ -596,7 +595,7 @@ class _CensusLabScreenState extends State<CensusLabScreen> {
                       docName: LDBDoc.census,
                       primaryKey: LDBDoc.getPrimaryKey(LDBDoc.census),
                     );
-                    await LDBViewersScreen.goToLDBViewer(context, LDBDoc.census);
+                    await LDBBrowserScreen.goToLDBViewer(context, LDBDoc.census);
 
                   },
                 ),
