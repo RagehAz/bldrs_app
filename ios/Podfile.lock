@@ -930,8 +930,9 @@ PODS:
   - nanopb/encode (2.30908.0)
   - package_info_plus (0.4.5):
     - Flutter
-  - path_provider_ios (0.0.1):
+  - path_provider_foundation (0.0.1):
     - Flutter
+    - FlutterMacOS
   - permission_handler_apple (9.0.4):
     - Flutter
   - photo_manager (2.0.0):
@@ -984,7 +985,7 @@ DEPENDENCIES:
   - just_audio (from `.symlinks/plugins/just_audio/ios`)
   - location (from `.symlinks/plugins/location/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
-  - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
+  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/ios`)
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
   - photo_manager (from `.symlinks/plugins/photo_manager/ios`)
   - share (from `.symlinks/plugins/share/ios`)
@@ -1090,8 +1091,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/location/ios"
   package_info_plus:
     :path: ".symlinks/plugins/package_info_plus/ios"
-  path_provider_ios:
-    :path: ".symlinks/plugins/path_provider_ios/ios"
+  path_provider_foundation:
+    :path: ".symlinks/plugins/path_provider_foundation/ios"
   permission_handler_apple:
     :path: ".symlinks/plugins/permission_handler_apple/ios"
   photo_manager:
@@ -1168,7 +1169,7 @@ SPEC CHECKSUMS:
   location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   package_info_plus: 6c92f08e1f853dc01228d6f553146438dafcd14e
-  path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
+  path_provider_foundation: 37748e03f12783f9de2cb2c4eadfaa25fe6d4852
   permission_handler_apple: 44366e37eaf29454a1e7b1b7d736c2cceaeb17ce
   photo_manager: 4f6810b7dfc4feb03b461ac1a70dacf91fba7604
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
