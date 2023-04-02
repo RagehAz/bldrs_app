@@ -13,6 +13,7 @@
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		7B2508E929752E0B009192AC /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2508E829752E0B009192AC /* NotificationService.m */; };
 		7B2508ED29752E0B009192AC /* ImageNotification.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7B2508E529752E0B009192AC /* ImageNotification.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7BA6402F29D9EAE300FA2BDD /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2508E829752E0B009192AC /* NotificationService.m */; };
 		7BF863472964AD860000768A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7BF863462964AD850000768A /* GoogleService-Info.plist */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
@@ -387,6 +388,7 @@
 			files = (
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
+				7BA6402F29D9EAE300FA2BDD /* NotificationService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
