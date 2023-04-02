@@ -12,6 +12,23 @@
         && rm -rf ios/Pods ios/Runner.xcworkspace \
         && flutter build ios --build-name=1.0.0 --build-number=1 --release --dart-define=MY_APP_ENV=prod
  */
+
+/*
+
+// on ios error : No such module 'Flutter' : Xcode 13.2.1
+
+// delete ios/Pods
+// delete ios/Podfile.lock
+// delete pubspec.lock
+// flutter clean
+// flutter pub get
+// pod deintegrate
+// pod install
+// flutter build ios-framework --output=Flutter
+(if you wanna create Release Files, you should use command "flutter build ios-framework --no-debug --no-profile --release --output=Flutter").
+
+ */
+
 // -----------------------------------------------------------------------------
 
 /// CREATE ANDROID KEYSTORE
@@ -68,6 +85,11 @@ git remote add origin https://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@github.co
 git remote add origin https://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@github.com/Bldrs-net/bldrs.net.git
 
 git remote remove origin
+
+// to remove committed file from current commits
+// add folder/file path to .gitignore
+// run git reset <path>
+
  */
 // -----------------------------------------------------------------------------
 

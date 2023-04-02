@@ -48,3 +48,6 @@ app.*.symbols
 app.*.map.json
 
 node_modules/
+/ios/build/
+/Flutter
+/Flutter/Debug

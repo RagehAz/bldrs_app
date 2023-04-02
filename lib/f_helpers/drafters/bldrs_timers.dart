@@ -236,98 +236,76 @@ class BldrsTimers {
     Function onRestart,
   }) async {
 
-    final Map<String, dynamic> _InternetUTCTimeMap = await getInternetUTCTime();
+    int _diff;
+    DateTime _internetTime;
+    DateTime _deviceTime;
+    String _timezone;
 
-    final DateTime _dateTimeReceived = _InternetUTCTimeMap['dateTime'];
-    final DateTime _dateTime = Timers.createDateTime(
-      year: _dateTimeReceived.year,
-      month: _dateTimeReceived.month,
-      day: _dateTimeReceived.day,
-      hour: _dateTimeReceived.hour,
-      minute: _dateTimeReceived.minute,
-      second: _dateTimeReceived.second,
-      // millisecond: 0,
-      // microsecond: 0,
+    final bool _isTolerable = await InternetTime.checkDeviceTimeIsAcceptable(
+      internetTime: (InternetTime time){
+        _internetTime = time?.utc_datetime?.toLocal();
+        _timezone = time?.timezone;
+        },
+      deviceTime: (DateTime time){_deviceTime = time;},
+      diff: (int diff){_diff = diff;},
     );
+    
+    if (showIncorrectTimeDialog == true && _isTolerable == false){
 
-    final String _timezone = _InternetUTCTimeMap['timezone'];
+      Timers.blogDateTime(_deviceTime);
+      Timers.blogDateTime(_internetTime);
+      blog('checkDeviceTimeIsCorrect : _diff : ( $_diff ) : _isTolerable : $_isTolerable');
 
-    final DateTime _now = DateTime.now();
-
-    bool _isCorrect = Timers.checkTimesAreIdentical(
-      accuracy: TimeAccuracy.minute,
-      time1: _now,
-      time2: _dateTime,
-    );
-
-    if (showIncorrectTimeDialog == true && _isCorrect == false){
-
-      final int _diff = Timers.calculateTimeDifferenceInMinutes(from: _now, to: _dateTime);
-      final double _num = Numeric.modulus(_diff.toDouble());
-      final bool _differenceIsBig = _num > 2;
-
-      if (_differenceIsBig == true){
-        Timers.blogDateTime(_now);
-        Timers.blogDateTime(_dateTime);
-        blog('calculateTimeDifferenceInMinutes : ${_now.minute - _dateTime.minute}');
-        blog('checkDeviceTimeIsCorrect : _diff : ( $_diff ) : modulus : $_num : _differenceIsBig : $_differenceIsBig');
-
-        /*
-        case
-            [log] BLOGGING DATE TIME : 2022-10-11 13:27:29.139045
-            [log] BLOGGING DATE TIME : 2022-10-11 13:28:10.320371Z
-            [log] calculateTimeDifferenceInMinutes : -1
-         */
-
-        final String _dd_month_yyy_actual = translate_dd_month_yyyy(context: context,
-            time: _dateTime);
-        final String _hh_i_mm_ampm_actual = Timers.generateString_hh_i_mm_ampm(time: _dateTime);
-
-        final String _dd_month_yyy_device = translate_dd_month_yyyy(context: context, time: _now);
-        final String _hh_i_mm_ampm_device = Timers.generateString_hh_i_mm_ampm(time: _now);
-
-        Verse _zoneLine = ZoneModel.generateInZoneVerse(
-            context: context,
-            zoneModel: ZoneProvider.proGetCurrentZone(context: context, listen: false),
-        );
-        _zoneLine = _zoneLine.id != '...' ? _zoneLine : Verse(
-          /// PLAN : THIS NEEDS TRANSLATION : IN COMES LIKE THIS 'Africa/Cairo'
-          id: 'in $_timezone',
-          translate: false,
-        );
-
-        await CenterDialog.showCenterDialog(
+      final String _dd_month_yyy_actual = translate_dd_month_yyyy(
           context: context,
-          titleVerse: const Verse(
-            id: 'phid_device_time_incorrect',
-            translate: true,
-          ),
-          bodyVerse: Verse(
-            // pseudo: 'Please adjust you device clock and restart again\n\n$_secondLine\n$_thirdLine',
-              id: '${xPhrase(context, 'phid_adjust_your_clock')}\n\n'
-                    '${xPhrase(context, 'phid_actual_clock')}\n'
-                    '${_zoneLine.id}\n'
-                    '$_dd_month_yyy_actual . $_hh_i_mm_ampm_actual\n\n'
-                    '${xPhrase(context, 'phid_your_clock')}\n'
-                    '$_dd_month_yyy_device . $_hh_i_mm_ampm_device',
-              translate: false,
-          ),
-          confirmButtonVerse: const Verse(
-            id: 'phid_i_will_adjust_clock',
-            translate: true,
-          ),
-          onOk: onRestart,
-        );
+          time: _internetTime,
+      );
+      final String _hh_i_mm_ampm_actual = Timers.generateString_hh_i_mm_ampm(
+          time: _internetTime,
+      );
+      final String _dd_month_yyy_device = translate_dd_month_yyyy(
+          context: context, 
+          time: _deviceTime,
+      );
+      final String _hh_i_mm_ampm_device = Timers.generateString_hh_i_mm_ampm(
+          time: _deviceTime
+      );
+      Verse _zoneLine = ZoneModel.generateInZoneVerse(
+        context: context,
+        zoneModel: ZoneProvider.proGetCurrentZone(context: context, listen: false),
+      );
+      _zoneLine = _zoneLine.id != '...' ? _zoneLine : Verse(
+        /// PLAN : THIS NEEDS TRANSLATION : IN COMES LIKE THIS 'Africa/Cairo'
+        id: 'in $_timezone',
+        translate: false,
+      );
 
-      }
-
-      else {
-        _isCorrect = true;
-      }
+      await CenterDialog.showCenterDialog(
+        context: context,
+        titleVerse: const Verse(
+          id: 'phid_device_time_incorrect',
+          translate: true,
+        ),
+        bodyVerse: Verse(
+          // pseudo: 'Please adjust you device clock and restart again\n\n$_secondLine\n$_thirdLine',
+          id: '${xPhrase(context, 'phid_adjust_your_clock')}\n\n'
+              '${xPhrase(context, 'phid_actual_clock')}\n'
+              '${_zoneLine.id}\n'
+              '$_dd_month_yyy_actual . $_hh_i_mm_ampm_actual\n\n'
+              '${xPhrase(context, 'phid_your_clock')}\n'
+              '$_dd_month_yyy_device . $_hh_i_mm_ampm_device',
+          translate: false,
+        ),
+        confirmButtonVerse: const Verse(
+          id: 'phid_i_will_adjust_clock',
+          translate: true,
+        ),
+        onOk: onRestart,
+      );
 
     }
 
-    return _isCorrect;
+    return _isTolerable;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
