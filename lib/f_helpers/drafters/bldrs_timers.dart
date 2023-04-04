@@ -1,6 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
 import 'dart:convert';
-
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -9,12 +8,14 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zo
 import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:numeric/numeric.dart';
 import 'package:rest/rest.dart';
 import 'package:space_time/space_time.dart';
+import 'package:app_settings/app_settings.dart';
 
 class BldrsTimers {
   // -----------------------------------------------------------------------------
@@ -302,6 +303,11 @@ class BldrsTimers {
         ),
         onOk: onRestart,
       );
+
+      if (kIsWeb == false){
+          await AppSettings.openDateSettings();
+      }
+
 
     }
 
