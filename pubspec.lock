@@ -42,6 +42,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.12.29"
+  app_settings:
+    dependency: "direct main"
+    description:
+      name: app_settings
+      sha256: "66715a323ac36d6c8201035ba678777c0d2ea869e4d7064300d95af10c3bb8cb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.2.0"
   archive:
     dependency: transitive
     description:
@@ -79,10 +87,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "725f726045fce7ab2af9177e0b6863f89a733302"
+      resolved-ref: a7f90523239ca7d8e8c596b032e111e2e167b8bf
       url: "https://github.com/RagehAz/authing.git"
     source: git
-    version: "0.0.1"
+    version: "0.0.4"
   awesome_notifications:
     dependency: "direct main"
     description:
@@ -91,15 +99,24 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.21"
+  bldrs_keywords:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: e7138682d1a182a8fe714d6fa4a91effc290bf99
+      url: "https://github.com/RagehAz/bldrs_keywords.git"
+    source: git
+    version: "0.0.1"
   bldrs_theme:
     dependency: "direct main"
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "15e129a47023d1217c9778d5b4661f6f3afcc860"
+      resolved-ref: "5acfee43bbd232a6bf656dab8f28cbe14bcd2722"
       url: "https://github.com/RagehAz/bldrs_theme.git"
     source: git
-    version: "1.0.5"
+    version: "1.0.7"
   boolean_selector:
     dependency: transitive
     description:
@@ -351,6 +368,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.8"
+  desktop_webview_auth:
+    dependency: transitive
+    description:
+      name: desktop_webview_auth
+      sha256: "9de17601e1521b7cc2de1c5538e92f64833da668cba101bf11b2f61ce652becc"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.11"
   device_info_plus:
     dependency: "direct main"
     description:
@@ -453,10 +478,10 @@ packages:
     dependency: "direct main"
     description:
       name: file_picker
-      sha256: d8e9ca7e5d1983365c277f12c21b4362df6cf659c99af146ad4d04eb33033013
+      sha256: "0d923fb610d0abf67f2149c3a50ef85f78bebecfc4d645719ca70bcf4abc788f"
       url: "https://pub.dev"
     source: hosted
-    version: "5.2.6"
+    version: "5.2.7"
   filers:
     dependency: "direct main"
     description:
@@ -635,6 +660,62 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.4.0"
+  firebase_ui_auth:
+    dependency: transitive
+    description:
+      name: firebase_ui_auth
+      sha256: e41967dbd19559ed8a82da226be1b21865fa1bbcc727fd046a0486452ab54e28
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
+  firebase_ui_localizations:
+    dependency: transitive
+    description:
+      name: firebase_ui_localizations
+      sha256: "776ba1ae30c5a493df1486cb0f880f7d69a976271d5aff490d1de7757b978201"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.3.0"
+  firebase_ui_oauth:
+    dependency: transitive
+    description:
+      name: firebase_ui_oauth
+      sha256: "768e8a9971069e2f2d0b1143716386de4281b1ec2642bb6a1097e02d38d2aa31"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
+  firebase_ui_oauth_apple:
+    dependency: transitive
+    description:
+      name: firebase_ui_oauth_apple
+      sha256: d9862722f197345fc8982d58cfb3ec3c362f8b6f5cb7ac93212eaef6b42e7b21
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
+  firebase_ui_oauth_facebook:
+    dependency: transitive
+    description:
+      name: firebase_ui_oauth_facebook
+      sha256: "51ab6929acfdb6447c8bf77a446dd17670ec1b8e8696f7d3aaa070ea887f9165"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
+  firebase_ui_oauth_google:
+    dependency: transitive
+    description:
+      name: firebase_ui_oauth_google
+      sha256: "668361377e0330e9060203279d4dfca999011a0fde2125174eff6ee6e701016e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.21"
+  firebase_ui_shared:
+    dependency: transitive
+    description:
+      name: firebase_ui_shared
+      sha256: "4bb93419733161f882227a05d34dc66ad8bd98b1e248976c37cc94a9840d7aea"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -648,6 +729,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.3.0"
+  flutter_facebook_auth:
+    dependency: transitive
+    description:
+      name: flutter_facebook_auth
+      sha256: "50dc3eef562acbe1e4cfad478053c9c16f9eaac49ad14ec48f00ed9dae1ba0cd"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.4.1+1"
+  flutter_facebook_auth_platform_interface:
+    dependency: transitive
+    description:
+      name: flutter_facebook_auth_platform_interface
+      sha256: "7950f5f8a6f2270c5d29af2a514733987db1191f70838fa777b282e47365f8c8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.0"
+  flutter_facebook_auth_web:
+    dependency: transitive
+    description:
+      name: flutter_facebook_auth_web
+      sha256: "0f732e968c929a3c11a215ded802557576230ff0a0794c88941a8e92ff07b2eb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.0"
   flutter_html:
     dependency: "direct main"
     description:
@@ -1183,10 +1288,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "3387bafad87ea519092e1cff49db3a773eff35ff"
+      resolved-ref: b8b90c1a98ee01fe198ad21579c73016efe8cf1f
       url: "https://github.com/RagehAz/mediators.git"
     source: git
-    version: "0.0.1"
+    version: "0.0.4"
   meta:
     dependency: transitive
     description:
@@ -1528,6 +1633,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.4"
+  sign_in_with_apple:
+    dependency: transitive
+    description:
+      name: sign_in_with_apple
+      sha256: ac3b113767dfdd765078c507dad9d4d9fe96b669cc7bd88fc36fc15376fb3400
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.3.0"
+  sign_in_with_apple_platform_interface:
+    dependency: transitive
+    description:
+      name: sign_in_with_apple_platform_interface
+      sha256: a5883edee09ed6be19de19e7d9f618a617fe41a6fa03f76d082dfb787e9ea18d
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
+  sign_in_with_apple_web:
+    dependency: transitive
+    description:
+      name: sign_in_with_apple_web
+      sha256: "44b66528f576e77847c14999d5e881e17e7223b7b0625a185417829e5306f47a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -1546,7 +1675,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "39c6837bd173e1cee9b444cf5b2b63702f6582ba"
+      resolved-ref: d98dee129ae349767df954067e9e37e786dda1d7
       url: "https://github.com/RagehAz/space_time.git"
     source: git
     version: "0.0.9"
@@ -1800,26 +1929,26 @@ packages:
     dependency: "direct main"
     description:
       name: video_player
-      sha256: "868a139229acb5018d22aded3eb9cb4767ff43a8216573c086b6c535a4957481"
+      sha256: de95f0e9405f29b5582573d4166132e71f83b3158aac14e8ee5767a54f4f1fbd
       url: "https://pub.dev"
     source: hosted
-    version: "2.6.0"
+    version: "2.6.1"
   video_player_android:
     dependency: transitive
     description:
       name: video_player_android
-      sha256: e7de6fabe5d96048cd8f4d710f25c3df84bb3cab8b22da6c082bd8f39e316984
+      sha256: a592048a711d5739d9cea2255d425779f138d41095b9149bda60ce4bc1af8871
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.3"
+    version: "2.4.4"
   video_player_avfoundation:
     dependency: transitive
     description:
       name: video_player_avfoundation
-      sha256: "90468226c8687adf7b567d9bb42c25588783c4d30509af1fbd663b2dd049f700"
+      sha256: af308d08c672d5ff718c60127665249617c37a709cb8f0a18dd28a0360299b7c
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.2"
+    version: "2.4.3"
   video_player_platform_interface:
     dependency: transitive
     description:
@@ -1832,10 +1961,10 @@ packages:
     dependency: transitive
     description:
       name: video_player_web
-      sha256: fb3bbeaf0302cb0c31340ebd6075487939aa1fe3b379d1a8784ef852b679940e
+      sha256: "44ce41424d104dfb7cf6982cc6b84af2b007a24d126406025bf40de5d481c74c"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.15"
+    version: "2.0.16"
   websafe_svg:
     dependency: "direct main"
     description:
@@ -1864,10 +1993,10 @@ packages:
     dependency: "direct main"
     description:
       name: wheel_chooser
-      sha256: ae15de5f7df01672024f84c0ef571a9527ee0f1ef5971fbafdbe60a5ddc2e66b
+      sha256: "3fee36f081f321c58a0b7b4afcdd92599f2ca520b3a1420084774e6b19cca1d8"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.0"
+    version: "1.1.2"
   widget_fader:
     dependency: "direct main"
     description:
