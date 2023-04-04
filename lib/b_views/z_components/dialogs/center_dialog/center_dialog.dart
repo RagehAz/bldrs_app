@@ -23,6 +23,11 @@ class CenterDialog extends StatelessWidget {
     @required this.color,
     @required this.copyOnTap,
     this.bodyCentered = true,
+    this.noVerse = const Verse(
+      id: 'phid_no',
+      translate: true,
+      casing: Casing.capitalizeFirstChar,
+    ),
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -37,6 +42,7 @@ class CenterDialog extends StatelessWidget {
   final Function onOk;
   final bool invertButtons;
   final bool copyOnTap;
+  final Verse noVerse;
   // -----------------------------------------------------------------------------
 
   /// SIZES
@@ -85,6 +91,7 @@ class CenterDialog extends StatelessWidget {
     double height,
     Widget child,
     Verse confirmButtonVerse,
+    Verse noVerse,
     Color color = Colorz.skyDarkBlue,
     Function onOk,
     bool invertButtons = false,
@@ -100,6 +107,7 @@ class CenterDialog extends StatelessWidget {
         height: height,
         boolDialog: boolDialog,
         confirmButtonVerse: confirmButtonVerse,
+        noVerse: noVerse,
         color: color ?? Colorz.skyDarkBlue,
         onOk: onOk,
         invertButtons: invertButtons,
@@ -341,11 +349,7 @@ class CenterDialog extends StatelessWidget {
                                         /// NO BUTTON
                                         if (boolDialog == true && invertButtons == false)
                                           DialogButton(
-                                            verse: const Verse(
-                                              id: 'phid_no',
-                                              translate: true,
-                                              casing: Casing.capitalizeFirstChar,
-                                            ),
+                                            verse: noVerse,
                                             color: defaultButtonColor,
                                             onTap: () => Nav.goBack(
                                                   context: xxx,
@@ -376,11 +380,7 @@ class CenterDialog extends StatelessWidget {
                                         /// NO BUTTON
                                         if (boolDialog == true && invertButtons == true)
                                           DialogButton(
-                                            verse: const Verse(
-                                              id: 'phid_no',
-                                              translate: true,
-                                              casing: Casing.capitalizeFirstChar,
-                                            ),
+                                            verse: noVerse,
                                             verseColor: Colorz.black230,
                                             color: activeButtonColor,
                                             onTap: () => Nav.goBack(
@@ -412,5 +412,5 @@ class CenterDialog extends StatelessWidget {
     );
     // --------------------
   }
-// --------------------
+  // --------------------
 }
