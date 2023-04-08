@@ -1,6 +1,6 @@
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/f_new_authorship_exit.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
@@ -196,7 +196,7 @@ class NoteFunProtocols {
 
     assert(
     TriggerModel.checkIFiredThisTrigger(trigger) == false,
-    'This user ${AuthFireOps.superUserID()} already fired this trigger ${trigger.name}',
+    'This user ${Authing.getUserID()} already fired this trigger ${trigger.name}',
     );
 
     if (trigger != null && TriggerModel.checkIFiredThisTrigger(trigger) == false){

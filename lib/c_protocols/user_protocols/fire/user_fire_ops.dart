@@ -1,10 +1,8 @@
 import 'dart:async';
-
-import 'package:bldrs/a_models/a_user/auth_model.dart';
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/x_secondary/app_state.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:filers/filers.dart';
@@ -26,7 +24,7 @@ class UserFireOps {
   /// TESTED : WORKS PERFECT
   static Future<void> createUser({
     @required UserModel userModel,
-    @required AuthType authBy,
+    @required SignInMethod signInMethod,
   }) async {
 
     await Fire.updateDoc(
@@ -122,7 +120,7 @@ class UserFireOps {
 
       if (TextCheck.isEmpty(_newEmail) == false){
 
-        final bool _success = await AuthFireOps.updateUserEmail(
+        final bool _success = await EmailAuthing.updateUserEmail(
           newEmail: _newEmail,
         );
 
@@ -130,6 +128,7 @@ class UserFireOps {
         if (_success == true){
           /// keep new UserModel as is with the new email defined in it
         }
+
         else {
           /// refactor the new UserModel with the old email
           final ContactModel _oldEmailContact = ContactModel.getContactFromContacts(
@@ -199,7 +198,7 @@ class UserFireOps {
 
 
     /// DELETE FIREBASE USER
-    await AuthFireOps.deleteFirebaseUser(
+    await Authing.deleteFirebaseUser(
       userID: _userModel.id,
     );
 

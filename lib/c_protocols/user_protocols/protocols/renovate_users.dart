@@ -1,14 +1,11 @@
 import 'dart:async';
-
-import 'package:bldrs/a_models/a_user/auth_model.dart';
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
-import 'package:bldrs/c_protocols/auth_protocols/ldb/auth_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/real/bz_record_real_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/real/flyer_record_real_ops.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
@@ -117,29 +114,14 @@ class RenovateUserProtocols {
 
     if (_modelsAreIdentical == false){
 
-      AuthModel _authModel = await AuthLDBOps.readAuthModel();
-      _authModel = _authModel?.copyWith(
-        userModel: newUser,
-      );
-
-      await Future.wait(<Future>[
-
-        /// UPDATE LDB USER MODEL
-        UserLDBOps.updateUserModel(newUser),
-
-        /// UPDATE LDB AUTHOR MODEL
-        if (UserModel.checkItIsMe(newUser.id) == true)
-          AuthLDBOps.updateAuthModel(_authModel),
-
-      ]);
-
       /// UPDATE PRO USER AND AUTH MODELS
       if (UserModel.checkItIsMe(newUser.id) == true){
-        UsersProvider.proSetMyUserAndAuthModels(
-          context: getContext(),
-          userModel: newUser,
-          notify: true,
-        );
+
+        /// UPDATE LDB USER MODEL
+        await UserLDBOps.updateUserModel(newUser);
+
+        UsersProvider.proSetMyUserModel(userModel: newUser, notify: true);
+
       }
 
     }
@@ -385,7 +367,7 @@ class RenovateUserProtocols {
 
     // blog('refreshUserDeviceModel START');
 
-    if (AuthModel.userIsSignedIn() == true){
+    if (Authing.userIsSignedIn() == true){
 
       /// TASK : UNSUBSCRIBING FROM TOKEN INSTRUCTIONS
       /*

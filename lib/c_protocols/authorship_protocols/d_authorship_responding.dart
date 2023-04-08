@@ -1,8 +1,9 @@
 import 'dart:async';
 
+import 'package:authing/authing.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
 import 'package:bldrs/b_views/f_bz/c_author_editor_screen/a_author_editor_screen.dart';
@@ -11,14 +12,13 @@ import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
-import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/note_protocols/fire/note_fire_ops.dart';
+import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
+import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
 import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
 /// => TAMAM
 class AuthorshipRespondingProtocols{
   // -----------------------------------------------------------------------------
@@ -44,7 +44,7 @@ class AuthorshipRespondingProtocols{
 
     final bool _imPendingAuthor = PendingAuthor.checkIsPendingAuthor(
         bzModel: _bzModel,
-        userID: AuthFireOps.superUserID(),
+        userID: Authing.getUserID(),
     );
 
     /// INVITATION HAS BEEN CANCELLED
@@ -191,7 +191,7 @@ class AuthorshipRespondingProtocols{
 
     final bool _imPendingAuthor = PendingAuthor.checkIsPendingAuthor(
         bzModel: bzModel,
-        userID: AuthFireOps.superUserID(),
+        userID: Authing.getUserID(),
     );
 
     assert(
@@ -238,7 +238,7 @@ class AuthorshipRespondingProtocols{
 
     final AuthorModel _authorModel = AuthorModel.getAuthorFromAuthorsByID(
       authors: _bzModel.authors,
-      authorID: AuthFireOps.superUserID(),
+      authorID: Authing.getUserID(),
     );
 
     await Nav.goToNewScreen(

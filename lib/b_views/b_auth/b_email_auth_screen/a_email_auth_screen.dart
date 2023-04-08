@@ -5,7 +5,7 @@ import 'package:bldrs/b_views/b_auth/b_email_auth_screen/aa_email_auth_screen_vi
 import 'package:bldrs/b_views/b_auth/x_auth_controllers.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:night_sky/night_sky.dart';
-import 'package:bldrs/c_protocols/auth_protocols/ldb/account_ldb_ops.dart';
+import 'package:bldrs/c_protocols/auth_protocols/account_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:filers/filers.dart';
@@ -137,7 +137,6 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
       _switchOnValidation();
 
       await authByEmailSignIn(
-        context: context,
         email: _emailController.text,
         password: _passwordController.text,
         formKey: _formKey,
@@ -160,12 +159,12 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
       _switchOnValidation();
 
       await authByEmailRegister(
-        context: context,
         email: _emailController.text,
         password: _passwordController.text,
         passwordConfirmation: _confirmPasswordController.text,
         formKey: _formKey,
         rememberMe: _isRememberingMe.value,
+        mounted: mounted,
       );
 
     }

@@ -1,5 +1,5 @@
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/review_protocols/fire/review_fire_ops.dart';
 import 'package:real/real.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
@@ -87,7 +87,7 @@ class RenovateReviewProtocols {
       Real.updateDocField(
           collName: RealColl.agreesOnReviews,
         docName: '${reviewModel.flyerID}/${reviewModel.id}',
-        fieldName: AuthFireOps.superUserID(),
+        fieldName: Authing.getUserID(),
           value: true,
       ),
 
@@ -121,7 +121,7 @@ class RenovateReviewProtocols {
       Real.deleteField(
         collName: RealColl.agreesOnReviews,
         docName: '${reviewModel.flyerID}/${reviewModel.id}',
-        fieldName: AuthFireOps.superUserID(),
+        fieldName: Authing.getUserID(),
       ),
 
     ]);

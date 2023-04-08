@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
@@ -14,14 +15,13 @@ import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/f_new_authorship_exit.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 
@@ -49,11 +49,11 @@ Future<void> onAuthorOptionsTap({
   @required BzModel oldBz,
 }) async {
 
-  final bool _itIsMine = AuthFireOps.superUserID() == authorModel.userID;
+  final bool _itIsMine = Authing.getUserID() == authorModel.userID;
 
   final AuthorModel _myAuthorModel = AuthorModel.getAuthorFromAuthorsByID(
       authors: oldBz.authors,
-      authorID: AuthFireOps.superUserID(),
+      authorID: Authing.getUserID(),
   );
 
   final bool _canChangeRoles = AuthorModel.checkAuthorAbility(
@@ -200,7 +200,7 @@ Future<void> onDeleteAuthorFromBz({
   @required bool sendToUserAuthorExitNote,
 }) async {
 
-  if (authorModel.userID == AuthFireOps.superUserID()){
+  if (authorModel.userID == Authing.getUserID()){
     await NewAuthorshipExit.onRemoveMySelf(
       context: context,
       authorModel: authorModel,

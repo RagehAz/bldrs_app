@@ -1,10 +1,10 @@
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
+import 'package:stringer/stringer.dart';
 
 @immutable
 class TriggerModel {
@@ -74,11 +74,11 @@ class TriggerModel {
   }){
 
     assert(noteModel != null, 'noteModel can not be null');
-    assert(AuthFireOps.superUserID() != null, 'User is not authenticated');
+    assert(Authing.getUserID() != null, 'User is not authenticated');
 
     final List<String> _updatedDone = Stringer.addStringToListIfDoesNotContainIt(
       strings: noteModel.function.done,
-      stringToAdd: AuthFireOps.superUserID(),
+      stringToAdd: Authing.getUserID(),
     );
 
     final TriggerModel _updatedTrigger = noteModel.function.copyWith(
@@ -125,7 +125,7 @@ class TriggerModel {
   /// TESTED : WORKS PERFECT
   static bool checkIFiredThisTrigger(TriggerModel trigger){
 
-    assert(AuthFireOps.superUserID() != null, 'User is not authenticated');
+    assert(Authing.getUserID() != null, 'User is not authenticated');
 
     bool _fired = false;
 
@@ -133,7 +133,7 @@ class TriggerModel {
 
       _fired = Stringer.checkStringsContainString(
           strings: trigger.done,
-          string: AuthFireOps.superUserID(),
+          string: Authing.getUserID(),
       );
 
     }

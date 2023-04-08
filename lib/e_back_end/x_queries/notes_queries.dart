@@ -1,9 +1,8 @@
 import 'dart:async';
-
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fire/fire.dart';
@@ -69,7 +68,7 @@ FireQueryModel userNotesPaginationQueryModel(){
   return FireQueryModel(
     collRef: Fire.getSuperCollRef(
       aCollName: FireColl.users,
-      bDocName: AuthFireOps.superUserID(),
+      bDocName: Authing.getUserID(),
       cSubCollName: FireSubColl.noteReceiver_receiver_notes,
     ),
     limit: 6,
@@ -87,7 +86,7 @@ Stream<QuerySnapshot<Object>> userUnseenNotesStream({
     queryModel: FireQueryModel(
         collRef: Fire.getSuperCollRef(
           aCollName: FireColl.users,
-          bDocName: AuthFireOps.superUserID(),
+          bDocName: Authing.getUserID(),
           cSubCollName: FireSubColl.noteReceiver_receiver_notes,
         ),
         limit: 100,
@@ -115,7 +114,7 @@ Stream<QuerySnapshot<Object>> userNotesWithPendingReplies({
     queryModel: FireQueryModel(
         collRef: Fire.getSuperCollRef(
           aCollName: FireColl.users,
-          bDocName: AuthFireOps.superUserID(),
+          bDocName: Authing.getUserID(),
           cSubCollName: FireSubColl.noteReceiver_receiver_notes,
         ),
         limit: 100,
@@ -139,7 +138,7 @@ FireQueryModel userNotesWithPendingRepliesQueryModel(){
   return FireQueryModel(
       collRef: Fire.getSuperCollRef(
         aCollName: FireColl.users,
-        bDocName: AuthFireOps.superUserID(),
+        bDocName: Authing.getUserID(),
         cSubCollName: FireSubColl.noteReceiver_receiver_notes,
       ),
       limit: 10,

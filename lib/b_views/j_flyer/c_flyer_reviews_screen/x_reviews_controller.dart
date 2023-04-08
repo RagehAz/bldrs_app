@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/a_user/auth_model.dart';
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
@@ -13,17 +13,16 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
 import 'package:bldrs/c_protocols/review_protocols/protocols/a_reviews_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
+import 'package:filers/filers.dart';
 import 'package:fire/fire.dart';
 import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
 import 'package:stringer/stringer.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
@@ -41,7 +40,7 @@ Future<void> loadReviewEditorLastSession({
   final ReviewModel _lastSessionReview = await FlyerLDBOps.loadReviewSession(
     reviewID: ReviewModel.createTempReviewID(
       flyerID: flyerID,
-      userID: AuthFireOps.superUserID(),
+      userID: Authing.getUserID(),
     ),
   );
 
@@ -74,10 +73,10 @@ Future<void> saveReviewEditorSession({
     review: ReviewModel(
         id: ReviewModel.createTempReviewID(
           flyerID: flyerID,
-          userID: AuthFireOps.superUserID(),
+          userID: Authing.getUserID(),
         ),
         text: reviewController.text,
-        userID: AuthFireOps.superUserID(),
+        userID: Authing.getUserID(),
         time: DateTime.now(),
         flyerID: flyerID,
         replyAuthorID: null,
@@ -104,7 +103,7 @@ Future<void> onSubmitReview({
 }) async {
 
   /// USER IS NOT SIGNED IN
-  if (AuthModel.userIsSignedIn() == false){
+  if (Authing.userIsSignedIn() == false){
     await Dialogs.youNeedToBeSignedInDialog(
       context: context,
       afterHomeRouteName: Routing.flyerReviews,
@@ -150,7 +149,7 @@ Future<void> onSubmitReview({
         FlyerLDBOps.deleteReviewSession(
           reviewID: ReviewModel.createTempReviewID(
             flyerID: flyerModel.id,
-            userID: AuthFireOps.superUserID(),
+            userID: Authing.getUserID(),
           ),
         ),
 
@@ -201,7 +200,7 @@ Future<void> onReviewAgree({
 }) async {
 
   /// USER IS NOT SIGNED IN
-  if (AuthFireOps.superUserID() == null){
+  if (Authing.getUserID() == null){
     await Dialogs.youNeedToBeSignedInDialog(
       context: context,
       afterHomeRouteName: Routing.flyerReviews,
@@ -264,7 +263,7 @@ Future<void> onReviewOptions({
                 translate: true,
               ),
               verseCentered: true,
-              isDeactivated: reviewModel.userID != AuthFireOps.superUserID(),
+              isDeactivated: reviewModel.userID != Authing.getUserID(),
               onTap: () async {
 
                 await Nav.goBack(
@@ -290,7 +289,7 @@ Future<void> onReviewOptions({
                 translate: true,
               ),
               verseCentered: true,
-              isDeactivated: reviewModel.userID != AuthFireOps.superUserID(),
+              isDeactivated: reviewModel.userID != Authing.getUserID(),
               onTap: () async {
 
                 await Nav.goBack(
@@ -519,7 +518,7 @@ Future<void> onBzReply({
 
       final ReviewModel _updated = reviewModel.copyWith(
         reply: _reply,
-        replyAuthorID: AuthFireOps.superUserID(),
+        replyAuthorID: Authing.getUserID(),
         replyTime: DateTime.now(),
       );
 
@@ -659,7 +658,7 @@ Future<void> _onEditReply({
 
     final ReviewModel _updated = reviewModel.copyWith(
       reply: _shit,
-      replyAuthorID: AuthFireOps.superUserID(),
+      replyAuthorID: Authing.getUserID(),
     );
 
     await ReviewProtocols.renovateReview(

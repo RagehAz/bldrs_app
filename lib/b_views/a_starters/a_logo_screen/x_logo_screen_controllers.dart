@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/a_user/auth_model.dart';
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/x_secondary/app_state.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
@@ -10,22 +10,21 @@ import 'package:bldrs/c_protocols/app_state_protocols/provider/general_provider.
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/real/app_state_real_ops.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/versioning/app_version.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
-import 'package:bldrs/c_protocols/auth_protocols/ldb/auth_ldb_ops.dart';
+import 'package:bldrs/c_protocols/auth_protocols/auth_ldb_ops.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
+import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
 import 'package:ldb/ldb.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
@@ -52,7 +51,7 @@ Future<void> initializeLogoScreen({
   /// USER MODEL
   await _initializeUserModel(context);
 
-  blog('2 - initializeLogoScreen : ${AuthFireOps.superUserID()}');
+  blog('2 - initializeLogoScreen : ${Authing.getUserID()}');
 
   await Future.wait(
       <Future<void>>[
@@ -156,13 +155,19 @@ Future<void> _initializeUserModel(BuildContext context) async {
   // blog('_initializeUserModel : START');
 
   /// IF USER IS SIGNED IN
-  if (AuthModel.userIsSignedIn() == true) {
+  if (Authing.userIsSignedIn() == true) {
 
     final AuthModel _authModel = await AuthLDBOps.readAuthModel();
+
+    final UserModel _userModel = await UserProtocols.fetch(
+      context: context,
+      userID: Authing.getUserID(),
+    );
 
     await setUserAndAuthModelsAndCompleteUserZoneLocally(
       context: context,
       authModel: _authModel,
+      userModel: _userModel,
       notify: false,
     );
 
@@ -181,29 +186,19 @@ Future<void> _initializeUserModel(BuildContext context) async {
 Future<void> setUserAndAuthModelsAndCompleteUserZoneLocally({
   @required BuildContext context,
   @required AuthModel authModel,
+  @required UserModel userModel,
   @required bool notify,
 }) async {
 
   // blog('setUserAndAuthModelsAndCompleteUserZoneLocally : START');
 
   /// B.3 - so sign in succeeded returning a userModel, then set it in provider
-
-  UserModel _userModel = authModel?.userModel;
-  _userModel ??= await UserProtocols.fetch(
-    context: context,
-    userID: AuthFireOps.superUserID(),
-  );
-
-  UsersProvider.proSetMyUserAndAuthModels(
-    context: context,
-    userModel: _userModel,
-    authModel: authModel,
-    notify: notify,
-  );
+  UsersProvider.proSetMyAuthModel(authModel: authModel, notify: false);
+  UsersProvider.proSetMyUserModel(userModel: userModel, notify: notify);
 
   /// INSERT AUTH AND USER MODEL IN LDB
   await AuthLDBOps.updateAuthModel(authModel);
-  await UserLDBOps.updateUserModel(authModel?.userModel);
+  await UserLDBOps.updateUserModel(userModel);
 
   // blog('setUserAndAuthModelsAndCompleteUserZoneLocally : END');
 
@@ -220,7 +215,7 @@ Future<void> _initializeAppState(BuildContext context) async {
 
   // blog('_initializeAppState : START');
 
-  if (AuthModel.userIsSignedIn() == true){
+  if (Authing.userIsSignedIn() == true){
 
     final AppState _globalState = await AppStateRealOps.readGlobalAppState();
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
