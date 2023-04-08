@@ -72,6 +72,7 @@ class AuthScreenView extends StatelessWidget {
                   socialKeys: BldrsKeys.socialKeys,
                   onSuccess: (AuthModel authModel) => authBySocialMedia(
                     authModel: authModel,
+                    mounted: true,
                   ),
                   onError: (String error) => AuthProtocols.onAuthError(
                     error: error,

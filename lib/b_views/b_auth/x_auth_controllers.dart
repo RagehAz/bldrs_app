@@ -118,9 +118,18 @@ Future<void> authByEmailRegister({
 
 Future<void> authBySocialMedia({
   @required AuthModel authModel,
+  @required bool mounted,
 }) async {
 
-  if (AuthModel != null) {
+  if (authModel != null) {
+
+    pushWaitDialog(
+      context: getContext(),
+      verse: const Verse(
+        id: 'phid_creating_new_account',
+        translate: true,
+      ),
+    );
 
     final bool _success = await AuthProtocols.composeOrUpdateUser(
       authModel: authModel,
@@ -130,7 +139,7 @@ Future<void> authBySocialMedia({
     await _rememberEmailAndNav(
       email: null,
       success: _success,
-      mounted: false,
+      mounted: mounted,
       password: null,
       rememberMe: false,
     );
