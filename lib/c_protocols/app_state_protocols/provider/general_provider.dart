@@ -196,39 +196,45 @@ class GeneralProvider extends ChangeNotifier {
 
     final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
 
-    _generalProvider.setConnectivity(
-      isConnected: isConnected,
-      notify: true,
-    );
+    final bool _wasConnected = _generalProvider.isConnected;
 
-    /// SHOW CONNECTED DIALOG
-    if (isConnected == true){
-      await TopDialog.showTopDialog(
-        context: context,
-        firstVerse: const Verse(
-          id: 'phid_connected',
-          translate: true,
-        ),
-        color: Colorz.green255,
-        // seconds: 2,
+    if (_wasConnected != isConnected){
+      _generalProvider.setConnectivity(
+        isConnected: isConnected,
+        notify: true,
       );
-    }
-    /// SHOW DISCONNECTED DIALOG
-    else {
-      await TopDialog.showTopDialog(
-        context: context,
-        firstVerse: const Verse(
-          id: 'phid_disconnected',
-          translate: true,
-        ),
-        secondVerse: const Verse(
-          id: 'phid_check_your_internet_connection',
-          translate: true,
-        ),
-        color: Colorz.red255,
-      );
-    }
 
+      /// SHOW CONNECTED DIALOG
+      if (isConnected == true) {
+        await TopDialog.showTopDialog(
+          context: context,
+          firstVerse: const Verse(
+            id: 'phid_connected',
+            translate: true,
+          ),
+          color: Colorz.green255,
+          textColor: Colorz.white255,
+          // seconds: 2,
+        );
+      }
+
+      /// SHOW DISCONNECTED DIALOG
+      else {
+        await TopDialog.showTopDialog(
+          context: context,
+          firstVerse: const Verse(
+            id: 'phid_disconnected',
+            translate: true,
+          ),
+          secondVerse: const Verse(
+            id: 'phid_check_your_internet_connection',
+            translate: true,
+          ),
+          color: Colorz.red255,
+          textColor: Colorz.white255,
+        );
+      }
+    }
   }
   // -----------------------------------------------------------------------------
 

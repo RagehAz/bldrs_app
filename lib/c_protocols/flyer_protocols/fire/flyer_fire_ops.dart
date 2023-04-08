@@ -1,3 +1,4 @@
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_promotion.dart';
@@ -6,7 +7,6 @@ import 'package:bldrs/a_models/x_secondary/feedback_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/feedback_protocols/real/app_feedback_real_ops.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:layouts/layouts.dart';
@@ -404,7 +404,7 @@ class FlyerFireOps {
     if (_feedback != null){
 
       final FeedbackModel _model =  FeedbackModel(
-        userID: AuthFireOps.superUserID(),
+        userID: Authing.getUserID(),
         timeStamp: DateTime.now(),
         feedback: _feedback,
         modelType: ModelType.flyer,

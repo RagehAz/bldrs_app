@@ -16,6 +16,7 @@ import 'package:http/http.dart';
 import 'package:layouts/layouts.dart';
 import 'package:rest/rest.dart';
 import 'package:stringer/stringer.dart';
+import 'package:super_box/super_box.dart';
 import 'package:super_image/super_image.dart';
 
 class AffiliateTestScreen extends StatefulWidget {
@@ -30,7 +31,7 @@ class AffiliateTestScreen extends StatefulWidget {
 }
 
 class _AffiliateTestScreenState extends State<AffiliateTestScreen> {
-
+  // -----------------------------------------------------------------------------
   static const String _htmlCode = '<a href="https://www.amazon.com/AIOPR-Cordless-Circular-Guide-Blades/dp/B08NDRKJPT?pd_rd_w=JHr3W&content-id=amzn1.sym.1bcf206d-941a-4dd9-9560-bdaa3c824953&pf_rd_p=1bcf206d-941a-4dd9-9560-bdaa3c824953&pf_rd_r=9GJ85SS2M4Z3G4FJRW94&pd_rd_wg=uKesG&pd_rd_r=8fd1cae9-0513-410b-b671-80f1fcccc98a&pd_rd_i=B08NDRKJPT&linkCode=li2&tag=bldrs07-20&linkId=12eaf2d6985b4af023b8e1486ad209d3&language=en_US&ref_=as_li_ss_il" target="_blank"><img border="0" src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B08NDRKJPT&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=bldrs07-20&language=en_US" ></a><img src="https://ir-na.amazon-adsystem.com/e/ir?t=bldrs07-20&language=en_US&l=li2&o=1&a=B08NDRKJPT" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />';
   // -----------------------------------------------------------------------------
   final TextEditingController controller = TextEditingController();
@@ -111,7 +112,9 @@ class _AffiliateTestScreenState extends State<AffiliateTestScreen> {
       blog(document);
       blog('doc blog ENEDED ======<');
 
-      List<int> encodedBytes = utf8.encode(_res.body);
+      final List<int> encodedBytes = utf8.encode(_res.body);
+
+      blog('encodedBytes : $encodedBytes');
 
       setState(() {
         _image = _res.bodyBytes;
@@ -149,7 +152,21 @@ class _AffiliateTestScreenState extends State<AffiliateTestScreen> {
 
     final dom.Document doc = parse(_res.body);
 
-
+    blog('doc.body : ${doc.body}');
+    blog('doc.head : ${doc.head}');
+    blog('doc.documentElement : ${doc.documentElement}');
+    blog('doc.nodeType : ${doc.nodeType}');
+    blog('doc.outerHtml : ${doc.outerHtml}');
+    blog('doc.children.length : ${doc.children.length}');
+    blog('doc.attributes : ${doc.attributes}');
+    blog('doc.attributeSpans : ${doc.attributeSpans}');
+    blog('doc.attributeValueSpans : ${doc.attributeValueSpans}');
+    blog('doc.firstChild : ${doc.firstChild}');
+    blog('doc.nodes : ${doc.nodes}');
+    blog('doc.parentNode : ${doc.parentNode}');
+    blog('doc.parent : ${doc.parent}');
+    blog('doc.sourceSpan : ${doc.sourceSpan}');
+    blog('doc.toString() : $doc');
 
     Rest.blogResponse(response: _res);
 
@@ -188,6 +205,9 @@ class _AffiliateTestScreenState extends State<AffiliateTestScreen> {
   @override
   Widget build(BuildContext context) {
     // --------------------
+
+    blog('html : $_html}');
+    blog('_htmlCode : $_htmlCode');
 
     /*
     <a
@@ -310,6 +330,14 @@ class _AffiliateTestScreenState extends State<AffiliateTestScreen> {
 
         const SeparatorLine(),
         const SeparatorLine(),
+
+        SuperBox(
+          height: 40,
+          text: '_getImageFromRawLink',
+          onTap: () async {
+            await _getImageFromRawLink(_link);
+          },
+        ),
 
       ],
     );

@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/a_user/auth_model.dart';
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/a_user/sub/agenda_model.dart';
 import 'package:bldrs/a_models/a_user/sub/deck_model.dart';
 import 'package:bldrs/a_models/a_user/sub/need_model.dart';
@@ -11,11 +11,10 @@ import 'package:bldrs/a_models/x_secondary/app_state.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/general_provider.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
-import 'package:filers/filers.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:space_time/space_time.dart';
@@ -32,7 +31,7 @@ class UserModel {
   /// --------------------------------------------------------------------------
   const UserModel({
     @required this.id,
-    @required this.authBy,
+    @required this.signInMethod,
     @required this.createdAt,
     @required this.need,
     @required this.name,
@@ -58,7 +57,7 @@ class UserModel {
   });
   /// --------------------------------------------------------------------------
   final String id;
-  final AuthType authBy;
+  final SignInMethod signInMethod;
   final DateTime createdAt;
   final NeedModel need;
   final String name;
@@ -81,42 +80,44 @@ class UserModel {
   final AgendaModel followedBzz;
   final AppState appState;
   final DocumentSnapshot docSnapshot;
-  // -----------------------------------------------------------------------------
+   // -----------------------------------------------------------------------------
 
   /// CREATION
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<UserModel> fromFirebaseUser({
+  static Future<UserModel> fromAuthModel({
     @required BuildContext context,
-    @required User user,
+    @required AuthModel authModel,
     @required ZoneModel zone,
-    @required AuthType authBy,
   }) async {
 
-    assert(!user.isAnonymous, 'user must not be anonymous');
-    assert(await user.getIdToken() != null, 'user token must not be null');
+    assert(authModel.signInMethod != SignInMethod.anonymous, 'user must not be anonymous');
+    assert(await Authing.getFirebaseUser().getIdToken() != null, 'user token must not be null');
 
     final UserModel _userModel = UserModel(
-      id: user.uid,
-      authBy: authBy,
+      id: authModel.id,
+      signInMethod: authModel.signInMethod,
       createdAt: DateTime.now(),
       need: NeedModel.createInitialNeed(context: context, userZone: zone),
       // -------------------------
-      name: user.displayName,
-      trigram: Stringer.createTrigram(input: user.displayName),
-      /// do not generate path here, it will be generated once we assign an a user pic
+      name: authModel.name,
+      trigram: Stringer.createTrigram(input: authModel.name),
+      /// do not generate path here, it will be generated once we assign a user pic
       picPath: null, //BldrStorage.generateUserPicPath(user.uid),
       title: '',
-      gender: Gender.male,
+      gender: null,
       zone: zone,
-      language: '', //Wordz.languageCode(context),
+      language: Localizer.getCurrentLangCode(context),
       location: null,
-      contacts: ContactModel.generateContactsFromFirebaseUser(user),
+      contacts: ContactModel.generateBasicContacts(
+        email: authModel.email,
+        phone: authModel.phone,
+      ),
       contactsArePublic: true,
       // -------------------------
       myBzzIDs: const <String>[],
-      emailIsVerified: user.emailVerified,
+      emailIsVerified: authModel.data['credential.user.emailVerified'] ?? authModel.data['user.emailVerified'],
       isAdmin: false,
       company: null,
       device: null,
@@ -144,7 +145,7 @@ class UserModel {
   }) {
     return <String, dynamic>{
       'id': id,
-      'authBy': AuthModel.cipherAuthBy(authBy),
+      'signInMethod': AuthModel.cipherSignInMethod(signInMethod),
       'createdAt': Timers.cipherTime(time: createdAt, toJSON: toJSON),
       'need': need?.toMap(toJSON: toJSON),
 // -------------------------
@@ -201,7 +202,7 @@ class UserModel {
     return map == null ? null :
     UserModel(
         id: map['id'],
-        authBy: AuthModel.decipherAuthBy(map['authBy']),
+        signInMethod: AuthModel.decipherSignInMethod(map['signInMethod']),
         createdAt: Timers.decipherTime(time: map['createdAt'], fromJSON: fromJSON),
         need: NeedModel.decipherNeed(map: map['need'], fromJSON: fromJSON),
         // -------------------------
@@ -257,7 +258,7 @@ class UserModel {
   /// TESTED : WORKS PERFECT
   UserModel copyWith({
     String id,
-    AuthType authBy,
+    SignInMethod signInMethod,
     DateTime createdAt,
     NeedModel need,
     String name,
@@ -282,7 +283,7 @@ class UserModel {
   }){
     return UserModel(
       id: id ?? this.id,
-      authBy: authBy ?? this.authBy,
+      signInMethod: signInMethod ?? this.signInMethod,
       createdAt: createdAt ?? this.createdAt,
       need: need ?? this.need,
       name: name ?? this.name,
@@ -310,7 +311,7 @@ class UserModel {
   /// TESTED : WORKS PERFECT
   UserModel nullifyField({
     bool id = false,
-    bool authBy = false,
+    bool signInMethod = false,
     bool createdAt = false,
     bool need = false,
     bool name = false,
@@ -335,7 +336,7 @@ class UserModel {
   }){
     return UserModel(
       id : id == true ? null : this.id,
-      authBy : authBy == true ? null : this.authBy,
+      signInMethod : signInMethod == true ? null : this.signInMethod,
       createdAt : createdAt == true ? null : this.createdAt,
       need : need == true ? null : this.need,
       name : name == true ? null : this.name,
@@ -484,7 +485,7 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkItIsMe(String userID){
-    final String _myID = AuthFireOps.superUserID();
+    final String _myID = Authing.getUserID();
 
     if (_myID != null && userID != null){
       return userID == _myID;
@@ -783,7 +784,7 @@ class UserModel {
     blog('$invoker : ---------------- START -- ');
 
     blog('id : $id');
-    blog('authBy : $authBy');
+    blog('signInMethod : $signInMethod');
     blog('createdAt : $createdAt');
     blog('name : $name');
     blog('trigram : $trigram');
@@ -852,8 +853,8 @@ class UserModel {
         blog('blogUserDifferences : [id] are not identical');
       }
 
-      if (user1.authBy != user2.authBy){
-        blog('blogUserDifferences : [authBy] are not identical');
+      if (user1.signInMethod != user2.signInMethod){
+        blog('blogUserDifferences : [signInMethod] are not identical');
       }
 
       if (Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: user1.createdAt, time2: user2.createdAt) == false){
@@ -957,7 +958,7 @@ class UserModel {
 
     final UserModel _userModel = UserModel(
       id: 'dummy_user_model',
-      authBy: AuthType.emailSignIn,
+      signInMethod: SignInMethod.email,
       createdAt: Timers.createDate(year: 1987, month: 06, day: 10),
       need: NeedModel.dummyNeed(context),
       name: 'Donald duck',
@@ -1070,7 +1071,7 @@ class UserModel {
 
       if (
       user1.id == user2.id &&
-          user1.authBy == user2.authBy &&
+          user1.signInMethod == user2.signInMethod &&
           Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: user1.createdAt, time2: user2.createdAt) == true &&
           NeedModel.checkNeedsAreIdentical(user1.need, user2.need) == true &&
           user1.name == user2.name &&
@@ -1141,7 +1142,7 @@ class UserModel {
   @override
   int get hashCode =>
       id.hashCode^
-      authBy.hashCode^
+      signInMethod.hashCode^
       createdAt.hashCode^
       need.hashCode^
       name.hashCode^

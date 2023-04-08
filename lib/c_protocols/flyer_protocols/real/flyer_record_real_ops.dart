@@ -1,18 +1,17 @@
-import 'package:bldrs/a_models/a_user/auth_model.dart';
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/a_models/g_counters/flyer_counter_model.dart';
-import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/k_statistics/record_model.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
-import 'package:bldrs/c_protocols/record_protocols/real/record_real_ops.dart';
-import 'package:real/real.dart';
-import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:bldrs/c_protocols/bz_protocols/real/bz_record_real_ops.dart';
-import 'package:mapper/mapper.dart';
+import 'package:bldrs/c_protocols/record_protocols/real/record_real_ops.dart';
+import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:filers/filers.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart' as fireDB;
+import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
+import 'package:real/real.dart';
 
 class FlyerRecordRealOps {
   // -----------------------------------------------------------------------------
@@ -33,10 +32,10 @@ class FlyerRecordRealOps {
   }) async {
     blog('FlyerRecordOps.shareFlyer : START');
 
-    if (AuthModel.userIsSignedIn() == true && flyerID != DraftFlyer.newDraftID){
+    if (Authing.userIsSignedIn() == true && flyerID != DraftFlyer.newDraftID){
 
       final RecordModel _record = RecordModel.createShareRecord(
-        userID: AuthFireOps.superUserID(),
+        userID: Authing.getUserID(),
         flyerID: flyerID,
       );
 
@@ -79,7 +78,7 @@ class FlyerRecordRealOps {
     /// WE WEEN A MORE SOLID WAY TO CHECK IF THIS USER PREVIOUSLY VIEWED THE SLIDE TO CALL THIS
     /// OR,, CHANGE THE NODE ID IN
     if (
-        AuthModel.userIsSignedIn() == true &&
+        Authing.userIsSignedIn() == true &&
         flyerModel?.id != DraftFlyer.newDraftID &&
         flyerModel != null &&
         index != null
@@ -124,7 +123,7 @@ class FlyerRecordRealOps {
         // else {
 
         final RecordModel _record = RecordModel.createViewRecord(
-          userID: AuthFireOps.superUserID(),
+          userID: Authing.getUserID(),
           flyerID: flyerModel.id,
           slideIndex: index,
         );
@@ -169,10 +168,10 @@ class FlyerRecordRealOps {
   }) async {
     // blog('FlyerRecordOps.saveFlyer : START');
 
-    if (AuthModel.userIsSignedIn() == true && flyerID != DraftFlyer.newDraftID){
+    if (Authing.userIsSignedIn() == true && flyerID != DraftFlyer.newDraftID){
 
       final RecordModel _record = RecordModel.createSaveRecord(
-        userID: AuthFireOps.superUserID(),
+        userID: Authing.getUserID(),
         flyerID: flyerID,
         slideIndex: slideIndex,
       );
@@ -212,10 +211,10 @@ class FlyerRecordRealOps {
   }) async {
     // blog('FlyerRecordOps.unSaveFlyer : START');
 
-    if (AuthModel.userIsSignedIn() == true && flyerID != DraftFlyer.newDraftID){
+    if (Authing.userIsSignedIn() == true && flyerID != DraftFlyer.newDraftID){
 
       final RecordModel _record = RecordModel.createUnSaveRecord(
-        userID: AuthFireOps.superUserID(),
+        userID: Authing.getUserID(),
         flyerID: flyerID,
       );
 
@@ -258,10 +257,10 @@ class FlyerRecordRealOps {
 
     blog('FlyerRecordOps.createCreateReview : START');
 
-    if (AuthModel.userIsSignedIn() == true && reviewModel.flyerID != DraftFlyer.newDraftID){
+    if (Authing.userIsSignedIn() == true && reviewModel.flyerID != DraftFlyer.newDraftID){
 
       // final RecordModel _record = RecordModel.createCreateReviewRecord(
-      //   userID: AuthFireOps.superUserID(),
+      //   userID: Authing.getUserID(),
       //   text: review,
       //   flyerID: flyerID,
       // );
@@ -303,7 +302,7 @@ class FlyerRecordRealOps {
     blog('FlyerRecordOps.createEditReview : START');
 
     final RecordModel _record = RecordModel.createEditReviewRecord(
-      userID: AuthFireOps.superUserID(),
+      userID: Authing.getUserID(),
       reviewEdit: reviewEdit,
       flyerID: flyerID,
     );
@@ -325,7 +324,7 @@ class FlyerRecordRealOps {
     blog('FlyerRecordOps.reviewDeletion : START');
 
     // final RecordModel _record = RecordModel.createDeleteReviewRecord(
-    //   userID: AuthFireOps.superUserID(),
+    //   userID: Authing.getUserID(),
     //   flyerID: flyerID,
     // );
 

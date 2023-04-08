@@ -1,12 +1,12 @@
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:filers/filers.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:numeric/numeric.dart';
 import 'package:space_time/space_time.dart';
-import 'package:filers/filers.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 
 enum RecordType {
   follow,
@@ -824,10 +824,10 @@ class RecordModel {
 
     final RecordModel _recordModel = RecordModel(
       recordType: recordType,
-      userID: AuthFireOps.superUserID(),
+      userID: Authing.getUserID(),
       timeStamp: DateTime.now(),
       modelType: getModelTypeByRecordType(recordType),
-      modelID: AuthFireOps.superUserID(),
+      modelID: Authing.getUserID(),
       recordDetailsType: RecordDetailsType.text,
       recordDetails: 'This is a dummy record',
       serverTimeStamp: FieldValue.serverTimestamp(),

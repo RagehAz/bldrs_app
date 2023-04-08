@@ -1,3 +1,4 @@
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/wide_button.dart';
@@ -6,7 +7,6 @@ import 'package:bldrs/b_views/z_components/images/super_image/x_cacheless_image.
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
@@ -139,7 +139,7 @@ class _PicProtocolsTestState extends State<PicProtocolsTest> {
           verse: Verse.plain('Fetch pic'),
           onTap: () async {
 
-            final String _path = '${StorageColl.users}/${AuthFireOps.superUserID()}';
+            final String _path = '${StorageColl.users}/${Authing.getUserID()}';
 
             final PicModel _pic = await PicProtocols.fetchPic(_path);
 
@@ -156,7 +156,7 @@ class _PicProtocolsTestState extends State<PicProtocolsTest> {
           verse: Verse.plain('Download pic'),
           onTap: () async {
 
-            final String _path = '${StorageColl.users}/${AuthFireOps.superUserID()}';
+            final String _path = '${StorageColl.users}/${Authing.getUserID()}';
 
             await PicProtocols.downloadPic(_path);
 
@@ -170,7 +170,7 @@ class _PicProtocolsTestState extends State<PicProtocolsTest> {
 
             final Reference _ref = Storage.getRefByNodes(
               collName: StorageColl.users,
-              docName: AuthFireOps.superUserID(),
+              docName: Authing.getUserID(),
             );
 
             final String _url = await _ref.getDownloadURL();

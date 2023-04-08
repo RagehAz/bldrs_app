@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:ui' as ui;
 
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/x_secondary/feedback_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
@@ -8,19 +10,17 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/images/bldrs_image_path_to_ui_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:night_sky/night_sky.dart';
 import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/feedback_protocols/real/app_feedback_real_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:scale/scale.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'dart:ui' as ui;
+import 'package:layouts/layouts.dart';
+import 'package:night_sky/night_sky.dart';
+import 'package:scale/scale.dart';
 
 class FeedbackScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -68,7 +68,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
     /// upload text to firebase
     final FeedbackModel _uploadedModel = await FeedbackRealOps.createFeedback(
       feedback: FeedbackModel(
-        userID: AuthFireOps.superUserID(),
+        userID: Authing.getUserID(),
         timeStamp: DateTime.now(),
         feedback: _feedbackController.text,
       ),

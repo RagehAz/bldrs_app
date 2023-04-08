@@ -5,12 +5,11 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:night_sky/night_sky.dart';
 import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/general_provider.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
+import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
@@ -39,6 +38,7 @@ import 'package:bldrs/x_dashboard/zones_manager/a_zones_manager_screen.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
+import 'package:night_sky/night_sky.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:scale/scale.dart';
 import 'package:space_time/space_time.dart';
@@ -263,8 +263,7 @@ class DashBoardHomeScreen extends StatelessWidget {
       ]);
 
       /// SIGN OUT
-      await AuthFireOps.signOut(
-          context: context,
+      await AuthProtocols.signOutBldrs(
           routeToLogoScreen: true
       );
 

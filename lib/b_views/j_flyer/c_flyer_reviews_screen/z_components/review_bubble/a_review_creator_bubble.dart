@@ -1,3 +1,4 @@
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/review_bubble/a_review_box.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/review_bubble/review_bubble_box.dart';
@@ -5,9 +6,8 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
-import 'package:filers/filers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 
 class ReviewCreatorBubble extends StatelessWidget {
@@ -38,7 +38,7 @@ class ReviewCreatorBubble extends StatelessWidget {
     // --------------------
     return ReviewBox(
         pageWidth: pageWidth,
-        userID: AuthFireOps.superUserID(),
+        userID: Authing.getUserID(),
         onReviewUserBalloonTap: onReviewUserBalloonTap,
         builder: (UserModel userModel){
 

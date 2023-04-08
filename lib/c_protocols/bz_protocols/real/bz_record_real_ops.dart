@@ -1,7 +1,7 @@
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/g_counters/bz_counter_model.dart';
 import 'package:bldrs/a_models/k_statistics/record_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/record_protocols/real/record_real_ops.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:filers/filers.dart';
@@ -29,7 +29,7 @@ class BzRecordRealOps {
     blog('BzRecordOps.followBz : START');
 
     final RecordModel _record = RecordModel.createFollowRecord(
-        userID: AuthFireOps.superUserID(),
+        userID: Authing.getUserID(),
         bzID: bzID
     );
 
@@ -57,7 +57,7 @@ class BzRecordRealOps {
     blog('BzRecordOps.unfollowBz : START');
 
     final RecordModel _record = RecordModel.createUnfollowRecord(
-      userID: AuthFireOps.superUserID(),
+      userID: Authing.getUserID(),
       bzID: bzID,
     );
 
@@ -88,7 +88,7 @@ class BzRecordRealOps {
     blog('BzRecordOps.callBz : START');
 
     final RecordModel _record = RecordModel.createCallRecord(
-      userID: AuthFireOps.superUserID(),
+      userID: Authing.getUserID(),
       bzID: bzID,
       contact: contact,
     );

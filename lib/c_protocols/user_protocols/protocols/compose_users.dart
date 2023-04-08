@@ -1,20 +1,19 @@
 import 'dart:async';
 import 'dart:typed_data';
-
-import 'package:bldrs/a_models/a_user/auth_model.dart';
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
-import 'package:bldrs/c_protocols/auth_protocols/ldb/auth_ldb_ops.dart';
+import 'package:bldrs/c_protocols/auth_protocols/auth_ldb_ops.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_paths_generators.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:storage/storage.dart';
@@ -28,72 +27,60 @@ class ComposeUserProtocols {
 
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<AuthModel> compose({
+  static Future<UserModel> compose({
     @required BuildContext context,
-    @required bool authSucceeds,
-    @required String authError,
-    @required UserCredential userCredential,
-    @required AuthType authType,
+    @required AuthModel authModel,
   }) async {
-    // -----------------------------
-    AuthModel _authModel = AuthModel.create(
-      authSucceeds: authSucceeds,
-      authError: authError,
-      userCredential: userCredential,
-      firstTimer: true,
-    );
-    // -----------------------------
-    /// CREATE USER MODEL IS AUTH SUCCEEDS
-    if (_authModel.authSucceeds == true) {
+    UserModel _output;
+
+    if (authModel != null){
 
       /// CREATE INITIAL USER MODEL
-      UserModel _userModel = await _createInitialUserModel(
+      _output = await _createInitialUserModel(
         context: context,
-        authType: authType,
-        userCredential: userCredential,
+        authModel: authModel,
       );
 
       /// CREATE USER IMAGE FROM URL
-      _userModel = await _composeUserImageFromUserPicURL(
-        userID: _userModel.id,
-        picURL: userCredential.user.photoURL,
-        userModel: _userModel,
+      _output = await _composeUserImageFromUserPicURL(
+        userID: _output.id,
+        picURL: authModel.imageURL,
+        userModel: _output,
       );
 
       /// CREATE FIRE USER
       await UserFireOps.createUser(
-        userModel: _userModel,
-        authBy: authType,
-      );
-
-      /// UPDATE AUTH MODEL
-      _authModel = _authModel.copyWith(
-        userModel: _userModel,
+        userModel: _output,
+        signInMethod: authModel.signInMethod,
       );
 
       await Future.wait(<Future>[
 
         /// CENSUS
-        CensusListener.onComposeUser(_userModel),
+        CensusListener.onComposeUser(_output),
 
         /// INSERT IN LDB
-        AuthLDBOps.insertAuthModel(_authModel),
-        UserLDBOps.insertUserModel(_authModel.userModel),
+        AuthLDBOps.insertAuthModel(authModel),
+        UserLDBOps.insertUserModel(_output),
 
       ]);
+      UsersProvider.proSetMyAuthModel(authModel: authModel, notify: false);
+      UsersProvider.proSetMyUserModel(userModel: _output, notify: true);
 
     }
-    // -----------------------------
-    _authModel.blogAuthModel(invoker: 'ComposeUserProtocols.compose');
-    // -----------------------------
-    return _authModel;
+
+    AuthModel.blogAuthModel(
+      authModel: authModel,
+      invoker: 'ComposeUserProtocols.compose',
+    );
+
+    return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<UserModel> _createInitialUserModel({
     @required BuildContext context,
-    @required UserCredential userCredential,
-    @required AuthType authType,
+    @required AuthModel authModel,
   }) async {
 
     final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(
@@ -101,11 +88,10 @@ class ComposeUserProtocols {
       listen: false,
     );
 
-    final UserModel _initialUserModel = await UserModel.fromFirebaseUser(
+    final UserModel _initialUserModel = await UserModel.fromAuthModel(
       context: context,
-      user: userCredential.user,
+      authModel: authModel,
       zone: _currentZone,
-      authBy: authType,
     );
 
     return _initialUserModel;

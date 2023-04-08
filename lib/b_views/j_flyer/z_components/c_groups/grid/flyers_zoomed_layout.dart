@@ -41,10 +41,10 @@ ZoomableGridController initializeBldrsZoomableGridController({
   // );
 
   /// THIS_IS_THE_PLACE_WHERE_YPU_NEED_TO_FIX_FLYER_ALIGNMENT
-  final double _zoomedInFlyerHeight = FlyerDim.flyerHeightByFlyerWidth(
-      flyerBoxWidth: _screenWidth - 10,
-      forceMaxHeight: false,
-  );
+  // final double _zoomedInFlyerHeight = FlyerDim.flyerHeightByFlyerWidth(
+  //     flyerBoxWidth: _screenWidth - 10,
+  //     forceMaxHeight: false,
+  // );
   const double _topPaddingOnZoomIn = 10; //Stratosphere.smallAppBarStratosphere - 10;
   /// IF YOU WANT TO ALIGN TO TOP
   // const double _topPaddingOnZoomIn = 10;

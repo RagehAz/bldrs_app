@@ -1,21 +1,22 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/a_user/auth_model.dart';
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
-import 'package:bldrs/c_protocols/auth_protocols/ldb/auth_ldb_ops.dart';
+import 'package:bldrs/b_views/d_user/b_user_editor_screen/user_editor_screen.dart';
+import 'package:bldrs/c_protocols/auth_protocols/auth_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
+import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
-import 'package:layouts/layouts.dart';
-import 'package:bldrs/b_views/d_user/b_user_editor_screen/user_editor_screen.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
@@ -72,19 +73,19 @@ Future<void> _checkIfUserIsMissingFields({
   @required BuildContext context,
 }) async {
   // blog('initializeHomeScreen.checkIfUserIsMissingFields : ~~~~~~~~~~ START');
-  if (AuthFireOps.superUserID() != null){
+  if (Authing.getUserID() != null){
 
     final AuthModel _authModel = await AuthLDBOps.readAuthModel();
+    final UserModel _userModel = await UserLDBOps.readUserOps(userID: _authModel?.id);
 
     if (_authModel != null){
 
-      _authModel?.blogAuthModel(
-        invoker: '_checkIfUserIsMissingFields',
-      );
+      blog('_checkIfUserIsMissingFields');
+      AuthModel.blogAuthModel(authModel: _authModel);
 
       final bool _thereAreMissingFields = Formers.checkUserHasMissingFields(
         context: context,
-        userModel: _authModel?.userModel,
+        userModel: _userModel,
       );
 
       /// MISSING FIELDS FOUND
@@ -92,7 +93,7 @@ Future<void> _checkIfUserIsMissingFields({
 
         await _controlMissingFieldsCase(
           context: context,
-          authModel: _authModel,
+          userModel: _userModel,
         );
 
       }
@@ -106,18 +107,18 @@ Future<void> _checkIfUserIsMissingFields({
 /// TESTED : WORKS PERFECT
 Future<void> _controlMissingFieldsCase({
   @required BuildContext context,
-  @required AuthModel authModel,
+  @required UserModel userModel,
 }) async {
 
   await Formers.showUserMissingFieldsDialog(
     context: context,
-    userModel: authModel?.userModel,
+    userModel: userModel,
   );
 
   await Nav.goToNewScreen(
       context: context,
       screen: UserEditorScreen(
-        userModel: authModel?.userModel,
+        userModel: userModel,
         reAuthBeforeConfirm: false,
         canGoBack: true,
         validateOnStartup: true,
@@ -141,7 +142,7 @@ Future<void> _initializeUserFollowedBzz({
   @required bool notify,
 }) async {
   // blog('initializeHomeScreen._initializeUserBzz : ~~~~~~~~~~ START');
-  if (AuthModel.userIsSignedIn() == true){
+  if (Authing.userIsSignedIn() == true){
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
     await _bzzProvider.fetchSetFollowedBzz(
       context: context,
@@ -157,7 +158,7 @@ Future<void> _initializeUserBzz({
   @required bool notify,
 }) async {
   // blog('initializeHomeScreen._initializeUserBzz : ~~~~~~~~~~ START');
-  if (AuthModel.userIsSignedIn() == true){
+  if (Authing.userIsSignedIn() == true){
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
     await _bzzProvider.fetchSetMyBzz(
       context: context,
@@ -185,10 +186,9 @@ Future<void> _initializeUserZone(BuildContext context) async {
       incompleteZoneModel: _myUserModel?.zone,
     );
 
-    UsersProvider.proSetMyUserAndAuthModels(
-      context: context,
-      userModel: _myUserModel?.copyWith(zone: _userZoneCompleted),
-      notify: true,
+    UsersProvider.proSetMyUserModel(
+        userModel: _myUserModel?.copyWith(zone: _userZoneCompleted),
+        notify: true,
     );
 
   }
@@ -209,7 +209,7 @@ Future<void> _initializeCurrentZone(BuildContext context) async {
     );
 
     /// USER ZONE IS DEFINED
-    if (_myUserModel?.zone != null && AuthModel.userIsSignedIn() == true){
+    if (_myUserModel?.zone != null && Authing.userIsSignedIn() == true){
 
       await _zoneProvider.fetchSetCurrentCompleteZone(
         context: context,

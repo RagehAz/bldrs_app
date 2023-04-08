@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:authing/authing.dart';
 import 'package:bldrs/b_views/z_components/buttons/settings_wide_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/wide_button.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
@@ -6,7 +7,6 @@ import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart'
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:night_sky/night_sky.dart';
 import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:filers/filers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
@@ -99,7 +99,7 @@ class _CloudFunctionsTestState extends State<CloudFunctionsTest> {
                       context: context,
                       functionName: 'n001_notifyUser',
                       mapToPass: <String, dynamic>{
-                        'from': AuthFireOps.superUserID(),
+                        'from': Authing.getUserID(),
                         'to': '60a1SPzftGdH6rt15NF96m0j9Et2', // rageh by facebook
                         'title': 'Targetted notification',
                         'body':

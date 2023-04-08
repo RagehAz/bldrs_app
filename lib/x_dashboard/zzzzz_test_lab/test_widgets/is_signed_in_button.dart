@@ -1,10 +1,11 @@
+import 'package:authing/authing.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 
 class IsSignedInButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -15,7 +16,7 @@ class IsSignedInButton extends StatelessWidget {
   bool _isSignedInCheck() {
     bool _isSignedIn;
 
-    final User _firebaseUser = AuthFireOps.superFirebaseUser();
+    final User _firebaseUser = Authing.getFirebaseUser();
 
     if (_firebaseUser == null) {
       _isSignedIn = false;
@@ -52,8 +53,7 @@ class IsSignedInButton extends StatelessWidget {
 
         if (_result == true){
 
-          await AuthFireOps.signOut(
-              context: context,
+          await AuthProtocols.signOutBldrs(
               routeToLogoScreen: true
           );
 

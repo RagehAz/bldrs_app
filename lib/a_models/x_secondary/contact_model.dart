@@ -64,21 +64,31 @@ class ContactModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<ContactModel> generateContactsFromFirebaseUser(User user) {
+    return generateBasicContacts(
+      email: user?.email,
+      phone: user?.phoneNumber,
+    );
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<ContactModel> generateBasicContacts({
+    @required String email,
+    @required String phone,
+  }){
     final List<ContactModel> _userContacts = <ContactModel>[];
-    final String _userEmail = user.email;
-    final String _userPhone = user.phoneNumber;
 
-    if (_userEmail != null) {
+    if (email != null) {
       _userContacts.add(
-          ContactModel(value: _userEmail, type: ContactType.email));
+          ContactModel(value: email, type: ContactType.email));
     }
 
-    if (_userPhone != null) {
+    if (phone != null) {
       _userContacts.add(
-          ContactModel(value: _userPhone, type: ContactType.phone));
+          ContactModel(value: phone, type: ContactType.phone));
     }
 
     return _userContacts;
+
   }
   // -----------------------------------------------------------------------------
 

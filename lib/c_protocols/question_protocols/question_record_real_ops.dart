@@ -21,7 +21,7 @@
 //     blog('QuestionRecordOps.createCreateQuestion : START');
 //
 //     final RecordModel _record = RecordModel.createCreateQuestionRecord(
-//       userID: AuthFireOps.superUserID(),
+//       userID: Authing.getUserID(),
 //       questionID: questionID,
 //     );
 //
@@ -39,7 +39,7 @@
 //     blog('QuestionRecordOps.createEditQuestion : START');
 //
 //     final RecordModel _record = RecordModel.createEditQuestionRecord(
-//       userID: AuthFireOps.superUserID(),
+//       userID: Authing.getUserID(),
 //       questionID: questionID,
 //     );
 //
@@ -57,7 +57,7 @@
 //     blog('QuestionRecordOps.createDeleteQuestion : START');
 //
 //     final RecordModel _record = RecordModel.createDeleteQuestionRecord(
-//       userID: AuthFireOps.superUserID(),
+//       userID: Authing.getUserID(),
 //       questionID: questionID,
 //     );
 //
@@ -76,7 +76,7 @@
 //     blog('QuestionRecordOps.createCreateAnswer : START');
 //
 //     final RecordModel _record = RecordModel.createCreateAnswerRecord(
-//       userID: AuthFireOps.superUserID(),
+//       userID: Authing.getUserID(),
 //       questionID: questionID,
 //       answerID: answerID,
 //     );
@@ -96,7 +96,7 @@
 //     blog('QuestionRecordOps.createEditAnswer : START');
 //
 //     final RecordModel _record = RecordModel.createEditAnswerRecord(
-//       userID: AuthFireOps.superUserID(),
+//       userID: Authing.getUserID(),
 //       questionID: questionID,
 //       answerID: answerID,
 //     );
@@ -117,7 +117,7 @@
 //     blog('QuestionRecordOps.createDeleteAnswer : START');
 //
 //     final RecordModel _record = RecordModel.createDeleteAnswerRecord(
-//       userID: AuthFireOps.superUserID(),
+//       userID: Authing.getUserID(),
 //       questionID: questionID,
 //       answerID: answerID,
 //     );

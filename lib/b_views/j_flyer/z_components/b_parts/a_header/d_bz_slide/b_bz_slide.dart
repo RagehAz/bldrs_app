@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/a_user/auth_model.dart';
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/g_counters/bz_counter_model.dart';
@@ -188,7 +188,7 @@ class BzSlide extends StatelessWidget {
               ),
 
               /// REPORT
-              if (AuthModel.userIsSignedIn() == true)
+              if (Authing.userIsSignedIn() == true)
               BlackBox(
                 width: flyerBoxWidth,
                 child: ReportButton(

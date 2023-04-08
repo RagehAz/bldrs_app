@@ -5,9 +5,9 @@ import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
 import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
+import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/positioning_protocols/geo_location/location_ops.dart';
-import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
@@ -150,7 +150,7 @@ class ZoneIPOps {
     String _countryID;
     String _cityID;
 
-    const String _url = 'https://api.ipregistry.co?key=${Standards.ipRegistryAPIKey}';
+    const String _url = 'https://api.ipregistry.co?key=${BldrsKeys.ipRegistryAPIKey}';
 
     await tryAndCatch(
         invoker: 'get Country by IP',

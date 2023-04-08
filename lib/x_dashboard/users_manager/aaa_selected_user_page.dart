@@ -234,7 +234,7 @@ class SelectedUserPage extends StatelessWidget {
       DataStrip(
         color: Colorz.black50,
         dataKey: 'AuthBy',
-        dataValue: userModel.authBy,
+        dataValue: userModel.signInMethod,
       ),
 
       /// ON BLDRS DATE

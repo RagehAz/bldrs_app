@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:bldrs/a_models/a_user/auth_model.dart';
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/g_counters/bz_counter_model.dart';
@@ -437,7 +437,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
   // --------------------
   Future<void> _onSaveFlyer() async {
 
-    if (AuthModel.userIsSignedIn() == true){
+    if (Authing.userIsSignedIn() == true){
 
       if (mounted == true){
 
