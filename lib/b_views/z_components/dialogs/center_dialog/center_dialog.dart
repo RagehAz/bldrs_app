@@ -70,6 +70,12 @@ class CenterDialog extends StatelessWidget {
     final double _height = heightOverride ?? _screenHeight * 0.4;
     return _height;
   }
+  // --------------------
+  static const Verse _noVerse = Verse(
+      id: 'phid_no',
+      translate: true,
+      casing: Casing.capitalizeFirstChar,
+    );
   // -----------------------------------------------------------------------------
 
   /// COLORS
@@ -349,7 +355,7 @@ class CenterDialog extends StatelessWidget {
                                         /// NO BUTTON
                                         if (boolDialog == true && invertButtons == false)
                                           DialogButton(
-                                            verse: noVerse,
+                                            verse: noVerse ?? _noVerse,
                                             color: defaultButtonColor,
                                             onTap: () => Nav.goBack(
                                                   context: xxx,
@@ -380,7 +386,7 @@ class CenterDialog extends StatelessWidget {
                                         /// NO BUTTON
                                         if (boolDialog == true && invertButtons == true)
                                           DialogButton(
-                                            verse: noVerse,
+                                            verse: noVerse ?? _noVerse,
                                             verseColor: Colorz.black230,
                                             color: activeButtonColor,
                                             onTap: () => Nav.goBack(
