@@ -1,8 +1,6 @@
-import 'package:bldrs/a_models/a_user/auth_model.dart';
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:authing/authing.dart';
 import 'package:bldrs/b_views/z_components/buttons/wide_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/x_dashboard/backend_lab/protocols_tester/progress_line_widget.dart';
 import 'package:bldrs/x_dashboard/backend_lab/protocols_tester/progress_model.dart';
 import 'package:bldrs/x_dashboard/zz_widgets/dashboard_layout.dart';
@@ -27,11 +25,12 @@ class _ProtocolsTesterState extends State<ProtocolsTester> {
   static const String _userEmail = 'a_test_user@bldrs.net';
   static const String _newUserEmail = 'b_test_user@bldrs.net';
   static const String _userPassword = '123456';
-  static const ZoneModel _userZone = ZoneModel(
-    countryID: 'egy',
-    cityID: 'egy+cairo',
-    districtID: 'egy+cairo+el_zamalek',
-  );
+  // --------------------
+  // static const ZoneModel _userZone = ZoneModel(
+  //   countryID: 'egy',
+  //   cityID: 'egy+cairo',
+  //   districtID: 'egy+cairo+el_zamalek',
+  // );
   // --------------------
   Map<String, dynamic> _progressMap = {
 
@@ -169,28 +168,31 @@ class _ProtocolsTesterState extends State<ProtocolsTester> {
   // --------------------
   Future<void> _register() async {
 
-    _setProtocolState(key: 'registerUserByEmailAndPassword', state: ProgressState.waiting);
+    _setProtocolState(key: 'EmailAuthing.register', state: ProgressState.waiting);
 
-    final AuthModel _authModel = await AuthFireOps.registerByEmailAndPassword(
-        context: context,
-        currentZone: _userZone,
-        email: _userEmail,
-        password: _userPassword
+    String _authError;
+    final AuthModel _authModel = await EmailAuthing.register(
+      // currentZone: _userZone,
+      email: _userEmail,
+      password: _userPassword,
+      onError: (String error) {
+        _authError = error;
+      },
     );
 
-    if (_authModel.authSucceeds == true){
+    if (_authModel != null){
       _setProtocolState(
-        key: 'registerUserByEmailAndPassword',
+        key: 'EmailAuthing.register',
         state: ProgressState.good,
-        addArgs: _authModel.toMap(toJSON: true),
+        addArgs: _authModel.toMap(),
       );
     }
     else {
       _setProtocolState(
-        key: 'registerUserByEmailAndPassword',
+        key: 'EmailAuthing.register',
         state: ProgressState.error,
         addArgs: {
-          'error': _authModel.authError,
+          'error': _authError,
         },
       );
 
@@ -202,26 +204,30 @@ class _ProtocolsTesterState extends State<ProtocolsTester> {
   // --------------------
   Future<void> _signIn() async {
 
-    _setProtocolState(key: 'singInByEmail', state: ProgressState.waiting);
+    _setProtocolState(key: ' EmailAuthing.signIn', state: ProgressState.waiting);
 
-    final AuthModel _authModel = await AuthFireOps.signInByEmailAndPassword(
-        email: _userEmail,
-        password: _userPassword,
+    String _authError;
+    final AuthModel _authModel = await EmailAuthing.signIn(
+      email: _userEmail,
+      password: _userPassword,
+      onError: (String error){
+        _authError = error;
+      },
     );
 
-    if (_authModel.authSucceeds == true){
+    if (_authModel == null){
       _setProtocolState(
-        key: 'singInByEmail',
+        key: ' EmailAuthing.signIn',
         state: ProgressState.good,
-        addArgs: _authModel.toMap(toJSON: true),
+        addArgs: _authModel.toMap(),
       );
     }
     else {
       _setProtocolState(
-        key: 'singInByEmail',
+        key: ' EmailAuthing.signIn',
         state: ProgressState.error,
         addArgs: {
-          'error': _authModel.authError,
+          'error': _authError,
         },
       );
 
@@ -235,7 +241,7 @@ class _ProtocolsTesterState extends State<ProtocolsTester> {
 
     _setProtocolState(key: 'changeEmail', state: ProgressState.waiting);
 
-    final bool _success = await AuthFireOps.updateUserEmail(
+    final bool _success = await EmailAuthing.updateUserEmail(
         newEmail: _newUserEmail,
     );
 
@@ -266,8 +272,8 @@ class _ProtocolsTesterState extends State<ProtocolsTester> {
 
     _setProtocolState(key: 'deleteFirebaseUser', state: ProgressState.waiting);
 
-    final bool _success = await AuthFireOps.deleteFirebaseUser(
-        userID: AuthFireOps.superUserID(),
+    final bool _success = await Authing.deleteFirebaseUser(
+        userID: Authing.getUserID(),
     );
 
     if (_success == true){

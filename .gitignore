@@ -48,6 +48,16 @@ app.*.symbols
 app.*.map.json
 
 node_modules/
+
+# BUILD RELATED
 /ios/build/
 /Flutter
-/Flutter/Debug
+
+# SECRET KEYS TO BE MANUALLY MOVED
+lib/bldrs_keys.dart
+lib/firebase_options.dart
+ios/Runner/Info.plist
+ios/Runner/GoogleService-Info.plist
+
+# to remove committed file from current commits
+# run git reset <path>

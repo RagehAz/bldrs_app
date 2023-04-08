@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/a_user/auth_model.dart';
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/a_user/sub/agenda_model.dart';
 import 'package:bldrs/a_models/a_user/sub/deck_model.dart';
 import 'package:bldrs/a_models/a_user/sub/need_model.dart';
@@ -9,9 +9,9 @@ import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_secondary/app_state.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
-import 'package:filers/filers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:space_time/space_time.dart';
@@ -23,7 +23,7 @@ class DraftUser {
   /// --------------------------------------------------------------------------
   const DraftUser({
     @required this.id,
-    @required this.authBy,
+    @required this.signInMethod,
     @required this.createdAt,
     @required this.need,
     @required this.name,
@@ -61,7 +61,7 @@ class DraftUser {
   });
   /// --------------------------------------------------------------------------
   final String id;
-  final AuthType authBy;
+  final SignInMethod signInMethod;
   final DateTime createdAt;
   final NeedModel need;
   final String name;
@@ -127,7 +127,7 @@ class DraftUser {
 
       _draft = DraftUser(
         id: userModel.id,
-        authBy: userModel.authBy,
+        signInMethod: userModel.signInMethod,
         createdAt: userModel.createdAt,
         need: userModel.need,
         name: userModel.name,
@@ -198,7 +198,7 @@ class DraftUser {
   /// TESTED : WORKS PERFECT
   DraftUser copyWith({
     String id,
-    AuthType authBy,
+    SignInMethod signInMethod,
     DateTime createdAt,
     NeedModel need,
     String name,
@@ -236,7 +236,7 @@ class DraftUser {
   }){
     return DraftUser(
       id: id ?? this.id,
-      authBy: authBy ?? this.authBy,
+      signInMethod: signInMethod ?? this.signInMethod,
       createdAt: createdAt ?? this.createdAt,
       need: need ?? this.need,
       name: name ?? this.name,
@@ -277,7 +277,7 @@ class DraftUser {
   /// TESTED : WORKS PERFECT
   DraftUser nullifyField({
     bool id = false,
-    bool authBy = false,
+    bool signInMethod = false,
     bool createdAt = false,
     bool need = false,
     bool name = false,
@@ -315,7 +315,7 @@ class DraftUser {
   }){
     return DraftUser(
       id : id == true ? null : this.id,
-      authBy : authBy == true ? null : this.authBy,
+      signInMethod : signInMethod == true ? null : this.signInMethod,
       createdAt : createdAt == true ? null : this.createdAt,
       need : need == true ? null : this.need,
       name : name == true ? null : this.name,
@@ -361,7 +361,7 @@ class DraftUser {
   Map<String, dynamic> toLDB() {
     return <String, dynamic>{
       'id': id,
-      'authBy': AuthModel.cipherAuthBy(authBy),
+      'signInMethod': AuthModel.cipherSignInMethod(signInMethod),
       'createdAt': Timers.cipherTime(time: createdAt, toJSON: true),
       'need': need?.toMap(toJSON: true),
       // -------------------------
@@ -394,7 +394,7 @@ class DraftUser {
     return map == null ? null :
     DraftUser(
       id: map['id'],
-      authBy: AuthModel.decipherAuthBy(map['authBy']),
+      signInMethod: AuthModel.decipherSignInMethod(map['signInMethod']),
       createdAt: Timers.decipherTime(time: map['createdAt'], fromJSON: true),
       need: NeedModel.decipherNeed(map: map['need'], fromJSON: true),
       name: map['name'],
@@ -455,7 +455,7 @@ class DraftUser {
 
       /// NO BAKING NEEDED
       id: draft.id,
-      authBy: draft.authBy,
+      signInMethod: draft.signInMethod,
       createdAt: draft.createdAt,
       need: draft.need,
       name: _name,
@@ -519,7 +519,7 @@ class DraftUser {
 
       if (
           draft1.id == draft2.id &&
-          draft1.authBy == draft2.authBy &&
+          draft1.signInMethod == draft2.signInMethod &&
           Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: draft1.createdAt, time2: draft2.createdAt) == true &&
           NeedModel.checkNeedsAreIdentical(draft1.need, draft2.need) == true &&
           draft1.name == draft2.name &&
@@ -586,7 +586,7 @@ class DraftUser {
   @override
   int get hashCode =>
       id.hashCode^
-      authBy.hashCode^
+      signInMethod.hashCode^
       createdAt.hashCode^
       need.hashCode^
       name.hashCode^

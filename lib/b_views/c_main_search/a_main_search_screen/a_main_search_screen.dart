@@ -1,6 +1,5 @@
 import 'dart:async';
-
-import 'package:bldrs/a_models/a_user/auth_model.dart';
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/c_main_search/a_main_search_screen/aa_main_search_screen_view.dart';
 import 'package:bldrs/b_views/c_main_search/a_main_search_screen/x_main_search_controllers.dart';
@@ -8,11 +7,11 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/c_protocols/app_state_protocols/provider/search_provider.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:scale/scale.dart';
 import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
 import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
 import 'package:provider/provider.dart';
+import 'package:scale/scale.dart';
 
 class MainSearchScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -72,7 +71,7 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
   void didChangeDependencies() {
     if (_isInit && mounted) {
 
-      if (AuthModel.userIsSignedIn()){
+      if (Authing.userIsSignedIn() == true){
 
         final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
         _uiProvider.startController(()async{

@@ -1,11 +1,11 @@
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/k_statistics/record_model.dart';
 import 'package:bldrs/a_models/x_secondary/search_result.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/record_protocols/real/record_real_ops.dart';
-import 'package:mapper/mapper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
 import 'package:provider/provider.dart';
 
 // final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
@@ -216,7 +216,7 @@ class SearchProvider extends ChangeNotifier {
 
     final List<RecordModel> _records = await RecordRealOps.paginateRecords(
       context: context,
-      userID: AuthFireOps.superUserID(),
+      userID: Authing.getUserID(),
       activityType: RecordType.search,
       limit: 5,
       startAfter: _lastRecordSnapshot,

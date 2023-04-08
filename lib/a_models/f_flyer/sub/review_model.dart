@@ -1,10 +1,10 @@
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
-import 'package:mapper/mapper.dart';
-import 'package:space_time/space_time.dart';
-import 'package:filers/filers.dart';
+import 'package:authing/authing.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:filers/filers.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
+import 'package:mapper/mapper.dart';
+import 'package:space_time/space_time.dart';
 /// => TAMAM
 @immutable
 class ReviewModel {
@@ -188,7 +188,7 @@ class ReviewModel {
     return ReviewModel(
       id: 'x',
       text: text,
-      userID: AuthFireOps.superUserID(),
+      userID: Authing.getUserID(),
       time: DateTime.now(),
       flyerID: flyerID,
       replyAuthorID: null,
@@ -253,7 +253,7 @@ class ReviewModel {
     return ReviewModel(
       id: 'x',
       text: 'This is a dummy review\nthat extends for several lines you know,,\nlorum ipsum\nplenty of gypsum',
-      userID: AuthFireOps.superUserID(),
+      userID: Authing.getUserID(),
       time: Timers.createDate(year: 1987, month: 06, day: 10),
       flyerID: flyerID,
       replyAuthorID: authorID,

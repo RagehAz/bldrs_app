@@ -1,8 +1,7 @@
 import 'dart:async';
-
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/g_counters/flyer_counter_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/b_footer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/d_flyer_footer_buttons.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/a_info_button_structure/a_info_button_starter.dart';
@@ -75,7 +74,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
       // ----------
       _triggerLoading(setTo: true).then((_) async {
         // ----------
-        if (AuthModel.userIsSignedIn() == true){
+        if (Authing.userIsSignedIn() == true){
           // ----------
           final FlyerCounterModel _counter = await FlyerRecordRealOps.readFlyerCounters(
             flyerID: widget.flyerModel.id,

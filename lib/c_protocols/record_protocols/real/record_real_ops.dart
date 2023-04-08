@@ -1,5 +1,5 @@
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/k_statistics/record_model.dart';
-import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:fire/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:real/real.dart';
@@ -63,7 +63,7 @@ class RecordRealOps {
 
     Map<String, dynamic> _map;
 
-    if (record != null && AuthModel.userIsSignedIn() == true){
+    if (record != null && Authing.userIsSignedIn() == true){
 
       final String _path = RecordRealOps.createRecordTypeRealPath(
         recordType: record.recordType,

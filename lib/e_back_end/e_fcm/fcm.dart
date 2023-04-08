@@ -1,15 +1,14 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:authing/authing.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:bldrs/a_models/a_user/auth_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/target/target_progress.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
+import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/sounder.dart';
-import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:devicer/devicer.dart';
 import 'package:filers/filers.dart';
@@ -613,8 +612,8 @@ class FCM {
 
      */
 
-    if (AuthModel.userIsSignedIn() == true){
-      blog('User : ${AuthFireOps.superUserID()} subscribed to topic : $topicID');
+    if (Authing.userIsSignedIn() == true){
+      blog('User : ${Authing.getUserID()} subscribed to topic : $topicID');
       await FirebaseMessaging.instance.subscribeToTopic(topicID);
     }
 
@@ -624,8 +623,8 @@ class FCM {
   static Future<void> unsubscribeFromTopic({
     @required String topicID,
   }) async {
-    if (AuthModel.userIsSignedIn() == true){
-      blog('User : ${AuthFireOps.superUserID()} unSubscribed from topic : $topicID');
+    if (Authing.userIsSignedIn() == true){
+      blog('User : ${Authing.getUserID()} unSubscribed from topic : $topicID');
       await FirebaseMessaging.instance.unsubscribeFromTopic(topicID);
     }
   }
@@ -640,7 +639,7 @@ class FCM {
       listen: false,
     );
 
-    const String fcmServerKey = Standards.fcmServerKey;
+    const String fcmServerKey = BldrsKeys.fcmServerKey;
 
     final String token = _myUserModel.device.token;
 

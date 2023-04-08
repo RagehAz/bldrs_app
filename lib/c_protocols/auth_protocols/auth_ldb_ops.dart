@@ -1,9 +1,9 @@
-import 'package:bldrs/a_models/a_user/auth_model.dart';
+import 'package:authing/authing.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:ldb/ldb.dart';
 import 'package:mapper/mapper.dart';
 import 'package:filers/filers.dart';
-
+/// => TAMAM
 class AuthLDBOps {
   // -----------------------------------------------------------------------------
 
@@ -21,10 +21,11 @@ class AuthLDBOps {
       await LDBOps.insertMap(
         docName: LDBDoc.authModel,
         primaryKey: LDBDoc.getPrimaryKey(LDBDoc.authModel),
-        input: authModel.toMap(toJSON: true),
+        input: authModel.toMap(),
+        // allowDuplicateIDs: false,
       );
 
-      blog('AuthLDBOps : insertAuthModel : inserted AuthModel of uid : ${authModel?.uid}');
+      blog('AuthLDBOps : insertAuthModel : inserted AuthModel of uid : ${authModel?.id}');
 
     }
 
@@ -49,12 +50,11 @@ class AuthLDBOps {
 
     if (Mapper.checkCanLoopList(_list) == true){
 
-      _authModel = AuthModel.decipherAuthModel(
+      _authModel = AuthModel.decipher(
         map: _list.first,
-        fromJSON: true,
       );
 
-      blog('AuthLDBOps : readAuthModel : got AuthModel from LDB for uid : ${_authModel?.uid}');
+      blog('AuthLDBOps : readAuthModel : got AuthModel from LDB for uid : ${_authModel?.id}');
 
     }
 
@@ -77,7 +77,7 @@ class AuthLDBOps {
       await LDBOps.insertMap(
         docName: LDBDoc.authModel,
         primaryKey: LDBDoc.getPrimaryKey(LDBDoc.authModel),
-        input: newAuthModel.toMap(toJSON: true),
+        input: newAuthModel.toMap(),
       );
 
       // blog('AuthLDBOps : updateAuthModel : updated AuthModel on LDB of uid : ${newAuthModel?.uid}');

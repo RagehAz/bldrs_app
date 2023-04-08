@@ -1,4 +1,4 @@
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
+import 'package:authing/authing.dart';
 import 'package:real/real.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +18,7 @@ class FetchReviewProtocols {
     bool _output = false;
 
     final dynamic _result = await Real.readPath(
-      path: '${RealColl.agreesOnReviews}/$flyerID/$reviewID/${AuthFireOps.superUserID()}',
+      path: '${RealColl.agreesOnReviews}/$flyerID/$reviewID/${Authing.getUserID()}',
     );
 
     if (_result == true){

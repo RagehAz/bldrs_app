@@ -7,6 +7,7 @@ import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
+import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
@@ -16,7 +17,6 @@ import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_paths_generators.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
-import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:filers/filers.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
@@ -77,15 +77,15 @@ class DynamicLinks {
   static const String https_ll_bldrs_page_link_l_user_page = '$https_ll_bldrs_page_link/$user_page';
   // --------------------
   static const AndroidParameters androidParameters = AndroidParameters(
-    packageName: Standards.androidPackageName,
+    packageName: BldrsKeys.androidPackageName,
     minimumVersion: 0,
     // fallbackUrl: ,
   );
   // --------------------
   static const IOSParameters iosParameters = IOSParameters(
-    bundleId: Standards.iosBundleID,
+    bundleId: BldrsKeys.iosBundleID,
     minimumVersion: '0',//Standards.appVersion,
-    appStoreId: Standards.appStoreID,
+    appStoreId: BldrsKeys.appStoreID,
     // fallbackUrl: ,
     // customScheme: ,
     /// IPAD
@@ -333,7 +333,7 @@ class BldrsShareLink{
         );
 
         final Uri _uri = await DynamicLinks.generateURI(
-          // '$bldrsURLPrefix/flyer=${AuthFireOps.superUserID()}';
+          // '$bldrsURLPrefix/flyer=${Authing.getUserID()}';
           dynamicLink: '${DynamicLinks.https_ll_bldrs_page_link_l_flyer_page}/$flyerID/$slideIndex',
           title: _title,
           description: _flyer.headline,

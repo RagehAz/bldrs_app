@@ -1,5 +1,5 @@
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/k_statistics/record_model.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/record_protocols/real/record_real_ops.dart';
 import 'package:real/real.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
@@ -26,7 +26,7 @@ class UserRecordRealOps {
   }) async {
     blog('UserRecordOps.createUserSearchRecord : START');
 
-    final String _userID = AuthFireOps.superUserID();
+    final String _userID = Authing.getUserID();
     RecordModel _uploadedRecord;
 
     if (TextCheck.isEmpty(searchText) == false && _userID != null){

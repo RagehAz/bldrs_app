@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/a_user/auth_model.dart';
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/g_counters/flyer_counter_model.dart';
@@ -48,6 +48,8 @@ class InfoPageContents extends StatelessWidget {
       isExpanded: true,
       infoButtonType: null,
     );
+
+    final bool _userIsSignedIn = Authing.userIsSignedIn();
 
     return Container(
       key: const ValueKey<String>('InfoPageContents'),
@@ -213,20 +215,20 @@ class InfoPageContents extends StatelessWidget {
                   ),
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
                 /// COUNTERS
-                if (AuthModel.userIsSignedIn() == true)
+                if (_userIsSignedIn == true)
                   FlyerCountersAndRecords(
                   pageWidth: _pageWidth,
                   flyerModel: flyerModel,
                   flyerCounter: flyerCounter,
                 ),
                 /// COUNTERS LINE
-                if (AuthModel.userIsSignedIn() == true)
+                if (_userIsSignedIn == true)
                   InfoPageSeparator( /// ------------------------- SEPARATOR
                   pageWidth: _pageWidth,
                 ),
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
                 /// REPORT BUTTON
-                if (AuthModel.userIsSignedIn() == true)
+                if (_userIsSignedIn == true)
                 Align(
                   // alignment: Alignment.center,//Aligners.superCenterAlignment(context),
                   child: ReportButton(
@@ -238,7 +240,7 @@ class InfoPageContents extends StatelessWidget {
                   ),
                 ),
                 /// REPORT LINE
-                if (AuthModel.userIsSignedIn() == true)
+                if (_userIsSignedIn == true)
                   InfoPageSeparator(
                   pageWidth: _pageWidth,
                 ),

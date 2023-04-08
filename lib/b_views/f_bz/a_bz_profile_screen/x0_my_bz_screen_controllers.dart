@@ -1,18 +1,18 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/f_new_authorship_exit.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:filers/filers.dart';
+import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
+import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
 
 /// MY BZ SCREEN INITIALIZERS
@@ -90,7 +90,7 @@ Future<void> onMyActiveBzStreamChanged({
 
       final bool _authorsContainMyUserID = AuthorModel.checkAuthorsContainUserID(
         authors: _newBz.authors,
-        userID: AuthFireOps.superUserID(),
+        userID: Authing.getUserID(),
       );
 
       if (_authorsContainMyUserID == false){

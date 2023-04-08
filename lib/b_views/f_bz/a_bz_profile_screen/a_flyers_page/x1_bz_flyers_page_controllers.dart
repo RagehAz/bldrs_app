@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -12,7 +13,6 @@ import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
 import 'package:bldrs/b_views/z_components/poster/structure/x_note_poster_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_paths_generators.dart';
@@ -38,7 +38,7 @@ Future<void> onFlyerBzOptionsTap({
 
   final bool _canDeleteFlyer = AuthorModel.checkAuthorCanDeleteFlyer(
     flyer: flyer,
-    myID: AuthFireOps.superUserID(),
+    myID: Authing.getUserID(),
     bzModel: BzzProvider.proGetActiveBzModel(context: context, listen: false),
   );
 
@@ -219,7 +219,7 @@ Future<bool> _preFlyerDeleteCheckups({
   );
 
   final bool _canDeleteFlyer = AuthorModel.checkAuthorCanDeleteFlyer(
-      myID: AuthFireOps.superUserID(),
+      myID: Authing.getUserID(),
       flyer: flyer,
       bzModel: _bzModel
   );

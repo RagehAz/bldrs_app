@@ -1,6 +1,6 @@
-import 'package:bldrs/a_models/a_user/auth_model.dart';
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 // import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -36,75 +36,62 @@ class UsersProvider extends ChangeNotifier {
     return _usersProvider.myUserModel;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static void proSetMyUserAndAuthModels({
-    @required BuildContext context,
+  ///
+  static void proSetMyUserModel({
     @required UserModel userModel,
     @required bool notify,
-    AuthModel authModel,
-  }){
-
-    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-    _usersProvider._setMyUserModelAndAuthModel(
-      userModel: userModel,
-      notify: notify,
-      authModel: authModel,
-    );
-
+  }) {
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(getContext(), listen: false);
+    _usersProvider._setMyUserModel(userModel: userModel, notify: notify);
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  void _setMyUserModelAndAuthModel({
-    @required UserModel userModel,
+  ///
+  static void proSetMyAuthModel({
+    @required AuthModel authModel,
     @required bool notify,
-    AuthModel authModel,
-  }){
+  }) {
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(getContext(), listen: false);
+    _usersProvider._setMyAuthModel(authModel: authModel, notify: notify);
+  }
+  // --------------------
+  ///
+  void _setMyAuthModel({
+    @required AuthModel authModel,
+    @required bool notify,
+  }) {
+    if (UserModel.checkItIsMe(authModel?.id) == true) {
+      _myAuthModel = authModel;
 
-    if (UserModel.checkItIsMe(userModel?.id) == true){
-
-      _myUserModel = userModel;
-
-      _myAuthModel = authModel ?? _myAuthModel?.copyWith(
-        userModel: userModel,
-      );
-
-
-      if (notify == true){
+      if (notify == true) {
         notifyListeners();
       }
-
     }
-
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  /*
-  void _setAuthModel({
-    @required AuthModel setTo,
+  ///
+  void _setMyUserModel({
+    @required UserModel userModel,
     @required bool notify,
-  }){
+  }) {
+    if (UserModel.checkItIsMe(userModel?.id) == true) {
+      _myUserModel = userModel;
 
-    _myAuthModel = setTo;
-
-    if (notify == true){
-      notifyListeners();
+      if (notify == true) {
+        notifyListeners();
+      }
     }
-
   }
-   */
   // --------------------
   /// TESTED : WORKS PERFECT
   void clearMyUserModelAndAuthModel({
     @required bool notify,
-  }){
-
+  }) {
     _myUserModel = null;
     _myAuthModel = null;
 
-    if (notify == true){
+    if (notify == true) {
       notifyListeners();
     }
-
   }
   // -----------------------------------------------------------------------------
 
@@ -352,5 +339,5 @@ class UsersProvider extends ChangeNotifier {
 }
 
 bool isRage7(){
-    return AuthFireOps.superUserID() == 'z0Obwze3JLYjoEl6uVeXfo4Luup1';
+    return Authing.getUserID() == 'z0Obwze3JLYjoEl6uVeXfo4Luup1';
 }

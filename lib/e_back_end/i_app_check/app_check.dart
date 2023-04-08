@@ -1,4 +1,4 @@
-import 'package:bldrs/f_helpers/theme/standards.dart';
+import 'package:bldrs/bldrs_keys.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:flutter/foundation.dart';
 
@@ -23,7 +23,7 @@ class AppCheck {
     /// TRIAL ONE
     // blog('AppCheck INITIALIZATION START');
     await FirebaseAppCheck.instance.activate(
-      webRecaptchaSiteKey: Standards.recaptchaSiteKey, /// this is 'recaptcha-v3-site-key'
+      webRecaptchaSiteKey: BldrsKeys.recaptchaSiteKey, /// this is 'recaptcha-v3-site-key'
       androidProvider: kDebugMode == true ? AndroidProvider.debug : AndroidProvider.playIntegrity,
     );
     // blog('AppCheck INITIALIZATION END');

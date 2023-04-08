@@ -93,7 +93,7 @@ class NoteCardButtons extends StatelessWidget {
 
     // final bool _imPendingAuthor = PendingAuthor.checkIsPendingAuthor(
     //   bzModel: _bzModel,
-    //   userID: AuthFireOps.superUserID(),
+    //   userID: Authing.getUserID(),
     // );
 
     return SizedBox(

@@ -45,13 +45,13 @@
 //     /// WIPE AUTHOR PIC
 //     await PicProtocols.wipePic(BldrStorage.generateAuthorPicPath(
 //       bzID: bzID,
-//       authorID: AuthFireOps.superUserID(),
+//       authorID: Authing.getUserID(),
 //     ));
 //
 //     // /// GET MY USER MODEL -------------------
 //     // final UserModel _myUserModel = await UserProtocols.fetch(
 //     //   context: context,
-//     //   userID: AuthFireOps.superUserID(),
+//     //   userID: Authing.getUserID(),
 //     // );
 //     //
 //     // /// GET THE BZ MODEL -------------------
@@ -314,7 +314,7 @@
 //     /// 1 - CHECK IF I'M STILL IN THE TEAM
 //     final bool _authorsContainMyUserID = AuthorModel.checkAuthorsContainUserID(
 //       authors: newBzFromStream.authors,
-//       userID: AuthFireOps.superUserID(),
+//       userID: Authing.getUserID(),
 //     );
 //
 //     /// 2 - WHEN I GOT REMOVED FROM THE BZ TEAM

@@ -466,7 +466,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
             //     context: context,
             //     docName: 'admin',
             //     fileName: NoteModel.bldrsFCMIconFireStorageFileName,
-            //     ownersIDs: [AuthFireOps.superUserID()],
+            //     ownersIDs: [Authing.getUserID()],
             //     inputFile: await Filers.getFileFromBase64(_ldbBase64),
             // );
 
