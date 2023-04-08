@@ -3,7 +3,6 @@ import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/x_dashboard/backend_lab/affiliate_tests/affiliate_test_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/cache_viewer/cache_viewer_screen.dart';
 import 'package:bldrs/x_dashboard/backend_lab/cloud_tests/cloud_functions_test.dart';
 import 'package:bldrs/x_dashboard/backend_lab/cloud_tests/dynamic_links_test_screen.dart';
@@ -286,10 +285,10 @@ class BackendLabHome extends StatelessWidget {
         WideButton(
           icon: Iconz.more,
           verse: Verse.plain('Affiliate Tester'),
-          onTap: () => Nav.goToNewScreen(
-              context: context,
-              screen: const AffiliateTestScreen(),
-          ),
+          // onTap: () => Nav.goToNewScreen(
+          //     context: context,
+          //     screen: const AffiliateTestScreen(),
+          // ),
         ),
 
         const Horizon(),
