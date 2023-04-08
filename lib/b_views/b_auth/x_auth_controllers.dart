@@ -1,87 +1,29 @@
 import 'dart:async';
+
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/a_user/account_model.dart';
-import 'package:bldrs/a_models/a_user/auth_model.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/b_views/d_user/b_user_editor_screen/user_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
-import 'package:bldrs/c_protocols/auth_protocols/ldb/account_ldb_ops.dart';
-import 'package:bldrs/c_protocols/auth_protocols/ldb/auth_ldb_ops.dart';
-import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
-import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
+import 'package:bldrs/c_protocols/auth_protocols/account_ldb_ops.dart';
+import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
-import 'package:bldrs/b_views/d_user/b_user_editor_screen/user_editor_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:layouts/layouts.dart';
 
 // -----------------------------------------------------------------------------
 
 /// AUTHENTICATORS
 
 // --------------------
-/*
-Future<void> authByGoogle(BuildContext context) async {
-
-  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-  final ZoneModel _currentZone = _zoneProvider.currentZone;
-  final AuthModel _authModel = await AuthFireOps.signInByGoogle(
-    context: context,
-    currentZone: _currentZone,
-  );
-
-  await _controlAuthResult(
-    context: context,
-    authModel: _authModel,
-  );
-
-}
- */
-// --------------------
-/*
-Future<void> authByFacebook(BuildContext context) async {
-
-  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-  final ZoneModel _currentZone = _zoneProvider.currentZone;
-  final AuthModel _authModel = await AuthFireOps.signInByFacebook(
-    context: context,
-    currentZone: _currentZone,
-  );
-
-  await _controlAuthResult(
-    context: context,
-    authModel: _authModel,
-  );
-
-}
-
- */
-// --------------------
-/// PLAN : FIX ME
-Future<void> authByApple(BuildContext context) async {
-  /*
-  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-  final ZoneModel _currentZone = _zoneProvider.currentZone;
-  final AuthModel _authModel = await AuthFireOps.signInByApple(
-    context: context,
-    currentZone: _currentZone,
-  );
-
-  await _controlAuthResult(
-    context: context,
-    authModel: _authModel,
-  );
-
-
-   */
-}
-// --------------------
-/// TESTED : WORKS PERFECT
+///
 Future<void> authByEmailSignIn({
-  @required BuildContext context,
   @required String email,
   @required String password,
   @required GlobalKey<FormState> formKey,
@@ -91,49 +33,32 @@ Future<void> authByEmailSignIn({
 
   /// A - PREPARE FOR AUTH AND CHECK VALIDITY
   final bool _allFieldsAreValid = _prepareForEmailAuthOps(
-    context: context,
+    context: getContext(),
     formKey: formKey,
   );
-
-  AuthModel _authModel;
 
   if (_allFieldsAreValid == true) {
 
     pushWaitDialog(
-      context: context,
+      context: getContext(),
       verse: const Verse(
         id: 'phid_signing_in',
         translate: true,
       ),
     );
 
-    /// C - FIRE SIGN IN OPS
-    _authModel = await AuthFireOps.signInByEmailAndPassword(
+    final bool _success = await AuthProtocols.signInBldrsByEmail(
       email: email,
       password: password,
     );
 
-    await Future.wait(<Future>[
-
-      _rememberOrForgetAccount(
-        rememberMe: rememberMe,
-        account: AccountModel(
-          id: _authModel?.uid,
-          email: email,
-          password: password,
-        ),
-      ),
-
-      _controlAuthResult(
-        context: context,
-        authModel: _authModel,
-      ),
-
-    ]);
-
-    if (mounted == true){
-      await WaitDialog.closeWaitDialog(context);
-    }
+    await _rememberEmailAndNav(
+      email: email,
+      success: _success,
+      mounted: mounted,
+      password: password,
+      rememberMe: rememberMe,
+    );
 
   }
 
@@ -143,63 +68,44 @@ Future<void> authByEmailSignIn({
 
 }
 // --------------------
-/// TESTED : WORKS PERFECT
+///
 Future<void> authByEmailRegister({
-  @required BuildContext context,
   @required String email,
   @required String password,
   @required String passwordConfirmation,
   @required GlobalKey<FormState> formKey,
   @required bool rememberMe,
+  @required bool mounted,
 }) async {
 
   /// A - PREPARE FOR AUTH AND CHECK VALIDITY
   final bool _allFieldsAreValid = _prepareForEmailAuthOps(
-    context: context,
+    context: getContext(),
     formKey: formKey,
   );
-
-  AuthModel _authModel;
 
   if (_allFieldsAreValid == true) {
 
     pushWaitDialog(
-      context: context,
+      context: getContext(),
       verse: const Verse(
         id: 'phid_creating_new_account',
         translate: true,
       ),
     );
 
-    /// C - START REGISTER OPS
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-    _authModel = await AuthFireOps.registerByEmailAndPassword(
-        context: context,
-        currentZone: _zoneProvider.currentZone,
-        email: email,
-        password: password
+    final bool _success = await AuthProtocols.registerInBldrsByEmail(
+      email: email,
+      password: password,
     );
 
-    await Future.wait(<Future>[
-
-      _rememberOrForgetAccount(
-        rememberMe: rememberMe,
-        account: AccountModel(
-          id: _authModel?.uid,
-          email: email,
-          password: password,
-        ),
-      ),
-
-      _controlAuthResult(
-          context: context,
-          authModel: _authModel
-      ),
-
-    ]);
-
-
-    await WaitDialog.closeWaitDialog(context);
+    await _rememberEmailAndNav(
+      email: email,
+      success: _success,
+      mounted: mounted,
+      password: password,
+      rememberMe: rememberMe,
+    );
 
   }
 
@@ -209,77 +115,108 @@ Future<void> authByEmailRegister({
   }
 
 }
+
+Future<void> authBySocialMedia({
+  @required AuthModel authModel,
+}) async {
+
+  if (AuthModel != null) {
+
+    final bool _success = await AuthProtocols.composeOrUpdateUser(
+      authModel: authModel,
+      authError: null,
+    );
+
+    await _rememberEmailAndNav(
+      email: null,
+      success: _success,
+      mounted: false,
+      password: null,
+      rememberMe: false,
+    );
+
+  }
+
+}
+// --------------------
+///
+Future<void> _rememberEmailAndNav({
+  @required bool success,
+  @required bool rememberMe,
+  @required String email,
+  @required String password,
+  @required bool mounted,
+}) async {
+
+  if (success == true) {
+
+    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+      context: getContext(),
+      listen: false,
+    );
+
+    await _rememberOrForgetAccount(
+      rememberMe: rememberMe,
+      account: AccountModel(
+        id: _userModel?.id,
+        email: email,
+        password: password,
+      ),
+    );
+
+    if (mounted == true) {
+      await WaitDialog.closeWaitDialog(getContext());
+    }
+
+    await _navAfterAuth(
+      userModel: _userModel,
+      firstTimer: false,
+    );
+
+  }
+
+}
 // -----------------------------------------------------------------------------
 
 /// CONTROLLING AUTH RESULT
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _controlAuthResult({
-  @required BuildContext context,
-  @required AuthModel authModel,
+Future<void> _navAfterAuth({
+  @required UserModel userModel,
+  @required bool firstTimer,
 }) async {
 
-  /// B1. IF AUTH FAILS
-  if (authModel.authSucceeds == false || authModel?.userModel == null){
-    await _controlAuthFailure(
-      context: context,
-      authModel: authModel,
-    );
-  }
+  if (userModel != null){
 
-  /// B2. IF AUTH SUCCEEDS
-  else {
-
-    /// INSERT AUTH AND USER MODEL IN LDB
-    await AuthLDBOps.updateAuthModel(authModel);
-    await UserLDBOps.updateUserModel(authModel.userModel);
-
-    if (authModel.firstTimer == true){
+    if (firstTimer == true){
 
       final bool _thereAreMissingFields = Formers.checkUserHasMissingFields(
-        context: context,
-        userModel: authModel?.userModel,
+          context: getContext(),
+        userModel: userModel,
       );
 
       if (_thereAreMissingFields == true){
         await _goToUserEditorForFirstTime(
-          context: context,
-          authModel: authModel,
+          context: getContext(),
+          userModel: userModel,
         );
       }
       else {
-        await _goToLogoScreen(context);
+        await _goToLogoScreen(getContext());
       }
 
     }
-    else {
-      await _goToLogoScreen(context);
-    }
 
+    else {
+      await _goToLogoScreen(getContext());
+    }
 
   }
 
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<void> _controlAuthFailure({
-  @required BuildContext context,
-  @required AuthModel authModel,
-}) async {
-
-  final String _errorMessage = authModel.authError ??
-      'Something went wrong, please try again';
-
-  // const Verse(
-  //   text: 'phid_somethingIsWrong',
-  //   translate: true,
-  // )
-
-  await Dialogs.authErrorDialog(
-      context: context,
-      result: _errorMessage
-  );
+  else {
+    blog('controlAuthResult : something went wrong');
+  }
 
 }
 // --------------------
@@ -381,13 +318,13 @@ Future<void> _goToLogoScreen(BuildContext context) async {
 /// TESTED : WORKS PERFECT
 Future<void> _goToUserEditorForFirstTime({
   @required BuildContext context,
-  @required AuthModel authModel,
+  @required UserModel userModel,
 }) async {
 
   await Nav.goToNewScreen(
       context: context,
       screen: UserEditorScreen(
-        userModel: authModel.userModel,
+        userModel: userModel,
         reAuthBeforeConfirm: false,
         canGoBack: false,
         validateOnStartup: false,
@@ -426,23 +363,31 @@ bool _prepareForEmailAuthOps({
 /// REMEMBERING ME
 
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 Future<void> _rememberOrForgetAccount({
   @required AccountModel account,
   @required bool rememberMe,
 }) async {
+  if (
+      account != null
+      &&
+      account.password != null
+      &&
+      account.email != null
+  ) {
 
-  if (rememberMe == true){
-    await AccountLDBOps.insertAccount(
+    if (rememberMe == true) {
+      await AccountLDBOps.insertAccount(
         account: account,
-    );
-  }
+      );
+    }
 
-  else {
-    await AccountLDBOps.deleteAccount(
+    else {
+      await AccountLDBOps.deleteAccount(
         id: account?.id,
-    );
-  }
+      );
+    }
 
+  }
 }
 // -----------------------------------------------------------------------------

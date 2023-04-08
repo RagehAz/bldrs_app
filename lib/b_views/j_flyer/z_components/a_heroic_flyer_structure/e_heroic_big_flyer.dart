@@ -1,6 +1,6 @@
 import 'dart:async';
-
-import 'package:bldrs/a_models/a_user/auth_model.dart';
+import 'package:animators/animators.dart';
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/g_counters/bz_counter_model.dart';
@@ -18,12 +18,11 @@ import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:animators/animators.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
 
 class HeroicBigFlyer extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -458,7 +457,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
   // --------------------
   Future<void> _onSaveFlyer() async {
 
-    if (AuthModel.userIsSignedIn() == true){
+    if (Authing.userIsSignedIn() == true){
 
       if (mounted == true){
 

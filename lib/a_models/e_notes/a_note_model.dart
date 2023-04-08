@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_bool_literals_in_conditional_expressions
 
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
@@ -8,15 +9,14 @@ import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_model.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
-import 'package:space_time/space_time.dart';
-import 'package:filers/filers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:numeric/numeric.dart';
+import 'package:space_time/space_time.dart';
 import 'package:stringer/stringer.dart';
 
 enum DuplicatesAlgorithm {
@@ -838,7 +838,7 @@ class NoteModel {
 
           final bool _imPendingAuthor = PendingAuthor.checkIsPendingAuthor(
             bzModel: _bzModel,
-            userID: AuthFireOps.superUserID(),
+            userID: Authing.getUserID(),
           );
 
           blog('checkCanShowAuthorshipButtons : _imPendingAuthor : $_imPendingAuthor');
@@ -1131,7 +1131,7 @@ class NoteModel {
       senderID: NoteParties.bldrsSenderID, //NoteModel.bldrsSenderModel.key,
       senderImageURL: NoteParties.bldrsLogoStaticURL, //NoteModel.bldrsSenderModel.value,
       senderType: PartyType.bldrs,
-      receiverID: AuthFireOps.superUserID(),
+      receiverID: Authing.getUserID(),
       receiverType: PartyType.user,
     ),
     title: 'Hello',
@@ -1158,7 +1158,7 @@ class NoteModel {
         senderID: NoteParties.bldrsSenderID,
         senderImageURL: NoteParties.bldrsLogoStaticURL,
         senderType: PartyType.bldrs,
-        receiverID: AuthFireOps.superUserID(),
+        receiverID: Authing.getUserID(),
         receiverType: PartyType.user,
       ),
       title: 'title',

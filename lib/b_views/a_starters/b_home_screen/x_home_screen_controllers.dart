@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/a_user/auth_model.dart';
+import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
@@ -23,13 +23,13 @@ import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart'
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:fire/fire.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:filers/filers.dart';
+import 'package:fire/fire.dart';
 import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
 import 'package:provider/provider.dart';
 
 /*
@@ -65,6 +65,7 @@ List<NavModel> generateMainNavModels({
 }){
 
   final String _countryFlag = currentZone?.icon;
+  final bool _userIsSignedIn = Authing.userIsSignedIn();
 
   return <NavModel>[
 
@@ -78,7 +79,7 @@ List<NavModel> generateMainNavModels({
       icon: Iconz.normalUser,
       screen: const AuthScreen(),
       iconSizeFactor: 0.6,
-      canShow: AuthModel.userIsSignedIn() == false,
+      canShow: _userIsSignedIn == false,
     ),
 
     /// QUESTIONS
@@ -106,7 +107,7 @@ List<NavModel> generateMainNavModels({
       screen: const UserProfileScreen(),
       iconSizeFactor: userModel?.picPath == null ? 0.55 : 1,
       iconColor: Colorz.nothing,
-      canShow: AuthModel.userIsSignedIn() == true,
+      canShow: _userIsSignedIn,
       forceRedDot: userModel == null || Formers.checkUserHasMissingFields(userModel: userModel, context: context),
     ),
 
@@ -119,11 +120,11 @@ List<NavModel> generateMainNavModels({
       ),
       icon: Iconz.saveOff,
       screen: const SavedFlyersScreen(),
-      canShow: AuthModel.userIsSignedIn() == true,
+      canShow: _userIsSignedIn,
     ),
 
     /// SEPARATOR
-    if (AuthModel.userIsSignedIn() == true && UserModel.checkUserIsAuthor(userModel) == true)
+    if (_userIsSignedIn == true && UserModel.checkUserIsAuthor(userModel) == true)
       null,
 
     /// MY BZZ

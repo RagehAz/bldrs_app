@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/a_user/auth_model.dart';
+import 'package:authing/authing.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/settings_wide_button.dart';
@@ -23,7 +23,7 @@ class AppSettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final bool _userIsOnline = AuthModel.userIsSignedIn();
+    final bool _userIsOnline = Authing.userIsSignedIn();
 
     return FloatingLayout(
       columnChildren: <Widget>[
@@ -122,7 +122,7 @@ class CreateNewBzButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final bool _userIsOnline = AuthModel.userIsSignedIn();
+    final bool _userIsOnline = Authing.userIsSignedIn();
 
     return SizedBox(
       width: SettingsWideButton.width,

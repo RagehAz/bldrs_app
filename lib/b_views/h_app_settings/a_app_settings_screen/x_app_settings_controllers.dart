@@ -1,23 +1,25 @@
 import 'dart:async';
+
+import 'package:authing/authing.dart';
+import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/bz_editor_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/b_app_langs_screen/b_app_langs_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/c_about_bldrs_screen/c_about_bldrs_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/d_feedback_screen/d_feedback_screen.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/search_provider.dart';
+import 'package:bldrs/c_protocols/auth_protocols/auth_ldb_ops.dart';
+import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
+import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/provider/search_provider.dart';
+import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:bldrs/c_protocols/auth_protocols/fire/auth_fire_ops.dart';
-import 'package:bldrs/c_protocols/auth_protocols/ldb/auth_ldb_ops.dart';
-import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
-import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
-import 'package:layouts/layouts.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/bz_editor_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
@@ -140,13 +142,13 @@ Future<void> onSignOut(BuildContext context) async {
   _zoneProvider.clearCurrentZone(notify: false);
   _zoneProvider.clearCurrentCurrencyAndAllCurrencies(notify: false);
 
-  await AuthLDBOps.deleteAuthModel(AuthFireOps.superUserID());
-  await UserLDBOps.deleteUserOps(AuthFireOps.superUserID());
+  final String _userID = Authing.getUserID();
+  await AuthLDBOps.deleteAuthModel(_userID);
+  await UserLDBOps.deleteUserOps(_userID);
   await BzLDBOps.wipeOut(context);
   await FlyerLDBOps.wipeOut(context);
 
-  await AuthFireOps.signOut(
-      context: context,
+  await AuthProtocols.signOutBldrs(
       routeToLogoScreen: true
   );
 
