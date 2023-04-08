@@ -39,7 +39,7 @@ class LDBDoc {
       // -------------
       /// USER
       case LDBDoc.users: return 'id';
-      case LDBDoc.authModel: return 'uid';
+      case LDBDoc.authModel: return 'id';
       case LDBDoc.accounts: return 'id';
       // -------------
       /// CHAINS

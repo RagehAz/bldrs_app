@@ -51,7 +51,7 @@ android {
         // NOTE : Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.bldrs.net"
         minSdkVersion 21
-        targetSdkVersion 31
+        targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
@@ -90,8 +90,11 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:31.1.0')
     /// USED FOR APP CHECK FUCK
     implementation 'com.google.firebase:firebase-appcheck-playintegrity'
+    /// USED FOR GOOGLE ADS
     implementation 'com.google.android.gms:play-services-ads:21.4.0'
     // USED FOR GOOGLE SIGN IN
     implementation 'com.google.android.gms:play-services-auth:19.2.0'
+    // USED_FOR_FACEBOOK_AUTH
+    implementation 'com.facebook.android:facebook-android-sdk:latest.release'
 }
 
