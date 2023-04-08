@@ -9,14 +9,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.0"
-  amazon_image:
-    dependency: "direct main"
-    description:
-      name: amazon_image
-      sha256: "72c9bf02b7feb7415de0a9566fff0cf0626bee0d5ecdbe804f34d7746917d45b"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.5"
   animated_text_kit:
     dependency: "direct main"
     description:
