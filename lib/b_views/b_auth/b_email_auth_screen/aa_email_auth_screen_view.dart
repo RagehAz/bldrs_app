@@ -15,8 +15,8 @@ import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart
 import 'package:filers/filers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:legalizer/legalizer.dart';
 import 'package:mapper/mapper.dart';
-import 'package:scale/scale.dart';
 
 class EmailAuthScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -251,72 +251,20 @@ class EmailAuthScreenView extends StatelessWidget {
 
               const SizedBox(height: 10),
 
-              /// BY USING BLDRS.NET YOU AGREE TO OUR
-              if (_isSigningIn == true)
-              SuperVerse(
-                width: Scale.screenWidth(context) * 0.8,
-                verse: const Verse(
-                  id: 'phid_by_using_bldrs_you_agree_to_our',
-                  translate: true,
+              /// DISCLAIMER LINE
+              LegalDisclaimerLine(
+                onPolicyTap: () => onPrivacyTap(context),
+                onTermsTap: () => onTermsAndTap(context),
+                disclaimerLine: Verse.transBake(
+                  context,
+                  _isSigningIn == true ?
+                  'phid_by_using_bldrs_you_agree_to_our'
+                      :
+                  'phid_by_signing_up_you_agree_to_our',
                 ),
-                weight: VerseWeight.thin,
-                maxLines: 5,
-                size: 1,
-              ),
-
-              /// BY SIGNING UP YOU AGREE TO OUR
-              if (_isSigningIn == false)
-              SuperVerse(
-                width: Scale.screenWidth(context) * 0.8,
-                verse: const Verse(
-                  id: 'phid_by_signing_up_you_agree_to_our',
-                  translate: true,
-                ),
-                weight: VerseWeight.thin,
-                maxLines: 5,
-                size: 1,
-              ),
-
-              /// TERMS OF SERVICE
-              SuperVerse(
-                width: Scale.screenWidth(context) * 0.8,
-                verse: const Verse(
-                  id: 'phid_terms_of_service',
-                  translate: true,
-                ),
-                weight: VerseWeight.thin,
-                maxLines: 5,
-                labelColor: Colorz.blue80,
-                size: 1,
-                onTap: () => onTermsAndTap(context),
-              ),
-
-              /// TERMS OF SERVICE
-              SuperVerse(
-                width: Scale.screenWidth(context) * 0.8,
-                verse: const Verse(
-                  id: 'phid_and',
-                  translate: true,
-                ),
-                weight: VerseWeight.thin,
-                maxLines: 5,
-                // labelColor: Colorz.blue80,
-                size: 1,
-                onTap: () => onTermsAndTap(context),
-              ),
-
-              /// PRIVACY POLICY
-              SuperVerse(
-                width: Scale.screenWidth(context) * 0.8,
-                verse: const Verse(
-                  id: 'phid_privacy_policy',
-                  translate: true,
-                ),
-                weight: VerseWeight.thin,
-                maxLines: 5,
-                labelColor: Colorz.blue80,
-                size: 1,
-                onTap: () => onPrivacyTap(context),
+                andLine: Verse.transBake(context, 'phid_and'),
+                policyLine: Verse.transBake(context, 'phid_privacy_policy'),
+                termsLine: Verse.transBake(context, 'phid_terms_of_service'),
               ),
 
               const Horizon(),

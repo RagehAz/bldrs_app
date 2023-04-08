@@ -192,6 +192,9 @@ dependencies:
   devicer:
     git:
       url: https://github.com/RagehAz/devicer.git
+  legalizer:
+    git:
+      url: https://github.com/RagehAz/legalizer.git
 # ------------------------------------
   # MY UN-USED PACKAGES
   #  bldrs_ui:
