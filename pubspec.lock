@@ -1178,6 +1178,15 @@ packages:
       url: "https://github.com/RagehAz/ldb.git"
     source: git
     version: "0.0.4"
+  legalizer:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "389e67caacb6699978421df0f9c58e0443dd53d8"
+      url: "https://github.com/RagehAz/legalizer.git"
+    source: git
+    version: "0.0.5"
   lint:
     dependency: "direct dev"
     description:

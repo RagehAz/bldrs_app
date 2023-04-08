@@ -1,6 +1,7 @@
 import 'package:authing/authing.dart';
 import 'package:bldrs/b_views/b_auth/b_email_auth_screen/a_email_auth_screen.dart';
 import 'package:bldrs/b_views/b_auth/x_auth_controllers.dart';
+import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/b_views/z_components/buttons/main_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -11,6 +12,7 @@ import 'package:devicer/devicer.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
+import 'package:legalizer/legalizer.dart';
 
 class AuthScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -85,6 +87,16 @@ class AuthScreenView extends StatelessWidget {
               }),
             ],
           ),
+        ),
+
+        /// DISCLAIMER LINE
+        LegalDisclaimerLine(
+          onPolicyTap: () => onPrivacyTap(context),
+          onTermsTap: () => onTermsAndTap(context),
+          disclaimerLine: Verse.transBake(context, 'phid_by_using_bldrs_you_agree_to_our'),
+          andLine: Verse.transBake(context, 'phid_and'),
+          policyLine: Verse.transBake(context, 'phid_privacy_policy'),
+          termsLine: Verse.transBake(context, 'phid_terms_of_service'),
         ),
 
       ],

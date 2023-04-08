@@ -3,8 +3,8 @@ import 'package:night_sky/night_sky.dart';
 import 'package:scale/scale.dart';
 import 'package:filers/filers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bldrs/x_dashboard/ui_manager/super_text_test/src/super_text.dart';
 import 'package:flutter/material.dart';
+import 'package:super_text/super_text.dart';
 
 class SuperTextScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -54,7 +54,7 @@ class SuperTextScreen extends StatelessWidget {
                 // lineHeight: 100,
                 centered: false,
                 maxLines: 50,
-                margin: 10,
+                margins: 10,
                 // lineThickness: 2,
                 /// COLORS
                 textColor: Colorz.black150,

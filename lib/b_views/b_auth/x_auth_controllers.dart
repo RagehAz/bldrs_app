@@ -22,7 +22,7 @@ import 'package:layouts/layouts.dart';
 /// AUTHENTICATORS
 
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 Future<void> authByEmailSignIn({
   @required String email,
   @required String password,
@@ -68,7 +68,7 @@ Future<void> authByEmailSignIn({
 
 }
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 Future<void> authByEmailRegister({
   @required String email,
   @required String password,
@@ -115,7 +115,8 @@ Future<void> authByEmailRegister({
   }
 
 }
-
+// --------------------
+/// TESTED : WORKS PERFECT
 Future<void> authBySocialMedia({
   @required AuthModel authModel,
   @required bool mounted,
@@ -148,7 +149,7 @@ Future<void> authBySocialMedia({
 
 }
 // --------------------
-///
+/// TESTED : WORKS PERFECT
 Future<void> _rememberEmailAndNav({
   @required bool success,
   @required bool rememberMe,
@@ -157,6 +158,7 @@ Future<void> _rememberEmailAndNav({
   @required bool mounted,
 }) async {
 
+  /// ON SUCCESS
   if (success == true) {
 
     final UserModel _userModel = UsersProvider.proGetMyUserModel(
@@ -182,6 +184,13 @@ Future<void> _rememberEmailAndNav({
       firstTimer: false,
     );
 
+  }
+
+  /// ON FAILURE
+  else {
+    if (mounted == true) {
+      await WaitDialog.closeWaitDialog(getContext());
+    }
   }
 
 }
