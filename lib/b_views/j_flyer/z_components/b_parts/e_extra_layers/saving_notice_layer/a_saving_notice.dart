@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
+import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/e_extra_layers/saving_notice_layer/b_saving_graphic.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';

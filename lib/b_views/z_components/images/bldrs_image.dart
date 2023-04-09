@@ -1,6 +1,5 @@
-import 'package:bldrs/b_views/z_components/images/super_image/b_super_image_box.dart';
-import 'package:bldrs/b_views/z_components/images/super_image/c_image_switcher.dart';
 import 'package:flutter/material.dart';
+import 'package:super_image/super_image.dart';
 
 class BldrsImage extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -48,24 +47,17 @@ class BldrsImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return SuperImageBox(
+    return SuperImage(
       width: width,
       height: height,
-      boxFit: fit,
+      fit: fit,
       scale: scale,
       backgroundColor: backgroundColor,
       corners: corners,
       greyscale: greyscale,
-      child: ImageSwitcher(
-        width: width,
-        height: height,
-        pic: pic,
-        boxFit: fit,
-        scale: scale,
-        iconColor: iconColor,
-        loading: loading,
-        backgroundColor: backgroundColor,
-      ),
+      pic: pic,
+      iconColor: iconColor,
+      loading: loading,
     );
 
   }

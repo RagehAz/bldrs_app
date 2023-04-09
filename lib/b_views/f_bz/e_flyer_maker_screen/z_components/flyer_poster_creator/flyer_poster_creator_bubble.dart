@@ -10,7 +10,7 @@ import 'package:mediators/mediators.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
-import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
+import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:bldrs/b_views/z_components/poster/poster_display.dart';
 import 'package:bldrs/b_views/z_components/poster/structure/poster_switcher.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';

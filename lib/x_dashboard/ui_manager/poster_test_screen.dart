@@ -9,7 +9,7 @@ import 'package:bldrs/a_models/j_poster/poster_type.dart';
 import 'package:mediators/mediators.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/small_flyer.dart';
 import 'package:bldrs/b_views/z_components/app_bar/app_bar_button.dart';
-import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
+import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:bldrs/b_views/z_components/poster/poster_display.dart';
 import 'package:bldrs/b_views/z_components/poster/structure/x_note_poster_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
