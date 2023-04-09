@@ -123,7 +123,7 @@ class EditingChainsBuilder extends StatelessWidget {
           /// ADD TO PATH BUTTON
           else {
 
-            return DreamBox(
+            return BldrsBox(
               key: const ValueKey<String>('add_button'),
               height: 60,
               width: _sonWidth,

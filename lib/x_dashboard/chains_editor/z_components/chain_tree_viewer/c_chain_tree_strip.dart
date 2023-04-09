@@ -61,7 +61,7 @@ class ChainTreeStrip extends StatelessWidget {
               expanded == null ?
               const SizedBox()
                   :
-              DreamBox(
+              BldrsBox(
                 width: stripHeight,
                 height: stripHeight,
                 icon: expanded ? Iconz.arrowDown : Iconizer.superArrowENRight(context),
@@ -89,7 +89,7 @@ class ChainTreeStrip extends StatelessWidget {
                 children: <Widget>[
 
                   /// ICON
-                  DreamBox(
+                  BldrsBox(
                     height: stripHeight,
                     width: stripHeight,
                     corners: stripHeight * 0.2,
@@ -112,7 +112,7 @@ class ChainTreeStrip extends StatelessWidget {
                     children: <Widget>[
 
                       /// TRANSLATION
-                      SuperVerse(
+                      BldrsText(
                         verse: Verse(
                           id: Phider.removeIndexFromPhid(phid: phid),
                           translate: true,
@@ -124,7 +124,7 @@ class ChainTreeStrip extends StatelessWidget {
                       ),
 
                       /// ID
-                      SuperVerse(
+                      BldrsText(
                         verse: Verse(
                           id: phid,
                           translate: false,

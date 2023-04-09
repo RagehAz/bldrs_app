@@ -61,7 +61,7 @@ class UserBalloon extends StatelessWidget {
           if (UserModel.checkUserIsAuthor(userModel) == true)
             Align(
               alignment: BldrsAligners.superInverseBottomAlignment(context),
-              child: DreamBox(
+              child: BldrsBox(
                 height: size * 0.4,
                 width: size * 0.4,
                 icon: Iconz.bz,
@@ -76,7 +76,7 @@ class UserBalloon extends StatelessWidget {
           if (showEditButton == true)
             Align(
               alignment: BldrsAligners.superInverseTopAlignment(context),
-              child: DreamBox(
+              child: BldrsBox(
                 height: size * 0.4,
                 width: size * 0.5,
                 verse: const Verse(

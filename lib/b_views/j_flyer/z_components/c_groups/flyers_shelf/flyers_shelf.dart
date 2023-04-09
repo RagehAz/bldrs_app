@@ -78,7 +78,7 @@ class FlyersShelf extends StatelessWidget {
                   children: <Widget>[
 
                     if (titleIcon != null)
-                      DreamBox(
+                      BldrsBox(
                         height: titleIconWidth,
                         icon: titleIcon,
                         margins: EdgeInsets.zero,
@@ -92,7 +92,7 @@ class FlyersShelf extends StatelessWidget {
 
                     SizedBox(
                       width: _screenWidth - (Ratioz.appBarMargin * 5) - titleIconWidth,
-                      child: SuperVerse(
+                      child: BldrsText(
                         verse: titleVerse,
                         centered: false,
                         shadow: true,

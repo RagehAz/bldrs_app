@@ -60,7 +60,7 @@ class ConfirmButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final Widget _button = DreamBox(
+    final Widget _button = BldrsBox(
       isDisabled: confirmButtonModel.isDeactivated,
       height: 50,
       width: getWidth(

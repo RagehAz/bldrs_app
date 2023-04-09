@@ -51,7 +51,7 @@ class BzLogo extends StatelessWidget {
           children: <Widget>[
 
             /// LOGO
-            DreamBox(
+            BldrsBox(
               height: width,
               width: width,
               margins: margins,

@@ -20,7 +20,7 @@ class DialogOfSlidesAndAnkhs extends StatelessWidget {
       bodyVerse: Verse.plain('Blah blah blah'),
       child: Column(
         children: const <Widget>[
-          SuperVerse(
+          BldrsText(
             verse: Verse(
               id: 'Blo blo blo',
               translate: false,
@@ -36,7 +36,7 @@ class DialogOfSlidesAndAnkhs extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: const <Widget>[
-        SuperVerse(
+        BldrsText(
           verse:  Verse(
             id: 'Blo blo blo',
             translate: false,

@@ -115,7 +115,7 @@ class NoteCardButtons extends StatelessWidget {
                         numberOfItems: noteModel.poll.buttons.length,
                         boxWidth: boxWidth,
                       );
-                      return DreamBox(
+                      return BldrsBox(
                         width: _width,
                         height: 40,
                         verse: Verse(
@@ -198,7 +198,7 @@ class NoteCardButtons extends StatelessWidget {
               child: Column(
                 children: <Widget>[
 
-                  SuperVerse(
+                  BldrsText(
                     verse: _getResponseVerse(context, noteModel),
                     maxLines: 3,
                     weight: VerseWeight.black,

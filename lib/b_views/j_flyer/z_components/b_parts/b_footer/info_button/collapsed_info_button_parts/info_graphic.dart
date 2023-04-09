@@ -58,7 +58,7 @@ class InfoGraphic extends StatelessWidget {
               return AnimatedOpacity(
                 opacity: _buttonIsExpanded ? 1 : 0,
                 duration: const Duration(milliseconds: 100),
-                child: const SuperVerse(
+                child: const BldrsText(
                   verse: Verse(
                     id: 'phid_flyer_info',
                     translate: true,

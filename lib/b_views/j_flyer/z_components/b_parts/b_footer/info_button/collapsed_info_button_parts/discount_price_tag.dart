@@ -83,7 +83,7 @@ class DiscountPriceTag extends StatelessWidget {
                       child: Container(
                         width: height,
                         padding: EdgeInsets.symmetric(horizontal: height * 0.05),
-                        child: SuperVerse(
+                        child: BldrsText(
                           verse:  Verse(
                             id: '$_discountPercentage %',
                             translate: false,
@@ -97,7 +97,7 @@ class DiscountPriceTag extends StatelessWidget {
                     /// OFF
                     Positioned(
                       bottom: _percentagePosition,
-                      child: const SuperVerse(
+                      child: const BldrsText(
                         verse: Verse(
                           id: 'phid_off',
                           translate: true,
@@ -175,7 +175,7 @@ class DiscountPriceTag extends StatelessWidget {
                           children: <Widget>[
 
                             /// OLD PRICE
-                            SuperVerse.versePrice(
+                            BldrsText.versePrice(
                                 context: context,
                                 // currency: _currency,
                                 price: _oldPrice,
@@ -188,7 +188,7 @@ class DiscountPriceTag extends StatelessWidget {
                             /// CURRENCY
                             Padding(
                               padding: _paddings,
-                              child: SuperVerse(
+                              child: BldrsText(
                                 verse: Verse(
                                   id: _currencyID,
                                   translate: true,
@@ -216,7 +216,7 @@ class DiscountPriceTag extends StatelessWidget {
                         padding: _paddings,
                         child: FittedBox(
                           fit: BoxFit.fitWidth,
-                          child: SuperVerse.versePrice(
+                          child: BldrsText.versePrice(
                             context: context,
                             // currency: _currency,
                             price: _currentPrice,

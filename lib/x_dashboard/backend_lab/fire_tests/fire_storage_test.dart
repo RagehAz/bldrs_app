@@ -191,7 +191,7 @@ class _PicProtocolsTestState extends State<PicProtocolsTest> {
         const SeparatorLine(),
 
         /// CACHE
-        SuperVerse(
+        BldrsText(
           verse: Verse.plain('Cache'),
         ),
 

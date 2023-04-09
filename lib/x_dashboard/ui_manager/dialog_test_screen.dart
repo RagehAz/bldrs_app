@@ -94,7 +94,7 @@ class DialogsTestScreen extends StatelessWidget {
                   draggable: true,
                   titleVerse: Verse.plain('Bottom Dialog'),
                   child: const Center(
-                    child: DreamBox(
+                    child: BldrsBox(
                       width: 200,
                       height: 100,
                       color: Colorz.bloodTest,

@@ -99,7 +99,7 @@ class AppSettingsScreen extends StatelessWidget {
           color: Colorz.yellow80,
         ),
 
-        SuperVerse(
+        BldrsText(
           verse: Verse.plain(bldrsAppVersion),
           size: 0,
           italic: true,
@@ -148,7 +148,7 @@ class CreateNewBzButton extends StatelessWidget {
             top: 0,
             child: Opacity(
               opacity: _userIsOnline == true ? 1 : 0.5,
-              child: const SuperVerse(
+              child: const BldrsText(
                 width: SettingsWideButton.width,
                 verse: Verse(
                   id: 'phid_createBzAccount',
@@ -184,7 +184,7 @@ class CreateNewBzButton extends StatelessWidget {
           ),
 
           /// TAP LAYER
-          DreamBox(
+          BldrsBox(
             width: SettingsWideButton.width,
             height: 130,
             color: Colorz.yellow50,

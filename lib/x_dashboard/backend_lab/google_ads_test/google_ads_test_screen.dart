@@ -198,7 +198,7 @@ class _Verse extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    return SuperVerse(
+    return BldrsText(
       verse: Verse.plain(text),
       width: BldrsAppBar.width(context),
       centered: false,

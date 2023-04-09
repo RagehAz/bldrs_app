@@ -28,7 +28,7 @@ class BubbleTitle extends StatelessWidget {
           left: Ratioz.appBarPadding,
           right: Ratioz.appBarPadding
       ),
-      child: SuperVerse(
+      child: BldrsText(
         verse: titleVerse,
         redDot: redDot,
         centered: centered,

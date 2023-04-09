@@ -68,7 +68,7 @@ class SpecsBuilder extends StatelessWidget {
                   children: <Widget>[
 
                     /// SPEC PICKER NAME
-                    SuperVerse(
+                    BldrsText(
                       verse: Verse(
                         id: _picker?.chainID,
                         translate: true,

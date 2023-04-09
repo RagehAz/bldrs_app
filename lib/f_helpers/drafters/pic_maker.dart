@@ -603,7 +603,7 @@ class PicMaker {
     final Locale _locale = await Localizer.getCurrentLocaleFromLDB();
 
     final BuildContext _context = getContext();
-    final TextStyle _basicTextStyle = SuperVerse.createStyle(context: _context);
+    final TextStyle _basicTextStyle = BldrsText.createStyle(context: _context);
 
     return AssetPickerConfig(
 
@@ -732,8 +732,8 @@ class PicMaker {
               // actionsIconTheme: ,
               // iconTheme: ,
               /// TITLE
-              titleTextStyle: SuperVerse.superVerseDefaultStyle(getContext()),
-              titleSpacing: SuperVerse.superVerseWordSpacing(2),
+              titleTextStyle: BldrsText.superVerseDefaultStyle(getContext()),
+              titleSpacing: BldrsText.superVerseWordSpacing(2),
               // textTheme: , /// deprecated in favor of titleTextStyle & toolbarTextStyle
               /// TOOL BAR
               // toolbarTextStyle: ,

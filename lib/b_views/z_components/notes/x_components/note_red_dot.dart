@@ -68,7 +68,7 @@ class NoteRedDot extends StatelessWidget {
       child: Column(
         children: <Widget>[
 
-          SuperVerse(
+          BldrsText(
             verse: Verse(
               id: _count,
               translate: false,

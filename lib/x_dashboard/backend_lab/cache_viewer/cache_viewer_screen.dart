@@ -134,7 +134,7 @@ class _CacheViewerScreenState extends State<CacheViewerScreen> {
                   children: <Widget>[
 
                     if (Mapper.checkCanLoopList(tempFiles) == true)
-                      SuperVerse(verse: Verse.plain('Temp files')),
+                      BldrsText(verse: Verse.plain('Temp files')),
 
                       if (Mapper.checkCanLoopList(tempFiles) == true)
                       StatsFilesBuilder(
@@ -143,7 +143,7 @@ class _CacheViewerScreenState extends State<CacheViewerScreen> {
                       ),
 
                     if (Mapper.checkCanLoopList(appFiles) == true)
-                      SuperVerse(verse: Verse.plain('App files')),
+                      BldrsText(verse: Verse.plain('App files')),
 
                     if (Mapper.checkCanLoopList(appFiles) == true)
                       StatsFilesBuilder(
@@ -155,7 +155,7 @@ class _CacheViewerScreenState extends State<CacheViewerScreen> {
                     const SeparatorLine(),
 
                     /// CACHE
-                    SuperVerse(
+                    BldrsText(
                       verse: Verse.plain('Cache'),
                     ),
 

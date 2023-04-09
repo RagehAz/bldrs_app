@@ -60,7 +60,7 @@ class SlidesShelf extends StatelessWidget {
               height: _titleZoneHeight,
               alignment: BldrsAligners.superCenterAlignment(context),
               padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
-              child: SuperVerse(
+              child: BldrsText(
                 verse: Verse(
                   id: title,
                   translate: false,
@@ -109,7 +109,7 @@ class SlidesShelf extends StatelessWidget {
                         ),
                         alignment: BldrsAligners.superCenterAlignment(context),
                         child: index < pics.length
-                            ? SuperVerse(
+                            ? BldrsText(
                           verse: Verse(
                             id: '${index + 1}',
                             translate: false,
@@ -165,7 +165,7 @@ class SlidesShelf extends StatelessWidget {
                                 MainAxisAlignment.center,
                                 children: <Widget>[
                                   /// PLUS ICON
-                                  DreamBox(
+                                  BldrsBox(
                                     height: _flyerZoneWidth * 0.5,
                                     width: _flyerZoneWidth * 0.5,
                                     icon: Iconz.plus,
@@ -181,7 +181,7 @@ class SlidesShelf extends StatelessWidget {
 
                                   SizedBox(
                                     width: _flyerZoneWidth * 0.95,
-                                    child: const SuperVerse(
+                                    child: const BldrsText(
                                       verse: Verse(
                                         id: 'phid_add_photos',
                                         translate: true,

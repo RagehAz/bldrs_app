@@ -74,7 +74,7 @@ class TargetProgressBar extends StatelessWidget {
                   width: _progressBoxWidth,
                   height: _barHeight,
                   margin: const EdgeInsets.only(top: 9, left: 3, right: 3),
-                  child: SuperVerse(
+                  child: BldrsText(
                     verse: Verse.plain('${_progress?.current}/${_progress?.objective}'),
                     size: 1,
                     scaleFactor: 0.8,
@@ -97,7 +97,7 @@ class TargetProgressBar extends StatelessWidget {
                 children: <Widget>[
 
                   /// SLIDES
-                  DreamBox(
+                  BldrsBox(
                     height: _iconsHeight,
                     icon: Iconz.flyer,
                     verse: Verse.plain('${target.reward.slides} ${xPhrase( context, 'phid_slides')}'),
@@ -109,7 +109,7 @@ class TargetProgressBar extends StatelessWidget {
                   ),
 
                   /// ANKHS
-                  DreamBox(
+                  BldrsBox(
                     height: _iconsHeight,
                     icon: Iconz.save,
                     verse: Verse.plain('${target.reward.ankh} ${xPhrase( context, 'phid_ankhs')}'),

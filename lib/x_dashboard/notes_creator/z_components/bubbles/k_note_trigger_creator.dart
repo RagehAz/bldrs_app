@@ -49,7 +49,7 @@ class NoteTriggerCreator extends StatelessWidget {
             final String _triggerID = _triggers[index];
             final bool _isSelected = noteModel?.function?.name == _triggerID;
 
-            return DreamBox(
+            return BldrsBox(
               height: _buttonHeight,
               width: _buttonWidth,
               margins: const EdgeInsets.only(bottom: 3),
@@ -77,7 +77,7 @@ class NoteTriggerCreator extends StatelessWidget {
           }),
 
           /// REMOVE TRIGGER BUTTON
-          DreamBox(
+          BldrsBox(
             height: _buttonHeight,
             width: _buttonWidth,
             margins: const EdgeInsets.only(bottom: 3),

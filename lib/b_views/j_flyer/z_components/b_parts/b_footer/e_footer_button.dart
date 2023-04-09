@@ -74,7 +74,7 @@ class FooterButton extends StatelessWidget {
           children: <Widget>[
 
             /// ICON
-            DreamBox(
+            BldrsBox(
               iconSizeFactor: 0.4,
               width: _buttonSize,
               height: _buttonSize,
@@ -110,7 +110,7 @@ class FooterButton extends StatelessWidget {
             if (FlyerDim.isTinyMode(context, flyerBoxWidth) == false)
               Positioned(
                 bottom: flyerBoxWidth * 0.01,
-                child: SuperVerse(
+                child: BldrsText(
                   verse: FlyerVerses.generateFooterButtonVerse(
                     context: context,
                     phid: phid,

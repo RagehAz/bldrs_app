@@ -100,7 +100,7 @@ class PhidButton extends StatelessWidget {
       key: const ValueKey<String>('PhidButton'),
       boxWidth: width,
       inverseAlignment: inverseAlignment,
-      child: DreamBox(
+      child: BldrsBox(
         height: getHeight(),
         width: width,
         color: color,

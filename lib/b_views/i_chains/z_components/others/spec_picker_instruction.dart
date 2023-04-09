@@ -38,7 +38,7 @@ class ChainInstructions extends StatelessWidget {
 
           /// LEADING ICON
           if (leadingIcon != null)
-            DreamBox(
+            BldrsBox(
               height: 35,
               width: 35,
               icon: leadingIcon,
@@ -61,7 +61,7 @@ class ChainInstructions extends StatelessWidget {
             constraints: BoxConstraints(
               maxWidth: _screenWidth * 0.7,
             ),
-            child: SuperVerse(
+            child: BldrsText(
               verse: instructions,
               maxLines: 3,
               weight: VerseWeight.thin,

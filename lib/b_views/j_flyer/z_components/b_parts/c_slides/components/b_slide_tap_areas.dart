@@ -38,7 +38,7 @@ class SlideTapAreas extends StatelessWidget {
             children: <Widget>[
 
               /// BACK
-              DreamBox(
+              BldrsBox(
                 width: flyerBoxWidth * 0.25,
                 height: flyerBoxHeight,
                 bubble: false,
@@ -49,7 +49,7 @@ class SlideTapAreas extends StatelessWidget {
               ),
 
               /// NEXT
-              DreamBox(
+              BldrsBox(
                 width: flyerBoxWidth * 0.75,
                 height: flyerBoxHeight,
                 bubble: false,

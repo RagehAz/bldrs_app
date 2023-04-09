@@ -131,7 +131,7 @@ class InviteAuthorByLinkBubble extends StatelessWidget {
 
         SizedBox(
           width: Bubble.clearWidth(context: context),
-          child: const SuperVerse(
+          child: const BldrsText(
             verse: Verse(
               pseudo: 'This Link is available for one time use only, '
                   'to allow its reciever to be redirected to '
@@ -146,7 +146,7 @@ class InviteAuthorByLinkBubble extends StatelessWidget {
           ),
         ),
 
-        const SuperVerse(
+        const BldrsText(
           verse: Verse(
             id: 'phid_invitation_link_com',
             translate: true,
@@ -162,7 +162,7 @@ class InviteAuthorByLinkBubble extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: const <Widget>[
-            DreamBox(
+            BldrsBox(
               height: 50,
               color: Colorz.yellow255,
               icon: Iconz.share,

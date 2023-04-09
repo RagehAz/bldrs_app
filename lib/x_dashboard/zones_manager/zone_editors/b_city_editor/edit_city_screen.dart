@@ -304,7 +304,7 @@ class _EditCityScreenState extends State<EditCityScreen> {
                 final List<DistrictModel> _districtModels = snap.data;
                 final int _count = _districtModels?.length ?? 0;
 
-                return DreamBox(
+                return BldrsBox(
                   height: 50,
                   width: _bubbleWidth,
                   verse: Verse(
@@ -324,7 +324,7 @@ class _EditCityScreenState extends State<EditCityScreen> {
           ),
 
           /// ADD NEW DISTRICT
-          DreamBox(
+          BldrsBox(
             height: 50,
             width: _bubbleWidth,
             icon: Iconz.plus,
@@ -383,7 +383,7 @@ class _EditCityScreenState extends State<EditCityScreen> {
           ),
 
           /// DELETE CITY
-          DreamBox(
+          BldrsBox(
             height: 50,
             width: _bubbleWidth,
             color: Colorz.bloodTest,
@@ -397,7 +397,7 @@ class _EditCityScreenState extends State<EditCityScreen> {
           ),
 
           /// RESET CITY DISTRICTS STAGES
-          DreamBox(
+          BldrsBox(
             height: 50,
             width: _bubbleWidth,
             color: Colorz.bloodTest,

@@ -1,13 +1,12 @@
 import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/wide_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:mapper/mapper.dart';
 import 'package:night_sky/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
@@ -124,21 +123,12 @@ class _NavJumpingTestScreenState extends State<NavJumpingTestScreen> {
             verse: Verse.plain('jump To Flyer Preview'),
             onTap: () async {
 
-              final BzModel _bzModel = await BzProtocols.fetchBz(
-                context: context,
-                bzID: _userModel.myBzzIDs.first,
-              );
-
-              if (_bzModel != null){
-
-                await BldrsNav.autoNav(
+              await BldrsNav.autoNav(
                   context: context,
                   routeName: Routing.flyerPreview,
-                  arguments: _bzModel.flyersIDs.first,
+                  arguments: Mapper.getFirstInList(_userModel.savedFlyers.all),
                   startFromHome: _canStartFromHomeScreen,
                 );
-
-              }
 
             },
           ),

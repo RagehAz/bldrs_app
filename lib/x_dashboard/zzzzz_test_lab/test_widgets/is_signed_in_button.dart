@@ -32,7 +32,7 @@ class IsSignedInButton extends StatelessWidget {
 
     final bool _isSignedIn = _isSignedInCheck();
 
-    return DreamBox(
+    return BldrsBox(
       height: Ratioz.appBarButtonSize,
       verse: Verse(
         id: _isSignedIn ? 'phid_signIn' : 'phid_signOut',

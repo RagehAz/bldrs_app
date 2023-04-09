@@ -36,7 +36,7 @@ class MultiButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     if (Mapper.checkCanLoopList(pics) == false){
-      return DreamBox(
+      return BldrsBox(
         width: width,
         height: height,
         margins: Scale.superMargins(margin: margins),
@@ -55,7 +55,7 @@ class MultiButton extends StatelessWidget {
             // alignment: Aligners.superCenterAlignment(context),
             children: <Widget>[
 
-              DreamBox(
+              BldrsBox(
                 width: width,
                 height: height,
                 verse: verse,

@@ -80,7 +80,7 @@ class CurrencyManagerScreen extends StatelessWidget {
                         /// NUMBER
                         SizedBox(
                           width: _numberZoneWidth,
-                          child: SuperVerse(
+                          child: BldrsText(
                             verse: Verse.plain(_number),
                             labelColor: Colorz.black125,
                             margin: 5,

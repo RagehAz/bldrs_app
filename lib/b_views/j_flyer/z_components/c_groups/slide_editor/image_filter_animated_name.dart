@@ -37,7 +37,7 @@ class ImageFilterAnimatedName extends StatelessWidget {
                         infoButtonExpanded: false,
                       )
                   ),
-                  child: SuperVerse(
+                  child: BldrsText(
                     verse: Verse(
                       id: _filterModel.id,
                       casing: Casing.upperCase,

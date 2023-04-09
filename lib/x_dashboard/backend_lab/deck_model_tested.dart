@@ -184,7 +184,7 @@ class _TheStatefulScreenState extends State<DeckModelTester> {
 
         const Expander(),
 
-        SuperVerse(
+        BldrsText(
           verse: Verse.plain('$_num'),
           labelColor: Colorz.white20,
           size: 4,
@@ -243,7 +243,7 @@ class _TheStatefulScreenState extends State<DeckModelTester> {
                         deckModel: _deckModel,
                     );
 
-                    return SuperVerse(
+                    return BldrsText(
                       width: _parcelWidth,
                       // height: _parcelWidth * 0.5,
                       verse: Verse.plain(_count.toString()),
@@ -271,7 +271,7 @@ class _TheStatefulScreenState extends State<DeckModelTester> {
                       isOn: true
                     );
 
-                    return DreamBox(
+                    return BldrsBox(
                       width: _parcelWidth,
                       height: _parcelWidth,
                       icon: _icon,
@@ -293,7 +293,7 @@ class _TheStatefulScreenState extends State<DeckModelTester> {
                     final FlyerType _type = FlyerTyper.savedFlyersTabs[index];
                     final String _phid = FlyerTyper.getFlyerTypePhid(flyerType: _type);
 
-                    return SuperVerse(
+                    return BldrsText(
                       width: _parcelWidth,
                       // height: _parcelWidth * 0.5,
                       verse: Verse(id: _phid, translate: true),
@@ -328,7 +328,7 @@ class _TheStatefulScreenState extends State<DeckModelTester> {
 
                       final FlyerType _type = FlyerTyper.savedFlyersTabs[index - 1];
 
-                      return DreamBox(
+                      return BldrsBox(
                         key: ValueKey('plus_$_type'),
                         width: _parcelWidth,
                         height: _parcelWidth,
@@ -364,7 +364,7 @@ class _TheStatefulScreenState extends State<DeckModelTester> {
 
                       final FlyerType _type = FlyerTyper.savedFlyersTabs[index - 1];
 
-                      return DreamBox(
+                      return BldrsBox(
                         key: ValueKey('minus_$_type'),
                         width: _parcelWidth,
                         height: _parcelWidth,
@@ -384,7 +384,7 @@ class _TheStatefulScreenState extends State<DeckModelTester> {
         ),
 
         /// LIST
-        SuperVerse(
+        BldrsText(
           width: Scale.screenWidth(context),
           verse: Verse.plain(_someList.toString()),
           color: Colorz.yellow20,
@@ -393,7 +393,7 @@ class _TheStatefulScreenState extends State<DeckModelTester> {
         ),
 
         /// DECK MODEL
-        SuperVerse(
+        BldrsText(
           width: Scale.screenWidth(context),
           verse: Verse.plain(_deckModel.toString()),
           maxLines: 850,

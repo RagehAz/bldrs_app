@@ -31,7 +31,7 @@ class ContactButton extends StatelessWidget {
     final bool _isSocialMediaContact = ContactModel.checkContactIsSocialMedia(contactModel?.type);
     final bool _showVerse = forceShowVerse ?? _isSocialMediaContact == false;
 
-    return DreamBox(
+    return BldrsBox(
       key: const ValueKey<String>('ContactButton'),
       height: height ?? buttonHeight,
       width: width,

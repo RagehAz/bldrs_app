@@ -15,7 +15,7 @@ class MicroPic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return DreamBox (
+    return BldrsBox (
       width: size,
       height: size,
       icon: pic,

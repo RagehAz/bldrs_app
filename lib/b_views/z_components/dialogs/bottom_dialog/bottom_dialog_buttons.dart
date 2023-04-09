@@ -63,7 +63,7 @@ class BottomDialogButtons extends StatelessWidget {
 
           return Align(
             alignment: alignment,
-            child: DreamBox(
+            child: BldrsBox(
               height: buttonHeight,
               width: _buttonWidth,
               verse: Verse(

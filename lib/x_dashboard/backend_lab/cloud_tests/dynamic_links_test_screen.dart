@@ -74,7 +74,7 @@ class _DynamicLinksTestScreenState extends State<DynamicLinksTestScreen> {
           ),
 
           /// GENERATE FLYER DYNAMIC LINK
-          SuperVerse(
+          BldrsText(
             verse: Verse.plain(_flyerURLLink),
             labelColor: Colorz.bloodTest,
             onTap: () async {
@@ -107,7 +107,7 @@ class _DynamicLinksTestScreenState extends State<DynamicLinksTestScreen> {
           ),
 
           /// GENERATE BZ DYNAMIC LINK
-          SuperVerse(
+          BldrsText(
               verse: Verse.plain(_bzURLLink),
               labelColor: Colorz.bloodTest,
               onTap: () async {
@@ -139,7 +139,7 @@ class _DynamicLinksTestScreenState extends State<DynamicLinksTestScreen> {
           ),
 
           /// GENERATE USER DYNAMIC LINK
-          SuperVerse(
+          BldrsText(
               verse: Verse.plain(_userURLLink),
               labelColor: Colorz.bloodTest,
               onTap: () async {

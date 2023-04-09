@@ -63,7 +63,7 @@ class ImageTile extends StatelessWidget {
                 pic: pic,
               ),
 
-              SuperVerse(
+              BldrsText(
                 width: tileWidth - 10,
                 verse: Verse.plain(text),
                 margin: 5,

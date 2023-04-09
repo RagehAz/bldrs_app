@@ -90,7 +90,7 @@ class _HeadlineSuperVerse extends StatelessWidget {
     );
 
     if (Mapper.checkCanLoopList(appBarRowWidgets) == true){
-      return SuperVerse(
+      return BldrsText(
         verse: title.copyWith(casing: Casing.upperCase),
         weight: VerseWeight.black,
         color: Colorz.white200,
@@ -110,7 +110,7 @@ class _HeadlineSuperVerse extends StatelessWidget {
         margin: EdgeInsets.symmetric(
             horizontal: _titleHorizontalMargins
         ),
-        child: SuperVerse(
+        child: BldrsText(
           verse: title.copyWith(casing: Casing.upperCase),
           weight: VerseWeight.black,
           color: Colorz.white200,

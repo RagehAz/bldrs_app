@@ -117,7 +117,7 @@ class _PermissionButtonState extends State<PermissionButton> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
 
-          DreamBox(
+          BldrsBox(
             height: _height,
             width: 250,
             verse: Verse.plain(widget.text),
@@ -130,7 +130,7 @@ class _PermissionButtonState extends State<PermissionButton> {
             ),
           ),
 
-          DreamBox(
+          BldrsBox(
             height: _height,
             width: _height,
             icon: _status.isGranted == true ? Iconz.check : Iconz.xSmall,

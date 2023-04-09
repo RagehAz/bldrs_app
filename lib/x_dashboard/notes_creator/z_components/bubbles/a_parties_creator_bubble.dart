@@ -74,7 +74,7 @@ class NotePartiesBubbles extends StatelessWidget {
                       final bool _isSelected = note?.parties?.senderType == _senderType;
                       final String _senderTypeIcon = NoteParties.getPartyIcon(_senderType);
 
-                      return DreamBox(
+                      return BldrsBox(
                         height: _partyIconSize,
                         width: _partyIconSize,
                         icon: _senderTypeIcon,
@@ -134,7 +134,7 @@ class NotePartiesBubbles extends StatelessWidget {
                       final bool _isSelected = note?.parties?.receiverType == _receiverType;
                       final String _receiverTypeIcon = NoteParties.getPartyIcon(_receiverType);
 
-                      return DreamBox(
+                      return BldrsBox(
                         height: _partyIconSize,
                         width: _halfBubbleChildWidth/2,
                         icon: _receiverTypeIcon,

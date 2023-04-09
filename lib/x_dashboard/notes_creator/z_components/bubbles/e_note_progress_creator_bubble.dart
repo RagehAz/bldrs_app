@@ -64,7 +64,7 @@ class NoteProgressCreatorBubble extends StatelessWidget {
               children: <Widget>[
 
                 /// LOADING
-                DreamBox(
+                BldrsBox(
                   height: 35,
                   isDisabled: note?.progress == null,
                   icon: Iconz.reload,
@@ -79,7 +79,7 @@ class NoteProgressCreatorBubble extends StatelessWidget {
                 ),
 
                 /// MINUS
-                DreamBox(
+                BldrsBox(
                   height: 35,
                   isDisabled: note.progress == -1 || note.progress == null,
                   icon: Iconz.arrowLeft,
@@ -95,7 +95,7 @@ class NoteProgressCreatorBubble extends StatelessWidget {
                 ),
 
                 /// PLUS
-                DreamBox(
+                BldrsBox(
                   height: 35,
                   icon: Iconz.arrowRight,
                   isDisabled: note.progress == -1 || note.progress == null,

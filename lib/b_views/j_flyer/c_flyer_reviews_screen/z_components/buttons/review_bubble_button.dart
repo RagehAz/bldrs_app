@@ -56,7 +56,7 @@ class ReviewBubbleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return DreamBox(
+    return BldrsBox(
       height: 30,
       icon: icon,
       verse: generateCounterVerse(

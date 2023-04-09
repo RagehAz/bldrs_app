@@ -62,7 +62,7 @@ class FlyerAuditLayer extends StatelessWidget {
                     child: WidgetFader(
                       fadeType: FadeType.repeatAndReverse,
                       duration: const Duration(seconds: 3),
-                      child: SuperVerse(
+                      child: BldrsText(
                         width: flyerBoxWidth * 0.8,
                         verse: Verse(
                           id: _phid,

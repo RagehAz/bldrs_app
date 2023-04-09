@@ -184,7 +184,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
 
                             return Loading(
                               loading: loading,
-                              size: SuperVerse.superVerseRealHeight(
+                              size: BldrsText.superVerseRealHeight(
                                 context: context,
                                 size: 2,
                                 sizeFactor: 0.9,
@@ -282,7 +282,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
 
                   /// VIEW FILE
                   if (_bytesExist == true || _pathExists == true)
-                    DreamBox(
+                    BldrsBox(
                       height: 50,
                       verse: const Verse(
                         id: 'phid_view',
@@ -331,7 +331,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
 
                   /// DELETE PDF
                   if (_bytesExist == true || _pathExists == true)
-                    DreamBox(
+                    BldrsBox(
                       height: 50,
                       verse: const Verse(
                         id: 'phid_remove',
@@ -350,7 +350,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                     ),
 
                   /// SELECT PDF
-                  DreamBox(
+                  BldrsBox(
                     height: 50,
                     verse: Verse(
                       id: _bytesExist == true || pdfModel?.path != null ? 'phid_replace_pdf' : 'phid_select_a_pdf',

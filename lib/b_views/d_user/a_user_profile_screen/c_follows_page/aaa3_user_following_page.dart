@@ -30,7 +30,7 @@ class UserFollowingPage extends StatelessWidget {
     // --------------------
     /// FOLLOWS EXIST
     if (Mapper.checkCanLoopList(_followedBzzIds) == false){
-      return const SuperVerse(
+      return const BldrsText(
         verse: Verse(
             id: 'phid_no_bzz_are_followed',
             translate: true,

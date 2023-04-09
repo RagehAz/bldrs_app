@@ -35,7 +35,7 @@ class StatsLine extends StatelessWidget {
     return Container(
       width: bubbleWidth,
       alignment: BldrsAligners.superCenterAlignment(context),
-      child: DreamBox(
+      child: BldrsBox(
         height: _height,
         width: bubbleWidth,
         icon: icon,

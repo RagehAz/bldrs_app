@@ -135,7 +135,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
         padding: Stratosphere.stratosphereSandwich,
         children: <Widget>[
 
-          const SuperVerse(
+          const BldrsText(
             verse: Verse(
               id: 'phid_your_opinion_matters',
               translate: true,
@@ -149,7 +149,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
             child: Container(
               width: Scale.screenWidth(context) * 0.7,
               margin: const EdgeInsets.only(bottom: 10),
-              child: const SuperVerse(
+              child: const BldrsText(
                 verse: Verse(
                   pseudo: 'Tell us what you think about Bldrs.net, or what upgrades you might think of',
                   id: 'phid_feedback_description',
@@ -195,7 +195,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
             },
           ),
 
-          DreamBox(
+          BldrsBox(
             height: 50,
             width: 200,
             verse: const Verse(

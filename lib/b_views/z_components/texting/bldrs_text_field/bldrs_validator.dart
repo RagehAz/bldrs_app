@@ -25,10 +25,10 @@ class BldrsValidator extends StatelessWidget {
     return SuperValidator(
       width: width,
       validator: validator,
-      font: SuperVerse.superVerseFont(context, VerseWeight.thin),
+      font: BldrsText.superVerseFont(context, VerseWeight.thin),
       autoValidate: autoValidate,
       focusNode: focusNode,
-      textHeight: SuperVerse.superVerseRealHeight(context: context, size: 2, sizeFactor: 1, hasLabelBox: false),
+      textHeight: BldrsText.superVerseRealHeight(context: context, size: 2, sizeFactor: 1, hasLabelBox: false),
       errorTextColor: Colorz.red255,
       scrollPadding: EdgeInsets.only(
         bottom: Scale.screenHeight(context) * 0.3,

@@ -112,7 +112,7 @@ class SectionsButton extends StatelessWidget {
                     return Row(
                       children: <Widget>[
 
-                        DreamBox(
+                        BldrsBox(
                           height: 40,
                           width: 40,
                           icon: _icon ?? Iconz.keywords,
@@ -127,7 +127,7 @@ class SectionsButton extends StatelessWidget {
                             /// 'Section' TITLE
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 10),
-                              child: SuperVerse(
+                              child: BldrsText(
                                 verse: _titleVerse,
                                 size: 1,
                                 italic: true,
@@ -145,7 +145,7 @@ class SectionsButton extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: <Widget>[
 
-                                  SuperVerse(
+                                  BldrsText(
                                     verse: _sectionVerse,
                                     size: 1,
                                     centered: false,

@@ -22,7 +22,7 @@ class AuthorRoleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return DreamBox(
+    return BldrsBox(
       height: 50,
       width: 300,
       verse: verse.copyWith(casing: isOn == true ? Casing.upperCase : Casing.non),

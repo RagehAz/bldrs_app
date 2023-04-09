@@ -198,7 +198,7 @@ class AboutBzBubbles extends StatelessWidget {
 
         /// FLYERS GALLERY TITLE
         if (showGallery == true)
-          SuperVerse(
+          BldrsText(
             verse: Verse(
               id: '${xPhrase(context, 'phid_published_flyers_by')} ${bzModel?.name}',
               translate: false,

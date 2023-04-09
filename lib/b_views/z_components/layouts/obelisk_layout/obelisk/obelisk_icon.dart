@@ -73,7 +73,7 @@ class ObeliskIcon extends StatelessWidget {
                     );
 
                   },
-                  child: DreamBox(
+                  child: BldrsBox(
                     width: Obelisk.circleWidth,
                     height: Obelisk.circleWidth,
                     corners: Obelisk.circleWidth * 0.5,

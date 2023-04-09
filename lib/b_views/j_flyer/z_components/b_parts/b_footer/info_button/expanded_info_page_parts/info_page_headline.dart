@@ -21,7 +21,7 @@ class InfoPageHeadline extends StatelessWidget {
       alignment: BldrsAligners.superCenterAlignment(context),
       // padding: const EdgeInsets.symmetric(horizontal: 5),
       margin: const EdgeInsets.only(bottom: 10),
-      child: SuperVerse(
+      child: BldrsText(
         verse: verse,
         centered: false,
         size: 3,

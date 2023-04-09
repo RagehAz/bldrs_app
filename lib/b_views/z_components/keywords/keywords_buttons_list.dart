@@ -54,7 +54,7 @@ class PhidsButtonsList extends StatelessWidget {
             langCode: 'ar',
           );
 
-          return DreamBox(
+          return BldrsBox(
             height: ExpandingTile.collapsedTileHeight,
             width: buttonWidth - (Ratioz.appBarMargin * 2),
             icon: _icon,

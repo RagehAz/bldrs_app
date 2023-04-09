@@ -122,7 +122,7 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
             const SeparatorLine(),
 
             /// AUTH -------------------------------------------------------------
-            const SuperVerse(
+            const BldrsText(
               verse: Verse(
                 id: 'Auth',
                 translate: false,
@@ -153,7 +153,7 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
             const SeparatorLine(),
 
             /// USER -------------------------------------------------------------
-            const SuperVerse(
+            const BldrsText(
               verse: Verse(
                 id: 'User',
                 translate: false,
@@ -184,7 +184,7 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
             const SeparatorLine(),
 
             /// BZZ -------------------------------------------------------------
-            const SuperVerse(
+            const BldrsText(
               verse: Verse(
                 id: 'Bzz',
                 translate: false,
@@ -242,7 +242,7 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
             const SeparatorLine(),
 
             /// ZONE -------------------------------------------------------------
-            const SuperVerse(
+            const BldrsText(
               verse: Verse(
                 id: 'Zone',
                 translate: false,
@@ -317,7 +317,7 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
             const SeparatorLine(),
 
             /// CHAINS -------------------------------------------------------------
-            const SuperVerse(
+            const BldrsText(
               verse: Verse(
                 id: 'Chains',
                 translate: false,
@@ -399,7 +399,7 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
             const SeparatorLine(),
 
             /// PHRASES -------------------------------------------------------------
-            const SuperVerse(
+            const BldrsText(
               verse: Verse(
                 id: 'Phrases',
                 translate: false,
@@ -439,7 +439,7 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
             const SeparatorLine(),
 
             /// UI -------------------------------------------------------------
-            const SuperVerse(
+            const BldrsText(
               verse: Verse(
                 id: 'UI',
                 translate: false,
@@ -482,7 +482,7 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
             const SeparatorLine(),
 
             /// CHAINS -------------------------------------------------------------
-            const SuperVerse(
+            const BldrsText(
               verse: Verse(
                 id: 'TO AVOID SET STATE TECHNIQUES',
                 translate: false,
@@ -493,7 +493,7 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
             Consumer<UiProvider>(
               builder: (BuildContext ctx, UiProvider uiProvider, Widget child) {
                 final bool _loading = uiProvider.isLoading;
-                return DreamBox(
+                return BldrsBox(
                   height: 50,
                   width: 300,
                   verse:  Verse(
@@ -513,7 +513,7 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
               builder: (BuildContext ctx, bool isLoading, Widget child){
 
                 return
-                  DreamBox(
+                  BldrsBox(
                     height: 50,
                     width: 300,
                     verse:  Verse(
@@ -534,7 +534,7 @@ class _ProvidersViewerScreenState extends State<ProvidersViewerScreen> with Sing
             /// Builder child pattern
             AnimatedBuilder(
                 animation: _animationController,
-                child: DreamBox(
+                child: BldrsBox(
                   height: 50,
                   width: 50,
                   verse: const Verse(
@@ -592,7 +592,7 @@ class ProviderTestButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return DreamBox(
+    return BldrsBox(
       height: 25,
       corners: 5,
       width: width ?? BldrsAppBar.width(context),

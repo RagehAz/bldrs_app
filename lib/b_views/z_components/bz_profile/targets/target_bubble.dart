@@ -41,7 +41,7 @@ class TargetCard extends StatelessWidget {
         children: <Widget>[
 
           /// TITLE
-          SuperVerse(
+          BldrsText(
             verse: Verse(
               id: target.name,
               translate: true,
@@ -54,7 +54,7 @@ class TargetCard extends StatelessWidget {
           ),
 
           /// DESCRIPTION
-          SuperVerse(
+          BldrsText(
             verse: Verse(
               id: target.description,
               translate: true,
@@ -81,7 +81,7 @@ class TargetCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
 
-                const SuperVerse(
+                const BldrsText(
                   verse: Verse(
                     id: 'phid_instructions',
                     translate: true,
@@ -100,7 +100,7 @@ class TargetCard extends StatelessWidget {
                     shrinkWrap: true,
 
                     itemBuilder: (_, index) {
-                      return SuperVerse(
+                      return BldrsText(
                         verse: Verse(
                           id: target.instructions[index],
                           translate: true,
@@ -121,7 +121,7 @@ class TargetCard extends StatelessWidget {
           /// CLAIM BUTTON
           if (_targetReached == true)
             Align(
-              child: DreamBox(
+              child: BldrsBox(
                 width: _bubbleClearWidth,
                 height: 70,
                 verse: Verse(

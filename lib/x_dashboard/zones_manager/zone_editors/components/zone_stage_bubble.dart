@@ -64,7 +64,7 @@ class ZoneStageSwitcherBubble extends StatelessWidget {
               final StageType _type = Staging.zoneStagesList[index];
               final bool _isSelected = stageType == _type;
 
-              return DreamBox(
+              return BldrsBox(
                 height: 40,
                 width: _buttonWidth,
                 verseScaleFactor: 0.6,

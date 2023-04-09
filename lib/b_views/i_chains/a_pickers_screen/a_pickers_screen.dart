@@ -332,7 +332,7 @@ class _PickersScreenState extends State<PickersScreen> {
             return const Center(
               child: WidgetFader(
                 fadeType: FadeType.repeatAndReverse,
-                child: SuperVerse(
+                child: BldrsText(
                   verse: Verse(
                     id: 'phid_loading',
                     translate: true,

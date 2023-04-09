@@ -257,7 +257,7 @@ class _TheStatefulScreenState extends State<PosterTestScreen> {
         // -------------------------------------
 
         /// POSTER WIDGET TITLE
-        SuperVerse(
+        BldrsText(
           verse: Verse.plain('Poster Widget'),
           centered: false,
           margin: 10,
@@ -322,7 +322,7 @@ class _TheStatefulScreenState extends State<PosterTestScreen> {
           ),
 
         /// POSTER BYTES TITLE
-        SuperVerse(
+        BldrsText(
           verse: Verse.plain('Poster bytes'),
           centered: false,
           margin: 10,
