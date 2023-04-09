@@ -6,7 +6,6 @@ import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:mediators/mediators.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_paths_generators.dart';
 import 'package:colorizer/colorizer.dart';
@@ -14,6 +13,7 @@ import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:space_time/space_time.dart';
+import 'package:super_image/super_image.dart';
 
 @immutable
 class DraftSlide {

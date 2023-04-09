@@ -1,11 +1,10 @@
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
-import 'package:bldrs/b_views/z_components/images/super_filter/super_filtered_image.dart';
 import 'package:filers/filers.dart';
 import 'package:space_time/space_time.dart';
 import 'package:flutter/material.dart';
 import 'package:matrix_gesture_detector/matrix_gesture_detector.dart';
+import 'package:super_image/super_image.dart';
 
 class SlideTransformer extends StatelessWidget {
   /// --------------------------------------------------------------------------

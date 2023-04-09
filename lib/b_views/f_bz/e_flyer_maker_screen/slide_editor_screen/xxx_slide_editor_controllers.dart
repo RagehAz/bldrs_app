@@ -1,15 +1,14 @@
 import 'dart:typed_data';
-
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
 import 'package:colorizer/colorizer.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
+import 'package:super_image/super_image.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 

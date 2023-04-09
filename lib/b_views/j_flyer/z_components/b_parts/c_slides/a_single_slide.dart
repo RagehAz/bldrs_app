@@ -6,10 +6,9 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/c
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/e_slide_headline.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
-import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
-import 'package:bldrs/b_views/z_components/images/super_filter/super_filtered_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
+import 'package:super_image/super_image.dart';
 
 class SingleSlide extends StatelessWidget {
   /// --------------------------------------------------------------------------
