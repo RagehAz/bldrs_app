@@ -137,6 +137,9 @@ dependencies:
   dialogs:
     git:
       url: https://github.com/RagehAz/dialogs.git
+  super_stop_watch:
+    git:
+      url: https://github.com/RagehAz/super_stop_watch.git
   # ---------------------------
   # MY BACK END PACKAGES
   rest:

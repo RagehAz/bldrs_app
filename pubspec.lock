@@ -1772,6 +1772,15 @@ packages:
       url: "https://github.com/RagehAz/super_image.git"
     source: git
     version: "1.0.1"
+  super_stop_watch:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "1aa428ea7e6f737d96058b984570033615ae6c16"
+      url: "https://github.com/RagehAz/super_stop_watch.git"
+    source: git
+    version: "0.0.1"
   super_text:
     dependency: "direct main"
     description:
