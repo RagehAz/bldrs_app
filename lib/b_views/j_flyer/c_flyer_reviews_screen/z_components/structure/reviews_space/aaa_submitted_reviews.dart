@@ -14,6 +14,7 @@ import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
 import 'package:fire/fire.dart';
 import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
 
 class SubmittedReviews extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -138,134 +139,136 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
       key: const ValueKey<String>('SubmittedReviews'),
       width: widget.pageWidth,
       height: widget.pageHeight,
-      child: FireCollPaginator(
-        scrollController: _scrollController,
-        paginationQuery: reviewsPaginationQuery(
-          flyerID: widget.flyerModel.id,
-        ),
-        streamQuery: reviewsStreamQuery(
-          context: context,
-          flyerID: widget.flyerModel.id,
-        ),
-        paginationController: _paginationController,
-        loadingWidget: const Loading(
-          loading: true,
-        ),
-        builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
+      child: MaxBounceNavigator(
+        child: FireCollPaginator(
+          scrollController: _scrollController,
+          paginationQuery: reviewsPaginationQuery(
+            flyerID: widget.flyerModel.id,
+          ),
+          streamQuery: reviewsStreamQuery(
+            context: context,
+            flyerID: widget.flyerModel.id,
+          ),
+          paginationController: _paginationController,
+          loadingWidget: const Loading(
+            loading: true,
+          ),
+          builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
 
-          final List<ReviewModel> reviews = ReviewModel.decipherReviews(
-            maps: maps,
-            fromJSON: false,
-          );
+            final List<ReviewModel> reviews = ReviewModel.decipherReviews(
+              maps: maps,
+              fromJSON: false,
+            );
 
-          return ListView.builder(
-            key: const ValueKey<String>('ReviewsBuilder'),
-            controller: _scrollController,
-            physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.only(
-              top: ReviewBox.spacer,
-              bottom: Ratioz.horizon,
-            ),
-            itemCount: reviews.length + 1,
-            itemBuilder: (_, int index){
+            return ListView.builder(
+              key: const ValueKey<String>('ReviewsBuilder'),
+              controller: _scrollController,
+              physics: const BouncingScrollPhysics(),
+              padding: const EdgeInsets.only(
+                top: ReviewBox.spacer,
+                bottom: Ratioz.horizon,
+              ),
+              itemCount: reviews.length + 1,
+              itemBuilder: (_, int index){
 
-              /// REVIEW CREATOR
-              if (index == 0){
+                /// REVIEW CREATOR
+                if (index == 0){
 
-                /// USER IS NOT SIGNED IN
-                if (Authing.getUserID() == null){
-                  return const SizedBox();
-                }
+                  /// USER IS NOT SIGNED IN
+                  if (Authing.getUserID() == null){
+                    return const SizedBox();
+                  }
 
-                /// USER IS SIGNED IN
-                else {
-                  return ReviewCreatorBubble(
-                    pageWidth: widget.pageWidth,
-                    reviewTextController: _reviewTextController,
-                    globalKey: globalKey,
-                    isUploading: _isUploading,
-                    onReviewSubmit: () => onSubmitReview(
-                      context: context,
-                      textController: _reviewTextController,
-                      flyerModel: widget.flyerModel,
-                      paginationController: _paginationController,
+                  /// USER IS SIGNED IN
+                  else {
+                    return ReviewCreatorBubble(
+                      pageWidth: widget.pageWidth,
+                      reviewTextController: _reviewTextController,
+                      globalKey: globalKey,
                       isUploading: _isUploading,
-                      mounted: mounted,
-                    ),
-                    onReviewUserBalloonTap: (UserModel userModel) => onReviewUserBalloonTap(
-                      userModel: userModel,
-                    ),
-                  );
+                      onReviewSubmit: () => onSubmitReview(
+                        context: context,
+                        textController: _reviewTextController,
+                        flyerModel: widget.flyerModel,
+                        paginationController: _paginationController,
+                        isUploading: _isUploading,
+                        mounted: mounted,
+                      ),
+                      onReviewUserBalloonTap: (UserModel userModel) => onReviewUserBalloonTap(
+                        userModel: userModel,
+                      ),
+                    );
+                  }
+
                 }
 
-              }
+                /// SUBMITTED REVIEWS
+                else {
 
-              /// SUBMITTED REVIEWS
-              else {
+                  final ReviewModel _reviewModel = reviews[index - 1];
 
-                final ReviewModel _reviewModel = reviews[index - 1];
+                  return FutureBuilder<bool>(
+                      future: ReviewProtocols.readIsAgreed(
+                        reviewID: _reviewModel.id,
+                        flyerID: _reviewModel.flyerID,
+                      ),
+                      initialData: false,
+                      builder: (_, AsyncSnapshot<Object> snapshot){
 
-                return FutureBuilder<bool>(
-                    future: ReviewProtocols.readIsAgreed(
-                      reviewID: _reviewModel.id,
-                      flyerID: _reviewModel.flyerID,
-                    ),
-                    initialData: false,
-                    builder: (_, AsyncSnapshot<Object> snapshot){
+                        final bool _isAlreadyAgreed = snapshot.data;
 
-                      final bool _isAlreadyAgreed = snapshot.data;
-
-                      return ReviewViewBubble(
-                        isSpecial: widget.highlightReviewID == _reviewModel.id,
-                        flyerModel: widget.flyerModel,
-                        pageWidth : widget.pageWidth,
-                        reviewModel: _reviewModel,
-                        isAgreed: _isAlreadyAgreed,
-
-                        onReviewOptionsTap: () => onReviewOptions(
-                          context: context,
+                        return ReviewViewBubble(
+                          isSpecial: widget.highlightReviewID == _reviewModel.id,
+                          flyerModel: widget.flyerModel,
+                          pageWidth : widget.pageWidth,
                           reviewModel: _reviewModel,
-                          paginationController: _paginationController,
-                          bzID: widget.flyerModel.bzID,
-                          mounted: mounted,
-                        ),
-                        onBzReplyOverReview: () => onBzReply(
-                          context: context,
-                          reviewModel: _reviewModel,
-                          paginationController: _paginationController,
-                          bzID: widget.flyerModel.bzID,
-                          mounted: mounted,
-                        ),
-                        onReplyOptionsTap: () => onReplyOptions(
-                          context: context,
-                          reviewModel: _reviewModel,
-                          paginationController: _paginationController,
-                          mounted: mounted,
-                        ),
-                        onReviewAgreeTap: () => onReviewAgree(
-                          context: context,
                           isAgreed: _isAlreadyAgreed,
-                          reviewModel: _reviewModel,
-                          paginationController: _paginationController,
-                          mounted: mounted,
-                        ),
-                        onReviewUserBalloonTap: (UserModel userModel) => onReviewUserBalloonTap(
-                          userModel: userModel,
-                        ),
-                        onReplyBzBalloonTap: (BzModel bzModel) => onReplyBzBalloonTap(
-                          bzModel: bzModel,
-                        ),
-                      );
 
-                    }
-                );
+                          onReviewOptionsTap: () => onReviewOptions(
+                            context: context,
+                            reviewModel: _reviewModel,
+                            paginationController: _paginationController,
+                            bzID: widget.flyerModel.bzID,
+                            mounted: mounted,
+                          ),
+                          onBzReplyOverReview: () => onBzReply(
+                            context: context,
+                            reviewModel: _reviewModel,
+                            paginationController: _paginationController,
+                            bzID: widget.flyerModel.bzID,
+                            mounted: mounted,
+                          ),
+                          onReplyOptionsTap: () => onReplyOptions(
+                            context: context,
+                            reviewModel: _reviewModel,
+                            paginationController: _paginationController,
+                            mounted: mounted,
+                          ),
+                          onReviewAgreeTap: () => onReviewAgree(
+                            context: context,
+                            isAgreed: _isAlreadyAgreed,
+                            reviewModel: _reviewModel,
+                            paginationController: _paginationController,
+                            mounted: mounted,
+                          ),
+                          onReviewUserBalloonTap: (UserModel userModel) => onReviewUserBalloonTap(
+                            userModel: userModel,
+                          ),
+                          onReplyBzBalloonTap: (BzModel bzModel) => onReplyBzBalloonTap(
+                            bzModel: bzModel,
+                          ),
+                        );
 
-              }
+                      }
+                  );
 
-            },
-          );
+                }
 
-        },
+              },
+            );
+
+          },
+        ),
       ),
     );
 
