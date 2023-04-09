@@ -17,6 +17,7 @@ import 'package:bldrs/main.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/a_lock_screen/lock_test_screen.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/b_dashboard_home_screen/dash_button/dash_button.dart';
 import 'package:bldrs/x_dashboard/a_dashboard_home/b_dashboard_home_screen/dash_button/dash_button_model.dart';
+import 'package:bldrs/x_dashboard/amazon_gta/amazon_gta_screen.dart';
 import 'package:bldrs/x_dashboard/app_controls/a_app_controls_manager.dart';
 import 'package:bldrs/x_dashboard/backend_lab/backend_lab_home.dart';
 import 'package:bldrs/x_dashboard/bzz_manager/a_bzz_manager_screen.dart';
@@ -193,8 +194,12 @@ class DashBoardHomeScreen extends StatelessWidget {
         screen: AppControlsManager(),
       ),
       // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      /// EMPTY
-      null,
+      /// AMAZON GTA
+      const DashButtonModel(
+        verse: 'Amazon GTA',
+        icon: Iconz.amazon,
+        screen: AmazonGTAScreen(),
+        ),
       /// EMPTY
       null,
       /// DEVICE INFO
@@ -278,7 +283,6 @@ class DashBoardHomeScreen extends StatelessWidget {
     // --------------------
     final double _screenWidth = Scale.screenWidth(context);
     // final double _screenHeight = Scale.screenHeight(context);
-
     // -------------------------------------------------------
     const double _gridSpacing = 10;
     const int numberOfColumns = 4;
