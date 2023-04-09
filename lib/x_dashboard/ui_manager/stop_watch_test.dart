@@ -1,9 +1,5 @@
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/clocking/stop_watch/stop_watch_button.dart';
-import 'package:bldrs/b_views/z_components/clocking/stop_watch/stop_watch_controller.dart';
-import 'package:bldrs/b_views/z_components/clocking/stop_watch/stop_watch_counter_builder.dart';
-import 'package:bldrs/b_views/z_components/clocking/stop_watch/stop_watch_records_builder.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/bldrs_floating_list.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:night_sky/night_sky.dart';
@@ -13,6 +9,7 @@ import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:stringer/stringer.dart';
+import 'package:super_stop_watch/super_stop_watch.dart';
 
 class StopWatchTest extends StatefulWidget {
   /// --------------------------------------------------------------------------
