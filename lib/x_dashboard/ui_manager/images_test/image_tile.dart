@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
+import 'package:mediators/mediators.dart';
 import 'package:bldrs/b_views/j_flyer/b_slide_full_screen/a_slide_full_screen.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';

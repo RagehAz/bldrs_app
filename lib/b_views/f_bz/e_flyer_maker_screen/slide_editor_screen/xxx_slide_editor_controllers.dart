@@ -5,11 +5,11 @@ import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
 import 'package:colorizer/colorizer.dart';
-import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
 import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 
@@ -204,7 +204,6 @@ void stopAnimation({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onCropSlide({
-  @required BuildContext context,
   @required ValueNotifier<DraftSlide> draftNotifier,
   @required ValueNotifier<ImageFilterModel> filterNotifier,
   @required ValueNotifier<Matrix4> matrixNotifier,
@@ -212,8 +211,7 @@ Future<void> onCropSlide({
   @required bool mounted,
 }) async {
 
-  final Uint8List _bytes = await PicMaker.cropPic(
-    context: context,
+  final Uint8List _bytes = await BldrsPicMaker.cropPic(
     bytes: draftNotifier.value.picModel.bytes,
     aspectRatio: FlyerDim.flyerAspectRatio(
       forceMaxHeight: true,

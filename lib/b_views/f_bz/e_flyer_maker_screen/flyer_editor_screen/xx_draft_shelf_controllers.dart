@@ -12,14 +12,15 @@ import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:layouts/layouts.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
+import 'package:mediators/mediators.dart';
 
 /// => TAMAM
 // -----------------------------------------------------------------------------
@@ -104,8 +105,7 @@ Future<void> _addImagesForNewFlyer({
 
     if (imagePickerType == PicMakerType.galleryImage){
 
-      final List<Uint8List> _bytezz = await PicMaker.pickAndCropMultiplePics(
-        context: context,
+      final List<Uint8List> _bytezz = await BldrsPicMaker.pickAndCropMultiplePics(
         // maxAssets: 10,
         aspectRatio: FlyerDim.flyerAspectRatio(forceMaxHeight: true),
         cropAfterPick: false,

@@ -1,6 +1,6 @@
 import 'dart:ui' as ui;
 
-import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
+import 'package:mediators/mediators.dart';
 
 import 'package:filers/filers.dart';
 import 'package:space_time/space_time.dart';

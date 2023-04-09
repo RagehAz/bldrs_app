@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
+import 'package:mediators/mediators.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/super_filtered_image.dart';
 import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
