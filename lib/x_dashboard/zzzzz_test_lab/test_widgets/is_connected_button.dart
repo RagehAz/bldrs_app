@@ -22,7 +22,7 @@ class IsConnectedButton extends StatelessWidget {
         ),
         builder: (bool connected, Widget child){
 
-          return DreamBox(
+          return BldrsBox(
               width: Ratioz.appBarButtonSize,
               height: Ratioz.appBarButtonSize,
               icon: connected == true ? Iconz.check : Iconz.xSmall,

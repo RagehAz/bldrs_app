@@ -48,7 +48,7 @@ class NoteTopicSelectorBubble extends StatelessWidget {
         children: <Widget>[
 
           if (noteModel.parties.receiverType == null)
-          SuperVerse(
+          BldrsText(
             verse: Verse.plain('Select a receiver to see The topics !'),
             labelColor: Colorz.black200,
             color: Colorz.red255,
@@ -71,7 +71,7 @@ class NoteTopicSelectorBubble extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
 
-                    DreamBox(
+                    BldrsBox(
                       height: _buttonHeight,
                       width: _topicButtonWidth,
                       margins: const EdgeInsets.only(bottom: 3),

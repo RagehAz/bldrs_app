@@ -17,7 +17,7 @@ class NoResultFound extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return SuperVerse(
+    return BldrsText(
       key: const ValueKey<String>('NoResultFound'),
       verse: verse ?? const Verse(
         id: 'phid_nothing_found',

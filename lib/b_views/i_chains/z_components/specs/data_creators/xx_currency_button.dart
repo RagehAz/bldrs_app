@@ -38,7 +38,7 @@ class CurrencyButton extends StatelessWidget {
     }
 
     else {
-      return DreamBox(
+      return BldrsBox(
         height: height,
         width: width ?? PageBubble.clearWidth(context),
         color: Colorz.blackSemi255,

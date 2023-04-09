@@ -77,7 +77,7 @@ class CreditsRow extends StatelessWidget {
           width: width * 0.65,
           height: Ratioz.appBarButtonSize * 0.4,
           alignment: BldrsAligners.superInverseCenterAlignment(context),
-          child: SuperVerse(
+          child: BldrsText(
             verse: Verse(
               id: value,
               translate: false,
@@ -88,7 +88,7 @@ class CreditsRow extends StatelessWidget {
           ),
         ),
 
-        DreamBox(
+        BldrsBox(
           width: width * 0.35,
           height: Ratioz.appBarButtonSize * 0.4,
           icon: icon,

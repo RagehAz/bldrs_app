@@ -84,7 +84,7 @@ class _GlobalBadgeTestState extends State<GlobalBadgeTest> {
       listWidgets: <Widget>[
 
         /// BADGE NUMBER
-        SuperVerse(
+        BldrsText(
           verse: Verse.plain('Badge Number : $_badgeNumber'),
           labelColor: Colorz.blue20,
           size: 4,

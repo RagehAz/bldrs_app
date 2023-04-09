@@ -41,7 +41,7 @@ class ListLayout extends StatelessWidget {
     final double _screenWidth = Scale.screenWidth(context);
     final double _screenHeight = Scale.screenHeight(context);
     // --------------------
-    final double _verseHeight = SuperVerse.superVerseRealHeight(
+    final double _verseHeight = BldrsText.superVerseRealHeight(
       context: context,
       size: 2,
       sizeFactor: 1,
@@ -65,7 +65,7 @@ class ListLayout extends StatelessWidget {
           const Stratosphere(),
 
           if (pageIcon != null)
-            DreamBox(
+            BldrsBox(
               height: Ratioz.appBarSmallHeight,
               icon: pageIcon,
               corners: Continent.checkIconIsContinent(pageIcon) ?
@@ -75,7 +75,7 @@ class ListLayout extends StatelessWidget {
             ),
 
           if (pageIconVerse != null)
-            SuperVerse(
+            BldrsText(
               verse: pageIconVerse,
               labelColor: Colorz.white10,
             ),
@@ -107,7 +107,7 @@ class ListLayout extends StatelessWidget {
                       itemBuilder: (BuildContext context, int index) {
                         return Align(
                           alignment: BldrsAligners.superCenterAlignment(context),
-                          child: DreamBox(
+                          child: BldrsBox(
                             height: 40,
                             width: _clearWidth - 10,
                             icon: icons == null || icons.isEmpty ? null : icons[index],

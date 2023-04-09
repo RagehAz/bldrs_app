@@ -162,7 +162,7 @@ class _GeneralStatisticsState extends State<GeneralStatistics> {
       @required String text,
       @required ZoneDepth depth,
     }){
-      return DreamBox(
+      return BldrsBox(
         isDisabled: _zone == null,
         height: _depthButtonHeight,
         width: _depthButtonWidth,

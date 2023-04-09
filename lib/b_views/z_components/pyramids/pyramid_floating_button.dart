@@ -29,7 +29,7 @@ class PyramidFloatingButton extends StatelessWidget {
       redDotIsOn: redDotCount > 0,
       count: redDotCount,
       shrinkChild: true,
-      child: DreamBox(
+      child: BldrsBox(
         height: 40,
         width: 40,
         corners: 20,

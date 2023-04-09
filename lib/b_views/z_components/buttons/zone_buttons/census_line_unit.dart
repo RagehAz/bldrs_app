@@ -24,7 +24,7 @@ class CensusLineUnit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return DreamBox(
+    return BldrsBox(
       isDisabled: !isActive,
       height: height,
       width: width,

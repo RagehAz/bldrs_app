@@ -27,7 +27,7 @@ class FlagBox extends StatelessWidget {
     final String _flagIcon = Flag.getCountryIcon(countryID);
     final BorderRadius _borderRadius = Borderers.cornerAll(context, corners ?? size * 0.3);
     // --------------------
-    return DreamBox(
+    return BldrsBox(
       width: size,
       height: size,
       icon: _flagIcon,

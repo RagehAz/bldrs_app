@@ -230,7 +230,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
                 final CountryModel _countryModel = snap.data;
                 final int _citiesCount = _countryModel?.citiesIDs?.getAllIDs()?.length ?? 0;
 
-                return DreamBox(
+                return BldrsBox(
                   height: 50,
                   width: _bubbleWidth,
                   margins: const EdgeInsets.only(bottom: 10),
@@ -250,7 +250,7 @@ class _CountryEditorScreenState extends State<CountryEditorScreen> {
           ),
 
           /// ADD NEW CITY
-          DreamBox(
+          BldrsBox(
             height: 50,
             width: _bubbleWidth,
             icon: Iconz.plus,

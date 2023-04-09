@@ -16,7 +16,7 @@ class RemainingSlidesCounter extends StatelessWidget {
 
     const int _numberOfSlides = 125;
 
-    return DreamBox(
+    return BldrsBox(
       height: Ratioz.appBarButtonSize,
       // width: Ratioz.appBarButtonSize * 1.3,
       verse: Verse(

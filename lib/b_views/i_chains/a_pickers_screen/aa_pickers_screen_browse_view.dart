@@ -174,7 +174,7 @@ class PickersScreenBrowseView extends StatelessWidget {
               width: Scale.screenWidth(context),
               height: Scale.screenHeight(context),
               padding: Scale.constantMarginsAll20,
-              child: const SuperVerse(
+              child: const BldrsText(
                 verse: Verse(
                   id: 'phid_no_flyer_in_this_city',
                   pseudo: 'No Available Flyers in This City yet',

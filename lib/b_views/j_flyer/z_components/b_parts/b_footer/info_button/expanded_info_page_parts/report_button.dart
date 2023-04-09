@@ -26,7 +26,7 @@ class ReportButton extends StatelessWidget {
         :
     'phid_report';
     // --------------------
-    return DreamBox(
+    return BldrsBox(
       height: 35,
       verse: Verse(
         id: _buttonPhid,

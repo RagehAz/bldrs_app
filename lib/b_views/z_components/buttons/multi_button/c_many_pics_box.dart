@@ -77,7 +77,7 @@ class ManyPicsBox extends StatelessWidget {
                   ),
 
                 if (pics.length > 4)
-                  DreamBox(
+                  BldrsBox(
                     height: _size,
                     width: _size,
                     verse: Verse.plain('+${pics.length - 3}'),

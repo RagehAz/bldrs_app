@@ -110,7 +110,7 @@ class _GoogleTranslateBubbleState extends State<GoogleTranslateBubble> {
 
             builder: (_, String value, Widget child){
 
-              return SuperVerse(
+              return BldrsText(
                 verse: Verse.plain(value),
                 labelColor: Colorz.black255,
                 onTap: () => Keyboard.copyToClipboard(

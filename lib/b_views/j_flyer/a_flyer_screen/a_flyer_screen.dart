@@ -1,9 +1,11 @@
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/a_flyer_reviews_screen.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/d_heroic_flyer_big_view.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
-import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
+import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:filers/filers.dart';
 import 'package:layouts/layouts.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
@@ -137,7 +139,7 @@ class _FlyerPreviewScreenState extends State<FlyerPreviewScreen> {
             else {
 
               if (_renderedFlyer == null){
-                return const Center(child: NoResultFound());
+                return const _NoFlyerFoundView();
               }
 
               else {
@@ -164,4 +166,56 @@ class _FlyerPreviewScreenState extends State<FlyerPreviewScreen> {
     );
     // --------------------
   }
+  // -----------------------------------------------------------------------------
+}
+
+class _NoFlyerFoundView extends StatelessWidget {
+  // -----------------------------------------------------------------------------
+  const _NoFlyerFoundView({Key key}) : super(key: key);
+  // -----------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    return Stack(
+      alignment: Alignment.center,
+      children: <Widget>[
+
+        const BldrsBox(
+          height: 400,
+          width: 400,
+          icon: Iconz.flyer,
+          bubble: false,
+          opacity: 0.04,
+        ),
+
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+
+            const BldrsText(
+              verse: Verse(
+                id: 'phid_flyer_not_found',
+                translate: true,
+              ),
+              size: 3,
+              maxLines: 2,
+            ),
+
+            BldrsBox(
+              height: 50,
+              icon: Iconizer.superBackIcon(context),
+              iconSizeFactor: 0.7,
+              verse: const Verse(id: 'phid_go_back', translate: true),
+              onTap: () => Nav.goBack(context: context),
+              margins: 20,
+            ),
+
+          ],
+        ),
+
+      ],
+    );
+
+  }
+  // -----------------------------------------------------------------------------
 }

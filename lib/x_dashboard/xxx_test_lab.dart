@@ -408,7 +408,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                 WidgetFader(
                   fadeType: FadeType.fadeIn,
                   curve: Curves.fastOutSlowIn,
-                  child: SuperVerse(
+                  child: BldrsText(
                     verse: Verse.plain(_fuckingText),
                     maxLines: 10,
                     // centered: true,
@@ -494,7 +494,7 @@ class _TestLabState extends State<TestLab> with SingleTickerProviderStateMixin {
                     valueListenable: _highlightedText,
                     builder: (_, String text, Widget child){
 
-                      return SuperVerse(
+                      return BldrsText(
                         verse: Verse.plain(text),
                         labelColor: Colorz.blue80,
                       );

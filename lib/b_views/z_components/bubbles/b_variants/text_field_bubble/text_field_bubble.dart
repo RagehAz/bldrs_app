@@ -130,13 +130,13 @@ class BldrsTextFieldBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _textFieldPadding = SuperVerse.superVerseSidePaddingValues(context, textSize);
+    final double _textFieldPadding = BldrsText.superVerseSidePaddingValues(context, textSize);
     final EdgeInsets _scrollPadding = BldrsTextField.getFieldScrollPadding(
       context: context,
       appBarType: appBarType,
     );
 
-    final double _verseSizeValue = SuperVerse.superVerseSizeValue(context, textSize, 1) * 1.4;
+    final double _verseSizeValue = BldrsText.superVerseSizeValue(context, textSize, 1) * 1.4;
 
     return TextFieldBubble(
       key: const ValueKey<String>('BldrsTextFieldBubble'),
@@ -166,7 +166,7 @@ class BldrsTextFieldBubble extends StatelessWidget {
       textController: textController,
       autoFocus: autoFocus,
       bulletPoints: Verse.bakeVerses(verses: bulletPoints, context: context),
-      bulletPointsFont: SuperVerse.superVerseFont(context, VerseWeight.thin),
+      bulletPointsFont: BldrsText.superVerseFont(context, VerseWeight.thin),
       columnChildren: columnChildren,
       counterIsOn: counterIsOn,
       // fieldScrollController: null,
@@ -174,10 +174,10 @@ class BldrsTextFieldBubble extends StatelessWidget {
       // fieldTextCentered: false,
       // fieldTextColor: Colorz.white255,
       fieldTextDirection: textDirection ?? UiProvider.getAppTextDir(context),
-      fieldTextHeight: SuperVerse.superVerseRealHeight(context: context, size: textSize, sizeFactor: 1, hasLabelBox: false),
+      fieldTextHeight: BldrsText.superVerseRealHeight(context: context, size: textSize, sizeFactor: 1, hasLabelBox: false),
       // fieldTextItalic: false,
       fieldTextPadding: EdgeInsets.all(_textFieldPadding),
-      fieldTextWeight: SuperVerse.superVerseWeight(VerseWeight.thin),
+      fieldTextWeight: BldrsText.superVerseWeight(VerseWeight.thin),
       hintText: Verse.bakeVerseToString(context: context, verse: hintVerse),
       initialText: initialText,
       // isError: isError,
@@ -193,10 +193,10 @@ class BldrsTextFieldBubble extends StatelessWidget {
       onTextChanged: onTextChanged,
       pasteText: Verse.transBake(context, 'phid_paste'),
 
-      fieldLetterSpacing: SuperVerse.superVerseLetterSpacing(VerseWeight.thin, _verseSizeValue),
-      fieldTextFont: SuperVerse.superVerseFont(context, VerseWeight.thin),
+      fieldLetterSpacing: BldrsText.superVerseLetterSpacing(VerseWeight.thin, _verseSizeValue),
+      fieldTextFont: BldrsText.superVerseFont(context, VerseWeight.thin),
       // fieldCorners: 0,
-      fieldWordSpacing: SuperVerse.superVerseWordSpacing(_verseSizeValue),
+      fieldWordSpacing: BldrsText.superVerseWordSpacing(_verseSizeValue),
     );
 
     // --------------------

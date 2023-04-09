@@ -39,7 +39,7 @@ class WideDistrictButton extends StatelessWidget {
       columnChildren: <Widget>[
 
         /// CITY WIDE TILE
-        DreamBox(
+        BldrsBox(
           isDisabled: !isActive,
           height: 40,
           width: Bubble.bubbleWidth(context: context),

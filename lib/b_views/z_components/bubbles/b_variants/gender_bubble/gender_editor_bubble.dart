@@ -70,7 +70,7 @@ class GenderBubble extends StatelessWidget {
 
               final Color _verseColor = _isSelected ? Colorz.black255 : Colorz.white255;
 
-              return DreamBox(
+              return BldrsBox(
                 icon: _genderIcon,
                 iconSizeFactor: 0.6,
                 iconColor: _verseColor,

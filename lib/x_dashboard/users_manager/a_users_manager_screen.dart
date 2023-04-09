@@ -117,7 +117,7 @@ class _UsersManagerScreenState extends State<UsersManagerScreen> {
             valueListenable: _usersModels,
             builder: (_, List<UserModel> users, Widget child){
 
-              return DreamBox(
+              return BldrsBox(
                 height: 40,
                 verse: Verse.plain('Load More'),
                 secondLine: Verse.plain('showing ${users.length} users'),

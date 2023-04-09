@@ -106,7 +106,7 @@ class TopicsExpandingTile extends StatelessWidget {
         // crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
 
-          const SuperVerse(
+          const BldrsText(
             verse: Verse(
               id: 'phid_i_want_to_be_notified_when',
               translate: true,

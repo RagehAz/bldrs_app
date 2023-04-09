@@ -26,7 +26,7 @@ class BzSlideVerse extends StatelessWidget {
 
     return BlackBox(
       width: flyerBoxWidth,
-      child: SuperVerse(
+      child: BldrsText(
         verse: verse,
         weight: VerseWeight.thin,
         italic: true,

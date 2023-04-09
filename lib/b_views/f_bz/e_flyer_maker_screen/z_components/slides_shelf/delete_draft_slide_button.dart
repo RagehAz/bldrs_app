@@ -32,7 +32,7 @@ class DeleteDraftSlideButton extends StatelessWidget {
         height: _boxHeight,
         // color: Colorz.bloodTest,
         alignment: Alignment.center,
-        child: DreamBox(
+        child: BldrsBox(
           height: _boxHeight,
           width: _boxHeight,
           icon: Iconz.xLarge,

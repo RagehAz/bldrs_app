@@ -16,9 +16,9 @@ enum VerseWeight {
   thin,
 }
 
-class SuperVerse extends StatelessWidget {
+class BldrsText extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const SuperVerse({
+  const BldrsText({
     @required this.verse,
     this.width,
     this.size = 2,
@@ -70,7 +70,7 @@ class SuperVerse extends StatelessWidget {
 
   // --------------------
   static Widget verseDot({Verse verse}) {
-    return SuperVerse(
+    return BldrsText(
       verse: verse,
       scaleFactor: 0.9,
       leadingDot: true,
@@ -84,7 +84,7 @@ class SuperVerse extends StatelessWidget {
   static Widget verseInfo({
     @required Verse verse,
   }){
-    return SuperVerse(
+    return BldrsText(
       verse: verse,
       // scaleFactor: 1,
       italic: true,
@@ -110,7 +110,7 @@ class SuperVerse extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
 
-        SuperVerse(
+        BldrsText(
           verse: Verse(
             id: Numeric.formatNumToSeparatedKilos(number: price, fractions: 3),
             translate: false,
@@ -125,7 +125,7 @@ class SuperVerse extends StatelessWidget {
         ),
 
         if (currency != null)
-          SuperVerse(
+          BldrsText(
             verse: Verse(
               id: currency,
               translate: true,
@@ -365,7 +365,7 @@ class SuperVerse extends StatelessWidget {
   }
   // --------------------
   static TextStyle superVerseDefaultStyle(BuildContext context) {
-    return SuperVerse.createStyle(
+    return BldrsText.createStyle(
       context: context,
       // color: Colorz.white255,
       weight: VerseWeight.thin,
@@ -531,11 +531,11 @@ class SuperVerse extends StatelessWidget {
       maxLines: maxLines,
       margins: margin,
       wordSpacing: superVerseWordSpacing(_verseSizeValue),
-      letterSpacing: SuperVerse.superVerseLetterSpacing(weight, _verseSizeValue),
+      letterSpacing: BldrsText.superVerseLetterSpacing(weight, _verseSizeValue),
       textColor: color,
       boxColor: labelColor,
       // highlightColor: highlightColor,
-      weight: SuperVerse.superVerseWeight(weight),
+      weight: BldrsText.superVerseWeight(weight),
       font: superVerseFont(context, weight),
       italic: italic,
       shadows: verseShadows(

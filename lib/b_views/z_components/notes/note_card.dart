@@ -163,7 +163,7 @@ class NoteCard extends StatelessWidget {
                   children: <Widget>[
 
                     /// TITLE
-                    SuperVerse(
+                    BldrsText(
                       verse: Verse(
                         id: TextCheck.isEmpty(noteModel?.title) == false ?
                         noteModel?.title
@@ -180,7 +180,7 @@ class NoteCard extends StatelessWidget {
                     ),
 
                     /// TIME STAMP
-                    SuperVerse(
+                    BldrsText(
                       verse: Verse(
                         id: BldrsTimers.calculateSuperTimeDifferenceString(
                           context: context,
@@ -198,7 +198,7 @@ class NoteCard extends StatelessWidget {
                     ),
 
                     /// BODY
-                    SuperVerse(
+                    BldrsText(
                       verse: Verse(
                         id: TextCheck.isEmpty(noteModel?.body) == false ? noteModel?.body : '...',
                         translate: false,
@@ -224,7 +224,7 @@ class NoteCard extends StatelessWidget {
 
               /// MORE BUTTON
               if (onNoteOptionsTap != null)
-              DreamBox(
+              BldrsBox(
                 height: _moreButtonSize,
                 width: _moreButtonSize,
                 icon: Iconz.more,

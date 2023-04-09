@@ -72,7 +72,7 @@ class PickerTile extends StatelessWidget {
                   children: <Widget>[
 
                     /// - ICON
-                    DreamBox(
+                    BldrsBox(
                       width: _specTileHeight,
                       height: _specTileHeight,
                       color: Colorz.white10,
@@ -86,7 +86,7 @@ class PickerTile extends StatelessWidget {
                     SizedBox(
                       width: _specNameBoxWidth,
                       height: _specTileHeight,
-                      child: SuperVerse(
+                      child: BldrsText(
                         verse: Verse(
                           id: picker?.chainID,
                           translate: true,
@@ -100,7 +100,7 @@ class PickerTile extends StatelessWidget {
                     ),
 
                     /// - ARROW
-                    DreamBox(
+                    BldrsBox(
                       width: _specTileHeight,
                       height: _specTileHeight,
                       corners: _tileBorders,

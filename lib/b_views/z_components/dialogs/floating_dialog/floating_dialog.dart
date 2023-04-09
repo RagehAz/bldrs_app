@@ -44,7 +44,7 @@ class _FloatingDialogState extends State<FloatingDialog> {
 
     const double _stripHeight = 50;
 
-    final TextStyle _textStyle = SuperVerse.createStyle(
+    final TextStyle _textStyle = BldrsText.createStyle(
         context: context,
         color: Colorz.red230,
         weight: VerseWeight.thin,
@@ -105,7 +105,7 @@ class _FloatingDialogState extends State<FloatingDialog> {
             ),
 
             /// ARROW STYLING
-            icon: const DreamBox(
+            icon: const BldrsBox(
               height: _stripHeight,
               width: _stripHeight,
               icon: Iconz.arrowDown,
@@ -130,7 +130,7 @@ class _FloatingDialogState extends State<FloatingDialog> {
                 onTap: () {
                   blog(item);
                 },
-                child: SuperVerse(
+                child: BldrsText(
                   color: Colorz.black230,
                   verse: Verse(
                     id: item,

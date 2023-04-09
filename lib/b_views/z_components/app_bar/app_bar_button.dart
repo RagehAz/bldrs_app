@@ -29,7 +29,7 @@ class AppBarButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return DreamBox(
+    return BldrsBox(
       height: Ratioz.appBarButtonSize,
       width: verse == null ? Ratioz.appBarButtonSize : null,
       // width: Ratioz.appBarButtonSize * 3.5,

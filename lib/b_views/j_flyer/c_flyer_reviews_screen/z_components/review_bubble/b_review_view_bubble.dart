@@ -81,7 +81,7 @@ class ReviewViewBubble extends StatelessWidget {
                 children: <Widget>[
 
                   /// USER NAME
-                  SuperVerse(
+                  BldrsText(
                     verse: Verse(
                       id: userModel?.name,
                       translate: false,
@@ -89,7 +89,7 @@ class ReviewViewBubble extends StatelessWidget {
                   ),
 
                   /// TIME
-                    SuperVerse(
+                    BldrsText(
                       verse: Verse(
                         id: BldrsTimers.calculateSuperTimeDifferenceString(
                           context: context,
@@ -105,7 +105,7 @@ class ReviewViewBubble extends StatelessWidget {
                     ),
 
                   /// TEXT
-                    SuperVerse(
+                    BldrsText(
                       verse: Verse.plain(reviewModel.text),
                       maxLines: 100,
                       centered: false,

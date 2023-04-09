@@ -28,7 +28,7 @@ class ProgressLine extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
 
-        DreamBox(
+        BldrsBox(
           height: height,
           width: stateButtonWidth,
           verse: Verse.plain(ProgressModel.getProgressString(progressModel.state)),
@@ -46,7 +46,7 @@ class ProgressLine extends StatelessWidget {
         Column(
           children: <Widget>[
 
-            DreamBox(
+            BldrsBox(
               height: height,
               width: BldrsAppBar.width(context) - stateButtonWidth - padding,
               verse: Verse.plain(progressModel.title),
@@ -122,7 +122,7 @@ class _ArgsLinesState extends State<ArgsLines> {
     return Column(
       children: <Widget>[
 
-        DreamBox(
+        BldrsBox(
           height: ProgressLine.height * 0.7,
           width: BldrsAppBar.width(context) - ProgressLine.stateButtonWidth - ProgressLine.padding,
           verse: Verse.plain('${_argsKeys.length} Keys'),
@@ -151,7 +151,7 @@ class _ArgsLinesState extends State<ArgsLines> {
 
             final String _key = _argsKeys[index];
 
-            return DreamBox(
+            return BldrsBox(
               height: ProgressLine.height * 0.7,
               width: BldrsAppBar.width(context) - ProgressLine.stateButtonWidth - ProgressLine.padding,
               verse: Verse.plain('$_key : ${widget.args[_key]}'),

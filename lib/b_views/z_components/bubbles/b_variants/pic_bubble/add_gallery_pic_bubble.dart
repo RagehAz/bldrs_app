@@ -143,7 +143,7 @@ class AddImagePicBubble extends StatelessWidget {
                   children: <Widget>[
 
                     /// GALLERY BUTTON
-                    DreamBox(
+                    BldrsBox(
                       width: btWidth,
                       height: btWidth,
                       icon: Iconz.phoneGallery,
@@ -153,7 +153,7 @@ class AddImagePicBubble extends StatelessWidget {
                     ),
 
                     /// CAMERA BUTTON
-                    DreamBox(
+                    BldrsBox(
                       width: btWidth,
                       height: btWidth,
                       icon: Iconz.camera,
@@ -258,7 +258,7 @@ class _FilePicSplitter extends StatelessWidget {
 
     else {
 
-      return DreamBox(
+      return BldrsBox(
         width: picWidth,
         height: picWidth,
         icon: picModel?.bytes ?? picModel?.path,
@@ -299,7 +299,7 @@ class _PlusIconLayer extends StatelessWidget {
 
     /// PLUS ICON
     if (picModel == null){
-      return DreamBox(
+      return BldrsBox(
         height: AddImagePicBubble.picWidth,
         width: AddImagePicBubble.picWidth,
         corners: _picBorders,
@@ -335,7 +335,7 @@ class _PlusIconLayer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
 
-              SuperVerse(
+              BldrsText(
                 width: AddImagePicBubble.picWidth * 0.6,
                 verse: Verse.plain('${Filers.calculateSize(picModel.bytes.length, FileSizeUnit.megaByte)} Mb'),
                 size: 1,

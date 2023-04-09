@@ -26,7 +26,7 @@ class AuthorCardDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return DreamBox(
+    return BldrsBox(
       onTap: onTap,
       height: bubble == true ? height * 1.5 : height,
       margins: EdgeInsets.symmetric(vertical: bubble == true ? 2.5 : 0),

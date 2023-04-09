@@ -117,7 +117,7 @@ class _SearchBarState extends State<SearchBar> {
                     children: <Widget>[
 
                       /// BUTTON
-                      DreamBox(
+                      BldrsBox(
                         width: _searchButtonWidth,
                         height: _searchButtonHeight,
                         icon: Iconz.search,
@@ -205,7 +205,7 @@ class _SearchBarState extends State<SearchBar> {
                         height: _padding,
                       ),
 
-                      DreamBox(
+                      BldrsBox(
                         width: _searchButtonWidth,
                         height: _searchButtonHeight,
                         icon: _canSubmit == true ? Iconz.xSmall : Iconz.paste,

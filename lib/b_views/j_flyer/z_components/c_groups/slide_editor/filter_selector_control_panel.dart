@@ -101,7 +101,7 @@ class FiltersSelectorControlPanel extends StatelessWidget {
 
                         if (isBackButton == true)
                           Center(
-                            child: DreamBox(
+                            child: BldrsBox(
                               width: _boxWidth,
                               height: _boxWidth,
                               icon: Iconizer.superBackIcon(context),
@@ -129,7 +129,7 @@ class FiltersSelectorControlPanel extends StatelessWidget {
                         if (isBackButton == false)
                           Align(
                             alignment: Alignment.bottomCenter,
-                            child: SuperVerse(
+                            child: BldrsText(
                               verse: Verse(
                                 id: _filter.id,
                                 translate: true,

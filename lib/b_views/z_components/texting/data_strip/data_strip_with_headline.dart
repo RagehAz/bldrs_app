@@ -109,7 +109,7 @@ class DataStripKey extends StatelessWidget {
       height: height,
       width: width,
       alignment: BldrsAligners.superCenterAlignment(context),
-      child: SuperVerse(
+      child: BldrsText(
         labelColor: Colorz.nothing,
         verse: Verse(
           id: dataKey,
@@ -170,7 +170,7 @@ class DataStripValue extends StatelessWidget {
           children: <Widget>[
 
             if (valueIsPercentage == true)
-              DreamBox(
+              BldrsBox(
                 width: (dataValue / 100) * width,
                 height: height,
                 // decoration: BoxDecoration(
@@ -184,7 +184,7 @@ class DataStripValue extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.symmetric(horizontal: horizontalMargin),
-              child: SuperVerse(
+              child: BldrsText(
                 verse: Verse.plain(valueString),
                 centered: false,
                 shadow: true,

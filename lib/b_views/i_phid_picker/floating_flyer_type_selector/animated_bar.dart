@@ -84,7 +84,7 @@ class AnimatedBar extends StatelessWidget {
           left: Ratioz.appBarMargin,
         ),
         // alignment: Alignment.bottomCenter,
-        child: DreamBox(
+        child: BldrsBox(
           height: _appBarHeight - Ratioz.appBarMargin,
           verse: Verse.plain(text),
           icon: icon,

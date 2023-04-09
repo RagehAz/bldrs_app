@@ -111,7 +111,7 @@ class _StopWatchTestState extends State<StopWatchTest> {
                       StopWatchCounterBuilder(
                           controller: stopWatchController,
                           builder: (String displayTime){
-                            return DreamBox(
+                            return BldrsBox(
                               height: _boxHeight * 0.5,
                               width: _boxWidth * 0.5,
                               verse: Verse.plain(displayTime),
@@ -183,7 +183,7 @@ class _StopWatchTestState extends State<StopWatchTest> {
                               final String _verse = '${index + 1} : ${record.displayTime}';
                               final String _highlighted = TextMod.removeTextBeforeLastSpecialCharacter(_verse, ': ');
 
-                              return SuperVerse(
+                              return BldrsText(
                                 verse: Verse.plain(_verse),
                                 weight: VerseWeight.thin,
                                 highlight: ValueNotifier<String>(_highlighted),

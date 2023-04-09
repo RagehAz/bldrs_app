@@ -33,7 +33,7 @@ class EmojiTestScreen extends StatelessWidget {
             titleIsOn: true,
             overridingDialogHeight: 400),
         color: Colorz.bloodTest,
-        child: SuperVerse(
+        child: BldrsText(
           verse: Verse.plain('$index : ${emo.code}'),
         ),
       ),
@@ -61,7 +61,7 @@ class EmojiTestScreen extends StatelessWidget {
           itemBuilder: (BuildContext ctx, int index) {
             final EmojiModel _emoji = _emojis[index];
 
-            return DreamBox(
+            return BldrsBox(
               height: 50,
               width: 50,
               verse: Verse.plain(_emoji.emoji),

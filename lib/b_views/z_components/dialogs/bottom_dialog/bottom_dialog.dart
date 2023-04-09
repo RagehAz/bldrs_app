@@ -390,7 +390,7 @@ class BottomDialog extends StatelessWidget {
     Color color,
   }) {
 
-    return DreamBox(
+    return BldrsBox(
       height: height,
       width: clearWidth(context),
       verse: verse,
@@ -509,7 +509,7 @@ class BottomDialog extends StatelessWidget {
                     height: _titleZoneHeight,
                     alignment: Alignment.center,
                     // color: Colorz.BloodTest,
-                    child: SuperVerse(
+                    child: BldrsText(
                       verse: titleVerse,
                     ),
                   ),

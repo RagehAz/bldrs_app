@@ -51,7 +51,7 @@ class NormalPriceTag extends StatelessWidget {
             padding: _paddings,
             child: FittedBox(
               fit: BoxFit.fitWidth,
-              child: SuperVerse.versePrice(
+              child: BldrsText.versePrice(
                 context: context,
                 currency: _currencyID,
                 price: _currentPrice,

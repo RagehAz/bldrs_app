@@ -88,7 +88,7 @@ class BzLongButton extends StatelessWidget {
             children: <Widget>[
 
               /// LOGO
-              DreamBox(
+              BldrsBox(
                 height: height,
                 icon: bzModel?.logoPath,
               ),
@@ -103,7 +103,7 @@ class BzLongButton extends StatelessWidget {
                     /// BZ NAME
                     SizedBox(
                       width: _textZoneWidth,
-                      child: SuperVerse(
+                      child: BldrsText(
                         verse: Verse(
                           id: bzModel?.name,
                           translate: false,
@@ -153,7 +153,7 @@ class BzLongButton extends StatelessWidget {
                             children: <Widget>[
 
                               if (Mapper.checkCanLoopList(bzModel?.authors) == true)
-                                SuperVerse(
+                                BldrsText(
                                 verse: Verse.plain('${bzModel.authors.length} Authors in ${bzModel.name} '),
                                 margin: 5,
                                 italic: true,

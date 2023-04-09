@@ -31,7 +31,7 @@ class CensusFieldLine extends StatelessWidget {
 
     final String _text = Verse.transBake(context, phid);
 
-    return DreamBox(
+    return BldrsBox(
       height: 30,
       width: width,
       icon: icon,

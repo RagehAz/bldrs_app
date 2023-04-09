@@ -47,7 +47,7 @@ class UserNeedsBanner extends StatelessWidget {
       columnChildren: <Widget>[
 
         /// IM CURRENTLY
-        const SuperVerse(
+        const BldrsText(
           verse: Verse(
             id: 'phid_im_currently',
             translate: true,
@@ -58,7 +58,7 @@ class UserNeedsBanner extends StatelessWidget {
         ),
 
         /// NEED TYPE
-        SuperVerse(
+        BldrsText(
           verse: Verse(
             id: NeedModel.getNeedTypePhid(userModel?.need?.needType),
             translate: true,
@@ -77,7 +77,7 @@ class UserNeedsBanner extends StatelessWidget {
         ),
 
         /// NOTES
-        SuperVerse(
+        BldrsText(
           verse: Verse(
             id: userModel?.need?.notes,
             translate: false,

@@ -66,7 +66,7 @@ class SpecsSelectorBubble extends StatelessWidget {
             onDeleteSpec: onDeleteSpec,
           ),
 
-          DreamBox(
+          BldrsBox(
             height: PhidButton.getHeight(),
             verse: Verse(
               id: Mapper.checkCanLoopList(draft.specs) ? 'phid_edit_specs' : 'phid_add_specs',

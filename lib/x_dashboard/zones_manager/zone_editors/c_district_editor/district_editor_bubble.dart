@@ -207,7 +207,7 @@ class _DistrictEditorBubbleState extends State<DistrictEditorBubble> {
           }),
 
         /// ADD NEW PHRASE
-        DreamBox(
+        BldrsBox(
           height: 40,
           width: _clearWidth,
           margins: const EdgeInsets.only(bottom: 10),
@@ -222,7 +222,7 @@ class _DistrictEditorBubbleState extends State<DistrictEditorBubble> {
         ),
 
         /// SYNC
-        DreamBox(
+        BldrsBox(
           isDisabled: _identical,
           height: 40,
           width: _clearWidth,

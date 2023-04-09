@@ -150,7 +150,7 @@ class _VoiceNoteScreenState extends State<VoiceNoteScreen> {
             final String twoDigitMinutes = twoDigits(duration?.inMinutes?.remainder(60));
             final String twoDigitSeconds = twoDigits(duration?.inSeconds?.remainder(60));
 
-            return SuperVerse(
+            return BldrsText(
               verse: Verse.plain('$duration : $decibels : '
                   '$twoDigitMinutes:$twoDigitSeconds'),
               margin: const EdgeInsets.all(20),

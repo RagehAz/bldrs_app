@@ -75,7 +75,7 @@ class BzLogoBox extends StatelessWidget {
           SizedBox(
             width: width,
             height: width * _nameHeightRatio,
-            child: SuperVerse(
+            child: BldrsText(
               verse: Verse(
                 id: _bzName,
                 translate: false,

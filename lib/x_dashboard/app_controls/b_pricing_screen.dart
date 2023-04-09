@@ -69,7 +69,7 @@ class PricingScreen extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   children: <Widget>[
                     /// COUNTRY
-                    DreamBox(
+                    BldrsBox(
                       height: 40,
                       width: 140,
                       icon: _flag,
@@ -82,7 +82,7 @@ class PricingScreen extends StatelessWidget {
                     ),
 
                     /// BIG MAC
-                    DreamBox(
+                    BldrsBox(
                       height: 40,
                       width: 150,
                       verse: Verse.plain(_localBigMacPrice),
@@ -92,7 +92,7 @@ class PricingScreen extends StatelessWidget {
                       secondLineScaleFactor: 0.9,
                     ),
 
-                    DreamBox(
+                    BldrsBox(
                       height: 40,
                       width: 100,
                       color: Colorz.black255,

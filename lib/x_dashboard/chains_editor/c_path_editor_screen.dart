@@ -417,7 +417,7 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
                     ),
 
                     /// SELECT PHID
-                    DreamBox(
+                    BldrsBox(
                       height: 40,
                       verseScaleFactor: 0.6,
                       color: Colorz.blue80,
@@ -435,7 +435,7 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
                     ),
 
                     /// ADD PHID
-                    DreamBox(
+                    BldrsBox(
                       height: 40,
                       verseScaleFactor: 0.6,
                       color: Colorz.blue80,
@@ -453,7 +453,7 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
                     ),
 
                     /// ADD /
-                    DreamBox(
+                    BldrsBox(
                       height: 40,
                       verseScaleFactor: 0.6,
                       color: Colorz.blue80,
@@ -468,7 +468,7 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
                     const Expander(),
 
                     /// CONFIRM
-                    DreamBox(
+                    BldrsBox(
                       isDisabled: !canSubmit,
                       height: 40,
                       color: Colorz.green50,
@@ -510,7 +510,7 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
                     ),
 
                     /// CLEAR
-                    DreamBox(
+                    BldrsBox(
                       height: 40,
                       verseScaleFactor: 0.6,
                       color: Colorz.blue80,
@@ -529,7 +529,7 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
                     ),
 
                     /// REMOVE LAST NODE
-                    DreamBox(
+                    BldrsBox(
                       height: 40,
                       verseScaleFactor: 0.6,
                       color: Colorz.blue80,
@@ -548,7 +548,7 @@ class _PathEditorScreenState extends State<PathEditorScreen> {
                     ),
 
                     /// ADD DATA CREATOR
-                    DreamBox(
+                    BldrsBox(
                       height: 40,
                       verseScaleFactor: 0.6,
                       color: Colorz.blue80,

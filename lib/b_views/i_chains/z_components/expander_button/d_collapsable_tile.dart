@@ -305,7 +305,7 @@ class CollapsableTileState extends State<CollapsableTile> with SingleTickerProvi
                     width: widget.width,
                     height: _bottomStripHeight,
                     alignment: Alignment.center,
-                    child: DreamBox(
+                    child: BldrsBox(
                       width: _bottomStripHeight,
                       height: _bottomStripHeight,
                       icon: Iconz.arrowUp,

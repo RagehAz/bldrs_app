@@ -104,14 +104,14 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen> {
       listWidgets: <Widget>[
 
         /// BASIC DEVICE INFO
-        SuperVerse(verse: Verse.plain('BASIC DEVICE INFO'), size: 4, labelColor: Colorz.white50,),
+        BldrsText(verse: Verse.plain('BASIC DEVICE INFO'), size: 4, labelColor: Colorz.white50,),
         /// BASIC DEVICE INFO
         DataStripWithHeadline(dataKey: 'Basic device info', dataValue: _basicDeviceInfo?.toString(),),
 
         const SeparatorLine(withMargins: true, color: Colorz.yellow200),
 
         /// ANDROID INFO
-        SuperVerse(verse: Verse.plain('ANDROID DEVICE INFO'), size: 4, labelColor: Colorz.white50,),
+        BldrsText(verse: Verse.plain('ANDROID DEVICE INFO'), size: 4, labelColor: Colorz.white50,),
         DataStripWithHeadline(dataKey: '_androidInfo.board', dataValue: _androidInfo?.board),
         DataStripWithHeadline(dataKey: '_androidInfo.bootloader', dataValue: _androidInfo?.bootloader),
         DataStripWithHeadline(dataKey: '_androidInfo.brand', dataValue: _androidInfo?.brand),
@@ -144,7 +144,7 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen> {
         const SeparatorLine(),
 
         /// IOS INFO
-        SuperVerse(verse: Verse.plain('IOS DEVICE INFO'), size: 4, labelColor: Colorz.white50,),
+        BldrsText(verse: Verse.plain('IOS DEVICE INFO'), size: 4, labelColor: Colorz.white50,),
         DataStripWithHeadline(dataKey: '_iosInfo.name', dataValue: _iosInfo?.name,),
         DataStripWithHeadline(dataKey: '_iosInfo.systemName', dataValue: _iosInfo?.systemName,),
         DataStripWithHeadline(dataKey: '_iosInfo.systemVersion', dataValue: _iosInfo?.systemVersion,),
@@ -157,7 +157,7 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen> {
         const SeparatorLine(),
 
         /// APP INFO
-        SuperVerse(verse: Verse.plain('APP INFO'), size: 4, labelColor: Colorz.white50,),
+        BldrsText(verse: Verse.plain('APP INFO'), size: 4, labelColor: Colorz.white50,),
         /// APP NAME
         DataStripWithHeadline(dataKey: 'AppName', dataValue: _packageInfo?.appName ),
         /// BUILD NUMBER
