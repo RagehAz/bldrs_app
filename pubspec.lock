@@ -1289,10 +1289,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: cdc7f38656c6c933e4da6b99f262246015a35494
+      resolved-ref: "13df67e4745aee9ed57c6303de09f89bfcb9f607"
       url: "https://github.com/RagehAz/mediators.git"
     source: git
-    version: "0.0.6"
+    version: "0.0.7"
   meta:
     dependency: transitive
     description:

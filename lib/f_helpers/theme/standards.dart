@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
-import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
+import 'package:mediators/mediators.dart';
 import 'package:devicer/devicer.dart';
 import 'package:flutter/material.dart';
 

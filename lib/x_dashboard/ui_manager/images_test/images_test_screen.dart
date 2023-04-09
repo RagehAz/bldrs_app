@@ -7,7 +7,8 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_type.dart';
 import 'package:bldrs/a_models/x_ui/keyboard_model.dart';
-import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
+import 'package:mediators/mediators.dart';
 import 'package:bldrs/b_views/d_user/d_user_search_screen/search_users_screen.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/clocking/stop_watch/stop_watch_controller.dart';
@@ -26,7 +27,6 @@ import 'package:bldrs/b_views/z_components/texting/keyboard_screen/keyboard_scre
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/x_dashboard/ui_manager/bldrs_icons_screen.dart';
 import 'package:bldrs/x_dashboard/ui_manager/images_test/image_tile.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
@@ -305,8 +305,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
           icon: Iconz.phoneGallery,
           onTap: () async {
 
-            final Uint8List _bytes = await PicMaker.pickAndCropSinglePic(
-                context: context,
+            final Uint8List _bytes = await BldrsPicMaker.pickAndCropSinglePic(
                 cropAfterPick: false,
                 aspectRatio: _aspectRatio,
             );
@@ -377,6 +376,8 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
               context: context,
               bytes: _uInts,
               aspectRatio: _aspectRatio,
+              appIsLTR: true,
+              confirmText: 'Crop',
               // resizeToWidth: null,
             );
 

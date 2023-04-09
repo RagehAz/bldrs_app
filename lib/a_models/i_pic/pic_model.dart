@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
-import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
+import 'package:mediators/mediators.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';

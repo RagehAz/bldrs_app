@@ -196,7 +196,7 @@ Future<void> _onAddGalleryImageToPoster({
 
   blog('should _onAddGalleryImageToPoster');
 
-  // final Uint8List _bytes = await PicMaker.pickAndCropSinglePic(
+  // final Uint8List _bytes = await BldrsPicMaker.pickAndCropSinglePic(
   //   context: context,
   //   cropAfterPick: true,
   //   aspectRatio: NotePosterBox.getAspectRatio(),
