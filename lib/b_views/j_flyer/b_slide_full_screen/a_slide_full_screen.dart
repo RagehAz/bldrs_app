@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:mediators/mediators.dart';
 import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
