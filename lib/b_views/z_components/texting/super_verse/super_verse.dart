@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:numeric/numeric.dart';
 import 'package:scale/scale.dart';
 import 'package:super_text/super_text.dart';
-export 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 
 enum VerseWeight {
   black,

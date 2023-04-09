@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/b_bz/sub/target/target_model.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/targets/dialog_of_slides_and_ankhs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 
 import 'package:flutter/material.dart';

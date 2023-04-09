@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/c_groups/flyers_shelf/flyers_
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:scale/scale.dart';
 
 
