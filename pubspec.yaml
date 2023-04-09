@@ -201,6 +201,7 @@ dependencies:
   legalizer:
     git:
       url: https://github.com/RagehAz/legalizer.git
+  puppeteer: ^2.24.0
 # ------------------------------------
   # MY UN-USED PACKAGES
   #  bldrs_ui:
