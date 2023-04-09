@@ -76,7 +76,17 @@ class LocationOps {
     blog('getAddressFromPosition :starting getAddressFromPosition');
 
     if (geoPoint != null) {
-      _placeMarks = await placemarkFromCoordinates(geoPoint.latitude, geoPoint.longitude);
+
+      await tryAndCatch(
+        invoker: 'getPlaceMarksFromGeoPoint',
+        functions: () async {
+          _placeMarks = await placemarkFromCoordinates(geoPoint.latitude, geoPoint.longitude);
+        },
+        onError: (String error) {
+          blog('error getting placeMarks : $error');
+        },
+      );
+
       blog('getAddressFromPosition :found placemarks aho $_placeMarks');
     }
 
