@@ -22,10 +22,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "341eddc7c893a9d93c7c562952358ec4dbd773dc"
+      resolved-ref: "9b3654e690a3bc967bcdf020b4b2f3aa87db8646"
       url: "https://github.com/RagehAz/animators.git"
     source: git
-    version: "0.0.1"
+    version: "0.0.3"
   another_flushbar:
     dependency: "direct main"
     description:

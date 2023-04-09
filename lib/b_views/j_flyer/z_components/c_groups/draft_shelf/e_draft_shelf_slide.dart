@@ -1,3 +1,4 @@
+import 'package:animators/animators.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shelf/delete_draft_slide_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/d_footer_shadow.dart';
@@ -6,7 +7,6 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/e
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/template_flyer/b_header_template.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs/b_views/z_components/animators/animate_widget_to_matrix.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/images/super_filter/super_filtered_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
