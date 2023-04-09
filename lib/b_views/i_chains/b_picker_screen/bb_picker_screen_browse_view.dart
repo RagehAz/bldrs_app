@@ -8,6 +8,7 @@ import 'package:bldrs/b_views/i_chains/z_components/pickers/data_creator_splitte
 import 'package:bldrs/b_views/i_chains/z_components/others/spec_picker_instruction.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:flutter/material.dart';
 

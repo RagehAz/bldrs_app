@@ -7,6 +7,7 @@ import 'package:bldrs/b_views/i_chains/z_components/others/spec_picker_instructi
 import 'package:bldrs/b_views/i_chains/z_components/pickers/picker_splitter.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:scale/scale.dart';
