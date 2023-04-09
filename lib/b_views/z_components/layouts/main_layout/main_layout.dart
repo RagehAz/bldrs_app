@@ -2,24 +2,20 @@ import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout_stack_widgets.dart';
-import 'package:night_sky/night_sky.dart';
 import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/general_provider.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:bldrs/x_dashboard/zz_widgets/pyramids_admin_panel.dart';
-import 'package:devicer/devicer.dart';
-import 'package:scale/scale.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:devicer/devicer.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
+import 'package:night_sky/night_sky.dart';
 import 'package:provider/provider.dart';
+import 'package:scale/scale.dart';
 export 'package:bldrs/b_views/z_components/app_bar/app_bar_button.dart';
-export 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-/// ONLY_FOR_BLDRS_DASHBOARD_VERSION
-import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 
 enum AppBarType {
   basic,
@@ -277,13 +273,13 @@ class MainLayout extends StatelessWidget {
 
                 ),
 
-                /// ONLY_FOR_BLDRS_DASHBOARD_VERSION
-                if (isRage7() == true)
-                PyramidsAdminPanel(
-                  isInTransScreen: isInPhrasesScreen,
-                  pyramidsAreOn: pyramidsAreOn,
-                  pyramidButtons: pyramidButtons,
-                ),
+                // /// ONLY_FOR_BLDRS_DASHBOARD_VERSION
+                // if (isRage7() == true)
+                // PyramidsAdminPanel(
+                //   isInTransScreen: isInPhrasesScreen,
+                //   pyramidsAreOn: pyramidsAreOn,
+                //   pyramidButtons: pyramidButtons,
+                // ),
 
               ],
             ),

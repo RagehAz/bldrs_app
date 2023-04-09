@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/b_about_page/aaa2_bz_abou
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:night_sky/night_sky.dart';
 import 'package:flutter/material.dart';

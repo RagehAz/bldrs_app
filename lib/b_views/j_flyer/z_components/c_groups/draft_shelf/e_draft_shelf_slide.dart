@@ -9,6 +9,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/template_flyer/b_head
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:filers/filers.dart';
 import 'package:space_time/space_time.dart';
