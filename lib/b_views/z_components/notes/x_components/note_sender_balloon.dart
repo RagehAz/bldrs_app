@@ -43,7 +43,7 @@ class NoteSenderBalloon extends StatelessWidget {
       /// BLDRS
       if (noteModel.parties.senderType == PartyType.bldrs){
 
-        return DreamBox(
+        return BldrsBox(
           width: balloonWidth,
           height: balloonWidth,
           icon: Iconz.bldrsNameSquare,
@@ -105,7 +105,7 @@ class NoteSenderBalloon extends StatelessWidget {
 
       /// COUNTRY
       else if (noteModel.parties.senderType == PartyType.country){
-        return DreamBox(
+        return BldrsBox(
           width: balloonWidth,
           height: balloonWidth,
           icon: Flag.getCountryIcon(noteModel.parties.senderID), // countryID
@@ -115,7 +115,7 @@ class NoteSenderBalloon extends StatelessWidget {
 
       /// OTHERWISE
       else {
-        return DreamBox(
+        return BldrsBox(
           width: balloonWidth,
           height: balloonWidth,
           onTap: onTap,

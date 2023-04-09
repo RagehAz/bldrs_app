@@ -77,7 +77,7 @@ class CityPreviewBubble extends StatelessWidget {
 
         /// IS CAPITAL
         if (_isCapital == true)
-        DreamBox(
+        BldrsBox(
           height: 20,
           icon: Iconz.star,
           verse: Verse.plain('The Capital'),

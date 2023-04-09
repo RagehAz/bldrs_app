@@ -222,7 +222,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                    DreamBox(
+                    BldrsBox(
                       isDisabled: !canSubmit,
                       height: 40,
                       verseScaleFactor: 0.6,

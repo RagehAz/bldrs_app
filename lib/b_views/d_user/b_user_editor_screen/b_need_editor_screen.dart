@@ -194,7 +194,7 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                       columnChildren: <Widget>[
 
                         /// WHAT ARE YOU LOOKING FOR
-                        const SuperVerse(
+                        const BldrsText(
                           verse: Verse(
                             id: 'phid_what_are_you_looking_for',
                             translate: true,
@@ -253,7 +253,7 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
 
                               SizedBox(
                                 width: Bubble.clearWidth(context: context),
-                                child: SuperVerse(
+                                child: BldrsText(
                                   verse: Verse(
                                     id: NeedModel.getNeedTypePhid(_type),
                                     translate: true,

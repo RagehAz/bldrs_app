@@ -130,7 +130,7 @@ class TalkingBalloon extends StatelessWidget {
   static TextStyle getStyle({
     @required BuildContext context,
   }){
-    return SuperVerse.createStyle(
+    return BldrsText.createStyle(
       context: context,
       color: Colorz.black255,
       size: 3,

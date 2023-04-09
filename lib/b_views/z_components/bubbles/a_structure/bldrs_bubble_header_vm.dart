@@ -65,7 +65,7 @@ class BldrsBubbleHeaderVM {
     
         final BuildContext context = getContext();
 
-        final double _textSizeValue = SuperVerse.superVerseRealHeight(context: context, size: 2, sizeFactor: 1, hasLabelBox: false);
+        final double _textSizeValue = BldrsText.superVerseRealHeight(context: context, size: 2, sizeFactor: 1, hasLabelBox: false);
 
         return BubbleHeaderVM(
           headerWidth: headerWidth,
@@ -83,7 +83,7 @@ class BldrsBubbleHeaderVM {
           onMoreButtonTap: onMoreButtonTap,
           redDot: redDot,
           centered: centered,
-          font: SuperVerse.superVerseFont(context, weight),
+          font: BldrsText.superVerseFont(context, weight),
           headlineHighlight: headlineVerse?.notifier,
           headlineHeight: _textSizeValue,
           appIsLTR: UiProvider.checkAppIsLeftToRight(context),
@@ -96,8 +96,8 @@ class BldrsBubbleHeaderVM {
           switchFocusColor: Colorz.white255,
           switchTrackColor: Colorz.yellow80,
 
-          wordSpacing: SuperVerse.superVerseWordSpacing(_textSizeValue),
-          letterSpacing: SuperVerse.superVerseWordSpacing(_textSizeValue),
+          wordSpacing: BldrsText.superVerseWordSpacing(_textSizeValue),
+          letterSpacing: BldrsText.superVerseWordSpacing(_textSizeValue),
           
         );
       }
@@ -209,7 +209,7 @@ class BubbleHeader extends StatelessWidget {
 
           /// --- LEADING ICON
           if (_hasIcon == true)
-            DreamBox(
+            BldrsBox(
               width: iconBoxSize,
               height: iconBoxSize,
               icon: viewModel.leadingIcon,
@@ -225,7 +225,7 @@ class BubbleHeader extends StatelessWidget {
           Container(
             width: _headlineWidth,
             padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: SuperVerse(
+            child: BldrsText(
               verse: viewModel.headlineVerse,
               color: viewModel.headlineColor,
               maxLines: 3,
@@ -251,7 +251,7 @@ class BubbleHeader extends StatelessWidget {
           // ),
 
           if (viewModel.hasMoreButton == true)
-            DreamBox(
+            BldrsBox(
               height: moreButtonSize,
               width: moreButtonSize,
               icon: Iconz.more,

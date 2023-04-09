@@ -93,7 +93,7 @@ class InstallmentsPriceTag extends StatelessWidget {
                         padding: _paddings,
                         child: FittedBox(
                           fit: BoxFit.fitWidth,
-                          child: SuperVerse.versePrice(
+                          child: BldrsText.versePrice(
                             context: context,
                             currency: _currencyID,
                             price: _currentPrice,
@@ -112,7 +112,7 @@ class InstallmentsPriceTag extends StatelessWidget {
                         height: height * 0.5,
                         alignment: BldrsAligners.superCenterAlignment(context),
                         padding: _paddings,
-                        child: SuperVerse(
+                        child: BldrsText(
                           verse: const Verse(
                             id: '##/ 400 Months',
                             translate: false,

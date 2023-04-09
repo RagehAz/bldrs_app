@@ -50,7 +50,7 @@ class ReviewCreatorBubble extends StatelessWidget {
               children: <Widget>[
 
                 /// USER NAME
-                SuperVerse(
+                BldrsText(
                   verse: Verse(
                     id: userModel?.name,
                     translate: false,
@@ -88,7 +88,7 @@ class ReviewCreatorBubble extends StatelessWidget {
                         valueListenable: isUploading,
                         builder: (_, bool _isUploading, Widget child){
 
-                          return DreamBox(
+                          return BldrsBox(
                             verse: const Verse(
                               id: 'phid_submit',
                               translate: true,

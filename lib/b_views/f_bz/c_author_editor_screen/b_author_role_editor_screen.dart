@@ -120,7 +120,7 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
             ),
 
             /// USER NAME
-            SuperVerse(
+            BldrsText(
               verse: Verse(
                 id: widget.authorModel.name,
                 translate: false,
@@ -133,7 +133,7 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
             ),
 
             /// JOB TITLE
-            SuperVerse(
+            BldrsText(
               italic: true,
               weight: VerseWeight.thin,
               verse: AuthorCard.getAuthorTitleLine(
@@ -143,7 +143,7 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
             ),
 
             /// AUTHOR ROLE
-            SuperVerse(
+            BldrsText(
               italic: true,
               weight: VerseWeight.thin,
               verse: Verse(

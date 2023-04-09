@@ -225,7 +225,7 @@ class PickerEditingTile extends StatelessWidget {
                       /// NOTICE
                       SizedBox(
                         width: _clearWidth,
-                        child: const SuperVerse(
+                        child: const BldrsText(
                           verse:  Verse(
                             id: 'Values that deactivate specific pickers',
                             translate: false,
@@ -295,7 +295,7 @@ class PickerEditingTile extends StatelessWidget {
                   children: <Widget>[
 
                     /// DELETE
-                    DreamBox(
+                    BldrsBox(
                       height: 40,
                       verse: const Verse(
                         id: 'Switch\nHeadline',
@@ -315,7 +315,7 @@ class PickerEditingTile extends StatelessWidget {
                     ),
 
                     /// DELETE
-                    DreamBox(
+                    BldrsBox(
                       height: 40,
                       verse: const Verse(
                         id: 'Delete',

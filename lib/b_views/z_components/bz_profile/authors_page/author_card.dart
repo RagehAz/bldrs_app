@@ -156,7 +156,7 @@ class AuthorCard extends StatelessWidget {
                         const Expander(),
 
                         /// NAME
-                        SuperVerse(
+                        BldrsText(
                           verse: Verse(
                             id: author.name ?? '...',
                             translate: false,
@@ -166,7 +166,7 @@ class AuthorCard extends StatelessWidget {
                         ),
 
                         /// TITLE
-                        SuperVerse(
+                        BldrsText(
                           verse: getAuthorTitleLine(
                             title: author.title,
                             companyName: bzModel.name,
@@ -196,7 +196,7 @@ class AuthorCard extends StatelessWidget {
             ),
 
             if (moreButtonIsOn == true)
-              DreamBox(
+              BldrsBox(
                 width: moreButtonSize,
                 height: moreButtonSize,
                 icon: Iconz.more,

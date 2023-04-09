@@ -17,7 +17,7 @@ class ZoneNameLine extends StatelessWidget {
 
     final double _clearWidth = Bubble.clearWidth(context: context);
 
-    return SuperVerse(
+    return BldrsText(
       width: _clearWidth,
       verse: Verse.plain(name),
 

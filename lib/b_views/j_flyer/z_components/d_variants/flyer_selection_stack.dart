@@ -98,7 +98,7 @@ class FlyerSelectionStack extends StatelessWidget {
 
           /// TAP LAYER
           if (_selectionMode == true && onSelectFlyer != null)
-            DreamBox(
+            BldrsBox(
               height: _flyerBoxHeight,
               width: flyerBoxWidth,
               corners: FlyerDim.flyerCorners(context, flyerBoxWidth),

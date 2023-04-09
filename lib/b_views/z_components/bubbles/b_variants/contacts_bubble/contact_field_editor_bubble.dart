@@ -182,7 +182,7 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
 
               /// LEADING ICON
               if (widget.fieldLeadingIcon != null)
-                DreamBox(
+                BldrsBox(
                   height: 35,
                   width: 35,
                   icon: widget.fieldLeadingIcon,
@@ -221,7 +221,7 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
                 const SizedBox(width: _spacer,),
 
               if (widget.canPaste == true)
-                DreamBox(
+                BldrsBox(
                   height: _pasteButtonHeight,
                   width: _pasteButtonWidth,
                   verse:  const Verse(

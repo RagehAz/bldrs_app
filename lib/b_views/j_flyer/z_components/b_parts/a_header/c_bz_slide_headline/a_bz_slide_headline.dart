@@ -30,7 +30,7 @@ class BzSlideHeadline extends StatelessWidget {
         children: <Widget>[
 
           /// BUSINESS NAME
-          SuperVerse(
+          BldrsText(
             verse: firstLine,
             size: 5,
             shadow: true,
@@ -38,7 +38,7 @@ class BzSlideHeadline extends StatelessWidget {
           ),
 
           /// BUSINESS LOCALE
-          SuperVerse(
+          BldrsText(
             verse: secondLine,
             italic: true,
             weight: VerseWeight.regular,

@@ -836,7 +836,7 @@ class _ImagesTestScreenState extends State<ImagesTestScreen> {
                           const SeparatorLine(),
 
                           /// CACHE
-                          SuperVerse(
+                          BldrsText(
                               verse: Verse.plain('Cache'),
                           ),
 

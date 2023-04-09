@@ -120,7 +120,7 @@ class _FlyersAuditorState extends State<FlyersAuditor> {
           else {
 
             return const Center(
-              child: SuperVerse(
+              child: BldrsText(
                 verse: Verse(
                   id: 'No Flyers Left',
                   translate: false,

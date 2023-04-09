@@ -35,7 +35,7 @@ class DialogOfTargetAchievement extends StatelessWidget {
       ),
       child: Column(
         children: <Widget>[
-          SuperVerse(
+          BldrsText(
             verse: const Verse(
               pseudo: 'To know more about Slides and Ankhs\nTap here',
               id: 'phid_know_more_about_slides_and_ankhs',
@@ -63,7 +63,7 @@ class DialogOfTargetAchievement extends StatelessWidget {
 
     return Column(
       children: <Widget>[
-        SuperVerse(
+        BldrsText(
           verse: const Verse(
             pseudo: 'To know more about Slides and Ankhs\nTap here',
             id: 'phid_know_more_about_slides_and_ankhs',

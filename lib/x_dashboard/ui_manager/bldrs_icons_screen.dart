@@ -362,7 +362,7 @@ class IconsGridBuilder extends StatelessWidget {
               child: Column(
                 children: <Widget>[
 
-                  DreamBox(
+                  BldrsBox(
                     height: _iconBoxSize,
                     width: _iconBoxSize,
                     icon: icon,
@@ -377,7 +377,7 @@ class IconsGridBuilder extends StatelessWidget {
                     width: _iconBoxSize,
                     height: _iconBoxSize * 0.25,
                     // color: Colorz.white20,
-                    child: SuperVerse(
+                    child: BldrsText(
                       verse: Verse.plain(TextMod.removeTextBeforeLastSpecialCharacter(icon, '/')),
                       weight: VerseWeight.thin,
                       scaleFactor: 0.7,

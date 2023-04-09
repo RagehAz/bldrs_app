@@ -31,7 +31,7 @@ class BldrsBulletPoints extends StatelessWidget {
 
     return BulletPoints(
       boxWidth: _bubbleWidth,
-      textHeight: SuperVerse.superVerseRealHeight(context: context, size: 2, sizeFactor: verseSizeFactor, hasLabelBox: false),
+      textHeight: BldrsText.superVerseRealHeight(context: context, size: 2, sizeFactor: verseSizeFactor, hasLabelBox: false),
       bulletPoints: Verse.bakeVerses(
         context: context,
         verses: bulletPoints,
@@ -39,7 +39,7 @@ class BldrsBulletPoints extends StatelessWidget {
       appIsLTR: UiProvider.checkAppIsLeftToRight(context),
       textDirection: UiProvider.getAppTextDir(context),
       centered: centered,
-      font: SuperVerse.superVerseFont(context, VerseWeight.thin),
+      font: BldrsText.superVerseFont(context, VerseWeight.thin),
       showBottomLine: showBottomLine,
       // textColor: Colorz.blue255,
     );

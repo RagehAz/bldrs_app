@@ -27,7 +27,7 @@ class GoogleAd extends StatelessWidget {
 
     if (kDebugMode == true) {
 
-      return DreamBox(
+      return BldrsBox(
         height: adSize.height.toDouble(),
         width: BldrsAppBar.width(context),//adSize.width.toDouble(),
         icon: Iconz.advertise,

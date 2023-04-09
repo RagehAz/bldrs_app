@@ -34,7 +34,7 @@ class XButtonPart extends StatelessWidget {
       },
       child: Align(
         alignment: BldrsAligners.superTopAlignment(context),
-        child: DreamBox(
+        child: BldrsBox(
           width: headerBorders.topLeft.x * 2 - 10,
           height: headerBorders.topLeft.x * 2 - 10,
           color: Colorz.white10,

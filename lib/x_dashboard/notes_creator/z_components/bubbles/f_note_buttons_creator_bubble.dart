@@ -70,7 +70,7 @@ class NoteButtonsCreatorBubble extends StatelessWidget {
                         string: _phid
                     );
 
-                    return DreamBox(
+                    return BldrsBox(
                       height: 40,
                       width: _noteButtonButtonWidth,
                       verse: Verse(

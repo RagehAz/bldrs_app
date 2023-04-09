@@ -94,7 +94,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
             child: widget.number == null ?
             const SizedBox()
                 :
-            SuperVerse(
+            BldrsText(
               verse: Verse.plain('${widget.number}'),
               size: 1,
               // color: Colorz.white255,

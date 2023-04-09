@@ -25,7 +25,7 @@ class PickersGroupHeadline extends StatelessWidget {
       height: 50,
       padding: const EdgeInsets.symmetric(horizontal: 20),
       alignment: BldrsAligners.superCenterAlignment(context),
-      child: SuperVerse(
+      child: BldrsText(
         verse: headline,
         weight: VerseWeight.black,
         centered: false,

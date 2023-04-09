@@ -77,7 +77,7 @@ class PhrasesBuilderBubble extends StatelessWidget {
               );
 
               if (_arPhrase == null){
-                return DreamBox(
+                return BldrsBox(
                   width: BldrsAppBar.width(context) - 20,
                   height: 50,
                   color: Colorz.bloodTest,

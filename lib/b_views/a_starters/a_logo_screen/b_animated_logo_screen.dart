@@ -350,7 +350,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
                               // color: Colorz.bloodTest,
                               alignment: Alignment.bottomCenter,
                               padding: EdgeInsets.only(right: _val * 300),
-                              child: const SuperVerse(
+                              child: const BldrsText(
                                 verse: Verse(
                                   id: 'phid_bldrsTagLine',
                                   translate: true,
@@ -534,7 +534,7 @@ class AnimatedLine extends StatelessWidget {
       child: SizedBox(
         width: 220,
         height: 35,
-        child: SuperVerse(
+        child: BldrsText(
           verse: Verse(
             id: verse,
             casing: Casing.upperCase,

@@ -196,7 +196,7 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
                       flyerType: _type,
                       flyerTypes: [_selectedType],
                     );
-                    return DreamBox(
+                    return BldrsBox(
                       height: 35,
                       verse: Verse(
                         id: FlyerTyper.getFlyerTypePhid(flyerType: _type),
@@ -275,7 +275,7 @@ class _ChainsPickingModeBubbleState extends State<ChainsPickingModeBubble> {
           columnChildren: const <Widget>[],
         ),
 
-        DreamBox(
+        BldrsBox(
           height: 80,
           color: Colorz.blue80,
           verseCentered: false,

@@ -42,7 +42,7 @@ class _BzAboutVerseState extends State<BzAboutVerse> {
       child: Column(
         children: <Widget>[
 
-          SuperVerse(
+          BldrsText(
             verse: Verse(
               id: '${xPhrase( context, 'phid_about')} ${widget.bzName}',
               translate: false,
@@ -53,7 +53,7 @@ class _BzAboutVerseState extends State<BzAboutVerse> {
             maxLines: 3,
           ),
 
-          SuperVerse(
+          BldrsText(
             verse: widget.verse,
             weight: VerseWeight.thin,
             italic: true,

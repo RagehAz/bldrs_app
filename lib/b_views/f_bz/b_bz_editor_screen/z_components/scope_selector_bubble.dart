@@ -158,7 +158,7 @@ class _ScopeSelectorBubbleState extends State<ScopeSelectorBubble> {
                       children: <Widget>[
 
                         /// BZ TYPE BUTTON
-                        DreamBox(
+                        BldrsBox(
                           width: ScopeSelectorBubble.typeButtonSize,
                           height: ScopeSelectorBubble.typeButtonSize,
                           icon: FlyerTyper.flyerTypeIcon(
@@ -199,7 +199,7 @@ class _ScopeSelectorBubbleState extends State<ScopeSelectorBubble> {
                               ),
 
                             /// ADD SPECS BUTTON
-                            DreamBox(
+                            BldrsBox(
                               height: PhidButton.getHeight(),
                               // width: Bubble.clearWidth(context),
                               verse: widget.addButtonVerse ?? Verse(

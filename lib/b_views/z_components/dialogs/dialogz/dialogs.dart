@@ -272,7 +272,7 @@ class Dialogs {
           children: <Widget>[
 
             /// NO
-            DreamBox(
+            BldrsBox(
               height: 50,
               width: Scale.getUniformRowItemWidth(
                 context: context,
@@ -292,7 +292,7 @@ class Dialogs {
             ),
 
             /// YES
-            DreamBox(
+            BldrsBox(
               height: 50,
               width: Scale.getUniformRowItemWidth(
                 context: context,
@@ -631,7 +631,7 @@ class Dialogs {
                 ),
 
                 if (confirmButtonIsOn == true)
-                  DreamBox(
+                  BldrsBox(
                     isDisabled: _buttonDeactivated,
                     height: 40,
                     verseScaleFactor: 0.6,
@@ -690,7 +690,7 @@ class Dialogs {
 
           return <Widget>[
 
-            const SuperVerse(
+            const BldrsText(
               verse: Verse(
                 id: 'phid_confirm_your_city',
                 translate: true,

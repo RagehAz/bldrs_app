@@ -55,7 +55,7 @@ class BzPgCounter extends StatelessWidget {
             ),
 
             /// COUNT
-            SuperVerse(
+            BldrsText(
               verse: Verse(
                 id: Numeric.formatNumToSeparatedKilos(
                   number: count ?? 0,
@@ -67,7 +67,7 @@ class BzPgCounter extends StatelessWidget {
             ),
 
             /// VERSE
-            SuperVerse(
+            BldrsText(
               verse: verse,
               color: Colorz.white200,
               weight: VerseWeight.thin,

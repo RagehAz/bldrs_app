@@ -82,7 +82,7 @@ class AddFlyerButton extends StatelessWidget {
               ),
 
               /// PLUS ICON
-              DreamBox(
+              BldrsBox(
                 height: flyerBoxWidth * 0.4,
                 width: flyerBoxWidth * 0.4,
                 icon: Iconz.plus,
@@ -95,7 +95,7 @@ class AddFlyerButton extends StatelessWidget {
               ),
 
               /// ADD NEW FLYER TEXT
-              SuperVerse(
+              BldrsText(
                 verse: const Verse(
                   id: 'phid_add_new_flyer',
                   casing: Casing.upperCase,

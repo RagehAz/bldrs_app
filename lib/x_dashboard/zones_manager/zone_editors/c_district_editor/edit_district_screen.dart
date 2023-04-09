@@ -242,7 +242,7 @@ class _EditDistrictScreenState extends State<EditDistrictScreen> {
           ),
 
           /// DELETE CITY
-          DreamBox(
+          BldrsBox(
             height: 50,
             width: _bubbleWidth,
             color: Colorz.bloodTest,

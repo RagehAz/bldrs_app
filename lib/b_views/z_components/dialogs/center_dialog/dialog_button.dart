@@ -25,7 +25,7 @@ class DialogButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    return DreamBox(
+    return BldrsBox(
       height: height,
       width: width,
       margins: const EdgeInsets.all(Ratioz.appBarPadding),

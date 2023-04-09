@@ -346,7 +346,7 @@ class DashBoardHomeScreen extends StatelessWidget {
           /// BESM ALLAH
           const SizedBox(
             height: 50,
-            child: SuperVerse(
+            child: BldrsText(
               verse: Verse(
                 id: 'Dear Lord\nPlease Bless this project to be in good use for humanity',
                 translate: false,
@@ -369,7 +369,7 @@ class DashBoardHomeScreen extends StatelessWidget {
           /// YOU HAVE BEEN HERE FOR
           SizedBox(
             height: 50,
-            child: SuperVerse(
+            child: BldrsText(
               verse: Verse(
                 id: "You've been Blding ($bldrsAppVersion) for ( $_youHaveBeenHereFor ) days",
                 translate: false,

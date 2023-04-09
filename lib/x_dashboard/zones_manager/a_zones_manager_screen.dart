@@ -87,7 +87,7 @@ class ZonesManagerScreen extends StatelessWidget {
 
       ],
       child: Center(
-        child: SuperVerse(
+        child: BldrsText(
           verse: Verse.plain('Select a Zone'),
           size: 4,
           italic: true,

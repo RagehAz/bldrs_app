@@ -79,7 +79,7 @@ class ZoneButton extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
-                    SuperVerse(
+                    BldrsText(
                       verse: Verse(
                         id: _firstRow ?? '',
                         translate: false,
@@ -87,7 +87,7 @@ class ZoneButton extends StatelessWidget {
                       size: 1,
                       color: isOn ? Colorz.black230 : Colorz.white255,
                     ),
-                    SuperVerse(
+                    BldrsText(
                       verse: Verse(
                         id: _secondRow ?? '',
                         translate: false,
@@ -116,7 +116,7 @@ class ZoneButton extends StatelessWidget {
                 ),
 
                 Center(
-                  child: DreamBox(
+                  child: BldrsBox(
                     width: 30,
                     height: 30,
                     icon: _countryFlag,

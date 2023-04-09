@@ -155,7 +155,7 @@ class _NotesViewerScreenState extends State<NotesViewerScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
 
-                        SuperVerse(
+                        BldrsText(
                           verse: Verse(
                             id: 'from : ${_noteModel.parties.senderType} : ${_noteModel.parties.senderID} : ${_noteModel?.poll?.buttons}',
                             translate: false,

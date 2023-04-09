@@ -60,7 +60,7 @@ class LockWheel extends StatelessWidget {
         children: <Widget>[
 
           /// SELECTED UNIT FOOTPRINT
-          DreamBox(
+          BldrsBox(
             height: _boxWidth - _horizontalPadding,
             width: _boxWidth - _horizontalPadding,
             bubble: false,
@@ -121,7 +121,7 @@ class LockWheel extends StatelessWidget {
 
                 final MapModel _mapModel = standardLockIcons[index];
 
-                return DreamBox(
+                return BldrsBox(
                   height: unitHeight,
                   width: unitWidth,
                   icon: _mapModel.key,

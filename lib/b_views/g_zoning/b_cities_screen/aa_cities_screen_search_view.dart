@@ -94,7 +94,7 @@ class CitiesScreenSearchView extends StatelessWidget {
 
                   return Container(
                     margin: _topMargin,
-                    child: const SuperVerse(
+                    child: const BldrsText(
                       verse: Verse(
                         id: 'phid_no_result_found',
                         translate: true,

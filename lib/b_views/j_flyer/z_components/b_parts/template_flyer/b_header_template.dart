@@ -185,14 +185,14 @@ class HeaderTemplate extends StatelessWidget {
                                   children: <Widget>[
 
                                     /// AUTHOR NAME
-                                    SuperVerse(
+                                    BldrsText(
                                       verse: thirdLine,
                                       centered: false,
                                       scaleFactor: flyerBoxWidth / _screenWidth,
                                     ),
 
                                     /// AUTHOR TITLE
-                                    SuperVerse(
+                                    BldrsText(
                                       verse: fourthLine,
                                       size: 1,
                                       weight: VerseWeight.regular,
@@ -202,7 +202,7 @@ class HeaderTemplate extends StatelessWidget {
                                     ),
 
                                     /// FOLLOWERS COUNTER
-                                    SuperVerse(
+                                    BldrsText(
                                       verse: fifthLine,
                                       italic: true,
                                       centered: false,

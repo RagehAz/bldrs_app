@@ -89,7 +89,7 @@ class NotePreviewPanel extends StatelessWidget {
                       // padding: EdgeInsets.zero,
                       children: <Widget>[
 
-                        DreamBox(
+                        BldrsBox(
                           width: _receiversZoneWidth,
                           height: 50,
                           icon: note?.sendFCM == true ? Iconz.notification : Iconz.star,

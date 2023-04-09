@@ -99,7 +99,7 @@ class _StagingTestScreenState extends State<StagingTestScreen> {
                   final StageType _type = Staging.zoneStagesList[index];
                   final bool _isSelected = _stageType == _type;
 
-                  return DreamBox(
+                  return BldrsBox(
                     height: 50,
                     width: Scale.getUniformRowItemWidth(
                         context: context,

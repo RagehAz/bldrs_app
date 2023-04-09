@@ -28,7 +28,7 @@ class NotePanelButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return DreamBox(
+    return BldrsBox(
       height: height,
       width: width,
       icon: icon,

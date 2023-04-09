@@ -48,7 +48,7 @@ class SearchHistoryView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
 
-                DreamBox(
+                BldrsBox(
                   height: 50,
                   width: Scale.screenWidth(context) - (2 * Ratioz.appBarMargin) - 60,
                   verse: Verse(
@@ -67,7 +67,7 @@ class SearchHistoryView extends StatelessWidget {
                   ),
                 ),
 
-                DreamBox(
+                BldrsBox(
                   width: 50,
                   height: 50,
                   margins: const EdgeInsets.only(left: 5, right: 5, bottom: Ratioz.appBarMargin),

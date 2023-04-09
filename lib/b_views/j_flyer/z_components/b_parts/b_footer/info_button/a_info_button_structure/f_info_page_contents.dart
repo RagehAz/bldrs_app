@@ -128,7 +128,7 @@ class InfoPageContents extends StatelessWidget {
                       final PDFModel _pdfModel = snap.data;
                       final String _name = _pdfModel == null ? '' : '${_pdfModel.name}.pdf';
 
-                      return DreamBox(
+                      return BldrsBox(
                         height: 30,
                         width: _pageWidth - 20,
                         color: Colorz.blue80,

@@ -95,20 +95,20 @@ class _StepperTestScreenState extends State<StepperTestScreen> {
           steps: [
 
             Step(
-              title: SuperVerse.verseInfo(verse: Verse.plain('title')),
+              title: BldrsText.verseInfo(verse: Verse.plain('title')),
               isActive: true,
-              label: SuperVerse.verseInfo(verse: Verse.plain('label')),
-              content: SuperVerse.verseInfo(verse: Verse.plain('Content')),
+              label: BldrsText.verseInfo(verse: Verse.plain('label')),
+              content: BldrsText.verseInfo(verse: Verse.plain('Content')),
               state: StepState.editing,
-              subtitle: SuperVerse.verseInfo(verse: Verse.plain('subtitle')),
+              subtitle: BldrsText.verseInfo(verse: Verse.plain('subtitle')),
             ),
 
             Step(
-              title: SuperVerse.verseInfo(verse: Verse.plain('title2')),
-              subtitle: SuperVerse.verseInfo(verse: Verse.plain('subtitle2')),
-              content: SuperVerse.verseInfo(verse: Verse.plain('Content2')),
+              title: BldrsText.verseInfo(verse: Verse.plain('title2')),
+              subtitle: BldrsText.verseInfo(verse: Verse.plain('subtitle2')),
+              content: BldrsText.verseInfo(verse: Verse.plain('Content2')),
               isActive: true,
-              label: SuperVerse.verseInfo(verse: Verse.plain('label2')),
+              label: BldrsText.verseInfo(verse: Verse.plain('label2')),
               state: StepState.error,
             ),
 

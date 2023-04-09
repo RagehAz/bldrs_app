@@ -141,7 +141,7 @@ class BldrsTextField extends StatelessWidget {
     @required bool withCounter,
   }){
 
-    final _textHeight = SuperVerse.superVerseRealHeight(
+    final _textHeight = BldrsText.superVerseRealHeight(
       context: context,
       size: textSize,
       sizeFactor: scaleFactor,
@@ -149,13 +149,13 @@ class BldrsTextField extends StatelessWidget {
     );
 
     /// INNER FIELD PADDING
-    final double _textFieldPadding = SuperVerse.superVerseSidePaddingValues(context, textSize);
+    final double _textFieldPadding = BldrsText.superVerseSidePaddingValues(context, textSize);
 
     /// UNDER TEXT FIELD BOX MARGIN : THAT WE CAN NOT REMOVE
     final double _bottomMargin = withBottomMargin == true ? 7 : 0;
 
     final double _counterPaddingValue = withCounter ? 2.5 : 0;
-    final double _counterHeight = withCounter ? SuperVerse.superVerseRealHeight(
+    final double _counterHeight = withCounter ? BldrsText.superVerseRealHeight(
       context: context,
       size: 2,
       sizeFactor: 1,
@@ -173,8 +173,8 @@ class BldrsTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _verseSizeValue = SuperVerse.superVerseSizeValue(context, textSize, textScaleFactor) * 1.4;
-    final double _textFieldPadding = SuperVerse.superVerseSidePaddingValues(context, textSize);
+    final double _verseSizeValue = BldrsText.superVerseSizeValue(context, textSize, textScaleFactor) * 1.4;
+    final double _textFieldPadding = BldrsText.superVerseSidePaddingValues(context, textSize);
     final EdgeInsets _scrollPadding = getFieldScrollPadding(
       context: context,
       appBarType: appBarType,
@@ -215,11 +215,11 @@ class BldrsTextField extends StatelessWidget {
       textInputAction: textInputAction,
 
       /// styling
-      textWeight: SuperVerse.superVerseWeight(textWeight),
+      textWeight: BldrsText.superVerseWeight(textWeight),
       textColor: textColor,
       textItalic: textItalic,
       textHeight: _verseSizeValue,
-      textShadows: SuperVerse.verseShadows(
+      textShadows: BldrsText.verseShadows(
         context: context,
         size: textSize,
         shadowIsOn: textShadow,
@@ -230,10 +230,10 @@ class BldrsTextField extends StatelessWidget {
       ),
       // package: 'bldrs_theme',
       cursorColor: Colorz.yellow255,
-      letterSpacing: SuperVerse.superVerseLetterSpacing(textWeight, _verseSizeValue),
-      wordSpacing: SuperVerse.superVerseWordSpacing(_verseSizeValue),
+      letterSpacing: BldrsText.superVerseLetterSpacing(textWeight, _verseSizeValue),
+      wordSpacing: BldrsText.superVerseWordSpacing(_verseSizeValue),
       scrollPadding: _scrollPadding,
-      textFont: SuperVerse.superVerseFont(context, textWeight),
+      textFont: BldrsText.superVerseFont(context, textWeight),
 
       /// functions
       onTap: onTap,

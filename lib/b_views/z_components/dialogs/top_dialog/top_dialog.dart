@@ -116,7 +116,7 @@ class TopDialog extends StatelessWidget {
           children: <Widget>[
 
             /// FIRST LINE
-            SuperVerse(
+            BldrsText(
               width: _bubbleWidth,
               verse: firstVerse,
               color: textColor,
@@ -126,7 +126,7 @@ class TopDialog extends StatelessWidget {
 
             /// SECOND LINE
             if (secondVerse != null)
-              SuperVerse(
+              BldrsText(
                 width: _bubbleWidth,
                 verse: secondVerse,
                 size: 1,
@@ -291,7 +291,7 @@ class TopDialog extends StatelessWidget {
       //   size: 1,
       // ),
       // userInputForm: ,
-      icon: const DreamBox(
+      icon: const BldrsBox(
         width: 40,
         height: 40,
         icon: Iconz.dvGouran,

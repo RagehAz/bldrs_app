@@ -43,7 +43,7 @@ class TargetsBubble extends StatelessWidget {
       child: Column(
         children: <Widget>[
 
-          const SuperVerse(
+          const BldrsText(
             verse: Verse(
               id: 'phid_targets_main_description',
               translate: true,

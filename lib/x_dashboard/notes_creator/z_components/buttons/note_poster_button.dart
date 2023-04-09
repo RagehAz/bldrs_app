@@ -41,7 +41,7 @@ class PosterTypeButton extends StatelessWidget {
 
     final bool _isSelected = note?.poster?.type == posterType;
 
-    return DreamBox(
+    return BldrsBox(
       height: 40,
       isDisabled: note?.poster == null,
       width: Scale.getUniformRowItemWidth(

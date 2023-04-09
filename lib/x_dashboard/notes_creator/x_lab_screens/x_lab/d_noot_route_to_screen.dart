@@ -30,7 +30,7 @@ class NoteRouteToScreen extends StatelessWidget {
             width: 300,
             height: 400,
             color: Colorz.bloodTest,
-            child: const SuperVerse(
+            child: const BldrsText(
               verse: Verse(
                 id: 'Note auto route comes here',
                 translate: false,

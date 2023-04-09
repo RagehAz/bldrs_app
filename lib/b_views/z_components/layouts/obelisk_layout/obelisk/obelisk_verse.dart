@@ -40,7 +40,7 @@ class ObeliskVerse extends StatelessWidget {
               height: Obelisk.circleWidth,
               alignment: Alignment.centerLeft,
               color: Colorz.nothing,
-              child: SuperVerse(
+              child: BldrsText(
                 verse: Verse(
                   id: navModel?.titleVerse?.id,
                   translate: navModel?.titleVerse?.translate,

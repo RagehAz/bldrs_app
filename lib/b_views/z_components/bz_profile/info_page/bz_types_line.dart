@@ -32,7 +32,7 @@ class BzTypesLine extends StatelessWidget {
 
     return SizedBox(
       width: width,
-      child: SuperVerse(
+      child: BldrsText(
         verse: Verse(
           id: _bzTypesString,
           translate: false,

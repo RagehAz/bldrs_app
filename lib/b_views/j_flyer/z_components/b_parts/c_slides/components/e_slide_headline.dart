@@ -32,7 +32,7 @@ class SlideHeadline extends StatelessWidget {
         margin: EdgeInsets.only(top: _headlineTopMargin),
         alignment: Alignment.topCenter,
         padding: EdgeInsets.symmetric(horizontal: flyerBoxWidth * 0.05),
-        child: SuperVerse(
+        child: BldrsText(
           verse: verse,
           color: verseColor,
           shadow: true,

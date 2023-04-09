@@ -26,7 +26,7 @@ class BzPgFields extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
 
-          const SuperVerse(
+          const BldrsText(
             verse: Verse(
               id: 'phid_scopeOfServices',
               translate: true,

@@ -109,7 +109,7 @@ class _AppControlsManagerState extends State<AppControlsManager> {
               physics: const BouncingScrollPhysics(),
               children: <Widget>[
 
-                const SuperVerse(
+                const BldrsText(
                   verse: Verse(
                     id: 'Wall Flyers',
                     translate: false,

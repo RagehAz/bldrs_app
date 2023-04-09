@@ -49,7 +49,7 @@ class AddKeywordsButton extends StatelessWidget {
 
                         /// 'Group' TITLE
                         // if (title != null)
-                        const SuperVerse(
+                        const BldrsText(
                           verse: Verse(
                             id: 'phid_add',
                             translate: true,
@@ -66,7 +66,7 @@ class AddKeywordsButton extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: const <Widget>[
-                            SuperVerse(
+                            BldrsText(
                               verse: Verse(
                                 id: 'phid_keywords',
                                 translate: true,

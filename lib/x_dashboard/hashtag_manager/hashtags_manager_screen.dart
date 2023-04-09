@@ -141,7 +141,7 @@ class _HashTagManagerState extends State<HashTagManager> {
           valueListenable: _textController,
           builder: (_, TextEditingValue value, Widget child){
 
-            return SuperVerse(
+            return BldrsText(
               verse: Verse.plain(value.text),
               labelColor: Colorz.black255,
               size: 3,
@@ -169,7 +169,7 @@ class _HashTagManagerState extends State<HashTagManager> {
 
                     final String _phid = _hashtags[index];
 
-                    return SuperVerse(
+                    return BldrsText(
                       verse: Verse.plain(_phid),
                       labelColor: Colorz.black255,
                       size: 3,

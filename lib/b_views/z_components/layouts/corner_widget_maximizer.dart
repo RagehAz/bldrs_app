@@ -263,7 +263,7 @@ class _MaximizerState extends State<_Maximizer> with SingleTickerProviderStateMi
                             children: <Widget>[
 
                               /// TOP ARROW
-                              DreamBox(
+                              BldrsBox(
                                 height: 35,
                                 width: 35,
                                 icon: expanded == true ? Iconz.arrowDown : Iconz.arrowUp,

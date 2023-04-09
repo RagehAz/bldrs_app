@@ -31,7 +31,7 @@ class ZoneSelectionButton extends StatelessWidget {
       children: <Widget>[
 
         /// TITLE
-        SuperVerse(
+        BldrsText(
           verse: title,
           centered: false,
           italic: true,
@@ -41,7 +41,7 @@ class ZoneSelectionButton extends StatelessWidget {
         ),
 
         /// BUTTON CONTENTS
-        DreamBox(
+        BldrsBox(
           height: 50,
           verseScaleFactor: 0.8,
           icon: icon,
