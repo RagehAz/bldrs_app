@@ -1,12 +1,11 @@
 import 'package:mediators/mediators.dart';
 import 'package:bldrs/b_views/j_flyer/b_slide_full_screen/a_slide_full_screen.dart';
-import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
-import 'package:bldrs/b_views/z_components/images/super_image/a_super_image.dart';
+import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:layouts/layouts.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-
 import 'package:flutter/material.dart';
+import 'package:super_image/super_image.dart';
 
 class ImageTile extends StatelessWidget {
   // -----------------------------------------------------------------------------
