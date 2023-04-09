@@ -14,6 +14,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:bldrs/x_dashboard/ui_manager/planet_test_scree.dart';
 import 'package:layouts/layouts.dart';
 import 'package:bldrs/x_dashboard/ui_manager/stepper_test/stepper_test.dart';
 import 'package:bldrs/x_dashboard/ui_manager/super_box_test_screen.dart';
@@ -584,6 +585,25 @@ class UIManager extends StatelessWidget {
             await Nav.goToNewScreen(
               context: context,
               screen: const StepperTestScreen(),
+            );
+
+          },
+        ),
+
+        // ------------------------------------------------
+
+        /// STEPPER
+        SuperHeadline(verse: Verse.plain('PLANET'),),
+
+        /// STEPPER
+        WideButton(
+          verse: Verse.plain('Planet Test'),
+          icon: Iconz.earth,
+          onTap: () async {
+
+            await Nav.goToNewScreen(
+              context: context,
+              screen: const PlanetTestScreen(),
             );
 
           },
