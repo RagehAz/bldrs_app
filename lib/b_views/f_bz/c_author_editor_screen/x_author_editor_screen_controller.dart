@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:typed_data';
-
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
+import 'package:mediators/mediators.dart';
 import 'package:bldrs/b_views/f_bz/c_author_editor_screen/a_author_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
@@ -16,7 +16,6 @@ import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_paths_generators.dart';
-import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
@@ -167,8 +166,7 @@ Future<void> takeAuthorImage({
     Uint8List _bytes;
 
     if(imagePickerType == PicMakerType.galleryImage){
-      _bytes = await PicMaker.pickAndCropSinglePic(
-        context: context,
+      _bytes = await BldrsPicMaker.pickAndCropSinglePic(
         cropAfterPick: true,
         aspectRatio: 1,
         resizeToWidth: Standards.userPictureWidthPixels,

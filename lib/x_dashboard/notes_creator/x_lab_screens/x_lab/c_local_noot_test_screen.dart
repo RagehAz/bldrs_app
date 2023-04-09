@@ -12,7 +12,8 @@ import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_type.dart';
 import 'package:bldrs/a_models/x_ui/keyboard_model.dart';
-import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
+import 'package:mediators/mediators.dart';
 import 'package:bldrs/b_views/d_user/d_user_search_screen/search_users_screen.dart';
 import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/a_saved_flyers_screen.dart';
 import 'package:bldrs/b_views/f_bz/g_search_bzz_screen/search_bzz_screen.dart';
@@ -38,7 +39,6 @@ import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_paths_generators.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:bldrs/f_helpers/drafters/pic_maker.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
 import 'package:devicer/devicer.dart';
@@ -603,7 +603,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
                           /// TASK : FIX US
 
-                          // final FileModel _pickedFileModel = await PicMaker.pickAndCropSinglePic(
+                          // final FileModel _pickedFileModel = await BldrsPicMaker.pickAndCropSinglePic(
                           //   context: context,
                           //   cropAfterPick: true,
                           //   aspectRatio: 1,
@@ -700,8 +700,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
                                 /// TASK : FIX US
 
-                                final Uint8List _bytes = await PicMaker.pickAndCropSinglePic(
-                                  context: context,
+                                final Uint8List _bytes = await BldrsPicMaker.pickAndCropSinglePic(
                                   cropAfterPick: true,
                                   aspectRatio: NotePosterBox.getAspectRatio(),
                                 );

@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
 import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
 import 'package:bldrs/a_models/x_ui/ui_image_cache_model.dart';
-import 'package:bldrs/a_models/x_utilities/dimensions_model.dart';
+import 'package:mediators/mediators.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
