@@ -8,13 +8,13 @@ import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/template_flyer/b_header_template.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
-import 'package:bldrs/b_views/z_components/images/super_filter/super_filtered_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:filers/filers.dart';
 import 'package:space_time/space_time.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:super_image/super_image.dart';
 
 class DraftShelfSlide extends StatefulWidget {
   /// --------------------------------------------------------------------------

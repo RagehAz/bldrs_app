@@ -1,8 +1,6 @@
 import 'package:animators/animators.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/b_slide_tap_areas.dart';
-import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
-import 'package:bldrs/b_views/z_components/images/super_filter/super_filtered_image.dart';
 import 'package:space_time/space_time.dart';
 import 'package:flutter/material.dart';
 import 'package:super_image/super_image.dart';

@@ -2,7 +2,6 @@ import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_editor_control_panel.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_editor_slide_part.dart';
-import 'package:bldrs/b_views/z_components/images/super_filter/color_filter_generator.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:night_sky/night_sky.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/xxx_slide_editor_controllers.dart';
@@ -10,6 +9,7 @@ import 'package:space_time/space_time.dart';
 import 'package:scale/scale.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
+import 'package:super_image/super_image.dart';
 
 class SlideEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
