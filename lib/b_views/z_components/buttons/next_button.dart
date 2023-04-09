@@ -54,7 +54,7 @@ class NextButton extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
-        DreamBox(
+        BldrsBox(
           isDisabled: !canGoNext,
           verse: const Verse(id: 'phid_next', translate: true),
           verseScaleFactor: 0.7,

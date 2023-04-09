@@ -99,7 +99,7 @@ class WaitDialog extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
 
-                  SuperVerse(
+                  BldrsText(
                     verse: const Verse(
                       id: 'phid_loading',
                       casing: Casing.upperCase,
@@ -116,7 +116,7 @@ class WaitDialog extends StatelessWidget {
                   if (loadingVerse != null)
                     SizedBox(
                       width: _screenWidth * 0.8,
-                      child: SuperVerse(
+                      child: BldrsText(
                         verse: loadingVerse,
                         size: 3,
                         shadow: true,
@@ -136,7 +136,7 @@ class WaitDialog extends StatelessWidget {
                       if (verse == null) {
                         return const SizedBox();
                       } else {
-                        return SuperVerse(
+                        return BldrsText(
                           verse: verse,
                           color: Colorz.yellow200,
                         );

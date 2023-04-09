@@ -109,7 +109,7 @@ class DataStrip extends StatelessWidget {
                     child: SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
-                      child: DreamBox(
+                      child: BldrsBox(
                         height: height,
                         verse: Verse(
                           id: dataKey,
@@ -143,7 +143,7 @@ class DataStrip extends StatelessWidget {
                   child: SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
-                    child:  DreamBox(
+                    child:  BldrsBox(
                       height: height,
                       verse: Verse(
                         id: dataValue.toString(),

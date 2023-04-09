@@ -87,7 +87,7 @@ class PhraseCreatorPage extends StatelessWidget {
               Row(
                 children: <Widget>[
 
-                  DreamBox(
+                  BldrsBox(
                     height: 35,
                     width: 150,
                     verse: const Verse(
@@ -178,7 +178,7 @@ class PhraseCreatorPage extends StatelessWidget {
 
           Align(
             alignment: BldrsAligners.superInverseCenterAlignment(context),
-            child: DreamBox(
+            child: BldrsBox(
               verse: const Verse(
                 id: 'Confirm',
                 translate: false,

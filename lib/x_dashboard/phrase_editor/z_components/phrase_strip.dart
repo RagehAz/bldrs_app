@@ -46,7 +46,7 @@ class PhraseStrip extends StatelessWidget {
         children: <Widget>[
 
           if (_idsAreTheSame == false)
-            const SuperVerse(
+            const BldrsText(
               verse: Verse(
                 id: 'CAUTION : IDs Are Not The Same !!',
                 translate: false,
@@ -66,7 +66,7 @@ class PhraseStrip extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     physics: const BouncingScrollPhysics(),
                     children: <Widget>[
-                      SuperVerse(
+                      BldrsText(
                         verse: Verse(
                           id: 'en ID : ${enPhrase?.id}',
                           translate: false,
@@ -87,7 +87,7 @@ class PhraseStrip extends StatelessWidget {
                 const Expander(),
 
                 /// EDIT PHRASE BUTTON
-                DreamBox(
+                BldrsBox(
                   height: 30,
                   width: 30,
                   icon: Iconz.star,
@@ -106,7 +106,7 @@ class PhraseStrip extends StatelessWidget {
                       child: Column(
                         children: <Widget>[
 
-                          SuperVerse(
+                          BldrsText(
                             verse: Verse(
                               id: enPhrase?.value,
                               translate: false,
@@ -117,7 +117,7 @@ class PhraseStrip extends StatelessWidget {
                             margin: 5,
                           ),
 
-                          SuperVerse(
+                          BldrsText(
                             verse: Verse(
                               id: arPhrase?.value,
                               translate: false,
@@ -133,7 +133,7 @@ class PhraseStrip extends StatelessWidget {
                             height: 10,
                           ),
 
-                          DreamBox(
+                          BldrsBox(
                             width: BottomDialog.clearWidth(context),
                             height: 40,
                             verse: const Verse(
@@ -146,7 +146,7 @@ class PhraseStrip extends StatelessWidget {
                             onTap: onEdit,
                           ),
 
-                          DreamBox(
+                          BldrsBox(
                             width: BottomDialog.clearWidth(context),
                             height: 40,
                             verse: const Verse(
@@ -159,7 +159,7 @@ class PhraseStrip extends StatelessWidget {
                             onTap: onDelete,
                           ),
 
-                          DreamBox(
+                          BldrsBox(
                             width: BottomDialog.clearWidth(context),
                             height: 40,
                             verse: const Verse(
@@ -195,7 +195,7 @@ class PhraseStrip extends StatelessWidget {
               children: <Widget>[
 
                 /// EN VALUE
-                SuperVerse(
+                BldrsText(
                   verse: Verse(
                     id: enPhrase?.value,
                     translate: false,
@@ -206,7 +206,7 @@ class PhraseStrip extends StatelessWidget {
                 ),
 
                 /// AR VALUE
-                SuperVerse(
+                BldrsText(
                   verse: Verse(
                     id: arPhrase?.value,
                     translate: false,

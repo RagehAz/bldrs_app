@@ -207,7 +207,7 @@ class _NotesBuilderPage extends StatelessWidget {
 
                 const SizedBox(height: 5),
 
-                SuperVerse(
+                BldrsText(
                   verse: Verse(
                     id: _noteModel.id,
                     translate: false,
@@ -261,7 +261,7 @@ class _NotesBuilderPage extends StatelessWidget {
     }
 
     else {
-      return const SuperVerse(
+      return const BldrsText(
         verse: Verse(
           id: 'No Notes in LDB found',
           translate: false,

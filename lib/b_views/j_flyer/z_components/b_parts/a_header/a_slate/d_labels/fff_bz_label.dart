@@ -41,7 +41,7 @@ class BzLabel extends StatelessWidget {
         children: <Widget>[
 
           /// BZ NAME
-          SuperVerse(
+          BldrsText(
             width: _bzLabelWidth,
             margin: _bzLabelPaddings,
             verse: Verse(
@@ -59,7 +59,7 @@ class BzLabel extends StatelessWidget {
           ),
 
           /// BZ LOCALE
-          SuperVerse(
+          BldrsText(
             width: _bzLabelWidth,
             verse: ZoneModel.generateInZoneVerse(
               context: context,

@@ -82,7 +82,7 @@ class UserTileButtonOld extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
 
-          DreamBox(
+          BldrsBox(
             width: _userButtonWidth,
             height: buttonHeight,
             icon: userModel?.picPath,
@@ -101,7 +101,7 @@ class UserTileButtonOld extends StatelessWidget {
             const SizedBox(width: boxPadding,),
 
           if (sideButtonVerse != null)
-            DreamBox(
+            BldrsBox(
               width: inviteButtonWidth,
               height: buttonHeight,
               verse: sideButtonVerse,

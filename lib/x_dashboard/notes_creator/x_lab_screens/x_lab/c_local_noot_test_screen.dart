@@ -534,7 +534,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                     children: <Widget>[
 
                       /// CLEAR
-                      DreamBox(
+                      BldrsBox(
                         width: 50,
                         height: 50,
                         icon: Iconz.xLarge,
@@ -553,7 +553,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                       ),
 
                       /// URL
-                      DreamBox(
+                      BldrsBox(
                         height: 50,
                         isDisabled: !isGlobal,
                         icon: _largeIconURL ?? Iconz.comWebsite,
@@ -594,7 +594,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                       ),
 
                       /// GALLERY
-                      DreamBox(
+                      BldrsBox(
                         height: 50,
                         isDisabled: isGlobal,
                         icon: isGlobal == true ? (_largeImageFile ?? Iconz.phoneGallery) : Iconz.phoneGallery,
@@ -643,7 +643,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                           children: <Widget>[
 
                             /// CLEAR
-                            DreamBox(
+                            BldrsBox(
                               width: 40,
                               height: 40,
                               icon: Iconz.xLarge,
@@ -654,7 +654,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                             const SizedBox(height: 5, width: 5,),
 
                             /// URL
-                            DreamBox(
+                            BldrsBox(
                               height: 40,
                               isDisabled: !_posterIsOn,
                               icon: Iconz.comWebsite,
@@ -690,7 +690,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                             const SizedBox(height: 5, width: 5,),
 
                             /// GALLERY
-                            DreamBox(
+                            BldrsBox(
                               height: 40,
                               isDisabled: !_posterIsOn,
                               icon: Iconz.phoneGallery,
@@ -726,7 +726,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                             const SizedBox(height: 5, width: 5,),
 
                             /// BZ
-                            DreamBox(
+                            BldrsBox(
                               height: 40,
                               isDisabled: !_posterIsOn,
                               icon: Iconz.bz,
@@ -771,7 +771,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                             const SizedBox(height: 5, width: 5,),
 
                             /// FLYER
-                            DreamBox(
+                            BldrsBox(
                               height: 40,
                               isDisabled: !_posterIsOn,
                               icon: Iconz.addFlyer,
@@ -819,7 +819,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                         if (_posterModel != null)
                           Align(
                               alignment: Alignment.centerLeft,
-                              child: SuperVerse.verseInfo(verse: Verse.plain('Widget tree'))
+                              child: BldrsText.verseInfo(verse: Verse.plain('Widget tree'))
                           ),
 
                         if (_posterModel != null)
@@ -841,7 +841,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                         if (_posterPicModel != null)
                           Align(
                             alignment: Alignment.centerLeft,
-                            child: SuperVerse.verseInfo(verse: Verse.plain('Snapshot')),
+                            child: BldrsText.verseInfo(verse: Verse.plain('Snapshot')),
                           ),
 
                         if (_posterPicModel != null)
@@ -854,7 +854,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
 
                         // RE-SHOOT
                         if (_posterPicModel != null)
-                        DreamBox(
+                        BldrsBox(
                           height: 50,
                           verse: Verse.plain('Re-shoot'),
                           onTap: _takePosterScreenshot,
@@ -917,7 +917,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                           children: <Widget>[
 
                             /// LOADING
-                            DreamBox(
+                            BldrsBox(
                               height: 35,
                               isDisabled: _progress == null,
                               icon: Iconz.reload,
@@ -938,7 +938,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                             ),
 
                             /// MINUS
-                            DreamBox(
+                            BldrsBox(
                               height: 35,
                               isDisabled: _nootProgressIsLoading == true || _progress == null,
                               icon: Iconz.arrowLeft,
@@ -963,7 +963,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                             ),
 
                             /// PLUS
-                            DreamBox(
+                            BldrsBox(
                               height: 35,
                               icon: Iconz.arrowRight,
                               isDisabled: _nootProgressIsLoading == true || _progress == null,
@@ -1050,7 +1050,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                                   );
                                 }
 
-                                return DreamBox(
+                                return BldrsBox(
                                   height: 40,
                                   width: 100,
                                   verse: Verse(
@@ -1112,7 +1112,7 @@ class _LocalNootTestScreenState extends State<LocalNootTestScreen> {
                     const Expander(),
 
                     /// SEND NOTIFICATION
-                    DreamBox(
+                    BldrsBox(
                       height: 50,
                       verse: Verse.plain('Send $_notificationTypeString'),
                       verseScaleFactor: 0.7,

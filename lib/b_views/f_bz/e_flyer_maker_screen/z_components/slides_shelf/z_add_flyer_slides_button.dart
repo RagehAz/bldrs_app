@@ -179,7 +179,7 @@ class NewSlideImagePickerButton extends StatelessWidget {
           children: <Widget>[
 
             /// PLUS ICON
-            DreamBox(
+            BldrsBox(
               height: _buttonHeight * 0.5,
               width: _buttonHeight * 0.5,
               icon: icon,
@@ -193,7 +193,7 @@ class NewSlideImagePickerButton extends StatelessWidget {
 
             SizedBox(
               width: _buttonWidth,
-              child: SuperVerse(
+              child: BldrsText(
                 verse: line,
                 color: Colorz.white20,
                 maxLines: 2,

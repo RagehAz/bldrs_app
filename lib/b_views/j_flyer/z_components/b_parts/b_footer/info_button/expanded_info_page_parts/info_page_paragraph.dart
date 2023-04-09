@@ -25,7 +25,7 @@ class InfoPageParagraph extends StatelessWidget {
         // padding: const EdgeInsets.symmetric(horizontal: 5),
         columnChildren: <Widget>[
 
-          SuperVerse(
+          BldrsText(
             verse: Verse(
               id: flyerInfo,
               translate: false,

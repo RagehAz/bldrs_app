@@ -134,7 +134,7 @@ class UserBanner extends StatelessWidget {
         ),
 
         /// USER NAME
-        SuperVerse(
+        BldrsText(
           verse: Verse(
             id: _userName,
             translate: false,
@@ -149,7 +149,7 @@ class UserBanner extends StatelessWidget {
 
         /// USER JOB TITLE
         if (canShowTitleCompanyLine(userModel: userModel) == true)
-          SuperVerse(
+          BldrsText(
             italic: true,
             weight: VerseWeight.thin,
             verse: generateTitleCompanyString(
@@ -165,7 +165,7 @@ class UserBanner extends StatelessWidget {
         ),
 
         /// JOINED AT
-        SuperVerse(
+        BldrsText(
           verse: Verse(
             id: BldrsTimers.generateString_in_bldrs_since_month_yyyy(context, userModel?.createdAt),
             translate: false,
@@ -184,7 +184,7 @@ class UserBanner extends StatelessWidget {
 
         /// AUTHOR IN STRING
         if (_userIsAuthor == true)
-          const SuperVerse(
+          const BldrsText(
             verse: Verse(
               id: 'phid_author_in',
               translate: true,

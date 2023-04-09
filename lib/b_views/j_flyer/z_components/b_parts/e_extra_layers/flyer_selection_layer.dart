@@ -36,7 +36,7 @@ class FlyerSelectionLayer extends StatelessWidget {
         children: <Widget>[
 
           /// BLACK COLOR OVERRIDE
-            DreamBox(
+            BldrsBox(
               width: flyerBoxWidth,
               height: _flyerBoxHeight,
               color: Colorz.black150,
@@ -48,7 +48,7 @@ class FlyerSelectionLayer extends StatelessWidget {
               width: flyerBoxWidth,
               height: _flyerBoxHeight,
               alignment: Alignment.center,
-              child: SuperVerse(
+              child: BldrsText(
                 verse: const Verse(
                   id: 'phid_selected',
                   casing: Casing.upperCase,
@@ -70,7 +70,7 @@ class FlyerSelectionLayer extends StatelessWidget {
                 border: Border.all(color: Colorz.white20,),
                 borderRadius: _corners,
               ),
-              child: DreamBox(
+              child: BldrsBox(
                 height: _checkIconSize,
                 width: _checkIconSize,
                 corners: _checkIconSize / 2,

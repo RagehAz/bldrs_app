@@ -147,7 +147,7 @@ class BzPowersPage extends StatelessWidget {
               ),
             ),
 
-            SuperVerse.verseDot(
+            BldrsText.verseDot(
               verse: const Verse(
                 id: '#!# Download "Find us on Bldrs.net" printable banner',
                 translate: true,
@@ -169,7 +169,7 @@ class BzPowersPage extends StatelessWidget {
               ),
             ),
 
-            SuperVerse.verseDot(
+            BldrsText.verseDot(
               verse: const Verse(
                 id: '#!# Use Bldrs.net graphics to customize your own materials',
                 translate: true,

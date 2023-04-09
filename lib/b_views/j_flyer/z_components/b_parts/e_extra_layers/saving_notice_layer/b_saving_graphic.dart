@@ -34,7 +34,7 @@ class SavedGraphic extends StatelessWidget {
 
         Positioned(
           bottom: flyerBoxWidth * 0.58,
-          child: SuperVerse(
+          child: BldrsText(
             verse: Verse(
               id: isStarGraphic ? 'phid_nice' : isSaved ? 'phid_saved' : 'phid_unsaved',
               translate: true,

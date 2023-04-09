@@ -223,7 +223,7 @@ class _TheButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return DreamBox(
+    return BldrsBox(
       height: buttonHeight,
       icon: icon,
       isDisabled: isDeactivated,

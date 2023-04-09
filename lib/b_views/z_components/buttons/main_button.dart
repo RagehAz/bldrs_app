@@ -160,7 +160,7 @@ class MainButton extends StatelessWidget {
                     /// --- ONLY THE BUTTON VERSE HERE
                     Padding(
                       padding: EdgeInsets.all(_buttonZonePaddings),
-                      child: SuperVerse(
+                      child: BldrsText(
                         verse: verse,
                         color: verseColor,
                         weight: verseWeight,
@@ -222,7 +222,7 @@ class MainButton extends StatelessWidget {
                         child: Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: _buttonZonePaddings),
-                          child: SuperVerse(
+                          child: BldrsText(
                             verse: verse,
                             color: verseColor,
                             weight: verseWeight,

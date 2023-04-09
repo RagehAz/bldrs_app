@@ -61,7 +61,7 @@ class SuperToolTip extends StatelessWidget {
         preferBelow: true,
 
         /// STYLE
-        textStyle: SuperVerse.superVerseDefaultStyle(context),
+        textStyle: BldrsText.superVerseDefaultStyle(context),
         decoration: const BoxDecoration(
           color: Colorz.black255,
           borderRadius: BldrsAppBar.corners,

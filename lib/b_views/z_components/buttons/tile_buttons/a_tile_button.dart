@@ -40,7 +40,7 @@ class TileButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return DreamBox(
+    return BldrsBox(
       width: width,
       isDisabled: !isActive,
       // greyscale: !isActive,

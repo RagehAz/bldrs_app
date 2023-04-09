@@ -19,7 +19,7 @@ class StopWatchButton extends StatelessWidget {
     final double _boxWidth = BldrsAppBar.width(context);
     final double _buttonSize = (_boxWidth * 0.5) / 4;
 
-    return DreamBox(
+    return BldrsBox(
       height: _buttonSize,
       width: _buttonSize,
       icon: icon,

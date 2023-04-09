@@ -19,7 +19,7 @@ class ZoneBubbleLine extends StatelessWidget {
 
     final double _clearWidth = Bubble.clearWidth(context: context);
 
-    return DreamBox(
+    return BldrsBox(
       height: 25,
       width: _clearWidth,
       // color: Colorz.bloodTest,

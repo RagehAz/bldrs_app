@@ -1240,10 +1240,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "3d64b92b99ea42d7838b96a8425bb00272fe0c03"
+      resolved-ref: e07b7facd31386829ea610853762883e3ebc4cde
       url: "https://github.com/RagehAz/mapper.git"
     source: git
-    version: "0.0.6"
+    version: "0.0.8"
   matcher:
     dependency: transitive
     description:

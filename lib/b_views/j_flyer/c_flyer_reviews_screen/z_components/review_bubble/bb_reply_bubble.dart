@@ -80,7 +80,7 @@ class BzReplyBubble extends StatelessWidget {
                   children: [
 
                     /// BZ NAME
-                    SuperVerse(
+                    BldrsText(
                       verse: Verse(
                         id: _bzModel?.name,
                         translate: false,
@@ -88,7 +88,7 @@ class BzReplyBubble extends StatelessWidget {
                     ),
 
                     /// TIME
-                    SuperVerse(
+                    BldrsText(
                       verse: Verse(
                         id: BldrsTimers.calculateSuperTimeDifferenceString(
                           context: context,
@@ -104,7 +104,7 @@ class BzReplyBubble extends StatelessWidget {
                     ),
 
                     /// TEXT
-                    SuperVerse(
+                    BldrsText(
                       verse: Verse.plain(reviewModel.reply),
                       maxLines: 100,
                       centered: false,

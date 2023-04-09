@@ -54,7 +54,7 @@ class BalloonTypesScreen extends StatelessWidget {
                     children: <Widget>[
 
                       /// NEED NAME
-                      SuperVerse(
+                      BldrsText(
                         verse: Verse(
                           id: _needType.toString(),
                           translate: false,
@@ -64,7 +64,7 @@ class BalloonTypesScreen extends StatelessWidget {
                       ),
 
                       /// BALLOON NAME
-                      SuperVerse(
+                      BldrsText(
                         verse: Verse(
                           id: Balloon.concludeBalloonByNeedType(_needType).toString(),
                           translate: false,

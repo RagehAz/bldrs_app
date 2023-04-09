@@ -23,7 +23,7 @@ class PickerHeadlineTile extends StatelessWidget {
     return Align(
       key: ValueKey<String>(picker.chainID),
       alignment: Alignment.centerLeft,
-      child: DreamBox(
+      child: BldrsBox(
         height: 40,
         verse: Verse(
           id: picker.chainID,

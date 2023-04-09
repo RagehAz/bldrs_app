@@ -164,7 +164,7 @@ class _KeyboardFieldWidgetTestState extends State<KeyboardFieldWidgetTest> {
                   keyboardTextInputType: Keyboard.textInputTypes[_index],
                 ),
 
-                SuperVerse(
+                BldrsText(
                   verse: Verse.plain('$_index : keyboardHeight is : $_keyboardHeight\ntype : ${Keyboard.cipherTextInputType(Keyboard.textInputTypes[_index])}'),
                   labelColor: Colorz.black255,
                   size: 3,

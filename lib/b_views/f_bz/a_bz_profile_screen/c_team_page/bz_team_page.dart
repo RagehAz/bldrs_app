@@ -133,7 +133,7 @@ class _BzTeamPageState extends State<BzTeamPage> {
 
                   const DotSeparator(),
 
-                  DreamBox(
+                  BldrsBox(
                     width: (widget.bubbleWidth ?? BldrsAppBar.width(context)) - 20,
                     height: 80,
                     bubble: false,

@@ -122,14 +122,14 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
       pyramidsAreOn: true,
       appBarRowWidgets: <Widget>[
 
-        DreamBox(
+        BldrsBox(
           height: 40,
           icon: Iconz.play,
           margins: const EdgeInsets.all(5),
           onTap: resizeBox,
         ),
 
-        DreamBox(
+        BldrsBox(
           height: 40,
           icon: Iconz.pause,
           margins: const EdgeInsets.all(5),
@@ -138,7 +138,7 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
           },
         ),
 
-        DreamBox(
+        BldrsBox(
           height: 40,
           icon: Iconz.stop,
           margins: const EdgeInsets.all(5),
@@ -147,7 +147,7 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
           },
         ),
 
-        DreamBox(
+        BldrsBox(
           height: 40,
           icon: Iconz.clock,
           margins: const EdgeInsets.all(5),
@@ -156,7 +156,7 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
           },
         ),
         const Expander(),
-        DreamBox(
+        BldrsBox(
           height: 40,
           icon: Iconz.bldrsNameEn,
           iconSizeFactor: 0.7,
@@ -259,7 +259,7 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
                           left: condition() == true ? (Scale.screenWidth(context) * 0.5)
                               : 0,
                           duration: const Duration(seconds: 1),
-                          child: DreamBox(
+                          child: BldrsBox(
                             height: 50,
                             icon: Iconz.comYoutube,
                             onTap: () {
@@ -282,7 +282,7 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
             height: _screenWidth,
             color: Colorz.black230,
             alignment: Alignment.center,
-            child: DreamBox(
+            child: BldrsBox(
               width: 200,
               height: 200,
               icon: Iconz.clock,
@@ -305,7 +305,7 @@ class _AnimationsLabState extends State<AnimationsLab> with TickerProviderStateM
             height: 300,
             child: Hero(
               tag: 'unique tag aho',
-              child: DreamBox(
+              child: BldrsBox(
                 height: 100,
                 icon: Iconz.dvDonaldDuck,
                 verse: const Verse(
@@ -483,7 +483,7 @@ class TweenTest extends StatelessWidget {
             ),
           );
         },
-        child: const SuperVerse(
+        child: const BldrsText(
           verse: Verse(
             id: 'WTF is this',
             translate: false,
@@ -508,7 +508,7 @@ class HeroMax extends StatelessWidget {
           height: 300,
           child: Hero(
             tag: 'unique tag aho',
-            child: DreamBox(
+            child: BldrsBox(
               height: 150,
               icon: Iconz.dvDonaldDuck,
               verse: const Verse(

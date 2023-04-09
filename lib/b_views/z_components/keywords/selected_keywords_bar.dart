@@ -33,7 +33,7 @@ class SelectedPhidsBar extends StatelessWidget {
     @required bool includeMargins,
   }){
     final double _bubbleHeightWithoutChildren = Bubble.getHeightWithoutChildren(
-      headlineHeight: SuperVerse.superVerseSizeValue(context, 2, 1),
+      headlineHeight: BldrsText.superVerseSizeValue(context, 2, 1),
     );
     final double _childrenHeight = getChildrenHeight(context);
     final double _marginsHeight = includeMargins ? Ratioz.appBarMargin * 2 : 0;

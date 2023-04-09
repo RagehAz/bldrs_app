@@ -49,7 +49,7 @@ class SpecLabel extends StatelessWidget {
         children: <Widget>[
 
           if (xIsOn == true)
-          DreamBox(
+          BldrsBox(
             height: height,
             width: height,
             icon: xIsOn ? Iconz.xLarge : null,
@@ -71,7 +71,7 @@ class SpecLabel extends StatelessWidget {
                 enRight: 10,
                 enLeft: xIsOn == true ? 0 : 10,
               ),
-              child: SuperVerse(
+              child: BldrsText(
                 verse: verse,
                 weight: VerseWeight.thin,
                 italic: true,

@@ -87,7 +87,7 @@ class PhidsSelectorBubble extends StatelessWidget {
           ),
 
           /// ADD BUTTON
-          DreamBox(
+          BldrsBox(
             height: PhidButton.getHeight(),
             verse: Verse(
               id: Mapper.checkCanLoopList(draft?.specs) ? 'phid_edit_keywords' : 'phid_add_keywords',

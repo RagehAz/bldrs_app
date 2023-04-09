@@ -177,7 +177,7 @@ class _PackedZoomableLayoutState extends State<PackedZoomableLayout> {
               boxColor: Colorz.blue125.withAlpha(Numeric.createRandomIndex(listLength: 1000)),
               stackWidgets: [
 
-                SuperVerse(
+                BldrsText(
                   verse: Verse.plain(index.toString()),
                   margin: 20,
                   labelColor: Colorz.black255,

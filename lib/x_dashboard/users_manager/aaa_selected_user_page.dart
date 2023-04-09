@@ -35,7 +35,7 @@ class SelectedUserPage extends StatelessWidget {
   final PageController pageController;
   /// --------------------------------------------------------------------------
   Widget headline(String text){
-    return SuperVerse(
+    return BldrsText(
       verse: Verse.plain(text),
       size: 4,
       centered: false,

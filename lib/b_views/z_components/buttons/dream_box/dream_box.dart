@@ -9,9 +9,9 @@ import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:super_box/super_box.dart';
 
-class DreamBox extends StatelessWidget {
+class BldrsBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const DreamBox({
+  const BldrsBox({
     @required this.height,
     this.width,
     this.icon,
@@ -120,7 +120,7 @@ class DreamBox extends StatelessWidget {
       iconColor: iconColor,
       text: Verse.bakeVerseToString(context: context, verse: verse),
       textColor: verseColor,
-      textWeight: SuperVerse.superVerseWeight(verseWeight),
+      textWeight: BldrsText.superVerseWeight(verseWeight),
       textScaleFactor: verseScaleFactor,
       textShadow: verseShadow,
       textItalic: verseItalic,
@@ -152,9 +152,9 @@ class DreamBox extends StatelessWidget {
       onLongTap: onLongTap,
       onDoubleTap: onDoubleTap,
       appIsLTR: UiProvider.checkAppIsLeftToRight(context),
-      textFont: SuperVerse.superVerseFont(context, verseWeight),
+      textFont: BldrsText.superVerseFont(context, verseWeight),
       childAlignment: childAlignment,
-      letterSpacing: SuperVerse.superVerseLetterSpacing(
+      letterSpacing: BldrsText.superVerseLetterSpacing(
           verseWeight,
           SuperBoxController.textLineHeight(
             height: height,

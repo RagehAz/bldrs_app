@@ -110,7 +110,7 @@ class _LockScreenState extends State<LockScreen> {
 
             SizedBox(
               width: Scale.screenWidth(context) * 0.8,
-              child: const SuperVerse(
+              child: const BldrsText(
                 verse: Verse(
                   id: _message,
                   translate: false,
@@ -151,7 +151,7 @@ class _LockScreenState extends State<LockScreen> {
               ],
             ),
 
-            DreamBox(
+            BldrsBox(
               width: Scale.screenWidth(context) * 0.7,
               height: 70,
               margins: 20,

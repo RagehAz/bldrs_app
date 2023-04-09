@@ -390,7 +390,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
                     valueListenable: _countryCities,
                     builder: (_, List<CityModel> cities, Widget child){
 
-                      return SuperVerse(
+                      return BldrsText(
                         verse: Verse.plain('${cities.length} / ${_stages?.getAllIDs()?.length ?? '-'}'),
                         weight: VerseWeight.thin,
                         size: 1,

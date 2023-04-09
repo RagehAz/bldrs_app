@@ -31,7 +31,7 @@ class SettingsWideButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return DreamBox(
+    return BldrsBox(
       isDisabled: !isOn,
       height: height,
       verse: verse.copyWith(casing: Casing.upperCase),

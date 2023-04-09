@@ -22,7 +22,7 @@ class MiniUserBanner extends StatelessWidget {
     return Column(
       children: <Widget>[
 
-        DreamBox(
+        BldrsBox(
           height: size,
           width: size,
           icon: userModel?.picPath,
@@ -35,7 +35,7 @@ class MiniUserBanner extends StatelessWidget {
         SizedBox(
           width: size+10,
           height: 30,
-          child: SuperVerse(
+          child: BldrsText(
             verse: Verse(
               id: userModel?.name,
               translate: false,

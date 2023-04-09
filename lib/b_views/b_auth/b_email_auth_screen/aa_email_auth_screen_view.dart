@@ -153,7 +153,7 @@ class EmailAuthScreenView extends StatelessWidget {
                               return ValueListenableBuilder(
                                   valueListenable: emailController,
                                   builder: (_, TextEditingValue currentEmail, Widget child) {
-                                    return DreamBox(
+                                    return BldrsBox(
                                       height: 35,
                                       width: 35,
                                       icon: _userModel?.picPath,
@@ -213,7 +213,7 @@ class EmailAuthScreenView extends StatelessWidget {
 
               /// SIGN IN BUTTON
               if (_isSigningIn == true)
-              DreamBox(
+              BldrsBox(
                 height: _buttonHeight,
                 verseScaleFactor: _verseScaleFactor,
                 color: _isSigningIn ? Colorz.yellow255 : Colorz.white20,
@@ -229,7 +229,7 @@ class EmailAuthScreenView extends StatelessWidget {
 
               /// REGISTER BUTTON
               // if (isSigningIn == true)
-              DreamBox(
+              BldrsBox(
                 height: _buttonHeight,
                 width: 150,
                 verseScaleFactor: _verseScaleFactor,

@@ -115,7 +115,7 @@ Future<void> testPoster({
     child: Column(
       children: <Widget>[
 
-        SuperVerse.verseInfo(
+        BldrsText.verseInfo(
           verse: Verse(
             id: '$_kilo Kb : $_mega Mb',
             translate: false,

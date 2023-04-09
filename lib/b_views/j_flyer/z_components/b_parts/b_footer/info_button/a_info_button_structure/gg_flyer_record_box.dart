@@ -31,7 +31,7 @@ class FlyerRecordsBox extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
 
-        DreamBox(
+        BldrsBox(
           height: 30,
           verse: headlineVerse,
           verseWeight: VerseWeight.thin,

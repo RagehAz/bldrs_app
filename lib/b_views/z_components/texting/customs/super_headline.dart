@@ -20,7 +20,7 @@ class SuperHeadline extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return SuperVerse(
+    return BldrsText(
       verse: verse,
       width: width ?? BldrsAppBar.width(context),
       size: 5,

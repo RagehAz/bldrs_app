@@ -52,7 +52,7 @@ class LogoScreenView extends StatelessWidget {
               duration: Ratioz.durationSliding400,
               min: 0.2,
               max: 0.8,
-              child: SuperVerse(
+              child: BldrsText(
                 verse: Verse(
                   id: Words.loading(context),
                   casing: Casing.upperCase,

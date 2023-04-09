@@ -52,7 +52,7 @@ class LogoSlogan extends StatelessWidget {
         if (showSlogan == true)
           SizedBox(
             width: _logoWidth,
-            child: SuperVerse(
+            child: BldrsText(
               verse: Verse(
                 id: Words.bldrsTagLine(context),
                 pseudo: "The Builder's Network\nReal Estate\nConstruction\nSupplies",
@@ -75,7 +75,7 @@ class LogoSlogan extends StatelessWidget {
           SizedBox(
             width: _logoWidth,
             // height: _logoHeight * 0.7,
-            child: SuperVerse(
+            child: BldrsText(
               verse: Verse(
                 pseudo: 'Connect with\nArchitects,\nInterior designers, Contractors\nAnd Artisans',
                 translate: false,

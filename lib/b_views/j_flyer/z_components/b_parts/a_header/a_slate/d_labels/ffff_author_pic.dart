@@ -66,7 +66,7 @@ class AuthorPic extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
 
-                  DreamBox(
+                  BldrsBox(
                     width: size * 0.35,
                     height: size * 0.35,
                     icon: Iconz.plus,
@@ -74,7 +74,7 @@ class AuthorPic extends StatelessWidget {
                     onTap: () => _tapAddAuthor(context),
                   ),
 
-                  const SuperVerse(
+                  const BldrsText(
                     verse: Verse(
                       id: 'phid_add_author_to_the_team',
                       pseudo: 'Add new Author',

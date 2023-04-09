@@ -253,7 +253,7 @@ class ColorButton extends StatelessWidget {
         final DateTime _time = Timers.createClockFromSeconds(seconds);
         final String _mmss = Timers.generateString_hh_i_mm_i_ss(_time);
 
-        return DreamBox(
+        return BldrsBox(
           height: 100,
           width: 100,
           verse: Verse.plain(map['id']),

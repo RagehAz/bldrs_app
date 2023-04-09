@@ -58,7 +58,7 @@ class _SliderTestScreenState extends State<SliderTestScreen> {
   }
 // -----------------------------------------------------------------------------
   Widget _button(String text) {
-    return SuperVerse(
+    return BldrsText(
       verse: Verse(
         id: text,
         translate: false,

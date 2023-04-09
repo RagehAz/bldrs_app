@@ -184,7 +184,7 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
                 );
 
                 return
-                  DreamBox(
+                  BldrsBox(
                     height: 80,
                     width: _screenWidth * 0.9,
                     verse: _verse,
@@ -205,7 +205,7 @@ class _FlyerPromotionScreenState extends State<FlyerPromotionScreen> {
 
           Align(
             alignment: Alignment.bottomRight,
-            child: DreamBox(
+            child: BldrsBox(
               height: 50,
               verse:  const Verse(
                 id: 'phid_promote',

@@ -62,7 +62,7 @@ class CollapsedTile extends StatelessWidget {
 
     final double _arrowBoxSize = collapsedHeight ?? collapsedGroupHeight;
 
-    return DreamBox(
+    return BldrsBox(
       height: _arrowBoxSize,
       width: _arrowBoxSize,
       bubble: false,
@@ -116,7 +116,7 @@ class CollapsedTile extends StatelessWidget {
 
                   /// Icon
                   if (icon != null)
-                    DreamBox(
+                    BldrsBox(
                       height: ExpandingTile.calculateTitleIconSize(
                           icon: icon,
                           collapsedHeight: collapsedHeight
@@ -146,7 +146,7 @@ class CollapsedTile extends StatelessWidget {
                       children: <Widget>[
 
                         /// FIRST HEADLINE
-                        SuperVerse(
+                        BldrsText(
                           verse: firstHeadline,
                           centered: false,
                           maxLines: secondHeadline == null ? 2 : 1,
@@ -155,7 +155,7 @@ class CollapsedTile extends StatelessWidget {
 
                         /// SECOND HEADLINE
                         if (secondHeadline != null)
-                          SuperVerse(
+                          BldrsText(
                             verse: secondHeadline,
                             weight: VerseWeight.thin,
                             italic: true,

@@ -40,7 +40,7 @@ class AuditorButton extends StatelessWidget {
       boxWidth: BottomDialog.clearWidth(context),
     );
 
-    return DreamBox(
+    return BldrsBox(
       height: height,
       width: _buttonWidth,
       verse: Verse.plain(verse),

@@ -63,7 +63,7 @@ class _GoBackWidgetTestState extends State<GoBackWidgetTest> {
                 }
 
                 else {
-                  return const SuperVerse(
+                  return const BldrsText(
                     verse: Verse(
                       id: 'Go Back Widget is off',
                       translate: false,

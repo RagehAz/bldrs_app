@@ -49,7 +49,7 @@ class SlideEditorButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
 
-          DreamBox(
+          BldrsBox(
             width: size,
             height: size,
             icon: icon,
@@ -59,7 +59,7 @@ class SlideEditorButton extends StatelessWidget {
             onTap: onTap,
           ),
 
-          SuperVerse(
+          BldrsText(
             width: size,
             verse: verse,
             weight: VerseWeight.thin,

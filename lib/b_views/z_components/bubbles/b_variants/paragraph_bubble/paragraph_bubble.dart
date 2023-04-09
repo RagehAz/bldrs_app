@@ -90,7 +90,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
 
     // bool _infoExceededMaxLines = superFlyer.i
 
-    final TextStyle _paragraphTextStyle = SuperVerse.createStyle(
+    final TextStyle _paragraphTextStyle = BldrsText.createStyle(
       context: context,
       // color: Colorz.white255,
       weight: VerseWeight.thin,
@@ -117,7 +117,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
           if (widget.paragraph != null && widget.paragraph.id != '')
             Padding(
               padding: Scale.superMargins(margin: widget.margins),
-              child: SuperVerse(
+              child: BldrsText(
                 verse: widget.paragraph,
                 maxLines: _maxLines,
                 weight: VerseWeight.thin,
@@ -136,7 +136,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
               childIfExceededMaxLines: Container(
                 width: widget.bubbleWidth,
                 alignment: Alignment.center,
-                child: DreamBox(
+                child: BldrsBox(
                   height: Ratioz.appBarMargin,
                   width: Ratioz.appBarMargin,
                   bubble: false,

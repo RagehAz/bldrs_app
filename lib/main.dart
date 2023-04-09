@@ -34,7 +34,7 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:stringer/stringer.dart';
 
-const String bldrsAppVersion = '3.1.19';
+const String bldrsAppVersion = '3.3.0';
 
 Future<void> main() async {
   /// -----------------------------------------------------------------------------
@@ -291,7 +291,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
                             iconColor: Colorz.black255,
                           ),
 
-                          SuperVerse(
+                          BldrsText(
                             verse: Verse(
                               id: _text,
                               translate: false,

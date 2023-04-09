@@ -280,7 +280,7 @@ class CenterDialog extends StatelessWidget {
                                   // color: Colorz.BloodTest,
                                   child: title == null ? Container()
                                       :
-                                  SuperVerse(
+                                  BldrsText(
                                     width: _dialogWidth * 0.9,
                                     verse: title,
                                     color: Colorz.yellow255,
@@ -303,7 +303,7 @@ class CenterDialog extends StatelessWidget {
                                   SizedBox(
                                     width: _dialogWidth,
                                     // height: _bodyZoneHeight,
-                                    child: SuperVerse(
+                                    child: BldrsText(
                                       width: _dialogWidth * 0.9,
                                       verse: bodyVerse,
                                       maxLines: 20,

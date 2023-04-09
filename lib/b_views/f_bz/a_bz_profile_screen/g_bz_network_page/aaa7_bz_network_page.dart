@@ -21,7 +21,7 @@ class BzNetworkPage extends StatelessWidget {
     return BldrsFloatingList(
       columnChildren: <Widget>[
 
-        SuperVerse(
+        BldrsText(
           verse: Verse(
             id: '#!#${_bzModel.name}\nNetwork\nPage',
             translate: true,

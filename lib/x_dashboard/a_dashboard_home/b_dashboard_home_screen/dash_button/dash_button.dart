@@ -22,7 +22,7 @@ class DashButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return DreamBox(
+    return BldrsBox(
       width: size,
       height: size,
       color: Colorz.black80,
@@ -40,7 +40,7 @@ class DashButton extends StatelessWidget {
       subChild: Column(
         children: <Widget>[
 
-          DreamBox(
+          BldrsBox(
             height: size * 0.5,
             width: size * 0.5,
             icon: dashButtonModel.icon,
@@ -54,7 +54,7 @@ class DashButton extends StatelessWidget {
             width: size,
             height: size - (size * 0.5 + (size * 0.05 * 2)),
             padding: EdgeInsets.symmetric(horizontal: size * 0.05),
-            child: SuperVerse(
+            child: BldrsText(
               verse: Verse(
                 id: dashButtonModel.verse,
                 translate: false,

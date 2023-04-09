@@ -90,7 +90,7 @@ class AuthorLabel extends StatelessWidget {
                     /// AUTHOR NAME
                     SizedBox(
                       width: _authorLabelVersesWidth,
-                      child: SuperVerse(
+                      child: BldrsText(
                         verse: Verse(
                           id: _author?.name,
                           translate: false,
@@ -103,7 +103,7 @@ class AuthorLabel extends StatelessWidget {
                     /// AUTHOR TITLE
                     SizedBox(
                       width: _authorLabelVersesWidth,
-                      child: SuperVerse(
+                      child: BldrsText(
                         verse: Verse(
                           id: _author?.title,
                           translate: false,
@@ -119,7 +119,7 @@ class AuthorLabel extends StatelessWidget {
                     /// FOLLOWERS COUNTER
                     SizedBox(
                       width: _authorLabelVersesWidth,
-                      child: SuperVerse(
+                      child: BldrsText(
                         verse: FlyerVerses.followersCounters(
                           context: context,
                           followersCount: 0,

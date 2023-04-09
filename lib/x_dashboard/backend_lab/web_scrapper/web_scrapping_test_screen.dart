@@ -225,7 +225,7 @@ Future<Map<String, dynamic>> getWebsiteData(String url) async {
             onSubmitted: scrapURL,
             columnChildren: <Widget>[
 
-              DreamBox(
+              BldrsBox(
                 height: 50,
                 icon: Iconz.search,
                 iconSizeFactor: 0.7,
@@ -238,7 +238,7 @@ Future<Map<String, dynamic>> getWebsiteData(String url) async {
         ),
 
         if (_website != null)
-          DreamBox(
+          BldrsBox(
             height: 50,
             verse: Verse.plain('get lnks'),
             onTap: () async {
@@ -251,7 +251,7 @@ Future<Map<String, dynamic>> getWebsiteData(String url) async {
 
         /// TITLE
         if (_website != null)
-          SuperVerse(
+          BldrsText(
               verse: Verse.plain(_website.title),
             maxLines: 1000,
           ),
@@ -266,7 +266,7 @@ Future<Map<String, dynamic>> getWebsiteData(String url) async {
 
           final String _paragraph = _website.textParagraphs[index];
 
-          return SuperVerse(
+          return BldrsText(
             verse: Verse.plain(_paragraph),
             labelColor: Colorz.black125,
             maxLines: 10,
