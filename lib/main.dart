@@ -92,6 +92,10 @@ class BldrsAppStarter extends StatefulWidget {
   /// --------------------------------------------------------------------------
   static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   /// --------------------------------------------------------------------------
+  static BuildContext getContext(){
+    return navigatorKey.currentContext;
+  }
+  /// --------------------------------------------------------------------------
 }
 
 class _BldrsAppStarterState extends State<BldrsAppStarter> {
@@ -172,7 +176,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
   StreamSubscription _displayed;
   // --------------------
   void _initializeNootListeners(){
-    _action = NootListener.listenToNootActionStream();
+    _action = NootListener.listenToNootActionStream(context);
     _created = NootListener.listenToNootCreatedStream();
     // _dismissed = NootListener.listenToNootDismissedStream(); Unhandled Exception: Bad state: Stream has already been listened to.
     _displayed = NootListener.listenToNootDisplayedStream();

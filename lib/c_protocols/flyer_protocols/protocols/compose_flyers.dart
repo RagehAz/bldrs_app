@@ -116,7 +116,8 @@ class ComposeFlyerProtocols {
         ]);
 
         await StagingLeveller.levelUpZone(
-            zoneModel: _flyerToPublish.zone,
+          context: context,
+          zoneModel: _flyerToPublish.zone,
         );
 
       }
@@ -174,12 +175,13 @@ class ComposeFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> createFlyerPoster({
-    @required String flyerID,
     @required BuildContext context,
+    @required String flyerID,
     @required DraftFlyer draftFlyer,
   }) async {
 
     final Uint8List _bytes = await PosterDisplay.capturePoster(
+      context: context,
       posterType: PosterType.flyer,
       model: draftFlyer,
       helperModel: draftFlyer.bzModel,

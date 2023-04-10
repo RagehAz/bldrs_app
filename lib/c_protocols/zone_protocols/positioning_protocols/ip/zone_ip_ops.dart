@@ -234,7 +234,7 @@ class ZoneIPOps {
   }) async {
     ZoneModel _zoneModel;
 
-    final Position _position = await LocationOps.getCurrentPosition();
+    final Position _position = await LocationOps.getCurrentPosition(context);
 
     if (_position != null) {
 

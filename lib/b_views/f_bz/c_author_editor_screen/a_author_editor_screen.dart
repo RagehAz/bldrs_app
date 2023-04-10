@@ -372,6 +372,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     BldrsTextFieldBubble(
                       key: const ValueKey<String>('name'),
                       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                        context: context,
                         headlineVerse: const Verse(
                           id: 'phid_author_name',
                           translate: true,
@@ -411,6 +412,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     BldrsTextFieldBubble(
                       formKey: _formKey,
                       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                        context: context,
                         headlineVerse: const Verse(
                           id: 'phid_job_title',
                           translate: true,
@@ -476,6 +478,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       appBarType: AppBarType.basic,
                       isFormField: true,
                       headerViewModel: BldrsBubbleHeaderVM.bake(
+                        context: context,
                         headlineVerse: const Verse(
                           id: 'phid_phone',
                           translate: true,
@@ -513,6 +516,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       appBarType: AppBarType.basic,
                       isFormField: true,
                       headerViewModel: BldrsBubbleHeaderVM.bake(
+                        context: context,
                         headlineVerse: const Verse(
                           id: 'phid_emailAddress',
                           translate: true,

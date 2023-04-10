@@ -57,6 +57,7 @@ class SelectedPhidsBar extends StatelessWidget {
     return Bubble(
       width: _screenWidth,
       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+        context: context,
         headlineVerse: Verse(
           id: _screenTitle,
           translate: false,

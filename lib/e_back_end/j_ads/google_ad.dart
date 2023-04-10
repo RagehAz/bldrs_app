@@ -260,6 +260,7 @@ class GoogleAdSlideBanner extends StatelessWidget {
       adSize: AdSize(
         width: _slideWidth.toInt(),
         height: FlyerDim.flyerHeightByFlyerWidth(
+          context: context,
           flyerBoxWidth: _slideWidth,
           forceMaxHeight: false,
         ).toInt(),

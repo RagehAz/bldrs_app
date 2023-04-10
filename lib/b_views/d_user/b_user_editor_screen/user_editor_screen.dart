@@ -436,6 +436,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                     BldrsTextFieldBubble(
                       key: const ValueKey<String>('name'),
                       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                        context: context,
                         headlineVerse: const Verse(
                           id: 'phid_name',
                           translate: true,
@@ -467,6 +468,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                     BldrsTextFieldBubble(
                       key: const ValueKey<String>('title'),
                       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                        context: context,
                         headlineVerse: const Verse(
                           id: 'phid_occupation',
                           translate: true,
@@ -498,6 +500,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                     BldrsTextFieldBubble(
                       key: const ValueKey<String>('company'),
                       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                        context: context,
                         headlineVerse: const Verse(
                           id: 'phid_companyName',
                           translate: true,
@@ -609,6 +612,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       appBarType: AppBarType.basic,
                       isFormField: true,
                       headerViewModel: BldrsBubbleHeaderVM.bake(
+                        context: context,
                         headlineVerse: const Verse(
                           id: 'phid_phone',
                           translate: true,
@@ -649,6 +653,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       appBarType: AppBarType.basic,
                       isFormField: true,
                       headerViewModel: BldrsBubbleHeaderVM.bake(
+                        context: context,
                         headlineVerse: const Verse(
                           id: 'phid_emailAddress',
                           translate: true,

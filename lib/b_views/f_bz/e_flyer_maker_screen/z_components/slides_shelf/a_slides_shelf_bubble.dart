@@ -36,6 +36,7 @@ class SlidesShelfBubble extends StatelessWidget {
         ),
       ),
       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+        context: context,
         headlineVerse: const Verse(
           id: 'phid_flyerSlides',
           translate: true,

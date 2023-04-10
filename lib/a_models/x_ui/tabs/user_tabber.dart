@@ -1,5 +1,4 @@
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
@@ -28,10 +27,10 @@ class UserTabber {
     UserTab.settings,
   ];
   // --------------------
-  static String getUserTabIcon(UserTab userTab){
+  static String getUserTabIcon(BuildContext context, UserTab userTab){
     switch(userTab){
       case UserTab.profile        : return UsersProvider.proGetMyUserModel(
-          context: getContext(),
+          context: context,
           listen: false)?.picPath; break;
       case UserTab.notifications  : return Iconz.notification ; break;
       case UserTab.following      : return Iconz.follow       ; break;

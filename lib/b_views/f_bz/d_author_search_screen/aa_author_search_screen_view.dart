@@ -121,6 +121,7 @@ class InviteAuthorByLinkBubble extends StatelessWidget {
 
     return Bubble(
       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+        context: context,
         headlineVerse: const Verse(
           id: 'phid_share_invitation_link',
           translate: true,

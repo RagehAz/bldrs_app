@@ -64,8 +64,16 @@ class ComposeUserProtocols {
         UserLDBOps.insertUserModel(_output),
 
       ]);
-      UsersProvider.proSetMyAuthModel(authModel: authModel, notify: false);
-      UsersProvider.proSetMyUserModel(userModel: _output, notify: true);
+      UsersProvider.proSetMyAuthModel(
+        context: context,
+        authModel: authModel,
+        notify: false,
+      );
+      UsersProvider.proSetMyUserModel(
+        context: context,
+        userModel: _output,
+        notify: true,
+      );
 
     }
 

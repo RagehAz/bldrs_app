@@ -148,6 +148,7 @@ Future<void> onSignOut(BuildContext context) async {
   await FlyerLDBOps.wipeOut(context);
 
   await AuthProtocols.signOutBldrs(
+      context: context,
       routeToLogoScreen: true
   );
 

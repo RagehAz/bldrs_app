@@ -76,6 +76,7 @@ class ContactsEditorsBubbles extends StatelessWidget {
               return ContactFieldEditorBubble(
                 formKey: globalKey,
                 headerViewModel: BldrsBubbleHeaderVM.bake(
+                    context: context,
                     headlineVerse: Verse(
                       id: ContactModel.getContactTypePhid(
                         context: context,

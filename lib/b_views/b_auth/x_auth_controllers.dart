@@ -6,7 +6,6 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/d_user/b_user_editor_screen/user_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/auth_protocols/account_ldb_ops.dart';
 import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -24,6 +23,7 @@ import 'package:layouts/layouts.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> authByEmailSignIn({
+  @required BuildContext context,
   @required String email,
   @required String password,
   @required GlobalKey<FormState> formKey,
@@ -33,14 +33,14 @@ Future<void> authByEmailSignIn({
 
   /// A - PREPARE FOR AUTH AND CHECK VALIDITY
   final bool _allFieldsAreValid = _prepareForEmailAuthOps(
-    context: getContext(),
+    context: context,
     formKey: formKey,
   );
 
   if (_allFieldsAreValid == true) {
 
     pushWaitDialog(
-      context: getContext(),
+      context: context,
       verse: const Verse(
         id: 'phid_signing_in',
         translate: true,
@@ -48,11 +48,13 @@ Future<void> authByEmailSignIn({
     );
 
     final bool _success = await AuthProtocols.signInBldrsByEmail(
+      context: context,
       email: email,
       password: password,
     );
 
     await _rememberEmailAndNav(
+      context: context,
       email: email,
       success: _success,
       mounted: mounted,
@@ -70,6 +72,7 @@ Future<void> authByEmailSignIn({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> authByEmailRegister({
+  @required BuildContext context,
   @required String email,
   @required String password,
   @required String passwordConfirmation,
@@ -80,14 +83,14 @@ Future<void> authByEmailRegister({
 
   /// A - PREPARE FOR AUTH AND CHECK VALIDITY
   final bool _allFieldsAreValid = _prepareForEmailAuthOps(
-    context: getContext(),
+    context: context,
     formKey: formKey,
   );
 
   if (_allFieldsAreValid == true) {
 
     pushWaitDialog(
-      context: getContext(),
+      context: context,
       verse: const Verse(
         id: 'phid_creating_new_account',
         translate: true,
@@ -95,11 +98,13 @@ Future<void> authByEmailRegister({
     );
 
     final bool _success = await AuthProtocols.registerInBldrsByEmail(
+      context: context,
       email: email,
       password: password,
     );
 
     await _rememberEmailAndNav(
+      context: context,
       email: email,
       success: _success,
       mounted: mounted,
@@ -118,6 +123,7 @@ Future<void> authByEmailRegister({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> authBySocialMedia({
+  @required BuildContext context,
   @required AuthModel authModel,
   @required bool mounted,
 }) async {
@@ -125,7 +131,7 @@ Future<void> authBySocialMedia({
   if (authModel != null) {
 
     pushWaitDialog(
-      context: getContext(),
+      context: context,
       verse: const Verse(
         id: 'phid_creating_new_account',
         translate: true,
@@ -133,11 +139,13 @@ Future<void> authBySocialMedia({
     );
 
     final bool _success = await AuthProtocols.composeOrUpdateUser(
+      context: context,
       authModel: authModel,
       authError: null,
     );
 
     await _rememberEmailAndNav(
+      context: context,
       email: null,
       success: _success,
       mounted: mounted,
@@ -151,6 +159,7 @@ Future<void> authBySocialMedia({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _rememberEmailAndNav({
+  @required BuildContext context,
   @required bool success,
   @required bool rememberMe,
   @required String email,
@@ -162,7 +171,7 @@ Future<void> _rememberEmailAndNav({
   if (success == true) {
 
     final UserModel _userModel = UsersProvider.proGetMyUserModel(
-      context: getContext(),
+      context: context,
       listen: false,
     );
 
@@ -176,10 +185,11 @@ Future<void> _rememberEmailAndNav({
     );
 
     if (mounted == true) {
-      await WaitDialog.closeWaitDialog(getContext());
+      await WaitDialog.closeWaitDialog(context);
     }
 
     await _navAfterAuth(
+      context: context,
       userModel: _userModel,
       firstTimer: false,
     );
@@ -189,7 +199,7 @@ Future<void> _rememberEmailAndNav({
   /// ON FAILURE
   else {
     if (mounted == true) {
-      await WaitDialog.closeWaitDialog(getContext());
+      await WaitDialog.closeWaitDialog(context);
     }
   }
 
@@ -201,6 +211,7 @@ Future<void> _rememberEmailAndNav({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _navAfterAuth({
+  @required BuildContext context,
   @required UserModel userModel,
   @required bool firstTimer,
 }) async {
@@ -210,24 +221,24 @@ Future<void> _navAfterAuth({
     if (firstTimer == true){
 
       final bool _thereAreMissingFields = Formers.checkUserHasMissingFields(
-          context: getContext(),
+          context: context,
         userModel: userModel,
       );
 
       if (_thereAreMissingFields == true){
         await _goToUserEditorForFirstTime(
-          context: getContext(),
+          context: context,
           userModel: userModel,
         );
       }
       else {
-        await _goToLogoScreen(getContext());
+        await _goToLogoScreen(context);
       }
 
     }
 
     else {
-      await _goToLogoScreen(getContext());
+      await _goToLogoScreen(context);
     }
 
   }

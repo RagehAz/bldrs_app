@@ -22,7 +22,7 @@ class ObeliskTestScreen extends StatelessWidget {
           return NavModel(
             id: NavModel.getMainNavIDString(navID: MainNavModel.profile),
             titleVerse: UserTabber.translateUserTab(context: context, userTab: _userTab),
-            icon: UserTabber.getUserTabIcon(_userTab),
+            icon: UserTabber.getUserTabIcon(context, _userTab),
             screen: UserScreenViewPages.pages[index],
           );
         }),

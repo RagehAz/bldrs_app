@@ -94,6 +94,7 @@ class AddImagePicBubble extends StatelessWidget {
           validator: validator == null ? null : () => validator(),
         ),
         bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+          context: context,
           headerWidth: _bubbleClearWidth,
           headlineVerse: titleVerse,
           redDot: redDot,

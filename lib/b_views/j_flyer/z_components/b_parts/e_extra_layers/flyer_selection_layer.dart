@@ -26,6 +26,7 @@ class FlyerSelectionLayer extends StatelessWidget {
     else {
       // --------------------
       final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
+        context: context,
         flyerBoxWidth: flyerBoxWidth,
         forceMaxHeight: false,
       );

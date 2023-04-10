@@ -73,6 +73,7 @@ class BzLongButton extends StatelessWidget {
     return Bubble(
       width: _bubbleWidth,
       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+        context: context,
         headerWidth: _bubbleWidth - 20,
       ),
       bubbleColor: isSelected == true ? Colorz.green255 : Colorz.white10,

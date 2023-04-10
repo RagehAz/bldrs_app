@@ -732,7 +732,7 @@
 //               // actionsIconTheme: ,
 //               // iconTheme: ,
 //               /// TITLE
-//               titleTextStyle: BldrsText.superVerseDefaultStyle(getContext()),
+//               titleTextStyle: BldrsText.superVerseDefaultStyle(context),
 //               titleSpacing: BldrsText.superVerseWordSpacing(2),
 //               // textTheme: , /// deprecated in favor of titleTextStyle & toolbarTextStyle
 //               /// TOOL BAR
@@ -978,22 +978,21 @@ class BldrsPicMaker {
   // --------------------------------------------------------------------------
   ///
   static Future<Uint8List> pickAndCropSinglePic({
+    @required BuildContext context,
     @required bool cropAfterPick,
     @required double aspectRatio,
     double resizeToWidth,
     AssetEntity selectedAsset,
   }) async {
 
-    final BuildContext _context = getContext();
-
     final Uint8List _bytes = await PicMaker.pickAndCropSinglePic(
-      context: _context,
+      context: context,
       cropAfterPick: cropAfterPick,
       aspectRatio: aspectRatio,
       resizeToWidth: resizeToWidth,
       selectedAsset: selectedAsset,
-      appIsLTR: UiProvider.checkAppIsLeftToRight(_context),
-      confirmText: Verse.transBake(_context, 'phid_crop'),
+      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+      confirmText: Verse.transBake(context, 'phid_crop'),
     );
 
     return _bytes;
@@ -1001,6 +1000,7 @@ class BldrsPicMaker {
   // --------------------
   ///
   static Future<List<Uint8List>> pickAndCropMultiplePics({
+    @required BuildContext context,
     @required double aspectRatio,
     @required bool cropAfterPick,
     double resizeToWidth,
@@ -1008,15 +1008,13 @@ class BldrsPicMaker {
     List<AssetEntity> selectedAssets,
   }) async {
 
-    final BuildContext _context = getContext();
-
     final List<Uint8List> _bytes = await PicMaker.pickAndCropMultiplePics(
-      context: _context,
+      context: context,
       cropAfterPick: cropAfterPick,
       aspectRatio: aspectRatio,
       resizeToWidth: resizeToWidth,
-      appIsLTR: UiProvider.checkAppIsLeftToRight(_context),
-      confirmText: Verse.transBake(_context, 'phid_crop'),
+      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+      confirmText: Verse.transBake(context, 'phid_crop'),
     );
 
     return _bytes;
@@ -1024,16 +1022,16 @@ class BldrsPicMaker {
   // --------------------
   ///
   static Future<Uint8List> cropPic({
+    @required BuildContext context,
     @required Uint8List bytes,
     @required double aspectRatio,
   }) async {
-    final BuildContext _context = getContext();
 
     final Uint8List _bytes = await PicMaker.cropPic(
-      context: _context,
+      context: context,
       bytes: bytes,
-      confirmText: Verse.transBake(_context, 'phid_crop'),
-      appIsLTR: UiProvider.checkAppIsLeftToRight(_context),
+      confirmText: Verse.transBake(context, 'phid_crop'),
+      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
       aspectRatio: aspectRatio,
     );
 

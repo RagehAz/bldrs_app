@@ -1,5 +1,4 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
@@ -291,6 +290,7 @@ class Staging {
   // --------------------
   /// TESTED : WORKS PERFECT
   List<String> getIDsByViewingEvent({
+    @required BuildContext context,
     @required ViewingEvent event,
   }){
 
@@ -301,6 +301,7 @@ class Staging {
     else {
 
       final StageType _minStage = _concludeLowestStageOnViewingEvent(
+        context: context,
         event: event,
       );
 
@@ -315,11 +316,12 @@ class Staging {
   // --------------------
   /// TESTED : WORKS PERFECT
   static StageType _concludeLowestStageOnViewingEvent({
+    @required BuildContext context,
     @required ViewingEvent event,
   }){
 
     final UserModel _user = UsersProvider.proGetMyUserModel(
-        context: getContext(),
+        context: context,
         listen: false,
     );
     final bool _userIsAuthor = UserModel.checkUserIsAuthor(_user);
@@ -511,6 +513,7 @@ class Staging {
   // ---------------------
   /// TESTED : WORKS PERFECT
   static bool checkStagingHasSelectableZones({
+    @required BuildContext context,
     @required Staging staging,
     @required ViewingEvent zoneViewingEvent,
   }){
@@ -519,6 +522,7 @@ class Staging {
     if (staging != null && zoneViewingEvent != null){
 
       final List<String> _ids = staging.getIDsByViewingEvent(
+        context: context,
         event: zoneViewingEvent,
       );
 

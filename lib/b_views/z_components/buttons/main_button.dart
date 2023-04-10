@@ -1,6 +1,5 @@
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
@@ -37,10 +36,11 @@ class MainButton extends StatelessWidget {
   final Color iconColor;
   /// --------------------------------------------------------------------------
   static double getButtonWidth({
+    @required BuildContext context,
     @required bool stretched,
   }) {
-    final double _screenHeight = Scale.screenHeight(getContext());
-    final double _screenWidth = Scale.screenWidth(getContext());
+    final double _screenHeight = Scale.screenHeight(context);
+    final double _screenWidth = Scale.screenWidth(context);
     final double _buttonWidth = stretched == true ? _screenWidth : _screenHeight * 22 * 0.017;
     return _buttonWidth;
   }
@@ -55,7 +55,10 @@ class MainButton extends StatelessWidget {
     final double _buttonZoneHeight = _screenHeight * 0.08;
     final double _buttonZonePaddings = _screenHeight * 0.01;
     // --------------------
-    final double _buttonWidth = getButtonWidth(stretched: stretched);
+    final double _buttonWidth = getButtonWidth(
+        context: context,
+        stretched: stretched
+    );
     final double _buttonHeight = _buttonZoneHeight * 0.85;
     // --------------------
     /// BUTTON FOOTPRINT

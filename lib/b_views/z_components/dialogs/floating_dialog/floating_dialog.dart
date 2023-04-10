@@ -56,6 +56,7 @@ class _FloatingDialogState extends State<FloatingDialog> {
 
     return Bubble(
         bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+          context: context,
           headlineVerse: widget.titleVerse,
           redDot: widget.fieldIsRequired,
         ),

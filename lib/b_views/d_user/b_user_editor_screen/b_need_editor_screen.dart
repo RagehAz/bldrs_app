@@ -190,7 +190,9 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
 
                   /// NEED TYPE SELECTION
                   Bubble(
-                      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(),
+                      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                        context: context,
+                      ),
                       childrenCentered: true,
                       columnChildren: <Widget>[
 
@@ -235,7 +237,9 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                           return Bubble(
                             width: _clearWidth,
                             bubbleColor: _isSelected == true ? Colorz.yellow255 : Colorz.white10,
-                            bubbleHeaderVM: BldrsBubbleHeaderVM.bake(),
+                            bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                              context: context,
+                            ),
                             onBubbleTap: (){
 
                               setNotifier(
@@ -277,6 +281,7 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                     key: const ValueKey<String>('need_description_button'),
                     formKey: _formKey,
                     bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                      context: context,
                       headlineVerse: const Verse(
                         id: 'phid_extra_notes',
                         translate: true,

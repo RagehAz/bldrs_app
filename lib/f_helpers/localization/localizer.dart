@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:authing/authing.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/f_helpers/localization/lingo.dart';
@@ -44,7 +43,7 @@ class Localizer {
   Map<String, String> _localizedValues;
   // --------------------
   static Localizer of(BuildContext context) {
-    return Localizations.of<Localizer>(getContext(), Localizer);
+    return Localizations.of<Localizer>(context, Localizer);
   }
   // -----------------------------------------------------------------------------
 
