@@ -10,7 +10,6 @@ import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
-import 'package:page_transition/page_transition.dart';
 
 class UserPreviewScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------

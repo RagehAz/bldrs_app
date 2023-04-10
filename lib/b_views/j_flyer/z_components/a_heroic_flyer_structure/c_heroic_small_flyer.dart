@@ -10,10 +10,10 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/static_flyer/b_static
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/static_flyer/d_static_footer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
-import 'package:bldrs/f_helpers/drafters/sounder.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
+import 'package:mediators/mediators.dart';
 
 class HeroicSmallFlyer extends StatelessWidget {
   /// --------------------------------------------------------------------------
