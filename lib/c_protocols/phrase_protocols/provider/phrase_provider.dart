@@ -51,7 +51,10 @@ class PhraseProvider extends ChangeNotifier {
     await Localizer.changeAppLanguage(context, langCode);
 
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-    await _chainsProvider.fetchSortSetBldrsChains(notify: true);
+    await _chainsProvider.fetchSortSetBldrsChains(
+      context: context,
+      notify: true,
+    );
 
     triggerUILoading(
       context: context,

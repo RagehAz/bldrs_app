@@ -2,7 +2,6 @@
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/c_chain/dd_data_creation.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
@@ -610,13 +609,15 @@ class Phider {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> sortPhidsAlphabetically(List<String> phids){
+  static List<String> sortPhidsAlphabetically({
+    @required List<String> phids,
+    @required BuildContext context,
+  }){
     List<String> _output = [];
 
     if (Mapper.checkCanLoopList(phids) == true){
 
-      final BuildContext _context = getContext();
-      final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(_context, listen: false);
+      final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
 
       List<Phrase> _phrases = [];
       for (final String phid in phids){

@@ -120,7 +120,11 @@ class RenovateUserProtocols {
         /// UPDATE LDB USER MODEL
         await UserLDBOps.updateUserModel(newUser);
 
-        UsersProvider.proSetMyUserModel(userModel: newUser, notify: true);
+        UsersProvider.proSetMyUserModel(
+          context: context,
+          userModel: newUser,
+          notify: true,
+        );
 
       }
 

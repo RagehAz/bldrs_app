@@ -29,6 +29,7 @@ class PendingAuthorsBubble extends StatelessWidget {
 
       return Bubble(
         bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+          context: context,
           headlineVerse: const Verse(
             id: 'phid_pending_invitation_requests',
             translate: true,

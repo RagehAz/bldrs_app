@@ -474,6 +474,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                     BldrsTextFieldBubble(
                       formKey: draft?.formKey,
                       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                        context: context,
                         headlineVerse: Verse(
                           id: _companyNameBubbleTitle,
                           translate: true,
@@ -658,6 +659,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                     BldrsTextFieldBubble(
                       formKey: draft?.formKey,
                       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                        context: context,
                         headlineVerse: const Verse(
                           id: 'phid_about',
                           translate: true,
@@ -790,6 +792,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       appBarType: AppBarType.basic,
                       isFormField: true,
                       headerViewModel: BldrsBubbleHeaderVM.bake(
+                        context: context,
                         headlineVerse: const Verse(
                           id: 'phid_phone',
                           translate: true,
@@ -827,6 +830,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       appBarType: AppBarType.basic,
                       isFormField: true,
                       headerViewModel: BldrsBubbleHeaderVM.bake(
+                        context: context,
                         headlineVerse: const Verse(
                           id: 'phid_emailAddress',
                           translate: true,
@@ -860,6 +864,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                     ContactFieldEditorBubble(
                       key: const ValueKey<String>('website'),
                       headerViewModel: BldrsBubbleHeaderVM.bake(
+                        context: context,
                         headlineVerse: const Verse(
                           id: 'phid_website',
                           translate: true,

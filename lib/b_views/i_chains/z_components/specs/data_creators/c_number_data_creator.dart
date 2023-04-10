@@ -99,6 +99,7 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
         validator: () => _validator(_textController.text),
       ),
       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+        context: context,
         headlineVerse: const Verse(
           id: 'phid_add_with_dots',
           translate: true,

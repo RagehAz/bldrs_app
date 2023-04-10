@@ -51,6 +51,7 @@ class GenderBubble extends StatelessWidget {
         ),
       ),
       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+        context: context,
         headlineVerse: const Verse(id: 'phid_gender', translate: true),
         redDot: true,
       ),

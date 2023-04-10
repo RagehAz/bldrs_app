@@ -87,6 +87,7 @@ class PhidsBubble extends StatelessWidget {
       margin: margins,
       corners: corners,
       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+        context: context,
         headlineVerse: titleVerse,
       ),
       width: _width,

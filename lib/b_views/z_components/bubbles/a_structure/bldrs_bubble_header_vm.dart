@@ -45,6 +45,7 @@ class BldrsBubbleHeaderVM {
   final bool redDot;
   /// --------------------------------------------------------------------------
   static BubbleHeaderVM bake({
+    @required BuildContext context,
     double headerWidth,
     dynamic leadingIcon,
     double leadingIconSizeFactor = 1,
@@ -62,8 +63,6 @@ class BldrsBubbleHeaderVM {
     bool redDot = false,
     VerseWeight weight = VerseWeight.black,
   }){
-    
-        final BuildContext context = getContext();
 
         final double _textSizeValue = BldrsText.superVerseRealHeight(context: context, size: 2, sizeFactor: 1, hasLabelBox: false);
 

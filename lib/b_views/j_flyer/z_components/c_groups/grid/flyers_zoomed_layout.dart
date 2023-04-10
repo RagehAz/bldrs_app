@@ -55,6 +55,7 @@ ZoomableGridController initializeBldrsZoomableGridController({
 
     smallItemWidth: _gridFlyerWidth,
     smallItemHeight: _gridFlyerWidth * FlyerDim.flyerHeightRatioToWidth(
+      context: context,
       forceMaxRatio: false,
     ),
 

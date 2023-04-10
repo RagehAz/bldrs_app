@@ -190,6 +190,7 @@ class ZoneSelection {
     );
 
     final bool _districtsAreSelectable = Staging.checkStagingHasSelectableZones(
+      context: context,
       staging: _cityDistrictsStages,
       zoneViewingEvent: zoneViewingEvent,
     );

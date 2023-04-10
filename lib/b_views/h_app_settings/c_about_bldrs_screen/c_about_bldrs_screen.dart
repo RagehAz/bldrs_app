@@ -51,6 +51,7 @@ class AboutBldrsScreen extends StatelessWidget {
             maxLines: 1000,
             bubbleColor: Colorz.white20,
             headerViewModel: BldrsBubbleHeaderVM.bake(
+              context: context,
               headlineVerse: const Verse(
                 id: 'phid_bldrsFullName',
                 translate: true,
@@ -67,7 +68,9 @@ class AboutBldrsScreen extends StatelessWidget {
           /// SO
           ParagraphBubble(
             bubbleColor: Colorz.white20,
-            headerViewModel: BldrsBubbleHeaderVM.bake(),
+            headerViewModel: BldrsBubbleHeaderVM.bake(
+              context: context,
+            ),
             paragraph: const Verse(
               id: 'So whenever you need to connect with a professional '
                     'or a company in a specific field or trade to aid you in '
@@ -89,6 +92,7 @@ class AboutBldrsScreen extends StatelessWidget {
           /// DEVELOPERS
           BldrsTileBubble(
             bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+              context: context,
               headlineVerse: const Verse(
                   id: 'phid_developers',
                   translate: true,
@@ -110,6 +114,7 @@ class AboutBldrsScreen extends StatelessWidget {
           /// BROKERS
           BldrsTileBubble(
             bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+              context: context,
               headlineVerse: const Verse(
                 id: 'phid_brokers',
                 translate: true,
@@ -131,6 +136,7 @@ class AboutBldrsScreen extends StatelessWidget {
           /// DESIGNERS
           BldrsTileBubble(
             bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+              context: context,
               headlineVerse: const Verse(
                 id: 'phid_designers',
                 translate: true,
@@ -152,6 +158,7 @@ class AboutBldrsScreen extends StatelessWidget {
           /// CONTRACTORS
           BldrsTileBubble(
             bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+              context: context,
               headlineVerse: const Verse(
                 id: 'phid_contractors',
                 translate: true,
@@ -173,6 +180,7 @@ class AboutBldrsScreen extends StatelessWidget {
           /// ARTISANS
           BldrsTileBubble(
             bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+              context: context,
               headlineVerse: const Verse(
                 id: 'phid_artisans',
                 translate: true,
@@ -192,6 +200,7 @@ class AboutBldrsScreen extends StatelessWidget {
           /// MANUFACTURERS
           BldrsTileBubble(
             bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+              context: context,
               headlineVerse: const Verse(
                 id: 'phid_manufacturers',
                 translate: true,
@@ -213,6 +222,7 @@ class AboutBldrsScreen extends StatelessWidget {
           /// SUPPLIERS
          BldrsTileBubble(
             bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+              context: context,
               headlineVerse: const Verse(
                 id: 'phid_suppliers',
                 translate: true,

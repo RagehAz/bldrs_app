@@ -96,6 +96,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
 
           return Bubble(
             bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+              context: context,
               headlineVerse: const Verse(
                 id: 'phid_stats',
                 translate: true,

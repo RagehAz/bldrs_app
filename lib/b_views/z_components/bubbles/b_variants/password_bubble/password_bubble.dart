@@ -62,6 +62,7 @@ class PasswordBubbles extends StatelessWidget {
         /// PASSWORD
         BldrsTextFieldBubble(
           bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+            context: context,
             headlineVerse: const Verse(id: 'phid_password', translate: true),
             redDot: true,
           ),
@@ -97,6 +98,7 @@ class PasswordBubbles extends StatelessWidget {
         if (showPasswordOnly == false)
           BldrsTextFieldBubble(
             bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+              context: context,
               headlineVerse: const Verse(
                 id: 'phid_confirmPassword',
                 translate: true,

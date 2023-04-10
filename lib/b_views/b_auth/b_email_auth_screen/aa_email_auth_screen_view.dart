@@ -110,6 +110,7 @@ class EmailAuthScreenView extends StatelessWidget {
               /// ENTER E-MAIL
               BldrsTextFieldBubble(
                 bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                  context: context,
                   redDot: true,
                   headlineVerse: const Verse(
                     id: 'phid_emailAddress',
@@ -197,6 +198,7 @@ class EmailAuthScreenView extends StatelessWidget {
 
                   return BldrsTileBubble(
                     bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                      context: context,
                       headlineVerse: const Verse(
                         id: 'phid_remember_me',
                         translate: true,

@@ -175,6 +175,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
               return BldrsTextFieldBubble(
                 appBarType: AppBarType.basic,
                 bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                  context: context,
                   headlineVerse: const Verse(
                     id: 'phid_feedback',
                     translate: true,

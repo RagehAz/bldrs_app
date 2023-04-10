@@ -40,8 +40,9 @@ class UserNeedsBanner extends StatelessWidget {
     return Bubble(
       width: BldrsAppBar.width(context),
       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
-          hasMoreButton: true,
-          onMoreButtonTap: editorMode == true ? () => onGoToNeedsEditorScreen(context) : null,
+        context: context,
+        hasMoreButton: true,
+        onMoreButtonTap: editorMode == true ? () => onGoToNeedsEditorScreen(context) : null,
       ),
       childrenCentered: true,
 

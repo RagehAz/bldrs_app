@@ -37,6 +37,7 @@ class DraftShelfSlide extends StatefulWidget {
   // -----------------------------------------------------------------------------
   static double shelfSlideZoneHeight(BuildContext context){
     final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
+      context: context,
       flyerBoxWidth: flyerBoxWidth,
       forceMaxHeight: false,
     );
@@ -70,6 +71,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
   Widget build(BuildContext context) {
 
     final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
+      context: context,
       flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
       forceMaxHeight: false,
     );

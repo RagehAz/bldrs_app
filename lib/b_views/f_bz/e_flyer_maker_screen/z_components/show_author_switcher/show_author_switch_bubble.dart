@@ -24,6 +24,7 @@ class ShowAuthorSwitchBubble extends StatelessWidget {
 
     return Bubble(
       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+          context: context,
           headlineVerse: const Verse(
             id: 'phid_show_author_on_flyer',
             translate: true,

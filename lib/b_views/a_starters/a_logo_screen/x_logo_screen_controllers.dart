@@ -193,8 +193,17 @@ Future<void> setUserAndAuthModelsAndCompleteUserZoneLocally({
   // blog('setUserAndAuthModelsAndCompleteUserZoneLocally : START');
 
   /// B.3 - so sign in succeeded returning a userModel, then set it in provider
-  UsersProvider.proSetMyAuthModel(authModel: authModel, notify: false);
-  UsersProvider.proSetMyUserModel(userModel: userModel, notify: notify);
+  UsersProvider.proSetMyAuthModel(
+    context: context,
+    authModel: authModel,
+    notify: false,
+  );
+
+  UsersProvider.proSetMyUserModel(
+    context: context,
+    userModel: userModel,
+    notify: notify,
+  );
 
   /// INSERT AUTH AND USER MODEL IN LDB
   await AuthLDBOps.updateAuthModel(authModel);
@@ -210,8 +219,6 @@ Future<void> setUserAndAuthModelsAndCompleteUserZoneLocally({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _initializeAppState(BuildContext context) async {
-
-  final BuildContext context = getContext();
 
   // blog('_initializeAppState : START');
 

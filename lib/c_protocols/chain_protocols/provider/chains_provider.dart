@@ -42,6 +42,7 @@ class ChainsProvider extends ChangeNotifier {
     await Future.wait(<Future>[
       /// BIG CHAIN K
       fetchSortSetBldrsChains(
+        context: context,
         notify: false,
       ),
       /// ALL PICKERS
@@ -287,12 +288,16 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> fetchSortSetBldrsChains({
+    @required BuildContext context,
     @required bool notify,
   }) async {
 
     List<Chain> _bldrsChains = await ChainProtocols.fetchBldrsChains();
 
-    _bldrsChains = Chain.sortChainsAlphabetically(_bldrsChains);
+    _bldrsChains = Chain.sortChainsAlphabetically(
+      chains: _bldrsChains,
+      context: context,
+    );
 
     _setBldrsChains(
       chains: _bldrsChains,

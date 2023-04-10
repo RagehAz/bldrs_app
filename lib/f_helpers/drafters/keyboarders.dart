@@ -76,8 +76,7 @@ class Keyboard {
     /// SOLUTION 4
     // final bool _keyboardIsOn = KeyboardVisibilityProvider.isKeyboardVisible(context);
     /// FINAL SOLUTION ISA
-    final BuildContext _context = getContext();
-    final UiProvider _uiProvider = Provider.of<UiProvider>(_context, listen: false);
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
     final bool _keyboardIsOn = _uiProvider.keyboardIsOn;
     if (_keyboardIsOn == true){
       FocusManager.instance.primaryFocus?.unfocus();

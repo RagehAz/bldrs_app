@@ -167,6 +167,7 @@ Future<void> takeAuthorImage({
 
     if(imagePickerType == PicMakerType.galleryImage){
       _bytes = await BldrsPicMaker.pickAndCropSinglePic(
+        context: context,
         cropAfterPick: true,
         aspectRatio: 1,
         resizeToWidth: Standards.userPictureWidthPixels,

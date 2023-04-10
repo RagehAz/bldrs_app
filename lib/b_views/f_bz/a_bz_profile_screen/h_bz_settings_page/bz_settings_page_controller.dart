@@ -11,7 +11,6 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
@@ -98,9 +97,8 @@ Future<void> onDeleteBzButtonTap({
     // }
 
     /// DELETE BZ LOCALLY
-    final BuildContext _context = getContext();
     await BzProtocols.deleteLocally(
-      context: _context,
+      context: context,
       bzID: bzModel.id,
       invoker: 'onDeleteBzButtonTap',
     );
