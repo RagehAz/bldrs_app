@@ -3,7 +3,6 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/auth_protocols/auth_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
@@ -23,6 +22,7 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<bool> signInBldrsByEmail({
+    @required BuildContext context,
     @required String email,
     @required String password,
   }) async {
@@ -37,8 +37,9 @@ class AuthProtocols {
     );
 
     final bool _success = await composeOrUpdateUser(
-        authModel: _authModel,
-        authError: _authError,
+      context: context,
+      authModel: _authModel,
+      authError: _authError,
     );
 
     return _success;
@@ -50,6 +51,7 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<bool> registerInBldrsByEmail({
+    @required BuildContext context,
     @required String email,
     @required String password,
     // @required ZoneModel currentZone,
@@ -66,6 +68,7 @@ class AuthProtocols {
     );
 
     final bool _success = await composeOrUpdateUser(
+        context: context,
         authModel: _authModel,
         authError: _authError
     );
@@ -79,13 +82,17 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<bool> composeOrUpdateUser({
+    @required BuildContext context,
     @required AuthModel authModel,
     @required String authError,
   }) async {
     bool _success = false;
 
     if (authError != null) {
-      await onAuthError(error: authError);
+      await onAuthError(
+          context: context,
+          error: authError
+      );
     }
 
     else if (authModel != null) {
@@ -97,6 +104,7 @@ class AuthProtocols {
       /// NEW USER
       if (_userModel == null){
         _success = await _onNewUser(
+          context: context,
           authModel: authModel,
         );
       }
@@ -104,6 +112,7 @@ class AuthProtocols {
       /// EXISTING USER
       else {
         _success = await _onExistingUser(
+          context: context,
           userModel: _userModel,
           authModel: authModel,
         );
@@ -117,13 +126,14 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<void> onAuthError({
+    @required BuildContext context,
     @required String error,
   }) async {
 
     final String _errorMessage = error ?? 'Something went wrong, please try again';
 
     await Dialogs.authErrorDialog(
-        context: getContext(),
+        context: context,
         result: _errorMessage,
     );
 
@@ -131,11 +141,12 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<bool> _onNewUser({
+    @required BuildContext context,
     @required AuthModel authModel,
   }) async {
 
     final UserModel userModel = await UserProtocols.compose(
-      context: getContext(),
+      context: context,
       authModel: authModel,
     );
 
@@ -144,16 +155,22 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<bool> _onExistingUser({
+    @required BuildContext context,
     @required UserModel userModel,
     @required AuthModel authModel,
   }) async {
 
     await UserProtocols.updateLocally(
-      context: getContext(),
+      context: context,
       newUser: userModel,
     );
 
-    UsersProvider.proSetMyAuthModel(authModel: authModel, notify: true);
+    UsersProvider.proSetMyAuthModel(
+      context: context,
+      authModel: authModel,
+      notify: true,
+    );
+
     await AuthLDBOps.insertAuthModel(authModel);
 
     return true;
@@ -165,13 +182,14 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<void> signOutBldrs({
+    @required BuildContext context,
     @required bool routeToLogoScreen,
   }) async {
 
     final bool _success = await Authing.signOut(
         onError: (String error) async {
           await CenterDialog.showCenterDialog(
-            context: getContext(),
+            context: context,
             titleVerse: const Verse(
               id: 'phid_trouble_signing_out',
               translate: true,
@@ -186,7 +204,7 @@ class AuthProtocols {
 
     if (_success == true && routeToLogoScreen == true) {
       await BldrsNav.goBackToLogoScreen(
-        context: getContext(),
+        context: context,
         animatedLogoScreen: true,
       );
     }

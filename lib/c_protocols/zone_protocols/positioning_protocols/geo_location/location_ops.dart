@@ -1,5 +1,3 @@
-import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
-
 import 'package:devicer/devicer.dart';
 import 'package:filers/filers.dart';
 import 'package:fire/fire.dart';
@@ -18,7 +16,7 @@ class LocationOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<Position> getCurrentPosition() async {
+  static Future<Position> getCurrentPosition(BuildContext context) async {
 
     Position _result;
 
@@ -50,7 +48,7 @@ class LocationOps {
     // ///
 
     final bool _canGetPosition = await PermitProtocol.fetchLocationPermitA(
-        context: getContext(),
+        context: context,
     );
 
     if (_canGetPosition == true){

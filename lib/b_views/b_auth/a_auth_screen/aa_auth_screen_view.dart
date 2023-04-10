@@ -64,7 +64,10 @@ class AuthScreenView extends StatelessWidget {
 
         /// SOCIAL AUTH BUTTONS
         SizedBox(
-          width:  MainButton.getButtonWidth(stretched: false),
+          width:  MainButton.getButtonWidth(
+            context: context,
+            stretched: false,
+          ),
           height: SocialAuthButton.standardSize,
           child: Row(
             children: <Widget>[
@@ -73,10 +76,12 @@ class AuthScreenView extends StatelessWidget {
                   signInMethod: methods[index],
                   socialKeys: BldrsKeys.socialKeys,
                   onSuccess: (AuthModel authModel) => authBySocialMedia(
+                    context: context,
                     authModel: authModel,
                     mounted: true,
                   ),
                   onError: (String error) => AuthProtocols.onAuthError(
+                    context: context,
                     error: error,
                   ),
                   onAuthLoadingChanged: (bool loading){

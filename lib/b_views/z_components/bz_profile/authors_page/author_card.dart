@@ -120,7 +120,9 @@ class AuthorCard extends StatelessWidget {
     final Color _roleIconColor = _authorIsMaster == true ? null : Colorz.white255;
     // --------------------
     return Bubble(
-      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(),
+      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+        context: context,
+      ),
       width: _bubbleWidth,
       corners: bubbleCornerValue(),
       margin: const EdgeInsets.only(bottom: 10, right: 10, left: 10),

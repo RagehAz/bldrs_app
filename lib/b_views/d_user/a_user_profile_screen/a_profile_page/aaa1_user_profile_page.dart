@@ -27,7 +27,11 @@ class UserProfilePage extends StatelessWidget {
             userID: Authing.getUserID(),
         );
 
-        UsersProvider.proSetMyUserModel(userModel: _userModel, notify: true);
+        UsersProvider.proSetMyUserModel(
+          context: context,
+          userModel: _userModel,
+          notify: true,
+        );
 
       },
       child: const SingleChildScrollView(

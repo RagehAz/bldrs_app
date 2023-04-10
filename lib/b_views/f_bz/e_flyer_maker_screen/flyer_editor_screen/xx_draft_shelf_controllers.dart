@@ -106,8 +106,12 @@ Future<void> _addImagesForNewFlyer({
     if (imagePickerType == PicMakerType.galleryImage){
 
       final List<Uint8List> _bytezz = await BldrsPicMaker.pickAndCropMultiplePics(
+        context: context,
         // maxAssets: 10,
-        aspectRatio: FlyerDim.flyerAspectRatio(forceMaxHeight: true),
+        aspectRatio: FlyerDim.flyerAspectRatio(
+          forceMaxHeight: true,
+          context: context,
+        ),
         cropAfterPick: false,
         resizeToWidth: Standards.slideWidthPixels,
       );
@@ -123,7 +127,7 @@ Future<void> _addImagesForNewFlyer({
       final Uint8List _bytes = await PicMaker.shootAndCropCameraPic(
         context: context,
         // maxAssets: 10,
-        aspectRatio: FlyerDim.flyerAspectRatio(forceMaxHeight: true),
+        aspectRatio: FlyerDim.flyerAspectRatio(context: context, forceMaxHeight: true),
         cropAfterPick: false,
         resizeToWidth: Standards.slideWidthPixels,
       );

@@ -189,6 +189,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
               BldrsTextFieldBubble(
                 formKey: _globalKey,
                 bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                  context: context,
                   headlineVerse: _keyboardModel.titleVerse,
                 ),
                 appBarType: AppBarType.basic,

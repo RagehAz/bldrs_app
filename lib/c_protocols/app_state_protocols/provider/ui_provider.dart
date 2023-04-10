@@ -7,7 +7,6 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
-import 'package:bldrs/main.dart';
 import 'package:scale/scale.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
@@ -564,11 +563,12 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void proSetCanNavOnDynamicLink({
+    @required BuildContext context,
     @required bool setTo,
     @required bool notify,
   }){
 
-    final UiProvider _uiProvider = Provider.of<UiProvider>(getContext(), listen: false);
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
     _uiProvider._setCanDynamicNav(
       setTo: setTo,
       notify: notify,
@@ -577,8 +577,8 @@ class UiProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool proGetCanNavOnDynamicLink(){
-    final UiProvider _uiProvider = Provider.of<UiProvider>(getContext(), listen: false);
+  static bool proGetCanNavOnDynamicLink(BuildContext context){
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
     return _uiProvider.canNavOnDynamicLink;
   }
   // -----------------------------------------------------------------------------
@@ -606,11 +606,12 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void proSetLoadingVerse({
+    @required BuildContext context,
     @required Verse verse,
     bool notify = true,
   }){
 
-    final UiProvider _uiProvider = Provider.of<UiProvider>(getContext(), listen: false);
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
     _uiProvider._setLoadingVerse(
       verse: verse,
       notify: notify,
@@ -619,8 +620,8 @@ class UiProvider extends ChangeNotifier {
   }
   // --------------------
   ///
-  static void clearLoadingVerse() {
-    final UiProvider _uiProvider = Provider.of<UiProvider>(getContext(), listen: false);
+  static void clearLoadingVerse(BuildContext context) {
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
     _uiProvider._setLoadingVerse(
       verse: null,
       notify: true,
@@ -708,7 +709,7 @@ class UiProvider extends ChangeNotifier {
     @required bool notify,
   }){
 
-    final UiProvider _uiProvider = Provider.of<UiProvider>(getContext(),
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context,
         listen: false,
     );
 
@@ -800,10 +801,5 @@ String getLocalAssetPath({
   );
 
   return _path;
-}
-// -----------------------------------------------------------------------------
-/// TESTED : WORKS PERFECT
-BuildContext getContext(){
-  return BldrsAppStarter.navigatorKey.currentContext;
 }
 // -----------------------------------------------------------------------------

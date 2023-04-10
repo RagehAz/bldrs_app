@@ -149,6 +149,7 @@ class _GallerySlideState extends State<GallerySlide> {
   Widget build(BuildContext context) {
 
     final double _headerAndProgressHeights = FlyerDim.headerSlateAndProgressHeights(
+      context: context,
       flyerBoxWidth: widget.flyerBoxWidth,
       forceMaxHeight: false,
     );
@@ -185,6 +186,7 @@ class _GallerySlideState extends State<GallerySlide> {
                 }
               },
               boxDistance: FlyerDim.flyerHeightByFlyerWidth(
+                context: context,
                 flyerBoxWidth: widget.flyerBoxWidth,
                 forceMaxHeight: false,
               ),

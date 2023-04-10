@@ -42,6 +42,7 @@ class SpecsSelectorBubble extends StatelessWidget {
       ignorePointer: draft.flyerType == null,
       child: Bubble(
         bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+          context: context,
           headlineVerse: const Verse(
             id: 'phid_specifications',
             translate: true,

@@ -195,6 +195,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
                         mounted: mounted,
                       ),
                       onReviewUserBalloonTap: (UserModel userModel) => onReviewUserBalloonTap(
+                        context: context,
                         userModel: userModel,
                       ),
                     );
@@ -252,9 +253,11 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
                             mounted: mounted,
                           ),
                           onReviewUserBalloonTap: (UserModel userModel) => onReviewUserBalloonTap(
+                            context: context,
                             userModel: userModel,
                           ),
                           onReplyBzBalloonTap: (BzModel bzModel) => onReplyBzBalloonTap(
+                            context: context,
                             bzModel: bzModel,
                           ),
                         );

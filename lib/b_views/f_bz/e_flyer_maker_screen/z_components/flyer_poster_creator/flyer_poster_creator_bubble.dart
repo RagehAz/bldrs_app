@@ -49,6 +49,7 @@ class FlyerPosterCreatorBubble extends StatelessWidget {
 
     return Bubble(
       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+        context: context,
         headlineVerse: const Verse(
           id: 'phid_flyer_url_poster',
           translate: true,
@@ -86,6 +87,7 @@ Future<void> testPoster({
 }) async {
 
   final Uint8List _bytes = await PosterDisplay.capturePoster(
+    context: context,
     posterType: PosterType.flyer,
     model: draft,
     helperModel: draft.bzModel,

@@ -141,6 +141,7 @@ class BzFCMTopicsScreenView extends StatelessWidget {
         BldrsTileBubble(
           bubbleWidth: PageBubble.clearWidth(context),
           bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+            context: context,
             headlineVerse: const Verse(
               id: 'phid_all_notifications',
               translate: true,
@@ -175,6 +176,7 @@ class BzFCMTopicsScreenView extends StatelessWidget {
               return BldrsTileBubble(
                 bubbleWidth: PageBubble.clearWidth(context),
                 bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                  context: context,
                   headlineVerse: Verse(
                     id: 'phid_${topic.id}',
                     translate: true,

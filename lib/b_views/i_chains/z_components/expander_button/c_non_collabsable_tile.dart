@@ -44,6 +44,7 @@ class NonCollapsableTile extends StatelessWidget {
       width: width,
       bubbleColor: ExpandingTile.getExpandedColor(expansionColor: expansionColor),
       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+        context: context,
         headlineVerse: Verse(
           id: firstHeadline?.id,
           translate: firstHeadline?.translate,

@@ -347,6 +347,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
                     validator: _validator,
                   ),
                   bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                    context: context,
                     headlineVerse: widget.titleVerse ?? const Verse(
                       id: 'phid_location',
                       translate: true,

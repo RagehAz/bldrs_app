@@ -199,6 +199,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
     _headerHeightTween = Animators.animateDouble(
       begin: _minHeaderHeight,
       end: FlyerDim.flyerHeightByFlyerWidth(
+        context: context,
         flyerBoxWidth: widget.flyerBoxWidth,
         forceMaxHeight: false,
       ),
@@ -255,6 +256,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
             },
             // isOn: _canBounce,
             boxDistance: FlyerDim.flyerHeightByFlyerWidth(
+              context: context,
               flyerBoxWidth: widget.flyerBoxWidth,
               forceMaxHeight: false,
             ),

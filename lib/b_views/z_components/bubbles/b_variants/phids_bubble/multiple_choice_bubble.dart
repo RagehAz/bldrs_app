@@ -53,6 +53,7 @@ class MultipleChoiceBubble extends StatelessWidget {
           validator: validator == null ? null : () => validator(),
         ),
         bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+          context: context,
           headlineVerse: titleVerse,
           redDot: isRequired,
           headerWidth: _bubbleWidth - 20,

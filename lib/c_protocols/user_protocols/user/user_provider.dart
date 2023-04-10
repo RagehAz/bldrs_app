@@ -1,6 +1,5 @@
 import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 // import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -38,19 +37,21 @@ class UsersProvider extends ChangeNotifier {
   // --------------------
   ///
   static void proSetMyUserModel({
+    @required BuildContext context,
     @required UserModel userModel,
     @required bool notify,
   }) {
-    final UsersProvider _usersProvider = Provider.of<UsersProvider>(getContext(), listen: false);
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
     _usersProvider._setMyUserModel(userModel: userModel, notify: notify);
   }
   // --------------------
   ///
   static void proSetMyAuthModel({
+    @required BuildContext context,
     @required AuthModel authModel,
     @required bool notify,
   }) {
-    final UsersProvider _usersProvider = Provider.of<UsersProvider>(getContext(), listen: false);
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
     _usersProvider._setMyAuthModel(authModel: authModel, notify: notify);
   }
   // --------------------

@@ -137,6 +137,7 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
       _switchOnValidation();
 
       await authByEmailSignIn(
+        context: context,
         email: _emailController.text,
         password: _passwordController.text,
         formKey: _formKey,
@@ -159,6 +160,7 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
       _switchOnValidation();
 
       await authByEmailRegister(
+        context: context,
         email: _emailController.text,
         password: _passwordController.text,
         passwordConfirmation: _confirmPasswordController.text,

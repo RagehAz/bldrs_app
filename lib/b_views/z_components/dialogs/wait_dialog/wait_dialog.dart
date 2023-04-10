@@ -24,7 +24,7 @@ void pushWaitDialog({
 }
 
 void closeWaitDialog(BuildContext context){
-  unawaited(WaitDialog.closeWaitDialog(getContext()));
+  unawaited(WaitDialog.closeWaitDialog(context));
 }
 
 class WaitDialog extends StatelessWidget {
@@ -71,9 +71,8 @@ class WaitDialog extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> closeWaitDialog(BuildContext context) async {
-    final BuildContext _context = getContext();
     await Nav.goBack(
-      context: _context,
+      context: context,
       invoker: 'closeWaitDialog',
     );
   }

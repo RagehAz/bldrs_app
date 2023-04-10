@@ -118,6 +118,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
             ),
             width: Bubble.bubbleWidth(context: context),
             bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+              context: context,
               headlineVerse: const Verse(
                 id: 'phid_pdf_attachment',
                 translate: true,

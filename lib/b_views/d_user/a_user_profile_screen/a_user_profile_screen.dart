@@ -37,7 +37,7 @@ class UserProfileScreen extends StatelessWidget {
           return NavModel(
             id: NavModel.getUserTabNavID(_userTab),
             titleVerse: UserTabber.translateUserTab(context: context, userTab: _userTab),
-            icon: UserTabber.getUserTabIcon(_userTab),
+            icon: UserTabber.getUserTabIcon(context, _userTab),
             iconSizeFactor: _userTab == UserTab.profile ? 1 : null,
             screen: UserScreenViewPages.pages[index],
           );

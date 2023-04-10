@@ -2,11 +2,11 @@ import 'package:bldrs/a_models/b_bz/sub/target/target_progress.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/background_msg_handler.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
-import 'package:filers/filers.dart';
+import 'package:bldrs/main.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:filers/filers.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -129,14 +129,12 @@ class FCMStarter {
         invoker: '_initializeNootsListeners.onMessageOpenedApp',
       );
 
-      final BuildContext _context = getContext();
-
       final NoteModel _note = NoteModel.decipherRemoteMessage(
         map: remoteMessage?.data,
       );
 
       await CenterDialog.showCenterDialog(
-        context: _context,
+        context: BldrsAppStarter.getContext(),
         titleVerse: Verse.plain('App was on background'),
         bodyVerse: Verse.plain('noteTitle is : ${_note.title}'),
         color: Colorz.green50,

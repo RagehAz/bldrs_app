@@ -140,6 +140,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
 
         /// SHOWN CITIES IDS
         final List<String> _shownIDs = _citiesStages.getIDsByViewingEvent(
+          context: context,
           event: widget.zoneViewingEvent,
         );
         /// SHOWN CITIES MODELS

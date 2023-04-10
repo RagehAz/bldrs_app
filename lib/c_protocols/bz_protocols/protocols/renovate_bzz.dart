@@ -6,7 +6,6 @@ import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/bz_protocols/fire/bz_fire_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
@@ -109,8 +108,6 @@ class RenovateBzProtocols {
     @required BzModel oldBz,
   }) async {
     // blog('RenovateBzProtocol.updateBzLocally : START');
-
-    final BuildContext context = getContext();
 
     /// LOCAL UPDATE PROTOCOL
     /// is to update my-active-bz-model in PRO and LDB in case of model changes

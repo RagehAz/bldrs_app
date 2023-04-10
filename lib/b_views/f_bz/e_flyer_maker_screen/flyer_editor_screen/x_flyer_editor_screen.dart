@@ -373,6 +373,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                     BldrsTextFieldBubble(
                       key: const ValueKey<String>('flyer_headline_text_field'),
                       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                        context: context,
                         headlineVerse: const Verse(
                           id: 'phid_flyer_headline',
                           translate: true,
@@ -498,6 +499,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
                       //   });
                       // },
                       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                        context: context,
                         headlineVerse: const Verse(
                           id: 'phid_flyer_description',
                           translate: true,

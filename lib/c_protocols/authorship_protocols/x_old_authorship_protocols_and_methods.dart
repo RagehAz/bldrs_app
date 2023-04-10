@@ -402,7 +402,7 @@
 //   }) async {
 //
 //     unawaited(TopDialog.showTopDialog(
-//       context: getContext(),
+//       context: context,
 //       firstVerse: const Verse(
 //         text: 'phid_author_and_flyers_have_been_removed',
 //         translate: true,
