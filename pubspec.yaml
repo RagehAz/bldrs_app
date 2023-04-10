@@ -50,7 +50,6 @@ dependencies:
 #  device_info_plus: ^7.0.1
 #  firebase_auth: ^4.1.0
 #  firebase_core: ^2.1.1
-#  firebase_database: ^10.0.3
 #  firebase_storage: ^11.0.3
 #  flutter_svg: ^1.0.3
 #  flutter_sound: ^9.2.13
@@ -76,6 +75,7 @@ dependencies:
   flutter_local_notifications: ^9.0.1 # should remove this
   # ------------------------------------
   # USED PACKAGES
+  firebase_database: ^10.0.3
   another_flushbar: ^1.10.26
   awesome_notifications: ^0.6.21
   clipboard: ^0.1.3
