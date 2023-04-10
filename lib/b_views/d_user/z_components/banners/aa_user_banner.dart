@@ -112,7 +112,9 @@ class UserBanner extends StatelessWidget {
     final bool _userIsAuthor = UserModel.checkUserIsAuthor(userModel);
     // --------------------
     return Bubble(
-      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(),
+      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+        context: context,
+      ),
       childrenCentered: true,
       onBubbleTap: _onTap,
       columnChildren: <Widget>[
@@ -219,7 +221,8 @@ class UserBanner extends StatelessWidget {
                     bzModel: _bzModel,
                     height: 50,
                     onTap: () => BldrsNav.jumpToBzPreviewScreen(
-                        bzID: _bzModel.id,
+                      context: context,
+                      bzID: _bzModel.id,
                     ),
                   );
 

@@ -135,6 +135,7 @@ class _DistrictsScreenState extends State<DistrictsScreen> {
 
         /// SHOWN DISTRICTS IDS
         final List<String> _shownIDs = _districtsStages.getIDsByViewingEvent(
+          context: context,
           event: widget.zoneViewingEvent,
         );
         /// SHOWN DISTRICTS MODELS

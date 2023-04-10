@@ -53,15 +53,14 @@ class TopDialog extends StatelessWidget {
     int milliseconds = 5000,
   }) async {
 
-    final BuildContext _context = getContext();
 
-    await closeTopDialog(_context);
+    await closeTopDialog(context);
 
-    final double _screenWidth = Scale.screenWidth(_context);
-    final double _bubbleWidth = BldrsAppBar.width(_context);
+    final double _screenWidth = Scale.screenWidth(context);
+    final double _bubbleWidth = BldrsAppBar.width(context);
 
     await Flushbar(
-      key: UiProvider.proGetTopDialogKey(context: _context, listen: false),
+      key: UiProvider.proGetTopDialogKey(context: context, listen: false),
 
       /// BEHAVIOUR - POSITIONING ----------------------------------------------
       // dismissDirection: FlushbarDismissDirection.VERTICAL,
@@ -104,7 +103,7 @@ class TopDialog extends StatelessWidget {
       titleText: Container(
         width: _bubbleWidth,
         constraints: BoxConstraints(
-          minHeight: BldrsAppBar.height(_context, AppBarType.basic) - 5,
+          minHeight: BldrsAppBar.height(context, AppBarType.basic) - 5,
         ),
         decoration: const BoxDecoration(
           // color: Colorz.Black255,
@@ -163,7 +162,7 @@ class TopDialog extends StatelessWidget {
       /// INTERACTIONS ----------------------------------------------
       onTap: (Flushbar<dynamic> flushbar) {
 
-        closeTopDialog(_context);
+        closeTopDialog(context);
         // blog('on tap : flushbar : ${flushbar.onTap}');
 
       },
@@ -202,7 +201,7 @@ class TopDialog extends StatelessWidget {
       shouldIconPulse: false,
       // positionOffset: 0,
       // userInputForm: ,
-    ).show(_context);
+    ).show(context);
   }
   // --------------------
   /// BUG THE SHIT OUT OF LIFE

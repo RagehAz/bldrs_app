@@ -126,6 +126,7 @@ class _ScopeSelectorBubbleState extends State<ScopeSelectorBubble> {
       ignorePointer: !_flyerTypesExist,
       child: Bubble(
         bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+          context: context,
           headlineVerse: widget.headlineVerse,
         ),
         width: Bubble.bubbleWidth(context: context),
@@ -178,6 +179,7 @@ class _ScopeSelectorBubbleState extends State<ScopeSelectorBubble> {
                         Bubble(
                           width: _phidsZoneWidth,
                           bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                            context: context,
                             headlineVerse: Verse(
                               id: FlyerTyper.getFlyerTypePhid(flyerType: _flyerType),
                               translate: true,

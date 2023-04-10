@@ -11,7 +11,6 @@ import 'package:bldrs/b_views/z_components/poster/note_poster_builder.dart';
 import 'package:bldrs/b_views/z_components/poster/structure/x_note_poster_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
@@ -57,7 +56,7 @@ class NoteCard extends StatelessWidget {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _onSenderBalloonTap() async {
+  Future<void> _onSenderBalloonTap(BuildContext context) async {
 
     /// BZ
     if (noteModel.parties.senderType == PartyType.bz){
@@ -65,6 +64,7 @@ class NoteCard extends StatelessWidget {
       blog('BZ TAPPED');
 
       await BldrsNav.jumpToBzPreviewScreen(
+        context: context,
         bzID: noteModel.parties.senderID,
       );
 
@@ -74,6 +74,7 @@ class NoteCard extends StatelessWidget {
     else if (noteModel.parties.senderType == PartyType.user){
 
       await BldrsNav.jumpToUserPreviewScreen(
+        context: context,
         userID: noteModel.parties.senderID,
       );
 
@@ -86,7 +87,7 @@ class NoteCard extends StatelessWidget {
       //     context: context,
       // );
 
-      await onFeedbackTap(getContext());
+      await onFeedbackTap(context);
 
     }
 
@@ -147,7 +148,7 @@ class NoteCard extends StatelessWidget {
 
               NoteSenderBalloon(
                 noteModel: noteModel,
-                onTap: () => _onSenderBalloonTap(),
+                onTap: () => _onSenderBalloonTap(context),
               ),
 
               /// SPACER

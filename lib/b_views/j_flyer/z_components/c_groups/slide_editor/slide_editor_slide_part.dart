@@ -57,6 +57,7 @@ class SlideEditorSlidePart extends StatelessWidget {
   static double getFlyerZoneWidth(BuildContext context, double zoneHeight){
     final double _flyerBoxHeight = zoneHeight - (2 * Ratioz.appBarMargin);
     final double _flyerBoxWidth = FlyerDim.flyerWidthByFlyerHeight(
+      context: context,
       flyerBoxHeight: _flyerBoxHeight,
       forceMaxHeight: false,
     );
@@ -70,6 +71,7 @@ class SlideEditorSlidePart extends StatelessWidget {
     final double _slideZoneHeight = height;
     final double _flyerBoxWidth = getFlyerZoneWidth(context, _slideZoneHeight);
     final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
+      context: context,
       flyerBoxWidth:_flyerBoxWidth,
       forceMaxHeight: false,
     );

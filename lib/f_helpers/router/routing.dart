@@ -42,7 +42,6 @@ class Routing {
   static const String flyerEditor = '/FlyerEditorScreen';
   static const String flyerScreen = '/FlyerFullScreen'; /// TASK : WHO ARE YOU ?
   // --------------------
-  // static const String ragehDashBoard = '/RagehDashBoardScreen';
   static const String obelisk = '/ObeliskScreen';
   static const String dynamicLinkTest = '/DynamicLinkTest';
   // --------------------
@@ -55,8 +54,10 @@ class Routing {
   // --------------------
   static const String myUserScreen = '/myUserScreen';
   static const String myUserNotesPage = '/myUserNotesPage';
-
+  // --------------------
   static const String appSettings = '/appSettings';
+  // --------------------
+  static const String dashboard = '/dashboard';
   // -----------------------------------------------------------------------------
 
   /// ROUTER

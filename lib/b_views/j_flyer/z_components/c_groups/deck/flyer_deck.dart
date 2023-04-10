@@ -47,6 +47,7 @@ class FlyerDeck extends StatelessWidget {
   }){
 
     final double _biggestSlideWidth = FlyerDim.flyerWidthByFlyerHeight(
+      context: context,
       flyerBoxHeight: deckHeight,
       forceMaxHeight: false,
     );
@@ -62,6 +63,7 @@ class FlyerDeck extends StatelessWidget {
     else {
 
       final double _sumOfSlidesWidths = _getSumOfSlidesWidths(
+        context: context,
         maxSlideHeight: deckHeight,
         minSlideHeightFactor: minSlideHeightFactor,
         numberOfSlides: numberOfSlides,
@@ -81,6 +83,7 @@ class FlyerDeck extends StatelessWidget {
   }
   // --------------------
   static double getSlideWidth({
+    @required BuildContext context,
     @required double maxSlideHeight,
     @required int reverseIndex,
     @required double minSlideHeightFactor,
@@ -96,12 +99,14 @@ class FlyerDeck extends StatelessWidget {
     // blog('_scale : $_scale');
 
     return FlyerDim.flyerWidthByFlyerHeight(
+      context: context,
       flyerBoxHeight: _scale * maxSlideHeight,
       forceMaxHeight: false,
     );
   }
   // --------------------
   static double _getSumOfSlidesWidths({
+    @required BuildContext context,
     @required double maxSlideHeight,
     @required double minSlideHeightFactor,
     @required int numberOfSlides,
@@ -110,6 +115,7 @@ class FlyerDeck extends StatelessWidget {
     double _total = 0;
     for (int i = 0; i < numberOfSlides; i++){
       final double _slideWidth = getSlideWidth(
+        context: context,
         numberOfSlides: numberOfSlides,
         minSlideHeightFactor: minSlideHeightFactor,
         maxSlideHeight: maxSlideHeight,
@@ -122,6 +128,7 @@ class FlyerDeck extends StatelessWidget {
   }
   // --------------------
   static double _getShiftWidth({
+    @required BuildContext context,
     @required int numberOfSlides,
     @required double maxSlideHeight,
     @required double minSlideHeightFactor,
@@ -129,6 +136,7 @@ class FlyerDeck extends StatelessWidget {
   }){
 
     final double _allSlidesWidths = _getSumOfSlidesWidths(
+      context: context,
       maxSlideHeight: maxSlideHeight,
       minSlideHeightFactor: minSlideHeightFactor,
       numberOfSlides: numberOfSlides,
@@ -140,6 +148,7 @@ class FlyerDeck extends StatelessWidget {
   }
   // --------------------
   static double _getSlideOffset({
+    @required BuildContext context,
     @required double maxSlideHeight,
     @required int reverseIndex,
     @required double minSlideHeightFactor,
@@ -154,6 +163,7 @@ class FlyerDeck extends StatelessWidget {
     else {
 
       final double _lastOffset = _getSlideOffset(
+        context: context,
         reverseIndex: reverseIndex - 1,
         numberOfSlides: numberOfSlides,
         minSlideHeightFactor: minSlideHeightFactor,
@@ -162,6 +172,7 @@ class FlyerDeck extends StatelessWidget {
       );
 
       final double _lastSlideWidth = getSlideWidth(
+        context: context,
         reverseIndex: reverseIndex - 1,
         numberOfSlides: numberOfSlides,
         minSlideHeightFactor: minSlideHeightFactor,
@@ -169,6 +180,7 @@ class FlyerDeck extends StatelessWidget {
       );
 
       final double _shift = _getShiftWidth(
+        context: context,
         numberOfSlides: numberOfSlides,
         minSlideHeightFactor: minSlideHeightFactor,
         maxSlideHeight: maxSlideHeight,
@@ -379,6 +391,7 @@ class _TheDeck extends StatelessWidget {
             );
 
             final double _flyerBoxWidth = FlyerDeck.getSlideWidth(
+              context: context,
               maxSlideHeight: deckHeight,
               reverseIndex: _index,
               minSlideHeightFactor: minSlideHeightFactor,
@@ -389,6 +402,7 @@ class _TheDeck extends StatelessWidget {
               enAlignment: Alignment.centerLeft,
               appIsLTR: UiProvider.checkAppIsLeftToRight(context),
               horizontalOffset: FlyerDeck._getSlideOffset(
+                context: context,
                 deckWidth: _deckWidth,
                 reverseIndex: _index,
                 maxSlideHeight: deckHeight,
@@ -401,6 +415,7 @@ class _TheDeck extends StatelessWidget {
               SmallFlyer(
                 flyerModel: flyerModel,
                 flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(
+                  context: context,
                   flyerBoxHeight: deckHeight,
                   forceMaxHeight: false,
                 ),
@@ -418,6 +433,7 @@ class _TheDeck extends StatelessWidget {
               SingleSlide(
                 flyerBoxWidth: _flyerBoxWidth,
                 flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(
+                  context: context,
                   flyerBoxWidth: _flyerBoxWidth,
                   forceMaxHeight: false,
                 ),

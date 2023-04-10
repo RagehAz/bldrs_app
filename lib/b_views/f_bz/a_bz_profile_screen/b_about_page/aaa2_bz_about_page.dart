@@ -110,6 +110,7 @@ class AboutBzBubbles extends StatelessWidget {
     );
     final double _spacing = FlyerDim.flyerGridGridSpacingValue(flyerBoxWidth);
     final double _flyerHeight = FlyerDim.flyerHeightByFlyerWidth(
+      context: context,
       flyerBoxWidth: flyerBoxWidth,
       forceMaxHeight: false,
     );
@@ -138,6 +139,7 @@ class AboutBzBubbles extends StatelessWidget {
         if (TextCheck.isEmpty(bzModel?.about) == false)
           ParagraphBubble(
             headerViewModel: BldrsBubbleHeaderVM.bake(
+              context: context,
               headlineVerse: const Verse(
                 id: 'phid_about_us',
                 translate: true,
@@ -153,6 +155,7 @@ class AboutBzBubbles extends StatelessWidget {
         if (Mapper.checkCanLoopList(bzModel?.scope) == true)
           Bubble(
             bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+              context: context,
               headlineVerse: const Verse(
                 id: 'phid_scopeOfServices',
                 translate: true,

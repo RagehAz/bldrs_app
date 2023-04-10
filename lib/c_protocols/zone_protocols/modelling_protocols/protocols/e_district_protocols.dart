@@ -32,6 +32,7 @@ class DistrictProtocols {
 
         /// ADD DISTRICT ID TO DISTRICTS STAGES
         StagingLeveller.changeDistrictStageType(
+          context: context,
           districtID: districtModel.id,
           newType: StageType.emptyStage,
         ),

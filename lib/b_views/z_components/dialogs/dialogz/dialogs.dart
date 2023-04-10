@@ -579,6 +579,7 @@ class Dialogs {
                 BldrsTextFieldBubble(
                   formKey: _keyboardModel.globalKey,
                   bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                    context: context,
                     headlineVerse: _keyboardModel.titleVerse,
                   ),
                   appBarType: AppBarType.non,
@@ -999,6 +1000,7 @@ class Dialogs {
           child: HeroicFlyer(
             flyerModel: flyer,
             flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(
+              context: context,
               flyerBoxHeight: _flyerBoxHeight,
               forceMaxHeight: false,
             ),
@@ -1042,6 +1044,7 @@ class Dialogs {
         alignment: Alignment.center,
         child: SingleSlide(
           flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(
+            context: context,
             forceMaxHeight: false,
             flyerBoxHeight: _flyerBoxHeight,
           ),

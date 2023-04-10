@@ -33,6 +33,7 @@ class ContactsBubble extends StatelessWidget {
       absorbing: !canLaunchOnTap,
       child: Bubble(
         bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+          context: context,
           headlineVerse: const Verse(id: 'phid_contacts', translate: true),
           headerWidth: Bubble.clearWidth(context: context) - 20,
         ),

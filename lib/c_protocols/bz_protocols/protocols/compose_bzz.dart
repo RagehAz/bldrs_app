@@ -103,7 +103,8 @@ class ComposeBzProtocols {
     ]);
 
     await StagingLeveller.levelUpZone(
-        zoneModel: _bzModel.zone,
+      context: context,
+      zoneModel: _bzModel.zone,
     );
 
     /// CLOSE WAIT DIALOG

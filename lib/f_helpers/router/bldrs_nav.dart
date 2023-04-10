@@ -179,24 +179,28 @@ class BldrsNav {
       /// TESTED : WORKS PERFECT
         case Routing.userPreview:
           _goTo = jumpToUserPreviewScreen(
+            context: context,
             userID: _afterHomeRoute.arguments,
           ); break;
       // --------------------
       /// TESTED : WORKS PERFECT
         case Routing.bzPreview:
           _goTo = jumpToBzPreviewScreen(
+            context: context,
             bzID: _afterHomeRoute.arguments,
           ); break;
       // --------------------
       /// TESTED : WORKS PERFECT
         case Routing.flyerPreview:
           _goTo = jumpToFlyerPreviewScreen(
+            context: context,
             flyerID: _afterHomeRoute.arguments,
           ); break;
       // --------------------
       /// TESTED : WORKS PERFECT
         case Routing.flyerReviews:
           _goTo = jumpToFlyerReviewScreen(
+            context: context,
             flyerIDAndReviewID: _afterHomeRoute?.arguments,
           ); break;
       // --------------------
@@ -226,7 +230,7 @@ class BldrsNav {
 
       /// CLEAR AFTER HOME ROUTE
       UiProvider.proClearAfterHomeRoute(
-        context: getContext(),
+        context: context,
         notify: true,
       );
 
@@ -396,20 +400,21 @@ class BldrsNav {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> jumpToUserPreviewScreen({
+    @required BuildContext context,
     @required String userID,
   }) async {
 
     if (userID != null){
 
       final UserModel _userModel = await UserProtocols.fetch(
-        context: getContext(),
+        context: context,
         userID: userID,
       );
 
       if (_userModel != null){
 
         await Nav.goToNewScreen(
-          context: getContext(),
+          context: context,
           screen: UserPreviewScreen(
             userModel: _userModel,
           ),
@@ -425,20 +430,21 @@ class BldrsNav {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> jumpToBzPreviewScreen({
+    @required BuildContext context,
     @required String bzID,
   }) async {
 
     if (bzID != null){
 
       final BzModel _bzModel = await BzProtocols.fetchBz(
-        context: getContext(),
+        context: context,
         bzID: bzID,
       );
 
       if (_bzModel != null){
 
         await Nav.goToNewScreen(
-          context: getContext(),
+          context: context,
           screen: BzPreviewScreen(
             bzModel: _bzModel,
           ),
@@ -452,6 +458,7 @@ class BldrsNav {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> jumpToFlyerPreviewScreen({
+    @required BuildContext context,
     @required String flyerID,
   }) async {
 
@@ -460,7 +467,7 @@ class BldrsNav {
       blog('jumping to flyer preview screen');
 
       await Nav.goToNewScreen(
-        context: getContext(),
+        context: context,
         screen: FlyerPreviewScreen(
           flyerID: flyerID,
           // reviewID: ,
@@ -473,6 +480,7 @@ class BldrsNav {
   // --------------------
   /// TASK : DO JUMP TO REVIEW THING
   static Future<void> jumpToFlyerReviewScreen({
+    @required BuildContext context,
     @required Object flyerIDAndReviewID,
   }) async {
 
@@ -506,7 +514,7 @@ class BldrsNav {
       if (_flyerID != null){
 
         await Nav.goToNewScreen(
-          context: getContext(),
+          context: context,
           screen: FlyerPreviewScreen(
             flyerID: _flyerID,
             reviewID: _reviewID,
@@ -560,7 +568,7 @@ class BldrsNav {
   static Future<void> jumpToAuthScreen(BuildContext context) async {
 
     await Nav.goToNewScreen(
-      context: context, //getContext(),
+      context: context, //context,
       screen: const AuthScreen(),
     );
 

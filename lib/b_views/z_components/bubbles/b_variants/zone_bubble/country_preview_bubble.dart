@@ -59,7 +59,9 @@ class CountryPreviewBubble extends StatelessWidget {
     final String _areaLine = '$_population person / $_areaNumbers km² = $_popDensity person/km²';
 
     return Bubble(
-      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(),
+      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+        context: context,
+      ),
       bubbleColor: Colorz.white20,
       childrenCentered: true,
       columnChildren: <Widget>[

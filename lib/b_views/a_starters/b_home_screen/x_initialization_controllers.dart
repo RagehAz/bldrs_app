@@ -187,8 +187,9 @@ Future<void> _initializeUserZone(BuildContext context) async {
     );
 
     UsersProvider.proSetMyUserModel(
-        userModel: _myUserModel?.copyWith(zone: _userZoneCompleted),
-        notify: true,
+      context: context,
+      userModel: _myUserModel?.copyWith(zone: _userZoneCompleted),
+      notify: true,
     );
 
   }
