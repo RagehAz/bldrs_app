@@ -548,7 +548,7 @@ packages:
     source: hosted
     version: "2.3.0"
   firebase_database:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: firebase_database
       sha256: d437ccb3537485cbcf92df60c493b1601e93bce579518a9874c8d7be5408231e
@@ -1491,7 +1491,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: c572d8d5cba5c8bad7d4c7c3e5fcf073afb45ccb
+      resolved-ref: "2413a5546cce21a8035539d924bb034c97ad78f1"
       url: "https://github.com/RagehAz/real.git"
     source: git
     version: "0.0.2"
