@@ -8,7 +8,7 @@ import 'package:bldrs/a_models/b_bz/sub/target/target_progress.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
 import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/f_helpers/drafters/sounder.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_sounder.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:devicer/devicer.dart';
 import 'package:filers/filers.dart';
@@ -17,6 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart';
 import 'package:mapper/mapper.dart';
+import 'package:mediators/mediators.dart';
 import 'package:numeric/numeric.dart';
 import 'package:rest/rest.dart';
 import 'package:storage/storage.dart';
@@ -218,7 +219,7 @@ class FCM {
 
         /// SOUND
         playSound: true,
-        soundSource: Sounder.getFCMSoundFilePath(Sounder.nicoleSaysBldrsDotNet),
+        soundSource: Sounder.getFCMSoundFilePath(BldrsSounder.nicoleSaysBldrsDotNet),
         defaultRingtoneType: DefaultRingtoneType.Notification,
 
         /// LIGHTS
@@ -418,7 +419,7 @@ class FCM {
       wakeUpScreen: true,
 
       /// SOUND
-      customSound: Sounder.getFCMSoundFilePath(Sounder.nicoleSaysBldrsDotNet),
+      customSound: Sounder.getFCMSoundFilePath(BldrsSounder.nicoleSaysBldrsDotNet),
 
       /// DATA
       payload: payloadMap,

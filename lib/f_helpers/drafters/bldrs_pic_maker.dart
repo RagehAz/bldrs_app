@@ -969,7 +969,6 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:mediators/mediators.dart';
-import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 class BldrsPicMaker {
   // --------------------------------------------------------------------------

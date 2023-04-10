@@ -7,7 +7,6 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/ldb/b_city_
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fire/fire.dart';
 import 'package:flutter/material.dart';
 import 'package:ldb/ldb.dart';
