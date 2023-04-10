@@ -1,6 +1,6 @@
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm_starter.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:fire/fire.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 /// TESTED : WORKS PERFECT

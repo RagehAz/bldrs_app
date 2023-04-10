@@ -7,8 +7,8 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:mapper/mapper.dart';
 import 'package:filers/filers.dart';
-import 'package:firebase_database/firebase_database.dart' as fireDB;
 import 'package:flutter/material.dart';
+import 'package:real/real.dart';
 /// => TAMAM
 class CensusModel {
   /// --------------------------------------------------------------------------
@@ -599,7 +599,7 @@ class CensusModel {
 
     Map<String, dynamic> _map = {
       /// TOTAL USERS
-      'totalUsers' : fireDB.ServerValue.increment(_increment),
+      'totalUsers' : ServerValue.increment(_increment),
     };
 
     /// NEED
@@ -608,7 +608,7 @@ class CensusModel {
       _map = Mapper.insertPairInMap(
           map: _map,
           key: CensusModel.getNeedTypeFieldName(userModel?.need?.needType),
-          value: fireDB.ServerValue.increment(_increment)
+          value: ServerValue.increment(_increment)
       );
     }
 
@@ -637,7 +637,7 @@ class CensusModel {
           _map = Mapper.insertPairInMap(
               map: _map,
               key: CensusModel.getFollowBzTypeFieldName(bzType),
-              value: fireDB.ServerValue.increment(_increment)
+              value: ServerValue.increment(_increment)
           );
         }
 
@@ -670,7 +670,7 @@ class CensusModel {
     return Mapper.insertPairInMap(
         map: _map,
         key: CensusModel.getFlyerSaveFieldName(flyerModel.flyerType),
-        value: fireDB.ServerValue.increment(_increment)
+        value: ServerValue.increment(_increment)
     );
   }
   // --------------------
@@ -690,16 +690,16 @@ class CensusModel {
 
     Map<String, dynamic> _map = {
       /// TOTAL BZZ
-      'totalBzz' : fireDB.ServerValue.increment(_increment),
+      'totalBzz' : ServerValue.increment(_increment),
       /// TOTAL AUTHORS
-      'totalAuthors' : fireDB.ServerValue.increment(bzModel.authors.length * _increment),
+      'totalAuthors' : ServerValue.increment(bzModel.authors.length * _increment),
     };
 
     /// SECTION
     _map = Mapper.insertPairInMap(
         map: _map,
         key: CensusModel.getBzSectionFieldName(BzTyper.concludeBzSectionByBzTypes(bzModel.bzTypes)),
-        value: fireDB.ServerValue.increment(_increment)
+        value: ServerValue.increment(_increment)
     );
 
     /// TYPE
@@ -707,7 +707,7 @@ class CensusModel {
       _map = Mapper.insertPairInMap(
           map: _map,
           key: CensusModel.getBzTypeFieldName(bzType),
-          value: fireDB.ServerValue.increment(_increment)
+          value: ServerValue.increment(_increment)
       );
     }
 
@@ -715,14 +715,14 @@ class CensusModel {
     _map = Mapper.insertPairInMap(
         map: _map,
         key: CensusModel.getBzFormFieldName(bzModel.bzForm),
-        value: fireDB.ServerValue.increment(_increment)
+        value: ServerValue.increment(_increment)
     );
 
     /// ACCOUNT TYPE
     _map = Mapper.insertPairInMap(
         map: _map,
         key: CensusModel.getBzAccountTypeFieldName(bzModel.accountType),
-        value: fireDB.ServerValue.increment(_increment)
+        value: ServerValue.increment(_increment)
     );
 
     return _map;
@@ -751,7 +751,7 @@ class CensusModel {
           _map = Mapper.insertPairInMap(
               map: _map,
               key: CensusModel.getCallBzTypeFieldName(bzType),
-              value: fireDB.ServerValue.increment(_increment)
+              value: ServerValue.increment(_increment)
           );
         }
 
@@ -820,16 +820,16 @@ class CensusModel {
 
     final Map<String, dynamic> _map = {
       /// TOTAL FLYERS
-      'totalFlyers' : fireDB.ServerValue.increment(_increment),
+      'totalFlyers' : ServerValue.increment(_increment),
       /// TOTAL SLIDES
-      'totalSlides' : fireDB.ServerValue.increment(flyerModel.slides.length * _increment),
+      'totalSlides' : ServerValue.increment(flyerModel.slides.length * _increment),
     };
 
     /// FLYER TYPE
     return Mapper.insertPairInMap(
         map: _map,
         key: CensusModel.getFlyerTypeFieldName(flyerModel.flyerType),
-        value: fireDB.ServerValue.increment(_increment)
+        value: ServerValue.increment(_increment)
     );
 
   }
@@ -859,7 +859,7 @@ class CensusModel {
           _output = Mapper.insertPairInMap(
               map: _output,
               key: _key,
-              value: fireDB.ServerValue.increment(0), /// ADD NO INCREMENTATION IN THIS FIELD
+              value: ServerValue.increment(0), /// ADD NO INCREMENTATION IN THIS FIELD
           );
         }
 

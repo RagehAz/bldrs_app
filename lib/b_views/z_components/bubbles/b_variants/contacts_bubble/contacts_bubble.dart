@@ -6,7 +6,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fire/fire.dart';
 import 'package:flutter/material.dart';
 
 class ContactsBubble extends StatelessWidget {
