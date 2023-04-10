@@ -1,9 +1,9 @@
 import 'package:mediators/mediators.dart';
 import 'package:mapper/mapper.dart';
 import 'package:numeric/numeric.dart';
+import 'package:storage/storage.dart';
 import 'package:stringer/stringer.dart';
 import 'package:filers/filers.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 @immutable

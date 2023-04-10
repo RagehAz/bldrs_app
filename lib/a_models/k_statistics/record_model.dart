@@ -1,7 +1,7 @@
 import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:filers/filers.dart';
+import 'package:fire/fire.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';

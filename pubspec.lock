@@ -9,14 +9,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.0"
-  animated_text_kit:
-    dependency: "direct main"
-    description:
-      name: animated_text_kit
-      sha256: "37392a5376c9a1a503b02463c38bc0342ef814ddbb8f9977bc90f2a84b22fa92"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.2.2"
   animators:
     dependency: "direct main"
     description:
@@ -79,10 +71,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "513d0392cb7c3ddadfb11e8d5480992681b23e2e"
+      resolved-ref: ed86a1835bbcd4d59c8edf37adc92d733d1d2038
       url: "https://github.com/RagehAz/authing.git"
     source: git
-    version: "0.0.10"
+    version: "0.0.11"
   awesome_notifications:
     dependency: "direct main"
     description:
@@ -190,17 +182,8 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.1"
-  clock_rebuilder:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: HEAD
-      resolved-ref: a578b106f73b0400d01d5a40d58cbba5b92c50b7
-      url: "https://github.com/RagehAz/clock_rebuilder.git"
-    source: git
-    version: "0.0.1"
   cloud_firestore:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: cloud_firestore
       sha256: "3a2dba23d7d084a2d3c2dfd240d2122908cca40bab2d142f7e107f40df174ab5"
@@ -265,7 +248,7 @@ packages:
     source: git
     version: "0.0.2"
   connectivity_plus:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: connectivity_plus
       sha256: "3f8fe4e504c2d33696dac671a54909743bc6a902a9bb0902306f7a2aed7e528e"
@@ -321,7 +304,7 @@ packages:
     source: hosted
     version: "3.1.1"
   crop_your_image:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: crop_your_image
       sha256: "0f07ddde6f64f7c11fabe77eec88467d1428602bf32866f6520c75b395446848"
@@ -369,7 +352,7 @@ packages:
     source: hosted
     version: "0.0.11"
   device_info_plus:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: device_info_plus
       sha256: "8d99246809e63d93e4e68fade79495d81f445ad735bde2b129b19c0adddcaf1a"
@@ -488,10 +471,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "8bbc24dd96517860521fcb8e3c4dda89df5a76e0"
+      resolved-ref: e158ecae5693e0def3478c7d2ba13d9cc920f64b
       url: "https://github.com/RagehAz/fire.git"
     source: git
-    version: "0.0.2"
+    version: "0.0.3"
   firebase_app_check:
     dependency: "direct main"
     description:
@@ -517,7 +500,7 @@ packages:
     source: hosted
     version: "0.0.8"
   firebase_auth:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: firebase_auth
       sha256: "3d33d6646f08407122cd2cbd292d274b98035d93f59c9e341ba992ebefd59ffa"
@@ -541,7 +524,7 @@ packages:
     source: hosted
     version: "5.3.0"
   firebase_core:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: firebase_core
       sha256: ed611fb8e67e43ecc7956f242cecca383d87cf71aace27287aa5dd4bdba4ac07
@@ -565,7 +548,7 @@ packages:
     source: hosted
     version: "2.3.0"
   firebase_database:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: firebase_database
       sha256: d437ccb3537485cbcf92df60c493b1601e93bce579518a9874c8d7be5408231e
@@ -629,7 +612,7 @@ packages:
     source: hosted
     version: "3.3.0"
   firebase_storage:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: firebase_storage
       sha256: a27909491c25acef90acc932be4d87bafb9d33fb98678edd2f81eaec9568a109
@@ -721,22 +704,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.3.0"
-  flutter_cube:
-    dependency: "direct main"
-    description:
-      name: flutter_cube
-      sha256: "71cf679a251166eb97f86751c56582b09abdbf859485fbf60524948813914c3b"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.1"
-  flutter_earth:
-    dependency: "direct main"
-    description:
-      name: flutter_earth
-      sha256: "025fcb952c1a6d1219ed8cba73d3294384504c49ab5e7562683a6cd21b6c0d56"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.4"
   flutter_facebook_auth:
     dependency: transitive
     description:
@@ -761,14 +728,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.0"
-  flutter_html:
-    dependency: "direct main"
-    description:
-      name: flutter_html
-      sha256: "342c7908f0a67bcec62b6e0f7cf23e23bafe7f64693665dd35be98d5e783bdfd"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.0-alpha.6"
   flutter_inappwebview:
     dependency: transitive
     description:
@@ -878,30 +837,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.9"
-  flutter_sound:
-    dependency: "direct main"
-    description:
-      name: flutter_sound
-      sha256: "090a4694b11ecc744c2010621c4ffc5fe7c3079d304ea014961a72c7b72cfe6c"
-      url: "https://pub.dev"
-    source: hosted
-    version: "9.2.13"
-  flutter_sound_platform_interface:
-    dependency: transitive
-    description:
-      name: flutter_sound_platform_interface
-      sha256: "4537eaeb58a32748c42b621ad6116f7f4c6ee0a8d6ffaa501b165fe1c9df4753"
-      url: "https://pub.dev"
-    source: hosted
-    version: "9.2.13"
-  flutter_sound_web:
-    dependency: transitive
-    description:
-      name: flutter_sound_web
-      sha256: ad4ca92671a1879e1f613e900bbbdb8170b20d57d1e4e6363018fe56b055594f
-      url: "https://pub.dev"
-    source: hosted
-    version: "9.2.13"
   flutter_spinkit:
     dependency: "direct main"
     description:
@@ -911,7 +846,7 @@ packages:
     source: hosted
     version: "5.1.0"
   flutter_svg:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: flutter_svg
       sha256: "6ff9fa12892ae074092de2fa6a9938fb21dbabfdaa2ff57dc697ff912fc8d4b2"
@@ -1065,7 +1000,7 @@ packages:
     source: hosted
     version: "1.4.0"
   html:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: html
       sha256: "79d498e6d6761925a34ee5ea8fa6dfef38607781d2fa91e37523474282af55cb"
@@ -1105,7 +1040,7 @@ packages:
     source: hosted
     version: "2.3.0+2"
   image:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: image
       sha256: "8e9d133755c3e84c73288363e6343157c383a0c6c56fc51afcc5d4d7180306d6"
@@ -1113,7 +1048,7 @@ packages:
     source: hosted
     version: "3.3.0"
   image_editor:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: image_editor
       sha256: "9877a057b0cd2fafcd9a3dce5279948bd850d53ce76231a83c9678a2c9f186e9"
@@ -1153,7 +1088,7 @@ packages:
     source: hosted
     version: "0.6.5"
   just_audio:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: just_audio
       sha256: "7e6d31508dacd01a066e3889caf6282e5f1eb60707c230203b21a83af5c55586"
@@ -1181,10 +1116,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: c1adb52a0b774dd4484ec0e930b59be1983309e3
+      resolved-ref: "75d2064d830ca14cb5e38d71dfc2ad00afa29cee"
       url: "https://github.com/RagehAz/layouts.git"
     source: git
-    version: "0.0.12"
+    version: "0.0.13"
   ldb:
     dependency: "direct main"
     description:
@@ -1235,14 +1170,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.1"
-  logger:
-    dependency: transitive
-    description:
-      name: logger
-      sha256: db2ff852ed77090ba9f62d3611e4208a3d11dfa35991a81ae724c113fcb3e3f7
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.3.0"
   logging:
     dependency: transitive
     description:
@@ -1277,21 +1204,13 @@ packages:
     source: hosted
     version: "0.2.0"
   matrix2d:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: matrix2d
       sha256: "188718dd3bc2a31e372cfd0791b0f77f4f13ea76164147342cc378d9132949e7"
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
-  matrix4_transform:
-    dependency: "direct main"
-    description:
-      name: matrix4_transform
-      sha256: "6ddeaa2c0e1f5c3f3a197f552377570b3e54fa0b8bf48507728a216fc0fd78a6"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.1"
   matrix_gesture_detector:
     dependency: "direct main"
     description:
@@ -1305,7 +1224,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "13df67e4745aee9ed57c6303de09f89bfcb9f607"
+      resolved-ref: "3e8d0ebb3396b76a035eadd8313925f42dd220a0"
       url: "https://github.com/RagehAz/mediators.git"
     source: git
     version: "0.0.7"
@@ -1359,14 +1278,6 @@ packages:
       url: "https://github.com/RagehAz/numeric.git"
     source: git
     version: "1.0.5"
-  numerus:
-    dependency: transitive
-    description:
-      name: numerus
-      sha256: "436759d84f233b40107d0cc31cfa92d24e0960afeb2e506be70926d4cddffd9e"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.0"
   package_info_plus:
     dependency: "direct main"
     description:
@@ -1384,7 +1295,7 @@ packages:
     source: hosted
     version: "2.0.1"
   page_transition:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: page_transition
       sha256: a7694bc120b7064a7f57c336914bb8885acf4f70bb3772c30c2fcfe6a85e43ff
@@ -1392,7 +1303,7 @@ packages:
     source: hosted
     version: "2.0.9"
   path:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: path
       sha256: db9d4f58c908a4ba5953fcee2ae317c94889433e5024c27ce74a37f94267945b
@@ -1472,7 +1383,7 @@ packages:
     source: hosted
     version: "1.11.1"
   permission_handler:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: permission_handler
       sha256: "33c6a1253d1f95fd06fa74b65b7ba907ae9811f9d5c1d3150e51417d04b8d6a8"
@@ -1551,14 +1462,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.7.2"
-  pool:
-    dependency: transitive
-    description:
-      name: pool
-      sha256: "20fe868b6314b322ea036ba325e6fc0711a22948856475e2c2b6306e8ab39c2a"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.5.1"
   process:
     dependency: transitive
     description:
@@ -1575,14 +1478,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.5"
-  puppeteer:
-    dependency: "direct main"
-    description:
-      name: puppeteer
-      sha256: dd49117259867d0ce0de33ddd95628fb70cff94581a6432c08272447b8dd1d27
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.24.0"
   quiver:
     dependency: transitive
     description:
@@ -1596,18 +1491,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "4324730df37d2f1b3d882c5534dc41579d43792b"
+      resolved-ref: c572d8d5cba5c8bad7d4c7c3e5fcf073afb45ccb
       url: "https://github.com/RagehAz/real.git"
     source: git
     version: "0.0.2"
-  recase:
-    dependency: transitive
-    description:
-      name: recase
-      sha256: e4eb4ec2dcdee52dcf99cb4ceabaffc631d7424ee55e56f280bc039737f89213
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.1.0"
   rest:
     dependency: "direct main"
     description:
@@ -1643,7 +1530,7 @@ packages:
     source: hosted
     version: "1.3.0"
   sembast:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: sembast
       sha256: "24829715d11c2c437e67b413f29ff91b5325daa9632f851d44deeea7a29bde9e"
@@ -1736,23 +1623,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.0"
-  stop_watch_timer:
-    dependency: "direct main"
-    description:
-      name: stop_watch_timer
-      sha256: "3dbcd084e6a3ef2d6941a861ca6628ca119c68b5977e9666f0c55cda42649078"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.5.0"
   storage:
     dependency: "direct main"
     description:
       path: "."
       ref: HEAD
-      resolved-ref: f71f47d49d44bec3f432c3e23a55a0e51562741d
+      resolved-ref: "461962af2e8861f32427bf2d2826caee2c6203db"
       url: "https://github.com/RagehAz/storage.git"
     source: git
-    version: "0.0.1"
+    version: "0.0.2"
   stream_channel:
     dependency: transitive
     description:
@@ -1800,19 +1679,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "52f7e813a95d9d0d857920fa335056bf26a6d3f7"
+      resolved-ref: "2110296a1aa036cee364e116819ac3822b5bc723"
       url: "https://github.com/RagehAz/super_image.git"
     source: git
     version: "1.0.3"
-  super_stop_watch:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "1aa428ea7e6f737d96058b984570033615ae6c16"
-      url: "https://github.com/RagehAz/super_stop_watch.git"
-    source: git
-    version: "0.0.1"
   super_text:
     dependency: "direct main"
     description:
@@ -1968,7 +1838,7 @@ packages:
     source: hosted
     version: "2.1.4"
   video_player:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: video_player
       sha256: de95f0e9405f29b5582573d4166132e71f83b3158aac14e8ee5767a54f4f1fbd
@@ -2016,7 +1886,7 @@ packages:
     source: hosted
     version: "2.1.3+1"
   wechat_assets_picker:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: wechat_assets_picker
       sha256: "49184fbc83f855bade59961566a6323a2015634ece1f889de5af6fa133a10706"
@@ -2024,21 +1894,13 @@ packages:
     source: hosted
     version: "7.3.4"
   wechat_camera_picker:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: wechat_camera_picker
       sha256: "1ba40432f1f146e3adcb87c6a5cb6c28218661bf07ea5497be86aa3925314d28"
       url: "https://pub.dev"
     source: hosted
     version: "3.7.0"
-  wheel_chooser:
-    dependency: "direct main"
-    description:
-      name: wheel_chooser
-      sha256: "3fee36f081f321c58a0b7b4afcdd92599f2ca520b3a1420084774e6b19cca1d8"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.2"
   widget_fader:
     dependency: "direct main"
     description:

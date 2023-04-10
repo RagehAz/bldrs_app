@@ -8,10 +8,12 @@ import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/positioning_protocols/geo_location/location_ops.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:fire/fire.dart';
 import 'package:filers/filers.dart';
+import 'package:fire/fire.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+// import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart';
 import 'package:rest/rest.dart';
 /// => TAMAM

@@ -8,7 +8,7 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/b
 import 'package:bldrs/c_protocols/zone_protocols/positioning_protocols/geo_location/location_ops.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fire/fire.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:mapper/mapper.dart';

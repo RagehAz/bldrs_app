@@ -10,7 +10,6 @@ import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fire/fire.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';

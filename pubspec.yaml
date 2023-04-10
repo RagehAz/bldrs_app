@@ -32,77 +32,79 @@ dependencies:
   #  image_cropping: ^0.0.12
   #  shared_preferences: ^2.0.8
   # ------------------------------------
-  # NEED FIXING / FUTURE PLANS / NEED DEV
-  crop_your_image: ^0.7.2
+  # EXPERIMENTS
+  #  amazon_image: ^0.0.5
+  #  crop_your_image: ^0.7.2
   #  contacts_service: ^0.6.3
-  permission_handler: ^10.0.0 # => needed for local contacts_service & sound recorder
   #  google_maps_flutter: ^2.1.0
-  #  google_sign_in: ^5.2.0
   #  mailer: ^5.2.0
   #  modal_bottom_sheet: ^2.0.0
+  #  awesome_notifications_fcm => should use this
+  #  flutter_cube: ^0.1.1
+  #  flutter_earth: ^0.0.4
+  # ------------------------------------
+  # ALREADY PACKAGED WITHIN MY PACKAGES
+#  animated_text_kit: ^4.2.1
+#  cloud_firestore: ^4.0.3
+#  connectivity_plus: ^2.3.0
+#  device_info_plus: ^7.0.1
+#  firebase_auth: ^4.1.0
+#  firebase_core: ^2.1.1
+#  firebase_database: ^10.0.3
+#  firebase_storage: ^11.0.3
+#  flutter_svg: ^1.0.3
+#  flutter_sound: ^9.2.13
+#  html: ^0.15.1
+#  image: ^3.0.8
+#  image_editor: ^1.0.2
+#  just_audio: ^0.9.24
+#  matrix2d: ^1.0.2
+#  matrix4_transform: ^2.0.1
+#  page_transition: ^2.0.4
+#  path: ^1.8.0
+#  sembast: ^3.1.1
+#  stop_watch_timer: ^1.5.0
+#  video_player: ^2.2.10
+#  wechat_assets_picker: ^7.3.2
+#  wechat_camera_picker: ^3.4.0
+#  wheel_chooser: ^1.0.0
+#  flutter_html: ^3.0.0-alpha.6
+  # ------------------------------------
+  # NEED FIXING / FUTURE PLANS / NEED DEV
+#  permission_handler: ^10.0.0 # => needed for local contacts_service & sound recorder
   firebase_messaging: ^14.0.3 # should remove this
   flutter_local_notifications: ^9.0.1 # should remove this
-#  awesome_notifications_fcm => should use this
   # ------------------------------------
-  flutter_cube: ^0.1.1
-  flutter_earth: ^0.0.4
-
   # USED PACKAGES
   another_flushbar: ^1.10.26
-  animated_text_kit: ^4.2.1
   awesome_notifications: ^0.6.21
   clipboard: ^0.1.3
-  cloud_firestore: ^4.0.3
   cloud_functions: ^4.0.3
-  connectivity_plus: ^2.3.0
-  device_info_plus: ^7.0.1
   dismissible_page: ^0.7.3
   email_validator: ^2.0.1
   file_picker: ^5.2.0+1
   firebase_app_check: ^0.1.1+2
-  firebase_auth: ^4.1.0
-  firebase_core: ^2.1.1
-  firebase_database: ^10.0.3
   firebase_dynamic_links: ^5.0.3
-  firebase_storage: ^11.0.3
   flutter_cache_manager: ^3.3.0
   flutter_keyboard_visibility: ^5.3.0
   flutter_native_splash: ^2.2.9
   flutter_pdfview: ^1.2.3
   flutter_spinkit: ^5.1.0
-  flutter_svg: ^1.0.3
-  flutter_sound: ^9.2.13
   geocoding: ^2.0.1
   geolocator: ^9.0.1
   google_mobile_ads: ^1.3.0
   http: ^0.13.4
-  html: ^0.15.1
-  image: ^3.0.8
-  image_editor: ^1.0.2
   intl: ^0.17.0
-  just_audio: ^0.9.24
   location: ^4.4.0
-  matrix2d: ^1.0.2
-  matrix4_transform: ^2.0.1
   matrix_gesture_detector: ^0.1.0
   package_info_plus: ^3.0.1
-  page_transition: ^2.0.4
-  path: ^1.8.0
   path_provider: ^2.0.6
   provider: ^6.0.3
   screenshot: ^1.2.3
-  sembast: ^3.1.1
   share: ^2.0.4
-  stop_watch_timer: ^1.5.0
   translator: ^0.1.7
   url_launcher: ^6.1.4
-  video_player: ^2.2.10
   websafe_svg: ^2.0.0+1
-  wechat_assets_picker: ^7.3.2
-  wechat_camera_picker: ^3.4.0
-  wheel_chooser: ^1.0.0
-#  amazon_image: ^0.0.5
-  flutter_html: ^3.0.0-alpha.6
   app_settings: ^4.2.0
   # ------------------------------------
   # MY WIDGETS
@@ -112,10 +114,6 @@ dependencies:
   super_image:
     git:
       url: https://github.com/RagehAz/super_image.git
-  # clock_rebuilder is only used in streaming test screen, so delete on release
-  clock_rebuilder:
-    git:
-      url: https://github.com/RagehAz/clock_rebuilder.git
   super_text:
     git:
       url: https://github.com/RagehAz/super_text.git
@@ -140,9 +138,9 @@ dependencies:
   dialogs:
     git:
       url: https://github.com/RagehAz/dialogs.git
-  super_stop_watch:
-    git:
-      url: https://github.com/RagehAz/super_stop_watch.git
+#  super_stop_watch:
+#    git:
+#      url: https://github.com/RagehAz/super_stop_watch.git
   # ---------------------------
   # MY BACK END PACKAGES
   rest:
@@ -201,12 +199,6 @@ dependencies:
   legalizer:
     git:
       url: https://github.com/RagehAz/legalizer.git
-  puppeteer: ^2.24.0
-# ------------------------------------
-  # MY UN-USED PACKAGES
-  #  bldrs_ui:
-  #    git:
-  #      url: https://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@github.com/Bldrs-net/bldrs_ui.git
 # --------------------------------------------------------------------------------
 dev_dependencies:
   flutter_test:
