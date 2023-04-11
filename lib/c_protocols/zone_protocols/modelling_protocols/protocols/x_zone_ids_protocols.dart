@@ -4,15 +4,16 @@ import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/b_zone_search_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/positioning_protocols/geo_location/location_ops.dart';
-import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:fire/fire.dart';
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:mapper/mapper.dart';
 import 'package:stringer/stringer.dart';
+/// => GEOLOCATOR_DOES_NOT_WORK
+// import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/b_zone_search_protocols.dart';
+// import 'package:bldrs/c_protocols/zone_protocols/positioning_protocols/geo_location/location_ops.dart';
+// import 'package:bldrs/f_helpers/theme/standards.dart';
+// import 'package:geocoding/geocoding.dart';
+// import 'package:mapper/mapper.dart';
 /// => TAMAM
 class ZoneIDsProtocols {
   // -----------------------------------------------------------------------------
@@ -32,80 +33,81 @@ class ZoneIDsProtocols {
 
     ZoneModel _zoneModel;
 
-    if (geoPoint != null){
-
-      final List<Placemark> _marks = await LocationOps.getPlaceMarksFromGeoPoint(geoPoint: geoPoint);
-
-      // blog('_getCountryData : got place marks : ${_marks.length}');
-
-      if (Mapper.checkCanLoopList(_marks) == true){
-
-        final Placemark _mark = _marks[0];
-
-        // blog('mark is : $_mark');
-
-        final String _countryISO2 = _mark.isoCountryCode;
-        final String _countryID = Flag.getCountryIDByISO2(_countryISO2);
-
-        final List<CityModel> _countryCities = await ZoneProtocols.fetchCitiesOfCountry(
-          countryID: _countryID,
-        );
-
-        CityModel _foundCity;
-
-        if (Mapper.checkCanLoopList(_countryCities) == true) {
-
-          /// by subAdministrativeArea
-          List<CityModel> _foundCities = ZoneSearchOps.searchCitiesByNameFromCities(
-            context: context,
-            sourceCities: _countryCities,
-            inputText: TextMod.removeAllCharactersAfterNumberOfCharacters(
-              input: TextMod.fixCountryName(_mark.subAdministrativeArea),
-              numberOfChars: Standards.maxTrigramLength,
-            ),
-            langCodes: ['en'],
-          );
-
-          /// by administrativeArea
-          if (Mapper.checkCanLoopList(_foundCities) == false) {
-            _foundCities = ZoneSearchOps.searchCitiesByNameFromCities(
-              context: context,
-              sourceCities: _countryCities,
-              inputText: TextMod.removeAllCharactersAfterNumberOfCharacters(
-                input: TextMod.fixCountryName(_mark.administrativeArea),
-                numberOfChars: Standards.maxTrigramLength,
-              ),
-              langCodes: ['en'],
-            );
-          }
-
-          /// by locality
-          if (Mapper.checkCanLoopList(_foundCities) == false) {
-            _foundCities = ZoneSearchOps.searchCitiesByNameFromCities(
-              context: context,
-              sourceCities: _countryCities,
-              inputText: TextMod.removeAllCharactersAfterNumberOfCharacters(
-                input: TextMod.fixCountryName(_mark.locality),
-                numberOfChars: Standards.maxTrigramLength,
-              ),
-              langCodes: ['en'],
-            );
-          }
-
-          if (Mapper.checkCanLoopList(_foundCities) == true){
-            _foundCity = _foundCities.first;
-          }
-
-        }
-
-        _zoneModel = ZoneModel(
-          countryID: _countryID,
-          cityID: _foundCity?.cityID,
-        );
-
-      }
-
-    }
+    /// GEOLOCATOR_DOES_NOT_WORK
+    // if (geoPoint != null){
+    //
+    //   final List<Placemark> _marks = await LocationOps.getPlaceMarksFromGeoPoint(geoPoint: geoPoint);
+    //
+    //   // blog('_getCountryData : got place marks : ${_marks.length}');
+    //
+    //   if (Mapper.checkCanLoopList(_marks) == true){
+    //
+    //     final Placemark _mark = _marks[0];
+    //
+    //     // blog('mark is : $_mark');
+    //
+    //     final String _countryISO2 = _mark.isoCountryCode;
+    //     final String _countryID = Flag.getCountryIDByISO2(_countryISO2);
+    //
+    //     final List<CityModel> _countryCities = await ZoneProtocols.fetchCitiesOfCountry(
+    //       countryID: _countryID,
+    //     );
+    //
+    //     CityModel _foundCity;
+    //
+    //     if (Mapper.checkCanLoopList(_countryCities) == true) {
+    //
+    //       /// by subAdministrativeArea
+    //       List<CityModel> _foundCities = ZoneSearchOps.searchCitiesByNameFromCities(
+    //         context: context,
+    //         sourceCities: _countryCities,
+    //         inputText: TextMod.removeAllCharactersAfterNumberOfCharacters(
+    //           input: TextMod.fixCountryName(_mark.subAdministrativeArea),
+    //           numberOfChars: Standards.maxTrigramLength,
+    //         ),
+    //         langCodes: ['en'],
+    //       );
+    //
+    //       /// by administrativeArea
+    //       if (Mapper.checkCanLoopList(_foundCities) == false) {
+    //         _foundCities = ZoneSearchOps.searchCitiesByNameFromCities(
+    //           context: context,
+    //           sourceCities: _countryCities,
+    //           inputText: TextMod.removeAllCharactersAfterNumberOfCharacters(
+    //             input: TextMod.fixCountryName(_mark.administrativeArea),
+    //             numberOfChars: Standards.maxTrigramLength,
+    //           ),
+    //           langCodes: ['en'],
+    //         );
+    //       }
+    //
+    //       /// by locality
+    //       if (Mapper.checkCanLoopList(_foundCities) == false) {
+    //         _foundCities = ZoneSearchOps.searchCitiesByNameFromCities(
+    //           context: context,
+    //           sourceCities: _countryCities,
+    //           inputText: TextMod.removeAllCharactersAfterNumberOfCharacters(
+    //             input: TextMod.fixCountryName(_mark.locality),
+    //             numberOfChars: Standards.maxTrigramLength,
+    //           ),
+    //           langCodes: ['en'],
+    //         );
+    //       }
+    //
+    //       if (Mapper.checkCanLoopList(_foundCities) == true){
+    //         _foundCity = _foundCities.first;
+    //       }
+    //
+    //     }
+    //
+    //     _zoneModel = ZoneModel(
+    //       countryID: _countryID,
+    //       cityID: _foundCity?.cityID,
+    //     );
+    //
+    //   }
+    //
+    // }
 
     return _zoneModel;
   }

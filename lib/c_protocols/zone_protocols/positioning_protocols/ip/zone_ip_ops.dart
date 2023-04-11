@@ -1,21 +1,20 @@
 // ignore_for_file: non_constant_identifier_names
 import 'dart:convert';
-
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
 import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/positioning_protocols/geo_location/location_ops.dart';
 // import 'package:fire/fire.dart';
 import 'package:filers/filers.dart';
-import 'package:fire/fire.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
-// import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart';
 import 'package:rest/rest.dart';
+/// => GEOLOCATOR_DOES_NOT_WORK
+// import 'package:geolocator/geolocator.dart';
+// import 'package:bldrs/c_protocols/zone_protocols/positioning_protocols/geo_location/location_ops.dart';
+// import 'package:fire/fire.dart';
 /// => TAMAM
 class ZoneIPOps {
   // -----------------------------------------------------------------------------
@@ -234,18 +233,19 @@ class ZoneIPOps {
   }) async {
     ZoneModel _zoneModel;
 
-    final Position _position = await LocationOps.getCurrentPosition(context);
-
-    if (_position != null) {
-
-      final GeoPoint _geoPoint = GeoPoint(_position?.latitude, _position?.longitude);
-
-      _zoneModel = await ZoneProtocols.fetchZoneModelByGeoPoint(
-          context: context,
-          geoPoint: _geoPoint
-      );
-
-    }
+    /// GEOLOCATOR_DOES_NOT_WORK
+    // final Position _position = await LocationOps.getCurrentPosition(context);
+    //
+    // if (_position != null) {
+    //
+    //   final GeoPoint _geoPoint = GeoPoint(_position?.latitude, _position?.longitude);
+    //
+    //   _zoneModel = await ZoneProtocols.fetchZoneModelByGeoPoint(
+    //       context: context,
+    //       geoPoint: _geoPoint
+    //   );
+    //
+    // }
 
     return _zoneModel;
   }
