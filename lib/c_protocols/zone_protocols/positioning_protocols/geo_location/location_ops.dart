@@ -1,10 +1,14 @@
-import 'package:devicer/devicer.dart';
-import 'package:filers/filers.dart';
-import 'package:fire/fire.dart';
-import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
-/// => TAMAM
+/// => GEOLOCATOR_DOES_NOT_WORK
+// import 'package:devicer/devicer.dart';
+// import 'package:filers/filers.dart';
+// import 'package:fire/fire.dart';
+// import 'package:flutter/material.dart';
+// import 'package:geocoding/geocoding.dart';
+// import 'package:geolocator/geolocator.dart';
+
+
+/// => GEOLOCATOR_DOES_NOT_WORK
+/*
 class LocationOps {
   // -----------------------------------------------------------------------------
 
@@ -97,3 +101,4 @@ class LocationOps {
   }
   // -----------------------------------------------------------------------------
 }
+ */
