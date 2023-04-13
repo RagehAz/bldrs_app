@@ -20,13 +20,13 @@ class FireDocStreamer extends StatefulWidget {
   final Widget loadingWidget;
   /// --------------------------------------------------------------------------
   static Future<void> onStreamDataChanged({
-    @required Stream<cloudFire.DocumentSnapshot<Object>> stream,
+    @required Stream<cloud.DocumentSnapshot<Object>> stream,
     @required Map<String, dynamic> oldMap,
     @required bool mounted,
     @required Function(Map<String, dynamic> oldMap, Map<String, dynamic> newMap) onChange,
   }) async {
 
-    stream.listen((cloudFire.DocumentSnapshot<Object> snapshot) async {
+    stream.listen((cloud.DocumentSnapshot<Object> snapshot) async {
 
       // blog('xxx - onStreamDataChanged - snapshot : $snapshot');
 
@@ -75,7 +75,7 @@ class FireDocStreamer extends StatefulWidget {
 
 class _FireDocStreamerState extends State<FireDocStreamer> {
   // -----------------------------------------------------------------------------
-  Stream<cloudFire.DocumentSnapshot<Object>> _stream;
+  Stream<cloud.DocumentSnapshot<Object>> _stream;
   final ValueNotifier<Map<String, dynamic>> _oldMap = ValueNotifier<Map<String, dynamic>>(null);
   StreamSubscription _sub;
   // -----------------------------------------------------------------------------

@@ -12,7 +12,7 @@ class FireQueryModel {
     this.initialMaps,
   });
   /// --------------------------------------------------------------------------
-  final cloudFire.CollectionReference<Object> collRef;
+  final cloud.CollectionReference<Object> collRef;
   final int limit;
   final QueryOrderBy orderBy;
   final List<FireFinder> finders;
@@ -25,7 +25,7 @@ class FireQueryModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   FireQueryModel copyWith({
-    cloudFire.CollectionReference<Object> collRef,
+    cloud.CollectionReference<Object> collRef,
     String idFieldName,
     int limit,
     QueryOrderBy orderBy,

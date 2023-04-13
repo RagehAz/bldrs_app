@@ -190,7 +190,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
 
     if (widget.streamQuery != null){
 
-      final Stream<cloudFire.QuerySnapshot<Object>> _stream = Fire.streamCollection(
+      final Stream<cloud.QuerySnapshot<Object>> _stream = Fire.streamCollection(
         queryModel: widget.streamQuery,
       );
 
