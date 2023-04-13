@@ -17,13 +17,13 @@ class FireCollStreamer extends StatefulWidget {
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static StreamSubscription onStreamDataChanged({
-    @required Stream<cloudFire.QuerySnapshot<Object>> stream,
+    @required Stream<cloud.QuerySnapshot<Object>> stream,
     @required ValueChanged<List<Map<String, dynamic>>> onChange,
     @required String invoker,
   }){
 
     final StreamSubscription _streamSubscription = stream.listen(
-          (cloudFire.QuerySnapshot<Object>snapshot) async {
+          (cloud.QuerySnapshot<Object>snapshot) async {
 
       final List<Map<String, dynamic>> _newMaps = Mapper.getMapsFromQuerySnapshot(
         querySnapshot: snapshot,
@@ -57,7 +57,7 @@ class FireCollStreamer extends StatefulWidget {
 
 class _FireCollStreamerState extends State<FireCollStreamer> {
   // -----------------------------------------------------------------------------
-  Stream<cloudFire.QuerySnapshot<Object>> _stream;
+  Stream<cloud.QuerySnapshot<Object>> _stream;
   StreamSubscription _sub;
   // -----------------------------------------------------------------------------
   @override
