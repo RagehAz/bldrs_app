@@ -20,7 +20,7 @@ class Fire{
       functions: () async {
 
         /// WINDOWS
-        if (Platform.isWindows == true) {
+        if (DeviceChecker.deviceIsWindows() == true){
           firedart.Firestore.initialize(projectIDForWindows);
         }
 
@@ -32,6 +32,7 @@ class Fire{
           );
           // --------------------
         }
+
 
       },
     );
