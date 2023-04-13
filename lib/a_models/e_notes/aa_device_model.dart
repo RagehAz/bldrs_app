@@ -53,13 +53,13 @@ class DeviceModel {
   /// GENERATOR
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<DeviceModel> generateDeviceModel() async {
 
     final String deviceID = await DeviceChecker.getDeviceID();
     final String deviceName = await DeviceChecker.getDeviceName();
     final String deviceToken = await FCM.generateToken();
-    final String devicePlatform = Platform.operatingSystem;
+    final String devicePlatform = kIsWeb == true ? 'web' : Platform.operatingSystem;
 
     return DeviceModel(
         id: deviceID,
