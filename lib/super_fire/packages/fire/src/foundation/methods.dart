@@ -75,7 +75,7 @@ String pathOfSubDoc({
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static cloudFire.CollectionReference<Object> getSuperCollRef({
+  static cloud.CollectionReference<Object> getSuperCollRef({
     @required String aCollName,
     String bDocName,
     String cSubCollName,
@@ -86,9 +86,9 @@ String pathOfSubDoc({
     'bDocName & cSubCollName should both be null or both have values'
     );
 
-    final cloudFire.FirebaseFirestore _fireInstance = cloudFire.FirebaseFirestore.instance;
+    final cloud.FirebaseFirestore _fireInstance = cloud.FirebaseFirestore.instance;
 
-    cloudFire.CollectionReference<Object> _ref = _fireInstance.collection(aCollName);
+    cloud.CollectionReference<Object> _ref = _fireInstance.collection(aCollName);
 
     if (bDocName != null && cSubCollName != null){
       _ref = _fireInstance
@@ -101,12 +101,12 @@ String pathOfSubDoc({
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static cloudFire.CollectionReference<Object> getCollectionRef(String collName) {
-    return cloudFire.FirebaseFirestore.instance.collection(collName);
+  static cloud.CollectionReference<Object> getCollectionRef(String collName) {
+    return cloud.FirebaseFirestore.instance.collection(collName);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static cloudFire.DocumentReference<Object> getDocRef({
+  static cloud.DocumentReference<Object> getDocRef({
     @required String collName,
     @required String docName,
   }) {
@@ -121,7 +121,7 @@ String pathOfSubDoc({
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static cloudFire.CollectionReference<Object> getSubCollectionRef({
+  static cloud.CollectionReference<Object> getSubCollectionRef({
     @required String collName,
     @required String docName,
     @required String subCollName,
@@ -134,18 +134,18 @@ String pathOfSubDoc({
     ///     .doc(docName)
     ///     .collection(subCollName);
 
-    return cloudFire.FirebaseFirestore.instance.collection('$collName/$docName/$subCollName');
+    return cloud.FirebaseFirestore.instance.collection('$collName/$docName/$subCollName');
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static cloudFire.DocumentReference<Object> getSubDocRef({
+  static cloud.DocumentReference<Object> getSubDocRef({
     @required String collName,
     @required String docName,
     @required String subCollName,
     @required String subDocName,
   }) {
 
-    final cloudFire.CollectionReference<Object> _subCollection = cloudFire.FirebaseFirestore
+    final cloud.CollectionReference<Object> _subCollection = cloud.FirebaseFirestore
         .instance
         .collection('$collName/$docName/$subCollName');
 
@@ -165,15 +165,15 @@ String pathOfSubDoc({
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static cloudFire.Query<Map<String, dynamic>> _superQuery({
-    @required cloudFire.CollectionReference<Object> collRef,
+  static cloud.Query<Map<String, dynamic>> _superQuery({
+    @required cloud.CollectionReference<Object> collRef,
     QueryOrderBy orderBy,
     int limit,
-    cloudFire.QueryDocumentSnapshot<Object> startAfter,
+    cloud.QueryDocumentSnapshot<Object> startAfter,
     List<FireFinder> finders,
   }){
 
-    cloudFire.Query<Map<String, dynamic>> query = cloudFire.FirebaseFirestore.instance.collection(collRef.path);
+    cloud.Query<Map<String, dynamic>> query = cloud.FirebaseFirestore.instance.collection(collRef.path);
 
     /// ASSIGN SEARCH FINDERS
     if (Mapper.checkCanLoopList(finders) == true){
@@ -199,15 +199,15 @@ String pathOfSubDoc({
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<cloudFire.QuerySnapshot<Object>> _superCollectionQuery({
-    @required cloudFire.CollectionReference<Object> collRef,
+  static Future<cloud.QuerySnapshot<Object>> _superCollectionQuery({
+    @required cloud.CollectionReference<Object> collRef,
     QueryOrderBy orderBy,
     int limit,
-    cloudFire.QueryDocumentSnapshot<Object> startAfter,
+    cloud.QueryDocumentSnapshot<Object> startAfter,
     List<FireFinder> finders,
   }) async {
 
-    final cloudFire.Query<Map<String, dynamic>> query = _superQuery(
+    final cloud.Query<Map<String, dynamic>> query = _superQuery(
       collRef: collRef,
       orderBy: orderBy,
       limit: limit,
@@ -215,7 +215,7 @@ String pathOfSubDoc({
       finders: finders,
     );
 
-    final cloudFire.QuerySnapshot<Object> _collectionSnapshot = await query.get();
+    final cloud.QuerySnapshot<Object> _collectionSnapshot = await query.get();
 
     return _collectionSnapshot;
   }
@@ -226,7 +226,7 @@ String pathOfSubDoc({
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _setData({
-    @required cloudFire.DocumentReference<Object> ref,
+    @required cloud.DocumentReference<Object> ref,
     @required Map<String, dynamic> input,
     @required String invoker,
     Function onSuccess,
@@ -265,7 +265,7 @@ String pathOfSubDoc({
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _updateData({
-    @required cloudFire.DocumentReference<Object> ref,
+    @required cloud.DocumentReference<Object> ref,
     @required Map<String, dynamic> input,
     @required String invoker,
     Function onSuccess,
@@ -310,21 +310,21 @@ String pathOfSubDoc({
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<cloudFire.DocumentReference<Object>> createDoc({
+  static Future<cloud.DocumentReference<Object>> createDoc({
     @required String collName,
     @required Map<String, dynamic> input,
-    ValueChanged<cloudFire.DocumentReference> onFinish,
+    ValueChanged<cloud.DocumentReference> onFinish,
     bool addDocID = false,
   }) async {
 
     /// NOTE : creates firestore doc with auto generated ID then returns doc reference
 
-    cloudFire.DocumentReference<Object> _output;
+    cloud.DocumentReference<Object> _output;
 
     if (input != null){
 
-      final cloudFire.CollectionReference<Object> _bzCollectionRef = getCollectionRef(collName);
-      final cloudFire.DocumentReference<Object> _docRef = _bzCollectionRef.doc();
+      final cloud.CollectionReference<Object> _bzCollectionRef = getCollectionRef(collName);
+      final cloud.DocumentReference<Object> _docRef = _bzCollectionRef.doc();
 
       if (addDocID == true) {
         Mapper.insertPairInMap(
@@ -352,16 +352,16 @@ String pathOfSubDoc({
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<cloudFire.DocumentReference<Object>> createNamedDoc({
+  static Future<cloud.DocumentReference<Object>> createNamedDoc({
     @required String collName,
     @required String docName,
     @required Map<String, dynamic> input,
   }) async {
-    cloudFire.DocumentReference<Object> _output;
+    cloud.DocumentReference<Object> _output;
 
     if (input != null){
 
-      final cloudFire.DocumentReference<Object> _docRef = getDocRef(
+      final cloud.DocumentReference<Object> _docRef = getDocRef(
         collName: collName,
         docName: docName,
       );
@@ -381,12 +381,12 @@ String pathOfSubDoc({
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<cloudFire.DocumentReference<Object>> createSubDoc({
+  static Future<cloud.DocumentReference<Object>> createSubDoc({
     @required String collName,
     @required String docName,
     @required String subCollName,
     @required Map<String, dynamic> input,
-    ValueChanged<cloudFire.DocumentReference> onFinish,
+    ValueChanged<cloud.DocumentReference> onFinish,
   }) async {
 
     /// NOTE : creates firestore sub doc with auto ID
@@ -395,7 +395,7 @@ String pathOfSubDoc({
     /// updates the sub doc if existed
     /// and creates random name for sub doc if sub doc name is null
 
-    final cloudFire.DocumentReference<Object> _subDocRef = await createNamedSubDoc(
+    final cloud.DocumentReference<Object> _subDocRef = await createNamedSubDoc(
       collName: collName,
       docName: docName,
       subCollName: subCollName,
@@ -411,7 +411,7 @@ String pathOfSubDoc({
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<cloudFire.DocumentReference<Object>> createNamedSubDoc({
+  static Future<cloud.DocumentReference<Object>> createNamedSubDoc({
     @required String collName,
     @required String docName,
     @required String subCollName,
@@ -424,11 +424,11 @@ String pathOfSubDoc({
     /// updates the sub doc if existed
     /// and creates random name for sub doc if sub doc name is null
 
-    cloudFire.DocumentReference<Object> _output;
+    cloud.DocumentReference<Object> _output;
 
     if (input != null){
 
-      final cloudFire.DocumentReference<Object> _ref = getSubDocRef(
+      final cloud.DocumentReference<Object> _ref = getSubDocRef(
         collName: collName,
         docName: docName,
         subCollName: subCollName,
@@ -456,7 +456,7 @@ String pathOfSubDoc({
   /// TESTED : WORKS PERFECT
   static Future<List<Map<String, dynamic>>> superCollPaginator({
     @required FireQueryModel queryModel,
-    @required cloudFire.QueryDocumentSnapshot<Object> startAfter,
+    @required cloud.QueryDocumentSnapshot<Object> startAfter,
     bool addDocSnapshotToEachMap = false,
     bool addDocsIDs = false,
   }) async {
@@ -467,7 +467,7 @@ String pathOfSubDoc({
         invoker: 'superCollPaginator',
         functions: () async {
 
-          final cloudFire.QuerySnapshot<Object> _collectionSnapshot = await _superCollectionQuery(
+          final cloud.QuerySnapshot<Object> _collectionSnapshot = await _superCollectionQuery(
             collRef: queryModel.collRef,
             orderBy: queryModel.orderBy,
             limit: queryModel.limit,
@@ -475,7 +475,7 @@ String pathOfSubDoc({
             finders: queryModel.finders,
           );
 
-          final List<cloudFire.QueryDocumentSnapshot<Object>> _queryDocumentSnapshots = _collectionSnapshot.docs;
+          final List<cloud.QueryDocumentSnapshot<Object>> _queryDocumentSnapshots = _collectionSnapshot.docs;
 
           _maps = Mapper.getMapsFromQueryDocumentSnapshotsList(
               queryDocumentSnapshots: _queryDocumentSnapshots,
@@ -493,7 +493,7 @@ String pathOfSubDoc({
     @required String collName,
     QueryOrderBy orderBy,
     int limit,
-    cloudFire.QueryDocumentSnapshot<Object> startAfter,
+    cloud.QueryDocumentSnapshot<Object> startAfter,
     bool addDocSnapshotToEachMap = false,
     bool addDocsIDs = false,
     List<FireFinder> finders,
@@ -505,9 +505,9 @@ String pathOfSubDoc({
         invoker: 'readCollectionDocs',
         functions: () async {
 
-          final cloudFire.CollectionReference<Object> _collRef = getCollectionRef(collName);
+          final cloud.CollectionReference<Object> _collRef = getCollectionRef(collName);
 
-          final cloudFire.QuerySnapshot<Object> _collectionSnapshot = await _superCollectionQuery(
+          final cloud.QuerySnapshot<Object> _collectionSnapshot = await _superCollectionQuery(
             collRef: _collRef,
             orderBy: orderBy,
             limit: limit,
@@ -515,7 +515,7 @@ String pathOfSubDoc({
             finders: finders,
           );
 
-          final List<cloudFire.QueryDocumentSnapshot<Object>> _queryDocumentSnapshots = _collectionSnapshot.docs;
+          final List<cloud.QueryDocumentSnapshot<Object>> _queryDocumentSnapshots = _collectionSnapshot.docs;
 
           _maps = Mapper.getMapsFromQueryDocumentSnapshotsList(
               queryDocumentSnapshots: _queryDocumentSnapshots,
@@ -530,7 +530,7 @@ String pathOfSubDoc({
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<dynamic> _getMapByDocRef({
-    @required cloudFire.DocumentReference<Object> docRef,
+    @required cloud.DocumentReference<Object> docRef,
     @required bool addDocID,
     @required bool addDocSnapshot,
   }) async {
@@ -539,7 +539,7 @@ String pathOfSubDoc({
     // await FirebaseFirestore.instance.disableNetwork();
     // await FirebaseFirestore.instance.enableNetwork();
 
-    final cloudFire.DocumentSnapshot<Object> snapshot = await docRef.get();
+    final cloud.DocumentSnapshot<Object> snapshot = await docRef.get();
 
     if (snapshot.exists == true) {
       _map = Mapper.getMapFromDocumentSnapshot(
@@ -567,7 +567,7 @@ String pathOfSubDoc({
       invoker: 'readDoc',
       functions: () async {
 
-        final cloudFire.DocumentReference<Object> _docRef = getDocRef(
+        final cloud.DocumentReference<Object> _docRef = getDocRef(
           collName: collName,
           docName: docName,
         );
@@ -595,7 +595,7 @@ String pathOfSubDoc({
     @required String subCollName,
     int limit,
     QueryOrderBy orderBy,
-    cloudFire.QueryDocumentSnapshot<Object> startAfter,
+    cloud.QueryDocumentSnapshot<Object> startAfter,
     bool addDocsIDs = false,
     bool addDocSnapshotToEachMap = false,
     List<FireFinder> finders,
@@ -607,13 +607,13 @@ String pathOfSubDoc({
         invoker: 'readSubCollectionDocs',
         functions: () async {
 
-          final cloudFire.CollectionReference<Object> _subCollectionRef = getSubCollectionRef(
+          final cloud.CollectionReference<Object> _subCollectionRef = getSubCollectionRef(
             collName: collName,
             docName: docName,
             subCollName: subCollName,
           );
 
-          final cloudFire.QuerySnapshot<Object> _collectionSnapshot = await _superCollectionQuery(
+          final cloud.QuerySnapshot<Object> _collectionSnapshot = await _superCollectionQuery(
             collRef: _subCollectionRef,
             orderBy: orderBy,
             limit: limit,
@@ -621,7 +621,7 @@ String pathOfSubDoc({
             finders: finders,
           );
 
-          final List<cloudFire.QueryDocumentSnapshot<Object>> _queryDocumentSnapshots = _collectionSnapshot.docs;
+          final List<cloud.QueryDocumentSnapshot<Object>> _queryDocumentSnapshots = _collectionSnapshot.docs;
 
           _maps =Mapper.getMapsFromQueryDocumentSnapshotsList(
               queryDocumentSnapshots: _queryDocumentSnapshots,
@@ -651,7 +651,7 @@ String pathOfSubDoc({
         invoker: 'readSubDoc',
         functions: () async {
 
-          final cloudFire.DocumentReference<Object> _subDocRef = getSubDocRef(
+          final cloud.DocumentReference<Object> _subDocRef = getSubDocRef(
             collName: collName,
             docName: docName,
             subCollName: subCollName,
@@ -674,12 +674,12 @@ String pathOfSubDoc({
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Stream<cloudFire.QuerySnapshot<Object>> streamCollection({
+  static Stream<cloud.QuerySnapshot<Object>> streamCollection({
     @required FireQueryModel queryModel,
-    cloudFire.QueryDocumentSnapshot<Object> startAfter,
+    cloud.QueryDocumentSnapshot<Object> startAfter,
   }) {
 
-    final cloudFire.Query<Map<String, dynamic>> _query = _superQuery(
+    final cloud.Query<Map<String, dynamic>> _query = _superQuery(
       collRef: queryModel.collRef,
       orderBy: queryModel.orderBy,
       startAfter: startAfter,
@@ -691,23 +691,23 @@ String pathOfSubDoc({
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Stream<cloudFire.QuerySnapshot<Object>> streamSubCollection({
+  static Stream<cloud.QuerySnapshot<Object>> streamSubCollection({
     @required String collName,
     @required String docName,
     @required String subCollName,
     QueryOrderBy orderBy,
-    cloudFire.QueryDocumentSnapshot<Object> startAfter,
+    cloud.QueryDocumentSnapshot<Object> startAfter,
     int limit,
     List<FireFinder> finders,
   }) {
 
-    final cloudFire.CollectionReference<Object> _collRef = getSubCollectionRef(
+    final cloud.CollectionReference<Object> _collRef = getSubCollectionRef(
       collName: collName,
       docName: docName,
       subCollName: subCollName,
     );
 
-    final cloudFire.Query<Map<String, dynamic>> _query = _superQuery(
+    final cloud.Query<Map<String, dynamic>> _query = _superQuery(
       collRef: _collRef,
       orderBy: orderBy,
       startAfter: startAfter,
@@ -719,12 +719,12 @@ String pathOfSubDoc({
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Stream<cloudFire.DocumentSnapshot<Object>> streamDoc({
+  static Stream<cloud.DocumentSnapshot<Object>> streamDoc({
     @required String collName,
     @required String docName,
   }) {
 
-    final cloudFire.DocumentReference<Object> _docRef = getDocRef(
+    final cloud.DocumentReference<Object> _docRef = getDocRef(
       collName: collName,
       docName: docName,
     );
@@ -733,14 +733,14 @@ String pathOfSubDoc({
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Stream<cloudFire.DocumentSnapshot<Object>> streamSubDoc({
+  static Stream<cloud.DocumentSnapshot<Object>> streamSubDoc({
     @required String collName,
     @required String docName,
     @required String subCollName,
     @required String subDocName,
   }) {
 
-    final cloudFire.DocumentReference<Object> _docRef = getSubDocRef(
+    final cloud.DocumentReference<Object> _docRef = getSubDocRef(
       collName: collName,
       docName: docName,
       subCollName: subCollName,
@@ -796,7 +796,7 @@ String pathOfSubDoc({
 
     if (input != null){
 
-      final cloudFire.DocumentReference<Object> _ref = getDocRef(
+      final cloud.DocumentReference<Object> _ref = getDocRef(
         collName: collName,
         docName: docName,
       );
@@ -847,7 +847,7 @@ String pathOfSubDoc({
 
     if (input != null){
 
-      final cloudFire.DocumentReference<Object> _subDoc = getSubDocRef(
+      final cloud.DocumentReference<Object> _subDoc = getSubDocRef(
         collName: collName,
         docName: docName,
         subCollName: subCollName,
@@ -878,7 +878,7 @@ String pathOfSubDoc({
         invoker: 'deleteDoc',
         functions: () async {
 
-          final cloudFire.DocumentReference<Object> _doc = getDocRef(
+          final cloud.DocumentReference<Object> _doc = getDocRef(
             collName: collName,
             docName: docName,
           );
@@ -901,7 +901,7 @@ String pathOfSubDoc({
         invoker: 'deleteSubDoc',
         functions: () async {
 
-          final cloudFire.DocumentReference<Object> _subDoc = getSubDocRef(
+          final cloud.DocumentReference<Object> _subDoc = getSubDocRef(
             collName: collName,
             docName: docName,
             subCollName: subCollName,
@@ -1073,7 +1073,7 @@ String pathOfSubDoc({
     @required String field,
   }) async {
 
-    final cloudFire.DocumentReference<Object> _docRef = getDocRef(
+    final cloud.DocumentReference<Object> _docRef = getDocRef(
       collName: collName,
       docName: docName,
     );
@@ -1081,7 +1081,7 @@ String pathOfSubDoc({
     final Map<String, Object> updates = <String, Object>{};
 
     updates.addAll(<String, dynamic>{
-      field: cloudFire.FieldValue.delete(),
+      field: cloud.FieldValue.delete(),
     });
 
     await _updateData(
@@ -1101,7 +1101,7 @@ String pathOfSubDoc({
     @required String subDocName,
   }) async {
 
-    final cloudFire.DocumentReference<Object> _docRef = getSubDocRef(
+    final cloud.DocumentReference<Object> _docRef = getSubDocRef(
       collName: collName,
       docName: docName,
       subCollName: subCollName,
@@ -1112,7 +1112,7 @@ String pathOfSubDoc({
     final Map<String, Object> updates = <String, Object>{};
 
     updates.addAll(<String, dynamic>{
-      field: cloudFire.FieldValue.delete(),
+      field: cloud.FieldValue.delete(),
     });
 
     await _updateData(

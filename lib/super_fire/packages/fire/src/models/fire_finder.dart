@@ -18,12 +18,12 @@ class FireFinder {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static cloudFire.Query<Map<String, dynamic>> createQueryByFinder({
-    @required cloudFire.Query<Map<String, dynamic>> query,
+  static cloud.Query<Map<String, dynamic>> createQueryByFinder({
+    @required cloud.Query<Map<String, dynamic>> query,
     @required FireFinder finder,
   }){
 
-    cloudFire.Query<Map<String, dynamic>> _output = query;
+    cloud.Query<Map<String, dynamic>> _output = query;
 
     /// IF EQUAL TO
     if (finder.comparison == FireComparison.equalTo) {
@@ -85,12 +85,12 @@ class FireFinder {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static cloudFire.Query<Map<String, dynamic>> createCompositeQueryByFinders({
-    @required cloudFire.Query<Map<String, dynamic>> query,
+  static cloud.Query<Map<String, dynamic>> createCompositeQueryByFinders({
+    @required cloud.Query<Map<String, dynamic>> query,
     @required List<FireFinder> finders,
   }){
 
-    cloudFire.Query<Map<String, dynamic>> _output = query;
+    cloud.Query<Map<String, dynamic>> _output = query;
 
     if (Mapper.checkCanLoopList(finders) == true){
 
