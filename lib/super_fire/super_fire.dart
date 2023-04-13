@@ -10,6 +10,10 @@ import 'package:stringer/stringer.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
+// -----------------------------------------------------------------------------
+
+/// NATIVE IMPLEMENTATION IMPORTS
+
 // --------------------
 import 'package:firedart/firedart.dart' as firedart;
 import 'package:firebase_dart/firebase_dart.dart' as fd;
@@ -40,7 +44,7 @@ export 'package:firebase_auth/firebase_auth.dart';
 
 // --------------------
 import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart' as cloudFire;
+import 'package:cloud_firestore/cloud_firestore.dart' as cloud;
 // --------------------
 export 'package:firebase_core/firebase_core.dart';
 export 'package:cloud_firestore/cloud_firestore.dart';
