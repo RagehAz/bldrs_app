@@ -209,6 +209,9 @@ class BldrsBox extends StatelessWidget {
 
       /// PIC PATH
       else if (isPicPath == true) {
+
+        blog('image is pic path : $icon');
+
         return BldrsImagePathToUiImage(
           imagePath: icon,
           builder: (bool loading, ui.Image uiImage) {
