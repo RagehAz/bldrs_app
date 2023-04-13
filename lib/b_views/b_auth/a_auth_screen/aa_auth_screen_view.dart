@@ -1,4 +1,4 @@
-import 'package:authing/authing.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/b_views/b_auth/b_email_auth_screen/a_email_auth_screen.dart';
 import 'package:bldrs/b_views/b_auth/x_auth_controllers.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';

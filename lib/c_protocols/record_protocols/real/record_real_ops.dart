@@ -1,8 +1,6 @@
-import 'package:authing/authing.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/k_statistics/record_model.dart';
-import 'package:fire/fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
-import 'package:real/real.dart' as real;
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:mapper/mapper.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +67,7 @@ class RecordRealOps {
         modelID: record.modelID,
       );
 
-      _map = await real.Real.createDocInPath(
+      _map = await Real.createDocInPath(
         pathWithoutDocName: _path,
         addDocIDToOutput: true,
         map: record.toMap(toJSON: true), // real db is json

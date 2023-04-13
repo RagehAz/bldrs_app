@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_bool_literals_in_conditional_expressions
 
-import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
@@ -11,8 +10,8 @@ import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:filers/filers.dart';
-import 'package:fire/fire.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:numeric/numeric.dart';

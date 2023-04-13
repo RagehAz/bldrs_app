@@ -1,4 +1,4 @@
-import 'package:authing/authing.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
@@ -16,7 +16,6 @@ import 'package:bldrs/e_back_end/g_storage/storage_paths_generators.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:filers/filers.dart';
-import 'package:fire/fire.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:screenshot/screenshot.dart';

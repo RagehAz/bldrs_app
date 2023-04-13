@@ -1,4 +1,3 @@
-import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -10,9 +9,9 @@ import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/review
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/c_protocols/review_protocols/protocols/a_reviews_protocols.dart';
 import 'package:bldrs/e_back_end/x_queries/reviews_queries.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
-import 'package:fire/fire.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 

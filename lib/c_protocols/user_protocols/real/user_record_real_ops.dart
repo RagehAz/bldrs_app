@@ -1,7 +1,6 @@
-import 'package:authing/authing.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/k_statistics/record_model.dart';
 import 'package:bldrs/c_protocols/record_protocols/real/record_real_ops.dart';
-import 'package:real/real.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/cupertino.dart';

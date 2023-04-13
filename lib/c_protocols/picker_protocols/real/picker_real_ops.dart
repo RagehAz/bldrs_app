@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
-import 'package:real/real.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:mapper/mapper.dart';
 import 'package:flutter/cupertino.dart';
