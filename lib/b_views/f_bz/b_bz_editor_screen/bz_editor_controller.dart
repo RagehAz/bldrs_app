@@ -1,30 +1,31 @@
 import 'dart:async';
 import 'dart:typed_data';
+
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/draft/draft_bz.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
-import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
-import 'package:mediators/mediators.dart';
 import 'package:bldrs/b_views/i_phid_picker/phids_picker_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
-import 'package:mapper/mapper.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
+import 'package:mapper/mapper.dart';
+import 'package:mediators/mediators.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 
@@ -411,6 +412,8 @@ Future<void> onChangeBzLogo({
 
       final String _path = draftNotifier.value.getLogoPath();
 
+      final Dimensions _dims = await Dimensions.superDimensions(_bytes);
+
       setNotifier(
           notifier: draftNotifier,
           mounted: mounted,
@@ -421,7 +424,8 @@ Future<void> onChangeBzLogo({
                 bytes: _bytes,
                 path: _path,
                 meta: PicMetaModel(
-                    dimensions: await Dimensions.superDimensions(_bytes),
+                    width: _dims?.width,
+                    height: _dims?.height,
                     ownersIDs: draftNotifier.value.getLogoOwners()
                 )
             ),

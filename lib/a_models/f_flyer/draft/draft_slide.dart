@@ -1,17 +1,16 @@
 import 'dart:typed_data';
-
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
-import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
-import 'package:mediators/mediators.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_paths_generators.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:colorizer/colorizer.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
+import 'package:mediators/mediators.dart';
 import 'package:space_time/space_time.dart';
 import 'package:super_image/super_image.dart';
 
@@ -110,7 +109,8 @@ class DraftSlide {
           bytes: bytes,
           path: BldrStorage.generateFlyerSlidePath(flyerID: flyerID, slideIndex: index),
           meta: PicMetaModel(
-            dimensions: _dimensions,
+            width: _dimensions?.width,
+            height: _dimensions?.height,
             ownersIDs: await FlyerModel.generateFlyerOwners(
                 context: context,
                 bzID: bzID,
@@ -123,8 +123,8 @@ class DraftSlide {
         opacity: 1,
         slideIndex: index,
         picFit: Dimensions.concludeBoxFit(
-          picWidth: _dimensions.width,
-          picHeight: _dimensions.height,
+          picWidth: _dimensions?.width,
+          picHeight: _dimensions?.height,
           viewWidth: FlyerDim.flyerWidthByFactor(context, 1),
           viewHeight: FlyerDim.heightBySizeFactor(
             context: context,
@@ -163,7 +163,10 @@ class DraftSlide {
         animationCurve: draft.animationCurve,
         filterID: draft.filter.id,
         picPath: draft.picModel.path,
-        dimensions: draft.picModel.meta.dimensions,
+        dimensions: Dimensions(
+          width: draft.picModel.meta.width,
+          height: draft.picModel.meta.height,
+        ),
         uiImage: await Floaters.getUiImageFromUint8List(draft.picModel.bytes),
       );
 

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:authing/authing.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
@@ -22,7 +22,6 @@ import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:storage/storage.dart';
 
 class WipeBzProtocols {
   // -----------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-import 'package:authing/authing.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 // import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';

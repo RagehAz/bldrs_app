@@ -4,11 +4,8 @@ import 'dart:typed_data';
 import 'package:bldrs/a_models/a_user/draft/draft_user.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
-import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
-import 'package:mediators/mediators.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/d_settings_page/x4_user_settings_page_controllers.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
@@ -16,9 +13,12 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_paths_generators.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
+import 'package:mediators/mediators.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 
@@ -188,6 +188,8 @@ Future<void> takeUserPicture({
     else {
       blog('takeUserPicture : we got the pic in : ${_bytes?.length} bytes');
 
+      final Dimensions _dims =  await Dimensions.superDimensions(_bytes);
+
       setNotifier(
           notifier: draft,
           mounted: mounted,
@@ -196,7 +198,8 @@ Future<void> takeUserPicture({
                 bytes: _bytes,
                 path: BldrStorage.generateUserPicPath(draft.value.id),
                 meta: PicMetaModel(
-                  dimensions: await Dimensions.superDimensions(_bytes),
+                  width: _dims?.width,
+                  height: _dims?.height,
                   ownersIDs: [draft.value.id],
                 ),
               ),
