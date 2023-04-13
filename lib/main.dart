@@ -60,6 +60,10 @@ Future<void> main() async {
     projectIDForWindows: BldrsKeys.firebaseProjectID,
   );
   // --------------------
+  Authing.initializeSocialAuthing(
+      socialKeys: BldrsKeys.socialKeys,
+  );
+  // --------------------
   await Future.wait(<Future>[
 
     /// FCM
