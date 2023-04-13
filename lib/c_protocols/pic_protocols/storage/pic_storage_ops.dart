@@ -1,10 +1,10 @@
 import 'dart:typed_data';
-import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
+
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
-import 'package:storage/storage.dart';
 import 'package:stringer/stringer.dart';
 
 class PicStorageOps {
@@ -99,6 +99,7 @@ class PicStorageOps {
 
     await Storage.deleteDoc(
       path: path,
+      currentUserID: Authing.getUserID(),
     );
 
     blog('deletePic : END');
@@ -111,6 +112,7 @@ class PicStorageOps {
 
       await Storage.deleteDocs(
         paths: paths,
+        currentUserID: Authing.getUserID(),
       );
 
     }

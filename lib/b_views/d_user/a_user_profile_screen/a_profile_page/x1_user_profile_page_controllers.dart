@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:space_time/space_time.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:filers/filers.dart';
-import 'package:fire/fire.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------

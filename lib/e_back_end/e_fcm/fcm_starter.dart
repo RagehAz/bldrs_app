@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bldrs/a_models/b_bz/sub/target/target_progress.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -22,31 +24,40 @@ class FCMStarter {
   /// INITIALIZATION
 
   // --------------------
+  static bool _canInitializeFCM(){
+    return Platform.isIOS || Platform.isAndroid;
+  }
   /// TESTED : WORKS PERFECT
   static Future<void> preInitializeNootsInMainFunction() async {
 
-    /// INITIALIZE AWESOME NOTIFICATIONS
-    await _initializeAwesomeNootsService();
+    if (_canInitializeFCM() == true) {
 
-    /// HANDLE BACKGROUND REMOTE MESSAGE (handles while app in background)
-    FirebaseMessaging.onBackgroundMessage(onBackgroundMessageHandler);
+      /// INITIALIZE AWESOME NOTIFICATIONS
+      await _initializeAwesomeNootsService();
+
+      /// HANDLE BACKGROUND REMOTE MESSAGE (handles while app in background)
+      FirebaseMessaging.onBackgroundMessage(onBackgroundMessageHandler);
+
+    }
 
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> initializeNootsInBldrsAppStarter() async {
 
-    /// FCM PERMISSION
-    await FCM.requestFCMPermission();
+    if (_canInitializeFCM() == true) {
+      /// FCM PERMISSION
+      await FCM.requestFCMPermission();
 
-    /// INITIALIZE LOCAL NOOTS
-    await _initializeLocalNootsService();
+      /// INITIALIZE LOCAL NOOTS
+      await _initializeLocalNootsService();
 
-    /// INITIALIZE LISTENERS
-    _initializeNootsListeners();
+      /// INITIALIZE LISTENERS
+      _initializeNootsListeners();
 
-    /// RECEIVE INITIAL MESSAGE
-    await _receiveInitialRemoteMessage();
+      /// RECEIVE INITIAL MESSAGE
+      await _receiveInitialRemoteMessage();
+    }
 
   }
   // -----------------------------------------------------------------------------

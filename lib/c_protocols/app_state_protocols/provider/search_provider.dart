@@ -1,9 +1,8 @@
-import 'package:authing/authing.dart';
 import 'package:bldrs/a_models/k_statistics/record_model.dart';
 import 'package:bldrs/a_models/x_secondary/search_result.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/record_protocols/real/record_real_ops.dart';
-import 'package:fire/fire.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:provider/provider.dart';

@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
-import 'package:fire/fire.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:flutter/material.dart';

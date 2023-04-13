@@ -8,7 +8,7 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/versioning/app_version.dart';
-import 'package:fire/fire.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mapper/mapper.dart';

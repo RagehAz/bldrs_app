@@ -1,10 +1,10 @@
 import 'dart:typed_data';
 
-import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
-import 'package:mediators/mediators.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
+import 'package:mediators/mediators.dart';
 /// => TAMAM
 @immutable
 class PicModel {
@@ -120,7 +120,7 @@ class PicModel {
     final double _kilo = Filers.calculateSize(bytes?.length, FileSizeUnit.kiloByte);
 
     blog('=> $invoker :: path : $path : ${bytes?.length} Bytes | '
-        '[ (${meta?.dimensions?.width})w x (${meta?.dimensions?.height})h ] | '
+        '[ (${meta?.width})w x (${meta?.height})h ] | '
         'owners : ${meta.ownersIDs} | $_mega MB | $_kilo KB');
 
   }
@@ -144,8 +144,8 @@ class PicModel {
       if (
           pic1.path == pic2.path &&
           Mapper.checkListsAreIdentical(list1: pic1.meta.ownersIDs, list2: pic2.meta.ownersIDs) == true &&
-          pic1.meta.dimensions.width == pic2.meta.dimensions.width &&
-          pic1.meta.dimensions.height == pic2.meta.dimensions.height &&
+          pic1.meta.width == pic2.meta.width &&
+          pic1.meta.height == pic2.meta.height &&
           pic1.bytes.length == pic2.bytes.length &&
           Mapper.checkListsAreIdentical(list1: pic1.bytes, list2: pic2.bytes) == true
       ){

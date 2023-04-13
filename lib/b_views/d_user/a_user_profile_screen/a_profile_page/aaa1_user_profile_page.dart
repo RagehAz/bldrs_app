@@ -1,4 +1,4 @@
-import 'package:authing/authing.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/d_user/z_components/banners/a_user_profile_banners.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';

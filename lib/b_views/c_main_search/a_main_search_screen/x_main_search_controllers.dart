@@ -14,7 +14,7 @@ import 'package:bldrs/c_protocols/bz_protocols/fire/bz_search.dart' as BzFireSea
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_search.dart' as FlyerSearch;
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_search.dart';
 import 'package:bldrs/c_protocols/user_protocols/real/user_record_real_ops.dart';
-import 'package:fire/fire.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:mapper/mapper.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
