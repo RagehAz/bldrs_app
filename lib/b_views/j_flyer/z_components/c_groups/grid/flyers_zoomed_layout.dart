@@ -12,8 +12,8 @@ import 'package:scale/scale.dart';
 ZoomableGridController initializeBldrsZoomableGridController({
   @required BuildContext context,
   @required int columnsCount,
-  double gridWidth,
-  double gridHeight,
+  @required double gridWidth,
+  @required double gridHeight,
   ScrollController scrollController,
 }){
 
@@ -56,7 +56,7 @@ ZoomableGridController initializeBldrsZoomableGridController({
     smallItemWidth: _gridFlyerWidth,
     smallItemHeight: _gridFlyerWidth * FlyerDim.flyerHeightRatioToWidth(
       context: context,
-      forceMaxRatio: false,
+      forceMaxRatio: true, // to avoid accessing mediaQuery in initState
     ),
 
     columnsCount: columnsCount,
@@ -83,7 +83,7 @@ class FlyersZoomedLayout extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final UserModel _user = UsersProvider.proGetMyUserModel(context: context, listen: false);
-    final List<String> _flyersIDs = [..._user.savedFlyers.all];
+    final List<String> _flyersIDs = [...?_user?.savedFlyers?.all];
 
     return MainLayout(
       appBarType: AppBarType.basic,
