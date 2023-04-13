@@ -26,13 +26,15 @@ import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/firebase_options.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:fire/fire.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:mediators/mediators.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:stringer/stringer.dart';
+
+import 'bldrs_keys.dart';
 
 const String bldrsAppVersion = '3.4.0';
 
@@ -53,8 +55,9 @@ Future<void> main() async {
   final WidgetsBinding _binding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: _binding);
   // --------------------
-  await Firebase.initializeApp(
+  await Fire.initializeFirebase(
     options: DefaultFirebaseOptions.currentPlatform,
+    projectIDForWindows: BldrsKeys.firebaseProjectID,
   );
   // --------------------
   await Future.wait(<Future>[
@@ -128,12 +131,6 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
         /// LOCALE
         await Localizer.initializeLocale(
           locale: _locale,
-          mounted: mounted,
-        );
-
-        /// FIREBASE
-        await Fire.initializeFirestore(
-          fireError: _fireError,
           mounted: mounted,
         );
 

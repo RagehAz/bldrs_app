@@ -3,11 +3,8 @@ import 'dart:typed_data';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/i_pic/pic_meta_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_type.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:mediators/mediators.dart';
 import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
@@ -15,10 +12,13 @@ import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:bldrs/b_views/z_components/poster/poster_display.dart';
 import 'package:bldrs/b_views/z_components/poster/structure/poster_switcher.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_paths_generators.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bubbles/bubbles.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
+import 'package:mediators/mediators.dart';
 import 'package:screenshot/screenshot.dart';
 
 /*
@@ -94,11 +94,14 @@ Future<void> testPoster({
     // finalDesiredPicWidth: Standards.posterDimensions.width,
   );
 
+  final Dimensions _dims = await Dimensions.superDimensions(_bytes);
+
   final PicModel _posterPicModel = PicModel(
     bytes: _bytes,
     path: BldrStorage.generateFlyerPosterPath(draft.id),
     meta: PicMetaModel(
-        dimensions: await Dimensions.superDimensions(_bytes),
+        width: _dims?.width,
+        height: _dims?.height,
         ownersIDs: await FlyerModel.generateFlyerOwners(
           context: context,
           bzID: draft.bzID,
@@ -114,7 +117,7 @@ Future<void> testPoster({
   await BottomDialog.showBottomDialog(
     context: context,
     draggable: true,
-    height: _posterPicModel.meta.dimensions.height + 50,
+    height: _posterPicModel.meta.height + 50,
     child: Column(
       children: <Widget>[
 
@@ -128,8 +131,8 @@ Future<void> testPoster({
         /// POSTER
         BldrsImage(
           pic: _bytes,
-          height: _posterPicModel.meta.dimensions.height,
-          width: _posterPicModel.meta.dimensions.width,
+          height: _posterPicModel.meta.height,
+          width: _posterPicModel.meta.width,
           corners: BldrsAppBar.corners,
         ),
 
