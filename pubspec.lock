@@ -193,10 +193,10 @@ packages:
     dependency: "direct main"
     description:
       name: cloud_firestore
-      sha256: "3a2dba23d7d084a2d3c2dfd240d2122908cca40bab2d142f7e107f40df174ab5"
+      sha256: f5431cf41ab5c5e9c64e03ac2af103e10be22bf89020f394130c04b81add0010
       url: "https://pub.dev"
     source: hosted
-    version: "4.5.0"
+    version: "4.5.1"
   cloud_firestore_platform_interface:
     dependency: transitive
     description:
@@ -209,10 +209,10 @@ packages:
     dependency: transitive
     description:
       name: cloud_firestore_web
-      sha256: bc1fbcd6287acedded1139c9b13cfd47e792d5198f130f98759464839ea510a7
+      sha256: "228f1944fb3c61ddf5de3647ec5b6ed88d6aacb0a4d485ef597c1211fe98ef8b"
       url: "https://pub.dev"
     source: hosted
-    version: "3.4.0"
+    version: "3.4.1"
   cloud_functions:
     dependency: "direct main"
     description:
@@ -387,7 +387,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "08ba21ba1744e35f557e3d3130b3b86de5efc808"
+      resolved-ref: "6d5c276e8a1eff5d843b92dbd60ad93ff316da75"
       url: "https://github.com/RagehAz/devicer.git"
     source: git
     version: "0.0.8"
@@ -493,10 +493,10 @@ packages:
     dependency: "direct main"
     description:
       name: firebase_app_check
-      sha256: be19d874a35f868e5a1d16d474ed4fcf3663edb3540d2d66417ace2864b7fff0
+      sha256: "1f048680278c963a9087c588443f1de57159e8d14fd6039a6a973cff85eb1008"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.2"
+    version: "0.1.2+1"
   firebase_app_check_platform_interface:
     dependency: transitive
     description:
@@ -517,10 +517,10 @@ packages:
     dependency: "direct main"
     description:
       name: firebase_auth
-      sha256: "3d33d6646f08407122cd2cbd292d274b98035d93f59c9e341ba992ebefd59ffa"
+      sha256: e5254a39daab8c5bc76b17f5a161c11a7a97a3718cd314f460e2b4366c850c7d
       url: "https://pub.dev"
     source: hosted
-    version: "4.4.0"
+    version: "4.4.1"
   firebase_auth_platform_interface:
     dependency: transitive
     description:
@@ -533,10 +533,10 @@ packages:
     dependency: transitive
     description:
       name: firebase_auth_web
-      sha256: f50f7026b95c62dba3f0b28bdb3ab3601ea402b4908c1469103f16ae2b0f5281
+      sha256: c631ec90d05c990fe971774ff12e96ee88fc3dd22839d5cab3b04c8693859116
       url: "https://pub.dev"
     source: hosted
-    version: "5.3.0"
+    version: "5.3.1"
   firebase_core:
     dependency: "direct main"
     description:
@@ -661,10 +661,10 @@ packages:
     dependency: "direct main"
     description:
       name: firebase_ui_auth
-      sha256: e41967dbd19559ed8a82da226be1b21865fa1bbcc727fd046a0486452ab54e28
+      sha256: "826005fdd63d2ed2b5b933b7adcd07b438435f4f09c3d1847ad8a49795acf6ef"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.0"
+    version: "1.2.1"
   firebase_ui_localizations:
     dependency: transitive
     description:
@@ -677,26 +677,26 @@ packages:
     dependency: transitive
     description:
       name: firebase_ui_oauth
-      sha256: "768e8a9971069e2f2d0b1143716386de4281b1ec2642bb6a1097e02d38d2aa31"
+      sha256: "6805ecaad61caad8d13dede352e6a918470a7ed8bb8756f3e1c499980c2fc072"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.0"
+    version: "1.2.1"
   firebase_ui_oauth_apple:
     dependency: "direct main"
     description:
       name: firebase_ui_oauth_apple
-      sha256: d9862722f197345fc8982d58cfb3ec3c362f8b6f5cb7ac93212eaef6b42e7b21
+      sha256: "295c541a0869395da0971df09fd6a8f5aa98387261a1dd84e1ac7a5f0ab52588"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.1.1"
   firebase_ui_oauth_facebook:
     dependency: "direct main"
     description:
       name: firebase_ui_oauth_facebook
-      sha256: "51ab6929acfdb6447c8bf77a446dd17670ec1b8e8696f7d3aaa070ea887f9165"
+      sha256: c479eca6869b5ee44e8fb5b7ad8fb97c9689f61f2b7b63c40a819d2511c7f79a
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.1.1"
   firebase_ui_oauth_google:
     dependency: "direct main"
     description:

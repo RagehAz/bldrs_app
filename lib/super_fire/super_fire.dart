@@ -5,6 +5,7 @@ library super_fire;
 
 // --------------------
 import 'dart:io';
+import 'package:devicer/devicer.dart';
 import 'package:mapper/mapper.dart';
 import 'package:stringer/stringer.dart';
 import 'package:filers/filers.dart';
