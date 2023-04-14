@@ -115,6 +115,7 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   void _switchSignIn() {
     _formKey.currentState.reset();
 
