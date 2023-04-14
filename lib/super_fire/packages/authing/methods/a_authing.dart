@@ -15,9 +15,9 @@ class Authing {
 
   // --------------------
   /// FIREBASE AUTH SINGLETON
-  FirebaseAuth _auth;
-  FirebaseAuth get auth => _auth ??= FirebaseAuth.instance;
-  static FirebaseAuth getFirebaseAuth() => Authing.instance.auth;
+  f_a.FirebaseAuth _auth;
+  f_a.FirebaseAuth get auth => _auth ??= f_a.FirebaseAuth.instance;
+  static f_a.FirebaseAuth getFirebaseAuth() => Authing.instance.auth;
   // -----------------------------------------------------------------------------
 
   /// INITIALIZE SOCIAL AUTHING
@@ -29,8 +29,8 @@ class Authing {
   }) {
 
     if (socialKeys != null) {
-      fireUI.FirebaseUIAuth.configureProviders([
-        if (socialKeys.supportEmail == true) fireUI.EmailAuthProvider(),
+      fui.FirebaseUIAuth.configureProviders([
+        if (socialKeys.supportEmail == true) fui.EmailAuthProvider(),
         if (socialKeys.googleClientID != null)
           GoogleProvider(
             clientId: socialKeys.googleClientID,
@@ -67,7 +67,7 @@ class Authing {
       onError: onError,
       functions: () async {
 
-        final UserCredential _userCredential = await getFirebaseAuth().signInAnonymously();
+        final f_a.UserCredential _userCredential = await getFirebaseAuth().signInAnonymously();
 
         _output = AuthModel.getAuthModelFromUserCredential(
             cred: _userCredential,
@@ -121,7 +121,7 @@ class Authing {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static User getFirebaseUser() {
+  static f_a.User getFirebaseUser() {
     return getFirebaseAuth()?.currentUser;
   }
   // --------------------
@@ -196,7 +196,7 @@ class Authing {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getUserImageURLFromUserCredential(UserCredential cred){
+  static String getUserImageURLFromUserCredential(f_a.UserCredential cred){
     String _output;
 
     if (cred != null){
@@ -228,16 +228,16 @@ class Authing {
   // --------------------
   /// TESTED : WORKS PERFECT
   static SignInMethod _getSignInMethodFromUser({
-    @required User user,
+    @required f_a.User user,
   }){
     SignInMethod _output;
 
     if (user != null){
 
-      final List<UserInfo> providerData = user.providerData;
+      final List<f_a.UserInfo> providerData = user.providerData;
 
       if (Mapper.checkCanLoopList(providerData) == true){
-        final UserInfo _info = providerData.first;
+        final f_a.UserInfo _info = providerData.first;
         final String providerID = _info?.providerId;
         _output = AuthModel.decipherSignInMethod(providerID);
       }

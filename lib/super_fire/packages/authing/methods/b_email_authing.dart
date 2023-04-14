@@ -27,7 +27,7 @@ class EmailAuthing {
         invoker: 'signInByEmail',
         functions: () async {
 
-          final UserCredential _userCredential = await Authing.getFirebaseAuth()
+          final f_a.UserCredential _userCredential = await Authing.getFirebaseAuth()
               .signInWithEmailAndPassword(
             email: email.trim(),
             password: password,
@@ -67,7 +67,7 @@ class EmailAuthing {
           invoker: 'registerByEmail',
           functions: () async {
 
-            final UserCredential _userCredential = await Authing.getFirebaseAuth().createUserWithEmailAndPassword(
+            final f_a.UserCredential _userCredential = await Authing.getFirebaseAuth().createUserWithEmailAndPassword(
               email: email.trim(),
               password: password,
             );
@@ -114,12 +114,12 @@ class EmailAuthing {
     @required String email,
   }) async {
 
-    UserCredential _credential;
+    f_a.UserCredential _credential;
 
     final bool _credentialsAreGood = await tryCatchAndReturnBool(
         functions: () async {
 
-          final AuthCredential _authCredential = EmailAuthProvider.credential(
+          final f_a.AuthCredential _authCredential = f_a.EmailAuthProvider.credential(
             email: email,
             password: password,
           );
@@ -150,7 +150,7 @@ class EmailAuthing {
 
     bool _success = false;
 
-    final FirebaseAuth _auth = Authing.getFirebaseAuth();
+    final f_a.FirebaseAuth _auth = Authing.getFirebaseAuth();
     final String _oldEmail = _auth?.currentUser?.email;
 
     blog('updateUserEmail : new : $newEmail : old : $_oldEmail');

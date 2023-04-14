@@ -13,7 +13,7 @@ class SocialAuthButton extends StatelessWidget {
     @required this.onSuccess,
     @required this.manualAuthing,
     this.onError,
-    this.authAction = fireUI.AuthAction.signIn,
+    this.authAction = fui.AuthAction.signIn,
     /// WILL ALWAYS HAVE 5 PADDING FROM ALL SIDES FOR EACH BUTTON
     /// BUT THE CONTAINING BOX SIZE IS THIS :-
     this.size = standardSize,
@@ -26,7 +26,7 @@ class SocialAuthButton extends StatelessWidget {
   final Function(AuthModel authModel) onSuccess;
   final Function(String error) onError;
   final Function(bool isLoading) onAuthLoadingChanged;
-  final fireUI.AuthAction authAction;
+  final fui.AuthAction authAction;
   final double size;
   /// AUTO AUTHING uses
   /// fireUI.OAuthProviderButton()
@@ -86,45 +86,45 @@ class SocialAuthButton extends StatelessWidget {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  bool _listen (fireUI.AuthState oldState, fireUI.AuthState newState, fireUI.OAuthController ctrl){
+  bool _listen (fui.AuthState oldState, fui.AuthState newState, fui.OAuthController ctrl){
 
     /// UN-INITIALIZED
-    if (newState is fireUI.Uninitialized){
+    if (newState is fui.Uninitialized){
       blog('SocialAuthButton : is Uninitialized');
       onAuthLoadingChanged(false);
     }
 
     /// SIGNING IN
-    else if (newState is fireUI.SigningIn){
+    else if (newState is fui.SigningIn){
       blog('SocialAuthButton : is signing in');
       onAuthLoadingChanged(true);
     }
 
     /// AUTH CRED RECEIVED
-    else if (newState is fireUI.CredentialReceived){
-      final fireUI.CredentialReceived cred = newState;
+    else if (newState is fui.CredentialReceived){
+      final fui.CredentialReceived cred = newState;
       blog('SocialAuthButton : is CredentialReceived');
       AuthBlog.blogAuthCred(cred.credential);
     }
 
     /// AUTH CRED LINKED
-    else if (newState is fireUI.CredentialLinked){
-        final fireUI.CredentialLinked cred = newState;
+    else if (newState is fui.CredentialLinked){
+        final fui.CredentialLinked cred = newState;
         AuthBlog.blogAuthCred(cred.credential);
     }
 
     /// AUTH FAILED
-    else if (newState is fireUI.AuthFailed){
+    else if (newState is fui.AuthFailed){
       if (onError != null){
-        final fireUI.AuthFailed failure = newState;
+        final fui.AuthFailed failure = newState;
         onError(failure.exception.toString());
         onAuthLoadingChanged(false);
       }
     }
 
     /// SIGNED IN
-    else if (newState is fireUI.SignedIn) {
-        final fireUI.SignedIn signedIn = newState;
+    else if (newState is fui.SignedIn) {
+        final fui.SignedIn signedIn = newState;
         final AuthModel _authModel = AuthModel.getAuthModelFromFirebaseUser(
             user: signedIn.user,
         );
@@ -133,8 +133,8 @@ class SocialAuthButton extends StatelessWidget {
     }
 
     /// USER CREATED
-    else if (newState is fireUI.UserCreated) {
-      final fireUI.UserCreated userCreated = newState;
+    else if (newState is fui.UserCreated) {
+      final fui.UserCreated userCreated = newState;
       final AuthModel _authModel = AuthModel.getAuthModelFromUserCredential(
         cred: userCreated.credential,
       );
@@ -143,21 +143,21 @@ class SocialAuthButton extends StatelessWidget {
     }
 
     /// DIFFERENT SIGN IN METHOD FOUND
-    else if (newState is fireUI.DifferentSignInMethodsFound){
+    else if (newState is fui.DifferentSignInMethodsFound){
       if (onError != null){
-        final fireUI.DifferentSignInMethodsFound  dif = newState;
+        final fui.DifferentSignInMethodsFound  dif = newState;
         onError('[DifferentSignInMethodsFound]: A different email is assigned for this account (${dif.email})');
         onAuthLoadingChanged(false);
       }
     }
 
     /// FETCHING PROVIDERS FOR EMAIL
-    else if (newState is fireUI.FetchingProvidersForEmail){
+    else if (newState is fui.FetchingProvidersForEmail){
       blog('SocialAuthButton : is FetchingProvidersForEmail');
     }
 
     /// MFA REQUIRED
-    else if (newState is fireUI.MFARequired){
+    else if (newState is fui.MFARequired){
       blog('SocialAuthButton : is MFARequired');
     }
 
@@ -273,13 +273,13 @@ class SocialAuthButton extends StatelessWidget {
 
       return _AuthButtonBox(
         size: size,
-        child: fireUI.AuthStateListener<fireUI.OAuthController>(
+        child: fui.AuthStateListener<fui.OAuthController>(
           listener: _listen,
-          child: fireUI.OAuthProviderButton(
+          child: fui.OAuthProviderButton(
             provider: _getProvider(signInMethod),
             auth: Authing.getFirebaseAuth(),
             action: authAction,
-            variant: fireUI.OAuthButtonVariant.icon,
+            variant: fui.OAuthButtonVariant.icon,
           ),
         ),
       );

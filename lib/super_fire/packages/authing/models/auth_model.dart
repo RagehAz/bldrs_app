@@ -92,7 +92,7 @@ class AuthModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static AuthModel getAuthModelFromUserCredential({
-    @required UserCredential cred,
+    @required f_a.UserCredential cred,
     Map<String, dynamic> addData,
   }){
     AuthModel _output;
@@ -119,7 +119,7 @@ class AuthModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static AuthModel getAuthModelFromFirebaseUser({
-    @required User user,
+    @required f_a.User user,
   }){
     AuthModel _output;
 
@@ -149,9 +149,32 @@ class AuthModel {
     return _output;
   }
   // --------------------
+  ///
+  static AuthModel getAuthModelFromFiredartUser({
+    @required fd_u.User user,
+  }){
+    AuthModel _output;
+
+    if (user != null){
+
+      _output = AuthModel(
+        id: user.id,
+        name: user.displayName,
+        email: user.email,
+        phone: null,
+        imageURL: user.photoUrl,
+        signInMethod: SignInMethod.nativeEmail,
+        data: null,
+      );
+
+    }
+
+    return _output;
+  }
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> _createAuthModelDataMap({
-    @required UserCredential cred,
+    @required f_a.UserCredential cred,
     @required Map<String, dynamic> addData,
   }) {
 
@@ -227,6 +250,7 @@ class AuthModel {
       case SignInMethod.anonymous: return 'anonymous'; break;
       case SignInMethod.apple: return 'apple.com'; break;
       case SignInMethod.email: return 'email'; break;
+      case SignInMethod.nativeEmail: return 'nativeEmail'; break;
       // case SignInMethod.phone: return 'phone'; break;
       default: return null;
     }
@@ -242,6 +266,7 @@ class AuthModel {
       case 'anonymous': return SignInMethod.anonymous; break;
       case 'apple.com': return SignInMethod.apple; break;
       case 'password': return SignInMethod.email; break;
+      case 'nativeEmail': return SignInMethod.nativeEmail; break;
       // case 'phone': return SignInMethod.phone; break;
       default: return Authing.getUserID() == null ? null : SignInMethod.anonymous;
     }
@@ -253,7 +278,7 @@ class AuthModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<Map<String, String>> cipherUserInfos(List<UserInfo> userInfos){
+  static List<Map<String, String>> cipherUserInfos(List<f_a.UserInfo> userInfos){
 
     List<Map<String, String>> _maps;
 
@@ -261,7 +286,7 @@ class AuthModel {
 
       _maps = <Map<String, String>>[];
 
-      for (final UserInfo info in userInfos){
+      for (final f_a.UserInfo info in userInfos){
         final Map<String, dynamic> _infoMap = cipherUserInfo(info);
         _maps.add(_infoMap);
       }
@@ -272,7 +297,7 @@ class AuthModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, String> cipherUserInfo(UserInfo userInfo){
+  static Map<String, String> cipherUserInfo(f_a.UserInfo userInfo){
     Map<String, String> _map;
 
     // blog('cipherUserInfo : blog : ${userInfo?.toString()}');
@@ -293,19 +318,19 @@ class AuthModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<UserInfo> decipherUserInfos(dynamic maps){
+  static List<f_a.UserInfo> decipherUserInfos(dynamic maps){
 
-    List<UserInfo> _userInfos;
+    List<f_a.UserInfo> _userInfos;
 
     if (Mapper.checkCanLoopList(maps) == true){
 
-      _userInfos = <UserInfo>[];
+      _userInfos = <f_a.UserInfo>[];
 
       final List<Map<String, String>> _maps = _fixTheImmutableMapsThing(maps);
 
       for (final Map<String, String> _map in _maps){
 
-        final UserInfo _userInfo = decipherUserInfo(_map);
+        final f_a.UserInfo _userInfo = decipherUserInfo(_map);
         _userInfos.add(_userInfo);
 
       }
@@ -316,11 +341,11 @@ class AuthModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static UserInfo decipherUserInfo(Map<String, String> map){
-    UserInfo _userInfo;
+  static f_a.UserInfo decipherUserInfo(Map<String, String> map){
+    f_a.UserInfo _userInfo;
 
     if (map != null){
-      _userInfo = UserInfo(map);
+      _userInfo = f_a.UserInfo(map);
     }
 
     return _userInfo;
