@@ -16,8 +16,9 @@ import 'dart:async';
 /// NATIVE IMPLEMENTATION IMPORTS
 
 // --------------------
-import 'package:firedart/firedart.dart' as firedart;
-import 'package:firebase_dart/firebase_dart.dart' as fd;
+import 'package:firedart/firedart.dart' as fd;
+import 'package:firebase_dart/firebase_dart.dart' as f_d;
+import 'package:firedart/auth/user_gateway.dart' as fd_u;
 // -----------------------------------------------------------------------------
 
 /// AUTHING IMPORTS
@@ -25,8 +26,8 @@ import 'package:firebase_dart/firebase_dart.dart' as fd;
 // --------------------
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:extension_google_sign_in_as_googleapis_auth/extension_google_sign_in_as_googleapis_auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_ui_auth/firebase_ui_auth.dart' as fireUI;
+import 'package:firebase_auth/firebase_auth.dart' as f_a;
+import 'package:firebase_ui_auth/firebase_ui_auth.dart' as fui;
 import 'package:firebase_ui_oauth_apple/firebase_ui_oauth_apple.dart';
 import 'package:firebase_ui_oauth_facebook/firebase_ui_oauth_facebook.dart';
 import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
@@ -73,7 +74,7 @@ export 'package:firebase_storage/firebase_storage.dart';
 // -----------------------------------------------------------------------------
 import 'dart:convert';
 import 'package:animators/animators.dart';
-import 'package:firebase_database/firebase_database.dart' as fireDB;
+import 'package:firebase_database/firebase_database.dart' as f_db;
 import 'package:http/http.dart' as http;
 // -----------------------------------------------------------------------------
 ///
@@ -151,4 +152,14 @@ part 'packages/real/src/models/real_query_model.dart';
 part 'packages/real/src/widgets/real_coll_paginator.dart';
 part 'packages/real/src/widgets/real_coll_streamer.dart';
 part 'packages/real/src/widgets/real_doc_streamer.dart';
+// -----------------------------------------------------------------------------
+
+/// NATIVE PARTS
+
+// --------------------
+part 'packages/native/native_fire.dart';
+part 'packages/native/native_storage.dart';
+part 'packages/native/native_real.dart';
+part 'packages/native/native_auth.dart';
+part 'packages/native/native_initializer.dart';
 // -----------------------------------------------------------------------------

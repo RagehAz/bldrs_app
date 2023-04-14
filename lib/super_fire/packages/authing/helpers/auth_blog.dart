@@ -13,7 +13,7 @@ class AuthBlog {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogUserCredential({
-    @required UserCredential cred,
+    @required f_a.UserCredential cred,
   }){
 
     if (cred == null){
@@ -51,7 +51,7 @@ class AuthBlog {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogFirebaseUser({
-    @required User user,
+    @required f_a.User user,
   }){
 
     if (user == null){
@@ -79,7 +79,7 @@ class AuthBlog {
   /// TESTED : WORKS PERFECT
   static void blogCurrentFirebaseUser(){
 
-    final User _user = Authing.getFirebaseUser();
+    final f_a.User _user = Authing.getFirebaseUser();
 
     if (_user == null){
       blog('blogCurrentFirebaseUser : user is null');
@@ -91,7 +91,7 @@ class AuthBlog {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void blogAuthCred(AuthCredential authCred){
+  static void blogAuthCred(f_a.AuthCredential authCred){
 
     if (authCred == null){
       blog('blogAuthCred : AUTH CREDENTIAL IS NULL');
@@ -165,7 +165,7 @@ class AuthBlog {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogFacebookAuthCredential({
-    @required FacebookAuthCredential facebookAuthCredential,
+    @required f_a.FacebookAuthCredential facebookAuthCredential,
     String invoker = 'blogFacebookAuthCredential',
   }){
 

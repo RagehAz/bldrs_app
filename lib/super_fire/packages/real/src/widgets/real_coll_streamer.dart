@@ -20,8 +20,8 @@ class RealCollStreamer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return StreamBuilder<fireDB.DatabaseEvent>(
-        stream: fireDB.FirebaseDatabase.instance.ref(collName).limitToFirst(limit).onValue,
+    return StreamBuilder<f_db.DatabaseEvent>(
+        stream: f_db.FirebaseDatabase.instance.ref(collName).limitToFirst(limit).onValue,
         builder: (_, snapshot){
 
           /// LOADING
@@ -37,7 +37,7 @@ class RealCollStreamer extends StatelessWidget {
           /// RECEIVED DATA
           else {
 
-            final List<fireDB.DataSnapshot> _snapshots = snapshot.data.snapshot.children.toList();
+            final List<f_db.DataSnapshot> _snapshots = snapshot.data.snapshot.children.toList();
 
             final List<Map<String, dynamic>> _maps = Mapper.getMapsFromDataSnapshots(
               snapshots: _snapshots,
