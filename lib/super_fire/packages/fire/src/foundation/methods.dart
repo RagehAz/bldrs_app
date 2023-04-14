@@ -14,28 +14,17 @@ class Fire{
   /// TESTED : WORKS PERFECT
   static Future<void> initializeFirebase({
     @required FirebaseOptions options,
-    String projectIDForWindows,
   }) async {
-    await tryAndCatch(
-      functions: () async {
-
-        /// WINDOWS
-        if (DeviceChecker.deviceIsWindows() == true){
-          firedart.Firestore.initialize(projectIDForWindows);
-        }
-
-        /// IOS - ANDROID - WEB
-        else {
-          // --------------------
+    if (DeviceChecker.deviceIsWindows() == false) {
+      await tryAndCatch(
+        functions: () async {
+          /// IOS - ANDROID - WEB : NO WINDOWS SUPPORT
           await Firebase.initializeApp(
             options: options,
           );
-          // --------------------
-        }
-
-
-      },
-    );
+        },
+      );
+    }
   }
   // -----------------------------------------------------------------------------
 

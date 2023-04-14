@@ -30,9 +30,9 @@ class GoogleAuthing {
   /// GOOGLE AUTH PROVIDER SINGLETON
 
   // --------------------
-  GoogleAuthProvider _googleAuthProvider;
-  GoogleAuthProvider get googleAuthProvider => _googleAuthProvider ??=  GoogleAuthProvider();
-  static GoogleAuthProvider getGoogleAuthProviderInstance() => GoogleAuthing.instance.googleAuthProvider;
+  f_a.GoogleAuthProvider _googleAuthProvider;
+  f_a.GoogleAuthProvider get googleAuthProvider => _googleAuthProvider ??=  f_a.GoogleAuthProvider();
+  static f_a.GoogleAuthProvider getGoogleAuthProviderInstance() => GoogleAuthing.instance.googleAuthProvider;
   // -----------------------------------------------------------------------------
 
   /// SCOPED SIGN IN
@@ -103,12 +103,12 @@ class GoogleAuthing {
         functions: () async {
 
         /// get [auth provider]
-        final GoogleAuthProvider _googleAuthProvider = getGoogleAuthProviderInstance();
+        final f_a.GoogleAuthProvider _googleAuthProvider = getGoogleAuthProviderInstance();
 
-        final FirebaseAuth _firebaseAuth = Authing.getFirebaseAuth();
+        final f_a.FirebaseAuth _firebaseAuth = Authing.getFirebaseAuth();
 
         /// get [user credential] from [auth provider]
-        final UserCredential _userCredential = await _firebaseAuth.signInWithPopup(_googleAuthProvider);
+        final f_a.UserCredential _userCredential = await _firebaseAuth.signInWithPopup(_googleAuthProvider);
 
         _output = AuthModel.getAuthModelFromUserCredential(
           cred: _userCredential,
@@ -141,15 +141,15 @@ class GoogleAuthing {
               _googleSignInAccount.authentication;
 
               /// get [auth credential] from [google sign in auth]
-              final AuthCredential _authCredential = GoogleAuthProvider.credential(
+              final f_a.AuthCredential _authCredential = f_a.GoogleAuthProvider.credential(
                 accessToken: _googleSignInAuthentication.accessToken,
                 idToken: _googleSignInAuthentication.idToken,
               );
 
-              final FirebaseAuth _firebaseAuth = Authing.getFirebaseAuth();
+              final f_a.FirebaseAuth _firebaseAuth = Authing.getFirebaseAuth();
 
               /// C - get [user credential] from [auth credential]
-              final UserCredential _userCredential = await _firebaseAuth.signInWithCredential(_authCredential);
+              final f_a.UserCredential _userCredential = await _firebaseAuth.signInWithCredential(_authCredential);
 
               _output = AuthModel.getAuthModelFromUserCredential(
                 cred: _userCredential,
@@ -170,7 +170,7 @@ class GoogleAuthing {
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> _createGoogleAuthDataMap({
     GoogleSignInAuthentication googleSignInAuthentication,
-    AuthCredential authCredential,
+    f_a.AuthCredential authCredential,
   }){
 
     final Map<String, dynamic> _map = {

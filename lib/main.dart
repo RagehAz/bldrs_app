@@ -57,7 +57,6 @@ Future<void> main() async {
   // --------------------
   await Fire.initializeFirebase(
     options: DefaultFirebaseOptions.currentPlatform,
-    projectIDForWindows: BldrsKeys.firebaseProjectID,
   );
   // --------------------
   Authing.initializeSocialAuthing(

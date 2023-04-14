@@ -12,8 +12,8 @@ class Real {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static fireDB.DatabaseReference  getRef(){
-    return fireDB.FirebaseDatabase.instance.ref();
+  static f_db.DatabaseReference  getRef(){
+    return f_db.FirebaseDatabase.instance.ref();
   }
   // --------------------
   /*
@@ -47,7 +47,7 @@ class Real {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static fireDB.DatabaseReference createPathAndGetRef({
+  static f_db.DatabaseReference createPathAndGetRef({
     @required String collName,
     String docName,
     String key,
@@ -57,15 +57,15 @@ class Real {
       docName: docName,
       key: key,
     );
-    return fireDB.FirebaseDatabase.instance.ref(path);
+    return f_db.FirebaseDatabase.instance.ref(path);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static fireDB.DatabaseReference getRefByPath({
+  static f_db.DatabaseReference getRefByPath({
     @required String path,
   }){
     assert(path != null, 'PATH SHOULD NOT BE NULL');
-    return fireDB.FirebaseDatabase.instance.ref(path);
+    return f_db.FirebaseDatabase.instance.ref(path);
   }
   // --------------------
   /*
@@ -98,7 +98,7 @@ class Real {
         _output = Mapper.insertPairInMap(
             map: _output,
             key: key,
-            value: fireDB.ServerValue.increment(_incrementationValue)
+            value: f_db.ServerValue.increment(_incrementationValue)
         );
 
       }
@@ -126,7 +126,7 @@ class Real {
         functions: () async {
 
           /// GET PATH
-          final fireDB.DatabaseReference _ref = createPathAndGetRef(
+          final f_db.DatabaseReference _ref = createPathAndGetRef(
             collName: collName,
           );
 
@@ -186,7 +186,7 @@ class Real {
         functions: () async {
 
           /// GET PATH
-          final fireDB.DatabaseReference _ref = createPathAndGetRef(
+          final f_db.DatabaseReference _ref = createPathAndGetRef(
             collName: collName,
           );
 
@@ -240,7 +240,7 @@ class Real {
 
     if (map != null){
 
-      fireDB.DatabaseReference _ref = createPathAndGetRef(
+      f_db.DatabaseReference _ref = createPathAndGetRef(
         collName: collName,
         docName: docName,
       );
@@ -290,12 +290,12 @@ class Real {
           final String _path = docName == null ? pathWithoutDocName : '$pathWithoutDocName/$docName';
 
           /// GET PATH
-          fireDB.DatabaseReference _ref = getRefByPath(
+          f_db.DatabaseReference _ref = getRefByPath(
             path: _path,
           );
 
           /// ADD EVENT LISTENER
-          final StreamSubscription _sub = _ref.onChildAdded.listen((fireDB.DatabaseEvent event){
+          final StreamSubscription _sub = _ref.onChildAdded.listen((f_db.DatabaseEvent event){
 
             _docID = event.previousChildKey;
 
@@ -378,14 +378,14 @@ class Real {
     await tryAndCatch(
       functions: () async {
 
-        final fireDB.Query _query = RealQueryModel.createQuery(
+        final f_db.Query _query = RealQueryModel.createQuery(
           queryModel: realQueryModel,
           lastMap: startAfter,
         );
 
         // final fireDB.DataSnapshot _snap = await _query.get();
 
-        final fireDB.DatabaseEvent _event = await _query.once();
+        final f_db.DatabaseEvent _event = await _query.once();
 
 
         _output = Mapper.getMapsFromDataSnapshot(
@@ -412,9 +412,9 @@ class Real {
     await tryAndCatch(
       functions: () async {
 
-        final fireDB.DatabaseReference _ref = getRefByPath(path: path);
+        final f_db.DatabaseReference _ref = getRefByPath(path: path);
 
-        final fireDB.DataSnapshot _snap = await _ref.get();
+        final f_db.DataSnapshot _snap = await _ref.get();
 
         _output = Mapper.getMapFromDataSnapshot(
           snapshot: _snap,
@@ -437,12 +437,12 @@ class Real {
 
     if (TextCheck.isEmpty(path) == false){
 
-      final fireDB.DatabaseReference _ref = getRefByPath(path: path);
+      final f_db.DatabaseReference _ref = getRefByPath(path: path);
 
       await tryAndCatch(
         functions: () async {
 
-          final fireDB.DatabaseEvent event = await _ref.once(fireDB.DatabaseEventType.value);
+          final f_db.DatabaseEvent event = await _ref.once(f_db.DatabaseEventType.value);
 
           _output = event.snapshot.value;
 
@@ -463,7 +463,7 @@ class Real {
 
     Map<String, dynamic> _output;
 
-    final fireDB.DatabaseReference ref = getRef();
+    final f_db.DatabaseReference ref = getRef();
 
     final String _path = _createPath(
       collName: collName,
@@ -473,7 +473,7 @@ class Real {
     await tryAndCatch(
       functions: () async {
 
-        final fireDB.DataSnapshot snapshot = await ref.child(_path).get();
+        final f_db.DataSnapshot snapshot = await ref.child(_path).get();
 
         _output = Mapper.getMapFromDataSnapshot(
           snapshot: snapshot,
@@ -499,7 +499,7 @@ class Real {
     bool addDocID = true,
   }) async {
 
-    final fireDB.DatabaseReference ref = createPathAndGetRef(
+    final f_db.DatabaseReference ref = createPathAndGetRef(
       collName: collName,
       docName: docName,
     );
@@ -509,7 +509,7 @@ class Real {
     await tryAndCatch(
       functions: () async {
 
-        final fireDB.DatabaseEvent event = await ref.once(fireDB.DatabaseEventType.value);
+        final f_db.DatabaseEvent event = await ref.once(f_db.DatabaseEventType.value);
 
         _map = Mapper.getMapFromDataSnapshot(
           snapshot: event.snapshot,
@@ -610,7 +610,7 @@ class Real {
 
     if (collName != null && docName != null && fieldName != null){
 
-      final fireDB.DatabaseReference _ref = createPathAndGetRef(
+      final f_db.DatabaseReference _ref = createPathAndGetRef(
         collName: collName,
         docName: docName,
         key: fieldName,
@@ -671,7 +671,7 @@ class Real {
 
     if (incrementationMap != null){
 
-      final fireDB.DatabaseReference _ref = createPathAndGetRef(
+      final f_db.DatabaseReference _ref = createPathAndGetRef(
         collName: collName,
         docName: docName,
       );
@@ -697,7 +697,7 @@ class Real {
     @required String docName,
   }) async {
 
-    final fireDB.DatabaseReference _ref = createPathAndGetRef(
+    final f_db.DatabaseReference _ref = createPathAndGetRef(
       collName: collName,
       docName: docName,
     );
@@ -735,7 +735,7 @@ class Real {
 
     if (TextCheck.isEmpty(pathWithDocName) == false){
 
-      final fireDB.DatabaseReference _ref = getRefByPath(
+      final f_db.DatabaseReference _ref = getRefByPath(
         path: pathWithDocName,
       );
 
@@ -754,7 +754,7 @@ class Real {
 
   // --------------------
   /// PLAN : TEST ME AND RE-WRITE THE ENTIRE APP
-  static Future<fireDB.TransactionResult> runTransaction ({
+  static Future<f_db.TransactionResult> runTransaction ({
     @required BuildContext context,
     @required String collName,
     @required String docName,
@@ -762,16 +762,16 @@ class Real {
     @required bool applyLocally,
   }) async {
 
-    final fireDB.DatabaseReference _ref = createPathAndGetRef(
+    final f_db.DatabaseReference _ref = createPathAndGetRef(
         collName: collName,
         docName: docName
     );
 
-    final fireDB.TransactionResult _result = await _ref.runTransaction((Object map){
+    final f_db.TransactionResult _result = await _ref.runTransaction((Object map){
 
       // Ensure a map at the ref exists.
       if (map == null) {
-        return fireDB.Transaction.abort();
+        return f_db.Transaction.abort();
       }
 
       else {
@@ -780,7 +780,7 @@ class Real {
 
         doStuff(_map);
 
-        return fireDB.Transaction.success(_map);
+        return f_db.Transaction.success(_map);
       }
 
     },
@@ -827,7 +827,7 @@ class Real {
       // mapName
       // final String _mapName = TextMod.removeTextBeforeLastSpecialCharacter(oldCollName, '/');
 
-      final fireDB.DatabaseReference _ref = getRefByPath(
+      final f_db.DatabaseReference _ref = getRefByPath(
         path: newCollName,
       );
 
@@ -853,7 +853,7 @@ class Real {
 
     if (_object != null){
 
-      final fireDB.DatabaseReference _ref = getRefByPath(
+      final f_db.DatabaseReference _ref = getRefByPath(
         path: newPath,
       );
 
@@ -880,7 +880,7 @@ class Real {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogDatabaseEvent({
-    @required fireDB.DatabaseEvent event,
+    @required f_db.DatabaseEvent event,
     String invoker = 'blogDatabaseEvent',
   }){
     blog('blogDatabaseEvent : $invoker ----------------------- START');
@@ -910,7 +910,7 @@ class Real {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogDataSnapshot ({
-    @required fireDB.DataSnapshot snapshot,
+    @required f_db.DataSnapshot snapshot,
     String invoker = 'blogDataSnapshot',
   }){
     blog('blogDataSnapshot : $invoker ----------------------- START');

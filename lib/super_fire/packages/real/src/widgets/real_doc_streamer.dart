@@ -20,8 +20,8 @@ class RealDocStreamer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return StreamBuilder<fireDB.DatabaseEvent>(
-        stream: fireDB.FirebaseDatabase.instance.ref('$collName/$docName').onValue,
+    return StreamBuilder<f_db.DatabaseEvent>(
+        stream: f_db.FirebaseDatabase.instance.ref('$collName/$docName').onValue,
         builder: (_, snapshot){
 
           /// LOADING
@@ -37,8 +37,8 @@ class RealDocStreamer extends StatelessWidget {
           /// RECEIVED DATA
           else {
 
-            final fireDB.DatabaseEvent _event = snapshot.data;
-            final fireDB.DataSnapshot _snap = _event.snapshot;
+            final f_db.DatabaseEvent _event = snapshot.data;
+            final f_db.DataSnapshot _snap = _event.snapshot;
             final Map<String, dynamic> _map = Mapper.getMapFromDataSnapshot(
               snapshot: _snap,
             );
