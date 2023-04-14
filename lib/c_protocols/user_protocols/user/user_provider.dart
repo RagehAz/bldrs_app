@@ -1,3 +1,4 @@
+import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 // import 'package:contacts_service/contacts_service.dart';
@@ -340,5 +341,5 @@ class UsersProvider extends ChangeNotifier {
 }
 
 bool isRage7(){
-    return Authing.getUserID() == 'z0Obwze3JLYjoEl6uVeXfo4Luup1';
+    return Authing.getUserID() == BldrsKeys.rage7ID;
 }

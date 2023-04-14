@@ -81,10 +81,10 @@ class FacebookAuthing {
 
         if (_loginResult?.accessToken != null) {
 
-          final FacebookAuthCredential _facebookAuthCredential =
-          FacebookAuthProvider.credential(_loginResult.accessToken.token);
+          final f_a.FacebookAuthCredential _facebookAuthCredential =
+          f_a.FacebookAuthProvider.credential(_loginResult.accessToken.token);
 
-          final UserCredential _userCredential =
+          final f_a.UserCredential _userCredential =
           await Authing.getFirebaseAuth().signInWithCredential(_facebookAuthCredential);
 
           _output = AuthModel.getAuthModelFromUserCredential(
@@ -106,7 +106,7 @@ class FacebookAuthing {
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> _createFacebookAuthDataMap({
     @required LoginResult loginResult,
-    @required FacebookAuthCredential facebookAuthCredential,
+    @required f_a.FacebookAuthCredential facebookAuthCredential,
   }) {
     final Map<String, dynamic> _map = {
       'loginResult.status.name': loginResult?.status?.name,
@@ -140,7 +140,7 @@ class FacebookAuthing {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getUserFacebookImageURLFromUserCredential(UserCredential cred){
+  static String getUserFacebookImageURLFromUserCredential(f_a.UserCredential cred){
     String _output;
 
     if (cred != null){

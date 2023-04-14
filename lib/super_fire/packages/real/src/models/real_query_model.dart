@@ -62,12 +62,12 @@ class RealQueryModel{
 
   // --------------------
   /// TASK : TEST
-  static fireDB.Query createQuery({
+  static f_db.Query createQuery({
     @required RealQueryModel queryModel,
     Map<String, dynamic> lastMap,
     Map<String, dynamic> endAt,
   }){
-    fireDB.Query _query;
+    f_db.Query _query;
 
     // blog('55555oooo');
 
