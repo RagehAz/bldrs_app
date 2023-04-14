@@ -90,6 +90,7 @@ class StorageByteOps {
         invoker: 'readBytesByPath',
         functions: () async {
           final Reference _ref = StorageRef.getRefByPath(path);
+          blog('got ref : $_ref');
           /// 10'485'760 default max size
           _output = await _ref.getData();
         },
