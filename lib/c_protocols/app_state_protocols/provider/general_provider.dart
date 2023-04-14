@@ -153,7 +153,7 @@ class GeneralProvider extends ChangeNotifier {
   /// CONNECTIVITY
 
   // --------------------
-  bool _isConnected = false;
+  bool _isConnected = true;
   // --------------------
   bool get isConnected => _isConnected;
   // --------------------
