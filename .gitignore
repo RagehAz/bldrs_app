@@ -59,6 +59,7 @@ lib/firebase_options.dart
 ios/Runner/Info.plist
 ios/Runner/GoogleService-Info.plist
 android/app/src/main/res/values/strings.xml
+firestore.rules
 
 # to remove committed file from current commits
 # run git reset <path>

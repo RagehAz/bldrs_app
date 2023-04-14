@@ -175,7 +175,7 @@ Future<void> _rememberEmailAndNav({
       listen: false,
     );
 
-    await _rememberOrForgetAccount(
+    await rememberOrForgetAccount(
       rememberMe: rememberMe,
       account: AccountModel(
         id: _userModel?.id,
@@ -393,7 +393,7 @@ bool _prepareForEmailAuthOps({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _rememberOrForgetAccount({
+Future<void> rememberOrForgetAccount({
   @required AccountModel account,
   @required bool rememberMe,
 }) async {
