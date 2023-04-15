@@ -19,10 +19,10 @@ class NativeAuth{
   fd.FirebaseAuth get auth => _auth;
   // --------------------
   /// TESTED : WORKS PERFECT
-  fd.FirebaseAuth _initialize({
+  Future<fd.FirebaseAuth> _initialize({
     @required String apiKey,
     // @required String projectID,
-  }){
+  }) async {
 
     final fd.FirebaseAuth firebaseAuth = fd.FirebaseAuth(
         apiKey,
@@ -37,12 +37,14 @@ class NativeAuth{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static fd.FirebaseAuth initializeNativeAuth({
+  static Future<fd.FirebaseAuth> initializeNativeAuth({
     @required String apiKey,
-  }){
-    return NativeAuth.instance._initialize(
+  }) async {
+    final fd.FirebaseAuth auth = await NativeAuth.instance._initialize(
       apiKey: apiKey,
     );
+
+    return auth;
   }
   // --------------------
   /// TESTED : WORKS PERFECT

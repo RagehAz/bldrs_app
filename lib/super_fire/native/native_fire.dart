@@ -53,10 +53,10 @@ class NativeFire {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static fd.Firestore initializeNativeFireWithAuth({
+  static Future<fd.Firestore> initializeNativeFireWithAuth({
     @required fd.FirebaseAuth firebaseAuth,
     @required String projectID,
-  }){
+  }) async {
     return NativeFire.instance._initialize(
       firebaseAuth: firebaseAuth,
       projectID: projectID,

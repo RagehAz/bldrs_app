@@ -75,13 +75,11 @@ class UsersProvider extends ChangeNotifier {
     @required UserModel userModel,
     @required bool notify,
   }) {
-    if (UserModel.checkItIsMe(userModel?.id) == true) {
       _myUserModel = userModel;
 
       if (notify == true) {
         notifyListeners();
       }
-    }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
