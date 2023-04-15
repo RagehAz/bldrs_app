@@ -55,11 +55,11 @@ export 'package:cloud_firestore/cloud_firestore.dart';
 /// STORAGE IMPORTS
 
 // --------------------
-import 'packages/storage/src/foundation/storage_byte_ops.dart';
-import 'packages/storage/src/foundation/storage_delete_ops.dart';
-import 'packages/storage/src/foundation/storage_file_ops.dart';
-import 'packages/storage/src/foundation/storage_meta_ops.dart';
-import 'packages/storage/src/foundation/storage_ref.dart';
+import 'official/storage/src/foundation/storage_byte_ops.dart';
+import 'official/storage/src/foundation/storage_delete_ops.dart';
+import 'official/storage/src/foundation/storage_file_ops.dart';
+import 'official/storage/src/foundation/storage_meta_ops.dart';
+import 'official/storage/src/foundation/storage_ref.dart';
 // ignore: unnecessary_import
 import 'dart:typed_data';
 import 'dart:ui' as ui;
@@ -90,76 +90,76 @@ import 'package:http/http.dart' as http;
 
 // --------------------
 /// METHODS
-part 'packages/authing/methods/a_authing.dart';
-part 'packages/authing/methods/b_email_authing.dart';
-part 'packages/authing/methods/c_google_authing.dart';
-part 'packages/authing/methods/d_facebook_authing.dart';
-part 'packages/authing/methods/e_apple_authing.dart';
+part 'official/authing/methods/a_authing.dart';
+part 'official/authing/methods/b_email_authing.dart';
+part 'official/authing/methods/c_google_authing.dart';
+part 'official/authing/methods/d_facebook_authing.dart';
+part 'official/authing/methods/e_apple_authing.dart';
 // --------------------
 /// HELPERS
-part 'packages/authing/helpers/auth_error.dart';
-part 'packages/authing/helpers/auth_blog.dart';
+part 'official/authing/helpers/auth_error.dart';
+part 'official/authing/helpers/auth_blog.dart';
 // --------------------
 /// MODELS
-part 'packages/authing/models/sign_in_method.dart';
-part 'packages/authing/models/auth_model.dart';
-part 'packages/authing/models/social_keys.dart';
+part 'official/authing/models/sign_in_method.dart';
+part 'official/authing/models/auth_model.dart';
+part 'official/authing/models/social_keys.dart';
 // --------------------
 /// WIDGETS
-part 'packages/authing/buttons/auth_button_box.dart';
-part 'packages/authing/buttons/social_auth_button.dart';
+part 'official/authing/buttons/auth_button_box.dart';
+part 'official/authing/buttons/social_auth_button.dart';
 // -----------------------------------------------------------------------------
 
 /// FIRE PARTS
 
 // --------------------
 /// FIRE
-part 'packages/fire/src/foundation/methods.dart';
+part 'official/fire/src/foundation/methods.dart';
 // --------------------------------------------
 /// FIRE FINDER MODEL
-part 'packages/fire/src/models/fire_finder.dart';
+part 'official/fire/src/models/fire_finder.dart';
 /// FIRE QUERY MODEL
-part 'packages/fire/src/models/fire_query_model.dart';
+part 'official/fire/src/models/fire_query_model.dart';
 /// FIRE COMPARISON
-part 'packages/fire/src/models/fire_comparison_enum.dart';
+part 'official/fire/src/models/fire_comparison_enum.dart';
 /// QUERY ORDER BY
-part 'packages/fire/src/models/query_order_by.dart';
+part 'official/fire/src/models/query_order_by.dart';
 /// SCROLL LISTENERS
-part 'packages/fire/src/helpers/scroll_listeners.dart';
+part 'official/fire/src/helpers/scroll_listeners.dart';
 // --------------------------------------------
 /// FIRE COLL PAGINATOR
-part 'packages/fire/src/paginator/fire_coll_paginator.dart';
-part 'packages/fire/src/paginator/pagination_controller.dart';
+part 'official/fire/src/paginator/fire_coll_paginator.dart';
+part 'official/fire/src/paginator/pagination_controller.dart';
 // --------------------------------------------
 /// FIRE COLL STREAMER
-part 'packages/fire/src/streamer/fire_coll_streamer.dart';
-part 'packages/fire/src/streamer/fire_doc_streamer.dart';
+part 'official/fire/src/streamer/fire_coll_streamer.dart';
+part 'official/fire/src/streamer/fire_doc_streamer.dart';
 // -----------------------------------------------------------------------------
 
 /// STORAGE PARTS
 
 // --------------------
-part 'packages/storage/src/methods.dart';
-part 'packages/storage/src/pic_meta_model.dart';
+part 'official/storage/src/methods.dart';
+part 'official/storage/src/pic_meta_model.dart';
 // -----------------------------------------------------------------------------
 
 /// REAL PARTS
 
 // --------------------
-part 'packages/real/src/methods/real_http.dart';
-part 'packages/real/src/methods/real_methods.dart';
-part 'packages/real/src/models/real_query_model.dart';
-part 'packages/real/src/widgets/real_coll_paginator.dart';
-part 'packages/real/src/widgets/real_coll_streamer.dart';
-part 'packages/real/src/widgets/real_doc_streamer.dart';
+part 'official/real/src/methods/real_http.dart';
+part 'official/real/src/methods/real_methods.dart';
+part 'official/real/src/models/real_query_model.dart';
+part 'official/real/src/widgets/real_coll_paginator.dart';
+part 'official/real/src/widgets/real_coll_streamer.dart';
+part 'official/real/src/widgets/real_doc_streamer.dart';
 // -----------------------------------------------------------------------------
 
 /// NATIVE PARTS
 
 // --------------------
-part 'packages/native/native_fire.dart';
-part 'packages/native/native_storage.dart';
-part 'packages/native/native_real.dart';
-part 'packages/native/native_auth.dart';
-part 'packages/native/native_initializer.dart';
+part 'native/native_fire.dart';
+part 'native/native_storage.dart';
+part 'native/native_real.dart';
+part 'native/native_auth.dart';
+part 'native/native_initializer.dart';
 // -----------------------------------------------------------------------------
