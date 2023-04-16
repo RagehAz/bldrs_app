@@ -8,10 +8,10 @@ import 'package:bldrs/super_fire/super_fire.dart';
 /// TESTED : WORKS PERFECT
 FireQueryModel allBzzPaginationQuery(){
 
-  return FireQueryModel(
-    collRef: OfficialFire.getCollectionRef(FireColl.bzz),
+  return const FireQueryModel(
+    coll: FireColl.bzz,
     limit: 10,
-    orderBy: const QueryOrderBy(fieldName: 'createdAt', descending: true),
+    orderBy: QueryOrderBy(fieldName: 'createdAt', descending: true),
   );
 
 }

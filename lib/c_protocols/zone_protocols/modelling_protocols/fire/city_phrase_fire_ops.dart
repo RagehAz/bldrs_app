@@ -33,8 +33,8 @@ class CityPhraseFireOps {
           _phrase.blogPhrase(invoker: 'ahooo');
 
           return OfficialFire.createNamedDoc(
-            collName: FireColl.phrases_cities,
-            docName: '${cityModel.cityID}+${_phrase.langCode}',
+            coll: FireColl.phrases_cities,
+            doc: '${cityModel.cityID}+${_phrase.langCode}',
             input: {
               'countryID': _countryID,
               'id': cityModel.cityID,

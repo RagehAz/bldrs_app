@@ -1,8 +1,7 @@
-import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/k_statistics/record_model.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
-import 'package:mapper/mapper.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 
 class RecordRealOps {
@@ -95,44 +94,50 @@ class RecordRealOps {
     DocumentSnapshot<Object> startAfter,
   }) async {
 
-    final CollectionReference<Object> _collRef = OfficialFire.getCollectionRef(FireColl.records);
-    QuerySnapshot<Object> _collectionSnapshot;
+    // final CollectionReference<Object> _collRef = OfficialFire.getCollRef(
+    //   coll: FireColl.records,
+    // );
+    // QuerySnapshot<Object> _collectionSnapshot;
+    //
+    // if (startAfter == null){
+    //
+    //   final Query _initialQuery = _collRef
+    //       .where('userID', isEqualTo: userID)
+    //       .where('activityType', isEqualTo: RecordModel.cipherRecordType(activityType))
+    //       .orderBy('timeStamp', descending: true)
+    //       .limit(limit);
+    //
+    //   _collectionSnapshot = await _initialQuery.get();
+    // }
+    //
+    // else {
+    //
+    //   final Query _continueQuery = _collRef
+    //       .where('userID', isEqualTo: userID)
+    //       .where('activityType', isEqualTo: RecordModel.cipherRecordType(activityType))
+    //       .orderBy('timeStamp', descending: true)
+    //       .startAfterDocument(startAfter)
+    //       .limit(limit);
+    //
+    //   _collectionSnapshot = await _continueQuery.get();
+    // }
+    //
+    // final List<Map<String, dynamic>> _foundMaps = Mapper.getMapsFromQuerySnapshot(
+    //   querySnapshot: _collectionSnapshot,
+    //   addDocsIDs: true,
+    //   addDocSnapshotToEachMap: true,
+    // );
+    //
+    // final List<RecordModel> _records = RecordModel.decipherRecords(
+    //   fromJSON: false,
+    //   maps: _foundMaps,
+    // );
+    //
+    // return _records;
 
-    if (startAfter == null){
+    blog('paginateRecords() : NOT IMPLEMENTED YET');
 
-      final Query _initialQuery = _collRef
-          .where('userID', isEqualTo: userID)
-          .where('activityType', isEqualTo: RecordModel.cipherRecordType(activityType))
-          .orderBy('timeStamp', descending: true)
-          .limit(limit);
-
-      _collectionSnapshot = await _initialQuery.get();
-    }
-
-    else {
-
-      final Query _continueQuery = _collRef
-          .where('userID', isEqualTo: userID)
-          .where('activityType', isEqualTo: RecordModel.cipherRecordType(activityType))
-          .orderBy('timeStamp', descending: true)
-          .startAfterDocument(startAfter)
-          .limit(limit);
-
-      _collectionSnapshot = await _continueQuery.get();
-    }
-
-    final List<Map<String, dynamic>> _foundMaps = Mapper.getMapsFromQuerySnapshot(
-      querySnapshot: _collectionSnapshot,
-      addDocsIDs: true,
-      addDocSnapshotToEachMap: true,
-    );
-
-    final List<RecordModel> _records = RecordModel.decipherRecords(
-      fromJSON: false,
-      maps: _foundMaps,
-    );
-
-    return _records;
+    return [];
   }
   // -----------------------------------------------------------------------------
 

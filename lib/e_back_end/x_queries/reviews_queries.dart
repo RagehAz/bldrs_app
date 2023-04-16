@@ -14,11 +14,9 @@ FireQueryModel reviewsPaginationQuery({
 }){
 
   return FireQueryModel(
-    collRef: OfficialFire.getSuperCollRef(
-      aCollName: FireColl.flyers,
-      bDocName: flyerID,
-      cSubCollName: FireSubColl.flyers_flyer_reviews,
-    ),
+    coll: FireColl.flyers,
+    doc: flyerID,
+    subColl: FireSubColl.flyers_flyer_reviews,
     limit: 5,
     orderBy: const QueryOrderBy(
       fieldName: 'time',
@@ -59,11 +57,9 @@ FireQueryModel reviewsStreamQuery({
     // }
     // else {
     return FireQueryModel(
-      collRef: OfficialFire.getSuperCollRef(
-        aCollName: FireColl.flyers,
-        bDocName: flyerID,
-        cSubCollName: FireSubColl.flyers_flyer_reviews,
-      ),
+      coll: FireColl.flyers,
+      doc: flyerID,
+      subColl: FireSubColl.flyers_flyer_reviews,
       limit: 10,
       orderBy: const QueryOrderBy(
         fieldName: 'time',

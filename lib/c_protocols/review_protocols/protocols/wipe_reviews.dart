@@ -33,10 +33,10 @@ class WipeReviewProtocols {
 
         /// DELETE REVIEW SUB DOC
         OfficialFire.deleteSubDoc(
-          collName: FireColl.flyers,
-          docName: reviewModel.flyerID,
-          subCollName: FireSubColl.flyers_flyer_reviews,
-          subDocName: reviewModel.id,
+          coll: FireColl.flyers,
+          doc: reviewModel.flyerID,
+          subColl: FireSubColl.flyers_flyer_reviews,
+          subDoc: reviewModel.id,
         ),
 
         /// DELETE REVIEW AGREES
@@ -83,9 +83,9 @@ class WipeReviewProtocols {
     /// 1. DELETE SUB COLL
     await OfficialFire.deleteSubCollection(
         context: context,
-        collName: FireColl.flyers,
-        docName: flyerID,
-        subCollName: FireSubColl.flyers_flyer_reviews,
+        coll: FireColl.flyers,
+        doc: flyerID,
+        subColl: FireSubColl.flyers_flyer_reviews,
         numberOfIterations: 1000,
         numberOfReadsPerIteration: 5,
         onDeleteSubDoc: (String reviewID) async {

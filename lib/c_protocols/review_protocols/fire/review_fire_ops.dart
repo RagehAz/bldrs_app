@@ -55,10 +55,10 @@ class ReviewFireOps {
     if (reviewID != null){
 
       final Map<String, dynamic> _map = await OfficialFire.readSubDoc(
-          collName: FireColl.flyers,
-          docName: flyerID,
-          subCollName: FireSubColl.flyers_flyer_reviews,
-          subDocName: reviewID,
+          coll: FireColl.flyers,
+          doc: flyerID,
+          subColl: FireSubColl.flyers_flyer_reviews,
+          subDoc: reviewID,
       );
 
       _output = ReviewModel.decipherReview(
@@ -108,10 +108,10 @@ class ReviewFireOps {
   }) async {
 
     await OfficialFire.updateSubDoc(
-      collName: FireColl.flyers,
-      docName: reviewModel.flyerID,
-      subCollName: FireSubColl.flyers_flyer_reviews,
-      subDocName: reviewModel.id,
+      coll: FireColl.flyers,
+      doc: reviewModel.flyerID,
+      subColl: FireSubColl.flyers_flyer_reviews,
+      subDoc: reviewModel.id,
       input: reviewModel.toMap(),
     );
 

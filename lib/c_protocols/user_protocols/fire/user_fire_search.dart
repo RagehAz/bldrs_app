@@ -1,7 +1,6 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 
@@ -15,6 +14,7 @@ class UserFireSearch{
   /// USERS
 
   // --------------------
+  /// TASK : TEST ME
   static Future<List<UserModel>> usersByUserName({
     @required String name,
     @required List<String> userIDsToExclude,
@@ -23,7 +23,7 @@ class UserFireSearch{
   }) async {
 
     final List<Map<String, dynamic>> _result = await OfficialFire.readCollectionDocs(
-      collName: FireColl.users,
+      coll: FireColl.users,
       addDocSnapshotToEachMap: true,
       limit: limit,
       startAfter: startAfter,
@@ -54,37 +54,45 @@ class UserFireSearch{
     return _usersModels;
   }
   // --------------------
+  /// TASK : TEST ME
   static Future<List<UserModel>> usersByNameAndIsAuthor({
     @required String name,
     int limit = 3,
-    bool addDocsIDs = false,
-    bool addDocSnapshotToEachMap = false,
+    QueryDocumentSnapshot<Object> startAfter,
   }) async {
+
+    final List<Map<String, dynamic>> _result = await OfficialFire.readCollectionDocs(
+      coll: FireColl.users,
+      addDocSnapshotToEachMap: true,
+      addDocsIDs: true,
+      limit: limit,
+      startAfter: startAfter,
+      // orderBy: const QueryOrderBy(fieldName: 'trigram', descending: false),
+      finders: <FireFinder>[
+
+        const FireFinder(
+          field: 'myBzzIDs',
+          comparison: FireComparison.notEqualTo,
+          value: <String>[],
+        ),
+
+      if (name != null)
+        FireFinder(
+          field: 'trigram',
+          comparison: FireComparison.arrayContains,
+          value: name.trim(),
+        ),
+      ],
+    );
+
     List<UserModel> _usersModels = <UserModel>[];
 
-    await tryAndCatch(
-        invoker: 'usersByNameAndIsAuthor',
-        functions: () async {
-          final CollectionReference<Object> _usersCollection =
-          OfficialFire.getCollectionRef(FireColl.users);
-
-          final QuerySnapshot<Object> _collectionSnapshot = await _usersCollection
-              .where('myBzzIDs', isNotEqualTo: <String>[])
-              .where('trigram', arrayContains: name.trim().toLowerCase())
-              .limit(limit)
-              .get();
-
-          final List<dynamic> _maps = Mapper.getMapsFromQuerySnapshot(
-            querySnapshot: _collectionSnapshot,
-            addDocsIDs: addDocsIDs,
-            addDocSnapshotToEachMap: addDocSnapshotToEachMap,
-          );
-
-          if (Mapper.checkCanLoopList(_maps)) {
-            _usersModels =
-                UserModel.decipherUsers(maps: _maps, fromJSON: false);
-          }
-        });
+    if (Mapper.checkCanLoopList(_result)) {
+      _usersModels = UserModel.decipherUsers(
+        maps: _result,
+        fromJSON: false,
+      );
+    }
 
     return _usersModels;
   }

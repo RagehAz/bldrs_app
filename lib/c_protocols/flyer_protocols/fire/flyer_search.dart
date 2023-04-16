@@ -1,181 +1,109 @@
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_promotion.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:stringer/stringer.dart';
 
-// -----------------------------------------------------------------------------
+class FlyerSearch {
+  // -----------------------------------------------------------------------------
 
-/// FLYERS
+  const FlyerSearch();
 
-// --------------------
-///
-Future<List<FlyerModel>> flyersByZoneAndFlyerType({
-  @required ZoneModel zone,
-  @required FlyerType flyerType,
-  bool addDocsIDs = false,
-  bool addDocSnapshotToEachMap = false,
-}) async {
+  // -----------------------------------------------------------------------------
+  /// TASK : TEST ME
+  static Future<List<FlyerModel>> superSearch({
+    @required String countryID,
+    String cityID,
+    FlyerType flyerType,
+    String keywordID,
+    String title,
+    QueryDocumentSnapshot<Object> startAfter,
+    int limit = 6,
+  }) async {
+    final List<Map<String, dynamic>> _maps = await OfficialFire.readCollectionDocs(
+      coll: FireColl.flyers,
+      // orderBy: 'score',
+      addDocSnapshotToEachMap: true,
+      limit: limit,
+      startAfter: startAfter,
+      addDocsIDs: true,
+      // orderBy: ,
+      finders: <FireFinder>[
+        if (countryID != null)
+          FireFinder(
+            field: 'zone.countryID',
+            comparison: FireComparison.equalTo,
+            value: countryID,
+          ),
+        if (cityID != null)
+          FireFinder(
+            field: 'zone.cityID',
+            comparison: FireComparison.equalTo,
+            value: cityID,
+          ),
+        if (flyerType != null)
+          FireFinder(
+            field: 'flyerType',
+            comparison: FireComparison.equalTo,
+            value: FlyerTyper.cipherFlyerType(flyerType),
+          ),
+        if (keywordID != null)
+          FireFinder(
+            field: 'keywordsIDs',
+            comparison: FireComparison.arrayContains,
+            value: keywordID,
+          ),
+        if (title != null)
+          FireFinder(
+              field: 'trigram',
+              comparison: FireComparison.arrayContains,
+              value: TextMod.removeAllCharactersAfterNumberOfCharacters(
+                input: title.trim(),
+                numberOfChars: Standards.maxTrigramLength,
+              )),
+      ],
+    );
 
-  /// NOTE : SEARCH FLYERS BY AREA AND FLYER TYPE
-
-  List<FlyerModel> _flyers = <FlyerModel>[];
-
-  await tryAndCatch(
-      invoker: 'mapsByTwoValuesEqualTo',
-      functions: () async {
-        final CollectionReference<Object> _flyersCollection =
-        OfficialFire.getCollectionRef(FireColl.flyers);
-
-        final String _flyerType = FlyerTyper.cipherFlyerType(flyerType);
-        final ZoneModel _zone = zone;
-
-        blog('searching flyers of type : $_flyerType : in $_zone');
-
-        final QuerySnapshot<Object> _collectionSnapshot =
-        await _flyersCollection
-            .where('flyerType', isEqualTo: _flyerType)
-            .where('flyerZone.cityID', isEqualTo: _zone.cityID)
-            .get();
-
-        final List<dynamic> _maps = Mapper.getMapsFromQuerySnapshot(
-          querySnapshot: _collectionSnapshot,
-          addDocsIDs: addDocsIDs,
-          addDocSnapshotToEachMap: addDocSnapshotToEachMap,
-        );
-
-        _flyers = FlyerModel.decipherFlyers(maps: _maps, fromJSON: false);
-      });
-
-  return _flyers;
-}
-// --------------------
-///
-Future<List<FlyerModel>> flyersByZoneAndKeywordID({
-  @required ZoneModel zone,
-  @required String keywordID,
-  bool addDocsIDs = false,
-  bool addDocSnapshotToEachMap = false,
-  int limit = 3,
-}) async {
-  List<FlyerModel> _flyers = <FlyerModel>[];
-
-  await tryAndCatch(
-      invoker: 'flyersByZoneAndKeyword',
-      functions: () async {
-        final CollectionReference<Object> _flyersCollection =
-        OfficialFire.getCollectionRef(FireColl.flyers);
-
-        final ZoneModel _zone = zone;
-
-        blog(
-            'searching flyers of keyword : $keywordID : in ${_zone.countryID} - ${_zone.cityID}');
-
-        final QuerySnapshot<Object> _collectionSnapshot =
-        await _flyersCollection
-            .where('zone.countryID', isEqualTo: _zone.countryID)
-            .where('zone.cityID', isEqualTo: _zone.cityID)
-            .where('keywordsIDs', arrayContains: keywordID)
-            .limit(limit)
-            .get();
-
-        final List<dynamic> _maps = Mapper.getMapsFromQuerySnapshot(
-          querySnapshot: _collectionSnapshot,
-          addDocsIDs: addDocsIDs,
-          addDocSnapshotToEachMap: addDocSnapshotToEachMap,
-        );
-
-        _flyers = FlyerModel.decipherFlyers(maps: _maps, fromJSON: false);
-      });
-
-  return _flyers;
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<List<FlyerModel>> flyersByZoneAndTitle({
-  @required String title,
-  @required QueryDocumentSnapshot<Object> startAfter,
-  ZoneModel zone,
-  bool addDocsIDs = false,
-  int limit = 6,
-}) async {
-
-  final List<Map<String, dynamic>> _maps = await OfficialFire.readCollectionDocs(
-    collName: FireColl.flyers,
-    // orderBy: 'score',
-    addDocSnapshotToEachMap: true,
-    limit: limit,
-    startAfter: startAfter,
-    finders: <FireFinder>[
-
-      FireFinder(
-          field: 'trigram',
-          comparison: FireComparison.arrayContains,
-          value: TextMod.removeAllCharactersAfterNumberOfCharacters(
-            input: title.trim(),
-            numberOfChars: Standards.maxTrigramLength,
-          )
-      ),
-
-      if (zone?.countryID != null)
-      FireFinder(
-        field: 'zone.countryID',
-        comparison: FireComparison.equalTo,
-        value: zone.countryID,
-      ),
-
-      if (zone?.countryID != null && zone?.cityID != null)
-      FireFinder(
-        field: 'zone.cityID',
-        comparison: FireComparison.equalTo,
-        value: zone.cityID,
-      ),
-    ],
-  );
-
-  List<FlyerModel> _result = <FlyerModel>[];
-
-  if (Mapper.checkCanLoopList(_maps)) {
-    _result = FlyerModel.decipherFlyers(maps: _maps, fromJSON: false);
+    if (Mapper.checkCanLoopList(_maps) == true) {
+      return FlyerModel.decipherFlyers(maps: _maps, fromJSON: false);
+    } else {
+      return [];
+    }
   }
+  // -----------------------------------------------------------------------------
 
-  return _result;
+  /// FLYER PROMOTION
+
+  // --------------------
+  /// TASK : TEST ME
+  static Future<List<FlyerPromotion>> flyerPromotionsByCity({
+    @required String cityID,
+    // @required List<String> districts,
+    // @required DateTime timeLimit,
+  }) async {
+
+    final List<Map<String, dynamic>> _maps = await OfficialFire.readCollectionDocs(
+      coll: FireColl.flyersPromotions,
+      limit: 10,
+      finders: <FireFinder>[
+        FireFinder(
+          field: 'cityID',
+          comparison: FireComparison.equalTo,
+          value: cityID,
+        ),
+      ],
+    );
+
+    final List<FlyerPromotion> _flyerPromotions = FlyerPromotion.decipherFlyersPromotions(
+      maps: _maps,
+      fromJSON: false,
+    );
+
+    return _flyerPromotions;
+  }
+  // -----------------------------------------------------------------------------
 }
-// -----------------------------------------------------------------------------
-
-/// FLYER PROMOTION
-
-// --------------------
-///
-Future<List<FlyerPromotion>> flyerPromotionsByCity({
-  @required String cityID,
-  // @required List<String> districts,
-  // @required DateTime timeLimit,
-}) async {
-
-  final List<Map<String, dynamic>> _maps = await OfficialFire.readCollectionDocs(
-    collName: FireColl.flyersPromotions,
-    limit: 10,
-    finders: <FireFinder>[
-      FireFinder(
-        field: 'cityID',
-        comparison: FireComparison.equalTo,
-        value: cityID,
-      ),
-    ],
-  );
-
-  final List<FlyerPromotion> _flyerPromotions = FlyerPromotion.decipherFlyersPromotions(
-    maps: _maps,
-    fromJSON: false,
-  );
-
-  return _flyerPromotions;
-}
-// -----------------------------------------------------------------------------

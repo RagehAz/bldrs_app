@@ -591,9 +591,9 @@ class NoteProtocols {
       for (int i = 0; i <= 1000; i++){
         final List<Map<String, dynamic>> _maps = await OfficialFire.readSubCollectionDocs(
           limit: 10,
-          collName: FireColl.getPartyCollName(partyType),
-          docName: id,
-          subCollName: FireSubColl.noteReceiver_receiver_notes,
+          coll: FireColl.getPartyCollName(partyType),
+          doc: id,
+          subColl: FireSubColl.noteReceiver_receiver_notes,
           addDocsIDs: true,
           addDocSnapshotToEachMap: true,
           startAfter: _notesToDelete.isEmpty == true ? null : _notesToDelete?.last?.docSnapshot,

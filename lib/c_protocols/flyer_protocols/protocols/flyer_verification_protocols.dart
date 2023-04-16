@@ -41,8 +41,8 @@ class FlyerVerificationProtocols {
 
         /// UPDATE FIELD
         OfficialFire.updateDocField(
-          collName: FireColl.flyers,
-          docName: flyerModel.id,
+          coll: FireColl.flyers,
+          doc: flyerModel.id,
           field: 'auditState',
           input: FlyerModel.cipherAuditState(AuditState.verified),
         ),
@@ -150,9 +150,7 @@ class FlyerVerificationProtocols {
 
     final List<FlyerModel> _nonVerifiedFlyers = await FlyerFireOps.readFlyersByQuery(
       queryModel: FireQueryModel(
-        collRef: OfficialFire.getSuperCollRef(
-            aCollName: FireColl.flyers,
-        ),
+        coll: FireColl.flyers,
         limit: 1000,
         finders: <FireFinder>[
 
