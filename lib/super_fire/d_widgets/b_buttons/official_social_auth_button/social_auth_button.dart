@@ -253,8 +253,13 @@ class SocialAuthButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    /// NATIVE
+    if (FirebaseInitializer.isUsingOfficialPackages() == false){
+      return const SizedBox();
+    }
+
     /// ANDROID
-    if (manualAuthing == true){
+    else if (manualAuthing == true){
 
       return _AuthButtonBox(
         size: size,

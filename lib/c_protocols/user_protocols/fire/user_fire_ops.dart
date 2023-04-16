@@ -27,8 +27,8 @@ class UserFireOps {
   }) async {
 
     await OfficialFire.updateDoc(
-      collName: FireColl.users,
-      docName: userModel.id,
+      coll: FireColl.users,
+      doc: userModel.id,
       input: userModel.toMap(toJSON: false),
     );
 
@@ -85,8 +85,8 @@ class UserFireOps {
       );
 
       await OfficialFire.updateDoc(
-        collName: FireColl.users,
-        docName: newUser.id,
+        coll: FireColl.users,
+        doc: newUser.id,
         input: _finalUserModel.toMap(toJSON: false),
       );
 
@@ -165,8 +165,8 @@ class UserFireOps {
   }) async {
 
     await OfficialFire.updateDocField(
-      collName: FireColl.users,
-      docName: userID,
+      coll: FireColl.users,
+      doc: userID,
       field: 'appState',
       input: newAppState.toMap(),
     );

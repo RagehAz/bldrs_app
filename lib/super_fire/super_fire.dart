@@ -91,7 +91,6 @@ part 'a_foundation/a_hybrid/e_storage.dart';
 /// OFFICIAL
 part 'a_foundation/b_official/a_official_firebase_initializer.dart';
 part 'a_foundation/b_official/b_official_authing.dart';
-
 // ------------
 /// NATIVE
 part 'a_foundation/c_native/a_native_firebase_initializer.dart';
@@ -123,7 +122,6 @@ part 'b_models/c_real/real_query_model.dart';
 /// AUTHING
 part 'c_helpers/auth_error.dart';
 part 'c_helpers/auth_blog.dart';
-
 // -----------------------------------------------------------------------------
 
 
@@ -164,4 +162,16 @@ part 'a_foundation/b_official/d_official_real.dart';
 part 'f_paginators/real_coll_paginator.dart';
 part 'e_streamers/real_coll_streamer.dart';
 part 'e_streamers/real_doc_streamer.dart';
+// -----------------------------------------------------------------------------
+
+/// FEATURES
+
+// ------------
+const bool officialGoogleAuth = true;
+const bool officialFacebookAuth = true;
+const bool officialAppleAuth = true;
+// ------------
+const bool nativeGoogleAuth = false;
+const bool nativeFacebookAuth = false;
+const bool nativeAppleAuth = false;
 // -----------------------------------------------------------------------------
