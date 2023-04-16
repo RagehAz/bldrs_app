@@ -204,8 +204,8 @@ class Localizer {
 
     if (OfficialAuthing.getUserID() != null) {
       await OfficialFire.updateDocField(
-        collName: FireColl.users,
-        docName: OfficialAuthing.getUserID(),
+        coll: FireColl.users,
+        doc: OfficialAuthing.getUserID(),
         field: 'language',
         input: code,
       );

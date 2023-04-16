@@ -16,11 +16,9 @@ FireQueryModel bzNotesPaginationQueryModel({
 }){
 
   return FireQueryModel(
-    collRef: OfficialFire.getSuperCollRef(
-      aCollName: FireColl.bzz,
-      bDocName: bzID,
-      cSubCollName: FireSubColl.noteReceiver_receiver_notes,
-    ),
+    coll: FireColl.bzz,
+    doc: bzID,
+    subColl: FireSubColl.noteReceiver_receiver_notes,
     limit: 5,
     orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
   );
@@ -32,24 +30,20 @@ Stream<QuerySnapshot<Object>> bzUnseenNotesStream({
   @required String bzID,
 }){
 
-  final Stream<QuerySnapshot<Object>> _stream  = OfficialFire.streamCollection(
+  final Stream<QuerySnapshot<Object>> _stream = OfficialFire.streamCollection(
     queryModel: FireQueryModel(
-        collRef: OfficialFire.getSuperCollRef(
-          aCollName: FireColl.bzz,
-          bDocName: bzID,
-          cSubCollName: FireSubColl.noteReceiver_receiver_notes,
+      coll: FireColl.bzz,
+      doc: bzID,
+      subColl: FireSubColl.noteReceiver_receiver_notes,
+      limit: 100,
+      orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: false),
+      finders: const <FireFinder>[
+        FireFinder(
+          field: 'seen',
+          comparison: FireComparison.equalTo,
+          value: false,
         ),
-        limit: 100,
-        orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: false),
-        finders: const <FireFinder>[
-
-          FireFinder(
-            field: 'seen',
-            comparison: FireComparison.equalTo,
-            value: false,
-          ),
-
-        ],
+      ],
     ),
   );
 
@@ -64,11 +58,9 @@ Stream<QuerySnapshot<Object>> bzUnseenNotesStream({
 FireQueryModel userNotesPaginationQueryModel(){
 
   return FireQueryModel(
-    collRef: OfficialFire.getSuperCollRef(
-      aCollName: FireColl.users,
-      bDocName: OfficialAuthing.getUserID(),
-      cSubCollName: FireSubColl.noteReceiver_receiver_notes,
-    ),
+    coll: FireColl.users,
+    doc: OfficialAuthing.getUserID(),
+    subColl: FireSubColl.noteReceiver_receiver_notes,
     limit: 6,
     orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
   );
@@ -82,22 +74,18 @@ Stream<QuerySnapshot<Object>> userUnseenNotesStream({
 
   return OfficialFire.streamCollection(
     queryModel: FireQueryModel(
-        collRef: OfficialFire.getSuperCollRef(
-          aCollName: FireColl.users,
-          bDocName: OfficialAuthing.getUserID(),
-          cSubCollName: FireSubColl.noteReceiver_receiver_notes,
+      coll: FireColl.users,
+      doc: OfficialAuthing.getUserID(),
+      subColl: FireSubColl.noteReceiver_receiver_notes,
+      limit: 100,
+      orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: false),
+      finders: const <FireFinder>[
+        FireFinder(
+          field: 'seen',
+          comparison: FireComparison.equalTo,
+          value: false,
         ),
-        limit: 100,
-        orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: false),
-        finders: const <FireFinder>[
-
-          FireFinder(
-            field: 'seen',
-            comparison: FireComparison.equalTo,
-            value: false,
-          ),
-
-        ],
+      ],
     ),
   );
 
@@ -110,46 +98,38 @@ Stream<QuerySnapshot<Object>> userNotesWithPendingReplies({
 
   return OfficialFire.streamCollection(
     queryModel: FireQueryModel(
-        collRef: OfficialFire.getSuperCollRef(
-          aCollName: FireColl.users,
-          bDocName: OfficialAuthing.getUserID(),
-          cSubCollName: FireSubColl.noteReceiver_receiver_notes,
+      coll: FireColl.users,
+      doc: OfficialAuthing.getUserID(),
+      subColl: FireSubColl.noteReceiver_receiver_notes,
+      limit: 100,
+      orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: false),
+      finders: const <FireFinder>[
+        FireFinder(
+          field: 'reply',
+          comparison: FireComparison.equalTo,
+          value: PollModel.pending,
         ),
-        limit: 100,
-        orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: false),
-        finders: const <FireFinder>[
-
-          FireFinder(
-            field: 'reply',
-            comparison: FireComparison.equalTo,
-            value: PollModel.pending,
-          ),
-
-        ],
+      ],
     ),
   );
 
 }
 // --------------------
 ///
-FireQueryModel userNotesWithPendingRepliesQueryModel(){
+FireQueryModel userNotesWithPendingRepliesQueryModel() {
   return FireQueryModel(
-      collRef: OfficialFire.getSuperCollRef(
-        aCollName: FireColl.users,
-        bDocName: OfficialAuthing.getUserID(),
-        cSubCollName: FireSubColl.noteReceiver_receiver_notes,
+    coll: FireColl.users,
+    doc: OfficialAuthing.getUserID(),
+    subColl: FireSubColl.noteReceiver_receiver_notes,
+    limit: 10,
+    orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: false),
+    finders: const <FireFinder>[
+      FireFinder(
+        field: 'topic',
+        comparison: FireComparison.equalTo,
+        value: TopicModel.userAuthorshipsInvitations,
       ),
-      limit: 10,
-      orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: false),
-      finders: const <FireFinder>[
-
-        FireFinder(
-          field: 'topic',
-          comparison: FireComparison.equalTo,
-          value: TopicModel.userAuthorshipsInvitations,
-        ),
-
-      ],
+    ],
   );
 }
 // -----------------------------------------------------------------------------
@@ -163,11 +143,9 @@ FireQueryModel allNotesPaginationQueryModel({
 }){
 
  return FireQueryModel(
-   collRef: OfficialFire.getSuperCollRef(
-       aCollName: FireColl.getPartyCollName(receiverPartyType),
-       bDocName: receiverID,
-       cSubCollName: FireSubColl.noteReceiver_receiver_notes
-   ),
+   coll: FireColl.getPartyCollName(receiverPartyType),
+   doc: receiverID,
+   subColl: FireSubColl.noteReceiver_receiver_notes,
    orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
    limit: 5,
  );

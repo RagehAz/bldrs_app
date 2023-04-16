@@ -17,7 +17,7 @@ Future<List<BzModel>> paginateBzzBySearchingBzName({
 }) async {
 
   final List<Map<String, dynamic>> _result = await OfficialFire.readCollectionDocs(
-    collName: FireColl.bzz,
+    coll: FireColl.bzz,
     addDocSnapshotToEachMap: true,
     startAfter: startAfter,
     limit: limit,

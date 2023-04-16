@@ -141,8 +141,8 @@ class FlyerFireOps {
     blog('_updateFlyerDoc : START');
 
     await OfficialFire.updateDoc(
-      collName: FireColl.flyers,
-      docName: finalFlyer.id,
+      coll: FireColl.flyers,
+      doc: finalFlyer.id,
       input: finalFlyer.toMap(toJSON: false),
     );
 
@@ -279,8 +279,8 @@ class FlyerFireOps {
           functions: () async {
 
             await OfficialFire.createNamedDoc(
-              collName: FireColl.flyersPromotions,
-              docName: flyerPromotion.flyerID,
+              coll: FireColl.flyersPromotions,
+              doc: flyerPromotion.flyerID,
               input: flyerPromotion.toMap(
                 toJSON: true,
               ),);

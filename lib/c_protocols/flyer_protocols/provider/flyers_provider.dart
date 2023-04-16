@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_promotion.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_search.dart' as FlyerSearch;
+import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_search.dart';
 import 'package:mapper/mapper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

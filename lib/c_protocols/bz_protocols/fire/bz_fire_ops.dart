@@ -107,8 +107,8 @@ class BzFireOps {
     if (bzModel != null){
 
       await OfficialFire.updateDoc(
-        collName: FireColl.bzz,
-        docName: bzModel.id,
+        coll: FireColl.bzz,
+        doc: bzModel.id,
         input: bzModel.toMap(toJSON: false),
       );
 

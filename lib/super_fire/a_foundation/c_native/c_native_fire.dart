@@ -10,29 +10,62 @@ class NativeFire {
   /// REFERENCE
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static fd.CollectionReference getCollRef({
-    @required String collName,
+  /// TASK : TEST ME
+  static fd.CollectionReference _getCollRef({
+    @required String coll,
+    String doc,
+    String subColl,
   }) {
-    if (collName == null){
-      return null;
+
+    assert(coll != null, 'coll can not be null');
+    assert(
+    (doc == null && subColl == null) || (doc != null && subColl != null),
+    'doc & subColl should both be null or both have values'
+    );
+
+   if (doc == null || subColl == null){
+      return NativeFirebase.getFire().collection(coll);
+    }
+    else if (doc != null && subColl != null){
+      /// return NativeFirebase.getFire().collection('$coll/$doc/$subColl');
+      return NativeFirebase.getFire().collection(coll)
+          .document(doc)
+          .collection(subColl);
     }
     else {
-      return NativeFirebase.getFire().collection(collName);
+      return null;
     }
+
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static fd.DocumentReference getDocRef({
-    @required String collName,
-    @required String docName,
+  /// TASK : TEST ME
+  static fd.DocumentReference _getDocRef({
+    @required String coll,
+    @required String doc,
+    String subColl,
+    String subDoc,
   }){
 
-    if (collName == null || docName == null){
-      return null;
+    assert(coll != null, 'coll can not be null');
+    assert(doc != null, 'doc can not be null');
+
+    assert((subColl == null && subDoc == null) || (subColl != null && subDoc != null),
+    'doc & subColl should both be null or both have values'
+    );
+
+    if (subColl == null || subDoc == null){
+      /// return NativeFirebase.getFire().document('$coll/$doc');
+      return _getCollRef(coll: coll).document(doc);
+    }
+    else if (subColl != null && subDoc != null){
+      /// return NativeFirebase.getFire().document('$coll/$doc/$subColl/$subDoc');
+      return _getCollRef(coll: coll)
+          .document(doc)
+          .collection(subColl)
+          .document(subDoc);
     }
     else {
-      return getCollRef(collName: collName).document(docName);
+      return null;
     }
 
   }
@@ -56,7 +89,7 @@ class NativeFire {
 
     if (collName != null){
 
-      final fd.CollectionReference _collRef = getCollRef(collName: collName);
+      final fd.CollectionReference _collRef = _getCollRef(coll: collName);
       final fd.Page<fd.Document> _page = await _collRef?.get(
         // pageSize: ,
         // nextPageToken: ,
@@ -84,9 +117,9 @@ class NativeFire {
 
     if (collName != null && docName != null){
 
-      final fd.DocumentReference _docRef = getDocRef(
-        collName: collName,
-        docName: docName,
+      final fd.DocumentReference _docRef = _getDocRef(
+        coll: collName,
+        doc: docName,
       );
 
       final fd.Document _document = await _docRef.get();

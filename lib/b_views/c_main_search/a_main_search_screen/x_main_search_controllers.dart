@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/k_statistics/record_model.dart';
 import 'package:bldrs/a_models/x_secondary/search_result.dart';
@@ -11,9 +12,10 @@ import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart'
 import 'package:bldrs/c_protocols/app_state_protocols/provider/search_provider.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/bz_protocols/fire/bz_search.dart' as BzFireSearch;
-import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_search.dart' as FlyerSearch;
+import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_search.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_search.dart';
 import 'package:bldrs/c_protocols/user_protocols/real/user_record_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:mapper/mapper.dart';
 import 'package:filers/filers.dart';
@@ -294,12 +296,13 @@ Future<List<SearchResult>> _searchFlyersByTitle({
   @required QueryDocumentSnapshot<Object> startAfter,
 }) async {
 
-  // final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+  final ZoneModel _zone = ZoneProvider.proGetCurrentZone(context: context, listen: false);
 
   final List<SearchResult> _results = <SearchResult>[];
 
-  final List<FlyerModel> _flyers = await FlyerSearch.flyersByZoneAndTitle(
-    // zone: _zoneProvider.currentZone,
+  final List<FlyerModel> _flyers = await FlyerSearch.superSearch(
+    countryID: _zone.countryID,
+    cityID: _zone.cityID,
     title: searchText,
     startAfter: startAfter,
   );
