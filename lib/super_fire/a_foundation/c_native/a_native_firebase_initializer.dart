@@ -111,7 +111,7 @@ class NativeFirebase {
   /// FIREBASE AUTH INSTANCE SINGLETON
   fd.FirebaseAuth _auth;
   fd.FirebaseAuth get auth => _auth;
-  static fd.FirebaseAuth getFirebaseAuth() => NativeFirebase.instance.auth;
+  static fd.FirebaseAuth getAuth() => NativeFirebase.instance.auth;
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<fd.FirebaseAuth> _initializeAuthing({
