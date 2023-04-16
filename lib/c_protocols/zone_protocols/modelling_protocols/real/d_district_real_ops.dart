@@ -79,7 +79,7 @@ class DistrictRealOps {
 
     if (district != null){
 
-      await Real.createDocInPath(
+      await OfficialReal.createDocInPath(
           pathWithoutDocName: _getDistrictPath(districtID: district.id, withDocName: false),
           docName: district.id,
           addDocIDToOutput: false,
@@ -105,7 +105,7 @@ class DistrictRealOps {
 
     if (TextCheck.isEmpty(districtID) == false){
 
-      final Object _districtMap = await Real.readPath(
+      final Object _districtMap = await OfficialReal.readPath(
         path: _getDistrictPath(districtID: districtID, withDocName: true),
       );
 
@@ -166,7 +166,7 @@ class DistrictRealOps {
   }) async {
 
 
-    final Object _objects = await Real.readPath(
+    final Object _objects = await OfficialReal.readPath(
       path: _getCityDistrictsPath(cityID: cityID),
     );
 
@@ -187,7 +187,7 @@ class DistrictRealOps {
 
     if (TextCheck.isEmpty(countryID) == false){
 
-      final Object object = await Real.readPath(
+      final Object object = await OfficialReal.readPath(
           path: _getCountryDistrictsPath(countryID: countryID),
       );
 
@@ -251,7 +251,7 @@ class DistrictRealOps {
 
     if (districtID != null){
 
-      await Real.deletePath(
+      await OfficialReal.deletePath(
         pathWithDocName: _getDistrictPath(districtID: districtID, withDocName: true),
       );
 

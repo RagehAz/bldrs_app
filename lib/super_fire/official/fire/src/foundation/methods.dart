@@ -1,31 +1,11 @@
 part of super_fire;
 
 /// => TAMAM
-class Fire{
+class OfficialFire{
   // -----------------------------------------------------------------------------
 
-  const Fire();
+  const OfficialFire();
 
-  // -----------------------------------------------------------------------------
-
-  /// PATHS GETTERS
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> initializeFirebase({
-    @required FirebaseOptions options,
-  }) async {
-    if (DeviceChecker.deviceIsWindows() == false) {
-      await tryAndCatch(
-        functions: () async {
-          /// IOS - ANDROID - WEB : NO WINDOWS SUPPORT
-          await Firebase.initializeApp(
-            options: options,
-          );
-        },
-      );
-    }
-  }
   // -----------------------------------------------------------------------------
 
   /// PATHS GETTERS

@@ -25,7 +25,7 @@ class UserRecordRealOps {
   }) async {
     blog('UserRecordOps.createUserSearchRecord : START');
 
-    final String _userID = Authing.getUserID();
+    final String _userID = OfficialAuthing.getUserID();
     RecordModel _uploadedRecord;
 
     if (TextCheck.isEmpty(searchText) == false && _userID != null){
@@ -61,7 +61,7 @@ class UserRecordRealOps {
   }) async {
 
     /// SEARCHES
-    await Real.deleteDoc(
+    await OfficialReal.deleteDoc(
       collName: RealColl.recordingSearches,
       docName: userID,
     );

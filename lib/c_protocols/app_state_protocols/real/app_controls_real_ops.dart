@@ -22,7 +22,7 @@ class AppControlsRealOps{
   /// TESTED : WORKS PERFECT
   static Future<AppControlsModel> readAppControls() async {
 
-    final Map<String, dynamic> _map = await Real.readDoc(
+    final Map<String, dynamic> _map = await OfficialReal.readDoc(
       collName: RealColl.app,
       docName: RealDoc.app_appControls,
     );
@@ -41,7 +41,7 @@ class AppControlsRealOps{
     @required AppControlsModel newAppControlsModel,
   }) async {
 
-    await Real.updateDoc(
+    await OfficialReal.updateDoc(
       collName: RealColl.app,
       docName: RealDoc.app_appControls,
       map: newAppControlsModel.toMap(),

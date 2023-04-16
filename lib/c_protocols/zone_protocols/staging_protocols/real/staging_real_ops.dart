@@ -176,7 +176,7 @@ class StagingRealOps {
   /// TESTED : WORKS PERFECT
   static Future<Staging> readCountriesStaging() async {
 
-    final dynamic _dynamic = await Real.readPath(
+    final dynamic _dynamic = await OfficialReal.readPath(
       path: '${RealColl.zones}/${RealDoc.zones_stages_countries}',
     );
 
@@ -199,7 +199,7 @@ class StagingRealOps {
 
     if (TextCheck.isEmpty(countryID) == false){
 
-      final dynamic _dynamic = await Real.readPath(
+      final dynamic _dynamic = await OfficialReal.readPath(
         path: '${RealColl.zones}/${RealDoc.zones_stages_cities}/$countryID',
       );
 
@@ -227,7 +227,7 @@ class StagingRealOps {
 
       final String countryID = CityModel.getCountryIDFromCityID(cityID);
 
-      final dynamic _dynamic = await Real.readPath(
+      final dynamic _dynamic = await OfficialReal.readPath(
         path: '${RealColl.zones}/${RealDoc.zones_stages_districts}/$countryID/$cityID',
       );
 
@@ -256,7 +256,7 @@ class StagingRealOps {
 
     if (newStaging != null){
 
-      await Real.createDocInPath(
+      await OfficialReal.createDocInPath(
         pathWithoutDocName: RealColl.zones,
         docName: RealDoc.zones_stages_countries,
         addDocIDToOutput: false,
@@ -276,7 +276,7 @@ class StagingRealOps {
 
     if (citiesStages != null){
 
-      await Real.createDocInPath(
+      await OfficialReal.createDocInPath(
         pathWithoutDocName: '${RealColl.zones}/${RealDoc.zones_stages_cities}',
         docName: citiesStages.id,
         addDocIDToOutput: false,
@@ -298,7 +298,7 @@ class StagingRealOps {
 
       final String _countryID = CityModel.getCountryIDFromCityID(districtsStaging.id);
 
-      await Real.createDocInPath(
+      await OfficialReal.createDocInPath(
         pathWithoutDocName: '${RealColl.zones}/${RealDoc.zones_stages_districts}/$_countryID',
         docName: districtsStaging.id,
         addDocIDToOutput: false,

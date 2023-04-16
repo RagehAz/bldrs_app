@@ -99,7 +99,7 @@ class _BzTeamPageState extends State<BzTeamPage> {
           ability: AuthorAbility.canSendAuthorships,
           theDoer: AuthorModel.getAuthorFromBzByAuthorID(
             bz: bzModel,
-            authorID: Authing.getUserID(),
+            authorID: OfficialAuthing.getUserID(),
           ),
           theDoneWith: null,
         );

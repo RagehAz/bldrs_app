@@ -104,8 +104,8 @@ class AuthModel {
         name: cred.user?.displayName,
         email: cred.user?.email,
         phone: cred.user?.phoneNumber,
-        imageURL: Authing.getUserImageURLFromUserCredential(cred),
-        signInMethod: Authing._getSignInMethodFromUser(user: cred.user),
+        imageURL: OfficialAuthing.getUserImageURLFromUserCredential(cred),
+        signInMethod: OfficialAuthing._getSignInMethodFromUser(user: cred.user),
         data: _createAuthModelDataMap(
           cred: cred,
           addData: addData,
@@ -131,7 +131,7 @@ class AuthModel {
         email: user.email,
         phone: user.phoneNumber,
         imageURL: user.photoURL,
-        signInMethod: Authing._getSignInMethodFromUser(user: user),
+        signInMethod: OfficialAuthing._getSignInMethodFromUser(user: user),
         data: Mapper.cleanNullPairs(
             map: {
               'user.emailVerified': user?.emailVerified,
@@ -268,7 +268,7 @@ class AuthModel {
       case 'password': return SignInMethod.email; break;
       case 'nativeEmail': return SignInMethod.nativeEmail; break;
       // case 'phone': return SignInMethod.phone; break;
-      default: return Authing.getUserID() == null ? null : SignInMethod.anonymous;
+      default: return OfficialAuthing.getUserID() == null ? null : SignInMethod.anonymous;
     }
 
   }

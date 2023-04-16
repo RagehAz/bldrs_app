@@ -83,10 +83,10 @@ class RenovateReviewProtocols {
       ),
 
       /// ADD MY ID IN REVIEW AGREES LIST
-      Real.updateDocField(
+      OfficialReal.updateDocField(
           collName: RealColl.agreesOnReviews,
         docName: '${reviewModel.flyerID}/${reviewModel.id}',
-        fieldName: Authing.getUserID(),
+        fieldName: OfficialAuthing.getUserID(),
           value: true,
       ),
 
@@ -117,10 +117,10 @@ class RenovateReviewProtocols {
       ),
 
       /// REMOVE ID IN REVIEW AGREES LIST
-      Real.deleteField(
+      OfficialReal.deleteField(
         collName: RealColl.agreesOnReviews,
         docName: '${reviewModel.flyerID}/${reviewModel.id}',
-        fieldName: Authing.getUserID(),
+        fieldName: OfficialAuthing.getUserID(),
       ),
 
     ]);

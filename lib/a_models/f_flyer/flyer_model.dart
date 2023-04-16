@@ -909,7 +909,7 @@ class FlyerModel {
 
         _owners = Stringer.addStringToListIfDoesNotContainIt(
           strings: _owners,
-          stringToAdd: Authing.getUserID(),
+          stringToAdd: OfficialAuthing.getUserID(),
         );
 
       }

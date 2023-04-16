@@ -92,7 +92,7 @@ class UserModel {
   }) async {
 
     assert(authModel.signInMethod != SignInMethod.anonymous, 'user must not be anonymous');
-    assert(await Authing.getFirebaseUser().getIdToken() != null, 'user token must not be null');
+    assert(await OfficialAuthing.getFirebaseUser().getIdToken() != null, 'user token must not be null');
 
     final UserModel _userModel = UserModel(
       id: authModel.id,
@@ -484,7 +484,7 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkItIsMe(String userID){
-    final String _myID = Authing.getUserID();
+    final String _myID = OfficialAuthing.getUserID();
 
     if (_myID != null && userID != null){
       return userID == _myID;

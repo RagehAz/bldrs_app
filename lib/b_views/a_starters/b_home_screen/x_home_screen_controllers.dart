@@ -64,7 +64,7 @@ List<NavModel> generateMainNavModels({
 }){
 
   final String _countryFlag = currentZone?.icon;
-  final bool _userIsSignedIn = Authing.userIsSignedIn();
+  final bool _userIsSignedIn = OfficialAuthing.userIsSignedIn();
 
   return <NavModel>[
 

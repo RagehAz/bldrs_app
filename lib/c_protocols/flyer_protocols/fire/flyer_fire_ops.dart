@@ -31,7 +31,7 @@ class FlyerFireOps {
 
     blog('createFlyerDoc : START');
 
-    final DocumentReference<Object> _docRef = await Fire.createDoc(
+    final DocumentReference<Object> _docRef = await OfficialFire.createDoc(
       collName: FireColl.flyers,
       input: {
         /// temp id will be overridden
@@ -55,7 +55,7 @@ class FlyerFireOps {
     @required String flyerID,
   }) async {
 
-    final dynamic _flyerMap = await Fire.readDoc(
+    final dynamic _flyerMap = await OfficialFire.readDoc(
         collName: FireColl.flyers,
         docName: flyerID
     );
@@ -117,7 +117,7 @@ class FlyerFireOps {
     FlyerModel startAfterFlyer,
   }) async {
 
-    final List<Map<String, dynamic>> _maps = await Fire.superCollPaginator(
+    final List<Map<String, dynamic>> _maps = await OfficialFire.superCollPaginator(
       queryModel: queryModel,
       startAfter: startAfterFlyer?.docSnapshot,
       addDocsIDs: true,
@@ -140,7 +140,7 @@ class FlyerFireOps {
 
     blog('_updateFlyerDoc : START');
 
-    await Fire.updateDoc(
+    await OfficialFire.updateDoc(
       collName: FireColl.flyers,
       docName: finalFlyer.id,
       input: finalFlyer.toMap(toJSON: false),
@@ -162,7 +162,7 @@ class FlyerFireOps {
     blog('_deleteFlyerDoc : START');
 
     if (flyerID != null){
-      await Fire.deleteDoc(
+      await OfficialFire.deleteDoc(
         collName: FireColl.flyers,
         docName: flyerID,
       );
@@ -278,7 +278,7 @@ class FlyerFireOps {
           invoker: 'promoteFlyerInCity',
           functions: () async {
 
-            await Fire.createNamedDoc(
+            await OfficialFire.createNamedDoc(
               collName: FireColl.flyersPromotions,
               docName: flyerPromotion.flyerID,
               input: flyerPromotion.toMap(
@@ -402,7 +402,7 @@ class FlyerFireOps {
     if (_feedback != null){
 
       final FeedbackModel _model =  FeedbackModel(
-        userID: Authing.getUserID(),
+        userID: OfficialAuthing.getUserID(),
         timeStamp: DateTime.now(),
         feedback: _feedback,
         modelType: ModelType.flyer,

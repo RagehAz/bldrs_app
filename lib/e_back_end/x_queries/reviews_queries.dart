@@ -14,7 +14,7 @@ FireQueryModel reviewsPaginationQuery({
 }){
 
   return FireQueryModel(
-    collRef: Fire.getSuperCollRef(
+    collRef: OfficialFire.getSuperCollRef(
       aCollName: FireColl.flyers,
       bDocName: flyerID,
       cSubCollName: FireSubColl.flyers_flyer_reviews,
@@ -59,7 +59,7 @@ FireQueryModel reviewsStreamQuery({
     // }
     // else {
     return FireQueryModel(
-      collRef: Fire.getSuperCollRef(
+      collRef: OfficialFire.getSuperCollRef(
         aCollName: FireColl.flyers,
         bDocName: flyerID,
         cSubCollName: FireSubColl.flyers_flyer_reviews,
