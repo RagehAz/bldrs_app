@@ -2,81 +2,9 @@ part of super_fire;
 
 class NativeFire {
   // -----------------------------------------------------------------------------
-  /// https://www.youtube.com/watch?v=Tw7L2NkhwPc&t=185s
-  // -----------------------------------------------------------------------------
 
-  /// NativeAuth SINGLETON
+  const NativeFire();
 
-  // --------------------
-  NativeFire.singleton();
-  static final NativeFire _singleton = NativeFire.singleton();
-  static NativeFire get instance => _singleton;
-  // -----------------------------------------------------------------------------
-
-  /// INITIALIZATION
-
-  // --------------------
-  /// FIREBASE AUTH SINGLETON
-  fd.Firestore _firestore;
-  fd.Firestore get firestore => _firestore;
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  fd.Firestore _initialize({
-    @required fd.FirebaseAuth firebaseAuth,
-    @required String projectID,
-  }) {
-    fd.Firestore _store;
-
-    assert(projectID != null, 'you forgot to add project ID');
-
-    if (firebaseAuth == null) {
-      _store = fd.Firestore.initialize(
-        projectID,
-        // databaseId: ,
-        // emulator: ,
-      );
-    }
-
-    else {
-      _store = fd.Firestore(
-        projectID,
-        auth: firebaseAuth,
-        // databaseId: ,
-        // emulator: ,
-      );
-    }
-
-    _firestore = _store;
-    blog('=> Native Firebase Firestore has been initialized');
-
-    return _store;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<fd.Firestore> initializeNativeFireWithAuth({
-    @required fd.FirebaseAuth firebaseAuth,
-    @required String projectID,
-  }) async {
-    return NativeFire.instance._initialize(
-      firebaseAuth: firebaseAuth,
-      projectID: projectID,
-    );
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> initializeNativeFireWithoutAuth({
-    @required String projectID,
-  }) async {
-
-    return NativeFire.instance._initialize(
-      firebaseAuth: null,
-      projectID: projectID,
-    );
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static fd.Firestore getFirestore() => NativeFire.instance.firestore;
   // -----------------------------------------------------------------------------
 
   /// REFERENCE
@@ -90,7 +18,7 @@ class NativeFire {
       return null;
     }
     else {
-      return getFirestore().collection(collName);
+      return NativeFirebase.getFire().collection(collName);
     }
   }
   // --------------------

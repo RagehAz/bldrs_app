@@ -13,7 +13,7 @@ class OfficialReal {
   // --------------------
   /// TESTED : WORKS PERFECT
   static f_db.DatabaseReference  getRef(){
-    return f_db.FirebaseDatabase.instance.ref();
+    return OfficialFirebase.getReal().ref();
   }
   // --------------------
   /*
@@ -57,7 +57,7 @@ class OfficialReal {
       docName: docName,
       key: key,
     );
-    return f_db.FirebaseDatabase.instance.ref(path);
+    return OfficialFirebase.getReal().ref(path);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -65,7 +65,7 @@ class OfficialReal {
     @required String path,
   }){
     assert(path != null, 'PATH SHOULD NOT BE NULL');
-    return f_db.FirebaseDatabase.instance.ref(path);
+    return OfficialFirebase.getReal().ref(path);
   }
   // --------------------
   /*
