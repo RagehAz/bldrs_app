@@ -8,7 +8,16 @@ class OfficialAuthing {
 
   // -----------------------------------------------------------------------------
 
-  /// CREATE ANONYMOUS AUTH
+  /// USER ID
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String getUserID() {
+    return _getUser()?.uid;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// ANONYMOUS AUTH
 
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -18,12 +27,12 @@ class OfficialAuthing {
     AuthModel _output;
 
     await tryAndCatch(
-      invoker: 'anonymousSignin',
+      invoker: 'OfficialAuthing.anonymousSignin',
       onError: onError,
       functions: () async {
 
         final f_a.UserCredential _userCredential = await OfficialFirebase
-            .getFirebaseAuth()
+            .getAuth()
             .signInAnonymously();
 
         _output = AuthModel.getAuthModelFromUserCredential(
@@ -46,7 +55,7 @@ class OfficialAuthing {
   }) async {
 
     final bool _success = await tryCatchAndReturnBool(
-      invoker: 'Authing.signOut',
+      invoker: 'OfficialAuthing.signOut',
       onError: onError,
       functions: () async {
         final SignInMethod signInMethod = getCurrentSignInMethod();
@@ -66,7 +75,7 @@ class OfficialAuthing {
         }
 
         /// FIREBASE SIGN OUT
-        await OfficialFirebase.getFirebaseAuth().signOut();
+        await OfficialFirebase.getAuth().signOut();
       },
     );
 
@@ -74,113 +83,37 @@ class OfficialAuthing {
   }
   // -----------------------------------------------------------------------------
 
-  /// READ AUTH
+  /// DELETE USER
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static f_a.User getFirebaseUser() {
-    return OfficialFirebase.getFirebaseAuth()?.currentUser;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String getUserID() {
-    return getFirebaseUser()?.uid;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// DELETE FIREBASE USER
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<bool> deleteFirebaseUser({
-    @required String userID,
+  static Future<bool> deleteUser({
     Function(String error) onError,
   }) async {
 
-    blog('deleting firebase user');
-    // String _error;
 
     final bool _success = await tryCatchAndReturnBool(
-        invoker: 'deleteFirebaseUser',
-        functions: () => OfficialFirebase.getFirebaseAuth().currentUser?.delete(),
+        invoker: 'Official.deleteFirebaseUser',
+        functions: () => OfficialFirebase.getAuth().currentUser?.delete(),
         onError: onError,
     );
 
     return _success;
 
-    /*
-      /// delete firebase user
-  // Future<void> _deleteFirebaseUser({
-  //   BuildContext context,
-  //   String email,
-  //   String password,
-  // }) async {
-  //
-  //   try {
-  //
-  //     User user = _auth.currentUser;
-  //
-  //     AuthCredential credentials = EmailAuthProvider.credential(email: email, password: password);
-  //
-  //     blog(user);
-  //
-  //     UserCredential result = await user.reauthenticateWithCredential(credentials);
-  //
-  //     await result.user.delete();
-  //
-  //     return true;
-  //
-  //   } catch (error) {
-  //
-  //     blog(error.toString());
-  //
-  //     await superDialog(
-  //       context: context,
-  //       title: 'Could not delete account',
-  //       body: error,
-  //       boolDialog: false,
-  //     );
-  //
-  //     return null;
-  //   }
-  // }
-  // -----------------------------------------------------------------------------
-     */
   }
   // -----------------------------------------------------------------------------
 
-  /// USER IMAGE
+  /// SIGN IN METHOD
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getUserImageURLFromUserCredential(f_a.UserCredential cred){
-    String _output;
-
-    if (cred != null){
-
-      final SignInMethod signInMethod = OfficialAuthing.getCurrentSignInMethod();
-
-      if (signInMethod == SignInMethod.google){
-        _output = cred.user?.photoURL;
-      }
-      else if (signInMethod == SignInMethod.facebook){
-        _output = OfficialFacebookAuthing.getUserFacebookImageURLFromUserCredential(cred);
-      }
-      else if (signInMethod == SignInMethod.apple){
-        /// TASK : DO ME
-      }
-      else {
-        _output = cred.user?.photoURL;
-      }
-
-    }
-
-    return _output;
+  static bool userIsSignedIn() {
+    return _getUser() != null;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static SignInMethod getCurrentSignInMethod(){
-    return _getSignInMethodFromUser(user: OfficialAuthing.getFirebaseUser());
+    return _getSignInMethodFromUser(user: OfficialAuthing._getUser());
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -203,13 +136,16 @@ class OfficialAuthing {
 
     return _output;
   }
+  // -----------------------------------------------------------------------------
+
+  /// USER
+
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool userIsSignedIn() {
-    return getFirebaseUser() != null;
+  static f_a.User _getUser() {
+    return OfficialFirebase.getAuth()?.currentUser;
   }
-  // --------------------
-
+  // -----------------------------------------------------------------------------
 }
 
 /// => TAMAM
@@ -240,7 +176,7 @@ class OfficialEmailAuthing {
         invoker: 'signInByEmail',
         functions: () async {
 
-          final f_a.UserCredential _userCredential = await OfficialFirebase.getFirebaseAuth()
+          final f_a.UserCredential _userCredential = await OfficialFirebase.getAuth()
               .signInWithEmailAndPassword(
             email: email.trim(),
             password: password,
@@ -280,7 +216,7 @@ class OfficialEmailAuthing {
           invoker: 'registerByEmail',
           functions: () async {
 
-            final f_a.UserCredential _userCredential = await OfficialFirebase.getFirebaseAuth().createUserWithEmailAndPassword(
+            final f_a.UserCredential _userCredential = await OfficialFirebase.getAuth().createUserWithEmailAndPassword(
               email: email.trim(),
               password: password,
             );
@@ -296,25 +232,6 @@ class OfficialEmailAuthing {
     }
 
     return _output;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// SIGN OUT
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> emailSignOut({
-    Function(String error) onError,
-  }) async {
-
-    await tryAndCatch(
-      invoker: 'emailSignOut',
-      functions: () async {
-        await OfficialFirebase.getFirebaseAuth()?.signOut();
-      },
-      onError: onError,
-    );
-
   }
   // -----------------------------------------------------------------------------
 
@@ -337,7 +254,7 @@ class OfficialEmailAuthing {
             password: password,
           );
 
-          _credential = await OfficialFirebase.getFirebaseAuth().currentUser?.reauthenticateWithCredential(_authCredential);
+          _credential = await OfficialFirebase.getAuth().currentUser?.reauthenticateWithCredential(_authCredential);
 
         }
     );
@@ -363,7 +280,7 @@ class OfficialEmailAuthing {
 
     bool _success = false;
 
-    final f_a.FirebaseAuth _auth = OfficialFirebase.getFirebaseAuth();
+    final f_a.FirebaseAuth _auth = OfficialFirebase.getAuth();
     final String _oldEmail = _auth?.currentUser?.email;
 
     blog('updateUserEmail : new : $newEmail : old : $_oldEmail');
@@ -479,7 +396,7 @@ class OfficialGoogleAuthing {
         /// get [auth provider]
         final f_a.GoogleAuthProvider _googleAuthProvider = getGoogleAuthProviderInstance();
 
-        final f_a.FirebaseAuth _firebaseAuth = OfficialFirebase.getFirebaseAuth();
+        final f_a.FirebaseAuth _firebaseAuth = OfficialFirebase.getAuth();
 
         /// get [user credential] from [auth provider]
         final f_a.UserCredential _userCredential = await _firebaseAuth.signInWithPopup(_googleAuthProvider);
@@ -520,7 +437,7 @@ class OfficialGoogleAuthing {
                 idToken: _googleSignInAuthentication.idToken,
               );
 
-              final f_a.FirebaseAuth _firebaseAuth = OfficialFirebase.getFirebaseAuth();
+              final f_a.FirebaseAuth _firebaseAuth = OfficialFirebase.getAuth();
 
               /// C - get [user credential] from [auth credential]
               final f_a.UserCredential _userCredential = await _firebaseAuth.signInWithCredential(_authCredential);
@@ -602,7 +519,7 @@ class OfficialFacebookAuthing {
           f_a.FacebookAuthProvider.credential(_loginResult.accessToken.token);
 
           final f_a.UserCredential _userCredential =
-          await OfficialFirebase.getFirebaseAuth().signInWithCredential(_facebookAuthCredential);
+          await OfficialFirebase.getAuth().signInWithCredential(_facebookAuthCredential);
 
           _output = AuthModel.getAuthModelFromUserCredential(
             cred: _userCredential,

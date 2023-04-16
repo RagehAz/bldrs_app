@@ -92,7 +92,6 @@ class UserModel {
   }) async {
 
     assert(authModel.signInMethod != SignInMethod.anonymous, 'user must not be anonymous');
-    assert(await OfficialAuthing.getFirebaseUser().getIdToken() != null, 'user token must not be null');
 
     final UserModel _userModel = UserModel(
       id: authModel.id,
