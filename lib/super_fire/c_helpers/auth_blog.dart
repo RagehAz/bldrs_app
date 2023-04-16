@@ -79,7 +79,7 @@ class AuthBlog {
   /// TESTED : WORKS PERFECT
   static void blogCurrentFirebaseUser(){
 
-    final f_a.User _user = OfficialAuthing.getFirebaseUser();
+    final f_a.User _user = OfficialAuthing._getUser();
 
     if (_user == null){
       blog('blogCurrentFirebaseUser : user is null');
