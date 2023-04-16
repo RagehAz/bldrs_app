@@ -27,13 +27,15 @@ class FirebaseInitializer {
     @required FirebaseOptions options,
     @required SocialKeys socialKeys,
     @required String nativePersistentStoragePath,
+    @required String appName,
   }) async {
 
     _usesOfficial = useOfficialPackages;
 
     /// OFFICIAL
     if (useOfficialPackages == true){
-      await OfficialFirebaseInitializer.initialize(
+      await OfficialFirebase.initialize(
+        appName: appName,
         options: options,
         socialKeys: socialKeys,
       );
@@ -41,9 +43,10 @@ class FirebaseInitializer {
 
     /// NATIVE
     else {
-      await NativeFirebaseInitializer.initialize(
-          options: options,
-          persistentStoragePath: nativePersistentStoragePath,
+      await NativeFirebase.initialize(
+        appName: appName,
+        options: options,
+        persistentStoragePath: nativePersistentStoragePath,
       );
     }
 
@@ -54,14 +57,16 @@ class FirebaseInitializer {
     @required bool useOfficialPackages,
     @required FirebaseOptions options,
     @required SocialKeys socialKeys,
+    String appName,
     String nativePersistentStoragePath,
   }) async {
 
     await FirebaseInitializer.instance._initialize(
-        useOfficialPackages: useOfficialPackages,
-        socialKeys: socialKeys,
-        options: options,
-        nativePersistentStoragePath: nativePersistentStoragePath
+      useOfficialPackages: useOfficialPackages,
+      socialKeys: socialKeys,
+      options: options,
+      nativePersistentStoragePath: nativePersistentStoragePath,
+      appName: appName,
     );
 
   }

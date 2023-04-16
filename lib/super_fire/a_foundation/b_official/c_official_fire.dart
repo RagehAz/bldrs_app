@@ -56,7 +56,7 @@ String pathOfSubDoc({
     'bDocName & cSubCollName should both be null or both have values'
     );
 
-    final cloud.FirebaseFirestore _fireInstance = cloud.FirebaseFirestore.instance;
+    final cloud.FirebaseFirestore _fireInstance = OfficialFirebase.getFire();
 
     cloud.CollectionReference<Object> _ref = _fireInstance.collection(aCollName);
 
@@ -72,7 +72,7 @@ String pathOfSubDoc({
   // --------------------
   /// TESTED : WORKS PERFECT
   static cloud.CollectionReference<Object> getCollectionRef(String collName) {
-    return cloud.FirebaseFirestore.instance.collection(collName);
+    return OfficialFirebase.getFire().collection(collName);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -104,7 +104,7 @@ String pathOfSubDoc({
     ///     .doc(docName)
     ///     .collection(subCollName);
 
-    return cloud.FirebaseFirestore.instance.collection('$collName/$docName/$subCollName');
+    return OfficialFirebase.getFire().collection('$collName/$docName/$subCollName');
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -143,7 +143,7 @@ String pathOfSubDoc({
     List<FireFinder> finders,
   }){
 
-    cloud.Query<Map<String, dynamic>> query = cloud.FirebaseFirestore.instance.collection(collRef.path);
+    cloud.Query<Map<String, dynamic>> query = OfficialFirebase.getFire().collection(collRef.path);
 
     /// ASSIGN SEARCH FINDERS
     if (Mapper.checkCanLoopList(finders) == true){

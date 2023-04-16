@@ -1,15 +1,24 @@
 part of super_fire;
 
-class OfficialFirebaseInitializer {
+class OfficialFirebase {
   // -----------------------------------------------------------------------------
 
-  const OfficialFirebaseInitializer();
+  /// OfficialFirebase SINGLETON
 
+  // --------------------
+  OfficialFirebase.singleton();
+  static final OfficialFirebase _singleton = OfficialFirebase.singleton();
+  static OfficialFirebase get instance => _singleton;
   // -----------------------------------------------------------------------------
+
+  /// INITIALIZATION
+
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> initialize({
     @required FirebaseOptions options,
     @required SocialKeys socialKeys,
+    String appName,
   }) async {
 
     if (DeviceChecker.deviceIsWindows() == false) {
@@ -17,11 +26,12 @@ class OfficialFirebaseInitializer {
         functions: () async {
 
           /// IOS - ANDROID - WEB : NO WINDOWS SUPPORT
-          await Firebase.initializeApp(
+          await OfficialFirebase.instance._initializeApp(
             options: options,
+            appName: appName,
           );
 
-          OfficialAuthing.initializeSocialAuthing(
+          _initializeSocialAuthing(
             socialKeys: socialKeys,
           );
 
@@ -30,5 +40,94 @@ class OfficialFirebaseInitializer {
     }
 
   }
+  // -----------------------------------------------------------------------------
+
+  /// APP
+
+  // --------------------
+  /// FIREBASE APP SINGLETON
+  FirebaseApp _app;
+  FirebaseApp get app => _app;
+  static FirebaseApp getApp() => OfficialFirebase.instance.app;
+  // --------------------
+  Future<FirebaseApp> _initializeApp({
+    @required FirebaseOptions options,
+    @required String appName,
+  }) async {
+
+    final FirebaseApp app = await Firebase.initializeApp(
+      options: options,
+      name: appName,
+    );
+
+    _app = app;
+
+    return app;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// AUTH
+
+  // --------------------
+  /// FIREBASE AUTH INSTANCE SINGLETON
+  f_a.FirebaseAuth _auth;
+  f_a.FirebaseAuth get auth => _auth ??= f_a.FirebaseAuth.instance;
+  static f_a.FirebaseAuth getFirebaseAuth() => OfficialFirebase.instance.auth;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void _initializeSocialAuthing({
+    @required SocialKeys socialKeys,
+  }) {
+
+    if (socialKeys != null) {
+      fui.FirebaseUIAuth.configureProviders([
+        if (socialKeys.supportEmail == true) fui.EmailAuthProvider(),
+        if (socialKeys.googleClientID != null)
+          GoogleProvider(
+            clientId: socialKeys.googleClientID,
+            // redirectUri: ,
+            // scopes: ,
+            // iOSPreferPlist: ,
+          ),
+        if (socialKeys.facebookAppID != null)
+          FacebookProvider(
+            clientId: socialKeys.facebookAppID,
+            // redirectUri: '',
+          ),
+        if (socialKeys.supportApple == true)
+          AppleProvider(
+              // scopes: ,
+              ),
+      ]);
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// FIRE
+
+  // --------------------
+  /// FIREBASE FIRESTORE INSTANCE SINGLETON
+  cloud.FirebaseFirestore _fire;
+  cloud.FirebaseFirestore get fire => _fire ??= cloud.FirebaseFirestore.instance;
+  static cloud.FirebaseFirestore getFire() => OfficialFirebase.instance.fire;
+  // -----------------------------------------------------------------------------
+
+  /// REAL
+
+  // --------------------
+  /// FIREBASE REALTIME DATABASE INSTANCE SINGLETON
+  f_db.FirebaseDatabase _real;
+  f_db.FirebaseDatabase get real => _real ??= f_db.FirebaseDatabase.instance;
+  static f_db.FirebaseDatabase getReal() => OfficialFirebase.instance.real;
+  // --------------------
+
+  /// STORAGE
+
+  // --------------------
+  /// FIREBASE STORAGE INSTANCE SINGLETON
+  FirebaseStorage _storage;
+  FirebaseStorage get storage => _storage ??= FirebaseStorage.instance;
+  static FirebaseStorage getStorage() => OfficialFirebase.instance.storage;
   // -----------------------------------------------------------------------------
 }

@@ -1,5 +1,5 @@
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:filers/filers.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 
@@ -17,7 +17,7 @@ class StorageRef {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Reference getRefByPath(String path){
-    return FirebaseStorage.instance.ref(path);
+    return OfficialFirebase.getStorage().ref(path);
   }
   // -----------------------------------------------------------------------------
 
@@ -30,7 +30,7 @@ class StorageRef {
     @required String docName, // without extension
   }) {
 
-    return FirebaseStorage.instance
+    return OfficialFirebase.getStorage()
         .ref()
         .child(collName)
         .child(docName);
@@ -50,8 +50,7 @@ class StorageRef {
     await tryAndCatch(
         invoker: 'StorageRef.byURL',
         functions: () {
-          final FirebaseStorage _storage = FirebaseStorage.instance;
-          _ref = _storage.refFromURL(url);
+          _ref = OfficialFirebase.getStorage().refFromURL(url);
         },
     );
 
