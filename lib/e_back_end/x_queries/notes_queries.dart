@@ -16,7 +16,7 @@ FireQueryModel bzNotesPaginationQueryModel({
 }){
 
   return FireQueryModel(
-    collRef: Fire.getSuperCollRef(
+    collRef: OfficialFire.getSuperCollRef(
       aCollName: FireColl.bzz,
       bDocName: bzID,
       cSubCollName: FireSubColl.noteReceiver_receiver_notes,
@@ -32,9 +32,9 @@ Stream<QuerySnapshot<Object>> bzUnseenNotesStream({
   @required String bzID,
 }){
 
-  final Stream<QuerySnapshot<Object>> _stream  = Fire.streamCollection(
+  final Stream<QuerySnapshot<Object>> _stream  = OfficialFire.streamCollection(
     queryModel: FireQueryModel(
-        collRef: Fire.getSuperCollRef(
+        collRef: OfficialFire.getSuperCollRef(
           aCollName: FireColl.bzz,
           bDocName: bzID,
           cSubCollName: FireSubColl.noteReceiver_receiver_notes,
@@ -64,9 +64,9 @@ Stream<QuerySnapshot<Object>> bzUnseenNotesStream({
 FireQueryModel userNotesPaginationQueryModel(){
 
   return FireQueryModel(
-    collRef: Fire.getSuperCollRef(
+    collRef: OfficialFire.getSuperCollRef(
       aCollName: FireColl.users,
-      bDocName: Authing.getUserID(),
+      bDocName: OfficialAuthing.getUserID(),
       cSubCollName: FireSubColl.noteReceiver_receiver_notes,
     ),
     limit: 6,
@@ -80,11 +80,11 @@ Stream<QuerySnapshot<Object>> userUnseenNotesStream({
   @required BuildContext context,
 }){
 
-  return Fire.streamCollection(
+  return OfficialFire.streamCollection(
     queryModel: FireQueryModel(
-        collRef: Fire.getSuperCollRef(
+        collRef: OfficialFire.getSuperCollRef(
           aCollName: FireColl.users,
-          bDocName: Authing.getUserID(),
+          bDocName: OfficialAuthing.getUserID(),
           cSubCollName: FireSubColl.noteReceiver_receiver_notes,
         ),
         limit: 100,
@@ -108,11 +108,11 @@ Stream<QuerySnapshot<Object>> userNotesWithPendingReplies({
   @required BuildContext context,
 }){
 
-  return Fire.streamCollection(
+  return OfficialFire.streamCollection(
     queryModel: FireQueryModel(
-        collRef: Fire.getSuperCollRef(
+        collRef: OfficialFire.getSuperCollRef(
           aCollName: FireColl.users,
-          bDocName: Authing.getUserID(),
+          bDocName: OfficialAuthing.getUserID(),
           cSubCollName: FireSubColl.noteReceiver_receiver_notes,
         ),
         limit: 100,
@@ -134,9 +134,9 @@ Stream<QuerySnapshot<Object>> userNotesWithPendingReplies({
 ///
 FireQueryModel userNotesWithPendingRepliesQueryModel(){
   return FireQueryModel(
-      collRef: Fire.getSuperCollRef(
+      collRef: OfficialFire.getSuperCollRef(
         aCollName: FireColl.users,
-        bDocName: Authing.getUserID(),
+        bDocName: OfficialAuthing.getUserID(),
         cSubCollName: FireSubColl.noteReceiver_receiver_notes,
       ),
       limit: 10,
@@ -163,7 +163,7 @@ FireQueryModel allNotesPaginationQueryModel({
 }){
 
  return FireQueryModel(
-   collRef: Fire.getSuperCollRef(
+   collRef: OfficialFire.getSuperCollRef(
        aCollName: FireColl.getPartyCollName(receiverPartyType),
        bDocName: receiverID,
        cSubCollName: FireSubColl.noteReceiver_receiver_notes

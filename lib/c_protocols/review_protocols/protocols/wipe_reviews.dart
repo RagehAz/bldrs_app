@@ -32,7 +32,7 @@ class WipeReviewProtocols {
       await Future.wait(<Future>[
 
         /// DELETE REVIEW SUB DOC
-        Fire.deleteSubDoc(
+        OfficialFire.deleteSubDoc(
           collName: FireColl.flyers,
           docName: reviewModel.flyerID,
           subCollName: FireSubColl.flyers_flyer_reviews,
@@ -40,7 +40,7 @@ class WipeReviewProtocols {
         ),
 
         /// DELETE REVIEW AGREES
-        Real.deleteDoc(
+        OfficialReal.deleteDoc(
           collName: RealColl.agreesOnReviews,
           docName: '${reviewModel.flyerID}/${reviewModel.id}',
         ),
@@ -81,7 +81,7 @@ class WipeReviewProtocols {
     int _numberOfReviews = 0;
 
     /// 1. DELETE SUB COLL
-    await Fire.deleteSubCollection(
+    await OfficialFire.deleteSubCollection(
         context: context,
         collName: FireColl.flyers,
         docName: flyerID,
@@ -95,7 +95,7 @@ class WipeReviewProtocols {
 
     /// 2. DELETE REVIEW AGREES
     if (isDeletingFlyer == true){
-      await Real.deleteDoc(
+      await OfficialReal.deleteDoc(
         collName: RealColl.agreesOnReviews,
         docName: flyerID,
       );

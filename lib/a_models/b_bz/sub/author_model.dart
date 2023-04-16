@@ -957,7 +957,7 @@ class AuthorModel {
 
       final AuthorModel _myAuthorModel = getAuthorFromBzByAuthorID(
         bz: bzModel,
-        authorID: Authing.getUserID(),
+        authorID: OfficialAuthing.getUserID(),
       );
 
       if (_myAuthorModel != null){

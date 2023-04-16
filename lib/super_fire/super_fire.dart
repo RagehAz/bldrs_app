@@ -77,33 +77,59 @@ import 'package:animators/animators.dart';
 import 'package:firebase_database/firebase_database.dart' as f_db;
 import 'package:http/http.dart' as http;
 // -----------------------------------------------------------------------------
-///
-// --------------------
 
-/// PARTS
+/// FOUNDATION
 
-// --------------------
-///
+// ------------
+/// HYBRID
+part 'a_foundation/a_hybrid/a_firebase_initializer.dart';
+part 'a_foundation/a_hybrid/b_auth.dart';
+part 'a_foundation/a_hybrid/c_fire.dart';
+part 'a_foundation/a_hybrid/d_real.dart';
+part 'a_foundation/a_hybrid/e_storage.dart';
+// ------------
+/// OFFICIAL
+part 'a_foundation/b_official/a_official_firebase_initializer.dart';
+part 'a_foundation/b_official/b_a_authing.dart';
+part 'a_foundation/b_official/b_b_email_authing.dart';
+part 'a_foundation/b_official/b_c_google_authing.dart';
+part 'a_foundation/b_official/b_d_facebook_authing.dart';
+part 'a_foundation/b_official/b_e_apple_authing.dart';
+// ------------
+/// NATIVE
+part 'a_foundation/c_native/a_native_firebase_initializer.dart';
+part 'a_foundation/c_native/b_native_authing.dart';
+part 'a_foundation/c_native/c_native_fire.dart';
+part 'a_foundation/c_native/d_native_real.dart';
+part 'a_foundation/c_native/e_native_storage.dart';
 // -----------------------------------------------------------------------------
 
-/// AUTHING PARTS
-
-// --------------------
-/// METHODS
-part 'official/authing/methods/a_authing.dart';
-part 'official/authing/methods/b_email_authing.dart';
-part 'official/authing/methods/c_google_authing.dart';
-part 'official/authing/methods/d_facebook_authing.dart';
-part 'official/authing/methods/e_apple_authing.dart';
-// --------------------
-/// HELPERS
-part 'official/authing/helpers/auth_error.dart';
-part 'official/authing/helpers/auth_blog.dart';
-// --------------------
 /// MODELS
-part 'official/authing/models/sign_in_method.dart';
-part 'official/authing/models/auth_model.dart';
-part 'official/authing/models/social_keys.dart';
+
+// ------------
+/// AUTHING
+part 'b_models/a_authing/sign_in_method.dart';
+part 'b_models/a_authing/auth_model.dart';
+part 'b_models/a_authing/social_keys.dart';
+/// FIRE
+part 'b_models/b_fire/fire_finder.dart';
+part 'b_models/b_fire/fire_query_model.dart';
+part 'b_models/b_fire/fire_comparison_enum.dart';
+part 'b_models/b_fire/query_order_by.dart';
+/// REAL
+part 'b_models/c_real/real_query_model.dart';
+// -----------------------------------------------------------------------------
+
+/// HELPERS
+
+// ------------
+/// AUTHING
+part 'c_helpers/auth_error.dart';
+part 'c_helpers/auth_blog.dart';
+
+// -----------------------------------------------------------------------------
+
+
 // --------------------
 /// WIDGETS
 part 'official/authing/buttons/auth_button_box.dart';
@@ -117,13 +143,9 @@ part 'official/authing/buttons/social_auth_button.dart';
 part 'official/fire/src/foundation/methods.dart';
 // --------------------------------------------
 /// FIRE FINDER MODEL
-part 'official/fire/src/models/fire_finder.dart';
 /// FIRE QUERY MODEL
-part 'official/fire/src/models/fire_query_model.dart';
 /// FIRE COMPARISON
-part 'official/fire/src/models/fire_comparison_enum.dart';
 /// QUERY ORDER BY
-part 'official/fire/src/models/query_order_by.dart';
 /// SCROLL LISTENERS
 part 'official/fire/src/helpers/scroll_listeners.dart';
 // --------------------------------------------
@@ -148,18 +170,7 @@ part 'official/storage/src/pic_meta_model.dart';
 // --------------------
 part 'official/real/src/methods/real_http.dart';
 part 'official/real/src/methods/real_methods.dart';
-part 'official/real/src/models/real_query_model.dart';
 part 'official/real/src/widgets/real_coll_paginator.dart';
 part 'official/real/src/widgets/real_coll_streamer.dart';
 part 'official/real/src/widgets/real_doc_streamer.dart';
-// -----------------------------------------------------------------------------
-
-/// NATIVE PARTS
-
-// --------------------
-part 'native/native_fire.dart';
-part 'native/native_storage.dart';
-part 'native/native_real.dart';
-part 'native/native_auth.dart';
-part 'native/native_initializer.dart';
 // -----------------------------------------------------------------------------

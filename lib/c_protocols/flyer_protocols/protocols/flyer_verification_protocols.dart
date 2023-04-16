@@ -40,7 +40,7 @@ class FlyerVerificationProtocols {
       await Future.wait(<Future>[
 
         /// UPDATE FIELD
-        Fire.updateDocField(
+        OfficialFire.updateDocField(
           collName: FireColl.flyers,
           docName: flyerModel.id,
           field: 'auditState',
@@ -150,7 +150,7 @@ class FlyerVerificationProtocols {
 
     final List<FlyerModel> _nonVerifiedFlyers = await FlyerFireOps.readFlyersByQuery(
       queryModel: FireQueryModel(
-        collRef: Fire.getSuperCollRef(
+        collRef: OfficialFire.getSuperCollRef(
             aCollName: FireColl.flyers,
         ),
         limit: 1000,

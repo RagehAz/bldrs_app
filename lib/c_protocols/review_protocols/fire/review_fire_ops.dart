@@ -31,7 +31,7 @@ class ReviewFireOps {
     assert(reviewModel != null,'review model is null');
     assert(reviewModel.flyerID != null, 'review flyerID is null');
 
-    final DocumentReference<Object> _ref = await Fire.createSubDoc(
+    final DocumentReference<Object> _ref = await OfficialFire.createSubDoc(
       collName: FireColl.flyers,
       docName: reviewModel.flyerID,
       subCollName: FireSubColl.flyers_flyer_reviews,
@@ -54,7 +54,7 @@ class ReviewFireOps {
 
     if (reviewID != null){
 
-      final Map<String, dynamic> _map = await Fire.readSubDoc(
+      final Map<String, dynamic> _map = await OfficialFire.readSubDoc(
           collName: FireColl.flyers,
           docName: flyerID,
           subCollName: FireSubColl.flyers_flyer_reviews,
@@ -107,7 +107,7 @@ class ReviewFireOps {
     @required ReviewModel reviewModel,
   }) async {
 
-    await Fire.updateSubDoc(
+    await OfficialFire.updateSubDoc(
       collName: FireColl.flyers,
       docName: reviewModel.flyerID,
       subCollName: FireSubColl.flyers_flyer_reviews,

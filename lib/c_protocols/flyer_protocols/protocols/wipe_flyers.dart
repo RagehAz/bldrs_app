@@ -99,7 +99,7 @@ class WipeFlyerProtocols {
         ),
 
         /// DELETE SLIDES PICS + PDF + POSTER
-        Storage.deletePath(
+        OfficialStorage.deletePath(
           context: context,
           path: '${StorageColl.flyers}/${flyerModel.id}',
         ),

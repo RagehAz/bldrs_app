@@ -26,7 +26,7 @@ class UserFireOps {
     @required SignInMethod signInMethod,
   }) async {
 
-    await Fire.updateDoc(
+    await OfficialFire.updateDoc(
       collName: FireColl.users,
       docName: userModel.id,
       input: userModel.toMap(toJSON: false),
@@ -44,7 +44,7 @@ class UserFireOps {
   }) async {
     UserModel _output;
 
-    final Map<String, dynamic> _userMap = await Fire.readDoc(
+    final Map<String, dynamic> _userMap = await OfficialFire.readDoc(
       collName: FireColl.users,
       docName: userID,
     );
@@ -84,7 +84,7 @@ class UserFireOps {
         newUser: newUser,
       );
 
-      await Fire.updateDoc(
+      await OfficialFire.updateDoc(
         collName: FireColl.users,
         docName: newUser.id,
         input: _finalUserModel.toMap(toJSON: false),
@@ -119,7 +119,7 @@ class UserFireOps {
 
       if (TextCheck.isEmpty(_newEmail) == false){
 
-        final bool _success = await EmailAuthing.updateUserEmail(
+        final bool _success = await OfficialEmailAuthing.updateUserEmail(
           newEmail: _newEmail,
         );
 
@@ -164,7 +164,7 @@ class UserFireOps {
     @required String userID
   }) async {
 
-    await Fire.updateDocField(
+    await OfficialFire.updateDocField(
       collName: FireColl.users,
       docName: userID,
       field: 'appState',
@@ -188,7 +188,7 @@ class UserFireOps {
     );
 
     /// DELETE USER
-    await Fire.deleteDoc(
+    await OfficialFire.deleteDoc(
       collName: FireColl.users,
       docName: _userModel.id,
     );
@@ -197,7 +197,7 @@ class UserFireOps {
 
 
     /// DELETE FIREBASE USER
-    await Authing.deleteFirebaseUser(
+    await OfficialAuthing.deleteFirebaseUser(
       userID: _userModel.id,
     );
 

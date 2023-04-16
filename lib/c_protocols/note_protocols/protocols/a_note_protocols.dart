@@ -589,7 +589,7 @@ class NoteProtocols {
 
       /// READ ALL NOTES
       for (int i = 0; i <= 1000; i++){
-        final List<Map<String, dynamic>> _maps = await Fire.readSubCollectionDocs(
+        final List<Map<String, dynamic>> _maps = await OfficialFire.readSubCollectionDocs(
           limit: 10,
           collName: FireColl.getPartyCollName(partyType),
           docName: id,

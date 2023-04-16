@@ -25,7 +25,7 @@ class CityPhidsRealOps {
 
     if (cityID != null){
 
-      final Map<String, dynamic> _map = await Real.readDoc(
+      final Map<String, dynamic> _map = await OfficialReal.readDoc(
         collName: RealColl.citiesPhids,
         docName: cityID,
       );
@@ -81,7 +81,7 @@ class CityPhidsRealOps {
         flyerModel: flyerModel,
       );
 
-      await Real.incrementDocFields(
+      await OfficialReal.incrementDocFields(
         context: context,
         collName: RealColl.citiesPhids,
         docName: flyerModel.zone.cityID,

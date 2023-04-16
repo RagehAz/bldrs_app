@@ -28,7 +28,7 @@ class BzRecordRealOps {
     blog('BzRecordOps.followBz : START');
 
     final RecordModel _record = RecordModel.createFollowRecord(
-        userID: Authing.getUserID(),
+        userID: OfficialAuthing.getUserID(),
         bzID: bzID
     );
 
@@ -56,7 +56,7 @@ class BzRecordRealOps {
     blog('BzRecordOps.unfollowBz : START');
 
     final RecordModel _record = RecordModel.createUnfollowRecord(
-      userID: Authing.getUserID(),
+      userID: OfficialAuthing.getUserID(),
       bzID: bzID,
     );
 
@@ -87,7 +87,7 @@ class BzRecordRealOps {
     blog('BzRecordOps.callBz : START');
 
     final RecordModel _record = RecordModel.createCallRecord(
-      userID: Authing.getUserID(),
+      userID: OfficialAuthing.getUserID(),
       bzID: bzID,
       contact: contact,
     );
@@ -138,14 +138,14 @@ class BzRecordRealOps {
       _value = incrementThis;
     }
 
-    Map<String, dynamic> _map = await Real.readDocOnce(
+    Map<String, dynamic> _map = await OfficialReal.readDocOnce(
       collName: RealColl.countingBzz,
       docName: bzID,
     );
 
     if (_value != 0){
 
-      await Real.updateDocField(
+      await OfficialReal.updateDocField(
         collName: RealColl.countingBzz,
         docName: bzID,
         fieldName: field,
@@ -174,7 +174,7 @@ class BzRecordRealOps {
     @required String bzID,
   }) async {
 
-    final Map<String, dynamic> _map = await Real.readDocOnce(
+    final Map<String, dynamic> _map = await OfficialReal.readDocOnce(
       collName: RealColl.countingBzz,
       docName: bzID,
     );
@@ -192,19 +192,19 @@ class BzRecordRealOps {
   }) async {
 
     /// FOLLOWS
-    await Real.deleteDoc(
+    await OfficialReal.deleteDoc(
       collName: RealColl.recordingFollows,
       docName: bzID,
     );
 
     /// CALLS
-    await Real.deleteDoc(
+    await OfficialReal.deleteDoc(
       collName: RealColl.recordingCalls,
       docName: bzID,
     );
 
     /// BZ COUNTERS
-    await Real.deleteDoc(
+    await OfficialReal.deleteDoc(
       collName: RealColl.countingBzz,
       docName: bzID,
     );

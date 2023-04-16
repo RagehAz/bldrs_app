@@ -342,7 +342,7 @@ Future<bool> _checkPassword({
       contactType: ContactType.email,
     ) ?? _authModel.email;
 
-    _passwordIsCorrect = await EmailAuthing.checkPasswordIsCorrect(
+    _passwordIsCorrect = await OfficialEmailAuthing.checkPasswordIsCorrect(
       password: _password,
       email: _email,
     );

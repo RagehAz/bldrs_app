@@ -32,7 +32,7 @@ class PhraseRealOps {
 
       if (Mapper.checkCanLoopList(_phrasesOfLang) == true){
 
-        await Real.createNamedDoc(
+        await OfficialReal.createNamedDoc(
             collName: RealColl.phrases,
             docName: langCode,
             map: Phrase.cipherPhrasesToPhidsMap(_phrasesOfLang),
@@ -58,7 +58,7 @@ class PhraseRealOps {
 
     if (lang != null && phid != null){
 
-      final String _value = await Real.readPath(
+      final String _value = await OfficialReal.readPath(
           path: '${RealColl.phrases}/$lang/$phid',
       );
 
@@ -91,7 +91,7 @@ class PhraseRealOps {
 
     if (langCode != null){
 
-      final Map<String, dynamic> _map = await Real.readDocOnce(
+      final Map<String, dynamic> _map = await OfficialReal.readDocOnce(
         collName: RealColl.phrases,
         docName: langCode,
         addDocID: false,
@@ -127,7 +127,7 @@ class PhraseRealOps {
 
     if (Mapper.checkCanLoopList(updatedPhrases) == true && langCode != null){
 
-      await Real.updateDoc(
+      await OfficialReal.updateDoc(
           collName: RealColl.phrases,
           docName: langCode,
           map: Phrase.cipherPhrasesToPhidsMap(updatedPhrases),
@@ -154,7 +154,7 @@ class PhraseRealOps {
 
           final String _langCode = langCodes[index];
 
-          await Real.deleteField(
+          await OfficialReal.deleteField(
               collName: RealColl.phrases,
               docName: _langCode,
               fieldName: phid,

@@ -147,10 +147,10 @@ class ZoneSearchOps {
     int limit = 10,
     QueryDocumentSnapshot<Object> startAfter,
   }) async {
-    final List<Map<String, dynamic>> _maps = await Fire.superCollPaginator(
+    final List<Map<String, dynamic>> _maps = await OfficialFire.superCollPaginator(
       queryModel: FireQueryModel(
         // idFieldName: 'id', // DEFAULT
-        collRef: Fire.getCollectionRef(FireColl.phrases_cities),
+        collRef: OfficialFire.getCollectionRef(FireColl.phrases_cities),
         limit: limit,
         finders: <FireFinder>[
           FireFinder(field: 'id', comparison: FireComparison.equalTo, value: text),
@@ -173,10 +173,10 @@ class ZoneSearchOps {
     int limit = 10,
     QueryDocumentSnapshot<Object> startAfter,
   }) async {
-    final List<Map<String, dynamic>> _maps = await Fire.superCollPaginator(
+    final List<Map<String, dynamic>> _maps = await OfficialFire.superCollPaginator(
       queryModel: FireQueryModel(
         // idFieldName: 'id', // DEFAULT
-        collRef: Fire.getCollectionRef(FireColl.phrases_cities),
+        collRef: OfficialFire.getCollectionRef(FireColl.phrases_cities),
         limit: limit,
         finders: <FireFinder>[
           FireFinder(field: 'trigram', comparison: FireComparison.arrayContains, value: text),
@@ -204,10 +204,10 @@ class ZoneSearchOps {
     int limit = 10,
     QueryDocumentSnapshot<Object> startAfter,
   }) async {
-    final List<Map<String, dynamic>> _maps = await Fire.superCollPaginator(
+    final List<Map<String, dynamic>> _maps = await OfficialFire.superCollPaginator(
       queryModel: FireQueryModel(
         // idFieldName: 'id', // DEFAULT
-        collRef: Fire.getCollectionRef(FireColl.phrases_cities),
+        collRef: OfficialFire.getCollectionRef(FireColl.phrases_cities),
         limit: limit,
         finders: <FireFinder>[
           FireFinder(field: 'countryID', comparison: FireComparison.equalTo, value: countryID),
@@ -232,10 +232,10 @@ class ZoneSearchOps {
     int limit = 10,
     QueryDocumentSnapshot<Object> startAfter,
   }) async {
-    final List<Map<String, dynamic>> _maps = await Fire.superCollPaginator(
+    final List<Map<String, dynamic>> _maps = await OfficialFire.superCollPaginator(
       queryModel: FireQueryModel(
         // idFieldName: 'id', // DEFAULT
-        collRef: Fire.getCollectionRef(FireColl.phrases_cities),
+        collRef: OfficialFire.getCollectionRef(FireColl.phrases_cities),
         limit: limit,
         finders: <FireFinder>[
           FireFinder(field: 'countryID', comparison: FireComparison.equalTo, value: countryID),
@@ -492,10 +492,10 @@ class ZoneSearchOps {
     int limit = 10,
     QueryDocumentSnapshot<Object> startAfter,
   }) async {
-    final List<Map<String, dynamic>> _maps = await Fire.superCollPaginator(
+    final List<Map<String, dynamic>> _maps = await OfficialFire.superCollPaginator(
       queryModel: FireQueryModel(
         // idFieldName: 'id', // DEFAULT
-        collRef: Fire.getCollectionRef(FireColl.phrases_districts),
+        collRef: OfficialFire.getCollectionRef(FireColl.phrases_districts),
         limit: limit,
         finders: <FireFinder>[
           FireFinder(field: 'id', comparison: FireComparison.equalTo, value: text),
@@ -518,10 +518,10 @@ class ZoneSearchOps {
     int limit = 10,
     QueryDocumentSnapshot<Object> startAfter,
   }) async {
-    final List<Map<String, dynamic>> _maps = await Fire.superCollPaginator(
+    final List<Map<String, dynamic>> _maps = await OfficialFire.superCollPaginator(
       queryModel: FireQueryModel(
         // idFieldName: 'id', // DEFAULT
-        collRef: Fire.getCollectionRef(FireColl.phrases_districts),
+        collRef: OfficialFire.getCollectionRef(FireColl.phrases_districts),
         limit: limit,
         finders: <FireFinder>[
           FireFinder(field: 'trigram', comparison: FireComparison.arrayContains, value: text),
@@ -549,10 +549,10 @@ class ZoneSearchOps {
     int limit = 10,
     QueryDocumentSnapshot<Object> startAfter,
   }) async {
-    final List<Map<String, dynamic>> _maps = await Fire.superCollPaginator(
+    final List<Map<String, dynamic>> _maps = await OfficialFire.superCollPaginator(
       queryModel: FireQueryModel(
         // idFieldName: 'id', // DEFAULT
-        collRef: Fire.getCollectionRef(FireColl.phrases_districts),
+        collRef: OfficialFire.getCollectionRef(FireColl.phrases_districts),
         limit: limit,
         finders: <FireFinder>[
           FireFinder(field: 'countryID', comparison: FireComparison.equalTo, value: countryID),
@@ -577,10 +577,10 @@ class ZoneSearchOps {
     int limit = 10,
     QueryDocumentSnapshot<Object> startAfter,
   }) async {
-    final List<Map<String, dynamic>> _maps = await Fire.superCollPaginator(
+    final List<Map<String, dynamic>> _maps = await OfficialFire.superCollPaginator(
       queryModel: FireQueryModel(
         // idFieldName: 'id', // DEFAULT
-        collRef: Fire.getCollectionRef(FireColl.phrases_districts),
+        collRef: OfficialFire.getCollectionRef(FireColl.phrases_districts),
         limit: limit,
         finders: <FireFinder>[
           FireFinder(field: 'countryID', comparison: FireComparison.equalTo, value: countryID),
@@ -611,10 +611,10 @@ class ZoneSearchOps {
   }) async {
     final String _countryID = CityModel.getCountryIDFromCityID(cityID);
 
-    final List<Map<String, dynamic>> _maps = await Fire.superCollPaginator(
+    final List<Map<String, dynamic>> _maps = await OfficialFire.superCollPaginator(
       queryModel: FireQueryModel(
         // idFieldName: 'id', // DEFAULT
-        collRef: Fire.getCollectionRef(FireColl.phrases_districts),
+        collRef: OfficialFire.getCollectionRef(FireColl.phrases_districts),
         limit: limit,
         finders: <FireFinder>[
           FireFinder(field: 'countryID', comparison: FireComparison.equalTo, value: _countryID),
@@ -642,10 +642,10 @@ class ZoneSearchOps {
   }) async {
     final String _countryID = CityModel.getCountryIDFromCityID(cityID);
 
-    final List<Map<String, dynamic>> _maps = await Fire.superCollPaginator(
+    final List<Map<String, dynamic>> _maps = await OfficialFire.superCollPaginator(
       queryModel: FireQueryModel(
         // idFieldName: 'id', // DEFAULT
-        collRef: Fire.getCollectionRef(FireColl.phrases_districts),
+        collRef: OfficialFire.getCollectionRef(FireColl.phrases_districts),
         limit: limit,
         finders: <FireFinder>[
           FireFinder(field: 'countryID', comparison: FireComparison.equalTo, value: _countryID),

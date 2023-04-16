@@ -24,7 +24,7 @@ class AppSettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final bool _userIsOnline = Authing.userIsSignedIn();
+    final bool _userIsOnline = OfficialAuthing.userIsSignedIn();
 
     return FloatingLayout(
       columnChildren: <Widget>[
@@ -123,7 +123,7 @@ class CreateNewBzButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final bool _userIsOnline = Authing.userIsSignedIn();
+    final bool _userIsOnline = OfficialAuthing.userIsSignedIn();
 
     return SizedBox(
       width: SettingsWideButton.width,

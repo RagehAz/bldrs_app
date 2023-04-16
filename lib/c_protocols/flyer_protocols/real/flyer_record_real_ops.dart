@@ -31,10 +31,10 @@ class FlyerRecordRealOps {
   }) async {
     blog('FlyerRecordOps.shareFlyer : START');
 
-    if (Authing.userIsSignedIn() == true && flyerID != DraftFlyer.newDraftID){
+    if (OfficialAuthing.userIsSignedIn() == true && flyerID != DraftFlyer.newDraftID){
 
       final RecordModel _record = RecordModel.createShareRecord(
-        userID: Authing.getUserID(),
+        userID: OfficialAuthing.getUserID(),
         flyerID: flyerID,
       );
 
@@ -77,7 +77,7 @@ class FlyerRecordRealOps {
     /// WE WEEN A MORE SOLID WAY TO CHECK IF THIS USER PREVIOUSLY VIEWED THE SLIDE TO CALL THIS
     /// OR,, CHANGE THE NODE ID IN
     if (
-        Authing.userIsSignedIn() == true &&
+        OfficialAuthing.userIsSignedIn() == true &&
         flyerModel?.id != DraftFlyer.newDraftID &&
         flyerModel != null &&
         index != null
@@ -122,7 +122,7 @@ class FlyerRecordRealOps {
         // else {
 
         final RecordModel _record = RecordModel.createViewRecord(
-          userID: Authing.getUserID(),
+          userID: OfficialAuthing.getUserID(),
           flyerID: flyerModel.id,
           slideIndex: index,
         );
@@ -167,10 +167,10 @@ class FlyerRecordRealOps {
   }) async {
     // blog('FlyerRecordOps.saveFlyer : START');
 
-    if (Authing.userIsSignedIn() == true && flyerID != DraftFlyer.newDraftID){
+    if (OfficialAuthing.userIsSignedIn() == true && flyerID != DraftFlyer.newDraftID){
 
       final RecordModel _record = RecordModel.createSaveRecord(
-        userID: Authing.getUserID(),
+        userID: OfficialAuthing.getUserID(),
         flyerID: flyerID,
         slideIndex: slideIndex,
       );
@@ -210,10 +210,10 @@ class FlyerRecordRealOps {
   }) async {
     // blog('FlyerRecordOps.unSaveFlyer : START');
 
-    if (Authing.userIsSignedIn() == true && flyerID != DraftFlyer.newDraftID){
+    if (OfficialAuthing.userIsSignedIn() == true && flyerID != DraftFlyer.newDraftID){
 
       final RecordModel _record = RecordModel.createUnSaveRecord(
-        userID: Authing.getUserID(),
+        userID: OfficialAuthing.getUserID(),
         flyerID: flyerID,
       );
 
@@ -256,7 +256,7 @@ class FlyerRecordRealOps {
 
     blog('FlyerRecordOps.createCreateReview : START');
 
-    if (Authing.userIsSignedIn() == true && reviewModel.flyerID != DraftFlyer.newDraftID){
+    if (OfficialAuthing.userIsSignedIn() == true && reviewModel.flyerID != DraftFlyer.newDraftID){
 
       // final RecordModel _record = RecordModel.createCreateReviewRecord(
       //   userID: Authing.getUserID(),
@@ -379,14 +379,14 @@ class FlyerRecordRealOps {
       _value = incrementThis;
     }
 
-    await Real.updateDocField(
+    await OfficialReal.updateDocField(
       collName: RealColl.countingFlyers,
       docName: flyerID,
       fieldName: field,
       value: ServerValue.increment(_value),
     );
 
-    Map<String, dynamic> _map = await Real.readDocOnce(
+    Map<String, dynamic> _map = await OfficialReal.readDocOnce(
       collName: RealColl.countingFlyers,
       docName: flyerID,
     );
@@ -409,7 +409,7 @@ class FlyerRecordRealOps {
     @required String flyerID,
   }) async {
 
-    final Map<String, dynamic> _map = await Real.readDocOnce(
+    final Map<String, dynamic> _map = await OfficialReal.readDocOnce(
       collName: RealColl.countingFlyers,
       docName: flyerID,
     );
@@ -429,19 +429,19 @@ class FlyerRecordRealOps {
     await Future.wait(<Future>[
 
       /// SHARES
-      Real.deleteDoc(
+      OfficialReal.deleteDoc(
         collName: RealColl.recordingShares,
         docName: flyerID,
       ),
 
       /// VIEWS
-      Real.deleteDoc(
+      OfficialReal.deleteDoc(
         collName: RealColl.recordingViews,
         docName: flyerID,
       ),
 
       /// SAVES
-      Real.deleteDoc(
+      OfficialReal.deleteDoc(
         collName: RealColl.recordingSaves,
         docName: flyerID,
       ),
@@ -454,7 +454,7 @@ class FlyerRecordRealOps {
       // ),
 
       /// FLYERS COUNTER
-      Real.deleteDoc(
+      OfficialReal.deleteDoc(
         collName: RealColl.countingFlyers,
         docName: flyerID,
       ),

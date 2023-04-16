@@ -22,7 +22,7 @@ class UserFireSearch{
     int limit = 10,
   }) async {
 
-    final List<Map<String, dynamic>> _result = await Fire.readCollectionDocs(
+    final List<Map<String, dynamic>> _result = await OfficialFire.readCollectionDocs(
       collName: FireColl.users,
       addDocSnapshotToEachMap: true,
       limit: limit,
@@ -66,7 +66,7 @@ class UserFireSearch{
         invoker: 'usersByNameAndIsAuthor',
         functions: () async {
           final CollectionReference<Object> _usersCollection =
-          Fire.getCollectionRef(FireColl.users);
+          OfficialFire.getCollectionRef(FireColl.users);
 
           final QuerySnapshot<Object> _collectionSnapshot = await _usersCollection
               .where('myBzzIDs', isNotEqualTo: <String>[])
