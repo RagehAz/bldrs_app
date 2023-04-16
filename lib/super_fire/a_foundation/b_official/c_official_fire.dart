@@ -8,126 +8,72 @@ class OfficialFire{
 
   // -----------------------------------------------------------------------------
 
-  /// PATHS GETTERS
-
-  // --------------------
-  /// TESTED : NOT USED
-  /*
-String pathOfDoc({
-  @required String collName,
-  @required String docName,
-}) {
-  return '$collName/$docName';
-}
-  // --------------------
-String pathOfSubColl({
-  @required String collName,
-  @required String docName,
-  @required String subCollName,
-}) {
-  return '$collName/$docName/$subCollName';
-}
-  // --------------------
-String pathOfSubDoc({
-  @required String collName,
-  @required String docName,
-  @required String subCollName,
-  @required String subDocName,
-}) {
-  return '$collName/$docName/$subCollName/$subDocName';
-}
-
- */
-
-  // -----------------------------------------------------------------------------
-
   /// REFERENCES
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static cloud.CollectionReference<Object> getSuperCollRef({
-    @required String aCollName,
-    String bDocName,
-    String cSubCollName,
+  /// TASK : TEST ME
+  static cloud.CollectionReference<Object> _getCollRef({
+    @required String coll,
+    String doc,
+    String subColl,
   }) {
 
+    /// GET FIREBASE CLOUD FIRESTORE COLLECTION REFERENCE
+
+    assert(coll != null, 'coll can not be null');
     assert(
-    (bDocName == null && cSubCollName == null) || (bDocName != null && cSubCollName != null),
-    'bDocName & cSubCollName should both be null or both have values'
+    (doc == null && subColl == null) || (doc != null && subColl != null),
+    'doc & subColl should both be null or both have values'
     );
 
-    final cloud.FirebaseFirestore _fireInstance = OfficialFirebase.getFire();
 
-    cloud.CollectionReference<Object> _ref = _fireInstance.collection(aCollName);
-
-    if (bDocName != null && cSubCollName != null){
-      _ref = _fireInstance
-          .collection(aCollName)
-          .doc(bDocName)
-          .collection(cSubCollName);
+   if (doc == null || subColl == null){
+      return OfficialFirebase.getFire().collection(coll);
+    }
+    else if (doc != null && subColl != null){
+      /// return OfficialFirebase.getFire().collection('$coll/$doc/$subColl');
+      return OfficialFirebase.getFire().collection(coll)
+          .doc(doc)
+          .collection(subColl);
+    }
+    else {
+      return null;
     }
 
-    return _ref;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static cloud.CollectionReference<Object> getCollectionRef(String collName) {
-    return OfficialFirebase.getFire().collection(collName);
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static cloud.DocumentReference<Object> getDocRef({
-    @required String collName,
-    @required String docName,
+  /// TASK : TEST ME
+  static cloud.DocumentReference<Object> _getDocRef({
+    @required String coll,
+    @required String doc,
+    String subColl,
+    String subDoc,
   }) {
 
-    /// or this syntax
-    /// final cloudFire.DocumentReference<Object> _doc =
-    /// FirebaseFirestore.instance
-    ///     .collection(collName)
-    ///     .doc(docName)
+    /// GET FIREBASE CLOUD FIRESTORE DOCUMENT REFERENCE
 
-    return getCollectionRef(collName).doc(docName);
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static cloud.CollectionReference<Object> getSubCollectionRef({
-    @required String collName,
-    @required String docName,
-    @required String subCollName,
-  }) {
+    assert(coll != null, 'coll can not be null');
+    assert(doc != null, 'doc can not be null');
 
-    /// or this syntax
-    /// final cloudFire.CollectionReference<Object> _subCollection =
-    /// FirebaseFirestore.instance
-    ///     .collection(collName)
-    ///     .doc(docName)
-    ///     .collection(subCollName);
+    assert((subColl == null && subDoc == null) || (subColl != null && subDoc != null),
+    'doc & subColl should both be null or both have values'
+    );
 
-    return OfficialFirebase.getFire().collection('$collName/$docName/$subCollName');
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static cloud.DocumentReference<Object> getSubDocRef({
-    @required String collName,
-    @required String docName,
-    @required String subCollName,
-    @required String subDocName,
-  }) {
+    if (subColl == null || subDoc == null){
+      /// return OfficialFirebase.getFire().doc('$coll/$doc');
+      return _getCollRef(coll: coll).doc(doc);
+    }
+    else if (subColl != null && subDoc != null){
+      /// return OfficialFirebase.getFire().doc('$coll/$doc/$subColl/$subDoc');
+      return _getCollRef(coll: coll)
+          .doc(doc)
+          .collection(subColl)
+          .doc(subDoc);
+    }
+    else {
+      return null;
+    }
 
-    final cloud.CollectionReference<Object> _subCollection = cloud.FirebaseFirestore
-        .instance
-        .collection('$collName/$docName/$subCollName');
-
-    /// or this syntax
-    /// final cloudFire.DocumentReference<Object> _subDocRef =
-    /// FirebaseFirestore.instance
-    ///     .collection(collName)
-    ///     .doc(docName)
-    ///     .collection(subCollName)
-    ///     .doc(subDocName);
-
-    return _subCollection.doc(subDocName);
   }
   // -----------------------------------------------------------------------------
 
@@ -293,7 +239,9 @@ String pathOfSubDoc({
 
     if (input != null){
 
-      final cloud.CollectionReference<Object> _bzCollectionRef = getCollectionRef(collName);
+      final cloud.CollectionReference<Object> _bzCollectionRef = _getCollRef(
+        coll: collName,
+      );
       final cloud.DocumentReference<Object> _docRef = _bzCollectionRef.doc();
 
       if (addDocID == true) {
@@ -323,17 +271,17 @@ String pathOfSubDoc({
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<cloud.DocumentReference<Object>> createNamedDoc({
-    @required String collName,
-    @required String docName,
+    @required String coll,
+    @required String doc,
     @required Map<String, dynamic> input,
   }) async {
     cloud.DocumentReference<Object> _output;
 
     if (input != null){
 
-      final cloud.DocumentReference<Object> _docRef = getDocRef(
-        collName: collName,
-        docName: docName,
+      final cloud.DocumentReference<Object> _docRef = _getDocRef(
+        coll: coll,
+        doc: doc,
       );
 
       await _setData(
@@ -366,10 +314,10 @@ String pathOfSubDoc({
     /// and creates random name for sub doc if sub doc name is null
 
     final cloud.DocumentReference<Object> _subDocRef = await createNamedSubDoc(
-      collName: collName,
-      docName: docName,
-      subCollName: subCollName,
-      subDocName: null, /// to make it generate auto ID
+      coll: collName,
+      doc: docName,
+      subColl: subCollName,
+      subDoc: null, /// to make it generate auto ID
       input: input,
     );
 
@@ -382,10 +330,10 @@ String pathOfSubDoc({
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<cloud.DocumentReference<Object>> createNamedSubDoc({
-    @required String collName,
-    @required String docName,
-    @required String subCollName,
-    @required String subDocName,
+    @required String coll,
+    @required String doc,
+    @required String subColl,
+    @required String subDoc,
     @required Map<String, dynamic> input,
   }) async {
 
@@ -398,11 +346,11 @@ String pathOfSubDoc({
 
     if (input != null){
 
-      final cloud.DocumentReference<Object> _ref = getSubDocRef(
-        collName: collName,
-        docName: docName,
-        subCollName: subCollName,
-        subDocName: subDocName,
+      final cloud.DocumentReference<Object> _ref = _getDocRef(
+        coll: coll,
+        doc: doc,
+        subColl: subColl,
+        subDoc: subDoc,
       );
 
       await _setData(
@@ -438,7 +386,11 @@ String pathOfSubDoc({
         functions: () async {
 
           final cloud.QuerySnapshot<Object> _collectionSnapshot = await _superCollectionQuery(
-            collRef: queryModel.collRef,
+            collRef: _getCollRef(
+              coll: queryModel.coll,
+              doc: queryModel.doc,
+              subColl: queryModel.subColl,
+            ),
             orderBy: queryModel.orderBy,
             limit: queryModel.limit,
             startAfter: startAfter,
@@ -460,7 +412,7 @@ String pathOfSubDoc({
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Map<String, dynamic>>> readCollectionDocs({
-    @required String collName,
+    @required String coll,
     QueryOrderBy orderBy,
     int limit,
     cloud.QueryDocumentSnapshot<Object> startAfter,
@@ -475,7 +427,9 @@ String pathOfSubDoc({
         invoker: 'readCollectionDocs',
         functions: () async {
 
-          final cloud.CollectionReference<Object> _collRef = getCollectionRef(collName);
+          final cloud.CollectionReference<Object> _collRef = _getCollRef(
+            coll: coll,
+          );
 
           final cloud.QuerySnapshot<Object> _collectionSnapshot = await _superCollectionQuery(
             collRef: _collRef,
@@ -537,9 +491,9 @@ String pathOfSubDoc({
       invoker: 'readDoc',
       functions: () async {
 
-        final cloud.DocumentReference<Object> _docRef = getDocRef(
-          collName: collName,
-          docName: docName,
+        final cloud.DocumentReference<Object> _docRef = _getDocRef(
+          coll: collName,
+          doc: docName,
         );
         // blog('readDoc() : _docRef : $_docRef');
 
@@ -560,9 +514,9 @@ String pathOfSubDoc({
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Map<String, dynamic>>> readSubCollectionDocs({
-    @required String collName,
-    @required String docName,
-    @required String subCollName,
+    @required String coll,
+    @required String doc,
+    @required String subColl,
     int limit,
     QueryOrderBy orderBy,
     cloud.QueryDocumentSnapshot<Object> startAfter,
@@ -577,10 +531,10 @@ String pathOfSubDoc({
         invoker: 'readSubCollectionDocs',
         functions: () async {
 
-          final cloud.CollectionReference<Object> _subCollectionRef = getSubCollectionRef(
-            collName: collName,
-            docName: docName,
-            subCollName: subCollName,
+          final cloud.CollectionReference<Object> _subCollectionRef = _getCollRef(
+            coll: coll,
+            doc: doc,
+            subColl: subColl,
           );
 
           final cloud.QuerySnapshot<Object> _collectionSnapshot = await _superCollectionQuery(
@@ -593,7 +547,7 @@ String pathOfSubDoc({
 
           final List<cloud.QueryDocumentSnapshot<Object>> _queryDocumentSnapshots = _collectionSnapshot.docs;
 
-          _maps =Mapper.getMapsFromQueryDocumentSnapshotsList(
+          _maps = Mapper.getMapsFromQueryDocumentSnapshotsList(
               queryDocumentSnapshots: _queryDocumentSnapshots,
               addDocsIDs: addDocsIDs,
               addDocSnapshotToEachMap: addDocSnapshotToEachMap
@@ -607,10 +561,10 @@ String pathOfSubDoc({
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<dynamic> readSubDoc({
-    @required String collName,
-    @required String docName,
-    @required String subCollName,
-    @required String subDocName,
+    @required String coll,
+    @required String doc,
+    @required String subColl,
+    @required String subDoc,
     bool addDocSnapshot = false,
     bool addDocID = false,
   }) async {
@@ -621,11 +575,11 @@ String pathOfSubDoc({
         invoker: 'readSubDoc',
         functions: () async {
 
-          final cloud.DocumentReference<Object> _subDocRef = getSubDocRef(
-            collName: collName,
-            docName: docName,
-            subCollName: subCollName,
-            subDocName: subDocName,
+          final cloud.DocumentReference<Object> _subDocRef = _getDocRef(
+            coll: coll,
+            doc: doc,
+            subColl: subColl,
+            subDoc: subDoc,
           );
 
           _map = await _getMapByDocRef(
@@ -650,7 +604,11 @@ String pathOfSubDoc({
   }) {
 
     final cloud.Query<Map<String, dynamic>> _query = _superQuery(
-      collRef: queryModel.collRef,
+      collRef: _getCollRef(
+        coll: queryModel.coll,
+        doc: queryModel.doc,
+        subColl: queryModel.subColl,
+      ),
       orderBy: queryModel.orderBy,
       startAfter: startAfter,
       limit: queryModel.limit,
@@ -662,19 +620,19 @@ String pathOfSubDoc({
   // --------------------
   /// TESTED : WORKS PERFECT
   static Stream<cloud.QuerySnapshot<Object>> streamSubCollection({
-    @required String collName,
-    @required String docName,
-    @required String subCollName,
+    @required String coll,
+    @required String doc,
+    @required String subColl,
     QueryOrderBy orderBy,
     cloud.QueryDocumentSnapshot<Object> startAfter,
     int limit,
     List<FireFinder> finders,
   }) {
 
-    final cloud.CollectionReference<Object> _collRef = getSubCollectionRef(
-      collName: collName,
-      docName: docName,
-      subCollName: subCollName,
+    final cloud.CollectionReference<Object> _collRef = _getCollRef(
+      coll: coll,
+      doc: doc,
+      subColl: subColl,
     );
 
     final cloud.Query<Map<String, dynamic>> _query = _superQuery(
@@ -694,9 +652,9 @@ String pathOfSubDoc({
     @required String docName,
   }) {
 
-    final cloud.DocumentReference<Object> _docRef = getDocRef(
-      collName: collName,
-      docName: docName,
+    final cloud.DocumentReference<Object> _docRef = _getDocRef(
+      coll: collName,
+      doc: docName,
     );
 
     return _docRef.snapshots();
@@ -704,17 +662,17 @@ String pathOfSubDoc({
   // --------------------
   /// TESTED : WORKS PERFECT
   static Stream<cloud.DocumentSnapshot<Object>> streamSubDoc({
-    @required String collName,
-    @required String docName,
-    @required String subCollName,
-    @required String subDocName,
+    @required String coll,
+    @required String doc,
+    @required String subColl,
+    @required String subDoc,
   }) {
 
-    final cloud.DocumentReference<Object> _docRef = getSubDocRef(
-      collName: collName,
-      docName: docName,
-      subCollName: subCollName,
-      subDocName: subDocName,
+    final cloud.DocumentReference<Object> _docRef = _getDocRef(
+      coll: coll,
+      doc: doc,
+      subColl: subColl,
+      subDoc: subDoc,
     );
 
     return _docRef.snapshots();
@@ -726,8 +684,8 @@ String pathOfSubDoc({
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateDoc({
-    @required String collName,
-    @required String docName,
+    @required String coll,
+    @required String doc,
     @required Map<String, dynamic> input,
   }) async {
 
@@ -748,8 +706,8 @@ String pathOfSubDoc({
     ///
 
     await createNamedDoc(
-      collName: collName,
-      docName: docName,
+      coll: coll,
+      doc: doc,
       input: input,
     );
 
@@ -758,17 +716,17 @@ String pathOfSubDoc({
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateDocField({
-    @required String collName,
-    @required String docName,
+    @required String coll,
+    @required String doc,
     @required String field,
     @required dynamic input,
   }) async {
 
     if (input != null){
 
-      final cloud.DocumentReference<Object> _ref = getDocRef(
-        collName: collName,
-        docName: docName,
+      final cloud.DocumentReference<Object> _ref = _getDocRef(
+        coll: coll,
+        doc: doc,
       );
 
       await _updateData(
@@ -783,18 +741,18 @@ String pathOfSubDoc({
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateSubDoc({
-    @required String collName,
-    @required String docName,
-    @required String subCollName,
-    @required String subDocName,
+    @required String coll,
+    @required String doc,
+    @required String subColl,
+    @required String subDoc,
     @required Map<String, dynamic> input,
   }) async {
 
     await createNamedSubDoc(
-      collName: collName,
-      docName: docName,
-      subCollName: subCollName,
-      subDocName: subDocName,
+      coll: coll,
+      doc: doc,
+      subColl: subColl,
+      subDoc: subDoc,
       input: input,
     );
 
@@ -803,10 +761,10 @@ String pathOfSubDoc({
   ///
   static Future<void> updateSubDocField({
     @required BuildContext context,
-    @required String collName,
-    @required String docName,
-    @required String subCollName,
-    @required String subDocName,
+    @required String coll,
+    @required String doc,
+    @required String subColl,
+    @required String subDoc,
     @required String field,
     @required dynamic input
   }) async {
@@ -817,11 +775,11 @@ String pathOfSubDoc({
 
     if (input != null){
 
-      final cloud.DocumentReference<Object> _subDoc = getSubDocRef(
-        collName: collName,
-        docName: docName,
-        subCollName: subCollName,
-        subDocName: subDocName,
+      final cloud.DocumentReference<Object> _subDoc = _getDocRef(
+        coll: coll,
+        doc: doc,
+        subColl: subColl,
+        subDoc: subDoc,
       );
 
       await _updateData(
@@ -848,9 +806,9 @@ String pathOfSubDoc({
         invoker: 'deleteDoc',
         functions: () async {
 
-          final cloud.DocumentReference<Object> _doc = getDocRef(
-            collName: collName,
-            docName: docName,
+          final cloud.DocumentReference<Object> _doc = _getDocRef(
+            coll: collName,
+            doc: docName,
           );
 
           await _doc.delete();
@@ -861,26 +819,26 @@ String pathOfSubDoc({
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteSubDoc({
-    @required String collName,
-    @required String docName,
-    @required String subCollName,
-    @required String subDocName,
+    @required String coll,
+    @required String doc,
+    @required String subColl,
+    @required String subDoc,
   }) async {
 
     await tryAndCatch(
         invoker: 'deleteSubDoc',
         functions: () async {
 
-          final cloud.DocumentReference<Object> _subDoc = getSubDocRef(
-            collName: collName,
-            docName: docName,
-            subCollName: subCollName,
-            subDocName: subDocName,
+          final cloud.DocumentReference<Object> _subDoc = _getDocRef(
+            coll: coll,
+            doc: doc,
+            subColl: subColl,
+            subDoc: subDoc,
           );
 
           await _subDoc.delete();
 
-          blog('deleteSubDoc : deleted : $collName : $docName : $subCollName : $subDocName');
+          blog('deleteSubDoc : deleted : $coll : $doc : $subColl : $subDoc');
         }
     );
   }
@@ -888,7 +846,7 @@ String pathOfSubDoc({
   /// TESTED : WORKS PERFECT
   static Future<void> deleteCollDocsByIterations({
     @required BuildContext context,
-    @required String collName,
+    @required String coll,
     @required int numberOfIterations, // was 1000
     @required int numberOfReadsPerIteration, // was 5
   }) async {
@@ -896,7 +854,7 @@ String pathOfSubDoc({
       for (int i = 0; i < numberOfIterations; i++){
 
         final List<Map<String, dynamic>> _maps = await readCollectionDocs(
-          collName: collName,
+          coll: coll,
           limit: numberOfReadsPerIteration,
           addDocsIDs: true,
         );
@@ -915,7 +873,7 @@ String pathOfSubDoc({
           blog('docs IDs : $_docIDs');
 
           await _deleteCollectionDocsByIDs(
-            collName: collName,
+            coll: coll,
             docsIDs: _docIDs,
           );
 
@@ -927,7 +885,7 @@ String pathOfSubDoc({
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _deleteCollectionDocsByIDs({
-    @required collName,
+    @required coll,
     @required List<String> docsIDs,
   }) async {
 
@@ -939,7 +897,7 @@ String pathOfSubDoc({
       for (final String id in docsIDs){
 
         await deleteDoc(
-          collName: collName,
+          collName: coll,
           docName: id,
         );
 
@@ -952,9 +910,9 @@ String pathOfSubDoc({
   /// TESTED : WORKS PERFECT
   static Future<void> deleteSubCollection({
     @required BuildContext context,
-    @required String collName,
-    @required String docName,
-    @required String subCollName,
+    @required String coll,
+    @required String doc,
+    @required String subColl,
     @required Function onDeleteSubDoc,
     @required int numberOfIterations, // was 1000
     @required int numberOfReadsPerIteration, // was 5
@@ -966,9 +924,9 @@ String pathOfSubDoc({
     for (int i = 0; i < numberOfIterations; i++){
 
         final List<Map<String, dynamic>> _maps = await readSubCollectionDocs(
-          collName: collName,
-          docName: docName,
-          subCollName: subCollName,
+          coll: coll,
+          doc: doc,
+          subColl: subColl,
           limit: numberOfReadsPerIteration,
           addDocsIDs: true,
         );
@@ -987,9 +945,9 @@ String pathOfSubDoc({
           blog('docs IDs : $_docIDs');
 
           await _deleteSubCollectionDocsBySubDocsIDs(
-            collName: collName,
-            docName: docName,
-            subCollName: subCollName,
+            coll: coll,
+            doc: doc,
+            subColl: subColl,
             subDocsIDs: _docIDs,
             onDeleteSubDoc: onDeleteSubDoc,
           );
@@ -1002,9 +960,9 @@ String pathOfSubDoc({
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _deleteSubCollectionDocsBySubDocsIDs({
-    @required collName,
-    @required docName,
-    @required subCollName,
+    @required coll,
+    @required doc,
+    @required subColl,
     @required List<String> subDocsIDs,
     @required Function onDeleteSubDoc,
   }) async {
@@ -1018,10 +976,10 @@ String pathOfSubDoc({
         await Future.wait(<Future>[
 
           deleteSubDoc(
-            collName: collName,
-            docName: docName,
-            subCollName: subCollName,
-            subDocName: subDocID,
+            coll: coll,
+            doc: doc,
+            subColl: subColl,
+            subDoc: subDocID,
           ),
 
 
@@ -1038,14 +996,14 @@ String pathOfSubDoc({
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteDocField({
-    @required String collName,
-    @required String docName,
+    @required String coll,
+    @required String doc,
     @required String field,
   }) async {
 
-    final cloud.DocumentReference<Object> _docRef = getDocRef(
-      collName: collName,
-      docName: docName,
+    final cloud.DocumentReference<Object> _docRef = _getDocRef(
+      coll: coll,
+      doc: doc,
     );
 
     final Map<String, Object> updates = <String, Object>{};
@@ -1064,18 +1022,18 @@ String pathOfSubDoc({
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteSubDocField({
-    @required String collName,
-    @required String docName,
+    @required String coll,
+    @required String doc,
+    @required String subColl,
+    @required String subDoc,
     @required String field,
-    @required String subCollName,
-    @required String subDocName,
   }) async {
 
-    final cloud.DocumentReference<Object> _docRef = getSubDocRef(
-      collName: collName,
-      docName: docName,
-      subCollName: subCollName,
-      subDocName: subDocName,
+    final cloud.DocumentReference<Object> _docRef = _getDocRef(
+      coll: coll,
+      doc: doc,
+      subColl: subColl,
+      subDoc: subDoc,
     );
 
     // Remove field from the document
@@ -1094,3 +1052,35 @@ String pathOfSubDoc({
   }
   // -----------------------------------------------------------------------------
 }
+
+  /// OLD METHODS
+  /*
+String pathOfDoc({
+  @required String collName,
+  @required String docName,
+}) {
+  return '$collName/$docName';
+}
+  // --------------------
+String pathOfSubColl({
+  @required String collName,
+  @required String docName,
+  @required String subCollName,
+}) {
+  return '$collName/$docName/$subCollName';
+}
+  // --------------------
+String pathOfSubDoc({
+  @required String collName,
+  @required String docName,
+  @required String subCollName,
+  @required String subDocName,
+}) {
+  return '$collName/$docName/$subCollName/$subDocName';
+}
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static cloud.CollectionReference<Object> getCollectionRef(String collName) {
+    return OfficialFirebase.getFire().collection(collName);
+  }
+ */

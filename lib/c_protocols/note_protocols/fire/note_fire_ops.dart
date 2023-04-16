@@ -107,10 +107,10 @@ class NoteFireOps {
     if (noteID != null && userID != null){
 
       final Map<String, dynamic> map = await OfficialFire.readSubDoc(
-        collName: FireColl.users,
-        docName: userID,
-        subCollName: FireSubColl.noteReceiver_receiver_notes,
-        subDocName: noteID,
+        coll: FireColl.users,
+        doc: userID,
+        subColl: FireSubColl.noteReceiver_receiver_notes,
+        subDoc: noteID,
         addDocID: true,
         // addDocSnapshot: true,
       );
@@ -137,10 +137,10 @@ class NoteFireOps {
     if (note != null){
 
       await OfficialFire.updateSubDoc(
-        collName: FireColl.getPartyCollName(note.parties.receiverType),
-        docName: note.parties.receiverID,
-        subCollName: FireSubColl.noteReceiver_receiver_notes,
-        subDocName: note.id,
+        coll: FireColl.getPartyCollName(note.parties.receiverType),
+        doc: note.parties.receiverID,
+        subColl: FireSubColl.noteReceiver_receiver_notes,
+        subDoc: note.id,
         input: note.toMap(toJSON: false),
       );
     }
@@ -199,10 +199,10 @@ class NoteFireOps {
     if (note != null){
 
       await OfficialFire.deleteSubDoc(
-        collName: FireColl.getPartyCollName(note.parties.receiverType),
-        docName: note.parties.receiverID,
-        subCollName: FireSubColl.noteReceiver_receiver_notes,
-        subDocName: note.id,
+        coll: FireColl.getPartyCollName(note.parties.receiverType),
+        doc: note.parties.receiverID,
+        subColl: FireSubColl.noteReceiver_receiver_notes,
+        subDoc: note.id,
       );
 
     }

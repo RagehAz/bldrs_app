@@ -4,7 +4,9 @@ part of super_fire;
 class FireQueryModel {
   /// --------------------------------------------------------------------------
   const FireQueryModel({
-    @required this.collRef,
+    @required this.coll,
+    this.doc,
+    this.subColl,
     this.idFieldName ='id',
     this.limit,
     this.orderBy,
@@ -12,7 +14,9 @@ class FireQueryModel {
     this.initialMaps,
   });
   /// --------------------------------------------------------------------------
-  final cloud.CollectionReference<Object> collRef;
+  final String coll;
+  final String doc;
+  final String subColl;
   final int limit;
   final QueryOrderBy orderBy;
   final List<FireFinder> finders;
@@ -25,7 +29,9 @@ class FireQueryModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   FireQueryModel copyWith({
-    cloud.CollectionReference<Object> collRef,
+    String coll,
+    String doc,
+    String subColl,
     String idFieldName,
     int limit,
     QueryOrderBy orderBy,
@@ -33,7 +39,9 @@ class FireQueryModel {
     List<Map<String, dynamic>> initialMaps,
   }){
     return FireQueryModel(
-      collRef: collRef ?? this.collRef,
+      coll: coll ?? this.coll,
+      doc: doc ?? this.doc,
+      subColl: subColl ?? this.subColl,
       idFieldName: idFieldName ?? this.idFieldName,
       limit: limit ?? this.limit,
       orderBy: orderBy ?? this.orderBy,
@@ -60,7 +68,9 @@ class FireQueryModel {
   else if (model1 != null && model2 != null){
 
     if (
-    model1.collRef?.path == model2.collRef?.path &&
+    model1.coll == model2.coll &&
+    model1.doc == model2.doc &&
+    model1.subColl == model2.subColl &&
     model1.idFieldName == model2.idFieldName &&
     model1.limit == model2.limit &&
     model1.orderBy?.descending == model2.orderBy?.descending &&
@@ -106,7 +116,9 @@ class FireQueryModel {
   // --------------------
   @override
   int get hashCode =>
-      collRef.hashCode^
+      coll.hashCode^
+      doc.hashCode^
+      subColl.hashCode^
       idFieldName.hashCode^
       limit.hashCode^
       orderBy.hashCode^
