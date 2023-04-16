@@ -104,7 +104,7 @@ class AuthModel {
         name: cred.user?.displayName,
         email: cred.user?.email,
         phone: cred.user?.phoneNumber,
-        imageURL: OfficialAuthing.getUserImageURLFromUserCredential(cred),
+        imageURL: _getUserImageURLFromOfficialUserCredential(cred),
         signInMethod: OfficialAuthing._getSignInMethodFromUser(user: cred.user),
         data: _createAuthModelDataMap(
           cred: cred,
@@ -369,6 +369,36 @@ class AuthModel {
 
         _output.add(_stringStringMap);
 
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------------------------------------------------------------
+
+  /// USER IMAGE
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String _getUserImageURLFromOfficialUserCredential(f_a.UserCredential cred){
+    String _output;
+
+    if (cred != null){
+
+      final SignInMethod signInMethod = OfficialAuthing.getCurrentSignInMethod();
+
+      if (signInMethod == SignInMethod.google){
+        _output = cred.user?.photoURL;
+      }
+      else if (signInMethod == SignInMethod.facebook){
+        _output = OfficialFacebookAuthing.getUserFacebookImageURLFromUserCredential(cred);
+      }
+      else if (signInMethod == SignInMethod.apple){
+        /// TASK : DO ME
+      }
+      else {
+        _output = cred.user?.photoURL;
       }
 
     }

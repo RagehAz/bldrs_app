@@ -197,9 +197,7 @@ class UserFireOps {
 
 
     /// DELETE FIREBASE USER
-    await OfficialAuthing.deleteFirebaseUser(
-      userID: _userModel.id,
-    );
+    await OfficialAuthing.deleteUser();
 
     blog('deleteMyUser : END');
 

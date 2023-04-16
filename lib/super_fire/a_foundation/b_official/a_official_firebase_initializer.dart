@@ -72,7 +72,7 @@ class OfficialFirebase {
   /// FIREBASE AUTH INSTANCE SINGLETON
   f_a.FirebaseAuth _auth;
   f_a.FirebaseAuth get auth => _auth ??= f_a.FirebaseAuth.instance;
-  static f_a.FirebaseAuth getFirebaseAuth() => OfficialFirebase.instance.auth;
+  static f_a.FirebaseAuth getAuth() => OfficialFirebase.instance.auth;
   // --------------------
   /// TESTED : WORKS PERFECT
   static void _initializeSocialAuthing({
