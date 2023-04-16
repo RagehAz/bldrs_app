@@ -146,7 +146,7 @@ class DraftFlyer{
         flyerModel: null,
       ),
       zone: bzModel.zone,
-      authorID: Authing.getUserID(),
+      authorID: OfficialAuthing.getUserID(),
       bzID: bzModel.id,
       position: null,
       draftSlides: const <DraftSlide>[],

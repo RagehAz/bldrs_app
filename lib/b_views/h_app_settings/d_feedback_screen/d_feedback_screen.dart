@@ -69,7 +69,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
     /// upload text to firebase
     final FeedbackModel _uploadedModel = await FeedbackRealOps.createFeedback(
       feedback: FeedbackModel(
-        userID: Authing.getUserID(),
+        userID: OfficialAuthing.getUserID(),
         timeStamp: DateTime.now(),
         feedback: _feedbackController.text,
       ),

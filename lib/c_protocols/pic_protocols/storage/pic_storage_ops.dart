@@ -22,7 +22,7 @@ class PicStorageOps {
 
     PicModel.assertIsUploadable(picModel);
 
-    final Reference _ref = await Storage.uploadBytes(
+    final Reference _ref = await OfficialStorage.uploadBytes(
       bytes: picModel.bytes,
       path: picModel.path,
       metaData: picModel.meta.toSettableMetadata(),
@@ -50,13 +50,13 @@ class PicStorageOps {
 
     if (TextCheck.isEmpty(path) == false){
 
-      final Uint8List _bytes = await Storage.readBytesByPath(
+      final Uint8List _bytes = await OfficialStorage.readBytesByPath(
         path: path,
       );
 
       if (Mapper.checkCanLoopList(_bytes) == true){
 
-        final FullMetadata _meta = await Storage.readMetaByPath(
+        final FullMetadata _meta = await OfficialStorage.readMetaByPath(
           path: path,
         );
 
@@ -97,9 +97,9 @@ class PicStorageOps {
   static Future<void> deletePic(String path) async {
     blog('deletePic : START');
 
-    await Storage.deleteDoc(
+    await OfficialStorage.deleteDoc(
       path: path,
-      currentUserID: Authing.getUserID(),
+      currentUserID: OfficialAuthing.getUserID(),
     );
 
     blog('deletePic : END');
@@ -110,9 +110,9 @@ class PicStorageOps {
 
     if (Mapper.checkCanLoopList(paths) == true){
 
-      await Storage.deleteDocs(
+      await OfficialStorage.deleteDocs(
         paths: paths,
-        currentUserID: Authing.getUserID(),
+        currentUserID: OfficialAuthing.getUserID(),
       );
 
     }

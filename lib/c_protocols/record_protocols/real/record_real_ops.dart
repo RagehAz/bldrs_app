@@ -60,14 +60,14 @@ class RecordRealOps {
 
     Map<String, dynamic> _map;
 
-    if (record != null && Authing.userIsSignedIn() == true){
+    if (record != null && OfficialAuthing.userIsSignedIn() == true){
 
       final String _path = RecordRealOps.createRecordTypeRealPath(
         recordType: record.recordType,
         modelID: record.modelID,
       );
 
-      _map = await Real.createDocInPath(
+      _map = await OfficialReal.createDocInPath(
         pathWithoutDocName: _path,
         addDocIDToOutput: true,
         map: record.toMap(toJSON: true), // real db is json
@@ -95,7 +95,7 @@ class RecordRealOps {
     DocumentSnapshot<Object> startAfter,
   }) async {
 
-    final CollectionReference<Object> _collRef = Fire.getCollectionRef(FireColl.records);
+    final CollectionReference<Object> _collRef = OfficialFire.getCollectionRef(FireColl.records);
     QuerySnapshot<Object> _collectionSnapshot;
 
     if (startAfter == null){

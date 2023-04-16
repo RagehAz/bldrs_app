@@ -23,7 +23,7 @@ class StorageDeletionOps {
 
     if (TextCheck.isEmpty(path) == false){
 
-      final bool _canDelete = await Storage.checkCanDeleteDocByPath(
+      final bool _canDelete = await OfficialStorage.checkCanDeleteDocByPath(
         path: path,
         userID: currentUserID,
       );
@@ -33,7 +33,7 @@ class StorageDeletionOps {
         await tryAndCatch(
           invoker: 'deleteDoc',
           functions: () async {
-            final Reference _picRef = Storage.getRefByPath(path);
+            final Reference _picRef = OfficialStorage.getRefByPath(path);
             await _picRef?.delete();
             blog('deletePic : DELETED STORAGE FILE IN PATH: $path');
           },

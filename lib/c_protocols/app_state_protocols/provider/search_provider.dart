@@ -215,7 +215,7 @@ class SearchProvider extends ChangeNotifier {
 
     final List<RecordModel> _records = await RecordRealOps.paginateRecords(
       context: context,
-      userID: Authing.getUserID(),
+      userID: OfficialAuthing.getUserID(),
       activityType: RecordType.search,
       limit: 5,
       startAfter: _lastRecordSnapshot,

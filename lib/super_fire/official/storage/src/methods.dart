@@ -1,9 +1,9 @@
 part of super_fire;
 
-class Storage {
+class OfficialStorage {
   // -----------------------------------------------------------------------------
 
-  const Storage();
+  const OfficialStorage();
   // -----------------------------------------------------------------------------
 
   /// REFERENCES

@@ -22,7 +22,7 @@ class FeedbackRealOps {
 
     if (feedback != null){
 
-      final Map<String, dynamic> _map = await Real.createDoc(
+      final Map<String, dynamic> _map = await OfficialReal.createDoc(
         collName: RealColl.feedbacks,
         addDocIDToOutput: true,
         map: feedback.toMap(),

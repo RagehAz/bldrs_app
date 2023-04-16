@@ -1,14 +1,14 @@
 part of super_fire;
 /// => TAMAM
-class Authing {
+class OfficialAuthing {
   // -----------------------------------------------------------------------------
 
   /// AuthFireOps SINGLETON
 
   // --------------------
-  Authing.singleton();
-  static final Authing _singleton = Authing.singleton();
-  static Authing get instance => _singleton;
+  OfficialAuthing.singleton();
+  static final OfficialAuthing _singleton = OfficialAuthing.singleton();
+  static OfficialAuthing get instance => _singleton;
   // -----------------------------------------------------------------------------
 
   /// FIREBASE AUTH
@@ -17,7 +17,7 @@ class Authing {
   /// FIREBASE AUTH SINGLETON
   f_a.FirebaseAuth _auth;
   f_a.FirebaseAuth get auth => _auth ??= f_a.FirebaseAuth.instance;
-  static f_a.FirebaseAuth getFirebaseAuth() => Authing.instance.auth;
+  static f_a.FirebaseAuth getFirebaseAuth() => OfficialAuthing.instance.auth;
   // -----------------------------------------------------------------------------
 
   /// INITIALIZE SOCIAL AUTHING
@@ -97,7 +97,7 @@ class Authing {
         /// GOOGLE SIGN OUT
         if (signInMethod == SignInMethod.google) {
           if (kIsWeb == false) {
-            final GoogleSignIn _instance = GoogleAuthing.getGoogleSignInInstance();
+            final GoogleSignIn _instance = OfficialGoogleAuthing.getGoogleSignInInstance();
             await _instance.disconnect();
             await _instance.signOut();
           }
@@ -105,11 +105,11 @@ class Authing {
 
         /// FACEBOOK SIGN OUT
         else if (signInMethod == SignInMethod.facebook) {
-          await FacebookAuthing.getFacebookAuthInstance().logOut();
+          await OfficialFacebookAuthing.getFacebookAuthInstance().logOut();
         }
 
         /// FIREBASE SIGN OUT
-        await Authing.getFirebaseAuth().signOut();
+        await OfficialAuthing.getFirebaseAuth().signOut();
       },
     );
 
@@ -201,13 +201,13 @@ class Authing {
 
     if (cred != null){
 
-      final SignInMethod signInMethod = Authing.getCurrentSignInMethod();
+      final SignInMethod signInMethod = OfficialAuthing.getCurrentSignInMethod();
 
       if (signInMethod == SignInMethod.google){
         _output = cred.user?.photoURL;
       }
       else if (signInMethod == SignInMethod.facebook){
-        _output = FacebookAuthing.getUserFacebookImageURLFromUserCredential(cred);
+        _output = OfficialFacebookAuthing.getUserFacebookImageURLFromUserCredential(cred);
       }
       else if (signInMethod == SignInMethod.apple){
         /// TASK : DO ME
@@ -223,7 +223,7 @@ class Authing {
   // --------------------
   /// TESTED : WORKS PERFECT
   static SignInMethod getCurrentSignInMethod(){
-    return _getSignInMethodFromUser(user: Authing.getFirebaseUser());
+    return _getSignInMethodFromUser(user: OfficialAuthing.getFirebaseUser());
   }
   // --------------------
   /// TESTED : WORKS PERFECT

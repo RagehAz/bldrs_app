@@ -78,7 +78,7 @@ class WipeBzProtocols {
       ),
 
       /// DELETE BZ STORAGE DIRECTORY
-      Storage.deletePath(
+      OfficialStorage.deletePath(
         context: context,
         path: '${StorageColl.bzz}/${bzModel.id}',
       ),
@@ -210,7 +210,7 @@ class WipeBzProtocols {
       BzLDBOps.deleteBzEditorSession(bzID),
 
       /// DELETE AUTHOR EDITOR SESSION
-      BzLDBOps.deleteAuthorEditorSession(Authing.getUserID()),
+      BzLDBOps.deleteAuthorEditorSession(OfficialAuthing.getUserID()),
 
     ]);
 

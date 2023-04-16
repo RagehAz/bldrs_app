@@ -39,7 +39,7 @@ StreamSubscription listenToUserUnseenNotes(BuildContext context){
       listen: false,
   );
 
-  if (_userModel != null && Authing.getUserID() != null){
+  if (_userModel != null && OfficialAuthing.getUserID() != null){
 
     final Stream<QuerySnapshot<Object>> _unseenNotesStream = userUnseenNotesStream(
         context: context

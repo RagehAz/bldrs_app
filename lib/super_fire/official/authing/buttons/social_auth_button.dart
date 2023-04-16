@@ -221,7 +221,7 @@ class SocialAuthButton extends StatelessWidget {
   /// TESTED : WORKS PERFECT
   Future<void> _googleManualAuthing() async {
 
-    final AuthModel _authModel = await GoogleAuthing.emailSignIn(
+    final AuthModel _authModel = await OfficialGoogleAuthing.emailSignIn(
       onError: onError,
     );
 
@@ -232,7 +232,7 @@ class SocialAuthButton extends StatelessWidget {
   /// TESTED : WORKS PERFECT
   Future<void> _facebookManualAuthing() async {
 
-    final AuthModel _authModel = await FacebookAuthing.signIn(
+    final AuthModel _authModel = await OfficialFacebookAuthing.signIn(
       onError: onError,
     );
 
@@ -243,7 +243,7 @@ class SocialAuthButton extends StatelessWidget {
   /// TESTED : WORKS PERFECT
   Future<void> _appleManualAuthing() async {
 
-    final AuthModel _authModel = await AppleAuthing.signInByApple(
+    final AuthModel _authModel = await OfficialAppleAuthing.signInByApple(
         onError: onError,
       );
 
@@ -281,7 +281,7 @@ class SocialAuthButton extends StatelessWidget {
           listener: _listen,
           child: fui.OAuthProviderButton(
             provider: _getProvider(signInMethod),
-            auth: Authing.getFirebaseAuth(),
+            auth: OfficialAuthing.getFirebaseAuth(),
             action: authAction,
             variant: fui.OAuthButtonVariant.icon,
           ),

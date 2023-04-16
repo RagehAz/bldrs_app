@@ -9,7 +9,7 @@ import 'package:bldrs/super_fire/super_fire.dart';
 FireQueryModel allBzzPaginationQuery(){
 
   return FireQueryModel(
-    collRef: Fire.getCollectionRef(FireColl.bzz),
+    collRef: OfficialFire.getCollectionRef(FireColl.bzz),
     limit: 10,
     orderBy: const QueryOrderBy(fieldName: 'createdAt', descending: true),
   );

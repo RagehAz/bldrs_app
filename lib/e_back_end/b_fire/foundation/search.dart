@@ -20,7 +20,7 @@ Future<dynamic> subCollectionMapsByFieldValue({
 }) async {
   // Tracer.traceMethod(invoker: 'mapsByFieldValue', varName: field, varNewValue: compareValue, tracerIsOn: true);
 
-  final CollectionReference<Object> _collRef = Fire.getSubCollectionRef(
+  final CollectionReference<Object> _collRef = OfficialFire.getSubCollectionRef(
     collName: collName,
     docName: docName,
     subCollName: subCollName,
@@ -163,7 +163,7 @@ Future<dynamic> mapsByFieldValue({
 }) async {
   // Tracer.traceMethod(invoker: 'mapsByFieldValue', varName: field, varNewValue: compareValue, tracerIsOn: true);
 
-  final CollectionReference<Object> _collRef = Fire.getCollectionRef(collName);
+  final CollectionReference<Object> _collRef = OfficialFire.getCollectionRef(collName);
 
   final QuerySnapshot<Object> _collectionSnapshot =
   await _searchAndGetCollectionSnapshots(

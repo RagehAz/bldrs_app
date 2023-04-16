@@ -1,9 +1,9 @@
 part of super_fire;
 /// => TAMAM
-class EmailAuthing {
+class OfficialEmailAuthing {
   // -----------------------------------------------------------------------------
 
-  const EmailAuthing();
+  const OfficialEmailAuthing();
 
   // -----------------------------------------------------------------------------
 
@@ -27,7 +27,7 @@ class EmailAuthing {
         invoker: 'signInByEmail',
         functions: () async {
 
-          final f_a.UserCredential _userCredential = await Authing.getFirebaseAuth()
+          final f_a.UserCredential _userCredential = await OfficialAuthing.getFirebaseAuth()
               .signInWithEmailAndPassword(
             email: email.trim(),
             password: password,
@@ -67,7 +67,7 @@ class EmailAuthing {
           invoker: 'registerByEmail',
           functions: () async {
 
-            final f_a.UserCredential _userCredential = await Authing.getFirebaseAuth().createUserWithEmailAndPassword(
+            final f_a.UserCredential _userCredential = await OfficialAuthing.getFirebaseAuth().createUserWithEmailAndPassword(
               email: email.trim(),
               password: password,
             );
@@ -97,7 +97,7 @@ class EmailAuthing {
     await tryAndCatch(
       invoker: 'emailSignOut',
       functions: () async {
-        await Authing.getFirebaseAuth()?.signOut();
+        await OfficialAuthing.getFirebaseAuth()?.signOut();
       },
       onError: onError,
     );
@@ -124,7 +124,7 @@ class EmailAuthing {
             password: password,
           );
 
-          _credential = await Authing.getFirebaseAuth().currentUser?.reauthenticateWithCredential(_authCredential);
+          _credential = await OfficialAuthing.getFirebaseAuth().currentUser?.reauthenticateWithCredential(_authCredential);
 
         }
     );
@@ -150,7 +150,7 @@ class EmailAuthing {
 
     bool _success = false;
 
-    final f_a.FirebaseAuth _auth = Authing.getFirebaseAuth();
+    final f_a.FirebaseAuth _auth = OfficialAuthing.getFirebaseAuth();
     final String _oldEmail = _auth?.currentUser?.email;
 
     blog('updateUserEmail : new : $newEmail : old : $_oldEmail');

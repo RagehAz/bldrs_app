@@ -12,11 +12,11 @@ FOR WEB INTEGRATION
  */
 
 /// => TAMAM
-class GoogleAuthing {
+class OfficialGoogleAuthing {
   // --------------------
-  GoogleAuthing.singleton();
-  static final GoogleAuthing _singleton = GoogleAuthing.singleton();
-  static GoogleAuthing get instance => _singleton;
+  OfficialGoogleAuthing.singleton();
+  static final OfficialGoogleAuthing _singleton = OfficialGoogleAuthing.singleton();
+  static OfficialGoogleAuthing get instance => _singleton;
   // -----------------------------------------------------------------------------
 
   /// GOOGLE SIGN IN SINGLETON
@@ -24,7 +24,7 @@ class GoogleAuthing {
   // --------------------
   GoogleSignIn _googleSignIn;
   GoogleSignIn get googleSignIn => _googleSignIn ??= GoogleSignIn();
-  static GoogleSignIn getGoogleSignInInstance() => GoogleAuthing.instance.googleSignIn;
+  static GoogleSignIn getGoogleSignInInstance() => OfficialGoogleAuthing.instance.googleSignIn;
   // -----------------------------------------------------------------------------
 
   /// GOOGLE AUTH PROVIDER SINGLETON
@@ -32,7 +32,7 @@ class GoogleAuthing {
   // --------------------
   f_a.GoogleAuthProvider _googleAuthProvider;
   f_a.GoogleAuthProvider get googleAuthProvider => _googleAuthProvider ??=  f_a.GoogleAuthProvider();
-  static f_a.GoogleAuthProvider getGoogleAuthProviderInstance() => GoogleAuthing.instance.googleAuthProvider;
+  static f_a.GoogleAuthProvider getGoogleAuthProviderInstance() => OfficialGoogleAuthing.instance.googleAuthProvider;
   // -----------------------------------------------------------------------------
 
   /// SCOPED SIGN IN
@@ -105,7 +105,7 @@ class GoogleAuthing {
         /// get [auth provider]
         final f_a.GoogleAuthProvider _googleAuthProvider = getGoogleAuthProviderInstance();
 
-        final f_a.FirebaseAuth _firebaseAuth = Authing.getFirebaseAuth();
+        final f_a.FirebaseAuth _firebaseAuth = OfficialAuthing.getFirebaseAuth();
 
         /// get [user credential] from [auth provider]
         final f_a.UserCredential _userCredential = await _firebaseAuth.signInWithPopup(_googleAuthProvider);
@@ -146,7 +146,7 @@ class GoogleAuthing {
                 idToken: _googleSignInAuthentication.idToken,
               );
 
-              final f_a.FirebaseAuth _firebaseAuth = Authing.getFirebaseAuth();
+              final f_a.FirebaseAuth _firebaseAuth = OfficialAuthing.getFirebaseAuth();
 
               /// C - get [user credential] from [auth credential]
               final f_a.UserCredential _userCredential = await _firebaseAuth.signInWithCredential(_authCredential);

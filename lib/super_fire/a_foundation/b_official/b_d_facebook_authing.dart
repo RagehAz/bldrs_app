@@ -45,11 +45,11 @@ sequence
  */
 
 /// => TAMAM
-class FacebookAuthing {
+class OfficialFacebookAuthing {
   // --------------------
-  FacebookAuthing.singleton();
-  static final FacebookAuthing _singleton = FacebookAuthing.singleton();
-  static FacebookAuthing get instance => _singleton;
+  OfficialFacebookAuthing.singleton();
+  static final OfficialFacebookAuthing _singleton = OfficialFacebookAuthing.singleton();
+  static OfficialFacebookAuthing get instance => _singleton;
   // -----------------------------------------------------------------------------
 
   /// AUDIO PLAYER SINGLETON
@@ -57,7 +57,7 @@ class FacebookAuthing {
   // --------------------
   FacebookAuth _facebookAuth;
   FacebookAuth get facebookAuth => _facebookAuth ??= FacebookAuth.instance;
-  static FacebookAuth getFacebookAuthInstance() => FacebookAuthing.instance.facebookAuth;
+  static FacebookAuth getFacebookAuthInstance() => OfficialFacebookAuthing.instance.facebookAuth;
   // -----------------------------------------------------------------------------
 
   /// FACEBOOK AUTHENTICATION
@@ -85,7 +85,7 @@ class FacebookAuthing {
           f_a.FacebookAuthProvider.credential(_loginResult.accessToken.token);
 
           final f_a.UserCredential _userCredential =
-          await Authing.getFirebaseAuth().signInWithCredential(_facebookAuthCredential);
+          await OfficialAuthing.getFirebaseAuth().signInWithCredential(_facebookAuthCredential);
 
           _output = AuthModel.getAuthModelFromUserCredential(
             cred: _userCredential,

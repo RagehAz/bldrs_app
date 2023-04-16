@@ -312,7 +312,7 @@ class StorageMetaOps {
 
     if (docName != null && collName != null){
 
-      final Reference _ref = Storage.getRefByNodes(
+      final Reference _ref = OfficialStorage.getRefByNodes(
           collName: collName,
           docName: docName,
         );
