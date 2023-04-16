@@ -3,52 +3,8 @@ part of super_fire;
 class NativeAuthing{
   // -----------------------------------------------------------------------------
 
-  /// NativeAuth SINGLETON
+  const NativeAuthing();
 
-  // --------------------
-  NativeAuthing.singleton();
-  static final NativeAuthing _singleton = NativeAuthing.singleton();
-  static NativeAuthing get instance => _singleton;
-  // -----------------------------------------------------------------------------
-
-  /// INITIALIZATION
-
-  // --------------------
-  /// FIREBASE AUTH SINGLETON
-  fd.FirebaseAuth _auth;
-  fd.FirebaseAuth get auth => _auth;
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  Future<fd.FirebaseAuth> _initialize({
-    @required String apiKey,
-    // @required String projectID,
-  }) async {
-
-    final fd.FirebaseAuth firebaseAuth = fd.FirebaseAuth(
-        apiKey,
-        fd.VolatileStore(), // HiveStore
-        );
-
-    _auth = firebaseAuth;
-
-    blog('=> Native Firebase Auth has been initialized');
-
-    return firebaseAuth;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<fd.FirebaseAuth> initializeNativeAuth({
-    @required String apiKey,
-  }) async {
-    final fd.FirebaseAuth auth = await NativeAuthing.instance._initialize(
-      apiKey: apiKey,
-    );
-
-    return auth;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static fd.FirebaseAuth getFirebaseAuth() => NativeAuthing.instance.auth;
   // -----------------------------------------------------------------------------
 
   /// ANONYMOUS AUTH
@@ -65,7 +21,8 @@ class NativeAuthing{
       onError: onError,
       functions: () async {
 
-        final fd_u.User _user =  await getFirebaseAuth().signInAnonymously();
+        final fd_u.User _user =  await NativeFirebase.getFirebaseAuth()
+            .signInAnonymously();
 
         _output = AuthModel.getAuthModelFromFiredartUser(
           user: _user,
@@ -94,7 +51,8 @@ class NativeAuthing{
         invoker: 'NativeAuth.signInByEmail',
         functions: () async {
 
-          final fd_u.User _user = await getFirebaseAuth().signIn(email, password);
+          final fd_u.User _user = await NativeFirebase.getFirebaseAuth().signIn(email,
+              password);
 
           _output = AuthModel.getAuthModelFromFiredartUser(
             user: _user,
@@ -116,7 +74,7 @@ class NativeAuthing{
   // --------------------
   /// TESTED : WORKS PERFECT
   static String getUserID(){
-    final fd.FirebaseAuth _auth = getFirebaseAuth();
+    final fd.FirebaseAuth _auth = NativeFirebase.getFirebaseAuth();
     if (_auth?.isSignedIn == true){
       return _auth?.userId;
     }

@@ -281,7 +281,7 @@ class SocialAuthButton extends StatelessWidget {
           listener: _listen,
           child: fui.OAuthProviderButton(
             provider: _getProvider(signInMethod),
-            auth: OfficialAuthing.getFirebaseAuth(),
+            auth: OfficialFirebase.getFirebaseAuth(),
             action: authAction,
             variant: fui.OAuthButtonVariant.icon,
           ),

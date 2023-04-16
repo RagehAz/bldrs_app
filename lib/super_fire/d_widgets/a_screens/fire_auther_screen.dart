@@ -3,7 +3,7 @@
 // import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 // import 'package:flutter/material.dart';
 // import 'package:layouts/layouts.dart';
-// import 'package:talktohumanity/packages/lib/b_a_authing.dart';
+// import 'package:talktohumanity/packages/lib/b_official_authing.dart';
 //
 // class FireAutherScreen extends StatelessWidget {
 //
