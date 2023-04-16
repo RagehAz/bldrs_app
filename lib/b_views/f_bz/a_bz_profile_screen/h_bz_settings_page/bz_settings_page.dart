@@ -24,7 +24,7 @@ class BzSettingsPage extends StatelessWidget {
         listen: true
     );
     final bool _userIsCreator = AuthorModel.checkUserIsCreatorAuthor(
-      userID: Authing.getUserID(),
+      userID: OfficialAuthing.getUserID(),
       bzModel: _bzModel,
     );
     // --------------------

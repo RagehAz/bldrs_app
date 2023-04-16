@@ -239,7 +239,7 @@ class NoteEventsOfBzTeamManagement {
       if (includeMyself == false){
         _authors = AuthorModel.removeAuthorFromAuthors(
           authors: _authors,
-          authorIDToRemove: Authing.getUserID(),
+          authorIDToRemove: OfficialAuthing.getUserID(),
         );
       }
 

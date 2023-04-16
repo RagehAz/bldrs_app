@@ -44,7 +44,7 @@ class ObeliskPyramids extends StatelessWidget {
       child: GestureDetector(
         onTap: (){
 
-          blog('the userID : ${Authing.getUserID()}');
+          blog('the userID : ${OfficialAuthing.getUserID()}');
 
           final bool isExpanded = UiProvider.proGetPyramidsAreExpanded(
               context: context,

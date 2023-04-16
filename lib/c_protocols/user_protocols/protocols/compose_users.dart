@@ -115,7 +115,7 @@ class ComposeUserProtocols {
 
     if (TextCheck.isEmpty(picURL) == false){
 
-      final Uint8List _bytes = await Storage.readBytesByURL(picURL);
+      final Uint8List _bytes = await OfficialStorage.readBytesByURL(picURL);
 
       if (Mapper.checkCanLoopList(_bytes) == true){
 

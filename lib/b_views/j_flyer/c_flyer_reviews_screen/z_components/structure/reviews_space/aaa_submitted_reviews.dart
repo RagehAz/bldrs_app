@@ -174,7 +174,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
                 if (index == 0){
 
                   /// USER IS NOT SIGNED IN
-                  if (Authing.getUserID() == null){
+                  if (OfficialAuthing.getUserID() == null){
                     return const SizedBox();
                   }
 

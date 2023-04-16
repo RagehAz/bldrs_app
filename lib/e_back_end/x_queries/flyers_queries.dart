@@ -16,7 +16,7 @@ import 'package:flutter/material.dart';
 /// TESTED : WORKS PERFECT
 FireQueryModel allFlyersPaginationQuery(){
   return FireQueryModel(
-    collRef: Fire.getCollectionRef(FireColl.flyers),
+    collRef: OfficialFire.getCollectionRef(FireColl.flyers),
     limit: 9,
     orderBy: const QueryOrderBy(fieldName: 'times.published', descending: true),
   );
@@ -109,7 +109,7 @@ FireQueryModel homeWallFlyersPaginationQuery(BuildContext context){
 
 
   return FireQueryModel(
-    collRef: Fire.getSuperCollRef(
+    collRef: OfficialFire.getSuperCollRef(
       aCollName: FireColl.flyers,
     ),
     limit: 4,
@@ -126,7 +126,7 @@ FireQueryModel homeWallFlyersPaginationQuery(BuildContext context){
 FireQueryModel flyerAuditingPaginationQuery(){
 
   return FireQueryModel(
-    collRef: Fire.getSuperCollRef(
+    collRef: OfficialFire.getSuperCollRef(
       aCollName: FireColl.flyers,
     ),
     orderBy: const QueryOrderBy(

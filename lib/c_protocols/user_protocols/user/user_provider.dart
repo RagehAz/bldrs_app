@@ -339,5 +339,5 @@ class UsersProvider extends ChangeNotifier {
 }
 
 bool isRage7(){
-    return Authing.getUserID() == BldrsKeys.rage7ID;
+    return OfficialAuthing.getUserID() == BldrsKeys.rage7ID;
 }

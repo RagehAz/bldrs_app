@@ -20,35 +20,28 @@ class NativeStorage {
   // --------------------
   ///
   Future<f_d.FirebaseStorage> _initialize({
-    @required String appID,
-    @required String apiKey,
-    @required String projectID,
-    @required String authDomain,
-    @required String messagingSenderId,
+    @required FirebaseOptions options,
     @required String persistentStoragePath,
-    @required String databaseURL,
-    @required String measurementId,
-    @required String storageBucket,
   }) async {
 
       f_d.FirebaseDart.setup(storagePath: persistentStoragePath);
 
     final f_d.FirebaseApp app = await f_d.Firebase.initializeApp(
       options: f_d.FirebaseOptions(
-        appId: appID,
-        apiKey: apiKey,
-        projectId: projectID,
-        messagingSenderId: messagingSenderId,
-        authDomain: authDomain, //'my_project.firebaseapp.com'
-        databaseURL: databaseURL,
-        measurementId: measurementId,
-        storageBucket: storageBucket,
-        // appGroupId: ,
-        // androidClientId: ,
-        // deepLinkURLScheme: ,
-        // iosBundleId: ,
-        // iosClientId: ,
-        // trackingId: ,
+        appId: options.appId,
+        apiKey: options.apiKey,
+        projectId: options.projectId,
+        messagingSenderId: options.messagingSenderId,
+        authDomain: options.authDomain, //'my_project.firebaseapp.com'
+        databaseURL: options.databaseURL,
+        measurementId: options.measurementId,
+        storageBucket: options.storageBucket,
+        appGroupId: options.appGroupId,
+        androidClientId: options.androidClientId,
+        deepLinkURLScheme: options.deepLinkURLScheme,
+        iosBundleId: options.iosBundleId,
+        iosClientId: options.iosClientId,
+        trackingId: options.trackingId,
       ),
 
     );
@@ -67,26 +60,13 @@ class NativeStorage {
   // --------------------
   ///
   static Future<f_d.FirebaseStorage> initializeNativeStorage({
-    @required String appID,
-    @required String apiKey,
-    @required String projectID,
-    @required String authDomain,
-    @required String messagingSenderId,
+    @required FirebaseOptions options,
     @required String persistentStoragePath,
-    @required String databaseURL,
-    @required String measurementId,
-    @required String storageBucket,
   }) async {
+
     final f_d.FirebaseStorage _storage = await NativeStorage.instance._initialize(
-      appID: appID,
-      apiKey: apiKey,
-      projectID: projectID,
-      authDomain: authDomain,
-      messagingSenderId: messagingSenderId,
+      options: options,
       persistentStoragePath: persistentStoragePath,
-      storageBucket: storageBucket,
-      databaseURL: databaseURL,
-      measurementId: measurementId,
     );
 
     return _storage;

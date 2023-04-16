@@ -44,7 +44,7 @@ class AuthorshipRespondingProtocols{
 
     final bool _imPendingAuthor = PendingAuthor.checkIsPendingAuthor(
         bzModel: _bzModel,
-        userID: Authing.getUserID(),
+        userID: OfficialAuthing.getUserID(),
     );
 
     /// INVITATION HAS BEEN CANCELLED
@@ -191,7 +191,7 @@ class AuthorshipRespondingProtocols{
 
     final bool _imPendingAuthor = PendingAuthor.checkIsPendingAuthor(
         bzModel: bzModel,
-        userID: Authing.getUserID(),
+        userID: OfficialAuthing.getUserID(),
     );
 
     assert(
@@ -238,7 +238,7 @@ class AuthorshipRespondingProtocols{
 
     final AuthorModel _authorModel = AuthorModel.getAuthorFromAuthorsByID(
       authors: _bzModel.authors,
-      authorID: Authing.getUserID(),
+      authorID: OfficialAuthing.getUserID(),
     );
 
     await Nav.goToNewScreen(

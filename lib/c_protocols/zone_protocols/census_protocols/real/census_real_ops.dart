@@ -21,7 +21,7 @@ class CensusRealOps {
   static Future<CensusModel> readPlanetCensus() async {
     CensusModel _output;
 
-    final Object _object = await Real.readPath(
+    final Object _object = await OfficialReal.readPath(
       path: RealPath.getCensusPathOfPlanet,
     );
 
@@ -52,7 +52,7 @@ class CensusRealOps {
 
     List<CensusModel> _output = [];
 
-    final Object _objects = await Real.readPath(
+    final Object _objects = await OfficialReal.readPath(
       path: RealPath.getCensusesPathOfAllCountries(),
     );
 
@@ -78,7 +78,7 @@ class CensusRealOps {
 
     if (countryID != null){
 
-      final Object _object = await Real.readPath(
+      final Object _object = await OfficialReal.readPath(
           path: RealPath.getCensusPathOfCountry(countryID: countryID),
       );
 
@@ -114,7 +114,7 @@ class CensusRealOps {
 
     if (countryID != null){
 
-      final Object _objects = await Real.readPath(
+      final Object _objects = await OfficialReal.readPath(
         path: RealPath.getCensusesPathOfCities(countryID: countryID),
       );
 
@@ -140,7 +140,7 @@ class CensusRealOps {
 
     if (cityID != null){
 
-      final Object _object = await Real.readPath(
+      final Object _object = await OfficialReal.readPath(
           path: RealPath.getCensusPathOfCity(cityID: cityID),
       );
 
@@ -176,7 +176,7 @@ class CensusRealOps {
 
     if (cityID != null){
 
-      final Object _objects = await Real.readPath(
+      final Object _objects = await OfficialReal.readPath(
         path: RealPath.getCensusesPathOfDistricts(cityID: cityID),
       );
 
@@ -202,7 +202,7 @@ class CensusRealOps {
 
     if (districtID != null){
 
-      final Object _object = await Real.readPath(
+      final Object _object = await OfficialReal.readPath(
         path: RealPath.getCensusPathOfDistrict(districtID: districtID),
       );
 
@@ -246,28 +246,28 @@ class CensusRealOps {
       await Future.wait(<Future>[
 
         /// UPDATE PLANET
-        Real.updatePath(
+        OfficialReal.updatePath(
           path: RealPath.getCensusPathOfPlanet,
           map: _map,
         ),
 
         /// UPDATE COUNTRY
         if (zoneModel.countryID != null)
-        Real.updatePath(
+        OfficialReal.updatePath(
           path: RealPath.getCensusPathOfCountry(countryID: zoneModel.countryID),
           map: _map,
         ),
 
         /// UPDATE CITY
         if (zoneModel.countryID != null && zoneModel.cityID != null)
-          Real.updatePath(
+          OfficialReal.updatePath(
             path: RealPath.getCensusPathOfCity(cityID: zoneModel.cityID),
             map: _map,
         ),
 
         /// UPDATE DISTRICT
         if (zoneModel.countryID != null && zoneModel.cityID != null && zoneModel.districtID != null)
-          Real.updatePath(
+          OfficialReal.updatePath(
             path: RealPath.getCensusPathOfDistrict(districtID: zoneModel.districtID),
             map: _map,
           ),

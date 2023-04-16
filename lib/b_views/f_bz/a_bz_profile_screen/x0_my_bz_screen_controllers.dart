@@ -90,7 +90,7 @@ Future<void> onMyActiveBzStreamChanged({
 
       final bool _authorsContainMyUserID = AuthorModel.checkAuthorsContainUserID(
         authors: _newBz.authors,
-        userID: Authing.getUserID(),
+        userID: OfficialAuthing.getUserID(),
       );
 
       if (_authorsContainMyUserID == false){

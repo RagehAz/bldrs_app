@@ -12,10 +12,10 @@ part of super_fire;
  */
 
 /// => TAMAM
-class AppleAuthing {
+class OfficialAppleAuthing {
   // -----------------------------------------------------------------------------
 
-  const AppleAuthing();
+  const OfficialAppleAuthing();
 
   // -----------------------------------------------------------------------------
 

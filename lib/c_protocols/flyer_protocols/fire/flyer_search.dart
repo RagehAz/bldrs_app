@@ -31,7 +31,7 @@ Future<List<FlyerModel>> flyersByZoneAndFlyerType({
       invoker: 'mapsByTwoValuesEqualTo',
       functions: () async {
         final CollectionReference<Object> _flyersCollection =
-        Fire.getCollectionRef(FireColl.flyers);
+        OfficialFire.getCollectionRef(FireColl.flyers);
 
         final String _flyerType = FlyerTyper.cipherFlyerType(flyerType);
         final ZoneModel _zone = zone;
@@ -70,7 +70,7 @@ Future<List<FlyerModel>> flyersByZoneAndKeywordID({
       invoker: 'flyersByZoneAndKeyword',
       functions: () async {
         final CollectionReference<Object> _flyersCollection =
-        Fire.getCollectionRef(FireColl.flyers);
+        OfficialFire.getCollectionRef(FireColl.flyers);
 
         final ZoneModel _zone = zone;
 
@@ -106,7 +106,7 @@ Future<List<FlyerModel>> flyersByZoneAndTitle({
   int limit = 6,
 }) async {
 
-  final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
+  final List<Map<String, dynamic>> _maps = await OfficialFire.readCollectionDocs(
     collName: FireColl.flyers,
     // orderBy: 'score',
     addDocSnapshotToEachMap: true,
@@ -159,7 +159,7 @@ Future<List<FlyerPromotion>> flyerPromotionsByCity({
   // @required DateTime timeLimit,
 }) async {
 
-  final List<Map<String, dynamic>> _maps = await Fire.readCollectionDocs(
+  final List<Map<String, dynamic>> _maps = await OfficialFire.readCollectionDocs(
     collName: FireColl.flyersPromotions,
     limit: 10,
     finders: <FireFinder>[

@@ -196,7 +196,7 @@ class NoteFunProtocols {
 
     assert(
     TriggerModel.checkIFiredThisTrigger(trigger) == false,
-    'This user ${Authing.getUserID()} already fired this trigger ${trigger.name}',
+    'This user ${OfficialAuthing.getUserID()} already fired this trigger ${trigger.name}',
     );
 
     if (trigger != null && TriggerModel.checkIFiredThisTrigger(trigger) == false){

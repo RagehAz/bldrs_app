@@ -37,7 +37,7 @@ class ChainRealOps {
         chains: chains,
       );
 
-      final Map<String, dynamic> _uploadedChainSMap = await Real.createColl(
+      final Map<String, dynamic> _uploadedChainSMap = await OfficialReal.createColl(
         collName: RealColl.bldrsChains,
         map: _map,
       );
@@ -58,7 +58,7 @@ class ChainRealOps {
   /// TESTED : WORKS PERFECT
   static Future<List<Chain>> readBldrsChains() async {
 
-    final Map<String, dynamic> map = await Real.readPathMap(
+    final Map<String, dynamic> map = await OfficialReal.readPathMap(
       path: RealColl.bldrsChains,
     );
 
@@ -78,7 +78,7 @@ class ChainRealOps {
 
     if (chains != null){
 
-      await Real.updateColl(
+      await OfficialReal.updateColl(
         collName: RealColl.bldrsChains,
         map: Chain.cipherBldrsChains(chains: chains),
       );

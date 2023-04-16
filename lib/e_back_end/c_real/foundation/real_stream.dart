@@ -21,7 +21,7 @@ class RealStream {
     Function onDone,
     Function(Object error) onError,
   }){
-    final DatabaseReference _ref = Real.getRefByPath(path: path);
+    final DatabaseReference _ref = OfficialReal.getRefByPath(path: path);
 
     final StreamSubscription _sub = _ref.onChildAdded.listen((DatabaseEvent event) {
       final dynamic _data = event.snapshot.value;
@@ -43,7 +43,7 @@ class RealStream {
     Function onDone,
     Function(Object error) onError,
   }){
-    final DatabaseReference _ref = Real.getRefByPath(path: path);
+    final DatabaseReference _ref = OfficialReal.getRefByPath(path: path);
 
     final StreamSubscription _sub = _ref.onChildChanged.listen((DatabaseEvent event) {
       final dynamic _data = event.snapshot.value;
@@ -65,7 +65,7 @@ class RealStream {
     Function onDone,
     Function(Object error) onError,
   }){
-    final DatabaseReference _ref = Real.getRefByPath(path: path);
+    final DatabaseReference _ref = OfficialReal.getRefByPath(path: path);
 
     final StreamSubscription _sub = _ref.onChildMoved.listen((DatabaseEvent event) {
       final dynamic _data = event.snapshot.value;
@@ -87,7 +87,7 @@ class RealStream {
     Function onDone,
     Function(Object error) onError,
   }){
-    final DatabaseReference _ref = Real.getRefByPath(path: path);
+    final DatabaseReference _ref = OfficialReal.getRefByPath(path: path);
 
     final StreamSubscription _sub = _ref.onChildRemoved.listen((DatabaseEvent event) {
       final dynamic _data = event.snapshot.value;
@@ -109,7 +109,7 @@ class RealStream {
     Function onDone,
     Function(Object error) onError,
   }){
-    final DatabaseReference _ref = Real.getRefByPath(path: path);
+    final DatabaseReference _ref = OfficialReal.getRefByPath(path: path);
 
     final StreamSubscription _sub = _ref.onValue.listen((DatabaseEvent event) {
       final dynamic _data = event.snapshot.value;
