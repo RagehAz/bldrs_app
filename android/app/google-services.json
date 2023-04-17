@@ -50,6 +50,96 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:439018969330:android:0eb854506c2df06e03186b",
+        "android_client_info": {
+          "package_name": "net.bldrs.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "439018969330-3j7vk4dbjgfhm7levneompcna9g5mk1k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.bldrs.app",
+            "certificate_hash": "07e1f27c44635e1816db88ef036a932ee3555e33"
+          }
+        },
+        {
+          "client_id": "439018969330-askc9gq2d8mrv6k4n3u2heodkq1rfb3e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5IaZsHjj_rlagXm-9Hq0Epl7bEtdsmho"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "439018969330-askc9gq2d8mrv6k4n3u2heodkq1rfb3e.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "439018969330-o93if8djhfn3naftc361uker0s97n5oj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bldrs.net",
+                "app_store_id": "161803398875"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:439018969330:android:a24985e9717b83ea03186b",
+        "android_client_info": {
+          "package_name": "net.bldrs.dashboard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "439018969330-rtq83o9p7c8vtlq3gh132jn79vkqrvl5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.bldrs.dashboard",
+            "certificate_hash": "07e1f27c44635e1816db88ef036a932ee3555e33"
+          }
+        },
+        {
+          "client_id": "439018969330-askc9gq2d8mrv6k4n3u2heodkq1rfb3e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5IaZsHjj_rlagXm-9Hq0Epl7bEtdsmho"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "439018969330-askc9gq2d8mrv6k4n3u2heodkq1rfb3e.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "439018969330-o93if8djhfn3naftc361uker0s97n5oj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bldrs.net",
+                "app_store_id": "161803398875"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

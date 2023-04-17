@@ -49,7 +49,7 @@ android {
 
     defaultConfig {
         // NOTE : Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.bldrs.net"
+        applicationId "net.bldrs.app"
         minSdkVersion 21
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()

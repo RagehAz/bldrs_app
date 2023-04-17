@@ -1,4 +1,4 @@
-package com.bldrs.net
+package net.bldrs.app
 
 import io.flutter.embedding.android.FlutterActivity
 //import androidx.annotation.NonNull;
