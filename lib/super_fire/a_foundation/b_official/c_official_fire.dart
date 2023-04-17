@@ -324,7 +324,6 @@ class OfficialFire{
   /// TASK : TEST ME
   static Stream<List<Map<String, dynamic>>> streamColl({
     @required FireQueryModel queryModel,
-    cloud.QueryDocumentSnapshot<Object> startAfter,
   }) {
 
     final cloud.Query<Map<String, dynamic>> _query = _createCollQuery(
@@ -334,7 +333,6 @@ class OfficialFire{
         subColl: queryModel.subColl,
       ),
       orderBy: queryModel.orderBy,
-      startAfter: startAfter,
       limit: queryModel.limit,
       finders: queryModel.finders,
     );
@@ -359,7 +357,7 @@ class OfficialFire{
 
     return _docRef?.snapshots()?.map(OfficialFireMapper.mapSnapshot);
   }
-  // --------------------
+  // -----------------------------------------------------------------------------
 
   /// UPDATE
 
@@ -474,16 +472,16 @@ class OfficialFire{
         invoker: 'OfficialFire.deleteDoc',
         functions: () async {
 
-          final cloud.DocumentReference<Object> _subDoc = _getDocRef(
+          final cloud.DocumentReference<Object> _docRef = _getDocRef(
             coll: coll,
             doc: doc,
             subColl: subColl,
             subDoc: subDoc,
           );
 
-          await _subDoc.delete();
+          await _docRef.delete();
 
-          blog('deleteSubDoc : deleted : $coll : $doc : $subColl : $subDoc');
+          blog('deleteDoc : deleted : $coll : $doc : $subColl : $subDoc');
         }
     );
   }
