@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>439018969330-o93if8djhfn3naftc361uker0s97n5oj.apps.googleusercontent.com</string>
+	<string>439018969330-kn8r7jmv7f02j5g59imfv8fshmrtu6iu.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.439018969330-o93if8djhfn3naftc361uker0s97n5oj</string>
+	<string>com.googleusercontent.apps.439018969330-kn8r7jmv7f02j5g59imfv8fshmrtu6iu</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>439018969330-gd0s8talc5michs970i9neofqc3c6lf6.apps.googleusercontent.com</string>
+	<string>439018969330-3j7vk4dbjgfhm7levneompcna9g5mk1k.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyD_VAr_fQwnb--Z-pSWBn5lHaIEt_7MVrY</string>
 	<key>GCM_SENDER_ID</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.bldrs.net</string>
+	<string>net.bldrs.app</string>
 	<key>PROJECT_ID</key>
 	<string>bldrsnet</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:439018969330:ios:6b38af9e92642fc603186b</string>
+	<string>1:439018969330:ios:1b0b7f9ab81d314003186b</string>
 	<key>DATABASE_URL</key>
 	<string>https://bldrsnet.firebaseio.com</string>
 </dict>
