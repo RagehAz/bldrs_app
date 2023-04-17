@@ -16,21 +16,23 @@ Future<List<BzModel>> paginateBzzBySearchingBzName({
   @required int limit,
 }) async {
 
-  final List<Map<String, dynamic>> _result = await OfficialFire.readCollectionDocs(
-    coll: FireColl.bzz,
+  final List<Map<String, dynamic>> _result = await OfficialFire.readColl(
     addDocSnapshotToEachMap: true,
     startAfter: startAfter,
-    limit: limit,
-    finders: <FireFinder>[
-      FireFinder(
-        field: 'trigram',
-        comparison: FireComparison.arrayContains,
-        value: TextMod.removeAllCharactersAfterNumberOfCharacters(
-          input: bzName.trim(),
-          numberOfChars: Standards.maxTrigramLength,
+    queryModel: FireQueryModel(
+      coll: FireColl.bzz,
+      limit: limit,
+      finders: <FireFinder>[
+        FireFinder(
+          field: 'trigram',
+          comparison: FireComparison.arrayContains,
+          value: TextMod.removeAllCharactersAfterNumberOfCharacters(
+            input: bzName.trim(),
+            numberOfChars: Standards.maxTrigramLength,
+          ),
         ),
-      ),
-    ],
+      ],
+    ),
   );
 
   List<BzModel> _bzz = <BzModel>[];

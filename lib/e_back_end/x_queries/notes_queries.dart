@@ -30,7 +30,7 @@ Stream<QuerySnapshot<Object>> bzUnseenNotesStream({
   @required String bzID,
 }){
 
-  final Stream<QuerySnapshot<Object>> _stream = OfficialFire.streamCollection(
+  final Stream<QuerySnapshot<Object>> _stream = OfficialFire.streamColl(
     queryModel: FireQueryModel(
       coll: FireColl.bzz,
       doc: bzID,
@@ -72,7 +72,7 @@ Stream<QuerySnapshot<Object>> userUnseenNotesStream({
   @required BuildContext context,
 }){
 
-  return OfficialFire.streamCollection(
+  return OfficialFire.streamColl(
     queryModel: FireQueryModel(
       coll: FireColl.users,
       doc: OfficialAuthing.getUserID(),
@@ -96,7 +96,7 @@ Stream<QuerySnapshot<Object>> userNotesWithPendingReplies({
   @required BuildContext context,
 }){
 
-  return OfficialFire.streamCollection(
+  return OfficialFire.streamColl(
     queryModel: FireQueryModel(
       coll: FireColl.users,
       doc: OfficialAuthing.getUserID(),

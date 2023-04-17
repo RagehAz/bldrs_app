@@ -55,11 +55,11 @@ export 'package:cloud_firestore/cloud_firestore.dart';
 /// STORAGE IMPORTS
 
 // --------------------
-import 'official/storage/src/foundation/storage_byte_ops.dart';
-import 'official/storage/src/foundation/storage_delete_ops.dart';
-import 'official/storage/src/foundation/storage_file_ops.dart';
-import 'official/storage/src/foundation/storage_meta_ops.dart';
-import 'official/storage/src/foundation/storage_ref.dart';
+import 'official/storage/storage_byte_ops.dart';
+import 'official/storage/storage_delete_ops.dart';
+import 'official/storage/storage_file_ops.dart';
+import 'official/storage/storage_meta_ops.dart';
+import 'official/storage/storage_ref.dart';
 // ignore: unnecessary_import
 import 'dart:typed_data';
 import 'dart:ui' as ui;
@@ -150,7 +150,7 @@ part 'e_streamers/fire_doc_streamer.dart';
 /// STORAGE PARTS
 
 // --------------------
-part 'official/storage/src/methods.dart';
+part 'official/storage/methods.dart';
 part 'b_models/d_storage/pic_meta_model.dart';
 // -----------------------------------------------------------------------------
 

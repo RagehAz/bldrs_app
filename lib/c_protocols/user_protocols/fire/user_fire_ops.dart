@@ -45,8 +45,8 @@ class UserFireOps {
     UserModel _output;
 
     final Map<String, dynamic> _userMap = await OfficialFire.readDoc(
-      collName: FireColl.users,
-      docName: userID,
+      coll: FireColl.users,
+      doc: userID,
     );
 
     if (_userMap != null) {
@@ -189,8 +189,8 @@ class UserFireOps {
 
     /// DELETE USER
     await OfficialFire.deleteDoc(
-      collName: FireColl.users,
-      docName: _userModel.id,
+      coll: FireColl.users,
+      doc: _userModel.id,
     );
 
     blog('deleteMyUser : deleteDoc done');

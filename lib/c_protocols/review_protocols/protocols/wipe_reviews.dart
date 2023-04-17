@@ -32,7 +32,7 @@ class WipeReviewProtocols {
       await Future.wait(<Future>[
 
         /// DELETE REVIEW SUB DOC
-        OfficialFire.deleteSubDoc(
+        OfficialFire.deleteDoc(
           coll: FireColl.flyers,
           doc: reviewModel.flyerID,
           subColl: FireSubColl.flyers_flyer_reviews,
@@ -81,14 +81,14 @@ class WipeReviewProtocols {
     int _numberOfReviews = 0;
 
     /// 1. DELETE SUB COLL
-    await OfficialFire.deleteSubCollection(
+    await OfficialFire.deleteColl(
         context: context,
         coll: FireColl.flyers,
         doc: flyerID,
         subColl: FireSubColl.flyers_flyer_reviews,
-        numberOfIterations: 1000,
-        numberOfReadsPerIteration: 5,
-        onDeleteSubDoc: (String reviewID) async {
+        // numberOfIterations: 1000,
+        // numberOfReadsPerIteration: 5,
+        onDeleteDoc: (String reviewID) async {
           _numberOfReviews++;
         }
     );

@@ -32,7 +32,7 @@ class CityPhraseFireOps {
 
           _phrase.blogPhrase(invoker: 'ahooo');
 
-          return OfficialFire.createNamedDoc(
+          return OfficialFire.createDoc(
             coll: FireColl.phrases_cities,
             doc: '${cityModel.cityID}+${_phrase.langCode}',
             input: {
@@ -88,8 +88,8 @@ class CityPhraseFireOps {
           final Phrase _phrase = cityModel.phrases[index];
 
           return OfficialFire.deleteDoc(
-            collName: FireColl.phrases_cities,
-            docName: '${cityModel.cityID}+${_phrase.langCode}',
+            coll: FireColl.phrases_cities,
+            doc: '${cityModel.cityID}+${_phrase.langCode}',
           );
 
         }),

@@ -31,14 +31,14 @@ class ReviewFireOps {
     assert(reviewModel != null,'review model is null');
     assert(reviewModel.flyerID != null, 'review flyerID is null');
 
-    final DocumentReference<Object> _ref = await OfficialFire.createSubDoc(
-      collName: FireColl.flyers,
-      docName: reviewModel.flyerID,
-      subCollName: FireSubColl.flyers_flyer_reviews,
+    final String _reviewID = await OfficialFire.createDoc(
+      coll: FireColl.flyers,
+      doc: reviewModel.flyerID,
+      subColl: FireSubColl.flyers_flyer_reviews,
       input: reviewModel.toMap(),
     );
 
-    return reviewModel.copyWith(id: _ref?.id);
+    return reviewModel.copyWith(id: _reviewID);
   }
   // -----------------------------------------------------------------------------
 
@@ -54,7 +54,7 @@ class ReviewFireOps {
 
     if (reviewID != null){
 
-      final Map<String, dynamic> _map = await OfficialFire.readSubDoc(
+      final Map<String, dynamic> _map = await OfficialFire.readDoc(
           coll: FireColl.flyers,
           doc: flyerID,
           subColl: FireSubColl.flyers_flyer_reviews,
@@ -107,7 +107,7 @@ class ReviewFireOps {
     @required ReviewModel reviewModel,
   }) async {
 
-    await OfficialFire.updateSubDoc(
+    await OfficialFire.updateDoc(
       coll: FireColl.flyers,
       doc: reviewModel.flyerID,
       subColl: FireSubColl.flyers_flyer_reviews,
