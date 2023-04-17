@@ -589,14 +589,17 @@ class NoteProtocols {
 
       /// READ ALL NOTES
       for (int i = 0; i <= 1000; i++){
-        final List<Map<String, dynamic>> _maps = await OfficialFire.readSubCollectionDocs(
-          limit: 10,
-          coll: FireColl.getPartyCollName(partyType),
-          doc: id,
-          subColl: FireSubColl.noteReceiver_receiver_notes,
+
+        final List<Map<String, dynamic>> _maps = await OfficialFire.readColl(
           addDocsIDs: true,
           addDocSnapshotToEachMap: true,
           startAfter: _notesToDelete.isEmpty == true ? null : _notesToDelete?.last?.docSnapshot,
+          queryModel: FireQueryModel(
+            limit: 10,
+            coll: FireColl.getPartyCollName(partyType),
+            doc: id,
+            subColl: FireSubColl.noteReceiver_receiver_notes,
+          ),
         );
 
         if (Mapper.checkCanLoopList(_maps) == true){

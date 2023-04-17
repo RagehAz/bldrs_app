@@ -72,6 +72,6 @@ class DefaultFirebaseOptions {
     storageBucket: 'bldrsnet.appspot.com',
     androidClientId: '439018969330-gd0s8talc5michs970i9neofqc3c6lf6.apps.googleusercontent.com',
     iosClientId: '439018969330-o93if8djhfn3naftc361uker0s97n5oj.apps.googleusercontent.com',
-    iosBundleId: 'com.bldrs.net',
+    iosBundleId: 'net.bldrs.app',
   );
 }

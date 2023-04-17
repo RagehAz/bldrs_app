@@ -33,7 +33,7 @@ class DistrictPhraseFireOps {
 
           _phrase.blogPhrase(invoker: 'fuck you');
 
-          return OfficialFire.createNamedDoc(
+          return OfficialFire.createDoc(
             coll: FireColl.phrases_districts,
             doc: DistrictModel.getDistrictPhraseDocName(
               districtID: districtModel.id,
@@ -92,8 +92,8 @@ class DistrictPhraseFireOps {
           final Phrase _phrase = districtModel.phrases[index];
 
           return OfficialFire.deleteDoc(
-            collName: FireColl.phrases_districts,
-            docName: DistrictModel.getDistrictPhraseDocName( //'${districtModel.id}+${_phrase.langCode}'
+            coll: FireColl.phrases_districts,
+            doc: DistrictModel.getDistrictPhraseDocName( //'${districtModel.id}+${_phrase.langCode}'
                 districtID: districtModel.id,
                 langCode: _phrase.langCode,
             ),

@@ -19,7 +19,7 @@ class ChannelModel {
 
   // --------------------
   static const ChannelModel bldrsChannel = ChannelModel(
-    id: 'com.bldrs.net.urgent',
+    id: 'net.bldrs.app.urgent',
     name: "The Builder's Network",
     description: 'News & Notifications',
     group: 'Notifications',

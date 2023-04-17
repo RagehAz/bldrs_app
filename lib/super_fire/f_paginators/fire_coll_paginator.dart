@@ -190,7 +190,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
 
     if (widget.streamQuery != null){
 
-      final Stream<cloud.QuerySnapshot<Object>> _stream = OfficialFire.streamCollection(
+      final Stream<cloud.QuerySnapshot<Object>> _stream = OfficialFire.streamColl(
         queryModel: widget.streamQuery,
       );
 
@@ -231,7 +231,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
     /// CAN KEEP READING
     if (_canKeepReading.value  == true){
 
-      final List<Map<String, dynamic>> _nextMaps = await OfficialFire.superCollPaginator(
+      final List<Map<String, dynamic>> _nextMaps = await OfficialFire.readColl(
         queryModel: widget.paginationQuery,
         startAfter: _paginatorController.startAfter.value,
         addDocsIDs: true,
