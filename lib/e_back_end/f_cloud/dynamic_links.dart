@@ -650,12 +650,12 @@ class BldrsShareLink{
 //       uriPrefix: '${DynamicLinks.bldrsURLPrefix}',
 //       link: Uri.parse('${DynamicLinks.bldrsURLPrefix}/flyer'),
 //       androidParameters: const AndroidParameters(
-//         packageName: 'com.bldrs.net',
+//         packageName: 'net.bldrs.app',
 //         minimumVersion: 0,
 //         // fallbackUrl: null,
 //       ),
 //       iosParameters: const IOSParameters(
-//         bundleId: 'com.bldrs.net',
+//         bundleId: 'net.bldrs.app',
 //         minimumVersion: '0',
 //       ),
 //       socialMetaTagParameters: const SocialMetaTagParameters(

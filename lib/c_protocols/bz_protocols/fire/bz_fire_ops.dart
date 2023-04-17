@@ -26,8 +26,8 @@ class BzFireOps {
 
     blog('_createEmptyBzDocToGetBzID : START');
 
-    final DocumentReference<Object> _docRef = await OfficialFire.createDoc(
-      collName: FireColl.bzz,
+    final String docID = await OfficialFire.createDoc(
+      coll: FireColl.bzz,
       addDocID: true,
       input: <String, dynamic>{
         'name': 'x',
@@ -36,7 +36,7 @@ class BzFireOps {
 
     blog('_createEmptyBzDocToGetBzID : END');
 
-    return _docRef?.id;
+    return docID;
   }
   // -----------------------------------------------------------------------------
 
@@ -49,8 +49,8 @@ class BzFireOps {
   }) async {
 
     final dynamic _bzMap = await OfficialFire.readDoc(
-      collName: FireColl.bzz,
-      docName: bzID,
+      coll: FireColl.bzz,
+      doc: bzID,
     );
 
     final BzModel _bz = BzModel.decipherBz(
@@ -130,8 +130,8 @@ class BzFireOps {
     if (bzModel != null){
 
       await OfficialFire.deleteDoc(
-        collName: FireColl.bzz,
-        docName: bzModel.id,
+        coll: FireColl.bzz,
+        doc: bzModel.id,
       );
 
     }

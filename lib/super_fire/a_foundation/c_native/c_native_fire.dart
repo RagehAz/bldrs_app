@@ -74,8 +74,98 @@ class NativeFire {
   /// CREATE
 
   // --------------------
-  ///
-  static Future<void> create() async {}
+  /// TASK : TEST ME
+  static Future<String> createDoc({
+    @required Map<String, dynamic> input,
+    @required String coll,
+    String doc,
+    String subColl,
+    String subDoc,
+    /// adds doc id to the input map in 'id' field
+    bool addDocID = false,
+  }) async {
+
+    /// NOTE : creates firestore doc with auto generated ID then returns doc reference
+
+    String _docID;
+
+    if (input != null){
+
+      final fd.DocumentReference _docRef = _getDocRef(
+        coll: coll,
+        doc: doc,
+        subColl: subColl,
+        subDoc: subDoc,
+      );
+
+      if (addDocID == true) {
+        Mapper.insertPairInMap(
+          map: input,
+          key: 'id',
+          value: _docRef.id,
+        );
+      }
+
+      await _setData(
+        invoker: 'createDoc',
+        input: input,
+        ref: _docRef,
+        onSuccess: (){
+          _docID = _docRef.id;
+          },
+      );
+
+    }
+
+    return _docID;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> _setData({
+    @required fd.DocumentReference ref,
+    @required Map<String, dynamic> input,
+    @required String invoker,
+    Function onSuccess,
+    Function(String error) onError,
+  }) async {
+
+    final Map<String, dynamic> _upload = Mapper.cleanNullPairs(
+      map: input,
+    );
+
+    if (_upload != null) {
+
+      await tryAndCatch(
+        invoker: invoker,
+        onError: onError,
+        functions: () async {
+          await ref.set(_upload);
+
+          if (onSuccess != null) {
+            onSuccess();
+          }
+
+          blog('$invoker.setData : CREATED ${_upload.keys.length} keys in : ${ref.path}');
+        },
+      );
+
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
   // -----------------------------------------------------------------------------
 
   /// READ

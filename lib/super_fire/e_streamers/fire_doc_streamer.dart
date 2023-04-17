@@ -84,8 +84,8 @@ class _FireDocStreamerState extends State<FireDocStreamer> {
     super.initState();
 
     _stream = OfficialFire.streamDoc(
-      collName: widget.collName,
-      docName: widget.docName,
+      coll: widget.collName,
+      doc: widget.docName,
     );
 
     _sub = _stream.listen((event) { });
