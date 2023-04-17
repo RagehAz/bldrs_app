@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/b_views/a_starters/a_logo_screen/a_static_logo_screen.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/b_animated_logo_screen.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/a_home_screen.dart';
@@ -34,10 +33,9 @@ import 'package:mediators/mediators.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:stringer/stringer.dart';
-
 import 'bldrs_keys.dart';
 
-const String bldrsAppVersion = '3.4.15';
+const String bldrsAppVersion = '3.5.0';
 
 Future<void> main() async {
   /// -----------------------------------------------------------------------------
