@@ -195,7 +195,7 @@ class OfficialReal {
 
             _docID = event.previousChildKey;
 
-            _output = Mapper.getMapFromDataSnapshot(
+            _output = OfficialFireMapper.getMapFromDataSnapshot(
               snapshot: event.snapshot,
               onNull: () => blog('Real.createDoc : failed to create doc '),
             );
@@ -388,7 +388,7 @@ class OfficialReal {
         final f_db.DatabaseEvent _event = await _query.once();
 
 
-        _output = Mapper.getMapsFromDataSnapshot(
+        _output = OfficialFireMapper.getMapsFromDataSnapshot(
           snapshot: _event.snapshot,
           // addDocID: false,
         );
@@ -416,7 +416,7 @@ class OfficialReal {
 
         final f_db.DataSnapshot _snap = await _ref.get();
 
-        _output = Mapper.getMapFromDataSnapshot(
+        _output = OfficialFireMapper.getMapFromDataSnapshot(
           snapshot: _snap,
           addDocID: false,
         );
@@ -475,7 +475,7 @@ class OfficialReal {
 
         final f_db.DataSnapshot snapshot = await ref.child(_path).get();
 
-        _output = Mapper.getMapFromDataSnapshot(
+        _output = OfficialFireMapper.getMapFromDataSnapshot(
           snapshot: snapshot,
           onNull: () => blog('Real.readDoc : No data available : path : $_path.'),
           addDocID: addDocID,
@@ -511,7 +511,7 @@ class OfficialReal {
 
         final f_db.DatabaseEvent event = await ref.once(f_db.DatabaseEventType.value);
 
-        _map = Mapper.getMapFromDataSnapshot(
+        _map = OfficialFireMapper.getMapFromDataSnapshot(
           snapshot: event.snapshot,
           addDocID: addDocID,
         );
