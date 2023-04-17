@@ -77,11 +77,137 @@ class OfficialFire{
   }
   // -----------------------------------------------------------------------------
 
-  /// QUERIES
+  /// CREATE
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static cloud.Query<Map<String, dynamic>> _superQuery({
+  /// TASK : TEST ME
+  static Future<String> createDoc({
+    @required Map<String, dynamic> input,
+    @required String coll,
+    String doc,
+    String subColl,
+    String subDoc,
+    /// adds doc id to the input map in 'id' field
+    bool addDocID = false,
+  }) async {
+
+    /// NOTE : creates firestore doc with auto generated ID then returns doc reference
+
+    String _docID;
+
+    if (input != null){
+
+      final cloud.DocumentReference<Object> _docRef = _getDocRef(
+        coll: coll,
+        doc: doc,
+        subColl: subColl,
+        subDoc: subDoc,
+      );
+
+      if (addDocID == true) {
+        Mapper.insertPairInMap(
+          map: input,
+          key: 'id',
+          value: _docRef.id,
+        );
+      }
+
+      await _setData(
+        invoker: 'createDoc',
+        input: input,
+        ref: _docRef,
+        onSuccess: (){
+          _docID = _docRef.id;
+          },
+      );
+
+    }
+
+    return _docID;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> _setData({
+    @required cloud.DocumentReference<Object> ref,
+    @required Map<String, dynamic> input,
+    @required String invoker,
+    Function onSuccess,
+    Function(String error) onError,
+  }) async {
+
+      final Map<String, dynamic> _upload = Mapper.cleanNullPairs(
+        map: input,
+      );
+
+      if (_upload != null){
+
+        await tryAndCatch(
+          invoker: invoker,
+          onError: onError,
+          functions: () async {
+
+              await ref.set(_upload);
+
+              if (onSuccess != null){
+                onSuccess();
+              }
+
+              blog('$invoker.setData : CREATED ${_upload.keys.length} keys in : ${ref.path}');
+
+            },
+        );
+
+      }
+
+    }
+  // -----------------------------------------------------------------------------
+
+  /// READ COLL
+
+  // --------------------
+  /// TASK : TEST ME
+  static Future<List<Map<String, dynamic>>> readColl({
+    @required FireQueryModel queryModel,
+    cloud.QueryDocumentSnapshot<Object> startAfter,
+    bool addDocSnapshotToEachMap = false,
+    bool addDocsIDs = false,
+  }) async {
+
+    List<Map<String, dynamic>> _maps = <Map<String,dynamic>>[];
+
+    await tryAndCatch(
+        invoker: 'superCollPaginator',
+        functions: () async {
+
+          final cloud.Query<Map<String, dynamic>> query = _createCollQuery(
+            collRef: _getCollRef(
+              coll: queryModel.coll,
+              doc: queryModel.doc,
+              subColl: queryModel.subColl,
+            ),
+            orderBy: queryModel.orderBy,
+            limit: queryModel.limit,
+            startAfter: startAfter,
+            finders: queryModel.finders,
+          );
+
+          final cloud.QuerySnapshot<Object> _collectionSnapshot = await query.get();
+
+          final List<cloud.QueryDocumentSnapshot<Object>> _queryDocumentSnapshots = _collectionSnapshot.docs;
+
+          _maps = Mapper.getMapsFromQueryDocumentSnapshotsList(
+              queryDocumentSnapshots: _queryDocumentSnapshots,
+              addDocsIDs: addDocsIDs,
+              addDocSnapshotToEachMap: addDocSnapshotToEachMap
+          );
+
+        });
+
+    return _maps;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static cloud.Query<Map<String, dynamic>> _createCollQuery({
     @required cloud.CollectionReference<Object> collRef,
     QueryOrderBy orderBy,
     int limit,
@@ -114,72 +240,144 @@ class OfficialFire{
     return query;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<cloud.QuerySnapshot<Object>> _superCollectionQuery({
-    @required cloud.CollectionReference<Object> collRef,
-    QueryOrderBy orderBy,
-    int limit,
-    cloud.QueryDocumentSnapshot<Object> startAfter,
-    List<FireFinder> finders,
+  /// TASK : TEST ME
+  static Future<Map<String, dynamic>> readDoc({
+    @required String coll,
+    @required String doc,
+    String subColl,
+    String subDoc,
+    bool addDocSnapshot = false,
+    bool addDocID = false,
   }) async {
 
-    final cloud.Query<Map<String, dynamic>> query = _superQuery(
-      collRef: collRef,
-      orderBy: orderBy,
-      limit: limit,
-      startAfter: startAfter,
-      finders: finders,
-    );
+    Map<String, dynamic> _output;
 
-    final cloud.QuerySnapshot<Object> _collectionSnapshot = await query.get();
+    await tryAndCatch(
+        invoker: 'readSubDoc',
+        functions: () async {
 
-    return _collectionSnapshot;
+          final cloud.DocumentReference<Object> _docRef = _getDocRef(
+            coll: coll,
+            doc: doc,
+            subColl: subColl,
+            subDoc: subDoc,
+          );
+
+          final cloud.DocumentSnapshot<Object> snapshot = await _docRef.get();
+
+          if (snapshot.exists == true) {
+            _output = Mapper.getMapFromDocumentSnapshot(
+              docSnapshot: snapshot,
+              addDocSnapshot: addDocSnapshot,
+              addDocID: addDocID,
+            );
+          }
+
+        });
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
-  /// BASICS
+  /// STREAMING
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> _setData({
-    @required cloud.DocumentReference<Object> ref,
+  /// TASK : TEST ME
+  static Stream<cloud.QuerySnapshot<Object>> streamColl({
+    @required FireQueryModel queryModel,
+    cloud.QueryDocumentSnapshot<Object> startAfter,
+  }) {
+
+    final cloud.Query<Map<String, dynamic>> _query = _createCollQuery(
+      collRef: _getCollRef(
+        coll: queryModel.coll,
+        doc: queryModel.doc,
+        subColl: queryModel.subColl,
+      ),
+      orderBy: queryModel.orderBy,
+      startAfter: startAfter,
+      limit: queryModel.limit,
+      finders: queryModel.finders,
+    );
+
+    return _query.snapshots();
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Stream<cloud.DocumentSnapshot<Object>> streamDoc({
+    @required String coll,
+    @required String doc,
+    String subColl,
+    String subDoc,
+  }) {
+
+    final cloud.DocumentReference<Object> _docRef = _getDocRef(
+      coll: coll,
+      doc: doc,
+      subColl: subColl,
+      subDoc: subDoc,
+    );
+
+    return _docRef.snapshots();
+  }
+  // --------------------
+
+  /// UPDATE
+
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> updateDoc({
     @required Map<String, dynamic> input,
-    @required String invoker,
-    Function onSuccess,
+    @required String coll,
+    @required String doc,
+    String subColl,
+    String subDoc,
   }) async {
 
-      final Map<String, dynamic> _upload = Mapper.cleanNullPairs(
-        map: input,
+    await createDoc(
+      coll: coll,
+      doc: doc,
+      subColl: subColl,
+      subDoc: subDoc,
+      input: input,
+    );
+
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> updateDocField({
+    @required dynamic input,
+    @required String field,
+    @required String coll,
+    @required String doc,
+    String subColl,
+    String subDoc,
+  }) async {
+
+    // NOTES
+    /// this updates a field if exists,
+    /// if absent it creates a new field and inserts the value
+
+    if (input != null){
+
+      final cloud.DocumentReference<Object> _docRef = _getDocRef(
+        coll: coll,
+        doc: doc,
+        subColl: subColl,
+        subDoc: subDoc,
       );
 
-      if (_upload != null){
-
-        await tryAndCatch(
-            invoker: invoker,
-            functions: () async {
-
-              // final SetOptions options = SetOptions(
-              //   merge: true,
-              //   mergeFields: <Object>[],
-              // );
-
-              await ref.set(_upload);
-
-              if (onSuccess != null){
-                onSuccess();
-              }
-
-              blog('$invoker.setData : CREATED ${_upload.keys.length} keys in : ${ref.path}');
-
-            },
-        // onError: (){},
-        );
-
-      }
+      await _updateData(
+        ref: _docRef,
+        invoker: 'updateSubDocField',
+        input: <String, dynamic>{field: input},
+      );
 
     }
+
+  }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
   static Future<void> _updateData({
     @required cloud.DocumentReference<Object> ref,
     @required Map<String, dynamic> input,
@@ -222,10 +420,191 @@ class OfficialFire{
     }
   // -----------------------------------------------------------------------------
 
-  /// CREATE
+  /// DELETE
 
   // --------------------
+  /// TASK : TEST ME
+  static Future<void> deleteDoc({
+    @required String coll,
+    @required String doc,
+    String subColl,
+    String subDoc,
+  }) async {
+
+    await tryAndCatch(
+        invoker: 'deleteSubDoc',
+        functions: () async {
+
+          final cloud.DocumentReference<Object> _subDoc = _getDocRef(
+            coll: coll,
+            doc: doc,
+            subColl: subColl,
+            subDoc: subDoc,
+          );
+
+          await _subDoc.delete();
+
+          blog('deleteSubDoc : deleted : $coll : $doc : $subColl : $subDoc');
+        }
+    );
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> deleteDocField({
+    @required String coll,
+    @required String doc,
+    @required String field,
+    String subColl,
+    String subDoc,
+  }) async {
+
+    final cloud.DocumentReference<Object> _docRef = _getDocRef(
+      coll: coll,
+      doc: doc,
+      subColl: subColl,
+      subDoc: subDoc,
+    );
+
+    // Remove field from the document
+    final Map<String, Object> updates = <String, Object>{};
+
+    updates.addAll(<String, dynamic>{
+      field: cloud.FieldValue.delete(),
+    });
+
+    await _updateData(
+      ref: _docRef,
+      invoker: 'deleteSubDocField',
+      input: updates,
+    );
+
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> deleteColl({
+    @required BuildContext context,
+    @required String coll,
+    String doc,
+    String subColl,
+    Function onDeleteDoc,
+    int numberOfIterations = 1000,
+    int numberOfReadsPerIteration = 5,
+  }) async {
+
+    /// PLAN : THIS SHOULD BE A CLOUD FUNCTION INSTEAD OF THIS BULLSHIT
+    /// does the same deletion algorithm with [deleteAllCollectionDocs]
+
+    for (int i = 0; i < numberOfIterations; i++){
+
+        final List<Map<String, dynamic>> _maps = await readColl(
+          queryModel: FireQueryModel(
+            coll: coll,
+            doc: doc,
+            subColl: subColl,
+            limit: numberOfReadsPerIteration,
+          ),
+          addDocsIDs: true,
+        );
+
+        if (_maps.isEmpty){
+          break;
+        }
+
+        else {
+
+          final List<String> _docIDs = Mapper.getMapsPrimaryKeysValues(
+            maps: _maps,
+            // primaryKey: 'id',
+          );
+
+          Stringer.blogStrings(strings: _docIDs, invoker: 'deleteColl : _docIDs ');
+
+          await deleteDocs(
+            coll: coll,
+            doc: doc,
+            subColl: subColl,
+            docsIDs: _docIDs,
+            onDeleteDoc: onDeleteDoc,
+          );
+
+        }
+
+      }
+
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> deleteDocs({
+    @required String coll,
+    @required List<String> docsIDs,
+    String doc,
+    String subColl,
+    Function(String subDocID) onDeleteDoc
+  }) async {
+
+    /// PLAN : THIS SHOULD BE A CLOUD FUNCTION INSTEAD OF THIS BULLSHIT
+
+    if (Mapper.checkCanLoopList(docsIDs) == true){
+
+      final bool _isDeletingSubDocs = subColl != null && doc != null;
+
+      for (final String docID in docsIDs){
+
+        await Future.wait(<Future>[
+
+          deleteDoc(
+            coll: coll,
+            doc: _isDeletingSubDocs == true ? doc : docID,
+            subColl: subColl,
+            subDoc: _isDeletingSubDocs == true ? docID : null,
+          ),
+
+
+          if (onDeleteDoc != null)
+            onDeleteDoc(docID),
+
+        ]);
+
+      }
+
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+}
+
+  /// OLD METHODS
+  /*
+String pathOfDoc({
+  @required String collName,
+  @required String docName,
+}) {
+  return '$collName/$docName';
+}
+  // --------------------
+String pathOfSubColl({
+  @required String collName,
+  @required String docName,
+  @required String subCollName,
+}) {
+  return '$collName/$docName/$subCollName';
+}
+  // --------------------
+String pathOfSubDoc({
+  @required String collName,
+  @required String docName,
+  @required String subCollName,
+  @required String subDocName,
+}) {
+  return '$collName/$docName/$subCollName/$subDocName';
+}
+  // --------------------
   /// TESTED : WORKS PERFECT
+  static cloud.CollectionReference<Object> getCollectionRef(String collName) {
+    return OfficialFirebase.getFire().collection(collName);
+  }
+
+    /// TESTED : WORKS PERFECT
   static Future<cloud.DocumentReference<Object>> createDoc({
     @required String collName,
     @required Map<String, dynamic> input,
@@ -297,44 +676,15 @@ class OfficialFire{
 
     return _output;
   }
-  // --------------------
+
+    // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<cloud.DocumentReference<Object>> createSubDoc({
-    @required String collName,
-    @required String docName,
-    @required String subCollName,
+  static Future<cloud.DocumentReference<Object>> createNamedDoc({
     @required Map<String, dynamic> input,
-    ValueChanged<cloud.DocumentReference> onFinish,
-  }) async {
-
-    /// NOTE : creates firestore sub doc with auto ID
-    /// creates a new sub doc and new sub collection if didn't exists
-    /// and uses the same directory if existed to add a new doc
-    /// updates the sub doc if existed
-    /// and creates random name for sub doc if sub doc name is null
-
-    final cloud.DocumentReference<Object> _subDocRef = await createNamedSubDoc(
-      coll: collName,
-      doc: docName,
-      subColl: subCollName,
-      subDoc: null, /// to make it generate auto ID
-      input: input,
-    );
-
-    if (onFinish != null){
-      onFinish(_subDocRef);
-    }
-
-    return _subDocRef;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<cloud.DocumentReference<Object>> createNamedSubDoc({
     @required String coll,
-    @required String doc,
-    @required String subColl,
-    @required String subDoc,
-    @required Map<String, dynamic> input,
+    String doc,
+    String subColl,
+    String subDoc,
   }) async {
 
     /// creates a new sub doc and new sub collection if didn't exists
@@ -366,51 +716,8 @@ class OfficialFire{
 
     return _output;
   }
-  // -----------------------------------------------------------------------------
 
-  /// READ
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<List<Map<String, dynamic>>> superCollPaginator({
-    @required FireQueryModel queryModel,
-    @required cloud.QueryDocumentSnapshot<Object> startAfter,
-    bool addDocSnapshotToEachMap = false,
-    bool addDocsIDs = false,
-  }) async {
-
-    List<Map<String, dynamic>> _maps = <Map<String,dynamic>>[];
-
-    await tryAndCatch(
-        invoker: 'superCollPaginator',
-        functions: () async {
-
-          final cloud.QuerySnapshot<Object> _collectionSnapshot = await _superCollectionQuery(
-            collRef: _getCollRef(
-              coll: queryModel.coll,
-              doc: queryModel.doc,
-              subColl: queryModel.subColl,
-            ),
-            orderBy: queryModel.orderBy,
-            limit: queryModel.limit,
-            startAfter: startAfter,
-            finders: queryModel.finders,
-          );
-
-          final List<cloud.QueryDocumentSnapshot<Object>> _queryDocumentSnapshots = _collectionSnapshot.docs;
-
-          _maps = Mapper.getMapsFromQueryDocumentSnapshotsList(
-              queryDocumentSnapshots: _queryDocumentSnapshots,
-              addDocsIDs: addDocsIDs,
-              addDocSnapshotToEachMap: addDocSnapshotToEachMap
-          );
-
-        });
-
-    return _maps;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
+    /// TESTED : WORKS PERFECT
   static Future<List<Map<String, dynamic>>> readCollectionDocs({
     @required String coll,
     QueryOrderBy orderBy,
@@ -451,67 +758,9 @@ class OfficialFire{
 
     return _maps;
   }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<dynamic> _getMapByDocRef({
-    @required cloud.DocumentReference<Object> docRef,
-    @required bool addDocID,
-    @required bool addDocSnapshot,
-  }) async {
-    dynamic _map;
-
-    // await FirebaseFirestore.instance.disableNetwork();
-    // await FirebaseFirestore.instance.enableNetwork();
-
-    final cloud.DocumentSnapshot<Object> snapshot = await docRef.get();
-
-    if (snapshot.exists == true) {
-      _map = Mapper.getMapFromDocumentSnapshot(
-        docSnapshot: snapshot,
-        addDocSnapshot: addDocSnapshot,
-        addDocID: addDocID,
-      );
-    }
-
-    return _map;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<Map<String, dynamic>> readDoc({
-    @required String collName,
-    @required String docName,
-    bool addDocID = false,
-    bool addDocSnapshot = false,
-  }) async {
-
-
-    Map<String, dynamic> _map; //QueryDocumentSnapshot
-
-    final dynamic _result = await tryCatchAndReturnBool(
-      invoker: 'readDoc',
-      functions: () async {
-
-        final cloud.DocumentReference<Object> _docRef = _getDocRef(
-          coll: collName,
-          doc: docName,
-        );
-        // blog('readDoc() : _docRef : $_docRef');
-
-        _map = await _getMapByDocRef(
-          docRef: _docRef,
-          addDocID: addDocID,
-          addDocSnapshot: addDocSnapshot,
-        );
-        // blog('readDoc() : _map : $_map');
-      },
-    );
-
-    // final String _found = _map == null ? 'NOT FOUND' : 'FOUND';
-    // blog('readDoc() : reading doc : firestore/$collName/$docName : $_found');
-
-    return _result.runtimeType == String ? null : _map;
-  }
-  // --------------------
+  \
+  ----------
+    // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Map<String, dynamic>>> readSubCollectionDocs({
     @required String coll,
@@ -558,65 +807,44 @@ class OfficialFire{
 
     return _maps;
   }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<dynamic> readSubDoc({
-    @required String coll,
-    @required String doc,
-    @required String subColl,
-    @required String subDoc,
-    bool addDocSnapshot = false,
+-------------------------------
+
+     /// TESTED : WORKS PERFECT
+  static Future<Map<String, dynamic>> readDoc({
+    @required String collName,
+    @required String docName,
     bool addDocID = false,
+    bool addDocSnapshot = false,
   }) async {
 
-    dynamic _map;
 
-    await tryAndCatch(
-        invoker: 'readSubDoc',
-        functions: () async {
+    Map<String, dynamic> _map; //QueryDocumentSnapshot
 
-          final cloud.DocumentReference<Object> _subDocRef = _getDocRef(
-            coll: coll,
-            doc: doc,
-            subColl: subColl,
-            subDoc: subDoc,
-          );
+    final dynamic _result = await tryCatchAndReturnBool(
+      invoker: 'readDoc',
+      functions: () async {
 
-          _map = await _getMapByDocRef(
-            docRef: _subDocRef,
-            addDocID: addDocID,
-            addDocSnapshot: addDocSnapshot,
-          );
+        final cloud.DocumentReference<Object> _docRef = _getDocRef(
+          coll: collName,
+          doc: docName,
+        );
+        // blog('readDoc() : _docRef : $_docRef');
 
-        });
-
-    return _map;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// STREAMING
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Stream<cloud.QuerySnapshot<Object>> streamCollection({
-    @required FireQueryModel queryModel,
-    cloud.QueryDocumentSnapshot<Object> startAfter,
-  }) {
-
-    final cloud.Query<Map<String, dynamic>> _query = _superQuery(
-      collRef: _getCollRef(
-        coll: queryModel.coll,
-        doc: queryModel.doc,
-        subColl: queryModel.subColl,
-      ),
-      orderBy: queryModel.orderBy,
-      startAfter: startAfter,
-      limit: queryModel.limit,
-      finders: queryModel.finders,
+        _map = await _getMapByDocRef(
+          docRef: _docRef,
+          addDocID: addDocID,
+          addDocSnapshot: addDocSnapshot,
+        );
+        // blog('readDoc() : _map : $_map');
+      },
     );
 
-    return _query.snapshots();
+    // final String _found = _map == null ? 'NOT FOUND' : 'FOUND';
+    // blog('readDoc() : reading doc : firestore/$collName/$docName : $_found');
+
+    return _result.runtimeType == String ? null : _map;
   }
+
   // --------------------
   /// TESTED : WORKS PERFECT
   static Stream<cloud.QuerySnapshot<Object>> streamSubCollection({
@@ -645,6 +873,8 @@ class OfficialFire{
 
     return _query.snapshots();
   }
+
+
   // --------------------
   /// TESTED : WORKS PERFECT
   static Stream<cloud.DocumentSnapshot<Object>> streamDoc({
@@ -659,29 +889,7 @@ class OfficialFire{
 
     return _docRef.snapshots();
   }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Stream<cloud.DocumentSnapshot<Object>> streamSubDoc({
-    @required String coll,
-    @required String doc,
-    @required String subColl,
-    @required String subDoc,
-  }) {
-
-    final cloud.DocumentReference<Object> _docRef = _getDocRef(
-      coll: coll,
-      doc: doc,
-      subColl: subColl,
-      subDoc: subDoc,
-    );
-
-    return _docRef.snapshots();
-  }
-  // --------------------
-
-  /// UPDATE
-
-  // --------------------
+-------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateDoc({
     @required String coll,
@@ -705,7 +913,7 @@ class OfficialFire{
     /// --------------------
     ///
 
-    await createNamedDoc(
+    await createDoc(
       coll: coll,
       doc: doc,
       input: input,
@@ -713,8 +921,8 @@ class OfficialFire{
 
 
   }
-  // --------------------
-  /// TESTED : WORKS PERFECT
+  --------------------------
+    /// TESTED : WORKS PERFECT
   static Future<void> updateDocField({
     @required String coll,
     @required String doc,
@@ -738,68 +946,12 @@ class OfficialFire{
     }
 
   }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> updateSubDoc({
-    @required String coll,
-    @required String doc,
-    @required String subColl,
-    @required String subDoc,
-    @required Map<String, dynamic> input,
-  }) async {
-
-    await createNamedSubDoc(
-      coll: coll,
-      doc: doc,
-      subColl: subColl,
-      subDoc: subDoc,
-      input: input,
-    );
-
-  }
-  // --------------------
-  ///
-  static Future<void> updateSubDocField({
-    @required BuildContext context,
-    @required String coll,
-    @required String doc,
-    @required String subColl,
-    @required String subDoc,
-    @required String field,
-    @required dynamic input
-  }) async {
-
-    // NOTES
-    /// this updates a field if exists,
-    /// if absent it creates a new field and inserts the value
-
-    if (input != null){
-
-      final cloud.DocumentReference<Object> _subDoc = _getDocRef(
-        coll: coll,
-        doc: doc,
-        subColl: subColl,
-        subDoc: subDoc,
-      );
-
-      await _updateData(
-        ref: _subDoc,
-        invoker: 'updateSubDocField',
-        input: <String, dynamic>{field: input},
-      );
-
-    }
-
-  }
-  // -----------------------------------------------------------------------------
-
-  /// DELETE
-
+---------------------
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteDoc({
-    @required String collName,
-    @required String docName,
+    @required String coll,
+    @required String doc,
   }) async {
 
     await tryAndCatch(
@@ -807,42 +959,43 @@ class OfficialFire{
         functions: () async {
 
           final cloud.DocumentReference<Object> _doc = _getDocRef(
-            coll: collName,
-            doc: docName,
+            coll: coll,
+            doc: doc,
           );
 
           await _doc.delete();
 
-          blog('deleteDoc : deleted : $collName : $docName');
+          blog('deleteDoc : deleted : $coll : $doc');
         });
   }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> deleteSubDoc({
+   -------------------------
+     /// TESTED : WORKS PERFECT
+  static Future<void> deleteDocField({
     @required String coll,
     @required String doc,
-    @required String subColl,
-    @required String subDoc,
+    @required String field,
   }) async {
 
-    await tryAndCatch(
-        invoker: 'deleteSubDoc',
-        functions: () async {
-
-          final cloud.DocumentReference<Object> _subDoc = _getDocRef(
-            coll: coll,
-            doc: doc,
-            subColl: subColl,
-            subDoc: subDoc,
-          );
-
-          await _subDoc.delete();
-
-          blog('deleteSubDoc : deleted : $coll : $doc : $subColl : $subDoc');
-        }
+    final cloud.DocumentReference<Object> _docRef = _getDocRef(
+      coll: coll,
+      doc: doc,
     );
+
+    final Map<String, Object> updates = <String, Object>{};
+
+    updates.addAll(<String, dynamic>{
+      field: cloud.FieldValue.delete(),
+    });
+
+    await _updateData(
+      ref: _docRef,
+      invoker: 'deleteDocField',
+      input: updates,
+    );
+
   }
-  // --------------------
+   -------------------------
+     // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteCollDocsByIterations({
     @required BuildContext context,
@@ -853,9 +1006,11 @@ class OfficialFire{
 
       for (int i = 0; i < numberOfIterations; i++){
 
-        final List<Map<String, dynamic>> _maps = await readCollectionDocs(
-          coll: coll,
-          limit: numberOfReadsPerIteration,
+        final List<Map<String, dynamic>> _maps = await readColl(
+          queryModel: FireQueryModel(
+            coll: coll,
+            limit: numberOfReadsPerIteration,
+          ),
           addDocsIDs: true,
         );
 
@@ -897,190 +1052,13 @@ class OfficialFire{
       for (final String id in docsIDs){
 
         await deleteDoc(
-          collName: coll,
-          docName: id,
-        );
-
-      }
-
-    }
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> deleteSubCollection({
-    @required BuildContext context,
-    @required String coll,
-    @required String doc,
-    @required String subColl,
-    @required Function onDeleteSubDoc,
-    @required int numberOfIterations, // was 1000
-    @required int numberOfReadsPerIteration, // was 5
-  }) async {
-
-    /// PLAN : THIS SHOULD BE A CLOUD FUNCTION INSTEAD OF THIS BULLSHIT
-    /// does the same deletion algorithm with [deleteAllCollectionDocs]
-
-    for (int i = 0; i < numberOfIterations; i++){
-
-        final List<Map<String, dynamic>> _maps = await readSubCollectionDocs(
           coll: coll,
-          doc: doc,
-          subColl: subColl,
-          limit: numberOfReadsPerIteration,
-          addDocsIDs: true,
+          doc: id,
         );
-
-        if (_maps.isEmpty){
-          break;
-        }
-
-        else {
-
-          final List<String> _docIDs = Mapper.getMapsPrimaryKeysValues(
-            maps: _maps,
-            // primaryKey: 'id',
-          );
-
-          blog('docs IDs : $_docIDs');
-
-          await _deleteSubCollectionDocsBySubDocsIDs(
-            coll: coll,
-            doc: doc,
-            subColl: subColl,
-            subDocsIDs: _docIDs,
-            onDeleteSubDoc: onDeleteSubDoc,
-          );
-
-        }
-
-      }
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> _deleteSubCollectionDocsBySubDocsIDs({
-    @required coll,
-    @required doc,
-    @required subColl,
-    @required List<String> subDocsIDs,
-    @required Function onDeleteSubDoc,
-  }) async {
-
-    /// PLAN : THIS SHOULD BE A CLOUD FUNCTION INSTEAD OF THIS BULLSHIT
-
-    if (Mapper.checkCanLoopList(subDocsIDs) == true){
-
-      for (final String subDocID in subDocsIDs){
-
-        await Future.wait(<Future>[
-
-          deleteSubDoc(
-            coll: coll,
-            doc: doc,
-            subColl: subColl,
-            subDoc: subDocID,
-          ),
-
-
-          if (onDeleteSubDoc != null)
-            onDeleteSubDoc(subDocID),
-
-        ]);
 
       }
 
     }
 
   }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> deleteDocField({
-    @required String coll,
-    @required String doc,
-    @required String field,
-  }) async {
-
-    final cloud.DocumentReference<Object> _docRef = _getDocRef(
-      coll: coll,
-      doc: doc,
-    );
-
-    final Map<String, Object> updates = <String, Object>{};
-
-    updates.addAll(<String, dynamic>{
-      field: cloud.FieldValue.delete(),
-    });
-
-    await _updateData(
-      ref: _docRef,
-      invoker: 'deleteDocField',
-      input: updates,
-    );
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> deleteSubDocField({
-    @required String coll,
-    @required String doc,
-    @required String subColl,
-    @required String subDoc,
-    @required String field,
-  }) async {
-
-    final cloud.DocumentReference<Object> _docRef = _getDocRef(
-      coll: coll,
-      doc: doc,
-      subColl: subColl,
-      subDoc: subDoc,
-    );
-
-    // Remove field from the document
-    final Map<String, Object> updates = <String, Object>{};
-
-    updates.addAll(<String, dynamic>{
-      field: cloud.FieldValue.delete(),
-    });
-
-    await _updateData(
-      ref: _docRef,
-      invoker: 'deleteSubDocField',
-      input: updates,
-    );
-
-  }
-  // -----------------------------------------------------------------------------
-}
-
-  /// OLD METHODS
-  /*
-String pathOfDoc({
-  @required String collName,
-  @required String docName,
-}) {
-  return '$collName/$docName';
-}
-  // --------------------
-String pathOfSubColl({
-  @required String collName,
-  @required String docName,
-  @required String subCollName,
-}) {
-  return '$collName/$docName/$subCollName';
-}
-  // --------------------
-String pathOfSubDoc({
-  @required String collName,
-  @required String docName,
-  @required String subCollName,
-  @required String subDocName,
-}) {
-  return '$collName/$docName/$subCollName/$subDocName';
-}
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static cloud.CollectionReference<Object> getCollectionRef(String collName) {
-    return OfficialFirebase.getFire().collection(collName);
-  }
- */
+   */

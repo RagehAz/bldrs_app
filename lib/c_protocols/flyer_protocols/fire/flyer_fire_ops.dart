@@ -31,8 +31,8 @@ class FlyerFireOps {
 
     blog('createFlyerDoc : START');
 
-    final DocumentReference<Object> _docRef = await OfficialFire.createDoc(
-      collName: FireColl.flyers,
+    final String _flyerID = await OfficialFire.createDoc(
+      coll: FireColl.flyers,
       input: {
         /// temp id will be overridden
         'id': 'x',
@@ -43,7 +43,7 @@ class FlyerFireOps {
 
     blog('createFlyerDoc : END');
 
-    return _docRef?.id;
+    return _flyerID;
   }
   // -----------------------------------------------------------------------------
 
@@ -56,8 +56,8 @@ class FlyerFireOps {
   }) async {
 
     final dynamic _flyerMap = await OfficialFire.readDoc(
-        collName: FireColl.flyers,
-        docName: flyerID
+        coll: FireColl.flyers,
+        doc: flyerID
     );
 
     final FlyerModel _flyer = FlyerModel.decipherFlyer(
@@ -117,7 +117,7 @@ class FlyerFireOps {
     FlyerModel startAfterFlyer,
   }) async {
 
-    final List<Map<String, dynamic>> _maps = await OfficialFire.superCollPaginator(
+    final List<Map<String, dynamic>> _maps = await OfficialFire.readColl(
       queryModel: queryModel,
       startAfter: startAfterFlyer?.docSnapshot,
       addDocsIDs: true,
@@ -163,8 +163,8 @@ class FlyerFireOps {
 
     if (flyerID != null){
       await OfficialFire.deleteDoc(
-        collName: FireColl.flyers,
-        docName: flyerID,
+        coll: FireColl.flyers,
+        doc: flyerID,
       );
     }
 
@@ -278,7 +278,7 @@ class FlyerFireOps {
           invoker: 'promoteFlyerInCity',
           functions: () async {
 
-            await OfficialFire.createNamedDoc(
+            await OfficialFire.createDoc(
               coll: FireColl.flyersPromotions,
               doc: flyerPromotion.flyerID,
               input: flyerPromotion.toMap(

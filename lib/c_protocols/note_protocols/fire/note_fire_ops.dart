@@ -25,19 +25,20 @@ class NoteFireOps {
     if (noteModel != null){
 
       if (noteModel.sendNote == true){
-        await OfficialFire.createSubDoc(
-          collName: FireColl.getPartyCollName(noteModel.parties.receiverType),
-          docName: noteModel.parties.receiverID,
-          subCollName: FireSubColl.noteReceiver_receiver_notes,
+
+        final String docID = await OfficialFire.createDoc(
+          coll: FireColl.getPartyCollName(noteModel.parties.receiverType),
+          doc: noteModel.parties.receiverID,
+          subColl: FireSubColl.noteReceiver_receiver_notes,
           input: noteModel.toMap(toJSON: false),
-          onFinish: (DocumentReference ref){
-            if (ref != null){
+        );
+
+         if (docID != null){
               _output = noteModel.copyWith(
-                id: ref.id,
+                id: docID,
               );
             }
-          },
-        );
+
       }
 
       else {
@@ -106,7 +107,7 @@ class NoteFireOps {
 
     if (noteID != null && userID != null){
 
-      final Map<String, dynamic> map = await OfficialFire.readSubDoc(
+      final Map<String, dynamic> map = await OfficialFire.readDoc(
         coll: FireColl.users,
         doc: userID,
         subColl: FireSubColl.noteReceiver_receiver_notes,
@@ -136,7 +137,7 @@ class NoteFireOps {
 
     if (note != null){
 
-      await OfficialFire.updateSubDoc(
+      await OfficialFire.updateDoc(
         coll: FireColl.getPartyCollName(note.parties.receiverType),
         doc: note.parties.receiverID,
         subColl: FireSubColl.noteReceiver_receiver_notes,
@@ -198,7 +199,7 @@ class NoteFireOps {
 
     if (note != null){
 
-      await OfficialFire.deleteSubDoc(
+      await OfficialFire.deleteDoc(
         coll: FireColl.getPartyCollName(note.parties.receiverType),
         doc: note.parties.receiverID,
         subColl: FireSubColl.noteReceiver_receiver_notes,

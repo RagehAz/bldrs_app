@@ -45,8 +45,8 @@ Widget bzModelBuilder({
 }) {
   return FutureBuilder<Map<String, dynamic>>(
       future: OfficialFire.readDoc(
-        collName: FireColl.bzz,
-        docName: bzID,
+        coll: FireColl.bzz,
+        doc: bzID,
       ),
       builder: (BuildContext ctx, AsyncSnapshot<Object> snapshot) {
 
@@ -79,8 +79,8 @@ Widget bzModelBuilder({
 Stream<BzModel> getBzStream(String bzID) {
 
   final Stream<DocumentSnapshot<Object>> _bzSnapshot = OfficialFire.streamDoc(
-      collName: FireColl.bzz,
-      docName: bzID
+      coll: FireColl.bzz,
+      doc: bzID
   );
 
   return _bzSnapshot.map(BzModel.convertDocSnapshotIntoBzModel);

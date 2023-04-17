@@ -22,18 +22,20 @@ class UserFireSearch{
     int limit = 10,
   }) async {
 
-    final List<Map<String, dynamic>> _result = await OfficialFire.readCollectionDocs(
-      coll: FireColl.users,
+    final List<Map<String, dynamic>> _result = await OfficialFire.readColl(
       addDocSnapshotToEachMap: true,
-      limit: limit,
       startAfter: startAfter,
-      finders: <FireFinder>[
-        FireFinder(
-          field: 'trigram',
-          comparison: FireComparison.arrayContains,
-          value: name.trim(),
-        ),
-      ],
+      queryModel: FireQueryModel(
+        coll: FireColl.users,
+        limit: limit,
+        finders: <FireFinder>[
+          FireFinder(
+            field: 'trigram',
+            comparison: FireComparison.arrayContains,
+            value: name.trim(),
+          ),
+        ],
+      ),
     );
 
     List<UserModel> _usersModels = <UserModel>[];
@@ -61,14 +63,15 @@ class UserFireSearch{
     QueryDocumentSnapshot<Object> startAfter,
   }) async {
 
-    final List<Map<String, dynamic>> _result = await OfficialFire.readCollectionDocs(
-      coll: FireColl.users,
+    final List<Map<String, dynamic>> _result = await OfficialFire.readColl(
       addDocSnapshotToEachMap: true,
       addDocsIDs: true,
-      limit: limit,
       startAfter: startAfter,
       // orderBy: const QueryOrderBy(fieldName: 'trigram', descending: false),
-      finders: <FireFinder>[
+      queryModel: FireQueryModel(
+        coll: FireColl.users,
+        limit: limit,
+        finders: <FireFinder>[
 
         const FireFinder(
           field: 'myBzzIDs',
@@ -83,6 +86,7 @@ class UserFireSearch{
           value: name.trim(),
         ),
       ],
+      ),
     );
 
     List<UserModel> _usersModels = <UserModel>[];

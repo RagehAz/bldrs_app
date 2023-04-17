@@ -24,15 +24,15 @@ class FlyerSearch {
     QueryDocumentSnapshot<Object> startAfter,
     int limit = 6,
   }) async {
-    final List<Map<String, dynamic>> _maps = await OfficialFire.readCollectionDocs(
-      coll: FireColl.flyers,
-      // orderBy: 'score',
+
+    final List<Map<String, dynamic>> _maps = await OfficialFire.readColl(
       addDocSnapshotToEachMap: true,
-      limit: limit,
       startAfter: startAfter,
       addDocsIDs: true,
-      // orderBy: ,
-      finders: <FireFinder>[
+      queryModel: FireQueryModel(
+        coll: FireColl.flyers,
+        limit: limit,
+        finders: <FireFinder>[
         if (countryID != null)
           FireFinder(
             field: 'zone.countryID',
@@ -66,6 +66,8 @@ class FlyerSearch {
                 numberOfChars: Standards.maxTrigramLength,
               )),
       ],
+        // orderBy: 'score',
+      ),
     );
 
     if (Mapper.checkCanLoopList(_maps) == true) {
@@ -86,16 +88,18 @@ class FlyerSearch {
     // @required DateTime timeLimit,
   }) async {
 
-    final List<Map<String, dynamic>> _maps = await OfficialFire.readCollectionDocs(
-      coll: FireColl.flyersPromotions,
-      limit: 10,
-      finders: <FireFinder>[
-        FireFinder(
-          field: 'cityID',
-          comparison: FireComparison.equalTo,
-          value: cityID,
-        ),
-      ],
+    final List<Map<String, dynamic>> _maps = await OfficialFire.readColl(
+      queryModel: FireQueryModel(
+        coll: FireColl.flyersPromotions,
+        limit: 10,
+        finders: <FireFinder>[
+          FireFinder(
+            field: 'cityID',
+            comparison: FireComparison.equalTo,
+            value: cityID,
+          ),
+        ],
+      ),
     );
 
     final List<FlyerPromotion> _flyerPromotions = FlyerPromotion.decipherFlyersPromotions(

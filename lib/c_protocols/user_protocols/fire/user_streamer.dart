@@ -50,8 +50,8 @@ Widget userModelBuilder({
 }) {
   return FutureBuilder<Map<String, dynamic>>(
       future: OfficialFire.readDoc(
-        collName: FireColl.users,
-        docName: userID,
+        coll: FireColl.users,
+        doc: userID,
       ),
       builder: (BuildContext ctx, AsyncSnapshot<Object> snapshot) {
 

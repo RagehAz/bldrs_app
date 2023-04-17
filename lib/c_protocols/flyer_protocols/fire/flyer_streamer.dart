@@ -100,8 +100,8 @@ typedef FlyerModelWidgetBuilder = Widget Function(
 Stream<FlyerModel> getFlyerStream(String flyerID) {
 
   final Stream<DocumentSnapshot<Object>> _flyerSnapshot = OfficialFire.streamDoc(
-    collName: FireColl.flyers,
-    docName: flyerID,
+    coll: FireColl.flyers,
+    doc: flyerID,
   );
 
   final Stream<FlyerModel> _flyerStream = _flyerSnapshot.map(
