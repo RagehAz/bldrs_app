@@ -324,21 +324,14 @@ class BzModel{
   }
    */
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static BzModel convertDocSnapshotIntoBzModel(DocumentSnapshot<Object> doc) {
+  /// TASK : TEST ME
+  static BzModel convertDocSnapshotIntoBzModel(Map<String, dynamic> map) {
 
-    final DocumentSnapshot<Object> _docSnap = doc.data();
-    final Map<String, dynamic> _map = Mapper.getMapFromDocumentSnapshot(
-      docSnapshot: _docSnap,
-      addDocID: false,
-      addDocSnapshot: true,
-    );
-    final BzModel _bzModel = BzModel.decipherBz(
-      map: _map,
+    return BzModel.decipherBz(
+      map: map,
       fromJSON: false,
     );
 
-    return _bzModel;
   }
   // -----------------------------------------------------------------------------
 
