@@ -26,11 +26,11 @@ FireQueryModel bzNotesPaginationQueryModel({
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Stream<QuerySnapshot<Object>> bzUnseenNotesStream({
+Stream<List<Map<String, dynamic>>> bzUnseenNotesStream({
   @required String bzID,
 }){
 
-  final Stream<QuerySnapshot<Object>> _stream = OfficialFire.streamColl(
+  final Stream<List<Map<String, dynamic>>> _stream = OfficialFire.streamColl(
     queryModel: FireQueryModel(
       coll: FireColl.bzz,
       doc: bzID,
@@ -68,9 +68,7 @@ FireQueryModel userNotesPaginationQueryModel(){
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Stream<QuerySnapshot<Object>> userUnseenNotesStream({
-  @required BuildContext context,
-}){
+Stream<List<Map<String, dynamic>>> userUnseenNotesStream(){
 
   return OfficialFire.streamColl(
     queryModel: FireQueryModel(
@@ -92,7 +90,7 @@ Stream<QuerySnapshot<Object>> userUnseenNotesStream({
 }
 // -----------------------------------------------------------------------------
 /// TESTED : WORKS PERFECT
-Stream<QuerySnapshot<Object>> userNotesWithPendingReplies({
+Stream<List<Map<String, dynamic>>> userNotesWithPendingReplies({
   @required BuildContext context,
 }){
 

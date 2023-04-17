@@ -41,9 +41,7 @@ StreamSubscription listenToUserUnseenNotes(BuildContext context){
 
   if (_userModel != null && OfficialAuthing.getUserID() != null){
 
-    final Stream<QuerySnapshot<Object>> _unseenNotesStream = userUnseenNotesStream(
-        context: context
-    );
+    final Stream<List<Map<String, dynamic>>> _unseenNotesStream = userUnseenNotesStream();
 
     _sub = FireCollStreamer.onStreamDataChanged(
       stream: _unseenNotesStream,
@@ -128,7 +126,7 @@ StreamSubscription _listenToMyBzUnseenNotes({
   @required String bzID,
 }){
 
-  final Stream<QuerySnapshot<Object>> _bzUnseenNotesStream  = bzUnseenNotesStream(
+  final Stream<List<Map<String, dynamic>>> _bzUnseenNotesStream  = bzUnseenNotesStream(
     bzID: bzID,
   );
 

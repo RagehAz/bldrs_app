@@ -1,6 +1,6 @@
 part of super_fire;
 
-/// => TAMAM
+///
 class OfficialFire{
   // -----------------------------------------------------------------------------
 
@@ -113,7 +113,7 @@ class OfficialFire{
       }
 
       await _setData(
-        invoker: 'createDoc',
+        invoker: 'OfficialFire.createDoc',
         input: input,
         ref: _docRef,
         onSuccess: (){
@@ -162,7 +162,7 @@ class OfficialFire{
     }
   // -----------------------------------------------------------------------------
 
-  /// READ COLL
+  /// READ
 
   // --------------------
   /// TASK : TEST ME
@@ -176,7 +176,7 @@ class OfficialFire{
     List<Map<String, dynamic>> _maps = <Map<String,dynamic>>[];
 
     await tryAndCatch(
-        invoker: 'superCollPaginator',
+        invoker: 'OfficialFire.readColl',
         functions: () async {
 
           final cloud.Query<Map<String, dynamic>> query = _createCollQuery(
@@ -195,7 +195,7 @@ class OfficialFire{
 
           final List<cloud.QueryDocumentSnapshot<Object>> _queryDocumentSnapshots = _collectionSnapshot.docs;
 
-          _maps = Mapper.getMapsFromQueryDocumentSnapshotsList(
+          _maps = OfficialFireMapper.getMapsFromQueryDocumentSnapshotsList(
               queryDocumentSnapshots: _queryDocumentSnapshots,
               addDocsIDs: addDocsIDs,
               addDocSnapshotToEachMap: addDocSnapshotToEachMap
@@ -204,6 +204,47 @@ class OfficialFire{
         });
 
     return _maps;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<List<Map<String, dynamic>>> readAllColl({
+    @required String coll,
+    String doc,
+    String subColl,
+    String subDoc,
+    bool addDocsIDs = false,
+  }) async {
+
+    List<Map<String, dynamic>> _output = [];
+
+    await tryAndCatch(
+      invoker: 'OfficialFire.readAllColl',
+      functions: () async {
+
+        final cloud.CollectionReference<Object> _collRef = _getCollRef(
+          coll: coll,
+          doc: doc,
+          subColl: subColl,
+        );
+
+        if (_collRef != null) {
+
+          final cloud.QuerySnapshot<Object> _snapshot = await _collRef?.get();
+
+          final List<cloud.QueryDocumentSnapshot<Object>> _queryDocumentSnapshots = _snapshot.docs;
+
+          _output = OfficialFireMapper.getMapsFromQueryDocumentSnapshotsList(
+              queryDocumentSnapshots: _queryDocumentSnapshots,
+              addDocsIDs: addDocsIDs,
+              addDocSnapshotToEachMap: false,
+          );
+
+        }
+      },
+
+    );
+
+    return _output;
   }
   // --------------------
   /// TASK : TEST ME
@@ -219,7 +260,7 @@ class OfficialFire{
 
     /// ASSIGN SEARCH FINDERS
     if (Mapper.checkCanLoopList(finders) == true){
-      query = FireFinder.createCompositeQueryByFinders(
+      query = FireFinder.createOfficialCompositeQueryByFinders(
           query: query,
           finders: finders
       );
@@ -246,14 +287,12 @@ class OfficialFire{
     @required String doc,
     String subColl,
     String subDoc,
-    bool addDocSnapshot = false,
     bool addDocID = false,
   }) async {
-
     Map<String, dynamic> _output;
 
     await tryAndCatch(
-        invoker: 'readSubDoc',
+        invoker: 'OfficialFire.readDoc',
         functions: () async {
 
           final cloud.DocumentReference<Object> _docRef = _getDocRef(
@@ -266,9 +305,9 @@ class OfficialFire{
           final cloud.DocumentSnapshot<Object> snapshot = await _docRef.get();
 
           if (snapshot.exists == true) {
-            _output = Mapper.getMapFromDocumentSnapshot(
+            _output = OfficialFireMapper.getMapFromDocumentSnapshot(
               docSnapshot: snapshot,
-              addDocSnapshot: addDocSnapshot,
+              addDocSnapshot: null,
               addDocID: addDocID,
             );
           }
@@ -283,7 +322,7 @@ class OfficialFire{
 
   // --------------------
   /// TASK : TEST ME
-  static Stream<cloud.QuerySnapshot<Object>> streamColl({
+  static Stream<List<Map<String, dynamic>>> streamColl({
     @required FireQueryModel queryModel,
     cloud.QueryDocumentSnapshot<Object> startAfter,
   }) {
@@ -300,11 +339,11 @@ class OfficialFire{
       finders: queryModel.finders,
     );
 
-    return _query.snapshots();
+    return _query?.snapshots()?.map(OfficialFireMapper.mapSnapshots);
   }
   // --------------------
   /// TASK : TEST ME
-  static Stream<cloud.DocumentSnapshot<Object>> streamDoc({
+  static Stream<Map<String, dynamic>> streamDoc({
     @required String coll,
     @required String doc,
     String subColl,
@@ -318,7 +357,7 @@ class OfficialFire{
       subDoc: subDoc,
     );
 
-    return _docRef.snapshots();
+    return _docRef?.snapshots()?.map(OfficialFireMapper.mapSnapshot);
   }
   // --------------------
 
@@ -369,7 +408,7 @@ class OfficialFire{
 
       await _updateData(
         ref: _docRef,
-        invoker: 'updateSubDocField',
+        invoker: 'OfficialFire.updateDocField',
         input: <String, dynamic>{field: input},
       );
 
@@ -432,7 +471,7 @@ class OfficialFire{
   }) async {
 
     await tryAndCatch(
-        invoker: 'deleteSubDoc',
+        invoker: 'OfficialFire.deleteDoc',
         functions: () async {
 
           final cloud.DocumentReference<Object> _subDoc = _getDocRef(
@@ -474,7 +513,7 @@ class OfficialFire{
 
     await _updateData(
       ref: _docRef,
-      invoker: 'deleteSubDocField',
+      invoker: 'OfficialFire.deleteDocField',
       input: updates,
     );
 
@@ -517,7 +556,7 @@ class OfficialFire{
             // primaryKey: 'id',
           );
 
-          Stringer.blogStrings(strings: _docIDs, invoker: 'deleteColl : _docIDs ');
+          Stringer.blogStrings(strings: _docIDs, invoker: 'OfficialFire.deleteColl : _docIDs ');
 
           await deleteDocs(
             coll: coll,
@@ -572,6 +611,7 @@ class OfficialFire{
   }
   // -----------------------------------------------------------------------------
 }
+
 
   /// OLD METHODS
   /*

@@ -485,7 +485,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: ea1333ac9a4e3787d43247fa046a0f98b87aa86e
+      resolved-ref: f9f3ddab5e51bbc7108a9e33e9bcf20dd2b35d32
       url: "https://github.com/RagehAz/filers.git"
     source: git
     version: "0.0.3"
@@ -1213,10 +1213,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: e07b7facd31386829ea610853762883e3ebc4cde
+      resolved-ref: "4985cd20a9e67d67e1b495c67d42b44cbb58b703"
       url: "https://github.com/RagehAz/mapper.git"
     source: git
-    version: "0.0.8"
+    version: "0.0.9"
   matcher:
     dependency: transitive
     description:
@@ -1376,10 +1376,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider_android
-      sha256: "019f18c9c10ae370b08dce1f3e3b73bc9f58e7f087bb5e921f06529438ac0ae7"
+      sha256: da97262be945a72270513700a92b39dd2f4a54dad55d061687e2e37a6390366a
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.24"
+    version: "2.0.25"
   path_provider_foundation:
     dependency: transitive
     description:
@@ -1496,10 +1496,10 @@ packages:
     dependency: transitive
     description:
       name: pointycastle
-      sha256: c3120a968135aead39699267f4c74bc9a08e4e909e86bc1b0af5bfd78691123c
+      sha256: "7c1e5f0d23c9016c5bbd8b1473d0d3fb3fc851b876046039509e18e0c7485f2c"
       url: "https://pub.dev"
     source: hosted
-    version: "3.7.2"
+    version: "3.7.3"
   process:
     dependency: transitive
     description:
@@ -1537,10 +1537,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: b19fba65f4917500fdedcf6adacd46159377c8be
+      resolved-ref: "2d7b2772ab882f2d691732336ce22c24fe7694e0"
       url: "https://github.com/RagehAz/rest.git"
     source: git
-    version: "0.0.8"
+    version: "0.0.9"
   rxdart:
     dependency: transitive
     description:
