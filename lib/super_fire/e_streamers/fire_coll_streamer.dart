@@ -17,24 +17,15 @@ class FireCollStreamer extends StatefulWidget {
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static StreamSubscription onStreamDataChanged({
-    @required Stream<cloud.QuerySnapshot<Object>> stream,
+    @required Stream<List<Map<String, dynamic>>> stream,
     @required ValueChanged<List<Map<String, dynamic>>> onChange,
     @required String invoker,
   }){
 
     final StreamSubscription _streamSubscription = stream.listen(
-          (cloud.QuerySnapshot<Object>snapshot) async {
-
-      final List<Map<String, dynamic>> _newMaps = Mapper.getMapsFromQuerySnapshot(
-        querySnapshot: snapshot,
-        addDocsIDs: true,
-        addDocSnapshotToEachMap: true,
-      );
-
-      onChange(_newMaps);
-
-    },
-
+      (List<Map<String, dynamic>> maps) async {
+        onChange(maps);
+      },
       cancelOnError: false,
 
       onDone: (){
@@ -57,7 +48,7 @@ class FireCollStreamer extends StatefulWidget {
 
 class _FireCollStreamerState extends State<FireCollStreamer> {
   // -----------------------------------------------------------------------------
-  Stream<cloud.QuerySnapshot<Object>> _stream;
+  Stream<List<Map<String, dynamic>>> _stream;
   StreamSubscription _sub;
   // -----------------------------------------------------------------------------
   @override
@@ -109,12 +100,7 @@ class _FireCollStreamerState extends State<FireCollStreamer> {
 
         else {
 
-          final List<Map<String, dynamic>> _maps = Mapper.getMapsFromQuerySnapshot(
-            querySnapshot: snapshot.data,
-            addDocsIDs: true,
-            addDocSnapshotToEachMap: true,
-          );
-          return widget.builder(ctx, _maps);
+          return widget.builder(ctx, snapshot.data);
 
         }
 

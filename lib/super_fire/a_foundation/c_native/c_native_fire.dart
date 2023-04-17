@@ -107,7 +107,7 @@ class NativeFire {
       }
 
       await _setData(
-        invoker: 'createDoc',
+        invoker: 'NativeFire.createDoc',
         input: input,
         ref: _docRef,
         onSuccess: (){
@@ -154,71 +154,193 @@ class NativeFire {
   }
   // -----------------------------------------------------------------------------
 
-
-
-
-
-
-
-
-
-
-
-
-
-  // -----------------------------------------------------------------------------
-
   /// READ
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<List<Map<String, dynamic>>> readCollDocs({
-    @required String collName,
+  /// TASK : TEST ME
+  static Future<List<Map<String, dynamic>>> readColl({
+    @required FireQueryModel queryModel,
+    dynamic startAfter,
+    bool addDocsIDs = false,
   }) async {
-    final List<Map<String, dynamic>> _output = [];
+    List<Map<String, dynamic>> _output = <Map<String, dynamic>>[];
 
-    if (collName != null){
+    await tryAndCatch(
+        invoker: 'NativeFire.readColl',
+        functions: () async {
 
-      final fd.CollectionReference _collRef = _getCollRef(coll: collName);
-      final fd.Page<fd.Document> _page = await _collRef?.get(
-        // pageSize: ,
-        // nextPageToken: ,
-      );
+          final fd.QueryReference query = _createCollQuery(
+            collRef: _getCollRef(
+              coll: queryModel.coll,
+              doc: queryModel.doc,
+              subColl: queryModel.subColl,
+            ),
+            orderBy: queryModel.orderBy,
+            limit: queryModel.limit,
+            startAfter: startAfter,
+            finders: queryModel.finders,
+          );
 
-      if (_page != null && _page.isNotEmpty == true){
+          final fd.Page<fd.Document> _page = await query.get();
 
-        for (final fd.Document _doc in _page){
-          _output.add(_doc.map);
-        }
+          _output = NativeFireMapper.getMapsFromNativePage(
+            page: _page,
+            addDocsIDs: addDocsIDs,
+          );
 
-      }
-
-    }
+        });
 
     return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<Map<String, dynamic>> redDoc({
-    @required String collName,
-    @required String docName,
+  static Future<List<Map<String, dynamic>>> readAllColl({
+    @required String coll,
+    String doc,
+    String subColl,
+    String subDoc,
+    bool addDocsIDs = false,
+  }) async {
+
+    List<Map<String, dynamic>> _output = [];
+
+    await tryAndCatch(
+      invoker: 'NativeFire.readAllColl',
+      functions: () async {
+
+        final fd.CollectionReference _collRef = _getCollRef(
+          coll: coll,
+          doc: doc,
+          subColl: subColl,
+        );
+
+        if (_collRef != null) {
+          final fd.Page<fd.Document> _page = await _collRef?.get(
+              // pageSize: ,
+              // nextPageToken: ,
+              );
+
+          _output = NativeFireMapper.getMapsFromNativePage(
+            page: _page,
+            addDocsIDs: addDocsIDs,
+          );
+
+        }
+      },
+
+    );
+
+    return _output;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static fd.QueryReference _createCollQuery({
+    @required fd.CollectionReference collRef,
+    QueryOrderBy orderBy,
+    int limit,
+    dynamic startAfter,
+    List<FireFinder> finders,
+  }){
+
+    fd.QueryReference query = NativeFirebase
+        .getFire()
+        .collection(collRef.path)
+        .where(null);//, isNull: true);
+
+    /// ASSIGN SEARCH FINDERS
+    if (Mapper.checkCanLoopList(finders) == true){
+      query = FireFinder.createNativeCompositeQueryByFinders(
+          query: query,
+          finders: finders
+      );
+    }
+    /// ORDER BY A FIELD NAME
+    if (orderBy != null){
+      query = query.orderBy(orderBy.fieldName, descending: orderBy.descending);
+    }
+    /// LIMIT NUMBER OR RESULTS
+    if (limit != null){
+      query = query.limit(limit);
+    }
+    /// START AFTER A SPECIFIC SNAPSHOT
+    if (startAfter != null){
+      assert(startAfter  == null, 'Native Fire Implementation does not support startAfter');
+      // query = query.startAfterDocument(startAfter);
+    }
+
+    return query;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<Map<String, dynamic>> readDoc({
+    @required String coll,
+    @required String doc,
+    String subColl,
+    String subDoc,
+    bool addDocID = false,
   }) async {
     Map<String, dynamic> _output;
 
-    if (collName != null && docName != null){
+    await tryAndCatch(
+        invoker: 'OfficialFire.readDoc',
+        functions: () async {
 
-      final fd.DocumentReference _docRef = _getDocRef(
-        coll: collName,
-        doc: docName,
-      );
+          final fd.DocumentReference _docRef = _getDocRef(
+            coll: coll,
+            doc: doc,
+            subColl: subColl,
+            subDoc: subDoc,
+          );
 
-      final fd.Document _document = await _docRef.get();
-      _output = _document?.map;
-    }
+          final fd.Document _document = await _docRef.get();
+          _output = _document?.map;
+
+          if (addDocID == true) {
+            _output['id'] = _document.id;
+          }
+
+        });
 
     return _output;
   }
   // -----------------------------------------------------------------------------
+
+  /// STREAMING
+
+  // --------------------
+  /// TASK : TEST ME
+  static Stream<List<Map<String, dynamic>>> streamColl({
+    @required FireQueryModel queryModel,
+  }) {
+
+    final fd.CollectionReference _collRef = _getCollRef(
+      coll: queryModel.coll,
+      doc: queryModel.doc,
+      subColl: queryModel.subColl,
+    );
+
+    return _collRef?.stream?.map(NativeFireMapper.mapDocs);
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Stream<Map<String, dynamic>> streamDoc({
+    @required String coll,
+    @required String doc,
+    String subColl,
+    String subDoc,
+  }) {
+
+    final fd.DocumentReference _docRef = _getDocRef(
+      coll: coll,
+      doc: doc,
+      subColl: subColl,
+      subDoc: subDoc,
+    );
+
+    return _docRef?.stream?.map(NativeFireMapper.mapDoc);
+
+  }
+  // --------------------
 
   /// UPDATE
 

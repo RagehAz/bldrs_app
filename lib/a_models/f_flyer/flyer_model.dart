@@ -265,10 +265,9 @@ class FlyerModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static FlyerModel getFlyerModelFromSnapshot(DocumentSnapshot<Object> doc){
-    final Object _map = doc.data();
+  static FlyerModel mapToFlyer(Map<String, dynamic> map){
     final FlyerModel _flyerModel = FlyerModel.decipherFlyer(
-      map: _map,
+      map: map,
       fromJSON: false,
     );
     return _flyerModel;

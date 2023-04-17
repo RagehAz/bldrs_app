@@ -1,0 +1,246 @@
+part of super_fire;
+
+class OfficialFireMapper {
+  // -----------------------------------------------------------------------------
+
+  const OfficialFireMapper();
+
+  // -----------------------------------------------------------------------------
+
+  /// QUERY SNAPSHOT - QUERY DOCUMENT SNAPSHOT
+
+  // --------------------
+  /// MANUALLY TESTED : WORKS PERFECT
+  static List<Map<String, dynamic>> getMapsFromQuerySnapshot({
+    @required cloud.QuerySnapshot<Object> querySnapshot,
+    @required bool addDocsIDs,
+    @required bool addDocSnapshotToEachMap,
+  }) {
+
+    return getMapsFromQueryDocumentSnapshotsList(
+      queryDocumentSnapshots: querySnapshot?.docs,
+      addDocsIDs: addDocsIDs,
+      addDocSnapshotToEachMap: addDocSnapshotToEachMap,
+    );
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static List<Map<String, dynamic>> mapSnapshots(cloud.QuerySnapshot<Map<String, dynamic>> querySnapshot){
+
+    final List<Map<String, dynamic>> _maps = getMapsFromQuerySnapshot(
+      querySnapshot: querySnapshot,
+      addDocsIDs: true,
+      addDocSnapshotToEachMap: true,
+    );
+
+    return _maps;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// QUERY DOCUMENT SNAPSHOT
+
+  // --------------------
+  /// MANUALLY TESTED : WORKS PERFECT
+  static List<Map<String, dynamic>> getMapsFromQueryDocumentSnapshotsList({
+    @required List<cloud.QueryDocumentSnapshot<Object>> queryDocumentSnapshots,
+    @required bool addDocsIDs,
+    @required bool addDocSnapshotToEachMap,
+  }) {
+
+    final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
+
+    if (Mapper.checkCanLoopList(queryDocumentSnapshots) == true) {
+      for (final cloud.QueryDocumentSnapshot<Object> docSnapshot in queryDocumentSnapshots) {
+
+        Map<String, dynamic> _map = docSnapshot.data();
+
+        if (addDocsIDs == true) {
+          _map['id'] = docSnapshot.id;
+        }
+
+        if (addDocSnapshotToEachMap == true) {
+          _map = Mapper.insertPairInMap(
+            map: _map,
+            key: 'docSnapshot',
+            value: docSnapshot,
+          );
+        }
+
+        _maps.add(_map);
+      }
+    }
+
+    return _maps;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// DOCUMENT SNAPSHOT
+
+  // --------------------
+  /// MANUALLY TESTED : WORKS PERFECT
+  static Map<String, dynamic> getMapFromDocumentSnapshot({
+    @required cloud.DocumentSnapshot<Object> docSnapshot,
+    @required bool addDocID,
+    @required bool addDocSnapshot,
+  }) {
+
+    Map<String, dynamic> _map = docSnapshot?.data();
+
+    if (docSnapshot != null && docSnapshot.exists == true){
+
+      if (addDocID == true) {
+        _map['id'] = docSnapshot.id;
+      }
+
+      if (addDocSnapshot == true) {
+        _map = Mapper.insertPairInMap(
+          map: _map,
+          key: 'docSnapshot',
+          value: docSnapshot,
+        );
+      }
+
+    }
+
+    return _map;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Map<String, dynamic> mapSnapshot(cloud.DocumentSnapshot<Object> docSnapshot){
+
+    final Map<String, dynamic> _map = getMapFromDocumentSnapshot(
+      docSnapshot: docSnapshot,
+      addDocID: true,
+      addDocSnapshot: true,
+    );
+
+    return _map;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// DATA SNAPSHOT
+
+  // --------------------
+  /// MANUALLY TESTED : WORKS PERFECT
+  static Map<String, dynamic> getMapFromDataSnapshot({
+    @required f_db.DataSnapshot snapshot,
+    bool addDocID = true,
+    Function onExists,
+    Function onNull,
+  }){
+    Map<String, dynamic> _output;
+
+    if (snapshot.exists) {
+
+      // blog('snapshot.value : ${snapshot.value} : type : ${snapshot.value.runtimeType}');
+
+      if (snapshot.value.runtimeType.toString() == '_InternalLinkedHashMap<Object?, Object?>'){
+        _output = Mapper.getMapFromIHLMOO(
+          ihlmoo: snapshot.value,
+        );
+      }
+      else {
+        _output = Map<String, dynamic>.from(snapshot.value);
+      }
+
+
+      if (addDocID == true){
+        _output = Mapper.insertPairInMap(
+          map: _output,
+          key: 'id',
+          value: snapshot.key,
+        );
+      }
+
+      if (onExists != null){
+        onExists();
+      }
+    }
+
+    else {
+      if (onNull != null){
+        onNull();
+      }
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// MANUALLY TESTED : WORKS PERFECT
+  static List<Map<String, dynamic>> getMapsFromDataSnapshot({
+    @required f_db.DataSnapshot snapshot,
+    // bool addDocID = true,
+  }) {
+    List<Map<String, dynamic>> _output;
+
+    if (snapshot.exists) {
+
+      // blog('snapshot type : ${snapshot.value.runtimeType}');
+
+      // if (snapshot.value.runtimeType.toString() == 'List<Object?>'){
+
+        _output = [];
+
+        final List<dynamic> _dynamics = snapshot.children.toList();
+
+        for (final dynamic object in _dynamics){
+
+          final Map<String, dynamic> _maw = getMapFromDataSnapshot(
+            snapshot: object,
+            // addDocID: true,
+          );
+
+          _output.add(_maw);
+
+        }
+
+      // }
+
+      // if (snapshot.value.runtimeType.toString() == '_InternalLinkedHashMap<Object?, Object?>'){
+      //
+      //   final Map<String, dynamic> _map = getMapFromInternalHashLinkedMapObjectObject(
+      //     internalHashLinkedMapObjectObject: snapshot.value,
+      //   );
+      //
+      //   Mapper.blogMap(_map, invoker: 'the fookin maw');
+      //
+      //   _output = [];
+      //   if (_map != null){
+      //     _output.add(_map);
+      //   }
+      //
+      // }
+
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// MANUALLY TESTED : WORKS PERFECT
+  static List<Map<String, dynamic>> getMapsFromDataSnapshots({
+    @required List<f_db.DataSnapshot> snapshots,
+    bool addDocsIDs = true,
+  }){
+
+    final List<Map<String, dynamic>> _output = <Map<String, dynamic>>[];
+
+    if (Mapper.checkCanLoopList(snapshots) == true){
+
+      for (final f_db.DataSnapshot snap in snapshots){
+
+        final Map<String, dynamic> _map = getMapFromDataSnapshot(
+          snapshot: snap,
+          addDocID: addDocsIDs,
+        );
+
+        _output.add(_map);
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+}

@@ -120,8 +120,10 @@ part 'b_models/c_real/real_query_model.dart';
 
 // ------------
 /// AUTHING
-part 'c_helpers/auth_error.dart';
-part 'c_helpers/auth_blog.dart';
+part 'c_helpers/authing/auth_error.dart';
+part 'c_helpers/authing/auth_blog.dart';
+part 'c_helpers/mappers/official_fire_mapper.dart';
+part 'c_helpers/mappers/native_fire_mapper.dart';
 // -----------------------------------------------------------------------------
 
 

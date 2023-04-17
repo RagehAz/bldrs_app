@@ -20,25 +20,19 @@ class FireDocStreamer extends StatefulWidget {
   final Widget loadingWidget;
   /// --------------------------------------------------------------------------
   static Future<void> onStreamDataChanged({
-    @required Stream<cloud.DocumentSnapshot<Object>> stream,
+    @required Stream<Map<String, dynamic>> stream,
     @required Map<String, dynamic> oldMap,
     @required bool mounted,
     @required Function(Map<String, dynamic> oldMap, Map<String, dynamic> newMap) onChange,
   }) async {
 
-    stream.listen((cloud.DocumentSnapshot<Object> snapshot) async {
+    stream.listen((Map<String, dynamic> newMap) async {
 
       // blog('xxx - onStreamDataChanged - snapshot : $snapshot');
 
-      final Map<String, dynamic> _newMap = Mapper.getMapFromDocumentSnapshot(
-        docSnapshot: snapshot,
-        addDocID: true,
-        addDocSnapshot: true,
-      );
-
       final bool _mapsAreTheSame = Mapper.checkMapsAreIdentical(
         map1: oldMap,
-        map2: _newMap,
+        map2: newMap,
       );
 
       // blog('FireDocStreamer - onStreamDataChanged - _oldMap == _newMap : $_mapsAreTheSame');
@@ -46,7 +40,7 @@ class FireDocStreamer extends StatefulWidget {
 
       if (_mapsAreTheSame == false){
         if (mounted == true){
-          onChange(oldMap, _newMap);
+          onChange(oldMap, newMap);
         }
       }
 
@@ -75,7 +69,7 @@ class FireDocStreamer extends StatefulWidget {
 
 class _FireDocStreamerState extends State<FireDocStreamer> {
   // -----------------------------------------------------------------------------
-  Stream<cloud.DocumentSnapshot<Object>> _stream;
+  Stream<Map<String, dynamic>> _stream;
   final ValueNotifier<Map<String, dynamic>> _oldMap = ValueNotifier<Map<String, dynamic>>(null);
   StreamSubscription _sub;
   // -----------------------------------------------------------------------------
@@ -129,13 +123,7 @@ class _FireDocStreamerState extends State<FireDocStreamer> {
 
         else {
 
-          final Map<String, dynamic> _map = Mapper.getMapFromDocumentSnapshot(
-              docSnapshot: snapshot.data,
-              addDocID: true,
-              addDocSnapshot: true,
-          );
-
-          return widget.builder(ctx, _map);
+          return widget.builder(ctx, snapshot.data);
 
         }
 
