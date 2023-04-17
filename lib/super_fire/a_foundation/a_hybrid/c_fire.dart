@@ -152,4 +152,252 @@ class Fire {
     return _output;
   }
   // -----------------------------------------------------------------------------
+
+  /// STREAMING
+
+  // --------------------
+  /// TASK : TEST ME
+  static Stream<List<Map<String, dynamic>>> streamColl({
+    @required FireQueryModel queryModel,
+  }) {
+
+    if (FirebaseInitializer.isUsingOfficialPackages() == true) {
+      return OfficialFire.streamColl(queryModel: queryModel);
+    }
+
+    else {
+      return NativeFire.streamColl(queryModel: queryModel);
+    }
+
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Stream<Map<String, dynamic>> streamDoc({
+    @required String coll,
+    @required String doc,
+    String subColl,
+    String subDoc,
+  }) {
+
+    if (FirebaseInitializer.isUsingOfficialPackages() == true) {
+      return OfficialFire.streamDoc(
+        coll: coll,
+        subColl: subColl,
+        subDoc: subDoc,
+        doc: doc,
+      );
+    }
+
+    else {
+      return NativeFire.streamDoc(
+        coll: coll,
+        subColl: subColl,
+        subDoc: subDoc,
+        doc: doc,
+      );
+    }
+
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// UPDATE
+
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> updateDoc({
+    @required Map<String, dynamic> input,
+    @required String coll,
+    @required String doc,
+    String subColl,
+    String subDoc,
+  }) async {
+
+    if (FirebaseInitializer.isUsingOfficialPackages() == true) {
+      await OfficialFire.updateDoc(
+        input: input,
+        coll: coll,
+        subColl: subColl,
+        subDoc: subDoc,
+        doc: doc,
+      );
+    }
+
+    else {
+      await NativeFire.updateDoc(
+        input: input,
+        coll: coll,
+        subColl: subColl,
+        subDoc: subDoc,
+        doc: doc,
+      );
+    }
+
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> updateDocField({
+    @required dynamic input,
+    @required String field,
+    @required String coll,
+    @required String doc,
+    String subColl,
+    String subDoc,
+  }) async {
+
+    if (FirebaseInitializer.isUsingOfficialPackages() == true) {
+      await OfficialFire.updateDocField(
+        input: input,
+        field: field,
+        coll: coll,
+        subColl: subColl,
+        subDoc: subDoc,
+        doc: doc,
+      );
+    }
+
+    else {
+      await NativeFire.updateDocField(
+        input: input,
+        field: field,
+        coll: coll,
+        subColl: subColl,
+        subDoc: subDoc,
+        doc: doc,
+      );
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// DELETE
+
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> deleteDoc({
+    @required String coll,
+    @required String doc,
+    String subColl,
+    String subDoc,
+  }) async {
+
+    if (FirebaseInitializer.isUsingOfficialPackages() == true) {
+      await OfficialFire.deleteDoc(
+        coll: coll,
+        subColl: subColl,
+        subDoc: subDoc,
+        doc: doc,
+      );
+    }
+
+    else {
+      await NativeFire.deleteDoc(
+        coll: coll,
+        subColl: subColl,
+        subDoc: subDoc,
+        doc: doc,
+      );
+    }
+
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> deleteDocField({
+    @required String coll,
+    @required String doc,
+    @required String field,
+    String subColl,
+    String subDoc,
+  }) async {
+
+    if (FirebaseInitializer.isUsingOfficialPackages() == true) {
+      await OfficialFire.deleteDocField(
+        coll: coll,
+        subColl: subColl,
+        subDoc: subDoc,
+        doc: doc,
+        field: field,
+      );
+    }
+
+    else {
+      await NativeFire.deleteDocField(
+        coll: coll,
+        subColl: subColl,
+        subDoc: subDoc,
+        doc: doc,
+        field: field,
+      );
+    }
+
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> deleteColl({
+    @required BuildContext context,
+    @required String coll,
+    String doc,
+    String subColl,
+    Function onDeleteDoc,
+    int numberOfIterations = 1000,
+    int numberOfReadsPerIteration = 5,
+  }) async {
+
+    if (FirebaseInitializer.isUsingOfficialPackages() == true) {
+      await OfficialFire.deleteColl(
+        context: context,
+        coll: coll,
+        doc: doc,
+        subColl: subColl,
+        onDeleteDoc: onDeleteDoc,
+        numberOfIterations: numberOfIterations,
+        numberOfReadsPerIteration: numberOfReadsPerIteration,
+      );
+    }
+
+    else {
+      await NativeFire.deleteColl(
+        context: context,
+        coll: coll,
+        doc: doc,
+        subColl: subColl,
+        onDeleteDoc: onDeleteDoc,
+        numberOfIterations: numberOfIterations,
+        numberOfReadsPerIteration: numberOfReadsPerIteration,
+      );
+    }
+
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> deleteDocs({
+    @required String coll,
+    @required List<String> docsIDs,
+    String doc,
+    String subColl,
+    Function(String subDocID) onDeleteDoc
+  }) async {
+
+    if (FirebaseInitializer.isUsingOfficialPackages() == true) {
+      await OfficialFire.deleteDocs(
+        coll: coll,
+        docsIDs: docsIDs,
+        doc: doc,
+        subColl: subColl,
+        onDeleteDoc: onDeleteDoc,
+      );
+    }
+
+    else {
+      await NativeFire.deleteDocs(
+        coll: coll,
+        docsIDs: docsIDs,
+        doc: doc,
+        subColl: subColl,
+        onDeleteDoc: onDeleteDoc,
+      );
+    }
+
+  }
+  // -----------------------------------------------------------------------------
 }

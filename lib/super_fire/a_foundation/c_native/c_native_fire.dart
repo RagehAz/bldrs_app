@@ -282,7 +282,7 @@ class NativeFire {
     Map<String, dynamic> _output;
 
     await tryAndCatch(
-        invoker: 'OfficialFire.readDoc',
+        invoker: 'NativeFire.readDoc',
         functions: () async {
 
           final fd.DocumentReference _docRef = _getDocRef(
@@ -340,19 +340,253 @@ class NativeFire {
     return _docRef?.stream?.map(NativeFireMapper.mapDoc);
 
   }
-  // --------------------
+  // -----------------------------------------------------------------------------
 
   /// UPDATE
 
   // --------------------
-  ///
-  static Future<void> update() async {}
+  /// TASK : TEST ME
+  static Future<void> updateDoc({
+    @required Map<String, dynamic> input,
+    @required String coll,
+    @required String doc,
+    String subColl,
+    String subDoc,
+  }) async {
+
+    await createDoc(
+      coll: coll,
+      doc: doc,
+      subColl: subColl,
+      subDoc: subDoc,
+      input: input,
+    );
+
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> updateDocField({
+    @required dynamic input,
+    @required String field,
+    @required String coll,
+    @required String doc,
+    String subColl,
+    String subDoc,
+  }) async {
+
+    // NOTES
+    /// this updates a field if exists,
+    /// if absent it creates a new field and inserts the value
+
+    if (input != null){
+
+      final fd.DocumentReference _docRef = _getDocRef(
+        coll: coll,
+        doc: doc,
+        subColl: subColl,
+        subDoc: subDoc,
+      );
+
+      await _updateData(
+        ref: _docRef,
+        invoker: 'NativeFire.updateDocField',
+        input: <String, dynamic>{field: input},
+      );
+
+    }
+
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> _updateData({
+    @required fd.DocumentReference ref,
+    @required Map<String, dynamic> input,
+    @required String invoker,
+    Function onSuccess,
+  }) async {
+
+      final Map<String, dynamic> _upload = Mapper.cleanNullPairs(
+        map: input,
+      );
+
+      if (_upload != null){
+
+        await tryAndCatch(
+          invoker: invoker,
+          functions: () async {
+
+            // final SetOptions options = SetOptions(
+            //   merge: true,
+            //   mergeFields: <Object>[],
+            // );
+
+            await ref.update(_upload);
+
+            if (onSuccess != null){
+              onSuccess();
+            }
+
+            blog('$invoker.updateData : UPDATED ${_upload.keys.length} keys in : ${ref.path}');
+
+          },
+          // onError: (){},
+        );
+
+
+
+
+      }
+
+    }
   // -----------------------------------------------------------------------------
 
   /// DELETE
 
   // --------------------
-  ///
-  static Future<void> delete() async {}
+  /// TASK : TEST ME
+  static Future<void> deleteDoc({
+    @required String coll,
+    @required String doc,
+    String subColl,
+    String subDoc,
+  }) async {
+    await tryAndCatch(
+        invoker: 'NativeFire.deleteDoc',
+        functions: () async {
+
+          final fd.DocumentReference _docRef = _getDocRef(
+            coll: coll,
+            doc: doc,
+            subColl: subColl,
+            subDoc: subDoc,
+          );
+
+          await _docRef.delete();
+
+          blog('deleteDoc : deleted : $coll : $doc : $subColl : $subDoc');
+        });
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> deleteDocField({
+    @required String coll,
+    @required String doc,
+    @required String field,
+    String subColl,
+    String subDoc,
+  }) async {
+
+    final fd.DocumentReference _docRef = _getDocRef(
+      coll: coll,
+      doc: doc,
+      subColl: subColl,
+      subDoc: subDoc,
+    );
+
+    // Remove field from the document
+    final Map<String, Object> updates = <String, Object>{};
+
+    updates.addAll(<String, dynamic>{
+      field: cloud.FieldValue.delete(),
+    });
+
+    await _updateData(
+      ref: _docRef,
+      invoker: 'NativeFire.deleteDocField',
+      input: updates,
+    );
+
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> deleteColl({
+    @required BuildContext context,
+    @required String coll,
+    String doc,
+    String subColl,
+    Function onDeleteDoc,
+    int numberOfIterations = 1000,
+    int numberOfReadsPerIteration = 5,
+  }) async {
+
+    /// PLAN : THIS SHOULD BE A CLOUD FUNCTION INSTEAD OF THIS BULLSHIT
+    /// does the same deletion algorithm with [deleteAllCollectionDocs]
+
+    for (int i = 0; i < numberOfIterations; i++){
+
+        final List<Map<String, dynamic>> _maps = await readColl(
+          queryModel: FireQueryModel(
+            coll: coll,
+            doc: doc,
+            subColl: subColl,
+            limit: numberOfReadsPerIteration,
+          ),
+          addDocsIDs: true,
+        );
+
+        if (_maps.isEmpty){
+          break;
+        }
+
+        else {
+
+          final List<String> _docIDs = Mapper.getMapsPrimaryKeysValues(
+            maps: _maps,
+            // primaryKey: 'id',
+          );
+
+          Stringer.blogStrings(strings: _docIDs, invoker: 'NativeFire.deleteColl : _docIDs ');
+
+          await deleteDocs(
+            coll: coll,
+            doc: doc,
+            subColl: subColl,
+            docsIDs: _docIDs,
+            onDeleteDoc: onDeleteDoc,
+          );
+
+        }
+
+      }
+
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> deleteDocs({
+    @required String coll,
+    @required List<String> docsIDs,
+    String doc,
+    String subColl,
+    Function(String subDocID) onDeleteDoc
+  }) async {
+
+    /// PLAN : THIS SHOULD BE A CLOUD FUNCTION INSTEAD OF THIS BULLSHIT
+
+    if (Mapper.checkCanLoopList(docsIDs) == true){
+
+      final bool _isDeletingSubDocs = subColl != null && doc != null;
+
+      for (final String docID in docsIDs){
+
+        await Future.wait(<Future>[
+
+          deleteDoc(
+            coll: coll,
+            doc: _isDeletingSubDocs == true ? doc : docID,
+            subColl: subColl,
+            subDoc: _isDeletingSubDocs == true ? docID : null,
+          ),
+
+
+          if (onDeleteDoc != null)
+            onDeleteDoc(docID),
+
+        ]);
+
+      }
+
+    }
+
+  }
   // -----------------------------------------------------------------------------
 }
