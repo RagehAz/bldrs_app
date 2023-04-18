@@ -1,6 +1,6 @@
 part of super_fire;
 
-///
+/// => TAMAM
 class Authing {
   // -----------------------------------------------------------------------------
 
@@ -11,7 +11,7 @@ class Authing {
   /// USER ID
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static String getUserID() {
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true) {
@@ -28,7 +28,7 @@ class Authing {
   /// ANONYMOUS AUTH
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<AuthModel> anonymousSignin({
     Function(String error) onError,
   }) async {
@@ -52,7 +52,7 @@ class Authing {
   /// SIGN OUT
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<bool> signOut({
     Function(String error) onError,
   }) async {
@@ -77,7 +77,7 @@ class Authing {
   /// DELETE USER
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<bool> deleteUser({
     @required String userID,
     Function(String error) onError,
@@ -103,7 +103,7 @@ class Authing {
   /// SIGN IN METHOD
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static bool userIsSignedIn() {
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
@@ -116,7 +116,7 @@ class Authing {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static SignInMethod getCurrentSignInMethod(){
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
@@ -131,7 +131,7 @@ class Authing {
   // -----------------------------------------------------------------------------
 }
 
-///
+/// => TAMAM
 class EmailAuthing {
   // -----------------------------------------------------------------------------
 
@@ -142,7 +142,7 @@ class EmailAuthing {
   /// SIGN IN
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<AuthModel> signIn({
     @required String email,
     @required String password,
@@ -173,7 +173,7 @@ class EmailAuthing {
   /// REGISTER
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<AuthModel> register({
     @required String email,
     @required String password,
@@ -204,7 +204,7 @@ class EmailAuthing {
   /// CHECKERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<bool> checkPasswordIsCorrect({
     @required String password,
     @required String email,
