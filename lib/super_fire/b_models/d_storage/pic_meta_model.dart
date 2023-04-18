@@ -2,32 +2,44 @@ part of super_fire;
 
 /// => TAMAM
 @immutable
-class PicMetaModel {
+class StorageMetaModel {
   // -----------------------------------------------------------------------------
-  const PicMetaModel({
+  const StorageMetaModel({
     @required this.ownersIDs,
-    @required this.width,
-    @required this.height,
+    this.width,
+    this.height,
+    this.name,
+    this.sizeMB,
+    this.data,
   });
   // -----------------------------------------------------------------------------
   final List<String> ownersIDs;
   final double width;
   final double height;
+  final String name;
+  final double sizeMB;
+  final Map<String, String> data;
   // -----------------------------------------------------------------------------
 
   /// CLONING
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  PicMetaModel copyWith({
+  StorageMetaModel copyWith({
     List<String> ownersIDs,
     double width,
     double height,
+    String name,
+    double sizeMB,
+    Map<String, String> data,
   }){
-    return PicMetaModel(
+    return StorageMetaModel(
       ownersIDs: ownersIDs ?? this.ownersIDs,
       width: width ?? this.width,
       height: height ?? this.height,
+      name: name ?? this.name,
+      sizeMB: sizeMB ?? this.sizeMB,
+      data: data ?? this.data,
     );
   }
   // -----------------------------------------------------------------------------
@@ -41,23 +53,61 @@ class PicMetaModel {
       'ownersIDs': ownersIDs,
       'width': width,
       'height': height,
+      'name': name,
+      'sizeMB': sizeMB,
+      'data': data,
     };
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static PicMetaModel decipherFromLDB(Map<String, dynamic> map){
-    return PicMetaModel(
-        ownersIDs: Stringer.getStringsFromDynamics(dynamics: map['ownersIDs']),
-        width: map['width'],
-        height: map['height'],
+  static StorageMetaModel decipherFromLDB(Map<String, dynamic> map){
+    return StorageMetaModel(
+      ownersIDs: Stringer.getStringsFromDynamics(dynamics: map['ownersIDs']),
+      width: map['width'],
+      height: map['height'],
+      name: map['name'],
+      sizeMB: map['sizeMB'],
+      data: map['data'],
     );
   }
   // --------------------
+  /// TASK : TEST ME
+  static StorageMetaModel _decipherMetaMap({
+    @required Map<String, String> customMetadata,
+  }){
+    StorageMetaModel _output;
+
+    if (customMetadata != null){
+      _output = StorageMetaModel(
+        ownersIDs: Mapper.getKeysHavingThisValue(
+          map: customMetadata,
+          value: 'cool',
+        ),
+        width: Numeric.transformStringToDouble(customMetadata['width']),
+        height: Numeric.transformStringToDouble(customMetadata['height']),
+        name: customMetadata['name'],
+        sizeMB: Numeric.transformStringToDouble(customMetadata['sizeMB']),
+      );
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// OFFICIAL CIPHERS
+
+  // --------------------
   /// TESTED : WORKS PERFECT
-  SettableMetadata toSettableMetadata({
+  f_s.SettableMetadata toOfficialSettableMetadata({
     Map<String, String> extraData,
   }){
-    Map<String, String> _metaDataMap = <String, String>{};
+    Map<String, String> _metaDataMap = <String, String>{
+      'name': name,
+      'sizeMB': '$sizeMB',
+      'width': '$width',
+      'height': '$height',
+    };
 
     /// ADD OWNERS IDS
     if (Mapper.checkCanLoopList(ownersIDs) == true){
@@ -66,17 +116,9 @@ class PicMetaModel {
       }
     }
 
-    /// ADD DIMENSIONS
-    if (width != null && height != null) {
-      _metaDataMap = Mapper.combineStringStringMap(
-        baseMap: _metaDataMap,
-        replaceDuplicateKeys: true,
-        insert: <String, String>{
-          'width': '$width',
-          'height': '$height',
-        },
-      );
-    }
+    _metaDataMap = Mapper.cleanNullPairs(
+        map: _metaDataMap,
+    );
 
     /// ADD EXTRA DATA MAP
     if (extraData != null) {
@@ -87,7 +129,7 @@ class PicMetaModel {
       );
     }
 
-    return SettableMetadata(
+    return f_s.SettableMetadata(
       customMetadata: _metaDataMap,
       // cacheControl: ,
       // contentDisposition: ,
@@ -98,11 +140,13 @@ class PicMetaModel {
 
   }
   // --------------------
+  /// NEVER USED
+  /*
   /// TESTED : WORKS PERFECT
-  static PicMetaModel decipherSettableMetaData({
-    @required SettableMetadata settableMetadata,
+  static StorageMetaModel decipherOfficialSettableMetaData({
+    @required f_s.SettableMetadata settableMetadata,
   }){
-    PicMetaModel _output;
+    StorageMetaModel _output;
 
     if (settableMetadata != null){
 
@@ -114,12 +158,13 @@ class PicMetaModel {
 
     return _output;
   }
+   */
   // --------------------
   /// TESTED : WORKS PERFECT
-  static PicMetaModel decipherFullMetaData({
-    @required FullMetadata fullMetadata,
+  static StorageMetaModel decipherOfficialFullMetaData({
+    @required f_s.FullMetadata fullMetadata,
   }){
-    PicMetaModel _output;
+    StorageMetaModel _output;
 
     if (fullMetadata != null){
 
@@ -132,20 +177,60 @@ class PicMetaModel {
     return _output;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static PicMetaModel _decipherMetaMap({
-    @required Map<String, String> customMetadata,
-  }){
-    PicMetaModel _output;
 
-    if (customMetadata != null){
-      _output = PicMetaModel(
-        ownersIDs: Mapper.getKeysHavingThisValue(
-          map: customMetadata,
-          value: 'cool',
-        ),
-        width: Numeric.transformStringToDouble(customMetadata['width']),
-        height: Numeric.transformStringToDouble(customMetadata['height']),
+  /// NATIVE CYPHERS
+
+  // --------------------
+  /// TASK : TEST ME
+  f_d.SettableMetadata toNativeSettableMetadata({
+    Map<String, String> extraData,
+  }){
+
+    Map<String, String> _metaDataMap = <String, String>{
+      'name': name,
+      'sizeMB': '$sizeMB',
+      'width': '$width',
+      'height': '$height',
+    };
+
+    /// ADD OWNERS IDS
+    if (Mapper.checkCanLoopList(ownersIDs) == true){
+      for (final String ownerID in ownersIDs) {
+
+        _metaDataMap = Mapper.insertPairInMap(
+            map: _metaDataMap,
+            key: ownerID,
+            value: 'cool'
+        );
+
+      }
+    }
+
+    _metaDataMap = Mapper.cleanNullPairs(
+        map: _metaDataMap,
+    );
+
+    return f_d.SettableMetadata(
+      customMetadata: _metaDataMap,
+      // cacheControl: ,
+      // contentDisposition: ,
+      // contentEncoding: ,
+      // contentLanguage: ,
+      // contentType: ,
+    );
+
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static StorageMetaModel decipherNativeFullMetaData({
+    @required f_d.FullMetadata fullMetadata,
+  }){
+    StorageMetaModel _output;
+
+    if (fullMetadata != null){
+
+      _output = _decipherMetaMap(
+          customMetadata: fullMetadata.customMetadata
       );
 
     }
@@ -158,7 +243,7 @@ class PicMetaModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void blogSettableMetaData(SettableMetadata metaData){
+  static void blogOfficialSettableMetaData(f_s.SettableMetadata metaData){
     blog('BLOGGING SETTABLE META DATA ------------------------------- START');
     if (metaData == null){
       blog('Meta data is null');
@@ -175,7 +260,7 @@ class PicMetaModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void blogFullMetaData(FullMetadata metaData){
+  static void blogOfficialFullMetaData(f_s.FullMetadata metaData){
 
     blog('BLOGGING FULL META DATA ------------------------------- START');
     if (metaData == null){
@@ -209,8 +294,8 @@ class PicMetaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkMetaDatasAreIdentical({
-  @required PicMetaModel meta1,
-  @required PicMetaModel meta2,
+  @required StorageMetaModel meta1,
+  @required StorageMetaModel meta2,
   }){
     bool _output = false;
 
@@ -226,6 +311,12 @@ class PicMetaModel {
           meta1.width == meta2.width
               &&
           meta1.height == meta2.height
+              &&
+          meta1.sizeMB == meta2.sizeMB
+              &&
+          meta1.name == meta2.name
+              &&
+          Mapper.checkMapsAreIdentical(map1: meta1.data, map2: meta2.data) == true
       ){
         _output = true;
       }
@@ -274,7 +365,7 @@ class PicMetaModel {
     }
 
     bool _areIdentical = false;
-    if (other is PicMetaModel){
+    if (other is StorageMetaModel){
       _areIdentical = checkMetaDatasAreIdentical(
         meta1: this,
         meta2: other,
@@ -288,6 +379,9 @@ class PicMetaModel {
   int get hashCode =>
       ownersIDs.hashCode^
       width.hashCode^
-      height.hashCode;
+      height.hashCode^
+      sizeMB.hashCode^
+      name.hashCode^
+      data.hashCode;
   // -----------------------------------------------------------------------------
 }

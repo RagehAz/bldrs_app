@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:mapper/mapper.dart';
-import 'package:numeric/numeric.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:stringer/stringer.dart';
 
@@ -23,13 +22,13 @@ class PDFStorageOps {
     assert(pdfModel.path != null, 'path is null');
     assert(Mapper.checkCanLoopList(pdfModel.ownersIDs) == true, 'owners are Empty');
 
-    final Reference _ref = await OfficialStorage.uploadBytes(
+    final String _url = await OfficialStorage.uploadBytesAndGetURL(
       bytes: pdfModel.bytes,
       path: pdfModel.path,
-      metaData: pdfModel.createSettableMetadata(),
+      picMetaModel: pdfModel.createStorageMetaModel(),
     );
 
-    if (_ref == null){
+    if (_url == null){
       return null;
     }
     else {
@@ -56,19 +55,16 @@ class PDFStorageOps {
       if (Mapper.checkCanLoopList(_bytes) == true){
 
         /// GET META
-        final FullMetadata _meta = await OfficialStorage.readMetaByPath(
+        final StorageMetaModel _meta = await OfficialStorage.readMetaByPath(
           path: path,
         );
 
         _model = PDFModel(
           path: path,
           bytes: _bytes,
-          name: _meta?.customMetadata['name'],
-          ownersIDs: Mapper.getKeysHavingThisValue(
-            map: _meta?.customMetadata,
-            value: 'cool',
-          ),
-          sizeMB: Numeric.transformStringToDouble(_meta.customMetadata['sizeMB']),
+          name: _meta?.name,
+          ownersIDs: _meta?.ownersIDs,
+          sizeMB: _meta?.sizeMB,
         );
 
       }

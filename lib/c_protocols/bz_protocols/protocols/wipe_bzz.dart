@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
@@ -78,7 +79,7 @@ class WipeBzProtocols {
       ),
 
       /// DELETE BZ STORAGE DIRECTORY
-      OfficialStorage.deletePath(
+      BldrsCloudFunctions.deleteStorageDirectory(
         context: context,
         path: '${StorageColl.bzz}/${bzModel.id}',
       ),
