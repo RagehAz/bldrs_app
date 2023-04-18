@@ -32,6 +32,8 @@ class WideButton extends StatelessWidget {
   final bool bubble;
   /// --------------------------------------------------------------------------
   static const double height = 50;
+  static EdgeInsets margins = const EdgeInsets.only(bottom: Ratioz.appBarPadding);
+  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -44,7 +46,7 @@ class WideButton extends StatelessWidget {
       icon: icon,
       iconSizeFactor: iconSizeFactor,
       verseCentered: false,
-      margins: const EdgeInsets.only(bottom: Ratioz.appBarPadding),
+      margins: margins,
       isDisabled: !isActive,
       onTap: onTap,
       color: color,

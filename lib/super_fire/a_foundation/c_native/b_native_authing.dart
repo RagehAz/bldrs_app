@@ -1,6 +1,6 @@
 part of super_fire;
 
-///
+/// => TAMAM
 class _NativeAuthing{
   // -----------------------------------------------------------------------------
 
@@ -26,7 +26,7 @@ class _NativeAuthing{
   /// ANONYMOUS AUTH
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<AuthModel> anonymousSignin({
     Function(String error) onError,
   }) async {
@@ -54,7 +54,7 @@ class _NativeAuthing{
   /// SIGN OUT
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<bool> signOut({
     Function(String error) onError,
   }) async {
@@ -77,7 +77,7 @@ class _NativeAuthing{
   /// DELETE USER
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<bool> deleteUser({
     Function(String error) onError,
   }) async {
@@ -96,12 +96,12 @@ class _NativeAuthing{
   /// SIGN IN METHOD
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static bool userIsSignedIn() {
     return _getUser() != null;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static SignInMethod getCurrentSignInMethod(){
 
     if (userIsSignedIn() == true){
@@ -117,14 +117,23 @@ class _NativeAuthing{
   /// USER
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<fd_u.User> _getUser() async {
-    final fd_u.User _user = await _NativeFirebase.getAuth()?.getUser();
+    fd_u.User _user;
+
+    await tryAndCatch(
+      invoker: 'NativeAuthing._getUser',
+      functions: () async {
+        _user = await _NativeFirebase.getAuth()?.getUser();
+      },
+    );
+
     return _user;
   }
   // -----------------------------------------------------------------------------
 }
 
+/// => TAMAM
 class _NativeEmailAuthing {
   // -----------------------------------------------------------------------------
 
@@ -168,7 +177,7 @@ class _NativeEmailAuthing {
   /// REGISTER
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<AuthModel> register({
     @required String email,
     @required String password,
@@ -208,7 +217,7 @@ class _NativeEmailAuthing {
   /// CHECKERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<bool> checkPasswordIsCorrect({
     @required String password,
     @required String email,
