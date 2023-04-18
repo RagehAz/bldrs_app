@@ -3,7 +3,7 @@ part of super_fire;
 class RealCollStreamer extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const RealCollStreamer({
-    @required this.collName,
+    @required this.coll,
     @required this.builder,
     this.loadingWidget,
     this.noValueWidget,
@@ -11,7 +11,7 @@ class RealCollStreamer extends StatelessWidget {
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final String collName;
+  final String coll;
   final Widget loadingWidget;
   final Widget noValueWidget;
   final Widget Function(BuildContext, List<Map<String, dynamic>>) builder;
@@ -21,7 +21,7 @@ class RealCollStreamer extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return StreamBuilder<f_db.DatabaseEvent>(
-        stream: f_db.FirebaseDatabase.instance.ref(collName).limitToFirst(limit).onValue,
+        stream: f_db.FirebaseDatabase.instance.ref(coll).limitToFirst(limit).onValue,
         builder: (_, snapshot){
 
           /// LOADING
