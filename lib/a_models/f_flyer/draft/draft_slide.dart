@@ -108,7 +108,7 @@ class DraftSlide {
         picModel: PicModel(
           bytes: bytes,
           path: BldrStorage.generateFlyerSlidePath(flyerID: flyerID, slideIndex: index),
-          meta: PicMetaModel(
+          meta: StorageMetaModel(
             width: _dimensions?.width,
             height: _dimensions?.height,
             ownersIDs: await FlyerModel.generateFlyerOwners(

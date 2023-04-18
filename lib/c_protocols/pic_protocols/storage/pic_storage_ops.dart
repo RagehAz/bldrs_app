@@ -22,13 +22,13 @@ class PicStorageOps {
 
     PicModel.assertIsUploadable(picModel);
 
-    final Reference _ref = await OfficialStorage.uploadBytes(
+    final String _url = await OfficialStorage.uploadBytesAndGetURL(
       bytes: picModel.bytes,
       path: picModel.path,
-      metaData: picModel.meta.toSettableMetadata(),
+      picMetaModel: picModel.meta,
     );
 
-    if (_ref == null){
+    if (_url == null){
       return null;
     }
 
@@ -56,16 +56,14 @@ class PicStorageOps {
 
       if (Mapper.checkCanLoopList(_bytes) == true){
 
-        final FullMetadata _meta = await OfficialStorage.readMetaByPath(
+        final StorageMetaModel _meta = await OfficialStorage.readMetaByPath(
           path: path,
         );
 
         _picModel = PicModel(
           path: path,
           bytes: _bytes,
-          meta: PicMetaModel.decipherFullMetaData(
-              fullMetadata: _meta,
-          ),
+          meta: _meta,
         );
 
       }

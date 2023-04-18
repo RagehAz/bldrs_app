@@ -15,13 +15,13 @@ import 'package:bldrs/c_protocols/pdf_protocols/ldb/pdf_ldb_ops.dart';
 import 'package:bldrs/c_protocols/pic_protocols/ldb/pic_ldb_ops.dart';
 import 'package:bldrs/c_protocols/review_protocols/protocols/a_reviews_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_listeners.dart';
+import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_paths_generators.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:provider/provider.dart';
-import 'package:bldrs/super_fire/super_fire.dart';
 
 class WipeFlyerProtocols {
   // -----------------------------------------------------------------------------
@@ -99,7 +99,7 @@ class WipeFlyerProtocols {
         ),
 
         /// DELETE SLIDES PICS + PDF + POSTER
-        OfficialStorage.deletePath(
+        BldrsCloudFunctions.deleteStorageDirectory(
           context: context,
           path: '${StorageColl.flyers}/${flyerModel.id}',
         ),

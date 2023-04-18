@@ -1,9 +1,8 @@
-import 'package:filers/filers.dart';
-import 'package:stringer/stringer.dart';
+part of super_fire;
 
-class StorageExceptionOps {
+class StorageError {
 
-  const StorageExceptionOps();
+  const StorageError();
 
   // -----------------------------------------------------------------------------
 

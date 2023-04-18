@@ -1,60 +1,61 @@
 part of super_fire;
 
-class NativeStorage {
+/// Note : use picName without file extension <---------------
+
+class OfficialStorage {
   // -----------------------------------------------------------------------------
 
-  const NativeStorage();
+  const OfficialStorage();
 
   // -----------------------------------------------------------------------------
 
-  /// REFERENCES
+  /// f_s.REFERENCES
 
   // --------------------
-  /// TASK : TEST ME
-  static f_d.Reference _getRefByPath(String path){
-    return NativeFirebase.getStorage().ref(path);
+  /// TESTED: WORKS PERFECT
+  static f_s.Reference _getRefByPath(String path){
+    return OfficialFirebase.getStorage().ref(path);
   }
   // --------------------
-  /// TASK : TEST ME
-  static f_d.Reference _getRefByNodes({
+  /// TESTED: WORKS PERFECT
+  static f_s.Reference _getRefByNodes({
     @required String coll,
     @required String doc, // without extension
   }) {
 
-    return NativeFirebase.getStorage()
+    return OfficialFirebase.getStorage()
         .ref()
         .child(coll)
         .child(doc);
 
   }
   // --------------------
-  /// TASK : TEST ME
-  static Future<f_d.Reference> _getRefByURL({
+  /// TESTED: WORKS PERFECT
+  static Future<f_s.Reference> _getRefByURL({
     @required String url,
   }) async {
-    f_d.Reference _ref;
+    f_s.Reference _ref;
 
     await tryAndCatch(
         invoker: 'StorageRef.byURL',
         functions: () {
-          _ref = NativeFirebase.getStorage().refFromURL(url);
+          _ref = OfficialFirebase.getStorage()?.refFromURL(url);
         },
     );
 
     return _ref;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED: WORKS PERFECT
   static Future<String> _createURLByRef({
-    @required f_d.Reference ref,
+    @required f_s.Reference ref,
   }) async {
-
     String _url;
 
     await tryAndCatch(
         invoker: '_createURLByRef',
         functions: () async {
-          _url = await ref.getDownloadURL();
+          _url = await ref?.getDownloadURL();
         }
     );
 
@@ -65,7 +66,7 @@ class NativeStorage {
   /// CREATE DOC
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<String> uploadBytesAndGetURL({
     @required Uint8List bytes,
     @required String path,
@@ -73,7 +74,7 @@ class NativeStorage {
   }) async {
 
     assert(Mapper.checkCanLoopList(bytes) == true, 'uInt7List is empty or null');
-    assert(picMetaModel != null, 'picMetaModel is null');
+    assert(picMetaModel != null, 'metaData is null');
     assert(TextCheck.isEmpty(path) == false, 'path is empty or null');
 
     String _url;
@@ -82,16 +83,17 @@ class NativeStorage {
         invoker: 'createDocByUint8List',
         functions: () async {
 
-          final f_d.Reference _ref = _getRefByPath(path);
+          final f_s.Reference _ref = _getRefByPath(path);
 
           blog('createDocByUint8List : 1 - got ref : $_ref');
 
-          final f_d.UploadTask _uploadTask = _ref.putData(
+          final f_s.UploadTask _uploadTask = _ref.putData(
             bytes,
-            picMetaModel.toNativeSettableMetadata(),
+            picMetaModel.toOfficialSettableMetadata(),
           );
 
           blog('createDocByUint8List : 2 - uploaded uInt8List to path : $path');
+
 
           await Future.wait(<Future>[
 
@@ -117,7 +119,7 @@ class NativeStorage {
     return _url;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<String> uploadFileAndGetURL({
     @required File file,
     @required String coll,
@@ -135,7 +137,7 @@ class NativeStorage {
         functions: () async {
 
           /// GET REF
-          final f_d.Reference _ref = _getRefByNodes(
+          final f_s.Reference _ref = _getRefByNodes(
             coll: coll,
             doc: doc,
           );
@@ -144,18 +146,14 @@ class NativeStorage {
 
           blog('uploadFile : 2 - assigned meta data');
 
-          final Uint8List _bytes = await Floaters.getUint8ListFromFile(file);
-
-          if (_bytes != null && _bytes.isNotEmpty == true){
-
-            final f_d.UploadTask _uploadTask = _ref.putData(
-            _bytes,
-            picMetaModel.toNativeSettableMetadata(),
+          final f_s.UploadTask _uploadTask = _ref.putFile(
+            file,
+            picMetaModel.toOfficialSettableMetadata(),
           );
 
           blog('uploadFile : 3 - uploaded file : fileName : $doc : file.fileNameWithExtension : ${file.fileNameWithExtension}');
 
-          final f_d.TaskSnapshot _snapshot = await _uploadTask.whenComplete((){
+          final f_s.TaskSnapshot _snapshot = await _uploadTask.whenComplete((){
             blog('uploadFile : 4 - upload file completed');
           });
 
@@ -163,8 +161,6 @@ class NativeStorage {
 
           _fileURL = await _ref.getDownloadURL();
           blog('uploadFile : 6 - got url : $_fileURL');
-
-          }
 
         });
 
@@ -242,9 +238,9 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   /// CREATE URL
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED: WORKS PERFECT
   static Future<String> createURLByPath(String path) async {
-    final f_d.Reference _ref = _getRefByPath(path);
+    final f_s.Reference _ref = _getRefByPath(path);
     final String _url = await _createURLByRef(ref: _ref);
     return _url;
   }
@@ -254,7 +250,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     @required String coll,
     @required String doc, // without extension
   }) async {
-    final f_d.Reference _ref = _getRefByNodes(
+    final f_s.Reference _ref = _getRefByNodes(
       coll: coll,
       doc: doc,
     );
@@ -266,7 +262,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   /// READ DOC
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<Uint8List> readBytesByPath({
     @required String path,
   }) async {
@@ -277,7 +273,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
       await tryAndCatch(
         invoker: 'readBytesByPath',
         functions: () async {
-          final f_d.Reference _ref = _getRefByPath(path);
+          final f_s.Reference _ref = _getRefByPath(path);
           blog('got ref : $_ref');
           /// 10'485'760 default max size
           _output = await _ref.getData();
@@ -293,7 +289,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<Uint8List> readBytesByURL(String url) async {
     Uint8List _bytes;
 
@@ -321,7 +317,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     return _bytes;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<File> readFileByURL({
     @required String url,
   }) async {
@@ -329,7 +325,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
     if (url != null) {
 
-      final f_d.Reference _ref = await _getRefByURL(
+      final f_s.Reference _ref = await _getRefByURL(
         url: url,
       );
 
@@ -367,10 +363,11 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     //
     // }
 
-    final f_d.Reference _ref = _getRefByNodes(
+    final f_s.Reference _ref = _getRefByNodes(
       coll: coll,
       doc: doc,
     );
+
 
     if (_ref != null) {
       final Uint8List _uInts = await _ref.getData();
@@ -399,11 +396,10 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
       await tryAndCatch(
           invoker: 'readBytesByPath',
           functions: () async {
+            final f_s.Reference _ref = _getRefByPath(path);
+            final f_s.FullMetadata _meta = await _ref.getMetadata();
 
-            final f_d.Reference _ref = _getRefByPath(path);
-            final f_d.FullMetadata _meta = await _ref.getMetadata();
-
-            _output = StorageMetaModel.decipherNativeFullMetaData(
+            _output = StorageMetaModel.decipherOfficialFullMetaData(
               fullMetadata: _meta,
             );
 
@@ -417,6 +413,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     return _output;
   }
   // --------------------
+  /// TASK : TEST ME
   static Future<StorageMetaModel> readMetaByURL({
     @required String url,
   }) async {
@@ -428,13 +425,13 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
         invoker: 'getMetaByURL',
         functions: () async {
 
-          final f_d.Reference _ref = await _getRefByURL(
+          final f_s.Reference _ref = await _getRefByURL(
             url: url,
           );
 
-            final f_d.FullMetadata _meta = await _ref.getMetadata();
+            final f_s.FullMetadata _meta = await _ref.getMetadata();
 
-            _output = StorageMetaModel.decipherNativeFullMetaData(
+            _output = StorageMetaModel.decipherOfficialFullMetaData(
               fullMetadata: _meta,
             );
 
@@ -450,12 +447,12 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   /*
     // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<f_d.FullMetadata> _readMetaByNodes({
+  static Future<f_s.FullMetadata> _readMetaByNodes({
     @required String coll,
     @required String doc,
   }) async {
 
-    f_d.FullMetadata _meta;
+    f_s.FullMetadata _meta;
 
     blog('getMetaByNodes : $coll/$doc');
 
@@ -465,7 +462,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
         invoker: 'getMetaByNodes',
         functions: () async {
 
-          final f_d.Reference _ref = _getRefByNodes(
+          final f_s.Reference _ref = _getRefByNodes(
             coll: coll,
             doc: doc,
           );
@@ -489,7 +486,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
     if (ObjectCheck.isAbsoluteURL(url) == true){
 
-      final f_d.FullMetadata _metaData = await readMetaByURL(
+      final f_s.FullMetadata _metaData = await _readMetaByURL(
         url: url,
       );
 
@@ -516,7 +513,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
     if (doc != null && coll != null){
 
-      final f_d.FullMetadata _metaData = await _readMetaByNodes(
+      final f_s.FullMetadata _metaData = await _readMetaByNodes(
         coll: coll,
         doc: doc,
       );
@@ -545,7 +542,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
     if (ObjectCheck.isAbsoluteURL(url) == true){
 
-      final f_d.Reference _ref = await _getRefByURL(
+      final f_s.Reference _ref = await _getRefByURL(
         url: url,
       );
 
@@ -573,7 +570,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   /// UPDATE META
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> updateMetaByURL({
     @required String picURL,
     Map<String, String> metaDataMap,
@@ -593,19 +590,19 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
     if (ObjectCheck.isAbsoluteURL(picURL) == true && metaDataMap != null){
 
-      final f_d.Reference _ref = await _getRefByURL(
+      final f_s.Reference _ref = await _getRefByURL(
         url: picURL,
       );
 
-      // final f_d.FullMetadata _meta = await _ref.getMetadata();
+      // final f_s.FullMetadata _meta = await _ref.getMetadata();
 
-      final f_d.SettableMetadata metaData = f_d.SettableMetadata(
+      final f_s.SettableMetadata metaData = f_s.SettableMetadata(
         customMetadata: metaDataMap,
       );
 
       await _ref.updateMetadata(metaData);
 
-      // Storage.blog.FullMetaData(_meta);
+      // Storage.blogf_s.FullMetaData(_meta);
 
     }
 
@@ -617,7 +614,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   /// DELETE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteDoc({
     @required String path,
     @required String currentUserID,
@@ -635,7 +632,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
         await tryAndCatch(
           invoker: 'deleteDoc',
           functions: () async {
-            final f_d.Reference _picRef = _getRefByPath(path);
+            final f_s.Reference _picRef = _getRefByPath(path);
             await _picRef?.delete();
             blog('deletePic : DELETED STORAGE FILE IN PATH: $path');
           },
@@ -654,7 +651,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteDocs({
     @required List<String> paths,
     @required String currentUserID,
@@ -724,7 +721,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   // --------------------
   /// NOT USED
   /*
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<bool> _checkCanDeleteDocByNodes({
     @required String coll,
     @required String oc,
@@ -738,7 +735,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
     if (oc != null && coll != null){
 
-      final f_d.Reference _ref = _getRefByNodes(
+      final f_s.Reference _ref = _getRefByNodes(
           coll: coll,
           doc: oc,
         );
@@ -759,11 +756,11 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void blogRef(f_d.Reference ref){
-    blog('BLOGGING STORAGE IMAGE f_d.REFERENCE ------------------------------- START');
+  static void blogRef(f_s.Reference ref){
+    blog('BLOGGING STORAGE IMAGE f_s.REFERENCE ------------------------------- START');
 
     if (ref == null){
-      blog('f_d.Reference is null');
+      blog('f_s.Reference is null');
     }
     else {
       blog('name : ${ref.name}');
@@ -775,7 +772,370 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
       blog('storage : ${ref.storage}');
     }
 
-    blog('BLOGGING STORAGE IMAGE f_d.REFERENCE ------------------------------- END');
+    blog('BLOGGING STORAGE IMAGE f_s.REFERENCE ------------------------------- END');
   }
   // -----------------------------------------------------------------------------
 }
+
+  /*
+  /// TESTED: WORKS PERFECT
+  static Future<String> _getPathByURL(String url) async {
+    String _path;
+
+    if (ObjectCheck.isAbsoluteURL(url) == true){
+
+      final f_s.Reference _ref = await _getRefByURL(url: url);
+      _path = _ref.fullPath;
+
+    }
+
+    // blog('getPathByURL : _path : $_path');
+
+    return _path;
+  }
+   */
+
+  /*
+class OldStorageMethods {
+  // -----------------------------------------------------------------------------
+
+  const OldStorageMethods();
+
+  // -----------------------------------------------------------------------------
+
+  /// CREATE
+
+  // --------------------
+  /*
+  /// protocol
+  /// TESTED : WORKS PERFECT
+  static Future<String> createStoragePicAndGetURL({
+    @required File inputFile,
+    @required String collName,
+    @required String docName,
+    @required List<String> ownersIDs,
+  }) async {
+
+    /// NOTE
+    /// creates new pic in document name according to pic type,
+    /// and overrides existing pic if already exists
+
+    String _imageURL;
+
+    await tryAndCatch(
+        invoker: 'createStoragePicAndGetURL',
+        functions: () async {
+
+          final Dimensions imageSize = await Dimensions.superDimensions(inputFile);
+
+          final Map<String, String> _metaDataMap = <String, String>{
+            'width': '${imageSize.width}',
+            'height': '${imageSize.height}',
+          };
+
+          _imageURL = await Storage.uploadFileAndGetURL(
+            storageCollName: collName,
+            docName: docName,
+            file: inputFile,
+            ownersIDs: ownersIDs,
+            metaDataAddOn: _metaDataMap,
+          );
+
+        });
+
+    return _imageURL;
+  }
+   */
+  // --------------------
+  /*
+  /// flyerStorageOps
+  /// TESTED : WORKS PERFECT
+  static Future<List<String>> createStorageSlidePicsAndGetURLs({
+    @required List<SlideModel> slides,
+    @required String flyerID,
+    @required String bzCreatorID,
+    @required String flyerAuthorID,
+    ValueChanged<List<String>> onFinished,
+  }) async {
+
+    final List<String> _picturesURLs = <String>[];
+
+    if (Mapper.checkCanLoopList(slides) == true && flyerID != null && bzCreatorID != null){
+
+      await Future.wait(<Future>[
+
+        ...List.generate(slides.length, (index) async {
+
+          final String _picURL = await createStoragePicAndGetURL(
+            inputFile: slides[index].picPath,
+            collName: StorageColl.slides,
+            ownersIDs: <String>[bzCreatorID, flyerAuthorID],
+            docName: SlideModel.generateSlideID(
+              flyerID: flyerID,
+              slideIndex: slides[index].slideIndex,
+            ),
+          );
+
+          _picturesURLs.add(_picURL);
+
+        }),
+
+      ]);
+
+    }
+
+    if (onFinished != null){
+      onFinished(_picturesURLs);
+    }
+
+    return _picturesURLs;
+  }
+   */
+  // --------------------
+  /*
+  /// protocol
+  static Future<List<String>> createMultipleStoragePicsAndGetURLs({
+    @required List<File> files,
+    @required List<String> docsNames,
+    @required List<String> ownersIDs,
+    @required String collName,
+  }) async {
+
+    final List<String> _picsURLs = <String>[];
+
+    if (
+        Mapper.checkCanLoopList(files)
+        &&
+        Mapper.checkCanLoopList(docsNames)
+        &&
+        files.length == docsNames.length
+    ) {
+
+      await Future.wait(<Future>[
+
+        ...List.generate(files.length, (index){
+
+          final File _file = files[index];
+          final String _name = docsNames[index];
+
+          return createStoragePicAndGetURL(
+            inputFile: _file,
+            collName: collName,
+            docName: _name,
+            ownersIDs: ownersIDs,
+          ).then((String url){
+            _picsURLs.add(url);
+          });
+
+      }),
+
+      ]);
+
+    }
+
+    return _picsURLs;
+  }
+   */
+  // --------------------
+  /*
+  /// protocol
+  /// TASK : createStoragePicFromAssetAndGetURL not tested properly
+  static Future<String> createStoragePicFromLocalAssetAndGetURL({
+    @required String asset,
+    @required String docName,
+    @required String collName,
+    @required List<String> ownersIDs,
+  }) async {
+    String _url;
+
+    final File _result = await Filers.getFileFromLocalRasterAsset(
+      localAsset: asset,
+    );
+
+    blog('uploading $docName pic to fireStorage in folder of $collName');
+
+    _url = await createStoragePicAndGetURL(
+      docName: docName,
+      collName: collName,
+      inputFile: _result,
+      ownersIDs: ownersIDs,
+    );
+
+    blog('uploaded pic : $_url');
+
+    return _url;
+  }
+   */
+  // -----------------------------------------------------------------------------
+
+  /// UPDATE
+
+  // --------------------
+  /*
+  /// TESTED : WORKS PERFECT
+  static Future<String> updateExistingPic({
+    @required String oldURL,
+    @required File newPic,
+  }) async {
+    String _output;
+
+    if (oldURL != null && newPic != null){
+
+      await tryAndCatch(
+        invoker: 'updateExistingPic',
+        functions: () async {
+
+          final f_s.Reference _ref = await StorageRef.byURL(
+            url: oldURL,
+          );
+
+          final f_s.FullMetadata _fullMeta = await _ref?.getMetadata();
+
+          final Map<String, dynamic> _existingMetaData = _fullMeta?.customMetadata;
+
+          final SettableMetadata metaData = SettableMetadata(
+            customMetadata: _existingMetaData,
+          );
+
+          await _ref?.putFile(newPic, metaData);
+
+          _output = await _ref?.getDownloadURL();
+
+
+        },
+      );
+
+    }
+
+    return _output;
+  }
+   */
+  // --------------------
+  /*
+  /// TESTED : WORKS PERFECT
+  static Future<String> createOrUpdatePic({
+    @required String oldURL,
+    @required File newPic,
+    @required String collName,
+    @required String docName,
+    @required List<String> ownersIDs,
+  }) async {
+    /// returns updated pic new URL
+
+    String _outputURL;
+
+    final bool _oldURLIsValid = ObjectCheck.isAbsoluteURL(oldURL);
+
+    /// when old url exists
+    if (_oldURLIsValid == true){
+
+      _outputURL = await updateExistingPic(
+        oldURL: oldURL,
+        newPic: newPic,
+      );
+
+    }
+
+    /// when no existing image url
+    else {
+
+      _outputURL = await createStoragePicAndGetURL(
+        inputFile: newPic,
+        ownersIDs: ownersIDs,
+        collName: collName,
+        docName: docName,
+      );
+
+    }
+
+    return _outputURL;
+  }
+   */
+  // -----------------------------------------------------------------------------
+
+  /// DELETE
+
+  // --------------------
+  /*
+  /// TESTED : WORKS PERFECT
+  static Future<void> deleteStoragePic({
+    @required String collName,
+    @required String docName,
+  }) async {
+
+    blog('deleteStoragePic : START');
+
+    final bool _canDelete = await checkCanDeleteStorageFile(
+      docName: docName,
+      collName: collName,
+    );
+
+    if (_canDelete == true){
+
+      final dynamic _result = await tryCatchAndReturnBool(
+          invoker: 'deleteStoragePic',
+          functions: () async {
+
+            final f_s.Reference _picRef = StorageRef.byNodes(
+              collName: collName,
+              docName: docName,
+            );
+
+            // blog('pic ref : $_picRef');
+            // final f_s.FullMetadata _metaData = await _picRef?.getMetadata();
+            // blogf_s.FullMetaData(_metaData);
+
+            await _picRef?.delete();
+          },
+          onError: (String error) async {
+
+            const String _noImageError = '[firebase_storage/object-not-found] No object exists at the desired f_s.reference.';
+            if (error == _noImageError){
+
+              blog('deleteStoragePic : NOT FOUND AND NOTHING IS DELETED :docName $collName : picName : $docName');
+
+            }
+            else {
+              blog('deleteStoragePic : $collName/$docName : error : $error');
+            }
+
+          }
+      );
+
+      /// if result is true
+      if (_result == true) {
+        blog('deleteStoragePic : IMAGE HAS BEEN DELETED :docName $collName : picName : $docName');
+      }
+
+      // else {
+      //
+      // }
+
+    }
+
+    else {
+      blog('deleteStoragePic : CAN NOT DELETE STORAGE FILE');
+    }
+
+
+    blog('deleteStoragePic : END');
+
+  }
+   */
+  // -----------------------------------------------------------------------------
+
+  /// CHECKER
+
+  // --------------------
+  /// CAN NOT STOP STORAGE ( Object does not exist at location ) EXCEPTION
+  /*
+  bool checkStorageImageExists(){
+    /// AFTER SOME SEARCHING,, NO WAY TO STOP STORAGE SDK THROWN EXCEPTION
+    /// WHEN THE IMAGE TRIED TO BE CALLED DOES NOT EXISTS.
+    /// END OF STORY
+  }
+ */
+}
+
+
+ */

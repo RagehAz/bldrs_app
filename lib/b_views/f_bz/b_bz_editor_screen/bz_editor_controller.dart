@@ -413,6 +413,7 @@ Future<void> onChangeBzLogo({
       final String _path = draftNotifier.value.getLogoPath();
 
       final Dimensions _dims = await Dimensions.superDimensions(_bytes);
+      final double _mega = Filers.calculateSize(_bytes.length, FileSizeUnit.megaByte);
 
       setNotifier(
           notifier: draftNotifier,
@@ -423,7 +424,8 @@ Future<void> onChangeBzLogo({
             logoPicModel: PicModel(
                 bytes: _bytes,
                 path: _path,
-                meta: PicMetaModel(
+                meta: StorageMetaModel(
+                    sizeMB: _mega,
                     width: _dims?.width,
                     height: _dims?.height,
                     ownersIDs: draftNotifier.value.getLogoOwners()

@@ -107,42 +107,23 @@ class PDFModel {
 
     return _output;
   }
+
   // --------------------
   /// TASK : TEST ME
-  SettableMetadata createSettableMetadata({
+  StorageMetaModel createStorageMetaModel({
     Map<String, String> extraData,
   }){
 
-    Map<String, String> _metaDataMap = <String, String>{
-      'sizeMB': sizeMB.toString(),
-      'name': name,
-    };
-
-    /// ADD OWNERS IDS
-    if (Mapper.checkCanLoopList(ownersIDs) == true){
-      for (final String ownerID in ownersIDs) {
-        _metaDataMap[ownerID] = 'cool';
-      }
-    }
-
-    /// ADD EXTRA DATA MAP
-    if (extraData != null) {
-      _metaDataMap = Mapper.combineStringStringMap(
-        baseMap: _metaDataMap,
-        replaceDuplicateKeys: true,
+    return StorageMetaModel(
+      ownersIDs: ownersIDs,
+      name: name,
+      sizeMB: sizeMB,
+      data: Mapper.combineStringStringMap(
+        baseMap: {},
         insert: extraData,
-      );
-    }
-
-    return SettableMetadata(
-      customMetadata: _metaDataMap,
-      // cacheControl: ,
-      // contentDisposition: ,
-      // contentEncoding: ,
-      // contentLanguage: ,
-      // contentType: ,
+        replaceDuplicateKeys: true,
+      ),
     );
-
 
   }
   // -----------------------------------------------------------------------------
