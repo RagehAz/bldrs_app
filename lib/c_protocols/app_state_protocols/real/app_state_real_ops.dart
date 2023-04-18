@@ -19,8 +19,8 @@ class AppStateRealOps {
   }) async {
 
     await OfficialReal.createNamedDoc(
-      collName: RealColl.app,
-      docName: RealDoc.app_globalAppState,
+      coll: RealColl.app,
+      doc: RealDoc.app_globalAppState,
       map: newAppState.toMap(),
     );
 
@@ -34,8 +34,8 @@ class AppStateRealOps {
   static Future<AppState> readGlobalAppState() async {
 
     final Map<String, dynamic> _map = await OfficialReal.readDoc(
-      collName: RealColl.app,
-      docName: RealDoc.app_globalAppState,
+      coll: RealColl.app,
+      doc: RealDoc.app_globalAppState,
     );
 
     return AppState.fromMap(_map);

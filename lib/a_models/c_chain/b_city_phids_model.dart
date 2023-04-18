@@ -177,7 +177,7 @@ class CityPhidsModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> createIncrementationMap({
+  static Map<String, int> createIncrementationMap({
     @required List<String> removedPhids,
     @required List<String> addedPhids,
   }){

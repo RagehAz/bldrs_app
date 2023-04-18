@@ -41,8 +41,8 @@ class WipeReviewProtocols {
 
         /// DELETE REVIEW AGREES
         OfficialReal.deleteDoc(
-          collName: RealColl.agreesOnReviews,
-          docName: '${reviewModel.flyerID}/${reviewModel.id}',
+          coll: RealColl.agreesOnReviews,
+          doc: '${reviewModel.flyerID}/${reviewModel.id}',
         ),
 
         FlyerRecordRealOps.reviewDeletion(
@@ -96,8 +96,8 @@ class WipeReviewProtocols {
     /// 2. DELETE REVIEW AGREES
     if (isDeletingFlyer == true){
       await OfficialReal.deleteDoc(
-        collName: RealColl.agreesOnReviews,
-        docName: flyerID,
+        coll: RealColl.agreesOnReviews,
+        doc: flyerID,
       );
     }
 
