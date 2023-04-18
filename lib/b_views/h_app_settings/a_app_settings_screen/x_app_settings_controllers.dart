@@ -141,7 +141,7 @@ Future<void> onSignOut(BuildContext context) async {
   _zoneProvider.clearCurrentZone(notify: false);
   _zoneProvider.clearCurrentCurrencyAndAllCurrencies(notify: false);
 
-  final String _userID = OfficialAuthing.getUserID();
+  final String _userID = Authing.getUserID();
   await AuthLDBOps.deleteAuthModel(_userID);
   await UserLDBOps.deleteUserOps(_userID);
   await BzLDBOps.wipeOut(context);

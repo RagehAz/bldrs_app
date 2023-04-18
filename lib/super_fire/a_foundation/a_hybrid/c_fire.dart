@@ -23,7 +23,7 @@ class Fire {
 
     /// OFFICIAL
     if (FirebaseInitializer.isUsingOfficialPackages() == true) {
-      _id = await OfficialFire.createDoc(
+      _id = await _OfficialFire.createDoc(
         input: input,
         coll: coll,
         subColl: subColl,
@@ -35,7 +35,7 @@ class Fire {
 
     /// NATIVE
     else {
-      _id = await NativeFire.createDoc(
+      _id = await _NativeFire.createDoc(
         input: input,
         coll: coll,
         subColl: subColl,
@@ -64,7 +64,7 @@ class Fire {
 
     /// OFFICIAL
     if (FirebaseInitializer.isUsingOfficialPackages() == true) {
-      _output = await OfficialFire.readColl(
+      _output = await _OfficialFire.readColl(
         queryModel: queryModel,
         startAfter: startAfter,
         addDocSnapshotToEachMap: addDocSnapshotToEachMap,
@@ -74,7 +74,7 @@ class Fire {
 
     /// NATIVE
     else {
-      _output = await NativeFire.readColl(
+      _output = await _NativeFire.readColl(
         queryModel: queryModel,
         startAfter: startAfter,
         addDocsIDs: addDocsIDs,
@@ -87,29 +87,26 @@ class Fire {
   /// TASK : TEST ME
   static Future<List<Map<String, dynamic>>> readAllColl({
     @required String coll,
-    @required String doc,
+    String doc,
     String subColl,
-    String subDoc,
     bool addDocsIDs = false,
   }) async {
     List<Map<String, dynamic>> _output;
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true) {
-      _output = await OfficialFire.readAllColl(
+      _output = await _OfficialFire.readAllColl(
         coll: coll,
         doc: doc,
         subColl: subColl,
-        subDoc: subDoc,
         addDocsIDs: addDocsIDs,
       );
     }
 
     else {
-      _output = await NativeFire.readAllColl(
+      _output = await _NativeFire.readAllColl(
         coll: coll,
         doc: doc,
         subColl: subColl,
-        subDoc: subDoc,
         addDocsIDs: addDocsIDs,
       );
     }
@@ -129,7 +126,7 @@ class Fire {
 
     /// OFFICIAL
     if (FirebaseInitializer.isUsingOfficialPackages() == true) {
-      _output = await OfficialFire.readDoc(
+      _output = await _OfficialFire.readDoc(
         coll: coll,
         subColl: subColl,
         subDoc: subDoc,
@@ -140,7 +137,7 @@ class Fire {
 
     /// NATIVE
     else {
-      _output = await NativeFire.readDoc(
+      _output = await _NativeFire.readDoc(
         coll: coll,
         subColl: subColl,
         subDoc: subDoc,
@@ -162,11 +159,11 @@ class Fire {
   }) {
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true) {
-      return OfficialFire.streamColl(queryModel: queryModel);
+      return _OfficialFire.streamColl(queryModel: queryModel);
     }
 
     else {
-      return NativeFire.streamColl(queryModel: queryModel);
+      return _NativeFire.streamColl(queryModel: queryModel);
     }
 
   }
@@ -180,7 +177,7 @@ class Fire {
   }) {
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true) {
-      return OfficialFire.streamDoc(
+      return _OfficialFire.streamDoc(
         coll: coll,
         subColl: subColl,
         subDoc: subDoc,
@@ -189,7 +186,7 @@ class Fire {
     }
 
     else {
-      return NativeFire.streamDoc(
+      return _NativeFire.streamDoc(
         coll: coll,
         subColl: subColl,
         subDoc: subDoc,
@@ -214,7 +211,7 @@ class Fire {
   }) async {
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true) {
-      await OfficialFire.updateDoc(
+      await _OfficialFire.updateDoc(
         input: input,
         coll: coll,
         subColl: subColl,
@@ -224,7 +221,7 @@ class Fire {
     }
 
     else {
-      await NativeFire.updateDoc(
+      await _NativeFire.updateDoc(
         input: input,
         coll: coll,
         subColl: subColl,
@@ -246,7 +243,7 @@ class Fire {
   }) async {
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true) {
-      await OfficialFire.updateDocField(
+      await _OfficialFire.updateDocField(
         input: input,
         field: field,
         coll: coll,
@@ -257,7 +254,7 @@ class Fire {
     }
 
     else {
-      await NativeFire.updateDocField(
+      await _NativeFire.updateDocField(
         input: input,
         field: field,
         coll: coll,
@@ -282,7 +279,7 @@ class Fire {
   }) async {
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true) {
-      await OfficialFire.deleteDoc(
+      await _OfficialFire.deleteDoc(
         coll: coll,
         subColl: subColl,
         subDoc: subDoc,
@@ -291,7 +288,7 @@ class Fire {
     }
 
     else {
-      await NativeFire.deleteDoc(
+      await _NativeFire.deleteDoc(
         coll: coll,
         subColl: subColl,
         subDoc: subDoc,
@@ -311,7 +308,7 @@ class Fire {
   }) async {
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true) {
-      await OfficialFire.deleteDocField(
+      await _OfficialFire.deleteDocField(
         coll: coll,
         subColl: subColl,
         subDoc: subDoc,
@@ -321,7 +318,7 @@ class Fire {
     }
 
     else {
-      await NativeFire.deleteDocField(
+      await _NativeFire.deleteDocField(
         coll: coll,
         subColl: subColl,
         subDoc: subDoc,
@@ -344,7 +341,7 @@ class Fire {
   }) async {
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true) {
-      await OfficialFire.deleteColl(
+      await _OfficialFire.deleteColl(
         context: context,
         coll: coll,
         doc: doc,
@@ -356,7 +353,7 @@ class Fire {
     }
 
     else {
-      await NativeFire.deleteColl(
+      await _NativeFire.deleteColl(
         context: context,
         coll: coll,
         doc: doc,
@@ -379,7 +376,7 @@ class Fire {
   }) async {
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true) {
-      await OfficialFire.deleteDocs(
+      await _OfficialFire.deleteDocs(
         coll: coll,
         docsIDs: docsIDs,
         doc: doc,
@@ -389,7 +386,7 @@ class Fire {
     }
 
     else {
-      await NativeFire.deleteDocs(
+      await _NativeFire.deleteDocs(
         coll: coll,
         docsIDs: docsIDs,
         doc: doc,

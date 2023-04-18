@@ -823,10 +823,10 @@ class RecordModel {
 
     final RecordModel _recordModel = RecordModel(
       recordType: recordType,
-      userID: OfficialAuthing.getUserID(),
+      userID: Authing.getUserID(),
       timeStamp: DateTime.now(),
       modelType: getModelTypeByRecordType(recordType),
-      modelID: OfficialAuthing.getUserID(),
+      modelID: Authing.getUserID(),
       recordDetailsType: RecordDetailsType.text,
       recordDetails: 'This is a dummy record',
       serverTimeStamp: FieldValue.serverTimestamp(),

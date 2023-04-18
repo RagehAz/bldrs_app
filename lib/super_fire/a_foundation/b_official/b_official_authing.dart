@@ -1,10 +1,10 @@
 part of super_fire;
 
 /// => TAMAM
-class OfficialAuthing {
+class _OfficialAuthing {
   // -----------------------------------------------------------------------------
 
-  const OfficialAuthing();
+  const _OfficialAuthing();
 
   // -----------------------------------------------------------------------------
 
@@ -31,11 +31,11 @@ class OfficialAuthing {
       onError: onError,
       functions: () async {
 
-        final f_a.UserCredential _userCredential = await OfficialFirebase
+        final f_a.UserCredential _userCredential = await _OfficialFirebase
             .getAuth()
             .signInAnonymously();
 
-        _output = AuthModel.getAuthModelFromUserCredential(
+        _output = AuthModel._getAuthModelFromOfficialUserCredential(
             cred: _userCredential,
         );
 
@@ -75,7 +75,7 @@ class OfficialAuthing {
         }
 
         /// FIREBASE SIGN OUT
-        await OfficialFirebase.getAuth().signOut();
+        await _OfficialFirebase.getAuth().signOut();
       },
     );
 
@@ -94,7 +94,7 @@ class OfficialAuthing {
 
     final bool _success = await tryCatchAndReturnBool(
         invoker: 'Official.deleteFirebaseUser',
-        functions: () => OfficialFirebase.getAuth().currentUser?.delete(),
+        functions: () => _OfficialFirebase.getAuth().currentUser?.delete(),
         onError: onError,
     );
 
@@ -113,7 +113,7 @@ class OfficialAuthing {
   // --------------------
   /// TESTED : WORKS PERFECT
   static SignInMethod getCurrentSignInMethod(){
-    return _getSignInMethodFromUser(user: OfficialAuthing._getUser());
+    return _getSignInMethodFromUser(user: _OfficialAuthing._getUser());
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -143,16 +143,16 @@ class OfficialAuthing {
   // --------------------
   /// TESTED : WORKS PERFECT
   static f_a.User _getUser() {
-    return OfficialFirebase.getAuth()?.currentUser;
+    return _OfficialFirebase.getAuth()?.currentUser;
   }
   // -----------------------------------------------------------------------------
 }
 
 /// => TAMAM
-class OfficialEmailAuthing {
+class _OfficialEmailAuthing {
   // -----------------------------------------------------------------------------
 
-  const OfficialEmailAuthing();
+  const _OfficialEmailAuthing();
 
   // -----------------------------------------------------------------------------
 
@@ -176,13 +176,13 @@ class OfficialEmailAuthing {
         invoker: 'signInByEmail',
         functions: () async {
 
-          final f_a.UserCredential _userCredential = await OfficialFirebase.getAuth()
+          final f_a.UserCredential _userCredential = await _OfficialFirebase.getAuth()
               .signInWithEmailAndPassword(
             email: email.trim(),
             password: password,
           );
 
-          _output = AuthModel.getAuthModelFromUserCredential(
+          _output = AuthModel._getAuthModelFromOfficialUserCredential(
             cred: _userCredential,
           );
 
@@ -216,12 +216,12 @@ class OfficialEmailAuthing {
           invoker: 'registerByEmail',
           functions: () async {
 
-            final f_a.UserCredential _userCredential = await OfficialFirebase.getAuth().createUserWithEmailAndPassword(
+            final f_a.UserCredential _userCredential = await _OfficialFirebase.getAuth().createUserWithEmailAndPassword(
               email: email.trim(),
               password: password,
             );
 
-            _output = AuthModel.getAuthModelFromUserCredential(
+            _output = AuthModel._getAuthModelFromOfficialUserCredential(
                 cred: _userCredential,
             );
 
@@ -254,7 +254,7 @@ class OfficialEmailAuthing {
             password: password,
           );
 
-          _credential = await OfficialFirebase.getAuth().currentUser?.reauthenticateWithCredential(_authCredential);
+          _credential = await _OfficialFirebase.getAuth().currentUser?.reauthenticateWithCredential(_authCredential);
 
         }
     );
@@ -280,7 +280,7 @@ class OfficialEmailAuthing {
 
     bool _success = false;
 
-    final f_a.FirebaseAuth _auth = OfficialFirebase.getAuth();
+    final f_a.FirebaseAuth _auth = _OfficialFirebase.getAuth();
     final String _oldEmail = _auth?.currentUser?.email;
 
     blog('updateUserEmail : new : $newEmail : old : $_oldEmail');
@@ -396,12 +396,12 @@ class OfficialGoogleAuthing {
         /// get [auth provider]
         final f_a.GoogleAuthProvider _googleAuthProvider = getGoogleAuthProviderInstance();
 
-        final f_a.FirebaseAuth _firebaseAuth = OfficialFirebase.getAuth();
+        final f_a.FirebaseAuth _firebaseAuth = _OfficialFirebase.getAuth();
 
         /// get [user credential] from [auth provider]
         final f_a.UserCredential _userCredential = await _firebaseAuth.signInWithPopup(_googleAuthProvider);
 
-        _output = AuthModel.getAuthModelFromUserCredential(
+        _output = AuthModel._getAuthModelFromOfficialUserCredential(
           cred: _userCredential,
         );
 
@@ -437,12 +437,12 @@ class OfficialGoogleAuthing {
                 idToken: _googleSignInAuthentication.idToken,
               );
 
-              final f_a.FirebaseAuth _firebaseAuth = OfficialFirebase.getAuth();
+              final f_a.FirebaseAuth _firebaseAuth = _OfficialFirebase.getAuth();
 
               /// C - get [user credential] from [auth credential]
               final f_a.UserCredential _userCredential = await _firebaseAuth.signInWithCredential(_authCredential);
 
-              _output = AuthModel.getAuthModelFromUserCredential(
+              _output = AuthModel._getAuthModelFromOfficialUserCredential(
                 cred: _userCredential,
                 addData: _createGoogleAuthDataMap(
                   googleSignInAuthentication: _googleSignInAuthentication,
@@ -519,9 +519,9 @@ class OfficialFacebookAuthing {
           f_a.FacebookAuthProvider.credential(_loginResult.accessToken.token);
 
           final f_a.UserCredential _userCredential =
-          await OfficialFirebase.getAuth().signInWithCredential(_facebookAuthCredential);
+          await _OfficialFirebase.getAuth().signInWithCredential(_facebookAuthCredential);
 
-          _output = AuthModel.getAuthModelFromUserCredential(
+          _output = AuthModel._getAuthModelFromOfficialUserCredential(
             cred: _userCredential,
             addData: _createFacebookAuthDataMap(
               facebookAuthCredential: _facebookAuthCredential,

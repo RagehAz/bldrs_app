@@ -211,7 +211,7 @@ class WipeBzProtocols {
       BzLDBOps.deleteBzEditorSession(bzID),
 
       /// DELETE AUTHOR EDITOR SESSION
-      BzLDBOps.deleteAuthorEditorSession(OfficialAuthing.getUserID()),
+      BzLDBOps.deleteAuthorEditorSession(Authing.getUserID()),
 
     ]);
 

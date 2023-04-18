@@ -202,10 +202,10 @@ class Localizer {
 
     BldrsAppStarter.setLocale(context, _temp);
 
-    if (OfficialAuthing.getUserID() != null) {
-      await OfficialFire.updateDocField(
+    if (Authing.getUserID() != null) {
+      await Fire.updateDocField(
         coll: FireColl.users,
-        doc: OfficialAuthing.getUserID(),
+        doc: Authing.getUserID(),
         field: 'language',
         input: code,
       );

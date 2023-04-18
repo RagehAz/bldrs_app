@@ -16,8 +16,8 @@ class FetchReviewProtocols {
 
     bool _output = false;
 
-    final dynamic _result = await OfficialReal.readPath(
-      path: '${RealColl.agreesOnReviews}/$flyerID/$reviewID/${OfficialAuthing.getUserID()}',
+    final dynamic _result = await Real.readPath(
+      path: '${RealColl.agreesOnReviews}/$flyerID/$reviewID/${Authing.getUserID()}',
     );
 
     if (_result == true){

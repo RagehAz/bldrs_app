@@ -59,14 +59,14 @@ class RecordRealOps {
 
     Map<String, dynamic> _map;
 
-    if (record != null && OfficialAuthing.userIsSignedIn() == true){
+    if (record != null && Authing.userIsSignedIn() == true){
 
       final String _path = RecordRealOps.createRecordTypeRealPath(
         recordType: record.recordType,
         modelID: record.modelID,
       );
 
-      _map = await OfficialReal.createDocInPath(
+      _map = await Real.createDocInPath(
         pathWithoutDocName: _path,
         addDocIDToOutput: true,
         map: record.toMap(toJSON: true), // real db is json

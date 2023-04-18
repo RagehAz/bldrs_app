@@ -136,7 +136,7 @@ Future<bool> _preDeleteBzAccountChecks({
   bool _canContinue = false;
 
   final bool _authorIsMaster = AuthorModel.checkUserIsCreatorAuthor(
-    userID: OfficialAuthing.getUserID(),
+    userID: Authing.getUserID(),
     bzModel: bzModel,
   );
 

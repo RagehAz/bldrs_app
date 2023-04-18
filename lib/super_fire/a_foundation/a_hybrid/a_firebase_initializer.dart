@@ -34,7 +34,7 @@ class FirebaseInitializer {
 
     /// OFFICIAL
     if (useOfficialPackages == true){
-      await OfficialFirebase.initialize(
+      await _OfficialFirebase.initialize(
         appName: appName,
         options: options,
         socialKeys: socialKeys,
@@ -43,7 +43,7 @@ class FirebaseInitializer {
 
     /// NATIVE
     else {
-      await NativeFirebase.initialize(
+      await _NativeFirebase.initialize(
         appName: appName,
         options: options,
         persistentStoragePath: nativePersistentStoragePath,

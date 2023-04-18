@@ -22,7 +22,7 @@ class PDFStorageOps {
     assert(pdfModel.path != null, 'path is null');
     assert(Mapper.checkCanLoopList(pdfModel.ownersIDs) == true, 'owners are Empty');
 
-    final String _url = await OfficialStorage.uploadBytesAndGetURL(
+    final String _url = await Storage.uploadBytesAndGetURL(
       bytes: pdfModel.bytes,
       path: pdfModel.path,
       picMetaModel: pdfModel.createStorageMetaModel(),
@@ -48,14 +48,14 @@ class PDFStorageOps {
     if (TextCheck.isEmpty(path) == false){
 
       /// GET BYTES
-      final Uint8List _bytes = await OfficialStorage.readBytesByPath(
+      final Uint8List _bytes = await Storage.readBytesByPath(
         path: path,
       );
 
       if (Mapper.checkCanLoopList(_bytes) == true){
 
         /// GET META
-        final StorageMetaModel _meta = await OfficialStorage.readMetaByPath(
+        final StorageMetaModel _meta = await Storage.readMetaByPath(
           path: path,
         );
 
@@ -81,9 +81,9 @@ class PDFStorageOps {
   /// TASK : TEST ME
   static Future<void> delete(String path) async {
 
-    await OfficialStorage.deleteDoc(
+    await Storage.deleteDoc(
       path: path,
-      currentUserID: OfficialAuthing.getUserID(),
+      currentUserID: Authing.getUserID(),
     );
 
   }

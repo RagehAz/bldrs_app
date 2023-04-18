@@ -74,11 +74,11 @@ class TriggerModel {
   }){
 
     assert(noteModel != null, 'noteModel can not be null');
-    assert(OfficialAuthing.getUserID() != null, 'User is not authenticated');
+    assert(Authing.getUserID() != null, 'User is not authenticated');
 
     final List<String> _updatedDone = Stringer.addStringToListIfDoesNotContainIt(
       strings: noteModel.function.done,
-      stringToAdd: OfficialAuthing.getUserID(),
+      stringToAdd: Authing.getUserID(),
     );
 
     final TriggerModel _updatedTrigger = noteModel.function.copyWith(
@@ -125,7 +125,7 @@ class TriggerModel {
   /// TESTED : WORKS PERFECT
   static bool checkIFiredThisTrigger(TriggerModel trigger){
 
-    assert(OfficialAuthing.getUserID() != null, 'User is not authenticated');
+    assert(Authing.getUserID() != null, 'User is not authenticated');
 
     bool _fired = false;
 
@@ -133,7 +133,7 @@ class TriggerModel {
 
       _fired = Stringer.checkStringsContainString(
           strings: trigger.done,
-          string: OfficialAuthing.getUserID(),
+          string: Authing.getUserID(),
       );
 
     }

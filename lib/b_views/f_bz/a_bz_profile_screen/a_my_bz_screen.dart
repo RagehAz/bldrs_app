@@ -55,7 +55,7 @@ class MyBzScreen extends StatelessWidget {
 
         final bool _authorsContainMyUserID = AuthorModel.checkAuthorsContainUserID(
           authors: _bzModel?.authors,
-          userID: OfficialAuthing.getUserID(),
+          userID: Authing.getUserID(),
         );
 
         if (_bzModel == null || _authorsContainMyUserID == false){

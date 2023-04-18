@@ -173,7 +173,7 @@ class NoteEvent {
 
     final AuthorModel _myAuthorModel = AuthorModel.getAuthorFromBzByAuthorID(
         bz: bzModel,
-        authorID: OfficialAuthing.getUserID(),
+        authorID: Authing.getUserID(),
     );
 
     final UserModel _userModel = await UserProtocols.fetch(
