@@ -189,17 +189,19 @@ class ComposeFlyerProtocols {
     );
 
     final Dimensions _dims = await Dimensions.superDimensions(_bytes);
-    
+    final double _mega = Filers.calculateSize(_bytes.length, FileSizeUnit.megaByte);
+
     final PicModel _posterPicModel = PicModel(
       bytes: _bytes,
       path: BldrStorage.generateFlyerPosterPath(flyerID),
-      meta: PicMetaModel(
-        width: _dims?.width,
-        height: _dims?.height,
-        ownersIDs: await FlyerModel.generateFlyerOwners(
+      meta: StorageMetaModel(
+          sizeMB: _mega,
+          width: _dims?.width,
+          height: _dims?.height,
+          ownersIDs: await FlyerModel.generateFlyerOwners(
             context: context,
             bzID: draftFlyer.bzID,
-        )
+          )
       ),
     );
 

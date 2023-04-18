@@ -1,29 +1,23 @@
 library super_fire;
 // -----------------------------------------------------------------------------
 
-/// COMMON IMPORTS
+/// IMPORTS
 
 // --------------------
+/// COMMON
 import 'dart:io';
 import 'package:devicer/devicer.dart';
 import 'package:mapper/mapper.dart';
+import 'package:rest/rest.dart';
 import 'package:stringer/stringer.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-// -----------------------------------------------------------------------------
-
-/// NATIVE IMPLEMENTATION IMPORTS
-
-// --------------------
+/// NATIVE IMPLEMENTATION
 import 'package:firedart/firedart.dart' as fd;
 import 'package:firebase_dart/firebase_dart.dart' as f_d;
 import 'package:firedart/auth/user_gateway.dart' as fd_u;
-// -----------------------------------------------------------------------------
-
-/// AUTHING IMPORTS
-
-// --------------------
+/// OFFICIAL AUTH
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:extension_google_sign_in_as_googleapis_auth/extension_google_sign_in_as_googleapis_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart' as f_a;
@@ -38,44 +32,32 @@ import 'package:googleapis_auth/googleapis_auth.dart'; // as gapis;
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:space_time/space_time.dart';
 import 'package:super_box/super_box.dart';
-// --------------------
-export 'package:firebase_auth/firebase_auth.dart';
-// -----------------------------------------------------------------------------
-
-/// FIRE IMPORTS
-
-// --------------------
+/// OFFICIAL FIRE
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as cloud;
-// --------------------
-export 'package:firebase_core/firebase_core.dart';
-export 'package:cloud_firestore/cloud_firestore.dart';
-// -----------------------------------------------------------------------------
-
-/// STORAGE IMPORTS
-
-// --------------------
-import 'official/storage/storage_byte_ops.dart';
-import 'official/storage/storage_delete_ops.dart';
-import 'official/storage/storage_file_ops.dart';
-import 'official/storage/storage_meta_ops.dart';
-import 'official/storage/storage_ref.dart';
-// ignore: unnecessary_import
-import 'dart:typed_data';
-import 'dart:ui' as ui;
-import 'package:numeric/numeric.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-/// --------------------------------------------------------------------------
-export 'package:firebase_storage/firebase_storage.dart';
-// -----------------------------------------------------------------------------
-
-/// REAL IMPORTS
-
-// -----------------------------------------------------------------------------
+/// OFFICIAL REAL
 import 'dart:convert';
 import 'package:animators/animators.dart';
 import 'package:firebase_database/firebase_database.dart' as f_db;
 import 'package:http/http.dart' as http;
+/// OFFICIAL STORAGE
+// ignore: unnecessary_import
+import 'dart:typed_data';
+import 'dart:ui' as ui;
+import 'package:numeric/numeric.dart';
+import 'package:firebase_storage/firebase_storage.dart' as f_s;
+// -----------------------------------------------------------------------------
+
+/// EXPORTS
+
+// --------------------
+/// AUTH
+export 'package:firebase_auth/firebase_auth.dart';
+/// FIRE
+export 'package:firebase_core/firebase_core.dart';
+export 'package:cloud_firestore/cloud_firestore.dart';
+/// STORAGE
+export 'package:firebase_storage/firebase_storage.dart';
 // -----------------------------------------------------------------------------
 
 /// FOUNDATION
@@ -94,7 +76,7 @@ part 'a_foundation/b_official/a_official_firebase_initializer.dart';
 part 'a_foundation/b_official/b_official_authing.dart';
 part 'a_foundation/b_official/c_official_fire.dart';
 part 'a_foundation/b_official/d_official_real.dart';
-
+part 'a_foundation/b_official/e_official_storage.dart';
 // --------------------
 /// NATIVE
 part 'a_foundation/c_native/a_native_firebase_initializer.dart';
@@ -118,6 +100,8 @@ part 'b_models/b_fire/fire_comparison_enum.dart';
 part 'b_models/b_fire/query_order_by.dart';
 /// REAL
 part 'b_models/c_real/real_query_model.dart';
+/// STORAGE
+part 'b_models/d_storage/pic_meta_model.dart';
 // -----------------------------------------------------------------------------
 
 /// HELPERS
@@ -126,8 +110,11 @@ part 'b_models/c_real/real_query_model.dart';
 /// AUTHING
 part 'c_helpers/authing/auth_error.dart';
 part 'c_helpers/authing/auth_blog.dart';
+/// MAPPERS
 part 'c_helpers/mappers/official_fire_mapper.dart';
 part 'c_helpers/mappers/native_fire_mapper.dart';
+/// STORAGE
+part 'c_helpers/storage/storage_error.dart';
 // -----------------------------------------------------------------------------
 
 /// WIDGETS
@@ -162,14 +149,4 @@ part 'f_paginators/pagination_controller.dart';
 part 'f_paginators/real_coll_paginator.dart';
 /// HELPERS
 part 'f_paginators/scroll_listeners.dart';
-// -----------------------------------------------------------------------------
-
-
-
-
-/// STORAGE PARTS
-
-// --------------------
-part 'official/storage/methods.dart';
-part 'b_models/d_storage/pic_meta_model.dart';
 // -----------------------------------------------------------------------------

@@ -22,7 +22,7 @@ class PicModel {
   final Uint8List bytes;
   /// collectionName/subCollectionName/fileName
   final String path;
-  final PicMetaModel meta;
+  final StorageMetaModel meta;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -32,7 +32,7 @@ class PicModel {
   PicModel copyWith({
     Uint8List bytes,
     String path,
-    PicMetaModel meta,
+    StorageMetaModel meta,
   }){
     return PicModel(
       bytes: bytes ?? this.bytes,
@@ -69,7 +69,7 @@ class PicModel {
       _picModel = PicModel(
         bytes: Floaters.getBytesFromInts(map['bytes']),
         path: map['path'],
-        meta: PicMetaModel.decipherFromLDB(map['meta']),
+        meta: StorageMetaModel.decipherFromLDB(map['meta']),
       );
 
     }
