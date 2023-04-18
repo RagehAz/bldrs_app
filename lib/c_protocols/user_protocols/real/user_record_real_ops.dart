@@ -62,8 +62,8 @@ class UserRecordRealOps {
 
     /// SEARCHES
     await OfficialReal.deleteDoc(
-      collName: RealColl.recordingSearches,
-      docName: userID,
+      coll: RealColl.recordingSearches,
+      doc: userID,
     );
 
   }

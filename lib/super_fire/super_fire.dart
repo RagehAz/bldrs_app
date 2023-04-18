@@ -80,18 +80,22 @@ import 'package:http/http.dart' as http;
 
 /// FOUNDATION
 
-// ------------
+// --------------------
 /// HYBRID
 part 'a_foundation/a_hybrid/a_firebase_initializer.dart';
 part 'a_foundation/a_hybrid/b_authing.dart';
 part 'a_foundation/a_hybrid/c_fire.dart';
 part 'a_foundation/a_hybrid/d_real.dart';
+part 'a_foundation/a_hybrid/d_real_http.dart';
 part 'a_foundation/a_hybrid/e_storage.dart';
-// ------------
+// --------------------
 /// OFFICIAL
 part 'a_foundation/b_official/a_official_firebase_initializer.dart';
 part 'a_foundation/b_official/b_official_authing.dart';
-// ------------
+part 'a_foundation/b_official/c_official_fire.dart';
+part 'a_foundation/b_official/d_official_real.dart';
+
+// --------------------
 /// NATIVE
 part 'a_foundation/c_native/a_native_firebase_initializer.dart';
 part 'a_foundation/c_native/b_native_authing.dart';
@@ -102,7 +106,7 @@ part 'a_foundation/c_native/e_native_storage.dart';
 
 /// MODELS
 
-// ------------
+// --------------------
 /// AUTHING
 part 'b_models/a_authing/sign_in_method.dart';
 part 'b_models/a_authing/auth_model.dart';
@@ -118,7 +122,7 @@ part 'b_models/c_real/real_query_model.dart';
 
 /// HELPERS
 
-// ------------
+// --------------------
 /// AUTHING
 part 'c_helpers/authing/auth_error.dart';
 part 'c_helpers/authing/auth_blog.dart';
@@ -126,54 +130,46 @@ part 'c_helpers/mappers/official_fire_mapper.dart';
 part 'c_helpers/mappers/native_fire_mapper.dart';
 // -----------------------------------------------------------------------------
 
+/// WIDGETS
 
 // --------------------
-/// WIDGETS
+/// SCREENS
+// --------------------
+/// BUTTONS
 part 'd_widgets/b_buttons/official_social_auth_button/auth_button_box.dart';
 part 'd_widgets/b_buttons/official_social_auth_button/social_auth_button.dart';
 // -----------------------------------------------------------------------------
 
-/// FIRE PARTS
+/// STREAMERS
 
 // --------------------
-part 'a_foundation/b_official/c_official_fire.dart';
-// --------------------------------------------
-part 'f_paginators/scroll_listeners.dart';
-// --------------------------------------------
-/// FIRE COLL PAGINATOR
-part 'f_paginators/fire_coll_paginator.dart';
-part 'f_paginators/pagination_controller.dart';
-// --------------------------------------------
-/// FIRE COLL STREAMER
+/// FIRE STREAMERS
 part 'e_streamers/fire_coll_streamer.dart';
 part 'e_streamers/fire_doc_streamer.dart';
+/// REAL STREAMERS
+part 'e_streamers/real_coll_streamer.dart';
+part 'e_streamers/real_doc_streamer.dart';
+part 'e_streamers/real_stream.dart';
 // -----------------------------------------------------------------------------
+
+/// PAGINATORS
+
+// --------------------
+/// FIRE PAGINATOR
+part 'f_paginators/fire_coll_paginator.dart';
+part 'f_paginators/pagination_controller.dart';
+/// REAL PAGINATOR
+part 'f_paginators/real_coll_paginator.dart';
+/// HELPERS
+part 'f_paginators/scroll_listeners.dart';
+// -----------------------------------------------------------------------------
+
+
+
 
 /// STORAGE PARTS
 
 // --------------------
 part 'official/storage/methods.dart';
 part 'b_models/d_storage/pic_meta_model.dart';
-// -----------------------------------------------------------------------------
-
-/// REAL PARTS
-
-// --------------------
-part 'a_foundation/a_hybrid/d_real_http.dart';
-part 'a_foundation/b_official/d_official_real.dart';
-part 'f_paginators/real_coll_paginator.dart';
-part 'e_streamers/real_coll_streamer.dart';
-part 'e_streamers/real_doc_streamer.dart';
-// -----------------------------------------------------------------------------
-
-/// FEATURES
-
-// ------------
-const bool officialGoogleAuth = true;
-const bool officialFacebookAuth = true;
-const bool officialAppleAuth = true;
-// ------------
-const bool nativeGoogleAuth = false;
-const bool nativeFacebookAuth = false;
-const bool nativeAppleAuth = false;
 // -----------------------------------------------------------------------------

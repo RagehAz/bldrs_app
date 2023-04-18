@@ -84,9 +84,9 @@ class RenovateReviewProtocols {
 
       /// ADD MY ID IN REVIEW AGREES LIST
       OfficialReal.updateDocField(
-          collName: RealColl.agreesOnReviews,
-        docName: '${reviewModel.flyerID}/${reviewModel.id}',
-        fieldName: OfficialAuthing.getUserID(),
+          coll: RealColl.agreesOnReviews,
+        doc: '${reviewModel.flyerID}/${reviewModel.id}',
+        field: OfficialAuthing.getUserID(),
           value: true,
       ),
 
@@ -118,9 +118,9 @@ class RenovateReviewProtocols {
 
       /// REMOVE ID IN REVIEW AGREES LIST
       OfficialReal.deleteField(
-        collName: RealColl.agreesOnReviews,
-        docName: '${reviewModel.flyerID}/${reviewModel.id}',
-        fieldName: OfficialAuthing.getUserID(),
+        coll: RealColl.agreesOnReviews,
+        doc: '${reviewModel.flyerID}/${reviewModel.id}',
+        field: OfficialAuthing.getUserID(),
       ),
 
     ]);

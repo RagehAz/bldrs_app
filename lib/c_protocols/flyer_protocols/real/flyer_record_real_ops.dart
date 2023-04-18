@@ -380,15 +380,15 @@ class FlyerRecordRealOps {
     }
 
     await OfficialReal.updateDocField(
-      collName: RealColl.countingFlyers,
-      docName: flyerID,
-      fieldName: field,
+      coll: RealColl.countingFlyers,
+      doc: flyerID,
+      field: field,
       value: ServerValue.increment(_value),
     );
 
     Map<String, dynamic> _map = await OfficialReal.readDocOnce(
-      collName: RealColl.countingFlyers,
-      docName: flyerID,
+      coll: RealColl.countingFlyers,
+      doc: flyerID,
     );
 
     _map = Mapper.insertPairInMap(
@@ -410,8 +410,8 @@ class FlyerRecordRealOps {
   }) async {
 
     final Map<String, dynamic> _map = await OfficialReal.readDocOnce(
-      collName: RealColl.countingFlyers,
-      docName: flyerID,
+      coll: RealColl.countingFlyers,
+      doc: flyerID,
     );
 
     final FlyerCounterModel _flyerCounters = FlyerCounterModel.decipherCounterMap(_map);
@@ -430,20 +430,20 @@ class FlyerRecordRealOps {
 
       /// SHARES
       OfficialReal.deleteDoc(
-        collName: RealColl.recordingShares,
-        docName: flyerID,
+        coll: RealColl.recordingShares,
+        doc: flyerID,
       ),
 
       /// VIEWS
       OfficialReal.deleteDoc(
-        collName: RealColl.recordingViews,
-        docName: flyerID,
+        coll: RealColl.recordingViews,
+        doc: flyerID,
       ),
 
       /// SAVES
       OfficialReal.deleteDoc(
-        collName: RealColl.recordingSaves,
-        docName: flyerID,
+        coll: RealColl.recordingSaves,
+        doc: flyerID,
       ),
 
       // /// REVIEWS
@@ -455,8 +455,8 @@ class FlyerRecordRealOps {
 
       /// FLYERS COUNTER
       OfficialReal.deleteDoc(
-        collName: RealColl.countingFlyers,
-        docName: flyerID,
+        coll: RealColl.countingFlyers,
+        doc: flyerID,
       ),
 
     ]);
