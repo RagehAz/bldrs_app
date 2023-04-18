@@ -49,7 +49,7 @@ Widget userModelBuilder({
   UserModelWidgetBuilder builder,
 }) {
   return FutureBuilder<Map<String, dynamic>>(
-      future: OfficialFire.readDoc(
+      future: Fire.readDoc(
         coll: FireColl.users,
         doc: userID,
       ),

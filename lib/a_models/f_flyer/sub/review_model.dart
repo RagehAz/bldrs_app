@@ -187,7 +187,7 @@ class ReviewModel {
     return ReviewModel(
       id: 'x',
       text: text,
-      userID: OfficialAuthing.getUserID(),
+      userID: Authing.getUserID(),
       time: DateTime.now(),
       flyerID: flyerID,
       replyAuthorID: null,
@@ -252,7 +252,7 @@ class ReviewModel {
     return ReviewModel(
       id: 'x',
       text: 'This is a dummy review\nthat extends for several lines you know,,\nlorum ipsum\nplenty of gypsum',
-      userID: OfficialAuthing.getUserID(),
+      userID: Authing.getUserID(),
       time: Timers.createDate(year: 1987, month: 06, day: 10),
       flyerID: flyerID,
       replyAuthorID: authorID,

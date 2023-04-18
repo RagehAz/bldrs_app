@@ -71,7 +71,7 @@ class RealQueryModel{
 
     if (queryModel != null){
 
-      _query = OfficialReal._getRefByPath(path: queryModel.path);
+      _query = _OfficialReal._getRefByPath(path: queryModel.path);
 
       /// ORDER BY
       if (queryModel.orderType != null){
@@ -171,7 +171,7 @@ class RealQueryModel{
 
     if (queryModel != null){
 
-      _query = NativeReal.getRefByPath(path: queryModel.path);
+      _query = _NativeReal.getRefByPath(path: queryModel.path);
 
       /// ORDER BY
       if (queryModel.orderType != null){

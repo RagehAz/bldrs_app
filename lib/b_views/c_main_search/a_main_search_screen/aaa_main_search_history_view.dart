@@ -75,7 +75,7 @@ class SearchHistoryView extends StatelessWidget {
                   iconSizeFactor: 0.4,
                   onTap: () async {
 
-                    await OfficialFire.deleteDoc(
+                    await Fire.deleteDoc(
                         coll: FireColl.records,
                         doc: _searchRecord.recordID,
                     );

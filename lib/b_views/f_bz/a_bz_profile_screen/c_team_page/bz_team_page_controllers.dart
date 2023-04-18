@@ -48,11 +48,11 @@ Future<void> onAuthorOptionsTap({
   @required BzModel oldBz,
 }) async {
 
-  final bool _itIsMine = OfficialAuthing.getUserID() == authorModel.userID;
+  final bool _itIsMine = Authing.getUserID() == authorModel.userID;
 
   final AuthorModel _myAuthorModel = AuthorModel.getAuthorFromAuthorsByID(
       authors: oldBz.authors,
-      authorID: OfficialAuthing.getUserID(),
+      authorID: Authing.getUserID(),
   );
 
   final bool _canChangeRoles = AuthorModel.checkAuthorAbility(
@@ -199,7 +199,7 @@ Future<void> onDeleteAuthorFromBz({
   @required bool sendToUserAuthorExitNote,
 }) async {
 
-  if (authorModel.userID == OfficialAuthing.getUserID()){
+  if (authorModel.userID == Authing.getUserID()){
     await NewAuthorshipExit.onRemoveMySelf(
       context: context,
       authorModel: authorModel,

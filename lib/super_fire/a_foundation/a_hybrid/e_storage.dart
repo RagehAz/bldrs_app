@@ -20,7 +20,7 @@ class Storage {
     String _url;
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      _url = await OfficialStorage.uploadBytesAndGetURL(
+      _url = await _OfficialStorage.uploadBytesAndGetURL(
           bytes: bytes,
           path: path,
           picMetaModel: picMetaModel
@@ -29,7 +29,7 @@ class Storage {
 
     else {
 
-      _url = await NativeStorage.uploadBytesAndGetURL(
+      _url = await _NativeStorage.uploadBytesAndGetURL(
           bytes: bytes,
           path: path,
           picMetaModel: picMetaModel
@@ -50,7 +50,7 @@ class Storage {
     String _url;
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      _url = await OfficialStorage.uploadFileAndGetURL(
+      _url = await _OfficialStorage.uploadFileAndGetURL(
           file: file,
           coll: coll,
           doc: doc,
@@ -59,7 +59,7 @@ class Storage {
     }
 
     else {
-      _url = await NativeStorage.uploadFileAndGetURL(
+      _url = await _NativeStorage.uploadFileAndGetURL(
           file: file,
           coll: coll,
           doc: doc,
@@ -79,11 +79,11 @@ class Storage {
     String _url;
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      _url = await OfficialStorage.createURLByPath(path);
+      _url = await _OfficialStorage.createURLByPath(path);
     }
 
     else {
-      _url = await NativeStorage.createURLByPath(path);
+      _url = await _NativeStorage.createURLByPath(path);
     }
 
     return _url;
@@ -97,14 +97,14 @@ class Storage {
     String _url;
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      _url = await OfficialStorage.createURLByNodes(
+      _url = await _OfficialStorage.createURLByNodes(
           coll: coll,
           doc: doc,
       );
     }
 
     else {
-      _url = await NativeStorage.createURLByNodes(
+      _url = await _NativeStorage.createURLByNodes(
           coll: coll,
           doc: doc,
       );
@@ -124,13 +124,13 @@ class Storage {
     Uint8List _output;
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      _output = await OfficialStorage.readBytesByPath(
+      _output = await _OfficialStorage.readBytesByPath(
           path: path,
       );
     }
 
     else {
-      _output = await NativeStorage.readBytesByPath(
+      _output = await _NativeStorage.readBytesByPath(
           path: path,
       );
     }
@@ -143,11 +143,11 @@ class Storage {
     Uint8List _output;
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      _output = await OfficialStorage.readBytesByURL(url);
+      _output = await _OfficialStorage.readBytesByURL(url);
     }
 
     else {
-      _output = await NativeStorage.readBytesByURL(url);
+      _output = await _NativeStorage.readBytesByURL(url);
     }
 
     return _output;
@@ -160,13 +160,13 @@ class Storage {
     File _output;
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      _output = await OfficialStorage.readFileByURL(
+      _output = await _OfficialStorage.readFileByURL(
         url: url,
       );
     }
 
     else {
-      _output = await NativeStorage.readFileByURL(
+      _output = await _NativeStorage.readFileByURL(
         url: url,
       );
     }
@@ -182,14 +182,14 @@ class Storage {
     File _output;
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      _output = await OfficialStorage.readFileByNodes(
+      _output = await _OfficialStorage.readFileByNodes(
           coll: coll,
           doc: doc,
       );
     }
 
     else {
-      _output = await NativeStorage.readFileByNodes(
+      _output = await _NativeStorage.readFileByNodes(
           coll: coll,
           doc: doc,
       );
@@ -209,13 +209,13 @@ class Storage {
     StorageMetaModel _output;
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      _output = await OfficialStorage.readMetaByPath(
+      _output = await _OfficialStorage.readMetaByPath(
           path: path,
       );
     }
 
     else {
-      _output = await NativeStorage.readMetaByPath(
+      _output = await _NativeStorage.readMetaByPath(
           path: path,
       );
     }
@@ -230,13 +230,13 @@ class Storage {
     StorageMetaModel _output;
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      _output = await OfficialStorage.readMetaByURL(
+      _output = await _OfficialStorage.readMetaByURL(
           url: url,
       );
     }
 
     else {
-      _output = await NativeStorage.readMetaByURL(
+      _output = await _NativeStorage.readMetaByURL(
           url: url,
       );
     }
@@ -255,14 +255,14 @@ class Storage {
   }) async {
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true) {
-      await OfficialStorage.updateMetaByURL(
+      await _OfficialStorage.updateMetaByURL(
         picURL: picURL,
         metaDataMap: metaDataMap,
       );
     }
 
     else {
-      await NativeStorage.updateMetaByURL(
+      await _NativeStorage.updateMetaByURL(
         picURL: picURL,
         metaDataMap: metaDataMap,
       );
@@ -281,14 +281,14 @@ class Storage {
   }) async {
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true) {
-      await OfficialStorage.deleteDoc(
+      await _OfficialStorage.deleteDoc(
         path: path,
         currentUserID: currentUserID,
       );
     }
 
     else {
-      await NativeStorage.deleteDoc(
+      await _NativeStorage.deleteDoc(
         path: path,
         currentUserID: currentUserID,
       );
@@ -303,14 +303,14 @@ class Storage {
   }) async {
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true) {
-      await OfficialStorage.deleteDocs(
+      await _OfficialStorage.deleteDocs(
         paths: paths,
         currentUserID: currentUserID,
       );
     }
 
     else {
-      await NativeStorage.deleteDocs(
+      await _NativeStorage.deleteDocs(
         paths: paths,
         currentUserID: currentUserID,
       );

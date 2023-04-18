@@ -88,7 +88,7 @@ Future<void> onShareFlyer({
       subject: flyerModel.headline,
     ),
 
-    if (OfficialAuthing.userIsSignedIn() == true)
+    if (Authing.userIsSignedIn() == true)
     FlyerRecordRealOps.shareFlyer(
       flyerID: flyerModel.id,
       bzID: flyerModel.bzID,

@@ -590,7 +590,7 @@ class NoteProtocols {
       /// READ ALL NOTES
       for (int i = 0; i <= 1000; i++){
 
-        final List<Map<String, dynamic>> _maps = await OfficialFire.readColl(
+        final List<Map<String, dynamic>> _maps = await Fire.readColl(
           addDocsIDs: true,
           addDocSnapshotToEachMap: true,
           startAfter: _notesToDelete.isEmpty == true ? null : _notesToDelete?.last?.docSnapshot,

@@ -55,7 +55,7 @@ class _FireCollStreamerState extends State<FireCollStreamer> {
   void initState() {
     super.initState();
 
-    _stream = OfficialFire.streamColl(
+    _stream = Fire.streamColl(
       queryModel: widget.queryModel,
     );
 

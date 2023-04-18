@@ -371,7 +371,7 @@ class RenovateUserProtocols {
 
     // blog('refreshUserDeviceModel START');
 
-    if (OfficialAuthing.userIsSignedIn() == true){
+    if (Authing.userIsSignedIn() == true){
 
       /// TASK : UNSUBSCRIBING FROM TOKEN INSTRUCTIONS
       /*

@@ -28,7 +28,7 @@ class BzRecordRealOps {
     blog('BzRecordOps.followBz : START');
 
     final RecordModel _record = RecordModel.createFollowRecord(
-        userID: OfficialAuthing.getUserID(),
+        userID: Authing.getUserID(),
         bzID: bzID
     );
 
@@ -56,7 +56,7 @@ class BzRecordRealOps {
     blog('BzRecordOps.unfollowBz : START');
 
     final RecordModel _record = RecordModel.createUnfollowRecord(
-      userID: OfficialAuthing.getUserID(),
+      userID: Authing.getUserID(),
       bzID: bzID,
     );
 
@@ -87,7 +87,7 @@ class BzRecordRealOps {
     blog('BzRecordOps.callBz : START');
 
     final RecordModel _record = RecordModel.createCallRecord(
-      userID: OfficialAuthing.getUserID(),
+      userID: Authing.getUserID(),
       bzID: bzID,
       contact: contact,
     );
@@ -138,14 +138,14 @@ class BzRecordRealOps {
       _value = incrementThis;
     }
 
-    Map<String, dynamic> _map = await OfficialReal.readDocOnce(
+    Map<String, dynamic> _map = await Real.readDocOnce(
       coll: RealColl.countingBzz,
       doc: bzID,
     );
 
     if (_value != 0){
 
-      await OfficialReal.updateDocField(
+      await Real.updateDocField(
         coll: RealColl.countingBzz,
         doc: bzID,
         field: field,
@@ -174,7 +174,7 @@ class BzRecordRealOps {
     @required String bzID,
   }) async {
 
-    final Map<String, dynamic> _map = await OfficialReal.readDocOnce(
+    final Map<String, dynamic> _map = await Real.readDocOnce(
       coll: RealColl.countingBzz,
       doc: bzID,
     );
@@ -192,19 +192,19 @@ class BzRecordRealOps {
   }) async {
 
     /// FOLLOWS
-    await OfficialReal.deleteDoc(
+    await Real.deleteDoc(
       coll: RealColl.recordingFollows,
       doc: bzID,
     );
 
     /// CALLS
-    await OfficialReal.deleteDoc(
+    await Real.deleteDoc(
       coll: RealColl.recordingCalls,
       doc: bzID,
     );
 
     /// BZ COUNTERS
-    await OfficialReal.deleteDoc(
+    await Real.deleteDoc(
       coll: RealColl.countingBzz,
       doc: bzID,
     );

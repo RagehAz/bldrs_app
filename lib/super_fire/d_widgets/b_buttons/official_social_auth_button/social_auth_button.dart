@@ -129,7 +129,7 @@ class SocialAuthButton extends StatelessWidget {
     /// SIGNED IN
     else if (newState is fui.SignedIn) {
         final fui.SignedIn signedIn = newState;
-        final AuthModel _authModel = AuthModel.getAuthModelFromFirebaseUser(
+        final AuthModel _authModel = AuthModel._getAuthModelFromOfficialFirebaseUser(
             user: signedIn.user,
         );
         onSuccess(_authModel);
@@ -139,7 +139,7 @@ class SocialAuthButton extends StatelessWidget {
     /// USER CREATED
     else if (newState is fui.UserCreated) {
       final fui.UserCreated userCreated = newState;
-      final AuthModel _authModel = AuthModel.getAuthModelFromUserCredential(
+      final AuthModel _authModel = AuthModel._getAuthModelFromOfficialUserCredential(
         cred: userCreated.credential,
       );
       onSuccess(_authModel);
@@ -286,7 +286,7 @@ class SocialAuthButton extends StatelessWidget {
           listener: _listen,
           child: fui.OAuthProviderButton(
             provider: _getProvider(signInMethod),
-            auth: OfficialFirebase.getAuth(),
+            auth: _OfficialFirebase.getAuth(),
             action: authAction,
             variant: fui.OAuthButtonVariant.icon,
           ),

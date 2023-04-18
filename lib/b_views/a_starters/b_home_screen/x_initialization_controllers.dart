@@ -73,7 +73,7 @@ Future<void> _checkIfUserIsMissingFields({
   @required BuildContext context,
 }) async {
   // blog('initializeHomeScreen.checkIfUserIsMissingFields : ~~~~~~~~~~ START');
-  if (OfficialAuthing.getUserID() != null){
+  if (Authing.getUserID() != null){
 
     final AuthModel _authModel = await AuthLDBOps.readAuthModel();
     final UserModel _userModel = await UserLDBOps.readUserOps(userID: _authModel?.id);
@@ -142,7 +142,7 @@ Future<void> _initializeUserFollowedBzz({
   @required bool notify,
 }) async {
   // blog('initializeHomeScreen._initializeUserBzz : ~~~~~~~~~~ START');
-  if (OfficialAuthing.userIsSignedIn() == true){
+  if (Authing.userIsSignedIn() == true){
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
     await _bzzProvider.fetchSetFollowedBzz(
       context: context,
@@ -158,7 +158,7 @@ Future<void> _initializeUserBzz({
   @required bool notify,
 }) async {
   // blog('initializeHomeScreen._initializeUserBzz : ~~~~~~~~~~ START');
-  if (OfficialAuthing.userIsSignedIn() == true){
+  if (Authing.userIsSignedIn() == true){
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
     await _bzzProvider.fetchSetMyBzz(
       context: context,
@@ -210,7 +210,7 @@ Future<void> _initializeCurrentZone(BuildContext context) async {
     );
 
     /// USER ZONE IS DEFINED
-    if (_myUserModel?.zone != null && OfficialAuthing.userIsSignedIn() == true){
+    if (_myUserModel?.zone != null && Authing.userIsSignedIn() == true){
 
       await _zoneProvider.fetchSetCurrentCompleteZone(
         context: context,

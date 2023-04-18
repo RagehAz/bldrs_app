@@ -26,7 +26,7 @@ class NoteFireOps {
 
       if (noteModel.sendNote == true){
 
-        final String docID = await OfficialFire.createDoc(
+        final String docID = await Fire.createDoc(
           coll: FireColl.getPartyCollName(noteModel.parties.receiverType),
           doc: noteModel.parties.receiverID,
           subColl: FireSubColl.noteReceiver_receiver_notes,
@@ -107,7 +107,7 @@ class NoteFireOps {
 
     if (noteID != null && userID != null){
 
-      final Map<String, dynamic> map = await OfficialFire.readDoc(
+      final Map<String, dynamic> map = await Fire.readDoc(
         coll: FireColl.users,
         doc: userID,
         subColl: FireSubColl.noteReceiver_receiver_notes,
@@ -137,7 +137,7 @@ class NoteFireOps {
 
     if (note != null){
 
-      await OfficialFire.updateDoc(
+      await Fire.updateDoc(
         coll: FireColl.getPartyCollName(note.parties.receiverType),
         doc: note.parties.receiverID,
         subColl: FireSubColl.noteReceiver_receiver_notes,
@@ -199,7 +199,7 @@ class NoteFireOps {
 
     if (note != null){
 
-      await OfficialFire.deleteDoc(
+      await Fire.deleteDoc(
         coll: FireColl.getPartyCollName(note.parties.receiverType),
         doc: note.parties.receiverID,
         subColl: FireSubColl.noteReceiver_receiver_notes,

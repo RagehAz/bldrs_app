@@ -1,9 +1,9 @@
 part of super_fire;
 
-class NativeReal {
+class _NativeReal {
   // -----------------------------------------------------------------------------
 
-  const NativeReal();
+  const _NativeReal();
 
   // -----------------------------------------------------------------------------
 
@@ -21,7 +21,7 @@ class NativeReal {
       doc: doc,
       key: key,
     );
-    return NativeFirebase.getReal().reference().child(path);
+    return _NativeFirebase.getReal().reference().child(path);
   }
   // --------------------
   /// TASK : TEST ME
@@ -29,7 +29,7 @@ class NativeReal {
     @required String path,
   }){
     assert(path != null, 'PATH SHOULD NOT BE NULL');
-    return NativeFirebase.getReal().reference().child(path);
+    return _NativeFirebase.getReal().reference().child(path);
   }
   // -----------------------------------------------------------------------------
 

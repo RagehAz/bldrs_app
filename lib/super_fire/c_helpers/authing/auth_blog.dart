@@ -50,7 +50,7 @@ class AuthBlog {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void blogFirebaseUser({
+  static void blogOfficialFirebaseUser({
     @required f_a.User user,
   }){
 
@@ -77,15 +77,15 @@ class AuthBlog {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void blogCurrentFirebaseUser(){
+  static void blogCurrentOfficialFirebaseUser(){
 
-    final f_a.User _user = OfficialAuthing._getUser();
+    final f_a.User _user = _OfficialAuthing._getUser();
 
     if (_user == null){
       blog('blogCurrentFirebaseUser : user is null');
     }
     else {
-      blogFirebaseUser(user: _user);
+      blogOfficialFirebaseUser(user: _user);
     }
 
   }

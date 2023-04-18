@@ -72,7 +72,7 @@ class _MainSearchScreenState extends State<MainSearchScreen> {
   void didChangeDependencies() {
     if (_isInit && mounted) {
 
-      if (OfficialAuthing.userIsSignedIn() == true){
+      if (Authing.userIsSignedIn() == true){
 
         final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
         _uiProvider.startController(()async{

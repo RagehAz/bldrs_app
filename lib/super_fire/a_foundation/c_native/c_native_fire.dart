@@ -1,9 +1,9 @@
 part of super_fire;
 
-class NativeFire {
+class _NativeFire {
   // -----------------------------------------------------------------------------
 
-  const NativeFire();
+  const _NativeFire();
 
   // -----------------------------------------------------------------------------
 
@@ -24,11 +24,11 @@ class NativeFire {
     );
 
    if (doc == null || subColl == null){
-      return NativeFirebase.getFire().collection(coll);
+      return _NativeFirebase.getFire().collection(coll);
     }
     else if (doc != null && subColl != null){
       /// return NativeFirebase.getFire().collection('$coll/$doc/$subColl');
-      return NativeFirebase.getFire().collection(coll)
+      return _NativeFirebase.getFire().collection(coll)
           .document(doc)
           .collection(subColl);
     }
@@ -198,7 +198,6 @@ class NativeFire {
     @required String coll,
     String doc,
     String subColl,
-    String subDoc,
     bool addDocsIDs = false,
   }) async {
 
@@ -242,7 +241,7 @@ class NativeFire {
     List<FireFinder> finders,
   }){
 
-    fd.QueryReference query = NativeFirebase
+    fd.QueryReference query = _NativeFirebase
         .getFire()
         .collection(collRef.path)
         .where(null);//, isNull: true);

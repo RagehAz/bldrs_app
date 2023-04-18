@@ -22,7 +22,7 @@ class UserFireSearch{
     int limit = 10,
   }) async {
 
-    final List<Map<String, dynamic>> _result = await OfficialFire.readColl(
+    final List<Map<String, dynamic>> _result = await Fire.readColl(
       addDocSnapshotToEachMap: true,
       startAfter: startAfter,
       queryModel: FireQueryModel(
@@ -63,7 +63,7 @@ class UserFireSearch{
     QueryDocumentSnapshot<Object> startAfter,
   }) async {
 
-    final List<Map<String, dynamic>> _result = await OfficialFire.readColl(
+    final List<Map<String, dynamic>> _result = await Fire.readColl(
       addDocSnapshotToEachMap: true,
       addDocsIDs: true,
       startAfter: startAfter,

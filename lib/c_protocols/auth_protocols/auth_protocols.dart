@@ -28,7 +28,7 @@ class AuthProtocols {
   }) async {
     String _authError;
 
-    final AuthModel _authModel = await OfficialEmailAuthing.signIn(
+    final AuthModel _authModel = await EmailAuthing.signIn(
       email: email.trim(),
       password: password,
       onError: (String error) {
@@ -59,7 +59,7 @@ class AuthProtocols {
 
     String _authError;
 
-    final AuthModel _authModel = await OfficialEmailAuthing.register(
+    final AuthModel _authModel = await EmailAuthing.register(
       email: email,
       password: password,
       onError: (String error){
@@ -186,7 +186,7 @@ class AuthProtocols {
     @required bool routeToLogoScreen,
   }) async {
 
-    final bool _success = await OfficialAuthing.signOut(
+    final bool _success = await Authing.signOut(
         onError: (String error) async {
           await CenterDialog.showCenterDialog(
             context: context,

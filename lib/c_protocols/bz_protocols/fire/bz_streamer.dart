@@ -44,7 +44,7 @@ Widget bzModelBuilder({
   BzModelWidgetBuilder builder,
 }) {
   return FutureBuilder<Map<String, dynamic>>(
-      future: OfficialFire.readDoc(
+      future: Fire.readDoc(
         coll: FireColl.bzz,
         doc: bzID,
       ),
@@ -78,7 +78,7 @@ Widget bzModelBuilder({
 /// get bz doc stream
 Stream<BzModel> getBzStream(String bzID) {
 
-  final Stream<Map<String, dynamic>> _bzSnapshot = OfficialFire.streamDoc(
+  final Stream<Map<String, dynamic>> _bzSnapshot = Fire.streamDoc(
       coll: FireColl.bzz,
       doc: bzID,
   );

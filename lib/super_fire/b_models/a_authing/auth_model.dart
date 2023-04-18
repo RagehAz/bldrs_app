@@ -91,7 +91,7 @@ class AuthModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static AuthModel getAuthModelFromUserCredential({
+  static AuthModel _getAuthModelFromOfficialUserCredential({
     @required f_a.UserCredential cred,
     Map<String, dynamic> addData,
   }){
@@ -105,7 +105,7 @@ class AuthModel {
         email: cred.user?.email,
         phone: cred.user?.phoneNumber,
         imageURL: _getUserImageURLFromOfficialUserCredential(cred),
-        signInMethod: OfficialAuthing._getSignInMethodFromUser(user: cred.user),
+        signInMethod: _OfficialAuthing._getSignInMethodFromUser(user: cred.user),
         data: _createAuthModelDataMap(
           cred: cred,
           addData: addData,
@@ -118,7 +118,7 @@ class AuthModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static AuthModel getAuthModelFromFirebaseUser({
+  static AuthModel _getAuthModelFromOfficialFirebaseUser({
     @required f_a.User user,
   }){
     AuthModel _output;
@@ -131,7 +131,7 @@ class AuthModel {
         email: user.email,
         phone: user.phoneNumber,
         imageURL: user.photoURL,
-        signInMethod: OfficialAuthing._getSignInMethodFromUser(user: user),
+        signInMethod: _OfficialAuthing._getSignInMethodFromUser(user: user),
         data: Mapper.cleanNullPairs(
             map: {
               'user.emailVerified': user?.emailVerified,
@@ -268,7 +268,7 @@ class AuthModel {
       case 'password': return SignInMethod.email; break;
       case 'nativeEmail': return SignInMethod.nativeEmail; break;
       // case 'phone': return SignInMethod.phone; break;
-      default: return OfficialAuthing.getUserID() == null ? null : SignInMethod.anonymous;
+      default: return _OfficialAuthing.getUserID() == null ? null : SignInMethod.anonymous;
     }
 
   }
@@ -386,7 +386,7 @@ class AuthModel {
 
     if (cred != null){
 
-      final SignInMethod signInMethod = OfficialAuthing.getCurrentSignInMethod();
+      final SignInMethod signInMethod = _OfficialAuthing.getCurrentSignInMethod();
 
       if (signInMethod == SignInMethod.google){
         _output = cred.user?.photoURL;
