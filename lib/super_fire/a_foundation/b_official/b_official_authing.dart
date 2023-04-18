@@ -280,20 +280,22 @@ class _OfficialEmailAuthing {
 
     bool _success = false;
 
-    final f_a.FirebaseAuth _auth = _OfficialFirebase.getAuth();
-    final String _oldEmail = _auth?.currentUser?.email;
+    if (Authing.userIsSignedIn() == true) {
 
-    blog('updateUserEmail : new : $newEmail : old : $_oldEmail');
+      final f_a.FirebaseAuth _auth = _OfficialFirebase.getAuth();
+      final String _oldEmail = _auth?.currentUser?.email;
 
-    if (_oldEmail != newEmail){
+      blog('updateUserEmail : new : $newEmail : old : $_oldEmail');
 
-      _success = await tryCatchAndReturnBool(
-        invoker: 'updateUserEmail',
-        functions: () async {
-          await _auth.currentUser.updateEmail(newEmail);
-          blog('updateUserEmail : END');
-        },
-      );
+      if (_oldEmail != newEmail) {
+        _success = await tryCatchAndReturnBool(
+          invoker: 'updateUserEmail',
+          functions: () async {
+            await _auth.currentUser.updateEmail(newEmail);
+            blog('updateUserEmail : END');
+          },
+        );
+      }
 
     }
 

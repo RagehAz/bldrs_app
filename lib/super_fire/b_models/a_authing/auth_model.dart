@@ -471,10 +471,24 @@ class AuthModel {
   /// OVERRIDES
 
   // --------------------
-  /*
+  /// TESTED : WORKS PERFECT
    @override
-   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
-   */
+   String toString(){
+    return
+    '''
+    
+    AuthModel(
+        id: $id, 
+        name: $name,
+        email: $email, 
+        phone: $phone,
+        imageURL: $imageURL,
+        signInMethod: $signInMethod,
+        data: $data
+    )
+     ''';
+
+   }
   // --------------------
   @override
   bool operator == (Object other){
