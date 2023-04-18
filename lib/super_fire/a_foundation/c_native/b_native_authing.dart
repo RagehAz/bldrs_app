@@ -1,10 +1,10 @@
 part of super_fire;
 
 ///
-class NativeAuthing{
+class _NativeAuthing{
   // -----------------------------------------------------------------------------
 
-  const NativeAuthing();
+  const _NativeAuthing();
 
   // -----------------------------------------------------------------------------
 
@@ -13,7 +13,7 @@ class NativeAuthing{
   // --------------------
   /// TESTED : WORKS PERFECT
   static String getUserID(){
-    final fd.FirebaseAuth _auth = NativeFirebase.getAuth();
+    final fd.FirebaseAuth _auth = _NativeFirebase.getAuth();
     if (_auth?.isSignedIn == true){
       return _auth?.userId;
     }
@@ -37,7 +37,7 @@ class NativeAuthing{
       onError: onError,
       functions: () async {
 
-        final fd_u.User _user =  await NativeFirebase.getAuth()
+        final fd_u.User _user =  await _NativeFirebase.getAuth()
             .signInAnonymously();
 
         _output = AuthModel.getAuthModelFromFiredartUser(
@@ -65,7 +65,7 @@ class NativeAuthing{
       functions: () async {
 
         /// FIREBASE SIGN OUT
-        NativeFirebase.getAuth().signOut();
+        _NativeFirebase.getAuth().signOut();
 
       },
     );
@@ -84,7 +84,7 @@ class NativeAuthing{
 
     final bool _success = await tryCatchAndReturnBool(
         invoker: 'NativeAuthing.deleteFirebaseUser',
-        functions: () => NativeFirebase.getAuth().deleteAccount(),
+        functions: () => _NativeFirebase.getAuth().deleteAccount(),
         onError: onError,
     );
 
@@ -119,16 +119,16 @@ class NativeAuthing{
   // --------------------
   /// TASK : TEST ME
   static Future<fd_u.User> _getUser() async {
-    final fd_u.User _user = await NativeFirebase.getAuth()?.getUser();
+    final fd_u.User _user = await _NativeFirebase.getAuth()?.getUser();
     return _user;
   }
   // -----------------------------------------------------------------------------
 }
 
-class NativeEmailAuthing {
+class _NativeEmailAuthing {
   // -----------------------------------------------------------------------------
 
-  const NativeEmailAuthing();
+  const _NativeEmailAuthing();
 
   // -----------------------------------------------------------------------------
 
@@ -149,7 +149,7 @@ class NativeEmailAuthing {
         onError: onError,
         functions: () async {
 
-          final fd_u.User _user = await NativeFirebase.getAuth().signIn(
+          final fd_u.User _user = await _NativeFirebase.getAuth().signIn(
               email,
               password,
           );
@@ -186,7 +186,7 @@ class NativeEmailAuthing {
           invoker: 'NativeAuth.registerByEmail',
           functions: () async {
 
-          final fd_u.User _user = await NativeFirebase.getAuth().signUp(
+          final fd_u.User _user = await _NativeFirebase.getAuth().signUp(
               email,
               password,
           );

@@ -457,7 +457,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
   // --------------------
   Future<void> _onSaveFlyer() async {
 
-    if (OfficialAuthing.userIsSignedIn() == true){
+    if (Authing.userIsSignedIn() == true){
 
       if (mounted == true){
 

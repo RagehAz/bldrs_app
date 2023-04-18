@@ -30,7 +30,7 @@ Stream<List<Map<String, dynamic>>> bzUnseenNotesStream({
   @required String bzID,
 }){
 
-  final Stream<List<Map<String, dynamic>>> _stream = OfficialFire.streamColl(
+  final Stream<List<Map<String, dynamic>>> _stream = Fire.streamColl(
     queryModel: FireQueryModel(
       coll: FireColl.bzz,
       doc: bzID,
@@ -59,7 +59,7 @@ FireQueryModel userNotesPaginationQueryModel(){
 
   return FireQueryModel(
     coll: FireColl.users,
-    doc: OfficialAuthing.getUserID(),
+    doc: Authing.getUserID(),
     subColl: FireSubColl.noteReceiver_receiver_notes,
     limit: 6,
     orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
@@ -70,10 +70,10 @@ FireQueryModel userNotesPaginationQueryModel(){
 /// TESTED : WORKS PERFECT
 Stream<List<Map<String, dynamic>>> userUnseenNotesStream(){
 
-  return OfficialFire.streamColl(
+  return Fire.streamColl(
     queryModel: FireQueryModel(
       coll: FireColl.users,
-      doc: OfficialAuthing.getUserID(),
+      doc: Authing.getUserID(),
       subColl: FireSubColl.noteReceiver_receiver_notes,
       limit: 100,
       orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: false),
@@ -94,10 +94,10 @@ Stream<List<Map<String, dynamic>>> userNotesWithPendingReplies({
   @required BuildContext context,
 }){
 
-  return OfficialFire.streamColl(
+  return Fire.streamColl(
     queryModel: FireQueryModel(
       coll: FireColl.users,
-      doc: OfficialAuthing.getUserID(),
+      doc: Authing.getUserID(),
       subColl: FireSubColl.noteReceiver_receiver_notes,
       limit: 100,
       orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: false),
@@ -117,7 +117,7 @@ Stream<List<Map<String, dynamic>>> userNotesWithPendingReplies({
 FireQueryModel userNotesWithPendingRepliesQueryModel() {
   return FireQueryModel(
     coll: FireColl.users,
-    doc: OfficialAuthing.getUserID(),
+    doc: Authing.getUserID(),
     subColl: FireSubColl.noteReceiver_receiver_notes,
     limit: 10,
     orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: false),

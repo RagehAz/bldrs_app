@@ -26,7 +26,7 @@ class BzFireOps {
 
     blog('_createEmptyBzDocToGetBzID : START');
 
-    final String docID = await OfficialFire.createDoc(
+    final String docID = await Fire.createDoc(
       coll: FireColl.bzz,
       addDocID: true,
       input: <String, dynamic>{
@@ -48,7 +48,7 @@ class BzFireOps {
     @required String bzID,
   }) async {
 
-    final dynamic _bzMap = await OfficialFire.readDoc(
+    final dynamic _bzMap = await Fire.readDoc(
       coll: FireColl.bzz,
       doc: bzID,
     );
@@ -106,7 +106,7 @@ class BzFireOps {
 
     if (bzModel != null){
 
-      await OfficialFire.updateDoc(
+      await Fire.updateDoc(
         coll: FireColl.bzz,
         doc: bzModel.id,
         input: bzModel.toMap(toJSON: false),
@@ -129,7 +129,7 @@ class BzFireOps {
 
     if (bzModel != null){
 
-      await OfficialFire.deleteDoc(
+      await Fire.deleteDoc(
         coll: FireColl.bzz,
         doc: bzModel.id,
       );
@@ -225,7 +225,7 @@ class BzFireOps {
     if (_feedback != null){
 
       final FeedbackModel _model =  FeedbackModel(
-        userID: OfficialAuthing.getUserID(),
+        userID: Authing.getUserID(),
         timeStamp: DateTime.now(),
         feedback: _feedback,
         modelType: ModelType.bz,

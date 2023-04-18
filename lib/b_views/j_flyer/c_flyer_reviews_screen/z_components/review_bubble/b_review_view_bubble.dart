@@ -49,7 +49,7 @@ class ReviewViewBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final bool _imReviewCreator = reviewModel?.userID == OfficialAuthing.getUserID();
+    final bool _imReviewCreator = reviewModel?.userID == Authing.getUserID();
     // --------------------
     final bool _imAuthorInFlyerBz = AuthorModel.checkImAuthorInBzOfThisFlyer(
       context: context,

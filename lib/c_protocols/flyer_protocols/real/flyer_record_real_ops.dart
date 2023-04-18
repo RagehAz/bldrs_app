@@ -31,10 +31,10 @@ class FlyerRecordRealOps {
   }) async {
     blog('FlyerRecordOps.shareFlyer : START');
 
-    if (OfficialAuthing.userIsSignedIn() == true && flyerID != DraftFlyer.newDraftID){
+    if (Authing.userIsSignedIn() == true && flyerID != DraftFlyer.newDraftID){
 
       final RecordModel _record = RecordModel.createShareRecord(
-        userID: OfficialAuthing.getUserID(),
+        userID: Authing.getUserID(),
         flyerID: flyerID,
       );
 
@@ -77,7 +77,7 @@ class FlyerRecordRealOps {
     /// WE WEEN A MORE SOLID WAY TO CHECK IF THIS USER PREVIOUSLY VIEWED THE SLIDE TO CALL THIS
     /// OR,, CHANGE THE NODE ID IN
     if (
-        OfficialAuthing.userIsSignedIn() == true &&
+        Authing.userIsSignedIn() == true &&
         flyerModel?.id != DraftFlyer.newDraftID &&
         flyerModel != null &&
         index != null
@@ -122,7 +122,7 @@ class FlyerRecordRealOps {
         // else {
 
         final RecordModel _record = RecordModel.createViewRecord(
-          userID: OfficialAuthing.getUserID(),
+          userID: Authing.getUserID(),
           flyerID: flyerModel.id,
           slideIndex: index,
         );
@@ -167,10 +167,10 @@ class FlyerRecordRealOps {
   }) async {
     // blog('FlyerRecordOps.saveFlyer : START');
 
-    if (OfficialAuthing.userIsSignedIn() == true && flyerID != DraftFlyer.newDraftID){
+    if (Authing.userIsSignedIn() == true && flyerID != DraftFlyer.newDraftID){
 
       final RecordModel _record = RecordModel.createSaveRecord(
-        userID: OfficialAuthing.getUserID(),
+        userID: Authing.getUserID(),
         flyerID: flyerID,
         slideIndex: slideIndex,
       );
@@ -210,10 +210,10 @@ class FlyerRecordRealOps {
   }) async {
     // blog('FlyerRecordOps.unSaveFlyer : START');
 
-    if (OfficialAuthing.userIsSignedIn() == true && flyerID != DraftFlyer.newDraftID){
+    if (Authing.userIsSignedIn() == true && flyerID != DraftFlyer.newDraftID){
 
       final RecordModel _record = RecordModel.createUnSaveRecord(
-        userID: OfficialAuthing.getUserID(),
+        userID: Authing.getUserID(),
         flyerID: flyerID,
       );
 
@@ -256,7 +256,7 @@ class FlyerRecordRealOps {
 
     blog('FlyerRecordOps.createCreateReview : START');
 
-    if (OfficialAuthing.userIsSignedIn() == true && reviewModel.flyerID != DraftFlyer.newDraftID){
+    if (Authing.userIsSignedIn() == true && reviewModel.flyerID != DraftFlyer.newDraftID){
 
       // final RecordModel _record = RecordModel.createCreateReviewRecord(
       //   userID: Authing.getUserID(),
@@ -379,14 +379,14 @@ class FlyerRecordRealOps {
       _value = incrementThis;
     }
 
-    await OfficialReal.updateDocField(
+    await Real.updateDocField(
       coll: RealColl.countingFlyers,
       doc: flyerID,
       field: field,
       value: ServerValue.increment(_value),
     );
 
-    Map<String, dynamic> _map = await OfficialReal.readDocOnce(
+    Map<String, dynamic> _map = await Real.readDocOnce(
       coll: RealColl.countingFlyers,
       doc: flyerID,
     );
@@ -409,7 +409,7 @@ class FlyerRecordRealOps {
     @required String flyerID,
   }) async {
 
-    final Map<String, dynamic> _map = await OfficialReal.readDocOnce(
+    final Map<String, dynamic> _map = await Real.readDocOnce(
       coll: RealColl.countingFlyers,
       doc: flyerID,
     );
@@ -429,19 +429,19 @@ class FlyerRecordRealOps {
     await Future.wait(<Future>[
 
       /// SHARES
-      OfficialReal.deleteDoc(
+      Real.deleteDoc(
         coll: RealColl.recordingShares,
         doc: flyerID,
       ),
 
       /// VIEWS
-      OfficialReal.deleteDoc(
+      Real.deleteDoc(
         coll: RealColl.recordingViews,
         doc: flyerID,
       ),
 
       /// SAVES
-      OfficialReal.deleteDoc(
+      Real.deleteDoc(
         coll: RealColl.recordingSaves,
         doc: flyerID,
       ),
@@ -454,7 +454,7 @@ class FlyerRecordRealOps {
       // ),
 
       /// FLYERS COUNTER
-      OfficialReal.deleteDoc(
+      Real.deleteDoc(
         coll: RealColl.countingFlyers,
         doc: flyerID,
       ),

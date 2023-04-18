@@ -1,10 +1,10 @@
 part of super_fire;
 
 /// => TAMAM
-class OfficialReal {
+class _OfficialReal {
   // -----------------------------------------------------------------------------
 
-  const OfficialReal();
+  const _OfficialReal();
 
   // -----------------------------------------------------------------------------
 
@@ -22,7 +22,7 @@ class OfficialReal {
       doc: doc,
       key: key,
     );
-    return OfficialFirebase.getReal().ref(path);
+    return _OfficialFirebase.getReal().ref(path);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -30,7 +30,7 @@ class OfficialReal {
     @required String path,
   }){
     assert(path != null, 'PATH SHOULD NOT BE NULL');
-    return OfficialFirebase.getReal().ref(path);
+    return _OfficialFirebase.getReal().ref(path);
   }
   // -----------------------------------------------------------------------------
 
@@ -367,7 +367,7 @@ class OfficialReal {
     await tryAndCatch(
       functions: () async {
 
-        final f_db.DataSnapshot snapshot = await OfficialFirebase.getReal().ref().child(_path).get();
+        final f_db.DataSnapshot snapshot = await _OfficialFirebase.getReal().ref().child(_path).get();
 
         _output = OfficialFireMapper.getMapFromDataSnapshot(
           snapshot: snapshot,

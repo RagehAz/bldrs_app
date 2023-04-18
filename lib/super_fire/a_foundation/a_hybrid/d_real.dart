@@ -18,13 +18,13 @@ class Real {
     Map<String, dynamic> _output;
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      _output = await OfficialReal.createColl(
+      _output = await _OfficialReal.createColl(
         coll: coll,
         map: map,
       );
     }
     else {
-      _output = await NativeReal.createColl(
+      _output = await _NativeReal.createColl(
         coll: coll,
         map: map,
       );
@@ -43,14 +43,14 @@ class Real {
     Map<String, dynamic> _output;
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      _output = await OfficialReal.createDoc(
+      _output = await _OfficialReal.createDoc(
         coll: coll,
         map: map,
         addDocIDToOutput: addDocIDToOutput,
       );
     }
     else {
-      _output = await NativeReal.createDoc(
+      _output = await _NativeReal.createDoc(
         coll: coll,
         map: map,
         addDocIDToOutput: addDocIDToOutput,
@@ -70,7 +70,7 @@ class Real {
   }) async {
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      await OfficialReal.createNamedDoc(
+      await _OfficialReal.createNamedDoc(
         coll: coll,
         doc: doc,
         map: map,
@@ -79,7 +79,7 @@ class Real {
       );
     }
     else {
-      await NativeReal.createNamedDoc(
+      await _NativeReal.createNamedDoc(
         coll: coll,
         doc: doc,
         map: map,
@@ -101,7 +101,7 @@ class Real {
     Map<String, dynamic> _output;
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      _output = await OfficialReal.createDocInPath(
+      _output = await _OfficialReal.createDocInPath(
         pathWithoutDocName: pathWithoutDocName,
         addDocIDToOutput: addDocIDToOutput,
         map: map,
@@ -109,7 +109,7 @@ class Real {
       );
     }
     else {
-      _output = await NativeReal.createDocInPath(
+      _output = await _NativeReal.createDocInPath(
         pathWithoutDocName: pathWithoutDocName,
         addDocIDToOutput: addDocIDToOutput,
         map: map,
@@ -134,14 +134,14 @@ class Real {
     List<Map<String, dynamic>> _output = <Map<String, dynamic>>[];
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      _output = await OfficialReal.readPathMaps(
+      _output = await _OfficialReal.readPathMaps(
         realQueryModel: realQueryModel,
         startAfter: startAfter,
         addDocIDToEachMap: addDocIDToEachMap,
       );
     }
     else {
-      _output = await NativeReal.readPathMaps(
+      _output = await _NativeReal.readPathMaps(
         realQueryModel: realQueryModel,
         startAfter: startAfter,
         addDocIDToEachMap: addDocIDToEachMap,
@@ -159,12 +159,12 @@ class Real {
     Map<String, dynamic> _output = {};
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      _output = await OfficialReal.readPathMap(
+      _output = await _OfficialReal.readPathMap(
         path: path,
       );
     }
     else {
-      _output = await NativeReal.readPathMap(
+      _output = await _NativeReal.readPathMap(
         path: path,
       );
     }
@@ -181,12 +181,12 @@ class Real {
     dynamic _output;
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      _output = await OfficialReal.readPath(
+      _output = await _OfficialReal.readPath(
         path: path,
       );
     }
     else {
-      _output = await NativeReal.readPath(
+      _output = await _NativeReal.readPath(
         path: path,
       );
     }
@@ -204,14 +204,14 @@ class Real {
     Map<String, dynamic> _output;
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      _output = await OfficialReal.readDoc(
+      _output = await _OfficialReal.readDoc(
         coll: coll,
         doc: doc,
         addDocID: addDocID,
       );
     }
     else {
-      _output = await NativeReal.readDoc(
+      _output = await _NativeReal.readDoc(
         coll: coll,
         doc: doc,
         addDocID: addDocID,
@@ -230,14 +230,14 @@ class Real {
     Map<String, dynamic> _output;
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      _output = await OfficialReal.readDocOnce(
+      _output = await _OfficialReal.readDocOnce(
         coll: coll,
         doc: doc,
         addDocID: addDocID,
       );
     }
     else {
-      _output = await NativeReal.readDocOnce(
+      _output = await _NativeReal.readDocOnce(
         coll: coll,
         doc: doc,
         addDocID: addDocID,
@@ -258,13 +258,13 @@ class Real {
   }) async {
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      await OfficialReal.updateColl(
+      await _OfficialReal.updateColl(
         coll: coll,
         map: map,
       );
     }
     else {
-      await NativeReal.updateColl(
+      await _NativeReal.updateColl(
         coll: coll,
         map: map,
       );
@@ -280,14 +280,14 @@ class Real {
   }) async {
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      await OfficialReal.updateDoc(
+      await _OfficialReal.updateDoc(
         coll: coll,
         doc: doc,
         map: map,
       );
     }
     else {
-      await NativeReal.updateDoc(
+      await _NativeReal.updateDoc(
         coll: coll,
         doc: doc,
         map: map,
@@ -303,13 +303,13 @@ class Real {
   }) async {
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      await OfficialReal.updatePath(
+      await _OfficialReal.updatePath(
         path: path,
         map: map,
       );
     }
     else {
-      await NativeReal.updatePath(
+      await _NativeReal.updatePath(
         path: path,
         map: map,
       );
@@ -327,7 +327,7 @@ class Real {
   }) async {
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      await OfficialReal.updateDocField(
+      await _OfficialReal.updateDocField(
         coll: coll,
         doc: doc,
         field: field,
@@ -335,7 +335,7 @@ class Real {
       );
     }
     else {
-      await NativeReal.updateDocField(
+      await _NativeReal.updateDocField(
         coll: coll,
         doc: doc,
         field: field,
@@ -355,7 +355,7 @@ class Real {
   }) async {
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      await OfficialReal.incrementDocFields(
+      await _OfficialReal.incrementDocFields(
         context: context,
         coll: coll,
         doc: doc,
@@ -364,7 +364,7 @@ class Real {
       );
     }
     else {
-      await NativeReal.incrementDocFields(
+      await _NativeReal.incrementDocFields(
         context: context,
         coll: coll,
         doc: doc,
@@ -386,13 +386,13 @@ class Real {
   }) async {
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      await OfficialReal.deleteDoc(
+      await _OfficialReal.deleteDoc(
         coll: coll,
         doc: doc,
       );
     }
     else {
-      await NativeReal.deleteDoc(
+      await _NativeReal.deleteDoc(
         coll: coll,
         doc: doc,
       );
@@ -408,14 +408,14 @@ class Real {
   }) async {
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      await OfficialReal.deleteField(
+      await _OfficialReal.deleteField(
         coll: coll,
         doc: doc,
         field: field,
       );
     }
     else {
-      await NativeReal.deleteField(
+      await _NativeReal.deleteField(
         coll: coll,
         doc: doc,
         field: field,
@@ -430,12 +430,12 @@ class Real {
   }) async {
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      await OfficialReal.deletePath(
+      await _OfficialReal.deletePath(
         pathWithDocName: pathWithDocName,
       );
     }
     else {
-      await NativeReal.deletePath(
+      await _NativeReal.deletePath(
         pathWithDocName: pathWithDocName,
       );
     }
@@ -453,13 +453,13 @@ class Real {
   }) async {
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      await OfficialReal.cloneColl(
+      await _OfficialReal.cloneColl(
         oldColl: oldColl,
         newColl: newColl,
       );
     }
     else {
-      await NativeReal.cloneColl(
+      await _NativeReal.cloneColl(
         oldColl: oldColl,
         newColl: newColl,
       );
@@ -474,13 +474,13 @@ class Real {
   }) async {
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      await OfficialReal.clonePath(
+      await _OfficialReal.clonePath(
         oldPath: oldPath,
         newPath: newPath,
       );
     }
     else {
-      await NativeReal.clonePath(
+      await _NativeReal.clonePath(
         oldPath: oldPath,
         newPath: newPath,
       );

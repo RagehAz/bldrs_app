@@ -837,7 +837,7 @@ class NoteModel {
 
           final bool _imPendingAuthor = PendingAuthor.checkIsPendingAuthor(
             bzModel: _bzModel,
-            userID: OfficialAuthing.getUserID(),
+            userID: Authing.getUserID(),
           );
 
           blog('checkCanShowAuthorshipButtons : _imPendingAuthor : $_imPendingAuthor');
@@ -1130,7 +1130,7 @@ class NoteModel {
       senderID: NoteParties.bldrsSenderID, //NoteModel.bldrsSenderModel.key,
       senderImageURL: NoteParties.bldrsLogoStaticURL, //NoteModel.bldrsSenderModel.value,
       senderType: PartyType.bldrs,
-      receiverID: OfficialAuthing.getUserID(),
+      receiverID: Authing.getUserID(),
       receiverType: PartyType.user,
     ),
     title: 'Hello',
@@ -1157,7 +1157,7 @@ class NoteModel {
         senderID: NoteParties.bldrsSenderID,
         senderImageURL: NoteParties.bldrsLogoStaticURL,
         senderType: PartyType.bldrs,
-        receiverID: OfficialAuthing.getUserID(),
+        receiverID: Authing.getUserID(),
         receiverType: PartyType.user,
       ),
       title: 'title',

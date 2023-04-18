@@ -1,10 +1,10 @@
 part of super_fire;
 
 ///
-class OfficialFire{
+class _OfficialFire{
   // -----------------------------------------------------------------------------
 
-  const OfficialFire();
+  const _OfficialFire();
 
   // -----------------------------------------------------------------------------
 
@@ -28,11 +28,11 @@ class OfficialFire{
 
 
    if (doc == null || subColl == null){
-      return OfficialFirebase.getFire().collection(coll);
+      return _OfficialFirebase.getFire().collection(coll);
     }
     else if (doc != null && subColl != null){
       /// return OfficialFirebase.getFire().collection('$coll/$doc/$subColl');
-      return OfficialFirebase.getFire().collection(coll)
+      return _OfficialFirebase.getFire().collection(coll)
           .doc(doc)
           .collection(subColl);
     }
@@ -211,7 +211,6 @@ class OfficialFire{
     @required String coll,
     String doc,
     String subColl,
-    String subDoc,
     bool addDocsIDs = false,
   }) async {
 
@@ -256,7 +255,7 @@ class OfficialFire{
     List<FireFinder> finders,
   }){
 
-    cloud.Query<Map<String, dynamic>> query = OfficialFirebase.getFire().collection(collRef.path);
+    cloud.Query<Map<String, dynamic>> query = _OfficialFirebase.getFire().collection(collRef.path);
 
     /// ASSIGN SEARCH FINDERS
     if (Mapper.checkCanLoopList(finders) == true){

@@ -328,7 +328,7 @@ class FCM {
 
       /// IS PIC PATH
       else if (ObjectCheck.objectIsPicPath(urlOrPath) == true){
-        _url = await OfficialStorage.createURLByPath(urlOrPath);
+        _url = await Storage.createURLByPath(urlOrPath);
       }
 
       /// OTHERWISE
@@ -612,8 +612,8 @@ class FCM {
 
      */
 
-    if (OfficialAuthing.userIsSignedIn() == true){
-      blog('User : ${OfficialAuthing.getUserID()} subscribed to topic : $topicID');
+    if (Authing.userIsSignedIn() == true){
+      blog('User : ${Authing.getUserID()} subscribed to topic : $topicID');
       await FirebaseMessaging.instance.subscribeToTopic(topicID);
     }
 
@@ -623,8 +623,8 @@ class FCM {
   static Future<void> unsubscribeFromTopic({
     @required String topicID,
   }) async {
-    if (OfficialAuthing.userIsSignedIn() == true){
-      blog('User : ${OfficialAuthing.getUserID()} unSubscribed from topic : $topicID');
+    if (Authing.userIsSignedIn() == true){
+      blog('User : ${Authing.getUserID()} unSubscribed from topic : $topicID');
       await FirebaseMessaging.instance.unsubscribeFromTopic(topicID);
     }
   }

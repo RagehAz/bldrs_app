@@ -172,7 +172,7 @@ class _RealCollPaginatorState extends State<RealCollPaginator> {
       //       '${_paginatorController.startAfter.value['id']} : ${_paginatorController.startAfter.value['sentTime']}');
       // }
 
-      final List<Map<String, dynamic>> _nextMaps = await OfficialReal.readPathMaps(
+      final List<Map<String, dynamic>> _nextMaps = await Real.readPathMaps(
         startAfter: _paginatorController.startAfter.value,
         realQueryModel: widget.realQueryModel,
         // addDocIDToEachMap: true,

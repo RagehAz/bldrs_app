@@ -24,7 +24,7 @@ class UserProfilePage extends StatelessWidget {
 
         final UserModel _userModel = await UserProtocols.refetch(
             context: context,
-            userID: OfficialAuthing.getUserID(),
+            userID: Authing.getUserID(),
         );
 
         UsersProvider.proSetMyUserModel(

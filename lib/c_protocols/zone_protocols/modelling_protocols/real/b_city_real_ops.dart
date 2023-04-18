@@ -23,7 +23,7 @@ class CityRealOps {
 
       final String _countryID = cityModel.getCountryID();
 
-      await OfficialReal.createDocInPath(
+      await Real.createDocInPath(
         pathWithoutDocName: '${RealColl.zones}/${RealDoc.zones_cities}/$_countryID',
         docName: cityModel.cityID,
         addDocIDToOutput: false,
@@ -50,7 +50,7 @@ class CityRealOps {
 
     if (countryID != null && cityID != null){
 
-      final Object _cityMap = await OfficialReal.readPath(
+      final Object _cityMap = await Real.readPath(
         path: '${RealColl.zones}/${RealDoc.zones_cities}/$countryID/$cityID',
       );
 
@@ -115,7 +115,7 @@ class CityRealOps {
     @required String countryID,
   }) async {
 
-    final Object _citiesMap = await OfficialReal.readPath(
+    final Object _citiesMap = await Real.readPath(
       path: '${RealColl.zones}/${RealDoc.zones_cities}/$countryID',
     );
 
@@ -157,7 +157,7 @@ class CityRealOps {
 
       final String _countryID = CityModel.getCountryIDFromCityID(cityID);
 
-      await OfficialReal.deletePath(
+      await Real.deletePath(
           pathWithDocName: '${RealColl.zones}/${RealDoc.zones_cities}/$_countryID/$cityID',
       );
 

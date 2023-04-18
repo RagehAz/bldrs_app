@@ -51,7 +51,7 @@ Future<void> initializeLogoScreen({
   /// USER MODEL
   await _initializeUserModel(context);
 
-  blog('2 - initializeLogoScreen : ${OfficialAuthing.getUserID()}');
+  blog('2 - initializeLogoScreen : ${Authing.getUserID()}');
 
   await Future.wait(
       <Future<void>>[
@@ -155,13 +155,13 @@ Future<void> _initializeUserModel(BuildContext context) async {
   // blog('_initializeUserModel : START');
 
   /// IF USER IS SIGNED IN
-  if (OfficialAuthing.userIsSignedIn() == true) {
+  if (Authing.userIsSignedIn() == true) {
 
     final AuthModel _authModel = await AuthLDBOps.readAuthModel();
 
     final UserModel _userModel = await UserProtocols.fetch(
       context: context,
-      userID: OfficialAuthing.getUserID(),
+      userID: Authing.getUserID(),
     );
 
     await setUserAndAuthModelsAndCompleteUserZoneLocally(
@@ -222,7 +222,7 @@ Future<void> _initializeAppState(BuildContext context) async {
 
   // blog('_initializeAppState : START');
 
-  if (OfficialAuthing.userIsSignedIn() == true){
+  if (Authing.userIsSignedIn() == true){
 
     final AppState _globalState = await AppStateRealOps.readGlobalAppState();
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);

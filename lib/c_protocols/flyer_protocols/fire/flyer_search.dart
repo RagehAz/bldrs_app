@@ -25,7 +25,7 @@ class FlyerSearch {
     int limit = 6,
   }) async {
 
-    final List<Map<String, dynamic>> _maps = await OfficialFire.readColl(
+    final List<Map<String, dynamic>> _maps = await Fire.readColl(
       addDocSnapshotToEachMap: true,
       startAfter: startAfter,
       addDocsIDs: true,
@@ -88,7 +88,7 @@ class FlyerSearch {
     // @required DateTime timeLimit,
   }) async {
 
-    final List<Map<String, dynamic>> _maps = await OfficialFire.readColl(
+    final List<Map<String, dynamic>> _maps = await Fire.readColl(
       queryModel: FireQueryModel(
         coll: FireColl.flyersPromotions,
         limit: 10,
