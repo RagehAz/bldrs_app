@@ -3,16 +3,16 @@ part of super_fire;
 class RealDocStreamer extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const RealDocStreamer({
-    @required this.collName,
-    @required this.docName,
+    @required this.coll,
+    @required this.doc,
     @required this.builder,
     this.loadingWidget,
     this.noValueWidget,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final String collName;
-  final String docName;
+  final String coll;
+  final String doc;
   final Widget loadingWidget;
   final Widget noValueWidget;
   final Widget Function(BuildContext, Map<String, dynamic>) builder;
@@ -21,7 +21,7 @@ class RealDocStreamer extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return StreamBuilder<f_db.DatabaseEvent>(
-        stream: f_db.FirebaseDatabase.instance.ref('$collName/$docName').onValue,
+        stream: f_db.FirebaseDatabase.instance.ref('$coll/$doc').onValue,
         builder: (_, snapshot){
 
           /// LOADING

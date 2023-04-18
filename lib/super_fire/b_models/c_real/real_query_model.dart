@@ -69,8 +69,6 @@ class RealQueryModel{
   }){
     f_db.Query _query;
 
-    // blog('55555oooo');
-
     if (queryModel != null){
 
       _query = OfficialReal._getRefByPath(path: queryModel.path);
