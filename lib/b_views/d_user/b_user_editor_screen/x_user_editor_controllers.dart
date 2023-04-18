@@ -189,6 +189,7 @@ Future<void> takeUserPicture({
       blog('takeUserPicture : we got the pic in : ${_bytes?.length} bytes');
 
       final Dimensions _dims =  await Dimensions.superDimensions(_bytes);
+      final double _mega = Filers.calculateSize(_bytes.length, FileSizeUnit.megaByte);
 
       setNotifier(
           notifier: draft,
@@ -197,7 +198,8 @@ Future<void> takeUserPicture({
               picModel: PicModel(
                 bytes: _bytes,
                 path: BldrStorage.generateUserPicPath(draft.value.id),
-                meta: PicMetaModel(
+                meta: StorageMetaModel(
+                  sizeMB: _mega,
                   width: _dims?.width,
                   height: _dims?.height,
                   ownersIDs: [draft.value.id],

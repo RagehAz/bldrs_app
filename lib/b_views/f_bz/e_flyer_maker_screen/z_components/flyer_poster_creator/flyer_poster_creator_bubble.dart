@@ -95,11 +95,14 @@ Future<void> testPoster({
   );
 
   final Dimensions _dims = await Dimensions.superDimensions(_bytes);
+  final double _mega = Filers.calculateSize(_bytes.length, FileSizeUnit.megaByte);
+  final double _kilo = Filers.calculateSize(_bytes.length, FileSizeUnit.kiloByte);
 
   final PicModel _posterPicModel = PicModel(
     bytes: _bytes,
     path: BldrStorage.generateFlyerPosterPath(draft.id),
-    meta: PicMetaModel(
+    meta: StorageMetaModel(
+        sizeMB: _mega,
         width: _dims?.width,
         height: _dims?.height,
         ownersIDs: await FlyerModel.generateFlyerOwners(
@@ -108,9 +111,6 @@ Future<void> testPoster({
         )
     ),
   );
-
-  final double _mega = Filers.calculateSize(_bytes.length, FileSizeUnit.megaByte);
-  final double _kilo = Filers.calculateSize(_bytes.length, FileSizeUnit.kiloByte);
 
   _posterPicModel.blogPic(invoker: 'createFlyerPoster : is done');
 

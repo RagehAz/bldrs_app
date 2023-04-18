@@ -126,8 +126,8 @@ class OfficialFirebase {
 
   // --------------------
   /// FIREBASE STORAGE INSTANCE SINGLETON
-  FirebaseStorage _storage;
-  FirebaseStorage get storage => _storage ??= FirebaseStorage.instance;
-  static FirebaseStorage getStorage() => OfficialFirebase.instance.storage;
+  f_s.FirebaseStorage _storage;
+  f_s.FirebaseStorage get storage => _storage ??= f_s.FirebaseStorage.instance;
+  static f_s.FirebaseStorage getStorage() => OfficialFirebase.instance.storage;
   // -----------------------------------------------------------------------------
 }

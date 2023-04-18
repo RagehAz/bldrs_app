@@ -13,6 +13,7 @@ import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/cens
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_paths_generators.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:mediators/mediators.dart';
@@ -121,12 +122,14 @@ class ComposeUserProtocols {
 
         final Dimensions _dims = await Dimensions.superDimensions(_bytes);
         final String _picPath = BldrStorage.generateUserPicPath(userID);
+        final double _mega = Filers.calculateSize(_bytes.length, FileSizeUnit.megaByte);
 
         await PicProtocols.composePic(
             PicModel(
               bytes: _bytes,
               path: _picPath,
-              meta: PicMetaModel(
+              meta: StorageMetaModel(
+                sizeMB: _mega,
                 ownersIDs: [userID],
                 width: _dims?.width,
                 height: _dims?.height,

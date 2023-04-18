@@ -219,3 +219,33 @@ class CloudFunction {
 // -----------------------------------------------------------------------------
 
 }
+
+class BldrsCloudFunctions{
+  // -----------------------------------------------------------------------------
+
+  const BldrsCloudFunctions();
+
+  // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> deleteStorageDirectory({
+    @required BuildContext context,
+    @required String path,
+    Function onFinish,
+  }) async {
+
+    if (TextCheck.isEmpty(path) == false){
+
+      await CloudFunction.call(
+        context: context,
+        functionName: CloudFunction.callDeleteStorageDirectory,
+        mapToPass: {
+          'path' : path,
+        },
+        onFinish: onFinish,
+      );
+
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+}

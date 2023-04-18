@@ -198,6 +198,7 @@ Future<void> takeAuthorImage({
     else {
 
       final Dimensions _dims = await Dimensions.superDimensions(_bytes);
+      final double _mega = Filers.calculateSize(_bytes.length, FileSizeUnit.megaByte);
 
       setNotifier(
           notifier: author,
@@ -206,7 +207,8 @@ Future<void> takeAuthorImage({
             picModel: PicModel(
               bytes: _bytes,
               path: BldrStorage.generateAuthorPicPath(bzID: bzModel.id, authorID: author.value.userID),
-              meta: PicMetaModel(
+              meta: StorageMetaModel(
+                sizeMB: _mega,
                 ownersIDs: AuthorModel.getAuthorPicOwnersIDs(
                   bzModel: bzModel,
                   authorModel: author.value,
