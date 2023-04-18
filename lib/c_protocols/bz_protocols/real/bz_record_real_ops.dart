@@ -139,16 +139,16 @@ class BzRecordRealOps {
     }
 
     Map<String, dynamic> _map = await OfficialReal.readDocOnce(
-      collName: RealColl.countingBzz,
-      docName: bzID,
+      coll: RealColl.countingBzz,
+      doc: bzID,
     );
 
     if (_value != 0){
 
       await OfficialReal.updateDocField(
-        collName: RealColl.countingBzz,
-        docName: bzID,
-        fieldName: field,
+        coll: RealColl.countingBzz,
+        doc: bzID,
+        field: field,
         value: ServerValue.increment(_value),
       );
 
@@ -175,8 +175,8 @@ class BzRecordRealOps {
   }) async {
 
     final Map<String, dynamic> _map = await OfficialReal.readDocOnce(
-      collName: RealColl.countingBzz,
-      docName: bzID,
+      coll: RealColl.countingBzz,
+      doc: bzID,
     );
 
     final BzCounterModel _bzCounters = BzCounterModel.decipherCounterMap(_map);
@@ -193,20 +193,20 @@ class BzRecordRealOps {
 
     /// FOLLOWS
     await OfficialReal.deleteDoc(
-      collName: RealColl.recordingFollows,
-      docName: bzID,
+      coll: RealColl.recordingFollows,
+      doc: bzID,
     );
 
     /// CALLS
     await OfficialReal.deleteDoc(
-      collName: RealColl.recordingCalls,
-      docName: bzID,
+      coll: RealColl.recordingCalls,
+      doc: bzID,
     );
 
     /// BZ COUNTERS
     await OfficialReal.deleteDoc(
-      collName: RealColl.countingBzz,
-      docName: bzID,
+      coll: RealColl.countingBzz,
+      doc: bzID,
     );
 
   }

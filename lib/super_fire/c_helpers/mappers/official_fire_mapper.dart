@@ -242,5 +242,106 @@ class OfficialFireMapper {
 
     return _output;
   }
+  // -----------------------------------------------------------------------------
+
+  /// REAL INCREMENTATION MAP
+
   // --------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, dynamic> createPathValueMapFromIncrementationMap({
+    @required Map<String, int> incrementationMap,
+    @required bool isIncrementing,
+  }){
+
+    /*
+    /// INCREMENTATION MAP LOOK LIKE THIS
+    final Map<String, int> _incrementationMap = {
+      'key1': 1,
+      'key2': 2,
+    };
+     */
+
+    Map<String, dynamic> _output = {};
+
+    final List<String> _keys = incrementationMap.keys.toList();
+
+    if (Mapper.checkCanLoopList(_keys) == true){
+
+      for (final String key in _keys){
+
+        int _incrementationValue = incrementationMap[key];
+        if (isIncrementing == false){
+          _incrementationValue = -_incrementationValue;
+        }
+
+        _output = Mapper.insertPairInMap(
+            map: _output,
+            key: key,
+            value: f_db.ServerValue.increment(_incrementationValue)
+        );
+
+      }
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// BLOGGING
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void blogDatabaseEvent({
+    @required f_db.DatabaseEvent event,
+    String invoker = 'blogDatabaseEvent',
+  }){
+    blog('blogDatabaseEvent : $invoker ----------------------- START');
+
+    if (event != null){
+      blog('event.snapshot : ${event.snapshot}');
+      blog('event.snapshot.value : ${event.snapshot.value}');
+      blog('event.snapshot.key : ${event.snapshot.key}');
+      blog('event.snapshot.children : ${event.snapshot.children}');
+      blog('event.snapshot.ref : ${event.snapshot.ref}');
+      blog('event.snapshot.exists : ${event.snapshot.exists}');
+      blog('event.snapshot.priority : ${event.snapshot.priority}');
+      blog('event.snapshot.child("id") : ${event.snapshot.child('id')}');
+      blog('event.snapshot.hasChild("id") : ${event.snapshot.hasChild('id')}');
+      blog('event.type : ${event.type}');
+      blog('event.type.name : ${event.type.name}');
+      blog('event.type.index : ${event.type.index}');
+      blog('event.previousChildKey : ${event.previousChildKey}');
+    }
+    else {
+      blog('event is null');
+    }
+
+
+    blog('blogDatabaseEvent : $invoker ----------------------- END');
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void blogDataSnapshot ({
+    @required f_db.DataSnapshot snapshot,
+    String invoker = 'blogDataSnapshot',
+  }){
+    blog('blogDataSnapshot : $invoker ----------------------- START');
+    if (snapshot != null){
+      blog('snapshot.key : ${snapshot.key}');
+      blog('snapshot.value : ${snapshot.value}');
+      blog('snapshot.value.runtimeType : ${snapshot.value.runtimeType}');
+      blog('snapshot.children : ${snapshot.children}');
+      blog('snapshot.priority : ${snapshot.priority}');
+      blog('snapshot.exists : ${snapshot.exists}');
+      blog('snapshot.ref : ${snapshot.ref}');
+      blog('snapshot.hasChild("id") : ${snapshot.hasChild('id')}');
+      blog('snapshot.child("id") : ${snapshot.child('id')}');
+    }
+    else {
+      blog('snapshot is null');
+    }
+    blog('blogDataSnapshot : $invoker ----------------------- END');
+  }
+  // -----------------------------------------------------------------------------
 }

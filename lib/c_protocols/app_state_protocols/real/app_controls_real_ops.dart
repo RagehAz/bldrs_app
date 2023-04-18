@@ -23,8 +23,8 @@ class AppControlsRealOps{
   static Future<AppControlsModel> readAppControls() async {
 
     final Map<String, dynamic> _map = await OfficialReal.readDoc(
-      collName: RealColl.app,
-      docName: RealDoc.app_appControls,
+      coll: RealColl.app,
+      doc: RealDoc.app_appControls,
     );
 
     final AppControlsModel _model = AppControlsModel.decipherAppControlsModel(_map);
@@ -42,8 +42,8 @@ class AppControlsRealOps{
   }) async {
 
     await OfficialReal.updateDoc(
-      collName: RealColl.app,
-      docName: RealDoc.app_appControls,
+      coll: RealColl.app,
+      doc: RealDoc.app_appControls,
       map: newAppControlsModel.toMap(),
     );
 

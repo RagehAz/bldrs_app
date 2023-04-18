@@ -31,8 +31,8 @@ class PickerRealOps {
   }) async {
 
     await OfficialReal.createNamedDoc(
-      collName: RealColl.pickers,
-      docName: _getPickerRealDocNameByFlyerType(flyerType),
+      coll: RealColl.pickers,
+      doc: _getPickerRealDocNameByFlyerType(flyerType),
       map: PickerModel.cipherPickers(pickers),
     );
 
@@ -52,8 +52,8 @@ class PickerRealOps {
 
 
       final Map<String, dynamic> _map = await OfficialReal.readDoc(
-        collName: RealColl.pickers,
-        docName: _getPickerRealDocNameByFlyerType(flyerType),
+        coll: RealColl.pickers,
+        doc: _getPickerRealDocNameByFlyerType(flyerType),
         addDocID: false,
       );
 
@@ -81,8 +81,8 @@ class PickerRealOps {
     if (flyerType != null && Mapper.checkCanLoopList(updatedPickers) == true){
 
       await OfficialReal.updateDoc(
-        collName: RealColl.pickers,
-        docName: _getPickerRealDocNameByFlyerType(flyerType),
+        coll: RealColl.pickers,
+        doc: _getPickerRealDocNameByFlyerType(flyerType),
         map: PickerModel.cipherPickers(updatedPickers),
       );
 
