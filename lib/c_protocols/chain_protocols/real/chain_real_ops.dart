@@ -38,7 +38,7 @@ class ChainRealOps {
       );
 
       final Map<String, dynamic> _uploadedChainSMap = await OfficialReal.createColl(
-        collName: RealColl.bldrsChains,
+        coll: RealColl.bldrsChains,
         map: _map,
       );
 
@@ -79,7 +79,7 @@ class ChainRealOps {
     if (chains != null){
 
       await OfficialReal.updateColl(
-        collName: RealColl.bldrsChains,
+        coll: RealColl.bldrsChains,
         map: Chain.cipherBldrsChains(chains: chains),
       );
 
