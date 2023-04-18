@@ -1,14 +1,14 @@
 part of super_fire;
 
-class NativeFirebase {
+class _NativeFirebase {
   // -----------------------------------------------------------------------------
 
   /// NativeFirebase SINGLETON
 
   // --------------------
-  NativeFirebase.singleton();
-  static final NativeFirebase _singleton = NativeFirebase.singleton();
-  static NativeFirebase get instance => _singleton;
+  _NativeFirebase.singleton();
+  static final _NativeFirebase _singleton = _NativeFirebase.singleton();
+  static _NativeFirebase get instance => _singleton;
   // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
@@ -31,31 +31,31 @@ class NativeFirebase {
     assert(options.storageBucket != null, 'options.storageBucket is null');
 
     /// AUTH
-    final fd.FirebaseAuth _auth = await NativeFirebase.instance._initializeAuthing(
+    final fd.FirebaseAuth _auth = await _NativeFirebase.instance._initializeAuthing(
         apiKey: options.apiKey,
     );
 
     /// FIRE
-    NativeFirebase.instance._initializeFire(
+    _NativeFirebase.instance._initializeFire(
       projectID: options.projectId,
       firebaseAuth: _auth,
     );
 
     /// APP
-    final f_d.FirebaseApp _app = await NativeFirebase.instance._initializeApp(
+    final f_d.FirebaseApp _app = await _NativeFirebase.instance._initializeApp(
       options: options,
       persistentStoragePath: persistentStoragePath,
       appName: appName,
     );
 
     /// REAL
-    NativeFirebase.instance._initializeReal(
+    _NativeFirebase.instance._initializeReal(
       databaseURL: options.databaseURL,
       app: _app,
     );
 
     /// STORAGE
-    await NativeFirebase.instance._initializeStorage(
+    await _NativeFirebase.instance._initializeStorage(
       app: _app,
       persistentStoragePath: persistentStoragePath,
     );
@@ -69,7 +69,8 @@ class NativeFirebase {
   /// FIREBASE APP SINGLETON
   f_d.FirebaseApp _app;
   f_d.FirebaseApp get app => _app;
-  static f_d.FirebaseApp getApp() => NativeFirebase.instance.app;
+  /// NOT USED
+  // static f_d.FirebaseApp getApp() => _NativeFirebase.instance.app;
   // --------------------
   Future<f_d.FirebaseApp> _initializeApp({
     @required String persistentStoragePath,
@@ -111,7 +112,7 @@ class NativeFirebase {
   /// FIREBASE AUTH INSTANCE SINGLETON
   fd.FirebaseAuth _auth;
   fd.FirebaseAuth get auth => _auth;
-  static fd.FirebaseAuth getAuth() => NativeFirebase.instance.auth;
+  static fd.FirebaseAuth getAuth() => _NativeFirebase.instance.auth;
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<fd.FirebaseAuth> _initializeAuthing({
@@ -138,7 +139,7 @@ class NativeFirebase {
   /// FIREBASE FIRESTORE INSTANCE SINGLETON
   fd.Firestore _fire;
   fd.Firestore get fire => _fire;
-  static fd.Firestore getFire() => NativeFirebase.instance.fire;
+  static fd.Firestore getFire() => _NativeFirebase.instance.fire;
   // --------------------
   /// TESTED : WORKS PERFECT
   fd.Firestore _initializeFire({
@@ -179,7 +180,7 @@ class NativeFirebase {
   /// FIREBASE REALTIME DATABASE INSTANCE SINGLETON
   f_d.FirebaseDatabase _real;
   f_d.FirebaseDatabase get real => _real;
-  static f_d.FirebaseDatabase getReal() => NativeFirebase.instance.real;
+  static f_d.FirebaseDatabase getReal() => _NativeFirebase.instance.real;
   // --------------------
   /// TASK : TEST ME
   f_d.FirebaseDatabase _initializeReal({
@@ -204,7 +205,7 @@ class NativeFirebase {
   /// FIREBASE STORAGE INSTANCE SINGLETON
   f_d.FirebaseStorage _storage;
   f_d.FirebaseStorage get storage => _storage;
-  static f_d.FirebaseStorage getStorage() => NativeFirebase.instance.storage;
+  static f_d.FirebaseStorage getStorage() => _NativeFirebase.instance.storage;
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<f_d.FirebaseStorage> _initializeStorage({

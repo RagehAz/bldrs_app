@@ -31,7 +31,7 @@ class FlyerFireOps {
 
     blog('createFlyerDoc : START');
 
-    final String _flyerID = await OfficialFire.createDoc(
+    final String _flyerID = await Fire.createDoc(
       coll: FireColl.flyers,
       input: {
         /// temp id will be overridden
@@ -55,7 +55,7 @@ class FlyerFireOps {
     @required String flyerID,
   }) async {
 
-    final dynamic _flyerMap = await OfficialFire.readDoc(
+    final dynamic _flyerMap = await Fire.readDoc(
         coll: FireColl.flyers,
         doc: flyerID
     );
@@ -117,7 +117,7 @@ class FlyerFireOps {
     FlyerModel startAfterFlyer,
   }) async {
 
-    final List<Map<String, dynamic>> _maps = await OfficialFire.readColl(
+    final List<Map<String, dynamic>> _maps = await Fire.readColl(
       queryModel: queryModel,
       startAfter: startAfterFlyer?.docSnapshot,
       addDocsIDs: true,
@@ -140,7 +140,7 @@ class FlyerFireOps {
 
     blog('_updateFlyerDoc : START');
 
-    await OfficialFire.updateDoc(
+    await Fire.updateDoc(
       coll: FireColl.flyers,
       doc: finalFlyer.id,
       input: finalFlyer.toMap(toJSON: false),
@@ -162,7 +162,7 @@ class FlyerFireOps {
     blog('_deleteFlyerDoc : START');
 
     if (flyerID != null){
-      await OfficialFire.deleteDoc(
+      await Fire.deleteDoc(
         coll: FireColl.flyers,
         doc: flyerID,
       );
@@ -278,7 +278,7 @@ class FlyerFireOps {
           invoker: 'promoteFlyerInCity',
           functions: () async {
 
-            await OfficialFire.createDoc(
+            await Fire.createDoc(
               coll: FireColl.flyersPromotions,
               doc: flyerPromotion.flyerID,
               input: flyerPromotion.toMap(
@@ -402,7 +402,7 @@ class FlyerFireOps {
     if (_feedback != null){
 
       final FeedbackModel _model =  FeedbackModel(
-        userID: OfficialAuthing.getUserID(),
+        userID: Authing.getUserID(),
         timeStamp: DateTime.now(),
         feedback: _feedback,
         modelType: ModelType.flyer,

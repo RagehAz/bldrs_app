@@ -59,7 +59,7 @@ class UserTileButtonsList extends StatelessWidget {
                         usersModels: selectedUsers,
                         userModel: _user,
                       );
-                      final bool _isMe = _user.id == OfficialAuthing.getUserID();
+                      final bool _isMe = _user.id == Authing.getUserID();
 
                       final Color _buttonColor = _isSelected == true ? Colorz.green255
                           :

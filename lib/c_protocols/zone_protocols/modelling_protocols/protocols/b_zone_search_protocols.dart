@@ -147,7 +147,7 @@ class ZoneSearchOps {
     int limit = 10,
     QueryDocumentSnapshot<Object> startAfter,
   }) async {
-    final List<Map<String, dynamic>> _maps = await OfficialFire.readColl(
+    final List<Map<String, dynamic>> _maps = await Fire.readColl(
       queryModel: FireQueryModel(
         // idFieldName: 'id', // DEFAULT
         coll: FireColl.phrases_cities,
@@ -173,7 +173,7 @@ class ZoneSearchOps {
     int limit = 10,
     QueryDocumentSnapshot<Object> startAfter,
   }) async {
-    final List<Map<String, dynamic>> _maps = await OfficialFire.readColl(
+    final List<Map<String, dynamic>> _maps = await Fire.readColl(
       queryModel: FireQueryModel(
         // idFieldName: 'id', // DEFAULT
         coll: FireColl.phrases_cities,
@@ -204,7 +204,7 @@ class ZoneSearchOps {
     int limit = 10,
     QueryDocumentSnapshot<Object> startAfter,
   }) async {
-    final List<Map<String, dynamic>> _maps = await OfficialFire.readColl(
+    final List<Map<String, dynamic>> _maps = await Fire.readColl(
       queryModel: FireQueryModel(
         // idFieldName: 'id', // DEFAULT
         coll: FireColl.phrases_cities,
@@ -232,7 +232,7 @@ class ZoneSearchOps {
     int limit = 10,
     QueryDocumentSnapshot<Object> startAfter,
   }) async {
-    final List<Map<String, dynamic>> _maps = await OfficialFire.readColl(
+    final List<Map<String, dynamic>> _maps = await Fire.readColl(
       queryModel: FireQueryModel(
         // idFieldName: 'id', // DEFAULT
         coll: FireColl.phrases_cities,
@@ -492,7 +492,7 @@ class ZoneSearchOps {
     int limit = 10,
     QueryDocumentSnapshot<Object> startAfter,
   }) async {
-    final List<Map<String, dynamic>> _maps = await OfficialFire.readColl(
+    final List<Map<String, dynamic>> _maps = await Fire.readColl(
       queryModel: FireQueryModel(
         // idFieldName: 'id', // DEFAULT
         coll: FireColl.phrases_districts,
@@ -518,7 +518,7 @@ class ZoneSearchOps {
     int limit = 10,
     QueryDocumentSnapshot<Object> startAfter,
   }) async {
-    final List<Map<String, dynamic>> _maps = await OfficialFire.readColl(
+    final List<Map<String, dynamic>> _maps = await Fire.readColl(
       queryModel: FireQueryModel(
         // idFieldName: 'id', // DEFAULT
         coll: FireColl.phrases_districts,
@@ -549,7 +549,7 @@ class ZoneSearchOps {
     int limit = 10,
     QueryDocumentSnapshot<Object> startAfter,
   }) async {
-    final List<Map<String, dynamic>> _maps = await OfficialFire.readColl(
+    final List<Map<String, dynamic>> _maps = await Fire.readColl(
       queryModel: FireQueryModel(
         // idFieldName: 'id', // DEFAULT
         coll: FireColl.phrases_districts,
@@ -577,7 +577,7 @@ class ZoneSearchOps {
     int limit = 10,
     QueryDocumentSnapshot<Object> startAfter,
   }) async {
-    final List<Map<String, dynamic>> _maps = await OfficialFire.readColl(
+    final List<Map<String, dynamic>> _maps = await Fire.readColl(
       queryModel: FireQueryModel(
         // idFieldName: 'id', // DEFAULT
         coll: FireColl.phrases_districts,
@@ -611,7 +611,7 @@ class ZoneSearchOps {
   }) async {
     final String _countryID = CityModel.getCountryIDFromCityID(cityID);
 
-    final List<Map<String, dynamic>> _maps = await OfficialFire.readColl(
+    final List<Map<String, dynamic>> _maps = await Fire.readColl(
       queryModel: FireQueryModel(
         // idFieldName: 'id', // DEFAULT
         coll: FireColl.phrases_districts,
@@ -642,7 +642,7 @@ class ZoneSearchOps {
   }) async {
     final String _countryID = CityModel.getCountryIDFromCityID(cityID);
 
-    final List<Map<String, dynamic>> _maps = await OfficialFire.readColl(
+    final List<Map<String, dynamic>> _maps = await Fire.readColl(
       queryModel: FireQueryModel(
         // idFieldName: 'id', // DEFAULT
         coll: FireColl.phrases_districts,

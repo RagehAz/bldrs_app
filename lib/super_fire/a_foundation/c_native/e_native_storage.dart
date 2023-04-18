@@ -1,9 +1,9 @@
 part of super_fire;
 
-class NativeStorage {
+class _NativeStorage {
   // -----------------------------------------------------------------------------
 
-  const NativeStorage();
+  const _NativeStorage();
 
   // -----------------------------------------------------------------------------
 
@@ -12,7 +12,7 @@ class NativeStorage {
   // --------------------
   /// TASK : TEST ME
   static f_d.Reference _getRefByPath(String path){
-    return NativeFirebase.getStorage().ref(path);
+    return _NativeFirebase.getStorage().ref(path);
   }
   // --------------------
   /// TASK : TEST ME
@@ -21,7 +21,7 @@ class NativeStorage {
     @required String doc, // without extension
   }) {
 
-    return NativeFirebase.getStorage()
+    return _NativeFirebase.getStorage()
         .ref()
         .child(coll)
         .child(doc);
@@ -37,7 +37,7 @@ class NativeStorage {
     await tryAndCatch(
         invoker: 'StorageRef.byURL',
         functions: () {
-          _ref = NativeFirebase.getStorage().refFromURL(url);
+          _ref = _NativeFirebase.getStorage().refFromURL(url);
         },
     );
 
@@ -758,6 +758,8 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
   /// BLOGGING
 
   // --------------------
+  /// NOT USED
+  /*
   /// TESTED : WORKS PERFECT
   static void blogRef(f_d.Reference ref){
     blog('BLOGGING STORAGE IMAGE f_d.REFERENCE ------------------------------- START');
@@ -777,5 +779,6 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
     blog('BLOGGING STORAGE IMAGE f_d.REFERENCE ------------------------------- END');
   }
+   */
   // -----------------------------------------------------------------------------
 }

@@ -39,7 +39,7 @@ class ReviewCreatorBubble extends StatelessWidget {
     // --------------------
     return ReviewBox(
         pageWidth: pageWidth,
-        userID: OfficialAuthing.getUserID(),
+        userID: Authing.getUserID(),
         onReviewUserBalloonTap: onReviewUserBalloonTap,
         builder: (UserModel userModel){
 

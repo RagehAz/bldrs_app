@@ -99,7 +99,7 @@ typedef FlyerModelWidgetBuilder = Widget Function(
 /// get flyer doc stream
 Stream<FlyerModel> getFlyerStream(String flyerID) {
 
-  final Stream<Map<String, dynamic>> _flyerSnapshot = OfficialFire.streamDoc(
+  final Stream<Map<String, dynamic>> _flyerSnapshot = Fire.streamDoc(
     coll: FireColl.flyers,
     doc: flyerID,
   );

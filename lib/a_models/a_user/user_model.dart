@@ -483,7 +483,7 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkItIsMe(String userID){
-    final String _myID = OfficialAuthing.getUserID();
+    final String _myID = Authing.getUserID();
 
     if (_myID != null && userID != null){
       return userID == _myID;

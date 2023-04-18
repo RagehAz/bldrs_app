@@ -39,7 +39,7 @@ Future<void> loadReviewEditorLastSession({
   final ReviewModel _lastSessionReview = await FlyerLDBOps.loadReviewSession(
     reviewID: ReviewModel.createTempReviewID(
       flyerID: flyerID,
-      userID: OfficialAuthing.getUserID(),
+      userID: Authing.getUserID(),
     ),
   );
 
@@ -72,10 +72,10 @@ Future<void> saveReviewEditorSession({
     review: ReviewModel(
         id: ReviewModel.createTempReviewID(
           flyerID: flyerID,
-          userID: OfficialAuthing.getUserID(),
+          userID: Authing.getUserID(),
         ),
         text: reviewController.text,
-        userID: OfficialAuthing.getUserID(),
+        userID: Authing.getUserID(),
         time: DateTime.now(),
         flyerID: flyerID,
         replyAuthorID: null,
@@ -102,7 +102,7 @@ Future<void> onSubmitReview({
 }) async {
 
   /// USER IS NOT SIGNED IN
-  if (OfficialAuthing.userIsSignedIn() == false){
+  if (Authing.userIsSignedIn() == false){
     await Dialogs.youNeedToBeSignedInDialog(
       context: context,
       afterHomeRouteName: Routing.flyerReviews,
@@ -148,7 +148,7 @@ Future<void> onSubmitReview({
         FlyerLDBOps.deleteReviewSession(
           reviewID: ReviewModel.createTempReviewID(
             flyerID: flyerModel.id,
-            userID: OfficialAuthing.getUserID(),
+            userID: Authing.getUserID(),
           ),
         ),
 
@@ -199,7 +199,7 @@ Future<void> onReviewAgree({
 }) async {
 
   /// USER IS NOT SIGNED IN
-  if (OfficialAuthing.getUserID() == null){
+  if (Authing.getUserID() == null){
     await Dialogs.youNeedToBeSignedInDialog(
       context: context,
       afterHomeRouteName: Routing.flyerReviews,
@@ -262,7 +262,7 @@ Future<void> onReviewOptions({
                 translate: true,
               ),
               verseCentered: true,
-              isDeactivated: reviewModel.userID != OfficialAuthing.getUserID(),
+              isDeactivated: reviewModel.userID != Authing.getUserID(),
               onTap: () async {
 
                 await Nav.goBack(
@@ -288,7 +288,7 @@ Future<void> onReviewOptions({
                 translate: true,
               ),
               verseCentered: true,
-              isDeactivated: reviewModel.userID != OfficialAuthing.getUserID(),
+              isDeactivated: reviewModel.userID != Authing.getUserID(),
               onTap: () async {
 
                 await Nav.goBack(
@@ -521,7 +521,7 @@ Future<void> onBzReply({
 
       final ReviewModel _updated = reviewModel.copyWith(
         reply: _reply,
-        replyAuthorID: OfficialAuthing.getUserID(),
+        replyAuthorID: Authing.getUserID(),
         replyTime: DateTime.now(),
       );
 
@@ -661,7 +661,7 @@ Future<void> _onEditReply({
 
     final ReviewModel _updated = reviewModel.copyWith(
       reply: _shit,
-      replyAuthorID: OfficialAuthing.getUserID(),
+      replyAuthorID: Authing.getUserID(),
     );
 
     await ReviewProtocols.renovateReview(

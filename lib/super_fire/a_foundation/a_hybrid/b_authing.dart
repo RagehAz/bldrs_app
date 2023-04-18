@@ -15,11 +15,11 @@ class Authing {
   static String getUserID() {
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true) {
-      return OfficialAuthing.getUserID();
+      return _OfficialAuthing.getUserID();
     }
 
     else {
-      return NativeAuthing.getUserID();
+      return _NativeAuthing.getUserID();
     }
 
   }
@@ -35,12 +35,12 @@ class Authing {
     AuthModel _output;
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      _output = await OfficialAuthing.anonymousSignin(
+      _output = await _OfficialAuthing.anonymousSignin(
         onError: onError,
       );
     }
     else {
-      _output = await NativeAuthing.anonymousSignin(
+      _output = await _NativeAuthing.anonymousSignin(
         onError: onError,
       );
     }
@@ -59,13 +59,13 @@ class Authing {
     bool _success;
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      _success = await OfficialAuthing.signOut(
+      _success = await _OfficialAuthing.signOut(
         onError: onError,
       );
     }
 
     else {
-      _success = await NativeAuthing.signOut(
+      _success = await _NativeAuthing.signOut(
         onError: onError,
       );
     }
@@ -85,13 +85,13 @@ class Authing {
     bool _success;
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      _success = await OfficialAuthing.deleteUser(
+      _success = await _OfficialAuthing.deleteUser(
         onError: onError,
       );
     }
 
     else {
-      _success = await NativeAuthing.deleteUser(
+      _success = await _NativeAuthing.deleteUser(
         onError: onError,
       );
     }
@@ -107,11 +107,11 @@ class Authing {
   static bool userIsSignedIn() {
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      return OfficialAuthing.userIsSignedIn();
+      return _OfficialAuthing.userIsSignedIn();
     }
 
     else {
-      return NativeAuthing.userIsSignedIn();
+      return _NativeAuthing.userIsSignedIn();
     }
 
   }
@@ -120,11 +120,11 @@ class Authing {
   static SignInMethod getCurrentSignInMethod(){
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      return OfficialAuthing.getCurrentSignInMethod();
+      return _OfficialAuthing.getCurrentSignInMethod();
     }
 
     else {
-      return NativeAuthing.getCurrentSignInMethod();
+      return _NativeAuthing.getCurrentSignInMethod();
     }
 
   }
@@ -151,7 +151,7 @@ class EmailAuthing {
     AuthModel _output;
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      _output = await OfficialEmailAuthing.signIn(
+      _output = await _OfficialEmailAuthing.signIn(
         email: email,
         password: password,
         onError: onError,
@@ -159,7 +159,7 @@ class EmailAuthing {
     }
 
     else {
-      _output = await NativeEmailAuthing.signIn(
+      _output = await _NativeEmailAuthing.signIn(
         email: email,
         password: password,
         onError: onError,
@@ -182,7 +182,7 @@ class EmailAuthing {
     AuthModel _output;
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      _output = await OfficialEmailAuthing.register(
+      _output = await _OfficialEmailAuthing.register(
         email: email,
         password: password,
         onError: onError,
@@ -190,7 +190,7 @@ class EmailAuthing {
     }
 
     else {
-      _output = await NativeEmailAuthing.register(
+      _output = await _NativeEmailAuthing.register(
         email: email,
         password: password,
         onError: onError,
@@ -212,14 +212,14 @@ class EmailAuthing {
     bool _output;
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      _output = await OfficialEmailAuthing.checkPasswordIsCorrect(
+      _output = await _OfficialEmailAuthing.checkPasswordIsCorrect(
         password: password,
         email: email,
       );
     }
 
     else {
-      _output = await NativeEmailAuthing.checkPasswordIsCorrect(
+      _output = await _NativeEmailAuthing.checkPasswordIsCorrect(
         password: password,
         email: email,
       );
@@ -239,13 +239,13 @@ class EmailAuthing {
     bool _success = false;
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      _success = await OfficialEmailAuthing.updateUserEmail(
+      _success = await _OfficialEmailAuthing.updateUserEmail(
         newEmail: newEmail,
       );
     }
 
     else {
-      _success = await NativeEmailAuthing.updateUserEmail(
+      _success = await _NativeEmailAuthing.updateUserEmail(
         newEmail: newEmail,
       );
     }

@@ -40,7 +40,7 @@ class FlyerVerificationProtocols {
       await Future.wait(<Future>[
 
         /// UPDATE FIELD
-        OfficialFire.updateDocField(
+        Fire.updateDocField(
           coll: FireColl.flyers,
           doc: flyerModel.id,
           field: 'auditState',
