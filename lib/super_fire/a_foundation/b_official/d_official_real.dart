@@ -98,7 +98,6 @@ class _OfficialReal {
   static Future<Map<String, dynamic>> createDoc({
     @required String coll,
     @required Map<String, dynamic> map,
-    @required bool addDocIDToOutput,
   }) async {
 
     Map<String, dynamic> _output;
@@ -126,14 +125,12 @@ class _OfficialReal {
               onNull: () => blog('Real.createDoc : failed to create doc '),
             );
 
-            if (addDocIDToOutput == true){
-              _output = Mapper.insertPairInMap(
-                map: _output,
-                key: 'id',
-                value: _docID,
-                overrideExisting: true,
-              );
-            }
+            _output = Mapper.insertPairInMap(
+              map: _output,
+              key: 'id',
+              value: _docID,
+              overrideExisting: true,
+            );
 
           });
 
@@ -196,7 +193,6 @@ class _OfficialReal {
   /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>> createDocInPath({
     @required String pathWithoutDocName,
-    @required bool addDocIDToOutput,
     @required Map<String, dynamic> map,
     /// random id is assigned as docName if this parameter is not assigned
     String docName,
@@ -225,7 +221,7 @@ class _OfficialReal {
 
             _docID = event.previousChildKey;
 
-            if (addDocIDToOutput == true && _docID != null){
+            if (_docID != null){
               _map = Mapper.insertPairInMap(
                 map: _map,
                 key: 'id',
@@ -267,7 +263,6 @@ class _OfficialReal {
   static Future<List<Map<String, dynamic>>> readPathMaps({
     @required RealQueryModel realQueryModel,
     Map<String, dynamic> startAfter,
-    bool addDocIDToEachMap = true,
   }) async {
 
     List<Map<String, dynamic>> _output = <Map<String, dynamic>>[];
@@ -287,7 +282,7 @@ class _OfficialReal {
 
         _output = OfficialFireMapper.getMapsFromDataSnapshot(
           snapshot: _event.snapshot,
-          // addDocID: false,
+          addDocID: false,
         );
 
         // Mapper.blogMaps(_output, invoker: 'readPathMaps');
@@ -355,7 +350,6 @@ class _OfficialReal {
   static Future<Map<String, dynamic>> readDoc({
     @required String coll,
     @required String doc,
-    bool addDocID = true,
   }) async {
 
     Map<String, dynamic> _output;
@@ -373,7 +367,7 @@ class _OfficialReal {
         _output = OfficialFireMapper.getMapFromDataSnapshot(
           snapshot: snapshot,
           onNull: () => blog('Real.readDoc : No data available : path : $_path.'),
-          addDocID: addDocID,
+          addDocID: true,
           // onExists:
         );
 
@@ -391,7 +385,6 @@ class _OfficialReal {
   static Future<Map<String, dynamic>> readDocOnce({
     @required String coll,
     @required String doc,
-    bool addDocID = true,
   }) async {
 
     final f_db.DatabaseReference ref = _createPathAndGetRef(
@@ -408,7 +401,7 @@ class _OfficialReal {
 
         _map = OfficialFireMapper.getMapFromDataSnapshot(
           snapshot: event.snapshot,
-          addDocID: addDocID,
+          addDocID: true,
         );
 
       },
@@ -480,7 +473,6 @@ class _OfficialReal {
         await createDocInPath(
           pathWithoutDocName: _pathWithoutDocName,
           docName: _docName,
-          addDocIDToOutput: false,
           map: map,
         );
 
@@ -540,7 +532,6 @@ class _OfficialReal {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> incrementDocFields({
-    @required BuildContext context,
     @required String coll,
     @required String doc,
     @required Map<String, int> incrementationMap,

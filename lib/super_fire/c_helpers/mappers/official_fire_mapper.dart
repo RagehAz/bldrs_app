@@ -169,7 +169,7 @@ class OfficialFireMapper {
   /// MANUALLY TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> getMapsFromDataSnapshot({
     @required f_db.DataSnapshot snapshot,
-    // bool addDocID = true,
+    bool addDocID = true,
   }) {
     List<Map<String, dynamic>> _output;
 
@@ -187,7 +187,7 @@ class OfficialFireMapper {
 
           final Map<String, dynamic> _maw = getMapFromDataSnapshot(
             snapshot: object,
-            addDocID: true,
+            addDocID: addDocID,
           );
 
           _output.add(_maw);

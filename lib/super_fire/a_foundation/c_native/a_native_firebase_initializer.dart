@@ -1,5 +1,6 @@
 part of super_fire;
 
+/// TAMAM
 class _NativeFirebase {
   // -----------------------------------------------------------------------------
 
@@ -14,7 +15,7 @@ class _NativeFirebase {
   /// INITIALIZATION
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<void> initialize({
     @required FirebaseOptions options,
     @required String appName,
@@ -30,8 +31,8 @@ class _NativeFirebase {
     assert(options.measurementId != null, 'options.measurementId is null');
     assert(options.storageBucket != null, 'options.storageBucket is null');
 
-    /// AUTH
-    final fd.FirebaseAuth _auth = await _NativeFirebase.instance._initializeAuthing(
+    /// AUTH FIRE
+    final fd.FirebaseAuth _auth = await _NativeFirebase.instance._initializeAuthFire(
         apiKey: options.apiKey,
     );
 
@@ -46,6 +47,11 @@ class _NativeFirebase {
       options: options,
       persistentStoragePath: persistentStoragePath,
       appName: appName,
+    );
+
+    /// AUTH REAL
+    _NativeFirebase.instance._initializeAuthReal(
+        app: _app,
     );
 
     /// REAL
@@ -69,9 +75,9 @@ class _NativeFirebase {
   /// FIREBASE APP SINGLETON
   f_d.FirebaseApp _app;
   f_d.FirebaseApp get app => _app;
-  /// NOT USED
-  // static f_d.FirebaseApp getApp() => _NativeFirebase.instance.app;
+  /// static f_d.FirebaseApp getApp() => _NativeFirebase.instance.app; // NOT USED
   // --------------------
+  /// TESTED : WORKS PERFECT
   Future<f_d.FirebaseApp> _initializeApp({
     @required String persistentStoragePath,
     @required FirebaseOptions options,
@@ -106,16 +112,16 @@ class _NativeFirebase {
   }
   // -----------------------------------------------------------------------------
 
-  /// AUTH
+  /// AUTH A (FOR FIRE)
 
   // --------------------
   /// FIREBASE AUTH INSTANCE SINGLETON
-  fd.FirebaseAuth _auth;
-  fd.FirebaseAuth get auth => _auth;
-  static fd.FirebaseAuth getAuth() => _NativeFirebase.instance.auth;
+  fd.FirebaseAuth _authFire;
+  fd.FirebaseAuth get authFire => _authFire;
+  static fd.FirebaseAuth getAuthFire() => _NativeFirebase.instance.authFire;
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<fd.FirebaseAuth> _initializeAuthing({
+  Future<fd.FirebaseAuth> _initializeAuthFire({
     @required String apiKey,
     // @required String projectID,
   }) async {
@@ -125,12 +131,30 @@ class _NativeFirebase {
         fd.VolatileStore(), // HiveStore
         );
 
-    _auth = firebaseAuth;
+    _authFire = firebaseAuth;
 
     blog('=> Native Firebase Auth has been initialized');
 
     return firebaseAuth;
   }
+  // -----------------------------------------------------------------------------
+
+  /// AUTH B (FOR REAL & STORAGE)
+
+  // --------------------
+  /// FIREBASE AUTH INSTANCE SINGLETON
+  f_d.FirebaseAuth _authReal;
+  f_d.FirebaseAuth get authReal => _authReal;
+  static f_d.FirebaseAuth getAuthReal() => _NativeFirebase.instance.authReal;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  f_d.FirebaseAuth _initializeAuthReal({
+    @required f_d.FirebaseApp app,
+  }) {
+    final f_d.FirebaseAuth auth = f_d.FirebaseAuth.instanceFor(app: app);
+    _authReal = auth;
+    return auth;
+}
   // -----------------------------------------------------------------------------
 
   /// FIRE
@@ -182,7 +206,7 @@ class _NativeFirebase {
   f_d.FirebaseDatabase get real => _real;
   static f_d.FirebaseDatabase getReal() => _NativeFirebase.instance.real;
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   f_d.FirebaseDatabase _initializeReal({
     @required f_d.FirebaseApp app,
     @required String databaseURL,

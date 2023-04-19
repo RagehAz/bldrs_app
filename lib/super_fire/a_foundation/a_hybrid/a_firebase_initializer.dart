@@ -21,7 +21,7 @@ class FirebaseInitializer {
   /// TESTED : WORKS PERFECT
   static bool isUsingOfficialPackages() => FirebaseInitializer.instance.usesOfficial;
   // -----------------------------------------------------------------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   Future<void> _initialize({
     @required bool useOfficialPackages,
     @required FirebaseOptions options,
@@ -52,7 +52,7 @@ class FirebaseInitializer {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> initialize({
     @required bool useOfficialPackages,
     @required FirebaseOptions options,

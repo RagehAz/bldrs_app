@@ -386,7 +386,7 @@ class FlyerRecordRealOps {
       value: ServerValue.increment(_value),
     );
 
-    Map<String, dynamic> _map = await Real.readDocOnce(
+    Map<String, dynamic> _map = await Real.readDoc(
       coll: RealColl.countingFlyers,
       doc: flyerID,
     );
@@ -409,7 +409,7 @@ class FlyerRecordRealOps {
     @required String flyerID,
   }) async {
 
-    final Map<String, dynamic> _map = await Real.readDocOnce(
+    final Map<String, dynamic> _map = await Real.readDoc(
       coll: RealColl.countingFlyers,
       doc: flyerID,
     );
