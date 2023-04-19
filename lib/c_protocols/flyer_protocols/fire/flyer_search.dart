@@ -28,7 +28,6 @@ class FlyerSearch {
     final List<Map<String, dynamic>> _maps = await Fire.readColl(
       addDocSnapshotToEachMap: true,
       startAfter: startAfter,
-      addDocsIDs: true,
       queryModel: FireQueryModel(
         coll: FireColl.flyers,
         limit: limit,

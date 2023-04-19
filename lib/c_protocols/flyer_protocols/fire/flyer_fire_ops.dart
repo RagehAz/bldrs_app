@@ -120,7 +120,6 @@ class FlyerFireOps {
     final List<Map<String, dynamic>> _maps = await Fire.readColl(
       queryModel: queryModel,
       startAfter: startAfterFlyer?.docSnapshot,
-      addDocsIDs: true,
       addDocSnapshotToEachMap: true,
     );
 
