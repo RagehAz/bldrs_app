@@ -41,6 +41,7 @@ class RealDocStreamer extends StatelessWidget {
             final f_db.DataSnapshot _snap = _event.snapshot;
             final Map<String, dynamic> _map = OfficialFireMapper.getMapFromDataSnapshot(
               snapshot: _snap,
+              addDocID: true,
             );
 
             /// NO DATA

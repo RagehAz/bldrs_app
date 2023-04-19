@@ -1,5 +1,6 @@
 part of super_fire;
 
+/// =>
 class Fire {
   // -----------------------------------------------------------------------------
 
@@ -10,14 +11,13 @@ class Fire {
   /// CREATE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<String> createDoc({
     @required Map<String, dynamic> input,
     @required String coll,
     String doc,
     String subColl,
     String subDoc,
-    bool addDocID = false,
   }) async {
     String _id;
 
@@ -28,99 +28,71 @@ class Fire {
         coll: coll,
         subColl: subColl,
         subDoc: subDoc,
-        addDocID: addDocID,
         doc: doc,
       );
     }
 
     /// NATIVE
     else {
+
+      assert(Authing.userIsSignedIn() == true, 'You should be signed in');
+
       _id = await _NativeFire.createDoc(
         input: input,
         coll: coll,
         subColl: subColl,
         subDoc: subDoc,
-        addDocID: addDocID,
         doc: doc,
       );
     }
 
     return _id;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<String>> createDocs({
+    @required List<Map<String, dynamic>> inputs,
+    @required String coll,
+    String doc,
+    String subColl,
+    String subDoc,
+  }) async {
+    List<String> _output = [];
+
+    if (FirebaseInitializer.isUsingOfficialPackages() == true) {
+      _output = await _OfficialFire.createDocs(
+        inputs: inputs,
+        coll: coll,
+        subColl: subColl,
+        subDoc: subDoc,
+        doc: doc,
+      );
+    }
+
+    else {
+
+      _output = await _NativeFire.createDocs(
+        inputs: inputs,
+        coll: coll,
+        subColl: subColl,
+        subDoc: subDoc,
+        doc: doc,
+      );
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// READ
 
   // --------------------
-  /// TASK : TEST ME
-  static Future<List<Map<String, dynamic>>> readColl({
-    @required FireQueryModel queryModel,
-    cloud.QueryDocumentSnapshot<Object> startAfter,
-    bool addDocSnapshotToEachMap = false,
-    bool addDocsIDs = false,
-  }) async {
-
-    List<Map<String, dynamic>> _output;
-
-    /// OFFICIAL
-    if (FirebaseInitializer.isUsingOfficialPackages() == true) {
-      _output = await _OfficialFire.readColl(
-        queryModel: queryModel,
-        startAfter: startAfter,
-        addDocSnapshotToEachMap: addDocSnapshotToEachMap,
-        addDocsIDs: addDocsIDs,
-      );
-    }
-
-    /// NATIVE
-    else {
-      _output = await _NativeFire.readColl(
-        queryModel: queryModel,
-        startAfter: startAfter,
-        addDocsIDs: addDocsIDs,
-      );
-    }
-
-    return _output;
-  }
-  // --------------------
-  /// TASK : TEST ME
-  static Future<List<Map<String, dynamic>>> readAllColl({
-    @required String coll,
-    String doc,
-    String subColl,
-    bool addDocsIDs = false,
-  }) async {
-    List<Map<String, dynamic>> _output;
-
-    if (FirebaseInitializer.isUsingOfficialPackages() == true) {
-      _output = await _OfficialFire.readAllColl(
-        coll: coll,
-        doc: doc,
-        subColl: subColl,
-        addDocsIDs: addDocsIDs,
-      );
-    }
-
-    else {
-      _output = await _NativeFire.readAllColl(
-        coll: coll,
-        doc: doc,
-        subColl: subColl,
-        addDocsIDs: addDocsIDs,
-      );
-    }
-
-    return _output;
-  }
-  // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>> readDoc({
     @required String coll,
     @required String doc,
     String subColl,
     String subDoc,
-    bool addDocID = false,
   }) async {
     Map<String, dynamic> _output;
 
@@ -130,7 +102,6 @@ class Fire {
         coll: coll,
         subColl: subColl,
         subDoc: subDoc,
-        addDocID: addDocID,
         doc: doc,
       );
     }
@@ -141,8 +112,95 @@ class Fire {
         coll: coll,
         subColl: subColl,
         subDoc: subDoc,
-        addDocID: addDocID,
         doc: doc,
+      );
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<Map<String, dynamic>>> readCollDocs({
+    @required String coll,
+    @required List<String> ids,
+    String subColl,
+    String doc,
+  }) async {
+    List<Map<String, dynamic>> _output = [];
+
+    /// OFFICIAL
+    if (FirebaseInitializer.isUsingOfficialPackages() == true) {
+      _output = await _OfficialFire.readCollDocs(
+        coll: coll,
+        ids: ids,
+        subColl: subColl,
+        doc: doc,
+      );
+    }
+
+    /// NATIVE
+    else {
+      _output = await _NativeFire.readCollDocs(
+        coll: coll,
+        ids: ids,
+        subColl: subColl,
+        doc: doc,
+      );
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<Map<String, dynamic>>> readColl({
+    @required FireQueryModel queryModel,
+    cloud.QueryDocumentSnapshot<Object> startAfter,
+    bool addDocSnapshotToEachMap = false,
+  }) async {
+
+    List<Map<String, dynamic>> _output;
+
+    /// OFFICIAL
+    if (FirebaseInitializer.isUsingOfficialPackages() == true) {
+      _output = await _OfficialFire.readColl(
+        queryModel: queryModel,
+        startAfter: startAfter,
+        addDocSnapshotToEachMap: addDocSnapshotToEachMap,
+      );
+    }
+
+    /// NATIVE
+    else {
+      _output = await _NativeFire.readColl(
+        queryModel: queryModel,
+        startAfter: startAfter,
+      );
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<Map<String, dynamic>>> readAllColl({
+    @required String coll,
+    String doc,
+    String subColl,
+  }) async {
+    List<Map<String, dynamic>> _output;
+
+    if (FirebaseInitializer.isUsingOfficialPackages() == true) {
+      _output = await _OfficialFire.readAllColl(
+        coll: coll,
+        doc: doc,
+        subColl: subColl,
+      );
+    }
+
+    else {
+      _output = await _NativeFire.readAllColl(
+        coll: coll,
+        doc: doc,
+        subColl: subColl,
       );
     }
 
@@ -201,7 +259,7 @@ class Fire {
   /// UPDATE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> updateDoc({
     @required Map<String, dynamic> input,
     @required String coll,
@@ -232,7 +290,7 @@ class Fire {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> updateDocField({
     @required dynamic input,
     @required String field,
@@ -270,7 +328,7 @@ class Fire {
   /// DELETE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteDoc({
     @required String coll,
     @required String doc,
@@ -298,7 +356,7 @@ class Fire {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteDocField({
     @required String coll,
     @required String doc,
@@ -329,9 +387,8 @@ class Fire {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteColl({
-    @required BuildContext context,
     @required String coll,
     String doc,
     String subColl,
@@ -342,7 +399,6 @@ class Fire {
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true) {
       await _OfficialFire.deleteColl(
-        context: context,
         coll: coll,
         doc: doc,
         subColl: subColl,
@@ -354,7 +410,6 @@ class Fire {
 
     else {
       await _NativeFire.deleteColl(
-        context: context,
         coll: coll,
         doc: doc,
         subColl: subColl,
@@ -366,7 +421,7 @@ class Fire {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteDocs({
     @required String coll,
     @required List<String> docsIDs,

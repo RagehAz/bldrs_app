@@ -82,7 +82,6 @@ class WipeReviewProtocols {
 
     /// 1. DELETE SUB COLL
     await Fire.deleteColl(
-        context: context,
         coll: FireColl.flyers,
         doc: flyerID,
         subColl: FireSubColl.flyers_flyer_reviews,

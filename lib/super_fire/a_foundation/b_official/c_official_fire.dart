@@ -1,6 +1,6 @@
 part of super_fire;
 
-///
+/// =>
 class _OfficialFire{
   // -----------------------------------------------------------------------------
 
@@ -11,7 +11,7 @@ class _OfficialFire{
   /// REFERENCES
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static cloud.CollectionReference<Object> _getCollRef({
     @required String coll,
     String doc,
@@ -42,10 +42,10 @@ class _OfficialFire{
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static cloud.DocumentReference<Object> _getDocRef({
     @required String coll,
-    @required String doc,
+    String doc,
     String subColl,
     String subDoc,
   }) {
@@ -53,25 +53,22 @@ class _OfficialFire{
     /// GET FIREBASE CLOUD FIRESTORE DOCUMENT REFERENCE
 
     assert(coll != null, 'coll can not be null');
-    assert(doc != null, 'doc can not be null');
 
-    assert((subColl == null && subDoc == null) || (subColl != null && subDoc != null),
-    'doc & subColl should both be null or both have values'
-    );
+    final bool _isSubDoc = subColl != null;
 
-    if (subColl == null || subDoc == null){
+    /// IS DOC REF
+    if (_isSubDoc == false){
       /// return OfficialFirebase.getFire().doc('$coll/$doc');
       return _getCollRef(coll: coll).doc(doc);
     }
-    else if (subColl != null && subDoc != null){
+
+    /// IS SUB DOC REF
+    else {
       /// return OfficialFirebase.getFire().doc('$coll/$doc/$subColl/$subDoc');
       return _getCollRef(coll: coll)
           .doc(doc)
           .collection(subColl)
           .doc(subDoc);
-    }
-    else {
-      return null;
     }
 
   }
@@ -80,15 +77,13 @@ class _OfficialFire{
   /// CREATE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<String> createDoc({
     @required Map<String, dynamic> input,
     @required String coll,
     String doc,
     String subColl,
     String subDoc,
-    /// adds doc id to the input map in 'id' field
-    bool addDocID = false,
   }) async {
 
     /// NOTE : creates firestore doc with auto generated ID then returns doc reference
@@ -97,24 +92,39 @@ class _OfficialFire{
 
     if (input != null){
 
-      final cloud.DocumentReference<Object> _docRef = _getDocRef(
-        coll: coll,
-        doc: doc,
-        subColl: subColl,
-        subDoc: subDoc,
-      );
+      final bool _isCreatingSubDoc = subColl != null;
+      cloud.DocumentReference<Object> _docRef;
 
-      if (addDocID == true) {
-        Mapper.insertPairInMap(
+      /// CREATING DOC
+      if (_isCreatingSubDoc == false) {
+        _docRef = _getDocRef(
+          coll: coll,
+          doc: doc,
+        );
+      }
+
+      /// CREATING SUB DOC
+      else {
+        assert(doc != null, 'doc is null');
+        _docRef = _getDocRef(
+          coll: coll,
+          doc: doc,
+          subColl: subColl,
+          subDoc: subDoc,
+        );
+      }
+
+
+      final Map<String, dynamic> _map = Mapper.insertPairInMap(
           map: input,
           key: 'id',
           value: _docRef.id,
         );
-      }
+
 
       await _setData(
         invoker: 'OfficialFire.createDoc',
-        input: input,
+        input: _map,
         ref: _docRef,
         onSuccess: (){
           _docID = _docRef.id;
@@ -126,7 +136,43 @@ class _OfficialFire{
     return _docID;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
+  static Future<List<String>> createDocs({
+    @required List<Map<String, dynamic> >inputs,
+    @required String coll,
+    String doc,
+    String subColl,
+    String subDoc,
+    /// adds doc id to the input map in 'id' field
+  }) async {
+    final List<String> _output = <String>[];
+
+    if (Mapper.checkCanLoopList(inputs) == true){
+
+      await Future.wait(<Future>[
+
+        ...List.generate(inputs.length, (index){
+
+          return createDoc(
+            input: inputs[index],
+            coll: coll,
+            doc: doc,
+            subColl: subColl,
+            subDoc: subDoc,
+          ).then((String docID){
+            _output.add(docID);
+          });
+
+        }),
+
+      ]);
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> _setData({
     @required cloud.DocumentReference<Object> ref,
     @required Map<String, dynamic> input,
@@ -165,12 +211,107 @@ class _OfficialFire{
   /// READ
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
+  static Future<Map<String, dynamic>> readDoc({
+    @required String coll,
+    @required String doc,
+    String subColl,
+    String subDoc,
+  }) async {
+    Map<String, dynamic> _output;
+
+    await tryAndCatch(
+        invoker: 'OfficialFire.readDoc',
+        functions: () async {
+
+          final cloud.DocumentReference<Object> _docRef = _getDocRef(
+            coll: coll,
+            doc: doc,
+            subColl: subColl,
+            subDoc: subDoc,
+          );
+
+          final cloud.DocumentSnapshot<Object> snapshot = await _docRef.get();
+
+          if (snapshot.exists == true) {
+            _output = OfficialFireMapper.getMapFromDocumentSnapshot(
+              docSnapshot: snapshot,
+              addDocSnapshot: null,
+              addDocID: true,
+            );
+          }
+
+        });
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<Map<String, dynamic>>> readCollDocs({
+    @required String coll,
+    @required List<String> ids,
+    String doc,
+    String subColl,
+  }) async {
+    final List<Map<String, dynamic>> _output = [];
+
+    /// READING SUB DOCS
+    if (Mapper.checkCanLoopList(ids) == true && subColl != null){
+
+      await Future.wait(<Future>[
+
+        ...List.generate(ids.length, (index){
+
+          return readDoc(
+            coll: coll,
+            doc: doc,
+            subColl: subColl,
+            subDoc: ids[index],
+          ).then((Map<String, dynamic> map){
+
+            if (map != null){
+              _output.add(map);
+            }
+
+          });
+
+        }),
+
+      ]);
+
+    }
+
+    /// READING DOCS
+    else {
+
+      await Future.wait(<Future>[
+
+        ...List.generate(ids.length, (index){
+
+          return readDoc(
+            coll: coll,
+            doc: ids[index],
+          ).then((Map<String, dynamic> map){
+
+            if (map != null){
+              _output.add(map);
+            }
+
+          });
+        }),
+
+      ]);
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<Map<String, dynamic>>> readColl({
     @required FireQueryModel queryModel,
     cloud.QueryDocumentSnapshot<Object> startAfter,
     bool addDocSnapshotToEachMap = false,
-    bool addDocsIDs = false,
   }) async {
 
     List<Map<String, dynamic>> _maps = <Map<String,dynamic>>[];
@@ -197,7 +338,7 @@ class _OfficialFire{
 
           _maps = OfficialFireMapper.getMapsFromQueryDocumentSnapshotsList(
               queryDocumentSnapshots: _queryDocumentSnapshots,
-              addDocsIDs: addDocsIDs,
+              addDocsIDs: true,
               addDocSnapshotToEachMap: addDocSnapshotToEachMap
           );
 
@@ -206,12 +347,11 @@ class _OfficialFire{
     return _maps;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<List<Map<String, dynamic>>> readAllColl({
     @required String coll,
     String doc,
     String subColl,
-    bool addDocsIDs = false,
   }) async {
 
     List<Map<String, dynamic>> _output = [];
@@ -234,7 +374,7 @@ class _OfficialFire{
 
           _output = OfficialFireMapper.getMapsFromQueryDocumentSnapshotsList(
               queryDocumentSnapshots: _queryDocumentSnapshots,
-              addDocsIDs: addDocsIDs,
+              addDocsIDs: true,
               addDocSnapshotToEachMap: false,
           );
 
@@ -246,7 +386,7 @@ class _OfficialFire{
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static cloud.Query<Map<String, dynamic>> _createCollQuery({
     @required cloud.CollectionReference<Object> collRef,
     QueryOrderBy orderBy,
@@ -278,42 +418,6 @@ class _OfficialFire{
     }
 
     return query;
-  }
-  // --------------------
-  /// TASK : TEST ME
-  static Future<Map<String, dynamic>> readDoc({
-    @required String coll,
-    @required String doc,
-    String subColl,
-    String subDoc,
-    bool addDocID = false,
-  }) async {
-    Map<String, dynamic> _output;
-
-    await tryAndCatch(
-        invoker: 'OfficialFire.readDoc',
-        functions: () async {
-
-          final cloud.DocumentReference<Object> _docRef = _getDocRef(
-            coll: coll,
-            doc: doc,
-            subColl: subColl,
-            subDoc: subDoc,
-          );
-
-          final cloud.DocumentSnapshot<Object> snapshot = await _docRef.get();
-
-          if (snapshot.exists == true) {
-            _output = OfficialFireMapper.getMapFromDocumentSnapshot(
-              docSnapshot: snapshot,
-              addDocSnapshot: null,
-              addDocID: addDocID,
-            );
-          }
-
-        });
-
-    return _output;
   }
   // -----------------------------------------------------------------------------
 
@@ -361,7 +465,7 @@ class _OfficialFire{
   /// UPDATE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> updateDoc({
     @required Map<String, dynamic> input,
     @required String coll,
@@ -380,7 +484,7 @@ class _OfficialFire{
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> updateDocField({
     @required dynamic input,
     @required String field,
@@ -413,7 +517,7 @@ class _OfficialFire{
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> _updateData({
     @required cloud.DocumentReference<Object> ref,
     @required Map<String, dynamic> input,
@@ -459,7 +563,7 @@ class _OfficialFire{
   /// DELETE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteDoc({
     @required String coll,
     @required String doc,
@@ -485,7 +589,7 @@ class _OfficialFire{
     );
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteDocField({
     @required String coll,
     @required String doc,
@@ -516,9 +620,8 @@ class _OfficialFire{
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteColl({
-    @required BuildContext context,
     @required String coll,
     String doc,
     String subColl,
@@ -539,7 +642,6 @@ class _OfficialFire{
             subColl: subColl,
             limit: numberOfReadsPerIteration,
           ),
-          addDocsIDs: true,
         );
 
         if (_maps.isEmpty){
@@ -569,7 +671,7 @@ class _OfficialFire{
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteDocs({
     @required String coll,
     @required List<String> docsIDs,

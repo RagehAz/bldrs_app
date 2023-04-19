@@ -1,5 +1,6 @@
 part of super_fire;
 
+///
 class _NativeFire {
   // -----------------------------------------------------------------------------
 
@@ -10,7 +11,7 @@ class _NativeFire {
   /// REFERENCE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static fd.CollectionReference _getCollRef({
     @required String coll,
     String doc,
@@ -38,25 +39,27 @@ class _NativeFire {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static fd.DocumentReference _getDocRef({
     @required String coll,
-    @required String doc,
+    String doc,
     String subColl,
     String subDoc,
   }){
 
     assert(coll != null, 'coll can not be null');
-    assert(doc != null, 'doc can not be null');
 
-    assert((subColl == null && subDoc == null) || (subColl != null && subDoc != null),
-    'doc & subColl should both be null or both have values'
-    );
+    final bool _isSubDoc = subColl != null;
 
-    if (subColl == null || subDoc == null){
+
+
+    /// IS DOC REF
+    if (_isSubDoc == false){
       /// return NativeFirebase.getFire().document('$coll/$doc');
       return _getCollRef(coll: coll).document(doc);
     }
+
+    /// IS SUB DOC REF
     else if (subColl != null && subDoc != null){
       /// return NativeFirebase.getFire().document('$coll/$doc/$subColl/$subDoc');
       return _getCollRef(coll: coll)
@@ -74,15 +77,13 @@ class _NativeFire {
   /// CREATE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<String> createDoc({
     @required Map<String, dynamic> input,
     @required String coll,
     String doc,
     String subColl,
     String subDoc,
-    /// adds doc id to the input map in 'id' field
-    bool addDocID = false,
   }) async {
 
     /// NOTE : creates firestore doc with auto generated ID then returns doc reference
@@ -91,24 +92,38 @@ class _NativeFire {
 
     if (input != null){
 
-      final fd.DocumentReference _docRef = _getDocRef(
-        coll: coll,
-        doc: doc,
-        subColl: subColl,
-        subDoc: subDoc,
-      );
+      final bool _isCreatingSubDoc = subColl != null;
+      fd.DocumentReference _docRef;
 
-      if (addDocID == true) {
-        Mapper.insertPairInMap(
-          map: input,
-          key: 'id',
-          value: _docRef.id,
+      /// CREATING DOC
+      if (_isCreatingSubDoc == false) {
+        _docRef = _getDocRef(
+          coll: coll,
+          doc: doc ?? Numeric.createUniqueID().toString(),
         );
       }
 
+      /// CREATING SUB DOC
+      else {
+        assert(doc != null, 'doc is null');
+        _docRef = _getDocRef(
+          coll: coll,
+          doc: doc,
+          subColl: subColl,
+          subDoc: subDoc ?? Numeric.createUniqueID().toString(),
+        );
+      }
+
+      final Map<String, dynamic> _map = Mapper.insertPairInMap(
+        map: input,
+        key: 'id',
+        value: _docRef.id,
+        overrideExisting: true,
+      );
+
       await _setData(
         invoker: 'NativeFire.createDoc',
-        input: input,
+        input: _map,
         ref: _docRef,
         onSuccess: (){
           _docID = _docRef.id;
@@ -120,7 +135,38 @@ class _NativeFire {
     return _docID;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
+  static Future<List<String>> createDocs({
+    @required List<Map<String, dynamic>> inputs,
+    @required String coll,
+    String doc,
+    String subColl,
+    String subDoc,
+  }) async {
+    final List<String> _output = <String>[];
+
+    /// NOTE : THIS HAS TO BE DONE ONE BY ONE TO GENERATE DIFFERENT IDS
+
+    if (Mapper.checkCanLoopList(inputs) == true) {
+      for (final Map<String, dynamic> map in inputs) {
+        final String _docID = await createDoc(
+          input: map,
+          coll: coll,
+          doc: doc,
+          subColl: subColl,
+          subDoc: subDoc,
+        );
+
+        if (_docID != null) {
+          _output.add(_docID);
+        }
+      }
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> _setData({
     @required fd.DocumentReference ref,
     @required Map<String, dynamic> input,
@@ -157,11 +203,106 @@ class _NativeFire {
   /// READ
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
+  static Future<Map<String, dynamic>> readDoc({
+    @required String coll,
+    @required String doc,
+    String subColl,
+    String subDoc,
+  }) async {
+    Map<String, dynamic> _output;
+
+    await tryAndCatch(
+        invoker: 'NativeFire.readDoc',
+        functions: () async {
+
+          final fd.DocumentReference _docRef = _getDocRef(
+            coll: coll,
+            doc: doc,
+            subColl: subColl,
+            subDoc: subDoc,
+          );
+
+          final fd.Document _document = await _docRef.get();
+          _output = _document?.map;
+
+          _output = Mapper.insertPairInMap(
+            map: _document?.map,
+            key: 'id',
+            value: _document.id,
+            overrideExisting: true,
+          );
+
+        });
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<Map<String, dynamic>>> readCollDocs({
+    @required String coll,
+    @required List<String> ids,
+    String doc,
+    String subColl,
+  }) async {
+    final List<Map<String, dynamic>> _output = [];
+
+    /// READING SUB DOCS
+    if (Mapper.checkCanLoopList(ids) == true && subColl != null){
+
+      await Future.wait(<Future>[
+
+        ...List.generate(ids.length, (index){
+
+          return readDoc(
+            coll: coll,
+            doc: doc,
+            subColl: subColl,
+            subDoc: ids[index],
+          ).then((Map<String, dynamic> map){
+
+            if (map != null){
+              _output.add(map);
+            }
+
+          });
+
+        }),
+
+      ]);
+
+    }
+
+    /// READING DOCS
+    else {
+
+      await Future.wait(<Future>[
+
+        ...List.generate(ids.length, (index){
+
+          return readDoc(
+            coll: coll,
+            doc: ids[index],
+          ).then((Map<String, dynamic> map){
+
+            if (map != null){
+              _output.add(map);
+            }
+
+          });
+        }),
+
+      ]);
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<List<Map<String, dynamic>>> readColl({
     @required FireQueryModel queryModel,
     dynamic startAfter,
-    bool addDocsIDs = false,
   }) async {
     List<Map<String, dynamic>> _output = <Map<String, dynamic>>[];
 
@@ -181,11 +322,11 @@ class _NativeFire {
             finders: queryModel.finders,
           );
 
-          final fd.Page<fd.Document> _page = await query.get();
+          final List<fd.Document> _page = await query.get();
 
           _output = NativeFireMapper.getMapsFromNativePage(
             page: _page,
-            addDocsIDs: addDocsIDs,
+            addDocsIDs: true,
           );
 
         });
@@ -198,7 +339,6 @@ class _NativeFire {
     @required String coll,
     String doc,
     String subColl,
-    bool addDocsIDs = false,
   }) async {
 
     List<Map<String, dynamic>> _output = [];
@@ -214,6 +354,7 @@ class _NativeFire {
         );
 
         if (_collRef != null) {
+
           final fd.Page<fd.Document> _page = await _collRef?.get(
               // pageSize: ,
               // nextPageToken: ,
@@ -221,7 +362,7 @@ class _NativeFire {
 
           _output = NativeFireMapper.getMapsFromNativePage(
             page: _page,
-            addDocsIDs: addDocsIDs,
+            addDocsIDs: true,
           );
 
         }
@@ -232,7 +373,7 @@ class _NativeFire {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static fd.QueryReference _createCollQuery({
     @required fd.CollectionReference collRef,
     QueryOrderBy orderBy,
@@ -268,39 +409,6 @@ class _NativeFire {
     }
 
     return query;
-  }
-  // --------------------
-  /// TASK : TEST ME
-  static Future<Map<String, dynamic>> readDoc({
-    @required String coll,
-    @required String doc,
-    String subColl,
-    String subDoc,
-    bool addDocID = false,
-  }) async {
-    Map<String, dynamic> _output;
-
-    await tryAndCatch(
-        invoker: 'NativeFire.readDoc',
-        functions: () async {
-
-          final fd.DocumentReference _docRef = _getDocRef(
-            coll: coll,
-            doc: doc,
-            subColl: subColl,
-            subDoc: subDoc,
-          );
-
-          final fd.Document _document = await _docRef.get();
-          _output = _document?.map;
-
-          if (addDocID == true) {
-            _output['id'] = _document.id;
-          }
-
-        });
-
-    return _output;
   }
   // -----------------------------------------------------------------------------
 
@@ -344,7 +452,7 @@ class _NativeFire {
   /// UPDATE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> updateDoc({
     @required Map<String, dynamic> input,
     @required String coll,
@@ -363,7 +471,7 @@ class _NativeFire {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> updateDocField({
     @required dynamic input,
     @required String field,
@@ -396,7 +504,7 @@ class _NativeFire {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> _updateData({
     @required fd.DocumentReference ref,
     @required Map<String, dynamic> input,
@@ -442,7 +550,7 @@ class _NativeFire {
   /// DELETE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteDoc({
     @required String coll,
     @required String doc,
@@ -466,7 +574,7 @@ class _NativeFire {
         });
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteDocField({
     @required String coll,
     @required String doc,
@@ -475,31 +583,34 @@ class _NativeFire {
     String subDoc,
   }) async {
 
-    final fd.DocumentReference _docRef = _getDocRef(
+    final Map<String, dynamic> _current = await readDoc(
       coll: coll,
       doc: doc,
       subColl: subColl,
       subDoc: subDoc,
     );
 
-    // Remove field from the document
-    final Map<String, Object> updates = <String, Object>{};
+    if (_current != null){
 
-    updates.addAll(<String, dynamic>{
-      field: cloud.FieldValue.delete(),
-    });
+      final Map<String, dynamic> _updated = Mapper.removePair(
+          map: _current,
+          fieldKey: field,
+      );
 
-    await _updateData(
-      ref: _docRef,
-      invoker: 'NativeFire.deleteDocField',
-      input: updates,
-    );
+      await updateDoc(
+        coll: coll,
+        doc: doc,
+        subColl: subColl,
+        subDoc: subDoc,
+        input: _updated,
+      );
+
+    }
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteColl({
-    @required BuildContext context,
     @required String coll,
     String doc,
     String subColl,
@@ -520,7 +631,6 @@ class _NativeFire {
             subColl: subColl,
             limit: numberOfReadsPerIteration,
           ),
-          addDocsIDs: true,
         );
 
         if (_maps.isEmpty){
@@ -550,7 +660,7 @@ class _NativeFire {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteDocs({
     @required String coll,
     @required List<String> docsIDs,
@@ -563,19 +673,29 @@ class _NativeFire {
 
     if (Mapper.checkCanLoopList(docsIDs) == true){
 
-      final bool _isDeletingSubDocs = subColl != null && doc != null;
+      blog('deleteDocs : ids are : $docsIDs');
+
+      final bool _isDeletingSubDocs = subColl != null;
 
       for (final String docID in docsIDs){
 
         await Future.wait(<Future>[
 
+          /// DELETING DOC
+          if (_isDeletingSubDocs == false)
           deleteDoc(
             coll: coll,
-            doc: _isDeletingSubDocs == true ? doc : docID,
-            subColl: subColl,
-            subDoc: _isDeletingSubDocs == true ? docID : null,
+            doc: docID,
           ),
 
+          /// DELETING SUB DOC
+          if (_isDeletingSubDocs == true)
+          deleteDoc(
+            coll: coll,
+            doc: doc,
+            subColl: subColl,
+            subDoc: docID,
+          ),
 
           if (onDeleteDoc != null)
             onDeleteDoc(docID),
