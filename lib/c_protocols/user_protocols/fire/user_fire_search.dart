@@ -65,7 +65,6 @@ class UserFireSearch{
 
     final List<Map<String, dynamic>> _result = await Fire.readColl(
       addDocSnapshotToEachMap: true,
-      addDocsIDs: true,
       startAfter: startAfter,
       // orderBy: const QueryOrderBy(fieldName: 'trigram', descending: false),
       queryModel: FireQueryModel(

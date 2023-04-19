@@ -121,6 +121,7 @@ class _NativeReal {
 
             _output = NativeFireMapper.getMapFromDataSnapshot(
               snapshot: event.snapshot,
+              addDocID: true,
               onNull: () => blog('Real.createDoc : failed to create doc '),
             );
 

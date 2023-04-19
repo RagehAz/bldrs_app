@@ -41,6 +41,7 @@ class RealCollStreamer extends StatelessWidget {
 
             final List<Map<String, dynamic>> _maps = OfficialFireMapper.getMapsFromDataSnapshots(
               snapshots: _snapshots,
+              addDocsIDs: true,
             );
 
             /// NO DATA

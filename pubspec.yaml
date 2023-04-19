@@ -139,9 +139,9 @@ dependencies:
   super_image:
     git:
       url: https://github.com/RagehAz/super_image.git
-#  super_text:
-#    git:
-#      url: https://github.com/RagehAz/super_text.git
+  super_text:
+    git:
+      url: https://github.com/RagehAz/super_text.git
   super_box:
     git:
       url: https://github.com/RagehAz/super_box.git

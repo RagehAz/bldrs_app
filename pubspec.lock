@@ -1720,7 +1720,7 @@ packages:
     source: git
     version: "1.0.3"
   super_text:
-    dependency: transitive
+    dependency: "direct main"
     description:
       path: "."
       ref: HEAD

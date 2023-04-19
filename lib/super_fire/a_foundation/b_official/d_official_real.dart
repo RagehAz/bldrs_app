@@ -122,6 +122,7 @@ class _OfficialReal {
 
             _output = OfficialFireMapper.getMapFromDataSnapshot(
               snapshot: event.snapshot,
+              addDocID: true,
               onNull: () => blog('Real.createDoc : failed to create doc '),
             );
 
