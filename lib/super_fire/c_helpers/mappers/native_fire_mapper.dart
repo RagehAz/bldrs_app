@@ -6,10 +6,10 @@ class NativeFireMapper {
   const NativeFireMapper();
 
   // -----------------------------------------------------------------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> getMapsFromNativePage({
-    @required fd.Page<fd.Document> page,
-    bool addDocsIDs = false,
+    @required List<fd.Document> page,
+    @required bool addDocsIDs,
   }) {
     final List<Map<String, dynamic>> _output = [];
 
@@ -20,7 +20,9 @@ class NativeFireMapper {
           addDocID: addDocsIDs,
         );
 
-        _output.add(_map);
+        if (_map != null){
+          _output.add(_map);
+        }
       }
     }
 
@@ -30,7 +32,7 @@ class NativeFireMapper {
   /// TASK : TEST ME
   static Map<String, dynamic> getMapFromNativeDoc({
     @required fd.Document doc,
-    bool addDocID = false,
+    @required bool addDocID,
   }) {
     Map<String, dynamic> _output;
 
@@ -38,13 +40,19 @@ class NativeFireMapper {
       _output = doc.map;
 
       if (addDocID == true) {
+
+        blog('should insert id : ${doc.id} in this doc');
+
         _output = Mapper.insertPairInMap(
           map: _output,
           key: 'id',
           value: doc.id,
+          overrideExisting: true,
         );
       }
     }
+
+    Mapper.blogMap(_output,invoker: 'getMapFromNativeDoc');
 
     return _output;
   }
@@ -74,7 +82,7 @@ class NativeFireMapper {
   /// TASK : TEST ME
   static Map<String, dynamic> getMapFromDataSnapshot({
     @required f_d.DataSnapshot snapshot,
-    bool addDocID = true,
+    @required bool addDocID,
     Function onExists,
     Function onNull,
   }){
@@ -99,6 +107,7 @@ class NativeFireMapper {
           map: _output,
           key: 'id',
           value: snapshot.key,
+          overrideExisting: true,
         );
       }
 
@@ -121,7 +130,7 @@ class NativeFireMapper {
     @required f_d.DataSnapshot snapshot,
     // bool addDocID = true,
   }) {
-    List<Map<String, dynamic>> _output;
+    final List<Map<String, dynamic>> _output = [];
 
     if (snapshot != null && snapshot.value != null) {
 
@@ -129,7 +138,7 @@ class NativeFireMapper {
 
       // if (snapshot.value.runtimeType.toString() == 'List<Object?>'){
 
-        _output = [];
+        // _output = [];
 
         final List<dynamic> _dynamics = snapshot.value.toList();
 
@@ -137,10 +146,12 @@ class NativeFireMapper {
 
           final Map<String, dynamic> _maw = getMapFromDataSnapshot(
             snapshot: object,
-            // addDocID: true,
+            addDocID: true,
           );
 
-          _output.add(_maw);
+          if (_maw != null){
+            _output.add(_maw);
+          }
 
         }
 

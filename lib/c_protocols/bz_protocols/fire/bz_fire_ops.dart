@@ -28,7 +28,6 @@ class BzFireOps {
 
     final String docID = await Fire.createDoc(
       coll: FireColl.bzz,
-      addDocID: true,
       input: <String, dynamic>{
         'name': 'x',
       },

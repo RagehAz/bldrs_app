@@ -112,7 +112,6 @@ class NoteFireOps {
         doc: userID,
         subColl: FireSubColl.noteReceiver_receiver_notes,
         subDoc: noteID,
-        addDocID: true,
         // addDocSnapshot: true,
       );
 

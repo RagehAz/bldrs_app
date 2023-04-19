@@ -157,7 +157,6 @@ class ZoneSearchOps {
         ],
       ),
       startAfter: startAfter,
-      addDocsIDs: true,
       addDocSnapshotToEachMap: true,
     );
 
@@ -183,7 +182,6 @@ class ZoneSearchOps {
         ],
       ),
       startAfter: startAfter,
-      addDocsIDs: true,
       addDocSnapshotToEachMap: true,
     );
 
@@ -215,7 +213,6 @@ class ZoneSearchOps {
         ],
       ),
       startAfter: startAfter,
-      addDocsIDs: true,
       addDocSnapshotToEachMap: true,
     );
 
@@ -243,7 +240,6 @@ class ZoneSearchOps {
         ],
       ),
       startAfter: startAfter,
-      addDocsIDs: true,
       addDocSnapshotToEachMap: true,
     );
 
@@ -502,7 +498,6 @@ class ZoneSearchOps {
         ],
       ),
       startAfter: startAfter,
-      addDocsIDs: true,
       addDocSnapshotToEachMap: true,
     );
 
@@ -528,7 +523,6 @@ class ZoneSearchOps {
         ],
       ),
       startAfter: startAfter,
-      addDocsIDs: true,
       addDocSnapshotToEachMap: true,
     );
 
@@ -560,7 +554,6 @@ class ZoneSearchOps {
         ],
       ),
       startAfter: startAfter,
-      addDocsIDs: true,
       addDocSnapshotToEachMap: true,
     );
 
@@ -588,7 +581,6 @@ class ZoneSearchOps {
         ],
       ),
       startAfter: startAfter,
-      addDocsIDs: true,
       addDocSnapshotToEachMap: true,
     );
 
@@ -623,7 +615,6 @@ class ZoneSearchOps {
         ],
       ),
       startAfter: startAfter,
-      addDocsIDs: true,
       addDocSnapshotToEachMap: true,
     );
 
@@ -654,7 +645,6 @@ class ZoneSearchOps {
         ],
       ),
       startAfter: startAfter,
-      addDocsIDs: true,
       addDocSnapshotToEachMap: true,
     );
 
