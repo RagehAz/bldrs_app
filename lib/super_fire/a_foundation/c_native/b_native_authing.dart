@@ -13,7 +13,7 @@ class _NativeAuthing{
   // --------------------
   /// TESTED : WORKS PERFECT
   static String getUserID(){
-    final fd.FirebaseAuth _auth = _NativeFirebase.getAuth();
+    final fd.FirebaseAuth _auth = _NativeFirebase.getAuthFire();
     if (_auth?.isSignedIn == true){
       return _auth?.userId;
     }
@@ -37,7 +37,7 @@ class _NativeAuthing{
       onError: onError,
       functions: () async {
 
-        final fd_u.User _user =  await _NativeFirebase.getAuth()
+        final fd_u.User _user =  await _NativeFirebase.getAuthFire()
             .signInAnonymously();
 
         _output = AuthModel.getAuthModelFromFiredartUser(
@@ -65,7 +65,8 @@ class _NativeAuthing{
       functions: () async {
 
         /// FIREBASE SIGN OUT
-        _NativeFirebase.getAuth().signOut();
+        _NativeFirebase.getAuthFire().signOut();
+        await _NativeFirebase.getAuthReal().signOut();
 
       },
     );
@@ -84,7 +85,7 @@ class _NativeAuthing{
 
     final bool _success = await tryCatchAndReturnBool(
         invoker: 'NativeAuthing.deleteFirebaseUser',
-        functions: () => _NativeFirebase.getAuth().deleteAccount(),
+        functions: () => _NativeFirebase.getAuthFire().deleteAccount(),
         onError: onError,
     );
 
@@ -98,7 +99,7 @@ class _NativeAuthing{
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool userIsSignedIn() {
-    return _getUser() != null;
+    return Authing.getUserID() != null;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -117,6 +118,7 @@ class _NativeAuthing{
   /// USER
 
   // --------------------
+  /*
   /// TESTED : WORKS PERFECT
   static Future<fd_u.User> _getUser() async {
     fd_u.User _user;
@@ -124,12 +126,13 @@ class _NativeAuthing{
     await tryAndCatch(
       invoker: 'NativeAuthing._getUser',
       functions: () async {
-        _user = await _NativeFirebase.getAuth()?.getUser();
+        _user = await _NativeFirebase.getAuthFire()?.getUser();
       },
     );
 
     return _user;
   }
+   */
   // -----------------------------------------------------------------------------
 }
 
@@ -158,10 +161,18 @@ class _NativeEmailAuthing {
         onError: onError,
         functions: () async {
 
-          final fd_u.User _user = await _NativeFirebase.getAuth().signIn(
+          final fd_u.User _user = await _NativeFirebase.getAuthFire().signIn(
               email,
               password,
           );
+
+          final f_d.UserCredential _realUserCred = await _NativeFirebase.getAuthReal()
+              .signInWithEmailAndPassword(
+              email: email,
+              password: password
+          );
+
+          blog('_realUserCred : ${_realUserCred?.user?.uid} ');
 
           _output = AuthModel.getAuthModelFromFiredartUser(
             user: _user,
@@ -195,7 +206,7 @@ class _NativeEmailAuthing {
           invoker: 'NativeAuth.registerByEmail',
           functions: () async {
 
-          final fd_u.User _user = await _NativeFirebase.getAuth().signUp(
+          final fd_u.User _user = await _NativeFirebase.getAuthFire().signUp(
               email,
               password,
           );
@@ -240,6 +251,7 @@ class _NativeEmailAuthing {
     @required String newEmail,
   }) async {
     blog('NativeAuth.updateUserEmail : updating user email is not supported');
+
     return false;
   }
   // -----------------------------------------------------------------------------
