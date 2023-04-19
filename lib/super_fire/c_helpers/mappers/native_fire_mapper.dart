@@ -79,7 +79,7 @@ class NativeFireMapper {
   /// DATA SNAPSHOT
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Map<String, dynamic> getMapFromDataSnapshot({
     @required f_d.DataSnapshot snapshot,
     @required bool addDocID,
@@ -97,6 +97,11 @@ class NativeFireMapper {
           ihlmoo: snapshot.value,
         );
       }
+      // else if (snapshot.value.runtimeType.toString() == 'Map<dynamic, dynamic>'){
+      //   _output = Mapper.getMapFromIHLMOO(
+      //     ihlmoo: snapshot.value,
+      //   );
+      // }
       else {
         _output = Map<String, dynamic>.from(snapshot.value);
       }

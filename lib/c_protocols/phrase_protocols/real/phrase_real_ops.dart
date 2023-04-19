@@ -91,10 +91,9 @@ class PhraseRealOps {
 
     if (langCode != null){
 
-      final Map<String, dynamic> _map = await Real.readDocOnce(
+      final Map<String, dynamic> _map = await Real.readDoc(
         coll: RealColl.phrases,
         doc: langCode,
-        addDocID: false,
       );
 
       if (_map != null){

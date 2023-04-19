@@ -258,8 +258,7 @@ class StagingRealOps {
 
       await Real.createDocInPath(
         pathWithoutDocName: RealColl.zones,
-        docName: RealDoc.zones_stages_countries,
-        addDocIDToOutput: false,
+        doc: RealDoc.zones_stages_countries,
         map: newStaging.toMap(
           toLDB: false,
         ),
@@ -278,8 +277,7 @@ class StagingRealOps {
 
       await Real.createDocInPath(
         pathWithoutDocName: '${RealColl.zones}/${RealDoc.zones_stages_cities}',
-        docName: citiesStages.id,
-        addDocIDToOutput: false,
+        doc: citiesStages.id,
         map: citiesStages.toMap(
           toLDB: false,
         ),
@@ -300,8 +298,7 @@ class StagingRealOps {
 
       await Real.createDocInPath(
         pathWithoutDocName: '${RealColl.zones}/${RealDoc.zones_stages_districts}/$_countryID',
-        docName: districtsStaging.id,
-        addDocIDToOutput: false,
+        doc: districtsStaging.id,
         map: districtsStaging.toMap(
           toLDB: false,
         ),

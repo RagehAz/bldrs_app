@@ -25,8 +25,7 @@ class CityRealOps {
 
       await Real.createDocInPath(
         pathWithoutDocName: '${RealColl.zones}/${RealDoc.zones_cities}/$_countryID',
-        docName: cityModel.cityID,
-        addDocIDToOutput: false,
+        doc: cityModel.cityID,
         map: cityModel.toMap(
           toJSON: true,
           toLDB: false,

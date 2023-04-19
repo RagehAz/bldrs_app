@@ -68,9 +68,8 @@ class RecordRealOps {
 
       _map = await Real.createDocInPath(
         pathWithoutDocName: _path,
-        addDocIDToOutput: true,
         map: record.toMap(toJSON: true), // real db is json
-        docName: record.recordID,
+        doc: record.recordID,
       );
 
     }

@@ -37,7 +37,6 @@ class Real {
   static Future<Map<String, dynamic>> createDoc({
     @required String coll,
     @required Map<String, dynamic> map,
-    @required bool addDocIDToOutput,
   }) async {
 
     Map<String, dynamic> _output;
@@ -46,14 +45,12 @@ class Real {
       _output = await _OfficialReal.createDoc(
         coll: coll,
         map: map,
-        addDocIDToOutput: addDocIDToOutput,
       );
     }
     else {
       _output = await _NativeReal.createDoc(
         coll: coll,
         map: map,
-        addDocIDToOutput: addDocIDToOutput,
       );
     }
 
@@ -79,12 +76,10 @@ class Real {
       );
     }
     else {
-      await _NativeReal.createNamedDoc(
+      await _NativeReal.createDoc(
         coll: coll,
         doc: doc,
         map: map,
-        pushNodeOneStepDeepWithUniqueID: pushNodeOneStepDeepWithUniqueID,
-        isUpdating: isUpdating,
       );
     }
 
@@ -93,27 +88,24 @@ class Real {
   /// TASK : TEST
   static Future<Map<String, dynamic>> createDocInPath({
     @required String pathWithoutDocName,
-    @required bool addDocIDToOutput,
     @required Map<String, dynamic> map,
     /// random id is assigned as docName if this parameter is not assigned
-    String docName,
+    String doc,
   }) async {
     Map<String, dynamic> _output;
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
       _output = await _OfficialReal.createDocInPath(
         pathWithoutDocName: pathWithoutDocName,
-        addDocIDToOutput: addDocIDToOutput,
         map: map,
-        docName: docName,
+        docName: doc,
       );
     }
     else {
       _output = await _NativeReal.createDocInPath(
         pathWithoutDocName: pathWithoutDocName,
-        addDocIDToOutput: addDocIDToOutput,
         map: map,
-        docName: docName,
+        doc: doc,
       );
     }
 
@@ -128,7 +120,6 @@ class Real {
   static Future<List<Map<String, dynamic>>> readPathMaps({
     @required RealQueryModel realQueryModel,
     Map<String, dynamic> startAfter,
-    bool addDocIDToEachMap = true,
   }) async {
 
     List<Map<String, dynamic>> _output = <Map<String, dynamic>>[];
@@ -137,14 +128,12 @@ class Real {
       _output = await _OfficialReal.readPathMaps(
         realQueryModel: realQueryModel,
         startAfter: startAfter,
-        addDocIDToEachMap: addDocIDToEachMap,
       );
     }
     else {
       _output = await _NativeReal.readPathMaps(
         realQueryModel: realQueryModel,
         startAfter: startAfter,
-        addDocIDToEachMap: addDocIDToEachMap,
       );
     }
 
@@ -198,7 +187,6 @@ class Real {
   static Future<Map<String, dynamic>> readDoc({
     @required String coll,
     @required String doc,
-    bool addDocID = true,
   }) async {
 
     Map<String, dynamic> _output;
@@ -207,25 +195,23 @@ class Real {
       _output = await _OfficialReal.readDoc(
         coll: coll,
         doc: doc,
-        addDocID: addDocID,
       );
     }
     else {
       _output = await _NativeReal.readDoc(
         coll: coll,
         doc: doc,
-        addDocID: addDocID,
       );
     }
 
     return _output;
   }
   // --------------------
-  /// TASK : TEST
+  /*
+  /// TASK : DELETE ME ON TAMAM
   static Future<Map<String, dynamic>> readDocOnce({
     @required String coll,
     @required String doc,
-    bool addDocID = true,
   }) async {
     Map<String, dynamic> _output;
 
@@ -233,19 +219,18 @@ class Real {
       _output = await _OfficialReal.readDocOnce(
         coll: coll,
         doc: doc,
-        addDocID: addDocID,
       );
     }
     else {
       _output = await _NativeReal.readDocOnce(
         coll: coll,
         doc: doc,
-        addDocID: addDocID,
       );
     }
 
     return _output;
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// UPDATE
@@ -347,7 +332,6 @@ class Real {
   // --------------------
   /// TASK : TEST
   static Future<void> incrementDocFields({
-    @required BuildContext context,
     @required String coll,
     @required String doc,
     @required Map<String, int> incrementationMap,
@@ -356,7 +340,6 @@ class Real {
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
       await _OfficialReal.incrementDocFields(
-        context: context,
         coll: coll,
         doc: doc,
         incrementationMap: incrementationMap,
@@ -365,7 +348,6 @@ class Real {
     }
     else {
       await _NativeReal.incrementDocFields(
-        context: context,
         coll: coll,
         doc: doc,
         incrementationMap: incrementationMap,
