@@ -138,7 +138,7 @@ class BzRecordRealOps {
       _value = incrementThis;
     }
 
-    Map<String, dynamic> _map = await Real.readDocOnce(
+    Map<String, dynamic> _map = await Real.readDoc(
       coll: RealColl.countingBzz,
       doc: bzID,
     );
@@ -174,7 +174,7 @@ class BzRecordRealOps {
     @required String bzID,
   }) async {
 
-    final Map<String, dynamic> _map = await Real.readDocOnce(
+    final Map<String, dynamic> _map = await Real.readDoc(
       coll: RealColl.countingBzz,
       doc: bzID,
     );

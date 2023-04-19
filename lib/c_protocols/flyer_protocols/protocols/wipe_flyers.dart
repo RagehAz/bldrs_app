@@ -93,7 +93,6 @@ class WipeFlyerProtocols {
 
         /// REMOVE SPECS FROM CITY CHAIN USAGE
         CityPhidsRealOps.incrementFlyerCityPhids(
-          context: context,
           flyerModel: flyerModel,
           isIncrementing: false,
         ),

@@ -54,7 +54,6 @@ class PickerRealOps {
       final Map<String, dynamic> _map = await Real.readDoc(
         coll: RealColl.pickers,
         doc: _getPickerRealDocNameByFlyerType(flyerType),
-        addDocID: false,
       );
 
       if (_map != null){

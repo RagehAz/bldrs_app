@@ -81,8 +81,7 @@ class DistrictRealOps {
 
       await Real.createDocInPath(
           pathWithoutDocName: _getDistrictPath(districtID: district.id, withDocName: false),
-          docName: district.id,
-          addDocIDToOutput: false,
+          doc: district.id,
           map: district.toMap(
             toJSON: true,
             toLDB: false,

@@ -70,7 +70,6 @@ class CityPhidsRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> incrementFlyerCityPhids({
-    @required BuildContext context,
     @required FlyerModel flyerModel,
     @required bool isIncrementing,
   }) async {
@@ -82,7 +81,6 @@ class CityPhidsRealOps {
       );
 
       await Real.incrementDocFields(
-        context: context,
         coll: RealColl.citiesPhids,
         doc: flyerModel.zone.cityID,
         incrementationMap: _cityPhidsToAdd.toMap(),
@@ -95,7 +93,6 @@ class CityPhidsRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> incrementFlyersCitiesPhids({
-    @required BuildContext context,
     @required List<FlyerModel> flyersModels,
     @required bool isIncrementing,
   }) async {
@@ -105,7 +102,6 @@ class CityPhidsRealOps {
       await Future.wait(<Future>[
 
         ...List.generate(flyersModels.length, (index) => incrementFlyerCityPhids(
-          context: context,
           flyerModel: flyersModels[index],
           isIncrementing: isIncrementing,
         )),
@@ -118,7 +114,6 @@ class CityPhidsRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onRenovateFlyer({
-    @required BuildContext context,
     @required FlyerModel flyerModel,
     @required FlyerModel oldFlyer,
   }) async {
@@ -142,14 +137,12 @@ class CityPhidsRealOps {
 
         /// DECREMENT OLD PHIDS
         await incrementFlyerCityPhids(
-          context: context,
           flyerModel: oldFlyer,
           isIncrementing: false,
         );
 
         /// INCREMENT NEW PHIDS
         await incrementFlyerCityPhids(
-          context: context,
           flyerModel: flyerModel,
           isIncrementing: true,
         );
