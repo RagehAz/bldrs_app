@@ -24,7 +24,7 @@ class _NativeReal {
     return _NativeFirebase.getReal().reference().child(path);
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static f_d.DatabaseReference _getRefByPath({
     @required String path,
   }){
@@ -142,7 +142,6 @@ class _NativeReal {
     return _output;
   }
   // --------------------
-
   /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>> _createNamedDoc({
     @required String coll,
@@ -203,22 +202,19 @@ class _NativeReal {
   static Future<Map<String, dynamic>> createDocInPath({
     @required String pathWithoutDocName,
     @required Map<String, dynamic> map,
-    /// random id is assigned as docName if this parameter is not assigned
     String doc,
   }) async {
 
-    // blog('X - createDocInPath ================================ START');
-
     Map<String, dynamic> _output;
 
-    if (map != null){
+    if (map != null) {
       String _docID;
 
       await tryAndCatch(
         invoker: 'createDoc',
         functions: () async {
-
-          final String _path = doc == null ? pathWithoutDocName : '$pathWithoutDocName/$doc';
+          final bool _isDocNamed = doc != null;
+          final String _path = _isDocNamed ? '$pathWithoutDocName/$doc' : pathWithoutDocName;
 
           /// GET PATH
           f_d.DatabaseReference _ref = _getRefByPath(
@@ -227,56 +223,49 @@ class _NativeReal {
 
           /// ADD EVENT LISTENER
           // final StreamSubscription _sub =
-          _ref.onChildAdded.listen((f_d.Event event){
+          if (_isDocNamed == false) {
+            _ref.onChildAdded.listen((f_d.Event event) {
+              _docID = event.previousSiblingKey;
+              _output = map;
+              // blog('onChildAdded event.previousSiblingKey : ${event.previousSiblingKey}');
+              // blog('onChildAdded event.snapshot.key : ${event.snapshot.key}');
+              // blog('onChildAdded event.snapshot.value : ${event.snapshot.value}');
+            });
+          } else {
+            _ref.onValue.listen((f_d.Event event) {
+              _docID = event.snapshot.key;
+              _output = event.snapshot.value;
+              // blog('onValue event.previousSiblingKey : ${event.previousSiblingKey}');
+              // blog('onValue event.snapshot.key : ${event.snapshot.key}');
+              // blog('onValue event.snapshot.value : ${event.snapshot.value}');
 
-            _docID = event.previousSiblingKey;
+            });
+          }
 
-            blog('event.previousSiblingKey : ${event.previousSiblingKey}');
-            blog('event.snapshot.key : ${event.snapshot.key}');
-
-            // if (_docID != null){
-            //   _output = Mapper.insertPairInMap(
-            //     map: _output,
-            //     key: 'id',
-            //     value: _docID,
-            //   );
-            // }
-
-          });
-
-          if (doc == null){
+          if (doc == null) {
             _ref = _ref.push();
           }
 
           final Map<String, dynamic> _upload = Mapper.removePair(
-              map: map,
-              fieldKey: 'id',
+            map: map,
+            fieldKey: 'id',
           );
 
           /// CREATE
           await _ref.set(_upload);
 
-
           /// CANCEL EVENT LISTENER
           // await _sub.cancel();
-
         },
       );
 
       _output = Mapper.insertPairInMap(
-        map: map,
+        map: _output,
         key: 'id',
         value: _docID,
         overrideExisting: true,
       );
-
     }
-
-    // if (_output != null){
-    //   blog('Real.createDoc : map added to [REAL/$pathWithoutDocName] : map : ${_output.keys.length} keys');
-    // }
-
-    // blog('X - createDocInPath ================================ END');
 
     return _output;
   }
