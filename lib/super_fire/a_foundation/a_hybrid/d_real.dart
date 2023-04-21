@@ -1,5 +1,6 @@
 part of super_fire;
 
+/// => TAMAM
 class Real {
   // -----------------------------------------------------------------------------
 
@@ -7,10 +8,38 @@ class Real {
 
   // -----------------------------------------------------------------------------
 
+  /// STATUS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> goOnline() async {
+
+    if (FirebaseInitializer.isUsingOfficialPackages() == true){
+      await _OfficialReal.goOnline();
+    }
+    else {
+      await _NativeReal.goOnline();
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> goOffline() async {
+
+    if (FirebaseInitializer.isUsingOfficialPackages() == true){
+      await _OfficialReal.goOffline();
+    }
+    else {
+      await _NativeReal.goOffline();
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
   /// CREATE
 
   // --------------------
-  /// TASK : TEST
+  /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>> createColl({
     @required String coll,
     @required Map<String, dynamic> map,
@@ -33,7 +62,7 @@ class Real {
     return _output;
   }
   // --------------------
-  /// TASK : TEST
+  /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>> createDoc({
     @required String coll,
     @required Map<String, dynamic> map,
@@ -60,7 +89,7 @@ class Real {
     return _output;
   }
   // --------------------
-  /// TASK : TEST
+  /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>> createDocInPath({
     @required String pathWithoutDocName,
     @required Map<String, dynamic> map,
@@ -73,7 +102,7 @@ class Real {
       _output = await _OfficialReal.createDocInPath(
         pathWithoutDocName: pathWithoutDocName,
         map: map,
-        docName: doc,
+        doc: doc,
       );
     }
     else {
@@ -91,7 +120,7 @@ class Real {
   /// READ
 
   // --------------------
-  /// TASK : TEST
+  /// TESTED : WORKS PERFECT
   static Future<List<Map<String, dynamic>>> readPathMaps({
     @required RealQueryModel realQueryModel,
     Map<String, dynamic> startAfter,
@@ -115,7 +144,7 @@ class Real {
     return _output;
   }
   // --------------------
-  /// TASK : TEST
+  /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>> readPathMap({
     @required String path,
   }) async {
@@ -136,7 +165,7 @@ class Real {
     return _output;
   }
   // --------------------
-  /// TASK : TEST
+  /// TESTED : WORKS PERFECT
   static Future<dynamic> readPath({
     /// looks like : 'collName/docName/...'
     @required String path,
@@ -158,7 +187,7 @@ class Real {
     return _output;
   }
   // --------------------
-  /// TASK : TEST
+  /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>> readDoc({
     @required String coll,
     @required String doc,
@@ -181,37 +210,12 @@ class Real {
 
     return _output;
   }
-  // --------------------
-  /*
-  /// TASK : DELETE ME ON TAMAM
-  static Future<Map<String, dynamic>> readDocOnce({
-    @required String coll,
-    @required String doc,
-  }) async {
-    Map<String, dynamic> _output;
-
-    if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      _output = await _OfficialReal.readDocOnce(
-        coll: coll,
-        doc: doc,
-      );
-    }
-    else {
-      _output = await _NativeReal.readDocOnce(
-        coll: coll,
-        doc: doc,
-      );
-    }
-
-    return _output;
-  }
-   */
   // -----------------------------------------------------------------------------
 
   /// UPDATE
 
   // --------------------
-  /// TASK : TEST
+  /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>> updateColl({
     @required String coll,
     @required Map<String, dynamic> map,
@@ -235,53 +239,56 @@ class Real {
     return _output;
   }
   // --------------------
-  /// TASK : TEST
-  static Future<void> updateDoc({
+  /// TESTED : WORKS PERFECT
+  static Future<Map<String, dynamic>> updateDoc({
     @required String coll,
     @required String doc,
     @required Map<String, dynamic> map,
   }) async {
+    Map<String, dynamic> _output;
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      await _OfficialReal.updateDoc(
+      _output = await _OfficialReal.updateDoc(
         coll: coll,
         doc: doc,
         map: map,
       );
     }
     else {
-      await _NativeReal.updateDoc(
+      _output = await _NativeReal.updateDoc(
         coll: coll,
         doc: doc,
         map: map,
       );
     }
 
+    return _output;
   }
   // --------------------
-  /// TASK : TEST
-  static Future<void> updatePath({
+  /// TESTED : WORKS PERFECT
+  static Future<Map<String, dynamic>> updateDocInPath({
     @required String path,
     @required Map<String, dynamic> map,
   }) async {
+    Map<String, dynamic> _output;
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      await _OfficialReal.updatePath(
+      _output = await _OfficialReal.updateDocInPath(
         path: path,
         map: map,
       );
     }
     else {
-      await _NativeReal.updatePath(
+      _output = await _NativeReal.updateDocInPath(
         path: path,
         map: map,
       );
     }
 
-
+    return _output;
   }
   // --------------------
-  /// TASK : TEST
+  /// TESTED : WORKS PERFECT
   static Future<void> updateDocField({
     @required String coll,
     @required String doc,
@@ -308,7 +315,7 @@ class Real {
 
   }
   // --------------------
-  /// TASK : TEST
+  /// TESTED : WORKS PERFECT
   static Future<void> incrementDocFields({
     @required String coll,
     @required String doc,
@@ -339,7 +346,7 @@ class Real {
   /// DELETE
 
   // --------------------
-  /// TASK : TEST
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteDoc({
     @required String coll,
     @required String doc,
@@ -360,7 +367,7 @@ class Real {
 
   }
   // --------------------
-  /// TASK : TEST
+  /// TESTED : WORKS PERFECT
   static Future<void> deleteField({
     @required String coll,
     @required String doc,
@@ -384,7 +391,7 @@ class Real {
 
   }
   // --------------------
-  /// TASK : TEST
+  /// TESTED : WORKS PERFECT
   static Future<void> deletePath({
     @required String pathWithDocName,
   }) async {
@@ -406,28 +413,7 @@ class Real {
   /// CLONE
 
   // --------------------
-  /// TASK : TEST
-  static Future<void> cloneColl({
-    @required String oldColl, // coll/doc/node/mapName
-    @required String newColl, // newColl
-  }) async {
-
-    if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      await _OfficialReal.cloneColl(
-        oldColl: oldColl,
-        newColl: newColl,
-      );
-    }
-    else {
-      await _NativeReal.cloneColl(
-        oldColl: oldColl,
-        newColl: newColl,
-      );
-    }
-
-  }
-  // --------------------
-  /// TASK : TEST
+  /// TESTED : WORKS PERFECT
   static Future<void> clonePath({
     @required String oldPath,
     @required String newPath,
