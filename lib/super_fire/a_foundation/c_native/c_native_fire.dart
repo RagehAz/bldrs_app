@@ -324,7 +324,7 @@ class _NativeFire {
 
           final List<fd.Document> _page = await query.get();
 
-          _output = NativeFireMapper.getMapsFromNativePage(
+          _output = _NativeFireMapper.getMapsFromNativePage(
             page: _page,
             addDocsIDs: true,
           );
@@ -360,7 +360,7 @@ class _NativeFire {
               // nextPageToken: ,
               );
 
-          _output = NativeFireMapper.getMapsFromNativePage(
+          _output = _NativeFireMapper.getMapsFromNativePage(
             page: _page,
             addDocsIDs: true,
           );
@@ -426,7 +426,7 @@ class _NativeFire {
       subColl: queryModel.subColl,
     );
 
-    return _collRef?.stream?.map(NativeFireMapper.mapDocs);
+    return _collRef?.stream?.map(_NativeFireMapper.mapDocs);
   }
   // --------------------
   /// TASK : TEST ME
@@ -444,7 +444,7 @@ class _NativeFire {
       subDoc: subDoc,
     );
 
-    return _docRef?.stream?.map(NativeFireMapper.mapDoc);
+    return _docRef?.stream?.map(_NativeFireMapper.mapDoc);
 
   }
   // -----------------------------------------------------------------------------

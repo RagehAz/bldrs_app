@@ -1,9 +1,10 @@
 part of super_fire;
 
-class NativeFireMapper {
+/// => TAMAM
+class _NativeFireMapper {
   // -----------------------------------------------------------------------------
 
-  const NativeFireMapper();
+  const _NativeFireMapper();
 
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
@@ -29,7 +30,7 @@ class NativeFireMapper {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Map<String, dynamic> getMapFromNativeDoc({
     @required fd.Document doc,
     @required bool addDocID,
@@ -57,18 +58,18 @@ class NativeFireMapper {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> mapDocs(List<fd.Document> docs) {
-    final List<Map<String, dynamic>> _maps = NativeFireMapper.getMapsFromNativePage(
+    final List<Map<String, dynamic>> _maps = _NativeFireMapper.getMapsFromNativePage(
       page: docs,
       addDocsIDs: true,
     );
     return _maps;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Map<String, dynamic> mapDoc(fd.Document doc) {
-    final Map<String, dynamic> _map = NativeFireMapper.getMapFromNativeDoc(
+    final Map<String, dynamic> _map = _NativeFireMapper.getMapFromNativeDoc(
       doc: doc,
       addDocID: true,
     );
@@ -90,7 +91,7 @@ class NativeFireMapper {
 
     if (snapshot != null && snapshot.value != null) {
 
-      blog('snapshot.value : ${snapshot.value} : type : ${snapshot.value.runtimeType}');
+      // blog('snapshot.value : ${snapshot.value} : type : ${snapshot.value.runtimeType}');
 
       if (snapshot.value.runtimeType.toString() == '_Map<String, dynamic>'){
         _output = Mapper.getMapFromIHLMOO(
@@ -136,10 +137,10 @@ class NativeFireMapper {
 
     if (snapshot != null && snapshot.value != null) {
 
-      final Map<String, dynamic> _bigMap = snapshot.value;
+      final dynamic _bigMap = snapshot.value;
       final List<String> _keys = _bigMap.keys.toList();
 
-      blog('snapshot.value : ${snapshot.value} : type : ${snapshot.value.runtimeType}');
+      // blog('snapshot.value : ${snapshot.value} : type : ${snapshot.value.runtimeType}');
 
       for (final String key in _keys) {
 
@@ -176,7 +177,7 @@ class NativeFireMapper {
   /// INCREMENTATION
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Map<String, dynamic> incrementFields({
     @required Map<String, dynamic> baseMap,
     @required Map<String, int> incrementationMap,
@@ -221,11 +222,14 @@ class NativeFireMapper {
   /// BLOGGING
 
   // --------------------
-  static void blogEvent(f_d.Event event){
+  /// TESTED : WORKS PERFECT
+  /*
+  static void _blogEvent(f_d.Event event){
     blog('EVENT IS :----');
     blog('event.previousSiblingKey : ${event.previousSiblingKey}');
     blog('event.snapshot.key : ${event.snapshot.key}');
     blog('event.snapshot.value : ${event.snapshot.value}');
   }
+  */
   // -----------------------------------------------------------------------------
 }

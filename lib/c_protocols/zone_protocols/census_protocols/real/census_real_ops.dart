@@ -246,28 +246,28 @@ class CensusRealOps {
       await Future.wait(<Future>[
 
         /// UPDATE PLANET
-        Real.updatePath(
+        Real.updateDocInPath(
           path: RealPath.getCensusPathOfPlanet,
           map: _map,
         ),
 
         /// UPDATE COUNTRY
         if (zoneModel.countryID != null)
-        Real.updatePath(
+        Real.updateDocInPath(
           path: RealPath.getCensusPathOfCountry(countryID: zoneModel.countryID),
           map: _map,
         ),
 
         /// UPDATE CITY
         if (zoneModel.countryID != null && zoneModel.cityID != null)
-          Real.updatePath(
+          Real.updateDocInPath(
             path: RealPath.getCensusPathOfCity(cityID: zoneModel.cityID),
             map: _map,
         ),
 
         /// UPDATE DISTRICT
         if (zoneModel.countryID != null && zoneModel.cityID != null && zoneModel.districtID != null)
-          Real.updatePath(
+          Real.updateDocInPath(
             path: RealPath.getCensusPathOfDistrict(districtID: zoneModel.districtID),
             map: _map,
           ),

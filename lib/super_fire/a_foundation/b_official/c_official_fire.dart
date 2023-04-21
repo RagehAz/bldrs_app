@@ -234,7 +234,7 @@ class _OfficialFire{
           final cloud.DocumentSnapshot<Object> snapshot = await _docRef.get();
 
           if (snapshot.exists == true) {
-            _output = OfficialFireMapper.getMapFromDocumentSnapshot(
+            _output = _OfficialFireMapper.getMapFromDocumentSnapshot(
               docSnapshot: snapshot,
               addDocSnapshot: null,
               addDocID: true,
@@ -336,7 +336,7 @@ class _OfficialFire{
 
           final List<cloud.QueryDocumentSnapshot<Object>> _queryDocumentSnapshots = _collectionSnapshot.docs;
 
-          _maps = OfficialFireMapper.getMapsFromQueryDocumentSnapshotsList(
+          _maps = _OfficialFireMapper.getMapsFromQueryDocumentSnapshotsList(
               queryDocumentSnapshots: _queryDocumentSnapshots,
               addDocsIDs: true,
               addDocSnapshotToEachMap: addDocSnapshotToEachMap
@@ -372,7 +372,7 @@ class _OfficialFire{
 
           final List<cloud.QueryDocumentSnapshot<Object>> _queryDocumentSnapshots = _snapshot.docs;
 
-          _output = OfficialFireMapper.getMapsFromQueryDocumentSnapshotsList(
+          _output = _OfficialFireMapper.getMapsFromQueryDocumentSnapshotsList(
               queryDocumentSnapshots: _queryDocumentSnapshots,
               addDocsIDs: true,
               addDocSnapshotToEachMap: false,
@@ -440,7 +440,7 @@ class _OfficialFire{
       finders: queryModel.finders,
     );
 
-    return _query?.snapshots()?.map(OfficialFireMapper.mapSnapshots);
+    return _query?.snapshots()?.map(_OfficialFireMapper.mapSnapshots);
   }
   // --------------------
   /// TASK : TEST ME
@@ -458,7 +458,7 @@ class _OfficialFire{
       subDoc: subDoc,
     );
 
-    return _docRef?.snapshots()?.map(OfficialFireMapper.mapSnapshot);
+    return _docRef?.snapshots()?.map(_OfficialFireMapper.mapSnapshot);
   }
   // -----------------------------------------------------------------------------
 
