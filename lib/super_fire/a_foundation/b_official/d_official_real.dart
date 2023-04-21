@@ -94,8 +94,33 @@ class _OfficialReal {
     return _output;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
   static Future<Map<String, dynamic>> createDoc({
+    @required String coll,
+    @required Map<String, dynamic> map,
+    String doc,
+  }) async {
+
+    Map<String, dynamic> _output;
+
+    if (doc == null){
+      _output = await _createUnNamedDoc(
+        coll: coll,
+        map: map,
+      );
+    } else {
+      _output = await _createNamedDoc(
+        coll: coll,
+        doc: doc,
+        map: map,
+      );
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<Map<String, dynamic>> _createUnNamedDoc({
     @required String coll,
     @required Map<String, dynamic> map,
   }) async {
@@ -152,25 +177,26 @@ class _OfficialReal {
     return _output;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> createNamedDoc({
+  /// TASK : TEST ME
+  static Future<Map<String, dynamic>> _createNamedDoc({
     @required String coll,
     @required String doc,
     @required Map<String, dynamic> map,
-    bool pushNodeOneStepDeepWithUniqueID = false,
-    bool isUpdating = false,
+    // bool pushNodeOneStepDeepWithUniqueID = false,
   }) async {
+
+    Map<String, dynamic> _output;
 
     if (map != null){
 
-      f_db.DatabaseReference _ref = _createPathAndGetRef(
+      final f_db.DatabaseReference _ref = _createPathAndGetRef(
         coll: coll,
         doc: doc,
       );
 
-      if (pushNodeOneStepDeepWithUniqueID == true){
-        _ref = _ref.push();
-      }
+      // if (pushNodeOneStepDeepWithUniqueID == true){
+      //   _ref = _ref.push();
+      // }
 
       await tryAndCatch(
         invoker: 'createNamedDoc',
@@ -182,12 +208,15 @@ class _OfficialReal {
           // blog('Real.reateNamedDoc : added to [REAL/$collName/$docName] : '
           //     'push is $pushNodeOneStepDeepWithUniqueID : map : ${map.keys.length} keys');
 
+          _output = map;
+
         },
 
       );
 
     }
 
+    return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -226,6 +255,7 @@ class _OfficialReal {
                 map: _map,
                 key: 'id',
                 value: _docID,
+                overrideExisting: true,
               );
             }
 
@@ -419,18 +449,22 @@ class _OfficialReal {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> updateColl({
+  static Future<Map<String, dynamic>> updateColl({
     @required String coll,
     @required Map<String, dynamic> map,
   }) async {
+    Map<String, dynamic> _output;
+
     if (map != null){
 
-      await createColl(
+     _output = await createColl(
         coll: coll,
         map: map,
       );
 
     }
+
+    return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -442,11 +476,10 @@ class _OfficialReal {
 
     if (map != null){
 
-      await createNamedDoc(
+      await createDoc(
         coll: coll,
         doc: doc,
         map: map,
-        isUpdating: true,
       );
 
     }

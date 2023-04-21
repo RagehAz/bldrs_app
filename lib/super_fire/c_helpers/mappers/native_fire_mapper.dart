@@ -92,20 +92,17 @@ class NativeFireMapper {
 
       blog('snapshot.value : ${snapshot.value} : type : ${snapshot.value.runtimeType}');
 
-      if (snapshot.value.runtimeType.toString() == '_InternalLinkedHashMap<Object?, Object?>'){
+      if (snapshot.value.runtimeType.toString() == '_Map<String, dynamic>'){
         _output = Mapper.getMapFromIHLMOO(
           ihlmoo: snapshot.value,
         );
+        // _output = Map<String, dynamic>.from(snapshot.value);
       }
-      // else if (snapshot.value.runtimeType.toString() == 'Map<dynamic, dynamic>'){
-      //   _output = Mapper.getMapFromIHLMOO(
-      //     ihlmoo: snapshot.value,
-      //   );
-      // }
-      else {
-        _output = Map<String, dynamic>.from(snapshot.value);
+      else  {
+        _output = {
+          snapshot.key : snapshot.value,
+        };
       }
-
 
       if (addDocID == true){
         _output = Mapper.insertPairInMap(
@@ -130,7 +127,7 @@ class NativeFireMapper {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> getMapsFromDataSnapshot({
     @required f_d.DataSnapshot snapshot,
     // bool addDocID = true,
@@ -139,45 +136,37 @@ class NativeFireMapper {
 
     if (snapshot != null && snapshot.value != null) {
 
-      // blog('snapshot type : ${snapshot.value.runtimeType}');
+      final Map<String, dynamic> _bigMap = snapshot.value;
+      final List<String> _keys = _bigMap.keys.toList();
 
-      // if (snapshot.value.runtimeType.toString() == 'List<Object?>'){
+      blog('snapshot.value : ${snapshot.value} : type : ${snapshot.value.runtimeType}');
 
-        // _output = [];
+      for (final String key in _keys) {
 
-        final List<dynamic> _dynamics = snapshot.value.toList();
-
-        for (final dynamic object in _dynamics){
-
-          final Map<String, dynamic> _maw = getMapFromDataSnapshot(
-            snapshot: object,
-            addDocID: true,
+        /// CHILD IS MAP
+        if (_bigMap[key] is Map<String, dynamic>) {
+          /// ADD ONLY THE ID OF EACH MAP, BUT IF THE MAP CONTAINS
+          /// SUB MAPS, ADDING THEIRS IDS IS IGNORED,
+          final Map<String, dynamic> _map = Mapper.insertPairInMap(
+            map: _bigMap[key],
+            key: 'id',
+            value: key,
+            overrideExisting: true,
           );
 
-          if (_maw != null){
-            _output.add(_maw);
-          }
-
+          _output.add(_map);
         }
 
-      // }
+        /// CHILD IS NOT A MAP
+        else {
+          final Map<String, dynamic> _map = {
+            key: _bigMap[key],
+          };
 
-      // if (snapshot.value.runtimeType.toString() == '_InternalLinkedHashMap<Object?, Object?>'){
-      //
-      //   final Map<String, dynamic> _map = getMapFromInternalHashLinkedMapObjectObject(
-      //     internalHashLinkedMapObjectObject: snapshot.value,
-      //   );
-      //
-      //   Mapper.blogMap(_map, invoker: 'the fookin maw');
-      //
-      //   _output = [];
-      //   if (_map != null){
-      //     _output.add(_map);
-      //   }
-      //
-      // }
+          _output.add(_map);
+        }
 
-
+      }
     }
 
     return _output;
@@ -226,6 +215,17 @@ class NativeFireMapper {
     }
 
     return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// BLOGGING
+
+  // --------------------
+  static void blogEvent(f_d.Event event){
+    blog('EVENT IS :----');
+    blog('event.previousSiblingKey : ${event.previousSiblingKey}');
+    blog('event.snapshot.key : ${event.snapshot.key}');
+    blog('event.snapshot.value : ${event.snapshot.value}');
   }
   // -----------------------------------------------------------------------------
 }
