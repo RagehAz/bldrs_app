@@ -7,6 +7,34 @@ class _OfficialReal {
   const _OfficialReal();
 
   // -----------------------------------------------------------------------------
+  static int timeout = 10;
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> _onRealError(String error) async {
+
+    final bool _shouldPurge = TextCheck.stringContainsSubString(
+        string: error,
+        subString: 'Timeout',
+    );
+
+    if (_shouldPurge == true){
+      await _purge();
+    }
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> _purge() async {
+    await _OfficialFirebase.getReal().purgeOutstandingWrites();
+  }
+  // -----------------------------------------------------------------------------
+  static Future<void> goOnline() async {
+    await _OfficialFirebase.getReal().goOnline();
+  }
+  // --------------------
+  static Future<void> goOffline() async {
+    await _OfficialFirebase.getReal().goOffline();
+  }
+  // -----------------------------------------------------------------------------
 
   /// REF
 
@@ -38,63 +66,6 @@ class _OfficialReal {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<Map<String, dynamic>> createColl({
-    @required String coll,
-    @required Map<String, dynamic> map,
-  }) async {
-    Map<String, dynamic> _output;
-
-    if (map != null && coll != null){
-
-      await tryAndCatch(
-        invoker: 'createColl',
-        functions: () async {
-
-          /// GET PATH
-          final f_db.DatabaseReference _ref = _createPathAndGetRef(
-            coll: coll,
-          );
-
-          /// ADD EVENT LISTENER
-          final StreamSubscription _sub = _ref.onValue.listen((event){
-
-            // final _docID = event.previousChildKey;
-
-            _output = Mapper.getMapFromIHLMOO(
-              ihlmoo: event.snapshot.value,
-              // addDocID: false,
-              // onNull: () => blog('Real.createColl : failed to create doc '),
-            );
-
-            // if (addDocIDToOutput == true){
-            //   _output = Mapper.insertPairInMap(
-            //     map: _output,
-            //     key: 'id',
-            //     value: _docID,
-            //   );
-            // }
-
-          });
-
-          /// CREATE
-          await _ref.set(map);
-
-          /// CANCEL EVENT LISTENER
-          await _sub.cancel();
-
-        },
-      );
-
-    }
-
-    if (_output != null){
-      blog('Real.createColl : map added to [REAL/$coll] : map : ${_output.keys.length} keys');
-    }
-
-    return _output;
-  }
-  // --------------------
-  /// TASK : TEST ME
   static Future<Map<String, dynamic>> createDoc({
     @required String coll,
     @required Map<String, dynamic> map,
@@ -103,115 +74,57 @@ class _OfficialReal {
 
     Map<String, dynamic> _output;
 
-    if (doc == null){
-      _output = await _createUnNamedDoc(
-        coll: coll,
-        map: map,
-      );
-    } else {
-      _output = await _createNamedDoc(
-        coll: coll,
-        doc: doc,
-        map: map,
-      );
-    }
+   if (doc == null){
+     _output = await _createUnnamedDoc(
+       coll: coll,
+       map: map,
+     );
+   }
+
+   else {
+     _output = await _createNamedDoc(
+       coll: coll,
+       doc: doc,
+       map: map,
+     );
+   }
 
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
-  static Future<Map<String, dynamic>> _createUnNamedDoc({
+  /// TESTED : WORKS PERFECT
+  static Future<Map<String, dynamic>> _createUnnamedDoc({
     @required String coll,
     @required Map<String, dynamic> map,
   }) async {
 
     Map<String, dynamic> _output;
-    String _docID;
 
     if (map != null && coll != null){
 
       await tryAndCatch(
-        invoker: 'createDoc',
+        invoker: 'OfficialReal._createUnnamedDoc',
+        timeout: timeout,
+        onError: _onRealError,
         functions: () async {
 
-          /// GET PATH
-          final f_db.DatabaseReference _ref = _createPathAndGetRef(
-            coll: coll,
+          final f_db.DatabaseReference _ref = _createPathAndGetRef(coll: coll,).push();
+
+          final String _docID = _ref.key;
+
+          await _ref.set(Mapper.removePair(
+              map: map,
+              fieldKey: 'id',
+          ));
+
+          _output = Mapper.insertPairInMap(
+            map: map,
+            key: 'id',
+            value: _docID,
+            overrideExisting: true,
           );
 
-          /// ADD EVENT LISTENER
-          final StreamSubscription _sub = _ref.onChildAdded.listen((event){
-
-            _docID = event.previousChildKey;
-
-            _output = OfficialFireMapper.getMapFromDataSnapshot(
-              snapshot: event.snapshot,
-              addDocID: true,
-              onNull: () => blog('Real.createDoc : failed to create doc '),
-            );
-
-            _output = Mapper.insertPairInMap(
-              map: _output,
-              key: 'id',
-              value: _docID,
-              overrideExisting: true,
-            );
-
-          });
-
-          /// CREATE
-          await _ref.push().set(map);
-
-          /// CANCEL EVENT LISTENER
-          await _sub.cancel();
-
         },
-      );
-
-    }
-
-    // if (_output != null){
-    //   blog('Real.createDoc : map added to [REAL/$collName/$_docID] : map : ${_output.keys.length} keys');
-    // }
-
-    return _output;
-  }
-  // --------------------
-  /// TASK : TEST ME
-  static Future<Map<String, dynamic>> _createNamedDoc({
-    @required String coll,
-    @required String doc,
-    @required Map<String, dynamic> map,
-    // bool pushNodeOneStepDeepWithUniqueID = false,
-  }) async {
-
-    Map<String, dynamic> _output;
-
-    if (map != null){
-
-      final f_db.DatabaseReference _ref = _createPathAndGetRef(
-        coll: coll,
-        doc: doc,
-      );
-
-      // if (pushNodeOneStepDeepWithUniqueID == true){
-      //   _ref = _ref.push();
-      // }
-
-      await tryAndCatch(
-        invoker: 'createNamedDoc',
-
-        functions: () async {
-
-          await _ref.set(map);
-
-          // blog('Real.reateNamedDoc : added to [REAL/$collName/$docName] : '
-          //     'push is $pushNodeOneStepDeepWithUniqueID : map : ${map.keys.length} keys');
-
-          _output = map;
-
-        },
-
       );
 
     }
@@ -220,69 +133,136 @@ class _OfficialReal {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
+  static Future<Map<String, dynamic>> _createNamedDoc({
+    @required String coll,
+    @required String doc,
+    @required Map<String, dynamic> map,
+  }) async {
+    Map<String, dynamic> _uploaded;
+
+    if (map != null) {
+
+      final f_db.DatabaseReference _ref = _createPathAndGetRef(
+        coll: coll,
+        doc: doc,
+      );
+
+      await tryAndCatch(
+        invoker: 'OfficialReal._createNamedDoc',
+        timeout: timeout,
+        onError: _onRealError,
+        functions: () async {
+
+          await _ref.set(Mapper.removePair(
+            map: map,
+            fieldKey: 'id',
+          ));
+
+          _uploaded = Mapper.insertPairInMap(
+            map: map,
+            key: 'id',
+            value: doc,
+            overrideExisting: true,
+          );
+
+        },
+      );
+    }
+
+    return _uploaded;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>> createDocInPath({
     @required String pathWithoutDocName,
     @required Map<String, dynamic> map,
-    /// random id is assigned as docName if this parameter is not assigned
-    String docName,
+    String doc,
   }) async {
 
-    // blog('X - createDocInPath ================================ START');
+    Map<String, dynamic> _output;
 
-    Map<String, dynamic> _map = map;
-
-    if (_map != null){
+    if (map != null) {
       String _docID;
 
       await tryAndCatch(
-        invoker: 'createDoc',
+        invoker: 'OfficialReal.createDocInPath',
+        timeout: timeout,
+        onError: _onRealError,
         functions: () async {
 
-          final String _path = docName == null ? pathWithoutDocName : '$pathWithoutDocName/$docName';
+          final bool _isDocNamed = doc != null;
+          final String _path = _isDocNamed ? '$pathWithoutDocName/$doc' : pathWithoutDocName;
 
           /// GET PATH
           f_db.DatabaseReference _ref = _getRefByPath(
             path: _path,
           );
 
-          /// ADD EVENT LISTENER
-          final StreamSubscription _sub = _ref.onChildAdded.listen((f_db.DatabaseEvent event){
-
-            _docID = event.previousChildKey;
-
-            if (_docID != null){
-              _map = Mapper.insertPairInMap(
-                map: _map,
-                key: 'id',
-                value: _docID,
-                overrideExisting: true,
-              );
-            }
-
-          });
-
-          if (docName == null){
+          if (doc == null) {
             _ref = _ref.push();
+            _docID = _ref.key;
+          }
+          else {
+            _docID = doc;
           }
 
           /// CREATE
-          await _ref.set(_map);
+          await _ref.set(Mapper.removePair(
+            map: map,
+            fieldKey: 'id',
+          ));
 
+          _output = Mapper.insertPairInMap(
+            map: map,
+            key: 'id',
+            value: _docID,
+            overrideExisting: true,
+          );
 
-          /// CANCEL EVENT LISTENER
-          await _sub.cancel();
+        },
+      );
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<Map<String, dynamic>> createColl({
+    @required String coll,
+    @required Map<String, dynamic> map,
+  }) async {
+    Map<String, dynamic> _output;
+
+    if (map != null && coll != null) {
+
+      await tryAndCatch(
+        invoker: 'OfficialReal.createColl',
+        timeout: timeout,
+        onError: _onRealError,
+        functions: () async {
+
+          final f_db.DatabaseReference _ref = _createPathAndGetRef(
+            coll: coll,
+          );
+
+          await _ref.set(Mapper.removePair(
+            map: map,
+            fieldKey: 'id',
+          ));
+
+          _output = Mapper.insertPairInMap(
+            map: map,
+            key: 'id',
+            value: coll,
+            overrideExisting: true,
+          );
 
         },
       );
     }
 
-    // if (_map != null){
-    //   blog('Real.createDoc : map added to [REAL/$pathWithoutDocName] : map : ${_map.keys.length} keys');
-    // }
-
-    // blog('X - createDocInPath ================================ END');
-
-    return _map;
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
@@ -298,6 +278,9 @@ class _OfficialReal {
     List<Map<String, dynamic>> _output = <Map<String, dynamic>>[];
 
     await tryAndCatch(
+      invoker: 'OfficialReal.readPathMap',
+      timeout: timeout,
+      onError: _onRealError,
       functions: () async {
 
         final f_db.Query _query = RealQueryModel.createOfficialRealQuery(
@@ -305,18 +288,12 @@ class _OfficialReal {
           lastMap: startAfter,
         );
 
-        // final fireDB.DataSnapshot _snap = await _query.get();
-
         final f_db.DatabaseEvent _event = await _query.once();
 
-
-        _output = OfficialFireMapper.getMapsFromDataSnapshot(
+        _output = _OfficialFireMapper.getMapsFromDataSnapshot(
           snapshot: _event.snapshot,
-          addDocID: false,
+          addDocID: true,
         );
-
-        // Mapper.blogMaps(_output, invoker: 'readPathMaps');
-
 
       },
     );
@@ -332,15 +309,18 @@ class _OfficialReal {
     Map<String, dynamic> _output = {};
 
     await tryAndCatch(
+      invoker: 'OfficialReal.readPathMap',
+      timeout: timeout,
+      onError: _onRealError,
       functions: () async {
 
         final f_db.DatabaseReference _ref = _getRefByPath(path: path);
 
         final f_db.DataSnapshot _snap = await _ref.get();
 
-        _output = OfficialFireMapper.getMapFromDataSnapshot(
+       _output = _OfficialFireMapper.getMapFromDataSnapshot(
           snapshot: _snap,
-          addDocID: false,
+          addDocID: true,
         );
 
       },
@@ -355,6 +335,8 @@ class _OfficialReal {
     @required String path,
   }) async {
 
+    /// THIS METHOD DOES NOT ADD DOC ID
+
     dynamic _output;
 
     if (TextCheck.isEmpty(path) == false){
@@ -362,16 +344,26 @@ class _OfficialReal {
       final f_db.DatabaseReference _ref = _getRefByPath(path: path);
 
       await tryAndCatch(
+        invoker: 'OfficialReal.readPath',
+        timeout: timeout,
+        onError: _onRealError,
         functions: () async {
 
           final f_db.DatabaseEvent event = await _ref.once(f_db.DatabaseEventType.value);
-
           _output = event.snapshot.value;
 
         },
       );
 
     }
+
+    if (_output is Map) {
+      _output = Mapper.getMapFromIHLMOO(
+        ihlmoo: _output,
+      );
+    }
+
+    blog('the readPath : ${_output.runtimeType} : $_output');
 
     return _output;
   }
@@ -382,64 +374,9 @@ class _OfficialReal {
     @required String doc,
   }) async {
 
-    Map<String, dynamic> _output;
-
-    final String _path = RealQueryModel.createRealPath(
-      coll: coll,
-      doc: doc,
+    final Map<String, dynamic> _map = await readPathMap(
+        path: '$coll/$doc',
     );
-
-    await tryAndCatch(
-      functions: () async {
-
-        final f_db.DataSnapshot snapshot = await _OfficialFirebase.getReal().ref().child(_path).get();
-
-        _output = OfficialFireMapper.getMapFromDataSnapshot(
-          snapshot: snapshot,
-          onNull: () => blog('Real.readDoc : No data available : path : $_path.'),
-          addDocID: true,
-          // onExists:
-        );
-
-      },
-    );
-
-    // if (_output != null){
-    //   blog('Real.readDoc : found map in (REAL/$collName/$docName) of ${_output.keys.length} keys');
-    // }
-
-    return _output;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<Map<String, dynamic>> readDocOnce({
-    @required String coll,
-    @required String doc,
-  }) async {
-
-    final f_db.DatabaseReference ref = _createPathAndGetRef(
-      coll: coll,
-      doc: doc,
-    );
-
-    Map<String, dynamic> _map;
-
-    await tryAndCatch(
-      functions: () async {
-
-        final f_db.DatabaseEvent event = await ref.once(f_db.DatabaseEventType.value);
-
-        _map = OfficialFireMapper.getMapFromDataSnapshot(
-          snapshot: event.snapshot,
-          addDocID: true,
-        );
-
-      },
-    );
-
-    // if (_map != null){
-      // blog('Real.readDocOnce : map read from [REAL/$collName/$docName] : map : ${_map.length} keys');
-    // }
 
     return _map;
   }
@@ -457,7 +394,7 @@ class _OfficialReal {
 
     if (map != null){
 
-     _output = await createColl(
+      _output = await createColl(
         coll: coll,
         map: map,
       );
@@ -468,15 +405,16 @@ class _OfficialReal {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> updateDoc({
+  static Future<Map<String, dynamic>> updateDoc({
     @required String coll,
     @required String doc,
     @required Map<String, dynamic> map,
   }) async {
+    Map<String, dynamic> _output;
 
     if (map != null){
 
-      await createDoc(
+      _output = await createDoc(
         coll: coll,
         doc: doc,
         map: map,
@@ -484,13 +422,15 @@ class _OfficialReal {
 
     }
 
+    return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> updatePath({
+  static Future<Map<String, dynamic>> updateDocInPath({
     @required String path,
     @required Map<String, dynamic> map,
   }) async {
+    Map<String, dynamic> _output;
 
     if (path != null && map != null){
 
@@ -503,9 +443,9 @@ class _OfficialReal {
           TextCheck.isEmpty(_docName) == false
       ){
 
-        await createDocInPath(
+        _output = await createDocInPath(
           pathWithoutDocName: _pathWithoutDocName,
-          docName: _docName,
+          doc: _docName,
           map: map,
         );
 
@@ -513,7 +453,7 @@ class _OfficialReal {
 
     }
 
-
+    return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -524,11 +464,7 @@ class _OfficialReal {
     @required dynamic value,
   }) async {
 
-    // blog('updateDocField : START');
-
-    /// NOTE : if value is null the pair will be deleted on real db map
-
-    if (coll != null && doc != null && field != null){
+    if (value != null && coll != null && doc != null && field != null){
 
       final f_db.DatabaseReference _ref = _createPathAndGetRef(
         coll: coll,
@@ -536,31 +472,16 @@ class _OfficialReal {
         key: field,
       );
 
-      /// this is stupid shit
-      // if (pushNodeOneStepWithNewUniqueID == true){
-      //   _ref = _ref.push();
-      // }
-
       await tryAndCatch(
+          invoker: 'OfficialReal.updateDocField',
+          timeout: timeout,
+          onError: _onRealError,
           functions: () async {
-
-            await _ref.set(value).then((_) {
-              // Data saved successfully!
-              // blog('Real.updateField : updated (Real/$collName/$docName/$fieldName) : $value');
-
-            })
-                .catchError((error) {
-              // The write failed...
+            await _ref.set(value).then((_) {}).catchError((error) {
+              _onRealError(error);
             });
-
-
-          }
-      );
-
+          });
     }
-
-    // blog('updateDocField : END');
-
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -578,7 +499,7 @@ class _OfficialReal {
         doc: doc,
       );
 
-      final Map<String, dynamic> _updatesMap = OfficialFireMapper.createPathValueMapFromIncrementationMap(
+      final Map<String, dynamic> _updatesMap = _OfficialFireMapper.createPathValueMapFromIncrementationMap(
         incrementationMap: incrementationMap,
         isIncrementing: isIncrementing,
       );
@@ -605,6 +526,9 @@ class _OfficialReal {
     );
 
     await tryAndCatch(
+      invoker: 'OfficialReal.deleteDoc',
+      timeout: timeout,
+      onError: _onRealError,
       functions: () async {
 
         await _ref.remove();
@@ -621,12 +545,26 @@ class _OfficialReal {
     @required String field,
   }) async {
 
-    await updateDocField(
-      coll: coll,
-      doc: doc,
-      field: field,
-      value: null,
-    );
+     if (coll != null && doc != null && field != null){
+
+      final f_db.DatabaseReference _ref = _createPathAndGetRef(
+        coll: coll,
+        doc: doc,
+        key: field,
+      );
+
+      await tryAndCatch(
+          invoker: 'OfficialReal.deleteField',
+          timeout: timeout,
+          onError: _onRealError,
+          functions: () async {
+            await _ref.set(null).then((_) {}).catchError((error) {
+              // The write failed...
+            });
+          }
+      );
+
+     }
 
   }
   // --------------------
@@ -642,6 +580,9 @@ class _OfficialReal {
       );
 
       await tryAndCatch(
+        invoker: 'OfficialReal.deletePath',
+        timeout: timeout,
+        onError: _onRealError,
         functions: () async {
           await _ref.remove();
         },
@@ -656,48 +597,12 @@ class _OfficialReal {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> cloneColl({
-    @required String oldColl, // coll/doc/node/mapName
-    @required String newColl, // newColl
-  }) async {
-
-    final Object _object = await readPath(path: oldColl);
-
-    if (_object != null){
-
-      // ( remove collName )=> docName/node/mapName
-      String _newPath = TextMod.removeTextBeforeFirstSpecialCharacter(oldColl, '/');
-      // ( remove mapName )=> docName/node
-      _newPath = TextMod.removeTextAfterLastSpecialCharacter(_newPath, '/');
-      // ( add newCollName )=> newCollName/docName/node
-      _newPath = '$newColl/$_newPath';
-
-      // mapName
-      // final String _mapName = TextMod.removeTextBeforeLastSpecialCharacter(oldCollName, '/');
-
-      final f_db.DatabaseReference _ref = _getRefByPath(
-        path: newColl,
-      );
-
-      await tryAndCatch(functions: () async {
-        await _ref.set(_object);
-      });
-
-    }
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
   static Future<void> clonePath({
     @required String oldPath,
     @required String newPath,
   }) async {
 
-    blog('1 - clonePath : START');
-
     final Object _object = await readPath(path: oldPath);
-
-    blog('2 - clonePath : GOT OBJECT : ( ${_object != null} )');
 
     if (_object != null){
 
@@ -705,129 +610,16 @@ class _OfficialReal {
         path: newPath,
       );
 
-      blog('3 - clonePath : GOT REF : ( $_ref )');
-
       await tryAndCatch(
-          invoker: 'clonePath',
+          invoker: 'OfficialReal.clonePath',
+          timeout: timeout,
+          onError: _onRealError,
           functions: () async {
-
             await _ref.set(_object);
-
-            blog('4 - clonePath : OBJECT IS SET IN NEW PATH');
-
-      });
-
+          });
     }
 
-    blog('5 - clonePath : END');
   }
   // -----------------------------------------------------------------------------
 
-  /// TRANSACTION & ATOMICS & LISTENERS
-
-  // --------------------
-  /// EXPERIMENTAL
-  /*
-  static Future<f_db.TransactionResult> runTransaction ({
-    @required BuildContext context,
-    @required String coll,
-    @required String oc,
-    @required Function(Map<String, dynamic> map) doStuff,
-    @required bool applyLocally,
-  }) async {
-
-    final f_db.DatabaseReference _ref = createPathAndGetRef(
-        coll: coll,
-        doc: oc
-    );
-
-    final f_db.TransactionResult _result = await _ref.runTransaction((Object map){
-
-      // Ensure a map at the ref exists.
-      if (map == null) {
-        return f_db.Transaction.abort();
-      }
-
-      else {
-
-        final Map<String, dynamic> _map = Map<String, dynamic>.from(map as Map);
-
-        doStuff(_map);
-
-        return f_db.Transaction.success(_map);
-      }
-
-    },
-      applyLocally: applyLocally,
-    );
-
-    blog('runTransaction : _result.committed : ${_result.committed} : _result.snapshot : ${_result.snapshot}');
-
-    return _result;
-  }
-   */
-  // -----------------------------------------------------------------------------
 }
-
-/// OLD METHODS
-  /*
-  static fireDB.DatabaseReference  _getRefFromURL({
-  @required String url,
-}){
-    return fireDB.FirebaseDatabase.instance.refFromURL(url);
-  }
-    // --------------------
-  static Future<void> updateMultipleDocsAtOnce({
-    @required List<RealNode> nodes,
-
-  }) async {
-
-    // Get a key for a new Post.
-    final newPostKey = fireDB.FirebaseDatabase.instance.ref().child('posts').push().key;
-
-    final Map<String, Map> updates = {};
-    updates['/posts/$newPostKey'] = postData;
-    updates['/user-posts/$uid/$newPostKey'] = postData;
-
-    return fireDB.FirebaseDatabase.instance.ref().update(updates);
-  }
-
-  void addStar(uid, key) async {
-    Map<String, Object?> updates = {};
-    updates["posts/$key/stars/$uid"] = true;
-    updates["posts/$key/starCount"] = ServerValue.increment(1);
-    updates["user-posts/$key/stars/$uid"] = true;
-    updates["user-posts/$key/starCount"] = ServerValue.increment(1);
-    return fireDB.FirebaseDatabase.instance.ref().update(updates);
-  }
-
-    // --------------------
-
-
-  // static Future<Map<String, dynamic>> createNamedDocInPath({
-  //   @required BuildContext context,
-  //   @required String path,
-  //   @required String docName,
-  //   @required bool addDocIDToOutput,
-  //   @required Map<String, dynamic> map,
-  // }) async {
-  //
-  //   DatabaseReference _ref = _getRefByPath(path: path)
-  //
-  //   await tryAndCatch(
-  //     context: context,
-  //     invoker: 'createNamedDoc',
-  //
-  //     functions: () async {
-  //
-  //       await _ref.set(map);
-  //
-  //       blog('Real.createNamedDoc : added to [$path$docName] : push is $pushNodeOneStepDeepWithUniqueID : map : $map');
-  //
-  //     },
-  //
-  //   );
-  //
-  //
-  // }
-   */
