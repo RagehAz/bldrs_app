@@ -37,6 +37,7 @@ class Real {
   static Future<Map<String, dynamic>> createDoc({
     @required String coll,
     @required Map<String, dynamic> map,
+    String doc,
   }) async {
 
     Map<String, dynamic> _output;
@@ -45,44 +46,18 @@ class Real {
       _output = await _OfficialReal.createDoc(
         coll: coll,
         map: map,
+        doc: doc,
       );
     }
     else {
       _output = await _NativeReal.createDoc(
         coll: coll,
         map: map,
+        doc: doc,
       );
     }
 
     return _output;
-  }
-  // --------------------
-  /// TASK : TEST
-  static Future<void> createNamedDoc({
-    @required String coll,
-    @required String doc,
-    @required Map<String, dynamic> map,
-    bool pushNodeOneStepDeepWithUniqueID = false,
-    bool isUpdating = false,
-  }) async {
-
-    if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      await _OfficialReal.createNamedDoc(
-        coll: coll,
-        doc: doc,
-        map: map,
-        pushNodeOneStepDeepWithUniqueID: pushNodeOneStepDeepWithUniqueID,
-        isUpdating: isUpdating,
-      );
-    }
-    else {
-      await _NativeReal.createDoc(
-        coll: coll,
-        doc: doc,
-        map: map,
-      );
-    }
-
   }
   // --------------------
   /// TASK : TEST
@@ -237,24 +212,27 @@ class Real {
 
   // --------------------
   /// TASK : TEST
-  static Future<void> updateColl({
+  static Future<Map<String, dynamic>> updateColl({
     @required String coll,
     @required Map<String, dynamic> map,
   }) async {
 
+    Map<String, dynamic> _output;
+
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      await _OfficialReal.updateColl(
+      _output = await _OfficialReal.updateColl(
         coll: coll,
         map: map,
       );
     }
     else {
-      await _NativeReal.updateColl(
+      _output = await _NativeReal.updateColl(
         coll: coll,
         map: map,
       );
     }
 
+    return _output;
   }
   // --------------------
   /// TASK : TEST
