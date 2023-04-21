@@ -78,7 +78,7 @@ class _NativeReal {
       Map<String, dynamic> _uploaded;
 
       await tryAndCatch(
-        invoker: 'createDoc',
+        invoker: 'NativeReal._createUnnamedDoc',
         functions: () async {
 
           /// GET PATH
@@ -86,11 +86,11 @@ class _NativeReal {
             coll: coll,
           );
 
-          blog('createDoc got ref : $_ref');
-
           /// ADD EVENT LISTENER
           // final StreamSubscription _sub =
           _ref.onChildAdded.listen((event){
+
+            NativeFireMapper.blogEvent(event);
 
             _docID = event.previousSiblingKey;
 
@@ -107,8 +107,6 @@ class _NativeReal {
               overrideExisting: true,
             );
 
-            blog('createDoc got _uploaded with id : $_docID');
-
           });
 
 
@@ -120,13 +118,10 @@ class _NativeReal {
           /// CREATE
           await _ref.push().set(_upload);
 
-          blog('createDoc pushed map');
 
           _output = _uploaded;
           // /// CANCEL EVENT LISTENER
           // await _sub.cancel();
-
-          blog('createDoc cancelled sub');
 
         },
       );
@@ -166,7 +161,7 @@ class _NativeReal {
       // }
 
       await tryAndCatch(
-        invoker: 'createNamedDoc',
+        invoker: 'NativeReal.createNamedDoc',
         functions: () async {
 
           blog('createNamedDoc setting map');
@@ -191,6 +186,7 @@ class _NativeReal {
         map: map,
         key: 'id',
         value: doc,
+        overrideExisting: true,
       );
 
     }
@@ -198,7 +194,7 @@ class _NativeReal {
     return _uploaded;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>> createDocInPath({
     @required String pathWithoutDocName,
     @required Map<String, dynamic> map,
@@ -211,7 +207,7 @@ class _NativeReal {
       String _docID;
 
       await tryAndCatch(
-        invoker: 'createDoc',
+        invoker: 'NativeReal.createDoc',
         functions: () async {
           final bool _isDocNamed = doc != null;
           final String _path = _isDocNamed ? '$pathWithoutDocName/$doc' : pathWithoutDocName;
@@ -270,57 +266,53 @@ class _NativeReal {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>> createColl({
     @required String coll,
     @required Map<String, dynamic> map,
   }) async {
     Map<String, dynamic> _output;
 
-    if (map != null && coll != null){
+    if (map != null && coll != null) {
 
       await tryAndCatch(
-        invoker: 'createColl',
+        invoker: 'NativeReal.createColl',
         functions: () async {
-
           /// GET PATH
           final f_d.DatabaseReference _ref = _createPathAndGetRef(
             coll: coll,
           );
 
           /// ADD EVENT LISTENER
-          final StreamSubscription _sub = _ref.onValue.listen((event){
-
-            // final _docID = event.previousChildKey;
-
+          // final StreamSubscription _sub =
+          _ref.onValue.listen((event) {
             _output = Mapper.getMapFromIHLMOO(
               ihlmoo: event.snapshot.value,
-              // addDocID: false,
-              // onNull: () => blog('Real.createColl : failed to create doc '),
             );
 
-            // if (addDocIDToOutput == true){
-            //   _output = Mapper.insertPairInMap(
-            //     map: _output,
-            //     key: 'id',
-            //     value: _docID,
-            //   );
-            // }
-
+            _output = Mapper.insertPairInMap(
+              map: _output,
+              key: 'id',
+              value: event.snapshot.key,
+              overrideExisting: true,
+            );
           });
 
+          final Map<String, dynamic> _upload = Mapper.removePair(
+            map: map,
+            fieldKey: 'id',
+          );
+
           /// CREATE
-          await _ref.set(map);
+          await _ref.set(_upload);
 
           /// CANCEL EVENT LISTENER
-          await _sub.cancel();
-
+          // await _sub.cancel();
         },
       );
-
     }
 
-    if (_output != null){
+    if (_output != null) {
       blog('Real.createColl : map added to [REAL/$coll] : map : ${_output.keys.length} keys');
     }
 
@@ -331,7 +323,7 @@ class _NativeReal {
   /// READ
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<List<Map<String, dynamic>>> readPathMaps({
     @required RealQueryModel realQueryModel,
     Map<String, dynamic> startAfter,
@@ -347,18 +339,11 @@ class _NativeReal {
           lastMap: startAfter,
         );
 
-        // final fireDB.DataSnapshot _snap = await _query.get();
-
         final f_d.DataSnapshot _dataSnapshot = await _query.once();
-
 
         _output = NativeFireMapper.getMapsFromDataSnapshot(
           snapshot: _dataSnapshot,
-          // addDocID: false,
         );
-
-        // Mapper.blogMaps(_output, invoker: 'readPathMaps');
-
 
       },
     );
@@ -366,7 +351,7 @@ class _NativeReal {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>> readPathMap({
     @required String path,
   }) async {
@@ -378,11 +363,11 @@ class _NativeReal {
 
         final f_d.DatabaseReference _ref = _getRefByPath(path: path);
 
-        final f_d.DataSnapshot _snap = await _ref.get();
+        final f_d.DataSnapshot _snap = await _ref.once();
 
         _output = NativeFireMapper.getMapFromDataSnapshot(
           snapshot: _snap,
-          addDocID: false,
+          addDocID: true,
         );
 
       },
@@ -391,11 +376,13 @@ class _NativeReal {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<dynamic> readPath({
     /// looks like : 'collName/docName/...'
     @required String path,
   }) async {
+
+    /// THIS METHOD DOES NOT ADD DOC ID
 
     dynamic _output;
 
@@ -424,24 +411,8 @@ class _NativeReal {
     @required String doc,
   }) async {
 
-    final f_d.DatabaseReference ref = _createPathAndGetRef(
-      coll: coll,
-      doc: doc,
-    );
-
-    Map<String, dynamic> _map;
-
-    await tryAndCatch(
-      functions: () async {
-
-        final f_d.DataSnapshot snapshot = await ref.once();
-
-        _map = NativeFireMapper.getMapFromDataSnapshot(
-          snapshot: snapshot,
-          addDocID: true,
-        );
-
-      },
+    final Map<String, dynamic> _map = await readPathMap(
+        path: '$coll/$doc',
     );
 
     return _map;
@@ -452,18 +423,22 @@ class _NativeReal {
 
   // --------------------
   /// TASK : TEST ME
-  static Future<void> updateColl({
+  static Future<Map<String, dynamic>> updateColl({
     @required String coll,
     @required Map<String, dynamic> map,
   }) async {
+    Map<String, dynamic> _output;
+
     if (map != null){
 
-      await createColl(
+      _output = await createColl(
         coll: coll,
         map: map,
       );
 
     }
+
+    return _output;
   }
   // --------------------
   /// TASK : TEST ME
@@ -711,7 +686,7 @@ class _NativeReal {
       blog('3 - clonePath : GOT REF : ( $_ref )');
 
       await tryAndCatch(
-          invoker: 'clonePath',
+          invoker: 'NativeReal.clonePath',
           functions: () async {
 
             await _ref.set(_object);
@@ -726,3 +701,8 @@ class _NativeReal {
   }
   // -----------------------------------------------------------------------------
 }
+
+/// IGNORE
+/*
+
+ */

@@ -32,7 +32,7 @@ class PhraseRealOps {
 
       if (Mapper.checkCanLoopList(_phrasesOfLang) == true){
 
-        await Real.createNamedDoc(
+        await Real.createDoc(
             coll: RealColl.phrases,
             doc: langCode,
             map: Phrase.cipherPhrasesToPhidsMap(_phrasesOfLang),

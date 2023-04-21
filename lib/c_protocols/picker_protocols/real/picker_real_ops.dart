@@ -30,7 +30,7 @@ class PickerRealOps {
     @required FlyerType flyerType,
   }) async {
 
-    await Real.createNamedDoc(
+    await Real.createDoc(
       coll: RealColl.pickers,
       doc: _getPickerRealDocNameByFlyerType(flyerType),
       map: PickerModel.cipherPickers(pickers),
