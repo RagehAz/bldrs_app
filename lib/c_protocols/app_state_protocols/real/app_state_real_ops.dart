@@ -18,7 +18,7 @@ class AppStateRealOps {
     @required AppState newAppState,
   }) async {
 
-    await Real.createNamedDoc(
+    await Real.createDoc(
       coll: RealColl.app,
       doc: RealDoc.app_globalAppState,
       map: newAppState.toMap(),
