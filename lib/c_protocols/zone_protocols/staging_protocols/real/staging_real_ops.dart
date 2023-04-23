@@ -199,12 +199,8 @@ class StagingRealOps {
 
     if (TextCheck.isEmpty(countryID) == false){
 
-      final dynamic _dynamic = await Real.readPath(
+      final Map<String, dynamic> _map = await Real.readPathMap(
         path: '${RealColl.zones}/${RealDoc.zones_stages_cities}/$countryID',
-      );
-
-      final Map<String, dynamic> _map = Mapper.getMapFromIHLMOO(
-        ihlmoo: _dynamic,
       );
 
       _output = Staging.decipher(

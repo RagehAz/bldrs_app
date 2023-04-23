@@ -469,7 +469,15 @@ class _NativeReal {
           onError: _onRealError,
           functions: () async {
             await _ref.set(value).then((_) {}).catchError((error) {
-              _onRealError(error);
+
+              blog('NativeReal.updateDocField : '
+                  'value : $value : '
+                  'type : ${value.runtimeType} : '
+                  'error : $error'
+              );
+
+              _onRealError(error.toString());
+
             });
           });
     }
