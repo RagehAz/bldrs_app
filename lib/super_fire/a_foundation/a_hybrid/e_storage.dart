@@ -1,5 +1,6 @@
 part of super_fire;
 
+/// => TAMAM9
 class Storage {
   // -----------------------------------------------------------------------------
 
@@ -10,11 +11,11 @@ class Storage {
   /// CREATE DOC
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED: WORKS PERFECT
   static Future<String> uploadBytesAndGetURL({
     @required Uint8List bytes,
     @required String path,
-    @required StorageMetaModel picMetaModel,
+    @required StorageMetaModel storageMetaModel,
   }) async {
 
     String _url;
@@ -23,7 +24,7 @@ class Storage {
       _url = await _OfficialStorage.uploadBytesAndGetURL(
           bytes: bytes,
           path: path,
-          picMetaModel: picMetaModel
+          storageMetaModel: storageMetaModel
       );
     }
 
@@ -32,7 +33,7 @@ class Storage {
       _url = await _NativeStorage.uploadBytesAndGetURL(
           bytes: bytes,
           path: path,
-          picMetaModel: picMetaModel
+          storageMetaModel: storageMetaModel
       );
 
     }
@@ -40,7 +41,7 @@ class Storage {
     return _url;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED: WORKS PERFECT
   static Future<String> uploadFileAndGetURL({
     @required File file,
     @required String coll,
@@ -74,22 +75,28 @@ class Storage {
   /// CREATE URL
 
   // --------------------
-  /// TASK : TEST ME
-  static Future<String> createURLByPath(String path) async {
+  /// TESTED: WORKS PERFECT
+  static Future<String> createURLByPath({
+    @required String path,
+  }) async {
     String _url;
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      _url = await _OfficialStorage.createURLByPath(path);
+      _url = await _OfficialStorage.createURLByPath(
+        path: path,
+      );
     }
 
     else {
-      _url = await _NativeStorage.createURLByPath(path);
+      _url = await _NativeStorage.createURLByPath(
+        path: path,
+      );
     }
 
     return _url;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED: WORKS PERFECT
   static Future<String> createURLByNodes({
     @required String coll,
     @required String doc, // without extension
@@ -117,7 +124,7 @@ class Storage {
   /// READ DOC
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED: WORKS PERFECT
   static Future<Uint8List> readBytesByPath({
     @required String path,
   }) async {
@@ -138,22 +145,28 @@ class Storage {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
-  static Future<Uint8List> readBytesByURL(String url) async {
+  /// TESTED: WORKS PERFECT
+  static Future<Uint8List> readBytesByURL({
+    @required String url,
+  }) async {
     Uint8List _output;
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      _output = await _OfficialStorage.readBytesByURL(url);
+      _output = await _OfficialStorage.readBytesByURL(
+        url: url,
+      );
     }
 
     else {
-      _output = await _NativeStorage.readBytesByURL(url);
+      _output = await _NativeStorage.readBytesByURL(
+        url: url,
+      );
     }
 
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED: WORKS PERFECT
   static Future<File> readFileByURL({
     @required String url,
   }) async {
@@ -174,7 +187,7 @@ class Storage {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED: WORKS PERFECT
   static Future<File> readFileByNodes({
     @required String coll,
     @required String doc,
@@ -202,7 +215,7 @@ class Storage {
   /// READ META DATA
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED: WORKS PERFECT
   static Future<StorageMetaModel> readMetaByPath({
     @required String path,
   }) async {
@@ -223,7 +236,7 @@ class Storage {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED: WORKS PERFECT
   static Future<StorageMetaModel> readMetaByURL({
     @required String url,
   }) async {
@@ -248,23 +261,23 @@ class Storage {
   /// UPDATE META
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED: WORKS PERFECT
   static Future<void> updateMetaByURL({
-    @required String picURL,
-    Map<String, String> metaDataMap,
+    @required String url,
+    @required StorageMetaModel meta,
   }) async {
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true) {
       await _OfficialStorage.updateMetaByURL(
-        picURL: picURL,
-        metaDataMap: metaDataMap,
+        url: url,
+        meta: meta,
       );
     }
 
     else {
       await _NativeStorage.updateMetaByURL(
-        picURL: picURL,
-        metaDataMap: metaDataMap,
+        url: url,
+        meta: meta,
       );
     }
 
@@ -274,7 +287,7 @@ class Storage {
   /// DELETE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED: WORKS PERFECT
   static Future<void> deleteDoc({
     @required String path,
     @required String currentUserID,
@@ -296,7 +309,7 @@ class Storage {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED: WORKS PERFECT
   static Future<void> deleteDocs({
     @required List<String> paths,
     @required String currentUserID,
