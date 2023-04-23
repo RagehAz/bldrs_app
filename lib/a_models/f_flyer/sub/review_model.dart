@@ -1,6 +1,5 @@
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:filers/filers.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mapper/mapper.dart';
 import 'package:space_time/space_time.dart';
@@ -154,26 +153,26 @@ class ReviewModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static ReviewModel decipherFromDataSnapshot(DataSnapshot snapshot){
-
-    ReviewModel _review;
-
-    if (snapshot != null && snapshot.value != null){
-
-      final Map<String, dynamic> _map = Mapper.getMapFromIHLMOO(
-        ihlmoo: snapshot.value,
-      );
-
-      _review = ReviewModel.decipherReview(
-        map: _map,
-        reviewID: snapshot.key,
-        fromJSON: true,
-      );
-
-    }
-
-    return _review;
-  }
+  // static ReviewModel decipherFromDataSnapshot(DataSnapshot snapshot){
+  //
+  //   ReviewModel _review;
+  //
+  //   if (snapshot != null && snapshot.value != null){
+  //
+  //     final Map<String, dynamic> _map = Mapper.getMapFromIHLMOO(
+  //       ihlmoo: snapshot.value,
+  //     );
+  //
+  //     _review = ReviewModel.decipherReview(
+  //       map: _map,
+  //       reviewID: snapshot.key,
+  //       fromJSON: true,
+  //     );
+  //
+  //   }
+  //
+  //   return _review;
+  // }
   // -----------------------------------------------------------------------------
 
   /// CREATOR

@@ -30,7 +30,7 @@ class MiniUserBanner extends StatelessWidget {
           margins: Scale.constantHorizontal5,
           onTap: () => BldrsNav.jumpToUserPreviewScreen(
             context: context,
-            userID: userModel.id,
+            userID: userModel?.id,
           ),
         ),
 

@@ -101,7 +101,7 @@ part 'b_models/b_fire/query_order_by.dart';
 /// REAL
 part 'b_models/c_real/real_query_model.dart';
 /// STORAGE
-part 'b_models/d_storage/pic_meta_model.dart';
+part 'b_models/d_storage/storage_meta_model.dart';
 // -----------------------------------------------------------------------------
 
 /// HELPERS

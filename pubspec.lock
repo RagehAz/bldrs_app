@@ -1155,10 +1155,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "0be5bc6b105b51e68f9518b0371b75d1c953c390"
+      resolved-ref: fb1fd65d6aa7e3b577ca3bc556bda972c9a69d68
       url: "https://github.com/RagehAz/ldb.git"
     source: git
-    version: "0.0.4"
+    version: "0.0.5"
   legalizer:
     dependency: "direct main"
     description:

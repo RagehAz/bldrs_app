@@ -163,11 +163,34 @@ class Staging {
 
       _output = Staging(
         id: map['id'] ?? id,
-        emptyStageIDs: Stringer.getStringsFromDynamics(dynamics: map['1_empty_stage']),
-        bzzStageIDs: Stringer.getStringsFromDynamics(dynamics: map['2_bzz_stage']),
-        flyersStageIDs: Stringer.getStringsFromDynamics(dynamics: map['3_flyers_stage']),
-        publicStageIDs: Stringer.getStringsFromDynamics(dynamics: map['4_public_stage']),
+        emptyStageIDs: getStringsFromTheDamnThing(map['1_empty_stage']),
+        bzzStageIDs: getStringsFromTheDamnThing(map['2_bzz_stage']),
+        flyersStageIDs: getStringsFromTheDamnThing(map['3_flyers_stage']),
+        publicStageIDs: getStringsFromTheDamnThing(map['4_public_stage']),
       );
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  static List<String> getStringsFromTheDamnThing(dynamic thing){
+    List<String> _output = [];
+
+    if (thing != null){
+
+      if (thing.runtimeType.toString() == 'ImmutableList<Object?>'){
+        _output =  Stringer.getStringsFromDynamics(dynamics: thing);
+      }
+      else if (thing.runtimeType.toString() == '_Map<String, dynamic>'){
+        final Map<String, dynamic> _map = thing;
+        final List<String> _keys = _map.keys.toList();
+        for (final String key in _keys){
+          if (_map[key] is String){
+            _output.add(_map[key]);
+          }
+        }
+      }
 
     }
 
