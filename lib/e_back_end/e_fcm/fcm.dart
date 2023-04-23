@@ -328,7 +328,9 @@ class FCM {
 
       /// IS PIC PATH
       else if (ObjectCheck.objectIsPicPath(urlOrPath) == true){
-        _url = await Storage.createURLByPath(urlOrPath);
+        _url = await Storage.createURLByPath(
+          path: urlOrPath,
+        );
       }
 
       /// OTHERWISE

@@ -25,7 +25,7 @@ class PicStorageOps {
     final String _url = await Storage.uploadBytesAndGetURL(
       bytes: picModel.bytes,
       path: picModel.path,
-      picMetaModel: picModel.meta,
+      storageMetaModel: picModel.meta,
     );
 
     if (_url == null){

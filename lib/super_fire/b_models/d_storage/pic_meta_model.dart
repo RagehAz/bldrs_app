@@ -71,7 +71,7 @@ class StorageMetaModel {
     );
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static StorageMetaModel _decipherMetaMap({
     @required Map<String, String> customMetadata,
   }){
@@ -87,11 +87,45 @@ class StorageMetaModel {
         height: Numeric.transformStringToDouble(customMetadata['height']),
         name: customMetadata['name'],
         sizeMB: Numeric.transformStringToDouble(customMetadata['sizeMB']),
+        data: _getRemainingData(customMetadata),
       );
 
     }
 
     return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, String> _getRemainingData(Map<String, String> metaMap){
+    Map<String, String> _map;
+
+    if (metaMap != null){
+
+      _map = {};
+
+      final List<String> _keys = metaMap.keys.toList();
+
+      if (Mapper.checkCanLoopList(_keys) == true){
+
+        for (final String key in _keys){
+
+          if (
+              metaMap[key] != 'cool' &&
+              key != 'width' &&
+              key != 'height' &&
+              key != 'name' &&
+              key != 'sizeMB'
+          ){
+            _map[key] = metaMap[key];
+          }
+
+        }
+
+      }
+
+    }
+
+    return _map;
   }
   // -----------------------------------------------------------------------------
 
@@ -102,6 +136,8 @@ class StorageMetaModel {
   f_s.SettableMetadata toOfficialSettableMetadata({
     Map<String, String> extraData,
   }){
+
+    /// ASSIGNING NULL TO KEY DELETES PAIR AUTOMATICALLY.
     Map<String, String> _metaDataMap = <String, String>{
       'name': name,
       'sizeMB': '$sizeMB',
@@ -116,9 +152,18 @@ class StorageMetaModel {
       }
     }
 
-    _metaDataMap = Mapper.cleanNullPairs(
+    _metaDataMap = _cleanNullPairs(
         map: _metaDataMap,
     );
+
+    /// ADD META DATA MAP
+    if (data != null) {
+      _metaDataMap = Mapper.combineStringStringMap(
+        baseMap: _metaDataMap,
+        replaceDuplicateKeys: true,
+        insert: data,
+      );
+    }
 
     /// ADD EXTRA DATA MAP
     if (extraData != null) {
@@ -181,11 +226,12 @@ class StorageMetaModel {
   /// NATIVE CYPHERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   f_d.SettableMetadata toNativeSettableMetadata({
     Map<String, String> extraData,
   }){
 
+    /// ASSIGNING NULL TO KEY DELETES PAIR AUTOMATICALLY.
     Map<String, String> _metaDataMap = <String, String>{
       'name': name,
       'sizeMB': '$sizeMB',
@@ -196,19 +242,33 @@ class StorageMetaModel {
     /// ADD OWNERS IDS
     if (Mapper.checkCanLoopList(ownersIDs) == true){
       for (final String ownerID in ownersIDs) {
-
-        _metaDataMap = Mapper.insertPairInMap(
-            map: _metaDataMap,
-            key: ownerID,
-            value: 'cool'
-        );
-
+        _metaDataMap[ownerID] = 'cool';
       }
     }
 
-    _metaDataMap = Mapper.cleanNullPairs(
+    _metaDataMap = _cleanNullPairs(
         map: _metaDataMap,
     );
+
+    /// ADD META DATA MAP
+    if (data != null) {
+      _metaDataMap = Mapper.combineStringStringMap(
+        baseMap: _metaDataMap,
+        replaceDuplicateKeys: true,
+        insert: data,
+      );
+    }
+
+    /// ADD EXTRA DATA MAP
+    if (extraData != null) {
+      _metaDataMap = Mapper.combineStringStringMap(
+        baseMap: _metaDataMap,
+        replaceDuplicateKeys: true,
+        insert: extraData,
+      );
+    }
+
+    blog('meta data are : $_metaDataMap');
 
     return f_d.SettableMetadata(
       customMetadata: _metaDataMap,
@@ -221,7 +281,7 @@ class StorageMetaModel {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static StorageMetaModel decipherNativeFullMetaData({
     @required f_d.FullMetadata fullMetadata,
   }){
@@ -289,13 +349,13 @@ class StorageMetaModel {
   }
   // -----------------------------------------------------------------------------
 
-  /// BLOGGING
+  /// CHECKERS
 
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkMetaDatasAreIdentical({
-  @required StorageMetaModel meta1,
-  @required StorageMetaModel meta2,
+    @required StorageMetaModel meta1,
+    @required StorageMetaModel meta2,
   }){
     bool _output = false;
 
@@ -348,14 +408,100 @@ class StorageMetaModel {
     }
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, String> _cleanNullPairs({
+    @required Map<String, String> map,
+  }){
+    Map<String, String> _output;
+
+    if (map != null){
+
+      _output = {};
+      final List<String> _keys = map.keys.toList();
+
+      for (final String key in _keys){
+
+        if (map[key] != null){
+
+          _output = _insertPairInMap(
+            map: _output,
+            key: key,
+            value: map[key],
+          );
+
+        }
+
+        // else {
+        //   blog('$key : value is null');
+        // }
+
+      }
+
+      if (_output.keys.isEmpty == true){
+        _output = null;
+      }
+
+    }
+
+    // else {
+    //   blog('cleanNullPairs: map is null');
+    // }
+
+    return _output;
+  }
+// --------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, String> _insertPairInMap({
+    @required Map<String, String> map,
+    @required String key,
+    @required dynamic value,
+    bool overrideExisting = true,
+  }) {
+    final Map<String, String> _result = <String, String>{};
+
+    if (map != null) {
+      _result.addAll(map);
+    }
+
+    if (key != null) {
+      /// PAIR IS NULL
+      if (_result[key] == null) {
+        _result[key] = value;
+        // _result.putIfAbsent(key, () => value);
+      }
+
+      /// PAIR HAS VALUE
+      else {
+        if (overrideExisting == true) {
+          _result[key] = value;
+        }
+      }
+    }
+
+    return _result;
+  }
   // -----------------------------------------------------------------------------
   /// OVERRIDES
 
   // --------------------
-  /*
    @override
-   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
-   */
+   String toString(){
+
+    final String _output =
+        '''
+        StorageMetaModel(
+          ownersIDs : $ownersIDs,
+          width : $width,
+          height : $height,
+          sizeMB : $sizeMB,
+          name : $name,
+          data : $data,
+        )
+        ''';
+
+    return _output;
+   }
   // --------------------
   @override
   bool operator == (Object other){
