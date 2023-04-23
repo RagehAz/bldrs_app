@@ -5,7 +5,6 @@ import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:mapper/mapper.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
@@ -599,7 +598,7 @@ class CensusModel {
 
     Map<String, dynamic> _map = {
       /// TOTAL USERS
-      'totalUsers' : ServerValue.increment(_increment),
+      'totalUsers' : _increment,
     };
 
     /// NEED
@@ -608,7 +607,7 @@ class CensusModel {
       _map = Mapper.insertPairInMap(
           map: _map,
           key: CensusModel.getNeedTypeFieldName(userModel?.need?.needType),
-          value: ServerValue.increment(_increment)
+          value: _increment,
       );
     }
 
@@ -637,7 +636,7 @@ class CensusModel {
           _map = Mapper.insertPairInMap(
               map: _map,
               key: CensusModel.getFollowBzTypeFieldName(bzType),
-              value: ServerValue.increment(_increment)
+              value: _increment,
           );
         }
 
@@ -670,7 +669,7 @@ class CensusModel {
     return Mapper.insertPairInMap(
         map: _map,
         key: CensusModel.getFlyerSaveFieldName(flyerModel.flyerType),
-        value: ServerValue.increment(_increment)
+        value: _increment,
     );
   }
   // --------------------
@@ -690,16 +689,16 @@ class CensusModel {
 
     Map<String, dynamic> _map = {
       /// TOTAL BZZ
-      'totalBzz' : ServerValue.increment(_increment),
+      'totalBzz' : _increment,
       /// TOTAL AUTHORS
-      'totalAuthors' : ServerValue.increment(bzModel.authors.length * _increment),
+      'totalAuthors' : bzModel.authors.length * _increment,
     };
 
     /// SECTION
     _map = Mapper.insertPairInMap(
         map: _map,
         key: CensusModel.getBzSectionFieldName(BzTyper.concludeBzSectionByBzTypes(bzModel.bzTypes)),
-        value: ServerValue.increment(_increment)
+        value: _increment
     );
 
     /// TYPE
@@ -707,7 +706,7 @@ class CensusModel {
       _map = Mapper.insertPairInMap(
           map: _map,
           key: CensusModel.getBzTypeFieldName(bzType),
-          value: ServerValue.increment(_increment)
+          value: _increment,
       );
     }
 
@@ -715,14 +714,14 @@ class CensusModel {
     _map = Mapper.insertPairInMap(
         map: _map,
         key: CensusModel.getBzFormFieldName(bzModel.bzForm),
-        value: ServerValue.increment(_increment)
+        value: _increment,
     );
 
     /// ACCOUNT TYPE
     _map = Mapper.insertPairInMap(
         map: _map,
         key: CensusModel.getBzAccountTypeFieldName(bzModel.accountType),
-        value: ServerValue.increment(_increment)
+        value: _increment,
     );
 
     return _map;
@@ -751,7 +750,7 @@ class CensusModel {
           _map = Mapper.insertPairInMap(
               map: _map,
               key: CensusModel.getCallBzTypeFieldName(bzType),
-              value: ServerValue.increment(_increment)
+              value: _increment,
           );
         }
 
@@ -820,16 +819,16 @@ class CensusModel {
 
     final Map<String, dynamic> _map = {
       /// TOTAL FLYERS
-      'totalFlyers' : ServerValue.increment(_increment),
+      'totalFlyers' : _increment,
       /// TOTAL SLIDES
-      'totalSlides' : ServerValue.increment(flyerModel.slides.length * _increment),
+      'totalSlides' : flyerModel.slides.length * _increment,
     };
 
     /// FLYER TYPE
     return Mapper.insertPairInMap(
         map: _map,
         key: CensusModel.getFlyerTypeFieldName(flyerModel.flyerType),
-        value: ServerValue.increment(_increment)
+        value: _increment,
     );
 
   }
@@ -859,7 +858,7 @@ class CensusModel {
           _output = Mapper.insertPairInMap(
               map: _output,
               key: _key,
-              value: ServerValue.increment(0), /// ADD NO INCREMENTATION IN THIS FIELD
+              value: 0, /// ADD NO INCREMENTATION IN THIS FIELD
           );
         }
 

@@ -5,7 +5,6 @@ import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/c_protocols/record_protocols/real/record_real_ops.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:filers/filers.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 
@@ -145,11 +144,13 @@ class BzRecordRealOps {
 
     if (_value != 0){
 
-      await Real.updateDocField(
+      await Real.incrementDocFields(
         coll: RealColl.countingBzz,
         doc: bzID,
-        field: field,
-        value: ServerValue.increment(_value),
+        incrementationMap: {
+          field: _value,
+        },
+        isIncrementing: increaseOne,
       );
 
       _map = Mapper.insertPairInMap(
@@ -191,24 +192,25 @@ class BzRecordRealOps {
     @required String bzID,
   }) async {
 
-    /// FOLLOWS
-    await Real.deleteDoc(
-      coll: RealColl.recordingFollows,
-      doc: bzID,
-    );
+    await Future.wait(<Future>[
+      /// FOLLOWS
+      Real.deleteDoc(
+        coll: RealColl.recordingFollows,
+        doc: bzID,
+      ),
 
-    /// CALLS
-    await Real.deleteDoc(
-      coll: RealColl.recordingCalls,
-      doc: bzID,
-    );
+      /// CALLS
+      Real.deleteDoc(
+        coll: RealColl.recordingCalls,
+        doc: bzID,
+      ),
 
-    /// BZ COUNTERS
-    await Real.deleteDoc(
-      coll: RealColl.countingBzz,
-      doc: bzID,
-    );
-
+      /// BZ COUNTERS
+      Real.deleteDoc(
+        coll: RealColl.countingBzz,
+        doc: bzID,
+      ),
+    ]);
   }
   // -----------------------------------------------------------------------------
 }

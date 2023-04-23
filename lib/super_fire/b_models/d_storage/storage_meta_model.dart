@@ -67,8 +67,31 @@ class StorageMetaModel {
       height: map['height'],
       name: map['name'],
       sizeMB: map['sizeMB'],
-      data: map['data'],
+      data: _getDataMap(map['data']),
     );
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Map<String, String> _getDataMap(dynamic thing){
+    Map<String, String> _output;
+
+    if (thing != null){
+      _output = {};
+
+      if (thing is Map){
+        final List<String> _keys = thing.keys.toList();
+        for (final String key in _keys){
+
+          if (thing[key] is String){
+            _output[key] = thing[key];
+          }
+
+        }
+      }
+
+    }
+
+    return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT

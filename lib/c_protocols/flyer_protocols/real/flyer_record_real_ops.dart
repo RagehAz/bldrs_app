@@ -8,7 +8,6 @@ import 'package:bldrs/c_protocols/bz_protocols/real/bz_record_real_ops.dart';
 import 'package:bldrs/c_protocols/record_protocols/real/record_real_ops.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:filers/filers.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 
@@ -379,12 +378,15 @@ class FlyerRecordRealOps {
       _value = incrementThis;
     }
 
-    await Real.updateDocField(
+    await Real.incrementDocFields(
       coll: RealColl.countingFlyers,
       doc: flyerID,
-      field: field,
-      value: ServerValue.increment(_value),
+      incrementationMap: {
+        field: _value,
+      },
+      isIncrementing: increaseOne,
     );
+
 
     Map<String, dynamic> _map = await Real.readDoc(
       coll: RealColl.countingFlyers,
