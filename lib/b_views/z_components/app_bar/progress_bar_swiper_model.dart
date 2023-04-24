@@ -143,7 +143,7 @@ class ProgressBarModel {
 
     }
 
-    final bool _shouldChangeStripColors = progressBarModel.value.stripsColors.length != numberOfPages;
+    final bool _shouldChangeStripColors = progressBarModel.value.stripsColors?.length != numberOfPages;
 
     // [...List.generate(numberOfPages, (index) => Colorz.white255)]
 
