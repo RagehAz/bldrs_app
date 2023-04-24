@@ -143,6 +143,10 @@ class ProgressBarModel {
 
     }
 
+    final bool _shouldChangeStripColors = progressBarModel.value.stripsColors.length != numberOfPages;
+
+    // [...List.generate(numberOfPages, (index) => Colorz.white255)]
+
     setNotifier(
         notifier: progressBarModel,
         mounted: mounted,
@@ -150,6 +154,10 @@ class ProgressBarModel {
           swipeDirection: _direction,
           index: newIndex,
           numberOfStrips: numberOfPages,
+          stripsColors: _shouldChangeStripColors == true ? ProgressBarModel.generateColors(
+            colors: null,
+            length: numberOfPages,
+          ) : progressBarModel.value.stripsColors,
         ),
     );
 
