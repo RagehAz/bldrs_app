@@ -268,7 +268,7 @@ class AuthModel {
       case 'password': return SignInMethod.email; break;
       case 'nativeEmail': return SignInMethod.nativeEmail; break;
       // case 'phone': return SignInMethod.phone; break;
-      default: return _OfficialAuthing.getUserID() == null ? null : SignInMethod.anonymous;
+      default: return Authing.getUserID() == null ? null : SignInMethod.anonymous;
     }
 
   }
