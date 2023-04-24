@@ -15,6 +15,8 @@ class AppBarButton extends StatelessWidget {
     this.bubble = true,
     this.isDeactivated = false,
     this.bigIcon = false,
+    this.width,
+    this.loading,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -27,13 +29,20 @@ class AppBarButton extends StatelessWidget {
   final bool bubble;
   final bool isDeactivated;
   final bool bigIcon;
+  final double width;
+  final bool loading;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
+    // final double _width =
+    //     width != null ? width :
+    //     width == null &&  verse == null ? Ratioz.appBarButtonSize :
+    //     Ratioz.appBarButtonSize * 2;
+
     return BldrsBox(
       height: Ratioz.appBarButtonSize,
-      width: verse == null ? Ratioz.appBarButtonSize : null,
+      width: width,
       // width: Ratioz.appBarButtonSize * 3.5,
       margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
       verse: verse,
@@ -47,6 +56,7 @@ class AppBarButton extends StatelessWidget {
       isDisabled: isDeactivated,
       onDisabledTap: onDeactivatedTap,
       verseMaxLines: 2,
+      loading: loading,
       // loading: loading,
     );
 
