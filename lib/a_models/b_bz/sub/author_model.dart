@@ -819,97 +819,6 @@ class AuthorModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkAuthorsListsAreIdentical({
-    @required List<AuthorModel> authors1,
-    @required List<AuthorModel> authors2
-  }){
-    bool _output = false;
-
-    if (authors1 == null && authors2 == null){
-      _output = true;
-    }
-    else if (authors1.isEmpty && authors2.isEmpty){
-      _output = true;
-    }
-    else if (authors1 != null && authors2 != null){
-
-      if (authors1.length != authors2.length){
-        _output = false;
-      }
-
-      else {
-
-        for (int i = 0; i < authors1.length; i++){
-
-          final bool _areIdentical = checkAuthorsAreIdentical(
-            author1: authors1[i],
-            author2: authors2[i],
-          );
-
-          if (_areIdentical == false){
-            _output = false;
-            break;
-          }
-
-          else {
-            _output = true;
-          }
-
-        }
-
-      }
-
-
-    }
-
-    return _output;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static bool checkAuthorsAreIdentical({
-    @required AuthorModel author1,
-    @required AuthorModel author2,
-  }){
-    bool _identical = false;
-
-    if (author1 == null && author2 == null){
-      _identical = true;
-    }
-    else if (author1 == null || author2 == null){
-      _identical = false;
-    }
-    else if (author1 != null && author2 != null){
-
-      if (
-
-          author1.userID == author2.userID &&
-          author1.name == author2.name &&
-          author1.picPath == author2.picPath &&
-          author1.title == author2.title &&
-          author1.role == author2.role &&
-          Mapper.checkListsAreIdentical(
-            list1: author1.flyersIDs,
-            list2: author2.flyersIDs,
-          ) == true &&
-          ContactModel.checkContactsListsAreIdentical(
-            contacts1: author1.contacts,
-            contacts2: author2.contacts,
-          ) == true &&
-          PicModel.checkPicsAreIdentical(
-              pic1: author1.picModel,
-              pic2: author2.picModel
-          ) == true
-
-      ){
-        _identical = true;
-      }
-
-    }
-
-    return _identical;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
   static bool checkAuthorsContainUserID({
     @required List<AuthorModel> authors,
     @required String userID,
@@ -1319,6 +1228,101 @@ class AuthorModel {
       default: return 0;
     }
 
+  }
+  // -----------------------------------------------------------------------------
+
+  /// EQUALITY
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkAuthorsListsAreIdentical({
+    @required List<AuthorModel> authors1,
+    @required List<AuthorModel> authors2
+  }){
+    bool _output = false;
+
+    if (authors1 == null && authors2 == null){
+      _output = true;
+    }
+    else if (authors1.isEmpty && authors2.isEmpty){
+      _output = true;
+    }
+    else if (authors1 != null && authors2 != null){
+
+      if (authors1.length != authors2.length){
+        _output = false;
+      }
+
+      else {
+
+        for (int i = 0; i < authors1.length; i++){
+
+          final bool _areIdentical = checkAuthorsAreIdentical(
+            author1: authors1[i],
+            author2: authors2[i],
+          );
+
+          if (_areIdentical == false){
+            _output = false;
+            break;
+          }
+
+          else {
+            _output = true;
+          }
+
+        }
+
+      }
+
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkAuthorsAreIdentical({
+    @required AuthorModel author1,
+    @required AuthorModel author2,
+  }){
+    bool _identical = false;
+
+    if (author1 == null && author2 == null){
+      _identical = true;
+    }
+    else if (author1 == null || author2 == null){
+      _identical = false;
+    }
+    else if (author1 != null && author2 != null){
+
+      if (
+
+          author1.userID == author2.userID &&
+          author1.name == author2.name &&
+          author1.picPath == author2.picPath &&
+          author1.title == author2.title &&
+          author1.role == author2.role &&
+          Mapper.checkListsAreIdentical(
+            list1: author1.flyersIDs,
+            list2: author2.flyersIDs,
+          ) == true &&
+          ContactModel.checkContactsListsAreIdentical(
+            contacts1: author1.contacts,
+            contacts2: author2.contacts,
+          ) == true &&
+          PicModel.checkPicsAreIdentical(
+              pic1: author1.picModel,
+              pic2: author2.picModel
+          ) == true
+
+      ){
+        _identical = true;
+      }
+
+    }
+
+    return _identical;
   }
   // -----------------------------------------------------------------------------
 
