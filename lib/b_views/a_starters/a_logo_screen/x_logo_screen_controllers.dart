@@ -49,7 +49,7 @@ Future<void> initializeLogoScreen({
   );
 
   /// USER MODEL
-  await _initializeUserModel(context);
+  await initializeUserModel(context);
 
   blog('2 - initializeLogoScreen : ${Authing.getUserID()}');
 
@@ -57,13 +57,13 @@ Future<void> initializeLogoScreen({
       <Future<void>>[
 
         /// APP CONTROLS
-        _initializeAppControls(context),
+        initializeAppControls(context),
         /// LOCAL ASSETS PATHS
-        _initializeLocalAssetsPaths(context),
+        initializeLocalAssetsPaths(context),
         /// APP LANGUAGE
-        _initializeAppLanguage(context),
+        initializeAppLanguage(context),
         /// APP STATE
-        _initializeAppState(context),
+        initializeAppState(context),
 
       ]
   );
@@ -150,7 +150,7 @@ Future<void> _onRestartAppInTimeCorrectionDialog({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _initializeUserModel(BuildContext context) async {
+Future<void> initializeUserModel(BuildContext context) async {
 
   // blog('_initializeUserModel : START');
 
@@ -218,7 +218,7 @@ Future<void> setUserAndAuthModelsAndCompleteUserZoneLocally({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _initializeAppState(BuildContext context) async {
+Future<void> initializeAppState(BuildContext context) async {
 
   // blog('_initializeAppState : START');
 
@@ -355,7 +355,7 @@ Future<void> _showUpdateAppDialog(BuildContext context) async {
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _initializeAppControls(BuildContext context) async {
+Future<void> initializeAppControls(BuildContext context) async {
   // blog('_initializeAppControls : START');
 
   final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
@@ -372,7 +372,7 @@ Future<void> _initializeAppControls(BuildContext context) async {
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _initializeLocalAssetsPaths(BuildContext context) async {
+Future<void> initializeLocalAssetsPaths(BuildContext context) async {
   // blog('_initializeLocalAssetsPaths : START');
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
   await _uiProvider.getSetLocalAssetsPaths(notify: true);
@@ -384,7 +384,7 @@ Future<void> _initializeLocalAssetsPaths(BuildContext context) async {
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _initializeAppLanguage(BuildContext context) async {
+Future<void> initializeAppLanguage(BuildContext context) async {
   // blog('_initializeAppLanguage : START');
 
   final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
