@@ -107,24 +107,31 @@ class AuthorModel {
     @required String bzID,
     @required bool isCreator,
   }) async {
+    AuthorModel _author;
 
-    final PicModel _userPic = await PicProtocols.fetchPic(BldrStorage.generateUserPicPath(userModel.id));
+    if (userModel != null) {
 
-    final AuthorModel _author = AuthorModel(
-      userID: userModel.id,
-      name: userModel.name,
-      picPath: BldrStorage.generateAuthorPicPath(bzID: bzID, authorID: userModel.id),
-      title: 'Bldr',
-      role: isCreator ? AuthorRole.creator : AuthorRole.teamMember,
-      contacts: userModel.contacts,
-      flyersIDs: const <String>[],
-      picModel: _userPic.copyWith(
-        path: BldrStorage.generateAuthorPicPath(
-          bzID: bzID,
-          authorID: userModel.id,
+      final PicModel _userPic = await PicProtocols.fetchPic(
+          BldrStorage.generateUserPicPath(userModel.id)
+      );
+
+      final AuthorModel _author = AuthorModel(
+        userID: userModel.id,
+        name: userModel.name,
+        picPath: BldrStorage.generateAuthorPicPath(bzID: bzID, authorID: userModel.id),
+        title: 'Bldr',
+        role: isCreator ? AuthorRole.creator : AuthorRole.teamMember,
+        contacts: userModel.contacts,
+        flyersIDs: const <String>[],
+        picModel: _userPic.copyWith(
+          path: BldrStorage.generateAuthorPicPath(
+            bzID: bzID,
+            authorID: userModel.id,
+          ),
         ),
-      ),
-    );
+      );
+
+    }
 
     return _author;
   }

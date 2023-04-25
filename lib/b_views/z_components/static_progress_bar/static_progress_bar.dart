@@ -44,6 +44,14 @@ class StaticProgressBar extends StatelessWidget {
     return _canBuild;
   }
   // --------------------------------------------------------------------------
+  static double getBoxHeight({
+    @required double flyerBoxWidth,
+    @required double stripThicknessFactor,
+  }){
+    final double _thickness = FlyerDim.progressStripThickness(flyerBoxWidth);
+    return _thickness * stripThicknessFactor;
+  }
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
