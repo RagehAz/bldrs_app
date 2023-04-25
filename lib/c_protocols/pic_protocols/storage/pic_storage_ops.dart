@@ -50,9 +50,17 @@ class PicStorageOps {
 
     if (TextCheck.isEmpty(path) == false){
 
-      final Uint8List _bytes = await Storage.readBytesByPath(
-        path: path,
-      );
+      Uint8List _bytes;
+
+      if (ObjectCheck.isAbsoluteURL(path) == true){
+        _bytes = await Floaters.getUint8ListFromURL(path);
+      }
+      else {
+        _bytes = await Storage.readBytesByPath(
+          path: path,
+        );
+      }
+
 
       if (Mapper.checkCanLoopList(_bytes) == true){
 
