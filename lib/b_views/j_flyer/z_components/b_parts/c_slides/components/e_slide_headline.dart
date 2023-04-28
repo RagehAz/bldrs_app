@@ -7,39 +7,44 @@ class SlideHeadline extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SlideHeadline({
     @required this.flyerBoxWidth,
-    @required this.verse,
+    @required this.text,
     this.verseColor = Colorz.white255,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final Verse verse;
+  final String text;
   final Color verseColor;
   /// --------------------------------------------------------------------------
-  static const headlineScaleFactor = 0.004;
-  static const headlineSize = 4;
+  static const headlineScaleFactor = 0.0032;
+  static const headlineSize = 2;
   // --------------------
   @override
   Widget build(BuildContext context) {
 
     final double _headlineTopMargin = flyerBoxWidth * 0.3;
+    final double lengthFactor = text.isEmpty ? 1 : text.length > 100 ? 1 : 1.4;
 
     /// FLYER TITLE
     return IgnorePointer(
       child: Container(
         width: flyerBoxWidth,
-        height: flyerBoxWidth,
-        // color: Colorz.BloodTest,
+        height: flyerBoxWidth * 0.5,
+        // color: Colorz.bloodTest,
         margin: EdgeInsets.only(top: _headlineTopMargin),
         alignment: Alignment.topCenter,
-        padding: EdgeInsets.symmetric(horizontal: flyerBoxWidth * 0.05),
+        padding: EdgeInsets.symmetric(horizontal: flyerBoxWidth * 0.03),
         child: BldrsText(
-          verse: verse,
+          width: flyerBoxWidth,
+          verse: Verse.plain(text),
           color: verseColor,
           shadow: true,
-          size: headlineSize,
-          scaleFactor: flyerBoxWidth * headlineScaleFactor,
-          maxLines: 3,
+          // size: headlineSize,
+          scaleFactor: flyerBoxWidth * headlineScaleFactor * lengthFactor,
+          labelColor: Colorz.black50,
+          maxLines: 5,
+          // centered: true,
+          margin: EdgeInsets.zero,
         ),
       ),
     );

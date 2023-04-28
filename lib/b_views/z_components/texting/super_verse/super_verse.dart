@@ -20,6 +20,7 @@ class BldrsText extends StatelessWidget {
   const BldrsText({
     @required this.verse,
     this.width,
+    this.height,
     this.size = 2,
     this.color = Colorz.white255,
     this.weight = VerseWeight.bold,
@@ -44,6 +45,7 @@ class BldrsText extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final Verse verse;
   final double width;
+  final double height;
   final int size;
   final Color color;
   final VerseWeight weight;
@@ -525,7 +527,7 @@ class BldrsText extends StatelessWidget {
       ),
       highlight: highlight,
       boxWidth: width,
-      // boxHeight: boxHeight,
+      boxHeight: height,
       textHeight: _verseSizeValue * 1.42,
       maxLines: maxLines,
       margins: margin,
