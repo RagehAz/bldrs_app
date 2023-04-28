@@ -1,18 +1,19 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
-import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/target/target_progress.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
 import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:bldrs/e_back_end/e_fcm/fcm_starter.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_sounder.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:devicer/devicer.dart';
 import 'package:filers/filers.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart';
@@ -60,11 +61,20 @@ class FCM {
   /// AWESOME NOTIFICATIONS SINGLETON
   AwesomeNotifications _awesomeNotifications;
   AwesomeNotifications get awesomeNotifications => _awesomeNotifications ??= AwesomeNotifications();
-  static AwesomeNotifications getAwesomeNoots() => FCM.instance.awesomeNotifications;
+  static AwesomeNotifications getAwesomeNoots(){
+
+    if (kIsWeb == true || DeviceChecker.deviceIsWindows() == true){
+      return null;
+    }
+    else {
+      return FCM.instance.awesomeNotifications;
+    }
+
+  }
   // --------------------
   /// Static dispose
   static void disposeAwesomeNoots(){
-    getAwesomeNoots().dispose();
+    getAwesomeNoots()?.dispose();
   }
   // -----------------------------------------------------------------------------
   /// LOCAL NOOT PLUGIN SINGLETON
@@ -121,14 +131,14 @@ class FCM {
       NotificationPermission.Car,
     ];
 
-    // final List<NotificationPermission> _allowed = await getAwesomeNoots().checkPermissionList(
+    // final List<NotificationPermission> _allowed = await getAwesomeNoots()?.checkPermissionList(
     //   channelKey: ChannelModel.bldrsChannel.id,
     //   permissions: _permissions,
     // );
     //
     // blog('requestAwesomePermission : permissions are : $_allowed');
 
-    await getAwesomeNoots().requestPermissionToSendNotifications(
+    await getAwesomeNoots()?.requestPermissionToSendNotifications(
       channelKey: ChannelModel.bldrsChannel.id,
       permissions: _permissions,
     );
@@ -290,7 +300,7 @@ class FCM {
       invoker: 'pushGlobalNotification',
       functions: () async {
 
-        await getAwesomeNoots().createNotification(
+        await getAwesomeNoots()?.createNotification(
           /// CONTENT
           content: _createGlobalNootContent(
             body: body,
@@ -536,7 +546,7 @@ class FCM {
 
     await notify();
 
-    getAwesomeNoots().actionStream.listen((ReceivedAction receivedAction) {
+    getAwesomeNoots()?.actionStream.listen((ReceivedAction receivedAction) {
       Nav.pushAndRemoveUntil(
         context: context,
         screen: screenToGoToOnNotiTap,
@@ -550,7 +560,7 @@ class FCM {
   static Future<void> notify() async {
     // String _timeZone = await AwesomeNotifications().getLocalTimeZoneIdentifier();
 
-    await getAwesomeNoots().createNotification(
+    await getAwesomeNoots()?.createNotification(
       content: NotificationContent(
         id: 1,
         channelKey: 'onNotifyTap',
@@ -679,42 +689,39 @@ class FCM {
 
     String _fcmToken;
 
-    await tryAndCatch(
-      invoker: 'generateToken',
-      functions: () async {
+    if (FCMStarter.canInitializeFCM() == true) {
+      await tryAndCatch(
+        invoker: 'generateToken',
+        functions: () async {
+          final FirebaseMessaging _fcm = FirebaseMessaging.instance;
+          _fcmToken = await _fcm.getToken(
+              // vapidKey:
+              );
 
-        final FirebaseMessaging _fcm = FirebaseMessaging.instance;
-        _fcmToken = await _fcm.getToken(
-          // vapidKey:
-        );
+          await _fcm.setAutoInitEnabled(true);
+        },
+        onError: (String error) async {
+          /// maybe show dialog
+          // await CenterDialog.showCenterDialog(
+          //     context: context,
+          //     titleVerse: const Verse(
+          //       text: '#!#Notifications are temporarily suspended',
+          //       translate: true,
+          //     ),
+          //     onOk: (){
+          //       blog('error is : $error');
+          //     }
+          // );
 
-        await _fcm.setAutoInitEnabled(true);
-
-      },
-      onError: (String error) async {
-
-        /// maybe show dialog
-        // await CenterDialog.showCenterDialog(
-        //     context: context,
-        //     titleVerse: const Verse(
-        //       text: '#!#Notifications are temporarily suspended',
-        //       translate: true,
-        //     ),
-        //     onOk: (){
-        //       blog('error is : $error');
-        //     }
-        // );
-
-        /// error codes reference
-        // https://firebase.google.com/docs/reference/fcm/rest/v1/ErrorCode
-        // UNREGISTERED (HTTP 404)
-        // INVALID_ARGUMENT (HTTP 400)
-        // [firebase_messaging/unknown] java.io.IOException: SERVICE_NOT_AVAILABLE
-        /// task : error : [firebase_messaging/unknown] java.io.IOException: SERVICE_NOT_AVAILABLE
-
-      },
-
-    );
+          /// error codes reference
+          // https://firebase.google.com/docs/reference/fcm/rest/v1/ErrorCode
+          // UNREGISTERED (HTTP 404)
+          // INVALID_ARGUMENT (HTTP 400)
+          // [firebase_messaging/unknown] java.io.IOException: SERVICE_NOT_AVAILABLE
+          /// task : error : [firebase_messaging/unknown] java.io.IOException: SERVICE_NOT_AVAILABLE
+        },
+      );
+    }
 
     return _fcmToken;
   }
@@ -725,7 +732,7 @@ class FCM {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<int> getGlobalBadgeNumber() async {
-    final int _num = await getAwesomeNoots().getGlobalBadgeCounter();
+    final int _num = await getAwesomeNoots()?.getGlobalBadgeCounter();
     // blog('getGlobalBadgeNumber : _num : $_num');
     return _num ?? 0;
   }
@@ -739,17 +746,17 @@ class FCM {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> decrementGlobalBadge() async {
-    await getAwesomeNoots().decrementGlobalBadgeCounter();
+    await getAwesomeNoots()?.decrementGlobalBadgeCounter();
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> setGlobalBadgeNumber(int num) async {
-    await getAwesomeNoots().setGlobalBadgeCounter(num);
+    await getAwesomeNoots()?.setGlobalBadgeCounter(num);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> resetGlobalBadgeNumber() async {
-    await getAwesomeNoots().resetGlobalBadge();
+    await getAwesomeNoots()?.resetGlobalBadge();
   }
   // -----------------------------------------------------------------------------
 

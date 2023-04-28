@@ -17,6 +17,7 @@ import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_paths_generators.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
+import 'package:devicer/devicer.dart';
 import 'package:filers/filers.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
@@ -107,24 +108,22 @@ class DynamicLinks {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> initDynamicLinks(BuildContext context) async {
+    if (DeviceChecker.deviceIsWindows() == false) {
+      blog('DynamicLinks.initDynamicLinks : starting to listen to onLink');
 
-    blog('DynamicLinks.initDynamicLinks : starting to listen to onLink');
+      getFireDynamicLinks().onLink.listen((PendingDynamicLinkData dynamicLinkData) async {
+        final String _link = dynamicLinkData?.link?.path;
 
-    getFireDynamicLinks().onLink.listen((PendingDynamicLinkData dynamicLinkData) async {
+        blogPendingDynamicLinkData(dynamicLinkData);
 
-      final String _link = dynamicLinkData?.link?.path;
-
-      blogPendingDynamicLinkData(dynamicLinkData);
-
-      await _jumpByReceivedDynamicLink(
-        context: context,
-        link: _link,
-      );
-
-    }).onError((Object error) {
-      blog('initDynamicLinks : error : ${error.runtimeType} : $error');
-    });
-
+        await _jumpByReceivedDynamicLink(
+          context: context,
+          link: _link,
+        );
+      }).onError((Object error) {
+        blog('initDynamicLinks : error : ${error.runtimeType} : $error');
+      });
+    }
   }
   // -----------------------------------------------------------------------------
 

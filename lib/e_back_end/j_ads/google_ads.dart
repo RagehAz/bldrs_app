@@ -47,7 +47,7 @@ class GoogleAds {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> initialize() async {
-    if (kIsWeb == false){
+    if (kIsWeb == false && DeviceChecker.deviceIsWindows() == false){
       await MobileAds.instance.initialize();
     }
   }

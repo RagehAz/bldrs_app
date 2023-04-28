@@ -125,6 +125,25 @@ class MapModel{
 
     return _mapModels;
   }
+
+
+  static Map<String, int> cipherIntsMapModels(List<MapModel> maps){
+    final Map<String, int> _ints = {};
+
+    if (Mapper.checkCanLoopList(maps) == true){
+
+      for (final MapModel map in maps){
+
+        if (map.key != null && map.value != null && map.value is int){
+          _ints[map.key] = map.value;
+        }
+
+      }
+
+    }
+
+    return _ints;
+  }
   // -----------------------------------------------------------------------------
 
   /// BLOGGERS

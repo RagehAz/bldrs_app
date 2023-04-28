@@ -38,6 +38,7 @@ class AuthorPic extends StatelessWidget {
       ),
     );
     // --------------------
+
     return Center(
       child: Container(
         height: size,
@@ -94,10 +95,10 @@ class AuthorPic extends StatelessWidget {
 
           /// WHEN IS NORMAL AUTHOR BUTTON
           BldrsImage(
-              width: size,
-              height: size,
-              corners: _authorPicBorders,
-              pic: authorPic
+            width: size,
+            height: size,
+            corners: _authorPicBorders,
+            pic: authorPic,
           ),
 
         ),

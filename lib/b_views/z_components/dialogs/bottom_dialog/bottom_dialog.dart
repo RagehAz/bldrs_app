@@ -389,17 +389,18 @@ class BottomDialog extends StatelessWidget {
     bool isDeactivated = false,
     Function onDeactivatedTap,
     Color color,
+    bool bigIcon = false,
   }) {
 
     return BldrsBox(
       height: height,
       width: clearWidth(context),
       verse: verse,
-      verseScaleFactor: 1.1,
+      verseScaleFactor: bigIcon == true ? 1 : 1 /0.6,
       verseWeight: VerseWeight.thin,
       // verseItalic: false,
       icon: icon,
-      iconSizeFactor: 0.6,
+      iconSizeFactor: bigIcon == true ? 1 : 0.6,
       verseCentered: verseCentered,
       verseMaxLines: 2,
       onTap: onTap,

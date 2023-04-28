@@ -24,8 +24,8 @@ class FCMStarter {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool _canInitializeFCM(){
-    if (kIsWeb == true){
+  static bool canInitializeFCM(){
+    if (kIsWeb == true || DeviceChecker.deviceIsWindows() == false){
       return false;
     }
     else {
@@ -36,7 +36,7 @@ class FCMStarter {
   /// TESTED : WORKS PERFECT
   static Future<void> preInitializeNootsInMainFunction() async {
 
-    if (_canInitializeFCM() == true) {
+    if (canInitializeFCM() == true) {
 
       /// INITIALIZE AWESOME NOTIFICATIONS
       await _initializeAwesomeNootsService();
@@ -51,7 +51,7 @@ class FCMStarter {
   /// TESTED : WORKS PERFECT
   static Future<void> initializeNootsInBldrsAppStarter() async {
 
-    if (_canInitializeFCM() == true) {
+    if (canInitializeFCM() == true) {
       /// FCM PERMISSION
       await FCM.requestFCMPermission();
 
@@ -74,7 +74,7 @@ class FCMStarter {
   /// TESTED : WORKS PERFECT
   static Future<void> _initializeAwesomeNootsService() async {
 
-    await FCM.getAwesomeNoots().initialize(
+    await FCM.getAwesomeNoots()?.initialize(
 
       /// NOOTS DEFAULT ICON
       FCM.fcmWhiteLogoFilePath,
