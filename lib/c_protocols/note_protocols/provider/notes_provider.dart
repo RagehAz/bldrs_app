@@ -486,7 +486,7 @@ class NotesProvider extends ChangeNotifier {
   int _badgeNum = 0;
   int get badgeNum => _badgeNum;
   Future<void> setBadgeNum() async {
-    _badgeNum = await FCM.getAwesomeNoots().getGlobalBadgeCounter();
+    _badgeNum = await FCM.getAwesomeNoots()?.getGlobalBadgeCounter();
     notifyListeners();
   }
   // --------------------

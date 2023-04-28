@@ -6,6 +6,7 @@ import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
+import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -148,9 +149,20 @@ class Formers {
     String _message;
 
     if (canValidate == true){
-      if (PicMaker.checkPicIsEmpty(pic) == true){
+
+      if (pic is PicModel){
+
+        final PicModel _picModel = pic;
+        if (_picModel.bytes.isEmpty && _picModel.path == null){
+          _message = Verse.transBake(context, 'phid_add_an_image');
+        }
+
+      }
+
+      else if (PicMaker.checkPicIsEmpty(pic) == true){
         _message = Verse.transBake(context, 'phid_add_an_image');
       }
+
     }
 
     return _message;

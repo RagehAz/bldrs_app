@@ -31,10 +31,10 @@ Future<void> initializeHomeScreen(BuildContext context) async {
     context: context,
   );
 
-  await _initializeUserZone(context);
+  await initializeUserZone(context);
 
   /// D - ZONES
-  await _initializeCurrentZone(context);
+  await initializeCurrentZone(context);
 
   await Future.wait(
       <Future<void>>[
@@ -48,19 +48,19 @@ Future<void> initializeHomeScreen(BuildContext context) async {
           notify: true,
         ),
         /// G - USER BZZ : USES BZZ PROVIDER
-        _initializeUserBzz(
+        initializeUserBzz(
           context: context,
           notify: true,
         ),
         /// H - USER FOLLOWED BZZ : USES BZZ PROVIDER
-        _initializeUserFollowedBzz(
+        initializeUserFollowedBzz(
             context: context,
             notify: true
         ),
       ]);
 
   /// I - KEYWORDS
-  unawaited(_initializeAllChains(context));
+  unawaited(initializeAllChains(context));
 
 }
 // -----------------------------------------------------------------------------
@@ -137,7 +137,7 @@ Future<void> _controlMissingFieldsCase({
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _initializeUserFollowedBzz({
+Future<void> initializeUserFollowedBzz({
   @required BuildContext context,
   @required bool notify,
 }) async {
@@ -153,7 +153,7 @@ Future<void> _initializeUserFollowedBzz({
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _initializeUserBzz({
+Future<void> initializeUserBzz({
   @required BuildContext context,
   @required bool notify,
 }) async {
@@ -173,7 +173,7 @@ Future<void> _initializeUserBzz({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _initializeUserZone(BuildContext context) async {
+Future<void> initializeUserZone(BuildContext context) async {
   // blog('initializeHomeScreen._initializeUserZone : ~~~~~~~~~~ START');
 
   final UsersProvider _userProvider = Provider.of<UsersProvider>(context, listen: false);
@@ -197,7 +197,7 @@ Future<void> _initializeUserZone(BuildContext context) async {
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _initializeCurrentZone(BuildContext context) async {
+Future<void> initializeCurrentZone(BuildContext context) async {
   // blog('initializeHomeScreen._initializeCurrentZone : ~~~~~~~~~~ START');
 
   final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
@@ -245,7 +245,7 @@ Future<void> _initializeCurrentZone(BuildContext context) async {
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _initializeAllChains(BuildContext context) async {
+Future<void> initializeAllChains(BuildContext context) async {
   // blog('initializeHomeScreen._initializeAllChains : ~~~~~~~~~~ START');
   final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
   await _chainsProvider.initializeAllChains(

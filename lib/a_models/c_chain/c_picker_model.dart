@@ -163,9 +163,17 @@ class PickerModel {
 
         for (final String chainID in _keys){
 
-          final Map<String, dynamic> _pickerMap = Mapper.getMapFromIHLMOO(
-            ihlmoo: bigMap[chainID],
-          );
+
+          Map<String, dynamic> _pickerMap;
+          if (bigMap[chainID] is String){
+          blog('getMapFromIHLMOO : bigMap[chainID] : ${bigMap[chainID].runtimeType} : ${bigMap[chainID]}');
+            _pickerMap = {chainID : bigMap[chainID]};
+          }
+          else {
+            _pickerMap = Mapper.getMapFromIHLMOO(
+              ihlmoo: bigMap[chainID],
+            );
+          }
 
           final PickerModel _model = decipherPicker(
               map: _pickerMap,

@@ -1,6 +1,6 @@
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:flutter/foundation.dart';
+import 'package:mapper/mapper.dart';
 
 @immutable
 class PickersBlocker {
@@ -49,9 +49,7 @@ class PickersBlocker {
     if (map != null){
       _blocker = PickersBlocker(
         value: map['value'],
-        pickersIDsToBlock: Stringer.getStringsFromDynamics(
-          dynamics: map['pickersIDsToBlock'],
-        ),
+        pickersIDsToBlock: Real.getStringsFromTheDamnThing(map['pickersIDsToBlock']),
       );
     }
 
@@ -76,24 +74,33 @@ class PickersBlocker {
   }
 // -----------------------------
   /// TESTED : WORKS PERFECT
-  static List<PickersBlocker> decipherBlockers(List<Object> maps){
+  static List<PickersBlocker> decipherBlockers(dynamic maps) {
     final List<PickersBlocker> _blockers = <PickersBlocker>[];
 
-    if (Mapper.checkCanLoopList(maps) == true){
+    if (maps != null) {
 
-      for (final Object _linkedHashMap in maps){
+      if (Map is List) {
+        for (final Object _linkedHashMap in maps) {
+          final Map<String, dynamic> map = Mapper.getMapFromIHLMOO(
+            ihlmoo: _linkedHashMap,
+          );
 
-        final Map<String, dynamic> map = Mapper.getMapFromIHLMOO(
-          ihlmoo: _linkedHashMap,
-        );
+          final PickersBlocker _blocker = _decipherBlocker(map);
+          _blockers.add(_blocker);
+        }
+      }
 
-        final PickersBlocker _blocker = _decipherBlocker(map);
-        _blockers.add(_blocker);
-
+      else if (maps is Map) {
+        final Map<String, dynamic> _bigMap = maps;
+        final List<String> _keys = _bigMap.keys.toList();
+        for (final String key in _keys) {
+          final dynamic _map = maps[key];
+          final PickersBlocker _blocker = _decipherBlocker(_map);
+          _blockers.add(_blocker);
+        }
       }
 
     }
-
 
     return _blockers;
   }

@@ -61,14 +61,20 @@ class StorageMetaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static StorageMetaModel decipherFromLDB(Map<String, dynamic> map){
-    return StorageMetaModel(
-      ownersIDs: Stringer.getStringsFromDynamics(dynamics: map['ownersIDs']),
-      width: map['width'],
-      height: map['height'],
-      name: map['name'],
-      sizeMB: map['sizeMB'],
-      data: _getDataMap(map['data']),
-    );
+    StorageMetaModel _output;
+
+    if (map != null){
+      _output = StorageMetaModel(
+        ownersIDs: Stringer.getStringsFromDynamics(dynamics: map['ownersIDs']),
+        width: map['width'],
+        height: map['height'],
+        name: map['name'],
+        sizeMB: map['sizeMB'],
+        data: _getDataMap(map['data']),
+      );
+    }
+
+    return _output;
   }
   // --------------------
   /// TASK : TEST ME

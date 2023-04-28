@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
+import 'package:devicer/devicer.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -304,7 +305,7 @@ class BldrsTimers {
         onOk: onRestart,
       );
 
-      if (kIsWeb == false){
+      if (kIsWeb == false && DeviceChecker.deviceIsWindows() == false){
           await AppSettings.openDateSettings();
       }
 

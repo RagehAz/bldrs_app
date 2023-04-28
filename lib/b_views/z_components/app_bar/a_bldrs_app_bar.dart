@@ -369,11 +369,16 @@ class _TheAppBar extends StatelessWidget {
                           width: _scrollableSpaceWidth,
                           height: _abHeight - (2 * Ratioz.appBarPadding),
                           alignment: Alignment.center,
-                          child: ListView(
+                          color: Colorz.white20,
+                          child: ListView.builder(
                             physics: const BouncingScrollPhysics(),
                             scrollDirection: Axis.horizontal,
                             controller: appBarScrollController,
-                            children: appBarRowWidgets,
+                            // children: appBarRowWidgets,
+                            itemCount: appBarRowWidgets.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return appBarRowWidgets[index];
+                            }
                           ),
                         ),
                       ),

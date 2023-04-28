@@ -53,7 +53,7 @@ class PicModel {
       _map = {
         'bytes': Floaters.getIntsFromUint8List(picModel.bytes),
         'path': picModel.path,
-        'meta': picModel.meta.cipherToLDB()
+        'meta': picModel.meta?.cipherToLDB()
       };
     }
 

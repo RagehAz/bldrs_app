@@ -152,7 +152,7 @@ class NoteFunProtocols {
     @required NoteModel noteModel,
   }) async {
 
-    blog('TriggerProtocols._fireTrigger  (noteID : ${noteModel.id}) -- START');
+    // blog('TriggerProtocols._fireTrigger  (noteID : ${noteModel.id}) -- START');
 
     if (
         noteModel != null
@@ -177,14 +177,14 @@ class NoteFunProtocols {
         newNote: _newNote,
       );
 
-      blog('trigger is done successfully');
+      // blog('trigger is done successfully');
     }
 
-    else {
-      blog('trigger already fired');
-    }
+    // else {
+    //   blog('trigger already fired');
+    // }
 
-    blog('TriggerProtocols._fireTrigger  (noteID : ${noteModel.id}) -- END');
+    // blog('TriggerProtocols._fireTrigger  (noteID : ${noteModel.id}) -- END');
 
   }
   // --------------------

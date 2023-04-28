@@ -1,4 +1,5 @@
 import 'package:bldrs/bldrs_keys.dart';
+import 'package:devicer/devicer.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:flutter/foundation.dart';
 
@@ -22,10 +23,12 @@ class AppCheck {
 
     /// TRIAL ONE
     // blog('AppCheck INITIALIZATION START');
-    await FirebaseAppCheck.instance.activate(
-      webRecaptchaSiteKey: BldrsKeys.recaptchaSiteKey, /// this is 'recaptcha-v3-site-key'
-      androidProvider: kDebugMode == true ? AndroidProvider.debug : AndroidProvider.playIntegrity,
-    );
+    if (DeviceChecker.deviceIsWindows() == false){
+      await FirebaseAppCheck.instance.activate(
+        webRecaptchaSiteKey: BldrsKeys.recaptchaSiteKey, /// this is 'recaptcha-v3-site-key'
+        androidProvider: kDebugMode == true ? AndroidProvider.debug : AndroidProvider.playIntegrity,
+      );
+    }
     // blog('AppCheck INITIALIZATION END');
 
 
