@@ -164,8 +164,8 @@ class DraftSlide {
         filterID: draft.filter.id,
         picPath: draft.picModel.path,
         dimensions: Dimensions(
-          width: draft.picModel.meta.width,
-          height: draft.picModel.meta.height,
+          width: draft.picModel.meta?.width,
+          height: draft.picModel.meta?.height,
         ),
         uiImage: await Floaters.getUiImageFromUint8List(draft.picModel.bytes),
       );

@@ -115,7 +115,7 @@ class AuthorModel {
           BldrStorage.generateUserPicPath(userModel.id)
       );
 
-      final AuthorModel _author = AuthorModel(
+      _author = AuthorModel(
         userID: userModel.id,
         name: userModel.name,
         picPath: BldrStorage.generateAuthorPicPath(bzID: bzID, authorID: userModel.id),

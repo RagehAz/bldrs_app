@@ -36,6 +36,7 @@ class NextButton extends StatelessWidget {
       newIndex: _nextIndex,
       progressBarModel: progressBarModel,
       mounted: mounted,
+      numberOfPages: _numberOfPages,
     );
 
     await Sliders.slideToIndex(

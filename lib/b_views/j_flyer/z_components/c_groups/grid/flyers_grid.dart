@@ -139,6 +139,7 @@ class FlyersGrid extends StatelessWidget {
       // --------------------
       /// ZOOMABLE FLYERS GRID
       else {
+
         return ZoomableFlyersGrid(
           gridWidth: gridWidth,
           gridHeight: gridHeight,

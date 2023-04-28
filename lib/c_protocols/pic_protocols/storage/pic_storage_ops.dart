@@ -5,6 +5,7 @@ import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
+import 'package:mediators/mediators.dart';
 import 'package:stringer/stringer.dart';
 
 class PicStorageOps {
@@ -50,9 +51,12 @@ class PicStorageOps {
 
     if (TextCheck.isEmpty(path) == false){
 
+      final bool _pathIsURL = ObjectCheck.isAbsoluteURL(path);
       Uint8List _bytes;
+      StorageMetaModel _meta;
 
-      if (ObjectCheck.isAbsoluteURL(path) == true){
+      /// GET BYTES
+      if (_pathIsURL == true){
         _bytes = await Floaters.getUint8ListFromURL(path);
       }
       else {
@@ -61,20 +65,29 @@ class PicStorageOps {
         );
       }
 
-
-      if (Mapper.checkCanLoopList(_bytes) == true){
-
-        final StorageMetaModel _meta = await Storage.readMetaByPath(
+      /// GET META DATA
+      if (Mapper.checkCanLoopList(_bytes) == true && _pathIsURL == false){
+        _meta = await Storage.readMetaByPath(
           path: path,
         );
+      }
+      else if (_pathIsURL == true){
+      final Dimensions _dims = await Dimensions.superDimensions(_bytes);
+      final double _mega = Filers.calculateSize(_bytes.length, FileSizeUnit.megaByte);
+        _meta = StorageMetaModel(
+          ownersIDs: const ['non'],
+          name: path,
+          height: _dims.height,
+          width: _dims.width,
+          sizeMB: _mega,
+        );
+      }
 
-        _picModel = PicModel(
+      _picModel = PicModel(
           path: path,
           bytes: _bytes,
           meta: _meta,
         );
-
-      }
 
     }
 

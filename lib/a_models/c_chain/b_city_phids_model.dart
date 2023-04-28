@@ -24,8 +24,8 @@ class CityPhidsModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  Map<String, dynamic> toMap(){
-    final Map<String, dynamic> _map = MapModel.cipherMapModels(phidsMapModels);
+  Map<String, int> toMap(){
+    final Map<String, int> _map = MapModel.cipherIntsMapModels(phidsMapModels);
     return _map;
   }
   // --------------------
