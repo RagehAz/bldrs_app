@@ -71,7 +71,7 @@ class EditorSlideHeadlineTextField extends StatelessWidget {
                       maxLines: 4,
                       maxLength: 55,
                       // counterIsOn: true,
-                      textSize: SlideHeadline.headlineSize,
+                      // textSize: SlideHeadline.headlineSize,
                       textScaleFactor: flyerBoxWidth * SlideHeadline.headlineScaleFactor,
                       centered: true,
                       // autoValidate: true,
