@@ -27,6 +27,7 @@ import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/firebase_options.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:mediators/mediators.dart';
@@ -173,18 +174,23 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
   StreamSubscription _dismissed;
   StreamSubscription _displayed;
   // --------------------
-  void _initializeNootListeners(){
-    _action = NootListener.listenToNootActionStream(context);
-    _created = NootListener.listenToNootCreatedStream();
-    // _dismissed = NootListener.listenToNootDismissedStream(); Unhandled Exception: Bad state: Stream has already been listened to.
-    _displayed = NootListener.listenToNootDisplayedStream();
+  void _initializeNootListeners() {
+    if (FCMStarter.canInitializeFCM() == true) {
+      _action = NootListener.listenToNootActionStream(context);
+      _created = NootListener.listenToNootCreatedStream();
+      // _dismissed = NootListener.listenToNootDismissedStream(); Unhandled Exception: Bad state: Stream has already been listened to.
+      _displayed = NootListener.listenToNootDisplayedStream();
+    }
   }
+
   // --------------------
   void _closeNootListeners(){
-    _action.cancel();
-    _created.cancel();
-    _dismissed.cancel();
-    _displayed.cancel();
+    if (FCMStarter.canInitializeFCM() == true) {
+      _action.cancel();
+      _created.cancel();
+      _dismissed.cancel();
+      _displayed.cancel();
+    }
   }
   // -----------------------------------------------------------------------------
 
@@ -320,7 +326,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
               // home: ,
               // useInheritedMediaQuery: ,
               // shortcuts: ,
-              // scrollBehavior: ,
+              scrollBehavior: MyCustomScrollBehavior(),
 
               /// DEBUG
               debugShowCheckedModeBanner: false,
@@ -380,6 +386,18 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
 
   }
   // -----------------------------------------------------------------------------
+}
+
+// ---------------------------------------------------------------------------
+
+class MyCustomScrollBehavior extends MaterialScrollBehavior {
+  // Override behavior methods and getters like dragDevices
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+    PointerDeviceKind.touch,
+    PointerDeviceKind.mouse,
+    // etc.
+  };
 }
 
 // ---------------------------------------------------------------------------

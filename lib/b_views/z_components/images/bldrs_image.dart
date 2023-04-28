@@ -1,5 +1,9 @@
+import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:bldrs/b_views/z_components/images/bldrs_image_path_to_ui_image.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:super_image/super_image.dart';
+import 'dart:ui' as ui;
 
 class BldrsImage extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -43,10 +47,13 @@ class BldrsImage extends StatelessWidget {
 
     return picture == '' ? null : _image;
   }
-  // -----------------------------------------------------------------------------
-  @override
-  Widget build(BuildContext context) {
-
+  // --------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
+  Widget getChild({
+    @required BuildContext context,
+    @required dynamic theIcon,
+    bool isLoading,
+  }) {
     return SuperImage(
       width: width,
       height: height,
@@ -55,10 +62,78 @@ class BldrsImage extends StatelessWidget {
       backgroundColor: backgroundColor,
       corners: corners,
       greyscale: greyscale,
-      pic: pic,
+      pic: theIcon,
       iconColor: iconColor,
-      loading: loading,
+      loading: isLoading ?? loading,
     );
+  }
+  // --------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    /// WITHOUT ICON
+    if (pic == null) {
+      return getChild(
+        context: context,
+        theIcon: null,
+      );
+    }
+
+    /// WITH ICON
+    else {
+
+      final bool isURL = ObjectCheck.isAbsoluteURL(pic);
+      final bool isRaster = ObjectCheck.objectIsJPGorPNG(pic);
+      final bool isSVG = ObjectCheck.objectIsSVG(pic);
+      final bool isFile = ObjectCheck.objectIsFile(pic);
+      final bool isPicPath = ObjectCheck.objectIsPicPath(pic);
+      final bool isPicModel = pic is PicModel;
+      final bool _isBytes = ObjectCheck.objectIsUint8List(pic);
+      final bool _isBase64 = ObjectCheck.isBase64(pic);
+      final bool _isUiImage = ObjectCheck.objectIsUiImage(pic);
+      final bool _isImgImage = ObjectCheck.objectIsImgImage(pic);
+
+      /// CAN VIEW
+      if (isURL ||
+          isRaster ||
+          isSVG ||
+          isFile ||
+          _isBytes ||
+          _isBase64 ||
+          _isUiImage ||
+          _isImgImage ||
+          isPicModel) {
+        return getChild(
+          context: context,
+          theIcon: pic,
+        );
+      }
+
+      /// PIC PATH
+      else if (isPicPath == true) {
+
+        // blog('image is pic path : $icon');
+
+        return BldrsImagePathToUiImage(
+          imagePath: pic,
+          builder: (bool loading, ui.Image uiImage) {
+            return getChild(
+              context: context,
+              theIcon: uiImage,
+              isLoading: loading,
+            );
+          },
+        );
+      }
+
+      else {
+        return getChild(
+          context: context,
+          theIcon: pic,
+        );
+      }
+    }
+
 
   }
 // -----------------------------------------------------------------------------

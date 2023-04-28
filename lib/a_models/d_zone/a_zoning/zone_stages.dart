@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
@@ -163,34 +164,11 @@ class Staging {
 
       _output = Staging(
         id: map['id'] ?? id,
-        emptyStageIDs: getStringsFromTheDamnThing(map['1_empty_stage']),
-        bzzStageIDs: getStringsFromTheDamnThing(map['2_bzz_stage']),
-        flyersStageIDs: getStringsFromTheDamnThing(map['3_flyers_stage']),
-        publicStageIDs: getStringsFromTheDamnThing(map['4_public_stage']),
+        emptyStageIDs: Real.getStringsFromTheDamnThing(map['1_empty_stage']),
+        bzzStageIDs: Real.getStringsFromTheDamnThing(map['2_bzz_stage']),
+        flyersStageIDs: Real.getStringsFromTheDamnThing(map['3_flyers_stage']),
+        publicStageIDs: Real.getStringsFromTheDamnThing(map['4_public_stage']),
       );
-
-    }
-
-    return _output;
-  }
-  // --------------------
-  static List<String> getStringsFromTheDamnThing(dynamic thing){
-    List<String> _output = [];
-
-    if (thing != null){
-
-      if (thing.runtimeType.toString() == 'ImmutableList<Object?>'){
-        _output =  Stringer.getStringsFromDynamics(dynamics: thing);
-      }
-      else if (thing.runtimeType.toString() == '_Map<String, dynamic>'){
-        final Map<String, dynamic> _map = thing;
-        final List<String> _keys = _map.keys.toList();
-        for (final String key in _keys){
-          if (_map[key] is String){
-            _output.add(_map[key]);
-          }
-        }
-      }
 
     }
 

@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/x_secondary/app_state.dart';
@@ -22,7 +24,9 @@ import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
+import 'package:devicer/devicer.dart';
 import 'package:filers/filers.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:ldb/ldb.dart';
@@ -35,6 +39,10 @@ Future<void> initializeLogoScreen({
   @required bool mounted,
 }) async {
 
+  if (kDebugMode == true && DeviceChecker.deviceIsWindows() == true){
+    await signInAsRage7(context: context);
+  }
+  
   // blog('1 - initializeLogoScreen : START');
 
   UiProvider.proSetScreenDimensions(
@@ -524,5 +532,43 @@ Future<void> _dailyRefreshLDB(BuildContext context) async {
   //
   // }
 
+}
+// -----------------------------------------------------------------------------
+
+/// RAGE7 SIGN IN
+
+// --------------------
+Future<void> signInAsRage7({
+  @required BuildContext context,
+}) async {
+  final AuthModel _authModel = await EmailAuthing.signIn(
+    email: 'rageh@bldrs.net',
+    password: '123456',
+    onError: (String error) => AuthProtocols.onAuthError(
+      context: context,
+      error: error,
+    ),
+  );
+
+  if (_authModel != null) {
+    final Map<String, dynamic> _map = await Fire.readDoc(
+      coll: FireColl.users,
+      doc: _authModel.id,
+    );
+
+    final UserModel _userModel = UserModel.decipherUser(
+      map: _map,
+      fromJSON: false,
+    );
+
+    /// UPDATE LDB USER MODEL
+    await UserLDBOps.updateUserModel(_userModel);
+
+    UsersProvider.proSetMyUserModel(
+      context: context,
+      userModel: _userModel,
+      notify: true,
+    );
+  }
 }
 // -----------------------------------------------------------------------------

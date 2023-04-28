@@ -42,7 +42,7 @@ class _NativeFireMapper {
 
       if (addDocID == true) {
 
-        blog('should insert id : ${doc.id} in this doc');
+        // blog('should insert id : ${doc.id} in this doc');
 
         _output = Mapper.insertPairInMap(
           map: _output,
@@ -53,7 +53,7 @@ class _NativeFireMapper {
       }
     }
 
-    Mapper.blogMap(_output,invoker: 'getMapFromNativeDoc');
+    // Mapper.blogMap(_output,invoker: 'getMapFromNativeDoc');
 
     return _output;
   }

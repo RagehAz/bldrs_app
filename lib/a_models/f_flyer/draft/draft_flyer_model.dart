@@ -120,15 +120,6 @@ class DraftFlyer{
       listen: false,
     );
 
-    final List<FlyerType> _possibleFlyerType = FlyerTyper.concludePossibleFlyerTypesByBzTypes(
-      bzTypes: bzModel.bzTypes,
-    );
-
-    final FlyerType _flyerType = _possibleFlyerType.length == 1 ?
-    _possibleFlyerType.first
-        :
-    null;
-
     return DraftFlyer(
       bzModel: bzModel,
       id: newDraftID,
@@ -137,7 +128,7 @@ class DraftFlyer{
       headlineNode: FocusNode(),
       description: TextEditingController(),
       descriptionNode: FocusNode(),
-      flyerType: _flyerType,
+      flyerType: getPossibleFlyerType(bzModel),
       publishState: PublishState.draft,
       auditState: null,
       keywordsIDs: const <String>[],
@@ -161,6 +152,20 @@ class DraftFlyer{
       posterController: ScreenshotController(),
     );
 
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static FlyerType getPossibleFlyerType(BzModel bzModel) {
+    final List<FlyerType> _possibleFlyerType = FlyerTyper.concludePossibleFlyerTypesByBzTypes(
+      bzTypes: bzModel.bzTypes,
+    );
+
+    final FlyerType _flyerType = _possibleFlyerType.length == 1 ?
+    _possibleFlyerType.first
+        :
+    null;
+
+    return _flyerType;
   }
   // -----------------------------------------------------------------------------
 

@@ -38,11 +38,13 @@ class FlyerEditorScreen extends StatefulWidget {
   const FlyerEditorScreen({
     @required this.validateOnStartup,
     this.flyerToEdit,
+    this.draftFlyer,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final FlyerModel flyerToEdit;
   final bool validateOnStartup;
+  final DraftFlyer draftFlyer;
   /// --------------------------------------------------------------------------
   @override
   _FlyerEditorScreenState createState() => _FlyerEditorScreenState();
@@ -107,7 +109,7 @@ class _FlyerEditorScreenState extends State<FlyerEditorScreen> with AutomaticKee
         setNotifier(
           notifier: draftNotifier,
           mounted: mounted,
-          value: await DraftFlyer.createDraft(
+          value: widget.draftFlyer ?? await DraftFlyer.createDraft(
             context: context,
             oldFlyer: widget.flyerToEdit,
           ),
