@@ -199,10 +199,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                 if (widget.draftSlide != null)
                   SlideHeadline(
                     flyerBoxWidth: DraftShelfSlide.flyerBoxWidth, /// i don't know why i decreased the 10
-                    verse: Verse(
-                      id: widget.draftSlide.headline,
-                      translate: false,
-                    ),
+                    text: widget.draftSlide.headline,
                   ),
 
                 if (widget.draftSlide != null)

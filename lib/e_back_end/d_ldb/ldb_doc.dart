@@ -119,6 +119,9 @@ class LDBDoc {
   static const String appControls = 'appControls';
   static const String theLastWipe = 'theLastWipe';
   static const String langCode = 'langCode';
+  // --------------------
+  /// GTA
+  static const String gta = 'gta';
   // -----------------------------------------------------------------------------
 
   /// ALL DOCS LIST

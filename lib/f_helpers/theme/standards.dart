@@ -71,7 +71,7 @@ class Standards {
   }
   // --------------------
   /// FLYER HEADLINE LENGTH
-  static const int flyerHeadlineMaxLength = 50;
+  static const int flyerHeadlineMaxLength = 180;
   static const int flyerHeadlineMinLength = 5;
   // -----------------------------------------------------------------------------
 
