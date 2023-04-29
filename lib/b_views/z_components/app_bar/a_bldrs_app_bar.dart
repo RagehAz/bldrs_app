@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:scale/scale.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:super_box/super_box.dart';
 import 'package:widget_fader/widget_fader.dart';
 
 class BldrsAppBar extends StatelessWidget {
@@ -57,6 +58,15 @@ class BldrsAppBar extends StatelessWidget {
   final GlobalKey globalKey;
   final bool listenToHideLayout;
   /// --------------------------------------------------------------------------
+  static const Widget appBarDot = SuperBox(
+    height: Ratioz.appBarButtonSize,
+    width: Ratioz.appBarButtonSize,
+    bubble: false,
+    icon: Iconz.circleDot,
+    iconSizeFactor: 0.7,
+    iconColor: Colorz.white50,
+  );
+  // --------------------
   static double width(BuildContext context) {
     return Scale.screenWidth(context) - (2 * Ratioz.appBarMargin);
   }

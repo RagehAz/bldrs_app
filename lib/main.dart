@@ -36,7 +36,7 @@ import 'package:provider/single_child_widget.dart';
 import 'package:stringer/stringer.dart';
 import 'bldrs_keys.dart';
 
-const String bldrsAppVersion = '3.5.0';
+const String bldrsAppVersion = '3.5.15';
 
 Future<void> main() async {
   /// -----------------------------------------------------------------------------
