@@ -51,6 +51,7 @@ class FlyerModel {
     @required this.showsAuthor,
     @required this.score,
     @required this.pdfPath,
+    this.redirectLink,
     this.bzLogoImage,
     this.authorImage,
     this.bzModel,
@@ -77,6 +78,7 @@ class FlyerModel {
   final DocumentSnapshot<Object> docSnapshot;
   final int score;
   final String pdfPath;
+  final String redirectLink;
   final ui.Image bzLogoImage;
   final ui.Image authorImage;
   final BzModel bzModel;
@@ -108,6 +110,7 @@ class FlyerModel {
     DocumentSnapshot docSnapshot,
     int score,
     String pdfPath,
+    String redirectLink,
     ui.Image bzLogoImage,
     ui.Image authorImage,
     BzModel bzModel,
@@ -134,6 +137,7 @@ class FlyerModel {
       docSnapshot: docSnapshot ?? this.docSnapshot,
       score: score ?? this.score,
       pdfPath: pdfPath ?? this.pdfPath,
+      redirectLink: redirectLink ?? this.redirectLink,
       bzLogoImage: bzLogoImage ?? this.bzLogoImage,
       authorImage: authorImage ?? this.authorImage,
       bzModel: bzModel ?? this.bzModel,
@@ -174,6 +178,7 @@ class FlyerModel {
       'times' : PublishTime.cipherTimes(times: times, toJSON: toJSON),
       'score' : score,
       'pdfPath' : pdfPath,
+      'redirectLink': redirectLink,
     };
   }
   // --------------------
@@ -232,6 +237,7 @@ class FlyerModel {
         times: PublishTime.decipherTimes(map: map['times'], fromJSON: fromJSON),
         score: map['score'],
         pdfPath: map['pdfPath'],
+        redirectLink: map['redirectLink'],
         docSnapshot: map['docSnapshot'],
       );
 
@@ -430,6 +436,7 @@ class FlyerModel {
     blog('priceTagIsOn : $priceTagIsOn');
     blog('score : $score');
     blog('pdfPath : $pdfPath');
+    blog('redirectLink : $redirectLink');
     SlideModel.blogSlides(slides);
     blog('bzLogoImage exists : ${bzLogoImage != null}');
     blog('authorImage exists : ${authorImage != null}');
@@ -527,6 +534,9 @@ class FlyerModel {
       if (flyer1.pdfPath != flyer2.pdfPath){
         blog('flyers pdfPath are not identical');
       }
+      if (flyer1.redirectLink != flyer2.redirectLink){
+        blog('flyers redirectLinks are not identical');
+      }
       if (flyer1.bzLogoImage != flyer2.bzLogoImage){
         blog('flyers bzLogoImage are not identical');
       }
@@ -571,6 +581,7 @@ class FlyerModel {
       zone: ZoneModel.dummyZone(),
       score: 0,
       pdfPath: null,
+      redirectLink: 'www.google.com',
     );
   }
   // --------------------
@@ -932,6 +943,25 @@ class FlyerModel {
 
     return _output;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getRedirectLinks({
+    @required List<FlyerModel> flyers,
+  }){
+    final List<String> _links = [];
+
+    if (Mapper.checkCanLoopList(flyers) == true){
+
+      for (final FlyerModel flyer in flyers){
+        if (ObjectCheck.isAbsoluteURL(flyer.redirectLink) == true){
+          _links.add(flyer.redirectLink);
+        }
+      }
+
+    }
+
+    return _links;
+  }
   // -----------------------------------------------------------------------------
 
   /// MODIFIERS
@@ -1011,6 +1041,7 @@ class FlyerModel {
           PublishTime.checkTimesListsAreIdentical(times1: flyer1.times, times2: flyer2.times) == true &&
           flyer1.priceTagIsOn == flyer2.priceTagIsOn &&
           flyer1.pdfPath == flyer2.pdfPath &&
+          flyer1.redirectLink == flyer2.redirectLink &&
           Floaters.checkUiImagesAreIdentical(flyer1.bzLogoImage, flyer2.bzLogoImage) == true &&
           Floaters.checkUiImagesAreIdentical(flyer1.authorImage, flyer2.authorImage) == true
           // && flyer1.score == flyer2.score
@@ -1082,6 +1113,7 @@ class FlyerModel {
       showsAuthor.hashCode^
       score.hashCode^
       pdfPath.hashCode^
+      redirectLink.hashCode^
       bzLogoImage.hashCode^
       authorImage.hashCode^
       bzModel.hashCode^
