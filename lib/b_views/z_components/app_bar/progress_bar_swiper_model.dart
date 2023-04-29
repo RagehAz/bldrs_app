@@ -143,7 +143,11 @@ class ProgressBarModel {
 
     }
 
-    final bool _shouldChangeStripColors = progressBarModel.value.stripsColors?.length != numberOfPages;
+    final bool _shouldChangeStripColors =
+        numberOfPages != null
+        &&
+        progressBarModel.value.stripsColors?.length != numberOfPages;
+
     final int _numberOfPages = numberOfPages ?? progressBarModel.value.stripsColors?.length;
 
     setNotifier(

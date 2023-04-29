@@ -2,6 +2,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:stringer/stringer.dart';
 
 class SlideHeadline extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -15,15 +16,26 @@ class SlideHeadline extends StatelessWidget {
   final double flyerBoxWidth;
   final String text;
   final Color verseColor;
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   static const headlineScaleFactor = 0.0032;
   static const headlineSize = 2;
   // --------------------
+  double _getTextSizeFactorByLength(){
+
+    if (TextCheck.isEmpty(text) == true){
+      return 1;
+    }
+    else {
+      return text.length > 100 ? 1 : 1.4;
+    }
+
+  }
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     final double _headlineTopMargin = flyerBoxWidth * 0.3;
-    final double lengthFactor = text.isEmpty ? 1 : text.length > 100 ? 1 : 1.4;
+    final double lengthFactor = _getTextSizeFactorByLength();
 
     /// FLYER TITLE
     return IgnorePointer(
