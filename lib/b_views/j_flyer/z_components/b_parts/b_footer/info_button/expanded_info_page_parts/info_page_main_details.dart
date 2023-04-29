@@ -92,7 +92,6 @@ class InfoPageMainDetails extends StatelessWidget {
             translate: false,
           ),
           icon: Iconz.calendar,
-          bigIcon: false,
         ),
 
         /// ZONE
@@ -114,7 +113,6 @@ class InfoPageMainDetails extends StatelessWidget {
                 zone: _zone,
               )),
               icon: _zone?.icon ?? Iconz.target,
-              bigIcon: false,
             );
 
           },
