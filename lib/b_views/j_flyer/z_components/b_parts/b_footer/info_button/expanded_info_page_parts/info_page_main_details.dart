@@ -81,8 +81,7 @@ class InfoPageMainDetails extends StatelessWidget {
             translate: false,
           ),
           icon: FlyerTyper.flyerTypeIcon(flyerType: flyerModel.flyerType, isOn: false),
-          iconSizeFactor: 1,
-          verseScaleFactor: 0.85 * 0.7,
+          bigIcon: true,
         ),
 
         /// PUBLISH TIME
@@ -93,6 +92,7 @@ class InfoPageMainDetails extends StatelessWidget {
             translate: false,
           ),
           icon: Iconz.calendar,
+          bigIcon: false,
         ),
 
         /// ZONE
@@ -114,6 +114,7 @@ class InfoPageMainDetails extends StatelessWidget {
                 zone: _zone,
               )),
               icon: _zone?.icon ?? Iconz.target,
+              bigIcon: false,
             );
 
           },
