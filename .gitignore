@@ -63,3 +63,10 @@ firestore.rules
 
 # to remove committed file from current commits
 # run git reset <path>
+
+# git rm --cached lib/bldrs_keys.dart
+# git rm --cached lib/firebase_options.dart
+# git rm --cached ios/Runner/Info.plist
+# git rm --cached ios/Runner/GoogleService-Info.plist
+# git rm --cached android/app/src/main/res/values/strings.xml
+# git rm --cached firestore.rules
