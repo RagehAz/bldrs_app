@@ -101,7 +101,7 @@ class DraftFlyer{
     }
 
     else {
-      _draft = await draftFromFlyer(
+      _draft = await _createDraftFromFlyer(
         context: context,
         flyer: oldFlyer,
       );
@@ -173,7 +173,7 @@ class DraftFlyer{
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<DraftFlyer> draftFromFlyer({
+  static Future<DraftFlyer> _createDraftFromFlyer({
     @required BuildContext context,
     @required FlyerModel flyer,
   }) async {
@@ -785,7 +785,7 @@ class DraftFlyer{
         );
 
         final int _days = Timers.calculateTimeDifferenceInDays(
-            from: _publishTime.time,
+            from: _publishTime?.time,
             to: DateTime.now(),
         );
 

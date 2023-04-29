@@ -1,17 +1,19 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
+import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/x_flyer_editor_screen.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/x_flyer_maker_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/static_flyer/b_static_header.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/x_flyer_editor_screen.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
 import 'package:provider/provider.dart';
 
 class AddFlyerButton extends StatelessWidget {
@@ -32,19 +34,39 @@ class AddFlyerButton extends StatelessWidget {
 
     await Future<void>.delayed(Ratioz.durationFading200, () async {
 
-      final dynamic _result = await Nav.goToNewScreen(
+      final DraftFlyer _draft = await DraftFlyer.createDraft(
         context: context,
-        screen: const FlyerEditorScreen(
-          validateOnStartup: false,
+        oldFlyer: null,
+      );
+
+      final bool _result = await Nav.goToNewScreen(
+        context: context,
+        screen: NewFlyerEditorScreen(
+          draftFlyer: _draft,
+          onConfirm: (DraftFlyer draft) async {
+
+            await onConfirmPublishFlyerButtonTap(
+              context: context,
+              oldFlyer: null,
+              draft: draft,
+            );
+
+          },
         ),
       );
 
-      if (_result.runtimeType == FlyerModel) {
-        blog('_goToFlyerEditor : adding published flyer model to bzPage screen gallery');
-        // addPublishedFlyerToGallery(_result);
-      } else {
-        blog('_goToFlyerEditor : did not publish the new draft flyer');
+      if (_result == true) {
+        await TopDialog.showTopDialog(
+          context: context,
+          firstVerse: const Verse(
+            id: 'phid_flyer_has_been_published',
+            translate: true,
+          ),
+          color: Colorz.green255,
+          textColor: Colorz.white255,
+        );
       }
+
     });
   }
   // -----------------------------------------------------------------------------

@@ -53,7 +53,6 @@ class TopDialog extends StatelessWidget {
     int milliseconds = 5000,
   }) async {
 
-
     await closeTopDialog(context);
 
     final double _screenWidth = Scale.screenWidth(context);
