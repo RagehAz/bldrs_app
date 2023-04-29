@@ -11,8 +11,7 @@ class StatsLine extends StatelessWidget {
   const StatsLine({
     @required this.icon,
     @required this.verse,
-    this.iconSizeFactor = 0.8,
-    this.verseScaleFactor = 1.5,
+    @required this.bigIcon,
     this.onTap,
     this.bubbleWidth,
     this.color,
@@ -20,8 +19,7 @@ class StatsLine extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final String icon;
-  final double iconSizeFactor;
-  final double verseScaleFactor;
+  final bool bigIcon;
   final Verse verse;
   final Function onTap;
   final double bubbleWidth;
@@ -43,8 +41,8 @@ class StatsLine extends StatelessWidget {
         verse: verse,
         verseWeight: VerseWeight.thin,
         verseItalic: true,
-        iconSizeFactor: iconSizeFactor,
-        verseScaleFactor: verseScaleFactor,
+        iconSizeFactor: bigIcon == true ? 1 : 0.8,
+        verseScaleFactor: bigIcon == true ? 1 : 1 / 0.8,
         corners: _height * 0.15,
         bubble: false,
         color: onTap == null ? color : Colorz.white20,

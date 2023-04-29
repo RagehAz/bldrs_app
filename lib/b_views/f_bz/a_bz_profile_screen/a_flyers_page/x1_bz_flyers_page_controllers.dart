@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/x_flyer_maker_controllers.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
@@ -134,13 +136,41 @@ Future<void> _onEditFlyerButtonTap({
     invoker: '_onEditFlyerButtonTap',
   );
 
-  await Nav.goToNewScreen(
-      context: context,
-      screen: FlyerEditorScreen(
-        flyerToEdit: flyer,
-        validateOnStartup: true,
-      ),
+  final DraftFlyer _draft = await DraftFlyer.createDraft(
+    context: context,
+    oldFlyer: flyer,
   );
+
+  final bool _result = await Nav.goToNewScreen(
+    context: context,
+    screen: NewFlyerEditorScreen(
+      draftFlyer: _draft,
+      onConfirm: (DraftFlyer draft) async {
+        draft.blogDraft(invoker: 'New Flyer Editor Test');
+
+        await onConfirmPublishFlyerButtonTap(
+          context: context,
+          oldFlyer: flyer,
+          draft: draft,
+        );
+
+      },
+    ),
+  );
+
+  if (_result == true){
+
+    await TopDialog.showTopDialog(
+      context: context,
+      firstVerse: const Verse(
+        id: 'phid_flyer_has_been_published',
+        translate: true,
+      ),
+      color: Colorz.green255,
+      textColor: Colorz.white255,
+    );
+
+  }
 
 }
 // -----------------------------------------------------------------------------

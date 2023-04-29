@@ -111,6 +111,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                     translate: false,
                   ),
                   icon: Iconz.follow,
+                  bigIcon: false,
                 ),
 
                 /// CALLS
@@ -120,6 +121,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                     translate: false,
                   ),
                   icon: Iconz.comPhone,
+                  bigIcon: false,
                 ),
 
                 /// SLIDES & FLYERS
@@ -134,6 +136,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                     variables: [_counter.allSlides, _bzModel?.flyersIDs?.length]
                   ),
                   icon: Iconz.gallery,
+                  bigIcon: false,
                 ),
 
                 /// SAVES
@@ -143,6 +146,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                     translate: false,
                   ),
                   icon: Iconz.saveOn,
+                  bigIcon: false,
                 ),
 
                 /// VIEWS
@@ -152,6 +156,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                     translate: false,
                   ),
                   icon: Iconz.viewsIcon,
+                  bigIcon: false,
                 ),
 
                 /// SHARES
@@ -161,6 +166,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                     translate: false,
                   ),
                   icon: Iconz.share,
+                  bigIcon: false,
                 ),
 
                 /// BIRTH
@@ -170,6 +176,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                     translate: false,
                   ),
                   icon: Iconz.calendar,
+                  bigIcon: false,
                 ),
 
               ]

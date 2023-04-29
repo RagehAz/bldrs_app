@@ -24,7 +24,6 @@ import 'package:stringer/stringer.dart';
 import 'package:filers/filers.dart';
 import 'package:layouts/layouts.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 
@@ -397,15 +396,14 @@ Future<void> onFlyerPhidTap({
 /// TESTED : WORKS PERFECT
 Future<void> onConfirmPublishFlyerButtonTap({
   @required BuildContext context,
-  @required ValueNotifier<DraftFlyer> draft,
+  @required DraftFlyer draft,
   @required FlyerModel oldFlyer,
 }) async {
 
-  if (draft.value.firstTimer == true){
-    await _onPublishNewFlyerTap(
+  if (draft.firstTimer == true){
+    await onPublishNewFlyerTap(
       context: context,
       draft: draft,
-      originalFlyer: oldFlyer,
     );
   }
 
@@ -420,16 +418,15 @@ Future<void> onConfirmPublishFlyerButtonTap({
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _onPublishNewFlyerTap({
+Future<void> onPublishNewFlyerTap({
   @required BuildContext context,
-  @required ValueNotifier<DraftFlyer> draft,
-  @required FlyerModel originalFlyer,
+  @required DraftFlyer draft,
 }) async {
 
   final bool _canContinue = await _preFlyerUpdateCheck(
     context: context,
     draft: draft,
-    originalFlyer: originalFlyer,
+    originalFlyer: null,
   );
 
   if (_canContinue == true){
@@ -439,21 +436,12 @@ Future<void> _onPublishNewFlyerTap({
       draft: draft,
     );
 
-    await FlyerLDBOps.deleteFlyerMakerSession(flyerID: draft.value.id);
+    await FlyerLDBOps.deleteFlyerMakerSession(flyerID: draft.id);
 
     await Nav.goBack(
       context: context,
       invoker: 'onPublishNewFlyerTap',
-    );
-
-    await TopDialog.showTopDialog(
-      context: context,
-      firstVerse: const Verse(
-        id: 'phid_flyer_has_been_published',
-        translate: true,
-      ),
-      color: Colorz.green255,
-      textColor: Colorz.white255,
+      passedData: true,
     );
 
   }
@@ -463,7 +451,7 @@ Future<void> _onPublishNewFlyerTap({
 /// TESTED : WORKS PERFECT
 Future<void> _onPublishFlyerUpdatesTap({
   @required BuildContext context,
-  @required ValueNotifier<DraftFlyer> draft,
+  @required DraftFlyer draft,
   @required FlyerModel originalFlyer,
 }) async {
 
@@ -481,22 +469,23 @@ Future<void> _onPublishFlyerUpdatesTap({
       oldFlyer: originalFlyer,
     );
 
-    await FlyerLDBOps.deleteFlyerMakerSession(flyerID: draft.value.id);
+    await FlyerLDBOps.deleteFlyerMakerSession(flyerID: draft.id);
 
     await Nav.goBack(
       context: context,
       invoker: 'onPublishFlyerUpdatesTap',
+      passedData: true,
     );
 
-    await TopDialog.showTopDialog(
-      context: context,
-      firstVerse: const Verse(
-        id: 'phid_flyer_has_been_updated',
-        translate: true,
-      ),
-      color: Colorz.green255,
-      textColor: Colorz.white255,
-    );
+    // await TopDialog.showTopDialog(
+    //   context: context,
+    //   firstVerse: const Verse(
+    //     id: 'phid_flyer_has_been_updated',
+    //     translate: true,
+    //   ),
+    //   color: Colorz.green255,
+    //   textColor: Colorz.white255,
+    // );
 
   }
 
@@ -509,12 +498,12 @@ Future<void> _onPublishFlyerUpdatesTap({
 /// TESTED : WORKS PERFECT
 Future<bool> _preFlyerUpdateCheck({
   @required BuildContext context,
-  @required ValueNotifier<DraftFlyer> draft,
+  @required DraftFlyer draft,
   @required FlyerModel originalFlyer,
 }) async {
 
   final FlyerModel flyerFromDraft = await DraftFlyer.draftToFlyer(
-    draft: draft.value,
+    draft: draft,
     toLDB: false,
 
   );
@@ -542,7 +531,7 @@ Future<bool> _preFlyerUpdateCheck({
   }
 
   else {
-    if (draft.value.draftSlides.isEmpty){
+    if (draft.draftSlides.isEmpty){
 
       await CenterDialog.showCenterDialog(
         context: context,
@@ -561,12 +550,12 @@ Future<bool> _preFlyerUpdateCheck({
 
     else {
 
-      final bool _isValid = Formers.validateForm(draft.value.formKey);
+      final bool _isValid = Formers.validateForm(draft.formKey);
       blog('_publishFlyerOps : fields are valid : $_isValid');
 
       if (_isValid == false){
 
-        if (draft.value.headline.text.length < Standards.flyerHeadlineMinLength){
+        if (draft.headline.text.length < Standards.flyerHeadlineMinLength){
           await TopDialog.showTopDialog(
             context: context,
             firstVerse: const Verse(
@@ -609,7 +598,7 @@ Future<bool> _preFlyerUpdateCheck({
 /// TESTED : WORKS PERFECT
 Future<void> _publishFlyerOps({
   @required BuildContext context,
-  @required ValueNotifier<DraftFlyer> draft,
+  @required DraftFlyer draft,
 }) async {
 
   pushWaitDialog(
@@ -622,7 +611,7 @@ Future<void> _publishFlyerOps({
 
   await FlyerProtocols.composeFlyer(
     context: context,
-    draftFlyer: draft.value,
+    draftFlyer: draft,
   );
 
   await WaitDialog.closeWaitDialog(context);
@@ -632,7 +621,7 @@ Future<void> _publishFlyerOps({
 /// TESTED : WORKS PERFECT
 Future<void> _updateFlyerOps({
   @required BuildContext context,
-  @required ValueNotifier<DraftFlyer> draft,
+  @required DraftFlyer draft,
   @required FlyerModel oldFlyer,
 }) async {
 
@@ -646,12 +635,12 @@ Future<void> _updateFlyerOps({
 
   final bool _imALoneAuthor = await AuthorModel.checkImALoneAuthor(
     context: context,
-    bzID: oldFlyer.bzID,
+    bzID: draft.bzID,
   );
 
   await FlyerProtocols.renovate(
     context: context,
-    newDraft: draft.value,
+    newDraft: draft,
     oldFlyer: oldFlyer,
     sendFlyerUpdateNoteToItsBz: !_imALoneAuthor,
     updateFlyerLocally: _imALoneAuthor,
