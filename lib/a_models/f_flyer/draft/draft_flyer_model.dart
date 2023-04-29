@@ -52,6 +52,7 @@ class DraftFlyer{
     @required this.canPickImage,
     @required this.firstTimer,
     @required this.posterController,
+    @required this.redirectLink,
   });
   /// --------------------------------------------------------------------------
   final String id;
@@ -80,6 +81,7 @@ class DraftFlyer{
   final bool canPickImage;
   final bool firstTimer;
   final ScreenshotController posterController;
+  final String redirectLink;
   // -----------------------------------------------------------------------------
   static const String newDraftID = 'newDraft';
   // -----------------------------------------------------------------------------
@@ -150,6 +152,7 @@ class DraftFlyer{
       formKey: GlobalKey<FormState>(),
       firstTimer: true,
       posterController: ScreenshotController(),
+      redirectLink: null,
     );
 
   }
@@ -205,6 +208,7 @@ class DraftFlyer{
       formKey: GlobalKey<FormState>(),
       canPickImage: true,
       posterController: ScreenshotController(),
+      redirectLink: flyer.redirectLink,
     );
 
   }
@@ -250,7 +254,11 @@ class DraftFlyer{
       priceTagIsOn: draft.priceTagIsOn,
       score: draft.score,
       pdfPath: draft.pdfModel == null ? null : BldrStorage.generateFlyerPDFPath(draft.id),
-
+      redirectLink: draft.redirectLink,
+      // bzModel: ,
+      // docSnapshot: ,
+      // authorImage: ,
+      // bzLogoImage: ,
     );
   }
   // -----------------------------------------------------------------------------
@@ -289,6 +297,7 @@ class DraftFlyer{
         'headlineNode': null,
         'descriptionNode': null,
         'formKey': null,
+        'redirectLink': draft.redirectLink,
       };
     }
 
@@ -327,6 +336,7 @@ class DraftFlyer{
         descriptionNode: null,
         formKey: null,
         posterController: ScreenshotController(),
+        redirectLink: map['redirectLink'],
       );
     }
 
@@ -365,6 +375,7 @@ class DraftFlyer{
     GlobalKey<FormState> formKey,
     bool firstTimer,
     ScreenshotController posterController,
+    String redirectLink,
   }){
     return DraftFlyer(
       bzModel: bzModel ?? this.bzModel,
@@ -393,6 +404,7 @@ class DraftFlyer{
       formKey: formKey ?? this.formKey,
       firstTimer: firstTimer ?? this.firstTimer,
       posterController: posterController ?? this.posterController,
+      redirectLink: redirectLink ?? this.redirectLink,
     );
   }
   // --------------------
@@ -424,6 +436,7 @@ class DraftFlyer{
     bool canPickImage = false,
     bool firstTimer = false,
     bool posterController = false,
+    bool redirectLink = false,
   }){
     return DraftFlyer(
       id: id == true ? null : this.id,
@@ -452,6 +465,7 @@ class DraftFlyer{
       canPickImage: canPickImage == true ? null : this.canPickImage,
       firstTimer: firstTimer == true ? null : this.firstTimer,
       posterController: posterController == true ? null : this.posterController,
+      redirectLink: redirectLink == true ? null : this.redirectLink,
     );
   }
   // -----------------------------------------------------------------------------
@@ -642,6 +656,7 @@ class DraftFlyer{
       PublishTime.blogTimes(times);
       SpecModel.blogSpecs(specs);
       blog('draftSlides : ${draftSlides.length} slides');
+      blog('redirectLink : $redirectLink');
       DraftSlide.blogSlides(
         slides: draftSlides,
         invoker: 'the_draft-flyer-slides'
@@ -727,7 +742,9 @@ class DraftFlyer{
       if (BzModel.checkBzzAreIdentical(bz1: draft1.bzModel, bz2: draft2.bzModel) == false){
         blog('bzzModels are not identical');
       }
-
+      if (draft1.redirectLink != draft2.redirectLink){
+        blog('redirectLinks are not identical');
+      }
 
       // FocusNode headlineNode,
       // FocusNode descriptionNode,
@@ -877,7 +894,8 @@ class DraftFlyer{
           draft1.priceTagIsOn == draft2.priceTagIsOn &&
           draft1.score == draft2.score &&
           PDFModel.checkPDFModelsAreIdentical(pdf1: draft1.pdfModel, pdf2: draft2.pdfModel) == true &&
-          BzModel.checkBzzAreIdentical(bz1: draft1.bzModel, bz2: draft2.bzModel) == true
+          BzModel.checkBzzAreIdentical(bz1: draft1.bzModel, bz2: draft2.bzModel) == true &&
+          draft1.redirectLink == draft2.redirectLink
       ){
         _areIdentical = true;
       }
@@ -944,6 +962,7 @@ class DraftFlyer{
       priceTagIsOn.hashCode^
       score.hashCode^
       posterController.hashCode^
+      redirectLink.hashCode^
       pdfModel.hashCode;
   // -----------------------------------------------------------------------------
 }
