@@ -35,7 +35,7 @@ class Authing {
     AuthModel _output;
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      _output = await _OfficialAuthing.anonymousSignin(
+      _output = await _OfficialAuthing.anonymousSignIn(
         onError: onError,
       );
     }
