@@ -168,6 +168,9 @@ class LDBDoc {
     appControls,
     langCode,
 
+    'headline: Dashboard',
+    gta,
+
   ];
   // -----------------------------------------------------------------------------
 
@@ -209,6 +212,8 @@ class LDBDoc {
     bool appState = true,
     bool appControls = true,
     bool langCode = true,
+    /// DASHBOARD
+    bool gta = true,
   }) async {
 
     final List<String> _docs = <String>[];
@@ -246,6 +251,8 @@ class LDBDoc {
     if (appState == true) {_docs.add(LDBDoc.appState);}
     if (appControls == true) {_docs.add(LDBDoc.appControls);}
     if (langCode == true) {_docs.add(LDBDoc.langCode);}
+    /// DASHBOARD
+    if (gta == true){_docs.add(LDBDoc.gta);}
 
     await Future.wait(<Future>[
       ...List.generate(_docs.length, (index){
@@ -257,5 +264,4 @@ class LDBDoc {
 
   }
   // -----------------------------------------------------------------------------
-  void f(){}
 }
