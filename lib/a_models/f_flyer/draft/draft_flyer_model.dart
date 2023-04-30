@@ -52,7 +52,8 @@ class DraftFlyer{
     @required this.canPickImage,
     @required this.firstTimer,
     @required this.posterController,
-    @required this.redirectLink,
+    @required this.affiliateLink,
+    @required this.gtaLink,
   });
   /// --------------------------------------------------------------------------
   final String id;
@@ -81,7 +82,8 @@ class DraftFlyer{
   final bool canPickImage;
   final bool firstTimer;
   final ScreenshotController posterController;
-  final String redirectLink;
+  final String affiliateLink;
+  final String gtaLink;
   // -----------------------------------------------------------------------------
   static const String newDraftID = 'newDraft';
   // -----------------------------------------------------------------------------
@@ -152,7 +154,8 @@ class DraftFlyer{
       formKey: GlobalKey<FormState>(),
       firstTimer: true,
       posterController: ScreenshotController(),
-      redirectLink: null,
+      affiliateLink: null,
+      gtaLink: null,
     );
 
   }
@@ -181,35 +184,42 @@ class DraftFlyer{
     @required FlyerModel flyer,
   }) async {
 
-    return DraftFlyer(
-      bzModel: await BzProtocols.fetchBz(context: context, bzID: flyer.bzID),
-      id: flyer.id,
-      headline: TextEditingController(text: flyer.headline),
-      trigram: flyer.trigram,
-      headlineNode: FocusNode(),
-      description: TextEditingController(text: flyer.description),
-      descriptionNode: FocusNode(),
-      flyerType: flyer.flyerType,
-      publishState: flyer.publishState,
-      auditState: flyer.auditState,
-      keywordsIDs: flyer.keywordsIDs,
-      showsAuthor: flyer.showsAuthor,
-      zone: flyer.zone,
-      authorID: flyer.authorID,
-      bzID: flyer.bzID,
-      position: flyer.position,
-      draftSlides: await DraftSlide.draftsFromSlides(flyer.slides),
-      specs: flyer.specs,
-      times: flyer.times,
-      priceTagIsOn: flyer.priceTagIsOn,
-      score: flyer.score,
-      pdfModel: await PDFProtocols.fetch(flyer.pdfPath),
-      firstTimer: false,
-      formKey: GlobalKey<FormState>(),
-      canPickImage: true,
-      posterController: ScreenshotController(),
-      redirectLink: flyer.redirectLink,
-    );
+    if (flyer == null) {
+      return null;
+    }
+
+    else {
+      return DraftFlyer(
+        bzModel: await BzProtocols.fetchBz(context: context, bzID: flyer.bzID),
+        id: flyer.id,
+        headline: TextEditingController(text: flyer.headline),
+        trigram: flyer.trigram,
+        headlineNode: FocusNode(),
+        description: TextEditingController(text: flyer.description),
+        descriptionNode: FocusNode(),
+        flyerType: flyer.flyerType,
+        publishState: flyer.publishState,
+        auditState: flyer.auditState,
+        keywordsIDs: flyer.keywordsIDs,
+        showsAuthor: flyer.showsAuthor,
+        zone: flyer.zone,
+        authorID: flyer.authorID,
+        bzID: flyer.bzID,
+        position: flyer.position,
+        draftSlides: await DraftSlide.draftsFromSlides(flyer.slides),
+        specs: flyer.specs,
+        times: flyer.times,
+        priceTagIsOn: flyer.priceTagIsOn,
+        score: flyer.score,
+        pdfModel: await PDFProtocols.fetch(flyer.pdfPath),
+        firstTimer: false,
+        formKey: GlobalKey<FormState>(),
+        canPickImage: true,
+        posterController: ScreenshotController(),
+        affiliateLink: flyer.affiliateLink,
+        gtaLink: flyer.gtaLink,
+      );
+    }
 
   }
   // --------------------
@@ -254,7 +264,8 @@ class DraftFlyer{
       priceTagIsOn: draft.priceTagIsOn,
       score: draft.score,
       pdfPath: draft.pdfModel == null ? null : BldrStorage.generateFlyerPDFPath(draft.id),
-      redirectLink: draft.redirectLink,
+      affiliateLink: draft.affiliateLink,
+      gtaLink: draft.gtaLink,
       // bzModel: ,
       // docSnapshot: ,
       // authorImage: ,
@@ -297,7 +308,8 @@ class DraftFlyer{
         'headlineNode': null,
         'descriptionNode': null,
         'formKey': null,
-        'redirectLink': draft.redirectLink,
+        'affiliateLink': draft.affiliateLink,
+        'gtaLink': draft.gtaLink,
       };
     }
 
@@ -336,7 +348,8 @@ class DraftFlyer{
         descriptionNode: null,
         formKey: null,
         posterController: ScreenshotController(),
-        redirectLink: map['redirectLink'],
+        affiliateLink: map['affiliateLink'],
+        gtaLink: map['gtaLink'],
       );
     }
 
@@ -375,7 +388,8 @@ class DraftFlyer{
     GlobalKey<FormState> formKey,
     bool firstTimer,
     ScreenshotController posterController,
-    String redirectLink,
+    String affiliateLink,
+    String gtaLink,
   }){
     return DraftFlyer(
       bzModel: bzModel ?? this.bzModel,
@@ -404,7 +418,8 @@ class DraftFlyer{
       formKey: formKey ?? this.formKey,
       firstTimer: firstTimer ?? this.firstTimer,
       posterController: posterController ?? this.posterController,
-      redirectLink: redirectLink ?? this.redirectLink,
+      affiliateLink: affiliateLink ?? this.affiliateLink,
+      gtaLink: gtaLink ?? this.gtaLink,
     );
   }
   // --------------------
@@ -436,7 +451,8 @@ class DraftFlyer{
     bool canPickImage = false,
     bool firstTimer = false,
     bool posterController = false,
-    bool redirectLink = false,
+    bool affiliateLink = false,
+    bool gtaLink = false,
   }){
     return DraftFlyer(
       id: id == true ? null : this.id,
@@ -465,7 +481,8 @@ class DraftFlyer{
       canPickImage: canPickImage == true ? null : this.canPickImage,
       firstTimer: firstTimer == true ? null : this.firstTimer,
       posterController: posterController == true ? null : this.posterController,
-      redirectLink: redirectLink == true ? null : this.redirectLink,
+      affiliateLink: affiliateLink == true ? null : this.affiliateLink,
+      gtaLink: gtaLink == true ? null : this.gtaLink,
     );
   }
   // -----------------------------------------------------------------------------
@@ -656,7 +673,8 @@ class DraftFlyer{
       PublishTime.blogTimes(times);
       SpecModel.blogSpecs(specs);
       blog('draftSlides : ${draftSlides.length} slides');
-      blog('redirectLink : $redirectLink');
+      blog('affiliateLink : $affiliateLink');
+      blog('gtaLink : $gtaLink');
       DraftSlide.blogSlides(
         slides: draftSlides,
         invoker: 'the_draft-flyer-slides'
@@ -742,8 +760,11 @@ class DraftFlyer{
       if (BzModel.checkBzzAreIdentical(bz1: draft1.bzModel, bz2: draft2.bzModel) == false){
         blog('bzzModels are not identical');
       }
-      if (draft1.redirectLink != draft2.redirectLink){
-        blog('redirectLinks are not identical');
+      if (draft1.affiliateLink != draft2.affiliateLink){
+        blog('affiliateLinks are not identical');
+      }
+      if (draft1.gtaLink != draft2.gtaLink){
+        blog('gtaLinks are not identical');
       }
 
       // FocusNode headlineNode,
@@ -895,7 +916,8 @@ class DraftFlyer{
           draft1.score == draft2.score &&
           PDFModel.checkPDFModelsAreIdentical(pdf1: draft1.pdfModel, pdf2: draft2.pdfModel) == true &&
           BzModel.checkBzzAreIdentical(bz1: draft1.bzModel, bz2: draft2.bzModel) == true &&
-          draft1.redirectLink == draft2.redirectLink
+          draft1.affiliateLink == draft2.affiliateLink &&
+          draft1.gtaLink == draft2.gtaLink
       ){
         _areIdentical = true;
       }
@@ -962,7 +984,8 @@ class DraftFlyer{
       priceTagIsOn.hashCode^
       score.hashCode^
       posterController.hashCode^
-      redirectLink.hashCode^
+      affiliateLink.hashCode^
+      gtaLink.hashCode^
       pdfModel.hashCode;
   // -----------------------------------------------------------------------------
 }
