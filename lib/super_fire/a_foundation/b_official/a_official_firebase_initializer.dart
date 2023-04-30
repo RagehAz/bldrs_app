@@ -82,7 +82,8 @@ class _OfficialFirebase {
 
     if (socialKeys != null) {
       fui.FirebaseUIAuth.configureProviders([
-        if (socialKeys.supportEmail == true) fui.EmailAuthProvider(),
+        if (socialKeys.supportEmail == true)
+          fui.EmailAuthProvider(),
         if (socialKeys.googleClientID != null)
           GoogleProvider(
             clientId: socialKeys.googleClientID,

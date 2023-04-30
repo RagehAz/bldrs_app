@@ -416,7 +416,7 @@ class Dialogs {
     // [firebase_auth/user-not-found]
     // [firebase_auth/user-not-found]
 
-    blog('_errorReplyVerse : $_errorReplyVerse');
+    blog('_errorReplyVerse : ${_errorReplyVerse.id}');
 
     await CenterDialog.showCenterDialog(
       context: context,
