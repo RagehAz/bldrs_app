@@ -97,8 +97,9 @@ class _OfficialFirebase {
           ),
         if (socialKeys.supportApple == true)
           AppleProvider(
-              // scopes: ,
-              ),
+
+            // scopes: ,
+          ),
       ]);
     }
 
