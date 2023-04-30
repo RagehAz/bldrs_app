@@ -104,7 +104,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "6388bc26cb344b7dbe99f8d5d55ba91df5c9ac94"
+      resolved-ref: "9d94a3d3273f903b2b350c825202d75d8687e76f"
       url: "https://github.com/RagehAz/bldrs_theme.git"
     source: git
     version: "1.0.10"
@@ -1706,10 +1706,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: c462c7aaea3b302f04759e54583ef7f6cce44366
+      resolved-ref: a8003336cd3b7ba7149474fea7b621b94f413fe7
       url: "https://github.com/RagehAz/super_box.git"
     source: git
-    version: "1.0.7"
+    version: "1.0.8"
   super_image:
     dependency: "direct main"
     description:

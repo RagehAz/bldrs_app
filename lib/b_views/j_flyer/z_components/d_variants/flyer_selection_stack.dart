@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/e_footer_button.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/e_extra_layers/flyer_affiliate_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/e_extra_layers/flyer_audit_layer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/e_extra_layers/flyer_selection_layer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
@@ -132,6 +133,12 @@ class FlyerSelectionStack extends StatelessWidget {
               ),
 
             ),
+
+          /// AFFILIATE LINK
+          if (flyerModel.affiliateLink != null)
+          FlyerAffiliateButton(
+            flyerBoxWidth: flyerBoxWidth,
+          ),
 
         ],
       );
