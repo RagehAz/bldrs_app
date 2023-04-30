@@ -51,7 +51,8 @@ class FlyerModel {
     @required this.showsAuthor,
     @required this.score,
     @required this.pdfPath,
-    this.redirectLink,
+    this.affiliateLink,
+    this.gtaLink,
     this.bzLogoImage,
     this.authorImage,
     this.bzModel,
@@ -78,7 +79,8 @@ class FlyerModel {
   final DocumentSnapshot<Object> docSnapshot;
   final int score;
   final String pdfPath;
-  final String redirectLink;
+  final String affiliateLink; /// this generates money
+  final String gtaLink; /// this to track gta progress
   final ui.Image bzLogoImage;
   final ui.Image authorImage;
   final BzModel bzModel;
@@ -110,7 +112,8 @@ class FlyerModel {
     DocumentSnapshot docSnapshot,
     int score,
     String pdfPath,
-    String redirectLink,
+    String affiliateLink,
+    String gtaLink,
     ui.Image bzLogoImage,
     ui.Image authorImage,
     BzModel bzModel,
@@ -137,7 +140,8 @@ class FlyerModel {
       docSnapshot: docSnapshot ?? this.docSnapshot,
       score: score ?? this.score,
       pdfPath: pdfPath ?? this.pdfPath,
-      redirectLink: redirectLink ?? this.redirectLink,
+      affiliateLink: affiliateLink ?? this.affiliateLink,
+      gtaLink: gtaLink ?? this.gtaLink,
       bzLogoImage: bzLogoImage ?? this.bzLogoImage,
       authorImage: authorImage ?? this.authorImage,
       bzModel: bzModel ?? this.bzModel,
@@ -178,7 +182,8 @@ class FlyerModel {
       'times' : PublishTime.cipherTimes(times: times, toJSON: toJSON),
       'score' : score,
       'pdfPath' : pdfPath,
-      'redirectLink': redirectLink,
+      'affiliateLink': affiliateLink,
+      'gtaLink': gtaLink,
     };
   }
   // --------------------
@@ -237,7 +242,8 @@ class FlyerModel {
         times: PublishTime.decipherTimes(map: map['times'], fromJSON: fromJSON),
         score: map['score'],
         pdfPath: map['pdfPath'],
-        redirectLink: map['redirectLink'],
+        affiliateLink: map['affiliateLink'],
+        gtaLink: map['gtaLink'],
         docSnapshot: map['docSnapshot'],
       );
 
@@ -283,7 +289,7 @@ class FlyerModel {
   static List<TextEditingController> createHeadlinesControllersForExistingFlyer(FlyerModel flyerModel){
     final List<TextEditingController> _controllers = <TextEditingController>[];
 
-    if (flyerModel != null && Mapper.checkCanLoopList(flyerModel.slides)){
+    if (flyerModel != null && Mapper.checkCanLoopList(flyerModel.slides) == true){
 
       for (final SlideModel slide in flyerModel.slides){
         final TextEditingController _controller = TextEditingController(text: slide.headline);
@@ -299,7 +305,7 @@ class FlyerModel {
   static List<TextEditingController> createDescriptionsControllersForExistingFlyer(FlyerModel flyerModel){
     final List<TextEditingController> _controllers = <TextEditingController>[];
 
-    if (flyerModel != null && Mapper.checkCanLoopList(flyerModel.slides)){
+    if (flyerModel != null && Mapper.checkCanLoopList(flyerModel.slides) == true){
 
       for (final SlideModel slide in flyerModel.slides){
         final TextEditingController _controller = TextEditingController(text: slide.description);
@@ -436,7 +442,8 @@ class FlyerModel {
     blog('priceTagIsOn : $priceTagIsOn');
     blog('score : $score');
     blog('pdfPath : $pdfPath');
-    blog('redirectLink : $redirectLink');
+    blog('affiliateLink : $affiliateLink');
+    blog('gtaLink : $gtaLink');
     SlideModel.blogSlides(slides);
     blog('bzLogoImage exists : ${bzLogoImage != null}');
     blog('authorImage exists : ${authorImage != null}');
@@ -534,8 +541,11 @@ class FlyerModel {
       if (flyer1.pdfPath != flyer2.pdfPath){
         blog('flyers pdfPath are not identical');
       }
-      if (flyer1.redirectLink != flyer2.redirectLink){
-        blog('flyers redirectLinks are not identical');
+      if (flyer1.affiliateLink != flyer2.affiliateLink){
+        blog('flyers affiliateLinks are not identical');
+      }
+      if (flyer1.gtaLink != flyer2.gtaLink){
+        blog('flyers gtaLinks are not identical');
       }
       if (flyer1.bzLogoImage != flyer2.bzLogoImage){
         blog('flyers bzLogoImage are not identical');
@@ -581,7 +591,8 @@ class FlyerModel {
       zone: ZoneModel.dummyZone(),
       score: 0,
       pdfPath: null,
-      redirectLink: 'www.google.com',
+      affiliateLink: 'www.google.com',
+      gtaLink: 'www.youtube.com',
     );
   }
   // --------------------
@@ -945,7 +956,7 @@ class FlyerModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> getRedirectLinks({
+  static List<String> getGtaLinks({
     @required List<FlyerModel> flyers,
   }){
     final List<String> _links = [];
@@ -953,9 +964,11 @@ class FlyerModel {
     if (Mapper.checkCanLoopList(flyers) == true){
 
       for (final FlyerModel flyer in flyers){
-        if (ObjectCheck.isAbsoluteURL(flyer.redirectLink) == true){
-          _links.add(flyer.redirectLink);
+       if (flyer != null){
+          if (ObjectCheck.isAbsoluteURL(flyer.gtaLink) == true){
+          _links.add(flyer.gtaLink);
         }
+       }
       }
 
     }
@@ -1041,7 +1054,8 @@ class FlyerModel {
           PublishTime.checkTimesListsAreIdentical(times1: flyer1.times, times2: flyer2.times) == true &&
           flyer1.priceTagIsOn == flyer2.priceTagIsOn &&
           flyer1.pdfPath == flyer2.pdfPath &&
-          flyer1.redirectLink == flyer2.redirectLink &&
+          flyer1.affiliateLink == flyer2.affiliateLink &&
+          flyer1.gtaLink == flyer2.gtaLink &&
           Floaters.checkUiImagesAreIdentical(flyer1.bzLogoImage, flyer2.bzLogoImage) == true &&
           Floaters.checkUiImagesAreIdentical(flyer1.authorImage, flyer2.authorImage) == true
           // && flyer1.score == flyer2.score
@@ -1113,7 +1127,8 @@ class FlyerModel {
       showsAuthor.hashCode^
       score.hashCode^
       pdfPath.hashCode^
-      redirectLink.hashCode^
+      affiliateLink.hashCode^
+      gtaLink.hashCode^
       bzLogoImage.hashCode^
       authorImage.hashCode^
       bzModel.hashCode^
