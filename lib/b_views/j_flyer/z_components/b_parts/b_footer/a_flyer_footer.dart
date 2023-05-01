@@ -22,6 +22,7 @@ class FlyerFooter extends StatefulWidget {
     @required this.headerIsExpanded,
     @required this.inFlight,
     @required this.flyerIsSaved,
+    @required this.infoButtonExpanded,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -33,6 +34,7 @@ class FlyerFooter extends StatefulWidget {
   final ValueNotifier<bool> headerIsExpanded;
   final bool inFlight;
   final ValueNotifier<bool> flyerIsSaved;
+  final ValueNotifier<bool> infoButtonExpanded;
   /// --------------------------------------------------------------------------
   @override
   State<FlyerFooter> createState() => _FlyerFooterState();
@@ -46,8 +48,6 @@ class _FlyerFooterState extends State<FlyerFooter> {
   final TextEditingController _reviewTextController = TextEditingController();
   final ValueNotifier<FlyerCounterModel> _flyerCounter = ValueNotifier(null);
   final ValueNotifier<bool> _isSharing = ValueNotifier(false);
-  // --------------------
-  final ValueNotifier<bool> _infoButtonExpanded = ValueNotifier(false);
   // --------------------
   final ValueNotifier<bool> _canShowConvertibleReviewButton = ValueNotifier(true);
   // -----------------------------------------------------------------------------
@@ -103,7 +103,6 @@ class _FlyerFooterState extends State<FlyerFooter> {
     _infoPageVerticalController.dispose();
     _reviewPageVerticalController.dispose();
     _reviewTextController.dispose();
-    _infoButtonExpanded.dispose();
     _canShowConvertibleReviewButton.dispose();
     _loading.dispose();
     _isSharing.dispose();
@@ -113,12 +112,12 @@ class _FlyerFooterState extends State<FlyerFooter> {
   Future<void> onInfoButtonTap() async {
 
     setNotifier(
-        notifier: _infoButtonExpanded,
+        notifier: widget.infoButtonExpanded,
         mounted: mounted,
-        value: !_infoButtonExpanded.value,
+        value: !widget.infoButtonExpanded.value,
     );
 
-    if(_infoButtonExpanded.value  == false){
+    if(widget.infoButtonExpanded.value  == false){
       unawaited(
           _infoPageVerticalController.animateTo(0,
             duration: const Duration(milliseconds: 100),
@@ -136,7 +135,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
 
     }
 
-    if (_infoButtonExpanded.value  == true){
+    if (widget.infoButtonExpanded.value  == true){
       setNotifier(
         notifier: _canShowConvertibleReviewButton,
         mounted: mounted,
@@ -189,7 +188,8 @@ class _FlyerFooterState extends State<FlyerFooter> {
       child: FooterBox(
         flyerBoxWidth: widget.flyerBoxWidth,
         footerPageController: widget.footerPageController,
-        infoButtonExpanded: _infoButtonExpanded,
+        infoButtonExpanded: widget.infoButtonExpanded,
+        hasAffiliateLink: widget.flyerModel?.affiliateLink != null,
         footerPageViewChildren: <Widget>[
 
           /// FOOTER
@@ -224,7 +224,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
                   flyerBoxWidth: widget.flyerBoxWidth,
                   flyerModel: widget.flyerModel,
                   tinyMode: widget.tinyMode,
-                  infoButtonExpanded: _infoButtonExpanded,
+                  infoButtonExpanded: widget.infoButtonExpanded,
                   onInfoButtonTap: onInfoButtonTap,
                   infoButtonType: _infoButtonType,
                   infoPageVerticalController: _infoPageVerticalController,

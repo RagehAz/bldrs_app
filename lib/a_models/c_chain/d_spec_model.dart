@@ -763,3 +763,18 @@ class SpecModel {
       value.hashCode;
 // -----------------------------------------------------------------------------
 }
+
+class Speccer {
+// -----------------------------------------------------------------------------
+  const Speccer();
+  // --------------------
+  static double getSalePrice(List<SpecModel> specs) {
+    return SpecModel.getFirstSpecFromSpecsByPickerChainID(specs: specs, pickerChainID: 'phid_s_salePrice',)?.value;
+  }
+  // --------------------
+  static String getCurrencyID(List<SpecModel> specs) {
+    return SpecModel.getFirstSpecFromSpecsByPickerChainID(specs: specs, pickerChainID: 'phid_s_currency',)?.value;
+  }
+  // --------------------
+
+}

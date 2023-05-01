@@ -33,6 +33,7 @@ class FooterTemplate extends StatelessWidget {
             context: context,
             flyerBoxWidth: flyerBoxWidth,
             infoButtonExpanded: false,
+            hasLink: false,
           ),
           child: Container(
             color: Colorz.white20,

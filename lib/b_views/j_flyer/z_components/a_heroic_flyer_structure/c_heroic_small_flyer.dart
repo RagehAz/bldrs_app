@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/b_he
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/d_heroic_flyer_big_view.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/e_heroic_big_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/a_single_slide.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/e_extra_layers/flyer_affiliate_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/static_flyer/b_static_header.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/static_flyer/d_static_footer.dart';
@@ -175,6 +176,13 @@ class HeroicSmallFlyer extends StatelessWidget {
           flyerBoxWidth: flyerBoxWidth,
           flyerID: renderedFlyer?.id,
           optionsButtonIsOn: false,
+        ),
+
+        /// AFFILIATE BUTTON
+        FlyerAffiliateButton(
+          flyerBoxWidth: flyerBoxWidth,
+          flyerModel: renderedFlyer,
+          inStack: true,
         ),
 
         /// BIG FLYER

@@ -244,6 +244,10 @@ class DraftFlyer{
       ));
     }
 
+    final AuditState _auditState =
+    draft.auditState == AuditState.verified ? AuditState.verified :
+        isPublishing == true ? PublishState.published : draft.publishState;
+
     return FlyerModel(
       id: draft.id,
       headline: draft.headline.text,
@@ -251,7 +255,7 @@ class DraftFlyer{
       description: draft.description.text,
       flyerType: draft.flyerType,
       publishState: isPublishing == true ? PublishState.published : draft.publishState,
-      auditState: draft.bzModel.isVerified == true ? AuditState.verified : AuditState.pending,
+      auditState: _auditState,
       keywordsIDs: draft.keywordsIDs,
       showsAuthor: draft.showsAuthor,
       zone: draft.zone,

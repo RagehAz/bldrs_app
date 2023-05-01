@@ -555,6 +555,7 @@ class FlyerDim {
     @required BuildContext context,
     @required double flyerBoxWidth,
     @required bool infoButtonExpanded,
+    @required bool hasLink,
   }){
 
     if (infoButtonExpanded == true){
@@ -565,6 +566,7 @@ class FlyerDim {
       return _footerBoxCollapsedHeight(
         context: context,
         flyerBoxWidth: flyerBoxWidth,
+        hasLink: hasLink,
       );
     }
 
@@ -574,6 +576,7 @@ class FlyerDim {
   static double _footerBoxCollapsedHeight({
     @required BuildContext context,
     @required double flyerBoxWidth,
+    @required bool hasLink,
   }) {
 
     final double _footerBTMargins = footerButtonMarginValue(flyerBoxWidth,);
@@ -583,7 +586,9 @@ class FlyerDim {
       flyerBoxWidth: flyerBoxWidth,
     );
 
-    return (2 * _footerBTMargins) + (2 * _footerBTRadius);
+    final double _linkHeight = hasLink == true ? (2 * _footerBTRadius) + (2 * _footerBTMargins) : 0;
+
+    return (2 * _footerBTMargins) + (2 * _footerBTRadius) + _linkHeight;
   }
   // ---------
   /// TESTED : WORKS PERFECT
@@ -1022,6 +1027,7 @@ class FlyerDim {
       context: context,
       flyerBoxWidth: flyerBoxWidth,
       infoButtonExpanded: false,
+      hasLink: false,
     );
 
     return (_footerMinHeight - _buttonMinHeight) / 2;
@@ -1364,6 +1370,47 @@ class FlyerDim {
       // maxCrossAxisExtent: scrollDirection == Axis.vertical ? _flyerBoxWidth : Ratioz.xxflyerZoneHeight,
     );
 
+  }
+  // -----------------------------------------------------------------------------
+
+  /// GTA BUTTON
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static double gtaButtonWidth({
+    @required BuildContext context,
+    @required double flyerBoxWidth,
+  }){
+
+    final double _leftEnMargin = gtaButtonMargins(
+      flyerBoxWidth: flyerBoxWidth,
+      context: context,
+    ).left;
+
+    final double _footerButtonSpacing = footerButtonMarginValue(flyerBoxWidth);
+    final double _footerButtonSize = footerButtonSize(context: context, flyerBoxWidth: flyerBoxWidth);
+
+    return flyerBoxWidth
+        - _leftEnMargin
+        - (_footerButtonSpacing * 2)
+        - _footerButtonSize;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static EdgeInsets gtaButtonMargins({
+    @required BuildContext context,
+    @required double flyerBoxWidth,
+  }) {
+    return EdgeInsets.symmetric(
+      horizontal: FlyerDim
+          .infoButtonMargins(
+        context: context,
+        flyerBoxWidth: flyerBoxWidth,
+        isExpanded: false,
+        tinyMode: false,
+      )
+          .bottom,
+    );
   }
   // -----------------------------------------------------------------------------
 }
