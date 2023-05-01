@@ -11,7 +11,7 @@ import 'package:stringer/stringer.dart';
 
 // --------------------
 /// ZONE :
-///   - Either Country - City - District
+///   - Either Country - City
 ///
 /// ACTIVE ZONE
 ///   - is a zone that has certain amount of flyers and bzz to be visible to users

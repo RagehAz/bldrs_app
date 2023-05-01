@@ -165,68 +165,6 @@ class CensusRealOps {
   }
   // -----------------------------------------------------------------------------
 
-  /// READ DISTRICT / DISTRICTS CENSUS
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<List<CensusModel>> readDistrictsOfCityCensus({
-    @required String cityID,
-  }) async {
-    List<CensusModel> _output = <CensusModel>[];
-
-    if (cityID != null){
-
-      final Object _objects = await Real.readPath(
-        path: RealPath.getCensusesPathOfDistricts(cityID: cityID),
-      );
-
-      final List<Map<String, dynamic>> _maps = Mapper.getMapsFromIHLMOO(
-        ihlmoo: _objects,
-        // addChildrenIDs: true, // DEFAULT
-      );
-
-      if (Mapper.checkCanLoopList(_maps) == true){
-        _output = CensusModel.decipherCensuses(_maps);
-      }
-
-    }
-
-    return _output;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<CensusModel> readDistrictCensus({
-    @required String districtID,
-  }) async {
-    CensusModel _output;
-
-    if (districtID != null){
-
-      final Object _object = await Real.readPath(
-        path: RealPath.getCensusPathOfDistrict(districtID: districtID),
-      );
-
-      if (_object != null){
-
-        final Map<String, dynamic> _map = Mapper.getMapFromIHLMOO(
-          ihlmoo: _object,
-        );
-
-        if (_map != null){
-          _output = CensusModel.decipher(
-            map: _map,
-            id: districtID,
-          );
-        }
-
-      }
-
-    }
-
-    return _output;
-  }
-  // -----------------------------------------------------------------------------
-
   /// UPDATE
 
   // --------------------
@@ -265,13 +203,6 @@ class CensusRealOps {
             map: _map,
         ),
 
-        /// UPDATE DISTRICT
-        if (zoneModel.countryID != null && zoneModel.cityID != null && zoneModel.districtID != null)
-          Real.updateDocInPath(
-            path: RealPath.getCensusPathOfDistrict(districtID: zoneModel.districtID),
-            map: _map,
-          ),
-
       ]);
 
       /// DELETE LDB CENSUSES
@@ -279,7 +210,6 @@ class CensusRealOps {
         CensusModel.planetID,
         zoneModel.countryID,
         zoneModel.cityID,
-        zoneModel.districtID,
       ];
 
       await LDBOps.deleteMaps(

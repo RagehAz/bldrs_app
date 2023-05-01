@@ -264,7 +264,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
     final bool _zoneIsValid = Formers.zoneValidator(
       context: context,
       zoneModel: draftNotifier.value?.zone,
-      selectCountryAndCityOnly: true,
       selectCountryIDOnly: false,
       canValidate: true,
     ) == null;
@@ -749,13 +748,10 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                           translate: true,
                         ),
                         currentZone: draft?.zone,
-                        depth: ZoneDepth.district,
-                        // selectCountryAndCityOnly: true,
-                        // selectCountryIDOnly: false,
+                        depth: ZoneDepth.city,
                         validator: () => Formers.zoneValidator(
                               context: context,
                               zoneModel: draft?.zone,
-                              selectCountryAndCityOnly: true,
                               selectCountryIDOnly: false,
                               canValidate: draft?.canValidate,
                             ),
@@ -775,7 +771,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       canGoNext: Formers.zoneValidator(
                             context: context,
                             zoneModel: draft?.zone,
-                            selectCountryAndCityOnly: true,
                             selectCountryIDOnly: false,
                             canValidate: true,
                           ) ==

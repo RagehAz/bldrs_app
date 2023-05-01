@@ -250,7 +250,6 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
     final bool _zoneIsValid = Formers.zoneValidator(
       context: context,
       zoneModel: draftNotifier.value?.zone,
-      selectCountryAndCityOnly: true,
       selectCountryIDOnly: false,
       canValidate: _canValidate,
     ) == null;
@@ -659,10 +658,6 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                           id: 'phid_each_flyer_target_one_city',
                           translate: true,
                         ),
-                        Verse(
-                          id: 'phid_selecting_district_focuses_search',
-                          translate: true,
-                        ),
                       ],
                       currentZone: _draft?.zone,
                       onZoneChanged: (ZoneModel zone) => onZoneChanged(
@@ -674,7 +669,6 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                       validator: () => Formers.zoneValidator(
                         context: context,
                         zoneModel: _draft?.zone,
-                        selectCountryAndCityOnly: true,
                         selectCountryIDOnly: false,
                         canValidate: _canValidate,
                       ),
@@ -686,7 +680,6 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                       canGoNext: Formers.zoneValidator(
                         context: context,
                         zoneModel: _draft?.zone,
-                        selectCountryAndCityOnly: true,
                         selectCountryIDOnly: false,
                         canValidate: true,
                       ) == null,

@@ -2,7 +2,6 @@ import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
 import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
-import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
@@ -125,7 +124,7 @@ class ZoneIDsProtocols {
     // assert(incompleteZoneModel != null, 'incompleteZoneModel is null');
     // assert(incompleteZoneModel.countryID != null, 'incompleteZoneModel.countryID is null');
 
-    /// incomplete zone model is what only has (countryID - cityID - districtID)
+    /// incomplete zone model is what only has (countryID - cityID)
     /// complete zone model is that has all IDs  Models and Names initialized
 
     ZoneModel _output = incompleteZoneModel;
@@ -159,16 +158,6 @@ class ZoneIDsProtocols {
 
       }
 
-      /// DISTRICT MODEL
-      if (incompleteZoneModel.districtModel == null){
-        final DistrictModel _districtModel = await ZoneProtocols.fetchDistrict(
-          districtID: incompleteZoneModel.districtID,
-        );
-        _output = _output.copyWith(
-          districtModel: _districtModel,
-        );
-      }
-
       /// COUNTRY NAME
       if (TextCheck.isEmpty(incompleteZoneModel.countryName) == true || incompleteZoneModel.countryName == '...'){
 
@@ -195,21 +184,6 @@ class ZoneIDsProtocols {
 
         _output = _output.copyWith(
           cityName: _cityName,
-        );
-
-      }
-
-      /// DISTRICT NAME
-      if (TextCheck.isEmpty(incompleteZoneModel.districtName) == true || incompleteZoneModel.districtName == '...'){
-
-        final String _districtName = DistrictModel.translateDistrict(
-          context: context,
-          district: _output.districtModel,
-          // langCode:
-        );
-
-        _output = _output.copyWith(
-          districtName: _districtName,
         );
 
       }

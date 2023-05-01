@@ -3,16 +3,13 @@ import 'dart:async';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
-import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dart';
 import 'package:bldrs/b_views/g_zoning/b_cities_screen/a_cities_screen.dart';
-import 'package:bldrs/b_views/g_zoning/c_districts_screen/a_districts_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:layouts/layouts.dart';
@@ -33,21 +30,11 @@ import 'package:provider/provider.dart';
                                | => goBack * 1 (pass null)
                                | => onCityTap -> goBack * 2 => (pass zoneWithCountryIDAndCityID)
   ------------------------------------------------------------------
-  ZoneDepth is DISTRICT
-  -> goToCountriesScreen
-       | => goBack * 1 (pass null)
-       | -> onCountryTap -> goToCitiesScreen
-                               | => goBack * 1 (pass null)
-                               | => onCityTap -> goToDistrictsScreen
-                                                    | => goBack * 1 (pass null)
-                                                    | => onDistrictTap -> goBack * 3 => (pass zoneWithCountryIDAndCityIDAndDistrictID)
-  ------------------------------------------------------------------
  */
 
 enum ZoneDepth {
   country,
   city,
-  district,
 }
 /// => TAMAM
 class ZoneSelection {
@@ -150,8 +137,8 @@ class ZoneSelection {
           )
       );
 
-      /// SECOND CITY SELECTION BACK / THIRD DISTRICT SELECTION BACK
-      if (_zoneWithCity?.cityID != null || _zoneWithCity?.districtID != null){
+      /// SECOND CITY SELECTION BACK
+      if (_zoneWithCity?.cityID != null){
 
         await Nav.goBack(
           context: context,
@@ -184,80 +171,12 @@ class ZoneSelection {
       ),
     );
 
-    /// CHECK CITY HAS DISTRICTS
-    final Staging _cityDistrictsStages = await StagingProtocols.fetchDistrictsStaging(
-      cityID: cityID,
-    );
-
-    final bool _districtsAreSelectable = Staging.checkStagingHasSelectableZones(
-      context: context,
-      staging: _cityDistrictsStages,
-      zoneViewingEvent: zoneViewingEvent,
-    );
-
-    /// Go back (2 steps) + pass zone with countryID & cityID
-    if (depth == ZoneDepth.city || _districtsAreSelectable == false){
-
-      /// FIRST CITY SELECTION BACK
-      await Nav.goBack(
+    /// FIRST CITY SELECTION BACK
+    await Nav.goBack(
         context: context,
         invoker: 'onSelectCountry',
         passedData: _zoneWithCity,
       );
-
-    }
-
-    /// Go to Districts Screen
-    else {
-
-      final ZoneModel _zoneWithDistrict = await Nav.goToNewScreen(
-          context: context,
-          screen: DistrictsScreen(
-            zoneViewingEvent: zoneViewingEvent,
-            country: _zoneWithCity.countryModel,
-            city: _zoneWithCity.cityModel,
-          )
-      );
-
-        /// SECOND DISTRICT SELECTION BACK
-      if (_zoneWithDistrict?.districtID != null){
-
-        await Nav.goBack(
-          context: context,
-          invoker: 'onSelectCountry.AFTER DISTRICT SELECTION',
-          passedData: _zoneWithDistrict,
-        );
-
-      }
-
-    }
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> onSelectDistrict({
-    @required BuildContext context,
-    @required String districtID,
-  }) async {
-
-    Keyboard.closeKeyboard(context);
-
-    /// COMPLETE ZONE
-    final ZoneModel _zoneWithDistrict = await ZoneProtocols.completeZoneModel(
-      context: context,
-      incompleteZoneModel: ZoneModel(
-        countryID: DistrictModel.getCountryIDFromDistrictID(districtID),
-        cityID: DistrictModel.getCityIDFromDistrictID(districtID),
-        districtID: districtID,
-      ),
-    );
-
-    /// Go back (3 steps) + pass zone with countryID & cityID & districtID
-    await Nav.goBack(
-      context: context,
-      invoker: 'onSelectCountry.AFTER DISTRICT SELECTION',
-      passedData: _zoneWithDistrict,
-    );
 
   }
   // --------------------

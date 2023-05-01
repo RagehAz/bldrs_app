@@ -1,7 +1,6 @@
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
-import 'package:space_time/space_time.dart';
 import 'package:flutter/foundation.dart';
+import 'package:mapper/mapper.dart';
+import 'package:space_time/space_time.dart';
 
 @immutable
 class FlyerPromotion {
@@ -11,14 +10,12 @@ class FlyerPromotion {
     @required this.flyerID,
     @required this.from,
     @required this.to,
-    @required this.districtsIDs,
   });
   // -----------------------------------------------------------------------------
   final String cityID;
   final String flyerID;
   final DateTime from;
   final DateTime to;
-  final List<String> districtsIDs;
   // -----------------------------------------------------------------------------
 
   /// CYPHERS
@@ -33,7 +30,6 @@ class FlyerPromotion {
         'flyerID' : flyerID,
         'from' : Timers.cipherTime(time: from, toJSON: toJSON),
         'to' : Timers.cipherTime(time: to, toJSON: toJSON),
-        'districtsIDs' : districtsIDs,
       };
   }
   // --------------------
@@ -52,7 +48,6 @@ class FlyerPromotion {
           flyerID: map['flyerID'],
           from: Timers.decipherTime(time: map['from'], fromJSON: fromJSON),
           to: Timers.decipherTime(time: map['to'], fromJSON: fromJSON),
-          districtsIDs: Stringer.getStringsFromDynamics(dynamics: map['districtsIDs']),
         );
 
     }
