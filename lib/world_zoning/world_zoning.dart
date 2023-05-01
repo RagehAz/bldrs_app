@@ -1,0 +1,16 @@
+library world_zoning;
+// -----------------------------------------------------------------------------
+import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:filers/filers.dart';
+import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
+import 'package:stringer/stringer.dart';
+// -----------------------------------------------------------------------------
+part 'assets/all_flags_list.dart';
+part 'assets/currencies.dart';
+// --------------------
+part 'models/continent_model.dart';
+part 'models/region_model.dart';
+part 'models/flag_model.dart';
+part 'models/phrase_model.dart';
+// -----------------------------------------------------------------------------
