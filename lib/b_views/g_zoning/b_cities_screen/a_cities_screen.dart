@@ -18,6 +18,7 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/b_zone_search_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_protocols.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
+import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
@@ -135,6 +136,8 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
       final List<CityModel> _cities = await ZoneProtocols.fetchCitiesOfCountryByIDs(
         citiesIDsOfThisCountry: _citiesStages.getAllIDs(),
       );
+
+      // CityModel.blogCities(_cities);
 
       if (mounted == true){
 
@@ -292,6 +295,8 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
 
     blog('searchCitiesByName : input : $input');
 
+    CityModel.blogCities(_countryCities.value,);
+
     /// SEARCH SELECTED COUNTRY CITIES
     final List<CityModel> _searchResult = ZoneSearchOps.searchCitiesByNameFromCities(
       context: context,
@@ -299,7 +304,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
       inputText: input,
     );
 
-    CityModel.blogCities(_searchResult,);
+    CityModel.blogCities(_countryCities.value,);
 
     /// SET FOUND CITIES
     return _searchResult;
