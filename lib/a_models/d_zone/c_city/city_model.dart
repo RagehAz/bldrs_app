@@ -133,6 +133,7 @@ class CityModel {
 
     if (map != null) {
 
+
       final List<Phrase> _phrases =
           fromLDB == true ?
           Phrase.decipherMixedLangPhrasesFromMap(map: map['phrases'])
