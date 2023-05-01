@@ -104,10 +104,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: c5a883dd231530e3614501966da8c87575193a25
+      resolved-ref: "454729220acf117b16147fcd97b565f61d434c08"
       url: "https://github.com/RagehAz/bldrs_theme.git"
     source: git
-    version: "1.0.11"
+    version: "1.0.12"
   boolean_selector:
     dependency: transitive
     description:
