@@ -21,17 +21,30 @@ class ShelfSlidesPart extends StatelessWidget {
     @required this.onDeleteSlide,
     @required this.onAddSlides,
     @required this.loading,
+    @required this.onReorderSlide,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double slideZoneHeight;
   final ScrollController scrollController;
   final DraftFlyer draft;
-  final ValueChanged<DraftSlide> onSlideTap;
-  final ValueChanged<DraftSlide> onDeleteSlide;
-  final ValueChanged<PicMakerType> onAddSlides;
+  final Function(DraftSlide draft) onSlideTap;
+  final Function(DraftSlide draft) onDeleteSlide;
+  final Function(PicMakerType picMakerType) onAddSlides;
   final ValueNotifier<bool> loading;
+  final Function(int oldIndex, int newIndex) onReorderSlide;
   /// --------------------------------------------------------------------------
+  void _onReorder(int oldIndex, int newIndex){
+
+    int _newIndex = newIndex;
+    if (newIndex > oldIndex) {
+      _newIndex = newIndex - 1;
+    }
+
+    onReorderSlide(oldIndex, _newIndex);
+
+  }
+  // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -54,8 +67,9 @@ class ShelfSlidesPart extends StatelessWidget {
         ),
         builder: (_, bool isLoading, Widget loadingWidget){
 
-            return ListView(
-              controller: scrollController,
+            return ReorderableListView(
+              scrollController: scrollController,
+              onReorder: _onReorder,
               scrollDirection: Axis.horizontal,
               itemExtent: DraftShelfSlide.flyerBoxWidth,
               physics: const BouncingScrollPhysics(),
@@ -64,6 +78,8 @@ class ShelfSlidesPart extends StatelessWidget {
                 appIsLTR: UiProvider.checkAppIsLeftToRight(context),
                 enRight: DraftShelfSlide.flyerBoxWidth * 0.5,
               ),
+              buildDefaultDragHandles: false,
+
               children: <Widget>[
 
                 /// SLIDES
@@ -73,10 +89,11 @@ class ShelfSlidesPart extends StatelessWidget {
                   final DraftSlide _draftSlide = draft.draftSlides[index];
 
                   return DraftShelfSlide(
-                    draftSlide: _draftSlide,
-                    number: index + 1,
-                    onTap: () => onSlideTap(_draftSlide),
-                    onDeleteSlide: ()=> onDeleteSlide(_draftSlide)
+                      key: ValueKey<String>('son_${_draftSlide.picModel.bytes}'),
+                      draftSlide: _draftSlide,
+                      number: index + 1,
+                      onTap: () => onSlideTap(_draftSlide),
+                      onDeleteSlide: ()=> onDeleteSlide(_draftSlide)
                   );
 
                 }),
@@ -84,6 +101,7 @@ class ShelfSlidesPart extends StatelessWidget {
                 /// ADD NEW SLIDE
                 if (isLoading == false && DraftFlyer.checkCanAddMoreSlides(draft) == true)
                   AddSlidesButton(
+                    key: const ValueKey<String>('AddSlidesButton'),
                     onTap: onAddSlides,
                   ),
 

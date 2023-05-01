@@ -13,7 +13,7 @@ import 'package:mapper/mapper.dart';
 import 'package:mediators/mediators.dart';
 import 'package:space_time/space_time.dart';
 import 'package:super_image/super_image.dart';
-
+/// => TAMAM
 @immutable
 class DraftSlide {
   /// --------------------------------------------------------------------------
@@ -146,7 +146,7 @@ class DraftSlide {
   /// CYPHERS - SLIDE MODEL
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<SlideModel> draftToSlide(DraftSlide draft) async {
     SlideModel slide;
 
@@ -175,30 +175,23 @@ class DraftSlide {
     return slide;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<List<SlideModel>> draftsToSlides(List<DraftSlide> drafts) async {
     final List<SlideModel> _slides = <SlideModel>[];
 
     if (Mapper.checkCanLoopList(drafts) == true){
 
-      await Future.wait(<Future>[
-
-        ...List.generate(drafts.length, (index){
-
-          return draftToSlide(drafts[index]).then((SlideModel slide){
-            _slides.add(slide);
-          });
-
-        }),
-
-      ]);
+      for (final DraftSlide draft in drafts){
+        final SlideModel _slide = await draftToSlide(draft);
+        _slides.add(_slide);
+      }
 
     }
 
     return SlideModel.sortSlidesByIndexes(_slides);
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<DraftSlide> draftFromSlide(SlideModel slide) async {
     DraftSlide _draft;
 
@@ -369,7 +362,7 @@ class DraftSlide {
     );
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   DraftSlide nullifyField({
     bool flyerID = false,
     bool slideIndex = false,
@@ -402,7 +395,7 @@ class DraftSlide {
   /// GETTERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static List<Uint8List> getBytezzFromDraftSlides({
     @required List<DraftSlide> drafts,
   }) {
@@ -418,16 +411,14 @@ class DraftSlide {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static List<PicModel> getPicModels(List<DraftSlide> drafts){
     final List<PicModel> _output = <PicModel>[];
 
     if (Mapper.checkCanLoopList(drafts) == true){
 
       for (final DraftSlide draft in drafts){
-
         _output.add(draft.picModel);
-
       }
 
     }
@@ -601,12 +592,12 @@ class DraftSlide {
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<DraftSlide> removeDraftFromDrafts({
     @required List<DraftSlide> drafts,
     @required DraftSlide draft,
   }){
-    final List<DraftSlide> _output = <DraftSlide>[];
+    List<DraftSlide> _output = <DraftSlide>[];
 
     if (Mapper.checkCanLoopList(drafts) == true){
 
@@ -614,22 +605,16 @@ class DraftSlide {
       _list.removeAt(draft.slideIndex);
 
 
-      for (int i = 0; i < _list.length; i++){
-
-        final DraftSlide _adjusted = _list[i].copyWith(
-          slideIndex: i,
-        );
-
-        _output.add(_adjusted);
-
-      }
+      _output =  overrideDraftsSlideIndexes(
+        drafts: _list,
+      );
 
     }
 
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static List<DraftSlide> overrideDraftsFlyerID({
     @required List<DraftSlide> drafts,
     @required String flyerID,
@@ -659,12 +644,35 @@ class DraftSlide {
 
     return _output;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<DraftSlide> overrideDraftsSlideIndexes({
+    @required List<DraftSlide> drafts,
+  }){
+    final List<DraftSlide> _output = <DraftSlide>[];
+
+    if (Mapper.checkCanLoopList(drafts) == true){
+
+      for (int i = 0; i < drafts.length; i++){
+
+        final DraftSlide _updated = drafts[i].copyWith(
+          slideIndex: i,
+        );
+
+        _output.add(_updated);
+
+      }
+
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// EQUALITY
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static bool checkSlidesAreIdentical({
     @required DraftSlide slide1,
     @required DraftSlide slide2,
@@ -709,7 +717,7 @@ class DraftSlide {
     return _identical;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static bool checkSlidesListsAreIdentical({
     @required List<DraftSlide> slides1,
     @required List<DraftSlide> slides2,
