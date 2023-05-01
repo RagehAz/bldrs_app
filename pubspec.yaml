@@ -4,7 +4,7 @@ publish_to: "none"
 # --------------------------------------------------------------------------------
 # https://developer.android.com/studio/publish/versioning
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 3.5.15
+version: 3.5.21
 # INSTRUCTIONS WHEN CHANGING APP VERSION
 # -> change in ios/runner/info.pList ( CFBundleVersion )
 # -> change in Standards.appVersion; ( bldrsAppVersion )
