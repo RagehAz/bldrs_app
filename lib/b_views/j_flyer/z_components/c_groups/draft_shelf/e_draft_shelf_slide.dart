@@ -1,20 +1,21 @@
 import 'package:animators/animators.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shelf/delete_draft_slide_button.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/d_footer_shadow.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/c_slide_shadow.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/d_footer_shadow.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/e_slide_headline.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/template_flyer/b_header_template.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
-import 'package:filers/filers.dart';
-import 'package:space_time/space_time.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:devicer/devicer.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
+import 'package:space_time/space_time.dart';
 import 'package:super_image/super_image.dart';
 
 class DraftShelfSlide extends StatefulWidget {
@@ -75,7 +76,6 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
       flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
       forceMaxHeight: false,
     );
-    // blog('ShelfSlide : BUILDING : picSize : ${widget.draftSlide?.picModel?.bytes?.length} bytes');
 
     return Container(
       width: DraftShelfSlide.flyerBoxWidth,
@@ -90,18 +90,23 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
           ),
 
           /// FLYER NUMBER
-          Container(
-            width: DraftShelfSlide.flyerBoxWidth,
-            height: DraftShelfSlide.slideNumberBoxHeight,
-            alignment: BldrsAligners.superCenterAlignment(context),
-            child: widget.number == null ?
-            const SizedBox()
-                :
-            BldrsText(
-              verse: Verse.plain('${widget.number}'),
-              size: 1,
-              // color: Colorz.white255,
-              labelColor: widget.draftSlide?.midColor?.withAlpha(80) ?? Colorz.white10,
+          ReorderableDragStartListener(
+            index: widget.draftSlide.slideIndex,
+            child: Container(
+              width: DraftShelfSlide.flyerBoxWidth,
+              height: DraftShelfSlide.slideNumberBoxHeight,
+              alignment: BldrsAligners.superCenterAlignment(context),
+              child: widget.number == null ?
+              const SizedBox()
+                  :
+              BldrsBox(
+                verse: Verse.plain('${widget.number}'),
+                height: DraftShelfSlide.slideNumberBoxHeight,
+                // color: Colorz.white255,
+                color: widget.draftSlide?.midColor?.withAlpha(80) ?? Colorz.white10,
+                bubble: DeviceChecker.deviceIsWindows(),
+                onTap: (){},
+              ),
             ),
           ),
 
