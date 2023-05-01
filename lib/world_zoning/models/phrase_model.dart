@@ -358,6 +358,7 @@ class Phrase {
           _phrases.add(decipherPhraseDefaultMap(
               id: _defaultPhraseMap['id'],
               map: _defaultPhraseMap,
+            includeTrigram: true,
           ));
 
         }
@@ -1643,7 +1644,7 @@ class Phrase {
     @required List<String> existingTrigram,
     @required String originalString,
   }){
-    List<String> _output;
+    List<String> _output = [];
 
     if (includeTrigram == true){
 

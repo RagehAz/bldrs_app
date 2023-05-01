@@ -293,18 +293,12 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
     @required String input,
   }) async {
 
-    blog('searchCitiesByName : input : $input');
-
-    CityModel.blogCities(_countryCities.value,);
-
     /// SEARCH SELECTED COUNTRY CITIES
     final List<CityModel> _searchResult = ZoneSearchOps.searchCitiesByNameFromCities(
       context: context,
       sourceCities: _countryCities.value,
       inputText: input,
     );
-
-    CityModel.blogCities(_countryCities.value,);
 
     /// SET FOUND CITIES
     return _searchResult;
