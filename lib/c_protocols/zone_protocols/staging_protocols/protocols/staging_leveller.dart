@@ -1,15 +1,10 @@
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
-import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_protocols.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
 
 /*
 
@@ -67,11 +62,6 @@ class StagingLeveller {
 
         _levelUpCity(
           cityID: zoneModel.cityID,
-        ),
-
-        _levelUpDistrict(
-          context: context,
-          districtID: zoneModel.districtID,
         ),
 
       ]);
@@ -270,142 +260,6 @@ class StagingLeveller {
           newStaging: _output,
         );
 
-
-      }
-
-    }
-
-    return _output;
-  }
-  // --------------------
-  /// TASK : TEST ME
-  static Future<void> _levelUpDistrict({
-    @required BuildContext context,
-    @required String districtID,
-  }) async {
-
-    /// NOTE : THIS METHOD IS CALLED AFTER UPDATING CENSUS
-
-    if (districtID != null){
-
-      final String _cityID = DistrictModel.getCityIDFromDistrictID(districtID);
-      final Staging _districtsStages = await StagingProtocols.refetchDistrictsStaging(
-          cityID: _cityID,
-      );
-      final StageType _districtStageType = _districtsStages?.getTypeByID(districtID);
-
-      /// WHEN PUBLIC STAGE NO LEVEL UP WILL BE AVAILABLE
-      if (_districtStageType != null && _districtStageType != StageType.publicStage){
-
-        final CensusModel _districtCensus = await CensusProtocols.refetchDistrictCensus(
-          districtID: districtID,
-        );
-
-        if (_districtCensus != null){
-          // -------------------->
-          /// WHEN IS EMPTY STAGE
-          if (_districtStageType == StageType.emptyStage){
-
-            /// LEVEL UP COUNTRY ON BZ COMPOSE WHEN CENSUS IS ZERO
-            if (_shouldLevelEmptyToBzzStage(_districtCensus) == true){
-              await changeDistrictStageType(
-                context: context,
-                districtID: districtID,
-                newType: StageType.bzzStage,
-              );
-            }
-
-          }
-          // -------------------->
-          /// WHEN IS BZZ STAGE
-          else if (_districtStageType == StageType.bzzStage){
-
-            if (_shouldLevelBzzToFlyersStage(_districtCensus) == true){
-              await changeDistrictStageType(
-                context: context,
-                districtID: districtID,
-                newType: StageType.flyersStage,
-              );
-            }
-
-          }
-          // -------------------->
-          /// WHEN IS FLYERS STAGE
-          else if (_districtStageType == StageType.flyersStage){
-
-            if (_shouldLevelFlyersToPublicStage(_districtCensus) == true){
-              await changeDistrictStageType(
-                context: context,
-                districtID: districtID,
-                newType: StageType.publicStage,
-              );
-            }
-
-          }
-          // -------------------->
-        }
-
-      }
-
-    }
-
-  }
-  // --------------------
-  /// TASK : TEST ME
-  static Future<Staging> changeDistrictStageType({
-    @required BuildContext context,
-    @required String districtID,
-    @required StageType newType,
-  }) async {
-
-    Staging _output;
-
-    if (districtID != null && newType != null){
-
-      final String _cityID = DistrictModel.getCityIDFromDistrictID(districtID);
-
-      _output = await StagingProtocols.fetchDistrictsStaging(
-          cityID: _cityID,
-      );
-
-      /// DISTRICTS STAGES MIGHT BE NULL IF NO DISTRICTS ARE THERE YET,,
-      if (_output == null){
-
-        final List<DistrictModel> _districts = await ZoneProtocols.fetchDistrictsOfCity(
-          cityID: _cityID,
-        );
-
-        if (Mapper.checkCanLoopList(_districts) == true){
-
-          await Dialogs.errorDialog(
-            context: context,
-            titleVerse: Verse.plain('Something is seriously going wrong here'),
-            bodyVerse: Verse.plain('District stages have not been updated,,, take care !'),
-          );
-
-        }
-
-        else {
-          _output = Staging.emptyStaging();
-        }
-
-      }
-
-      if (_output != null){
-
-        // _districtsStages.blogStages();
-
-        _output = Staging.insertIDToStaging(
-          staging: _output,
-          id: districtID,
-          newType: newType,
-        );
-
-        // _output.blogStages();
-
-        await StagingProtocols.renovateDistrictsStaging(
-          newStaging: _output,
-        );
 
       }
 

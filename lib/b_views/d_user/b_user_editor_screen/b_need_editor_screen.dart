@@ -327,7 +327,7 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                     ),
                     isRequired: false,
                     currentZone: userModel.zone,
-                    depth: ZoneDepth.district,
+                    depth: ZoneDepth.city,
                     onZoneChanged: (ZoneModel zone) async {
 
                       final ZoneModel _completeZone = await ZoneProtocols.completeZoneModel(
@@ -344,12 +344,9 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                       );
 
                     },
-                    // selectCountryAndCityOnly: true,
-                    // selectCountryIDOnly: false,
                     validator: () => Formers.zoneValidator(
                       context: context,
                       zoneModel: userModel.zone,
-                      selectCountryAndCityOnly: true,
                       selectCountryIDOnly: false,
                       canValidate: true,
                     ),

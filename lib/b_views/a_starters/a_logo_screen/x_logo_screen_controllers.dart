@@ -450,7 +450,6 @@ Future<void> _refreshUserDeviceModel(BuildContext context) async {
       /// ZONES
       countries: false,
       cities: false,
-      districts: false,
       staging: false,
       census: false, // this has nothing to do with the user refreshing the device
       /// PHRASES
@@ -504,7 +503,6 @@ Future<void> _dailyRefreshLDB(BuildContext context) async {
       /// ZONES
       // countries: true, // countries include staging info, so lets refresh that daily
       cities: false, // cities do not change often
-      districts: false, // districts do not change frequently
       // staging: true, // staging info changes frequently
       // census: true, // might need faster refresh aslan
 

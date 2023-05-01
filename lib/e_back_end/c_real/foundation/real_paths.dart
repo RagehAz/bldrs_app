@@ -117,16 +117,11 @@
   |     |     | - {countryID}...
   |     |
   |     | - cities
-  |     |     | - {cityID}
-  |     |     |     | => [CensusModel]
-  |     |     |
-  |     |     | - {cityID}...
-  |     |
-  |     | - districts
-  |           | - {districtID}
+  |           | - {cityID}
   |           |     | => [CensusModel]
   |           |
-  |           | - {districtID}...
+  |           | - {cityID}...
+  |
   |
   | --------------------------|
   |
@@ -166,17 +161,8 @@
   |           |       |     | - population
   |           |       |     | - position
   |           |       |     | - phrases
-  |           |       |     |    | - {langCode} : <String>
-  |           |       |     |    | - {langCode}...
-  |           |       |     |
-  |           |       |     | - districts
-  |           |       |          | - {districtID}
-  |           |       |          |      | - level
-  |           |       |          |      | - phrases : <String>
-  |           |       |          |            | - {langCode} : <String>
-  |           |       |          |            | - {langCode}...
-  |           |       |          |
-  |           |       |          | - {districtID}...
+  |           |       |          | - {langCode} : <String>
+  |           |       |          | - {langCode}...
   |           |       |
   |           |       |
   |           |       |
@@ -210,7 +196,6 @@
  */
 
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
-import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:flutter/material.dart';
 
 class RealColl {
@@ -303,15 +288,12 @@ class RealDoc {
   static const String statistics_planet = 'planet';
   static const String statistics_countries = 'countries';
   static const String statistics_cities = 'cities';
-  static const String statistics_districts = 'districts';
   // -----------------------------------------------------------------------------
   /// ZONES LEVELS
   // --------------------
   static const String zones_stages_countries = 'stages_countries';
   static const String zones_stages_cities = 'stages_cities';
-  static const String zones_stages_districts = 'stages_districts';
   static const String zones_cities = 'cities';
-  static const String zones_districts = 'districts';
   // -----------------------------------------------------------------------------
   void f(){}
 }
@@ -383,43 +365,6 @@ class RealPath{
     else {
       final String _countryID = CityModel.getCountryIDFromCityID(cityID);
       return '${RealColl.statistics}/${RealDoc.statistics_cities}/$_countryID/$cityID';
-    }
-
-  }
-  // -----------------------------------------------------------------------------
-
-  /// CENSUS / DISTRICTS
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String getCensusesPathOfDistricts({
-    @required String cityID,
-  }){
-
-    if (cityID == null){
-      return null;
-    }
-
-    else {
-      final String _countryID = CityModel.getCountryIDFromCityID(cityID);
-      return '${RealColl.statistics}/${RealDoc.statistics_districts}/$_countryID/$cityID';
-    }
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String getCensusPathOfDistrict({
-    @required String districtID,
-  }){
-
-    if (districtID == null){
-      return null;
-    }
-
-    else {
-      final String _countryID = DistrictModel.getCountryIDFromDistrictID(districtID);
-      final String _cityID = DistrictModel.getCityIDFromDistrictID(districtID);
-      return '${RealColl.statistics}/${RealDoc.statistics_districts}/$_countryID/$_cityID/$districtID';
     }
 
   }

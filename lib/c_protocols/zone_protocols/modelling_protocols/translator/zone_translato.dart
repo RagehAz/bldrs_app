@@ -1,6 +1,5 @@
 import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
-import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
@@ -55,32 +54,6 @@ class ZoneTranslator {
         id: CityModel.translateCity(
           context: context,
           city: cityModel,
-          langCode: langCode,
-        ),
-        translate: false,
-      );
-    }
-
-    return _output;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// DISTRICT NAME
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Verse translateDistrict({
-    @required BuildContext context,
-    @required DistrictModel districtModel,
-    String langCode,
-  }) {
-    Verse _output;
-
-    if (districtModel != null){
-      _output = Verse(
-        id: DistrictModel.translateDistrict(
-          context: context,
-          district: districtModel,
           langCode: langCode,
         ),
         translate: false,

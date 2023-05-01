@@ -323,7 +323,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _onDeactivatedDistrictTap(String cityID) async {
+  Future<void> _onDeactivatedTap(String cityID) async {
 
     blog('onDeactivatedCityTap : browseView : cityID : $cityID');
 
@@ -431,7 +431,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
                 onCityTap: _onCitySelected,
                 shownCitiesIDs: _shownCitiesIDs,
                 citiesCensuses: _censuses,
-                onDeactivatedCityTap: _onDeactivatedDistrictTap,
+                onDeactivatedCityTap: _onDeactivatedTap,
               );
 
             }
@@ -444,7 +444,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
                 countryCities: _countryCities,
                 shownCitiesIDs: _shownCitiesIDs,
                 citiesCensuses: _censuses,
-                onDeactivatedCityTap: _onDeactivatedDistrictTap,
+                onDeactivatedCityTap: _onDeactivatedTap,
                 countryCensus: _countryCensus,
                 onTapAllCities: _onTapAllCities,
                 showAllCitiesButton: Staging.checkMayShowViewAllZonesButton(

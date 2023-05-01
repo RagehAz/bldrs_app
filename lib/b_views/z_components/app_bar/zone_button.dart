@@ -2,7 +2,6 @@ import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
@@ -35,24 +34,10 @@ class ZoneButton extends StatelessWidget {
     final String _countryName = _currentZone?.countryName;
     final String _countryFlag = _currentZone?.icon;
     final String _cityName = _currentZone?.cityName;
-    final String _districtName = _currentZone?.districtName;
     // --------------------
-    final String _countryAndCityNames = UiProvider.checkAppIsLeftToRight(context) ?
-    '$_cityName - $_countryName'
-        :
-    '$_countryName - $_cityName';
+    final String _firstRow = _currentZone == null ? ' ' : _countryName;
     // --------------------
-    final String _firstRow = _currentZone == null ? ' '
-        :
-    _currentZone?.districtID == null ? _countryName
-        :
-    _countryAndCityNames;
-    // --------------------
-    final String _secondRow = _currentZone == null ? ' '
-        :
-    _currentZone?.districtID == null ? _cityName
-        :
-    _districtName;
+    final String _secondRow = _currentZone == null ? ' ' : _cityName;
     // --------------------
     const double _flagHorizontalMargins = 2;
     // --------------------
@@ -73,13 +58,15 @@ class ZoneButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
 
-            /// --- COUNTRY & DISTRICTS NAMES
+            /// --- COUNTRY & CITY NAMES
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 2.5),
               child: FittedBox(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
+
+                    /// COUNTRY NAME
                     BldrsText(
                       verse: Verse(
                         id: _firstRow ?? '',
@@ -88,6 +75,8 @@ class ZoneButton extends StatelessWidget {
                       size: 1,
                       color: isOn ? Colorz.black230 : Colorz.white255,
                     ),
+
+                    /// CITY NAME
                     BldrsText(
                       verse: Verse(
                         id: _secondRow ?? '',
@@ -97,6 +86,7 @@ class ZoneButton extends StatelessWidget {
                       scaleFactor: 0.8,
                       color: isOn ? Colorz.black230 : Colorz.white255,
                     ),
+
                   ],
                 ),
               ),

@@ -907,7 +907,6 @@ class BzModel{
 
     //     _bzNameTextController.text.length < 3 ||
     //     _bzScopeTextController.text.length < 3 ||
-    //     _currentBzDistrict == null ||
     //     _bzAboutTextController.text.length < 6
     //     // _currentBzContacts.length == 0 ||
 
