@@ -2,7 +2,6 @@
 import 'package:animators/animators.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
-import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/g_zoning/b_cities_screen/aa_cities_screen_browse_view.dart';
@@ -10,20 +9,21 @@ import 'package:bldrs/b_views/g_zoning/b_cities_screen/aa_cities_screen_search_v
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:night_sky/night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/b_zone_search_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_protocols.dart';
-import 'package:layouts/layouts.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
 import 'package:mapper/mapper.dart';
+import 'package:night_sky/night_sky.dart';
 import 'package:scale/scale.dart';
 import 'package:stringer/stringer.dart';
 
@@ -352,10 +352,10 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final String _countryName = Flag.getCountryNameByCurrentLang(
-      context: context,
-      countryID: widget.countryID,
-    );
+        final String _countryName = Flag.translateCountry(
+          langCode: Localizer.getCurrentLangCode(context),
+          countryID: widget.countryID,
+        );
 
     return MainLayout(
       skyType: SkyType.black,

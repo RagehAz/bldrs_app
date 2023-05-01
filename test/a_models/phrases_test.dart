@@ -1,6 +1,4 @@
-
-
-import 'package:bldrs/a_models/x_secondary/phrase_model.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main (){
