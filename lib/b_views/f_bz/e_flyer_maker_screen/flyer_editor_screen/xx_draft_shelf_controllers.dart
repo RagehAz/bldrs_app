@@ -433,4 +433,32 @@ String flyerHeadlineValidator({
   }
 
 }
+// --------------------
+/// TESTED : WORKS PERFECT
+void onReorderSlide({
+  @required int oldIndex,
+  @required int newIndex,
+  @required ValueNotifier<DraftFlyer> draftFlyer,
+  @required bool mounted,
+}){
+  List<DraftSlide> _oldSlides = draftFlyer.value.draftSlides;
+
+  if (Mapper.checkCanLoopList(_oldSlides) == true) {
+    final DraftSlide _slide = draftFlyer.value.draftSlides[oldIndex];
+    _oldSlides.removeAt(oldIndex);
+    _oldSlides.insert(newIndex, _slide.copyWith(slideIndex: newIndex,));
+    _oldSlides = DraftSlide.overrideDraftsSlideIndexes(
+      drafts: _oldSlides,
+    );
+  }
+
+  setNotifier(
+    notifier: draftFlyer,
+    mounted: mounted,
+    value: draftFlyer.value.copyWith(
+      draftSlides: _oldSlides,
+    ),
+  );
+
+}
 // -----------------------------------------------------------------------------

@@ -145,6 +145,12 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
                 flyerWidth: DraftShelfSlide.flyerBoxWidth,
                 imagePickerType: imagePickerType,
               ),
+              onReorderSlide: (int oldIndex, int newIndex) => onReorderSlide(
+                draftFlyer: widget.draftNotifier,
+                mounted: mounted,
+                oldIndex: oldIndex,
+                newIndex: newIndex,
+              )
 
             );
 
