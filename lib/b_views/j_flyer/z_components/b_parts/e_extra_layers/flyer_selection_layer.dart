@@ -38,51 +38,52 @@ class FlyerSelectionLayer extends StatelessWidget {
         children: <Widget>[
 
           /// BLACK COLOR OVERRIDE
-            BldrsBox(
-              width: flyerBoxWidth,
-              height: _flyerBoxHeight,
-              color: Colorz.black150,
-              corners: _corners,
-            ),
+          BldrsBox(
+            width: flyerBoxWidth,
+            height: _flyerBoxHeight,
+            color: Colorz.black150,
+            corners: _corners,
+          ),
 
           /// SELECTED TEXT
-            Container(
-              width: flyerBoxWidth,
-              height: _flyerBoxHeight,
-              alignment: Alignment.center,
-              child: BldrsText(
-                verse: const Verse(
-                  id: 'phid_selected',
-                  casing: Casing.upperCase,
-                  translate: true,
-                ),
-                weight: VerseWeight.black,
-                italic: true,
-                scaleFactor: flyerBoxWidth / 100,
-                shadow: true,
+          Container(
+            width: flyerBoxWidth,
+            height: _flyerBoxHeight,
+            alignment: Alignment.center,
+            child: BldrsText(
+              verse: const Verse(
+                id: 'phid_selected',
+                casing: Casing.upperCase,
+                translate: true,
               ),
+              weight: VerseWeight.black,
+              italic: true,
+              scaleFactor: flyerBoxWidth / 100,
+              shadow: true,
             ),
+          ),
 
           /// CHECK ICON
-            Container(
-              width: flyerBoxWidth,
-              height: _flyerBoxHeight,
-              alignment: BldrsAligners.superInverseBottomAlignment(context),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colorz.white20,),
-                borderRadius: _corners,
+          Container(
+            width: flyerBoxWidth,
+            height: _flyerBoxHeight,
+            alignment: BldrsAligners.superInverseBottomAlignment(context),
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colorz.white20,
               ),
-              child: BldrsBox(
-                height: _checkIconSize,
-                width: _checkIconSize,
-                corners: _checkIconSize / 2,
-                color: Colorz.green255,
-                icon: Iconz.check,
-                iconSizeFactor: 0.4,
-                iconColor: Colorz.white255,
-              ),
+              borderRadius: _corners,
             ),
-
+            child: BldrsBox(
+              height: _checkIconSize,
+              width: _checkIconSize,
+              corners: _checkIconSize / 2,
+              color: Colorz.green255,
+              icon: Iconz.check,
+              iconSizeFactor: 0.4,
+              iconColor: Colorz.white255,
+            ),
+          ),
 
         ],
       );

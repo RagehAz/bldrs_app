@@ -30,10 +30,10 @@ class CollapsedInfoButtonTree extends StatelessWidget {
             duration: const Duration(milliseconds: 100),
             child: AnimatedScale(
               duration: const Duration(milliseconds: 100),
-              scale: _buttonIsExpanded ? 1.4 : 1,
+              scale: _buttonIsExpanded == true ? 1.4 : 1,
               child: AnimatedPadding(
                 duration: const Duration(milliseconds: 100),
-                padding: EdgeInsets.only(top: _buttonIsExpanded ? 10 : 0),
+                padding: EdgeInsets.only(top: _buttonIsExpanded == true ? 10 : 0),
                 child: collapsedInfoButtonContent,
               ),
             )
