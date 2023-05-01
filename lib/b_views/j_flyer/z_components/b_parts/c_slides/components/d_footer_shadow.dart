@@ -20,6 +20,7 @@ class FooterShadow extends StatelessWidget {
       context: context,
       flyerBoxWidth: flyerBoxWidth,
       infoButtonExpanded: false,
+      hasLink: false,
     );
     // --------------------
     return Positioned(

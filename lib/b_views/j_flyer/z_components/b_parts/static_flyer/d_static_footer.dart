@@ -41,6 +41,7 @@ class StaticFooter extends StatelessWidget {
           context: context,
           flyerBoxWidth: flyerBoxWidth,
           infoButtonExpanded: false,
+          hasLink: false,
         ),
         child: Stack(
           alignment: BldrsAligners.superInverseBottomAlignment(context),
@@ -123,7 +124,7 @@ class StaticFooter extends StatelessWidget {
             // ),
 
             /// SAVE BUTTON
-            if (optionsButtonIsOn == null)
+            if (optionsButtonIsOn == false)
               Selector<UsersProvider, UserModel>(
                 selector: (_, UsersProvider userProvider) => userProvider.myUserModel,
                 builder: (_, UserModel userModel, Widget child) {

@@ -57,7 +57,7 @@ class InfoGraphic extends StatelessWidget {
             builder: (_, bool _buttonIsExpanded, Widget child){
 
               return AnimatedOpacity(
-                opacity: _buttonIsExpanded ? 1 : 0,
+                opacity: _buttonIsExpanded == true ? 1 : 0,
                 duration: const Duration(milliseconds: 100),
                 child: const BldrsText(
                   verse: Verse(

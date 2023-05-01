@@ -20,6 +20,7 @@ class FooterButtonSpacer extends StatelessWidget {
         context: context,
         flyerBoxWidth: flyerBoxWidth,
         infoButtonExpanded: false,
+        hasLink: false,
       ),
 
     );
