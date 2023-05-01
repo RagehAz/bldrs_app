@@ -21,14 +21,14 @@ class ZoneBubbleLine extends StatelessWidget {
     final double _clearWidth = Bubble.clearWidth(context: context);
 
     return BldrsBox(
-      height: 25,
+      height: 30,
       width: _clearWidth,
       // color: Colorz.bloodTest,
       bubble: false,
       verseItalic: true,
       verseWeight: VerseWeight.thin,
       iconSizeFactor: 0.7,
-      verseScaleFactor: 0.9,
+      verseScaleFactor: 1/0.7,
       verseMaxLines: 2,
       verseCentered: false,
       icon: icon,
