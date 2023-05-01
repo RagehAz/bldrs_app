@@ -3,13 +3,12 @@ import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/c_chain/dd_data_creation.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:numeric/numeric.dart';
 import 'package:provider/provider.dart';
 import 'package:stringer/stringer.dart';
-
-import '../x_secondary/phrase_model.dart';
 
 class Phider {
   // -----------------------------------------------------------------------------
@@ -673,6 +672,56 @@ class Phider {
     }
 
     return _id;
+  }
+  // --------------------
+    // -----------------------------------------------------------------------------
+
+  /// KEYWORDS AND SPECS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getKeywordsIDsFromPhrases({
+    @required List<Phrase> allPhrases,
+    bool includeChainsIDs = true,
+  }){
+
+    final List<Phrase> _keywordsPhrases = <Phrase>[];
+
+    for (final Phrase phrase in allPhrases){
+
+      final bool _isKeyword = Phider.checkIsPhidK(phrase.id);
+
+      if (_isKeyword == true){
+        _keywordsPhrases.add(phrase);
+      }
+
+    }
+
+    final List<String> _keywordsPhrasesIDs = Phrase.getPhrasesIDs(_keywordsPhrases);
+
+    return _keywordsPhrasesIDs;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> getSpecsIDsFromPhrases({
+    @required List<Phrase> allPhrases,
+  }){
+
+    final List<Phrase> _specsIDs = <Phrase>[];
+
+    for (final Phrase phrase in allPhrases){
+
+      final bool _isSpec = Phider.checkIsPhidS(phrase.id);
+
+      if (_isSpec == true){
+        _specsIDs.add(phrase);
+      }
+
+    }
+
+    final List<String> _specsPhraseIDs = Phrase.getPhrasesIDs(_specsIDs);
+
+    return _specsPhraseIDs;
   }
   // -----------------------------------------------------------------------------
 }

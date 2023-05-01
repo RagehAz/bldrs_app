@@ -1,5 +1,4 @@
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
-import 'package:bldrs/a_models/d_zone/b_country/flag.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
@@ -8,6 +7,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
+import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -37,8 +37,8 @@ class InfoPageMainDetails extends StatelessWidget {
       }
 
       String _country = zone.countryName;
-      _country ??= Flag.getCountryNameByCurrentLang(
-          context: context,
+      _country ??= Flag.translateCountry(
+          langCode: Localizer.getCurrentLangCode(context),
           countryID: zone.countryID,
       );
 
