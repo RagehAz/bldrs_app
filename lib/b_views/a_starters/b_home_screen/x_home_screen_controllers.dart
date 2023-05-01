@@ -161,16 +161,9 @@ List<NavModel> generateMainNavModels({
     NavModel(
       id: NavModel.getMainNavIDString(navID: MainNavModel.zone),
       icon: _countryFlag,
-      // screen: const CountriesScreen(
-      //   zoneViewingEvent: ZoneViewingEvent.homeView,
-      //   depth: ZoneDepth.district,
-      //   settingCurrentZone: true,
-      //
-      //   // selectCountryAndCityOnly: true,
-      // ),
       screen: () => ZoneSelection.goBringAZone(
         context: context,
-        depth: ZoneDepth.district,
+        depth: ZoneDepth.city,
         zoneViewingEvent: ViewingEvent.homeView,
         settingCurrentZone: true,
       ),

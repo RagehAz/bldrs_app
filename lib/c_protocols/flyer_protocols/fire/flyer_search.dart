@@ -83,7 +83,6 @@ class FlyerSearch {
   /// TASK : TEST ME
   static Future<List<FlyerPromotion>> flyerPromotionsByCity({
     @required String cityID,
-    // @required List<String> districts,
     // @required DateTime timeLimit,
   }) async {
 

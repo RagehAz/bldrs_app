@@ -49,7 +49,6 @@ class LDBDoc {
       /// ZONES
       case LDBDoc.countries: return 'id';
       case LDBDoc.cities: return 'cityID';
-      case LDBDoc.districts: return 'id';
       case LDBDoc.staging: return 'id';
       case LDBDoc.census: return 'id';
     // -------------
@@ -98,7 +97,6 @@ class LDBDoc {
   /// ZONES
   static const String countries = 'countries';
   static const String cities = 'cities';
-  static const String districts = 'districts';
   static const String staging = 'staging';
   static const String census = 'census';
   // --------------------
@@ -147,7 +145,6 @@ class LDBDoc {
     'headline: Zones',
     countries,
     cities,
-    districts,
     staging,
     census,
 
@@ -195,7 +192,6 @@ class LDBDoc {
     /// ZONES
     bool countries = true,
     bool cities = true,
-    bool districts = true,
     bool staging = true,
     bool census = true,
     /// PHRASES
@@ -235,7 +231,6 @@ class LDBDoc {
     /// ZONES
     if (countries == true) {_docs.add(LDBDoc.countries);}
     if (cities == true) {_docs.add(LDBDoc.cities);}
-    if (districts == true) {_docs.add(LDBDoc.districts);}
     if (staging == true) {_docs.add(LDBDoc.staging);}
     /// PHRASES
     if (mainPhrases == true) {_docs.add(LDBDoc.mainPhrases);}

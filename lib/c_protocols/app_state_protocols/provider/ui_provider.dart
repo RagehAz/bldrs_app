@@ -15,7 +15,6 @@ import 'package:provider/provider.dart';
 enum SearchingModel{
   country,
   city,
-  district,
   flyersAndBzz
   // users,
 }

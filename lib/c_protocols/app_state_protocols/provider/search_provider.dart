@@ -16,12 +16,10 @@ class SearchProvider extends ChangeNotifier {
   // --------------------
   bool _isSearchingCountry = false;
   bool _isSearchingCity = false;
-  bool _isSearchingDistrict = false;
   bool _isSearchingFlyersAndBzz = false;
   // --------------------
   bool get isSearchingCountry => _isSearchingCountry;
   bool get isSearchingCity => _isSearchingCity;
-  bool get isSearchingDistrict => _isSearchingDistrict;
   bool get isSearchingFlyersAndBzz => _isSearchingFlyersAndBzz;
   // --------------------
   void triggerIsSearching({
@@ -36,10 +34,6 @@ class SearchProvider extends ChangeNotifier {
 
     else if (searchingModel == SearchingModel.city){
       _isSearchingCity = setIsSearchingTo;
-    }
-
-    else if (searchingModel == SearchingModel.district){
-      _isSearchingDistrict = setIsSearchingTo;
     }
 
     else if (searchingModel == SearchingModel.flyersAndBzz){
@@ -97,7 +91,6 @@ class SearchProvider extends ChangeNotifier {
 
     _isSearchingCountry = false;
     _isSearchingCity = false;
-    _isSearchingDistrict = false;
 
     if (notify == true){
       notifyListeners();
@@ -289,7 +282,7 @@ class SearchProvider extends ChangeNotifier {
 
     final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
 
-    /// _isSearchingCountry - _isSearchingCity - _isSearchingDistrict - _isSearchingFlyersAndBzz
+    /// _isSearchingCountry - _isSearchingCity - _isSearchingFlyersAndBzz
     _searchProvider.closeAllSearches(notify: false);
 
     /// _searchResult

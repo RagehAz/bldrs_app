@@ -37,8 +37,6 @@ class ZoneSearchOps {
     List<Phrase> _countriesByName;
     List<Phrase> _citiesByID;
     List<Phrase> _citiesByName;
-    List<Phrase> _districtsByID;
-    List<Phrase> _districtsByName;
 
     await Future.wait(<Future>[
       /// COUNTRIES BY NAME
@@ -56,15 +54,6 @@ class ZoneSearchOps {
         text: text,
       ).then((value) => _citiesByName = value),
 
-      /// DISTRICTS BY ID
-      ZoneProtocols.searchDistrictsOfPlanetByIDFromFire(
-        text: text,
-      ).then((value) => _districtsByID = value),
-
-      /// DISTRICTS BY NAME
-      ZoneProtocols.searchDistrictOfPlanetByNameFromFire(
-        text: text,
-      ).then((value) => _districtsByName = value),
     ]);
 
     return <Phrase>[
@@ -72,11 +61,8 @@ class ZoneSearchOps {
       ...?_countriesByName,
       ...?_citiesByID,
       ...?_citiesByName,
-      ...?_districtsByID,
-      ...?_districtsByName,
     ];
   }
-
   // -----------------------------------------------------------------------------
   /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------
@@ -107,7 +93,6 @@ class ZoneSearchOps {
 
     return _output;
   }
-
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> searchCountriesByNameFromLDBFlags({
@@ -133,7 +118,6 @@ class ZoneSearchOps {
 
     return _cleaned;
   }
-
   // -----------------------------------------------------------------------------
   /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------
@@ -164,7 +148,6 @@ class ZoneSearchOps {
 
     return Phrase.cleanDuplicateIDs(phrases: _phrases);
   }
-
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> searchCitiesOfPlanetByNameFromFire({
@@ -189,7 +172,6 @@ class ZoneSearchOps {
 
     return Phrase.cleanDuplicateIDs(phrases: _phrases);
   }
-
   // -----------------------------------------------------------------------------
 
   /// CITIES OR COUNTRY
@@ -220,7 +202,6 @@ class ZoneSearchOps {
 
     return Phrase.cleanDuplicateIDs(phrases: _phrases);
   }
-
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> searchCitiesOfCountryByNameFromFire({
@@ -247,7 +228,6 @@ class ZoneSearchOps {
 
     return Phrase.cleanDuplicateIDs(phrases: _phrases);
   }
-
   // -----------------------------------------------------------------------------
 
   /// CITIES OF LIST
@@ -289,7 +269,6 @@ class ZoneSearchOps {
 
     return _foundCities;
   }
-
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<CityModel> _getCitiesFromPhrases({
@@ -312,7 +291,6 @@ class ZoneSearchOps {
 
     return _foundCities;
   }
-
   // -----------------------------------------------------------------------------
 
   /// CITY SEARCH FETCH
@@ -398,7 +376,6 @@ class ZoneSearchOps {
 
     return _city;
   }
-
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> _fetchCitiesByCityName({
@@ -424,7 +401,6 @@ class ZoneSearchOps {
 
     return _cities;
   }
-
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> _fetchCitiesOfCountryByCityName({
@@ -452,7 +428,6 @@ class ZoneSearchOps {
 
     return _cities;
   }
-
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> _searchLDBCitiesByName({
@@ -474,185 +449,7 @@ class ZoneSearchOps {
 
     return _foundCities;
   }
-
   // -----------------------------------------------------------------------------
   /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------
-
-  /// DISTRICTS OF PLANET
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<List<Phrase>> searchDistrictsOfPlanetByIDFromFire({
-    @required String text,
-    int limit = 10,
-    QueryDocumentSnapshot<Object> startAfter,
-  }) async {
-    final List<Map<String, dynamic>> _maps = await Fire.readColl(
-      queryModel: FireQueryModel(
-        // idFieldName: 'id', // DEFAULT
-        coll: FireColl.phrases_districts,
-        limit: limit,
-        finders: <FireFinder>[
-          FireFinder(field: 'id', comparison: FireComparison.equalTo, value: text),
-        ],
-      ),
-      startAfter: startAfter,
-      addDocSnapshotToEachMap: true,
-    );
-
-    final List<Phrase> _phrases = Phrase.decipherMixedLangPhrasesFromMaps(maps: _maps);
-
-    return Phrase.cleanDuplicateIDs(phrases: _phrases);
-  }
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<List<Phrase>> searchDistrictOfPlanetByNameFromFire({
-    @required String text,
-    int limit = 10,
-    QueryDocumentSnapshot<Object> startAfter,
-  }) async {
-    final List<Map<String, dynamic>> _maps = await Fire.readColl(
-      queryModel: FireQueryModel(
-        // idFieldName: 'id', // DEFAULT
-        coll: FireColl.phrases_districts,
-        limit: limit,
-        finders: <FireFinder>[
-          FireFinder(field: 'trigram', comparison: FireComparison.arrayContains, value: text),
-        ],
-      ),
-      startAfter: startAfter,
-      addDocSnapshotToEachMap: true,
-    );
-
-    final List<Phrase> _phrases = Phrase.decipherMixedLangPhrasesFromMaps(maps: _maps);
-
-    return Phrase.cleanDuplicateIDs(phrases: _phrases);
-  }
-
-  // -----------------------------------------------------------------------------
-
-  /// DISTRICTS OF COUNTRY
-
-  // --------------------
-  /// TESTED : WORKS PERFECT : NO NEED REALLY
-  static Future<List<Phrase>> searchDistrictsOfCountryByIDFromFire({
-    @required String text,
-    @required String countryID,
-    int limit = 10,
-    QueryDocumentSnapshot<Object> startAfter,
-  }) async {
-    final List<Map<String, dynamic>> _maps = await Fire.readColl(
-      queryModel: FireQueryModel(
-        // idFieldName: 'id', // DEFAULT
-        coll: FireColl.phrases_districts,
-        limit: limit,
-        finders: <FireFinder>[
-          FireFinder(field: 'countryID', comparison: FireComparison.equalTo, value: countryID),
-          FireFinder(field: 'id', comparison: FireComparison.equalTo, value: text),
-        ],
-      ),
-      startAfter: startAfter,
-      addDocSnapshotToEachMap: true,
-    );
-
-    final List<Phrase> _phrases = Phrase.decipherMixedLangPhrasesFromMaps(maps: _maps);
-
-    return Phrase.cleanDuplicateIDs(phrases: _phrases);
-  }
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<List<Phrase>> searchDistrictsOfCountryByNameFromFire({
-    @required String text,
-    @required String countryID,
-    int limit = 10,
-    QueryDocumentSnapshot<Object> startAfter,
-  }) async {
-    final List<Map<String, dynamic>> _maps = await Fire.readColl(
-      queryModel: FireQueryModel(
-        // idFieldName: 'id', // DEFAULT
-        coll: FireColl.phrases_districts,
-        limit: limit,
-        finders: <FireFinder>[
-          FireFinder(field: 'countryID', comparison: FireComparison.equalTo, value: countryID),
-          FireFinder(field: 'trigram', comparison: FireComparison.arrayContains, value: text),
-        ],
-      ),
-      startAfter: startAfter,
-      addDocSnapshotToEachMap: true,
-    );
-
-    final List<Phrase> _phrases = Phrase.decipherMixedLangPhrasesFromMaps(maps: _maps);
-
-    return Phrase.cleanDuplicateIDs(phrases: _phrases);
-  }
-
-  // -----------------------------------------------------------------------------
-
-  /// DISTRICTS OF CITY
-
-  // --------------------
-  /// TESTED : WORKS PERFECT : NO NEED REALLY
-  static Future<List<Phrase>> searchDistrictsOfCityByIDFromFire({
-    @required String text,
-    @required String cityID,
-    int limit = 10,
-    QueryDocumentSnapshot<Object> startAfter,
-  }) async {
-    final String _countryID = CityModel.getCountryIDFromCityID(cityID);
-
-    final List<Map<String, dynamic>> _maps = await Fire.readColl(
-      queryModel: FireQueryModel(
-        // idFieldName: 'id', // DEFAULT
-        coll: FireColl.phrases_districts,
-        limit: limit,
-        finders: <FireFinder>[
-          FireFinder(field: 'countryID', comparison: FireComparison.equalTo, value: _countryID),
-          FireFinder(field: 'cityID', comparison: FireComparison.equalTo, value: cityID),
-          FireFinder(field: 'id', comparison: FireComparison.equalTo, value: text),
-        ],
-      ),
-      startAfter: startAfter,
-      addDocSnapshotToEachMap: true,
-    );
-
-    final List<Phrase> _phrases = Phrase.decipherMixedLangPhrasesFromMaps(maps: _maps);
-
-    return Phrase.cleanDuplicateIDs(phrases: _phrases);
-  }
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<List<Phrase>> searchDistrictsOfCityByNameFromFire({
-    @required String text,
-    @required String cityID,
-    int limit = 10,
-    QueryDocumentSnapshot<Object> startAfter,
-  }) async {
-    final String _countryID = CityModel.getCountryIDFromCityID(cityID);
-
-    final List<Map<String, dynamic>> _maps = await Fire.readColl(
-      queryModel: FireQueryModel(
-        // idFieldName: 'id', // DEFAULT
-        coll: FireColl.phrases_districts,
-        limit: limit,
-        finders: <FireFinder>[
-          FireFinder(field: 'countryID', comparison: FireComparison.equalTo, value: _countryID),
-          FireFinder(field: 'cityID', comparison: FireComparison.equalTo, value: cityID),
-          FireFinder(field: 'trigram', comparison: FireComparison.arrayContains, value: text),
-        ],
-      ),
-      startAfter: startAfter,
-      addDocSnapshotToEachMap: true,
-    );
-
-    final List<Phrase> _phrases = Phrase.decipherMixedLangPhrasesFromMaps(maps: _maps);
-
-    return Phrase.cleanDuplicateIDs(phrases: _phrases);
-  }
-// -----------------------------------------------------------------------------
-  /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-// -----------------------------------------------------------------------------
 }

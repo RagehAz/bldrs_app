@@ -1,11 +1,7 @@
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
-import 'package:bldrs/a_models/d_zone/c_city/district_model.dart';
-import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/real/d_district_real_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/ldb/stages_ldb_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/real/staging_real_ops.dart';
-import 'package:mapper/mapper.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 
 class StagingProtocols {
@@ -13,50 +9,6 @@ class StagingProtocols {
 
   const StagingProtocols();
 
-  // -----------------------------------------------------------------------------
-
-  /// COMPOSE
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<Staging> resetDistrictsStaging({
-    @required String cityID,
-  }) async {
-
-    Staging _stages;
-
-    if (cityID != null){
-
-      final List<DistrictModel> _districts = await DistrictRealOps.readCityDistricts(
-        cityID: cityID,
-      );
-
-      if (Mapper.checkCanLoopList(_districts) == false){
-        blog('resetDistrictsStages : no districts found for city ( $cityID )');
-      }
-
-      else {
-
-
-        final List<String> _districtsIDs = DistrictModel.getDistrictsIDs(_districts);
-        _stages = Staging(
-            id: cityID,
-            emptyStageIDs: _districtsIDs,
-            bzzStageIDs: null,
-            flyersStageIDs: null,
-            publicStageIDs: null
-        );
-
-        await StagingProtocols.renovateDistrictsStaging(
-          newStaging: _stages,
-        );
-
-      }
-
-    }
-
-    return _stages;
-  }
   // -----------------------------------------------------------------------------
 
   /// FETCH COUNTRIES STAGING
@@ -139,52 +91,6 @@ class StagingProtocols {
   }
   // -----------------------------------------------------------------------------
 
-  /// FETCH CITIES STAGING
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<Staging> fetchDistrictsStaging({
-    @required String cityID,
-  }) async {
-    Staging _output;
-
-    if (cityID != null){
-
-      _output = await StagingLDBOps.readStaging(id: cityID);
-
-      if (_output == null){
-
-        _output = await StagingRealOps.readDistrictsStaging(cityID: cityID);
-
-        if (_output != null){
-          await StagingLDBOps.insertStaging(staging: _output,);
-        }
-
-      }
-
-    }
-
-    return _output;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<Staging> refetchDistrictsStaging({
-    @required String cityID,
-  }) async {
-    Staging _output;
-
-    if (cityID != null){
-
-      await StagingLDBOps.deleteStaging(id: cityID);
-
-      _output = await fetchDistrictsStaging(cityID: cityID);
-
-    }
-
-    return _output;
-  }
-  // -----------------------------------------------------------------------------
-
   /// RENOVATE
 
   // --------------------
@@ -237,31 +143,6 @@ class StagingProtocols {
     }
 
   }
-  // --------------------
-  /// TASK : TEST ME
-  static Future<void> renovateDistrictsStaging({
-    @required Staging newStaging,
-  }) async {
-
-    if (newStaging != null){
-
-      await Future.wait(<Future>[
-
-        /// REAL
-        StagingRealOps.updateDistrictsStaging(
-          districtsStaging: newStaging,
-        ),
-
-        /// LDB
-        StagingLDBOps.insertStaging(
-          staging: newStaging,
-        ),
-
-      ]);
-
-    }
-
-  }
   // -----------------------------------------------------------------------------
 
   /// WIPE
@@ -292,34 +173,6 @@ class StagingProtocols {
       }
 
 
-
-    }
-
-  }
-  // --------------------
-  /// TASK : TEST ME
-  static Future<void> removeDistrictFromStages({
-    @required String districtID,
-  }) async {
-
-    if (districtID != null){
-
-      final Staging _oldDistrictsStaging = await fetchDistrictsStaging(
-          cityID: DistrictModel.getCityIDFromDistrictID(districtID),
-      );
-
-      if (_oldDistrictsStaging != null){
-
-        final Staging _new = Staging.removeIDFromStaging(
-          staging: _oldDistrictsStaging,
-          id: districtID,
-        );
-
-        await StagingProtocols.renovateDistrictsStaging(
-          newStaging: _new,
-        );
-
-      }
 
     }
 
