@@ -249,7 +249,6 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
     final bool _zoneIsValid = Formers.zoneValidator(
       context: context,
       zoneModel: _draftUser.value?.zone,
-      selectCountryAndCityOnly: true,
       selectCountryIDOnly: false,
       canValidate: true,
     ) == null;
@@ -572,14 +571,11 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                         draft: _draftUser,
                         mounted: mounted,
                       ),
-                      // selectCountryAndCityOnly: true,
-                      // selectCountryIDOnly: false,
-                      depth: ZoneDepth.district,
+                      depth: ZoneDepth.city,
                       // autoValidate: false,
                       validator: () => Formers.zoneValidator(
                         context: context,
                         zoneModel: draft?.zone,
-                        selectCountryAndCityOnly: true,
                         selectCountryIDOnly: false,
                         canValidate: _canValidate,
                       ),
@@ -591,7 +587,6 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       canGoNext: Formers.zoneValidator(
                         context: context,
                         zoneModel: draft?.zone,
-                        selectCountryAndCityOnly: true,
                         selectCountryIDOnly: false,
                         canValidate: true,
                       ) == null,

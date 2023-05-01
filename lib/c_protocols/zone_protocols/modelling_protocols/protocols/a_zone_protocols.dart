@@ -4,7 +4,6 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/json/curren
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/b_zone_search_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/c_country_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/d_city_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/e_district_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/x_zone_ids_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/translator/zone_translato.dart';
 /// => TAMAM
@@ -66,29 +65,6 @@ class ZoneProtocols {
   /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------
 
-  /// DISTRICTS
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static const composeDistrict = DistrictProtocols.composeDistrict;
-  /// TESTED : WORKS PERFECT
-  static const fetchDistrict = DistrictProtocols.fetchDistrict;
-  /// TESTED : WORKS PERFECT
-  static const fetchDistricts = DistrictProtocols.fetchDistricts;
-  /// TESTED : WORKS PERFECT
-  static const fetchDistrictsOfCity = DistrictProtocols.fetchDistrictsOfCity;
-  /// TESTED : WORKS PERFECT
-  static const fetchDistrictsOfCityByIDs = DistrictProtocols.fetchDistrictsOfCityByIDs;
-  /// TESTED : WORKS PERFECT
-  static const fetchDistrictsOfCountry = DistrictProtocols.fetchDistrictsOfCountry;
-  /// TESTED : WORKS PERFECT
-  static const renovateDistrict = DistrictProtocols.renovateDistrict;
-  /// TESTED : WORKS PERFECT
-  static const wipeDistrict = DistrictProtocols.wipeDistrict;
-  // -----------------------------------------------------------------------------
-  /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-  // -----------------------------------------------------------------------------
-
   /// CONTINENTS
 
   // --------------------
@@ -139,33 +115,6 @@ class ZoneProtocols {
   /// TESTED : WORKS PERFECT
   static const searchCountryCitiesByNameFromFire = ZoneSearchOps.searchCitiesOfCountryByNameFromFire;
   // -----------------------------------------------------------------------------
-
-  /// SEARCH DISTRICTS OF PLANET
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static const searchDistrictsOfPlanetByIDFromFire = ZoneSearchOps.searchDistrictsOfPlanetByIDFromFire;
-  /// TESTED : WORKS PERFECT
-  static const searchDistrictOfPlanetByNameFromFire = ZoneSearchOps.searchDistrictOfPlanetByNameFromFire;
-  // -----------------------------------------------------------------------------
-
-  /// SEARCH DISTRICTS OF COUNTRY
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static const searchDistrictsOfCountryByIDFromFire = ZoneSearchOps.searchDistrictsOfCountryByIDFromFire;
-  /// TESTED : WORKS PERFECT
-  static const searchDistrictsOfCountryByNameFromFire = ZoneSearchOps.searchDistrictsOfCountryByNameFromFire;
-  // -----------------------------------------------------------------------------
-
-  /// SEARCH DISTRICTS OF CITY
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static const searchDistrictsOfCityByIDFromFire = ZoneSearchOps.searchDistrictsOfCityByIDFromFire;
-  /// TESTED : WORKS PERFECT
-  static const searchDistrictsOfCityByNameFromFire = ZoneSearchOps.searchDistrictsOfCityByNameFromFire;
-  // -----------------------------------------------------------------------------
   /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------
 
@@ -176,8 +125,6 @@ class ZoneProtocols {
   static const translateCountry = ZoneTranslator.translateCountry;
   /// TESTED : WORKS PERFECT
   static const translateCity = ZoneTranslator.translateCity;
-  /// TESTED : WORKS PERFECT
-  static const translateDistrict = ZoneTranslator.translateDistrict;
   // -----------------------------------------------------------------------------
   /// ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
   // -----------------------------------------------------------------------------

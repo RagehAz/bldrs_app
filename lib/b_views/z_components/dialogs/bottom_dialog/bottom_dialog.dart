@@ -13,7 +13,6 @@ import 'package:stringer/stringer.dart';
 enum BottomDialogType {
   countries,
   cities,
-  districts,
   languages,
   bottomSheet,
 }

@@ -12,7 +12,6 @@ class ZoneLine extends StatelessWidget {
   const ZoneLine({
     @required this.zoneModel,
     this.showCity = true,
-    this.showDistrict = true,
     this.centered = true,
     this.width,
     Key key
@@ -20,7 +19,6 @@ class ZoneLine extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final ZoneModel zoneModel;
   final bool showCity;
-  final bool showDistrict;
   final bool centered;
   final double width;
   /// --------------------------------------------------------------------------
@@ -31,7 +29,6 @@ class ZoneLine extends StatelessWidget {
       context: context,
       zoneModel: zoneModel,
       showCity: showCity,
-      showDistrict: showDistrict,
     );
     // --------------------
     final double _width = width ?? 200;

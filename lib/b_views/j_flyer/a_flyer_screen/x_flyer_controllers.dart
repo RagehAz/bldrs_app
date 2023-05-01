@@ -51,43 +51,6 @@ Future<CityModel> getFlyerBzCity({
   return _city;
 }
  */
-// --------------------
-/// NOT USED
-/*
-ZoneModel getZoneModelForFlyer({
-  @required BuildContext context,
-  @required String countryID,
-  @required CityModel cityModel,
-  @required String districtID,
-}){
-
-  final String _countryName = Flag.getCountryNameByCurrentLang(
-    context: context,
-    countryID: countryID,
-  );
-
-  final String _cityName = CityModel.translateCity(
-    context: context,
-    city: cityModel,
-  );
-
-  final String _districtName = DistrictModel.getTranslatedDistrictNameFromCity(
-    context: context,
-    city: cityModel,
-    districtID: districtID,
-  );
-
-  return ZoneModel(
-    countryID: countryID,
-    cityID: cityModel.cityID,
-    districtID: districtID,
-    countryName: _countryName,
-    cityName: _cityName,
-    districtName: _districtName,
-  );
-
-}
- */
 // -----------------------------------------------------------------------------
 
 /// SLIDES INDEXING

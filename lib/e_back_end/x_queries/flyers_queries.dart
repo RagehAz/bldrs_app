@@ -81,13 +81,6 @@ FireQueryModel homeWallFlyersPaginationQuery(BuildContext context){
             value: _currentZone.cityID,
           ),
 
-          if (_currentZone != null && _currentZone.districtID != null)
-            FireFinder(
-              field: 'zone.districtID',
-              comparison: FireComparison.equalTo,
-              value: _currentZone.districtID,
-            ),
-
           /// KEYWORDS IDS : phid_k's
           if (phid != null)
           FireFinder(

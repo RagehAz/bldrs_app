@@ -297,7 +297,6 @@ class Formers {
   static String zoneValidator({
     @required BuildContext context,
     @required ZoneModel zoneModel,
-    @required bool selectCountryAndCityOnly,
     @required bool selectCountryIDOnly,
     @required bool canValidate,
   }){
@@ -313,7 +312,6 @@ class Formers {
 
         final String _countryID = zoneModel.countryID;
         final String _cityID = zoneModel.cityID;
-        final String _districtID = zoneModel.districtID;
 
         /// ONLY SELECTING COUNTRY ID
         if (selectCountryIDOnly == true){
@@ -323,16 +321,9 @@ class Formers {
         }
 
         /// ONLY SELECTING COUNTRY ID + CITY ID
-        else if (selectCountryAndCityOnly == true){
+        else {
           if (_countryID == null || _cityID == null){
             _message = Verse.transBake(context, 'phid_select_country_and_city');
-          }
-        }
-
-        /// SELECTING ALL IDS (COUNTRY ID + CITY ID + DISTRICT ID)
-        else {
-          if (_countryID == null || _cityID == null || _districtID == null){
-            _message = Verse.transBake(context, 'phid_select_country_city_and_district');
           }
         }
 
@@ -924,7 +915,6 @@ class Formers {
     if (Formers.zoneValidator(
       context: context,
       zoneModel: userModel?.zone,
-      selectCountryAndCityOnly: true,
       selectCountryIDOnly: false,
       canValidate: true,
     ) != null) {
