@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:animators/animators.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/e_extra_layers/flyer_affiliate_button.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -72,6 +73,9 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
   final ValueNotifier<double> _headerPageOpacity = ValueNotifier(0);
   // --------------------
   final ValueNotifier<BzCounterModel> _bzCounters = ValueNotifier(null);
+  // --------------------
+  /// FOOTER
+  final ValueNotifier<bool> _infoButtonExpanded = ValueNotifier(null);
   // --------------------
   final ValueNotifier<bool> _graphicIsOn = ValueNotifier(false);
   final ValueNotifier<double> _graphicOpacity = ValueNotifier(1);
@@ -650,6 +654,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
                 headerIsExpanded: _headerIsExpanded,
                 inFlight: false,
                 flyerIsSaved: _flyerIsSaved,
+                infoButtonExpanded: _infoButtonExpanded,
               ),
 
               /// PROGRESS BAR
@@ -663,6 +668,13 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
 
               /// SAVING NOTICE
               savingNotice,
+
+              /// AFFILIATE BUTTON
+              FlyerAffiliateButton(
+                flyerBoxWidth: widget.flyerBoxWidth,
+                flyerModel: flyerModel,
+                inStack: true,
+              ),
 
             ],
           );

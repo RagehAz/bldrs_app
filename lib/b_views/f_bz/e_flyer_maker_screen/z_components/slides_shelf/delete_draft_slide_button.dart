@@ -22,6 +22,7 @@ class DeleteDraftSlideButton extends StatelessWidget {
       context: context,
       flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
       infoButtonExpanded: false,
+      hasLink: false,
     );
 
     return SuperPositioned(
