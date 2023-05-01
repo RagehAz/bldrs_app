@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 
 @immutable
 class CurrencyModel {
-  /// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   const CurrencyModel({
     @required this.id,
     @required this.countriesIDs,
     @required this.symbol,
     @required this.digits,
   });
-  /// --------------------------------------------------------------------------
+  // --------------------
   final String id;
   final List<String> countriesIDs;
   final String symbol;
@@ -24,7 +24,6 @@ class CurrencyModel {
 
   // --------------------
   static const String currenciesMapID = 'currencies';
-
   static const String usaCurrencyID = 'currency_USD';
   static const String usaCountryID = 'usa';
   static const String euroCurrencyID = 'currency_EUR';
@@ -155,6 +154,7 @@ class CurrencyModel {
   /// CHECKERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static bool currenciesContainCurrency({
     @required List<CurrencyModel> currencies,
     @required String currencyCode,
