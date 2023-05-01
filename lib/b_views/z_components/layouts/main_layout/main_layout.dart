@@ -2,6 +2,7 @@ import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout_stack_widgets.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/pyramids_panel.dart';
 import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/general_provider.dart';
@@ -12,6 +13,7 @@ import 'package:devicer/devicer.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
+import 'package:mapper/mapper.dart';
 import 'package:night_sky/night_sky.dart';
 import 'package:provider/provider.dart';
 import 'package:scale/scale.dart';
@@ -273,13 +275,10 @@ class MainLayout extends StatelessWidget {
 
                 ),
 
-                // /// ONLY_FOR_BLDRS_DASHBOARD_VERSION
-                // if (isRage7() == true)
-                // PyramidsAdminPanel(
-                //   isInTransScreen: isInPhrasesScreen,
-                //   pyramidsAreOn: pyramidsAreOn,
-                //   pyramidButtons: pyramidButtons,
-                // ),
+                if (Mapper.checkCanLoopList(pyramidButtons) == true)
+                PyramidsPanel(
+                  pyramidButtons: pyramidButtons,
+                ),
 
               ],
             ),
