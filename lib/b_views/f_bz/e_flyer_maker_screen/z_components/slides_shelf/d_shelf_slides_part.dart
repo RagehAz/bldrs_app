@@ -79,7 +79,6 @@ class ShelfSlidesPart extends StatelessWidget {
                 enRight: DraftShelfSlide.flyerBoxWidth * 0.5,
               ),
               buildDefaultDragHandles: false,
-
               children: <Widget>[
 
                 /// SLIDES
