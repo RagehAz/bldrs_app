@@ -5,15 +5,14 @@ import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs/a_models/x_utilities/alert_model.dart';
-import 'package:filers/filers.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:space_time/space_time.dart';
 import 'package:stringer/stringer.dart';
-
+/// => TAMAM
 @immutable
 class BzModel{
   /// --------------------------------------------------------------------------
@@ -257,6 +256,16 @@ class BzModel{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
+  static BzModel decipherBzPositioned(Map<String, dynamic> map) {
+
+    return BzModel.decipherBz(
+      map: map,
+      fromJSON: false,
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static List<BzModel> decipherBzz({
     @required List<Map<String, dynamic>> maps,
     @required bool fromJSON,
@@ -277,8 +286,8 @@ class BzModel{
   /// BZ CONVERTERS
 
   // --------------------
+  /// DEPRECATED
   /*
-  /// TASK : TEST ME
   static BzModel convertFireUserDataIntoInitialBzModel(UserModel userModel) {
 
 
@@ -323,16 +332,6 @@ class BzModel{
     );
   }
    */
-  // --------------------
-  /// TASK : TEST ME
-  static BzModel convertDocSnapshotIntoBzModel(Map<String, dynamic> map) {
-
-    return BzModel.decipherBz(
-      map: map,
-      fromJSON: false,
-    );
-
-  }
   // -----------------------------------------------------------------------------
 
   /// BZZ MODIFIERS
@@ -707,7 +706,7 @@ class BzModel{
     return _pics;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static List<BzModel> getBzzFromBzzByBzType({
     @required List<BzModel> bzz,
     @required BzType bzType,
@@ -734,13 +733,12 @@ class BzModel{
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static List<String> getBzTeamIDs(BzModel bzModel) {
-    final List<AuthorModel> _authors = bzModel.authors;
     final List<String> _bzTeamIDs = <String>[];
 
-    if (_authors != null) {
-      for (final AuthorModel author in _authors) {
+    if (Mapper.checkCanLoopList(bzModel?.authors) == true) {
+      for (final AuthorModel author in bzModel?.authors) {
         _bzTeamIDs.add(author.userID);
       }
     }
@@ -748,7 +746,7 @@ class BzModel{
     return _bzTeamIDs;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static List<BzModel> getBzzByCreatorID({
     @required List<BzModel> bzzModels,
     @required String creatorID,
@@ -772,7 +770,7 @@ class BzModel{
     return _bzzModels;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static List<BzModel> getBzzIDidNotCreate({
     @required List<BzModel> bzzModels,
     @required String userID,
@@ -901,7 +899,8 @@ class BzModel{
   /// BZ VALIDATION
 
   // --------------------
-  /// TASK : TEST ME
+  /// DEPRECATED
+  /*
   static List<AlertModel> requiredFields(BzModel bzModel){
     final List<AlertModel> _invalidFields = <AlertModel>[];
 
@@ -992,6 +991,7 @@ class BzModel{
 
     return _invalidFields;
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// OVERRIDES

@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';

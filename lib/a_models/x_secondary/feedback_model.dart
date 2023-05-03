@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/k_statistics/record_model.dart';
 import 'package:mapper/mapper.dart';
 import 'package:space_time/space_time.dart';
 import 'package:flutter/foundation.dart';
-
+/// => TAMAM
 @immutable
 class FeedbackModel {
   /// --------------------------------------------------------------------------
@@ -68,6 +68,7 @@ class FeedbackModel {
   /// CHECKERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static bool checkFeedbacksAreIdentical({
     @required FeedbackModel feedback1,
     @required FeedbackModel feedback2,

@@ -1,5 +1,6 @@
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -311,7 +312,7 @@ class RecordModel {
   /// MODIFIERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static List<RecordModel> insertRecordToRecords({
     @required List<RecordModel> records,
     @required RecordModel record,
@@ -387,7 +388,7 @@ class RecordModel {
   /// CHECKERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static bool recordsContainRecord({
     @required List<RecordModel> records,
     @required RecordModel record,
@@ -523,6 +524,7 @@ class RecordModel {
 
   }
   // --------------------
+  /// TASK : TEST ME
   static RecordModel createViewRecord({
     @required String userID,
     @required String flyerID,
@@ -548,6 +550,7 @@ class RecordModel {
 
   }
   // --------------------
+  /// TASK : TEST ME
   static String createIndexAndDurationString({
     @required int index,
     @required int durationSeconds,
@@ -615,7 +618,7 @@ class RecordModel {
 
   }
   // --------------------
-
+  /// TASK : TEST ME
   static RecordModel createCreateReviewRecord({
     @required String userID,
     @required String flyerID,
@@ -635,7 +638,7 @@ class RecordModel {
 
   }
   // --------------------
-
+  /// TASK : TEST ME
   static RecordModel createEditReviewRecord({
     @required String userID,
     @required String flyerID,
@@ -655,7 +658,7 @@ class RecordModel {
 
   }
   // --------------------
-
+  /// TASK : TEST ME
   static RecordModel createDeleteReviewRecord({
     @required String userID,
     @required String flyerID,
@@ -678,6 +681,7 @@ class RecordModel {
   /// QUESTION RECORD CREATORS
 
   // --------------------
+  /// TASK : TEST ME
   static RecordModel createCreateQuestionRecord({
     @required String userID,
     @required String questionID,
@@ -696,6 +700,7 @@ class RecordModel {
 
   }
   // --------------------
+  /// TASK : TEST ME
   static RecordModel createEditQuestionRecord({
     @required String userID,
     @required String questionID,
@@ -714,6 +719,7 @@ class RecordModel {
 
   }
   // --------------------
+  /// TASK : TEST ME
   static RecordModel createDeleteQuestionRecord({
     @required String userID,
     @required String questionID,
@@ -732,6 +738,7 @@ class RecordModel {
 
   }
   // --------------------
+  /// TASK : TEST ME
   static RecordModel createCreateAnswerRecord({
     @required String userID,
     @required String questionID,
@@ -751,6 +758,7 @@ class RecordModel {
 
   }
   // --------------------
+  /// TASK : TEST ME
   static RecordModel createEditAnswerRecord({
     @required String userID,
     @required String questionID,
@@ -770,6 +778,7 @@ class RecordModel {
 
   }
   // --------------------
+  /// TASK : TEST ME
   static RecordModel createDeleteAnswerRecord({
     @required String userID,
     @required String questionID,
@@ -793,6 +802,7 @@ class RecordModel {
   /// SEARCH RECORD CREATORS
 
   // --------------------
+  /// TASK : TEST ME
   static RecordModel createSearchRecord({
     @required String userID,
     @required String searchText,
@@ -836,6 +846,25 @@ class RecordModel {
   }
   // -----------------------------------------------------------------------------
 
+  /// GETTERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String getIconByModelType(ModelType modelType){
+
+    switch(modelType){
+      case ModelType.flyer: return Iconz.flyer; break;
+      case ModelType.bz: return Iconz.bz; break;
+      case ModelType.question: return Iconz.balloonSpeaking; break;
+      case ModelType.answer: return Iconz.balloonArrowed; break;
+      case ModelType.user: return Iconz.normalUser; break;
+      default: return null;
+    }
+
+  }
+
+  // -----------------------------------------------------------------------------
+
   /// BLOG
 
   // --------------------
@@ -871,45 +900,45 @@ class RecordModel {
   }
   // -----------------------------------------------------------------------------
 
-/// OVERRIDES
+  /// OVERRIDES
 
   // --------------------
-/*
-   @override
-   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
-   */
+  /*
+     @override
+     String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+     */
   // --------------------
-/*
-  @override
-  bool operator == (Object other){
+  /*
+    @override
+    bool operator == (Object other){
 
-    if (identical(this, other)) {
-      return true;
+      if (identical(this, other)) {
+        return true;
+      }
+
+      bool _areIdentical = false;
+      if (other is RecordModel){
+        _areIdentical = checkBzCounterModelsAreIdentical(
+          counter1: this,
+          counter2: other,
+        );
+      }
+
+      return _areIdentical;
     }
-
-    bool _areIdentical = false;
-    if (other is RecordModel){
-      _areIdentical = checkBzCounterModelsAreIdentical(
-        counter1: this,
-        counter2: other,
-      );
-    }
-
-    return _areIdentical;
-  }
-   */
+     */
   // --------------------
-/*
-  @override
-  int get hashCode =>
-      bzID.hashCode^
-      follows.hashCode^
-      calls.hashCode^
-      allSaves.hashCode^
-      allShares.hashCode^
-      allSlides.hashCode^
-      allViews.hashCode^
-      allReviews.hashCode;
-   */
+  /*
+    @override
+    int get hashCode =>
+        bzID.hashCode^
+        follows.hashCode^
+        calls.hashCode^
+        allSaves.hashCode^
+        allShares.hashCode^
+        allSlides.hashCode^
+        allViews.hashCode^
+        allReviews.hashCode;
+     */
   // -----------------------------------------------------------------------------
 }

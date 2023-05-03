@@ -5,7 +5,7 @@ import 'package:filers/filers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mapper/mapper.dart';
 import 'package:stringer/stringer.dart';
-
+/// => TAMAM
 @immutable
 class ChainPathConverter {
   // -----------------------------------------------------------------------------

@@ -19,7 +19,7 @@ enum FlyerType {
   product,
   equipment,
 }
-
+/// => TAMAM
 class FlyerTyper{
   // -----------------------------------------------------------------------------
 
@@ -261,7 +261,7 @@ class FlyerTyper{
     return _includes;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static bool checkFlyerTypesAreIdentical(List<FlyerType> types1, List<FlyerType> types2){
 
     final List<String> _a = cipherFlyersTypes(types1);
@@ -440,7 +440,7 @@ class FlyerTyper{
     }
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static List<FlyerType> concludePossibleFlyerTypesByChains(List<Chain> chains){
     final List<FlyerType> _types = <FlyerType>[];
 

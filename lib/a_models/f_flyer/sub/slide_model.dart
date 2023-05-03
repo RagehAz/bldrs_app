@@ -1,7 +1,5 @@
 import 'dart:ui' as ui;
-
 import 'package:mediators/mediators.dart';
-
 import 'package:filers/filers.dart';
 import 'package:space_time/space_time.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';

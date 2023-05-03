@@ -2,7 +2,6 @@ import 'package:mapper/mapper.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/foundation.dart';
 
-/// FUTURE : ERADICATE MAP MODEL AND ALWAYS USE Map<String, dynamic>
 @immutable
 class MapModel{
   /// --------------------------------------------------------------------------
@@ -20,6 +19,7 @@ class MapModel{
   /// CREATORS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   MapModel copyWith({
     String key,
     dynamic value,
@@ -125,8 +125,8 @@ class MapModel{
 
     return _mapModels;
   }
-
-
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Map<String, int> cipherIntsMapModels(List<MapModel> maps){
     final Map<String, int> _ints = {};
 
@@ -149,10 +149,12 @@ class MapModel{
   /// BLOGGERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   void blogMapModel(){
     blog('< $key : $value >');
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static void blogMapModels({
     @required List<MapModel> mapModels,
     String invoker = 'MapModels',
@@ -170,6 +172,7 @@ class MapModel{
   /// SORTING
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<MapModel> sortValuesAlphabetically(List<MapModel> mapModels){
     mapModels.sort((MapModel a, MapModel b) => a?.value?.compareTo(b?.value));
     return mapModels;
@@ -233,6 +236,7 @@ class MapModel{
     return _model;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static List<MapModel> getModelsByKeys({
     @required List<MapModel> allModels,
     @required List<String> keys,
@@ -286,7 +290,7 @@ class MapModel{
     return _output;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<MapModel> insertMapModel({
     @required List<MapModel> mapModels,
     @required MapModel mapModel,
@@ -320,7 +324,7 @@ class MapModel{
     return _output;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<MapModel> removeMapModel({
     @required List<MapModel> mapModels,
     @required String key,
@@ -341,7 +345,7 @@ class MapModel{
     return _output;
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<MapModel> removeMapsWithThisValue({
     @required List<MapModel> mapModels,
     @required dynamic value,
@@ -359,6 +363,7 @@ class MapModel{
   /// CHECKERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static bool checkMapExists({
     @required List<MapModel> mapModels,
     @required MapModel mapModel,
@@ -383,6 +388,7 @@ class MapModel{
     return _exists;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static bool checkMapsIncludeThisKey({
     @required List<MapModel> mapModels,
     @required String key,
@@ -405,6 +411,7 @@ class MapModel{
     return _include;
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static bool checkMapModelsListsAreIdentical({
     @required List<MapModel> models1,
     @required List<MapModel> models2,
