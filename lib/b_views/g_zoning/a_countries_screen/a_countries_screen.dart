@@ -97,11 +97,15 @@ class _CountriesScreenState extends State<CountriesScreen> {
     /// COUNTRIES STAGES
     final Staging _countriesStages = await StagingProtocols.fetchCountriesStaging();
 
+    _countriesStages.blogStaging();
+
     /// SHOWN IDS
     final List<String> _shownIDs = _countriesStages.getIDsByViewingEvent(
       context: context,
       event: widget.zoneViewingEvent,
     );
+
+    blog('CountriesScreen._loadCountries() : _shownIDs : $_shownIDs');
 
     /// NOT SHOWN IDS
     final List<String> _notShownIDs = Stringer.removeStringsFromStrings(
