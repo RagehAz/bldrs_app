@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
@@ -9,7 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:provider/provider.dart';
 import 'package:stringer/stringer.dart';
-
+/// => TAMAM
 class Keyboard {
   // -----------------------------------------------------------------------------
 
@@ -20,6 +19,7 @@ class Keyboard {
   /// INITIALIZATION
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static StreamSubscription<bool> initializeKeyboardListener({
     @required BuildContext context,
     @required KeyboardVisibilityController controller,
@@ -61,7 +61,7 @@ class Keyboard {
   /// CONTROLLING KEYBOARD
 
   // --------------------
-  /// TESTED : WORKS PERFECT : TASK : CAN REMOVE THIS CONTEXT NOW I GUESS
+  /// TESTED : WORKS PERFECT
   static void closeKeyboard(BuildContext context) {
     /// SOLUTION 1
     // FocusScope.of(context).requestFocus(FocusNode());
@@ -88,6 +88,7 @@ class Keyboard {
 
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static bool keyboardIsOn(BuildContext context) {
     /// SOLUTION 1
     // bool _keyboardIsOn = FocusScope.of(context).hasFocus;
@@ -128,10 +129,12 @@ class Keyboard {
     // TextInputType.none,
   ];
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String cipherTextInputType(TextInputType type){
     return TextMod.removeTextBeforeLastSpecialCharacter(type.toJson()['name'], '.');
   }
   // --------------------
+  /// TESTED : WORKS PERFECT
   static TextInputType decipherTextInputType(String type){
 
     switch(type){
@@ -168,6 +171,7 @@ class Keyboard {
   /// COPY PASTE
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> handlePaste(TextSelectionDelegate delegate) async {
 
     final TextEditingValue _value = delegate.textEditingValue; // Snapshot the input before using `await`.
