@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:mapper/mapper.dart';
 import 'package:flutter/material.dart';
 
@@ -71,6 +70,7 @@ class Streamer {
   /// STREAM SUBSCRIPTION
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> disposeStreamSubscriptions(List<StreamSubscription> subs) async {
 
     if (Mapper.checkCanLoopList(subs) == true){
