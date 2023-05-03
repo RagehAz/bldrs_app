@@ -306,7 +306,6 @@ class Staging {
         event: event,
       );
 
-
       return _getIDsFromMinStageToMax(
         minStage: _minStage,
       );
@@ -332,7 +331,7 @@ class Staging {
 
       switch(event){
         /// = if active : will show bzz : if public : will show flyers
-        case ViewingEvent.homeView        : return StageType.flyersStage;    break;
+        case ViewingEvent.homeView        : return StageType.bzzStage;    break;
         case ViewingEvent.userEditor      : return StageType.emptyStage;    break;
         case ViewingEvent.bzEditor        : return StageType.emptyStage;    break;
         /// WHEN BZ IS CREATED, ZONE GETS ACTIVE
@@ -539,6 +538,17 @@ class Staging {
     @required ViewingEvent zoneViewingEvent,
   }){
     return zoneViewingEvent == ViewingEvent.homeView;
+  }
+  // ---------------------
+  /// TASK : TEST ME
+  static bool isEmpty(Staging staging){
+    bool _output = false;
+
+    if (staging != null){
+      _output = staging.getAllIDs().isEmpty;
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 

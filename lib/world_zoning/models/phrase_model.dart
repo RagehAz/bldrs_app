@@ -19,7 +19,7 @@ class Phrase {
   /// CLONING
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// AI TESTED
   Phrase copyWith({
     String id,
     String langCode,
@@ -34,7 +34,7 @@ class Phrase {
     );
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// AI TESTED
   Phrase completeTrigram(){
 
     Phrase _phrase = Phrase(
@@ -618,78 +618,6 @@ class Phrase {
     return _models;
   }
    */
-  // -----------------------------------------------------------------------------
-
-  /// BLOGGERS
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  void blogPhrase({String invoker = ''}){
-    blog('PHRASE $invoker : langCode : $langCode : id : $id : $value : trigram(${trigram?.length})');
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static void blogPhrases(List<Phrase> phrases){
-
-    int _count = 1;
-
-    if (Mapper.checkCanLoopList(phrases)){
-
-      for (final Phrase phrase in phrases){
-        blog(
-            '  #$_count : '
-                'id : [ ${phrase.id} ] : '
-                'langCode : [ ${phrase.langCode} ] : '
-                'name : [ ${phrase.value} ] : '
-                'trigramLength : ${phrase.trigram?.length}'
-        );
-        _count++;
-      }
-
-    }
-    else {
-      blog('phrases ARE FUCKING NULL');
-    }
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static void blogPhrasesListsDifferences({
-    @required List<Phrase> phrases1,
-    @required String phrases1Name,
-    @required List<Phrase> phrases2,
-    @required String phrases2Name,
-    bool sortBeforeCompare = true,
-  }){
-
-    if (Mapper.checkCanLoopList(phrases1) == true && Mapper.checkCanLoopList(phrases2) == true){
-
-      List<Phrase> _phrases1;
-      List<Phrase> _phrases2;
-
-      if (sortBeforeCompare == true){
-
-        _phrases1 = Phrase.sortPhrasesByIDAndLang(phrases: phrases1);
-        _phrases2 = Phrase.sortPhrasesByIDAndLang(phrases: phrases2);
-      }
-      else {
-        _phrases1 = phrases1;
-        _phrases2 = phrases2;
-      }
-
-      final List<String> _list1 = Phrase.transformPhrasesToStrings(_phrases1);
-      final List<String> _list2 = Phrase.transformPhrasesToStrings(_phrases2);
-
-      Stringer.blogStringsListsDifferences(
-        strings1: _list1,
-        list1Name: phrases1Name,
-        strings2: _list2,
-        list2Name: phrases2Name,
-      );
-
-    }
-
-  }
   // -----------------------------------------------------------------------------
 
   /// GETTERS
@@ -1688,6 +1616,94 @@ class Phrase {
   }
   // -----------------------------------------------------------------------------
 
+  /// BLOGGERS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  void blogPhrase({String invoker = ''}){
+    blog('PHRASE $invoker : langCode : $langCode : id : $id : $value : trigram(${trigram?.length})');
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void blogPhrases(List<Phrase> phrases){
+
+    int _count = 1;
+
+    if (Mapper.checkCanLoopList(phrases)){
+
+      for (final Phrase phrase in phrases){
+        blog(
+            '  #$_count : '
+                'id : [ ${phrase.id} ] : '
+                'langCode : [ ${phrase.langCode} ] : '
+                'name : [ ${phrase.value} ] : '
+                'trigramLength : ${phrase.trigram?.length}'
+        );
+        _count++;
+      }
+
+    }
+    else {
+      blog('phrases ARE FUCKING NULL');
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void blogPhrasesListsDifferences({
+    @required List<Phrase> phrases1,
+    @required String phrases1Name,
+    @required List<Phrase> phrases2,
+    @required String phrases2Name,
+    bool sortBeforeCompare = true,
+  }){
+
+    if (Mapper.checkCanLoopList(phrases1) == true && Mapper.checkCanLoopList(phrases2) == true){
+
+      List<Phrase> _phrases1;
+      List<Phrase> _phrases2;
+
+      if (sortBeforeCompare == true){
+
+        _phrases1 = Phrase.sortPhrasesByIDAndLang(phrases: phrases1);
+        _phrases2 = Phrase.sortPhrasesByIDAndLang(phrases: phrases2);
+      }
+      else {
+        _phrases1 = phrases1;
+        _phrases2 = phrases2;
+      }
+
+      final List<String> _list1 = Phrase.transformPhrasesToStrings(_phrases1);
+      final List<String> _list2 = Phrase.transformPhrasesToStrings(_phrases2);
+
+      Stringer.blogStringsListsDifferences(
+        strings1: _list1,
+        list1Name: phrases1Name,
+        strings2: _list2,
+        list2Name: phrases2Name,
+      );
+
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> transformPhrasesToStrings(List<Phrase> phrases){
+    final List<String> _strings = <String>[];
+
+    if (Mapper.checkCanLoopList(phrases) == true){
+
+      for (final Phrase phrase in phrases){
+        final String _string = phrase.toString();
+        _strings.add(_string);
+      }
+
+    }
+
+    return _strings;
+  }
+  // -----------------------------------------------------------------------------
+
   /// EQUALITY
 
   // --------------------
@@ -1806,19 +1822,4 @@ class Phrase {
       langCode.hashCode^
       trigram.hashCode;
   // -----------------------------------------------------------------------------
-  static List<String> transformPhrasesToStrings(List<Phrase> phrases){
-    final List<String> _strings = <String>[];
-
-    if (Mapper.checkCanLoopList(phrases) == true){
-
-      for (final Phrase phrase in phrases){
-        final String _string = phrase.toString();
-        _strings.add(_string);
-      }
-
-    }
-
-    return _strings;
-  }
-
 }

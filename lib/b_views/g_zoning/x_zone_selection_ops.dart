@@ -55,7 +55,7 @@ class ZoneSelection {
     @required ViewingEvent zoneViewingEvent,
   }) async {
 
-    final ZoneModel _output = await goToCountriesScreen(
+    final ZoneModel _output = await _goToCountriesScreen(
       context: context,
       zoneViewingEvent: zoneViewingEvent,
       depth: depth,
@@ -72,7 +72,7 @@ class ZoneSelection {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<ZoneModel> goToCountriesScreen({
+  static Future<ZoneModel> _goToCountriesScreen({
     @required BuildContext context,
     @required ViewingEvent zoneViewingEvent,
     @required ZoneDepth depth,

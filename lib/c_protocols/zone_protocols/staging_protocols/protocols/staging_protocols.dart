@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/ldb/stages_ldb_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/real/staging_real_ops.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 
 class StagingProtocols {
@@ -21,12 +22,20 @@ class StagingProtocols {
         id: Staging.countriesStagingId,
     );
 
-    if (_output == null){
+    _output.blogStaging();
+
+    if (Staging.isEmpty(_output) == true){
 
       _output = await StagingRealOps.readCountriesStaging();
 
-      if (_output != null){
+      // blog('non no');
+      // _output.blogStaging();
+
+      if (Staging.isEmpty(_output) == false){
+        blog('inserting staging into ldb');
         await StagingLDBOps.insertStaging(staging: _output,);
+      //   blog('non no nono no');
+      // _output.blogStaging();
       }
 
     }
@@ -58,11 +67,11 @@ class StagingProtocols {
 
       _output = await StagingLDBOps.readStaging(id: countryID,);
 
-      if (_output == null){
+      if (Staging.isEmpty(_output) == true){
 
         _output = await StagingRealOps.readCitiesStaging(countryID: countryID,);
 
-        if (_output != null){
+        if (Staging.isEmpty(_output) == false){
           await StagingLDBOps.insertStaging(staging: _output,);
         }
 
