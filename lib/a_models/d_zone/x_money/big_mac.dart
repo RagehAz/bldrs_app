@@ -20,6 +20,7 @@ class BigMac {
   /// CYPHERS
 
   // --------------------
+  /// TASK : TEST ME
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'countryID': countryID,
@@ -29,6 +30,7 @@ class BigMac {
     };
   }
   // --------------------
+  /// TASK : TEST ME
   static BigMac decipherBigMac(Map<String, dynamic> map) {
     BigMac _bigMac;
 
@@ -44,6 +46,7 @@ class BigMac {
     return _bigMac;
   }
   // --------------------
+  /// TASK : TEST ME
   static List<BigMac> decipherBigMacs(List<Map<String, dynamic>> maps) {
     /// after this should recieve one big map of maps
 
@@ -58,6 +61,7 @@ class BigMac {
     return _bigMacs;
   }
   // --------------------
+  /// TASK : TEST ME
   static Map<String, dynamic> cipherBigMacs(List<BigMac> bigMacs) {
     Map<String, dynamic> _bigMacsMap = <String, dynamic>{};
 
@@ -78,6 +82,7 @@ class BigMac {
   /// GETTERS
 
   // --------------------
+  /// TASK : TEST ME
   static List<String> getCountriesIDsFromBigMacs(List<BigMac> bigMacs) {
     final List<String> _countriesIDs = <String>[];
 
@@ -90,6 +95,7 @@ class BigMac {
     return _countriesIDs;
   }
   // --------------------
+  /// TASK : TEST ME
   static double getBigMacDollarPriceByISO3(String iso3) {
     double _bigMacLocalPriceInUSD = 0;
 
@@ -109,11 +115,13 @@ class BigMac {
     return _bigMacLocalPriceInUSD;
   }
   // --------------------
+  /// TASK : TEST ME
   static BigMac getBigMacByISO3(String iso3) {
     return bigMacs().singleWhere((BigMac bigMac) => bigMac.countryID == iso3,
         orElse: () => null);
   }
   // --------------------
+  /// TASK : TEST ME
   static List<BigMac> getBigMacsOrdered() {
     final List<BigMac> _macs = <BigMac>[];
 
@@ -129,6 +137,7 @@ class BigMac {
     return _macs;
   }
   // --------------------
+  /// TASK : TEST ME
   static String getCurrencyByCountryIdFromBigMacs({
     @required String countryID,
     // List<BigMac> bigMacs,
@@ -148,6 +157,8 @@ class BigMac {
   // --------------------
   static const double proAccountPriceEGY = 3000; // 5 peacocks
   // --------------------
+  // --------------------
+  /// TASK : TEST ME
   static double proAccountPriceInLocalCurrencyByISO3(String iso3) {
     final double _bigMacsCountToBuyProAccount = bigMacsCountToBuyProAccount();
 
@@ -161,8 +172,9 @@ class BigMac {
     return _proAccountPriceInLocalCurrency;
   }
   // --------------------
-  /// how many big macs can 5000 EGP buy
+  /// TASK : TEST ME
   static double bigMacsCountToBuyProAccount() {
+    /// how many big macs can 5000 EGP buy
     const double _proAccountPriceEGY = proAccountPriceEGY;
     final double _bigMacPriceEGY = getBigMacByISO3('egy').localPrice;
 
@@ -170,6 +182,7 @@ class BigMac {
     return _count;
   }
   // --------------------
+  /// TASK : TEST ME
   static double localPriceToDollar({
     double localPrice,
     double toDollarRate,
@@ -178,6 +191,7 @@ class BigMac {
     return _priceInDollar;
   }
   // --------------------
+  /// TASK : TEST ME
   static List<BigMac> bigMacs() {
     final List<BigMac> _bigMacs = <BigMac>[
       const BigMac(
@@ -462,6 +476,7 @@ class BigMac {
     return _bigMacs;
   }
   // --------------------
+  /// TASK : TEST ME
   static List<String> euroCountries() {
     return <String>[
       'Germany',

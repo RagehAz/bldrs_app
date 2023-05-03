@@ -42,6 +42,7 @@ enum BzState {
   banned,
 }
 
+/// => TAMAM
 class BzTyper {
   // -----------------------------------------------------------------------------
 
@@ -654,7 +655,7 @@ class BzTyper {
     }
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<String> cipherBzForms(List<BzForm> x){
     final List<String> _output = <String>[];
 
@@ -669,7 +670,7 @@ class BzTyper {
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<BzForm> decipherBzForms(List<String> y){
     final List<BzForm> _output = <BzForm>[];
 

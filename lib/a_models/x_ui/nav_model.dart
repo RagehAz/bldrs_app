@@ -13,7 +13,7 @@ enum MainNavModel {
   zone,
   settings,
 }
-
+/// => TAMAM
 class NavModel {
   /// --------------------------------------------------------------------------
   const NavModel({

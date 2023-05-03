@@ -17,6 +17,7 @@ class AppBarButton extends StatelessWidget {
     this.bigIcon = false,
     this.width,
     this.loading,
+    this.iconColor,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -31,6 +32,7 @@ class AppBarButton extends StatelessWidget {
   final bool bigIcon;
   final double width;
   final bool loading;
+  final Color iconColor;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -52,6 +54,7 @@ class AppBarButton extends StatelessWidget {
       color: buttonColor,
       iconSizeFactor: bigIcon == true ? 1 : 0.6,
       bubble: bubble,
+      iconColor: iconColor,
       onTap: onTap,
       isDisabled: isDeactivated,
       onDisabledTap: onDeactivatedTap,

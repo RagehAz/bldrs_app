@@ -3,7 +3,7 @@ import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:devicer/devicer.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/foundation.dart';
-
+/// => TAMAM
 @immutable
 class DeviceModel {
   /// --------------------------------------------------------------------------
@@ -71,10 +71,19 @@ class DeviceModel {
   }
   // -----------------------------------------------------------------------------
 
-  /// CHECKERS
+  /// BLOGGING
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
+  void blogDevice(){
+    blog('DeviceModel : id : $id : name : $name : platform $platform : token : $token');
+  }
+  // -----------------------------------------------------------------------------
+
+  /// EQUALITY
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static bool checkDevicesAreIdentical({
     @required DeviceModel device1,
     @required DeviceModel device2,
@@ -102,15 +111,6 @@ class DeviceModel {
     }
 
     return _identical;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// BLOGGING
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  void blogDevice(){
-    blog('DeviceModel : id : $id : name : $name : platform $platform : token : $token');
   }
   // -----------------------------------------------------------------------------
 

@@ -1,7 +1,7 @@
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mapper/mapper.dart';
-
+/// => TAMAM
 @immutable
 class PickersBlocker {
   /// -----------------------------------------------------------------------------
@@ -33,7 +33,7 @@ class PickersBlocker {
 
   /// CYPHER
 
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> _toMap(){
     return {
@@ -41,7 +41,7 @@ class PickersBlocker {
       'pickersIDsToBlock' : pickersIDsToBlock,
     };
   }
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static PickersBlocker _decipherBlocker(Map<String, dynamic> map){
     PickersBlocker _blocker;
@@ -55,7 +55,7 @@ class PickersBlocker {
 
     return _blocker;
   }
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> cipherBlockers(List<PickersBlocker> blockers){
     final List <Map<String, dynamic>> _maps  = <Map<String, dynamic>>[];
@@ -72,7 +72,7 @@ class PickersBlocker {
 
     return _maps;
   }
-// -----------------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static List<PickersBlocker> decipherBlockers(dynamic maps) {
     final List<PickersBlocker> _blockers = <PickersBlocker>[];
@@ -109,7 +109,7 @@ class PickersBlocker {
   /// CHECKERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static bool checkBlockersAreIdentical({
     @required PickersBlocker blocker1,
     @required PickersBlocker blocker2,
@@ -139,7 +139,7 @@ class PickersBlocker {
     return _areIdentical;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static bool checkBlockersListsAreIdentical({
     @required List<PickersBlocker> blockers1,
     @required List<PickersBlocker> blockers2,

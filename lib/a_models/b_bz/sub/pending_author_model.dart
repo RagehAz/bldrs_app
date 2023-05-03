@@ -4,7 +4,7 @@ import 'package:mapper/mapper.dart';
 import 'package:stringer/stringer.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 @immutable
 class PendingAuthor {
   // -----------------------------------------------------------------------------
