@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 @immutable
 class AppControlsModel {
   /// --------------------------------------------------------------------------
@@ -21,7 +21,7 @@ class AppControlsModel {
   /// CLONING
 
   // --------------------
-  ///
+  /// TAMAM : WORKS PERFECT
   AppControlsModel copyWith({
     bool showAllFlyersInHome,
     String id,
@@ -38,7 +38,7 @@ class AppControlsModel {
   /// CYPHER
 
   // --------------------
-  ///
+  /// TAMAM : WORKS PERFECT
   Map<String, dynamic> toMap(){
     return {
       'id': appControlsID,
@@ -46,7 +46,7 @@ class AppControlsModel {
     };
   }
   // --------------------
-  ///
+  /// TAMAM : WORKS PERFECT
   static AppControlsModel decipherAppControlsModel(Map<String, dynamic> map){
 
     AppControlsModel _model;
@@ -65,7 +65,7 @@ class AppControlsModel {
   /// CHECKERS
 
   // --------------------
-  ///
+  /// TAMAM : WORKS PERFECT
   static bool checkAppControlsModelsAreIdentical({
     @required AppControlsModel model1,
     @required AppControlsModel model2,
@@ -73,7 +73,9 @@ class AppControlsModel {
     bool _output = false;
 
     if (model1 != null && model2 != null) {
-      _output = model1.showAllFlyersInHome == model2.showAllFlyersInHome;
+      _output =
+          model1.showAllFlyersInHome == model2.showAllFlyersInHome &&
+          model1.id == model2.id;
     }
 
     return _output;

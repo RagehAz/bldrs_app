@@ -9,7 +9,7 @@ enum UserTab {
   following,
   settings,
 }
-
+/// => TAMAM
 class UserTabber {
   // -----------------------------------------------------------------------------
 
@@ -27,6 +27,7 @@ class UserTabber {
     UserTab.settings,
   ];
   // --------------------
+  /// TAMAM : WORKS PERFECT
   static String getUserTabIcon(BuildContext context, UserTab userTab){
     switch(userTab){
       case UserTab.profile        : return UsersProvider.proGetMyUserModel(
@@ -39,8 +40,9 @@ class UserTabber {
     }
   }
   // --------------------
-  /// CAUTION : THIS HAS TO REMAIN IN ENGLISH ONLY WITH NO TRANSLATIONS
+  /// TAMAM : WORKS PERFECT
   static String getUserTabID(UserTab userTab){
+    /// CAUTION : THIS HAS TO REMAIN IN ENGLISH ONLY WITH NO TRANSLATIONS
     /// BECAUSE THESE VALUES ARE USED IN WIDGETS KEYS
     switch(userTab){
       case UserTab.profile        : return  'Profile'       ; break;
@@ -51,6 +53,7 @@ class UserTabber {
     }
   }
   // --------------------
+  /// TAMAM : WORKS PERFECT
   static String _getUserTabPhid(UserTab userTab){
     switch(userTab){
       case UserTab.profile        : return  'phid_profile'       ; break;
@@ -61,6 +64,7 @@ class UserTabber {
     }
   }
   // --------------------
+  /// TAMAM : WORKS PERFECT
   static Verse translateUserTab({
     @required BuildContext context,
     @required UserTab userTab,
@@ -72,12 +76,10 @@ class UserTabber {
     );
   }
   // --------------------
+  /// TAMAM : WORKS PERFECT
   static int getUserTabIndex(UserTab userTab){
     final int _index = userProfileTabsList.indexWhere((tab) => tab == userTab);
     return _index;
   }
-
-
   // -----------------------------------------------------------------------------
-  void f(){}
 }

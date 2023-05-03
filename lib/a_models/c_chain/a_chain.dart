@@ -677,7 +677,7 @@ class Chain {
   /// GETTERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static List<String> getChainsIDs(List<Chain> chains) {
     final List<String> chainsIDs = <String>[];
 
@@ -781,7 +781,7 @@ class Chain {
     return _chainsIDs;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static List<Chain> getChainsFromChainsByIDs({
     List<String> phids,
     List<Chain> allChains,
@@ -790,7 +790,11 @@ class Chain {
 
     if (Mapper.checkCanLoopList(phids) == true && Mapper.checkCanLoopList(allChains) == true) {
       for (final String id in phids) {
-        final Chain _chain = getChainFromChainsByID(chainID: id, chains: allChains);
+
+        final Chain _chain = getChainFromChainsByID(
+            chainID: id,
+            chains: allChains,
+        );
 
         if (_chain != null) {
           _foundChains.add(_chain);

@@ -5,7 +5,7 @@ import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:stringer/stringer.dart';
-
+/// => TAMAM
 @immutable
 class TriggerModel {
   /// --------------------------------------------------------------------------
@@ -96,33 +96,6 @@ class TriggerModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkTriggersAreIdentical(TriggerModel trigger1, TriggerModel trigger2){
-    bool _identical = false;
-
-    if (trigger1 == null && trigger2 == null){
-      _identical = true;
-    }
-
-    else {
-
-      if (trigger1 != null && trigger2 != null){
-
-        if (
-          trigger1.name == trigger2.name &&
-          trigger1.argument == trigger2.argument &&
-          Mapper.checkListsAreIdentical(list1: trigger1.done, list2: trigger2.done)
-        ){
-          _identical = true;
-        }
-
-      }
-
-    }
-
-    return _identical;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
   static bool checkIFiredThisTrigger(TriggerModel trigger){
 
     assert(Authing.getUserID() != null, 'User is not authenticated');
@@ -148,6 +121,37 @@ class TriggerModel {
   /// TESTED : WORKS PERFECT
   void blogTrigger(){
     blog('Trigger : functionName : $name : argument : $argument : done : $done');
+  }
+  // -----------------------------------------------------------------------------
+
+  /// EQUALITY
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkTriggersAreIdentical(TriggerModel trigger1, TriggerModel trigger2){
+    bool _identical = false;
+
+    if (trigger1 == null && trigger2 == null){
+      _identical = true;
+    }
+
+    else {
+
+      if (trigger1 != null && trigger2 != null){
+
+        if (
+          trigger1.name == trigger2.name &&
+          trigger1.argument == trigger2.argument &&
+          Mapper.checkListsAreIdentical(list1: trigger1.done, list2: trigger2.done)
+        ){
+          _identical = true;
+        }
+
+      }
+
+    }
+
+    return _identical;
   }
   // -----------------------------------------------------------------------------
 

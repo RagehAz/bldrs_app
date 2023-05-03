@@ -11,7 +11,7 @@ enum PartyType {
   bz,
   country,
 }
-
+/// => TAMAM
 @immutable
 class NoteParties {
   /// --------------------------------------------------------------------------
@@ -82,7 +82,7 @@ class NoteParties {
   /// CYPHERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap(){
     return {
       'senderID': senderID,
@@ -93,7 +93,7 @@ class NoteParties {
     };
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static NoteParties decipherParties(Map<String, dynamic> map){
     NoteParties _parties;
 

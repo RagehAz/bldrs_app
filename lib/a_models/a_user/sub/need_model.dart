@@ -257,7 +257,7 @@ class NeedModel {
   /// CONCLUDERS
 
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<FlyerType> concludeFlyersTypesByNeedType(NeedType type){
     switch (type) {
 
@@ -280,7 +280,7 @@ class NeedModel {
     }
   }
   // --------------------
-  ///
+  /// TASK : TEST ME
   static List<BzType> concludeBzzTypesByNeedType(NeedType type){
     switch (type) {
 

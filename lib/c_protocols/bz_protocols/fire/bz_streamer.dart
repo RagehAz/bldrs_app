@@ -83,6 +83,6 @@ Stream<BzModel> getBzStream(String bzID) {
       doc: bzID,
   );
 
-  return _bzSnapshot.map(BzModel.convertDocSnapshotIntoBzModel);
+  return _bzSnapshot.map(BzModel.decipherBzPositioned);
 }
 // -----------------------------------------------------------------------------

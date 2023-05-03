@@ -21,6 +21,7 @@ class FlyerPromotion {
   /// CYPHERS
 
   // --------------------
+  /// TASK : TEST ME
   Map<String, dynamic> toMap({
     @required bool toJSON,
   }){
@@ -33,6 +34,7 @@ class FlyerPromotion {
       };
   }
   // --------------------
+  /// TASK : TEST ME
   static FlyerPromotion decipherFlyerPromotion({
     @required Map<String, dynamic> map,
     bool fromJSON = false,
@@ -55,6 +57,7 @@ class FlyerPromotion {
     return _promotion;
   }
   // --------------------
+  /// TASK : TEST ME
   static List<Map<String, dynamic>> cipherFlyersPromotions({
     @required List<FlyerPromotion> flyersPromotions,
     @required bool toJSON,
@@ -74,6 +77,7 @@ class FlyerPromotion {
     return _maps;
   }
   // --------------------
+  /// TASK : TEST ME
   static List<FlyerPromotion> decipherFlyersPromotions({
     @required List<Map<String, dynamic>> maps,
     @required bool fromJSON,
@@ -97,6 +101,7 @@ class FlyerPromotion {
   /// GETTERS
 
   // --------------------
+  /// TASK : TEST ME
   static List<String> getFlyersIDsFromFlyersPromotions({
     @required List<FlyerPromotion> promotions
   }){
@@ -115,7 +120,7 @@ class FlyerPromotion {
 
     return _flyersIDs;
   }
-// --------------------
+  // --------------------
   /*
 
   /// OVERRIDES
@@ -156,5 +161,5 @@ class FlyerPromotion {
       allReviews.hashCode;
 
    */
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
