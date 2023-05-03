@@ -5,7 +5,6 @@ import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart'
 import 'package:animators/animators.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
 import 'package:scale/scale.dart';
 /// => TAMAM
 class ZoomableGridController {
@@ -200,14 +199,14 @@ class ZoomableGridController {
         - getSpacing(context)
         - 10;
 
-    Mapper.blogMap({
-      'getBottomPadding' : 'ZoomableGridController',
-      '_gridHeight' : _gridHeight,
-      '_topPaddingOnZoomedOut' : _topPaddingOnZoomedOut,
-      '_smallItemHeight' : _smallItemHeight,
-      'getSpacing(context)' : getSpacing(context),
-      '_output' : _output,
-    });
+    // Mapper.blogMap({
+    //   'getBottomPadding' : 'ZoomableGridController',
+    //   '_gridHeight' : _gridHeight,
+    //   '_topPaddingOnZoomedOut' : _topPaddingOnZoomedOut,
+    //   '_smallItemHeight' : _smallItemHeight,
+    //   'getSpacing(context)' : getSpacing(context),
+    //   '_output' : _output,
+    // });
 
     if (_output >= 0){
       return _output;

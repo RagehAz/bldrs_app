@@ -794,7 +794,7 @@ class FCM {
     blog('remoteMessage?.threadId                          : ${remoteMessage?.threadId}');
     blog('remoteMessage?.ttl                               : ${remoteMessage?.ttl}');
 
-    Mapper.blogMap(remoteMessage?.data, invoker: invoker);
+    // Mapper.blogMap(remoteMessage?.data, invoker: invoker);
 
     blog('blogRemoteMessage : $invoker : END');
   }

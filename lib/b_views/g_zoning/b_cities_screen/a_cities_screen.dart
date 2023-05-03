@@ -133,6 +133,9 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
         countryID: widget.countryID,
       );
 
+      blog('CITIES STAGES : ${_citiesStages.getAllIDs()}');
+      _citiesStages.blogStaging();
+
       final List<CityModel> _cities = await ZoneProtocols.fetchCitiesOfCountryByIDs(
         citiesIDsOfThisCountry: _citiesStages.getAllIDs(),
       );
