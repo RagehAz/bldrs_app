@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_redundant_argument_values
+
 import 'dart:async';
 
 import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
@@ -127,7 +129,7 @@ Future<void> initializeLogoScreen({
 
 
       /// DAILY LDB REFRESH
-      await _dailyRefreshLDB(context);
+      await _refreshLDB(context);
 
       // blog('7 - initializeLogoScreen : daily refresh is done');
 
@@ -478,18 +480,18 @@ Future<void> _refreshUserDeviceModel(BuildContext context) async {
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _dailyRefreshLDB(BuildContext context) async {
+Future<void> _refreshLDB(BuildContext context) async {
 
   final bool _shouldRefresh = await LDBOps.checkShouldRefreshLDB(
-    // refreshDurationInHours: Standards.dailyLDBWipeIntervalInHours,
+    refreshDurationInHours: Standards.ldbWipeIntervalInHours,
   );
 
   if (_shouldRefresh == true){
 
     await LDBDoc.wipeOutEntireLDB(
       /// MAIN
-      // flyers: true,
-      // bzz: true,
+      flyers: true,
+      bzz: true,
       notes: false, // I do not think we need to refresh notes everyday
       pics: false, // I do not think we need to refresh pics everyday
       pdfs: false, // i do not think that fetched pdfs are changed frequently by authors,
@@ -501,10 +503,10 @@ Future<void> _dailyRefreshLDB(BuildContext context) async {
       bldrsChains: false, // keep the chains man, if chains updated - appState protocols handles this
       pickers: false, // same as chains
       /// ZONES
-      // countries: true, // countries include staging info, so lets refresh that daily
+      countries: true, // countries include staging info, so lets refresh that daily
       cities: false, // cities do not change often
-      // staging: true, // staging info changes frequently
-      // census: true, // might need faster refresh aslan
+      staging: true, // staging info changes frequently
+      census: true, // might need faster refresh aslan
 
       /// PHRASES
       mainPhrases: false,
@@ -520,6 +522,8 @@ Future<void> _dailyRefreshLDB(BuildContext context) async {
       appState: false, // no need to wipe
       appControls: false, // no need to wipe
       langCode: false, // no need to wipe
+      /// GTA
+      gta: false, // this is for dashboard
     );
 
   }

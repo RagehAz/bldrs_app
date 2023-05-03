@@ -317,6 +317,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
             child: BldrsBulletPoints(
               bulletPoints: widget.bulletPoints,
             ),
+
           );
 
         });

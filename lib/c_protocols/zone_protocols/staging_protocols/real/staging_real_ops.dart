@@ -116,9 +116,13 @@ class StagingRealOps {
       path: '${RealColl.zones}/${RealDoc.zones_stages_countries}',
     );
 
+    blog('readCountriesStaging : _dynamic : $_dynamic');
+
     final Map<String, dynamic> _map = Mapper.getMapFromIHLMOO(
       ihlmoo: _dynamic,
     );
+
+    blog('readCountriesStaging : _map : $_map');
 
     return Staging.decipher(
       map: _map,
