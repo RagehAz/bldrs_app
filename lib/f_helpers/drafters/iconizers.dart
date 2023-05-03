@@ -8,7 +8,7 @@ import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+/// => TAMAM
 class Iconizer {
   // -----------------------------------------------------------------------------
 
@@ -89,6 +89,7 @@ class Iconizer {
   /// DIRECTORY - LOCAL ASSET PATH
 
   // --------------------
+  /*
   ///
   static String imageDir({
     @required String prefix,
@@ -127,8 +128,9 @@ class Iconizer {
 
     return '$prefix$directory$fileName';
   }
+   */
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<List<String>> getLocalAssetsPaths() async {
 
     final String assets = await rootBundle.loadString('AssetManifest.json');

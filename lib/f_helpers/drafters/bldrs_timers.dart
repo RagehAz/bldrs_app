@@ -17,7 +17,7 @@ import 'package:numeric/numeric.dart';
 import 'package:rest/rest.dart';
 import 'package:space_time/space_time.dart';
 import 'package:app_settings/app_settings.dart';
-
+/// => TAMAM
 class BldrsTimers {
   // -----------------------------------------------------------------------------
 
@@ -43,7 +43,7 @@ class BldrsTimers {
     }
   }
   // -----------------------------------------------------------------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static String generateString_in_bldrs_since_month_yyyy(BuildContext context, DateTime time){
 
     String _output = '';
@@ -59,7 +59,7 @@ class BldrsTimers {
     return _output;
   }
     // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static String generateString_in_bldrs_since_dd_month_yyyy(BuildContext context, DateTime time){
 
     String _output = '';
@@ -98,7 +98,7 @@ class BldrsTimers {
 
     return '$_on $_day $_month $_year';
   }
-    // --------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static String generateString_hh_i_mm_ampm_day_dd_month_yyyy({
     @required BuildContext context,
@@ -231,7 +231,7 @@ class BldrsTimers {
     return _string;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static Future<bool> checkDeviceTimeIsCorrect({
     @required BuildContext context,
     @required bool showIncorrectTimeDialog,
