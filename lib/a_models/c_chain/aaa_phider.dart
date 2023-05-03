@@ -9,7 +9,7 @@ import 'package:mapper/mapper.dart';
 import 'package:numeric/numeric.dart';
 import 'package:provider/provider.dart';
 import 'package:stringer/stringer.dart';
-
+/// => TAMAM
 class Phider {
   // -----------------------------------------------------------------------------
 
@@ -143,7 +143,7 @@ class Phider {
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<String> removePhidsIndexes(List<String> phids){
     final List<String> _output = <String>[];
 
@@ -156,7 +156,7 @@ class Phider {
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static String removePathIndexes(String path){
     String _output;
     if (TextCheck.isEmpty(path) == false){
@@ -176,7 +176,7 @@ class Phider {
     return _output;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static List<String> removePathsIndexes(List<String> paths){
     final List<String> _output = <String>[];
 
@@ -555,7 +555,7 @@ class Phider {
     return _temp == '##';
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static bool checkIsPhidK(String text){
     bool _isPhidK= false;
 
@@ -579,7 +579,7 @@ class Phider {
     return _isPhidK;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static bool checkIsPhidS(String text){
     bool _isPhidK= false;
 

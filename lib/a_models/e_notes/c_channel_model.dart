@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 class ChannelModel {
   // -----------------------------------------------------------------------------
   const ChannelModel({

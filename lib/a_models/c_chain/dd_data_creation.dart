@@ -298,34 +298,29 @@ class DataCreation {
       default : return false;
     }
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+  }
+  // -----------------------------------------------------------------------------
+  /// NOT USED
+  /*
+  bool isBoolDataCreator(DataCreator creator){
 
-/// CHECKERS
+    switch (creator){
+      case DataCreator.boolSwitch : return true; break;
+      default : return false;
+    }
 
-// --------------------
-
-}
-// -----------------------------------------------------------------------------
-/// NOT USED
-/*
-bool isBoolDataCreator(DataCreator creator){
-
-  switch (creator){
-    case DataCreator.boolSwitch : return true; break;
-    default : return false;
   }
 
-}
-
- */
-// --------------------
-/// NOT USED
-/*
-bool isCountryDataCreator(DataCreator creator){
-  switch (creator){
-    case DataCreator.country : return true; break;
-    default : return false;
+   */
+  // --------------------
+  /// NOT USED
+  /*
+  bool isCountryDataCreator(DataCreator creator){
+    switch (creator){
+      case DataCreator.country : return true; break;
+      default : return false;
+    }
   }
-}
-*/
-// -----------------------------------------------------------------------------
+  */
+  // -----------------------------------------------------------------------------

@@ -152,60 +152,6 @@ class ZoneModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkZonesAreIdentical({
-    @required ZoneModel zone1,
-    @required ZoneModel zone2,
-  }){
-    bool _identical = false;
-
-    if (zone1 == null && zone2 == null){
-      _identical = true;
-    }
-
-    else if (zone1 != null && zone2 != null){
-
-      if (
-          zone1.countryID == zone2.countryID &&
-          zone1.cityID == zone2.cityID &&
-          zone1.countryName == zone2.countryName &&
-          zone1.cityName == zone2.cityName &&
-          CountryModel.checkCountriesAreIdentical(zone1.countryModel, zone2.countryModel) == true &&
-          CityModel.checkCitiesAreIdentical(zone1.cityModel, zone2.cityModel) == true &&
-          zone1.icon == zone2.icon
-      ){
-        _identical = true;
-      }
-
-    }
-
-    // if (_identical == false){
-    //   blogZonesDifferences(
-    //     zone1: zone1,
-    //     zone2: zone2,
-    //   );
-    // }
-
-    return _identical;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static bool checkZonesIDsAreIdentical({
-    @required ZoneModel zone1,
-    @required ZoneModel zone2,
-  }) {
-    bool _zonesAreIdentical = false;
-
-    if (
-        zone1?.countryID    == zone2?.countryID &&
-        zone1?.cityID       == zone2?.cityID
-    ){
-      _zonesAreIdentical = true;
-    }
-
-    return _zonesAreIdentical;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
   bool isNotEmpty() {
     final bool _isEmpty = TextCheck.isEmpty(countryID) == false;
     final bool _isNotEmpty = !_isEmpty;
@@ -392,6 +338,64 @@ class ZoneModel {
       id: _line,
       translate: false,
     );
+  }
+  // -----------------------------------------------------------------------------
+
+  /// EQUALITY
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkZonesAreIdentical({
+    @required ZoneModel zone1,
+    @required ZoneModel zone2,
+  }){
+    bool _identical = false;
+
+    if (zone1 == null && zone2 == null){
+      _identical = true;
+    }
+
+    else if (zone1 != null && zone2 != null){
+
+      if (
+          zone1.countryID == zone2.countryID &&
+          zone1.cityID == zone2.cityID &&
+          zone1.countryName == zone2.countryName &&
+          zone1.cityName == zone2.cityName &&
+          CountryModel.checkCountriesAreIdentical(zone1.countryModel, zone2.countryModel) == true &&
+          CityModel.checkCitiesAreIdentical(zone1.cityModel, zone2.cityModel) == true &&
+          zone1.icon == zone2.icon
+      ){
+        _identical = true;
+      }
+
+    }
+
+    // if (_identical == false){
+    //   blogZonesDifferences(
+    //     zone1: zone1,
+    //     zone2: zone2,
+    //   );
+    // }
+
+    return _identical;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkZonesIDsAreIdentical({
+    @required ZoneModel zone1,
+    @required ZoneModel zone2,
+  }) {
+    bool _zonesAreIdentical = false;
+
+    if (
+        zone1?.countryID    == zone2?.countryID &&
+        zone1?.cityID       == zone2?.cityID
+    ){
+      _zonesAreIdentical = true;
+    }
+
+    return _zonesAreIdentical;
   }
   // -----------------------------------------------------------------------------
 

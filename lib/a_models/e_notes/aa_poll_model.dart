@@ -4,16 +4,16 @@ import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:stringer/stringer.dart';
-
+/// => TAMAM
 @immutable
 class PollModel {
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   const PollModel({
     @required this.buttons,
     @required this.reply,
     @required this.replyTime,
   });
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   final List<String> buttons;
   final String reply;
   final DateTime replyTime;
@@ -33,6 +33,7 @@ class PollModel {
   /// CLONING
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   PollModel copyWith({
     List<String> buttons,
     String reply,
@@ -49,7 +50,7 @@ class PollModel {
   /// CYPHERS
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
     @required bool toJSON,
   }){
@@ -63,7 +64,7 @@ class PollModel {
     };
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static PollModel decipherPoll({
     @required Map<String, dynamic> map,
     @required bool fromJSON,
@@ -86,7 +87,7 @@ class PollModel {
     return _model;
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static String cipherButtons(List<String> buttons){
     String _output;
 
@@ -134,10 +135,32 @@ class PollModel {
   }
   // -----------------------------------------------------------------------------
 
-  /// CHECKERS
+  /// BLOGGING
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
+  void blogPoll(){
+    blog('buttons : $buttons : replyTime : $replyTime : reply : $reply');
+  }
+  // -----------------------------------------------------------------------------
+
+  /// DUMMIES
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static PollModel dummyPoll(){
+    return PollModel(
+      buttons: acceptDeclineButtons,
+      replyTime: DateTime.now(),
+      reply: accept,
+    );
+  }
+  // -----------------------------------------------------------------------------
+
+  /// EQUALITY
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static bool checkPollsAreIdentical({
     @required PollModel poll1,
     @required PollModel poll2,
@@ -169,28 +192,6 @@ class PollModel {
     }
 
     return _identical;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// BLOGGING
-
-  // --------------------
-  ///
-  void blogPoll(){
-    blog('buttons : $buttons : replyTime : $replyTime : reply : $reply');
-  }
-  // -----------------------------------------------------------------------------
-
-  /// DUMMIES
-
-  // --------------------
-  ///
-  static PollModel dummyPoll(){
-    return PollModel(
-      buttons: acceptDeclineButtons,
-      replyTime: DateTime.now(),
-      reply: accept,
-    );
   }
   // -----------------------------------------------------------------------------
 

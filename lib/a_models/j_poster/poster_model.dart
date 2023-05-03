@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_type.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 @immutable
 class PosterModel {
   /// --------------------------------------------------------------------------
@@ -37,7 +37,7 @@ class PosterModel {
   /// CLONING
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   PosterModel copyWith({
     String modelID,
     PosterType type,
@@ -54,7 +54,7 @@ class PosterModel {
   /// CYPHERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap(){
     return {
       'modelID': modelID,
@@ -63,7 +63,7 @@ class PosterModel {
     };
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static PosterModel decipher(Map<String, dynamic> map){
     PosterModel _model;
 

@@ -3,7 +3,7 @@ import 'package:stringer/stringer.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 @immutable
 class CurrencyModel {
   // -----------------------------------------------------------------------------
@@ -259,5 +259,71 @@ class CurrencyModel {
 
     return _output;
   }
+  // -----------------------------------------------------------------------------
+
+  /// EQUALITY
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkCurrenciesAreIdentical({
+    @required CurrencyModel cur1,
+    @required CurrencyModel cur2,
+  }){
+    bool _identical = false;
+
+    if (cur1 == null && cur2 == null){
+      _identical = true;
+    }
+
+    else if (cur1 != null && cur2 != null){
+
+      if (
+          cur1.id == cur2.id &&
+          Mapper.checkListsAreIdentical(list1: cur1.countriesIDs, list2: cur2.countriesIDs) == true &&
+          cur1.symbol == cur2.symbol &&
+          cur1.digits == cur2.digits
+      ){
+        _identical = true;
+      }
+
+    }
+
+    return _identical;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// OVERRIDES
+
+  // --------------------
+  /*
+   @override
+   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
+   */
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  @override
+  bool operator == (Object other){
+
+    if (identical(this, other)) {
+      return true;
+    }
+
+    bool _areIdentical = false;
+    if (other is CurrencyModel){
+      _areIdentical = checkCurrenciesAreIdentical(
+        cur1: this,
+        cur2: other,
+      );
+    }
+
+    return _areIdentical;
+  }
+  // --------------------
+  @override
+  int get hashCode =>
+      id.hashCode^
+      countriesIDs.hashCode^
+      symbol.hashCode^
+      digits.hashCode;
   // -----------------------------------------------------------------------------
 }

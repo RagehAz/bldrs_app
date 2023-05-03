@@ -3,15 +3,15 @@ import 'package:mapper/mapper.dart';
 import 'package:space_time/space_time.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 @immutable
 class PublishTime {
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   const PublishTime({
     @required this.state,
     @required this.time,
   });
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   final PublishState state;
   final DateTime time;
   // -----------------------------------------------------------------------------
@@ -84,6 +84,7 @@ class PublishTime {
   /// CLONING
 
   // --------------------
+  /*
   ///
   PublishTime clone() {
     final PublishTime _time = PublishTime(state: state, time: time);
@@ -103,19 +104,20 @@ class PublishTime {
 
     return _times;
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// BLOGGING
 
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   void blogPublishTime(){
 
     blog('PublishTime : $state : $time');
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static void blogTimes(List<PublishTime> times){
 
     if (Mapper.checkCanLoopList(times) == true){
@@ -128,7 +130,7 @@ class PublishTime {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static void blogTimesListsDifferences({
     @required List<PublishTime> times1,
     @required List<PublishTime> times2,
@@ -146,7 +148,7 @@ class PublishTime {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   static void blogTimesDifferences({
     @required PublishTime time1,
     @required PublishTime time2,
@@ -193,7 +195,8 @@ class PublishTime {
     return _publishTime;
   }
   // --------------------
-  ///
+  /*
+  /// DEPRECATED
   static PublishTime getLastRecord(List<PublishTime> publishTimes){
     PublishTime _publishTime;
 
@@ -216,6 +219,7 @@ class PublishTime {
 
     return _publishTime;
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// MODIFIERS

@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 @immutable
 class KeyboardModel {
   // -----------------------------------------------------------------------------

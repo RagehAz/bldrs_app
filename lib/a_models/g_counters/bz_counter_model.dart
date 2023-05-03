@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 @immutable
 class BzCounterModel {
   /// -----------------------------------------------------------------------------
@@ -109,6 +109,7 @@ class BzCounterModel {
   /// CHECKERS
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static bool checkBzCounterModelsAreIdentical({
     @required BzCounterModel counter1,
     @required BzCounterModel counter2,
@@ -121,7 +122,7 @@ class BzCounterModel {
     else if (counter1 != null && counter2 != null){
 
       if (
-      counter1.bzID == counter2.bzID &&
+          counter1.bzID == counter2.bzID &&
           counter1.follows == counter2.follows &&
           counter1.calls == counter2.calls &&
           counter1.allSaves == counter2.allSaves &&
