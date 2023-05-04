@@ -39,8 +39,6 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
   // -----------------------------------------------------------------------------
   final GlobalKey globalKey = GlobalKey();
   // --------------------
-  final ScrollController _scrollController = ScrollController();
-  // --------------------
   final TextEditingController _reviewTextController = TextEditingController();
   PaginationController _paginationController;
   // --------------------
@@ -114,7 +112,6 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
     _loading.dispose();
     _reviewTextController.dispose();
     _paginationController.dispose();
-    _scrollController.dispose();
     _isUploading.dispose();
     super.dispose();
   }
@@ -140,7 +137,6 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
       height: widget.pageHeight,
       child: MaxBounceNavigator(
         child: FireCollPaginator(
-          scrollController: _scrollController,
           paginationQuery: reviewsPaginationQuery(
             flyerID: widget.flyerModel.id,
           ),
@@ -161,7 +157,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
 
             return ListView.builder(
               key: const ValueKey<String>('ReviewsBuilder'),
-              controller: _scrollController,
+              controller: _paginationController.scrollController,
               physics: const BouncingScrollPhysics(),
               padding: const EdgeInsets.only(
                 top: ReviewBox.spacer,

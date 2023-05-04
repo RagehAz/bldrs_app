@@ -6,7 +6,6 @@ class FireCollPaginator extends StatefulWidget {
     @required this.paginationQuery,
     @required this.builder,
     this.streamQuery,
-    this.scrollController,
     this.loadingWidget,
     this.child,
     this.paginationController,
@@ -17,7 +16,6 @@ class FireCollPaginator extends StatefulWidget {
   final FireQueryModel paginationQuery;
   final FireQueryModel streamQuery;
   final Widget loadingWidget;
-  final ScrollController scrollController;
   final Widget child;
   final PaginationController paginationController;
   final ValueChanged<List<Map<String, dynamic>>> onDataChanged;
@@ -35,8 +33,6 @@ class FireCollPaginator extends StatefulWidget {
 
 class _FireCollPaginatorState extends State<FireCollPaginator> {
   // -----------------------------------------------------------------------------
-  ScrollController _controller;
-  // --------------------
   final ValueNotifier<bool> _isPaginating = ValueNotifier(false);
   final ValueNotifier<bool> _canKeepReading = ValueNotifier(true);
   // --------------------
@@ -58,12 +54,11 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   void initState() {
     super.initState();
 
-    /// LISTEN TO SCROLL
-    _initializeScrollListener();
-
     /// PAGINATOR CONTROLLER
     _initializePaginatorController();
 
+    /// LISTEN TO SCROLL
+    _initializeScrollListener();
 
   }
   // --------------------
@@ -98,10 +93,6 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
       _paginatorController.dispose();
     }
 
-    if (widget.scrollController == null){
-      _controller.dispose();
-    }
-
     if (_streamSub != null){
       _streamSub.cancel();
     }
@@ -114,12 +105,12 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
 
     _triggerLoading(setTo: true).then((_) async {
 
-      final bool _paginationQueryChanged = FireQueryModel.checkQueriesHaveNotChanged(
+      final bool _paginationQueryChanged = FireQueryModel.checkQueriesAreIdentical(
         model1: oldWidget.paginationQuery,
         model2: widget.paginationQuery,
       ) == false;
 
-      final bool _streamQueryChanged = FireQueryModel.checkQueriesHaveNotChanged(
+      final bool _streamQueryChanged = FireQueryModel.checkQueriesAreIdentical(
         model1: oldWidget.streamQuery,
         model2: widget.streamQuery,
       ) == false;
@@ -156,10 +147,8 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   /// TESTED : WORKS PERFECT
   void _initializeScrollListener(){
 
-      _controller = widget.scrollController ?? ScrollController();
-
       createPaginationListener(
-          controller: _controller,
+          controller: _paginatorController.scrollController,
           isPaginating: _isPaginating,
           canKeepReading: _canKeepReading,
           mounted: mounted,

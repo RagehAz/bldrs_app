@@ -16,57 +16,14 @@ class FlyerSearch {
   // -----------------------------------------------------------------------------
   /// TASK : TEST ME
   static Future<List<FlyerModel>> superSearch({
-    @required String countryID,
-    String cityID,
-    FlyerType flyerType,
-    String keywordID,
-    String title,
+    @required FireQueryModel queryModel,
     QueryDocumentSnapshot<Object> startAfter,
-    int limit = 6,
   }) async {
 
     final List<Map<String, dynamic>> _maps = await Fire.readColl(
       addDocSnapshotToEachMap: true,
       startAfter: startAfter,
-      queryModel: FireQueryModel(
-        coll: FireColl.flyers,
-        limit: limit,
-        finders: <FireFinder>[
-        if (countryID != null)
-          FireFinder(
-            field: 'zone.countryID',
-            comparison: FireComparison.equalTo,
-            value: countryID,
-          ),
-        if (cityID != null)
-          FireFinder(
-            field: 'zone.cityID',
-            comparison: FireComparison.equalTo,
-            value: cityID,
-          ),
-        if (flyerType != null)
-          FireFinder(
-            field: 'flyerType',
-            comparison: FireComparison.equalTo,
-            value: FlyerTyper.cipherFlyerType(flyerType),
-          ),
-        if (keywordID != null)
-          FireFinder(
-            field: 'keywordsIDs',
-            comparison: FireComparison.arrayContains,
-            value: keywordID,
-          ),
-        if (title != null)
-          FireFinder(
-              field: 'trigram',
-              comparison: FireComparison.arrayContains,
-              value: TextMod.removeAllCharactersAfterNumberOfCharacters(
-                input: title.trim(),
-                numberOfChars: Standards.maxTrigramLength,
-              )),
-      ],
-        // orderBy: 'score',
-      ),
+      queryModel: queryModel,
     );
 
     if (Mapper.checkCanLoopList(_maps) == true) {
@@ -74,6 +31,130 @@ class FlyerSearch {
     } else {
       return [];
     }
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static FireQueryModel createQuery({
+    String countryID,
+    String cityID,
+    FlyerType flyerType,
+    String keywordID,
+    String title,
+    String orderBy,
+    bool descending,
+    int limit = 4,
+    PublishState publishState,
+    AuditState auditState,
+    bool showsAuthor,
+    bool hasPrice,
+    String currencyID,
+    bool hasAffiliateLink,
+    String gtaLink,
+  }){
+
+    final QueryOrderBy _orderBy = orderBy == null ? null : QueryOrderBy(
+      fieldName: orderBy,
+      descending: descending,
+    );
+
+    return FireQueryModel(
+        coll: FireColl.flyers,
+        orderBy: _orderBy,
+        limit: limit,
+        // idFieldName: 'id',
+        finders: <FireFinder>[
+
+          if (countryID != null)
+            FireFinder(
+              field: 'zone.countryID',
+              comparison: FireComparison.equalTo,
+              value: countryID,
+            ),
+
+          if (cityID != null)
+            FireFinder(
+              field: 'zone.cityID',
+              comparison: FireComparison.equalTo,
+              value: cityID,
+            ),
+
+          if (flyerType != null)
+            FireFinder(
+              field: 'flyerType',
+              comparison: FireComparison.equalTo,
+              value: FlyerTyper.cipherFlyerType(flyerType),
+            ),
+
+          if (keywordID != null)
+            FireFinder(
+              field: 'keywordsIDs',
+              comparison: FireComparison.arrayContains,
+              value: keywordID,
+            ),
+
+          if (title != null)
+            FireFinder(
+                field: 'trigram',
+                comparison: FireComparison.arrayContains,
+                value: TextMod.removeAllCharactersAfterNumberOfCharacters(
+                  input: title.trim(),
+                  numberOfChars: Standards.maxTrigramLength,
+                )),
+
+          if (publishState != null)
+            FireFinder(
+              field: 'publishState',
+              comparison: FireComparison.equalTo,
+              value: FlyerModel.cipherPublishState(publishState),
+            ),
+
+          if (auditState != null)
+            FireFinder(
+            field: 'auditState',
+            comparison: FireComparison.equalTo,
+            value: FlyerModel.cipherAuditState(auditState),
+          ),
+
+          if (showsAuthor != null)
+            FireFinder(
+              field: 'showsAuthor',
+              comparison: FireComparison.equalTo,
+              value: showsAuthor,
+            ),
+
+          if (hasPrice != null)
+            const FireFinder(
+              field: 'specs.phid_s_salePrice',
+              comparison: FireComparison.greaterThan,
+              value: 0,
+            ),
+
+          if (currencyID != null && hasPrice == true)
+            FireFinder(
+              field: 'specs.phid_s_currency',
+              comparison: FireComparison.equalTo,
+              value: currencyID,
+            ),
+
+          if (hasAffiliateLink != null)
+            const FireFinder(
+              field: 'affiliateLink',
+              comparison: FireComparison.nullValue,
+              value: false,
+            ),
+
+          if (gtaLink != null)
+            FireFinder(
+              field: 'gtaLink',
+              comparison: FireComparison.equalTo,
+              value: gtaLink,
+            ),
+
+
+      ],
+        // orderBy: 'score',
+      );
+
   }
   // -----------------------------------------------------------------------------
 

@@ -15,6 +15,7 @@ ZoomableGridController initializeBldrsZoomableGridController({
   @required double gridWidth,
   @required double gridHeight,
   ScrollController scrollController,
+  double topPadding,
 }){
 
   final double _screenWidth = gridWidth ?? UiProvider.proGetScreenDimensions(
@@ -50,7 +51,7 @@ ZoomableGridController initializeBldrsZoomableGridController({
   // const double _topPaddingOnZoomIn = 10;
 
   final ZoomableGridController _controller = ZoomableGridController()..initialize(
-    topPaddingOnZoomedOut: Stratosphere.smallAppBarStratosphere,
+    topPaddingOnZoomedOut: topPadding ?? Stratosphere.smallAppBarStratosphere,
     topPaddingOnZoomedIn: _topPaddingOnZoomIn,
 
     smallItemWidth: _gridFlyerWidth,

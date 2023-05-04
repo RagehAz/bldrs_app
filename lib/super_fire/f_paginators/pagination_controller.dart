@@ -11,6 +11,7 @@ class PaginationController {
     @required this.addExtraMapsAtEnd,
     @required this.idFieldName,
     @required this.onDataChanged,
+    @required this.scrollController,
   });
   /// -----------------------------------------------------------------------------
   final ValueNotifier<List<Map<String, dynamic>>> paginatorMaps;
@@ -21,6 +22,7 @@ class PaginationController {
   final bool addExtraMapsAtEnd;
   final String idFieldName;
   final ValueChanged<List<Map<String, dynamic>>> onDataChanged;
+  final ScrollController scrollController;
   // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
@@ -42,6 +44,7 @@ class PaginationController {
       addExtraMapsAtEnd: addExtraMapsAtEnd,
       idFieldName: idFieldName,
       onDataChanged: onDataChanged,
+      scrollController: ScrollController(),
     );
 
   }
@@ -77,6 +80,8 @@ class PaginationController {
     addMap.dispose();
     deleteMap.dispose();
     startAfter.dispose();
+    blog('disposing scrollController');
+    scrollController.dispose();
   }
   // -----------------------------------------------------------------------------
 

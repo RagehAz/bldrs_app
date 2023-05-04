@@ -40,8 +40,6 @@ class _UserNotesPageState extends State<UserNotesPage> {
   final List<NoteModel> _localNotesToMarkUnseen = <NoteModel>[];
   // --------------------
   bool showNotes = true;
-  // --------------------
-  final ScrollController _scrollController = ScrollController();
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -97,7 +95,6 @@ class _UserNotesPageState extends State<UserNotesPage> {
   void dispose() {
     blog('UserNotesPage dispose START');
     _loading.dispose();
-    _scrollController.dispose();
     _paginationController.dispose();
     super.dispose();
     blog('UserNotesPage dispose END');
@@ -210,13 +207,12 @@ class _UserNotesPageState extends State<UserNotesPage> {
       FireCollPaginator(
           paginationQuery: userNotesPaginationQueryModel(),
           streamQuery: userNotesWithPendingRepliesQueryModel(),
-          scrollController: _scrollController,
           paginationController: _paginationController,
           builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
 
             return ListView.builder(
               physics: const BouncingScrollPhysics(),
-              controller: _scrollController,
+              controller: _paginationController.scrollController,
               itemCount: maps?.length,
               padding: Stratosphere.stratosphereSandwich,
               itemBuilder: (BuildContext ctx, int index) {

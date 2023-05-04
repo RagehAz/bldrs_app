@@ -1,3 +1,4 @@
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
@@ -861,6 +862,24 @@ class RecordModel {
       default: return null;
     }
 
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Verse getVerseByModelType(ModelType modelType){
+    String _text;
+
+    switch(modelType){
+      case ModelType.flyer:     _text = 'phid_flyers'; break;
+      case ModelType.bz:        _text = 'phid_bzz'; break;
+      case ModelType.question:  _text = 'phid_questions'; break;
+      case ModelType.answer:    _text = 'phid_answers'; break;
+      case ModelType.user:      _text = 'phid_users'; break;
+    }
+
+    return Verse(
+      id: _text,
+      translate: true,
+    );
   }
 
   // -----------------------------------------------------------------------------
