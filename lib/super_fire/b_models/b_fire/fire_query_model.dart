@@ -55,7 +55,7 @@ class FireQueryModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkQueriesHaveNotChanged({
+  static bool checkQueriesAreIdentical({
     @required FireQueryModel model1,
     @required FireQueryModel model2,
   }){
@@ -105,7 +105,7 @@ class FireQueryModel {
 
     bool _areIdentical = false;
     if (other is FireQueryModel){
-      _areIdentical = checkQueriesHaveNotChanged(
+      _areIdentical = checkQueriesAreIdentical(
         model1: this,
         model2: other,
       );

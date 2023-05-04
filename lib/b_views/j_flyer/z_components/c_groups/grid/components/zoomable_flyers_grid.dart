@@ -28,6 +28,7 @@ class ZoomableFlyersGrid extends StatefulWidget {
     this.selectionMode,
     this.onFlyerOptionsTap,
     this.scrollController,
+    this.topPadding,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -41,6 +42,7 @@ class ZoomableFlyersGrid extends StatefulWidget {
   final bool selectionMode;
   final Function(FlyerModel flyerModel) onFlyerOptionsTap;
   final ScrollController scrollController;
+  final double topPadding;
   /// --------------------------------------------------------------------------
   @override
   State<ZoomableFlyersGrid> createState() => _ZoomableFlyersGridState();
@@ -75,6 +77,7 @@ class _ZoomableFlyersGridState extends State<ZoomableFlyersGrid> {
       gridWidth: widget.gridWidth,
       gridHeight: widget.gridHeight,
       scrollController: widget.scrollController,
+      topPadding: widget.topPadding,
     );
 
   }

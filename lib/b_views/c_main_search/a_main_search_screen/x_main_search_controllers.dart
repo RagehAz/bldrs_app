@@ -301,9 +301,12 @@ Future<List<SearchResult>> _searchFlyersByTitle({
   final List<SearchResult> _results = <SearchResult>[];
 
   final List<FlyerModel> _flyers = await FlyerSearch.superSearch(
-    countryID: _zone.countryID,
-    cityID: _zone.cityID,
-    title: searchText,
+    queryModel: FlyerSearch.createQuery(
+      countryID: _zone.countryID,
+      cityID: _zone.cityID,
+      title: searchText,
+      limit: 6,
+    ),
     startAfter: startAfter,
   );
 

@@ -43,8 +43,6 @@ class _BzNotesPageState extends State<BzNotesPage>{
   final List<NoteModel> _localNotesToMarkUnseen = <NoteModel>[];
   // --------------------
   bool showNotes = true;
-  // --------------------
-  final ScrollController _scrollController = ScrollController();
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -98,7 +96,6 @@ class _BzNotesPageState extends State<BzNotesPage>{
   @override
   void dispose() {
     blog('BzNotesPage dispose START');
-    _scrollController.dispose();
     _loading.dispose();
     _paginationController.dispose();
     super.dispose();
@@ -223,13 +220,12 @@ class _BzNotesPageState extends State<BzNotesPage>{
           paginationQuery: bzNotesPaginationQueryModel(
             bzID: _bzModel.id,
           ),
-          scrollController: _scrollController,
           paginationController: _paginationController,
           builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
 
             return ListView.builder(
               physics: const BouncingScrollPhysics(),
-              controller: _scrollController,
+              controller: _paginationController.scrollController,
               itemCount: maps?.length,
               padding: Stratosphere.stratosphereSandwich,
               itemBuilder: (BuildContext ctx, int index) {

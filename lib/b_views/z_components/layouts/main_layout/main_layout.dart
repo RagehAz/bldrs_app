@@ -54,7 +54,6 @@ class MainLayout extends StatelessWidget {
     this.onSearchCancelled,
     this.confirmButtonModel,
     this.globalKey,
-    this.isInPhrasesScreen,
     this.pyramidButtons,
     this.listenToHideLayout = false,
     Key key
@@ -84,7 +83,6 @@ class MainLayout extends StatelessWidget {
   final Function onSearchCancelled;
   final ConfirmButtonModel confirmButtonModel;
   final GlobalKey globalKey;
-  final bool isInPhrasesScreen;
   final List<Widget> pyramidButtons;
   final bool listenToHideLayout;
   // --------------------------------------------------------------------------
