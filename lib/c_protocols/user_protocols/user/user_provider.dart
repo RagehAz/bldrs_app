@@ -289,9 +289,6 @@ class UsersProvider extends ChangeNotifier {
     }
   }
   */
-
-  // final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-
   // -----------------------------------------------------------------------------
 
   /// WIPE OUT
@@ -336,8 +333,19 @@ class UsersProvider extends ChangeNotifier {
 
   }
   // -----------------------------------------------------------------------------
-}
 
-bool isRage7(){
+  /// ADMINS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool userIsAdmin(BuildContext context){
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+    return _usersProvider.myUserModel?.isAdmin ?? false;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool isRage7(){
     return Authing.getUserID() == BldrsKeys.rage7ID;
+  }
+  // -----------------------------------------------------------------------------
 }

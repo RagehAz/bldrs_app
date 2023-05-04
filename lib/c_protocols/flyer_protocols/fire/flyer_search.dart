@@ -50,6 +50,7 @@ class FlyerSearch {
     String currencyID,
     bool hasAffiliateLink,
     String gtaLink,
+    bool hasPDF,
   }){
 
     final QueryOrderBy _orderBy = orderBy == null ? null : QueryOrderBy(
@@ -115,14 +116,14 @@ class FlyerSearch {
             value: FlyerModel.cipherAuditState(auditState),
           ),
 
-          if (showsAuthor != null)
+          if (showsAuthor == true)
             FireFinder(
               field: 'showsAuthor',
               comparison: FireComparison.equalTo,
               value: showsAuthor,
             ),
 
-          if (hasPrice != null)
+          if (hasPrice == true)
             const FireFinder(
               field: 'specs.phid_s_salePrice',
               comparison: FireComparison.greaterThan,
@@ -136,7 +137,7 @@ class FlyerSearch {
               value: currencyID,
             ),
 
-          if (hasAffiliateLink != null)
+          if (hasAffiliateLink == true)
             const FireFinder(
               field: 'affiliateLink',
               comparison: FireComparison.nullValue,
@@ -150,6 +151,19 @@ class FlyerSearch {
               value: gtaLink,
             ),
 
+          if (gtaLink != null)
+            FireFinder(
+              field: 'affiliateLink',
+              comparison: FireComparison.equalTo,
+              value: gtaLink,
+            ),
+
+          if (hasPDF == true)
+            const FireFinder(
+              field: 'pdfPath',
+              comparison: FireComparison.nullValue,
+              value: false,
+            ),
 
       ],
         // orderBy: 'score',

@@ -516,10 +516,7 @@ class DraftFlyer{
       context: context,
       time: publishTime?.time,
     );
-    final String _stateString = FlyerModel.translatePublishState(
-        context: context,
-        state: publishTime?.state
-    );
+    final String _stateString = FlyerModel.getPublishStatePhid(publishTime?.state);
 
     return '$_stateString @ $_timeString';
   }

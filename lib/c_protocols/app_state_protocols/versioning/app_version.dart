@@ -58,7 +58,7 @@ class AppVersion {
   static List<int> _getAppVersionDivisions(String version){
     final List<int> _divisions = <int>[];
 
-    blog('_getAppVersionDivisions : version : $version');
+    // blog('_getAppVersionDivisions : version : $version');
 
     if (version != null){
       final String _removedBuildNumber = TextMod.removeTextAfterLastSpecialCharacter(version, '+');

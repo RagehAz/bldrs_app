@@ -352,10 +352,7 @@ class FlyerModel {
   ];
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String translatePublishState({
-    @required BuildContext context,
-    @required PublishState state,
-  }){
+  static String getPublishStatePhid(PublishState state){
     switch (state){
       case PublishState.published     :     return  'phid_published'          ;  break;
       case PublishState.draft         :     return  'phid_draft_flyer'        ;  break;
@@ -374,7 +371,7 @@ class FlyerModel {
     switch(auditState){
       case AuditState.verified:     return 'verified';    break;
       case AuditState.suspended:    return 'suspended';   break;
-      case AuditState.pending:      return 'pending';   break;
+      case AuditState.pending:      return 'pending';     break;
       default: return null;
     }
   }
@@ -397,10 +394,7 @@ class FlyerModel {
   ];
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String translateAuditState({
-    @required BuildContext context,
-    @required AuditState state,
-  }){
+  static String getAuditStatePhid(AuditState state){
     switch (state){
       case AuditState.verified  : return 'phid_verified_flyer'  ; break;
       case AuditState.suspended : return 'phid_suspended_flyer' ; break;

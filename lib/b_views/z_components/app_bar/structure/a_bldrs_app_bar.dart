@@ -83,8 +83,7 @@ class BldrsAppBar extends StatelessWidget {
     @required BuildContext context,
     @required AppBarType appBarType,
   }){
-    final double _collapsedHeight = BldrsAppBar.collapsedHeight(context, appBarType);
-    return _collapsedHeight * 4;
+    return Scale.screenHeight(context) - Ratioz.appBarMargin;
   }
   // --------------------
   static double scrollWidth(BuildContext context) {

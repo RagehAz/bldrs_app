@@ -62,7 +62,7 @@ class ZoneSelection {
     );
 
     if (settingCurrentZone == true && _output != null){
-      await setCurrentZone(
+      await setCurrentZoneAndNavHome(
         context: context,
         zone: _output,
       );
@@ -181,7 +181,7 @@ class ZoneSelection {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> setCurrentZone({
+  static Future<void> setCurrentZoneAndNavHome({
     @required BuildContext context,
     @required ZoneModel zone,
   }) async {
@@ -196,7 +196,29 @@ class ZoneSelection {
         ),
       );
 
-      final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+      await setCurrentZone(
+        context: context,
+        zone: zone,
+      );
+
+      await WaitDialog.closeWaitDialog(context);
+
+      await Nav.pushHomeAndRemoveAllBelow(
+        context: context,
+        invoker: 'SelectCountryScreen._onCountryTap',
+        homeRoute: Routing.home,
+      );
+
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+  static Future<void> setCurrentZone({
+    @required BuildContext context,
+    @required ZoneModel zone,
+  }) async {
+
+    final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
       /// SET ZONE
       zoneProvider.setCurrentZone(
         zone: zone,
@@ -211,16 +233,6 @@ class ZoneSelection {
       /// SET CHAINS
       final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
       await _chainsProvider.reInitializeCityChains(context);
-
-      await WaitDialog.closeWaitDialog(context);
-
-      await Nav.pushHomeAndRemoveAllBelow(
-        context: context,
-        invoker: 'SelectCountryScreen._onCountryTap',
-        homeRoute: Routing.home,
-      );
-
-    }
 
   }
   // -----------------------------------------------------------------------------
