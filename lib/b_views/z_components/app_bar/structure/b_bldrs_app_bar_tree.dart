@@ -16,7 +16,7 @@ class BldrsAppBarTree extends StatelessWidget {
     @required this.onSearchSubmit,
     @required this.onPaste,
     @required this.onSearchChanged,
-    @required this.historyButtonIsOn,
+    @required this.searchButtonIsOn,
     @required this.searchHintVerse,
     @required this.canGoBack,
     @required this.onSearchCancelled,
@@ -37,7 +37,7 @@ class BldrsAppBarTree extends StatelessWidget {
   final ValueChanged<String> onSearchSubmit;
   final ValueChanged<String> onPaste;
   final ValueChanged<String> onSearchChanged;
-  final bool historyButtonIsOn;
+  final bool searchButtonIsOn;
   final Verse searchHintVerse;
   final bool canGoBack;
   final Function onSearchCancelled;
@@ -116,7 +116,7 @@ class BldrsAppBarTree extends StatelessWidget {
                   searchController: searchController,
                   onSearchSubmit: onSearchSubmit,
                   onPaste: onPaste,
-                  searchIconIsOn: historyButtonIsOn,
+                  searchButtonIsOn: searchButtonIsOn,
                   onSearchChanged: onSearchChanged,
                   hintVerse: searchHintVerse,
                   onSearchCancelled: onSearchCancelled,

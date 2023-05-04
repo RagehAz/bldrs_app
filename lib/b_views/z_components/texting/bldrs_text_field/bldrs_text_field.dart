@@ -126,7 +126,7 @@ class BldrsTextField extends StatelessWidget {
 
     final EdgeInsets _scrollPadding = EdgeInsets.only(
       bottom: 100 + MediaQuery.of(context).viewInsets.bottom,
-      top: BldrsAppBar.collapsedHeight(context, appBarType) + BubbleHeader.getHeight() + Bubble.paddingValue() + 20,
+      top: BldrsAppBar.collapsedHeight(context, appBarType) + BldrsBubbleHeader.getHeight() + Bubble.paddingValue() + 20,
     );
 
     return _scrollPadding;

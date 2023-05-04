@@ -43,7 +43,7 @@ class MainLayout extends StatelessWidget {
     this.onSearchSubmit,
     this.onPaste,
     this.onSearchChanged,
-    this.historyButtonIsOn = true,
+    this.searchButtonIsOn = true,
     this.sectionButtonIsOn = false,
     this.searchHintVerse,
     this.loading,
@@ -74,7 +74,7 @@ class MainLayout extends StatelessWidget {
   final ValueChanged<String> onSearchSubmit;
   final ValueChanged<String> onPaste;
   final ValueChanged<String> onSearchChanged;
-  final bool historyButtonIsOn;
+  final bool searchButtonIsOn;
   final bool sectionButtonIsOn;
   final Verse searchHintVerse;
   final ValueNotifier<bool> loading;
@@ -261,7 +261,7 @@ class MainLayout extends StatelessWidget {
                     searchController: searchController,
                     onSearchSubmit: onSearchSubmit,
                     onPaste: onPaste,
-                    historyButtonIsOn: historyButtonIsOn,
+                    searchButtonIsOn: searchButtonIsOn,
                     onSearchChanged: onSearchChanged,
                     pyramidsAreOn: pyramidsAreOn,
                     searchHintVerse: searchHintVerse,

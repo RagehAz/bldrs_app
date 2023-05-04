@@ -124,7 +124,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
       pyramidsAreOn: true,
       pyramidType: PyramidType.crystalYellow,
       appBarType: AppBarType.basic,
-      historyButtonIsOn: false,
+      searchButtonIsOn: false,
       title: const Verse(
         id: 'phid_feedback',
         translate: true,

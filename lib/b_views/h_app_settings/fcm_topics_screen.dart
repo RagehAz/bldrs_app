@@ -39,7 +39,7 @@ class FCMTopicsScreen extends StatelessWidget {
     // --------------------
     return MainLayout(
       skyType: SkyType.black,
-      historyButtonIsOn: false,
+      searchButtonIsOn: false,
       appBarType: AppBarType.basic,
       title: _title,
       pyramidsAreOn: true,
