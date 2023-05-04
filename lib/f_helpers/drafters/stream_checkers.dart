@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:mapper/mapper.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 class Streamer {
   // -----------------------------------------------------------------------------
 

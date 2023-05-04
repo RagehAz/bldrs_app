@@ -43,7 +43,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   // -----------------------------------------------------------------------------
   final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
-  final ScrollController _scrollController = ScrollController();
   PaginationController _paginationController;
   // --------------------
   /// KEYBOARD VISIBILITY
@@ -229,7 +228,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
               },
               child: HomeFlyersGrid(
-                scrollController: _scrollController,
                 paginationController: _paginationController,
                 loading: _loading,
               ),

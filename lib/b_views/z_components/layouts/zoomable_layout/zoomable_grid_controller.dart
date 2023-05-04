@@ -22,6 +22,7 @@ class ZoomableGridController {
   // --------------------
   ScrollController _scrollController;
   ScrollController get scrollController => _scrollController;
+  bool _shouldDisposeScrollController = false;
   // --------------------
   final ValueNotifier<bool> _isZoomed = ValueNotifier(false);
   ValueNotifier<bool> get isZoomed => _isZoomed;
@@ -87,6 +88,7 @@ class ZoomableGridController {
     _zoomedItemFadeInCurve = zoomedItemFadeInCurve;
 
     _scrollController = scrollController ?? ScrollController();
+    _shouldDisposeScrollController = scrollController == null;
 
     if (vsync != null){
 
@@ -117,8 +119,10 @@ class ZoomableGridController {
     _animationController.dispose();
     _animation.dispose();
 
-    /// SCROLL_CONTROLLER_IS_DISPOSED_IN_ZOOMABLE_GRID_CONTROLLER
-    _scrollController.dispose();
+    if (_shouldDisposeScrollController == true){
+      _scrollController.dispose();
+    }
+
   }
   // -----------------------------------------------------------------------------
 
