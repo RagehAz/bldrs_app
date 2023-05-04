@@ -133,11 +133,11 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
         countryID: widget.countryID,
       );
 
-      blog('CITIES STAGES : ${_citiesStages.getAllIDs()}');
-      _citiesStages.blogStaging();
+      blog('CITIES STAGES : ${_citiesStages?.getAllIDs()}');
+      _citiesStages?.blogStaging();
 
       final List<CityModel> _cities = await ZoneProtocols.fetchCitiesOfCountryByIDs(
-        citiesIDsOfThisCountry: _citiesStages.getAllIDs(),
+        citiesIDsOfThisCountry: _citiesStages?.getAllIDs(),
       );
 
       // CityModel.blogCities(_cities);
@@ -145,7 +145,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
       if (mounted == true){
 
         /// SHOWN CITIES IDS
-        final List<String> _shownIDs = _citiesStages.getIDsByViewingEvent(
+        final List<String> _shownIDs = _citiesStages?.getIDsByViewingEvent(
           context: context,
           event: widget.zoneViewingEvent,
         );

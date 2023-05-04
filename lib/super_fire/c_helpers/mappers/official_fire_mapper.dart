@@ -135,7 +135,7 @@ class _OfficialFireMapper {
 
     if (snapshot.exists) {
 
-      blog('snapshot.value : ${snapshot.value} : type : ${snapshot.value.runtimeType}');
+      // blog('snapshot.value : ${snapshot.value} : type : ${snapshot.value.runtimeType}');
 
       if (snapshot.value.runtimeType.toString() == '_InternalLinkedHashMap<Object?, Object?>'){
         _output = Mapper.getMapFromIHLMOO(
