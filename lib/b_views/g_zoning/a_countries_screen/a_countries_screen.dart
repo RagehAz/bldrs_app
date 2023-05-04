@@ -227,7 +227,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
     return MainLayout(
       skyType: SkyType.black,
       appBarType: AppBarType.search,
-      historyButtonIsOn: false,
+      searchButtonIsOn: false,
       onSearchSubmit: _onSearchCountry,
       onSearchChanged: _onSearchCountry,
       title: const Verse(

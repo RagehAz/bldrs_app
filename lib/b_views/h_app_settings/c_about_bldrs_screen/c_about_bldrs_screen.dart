@@ -26,7 +26,7 @@ class AboutBldrsScreen extends StatelessWidget {
       pyramidsAreOn: true,
       pyramidType: PyramidType.crystalYellow,
       appBarType: AppBarType.basic,
-      historyButtonIsOn: false,
+      searchButtonIsOn: false,
       title: const Verse(
         id: 'phid_about_bldrsnet',
         translate: true,

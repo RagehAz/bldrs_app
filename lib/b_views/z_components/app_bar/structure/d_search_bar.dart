@@ -4,7 +4,7 @@ class SearchBar extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const SearchBar({
     @required this.onSearchSubmit,
-    @required this.searchIconIsOn,
+    @required this.searchButtonIsOn,
     @required this.appBarType,
     @required this.globalKey,
     this.searchController,
@@ -23,7 +23,7 @@ class SearchBar extends StatefulWidget {
   final ValueChanged<String> onSearchSubmit;
   final ValueChanged<String> onPaste;
   final ValueChanged<String> onSearchChanged;
-  final bool searchIconIsOn;
+  final bool searchButtonIsOn;
   // final double boxWidth;
   final Verse hintVerse;
   final double height;
@@ -79,9 +79,9 @@ class _SearchBarState extends State<SearchBar> {
     // --------------------
     final double _appBarClearWidth = BldrsAppBar.width(context);
     const double _padding = Ratioz.appBarPadding;
-    final double _searchButtonWidth = widget.searchIconIsOn == true ? 40 : 0;
+    final double _searchButtonWidth = widget.searchButtonIsOn == true ? 40 : 0;
     const double _searchButtonHeight = 40;
-    final int _numberOFPaddings = widget.searchIconIsOn == true ? 4 : 2;
+    final int _numberOFPaddings = widget.searchButtonIsOn == true ? 4 : 2;
     // _appBarClearWidth - (Ratioz.appBarButtonSize + Ratioz.appBarPadding * 3) - 3;
     final double _textFieldWidth = _appBarClearWidth - (_searchButtonWidth*2) - (_padding * _numberOFPaddings);
     // --------------------
@@ -102,7 +102,7 @@ class _SearchBarState extends State<SearchBar> {
           ),
 
           /// SEARCH BUTTON
-          if (widget.searchIconIsOn == true)
+          if (widget.searchButtonIsOn == true)
             ValueListenableBuilder(
                 valueListenable: _searchTextController,
                 builder: (_, TextEditingValue value, Widget child){
@@ -186,7 +186,7 @@ class _SearchBarState extends State<SearchBar> {
           // if (widget.searchIconIsOn == true)
 
           /// PASTE BUTTON
-          if (widget.searchIconIsOn == true && widget.filtersAreOn == null)
+          if (widget.searchButtonIsOn == true && widget.filtersAreOn == null)
             ValueListenableBuilder(
                 valueListenable: _searchTextController,
                 builder: (_, TextEditingValue value, Widget child){
