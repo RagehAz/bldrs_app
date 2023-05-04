@@ -1,0 +1,195 @@
+part of bldrs_app_bar;
+
+class BldrsAppBarTree extends StatelessWidget {
+  /// --------------------------------------------------------------------------
+  const BldrsAppBarTree({
+    @required this.globalKey,
+    @required this.appBarType,
+    @required this.onBack,
+    @required this.pageTitleVerse,
+    @required this.appBarRowWidgets,
+    @required this.loading,
+    @required this.progressBarModel,
+    @required this.appBarScrollController,
+    @required this.sectionButtonIsOn,
+    @required this.searchController,
+    @required this.onSearchSubmit,
+    @required this.onPaste,
+    @required this.onSearchChanged,
+    @required this.historyButtonIsOn,
+    @required this.searchHintVerse,
+    @required this.canGoBack,
+    @required this.onSearchCancelled,
+    @required this.filtersAreOn,
+    @required this.filtersChildren,
+    Key key
+  }) : super(key: key);
+  /// --------------------------------------------------------------------------
+  final AppBarType appBarType;
+  final Function onBack;
+  final Verse pageTitleVerse;
+  final List<Widget> appBarRowWidgets;
+  final ValueNotifier<bool> loading;
+  final ValueNotifier<ProgressBarModel> progressBarModel;
+  final ScrollController appBarScrollController;
+  final bool sectionButtonIsOn;
+  final TextEditingController searchController;
+  final ValueChanged<String> onSearchSubmit;
+  final ValueChanged<String> onPaste;
+  final ValueChanged<String> onSearchChanged;
+  final bool historyButtonIsOn;
+  final Verse searchHintVerse;
+  final bool canGoBack;
+  final Function onSearchCancelled;
+  final GlobalKey globalKey;
+  final ValueNotifier<bool> filtersAreOn;
+  final List<Widget> filtersChildren;
+  // -----------------------------------------------------------------------------
+  bool _sectionButtonIsOnCheck() {
+
+    if (sectionButtonIsOn != null) {
+      return sectionButtonIsOn;
+    }
+    else if (sectionButtonIsOn == false) {
+      return false;
+    }
+    else if (appBarType == AppBarType.basic) {
+      return false;
+    }
+    else if (appBarType == AppBarType.scrollable) {
+      return false;
+    }
+    else if (appBarType == AppBarType.main) {
+      return true;
+    }
+    else if (appBarType == AppBarType.search) {
+      return false;
+    }
+    else {
+      return false;
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+    // --------------------
+    final double _boxWidth = BldrsAppBar.width(context);
+    final double _collapsedHeight = BldrsAppBar.collapsedHeight(context, appBarType);
+    // --------------------
+    final bool _sectionButtonIsOn = _sectionButtonIsOnCheck();
+    // --------------------
+    final Widget _appBarContents = Stack(
+      alignment: BldrsAligners.superTopAlignment(context),
+      children: <Widget>[
+
+        // BLUR
+        AppBarBlurLayer(
+          isExpanded: filtersAreOn,
+          blurIsOn: true,
+          appBarType: appBarType,
+        ),
+
+        /// CONTENTS
+        SizedBox(
+          width: _boxWidth,
+          height: _collapsedHeight,
+          child: Column(
+            // mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+
+              /// BACK / SEARCH / SECTION / ZONE
+              FirstAppBarLine(
+                canGoBack: canGoBack,
+                appBarType: appBarType,
+                pageTitleVerse: pageTitleVerse,
+                onBack: onBack,
+                appBarScrollController: appBarScrollController,
+                minBoxHeight: _collapsedHeight,
+                sectionButtonIsOn: _sectionButtonIsOn,
+                appBarRowWidgets: appBarRowWidgets,
+              ),
+
+              /// SEARCH BAR,
+              if (appBarType == AppBarType.search)
+                SearchBar(
+                  searchController: searchController,
+                  onSearchSubmit: onSearchSubmit,
+                  onPaste: onPaste,
+                  searchIconIsOn: historyButtonIsOn,
+                  onSearchChanged: onSearchChanged,
+                  hintVerse: searchHintVerse,
+                  onSearchCancelled: onSearchCancelled,
+                  appBarType: appBarType,
+                  globalKey: globalKey,
+                  filtersAreOn: filtersAreOn,
+                  onFilterTap: (){
+
+                    if (filtersAreOn != null){
+
+                      setNotifier(
+                          notifier: filtersAreOn,
+                          mounted: true,
+                          value: !filtersAreOn.value,
+                      );
+
+                    }
+
+                  },
+                ),
+
+            ],
+          ),
+        ),
+
+        /// PROGRESS BAR
+        if (loading != null)
+          AppBarProgressBar(
+            progressBarModel: progressBarModel,
+            loading: loading,
+            appBarType: appBarType,
+          ),
+
+        if (filtersAreOn != null && Mapper.checkCanLoopList(filtersChildren) == true)
+          AppBarFilters(
+            appBarType: appBarType,
+            children: filtersChildren,
+          ),
+
+      ],
+    );
+    // --------------------
+    if (filtersAreOn == null) {
+      return Container(
+        width: _boxWidth,
+        height: _collapsedHeight,
+        alignment: Alignment.topCenter,
+        margin: const EdgeInsets.all(Ratioz.appBarMargin),
+        decoration: BldrsAppBar.boxDecoration,
+        child: _appBarContents,
+      );
+    }
+
+    else {
+      return ValueListenableBuilder(
+          valueListenable: filtersAreOn,
+          child: _appBarContents,
+          builder: (_, bool expanded, Widget child){
+
+            return AnimatedContainer(
+              duration: BldrsAppBar.expansionDuration,
+              curve: BldrsAppBar.expansionCurve,
+              width: _boxWidth,
+              height: expanded == true ? _collapsedHeight * 3 : _collapsedHeight,
+              alignment: Alignment.topCenter,
+              margin: const EdgeInsets.all(Ratioz.appBarMargin),
+              decoration: BldrsAppBar.boxDecoration,
+              child: _appBarContents,
+            );
+          }
+          );
+    }
+    // --------------------
+  }
+// -----------------------------------------------------------------------------
+}

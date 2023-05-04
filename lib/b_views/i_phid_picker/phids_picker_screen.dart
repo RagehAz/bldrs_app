@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/xx_pickers_search_controller.dart';
 import 'package:bldrs/b_views/i_phid_picker/hashtags_builder_page.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/structure/slides_shelf/aaa_flyer_slides_shelf.dart';
-import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
+import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/phids_bubble/phids_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/corner_widget_maximizer.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';

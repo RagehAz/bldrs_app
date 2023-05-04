@@ -1,10 +1,4 @@
-import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
-import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/static_progress_bar/static_progress_bar.dart';
-import 'package:animators/animators.dart';
-import 'package:flutter/material.dart';
+part of bldrs_app_bar;
 
 class AppBarProgressBar extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -24,7 +18,7 @@ class AppBarProgressBar extends StatelessWidget {
     // --------------------
     final double _abWidth = BldrsAppBar.width(context);
     // --------------------
-    final double _appBarHeight = BldrsAppBar.height(context, appBarType);
+    final double _appBarHeight = BldrsAppBar.collapsedHeight(context, appBarType);
     // --------------------
     final EdgeInsets _margins = EdgeInsets.only(
         top: _appBarHeight - FlyerDim.progressStripThickness(_abWidth)
