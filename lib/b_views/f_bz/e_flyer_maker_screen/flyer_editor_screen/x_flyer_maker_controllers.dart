@@ -360,19 +360,12 @@ Future<void> onFlyerPhidTap({
 
   Keyboard.closeKeyboard(context);
 
-  final List<String> _phids = await Nav.goToNewScreen(
-    context: context,
-    pageTransitionType: Nav.superHorizontalTransition(context: context),
-    screen: PhidsPickerScreen(
-      multipleSelectionMode: true,
-      selectedPhids: draftNotifier.value.keywordsIDs,
-      chainsIDs: FlyerTyper.getChainsIDsPerViewingEvent(
-        context: context,
-        flyerType: draftNotifier.value.flyerType,
-        event: ViewingEvent.flyerEditor,
-      ),
+  final List<String> _phids = await PhidsPickerScreen.goPickPhids(
+      context: context,
+      flyerType: draftNotifier.value.flyerType,
+      event: ViewingEvent.flyerEditor,
       onlyUseCityChains: false,
-    ),
+      selectedPhids: draftNotifier.value.keywordsIDs,
   );
 
   if (Mapper.checkCanLoopList(_phids) == true){

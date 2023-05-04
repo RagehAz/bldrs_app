@@ -1,5 +1,7 @@
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/xx_pickers_search_controller.dart';
 import 'package:bldrs/b_views/i_phid_picker/hashtags_builder_page.dart';
@@ -43,6 +45,62 @@ class PhidsPickerScreen extends StatefulWidget {
   // -----------------------------------------------------------------------------
   @override
   _TheStatefulScreenState createState() => _TheStatefulScreenState();
+  // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<String> goPickPhid({
+    @required BuildContext context,
+    @required FlyerType flyerType,
+    @required ViewingEvent event,
+    @required bool onlyUseCityChains,
+    List<String> selectedPhids,
+  }) async {
+
+    final String phid = await Nav.goToNewScreen(
+      context: context,
+      pageTransitionType: Nav.superHorizontalTransition(context: context),
+      screen: PhidsPickerScreen(
+        chainsIDs: FlyerTyper.getChainsIDsPerViewingEvent(
+          context: context,
+          flyerType: flyerType,
+          event: ViewingEvent.homeView,
+        ),
+        onlyUseCityChains: onlyUseCityChains,
+        selectedPhids: selectedPhids,
+        // flyerModel: ,
+        // multipleSelectionMode: false,
+      ),
+    );
+
+    return phid;
+  }
+  // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<String>> goPickPhids({
+    @required BuildContext context,
+    @required FlyerType flyerType,
+    @required ViewingEvent event,
+    @required bool onlyUseCityChains,
+    List<String> selectedPhids,
+  }) async {
+
+    final List<String> phids = await Nav.goToNewScreen(
+      context: context,
+      pageTransitionType: Nav.superHorizontalTransition(context: context),
+      screen: PhidsPickerScreen(
+        chainsIDs: FlyerTyper.getChainsIDsPerViewingEvent(
+          context: context,
+          flyerType: flyerType,
+          event: ViewingEvent.homeView,
+        ),
+        onlyUseCityChains: onlyUseCityChains,
+        selectedPhids: selectedPhids,
+        // flyerModel: ,
+        multipleSelectionMode: true,
+      ),
+    );
+
+    return phids;
+  }
   // -----------------------------------------------------------------------------
 }
 

@@ -22,7 +22,7 @@ class StagingProtocols {
         id: Staging.countriesStagingId,
     );
 
-    _output.blogStaging();
+    _output?.blogStaging();
 
     if (Staging.isEmpty(_output) == true){
 
