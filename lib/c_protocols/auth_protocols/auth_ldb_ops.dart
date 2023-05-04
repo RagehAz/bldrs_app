@@ -54,12 +54,12 @@ class AuthLDBOps {
         map: _list.first,
       );
 
-      blog('AuthLDBOps : readAuthModel : got AuthModel from LDB for uid : ${_authModel?.id}');
+      // blog('AuthLDBOps : readAuthModel : got AuthModel from LDB for uid : ${_authModel?.id}');
 
     }
 
     else {
-      blog('AuthLDBOps : readAuthModel : no AuthModel found on LDB');
+      // blog('AuthLDBOps : readAuthModel : no AuthModel found on LDB');
     }
 
     return _authModel;

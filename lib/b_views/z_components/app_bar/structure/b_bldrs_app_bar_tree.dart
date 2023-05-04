@@ -171,6 +171,12 @@ class BldrsAppBarTree extends StatelessWidget {
     }
 
     else {
+
+      final double _expandedHeight = BldrsAppBar.expandedHeight(
+          context: context,
+          appBarType: appBarType,
+      );
+
       return ValueListenableBuilder(
           valueListenable: filtersAreOn,
           child: _appBarContents,
@@ -180,7 +186,7 @@ class BldrsAppBarTree extends StatelessWidget {
               duration: BldrsAppBar.expansionDuration,
               curve: BldrsAppBar.expansionCurve,
               width: _boxWidth,
-              height: expanded == true ? _collapsedHeight * 3 : _collapsedHeight,
+              height: expanded == true ? _expandedHeight : _collapsedHeight,
               alignment: Alignment.topCenter,
               margin: const EdgeInsets.all(Ratioz.appBarMargin),
               decoration: BldrsAppBar.boxDecoration,

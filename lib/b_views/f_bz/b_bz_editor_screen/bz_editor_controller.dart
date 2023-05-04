@@ -23,7 +23,6 @@ import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
 import 'package:mapper/mapper.dart';
 import 'package:mediators/mediators.dart';
 /// => TAMAM
@@ -476,19 +475,12 @@ Future<void> onChangeBzScope({
 
   Keyboard.closeKeyboard(context);
 
-  final List<String> _phids = await Nav.goToNewScreen(
+  final List<String> _phids = await PhidsPickerScreen.goPickPhids(
     context: context,
-    pageTransitionType: Nav.superHorizontalTransition(context: context),
-    screen: PhidsPickerScreen(
-      multipleSelectionMode: true,
-      selectedPhids: draftNotifier.value.scope,
-      chainsIDs: FlyerTyper.getChainsIDsPerViewingEvent(
-        context: context,
-        flyerType: flyerType,
-        event: ViewingEvent.bzEditor,
-      ),
-      onlyUseCityChains: false,
-    ),
+    flyerType: flyerType,
+    event: ViewingEvent.bzEditor,
+    onlyUseCityChains: false,
+    selectedPhids: draftNotifier.value.scope,
   );
 
   if (Mapper.checkCanLoopList(_phids) == true){

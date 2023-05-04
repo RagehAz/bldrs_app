@@ -299,22 +299,17 @@ Future<void> onSectionButtonTap(BuildContext context) async {
 
   if (flyerType != null){
 
-    final String phid = await Nav.goToNewScreen(
+    final String phid = await PhidsPickerScreen.goPickPhid(
       context: context,
-      pageTransitionType: Nav.superHorizontalTransition(context: context),
-      screen: PhidsPickerScreen(
-        chainsIDs: FlyerTyper.getChainsIDsPerViewingEvent(
-          context: context,
-          flyerType: flyerType,
-          event: ViewingEvent.homeView,
-        ),
-        onlyUseCityChains: true,
-      ),
+      flyerType: flyerType,
+      event: ViewingEvent.homeView,
+      onlyUseCityChains: true,
+      // selectedPhids:
     );
 
     if (phid != null){
 
-      await _setActivePhidK(
+      await setActivePhidK(
         context: context,
         phidK: phid,
         flyerType: flyerType,
@@ -327,7 +322,7 @@ Future<void> onSectionButtonTap(BuildContext context) async {
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _setActivePhidK({
+Future<void> setActivePhidK({
   @required BuildContext context,
   @required String phidK,
   @required FlyerType flyerType,
