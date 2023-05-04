@@ -1,33 +1,34 @@
 import 'dart:async';
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
+
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/aa_static_logo_screen_view.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/aa_home_screen_view.dart';
+import 'package:bldrs/b_views/a_starters/b_home_screen/x_home_screen_controllers.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/x_initialization_controllers.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/x_notes_controllers.dart';
-import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:night_sky/night_sky.dart';
 import 'package:bldrs/b_views/z_components/pyramids/super_pyramids.dart';
-import 'package:bldrs/b_views/a_starters/b_home_screen/x_home_screen_controllers.dart';
-import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
+import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
+import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
-import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
-import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
-import 'package:bldrs/a_models/x_ui/nav_model.dart';
+import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:layouts/layouts.dart';
+import 'package:night_sky/night_sky.dart';
 
 class HomeScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------

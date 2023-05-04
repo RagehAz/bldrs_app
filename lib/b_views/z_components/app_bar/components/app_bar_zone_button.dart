@@ -1,11 +1,4 @@
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+part of bldrs_app_bar;
 
 class ZoneButton extends StatelessWidget {
   /// --------------------------------------------------------------------------

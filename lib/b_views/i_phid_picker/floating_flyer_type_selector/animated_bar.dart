@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
+import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -32,7 +32,7 @@ class AnimatedBar extends StatelessWidget {
     final double _screenWidth = Scale.screenWidth(context);
     const AppBarType _appBarType = AppBarType.basic;
 
-    final double _appBarHeight = BldrsAppBar.height(context, _appBarType);
+    final double _appBarHeight = BldrsAppBar.collapsedHeight(context, _appBarType);
     final double _appBarBoxHeight = _appBarHeight + Ratioz.appBarMargin;
     // --------------------
     return AnimatedBuilder(

@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/z_components/app_bar/progress_bar_swiper_model.dart';
+import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:scale/scale.dart';
 import 'package:flutter/material.dart';
 

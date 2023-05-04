@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
+import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -126,7 +126,7 @@ class BldrsTextField extends StatelessWidget {
 
     final EdgeInsets _scrollPadding = EdgeInsets.only(
       bottom: 100 + MediaQuery.of(context).viewInsets.bottom,
-      top: BldrsAppBar.height(context, appBarType) + BubbleHeader.getHeight() + Bubble.paddingValue() + 20,
+      top: BldrsAppBar.collapsedHeight(context, appBarType) + BubbleHeader.getHeight() + Bubble.paddingValue() + 20,
     );
 
     return _scrollPadding;
