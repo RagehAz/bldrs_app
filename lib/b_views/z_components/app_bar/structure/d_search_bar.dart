@@ -1,14 +1,4 @@
-import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_text_field.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:flutter/material.dart';
-import 'package:stringer/stringer.dart';
+part of bldrs_app_bar;
 
 class SearchBar extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -24,6 +14,8 @@ class SearchBar extends StatefulWidget {
     this.hintVerse,
     this.height,
     this.onSearchCancelled,
+    this.filtersAreOn,
+    this.onFilterTap,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -38,6 +30,8 @@ class SearchBar extends StatefulWidget {
   final Function onSearchCancelled;
   final AppBarType appBarType;
   final GlobalKey globalKey;
+  final ValueNotifier<bool> filtersAreOn;
+  final Function onFilterTap;
   /// --------------------------------------------------------------------------
   @override
   _SearchBarState createState() => _SearchBarState();
@@ -96,6 +90,7 @@ class _SearchBarState extends State<SearchBar> {
       height: widget.height ?? Ratioz.appBarButtonSize + Ratioz.appBarPadding,
       // color: Colorz.bloodTest,
       alignment: Alignment.center, //Aligners.superTopAlignment(context),
+      margin: const EdgeInsets.only(top: Ratioz.appBarPadding),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -191,7 +186,7 @@ class _SearchBarState extends State<SearchBar> {
           // if (widget.searchIconIsOn == true)
 
           /// PASTE BUTTON
-          if (widget.searchIconIsOn == true)
+          if (widget.searchIconIsOn == true && widget.filtersAreOn == null)
             ValueListenableBuilder(
                 valueListenable: _searchTextController,
                 builder: (_, TextEditingValue value, Widget child){
@@ -231,6 +226,35 @@ class _SearchBarState extends State<SearchBar> {
                   );
                 }
             ),
+
+          /// FILTER BUTTON
+          if (widget.filtersAreOn != null)
+            ValueListenableBuilder(
+                valueListenable: widget.filtersAreOn,
+                builder: (_, bool filtersAreOn, Widget child){
+
+                  return Row(
+                    children: <Widget>[
+
+                      const SizedBox(
+                        width: _padding,
+                        height: _padding,
+                      ),
+
+                      BldrsBox(
+                        width: _searchButtonWidth,
+                        height: _searchButtonHeight,
+                        icon: Iconz.filter,
+                        iconSizeFactor: 0.5,
+                        color: filtersAreOn == true ? Colorz.yellow255 : Colorz.nothing,
+                        bubble: false,
+                        onTap: widget.onFilterTap,
+                      ),
+
+                    ],
+                  );
+                }
+                ),
 
           /// END SPACER
           const SizedBox(

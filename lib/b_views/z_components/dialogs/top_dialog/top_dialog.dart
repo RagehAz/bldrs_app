@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:another_flushbar/flushbar.dart';
-import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
+import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -102,7 +102,7 @@ class TopDialog extends StatelessWidget {
       titleText: Container(
         width: _bubbleWidth,
         constraints: BoxConstraints(
-          minHeight: BldrsAppBar.height(context, AppBarType.basic) - 5,
+          minHeight: BldrsAppBar.collapsedHeight(context, AppBarType.basic) - 5,
         ),
         decoration: const BoxDecoration(
           // color: Colorz.Black255,

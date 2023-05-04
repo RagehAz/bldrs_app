@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/z_components/app_bar/a_bldrs_app_bar.dart';
+import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:scale/scale.dart';
 
@@ -28,7 +28,7 @@ class Stratosphere extends StatelessWidget {
     @required BuildContext context,
     @required AppBarType appBarType,
   }){
-    final double _appBarHeight = BldrsAppBar.height(context, appBarType);
+    final double _appBarHeight = BldrsAppBar.collapsedHeight(context, appBarType);
     final double _topPadding =  _appBarHeight + (2 * Ratioz.appBarMargin);
     return _topPadding;
   }
