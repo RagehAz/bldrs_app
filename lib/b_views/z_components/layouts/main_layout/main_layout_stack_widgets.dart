@@ -28,7 +28,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
     @required this.onPaste,
     @required this.onSearchChanged,
     @required this.sectionButtonIsOn,
-    @required this.historyButtonIsOn,
+    @required this.searchButtonIsOn,
     @required this.pyramidsAreOn,
     @required this.searchHintVerse,
     @required this.pyramidType,
@@ -57,7 +57,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
   final ValueChanged<String> onPaste;
   final ValueChanged<String> onSearchChanged;
   final bool pyramidsAreOn;
-  final bool historyButtonIsOn;
+  final bool searchButtonIsOn;
   final bool sectionButtonIsOn;
   final Verse searchHintVerse;
   final ValueNotifier<bool> loading;
@@ -151,7 +151,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
             onSearchSubmit: onSearchSubmit,
             onPaste: onPaste,
             onSearchChanged: onSearchChanged,
-            historyButtonIsOn: historyButtonIsOn,
+            searchButtonIsOn: searchButtonIsOn,
             searchHintVerse: searchHintVerse,
             canGoBack: canGoBack,
             onSearchCancelled: onSearchCancelled,

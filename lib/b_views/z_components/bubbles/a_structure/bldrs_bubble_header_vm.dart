@@ -139,9 +139,9 @@ class BldrsBubbleHeaderVM {
   /// --------------------------------------------------------------------------
 }
 
-class BubbleHeader extends StatelessWidget {
+class BldrsBubbleHeader extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const BubbleHeader({
+  const BldrsBubbleHeader({
     @required this.viewModel,
     Key key
   }) : super(key: key);
