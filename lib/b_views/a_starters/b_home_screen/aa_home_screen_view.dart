@@ -9,13 +9,11 @@ import 'package:flutter/material.dart';
 class HomeFlyersGrid extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const HomeFlyersGrid({
-    @required this.scrollController,
     @required this.paginationController,
     @required this.loading,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final ScrollController scrollController;
   final PaginationController paginationController;
   final ValueNotifier<bool> loading;
   /// --------------------------------------------------------------------------
@@ -28,7 +26,6 @@ class HomeFlyersGrid extends StatelessWidget {
       key: const ValueKey<String>('UserHomeScreen_FireCollPaginator'),
       paginationQuery: homeWallFlyersPaginationQuery(context),
       paginationController: paginationController,
-      scrollController: scrollController,
       onDataChanged: (List<Map<String, dynamic>> maps) async {
 
         final List<FlyerModel> _wallFlyers = FlyerModel.decipherFlyers(
@@ -49,7 +46,7 @@ class HomeFlyersGrid extends StatelessWidget {
         // blog('fuck2 : ${_wallFlyers.length} : isLoading : $isLoading');
 
         return FlyersGrid(
-          scrollController: scrollController,
+          scrollController: paginationController.scrollController,
           gridWidth: Scale.screenWidth(context),
           gridHeight: Scale.screenHeight(context),
           flyers: _wallFlyers,
