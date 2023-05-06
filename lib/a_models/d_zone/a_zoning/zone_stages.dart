@@ -542,7 +542,7 @@ class Staging {
   // ---------------------
   /// TASK : TEST ME
   static bool isEmpty(Staging staging){
-    bool _output = false;
+    bool _output = true;
 
     if (staging != null){
       _output = staging.getAllIDs().isEmpty;
