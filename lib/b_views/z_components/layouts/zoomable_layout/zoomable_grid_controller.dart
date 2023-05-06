@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:animators/animators.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
@@ -381,6 +382,8 @@ class ZoomableGridController {
     Function onStart,
     Function onEnd,
   }) async {
+
+    Keyboard.closeKeyboard(context);
 
     // blog('zoomIn : itemIndex ~/ rowsCount = ${itemIndex ~/ _columnsCount}');
 
