@@ -8,6 +8,7 @@ import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/d_user/b_user_editor_screen/x_user_editor_controllers.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
+import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/contact_field_editor_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/gender_bubble/gender_editor_bubble.dart';
@@ -349,6 +350,18 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
         goBackOnConfirm: true,
       ),
       confirmButtonModel: _confirmButtonModel,
+      appBarRowWidgets: [
+
+        AppBarButton(
+          verse: Verse.plain('blog'),
+          onTap: () async {
+
+            _draftUser.value.blogDraftUser();
+
+          },
+        ),
+
+      ],
       child: ValueListenableBuilder(
         valueListenable: _draftUser,
         builder: (_, DraftUser draft, Widget child){

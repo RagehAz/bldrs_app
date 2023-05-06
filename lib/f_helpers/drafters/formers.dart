@@ -150,10 +150,10 @@ class Formers {
 
     if (canValidate == true){
 
-      if (pic is PicModel){
+      if (pic != null && pic is PicModel){
 
         final PicModel _picModel = pic;
-        if (_picModel.bytes.isEmpty && _picModel.path == null){
+        if (_picModel.bytes?.isEmpty == true && _picModel.path == null){
           _message = Verse.transBake(context, 'phid_add_an_image');
         }
 

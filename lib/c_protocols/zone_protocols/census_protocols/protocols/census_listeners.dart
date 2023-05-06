@@ -44,9 +44,6 @@ class CensusListener {
     @required UserModel oldUser,
   }) async {
 
-    assert(newUser != null, 'newUser is null');
-    assert(oldUser != null, 'oldUser is null');
-
     final bool _shouldUpdateCensus = CensusModel.checkShouldUpdateUserCensus(
         oldUser: oldUser,
         newUser: newUser,
