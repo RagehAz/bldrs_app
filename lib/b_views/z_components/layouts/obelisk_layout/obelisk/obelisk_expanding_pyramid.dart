@@ -1,8 +1,9 @@
+import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
-import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:numeric/numeric.dart';
 import 'package:provider/provider.dart';
 
 class ObeliskExpandingPyramid extends StatelessWidget {
@@ -23,25 +24,31 @@ class ObeliskExpandingPyramid extends StatelessWidget {
           selector: (_, UiProvider uiProvider) => uiProvider.pyramidsAreExpanded,
           builder: (_, bool expanded, Widget child) {
 
-
             return AnimatedScale(
               scale: expanded == true ? 8 : 1,
               duration: expanded == true ? const Duration(milliseconds: 250) : const Duration(milliseconds: 700),
               curve: expanded == true ?  Curves.easeOutQuart : Curves.easeInOutQuart,
               alignment: Alignment.bottomRight,
-              child: child,
+              child: AnimatedOpacity(
+                  duration: expanded == true ? const Duration(milliseconds: 250) : const Duration(milliseconds: 700),
+                  curve: expanded == true ?  Curves.easeOut : Curves.easeIn,
+                  opacity: expanded == true ? 1 : 0,
+                  child: child
+              ),
             );
 
           },
 
-          /// THE BLACK EXPANDING TRIANGLE
-          child: const BldrsImage(
-            width: 143.1 * 0.7,
-            height: 66.4 * 0.7,
-            pic: Iconz.pyramid,
-            fit: BoxFit.fitWidth,
-            iconColor: Colorz.black230,
-            // scale: 1,
+          child: Transform(
+            transform: Matrix4.rotationZ(Numeric.degreeToRadian(-48.177)),
+            alignment: Alignment.bottomRight,
+            child: const BlurLayer(
+                  width: 95.4267 * 0.7,
+                  height: 99.57 * 0.7,
+                  blur: 1,
+                  color: Colorz.black125,
+                  blurIsOn: true,
+                ),
           ),
 
         ),
