@@ -24,7 +24,7 @@ enum PyramidType{
 }
 
 class Pyramids extends StatelessWidget {
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   const Pyramids({
     @required this.pyramidType,
     this.loading,
@@ -34,15 +34,15 @@ class Pyramids extends StatelessWidget {
     this.listenToHideLayout,
     Key key,
   }) : super(key: key);
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   final PyramidType pyramidType;
   final dynamic loading;
   final Function onPyramidTap;
   final Color color;
   final bool putInCorner;
   final bool listenToHideLayout;
-  /// --------------------------------------------------------------------------
-  static double verticalPositionFix = -0.2;
+  // --------------------------------------------------------------------------
+  static const double verticalPositionFix = -0.2;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
