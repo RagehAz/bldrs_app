@@ -50,7 +50,7 @@ class ObeliskVerse extends StatelessWidget {
                 margin: Scale.constantHorizontal5,
                 italic: true,
                 weight: _isSelected ? VerseWeight.black : VerseWeight.thin,
-                labelColor: Colorz.black200,
+                labelColor: Colorz.black50,
                 color: _isSelected ? Colorz.yellow255 : Colorz.white255,
                 shadow: true,
                 shadowColor: Colorz.black255,
