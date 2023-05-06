@@ -120,7 +120,7 @@ class PicModel {
 
     blog('=> $invoker :: path : $path : ${bytes?.length} Bytes | '
         '[ (${meta?.width})w x (${meta?.height})h ] | '
-        'owners : ${meta.ownersIDs} | $_mega MB | $_kilo KB');
+        'owners : ${meta?.ownersIDs} | $_mega MB | $_kilo KB');
 
   }
   // -----------------------------------------------------------------------------
@@ -142,10 +142,10 @@ class PicModel {
 
       if (
           pic1.path == pic2.path &&
-          Mapper.checkListsAreIdentical(list1: pic1.meta.ownersIDs, list2: pic2.meta.ownersIDs) == true &&
-          pic1.meta.width == pic2.meta.width &&
-          pic1.meta.height == pic2.meta.height &&
-          pic1.bytes.length == pic2.bytes.length &&
+          Mapper.checkListsAreIdentical(list1: pic1.meta?.ownersIDs, list2: pic2.meta?.ownersIDs) == true &&
+          pic1.meta?.width == pic2.meta?.width &&
+          pic1.meta?.height == pic2.meta?.height &&
+          pic1.bytes?.length == pic2.bytes?.length &&
           Mapper.checkListsAreIdentical(list1: pic1.bytes, list2: pic2.bytes) == true
       ){
         _identical = true;
@@ -209,10 +209,20 @@ class PicModel {
   /// OVERRIDES
 
   // --------------------
-  /*
    @override
-   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
-   */
+   String toString(){
+
+    final String _text =
+    '''
+    PicModel(
+      bytes: ${bytes.length},
+      path: $path,
+      meta: $meta
+    );
+    ''';
+
+    return _text;
+   }
   // --------------------
   @override
   bool operator == (Object other){
