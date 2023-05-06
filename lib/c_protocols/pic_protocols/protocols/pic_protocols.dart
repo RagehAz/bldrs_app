@@ -244,6 +244,8 @@ class PicProtocols {
   /// TESTED : WORKS PERFECT
   static Future<void> renovatePic(PicModel picModel) async {
 
+    blog('1 - renovatePic : picModel : $picModel');
+
     if (picModel != null){
 
       final PicModel _oldPic = await fetchPic(picModel.path);
@@ -252,6 +254,8 @@ class PicProtocols {
           pic1: _oldPic,
           pic2: picModel,
       );
+
+      blog('2 - renovatePic : _areIdentical : $_areIdentical');
 
       if (_areIdentical == false){
 
@@ -267,6 +271,7 @@ class PicProtocols {
 
     }
 
+      blog('3 - done');
   }
   // --------------------
   /// TASK : TEST ME

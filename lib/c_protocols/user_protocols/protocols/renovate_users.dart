@@ -41,19 +41,14 @@ class RenovateUserProtocols {
 
     UserModel _output;
 
-    if (newUser != null){
+    if (newUser != null && oldUser?.id != null){
+
+      _output = oldUser;
 
       final UserModel _oldUser = await UserProtocols.refetch(
           context: context,
           userID: oldUser.id,
       );
-
-      final bool _modelsAreIdentical = UserModel.usersAreIdentical(
-          user1: newUser,
-          user2: _oldUser
-      );
-
-      if (_modelsAreIdentical == false){
 
         await Future.wait(<Future>[
 
@@ -62,7 +57,9 @@ class RenovateUserProtocols {
             newUser: newUser,
             oldUser: _oldUser,
           ).then((UserModel uploadedModel){
-            _output = uploadedModel;
+            if (uploadedModel != null){
+              _output = uploadedModel;
+            }
           }),
 
           /// STORAGE RENOVATE PIC
@@ -70,6 +67,8 @@ class RenovateUserProtocols {
           PicProtocols.renovatePic(newPic),
 
         ]);
+
+        // blog('user is null ? ${oldUser == null} : ${_oldUser == null}');
 
         await Future.wait(<Future>[
 
@@ -86,8 +85,6 @@ class RenovateUserProtocols {
           ),
 
         ]);
-
-      }
 
     }
 

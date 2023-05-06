@@ -554,15 +554,103 @@ class DraftUser {
 
     return _identical;
   }
+
+  void blogDraftUser(){
+
+    blog('DraftUser(');
+    blog('  id: $id,');
+    blog('  signInMethod: $signInMethod,');
+    blog('  createdAt: $createdAt,');
+    blog('  need: $need,');
+    blog('  name: $name,');
+    blog('  trigram: $trigram,');
+    blog('  picModel: ${picModel?.path} | ${picModel?.bytes?.length} bytes | ${picModel?.meta?.width} | ${picModel?.meta?.height} | ${picModel?.meta?.ownersIDs},');
+    blog('  title: $title,');
+    blog('  company: $company,');
+    blog('  gender: $gender,');
+    blog('  zone: $zone,');
+    blog('  language: $language,');
+    blog('  location: $location,');
+    blog('  contacts: $contacts,');
+    blog('  contactsArePublic: $contactsArePublic,');
+    blog('  myBzzIDs: $myBzzIDs,');
+    blog('  emailIsVerified: $emailIsVerified,');
+    blog('  isAdmin: $isAdmin,');
+    blog('  device: $device,');
+    blog('  fcmTopics: $fcmTopics,');
+    blog('  savedFlyers: $savedFlyers,');
+    blog('  followedBzz: $followedBzz,');
+    blog('  appState: $appState,');
+    blog('  hasNewPic: $hasNewPic,');
+    blog('  nameController: $nameController,');
+    blog('  titleController: $titleController,');
+    blog('  companyController: $companyController,');
+    blog('  emailController: $emailController,');
+    blog('  phoneController: $phoneController,');
+    blog('  nameNode: $nameNode,');
+    blog('  titleNode: $titleNode,');
+    blog('  companyNode: $companyNode,');
+    blog('  emailNode: $emailNode,');
+    blog('  phoneNode: $phoneNode,');
+    blog('  formKey: $formKey,');
+    blog('  canPickImage: $canPickImage,');
+    blog(');');
+
+
+  }
   // -----------------------------------------------------------------------------
 
   /// OVERRIDES
 
   // --------------------
-  /*
    @override
-   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
-   */
+   String toString(){
+
+    final String _draft =
+    '''
+    DraftUser(
+      id: $id,
+      signInMethod: $signInMethod,
+      createdAt: $createdAt,
+      need: $need,
+      name: $name,
+      trigram: $trigram,
+      picModel: ${picModel?.path} | ${picModel?.bytes?.length} bytes | ${picModel?.meta?.width} x
+       ${picModel?.meta?.height} | ${picModel?.meta?.ownersIDs},
+      title: $title,
+      company: $company,
+      gender: $gender,
+      zone: $zone,
+      language: $language,
+      location: $location,
+      contacts: $contacts,
+      contactsArePublic: $contactsArePublic,
+      myBzzIDs: $myBzzIDs,
+      emailIsVerified: $emailIsVerified,
+      isAdmin: $isAdmin,
+      device: $device,
+      fcmTopics: $fcmTopics,
+      savedFlyers: $savedFlyers,
+      followedBzz: $followedBzz,
+      appState: $appState,
+      hasNewPic: $hasNewPic,
+      nameController: $nameController,
+      titleController: $titleController,
+      companyController: $companyController,
+      emailController: $emailController,
+      phoneController: $phoneController,
+      nameNode: $nameNode,
+      titleNode: $titleNode,
+      companyNode: $companyNode,
+      emailNode: $emailNode,
+      phoneNode: $phoneNode,
+      formKey: $formKey,
+      canPickImage: $canPickImage,
+    );
+    ''';
+
+    return _draft;
+   }
   // --------------------
   @override
   bool operator == (Object other){

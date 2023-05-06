@@ -1025,7 +1025,7 @@ class CensusModel {
   }){
     bool _shouldUpdate = false;
 
-    if (newUser != null){
+    if (newUser != null && oldUser != null){
 
       if (
         ZoneModel.checkZonesIDsAreIdentical(zone1: oldUser?.zone, zone2: newUser.zone) == false ||
