@@ -272,6 +272,16 @@ class AuthModel {
     }
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static const List<SignInMethod> signInMethodsList = [
+    SignInMethod.anonymous,
+    SignInMethod.email,
+    SignInMethod.google,
+    SignInMethod.facebook,
+    SignInMethod.apple,
+    SignInMethod.nativeEmail,
+  ];
   // -----------------------------------------------------------------------------
 
   /// CYPHER USER INFO

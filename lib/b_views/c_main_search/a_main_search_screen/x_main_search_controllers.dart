@@ -11,7 +11,7 @@ import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/search_provider.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
-import 'package:bldrs/c_protocols/bz_protocols/fire/bz_search.dart' as BzFireSearch;
+import 'package:bldrs/c_protocols/bz_protocols/fire/bz_search.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_search.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_search.dart';
 import 'package:bldrs/c_protocols/user_protocols/real/user_record_real_ops.dart';
@@ -210,7 +210,7 @@ Future<List<SearchResult>> _searchBzz({
 
   blog('_onSearchBzz : _searchController.text : $searchText');
 
-  final List<BzModel> _bzz = await BzFireSearch.paginateBzzBySearchingBzName(
+  final List<BzModel> _bzz = await BzSearch.paginateBzzBySearchingBzName(
     bzName: searchText,
     limit: 10,
     startAfter: startAfter,
@@ -247,7 +247,7 @@ Future<List<SearchResult>> _searchAuthors({
 
   final List<SearchResult> _results = <SearchResult>[];
 
-  final List<UserModel> _users = await UserFireSearch.usersByNameAndIsAuthor(
+  final List<UserModel> _users = await UserSearch.usersByNameAndIsAuthor(
     name: searchText,
   );
 

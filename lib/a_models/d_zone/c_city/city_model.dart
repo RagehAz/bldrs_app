@@ -318,7 +318,12 @@ class CityModel {
         );
 
         if (_isInList == true){
-          _output.add(city);
+
+          final bool _alreadyAdded = checkCitiesIncludeCityID(_output, city.cityID);
+          if (_alreadyAdded == false){
+            _output.add(city);
+          }
+
         }
 
       }
