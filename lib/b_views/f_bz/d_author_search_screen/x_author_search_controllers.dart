@@ -36,7 +36,7 @@ Future<void> onSearchUsers({
 
     final String _fixedText = TextMod.fixSearchText(text);
 
-    final List<UserModel> _users = await UserFireSearch.usersByUserName(
+    final List<UserModel> _users = await UserSearch.usersByUserName(
       name: _fixedText,
       // startAfter: Mapper.checkCanLoopList(foundUsers?.value) ? foundUsers?.value?.last?.docSnapshot : null,
       userIDsToExclude: userIDsToExclude,

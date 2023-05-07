@@ -355,10 +355,7 @@ class BzTyper {
       strings: _typesTranslated,
     );
 
-    final String _bzFormPhid = getBzFormPhid(
-      context: context,
-      bzForm: bzForm,
-    );
+    final String _bzFormPhid = getBzFormPhid(bzForm);
     final String _formTranslated = xPhrase(context, _bzFormPhid);
 
     String _output = '$_bzTypesOneString\n$_formTranslated';
@@ -690,10 +687,7 @@ class BzTyper {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getBzFormPhid({
-    @required BuildContext context,
-    @required BzForm bzForm,
-  }){
+  static String getBzFormPhid(BzForm bzForm){
 
     if (bzForm == BzForm.company){
       return 'phid_company';
@@ -719,10 +713,7 @@ class BzTyper {
     if (Mapper.checkCanLoopList(bzForms) == true){
 
       for (final BzForm bzForm in bzForms){
-        final String _translation = getBzFormPhid(
-          context: context,
-          bzForm: bzForm,
-        );
+        final String _translation = getBzFormPhid(bzForm);
         _strings.add(_translation);
       }
 

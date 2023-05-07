@@ -118,6 +118,17 @@ class Localizer {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
+  static List<String> supportedLangCodes = <String>[
+    'en',
+    'ar',
+    'es',
+    'fr',
+    'zh',
+    'de',
+    'it',
+  ];
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Locale localeResolutionCallback(Locale deviceLocale, Iterable<Locale> supportedLocales) {
 
     for (final Locale locale in supportedLocales) {
