@@ -107,7 +107,6 @@ class SearchProvider extends ChangeNotifier {
       notify: notify,
     );
 
-
   }
   // -----------------------------------------------------------------------------
 
