@@ -6,7 +6,7 @@ import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:night_sky/night_sky.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/c_protocols/bz_protocols/fire/bz_search.dart' as BzFireSearch;
+import 'package:bldrs/c_protocols/bz_protocols/fire/bz_search.dart';
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:filers/filers.dart';
 import 'package:layouts/layouts.dart';
@@ -46,7 +46,7 @@ Future<void> onSearchBzz({
 
     final String _fixedText = TextMod.fixSearchText(text);
 
-    final List<BzModel> _bzz = await BzFireSearch.paginateBzzBySearchingBzName(
+    final List<BzModel> _bzz = await BzSearch.paginateBzzBySearchingBzName(
       bzName: _fixedText,
       limit: 10,
       startAfter: startAfter,

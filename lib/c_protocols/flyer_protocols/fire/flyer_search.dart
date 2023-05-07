@@ -93,7 +93,7 @@ class FlyerSearch {
               value: keywordID,
             ),
 
-          if (title != null)
+          if (TextCheck.isEmpty(title?.trim()) == false)
             FireFinder(
                 field: 'trigram',
                 comparison: FireComparison.arrayContains,
