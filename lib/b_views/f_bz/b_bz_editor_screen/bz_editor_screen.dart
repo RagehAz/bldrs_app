@@ -424,10 +424,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
               pluralTranslation: false,
             );
 
-            final String _selectedBzFormPhid = BzTyper.getBzFormPhid(
-              context: context,
-              bzForm: draft?.bzForm,
-            );
+            final String _selectedBzFormPhid = BzTyper.getBzFormPhid(draft?.bzForm);
 
             final List<String> _inactiveBzFormsPhids = BzTyper.getBzFormsPhids(
               context: context,
@@ -705,7 +702,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                           translate: true,
                         )
                       ],
-                      onAddScope: (FlyerType flyerType) => onChangeBzScope(
+                      onFlyerTypeBubbleTap: (FlyerType flyerType) => onChangeBzScope(
                         context: context,
                         draftNotifier: draftNotifier,
                         flyerType: flyerType,
