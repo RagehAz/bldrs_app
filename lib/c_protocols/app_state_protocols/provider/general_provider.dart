@@ -3,8 +3,6 @@ import 'package:bldrs/a_models/x_secondary/app_state.dart';
 import 'package:bldrs/a_models/x_utilities/xx_app_controls_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-// import 'package:bldrs/a_models/x_utilities/xx_app_controls_model.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/provider/search_provider.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/real/app_controls_real_ops.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/real/app_state_real_ops.dart';
@@ -304,10 +302,6 @@ class GeneralProvider extends ChangeNotifier {
     FlyersProvider.wipeOut(context: context, notify: true);
     /// ChainsProvider
     ChainsProvider.wipeOut(context: context, notify: true);
-    /// SearchProvider
-    SearchProvider.wipeOut(context: context, notify: true);
-    // /// QuestionsProvider
-    // QuestionsProvider.wipeOut(context: context, notify: true);
 
   }
   // -----------------------------------------------------------------------------

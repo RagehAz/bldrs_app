@@ -6,7 +6,6 @@ import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/general_provider.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/provider/search_provider.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
@@ -257,12 +256,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
           ChangeNotifierProvider<ChainsProvider>(
             create: (BuildContext ctx) => ChainsProvider(),
           ),
-          ChangeNotifierProvider<SearchProvider>(
-            create: (BuildContext ctx) => SearchProvider(),
-          ),
-          // ChangeNotifierProvider<QuestionsProvider>(
-          //   create: (BuildContext ctx) => QuestionsProvider(),
-          // ),
+
         ],
         child: ValueListenableBuilder<Locale>(
           valueListenable: _locale,

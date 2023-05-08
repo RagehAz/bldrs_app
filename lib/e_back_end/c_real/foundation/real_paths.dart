@@ -223,11 +223,6 @@ class RealColl {
   /// USER
   // --------------------
   static const String recordingSearches = 'recordingSearches';
-  // ----------------------------------
-  /// QUESTIONS - ANSWERS
-  // --------------------
-  static const String recordingQuestions = 'recordingQuestions';
-  static const String recordingAnswers = 'recordingAnswers';
   // -----------------------------------------------------------------------------
   /// CHAINS
   // --------------------
