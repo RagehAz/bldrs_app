@@ -201,64 +201,6 @@ class UiProvider extends ChangeNotifier {
   }
   // -----------------------------------------------------------------------------
 
-  /// LOADING
-
-  // --------------------
-  bool _loading = false;
-  bool get isLoading => _loading;
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  void triggerLoading({
-    @required String callerName,
-    @required bool notify,
-    bool setLoadingTo,
-  }) {
-    /// trigger loading method should remain Future as it starts controllers of
-    /// each screen like triggerLoading.then(()=>methods)
-    /// in didChangeDependencies override
-
-    if (setLoadingTo == null){
-      _loading = !_loading;
-      if (notify == true) {
-        notifyListeners();
-      }
-    }
-
-    else {
-      if (_loading != setLoadingTo){
-
-        _loading = setLoadingTo;
-        if (notify == true) {
-          notifyListeners();
-        }
-
-      }
-    }
-
-    if (_loading == true) {
-      blog('$callerName : LOADING --------------------------------------');
-    } else {
-      blog('$callerName : LOADING COMPLETE -----------------------------');
-    }
-
-  }
-  // --------------------
-  /// --- LOADING SELECTOR TEMPLATE
-  /*
-
-  Selector<UiProvider, bool>(
-            selector: (_, UiProvider uiProvider) => uiProvider.loading,
-            child: WebsafeSvg.asset(widget.pyramidsIcon),
-            // shouldRebuild: ,
-            builder: (BuildContext context, bool loading, Widget child){
-
-            return const SizeBox();
-
-            }
-
-   */
-  // -----------------------------------------------------------------------------
-
   /// KEYBOARD
 
   // --------------------
@@ -287,22 +229,6 @@ class UiProvider extends ChangeNotifier {
       }
 
     }
-
-  }
-  // -----------------------------------------------------------------------------
-
-  /// TEXT FIELD OBSCURED
-
-  // --------------------
-  void startController(Function controllerMethod) {
-
-    Future<void> _start() async {}
-
-    _start().then((_) async {
-
-      await controllerMethod();
-
-    });
 
   }
   // -----------------------------------------------------------------------------
@@ -733,8 +659,6 @@ class UiProvider extends ChangeNotifier {
 
     /// _localAssetsPaths
     _uiProvider._setLocalAssetPaths(paths: <String>[], notify: false);
-    /// _loading
-    _uiProvider.triggerLoading(callerName: 'WipeOut', notify: false, setLoadingTo: false);
     /// _keyboardModel
     // _uiProvider.setKeyboard(model: null, notify: false, invoker: 'Ui provider wipeOut');
     /// _keyboardIsOn
@@ -752,19 +676,6 @@ class UiProvider extends ChangeNotifier {
     _uiProvider._setPyramidsAreExpanded(setTo: false, notify: notify);
   }
   // -----------------------------------------------------------------------------
-}
-// -----------------------------------------------------------------------------
-/// TESTED : WORKS PERFECT
-void triggerUILoading({
-  @required BuildContext context,
-  @required String callerName,
-  bool listen = true,
-}){
-  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
-  _uiProvider.triggerLoading(
-    callerName: callerName,
-    notify: true,
-  );
 }
   // --------------------
 /// TESTED : WORKS PERFECT

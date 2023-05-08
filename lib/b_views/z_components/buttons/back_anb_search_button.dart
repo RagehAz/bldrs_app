@@ -1,14 +1,11 @@
-import 'package:bldrs/b_views/c_main_search/a_main_search_screen/a_main_search_screen.dart';
+import 'package:bldrs/b_views/c_main_search/super_search_screen.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:filers/filers.dart';
 import 'package:layouts/layouts.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 enum BackAndSearchAction {
   goToSearchScreen,
@@ -92,26 +89,19 @@ class BackAndSearchButton extends StatelessWidget {
 
             if (backAndSearchAction == BackAndSearchAction.goBack) {
 
+              Keyboard.closeKeyboard(context);
+
               await Nav.goBack(
                 context: context,
                 invoker: 'BackAndSearchButton',
               );
-
-              final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
-              _uiProvider.triggerLoading(
-                setLoadingTo: false,
-                callerName: 'BackAndSearchButton',
-                notify: true,
-              );
-              // _uiProvider.triggerIsSearching(setIsSearchingTo: false);
-              Keyboard.closeKeyboard(context);
 
             }
 
             else if (backAndSearchAction == BackAndSearchAction.goToSearchScreen) {
               await Nav.goToNewScreen(
                 context: context,
-                screen: const MainSearchScreen(),
+                screen: const SuperSearchScreen(),
                 pageTransitionType: Nav.superHorizontalTransition(
                   context: context,
                   // inverse: false,
