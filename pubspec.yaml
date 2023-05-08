@@ -163,7 +163,10 @@ dependencies:
   dialogs:
     git:
       url: https://github.com/RagehAz/dialogs.git
-#  super_stop_watch:
+  clock_rebuilder:
+    git:
+      url: https://github.com/RagehAz/clock_rebuilder.git
+  #  super_stop_watch:
 #    git:
 #      url: https://github.com/RagehAz/super_stop_watch.git
   # ---------------------------
