@@ -5,7 +5,6 @@ import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/bz_editor_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/b_app_langs_screen/b_app_langs_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/c_about_bldrs_screen/c_about_bldrs_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/d_feedback_screen/d_feedback_screen.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/provider/search_provider.dart';
 import 'package:bldrs/c_protocols/auth_protocols/auth_ldb_ops.dart';
 import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
@@ -109,12 +108,6 @@ Future<void> onSignOut(BuildContext context) async {
   /// CLEAR FLYERS
   final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
   _flyersProvider.clearPromotedFlyers(notify: false);
-
-  /// CLEAR SEARCHES
-  final SearchProvider _searchProvider = Provider.of<SearchProvider>(context, listen: false);
-  _searchProvider.clearSearchResult(notify: false);
-  _searchProvider.clearSearchRecords(notify: false);
-  _searchProvider.closeAllZoneSearches(notify: true);
 
   /// CLEAR KEYWORDS
   final ChainsProvider _keywordsProvider = Provider.of<ChainsProvider>(context, listen: false);

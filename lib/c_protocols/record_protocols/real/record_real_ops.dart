@@ -1,7 +1,6 @@
 import 'package:bldrs/a_models/k_statistics/record_model.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 
 class RecordRealOps {
@@ -31,12 +30,6 @@ class RecordRealOps {
       // RecordModel.cipherRecordType(RecordType.createReview):   '${RealColl.recordingReviews}/$modelID/',     // modelID = flyerID
       // RecordModel.cipherRecordType(RecordType.editReview):     '${RealColl.recordingReviews}/$modelID/',     // modelID = flyerID
       // RecordModel.cipherRecordType(RecordType.deleteReview):   '${RealColl.recordingReviews}/$modelID/',      // modelID = flyerID
-      RecordModel.cipherRecordType(RecordType.createQuestion): '${RealColl.recordingQuestions}/$modelID/',   // modelID = questionID
-      RecordModel.cipherRecordType(RecordType.editQuestion):   '${RealColl.recordingQuestions}/$modelID/',   // modelID = questionID
-      RecordModel.cipherRecordType(RecordType.deleteQuestion): '${RealColl.recordingQuestions}/$modelID/',   // modelID = questionID
-      RecordModel.cipherRecordType(RecordType.createAnswer):   '${RealColl.recordingAnswers}/$modelID/',     // modelID = questionID
-      RecordModel.cipherRecordType(RecordType.editAnswer):     '${RealColl.recordingAnswers}/$modelID/',     // modelID = questionID
-      RecordModel.cipherRecordType(RecordType.deleteAnswer):   '${RealColl.recordingAnswers}/$modelID/',     // modelID = questionID
       RecordModel.cipherRecordType(RecordType.search):         '${RealColl.recordingSearches}/$modelID/',    // modelID = userID
     };
 
@@ -50,7 +43,7 @@ class RecordRealOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<RecordModel> createRecord({ /// TASK : CORRECT NAME REMOVE a
+  static Future<RecordModel> createRecord({
     @required RecordModel record,
   }) async {
 
@@ -79,64 +72,6 @@ class RecordRealOps {
       fromJSON: true,
     );
 
-  }
-  // -----------------------------------------------------------------------------
-
-  /// READ
-
-  // --------------------
-  static Future<List<RecordModel>> paginateRecords({
-    @required BuildContext context,
-    @required String userID,
-    @required RecordType activityType,
-    @required int limit,
-    DocumentSnapshot<Object> startAfter,
-  }) async {
-
-    // final CollectionReference<Object> _collRef = OfficialFire.getCollRef(
-    //   coll: FireColl.records,
-    // );
-    // QuerySnapshot<Object> _collectionSnapshot;
-    //
-    // if (startAfter == null){
-    //
-    //   final Query _initialQuery = _collRef
-    //       .where('userID', isEqualTo: userID)
-    //       .where('activityType', isEqualTo: RecordModel.cipherRecordType(activityType))
-    //       .orderBy('timeStamp', descending: true)
-    //       .limit(limit);
-    //
-    //   _collectionSnapshot = await _initialQuery.get();
-    // }
-    //
-    // else {
-    //
-    //   final Query _continueQuery = _collRef
-    //       .where('userID', isEqualTo: userID)
-    //       .where('activityType', isEqualTo: RecordModel.cipherRecordType(activityType))
-    //       .orderBy('timeStamp', descending: true)
-    //       .startAfterDocument(startAfter)
-    //       .limit(limit);
-    //
-    //   _collectionSnapshot = await _continueQuery.get();
-    // }
-    //
-    // final List<Map<String, dynamic>> _foundMaps = Mapper.getMapsFromQuerySnapshot(
-    //   querySnapshot: _collectionSnapshot,
-    //   addDocsIDs: true,
-    //   addDocSnapshotToEachMap: true,
-    // );
-    //
-    // final List<RecordModel> _records = RecordModel.decipherRecords(
-    //   fromJSON: false,
-    //   maps: _foundMaps,
-    // );
-    //
-    // return _records;
-
-    blog('paginateRecords() : NOT IMPLEMENTED YET');
-
-    return [];
   }
   // -----------------------------------------------------------------------------
 
