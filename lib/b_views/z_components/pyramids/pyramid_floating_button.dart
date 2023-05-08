@@ -21,18 +21,20 @@ class PyramidFloatingButton extends StatelessWidget {
   final Function onLongTap;
   final bool isDeactivated;
   /// ---------------------------------------------------------------------------
+  static double size = 50;
+  /// ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     return NoteRedDotWrapper(
-      childWidth: 40,
+      childWidth: size,
       redDotIsOn: redDotCount > 0,
       count: redDotCount,
       shrinkChild: true,
       child: BldrsBox(
-        height: 40,
-        width: 40,
-        corners: 20,
+        height: size,
+        width: size,
+        corners: size/2,
         color: color,
         icon: icon,
         iconSizeFactor: 0.6,
