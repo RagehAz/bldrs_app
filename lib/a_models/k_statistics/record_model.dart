@@ -21,13 +21,6 @@ enum RecordType {
   editReview,
   deleteReview,
 
-  createQuestion,
-  editQuestion,
-  deleteQuestion,
-  createAnswer,
-  editAnswer,
-  deleteAnswer,
-
   search,
 }
 
@@ -61,7 +54,6 @@ class RecordModel {
     @required this.recordDetails,
     this.recordID,
     this.docSnapshot,
-    this.serverTimeStamp,
   });
   /// --------------------------------------------------------------------------
   final RecordType recordType;
@@ -73,7 +65,6 @@ class RecordModel {
   final RecordDetailsType recordDetailsType;
   final dynamic recordDetails;
   final DocumentSnapshot<Object> docSnapshot;
-  final FieldValue serverTimeStamp;
   // -----------------------------------------------------------------------------
 
   /// CYPHERS
@@ -119,7 +110,6 @@ class RecordModel {
         recordDetailsType: _decipherRecordDetailsType(map['recordDetailsType']),
         recordDetails: map['recordDetails'],
         // docSnapshot: map['docSnapshot'],
-        serverTimeStamp: map['serverTimeStamp'],
       );
 
     }
@@ -190,12 +180,6 @@ class RecordModel {
       case RecordType.createReview:   return 'createReview';    break;
       case RecordType.editReview:     return 'editReview';      break;
       case RecordType.deleteReview:   return 'deleteReview';    break;
-      case RecordType.createQuestion: return 'createQuestion';  break;
-      case RecordType.editQuestion:   return 'editQuestion';    break;
-      case RecordType.deleteQuestion: return 'deleteQuestion';  break;
-      case RecordType.createAnswer:   return 'createAnswer';    break;
-      case RecordType.editAnswer:     return 'editAnswer';      break;
-      case RecordType.deleteAnswer:   return 'deleteAnswer';    break;
       case RecordType.search:         return 'search';          break;
       default:return null;
     }
@@ -214,12 +198,6 @@ class RecordModel {
       case 'createReview':    return RecordType.createReview;   break;
       case 'editReview':      return RecordType.editReview;     break;
       case 'deleteReview':    return RecordType.deleteReview;   break;
-      case 'question':        return RecordType.createQuestion; break;
-      case 'editQuestion':    return RecordType.editQuestion;   break;
-      case 'deleteQuestion':  return RecordType.deleteQuestion; break;
-      case 'createAnswer':    return RecordType.createAnswer;   break;
-      case 'editAnswer':      return RecordType.editAnswer;     break;
-      case 'deleteAnswer':    return RecordType.deleteAnswer;   break;
       case 'search':          return RecordType.search;         break;
       default:return null;
     }
@@ -269,12 +247,6 @@ class RecordModel {
       case RecordType.createReview    : return ModelType.flyer; break;
       case RecordType.editReview      : return ModelType.flyer; break;
       case RecordType.deleteReview    : return ModelType.flyer; break;
-      case RecordType.createQuestion  : return ModelType.question; break;
-      case RecordType.editQuestion    : return ModelType.question; break;
-      case RecordType.deleteQuestion  : return ModelType.question; break;
-      case RecordType.createAnswer    : return ModelType.question; break;
-      case RecordType.editAnswer      : return ModelType.question; break;
-      case RecordType.deleteAnswer    : return ModelType.question; break;
       case RecordType.search          : return ModelType.user; break;
       default: return null;
     }
@@ -448,7 +420,6 @@ class RecordModel {
 
     return RecordModel(
       recordID: '${bzID}_$userID',
-      serverTimeStamp: FieldValue.serverTimestamp(),
       recordType: RecordType.follow,
       userID: userID,
       timeStamp: DateTime.now(),
@@ -468,7 +439,6 @@ class RecordModel {
 
     return RecordModel(
       recordID: '${bzID}_$userID',
-      serverTimeStamp: FieldValue.serverTimestamp(),
       recordType: RecordType.unfollow,
       userID: userID,
       timeStamp: DateTime.now(),
@@ -489,7 +459,6 @@ class RecordModel {
 
     return RecordModel(
       // recordID: '${bzID}_$userID', // NO MAKE A RECORD FOR EACH CALL
-      serverTimeStamp: FieldValue.serverTimestamp(),
       recordType: RecordType.call,
       userID: userID,
       timeStamp: DateTime.now(),
@@ -513,7 +482,6 @@ class RecordModel {
 
     return RecordModel(
       // recordID: '${flyerID}_$userID', // MAKE A RECORD FOR EACH SHARE : LEAVE IT NULL
-      serverTimeStamp: FieldValue.serverTimestamp(),
       recordType: RecordType.share,
       userID: userID,
       timeStamp: DateTime.now(),
@@ -535,7 +503,6 @@ class RecordModel {
 
     return RecordModel(
       recordID: '${flyerID}_${slideIndex}_$userID',
-      serverTimeStamp: FieldValue.serverTimestamp(),
       recordType: RecordType.view,
       userID: userID,
       timeStamp: DateTime.now(),
@@ -587,7 +554,6 @@ class RecordModel {
 
     return RecordModel(
       recordID: '${flyerID}_$userID',
-      serverTimeStamp: FieldValue.serverTimestamp(),
       recordType: RecordType.save,
       userID: userID,
       timeStamp: DateTime.now(),
@@ -607,7 +573,6 @@ class RecordModel {
 
     return RecordModel(
       recordID: '${flyerID}_$userID',
-      serverTimeStamp: FieldValue.serverTimestamp(),
       recordType: RecordType.unSave,
       userID: userID,
       timeStamp: DateTime.now(),
@@ -627,7 +592,6 @@ class RecordModel {
   }){
 
     return RecordModel(
-      serverTimeStamp: FieldValue.serverTimestamp(),
       recordType: RecordType.createReview,
       userID: userID,
       timeStamp: DateTime.now(),
@@ -647,7 +611,6 @@ class RecordModel {
   }){
 
     return RecordModel(
-      serverTimeStamp: FieldValue.serverTimestamp(),
       recordType: RecordType.editReview,
       userID: userID,
       timeStamp: DateTime.now(),
@@ -666,7 +629,6 @@ class RecordModel {
   }){
 
     return RecordModel(
-      serverTimeStamp: FieldValue.serverTimestamp(),
       recordType: RecordType.deleteReview,
       userID: userID,
       timeStamp: DateTime.now(),
@@ -674,127 +636,6 @@ class RecordModel {
       modelID: flyerID,
       recordDetailsType: null,
       recordDetails: null,
-    );
-
-  }
-  // -----------------------------------------------------------------------------
-
-  /// QUESTION RECORD CREATORS
-
-  // --------------------
-  /// TASK : TEST ME
-  static RecordModel createCreateQuestionRecord({
-    @required String userID,
-    @required String questionID,
-  }){
-
-    return RecordModel(
-      serverTimeStamp: FieldValue.serverTimestamp(),
-      recordType: RecordType.createQuestion,
-      userID: userID,
-      timeStamp: DateTime.now(),
-      modelType: getModelTypeByRecordType(RecordType.createQuestion),
-      modelID: questionID,
-      recordDetailsType: null,
-      recordDetails: null,
-    );
-
-  }
-  // --------------------
-  /// TASK : TEST ME
-  static RecordModel createEditQuestionRecord({
-    @required String userID,
-    @required String questionID,
-  }){
-
-    return RecordModel(
-      serverTimeStamp: FieldValue.serverTimestamp(),
-      recordType: RecordType.editQuestion,
-      userID: userID,
-      timeStamp: DateTime.now(),
-      modelType: getModelTypeByRecordType(RecordType.editQuestion),
-      modelID: questionID,
-      recordDetailsType: null,
-      recordDetails: null,
-    );
-
-  }
-  // --------------------
-  /// TASK : TEST ME
-  static RecordModel createDeleteQuestionRecord({
-    @required String userID,
-    @required String questionID,
-  }){
-
-    return RecordModel(
-      serverTimeStamp: FieldValue.serverTimestamp(),
-      recordType: RecordType.deleteQuestion,
-      userID: userID,
-      timeStamp: DateTime.now(),
-      modelType: getModelTypeByRecordType(RecordType.deleteQuestion),
-      modelID: questionID,
-      recordDetailsType: null,
-      recordDetails: null,
-    );
-
-  }
-  // --------------------
-  /// TASK : TEST ME
-  static RecordModel createCreateAnswerRecord({
-    @required String userID,
-    @required String questionID,
-    @required String answerID,
-  }){
-
-    return RecordModel(
-      serverTimeStamp: FieldValue.serverTimestamp(),
-      recordType: RecordType.createAnswer,
-      userID: userID,
-      timeStamp: DateTime.now(),
-      modelType: getModelTypeByRecordType(RecordType.createAnswer),
-      modelID: questionID,
-      recordDetailsType: RecordDetailsType.answerID,
-      recordDetails: answerID,
-    );
-
-  }
-  // --------------------
-  /// TASK : TEST ME
-  static RecordModel createEditAnswerRecord({
-    @required String userID,
-    @required String questionID,
-    @required String answerID,
-  }){
-
-    return RecordModel(
-      serverTimeStamp: FieldValue.serverTimestamp(),
-      recordType: RecordType.editAnswer,
-      userID: userID,
-      timeStamp: DateTime.now(),
-      modelType: getModelTypeByRecordType(RecordType.editAnswer),
-      modelID: questionID,
-      recordDetailsType: RecordDetailsType.answerID,
-      recordDetails: answerID,
-    );
-
-  }
-  // --------------------
-  /// TASK : TEST ME
-  static RecordModel createDeleteAnswerRecord({
-    @required String userID,
-    @required String questionID,
-    @required String answerID,
-  }){
-
-    return RecordModel(
-      serverTimeStamp: FieldValue.serverTimestamp(),
-      recordType: RecordType.deleteAnswer,
-      userID: userID,
-      timeStamp: DateTime.now(),
-      modelType: getModelTypeByRecordType(RecordType.deleteAnswer),
-      modelID: questionID,
-      recordDetailsType: RecordDetailsType.answerID,
-      recordDetails: answerID,
     );
 
   }
@@ -811,7 +652,6 @@ class RecordModel {
 
     return RecordModel(
       // recordID: , // MAKE A RECORD FOR EACH SEARCH
-      serverTimeStamp: FieldValue.serverTimestamp(),
       recordType: RecordType.search,
       userID: userID,
       timeStamp: DateTime.now(),
@@ -840,7 +680,6 @@ class RecordModel {
       modelID: Authing.getUserID(),
       recordDetailsType: RecordDetailsType.text,
       recordDetails: 'This is a dummy record',
-      serverTimeStamp: FieldValue.serverTimestamp(),
     );
 
     return _recordModel;
@@ -894,7 +733,7 @@ class RecordModel {
     blog('userID : $userID');
     blog('modelType : $modelType : modelID : $modelID');
     blog('recordDetailsType : $recordDetailsType : recordDetails : $recordDetails');
-    blog('timeStamp : $timeStamp : serverTimeStamp : $serverTimeStamp');
+    blog('timeStamp : $timeStamp');
     blog('docSnapshot : $docSnapshot');
     blog('BLOG RECORD : END');
   }
