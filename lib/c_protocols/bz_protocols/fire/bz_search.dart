@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
+import 'package:bldrs/a_models/m_search/search_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
@@ -14,18 +15,11 @@ class BzSearch {
 
   // -----------------------------------------------------------------------------
   static FireQueryModel createQuery({
-    String countryID,
-    String cityID,
-    BzType bzType,
-    BzForm bzForm,
-    String bzScopePhid,
+    SearchModel searchModel,
     String bzName,
     String orderBy,
     bool descending,
     int limit = 4,
-    BzAccountType bzAccountType,
-    bool onlyBzzShowingTeams,
-    bool onlyVerifiedBzz,
 }){
 
     final QueryOrderBy _orderBy = orderBy == null ? null : QueryOrderBy(
@@ -40,32 +34,32 @@ class BzSearch {
         // idFieldName: 'id',
         finders: <FireFinder>[
 
-          if (countryID != null)
+          if (searchModel?.zone?.countryID != null)
             FireFinder(
               field: 'zone.countryID',
               comparison: FireComparison.equalTo,
-              value: countryID,
+              value: searchModel?.zone?.countryID,
             ),
 
-          if (cityID != null)
+          if (searchModel?.zone?.cityID != null)
             FireFinder(
               field: 'zone.cityID',
               comparison: FireComparison.equalTo,
-              value: cityID,
+              value: searchModel?.zone?.cityID,
             ),
 
-          if (bzType != null)
+          if (searchModel?.bzSearchModel?.bzType != null)
             FireFinder(
               field: 'bzTypes',
               comparison: FireComparison.arrayContains,
-              value: BzTyper.cipherBzType(bzType),
+              value: BzTyper.cipherBzType(searchModel?.bzSearchModel?.bzType),
             ),
 
-          if (bzScopePhid != null)
+          if (searchModel?.bzSearchModel?.scopePhid != null)
             FireFinder(
               field: 'scope',
               comparison: FireComparison.arrayContains,
-              value: bzScopePhid,
+              value: searchModel?.bzSearchModel?.scopePhid,
             ),
 
           if (TextCheck.isEmpty(bzName?.trim()) == false)
@@ -77,28 +71,28 @@ class BzSearch {
                   numberOfChars: Standards.maxTrigramLength,
                 )),
 
-          if (bzForm != null)
+          if (searchModel?.bzSearchModel?.bzForm != null)
             FireFinder(
               field: 'bzForm',
               comparison: FireComparison.equalTo,
-              value: BzTyper.cipherBzForm(bzForm),
+              value: BzTyper.cipherBzForm(searchModel?.bzSearchModel?.bzForm),
             ),
 
-          if (bzAccountType != null)
+          if (searchModel?.bzSearchModel?.bzAccountType != null)
             FireFinder(
             field: 'accountType',
             comparison: FireComparison.equalTo,
-            value: BzTyper.cipherBzAccountType(bzAccountType),
+            value: BzTyper.cipherBzAccountType(searchModel?.bzSearchModel?.bzAccountType),
           ),
 
-          if (onlyBzzShowingTeams == true)
+          if (searchModel?.bzSearchModel?.onlyShowingTeams == true)
             const FireFinder(
               field: 'showsTeam',
               comparison: FireComparison.equalTo,
               value: true,
             ),
 
-          if (onlyVerifiedBzz == true)
+          if (searchModel?.bzSearchModel?.onlyVerified == true)
             const FireFinder(
               field: 'isVerified',
               comparison: FireComparison.equalTo,

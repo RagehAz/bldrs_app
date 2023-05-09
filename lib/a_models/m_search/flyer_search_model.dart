@@ -52,6 +52,31 @@ class FlyerSearchModel {
       auditState: auditState ?? this.auditState,
     );
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  FlyerSearchModel nullifyField({
+    bool flyerType = false,
+    bool onlyShowingAuthors = false,
+    bool onlyWithPrices = false,
+    bool onlyWithPDF = false,
+    bool onlyAmazonProducts = false,
+    bool phid = false,
+    bool publishState = false,
+    bool auditState = false,
+  }){
+
+    return FlyerSearchModel(
+      flyerType: flyerType == true ? null : this.flyerType,
+      onlyShowingAuthors: onlyShowingAuthors == true ? null : this.onlyShowingAuthors,
+      onlyWithPrices: onlyWithPrices == true ? null : this.onlyWithPrices,
+      onlyWithPDF: onlyWithPDF == true ? null : this.onlyWithPDF,
+      onlyAmazonProducts: onlyAmazonProducts == true ? null : this.onlyAmazonProducts,
+      phid: phid == true ? null : this.phid,
+      publishState: publishState == true ? null : this.publishState,
+      auditState: auditState == true ? null : this.auditState,
+    );
+
+  }
   // -----------------------------------------------------------------------------
 
   /// CIPHERS
