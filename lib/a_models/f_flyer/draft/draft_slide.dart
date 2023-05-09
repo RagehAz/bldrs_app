@@ -16,7 +16,7 @@ import 'package:super_image/super_image.dart';
 /// => TAMAM
 @immutable
 class DraftSlide {
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   const DraftSlide({
     @required this.flyerID,
     @required this.slideIndex,
@@ -30,7 +30,7 @@ class DraftSlide {
     @required this.filter,
     @required this.animationCurve,
   });
-  /// --------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
   final String flyerID;
   final int slideIndex;
   final PicModel picModel;
