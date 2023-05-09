@@ -113,7 +113,9 @@ class FCM {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> requestAwesomePermission() async {
+  static Future<void> requestAwesomePermission({
+    @required ChannelModel channel,
+  }) async {
 
     /// NOTE : THIS PUSHES NATIVE NOTIFICATIONS PERMISSIONS SCREEN
 
@@ -139,7 +141,7 @@ class FCM {
     // blog('requestAwesomePermission : permissions are : $_allowed');
 
     await getAwesomeNoots()?.requestPermissionToSendNotifications(
-      channelKey: ChannelModel.bldrsChannel.id,
+      channelKey: channel.id,
       permissions: _permissions,
     );
 
@@ -206,20 +208,22 @@ class FCM {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<NotificationChannel> generateBldrsNootChannels(){
+  static List<NotificationChannel> generateBldrsNootChannels({
+    @required ChannelModel channel,
+  }){
 
     final List<NotificationChannel> _channels = <NotificationChannel>[
 
       NotificationChannel(
         /// CHANNEL
-        channelKey: ChannelModel.bldrsChannel.id,
-        channelName: ChannelModel.bldrsChannel.name,
+        channelKey: channel.id,
+        channelName: channel.name,
         /// this will be visible to user in android notification settings
-        channelDescription: ChannelModel.bldrsChannel.description,
+        channelDescription: channel.description,
 
         /// GROUP
-        channelGroupKey: ChannelModel.bldrsChannel.group,
-        groupKey: ChannelModel.bldrsChannel.group,
+        channelGroupKey: channel.group,
+        groupKey: channel.group,
         groupSort: GroupSort.Asc,
 
         /// ICON
@@ -261,14 +265,16 @@ class FCM {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<NotificationChannelGroup> getBldrsChannelGroups(){
+  static List<NotificationChannelGroup> getBldrsChannelGroups({
+    @required ChannelModel channel,
+  }){
 
     return <NotificationChannelGroup>[
 
       /// GENERAL
       NotificationChannelGroup(
-        channelGroupkey: ChannelModel.bldrsChannel.group,
-        channelGroupName: ChannelModel.bldrsChannel.group,
+        channelGroupkey: channel.id,
+        channelGroupName: channel.group,
       ),
 
     ];
@@ -281,6 +287,7 @@ class FCM {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> pushGlobalNoot({
+    @required ChannelModel channelModel,
     @required String title,
     @required String body,
     Map<String, String> payloadMap,
@@ -303,6 +310,7 @@ class FCM {
         await getAwesomeNoots()?.createNotification(
           /// CONTENT
           content: _createGlobalNootContent(
+            channelModel: channelModel,
             body: body,
             title: title,
             nootIcon: _largeIconURL,
@@ -361,6 +369,7 @@ class FCM {
   // --------------------
   /// TESTED : WORKS PERFECT
   static NotificationContent _createGlobalNootContent({
+    @required ChannelModel channelModel,
     @required String title,
     @required String body,
     bool canBeDismissedWithoutTapping = true,
@@ -397,9 +406,9 @@ class FCM {
       id: Numeric.createUniqueID(maxDigitsCount: 8),
 
       /// CHANNEL
-      channelKey: ChannelModel.bldrsChannel.id,
-      summary: ChannelModel.bldrsChannel.description,
-      groupKey: ChannelModel.bldrsChannel.group,
+      channelKey: channelModel.id,
+      summary: channelModel.description,
+      groupKey: channelModel.group,
 
       /// ACTION
       // actionType: ActionType.Default,
