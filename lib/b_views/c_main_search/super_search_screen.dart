@@ -7,6 +7,7 @@ import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/k_statistics/record_model.dart';
+import 'package:bldrs/a_models/m_search/user_search_model.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/x_home_screen_controllers.dart';
 import 'package:bldrs/b_views/c_main_search/z_components/filter_bool_tile.dart';
 import 'package:bldrs/b_views/c_main_search/z_components/filter_multi_button_tile.dart';
@@ -72,7 +73,6 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
   final ValueNotifier<bool> _filtersAreOn = ValueNotifier(false);
   ModelType _searchType = ModelType.flyer;
   ZoneModel _zone;
-  String _currencyID;
   // --------------------
   FlyerType _flyerType;
   PublishState _publishState;
@@ -211,7 +211,6 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
       auditState: _auditState,
       showsAuthor: _onlyFlyersShowingAuthors,
       hasPrice: _onlyFlyersWithPrices,
-      currencyID: _currencyID,
       hasAffiliateLink: onlyAmazonFlyers,
       gtaLink: _getSearchURL(),
       hasPDF: _onlyFlyersWithPDF,
@@ -237,7 +236,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
   // --------------------
   void _generateUserQuery(){
 
-    _usersQuery = UserSearch.createQuery(
+    _usersQuery = UserFireSearchOps.createQuery(
       countryID: _zone?.countryID,
       cityID: _zone?.cityID,
       searchText: _getSearchText(),
@@ -846,7 +845,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
                 });
               }
             },
-        items: UserSearch.userSearchTypes,
+        items: UserSearchModel.userSearchTypes,
         selectedItem: _userSearchType,
         itemVerse: (dynamic type) => Verse.plain(TextMod.removeTextBeforeFirstSpecialCharacter(type.toString(), '.')),
         onItemTap: (dynamic type) {

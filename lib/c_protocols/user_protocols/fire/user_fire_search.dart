@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/a_user/sub/need_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/a_models/m_search/user_search_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
@@ -7,29 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:stringer/stringer.dart';
 
-enum UserSearchType {
-  byName,
-  byEmail,
-  byPhone,
-  byJobTitle,
-  byCompanyName,
-  byDeviceID,
-}
-
-class UserSearch{
+class UserFireSearchOps{
   // -----------------------------------------------------------------------------
 
-  const UserSearch();
+  const UserFireSearchOps();
 
   // -----------------------------------------------------------------------------
-  static const List<UserSearchType> userSearchTypes = [
-    UserSearchType.byName,
-    UserSearchType.byEmail,
-    UserSearchType.byPhone,
-    UserSearchType.byJobTitle,
-    UserSearchType.byCompanyName,
-    UserSearchType.byDeviceID,
-  ];
   // -----------------------------------------------------------------------------
   static FireQueryModel createQuery({
     String countryID,

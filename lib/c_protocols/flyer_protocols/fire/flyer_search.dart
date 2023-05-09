@@ -47,128 +47,106 @@ class FlyerSearch {
     AuditState auditState,
     bool showsAuthor,
     bool hasPrice,
-    String currencyID,
     bool hasAffiliateLink,
     String gtaLink,
     bool hasPDF,
-  }){
-
-    final QueryOrderBy _orderBy = orderBy == null ? null : QueryOrderBy(
-      fieldName: orderBy,
-      descending: descending,
-    );
+  }) {
+    final QueryOrderBy _orderBy = orderBy == null
+        ? null
+        : QueryOrderBy(
+            fieldName: orderBy,
+            descending: descending,
+          );
 
     return FireQueryModel(
-        coll: FireColl.flyers,
-        orderBy: _orderBy,
-        limit: limit,
-        // idFieldName: 'id',
-        finders: <FireFinder>[
-
-          if (countryID != null)
-            FireFinder(
-              field: 'zone.countryID',
-              comparison: FireComparison.equalTo,
-              value: countryID,
-            ),
-
-          if (cityID != null)
-            FireFinder(
-              field: 'zone.cityID',
-              comparison: FireComparison.equalTo,
-              value: cityID,
-            ),
-
-          if (flyerType != null)
-            FireFinder(
-              field: 'flyerType',
-              comparison: FireComparison.equalTo,
-              value: FlyerTyper.cipherFlyerType(flyerType),
-            ),
-
-          if (keywordID != null)
-            FireFinder(
-              field: 'keywordsIDs',
+      coll: FireColl.flyers,
+      orderBy: _orderBy,
+      limit: limit,
+      // idFieldName: 'id',
+      finders: <FireFinder>[
+        if (countryID != null)
+          FireFinder(
+            field: 'zone.countryID',
+            comparison: FireComparison.equalTo,
+            value: countryID,
+          ),
+        if (cityID != null)
+          FireFinder(
+            field: 'zone.cityID',
+            comparison: FireComparison.equalTo,
+            value: cityID,
+          ),
+        if (flyerType != null)
+          FireFinder(
+            field: 'flyerType',
+            comparison: FireComparison.equalTo,
+            value: FlyerTyper.cipherFlyerType(flyerType),
+          ),
+        if (keywordID != null)
+          FireFinder(
+            field: 'keywordsIDs',
+            comparison: FireComparison.arrayContains,
+            value: keywordID,
+          ),
+        if (TextCheck.isEmpty(title?.trim()) == false)
+          FireFinder(
+              field: 'trigram',
               comparison: FireComparison.arrayContains,
-              value: keywordID,
-            ),
-
-          if (TextCheck.isEmpty(title?.trim()) == false)
-            FireFinder(
-                field: 'trigram',
-                comparison: FireComparison.arrayContains,
-                value: TextMod.removeAllCharactersAfterNumberOfCharacters(
-                  input: title.trim(),
-                  numberOfChars: Standards.maxTrigramLength,
-                )),
-
-          if (publishState != null)
-            FireFinder(
-              field: 'publishState',
-              comparison: FireComparison.equalTo,
-              value: FlyerModel.cipherPublishState(publishState),
-            ),
-
-          if (auditState != null)
-            FireFinder(
+              value: TextMod.removeAllCharactersAfterNumberOfCharacters(
+                input: title.trim(),
+                numberOfChars: Standards.maxTrigramLength,
+              )),
+        if (publishState != null)
+          FireFinder(
+            field: 'publishState',
+            comparison: FireComparison.equalTo,
+            value: FlyerModel.cipherPublishState(publishState),
+          ),
+        if (auditState != null)
+          FireFinder(
             field: 'auditState',
             comparison: FireComparison.equalTo,
             value: FlyerModel.cipherAuditState(auditState),
           ),
-
-          if (showsAuthor == true)
-            FireFinder(
-              field: 'showsAuthor',
-              comparison: FireComparison.equalTo,
-              value: showsAuthor,
-            ),
-
-          if (hasPrice == true)
-            const FireFinder(
-              field: 'specs.phid_s_salePrice',
-              comparison: FireComparison.greaterThan,
-              value: 0,
-            ),
-
-          if (currencyID != null && hasPrice == true)
-            FireFinder(
-              field: 'specs.phid_s_currency',
-              comparison: FireComparison.equalTo,
-              value: currencyID,
-            ),
-
-          if (hasAffiliateLink == true)
-            const FireFinder(
-              field: 'affiliateLink',
-              comparison: FireComparison.nullValue,
-              value: false,
-            ),
-
-          if (gtaLink != null)
-            FireFinder(
-              field: 'gtaLink',
-              comparison: FireComparison.equalTo,
-              value: gtaLink,
-            ),
-
-          if (gtaLink != null)
-            FireFinder(
-              field: 'affiliateLink',
-              comparison: FireComparison.equalTo,
-              value: gtaLink,
-            ),
-
-          if (hasPDF == true)
-            const FireFinder(
-              field: 'pdfPath',
-              comparison: FireComparison.nullValue,
-              value: false,
-            ),
-
+        if (showsAuthor == true)
+          FireFinder(
+            field: 'showsAuthor',
+            comparison: FireComparison.equalTo,
+            value: showsAuthor,
+          ),
+        if (hasPrice == true)
+          const FireFinder(
+            field: 'specs.phid_s_salePrice',
+            comparison: FireComparison.greaterThan,
+            value: 0,
+          ),
+        if (hasAffiliateLink == true)
+          const FireFinder(
+            field: 'affiliateLink',
+            comparison: FireComparison.nullValue,
+            value: false,
+          ),
+        if (gtaLink != null)
+          FireFinder(
+            field: 'gtaLink',
+            comparison: FireComparison.equalTo,
+            value: gtaLink,
+          ),
+        if (gtaLink != null)
+          FireFinder(
+            field: 'affiliateLink',
+            comparison: FireComparison.equalTo,
+            value: gtaLink,
+          ),
+        if (hasPDF == true)
+          const FireFinder(
+            field: 'pdfPath',
+            comparison: FireComparison.nullValue,
+            value: false,
+          ),
       ],
-        // orderBy: 'score',
-      );
-
+      // orderBy: 'score',
+    );
   }
   // -----------------------------------------------------------------------------
 
