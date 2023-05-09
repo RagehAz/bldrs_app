@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/a_static_logo_screen.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/b_animated_logo_screen.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/a_home_screen.dart';
@@ -64,7 +65,9 @@ Future<void> main() async {
   await Future.wait(<Future>[
 
     /// FCM
-    FCMStarter.preInitializeNootsInMainFunction(),
+    FCMStarter.preInitializeNootsInMainFunction(
+      channelModel: ChannelModel.bldrsChannel,
+    ),
 
     /// APP CHECK
     AppCheck.preInitialize(),
@@ -136,7 +139,9 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
         );
 
         /// INITIALIZE NOOTS
-        await FCMStarter.initializeNootsInBldrsAppStarter();
+        await FCMStarter.initializeNootsInBldrsAppStarter(
+          channelModel: ChannelModel.bldrsChannel,
+        );
         /// NOOT LISTENERS
         _initializeNootListeners();
 
@@ -181,7 +186,6 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
       _displayed = NootListener.listenToNootDisplayedStream();
     }
   }
-
   // --------------------
   void _closeNootListeners(){
     if (FCMStarter.canInitializeFCM() == true) {

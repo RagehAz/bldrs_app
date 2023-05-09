@@ -63,7 +63,7 @@ class PublishTime {
       if (Mapper.checkCanLoopList(_keys) && Mapper.checkCanLoopList(_values)) {
         for (int i = 0; i < _keys.length; i++) {
           final PublishState _flyerStateString =
-          FlyerModel.decipherFlyerState(_keys[i]);
+          FlyerModel.decipherPublishState(_keys[i]);
           final DateTime _time =
           Timers.decipherTime(time: _values[i], fromJSON: fromJSON);
 

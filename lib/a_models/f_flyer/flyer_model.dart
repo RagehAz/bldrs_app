@@ -224,7 +224,7 @@ class FlyerModel {
         description: map['description'],
         // -------------------------
         flyerType: FlyerTyper.decipherFlyerType(map['flyerType']),
-        publishState: decipherFlyerState(map['publishState']),
+        publishState: decipherPublishState(map['publishState']),
         auditState: decipherAuditState(map['auditState']),
         keywordsIDs: Stringer.getStringsFromDynamics(dynamics: map['keywordsIDs']),
         showsAuthor: map['showsAuthor'],
@@ -333,7 +333,7 @@ class FlyerModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static PublishState decipherFlyerState (String x){
+  static PublishState decipherPublishState (String x){
     switch (x){
       case 'draft'       :   return  PublishState.draft;         break;
       case 'published'   :   return  PublishState.published;     break;
