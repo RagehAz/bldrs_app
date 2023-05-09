@@ -43,6 +43,27 @@ class BzSearchModel {
       onlyVerified: onlyVerified ?? this.onlyVerified,
     );
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  BzSearchModel nullifyField({
+    bool bzType = false,
+    bool bzForm = false,
+    bool bzAccountType = false,
+    bool scopePhid = false,
+    bool onlyShowingTeams = false,
+    bool onlyVerified = false,
+  }){
+
+    return BzSearchModel(
+      bzType: bzType == true ? null : this.bzType,
+      bzForm: bzForm == true ? null : this.bzForm,
+      bzAccountType: bzAccountType == true ? null : this.bzAccountType,
+      scopePhid: scopePhid == true ? null : this.scopePhid,
+      onlyShowingTeams: onlyShowingTeams == true ? null : this.onlyShowingTeams,
+      onlyVerified: onlyVerified == true ? null : this.onlyVerified,
+    );
+
+  }
   // -----------------------------------------------------------------------------
 
   /// CIPHERS
