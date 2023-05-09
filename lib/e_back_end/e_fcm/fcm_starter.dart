@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/b_bz/sub/target/target_progress.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
+import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/e_back_end/e_fcm/background_msg_handler.dart';
@@ -25,7 +26,7 @@ class FCMStarter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool canInitializeFCM(){
-    if (kIsWeb == true || DeviceChecker.deviceIsWindows() == false){
+    if (kIsWeb == true || DeviceChecker.deviceIsWindows() == true){
       return false;
     }
     else {
@@ -34,45 +35,60 @@ class FCMStarter {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> preInitializeNootsInMainFunction() async {
+  static Future<void> preInitializeNootsInMainFunction({
+    @required ChannelModel channelModel,
+  }) async {
 
-    if (canInitializeFCM() == true) {
+      if (canInitializeFCM() == true) {
 
-      /// INITIALIZE AWESOME NOTIFICATIONS
-      await _initializeAwesomeNootsService();
+        /// INITIALIZE AWESOME NOTIFICATIONS
+        await _initializeAwesomeNootsService(
+          channel: channelModel,
+        );
 
-      /// HANDLE BACKGROUND REMOTE MESSAGE (handles while app in background)
-      FirebaseMessaging.onBackgroundMessage(onBackgroundMessageHandler);
+        /// HANDLE BACKGROUND REMOTE MESSAGE (handles while app in background)
+        if (channelModel.id == ChannelModel.bldrsChannel.id){
+          FirebaseMessaging.onBackgroundMessage(bldrsAppOnBackgroundMessageHandler);
+        }
+        if (channelModel.id == ChannelModel.bldrsDashboardChannel.id){
+          FirebaseMessaging.onBackgroundMessage(bldrsDashboardOnBackgroundMessageHandler);
+        }
+
+      }
 
     }
-
-  }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> initializeNootsInBldrsAppStarter() async {
+  static Future<void> initializeNootsInBldrsAppStarter({
+    @required ChannelModel channelModel,
+  }) async {
 
-    if (canInitializeFCM() == true) {
-      /// FCM PERMISSION
-      await FCM.requestFCMPermission();
+      if (canInitializeFCM() == true) {
+        /// FCM PERMISSION
+        await FCM.requestFCMPermission();
 
-      /// INITIALIZE LOCAL NOOTS
-      await _initializeLocalNootsService();
+        /// INITIALIZE LOCAL NOOTS
+        await _initializeLocalNootsService();
 
-      /// INITIALIZE LISTENERS
-      _initializeNootsListeners();
+        /// INITIALIZE LISTENERS
+        _initializeNootsListeners(
+          channelModel: channelModel,
+        );
 
-      /// RECEIVE INITIAL MESSAGE
-      await _receiveInitialRemoteMessage();
+        /// RECEIVE INITIAL MESSAGE
+        await _receiveInitialRemoteMessage();
+      }
+
     }
-
-  }
   // -----------------------------------------------------------------------------
 
   /// (AWESOME - LOCAL NOOTS) SERVICES INITIALIZATION
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> _initializeAwesomeNootsService() async {
+  static Future<void> _initializeAwesomeNootsService({
+    @required ChannelModel channel,
+  }) async {
 
     await FCM.getAwesomeNoots()?.initialize(
 
@@ -80,10 +96,14 @@ class FCMStarter {
       FCM.fcmWhiteLogoFilePath,
 
       /// CHANNELS
-      FCM.generateBldrsNootChannels(),
+      FCM.generateBldrsNootChannels(
+        channel: channel,
+      ),
 
       /// CHANNEL GROUPS
-      channelGroups: FCM.getBldrsChannelGroups(),
+      channelGroups: FCM.getBldrsChannelGroups(
+        channel: channel,
+      ),
 
       /// DEBUG
       debug: true,
@@ -126,53 +146,56 @@ class FCMStarter {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void _initializeNootsListeners(){
+  static void _initializeNootsListeners({
+    @required ChannelModel channelModel,
+  }){
 
-    /// APP IS IN FOREGROUND ( FRONT AND ACTIVE )
-    FirebaseMessaging.onMessage.listen((RemoteMessage remoteMessage) async {
-      await pushGlobalNootFromRemoteMessage(
-        remoteMessage: remoteMessage,
-        invoker: 'initializeNoots.onMessage',
-      );
-    });
+      /// APP IS IN FOREGROUND ( FRONT AND ACTIVE )
+      FirebaseMessaging.onMessage.listen((RemoteMessage remoteMessage) async {
+        await pushGlobalNootFromRemoteMessage(
+          channelModel: channelModel,
+          remoteMessage: remoteMessage,
+          invoker: 'initializeNoots.onMessage',
+        );
+      });
 
-    /// ONCE APP STARTS AFTER NOOT TAP WHILE APP WAS IN BACKGROUND
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage remoteMessage) async {
+      /// ONCE APP STARTS AFTER NOOT TAP WHILE APP WAS IN BACKGROUND
+      FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage remoteMessage) async {
 
-      blog('APP WAS IN BACKGROUND AND YOU HAVE JUST TAPPED THIS NOTIFICATION : -');
+        blog('APP WAS IN BACKGROUND AND YOU HAVE JUST TAPPED THIS NOTIFICATION : -');
 
-      FCM.blogRemoteMessage(
-        remoteMessage: remoteMessage,
-        invoker: '_initializeNootsListeners.onMessageOpenedApp',
-      );
+        FCM.blogRemoteMessage(
+          remoteMessage: remoteMessage,
+          invoker: '_initializeNootsListeners.onMessageOpenedApp',
+        );
 
-      final NoteModel _note = NoteModel.decipherRemoteMessage(
-        map: remoteMessage?.data,
-      );
+        final NoteModel _note = NoteModel.decipherRemoteMessage(
+          map: remoteMessage?.data,
+        );
 
-      await CenterDialog.showCenterDialog(
-        context: BldrsAppStarter.getContext(),
-        titleVerse: Verse.plain('App was on background'),
-        bodyVerse: Verse.plain('noteTitle is : ${_note.title}'),
-        color: Colorz.green50,
-        height: 400,
-        confirmButtonVerse: Verse.plain('Tamam'),
-      );
+        await CenterDialog.showCenterDialog(
+          context: BldrsAppStarter.getContext(),
+          titleVerse: Verse.plain('App was on background'),
+          bodyVerse: Verse.plain('noteTitle is : ${_note.title}'),
+          color: Colorz.green50,
+          height: 400,
+          confirmButtonVerse: Verse.plain('Tamam'),
+        );
 
-      // await _pushGlobalNootFromRemoteMessage(
-      //   remoteMessage: remoteMessage,
-      //   invoker: 'initializeNoots.onMessageOpenedApp',
-      // );
+        // await _pushGlobalNootFromRemoteMessage(
+        //   remoteMessage: remoteMessage,
+        //   invoker: 'initializeNoots.onMessageOpenedApp',
+        // );
 
-      // /// to display the notification while app in foreground
-      // await _pushLocalNootFromRemoteMessage(remoteMessage);
-    });
+        // /// to display the notification while app in foreground
+        // await _pushLocalNootFromRemoteMessage(remoteMessage);
+      });
 
-    // /// when app running in background and notification tapped while having
-    // /// msg['data']['click_action'] == 'FLUTTER_NOTIFICATION_CLICK';
-    // FirebaseMessaging.onBackgroundMessage(_onBackgroundMessageHandler);
+      // /// when app running in background and notification tapped while having
+      // /// msg['data']['click_action'] == 'FLUTTER_NOTIFICATION_CLICK';
+      // FirebaseMessaging.onBackgroundMessage(_onBackgroundMessageHandler);
 
-  }
+    }
   // --------------------
   ///
   static Future<void> _receiveInitialRemoteMessage() async {
@@ -198,6 +221,7 @@ class FCMStarter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> pushGlobalNootFromRemoteMessage({
+    @required ChannelModel channelModel,
     @required RemoteMessage remoteMessage,
     @required String invoker,
   }) async {
@@ -243,6 +267,7 @@ class FCMStarter {
         await Future.wait(<Future>[
 
           FCM.pushGlobalNoot(
+            channelModel: channelModel,
             title: _note.title,
             body: _note.body,
             largeIconURL: _note.parties.senderImageURL,

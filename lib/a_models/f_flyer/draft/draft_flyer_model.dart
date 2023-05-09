@@ -331,7 +331,7 @@ class DraftFlyer{
         trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram']),
         description: TextEditingController(text: map['description']),
         flyerType: FlyerTyper.decipherFlyerType(map['flyerType']),
-        publishState: FlyerModel.decipherFlyerState(map['publishState']),
+        publishState: FlyerModel.decipherPublishState(map['publishState']),
         auditState: FlyerModel.decipherAuditState(map['auditState']),
         keywordsIDs: Stringer.getStringsFromDynamics(dynamics: map['keywordsIDs']),
         showsAuthor: map['showsAuthor'],

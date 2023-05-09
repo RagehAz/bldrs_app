@@ -24,5 +24,12 @@ class ChannelModel {
     description: 'News & Notifications',
     group: 'Notifications',
   );
+  // --------------------
+  static const ChannelModel bldrsDashboardChannel = ChannelModel(
+    id: 'net.bldrs.dashboard.urgent',
+    name: "The Builder's Network",
+    description: 'News & Notifications',
+    group: 'Notifications',
+  );
   // -----------------------------------------------------------------------------
 }
