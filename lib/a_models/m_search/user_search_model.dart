@@ -11,7 +11,7 @@ enum UserSearchType {
   byCompanyName,
   byDeviceID,
 }
-
+/// => TAMAM
 @immutable
 class UserSearchModel {
   // -----------------------------------------------------------------------------
@@ -43,7 +43,7 @@ class UserSearchModel {
   /// CONSTANTS
 
   // --------------------
-  static const List<UserSearchType> userSearchTypes = [
+  static const List<UserSearchType> userSearchTypes = <UserSearchType>[
     UserSearchType.byName,
     UserSearchType.byEmail,
     UserSearchType.byPhone,
@@ -51,6 +51,19 @@ class UserSearchModel {
     UserSearchType.byCompanyName,
     UserSearchType.byDeviceID,
   ];
+  // --------------------
+  static const UserSearchModel initialModel = UserSearchModel(
+        signInMethod: null,
+        needType: null,
+        searchType: UserSearchType.byName,
+        gender: null,
+        language: null,
+        onlyWithPublicContacts: false,
+        onlyBzAuthors: false,
+        onlyBldrsAdmins: false,
+        devicePlatform: null,
+        onlyVerifiedEmails: false,
+    );
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -122,6 +135,7 @@ class UserSearchModel {
   /// EQUALITY
 
   // --------------------
+  /// TESTED : WORKS PERFECT
   static bool areIdentical({
     @required UserSearchModel model1,
     @required UserSearchModel model2,

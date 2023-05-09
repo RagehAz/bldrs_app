@@ -1,6 +1,10 @@
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/k_statistics/record_model.dart';
 import 'package:bldrs/a_models/m_search/bz_search_model.dart';
 import 'package:bldrs/a_models/m_search/flyer_search_model.dart';
+import 'package:bldrs/b_views/c_main_search/super_search_screen.dart';
+import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:space_time/space_time.dart';
@@ -25,6 +29,69 @@ class SearchModel {
   final DateTime time;
   final FlyerSearchModel flyerSearchModel;
   final BzSearchModel bzSearchModel;
+  // -----------------------------------------------------------------------------
+
+  /// INITIALIZATION
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static SearchModel createInitialModel({
+    @required BuildContext context,
+  }){
+
+    return SearchModel(
+      id: null,
+      userID: Authing.getUserID(),
+      text: null,
+      zone: ZoneProvider.proGetCurrentZone(context: context, listen: false),
+      time: DateTime.now(),
+      flyerSearchModel: const FlyerSearchModel(
+        onlyWithPrices: false,
+        onlyWithPDF: false,
+        onlyShowingAuthors: false,
+        onlyAmazonProducts: false,
+        phid: null,
+        publishState: null,
+        auditState: null,
+        flyerType: null,
+      ),
+      bzSearchModel: const BzSearchModel(
+        scopePhid: null,
+        onlyVerified: false,
+        onlyShowingTeams: false,
+        bzAccountType: null,
+        bzType: null,
+        bzForm: null,
+      ),
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static SearchModel createUploadModel({
+    @required ModelType searchType,
+    @required SearchModel searchModel,
+    @required String text,
+  }){
+
+    SearchModel _searchModel = searchModel.copyWith(
+      text: text,
+      time: DateTime.now(),
+    );
+
+    if (searchType == ModelType.flyer){
+      _searchModel = _searchModel.nullifyField(
+        bzSearchModel: true,
+      );
+    }
+    if (searchType == ModelType.bz){
+      _searchModel = _searchModel.nullifyField(
+        flyerSearchModel: true,
+      );
+    }
+
+    return _searchModel;
+  }
   // -----------------------------------------------------------------------------
 
   /// CLONING
