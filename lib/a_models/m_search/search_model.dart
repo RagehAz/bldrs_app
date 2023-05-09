@@ -3,7 +3,8 @@ import 'package:bldrs/a_models/m_search/bz_search_model.dart';
 import 'package:bldrs/a_models/m_search/flyer_search_model.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
-
+import 'package:space_time/space_time.dart';
+/// => TAMAM
 @immutable
 class SearchModel {
   // -----------------------------------------------------------------------------
@@ -12,6 +13,7 @@ class SearchModel {
     @required this.userID,
     @required this.text,
     @required this.zone,
+    @required this.time,
     @required this.flyerSearchModel,
     @required this.bzSearchModel,
   });
@@ -20,6 +22,7 @@ class SearchModel {
   final String userID;
   final String text;
   final ZoneModel zone;
+  final DateTime time;
   final FlyerSearchModel flyerSearchModel;
   final BzSearchModel bzSearchModel;
   // -----------------------------------------------------------------------------
@@ -33,6 +36,7 @@ class SearchModel {
     String userID,
     String text,
     ZoneModel zone,
+    DateTime time,
     FlyerSearchModel flyerSearchModel,
     BzSearchModel bzSearchModel,
   }){
@@ -41,6 +45,7 @@ class SearchModel {
       userID: userID ?? this.userID,
       text: text ?? this.text,
       zone: zone ?? this.zone,
+      time: time ?? this.time,
       flyerSearchModel: flyerSearchModel ?? this.flyerSearchModel,
       bzSearchModel: bzSearchModel ?? this.bzSearchModel,
     );
@@ -52,6 +57,7 @@ class SearchModel {
     bool userID = false,
     bool text = false,
     bool zone = false,
+    bool time = false,
     bool flyerSearchModel = false,
     bool bzSearchModel = false,
   }){
@@ -61,6 +67,7 @@ class SearchModel {
       userID: userID == true ? null : this.userID,
       text: text == true ? null : this.text,
       zone: zone == true ? null : this.zone,
+      time: time == true ? null : this.time,
       flyerSearchModel: flyerSearchModel == true ? null : this.flyerSearchModel,
       bzSearchModel: bzSearchModel == true ? null : this.bzSearchModel,
     );
@@ -68,11 +75,13 @@ class SearchModel {
   }
   // -----------------------------------------------------------------------------
 
-  /// CIPHER
+  /// CIPHERS
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> cipher(SearchModel searchModel){
+  static Map<String, dynamic> cipher({
+    @required SearchModel searchModel,
+}){
     Map<String, dynamic> _output;
 
     if (searchModel != null) {
@@ -81,6 +90,7 @@ class SearchModel {
         'userID': searchModel.userID,
         'text': searchModel.text,
         'zone': searchModel.zone?.toMap(),
+        'time': Timers.cipherTime(time: searchModel.time, toJSON: true),
         'flyerSearchModel': FlyerSearchModel.cipher(searchModel.flyerSearchModel),
         'bzSearchModel': BzSearchModel.cipher(searchModel.bzSearchModel),
       };
@@ -90,7 +100,31 @@ class SearchModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static SearchModel decipher(Map<String, dynamic> map){
+  static List<Map<String, dynamic>> cipherSearches({
+    @required List<SearchModel> models,
+  }){
+    final List<Map<String, dynamic>> _output = [];
+
+    if (Mapper.checkCanLoopList(models) == true){
+
+      for (final SearchModel model in models){
+
+        final Map<String, dynamic> _map = cipher(
+          searchModel: model,
+        );
+        _output.add(_map);
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static SearchModel decipher({
+    @required Map<String, dynamic> map,
+}){
     SearchModel _output;
 
     if (map != null){
@@ -100,6 +134,7 @@ class SearchModel {
         userID: map['userID'],
         text: map['text'],
         zone: ZoneModel.decipherZone(map['zone']),
+        time: Timers.decipherTime(time: map['time'], fromJSON: true),
         flyerSearchModel: FlyerSearchModel.decipher(map['flyerSearchModel']),
         bzSearchModel: BzSearchModel.decipher(map['bzSearchModel']),
       );
@@ -107,6 +142,45 @@ class SearchModel {
     }
 
     return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<SearchModel> decipherSearches({
+    @required List<Map<String, dynamic>> maps,
+  }){
+    final List<SearchModel> _output = [];
+
+    if (Mapper.checkCanLoopList(maps) == true){
+
+      for (final Map<String, dynamic> map in maps){
+
+        final SearchModel _model = decipher(
+          map: map,
+        );
+        _output.add(_model);
+
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<SearchModel> sortByDate({
+    @required List<SearchModel> models,
+  }){
+
+    if (Mapper.checkCanLoopList(models) == true){
+      final List<SearchModel> _models = [...models];
+      _models.sort((a, b) => a.time.compareTo(b.time));
+      return _models;
+    }
+
+    else {
+      return <SearchModel>[];
+    }
+
   }
   // -----------------------------------------------------------------------------
 
@@ -139,15 +213,58 @@ class SearchModel {
 
     return _output;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool modelsAreIdentical({
+    @required List<SearchModel> models1,
+    @required List<SearchModel> models2,
+  }){
+    final List<Map<String, dynamic>> _maps1 = cipherSearches(models: models1);
+    final List<Map<String, dynamic>> _maps2 = cipherSearches(models: models2);
+    return Mapper.checkMapsListsAreIdentical(maps1: _maps1, maps2: _maps2);
+  }
     // -----------------------------------------------------------------------------
 
   /// OVERRIDES
 
   // --------------------
-  /*
    @override
-   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
-   */
+   String toString(){
+
+    final String _blog =
+    '''
+    SearchModel(
+      userID: $userID,
+      id: $id,
+      zone: ZoneModel(
+        countryID: ${zone?.countryID},
+        cityID: ${zone?.cityID},
+      ),
+      text: $text,
+      time: $time,
+      bzSearchModel: BzSearchModel(
+        bzType: ${bzSearchModel?.bzType},
+        bzForm: ${bzSearchModel?.bzForm},
+        bzAccountType: ${bzSearchModel?.bzAccountType},
+        scopePhid: ${bzSearchModel?.scopePhid},
+        onlyShowingTeams: ${bzSearchModel?.onlyShowingTeams},
+        onlyVerified: ${bzSearchModel?.onlyVerified},
+      ),
+      flyerSearchModel: FlyerSearchModel(
+        flyerType: ${flyerSearchModel?.flyerType},
+        auditState: ${flyerSearchModel?.auditState},
+        publishState: ${flyerSearchModel?.publishState},
+        phid: ${flyerSearchModel?.phid},
+        onlyAmazonProducts: ${flyerSearchModel?.onlyAmazonProducts},
+        onlyShowingAuthors: ${flyerSearchModel?.onlyShowingAuthors},
+        onlyWithPDF: ${flyerSearchModel?.onlyWithPDF},
+        onlyWithPrices: ${flyerSearchModel?.onlyWithPrices},
+      ),
+    );
+    ''';
+
+    return _blog;
+   }
   // --------------------
   @override
   bool operator == (Object other){

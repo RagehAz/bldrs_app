@@ -18,6 +18,7 @@ class BldrsTileBubble extends StatelessWidget {
     this.moreBtOnTap,
     this.child,
     this.bulletPoints,
+    this.bulletPointsMaxLines = 10,
     this.bubbleColor = Colorz.white10,
     this.validator,
     this.autoValidate = true,
@@ -34,6 +35,7 @@ class BldrsTileBubble extends StatelessWidget {
   final Function moreBtOnTap;
   final Widget child;
   final List<Verse> bulletPoints;
+  final int bulletPointsMaxLines;
   final Color bubbleColor;
   final String Function() validator;
   final bool autoValidate;
@@ -76,6 +78,7 @@ class BldrsTileBubble extends StatelessWidget {
       bubbleHeaderVM: bubbleHeaderVM,
       bubbleWidth: bubbleWidth,
       bulletPoints: Verse.bakeVerses(verses: bulletPoints, context: context),
+      bulletPointsMaxLines: bulletPointsMaxLines,
       iconIsBubble: iconIsBubble,
       insideDialog: insideDialog,
       moreBtOnTap: moreBtOnTap,
