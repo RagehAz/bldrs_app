@@ -3,7 +3,6 @@ import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:devicer/devicer.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/foundation.dart';
-
 /// => TAMAM
 @immutable
 class DeviceModel {
