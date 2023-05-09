@@ -260,6 +260,8 @@ class RealColl {
   /// APP
   // --------------------
   static const String app = 'app';
+
+  static const String searches = 'searches';
 }
 
 class RealDoc {

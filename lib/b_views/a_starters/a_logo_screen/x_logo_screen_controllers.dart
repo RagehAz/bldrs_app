@@ -435,10 +435,10 @@ Future<void> _refreshUserDeviceModel(BuildContext context) async {
 
     UserProtocols.refreshUserDeviceModel(context: context),
 
-    LDBDoc.wipeOutEntireLDB(
+    LDBDoc.wipeOutLDBDocs(
       /// MAIN
-      // flyers: true, // WHY WOULD YOU DO THIS
-      // bzz: true, // WHY WOULD YOU DO THIS
+      flyers: true, // WHY WOULD YOU DO THIS
+      bzz: true, // WHY WOULD YOU DO THIS
       notes: false,
       pics: false,
       pdfs: false,
@@ -446,6 +446,7 @@ Future<void> _refreshUserDeviceModel(BuildContext context) async {
       users: false,
       authModel: false,
       accounts: false,
+      searches: false,
       /// CHAIN
       bldrsChains: false,
       pickers: false,
@@ -468,6 +469,7 @@ Future<void> _refreshUserDeviceModel(BuildContext context) async {
       appState: false, // no need to wipe
       appControls: false, // no need to wipe
       langCode: false, // no need to wipe
+      gta: false,
     ),
 
   ]);
@@ -488,7 +490,7 @@ Future<void> _refreshLDB(BuildContext context) async {
 
   if (_shouldRefresh == true){
 
-    await LDBDoc.wipeOutEntireLDB(
+    await LDBDoc.wipeOutLDBDocs(
       /// MAIN
       flyers: true,
       bzz: true,
@@ -499,6 +501,7 @@ Future<void> _refreshLDB(BuildContext context) async {
       users: false,
       authModel: false, // need my authModel to prevent re-auth everyday
       accounts: false, // keep accounts until user decides to not "remember me trigger"
+      searches: false,
       /// CHAIN
       bldrsChains: false, // keep the chains man, if chains updated - appState protocols handles this
       pickers: false, // same as chains

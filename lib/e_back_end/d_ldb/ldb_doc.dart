@@ -1,4 +1,5 @@
 // ignore_for_file: always_put_control_body_on_new_line
+import 'package:flutter/material.dart';
 import 'package:ldb/ldb.dart';
 
 /*
@@ -41,6 +42,7 @@ class LDBDoc {
       case LDBDoc.users: return 'id';
       case LDBDoc.authModel: return 'id';
       case LDBDoc.accounts: return 'id';
+      case LDBDoc.searches: return 'id';
       // -------------
       /// CHAINS
       case LDBDoc.bldrsChains: return 'id';
@@ -69,6 +71,8 @@ class LDBDoc {
       case LDBDoc.appControls: return 'id';
       case LDBDoc.langCode: return 'id';
       case 'test': return 'id';
+
+      case LDBDoc.gta: return 'id';
       // -------------
       default: return 'id';
     }
@@ -89,6 +93,7 @@ class LDBDoc {
   static const String users = 'users';
   static const String authModel = 'authModel';
   static const String accounts = 'accounts';
+  static const String searches = 'searches';
   // --------------------
   /// CHAINS
   static const String bldrsChains = 'chains';
@@ -120,6 +125,7 @@ class LDBDoc {
   // --------------------
   /// GTA
   static const String gta = 'gta';
+
   // -----------------------------------------------------------------------------
 
   /// ALL DOCS LIST
@@ -137,6 +143,7 @@ class LDBDoc {
     users,
     authModel,
     accounts,
+    searches,
 
     'headline: Chains',
     bldrsChains,
@@ -175,41 +182,42 @@ class LDBDoc {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> wipeOutEntireLDB({
+  static Future<void> wipeOutLDBDocs({
     /// MAIN
-    bool flyers = true,
-    bool bzz = true,
-    bool notes = true,
-    bool pics = true,
-    bool pdfs = true,
+    @required bool flyers,
+    @required bool bzz,
+    @required bool notes,
+    @required bool pics,
+    @required bool pdfs,
     /// USER
-    bool users = true,
-    bool authModel = true,
-    bool accounts = true,
+    @required bool users,
+    @required bool authModel,
+    @required bool accounts,
+    @required bool searches,
     /// CHAINS
-    bool bldrsChains = true,
-    bool pickers = true,
+    @required bool bldrsChains,
+    @required bool pickers,
     /// ZONES
-    bool countries = true,
-    bool cities = true,
-    bool staging = true,
-    bool census = true,
+    @required bool countries,
+    @required bool cities,
+    @required bool staging,
+    @required bool census,
     /// PHRASES
-    bool mainPhrases = true,
-    bool countriesPhrases = true,
+    @required bool mainPhrases,
+    @required bool countriesPhrases,
     /// EDITORS
-    bool userEditor = true,
-    bool bzEditor = true,
-    bool authorEditor = true,
-    bool flyerMaker = true,
-    bool reviewEditor = true,
+    @required bool userEditor,
+    @required bool bzEditor,
+    @required bool authorEditor,
+    @required bool flyerMaker,
+    @required bool reviewEditor,
     /// SETTINGS
-    bool theLastWipe = true,
-    bool appState = true,
-    bool appControls = true,
-    bool langCode = true,
+    @required bool theLastWipe,
+    @required bool appState,
+    @required bool appControls,
+    @required bool langCode,
     /// DASHBOARD
-    bool gta = true,
+    @required bool gta,
   }) async {
 
     final List<String> _docs = <String>[];
@@ -224,6 +232,7 @@ class LDBDoc {
     if (users == true) {_docs.add(LDBDoc.users);}
     if (authModel == true) {_docs.add(LDBDoc.authModel);}
     if (accounts == true) {_docs.add(LDBDoc.accounts);}
+    if (searches == true) {_docs.add(LDBDoc.searches);}
     /// CHAINS
     if (bldrsChains == true) {_docs.add(LDBDoc.bldrsChains);}
     if (pickers == true) {_docs.add(LDBDoc.pickers);}
@@ -256,6 +265,40 @@ class LDBDoc {
         );
       }),
     ]);
+
+  }
+  // --------------------
+  static Future<void> wipeOutEntireLDB() async {
+
+    await wipeOutLDBDocs(
+      flyers: true,
+      bzz: true,
+      notes: true,
+      pics: true,
+      pdfs: true,
+      users: true,
+      authModel: true,
+      accounts: true,
+      searches: true,
+      bldrsChains: true,
+      pickers: true,
+      countries: true,
+      cities: true,
+      staging: true,
+      census: true,
+      mainPhrases: true,
+      countriesPhrases: true,
+      userEditor: true,
+      bzEditor: true,
+      authorEditor: true,
+      flyerMaker: true,
+      reviewEditor: true,
+      theLastWipe: true,
+      appState: true,
+      appControls: true,
+      langCode: true,
+      gta: true,
+    );
 
   }
   // -----------------------------------------------------------------------------
