@@ -23,7 +23,7 @@ class NewSectionButton extends StatelessWidget {
       duration: const Duration(milliseconds: 300),
       builder: (int timeDifference, Widget child){
 
-        final int _index = Numeric.createRandomIndex(listLength: _phids.length);
+        final int _index = Numeric.createRandomIndex(listLength: 1);
 
         return SuperBox(
           height: PyramidFloatingButton.size,

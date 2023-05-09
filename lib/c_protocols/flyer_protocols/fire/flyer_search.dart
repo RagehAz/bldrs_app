@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_promotion.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
+import 'package:bldrs/a_models/m_search/search_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
@@ -35,21 +36,12 @@ class FlyerSearch {
   // --------------------
   /// TASK : TEST ME
   static FireQueryModel createQuery({
-    String countryID,
-    String cityID,
-    FlyerType flyerType,
-    String keywordID,
+    SearchModel searchModel,
     String title,
     String orderBy,
     bool descending,
     int limit = 4,
-    PublishState publishState,
-    AuditState auditState,
-    bool showsAuthor,
-    bool hasPrice,
-    bool hasAffiliateLink,
     String gtaLink,
-    bool hasPDF,
   }) {
     final QueryOrderBy _orderBy = orderBy == null
         ? null
@@ -64,29 +56,29 @@ class FlyerSearch {
       limit: limit,
       // idFieldName: 'id',
       finders: <FireFinder>[
-        if (countryID != null)
+        if (searchModel?.zone?.countryID != null)
           FireFinder(
             field: 'zone.countryID',
             comparison: FireComparison.equalTo,
-            value: countryID,
+            value: searchModel?.zone?.countryID,
           ),
-        if (cityID != null)
+        if (searchModel?.zone?.cityID != null)
           FireFinder(
             field: 'zone.cityID',
             comparison: FireComparison.equalTo,
-            value: cityID,
+            value: searchModel?.zone?.cityID,
           ),
-        if (flyerType != null)
+        if (searchModel?.flyerSearchModel?.flyerType != null)
           FireFinder(
             field: 'flyerType',
             comparison: FireComparison.equalTo,
-            value: FlyerTyper.cipherFlyerType(flyerType),
+            value: FlyerTyper.cipherFlyerType(searchModel?.flyerSearchModel?.flyerType),
           ),
-        if (keywordID != null)
+        if (searchModel?.flyerSearchModel?.phid != null)
           FireFinder(
             field: 'keywordsIDs',
             comparison: FireComparison.arrayContains,
-            value: keywordID,
+            value: searchModel?.flyerSearchModel?.phid,
           ),
         if (TextCheck.isEmpty(title?.trim()) == false)
           FireFinder(
@@ -96,31 +88,31 @@ class FlyerSearch {
                 input: title.trim(),
                 numberOfChars: Standards.maxTrigramLength,
               )),
-        if (publishState != null)
+        if (searchModel?.flyerSearchModel?.publishState != null)
           FireFinder(
             field: 'publishState',
             comparison: FireComparison.equalTo,
-            value: FlyerModel.cipherPublishState(publishState),
+            value: FlyerModel.cipherPublishState(searchModel?.flyerSearchModel?.publishState),
           ),
-        if (auditState != null)
+        if (searchModel?.flyerSearchModel?.auditState != null)
           FireFinder(
             field: 'auditState',
             comparison: FireComparison.equalTo,
-            value: FlyerModel.cipherAuditState(auditState),
+            value: FlyerModel.cipherAuditState(searchModel?.flyerSearchModel?.auditState),
           ),
-        if (showsAuthor == true)
-          FireFinder(
+        if (searchModel?.flyerSearchModel?.onlyShowingAuthors == true)
+          const FireFinder(
             field: 'showsAuthor',
             comparison: FireComparison.equalTo,
-            value: showsAuthor,
+            value: true,
           ),
-        if (hasPrice == true)
+        if (searchModel?.flyerSearchModel?.onlyWithPrices == true)
           const FireFinder(
             field: 'specs.phid_s_salePrice',
             comparison: FireComparison.greaterThan,
             value: 0,
           ),
-        if (hasAffiliateLink == true)
+        if (searchModel?.flyerSearchModel?.onlyAmazonProducts == true)
           const FireFinder(
             field: 'affiliateLink',
             comparison: FireComparison.nullValue,
@@ -138,7 +130,7 @@ class FlyerSearch {
             comparison: FireComparison.equalTo,
             value: gtaLink,
           ),
-        if (hasPDF == true)
+        if (searchModel?.flyerSearchModel?.onlyWithPDF == true)
           const FireFinder(
             field: 'pdfPath',
             comparison: FireComparison.nullValue,

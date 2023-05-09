@@ -78,7 +78,7 @@ class ZoneSelection {
     @required ZoneDepth depth,
   }) async {
 
-    final ZoneModel _zoneWithCountryID = await Nav.goToNewScreen(
+    final ZoneModel _zone = await Nav.goToNewScreen(
       context: context,
       screen: CountriesScreen(
         zoneViewingEvent: zoneViewingEvent,
@@ -86,8 +86,12 @@ class ZoneSelection {
       ),
     );
 
-    if (_zoneWithCountryID?.countryID != null){
-      return _zoneWithCountryID;
+    if (_zone?.countryID != null){
+      final ZoneModel _output = await ZoneProtocols.completeZoneModel(
+        context: context,
+        incompleteZoneModel: _zone,
+      );
+      return _output;
     }
 
     else {
