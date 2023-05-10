@@ -7,7 +7,6 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/real/b_city
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_leveller.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_protocols.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:stringer/stringer.dart';
@@ -179,8 +178,8 @@ class CityProtocols {
         citiesIDs: citiesIDsOfThisCountry,
       );
 
-      blog('ldb cities aho');
-      CityModel.blogCities(_ldbCities);
+      // blog('ldb cities aho');
+      // CityModel.blogCities(_ldbCities);
 
       if (_ldbCities.length == citiesIDsOfThisCountry.length){
         _output = _ldbCities;

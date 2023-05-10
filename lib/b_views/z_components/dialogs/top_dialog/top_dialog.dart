@@ -7,6 +7,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:scale/scale.dart';
@@ -35,9 +36,26 @@ class TopDialog extends StatelessWidget {
     final Flushbar _flushbar = _key?.currentWidget;
 
     if (_flushbar?.isDismissed() == false){
+
       SchedulerBinding.instance.addPostFrameCallback((_) async {
-        await _flushbar.dismiss();
+        // blog('''
+        // closeTopDialog :
+        //  _flushbar : $_flushbar
+        //   isDismissible : ${_flushbar.isDismissible}
+        //   isDismissed() : ${_flushbar.isDismissed()}
+        //   message : ${_flushbar.message}
+        //   dismissDirection : ${_flushbar.dismissDirection}
+        //   flushbarRoute : ${_flushbar.flushbarRoute}
+        //   userInputForm : ${_flushbar.userInputForm}
+        //   key : ${_flushbar.key}
+        //   isAppearing() : ${_flushbar.isAppearing()}
+        //   isHiding() : ${_flushbar.isHiding()}
+        //   isShowing() : ${_flushbar.isShowing()}
+        // ''');
+        final dynamic previousDialogDismissed = await _flushbar.dismiss();
+        blog('closeTopDialog : previousDialogDismissed ${previousDialogDismissed.runtimeType} : $previousDialogDismissed');
       });
+
     }
 
   }
@@ -53,13 +71,16 @@ class TopDialog extends StatelessWidget {
     int milliseconds = 5000,
   }) async {
 
-    await closeTopDialog(context);
-
     final double _screenWidth = Scale.screenWidth(context);
     final double _bubbleWidth = BldrsAppBar.width(context);
 
+    final GlobalKey _key = UiProvider.proGetTopDialogKey(context: context, listen: false,);
+    final Flushbar _flushbar = _key?.currentWidget;
+    final dynamic _previousDialogDismissed = await _flushbar?.dismiss();
+    blog('showTopDialog : previousDialogDismissed ${_previousDialogDismissed.runtimeType} : $_previousDialogDismissed');
+
     await Flushbar(
-      key: UiProvider.proGetTopDialogKey(context: context, listen: false),
+      key: _key,
 
       /// BEHAVIOUR - POSITIONING ----------------------------------------------
       // dismissDirection: FlushbarDismissDirection.VERTICAL,
@@ -201,6 +222,7 @@ class TopDialog extends StatelessWidget {
       // positionOffset: 0,
       // userInputForm: ,
     ).show(context);
+
   }
   // --------------------
   /// BUG THE SHIT OUT OF LIFE

@@ -79,7 +79,6 @@ enum ViewingEvent {
   userEditor,
   bzEditor,
   flyerEditor,
-  flyerPromotion,
   admin, /// sees everything
 }
 
@@ -293,6 +292,8 @@ class Staging {
   List<String> getIDsByViewingEvent({
     @required BuildContext context,
     @required ViewingEvent event,
+    @required String countryID,
+    @required String viewerCountryID,
   }){
 
     if (event == ViewingEvent.admin){
@@ -304,6 +305,8 @@ class Staging {
       final StageType _minStage = _concludeLowestStageOnViewingEvent(
         context: context,
         event: event,
+        countryID: countryID,
+        viewerCountryID: viewerCountryID,
       );
 
       return _getIDsFromMinStageToMax(
@@ -318,48 +321,93 @@ class Staging {
   static StageType _concludeLowestStageOnViewingEvent({
     @required BuildContext context,
     @required ViewingEvent event,
+    @required String countryID,
+    @required String viewerCountryID,
   }){
 
-    final UserModel _user = UsersProvider.proGetMyUserModel(
-        context: context,
-        listen: false,
+    const Map<String, dynamic> _localUser = {
+      'homeView' : { /// USER BROWSING HOME PAGE FLYERS AND BZZ
+        'user':           {'country' : StageType.bzzStage, 'city' : StageType.bzzStage},
+        'author':         {'country' : StageType.bzzStage, 'city' : StageType.bzzStage},
+        'global_user':    {'country' : StageType.publicStage, 'city' : StageType.publicStage},
+        'global_author':  {'country' : StageType.bzzStage, 'city' : StageType.bzzStage},
+      },
+      'userEditor' : { /// SO USER CAN BE CREATED HERE
+        'user':           {'country' : StageType.emptyStage, 'city' : StageType.emptyStage},
+        'author':         {'country' : StageType.emptyStage, 'city' : StageType.emptyStage}, /// NOT USED
+        'global_user':    {'country' : StageType.emptyStage, 'city' : StageType.emptyStage},
+        'global_author':  {'country' : StageType.emptyStage, 'city' : StageType.emptyStage}, /// NOT USED
+      },
+      'bzEditor' : { /// AND BZ ACCOUNT CAN BE LOCATED HERE
+        'user':           {'country' : StageType.emptyStage, 'city' : StageType.emptyStage}, /// NOT USED
+        'author':         {'country' : StageType.emptyStage, 'city' : StageType.emptyStage},
+        'global_user':    {'country' : StageType.emptyStage, 'city' : StageType.emptyStage}, /// NOT USED
+        'global_author':  {'country' : StageType.emptyStage, 'city' : StageType.emptyStage},
+      },
+      'flyerEditor' : { /// AND FLYER CAN BE CREATED HERE
+        'user':           {'country' : StageType.bzzStage, 'city' : StageType.emptyStage}, /// NOT USED
+        'author':         {'country' : StageType.bzzStage, 'city' : StageType.emptyStage},
+        'global_user':    {'country' : StageType.bzzStage, 'city' : StageType.flyersStage}, /// NOT USED
+        'global_author':  {'country' : StageType.bzzStage, 'city' : StageType.flyersStage},
+      },
+    };
+
+    final String _view = cipherViewingEvent(event);
+    final String _userType = _getUserTypeKey(
+      context: context,
+      countryID: countryID,
+      viewerCountryID: viewerCountryID,
     );
-    final bool _userIsAuthor = UserModel.checkUserIsAuthor(_user);
+    final String _zoneLevel = countryID == null ? 'country' : 'city';
 
-    /// AUTHOR
-    if (_userIsAuthor == true){
+    return _localUser[_view][_userType][_zoneLevel];
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String _getUserTypeKey({
+    @required BuildContext context,
+    @required String countryID,
+    @required String viewerCountryID,
+  }){
 
-      switch(event){
-        /// = if active : will show bzz : if public : will show flyers
-        case ViewingEvent.homeView        : return StageType.bzzStage;    break;
-        case ViewingEvent.userEditor      : return StageType.emptyStage;    break;
-        case ViewingEvent.bzEditor        : return StageType.emptyStage;    break;
-        /// WHEN BZ IS CREATED, ZONE GETS ACTIVE
-        case ViewingEvent.flyerEditor     : return StageType.bzzStage;    break;
-        /// flyer can be promoted in active or public zones  only
-        case ViewingEvent.flyerPromotion  : return StageType.flyersStage;    break;
-        default: return null; break;
+    final UserModel _user = UsersProvider.proGetMyUserModel(context: context, listen: false);
+    final bool _isAuthor = UserModel.checkUserIsAuthor(_user);
+    final bool _isGlobal =
+        countryID != null &&
+        viewerCountryID != null &&
+        countryID != viewerCountryID;
+
+    if (_isAuthor == true){
+
+      if (_isGlobal == true){
+        return 'global_author';
+      }
+      else {
+        return 'author';
       }
 
     }
 
-    /// USER
     else {
-
-      switch(event){
-        /// = if active : will show bzz : if public : will show flyers
-        case ViewingEvent.homeView        : return StageType.flyersStage;    break;
-        case ViewingEvent.userEditor      : return StageType.emptyStage;    break;
-        case ViewingEvent.bzEditor        : return StageType.emptyStage ;   break;
-        /// USER DOES NOT PUBLISH FLYERS
-        case ViewingEvent.flyerEditor     : return null;                break;
-        /// normal user does not promote flyers
-        case ViewingEvent.flyerPromotion  : return null;                break;
-        default: return null; break;
+      if (_isGlobal == true){
+        return 'user';
       }
-
+      else {
+        return 'global_user';
+      }
     }
 
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String cipherViewingEvent(ViewingEvent event){
+      switch(event){
+        case ViewingEvent.homeView        : return 'homeView'; break;
+        case ViewingEvent.userEditor      : return 'userEditor'; break;
+        case ViewingEvent.bzEditor        : return 'bzEditor'; break;
+        case ViewingEvent.flyerEditor     : return 'flyerEditor'; break;
+        default: return null; break;
+      }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -506,7 +554,7 @@ class Staging {
 
     }
 
-    blog('checkAllZonesAreInEmptyStage : _output : $_output');
+    // blog('checkAllZonesAreInEmptyStage : _output : $_output');
 
     return _output;
   }
@@ -516,6 +564,8 @@ class Staging {
     @required BuildContext context,
     @required Staging staging,
     @required ViewingEvent zoneViewingEvent,
+    @required String countryID,
+    @required String viewerCountryID,
   }){
     bool _output = false;
 
@@ -524,6 +574,8 @@ class Staging {
       final List<String> _ids = staging.getIDsByViewingEvent(
         context: context,
         event: zoneViewingEvent,
+        countryID: countryID,
+        viewerCountryID: viewerCountryID,
       );
 
       _output = Mapper.checkCanLoopList(_ids);
@@ -579,6 +631,7 @@ class Staging {
   // --------------------
   /// TESTED : WORKS PERFECT
   void blogStaging(){
+    blog('STAGING :--- >');
     blog('emptyStage : ${emptyStageIDs.length} : $emptyStageIDs');
     blog('bzzStage : ${bzzStageIDs.length} : $bzzStageIDs');
     blog('flyerStage : ${flyersStageIDs.length} : $flyersStageIDs');

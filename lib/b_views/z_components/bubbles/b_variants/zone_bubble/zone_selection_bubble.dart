@@ -28,13 +28,12 @@ class ZoneSelectionBubble extends StatefulWidget {
     @required this.onZoneChanged,
     @required this.zoneViewingEvent,
     @required this.depth,
+    @required this.viewerCountryID,
     this.titleVerse,
     this.bulletPoints,
     this.translateBullets = true,
     this.validator,
     this.autoValidate = true,
-    // this.selectCountryAndCityOnly = true,
-    // this.selectCountryIDOnly = false,
     this.isRequired = true,
     Key key,
   }) : super(key: key);
@@ -47,10 +46,9 @@ class ZoneSelectionBubble extends StatefulWidget {
   final String Function() validator;
   final bool autoValidate;
   final ZoneDepth depth;
-  // final bool selectCountryAndCityOnly;
-  // final bool selectCountryIDOnly;
   final bool isRequired;
   final ViewingEvent zoneViewingEvent;
+  final String viewerCountryID;
   /// --------------------------------------------------------------------------
   @override
   _ZoneSelectionBubbleState createState() => _ZoneSelectionBubbleState();
@@ -158,8 +156,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
       screen: CountriesScreen(
         zoneViewingEvent: widget.zoneViewingEvent,
         depth: widget.depth,
-        // selectCountryAndCityOnly: widget.selectCountryAndCityOnly,
-        // selectCountryIDOnly: widget.selectCountryIDOnly,
+        viewerCountryID: widget.viewerCountryID,
       ),
     );
 
@@ -204,8 +201,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
             zoneViewingEvent: widget.zoneViewingEvent,
             depth: widget.depth,
             countryID: _selectedZone.value.countryID,
-            // country: _selectedZone.value.countryModel,
-            // selectCountryAndCityOnly: widget.selectCountryAndCityOnly,
+            viewerCountryID: widget.viewerCountryID,
           )
       );
 
