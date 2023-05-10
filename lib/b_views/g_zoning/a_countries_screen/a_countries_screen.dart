@@ -25,11 +25,13 @@ class CountriesScreen extends StatefulWidget {
   const CountriesScreen({
     @required this.zoneViewingEvent,
     @required this.depth,
+    @required this.viewerCountryID,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ViewingEvent zoneViewingEvent;
   final ZoneDepth depth;
+  final String viewerCountryID;
   /// --------------------------------------------------------------------------
   @override
   _CountriesScreenState createState() => _CountriesScreenState();
@@ -103,6 +105,8 @@ class _CountriesScreenState extends State<CountriesScreen> {
     final List<String> _shownIDs = _countriesStages.getIDsByViewingEvent(
       context: context,
       event: widget.zoneViewingEvent,
+      countryID: null,
+      viewerCountryID: widget.viewerCountryID,
     );
 
     blog('CountriesScreen._loadCountries() : _shownIDs : $_shownIDs');
@@ -202,10 +206,11 @@ class _CountriesScreenState extends State<CountriesScreen> {
   Future<void> _onCountryTap(String countryID) async {
 
     await ZoneSelection.onSelectCountry(
-        context: context,
-        countryID: countryID,
-        depth: widget.depth,
-        zoneViewingEvent: widget.zoneViewingEvent,
+      context: context,
+      countryID: countryID,
+      depth: widget.depth,
+      zoneViewingEvent: widget.zoneViewingEvent,
+      viewerCountryID: widget.viewerCountryID,
     );
 
   }

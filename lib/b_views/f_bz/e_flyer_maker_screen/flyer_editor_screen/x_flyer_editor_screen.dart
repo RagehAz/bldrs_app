@@ -660,6 +660,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                         ),
                       ],
                       currentZone: _draft?.zone,
+                      viewerCountryID: _draft?.bzModel?.zone?.countryID,
                       onZoneChanged: (ZoneModel zone) => onZoneChanged(
                         context: context,
                         draftNotifier: draftNotifier,
