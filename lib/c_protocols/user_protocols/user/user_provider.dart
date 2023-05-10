@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
@@ -344,8 +345,26 @@ class UsersProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool isRage7(){
+  static bool userIsRage7(){
     return Authing.getUserID() == BldrsKeys.rage7ID;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool userIsAuthor(BuildContext context){
+    final UserModel _user = UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: false,
+    );
+    return UserModel.checkUserIsAuthor(_user);
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static ZoneModel proGetUserZone(BuildContext context){
+    final UserModel _user = UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: false,
+    );
+    return _user?.zone;
   }
   // -----------------------------------------------------------------------------
 }

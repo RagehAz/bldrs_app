@@ -166,6 +166,7 @@ List<NavModel> generateMainNavModels({
         depth: ZoneDepth.city,
         zoneViewingEvent: ViewingEvent.homeView,
         settingCurrentZone: true,
+        viewerCountryID: userModel?.zone?.countryID,
       ),
       iconSizeFactor: 1,
       iconColor: Colorz.nothing,
