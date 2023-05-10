@@ -34,12 +34,14 @@ class CitiesScreen extends StatefulWidget {
     @required this.zoneViewingEvent,
     @required this.depth,
     @required this.countryID,
+    @required this.viewerCountryID,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final ViewingEvent zoneViewingEvent;
   final ZoneDepth depth;
   final String countryID;
+  final String viewerCountryID;
   /// --------------------------------------------------------------------------
   @override
   State<CitiesScreen> createState() => _NewSelectCityScreen();
@@ -148,6 +150,8 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
         final List<String> _shownIDs = _citiesStages?.getIDsByViewingEvent(
           context: context,
           event: widget.zoneViewingEvent,
+          countryID: widget.countryID,
+          viewerCountryID: widget.viewerCountryID,
         );
         /// SHOWN CITIES MODELS
         final List<CityModel> _orderedShownCities = CityModel.sortCitiesAlphabetically(
@@ -343,10 +347,11 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
     );
 
     await ZoneSelection.onSelectCountry(
-        context: context,
-        countryID: widget.countryID,
-        depth: ZoneDepth.country,
-        zoneViewingEvent: widget.zoneViewingEvent,
+      context: context,
+      countryID: widget.countryID,
+      depth: ZoneDepth.country,
+      zoneViewingEvent: widget.zoneViewingEvent,
+      viewerCountryID: widget.viewerCountryID,
     );
 
   }

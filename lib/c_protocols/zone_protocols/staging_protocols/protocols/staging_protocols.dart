@@ -65,14 +65,14 @@ class StagingProtocols {
 
     if (countryID != null){
 
-      _output = await StagingLDBOps.readStaging(id: countryID,);
+      _output = await StagingLDBOps.readStaging(id: countryID);
 
       if (Staging.isEmpty(_output) == true){
 
-        _output = await StagingRealOps.readCitiesStaging(countryID: countryID,);
+        _output = await StagingRealOps.readCitiesStaging(countryID: countryID);
 
         if (Staging.isEmpty(_output) == false){
-          await StagingLDBOps.insertStaging(staging: _output,);
+          await StagingLDBOps.insertStaging(staging: _output);
         }
 
       }

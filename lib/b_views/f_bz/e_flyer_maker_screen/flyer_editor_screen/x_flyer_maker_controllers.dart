@@ -184,18 +184,12 @@ Future<void> onSelectFlyerType({
     bool _canUpdate = true;
 
     /// SOME SPECS ARE SELECTED
-    if (Mapper.checkCanLoopList(draftNotifier.value.specs) == true){
+    if (Mapper.checkCanLoopList(draftNotifier.value.keywordsIDs) == true){
 
       _canUpdate = await CenterDialog.showCenterDialog(
         context: context,
         titleVerse: const Verse(
-          pseudo: 'Delete selected Specifications ?',
-          id: 'phid_delete_selected_specs_?',
-          translate: true,
-        ),
-        bodyVerse: const Verse(
-          pseudo: 'All selected specifications will be deleted\nDo you wish to continue ?',
-          id: 'phid_delete_selected_specs_warning',
+          id: 'phid_reset_selected_keywords_?',
           translate: true,
         ),
         boolDialog: true,

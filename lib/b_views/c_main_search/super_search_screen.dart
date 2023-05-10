@@ -292,10 +292,11 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
         onTileTap: () async {
 
             final ZoneModel _newZone = await ZoneSelection.goBringAZone(
-                context: context,
-                depth: ZoneDepth.city,
-                settingCurrentZone: false,
-                zoneViewingEvent: ViewingEvent.homeView,
+              context: context,
+              depth: ZoneDepth.city,
+              settingCurrentZone: false,
+              zoneViewingEvent: ViewingEvent.homeView,
+              viewerCountryID: UsersProvider.proGetUserZone(context)?.countryID,
             );
 
             if (_newZone != null){
@@ -589,10 +590,11 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
         onTileTap: () async {
 
             final ZoneModel _newZone = await ZoneSelection.goBringAZone(
-                context: context,
-                depth: ZoneDepth.city,
-                settingCurrentZone: false,
-                zoneViewingEvent: ViewingEvent.homeView,
+              context: context,
+              depth: ZoneDepth.city,
+              settingCurrentZone: false,
+              zoneViewingEvent: ViewingEvent.homeView,
+              viewerCountryID: UsersProvider.proGetUserZone(context)?.countryID,
             );
 
             if (_newZone != null){
@@ -878,10 +880,11 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
         onTileTap: () async {
 
             final ZoneModel _newZone = await ZoneSelection.goBringAZone(
-                context: context,
-                depth: ZoneDepth.city,
-                settingCurrentZone: false,
-                zoneViewingEvent: ViewingEvent.homeView,
+              context: context,
+              depth: ZoneDepth.city,
+              settingCurrentZone: false,
+              zoneViewingEvent: ViewingEvent.homeView,
+              viewerCountryID: UsersProvider.proGetUserZone(context)?.countryID,
             );
 
             if (_newZone != null){

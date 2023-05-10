@@ -53,12 +53,14 @@ class ZoneSelection {
     @required ZoneDepth depth,
     @required bool settingCurrentZone,
     @required ViewingEvent zoneViewingEvent,
+    @required String viewerCountryID,
   }) async {
 
     final ZoneModel _output = await _goToCountriesScreen(
       context: context,
       zoneViewingEvent: zoneViewingEvent,
       depth: depth,
+      viewerCountryID: viewerCountryID,
     );
 
     if (settingCurrentZone == true && _output != null){
@@ -76,6 +78,7 @@ class ZoneSelection {
     @required BuildContext context,
     @required ViewingEvent zoneViewingEvent,
     @required ZoneDepth depth,
+    @required String viewerCountryID,
   }) async {
 
     final ZoneModel _zone = await Nav.goToNewScreen(
@@ -83,6 +86,7 @@ class ZoneSelection {
       screen: CountriesScreen(
         zoneViewingEvent: zoneViewingEvent,
         depth: depth,
+        viewerCountryID: viewerCountryID,
       ),
     );
 
@@ -106,6 +110,7 @@ class ZoneSelection {
     @required String countryID,
     @required ZoneDepth depth,
     @required ViewingEvent zoneViewingEvent,
+    @required String viewerCountryID,
   }) async {
 
     Keyboard.closeKeyboard(context);
@@ -138,6 +143,7 @@ class ZoneSelection {
             zoneViewingEvent: zoneViewingEvent,
             countryID: countryID,
             depth: depth,
+            viewerCountryID: viewerCountryID,
           )
       );
 
