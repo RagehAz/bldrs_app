@@ -5,7 +5,7 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/b
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/c_country_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/d_city_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/x_zone_ids_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/translator/zone_translato.dart';
+import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/translator/zone_translator.dart';
 /// => TAMAM
 class ZoneProtocols {
   // -----------------------------------------------------------------------------
