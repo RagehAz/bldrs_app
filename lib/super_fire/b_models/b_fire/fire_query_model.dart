@@ -1,5 +1,5 @@
 part of super_fire;
-
+/// => TAMAM
 @immutable
 class FireQueryModel {
   /// --------------------------------------------------------------------------
@@ -75,14 +75,13 @@ class FireQueryModel {
     model1.limit == model2.limit &&
     model1.orderBy?.descending == model2.orderBy?.descending &&
     model1.orderBy?.fieldName == model2.orderBy?.fieldName &&
-    FireFinder.checkFindersListsAreIdentical(model1.finders, model2.finders) == true
-    // model1.initialMaps == model2.initialMaps &&
+    FireFinder.checkFindersListsAreIdentical(model1.finders, model2.finders) == true &&
+    Mapper.checkMapsListsAreIdentical(maps1: model1.initialMaps, maps2: model2.initialMaps) == true
     ){
       _identical = true;
     }
 
   }
-
 
   return _identical;
   }
@@ -123,8 +122,6 @@ class FireQueryModel {
       limit.hashCode^
       orderBy.hashCode^
       finders.hashCode^
-      // onDataChanged.hashCode^
-      // startAfter.hashCode^
       initialMaps.hashCode;
 // -----------------------------------------------------------------------------
 }

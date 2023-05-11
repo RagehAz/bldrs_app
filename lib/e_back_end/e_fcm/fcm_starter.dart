@@ -3,9 +3,9 @@ import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/background_msg_handler.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
-import 'package:bldrs/main.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:devicer/devicer.dart';
 import 'package:filers/filers.dart';
@@ -174,7 +174,7 @@ class FCMStarter {
         );
 
         await CenterDialog.showCenterDialog(
-          context: BldrsAppStarter.getContext(),
+          context: getMainContext(),
           titleVerse: Verse.plain('App was on background'),
           bodyVerse: Verse.plain('noteTitle is : ${_note.title}'),
           color: Colorz.green50,

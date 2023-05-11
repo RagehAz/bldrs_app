@@ -145,7 +145,7 @@ FireQueryModel allNotesPaginationQueryModel({
    doc: receiverID,
    subColl: FireSubColl.noteReceiver_receiver_notes,
    orderBy: const QueryOrderBy(fieldName: 'sentTime', descending: true),
-   limit: 5,
+   limit: 7,
  );
 
 }

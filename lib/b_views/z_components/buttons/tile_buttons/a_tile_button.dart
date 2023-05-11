@@ -1,7 +1,6 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:scale/scale.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class TileButton extends StatelessWidget {
@@ -55,9 +54,7 @@ class TileButton extends StatelessWidget {
       bubble: false,
       color: color,
       onTap: onTap,
-      margins: Scale.superMargins(
-          margin: margins ?? const EdgeInsets.symmetric(vertical: 5),
-      ),
+      margins: margins,
       iconSizeFactor: iconSizeFactor,
       corners: corners,
     );

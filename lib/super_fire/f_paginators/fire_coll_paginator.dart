@@ -5,10 +5,10 @@ class FireCollPaginator extends StatefulWidget {
   const FireCollPaginator({
     @required this.paginationQuery,
     @required this.builder,
+    @required this.paginationController,
     this.streamQuery,
     this.loadingWidget,
     this.child,
-    this.paginationController,
     this.onDataChanged,
     Key key
   }) : super(key: key);

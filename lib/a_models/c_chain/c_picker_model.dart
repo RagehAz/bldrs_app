@@ -166,7 +166,7 @@ class PickerModel {
 
           Map<String, dynamic> _pickerMap;
           if (bigMap[chainID] is String){
-          blog('getMapFromIHLMOO : bigMap[chainID] : ${bigMap[chainID].runtimeType} : ${bigMap[chainID]}');
+          // blog('getMapFromIHLMOO : bigMap[chainID] : ${bigMap[chainID].runtimeType} : ${bigMap[chainID]}');
             _pickerMap = {chainID : bigMap[chainID]};
           }
           else {

@@ -284,17 +284,17 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
     for (int i = 0; i < _flyer.value?.slides?.length ?? 0; i++){
       if (i != 0){
 
-        blog('disposeRenderedFlyer (LightBigFlyer) : '
-            '${_flyer.value.id} => disposing flyer[$i] ''SLIDE ');
+        // blog('disposeRenderedFlyer (LightBigFlyer) : '
+        //     '${_flyer.value.id} => disposing flyer[$i] ''SLIDE ');
 
         /// TASK : DISPOSE_IMAGIFIED_FLYER_ISSUE
         // _flyer.value.slides[i].uiImage?.dispose();
       }
     }
     // ------->
-    blog('disposeRenderedFlyer (LightBigFlyer) : '
-        '${_flyer.value.id} => disposing AUTHOR PIC : '
-        '${_flyer.value?.authorImage == null ? 'NULL' : 'NOT NULL'}');
+    // blog('disposeRenderedFlyer (LightBigFlyer) : '
+    //     '${_flyer.value.id} => disposing AUTHOR PIC : '
+    //     '${_flyer.value?.authorImage == null ? 'NULL' : 'NOT NULL'}');
     /// TASK : DISPOSE_IMAGIFIED_FLYER_ISSUE
     // _flyer.value?.authorImage?.dispose();
     // ------->

@@ -12,11 +12,16 @@ import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
-enum SearchingModel{
-  country,
-  city,
-  flyersAndBzz
-  // users,
+
+/// MAIN NAV KEY SUPER GLOBAL KEY
+
+// --------------------
+/// THIS HAS TO BE ASSIGNED TO MATERIAL APP IN THE MAIN FILE
+final GlobalKey<NavigatorState> mainNavKey = GlobalKey<NavigatorState>();
+// --------------------
+/// TESTED : WORKS PERFECT
+BuildContext getMainContext(){
+  return mainNavKey.currentContext;
 }
 // -----------------------------------------------------------------------------
 /// => TAMAM
