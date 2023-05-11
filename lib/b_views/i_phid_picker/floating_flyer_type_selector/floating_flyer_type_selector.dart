@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
-import 'package:bldrs/a_models/c_chain/b_city_phids_model.dart';
+import 'package:bldrs/a_models/c_chain/b_zone_phids_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/b_animated_logo_screen.dart';
 import 'package:bldrs/b_views/i_phid_picker/floating_flyer_type_selector/animated_bar.dart';
@@ -49,25 +49,25 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
   void initState() {
     super.initState();
 
-      final CityPhidsModel _cityPhidsModel = ChainsProvider.proGetCityPhids(
+      final ZonePhidsModel _zonePhidsModel = ChainsProvider.proGetZonePhids(
           context: context,
           listen: false,
       );
 
-      // _cityPhidsModel?.blogCityPhidsModel(invoker: 'floating shit');
+      _zonePhidsModel?.blogZonePhidsModel(invoker: 'floating shit');
 
       final List<Chain> _bldrsChains = ChainsProvider.proGetBldrsChains(
           context: context,
-          onlyUseCityChains: true,
+          onlyUseZoneChains: true,
           listen: false,
       );
 
-      final List<FlyerType> _flyerTypes = CityPhidsModel.getFlyerTypesByCityPhids(
-          cityPhidsModel: _cityPhidsModel,
+      final List<FlyerType> _flyerTypes = ZonePhidsModel.getFlyerTypesByZonePhids(
+          zonePhidsModel: _zonePhidsModel,
           bldrsChains: _bldrsChains,
       );
 
-      // blog('FloatingFlyerTypeSelector init : _flyerTypes : $_flyerTypes');
+      blog('FloatingFlyerTypeSelector init : _flyerTypes : $_flyerTypes');
 
     _linesMaps = <Map<String, dynamic>>[
       ...List.generate(_flyerTypes.length, (index){

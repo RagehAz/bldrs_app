@@ -242,7 +242,7 @@ class ZoneSelection {
 
       /// SET CHAINS
       final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-      await _chainsProvider.reInitializeCityChains(context);
+      await _chainsProvider.reInitializeZoneChains(context);
 
   }
   // -----------------------------------------------------------------------------

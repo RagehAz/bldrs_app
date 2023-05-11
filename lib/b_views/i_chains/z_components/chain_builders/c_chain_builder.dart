@@ -35,7 +35,7 @@ class ChainBuilder extends StatelessWidget {
     @required this.onExportSpecs,
 
     @required this.zone,
-    @required this.onlyUseCityChains,
+    @required this.onlyUseZoneChains,
     @required this.isMultipleSelectionMode,
     @required this.onDataCreatorKeyboardSubmitted,
 
@@ -77,7 +77,7 @@ class ChainBuilder extends StatelessWidget {
   final ZoneModel zone;
   final ValueChanged<String> onDataCreatorKeyboardSubmitted;
   final bool isMultipleSelectionMode;
-  final bool onlyUseCityChains;
+  final bool onlyUseZoneChains;
   final bool isCollapsable;
   /// --------------------------------------------------------------------------
   @override
@@ -123,7 +123,7 @@ class ChainBuilder extends StatelessWidget {
           onPhidTap: onPhidTap,
           onExportSpecs: onExportSpecs,
           isMultipleSelectionMode: isMultipleSelectionMode,
-          onlyUseCityChains: onlyUseCityChains,
+          onlyUseZoneChains: onlyUseZoneChains,
           zone: zone,
           onDataCreatorKeyboardSubmitted: onDataCreatorKeyboardSubmitted,
           isCollapsable: isCollapsable,

@@ -156,13 +156,13 @@ class MapModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogMapModels({
-    @required List<MapModel> mapModels,
+    @required List<MapModel> phidsMaps,
     String invoker = 'MapModels',
   }){
     blog('$invoker ------------------------------------------- START');
-    for (int i = 0; i < mapModels.length; i++){
+    for (int i = 0; i < phidsMaps.length; i++){
       final int _num = i+1;
-      final MapModel _mapModel = mapModels[i];
+      final MapModel _mapModel = phidsMaps[i];
       blog('$_num : < ${_mapModel.key} : ${_mapModel.value} >');
     }
     blog('$invoker ------------------------------------------- END');
