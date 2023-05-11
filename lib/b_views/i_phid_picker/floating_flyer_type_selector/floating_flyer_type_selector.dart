@@ -54,7 +54,7 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
           listen: false,
       );
 
-      _zonePhidsModel?.blogZonePhidsModel(invoker: 'floating shit');
+      // _zonePhidsModel?.blogZonePhidsModel(invoker: 'floating shit');
 
       final List<Chain> _bldrsChains = ChainsProvider.proGetBldrsChains(
           context: context,
@@ -67,14 +67,14 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
           bldrsChains: _bldrsChains,
       );
 
-      blog('FloatingFlyerTypeSelector init : _flyerTypes : $_flyerTypes');
+      // blog('FloatingFlyerTypeSelector init : _flyerTypes : $_flyerTypes : _zonePhidsModel : $_zonePhidsModel');
 
     _linesMaps = <Map<String, dynamic>>[
       ...List.generate(_flyerTypes.length, (index){
 
         final FlyerType _flyerType = _flyerTypes[index];
 
-        // blog('flyerType : $_flyerType');
+        // blog('doing flyerType : $_flyerType');
 
         return AnimatedLogoScreen.createBeat(
           text: FlyerTyper.cipherFlyerType(_flyerType),
