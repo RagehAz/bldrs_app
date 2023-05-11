@@ -397,7 +397,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
               context: context,
               flyerType: _searchModel.flyerSearchModel?.flyerType,
               event: ViewingEvent.homeView,
-              onlyUseCityChains: true,
+              onlyUseZoneChains: true,
             );
 
             if (_phid != null) {
@@ -733,7 +733,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
               context: context,
               flyerType: flyerType,
               event: ViewingEvent.homeView,
-              onlyUseCityChains: true,
+              onlyUseZoneChains: true,
             );
 
             if (_phid != null) {
@@ -754,7 +754,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
               context: context,
               flyerType: flyerType,
               event: ViewingEvent.homeView,
-              onlyUseCityChains: true,
+              onlyUseZoneChains: true,
             );
 
             if (_phid != null) {

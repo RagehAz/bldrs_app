@@ -23,7 +23,7 @@ class PickerScreen extends StatefulWidget {
     @required this.picker,
     @required this.showInstructions,
     @required this.isMultipleSelectionMode,
-    @required this.onlyUseCityChains,
+    @required this.onlyUseZoneChains,
     @required this.zone,
     this.selectedSpecs,
     Key key,
@@ -33,7 +33,7 @@ class PickerScreen extends StatefulWidget {
   final ValueNotifier<List<SpecModel>> selectedSpecs;
   final bool showInstructions;
   final bool isMultipleSelectionMode;
-  final bool onlyUseCityChains;
+  final bool onlyUseZoneChains;
   final ZoneModel zone;
   /// --------------------------------------------------------------------------
   static const double instructionBoxHeight = 60;
@@ -128,7 +128,7 @@ class _PickerScreenState extends State<PickerScreen> {
     final Chain _valueChain = ChainsProvider.proFindChainByID(
       context: context,
       chainID: widget.picker?.chainID,
-      onlyUseCityChains: widget.onlyUseCityChains,
+      onlyUseZoneChains: widget.onlyUseZoneChains,
       // includeChainSInSearch: true,
     );
 
@@ -193,7 +193,7 @@ class _PickerScreenState extends State<PickerScreen> {
           screenHeight: _screenHeight,
           showInstructions: widget.showInstructions,
           isMultipleSelectionMode: widget.isMultipleSelectionMode,
-          onlyUseCityChains: widget.onlyUseCityChains,
+          onlyUseZoneChains: widget.onlyUseZoneChains,
           zone: widget.zone,
           onKeyboardSubmitted: (String text) => onGoBackFromPickerScreen(
             context: context,

@@ -230,7 +230,7 @@ Future<void> onAddSpecsToDraftTap({
         ),
         selectedSpecs: draft.value.specs,
         isMultipleSelectionMode: true,
-        onlyUseCityChains: false,
+        onlyUseZoneChains: false,
         flyerTypeFilter: draft.value.flyerType,
         zone: draft.value.zone,
       )
@@ -358,7 +358,7 @@ Future<void> onFlyerPhidTap({
       context: context,
       flyerType: draftNotifier.value.flyerType,
       event: ViewingEvent.flyerEditor,
-      onlyUseCityChains: false,
+      onlyUseZoneChains: false,
       selectedPhids: draftNotifier.value.keywordsIDs,
   );
 

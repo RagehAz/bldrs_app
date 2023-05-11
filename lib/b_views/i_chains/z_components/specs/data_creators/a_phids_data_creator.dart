@@ -19,7 +19,7 @@ class PhidsDataCreator extends StatelessWidget {
     @required this.searchText,
     @required this.onPhidTap,
     @required this.zone,
-    @required this.onlyUseCityChains,
+    @required this.onlyUseZoneChains,
     @required this.isMultipleSelectionMode,
     @required this.onDataCreatorKeyboardSubmitted,
     @required this.isCollapsable,
@@ -36,7 +36,7 @@ class PhidsDataCreator extends StatelessWidget {
   final ZoneModel zone;
   final ValueChanged<String> onDataCreatorKeyboardSubmitted;
   final bool isMultipleSelectionMode;
-  final bool onlyUseCityChains;
+  final bool onlyUseZoneChains;
   final bool isCollapsable;
   /// --------------------------------------------------------------------------
   @override
@@ -51,7 +51,7 @@ class PhidsDataCreator extends StatelessWidget {
         chainOrChainsOrSonOrSons: Chain.filterSpecPickerChainRange(
           picker: specPicker,
           context: context,
-          onlyUseCityChains: onlyUseCityChains,
+          onlyUseZoneChains: onlyUseZoneChains,
         )?.sons,
         selectedPhids: SpecModel.getSpecsIDs(selectedSpecs),
         initiallyExpanded: false,
@@ -62,7 +62,7 @@ class PhidsDataCreator extends StatelessWidget {
         searchText: searchText,
         onExportSpecs: (List<SpecModel> specs) => blog('PhidsDataCreator : ${specs.length} specs'),
         isMultipleSelectionMode: isMultipleSelectionMode,
-        onlyUseCityChains: onlyUseCityChains,
+        onlyUseZoneChains: onlyUseZoneChains,
         zone: zone,
         onDataCreatorKeyboardSubmitted: onDataCreatorKeyboardSubmitted,
         isCollapsable: isCollapsable,

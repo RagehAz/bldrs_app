@@ -52,7 +52,7 @@ class HashtagsBuilderPage extends StatelessWidget {
                 searchText: searchText,
                 onExportSpecs: null,
                 zone: null,
-                onlyUseCityChains: false,
+                onlyUseZoneChains: false,
                 isMultipleSelectionMode: false,
                 isCollapsable: false,
               );

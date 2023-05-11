@@ -304,7 +304,7 @@ Future<void> onSectionButtonTap(BuildContext context) async {
       context: context,
       flyerType: flyerType,
       event: ViewingEvent.homeView,
-      onlyUseCityChains: true,
+      onlyUseZoneChains: true,
       // selectedPhids:
     );
 
@@ -336,7 +336,7 @@ Future<void> setActivePhidK({
   /// WORKS GOOD : BUT DEPRECATED
   // final List<Chain> allChains = ChainsProvider.proGetBldrsChains(
   //     context: context,
-  //     onlyUseCityChains: false,
+  //     onlyUseZoneChains: false,
   //     listen: false
   // );
   // final String _chainID = Chain.getRootChainIDOfPhid(

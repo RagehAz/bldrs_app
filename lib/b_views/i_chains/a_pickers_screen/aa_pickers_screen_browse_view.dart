@@ -21,7 +21,7 @@ class PickersScreenBrowseView extends StatelessWidget {
   const PickersScreenBrowseView({
     @required this.selectedSpecsNotifier,
     @required this.refinedPickersNotifier,
-    @required this.onlyUseCityChains,
+    @required this.onlyUseZoneChains,
     @required this.flyerTypes,
     @required this.isMultipleSelectionMode,
     @required this.zone,
@@ -31,7 +31,7 @@ class PickersScreenBrowseView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final ValueNotifier<List<SpecModel>> selectedSpecsNotifier;
   final ValueNotifier<List<PickerModel>> refinedPickersNotifier;
-  final bool onlyUseCityChains;
+  final bool onlyUseZoneChains;
   final List<FlyerType> flyerTypes;
   final bool isMultipleSelectionMode;
   final ZoneModel zone;
@@ -58,7 +58,7 @@ class PickersScreenBrowseView extends StatelessWidget {
     // '' : '\n$_flyerTypesString';
     // ------
     final String _instructions =
-        onlyUseCityChains == true ?
+        onlyUseZoneChains == true ?
             '${xPhrase(context, 'phid_showing_only_keywords_used_in')}\n'
             '${_zone.cityName}, ${_zone.countryName}'
             // '$_flyerTypesStringWithNewLineIfNotNull'
@@ -81,7 +81,7 @@ class PickersScreenBrowseView extends StatelessWidget {
     // ---------------------
 
     // ---------------------
-    final String _icon = onlyUseCityChains == true ?
+    final String _icon = onlyUseZoneChains == true ?
     _zone.icon
         :
     Iconz.info;
@@ -134,7 +134,7 @@ class PickersScreenBrowseView extends StatelessWidget {
                           zone: zone,
                           selectedSpecsNotifier: selectedSpecsNotifier,
                           isMultipleSelectionMode: isMultipleSelectionMode,
-                          onlyUseCityChains: onlyUseCityChains,
+                          onlyUseZoneChains: onlyUseZoneChains,
                           allPickers: _refinedPickers,
                           picker: _picker,
                           refinedPickersNotifier: refinedPickersNotifier,
@@ -195,7 +195,7 @@ class PickersScreenBrowseView extends StatelessWidget {
       child: ChainInstructions(
         instructions: _getInstructions(context),
         leadingIcon: _getInstructionsIcon(context),
-        iconSizeFactor: onlyUseCityChains == true ? 1 : 0.6,
+        iconSizeFactor: onlyUseZoneChains == true ? 1 : 0.6,
       ),
 
     );

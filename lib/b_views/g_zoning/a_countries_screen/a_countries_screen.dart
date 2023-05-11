@@ -99,7 +99,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
     /// COUNTRIES STAGES
     final Staging _countriesStages = await StagingProtocols.fetchCountriesStaging();
 
-    _countriesStages.blogStaging();
+    // _countriesStages.blogStaging();
 
     /// SHOWN IDS
     final List<String> _shownIDs = _countriesStages.getIDsByViewingEvent(

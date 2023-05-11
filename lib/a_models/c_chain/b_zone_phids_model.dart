@@ -9,15 +9,30 @@ import 'package:stringer/stringer.dart';
 import 'package:flutter/material.dart';
 
 @immutable
-class CityPhidsModel {
+class ZonePhidsModel {
   /// --------------------------------------------------------------------------
-  const CityPhidsModel({
-    @required this.cityID,
-    @required this.phidsMapModels,
+  const ZonePhidsModel({
+    @required this.zoneID,
+    @required this.phidsMaps,
   });
   /// --------------------------------------------------------------------------
-  final String cityID;
-  final List<MapModel> phidsMapModels;
+  final String zoneID;
+  final List<MapModel> phidsMaps;
+  // -----------------------------------------------------------------------------
+
+  /// CLONNING
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  ZonePhidsModel copyWith({
+    String zoneID,
+    List<MapModel> phidsMaps,
+  }){
+    return ZonePhidsModel(
+        zoneID: zoneID ?? this.zoneID,
+        phidsMaps: phidsMaps ?? this.phidsMaps,
+    );
+  }
   // -----------------------------------------------------------------------------
 
   /// CYPHERS
@@ -25,26 +40,26 @@ class CityPhidsModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, int> toMap(){
-    final Map<String, int> _map = MapModel.cipherIntsMapModels(phidsMapModels);
+    final Map<String, int> _map = MapModel.cipherIntsMapModels(phidsMaps);
     return _map;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static CityPhidsModel decipherCityPhids({
+  static ZonePhidsModel decipherZonePhids({
     @required Map<String, dynamic> map,
     @required String cityID,
   }){
 
-    CityPhidsModel _cityPhids;
+    ZonePhidsModel _zonePhids;
 
     if (Map != null && cityID != null){
-      _cityPhids = CityPhidsModel(
-        cityID: cityID,
-        phidsMapModels: MapModel.decipherMapModels(map),
+      _zonePhids = ZonePhidsModel(
+        zoneID: cityID,
+        phidsMaps: MapModel.decipherMapModels(map),
       );
     }
 
-    return _cityPhids;
+    return _zonePhids;
   }
   // -----------------------------------------------------------------------------
 
@@ -157,23 +172,23 @@ class CityPhidsModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static CityPhidsModel createCityPhidModelFromFlyer({
+  static ZonePhidsModel createZonePhidModelFromFlyer({
     @required FlyerModel flyerModel,
   }){
-    CityPhidsModel _cityChain;
+    ZonePhidsModel _zonePhids;
 
     if (flyerModel != null){
 
-      _cityChain = CityPhidsModel(
-        cityID: flyerModel.zone.cityID,
-        phidsMapModels: createPhidsMapModelsFromKeywords(
+      _zonePhids = ZonePhidsModel(
+        zoneID: flyerModel.zone.cityID,
+        phidsMaps: createPhidsMapModelsFromKeywords(
           keywords: flyerModel.keywordsIDs,
         ),
       );
 
     }
 
-    return _cityChain;
+    return _zonePhids;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -221,12 +236,12 @@ class CityPhidsModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  void blogCityPhidsModel({
+  void blogZonePhidsModel({
     String invoker = '',
   }){
     MapModel.blogMapModels(
-      mapModels: phidsMapModels,
-      invoker: 'blogCityPhidsModel : $invoker : ($cityID)',
+      phidsMaps: phidsMaps,
+      invoker: 'blogZonePhidsModel : $invoker : ($zoneID)',
     );
   }
   // -----------------------------------------------------------------------------
@@ -235,14 +250,14 @@ class CityPhidsModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> getPhidsFromCityPhidsModel({
-    @required CityPhidsModel cityPhidsModel,
+  static List<String> getPhidsFromZonePhidsModel({
+    @required ZonePhidsModel zonePhidsModel,
   }){
     List<String> _output = <String>[];
 
-    if (cityPhidsModel != null){
-      final CityPhidsModel _cleanedCityChain = _cleanZeroValuesPhids(cityPhidsModel);
-      final List<dynamic> _values = MapModel.getKeysFromMapModels(_cleanedCityChain.phidsMapModels);
+    if (zonePhidsModel != null){
+      final ZonePhidsModel _cleanedZonePhids = _cleanZeroValuesPhids(zonePhidsModel);
+      final List<dynamic> _values = MapModel.getKeysFromMapModels(_cleanedZonePhids.phidsMaps);
       _output = Stringer.getStringsFromDynamics(dynamics: _values);
       _output.removeWhere((element) => element == 'id');
     }
@@ -251,20 +266,17 @@ class CityPhidsModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<FlyerType> getFlyerTypesByCityPhids({
-    @required CityPhidsModel cityPhidsModel,
+  static List<FlyerType> getFlyerTypesByZonePhids({
+    @required ZonePhidsModel zonePhidsModel,
     @required List<Chain> bldrsChains,
   }){
     final List<FlyerType> _output = <FlyerType>[];
 
     if (Mapper.checkCanLoopList(bldrsChains) == true){
 
-      final List<String> _phids = getPhidsFromCityPhidsModel(
-        cityPhidsModel: cityPhidsModel,
+      final List<String> _phids = getPhidsFromZonePhidsModel(
+        zonePhidsModel: zonePhidsModel,
       );
-
-      // Stringer.blogStrings(strings: _phids, invoker: 'getFlyerTypesByCityPhids');
-
 
       if (Mapper.checkCanLoopList(_phids) == true){
 
@@ -326,15 +338,15 @@ class CityPhidsModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static CityPhidsModel _cleanZeroValuesPhids(CityPhidsModel cityPhidsModel){
+  static ZonePhidsModel _cleanZeroValuesPhids(ZonePhidsModel zonePhids){
 
-    CityPhidsModel _output;
+    ZonePhidsModel _output;
 
-    if (cityPhidsModel != null){
+    if (zonePhids != null){
 
       final List<MapModel> _cleanedKeywords = <MapModel>[];
 
-      for (final MapModel mapModel in cityPhidsModel.phidsMapModels){
+      for (final MapModel mapModel in zonePhids.phidsMaps){
 
         if (mapModel.value is int){
           /// ONLY GET USAGE VALUES BIGGER THAN 0
@@ -345,9 +357,9 @@ class CityPhidsModel {
 
       }
 
-      _output = CityPhidsModel(
-        cityID: cityPhidsModel.cityID,
-        phidsMapModels: _cleanedKeywords,
+      _output = ZonePhidsModel(
+        zoneID: zonePhids.zoneID,
+        phidsMaps: _cleanedKeywords,
       );
 
     }
@@ -356,13 +368,13 @@ class CityPhidsModel {
   }
   // --------------------
   /// TASK : TEST ME
-  static List<Chain> removeUnusedPhidsFromBldrsChainsForThisCity({
+  static List<Chain> removeUnusedPhidsFromBldrsChainsForThisZone({
     @required List<Chain> bldrsChains,
-    @required CityPhidsModel currentCityPhidsModel,
+    @required ZonePhidsModel currentZonePhidsModel,
   }) {
 
-    final List<String> _usedPhids = CityPhidsModel.getPhidsFromCityPhidsModel(
-      cityPhidsModel: currentCityPhidsModel,
+    final List<String> _usedPhids = ZonePhidsModel.getPhidsFromZonePhidsModel(
+      zonePhidsModel: currentZonePhidsModel,
     );
 
     final List<Chain> _refined = Chain.removeAllPhidsNotUsedInThisList(
@@ -372,28 +384,86 @@ class CityPhidsModel {
 
     return _refined;
   }
+  // --------------------
+  /// TASK : TEST ME
+  static ZonePhidsModel combineModels({
+    @required String zoneID,
+    @required ZonePhidsModel base,
+    @required ZonePhidsModel add,
+  }){
+    ZonePhidsModel _output;
+
+    if (zoneID != null){
+
+      _output = ZonePhidsModel(
+        zoneID: zoneID,
+        phidsMaps: <MapModel>[...?base?.phidsMaps],
+      );
+
+      if (Mapper.checkCanLoopList(add?.phidsMaps) == true){
+
+        final List<MapModel> _combined = [];
+
+        for (final MapModel mapModel in add.phidsMaps){
+
+          final MapModel _existing = MapModel.getModelByKey(
+            models: _output.phidsMaps,
+            key: mapModel.key,
+          );
+
+          if (_existing != null){
+            _combined.add(
+              MapModel(
+                key: mapModel.key,
+                value: _existing.value + mapModel.value,
+              )
+            );
+          }
+          else {
+            _combined.add(mapModel);
+          }
+
+        }
+
+        if (Mapper.checkCanLoopList(_combined) == true){
+
+          _output = ZonePhidsModel(
+            zoneID: zoneID,
+            phidsMaps: _combined,
+          );
+
+        }
+
+      }
+
+
+    }
+
+
+    return _cleanZeroValuesPhids(_output);
+  }
   // -----------------------------------------------------------------------------
 
   /// CHECKERS
 
   // --------------------
-  /// TASK : TEST ME
-  static bool checkCityPhidsAreIdentical({
-    @required CityPhidsModel cityPhids1,
-    @required CityPhidsModel cityPhids2,
+  /// TESTED : WORKS PERFECT
+  static bool checkZonePhidsAreIdentical({
+    @required ZonePhidsModel model1,
+    @required ZonePhidsModel model2,
   }){
     bool _identical = false;
 
-    if (cityPhids1 == null && cityPhids2 == null){
+    if (model1 == null && model2 == null){
       _identical = true;
     }
-    else if (cityPhids1 != null && cityPhids2 != null){
+    else if (model1 != null && model2 != null){
 
       if (
-          cityPhids1.cityID == cityPhids2.cityID &&
+          model1.zoneID == model2.zoneID &&
           MapModel.checkMapModelsListsAreIdentical(
-            models1: cityPhids1.phidsMapModels,
-            models2: cityPhids2.phidsMapModels,
+            models1: model1.phidsMaps,
+            models2: model2.phidsMaps,
           ) == true
       ){
         _identical = true;
@@ -421,10 +491,10 @@ class CityPhidsModel {
     }
 
     bool _areIdentical = false;
-    if (other is CityPhidsModel){
-      _areIdentical = checkCityPhidsAreIdentical(
-        cityPhids1: this,
-        cityPhids2: other,
+    if (other is ZonePhidsModel){
+      _areIdentical = checkZonePhidsAreIdentical(
+        model1: this,
+        model2: other,
       );
     }
 
@@ -433,7 +503,7 @@ class CityPhidsModel {
   // --------------------
   @override
   int get hashCode =>
-      cityID.hashCode^
-      phidsMapModels.hashCode;
+      zoneID.hashCode^
+      phidsMaps.hashCode;
 // -----------------------------------------------------------------------------
 }
