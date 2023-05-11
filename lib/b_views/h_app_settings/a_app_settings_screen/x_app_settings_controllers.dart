@@ -11,7 +11,6 @@ import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
@@ -104,10 +103,6 @@ Future<void> onCreateNewBzTap(BuildContext context) async {
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onSignOut(BuildContext context) async {
-
-  /// CLEAR FLYERS
-  final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-  _flyersProvider.clearPromotedFlyers(notify: false);
 
   /// CLEAR KEYWORDS
   final ChainsProvider _keywordsProvider = Provider.of<ChainsProvider>(context, listen: false);

@@ -1,9 +1,8 @@
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
-import 'package:bldrs/a_models/x_utilities/xx_app_controls_model.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/provider/general_provider.dart';
+import 'package:bldrs/a_models/m_search/flyer_search_model.dart';
+import 'package:bldrs/a_models/m_search/search_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_search.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
@@ -16,88 +15,36 @@ import 'package:flutter/material.dart';
 ///
 FireQueryModel homeWallFlyersPaginationQuery(BuildContext context){
 
-  final AppControlsModel _appControl = GeneralProvider.proGerAppControls(context);
-
-  List<FireFinder> _finders = [];
-
-  if (_appControl.showAllFlyersInHome == true){
-    _finders = [];
-  }
-
-  else {
-
-    final FlyerType flyerType =  ChainsProvider.proGetHomeWallFlyerType(
-      context: context,
-      listen: true,
-    );
-
-    final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(
-      context: context,
-      listen: true,
-    );
-
-    final String phid = ChainsProvider.proGetHomeWallPhid(
-        context: context,
-        listen: true,
-    );
+  // final AppControlsModel _appControl = GeneralProvider.proGerAppControls(context);
 
     const bool _showOnlyVerifiedFlyersInHomeWall = false;
 
-    // blog('homeWallFlyersPaginationQuery() flyerType: $flyerType : phid : $phid : appControls?'
-    //     '.showAllFlyersInHome: ${_appControl?.showAllFlyersInHome}');
+    return FlyerSearch.createQuery(
+      searchModel: SearchModel(
+        zone: ZoneProvider.proGetCurrentZone(context: context, listen: true,),
+        userID: Authing.getUserID(),
+        id: 'homeWallFlyersPaginationQuery',
+        flyerSearchModel: FlyerSearchModel(
+          flyerType: ChainsProvider.proGetHomeWallFlyerType(context: context, listen: true,),
+          phid: ChainsProvider.proGetHomeWallPhid(context: context, listen: true,),
+          auditState: _showOnlyVerifiedFlyersInHomeWall == true ? AuditState.verified : null,
+          publishState: null,
+          onlyAmazonProducts: null,
+          onlyWithPDF: null,
+          onlyShowingAuthors: null,
+          onlyWithPrices: null,
+        ),
+        bzSearchModel: null,
+        text: null,
+        time: null,
+      ),
+      // limit: 4,
+      // gtaLink: ,
+      // title: ,
+      // descending: ,
+      // orderBy: ,
+    );
 
-    _finders = <FireFinder>[
-
-          /// FLYER TYPE
-          if (flyerType != null)
-          FireFinder(
-            field: 'flyerType',
-            comparison: FireComparison.equalTo,
-            value: FlyerTyper.cipherFlyerType(flyerType),
-          ),
-
-          /// COUNTRY
-          if (_currentZone != null && _currentZone.countryID != null)
-          FireFinder(
-            field: 'zone.countryID',
-            comparison: FireComparison.equalTo,
-            value: _currentZone.countryID,
-          ),
-
-          /// CITY
-          if (_currentZone != null && _currentZone.cityID != null)
-          FireFinder(
-            field: 'zone.cityID',
-            comparison: FireComparison.equalTo,
-            value: _currentZone.cityID,
-          ),
-
-          /// KEYWORDS IDS : phid_k's
-          if (phid != null)
-          FireFinder(
-            field: 'keywordsIDs',
-            comparison: FireComparison.arrayContains,
-            value: phid,
-          ),
-
-          if (_showOnlyVerifiedFlyersInHomeWall == true)
-            FireFinder(
-              field: 'auditState',
-              comparison: FireComparison.equalTo,
-              value: FlyerModel.cipherAuditState(AuditState.verified),
-            ),
-
-        ];
-
-  }
-
-
-  return FireQueryModel(
-    coll: FireColl.flyers,
-    limit: 4,
-    // orderBy: const QueryOrderBy(fieldName: 'times.published', descending: true),
-    finders: _finders,
-  );
 }
 // -----------------------------------------------------------------------------
 

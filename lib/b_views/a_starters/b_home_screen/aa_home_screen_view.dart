@@ -20,8 +20,6 @@ class HomeFlyersGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // blog('Building home screen paginator view');
-
     return FireCollPaginator(
       key: const ValueKey<String>('UserHomeScreen_FireCollPaginator'),
       paginationQuery: homeWallFlyersPaginationQuery(context),
@@ -53,24 +51,6 @@ class HomeFlyersGrid extends StatelessWidget {
           screenName: 'userHomeScreen',
           isHeroicGrid: false,
         );
-
-        // return PullToRefresh(
-        //   onRefresh: () => onRefreshHomeWall(
-        //     context: context,
-        //     mounted: true,
-        //     paginationController: paginationController,
-        //     loading: loading,
-        //   ),
-        //   fadeOnBuild: true,
-        //   child: FlyersGrid(
-        //     scrollController: scrollController,
-        //     gridWidth: Scale.screenWidth(context),
-        //     gridHeight: Scale.screenHeight(context),
-        //     flyers: _wallFlyers,
-        //     screenName: 'userHomeScreen',
-        //     isHeroicGrid: false,
-        //   ),
-        // );
 
       },
     );

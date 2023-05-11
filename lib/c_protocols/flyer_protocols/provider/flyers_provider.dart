@@ -1,10 +1,6 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/f_flyer/flyer_promotion.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_search.dart';
 import 'package:mapper/mapper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -21,11 +17,6 @@ class FlyersProvider extends ChangeNotifier {
     @required String flyerID,
     @required bool notify,
   }) {
-
-    _promotedFlyers = FlyerModel.removeFlyerFromFlyersByID(
-      flyers: _promotedFlyers,
-      flyerIDToRemove: flyerID,
-    );
 
     _selectedFlyers = FlyerModel.removeFlyerFromFlyersByID(
       flyers: _selectedFlyers,
@@ -72,12 +63,6 @@ class FlyersProvider extends ChangeNotifier {
     @required bool notify,
   }){
 
-    _promotedFlyers = FlyerModel.replaceFlyerInFlyers(
-      flyers: _promotedFlyers,
-      flyerToReplace: flyerModel,
-      insertIfAbsent: false,
-    );
-
     _selectedFlyers = FlyerModel.replaceFlyerInFlyers(
       flyers: _selectedFlyers,
       flyerToReplace: flyerModel,
@@ -88,66 +73,6 @@ class FlyersProvider extends ChangeNotifier {
       notifyListeners();
     }
 
-  }
-  // -----------------------------------------------------------------------------
-
-  /// PROMOTED FLYERS
-
-  // --------------------
-  List<FlyerModel> _promotedFlyers = <FlyerModel>[];
-  // --------------------
-  List<FlyerModel> get promotedFlyers {
-    return [..._promotedFlyers];
-  }
-  // --------------------
-  Future<void> fetchSetPromotedFlyers({
-    @required BuildContext context,
-    @required bool notify,
-  }) async {
-
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
-    final CityModel _currentCity = _zoneProvider.currentZone?.cityModel;
-
-    if (_currentCity != null){
-
-      final List<FlyerPromotion> _promotions = await FlyerSearch.flyerPromotionsByCity(
-        cityID: _currentCity.cityID,
-      );
-
-      final List<String> _flyersIDs = FlyerPromotion.getFlyersIDsFromFlyersPromotions(promotions: _promotions);
-
-      final List<FlyerModel> _flyers = await FlyerProtocols.fetchFlyers(
-        context: context,
-        flyersIDs: _flyersIDs,
-      );
-
-      _setPromotedFlyers(
-        flyers: _flyers,
-        notify: notify,
-      );
-    }
-
-  }
-  // --------------------
-  void _setPromotedFlyers({
-    @required List<FlyerModel> flyers,
-    @required bool notify,
-  }){
-    _promotedFlyers = flyers;
-
-    if (notify == true){
-      notifyListeners();
-    }
-
-  }
-  // --------------------
-  void clearPromotedFlyers({
-    @required bool notify,
-  }){
-    _setPromotedFlyers(
-      flyers: <FlyerModel>[],
-      notify: notify,
-    );
   }
   // -----------------------------------------------------------------------------
 
@@ -278,9 +203,6 @@ class FlyersProvider extends ChangeNotifier {
   }){
 
     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-
-    /// _promotedFlyers
-    _flyersProvider.clearPromotedFlyers(notify: false);
 
     /// _wallFlyers
     // _flyersProvider.clearWallFlyers(notify: false);
