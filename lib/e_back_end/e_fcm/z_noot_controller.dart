@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/c_noot_nav_protocols.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
-import 'package:bldrs/main.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -68,7 +68,7 @@ abstract class NootController {
     // );
 
     // Navigate into pages, avoiding to open the notification details page over another details page already opened
-    await BldrsAppStarter.navigatorKey.currentState?.pushNamedAndRemoveUntil('/notification-page',
+    await mainNavKey.currentState?.pushNamedAndRemoveUntil('/notification-page',
             (route) => (route.settings.name != '/notification-page') || route.isFirst,
         arguments: receivedAction
     );
