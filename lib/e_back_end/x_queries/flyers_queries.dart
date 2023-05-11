@@ -13,15 +13,6 @@ import 'package:flutter/material.dart';
 /// ALL FLYERS PAGINATION
 
 // --------------------
-/// TESTED : WORKS PERFECT
-FireQueryModel allFlyersPaginationQuery(){
-  return const FireQueryModel(
-    coll: FireColl.flyers,
-    limit: 9,
-    orderBy: QueryOrderBy(fieldName: 'times.published', descending: true),
-  );
-}
-// --------------------
 ///
 FireQueryModel homeWallFlyersPaginationQuery(BuildContext context){
 

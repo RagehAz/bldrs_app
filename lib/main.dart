@@ -97,12 +97,6 @@ class BldrsAppStarter extends StatefulWidget {
   @override
   _BldrsAppStarterState createState() => _BldrsAppStarterState();
   /// --------------------------------------------------------------------------
-  static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-  /// --------------------------------------------------------------------------
-  static BuildContext getContext(){
-    return navigatorKey.currentContext;
-  }
-  /// --------------------------------------------------------------------------
 }
 
 class _BldrsAppStarterState extends State<BldrsAppStarter> {
@@ -362,7 +356,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
               // onGenerateInitialRoutes: ,
               // onUnknownRoute: ,
               // home: ,
-              navigatorKey: BldrsAppStarter.navigatorKey,
+              navigatorKey: mainNavKey,
               onGenerateRoute: Routing.allRoutes,
               initialRoute: Routing.staticLogoScreen,
               routes: <String, Widget Function(BuildContext)>{

@@ -329,7 +329,7 @@ class Staging {
       'homeView' : { /// USER BROWSING HOME PAGE FLYERS AND BZZ
         'user':           {'country' : StageType.bzzStage, 'city' : StageType.bzzStage},
         'author':         {'country' : StageType.bzzStage, 'city' : StageType.bzzStage},
-        'global_user':    {'country' : StageType.publicStage, 'city' : StageType.publicStage},
+        'global_user':    {'country' : StageType.bzzStage, 'city' : StageType.publicStage},
         'global_author':  {'country' : StageType.bzzStage, 'city' : StageType.bzzStage},
       },
       'userEditor' : { /// SO USER CAN BE CREATED HERE
