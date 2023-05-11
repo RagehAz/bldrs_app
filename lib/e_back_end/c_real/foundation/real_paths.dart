@@ -226,7 +226,7 @@ class RealColl {
   // -----------------------------------------------------------------------------
   /// CHAINS
   // --------------------
-  static const String citiesPhids = 'citiesPhids';
+  static const String zonesPhids = 'zonesPhids';
   static const String bldrsChains = 'bldrsChains';
   // -----------------------------------------------------------------------------
   /// PICKERS

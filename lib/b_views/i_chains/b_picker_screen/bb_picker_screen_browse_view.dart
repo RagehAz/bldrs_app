@@ -20,7 +20,7 @@ class PickerScreenBrowseView extends StatelessWidget {
     @required this.screenHeight,
     @required this.showInstructions,
     @required this.isMultipleSelectionMode,
-    @required this.onlyUseCityChains,
+    @required this.onlyUseZoneChains,
     @required this.zone,
     @required this.onKeyboardSubmitted,
     @required this.appBarType,
@@ -35,7 +35,7 @@ class PickerScreenBrowseView extends StatelessWidget {
   final double screenHeight;
   final bool showInstructions;
   final bool isMultipleSelectionMode;
-  final bool onlyUseCityChains;
+  final bool onlyUseZoneChains;
   final ZoneModel zone;
   final ValueChanged<String> onKeyboardSubmitted;
   final AppBarType appBarType;
@@ -68,7 +68,7 @@ class PickerScreenBrowseView extends StatelessWidget {
     final Chain _chain = ChainsProvider.proFindChainByID(
       context: context,
       chainID: picker?.chainID,
-      onlyUseCityChains: onlyUseCityChains,
+      onlyUseZoneChains: onlyUseZoneChains,
     );
 
     final bool _sonsAreDataCreator = DataCreation.checkIsDataCreator(_chain?.sons);
@@ -124,7 +124,7 @@ class PickerScreenBrowseView extends StatelessWidget {
               appBarType: appBarType,
               height: _listZoneHeight,
               picker: picker,
-              onlyUseCityChains: onlyUseCityChains,
+              onlyUseZoneChains: onlyUseZoneChains,
               selectedSpecs: specs,
               zone: zone,
               onKeyboardSubmitted: onKeyboardSubmitted,

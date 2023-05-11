@@ -10,7 +10,7 @@ import 'package:bldrs/a_models/j_poster/poster_type.dart';
 import 'package:bldrs/b_views/z_components/poster/poster_display.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/real/bz_record_real_ops.dart';
-import 'package:bldrs/c_protocols/city_phids_protocols/real/city_phids_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_phids_protocols/zone_phids_real_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
 import 'package:bldrs/c_protocols/pdf_protocols/protocols/pdf_protocols.dart';
@@ -104,7 +104,7 @@ class ComposeFlyerProtocols {
           ),
 
           /// INCREMENT CITY FLYER CHAIN USAGE
-          CityPhidsRealOps.incrementFlyerCityPhids(
+          ZonePhidsRealOps.incrementFlyerCityPhids(
               flyerModel: _flyerToPublish,
               isIncrementing: true
           ),

@@ -23,7 +23,7 @@ class ChainsBuilder extends StatelessWidget {
     @required this.onPhidLongTap,
     @required this.onExportSpecs,
     @required this.zone,
-    @required this.onlyUseCityChains,
+    @required this.onlyUseZoneChains,
     @required this.isMultipleSelectionMode,
     @required this.onDataCreatorKeyboardSubmitted,
     @required this.isCollapsable,
@@ -45,7 +45,7 @@ class ChainsBuilder extends StatelessWidget {
   final ZoneModel zone;
   final Function onDataCreatorKeyboardSubmitted;
   final bool isMultipleSelectionMode;
-  final bool onlyUseCityChains;
+  final bool onlyUseZoneChains;
   final bool isCollapsable;
   /// --------------------------------------------------------------------------
   static double getBottomMargin({
@@ -131,7 +131,7 @@ class ChainsBuilder extends StatelessWidget {
                 onExportSpecs: onExportSpecs,
 
                 isMultipleSelectionMode: isMultipleSelectionMode,
-                onlyUseCityChains: onlyUseCityChains,
+                onlyUseZoneChains: onlyUseZoneChains,
                 zone: zone,
                 onDataCreatorKeyboardSubmitted: onDataCreatorKeyboardSubmitted,
 

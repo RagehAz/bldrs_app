@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/c_chain/b_city_phids_model.dart';
+import 'package:bldrs/a_models/c_chain/b_zone_phids_model.dart';
 import 'package:bldrs/b_views/z_components/pyramids/pyramid_floating_button.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
@@ -17,8 +17,8 @@ class NewSectionButton extends StatelessWidget {
   List<String> getPhids({
     @required BuildContext context,
   }){
-    final CityPhidsModel _phidsModels = ChainsProvider.proGetCityPhids(context: context, listen: true);
-    return CityPhidsModel.getPhidsFromCityPhidsModel(cityPhidsModel: _phidsModels);
+    final ZonePhidsModel _phidsModels = ChainsProvider.proGetZonePhids(context: context, listen: true);
+    return ZonePhidsModel.getPhidsFromZonePhidsModel(zonePhidsModel: _phidsModels);
   }
   // --------------------
   String getIcon({

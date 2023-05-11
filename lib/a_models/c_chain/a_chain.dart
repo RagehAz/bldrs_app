@@ -239,13 +239,13 @@ class Chain {
   static Chain filterSpecPickerChainRange({
     @required BuildContext context,
     @required PickerModel picker,
-    @required bool onlyUseCityChains,
+    @required bool onlyUseZoneChains,
   }) {
     final List<String> _filteredIDs = <String>[];
     Chain _filteredChain = ChainsProvider.proFindChainByID(
       context: context,
       chainID: picker.chainID,
-      onlyUseCityChains: onlyUseCityChains,
+      onlyUseZoneChains: onlyUseZoneChains,
     );
 
     if (Mapper.checkCanLoopList(_filteredChain?.sons) && Mapper.checkCanLoopList(picker?.range)) {

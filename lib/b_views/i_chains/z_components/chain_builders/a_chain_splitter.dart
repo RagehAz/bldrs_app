@@ -41,7 +41,7 @@ class ChainSplitter extends StatelessWidget {
     @required this.searchText,
     @required this.onExportSpecs,
     @required this.zone,
-    @required this.onlyUseCityChains,
+    @required this.onlyUseZoneChains,
     @required this.isMultipleSelectionMode,
     @required this.isCollapsable,
     this.onDataCreatorKeyboardSubmitted,
@@ -66,7 +66,7 @@ class ChainSplitter extends StatelessWidget {
   final ZoneModel zone;
   final ValueChanged<String> onDataCreatorKeyboardSubmitted;
   final bool isMultipleSelectionMode;
-  final bool onlyUseCityChains;
+  final bool onlyUseZoneChains;
   final bool isCollapsable;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
@@ -146,7 +146,7 @@ class ChainSplitter extends StatelessWidget {
         onExportSpecs: onExportSpecs,
         onDataCreatorKeyboardSubmitted: onDataCreatorKeyboardSubmitted,
         zone: zone,
-        onlyUseCityChains: onlyUseCityChains,
+        onlyUseZoneChains: onlyUseZoneChains,
         isMultipleSelectionMode: isMultipleSelectionMode,
         isCollapsable: isCollapsable,
       );
@@ -185,7 +185,7 @@ class ChainSplitter extends StatelessWidget {
 
         onExportSpecs: onExportSpecs,
         isMultipleSelectionMode: isMultipleSelectionMode,
-        onlyUseCityChains: onlyUseCityChains,
+        onlyUseZoneChains: onlyUseZoneChains,
         zone: zone,
         onDataCreatorKeyboardSubmitted: onDataCreatorKeyboardSubmitted,
 
@@ -224,7 +224,7 @@ class ChainSplitter extends StatelessWidget {
         selectedSpecs: _specs,
         onPhidTap: onPhidTap,
         onExportSpecs: onExportSpecs,
-        onlyUseCityChains: onlyUseCityChains,
+        onlyUseZoneChains: onlyUseZoneChains,
         zone: zone,
         onKeyboardSubmitted: onDataCreatorKeyboardSubmitted,
         isMultipleSelectionMode: isMultipleSelectionMode,
@@ -249,7 +249,7 @@ class ChainSplitter extends StatelessWidget {
         onPhidLongTap: onPhidLongTap,
         onExportSpecs: onExportSpecs,
         isMultipleSelectionMode: isMultipleSelectionMode,
-        onlyUseCityChains: onlyUseCityChains,
+        onlyUseZoneChains: onlyUseZoneChains,
         zone: zone,
         onDataCreatorKeyboardSubmitted: onDataCreatorKeyboardSubmitted,
         isCollapsable: isCollapsable,

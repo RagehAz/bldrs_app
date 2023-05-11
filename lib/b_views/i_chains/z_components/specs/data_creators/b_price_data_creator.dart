@@ -22,7 +22,7 @@ class PriceDataCreator extends StatefulWidget {
     @required this.onKeyboardSubmitted,
     @required this.onExportSpecs,
     @required this.dataCreatorType,
-    @required this.onlyUseCityChains,
+    @required this.onlyUseZoneChains,
     @required this.appBarType,
     this.width,
     Key key
@@ -35,7 +35,7 @@ class PriceDataCreator extends StatefulWidget {
   final ValueChanged<String> onKeyboardSubmitted;
   final ValueChanged<List<SpecModel>> onExportSpecs;
   final DataCreator dataCreatorType;
-  final bool onlyUseCityChains;
+  final bool onlyUseZoneChains;
   final AppBarType appBarType;
   final double width;
   /// --------------------------------------------------------------------------

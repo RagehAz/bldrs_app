@@ -28,7 +28,7 @@ class PickersScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const PickersScreen({
     @required this.flyerTypeFilter,
-    @required this.onlyUseCityChains,
+    @required this.onlyUseZoneChains,
     @required this.isMultipleSelectionMode,
     @required this.pageTitleVerse,
     @required this.zone,
@@ -40,7 +40,7 @@ class PickersScreen extends StatefulWidget {
   final List<SpecModel> selectedSpecs;
   /// if given flyer type : will generate flyer type chain : if null will get all chains
   final FlyerType flyerTypeFilter;
-  final bool onlyUseCityChains;
+  final bool onlyUseZoneChains;
   final bool isMultipleSelectionMode;
   final Verse pageTitleVerse;
   final bool onlyChainKSelection;
@@ -78,7 +78,7 @@ class _PickersScreenState extends State<PickersScreen> {
     // ------------------------------
     _bldrsChains = ChainsProvider.proGetBldrsChains(
       context: context,
-      onlyUseCityChains: widget.onlyUseCityChains,
+      onlyUseZoneChains: widget.onlyUseZoneChains,
       listen: false,
     );
     // ------------------------------
@@ -199,7 +199,7 @@ class _PickersScreenState extends State<PickersScreen> {
         final Chain _chain = ChainsProvider.proFindChainByID(
           context: context,
           chainID: _picker.chainID,
-          onlyUseCityChains: widget.onlyUseCityChains,
+          onlyUseZoneChains: widget.onlyUseZoneChains,
         );
         if (_chain != null){
           _sons.add(_chain);
@@ -226,8 +226,8 @@ class _PickersScreenState extends State<PickersScreen> {
   // --------------------
   List<Chain> _getBldrsChains (BuildContext ctx, ChainsProvider chainsPro){
 
-    if (widget.onlyUseCityChains == true){
-      return chainsPro.cityChains;
+    if (widget.onlyUseZoneChains == true){
+      return chainsPro.zoneChains;
     }
 
     else {
@@ -376,7 +376,7 @@ class _PickersScreenState extends State<PickersScreen> {
                 selectedSpecsNotifier: _selectedSpecs,
                 searchText: _searchText,
                 zone: widget.zone,
-                onlyUseCityChains: widget.onlyUseCityChains,
+                onlyUseZoneChains: widget.onlyUseZoneChains,
                 isMultipleSelectionMode: widget.isMultipleSelectionMode,
                 refinedPickersNotifier: _refinedPickers,
                 allPickers: _allPickers,
@@ -389,7 +389,7 @@ class _PickersScreenState extends State<PickersScreen> {
             else {
 
               return PickersScreenBrowseView(
-                onlyUseCityChains: widget.onlyUseCityChains,
+                onlyUseZoneChains: widget.onlyUseZoneChains,
                 refinedPickersNotifier: _refinedPickers,
                 selectedSpecsNotifier: _selectedSpecs,
                 flyerTypes: [widget.flyerTypeFilter],

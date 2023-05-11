@@ -24,23 +24,23 @@ bool allChainsCanNotBeBuiltt({
 
   final Chain _propertyChain = _chainsProvider.getChainKByFlyerType(
     flyerType: FlyerType.property,
-    onlyUseCityChains: true,
+    onlyUseZoneChains: true,
   );
   final Chain _designChain = _chainsProvider.getChainKByFlyerType(
     flyerType: FlyerType.design,
-    onlyUseCityChains: true,
+    onlyUseZoneChains: true,
   );
   final Chain _tradesChain = _chainsProvider.getChainKByFlyerType(
     flyerType: FlyerType.trade,
-    onlyUseCityChains: true,
+    onlyUseZoneChains: true,
   );
   final Chain _productChain = _chainsProvider.getChainKByFlyerType(
     flyerType: FlyerType.product,
-    onlyUseCityChains: true,
+    onlyUseZoneChains: true,
   );
   final Chain _equipmentChain = _chainsProvider.getChainKByFlyerType(
     flyerType: FlyerType.equipment,
-    onlyUseCityChains: true,
+    onlyUseZoneChains: true,
   );
 
   bool _allCanNotBeBuilt = false;
@@ -107,7 +107,7 @@ Future<void> onGoToPickerScreen({
   @required BuildContext context,
   @required PickerModel picker,
   @required ValueNotifier<List<SpecModel>> selectedSpecsNotifier,
-  @required bool onlyUseCityChains,
+  @required bool onlyUseZoneChains,
   @required bool isMultipleSelectionMode,
   @required ValueNotifier<List<PickerModel>> refinedPickersNotifier,
   @required List<PickerModel> allPickers,
@@ -121,7 +121,7 @@ Future<void> onGoToPickerScreen({
     screen: PickerScreen(
       picker: picker,
       selectedSpecs: selectedSpecsNotifier,
-      onlyUseCityChains: onlyUseCityChains,
+      onlyUseZoneChains: onlyUseZoneChains,
       showInstructions: isMultipleSelectionMode,
       isMultipleSelectionMode:  isMultipleSelectionMode,
       zone: zone,
