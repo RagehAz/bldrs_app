@@ -95,15 +95,15 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
     _searchModel = SearchModel.createInitialModel(context: context);
 
     _flyersController = PaginationController.initialize(
-      addExtraMapsAtEnd: false,
+      addExtraMapsAtEnd: true,
     );
 
     _bzzController = PaginationController.initialize(
-      addExtraMapsAtEnd: false,
+      addExtraMapsAtEnd: true,
     );
 
     _usersController = PaginationController.initialize(
-      addExtraMapsAtEnd: false,
+      addExtraMapsAtEnd: true,
     );
 
     _generateQuery();

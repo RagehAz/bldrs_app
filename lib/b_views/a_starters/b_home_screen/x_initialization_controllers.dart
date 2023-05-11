@@ -7,7 +7,6 @@ import 'package:bldrs/b_views/d_user/b_user_editor_screen/user_editor_screen.dar
 import 'package:bldrs/c_protocols/auth_protocols/auth_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
@@ -40,8 +39,6 @@ Future<void> initializeHomeScreen(BuildContext context) async {
       <Future<void>>[
         /// A - SHOW AD FLYER
         //
-        /// E - PROMOTED FLYERS
-        _initializePromotedFlyers(context),
         /// F - SPONSORS : USES BZZ PROVIDER
         _initializeSponsors(
           context: context,
@@ -271,33 +268,5 @@ Future<void> _initializeSponsors({
     notify: notify,
   );
   // blog('initializeHomeScreen._initializeSponsors : ~~~~~~~~~~ END');
-}
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<void> _initializePromotedFlyers(BuildContext context) async {
-  // blog('initializeHomeScreen._initializePromotedFlyers : ~~~~~~~~~~ START');
-
-  final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
-
-  await _flyersProvider.fetchSetPromotedFlyers(
-    context: context,
-    notify: true,
-  );
-
-  /// OPEN FIRST PROMOTED FLYER IF POSSIBLE
-  // final List<FlyerModel> _promotedFlyers = _flyersProvider.promotedFlyers;
-  // if (Mapper.canLoopList(_promotedFlyers)){
-  //   await Future.delayed(Ratioz.duration150ms, () async {
-  //
-  //      unawaited(Nav.openFlyer(
-  //        context: context,
-  //        flyer: _flyersProvider.promotedFlyers[0],
-  //        isSponsored: true,
-  //      ));
-  //
-  //   });
-  // }
-  // blog('initializeHomeScreen._initializePromotedFlyers : ~~~~~~~~~~ END');
-
 }
 // -----------------------------------------------------------------------------

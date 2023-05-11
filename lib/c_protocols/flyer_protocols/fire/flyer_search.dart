@@ -1,12 +1,9 @@
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/f_flyer/flyer_promotion.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/m_search/search_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
-import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
 import 'package:stringer/stringer.dart';
 
 class FlyerSearch {
@@ -16,25 +13,6 @@ class FlyerSearch {
 
   // -----------------------------------------------------------------------------
   /// TASK : TEST ME
-  static Future<List<FlyerModel>> superSearch({
-    @required FireQueryModel queryModel,
-    QueryDocumentSnapshot<Object> startAfter,
-  }) async {
-
-    final List<Map<String, dynamic>> _maps = await Fire.readColl(
-      addDocSnapshotToEachMap: true,
-      startAfter: startAfter,
-      queryModel: queryModel,
-    );
-
-    if (Mapper.checkCanLoopList(_maps) == true) {
-      return FlyerModel.decipherFlyers(maps: _maps, fromJSON: false);
-    } else {
-      return [];
-    }
-  }
-  // --------------------
-  /// TASK : TEST ME
   static FireQueryModel createQuery({
     SearchModel searchModel,
     String title,
@@ -43,8 +21,7 @@ class FlyerSearch {
     int limit = 4,
     String gtaLink,
   }) {
-    final QueryOrderBy _orderBy = orderBy == null
-        ? null
+    final QueryOrderBy _orderBy = orderBy == null ? null
         : QueryOrderBy(
             fieldName: orderBy,
             descending: descending,
@@ -139,38 +116,6 @@ class FlyerSearch {
       ],
       // orderBy: 'score',
     );
-  }
-  // -----------------------------------------------------------------------------
-
-  /// FLYER PROMOTION
-
-  // --------------------
-  /// TASK : TEST ME
-  static Future<List<FlyerPromotion>> flyerPromotionsByCity({
-    @required String cityID,
-    // @required DateTime timeLimit,
-  }) async {
-
-    final List<Map<String, dynamic>> _maps = await Fire.readColl(
-      queryModel: FireQueryModel(
-        coll: FireColl.flyersPromotions,
-        limit: 10,
-        finders: <FireFinder>[
-          FireFinder(
-            field: 'cityID',
-            comparison: FireComparison.equalTo,
-            value: cityID,
-          ),
-        ],
-      ),
-    );
-
-    final List<FlyerPromotion> _flyerPromotions = FlyerPromotion.decipherFlyersPromotions(
-      maps: _maps,
-      fromJSON: false,
-    );
-
-    return _flyerPromotions;
   }
   // -----------------------------------------------------------------------------
 }
