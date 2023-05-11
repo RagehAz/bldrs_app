@@ -27,7 +27,7 @@ class PhidsPickerScreen extends StatefulWidget {
   // -----------------------------------------------------------------------------
   const PhidsPickerScreen({
     @required this.chainsIDs,
-    @required this.onlyUseCityChains,
+    @required this.onlyUseZoneChains,
     this.selectedPhids,
     this.multipleSelectionMode = false,
     this.flyerModel,
@@ -41,7 +41,7 @@ class PhidsPickerScreen extends StatefulWidget {
   final FlyerModel flyerModel;
 
   final List<String> chainsIDs;
-  final bool onlyUseCityChains;
+  final bool onlyUseZoneChains;
   // -----------------------------------------------------------------------------
   @override
   _TheStatefulScreenState createState() => _TheStatefulScreenState();
@@ -51,7 +51,7 @@ class PhidsPickerScreen extends StatefulWidget {
     @required BuildContext context,
     @required FlyerType flyerType,
     @required ViewingEvent event,
-    @required bool onlyUseCityChains,
+    @required bool onlyUseZoneChains,
     List<String> selectedPhids,
   }) async {
 
@@ -64,7 +64,7 @@ class PhidsPickerScreen extends StatefulWidget {
           flyerType: flyerType,
           event: ViewingEvent.homeView,
         ),
-        onlyUseCityChains: onlyUseCityChains,
+        onlyUseZoneChains: onlyUseZoneChains,
         selectedPhids: selectedPhids,
         // flyerModel: ,
         // multipleSelectionMode: false,
@@ -79,7 +79,7 @@ class PhidsPickerScreen extends StatefulWidget {
     @required BuildContext context,
     @required FlyerType flyerType,
     @required ViewingEvent event,
-    @required bool onlyUseCityChains,
+    @required bool onlyUseZoneChains,
     List<String> selectedPhids,
   }) async {
 
@@ -92,7 +92,7 @@ class PhidsPickerScreen extends StatefulWidget {
           flyerType: flyerType,
           event: ViewingEvent.homeView,
         ),
-        onlyUseCityChains: onlyUseCityChains,
+        onlyUseZoneChains: onlyUseZoneChains,
         selectedPhids: selectedPhids,
         // flyerModel: ,
         multipleSelectionMode: true,
@@ -137,7 +137,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
 
     final List<Chain> _allChains = ChainsProvider.proGetBldrsChains(
       context: context,
-      onlyUseCityChains: widget.onlyUseCityChains,
+      onlyUseZoneChains: widget.onlyUseZoneChains,
       listen: false,
     );
 

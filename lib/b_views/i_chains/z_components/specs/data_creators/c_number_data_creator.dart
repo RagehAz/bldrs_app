@@ -22,7 +22,7 @@ class NumberDataCreator extends StatefulWidget {
     @required this.onKeyboardSubmitted,
     @required this.dataCreatorType,
     @required this.zone,
-    @required this.onlyUseCityChains,
+    @required this.onlyUseZoneChains,
     @required this.appBarType,
     this.width,
     Key key
@@ -35,7 +35,7 @@ class NumberDataCreator extends StatefulWidget {
   final Function onKeyboardSubmitted;
   final DataCreator dataCreatorType;
   final ZoneModel zone;
-  final bool onlyUseCityChains;
+  final bool onlyUseZoneChains;
   final AppBarType appBarType;
   final double width;
   /// --------------------------------------------------------------------------

@@ -1,15 +1,16 @@
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
-import 'package:bldrs/a_models/c_chain/b_city_phids_model.dart';
+import 'package:bldrs/a_models/c_chain/b_zone_phids_model.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/protocols/a_chain_protocols.dart';
-import 'package:bldrs/c_protocols/city_phids_protocols/real/city_phids_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_phids_protocols/zone_phids_real_ops.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/c_protocols/picker_protocols/protocols/picker_protocols.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
@@ -32,13 +33,13 @@ class ChainsProvider extends ChangeNotifier {
     /// BIG CHAIN K
     /// BIG CHAIN S
     /// ALL PICKERS
-    /// CITY PHIDS MODEL
-    /// CITY CHAIN K
+    /// ZONE PHIDS MODEL
+    /// ZONE CHAIN K
     /// BIG CHAIN K PHRASES
     /// BIG CHAIN S PHRASES
-    /// CITY CHAIN K PHRASES
+    /// ZONE CHAIN K PHRASES
     // --------------------
-    /// 1. START WITH : BIG CHAIN K - BIG CHAIN S - CITY PHID COUNTERS
+    /// 1. START WITH : BIG CHAIN K - BIG CHAIN S - ZONE PHIDS MODEL
     await Future.wait(<Future>[
       /// BIG CHAIN K
       fetchSortSetBldrsChains(
@@ -50,17 +51,17 @@ class ChainsProvider extends ChangeNotifier {
         context: context,
         notify: false,
       ),
-      /// CITY PHID COUNTERS
-      _readSetCityPhidsModel(
+      /// ZONE PHID COUNTERS
+      _readSetZonePhidsModel(
         context: context,
         notify: false,
       ),
     ]);
     // --------------------
-    /// 2. BIG CHAINS ARE LOADED => NOW DO CITY CHAINS & PHRASES
+    /// 2. BIG CHAINS ARE LOADED => NOW DO ZONE CHAINS & PHRASES
     await Future.wait(<Future>[
-      /// CITY CHAIN K
-      _refineSetCityChains(
+      /// ZONE CHAIN K
+      _refineSetZoneChains(
         chains: _chains,
         notify: false,
       ),
@@ -72,10 +73,10 @@ class ChainsProvider extends ChangeNotifier {
       ),
     ]);
     // --------------------
-    /// 3. CITY CHAIN K PHRASES
-    await _generateSetCityChainsPhrases(
+    /// 3. ZONE CHAIN K PHRASES
+    await _generateSetZoneChainsPhrases(
       context: context,
-      cityChains: _cityChains,
+      zoneChains: _zoneChains,
       notify: false,
     );
     // --------------------
@@ -86,36 +87,9 @@ class ChainsProvider extends ChangeNotifier {
     // --------------------
   }
   // --------------------
-  /*
-  Future<void> reInitializeAllChains(BuildContext context) async {
-    // --------------------
-    /// DELETE LDB CHAINS
-    await ChainLDBOps.deleteBldrsChains();
-    // --------------------
-    /// BLDRS CHAINS
-    _chains = null;
-    /// ALL PICKERS
-    _allPickers = {};
-    /// CITY PHID COUNTERS
-    _cityPhidsModel = null;
-    /// CITY CHAINS
-    _cityChains = null;
-    /// CHAINS PHRASES
-    _chainsPhrases = <Phrase>[];
-    /// CITY CHAINS PHRASES
-    _cityChainsPhrases = <Phrase>[];
-    // --------------------
-    /// INITIALIZE
-    await initializeAllChains(
-      context: context,
-      notify: true,
-    );
-    // --------------------
-  }
-   */
-  // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> reInitializeCityChains(BuildContext context) async {
+  Future<void> reInitializeZoneChains(BuildContext context) async {
+    blog('reInitializeZoneChains');
     // --------------------
     /// KEEP : BIG CHAIN K
     /// KEEP : BIG CHAIN S
@@ -123,26 +97,26 @@ class ChainsProvider extends ChangeNotifier {
     /// KEEP : BIG CHAIN K PHRASES
     /// KEEP : BIG CHAIN S PHRASES
     // --------------------
-    /// GET : CITY PHID COUNTERS
-    /// GET : CITY CHAIN K
-    /// GET CITY CHAIN K PHRASES
+    /// GET : ZONE PHID COUNTERS
+    /// GET : ZONE CHAIN K
+    /// GET ZONE CHAIN K PHRASES
     // --------------------
-    /// 1. CITY PHIDS MODEL
-    await _readSetCityPhidsModel(
+    /// 1. ZONE PHIDS MODEL
+    await _readSetZonePhidsModel(
       context: context,
       notify: false,
     );
     // --------------------
-    /// 2. CITY CHAIN K
-    await _refineSetCityChains(
+    /// 2. ZONE CHAIN K
+    await _refineSetZoneChains(
       chains: _chains,
       notify: false,
     );
     // --------------------
-    /// 3. CITY CHAIN K PHRASES
-    await _generateSetCityChainsPhrases(
+    /// 3. ZONE CHAIN K PHRASES
+    await _generateSetZoneChainsPhrases(
       context: context,
-      cityChains: _cityChains,
+      zoneChains: _zoneChains,
       notify: true,
     );
     // --------------------
@@ -161,11 +135,11 @@ class ChainsProvider extends ChangeNotifier {
     // --------------------
     /// UPDATE : BIG CHAIN K
     /// KEEP : BIG CHAIN S
-    /// KEEP : CITY PHID COUNTERS
-    /// UPDATE : CITY CHAIN K
+    /// KEEP : ZONE PHID COUNTERS
+    /// UPDATE : ZONE CHAIN K
     /// UPDATE : BIG CHAIN K PHRASES
     /// KEEP : BIG CHAIN S PHRASES
-    /// UPDATE : CITY CHAIN K PHRASES
+    /// UPDATE : ZONE CHAIN K PHRASES
     // --------------------
     /// 1. BLDRS CHAINS
     _setBldrsChains(
@@ -173,10 +147,10 @@ class ChainsProvider extends ChangeNotifier {
       notify: false,
     );
     // --------------------
-    /// 2. BLDRS CHAINS ARE LOADED => NOW DO CITY CHAINS & PHRASES
+    /// 2. BLDRS CHAINS ARE LOADED => NOW DO ZONE CHAINS & PHRASES
     await Future.wait(<Future>[
-      /// CITY CHAIN K
-      _refineSetCityChains(
+      /// ZONE CHAIN K
+      _refineSetZoneChains(
         chains: bldrsChains,
         notify: false,
       ),
@@ -188,10 +162,10 @@ class ChainsProvider extends ChangeNotifier {
       ),
     ]);
     // --------------------
-    /// 3. CITY CHAIN K PHRASES
-    await _generateSetCityChainsPhrases(
+    /// 3. ZONE CHAIN K PHRASES
+    await _generateSetZoneChainsPhrases(
       context: context,
-      cityChains: bldrsChains,
+      zoneChains: bldrsChains,
       notify: false,
     );
     // --------------------
@@ -216,14 +190,14 @@ class ChainsProvider extends ChangeNotifier {
     _chains = null;
     /// ALL PICKERS
     _allPickers = {};
-    /// CITY PHID COUNTERS
-    _cityPhidsModel = null;
-    /// CITY CHAIN K
-    _cityChains = null;
+    /// ZONE PHID COUNTERS
+    _zonePhidsModel = null;
+    /// ZONE CHAIN K
+    _zoneChains = null;
     /// BLDRS CHAINS PHRASES
     _chainsPhrases = <Phrase>[];
-    /// CITY CHAIN K PHRASES
-    _cityChainsPhrases = <Phrase>[];
+    /// ZONE CHAIN K PHRASES
+    _zoneChainsPhrases = <Phrase>[];
 
     /// WALL FLYER TYPE AND PHID
     clearWallFlyerTypeAndPhid(
@@ -254,14 +228,14 @@ class ChainsProvider extends ChangeNotifier {
   /// TESTED : WORKS PERFECT
   static List<Chain> proGetBldrsChains({
     @required BuildContext context,
-    @required bool onlyUseCityChains,
+    @required bool onlyUseZoneChains,
     @required bool listen,
   }){
 
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: listen);
 
-    if (onlyUseCityChains == true){
-      return _chainsProvider.cityChains;
+    if (onlyUseZoneChains == true){
+      return _chainsProvider.zoneChains;
     }
     else {
       return _chainsProvider.bldrsChains;
@@ -279,7 +253,7 @@ class ChainsProvider extends ChangeNotifier {
         chainID: chainID,
         chains: proGetBldrsChains(
           context: context,
-          onlyUseCityChains: false,
+          onlyUseZoneChains: false,
           listen: false,
         ),
     );
@@ -318,45 +292,45 @@ class ChainsProvider extends ChangeNotifier {
   }
   // -----------------------------------------------------------------------------
 
-  /// CITY PHID COUNTERS
+  /// ZONE PHIDS MODEL
 
   // --------------------
-  CityPhidsModel _cityPhidsModel;
-  CityPhidsModel get cityPhidsModel => _cityPhidsModel;
+  ZonePhidsModel _zonePhidsModel;
+  ZonePhidsModel get zonePhidsModel => _zonePhidsModel;
   // --------------------
   /// TESTED : WORKS PERFECT
-  static CityPhidsModel proGetCityPhids({
+  static ZonePhidsModel proGetZonePhids({
     @required BuildContext context,
     @required bool listen,
   }){
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: listen);
-    return _chainsProvider.cityPhidsModel;
+    return _chainsProvider.zonePhidsModel;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _readSetCityPhidsModel({
+  Future<void> _readSetZonePhidsModel({
     @required BuildContext context,
     @required bool notify,
   }) async {
 
-    final CityPhidsModel _cityPhidsModel = await CityPhidsRealOps.readCityPhidsOfCurrentZone(
+    final ZonePhidsModel _zonePhidsModel = await ZonePhidsRealOps.readZonePhidsOfCurrentZone(
       context: context,
     );
 
-    _setCityPhidModels(
-      cityPhidsModel: _cityPhidsModel,
+    _setZonePhidModels(
+      zonePhidsModel: _zonePhidsModel,
       notify: notify,
     );
 
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  void _setCityPhidModels({
-    @required CityPhidsModel cityPhidsModel,
+  void _setZonePhidModels({
+    @required ZonePhidsModel zonePhidsModel,
     @required bool notify,
   }){
 
-    _cityPhidsModel = cityPhidsModel;
+    _zonePhidsModel = zonePhidsModel;
     if (notify == true){
       notifyListeners();
     }
@@ -364,36 +338,36 @@ class ChainsProvider extends ChangeNotifier {
   }
   // -----------------------------------------------------------------------------
 
-  /// CITY CHAIN ( city's chains according to City Phid Counters )
+  /// ZONE CHAIN ( zone's chains according to Zone Phids Model )
 
   // --------------------
-  List<Chain> _cityChains;
-  List<Chain> get cityChains => _cityChains;
+  List<Chain> _zoneChains;
+  List<Chain> get zoneChains => _zoneChains;
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _refineSetCityChains({
+  Future<void> _refineSetZoneChains({
     @required bool notify,
     @required List<Chain> chains,
   }) async {
 
-    final List<Chain> _cityChains = CityPhidsModel.removeUnusedPhidsFromBldrsChainsForThisCity(
+    final List<Chain> _zoneChains = ZonePhidsModel.removeUnusedPhidsFromBldrsChainsForThisZone(
       bldrsChains: _chains,
-      currentCityPhidsModel: _cityPhidsModel,
+      currentZonePhidsModel: _zonePhidsModel,
     );
 
-    _setCityChains(
+    _setZoneChains(
       notify: notify,
-      chains: _cityChains,
+      chains: _zoneChains,
     );
 
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  void _setCityChains({
+  void _setZoneChains({
     @required bool notify,
     @required List<Chain> chains,
   }){
-    _cityChains = chains;
+    _zoneChains = chains;
     if (notify == true){
       notifyListeners();
     }
@@ -477,26 +451,26 @@ class ChainsProvider extends ChangeNotifier {
   }
   // -----------------------------------------------------------------------------
 
-  /// CITY CHAINS PHRASES
+  /// ZONE CHAINS PHRASES
 
   // --------------------
   /// must include trigrams and both languages (en, ar) for search engines
-  List<Phrase> _cityChainsPhrases = <Phrase>[];
-  List<Phrase> get cityChainsPhrases => _cityChainsPhrases;
+  List<Phrase> _zoneChainsPhrases = <Phrase>[];
+  List<Phrase> get zoneChainsPhrases => _zoneChainsPhrases;
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _generateSetCityChainsPhrases({
+  Future<void> _generateSetZoneChainsPhrases({
     @required BuildContext context,
-    @required List<Chain> cityChains,
+    @required List<Chain> zoneChains,
     @required bool notify,
   }) async {
 
     final List<Phrase> _phrases = await PhraseProtocols.generatePhrasesFromChains(
       context: context,
-      chains: cityChains,
+      chains: zoneChains,
     );
 
-    _setCityChainsPhrases(
+    _setZoneChainsPhrases(
       phrases: _phrases,
       notify: notify,
     );
@@ -504,11 +478,11 @@ class ChainsProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  void _setCityChainsPhrases({
+  void _setZoneChainsPhrases({
     @required List<Phrase> phrases,
     @required bool notify,
   }){
-    _cityChainsPhrases = phrases;
+    _zoneChainsPhrases = phrases;
     if (notify == true){
       notifyListeners();
     }
@@ -793,11 +767,11 @@ class ChainsProvider extends ChangeNotifier {
   /// TESTED : WORKS PERFECT
   Chain findChainByID({
     @required String chainID,
-    bool onlyUseCityChains = false,
+    bool onlyUseZoneChains = false,
   }){
 
-    final List<Chain> _chainsToSearch = onlyUseCityChains == true ?
-    _cityChains
+    final List<Chain> _chainsToSearch = onlyUseZoneChains == true ?
+    _zoneChains
         :
     _chains;
 
@@ -813,14 +787,14 @@ class ChainsProvider extends ChangeNotifier {
   static Chain proFindChainByID({
     @required BuildContext context,
     @required String chainID,
-    bool onlyUseCityChains = false,
+    bool onlyUseZoneChains = false,
   }){
 
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
 
     final Chain _chain = _chainsProvider.findChainByID(
       chainID: chainID,
-      onlyUseCityChains: onlyUseCityChains,
+      onlyUseZoneChains: onlyUseZoneChains,
     );
 
     return _chain;
@@ -829,7 +803,7 @@ class ChainsProvider extends ChangeNotifier {
   /// TESTED : WORKS PERFECT
   Chain getChainKByFlyerType({
     @required FlyerType flyerType,
-    @required bool onlyUseCityChains,
+    @required bool onlyUseZoneChains,
   }){
 
     final String _chainID = FlyerTyper.concludeChainIDByFlyerType(
@@ -838,7 +812,7 @@ class ChainsProvider extends ChangeNotifier {
 
     final Chain _chain = findChainByID(
       chainID: _chainID,
-      onlyUseCityChains: onlyUseCityChains,
+      onlyUseZoneChains: onlyUseZoneChains,
     );
 
     return _chain;
@@ -973,11 +947,11 @@ class ChainsProvider extends ChangeNotifier {
     // --------------------
     /// KEEP : BIG CHAIN K
     /// UPDATE : BIG CHAIN S
-    /// KEEP : CITY PHID COUNTERS
-    /// KEEP : CITY CHAIN K
+    /// KEEP : ZONE PHID COUNTERS
+    /// KEEP : ZONE CHAIN K
     /// KEEP : BIG CHAIN K PHRASES
     /// UPDATE : BIG CHAIN S PHRASES
-    /// KEEP : CITY CHAIN K PHRASES
+    /// KEEP : ZONE CHAIN K PHRASES
     // --------------------
     /// 1. BIG CHAIN S
     _setBigChainS(

@@ -479,7 +479,7 @@ Future<void> onChangeBzScope({
     context: context,
     flyerType: flyerType,
     event: ViewingEvent.bzEditor,
-    onlyUseCityChains: false,
+    onlyUseZoneChains: false,
     selectedPhids: draftNotifier.value.scope,
   );
 

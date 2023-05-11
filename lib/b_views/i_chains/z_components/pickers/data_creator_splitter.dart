@@ -26,7 +26,7 @@ class DataCreatorSplitter extends StatelessWidget {
     @required this.onExportSpecs,
     @required this.onPhidTap,
     @required this.zone,
-    @required this.onlyUseCityChains,
+    @required this.onlyUseZoneChains,
     @required this.isMultipleSelectionMode,
     @required this.onKeyboardSubmitted,
     @required this.isCollapsable,
@@ -45,7 +45,7 @@ class DataCreatorSplitter extends StatelessWidget {
   final ZoneModel zone;
   final ValueChanged<String> onKeyboardSubmitted;
   final bool isMultipleSelectionMode;
-  final bool onlyUseCityChains;
+  final bool onlyUseZoneChains;
   final bool isCollapsable;
   /// --------------------------------------------------------------------------
   @override
@@ -54,7 +54,7 @@ class DataCreatorSplitter extends StatelessWidget {
     final Chain _valueChain = ChainsProvider.proFindChainByID(
       context: context,
       chainID: picker?.chainID,
-      onlyUseCityChains: onlyUseCityChains,
+      onlyUseZoneChains: onlyUseZoneChains,
       // includeChainSInSearch: true,
     );
     // --------------------
@@ -62,7 +62,7 @@ class DataCreatorSplitter extends StatelessWidget {
     final Chain _unitChain = ChainsProvider.proFindChainByID(
       context: context,
       chainID: picker?.unitChainID,
-      onlyUseCityChains: onlyUseCityChains,
+      onlyUseZoneChains: onlyUseZoneChains,
       // includeChainSInSearch: true,
     );
      */
@@ -123,7 +123,7 @@ class DataCreatorSplitter extends StatelessWidget {
         searchText: searchText,
         onPhidTap: onPhidTap,
         isMultipleSelectionMode: isMultipleSelectionMode,
-        onlyUseCityChains: onlyUseCityChains,
+        onlyUseZoneChains: onlyUseZoneChains,
         zone: zone,
         onDataCreatorKeyboardSubmitted: onKeyboardSubmitted,
         isCollapsable: isCollapsable,
@@ -153,7 +153,7 @@ class DataCreatorSplitter extends StatelessWidget {
         initialValue: _initialPrice,
         initialCurrencyID: _initialCurrencySpec?.value,
         onKeyboardSubmitted: onKeyboardSubmitted,
-        onlyUseCityChains: onlyUseCityChains,
+        onlyUseZoneChains: onlyUseZoneChains,
         appBarType: appBarType,
         onExportSpecs: onExportSpecs,
       );
@@ -184,7 +184,7 @@ class DataCreatorSplitter extends StatelessWidget {
         zone: zone,
         picker: picker,
         onKeyboardSubmitted: onKeyboardSubmitted,
-        onlyUseCityChains: onlyUseCityChains,
+        onlyUseZoneChains: onlyUseZoneChains,
         onExportSpecs: onExportSpecs,
       );
 

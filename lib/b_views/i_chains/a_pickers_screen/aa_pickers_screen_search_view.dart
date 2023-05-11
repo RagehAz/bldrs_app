@@ -26,7 +26,7 @@ class PickersScreenSearchView extends StatelessWidget {
     @required this.selectedSpecsNotifier,
     @required this.searchText,
     @required this.zone,
-    @required this.onlyUseCityChains,
+    @required this.onlyUseZoneChains,
     @required this.isMultipleSelectionMode,
     @required this.refinedPickersNotifier,
     @required this.allPickers,
@@ -40,7 +40,7 @@ class PickersScreenSearchView extends StatelessWidget {
   final ValueNotifier<String> searchText;
   final ZoneModel zone;
   final bool isMultipleSelectionMode;
-  final bool onlyUseCityChains;
+  final bool onlyUseZoneChains;
   final ValueNotifier<List<PickerModel>> refinedPickersNotifier;
   final List<PickerModel> allPickers;
   final bool mounted;
@@ -135,7 +135,7 @@ class PickersScreenSearchView extends StatelessWidget {
                               zone: zone,
                               selectedSpecsNotifier: selectedSpecsNotifier,
                               isMultipleSelectionMode: isMultipleSelectionMode,
-                              onlyUseCityChains: onlyUseCityChains,
+                              onlyUseZoneChains: onlyUseZoneChains,
                               allPickers: allPickers,
                               picker: _picker,
                               refinedPickersNotifier: refinedPickersNotifier,
@@ -154,7 +154,7 @@ class PickersScreenSearchView extends StatelessWidget {
                             searchText: searchText,
                             secondLinesType: ChainSecondLinesType.non,
                             isMultipleSelectionMode: isMultipleSelectionMode,
-                            onlyUseCityChains: onlyUseCityChains,
+                            onlyUseZoneChains: onlyUseZoneChains,
                             zone: zone,
 
                             /// ON PHID TAP => ADD PHID
