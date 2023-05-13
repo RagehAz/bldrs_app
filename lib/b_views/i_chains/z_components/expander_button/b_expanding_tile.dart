@@ -1,6 +1,6 @@
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/c_non_collabsable_tile.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/d_collapsable_tile.dart';
-import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:mapper/mapper.dart';
 import 'package:scale/scale.dart';

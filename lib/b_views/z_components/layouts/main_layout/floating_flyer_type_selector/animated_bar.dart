@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -74,7 +74,7 @@ class AnimatedBar extends StatelessWidget {
       child: Container(
         height: _appBarHeight,
         decoration: BoxDecoration(
-          color: Colorz.black255,
+          color: Colorz.black50,
           borderRadius: Borderers.superCorners(
             context: context,
             corners: BldrsAppBar.corners,
