@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:night_sky/night_sky.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/obelisk_layout_view.dart';
-import 'package:bldrs/b_views/z_components/pyramids/super_pyramids.dart';
+import 'package:bldrs/b_views/z_components/layouts/pyramids/super_pyramids.dart';
 import 'package:mapper/mapper.dart';
 import 'package:animators/animators.dart';
 import 'package:filers/filers.dart';
