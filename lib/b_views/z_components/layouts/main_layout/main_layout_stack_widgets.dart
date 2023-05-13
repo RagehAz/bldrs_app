@@ -1,5 +1,5 @@
-import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
-import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
+import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';

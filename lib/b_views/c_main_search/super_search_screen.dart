@@ -14,12 +14,12 @@ import 'package:bldrs/b_views/c_main_search/z_components/filter_multi_button_til
 import 'package:bldrs/b_views/c_main_search/z_components/search_type_button.dart';
 import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/z_components/scope_selector_bubble.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
-import 'package:bldrs/b_views/i_phid_picker/app_bar_pick_phid_button/sections_button.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/components/sections_button.dart';
 import 'package:bldrs/b_views/i_phid_picker/phids_picker_screen.dart';
-import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
+import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/fire/bz_search.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';

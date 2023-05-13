@@ -21,7 +21,7 @@ class PyramidFloatingButton extends StatelessWidget {
   final Function onLongTap;
   final bool isDeactivated;
   /// ---------------------------------------------------------------------------
-  static double size = 50;
+  static double size = 45;
   /// ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
