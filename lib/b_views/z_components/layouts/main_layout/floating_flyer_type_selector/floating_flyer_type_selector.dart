@@ -2,7 +2,8 @@ import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/b_zone_phids_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/b_animated_logo_screen.dart';
-import 'package:bldrs/b_views/i_phid_picker/floating_flyer_type_selector/animated_bar.dart';
+import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/floating_flyer_type_selector/animated_bar.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
@@ -13,7 +14,6 @@ import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
-import 'package:numeric/numeric.dart';
 import 'package:scale/scale.dart';
 
 class FloatingFlyerTypeSelector extends StatefulWidget {
@@ -108,6 +108,8 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
 
       _triggerLoading(setTo: true).then((_) async {
 
+        UiProvider.proSetPyramidsAreExpanded(context: context, setTo: false, notify: true);
+
         await _animationController.forward(from: 0);
 
         await _triggerLoading(setTo: false);
@@ -171,18 +173,18 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
 
     final double _screenWidth = Scale.screenWidth(context);
 
-    final double hypotenuse = Numeric.pythagorasHypotenuse(
-        side:_screenWidth ,
-    );
+    // final double hypotenuse = Numeric.pythagorasHypotenuse(
+    //     side:_screenWidth ,
+    // );
 
-    final double _ltrLeftShift =    (((hypotenuse - _screenWidth) * 0.5)
-                                  + (_screenWidth * 0.5))
-                                  * -1;
+    // final double _ltrLeftShift =    (((hypotenuse - _screenWidth) * 0.5)
+    //                               + (_screenWidth * 0.5))
+    //                               * -1;
 
-    final double _rtlLeftShift = _ltrLeftShift + Scale.screenWidth(context);
-    final bool _appIsLTR = UiProvider.checkAppIsLeftToRight(context);
-    final double _horizontalShift = _appIsLTR == true ? _ltrLeftShift : _rtlLeftShift;
-    final double _verticalShift   = _ltrLeftShift;
+    // final double _rtlLeftShift = _ltrLeftShift + Scale.screenWidth(context);
+    // final bool _appIsLTR = UiProvider.checkAppIsLeftToRight(context);
+    // final double _horizontalShift = _appIsLTR == true ? _ltrLeftShift : _rtlLeftShift;
+    // final double _verticalShift   = _ltrLeftShift;
 
     return SafeArea(
       child: Material(
@@ -197,62 +199,78 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
                 context: context,
               ),
             direction: DismissiblePageDismissDirection.endToStart,
-            startingOpacity: 0.5,
+            startingOpacity: 0,
             minScale: 1,
+            // backgroundColor: Colorz.black255,
             child: SizedBox(
               width: _screenWidth,
               height: Scale.screenHeight(context),
               child: Stack(
-                alignment: BldrsAligners.superTopAlignment(context),
+                alignment: BldrsAligners.superCenterAlignment(context),
                 children: <Widget>[
 
-                  /// BACKGROUND TRIANGLE
-                  Positioned(
-                    top: _verticalShift,
-                    left: _horizontalShift,
-                    child: Transform.rotate(
-                      angle: Numeric.degreeToRadian(45),
-                      child: Center(
-                        child: Container(
-                          width:  hypotenuse,
-                          height: hypotenuse,
-                          color: Colorz.black200,
-                        ),
-                      ),
-                    ),
+                  /// BLUR LAYER
+                  BlurLayer(
+                    height: Scale.screenHeight(context),
+                    width: _screenWidth,
+                    color: Colorz.black20,
+                    blurIsOn: true,
                   ),
 
+                  /// WHITE COLUMN
+                  Container(
+                    width:  _screenWidth * 0.5,
+                    height: Scale.screenHeight(context),
+                    color: Colorz.white20,
+                  ),
+
+                  /// OLD TRIANGLE
+                  // /// OLD TRIANGLE
+                  // Positioned(
+                  //   top: _verticalShift,
+                  //   left: _horizontalShift,
+                  //   child: Transform.rotate(
+                  //     angle: Numeric.degreeToRadian(45),
+                  //     child: Center(
+                  //       child: Container(
+                  //         width:  hypotenuse,
+                  //         height: hypotenuse,
+                  //         color: Colorz.black200,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+
+                  /// SECTIONS
                   Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
 
-                  ...List.generate(_linesControllers.length, (index){
+                      ...List.generate(_linesControllers.length, (index) {
 
-                    final FlyerType _flyerType = FlyerTyper.decipherFlyerType(_linesMaps[index]['verse']);
-                    final String _phid = FlyerTyper.getFlyerTypePhid(flyerType: _flyerType);
-                    final String _translation = Verse.transBake(context, _phid);
+                        final FlyerType _flyerType = FlyerTyper.decipherFlyerType(_linesMaps[index]['verse']);
+                        final String _phid = FlyerTyper.getFlyerTypePhid(flyerType: _flyerType);
+                        final String _translation = Verse.transBake(context, _phid);
 
-                    return AnimatedBar(
-                      curvedAnimation: _linesControllers[index],
-                      tween: _tween,
-                      text: _translation,
-                      verseColor: _linesMaps[index]['color'],
-                      onTap: () => _onFlyerTypeTap(
-                        context: context,
-                        flyerType: _flyerType,
-                      ),
-                      icon: FlyerTyper.flyerTypeIcon(
-                          flyerType: _flyerType,
-                          isOn: true,
-                      ),
-                    );
+                        return AnimatedBar(
+                          curvedAnimation: _linesControllers[index],
+                          tween: _tween,
+                          text: _translation,
+                          verseColor: _linesMaps[index]['color'],
+                          onTap: () => _onFlyerTypeTap(
+                            context: context,
+                            flyerType: _flyerType,
+                          ),
+                          icon: FlyerTyper.flyerTypeIcon(
+                            flyerType: _flyerType,
+                            isOn: false,
+                          ),
+                        );
 
-                  }),
-
-                ],
-
-              ),
-
+                      }),
+                    ],
+                  ),
                 ],
 
               ),

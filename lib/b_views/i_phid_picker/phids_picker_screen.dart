@@ -4,15 +4,16 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/xx_pickers_search_controller.dart';
-import 'package:bldrs/b_views/i_phid_picker/hashtags_builder_page.dart';
+import 'package:bldrs/b_views/i_phid_picker/phids_builder_page.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/structure/slides_shelf/aaa_flyer_slides_shelf.dart';
-import 'package:bldrs/b_views/z_components/app_bar/bldrs_app_bar.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/phids_bubble/phids_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/corner_widget_maximizer.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/obelisk_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:mapper/mapper.dart';
 import 'package:scale/scale.dart';
@@ -188,7 +189,8 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
 
       _triggerLoading(setTo: true).then((_) async {
 
-        /// FUCK
+        await Future.delayed(const Duration(milliseconds: 500));
+        UiProvider.proSetPyramidsAreExpanded(context: context, setTo: true, notify: true);
 
         await _triggerLoading(setTo: false);
       });
@@ -229,7 +231,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
         titleVerse: Verse(id: _chain.id, translate: true),
         icon: ChainsProvider.proGetPhidIcon(context: context, son: _chain.id),
         iconSizeFactor: 1,
-        screen: HashtagsBuilderPage(
+        screen: PhidsBuilderPage(
           chain: _chain,
           searchText: _searchText,
           selectedPhidsNotifier: _selectedPhidsNotifier,
@@ -456,7 +458,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
           builder: (BuildContext context, List<Chain> foundChains, Widget child) {
 
             if (Mapper.checkCanLoopList(foundChains) == true){
-              return HashtagsBuilderPage(
+              return PhidsBuilderPage(
                 chain: Chain(
                   id: 'foundChains',
                   sons: foundChains,

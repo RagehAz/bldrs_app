@@ -5,9 +5,9 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:flutter/material.dart';
 
-class HashtagsBuilderPage extends StatelessWidget {
+class PhidsBuilderPage extends StatelessWidget {
   // -----------------------------------------------------------------------------
-  const HashtagsBuilderPage({
+  const PhidsBuilderPage({
     @required this.chain,
     @required this.searchText,
     @required this.onPhidTap,

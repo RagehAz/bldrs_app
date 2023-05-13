@@ -2,7 +2,7 @@ import 'package:bldrs/b_views/z_components/layouts/custom_layouts/bldrs_floating
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:night_sky/night_sky.dart';
-import 'package:bldrs/b_views/z_components/pyramids/pyramids.dart';
+import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:flutter/material.dart';
 
 class FloatingLayout extends StatelessWidget {
