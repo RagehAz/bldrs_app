@@ -1173,7 +1173,7 @@ class FlyerDim {
             (
                 numberOfColumns
                     + (numberOfColumns * _ratio)
-                    + _ratio
+                    + _ratio // in ZGrid.getSmallItemWidth it is a (-) not (+)
             );
     return _flyerBoxWidth;
   }
