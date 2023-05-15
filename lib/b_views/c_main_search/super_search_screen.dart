@@ -180,7 +180,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
       gtaLink: _getSearchURL(),
       // orderBy: ,
       // descending:,
-      // limit: 4,
+      limit: 6,
     );
   }
   // --------------------
@@ -1069,11 +1069,9 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    const AppBarType _appBarType = AppBarType.search;
-    // --------------------
     return MainLayout(
       loading: _loading,
-      appBarType: _appBarType,
+      appBarType: AppBarType.search,
       skyType: SkyType.black,
       pyramidsAreOn: true,
       pyramidType: PyramidType.crystalBlue,
@@ -1091,8 +1089,6 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
       filtersChildren: _getFilters(),
 
       appBarRowWidgets: <Widget>[
-
-        const Expander(),
 
         /// FLYERS
         SearchTypeButton(

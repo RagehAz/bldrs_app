@@ -116,7 +116,7 @@ class FirstAppBarLine extends StatelessWidget {
   }
   // --------------------
   bool _scrollableCheck() {
-    if (appBarType == AppBarType.scrollable) {
+    if (appBarType == AppBarType.scrollable || appBarType == AppBarType.search) {
       return true;
     }
 
@@ -187,7 +187,7 @@ class FirstAppBarLine extends StatelessWidget {
                   Ratioz.appBarCorner - Ratioz.appBarPadding),
               child: Container(
                 width: _scrollableSpaceWidth,
-                height: minBoxHeight - (2 * Ratioz.appBarPadding),
+                height: BldrsAppBar.clearLineHeight(context),
                 alignment: Alignment.center,
                 color: Colorz.white20,
                 child: ListView.builder(

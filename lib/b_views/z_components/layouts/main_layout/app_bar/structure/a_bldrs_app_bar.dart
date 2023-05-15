@@ -79,6 +79,10 @@ class BldrsAppBar extends StatelessWidget {
 
   }
   // --------------------
+  static double clearLineHeight(BuildContext context) {
+    return BldrsAppBar.collapsedHeight(context, AppBarType.basic) - (2 * Ratioz.appBarPadding);
+  }
+  // --------------------
   static double expandedHeight({
     @required BuildContext context,
     @required AppBarType appBarType,
