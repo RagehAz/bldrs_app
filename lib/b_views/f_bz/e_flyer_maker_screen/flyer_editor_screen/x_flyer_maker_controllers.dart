@@ -204,7 +204,9 @@ Future<void> onSelectFlyerType({
           mounted: mounted,
           value: draftNotifier.value.copyWith(
             flyerType: _selectedFlyerType,
-            specs: <SpecModel>[],
+            /// KEEP THEM, NO NEED TO DELETE THEM
+            // specs: <SpecModel>[],
+            // keywordsIDs: <String>[],
           ),
       );
 
