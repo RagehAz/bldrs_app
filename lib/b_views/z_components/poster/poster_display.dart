@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/j_poster/poster_type.dart';
 import 'package:bldrs/b_views/z_components/poster/structure/poster_switcher.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_providers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -41,11 +42,13 @@ class PosterDisplay extends StatelessWidget {
     // final double _posterHeight = NotePosterBox.getBoxHeight(width);
 
     final Uint8List _bytes = await _controller.captureFromWidget(
-      PosterDisplay(
+      BldrsProviders(
+        child: PosterDisplay(
         posterType: posterType,
         width: _screenWidth,
         model: model,
         modelHelper: helperModel,
+      ),
       ),
       context: getMainContext(),
       /// FINAL PIC WIDTH = VIEW WIDTH * PIXEL RATIO
