@@ -1,4 +1,6 @@
 import 'dart:async';
+
+import 'package:animators/animators.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/a_static_logo_screen.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/b_animated_logo_screen.dart';
@@ -6,34 +8,25 @@ import 'package:bldrs/b_views/a_starters/b_home_screen/a_home_screen.dart';
 import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/provider/general_provider.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
-import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
-import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
-import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
-import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm_starter.dart';
 import 'package:bldrs/e_back_end/e_fcm/z_noot_controller.dart';
 import 'package:bldrs/e_back_end/i_app_check/app_check.dart';
 import 'package:bldrs/e_back_end/j_ads/google_ads.dart';
-import 'package:devicer/devicer.dart';
-import 'package:filers/filers.dart';
+import 'package:bldrs/f_helpers/drafters/bldrs_providers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/firebase_options.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
-import 'package:flutter/gestures.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:devicer/devicer.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:mediators/mediators.dart';
-import 'package:provider/provider.dart';
-import 'package:provider/single_child_widget.dart';
 import 'package:stringer/stringer.dart';
+
 import 'bldrs_keys.dart';
 
 const String bldrsAppVersion = '3.5.15';
@@ -222,40 +215,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
     }
 
     else {
-      return MultiProvider(
-        providers: <SingleChildWidget>[
-          ChangeNotifierProvider<PhraseProvider>(
-            create: (BuildContext ctx) => PhraseProvider(),
-          ),
-          ChangeNotifierProvider<UiProvider>(
-            create: (BuildContext ctx) => UiProvider(),
-          ),
-          ChangeNotifierProvider<UsersProvider>(
-            create: (BuildContext ctx) => UsersProvider(),
-          ),
-          ChangeNotifierProvider<GeneralProvider>(
-            create: (BuildContext ctx) => GeneralProvider(),
-          ),
-          ChangeNotifierProvider<NotesProvider>(
-            create: (BuildContext ctx) => NotesProvider(),
-          ),
-          ChangeNotifierProvider<UsersProvider>(
-            create: (BuildContext ctx) => UsersProvider(),
-          ),
-          ChangeNotifierProvider<ZoneProvider>(
-            create: (BuildContext ctx) => ZoneProvider(),
-          ),
-          ChangeNotifierProvider<BzzProvider>(
-            create: (BuildContext ctx) => BzzProvider(),
-          ),
-          ChangeNotifierProvider<FlyersProvider>(
-            create: (BuildContext ctx) => FlyersProvider(),
-          ),
-          ChangeNotifierProvider<ChainsProvider>(
-            create: (BuildContext ctx) => ChainsProvider(),
-          ),
-
-        ],
+      return BldrsProviders(
         child: ValueListenableBuilder<Locale>(
           valueListenable: _locale,
           builder: (BuildContext ctx, Locale value, Widget child) {
@@ -317,7 +277,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
               // home: ,
               // useInheritedMediaQuery: ,
               // shortcuts: ,
-              scrollBehavior: MyCustomScrollBehavior(),
+              scrollBehavior: AppScrollBehavior(),
 
               /// DEBUG
               debugShowCheckedModeBanner: false,
@@ -377,18 +337,6 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
 
   }
   // -----------------------------------------------------------------------------
-}
-
-// ---------------------------------------------------------------------------
-
-class MyCustomScrollBehavior extends MaterialScrollBehavior {
-  // Override behavior methods and getters like dragDevices
-  @override
-  Set<PointerDeviceKind> get dragDevices => {
-    PointerDeviceKind.touch,
-    PointerDeviceKind.mouse,
-    // etc.
-  };
 }
 
 // ---------------------------------------------------------------------------

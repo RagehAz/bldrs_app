@@ -106,6 +106,7 @@ Future<void> onCreateNewBzTap(BuildContext context) async {
 /// REBOOT ( CLEAR CACHE & RESTART )
 
 // --------------------
+/// TESTED : WORKS PERFECT
 Future<void> onRebootSystem(BuildContext context) async {
 
   final bool _result = await CenterDialog.showCenterDialog(
