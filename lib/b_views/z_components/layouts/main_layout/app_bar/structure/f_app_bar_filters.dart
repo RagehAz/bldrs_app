@@ -33,17 +33,20 @@ class AppBarFilters extends StatelessWidget {
         left: Ratioz.appBarPadding,
         right: Ratioz.appBarPadding,
       ),
-      child: Container(
-        width: _boxWidth - (Ratioz.appBarPadding * 2),
-        height: _filtersBoxHeight - (Ratioz.appBarPadding * 2),
-        decoration: const BoxDecoration(
-          color: Colorz.white10,
-          borderRadius: BldrsAppBar.clearCorners,
-        ),
-        child: ListView(
-          physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.all(Ratioz.appBarPadding),
-          children: children,
+      child: ClipRRect(
+        borderRadius: BldrsAppBar.clearCorners,
+        child: Container(
+          width: _boxWidth - (Ratioz.appBarPadding * 2),
+          height: _filtersBoxHeight - (Ratioz.appBarPadding * 2),
+          decoration: const BoxDecoration(
+            color: Colorz.white10,
+            borderRadius: BldrsAppBar.clearCorners,
+          ),
+          child: ListView(
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.all(Ratioz.appBarPadding),
+            children: children,
+          ),
         ),
       ),
     );
