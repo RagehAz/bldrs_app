@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_positional_boolean_parameters
 import 'dart:async';
 
+import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
@@ -10,6 +11,7 @@ import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/x_fl
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/flyer_poster_creator/flyer_poster_creator_bubble.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/show_author_switcher/show_author_switch_bubble.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shelf/a_slides_shelf_bubble.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/specs_selector/a_specs_selector_bubble.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/specs_selector/b_phids_selector_bubble.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
@@ -588,6 +590,32 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                       canValidate: _canValidate,
                     ),
 
+                    /// SPECS
+                    SpecsSelectorBubble(
+                        draft: _draft,
+                        draftNotifier: draftNotifier,
+                        bzModel: _draft?.bzModel,
+                        onSpecTap: ({SpecModel value, SpecModel unit}){
+
+                          blog('on spec Tap');
+                          value.blogSpec();
+                          unit.blogSpec();
+
+                        },
+                        onDeleteSpec: ({SpecModel value, SpecModel unit}){
+
+                          blog('on Delete spec');
+                          value.blogSpec();
+                          unit.blogSpec();
+
+                        },
+                        onAddSpecsToDraft: () => onAddSpecsToDraftTap(
+                          context: context,
+                          mounted: mounted,
+                          draft: draftNotifier,
+                        ),
+                    ),
+
                     /// NEXT
                     NextButton(
                       onTap: _onNextTap,
@@ -704,7 +732,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                       ),
                     ),
 
-                    /// SHOW FLYER AUTHOR
+                    /// FLYER POSTER
                     FlyerPosterCreatorBubble(
                       draft: _draft,
                       bzModel: _draft?.bzModel,

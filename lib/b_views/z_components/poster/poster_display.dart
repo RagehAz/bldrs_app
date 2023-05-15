@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:bldrs/a_models/j_poster/poster_type.dart';
 import 'package:bldrs/b_views/z_components/poster/structure/poster_switcher.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,7 @@ class PosterDisplay extends StatelessWidget {
   }) async{
 
     final ScreenshotController _controller = controller ?? ScreenshotController();
-    final double _screenWidth = Scale.screenWidth(context);
+    final double _screenWidth = Scale.screenWidth(getMainContext());
     final double _finalDesiredWidth = finalDesiredPicWidth ?? Standards.posterDimensions.width;
     // final double _posterHeight = NotePosterBox.getBoxHeight(width);
 
@@ -46,7 +47,7 @@ class PosterDisplay extends StatelessWidget {
         model: model,
         modelHelper: helperModel,
       ),
-      context: context,
+      context: getMainContext(),
       /// FINAL PIC WIDTH = VIEW WIDTH * PIXEL RATIO
       //MediaQuery.of(_context).devicePixelRatio, no need to use this
       pixelRatio: _finalDesiredWidth / _screenWidth,

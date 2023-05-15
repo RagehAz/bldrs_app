@@ -1,5 +1,10 @@
 import 'dart:async';
 
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/general_provider.dart';
+import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/bz_editor_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/b_app_langs_screen/b_app_langs_screen.dart';
@@ -94,6 +99,56 @@ Future<void> onCreateNewBzTap(BuildContext context) async {
         // checkLastSession: true,
       )
   );
+
+}
+// -----------------------------------------------------------------------------
+
+/// REBOOT ( CLEAR CACHE & RESTART )
+
+// --------------------
+Future<void> onRebootSystem(BuildContext context) async {
+
+  final bool _result = await CenterDialog.showCenterDialog(
+    context: context,
+    titleVerse: const Verse(
+      id: 'phid_restart_app',
+      translate: true,
+    ),
+    bodyVerse: const Verse(
+      pseudo: 'This will clear all local data, and restart the app. Are you sure ?',
+      id: 'phid_restart_app_body',
+      translate: true,
+    ),
+    boolDialog: true,
+    invertButtons: true,
+    confirmButtonVerse: const Verse(
+      id: 'phid_confirm',
+      translate: true,
+    ),
+  );
+
+  if (_result == true) {
+    pushWaitDialog(
+      context: context,
+      verse: const Verse(
+        id: 'phid_restarting',
+        translate: true,
+      ),
+    );
+
+    await Future.wait(<Future>[
+      /// WIPE OUT LDB
+      LDBDoc.wipeOutEntireLDB(),
+
+      /// WIPE OUT PRO
+      GeneralProvider.wipeOutAllProviders(context),
+    ]);
+
+    /// SIGN OUT
+    await AuthProtocols.signOutBldrs(context: context, routeToLogoScreen: true);
+
+    await WaitDialog.closeWaitDialog(context);
+  }
 
 }
 // -----------------------------------------------------------------------------

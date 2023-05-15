@@ -197,13 +197,18 @@ class ZoneProvider extends ChangeNotifier {
     @required String currencyID,
     @required bool listen,
   }){
+    CurrencyModel _currency;
 
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: listen);
+    if (currencyID != null) {
 
-    final CurrencyModel _currency = CurrencyModel.getCurrencyByID(
-      allCurrencies: _zoneProvider.allCurrencies,
-      currencyID: currencyID,
-    );
+      final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: listen);
+
+      _currency = CurrencyModel.getCurrencyByID(
+        allCurrencies: _zoneProvider.allCurrencies,
+        currencyID: currencyID,
+      );
+
+    }
 
     return _currency;
   }
