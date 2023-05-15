@@ -1,6 +1,9 @@
+import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/aa_saved_flyers_screen_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
+import 'package:mapper/mapper.dart';
 import 'package:night_sky/night_sky.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
 import 'package:layouts/layouts.dart';
@@ -14,12 +17,43 @@ class SavedFlyersScreen extends StatefulWidget {
     this.selectionMode = false,
     Key key
   }) : super(key: key);
-  /// --------------------------------------------------------------------------
+  /// --------------------
   final bool selectionMode;
-  /// --------------------------------------------------------------------------
+  /// --------------------
   @override
   _SavedFlyersScreenState createState() => _SavedFlyersScreenState();
-/// --------------------------------------------------------------------------
+  /// --------------------
+  static Future<FlyerModel> pickFlyer() async {
+
+    final List<FlyerModel> _selectedFlyers = await Nav.goToNewScreen(
+      context: getMainContext(),
+      screen: const SavedFlyersScreen(
+        selectionMode: true,
+      ),
+    );
+
+    if (Mapper.checkCanLoopList(_selectedFlyers) == true){
+      return _selectedFlyers.first;
+    }
+    else {
+      return null;
+    }
+
+  }
+  /// --------------------
+  static Future<List<FlyerModel>> pickFlyers() async {
+
+    final List<FlyerModel> _selectedFlyers = await Nav.goToNewScreen(
+      context: getMainContext(),
+      screen: const SavedFlyersScreen(
+        selectionMode: true,
+      ),
+    );
+
+    return _selectedFlyers;
+
+  }
+  /// --------------------------------------------------------------------------
 }
 
 class _SavedFlyersScreenState extends State<SavedFlyersScreen>  {

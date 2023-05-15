@@ -165,38 +165,46 @@ class Obelisk extends StatelessWidget {
         child: SizedBox(
           height: getMaxHeight(context),
           // color: Colorz.bloodTest,
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            padding: EdgeInsets.zero,
-            child: Row(
-              // mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: stuffAlignment(isCross: true),
-              children: <Widget>[
+          child: MaxBounceNavigator(
+            onNavigate: () => UiProvider.proSetPyramidsAreExpanded(
+                context: context,
+                setTo: false,
+                notify: true,
+            ),
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              padding: EdgeInsets.zero,
 
-                /// ICONS
-                if (UiProvider.checkAppIsLeftToRight(context) == true)
-                  ObeliskIconsBuilder(
+              child: Row(
+                // mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: stuffAlignment(isCross: true),
+                children: <Widget>[
+
+                  /// ICONS
+                  if (UiProvider.checkAppIsLeftToRight(context) == true)
+                    ObeliskIconsBuilder(
+                      navModels: navModels,
+                      progressBarModel: progressBarModel,
+                      onRowTap: onRowTap,
+                    ),
+
+                  /// TEXTS
+                  ObeliskVersesBuilder(
                     navModels: navModels,
                     progressBarModel: progressBarModel,
                     onRowTap: onRowTap,
                   ),
 
-                /// TEXTS
-                ObeliskVersesBuilder(
-                  navModels: navModels,
-                  progressBarModel: progressBarModel,
-                  onRowTap: onRowTap,
-                ),
+                  /// ICONS
+                  if (UiProvider.checkAppIsLeftToRight(context) == false)
+                    ObeliskIconsBuilder(
+                      navModels: navModels,
+                      progressBarModel: progressBarModel,
+                      onRowTap: onRowTap,
+                    ),
 
-                /// ICONS
-                if (UiProvider.checkAppIsLeftToRight(context) == false)
-                  ObeliskIconsBuilder(
-                    navModels: navModels,
-                    progressBarModel: progressBarModel,
-                    onRowTap: onRowTap,
-                  ),
-
-              ],
+                ],
+              ),
             ),
           ),
         ),

@@ -43,65 +43,64 @@ class FlyerAffiliateButton extends StatelessWidget {
       return const SizedBox();
     }
     else {
-      final double _price = Speccer.getSalePrice(flyerModel?.specs);
-    final String _currencyID = Speccer.getCurrencyID(flyerModel?.specs);
 
-    final String _currencySymbol = ZoneProvider.proGetCurrencyByCurrencyID(
+      final double _price = Speccer.getSalePrice(flyerModel?.specs);
+      final String _currencyID = Speccer.getCurrencyID(flyerModel?.specs);
+
+      final String _currencySymbol = ZoneProvider.proGetCurrencyByCurrencyID(
         context: context,
         currencyID: _currencyID,
         listen: false,
-    )?.symbol;
-    final String _priceLine = '$_price $_currencySymbol';
-    final Verse _priceVerse = Verse(id: _priceLine, translate: false);
-    const Verse _buyOnAmazonVerse = Verse(id: 'phid_buy_on_amazon', translate: true,);
-    final bool _showPrice = _price != null && _currencyID != null;
-    final Verse _firstLine = _showPrice == true ? _priceVerse : _buyOnAmazonVerse;
-    final Verse _secondLine = _showPrice == true ? _buyOnAmazonVerse : null;
+      )?.symbol;
+      final String _priceLine = '$_price $_currencySymbol';
+      final Verse _priceVerse = Verse(id: _priceLine, translate: false);
+      const Verse _buyOnAmazonVerse = Verse(id: 'phid_buy_on_amazon', translate: true,);
+      final bool _showPrice = _price != null && _currencyID != null;
+      final Verse _firstLine = _showPrice == true ? _priceVerse : _buyOnAmazonVerse;
+      final Verse _secondLine = _showPrice == true ? _buyOnAmazonVerse : null;
 
-    final Widget _button = BldrsBox(
-      color: const Color.fromARGB(255, 255, 153, 0),
-      height: _height,
-      width: _width,
-      verse: _firstLine,
-      secondLine: _secondLine,
-      verseMaxLines: 3,
-      icon: Iconz.amazon,
-      iconSizeFactor: 0.7,
-      verseScaleFactor: 0.7,
-      verseCentered: false,
-      verseColor: Colorz.black255,
-      iconColor: Colorz.white255,
-      verseShadow: true,
-      corners: flyerBoxWidth * 0.05,
-      margins: FlyerDim.gtaButtonMargins(
-        context: context,
-        flyerBoxWidth: flyerBoxWidth,
-      ),
-      verseWeight: FlyerDim.isTinyMode(context, flyerBoxWidth) == true ? VerseWeight.bold : VerseWeight.black,
-      onTap: () async {
-
-        await Launcher.launchURL(flyerModel.affiliateLink);
-
-      },
-    );
-
-    if (inStack == true){
-      return SuperPositioned(
-        enAlignment: Alignment.bottomLeft,
-        verticalOffset: FlyerDim.footerBoxHeight(
+      final Widget _button = BldrsBox(
+        color: const Color.fromARGB(255, 255, 153, 0),
+        height: _height,
+        width: _width,
+        verse: _firstLine,
+        secondLine: _secondLine,
+        verseMaxLines: 3,
+        icon: Iconz.amazon,
+        iconSizeFactor: 0.7,
+        verseScaleFactor: 0.7,
+        verseCentered: false,
+        verseColor: Colorz.black255,
+        iconColor: Colorz.white255,
+        verseShadow: true,
+        corners: flyerBoxWidth * 0.05,
+        margins: FlyerDim.gtaButtonMargins(
           context: context,
           flyerBoxWidth: flyerBoxWidth,
-          infoButtonExpanded: false,
-          hasLink: false,
         ),
-        appIsLTR: UiProvider.checkAppIsLeftToRight(context),
-        child: _button,
+        verseWeight: FlyerDim.isTinyMode(context, flyerBoxWidth) == true ? VerseWeight.bold : VerseWeight.black,
+        onTap: () async {
+          await Launcher.launchURL(flyerModel.affiliateLink);
+          },
       );
-    }
 
-    else {
-      return _button;
-    }
+      if (inStack == true){
+        return SuperPositioned(
+          enAlignment: Alignment.bottomLeft,
+          verticalOffset: FlyerDim.footerBoxHeight(
+            context: context,
+            flyerBoxWidth: flyerBoxWidth,
+            infoButtonExpanded: false,
+            hasLink: false,
+          ),
+          appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+          child: _button,
+        );
+      }
+
+      else {
+        return _button;
+      }
     }
 
     // --------------------
