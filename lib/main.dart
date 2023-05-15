@@ -280,8 +280,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
                       width: double.infinity,
                       height: double.infinity,
                       color: Colorz.red255,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      child: ListView(
                         children: <Widget>[
 
                           const BldrsImage(

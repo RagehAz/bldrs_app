@@ -353,9 +353,6 @@ class PhraseProvider extends ChangeNotifier {
         notify: notify
     );
 
-
-
-
   }
   // -----------------------------------------------------------------------------
 }

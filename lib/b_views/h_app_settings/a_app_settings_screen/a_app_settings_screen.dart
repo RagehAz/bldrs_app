@@ -88,6 +88,13 @@ class AppSettingsScreen extends StatelessWidget {
 
         const DotSeparator(),
 
+        /// REBOOT
+        SettingsWideButton(
+          verse: const Verse(id: 'phid_clean_and_restart', translate: true),
+          icon: Iconz.reload,
+          onTap: () => onRebootSystem(context),
+        ),
+
         /// SIGN OUT
         SettingsWideButton(
           verse: const Verse(id: 'phid_signOut', translate: true),
