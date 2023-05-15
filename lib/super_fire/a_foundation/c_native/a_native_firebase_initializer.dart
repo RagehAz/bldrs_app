@@ -177,6 +177,7 @@ class _NativeFirebase {
     if (firebaseAuth == null) {
       _store = fd.Firestore.initialize(
         projectID,
+
         // databaseId: ,
         // emulator: ,
       );
