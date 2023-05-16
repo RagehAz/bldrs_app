@@ -45,6 +45,7 @@ class UserModel {
     @required this.contacts,
     @required this.contactsArePublic,
     @required this.myBzzIDs,
+    @required this.isAuthor,
     @required this.emailIsVerified,
     @required this.isAdmin,
     @required this.device,
@@ -71,6 +72,7 @@ class UserModel {
   final List<ContactModel> contacts;
   final bool contactsArePublic;
   final List<String> myBzzIDs;
+  final bool isAuthor;
   final bool emailIsVerified;
   final bool isAdmin;
   final DeviceModel device;
@@ -115,6 +117,7 @@ class UserModel {
       contactsArePublic: true,
       // -------------------------
       myBzzIDs: const <String>[],
+      isAuthor: false,
       emailIsVerified: authModel.data['credential.user.emailVerified'] ?? authModel.data['user.emailVerified'],
       isAdmin: false,
       company: null,
@@ -160,6 +163,7 @@ class UserModel {
       'contactsArePublic': contactsArePublic,
 // -------------------------
       'myBzzIDs': myBzzIDs ?? <String>[],
+      'isAuthor': Mapper.checkCanLoopList(myBzzIDs),
       'emailIsVerified': emailIsVerified,
       'isAdmin': isAdmin,
       'device': device?.toMap(),
@@ -197,8 +201,16 @@ class UserModel {
     @required Map<String, dynamic> map,
     @required bool fromJSON,
   }) {
-    return map == null ? null :
-    UserModel(
+
+    if (map == null){
+      return null;
+    }
+
+    else {
+
+      final List<String> _myBzzIDs = Stringer.getStringsFromDynamics(dynamics: map['myBzzIDs'],);
+
+      return UserModel(
         id: map['id'],
         signInMethod: AuthModel.decipherSignInMethod(map['signInMethod']),
         createdAt: Timers.decipherTime(time: map['createdAt'], fromJSON: fromJSON),
@@ -216,7 +228,8 @@ class UserModel {
         contacts: ContactModel.decipherContacts(map['contacts']),
         contactsArePublic: map['contactsArePublic'],
         // -------------------------
-        myBzzIDs: Stringer.getStringsFromDynamics(dynamics: map['myBzzIDs'],),
+        myBzzIDs: _myBzzIDs,
+        isAuthor: Mapper.checkCanLoopList(_myBzzIDs),
         emailIsVerified: map['emailIsVerified'],
         isAdmin: map['isAdmin'],
         device: DeviceModel.decipherFCMToken(map['device']),
@@ -226,6 +239,7 @@ class UserModel {
         appState: AppState.fromMap(map['appState']),
         docSnapshot: map['docSnapshot']
     );
+    }
 
   }
   // --------------------
@@ -271,6 +285,7 @@ class UserModel {
     List<ContactModel> contacts,
     bool contactsArePublic,
     List<String> myBzzIDs,
+    bool isAuthor,
     bool emailIsVerified,
     bool isAdmin,
     DeviceModel device,
@@ -296,6 +311,7 @@ class UserModel {
       contacts: contacts ?? this.contacts,
       contactsArePublic: contactsArePublic ?? this.contactsArePublic,
       myBzzIDs: myBzzIDs ?? this.myBzzIDs,
+      isAuthor: isAuthor ?? this.isAuthor,
       emailIsVerified: emailIsVerified ?? this.emailIsVerified,
       isAdmin: isAdmin ?? this.isAdmin,
       device: device ?? this.device,
@@ -324,6 +340,7 @@ class UserModel {
     bool contacts = false,
     bool contactsArePublic = false,
     bool myBzzIDs = false,
+    bool isAuthor = false,
     bool emailIsVerified = false,
     bool isAdmin = false,
     bool device = false,
@@ -349,6 +366,7 @@ class UserModel {
       contacts : contacts == true ? const [] : this.contacts,
       contactsArePublic : contactsArePublic == true ? null : this.contactsArePublic,
       myBzzIDs : myBzzIDs == true ? const [] : this.myBzzIDs,
+      isAuthor: isAuthor == true ? null : this.isAuthor,
       emailIsVerified : emailIsVerified == true ? null : this.emailIsVerified,
       isAdmin : isAdmin == true ? null : this.isAdmin,
       device : device == true ? null : this.device,
@@ -793,6 +811,7 @@ class UserModel {
     blog('language : $language');
     blog('location : $location');
     blog('myBzzIDs : $myBzzIDs');
+    blog('isAuthor : $isAuthor');
     blog('isAdmin : $isAdmin');
     blog('emailIsVerified : $emailIsVerified');
     blog('docSnapshot : $docSnapshot');
@@ -911,6 +930,10 @@ class UserModel {
         blog('blogUserDifferences : [myBzzIDs] are not identical');
       }
 
+      if (user1.isAuthor == user2.isAuthor){
+        blog('blogUserDifferences : [isAuthors] are not identical');
+      }
+
       if (user1.emailIsVerified != user2.emailIsVerified){
         blog('blogUserDifferences : [emailIsVerified] are not identical');
       }
@@ -971,6 +994,7 @@ class UserModel {
       contacts: ContactModel.dummyContacts(),
       contactsArePublic: true,
       myBzzIDs: const <String>[],
+      isAuthor: false,
       emailIsVerified: true,
       isAdmin: true,
       device: null,
@@ -1084,6 +1108,7 @@ class UserModel {
           ContactModel.checkContactsListsAreIdentical(contacts1: user1.contacts, contacts2: user2.contacts) == true &&
           user1.contactsArePublic == user2.contactsArePublic &&
           Mapper.checkListsAreIdentical(list1: user1.myBzzIDs, list2: user2.myBzzIDs) == true &&
+          user1.isAuthor == user2.isAuthor &&
           user1.emailIsVerified == user2.emailIsVerified &&
           user1.isAdmin == user2.isAdmin &&
           DeckModel.checkDecksAreIdentical(deck1: user1.savedFlyers, deck2: user2.savedFlyers) == true &&
@@ -1155,6 +1180,7 @@ class UserModel {
       contacts.hashCode^
       contactsArePublic.hashCode^
       myBzzIDs.hashCode^
+      isAuthor.hashCode^
       emailIsVerified.hashCode^
       isAdmin.hashCode^
       device.hashCode^

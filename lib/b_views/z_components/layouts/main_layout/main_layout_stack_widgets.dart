@@ -39,7 +39,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
     @required this.globalKey,
     @required this.listenToHideLayout,
     @required this.filtersAreOn,
-    @required this.filtersChildren,
+    @required this.filters,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -70,7 +70,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
   final bool listenToHideLayout;
   final GlobalKey globalKey;
   final ValueNotifier<bool> filtersAreOn;
-  final List<Widget> filtersChildren;
+  final Widget filters;
   /// --------------------------------------------------------------------------
   PyramidType _concludePyramidTypePerSkyType(){
 
@@ -157,7 +157,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
             onSearchCancelled: onSearchCancelled,
             listenToHideLayout: listenToHideLayout,
             filtersAreOn: filtersAreOn,
-            filtersChildren: filtersChildren,
+            filters: filters,
           ),
 
         /// --- PYRAMIDS
