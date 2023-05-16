@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dar
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
 import 'package:bldrs/e_back_end/x_queries/flyers_queries.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:scale/scale.dart';
 import 'package:flutter/material.dart';
 
@@ -50,6 +51,7 @@ class HomeFlyersGrid extends StatelessWidget {
           flyers: _wallFlyers,
           screenName: 'userHomeScreen',
           isHeroicGrid: false,
+          bottomPadding: Ratioz.horizon,
         );
 
       },
