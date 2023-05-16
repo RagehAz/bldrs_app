@@ -1,6 +1,5 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
-import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -9,37 +8,29 @@ import 'package:bldrs/a_models/k_statistics/record_model.dart';
 import 'package:bldrs/a_models/m_search/search_model.dart';
 import 'package:bldrs/a_models/m_search/user_search_model.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/x_home_screen_controllers.dart';
-import 'package:bldrs/b_views/c_main_search/z_components/filter_bool_tile.dart';
-import 'package:bldrs/b_views/c_main_search/z_components/filter_multi_button_tile.dart';
-import 'package:bldrs/b_views/c_main_search/z_components/search_type_button.dart';
-import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/z_components/scope_selector_bubble.dart';
+import 'package:bldrs/b_views/c_main_search/views/bzz_paginator_view.dart';
+import 'package:bldrs/b_views/c_main_search/views/flyers_paginator_view.dart';
+import 'package:bldrs/b_views/c_main_search/views/users_paginator_view.dart';
+import 'package:bldrs/b_views/c_main_search/z_components/building_blocks/search_type_button.dart';
+import 'package:bldrs/b_views/c_main_search/z_components/filters_tiles/bz_search_filters_list.dart';
+import 'package:bldrs/b_views/c_main_search/z_components/filters_tiles/flyer_search_filters_list.dart';
+import 'package:bldrs/b_views/c_main_search/z_components/filters_tiles/users_search_filters_list.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/components/sections_button.dart';
 import 'package:bldrs/b_views/i_phid_picker/phids_picker_screen.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/fire/bz_search.dart';
-import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_search.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_search.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
-import 'package:bldrs/b_views/c_main_search/views/bzz_paginator_view.dart';
-import 'package:bldrs/b_views/c_main_search/views/flyers_paginator_view.dart';
-import 'package:bldrs/b_views/c_main_search/views/users_paginator_view.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
 import 'package:night_sky/night_sky.dart';
 import 'package:stringer/stringer.dart';
-import 'package:super_box/super_box.dart';
 
 class SuperSearchScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -160,48 +151,37 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
   // --------------------
   void _generateQuery(){
 
-    if (_searchType == ModelType.flyer){
-     _generateFlyerQuery();
-    }
-    else if (_searchType == ModelType.bz){
-      _generateBzQuery();
-    }
-    else if (_searchType == ModelType.user){
-     _generateUserQuery();
+    if (_searchType == ModelType.flyer) {
+      _flyersQuery = FlyerSearch.createQuery(
+        searchModel: _searchModel,
+        title: _getSearchText(),
+        gtaLink: _getSearchURL(),
+        // orderBy: ,
+        // descending:,
+        limit: 6,
+      );
     }
 
-  }
-  // --------------------
-  void _generateFlyerQuery(){
-    _flyersQuery = FlyerSearch.createQuery(
-      searchModel: _searchModel,
-      title: _getSearchText(),
-      gtaLink: _getSearchURL(),
-      // orderBy: ,
-      // descending:,
-      limit: 6,
-    );
-  }
-  // --------------------
-  void _generateBzQuery(){
-    _bzzQuery = BzSearch.createQuery(
-      searchModel: _searchModel,
-      bzName: _getSearchText(),
-      // orderBy: ,
-      // descending:,
-      // limit: 4,
-    );
-  }
-  // --------------------
-  void _generateUserQuery(){
+    else if (_searchType == ModelType.bz) {
+      _bzzQuery = BzSearch.createQuery(
+        searchModel: _searchModel,
+        bzName: _getSearchText(),
+        // orderBy: ,
+        // descending:,
+        // limit: 4,
+      );
+    }
 
-    _usersQuery = UserFireSearchOps.createQuery(
-      zoneModel: _searchModel?.zone,
-      searchText: _getSearchText(),
-      // orderBy: ,
-      // descending:,
-      // limit: 4,
-    );
+    else if (_searchType == ModelType.user) {
+      _usersQuery = UserFireSearchOps.createQuery(
+        zoneModel: _searchModel?.zone,
+        searchText: _getSearchText(),
+        userSearchModel: _userSearchModel,
+        // orderBy: ,
+        // descending:,
+        limit: 10,
+      );
+    }
 
   }
   // -----------------------------------------------------------------------------
@@ -246,84 +226,55 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
   // -----------------------------------------------------------------------------
   /// FILTERS GENERATION
   // --------------------
-  List<Widget> _getFilters(){
+  Widget _getFilters(){
 
+    /// FLYERS
     if (_searchType == ModelType.flyer){
-     return _flyerFilters();
-    }
-    else if (_searchType == ModelType.bz){
-      return _bzFilters();
-    }
-    else if (_searchType == ModelType.user){
-      return _userFilters();
-    }
-    else {
-      return [];
-    }
-
-  }
-  // --------------------
-  List<Widget> _flyerFilters(){
-
-    final double _tileWidth = SuperSearchScreen.getFilterTileWidth(context);
-
-    final String _keywordIcon = ChainsProvider.proGetPhidIcon(
-        context: context,
-        son: _searchModel.flyerSearchModel?.phid,
-    );
-
-    // List<SpecModel> specs;
-
-    return <Widget>[
-
-      /// ZONE
-      TileBubble(
-        bubbleWidth: _tileWidth,
-        bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
-          context: context,
-          leadingIcon: _searchModel?.zone?.icon ?? Iconz.contAfrica,
-          headerWidth: _tileWidth,
-          headlineVerse: ZoneModel.generateInZoneVerse(
-            context: context,
-            zoneModel: _searchModel?.zone,
-          ),
-        ),
-        onTileTap: () async {
-
-            final ZoneModel _newZone = await ZoneSelection.goBringAZone(
-              context: context,
-              depth: ZoneDepth.city,
-              settingCurrentZone: false,
-              zoneViewingEvent: ViewingEvent.homeView,
-              viewerCountryID: UsersProvider.proGetUserZone(context)?.countryID,
-            );
-
-            if (_newZone != null){
-
-              await ZoneSelection.setCurrentZone(
-                  context: context,
-                  zone: _newZone,
+     return FlyersSearchFiltersList(
+       searchModel: _searchModel,
+       onZoneSwitchTap: (bool value){
+          if (value == true){
+            setState(() {
+              _searchModel = _searchModel.copyWith(
+                zone:  ZoneProvider.proGetCurrentZone(context: context, listen: false),
               );
+              _generateQuery();
+            });
+          }
+          else {
+            setState(() {
+              _searchModel = _searchModel.nullifyField(
+                zone: true,
+              );
+              _generateQuery();
+            });
+          }
+          },
+       onZoneTap: () async {
 
-              setState(() {
+          final ZoneModel _newZone = await ZoneSelection.goBringAZone(
+            context: context,
+            depth: ZoneDepth.city,
+            settingCurrentZone: false,
+            zoneViewingEvent: ViewingEvent.homeView,
+            viewerCountryID: UsersProvider.proGetUserZone(context)?.countryID,
+          );
 
-                _searchModel = _searchModel.copyWith(
-                  zone: _newZone,
-                );
+          if (_newZone != null){
+            await ZoneSelection.setCurrentZone(
+              context: context,
+              zone: _newZone,
+            );
+            setState(() {
+              _searchModel = _searchModel.copyWith(
+                zone: _newZone,
+              );
+              _generateQuery();
+            });
+          }
 
-                _generateQuery();
-              });
-            }
-
-        },
-        ),
-
-      /// FLYER TYPE
-      FilterMultiButtonTile (
-        icon: Iconz.flyer,
-        verse: Verse.plain('Flyer type'),
-        switchValue: _searchModel.flyerSearchModel?.flyerType != null,
-        onSwitchTap: (bool value){
+          },
+       onFlyerTypeSwitchTap: (bool value){
           if (value == false){
             setState(() {
               _searchModel = _searchModel.copyWith(
@@ -336,19 +287,12 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
             });
           }
           },
-        items: FlyerTyper.flyerTypesList,
-        selectedItem: _searchModel.flyerSearchModel?.flyerType,
-        itemVerse: (dynamic flyerType) => Verse(
-          id: FlyerTyper.getFlyerTypePhid(flyerType: flyerType,),
-          translate: true,
-        ),
-        itemIcon: (dynamic flyerType) => FlyerTyper.flyerTypeIcon(flyerType: flyerType, isOn: false),
-        onItemTap: (dynamic item) {
+       onFlyerTypeTap: (FlyerType flyerType) {
           setState(() {
 
             _searchModel = _searchModel.copyWith(
               flyerSearchModel: _searchModel.flyerSearchModel?.copyWith(
-                flyerType: item,
+                flyerType: flyerType,
               ),
             );
 
@@ -367,31 +311,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
             _generateQuery();
           });
           },
-      ),
-
-      /// KEYWORD
-      Disabler(
-        isDisabled: _searchModel.flyerSearchModel?.flyerType == null,
-        child: TileBubble(
-          bubbleWidth: _tileWidth,
-          bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
-            context: context,
-            leadingIcon: _searchModel.flyerSearchModel?.phid == null ? Iconz.keyword
-                :
-            _keywordIcon == '' ||  _keywordIcon == null ? Iconz.dvBlankSVG
-                 :
-            _keywordIcon,
-            headerWidth: _tileWidth,
-            headlineVerse:  _searchModel.flyerSearchModel?.phid == null ?
-            Verse.plain('Select keyword')
-                :
-            SectionsButton.getBody(
-              context: context,
-              currentKeywordID:  _searchModel.flyerSearchModel?.phid,
-              currentSection:  _searchModel.flyerSearchModel?.flyerType,
-            ),
-          ),
-          onTileTap: () async {
+       onPickPhidTap: () async {
             final String _phid = await PhidsPickerScreen.goPickPhid(
               context: context,
               flyerType: _searchModel.flyerSearchModel?.flyerType,
@@ -416,15 +336,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
               });
             }
           },
-        ),
-      ),
-
-      /// SHOWS AUTHOR
-      FilterBoolTile(
-        icon: Iconz.bz,
-        switchValue: _searchModel.flyerSearchModel?.onlyShowingAuthors,
-        verse: Verse.plain('Flyers showing authors only'),
-        onSwitchTap: (bool value){
+       onOnlyShowAuthorSwitchTap: (bool value){
           setState(() {
             _searchModel = _searchModel.copyWith(
               flyerSearchModel: _searchModel.flyerSearchModel?.copyWith(
@@ -434,14 +346,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
             _generateQuery();
           });
           },
-      ),
-
-      /// HAS PRICE
-      FilterBoolTile(
-        icon: Iconz.dollar,
-        verse: Verse.plain('Flyers with prices only'),
-        switchValue: _searchModel.flyerSearchModel?.onlyWithPrices,
-        onSwitchTap: (bool value){
+       onOnlyWithPriceSwitchTap: (bool value){
           setState(() {
             _searchModel = _searchModel.copyWith(
               flyerSearchModel: _searchModel.flyerSearchModel?.copyWith(
@@ -451,14 +356,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
             _generateQuery();
           });
           },
-      ),
-
-      /// HAS PDF
-      FilterBoolTile(
-        icon: Iconz.pfd,
-        verse: Verse.plain('Flyers with PDF attachments only'),
-        switchValue: _searchModel?.flyerSearchModel?.onlyWithPDF,
-        onSwitchTap: (bool value){
+       onOnlyWithPDFSwitchTap: (bool value){
               setState(() {
                 _searchModel = _searchModel.copyWith(
                   flyerSearchModel: _searchModel?.flyerSearchModel?.copyWith(
@@ -468,14 +366,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
                 _generateQuery();
               });
             },
-      ),
-
-      /// IS AMAZON PRODUCT
-      FilterBoolTile(
-        icon: Iconz.amazon,
-        verse: Verse.plain('Amazon Products only'),
-        switchValue: _searchModel?.flyerSearchModel?.onlyAmazonProducts != null,
-        onSwitchTap: (bool value){
+       onOnlyAmazonProductsSwitchTap: (bool value){
           setState(() {
 
             _searchModel = _searchModel.copyWith(
@@ -487,20 +378,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
             _generateQuery();
           });
           },
-      ),
-
-      /// SEPARATOR
-      if (UsersProvider.userIsAdmin(context) == true)
-      const DotSeparator(),
-
-      /// AUDIT STATE
-      if (UsersProvider.userIsAdmin(context) == true)
-        FilterMultiButtonTile(
-          bubbleColor: Colorz.yellow50,
-          icon: Iconz.verifyFlyer,
-          verse: Verse.plain('Audit State'),
-          switchValue: _searchModel?.flyerSearchModel?.auditState != null,
-          onSwitchTap: (bool value) {
+       onAuditStateSwitchTap: (bool value) {
             if (value == false) {
               setState(() {
                 _searchModel = _searchModel.copyWith(
@@ -513,29 +391,17 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
               });
             }
           },
-          items: FlyerModel.auditStates,
-          selectedItem: _searchModel.flyerSearchModel?.auditState,
-          itemVerse: (dynamic state) => Verse(id: FlyerModel.getAuditStatePhid(state), translate: true,),
-          onItemTap: (dynamic item){
+       onAuditStateTap: (AuditState state){
             setState(() {
               _searchModel = _searchModel.copyWith(
                 flyerSearchModel: _searchModel.flyerSearchModel?.copyWith(
-                  auditState: item,
+                  auditState: state,
                 ),
               );
               _generateQuery();
             });
             },
-        ),
-
-      /// PUBLISH STATE
-      if (UsersProvider.userIsAdmin(context) == true)
-        FilterMultiButtonTile(
-          bubbleColor: Colorz.yellow50,
-          icon: Iconz.verifyFlyer,
-          verse: Verse.plain('Publish State'),
-          switchValue: _searchModel.flyerSearchModel?.publishState != null,
-          onSwitchTap: (bool value) {
+       onPublishStateSwitchTap: (bool value) {
               if (value == false) {
                 setState(() {
                   _searchModel = _searchModel.copyWith(
@@ -547,80 +413,66 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
                 });
               }
             },
-          items: FlyerModel.publishStates,
-          selectedItem: _searchModel.flyerSearchModel?.publishState,
-          itemVerse: (dynamic state) => Verse(id: FlyerModel.getPublishStatePhid(state), translate: true,),
-          onItemTap: (dynamic item){
+       onPublishStateTap: (PublishState state){
             setState(() {
               _searchModel = _searchModel.copyWith(
                 flyerSearchModel: _searchModel?.flyerSearchModel?.copyWith(
-                  publishState: item,
+                  publishState: state,
                 ),
               );
               _generateQuery();
             });
             },
-        ),
+     );
+    }
 
-    ];
-  }
-  // --------------------
-  List<Widget> _bzFilters(){
-
-    final double _tileWidth = SuperSearchScreen.getFilterTileWidth(context);
-
-    // final List<ContactModel> contacts;
-    // final BzState bzState;
-
-    return <Widget>[
-
-      /// ZONE
-      TileBubble(
-          bubbleWidth: _tileWidth,
-          bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
-            context: context,
-            leadingIcon: _searchModel.zone?.icon ?? Iconz.contAfrica,
-            headerWidth: _tileWidth,
-            headlineVerse: ZoneModel.generateInZoneVerse(
-                  context: context,
-                  zoneModel: _searchModel.zone,
-                ),
-          ),
-        onTileTap: () async {
-
-            final ZoneModel _newZone = await ZoneSelection.goBringAZone(
-              context: context,
-              depth: ZoneDepth.city,
-              settingCurrentZone: false,
-              zoneViewingEvent: ViewingEvent.homeView,
-              viewerCountryID: UsersProvider.proGetUserZone(context)?.countryID,
-            );
-
-            if (_newZone != null){
-
-              await ZoneSelection.setCurrentZone(
-                  context: context,
-                  zone: _newZone,
+    /// BZZ
+    else if (_searchType == ModelType.bz){
+      return BzSearchFiltersList(
+        searchModel: _searchModel,
+        onZoneSwitchTap: (bool value){
+          if (value == true){
+            setState(() {
+              _searchModel = _searchModel.copyWith(
+                zone:  ZoneProvider.proGetCurrentZone(context: context, listen: false),
               );
+              _generateQuery();
+            });
+          }
+          else {
+            setState(() {
+              _searchModel = _searchModel.nullifyField(
+                zone: true,
+              );
+              _generateQuery();
+            });
+          }
+          },
+        onZoneTap: () async {
 
-              setState(() {
-                _searchModel = _searchModel.copyWith(
-                  zone: _newZone,
-                );
-                _generateQuery();
-              });
-            }
+          final ZoneModel _newZone = await ZoneSelection.goBringAZone(
+            context: context,
+            depth: ZoneDepth.city,
+            settingCurrentZone: false,
+            zoneViewingEvent: ViewingEvent.homeView,
+            viewerCountryID: UsersProvider.proGetUserZone(context)?.countryID,
+          );
 
-        },
-        ),
+          if (_newZone != null){
+            await ZoneSelection.setCurrentZone(
+              context: context,
+              zone: _newZone,
+            );
+            setState(() {
+              _searchModel = _searchModel.copyWith(
+                zone: _newZone,
+              );
+              _generateQuery();
+            });
+          }
 
-      /// BZ IS VERIFIED
-      FilterBoolTile(
-        icon: Iconz.bzBadgeWhite,
-        verse: Verse.plain('Verified Businesses only'),
-        switchValue: _searchModel?.bzSearchModel?.onlyVerified,
-        iconIsBig: false,
-        onSwitchTap: (bool value){
+          },
+        onBzIsVerifiedSwitchTap: (bool value){
           setState(() {
             _searchModel = _searchModel?.copyWith(
               bzSearchModel: _searchModel?.bzSearchModel?.copyWith(
@@ -630,14 +482,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
             _generateQuery();
           });
           },
-      ),
-
-      /// BZ FORM
-      FilterMultiButtonTile (
-        icon: Iconz.bz,
-        verse: Verse.plain('Business Account form'),
-        switchValue: _searchModel?.bzSearchModel?.bzForm != null,
-        onSwitchTap: (bool value){
+        onBzFormSwitchTap: (bool value){
           if (value == false){
             setState(() {
               _searchModel = _searchModel.copyWith(
@@ -649,10 +494,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
             });
           }
           },
-        items: BzTyper.bzFormsList,
-        selectedItem: _searchModel?.bzSearchModel?.bzForm,
-        itemVerse: (dynamic form) => Verse(id: BzTyper.getBzFormPhid(form), translate: true),
-        onItemTap: (dynamic form) {
+        onBzFormTap: (BzForm form) {
           setState(() {
             _searchModel = _searchModel.copyWith(
               bzSearchModel: _searchModel.bzSearchModel.copyWith(
@@ -662,14 +504,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
             _generateQuery();
           });
           },
-      ),
-
-      /// BZ TYPE
-      FilterMultiButtonTile (
-        icon: Iconz.bz,
-        verse: Verse.plain('Business Account type'),
-        switchValue: _searchModel?.bzSearchModel?.bzType != null,
-        onSwitchTap: (bool value){
+        onBzTypeSwitchTap: (bool value){
           if (value == false){
             setState(() {
 
@@ -684,14 +519,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
             });
           }
           },
-        items: BzTyper.bzTypesList,
-        selectedItem: _searchModel?.bzSearchModel?.bzType,
-        itemVerse: (dynamic type) => Verse(
-          id: BzTyper.getBzTypePhid(bzType: type, pluralTranslation: false,),
-          translate: true,
-        ),
-        itemIcon: (dynamic type) => BzTyper.getBzTypeIconOff(type),
-        onItemTap: (dynamic type) {
+        onBzTypeTap: (BzType type) {
           setState(() {
 
             _searchModel = _searchModel.copyWith(
@@ -709,70 +537,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
             _generateQuery();
           });
           },
-      ),
-
-      /// SCOPE
-      Disabler(
-        isDisabled: _searchModel?.bzSearchModel?.bzType == null,
-        child: ScopeSelectorBubble(
-          bubbleWidth: _tileWidth,
-          headlineVerse: const Verse(
-            id: 'phid_scopeOfServices',
-            translate: true,
-          ),
-          flyerTypes: FlyerTyper.concludePossibleFlyerTypesByBzType(bzType: _searchModel?.bzSearchModel?.bzType),
-          selectedSpecs: SpecModel.generateSpecsByPhids(
-            context: context,
-            phids: _searchModel?.bzSearchModel?.scopePhid == null ?
-            [] : [_searchModel?.bzSearchModel?.scopePhid],
-          ),
-          onFlyerTypeBubbleTap: (FlyerType flyerType) async {
-
-            final String _phid = await PhidsPickerScreen.goPickPhid(
-              context: context,
-              flyerType: flyerType,
-              event: ViewingEvent.homeView,
-              onlyUseZoneChains: true,
-            );
-
-            if (_phid != null) {
-              setState(() {
-                _searchModel = _searchModel.copyWith(
-                  bzSearchModel: _searchModel.bzSearchModel?.copyWith(
-                    scopePhid: _phid,
-                  ),
-                );
-                _generateQuery();
-              });
-            }
-
-          },
-          onPhidTap: (FlyerType flyerType, String phid) async {
-
-            final String _phid = await PhidsPickerScreen.goPickPhid(
-              context: context,
-              flyerType: flyerType,
-              event: ViewingEvent.homeView,
-              onlyUseZoneChains: true,
-            );
-
-            if (_phid != null) {
-              setState(() {
-                _searchModel = _searchModel.copyWith(
-                  bzSearchModel: _searchModel.bzSearchModel?.copyWith(
-                    scopePhid: _phid,
-                  ),
-                );
-                _generateQuery();
-              });
-            }
-
-
-          },
-          switchValue: _searchModel?.bzSearchModel?.scopePhid != null
-              &&
-              _searchModel?.bzSearchModel?.bzType != null,
-          onSwitchTap: (bool value){
+        onScopeSwitchTap: (bool value){
 
             if (value == false){
               setState(() {
@@ -786,16 +551,28 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
             }
 
           },
-        ),
-      ),
+        onScopeTap: (FlyerType flyerType) async {
 
-      /// BZZ SHOWING TEAMS
-      FilterBoolTile(
-        icon: Iconz.users,
-        verse: Verse.plain('Businesses showing their team members only'),
-        iconIsBig: false,
-        switchValue: _searchModel?.bzSearchModel?.onlyShowingTeams,
-        onSwitchTap: (bool value){
+            final String _phid = await PhidsPickerScreen.goPickPhid(
+              context: context,
+              flyerType: flyerType,
+              event: ViewingEvent.homeView,
+              onlyUseZoneChains: true,
+            );
+
+            if (_phid != null) {
+              setState(() {
+                _searchModel = _searchModel.copyWith(
+                  bzSearchModel: _searchModel.bzSearchModel?.copyWith(
+                    scopePhid: _phid,
+                  ),
+                );
+                _generateQuery();
+              });
+            }
+
+          },
+        onBzzShowingTeamOnlySwitchTap: (bool value){
           setState(() {
 
             _searchModel = _searchModel.copyWith(
@@ -807,20 +584,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
             _generateQuery();
           });
           },
-      ),
-
-      /// SEPARATOR
-      if (UsersProvider.userIsAdmin(context) == true)
-      const DotSeparator(),
-
-      /// ACCOUNT TYPE
-      if (UsersProvider.userIsAdmin(context) == true)
-        FilterMultiButtonTile(
-          bubbleColor: Colorz.yellow50,
-          icon: Iconz.star,
-          verse: Verse.plain('Subscription type'),
-          switchValue: _searchModel?.bzSearchModel?.bzAccountType != null,
-          onSwitchTap: (bool value) {
+        onAccountTypeSwitchTap: (bool value) {
             if (value == false) {
               setState(() {
 
@@ -834,13 +598,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
               });
             }
           },
-          items: BzTyper.bzAccountTypesList,
-          selectedItem: _searchModel?.bzSearchModel?.bzAccountType,
-          itemVerse: (dynamic type) => Verse(
-            id: type.toString(),
-            translate: false,
-          ),
-          onItemTap: (dynamic type) {
+        onAccountTypeTap: (BzAccountType type) {
             setState(() {
 
               _searchModel = _searchModel.copyWith(
@@ -852,65 +610,57 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
               _generateQuery();
             });
           },
-        ),
+      );
+    }
 
-    ];
-
-  }
-  // --------------------
-  List<Widget> _userFilters(){
-
-    final double _tileWidth = SuperSearchScreen.getFilterTileWidth(context);
-
-    return <Widget>[
-
-      /// ZONE
-      TileBubble(
-          bubbleWidth: _tileWidth,
-          bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
-            context: context,
-            leadingIcon: _searchModel.zone?.icon ?? Iconz.contAfrica,
-            headerWidth: _tileWidth,
-            headlineVerse: ZoneModel.generateInZoneVerse(
-                  context: context,
-                  zoneModel: _searchModel.zone,
-                ),
-          ),
-        onTileTap: () async {
-
-            final ZoneModel _newZone = await ZoneSelection.goBringAZone(
-              context: context,
-              depth: ZoneDepth.city,
-              settingCurrentZone: false,
-              zoneViewingEvent: ViewingEvent.homeView,
-              viewerCountryID: UsersProvider.proGetUserZone(context)?.countryID,
-            );
-
-            if (_newZone != null){
-
-              await ZoneSelection.setCurrentZone(
-                  context: context,
-                  zone: _newZone,
+    /// USERS
+    else if (_searchType == ModelType.user){
+      return UserSearchFiltersList(
+        searchModel: _searchModel,
+        userSearchModel: _userSearchModel,
+        onZoneSwitchTap: (bool value){
+          if (value == true){
+            setState(() {
+              _searchModel = _searchModel.copyWith(
+                zone:  ZoneProvider.proGetCurrentZone(context: context, listen: false),
               );
+              _generateQuery();
+            });
+          }
+          else {
+            setState(() {
+              _searchModel = _searchModel.nullifyField(
+                zone: true,
+              );
+              _generateQuery();
+            });
+          }
+          },
+        onZoneTap: () async {
 
-              setState(() {
-                _searchModel = _searchModel.copyWith(
-                  zone: _newZone,
-                );
-                _generateQuery();
-              });
+          final ZoneModel _newZone = await ZoneSelection.goBringAZone(
+            context: context,
+            depth: ZoneDepth.city,
+            settingCurrentZone: false,
+            zoneViewingEvent: ViewingEvent.homeView,
+            viewerCountryID: UsersProvider.proGetUserZone(context)?.countryID,
+          );
 
-            }
+          if (_newZone != null){
+            await ZoneSelection.setCurrentZone(
+              context: context,
+              zone: _newZone,
+            );
+            setState(() {
+              _searchModel = _searchModel.copyWith(
+                zone: _newZone,
+              );
+              _generateQuery();
+            });
+          }
 
-        },
-        ),
-
-      /// USER SEARCH TYPE
-      FilterMultiButtonTile(
-        icon: Iconz.search,
-        verse: Verse.plain('User Search type'),
-        switchValue: _userSearchModel?.searchType != null,
-        onSwitchTap: (bool value){
+          },
+        onUserSearchTypeSwitchTap: (bool value){
               if (value == false){
                 setState(() {
                   _userSearchModel = _userSearchModel?.nullifyField(searchType: true);
@@ -918,23 +668,13 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
                 });
               }
             },
-        items: UserSearchModel.userSearchTypes,
-        selectedItem: _userSearchModel?.searchType,
-        itemVerse: (dynamic type) => Verse.plain(TextMod.removeTextBeforeFirstSpecialCharacter(type.toString(), '.')),
-        onItemTap: (dynamic type) {
+        onUserSearchTypeTap: (UserSearchType type) {
           setState(() {
             _userSearchModel = _userSearchModel?.copyWith(searchType: type);
             _generateQuery();
           });
           },
-      ),
-
-      /// SIGN IN METHOD
-      FilterMultiButtonTile(
-        icon: Iconz.comGooglePlay,
-        verse: Verse.plain('Sign in method'),
-        switchValue: _userSearchModel?.signInMethod != null,
-        onSwitchTap: (bool value){
+        onSignInMethodSwitchTap: (bool value){
           if (value == false){
             setState(() {
               _userSearchModel = _userSearchModel?.nullifyField(
@@ -944,10 +684,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
             });
           }
           },
-        items: AuthModel.signInMethodsList,
-        selectedItem: _userSearchModel?.signInMethod,
-        itemVerse: (dynamic method) => Verse.plain(AuthModel.cipherSignInMethod(method)),
-        onItemTap: (dynamic method) {
+        onSignInMethodTap: (SignInMethod method) {
           setState(() {
             _userSearchModel = _userSearchModel?.copyWith(
               signInMethod: method,
@@ -955,14 +692,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
             _generateQuery();
           });
           },
-      ),
-
-      /// GENDER
-      FilterMultiButtonTile(
-        icon: Iconz.female,
-        verse: const Verse(id: 'phid_gender', translate: true,),
-        switchValue: _userSearchModel?.gender != null,
-        onSwitchTap: (bool value){
+        onGenderSwitchTap: (bool value){
           if (value == false){
             setState(() {
               _userSearchModel = _userSearchModel?.nullifyField(gender: true);
@@ -970,23 +700,13 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
             });
           }
           },
-        items: UserModel.gendersList,
-        selectedItem: _userSearchModel?.gender,
-        itemVerse: (dynamic gender) => Verse(id: UserModel.getGenderPhid(gender), translate: true),
-        onItemTap: (dynamic gender) {
+        onGenderTap: (Gender gender) {
           setState(() {
             _userSearchModel = _userSearchModel?.copyWith(gender: gender);
             _generateQuery();
           });
           },
-      ),
-
-      /// LANGUAGE
-      FilterMultiButtonTile(
-        icon: Iconz.language,
-        verse: const Verse(id: 'phid_language', translate: true,),
-        switchValue: _userSearchModel?.language != null,
-        onSwitchTap: (bool value){
+        onLangSwitchTap: (bool value){
           if (value == false){
             setState(() {
               _userSearchModel = _userSearchModel?.nullifyField(language: true);
@@ -994,74 +714,43 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
             });
           }
           },
-        items: Localizer.supportedLangCodes,
-        selectedItem: _userSearchModel?.language,
-        itemVerse: (dynamic lang) => Verse(id: lang, translate: false),
-        onItemTap: (dynamic lang) {
+        onLangTap: (String lang) {
           setState(() {
             _userSearchModel = _userSearchModel?.copyWith(language: lang);
             _generateQuery();
           });
           },
-      ),
-
-      /// ONLY USERS WITH PUBLIC CONTACTS
-      FilterBoolTile(
-        icon: Iconz.comWebsite,
-        verse: Verse.plain('Only users with public contacts'),
-        iconIsBig: false,
-        switchValue: _userSearchModel?.onlyWithPublicContacts,
-        onSwitchTap: (bool value){
+        onOnlyPublicContactsSwitchTap: (bool value){
               setState(() {
                 _userSearchModel = _userSearchModel?.copyWith(onlyWithPublicContacts: value);
                 _generateQuery();
               });
             },
-      ),
-
-      /// ONLY BZ AUTHORS
-      FilterBoolTile(
-        icon: Iconz.bz,
-        verse: Verse.plain('Only Business Authors'),
-        iconIsBig: false,
-        switchValue: _userSearchModel?.onlyBzAuthors,
-        onSwitchTap: (bool value){
-              setState(() {
-                _userSearchModel = _userSearchModel?.copyWith(onlyBzAuthors: value);
-                _generateQuery();
-              });
-            },
-      ),
-
-      /// ONLY BLDRS ADMIN
-      FilterBoolTile(
-        icon: Iconz.viewsIcon,
-        verse: Verse.plain('Only Bldrs Admins'),
-        iconIsBig: false,
-        switchValue: _userSearchModel?.onlyBldrsAdmins,
-        onSwitchTap: (bool value){
+        onOnlyAuthorsSwitchTap: (bool value) {
+          setState(() {
+            _userSearchModel = _userSearchModel?.copyWith(onlyBzAuthors: value);
+            _generateQuery();
+          });
+        },
+        onOnlyAdminsSwitchTap: (bool value){
           setState(() {
             _userSearchModel = _userSearchModel?.copyWith(onlyBldrsAdmins: value);
             _generateQuery();
           });
           },
-      ),
-
-      /// ONLY USERS WITH VERIFIED EMAILS
-      FilterBoolTile(
-        icon: Iconz.check,
-        verse: Verse.plain('Only Users with verified emails'),
-        iconIsBig: false,
-        switchValue: _userSearchModel?.onlyVerifiedEmails,
-        onSwitchTap: (bool value){
+        onOnlyVerifiedEmailsSwitchTap: (bool value){
           setState(() {
             _userSearchModel = _userSearchModel?.copyWith(onlyVerifiedEmails: value);
             _generateQuery();
           });
           },
-      ),
+      );
+    }
 
-    ];
+    /// OTHERWISE
+    else {
+      return const SizedBox();
+    }
 
   }
   // -----------------------------------------------------------------------------
@@ -1085,7 +774,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
       // searchButtonIsOn: true,
 
       filtersAreOn: _filtersAreOn,
-      filtersChildren: _getFilters(),
+      filters: _getFilters(),
 
       appBarRowWidgets: <Widget>[
 

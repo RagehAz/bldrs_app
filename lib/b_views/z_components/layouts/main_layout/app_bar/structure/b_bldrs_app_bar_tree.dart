@@ -21,7 +21,7 @@ class BldrsAppBarTree extends StatelessWidget {
     @required this.canGoBack,
     @required this.onSearchCancelled,
     @required this.filtersAreOn,
-    @required this.filtersChildren,
+    @required this.filters,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -43,7 +43,7 @@ class BldrsAppBarTree extends StatelessWidget {
   final Function onSearchCancelled;
   final GlobalKey globalKey;
   final ValueNotifier<bool> filtersAreOn;
-  final List<Widget> filtersChildren;
+  final Widget filters;
   // -----------------------------------------------------------------------------
   bool _sectionButtonIsOnCheck() {
 
@@ -150,10 +150,10 @@ class BldrsAppBarTree extends StatelessWidget {
             appBarType: appBarType,
           ),
 
-        if (filtersAreOn != null && Mapper.checkCanLoopList(filtersChildren) == true)
+        if (filtersAreOn != null && filters != null)
           AppBarFilters(
             appBarType: appBarType,
-            children: filtersChildren,
+            child: filters,
           ),
 
       ],
