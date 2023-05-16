@@ -27,13 +27,14 @@ import 'package:scale/scale.dart';
 import 'package:stringer/stringer.dart';
 import 'package:super_box/super_box.dart';
 import 'package:widget_fader/widget_fader.dart';
-
+// -----------------------------------------------------------------------------
 /// COMPONENTS
 part 'components/app_bar_button.dart';
 part 'components/app_bar_title.dart';
 part 'components/app_bar_zone_button.dart';
 part 'components/line_box.dart';
 part 'components/scrollable_app_bar_widgets.dart';
+// -----------------------------------------------------------------------------
 /// STRUCTURE
 part 'structure/a_bldrs_app_bar.dart';
 part 'structure/b_bldrs_app_bar_tree.dart';
@@ -44,6 +45,7 @@ part 'structure/f_app_bar_filters.dart';
 part 'variants/line_with_back_and_title.dart';
 part 'variants/line_with_back_and_title_and_widgets.dart';
 part 'variants/line_with_back_and_widgets.dart';
+// -----------------------------------------------------------------------------
 /// VARIANTS
 part 'variants/line_with_back_button_only.dart';
 part 'variants/line_with_section_and_search_buttons.dart';
