@@ -15,6 +15,7 @@ class UserFireSearchOps{
   const UserFireSearchOps();
 
   // -----------------------------------------------------------------------------
+  /// TESTED : WORKS PERFECT
   static FireQueryModel createQuery({
     String orderBy,
     bool descending,
@@ -133,9 +134,9 @@ class UserFireSearchOps{
 
           if (userSearchModel?.onlyBzAuthors == true)
             const FireFinder(
-              field: 'myBzzIDs',
-              comparison: FireComparison.notEqualTo,
-              value: <String>[],
+              field: 'isAuthor',
+              comparison: FireComparison.equalTo,
+              value: true,
             ),
 
           if (userSearchModel?.onlyBldrsAdmins == true)
@@ -228,9 +229,9 @@ class UserFireSearchOps{
         finders: <FireFinder>[
 
         const FireFinder(
-          field: 'myBzzIDs',
-          comparison: FireComparison.notEqualTo,
-          value: <String>[],
+          field: 'isAuthor',
+          comparison: FireComparison.equalTo,
+          value: true,
         ),
 
       if (name != null)

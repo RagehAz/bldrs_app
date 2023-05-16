@@ -467,6 +467,7 @@ class DraftUser {
       location: draft.location,
       contactsArePublic: draft.contactsArePublic,
       myBzzIDs: draft.myBzzIDs,
+      isAuthor: Mapper.checkCanLoopList(draft.myBzzIDs),
       emailIsVerified: draft.emailIsVerified,
       isAdmin: draft.isAdmin,
       device: draft.device,
