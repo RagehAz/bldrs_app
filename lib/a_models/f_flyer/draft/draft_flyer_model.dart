@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/f_flyer/draft/gta_model.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
@@ -44,7 +45,9 @@ class DraftFlyer{
     @required this.draftSlides,
     @required this.specs,
     @required this.times,
-    @required this.priceTagIsOn,
+    @required this.hasPriceTag,
+    @required this.isAmazonFlyer,
+    @required this.hasPDF,
     @required this.score,
     @required this.pdfModel,
     @required this.bzModel,
@@ -74,7 +77,9 @@ class DraftFlyer{
   final List<DraftSlide> draftSlides;
   final List<SpecModel> specs;
   final List<PublishTime> times;
-  final bool priceTagIsOn;
+  final bool hasPriceTag;
+  final bool isAmazonFlyer;
+  final bool hasPDF;
   final int score;
   final PDFModel pdfModel;
   final BzModel bzModel;
@@ -147,7 +152,9 @@ class DraftFlyer{
       draftSlides: const <DraftSlide>[],
       specs: const <SpecModel>[],
       times: const <PublishTime>[],
-      priceTagIsOn: false,
+      hasPriceTag: false,
+      isAmazonFlyer: false,
+      hasPDF: false,
       score: 0,
       pdfModel: null,
       canPickImage: true,
@@ -209,7 +216,9 @@ class DraftFlyer{
         draftSlides: await DraftSlide.draftsFromSlides(flyer.slides),
         specs: flyer.specs,
         times: flyer.times,
-        priceTagIsOn: flyer.priceTagIsOn,
+        hasPriceTag: flyer.hasPriceTag,
+        hasPDF: flyer.hasPDF,
+        isAmazonFlyer: flyer.isAmazonFlyer,
         score: flyer.score,
         pdfModel: await PDFProtocols.fetch(flyer.pdfPath),
         firstTimer: false,
@@ -265,7 +274,9 @@ class DraftFlyer{
       slides: await DraftSlide.draftsToSlides(draft.draftSlides),
       specs: draft.specs,
       times: _publishTimes,
-      priceTagIsOn: draft.priceTagIsOn,
+      hasPriceTag: Speccer.checkSpecsHavePrice(draft.specs),
+      isAmazonFlyer: GtaModel.isAmazonAffiliateLink(draft.affiliateLink),
+      hasPDF: draft.pdfModel != null,
       score: draft.score,
       pdfPath: draft.pdfModel == null ? null : BldrStorage.generateFlyerPDFPath(draft.id),
       affiliateLink: draft.affiliateLink,
@@ -303,7 +314,9 @@ class DraftFlyer{
         'draftSlides': DraftSlide.draftsToLDB(draft.draftSlides),
         'specs' : SpecModel.cipherSpecs(draft.specs),
         'times' : PublishTime.cipherTimes(times: draft.times, toJSON: true),
-        'priceTagIsOn' : draft.priceTagIsOn,
+        'hasPriceTag': Speccer.checkSpecsHavePrice(draft.specs),
+        'isAmazonFlyer': GtaModel.isAmazonAffiliateLink(draft.affiliateLink),
+        'hasPDF': draft.pdfModel != null,
         'score' : draft.score,
         'pdfModel': draft.pdfModel?.toMap(includeBytes: true),
         'bzModel': draft.bzModel.toMap(toJSON: true),
@@ -342,7 +355,9 @@ class DraftFlyer{
         draftSlides: DraftSlide.draftsFromLDB(map['draftSlides']),
         specs: SpecModel.decipherSpecs(map['specs']),
         times: PublishTime.decipherTimes(map: map['times'], fromJSON: true),
-        priceTagIsOn: map['priceTagIsOn'],
+        hasPDF: map['hasPDF'],
+        isAmazonFlyer: map['isAmazonFlyer'],
+        hasPriceTag: map['hasPriceTag'],
         score: map['score'],
         pdfModel: PDFModel.decipherFromMap(map['pdfModel']),
         bzModel: BzModel.decipherBz(map: map['bzModel'], fromJSON: true),
@@ -384,7 +399,9 @@ class DraftFlyer{
     List<DraftSlide> draftSlides,
     List<SpecModel> specs,
     List<PublishTime> times,
-    bool priceTagIsOn,
+    bool hasPriceTag,
+    bool hasPDF,
+    bool isAmazonFlyer,
     int score,
     PDFModel pdfModel,
     BzModel bzModel,
@@ -415,7 +432,9 @@ class DraftFlyer{
       draftSlides: draftSlides ?? this.draftSlides,
       specs: specs ?? this.specs,
       times: times ?? this.times,
-      priceTagIsOn: priceTagIsOn ?? this.priceTagIsOn,
+      hasPriceTag: hasPriceTag ?? this.hasPriceTag,
+      isAmazonFlyer: isAmazonFlyer ?? this.isAmazonFlyer,
+      hasPDF: hasPDF ?? this.hasPDF,
       score: score ?? this.score,
       pdfModel: pdfModel ?? this.pdfModel,
       canPickImage: canPickImage ?? this.canPickImage,
@@ -447,7 +466,9 @@ class DraftFlyer{
     bool draftSlides = false,
     bool specs = false,
     bool times = false,
-    bool priceTagIsOn = false,
+    bool hasPriceTag = false,
+    bool hasPDF = false,
+    bool isAmazonFlyer = false,
     bool score = false,
     bool pdfModel = false,
     bool bzModel = false,
@@ -477,7 +498,9 @@ class DraftFlyer{
       draftSlides: draftSlides == true ? [] : this.draftSlides,
       specs: specs == true ? [] : this.specs,
       times: times == true ? [] : this.times,
-      priceTagIsOn: priceTagIsOn == true ? null : this.priceTagIsOn,
+      hasPriceTag: hasPriceTag == true ? null : this.hasPriceTag,
+      isAmazonFlyer: isAmazonFlyer == true ? null : this.isAmazonFlyer,
+      hasPDF: hasPDF == true ? null : this.hasPDF,
       score: score == true ? null : this.score,
       pdfModel: pdfModel == true ? null : this.pdfModel,
       bzModel: bzModel == true ? null : this.bzModel,
@@ -669,7 +692,9 @@ class DraftFlyer{
       blog('authorID : $authorID');
       blog('bzID : $bzID');
       blog('position : $position');
-      blog('priceTagIsOn : $priceTagIsOn');
+      blog('hasPriceTag : $hasPriceTag');
+      blog('isAmazonFlyer : $isAmazonFlyer');
+      blog('hasPDF : $hasPDF');
       blog('score : $score');
       PublishTime.blogTimes(times);
       SpecModel.blogSpecs(specs);
@@ -749,8 +774,14 @@ class DraftFlyer{
       if (PublishTime.checkTimesListsAreIdentical(times1: draft1.times, times2: draft2.times) == false){
         blog('times are not identical');
       }
-      if (draft1.priceTagIsOn != draft2.priceTagIsOn){
-        blog('priceTagIsOns are not identical');
+      if (draft1.hasPriceTag != draft2.hasPriceTag){
+        blog('hasPriceTags are not identical');
+      }
+      if (draft1.isAmazonFlyer != draft2.isAmazonFlyer){
+        blog('isAmazonFlyers are not identical');
+      }
+      if (draft1.hasPDF != draft2.hasPDF){
+        blog('hasPDFs are not identical');
       }
       if (draft1.score != draft2.score){
         blog('scores are not identical');
@@ -913,7 +944,9 @@ class DraftFlyer{
           DraftSlide.checkSlidesListsAreIdentical(slides1: draft1.draftSlides, slides2: draft2.draftSlides) == true &&
           SpecModel.checkSpecsListsAreIdentical(draft1.specs, draft2.specs) == true &&
           PublishTime.checkTimesListsAreIdentical(times1: draft1.times, times2: draft2.times) == true &&
-          draft1.priceTagIsOn == draft2.priceTagIsOn &&
+          draft1.hasPriceTag == draft2.hasPriceTag &&
+          draft1.hasPDF == draft2.hasPDF &&
+          draft1.isAmazonFlyer == draft2.isAmazonFlyer &&
           draft1.score == draft2.score &&
           PDFModel.checkPDFModelsAreIdentical(pdf1: draft1.pdfModel, pdf2: draft2.pdfModel) == true &&
           BzModel.checkBzzAreIdentical(bz1: draft1.bzModel, bz2: draft2.bzModel) == true &&
@@ -982,7 +1015,9 @@ class DraftFlyer{
       draftSlides.hashCode^
       specs.hashCode^
       times.hashCode^
-      priceTagIsOn.hashCode^
+      hasPriceTag.hashCode^
+      hasPDF.hashCode^
+      isAmazonFlyer.hashCode^
       score.hashCode^
       posterController.hashCode^
       affiliateLink.hashCode^

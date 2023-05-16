@@ -765,16 +765,63 @@ class SpecModel {
 }
 
 class Speccer {
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   const Speccer();
   // --------------------
   static double getSalePrice(List<SpecModel> specs) {
-    return SpecModel.getFirstSpecFromSpecsByPickerChainID(specs: specs, pickerChainID: 'phid_s_salePrice',)?.value;
+    return SpecModel.getFirstSpecFromSpecsByPickerChainID(
+      specs: specs,
+      pickerChainID: 'phid_s_salePrice',
+    )?.value;
+  }
+  // --------------------
+  static double getRentPrice(List<SpecModel> specs) {
+    return SpecModel.getFirstSpecFromSpecsByPickerChainID(
+      specs: specs,
+      pickerChainID: 'phid_s_rentPrice',
+    )?.value;
+  }
+  // --------------------
+  static double getPropertySalePrice(List<SpecModel> specs) {
+    return SpecModel.getFirstSpecFromSpecsByPickerChainID(
+      specs: specs,
+      pickerChainID: 'phid_s_PropertySalePrice',
+    )?.value;
+  }
+  // --------------------
+  static double getPropertyRentPrice(List<SpecModel> specs) {
+    return SpecModel.getFirstSpecFromSpecsByPickerChainID(
+      specs: specs,
+      pickerChainID: 'phid_s_PropertyRentPrice',
+    )?.value;
   }
   // --------------------
   static String getCurrencyID(List<SpecModel> specs) {
     return SpecModel.getFirstSpecFromSpecsByPickerChainID(specs: specs, pickerChainID: 'phid_s_currency',)?.value;
   }
   // --------------------
+  static bool checkSpecsHavePrice(List<SpecModel> specs){
 
+    if (Mapper.checkCanLoopList(specs) == false){
+      return false;
+    }
+    else {
+
+      final double _price =
+              getSalePrice(specs) ??
+              getRentPrice(specs) ??
+              getPropertySalePrice(specs) ??
+              getPropertyRentPrice(specs);
+
+      if (_price == null){
+        return false;
+      }
+      else {
+        return true;
+      }
+
+    }
+
+  }
+  // -----------------------------------------------------------------------------
 }

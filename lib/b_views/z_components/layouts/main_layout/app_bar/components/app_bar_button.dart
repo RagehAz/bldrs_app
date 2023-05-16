@@ -34,16 +34,15 @@ class AppBarButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // final double _width =
-    //     width != null ? width :
-    //     width == null &&  verse == null ? Ratioz.appBarButtonSize :
-    //     Ratioz.appBarButtonSize * 2;
-
     return BldrsBox(
       height: Ratioz.appBarButtonSize,
       width: width,
       // width: Ratioz.appBarButtonSize * 3.5,
-      margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+      margins: Scale.superInsets(
+        context: context,
+        appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+        enLeft: Ratioz.appBarPadding,
+      ),
       verse: verse,
       icon: icon,
       verseColor: verseColor,
