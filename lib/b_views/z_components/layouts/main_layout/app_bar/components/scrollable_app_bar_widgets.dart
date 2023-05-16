@@ -15,28 +15,34 @@ class ScrollableAppBarWidgets extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return ClipRRect(
       borderRadius: BorderRadius.circular(Ratioz.appBarCorner - Ratioz.appBarPadding),
       child: Container(
         width: width,
         height: BldrsAppBar.clearLineHeight(context),
-        alignment: Alignment.center,
-        color: Colorz.white10,
+        alignment: BldrsAligners.superInverseCenterAlignment(context),
+        // color: Colorz.white10,
         child: Mapper.checkCanLoopList(children) == false ?
-        const SizedBox()
+        Container(
+          width: width - 20,
+          height: BldrsAppBar.clearLineHeight(context),
+          color: Colorz.bloodTest,
+        )
             :
         SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           scrollDirection: Axis.horizontal,
           controller: scrollController,
-          child: SizedBox(
-            width: width + Ratioz.appBarMargin,
+          child: IntrinsicWidth(
+            // stepWidth: width,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: children,
             ),
           ),
         ),
+
       ),
     );
   }

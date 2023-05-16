@@ -29,7 +29,8 @@ enum AuditState{
 }
 /// TAMAM
 @immutable
-class FlyerModel {
+class FlyerModel
+{
   /// --------------------------------------------------------------------------
   const FlyerModel({
     @required this.id,
@@ -47,7 +48,9 @@ class FlyerModel {
     @required this.slides,
     @required this.specs,
     @required this.times,
-    @required this.priceTagIsOn,
+    @required this.hasPriceTag,
+    @required this.isAmazonFlyer,
+    @required this.hasPDF,
     @required this.showsAuthor,
     @required this.score,
     @required this.pdfPath,
@@ -75,7 +78,9 @@ class FlyerModel {
   final List<SlideModel> slides;
   final List<SpecModel> specs;
   final List<PublishTime> times;
-  final bool priceTagIsOn;
+  final bool hasPriceTag;
+  final bool isAmazonFlyer;
+  final bool hasPDF;
   final DocumentSnapshot<Object> docSnapshot;
   final int score;
   final String pdfPath;
@@ -108,7 +113,9 @@ class FlyerModel {
     bool isBanned,
     List<SpecModel> specs,
     List<PublishTime> times,
-    bool priceTagIsOn,
+    bool hasPriceTag,
+    bool hasPDF,
+    bool isAmazonFlyer,
     DocumentSnapshot docSnapshot,
     int score,
     String pdfPath,
@@ -136,7 +143,9 @@ class FlyerModel {
       slides: slides ?? this.slides,
       specs: specs ?? this.specs,
       times: times ?? this.times,
-      priceTagIsOn: priceTagIsOn ?? this.priceTagIsOn,
+      hasPriceTag: hasPriceTag ?? this.hasPriceTag,
+      hasPDF: hasPDF ?? this.hasPDF,
+      isAmazonFlyer: isAmazonFlyer ?? this.isAmazonFlyer,
       docSnapshot: docSnapshot ?? this.docSnapshot,
       score: score ?? this.score,
       pdfPath: pdfPath ?? this.pdfPath,
@@ -178,7 +187,9 @@ class FlyerModel {
       'slides' : SlideModel.cipherSlides(slides),
       // -------------------------
       'specs' : SpecModel.cipherSpecs(specs),
-      'priceTagIsOn' : priceTagIsOn,
+      'hasPriceTag' : hasPriceTag,
+      'hasPDF' : hasPDF,
+      'isAmazonFlyer' : isAmazonFlyer,
       'times' : PublishTime.cipherTimes(times: times, toJSON: toJSON),
       'score' : score,
       'pdfPath' : pdfPath,
@@ -238,7 +249,9 @@ class FlyerModel {
         slides: SlideModel.decipherSlides(map['slides']),
         // -------------------------
         specs: SpecModel.decipherSpecs(map['specs']),
-        priceTagIsOn: map['priceTagIsOn'],
+        hasPriceTag: map['hasPriceTag'],
+        isAmazonFlyer: map['isAmazonFlyer'],
+        hasPDF: map['hasPDF'],
         times: PublishTime.decipherTimes(map: map['times'], fromJSON: fromJSON),
         score: map['score'],
         pdfPath: map['pdfPath'],
@@ -433,7 +446,9 @@ class FlyerModel {
     blog('position : $position');
     SpecModel.blogSpecs(specs);
     PublishTime.blogTimes(times);
-    blog('priceTagIsOn : $priceTagIsOn');
+    blog('hasPriceTag : $hasPriceTag');
+    blog('isAmazonFlyer : $isAmazonFlyer');
+    blog('hasPDF : $hasPDF');
     blog('score : $score');
     blog('pdfPath : $pdfPath');
     blog('affiliateLink : $affiliateLink');
@@ -526,8 +541,14 @@ class FlyerModel {
       if (PublishTime.checkTimesListsAreIdentical(times1: flyer1.times, times2: flyer2.times) == false){
         blog('flyers times are not identical');
       }
-      if (flyer1.priceTagIsOn != flyer2.priceTagIsOn){
-        blog('flyers priceTagIsOn are not identical');
+      if (flyer1.hasPriceTag != flyer2.hasPriceTag){
+        blog('flyers hasPriceTags are not identical');
+      }
+      if (flyer1.isAmazonFlyer != flyer2.isAmazonFlyer){
+        blog('flyers isAmazonFlyers are not identical');
+      }
+      if (flyer1.hasPDF != flyer2.hasPDF){
+        blog('flyers hasPDFs are not identical');
       }
       if (flyer1.score != flyer2.score){
         blog('flyers scores are not identical');
@@ -581,7 +602,9 @@ class FlyerModel {
       times : <PublishTime>[
         PublishTime(state: PublishState.published, time: Timers.createDate(year: 1987, month: 06, day: 10)),
       ],
-      priceTagIsOn : true,
+      hasPriceTag: false,
+      hasPDF: false,
+      isAmazonFlyer: false,
       zone: ZoneModel.dummyZone(),
       score: 0,
       pdfPath: null,
@@ -1046,7 +1069,9 @@ class FlyerModel {
           SlideModel.checkSlidesListsAreIdentical(slides1: flyer1.slides, slides2: flyer2.slides) == true &&
           SpecModel.checkSpecsListsAreIdentical(flyer1.specs, flyer2.specs) == true &&
           PublishTime.checkTimesListsAreIdentical(times1: flyer1.times, times2: flyer2.times) == true &&
-          flyer1.priceTagIsOn == flyer2.priceTagIsOn &&
+          flyer1.hasPriceTag == flyer2.hasPriceTag &&
+          flyer1.hasPDF == flyer2.hasPDF &&
+          flyer1.isAmazonFlyer == flyer2.isAmazonFlyer &&
           flyer1.pdfPath == flyer2.pdfPath &&
           flyer1.affiliateLink == flyer2.affiliateLink &&
           flyer1.gtaLink == flyer2.gtaLink &&
@@ -1117,7 +1142,9 @@ class FlyerModel {
       slides.hashCode^
       specs.hashCode^
       times.hashCode^
-      priceTagIsOn.hashCode^
+      hasPriceTag.hashCode^
+      isAmazonFlyer.hashCode^
+      hasPDF.hashCode^
       showsAuthor.hashCode^
       score.hashCode^
       pdfPath.hashCode^
