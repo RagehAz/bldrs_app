@@ -9,9 +9,7 @@ import 'package:bldrs/b_views/g_zoning/b_cities_screen/aa_cities_screen_search_v
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
@@ -19,13 +17,10 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/b
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_protocols.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
-import 'package:mapper/mapper.dart';
 import 'package:night_sky/night_sky.dart';
-import 'package:scale/scale.dart';
 import 'package:stringer/stringer.dart';
 
 class CitiesScreen extends StatefulWidget {
@@ -55,7 +50,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   final ValueNotifier<List<CityModel>> _foundCities = ValueNotifier<List<CityModel>>(null);
   ValueNotifier<ZoneModel> _currentZone;
   List<String> _shownCitiesIDs = <String>[];
-  Staging _stages;
+  // Staging _stages;
   // --------------------
   List<CensusModel> _censuses;
   CensusModel _countryCensus;
@@ -186,7 +181,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
         if (mounted == true){
           setState(() {
             _shownCitiesIDs = _shownIDs;
-            _stages = _citiesStages;
+            // _stages = _citiesStages;
             _censuses = _citiesCensuses;
             _countryCensus = _censusOfCountry;
           });
@@ -384,46 +379,46 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
         translate: false,
       ),
       loading: _loading,
-      appBarRowWidgets: <Widget>[
-
-        const Expander(),
-
-        /// LOADING COUNTER
-        if (Mapper.checkCanLoopList(_stages?.getAllIDs()) == true)
-          ValueListenableBuilder(
-              valueListenable: _loading,
-              builder: (_, bool isLoading, Widget child){
-
-                if (isLoading == true){
-                  return ValueListenableBuilder(
-                    valueListenable: _countryCities,
-                    builder: (_, List<CityModel> cities, Widget child){
-
-                      return BldrsText(
-                        verse: Verse.plain('${cities.length} / ${_stages?.getAllIDs()?.length ?? '-'}'),
-                        weight: VerseWeight.thin,
-                        size: 1,
-                        margin: Scale.superInsets(
-                          context: context,
-                          appIsLTR: UiProvider.checkAppIsLeftToRight(context),
-                          bottom: 20,
-                          enRight: 10,
-                        ),
-                        labelColor: Colorz.white20,
-                        color: Colorz.yellow255,
-                      );
-
-                    },
-                  );
-                }
-
-                else {
-                  return const SizedBox();
-                }
-              }
-          ),
-
-      ],
+      // appBarRowWidgets: <Widget>[
+      //
+      //   // const Expander(),
+      //
+      //   // /// LOADING COUNTER
+      //   // if (Mapper.checkCanLoopList(_stages?.getAllIDs()) == true)
+      //   //   ValueListenableBuilder(
+      //   //       valueListenable: _loading,
+      //   //       builder: (_, bool isLoading, Widget child){
+      //   //
+      //   //         if (isLoading == false){
+      //   //           return ValueListenableBuilder(
+      //   //             valueListenable: _countryCities,
+      //   //             builder: (_, List<CityModel> cities, Widget child){
+      //   //
+      //   //               return BldrsText(
+      //   //                 verse: Verse.plain('${cities.length} / ${_stages?.getAllIDs()?.length ?? '-'}'),
+      //   //                 weight: VerseWeight.thin,
+      //   //                 size: 1,
+      //   //                 margin: Scale.superInsets(
+      //   //                   context: context,
+      //   //                   appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+      //   //                   bottom: 20,
+      //   //                   enRight: 10,
+      //   //                 ),
+      //   //                 labelColor: Colorz.white20,
+      //   //                 color: Colorz.yellow255,
+      //   //               );
+      //   //
+      //   //             },
+      //   //           );
+      //   //         }
+      //   //
+      //   //         else {
+      //   //           return const SizedBox();
+      //   //         }
+      //   //       }
+      //   //   ),
+      //
+      // ],
       child: Scroller(
         child: ValueListenableBuilder(
           valueListenable: _isSearching,

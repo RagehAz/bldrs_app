@@ -25,6 +25,7 @@ class HeroicFlyersGrid extends StatelessWidget {
     @required this.onFlyerNotFound,
     @required this.scrollable,
     @required this.selectionMode,
+    @required this.bottomPadding,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -43,6 +44,7 @@ class HeroicFlyersGrid extends StatelessWidget {
   final Function(FlyerModel flyerModel) onFlyerOptionsTap;
   final Function(FlyerModel flyerModel) onSelectFlyer;
   final Function(String flyerID) onFlyerNotFound;
+  final double bottomPadding;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -61,6 +63,7 @@ class HeroicFlyersGrid extends StatelessWidget {
         scrollController: scrollController,
         scrollable: scrollable,
         topPadding: topPadding,
+        bottomPadding: bottomPadding,
         numberOfColumnsOrRows: numberOfColumnsOrRows,
         scrollDirection: scrollDirection,
         itemCount: FlyerDim.flyerGridNumberOfSlots(

@@ -25,6 +25,7 @@ class FlyersGrid extends StatelessWidget {
     this.onFlyerNotFound,
     this.scrollable = true,
     this.selectionMode = false,
+    this.bottomPadding,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -45,6 +46,7 @@ class FlyersGrid extends StatelessWidget {
   final Function(FlyerModel flyerModel) onFlyerOptionsTap;
   final Function(FlyerModel flyerModel) onSelectFlyer;
   final Function(String flyerID) onFlyerNotFound;
+  final double bottomPadding;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool showLoadingGridInstead({
@@ -132,6 +134,7 @@ class FlyersGrid extends StatelessWidget {
           onFlyerOptionsTap: onFlyerOptionsTap,
           onSelectFlyer: onSelectFlyer,
           showAddFlyerButton: showAddFlyerButton,
+          bottomPadding: bottomPadding,
         );
         // --------------------
 
@@ -152,6 +155,7 @@ class FlyersGrid extends StatelessWidget {
           onFlyerOptionsTap: onFlyerOptionsTap,
           scrollController: scrollController,
           topPadding: topPadding,
+          bottomPaddingOnZoomedOut: bottomPadding,
         );
       }
       // --------------------
