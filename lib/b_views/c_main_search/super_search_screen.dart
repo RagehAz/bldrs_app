@@ -38,7 +38,6 @@ import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:night_sky/night_sky.dart';
-import 'package:scale/scale.dart';
 import 'package:stringer/stringer.dart';
 import 'package:super_box/super_box.dart';
 
