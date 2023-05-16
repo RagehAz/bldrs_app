@@ -98,6 +98,8 @@ class BldrsAppBar extends StatelessWidget {
             - Ratioz.appBarPadding;
   }
   // -----------------------------------------------------------------------------
+  static const double buttonSize = Ratioz.appBarButtonSize;
+  // -----------------------------------------------------------------------------
 
   /// CORNERS
 
