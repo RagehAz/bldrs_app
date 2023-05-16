@@ -14,6 +14,7 @@ class FlyersGridBuilder extends StatelessWidget {
     this.scrollDirection = Axis.vertical,
     this.scrollable = true,
     this.scrollController,
+    this.bottomPadding,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -26,6 +27,7 @@ class FlyersGridBuilder extends StatelessWidget {
   final Axis scrollDirection;
   final bool scrollable;
   final ScrollController scrollController;
+  final double bottomPadding;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -54,6 +56,7 @@ class FlyersGridBuilder extends StatelessWidget {
           padding: FlyerDim.flyerGridPadding(
             context: context,
             topPaddingValue: topPadding,
+            endPadding: bottomPadding,
             gridSpacingValue: FlyerDim.flyerGridGridSpacingValue(_gridSlotWidth),
             isVertical: scrollDirection == Axis.vertical,
           ),
