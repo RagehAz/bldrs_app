@@ -12,7 +12,7 @@ class FlyerSearch {
   const FlyerSearch();
 
   // -----------------------------------------------------------------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static FireQueryModel createQuery({
     SearchModel searchModel,
     String title,

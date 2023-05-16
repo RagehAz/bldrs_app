@@ -18,7 +18,7 @@ import 'package:numeric/numeric.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:stringer/stringer.dart';
 import 'package:super_image/super_image.dart';
-
+/// => TAMAM
 @immutable
 class GtaModel {
   // -----------------------------------------------------------------------------
@@ -285,7 +285,8 @@ class GtaModel {
 
     return _output;
   }
-
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static List<SpecModel> _createPriceSpecs({
     @required GtaModel gtaModel,
   }){
