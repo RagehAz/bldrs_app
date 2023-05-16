@@ -33,30 +33,40 @@ class FlyerSearch {
       limit: limit,
       // idFieldName: 'id',
       finders: <FireFinder>[
+
+        /// BY COUNTRY ID
         if (searchModel?.zone?.countryID != null)
           FireFinder(
             field: 'zone.countryID',
             comparison: FireComparison.equalTo,
             value: searchModel?.zone?.countryID,
           ),
+
+        /// BY CITY
         if (searchModel?.zone?.cityID != null)
           FireFinder(
             field: 'zone.cityID',
             comparison: FireComparison.equalTo,
             value: searchModel?.zone?.cityID,
           ),
+
+        /// BY FLYER TYPE
         if (searchModel?.flyerSearchModel?.flyerType != null)
           FireFinder(
             field: 'flyerType',
             comparison: FireComparison.equalTo,
             value: FlyerTyper.cipherFlyerType(searchModel?.flyerSearchModel?.flyerType),
           ),
+
+        /// BY PHID
         if (searchModel?.flyerSearchModel?.phid != null)
           FireFinder(
             field: 'keywordsIDs',
             comparison: FireComparison.arrayContains,
             value: searchModel?.flyerSearchModel?.phid,
           ),
+
+        /// TITLE
         if (TextCheck.isEmpty(title?.trim()) == false)
           FireFinder(
               field: 'trigram',
@@ -65,54 +75,71 @@ class FlyerSearch {
                 input: title.trim(),
                 numberOfChars: Standards.maxTrigramLength,
               )),
+
+        /// PUBLISH STATE
         if (searchModel?.flyerSearchModel?.publishState != null)
           FireFinder(
             field: 'publishState',
             comparison: FireComparison.equalTo,
             value: FlyerModel.cipherPublishState(searchModel?.flyerSearchModel?.publishState),
           ),
+
+        /// AUDIT STATE
         if (searchModel?.flyerSearchModel?.auditState != null)
           FireFinder(
             field: 'auditState',
             comparison: FireComparison.equalTo,
             value: FlyerModel.cipherAuditState(searchModel?.flyerSearchModel?.auditState),
           ),
+
+        /// SHOWING AUTHORS ONLY
         if (searchModel?.flyerSearchModel?.onlyShowingAuthors == true)
           const FireFinder(
             field: 'showsAuthor',
             comparison: FireComparison.equalTo,
             value: true,
           ),
+
+        /// PRICES ONLY
         if (searchModel?.flyerSearchModel?.onlyWithPrices == true)
           const FireFinder(
-            field: 'specs.phid_s_salePrice',
-            comparison: FireComparison.greaterThan,
-            value: 0,
+            field: 'hasPriceTag',
+            comparison: FireComparison.equalTo,
+            value: true,
           ),
+
+        /// AMAZON ONLY
         if (searchModel?.flyerSearchModel?.onlyAmazonProducts == true)
           const FireFinder(
-            field: 'affiliateLink',
-            comparison: FireComparison.nullValue,
-            value: false,
+            field: 'isAmazonFlyer',
+            comparison: FireComparison.equalTo,
+            value: true,
           ),
+
+        /// GTA LINK
         if (gtaLink != null)
           FireFinder(
             field: 'gtaLink',
             comparison: FireComparison.equalTo,
             value: gtaLink,
           ),
+
+        /// AFFILIATE LINK
         if (gtaLink != null)
           FireFinder(
             field: 'affiliateLink',
             comparison: FireComparison.equalTo,
             value: gtaLink,
           ),
+
+        /// PDF
         if (searchModel?.flyerSearchModel?.onlyWithPDF == true)
           const FireFinder(
-            field: 'pdfPath',
-            comparison: FireComparison.nullValue,
-            value: false,
+            field: 'hasPDF',
+            comparison: FireComparison.equalTo,
+            value: true,
           ),
+
       ],
       // orderBy: 'score',
     );

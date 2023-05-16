@@ -2,10 +2,10 @@ library bldrs_app_bar;
 // -----------------------------------------------------------------------------
 import 'package:animators/animators.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/components/sections_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/buttons/back_anb_search_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/components/sections_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/structure/c_animated_blur_layer.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
@@ -27,21 +27,13 @@ import 'package:scale/scale.dart';
 import 'package:stringer/stringer.dart';
 import 'package:super_box/super_box.dart';
 import 'package:widget_fader/widget_fader.dart';
-// -----------------------------------------------------------------------------
+
 /// COMPONENTS
 part 'components/app_bar_button.dart';
 part 'components/app_bar_title.dart';
 part 'components/app_bar_zone_button.dart';
-part 'components/scrollable_app_bar_widgets.dart';
 part 'components/line_box.dart';
-// -----------------------------------------------------------------------------
-/// VARIANTS
-part 'variants/line_with_back_button_only.dart';
-part 'variants/line_with_section_and_search_buttons.dart';
-part 'variants/line_with_back_and_title.dart';
-part 'variants/line_with_back_and_title_and_widgets.dart';
-part 'variants/line_with_back_and_widgets.dart';
-// -----------------------------------------------------------------------------
+part 'components/scrollable_app_bar_widgets.dart';
 /// STRUCTURE
 part 'structure/a_bldrs_app_bar.dart';
 part 'structure/b_bldrs_app_bar_tree.dart';
@@ -49,4 +41,10 @@ part 'structure/c_first_app_bar_line.dart';
 part 'structure/d_search_bar.dart';
 part 'structure/e_app_bar_progress_bar.dart';
 part 'structure/f_app_bar_filters.dart';
+part 'variants/line_with_back_and_title.dart';
+part 'variants/line_with_back_and_title_and_widgets.dart';
+part 'variants/line_with_back_and_widgets.dart';
+/// VARIANTS
+part 'variants/line_with_back_button_only.dart';
+part 'variants/line_with_section_and_search_buttons.dart';
 // -----------------------------------------------------------------------------
