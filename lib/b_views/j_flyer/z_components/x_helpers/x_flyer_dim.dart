@@ -1226,7 +1226,7 @@ class FlyerDim {
     @required double gridSpacingValue,
     @required double topPaddingValue, /// when is vertical scrolling
     @required bool isVertical,
-    double bottomPaddingValue = Ratioz.horizon, /// when is vertical scrolling
+    double endPadding,
   }){
 
     return Scale.superInsets(
@@ -1234,8 +1234,9 @@ class FlyerDim {
       appIsLTR: UiProvider.checkAppIsLeftToRight(context),
       enLeft: gridSpacingValue,
       top: isVertical == true ? topPaddingValue : gridSpacingValue,
-      enRight: isVertical == true ? gridSpacingValue : bottomPaddingValue,
-      bottom: isVertical == true ? bottomPaddingValue : 0,
+      enRight: isVertical == true ? gridSpacingValue : endPadding ?? 0,
+      bottom: endPadding ?? (isVertical == true ? Ratioz.horizon : 0
+      ),
     );
 
   }
