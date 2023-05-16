@@ -56,7 +56,7 @@ class MainLayout extends StatelessWidget {
     this.pyramidButtons,
     this.listenToHideLayout = false,
     this.filtersAreOn,
-    this.filtersChildren,
+    this.filters,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -87,7 +87,7 @@ class MainLayout extends StatelessWidget {
   final List<Widget> pyramidButtons;
   final bool listenToHideLayout;
   final ValueNotifier<bool> filtersAreOn;
-  final List<Widget> filtersChildren;
+  final Widget filters;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static void onCancelSearch({
@@ -272,7 +272,7 @@ class MainLayout extends StatelessWidget {
                     confirmButtonModel: confirmButtonModel,
                     listenToHideLayout: listenToHideLayout,
                     filtersAreOn: filtersAreOn,
-                    filtersChildren: filtersChildren,
+                    filters: filters,
                     layoutWidget: child,
                   ),
 

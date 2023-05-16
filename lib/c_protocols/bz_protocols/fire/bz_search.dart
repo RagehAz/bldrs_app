@@ -50,15 +50,15 @@ class BzSearch {
 
           if (searchModel?.bzSearchModel?.bzType != null)
             FireFinder(
-              field: 'bzTypes',
-              comparison: FireComparison.arrayContains,
-              value: BzTyper.cipherBzType(searchModel?.bzSearchModel?.bzType),
+              field: 'bzTypes', // should be 'bzTypes.$_bzType'
+              comparison: FireComparison.arrayContains, // should be equal to
+              value: BzTyper.cipherBzType(searchModel?.bzSearchModel?.bzType), // should be true
             ),
 
           if (searchModel?.bzSearchModel?.scopePhid != null)
             FireFinder(
-              field: 'scope',
-              comparison: FireComparison.arrayContains,
+              field: 'scope', // should be 'scope.$phid'
+              comparison: FireComparison.arrayContains, // should be equal to
               value: searchModel?.bzSearchModel?.scopePhid,
             ),
 

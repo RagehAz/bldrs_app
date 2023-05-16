@@ -4,12 +4,12 @@ class AppBarFilters extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const AppBarFilters({
     @required this.appBarType,
-    @required this.children,
+    @required this.child,
     Key key
   }) : super(key: key);
   // --------------------
   final AppBarType appBarType;
-  final List<Widget> children;
+  final Widget child;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -42,16 +42,7 @@ class AppBarFilters extends StatelessWidget {
             color: Colorz.white10,
             borderRadius: BldrsAppBar.clearCorners,
           ),
-          child: ListView(
-            physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.only(
-              left: Ratioz.appBarPadding,
-              right: Ratioz.appBarPadding,
-              bottom: Ratioz.horizon,
-              top: Ratioz.appBarPadding,
-            ),
-            children: children,
-          ),
+          child: child,
         ),
       ),
     );

@@ -171,10 +171,24 @@ class UserSearchModel {
   /// OVERRIDES
 
   // --------------------
-  /*
    @override
-   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
-   */
+   String toString(){
+    return
+    '''
+    UserSearchModel(
+      signInMethod: $signInMethod,
+      needType: $needType,
+      searchType: $searchType,
+      gender: $gender,
+      language: $language,
+      onlyWithPublicContacts: $onlyWithPublicContacts,
+      onlyBzAuthors: $onlyBzAuthors,
+      onlyBldrsAdmins: $onlyBldrsAdmins,
+      devicePlatform: $devicePlatform,
+      onlyVerifiedEmails: $onlyVerifiedEmails,
+    )
+    ''';
+   }
   // --------------------
   @override
   bool operator == (Object other){
