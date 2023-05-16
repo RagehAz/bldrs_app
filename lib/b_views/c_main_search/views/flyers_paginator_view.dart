@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dar
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 
@@ -42,6 +43,7 @@ class FlyersPaginatorView extends StatelessWidget {
                 context: context,
                 appBarType: AppBarType.search,
             ),
+            bottomPadding: Ratioz.horizon,
             // numberOfColumns: 2,
           );
 

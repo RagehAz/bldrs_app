@@ -44,7 +44,12 @@ class AppBarFilters extends StatelessWidget {
           ),
           child: ListView(
             physics: const BouncingScrollPhysics(),
-            padding: const EdgeInsets.all(Ratioz.appBarPadding),
+            padding: const EdgeInsets.only(
+              left: Ratioz.appBarPadding,
+              right: Ratioz.appBarPadding,
+              bottom: Ratioz.horizon,
+              top: Ratioz.appBarPadding,
+            ),
             children: children,
           ),
         ),
