@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'package:bldrs/super_fire/super_fire.dart';
+
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/a_models/x_secondary/app_state.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -152,25 +152,6 @@ class UserFireOps {
 
 
     return _output;
-  }
-  // -----------------------------------------------------------------------------
-
-  /// UPDATE USER APP STATE
-
-  // --------------------
-  /// TESTED : WORKS PERFECTLY
-  static Future<void> updateUserAppState({
-    @required AppState newAppState,
-    @required String userID
-  }) async {
-
-    await Fire.updateDocField(
-      coll: FireColl.users,
-      doc: userID,
-      field: 'appState',
-      input: newAppState.toMap(),
-    );
-
   }
   // -----------------------------------------------------------------------------
 

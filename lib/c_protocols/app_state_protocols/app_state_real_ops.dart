@@ -13,13 +13,13 @@ class AppStateRealOps {
   /// CREATE
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
   static Future<void> createGlobalAppState({
     @required AppState newAppState,
   }) async {
 
-    await Real.createDoc(
-      coll: RealColl.app,
+    await Real.createDocInPath(
+      pathWithoutDocName: RealDoc.app_globalAppState,
       doc: RealDoc.app_globalAppState,
       map: newAppState.toMap(),
     );
@@ -30,11 +30,11 @@ class AppStateRealOps {
   /// READ
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
   static Future<AppState> readGlobalAppState() async {
 
     final Map<String, dynamic> _map = await Real.readDoc(
-      coll: RealColl.app,
+      coll: RealDoc.app_globalAppState,
       doc: RealDoc.app_globalAppState,
     );
 
@@ -45,7 +45,7 @@ class AppStateRealOps {
   /// UPDATE GLOBAL APP STATE
 
   // --------------------
-  /// TESTED : WORKS PERFECTLY
+  /// TASK : TEST ME
   static Future<void> _updateGlobalAppState({
     @required AppState newAppState,
   }) async {
@@ -56,15 +56,15 @@ class AppStateRealOps {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECTLY
+  /// TASK : TEST ME
   static Future<void> updateGlobalAppVersion({
-    @required String newVersion,
+    @required String newAppVersion,
   }) async {
 
     final AppState _appState = await readGlobalAppState();
 
     final AppState _newAppState = _appState.copyWith(
-      appVersion: newVersion,
+      appVersion: newAppVersion,
     );
 
     await _updateGlobalAppState(
@@ -73,67 +73,17 @@ class AppStateRealOps {
 
   }
   // --------------------
-  /// TESTED : WORKS PERFECTLY
-  static Future<void> updateGlobalChainsVersion() async {
-
-    final AppState _appState = await readGlobalAppState();
-
-    final double lastVersion = _appState.chainsVersion ?? 0;
-
-    final AppState _newAppState = _appState.copyWith(
-      chainsVersion: lastVersion + 1,
-    );
-
-    await _updateGlobalAppState(
-        newAppState: _newAppState
-    );
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECTLY
+  /// TASK : TEST ME
   static Future<void> updateGlobalLDBVersion() async {
 
     final AppState _appState = await readGlobalAppState();
 
-    final double lastVersion = _appState.ldbVersion ?? 0;
-
     final AppState _newAppState = _appState.copyWith(
-      ldbVersion: lastVersion + 1,
+      ldbVersion: _appState.ldbVersion + 1,
     );
 
     await _updateGlobalAppState(
         newAppState: _newAppState
-    );
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECTLY
-  static Future<void> updateGlobalPhrasesVersion() async {
-
-    final AppState _appState = await readGlobalAppState();
-
-    final AppState _newAppState = _appState.copyWith(
-      phrasesVersion: _appState.phrasesVersion + 1,
-    );
-
-    await _updateGlobalAppState(
-      newAppState: _newAppState,
-    );
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECTLY
-  static Future<void> updatePickersVersion() async {
-
-    final AppState _appState = await readGlobalAppState();
-
-    final double lastVersion = _appState.pickersVersion ?? 0;
-    final AppState _newAppState = _appState.copyWith(
-      pickersVersion: lastVersion + 1,
-    );
-
-    await _updateGlobalAppState(
-      newAppState: _newAppState,
     );
 
   }

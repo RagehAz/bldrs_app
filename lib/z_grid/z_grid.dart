@@ -8,7 +8,7 @@ import 'dart:async';
 import 'dart:typed_data';
 import 'package:animators/animators.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:filers/filers.dart';
 import 'package:scale/scale.dart';

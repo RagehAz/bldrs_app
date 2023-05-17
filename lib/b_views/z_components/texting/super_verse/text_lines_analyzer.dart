@@ -1,4 +1,4 @@
-import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:stringer/stringer.dart';
 

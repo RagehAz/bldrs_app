@@ -2,30 +2,27 @@
 
 import 'dart:async';
 
-import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
-import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/x_secondary/app_state.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/provider/general_provider.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/provider/ui_provider.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/real/app_state_real_ops.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/versioning/app_version.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/app_state_real_ops.dart';
 import 'package:bldrs/c_protocols/auth_protocols/auth_ldb_ops.dart';
+import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:devicer/devicer.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/foundation.dart';
@@ -66,8 +63,6 @@ Future<void> initializeLogoScreen({
   await Future.wait(
       <Future<void>>[
 
-        /// APP CONTROLS
-        initializeAppControls(context),
         /// LOCAL ASSETS PATHS
         initializeLocalAssetsPaths(context),
         /// APP LANGUAGE
@@ -78,7 +73,7 @@ Future<void> initializeLogoScreen({
       ]
   );
 
-  blog('3 - initializeLogoScreen : appControls + assetPaths + lang + appState should have ended');
+  blog('3 - initializeLogoScreen : assetPaths + lang + appState should have ended');
 
   if (_phrasesAreLoaded(context) == false){
 
@@ -230,101 +225,69 @@ Future<void> setUserAndAuthModelsAndCompleteUserZoneLocally({
 /// TESTED : WORKS PERFECT
 Future<void> initializeAppState(BuildContext context) async {
 
-  // blog('_initializeAppState : START');
-
   if (Authing.userIsSignedIn() == true){
 
-    final AppState _globalState = await AppStateRealOps.readGlobalAppState();
-    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
-    final AppState _userState = _usersProvider?.myUserModel?.appState;
+    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+        context: context,
+        listen: false,
+    );
+    AppState _userState = _userModel?.appState?.copyWith();
 
-    if (_userState != null && _globalState != null){
+    if (_userModel != null && _userState != null){
 
-      final String _detectedAppVersion = await AppVersion.getAppVersion();
-      final bool _userAppNeedUpdate = AppVersion.appVersionNeedUpdate(
-          globalVersion: _globalState.appVersion,
-          userVersion: _detectedAppVersion
+      final AppState _globalState = await AppStateRealOps.readGlobalAppState();
+      final bool _statesAreIdentical = AppState.checkAppStatesAreIdentical(
+          state1: _userState,
+          state2: _globalState
       );
 
-      /// A - WHEN NEED TO UPDATE ENTIRE APP VIA APP STORE
-      if (_userAppNeedUpdate == true){
-        await _showUpdateAppDialog(context);
+    if (_statesAreIdentical == false && _globalState != null){
+
+      /// LDB CHECK
+      if (_globalState.ldbVersion != _userState.ldbVersion){
+        await LDBDoc.wipeOutEntireLDB();
+        _userState = _userState.copyWith(
+          ldbVersion: _globalState.ldbVersion,
+        );
       }
 
-      /// B - WHEN APP IS UPDATED
-      else {
+      final String _detectedAppVersion = await AppState.detectAppVersion();
 
-        AppState _userAppState = _userState;
-
-        /// APP VERSION
-        if (_userState.appVersion != _detectedAppVersion){
-          _userAppState = _userAppState.copyWith(
-            appVersion: _detectedAppVersion,
-          );
-        }
-
-        /// KEYWORDS CHAIN
-        if (_globalState.chainsVersion > _userState.chainsVersion){
-          await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.bldrsChains,);
-          _userAppState = _userAppState.copyWith(
-            chainsVersion: _globalState.chainsVersion,
-          );
-        }
-
-        /// LDB VERSION
-        if (_globalState.ldbVersion > _userState.ldbVersion){
-          await LDBDoc.wipeOutEntireLDB();
-          _userAppState = _userAppState.copyWith(
-            ldbVersion: _globalState.ldbVersion,
-          );
-        }
-
-        /// PHRASES
-        if (_globalState.phrasesVersion > _userState.phrasesVersion){
-          await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.mainPhrases,);
-          _userAppState = _userAppState.copyWith(
-            phrasesVersion: _globalState.phrasesVersion,
-          );
-        }
-
-        /// SPEC PICKERS
-        if (_globalState.pickersVersion > _userState.pickersVersion){
-          await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.pickers,);
-          _userAppState = _userAppState.copyWith(
-            pickersVersion: _globalState.pickersVersion,
-          );
-        }
-
-        /// APP CONTROLS VERSION
-        if (_globalState.appControlsVersion > _userState.appControlsVersion){
-          await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.appControls);
-          _userAppState = _userAppState.copyWith(
-            appControlsVersion: _globalState.appControlsVersion,
-          );
-        }
-
-        /// --- UPDATE USER MODEL'S APP STATE IF CHANGED
-        final bool _appStateNeedUpdate = !AppState.appStatesAreIdentical(
-          stateA: _userState,
-          stateB: _userAppState,
+      /// DETECTED APP VERSION IS INCORRECT
+      if (_globalState.appVersion != _detectedAppVersion){
+        await _showUpdateAppDialog(context);
+      }
+      /// DETECTED APP VERSION IS CORRECT BUT USER VERSION IS NOT
+      else if (_userState.appVersion != _detectedAppVersion){
+        _userState = _userState.copyWith(
+          appVersion: _detectedAppVersion,
         );
+      }
 
-        if (_appStateNeedUpdate == true){
-          await UserFireOps.updateUserAppState(
-            userID: _usersProvider.myUserModel.id,
-            newAppState: _userAppState,
-          );
-        }
+      /// UPDATE USER STATE
+      final bool _userStateIsUpdated = ! AppState.checkAppStatesAreIdentical(
+          state1: _userState,
+          state2: _userModel?.appState,
+      );
 
+      if (_userStateIsUpdated == true){
 
+        await UserProtocols.renovate(
+          context: context,
+          oldUser: _userModel,
+          newUser: _userModel.copyWith(
+            appState: _userState,
+          ),
+          newPic: null,
+        );
 
       }
 
     }
 
-  }
+    }
 
-  // blog('_initializeAppState : END');
+  }
 
 }
 // --------------------
@@ -334,20 +297,18 @@ Future<void> _showUpdateAppDialog(BuildContext context) async {
   await CenterDialog.showCenterDialog(
     context: context,
     titleVerse:  const Verse(
-      pseudo: 'New App update is Available',
       id: 'phid_new_app_update_available',
       translate: true
     ),
     bodyVerse: const Verse(
-      pseudo: 'You need to update the app to continue',
-      id: 'phid_new_app_update_description',
+      id: 'phid_new_app_update_body',
       translate: true,
     ),
     confirmButtonVerse: const Verse(
-      pseudo: 'Update Bldrs.net',
-      id: 'phid_update_bldrs_net',
+      id: 'phid_update_app',
       translate: true,
     ),
+    boolDialog: false,
   );
 
   await Launcher.launchContactModel(
@@ -358,23 +319,6 @@ Future<void> _showUpdateAppDialog(BuildContext context) async {
     ),
   );
 
-}
-// -----------------------------------------------------------------------------
-
-/// APP CONTROLS INITIALIZATION
-
-// --------------------
-/// TESTED : WORKS PERFECT
-Future<void> initializeAppControls(BuildContext context) async {
-  // blog('_initializeAppControls : START');
-
-  final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
-  await _generalProvider.fetchSetAppControls(
-    context: context,
-    notify: true,
-  );
-
-  // blog('_initializeAppControls : END');
 }
 // -----------------------------------------------------------------------------
 
@@ -467,7 +411,6 @@ Future<void> _refreshUserDeviceModel(BuildContext context) async {
       /// SETTINGS
       theLastWipe: false, // no need to wipe
       appState: false, // no need to wipe
-      appControls: false, // no need to wipe
       langCode: false, // no need to wipe
       gta: false,
     ),
@@ -523,7 +466,6 @@ Future<void> _refreshLDB(BuildContext context) async {
       /// SETTINGS
       theLastWipe: false, // no need to wipe
       appState: false, // no need to wipe
-      appControls: false, // no need to wipe
       langCode: false, // no need to wipe
       /// GTA
       gta: false, // this is for dashboard
