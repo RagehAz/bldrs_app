@@ -178,7 +178,7 @@ class BzModel{
       'name': name,
       'trigram': trigram,
       'logoPath': logoPath,
-      'scope': scope,
+      'scope': FlyerModel.cipherPhids(phids: scope),
       'zone': zone?.toMap(),
       'about': about,
       'position': Atlas.cipherGeoPoint(point: position, toJSON: toJSON),
@@ -228,14 +228,13 @@ class BzModel{
         // -------------------------
         bzTypes: BzTyper.decipherBzTypes(map['bzTypes']),
         bzForm: BzTyper.decipherBzForm(map['bzForm']),
-        createdAt:
-        Timers.decipherTime(time: map['createdAt'], fromJSON: fromJSON),
+        createdAt: Timers.decipherTime(time: map['createdAt'], fromJSON: fromJSON),
         accountType: BzTyper.decipherBzAccountType(map['accountType']),
         // -------------------------
         name: map['name'],
         trigram: Stringer.getStringsFromDynamics(dynamics: map['trigram']),
         logoPath: map['logoPath'],
-        scope: Stringer.getStringsFromDynamics(dynamics: map['scope']),
+        scope: FlyerModel.decipherPhids(map: map['scope']),
         zone: ZoneModel.decipherZone(map['zone']),
         about: map['about'],
         position: Atlas.decipherGeoPoint(point: map['position'], fromJSON: fromJSON),

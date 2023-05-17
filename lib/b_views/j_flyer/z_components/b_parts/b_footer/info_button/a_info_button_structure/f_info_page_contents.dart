@@ -157,7 +157,7 @@ class InfoPageContents extends StatelessWidget {
                   ),
                 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0
                 /// KEYWORDS HEADLINE
-                if (flyerModel.keywordsIDs?.isNotEmpty == true)
+                if (flyerModel.phids?.isNotEmpty == true)
                   InfoPageHeadline(
                     pageWidth: _pageWidth,
                     verse: const Verse(
@@ -166,10 +166,10 @@ class InfoPageContents extends StatelessWidget {
                     ),
                   ),
                 /// KEYWORDS
-                if (flyerModel.keywordsIDs?.isNotEmpty == true)
+                if (flyerModel.phids?.isNotEmpty == true)
                   PhidsViewer(
                     pageWidth: _pageWidth,
-                    phids: flyerModel.keywordsIDs,
+                    phids: flyerModel.phids,
                     onPhidTap: (String phid){
                       blog('info page contents : onPhidTap : phid: $phid');
                     },
@@ -178,7 +178,7 @@ class InfoPageContents extends StatelessWidget {
                     },
                   ),
                 /// KEYWORDS LINE
-                if (flyerModel.keywordsIDs?.isNotEmpty == true)
+                if (flyerModel.phids?.isNotEmpty == true)
                   InfoPageSeparator( /// ------------------------- SEPARATOR
                     pageWidth: _pageWidth,
                   ),

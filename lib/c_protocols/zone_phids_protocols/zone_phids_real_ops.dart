@@ -178,8 +178,8 @@ class ZonePhidsRealOps {
 
     if (flyerModel != null && oldFlyer != null){
 
-      final List<String> _oldPhids = oldFlyer.keywordsIDs;
-      final List<String> _newPhids = flyerModel.keywordsIDs;
+      final List<String> _oldPhids = oldFlyer.phids;
+      final List<String> _newPhids = flyerModel.phids;
 
       final bool _areIdentical = Mapper.checkListsAreIdentical(
           list1: _oldPhids,

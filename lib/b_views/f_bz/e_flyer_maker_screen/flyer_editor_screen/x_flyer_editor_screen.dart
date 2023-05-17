@@ -218,7 +218,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
     /// STRIP 3 : KEYWORDS
 
     final bool _phidsAreValid = Formers.flyerPhidsValidator(
-      phids: draftNotifier.value?.keywordsIDs,
+      phids: draftNotifier.value?.phids,
       context: context,
       canValidate: true,
     ) == null;
@@ -620,7 +620,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                     NextButton(
                       onTap: _onNextTap,
                       canGoNext:  Formers.flyerPhidsValidator(
-                        phids: _draft?.keywordsIDs,
+                        phids: _draft?.phids,
                         context: context,
                         canValidate: true,
                       ) == null,
