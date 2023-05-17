@@ -1,4 +1,3 @@
-import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/sub/agenda_model.dart';
 import 'package:bldrs/a_models/a_user/sub/deck_model.dart';
 import 'package:bldrs/a_models/a_user/sub/need_model.dart';
@@ -10,8 +9,10 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/x_secondary/app_state.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/app_state_protocols/provider/general_provider.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/app_state_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
@@ -87,19 +88,23 @@ class UserModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<UserModel> fromAuthModel({
+  static Future<UserModel> createNewUserModelFromAuthModel({
     @required BuildContext context,
     @required AuthModel authModel,
-    @required ZoneModel zone,
   }) async {
 
     assert(authModel.signInMethod != SignInMethod.anonymous, 'user must not be anonymous');
+
+    final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(
+      context: context,
+      listen: false,
+    );
 
     final UserModel _userModel = UserModel(
       id: authModel.id,
       signInMethod: authModel.signInMethod,
       createdAt: DateTime.now(),
-      need: NeedModel.createInitialNeed(context: context, userZone: zone),
+      need: NeedModel.createInitialNeed(context: context, userZone: _currentZone),
       // -------------------------
       name: authModel.name,
       trigram: Stringer.createTrigram(input: authModel.name),
@@ -107,7 +112,7 @@ class UserModel {
       picPath: null, //BldrStorage.generateUserPicPath(user.uid),
       title: '',
       gender: null,
-      zone: zone,
+      zone: _currentZone,
       language: Localizer.getCurrentLangCode(context),
       location: null,
       contacts: ContactModel.generateBasicContacts(
@@ -124,10 +129,7 @@ class UserModel {
       device: null,
       savedFlyers: DeckModel.newDeck(),
       followedBzz: AgendaModel.newAgenda(),
-      appState: await GeneralProvider.fetchGlobalAppState(
-        context: context,
-        assignToUser: true,
-      ),
+      appState: await AppStateRealOps.readGlobalAppState(),
       fcmTopics: TopicModel.getAllPossibleUserTopicsIDs(),
     );
 
@@ -950,7 +952,7 @@ class UserModel {
         blog('blogUserDifferences : [followedBzz] are not identical');
       }
 
-      if (AppState.checkAppStatesAreIdentical(appState1: user1.appState, appState2: user2.appState) == false){
+      if (AppState.checkAppStatesAreIdentical(state1: user1.appState, state2: user2.appState) == false){
         blog('blogUserDifferences : [appState] are not identical');
       }
 
@@ -1113,7 +1115,7 @@ class UserModel {
           user1.isAdmin == user2.isAdmin &&
           DeckModel.checkDecksAreIdentical(deck1: user1.savedFlyers, deck2: user2.savedFlyers) == true &&
           AgendaModel.checkAgendasAreIdentical(agenda1: user1.followedBzz, agenda2: user2.followedBzz) == true &&
-          AppState.checkAppStatesAreIdentical(appState1: user1.appState, appState2: user2.appState) == true &&
+          AppState.checkAppStatesAreIdentical(state1: user1.appState, state2: user2.appState) == true &&
           DeviceModel.checkDevicesAreIdentical(device1: user1.device, device2: user2.device) == true &&
           Mapper.checkListsAreIdentical(list1: user1.fcmTopics, list2: user2.fcmTopics) == true
       // DocumentSnapshot docSnapshot;

@@ -68,7 +68,6 @@ class LDBDoc {
       /// SETTINGS
       case LDBDoc.theLastWipe: return 'id';
       case LDBDoc.appState: return 'id';
-      case LDBDoc.appControls: return 'id';
       case LDBDoc.langCode: return 'id';
       case 'test': return 'id';
 
@@ -119,7 +118,6 @@ class LDBDoc {
   // --------------------
   /// SETTINGS
   static const String appState = 'appState';
-  static const String appControls = 'appControls';
   static const String theLastWipe = 'theLastWipe';
   static const String langCode = 'langCode';
   // --------------------
@@ -169,7 +167,6 @@ class LDBDoc {
     'headline: Settings',
     theLastWipe,
     appState,
-    appControls,
     langCode,
 
     'headline: Dashboard',
@@ -214,7 +211,6 @@ class LDBDoc {
     /// SETTINGS
     @required bool theLastWipe,
     @required bool appState,
-    @required bool appControls,
     @required bool langCode,
     /// DASHBOARD
     @required bool gta,
@@ -253,7 +249,6 @@ class LDBDoc {
     /// SETTINGS
     if (theLastWipe == true) {_docs.add(LDBDoc.theLastWipe);}
     if (appState == true) {_docs.add(LDBDoc.appState);}
-    if (appControls == true) {_docs.add(LDBDoc.appControls);}
     if (langCode == true) {_docs.add(LDBDoc.langCode);}
     /// DASHBOARD
     if (gta == true){_docs.add(LDBDoc.gta);}
@@ -295,7 +290,6 @@ class LDBDoc {
       reviewEditor: true,
       theLastWipe: true,
       appState: true,
-      appControls: true,
       langCode: true,
       gta: true,
     );
