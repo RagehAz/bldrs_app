@@ -33,9 +33,6 @@ class FireCollPaginator extends StatefulWidget {
 
 class _FireCollPaginatorState extends State<FireCollPaginator> {
   // -----------------------------------------------------------------------------
-  final ValueNotifier<bool> _isPaginating = ValueNotifier(false);
-  final ValueNotifier<bool> _canKeepReading = ValueNotifier(true);
-  // --------------------
   PaginationController _paginatorController;
   StreamSubscription _streamSub;
   // -----------------------------------------------------------------------------
@@ -85,12 +82,11 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
   // --------------------
   @override
   void dispose() {
-    _loading.dispose();
-    _isPaginating.dispose();
-    _canKeepReading.dispose();
 
+    /// STATE ARE HANDLED INTERNALLY
     if (widget.paginationController == null){
       _paginatorController.dispose();
+      _loading.dispose();
     }
 
     if (_streamSub != null){
@@ -126,7 +122,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
         );
 
         setNotifier(
-            notifier: _canKeepReading,
+            notifier: _paginatorController.canKeepReading,
             mounted: mounted,
             value: true,
         );
@@ -149,8 +145,8 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
 
       createPaginationListener(
           controller: _paginatorController.scrollController,
-          isPaginating: _isPaginating,
-          canKeepReading: _canKeepReading,
+          isPaginating: _paginatorController.isPaginating,
+          canKeepReading: _paginatorController.canKeepReading,
           mounted: mounted,
           onPaginate: () async {
             await _readMore();
@@ -218,7 +214,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
     );
 
     /// CAN KEEP READING
-    if (_canKeepReading.value  == true){
+    if (_paginatorController.canKeepReading.value  == true){
 
       final List<Map<String, dynamic>> _nextMaps = await Fire.readColl(
         queryModel: widget.paginationQuery,
@@ -238,7 +234,7 @@ class _FireCollPaginatorState extends State<FireCollPaginator> {
 
       else {
         setNotifier(
-            notifier: _canKeepReading,
+            notifier: _paginatorController.canKeepReading,
             mounted: mounted,
             value: false
         );

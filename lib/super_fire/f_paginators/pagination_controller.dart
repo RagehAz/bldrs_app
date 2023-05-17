@@ -1,5 +1,5 @@
 part of super_fire;
-
+/// => TAMAM
 class PaginationController {
   /// -----------------------------------------------------------------------------
   const PaginationController({
@@ -12,6 +12,8 @@ class PaginationController {
     @required this.idFieldName,
     @required this.onDataChanged,
     @required this.scrollController,
+    @required this.isPaginating,
+    @required this.canKeepReading,
   });
   /// -----------------------------------------------------------------------------
   final ValueNotifier<List<Map<String, dynamic>>> paginatorMaps;
@@ -23,6 +25,8 @@ class PaginationController {
   final String idFieldName;
   final ValueChanged<List<Map<String, dynamic>>> onDataChanged;
   final ScrollController scrollController;
+  final ValueNotifier<bool> isPaginating;
+  final ValueNotifier<bool> canKeepReading;
   // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
@@ -45,6 +49,8 @@ class PaginationController {
       idFieldName: idFieldName,
       onDataChanged: onDataChanged,
       scrollController: ScrollController(),
+      canKeepReading: ValueNotifier(true),
+      isPaginating: ValueNotifier(false),
     );
 
   }
@@ -52,15 +58,17 @@ class PaginationController {
   /// TESTED : WORKS PERFECT
   void clear({
   @required bool mounted,
-}){
+  }){
     setNotifier(mounted: mounted, notifier: paginatorMaps, value: <Map<String, dynamic>>[]);
     setNotifier(mounted: mounted, notifier: replaceMap, value: null);
     setNotifier(mounted: mounted, notifier: addMap, value: null);
     setNotifier(mounted: mounted, notifier: deleteMap, value: null);
     setNotifier(mounted: mounted, notifier: startAfter, value: null);
+    setNotifier(mounted: mounted, notifier: isPaginating, value: false);
+    setNotifier(mounted: mounted, notifier: canKeepReading, value: true);
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /*
   void removeListeners(){
     paginatorMaps.removeListener(() { });
     replaceMap.removeListener(() { });
@@ -68,6 +76,7 @@ class PaginationController {
     deleteMap.removeListener(() { });
     startAfter.removeListener(() { });
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// DISPOSING
@@ -82,6 +91,8 @@ class PaginationController {
     startAfter.dispose();
     blog('disposing scrollController');
     scrollController.dispose();
+    canKeepReading.dispose();
+    isPaginating.dispose();
   }
   // -----------------------------------------------------------------------------
 

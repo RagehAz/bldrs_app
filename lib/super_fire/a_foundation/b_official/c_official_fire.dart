@@ -121,7 +121,6 @@ class _OfficialFire{
           value: _docRef.id,
         );
 
-
       await _setData(
         invoker: 'OfficialFire.createDoc',
         input: _map,

@@ -36,7 +36,7 @@ class DraftFlyer{
     @required this.flyerType,
     @required this.publishState,
     @required this.auditState,
-    @required this.keywordsIDs,
+    @required this.phids,
     @required this.showsAuthor,
     @required this.zone,
     @required this.authorID,
@@ -68,7 +68,7 @@ class DraftFlyer{
   final FlyerType flyerType;
   final PublishState publishState;
   final AuditState auditState;
-  final List<String> keywordsIDs;
+  final List<String> phids;
   final bool showsAuthor;
   final ZoneModel zone;
   final String authorID;
@@ -140,7 +140,7 @@ class DraftFlyer{
       flyerType: getPossibleFlyerType(bzModel),
       publishState: PublishState.draft,
       auditState: null,
-      keywordsIDs: const <String>[],
+      phids: const <String>[],
       showsAuthor: FlyerModel.canShowFlyerAuthor(
         bzModel: bzModel,
         flyerModel: null,
@@ -207,7 +207,7 @@ class DraftFlyer{
         flyerType: flyer.flyerType,
         publishState: flyer.publishState,
         auditState: flyer.auditState,
-        keywordsIDs: flyer.keywordsIDs,
+        phids: flyer.phids,
         showsAuthor: flyer.showsAuthor,
         zone: flyer.zone,
         authorID: flyer.authorID,
@@ -265,7 +265,7 @@ class DraftFlyer{
       flyerType: draft.flyerType,
       publishState: isPublishing == true ? PublishState.published : draft.publishState,
       auditState: _auditState,
-      keywordsIDs: draft.keywordsIDs,
+      phids: draft.phids,
       showsAuthor: draft.showsAuthor,
       zone: draft.zone,
       authorID: draft.authorID,
@@ -305,7 +305,7 @@ class DraftFlyer{
         'flyerType' : FlyerTyper.cipherFlyerType(draft.flyerType),
         'publishState' : FlyerModel.cipherPublishState(draft.publishState),
         'auditState' : FlyerModel.cipherAuditState(draft.auditState),
-        'keywordsIDs' : draft.keywordsIDs,
+        'phids' : draft.phids,
         'showsAuthor' : draft.showsAuthor,
         'zone' : draft.zone?.toMap(),
         'authorID' : draft.authorID,
@@ -346,7 +346,7 @@ class DraftFlyer{
         flyerType: FlyerTyper.decipherFlyerType(map['flyerType']),
         publishState: FlyerModel.decipherPublishState(map['publishState']),
         auditState: FlyerModel.decipherAuditState(map['auditState']),
-        keywordsIDs: Stringer.getStringsFromDynamics(dynamics: map['keywordsIDs']),
+        phids: Stringer.getStringsFromDynamics(dynamics: map['phids']),
         showsAuthor: map['showsAuthor'],
         zone: ZoneModel.decipherZone(map['zone']),
         authorID: map['authorID'],
@@ -390,7 +390,7 @@ class DraftFlyer{
     FlyerType flyerType,
     PublishState publishState,
     AuditState auditState,
-    List<String> keywordsIDs,
+    List<String> phids,
     bool showsAuthor,
     ZoneModel zone,
     String authorID,
@@ -423,7 +423,7 @@ class DraftFlyer{
       flyerType: flyerType ?? this.flyerType,
       publishState: publishState ?? this.publishState,
       auditState: auditState ?? this.auditState,
-      keywordsIDs: keywordsIDs ?? this.keywordsIDs,
+      phids: phids ?? this.phids,
       showsAuthor: showsAuthor ?? this.showsAuthor,
       zone: zone ?? this.zone,
       authorID: authorID ?? this.authorID,
@@ -457,7 +457,7 @@ class DraftFlyer{
     bool flyerType = false,
     bool publishState = false,
     bool auditState = false,
-    bool keywordsIDs = false,
+    bool phids = false,
     bool showsAuthor = false,
     bool zone = false,
     bool authorID = false,
@@ -489,7 +489,7 @@ class DraftFlyer{
       flyerType: flyerType == true ? null : this.flyerType,
       publishState: publishState == true ? null : this.publishState,
       auditState: auditState == true ? null : this.auditState,
-      keywordsIDs: keywordsIDs == true ? [] : this.keywordsIDs,
+      phids: phids == true ? [] : this.phids,
       showsAuthor: showsAuthor == true ? null : this.showsAuthor,
       zone: zone == true ? null : this.zone,
       authorID: authorID == true ? null : this.authorID,
@@ -686,7 +686,7 @@ class DraftFlyer{
       blog('flyerType : $flyerType');
       blog('publishState : $publishState');
       blog('auditState : auditState');
-      blog('keywordsIDs : $keywordsIDs');
+      blog('keywordsIDs : $phids');
       blog('showsAuthor : $showsAuthor');
       zone.blogZone();
       blog('authorID : $authorID');
@@ -747,7 +747,7 @@ class DraftFlyer{
       if (draft1.auditState != draft2.auditState){
         blog('auditStates are not identical');
       }
-      if (Mapper.checkListsAreIdentical(list1: draft1.keywordsIDs, list2: draft2.keywordsIDs) == false){
+      if (Mapper.checkListsAreIdentical(list1: draft1.phids, list2: draft2.phids) == false){
         blog('keywordsIDs are not identical');
       }
       if (draft1.showsAuthor != draft2.showsAuthor){
@@ -935,7 +935,7 @@ class DraftFlyer{
           draft1.flyerType == draft2.flyerType &&
           draft1.publishState == draft2.publishState &&
           draft1.auditState == draft2.auditState &&
-          Mapper.checkListsAreIdentical(list1: draft1.keywordsIDs, list2: draft2.keywordsIDs) == true &&
+          Mapper.checkListsAreIdentical(list1: draft1.phids, list2: draft2.phids) == true &&
           draft1.showsAuthor == draft2.showsAuthor &&
           ZoneModel.checkZonesAreIdentical(zone1: draft1.zone, zone2: draft2.zone) == true &&
           draft1.authorID == draft2.authorID &&
@@ -1006,7 +1006,7 @@ class DraftFlyer{
       flyerType.hashCode^
       publishState.hashCode^
       auditState.hashCode^
-      keywordsIDs.hashCode^
+      phids.hashCode^
       showsAuthor.hashCode^
       zone.hashCode^
       authorID.hashCode^
