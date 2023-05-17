@@ -253,7 +253,7 @@ class GtaModel {
         flyerType: flyerType,
         publishState: PublishState.draft,
         auditState: AuditState.verified,
-        keywordsIDs: const <String>[],
+        phids: const <String>[],
         showsAuthor: false,
         zone: bzModel.zone,
         authorID: Authing.getUserID(),

@@ -29,8 +29,7 @@ enum AuditState{
 }
 /// TAMAM
 @immutable
-class FlyerModel
-{
+class FlyerModel {
   /// --------------------------------------------------------------------------
   const FlyerModel({
     @required this.id,
@@ -40,7 +39,7 @@ class FlyerModel
     @required this.flyerType,
     @required this.publishState,
     @required this.auditState,
-    @required this.keywordsIDs,
+    @required this.phids,
     @required this.zone,
     @required this.authorID,
     @required this.bzID,
@@ -69,7 +68,7 @@ class FlyerModel
   final FlyerType flyerType;
   final PublishState publishState;
   final AuditState auditState;
-  final List<String> keywordsIDs;
+  final List<String> phids;
   final bool showsAuthor;
   final ZoneModel zone;
   final String authorID;
@@ -103,7 +102,7 @@ class FlyerModel
     FlyerType flyerType,
     PublishState publishState,
     AuditState auditState,
-    List<String> keywordsIDs,
+    List<String> phids,
     bool showsAuthor,
     ZoneModel zone,
     String authorID,
@@ -134,7 +133,7 @@ class FlyerModel
       flyerType: flyerType ?? this.flyerType,
       publishState: publishState ?? this.publishState,
       auditState: auditState ?? this.auditState,
-      keywordsIDs: keywordsIDs ?? this.keywordsIDs,
+      phids: phids ?? this.phids,
       showsAuthor: showsAuthor ?? this.showsAuthor,
       zone: zone ?? this.zone,
       authorID: authorID ?? this.authorID,
@@ -175,7 +174,7 @@ class FlyerModel
       'flyerType' : FlyerTyper.cipherFlyerType(flyerType),
       'publishState' : cipherPublishState(publishState),
       'auditState' : cipherAuditState(auditState),
-      'keywordsIDs' : keywordsIDs,
+      'phids' : cipherPhids(phids: phids),
       'showsAuthor' : showsAuthor,
       'zone' : zone?.toMap(),
       // -------------------------
@@ -237,7 +236,7 @@ class FlyerModel
         flyerType: FlyerTyper.decipherFlyerType(map['flyerType']),
         publishState: decipherPublishState(map['publishState']),
         auditState: decipherAuditState(map['auditState']),
-        keywordsIDs: Stringer.getStringsFromDynamics(dynamics: map['keywordsIDs']),
+        phids: decipherPhids(map: map['phids']),
         showsAuthor: map['showsAuthor'],
         zone: ZoneModel.decipherZone(map['zone']),
         // -------------------------
@@ -283,6 +282,43 @@ class FlyerModel
     }
 
     return _flyersList;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, dynamic> cipherPhids({
+    @required List<String> phids,
+  }){
+    Map<String, dynamic> _output;
+
+    if (Mapper.checkCanLoopList(phids) == true){
+
+      _output = {};
+
+      for (final String phid in phids){
+        _output = Mapper.insertPairInMap(
+          map: _output,
+          key: phid,
+          value: true,
+          overrideExisting: true,
+        );
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<String> decipherPhids({
+    @required Map<String, dynamic> map,
+  }){
+    List<String> _output = [];
+
+    if (map != null){
+      _output = map.keys?.toList();
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
@@ -438,7 +474,7 @@ class FlyerModel
     blog('flyerType : $flyerType');
     blog('publishState : $publishState');
     blog('auditState : $auditState');
-    blog('keywordsIDs : $keywordsIDs');
+    blog('phids : $phids');
     blog('showsAuthor : $showsAuthor');
     blog('zone : $zone');
     blog('authorID : $authorID');
@@ -514,7 +550,7 @@ class FlyerModel
       if (flyer1.auditState != flyer2.auditState){
         blog('flyers auditStates are not identical');
       }
-      if (Mapper.checkListsAreIdentical(list1: flyer1.keywordsIDs, list2: flyer2.keywordsIDs) == false){
+      if (Mapper.checkListsAreIdentical(list1: flyer1.phids, list2: flyer2.phids) == false){
         blog('flyers keywordsIDs are not identical');
       }
       if (flyer1.showsAuthor != flyer2.showsAuthor){
@@ -591,7 +627,7 @@ class FlyerModel
       flyerType : FlyerType.property,
       publishState : PublishState.published,
       auditState: AuditState.verified,
-      keywordsIDs : const <String>[],
+      phids : const <String>[],
       showsAuthor : true,
       bzID: 'br1',
       position : const GeoPoint(0,0),
@@ -1060,7 +1096,7 @@ class FlyerModel
           flyer1.flyerType == flyer2.flyerType &&
           flyer1.publishState == flyer2.publishState &&
           flyer1.auditState == flyer2.auditState &&
-          Mapper.checkListsAreIdentical(list1: flyer1.keywordsIDs, list2: flyer2.keywordsIDs) == true &&
+          Mapper.checkListsAreIdentical(list1: flyer1.phids, list2: flyer2.phids) == true &&
           flyer1.showsAuthor == flyer2.showsAuthor &&
           ZoneModel.checkZonesIDsAreIdentical(zone1: flyer1.zone, zone2: flyer2.zone) == true &&
           flyer1.authorID == flyer2.authorID &&
@@ -1134,7 +1170,7 @@ class FlyerModel
       flyerType.hashCode^
       publishState.hashCode^
       auditState.hashCode^
-      keywordsIDs.hashCode^
+      phids.hashCode^
       zone.hashCode^
       authorID.hashCode^
       bzID.hashCode^

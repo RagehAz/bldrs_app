@@ -8,9 +8,7 @@ import 'package:bldrs/a_models/k_statistics/record_model.dart';
 import 'package:bldrs/a_models/m_search/search_model.dart';
 import 'package:bldrs/a_models/m_search/user_search_model.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/x_home_screen_controllers.dart';
-import 'package:bldrs/b_views/c_main_search/views/bzz_paginator_view.dart';
-import 'package:bldrs/b_views/c_main_search/views/flyers_paginator_view.dart';
-import 'package:bldrs/b_views/c_main_search/views/users_paginator_view.dart';
+import 'package:bldrs/b_views/c_main_search/views/search_view_splitter.dart';
 import 'package:bldrs/b_views/c_main_search/z_components/building_blocks/search_type_button.dart';
 import 'package:bldrs/b_views/c_main_search/z_components/filters_tiles/bz_search_filters_list.dart';
 import 'package:bldrs/b_views/c_main_search/z_components/filters_tiles/flyer_search_filters_list.dart';
@@ -82,7 +80,9 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
     super.initState();
 
     _userSearchModel = UserSearchModel.initialModel;
-    _searchModel = SearchModel.createInitialModel(context: context);
+    _searchModel = SearchModel.createInitialModel(
+      context: context,
+    );
 
     _flyersController = PaginationController.initialize(
       addExtraMapsAtEnd: true,
@@ -97,6 +97,8 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
     );
 
     _generateQuery();
+
+    _listenToPaginationLoading();
 
   }
   // --------------------
@@ -138,13 +140,30 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+  void _listenToPaginationLoading(){
+    _flyersController.isPaginating.addListener(() {
+        _triggerLoading(setTo: _flyersController.isPaginating.value);
+    });
+
+    _bzzController.isPaginating.addListener(() {
+        _triggerLoading(setTo: _bzzController.isPaginating.value);
+    });
+
+    _usersController.isPaginating.addListener(() {
+        _triggerLoading(setTo: _usersController.isPaginating.value);
+    });
+  }
+  // -----------------------------------------------------------------------------
   /// SEARCH TYPE
   // --------------------
   void selectSearchType(ModelType modelType){
+    if (_searchType != modelType){
     setState(() {
       _searchType = modelType;
+      _searchModel = SearchModel.createInitialModel(context: context);
       _generateQuery();
     });
+    }
   }
   // -----------------------------------------------------------------------------
   /// QUERY GENERATION
@@ -756,7 +775,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    // --------------------
+
     return MainLayout(
       loading: _loading,
       appBarType: AppBarType.search,
@@ -801,31 +820,15 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
         ),
 
       ],
-      child:
-
-      /// FLYERS PAGINATION
-      _searchType == ModelType.flyer ?
-      FlyersPaginatorView(
-        fireQueryModel: _flyersQuery,
-        paginationController: _flyersController,
-      )
-          :
-      /// BZZ PAGINATION
-      _searchType == ModelType.bz ?
-      BzzPaginatorView(
-        fireQueryModel: _bzzQuery,
-        paginationController: _bzzController,
-      )
-          :
-      /// USERS PAGINATION
-      _searchType == ModelType.user ?
-      UsersPaginatorView(
-        fireQueryModel: _usersQuery,
-        paginationController: _bzzController,
-      )
-          :
-
-      const SizedBox.shrink(),
+      child: SearchViewSplitter(
+        searchType: _searchType,
+        flyersQuery: _flyersQuery,
+        flyersController: _flyersController,
+        bzzQuery: _bzzQuery,
+        bzzController: _bzzController,
+        usersQuery: _usersQuery,
+        usersController: _usersController,
+      ),
 
     );
     // --------------------

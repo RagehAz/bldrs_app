@@ -61,9 +61,9 @@ class FlyerSearch {
         /// BY PHID
         if (searchModel?.flyerSearchModel?.phid != null)
           FireFinder(
-            field: 'keywordsIDs', // should be 'phids.$_phid'
-            comparison: FireComparison.arrayContains, // should be equal to
-            value: searchModel?.flyerSearchModel?.phid, // should be true
+            field: 'phids.${searchModel?.flyerSearchModel?.phid}',
+            comparison: FireComparison.equalTo,
+            value: true,
           ),
 
         /// TITLE

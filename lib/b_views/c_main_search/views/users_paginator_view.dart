@@ -4,7 +4,6 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bubbles/bubbles.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 
 class UsersPaginatorView extends StatelessWidget {
@@ -30,8 +29,6 @@ class UsersPaginatorView extends StatelessWidget {
               maps: maps,
               fromJSON: false,
           );
-
-          blog('_users : ${_users.length}');
 
           return UsersList(
             width: Bubble.bubbleWidth(context: context),

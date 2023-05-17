@@ -71,10 +71,10 @@ class PhidsSelectorBubble extends StatelessWidget {
               valueListenable: draftNotifier,
               builder: (_, DraftFlyer draft, Widget child){
 
-                if (Mapper.checkCanLoopList(draft?.keywordsIDs) == true){
+                if (Mapper.checkCanLoopList(draft?.phids) == true){
                   return PhidsViewer(
                     pageWidth: _bubbleClearWidth,
-                    phids: draft.keywordsIDs,
+                    phids: draft.phids,
                     onPhidLongTap: onPhidLongTap,
                     onPhidTap: onPhidTap,
 
@@ -109,7 +109,7 @@ class PhidsSelectorBubble extends StatelessWidget {
           BldrsValidator(
             width: _bubbleClearWidth - 20,
             validator: () => Formers.flyerPhidsValidator(
-              phids: draft.keywordsIDs,
+              phids: draft.phids,
               context: context,
               canValidate: canValidate,
             ),

@@ -124,14 +124,14 @@ class ZonePhidsModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<MapModel> createPhidsMapModelsFromKeywords({
-    @required List<String> keywords,
+  static List<MapModel> createPhidsMapModelsFromFlyerPhids({
+    @required List<String> phids,
   }){
     List<MapModel> _maps = <MapModel>[];
 
-    if (Mapper.checkCanLoopList(keywords) == true){
+    if (Mapper.checkCanLoopList(phids) == true){
 
-      for (final String phid in keywords){
+      for (final String phid in phids){
 
         final MapModel _existingMapWithThisKey = MapModel.getModelByKey(
           models: _maps,
@@ -181,8 +181,8 @@ class ZonePhidsModel {
 
       _zonePhids = ZonePhidsModel(
         zoneID: flyerModel.zone.cityID,
-        phidsMaps: createPhidsMapModelsFromKeywords(
-          keywords: flyerModel.keywordsIDs,
+        phidsMaps: createPhidsMapModelsFromFlyerPhids(
+          phids: flyerModel.phids,
         ),
       );
 
