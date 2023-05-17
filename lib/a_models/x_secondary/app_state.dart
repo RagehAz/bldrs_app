@@ -1,5 +1,7 @@
+import 'package:devicer/devicer.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 /// => TAMAM
 @immutable
 class AppState {
@@ -8,30 +10,12 @@ class AppState {
   /// OR AUTOMATICALLY WHEN CHANGING DATA THAT ARE SAVED ON LDB, IN ORDER TO RE FETCH THE DATA
   // -----------------------------------------------------------------------------
   const AppState({
-    @required this.chainsVersion,
-    @required this.pickersVersion,
-    @required this.phrasesVersion,
     @required this.appVersion,
     @required this.ldbVersion,
-    @required this.appControlsVersion,
-
-    @required this.id,
-
   });
   // -----------------------------------------------------------------------------
-  /// chains
-  final double chainsVersion;
-  final double pickersVersion;
-
-  /// phrases
-  final double phrasesVersion;
-
-  /// app update
   final String appVersion;
-  final double ldbVersion; /// this used to wipe out all LDB docs and re fetch everything
-  final double appControlsVersion;
-
-  final String id; /// either global or user
+  final int ldbVersion;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -39,24 +23,12 @@ class AppState {
   // --------------------
   /// TESTED : WORKS PERFECT
   AppState copyWith({
-    double chainsVersion,
-    double pickersVersion,
-    double phrasesVersion,
     String appVersion,
-    double ldbVersion,
-    double appControlsVersion,
-    String id,
+    int ldbVersion,
   }){
     return AppState(
-      id: id ?? this.id,
-      chainsVersion: chainsVersion ?? this.chainsVersion,
-      pickersVersion: pickersVersion ?? this.pickersVersion,
-
-      phrasesVersion: phrasesVersion ?? this.phrasesVersion,
-
       appVersion: appVersion ?? this.appVersion,
       ldbVersion: ldbVersion?? this.ldbVersion,
-      appControlsVersion: appControlsVersion ?? this.appControlsVersion,
     );
   }
   // -----------------------------------------------------------------------------
@@ -67,14 +39,27 @@ class AppState {
   /// TESTED : WORKS PERFECT
   static AppState initialState() {
     return const AppState(
-      id: null,
-      chainsVersion : null,
-      pickersVersion : null,
-      phrasesVersion : null,
       appVersion : null,
       ldbVersion : null,
-      appControlsVersion: null,
     );
+  }
+  // -----------------------------------------------------------------------------
+
+  /// APP VERSION
+
+  // --------------------
+  /// TESTED : WORKS PERFECTLY
+  static Future<String> detectAppVersion() async {
+    final PackageInfo _packageInfo = await PackageInfo.fromPlatform();
+    if (DeviceChecker.deviceIsAndroid() == true){
+      return _packageInfo.version;
+    }
+    else if (DeviceChecker.deviceIsIOS() == true){
+      return _packageInfo.buildNumber;
+    }
+    else {
+      return _packageInfo.version;
+    }
   }
   // -----------------------------------------------------------------------------
 
@@ -84,13 +69,8 @@ class AppState {
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id' : id,
-      'chainsVersion' : chainsVersion,
-      'pickersVersion' : pickersVersion,
-      'phrasesVersion' : phrasesVersion,
       'appVersion' : appVersion,
       'ldbVersion' : ldbVersion,
-      'appControlsVersion': appControlsVersion,
     };
   }
   // --------------------
@@ -104,53 +84,83 @@ class AppState {
     else {
 
       return AppState(
-        id: map['id'],
-        chainsVersion : map['chainsVersion']?.toDouble(),
-        pickersVersion : map['pickersVersion']?.toDouble(),
-        phrasesVersion : map['phrasesVersion']?.toDouble(),
         appVersion : map['appVersion'],
-        ldbVersion : map['ldbVersion']?.toDouble(),
-        appControlsVersion: map['appControlsVersion']?.toDouble(),
+        ldbVersion : map['ldbVersion'],
       );
     }
 
   }
   // -----------------------------------------------------------------------------
 
-  /// CYPHERS
+  /// VERSION DIVISIONS
 
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static bool appStatesAreIdentical({
-    @required AppState stateA,
-    @required AppState stateB,
+  /*
+  /// TESTED : WORKS PERFECTLY
+  static bool appVersionIsInSync({
+    @required String globalVersion,
+    @required String userVersion,
+    @required String detectedVersion,
   }){
-    bool _areIdentical = false;
+    return
+        globalVersion == userVersion &&
+        globalVersion == detectedVersion &&
+        userVersion == detectedVersion;
+  }
+   */
+  // --------------------
+  /*
+  /// TESTED : WORKS PERFECTLY
+  static List<int> _getAppVersionDivisions(String version){
+    final List<int> _divisions = <int>[];
 
-    if (stateA != null && stateB != null){
+    // blog('_getAppVersionDivisions : version : $version');
 
-      if (
-      stateA.id == stateB.id
-          &&
-          stateA.appVersion == stateB.appVersion
-          &&
-          stateA.chainsVersion == stateB.chainsVersion
-          &&
-          stateA.ldbVersion == stateB.ldbVersion
-          &&
-          stateA.phrasesVersion == stateB.phrasesVersion
-          &&
-          stateA.pickersVersion == stateB.pickersVersion
-          &&
-          stateA.appControlsVersion == stateB.appControlsVersion
-      ){
-        _areIdentical = true;
+    if (version != null){
+      final String _removedBuildNumber = TextMod.removeTextAfterLastSpecialCharacter(version, '+');
+
+      final List<String> _strings = _removedBuildNumber.split('.');
+
+      for (final String string in _strings){
+
+        final int _int = Numeric.transformStringToInt(string);
+
+        _divisions.add(_int);
+      }
+    }
+
+    return _fixDivisions(_divisions);
+  }
+   */
+  // --------------------
+  /*
+  static List<int> _fixDivisions(List<int> divs){
+    List<int> _output = <int>[];
+
+    if (Mapper.checkCanLoopList(divs) == true){
+
+      if (divs.length == 3){
+        _output = divs;
+      }
+      else if (divs.length > 3){
+        _output = [divs[0], divs[1], divs[2]];
+      }
+      else {
+        _output = <int>[0,0,0];
+        for (int i = 0; i < divs.length; i++){
+          _output.removeAt(i);
+          _output.insert(i, divs[i]);
+        }
       }
 
     }
+    else {
+      _output = [0,0,0];
+    }
 
-    return _areIdentical;
+    return _output;
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// DUMMIES
@@ -159,13 +169,8 @@ class AppState {
   /// TESTED : WORKS PERFECT
   static AppState dummyAppState(){
     return const AppState(
-      id: 'dummy',
-      chainsVersion: 0,
-      pickersVersion: 0,
-      phrasesVersion: 0,
       appVersion: '0.0.0',
       ldbVersion: 0,
-      appControlsVersion: 0,
     );
   }
   // -----------------------------------------------------------------------------
@@ -175,38 +180,29 @@ class AppState {
   // --------------------
   /// TESTED : WORKS PERFECT
   void blogAppState({String invoker = ''}){
-    blog('AppState is $invoker : -------------------- START');
-    blog('id : $id');
-    blog('chainsVersion : $chainsVersion');
-    blog('pickersVersion : $pickersVersion');
-    blog('phrasesVersion : $phrasesVersion');
-    blog('appVersion : $appVersion');
-    blog('ldbVersion : $ldbVersion');
-    blog('appControlsVersion : $appControlsVersion');
-    blog('AppState ------------------------ END');
+    blog('APP STATE : appVersion : $appVersion : ldbVersion : $ldbVersion');
   }
   // -----------------------------------------------------------------------------
 
-  /// CHECKERS
+  /// EQUALITY
 
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkAppStatesAreIdentical({
-    @required AppState appState1,
-    @required AppState appState2,
+    @required AppState state1,
+    @required AppState state2,
   }){
     bool _identical = false;
 
-    if (appState1 != null && appState2 != null){
+    if (state1 == null && state2 == null){
+      _identical = true;
+    }
+
+    else if (state1 != null && state2 != null){
 
       if (
-          appState1.chainsVersion == appState2.chainsVersion &&
-          appState1.pickersVersion == appState2.pickersVersion &&
-          appState1.phrasesVersion == appState2.phrasesVersion &&
-          appState1.appVersion == appState2.appVersion &&
-          appState1.ldbVersion == appState2.ldbVersion &&
-          appState1.appControlsVersion == appState2.appControlsVersion &&
-          appState1.id == appState2.id
+          state1.appVersion == state2.appVersion &&
+          state1.ldbVersion == state2.ldbVersion
       ){
         _identical = true;
       }
@@ -220,10 +216,8 @@ class AppState {
   /// OVERRIDES
 
   // --------------------
-  /*
    @override
-   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
-   */
+   String toString() => 'APP STATE : appVersion : $appVersion : ldbVersion : $ldbVersion';
   // --------------------
   @override
   bool operator == (Object other){
@@ -235,8 +229,8 @@ class AppState {
     bool _areIdentical = false;
     if (other is AppState){
       _areIdentical = checkAppStatesAreIdentical(
-        appState1: this,
-        appState2: other,
+        state1: this,
+        state2: other,
       );
     }
 
@@ -245,12 +239,7 @@ class AppState {
   // --------------------
   @override
   int get hashCode =>
-      chainsVersion.hashCode^
-      pickersVersion.hashCode^
-      phrasesVersion.hashCode^
       appVersion.hashCode^
-      ldbVersion.hashCode^
-      appControlsVersion.hashCode^
-      id.hashCode;
+      ldbVersion.hashCode;
   // -----------------------------------------------------------------------------
 }

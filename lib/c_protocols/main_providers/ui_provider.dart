@@ -20,16 +20,17 @@ import 'package:provider/provider.dart';
 final GlobalKey<NavigatorState> mainNavKey = GlobalKey<NavigatorState>();
 // --------------------
 /// TESTED : WORKS PERFECT
-BuildContext getMainContext(){
+BuildContext getMainContext() {
   return mainNavKey.currentContext;
 }
+
 // -----------------------------------------------------------------------------
 /// => TAMAM
 // final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
 class UiProvider extends ChangeNotifier {
   // -----------------------------------------------------------------------------
 
-    /// APP DIRECTION
+  /// APP DIRECTION
 
   // --------------------
   /// TESTED : WORKS PERFECT
