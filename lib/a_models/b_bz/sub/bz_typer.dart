@@ -92,19 +92,28 @@ class BzTyper {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> cipherBzTypes(List<BzType> bzTypes){
-    final List<String> _bzTypes = <String>[];
+  static Map<String, dynamic> cipherBzTypes(List<BzType> bzTypes){
+    Map<String, dynamic> _output;
 
     if (Mapper.checkCanLoopList(bzTypes) == true){
 
+      _output = {};
+
       for (final BzType bzType in bzTypes){
+
         final String _ciphered = cipherBzType(bzType);
-        _bzTypes.add(_ciphered);
+
+        _output = Mapper.insertPairInMap(
+            map: _output,
+            key: _ciphered,
+            value: true,
+        );
+
       }
 
     }
 
-    return _bzTypes;
+    return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -122,16 +131,18 @@ class BzTyper {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<BzType> decipherBzTypes(List<dynamic> bzTypes){
+  static List<BzType> decipherBzTypes(Map<String, dynamic> map){
     final List<BzType> _bzTypes = <BzType>[];
 
-    if (Mapper.checkCanLoopList(bzTypes) == true){
+    if (map != null) {
 
-      final List<String> _strings = Stringer.getStringsFromDynamics(dynamics: bzTypes);
+      final List<String> _ciphered = map.keys.toList();
 
-      for (final String _string in _strings){
-        final BzType _bzType = decipherBzType(_string);
-        _bzTypes.add(_bzType);
+      if (Mapper.checkCanLoopList(_ciphered) == true) {
+        for (final String _string in _ciphered) {
+          final BzType _bzType = decipherBzType(_string);
+          _bzTypes.add(_bzType);
+        }
       }
 
     }
@@ -237,12 +248,12 @@ class BzTyper {
   /// TESTED : WORKS PERFECT
   static bool checkBzTypesAreIdentical(List<BzType> types1, List<BzType> types2){
 
-    final List<String> _a = cipherBzTypes(types1);
-    final List<String> _b = cipherBzTypes(types2);
+    final Map<String, dynamic> _a = cipherBzTypes(types1);
+    final Map<String, dynamic> _b = cipherBzTypes(types2);
 
-    return Mapper.checkListsAreIdentical(
-        list1: _a,
-        list2: _b
+    return Mapper.checkMapsAreIdentical(
+        map1: _a,
+        map2: _b,
     );
 
   }

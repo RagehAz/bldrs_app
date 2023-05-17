@@ -201,7 +201,7 @@ class FetchFlyerProtocols {
             flyerType: null,
             publishState: PublishState.published,
             auditState: AuditState.verified,
-            keywordsIDs: const [],
+            phids: const [],
             zone: bzModel.zone,
             authorID: null,
             bzID: bzModel.id,

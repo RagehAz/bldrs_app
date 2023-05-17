@@ -184,7 +184,7 @@ Future<void> onSelectFlyerType({
     bool _canUpdate = true;
 
     /// SOME SPECS ARE SELECTED
-    if (Mapper.checkCanLoopList(draftNotifier.value.keywordsIDs) == true){
+    if (Mapper.checkCanLoopList(draftNotifier.value.phids) == true){
 
       _canUpdate = await CenterDialog.showCenterDialog(
         context: context,
@@ -332,7 +332,7 @@ void onFlyerPhidLongTap({
 }){
 
   final List<String> _newPhids = Stringer.addOrRemoveStringToStrings(
-    strings: draftNotifier.value.keywordsIDs,
+    strings: draftNotifier.value.phids,
     string: phid,
   );
 
@@ -340,7 +340,7 @@ void onFlyerPhidLongTap({
     notifier: draftNotifier,
     mounted: mounted,
     value: draftNotifier.value.copyWith(
-      keywordsIDs: _newPhids,
+      phids: _newPhids,
     ),
   );
 
@@ -361,7 +361,7 @@ Future<void> onFlyerPhidTap({
       flyerType: draftNotifier.value.flyerType,
       event: ViewingEvent.flyerEditor,
       onlyUseZoneChains: false,
-      selectedPhids: draftNotifier.value.keywordsIDs,
+      selectedPhids: draftNotifier.value.phids,
   );
 
   if (Mapper.checkCanLoopList(_phids) == true){
@@ -370,7 +370,7 @@ Future<void> onFlyerPhidTap({
       notifier: draftNotifier,
       mounted: mounted,
       value: draftNotifier.value.copyWith(
-        keywordsIDs: _phids,
+        phids: _phids,
       ),
     );
 
