@@ -15,10 +15,6 @@ import 'package:flutter/material.dart';
 ///
 FireQueryModel homeWallFlyersPaginationQuery(BuildContext context){
 
-  // final AppControlsModel _appControl = GeneralProvider.proGerAppControls(context);
-
-    const bool _showOnlyVerifiedFlyersInHomeWall = false;
-
     return FlyerSearch.createQuery(
       searchModel: SearchModel(
         zone: ZoneProvider.proGetCurrentZone(context: context, listen: true,),
@@ -27,7 +23,7 @@ FireQueryModel homeWallFlyersPaginationQuery(BuildContext context){
         flyerSearchModel: FlyerSearchModel(
           flyerType: ChainsProvider.proGetHomeWallFlyerType(context: context, listen: true,),
           phid: ChainsProvider.proGetHomeWallPhid(context: context, listen: true,),
-          auditState: _showOnlyVerifiedFlyersInHomeWall == true ? AuditState.verified : null,
+          auditState: AuditState.verified,
           publishState: null,
           onlyAmazonProducts: null,
           onlyWithPDF: null,

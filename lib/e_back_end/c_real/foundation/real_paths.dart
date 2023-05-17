@@ -127,14 +127,8 @@
   |
   | /// TASK : PROPOSAL TO MIGRATE APP STATE
   | - appState : <AppStateModel>
-  |     | - id
-  |     | - showOnlyVerifiedFlyersInHomeWall /// TASK : COMBINE APP CONTROLS WITH APP STATE
-  |     | - appControlsVersion
   |     | - appVersion
-  |     | - chainsVersion
   |     | - ldbVersion
-  |     | - phrasesVersion
-  |     | - pickersVersion
   |
   | --------------------------|
   |
@@ -272,8 +266,7 @@ class RealDoc {
   // -----------------------------------------------------------------------------
   /// APP STATE
   // --------------------
-  static const String app_globalAppState = 'globalAppState';
-  static const String app_appControls = 'appControls';
+  static const String app_globalAppState = 'appState';
   static const String app_tests = 'tests';
   // -----------------------------------------------------------------------------
   /// PICKERS
@@ -292,7 +285,6 @@ class RealDoc {
   static const String zones_stages_cities = 'stages_cities';
   static const String zones_cities = 'cities';
   // -----------------------------------------------------------------------------
-  void f(){}
 }
 
 class RealPath{
