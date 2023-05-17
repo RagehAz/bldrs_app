@@ -2,12 +2,13 @@ name: bldrs
 description: The Builder's Network
 publish_to: "none"
 # --------------------------------------------------------------------------------
-# https://developer.android.com/studio/publish/versioning
-# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 3.5.36
-# INSTRUCTIONS WHEN CHANGING APP VERSION
-# -> change in ios/runner/info.pList ( CFBundleVersion )
-# -> change in Standards.appVersion; ( bldrsAppVersion )
+# BLDRS_APP_VERSION
+version: 3.6.0
+# app version should be updated in those locations
+# -> bldrs_app/ios/runner/info.pList ( CFBundleVersion ) -> ACCESSIBLE ON MAC ONLY
+# -> bldrs_dashboard/ios/runner/info.pList ( CFBundleVersion ) -> ACCESSIBLE ON MAC ONLY
+# -> bldrs_app/lib/main.dart; ( bldrsAppVersion )
+# -> bldrs_dashboard/pubspec.yaml (version:)
 # --------------------------------------------------------------------------------
 environment:
   sdk: ">=2.10.5 <3.0.0"
