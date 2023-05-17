@@ -26,10 +26,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:mediators/mediators.dart';
 import 'package:stringer/stringer.dart';
-
 import 'bldrs_keys.dart';
 
-const String bldrsAppVersion = '3.5.15';
+/// BLDRS_APP_VERSION
+const String bldrsAppVersion = '3.6.0';
 
 Future<void> main() async {
   /// -----------------------------------------------------------------------------

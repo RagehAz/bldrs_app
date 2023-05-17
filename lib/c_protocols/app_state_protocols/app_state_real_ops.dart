@@ -13,29 +13,29 @@ class AppStateRealOps {
   /// CREATE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> createGlobalAppState({
     @required AppState newAppState,
   }) async {
-
-    await Real.createDocInPath(
-      pathWithoutDocName: RealDoc.app_globalAppState,
-      doc: RealDoc.app_globalAppState,
-      map: newAppState.toMap(),
-    );
-
+    if (newAppState != null) {
+      await Real.createDoc(
+        coll: RealColl.app,
+        doc: RealDoc.app_appState,
+        map: newAppState.toMap(),
+      );
+    }
   }
   // -----------------------------------------------------------------------------
 
   /// READ
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<AppState> readGlobalAppState() async {
 
     final Map<String, dynamic> _map = await Real.readDoc(
-      coll: RealDoc.app_globalAppState,
-      doc: RealDoc.app_globalAppState,
+      coll: RealColl.app,
+      doc: RealDoc.app_appState,
     );
 
     return AppState.fromMap(_map);
@@ -45,7 +45,7 @@ class AppStateRealOps {
   /// UPDATE GLOBAL APP STATE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> _updateGlobalAppState({
     @required AppState newAppState,
   }) async {
@@ -56,7 +56,7 @@ class AppStateRealOps {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> updateGlobalAppVersion({
     @required String newAppVersion,
   }) async {
@@ -73,7 +73,7 @@ class AppStateRealOps {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> updateGlobalLDBVersion() async {
 
     final AppState _appState = await readGlobalAppState();
