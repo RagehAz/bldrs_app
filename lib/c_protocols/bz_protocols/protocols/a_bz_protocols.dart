@@ -2,7 +2,7 @@ import 'package:bldrs/c_protocols/bz_protocols/protocols/compose_bzz.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/fetch_bzz.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/renovate_bzz.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/wipe_bzz.dart';
-
+/// => TAMAM
 class BzProtocols {
   // -----------------------------------------------------------------------------
 
@@ -36,7 +36,7 @@ class BzProtocols {
   /// RENOVATE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static const renovateBz = RenovateBzProtocols.renovateBz;
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -52,10 +52,10 @@ class BzProtocols {
   /// WIPE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static const wipeBz = WipeBzProtocols.wipeBz;
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static const deleteLocally = WipeBzProtocols.deleteLocally;
   // --------------------
   /// TESTED : WORKS PERFECT
