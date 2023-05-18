@@ -204,7 +204,9 @@ class DraftBz {
 
     assert(bzModel != null, 'BzModel can not be null here');
 
+
     final BzSection _bzSection = BzTyper.concludeBzSectionByBzTypes(bzModel.bzTypes);
+    blog('bzModel.bzTypes : ${bzModel.bzTypes} : _bzSection : $_bzSection');
 
     return DraftBz(
       id: bzModel.id,
