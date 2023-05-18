@@ -75,10 +75,10 @@ class ComposeUserProtocols {
 
     }
 
-    AuthModel.blogAuthModel(
-      authModel: authModel,
-      invoker: 'ComposeUserProtocols.compose',
-    );
+    // AuthModel.blogAuthModel(
+    //   authModel: authModel,
+    //   invoker: 'ComposeUserProtocols.compose',
+    // );
 
     return _output;
   }

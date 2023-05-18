@@ -171,9 +171,10 @@ class AuthorModel {
     if (includePicModel == true){
 
       _map = Mapper.insertPairInMap(
-          map: _map,
-          key: 'picModel',
-          value: PicModel.cipherToLDB(picModel),
+        map: _map,
+        key: 'picModel',
+        value: PicModel.cipherToLDB(picModel),
+        overrideExisting: true,
       );
 
     }
@@ -205,6 +206,7 @@ class AuthorModel {
           map: _map,
           key: author.userID,
           value: author.toMap(),
+          overrideExisting: true,
         );
       }
     }

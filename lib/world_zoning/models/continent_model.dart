@@ -41,6 +41,7 @@ class Continent {
           map: _map,
           key: continent.name,
           value: continent.toMap(),
+          overrideExisting: true,
         );
       }
 
@@ -48,6 +49,7 @@ class Continent {
         map: _map,
         key: 'id',
         value: continentsMapID,
+        overrideExisting: true,
       );
 
     }

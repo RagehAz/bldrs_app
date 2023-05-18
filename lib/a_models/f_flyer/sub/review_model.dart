@@ -86,9 +86,10 @@ class ReviewModel {
 
     if (includeID == true){
       _map = Mapper.insertPairInMap(
-          map: _map,
-          key: 'id',
-          value: id,
+        map: _map,
+        key: 'id',
+        value: id,
+        overrideExisting: true,
       );
     }
 
@@ -97,6 +98,7 @@ class ReviewModel {
         map: _map,
         key: 'docSnapshot',
         value: docSnapshot,
+        overrideExisting: true,
       );
     }
 

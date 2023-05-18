@@ -7,10 +7,10 @@ import 'package:bldrs/a_models/x_secondary/app_state.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/app_state_real_ops.dart';
 import 'package:bldrs/c_protocols/auth_protocols/auth_ldb_ops.dart';
 import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
@@ -24,7 +24,6 @@ import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:devicer/devicer.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
@@ -58,7 +57,7 @@ Future<void> initializeLogoScreen({
   /// USER MODEL
   await initializeUserModel(context);
 
-  blog('2 - initializeLogoScreen : ${Authing.getUserID()}');
+  // blog('2 - initializeLogoScreen : ${Authing.getUserID()}');
 
   await Future.wait(
       <Future<void>>[
@@ -73,7 +72,7 @@ Future<void> initializeLogoScreen({
       ]
   );
 
-  blog('3 - initializeLogoScreen : assetPaths + lang + appState should have ended');
+  // blog('3 - initializeLogoScreen : assetPaths + lang + appState should have ended');
 
   if (_phrasesAreLoaded(context) == false){
 

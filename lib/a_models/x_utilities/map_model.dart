@@ -54,9 +54,10 @@ class MapModel{
       for (final MapModel map in maps){
 
         _bigMap = Mapper.insertPairInMap(
-            map: _bigMap,
-            key: map.key,
-            value: map.value
+          map: _bigMap,
+          key: map.key,
+          value: map.value,
+          overrideExisting: true,
         );
 
       }
