@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
@@ -90,7 +91,7 @@ Future<void> onDeleteBzButtonTap({
     /// re-route back
     // if (routeBackHome == true){
     await Nav.pushHomeAndRemoveAllBelow(
-        context: context,
+        context: getMainContext(),
         invoker: 'onDeleteBzButtonTap',
         homeRoute: Routing.home,
     );
@@ -98,20 +99,20 @@ Future<void> onDeleteBzButtonTap({
 
     /// DELETE BZ LOCALLY
     await BzProtocols.deleteLocally(
-      context: context,
+      context: getMainContext(),
       bzID: bzModel.id,
       invoker: 'onDeleteBzButtonTap',
     );
 
     await Nav.replaceScreen(
-      context: context,
+      context: getMainContext(),
       screen: const HomeScreen(),
       transitionType: PageTransitionType.fade,
     );
 
     if (showSuccessDialog == true){
       await TopDialog.showTopDialog(
-        context: context,
+        context: getMainContext(),
         firstVerse: const Verse(
           id: 'phid_bz_account_deleted_successfully',
           translate: true,

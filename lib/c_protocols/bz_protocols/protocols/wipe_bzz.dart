@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -23,7 +24,7 @@ import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+/// => TAMAM
 class WipeBzProtocols {
   // -----------------------------------------------------------------------------
 
@@ -34,7 +35,7 @@ class WipeBzProtocols {
   /// WIPE OUT
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> wipeBz({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -47,9 +48,9 @@ class WipeBzProtocols {
 
     if (showWaitDialog == true){
       pushWaitDialog(
-        context: context,
+        context: getMainContext(),
         verse: Verse(
-          id: '${Verse.transBake(context, 'phid_deleting')} ${bzModel.name}',
+          id: '${Verse.transBake(getMainContext(), 'phid_deleting')} ${bzModel.name}',
           translate: false,
           variables: bzModel.name,
         ),
@@ -60,7 +61,7 @@ class WipeBzProtocols {
 
       /// DELETE BZ FLYERS
       _deleteAllBzFlyersOps(
-        context: context,
+        context: getMainContext(),
         bzModel: bzModel,
         showWaitDialog: true,
         updateBz: false,
@@ -73,14 +74,14 @@ class WipeBzProtocols {
       ),
 
       NoteProtocols.unsubscribeFromAllBzTopics(
-        context: context,
+        context: getMainContext(),
         bzID: bzModel.id,
         renovateUser: true,
       ),
 
       /// DELETE BZ STORAGE DIRECTORY
       BldrsCloudFunctions.deleteStorageDirectory(
-        context: context,
+        context: getMainContext(),
         path: '${StorageColl.bzz}/${bzModel.id}',
       ),
 
@@ -108,7 +109,7 @@ class WipeBzProtocols {
       /// DELETE LOCALLY
       if (deleteBzLocally == true)
       deleteLocally(
-        context: context,
+        context: getMainContext(),
         bzID: bzModel.id,
         invoker: 'wipeBz',
       ),
@@ -117,12 +118,12 @@ class WipeBzProtocols {
 
     /// CLOSE DIALOG BEFORE SENDING NOTES => FIXES A goBack() bug
     if (showWaitDialog == true){
-      await WaitDialog.closeWaitDialog(context);
+      await WaitDialog.closeWaitDialog(getMainContext());
     }
 
     /// SEND DELETION NOTES TO AUTHORS
     await NoteEvent.sendBzDeletionNoteToAllAuthors(
-      context: context,
+      context: getMainContext(),
       bzModel: bzModel,
       includeMyself: includeMyselfInBzDeletionNote,
     );
@@ -130,7 +131,7 @@ class WipeBzProtocols {
     blog('WipeBzProtocol.wipeBz : END');
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> _deleteAllBzFlyersOps({
     @required BuildContext context,
     @required BzModel bzModel,
@@ -141,12 +142,12 @@ class WipeBzProtocols {
 
     if (showWaitDialog == true){
 
-      final String _text =  '${Verse.transBake(context, 'phid_deleting')} '
+      final String _text =  '${Verse.transBake(getMainContext(), 'phid_deleting')} '
                             '${bzModel.flyersIDs.length} '
-                            '${Verse.transBake(context, 'phid_flyers')}';
+                            '${Verse.transBake(getMainContext(), 'phid_flyers')}';
 
       pushWaitDialog(
-        context: context,
+        context: getMainContext(),
         verse: Verse.plain(_text),
       );
 
@@ -154,12 +155,12 @@ class WipeBzProtocols {
 
     /// DELETE BZ FLYERS
     final List<FlyerModel> _flyers = await FlyerProtocols.fetchFlyers(
-        context: context,
+        context: getMainContext(),
         flyersIDs: bzModel.flyersIDs
     );
 
     await FlyerProtocols.wipeFlyers(
-      context: context,
+      context: getMainContext(),
       bzModel: bzModel,
       flyers: _flyers,
       showWaitDialog: false,
@@ -167,7 +168,7 @@ class WipeBzProtocols {
     );
 
     if (showWaitDialog == true){
-      await WaitDialog.closeWaitDialog(context);
+      await WaitDialog.closeWaitDialog(getMainContext());
     }
 
     blog('WipeBzProtocols._deleteAllBzFlyersOps : END');
