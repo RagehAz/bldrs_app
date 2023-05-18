@@ -261,7 +261,6 @@ class BldrsNav {
           translate: true,
         ),
         bodyVerse: const Verse(
-          pseudo: 'Would you like to exit and close Bldrs.net App ?',
           id: 'phid_exit_app_notice',
           translate: true,
         ),
