@@ -127,7 +127,7 @@ class PhidsBubble extends StatelessWidget {
                           return Padding(
                             padding: Scale.superInsets(
                               context: context,
-                              appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+                              appIsLTR: UiProvider.checkAppIsLeftToRight(),
                               enRight: Ratioz.appBarPadding,
                               bottom: Ratioz.appBarPadding,
                             ),

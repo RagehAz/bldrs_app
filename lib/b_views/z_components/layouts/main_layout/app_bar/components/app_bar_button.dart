@@ -40,7 +40,7 @@ class AppBarButton extends StatelessWidget {
       // width: Ratioz.appBarButtonSize * 3.5,
       margins: Scale.superInsets(
         context: context,
-        appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+        appIsLTR: UiProvider.checkAppIsLeftToRight(),
         enLeft: Ratioz.appBarPadding,
       ),
       verse: verse,

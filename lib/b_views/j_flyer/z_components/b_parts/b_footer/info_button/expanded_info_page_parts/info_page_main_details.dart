@@ -39,11 +39,11 @@ class InfoPageMainDetails extends StatelessWidget {
 
       String _country = zone.countryName;
       _country ??= Flag.translateCountry(
-          langCode: Localizer.getCurrentLangCode(context),
+          langCode: Localizer.getCurrentLangCode(),
           countryID: zone.countryID,
       );
 
-      _output = '${xPhrase(context, 'phid_targeting')} : $_city $_country';
+      _output = '${xPhrase('phid_targeting')} : $_city $_country';
 
     }
 
@@ -78,7 +78,7 @@ class InfoPageMainDetails extends StatelessWidget {
         StatsLine(
           bubbleWidth: pageWidth - 20,
           verse: Verse(
-            id: '${xPhrase(context, 'phid_flyer_type')} : ${xPhrase(context, _flyerTypePhid)}',
+            id: '${xPhrase('phid_flyer_type')} : ${xPhrase(_flyerTypePhid)}',
             translate: false,
           ),
           icon: FlyerTyper.flyerTypeIcon(flyerType: flyerModel.flyerType, isOn: false),
@@ -89,7 +89,7 @@ class InfoPageMainDetails extends StatelessWidget {
         StatsLine(
           bubbleWidth: pageWidth - 20,
           verse: Verse(
-            id: '${xPhrase(context, 'phid_since')} $_timeDifferance',
+            id: '${xPhrase('phid_since')} $_timeDifferance',
             translate: false,
           ),
           icon: Iconz.calendar,

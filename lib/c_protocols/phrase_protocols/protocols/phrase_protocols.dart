@@ -256,7 +256,7 @@ class PhraseProtocols {
     final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
     await _phraseProvider.changeAppLang(
       context: context,
-      langCode: Localizer.getCurrentLangCode(context),
+      langCode: Localizer.getCurrentLangCode(),
     );
 
   }

@@ -22,7 +22,7 @@ class Iconizer {
   /// TESTED : WORKS PERFECT
   static String superArrowENRight(BuildContext context) {
 
-    if (Words.textDirection(context) == 'ltr') {
+    if (Words.textDirection() == 'ltr') {
       return Iconz.arrowRight;
     }
 
@@ -35,7 +35,7 @@ class Iconizer {
   /// TESTED : WORKS PERFECT
   static String superArrowENLeft(BuildContext context) {
 
-    if (Words.textDirection(context) == 'ltr') {
+    if (Words.textDirection() == 'ltr') {
       return Iconz.arrowLeft;
     }
 
@@ -51,7 +51,7 @@ class Iconizer {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String superBackIcon(BuildContext context) {
-    return UiProvider.checkAppIsLeftToRight(context) ?
+    return UiProvider.checkAppIsLeftToRight() ?
     Iconz.back
         :
     Iconz.backArabic;
@@ -59,7 +59,7 @@ class Iconizer {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String superInverseBackIcon(BuildContext context) {
-    return UiProvider.checkAppIsLeftToRight(context) ?
+    return UiProvider.checkAppIsLeftToRight() ?
     Iconz.backArabic
         :
     Iconz.back;

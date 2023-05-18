@@ -181,7 +181,7 @@ class Obelisk extends StatelessWidget {
                 children: <Widget>[
 
                   /// ICONS
-                  if (UiProvider.checkAppIsLeftToRight(context) == true)
+                  if (UiProvider.checkAppIsLeftToRight() == true)
                     ObeliskIconsBuilder(
                       navModels: navModels,
                       progressBarModel: progressBarModel,
@@ -196,7 +196,7 @@ class Obelisk extends StatelessWidget {
                   ),
 
                   /// ICONS
-                  if (UiProvider.checkAppIsLeftToRight(context) == false)
+                  if (UiProvider.checkAppIsLeftToRight() == false)
                     ObeliskIconsBuilder(
                       navModels: navModels,
                       progressBarModel: progressBarModel,

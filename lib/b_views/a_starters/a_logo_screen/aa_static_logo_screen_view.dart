@@ -55,7 +55,7 @@ class LogoScreenView extends StatelessWidget {
               max: 0.8,
               child: BldrsText(
                 verse: Verse(
-                  id: Words.loading(context),
+                  id: Words.loading(),
                   casing: Casing.upperCase,
                   translate: false,
                 ),

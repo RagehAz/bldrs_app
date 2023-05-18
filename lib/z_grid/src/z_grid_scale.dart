@@ -258,7 +258,7 @@ class ZGridScale {
 
     return Scale.superInsets(
       context: context,
-      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+      appIsLTR: UiProvider.checkAppIsLeftToRight(),
       enLeft: gridSidePadding,
       top: _topPaddingOnZoomedOut,
       enRight: gridSidePadding,

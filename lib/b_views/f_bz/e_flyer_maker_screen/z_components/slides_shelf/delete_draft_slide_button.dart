@@ -27,7 +27,7 @@ class DeleteDraftSlideButton extends StatelessWidget {
 
     return SuperPositioned(
       enAlignment: Alignment.bottomCenter,
-      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+      appIsLTR: UiProvider.checkAppIsLeftToRight(),
       child: Container(
         width: DraftShelfSlide.flyerBoxWidth,
         height: _boxHeight,

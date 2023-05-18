@@ -38,7 +38,7 @@ class UserProfileBanners extends StatelessWidget {
       _string = _title;
     }
     else if (_title != null && _company != null){
-      _string = '$_title ${xPhrase( context, 'phid_at')} $_company';
+      _string = '$_title ${xPhrase('phid_at')} $_company';
     }
     else {
       _string = null;

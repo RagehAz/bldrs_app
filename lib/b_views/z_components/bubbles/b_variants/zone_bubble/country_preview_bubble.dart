@@ -91,7 +91,7 @@ class CountryPreviewBubble extends StatelessWidget {
         /// CURRENCY
         ZoneBubbleLine(
           icon: Iconz.dollar,
-          line: '${_currencyModel?.symbol} . ${xPhrase( context, _currencyModel?.id)}',
+          line: '${_currencyModel?.symbol} . ${xPhrase(_currencyModel?.id)}',
         ),
 
         /// AREA - POPULATION

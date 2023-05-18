@@ -34,9 +34,9 @@ class UiProvider extends ChangeNotifier {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkAppIsLeftToRight(BuildContext context) {
+  static bool checkAppIsLeftToRight() {
 
-    if (Words.textDirection(context) == 'ltr') {
+    if (Words.textDirection() == 'ltr') {
       return true;
     }
 

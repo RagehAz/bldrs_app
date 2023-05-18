@@ -153,7 +153,7 @@ class NoteRedDotWrapper extends StatelessWidget {
           SuperPositioned(
             enAlignment: Alignment.topRight,
             // horizontalOffset: -(NoteRedDot.size * 0.5),
-            appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+            appIsLTR: UiProvider.checkAppIsLeftToRight(),
             child: NoteRedDot(
               count: count,
               isNano: isNano,

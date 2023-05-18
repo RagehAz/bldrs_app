@@ -355,7 +355,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   Widget build(BuildContext context) {
 
         final String _countryName = Flag.translateCountry(
-          langCode: Localizer.getCurrentLangCode(context),
+          langCode: Localizer.getCurrentLangCode(),
           countryID: widget.countryID,
         );
 
@@ -375,7 +375,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
         invoker: 'SelectCityScreen',
       ),
       searchHintVerse: Verse(
-        id: '${xPhrase( context, 'phid_search_cities_of')} ${_countryName ?? '...'}',
+        id: '${xPhrase('phid_search_cities_of')} ${_countryName ?? '...'}',
         translate: false,
       ),
       loading: _loading,
@@ -400,7 +400,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
       //   //                 size: 1,
       //   //                 margin: Scale.superInsets(
       //   //                   context: context,
-      //   //                   appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+      //   //                   appIsLTR: UiProvider.checkAppIsLeftToRight(),
       //   //                   bottom: 20,
       //   //                   enRight: 10,
       //   //                 ),

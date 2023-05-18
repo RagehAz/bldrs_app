@@ -331,7 +331,7 @@ class FlyerTyper{
           pluralTranslation: pluralTranslation,
         );
 
-        final String _translation = xPhrase(context, _phid);
+        final String _translation = xPhrase(_phid);
 
         _translations.add(_translation);
 

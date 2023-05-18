@@ -49,7 +49,7 @@ class FlyerCountersAndRecords extends StatelessWidget {
                 if (counter != null && _saves > 0)
                   FlyerRecordsBox(
                     pageWidth: pageWidth,
-                    headlineVerse: Verse.plain('$_saves ${xPhrase(context, 'phid_totalSaves')}'),
+                    headlineVerse: Verse.plain('$_saves ${xPhrase('phid_totalSaves')}'),
                     icon: Iconz.saveOn,
                     realNodePath: '${RealColl.recordingSaves}/${flyerModel.id}/',
                   ),
@@ -58,7 +58,7 @@ class FlyerCountersAndRecords extends StatelessWidget {
                 if (counter != null && _shares > 0)
                   FlyerRecordsBox(
                     pageWidth: pageWidth,
-                    headlineVerse: Verse.plain('$_shares ${xPhrase(context, 'phid_totalShares')}'),
+                    headlineVerse: Verse.plain('$_shares ${xPhrase('phid_totalShares')}'),
                     icon: Iconz.share,
                     realNodePath: '${RealColl.recordingShares}/${flyerModel.id}/',
                   ),
@@ -67,7 +67,7 @@ class FlyerCountersAndRecords extends StatelessWidget {
                 if (counter != null && _views > 0)
                   FlyerRecordsBox(
                     pageWidth: pageWidth,
-                    headlineVerse: Verse.plain('$_views ${xPhrase(context, 'phid_totalViews')}'),
+                    headlineVerse: Verse.plain('$_views ${xPhrase('phid_totalViews')}'),
                     icon: Iconz.viewsIcon,
                     realNodePath: '${RealColl.recordingViews}/${flyerModel.id}/',
                   ),

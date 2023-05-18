@@ -33,12 +33,12 @@ class ReviewBubbleButton extends StatelessWidget {
       return null;
     }
     else {
-      String _output = xPhrase(context, phid);
+      String _output = xPhrase(phid);
 
       final int _count = count ?? 0;
 
       if (_count == 0){
-        // _output = xPhrase(context, phid);
+        // _output = xPhrase(phid);
       }
 
       else {

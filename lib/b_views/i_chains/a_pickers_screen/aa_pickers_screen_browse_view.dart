@@ -59,11 +59,11 @@ class PickersScreenBrowseView extends StatelessWidget {
     // ------
     final String _instructions =
         onlyUseZoneChains == true ?
-            '${xPhrase(context, 'phid_showing_only_keywords_used_in')}\n'
+            '${xPhrase('phid_showing_only_keywords_used_in')}\n'
             '${_zone.cityName}, ${_zone.countryName}'
             // '$_flyerTypesStringWithNewLineIfNotNull'
                 :
-            '${xPhrase(context, 'phid_showing_all_available_keywords')}\n'
+            '${xPhrase('phid_showing_all_available_keywords')}\n'
             '$_flyerTypesString';
     // ------
     return Verse(

@@ -76,7 +76,7 @@ class CountryTileButton extends StatelessWidget {
             icon: Flag.getCountryIcon(countryID),
             verse: verse ?? Verse.plain(
                 Flag.translateCountry(
-                    langCode: Localizer.getCurrentLangCode(context),
+                    langCode: Localizer.getCurrentLangCode(),
                     countryID: countryID
                 )
             ),
