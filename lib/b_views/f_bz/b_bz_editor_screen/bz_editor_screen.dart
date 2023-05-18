@@ -431,8 +431,8 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
               bzForms: draft?.inactiveBzForms,
             );
 
-            blog('draft?.logoPicModel : ${draft?.logoPicModel?.bytes}');
-            blog('canValidate : ${draft?.canValidate}');
+            // blog('draft?.logoPicModel : ${draft?.logoPicModel?.bytes}');
+            // blog('canValidate : ${draft?.canValidate}');
 
           return Form(
             key: draft?.formKey,
