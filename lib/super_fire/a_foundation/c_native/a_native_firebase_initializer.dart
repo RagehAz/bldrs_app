@@ -196,40 +196,18 @@ class _NativeFirebase {
         // emulator: ,
       );
 
-    }
+      /// FOR REFERENCE : THIS WAS OLD IMPLEMENTATION
+      /*
 
-    _fire = _store;
-    blog('=> Native Firebase Firestore has been initialized');
-
-    return _store;
-  }
-
-
-  /*
-    fd.Firestore oldInitializeFire({
-    @required fd.FirebaseAuth firebaseAuth,
-    @required String projectID,
-  }) {
-    fd.Firestore _store;
-
-    assert(projectID != null, 'you forgot to add project ID');
-
-    if (firebaseAuth == null) {
-      _store = fd.Firestore.initialize(
-        projectID,
-        useApplicationDefaultAuth: true,
-        // databaseId: ,
-        // emulator: ,
-      );
-    }
-
-    else {
-      _store = fd.Firestore(
+     _store = fd.Firestore(
         projectID,
         auth: firebaseAuth,
         // databaseId: ,
         // emulator: ,
       );
+
+   */
+
     }
 
     _fire = _store;
@@ -237,7 +215,6 @@ class _NativeFirebase {
 
     return _store;
   }
-   */
   // -----------------------------------------------------------------------------
 
   /// REAL
