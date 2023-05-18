@@ -71,13 +71,13 @@ class Formers {
     if (canValidate == true){
 
       if (TextCheck.isEmpty(email) == true) {
-        _output = Verse.transBake(context, 'phid_enterEmail');
+        _output = Verse.transBake('phid_enterEmail');
       }
 
       else {
 
         if (EmailValidator.validate(email) == false){
-          _output = Verse.transBake(context, 'phid_emailInvalid');
+          _output = Verse.transBake('phid_emailInvalid');
         }
 
       }
@@ -98,11 +98,11 @@ class Formers {
     if (canValidate == true){
 
       if (password.isEmpty == true){
-        _output = Verse.transBake(context, 'phid_enterPassword');
+        _output = Verse.transBake('phid_enterPassword');
       }
 
       else if (password.length < 6){
-        _output = Verse.transBake(context, 'phid_min6CharError');
+        _output = Verse.transBake('phid_min6CharError');
       }
 
     }
@@ -121,15 +121,15 @@ class Formers {
 
     if (canValidate == true){
       if (passwordConfirmation.isEmpty || password.isEmpty){
-        _output = Verse.transBake(context, 'phid_confirmPassword');
+        _output = Verse.transBake('phid_confirmPassword');
       }
 
       else if (passwordConfirmation != password){
-        _output = Verse.transBake(context, 'phid_passwordMismatch');
+        _output = Verse.transBake('phid_passwordMismatch');
       }
 
       else if (password.length < 6){
-        _output = Verse.transBake(context, 'phid_min6CharError');
+        _output = Verse.transBake('phid_min6CharError');
       }
     }
 
@@ -154,13 +154,13 @@ class Formers {
 
         final PicModel _picModel = pic;
         if (_picModel.bytes?.isEmpty == true && _picModel.path == null){
-          _message = Verse.transBake(context, 'phid_add_an_image');
+          _message = Verse.transBake('phid_add_an_image');
         }
 
       }
 
       else if (PicMaker.checkPicIsEmpty(pic) == true){
-        _message = Verse.transBake(context, 'phid_add_an_image');
+        _message = Verse.transBake('phid_add_an_image');
       }
 
     }
@@ -188,13 +188,13 @@ class Formers {
 
       /// SHORT NAME
       if (_userNameIsShort == true){
-        _message =  '${Verse.transBake(context, 'phid_name_should_be_longer_than')}'
+        _message =  '${Verse.transBake('phid_name_should_be_longer_than')}'
                     '${Standards.minUserNameLength} '
-                    '${Verse.transBake(context, 'phid_characters')}';
+                    '${Verse.transBake('phid_characters')}';
       }
       /// BAD LANG
       else if (_containsBadLang == true){
-        _message = Verse.transBake(context, 'phid_name_cannot_contain_bad_words');
+        _message = Verse.transBake('phid_name_cannot_contain_bad_words');
       }
 
       /// FOCUS ON FIELD
@@ -218,7 +218,7 @@ class Formers {
     if (canValidate == true){
 
       if (TextCheck.isEmpty(companyName) == true){
-        _message = Verse.transBake(context, 'phid_enter_business_name');
+        _message = Verse.transBake('phid_enter_business_name');
       }
 
       else {
@@ -234,14 +234,14 @@ class Formers {
         /// SHORT NAME
         if (_companyNameIsShort == true){
 
-          _message =  '${Verse.transBake(context, 'phid_name_should_be_longer_than')} '
+          _message =  '${Verse.transBake('phid_name_should_be_longer_than')} '
                       '${Standards.minCompanyNameLength} '
-                      '${Verse.transBake(context, 'phid_characters')}';
+                      '${Verse.transBake('phid_characters')}';
 
         }
         /// BAD LANG
         else if (_containsBadLang == true){
-          _message = Verse.transBake(context, 'phid_name_cannot_contain_bad_words');
+          _message = Verse.transBake('phid_name_cannot_contain_bad_words');
         }
 
       }
@@ -273,9 +273,9 @@ class Formers {
       );
 
       if (_titleIsShort == true){
-        _message =  '${Verse.transBake(context, 'phid_name_should_be_longer_than')} '
+        _message =  '${Verse.transBake('phid_name_should_be_longer_than')} '
                     '${Standards.minJobTitleLength} '
-                    '${Verse.transBake(context, 'phid_characters')}';
+                    '${Verse.transBake('phid_characters')}';
 
       }
 
@@ -305,7 +305,7 @@ class Formers {
     if (canValidate == true){
 
       if (zoneModel == null){
-        _message = Verse.transBake(context, 'phid_select_a_zone');
+        _message = Verse.transBake('phid_select_a_zone');
       }
 
       else {
@@ -316,14 +316,14 @@ class Formers {
         /// ONLY SELECTING COUNTRY ID
         if (selectCountryIDOnly == true){
           if (_countryID == null){
-            _message = Verse.transBake(context, 'phid_select_your_country');
+            _message = Verse.transBake('phid_select_your_country');
           }
         }
 
         /// ONLY SELECTING COUNTRY ID + CITY ID
         else {
           if (_countryID == null || _cityID == null){
-            _message = Verse.transBake(context, 'phid_select_country_and_city');
+            _message = Verse.transBake('phid_select_country_and_city');
           }
         }
 
@@ -358,7 +358,7 @@ class Formers {
 
       /// EMPTY
       if (TextCheck.isEmpty(_phone) == true && isRequired == true){
-        _message = Verse.transBake(context, 'phid_phone_number_should_not_be_empty');
+        _message = Verse.transBake('phid_phone_number_should_not_be_empty');
       }
 
       if (TextCheck.isEmpty(_phone) == false){
@@ -373,9 +373,9 @@ class Formers {
           );
 
           if (_startsWithCode == false){
-            _message ??=  '${Verse.transBake(context, 'phid_phone_number_in')} '
+            _message ??=  '${Verse.transBake('phid_phone_number_in')} '
                           '${zoneModel.countryName} '
-                          '${Verse.transBake(context, 'phid_should_start_with')}'
+                          '${Verse.transBake('phid_should_start_with')}'
                           '\n( $_code )';
           }
 
@@ -489,7 +489,7 @@ class Formers {
 
       /// BAD LANG
       if (_containsBadLang == true){
-        _message = Verse.transBake(context, 'phid_bad_language_is_not_allowed');
+        _message = Verse.transBake('phid_bad_language_is_not_allowed');
       }
 
       /// FOCUS ON FIELD
@@ -516,7 +516,7 @@ class Formers {
 
     if (canValidate == true){
       if (selectedSection == null){
-        _message = Verse.transBake(context, 'phid_select_the_main_field_of_business');
+        _message = Verse.transBake('phid_select_the_main_field_of_business');
       }
     }
 
@@ -533,7 +533,7 @@ class Formers {
 
     if (canValidate == true){
       if (Mapper.checkCanLoopList(selectedTypes) == false){
-        _message = Verse.transBake(context, 'phid_select_at_least_one_bz_type');
+        _message = Verse.transBake('phid_select_at_least_one_bz_type');
       }
     }
 
@@ -550,7 +550,7 @@ class Formers {
 
     if (canValidate == true){
       if (bzForm == null){
-        _message = Verse.transBake(context, 'phid_select_company_or_pro');
+        _message = Verse.transBake('phid_select_company_or_pro');
       }
     }
 
@@ -573,7 +573,7 @@ class Formers {
       );
 
       if (_hasBadWords == true){
-        _message = Verse.transBake(context, 'phid_bad_language_is_not_allowed');
+        _message = Verse.transBake('phid_bad_language_is_not_allowed');
       }
 
       /// FOCUS ON FIELD
@@ -597,7 +597,7 @@ class Formers {
 
     if (canValidate == true){
       if (Mapper.checkCanLoopList(scope) == false){
-        _message = Verse.transBake(context, 'phid_select_bz_scope_to_describe');
+        _message = Verse.transBake('phid_select_bz_scope_to_describe');
       }
 
       /// FOCUS ON FIELD
@@ -628,11 +628,11 @@ class Formers {
       final bool _isShort = headline.trim().length < Standards.flyerHeadlineMinLength;
 
       if (_isEmpty == true){
-        _message = Verse.transBake(context, 'phid_flyer_should_have_headline');
+        _message = Verse.transBake('phid_flyer_should_have_headline');
       }
 
       else if (_isShort == true){
-        _message = Verse.transBake(context, 'phid_flyer_headline_should_be_more_than_10_chars');
+        _message = Verse.transBake('phid_flyer_headline_should_be_more_than_10_chars');
       }
 
     }
@@ -653,7 +653,7 @@ class Formers {
       final bool _hasSlides = Mapper.checkCanLoopList(draftFlyer?.draftSlides);
 
       if (_hasSlides == false){
-        _message = Verse.transBake(context, 'phid_flyer_should_have_atleast_one_slide');
+        _message = Verse.transBake('phid_flyer_should_have_atleast_one_slide');
       }
 
     }
@@ -672,7 +672,7 @@ class Formers {
     if (canValidate == true){
 
       if (draft?.flyerType == null){
-        _message = Verse.transBake(context, 'phid_select_flyer_type_to_help_classification');
+        _message = Verse.transBake('phid_select_flyer_type_to_help_classification');
       }
 
     }
@@ -696,9 +696,9 @@ class Formers {
 
         if (_sizeLimitReached == true){
 
-          // _message =  '${Verse.transBake(context, 'phid_file_size_should_be_less_than')} '
+          // _message =  '${Verse.transBake('phid_file_size_should_be_less_than')} '
           //             '${Standards.maxFileSizeLimit} '
-          //             '${Verse.transBake(context, 'phid_mb')}';
+          //             '${Verse.transBake('phid_mb')}';
 
           _message = PDFModel.getSizeLine(
                                   context: context,
@@ -745,16 +745,16 @@ class Formers {
       final bool _nameHasBadWord = TextCheck.containsBadWords(text: pdfModel.name);
 
       if (_hasExtension == true){
-        _message =  '${Verse.transBake(context, 'phid_file_name_should_not_include_extension')}\n'
-            '${Verse.transBake(context, 'phid_remove_dot_pdf')}';
+        _message =  '${Verse.transBake('phid_file_name_should_not_include_extension')}\n'
+            '${Verse.transBake('phid_remove_dot_pdf')}';
       }
 
       else if (_hasDot == true) {
-        _message =  Verse.transBake(context, 'phid_file_name_should_have_no_dots');
+        _message =  Verse.transBake('phid_file_name_should_have_no_dots');
       }
 
       else if (_nameHasBadWord == true){
-        _message = Verse.transBake(context, 'phid_bad_language_is_not_allowed');
+        _message = Verse.transBake('phid_bad_language_is_not_allowed');
       }
 
     }
@@ -773,7 +773,7 @@ class Formers {
 
     if (canValidate == true){
       if (Mapper.checkCanLoopList(phids) == false){
-        _message = Verse.transBake(context, 'phid_select_flyer_phids_to_filter');
+        _message = Verse.transBake('phid_select_flyer_phids_to_filter');
       }
 
       /// FOCUS ON FIELD
@@ -800,7 +800,7 @@ class Formers {
 
     if (canValidate == true){
       if (gender == null){
-        _message = Verse.transBake(context, 'phid_select_a_gender');
+        _message = Verse.transBake('phid_select_a_gender');
       }
     }
 
@@ -826,7 +826,7 @@ class Formers {
       context: context,
       titleVerse: const Verse(id: 'phid_complete_your_profile', translate: true),
       bodyVerse: Verse(
-        id: '${Verse.transBake(context, 'phid_required_fields')}'
+        id: '${Verse.transBake('phid_required_fields')}'
               '\n$_missingFieldsString',
         translate: false,
         variables: _missingFieldsString,
@@ -893,23 +893,23 @@ class Formers {
 
     if (
     Formers.picValidator(context: context, pic: userModel?.picPath, canValidate: true) != null) {
-      _missingFields.add(Verse.transBake(context, 'phid_picture'));
+      _missingFields.add(Verse.transBake('phid_picture'));
     }
 
     if (Formers.genderValidator(context: context, gender: userModel?.gender, canValidate: true) != null) {
-      _missingFields.add(Verse.transBake(context, 'phid_gender'));
+      _missingFields.add(Verse.transBake('phid_gender'));
     }
 
     if (Formers.personNameValidator(context: context, name: userModel?.name, canValidate: true) != null) {
-      _missingFields.add(Verse.transBake(context, 'phid_name'));
+      _missingFields.add(Verse.transBake('phid_name'));
     }
 
     if (Formers.jobTitleValidator(context: context, jobTitle: userModel?.title, canValidate: true) != null) {
-      _missingFields.add(Verse.transBake(context, 'phid_job_title'));
+      _missingFields.add(Verse.transBake('phid_job_title'));
     }
 
     if (Formers.companyNameValidator(context: context, companyName: userModel?.company, canValidate: true) != null) {
-      _missingFields.add(Verse.transBake(context, 'phid_business_name'));
+      _missingFields.add(Verse.transBake('phid_business_name'));
     }
 
     if (Formers.zoneValidator(
@@ -918,7 +918,7 @@ class Formers {
       selectCountryIDOnly: false,
       canValidate: true,
     ) != null) {
-      _missingFields.add(Verse.transBake(context, 'phid_zone'));
+      _missingFields.add(Verse.transBake('phid_zone'));
     }
 
     return _missingFields;
@@ -1041,13 +1041,13 @@ class Formers {
     /// IF REQUIRED AND EMPTY
     if (picker.isRequired == true){
       if (TextCheck.isEmpty(text) == true){
-        _message = Verse.transBake(context, 'phid_this_field_can_not_be_empty');
+        _message = Verse.transBake('phid_this_field_can_not_be_empty');
       }
     }
 
     /// IF SHOULD HAVE UNIT BUT NOT YET SELECTED
     if (picker.unitChainID != null && selectedUnitID == null){
-      _message = Verse.transBake(context, 'phid_should_select_a_measurement_unit');
+      _message = Verse.transBake('phid_should_select_a_measurement_unit');
     }
 
     /// INT VALIDATION
@@ -1057,7 +1057,7 @@ class Formers {
       /// SHOULD NOT INCLUDE FRACTIONS
       final bool _includeDot = TextCheck.stringContainsSubString(string: text, subString: '.');
       if (_includeDot == true){
-        _message = Verse.transBake(context, 'phid_num_cant_include_fractions');
+        _message = Verse.transBake('phid_num_cant_include_fractions');
       }
 
     }
@@ -1091,13 +1091,13 @@ class Formers {
     /// IF REQUIRED AND EMPTY
     if (picker.isRequired == true){
       if (TextCheck.isEmpty(text) == true){
-        _message = Verse.transBake(context, 'phid_this_field_can_not_be_empty');
+        _message = Verse.transBake('phid_this_field_can_not_be_empty');
       }
     }
 
     /// IF CURRENCY NOT YET SELECTED
     if (selectedCurrencyID == null){
-      _message = Verse.transBake(context, 'phid_should_select_currency');
+      _message = Verse.transBake('phid_should_select_currency');
     }
 
     /// IF CURRENCY IS SELECTED
@@ -1150,7 +1150,7 @@ class Formers {
         );
 
         if (_hasDigits == true){
-          _message ??= Verse.transBake(context, 'phid_number_cant_have_fractions');
+          _message ??= Verse.transBake('phid_number_cant_have_fractions');
         }
 
       }
@@ -1164,9 +1164,9 @@ class Formers {
 
         if (_invalidDigits == true){
 
-          _message ??=  '${Verse.transBake(context, 'phid_number_fractions_cant_exceed')} '
+          _message ??=  '${Verse.transBake('phid_number_fractions_cant_exceed')} '
                         '$maxDigits '
-                        '${Verse.transBake(context, 'phid_fraction_digits')}';
+                        '${Verse.transBake('phid_fraction_digits')}';
 
         }
 
@@ -1190,13 +1190,13 @@ class Formers {
       final double _double = Numeric.transformStringToDouble(text);
       final int _int = Numeric.transformStringToInt(text);
       if (_double == null && _int == null){
-        _message = Verse.transBake(context, 'phid_only_numbers_is_to_be_added');
+        _message = Verse.transBake('phid_only_numbers_is_to_be_added');
       }
 
       /// EMPTY SPACES CHECK
       final String _withoutSpaces = TextMod.removeSpacesFromAString(text);
       if (text != _withoutSpaces){
-        _message = Verse.transBake(context, 'phid_cant_add_empty_spaces');
+        _message = Verse.transBake('phid_cant_add_empty_spaces');
       }
 
     }
@@ -1217,7 +1217,7 @@ class Formers {
       if (website != 'https://'){
         final bool _isURLFormat = ObjectCheck.isURLFormat(website) == true;
         if (_isURLFormat == false){
-          _message = Verse.transBake(context, 'phid_url_format_is_incorrect');
+          _message = Verse.transBake('phid_url_format_is_incorrect');
         }
       }
 
@@ -1225,7 +1225,7 @@ class Formers {
 
     /// WEBSITE IS EMPTY
     else {
-      _message = Verse.transBake(context, 'phid_this_field_can_not_be_empty');
+      _message = Verse.transBake('phid_this_field_can_not_be_empty');
     }
 
     return _message;
@@ -1254,7 +1254,7 @@ class Formers {
         final double _double = Numeric.transformStringToDouble(latOrLng);
 
         if (_double == null){
-          _message = Verse.transBake(context, 'phid_only_numbers_is_to_be_added');
+          _message = Verse.transBake('phid_only_numbers_is_to_be_added');
         }
         else {
 
@@ -1262,7 +1262,7 @@ class Formers {
             // nothing in my mind for you at this point
           }
           else {
-            _message = Verse.transBake(context, 'phid_coordinate_must_be_between_minus_90_and_90');
+            _message = Verse.transBake('phid_coordinate_must_be_between_minus_90_and_90');
           }
 
         }

@@ -230,7 +230,7 @@ class _MaximizerState extends State<_Maximizer> with SingleTickerProviderStateMi
           enAlignment: Alignment.bottomLeft,
           horizontalOffset: 10,
           verticalOffset: MediaQuery.of(context).viewInsets.bottom + 5,
-          appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+          appIsLTR: UiProvider.checkAppIsLeftToRight(),
           child: ScaleTransition(
               alignment: Alignment.bottomLeft,
               scale: _scaleAnimation,

@@ -36,7 +36,7 @@ class TextLinesAnalyzer extends StatelessWidget {
           textDirection: TextDir.autoSwitchTextDirection(
             val: text,
             context: context,
-            appIsLTR: UiProvider.checkAppIsLeftToRight(context)
+            appIsLTR: UiProvider.checkAppIsLeftToRight()
           ),
         );
 

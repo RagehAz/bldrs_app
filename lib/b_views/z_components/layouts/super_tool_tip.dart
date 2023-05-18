@@ -37,14 +37,14 @@ class SuperToolTip extends StatelessWidget {
     else {
       return Tooltip(
         /// TEXT
-        message: Verse.bakeVerseToString(context: context, verse: verse),
+        message: Verse.bakeVerseToString(verse: verse),
         // richMessage: ,
 
         /// SCALE
         height: 70,
         margin: Scale.superInsets(
           context: context,
-          appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+          appIsLTR: UiProvider.checkAppIsLeftToRight(),
           enLeft: Ratioz.appBarMargin,
           enRight: Ratioz.appBarMargin * 5,
           top: 20,

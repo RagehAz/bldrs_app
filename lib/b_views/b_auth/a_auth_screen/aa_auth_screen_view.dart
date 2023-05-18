@@ -98,10 +98,10 @@ class AuthScreenView extends StatelessWidget {
         LegalDisclaimerLine(
           onPolicyTap: () => onPrivacyTap(context),
           onTermsTap: () => onTermsAndTap(context),
-          disclaimerLine: Verse.transBake(context, 'phid_by_using_bldrs_you_agree_to_our'),
-          andLine: Verse.transBake(context, 'phid_and'),
-          policyLine: Verse.transBake(context, 'phid_privacy_policy'),
-          termsLine: Verse.transBake(context, 'phid_terms_of_service'),
+          disclaimerLine: Verse.transBake('phid_by_using_bldrs_you_agree_to_our'),
+          andLine: Verse.transBake('phid_and'),
+          policyLine: Verse.transBake('phid_privacy_policy'),
+          termsLine: Verse.transBake('phid_terms_of_service'),
         ),
 
       ],

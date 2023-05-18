@@ -368,7 +368,7 @@ class BldrsShareLink{
     );
 
     final String _flyerTypeTranslation = await PhraseProtocols.translate(
-      langCode: langCode ?? Localizer.getCurrentLangCode(context),
+      langCode: langCode ?? Localizer.getCurrentLangCode(),
       phid: _phid,
     );
 

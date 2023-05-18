@@ -101,7 +101,7 @@ class TargetProgressBar extends StatelessWidget {
                   BldrsBox(
                     height: _iconsHeight,
                     icon: Iconz.flyer,
-                    verse: Verse.plain('${target.reward.slides} ${xPhrase( context, 'phid_slides')}'),
+                    verse: Verse.plain('${target.reward.slides} ${xPhrase('phid_slides')}'),
                     iconSizeFactor: 0.75,
                     verseScaleFactor: 0.55,
                     verseWeight: VerseWeight.thin,
@@ -113,7 +113,7 @@ class TargetProgressBar extends StatelessWidget {
                   BldrsBox(
                     height: _iconsHeight,
                     icon: Iconz.save,
-                    verse: Verse.plain('${target.reward.ankh} ${xPhrase( context, 'phid_ankhs')}'),
+                    verse: Verse.plain('${target.reward.ankh} ${xPhrase('phid_ankhs')}'),
                     iconSizeFactor: 0.75,
                     verseScaleFactor: 0.55,
                     verseWeight: VerseWeight.thin,

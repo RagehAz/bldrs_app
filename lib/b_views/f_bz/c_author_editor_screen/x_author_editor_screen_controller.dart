@@ -404,10 +404,10 @@ Future<void> onChangeAuthorRoleOps({
         translate: true,
       ),
       bodyVerse: Verse(
-        id: '${Verse.transBake(context, 'phid_this_will_change_the_role_of')}\n'
+        id: '${Verse.transBake('phid_this_will_change_the_role_of')}\n'
               '${oldAuthor.name}\n'
-              '${Verse.transBake(context, 'phid_to')}'
-              '${Verse.transBake(context, _rolePhid)}',
+              '${Verse.transBake('phid_to')}'
+              '${Verse.transBake(_rolePhid)}',
         translate: false,
       ),
       boolDialog: true,

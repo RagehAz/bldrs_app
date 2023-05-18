@@ -62,7 +62,7 @@ class _SectionsMenuState extends State<SectionsMenu> {
         ),
         margin: Scale.superInsets(
           context: context,
-          appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+          appIsLTR: UiProvider.checkAppIsLeftToRight(),
           bottom: isBig ? SectionsMenu.extraBottomMargin : 0,
         ),
         /// for ths shuttering button to be positioned while animation

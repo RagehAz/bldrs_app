@@ -90,7 +90,7 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
         scrollDirection: Axis.horizontal,
         padding: Scale.superInsets(
           context: context,
-          appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+          appIsLTR: UiProvider.checkAppIsLeftToRight(),
           enLeft: Ratioz.appBarMargin,
           enRight: _flyerBoxWidth,
         ),

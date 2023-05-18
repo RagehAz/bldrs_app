@@ -204,7 +204,7 @@ class AboutBzBubbles extends StatelessWidget {
         if (showGallery == true)
           BldrsText(
             verse: Verse(
-              id: '${xPhrase(context, 'phid_published_flyers_by')} ${bzModel?.name}',
+              id: '${xPhrase('phid_published_flyers_by')} ${bzModel?.name}',
               translate: false,
             ),
             centered: false,

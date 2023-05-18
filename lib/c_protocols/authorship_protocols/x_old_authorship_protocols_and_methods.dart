@@ -445,7 +445,7 @@
 //         pushWaitDialog(
 //           context: context,
 //           verse: Verse(
-//             text: '${Verse.transBake(context, 'phid_removing')} ${authorModel.name}',
+//             text: '${Verse.transBake('phid_removing')} ${authorModel.name}',
 //             translate: false,
 //           ),
 //         );
@@ -527,13 +527,13 @@
 //         translate: true,
 //       ),
 //       bodyVerse: Verse(
-//         text: '${authorModel.flyersIDs.length} ${Verse.transBake(context, 'flyers_will_be_permanently_deleted')}',
+//         text: '${authorModel.flyersIDs.length} ${Verse.transBake('flyers_will_be_permanently_deleted')}',
 //         translate: false,
 //       ),
 //       height: 400,
 //       boolDialog: true,
 //       confirmButtonVerse: Verse(
-//         text: '${Verse.transBake(context, 'delete_flyers_and_remove')} ${authorModel.name}',
+//         text: '${Verse.transBake('delete_flyers_and_remove')} ${authorModel.name}',
 //         translate: false,
 //       ),
 //       child: Container(

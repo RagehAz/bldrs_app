@@ -182,7 +182,7 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
     //                               * -1;
 
     // final double _rtlLeftShift = _ltrLeftShift + Scale.screenWidth(context);
-    // final bool _appIsLTR = UiProvider.checkAppIsLeftToRight(context);
+    // final bool _appIsLTR = UiProvider.checkAppIsLeftToRight();
     // final double _horizontalShift = _appIsLTR == true ? _ltrLeftShift : _rtlLeftShift;
     // final double _verticalShift   = _ltrLeftShift;
 
@@ -251,7 +251,7 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
 
                         final FlyerType _flyerType = FlyerTyper.decipherFlyerType(_linesMaps[index]['verse']);
                         final String _phid = FlyerTyper.getFlyerTypePhid(flyerType: _flyerType);
-                        final String _translation = Verse.transBake(context, _phid);
+                        final String _translation = Verse.transBake(_phid);
 
                         return AnimatedBar(
                           curvedAnimation: _linesControllers[index],

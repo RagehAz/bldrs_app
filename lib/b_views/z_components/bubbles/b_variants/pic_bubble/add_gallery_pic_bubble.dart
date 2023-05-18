@@ -62,14 +62,14 @@ class AddImagePicBubble extends StatelessWidget {
     return
       bubbleType == BubbleType.bzLogo ?
       Borderers.shapeOfLogo(
-          appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+          appIsLTR: UiProvider.checkAppIsLeftToRight(),
           corner: corner,
           zeroCornerEnIsRight: true
       )
           :
       bubbleType == BubbleType.authorPic ?
       Borderers.shapeOfLogo(
-          appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+          appIsLTR: UiProvider.checkAppIsLeftToRight(),
           corner: corner,
           zeroCornerEnIsRight: false
       )
@@ -207,14 +207,14 @@ class _FilePicSplitter extends StatelessWidget {
     return
       bubbleType == BubbleType.bzLogo ?
       Borderers.shapeOfLogo(
-          appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+          appIsLTR: UiProvider.checkAppIsLeftToRight(),
           corner: corner,
           zeroCornerEnIsRight: true
       )
           :
       bubbleType == BubbleType.authorPic ?
       Borderers.shapeOfLogo(
-          appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+          appIsLTR: UiProvider.checkAppIsLeftToRight(),
           corner: corner,
           zeroCornerEnIsRight: false
       )
@@ -507,7 +507,7 @@ class _PlusIconLayer extends StatelessWidget {
 //                             height: picWidth,
 //                             alignment: Aligners.superInverseBottomAlignment(context),
 //                             child: SuperVerse(
-//                               verse:  '${fileModel.size} ${xPhrase( context, 'phid_mb')}',
+//                               verse:  '${fileModel.size} ${xPhrase('phid_mb')}',
 //                               size: 1,
 //                               centered: false,
 //                               shadow: true,

@@ -196,12 +196,12 @@ class PDFModel {
   }){
 
     // Mb / 3 Mb
-    final String _mb = Verse.transBake(context, 'phid_mb');
+    final String _mb = Verse.transBake('phid_mb');
 
     if (sizeLimitReached == true){
 
       return Verse(
-        id: '${Verse.transBake(context, 'phid_max_limit_reached')} : $size$_mb / $maxSize $_mb',
+        id: '${Verse.transBake('phid_max_limit_reached')} : $size$_mb / $maxSize $_mb',
         translate: false,
       );
 
@@ -210,7 +210,7 @@ class PDFModel {
     else {
 
       return Verse(
-        id: '${Verse.transBake(context, 'phid_file_size')} : $size$_mb / $maxSize $_mb',
+        id: '${Verse.transBake('phid_file_size')} : $size$_mb / $maxSize $_mb',
         translate: false,
       );
 

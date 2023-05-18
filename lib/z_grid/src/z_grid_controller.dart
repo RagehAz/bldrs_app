@@ -177,7 +177,7 @@ class ZGridController {
       matrix: ZGridScale._getZoomMatrix(
         context: context,
         rowIndex: 0,
-        columnIndex: UiProvider.checkAppIsLeftToRight(context) ? _ltrIndex : _reverseIndex,
+        columnIndex: UiProvider.checkAppIsLeftToRight() ? _ltrIndex : _reverseIndex,
         columnCount: gridScale.columnCount,
         gridWidth: gridScale.gridWidth,
         topPaddingOnZoomIn: gridScale.topPaddingOnZoomIn,

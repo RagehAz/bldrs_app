@@ -259,15 +259,14 @@ class EmailAuthScreenView extends StatelessWidget {
                 onPolicyTap: () => onPrivacyTap(context),
                 onTermsTap: () => onTermsAndTap(context),
                 disclaimerLine: Verse.transBake(
-                  context,
                   _isSigningIn == true ?
                   'phid_by_using_bldrs_you_agree_to_our'
                       :
                   'phid_by_signing_up_you_agree_to_our',
                 ),
-                andLine: Verse.transBake(context, 'phid_and'),
-                policyLine: Verse.transBake(context, 'phid_privacy_policy'),
-                termsLine: Verse.transBake(context, 'phid_terms_of_service'),
+                andLine: Verse.transBake('phid_and'),
+                policyLine: Verse.transBake('phid_privacy_policy'),
+                termsLine: Verse.transBake('phid_terms_of_service'),
               ),
 
               const Horizon(),

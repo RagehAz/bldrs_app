@@ -553,9 +553,10 @@ class NewAuthorshipExit {
     @required bool isBzDeleted,
   }) {
 
-    final String _waitText = isBzDeleted == true
-      ? Verse.transBake(context, 'phid_removing_bz')
-      : Verse.transBake(context, 'phid_removing_author');
+    final String _waitText = isBzDeleted == true ?
+    Verse.transBake('phid_removing_bz')
+      :
+    Verse.transBake('phid_removing_author');
 
     pushWaitDialog(
         context: context,

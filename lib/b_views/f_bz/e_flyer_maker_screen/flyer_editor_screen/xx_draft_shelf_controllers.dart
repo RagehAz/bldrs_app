@@ -421,7 +421,7 @@ String flyerHeadlineValidator({
 
   /// WHEN HEADLINE EXCEEDS MAX CHAR LENGTH
   if(val.length >= Standards.flyerHeadlineMaxLength){
-    final String _error = '${Verse.transBake(context, 'phid_headline_cant_be_more_than')}\n'
+    final String _error = '${Verse.transBake('phid_headline_cant_be_more_than')}\n'
                           '${Standards.flyerHeadlineMaxLength}';
 
     return _error;

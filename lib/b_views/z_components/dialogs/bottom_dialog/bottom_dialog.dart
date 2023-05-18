@@ -164,7 +164,7 @@ class BottomDialog extends StatelessWidget {
   // --------------------
   static BorderRadius dialogCorners(BuildContext context) {
     final BorderRadius _dialogCorners = Borderers.cornerOnly(
-      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+      appIsLTR: UiProvider.checkAppIsLeftToRight(),
       enTopLeft: Ratioz.bottomSheetCorner,
       enBottomLeft: 0,
       enBottomRight: 0,
@@ -179,7 +179,7 @@ class BottomDialog extends StatelessWidget {
   // --------------------
   static BorderRadius dialogClearCorners(BuildContext context) {
     final BorderRadius _corners = Borderers.cornerOnly(
-      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+      appIsLTR: UiProvider.checkAppIsLeftToRight(),
       enBottomRight: 0,
       enBottomLeft: 0,
       enTopRight: dialogClearCornerValue(),
@@ -201,7 +201,7 @@ class BottomDialog extends StatelessWidget {
     await showModalBottomSheet(
         shape: RoundedRectangleBorder(
             borderRadius: Borderers.cornerOnly(
-              appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+              appIsLTR: UiProvider.checkAppIsLeftToRight(),
               enTopLeft: Ratioz.bottomSheetCorner,
               enBottomLeft: 0,
               enBottomRight: 0,

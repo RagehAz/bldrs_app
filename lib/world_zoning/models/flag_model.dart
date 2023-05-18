@@ -364,7 +364,7 @@ class Flag {
   /// TESTED : WORKS PERFECT
   static String translateCountry({
     @required String countryID,
-    @required String langCode, // Localizer.getCurrentLangCode(context)
+    @required String langCode, // Localizer.getCurrentLangCode()
   }){
 
     final Phrase _phrase = getCountryPhrase(

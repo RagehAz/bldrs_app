@@ -114,7 +114,7 @@ class FlyerSelectionStack extends StatelessWidget {
               enAlignment: Alignment.bottomRight,
               verticalOffset: FlyerDim.footerButtonMarginValue(flyerBoxWidth,),
               horizontalOffset: FlyerDim.footerButtonMarginValue(flyerBoxWidth,),
-              appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+              appIsLTR: UiProvider.checkAppIsLeftToRight(),
               child: FooterButton(
                 icon: Iconz.more,
                 phid: 'phid_more',

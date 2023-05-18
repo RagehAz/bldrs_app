@@ -265,14 +265,14 @@ class ZoneModel {
     // zoneModel?.blogZone(invoker: 'translateZoneString');
 
     String _text = '...';
-    final String _inn = xPhrase(context, 'phid_inn');
+    final String _inn = xPhrase('phid_inn');
 
     if (zoneModel != null){
 
       if (zoneModel.countryID != null){
 
         final String _countryName = Flag.translateCountry(
-          langCode: Localizer.getCurrentLangCode(context),
+          langCode: Localizer.getCurrentLangCode(),
           countryID: zoneModel.countryID,
         );
 
@@ -306,12 +306,12 @@ class ZoneModel {
     @required ZoneModel zone,
   }){
 
-    String _line = xPhrase(context, 'phid_select_a_country');
+    String _line = xPhrase('phid_select_a_country');
 
     if (zone != null){
 
       final String _countryName = Flag.translateCountry(
-        langCode: Localizer.getCurrentLangCode(context),
+        langCode: Localizer.getCurrentLangCode(),
         countryID: zone.countryID,
       );
 

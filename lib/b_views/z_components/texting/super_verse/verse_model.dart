@@ -3,7 +3,6 @@ import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
-import 'package:provider/provider.dart';
 import 'package:stringer/stringer.dart';
 
 enum Casing {
@@ -149,10 +148,7 @@ class Verse {
 
       for (final Verse verse in verses){
 
-        final String _baked = bakeVerseToString(
-            context: context,
-            verse: verse
-        );
+        final String _baked = bakeVerseToString(verse: verse);
 
         _output.add(_baked);
 
@@ -199,7 +195,7 @@ class Verse {
 
     if (TextCheck.isEmpty(verse.id) == false && verse.translate == true){
 
-      final String _translation = xPhrase(context, verse.id);
+      final String _translation = xPhrase(verse.id);
       if (_translation == null){
         _shouldButNotFound = true;
       }
@@ -230,9 +226,7 @@ class Verse {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String bakeVerseToString({
-    @required BuildContext context,
     @required Verse verse,
-    PhraseProvider phrasePro,
   }){
 
     String _output;
@@ -252,8 +246,7 @@ class Verse {
           final bool _isHeadline = Phider.checkVerseIsHeadline(_output);
           if (_isPhid == true || _isCurrency == true || _isHeadline == true){
 
-            final PhraseProvider _phraseProvider = phrasePro ?? Provider.of<PhraseProvider>(context, listen: false);
-            final String _foundXPhrase = xPhrase(context, verse.id, phrasePro: _phraseProvider);
+            final String _foundXPhrase = xPhrase(verse.id);
 
             /// X PHRASE NOT FOUND
             if (_foundXPhrase == null){
@@ -295,10 +288,8 @@ class Verse {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String transBake(BuildContext context, String phid, {PhraseProvider phrasePro}){
+  static String transBake(String phid){
     return Verse.bakeVerseToString(
-      phrasePro: phrasePro,
-      context: context,
       verse: Verse(
         id: phid,
         translate: true,

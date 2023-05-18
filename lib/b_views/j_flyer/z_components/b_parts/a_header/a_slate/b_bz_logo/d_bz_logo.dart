@@ -41,7 +41,7 @@ class BzLogo extends StatelessWidget {
       zeroCornerIsOn: zeroCornerIsOn,
     );
     // --------------------
-    final bool _appIsLTR = UiProvider.checkAppIsLeftToRight(context);
+    final bool _appIsLTR = UiProvider.checkAppIsLeftToRight();
     // --------------------
     return Center(
       child: SizedBox(

@@ -47,12 +47,12 @@ class SelectedPhidsBar extends StatelessWidget {
     final double _screenWidth = Scale.screenWidth(context);
     // --------------------
     final String _screenTitle = selectedPhids.isEmpty ?
-    xPhrase(context, 'phid_select_keywords')
+    xPhrase('phid_select_keywords')
         :
     selectedPhids.length == 1 ?
-    xPhrase(context, 'phid_selected')
+    xPhrase('phid_selected')
         :
-    '${selectedPhids.length} ${xPhrase(context, 'phid_selected')}';
+    '${selectedPhids.length} ${xPhrase('phid_selected')}';
     // --------------------
     return Bubble(
       width: _screenWidth,

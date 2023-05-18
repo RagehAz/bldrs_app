@@ -229,7 +229,7 @@ class Localizer {
   /// TESTED : WORKS PERFECT
   static Future<void> switchBetweenArabicAndEnglish(BuildContext context) async {
 
-    if (getCurrentLangCode(context) == Lang.englishLingo.code){
+    if (getCurrentLangCode() == Lang.englishLingo.code){
       await changeAppLanguage(context, Lang.arabicLingo.code);
     }
 
@@ -277,7 +277,7 @@ class Localizer {
   /// TESTED : WORKS PERFECT
   static bool appIsArabic(BuildContext context) {
 
-    if (getCurrentLangCode(context) == Lang.arabicLingo.code) {
+    if (getCurrentLangCode() == Lang.arabicLingo.code) {
       return true;
     }
 
@@ -312,8 +312,8 @@ class Localizer {
   /// GETTERS
 
   // --------------------
-  static String getCurrentLangCode(BuildContext context){
-    return Words.languageCode(context);
+  static String getCurrentLangCode(){
+    return Words.languageCode();
   }
   // -----------------------------------------------------------------------------
 }

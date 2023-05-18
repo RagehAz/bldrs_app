@@ -190,7 +190,6 @@ class BldrsTextField extends StatelessWidget {
       isFormField: isFormField,
       initialValue: initialValue,
       hintText: Verse.bakeVerseToString(
-        context: context,
         verse: hintVerse,
       ),
       autofocus: autofocus,
@@ -234,7 +233,7 @@ class BldrsTextField extends StatelessWidget {
       letterSpacing: BldrsText.superVerseLetterSpacing(textWeight, _verseSizeValue),
       wordSpacing: BldrsText.superVerseWordSpacing(_verseSizeValue),
       scrollPadding: _scrollPadding,
-      textFont: BldrsText.superVerseFont(context, textWeight),
+      textFont: BldrsText.superVerseFont(textWeight),
 
       /// functions
       onTap: onTap,
@@ -245,7 +244,7 @@ class BldrsTextField extends StatelessWidget {
       validator: validator,
 
       isObscured: isObscured,
-      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+      appIsLTR: UiProvider.checkAppIsLeftToRight(),
 
       textPadding: EdgeInsets.all(_textFieldPadding),
       errorTextColor: Colorz.red255,
