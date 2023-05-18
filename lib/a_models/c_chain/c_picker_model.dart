@@ -93,6 +93,7 @@ class PickerModel {
         map: _output,
         key: 'chainID',
         value: chainID,
+        overrideExisting: true,
       );
     }
 
@@ -137,6 +138,7 @@ class PickerModel {
           value: picker._toMap(
             // includeChainID: false
           ),
+          overrideExisting: true,
         );
 
       }

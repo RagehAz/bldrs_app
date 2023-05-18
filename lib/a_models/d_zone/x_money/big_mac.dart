@@ -71,6 +71,7 @@ class BigMac {
           map: _bigMacsMap,
           key: mac.countryID,
           value: mac.toMap(),
+          overrideExisting: true,
         );
       }
     }

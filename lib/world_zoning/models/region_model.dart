@@ -42,6 +42,7 @@ class Region {
           map: _map,
           value: region.toMap(),
           key: region.name,
+          overrideExisting: true,
         );
       }
     }

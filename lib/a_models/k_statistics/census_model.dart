@@ -328,9 +328,10 @@ class CensusModel {
     if (toLDB == true){
 
       _map = Mapper.insertPairInMap(
-          map: _map,
-          key: 'id',
-          value: id,
+        map: _map,
+        key: 'id',
+        value: id,
+        overrideExisting: true,
       );
 
     }
@@ -605,9 +606,10 @@ class CensusModel {
     if (userModel?.need?.needType != null){
       /// NEED TYPES
       _map = Mapper.insertPairInMap(
-          map: _map,
-          key: CensusModel.getNeedTypeFieldName(userModel?.need?.needType),
-          value: _increment,
+        map: _map,
+        key: CensusModel.getNeedTypeFieldName(userModel?.need?.needType),
+        value: _increment,
+        overrideExisting: true,
       );
     }
 
@@ -634,9 +636,10 @@ class CensusModel {
 
         for (final BzType bzType in bzModel.bzTypes){
           _map = Mapper.insertPairInMap(
-              map: _map,
-              key: CensusModel.getFollowBzTypeFieldName(bzType),
-              value: _increment,
+            map: _map,
+            key: CensusModel.getFollowBzTypeFieldName(bzType),
+            value: _increment,
+            overrideExisting: true,
           );
         }
 
@@ -667,9 +670,10 @@ class CensusModel {
     final Map<String, dynamic> _map = {};
 
     return Mapper.insertPairInMap(
-        map: _map,
-        key: CensusModel.getFlyerSaveFieldName(flyerModel.flyerType),
-        value: _increment,
+      map: _map,
+      key: CensusModel.getFlyerSaveFieldName(flyerModel.flyerType),
+      value: _increment,
+      overrideExisting: true,
     );
   }
   // --------------------
@@ -696,32 +700,36 @@ class CensusModel {
 
     /// SECTION
     _map = Mapper.insertPairInMap(
-        map: _map,
-        key: CensusModel.getBzSectionFieldName(BzTyper.concludeBzSectionByBzTypes(bzModel.bzTypes)),
-        value: _increment
+      map: _map,
+      key: CensusModel.getBzSectionFieldName(BzTyper.concludeBzSectionByBzTypes(bzModel.bzTypes)),
+      value: _increment,
+      overrideExisting: true,
     );
 
     /// TYPE
     for (final BzType bzType in bzModel.bzTypes){
       _map = Mapper.insertPairInMap(
-          map: _map,
-          key: CensusModel.getBzTypeFieldName(bzType),
-          value: _increment,
+        map: _map,
+        key: CensusModel.getBzTypeFieldName(bzType),
+        value: _increment,
+        overrideExisting: true,
       );
     }
 
     /// FORM
     _map = Mapper.insertPairInMap(
-        map: _map,
-        key: CensusModel.getBzFormFieldName(bzModel.bzForm),
-        value: _increment,
+      map: _map,
+      key: CensusModel.getBzFormFieldName(bzModel.bzForm),
+      value: _increment,
+      overrideExisting: true,
     );
 
     /// ACCOUNT TYPE
     _map = Mapper.insertPairInMap(
-        map: _map,
-        key: CensusModel.getBzAccountTypeFieldName(bzModel.accountType),
-        value: _increment,
+      map: _map,
+      key: CensusModel.getBzAccountTypeFieldName(bzModel.accountType),
+      value: _increment,
+      overrideExisting: true,
     );
 
     return _map;
@@ -748,9 +756,10 @@ class CensusModel {
         for (final BzType bzType in bzModel.bzTypes){
 
           _map = Mapper.insertPairInMap(
-              map: _map,
-              key: CensusModel.getCallBzTypeFieldName(bzType),
-              value: _increment,
+            map: _map,
+            key: CensusModel.getCallBzTypeFieldName(bzType),
+            value: _increment,
+            overrideExisting: true,
           );
         }
 
@@ -826,9 +835,10 @@ class CensusModel {
 
     /// FLYER TYPE
     return Mapper.insertPairInMap(
-        map: _map,
-        key: CensusModel.getFlyerTypeFieldName(flyerModel.flyerType),
-        value: _increment,
+      map: _map,
+      key: CensusModel.getFlyerTypeFieldName(flyerModel.flyerType),
+      value: _increment,
+      overrideExisting: true,
     );
 
   }
@@ -856,9 +866,10 @@ class CensusModel {
         /// WHEN KEY IS ABSENT
         if (input[_key] == null){
           _output = Mapper.insertPairInMap(
-              map: _output,
-              key: _key,
-              value: 0, /// ADD NO INCREMENTATION IN THIS FIELD
+            map: _output,
+            key: _key,
+            value: 0, /// ADD NO INCREMENTATION IN THIS FIELD
+            overrideExisting: true,
           );
         }
 
@@ -868,6 +879,7 @@ class CensusModel {
             map: _output,
             key: _key,
             value: input[_key], /// ADD THE FIELD THAT'S ALREADY DEFINED BY PREVIOUS METHODS
+            overrideExisting: true,
           );
         }
 

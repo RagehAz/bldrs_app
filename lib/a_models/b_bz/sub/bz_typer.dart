@@ -104,9 +104,10 @@ class BzTyper {
         final String _ciphered = cipherBzType(bzType);
 
         _output = Mapper.insertPairInMap(
-            map: _output,
-            key: _ciphered,
-            value: true,
+          map: _output,
+          key: _ciphered,
+          value: true,
+          overrideExisting: true,
         );
 
       }
