@@ -379,7 +379,7 @@ class BldrsNav {
 
     if (routeName != null) {
       UiProvider.proSetAfterHomeRoute(
-        context: context,
+        context: getMainContext(),
         routeName: routeName,
         arguments: arguments,
         notify: true,
@@ -387,7 +387,7 @@ class BldrsNav {
     }
 
     await Nav.pushNamedAndRemoveAllBelow(
-      context: context,
+      context: getMainContext(),
       goToRoute: Routing.staticLogoScreen,
     );
 

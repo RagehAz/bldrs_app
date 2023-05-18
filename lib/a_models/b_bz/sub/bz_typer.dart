@@ -944,8 +944,8 @@ class BzTyper {
       case BzType.contractor: return BzSection.construction; break;
       case BzType.artisan: return BzSection.construction; break;
 
-      case BzType.supplier: return BzSection.construction; break;
-      case BzType.manufacturer: return BzSection.construction; break;
+      case BzType.supplier: return BzSection.supplies; break;
+      case BzType.manufacturer: return BzSection.supplies; break;
 
       default : return null;
     }
