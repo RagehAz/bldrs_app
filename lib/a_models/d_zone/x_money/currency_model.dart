@@ -88,6 +88,7 @@ class CurrencyModel {
           map: _map,
           key: currency.id,
           value: currency.toMap(),
+          overrideExisting: true,
         );
       }
 
@@ -95,6 +96,7 @@ class CurrencyModel {
         map: _map,
         key: 'id',
         value: currenciesMapID,
+        overrideExisting: true,
       );
 
     }

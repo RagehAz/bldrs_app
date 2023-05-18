@@ -116,6 +116,7 @@ class ContactModel {
             map: _map,
             key: _cipherContactType(contact.type),
             value: contact.value,
+            overrideExisting: true,
           );
         }
       }

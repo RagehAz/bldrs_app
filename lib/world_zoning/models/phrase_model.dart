@@ -87,6 +87,7 @@ class Phrase {
         map: _map,
         key: 'id',
         value: id,
+        overrideExisting: true,
       );
 
     }
@@ -100,6 +101,7 @@ class Phrase {
           map: _map,
           key: 'langCode',
           value: overrideLangCode ?? langCode,
+          overrideExisting: true,
         );
       }
 
@@ -113,6 +115,7 @@ class Phrase {
       _map = Mapper.insertPairInMap(
         map: _map,
         key: 'trigram',
+        overrideExisting: true,
         value: _trigramExists ?
         trigram
             :
@@ -170,6 +173,7 @@ class Phrase {
           map: _map,
           key: phrase.id,
           value: phrase.value,
+          overrideExisting: true,
         );
 
       }
@@ -246,6 +250,7 @@ class Phrase {
           map: _output,
           key: phrase.langCode,
           value: phrase.value,
+          overrideExisting: true,
         );
 
       }
@@ -331,6 +336,7 @@ class Phrase {
             includeLangCode: true,
             includeTrigram: true,
           ),
+          overrideExisting: true,
         );
 
       }
@@ -415,6 +421,7 @@ class Phrase {
             phid: phrase.id,
             langCode: phrase.langCode,
           ),
+          overrideExisting: true,
         );
 
         _maps.add(_map);

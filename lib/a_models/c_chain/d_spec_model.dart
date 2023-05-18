@@ -67,6 +67,7 @@ class SpecModel {
             map: _map,
             key: spec.pickerChainID,
             value: spec.value,
+            overrideExisting: true,
           );
         }
 

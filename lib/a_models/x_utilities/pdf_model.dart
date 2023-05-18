@@ -80,9 +80,10 @@ class PDFModel {
 
     if (includeBytes == true){
       _map = Mapper.insertPairInMap(
-          map: _map,
-          key: 'bytes',
-          value: Floaters.getIntsFromUint8List(bytes)
+        map: _map,
+        key: 'bytes',
+        value: Floaters.getIntsFromUint8List(bytes),
+        overrideExisting: true,
       );
     }
 

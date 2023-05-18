@@ -42,6 +42,7 @@ class PublishTime {
           map: _outPut,
           key: FlyerModel.cipherPublishState(time.state),
           value: Timers.cipherTime(time: time.time, toJSON: toJSON),
+          overrideExisting: true,
         );
       }
     }

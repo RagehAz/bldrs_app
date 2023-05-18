@@ -143,9 +143,10 @@ class Staging {
 
     if (toLDB) {
       _map = Mapper.insertPairInMap(
-          map: _map,
-          key: 'id',
-          value: id,
+        map: _map,
+        key: 'id',
+        value: id,
+        overrideExisting: true,
       );
     }
 
