@@ -361,19 +361,19 @@ class BzTyper {
 
     // Stringer.blogStrings(strings: _bzTypesPhids, invoker: 'translateBzTypesIntoString');
 
-    final List<String> _typesTranslated = xPhrases(context, _bzTypesPhids);
+    final List<String> _typesTranslated = xPhrases(_bzTypesPhids);
 
     final String _bzTypesOneString = Stringer.generateStringFromStrings(
       strings: _typesTranslated,
     );
 
     final String _bzFormPhid = getBzFormPhid(bzForm);
-    final String _formTranslated = xPhrase(context, _bzFormPhid);
+    final String _formTranslated = xPhrase(_bzFormPhid);
 
     String _output = '$_bzTypesOneString\n$_formTranslated';
 
     /// ENGLISH
-    if (UiProvider.checkAppIsLeftToRight(context) == false){
+    if (UiProvider.checkAppIsLeftToRight() == false){
 
       if (oneLine == true){
         _output = '$_formTranslated, $_bzTypesOneString';

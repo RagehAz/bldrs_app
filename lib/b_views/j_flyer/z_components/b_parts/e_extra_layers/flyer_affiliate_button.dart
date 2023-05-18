@@ -93,7 +93,7 @@ class FlyerAffiliateButton extends StatelessWidget {
             infoButtonExpanded: false,
             hasLink: false,
           ),
-          appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+          appIsLTR: UiProvider.checkAppIsLeftToRight(),
           child: _button,
         );
       }

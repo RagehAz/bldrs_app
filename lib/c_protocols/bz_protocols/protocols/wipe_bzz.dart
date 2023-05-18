@@ -50,7 +50,7 @@ class WipeBzProtocols {
       pushWaitDialog(
         context: getMainContext(),
         verse: Verse(
-          id: '${Verse.transBake(getMainContext(), 'phid_deleting')} ${bzModel.name}',
+          id: '${Verse.transBake('phid_deleting')} ${bzModel.name}',
           translate: false,
           variables: bzModel.name,
         ),
@@ -142,9 +142,9 @@ class WipeBzProtocols {
 
     if (showWaitDialog == true){
 
-      final String _text =  '${Verse.transBake(getMainContext(), 'phid_deleting')} '
+      final String _text =  '${Verse.transBake('phid_deleting')} '
                             '${bzModel.flyersIDs.length} '
-                            '${Verse.transBake(getMainContext(), 'phid_flyers')}';
+                            '${Verse.transBake('phid_flyers')}';
 
       pushWaitDialog(
         context: getMainContext(),

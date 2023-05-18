@@ -400,7 +400,7 @@ class _TheDeck extends StatelessWidget {
 
             return SuperPositioned(
               enAlignment: Alignment.centerLeft,
-              appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+              appIsLTR: UiProvider.checkAppIsLeftToRight(),
               horizontalOffset: FlyerDeck._getSlideOffset(
                 context: context,
                 deckWidth: _deckWidth,

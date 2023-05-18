@@ -24,7 +24,7 @@ class FlyerLoading extends StatelessWidget {
   int _getRotation(BuildContext context){
 
     /// LEFT => RIGHT
-    if (UiProvider.checkAppIsLeftToRight(context) == true){
+    if (UiProvider.checkAppIsLeftToRight() == true){
 
       if (direction == Axis.horizontal){
         /// THING GOES RIGHT TO LEFT

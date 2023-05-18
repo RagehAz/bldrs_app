@@ -134,7 +134,7 @@ class NewSlideImagePickerButton extends StatelessWidget {
     final double _topCorners = _topFlyerCorners - _spacing;
 
     final BorderRadius _upperBoxCorners = Borderers.cornerOnly(
-      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+      appIsLTR: UiProvider.checkAppIsLeftToRight(),
       enTopLeft: _topCorners,
       enTopRight: _topCorners,
       enBottomRight: _topCorners,
@@ -142,7 +142,7 @@ class NewSlideImagePickerButton extends StatelessWidget {
     );
 
     final BorderRadius _bottomBoxCorners = Borderers.cornerOnly(
-      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+      appIsLTR: UiProvider.checkAppIsLeftToRight(),
       enTopLeft: _topCorners,
       enTopRight: _topCorners,
       enBottomRight: _bottomFlyerCorners - _spacing,

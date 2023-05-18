@@ -357,10 +357,10 @@ Future<void> setActivePhidK({
         flyerType: flyerType
     );
 
-    final String _title = '${Verse.transBake(context, 'phid_flyers_of')} '
-                          '${Verse.transBake(context, _flyerTypePhid)} '
-                          '${Verse.transBake(context, 'phid_are_not_available')} '
-                          '${Verse.transBake(context, 'phid_inn')} '
+    final String _title = '${Verse.transBake('phid_flyers_of')} '
+                          '${Verse.transBake(_flyerTypePhid)} '
+                          '${Verse.transBake('phid_are_not_available')} '
+                          '${Verse.transBake('phid_inn')} '
                           '$_cityName';
 
     await CenterDialog.showCenterDialog(

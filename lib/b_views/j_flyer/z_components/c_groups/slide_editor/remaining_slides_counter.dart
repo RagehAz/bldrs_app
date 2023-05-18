@@ -21,7 +21,7 @@ class RemainingSlidesCounter extends StatelessWidget {
       // width: Ratioz.appBarButtonSize * 1.3,
       verse: Verse(
           id: '$_numberOfSlides '
-                '${Verse.transBake(context, 'phid_slides')}',
+                '${Verse.transBake('phid_slides')}',
           translate: false
       ),
       verseItalic: true,

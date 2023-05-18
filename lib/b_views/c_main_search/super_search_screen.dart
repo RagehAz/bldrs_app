@@ -846,7 +846,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
     final String _countryName = _zone?.countryName ?? '';
     final String _cityName = _zone?.cityName ?? '...';
 
-    final String _hintText =  '${Verse.transBake(context, 'phid_search_flyers_in')} '
+    final String _hintText =  '${Verse.transBake('phid_search_flyers_in')} '
                               '$_cityName, $_countryName';
 
     return Verse(

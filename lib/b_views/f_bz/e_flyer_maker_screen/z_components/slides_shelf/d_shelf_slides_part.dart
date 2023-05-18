@@ -75,7 +75,7 @@ class ShelfSlidesPart extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               padding: Scale.superInsets(
                 context: context,
-                appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+                appIsLTR: UiProvider.checkAppIsLeftToRight(),
                 enRight: DraftShelfSlide.flyerBoxWidth * 0.5,
               ),
               buildDefaultDragHandles: false,

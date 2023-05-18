@@ -234,7 +234,7 @@ Future<void> _showOnlyCreatorCanDeleteBzDialog({
     ),
     bodyVerse: Verse(
       id: '$_creatorAuthorsString\n'
-            '${Verse.transBake(context, 'phid_is_only_who_can_delete_this_bz')}',
+            '${Verse.transBake('phid_is_only_who_can_delete_this_bz')}',
       translate: false,
       variables: _creatorAuthorsString,
     ),

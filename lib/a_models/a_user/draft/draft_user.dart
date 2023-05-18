@@ -463,7 +463,7 @@ class DraftUser {
       company: draft.companyController.text ?? draft.company,
       gender: draft.gender,
       zone: draft.zone,
-      language: draft.language ?? Localizer.getCurrentLangCode(context),
+      language: draft.language ?? Localizer.getCurrentLangCode(),
       location: draft.location,
       contactsArePublic: draft.contactsArePublic,
       myBzzIDs: draft.myBzzIDs,

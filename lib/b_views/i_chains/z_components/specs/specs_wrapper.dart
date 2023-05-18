@@ -94,7 +94,7 @@ class SpecsWrapper extends StatelessWidget {
       final SpecModel _unit = getUnitSpec(picker, specs);
 
       _verse = Verse(
-        id: '${_value.value} ${xPhrase(context, _unit.value)}',
+        id: '${_value.value} ${xPhrase(_unit.value)}',
         translate: false,
       );
 

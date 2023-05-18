@@ -69,8 +69,8 @@ class BldrsTileBubble extends StatelessWidget {
     return TileBubble(
       key: const ValueKey<String>('BldrsTileBubble'),
       textDirection: UiProvider.getAppTextDir(context),
-      font: BldrsText.superVerseFont(context, VerseWeight.bold),
-      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+      font: BldrsText.superVerseFont(VerseWeight.bold),
+      appIsLTR: UiProvider.checkAppIsLeftToRight(),
       textColor: verseColor,
       autoValidate: autoValidate,
       validator: validator,
@@ -83,7 +83,7 @@ class BldrsTileBubble extends StatelessWidget {
       insideDialog: insideDialog,
       moreBtOnTap: moreBtOnTap,
       onTileTap: onTileTap,
-      secondLine: Verse.bakeVerseToString(context: context, verse: secondLineVerse),
+      secondLine: Verse.bakeVerseToString(verse: secondLineVerse),
       secondLineColor: verseColor,
       secondLineTextHeight: BldrsText.superVerseRealHeight(context: context, size: 2, sizeFactor: 1, hasLabelBox: false),
       // focusNode: ,
@@ -119,7 +119,7 @@ class BldrsTileBubble extends StatelessWidget {
     //     Padding(
     //       padding: Scale.superInsets(
     //         context: context,
-    //         appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+    //         appIsLTR: UiProvider.checkAppIsLeftToRight(),
     //         enLeft: iconBoxWidth,
     //       ),
     //       child: BldrsBulletPoints(

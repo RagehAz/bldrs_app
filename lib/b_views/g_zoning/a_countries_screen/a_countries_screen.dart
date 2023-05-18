@@ -128,13 +128,13 @@ class _CountriesScreenState extends State<CountriesScreen> {
         _shownCountriesIDs = Flag.sortCountriesNamesAlphabetically(
           context: context,
           countriesIDs: _shownIDs,
-          langCode: Localizer.getCurrentLangCode(context),
+          langCode: Localizer.getCurrentLangCode(),
         );
 
         _notShownCountriesIDs = Flag.sortCountriesNamesAlphabetically(
           context: context,
           countriesIDs: _notShownIDs,
-          langCode: Localizer.getCurrentLangCode(context),
+          langCode: Localizer.getCurrentLangCode(),
         );
 
         _censuses = _countriesCensuses;
