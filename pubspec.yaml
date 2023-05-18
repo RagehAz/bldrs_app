@@ -9,6 +9,7 @@ version: 3.6.0
 # -> bldrs_dashboard/ios/runner/info.pList ( CFBundleVersion ) -> ACCESSIBLE ON MAC ONLY
 # -> bldrs_app/lib/main.dart; ( bldrsAppVersion )
 # -> bldrs_dashboard/pubspec.yaml (version:)
+# -> real/app/appState/appVersion
 # --------------------------------------------------------------------------------
 environment:
   sdk: ">=2.10.5 <3.0.0"
