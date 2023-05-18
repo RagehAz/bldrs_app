@@ -408,12 +408,12 @@ class RenovateUserProtocols {
 
       final bool _shouldRefreshDevice = _oldUser?.device == null || _userIsUsingSameDevice == false;
 
-      blog(
-          'refreshUserDeviceModel | '
-          '_userIsUsingSameDevice : $_userIsUsingSameDevice | '
-          '_oldUser.device : ${_oldUser?.device?.name} | '
-          '_shouldRefreshDevice : $_shouldRefreshDevice'
-      );
+      // blog(
+      //     'refreshUserDeviceModel | '
+      //     '_userIsUsingSameDevice : $_userIsUsingSameDevice | '
+      //     '_oldUser.device : ${_oldUser?.device?.name} | '
+      //     '_shouldRefreshDevice : $_shouldRefreshDevice'
+      // );
 
       if (_shouldRefreshDevice == true){
 

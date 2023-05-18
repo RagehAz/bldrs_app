@@ -397,6 +397,7 @@ class FlyerRecordRealOps {
       map: _map,
       key: 'flyerID',
       value: flyerID,
+      overrideExisting: true,
     );
 
     final FlyerCounterModel _model = FlyerCounterModel.decipherCounterMap(_map);

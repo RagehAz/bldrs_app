@@ -90,6 +90,7 @@ class Chain {
             map: _map,
             key: _key,
             value: _path,
+            overrideExisting: true,
           );
         }
 

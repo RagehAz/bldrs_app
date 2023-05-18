@@ -116,10 +116,11 @@ class _OfficialFire{
 
 
       final Map<String, dynamic> _map = Mapper.insertPairInMap(
-          map: input,
-          key: 'id',
-          value: _docRef.id,
-        );
+        map: input,
+        key: 'id',
+        value: _docRef.id,
+        overrideExisting: true,
+      );
 
       await _setData(
         invoker: 'OfficialFire.createDoc',

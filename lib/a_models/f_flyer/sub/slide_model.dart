@@ -87,6 +87,7 @@ class SlideModel {
           map: _slidesMap,
           key: '${slide.slideIndex}',
           value: slide.toMap(),
+          overrideExisting: true,
         );
       }
     }

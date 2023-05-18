@@ -157,6 +157,7 @@ class BzRecordRealOps {
         map: _map,
         key: 'bzID',
         value: bzID,
+        overrideExisting: true,
       );
 
     }

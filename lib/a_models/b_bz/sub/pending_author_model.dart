@@ -31,9 +31,10 @@ class PendingAuthor {
       for (final PendingAuthor pending in pendings){
 
         _map = Mapper.insertPairInMap(
-            map: _map,
-            key: pending.userID,
-            value: pending.noteID,
+          map: _map,
+          key: pending.userID,
+          value: pending.noteID,
+          overrideExisting: true,
         );
 
       }

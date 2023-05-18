@@ -177,7 +177,47 @@ class _NativeFirebase {
     if (firebaseAuth == null) {
       _store = fd.Firestore.initialize(
         projectID,
+        useApplicationDefaultAuth: false,
+        // databaseId: ,
+        // emulator: ,
+      );
+    }
 
+    else {
+
+      _store = fd.Firestore(
+        projectID,
+        authenticator: (Map<String, String> metadata, String uri) async {
+          final String  idToken = await firebaseAuth.tokenProvider.idToken;
+          metadata['authorization'] = 'Bearer $idToken';
+          return;
+        },
+        // databaseId: ,
+        // emulator: ,
+      );
+
+    }
+
+    _fire = _store;
+    blog('=> Native Firebase Firestore has been initialized');
+
+    return _store;
+  }
+
+
+  /*
+    fd.Firestore oldInitializeFire({
+    @required fd.FirebaseAuth firebaseAuth,
+    @required String projectID,
+  }) {
+    fd.Firestore _store;
+
+    assert(projectID != null, 'you forgot to add project ID');
+
+    if (firebaseAuth == null) {
+      _store = fd.Firestore.initialize(
+        projectID,
+        useApplicationDefaultAuth: true,
         // databaseId: ,
         // emulator: ,
       );
@@ -197,6 +237,7 @@ class _NativeFirebase {
 
     return _store;
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// REAL

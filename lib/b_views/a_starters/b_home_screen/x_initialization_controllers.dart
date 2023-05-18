@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/d_user/b_user_editor_screen/user_editor_screen.dart';
@@ -13,7 +12,7 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
-import 'package:filers/filers.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:provider/provider.dart';
@@ -77,8 +76,8 @@ Future<void> _checkIfUserIsMissingFields({
 
     if (_authModel != null){
 
-      blog('_checkIfUserIsMissingFields');
-      AuthModel.blogAuthModel(authModel: _authModel);
+      // blog('_checkIfUserIsMissingFields');
+      // AuthModel.blogAuthModel(authModel: _authModel);
 
       final bool _thereAreMissingFields = Formers.checkUserHasMissingFields(
         context: context,
