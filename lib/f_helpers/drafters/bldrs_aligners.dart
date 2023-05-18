@@ -18,7 +18,7 @@ class BldrsAligners {
   static Alignment superTopAlignment(BuildContext context) {
 
     return Aligner.top(
-      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+      appIsLTR: UiProvider.checkAppIsLeftToRight(),
       // inverse: false,
     );
 
@@ -28,7 +28,7 @@ class BldrsAligners {
   static Alignment superBottomAlignment(BuildContext context) {
 
     return Aligner.bottom(
-      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+      appIsLTR: UiProvider.checkAppIsLeftToRight(),
       // inverse: false,
     );
 
@@ -38,7 +38,7 @@ class BldrsAligners {
   static Alignment superCenterAlignment(BuildContext context) {
 
     return Aligner.center(
-      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+      appIsLTR: UiProvider.checkAppIsLeftToRight(),
     );
 
   }
@@ -47,7 +47,7 @@ class BldrsAligners {
   static Alignment superInverseCenterAlignment(BuildContext context) {
 
     return Aligner.center(
-      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+      appIsLTR: UiProvider.checkAppIsLeftToRight(),
       inverse: true,
     );
 
@@ -57,7 +57,7 @@ class BldrsAligners {
   static Alignment superInverseTopAlignment(BuildContext context) {
 
     return Aligner.top(
-      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+      appIsLTR: UiProvider.checkAppIsLeftToRight(),
       inverse: true,
     );
 
@@ -67,7 +67,7 @@ class BldrsAligners {
   static Alignment superInverseBottomAlignment(BuildContext context) {
 
     return Aligner.bottom(
-      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+      appIsLTR: UiProvider.checkAppIsLeftToRight(),
       inverse: true,
     );
 
@@ -81,7 +81,7 @@ class BldrsAligners {
   static double rightPositionInLeftAlignmentEn(BuildContext context, double offsetFromRight) {
 
     return Aligner.rightOffsetInLeftAlignmentEn(
-        appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+        appIsLTR: UiProvider.checkAppIsLeftToRight(),
         offsetFromRight: offsetFromRight
     );
 
@@ -91,7 +91,7 @@ class BldrsAligners {
   static double leftPositionInLeftAlignmentEn(BuildContext context, double offsetFromLeft) {
 
     return Aligner.leftOffsetInLeftAlignmentEn(
-        appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+        appIsLTR: UiProvider.checkAppIsLeftToRight(),
         offsetFromLeft: offsetFromLeft
     );
 
@@ -101,7 +101,7 @@ class BldrsAligners {
   static double rightPositionInRightAlignmentEn(BuildContext context, double offsetFromRight) {
 
     return Aligner.rightOffsetInRightAlignmentEn(
-        appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+        appIsLTR: UiProvider.checkAppIsLeftToRight(),
         offsetFromRight: offsetFromRight
     );
 
@@ -111,7 +111,7 @@ class BldrsAligners {
   static double leftPositionInRightAlignmentEn(BuildContext context, double offsetFromLeft) {
 
     return Aligner.leftOffsetInRightAlignmentEn(
-        appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+        appIsLTR: UiProvider.checkAppIsLeftToRight(),
         offsetFromLeft: offsetFromLeft
     );
 

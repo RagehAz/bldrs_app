@@ -58,7 +58,7 @@ class BzPoster extends StatelessWidget {
             enAlignment: Alignment.bottomRight,
             verticalOffset: width * 0.04,
             horizontalOffset: width * 0.08,
-            appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+            appIsLTR: UiProvider.checkAppIsLeftToRight(),
             child: FlyerDeck(
               maxPossibleWidth: _clearWidth * 0.9,
               deckHeight: width * 0.25,

@@ -45,7 +45,7 @@ class _BzAboutVerseState extends State<BzAboutVerse> {
 
           BldrsText(
             verse: Verse(
-              id: '${xPhrase( context, 'phid_about')} ${widget.bzName}',
+              id: '${xPhrase('phid_about')} ${widget.bzName}',
               translate: false,
             ),
             weight: VerseWeight.thin,

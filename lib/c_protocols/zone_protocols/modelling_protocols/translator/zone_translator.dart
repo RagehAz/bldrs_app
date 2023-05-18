@@ -27,7 +27,7 @@ class ZoneTranslator {
       _output = Verse(
         id: Flag.translateCountry(
           countryID: countryID,
-          langCode: langCode ?? Localizer.getCurrentLangCode(context),
+          langCode: langCode ?? Localizer.getCurrentLangCode(),
         ),
         translate: false,
       );

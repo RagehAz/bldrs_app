@@ -227,7 +227,7 @@ Future<void> _onShowCanNotRemoveAuthorDialog({
   await CenterDialog.showCenterDialog(
     context: context,
     titleVerse: Verse(
-      id: '${Verse.transBake(context, 'phid_you_cant_remove')} ${authorModel.name}',
+      id: '${Verse.transBake('phid_you_cant_remove')} ${authorModel.name}',
       translate: true,
       variables: authorModel.name,
     ),
@@ -269,11 +269,11 @@ Future<void> _onShowCanNotEditAuthorDialog({
   await CenterDialog.showCenterDialog(
     context: context,
     titleVerse: Verse(
-      id: '${Verse.transBake(context, 'phid_you_cant_edit')}\n${authorModel.name}',
+      id: '${Verse.transBake('phid_you_cant_edit')}\n${authorModel.name}',
       translate: false,
     ),
     bodyVerse: Verse(
-      id: '${authorModel.name} ${Verse.transBake(context, 'phid_is_only_who_can_edit_his_account')}',
+      id: '${authorModel.name} ${Verse.transBake('phid_is_only_who_can_edit_his_account')}',
       translate: false,
     ),
   );
@@ -347,7 +347,7 @@ Future<void> onSendAuthorshipInvitation({
   if (_canInviteUser == true){
 
     final String _body =  '${selectedUser.name}\n'
-                          '${Verse.transBake(context, 'phid_will_be_invited_to_join')}\n'
+                          '${Verse.transBake('phid_will_be_invited_to_join')}\n'
                           '${bzModel.name}';
 
     final bool _result = await Dialogs.userDialog(
@@ -442,7 +442,7 @@ Future<void> onCancelSentAuthorshipInvitation({
     );
 
     final String _body =  '${_receiverModel.name}\n'
-                          '${Verse.transBake(context, 'phid_will_be_notified')}';
+                          '${Verse.transBake('phid_will_be_notified')}';
 
     final bool _result = await CenterDialog.showCenterDialog(
       context: context,

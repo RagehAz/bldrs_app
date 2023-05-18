@@ -94,12 +94,12 @@ class FlyerVerses {
           :
           showLabel == true ?
           '${Numeric.formatNumToSeparatedKilos(number: authorGalleryCount)} '
-          '${xPhrase( context, 'phid_flyers')}'
+          '${xPhrase('phid_flyers')}'
           :
           '${counterCaliber(context, followersCount)} '
-          '${xPhrase( context, 'phid_followers')} . '
+          '${xPhrase('phid_followers')} . '
           '$_galleryCountCalibrated '
-          '${xPhrase( context, 'phid_flyers')}';
+          '${xPhrase('phid_flyers')}';
 
       return Verse(
         id: _followersCounter,

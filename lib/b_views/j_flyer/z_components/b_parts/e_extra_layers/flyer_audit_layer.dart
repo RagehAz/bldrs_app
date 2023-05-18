@@ -69,7 +69,7 @@ class FlyerAuditLayer extends StatelessWidget {
                           id: _phid,
                           translate: true,
                         ),
-                        centered: !UiProvider.checkAppIsLeftToRight(context),
+                        centered: !UiProvider.checkAppIsLeftToRight(),
                         weight: VerseWeight.black,
                         italic: true,
                         scaleFactor: flyerBoxWidth * 0.008,

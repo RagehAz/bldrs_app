@@ -143,7 +143,7 @@ class Launcher {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String _generateDefaultEmailSubject(BuildContext context){
-    return ''; //xPhrase( context, 'phid_bldrs');
+    return ''; //xPhrase('phid_bldrs');
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -210,7 +210,7 @@ class Launcher {
   }) async {
 
     final String _tagLine = await PhraseProtocols.translate(
-        langCode: Localizer.getCurrentLangCode(context),
+        langCode: Localizer.getCurrentLangCode(),
         phid: 'phid_bldrsTagLine',
     );
 

@@ -107,7 +107,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                 /// FOLLOWERS
                 StatsLine(
                   verse: Verse(
-                    id: '${_counter.follows} ${xPhrase( context, 'phid_followers')}',
+                    id: '${_counter.follows} ${xPhrase('phid_followers')}',
                     translate: false,
                   ),
                   icon: Iconz.follow,
@@ -116,7 +116,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                 /// CALLS
                 StatsLine(
                   verse: Verse(
-                    id: '${_counter.calls} ${xPhrase( context, 'phid_callsReceived')}',
+                    id: '${_counter.calls} ${xPhrase('phid_callsReceived')}',
                     translate: false,
                   ),
                   icon: Iconz.comPhone,
@@ -126,10 +126,10 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                 StatsLine(
                   verse: Verse(
                     id: '${_counter.allSlides} '
-                        '${xPhrase( context, 'phid_slidesPublished')} '
-                        '${xPhrase( context, 'phid_inn')} '
+                        '${xPhrase('phid_slidesPublished')} '
+                        '${xPhrase('phid_inn')} '
                         '${_bzModel?.flyersIDs?.length} '
-                        '${xPhrase( context, 'phid_flyers')}',
+                        '${xPhrase('phid_flyers')}',
                     translate: false,
                     variables: [_counter.allSlides, _bzModel?.flyersIDs?.length]
                   ),
@@ -139,7 +139,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                 /// SAVES
                 StatsLine(
                   verse: Verse(
-                    id:  '${_counter.allSaves} ${xPhrase( context, 'phid_totalSaves')}',
+                    id:  '${_counter.allSaves} ${xPhrase('phid_totalSaves')}',
                     translate: false,
                   ),
                   icon: Iconz.saveOn,
@@ -148,7 +148,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                 /// VIEWS
                 StatsLine(
                   verse: Verse(
-                    id: '${_counter.allViews} ${xPhrase( context, 'phid_total_flyer_views')}',
+                    id: '${_counter.allViews} ${xPhrase('phid_total_flyer_views')}',
                     translate: false,
                   ),
                   icon: Iconz.viewsIcon,
@@ -157,7 +157,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                 /// SHARES
                 StatsLine(
                   verse: Verse(
-                    id: '${_counter.allShares} ${xPhrase( context, 'phid_totalShares')}',
+                    id: '${_counter.allShares} ${xPhrase('phid_totalShares')}',
                     translate: false,
                   ),
                   icon: Iconz.share,

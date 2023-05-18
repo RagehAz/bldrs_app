@@ -219,7 +219,7 @@ class AuthorCard extends StatelessWidget {
           width: _bubbleWidth,
           padding: Scale.superInsets(
             context: context,
-            appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+            appIsLTR: UiProvider.checkAppIsLeftToRight(),
             enLeft: authorPicSize,
           ),
           child: Column(
@@ -240,7 +240,7 @@ class AuthorCard extends StatelessWidget {
               /// NUMBER OF FLYERS
               AuthorCardDetail(
                 verse: Verse(
-                  id: '${author.flyersIDs.length} ${xPhrase(context, 'phid_published_flyers')}',
+                  id: '${author.flyersIDs.length} ${xPhrase('phid_published_flyers')}',
                   translate: false,
                 ),
                 bubble: false,

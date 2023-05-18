@@ -37,10 +37,10 @@ class BldrsBulletPoints extends StatelessWidget {
         context: context,
         verses: bulletPoints,
       ),
-      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+      appIsLTR: UiProvider.checkAppIsLeftToRight(),
       textDirection: UiProvider.getAppTextDir(context),
       centered: centered,
-      font: BldrsText.superVerseFont(context, VerseWeight.thin),
+      font: BldrsText.superVerseFont(VerseWeight.thin),
       showBottomLine: showBottomLine,
       // textColor: Colorz.blue255,
     );

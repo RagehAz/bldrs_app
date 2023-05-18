@@ -504,7 +504,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
           valueListenable: _selectedPhidsNotifier,
           builder: (BuildContext context, List<String> selectedPhids, Widget child) {
 
-            final String _selectedKeywords = Verse.transBake(context, 'phid_selected_keywords');
+            final String _selectedKeywords = Verse.transBake('phid_selected_keywords');
 
             final Verse _verse = Verse(
               id: '(${selectedPhids.length}) $_selectedKeywords',

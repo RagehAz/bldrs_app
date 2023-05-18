@@ -68,7 +68,7 @@ class SpecLabel extends StatelessWidget {
               ),
               padding: Scale.superInsets(
                 context: context,
-                appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+                appIsLTR: UiProvider.checkAppIsLeftToRight(),
                 enRight: 10,
                 enLeft: xIsOn == true ? 0 : 10,
               ),

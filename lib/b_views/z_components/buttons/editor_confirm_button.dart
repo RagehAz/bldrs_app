@@ -89,7 +89,7 @@ class ConfirmButton extends StatelessWidget {
       return SuperPositioned(
         key: const ValueKey<String>('EditorConfirmButton'),
         enAlignment: positionedAlignment,
-        appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+        appIsLTR: UiProvider.checkAppIsLeftToRight(),
         child: _button,
       );
     }
@@ -98,7 +98,7 @@ class ConfirmButton extends StatelessWidget {
       return SuperPositioned(
         key: const ValueKey<String>('EditorConfirmButton'),
         enAlignment: positionedAlignment,
-        appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+        appIsLTR: UiProvider.checkAppIsLeftToRight(),
         child: Row(
           children: <Widget>[
 

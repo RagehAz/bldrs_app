@@ -75,44 +75,44 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
       AnimatedLogoScreen.createBeat(
           start: 1900,
           duration: 200,
-          text: xPhrase(context, 'phid_search'),
+          text: xPhrase('phid_search'),
           color: Colorz.white200),
       // 1
       AnimatedLogoScreen.createBeat(
           start: 2800,
           duration: 200,
-          text: xPhrase(context, 'phid_connect'),
+          text: xPhrase('phid_connect'),
           color: Colorz.white200),
       // 5
       AnimatedLogoScreen.createBeat(
-          start: 2700, duration: 200, text: xPhrase(context, 'phid_ask'), color: Colorz.white200),
+          start: 2700, duration: 200, text: xPhrase('phid_ask'), color: Colorz.white200),
       // 4
       AnimatedLogoScreen.createBeat(
           start: 2350,
           duration: 450,
-          text: xPhrase(context, 'phid_answer'),
+          text: xPhrase('phid_answer'),
           color: Colorz.white200),
       // 3
       AnimatedLogoScreen.createBeat(
-          start: 2000, duration: 450, text: xPhrase(context, 'phid_grow'), color: Colorz.white200),
+          start: 2000, duration: 450, text: xPhrase('phid_grow'), color: Colorz.white200),
       // 2
       AnimatedLogoScreen.createBeat(
-          start: 4700, duration: 300, text: xPhrase(context, 'phid_on'), color: Colorz.white200),
+          start: 4700, duration: 300, text: xPhrase('phid_on'), color: Colorz.white200),
       // 6
       AnimatedLogoScreen.createBeat(
           start: 5550,
           duration: 1000,
-          text: xPhrase(context, 'phid_bldrsFullName'),
+          text: xPhrase('phid_bldrsFullName'),
           color: Colorz.yellow255),
       // 10
       AnimatedLogoScreen.createBeat(
-          start: 4800, duration: 300, text: '- ${xPhrase(context, 'phid_designers')}'),
+          start: 4800, duration: 300, text: '- ${xPhrase('phid_designers')}'),
       // 7
       AnimatedLogoScreen.createBeat(
-          start: 5150, duration: 300, text: '- ${xPhrase(context, 'phid_contractors')}'),
+          start: 5150, duration: 300, text: '- ${xPhrase('phid_contractors')}'),
       // 8
       AnimatedLogoScreen.createBeat(
-          start: 5450, duration: 300, text: '- ${xPhrase(context, 'phid_artisans')}'),
+          start: 5450, duration: 300, text: '- ${xPhrase('phid_artisans')}'),
       // 9
     ];
 
@@ -384,7 +384,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
             alignment: Alignment.centerLeft,
             margin: Scale.superInsets(
               context: context,
-              appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+              appIsLTR: UiProvider.checkAppIsLeftToRight(),
               top: _screenWidth * 0.07,
             ),
             child: Column(

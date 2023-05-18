@@ -314,7 +314,7 @@ class BldrsText extends StatelessWidget {
   }) {
     const double _verseHeight = 1.438; //1.48; // The sacred golden reverse engineered factor
     const Color _boxColor = Colorz.nothing;
-    final String _verseFont = superVerseFont(context, weight);
+    final String _verseFont = superVerseFont(weight);
     final FontStyle _verseStyle = italic == true ? FontStyle.italic : FontStyle.normal;
     final double _scalingFactor = scaleFactor ?? 1;
     final double _verseSizeValue = superVerseSizeValue(context, size, _scalingFactor);
@@ -400,17 +400,17 @@ class BldrsText extends StatelessWidget {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String superVerseFont(BuildContext context, VerseWeight weight) {
+  static String superVerseFont(VerseWeight weight) {
     final String _verseFont =
-    weight == VerseWeight.thin ? Words.bodyFont(context)
+    weight == VerseWeight.thin ? Words.bodyFont()
         :
-    weight == VerseWeight.regular ? Words.bodyFont(context)
+    weight == VerseWeight.regular ? Words.bodyFont()
         :
-    weight == VerseWeight.bold ? Words.headlineFont(context)
+    weight == VerseWeight.bold ? Words.headlineFont()
         :
-    weight == VerseWeight.black ? Words.headlineFont(context)
+    weight == VerseWeight.black ? Words.headlineFont()
         :
-    Words.bodyFont(context);
+    Words.bodyFont();
     return _verseFont;
   }
   // -----------------------------------------------------------------------------
@@ -521,10 +521,7 @@ class BldrsText extends StatelessWidget {
     final double _verseSizeValue = superVerseSizeValue(context, size, scaleFactor);
 
     return SuperText(
-      text: Verse.bakeVerseToString(
-        context: context,
-        verse: verse,
-      ),
+      text: Verse.bakeVerseToString(verse: verse),
       highlight: highlight,
       boxWidth: width,
       boxHeight: height,
@@ -537,7 +534,7 @@ class BldrsText extends StatelessWidget {
       boxColor: labelColor,
       // highlightColor: highlightColor,
       weight: BldrsText.superVerseWeight(weight),
-      font: superVerseFont(context, weight),
+      font: superVerseFont(weight),
       italic: italic,
       shadows: verseShadows(
         context: context,
@@ -556,7 +553,7 @@ class BldrsText extends StatelessWidget {
       redDot: redDot,
       centered: centered,
       textDirection: textDirection ?? UiProvider.getAppTextDir(context),
-      appIsLTR: UiProvider.checkAppIsLeftToRight(context),
+      appIsLTR: UiProvider.checkAppIsLeftToRight(),
       onTap: onTap,
       // onDoubleTap: onDoubleTap,
       // package: package,

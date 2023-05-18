@@ -113,7 +113,7 @@ class UserModel {
       title: '',
       gender: null,
       zone: _currentZone,
-      language: Localizer.getCurrentLangCode(context),
+      language: Localizer.getCurrentLangCode(),
       location: null,
       contacts: ContactModel.generateBasicContacts(
         email: authModel.email,

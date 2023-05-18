@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
@@ -113,7 +114,7 @@ class PhraseProvider extends ChangeNotifier {
   }) async {
 
     /// A. DETECT DEVICE LANGUAGE
-    final String _langCode = setLangCode ?? Localizer.getCurrentLangCode(context);
+    final String _langCode = setLangCode ?? Localizer.getCurrentLangCode();
 
     /// C. SET CURRENT LANGUAGE
     _setCurrentLanguage(
@@ -360,11 +361,11 @@ class PhraseProvider extends ChangeNotifier {
 //-------------------------------------
 /// ~~~~~~ SUPER PHRASE ~~~~~~
 //---------------------
-String xPhrase(BuildContext context, String phid, {PhraseProvider phrasePro}){
+String xPhrase(String phid){
 
   final String id = Phider.removeIndexFromPhid(phid: phid);
 
-  final PhraseProvider _phraseProvider = phrasePro ?? Provider.of<PhraseProvider>(context, listen: false);
+  final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(getMainContext(), listen: false);
   _phraseProvider.addToUsedXPhrases(id);
 
   /// THE ( # # ) VERSES
@@ -387,13 +388,13 @@ String xPhrase(BuildContext context, String phid, {PhraseProvider phrasePro}){
 
 }
 //---------------------
-List<String> xPhrases(BuildContext context, List<String> phids, {PhraseProvider phrasePro}){
+List<String> xPhrases(List<String> phids){
   final List<String> _output = <String>[];
 
   if (Mapper.checkCanLoopList(phids) == true){
 
     for (final String phid in phids){
-      final String _trans = xPhrase(context, phid, phrasePro: phrasePro);
+      final String _trans = xPhrase(phid);
       _output.add(_trans);
     }
 
@@ -421,7 +422,7 @@ String phidIcon(BuildContext context, dynamic icon){
 String counterCaliber(BuildContext context, int x){
   return Numeric.formatNumToCounterCaliber(
     x: x,
-    thousand: xPhrase(context, 'phid_thousand'),
-    million: xPhrase(context, 'phid_million'),
+    thousand: xPhrase('phid_thousand'),
+    million: xPhrase('phid_million'),
   );
 }
