@@ -34,10 +34,12 @@ class Launcher {
       }
       /// WEB LINK
       else if (ContactModel.checkIsWebLink(contact.type) == true){
+        blog('AuthorCard._onContactTap: contactModel WEB LINK: $contact.value');
         await launchURL(contact.value);
       }
       /// EMAIL
       else if (contact.type == ContactType.email){
+        blog('AuthorCard._onContactTap: contactModel EMAIL: $contact.value');
         await _launchEmail(
           context: context,
           email: contact.value,
