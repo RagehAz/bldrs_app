@@ -15,6 +15,7 @@ class AppBarButton extends StatelessWidget {
     this.width,
     this.loading,
     this.iconColor,
+    this.margins,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -30,6 +31,7 @@ class AppBarButton extends StatelessWidget {
   final double width;
   final bool loading;
   final Color iconColor;
+  final dynamic margins;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class AppBarButton extends StatelessWidget {
       height: Ratioz.appBarButtonSize,
       width: width,
       // width: Ratioz.appBarButtonSize * 3.5,
-      margins: Scale.superInsets(
+      margins: margins ?? Scale.superInsets(
         context: context,
         appIsLTR: UiProvider.checkAppIsLeftToRight(),
         enLeft: Ratioz.appBarPadding,

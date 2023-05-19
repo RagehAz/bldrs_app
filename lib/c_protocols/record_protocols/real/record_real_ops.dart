@@ -67,11 +67,14 @@ class RecordRealOps {
 
     }
 
-    return RecordModel.decipherRecord(
+    final RecordModel _output = RecordModel.decipherRecord(
       map: _map,
       fromJSON: true,
     );
 
+    _output?.blogRecord(invoker: 'createRecord this aho');
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
