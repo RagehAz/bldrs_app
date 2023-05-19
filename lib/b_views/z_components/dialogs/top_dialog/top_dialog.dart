@@ -74,13 +74,14 @@ class TopDialog extends StatelessWidget {
     final double _screenWidth = Scale.screenWidth(context);
     final double _bubbleWidth = BldrsAppBar.width(context);
 
-    final GlobalKey _key = UiProvider.proGetTopDialogKey(context: context, listen: false,);
-    final Flushbar _flushbar = _key?.currentWidget;
-    final dynamic _previousDialogDismissed = await _flushbar?.dismiss();
-    blog('showTopDialog : previousDialogDismissed ${_previousDialogDismissed.runtimeType} : $_previousDialogDismissed');
+    // final GlobalKey _key = UiProvider.proGetTopDialogKey(context: getMainContext(), listen: false,);
+    // final Flushbar _flushbar = _key?.currentWidget;
+    // final dynamic _previousDialogDismissed = await _flushbar?.dismiss();
+    // blog('showTopDialog : previousDialogDismissed ${_previousDialogDismissed.runtimeType} : '
+    //     '$_previousDialogDismissed : _flushbar : $_flushbar : _key : $_key');
 
     await Flushbar(
-      key: _key,
+      key: GlobalKey(),
 
       /// BEHAVIOUR - POSITIONING ----------------------------------------------
       // dismissDirection: FlushbarDismissDirection.VERTICAL,

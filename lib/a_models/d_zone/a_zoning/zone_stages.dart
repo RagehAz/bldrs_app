@@ -590,7 +590,10 @@ class Staging {
   static bool checkMayShowViewAllZonesButton({
     @required ViewingEvent zoneViewingEvent,
   }){
-    return zoneViewingEvent == ViewingEvent.homeView;
+    return zoneViewingEvent == ViewingEvent.homeView
+    ||
+    zoneViewingEvent == ViewingEvent.admin
+    ;
   }
   // ---------------------
   /// TASK : TEST ME
