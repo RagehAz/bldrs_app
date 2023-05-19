@@ -6,42 +6,93 @@ class ZoneButton extends StatelessWidget {
     this.onTap,
     this.isOn = false,
     this.zoneOverride,
+    this.height = Ratioz.appBarButtonSize,
+    this.isPlanetButton = false,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final Function onTap;
   final bool isOn;
   final ZoneModel zoneOverride;
-  // -----------------------------------------------------------------------------
-  ZoneModel _buttonZone(BuildContext context){
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
-    final ZoneModel _currentZone = _zoneProvider.currentZone;
-    return zoneOverride ?? _currentZone;
-  }
+  final double height;
+  final bool isPlanetButton;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    // --------------------
-    final ZoneModel _currentZone = _buttonZone(context);
-    // --------------------
-    final String _countryName = _currentZone?.countryName;
-    final String _countryFlag = _currentZone?.icon;
-    final String _cityName = _currentZone?.cityName;
-    // --------------------
-    final String _firstRow = _currentZone == null ? ' ' : _countryName;
-    // --------------------
-    final String _secondRow = _currentZone == null ? ' ' : _cityName;
-    // --------------------
+
+    zoneOverride?.blogZone(invoker: 'fkjhfkjhf');
+
+    if (isPlanetButton == true){
+      // --------------------
+      return _ZoneButtonTree(
+        onTap: onTap,
+        isOn: isOn,
+        icon: Iconz.contAfrica,
+        firstRow: Verse.transBake('phid_the_world'),
+        secondRow: null,
+        height: height,
+      );
+      // --------------------
+    }
+
+    else {
+      // --------------------
+      final ZoneModel _currentZone = zoneOverride ?? ZoneProvider.proGetCurrentZone(context: context, listen: true);
+      // --------------------
+      final String _countryName = _currentZone?.countryName;
+      final String _countryFlag = _currentZone?.icon;
+      final String _cityName = _currentZone?.cityName;
+      // --------------------
+      final String _firstRow = _currentZone == null ? ' ' : _countryName;
+      // --------------------
+      final String _secondRow = _currentZone == null ? ' ' : _cityName;
+      // --------------------
+      return _ZoneButtonTree(
+        onTap: onTap,
+        isOn: isOn,
+        icon: _countryFlag,
+        firstRow: _firstRow,
+        secondRow: _secondRow,
+        height: height,
+      );
+      // --------------------
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+}
+
+class _ZoneButtonTree extends StatelessWidget {
+  // -----------------------------------------------------------------------------
+  const _ZoneButtonTree({
+    @required this.onTap,
+    @required this.icon,
+    @required this.firstRow,
+    @required this.secondRow,
+    @required this.isOn,
+    this.height = Ratioz.appBarButtonSize,
+    Key key
+  }) : super(key: key);
+  // ---------------------
+  final Function onTap;
+  final String icon;
+  final String firstRow;
+  final String secondRow;
+  final bool isOn;
+  final double height;
+  // -----------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
     const double _flagHorizontalMargins = 2;
-    // --------------------
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        // width: 40,
-        height: 40,
+        height: height,
         alignment: Alignment.centerRight,
         padding: const EdgeInsets.all(5),
-        margin: const EdgeInsets.symmetric(horizontal: 5),
+        // margin: const EdgeInsets.symmetric(horizontal: 5),
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(
               Radius.circular(Ratioz.appBarButtonCorner),
@@ -62,7 +113,7 @@ class ZoneButton extends StatelessWidget {
                     /// COUNTRY NAME
                     BldrsText(
                       verse: Verse(
-                        id: _firstRow ?? '',
+                        id: firstRow ?? '',
                         translate: false,
                       ),
                       size: 1,
@@ -72,7 +123,7 @@ class ZoneButton extends StatelessWidget {
                     /// CITY NAME
                     BldrsText(
                       verse: Verse(
-                        id: _secondRow ?? '',
+                        id: secondRow ?? '',
                         translate: false,
                       ),
                       size: 1,
@@ -103,7 +154,7 @@ class ZoneButton extends StatelessWidget {
                   child: BldrsBox(
                     width: 30,
                     height: 30,
-                    icon: _countryFlag,
+                    icon: icon ?? Iconz.dvBlankSVG,
                     corners: Ratioz.boxCorner8,
                     margins: const EdgeInsets.symmetric(
                         horizontal: _flagHorizontalMargins

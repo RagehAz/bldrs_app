@@ -727,26 +727,37 @@ class RecordModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  void blogRecord(){
-    blog('BLOG RECORD : START');
-    blog('recordID : $recordID : recordType : $recordType');
-    blog('userID : $userID');
-    blog('modelType : $modelType : modelID : $modelID');
-    blog('recordDetailsType : $recordDetailsType : recordDetails : $recordDetails');
-    blog('timeStamp : $timeStamp');
-    blog('docSnapshot : $docSnapshot');
-    blog('BLOG RECORD : END');
+  void blogRecord({@required String invoker}){
+
+    final String _text =
+    '''
+    $invoker : RecordModel(
+      recordID: $recordID,
+      recordType: $recordType,
+      userID: $userID,
+      timeStamp: $timeStamp,
+      modelType: $modelType,
+      modelID: $modelID,
+      recordDetailsType: $recordDetailsType,
+      recordDetails: $recordDetails,
+    );
+    ''';
+
+    blog(_text);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogRecords({
+    @required String invoker,
     @required List<RecordModel> records,
   }){
 
     if (Mapper.checkCanLoopList(records) == true){
 
       for (final RecordModel record in records){
-        record.blogRecord();
+        record.blogRecord(
+          invoker: invoker,
+        );
       }
 
     }
@@ -758,6 +769,46 @@ class RecordModel {
   }
   // -----------------------------------------------------------------------------
 
+  /// EQUALITY
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkRecordsAreIdentical({
+    @required RecordModel record1,
+    @required RecordModel record2,
+  }){
+    bool _identical = false;
+
+    if (record1 == null && record2 == null){
+      _identical = true;
+    }
+
+    else if (record1 != null && record2 != null){
+
+      if (
+          record1.recordType == record2.recordType &&
+          record1.userID == record2.userID &&
+          record1.recordID == record2.recordID &&
+          Timers.checkTimesAreIdentical(
+              accuracy: TimeAccuracy.second,
+              time1: record1.timeStamp,
+              time2: record2.timeStamp
+          ) == true &&
+          record1.modelType == record2.modelType &&
+          record1.modelID == record2.modelID &&
+          record1.recordDetailsType == record2.recordDetailsType &&
+          record1.recordDetails == record2.recordDetails
+          // record1.docSnapshot == record2.docSnapshot &&
+      ){
+        _identical = true;
+      }
+
+    }
+
+    return _identical;
+  }
+  // -----------------------------------------------------------------------------
+
   /// OVERRIDES
 
   // --------------------
@@ -766,7 +817,6 @@ class RecordModel {
      String toString() => 'MapModel(key: $key, value: ${value.toString()})';
      */
   // --------------------
-  /*
     @override
     bool operator == (Object other){
 
@@ -776,27 +826,27 @@ class RecordModel {
 
       bool _areIdentical = false;
       if (other is RecordModel){
-        _areIdentical = checkBzCounterModelsAreIdentical(
-          counter1: this,
-          counter2: other,
+        _areIdentical = checkRecordsAreIdentical(
+          record1: this,
+          record2: other,
         );
       }
 
       return _areIdentical;
     }
-     */
+
   // --------------------
-  /*
+
     @override
     int get hashCode =>
-        bzID.hashCode^
-        follows.hashCode^
-        calls.hashCode^
-        allSaves.hashCode^
-        allShares.hashCode^
-        allSlides.hashCode^
-        allViews.hashCode^
-        allReviews.hashCode;
-     */
+        recordType.hashCode^
+        userID.hashCode^
+        timeStamp.hashCode^
+        modelType.hashCode^
+        modelID.hashCode^
+        recordDetailsType.hashCode^
+        recordDetails.hashCode^
+        recordID.hashCode^
+        docSnapshot.hashCode;
   // -----------------------------------------------------------------------------
 }

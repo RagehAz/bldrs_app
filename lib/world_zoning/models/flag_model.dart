@@ -272,7 +272,7 @@ class Flag {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String getCountryIcon(String countryID) {
-    String _output = Iconz.dvBlankSVG;
+    String _output = Iconz.contAfrica;
 
     if (countryID != null) {
 

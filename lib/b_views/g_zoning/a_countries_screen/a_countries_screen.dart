@@ -47,6 +47,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
   List<String> _notShownCountriesIDs = <String>[];
   // --------------------
   List<CensusModel> _censuses;
+  CensusModel _planetCensus;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -121,6 +122,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
     final List<CensusModel> _countriesCensuses = await  CensusProtocols.fetchCountriesCensusesByIDs(
         countriesIDs: [...?_shownIDs, ...?_notShownIDs],
     );
+    final CensusModel _fetchedPlanetCensus = await CensusProtocols.fetchPlanetCensus();
 
     if (mounted) {
       setState(() {
@@ -138,6 +140,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
         );
 
         _censuses = _countriesCensuses;
+        _planetCensus = _fetchedPlanetCensus;
 
       });
     }
@@ -277,6 +280,11 @@ class _CountriesScreenState extends State<CountriesScreen> {
                 countriesCensus: _censuses,
                 onCountryTap: _onCountryTap,
                 onDeactivatedCountryTap: _onDeactivatedCountryTap,
+                showPlanetButton: Staging.checkMayShowViewAllZonesButton(
+                  zoneViewingEvent: widget.zoneViewingEvent,
+                ),
+                planetCensus: _planetCensus,
+                onPlanetTap: () => Nav.goBack(context: context),
               );
 
             }
