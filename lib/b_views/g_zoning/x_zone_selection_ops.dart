@@ -211,7 +211,7 @@ class ZoneSelection {
         zone: zone,
       );
 
-      await WaitDialog.closeWaitDialog(context);
+      await WaitDialog.closeWaitDialog();
 
       await Nav.pushHomeAndRemoveAllBelow(
         context: context,

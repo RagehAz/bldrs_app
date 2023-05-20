@@ -376,7 +376,7 @@ Future<void> onSendAuthorshipInvitation({
         userModelToSendTo: selectedUser,
       );
 
-      await WaitDialog.closeWaitDialog(context);
+      await WaitDialog.closeWaitDialog();
 
       unawaited(TopDialog.showTopDialog(
         context: context,

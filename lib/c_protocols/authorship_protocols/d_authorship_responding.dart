@@ -147,7 +147,7 @@ class AuthorshipRespondingProtocols{
         noteModel: noteModel,
       );
 
-      await WaitDialog.closeWaitDialog(context);
+      await WaitDialog.closeWaitDialog();
 
       await CenterDialog.showCenterDialog(
         context: context,

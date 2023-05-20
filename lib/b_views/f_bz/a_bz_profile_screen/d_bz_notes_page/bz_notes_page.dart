@@ -181,7 +181,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
 
     });
 
-    closeWaitDialog(context);
+    closeWaitDialog();
 
   }
   // --------------------

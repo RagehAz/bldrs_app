@@ -10,7 +10,7 @@ import 'package:bldrs/c_protocols/bz_protocols/fire/bz_fire_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_listeners.dart';
+import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
@@ -83,7 +83,7 @@ class RenovateBzProtocols {
 
       /// CLOSE WAIT DIALOG
       if (showWaitDialog == true){
-        await WaitDialog.closeWaitDialog(context);
+        await WaitDialog.closeWaitDialog();
       }
 
       // /// ON FAILURE
@@ -91,7 +91,7 @@ class RenovateBzProtocols {
       //
       //   /// CLOSE WAIT DIALOG
       //   if (showWaitDialog == true){
-      //     await WaitDialog.closeWaitDialog(context);
+      //     await WaitDialog.closeWaitDialog();
       //   }
       //
       //   await _failureDialog(context);

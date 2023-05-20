@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
@@ -22,7 +23,7 @@ class CensusRealOps {
     CensusModel _output;
 
     final Object _object = await Real.readPath(
-      path: RealPath.getCensusPathOfPlanet,
+      path: '${RealColl.statistics}/${RealDoc.statistics_planet}',
     );
 
     if (_object != null){
@@ -53,7 +54,7 @@ class CensusRealOps {
     List<CensusModel> _output = [];
 
     final Object _objects = await Real.readPath(
-      path: RealPath.getCensusesPathOfAllCountries(),
+      path: '${RealColl.statistics}/${RealDoc.statistics_countries}',
     );
 
     final List<Map<String, dynamic>> _maps = Mapper.getMapsFromIHLMOO(
@@ -79,7 +80,7 @@ class CensusRealOps {
     if (countryID != null){
 
       final Object _object = await Real.readPath(
-          path: RealPath.getCensusPathOfCountry(countryID: countryID),
+          path: '${RealColl.statistics}/${RealDoc.statistics_countries}/$countryID',
       );
 
       if (_object != null){
@@ -115,7 +116,7 @@ class CensusRealOps {
     if (countryID != null){
 
       final Object _objects = await Real.readPath(
-        path: RealPath.getCensusesPathOfCities(countryID: countryID),
+        path: '${RealColl.statistics}/${RealDoc.statistics_cities}/$countryID',
       );
 
       final List<Map<String, dynamic>> _maps = Mapper.getMapsFromIHLMOO(
@@ -140,8 +141,9 @@ class CensusRealOps {
 
     if (cityID != null){
 
+      final String _countryID = CityModel.getCountryIDFromCityID(cityID);
       final Object _object = await Real.readPath(
-          path: RealPath.getCensusPathOfCity(cityID: cityID),
+          path: '${RealColl.statistics}/${RealDoc.statistics_cities}/$_countryID/$cityID',
       );
 
       if (_object != null){
@@ -176,32 +178,38 @@ class CensusRealOps {
 
     if (map != null && zoneModel != null){
 
-      Map<String, dynamic> _map = Mapper.cleanNullPairs(
+      final Map<String, dynamic> _map = Mapper.cleanNullPairs(
         map: map,
       );
-      _map = CensusModel.completeMapForIncrementation(_map);
+      final Map<String, int> _upload = CensusModel.completeMapForIncrementation(_map);
 
       await Future.wait(<Future>[
 
         /// UPDATE PLANET
-        Real.updateDocInPath(
-          path: RealPath.getCensusPathOfPlanet,
-          map: _map,
+        Real.incrementDocFields(
+          coll: RealColl.statistics,
+          doc: RealDoc.statistics_planet,
+          incrementationMap: _upload,
+          isIncrementing: true,
         ),
 
         /// UPDATE COUNTRY
         if (zoneModel.countryID != null)
-        Real.updateDocInPath(
-          path: RealPath.getCensusPathOfCountry(countryID: zoneModel.countryID),
-          map: _map,
+        Real.incrementDocFields(
+          coll: RealColl.statistics,
+          doc: '${RealDoc.statistics_countries}/${zoneModel.countryID}',
+          incrementationMap: _upload,
+          isIncrementing: true,
         ),
 
         /// UPDATE CITY
         if (zoneModel.countryID != null && zoneModel.cityID != null)
-          Real.updateDocInPath(
-            path: RealPath.getCensusPathOfCity(cityID: zoneModel.cityID),
-            map: _map,
-        ),
+          Real.incrementDocFields(
+            coll: RealColl.statistics,
+            doc: '${RealDoc.statistics_cities}/${zoneModel.countryID}/${zoneModel.cityID}',
+            incrementationMap: _upload,
+            isIncrementing: true,
+          ),
 
       ]);
 

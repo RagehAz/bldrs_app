@@ -19,7 +19,7 @@ import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.da
 import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/pic_protocols/ldb/pic_ldb_ops.dart';
-import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_listeners.dart';
+import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
@@ -118,7 +118,7 @@ class WipeBzProtocols {
 
     /// CLOSE DIALOG BEFORE SENDING NOTES => FIXES A goBack() bug
     if (showWaitDialog == true){
-      await WaitDialog.closeWaitDialog(getMainContext());
+      await WaitDialog.closeWaitDialog();
     }
 
     /// SEND DELETION NOTES TO AUTHORS
@@ -168,7 +168,7 @@ class WipeBzProtocols {
     );
 
     if (showWaitDialog == true){
-      await WaitDialog.closeWaitDialog(getMainContext());
+      await WaitDialog.closeWaitDialog();
     }
 
     blog('WipeBzProtocols._deleteAllBzFlyersOps : END');

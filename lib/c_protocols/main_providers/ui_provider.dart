@@ -551,8 +551,8 @@ class UiProvider extends ChangeNotifier {
   }
   // --------------------
   ///
-  static void clearLoadingVerse(BuildContext context) {
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+  static void clearLoadingVerse() {
+    final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
     _uiProvider._setLoadingVerse(
       verse: null,
       notify: true,

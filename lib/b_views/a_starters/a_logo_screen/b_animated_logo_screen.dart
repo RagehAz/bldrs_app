@@ -452,7 +452,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
           //             setLangCode: langCode,
           //           );
           //
-          //           await WaitDialog.closeWaitDialog(context);
+          //           await WaitDialog.closeWaitDialog();
           //
           //           await Nav.replaceScreen(
           //             context: context,

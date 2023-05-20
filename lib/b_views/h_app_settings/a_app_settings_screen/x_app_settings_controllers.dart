@@ -148,7 +148,7 @@ Future<void> onRebootSystem(BuildContext context) async {
     /// SIGN OUT
     await AuthProtocols.signOutBldrs(context: context, routeToLogoScreen: true);
 
-    await WaitDialog.closeWaitDialog(context);
+    await WaitDialog.closeWaitDialog();
   }
 
 }

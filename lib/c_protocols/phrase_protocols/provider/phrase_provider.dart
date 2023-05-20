@@ -49,7 +49,7 @@ class PhraseProvider extends ChangeNotifier {
       notify: true,
     );
 
-    await WaitDialog.closeWaitDialog(context);
+    await WaitDialog.closeWaitDialog();
 
     await BldrsNav.goBackToLogoScreen(
       context: context,
