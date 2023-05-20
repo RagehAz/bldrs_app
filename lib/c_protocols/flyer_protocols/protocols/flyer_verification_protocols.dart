@@ -69,7 +69,7 @@ class FlyerVerificationProtocols {
 
       if (showWaitAndSuccessDialogs == true){
 
-        await WaitDialog.closeWaitDialog(context);
+        await WaitDialog.closeWaitDialog();
 
         /// SHOW SUCCESS DIALOG
         await Dialogs.showSuccessDialog(
@@ -128,7 +128,7 @@ class FlyerVerificationProtocols {
 
       ]);
 
-      await WaitDialog.closeWaitDialog(context);
+      await WaitDialog.closeWaitDialog();
 
       /// SHOW SUCCESS DIALOG
       await Dialogs.showSuccessDialog(

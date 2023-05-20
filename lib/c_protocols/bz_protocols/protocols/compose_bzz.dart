@@ -15,7 +15,7 @@ import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_listeners.dart';
+import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_leveller.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_paths_generators.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
@@ -108,7 +108,7 @@ class ComposeBzProtocols {
     );
 
     /// CLOSE WAIT DIALOG
-    await WaitDialog.closeWaitDialog(context);
+    await WaitDialog.closeWaitDialog();
 
     /// SHOW SUCCESS DIALOG
     await CenterDialog.showCenterDialog(

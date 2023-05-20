@@ -14,7 +14,7 @@ import 'package:bldrs/c_protocols/flyer_protocols/real/flyer_record_real_ops.dar
 import 'package:bldrs/c_protocols/pdf_protocols/ldb/pdf_ldb_ops.dart';
 import 'package:bldrs/c_protocols/pic_protocols/ldb/pic_ldb_ops.dart';
 import 'package:bldrs/c_protocols/review_protocols/protocols/a_reviews_protocols.dart';
-import 'package:bldrs/c_protocols/zone_protocols/census_protocols/protocols/census_listeners.dart';
+import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
 import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_paths_generators.dart';
@@ -125,7 +125,7 @@ class WipeFlyerProtocols {
       ]);
 
       if (showWaitDialog == true){
-        await WaitDialog.closeWaitDialog(context);
+        await WaitDialog.closeWaitDialog();
       }
 
     }
@@ -271,7 +271,7 @@ class WipeFlyerProtocols {
       // }
 
       if (showWaitDialog == true){
-        await WaitDialog.closeWaitDialog(context);
+        await WaitDialog.closeWaitDialog();
       }
 
     }

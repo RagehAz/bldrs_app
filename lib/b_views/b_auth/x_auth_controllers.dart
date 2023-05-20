@@ -185,7 +185,7 @@ Future<void> _rememberEmailAndNav({
     );
 
     if (mounted == true) {
-      await WaitDialog.closeWaitDialog(context);
+      await WaitDialog.closeWaitDialog();
     }
 
     await _navAfterAuth(
@@ -199,7 +199,7 @@ Future<void> _rememberEmailAndNav({
   /// ON FAILURE
   else {
     if (mounted == true) {
-      await WaitDialog.closeWaitDialog(context);
+      await WaitDialog.closeWaitDialog();
     }
   }
 

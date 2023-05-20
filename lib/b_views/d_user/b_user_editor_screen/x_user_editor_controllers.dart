@@ -397,7 +397,7 @@ Future<void> confirmEdits({
       value: false,
     );
 
-    await WaitDialog.closeWaitDialog(context);
+    await WaitDialog.closeWaitDialog();
 
     await CenterDialog.showCenterDialog(
       context: context,
