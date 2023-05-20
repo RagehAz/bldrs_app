@@ -23,8 +23,8 @@ void pushWaitDialog({
   );
 }
 
-void closeWaitDialog(BuildContext context){
-  unawaited(WaitDialog.closeWaitDialog(context));
+void closeWaitDialog(){
+  unawaited(WaitDialog.closeWaitDialog());
 }
 
 class WaitDialog extends StatelessWidget {
@@ -70,11 +70,18 @@ class WaitDialog extends StatelessWidget {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> closeWaitDialog(BuildContext context) async {
+  static Future<void> closeWaitDialog() async {
+    UiProvider.clearLoadingVerse();
     await Nav.goBack(
-      context: context,
+      context: getMainContext(),
       invoker: 'closeWaitDialog',
     );
+  }
+  // --------------------
+  static void setVerse({
+    @required Verse verse,
+  }){
+    UiProvider.proSetLoadingVerse(context: getMainContext(), verse: verse);
   }
   // -----------------------------------------------------------------------------
   @override

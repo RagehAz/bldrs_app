@@ -848,7 +848,7 @@ class CensusModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> completeMapForIncrementation(Map<String, dynamic> input){
+  static Map<String, int> completeMapForIncrementation(Map<String, dynamic> input){
     Map<String, dynamic> _output;
 
     /// NOTE : THIS METHOD MAKES SURE THAT NO FIELD IN CENSUS MODEL IS NULL ON CENSUS PROTOCOLS
@@ -883,6 +883,30 @@ class CensusModel {
           );
         }
 
+
+      }
+
+    }
+
+    return _getStringIntFromStringDynamic(_output);
+  }
+  // --------------------
+  ///
+  static Map<String, int> _getStringIntFromStringDynamic(Map<String, dynamic> maw){
+    final Map<String, int> _output = {};
+
+    if (maw != null){
+
+      final List<String> _keys = maw.keys.toList();
+      if (Mapper.checkCanLoopList(_keys) == true){
+
+        for (final String key in _keys){
+
+          if (maw[key] is int){
+            _output[key] = maw[key];
+          }
+
+        }
 
       }
 

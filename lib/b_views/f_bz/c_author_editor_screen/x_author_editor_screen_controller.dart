@@ -368,7 +368,7 @@ Future<void> onConfirmAuthorUpdates({
 
     await BzLDBOps.deleteAuthorEditorSession(oldAuthor.userID);
 
-    await WaitDialog.closeWaitDialog(context);
+    await WaitDialog.closeWaitDialog();
 
     await Nav.goBack(
       context: context,
@@ -456,7 +456,7 @@ Future<void> onChangeAuthorRoleOps({
 
       ]);
 
-      await WaitDialog.closeWaitDialog(context);
+      await WaitDialog.closeWaitDialog();
 
       await Nav.goBack(
         context: context,
