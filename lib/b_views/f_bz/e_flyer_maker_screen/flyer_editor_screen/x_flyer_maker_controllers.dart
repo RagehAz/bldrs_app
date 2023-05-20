@@ -603,7 +603,7 @@ Future<void> _publishFlyerOps({
     draftFlyer: draft,
   );
 
-  await WaitDialog.closeWaitDialog(context);
+  await WaitDialog.closeWaitDialog();
 
 }
 // --------------------
@@ -636,7 +636,7 @@ Future<void> _updateFlyerOps({
     resetActiveBz: _imALoneAuthor,
   );
 
-  await WaitDialog.closeWaitDialog(context);
+  await WaitDialog.closeWaitDialog();
 
 }
 // -----------------------------------------------------------------------------

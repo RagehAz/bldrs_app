@@ -35,7 +35,7 @@ class ChainProtocols {
       chains: chains,
     );
 
-    await WaitDialog.closeWaitDialog(context);
+    await WaitDialog.closeWaitDialog();
 
     return _bldrsChains;
   }
@@ -97,7 +97,7 @@ class ChainProtocols {
 
       ]);
 
-      await WaitDialog.closeWaitDialog(context);
+      await WaitDialog.closeWaitDialog();
 
     }
 
@@ -130,7 +130,7 @@ class ChainProtocols {
       );
 
       if (showWaitDialog == true){
-        await WaitDialog.closeWaitDialog(context);
+        await WaitDialog.closeWaitDialog();
       }
 
     }

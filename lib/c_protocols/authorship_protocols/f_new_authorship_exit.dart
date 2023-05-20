@@ -572,7 +572,7 @@ class NewAuthorshipExit {
   static Future<void> _closeWaitDialog({
     @required BuildContext context,
   }) async {
-    await WaitDialog.closeWaitDialog(context);
+    await WaitDialog.closeWaitDialog();
   }
   // --------------------
     /// TESTED : WORKS PERFECT

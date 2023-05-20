@@ -105,5 +105,10 @@ class CensusLDBOps {
     }
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> wipeAllCensuses() async {
+    await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.census);
+  }
   // -----------------------------------------------------------------------------
 }

@@ -137,7 +137,7 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
         oldUser: _oldUser,
       );
 
-      await WaitDialog.closeWaitDialog(context);
+      await WaitDialog.closeWaitDialog();
 
       await Nav.goBack(context: context, invoker: 'onConfirmEditingNeed');
 

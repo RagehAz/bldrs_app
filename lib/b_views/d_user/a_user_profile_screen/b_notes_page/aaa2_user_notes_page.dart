@@ -174,7 +174,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
 
     });
 
-    closeWaitDialog(context);
+    closeWaitDialog();
 
   }
   // --------------------

@@ -189,9 +189,6 @@
 
  */
 
-import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
-import 'package:flutter/material.dart';
-
 class RealColl {
   // -----------------------------------------------------------------------------
 
@@ -284,78 +281,5 @@ class RealDoc {
   static const String zones_stages_countries = 'stages_countries';
   static const String zones_stages_cities = 'stages_cities';
   static const String zones_cities = 'cities';
-  // -----------------------------------------------------------------------------
-}
-
-class RealPath{
-  // -----------------------------------------------------------------------------
-
-  const RealPath();
-
-  // -----------------------------------------------------------------------------
-
-  /// CENSUS / PLANET
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static const String getCensusPathOfPlanet = '${RealColl.statistics}/${RealDoc.statistics_planet}';
-  // -----------------------------------------------------------------------------
-
-  /// CENSUS / COUNTRIES
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String getCensusesPathOfAllCountries(){
-    return '${RealColl.statistics}/${RealDoc.statistics_countries}';
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String getCensusPathOfCountry({
-    @required String countryID,
-  }){
-
-    if (countryID == null){
-      return null;
-    }
-    else {
-      return '${RealColl.statistics}/${RealDoc.statistics_countries}/$countryID';
-    }
-
-  }
-  // -----------------------------------------------------------------------------
-
-  /// CENSUS / CITIES
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String getCensusesPathOfCities({
-    @required String countryID,
-  }){
-
-    if (countryID == null){
-      return null;
-    }
-
-    else {
-      return '${RealColl.statistics}/${RealDoc.statistics_cities}/$countryID';
-    }
-
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String getCensusPathOfCity({
-    @required String cityID,
-  }){
-
-    if (cityID == null){
-      return null;
-    }
-
-    else {
-      final String _countryID = CityModel.getCountryIDFromCityID(cityID);
-      return '${RealColl.statistics}/${RealDoc.statistics_cities}/$_countryID/$cityID';
-    }
-
-  }
   // -----------------------------------------------------------------------------
 }
