@@ -11,6 +11,7 @@ class PyramidFloatingButton extends StatelessWidget {
     this.redDotCount = 0,
     this.onLongTap,
     this.isDeactivated,
+    this.iconColor,
     Key key
   }) : super(key: key);
   /// ---------------------------------------------------------------------------
@@ -20,6 +21,7 @@ class PyramidFloatingButton extends StatelessWidget {
   final Function onTap;
   final Function onLongTap;
   final bool isDeactivated;
+  final Color iconColor;
   /// ---------------------------------------------------------------------------
   static double size = 45;
   /// ---------------------------------------------------------------------------
@@ -37,6 +39,7 @@ class PyramidFloatingButton extends StatelessWidget {
         corners: size/2,
         color: color,
         icon: icon,
+        iconColor: iconColor,
         iconSizeFactor: 0.6,
         onTap: onTap,
         onLongTap: onLongTap,
