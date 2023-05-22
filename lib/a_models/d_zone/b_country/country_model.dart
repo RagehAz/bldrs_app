@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:mapper/mapper.dart';
 import 'package:filers/filers.dart';
@@ -13,7 +13,7 @@ class CountryModel {
   });
   /// --------------------------------------------------------------------------
   final String id;
-  final Staging citiesIDs;
+  final StagingModel citiesIDs;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -22,7 +22,7 @@ class CountryModel {
   /// TESTED : WORKS PERFECT
   CountryModel copyWith({
     String id,
-    Staging citiesIDs,
+    StagingModel citiesIDs,
   }){
     return CountryModel(
       id: id ?? this.id,
@@ -56,7 +56,7 @@ class CountryModel {
 
       _countryModel = CountryModel(
         id: map['id'],
-        citiesIDs: Staging.decipher(
+        citiesIDs: StagingModel.decipher(
           id: map['id'],
           map: map['citiesIDs'],
         ),
@@ -144,7 +144,7 @@ class CountryModel {
     else if (country1 != null && country2 != null) {
       if (
           country1.id == country2.id &&
-          Staging.checkStagingsAreIdentical(country1.citiesIDs, country2.citiesIDs) == true
+          StagingModel.checkStagingsAreIdentical(country1.citiesIDs, country2.citiesIDs) == true
       ) {
         _identical = true;
       }

@@ -1,3 +1,4 @@
+import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -8,7 +9,6 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
-import 'package:bldrs/c_protocols/bz_protocols/real/bz_record_real_ops.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -103,7 +103,7 @@ Future<void> readBzCounters({
   @required bool mounted,
 }) async {
 
-  final BzCounterModel _bzCounters = await BzRecordRealOps.readBzCounters(
+  final BzCounterModel _bzCounters = await RecorderProtocols.readBzCounters(
     bzID: bzID,
   );
 
@@ -365,7 +365,7 @@ Future<void> onCallTap({
               ),
 
               /// CALL RECORD PROTOCOL
-              BzRecordRealOps.callBz(
+              RecorderProtocols.onCallBz(
                 bzID: bzModel.id,
                 contact: contact,
               ),

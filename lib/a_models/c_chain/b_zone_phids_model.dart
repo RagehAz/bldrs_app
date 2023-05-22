@@ -180,7 +180,7 @@ class ZonePhidsModel {
     if (flyerModel != null){
 
       _zonePhids = ZonePhidsModel(
-        zoneID: flyerModel.zone.cityID,
+        zoneID: flyerModel.zone?.cityID,
         phidsMaps: createPhidsMapModelsFromFlyerPhids(
           phids: flyerModel.phids,
         ),

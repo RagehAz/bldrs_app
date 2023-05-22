@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/ldb/stages_ldb_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/real/staging_real_ops.dart';
@@ -15,22 +15,22 @@ class StagingProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<Staging> fetchCountriesStaging() async {
+  static Future<StagingModel> fetchCountriesStaging() async {
 
-    Staging _output = await StagingLDBOps.readStaging(
-        id: Staging.countriesStagingId,
+    StagingModel _output = await StagingLDBOps.readStaging(
+        id: StagingModel.countriesStagingId,
     );
 
     // _output?.blogStaging();
 
-    if (Staging.isEmpty(_output) == true){
+    if (StagingModel.isEmpty(_output) == true){
 
       _output = await StagingRealOps.readCountriesStaging();
 
       // blog('non no');
       // _output.blogStaging();
 
-      if (Staging.isEmpty(_output) == false){
+      if (StagingModel.isEmpty(_output) == false){
         // blog('inserting staging into ldb');
         await StagingLDBOps.insertStaging(staging: _output,);
       //   blog('non no nono no');
@@ -43,11 +43,11 @@ class StagingProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<Staging> refetchCountiesStaging() async {
+  static Future<StagingModel> refetchCountiesStaging() async {
 
-    await StagingLDBOps.deleteStaging(id: Staging.countriesStagingId);
+    await StagingLDBOps.deleteStaging(id: StagingModel.countriesStagingId);
 
-    final Staging _output = await fetchCountriesStaging();
+    final StagingModel _output = await fetchCountriesStaging();
 
     return _output;
   }
@@ -57,20 +57,20 @@ class StagingProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<Staging> fetchCitiesStaging({
+  static Future<StagingModel> fetchCitiesStaging({
     @required String countryID,
   }) async {
-    Staging _output;
+    StagingModel _output;
 
     if (countryID != null){
 
       _output = await StagingLDBOps.readStaging(id: countryID);
 
-      if (Staging.isEmpty(_output) == true){
+      if (StagingModel.isEmpty(_output) == true){
 
         _output = await StagingRealOps.readCitiesStaging(countryID: countryID);
 
-        if (Staging.isEmpty(_output) == false){
+        if (StagingModel.isEmpty(_output) == false){
           await StagingLDBOps.insertStaging(staging: _output);
         }
 
@@ -82,10 +82,10 @@ class StagingProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<Staging> refetchCitiesStaging({
+  static Future<StagingModel> refetchCitiesStaging({
     @required String countryID,
   }) async {
-    Staging _output;
+    StagingModel _output;
 
     if (countryID != null){
 
@@ -104,7 +104,7 @@ class StagingProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<void> renovateCountriesStaging({
-    @required Staging newStaging,
+    @required StagingModel newStaging,
   }) async {
 
     if (newStaging != null){
@@ -129,7 +129,7 @@ class StagingProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<void> renovateCitiesStaging({
-    @required Staging newStaging,
+    @required StagingModel newStaging,
   }) async {
 
     if (newStaging != null){
@@ -163,13 +163,13 @@ class StagingProtocols {
 
     if (cityID != null){
 
-      final Staging _oldCitiesStaging = await StagingProtocols.fetchCitiesStaging(
+      final StagingModel _oldCitiesStaging = await StagingProtocols.fetchCitiesStaging(
         countryID: CityModel.getCountryIDFromCityID(cityID),
       );
 
       if (_oldCitiesStaging != null){
 
-        final Staging _new = Staging.removeIDFromStaging(
+        final StagingModel _new = StagingModel.removeIDFromStaging(
           staging: _oldCitiesStaging,
           id: cityID,
         );

@@ -17,6 +17,8 @@ class FlyerRecordsBox extends StatelessWidget {
     @required this.headlineVerse,
     @required this.icon,
     @required this.realNodePath,
+    @required this.flyerID,
+    @required this.bzID,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -24,6 +26,8 @@ class FlyerRecordsBox extends StatelessWidget {
   final Verse headlineVerse;
   final String icon;
   final String realNodePath;
+  final String flyerID;
+  final String bzID;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -54,6 +58,8 @@ class FlyerRecordsBox extends StatelessWidget {
 
               List<RecordModel> _records = RecordModel.decipherRecords(
                 maps: maps,
+                flyerID: flyerID,
+                bzID: bzID,
                 fromJSON: true,
               );
 

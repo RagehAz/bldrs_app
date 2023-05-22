@@ -4,7 +4,6 @@ import 'package:bldrs/a_models/j_poster/poster_type.dart';
 import 'package:bldrs/b_views/z_components/poster/variants/aa_bz_poster.dart';
 import 'package:bldrs/b_views/z_components/poster/variants/aa_flyer_poster.dart';
 import 'package:bldrs/b_views/z_components/poster/variants/aa_image_poster.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 
 class PosterSwitcher extends StatelessWidget {
@@ -24,8 +23,6 @@ class PosterSwitcher extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
-    blog('poster Type : $posterType');
 
     if (posterType == PosterType.flyer){
       return FlyerPoster(

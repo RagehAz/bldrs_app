@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:animators/animators.dart';
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
@@ -98,7 +98,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
   Future<void> _loadCountries() async {
 
     /// COUNTRIES STAGES
-    final Staging _countriesStages = await StagingProtocols.fetchCountriesStaging();
+    final StagingModel _countriesStages = await StagingProtocols.fetchCountriesStaging();
 
     // _countriesStages.blogStaging();
 
@@ -280,7 +280,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
                 countriesCensus: _censuses,
                 onCountryTap: _onCountryTap,
                 onDeactivatedCountryTap: _onDeactivatedCountryTap,
-                showPlanetButton: Staging.checkMayShowViewAllZonesButton(
+                showPlanetButton: StagingModel.checkMayShowViewAllZonesButton(
                   zoneViewingEvent: widget.zoneViewingEvent,
                 ),
                 planetCensus: _planetCensus,

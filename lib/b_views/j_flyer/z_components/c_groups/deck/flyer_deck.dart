@@ -1,5 +1,4 @@
 import 'dart:ui' as ui;
-
 import 'package:animators/animators.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
@@ -9,7 +8,6 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/a_single_sli
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/small_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:numeric/numeric.dart';
@@ -251,11 +249,7 @@ class FlyerDeck extends StatelessWidget {
     @required DraftFlyer draft,
   }) async {
 
-    FlyerModel _flyer = await DraftFlyer.draftToFlyer(draft: draft, toLDB: false);
-    _flyer = await FlyerProtocols.renderBigFlyer(
-      context: context,
-      flyerModel: _flyer,
-    );
+    final FlyerModel _flyer = await DraftFlyer.draftToFlyer(draft: draft, toLDB: false);
 
     final List<SlideModel> _flyerSlides = <SlideModel>[];
 
@@ -271,12 +265,13 @@ class FlyerDeck extends StatelessWidget {
         final SlideModel _updatedSlide = _slide.copyWith(
           uiImage: _image,
         );
+        blog('UI IMAGE IS MISSING : ${_updatedSlide.uiImage} : ${_updatedSlide.uiImage.runtimeType}');
         _flyerSlides.add(_updatedSlide);
       }
 
       /// UI IMAGE IS DEFINED
       else {
-
+        blog('UI IMAGE IS DEFINED');
         _flyerSlides.add(_slide);
 
       }
@@ -293,11 +288,16 @@ class FlyerDeck extends StatelessWidget {
   Widget build(BuildContext context) {
 
     if (flyerModel == null && draft == null){
+
+      blog('BOTH FLYER AND DRAFT ARE NULL');
+
       return const SizedBox();
     }
 
     /// BUILD DRAFT
     else if (draft != null){
+
+      blog('BUILDING DRAFT : ${draft.draftSlides.length}');
 
       return FutureBuilder(
         future: _transformDraft(
@@ -307,8 +307,6 @@ class FlyerDeck extends StatelessWidget {
         builder: (_, AsyncSnapshot<FlyerModel> snap){
 
           final FlyerModel _flyer = snap.data;
-          _flyer?.blogFlyer(invoker: 'REBUILDING POSTER');
-
 
           return _TheDeck(
             screenName: screenName,

@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_protocols.dart';
@@ -79,7 +79,7 @@ class StagingLeveller {
 
     if (countryID != null){
 
-      final Staging _countriesStage = await StagingProtocols.refetchCountiesStaging();
+      final StagingModel _countriesStage = await StagingProtocols.refetchCountiesStaging();
       final StageType _countryStageType = _countriesStage?.getTypeByID(countryID);
 
       /// WHEN PUBLIC STAGE NO LEVEL UP WILL BE AVAILABLE
@@ -140,17 +140,17 @@ class StagingLeveller {
   }
   // --------------------
   /// TASK : TEST ME
-  static Future<Staging> changeCountryStageType({
+  static Future<StagingModel> changeCountryStageType({
     @required String countryID,
     @required StageType newType,
-    @required Staging oldCountriesStaging,
+    @required StagingModel oldCountriesStaging,
   }) async {
 
-    Staging _output;
+    StagingModel _output;
 
     if (countryID != null && newType != null && oldCountriesStaging != null){
 
-      _output = Staging.insertIDToStaging(
+      _output = StagingModel.insertIDToStaging(
         staging: oldCountriesStaging,
         id: countryID,
         newType: newType,
@@ -175,7 +175,7 @@ class StagingLeveller {
     if (cityID != null){
 
       final String _countryID = CityModel.getCountryIDFromCityID(cityID);
-      final Staging _citiesStages = await StagingProtocols.refetchCitiesStaging(
+      final StagingModel _citiesStages = await StagingProtocols.refetchCitiesStaging(
           countryID: _countryID,
       );
       final StageType _cityStageType = _citiesStages?.getTypeByID(cityID);
@@ -235,22 +235,22 @@ class StagingLeveller {
   }
   // --------------------
   /// TASK : TEST ME
-  static Future<Staging> changeCityStageType({
+  static Future<StagingModel> changeCityStageType({
     @required String cityID,
     @required StageType newType,
   }) async {
 
-    Staging _output;
+    StagingModel _output;
 
     if (cityID != null && newType != null){
 
-      final Staging _oldCitiesStaging = await StagingProtocols.fetchCitiesStaging(
+      final StagingModel _oldCitiesStaging = await StagingProtocols.fetchCitiesStaging(
           countryID: CityModel.getCountryIDFromCityID(cityID),
       );
 
       if (_oldCitiesStaging != null){
 
-        _output = Staging.insertIDToStaging(
+        _output = StagingModel.insertIDToStaging(
           staging: _oldCitiesStaging,
           id: cityID,
           newType: newType,

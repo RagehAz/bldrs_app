@@ -1,3 +1,4 @@
+import 'package:bldrs/a_models/x_secondary/bldrs_model_type.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
@@ -17,30 +18,15 @@ enum RecordType {
   view,
   save,
   unSave,
-  createReview,
-  editReview,
-  deleteReview,
-
-  search,
-}
-
-enum ModelType{
-  flyer,
-  bz,
-  question,
-  answer,
-  // review,
-  user,
 }
 
 enum RecordDetailsType{
   slideIndex,
   text,
-  questionID,
-  answerID,
   contact,
 }
 
+/// => TAMAM
 @immutable
 class RecordModel {
   /// --------------------------------------------------------------------------
@@ -49,7 +35,8 @@ class RecordModel {
     @required this.userID,
     @required this.timeStamp,
     @required this.modelType,
-    @required this.modelID,
+    @required this.bzID,
+    @required this.flyerID,
     @required this.recordDetailsType,
     @required this.recordDetails,
     this.recordID,
@@ -61,7 +48,8 @@ class RecordModel {
   final String recordID;
   final DateTime timeStamp;
   final ModelType modelType;
-  final String modelID; /// flyerID - bzID - QuestionID - AnswerID
+  final String bzID;
+  final String flyerID;
   final RecordDetailsType recordDetailsType;
   final dynamic recordDetails;
   final DocumentSnapshot<Object> docSnapshot;
@@ -79,7 +67,6 @@ class RecordModel {
       'userID' : userID,
       'timeStamp' : Timers.cipherTime(time: timeStamp, toJSON: toJSON),
       'modelType' : cipherModelType(modelType),
-      'modelID' : modelID,
       'recordDetailsType' : _cipherRecordDetailsType(recordDetailsType),
       'recordDetails' : recordDetails,
       // 'serverTimeStamp' : serverTimeStamp,
@@ -91,6 +78,8 @@ class RecordModel {
   /// TESTED : WORKS PERFECT
   static RecordModel decipherRecord({
     @required Map<String, dynamic> map,
+    @required String bzID,
+    @required String flyerID,
     @required bool fromJSON,
   }) {
     RecordModel _record;
@@ -106,9 +95,10 @@ class RecordModel {
           fromJSON: fromJSON,
         ),
         modelType: decipherModelType(map['modelType']),
-        modelID: map['modelID'],
         recordDetailsType: _decipherRecordDetailsType(map['recordDetailsType']),
         recordDetails: map['recordDetails'],
+        bzID: bzID,
+        flyerID: flyerID,
         // docSnapshot: map['docSnapshot'],
       );
 
@@ -142,6 +132,8 @@ class RecordModel {
   /// TESTED : WORKS PERFECT
   static List<RecordModel> decipherRecords({
     @required List<Map<String, dynamic>> maps,
+    @required String bzID,
+    @required String flyerID,
     @required bool fromJSON,
   }){
     final List<RecordModel> _records = <RecordModel>[];
@@ -152,6 +144,8 @@ class RecordModel {
 
         final RecordModel _record = decipherRecord(
           map: map,
+          bzID: bzID,
+          flyerID: flyerID,
           fromJSON: fromJSON,
         );
         _records.add(_record);
@@ -177,10 +171,6 @@ class RecordModel {
       case RecordType.view:           return 'view';            break;
       case RecordType.save:           return 'save';            break;
       case RecordType.unSave:         return 'unSave';          break;
-      case RecordType.createReview:   return 'createReview';    break;
-      case RecordType.editReview:     return 'editReview';      break;
-      case RecordType.deleteReview:   return 'deleteReview';    break;
-      case RecordType.search:         return 'search';          break;
       default:return null;
     }
   }
@@ -195,10 +185,6 @@ class RecordModel {
       case 'view':            return RecordType.view;           break;
       case 'save':            return RecordType.save;           break;
       case 'unSave':          return RecordType.unSave;         break;
-      case 'createReview':    return RecordType.createReview;   break;
-      case 'editReview':      return RecordType.editReview;     break;
-      case 'deleteReview':    return RecordType.deleteReview;   break;
-      case 'search':          return RecordType.search;         break;
       default:return null;
     }
   }
@@ -212,9 +198,6 @@ class RecordModel {
     switch (modelType){
       case ModelType.flyer:     return 'flyer';     break;
       case ModelType.bz:        return 'bz';        break;
-      case ModelType.question:  return 'question';  break;
-      case ModelType.answer:    return 'answer';    break;
-    // case ModelType.review:    return 'review';    break;
       case ModelType.user:      return 'user';      break;
       default: return null;
     }
@@ -225,9 +208,6 @@ class RecordModel {
     switch (modelType){
       case 'flyer':     return ModelType.flyer;     break;
       case 'bz':        return ModelType.bz;        break;
-      case 'question':  return ModelType.question;  break;
-      case 'answer':    return ModelType.answer;    break;
-    // case 'review':    return ModelType.review;    break;
       case 'user':      return ModelType.user;      break;
       default: return null;
     }
@@ -244,10 +224,6 @@ class RecordModel {
       case RecordType.view            : return ModelType.flyer; break;
       case RecordType.save            : return ModelType.flyer; break;
       case RecordType.unSave          : return ModelType.flyer; break;
-      case RecordType.createReview    : return ModelType.flyer; break;
-      case RecordType.editReview      : return ModelType.flyer; break;
-      case RecordType.deleteReview    : return ModelType.flyer; break;
-      case RecordType.search          : return ModelType.user; break;
       default: return null;
     }
 
@@ -262,8 +238,6 @@ class RecordModel {
     switch (recordDetailsType){
       case RecordDetailsType.slideIndex:          return 'slideIndex';  break;
       case RecordDetailsType.text:                return 'text';        break;
-      case RecordDetailsType.questionID:          return 'questionID';  break;
-      case RecordDetailsType.answerID:            return 'answerID';    break;
       case RecordDetailsType.contact:             return 'contact';     break;
       default: return null;
     }
@@ -274,8 +248,6 @@ class RecordModel {
     switch (recordDetailsType){
       case 'slideIndex':  return RecordDetailsType.slideIndex;  break;
       case 'text':        return RecordDetailsType.text;                break;
-      case 'questionID':  return RecordDetailsType.questionID;          break;
-      case 'answerID':    return RecordDetailsType.answerID;            break;
       case 'contact':     return RecordDetailsType.contact;             break;
       default: return null;
     }
@@ -424,7 +396,8 @@ class RecordModel {
       userID: userID,
       timeStamp: DateTime.now(),
       modelType: getModelTypeByRecordType(RecordType.follow),
-      modelID: bzID,
+      bzID: bzID,
+      flyerID: null,
       recordDetailsType: null,
       recordDetails: null,
     );
@@ -443,7 +416,8 @@ class RecordModel {
       userID: userID,
       timeStamp: DateTime.now(),
       modelType: getModelTypeByRecordType(RecordType.unfollow),
-      modelID: bzID,
+      bzID: bzID,
+      flyerID: null,
       recordDetailsType: null,
       recordDetails: null,
     );
@@ -463,7 +437,8 @@ class RecordModel {
       userID: userID,
       timeStamp: DateTime.now(),
       modelType: getModelTypeByRecordType(RecordType.call),
-      modelID: bzID,
+      bzID: bzID,
+      flyerID: null,
       recordDetailsType: RecordDetailsType.contact,
       recordDetails: contact.value,
     );
@@ -478,6 +453,7 @@ class RecordModel {
   static RecordModel createShareRecord({
     @required String userID,
     @required String flyerID,
+    @required String bzID,
   }){
 
     return RecordModel(
@@ -486,17 +462,19 @@ class RecordModel {
       userID: userID,
       timeStamp: DateTime.now(),
       modelType: getModelTypeByRecordType(RecordType.share),
-      modelID: flyerID,
+      bzID: bzID,
+      flyerID: flyerID,
       recordDetailsType: null,
       recordDetails: null,
     );
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static RecordModel createViewRecord({
     @required String userID,
     @required String flyerID,
+    @required String bzID,
     // @required int durationSeconds,
     @required int slideIndex,
   }){
@@ -507,7 +485,8 @@ class RecordModel {
       userID: userID,
       timeStamp: DateTime.now(),
       modelType: getModelTypeByRecordType(RecordType.view),
-      modelID: flyerID,
+      bzID: bzID,
+      flyerID: flyerID,
       recordDetailsType: RecordDetailsType.slideIndex,
       recordDetails: slideIndex,
       // recordDetails: createIndexAndDurationString(
@@ -518,7 +497,7 @@ class RecordModel {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static String createIndexAndDurationString({
     @required int index,
     @required int durationSeconds,
@@ -549,6 +528,7 @@ class RecordModel {
   static RecordModel createSaveRecord({
     @required String userID,
     @required String flyerID,
+    @required String bzID,
     @required int slideIndex,
   }){
 
@@ -558,7 +538,8 @@ class RecordModel {
       userID: userID,
       timeStamp: DateTime.now(),
       modelType: getModelTypeByRecordType(RecordType.save),
-      modelID: flyerID,
+      bzID: bzID,
+      flyerID: flyerID,
       recordDetailsType: RecordDetailsType.slideIndex,
       recordDetails: slideIndex,
     );
@@ -569,6 +550,7 @@ class RecordModel {
   static RecordModel createUnSaveRecord({
     @required String userID,
     @required String flyerID,
+    @required String bzID,
   }){
 
     return RecordModel(
@@ -577,112 +559,12 @@ class RecordModel {
       userID: userID,
       timeStamp: DateTime.now(),
       modelType: getModelTypeByRecordType(RecordType.unSave),
-      modelID: flyerID,
+      bzID: bzID,
+      flyerID: flyerID,
       recordDetailsType: null,
       recordDetails: null,
     );
 
-  }
-  // --------------------
-  /// TASK : TEST ME
-  static RecordModel createCreateReviewRecord({
-    @required String userID,
-    @required String flyerID,
-    @required String text,
-  }){
-
-    return RecordModel(
-      recordType: RecordType.createReview,
-      userID: userID,
-      timeStamp: DateTime.now(),
-      modelType: getModelTypeByRecordType(RecordType.createReview),
-      modelID: flyerID,
-      recordDetailsType: RecordDetailsType.text,
-      recordDetails: text,
-    );
-
-  }
-  // --------------------
-  /// TASK : TEST ME
-  static RecordModel createEditReviewRecord({
-    @required String userID,
-    @required String flyerID,
-    @required String reviewEdit,
-  }){
-
-    return RecordModel(
-      recordType: RecordType.editReview,
-      userID: userID,
-      timeStamp: DateTime.now(),
-      modelType: getModelTypeByRecordType(RecordType.editReview),
-      modelID: flyerID,
-      recordDetailsType: RecordDetailsType.text,
-      recordDetails: reviewEdit,
-    );
-
-  }
-  // --------------------
-  /// TASK : TEST ME
-  static RecordModel createDeleteReviewRecord({
-    @required String userID,
-    @required String flyerID,
-  }){
-
-    return RecordModel(
-      recordType: RecordType.deleteReview,
-      userID: userID,
-      timeStamp: DateTime.now(),
-      modelType: getModelTypeByRecordType(RecordType.deleteReview),
-      modelID: flyerID,
-      recordDetailsType: null,
-      recordDetails: null,
-    );
-
-  }
-  // -----------------------------------------------------------------------------
-
-  /// SEARCH RECORD CREATORS
-
-  // --------------------
-  /// TASK : TEST ME
-  static RecordModel createSearchRecord({
-    @required String userID,
-    @required String searchText,
-  }){
-
-    return RecordModel(
-      // recordID: , // MAKE A RECORD FOR EACH SEARCH
-      recordType: RecordType.search,
-      userID: userID,
-      timeStamp: DateTime.now(),
-      modelType: getModelTypeByRecordType(RecordType.search),
-      modelID: userID,
-      recordDetailsType: RecordDetailsType.text,
-      recordDetails: searchText,
-    );
-
-  }
-  // -----------------------------------------------------------------------------
-
-  /// DUMMY RECORD
-
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static RecordModel dummyRecord(){
-
-    const RecordType recordType = RecordType.search;
-
-    final RecordModel _recordModel = RecordModel(
-      recordType: recordType,
-      userID: Authing.getUserID(),
-      timeStamp: DateTime.now(),
-      modelType: getModelTypeByRecordType(recordType),
-      modelID: Authing.getUserID(),
-      recordDetailsType: RecordDetailsType.text,
-      recordDetails: 'This is a dummy record',
-    );
-
-    return _recordModel;
   }
   // -----------------------------------------------------------------------------
 
@@ -695,8 +577,6 @@ class RecordModel {
     switch(modelType){
       case ModelType.flyer: return Iconz.flyer; break;
       case ModelType.bz: return Iconz.bz; break;
-      case ModelType.question: return Iconz.balloonSpeaking; break;
-      case ModelType.answer: return Iconz.balloonArrowed; break;
       case ModelType.user: return Iconz.normalUser; break;
       default: return null;
     }
@@ -710,8 +590,6 @@ class RecordModel {
     switch(modelType){
       case ModelType.flyer:     _text = 'phid_flyers'; break;
       case ModelType.bz:        _text = 'phid_bzz'; break;
-      case ModelType.question:  _text = 'phid_questions'; break;
-      case ModelType.answer:    _text = 'phid_answers'; break;
       case ModelType.user:      _text = 'phid_users'; break;
     }
 
@@ -737,7 +615,8 @@ class RecordModel {
       userID: $userID,
       timeStamp: $timeStamp,
       modelType: $modelType,
-      modelID: $modelID,
+      flyerID: $flyerID,
+      bzID: $bzID,
       recordDetailsType: $recordDetailsType,
       recordDetails: $recordDetails,
     );
@@ -795,7 +674,8 @@ class RecordModel {
               time2: record2.timeStamp
           ) == true &&
           record1.modelType == record2.modelType &&
-          record1.modelID == record2.modelID &&
+          record1.bzID == record2.bzID &&
+          record1.flyerID == record2.flyerID &&
           record1.recordDetailsType == record2.recordDetailsType &&
           record1.recordDetails == record2.recordDetails
           // record1.docSnapshot == record2.docSnapshot &&
@@ -834,16 +714,15 @@ class RecordModel {
 
       return _areIdentical;
     }
-
   // --------------------
-
     @override
     int get hashCode =>
         recordType.hashCode^
         userID.hashCode^
         timeStamp.hashCode^
         modelType.hashCode^
-        modelID.hashCode^
+        bzID.hashCode^
+        flyerID.hashCode^
         recordDetailsType.hashCode^
         recordDetails.hashCode^
         recordID.hashCode^

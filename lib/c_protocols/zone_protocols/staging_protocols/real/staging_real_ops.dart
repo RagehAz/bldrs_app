@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:filers/filers.dart';
@@ -110,7 +110,7 @@ class StagingRealOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<Staging> readCountriesStaging() async {
+  static Future<StagingModel> readCountriesStaging() async {
 
     final dynamic _dynamic = await Real.readPath(
       path: '${RealColl.zones}/${RealDoc.zones_stages_countries}',
@@ -124,18 +124,18 @@ class StagingRealOps {
 
     blog('readCountriesStaging : _map : $_map');
 
-    return Staging.decipher(
+    return StagingModel.decipher(
       map: _map,
-      id: Staging.countriesStagingId,
+      id: StagingModel.countriesStagingId,
     );
 
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<Staging> readCitiesStaging({
+  static Future<StagingModel> readCitiesStaging({
     @required String countryID,
   }) async {
-    Staging _output;
+    StagingModel _output;
 
     if (TextCheck.isEmpty(countryID) == false){
 
@@ -143,7 +143,7 @@ class StagingRealOps {
         path: '${RealColl.zones}/${RealDoc.zones_stages_cities}/$countryID',
       );
 
-      _output = Staging.decipher(
+      _output = StagingModel.decipher(
         map: _map,
         id: countryID,
       );
@@ -159,7 +159,7 @@ class StagingRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateCountriesStaging({
-    @required Staging newStaging,
+    @required StagingModel newStaging,
   }) async {
 
     if (newStaging != null){
@@ -178,7 +178,7 @@ class StagingRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateCitiesStaging({
-    @required Staging citiesStages,
+    @required StagingModel citiesStages,
   }) async {
 
     if (citiesStages != null){

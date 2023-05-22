@@ -212,7 +212,7 @@ class ComposeBzProtocols {
       final PicModel _picModel = await PicProtocols.fetchPic(userModel.picPath);
 
       final PicModel _authorModel = _picModel.copyWith(
-        path: BldrStorage.generateAuthorPicPath(
+        path: StoragePath.bzz_bzID_authorID(
           bzID: bzID,
           authorID: userModel.id,
         ),

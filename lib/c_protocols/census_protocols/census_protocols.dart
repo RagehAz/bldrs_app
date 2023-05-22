@@ -1,21 +1,14 @@
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_ldb_ops.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_real_ops.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:mapper/mapper.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 class CensusProtocols {
   // -----------------------------------------------------------------------------
 
   const CensusProtocols();
-
-  // -----------------------------------------------------------------------------
-
-  /// COMPOSE
-
-  // --------------------
 
   // -----------------------------------------------------------------------------
 
@@ -156,7 +149,7 @@ class CensusProtocols {
   /// FETCH CITIES CENSUSES
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<List<CensusModel>> fetchCitiesCensuses({
     @required List<String> citiesIDs,
   }) async {
@@ -187,7 +180,7 @@ class CensusProtocols {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<List<CensusModel>> refetchAllAvailableCitiesOfCountryCensuses({
     @required String countryID,
   }) async {
@@ -216,7 +209,7 @@ class CensusProtocols {
   /// FETCH CITY CENSUS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<CensusModel> fetchCityCensus({
     @required String cityID,
   }) async {
@@ -247,7 +240,7 @@ class CensusProtocols {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<CensusModel> refetchCityCensus({
     @required String cityID,
   }) async {
@@ -264,15 +257,4 @@ class CensusProtocols {
     return _output;
   }
   // -----------------------------------------------------------------------------
-
-  /// RENOVATE
-
-  // --------------------
-  static Future<void> renovateZoneCensuses({
-    @required ZoneModel zoneModel,
-  }) async {
-
-  }
-  // -----------------------------------------------------------------------------
-  void f(){}
 }

@@ -1,4 +1,4 @@
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:ldb/ldb.dart';
 import 'package:mapper/mapper.dart';
@@ -16,7 +16,7 @@ class StagingLDBOps {
   // --------------------
   /// TAMAM : WORKS PERFECT
   static Future<void> insertStaging({
-    @required Staging staging,
+    @required StagingModel staging,
   }) async {
 
     await LDBOps.insertMap(
@@ -34,10 +34,10 @@ class StagingLDBOps {
 
   // --------------------
   /// TAMAM : WORKS PERFECT
-  static Future<Staging> readStaging({
+  static Future<StagingModel> readStaging({
     @required String id,
   }) async {
-    Staging _output;
+    StagingModel _output;
 
     final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
       docName: LDBDoc.staging,
@@ -47,7 +47,7 @@ class StagingLDBOps {
 
     if (Mapper.checkCanLoopList(_maps) == true){
 
-      _output = Staging.decipher(
+      _output = StagingModel.decipher(
         id: id,
         map: _maps.first,
       );

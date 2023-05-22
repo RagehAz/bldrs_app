@@ -24,19 +24,7 @@ class FlyerPoster extends StatelessWidget {
 
     return NotePosterBox(
       width: width,
-      child:
-
-      // WidgetFader(
-      //   fadeType: FadeType.fadeIn,
-      //   // min: 0,
-      //   max: 0.5,
-      //   duration: const Duration(milliseconds: 500),
-      //   curve: Curves.easeOutCubic,
-      //   builder: (double value, Widget child){
-      //
-      //     return
-
-      FlyerDeck(
+      child: FlyerDeck(
         maxPossibleWidth: width,
         deckHeight: NotePosterBox.getClearHeight(width),
         flyerModel: flyerModel,
@@ -44,11 +32,7 @@ class FlyerPoster extends StatelessWidget {
         expansion: 0.5,
         minSlideHeightFactor: 0.85,
         screenName: screenName,
-      )
-
-          // ;
-      //   },
-      // )
+      ),
     );
 
   }

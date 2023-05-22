@@ -1,9 +1,9 @@
-import 'package:bldrs/a_models/k_statistics/record_model.dart';
+import 'package:bldrs/a_models/x_secondary/bldrs_model_type.dart';
+import 'package:bldrs/b_views/c_main_search/views/bzz_paginator_view.dart';
 import 'package:bldrs/b_views/c_main_search/views/flyers_paginator_view.dart';
 import 'package:bldrs/b_views/c_main_search/views/users_paginator_view.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'bzz_paginator_view.dart';
 
 class SearchViewSplitter extends StatelessWidget {
   // -----------------------------------------------------------------------------
@@ -17,7 +17,7 @@ class SearchViewSplitter extends StatelessWidget {
     @required this.usersController,
     Key key
   }) : super(key: key);
-
+  // --------------------
   final ModelType searchType;
   final FireQueryModel flyersQuery;
   final PaginationController flyersController;
