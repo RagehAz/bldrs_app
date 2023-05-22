@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/k_statistics/record_model.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:flutter/material.dart';
-
+/// => TAMAM
 class RecordersRealOps {
   // -----------------------------------------------------------------------------
 
@@ -13,7 +13,7 @@ class RecordersRealOps {
   /// PATH
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static String createRecordTypeRealPath({
     @required RecordType recordType,
     @required String bzID,
@@ -104,10 +104,9 @@ class RecordersRealOps {
       fromJSON: true,
     );
 
-    _output?.blogRecord(invoker: 'createRecord this aho');
+    // _output?.blogRecord(invoker: 'createRecord this aho');
 
     return _output;
   }
   // -----------------------------------------------------------------------------
-
 }
