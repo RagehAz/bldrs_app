@@ -115,7 +115,7 @@ class ComposeUserProtocols {
       if (Mapper.checkCanLoopList(_bytes) == true){
 
         final Dimensions _dims = await Dimensions.superDimensions(_bytes);
-        final String _picPath = BldrStorage.generateUserPicPath(userID);
+        final String _picPath = StoragePath.users_userID_pic(userID);
         final double _mega = Filers.calculateSize(_bytes.length, FileSizeUnit.megaByte);
 
         await PicProtocols.composePic(

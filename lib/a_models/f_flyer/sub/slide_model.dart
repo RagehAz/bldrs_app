@@ -98,7 +98,7 @@ class SlideModel {
   /// TESTED : WORKS PERFECT
   static List<SlideModel> decipherSlides(Map<String, dynamic> maps) {
     final List<SlideModel> _slides = <SlideModel>[];
-    final List<String> _keys = maps.keys.toList();
+    final List<String> _keys = maps?.keys?.toList();
 
     if (Mapper.checkCanLoopList(_keys)) {
       for (final String key in _keys) {

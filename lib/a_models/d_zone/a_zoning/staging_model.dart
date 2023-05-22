@@ -85,9 +85,9 @@ enum ViewingEvent {
 // --------------------------------------------------------------------------
 /// => TAMAM
 @immutable
-class Staging {
+class StagingModel {
   // --------------------------------------------------------------------------
-  const Staging({
+  const StagingModel({
     @required this.id,
     @required this.emptyStageIDs,
     @required this.bzzStageIDs,
@@ -115,8 +115,8 @@ class Staging {
   ];
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Staging emptyStaging(){
-    return const Staging(
+  static StagingModel emptyStaging(){
+    return const StagingModel(
       id: 'emptyStaging',
       emptyStageIDs: [],
       bzzStageIDs: [],
@@ -154,15 +154,15 @@ class Staging {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Staging decipher({
+  static StagingModel decipher({
     @required Map<String, dynamic> map,
     @required String id,
   }){
-    Staging _output;
+    StagingModel _output;
 
     if (map != null){
 
-      _output = Staging(
+      _output = StagingModel(
         id: map['id'] ?? id,
         emptyStageIDs: Real.getStringsFromTheDamnThing(map['1_empty_stage']),
         bzzStageIDs: Real.getStringsFromTheDamnThing(map['2_bzz_stage']),
@@ -202,14 +202,14 @@ class Staging {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  Staging copyWith({
+  StagingModel copyWith({
     String id,
     List<String> emptyStageIDs,
     List<String> bzzStageIDs,
     List<String> flyersStageIDs,
     List<String> publicStageIDs,
   }) {
-    return Staging(
+    return StagingModel(
       id: id ?? this.id,
       emptyStageIDs: emptyStageIDs ?? this.emptyStageIDs,
       bzzStageIDs: bzzStageIDs ?? this.bzzStageIDs,
@@ -219,11 +219,11 @@ class Staging {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  Staging copyListWith({
+  StagingModel copyListWith({
     @required List<String> newList,
     @required StageType type,
   }){
-    Staging _output = this;
+    StagingModel _output = this;
 
     if (this != null && newList != null && type != null){
 
@@ -433,11 +433,11 @@ class Staging {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Staging removeIDFromStaging({
+  static StagingModel removeIDFromStaging({
     @required String id,
-    @required Staging staging,
+    @required StagingModel staging,
   }){
-    Staging _output = staging;
+    StagingModel _output = staging;
 
     if (staging != null && id != null){
 
@@ -466,12 +466,12 @@ class Staging {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Staging insertIDToStaging({
+  static StagingModel insertIDToStaging({
     @required String id,
     @required StageType newType,
-    @required Staging staging,
+    @required StagingModel staging,
   }){
-    Staging _output = staging;
+    StagingModel _output = staging;
 
     if (staging != null && id != null){
 
@@ -539,7 +539,7 @@ class Staging {
   }
   // ---------------------
   /// TESTED : WORKS PERFECT
-  static bool checkAllZonesAreInEmptyStage(Staging staging){
+  static bool checkAllZonesAreInEmptyStage(StagingModel staging){
     bool _output;
 
     if (staging != null){
@@ -563,7 +563,7 @@ class Staging {
   /// TESTED : WORKS PERFECT
   static bool checkStagingHasSelectableZones({
     @required BuildContext context,
-    @required Staging staging,
+    @required StagingModel staging,
     @required ViewingEvent zoneViewingEvent,
     @required String countryID,
     @required String viewerCountryID,
@@ -597,7 +597,7 @@ class Staging {
   }
   // ---------------------
   /// TASK : TEST ME
-  static bool isEmpty(Staging staging){
+  static bool isEmpty(StagingModel staging){
     bool _output = true;
 
     if (staging != null){
@@ -612,7 +612,7 @@ class Staging {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkStagingsAreIdentical(Staging staging1, Staging staging2){
+  static bool checkStagingsAreIdentical(StagingModel staging1, StagingModel staging2){
     bool _identical = false;
 
     if (staging1 == null && staging2 == null){
@@ -659,7 +659,7 @@ class Staging {
     }
 
     bool _areIdentical = false;
-    if (other is Staging){
+    if (other is StagingModel){
       _areIdentical = checkStagingsAreIdentical(
         this,
         other,

@@ -19,7 +19,7 @@ class ImagifyFlyerProtocols {
   /// SMALL FLYER IMAGIFIED
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<FlyerModel> renderSmallFlyer({
     @required BuildContext context,
     @required FlyerModel flyerModel,
@@ -68,7 +68,7 @@ class ImagifyFlyerProtocols {
   /// BIG FLYER IMAGIFIED
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<FlyerModel> renderBigFlyer({
     @required BuildContext context,
     @required FlyerModel flyerModel,
@@ -182,7 +182,7 @@ class ImagifyFlyerProtocols {
   /// IMAGIFY SLIDES
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<FlyerModel> _imagifyFirstSlide({
     @required FlyerModel flyerModel,
     @required BuildContext context,
@@ -284,7 +284,7 @@ class ImagifyFlyerProtocols {
   /// IMAGIFY LOGO
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<FlyerModel> _imagifyBzLogo({
     @required BuildContext context,
     @required FlyerModel flyerModel,
@@ -298,7 +298,7 @@ class ImagifyFlyerProtocols {
       if (flyerModel.bzLogoImage == null){
 
         final ui.Image _logoImage = await PicProtocols.fetchPicUiImage(
-          path: BldrStorage.generateBzLogoPath(flyerModel.bzID),
+          path: StoragePath.bzz_bzID_logo(flyerModel.bzID),
           context: context,
         );
 
@@ -317,7 +317,7 @@ class ImagifyFlyerProtocols {
   /// IMAGIFY AUTHOR PIC
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<FlyerModel> _imagifyAuthorPic({
     @required BuildContext context,
     @required FlyerModel flyerModel,
@@ -332,7 +332,7 @@ class ImagifyFlyerProtocols {
 
         final ui.Image _authorImage = await PicProtocols.fetchPicUiImage(
           context: context,
-          path: BldrStorage.generateAuthorPicPath(
+          path: StoragePath.bzz_bzID_authorID(
             authorID: flyerModel.authorID,
             bzID: flyerModel.bzID,
           ),

@@ -3,7 +3,7 @@
 import 'dart:async';
 
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/a_models/x_secondary/app_state.dart';
+import 'package:bldrs/a_models/x_secondary/app_state_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -230,12 +230,12 @@ Future<void> initializeAppState(BuildContext context) async {
         context: context,
         listen: false,
     );
-    AppState _userState = _userModel?.appState?.copyWith();
+    AppStateModel _userState = _userModel?.appState?.copyWith();
 
     if (_userModel != null && _userState != null){
 
-      final AppState _globalState = await AppStateRealOps.readGlobalAppState();
-      final bool _statesAreIdentical = AppState.checkAppStatesAreIdentical(
+      final AppStateModel _globalState = await AppStateRealOps.readGlobalAppState();
+      final bool _statesAreIdentical = AppStateModel.checkAppStatesAreIdentical(
           state1: _userState,
           state2: _globalState
       );
@@ -250,7 +250,7 @@ Future<void> initializeAppState(BuildContext context) async {
         );
       }
 
-      final String _detectedAppVersion = await AppState.detectAppVersion();
+      final String _detectedAppVersion = await AppStateModel.detectAppVersion();
 
       /// DETECTED APP VERSION IS INCORRECT
       if (_globalState.appVersion != _detectedAppVersion){
@@ -264,7 +264,7 @@ Future<void> initializeAppState(BuildContext context) async {
       }
 
       /// UPDATE USER STATE
-      final bool _userStateIsUpdated = ! AppState.checkAppStatesAreIdentical(
+      final bool _userStateIsUpdated = ! AppStateModel.checkAppStatesAreIdentical(
           state1: _userState,
           state2: _userModel?.appState,
       );

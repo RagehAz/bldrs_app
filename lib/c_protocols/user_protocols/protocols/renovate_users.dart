@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -6,8 +7,6 @@ import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
-import 'package:bldrs/c_protocols/bz_protocols/real/bz_record_real_ops.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/real/flyer_record_real_ops.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
@@ -185,7 +184,7 @@ class RenovateUserProtocols {
 
       await Future.wait(<Future>[
 
-        BzRecordRealOps.followBz(
+        RecorderProtocols.onFollowBz(
           bzID: bzToFollow.id,
         ),
 
@@ -215,7 +214,7 @@ class RenovateUserProtocols {
 
       await Future.wait(<Future>[
 
-        BzRecordRealOps.unfollowBz(
+        RecorderProtocols.onUnfollowBz(
           bzID: bzToFollow.id,
         ),
 
@@ -264,7 +263,7 @@ class RenovateUserProtocols {
         await Future.wait(<Future>[
 
           /// FLYER RECORDS
-          FlyerRecordRealOps.saveFlyer(
+          RecorderProtocols.onSaveFlyer(
               flyerID: flyerModel.id,
               bzID: flyerModel.bzID,
               slideIndex: slideIndex
@@ -297,7 +296,7 @@ class RenovateUserProtocols {
 
         await Future.wait(<Future>[
 
-          FlyerRecordRealOps.unSaveFlyer(
+          RecorderProtocols.onUnSaveFlyer(
             flyerID: flyerModel.id,
             bzID: flyerModel.bzID,
             slideIndex: slideIndex,

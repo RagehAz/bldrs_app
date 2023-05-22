@@ -51,7 +51,12 @@ class FlyerCountersAndRecords extends StatelessWidget {
                     pageWidth: pageWidth,
                     headlineVerse: Verse.plain('$_saves ${xPhrase('phid_totalSaves')}'),
                     icon: Iconz.saveOn,
-                    realNodePath: '${RealColl.recordingSaves}/${flyerModel.id}/',
+                    realNodePath: RealPath.recorders_flyers_bzID_flyerID_recordingSaves(
+                        bzID: flyerModel.bzID,
+                        flyerID: flyerModel.id,
+                    ),
+                    bzID: flyerModel.bzID,
+                    flyerID: flyerModel.id,
                   ),
 
                 /// SHARES
@@ -60,7 +65,12 @@ class FlyerCountersAndRecords extends StatelessWidget {
                     pageWidth: pageWidth,
                     headlineVerse: Verse.plain('$_shares ${xPhrase('phid_totalShares')}'),
                     icon: Iconz.share,
-                    realNodePath: '${RealColl.recordingShares}/${flyerModel.id}/',
+                    realNodePath: RealPath.recorders_flyers_bzID_flyerID_recordingShares(
+                        bzID: flyerModel.bzID,
+                        flyerID: flyerModel.id,
+                    ),
+                    bzID: flyerModel.bzID,
+                    flyerID: flyerModel.id,
                   ),
 
                 /// VIEWS
@@ -69,7 +79,12 @@ class FlyerCountersAndRecords extends StatelessWidget {
                     pageWidth: pageWidth,
                     headlineVerse: Verse.plain('$_views ${xPhrase('phid_totalViews')}'),
                     icon: Iconz.viewsIcon,
-                    realNodePath: '${RealColl.recordingViews}/${flyerModel.id}/',
+                    realNodePath: RealPath.recorders_flyers_bzID_flyerID_recordingViews(
+                        bzID: flyerModel.bzID,
+                        flyerID: flyerModel.id,
+                    ),
+                    bzID: flyerModel.bzID,
+                    flyerID: flyerModel.id,
                   ),
 
               ],

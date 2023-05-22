@@ -1,7 +1,7 @@
 // ignore_for_file: invariant_booleans
 import 'package:animators/animators.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_stages.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/g_zoning/b_cities_screen/aa_cities_screen_browse_view.dart';
@@ -126,7 +126,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
           value: _completedZone,
       );
 
-      final Staging _citiesStages = await StagingProtocols.fetchCitiesStaging(
+      final StagingModel _citiesStages = await StagingProtocols.fetchCitiesStaging(
         countryID: widget.countryID,
       );
 
@@ -449,7 +449,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
                 onDeactivatedCityTap: _onDeactivatedTap,
                 countryCensus: _countryCensus,
                 onTapAllCities: _onTapAllCities,
-                showAllCitiesButton: Staging.checkMayShowViewAllZonesButton(
+                showAllCitiesButton: StagingModel.checkMayShowViewAllZonesButton(
                   zoneViewingEvent: widget.zoneViewingEvent,
                 ),
               );

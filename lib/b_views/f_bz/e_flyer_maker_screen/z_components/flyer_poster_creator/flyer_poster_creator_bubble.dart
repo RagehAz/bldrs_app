@@ -21,16 +21,6 @@ import 'package:flutter/material.dart';
 import 'package:mediators/mediators.dart';
 import 'package:screenshot/screenshot.dart';
 
-/*
-
-    setNotifier(
-        notifier: notifier,
-        mounted: mounted,
-        value: value
-    );
-
- */
-
 class FlyerPosterCreatorBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerPosterCreatorBubble({
@@ -100,7 +90,7 @@ Future<void> testPoster({
 
   final PicModel _posterPicModel = PicModel(
     bytes: _bytes,
-    path: BldrStorage.generateFlyerPosterPath(draft.id),
+    path: StoragePath.flyers_flyerID_poster(draft.id),
     meta: StorageMetaModel(
         sizeMB: _mega,
         width: _dims?.width,
@@ -111,8 +101,6 @@ Future<void> testPoster({
         )
     ),
   );
-
-  _posterPicModel.blogPic(invoker: 'createFlyerPoster : is done');
 
   await BottomDialog.showBottomDialog(
     context: context,

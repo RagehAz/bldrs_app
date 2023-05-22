@@ -112,19 +112,19 @@ class AuthorModel {
     if (userModel != null) {
 
       final PicModel _userPic = await PicProtocols.fetchPic(
-          BldrStorage.generateUserPicPath(userModel.id)
+          StoragePath.users_userID_pic(userModel.id)
       );
 
       _author = AuthorModel(
         userID: userModel.id,
         name: userModel.name,
-        picPath: BldrStorage.generateAuthorPicPath(bzID: bzID, authorID: userModel.id),
+        picPath: StoragePath.bzz_bzID_authorID(bzID: bzID, authorID: userModel.id),
         title: 'Bldr',
         role: isCreator ? AuthorRole.creator : AuthorRole.teamMember,
         contacts: userModel.contacts,
         flyersIDs: const <String>[],
         picModel: _userPic.copyWith(
-          path: BldrStorage.generateAuthorPicPath(
+          path: StoragePath.bzz_bzID_authorID(
             bzID: bzID,
             authorID: userModel.id,
           ),
@@ -782,7 +782,7 @@ class AuthorModel {
 
       for (final AuthorModel author in authors){
 
-        final String _picPath = BldrStorage.generateAuthorPicPath(
+        final String _picPath = StoragePath.bzz_bzID_authorID(
           bzID: bzID,
           authorID: author.userID,
         );

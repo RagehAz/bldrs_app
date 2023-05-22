@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
-import 'package:bldrs/a_models/x_secondary/app_state.dart';
+import 'package:bldrs/a_models/x_secondary/app_state_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
@@ -81,7 +81,7 @@ class DraftUser {
   final List<String> fcmTopics;
   final DeckModel savedFlyers;
   final AgendaModel followedBzz;
-  final AppState appState;
+  final AppStateModel appState;
   final bool hasNewPic;
   final TextEditingController nameController;
   final TextEditingController titleController;
@@ -217,7 +217,7 @@ class DraftUser {
     DeviceModel device,
     DeckModel savedFlyers,
     AgendaModel followedBzz,
-    AppState appState,
+    AppStateModel appState,
     List<String> fcmTopics,
     bool hasNewPic,
     FocusNode nameNode,
@@ -414,7 +414,7 @@ class DraftUser {
       fcmTopics: Stringer.getStringsFromDynamics(dynamics: map['fcmTopics']),
       savedFlyers: DeckModel.decipher(map['savedFlyers']),
       followedBzz: AgendaModel.decipher(map['followedBzz']),
-      appState: AppState.fromMap(map['appState']),
+      appState: AppStateModel.fromMap(map['appState']),
       hasNewPic: map['hasNewPic'],
       nameController: null,
       titleController: null,
@@ -538,7 +538,7 @@ class DraftUser {
           draft1.isAdmin == draft2.isAdmin &&
           DeckModel.checkDecksAreIdentical(deck1: draft1.savedFlyers, deck2: draft2.savedFlyers) == true &&
           AgendaModel.checkAgendasAreIdentical(agenda1: draft1.followedBzz, agenda2: draft2.followedBzz) == true &&
-          AppState.checkAppStatesAreIdentical(state1: draft1.appState, state2: draft2.appState) == true &&
+          AppStateModel.checkAppStatesAreIdentical(state1: draft1.appState, state2: draft2.appState) == true &&
           DeviceModel.checkDevicesAreIdentical(device1: draft1.device, device2: draft2.device) == true &&
           Mapper.checkListsAreIdentical(list1: draft1.fcmTopics, list2: draft2.fcmTopics) == true &&
           draft1.nameController.text == draft2.nameController.text &&

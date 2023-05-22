@@ -60,7 +60,7 @@ class PDFProtocols {
 
       _output = PDFModel(
         bytes: _platformFile.bytes,
-        path: BldrStorage.generateFlyerPDFPath(flyerID),
+        path: StoragePath.flyers_flyerID_pdf(flyerID),
         name: TextMod.removeTextAfterLastSpecialCharacter(_platformFile.name, '.'),
         sizeMB: Filers.calculateSize(_platformFile.bytes?.length, FileSizeUnit.megaByte),
         ownersIDs: await FlyerModel.generateFlyerOwners(context: context, bzID: bzID),

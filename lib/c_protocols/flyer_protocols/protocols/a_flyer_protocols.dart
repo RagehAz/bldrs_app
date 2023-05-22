@@ -48,10 +48,10 @@ class FlyerProtocols  {
 
   // --------------------
   /// TASK : TEST ME
-  static const wipeFlyer = WipeFlyerProtocols.wipeFlyer;
+  static const onWipeSingleFlyer = WipeFlyerProtocols.onWipeSingleFlyer;
   // --------------------
   /// TASK : TEST ME
-  static const wipeFlyers = WipeFlyerProtocols.wipeFlyers;
+  static const onWipeBz = WipeFlyerProtocols.onWipeBz;
   // --------------------
   /// TESTED : WORKS PERFECT
   static const deleteFlyersLocally =  WipeFlyerProtocols.deleteFlyersLocally;

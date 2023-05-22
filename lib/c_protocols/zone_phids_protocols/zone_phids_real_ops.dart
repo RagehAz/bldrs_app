@@ -140,7 +140,7 @@ class ZonePhidsRealOps {
 
       await Real.incrementDocFields(
         coll: RealColl.zonesPhids,
-        doc: flyerModel.zone.cityID,
+        doc: flyerModel.zone?.cityID,
         incrementationMap: _cityPhidsToAdd.toMap(),
         isIncrementing: isIncrementing,
       );

@@ -341,6 +341,30 @@ class Real {
     }
 
   }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> incrementPathFields({
+    @required String path,
+    @required Map<String, int> incrementationMap,
+    @required bool isIncrementing,
+  }) async {
+
+    if (FirebaseInitializer.isUsingOfficialPackages() == true){
+      await _OfficialReal.incrementPathFields(
+        path: path,
+        incrementationMap: incrementationMap,
+        isIncrementing: isIncrementing,
+      );
+    }
+    else {
+      await _NativeReal.incrementPathFields(
+        path: path,
+        incrementationMap: incrementationMap,
+        isIncrementing: isIncrementing,
+      );
+    }
+
+  }
   // -----------------------------------------------------------------------------
 
   /// DELETE

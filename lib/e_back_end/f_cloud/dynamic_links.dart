@@ -380,7 +380,7 @@ class BldrsShareLink{
   static Future<String> _createFlyerPosterURL({
     @required String flyerID,
   }) async {
-    final String _posterPath = BldrStorage.generateFlyerPosterPath(flyerID);
+    final String _posterPath = StoragePath.flyers_flyerID_poster(flyerID);
     final String _picURL = await FCM.getNootPicURLIfNotURL(_posterPath);
     return _picURL;
   }
@@ -498,7 +498,7 @@ class BldrsShareLink{
   static Future<String> _createBzPosterURL({
     @required String bzID,
   }) async {
-    final String _posterPath = BldrStorage.generateBzLogoPath(bzID);
+    final String _posterPath = StoragePath.bzz_bzID_logo(bzID);
     final String _picURL = await FCM.getNootPicURLIfNotURL(_posterPath);
     return _picURL;
   }
@@ -570,7 +570,7 @@ class BldrsShareLink{
   static Future<String> _createUserPosterURL({
     @required String userID,
   }) async {
-    final String _posterPath = BldrStorage.generateUserPicPath(userID);
+    final String _posterPath = StoragePath.users_userID_pic(userID);
     final String _picURL = await FCM.getNootPicURLIfNotURL(_posterPath);
     return _picURL;
   }

@@ -509,6 +509,30 @@ class _OfficialReal {
     }
 
   }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> incrementPathFields({
+    @required String path,
+    @required Map<String, int> incrementationMap,
+    @required bool isIncrementing,
+  }) async {
+
+    if (incrementationMap != null){
+
+      final f_db.DatabaseReference _ref = _getRefByPath(
+        path: path,
+      );
+
+      final Map<String, dynamic> _updatesMap = _OfficialFireMapper.createPathValueMapFromIncrementationMap(
+        incrementationMap: incrementationMap,
+        isIncrementing: isIncrementing,
+      );
+
+      await _ref.update(_updatesMap);
+
+    }
+
+  }
   // -----------------------------------------------------------------------------
 
   /// DELETE
