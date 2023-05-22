@@ -6,7 +6,7 @@ import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
 import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
 import 'package:bldrs/b_views/b_auth/a_auth_screen/a_auth_screen.dart';
-import 'package:bldrs/b_views/d_user/a_user_profile_screen/a_user_profile_screen.dart';
+import 'package:bldrs/b_views/d_user/a_user_profile_screen/user_profile_screen.dart';
 import 'package:bldrs/b_views/d_user/e_user_preview_screen/user_preview_screen.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/f_bz/f_bz_preview_screen/a_bz_preview_screen.dart';

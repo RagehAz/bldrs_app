@@ -237,8 +237,8 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
 
                   return Center(
                     child: Container(
-                      width: double.infinity,
-                      height: double.infinity,
+                      // width: double.infinity,
+                      // height: double.infinity,
                       color: Colorz.red255,
                       child: ListView(
                         children: <Widget>[

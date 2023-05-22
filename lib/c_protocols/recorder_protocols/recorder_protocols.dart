@@ -8,7 +8,7 @@ import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:numeric/numeric.dart';
-
+/// => TAMAM
 class RecorderProtocols {
   // -----------------------------------------------------------------------------
 
@@ -19,7 +19,7 @@ class RecorderProtocols {
   /// CALLS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onCallBz({
     @required String bzID,
     @required ContactModel contact,
@@ -46,7 +46,7 @@ class RecorderProtocols {
 
         /// INCREMENT CALLS COUNTER
         Real.incrementPathFields(
-          path: RealPath.recorders_bzz_bzID_recordingCalls(
+          path: RealPath.recorders_bzz_bzID_counter(
             bzID: bzID,
           ),
           incrementationMap: {
@@ -65,7 +65,7 @@ class RecorderProtocols {
   /// FOLLOWS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onFollowBz({
     @required String bzID,
   }) async {
@@ -89,7 +89,7 @@ class RecorderProtocols {
 
         /// INCREMENT FOLLOWS COUNTER
         Real.incrementPathFields(
-          path: RealPath.recorders_bzz_bzID_recordingFollows(
+          path: RealPath.recorders_bzz_bzID_counter(
             bzID: bzID,
           ),
           incrementationMap: {
@@ -103,7 +103,7 @@ class RecorderProtocols {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onUnfollowBz({
     @required String bzID,
   }) async {
@@ -127,7 +127,7 @@ class RecorderProtocols {
 
         /// DECREMENT FOLLOWS COUNTER
         Real.incrementPathFields(
-          path: RealPath.recorders_bzz_bzID_recordingFollows(
+          path: RealPath.recorders_bzz_bzID_counter(
             bzID: bzID,
           ),
           incrementationMap: {
@@ -145,7 +145,7 @@ class RecorderProtocols {
   /// SAVES
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onSaveFlyer({
     @required String flyerID,
     @required String bzID,
@@ -203,7 +203,7 @@ class RecorderProtocols {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onUnSaveFlyer({
     @required String flyerID,
     @required String bzID,
@@ -264,7 +264,7 @@ class RecorderProtocols {
   /// SHARES
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onShareFlyer({
     @required String flyerID,
     @required String bzID,
@@ -323,7 +323,7 @@ class RecorderProtocols {
   /// VIEWS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onViewSlide({
     @required String flyerID,
     @required String bzID,
@@ -386,7 +386,7 @@ class RecorderProtocols {
   /// SLIDES
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onComposeFlyer({
     @required String bzID,
     @required int numberOfSlides,
@@ -410,7 +410,7 @@ class RecorderProtocols {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onRenovateFlyer({
     @required String bzID,
     @required int oldNumberOfSlides,
@@ -438,7 +438,7 @@ class RecorderProtocols {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onWipeFlyer({
     @required String flyerID,
     @required String bzID,
@@ -471,10 +471,10 @@ class RecorderProtocols {
           path: RealPath.recorders_bzz_bzID_counter(bzID: bzID),
           incrementationMap: {
             'allSlides': numberOfSlides,
-            'allReviews': _flyerCounterModel.reviews,
-            'allViews': _flyerCounterModel.views,
-            'allShares': _flyerCounterModel.shares,
-            'allSaves': _flyerCounterModel.saves,
+            'allReviews': _flyerCounterModel?.reviews ?? 0,
+            'allViews': _flyerCounterModel?.views ?? 0,
+            'allShares': _flyerCounterModel?.shares ?? 0,
+            'allSaves': _flyerCounterModel?.saves ?? 0,
           },
           isIncrementing: false,
         ),
@@ -489,7 +489,7 @@ class RecorderProtocols {
   /// REVIEWS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onComposeReview({
     @required String flyerID,
     @required String bzID,
@@ -533,7 +533,7 @@ class RecorderProtocols {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onWipeReview({
     @required String flyerID,
     @required String bzID,
@@ -579,7 +579,7 @@ class RecorderProtocols {
   /// WIPE BZ
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<void> onWipeBz({
     @required String bzID,
   }) async {
@@ -615,7 +615,7 @@ class RecorderProtocols {
   /// READ BZ COUNTERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<FlyerCounterModel> readFlyerCounters({
     @required String flyerID,
     @required String bzID,
@@ -642,7 +642,7 @@ class RecorderProtocols {
   /// READ FLYER COUNTERS
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static Future<BzCounterModel> readBzCounters({
     @required String bzID,
   }) async {
