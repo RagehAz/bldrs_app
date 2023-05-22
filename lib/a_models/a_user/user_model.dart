@@ -6,7 +6,7 @@ import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/a_models/x_secondary/app_state.dart';
+import 'package:bldrs/a_models/x_secondary/app_state_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/app_state_real_ops.dart';
@@ -80,7 +80,7 @@ class UserModel {
   final List<String> fcmTopics;
   final DeckModel savedFlyers;
   final AgendaModel followedBzz;
-  final AppState appState;
+  final AppStateModel appState;
   final DocumentSnapshot docSnapshot;
    // -----------------------------------------------------------------------------
 
@@ -238,7 +238,7 @@ class UserModel {
         fcmTopics: Stringer.getStringsFromDynamics(dynamics: map['fcmTopics']),
         savedFlyers: DeckModel.decipher(map['savedFlyers']),
         followedBzz: AgendaModel.decipher(map['followedBzz']),
-        appState: AppState.fromMap(map['appState']),
+        appState: AppStateModel.fromMap(map['appState']),
         docSnapshot: map['docSnapshot']
     );
     }
@@ -293,7 +293,7 @@ class UserModel {
     DeviceModel device,
     DeckModel savedFlyers,
     AgendaModel followedBzz,
-    AppState appState,
+    AppStateModel appState,
     List<String> fcmTopics,
   }){
     return UserModel(
@@ -952,7 +952,7 @@ class UserModel {
         blog('blogUserDifferences : [followedBzz] are not identical');
       }
 
-      if (AppState.checkAppStatesAreIdentical(state1: user1.appState, state2: user2.appState) == false){
+      if (AppStateModel.checkAppStatesAreIdentical(state1: user1.appState, state2: user2.appState) == false){
         blog('blogUserDifferences : [appState] are not identical');
       }
 
@@ -1002,7 +1002,7 @@ class UserModel {
       device: null,
       savedFlyers: DeckModel.newDeck(),
       followedBzz: AgendaModel.newAgenda(),
-      appState: AppState.dummyAppState(),
+      appState: AppStateModel.dummyAppState(),
       fcmTopics: TopicModel.getAllPossibleUserTopicsIDs(),
     );
 
@@ -1115,7 +1115,7 @@ class UserModel {
           user1.isAdmin == user2.isAdmin &&
           DeckModel.checkDecksAreIdentical(deck1: user1.savedFlyers, deck2: user2.savedFlyers) == true &&
           AgendaModel.checkAgendasAreIdentical(agenda1: user1.followedBzz, agenda2: user2.followedBzz) == true &&
-          AppState.checkAppStatesAreIdentical(state1: user1.appState, state2: user2.appState) == true &&
+          AppStateModel.checkAppStatesAreIdentical(state1: user1.appState, state2: user2.appState) == true &&
           DeviceModel.checkDevicesAreIdentical(device1: user1.device, device2: user2.device) == true &&
           Mapper.checkListsAreIdentical(list1: user1.fcmTopics, list2: user2.fcmTopics) == true
       // DocumentSnapshot docSnapshot;

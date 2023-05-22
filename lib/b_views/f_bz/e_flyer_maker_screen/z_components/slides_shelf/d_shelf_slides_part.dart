@@ -56,18 +56,19 @@ class ShelfSlidesPart extends StatelessWidget {
       child: ValueListenableBuilder(
         valueListenable: loading,
         child: Container(
+          key: const ValueKey<String>('Loading_flyer'),
           width: DraftShelfSlide.flyerBoxWidth,
           height: DraftShelfSlide.shelfSlideZoneHeight(context),
           alignment: Alignment.bottomCenter,
           padding: const EdgeInsets.all(Ratioz.appBarPadding),
           child: const FlyerLoading(
-              flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
+            flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
             animate: false,
           ),
         ),
         builder: (_, bool isLoading, Widget loadingWidget){
 
-            return ReorderableListView(
+          return ReorderableListView(
               scrollController: scrollController,
               onReorder: _onReorder,
               scrollDirection: Axis.horizontal,
@@ -88,7 +89,7 @@ class ShelfSlidesPart extends StatelessWidget {
                   final DraftSlide _draftSlide = draft.draftSlides[index];
 
                   return DraftShelfSlide(
-                      key: ValueKey<String>('son_${_draftSlide.picModel.bytes}'),
+                      key: ValueKey<String>('son_${_draftSlide.picModel.hashCode}'),
                       draftSlide: _draftSlide,
                       number: index + 1,
                       onTap: () => onSlideTap(_draftSlide),
@@ -109,9 +110,9 @@ class ShelfSlidesPart extends StatelessWidget {
                   loadingWidget,
 
               ],
-            );
+          );
 
-      },
+          },
       ),
 
     );

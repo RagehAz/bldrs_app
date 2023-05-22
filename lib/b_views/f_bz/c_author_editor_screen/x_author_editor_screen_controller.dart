@@ -206,7 +206,7 @@ Future<void> takeAuthorImage({
           value: author.value.copyWith(
             picModel: PicModel(
               bytes: _bytes,
-              path: BldrStorage.generateAuthorPicPath(bzID: bzModel.id, authorID: author.value.userID),
+              path: StoragePath.bzz_bzID_authorID(bzID: bzModel.id, authorID: author.value.userID),
               meta: StorageMetaModel(
                 sizeMB: _mega,
                 ownersIDs: AuthorModel.getAuthorPicOwnersIDs(

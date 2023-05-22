@@ -3,8 +3,8 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/real/flyer_record_real_ops.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
+import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
 import 'package:bldrs/c_protocols/review_protocols/fire/review_fire_ops.dart';
 import 'package:bldrs/c_protocols/review_protocols/protocols/renovate_reviews.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -27,10 +27,6 @@ class ComposeReviewProtocols {
     @required String bzID,
   }) async {
 
-    /// 1. create sub doc (fire/flyers/flyerID/reviews/reviewID)
-    /// 2. increment flyer counter field (real/countingFlyers/flyerID/reviews)
-    /// 3. increment bzz counter field (real/countingBzz/bzID/allReviews)
-
     ReviewModel _uploadedReview;
 
     await Future.wait(<Future>[
@@ -41,8 +37,8 @@ class ComposeReviewProtocols {
         _uploadedReview = reviewModel;
       }),
 
-      FlyerRecordRealOps.reviewCreation(
-        reviewModel: reviewModel,
+      RecorderProtocols.onComposeReview(
+        flyerID: reviewModel.flyerID,
         bzID: bzID,
       ),
 

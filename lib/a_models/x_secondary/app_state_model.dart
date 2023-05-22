@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 /// => TAMAM
 @immutable
-class AppState {
+class AppStateModel {
   // -----------------------------------------------------------------------------
   /// IS SUB USER MODEL THAT COMPARES STATE WITH GLOBAL DB STATE MODIFIED FROM DASHBOARD
   /// OR AUTOMATICALLY WHEN CHANGING DATA THAT ARE SAVED ON LDB, IN ORDER TO RE FETCH THE DATA
   // -----------------------------------------------------------------------------
-  const AppState({
+  const AppStateModel({
     @required this.appVersion,
     @required this.ldbVersion,
   });
@@ -22,11 +22,11 @@ class AppState {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  AppState copyWith({
+  AppStateModel copyWith({
     String appVersion,
     int ldbVersion,
   }){
-    return AppState(
+    return AppStateModel(
       appVersion: appVersion ?? this.appVersion,
       ldbVersion: ldbVersion?? this.ldbVersion,
     );
@@ -37,8 +37,8 @@ class AppState {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static AppState initialState() {
-    return const AppState(
+  static AppStateModel initialState() {
+    return const AppStateModel(
       appVersion : null,
       ldbVersion : null,
     );
@@ -75,7 +75,7 @@ class AppState {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static AppState fromMap(Map<String, dynamic> map) {
+  static AppStateModel fromMap(Map<String, dynamic> map) {
 
     if (map == null) {
       return null;
@@ -83,7 +83,7 @@ class AppState {
 
     else {
 
-      return AppState(
+      return AppStateModel(
         appVersion : map['appVersion'],
         ldbVersion : map['ldbVersion'],
       );
@@ -167,8 +167,8 @@ class AppState {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static AppState dummyAppState(){
-    return const AppState(
+  static AppStateModel dummyAppState(){
+    return const AppStateModel(
       appVersion: '0.0.0',
       ldbVersion: 0,
     );
@@ -189,8 +189,8 @@ class AppState {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkAppStatesAreIdentical({
-    @required AppState state1,
-    @required AppState state2,
+    @required AppStateModel state1,
+    @required AppStateModel state2,
   }){
     bool _identical = false;
 
@@ -227,7 +227,7 @@ class AppState {
     }
 
     bool _areIdentical = false;
-    if (other is AppState){
+    if (other is AppStateModel){
       _areIdentical = checkAppStatesAreIdentical(
         state1: this,
         state2: other,

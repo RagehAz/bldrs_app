@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/real/flyer_record_real_ops.dart';
+import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:stringer/stringer.dart';
@@ -12,7 +12,7 @@ import 'package:stringer/stringer.dart';
 /// FLYER DATA COMPLETION
 
 // --------------------
-/// NOT USED
+/// DEPRECATED
 /*
 Future<BzModel> getFlyerBzModel({
   @required BuildContext context,
@@ -28,7 +28,7 @@ Future<BzModel> getFlyerBzModel({
 }
  */
 // --------------------
-/// NOT USED
+/// DEPRECATED
 /*
 Future<CountryModel> getFlyerBzCountry({
   @required String countryID,
@@ -42,7 +42,7 @@ Future<CountryModel> getFlyerBzCountry({
 }
  */
 // --------------------
-/// NOT USED
+/// DEPRECATED
 /*
 Future<CityModel> getFlyerBzCity({
   @required String cityID,
@@ -83,7 +83,7 @@ int getNumberOfSlides({
   return _numberOfSlides;
 }
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 int getPossibleStartingIndex({
   @required FlyerModel flyerModel,
   @required BzModel bzModel,
@@ -119,7 +119,7 @@ int getPossibleStartingIndex({
 /// HERO
 
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 String createFlyerHeroTag({
   @required String flyerID,
   @required String heroPath,
@@ -166,6 +166,7 @@ bool checkFlyerHeroTagHasGalleryFlyerID(String heroTag){
   return _has;
 }
 // --------------------
+/// DEPRECATED
 /*
 /// DEPRECATED
 Widget flyerFlightShuttle({
@@ -242,6 +243,7 @@ Widget flyerFlightShuttle({
 }
  */
 // --------------------
+/// DEPRECATED
 /*
 /// DEPRECATED
 FlightDirection getFlightDirection(String direction){
@@ -259,7 +261,7 @@ FlightDirection getFlightDirection(String direction){
 /// GALLERY
 
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 bool canShowGalleryPage({
   @required BzModel bzModel,
   // @required String heroPath,
@@ -291,7 +293,7 @@ bool canShowGalleryPage({
   return _canShowGallery;
 }
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 List<String> getNextFlyersIDs({
   @required List<String> allFlyersIDsWithoutParentFlyerID,
   @required List<String> loadedFlyersIDs,
@@ -360,7 +362,7 @@ List<String> getNextFlyersIDs({
   return _nextFlyersIDs;
 }
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 Future<List<FlyerModel>> fetchMoreFlyers({
   @required BuildContext context,
   @required List<FlyerModel> loadedFlyers,
@@ -394,7 +396,7 @@ Future<List<FlyerModel>> fetchMoreFlyers({
 /// SIZING
 
 // --------------------
-/// TASK : TEST ME
+/// TESTED : WORKS PERFECT
 double flyerWidthSizeFactor({
   @required double tween,
   /// min flyer width factor * screen width = minimum flyer width
@@ -407,6 +409,10 @@ double flyerWidthSizeFactor({
       minWidthFactor + (tween * (maxWidthFactor - minWidthFactor));
   return _flyerWidthSizeFactor;
 }
+// -----------------------------------------------------------------------------
+
+/// VIEW SLIDE
+
 // --------------------
 /// TASK : TEST ME
 Future<void> recordFlyerView({
@@ -414,8 +420,9 @@ Future<void> recordFlyerView({
   @required int index,
 }) async {
 
-    await FlyerRecordRealOps.viewFlyer(
-      flyerModel: flyerModel,
+    await RecorderProtocols.onViewSlide(
+      flyerID: flyerModel?.id,
+      bzID: flyerModel?.bzID,
       index: index,
     );
 

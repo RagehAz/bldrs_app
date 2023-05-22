@@ -12,7 +12,6 @@ import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
-import 'package:bldrs/c_protocols/user_protocols/real/user_record_real_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/auth_protocols/auth_ldb_ops.dart';
@@ -21,7 +20,7 @@ import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:mapper/mapper.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-/// => TAMAM
+///
 class WipeUserProtocols {
   // -----------------------------------------------------------------------------
 
@@ -275,10 +274,10 @@ class WipeUserProtocols {
       /// WIPE USER PIC
       PicProtocols.wipePic(userModel.picPath),
 
-      /// DELETE SEARCHES
-      UserRecordRealOps.deleteAllUserRecords(
-        userID: userModel.id,
-      ),
+      // TASK : SHOULD WIPE USER SEARCHES
+      // UserRecordRealOps.deleteAllUserRecords(
+      //   userID: userModel.id,
+      // ),
 
       /// UPDATE USER CENSUS
       CensusListener.onWipeUser(userModel),
@@ -327,6 +326,8 @@ class WipeUserProtocols {
 
       /// DELETE ACCOUNT MODEL
       AccountLDBOps.deleteAccount(id: userModel.id),
+
+      /// TASK : SHOULD DELETE USER SEARCHES LOCALLY
 
     ]);
 

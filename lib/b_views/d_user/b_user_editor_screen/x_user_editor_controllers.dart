@@ -197,7 +197,7 @@ Future<void> takeUserPicture({
           value: draft.value.copyWith(
               picModel: PicModel(
                 bytes: _bytes,
-                path: BldrStorage.generateUserPicPath(draft.value.id),
+                path: StoragePath.users_userID_pic(draft.value.id),
                 meta: StorageMetaModel(
                   sizeMB: _mega,
                   width: _dims?.width,

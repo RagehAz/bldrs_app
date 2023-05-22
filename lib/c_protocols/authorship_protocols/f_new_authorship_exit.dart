@@ -410,7 +410,7 @@ class NewAuthorshipExit {
       ),
 
       /// (only i can) : WIPE AUTHOR PIC
-      PicProtocols.wipePic(BldrStorage.generateAuthorPicPath(
+      PicProtocols.wipePic(StoragePath.bzz_bzID_authorID(
         bzID: bzID,
         authorID: _oldUser.id,
       )),

@@ -1,14 +1,15 @@
 import 'dart:async';
-import 'package:bldrs/super_fire/super_fire.dart';
-import 'package:bldrs/a_models/g_counters/flyer_counter_model.dart';
+
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/g_counters/flyer_counter_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/b_footer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/d_flyer_footer_buttons.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/a_info_button_structure/a_info_button_starter.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/real/flyer_record_real_ops.dart';
-import 'package:filers/filers.dart';
+import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 
 class FlyerFooter extends StatefulWidget {
@@ -76,8 +77,9 @@ class _FlyerFooterState extends State<FlyerFooter> {
         // ----------
         if (Authing.userIsSignedIn() == true){
           // ----------
-          final FlyerCounterModel _counter = await FlyerRecordRealOps.readFlyerCounters(
+          final FlyerCounterModel _counter = await RecorderProtocols.readFlyerCounters(
             flyerID: widget.flyerModel.id,
+            bzID: widget.flyerModel.bzID,
           );
           // ----------
           setNotifier(
