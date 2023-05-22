@@ -39,9 +39,12 @@ class WipeReviewProtocols {
         ),
 
         /// DELETE REVIEW AGREES
-        Real.deleteDoc(
-          coll: RealColl.agreesOnReviews,
-          doc: '${reviewModel.flyerID}/${reviewModel.id}',
+        Real.deletePath(
+          pathWithDocName: RealPath.agrees_bzID_flyerID_reviewID(
+            bzID: bzID,
+            flyerID: reviewModel.flyerID,
+            reviewID: reviewModel.id,
+          ),
         ),
 
         /// DECREMENT BZ & FLYER COUNTERS

@@ -1,7 +1,7 @@
 ```
   | => REAL DATA TREE -------------------------|
   |
-  | - [agreesOnReviews]
+  | - []
   |     | - {bzID}
   |     |       | - {flyerID}
   |     |       |     | - {reviewID}

@@ -2,13 +2,11 @@ import 'package:bldrs/a_models/c_chain/b_zone_phids_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
-import 'package:filers/filers.dart';
-import 'package:mapper/mapper.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
 
 class ZonePhidsRealOps {
   // -----------------------------------------------------------------------------
@@ -35,14 +33,14 @@ class ZonePhidsRealOps {
 
       /// COUNTRY PHIDS
       if (_currentZone.cityID == null){
-        _output = await ZonePhidsRealOps._readCountryPhids(
+        _output = await _readCountryPhids(
           countryID: _currentZone.countryID,
         );
       }
 
       /// CITY PHIDS
       else {
-        _output = await ZonePhidsRealOps._readCityPhids(
+        _output = await _readCityPhids(
           cityID: _currentZone.cityID,
         );
       }
@@ -52,7 +50,7 @@ class ZonePhidsRealOps {
     return _output;
   }
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
   static Future<ZonePhidsModel> _readCityPhids({
     @required String cityID,
   }) async {
@@ -60,9 +58,11 @@ class ZonePhidsRealOps {
 
     if (cityID != null){
 
-      final Map<String, dynamic> _map = await Real.readDoc(
-        coll: RealColl.zonesPhids,
-        doc: cityID,
+      final Map<String, dynamic> _map = await Real.readPathMap(
+        path: RealPath.zonesPhids_countryID_cityID(
+          countryID: CityModel.getCountryIDFromCityID(cityID),
+          cityID: cityID,
+        ),
       );
 
       if (_map != null){
@@ -85,35 +85,69 @@ class ZonePhidsRealOps {
 
     if (countryID != null){
 
-      final List<CityModel> _cities = await ZoneProtocols.fetchCitiesOfCountry(
-        countryID: countryID,
+      // final List<CityModel> _cities = await ZoneProtocols.fetchCitiesOfCountry(
+      //   countryID: countryID,
+      // );
+      //
+      // if (Mapper.checkCanLoopList(_cities) == true){
+      //
+      //   final List<String> _citiesIDs = CityModel.getCitiesIDs(_cities);
+      //
+      //   await Future.wait(<Future>[
+      //
+      //     ...List.generate(_citiesIDs.length, (index){
+      //
+      //       final String _cityID = _citiesIDs[index];
+      //
+      //       return _readCityPhids(cityID: _cityID).then((ZonePhidsModel model){
+      //
+      //         _output = ZonePhidsModel.combineModels(
+      //           zoneID: countryID,
+      //           base: _output,
+      //           add: model,
+      //         );
+      //
+      //         blog('readCountryPhids : ${_output?.phidsMaps?.length} phids');
+      //
+      //       });
+      //
+      //     }),
+      //
+      //   ]);
+      //
+      // }
+
+      final Map<String, dynamic> _map = await Real.readPathMap(
+        path: RealPath.zonesPhids_countryID(
+            countryID: countryID,
+          ),
       );
 
-      if (Mapper.checkCanLoopList(_cities) == true){
+      if (_map != null){
 
-        final List<String> _citiesIDs = CityModel.getCitiesIDs(_cities);
+        final List<String> _citiesIDs = _map.keys.toList();
 
-        await Future.wait(<Future>[
+        if (Mapper.checkCanLoopList(_citiesIDs) == true){
 
-          ...List.generate(_citiesIDs.length, (index){
+          for (final String cityID in _citiesIDs){
 
-            final String _cityID = _citiesIDs[index];
+            final Map<String, dynamic> _cityPhids = _map[cityID];
 
-            return _readCityPhids(cityID: _cityID).then((ZonePhidsModel model){
+            final ZonePhidsModel _model = ZonePhidsModel.decipherZonePhids(
+              map: _cityPhids,
+              cityID: cityID,
+            );
 
-              _output = ZonePhidsModel.combineModels(
-                zoneID: countryID,
-                base: _output,
-                add: model,
-              );
+            _output = ZonePhidsModel.combineModels(
+              zoneID: countryID,
+              base: _output,
+              add: _model,
+            );
 
-              blog('readCountryPhids : ${_output?.phidsMaps?.length} phids');
+          }
 
-            });
+        }
 
-          }),
-
-        ]);
 
       }
 
@@ -126,7 +160,7 @@ class ZonePhidsRealOps {
   /// EDITOR
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
   static Future<void> incrementFlyerCityPhids({
     @required FlyerModel flyerModel,
     @required bool isIncrementing,
@@ -138,9 +172,11 @@ class ZonePhidsRealOps {
         flyerModel: flyerModel,
       );
 
-      await Real.incrementDocFields(
-        coll: RealColl.zonesPhids,
-        doc: flyerModel.zone?.cityID,
+      await Real.incrementPathFields(
+        path: RealPath.zonesPhids_countryID_cityID(
+            countryID: flyerModel.zone?.countryID,
+            cityID: flyerModel.zone?.cityID,
+        ),
         incrementationMap: _cityPhidsToAdd.toMap(),
         isIncrementing: isIncrementing,
       );
@@ -204,33 +240,6 @@ class ZonePhidsRealOps {
           flyerModel: flyerModel,
           isIncrementing: true,
         );
-
-        // /// GET REMOVED PHIDS
-        // final List<String> _removedPhids = Stringer.getRemovedStrings(
-        //     oldStrings: _oldPhids,
-        //     newStrings: _newPhids
-        // );
-        //
-        // /// GET NEW PHIDS
-        // final List<String> _addedPhids = Stringer.getAddedStrings(
-        //     oldStrings: _oldPhids,
-        //     newStrings: _newPhids
-        // );
-        //
-        // /// CREATE INCREMENTATION MAP
-        // final Map<String, dynamic> _incrementationMap = CityPhidsModel.createIncrementationMap(
-        //     removedPhids: _removedPhids,
-        //     addedPhids: _addedPhids,
-        // );
-        //
-        // /// INCREMENT VALUES OPS
-        // await Real.incrementDocFields(
-        //   context: context,
-        //   collName: RealColl.citiesPhids,
-        //   docName: flyerModel.zone.cityID,
-        //   incrementationMap: _incrementationMap,
-        //   isIncrementing: true,
-        // );
 
       }
 

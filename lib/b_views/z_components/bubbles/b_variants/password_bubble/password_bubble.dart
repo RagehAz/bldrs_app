@@ -21,6 +21,7 @@ class PasswordBubbles extends StatelessWidget {
     this.boxWidth,
     this.isTheSuperKeyboardField = false,
     this.goOnKeyboardGo = true,
+    this.mainAxisAlignment,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -37,6 +38,7 @@ class PasswordBubbles extends StatelessWidget {
   final FocusNode confirmPasswordNode;
   final bool goOnKeyboardGo;
   final ValueNotifier<bool> isObscured;
+  final MainAxisAlignment mainAxisAlignment;
   /// --------------------------------------------------------------------------
   TextInputAction _getTextInputAction(){
 
@@ -56,7 +58,7 @@ class PasswordBubbles extends StatelessWidget {
     final TextInputAction _keyboardAction = _getTextInputAction();
 
     return Column(
-
+      mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
       children: <Widget>[
 
         /// PASSWORD

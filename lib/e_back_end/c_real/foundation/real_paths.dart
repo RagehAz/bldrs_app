@@ -1,13 +1,14 @@
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 import 'package:flutter/material.dart';
 
+/// => TAMAM
 class RealColl {
   // -----------------------------------------------------------------------------
 
   const RealColl();
 
   // -----------------------------------------------------------------------------
-  static const String agreesOnReviews = 'agreesOnReviews';
+  static const String agrees = 'agrees';
   // --------------------
   static const String app = 'app';
   // --------------------
@@ -31,6 +32,7 @@ class RealColl {
   // --------------------
 }
 
+/// => TAMAM
 class RealDoc {
   // -----------------------------------------------------------------------------
 
@@ -73,6 +75,7 @@ class RealDoc {
   // -----------------------------------------------------------------------------
 }
 
+/// => TAMAM
 class RealPath {
   // -----------------------------------------------------------------------------
 
@@ -85,25 +88,25 @@ class RealPath {
   // --------------------
   static String agrees_bzID({
     @required String bzID,
-  }) => '${RealColl.agreesOnReviews}/$bzID';
+  }) => '${RealColl.agrees}/$bzID';
   // --------------------
   static String agrees_bzID_flyerID({
     @required String bzID,
     @required String flyerID,
-  }) => '${RealColl.agreesOnReviews}/$bzID/$flyerID';
+  }) => '${RealColl.agrees}/$bzID/$flyerID';
   // --------------------
   static String agrees_bzID_flyerID_reviewID({
     @required String bzID,
     @required String flyerID,
     @required String reviewID,
-  }) => '${RealColl.agreesOnReviews}/$bzID/$flyerID/$reviewID';
+  }) => '${RealColl.agrees}/$bzID/$flyerID/$reviewID';
   // --------------------
   static String agrees_bzID_flyerID_reviewID_userID({
     @required String bzID,
     @required String flyerID,
     @required String reviewID,
     @required String userID,
-  }) => '${RealColl.agreesOnReviews}/$bzID/$flyerID/$reviewID/$userID';
+  }) => '${RealColl.agrees}/$bzID/$flyerID/$reviewID/$userID';
   // -----------------------------------------------------------------------------
 
   /// app

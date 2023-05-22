@@ -207,6 +207,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
                       future: ReviewProtocols.readIsAgreed(
                         reviewID: _reviewModel.id,
                         flyerID: _reviewModel.flyerID,
+                        bzID: widget.flyerModel.bzID,
                       ),
                       initialData: false,
                       builder: (_, AsyncSnapshot<Object> snapshot){

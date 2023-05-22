@@ -13,7 +13,7 @@ import 'package:bldrs/b_views/z_components/poster/poster_display.dart';
 import 'package:bldrs/b_views/z_components/poster/structure/poster_switcher.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_paths_generators.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bubbles/bubbles.dart';
 import 'package:filers/filers.dart';

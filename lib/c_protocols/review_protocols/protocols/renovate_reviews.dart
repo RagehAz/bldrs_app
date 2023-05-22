@@ -1,3 +1,6 @@
+import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/c_protocols/review_protocols/fire/review_fire_ops.dart';
@@ -74,6 +77,11 @@ class RenovateReviewProtocols {
       isIncrementing: true,
     );
 
+    final FlyerModel _flyer = await FlyerProtocols.fetchFlyer(
+      context: getMainContext(),
+      flyerID: reviewModel.flyerID,
+    );
+
     /// FIRE AND REAL UPDATES
     await Future.wait(<Future>[
 
@@ -83,11 +91,15 @@ class RenovateReviewProtocols {
       ),
 
       /// ADD MY ID IN REVIEW AGREES LIST
-      Real.updateDocField(
-          coll: RealColl.agreesOnReviews,
-        doc: '${reviewModel.flyerID}/${reviewModel.id}',
-        field: Authing.getUserID(),
-          value: true,
+      Real.updateDocInPath(
+        path: RealPath.agrees_bzID_flyerID_reviewID(
+          bzID: _flyer.bzID,
+          flyerID: reviewModel.flyerID,
+          reviewID: reviewModel.id,
+        ),
+        map: {
+          Authing.getUserID(): true,
+        },
       ),
 
     ]);
@@ -108,6 +120,11 @@ class RenovateReviewProtocols {
       isIncrementing: false,
     );
 
+    final FlyerModel _flyer = await FlyerProtocols.fetchFlyer(
+      context: getMainContext(),
+      flyerID: reviewModel.flyerID,
+    );
+
     /// FIRE AND REAL UPDATES
     await Future.wait(<Future>[
 
@@ -117,10 +134,13 @@ class RenovateReviewProtocols {
       ),
 
       /// REMOVE ID IN REVIEW AGREES LIST
-      Real.deleteField(
-        coll: RealColl.agreesOnReviews,
-        doc: '${reviewModel.flyerID}/${reviewModel.id}',
-        field: Authing.getUserID(),
+      Real.deletePath(
+        pathWithDocName: RealPath.agrees_bzID_flyerID_reviewID_userID(
+          bzID: _flyer.bzID,
+          flyerID: reviewModel.flyerID,
+          reviewID: reviewModel.id,
+          userID: Authing.getUserID(),
+        ),
       ),
 
     ]);
