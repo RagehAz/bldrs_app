@@ -240,7 +240,7 @@ class DraftBz {
       inactiveBzForms: BzTyper.concludeInactiveBzFormsByBzTypes(bzModel.bzTypes),
       scope: bzModel.scope,
 
-      logoPicModel: await PicProtocols.fetchPic(BldrStorage.generateBzLogoPath(bzModel.id)),
+      logoPicModel: await PicProtocols.fetchPic(StoragePath.bzz_bzID_logo(bzModel.id)),
       hasNewLogo: false,
       canPickImage: true,
       canValidate: false,
@@ -585,7 +585,7 @@ class DraftBz {
       );
 
       final PicModel _picModel = draft.logoPicModel?.copyWith(
-        path: BldrStorage.generateBzLogoPath(bzID),
+        path: StoragePath.bzz_bzID_logo(bzID),
       );
 
       _output = draft.copyWith(
@@ -610,7 +610,7 @@ class DraftBz {
       return null;
     }
     else {
-      return BldrStorage.generateBzLogoPath(id);
+      return StoragePath.bzz_bzID_logo(id);
     }
 
   }

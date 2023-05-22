@@ -1,23 +1,24 @@
 import 'dart:async';
 
-import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
-import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/x_flyer_maker_controllers.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
-import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
+import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/x_flyer_editor_screen.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/x_flyer_maker_controllers.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/poster/structure/x_note_poster_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_paths_generators.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +58,7 @@ Future<void> onFlyerBzOptionsTap({
 
           /// POSTER
           BldrsImage(
-            pic: BldrStorage.generateFlyerPosterPath(flyer.id),
+            pic: StoragePath.flyers_flyerID_poster(flyer.id),
             height: _posterHeight,
             width: _posterWidth,
             corners: BldrsAppBar.corners,
@@ -200,8 +201,6 @@ Future<void> _onDeleteFlyerButtonTap({
   @required FlyerModel flyer,
 }) async {
 
-  // blog('_onDeleteFlyer : permanently starting deleting flyer ${flyer.id}');
-
   final bool _result = await _preFlyerDeleteCheckups(
     context: context,
     flyer: flyer,
@@ -214,12 +213,19 @@ Future<void> _onDeleteFlyerButtonTap({
       invoker: '_onDeleteFlyerButtonTap',
     );
 
-    await FlyerProtocols.wipeFlyer(
+    pushWaitDialog(
       context: context,
-      flyerModel: flyer,
-      showWaitDialog: true,
-      isDeletingBz: false,
+      verse: const Verse(
+        id: 'phid_deleting_flyer',
+        translate: true,
+      ),
     );
+
+    await FlyerProtocols.onWipeSingleFlyer(
+      flyerModel: flyer,
+    );
+
+    await WaitDialog.closeWaitDialog();
 
     await TopDialog.showTopDialog(
       context: context,

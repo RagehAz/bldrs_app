@@ -4,7 +4,7 @@ import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
-import 'package:bldrs/c_protocols/bz_protocols/real/bz_record_real_ops.dart';
+import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
 import 'package:bldrs/c_protocols/zone_phids_protocols/zone_phids_real_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
@@ -91,10 +91,10 @@ class RenovateFlyerProtocols {
       FlyerFireOps.updateFlyerDoc(_flyerToUpload),
 
       /// INCREMENT BZ COUNTER (all slides) COUNT
-      BzRecordRealOps.incrementBzCounter(
+      RecorderProtocols.onRenovateFlyer(
         bzID: newDraft.bzID,
-        field: 'allSlides',
-        incrementThis: newDraft.draftSlides.length - oldFlyer.slides.length,
+        newNumberOfSlides: newDraft.draftSlides.length,
+        oldNumberOfSlides: oldFlyer.slides.length,
       ),
 
       /// INCREMENT CITY PHIDS

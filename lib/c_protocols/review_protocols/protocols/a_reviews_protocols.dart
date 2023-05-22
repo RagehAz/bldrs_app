@@ -43,10 +43,10 @@ class ReviewProtocols {
   /// TESTED : WORKS PERFECT
   static const wipeSingleReview = WipeReviewProtocols.wipeSingleReview;
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static const wipeAllFlyerReviews = WipeReviewProtocols.wipeAllFlyerReviews;
+  /// TASK : TEST ME
+  static const onWipeFlyer = WipeReviewProtocols.onWipeFlyer;
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static const wipeMultipleFlyersReviews = WipeReviewProtocols.wipeMultipleFlyersReviews;
+  /// TASK : TEST ME
+  static const onWipeBz = WipeReviewProtocols.onWipeBz;
   // -----------------------------------------------------------------------------
 }

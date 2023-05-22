@@ -1,193 +1,5 @@
-// ignore_for_file: constant_identifier_names
-
-/*
-  | => REAL DATA TREE -------------------------|
-  |
-  | - [agreesOnReviews]
-  |     | - {flyerID}
-  |     |     | - {reviewID}
-  |     |     |     | - {userID} : <bool>
-  |     |     |     | - ...
-  |     |     |
-  |     |     | - ...
-  |     |
-  |     | - ...
-  |
-  | --------------------------|
-  |
-  | - [bldrsChains]
-  |     | - {phid_k} : <String>
-  |     | - ...
-  |
-  | --------------------------|
-  |
-  | - [countingBzz]
-  |     | - {bzID}
-  |     | - ...
-  |
-  | --------------------------|
-  |
-  | - [countingFlyers]
-  |     | - {flyerID}
-  |     | - ...
-  |
-  | --------------------------|
-  |
-  | - [feedbacks]
-  |     | - {feedbackID}
-  |     | - ...
-  |
-  | --------------------------|
-  |
-  | - [phrases]
-  |     | - {langCode}
-  |     | - ...
-  |
-  | --------------------------|
-  |
-  | - [pickers]
-  |     | - {flyerType}
-  |     | - ...
-  |
-  | --------------------------|
-  |
-  | - [recordingCalls]
-  |     | - {bzID}
-  |     |     | - {recordID}
-  |     |     | - ...
-  |     |
-  |     | - ...
-  |
-  | --------------------------|
-  |
-  | - [recordingFollows]
-  |     | - {bzID}
-  |     |     | - {recordID}
-  |     |     | - ...
-  |     |
-  |     | - ...
-  |
-  | --------------------------|
-  |
-  | - [recordingSaves]
-  |     | - {flyerID}
-  |     |     | - {flyerID_userID}
-  |     |     | - ...
-  |     |
-  |     | - ...
-  |
-  | --------------------------|
-  |
-  | - [recordingSearches]
-  |     | - {userID}
-  |     |     | - {recordID}
-  |     |     | - ...
-  |     |
-  |     | - ...
-  |
-  | --------------------------|
-  |
-  | - [recordingShares]
-  |     | - {flyerID}
-  |     |     | - {recordID}
-  |     |     | - ...
-  |     |
-  |     | - ...
-  |
-  | --------------------------|
-  |
-  | - recordingViews
-  |     | - {flyerID}
-  |     |     | - {flyerID_slideIndex_userID}
-  |     |     | - ...
-  |     |
-  |     | - ...
-  |
-  | --------------------------|
-  |
-  | - statistics
-  |     |
-  |     | - planet
-  |     |     | => [CensusModel]
-  |     |
-  |     | - countries
-  |     |     | - {countryID}
-  |     |     |     | => [CensusModel]
-  |     |     |
-  |     |     | - {countryID}...
-  |     |
-  |     | - cities
-  |           | - {cityID}
-  |           |     | => [CensusModel]
-  |           |
-  |           | - {cityID}...
-  |
-  |
-  | --------------------------|
-  |
-  | /// TASK : PROPOSAL TO MIGRATE APP STATE
-  | - appState : <AppStateModel>
-  |     | - appVersion
-  |     | - ldbVersion
-  |
-  | --------------------------|
-  |
-  | - zones
-  |     |
-  |     | - stagesCountries
-  |     |     | - hidden    : <List<String>> "countriesIDs"
-  |     |     | - inactive  : <List<String>> "countriesIDs"
-  |     |     | - active    : <List<String>> "countriesIDs"
-  |     |     | - public    : <List<String>> "countriesIDs"
-  |     |
-  |     | - stagesCities
-  |     |     | - {countryID}
-  |     |     |       | - hidden    : <List<String>> "citiesIDs"
-  |     |     |       | - inactive  : <List<String>> "citiesIDs"
-  |     |     |       | - active    : <List<String>> "citiesIDs"
-  |     |     |       | - public    : <List<String>> "citiesIDs"
-  |     |     |
-  |     |     | - {countryID}...
-  |     |
-  |     | - cities
-  |           | - {countryID}
-  |           |       | - {cityID}
-  |           |       |     | - population
-  |           |       |     | - position
-  |           |       |     | - phrases
-  |           |       |          | - {langCode} : <String>
-  |           |       |          | - {langCode}...
-  |           |       |
-  |           |       |
-  |           |       |
-  |           |       | - {cityID}...
-  |           |
-  |           | - {countryID}...
-  |
-  | --------------------------|
-  |
-  | - hashGroups
-  |     | - designs
-  |     |     | - {groupID} : <String>[{hashID}, {hashID}, ...]
-  |     |     | - {groupID}...
-  |     |
-  |     | - ...
-  |
-  | --------------------------|
-  |
-  | - [hashCensus]
-  |     | - {cityID}
-  |     |     | - {phid_k}
-  |     |     |      | - {uses} : <int>
-  |     |     |      | - {searches} : <int>
-  |     |     |      | - {views} : <int>
-  |     |     | - ...
-  |     |
-  |     | - ...
-  |
-  | -------------------------------------------|
-
- */
+// ignore_for_file: constant_identifier_names, non_constant_identifier_names
+import 'package:flutter/material.dart';
 
 class RealColl {
   // -----------------------------------------------------------------------------
@@ -195,64 +7,28 @@ class RealColl {
   const RealColl();
 
   // -----------------------------------------------------------------------------
-  /// BZ
-  // --------------------
-  static const String countingBzz = 'countingBzz';
-  static const String recordingFollows = 'recordingFollows';
-  static const String recordingCalls = 'recordingCalls';
-// ----------------------------------
-  /// FLYER
-  // --------------------
-  static const String countingFlyers = 'countingFlyers';
-  static const String recordingShares = 'recordingShares';
-  static const String recordingViews = 'recordingViews';
-  static const String recordingSaves = 'recordingSaves';
-  // static const String recordingReviews = 'recordingReviews';
-  static const String reviews = 'reviews';
   static const String agreesOnReviews = 'agreesOnReviews';
-  // ----------------------------------
-  /// USER
-  // --------------------
-  static const String recordingSearches = 'recordingSearches';
-  // -----------------------------------------------------------------------------
-  /// CHAINS
-  // --------------------
-  static const String zonesPhids = 'zonesPhids';
-  static const String bldrsChains = 'bldrsChains';
-  // -----------------------------------------------------------------------------
-  /// PICKERS
-  // --------------------
-  static const String pickers = 'pickers';
-  // -----------------------------------------------------------------------------
-  /// Phrases
-  // --------------------
-  static const String phrases = 'phrases';
-  // -----------------------------------------------------------------------------
-  /// Zones
-  // --------------------
-  static const String zoneCountries = 'zoneCountries';
-  // -----------------------------------------------------------------------------
-  /// FEED BACK
-  // --------------------
-  static const String feedbacks = 'feedbacks';
-  // -----------------------------------------------------------------------------
-  /// NOTES
-  // --------------------
-  static const String notes = 'notes';
-  // -----------------------------------------------------------------------------
-  /// STATISTICS
-  // --------------------
-  static const String statistics = 'statistics';
-  // -----------------------------------------------------------------------------
-  /// ZONES LEVELS
-  // --------------------
-  static const String zones = 'zones';
-  // -----------------------------------------------------------------------------
-  /// APP
   // --------------------
   static const String app = 'app';
-
+  // --------------------
+  static const String bldrsChains = 'bldrsChains';
+  // --------------------
+  static const String recorders = 'recorders';
+  // --------------------
+  static const String feedbacks = 'feedbacks';
+  // --------------------
+  static const String phrases = 'phrases';
+  // --------------------
+  static const String pickers = 'pickers';
+  // --------------------
   static const String searches = 'searches';
+  // --------------------
+  static const String statistics = 'statistics';
+  // --------------------
+  static const String zones = 'zones';
+  // --------------------
+  static const String zonesPhids = 'zonesPhids';
+  // --------------------
 }
 
 class RealDoc {
@@ -281,5 +57,192 @@ class RealDoc {
   static const String zones_stages_countries = 'stages_countries';
   static const String zones_stages_cities = 'stages_cities';
   static const String zones_cities = 'cities';
+  // -----------------------------------------------------------------------------
+  /// RECORDERS
+  // --------------------
+  static const String recorders_bzz = 'bzz';
+  static const String recorders_bzz_bzID_counter = 'counter';
+  static const String recorders_bzz_bzID_recordingCalls = 'recordingCalls';
+  static const String recorders_bzz_bzID_recordingFollows = 'recordingFollows';
+  // --------------------
+  static const String recorders_flyers = 'flyers';
+  static const String recorders_flyers_bzID_flyerID_counter = 'counter';
+  static const String recorders_flyers_bzID_flyerID_recordingSaves = 'recordingSaves';
+  static const String recorders_flyers_bzID_flyerID_recordingShares = 'recordingShares';
+  static const String recorders_flyers_bzID_flyerID_recordingViews = 'recordingViews';
+  // -----------------------------------------------------------------------------
+}
+
+class RealPath {
+  // -----------------------------------------------------------------------------
+
+  const RealPath();
+
+  // -----------------------------------------------------------------------------
+
+  /// agreesOnReviews
+
+  // --------------------
+  static String agrees_bzID({
+    @required String bzID,
+  }) => '${RealColl.agreesOnReviews}/$bzID';
+  // --------------------
+  static String agrees_bzID_flyerID({
+    @required String bzID,
+    @required String flyerID,
+  }) => '${RealColl.agreesOnReviews}/$bzID/$flyerID';
+  // --------------------
+  static String agrees_bzID_flyerID_reviewID({
+    @required String bzID,
+    @required String flyerID,
+    @required String reviewID,
+  }) => '${RealColl.agreesOnReviews}/$bzID/$flyerID/$reviewID';
+  // --------------------
+  static String agrees_bzID_flyerID_reviewID_userID({
+    @required String bzID,
+    @required String flyerID,
+    @required String reviewID,
+    @required String userID,
+  }) => '${RealColl.agreesOnReviews}/$bzID/$flyerID/$reviewID/$userID';
+  // -----------------------------------------------------------------------------
+
+  /// app
+
+  // --------------------
+  static String app_appState() => '${RealColl.app}/${RealDoc.app_appState}';
+  // -----------------------------------------------------------------------------
+
+  /// bldrsChains
+
+  // --------------------
+  /// NO PATHS
+  // -----------------------------------------------------------------------------
+
+  /// BZZ recorders
+
+  // --------------------
+  static String recorders_bzz_bzID({
+    @required String bzID,
+  }) => '${RealColl.recorders}/${RealDoc.recorders_bzz}/$bzID';
+  // --------------------
+  static String recorders_bzz_bzID_counter({
+    @required String bzID,
+  }) => '${RealColl.recorders}/${RealDoc.recorders_bzz}/$bzID/${RealDoc.recorders_bzz_bzID_counter}';
+  // --------------------
+  static String recorders_bzz_bzID_recordingCalls({
+    @required String bzID,
+  }) => '${RealColl.recorders}/${RealDoc.recorders_bzz}/$bzID/${RealDoc.recorders_bzz_bzID_recordingCalls}';
+  // --------------------
+  static String recorders_bzz_bzID_recordingFollows({
+    @required String bzID,
+  }) => '${RealColl.recorders}/${RealDoc.recorders_bzz}/$bzID/${RealDoc.recorders_bzz_bzID_recordingFollows}';
+  // -----------------------------------------------------------------------------
+
+  /// FLYERS recorders
+
+  // --------------------
+  static String recorders_flyers_bzID({
+    @required String bzID,
+  }) => '${RealColl.recorders}/${RealDoc.recorders_flyers}/$bzID';
+  // --------------------
+  static String recorders_flyers_bzID_flyerID({
+    @required String bzID,
+    @required String flyerID,
+  }) => '${RealColl.recorders}/${RealDoc.recorders_flyers}/$bzID/$flyerID';
+  // --------------------
+  static String recorders_flyers_bzID_flyerID_counter({
+    @required String bzID,
+    @required String flyerID,
+  }) => '${RealColl.recorders}/${RealDoc.recorders_flyers}/$bzID/$flyerID/${RealDoc.recorders_flyers_bzID_flyerID_counter}';
+  // --------------------
+  static String recorders_flyers_bzID_flyerID_recordingSaves({
+    @required String bzID,
+    @required String flyerID,
+  }) => '${RealColl.recorders}/${RealDoc.recorders_flyers}/$bzID/$flyerID/${RealDoc.recorders_flyers_bzID_flyerID_recordingSaves}';
+  // --------------------
+  static String recorders_flyers_bzID_flyerID_recordingShares({
+    @required String bzID,
+    @required String flyerID,
+  }) => '${RealColl.recorders}/${RealDoc.recorders_flyers}/$bzID/$flyerID/${RealDoc.recorders_flyers_bzID_flyerID_recordingShares}';
+  // --------------------
+  static String recorders_flyers_bzID_flyerID_recordingViews({
+    @required String bzID,
+    @required String flyerID,
+  }) => '${RealColl.recorders}/${RealDoc.recorders_flyers}/$bzID/$flyerID/${RealDoc.recorders_flyers_bzID_flyerID_recordingViews}';
+  // -----------------------------------------------------------------------------
+
+  /// feedbacks
+
+  // --------------------
+  /// no paths
+  // -----------------------------------------------------------------------------
+
+  /// pickers
+
+  // --------------------
+  /// not important
+  // -----------------------------------------------------------------------------
+
+  /// searches
+
+  // --------------------
+  static String searches_userID({
+    @required String userID,
+  }) => '${RealColl.searches}/$userID';
+  // -----------------------------------------------------------------------------
+
+  /// statistics
+
+  // --------------------
+  static String statistics_planet() => '${RealColl.statistics}/${RealDoc.statistics_planet}';
+  // --------------------
+  static String statistics_countries() => '${RealColl.statistics}/${RealDoc.statistics_countries}';
+  // --------------------
+  static String statistics_countries_countryID({
+    @required String countryID,
+  }) => '${RealColl.statistics}/${RealDoc.statistics_countries}/$countryID';
+  // --------------------
+  static String statistics_cities() => '${RealColl.statistics}/${RealDoc.statistics_cities}';
+  // --------------------
+  static String statistics_cities_countryID({
+    @required String countryID,
+  }) => '${RealColl.statistics}/${RealDoc.statistics_cities}/$countryID';
+  // --------------------
+  static String statistics_cities_countryID_cityID({
+    @required String countryID,
+    @required String cityID,
+  }) => '${RealColl.statistics}/${RealDoc.statistics_cities}/$countryID/$cityID';
+  // -----------------------------------------------------------------------------
+
+  /// zones
+
+  // --------------------
+  static String zones_cities_countryID({
+    @required String countryID,
+  }) => '${RealColl.zones}/${RealDoc.zones_cities}/$countryID';
+  // --------------------
+  static String zones_cities_countryID_cityID({
+    @required String countryID,
+    @required String cityID,
+  }) => '${RealColl.zones}/${RealDoc.zones_cities}/$countryID/$cityID';
+  // --------------------
+  static String zones_stagesCities_countryID({
+    @required String countryID,
+  }) => '${RealColl.zones}/${RealDoc.zones_stages_cities}/$countryID';
+  // --------------------
+  static String zones_stagesCountries() => '${RealColl.zones}/${RealDoc.zones_stages_countries}';
+  // -----------------------------------------------------------------------------
+
+  /// zonesPhids
+
+  // --------------------
+  static String zonesPhids_countryID({
+    @required String countryID,
+  }) => '${RealColl.zonesPhids}/$countryID';
+  // --------------------
+  static String zonesPhids_countryID_cityID({
+    @required String countryID,
+    @required String cityID,
+  }) => '${RealColl.zonesPhids}/$countryID/$cityID';
   // -----------------------------------------------------------------------------
 }

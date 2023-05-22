@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/f_flyer/draft/gta_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
@@ -254,10 +255,13 @@ class DraftFlyer{
     }
 
     final AuditState _auditState =
-    draft.auditState == AuditState.verified ? AuditState.verified :
-        isPublishing == true ? PublishState.published : draft.publishState;
+    draft.auditState == AuditState.verified ? AuditState.verified
+        :
+    isPublishing == true ? AuditState.pending
+        :
+    draft.auditState;
 
-    return FlyerModel(
+    final FlyerModel _output = FlyerModel(
       id: draft.id,
       headline: draft.headline.text,
       trigram: Stringer.createTrigram(input: draft.headline.text),
@@ -278,14 +282,28 @@ class DraftFlyer{
       isAmazonFlyer: GtaModel.isAmazonAffiliateLink(draft.affiliateLink),
       hasPDF: draft.pdfModel != null,
       score: draft.score,
-      pdfPath: draft.pdfModel == null ? null : BldrStorage.generateFlyerPDFPath(draft.id),
+      pdfPath: draft.pdfModel == null ? null : StoragePath.flyers_flyerID_pdf(draft.id),
       affiliateLink: draft.affiliateLink,
       gtaLink: draft.gtaLink,
-      // bzModel: ,
+      bzModel: await BzProtocols.fetchBz(
+        context: getMainContext(),
+        bzID: draft.bzID,
+      ),
+      authorImage: await PicProtocols.fetchPicUiImage(
+        path: StoragePath.bzz_bzID_authorID(
+          bzID: draft.bzID,
+          authorID: draft.authorID,
+        ),
+        context: getMainContext(),
+      ),
+      bzLogoImage: await PicProtocols.fetchPicUiImage(
+        path: StoragePath.bzz_bzID_logo(draft.bzID),
+        context: getMainContext(),
+      ),
       // docSnapshot: ,
-      // authorImage: ,
-      // bzLogoImage: ,
     );
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
@@ -633,7 +651,7 @@ class DraftFlyer{
           flyerID: flyerID,
         ),
         pdfModel: draft.pdfModel?.copyWith(
-          path: BldrStorage.generateFlyerPDFPath(flyerID),
+          path: StoragePath.flyers_flyerID_pdf(flyerID),
         ),
       );
 
@@ -965,7 +983,7 @@ class DraftFlyer{
       );
     }
 
-    blog('checkDraftsAreIdentical : _areIdentical = $_areIdentical');
+    // blog('checkDraftsAreIdentical : _areIdentical = $_areIdentical');
     return _areIdentical;
   }
   // -----------------------------------------------------------------------------

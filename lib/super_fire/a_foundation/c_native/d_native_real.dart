@@ -482,7 +482,6 @@ class _NativeReal {
           });
     }
   }
-
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> incrementDocFields({
@@ -508,6 +507,34 @@ class _NativeReal {
       await updateDoc(
           coll: coll,
           doc: doc,
+          map: _updatesMap,
+      );
+
+    }
+
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> incrementPathFields({
+    @required String path,
+    @required Map<String, int> incrementationMap,
+    @required bool isIncrementing,
+  }) async {
+
+    if (incrementationMap != null){
+
+      final Map<String, dynamic> _map = await readPathMap(
+        path: path,
+      );
+
+      final Map<String, dynamic> _updatesMap = _NativeFireMapper.incrementFields(
+        baseMap: _map,
+        incrementationMap: incrementationMap,
+        isIncrementing: isIncrementing,
+      );
+
+      await updateDocInPath(
+          path: path,
           map: _updatesMap,
       );
 

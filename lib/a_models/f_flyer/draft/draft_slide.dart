@@ -107,7 +107,7 @@ class DraftSlide {
         flyerID: flyerID,
         picModel: PicModel(
           bytes: bytes,
-          path: BldrStorage.generateFlyerSlidePath(flyerID: flyerID, slideIndex: index),
+          path: StoragePath.flyers_flyerID_slideIndex(flyerID: flyerID, slideIndex: index),
           meta: StorageMetaModel(
             width: _dimensions?.width,
             height: _dimensions?.height,
@@ -628,7 +628,7 @@ class DraftSlide {
         final DraftSlide _updated = draft.copyWith(
           flyerID: flyerID,
           picModel: draft.picModel?.copyWith(
-            path: BldrStorage.generateFlyerSlidePath(
+            path: StoragePath.flyers_flyerID_slideIndex(
                 flyerID: flyerID,
                 slideIndex: draft.slideIndex,
             ),

@@ -1,26 +1,25 @@
 import 'dart:async';
 
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
-import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
-import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/fire/bz_fire_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
-import 'package:bldrs/c_protocols/bz_protocols/real/bz_record_real_ops.dart';
+import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/pic_protocols/ldb/pic_ldb_ops.dart';
-import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
-import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
+import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
+import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
+import 'package:bldrs/e_back_end/g_storage/storage_paths_generators.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -41,7 +40,7 @@ class WipeBzProtocols {
     @required BzModel bzModel,
     @required bool showWaitDialog,
     @required bool includeMyselfInBzDeletionNote,
-    @required bool deleteBzLocally, // TASK : DELETE THIS LINE WHEN EVERYTHING IS GOOD
+    @required bool deleteBzLocally,
   }) async {
 
     blog('WipeBzProtocol.wipeBz : START');
@@ -63,8 +62,6 @@ class WipeBzProtocols {
       _deleteAllBzFlyersOps(
         context: getMainContext(),
         bzModel: bzModel,
-        showWaitDialog: true,
-        updateBz: false,
       ),
 
       /// DELETE BZ NOTES
@@ -82,7 +79,7 @@ class WipeBzProtocols {
       /// DELETE BZ STORAGE DIRECTORY
       BldrsCloudFunctions.deleteStorageDirectory(
         context: getMainContext(),
-        path: '${StorageColl.bzz}/${bzModel.id}',
+        path: StoragePath.bzz_bzID(bzModel.id),
       ),
 
       /// DELETE BZ LOGO & AUTHORS PICS
@@ -97,7 +94,7 @@ class WipeBzProtocols {
     await Future.wait(<Future>[
 
       /// DELETE BZ RECORDS - COUNTERS : NOTE : SHOULD BE DELETED AFTER CENSUS WIPE PROTOCOL IS DONE
-      BzRecordRealOps.deleteAllBzCountersAndRecords(
+      RecorderProtocols.onWipeBz(
         bzID: bzModel.id,
       ),
 
@@ -107,7 +104,7 @@ class WipeBzProtocols {
       ),
 
       /// DELETE LOCALLY
-      if (deleteBzLocally == true)
+      // if (deleteBzLocally == true)
       deleteLocally(
         context: getMainContext(),
         bzID: bzModel.id,
@@ -116,17 +113,17 @@ class WipeBzProtocols {
 
     ]);
 
-    /// CLOSE DIALOG BEFORE SENDING NOTES => FIXES A goBack() bug
-    if (showWaitDialog == true){
-      await WaitDialog.closeWaitDialog();
-    }
-
     /// SEND DELETION NOTES TO AUTHORS
     await NoteEvent.sendBzDeletionNoteToAllAuthors(
       context: getMainContext(),
       bzModel: bzModel,
       includeMyself: includeMyselfInBzDeletionNote,
     );
+
+    /// CLOSE DIALOG BEFORE SENDING NOTES => FIXES A goBack() bug
+    if (showWaitDialog == true){
+      await WaitDialog.closeWaitDialog();
+    }
 
     blog('WipeBzProtocol.wipeBz : END');
   }
@@ -135,12 +132,7 @@ class WipeBzProtocols {
   static Future<void> _deleteAllBzFlyersOps({
     @required BuildContext context,
     @required BzModel bzModel,
-    @required bool updateBz,
-    @required bool showWaitDialog,
   }) async {
-    blog('WipeBzProtocols._deleteAllBzFlyersOps : START');
-
-    if (showWaitDialog == true){
 
       final String _text =  '${Verse.transBake('phid_deleting')} '
                             '${bzModel.flyersIDs.length} '
@@ -151,27 +143,12 @@ class WipeBzProtocols {
         verse: Verse.plain(_text),
       );
 
-    }
 
-    /// DELETE BZ FLYERS
-    final List<FlyerModel> _flyers = await FlyerProtocols.fetchFlyers(
-        context: getMainContext(),
-        flyersIDs: bzModel.flyersIDs
+    await FlyerProtocols.onWipeBz(
+      bzID: bzModel.id,
     );
 
-    await FlyerProtocols.wipeFlyers(
-      context: getMainContext(),
-      bzModel: bzModel,
-      flyers: _flyers,
-      showWaitDialog: false,
-      isDeletingBz: true,
-    );
-
-    if (showWaitDialog == true){
-      await WaitDialog.closeWaitDialog();
-    }
-
-    blog('WipeBzProtocols._deleteAllBzFlyersOps : END');
+    await WaitDialog.closeWaitDialog();
 
   }
   // -----------------------------------------------------------------------------

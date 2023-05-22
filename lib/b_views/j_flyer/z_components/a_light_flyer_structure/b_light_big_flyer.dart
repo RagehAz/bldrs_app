@@ -235,6 +235,12 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
 
       unawaited(_imagifyFlyer());
 
+      unawaited(recordFlyerView(
+        index: 0,
+        flyerModel: _flyer.value,
+      ));
+
+
       setNotifier(
         notifier: _bzCounters,
         mounted: mounted,
