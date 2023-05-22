@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
-import 'package:bldrs/b_views/d_user/a_user_profile_screen/d_settings_page/aaa5_user_fcm_topics_screen_view.dart';
+import 'package:bldrs/b_views/d_user/a_user_profile_screen/d_settings_page/user_fcm_topics_screen_view.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/h_bz_settings_page/bz_fcm_topics_screen_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';

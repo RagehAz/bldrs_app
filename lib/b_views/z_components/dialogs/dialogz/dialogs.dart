@@ -5,13 +5,13 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/x_ui/keyboard_model.dart';
+import 'package:bldrs/b_views/d_user/a_user_profile_screen/d_settings_page/password_screen.dart';
 import 'package:bldrs/b_views/d_user/z_components/banners/aa_user_banner.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/a_heroic_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/a_single_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
-import 'package:bldrs/b_views/z_components/bubbles/b_variants/password_bubble/password_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card.dart';
@@ -23,7 +23,6 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
@@ -471,58 +470,12 @@ class Dialogs {
   /// TESTED : WORKS PERFECT
   static Future<String> showPasswordDialog(BuildContext context) async {
 
-    final TextEditingController _password = TextEditingController();
-    final ValueNotifier<bool> _isObscured = ValueNotifier(true);
-    bool _canProceed = false;
-
-    await CenterDialog.showCenterDialog(
-      context: context,
-      titleVerse: const Verse(
-        id: 'phid_enter_your_password',
-        translate: true,
-      ),
-      height: Scale.screenHeight(context) * 0.7,
-      onOk: () async {
-
-        await CenterDialog.closeCenterDialog(context);
-        Keyboard.closeKeyboard(context);
-        _canProceed = true;
-
-      },
-      child: PasswordBubbles(
-        passwordNode: null,
-        confirmPasswordNode: null,
-        appBarType: AppBarType.non,
-        boxWidth: CenterDialog.clearWidth(context) - 20,
-        passwordController: _password,
-        showPasswordOnly: true,
-        passwordValidator: (String text) => Formers.passwordValidator(
-          context: context,
-          password: _password.text,
-          canValidate: true,
-        ),
-        passwordConfirmationController: null,
-        passwordConfirmationValidator: null,
-        goOnKeyboardGo: false,
-        onSubmitted: (String text) async {
-          await CenterDialog.closeCenterDialog(context);
-          _canProceed = true;
-        },
-        isObscured: _isObscured,
-        // isTheSuperKeyboardField: false,
-      ),
+    final String _password = await Nav.goToNewScreen(
+        context: context,
+        screen: const PasswordScreen(),
     );
 
-    _password.dispose();
-    _isObscured.dispose();
-
-    if (_canProceed == true){
-      return _password.text;
-    }
-    else {
-      return null;
-    }
-
+    return _password;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
