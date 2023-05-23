@@ -12,6 +12,7 @@ import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:filers/filers.dart';
 
 import 'package:flutter/material.dart';
 
@@ -54,9 +55,15 @@ class DataCreatorSplitter extends StatelessWidget {
     final Chain _valueChain = ChainsProvider.proFindChainByID(
       context: context,
       chainID: picker?.chainID,
-      onlyUseZoneChains: onlyUseZoneChains,
+      // onlyUseZoneChains: false, //onlyUseZoneChains,
       // includeChainSInSearch: true,
     );
+
+    final List<Chain> _allChains = ChainsProvider.proGetBldrsChains(context: context,
+        onlyUseZoneChains: false, listen: false);
+
+    Chain.blogChains(_allChains);
+
     // --------------------
     /*
     final Chain _unitChain = ChainsProvider.proFindChainByID(
@@ -68,6 +75,11 @@ class DataCreatorSplitter extends StatelessWidget {
      */
     // --------------------
     final DataCreator _dataCreatorType = DataCreation.decipherDataCreator(_valueChain?.sons);
+    blog('the bitchhhhhh : '
+        '_dataCreatorType : '
+        '$_dataCreatorType : '
+        '${_valueChain?.sons} : '
+        'picker?.chainID : ${picker?.chainID}');
     // --------------------
     final bool _isChains = Chain.checkIsChains(_valueChain?.sons);
     final bool _isPhids = Phider.checkIsPhids(_valueChain?.sons);

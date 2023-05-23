@@ -404,6 +404,8 @@ void _fixValueDataTypeAndSetValue({
 }){
   // NOTE : controller.text = '$_value'; => can not redefine controller, it bugs text field
 
+  blog('dataCreatorType : $dataCreatorType');
+
   /// OLD WAY AND WORKS
   /// IF INT
   if (DataCreation.checkIsIntDataCreator(dataCreatorType) == true){
