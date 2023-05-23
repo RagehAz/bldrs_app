@@ -261,7 +261,6 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
                             margin: 20,
                             weight: VerseWeight.black,
                             italic: true,
-                            size: 4,
                             labelColor: Colorz.black50,
                           ),
 
