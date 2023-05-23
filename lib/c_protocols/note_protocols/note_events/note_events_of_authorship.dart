@@ -157,7 +157,6 @@ class NoteEventsOfAuthorship {
     blog('NoteEventsOfAuthorship.sendAuthorshipAcceptanceNote : START');
 
     final UserModel senderModel = UsersProvider.proGetMyUserModel(
-      context: context,
       listen: false,
     );
 
@@ -209,7 +208,6 @@ class NoteEventsOfAuthorship {
     blog('NoteEventsOfAuthorship.sendAuthorshipDeclinationsNote : START');
 
     final UserModel senderModel = UsersProvider.proGetMyUserModel(
-      context: context,
       listen: false,
     );
 

@@ -273,7 +273,7 @@ class BldrsNav {
 
       if (_result == true){
 
-        await CenterDialog.closeCenterDialog(context);
+        await CenterDialog.closeCenterDialog();
 
         await Future.delayed(const Duration(milliseconds: 500), () async {
           await Nav.closeApp(context);

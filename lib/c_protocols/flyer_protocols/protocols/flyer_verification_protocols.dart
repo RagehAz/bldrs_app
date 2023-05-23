@@ -34,7 +34,7 @@ class FlyerVerificationProtocols {
     if (flyerModel != null && flyerModel.auditState != AuditState.verified) {
 
       if (showWaitAndSuccessDialogs == true){
-        pushWaitDialog(context: context);
+        pushWaitDialog();
       }
 
       await Future.wait(<Future>[
@@ -59,7 +59,6 @@ class FlyerVerificationProtocols {
 
       /// LOCAL UPDATE
       await FlyerProtocols.updateFlyerLocally(
-        context: context,
         notifyFlyerPro: true,
         resetActiveBz: false,
         flyerModel: flyerModel.copyWith(
@@ -73,7 +72,6 @@ class FlyerVerificationProtocols {
 
         /// SHOW SUCCESS DIALOG
         await Dialogs.showSuccessDialog(
-          context: context,
           firstLine: Verse.plain('Done'),
           secondLine: Verse.plain('flyer ${flyerModel.getShortHeadline()}... got verified'),
         );
@@ -98,7 +96,7 @@ class FlyerVerificationProtocols {
 
     if (bzID != null){
 
-      pushWaitDialog(context: context);
+      pushWaitDialog();
 
       final BzModel _bzModel = await BzProtocols.fetchBz(
           context: context,
@@ -132,7 +130,6 @@ class FlyerVerificationProtocols {
 
       /// SHOW SUCCESS DIALOG
       await Dialogs.showSuccessDialog(
-        context: context,
         firstLine: Verse.plain('Done'),
         secondLine: Verse.plain('Bz ${_bzModel.name}... got verified'),
       );

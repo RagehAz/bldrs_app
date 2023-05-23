@@ -111,7 +111,7 @@ class _PickerScreenState extends State<PickerScreen> {
     ) == false;
 
     if (_specsChanged == true){
-      _canContinue = await Dialogs.discardChangesGoBackDialog(context);
+      _canContinue = await Dialogs.discardChangesGoBackDialog();
     }
 
     if (_canContinue == true){

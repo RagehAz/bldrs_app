@@ -63,12 +63,10 @@ class ComposeUserProtocols {
 
       ]);
       UsersProvider.proSetMyAuthModel(
-        context: context,
         authModel: authModel,
         notify: false,
       );
       UsersProvider.proSetMyUserModel(
-        context: context,
         userModel: _output,
         notify: true,
       );

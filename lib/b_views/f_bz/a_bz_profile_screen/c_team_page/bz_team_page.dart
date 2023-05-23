@@ -83,7 +83,6 @@ class _BzTeamPageState extends State<BzTeamPage> {
   Widget build(BuildContext context) {
     // --------------------
     final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
-      context: context,
       listen: true,
     );
     _bzModel?.blogBz(invoker: 'BzAuthorsPage');

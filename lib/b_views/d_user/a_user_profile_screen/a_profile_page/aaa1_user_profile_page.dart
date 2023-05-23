@@ -28,7 +28,6 @@ class UserProfilePage extends StatelessWidget {
         );
 
         UsersProvider.proSetMyUserModel(
-          context: context,
           userModel: _userModel,
           notify: true,
         );

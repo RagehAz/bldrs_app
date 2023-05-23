@@ -58,13 +58,11 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> showSuccessDialog({
-    @required BuildContext context,
     Verse firstLine,
     Verse secondLine,
   }) async {
 
     await TopDialog.showTopDialog(
-      context: context,
       firstVerse: firstLine ?? const Verse(
         id: 'phid_success',
         translate: true,
@@ -88,7 +86,6 @@ class Dialogs {
   }) async {
 
     await TopDialog.showTopDialog(
-      context: context,
       firstVerse: verse,
       color: color,
     );
@@ -97,13 +94,11 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> centerNotice({
-    @required BuildContext context,
     @required Verse verse,
     Color color,
   }) async {
 
     await CenterDialog.showCenterDialog(
-      context: context,
       titleVerse: verse,
       color: color,
       // boolDialog: false,
@@ -114,7 +109,6 @@ class Dialogs {
   /// TESTED : WORKS PERFECT
   static Future<void> weWillLookIntoItNotice(BuildContext context) async {
     await CenterDialog.showCenterDialog(
-      context: context,
       titleVerse:  const Verse(
         id: 'phid_thanks_million',
         translate: true,
@@ -140,7 +134,6 @@ class Dialogs {
   }) async {
 
     final bool _go = await CenterDialog.showCenterDialog(
-      context: context,
       titleVerse: const Verse(
         id: 'phid_you_need_to_sign_in',
         translate: true,
@@ -176,7 +169,6 @@ class Dialogs {
   }) async {
 
     final bool _result = await CenterDialog.showCenterDialog(
-      context: context,
       titleVerse: titleVerse ?? const Verse(
         id: 'phid_proceed_?',
         translate: true,
@@ -199,7 +191,6 @@ class Dialogs {
   }) async {
 
     final bool _result = await CenterDialog.showCenterDialog(
-      context: context,
       invertButtons: true,
       titleVerse: titleVerse ?? const Verse(
         id: 'phid_go_back_?',
@@ -225,10 +216,9 @@ class Dialogs {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<bool> discardChangesGoBackDialog(BuildContext context) async {
+  static Future<bool> discardChangesGoBackDialog() async {
 
     final bool result = await CenterDialog.showCenterDialog(
-      context: context,
       titleVerse: const Verse(
         id: 'phid_discard_changes_?',
         translate: true,
@@ -418,7 +408,6 @@ class Dialogs {
     blog('_errorReplyVerse : ${_errorReplyVerse.id}');
 
     await CenterDialog.showCenterDialog(
-      context: context,
       titleVerse: const Verse(
         id: 'phid_could_not_continue_title',
         translate: true,
@@ -431,7 +420,6 @@ class Dialogs {
   static Future<void> tryAgainDialog(BuildContext context) async {
 
     await CenterDialog.showCenterDialog(
-      context: context,
       titleVerse: const Verse(
         id: 'phid_somethingIsWrong!',
         translate: true,
@@ -452,7 +440,6 @@ class Dialogs {
   }) async {
 
     await CenterDialog.showCenterDialog(
-      context: context,
       titleVerse: titleVerse ?? const Verse(
         id: 'phid_somethingIsWrong',
         translate: true,
@@ -480,7 +467,6 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<String> keyboardDialog({
-    @required BuildContext context,
     KeyboardModel keyboardModel,
     bool confirmButtonIsOn = true,
   }) async {
@@ -488,9 +474,9 @@ class Dialogs {
     final KeyboardModel _keyboardModel = keyboardModel ?? KeyboardModel.standardModel();
     Future<void> _onSubmit (String text) async {
 
-      Keyboard.closeKeyboard(context);
+      Keyboard.closeKeyboard(getMainContext());
       await Nav.goBack(
-        context: context,
+        context: getMainContext(),
         invoker: 'keyboardDialog',
       );
       if (_keyboardModel.onSubmitted != null){
@@ -502,10 +488,10 @@ class Dialogs {
     }
 
     const double _ratioOfScreenHeight = 0.8;
-    final double _overridingDialogHeight = BottomDialog.dialogHeight(context, ratioOfScreenHeight: _ratioOfScreenHeight);
-    final double _clearWidth = BottomDialog.clearWidth(context);
+    final double _overridingDialogHeight = BottomDialog.dialogHeight(getMainContext(), ratioOfScreenHeight: _ratioOfScreenHeight);
+    final double _clearWidth = BottomDialog.clearWidth(getMainContext());
     final double _clearHeight = BottomDialog.clearHeight(
-        context: context,
+        context: getMainContext(),
         overridingDialogHeight: _overridingDialogHeight,
         draggable: true,
         titleIsOn: false
@@ -515,7 +501,7 @@ class Dialogs {
     String _text = _keyboardModel.initialText;
 
     await BottomDialog.showBottomDialog(
-      context: context,
+      context: getMainContext(),
       draggable: true,
       height: _overridingDialogHeight,
       child: SizedBox(
@@ -532,7 +518,7 @@ class Dialogs {
                 BldrsTextFieldBubble(
                   formKey: _keyboardModel.globalKey,
                   bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
-                    context: context,
+                    context: getMainContext(),
                     headlineVerse: _keyboardModel.titleVerse,
                   ),
                   appBarType: AppBarType.non,
@@ -691,12 +677,9 @@ class Dialogs {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> zoneIsNotAvailable({
-    @required BuildContext context,
-  }) async {
+  static Future<void> zoneIsNotAvailable() async {
 
     await CenterDialog.showCenterDialog(
-      context: context,
       titleVerse: const Verse(
         id: 'phid_zone_is_not_available',
         translate: true,
@@ -715,7 +698,6 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> userDialog({
-    @required BuildContext context,
     @required UserModel userModel,
     @required Verse titleVerse,
     @required Verse bodyVerse,
@@ -725,13 +707,12 @@ class Dialogs {
   }) async {
 
     final bool _result = await CenterDialog.showCenterDialog(
-      context: context,
       titleVerse: titleVerse,
       bodyVerse: bodyVerse,
       boolDialog: boolDialog,
       confirmButtonVerse: confirmButtonVerse,
       invertButtons: invertButtons,
-      height: Scale.screenHeight(context) * 0.7,
+      height: Scale.screenHeight(getMainContext()) * 0.7,
       child: UserBanner(
         userModel: userModel,
       ),
@@ -746,7 +727,6 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> bzBannerDialog({
-    @required BuildContext context,
     @required BzModel bzModel,
     @required Verse titleVerse,
     @required Verse bodyVerse,
@@ -756,16 +736,15 @@ class Dialogs {
   }) async {
 
     final bool _result = await CenterDialog.showCenterDialog(
-      context: context,
       titleVerse: titleVerse,
       bodyVerse: bodyVerse,
       confirmButtonVerse: confirmButtonVerse,
       boolDialog: boolDialog,
-      height: Scale.screenHeight(context) * 0.8,
+      height: Scale.screenHeight(getMainContext()) * 0.8,
       invertButtons: invertButtons,
       child: BzBanner(
-        boxWidth: CenterDialog.clearWidth(context),
-        boxHeight: CenterDialog.clearWidth(context),
+        boxWidth: CenterDialog.clearWidth(getMainContext()),
+        boxHeight: CenterDialog.clearWidth(getMainContext()),
         bzModel: bzModel,
         bigName: false,
       ),
@@ -789,7 +768,6 @@ class Dialogs {
     final double _gridHeight = Scale.screenHeight(context) * 0.5;
 
     final bool _result = await CenterDialog.showCenterDialog(
-      context: context,
       titleVerse: titleVerse,
       bodyVerse: bodyVerse,
       confirmButtonVerse: confirmButtonVerse,
@@ -842,7 +820,6 @@ class Dialogs {
     final double _gridHeight = Scale.screenHeight(context) * 0.5;
 
     await CenterDialog.showCenterDialog(
-      context: context,
       titleVerse: titleVerse,
       bodyVerse: bodyVerse,
       confirmButtonVerse: confirmButtonVerse ?? const Verse(
@@ -893,7 +870,6 @@ class Dialogs {
     final double _gridHeight = Scale.screenHeight(context) * 0.4;
 
     final bool _result = await CenterDialog.showCenterDialog(
-      context: context,
       titleVerse: titleVerse,
       bodyVerse: bodyVerse,
       boolDialog: boolDialog,
@@ -926,7 +902,6 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> flyerDialog({
-    @required BuildContext context,
     @required FlyerModel flyer,
     @required Verse titleVerse,
     @required Verse bodyVerse,
@@ -935,12 +910,11 @@ class Dialogs {
     bool invertButtons = false,
   }) async {
 
-    final double _screenHeight = Scale.screenHeight(context);
+    final double _screenHeight = Scale.screenHeight(getMainContext());
     final double _dialogHeight = _screenHeight * 0.7;
     final double _flyerBoxHeight = _dialogHeight * 0.5;
 
     final bool _result = await CenterDialog.showCenterDialog(
-      context: context,
       titleVerse: titleVerse,
       bodyVerse: bodyVerse,
       boolDialog: boolDialog,
@@ -953,7 +927,7 @@ class Dialogs {
           child: HeroicFlyer(
             flyerModel: flyer,
             flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(
-              context: context,
+              context: getMainContext(),
               flyerBoxHeight: _flyerBoxHeight,
               forceMaxHeight: false,
             ),
@@ -984,7 +958,6 @@ class Dialogs {
     final double _flyerBoxHeight = _dialogHeight * 0.5;
 
     final bool _result = await CenterDialog.showCenterDialog(
-      context: context,
       titleVerse: titleVerse,
       bodyVerse: bodyVerse,
       boolDialog: boolDialog,

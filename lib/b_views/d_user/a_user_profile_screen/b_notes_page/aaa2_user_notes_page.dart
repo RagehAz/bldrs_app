@@ -151,7 +151,6 @@ class _UserNotesPageState extends State<UserNotesPage> {
     );
 
     pushWaitDialog(
-      context: context,
       verse: const Verse(
         id: 'phid_reloading',
         translate: true,

@@ -52,7 +52,6 @@ class ReviewViewBubble extends StatelessWidget {
     final bool _imReviewCreator = reviewModel?.userID == Authing.getUserID();
     // --------------------
     final bool _imAuthorInFlyerBz = AuthorModel.checkImAuthorInBzOfThisFlyer(
-      context: context,
       flyerModel: flyerModel,
     );
     // --------------------

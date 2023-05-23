@@ -42,7 +42,6 @@ class ComposeBzProtocols {
 
     /// WAIT DIALOG
     pushWaitDialog(
-      context: context,
       verse: const Verse(
         id: 'phid_creating_new_bz_account',
         translate: true,
@@ -112,7 +111,6 @@ class ComposeBzProtocols {
 
     /// SHOW SUCCESS DIALOG
     await CenterDialog.showCenterDialog(
-      context: context,
       titleVerse: const Verse(
         id: 'phid_great_!',
         translate: true,
@@ -168,7 +166,6 @@ class ComposeBzProtocols {
   }) async {
 
     final UserModel _oldUser = UsersProvider.proGetMyUserModel(
-      context: context,
       listen: false,
     );
 

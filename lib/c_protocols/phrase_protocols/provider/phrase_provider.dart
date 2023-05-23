@@ -29,7 +29,6 @@ class PhraseProvider extends ChangeNotifier {
   }) async {
 
     pushWaitDialog(
-      context: context,
       verse: const Verse(
         id: 'phid_change_app_lang_description',
         translate: true,

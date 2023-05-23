@@ -294,7 +294,7 @@ Future<void> onCallTap({
   @required FlyerModel flyerModel,
 }) async {
 
-  final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: false);
+  final UserModel _userModel = UsersProvider.proGetMyUserModel(listen: false);
 
   /// USER IS NOT SIGNED IN
   if (_userModel == null){
@@ -322,7 +322,6 @@ Future<void> onCallTap({
     if (_bzHasContacts == false){
 
       await CenterDialog.showCenterDialog(
-        context: context,
         titleVerse: const Verse(
           id: 'phid_no_contacts_available',
           translate: true,

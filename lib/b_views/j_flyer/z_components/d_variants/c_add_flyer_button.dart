@@ -57,7 +57,6 @@ class AddFlyerButton extends StatelessWidget {
 
       if (_result == true) {
         await TopDialog.showTopDialog(
-          context: context,
           firstVerse: const Verse(
             id: 'phid_flyer_has_been_published',
             translate: true,

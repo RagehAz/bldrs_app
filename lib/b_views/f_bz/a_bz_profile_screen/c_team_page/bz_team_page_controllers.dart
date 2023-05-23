@@ -89,7 +89,6 @@ Future<void> onAuthorOptionsTap({
       icon: Iconz.bz,
       isDeactivated: !_canChangeRoles,
       onDeactivatedTap: () => _onShowCanNotChangeAuthorRoleDialog(
-        context: context,
         authorModel: authorModel,
       ),
       onTap: () async {
@@ -119,7 +118,6 @@ Future<void> onAuthorOptionsTap({
       icon: Iconz.gears,
       isDeactivated: !_canEditAuthor,
       onDeactivatedTap: () => _onShowCanNotEditAuthorDialog(
-        context: context,
         authorModel: authorModel,
       ),
       onTap: () async {
@@ -149,7 +147,6 @@ Future<void> onAuthorOptionsTap({
       icon: Iconz.xSmall,
       isDeactivated: _canRemoveAuthor == false,
       onDeactivatedTap: () => _onShowCanNotRemoveAuthorDialog(
-        context: context,
         authorModel: authorModel,
       ),
       onTap: () async {
@@ -220,12 +217,10 @@ Future<void> onDeleteAuthorFromBz({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onShowCanNotRemoveAuthorDialog({
-  @required BuildContext context,
   @required AuthorModel authorModel,
 }) async {
 
   await CenterDialog.showCenterDialog(
-    context: context,
     titleVerse: Verse(
       id: '${Verse.transBake('phid_you_cant_remove')} ${authorModel.name}',
       translate: true,
@@ -262,12 +257,10 @@ Future<void> _onEditAuthor({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onShowCanNotEditAuthorDialog({
-  @required BuildContext context,
   @required AuthorModel authorModel,
 }) async {
 
   await CenterDialog.showCenterDialog(
-    context: context,
     titleVerse: Verse(
       id: '${Verse.transBake('phid_you_cant_edit')}\n${authorModel.name}',
       translate: false,
@@ -308,12 +301,10 @@ Future<void> _onChangeAuthorRole({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onShowCanNotChangeAuthorRoleDialog({
-  @required BuildContext context,
   @required AuthorModel authorModel,
 }) async {
 
   await CenterDialog.showCenterDialog(
-    context: context,
     titleVerse: const Verse(
       id: 'phid_you_cant_change_team_roles',
       translate: true,
@@ -351,7 +342,6 @@ Future<void> onSendAuthorshipInvitation({
                           '${bzModel.name}';
 
     final bool _result = await Dialogs.userDialog(
-      context: context,
       titleVerse: const Verse(
         id: 'phid_send_invitation_?',
         translate: true,
@@ -366,9 +356,7 @@ Future<void> onSendAuthorshipInvitation({
 
     if (_result == true){
 
-      pushWaitDialog(
-        context: context,
-      );
+      pushWaitDialog();
 
       await AuthorshipProtocols.sendRequest(
         context: context,
@@ -379,7 +367,6 @@ Future<void> onSendAuthorshipInvitation({
       await WaitDialog.closeWaitDialog();
 
       unawaited(TopDialog.showTopDialog(
-        context: context,
         firstVerse: const Verse(
           id: 'phid_invitation_sent',
           translate: true,
@@ -408,7 +395,6 @@ Future<void> onSendAuthorshipInvitation({
     final String _body = _isAuthor == true ? 'phid_user_is_author_already' : 'phid_user_is_pending_author';
 
     await Dialogs.userDialog(
-      context: context,
       titleVerse: const Verse(
         id: 'phid_can_not_invite_user',
         translate: true,
@@ -445,7 +431,6 @@ Future<void> onCancelSentAuthorshipInvitation({
                           '${Verse.transBake('phid_will_be_notified')}';
 
     final bool _result = await CenterDialog.showCenterDialog(
-      context: context,
       titleVerse: const Verse(
         id: 'phid_cancel_invitation_?',
         translate: true,
@@ -471,7 +456,6 @@ Future<void> onCancelSentAuthorshipInvitation({
       );
 
       await TopDialog.showTopDialog(
-        context: context,
         firstVerse: const Verse(
           id: 'phid_invitation_is_cancelled',
           translate: true,

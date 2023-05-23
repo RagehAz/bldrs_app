@@ -79,7 +79,6 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
 
     if (_uploadedModel == null){
       await CenterDialog.showCenterDialog(
-        context: context,
         titleVerse: const Verse(
           id: 'phid_not_sent',
           translate: true,
@@ -93,7 +92,6 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
 
     else {
       await CenterDialog.showCenterDialog(
-        context: context,
         titleVerse: const Verse(
           id: 'phid_thanks',
           translate: true,
@@ -116,7 +114,6 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
   Widget build(BuildContext context) {
 
     final UserModel _userModel = UsersProvider.proGetMyUserModel(
-      context: context,
       listen: true,
     );
 

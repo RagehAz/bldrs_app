@@ -338,10 +338,9 @@ class NeedModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static NeedModel dummyNeed(BuildContext context){
+  static NeedModel dummyNeed(){
 
     final UserModel _userModel = UsersProvider.proGetMyUserModel(
-        context: context,
         listen: false,
     );
 

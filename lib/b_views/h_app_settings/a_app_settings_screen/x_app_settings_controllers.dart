@@ -110,7 +110,6 @@ Future<void> onCreateNewBzTap(BuildContext context) async {
 Future<void> onRebootSystem(BuildContext context) async {
 
   final bool _result = await CenterDialog.showCenterDialog(
-    context: context,
     titleVerse: const Verse(
       id: 'phid_restart_app',
       translate: true,
@@ -130,7 +129,6 @@ Future<void> onRebootSystem(BuildContext context) async {
 
   if (_result == true) {
     pushWaitDialog(
-      context: context,
       verse: const Verse(
         id: 'phid_restarting',
         translate: true,
