@@ -39,7 +39,6 @@ class BzReplyBubble extends StatelessWidget {
     const double _logoWidth = ReviewBox.userBalloonSize;
     // --------------------
     final bool _imAuthorInFlyerBz = AuthorModel.checkImAuthorInBzOfThisFlyer(
-      context: context,
       flyerModel: flyerModel,
     );
     // --------------------

@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:filers/filers.dart';
 import 'package:mapper/mapper.dart';
@@ -159,20 +160,18 @@ class BzzProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<BzModel> proGetMyBzz({
-    @required BuildContext context,
     @required bool listen,
   }){
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: listen);
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: listen);
     final List<BzModel> _myBzz = _bzzProvider.myBzz;
     return _myBzz;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> proGetMyBzzIDs({
-    @required BuildContext context,
     @required bool listen,
   }){
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: listen);
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: listen);
     final List<BzModel> _myBzz = _bzzProvider.myBzz;
     final List<String> _myBzzIDs = BzModel.getBzzIDs(_myBzz);
     return _myBzzIDs;
@@ -228,11 +227,10 @@ class BzzProvider extends ChangeNotifier {
   // --------------------
   /// TASK : TEST ME
   static void proRemoveBzFromMyBzz({
-    @required BuildContext context,
     @required String bzID,
     @required bool notify,
   }){
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
     _bzzProvider.removeBzFromMyBzz(
       bzID: bzID,
       notify: true,
@@ -408,10 +406,9 @@ class BzzProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static BzModel proGetActiveBzModel({
-    @required BuildContext context,
     @required bool listen,
   }) {
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: listen);
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: listen);
     return _bzzProvider.myActiveBz;
   }
   // --------------------
@@ -432,9 +429,9 @@ class BzzProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void resetActiveBz(BuildContext context){
+  static void resetActiveBz(){
 
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
     final BzModel _bzModel = _bzzProvider.myActiveBz?.copyWith();
 
     if (_bzModel != null){

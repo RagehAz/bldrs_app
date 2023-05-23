@@ -154,7 +154,6 @@ class _BzNotesPageState extends State<BzNotesPage>{
     );
 
     pushWaitDialog(
-      context: context,
       verse: const Verse(id: 'phid_reloading', translate: true,),
     );
 
@@ -206,7 +205,6 @@ class _BzNotesPageState extends State<BzNotesPage>{
     // super.build(context);
 
     final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
-        context: context,
         listen: true,
     );
 

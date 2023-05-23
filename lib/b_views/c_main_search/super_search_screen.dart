@@ -276,7 +276,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
             depth: ZoneDepth.city,
             settingCurrentZone: false,
             zoneViewingEvent: ViewingEvent.homeView,
-            viewerCountryID: UsersProvider.proGetUserZone(context)?.countryID,
+            viewerCountryID: UsersProvider.proGetUserZone()?.countryID,
           );
 
           if (_newZone != null){
@@ -474,7 +474,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
             depth: ZoneDepth.city,
             settingCurrentZone: false,
             zoneViewingEvent: ViewingEvent.homeView,
-            viewerCountryID: UsersProvider.proGetUserZone(context)?.countryID,
+            viewerCountryID: UsersProvider.proGetUserZone()?.countryID,
           );
 
           if (_newZone != null){
@@ -662,7 +662,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
             depth: ZoneDepth.city,
             settingCurrentZone: false,
             zoneViewingEvent: ViewingEvent.homeView,
-            viewerCountryID: UsersProvider.proGetUserZone(context)?.countryID,
+            viewerCountryID: UsersProvider.proGetUserZone()?.countryID,
           );
 
           if (_newZone != null){
@@ -812,7 +812,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
         ),
 
         /// USERS
-        if (UsersProvider.userIsAdmin(context) == true)
+        if (UsersProvider.userIsAdmin() == true)
         SearchTypeButton(
           currentModel: _searchType,
           modelType: ModelType.user,

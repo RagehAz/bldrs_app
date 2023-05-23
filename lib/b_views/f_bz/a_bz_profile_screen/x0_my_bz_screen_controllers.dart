@@ -51,7 +51,6 @@ Future<void> _setBzModel({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onMyActiveBzStreamChanged({
-  @required BuildContext context,
   @required Map<String, dynamic> newMap,
   @required Map<String, dynamic> oldMap,
   @required BzzProvider bzzProvider,
@@ -96,7 +95,6 @@ Future<void> onMyActiveBzStreamChanged({
       if (_authorsContainMyUserID == false){
 
         await NewAuthorshipExit.onIGotRemoved(
-          context: context,
           bzID: _newBz.id,
           isBzDeleted: false, //map == null,
         );
@@ -111,7 +109,6 @@ Future<void> onMyActiveBzStreamChanged({
         );
 
         await BzProtocols.updateBzLocally(
-          context: context,
           newBz: _newBz,
           oldBz: _oldBz,
         );

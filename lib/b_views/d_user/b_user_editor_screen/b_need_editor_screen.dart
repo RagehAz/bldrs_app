@@ -62,7 +62,6 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
     super.initState();
 
     UserModel _oldUser = UsersProvider.proGetMyUserModel(
-      context: context,
       listen: false,
     );
 
@@ -109,7 +108,6 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
   Future<void> onConfirmEditingNeed() async {
 
     final UserModel _oldUser = UsersProvider.proGetMyUserModel(
-      context: context,
       listen: false,
     );
 
@@ -120,9 +118,7 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
 
     if (_needsChanged == true){
 
-      pushWaitDialog(
-        context: context
-      );
+      pushWaitDialog();
 
       final UserModel _newUser = _userModel.value.copyWith(
         need: _userModel.value.need.copyWith(

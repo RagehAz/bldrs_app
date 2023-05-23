@@ -166,7 +166,6 @@ class AuthProtocols {
     );
 
     UsersProvider.proSetMyAuthModel(
-      context: context,
       authModel: authModel,
       notify: true,
     );
@@ -189,7 +188,6 @@ class AuthProtocols {
     final bool _success = await Authing.signOut(
         onError: (String error) async {
           await CenterDialog.showCenterDialog(
-            context: context,
             titleVerse: const Verse(
               id: 'phid_trouble_signing_out',
               translate: true,

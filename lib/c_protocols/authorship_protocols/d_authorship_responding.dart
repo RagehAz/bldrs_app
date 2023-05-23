@@ -65,7 +65,6 @@ class AuthorshipRespondingProtocols{
         ),
 
         CenterDialog.showCenterDialog(
-          context: context,
           titleVerse: const Verse(
             id: 'phid_invitation_request_had_expired',
             translate: true,
@@ -116,7 +115,6 @@ class AuthorshipRespondingProtocols{
   }) async {
 
     final bool _result = await CenterDialog.showCenterDialog(
-      context: context,
       titleVerse: const Verse(
         id: 'phid_accept_invitation_?',
         translate: true,
@@ -133,7 +131,6 @@ class AuthorshipRespondingProtocols{
       blog('_acceptAuthorshipInvitation : accepted ');
 
       pushWaitDialog(
-        context: context,
         verse: Verse(
           id: 'phid_adding_you_to_bz',
           translate: true,
@@ -150,7 +147,6 @@ class AuthorshipRespondingProtocols{
       await WaitDialog.closeWaitDialog();
 
       await CenterDialog.showCenterDialog(
-        context: context,
         titleVerse: Verse(
           id: 'phid_great_!',
           translate: true,
@@ -263,7 +259,6 @@ class AuthorshipRespondingProtocols{
     blog('_declineAuthorshipInvitation : decline ');
 
     final bool _result = await CenterDialog.showCenterDialog(
-      context: context,
       titleVerse: const Verse(
         id: 'phid_decline_invitation_?',
         translate: true,

@@ -28,11 +28,9 @@ class UserTabber {
   ];
   // --------------------
   /// TAMAM : WORKS PERFECT
-  static String getUserTabIcon(BuildContext context, UserTab userTab){
+  static String getUserTabIcon(UserTab userTab){
     switch(userTab){
-      case UserTab.profile        : return UsersProvider.proGetMyUserModel(
-          context: context,
-          listen: false)?.picPath; break;
+      case UserTab.profile        : return UsersProvider.proGetMyUserModel(listen: false)?.picPath; break;
       case UserTab.notifications  : return Iconz.notification ; break;
       case UserTab.following      : return Iconz.follow       ; break;
       case UserTab.settings       : return Iconz.gears        ; break;

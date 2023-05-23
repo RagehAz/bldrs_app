@@ -19,7 +19,6 @@ class DialogOfTargetAchievement extends StatelessWidget {
   }) async {
 
     await CenterDialog.showCenterDialog(
-      context: context,
       titleVerse: const Verse(
         id: 'phid_congrats',
         translate: true,

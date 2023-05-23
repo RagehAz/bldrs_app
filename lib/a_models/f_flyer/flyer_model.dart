@@ -1035,7 +1035,6 @@ class FlyerModel {
   // --------------------
     /// TESTED : WORKS PERFECT
   static FlyerModel migrateOwnership({
-    @required BuildContext context,
     @required FlyerModel flyerModel,
     @required String newOwnerID,
     @required BzModel bzModel,
@@ -1049,7 +1048,6 @@ class FlyerModel {
     else {
 
       final bool _imAuthorInThisBz = AuthorModel.checkImAuthorInBzOfThisFlyer(
-        context: context,
         flyerModel: flyerModel,
       );
 

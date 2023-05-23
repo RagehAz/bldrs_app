@@ -152,11 +152,11 @@ class FlyersSearchFiltersList extends StatelessWidget {
       ),
 
       /// SEPARATOR
-      if (UsersProvider.userIsAdmin(context) == true)
+      if (UsersProvider.userIsAdmin() == true)
       const DotSeparator(),
 
       /// AUDIT STATE
-      if (UsersProvider.userIsAdmin(context) == true)
+      if (UsersProvider.userIsAdmin() == true)
         FilterMultiButtonTile(
           bubbleColor: Colorz.yellow50,
           icon: Iconz.verifyFlyer,
@@ -173,7 +173,7 @@ class FlyersSearchFiltersList extends StatelessWidget {
         ),
 
       /// PUBLISH STATE
-      if (UsersProvider.userIsAdmin(context) == true)
+      if (UsersProvider.userIsAdmin() == true)
         FilterMultiButtonTile(
           bubbleColor: Colorz.yellow50,
           icon: Iconz.verifyFlyer,

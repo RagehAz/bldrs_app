@@ -39,7 +39,6 @@ class MyBzScreen extends StatelessWidget {
         final BzzProvider _bzzProvider = Provider.of<BzzProvider>(ctx, listen: false);
 
         await onMyActiveBzStreamChanged(
-          context: ctx,
           oldMap: oldMap,
           newMap: newMap,
           bzzProvider: _bzzProvider,

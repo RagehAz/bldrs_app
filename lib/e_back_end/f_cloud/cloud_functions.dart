@@ -117,7 +117,6 @@ class CloudFunction {
 
       if (_unauthenticated == true) {
         await CenterDialog.showCenterDialog(
-          context: context,
           titleVerse: const Verse(
             pseudo: 'You Are not Signed in',
             id: 'phid_your_not_signed_in',
@@ -131,7 +130,6 @@ class CloudFunction {
       }
       else {
         await CenterDialog.showCenterDialog(
-          context: context,
           titleVerse: const Verse(
             id: 'phid_error',
             translate: true,

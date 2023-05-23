@@ -977,13 +977,13 @@ class UserModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static UserModel dummyUserModel(BuildContext context){
+  static UserModel dummyUserModel(){
 
     final UserModel _userModel = UserModel(
       id: 'dummy_user_model',
       signInMethod: SignInMethod.email,
       createdAt: Timers.createDate(year: 1987, month: 06, day: 10),
-      need: NeedModel.dummyNeed(context),
+      need: NeedModel.dummyNeed(),
       name: 'Donald duck',
       trigram: const <String>[],
       picPath: Iconz.dvRageh,

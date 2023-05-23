@@ -91,7 +91,6 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
   Widget build(BuildContext context) {
 
     final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
-      context: context,
       listen: true,
     );
 

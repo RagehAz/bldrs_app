@@ -40,7 +40,6 @@ Future<void> authByEmailSignIn({
   if (_allFieldsAreValid == true) {
 
     pushWaitDialog(
-      context: context,
       verse: const Verse(
         id: 'phid_signing_in',
         translate: true,
@@ -90,7 +89,6 @@ Future<void> authByEmailRegister({
   if (_allFieldsAreValid == true) {
 
     pushWaitDialog(
-      context: context,
       verse: const Verse(
         id: 'phid_creating_new_account',
         translate: true,
@@ -131,7 +129,6 @@ Future<void> authBySocialMedia({
   if (authModel != null) {
 
     pushWaitDialog(
-      context: context,
       verse: const Verse(
         id: 'phid_creating_new_account',
         translate: true,
@@ -171,7 +168,6 @@ Future<void> _rememberEmailAndNav({
   if (success == true) {
 
     final UserModel _userModel = UsersProvider.proGetMyUserModel(
-      context: context,
       listen: false,
     );
 

@@ -42,7 +42,6 @@ class WipeUserProtocols {
     /// START WAITING : DIALOG IS CLOSED INSIDE BELOW DELETION OPS
     if (showWaitDialog == true){
       pushWaitDialog(
-        context: context,
         verse: const Verse(
           id: 'phid_deleting_your_account',
           translate: true,
@@ -51,7 +50,6 @@ class WipeUserProtocols {
     }
 
     final UserModel _userModel = UsersProvider.proGetMyUserModel(
-      context: context,
       listen: false,
     );
 
@@ -171,7 +169,6 @@ class WipeUserProtocols {
     blog('UserProtocol.deleteBzzICreatedProtocol : START');
 
     final List<BzModel> _myBzzModels = BzzProvider.proGetMyBzz(
-      context: context,
       listen: false,
     );
 
@@ -213,7 +210,6 @@ class WipeUserProtocols {
     blog('UserProtocol.exitBzzIDidNotCreateProtocol : START');
 
     final List<BzModel> _myBzzModels = BzzProvider.proGetMyBzz(
-      context: context,
       listen: false,
     );
 

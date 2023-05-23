@@ -143,7 +143,6 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
 
         /// SHOWN CITIES IDS
         final List<String> _shownIDs = _citiesStages?.getIDsByViewingEvent(
-          context: context,
           event: widget.zoneViewingEvent,
           countryID: widget.countryID,
           viewerCountryID: widget.viewerCountryID,
@@ -328,9 +327,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
 
     blog('onDeactivatedCityTap : browseView : cityID : $cityID');
 
-    await Dialogs.zoneIsNotAvailable(
-      context: context,
-    );
+    await Dialogs.zoneIsNotAvailable();
 
   }
   // --------------------

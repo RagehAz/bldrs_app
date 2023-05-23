@@ -60,11 +60,10 @@ class GeneralProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onConnectivityChanged({
-    @required BuildContext context,
     @required bool isConnected,
   }) async {
 
-    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
+    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(getMainContext(), listen: false);
 
     final bool _wasConnected = _generalProvider.isConnected;
 
@@ -77,7 +76,6 @@ class GeneralProvider extends ChangeNotifier {
       /// SHOW CONNECTED DIALOG
       if (isConnected == true) {
         await TopDialog.showTopDialog(
-          context: context,
           firstVerse: const Verse(
             id: 'phid_connected',
             translate: true,
@@ -91,7 +89,6 @@ class GeneralProvider extends ChangeNotifier {
       /// SHOW DISCONNECTED DIALOG
       else {
         await TopDialog.showTopDialog(
-          context: context,
           firstVerse: const Verse(
             id: 'phid_disconnected',
             translate: true,
@@ -162,13 +159,13 @@ class GeneralProvider extends ChangeNotifier {
     /// UiProvider
     UiProvider.wipeOut(context: context, notify: true);
     /// UsersProvider
-    UsersProvider.wipeOut(context: context, notify: true);
+    UsersProvider.wipeOut(notify: true);
     /// GeneralProvider
     GeneralProvider.wipeOut(context: context, notify: true);
     /// NotesProvider
     await NotesProvider.wipeOut(context: context, notify: true);
     /// UsersProvider
-    UsersProvider.wipeOut(context: context, notify: true);
+    UsersProvider.wipeOut(notify: true);
     /// ZoneProvider
     ZoneProvider.wipeOut(context: context, notify: true);
     /// BzzProvider

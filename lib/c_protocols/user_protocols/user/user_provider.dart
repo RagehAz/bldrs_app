@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/bldrs_keys.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 // import 'package:contacts_service/contacts_service.dart';
@@ -21,39 +22,35 @@ class UsersProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static AuthModel proGetAuthModel({
-    @required BuildContext context,
     @required bool listen,
   }){
-    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: listen);
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(getMainContext(), listen: listen);
     return _usersProvider.myAuthModel;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static UserModel proGetMyUserModel({
-    @required BuildContext context,
     @required bool listen
   }){
-    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: listen);
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(getMainContext(), listen: listen);
     return _usersProvider.myUserModel;
   }
   // --------------------
   ///
   static void proSetMyUserModel({
-    @required BuildContext context,
     @required UserModel userModel,
     @required bool notify,
   }) {
-    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(getMainContext(), listen: false);
     _usersProvider._setMyUserModel(userModel: userModel, notify: notify);
   }
   // --------------------
   ///
   static void proSetMyAuthModel({
-    @required BuildContext context,
     @required AuthModel authModel,
     @required bool notify,
   }) {
-    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(getMainContext(), listen: false);
     _usersProvider._setMyAuthModel(authModel: authModel, notify: notify);
   }
   // --------------------
@@ -297,11 +294,10 @@ class UsersProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void wipeOut({
-    @required BuildContext context,
     @required bool notify,
   }){
 
-    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(getMainContext(), listen: false);
 
     /// _myUserModel
     _usersProvider.clearMyUserModelAndAuthModel(
@@ -339,8 +335,8 @@ class UsersProvider extends ChangeNotifier {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool userIsAdmin(BuildContext context){
-    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+  static bool userIsAdmin(){
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(getMainContext(), listen: false);
     return _usersProvider.myUserModel?.isAdmin ?? false;
   }
   // --------------------
@@ -350,18 +346,16 @@ class UsersProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool userIsAuthor(BuildContext context){
+  static bool userIsAuthor(){
     final UserModel _user = UsersProvider.proGetMyUserModel(
-      context: context,
       listen: false,
     );
     return UserModel.checkUserIsAuthor(_user);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static ZoneModel proGetUserZone(BuildContext context){
+  static ZoneModel proGetUserZone(){
     final UserModel _user = UsersProvider.proGetMyUserModel(
-      context: context,
       listen: false,
     );
     return _user?.zone;

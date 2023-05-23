@@ -291,7 +291,6 @@ class StagingModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   List<String> getIDsByViewingEvent({
-    @required BuildContext context,
     @required ViewingEvent event,
     @required String countryID,
     @required String viewerCountryID,
@@ -304,7 +303,6 @@ class StagingModel {
     else {
 
       final StageType _minStage = _concludeLowestStageOnViewingEvent(
-        context: context,
         event: event,
         countryID: countryID,
         viewerCountryID: viewerCountryID,
@@ -320,7 +318,6 @@ class StagingModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static StageType _concludeLowestStageOnViewingEvent({
-    @required BuildContext context,
     @required ViewingEvent event,
     @required String countryID,
     @required String viewerCountryID,
@@ -355,7 +352,6 @@ class StagingModel {
 
     final String _view = cipherViewingEvent(event);
     final String _userType = _getUserTypeKey(
-      context: context,
       countryID: countryID,
       viewerCountryID: viewerCountryID,
     );
@@ -366,12 +362,11 @@ class StagingModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String _getUserTypeKey({
-    @required BuildContext context,
     @required String countryID,
     @required String viewerCountryID,
   }){
 
-    final UserModel _user = UsersProvider.proGetMyUserModel(context: context, listen: false);
+    final UserModel _user = UsersProvider.proGetMyUserModel(listen: false);
     final bool _isAuthor = UserModel.checkUserIsAuthor(_user);
     final bool _isGlobal =
         countryID != null &&
@@ -562,7 +557,6 @@ class StagingModel {
   // ---------------------
   /// TESTED : WORKS PERFECT
   static bool checkStagingHasSelectableZones({
-    @required BuildContext context,
     @required StagingModel staging,
     @required ViewingEvent zoneViewingEvent,
     @required String countryID,
@@ -573,7 +567,6 @@ class StagingModel {
     if (staging != null && zoneViewingEvent != null){
 
       final List<String> _ids = staging.getIDsByViewingEvent(
-        context: context,
         event: zoneViewingEvent,
         countryID: countryID,
         viewerCountryID: viewerCountryID,

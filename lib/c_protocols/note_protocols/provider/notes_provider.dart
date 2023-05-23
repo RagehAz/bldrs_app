@@ -115,7 +115,6 @@ class NotesProvider extends ChangeNotifier {
     /// NOTE: generates all navModels and creates a MapModel for each one in Obelisk
 
     final List<BzModel> _bzzModels = BzzProvider.proGetMyBzz(
-        context: context,
         listen: false,
     );
 
@@ -276,7 +275,6 @@ class NotesProvider extends ChangeNotifier {
   }) async {
 
     final List<BzModel> _myBzz = BzzProvider.proGetMyBzz(
-      context: context,
       listen: false,
     );
 

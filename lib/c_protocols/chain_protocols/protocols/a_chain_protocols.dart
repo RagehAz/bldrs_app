@@ -27,7 +27,6 @@ class ChainProtocols {
   }) async {
 
     pushWaitDialog(
-      context: context,
       verse: Verse.plain('Uploading Bldrs Chains to RealTime Database'),
     );
 
@@ -79,7 +78,7 @@ class ChainProtocols {
 
     if (newChains != null){
 
-      pushWaitDialog(context: context,);
+      pushWaitDialog();
 
       await Future.wait(<Future>[
 
@@ -113,7 +112,7 @@ class ChainProtocols {
     if (newChains != null){
 
       if (showWaitDialog == true){
-        pushWaitDialog(context: context,);
+        pushWaitDialog();
       }
 
       /// UPDATE CHAIN S IN LDB

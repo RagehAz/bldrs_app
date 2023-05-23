@@ -62,7 +62,6 @@ class TopDialog extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> showTopDialog({
-    @required BuildContext context,
     @required Verse firstVerse,
     Verse secondVerse,
     Color color = Colorz.yellow255,
@@ -71,8 +70,8 @@ class TopDialog extends StatelessWidget {
     int milliseconds = 5000,
   }) async {
 
-    final double _screenWidth = Scale.screenWidth(context);
-    final double _bubbleWidth = BldrsAppBar.width(context);
+    final double _screenWidth = Scale.screenWidth(getMainContext());
+    final double _bubbleWidth = BldrsAppBar.width(getMainContext());
 
     // final GlobalKey _key = UiProvider.proGetTopDialogKey(context: getMainContext(), listen: false,);
     // final Flushbar _flushbar = _key?.currentWidget;
@@ -124,7 +123,7 @@ class TopDialog extends StatelessWidget {
       titleText: Container(
         width: _bubbleWidth,
         constraints: BoxConstraints(
-          minHeight: BldrsAppBar.collapsedHeight(context, AppBarType.basic) - 5,
+          minHeight: BldrsAppBar.collapsedHeight(getMainContext(), AppBarType.basic) - 5,
         ),
         decoration: const BoxDecoration(
           // color: Colorz.Black255,
@@ -183,7 +182,7 @@ class TopDialog extends StatelessWidget {
       /// INTERACTIONS ----------------------------------------------
       onTap: (Flushbar<dynamic> flushbar) {
 
-        closeTopDialog(context);
+        closeTopDialog(getMainContext());
         // blog('on tap : flushbar : ${flushbar.onTap}');
 
       },
@@ -222,7 +221,7 @@ class TopDialog extends StatelessWidget {
       shouldIconPulse: false,
       // positionOffset: 0,
       // userInputForm: ,
-    ).show(context);
+    ).show(getMainContext());
 
   }
   // --------------------
