@@ -56,7 +56,6 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
     super.initState();
 
     initializeNumberData(
-      context: context,
       selectedUnitID: _selectedUnitID,
       initialUnit: widget.initialUnit,
       picker: widget.picker,

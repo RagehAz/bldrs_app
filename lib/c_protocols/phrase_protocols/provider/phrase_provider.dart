@@ -24,7 +24,6 @@ class PhraseProvider extends ChangeNotifier {
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
   Future<void> changeAppLang({
-    @required BuildContext context,
     @required String langCode,
   }) async {
 
@@ -36,22 +35,20 @@ class PhraseProvider extends ChangeNotifier {
     );
 
     await fetchSetCurrentLangAndAllPhrases(
-      context: context,
       setLangCode: langCode,
     );
 
-    await Localizer.changeAppLanguage(context, langCode);
+    await Localizer.changeAppLanguage(getMainContext(), langCode);
 
-    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
     await _chainsProvider.fetchSortSetBldrsChains(
-      context: context,
       notify: true,
     );
 
     await WaitDialog.closeWaitDialog();
 
     await BldrsNav.goBackToLogoScreen(
-      context: context,
+      context: getMainContext(),
       animatedLogoScreen: true,
     );
 
@@ -59,14 +56,12 @@ class PhraseProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> fetchSetCurrentLangAndAllPhrases({
-    @required BuildContext context,
     String setLangCode,
   }) async {
 
     // blog('---> fetchSetCurrentLangAndAllPhrases : START');
 
     await getSetCurrentLangCode(
-      context: context,
       notify: false,
       setLangCode: setLangCode,
     );
@@ -75,7 +70,7 @@ class PhraseProvider extends ChangeNotifier {
 
     /// THIS GENERATES COUNTRIES PHRASES AND INSERTS THEM IN LDB TO FACILITATE COUNTRY SEARCH BY NAME
     await PhraseProtocols.composeCountriesMixedLangPhrases(
-      context: context,
+      context: getMainContext(),
       langCodes: <String>['en', 'ar'],
     );
 
@@ -98,16 +93,14 @@ class PhraseProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String proGetCurrentLangCode({
-    @required BuildContext context,
     @required bool listen,
   }){
-    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: listen);
+    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(getMainContext(), listen: listen);
     return _phraseProvider._currentLangCode;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> getSetCurrentLangCode({
-    @required BuildContext context,
     @required bool notify,
     String setLangCode,
   }) async {
@@ -222,8 +215,8 @@ class PhraseProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool proGetPhidsAreLoaded(BuildContext context){
-    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+  static bool proGetPhidsAreLoaded(){
+    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(getMainContext(), listen: false);
     return _phraseProvider.mainPhrases.isNotEmpty;
   }
   // -----------------------------------------------------------------------------
@@ -253,10 +246,9 @@ class PhraseProvider extends ChangeNotifier {
   List<String> get phidsPendingTranslation => _phidsPendingTranslation;
   // --------------------
   static List<String> proGetPhidsPendingTranslation({
-    @required BuildContext context,
     @required bool listen,
   }){
-    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: listen);
+    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(getMainContext(), listen: listen);
     return _phraseProvider.phidsPendingTranslation;
   }
   // --------------------
@@ -325,7 +317,6 @@ class PhraseProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void wipeOut({
-    @required BuildContext context,
     @required bool notify,
   }){
 
@@ -336,7 +327,7 @@ class PhraseProvider extends ChangeNotifier {
         List<String> _phidsPendingTranslation = <String>[];
      */
 
-    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(getMainContext(), listen: false);
 
     /// _currentLangCode
     _phraseProvider._setCurrentLanguage(
@@ -404,11 +395,9 @@ List<String> xPhrases(List<String> phids){
 
 }
 //---------------------
-String phidIcon(BuildContext context, dynamic icon){
-  final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-
+String phidIcon(dynamic icon){
+  final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
   return _chainsProvider.getPhidIcon(
-    context: context,
     son: icon,
   );
 }
@@ -418,7 +407,7 @@ String phidIcon(BuildContext context, dynamic icon){
 /// ----------------------------------------------------------------------------------------
 /// ----------------------------------------------------------------------------------------
 
-String counterCaliber(BuildContext context, int x){
+String counterCaliber(int x){
   return Numeric.formatNumToCounterCaliber(
     x: x,
     thousand: xPhrase('phid_thousand'),

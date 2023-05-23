@@ -57,12 +57,10 @@ Future<void> onSearchUsers({
 // --------------------
 
 Future<void> onShowUserDialog({
-  @required BuildContext context,
   @required UserModel userModel,
 }) async {
 
   await BottomDialog.showBottomDialog(
-    context: context,
     draggable: true,
     child: UserBanner(userModel: userModel),
   );

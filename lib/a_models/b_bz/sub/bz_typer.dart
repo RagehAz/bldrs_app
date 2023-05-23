@@ -365,10 +365,10 @@ class BzTyper {
 
     final String _bzTypesOneString = Stringer.generateStringFromStrings(
       strings: _typesTranslated,
-    );
+    ) ?? '';
 
     final String _bzFormPhid = getBzFormPhid(bzForm);
-    final String _formTranslated = xPhrase(_bzFormPhid);
+    final String _formTranslated = xPhrase(_bzFormPhid) ?? '';
 
     String _output = '$_bzTypesOneString\n$_formTranslated';
 

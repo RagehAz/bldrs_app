@@ -99,7 +99,6 @@ Future<void> onDeleteBzButtonTap({
 
     /// DELETE BZ LOCALLY
     await BzProtocols.deleteLocally(
-      context: getMainContext(),
       bzID: bzModel.id,
       invoker: 'onDeleteBzButtonTap',
     );

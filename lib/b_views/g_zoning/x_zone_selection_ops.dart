@@ -8,6 +8,7 @@ import 'package:bldrs/b_views/g_zoning/b_cities_screen/a_cities_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
@@ -92,7 +93,6 @@ class ZoneSelection {
 
     if (_zone?.countryID != null){
       final ZoneModel _output = await ZoneProtocols.completeZoneModel(
-        context: context,
         incompleteZoneModel: _zone,
       );
       return _output;
@@ -113,11 +113,10 @@ class ZoneSelection {
     @required String viewerCountryID,
   }) async {
 
-    Keyboard.closeKeyboard(context);
+    Keyboard.closeKeyboard();
 
     /// COMPLETE ZONE
     final ZoneModel _zoneWithCountry = await ZoneProtocols.completeZoneModel(
-      context: context,
       incompleteZoneModel: ZoneModel(
         countryID: countryID,
       ),
@@ -170,11 +169,10 @@ class ZoneSelection {
     @required ViewingEvent zoneViewingEvent,
   }) async {
 
-    Keyboard.closeKeyboard(context);
+    Keyboard.closeKeyboard();
 
     /// COMPLETE ZONE
     final ZoneModel _zoneWithCity = await ZoneProtocols.completeZoneModel(
-      context: context,
       incompleteZoneModel: ZoneModel(
         countryID: CityModel.getCountryIDFromCityID(cityID),
         cityID: cityID,
@@ -206,7 +204,6 @@ class ZoneSelection {
       );
 
       await setCurrentZone(
-        context: context,
         zone: zone,
       );
 
@@ -223,11 +220,10 @@ class ZoneSelection {
   }
   // -----------------------------------------------------------------------------
   static Future<void> setCurrentZone({
-    @required BuildContext context,
     @required ZoneModel zone,
   }) async {
 
-    final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+    final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);
       /// SET ZONE
       zoneProvider.setCurrentZone(
         zone: zone,
@@ -240,8 +236,8 @@ class ZoneSelection {
       );
 
       /// SET CHAINS
-      final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-      await _chainsProvider.reInitializeZoneChains(context);
+      final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
+      await _chainsProvider.reInitializeZoneChains();
 
   }
   // -----------------------------------------------------------------------------

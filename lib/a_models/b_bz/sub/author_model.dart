@@ -977,14 +977,13 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> checkImALoneAuthor({
-    @required BuildContext context,
     @required String bzID,
   }) async {
     bool _aLoneAuthor;
 
     if (bzID != null){
 
-      final BzModel _bzModel = await BzProtocols.fetchBz(context: context, bzID: bzID);
+      final BzModel _bzModel = await BzProtocols.fetchBz(bzID: bzID);
       _aLoneAuthor = _bzModel?.authors?.length == 1;
 
     }

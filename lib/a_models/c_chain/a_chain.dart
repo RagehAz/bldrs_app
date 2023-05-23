@@ -238,13 +238,11 @@ class Chain {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Chain filterSpecPickerChainRange({
-    @required BuildContext context,
     @required PickerModel picker,
     @required bool onlyUseZoneChains,
   }) {
     final List<String> _filteredIDs = <String>[];
     Chain _filteredChain = ChainsProvider.proFindChainByID(
-      context: context,
       chainID: picker.chainID,
       onlyUseZoneChains: onlyUseZoneChains,
     );

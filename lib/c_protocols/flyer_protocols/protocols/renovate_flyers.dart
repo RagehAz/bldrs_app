@@ -48,7 +48,6 @@ class RenovateFlyerProtocols {
     // -------------------------------
 
     final BzModel _bzModel = await BzProtocols.fetchBz(
-        context: context,
         bzID: newDraft.bzID,
     );
 

@@ -26,7 +26,6 @@ class ComposeUserProtocols {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<UserModel> compose({
-    @required BuildContext context,
     @required AuthModel authModel,
   }) async {
     UserModel _output;
@@ -35,7 +34,6 @@ class ComposeUserProtocols {
 
       /// CREATE INITIAL USER MODEL
       _output = await _createInitialUserModel(
-        context: context,
         authModel: authModel,
       );
 
@@ -83,12 +81,10 @@ class ComposeUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<UserModel> _createInitialUserModel({
-    @required BuildContext context,
     @required AuthModel authModel,
   }) async {
 
     final UserModel _initialUserModel = await UserModel.createNewUserModelFromAuthModel(
-      context: context,
       authModel: authModel,
     );
 

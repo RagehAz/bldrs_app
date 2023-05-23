@@ -68,7 +68,6 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
     if (_oldUser.need == null){
       _oldUser = _oldUser.copyWith(
         need: NeedModel.createInitialNeed(
-          context: context,
           userZone: _oldUser.zone,
         ),
       );
@@ -328,7 +327,6 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                     onZoneChanged: (ZoneModel zone) async {
 
                       final ZoneModel _completeZone = await ZoneProtocols.completeZoneModel(
-                        context: context,
                         incompleteZoneModel: zone,
                       );
 

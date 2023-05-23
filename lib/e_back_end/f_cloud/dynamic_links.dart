@@ -443,7 +443,6 @@ class BldrsShareLink{
     if (bzID != null){
 
       final BzModel _bzModel = await BzProtocols.fetchBz(
-        context: context,
         bzID: bzID,
       );
 

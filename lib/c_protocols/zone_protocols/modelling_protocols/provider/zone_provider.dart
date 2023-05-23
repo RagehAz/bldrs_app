@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:flutter/material.dart';
@@ -78,31 +79,27 @@ class ZoneProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static ZoneModel proGetCurrentZone({
-    @required BuildContext context,
     @required bool listen,
   }){
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: listen);
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: listen);
     return _zoneProvider.currentZone;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static ZoneModel proGetCurrentZoneIDs({
-    @required BuildContext context,
     @required bool listen,
   }){
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: listen);
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: listen);
     return _zoneProvider.currentZone;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> fetchSetCurrentCompleteZone({
-    @required BuildContext context,
     @required ZoneModel zone,
     @required bool notify,
   }) async {
 
     final ZoneModel _completeZone = await ZoneProtocols.completeZoneModel(
-      context: context,
       incompleteZoneModel: zone,
     );
 
@@ -167,21 +164,19 @@ class ZoneProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<CurrencyModel> proGetAllCurrencies({
-    @required BuildContext context,
     @required bool listen,
   }){
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: listen);
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: listen);
     return _zoneProvider.allCurrencies;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static CurrencyModel proGetCurrencyByCountryID({
-    @required BuildContext context,
     @required String countryID,
     @required bool listen,
   }){
 
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: listen);
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: listen);
 
     final CurrencyModel _currency = CurrencyModel.getCurrencyFromCurrenciesByCountryID(
         currencies: _zoneProvider.allCurrencies,
@@ -193,7 +188,6 @@ class ZoneProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static CurrencyModel proGetCurrencyByCurrencyID({
-    @required BuildContext context,
     @required String currencyID,
     @required bool listen,
   }){
@@ -201,7 +195,7 @@ class ZoneProvider extends ChangeNotifier {
 
     if (currencyID != null) {
 
-      final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: listen);
+      final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: listen);
 
       _currency = CurrencyModel.getCurrencyByID(
         allCurrencies: _zoneProvider.allCurrencies,
@@ -294,11 +288,10 @@ class ZoneProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void wipeOut({
-    @required BuildContext context,
     @required bool notify,
   }){
 
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);
 
     /// _currentContinent
     _zoneProvider.clearCurrentContinent(notify: false);

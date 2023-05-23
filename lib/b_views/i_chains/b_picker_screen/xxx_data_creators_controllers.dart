@@ -9,6 +9,7 @@ import 'package:bldrs/b_views/i_chains/c_currencies_screen/c_currencies_screen.d
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
@@ -27,7 +28,6 @@ import 'package:stringer/stringer.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 void initializeCurrencyData({
-  @required BuildContext context,
   @required ValueNotifier<String> selectedCurrencyID,
   @required ZoneModel zone,
   @required TextEditingController textController,
@@ -40,7 +40,6 @@ void initializeCurrencyData({
 
   /// INITIALIZE CURRENCY
   _initializeInitialCurrency(
-    context: context,
     selectedCurrencyID: selectedCurrencyID,
     zone: zone,
     initialCurrencyID: initialCurrencyID,
@@ -63,7 +62,6 @@ void initializeCurrencyData({
 // --------------------
 /// TESTED : WORKS PERFECT
 void _initializeInitialCurrency({
-  @required BuildContext context,
   @required String initialCurrencyID,
   @required ZoneModel zone,
   @required ValueNotifier<String> selectedCurrencyID,
@@ -74,10 +72,9 @@ void _initializeInitialCurrency({
 
   if (_initialCurrencyID == null){
 
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);
     final String _countryID = zone?.countryID ?? _zoneProvider.currentZone?.countryID;
     final CurrencyModel _initialCurrency = ZoneProvider.proGetCurrencyByCountryID(
-      context: context,
       countryID: _countryID,
       listen: false,
     );
@@ -142,7 +139,6 @@ Future<void> onCurrencySelectorButtonTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 void initializeNumberData({
-  @required BuildContext context,
   @required SpecModel initialValue,
   @required TextEditingController textController,
   @required ValueNotifier<String> selectedUnitID,
@@ -165,7 +161,6 @@ void initializeNumberData({
   textController.text = specValue.value?.toString() ?? '';
 // --------------------
   final Chain _unitChain = ChainsProvider.proFindChainByID(
-    context: context,
     chainID: picker.unitChainID,
   );
 // --------------------
@@ -224,11 +219,10 @@ Future<void> onUnitSelectorButtonTap({
 }) async {
 // --------------------
   final Chain _unitChain = ChainsProvider.proFindChainByID(
-    context: context,
     chainID: picker.unitChainID,
   );
 // --------------------
-  Keyboard.closeKeyboard(context);
+  Keyboard.closeKeyboard();
 
   final bool _arePhids = Phider.checkIsPhids(_unitChain?.sons) == true;
 
@@ -238,7 +232,6 @@ Future<void> onUnitSelectorButtonTap({
     final List<String> _units = _unitChain.sons;
 
     await BottomDialog.showButtonsBottomDialog(
-        context: context,
         draggable: true,
         buttonHeight: 40,
         numberOfWidgets: _unitChain.sons.length,
@@ -255,7 +248,7 @@ Future<void> onUnitSelectorButtonTap({
                     id: Phider.removeIndexFromPhid(phid: _unitID),
                     translate: true,
                   ),
-                  icon: phidIcon(context, _unitID),
+                  icon: phidIcon(_unitID),
                   verseCentered: true,
                   onTap: () async {
 
@@ -384,7 +377,7 @@ Future<void> onDataCreatorKeyboardSubmittedAnd({
     mounted: mounted,
   );
 
-  Keyboard.closeKeyboard(context);
+  Keyboard.closeKeyboard();
 
   if (onKeyboardSubmitted != null){
     await Future<void>.delayed(Ratioz.durationSliding400,

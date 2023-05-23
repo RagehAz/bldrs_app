@@ -80,9 +80,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
     super.initState();
 
     _userSearchModel = UserSearchModel.initialModel;
-    _searchModel = SearchModel.createInitialModel(
-      context: context,
-    );
+    _searchModel = SearchModel.createInitialModel();
 
     _flyersController = PaginationController.initialize(
       addExtraMapsAtEnd: true,
@@ -160,7 +158,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
     if (_searchType != modelType){
     setState(() {
       _searchType = modelType;
-      _searchModel = SearchModel.createInitialModel(context: context);
+      _searchModel = SearchModel.createInitialModel();
       _generateQuery();
     });
     }
@@ -255,7 +253,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
           if (value == true){
             setState(() {
               _searchModel = _searchModel.copyWith(
-                zone:  ZoneProvider.proGetCurrentZone(context: context, listen: false),
+                zone:  ZoneProvider.proGetCurrentZone(listen: false),
               );
               _generateQuery();
             });
@@ -281,7 +279,6 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
 
           if (_newZone != null){
             await ZoneSelection.setCurrentZone(
-              context: context,
               zone: _newZone,
             );
             setState(() {
@@ -340,7 +337,6 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
 
             if (_phid != null) {
               await setActivePhidK(
-                context: context,
                 phidK: _phid,
                 flyerType: _searchModel.flyerSearchModel?.flyerType,
               );
@@ -453,7 +449,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
           if (value == true){
             setState(() {
               _searchModel = _searchModel.copyWith(
-                zone:  ZoneProvider.proGetCurrentZone(context: context, listen: false),
+                zone:  ZoneProvider.proGetCurrentZone(listen: false),
               );
               _generateQuery();
             });
@@ -479,7 +475,6 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
 
           if (_newZone != null){
             await ZoneSelection.setCurrentZone(
-              context: context,
               zone: _newZone,
             );
             setState(() {
@@ -641,7 +636,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
           if (value == true){
             setState(() {
               _searchModel = _searchModel.copyWith(
-                zone:  ZoneProvider.proGetCurrentZone(context: context, listen: false),
+                zone:  ZoneProvider.proGetCurrentZone(listen: false),
               );
               _generateQuery();
             });
@@ -667,7 +662,6 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
 
           if (_newZone != null){
             await ZoneSelection.setCurrentZone(
-              context: context,
               zone: _newZone,
             );
             setState(() {
@@ -836,10 +830,9 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
   // -----------------------------------------------------------------------------
 }
 
-  Verse getSearchHintVerse(BuildContext context){
+  Verse getSearchHintVerse(){
 
     final ZoneModel _zone = ZoneProvider.proGetCurrentZone(
-        context: context,
         listen: false,
     );
 

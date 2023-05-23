@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,6 @@ class ZoneTranslator {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Verse translateCountry({
-    @required BuildContext context,
     @required String countryID,
     String langCode,
   }) {
@@ -43,7 +43,6 @@ class ZoneTranslator {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Verse translateCity({
-    @required BuildContext context,
     @required CityModel cityModel,
     String langCode,
   }) {
@@ -52,7 +51,7 @@ class ZoneTranslator {
     if (cityModel != null){
       _output = Verse(
         id: CityModel.translateCity(
-          context: context,
+          context: getMainContext(),
           city: cityModel,
           langCode: langCode,
         ),

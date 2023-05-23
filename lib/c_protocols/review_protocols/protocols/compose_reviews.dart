@@ -77,7 +77,6 @@ class ComposeReviewProtocols {
     if (_imAuthorOfThisBz == true){
 
       final BzModel _bzModel = await BzProtocols.fetchBz(
-        context: context,
         bzID: bzID,
       );
 

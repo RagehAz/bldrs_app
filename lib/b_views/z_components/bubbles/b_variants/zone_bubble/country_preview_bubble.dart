@@ -30,7 +30,6 @@ class CountryPreviewBubble extends StatelessWidget {
 
     final CurrencyModel _currencyModel = CurrencyModel.getCurrencyFromCurrenciesByCountryID(
       currencies: ZoneProvider.proGetAllCurrencies(
-        context: context,
         listen: true,
       ),
       countryID: countryID,
@@ -46,8 +45,8 @@ class CountryPreviewBubble extends StatelessWidget {
       langCode: 'ar',
     );
 
-    final String _areaNumbers = counterCaliber(context, _flag.areaSqKm);
-    final String _population = counterCaliber(context, _flag.population);
+    final String _areaNumbers = counterCaliber(_flag.areaSqKm);
+    final String _population = counterCaliber(_flag.population);
     final double _popDensityValue = _flag.population / (_flag.areaSqKm);
     final String _popDensity = Numeric.formatNumToSeparatedKilos(
       number: _popDensityValue,

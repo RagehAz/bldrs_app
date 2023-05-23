@@ -57,7 +57,7 @@ class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProvider
 
       _triggerLoading(setTo: true).then((_) async {
 
-        Keyboard.closeKeyboard(context);
+        Keyboard.closeKeyboard();
 
         await initializeLogoScreen(
           context: context,

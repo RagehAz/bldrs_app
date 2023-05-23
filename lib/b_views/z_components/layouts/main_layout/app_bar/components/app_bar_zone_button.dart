@@ -37,7 +37,7 @@ class ZoneButton extends StatelessWidget {
 
     else {
       // --------------------
-      final ZoneModel _currentZone = zoneOverride ?? ZoneProvider.proGetCurrentZone(context: context, listen: true);
+      final ZoneModel _currentZone = zoneOverride ?? ZoneProvider.proGetCurrentZone(listen: true);
       // --------------------
       final String _countryName = _currentZone?.countryName;
       final String _countryFlag = _currentZone?.icon;

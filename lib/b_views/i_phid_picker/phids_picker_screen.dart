@@ -61,7 +61,6 @@ class PhidsPickerScreen extends StatefulWidget {
       pageTransitionType: Nav.superHorizontalTransition(context: context),
       screen: PhidsPickerScreen(
         chainsIDs: FlyerTyper.getChainsIDsPerViewingEvent(
-          context: context,
           flyerType: flyerType,
           event: ViewingEvent.homeView,
         ),
@@ -89,7 +88,6 @@ class PhidsPickerScreen extends StatefulWidget {
       pageTransitionType: Nav.superHorizontalTransition(context: context),
       screen: PhidsPickerScreen(
         chainsIDs: FlyerTyper.getChainsIDsPerViewingEvent(
-          context: context,
           flyerType: flyerType,
           event: ViewingEvent.homeView,
         ),
@@ -137,7 +135,6 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
     super.initState();
 
     final List<Chain> _allChains = ChainsProvider.proGetBldrsChains(
-      context: context,
       onlyUseZoneChains: widget.onlyUseZoneChains,
       listen: false,
     );
@@ -229,7 +226,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
       final NavModel _navModel = NavModel(
         id: _chain.id,
         titleVerse: Verse(id: _chain.id, translate: true),
-        icon: ChainsProvider.proGetPhidIcon(context: context, son: _chain.id),
+        icon: ChainsProvider.proGetPhidIcon(son: _chain.id),
         iconSizeFactor: 1,
         screen: PhidsBuilderPage(
           chain: _chain,

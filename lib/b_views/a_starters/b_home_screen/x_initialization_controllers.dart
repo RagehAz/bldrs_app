@@ -31,10 +31,10 @@ Future<void> initializeHomeScreen(BuildContext context) async {
     context: context,
   );
 
-  await initializeUserZone(context);
+  await initializeUserZone();
 
   /// D - ZONES
-  await initializeCurrentZone(context);
+  await initializeCurrentZone();
 
   await Future.wait(
       <Future<void>>[
@@ -42,23 +42,20 @@ Future<void> initializeHomeScreen(BuildContext context) async {
         //
         /// F - SPONSORS : USES BZZ PROVIDER
         _initializeSponsors(
-          context: context,
           notify: true,
         ),
         /// G - USER BZZ : USES BZZ PROVIDER
         initializeUserBzz(
-          context: context,
           notify: true,
         ),
         /// H - USER FOLLOWED BZZ : USES BZZ PROVIDER
         initializeUserFollowedBzz(
-            context: context,
             notify: true
         ),
       ]);
 
   /// I - KEYWORDS
-  unawaited(initializeAllChains(context));
+  unawaited(initializeAllChains());
 
 }
 // -----------------------------------------------------------------------------
@@ -142,14 +139,12 @@ Future<void> _controlMissingFieldsCase({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> initializeUserFollowedBzz({
-  @required BuildContext context,
   @required bool notify,
 }) async {
   // blog('initializeHomeScreen._initializeUserBzz : ~~~~~~~~~~ START');
   if (Authing.userIsSignedIn() == true){
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
     await _bzzProvider.fetchSetFollowedBzz(
-      context: context,
       notify: notify,
     );
   }
@@ -158,14 +153,12 @@ Future<void> initializeUserFollowedBzz({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> initializeUserBzz({
-  @required BuildContext context,
   @required bool notify,
 }) async {
   // blog('initializeHomeScreen._initializeUserBzz : ~~~~~~~~~~ START');
   if (Authing.userIsSignedIn() == true){
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
     await _bzzProvider.fetchSetMyBzz(
-      context: context,
       notify: notify,
     );
   }
@@ -177,16 +170,15 @@ Future<void> initializeUserBzz({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> initializeUserZone(BuildContext context) async {
+Future<void> initializeUserZone() async {
   // blog('initializeHomeScreen._initializeUserZone : ~~~~~~~~~~ START');
 
-  final UsersProvider _userProvider = Provider.of<UsersProvider>(context, listen: false);
+  final UsersProvider _userProvider = Provider.of<UsersProvider>(getMainContext(), listen: false);
   final UserModel _myUserModel = _userProvider.myUserModel;
 
   if (_myUserModel != null){
 
     final ZoneModel _userZoneCompleted = await ZoneProtocols.completeZoneModel(
-      context: context,
       incompleteZoneModel: _myUserModel?.zone,
     );
 
@@ -200,10 +192,10 @@ Future<void> initializeUserZone(BuildContext context) async {
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> initializeCurrentZone(BuildContext context) async {
+Future<void> initializeCurrentZone() async {
   // blog('initializeHomeScreen._initializeCurrentZone : ~~~~~~~~~~ START');
 
-  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);
 
   if (_zoneProvider.currentZone == null){
 
@@ -215,7 +207,6 @@ Future<void> initializeCurrentZone(BuildContext context) async {
     if (_myUserModel?.zone != null && Authing.userIsSignedIn() == true){
 
       await _zoneProvider.fetchSetCurrentCompleteZone(
-        context: context,
         zone: _myUserModel.zone,
         notify: true,
       );
@@ -226,11 +217,10 @@ Future<void> initializeCurrentZone(BuildContext context) async {
     else {
 
       final ZoneModel _zoneByIP = await ZoneProtocols.getZoneByIP(
-        context: context,
+        context: getMainContext(),
       );
 
       await _zoneProvider.fetchSetCurrentCompleteZone(
-        context: context,
         zone: _zoneByIP,
         notify: true,
       );
@@ -247,11 +237,10 @@ Future<void> initializeCurrentZone(BuildContext context) async {
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> initializeAllChains(BuildContext context) async {
+Future<void> initializeAllChains() async {
   // blog('initializeHomeScreen._initializeAllChains : ~~~~~~~~~~ START');
-  final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+  final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
   await _chainsProvider.initializeAllChains(
-    context: context,
     notify: true,
   );
   // blog('initializeHomeScreen._initializeAllChains : ~~~~~~~~~~ END');
@@ -263,13 +252,11 @@ Future<void> initializeAllChains(BuildContext context) async {
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _initializeSponsors({
-  @required BuildContext context,
   @required bool notify,
 }) async {
   // blog('initializeHomeScreen._initializeSponsors : ~~~~~~~~~~ START');
-  final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+  final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
   await _bzzProvider.fetchSetSponsors(
-    context: context,
     notify: notify,
   );
   // blog('initializeHomeScreen._initializeSponsors : ~~~~~~~~~~ END');

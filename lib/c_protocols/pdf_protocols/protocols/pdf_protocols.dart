@@ -63,7 +63,7 @@ class PDFProtocols {
         path: StoragePath.flyers_flyerID_pdf(flyerID),
         name: TextMod.removeTextAfterLastSpecialCharacter(_platformFile.name, '.'),
         sizeMB: Filers.calculateSize(_platformFile.bytes?.length, FileSizeUnit.megaByte),
-        ownersIDs: await FlyerModel.generateFlyerOwners(context: context, bzID: bzID),
+        ownersIDs: await FlyerModel.generateFlyerOwners(bzID: bzID),
       );
 
     }

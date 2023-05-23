@@ -35,7 +35,6 @@ class AddFlyerButton extends StatelessWidget {
     await Future<void>.delayed(Ratioz.durationFading200, () async {
 
       final DraftFlyer _draft = await DraftFlyer.createDraft(
-        context: context,
         oldFlyer: null,
       );
 

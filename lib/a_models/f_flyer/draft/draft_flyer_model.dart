@@ -99,7 +99,6 @@ class DraftFlyer{
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<DraftFlyer> createDraft({
-    @required BuildContext context,
     @required FlyerModel oldFlyer,
   }) async {
     DraftFlyer _draft;
@@ -110,7 +109,6 @@ class DraftFlyer{
 
     else {
       _draft = await _createDraftFromFlyer(
-        context: context,
         flyer: oldFlyer,
       );
     }
@@ -183,7 +181,6 @@ class DraftFlyer{
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<DraftFlyer> _createDraftFromFlyer({
-    @required BuildContext context,
     @required FlyerModel flyer,
   }) async {
 
@@ -193,7 +190,7 @@ class DraftFlyer{
 
     else {
       return DraftFlyer(
-        bzModel: await BzProtocols.fetchBz(context: context, bzID: flyer.bzID),
+        bzModel: await BzProtocols.fetchBz(bzID: flyer.bzID),
         id: flyer.id,
         headline: TextEditingController(text: flyer.headline),
         trigram: flyer.trigram,
@@ -280,10 +277,7 @@ class DraftFlyer{
       pdfPath: draft.pdfModel == null ? null : StoragePath.flyers_flyerID_pdf(draft.id),
       affiliateLink: draft.affiliateLink,
       gtaLink: draft.gtaLink,
-      bzModel: await BzProtocols.fetchBz(
-        context: getMainContext(),
-        bzID: draft.bzID,
-      ),
+      bzModel: await BzProtocols.fetchBz(bzID: draft.bzID,),
       authorImage: await PicProtocols.fetchPicUiImage(
         path: StoragePath.bzz_bzID_authorID(
           bzID: draft.bzID,

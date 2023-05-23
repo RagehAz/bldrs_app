@@ -34,15 +34,13 @@ class SearchModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static SearchModel createInitialModel({
-    @required BuildContext context,
-  }){
+  static SearchModel createInitialModel(){
 
     return SearchModel(
       id: null,
       userID: Authing.getUserID(),
       text: null,
-      zone: ZoneProvider.proGetCurrentZone(context: context, listen: false),
+      zone: ZoneProvider.proGetCurrentZone(listen: false),
       time: DateTime.now(),
       flyerSearchModel: const FlyerSearchModel(
         onlyWithPrices: false,

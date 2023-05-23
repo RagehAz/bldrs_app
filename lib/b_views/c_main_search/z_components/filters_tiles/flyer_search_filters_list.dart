@@ -58,7 +58,6 @@ class FlyersSearchFiltersList extends StatelessWidget {
     final double _tileWidth = SuperSearchScreen.getFilterTileWidth(context);
 
     final String _keywordIcon = ChainsProvider.proGetPhidIcon(
-      context: context,
       son: searchModel.flyerSearchModel?.phid,
     );
 

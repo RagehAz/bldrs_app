@@ -99,7 +99,6 @@ class InfoPageMainDetails extends StatelessWidget {
         if (flyerModel?.zone != null)
         FutureBuilder(
           future: ZoneProtocols.completeZoneModel(
-              context: context,
               incompleteZoneModel: flyerModel.zone,
           ),
           initialData: flyerModel.zone,

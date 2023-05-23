@@ -89,14 +89,12 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<UserModel> createNewUserModelFromAuthModel({
-    @required BuildContext context,
     @required AuthModel authModel,
   }) async {
 
     assert(authModel.signInMethod != SignInMethod.anonymous, 'user must not be anonymous');
 
     final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(
-      context: context,
       listen: false,
     );
 
@@ -104,7 +102,7 @@ class UserModel {
       id: authModel.id,
       signInMethod: authModel.signInMethod,
       createdAt: DateTime.now(),
-      need: NeedModel.createInitialNeed(context: context, userZone: _currentZone),
+      need: NeedModel.createInitialNeed(userZone: _currentZone),
       // -------------------------
       name: authModel.name,
       trigram: Stringer.createTrigram(input: authModel.name),

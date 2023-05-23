@@ -104,7 +104,6 @@ class AuthProtocols {
       /// NEW USER
       if (_userModel == null){
         _success = await _onNewUser(
-          context: context,
           authModel: authModel,
         );
       }
@@ -141,12 +140,10 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<bool> _onNewUser({
-    @required BuildContext context,
     @required AuthModel authModel,
   }) async {
 
     final UserModel userModel = await UserProtocols.compose(
-      context: context,
       authModel: authModel,
     );
 

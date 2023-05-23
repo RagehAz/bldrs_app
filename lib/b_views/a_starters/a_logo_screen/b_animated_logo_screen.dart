@@ -124,7 +124,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
   void didChangeDependencies() {
     if (_isInit) {
       _triggerLoading(setTo: true).then((_) async {
-        Keyboard.closeKeyboard(context);
+        Keyboard.closeKeyboard();
 
         await Future.delayed(const Duration(milliseconds: 500), () async {
           await Future.wait(<Future<void>>[

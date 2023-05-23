@@ -247,7 +247,7 @@ Future<void> onSlideTap({
   @required bool mounted,
 }) async {
 
-  Keyboard.closeKeyboard(context);
+  Keyboard.closeKeyboard();
 
   final DraftSlide _result = await Nav.goToNewScreen(
       context: context,
@@ -284,7 +284,7 @@ Future<void> onDeleteSlide({
   @required bool mounted,
 }) async {
 
-  Keyboard.closeKeyboard(context);
+  Keyboard.closeKeyboard();
 
   final SlideModel _slide = await DraftSlide.draftToSlide(draftSlide);
 
@@ -329,7 +329,6 @@ Future<void> onMoreTap({
 }) async {
 
   await BottomDialog.showButtonsBottomDialog(
-    context: context,
     draggable: true,
     // buttonHeight: BottomDialog.wideButtonHeight,
     numberOfWidgets: 3,

@@ -53,7 +53,6 @@ class BzAboutPage extends StatelessWidget {
         onRefresh: () async {
 
           final BzModel _bz = await BzProtocols.refetch(
-              context: context,
               bzID:_bzModel.id,
           );
 
