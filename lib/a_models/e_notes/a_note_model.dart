@@ -814,7 +814,6 @@ class NoteModel {
   // --------------------
   /// TASK : TEST ME
   static Future<bool> checkCanShowAuthorshipButtons({
-    @required BuildContext context,
     @required NoteModel noteModel,
   }) async {
 
@@ -831,7 +830,6 @@ class NoteModel {
         if (noteModel.parties.senderType == PartyType.bz){
 
           final BzModel _bzModel = await BzProtocols.fetchBz(
-            context: context,
             bzID: noteModel.parties.senderID,
           );
 

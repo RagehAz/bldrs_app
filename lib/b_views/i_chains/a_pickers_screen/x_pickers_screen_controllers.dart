@@ -134,7 +134,6 @@ Future<void> onGoToPickerScreen({
     if (isMultipleSelectionMode == true){
 
       _updateSelectedSpecsAndRefinePickers(
-        context: context,
         picker: picker,
         selectedSpecs: selectedSpecsNotifier,
         refinedPickers: refinedPickersNotifier,
@@ -160,7 +159,6 @@ Future<void> onGoToPickerScreen({
 // --------------------
 /// TESTED : WORKS PERFECT
 void _updateSelectedSpecsAndRefinePickers({
-  @required BuildContext context,
   @required dynamic specPickerResult,
   @required PickerModel picker,
   @required List<PickerModel> sourcePickers,
@@ -170,7 +168,6 @@ void _updateSelectedSpecsAndRefinePickers({
 }) {
 
   final Chain _specChain = ChainsProvider.proFindChainByID(
-    context: context,
     chainID: picker.chainID,
   );
 

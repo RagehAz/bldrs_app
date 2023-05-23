@@ -114,7 +114,6 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
                 final bool _isCurrency = Phider.checkVerseIsCurrency(selectedUnitID);
                 if (_isCurrency == true){
                   final CurrencyModel _currency = ZoneProvider.proGetCurrencyByCurrencyID(
-                      context: context,
                       currencyID: selectedUnitID,
                       listen: false,
                   );

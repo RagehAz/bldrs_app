@@ -62,7 +62,7 @@ class NotePosterBuilder extends StatelessWidget {
       else if (noteModel?.poster?.type == PosterType.bz){
 
         return FutureBuilder(
-            future: BzProtocols.fetchBz(context: context, bzID: noteModel.poster.modelID),
+            future: BzProtocols.fetchBz(bzID: noteModel.poster.modelID),
             builder: (_, AsyncSnapshot<BzModel> bzSnap){
 
               final BzModel _bzModel = bzSnap.data;

@@ -38,7 +38,6 @@ class AuthorshipRespondingProtocols{
     );
 
     final BzModel _bzModel = await BzProtocols.refetch(
-      context: context,
       bzID: noteModel.parties.senderID,
     );
 
@@ -196,7 +195,6 @@ class AuthorshipRespondingProtocols{
     );
 
     await AuthorshipProtocols.addMeToBz(
-      context: context,
       bzID: bzModel.id,
     );
 
@@ -228,7 +226,6 @@ class AuthorshipRespondingProtocols{
   }) async {
 
     final BzModel _bzModel = await BzProtocols.fetchBz(
-      context: context,
       bzID: bzID,
     );
 

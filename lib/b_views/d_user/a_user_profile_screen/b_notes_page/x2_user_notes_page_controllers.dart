@@ -51,7 +51,6 @@ Future<void> onShowNoteOptions({
 }) async {
 
   await BottomDialog.showButtonsBottomDialog(
-      context: context,
       draggable: true,
       numberOfWidgets: 1,
       titleVerse: const Verse(

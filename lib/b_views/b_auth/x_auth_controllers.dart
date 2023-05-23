@@ -375,7 +375,7 @@ bool _prepareForEmailAuthOps({
 }) {
 
   /// MINIMIZE KEYBOARD
-  Keyboard.closeKeyboard(context);
+  Keyboard.closeKeyboard();
 
   /// CHECK VALIDITY
   final bool _allFieldsAreValid = formKey.currentState.validate();

@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -18,9 +19,8 @@ import 'package:mapper/mapper.dart';
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> initializeObeliskNumbers(BuildContext context) async {
+Future<void> initializeObeliskNumbers() async {
   await NotesProvider.proInitializeObeliskBadges(
-    context: context,
     notify: false,
   );
 }
@@ -30,7 +30,7 @@ Future<void> initializeObeliskNumbers(BuildContext context) async {
 
 // --------------------
 /// TESTED : WORKS PERFECT
-StreamSubscription listenToUserUnseenNotes(BuildContext context){
+StreamSubscription listenToUserUnseenNotes(){
 
   StreamSubscription _sub;
 
@@ -57,18 +57,15 @@ StreamSubscription listenToUserUnseenNotes(BuildContext context){
         );
 
         await NotesProvider.proSetUserObeliskBadge(
-          context: context,
           unseenNotes: _unseenNotes,
           notify: true,
         );
 
         concludeAndActivatePyramidsFlashing(
-          context: context,
           unseenNotes: _unseenNotes,
         );
 
         await NoteFunProtocols.fireTriggers(
-            context: context,
             notes: _unseenNotes,
         );
 
@@ -90,7 +87,7 @@ StreamSubscription listenToUserUnseenNotes(BuildContext context){
 
 // --------------------
 /// TESTED : WORKS PERFECT
-List<StreamSubscription> listenToMyBzzUnseenNotes(BuildContext context){
+List<StreamSubscription> listenToMyBzzUnseenNotes(){
 
   final List<StreamSubscription> _subs = <StreamSubscription>[];
 
@@ -106,7 +103,6 @@ List<StreamSubscription> listenToMyBzzUnseenNotes(BuildContext context){
     for (final BzModel bzModel in _myBzz){
 
       final StreamSubscription _sub = _listenToMyBzUnseenNotes(
-        context: context,
         bzID: bzModel.id,
       );
 
@@ -121,7 +117,6 @@ List<StreamSubscription> listenToMyBzzUnseenNotes(BuildContext context){
 // --------------------
 /// TESTED : WORKS PERFECT
 StreamSubscription _listenToMyBzUnseenNotes({
-  @required BuildContext context,
   @required String bzID,
 }){
 
@@ -141,19 +136,16 @@ StreamSubscription _listenToMyBzUnseenNotes({
       );
 
       await NotesProvider.proSetBzObeliskBadge(
-          context: context,
           bzID: bzID,
           unseenNotes: _unseenNotes,
           notify: true
       );
 
       concludeAndActivatePyramidsFlashing(
-        context: context,
         unseenNotes: _unseenNotes,
       );
 
       await NoteFunProtocols.fireTriggers(
-        context: context,
         notes: _unseenNotes,
       );
 
@@ -174,17 +166,15 @@ StreamSubscription _listenToMyBzUnseenNotes({
 // --------------------
 /// TESTED : WORKS PERFECT
 void concludeAndActivatePyramidsFlashing({
-  @required BuildContext context,
   @required List<NoteModel> unseenNotes,
 }){
 
   final bool _noteDotIsOn = _checkNoteDotIsOn(
-    context: context,
+    context: getMainContext(),
     unseenNotes: unseenNotes,
   );
 
     NotesProvider.proSetIsFlashing(
-      context: context,
       setTo: _noteDotIsOn,
       notify: true,
     );

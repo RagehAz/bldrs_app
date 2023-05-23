@@ -99,7 +99,6 @@ class FlyerVerificationProtocols {
       pushWaitDialog();
 
       final BzModel _bzModel = await BzProtocols.fetchBz(
-          context: context,
           bzID: bzID,
       );
 

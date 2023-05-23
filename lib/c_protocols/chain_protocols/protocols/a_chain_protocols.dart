@@ -7,6 +7,7 @@ import 'package:bldrs/c_protocols/app_state_protocols/app_state_real_ops.dart';
 import 'package:bldrs/c_protocols/chain_protocols/ldb/chain_ldb_ops.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/real/chain_real_ops.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
@@ -72,7 +73,6 @@ class ChainProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> renovateBldrsChains({
-    @required BuildContext context,
     @required List<Chain> newChains,
   }) async {
 
@@ -87,7 +87,6 @@ class ChainProtocols {
         ),
 
         updateBldrsChainsLocally(
-          context: context,
           newChains: newChains,
           showWaitDialog: false,
         ),
@@ -104,7 +103,6 @@ class ChainProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateBldrsChainsLocally({
-    @required BuildContext context,
     @required List<Chain> newChains,
     @required bool showWaitDialog,
   }) async {
@@ -121,9 +119,8 @@ class ChainProtocols {
       );
 
       /// UPDATE CHAIN S IN PRO
-      final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+      final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
       await _chainsProvider.updateBldrsChainsOps(
-        context: context,
         bldrsChains: newChains,
         notify: true,
       );

@@ -69,7 +69,6 @@ class _UserNotesPageState extends State<UserNotesPage> {
       _triggerLoading(setTo: true).then((_) async {
         // -------------------------------
         NotesProvider.proSetIsFlashing(
-            context: context,
             setTo: false,
             notify: true
         );
@@ -145,7 +144,6 @@ class _UserNotesPageState extends State<UserNotesPage> {
     _markAllUserUnseenNotesAsSeen();
 
     NotesProvider.proSetIsFlashing(
-        context: context,
         setTo: false,
         notify: true
     );

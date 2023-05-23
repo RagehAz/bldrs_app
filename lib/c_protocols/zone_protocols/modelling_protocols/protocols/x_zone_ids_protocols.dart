@@ -117,7 +117,6 @@ class ZoneIDsProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ZoneModel> completeZoneModel({
-    @required BuildContext context,
     @required ZoneModel incompleteZoneModel,
   }) async {
 
@@ -162,7 +161,6 @@ class ZoneIDsProtocols {
       if (TextCheck.isEmpty(incompleteZoneModel.countryName) == true || incompleteZoneModel.countryName == '...'){
 
         final String _countryName = ZoneProtocols.translateCountry(
-          context: context,
           countryID: incompleteZoneModel.countryID,
           // langCode:
         )?.id;
@@ -177,7 +175,6 @@ class ZoneIDsProtocols {
       if (TextCheck.isEmpty(incompleteZoneModel.cityName) == true || incompleteZoneModel.cityName == '...'){
 
         final String _cityName = ZoneProtocols.translateCity(
-          context: context,
           cityModel: _output.cityModel,
           // langCode:
         )?.id;

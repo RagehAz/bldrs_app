@@ -47,7 +47,6 @@ class NeedModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static NeedModel createInitialNeed({
-    @required BuildContext context,
     @required ZoneModel userZone,
   }){
     return NeedModel(

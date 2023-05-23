@@ -1,3 +1,4 @@
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
@@ -123,7 +124,6 @@ class NoteFunProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> fireTriggers({
-    @required BuildContext context,
     @required List<NoteModel> notes,
   }) async {
 
@@ -134,7 +134,6 @@ class NoteFunProtocols {
         ...List.generate(notes.length, (index){
 
           return _fireTrigger(
-              context: context,
               noteModel: notes[index],
           );
 
@@ -148,7 +147,6 @@ class NoteFunProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _fireTrigger({
-    @required BuildContext context,
     @required NoteModel noteModel,
   }) async {
 
@@ -163,7 +161,7 @@ class NoteFunProtocols {
     ){
 
       await _triggerSwitcher(
-        context: context,
+        context: getMainContext(),
         trigger: noteModel.function,
       );
 
@@ -172,7 +170,7 @@ class NoteFunProtocols {
       );
 
       await NoteProtocols.renovate(
-        context: context,
+        context: getMainContext(),
         oldNote: noteModel,
         newNote: _newNote,
       );
@@ -209,7 +207,6 @@ class NoteFunProtocols {
         case funAddMeAsAuthorToBz:
           blog('2--> Switcher : FIRING : ADD ME TO BZ FOR (${trigger.argument}) : START');
           await AuthorshipProtocols.addMeToBz(
-            context: context,
             bzID: trigger.argument,
           );
           blog('3--> Switcher : FIRING : END');
@@ -239,7 +236,6 @@ class NoteFunProtocols {
         case funRefetchBz:
           blog('2--> Switcher : FIRING : REFETCH BZ (${trigger.argument}) : START');
           await BzProtocols.refetch(
-            context: context,
             bzID: trigger.argument,
           );
           blog('3--> Switcher : FIRING : END');

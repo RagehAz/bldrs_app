@@ -89,7 +89,6 @@ class BzzProvider extends ChangeNotifier {
   /// 1 - get sponsors from app state
   /// 2 - fetch each bzID if found
   Future<void> fetchSetSponsors({
-    @required BuildContext context,
     @required bool notify,
   }) async {
     /// 1 - get sponsorsIDs from app state
@@ -99,7 +98,6 @@ class BzzProvider extends ChangeNotifier {
     if (Mapper.checkCanLoopList(_sponsorsBzzIDs)) {
       /// 2 - fetch bzz
       final List<BzModel> _bzzSponsors = await BzProtocols.fetchBzz(
-          context: context,
           bzzIDs: _sponsorsBzzIDs
       );
 
@@ -179,18 +177,16 @@ class BzzProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> fetchSetMyBzz({
-    @required BuildContext context,
     @required bool notify,
   }) async {
 
     /// 1 - get userBzzIDs from userModel
-    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(getMainContext(), listen: false);
     final List<String> _userBzzIDs = _usersProvider.myUserModel?.myBzzIDs;
 
     if (Mapper.checkCanLoopList(_userBzzIDs)) {
       /// 2 - fetch bzz
       final List<BzModel> _bzz = await BzProtocols.fetchBzz(
-        context: context,
         bzzIDs: _userBzzIDs,
       );
 
@@ -310,18 +306,16 @@ class BzzProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> fetchSetFollowedBzz({
-    @required BuildContext context,
     @required bool notify,
   }) async {
     /// 1 - get user saved followed bzz IDs
-    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(getMainContext(), listen: false);
     final UserModel _myUserModel = _usersProvider.myUserModel;
     final List<String> _followedBzzIDs = _myUserModel?.followedBzz?.all;
 
     if (Mapper.checkCanLoopList(_followedBzzIDs)) {
 
       final List<BzModel> _bzz = await BzProtocols.fetchBzz(
-        context: context,
         bzzIDs: _followedBzzIDs,
       );
 

@@ -311,7 +311,6 @@ Future<void> onSectionButtonTap(BuildContext context) async {
     if (phid != null){
 
       await setActivePhidK(
-        context: context,
         phidK: phid,
         flyerType: flyerType,
       );
@@ -324,7 +323,6 @@ Future<void> onSectionButtonTap(BuildContext context) async {
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> setActivePhidK({
-  @required BuildContext context,
   @required String phidK,
   @required FlyerType flyerType,
 }) async {
@@ -350,7 +348,7 @@ Future<void> setActivePhidK({
   /// A - if section is not active * if user is author or not
   if (deactivated == true) {
 
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);
     final String _cityName = _zoneProvider.currentZone.cityName;
 
     final String _flyerTypePhid = FlyerTyper.getFlyerTypePhid(
@@ -387,7 +385,7 @@ Future<void> setActivePhidK({
             ),
             width: 133,
             onTap: () => Launcher.shareBldrsWebsiteURL(
-              context : context,
+              context : getMainContext(),
             ),
           ),
 
@@ -399,7 +397,7 @@ Future<void> setActivePhidK({
             color: Colorz.yellow255,
             verseColor: Colorz.black230,
             onTap: () => Nav.goBack(
-              context: context,
+              context: getMainContext(),
               invoker: '_setActivePhidK.centerDialog',
             ),
           ),
@@ -412,9 +410,8 @@ Future<void> setActivePhidK({
   /// A - if section is active
   else {
 
-    final ChainsProvider _keywordsProvider = Provider.of<ChainsProvider>(context, listen: false);
+    final ChainsProvider _keywordsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
     await _keywordsProvider.changeHomeWallFlyerType(
-      context: context,
       flyerType: flyerType,
       phid: phidK,
       notify: true,

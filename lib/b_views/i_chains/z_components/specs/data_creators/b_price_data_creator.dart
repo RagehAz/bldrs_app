@@ -56,7 +56,6 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
     super.initState();
 
     initializeCurrencyData(
-      context: context,
       zone: widget.zone,
       selectedCurrencyID: _selectedCurrencyID,
       textController: _textController,

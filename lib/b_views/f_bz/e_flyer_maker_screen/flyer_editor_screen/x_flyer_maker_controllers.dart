@@ -351,7 +351,7 @@ Future<void> onFlyerPhidTap({
   @required bool mounted,
 }) async {
 
-  Keyboard.closeKeyboard(context);
+  Keyboard.closeKeyboard();
 
   final List<String> _phids = await PhidsPickerScreen.goPickPhids(
       context: context,
@@ -615,7 +615,6 @@ Future<void> _updateFlyerOps({
   );
 
   final bool _imALoneAuthor = await AuthorModel.checkImALoneAuthor(
-    context: context,
     bzID: draft.bzID,
   );
 

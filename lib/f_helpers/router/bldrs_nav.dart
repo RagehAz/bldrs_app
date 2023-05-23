@@ -244,7 +244,7 @@ class BldrsNav {
   static Future<void> onLastGoBackInHomeScreen(BuildContext context) async {
 
     /// TO HELP WHEN PHRASES ARE NOT LOADED TO REBOOT SCREENS
-    if (PhraseProvider.proGetPhidsAreLoaded(context) == false){
+    if (PhraseProvider.proGetPhidsAreLoaded() == false){
       await Nav.pushNamedAndRemoveAllBelow(
         context: context,
         goToRoute: Routing.staticLogoScreen,
@@ -320,7 +320,6 @@ class BldrsNav {
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
 
     final BzModel _bzModel = await BzProtocols.fetchBz(
-      context: context,
       bzID: bzID,
     );
 
@@ -436,7 +435,6 @@ class BldrsNav {
     if (bzID != null){
 
       final BzModel _bzModel = await BzProtocols.fetchBz(
-        context: context,
         bzID: bzID,
       );
 

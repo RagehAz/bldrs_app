@@ -106,7 +106,6 @@ class WipeBzProtocols {
       if (deleteBzLocally == true)
         /// DELETING BZ LOCALLY IMPACTS LISTENING TO NOTE TRIGGERS
       deleteLocally(
-        context: getMainContext(),
         bzID: bzModel.id,
         invoker: 'wipeBz',
       ),
@@ -157,7 +156,6 @@ class WipeBzProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteLocally({
-    @required BuildContext context,
     @required String bzID,
     @required String invoker,
   }) async {
@@ -167,7 +165,6 @@ class WipeBzProtocols {
     blog('WipeBzProtocol.deleteLocally : $invoker : START');
 
     final BzModel _bzModel = await BzProtocols.fetchBz(
-        context: getMainContext(),
         bzID: bzID
     );
 
@@ -217,7 +214,6 @@ class WipeBzProtocols {
   }) async {
 
     final BzModel _oldBz = await BzProtocols.fetchBz(
-        context: context,
         bzID: bzID,
     );
 

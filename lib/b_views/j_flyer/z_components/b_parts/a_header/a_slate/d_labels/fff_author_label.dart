@@ -122,7 +122,6 @@ class AuthorLabel extends StatelessWidget {
                       width: _authorLabelVersesWidth,
                       child: BldrsText(
                         verse: FlyerVerses.followersCounters(
-                          context: context,
                           followersCount: 0,
                           authorGalleryCount: _author?.flyersIDs?.length,
                           bzGalleryCount: bzModel?.flyersIDs?.length ?? 0,

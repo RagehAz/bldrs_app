@@ -194,7 +194,7 @@ class CenterDialog extends StatelessWidget {
     // final double _contentZoneHeight = _dialogHeight - _buttonZoneHeight;
     const double _buttonZoneHeight = _buttonHeight + (2 * Ratioz.appBarPadding);
     // --------------------
-    final bool _keyboardIsOn = Keyboard.keyboardIsOn(context);
+    final bool _keyboardIsOn = Keyboard.keyboardIsOn();
     final double _keyboardHeight = _keyboardIsOn == true ? MediaQuery.of(context).viewInsets.bottom : 0;
     // --------------------
     return SafeArea(
@@ -256,7 +256,7 @@ class CenterDialog extends StatelessWidget {
                               Keyboard.copyToClipboard(context: context, copy: title?.id);
                             }
 
-                            Keyboard.closeKeyboard(context);
+                            Keyboard.closeKeyboard();
                           },
                           child: Container(
                             width: _dialogWidth,

@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       _triggerLoading(setTo: true).then((_) async {
 
-        if (PhraseProvider.proGetPhidsAreLoaded(context) == false){
+        if (PhraseProvider.proGetPhidsAreLoaded() == false){
           await Nav.pushNamedAndRemoveAllBelow(
               context: context,
               goToRoute: Routing.staticLogoScreen,
@@ -148,9 +148,9 @@ class _HomeScreenState extends State<HomeScreen> {
   /// TESTED : WORKS PERFECT
   Future<void> initializeNotesListeners() async{
     if (mounted){
-      await initializeObeliskNumbers(context);
-      _userNotesStreamSub = listenToUserUnseenNotes(context);
-      _bzzNotesStreamsSubs = listenToMyBzzUnseenNotes(context);
+      await initializeObeliskNumbers();
+      _userNotesStreamSub = listenToUserUnseenNotes();
+      _bzzNotesStreamsSubs = listenToMyBzzUnseenNotes();
     }
   }
   // -----------------------------------------------------------------------------
@@ -186,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       final List<BzModel> _bzzModels = BzzProvider.proGetMyBzz(listen: true);
       final UserModel _userModel = UsersProvider.proGetMyUserModel(listen: true);
-      final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(context: context, listen: true);
+      final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(listen: true);
 
       final List<NavModel> _navModels = generateMainNavModels(
         context: context,

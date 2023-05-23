@@ -11,6 +11,7 @@ import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/pdf_protocols/protocols/pdf_protocols.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
@@ -91,7 +92,6 @@ class ComposeFlyerProtocols {
 
           /// ADD FLYER ID TO BZ MODEL
           _addFlyerIDToBzAndAuthorAndRenovateBz(
-            context: context,
             newFlyerToAdd: _flyerToPublish,
           ),
 
@@ -130,13 +130,11 @@ class ComposeFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _addFlyerIDToBzAndAuthorAndRenovateBz({
-    @required BuildContext context,
     @required FlyerModel newFlyerToAdd,
   }) async {
     blog('addFlyerIDToBzFlyersIDsAndAuthorFlyersIDs : START');
 
     final BzModel _oldBz = await BzProtocols.fetchBz(
-      context: context,
       bzID: newFlyerToAdd.bzID,
     );
 
@@ -158,7 +156,7 @@ class ComposeFlyerProtocols {
 
     // final BzModel _uploadedBzModel =
     await BzProtocols.renovateBz(
-        context: context,
+        context: getMainContext(),
         newBz: _newBz,
         oldBz: _oldBz,
         showWaitDialog: false,
@@ -196,7 +194,6 @@ class ComposeFlyerProtocols {
           width: _dims?.width,
           height: _dims?.height,
           ownersIDs: await FlyerModel.generateFlyerOwners(
-            context: context,
             bzID: draftFlyer.bzID,
           )
       ),

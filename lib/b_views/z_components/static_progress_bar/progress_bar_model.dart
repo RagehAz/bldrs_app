@@ -92,7 +92,7 @@ class ProgressBarModel {
   }){
 
     /// A - if Keyboard is active
-    if (Keyboard.keyboardIsOn(context) == true) {
+    if (Keyboard.keyboardIsOn() == true) {
 
       ProgressBarModel._updateProgressBarNotifierOnIndexChanged(
         context: context,

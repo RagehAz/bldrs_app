@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/app_state_real_ops.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/picker_protocols/ldb/picker_ldb_ops.dart';
 import 'package:bldrs/c_protocols/picker_protocols/real/picker_real_ops.dart';
 import 'package:flutter/material.dart';
@@ -84,7 +85,6 @@ class PickerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> renovateFlyerTypePickers({
-    @required BuildContext context,
     @required FlyerType flyerType,
     @required List<PickerModel> pickers,
   }) async {
@@ -101,7 +101,6 @@ class PickerProtocols {
         ),
 
         updateFlyerTypePickerLocally(
-          context: context,
           flyerType: flyerType,
           pickers: pickers,
           showWaitDialog: false,
@@ -119,7 +118,6 @@ class PickerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateFlyerTypePickerLocally({
-    @required BuildContext context,
     @required FlyerType flyerType,
     @required List<PickerModel> pickers,
     @required bool showWaitDialog,
@@ -138,9 +136,8 @@ class PickerProtocols {
       );
 
       /// UPDATE PICKERS IN PRO
-      final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+      final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
       _chainsProvider.setFlyerTypePickers(
-        context: context,
         flyerType: flyerType,
         pickers: pickers,
         notify: true,

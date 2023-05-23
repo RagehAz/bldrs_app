@@ -19,13 +19,10 @@ class ZonePhidsRealOps {
 
   // --------------------
   /// TASK : TEST ME
-  static Future<ZonePhidsModel> readZonePhidsOfCurrentZone({
-    @required BuildContext context,
-  }) async {
+  static Future<ZonePhidsModel> readZonePhidsOfCurrentZone() async {
     ZonePhidsModel _output;
 
     final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(
-      context: context,
       listen: false,
     );
 

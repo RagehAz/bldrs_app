@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
@@ -20,7 +21,6 @@ class AuthorshipEntryProtocols {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> addMeToBz({
-    @required BuildContext context,
     @required String bzID,
   }) async {
 
@@ -29,7 +29,6 @@ class AuthorshipEntryProtocols {
     blog('AuthorshipEntryProtocols.addMeToBz : START');
 
     final BzModel _oldBz = await BzProtocols.fetchBz(
-      context: context,
       bzID: bzID,
     );
 
@@ -51,14 +50,14 @@ class AuthorshipEntryProtocols {
 
     /// SUBSCRIBE TO BZ TOPICS
     await NoteProtocols.subscribeToAllBzTopics(
-      context: context,
+      context: getMainContext(),
       bzID: bzID,
       renovateUser: false,
     );
 
     /// UPDATE MY USER MODEL EVERY WHERE --------------------------
     final UserModel _uploadedUser = await UserProtocols.renovate(
-      context: context,
+      context: getMainContext(),
       newUser: _newUser,
       oldUser: _oldUser,
       newPic: null,
@@ -83,7 +82,7 @@ class AuthorshipEntryProtocols {
     );
 
     /// ADD BZ MODEL TO MY BZZ --------------------------
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
     _bzzProvider.addBzToMyBzz(
       bzModel: _newBz,
       notify: false, // uploaded model will update it and notify listeners
@@ -92,7 +91,7 @@ class AuthorshipEntryProtocols {
     /// UPDATE BZ EVERYWHERE PROTOCOL --------------------------
     // final BzModel _uploadedBzModel =
     await BzProtocols.renovateBz(
-      context: context,
+      context: getMainContext(),
       oldBz: _oldBz,
       newBz: _newBz,
       showWaitDialog: false,

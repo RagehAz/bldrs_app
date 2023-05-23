@@ -44,12 +44,11 @@ class ZoneModel {
     final ZoneModel _zone =
             zoneModel
             ??
-            ZoneProvider.proGetCurrentZone(context: context, listen: false)
+            ZoneProvider.proGetCurrentZone(listen: false)
             ??
             await ZoneProtocols.getZoneByIP(context: context);
 
     return ZoneProtocols.completeZoneModel(
-      context: context,
       incompleteZoneModel: _zone,
     );
 
