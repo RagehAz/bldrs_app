@@ -17,12 +17,12 @@ FireQueryModel homeWallFlyersPaginationQuery(BuildContext context){
 
     return FlyerSearch.createQuery(
       searchModel: SearchModel(
-        zone: ZoneProvider.proGetCurrentZone(context: context, listen: true,),
+        zone: ZoneProvider.proGetCurrentZone(listen: true,),
         userID: Authing.getUserID(),
         id: 'homeWallFlyersPaginationQuery',
         flyerSearchModel: FlyerSearchModel(
-          flyerType: ChainsProvider.proGetHomeWallFlyerType(context: context, listen: true,),
-          phid: ChainsProvider.proGetHomeWallPhid(context: context, listen: true,),
+          flyerType: ChainsProvider.proGetHomeWallFlyerType(listen: true,),
+          phid: ChainsProvider.proGetHomeWallPhid(listen: true,),
           auditState: AuditState.verified,
           publishState: null,
           onlyAmazonProducts: null,

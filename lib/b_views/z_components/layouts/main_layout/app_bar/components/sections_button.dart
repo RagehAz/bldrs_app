@@ -106,7 +106,6 @@ class SectionsButton extends StatelessWidget {
                     );
 
                     final String _icon = chainsPro.getPhidIcon(
-                      context: context,
                       son: chainsPro.wallPhid,
                     );
 

@@ -136,14 +136,12 @@ class RenovateUserProtocols {
   /// TESTED : WORKS PERFECT
   static Future<UserModel> completeUserZoneModels({
     @required UserModel userModel,
-    @required BuildContext context,
   }) async {
     UserModel _output;
 
     if (userModel != null){
 
       final ZoneModel _completeZoneModel = await ZoneProtocols.completeZoneModel(
-        context: context,
         incompleteZoneModel: userModel.zone,
       );
 

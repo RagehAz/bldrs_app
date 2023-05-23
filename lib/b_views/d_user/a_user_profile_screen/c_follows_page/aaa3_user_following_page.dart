@@ -52,7 +52,7 @@ class UserFollowingPage extends StatelessWidget {
           final String _bzID = _followedBzzIds[index];
 
           return FutureBuilder(
-            future: BzProtocols.fetchBz(context: context, bzID: _bzID),
+            future: BzProtocols.fetchBz(bzID: _bzID),
             builder: (_, AsyncSnapshot<BzModel> snapshot){
 
               blog('snapshot connectionState is : ${snapshot.connectionState}');

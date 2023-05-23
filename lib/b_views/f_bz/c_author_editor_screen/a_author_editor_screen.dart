@@ -189,7 +189,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
   // --------------------
   Future<void> _onConfirmTap() async {
 
-    Keyboard.closeKeyboard(context);
+    Keyboard.closeKeyboard();
 
     await Future.delayed(const Duration(milliseconds: 100), () async {
 

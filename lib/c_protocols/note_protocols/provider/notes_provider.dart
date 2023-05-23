@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
 import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
 import 'package:bldrs/a_models/x_utilities/map_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:mapper/mapper.dart';
 import 'package:filers/filers.dart';
@@ -43,11 +44,10 @@ class NotesProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void proSetIsFlashing({
-    @required BuildContext context,
     @required bool setTo,
     @required bool notify,
   }){
-    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+    final NotesProvider _notesProvider = Provider.of<NotesProvider>(getMainContext(), listen: false);
     _notesProvider._setIsFlashing(
       setTo: setTo,
       notify: notify,
@@ -64,25 +64,21 @@ class NotesProvider extends ChangeNotifier {
   // -------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> proInitializeObeliskBadges({
-    @required BuildContext context,
     @required bool notify,
   }) async {
-    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+    final NotesProvider _notesProvider = Provider.of<NotesProvider>(getMainContext(), listen: false);
     await _notesProvider._initializeObeliskBadges(
-        context: context,
         notify: notify
     );
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> proSetUserObeliskBadge({
-    @required BuildContext context,
     @required List<NoteModel> unseenNotes,
     @required bool notify,
   }) async {
-    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+    final NotesProvider _notesProvider = Provider.of<NotesProvider>(getMainContext(), listen: false);
     await _notesProvider._setUserObeliskNumber(
-      context: context,
       unseenNotes: unseenNotes,
       notify: notify,
     );
@@ -90,14 +86,12 @@ class NotesProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> proSetBzObeliskBadge({
-    @required BuildContext context,
     @required String bzID,
     @required List<NoteModel> unseenNotes,
     @required bool notify,
   }) async {
-    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+    final NotesProvider _notesProvider = Provider.of<NotesProvider>(getMainContext(), listen: false);
     await _notesProvider._setBzObeliskNumber(
-      context: context,
       unseenNotes: unseenNotes,
       bzID: bzID,
       notify: notify,
@@ -108,7 +102,6 @@ class NotesProvider extends ChangeNotifier {
   // -----
   /// TESTED : WORKS PERFECT
   Future<void> _initializeObeliskBadges({
-    @required BuildContext context,
     @required bool notify,
   }) async {
 
@@ -143,13 +136,11 @@ class NotesProvider extends ChangeNotifier {
   // -----
   /// TESTED : WORKS PERFECT
   Future<void> _setUserObeliskNumber({
-    @required BuildContext context,
     @required List<NoteModel> unseenNotes,
     @required bool notify,
   }) async {
 
     await _setObeliskNumberAndRebuild(
-      context: context,
       invoker: 'setUserObeliskNumber',
       value: unseenNotes.length,
       navModelID: NavModel.getUserTabNavID(UserTab.notifications),
@@ -161,14 +152,12 @@ class NotesProvider extends ChangeNotifier {
   // -----
   /// TESTED : WORKS PERFECT
   Future<void> _setBzObeliskNumber({
-    @required BuildContext context,
     @required String bzID,
     @required List<NoteModel> unseenNotes,
     @required bool notify,
   }) async {
 
     await _setObeliskNumberAndRebuild(
-      context: context,
       invoker: 'setBzObeliskNumber',
       value: unseenNotes.length,
       notify: notify,
@@ -183,7 +172,6 @@ class NotesProvider extends ChangeNotifier {
   // -----
   /// TESTED : WORKS PERFECT
   Future<void> _setObeliskNumberAndRebuild({
-    @required BuildContext context,
     @required String invoker,
     @required int value,
     @required String navModelID,
@@ -208,12 +196,10 @@ class NotesProvider extends ChangeNotifier {
       await Future.wait(<Future>[
 
         _calculateAndSetMainUserProfileNumber(
-          context: context,
           notify: false,
         ),
 
         _calculateAndSetAllMainBzzProfilesNumbers(
-          context: context,
           notify: false,
         ),
 
@@ -231,7 +217,6 @@ class NotesProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _calculateAndSetMainUserProfileNumber({
-    @required BuildContext context,
     @required bool notify,
   }) async {
 
@@ -258,7 +243,6 @@ class NotesProvider extends ChangeNotifier {
     }
 
     await _setObeliskNumberAndRebuild(
-      context: context,
       invoker: 'calculateAndSetUserProfileNumbers',
       value: _totalCount,
       navModelID: NavModel.getMainNavIDString(navID: MainNavModel.profile),
@@ -270,7 +254,6 @@ class NotesProvider extends ChangeNotifier {
   // -----
   /// TESTED : WORKS PERFECT
   Future<void> _calculateAndSetAllMainBzzProfilesNumbers({
-    @required BuildContext context,
     @required bool notify,
   }) async {
 
@@ -291,7 +274,6 @@ class NotesProvider extends ChangeNotifier {
         }
 
         await _calculateAndSetMainBzProfileNumber(
-          context: context,
           bzID: _bzzIDs[i],
           notify: _notify,
         );
@@ -304,7 +286,6 @@ class NotesProvider extends ChangeNotifier {
   // -----
   /// TESTED : WORKS PERFECT
   Future<void> _calculateAndSetMainBzProfileNumber({
-    @required BuildContext context,
     @required String bzID,
     @required bool notify,
   }) async {
@@ -334,7 +315,6 @@ class NotesProvider extends ChangeNotifier {
       }
 
       await _setObeliskNumberAndRebuild(
-        context: context,
         invoker: 'calculateAndSetBzProfileNumbers',
         value: _totalCount,
         notify: notify,
@@ -431,12 +411,11 @@ class NotesProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void proAuthorResignationNotesRemovalOps({
-    @required BuildContext context,
     @required String bzIDResigned,
     bool notify = true,
   }){
 
-    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+    final NotesProvider _notesProvider = Provider.of<NotesProvider>(getMainContext(), listen: false);
     // _notesProvider.removeAllNotesOfThisBzFromAllBzzNotes(
     //   bzID: bzIDResigned,
     //   notify: false,
@@ -453,11 +432,10 @@ class NotesProvider extends ChangeNotifier {
 
   // --------------------
   static Future<void> wipeOut({
-    @required BuildContext context,
     @required bool notify,
   }) async {
 
-    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+    final NotesProvider _notesProvider = Provider.of<NotesProvider>(getMainContext(), listen: false);
 
     ///_obeliskNotesNumbers
     await _notesProvider.wipeObeliskNumbers(notify: false);
@@ -489,17 +467,16 @@ class NotesProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> proRefreshBadgeNum(BuildContext context) async {
-    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+  static Future<void> proRefreshBadgeNum() async {
+    final NotesProvider _notesProvider = Provider.of<NotesProvider>(getMainContext(), listen: false);
     await _notesProvider.setBadgeNum();
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static int proGetBadgeNum({
-    @required BuildContext context,
     @required bool listen,
   }){
-    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: listen);
+    final NotesProvider _notesProvider = Provider.of<NotesProvider>(getMainContext(), listen: listen);
     return _notesProvider.badgeNum;
   }
   // -----------------------------------------------------------------------------

@@ -120,7 +120,6 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
     final List<CurrencyModel> _allCurrencies = _zoneProvider.allCurrencies;
     // --------------------
     final CurrencyModel _currencyOverride = ZoneProvider.proGetCurrencyByCountryID(
-      context: context,
       countryID: widget.countryIDCurrencyOverride,
       listen: false,
     );

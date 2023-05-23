@@ -172,7 +172,6 @@ Future<void> onAuthorOptionsTap({
   ];
 
   await BottomDialog.showButtonsBottomDialog(
-      context: context,
       draggable: true,
       numberOfWidgets: _buttons.length,
       builder: (_){

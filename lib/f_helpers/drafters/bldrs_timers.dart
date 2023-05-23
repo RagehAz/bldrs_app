@@ -275,7 +275,7 @@ class BldrsTimers {
       );
       Verse _zoneLine = ZoneModel.generateInZoneVerse(
         context: context,
-        zoneModel: ZoneProvider.proGetCurrentZone(context: context, listen: false),
+        zoneModel: ZoneProvider.proGetCurrentZone(listen: false),
       );
       _zoneLine = _zoneLine.id != '...' ? _zoneLine : Verse(
         /// PLAN : THIS NEEDS TRANSLATION : IN COMES LIKE THIS 'Africa/Cairo'

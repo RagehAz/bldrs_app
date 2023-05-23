@@ -112,7 +112,6 @@ class DraftSlide {
             width: _dimensions?.width,
             height: _dimensions?.height,
             ownersIDs: await FlyerModel.generateFlyerOwners(
-                context: context,
                 bzID: bzID,
             ),
           ),

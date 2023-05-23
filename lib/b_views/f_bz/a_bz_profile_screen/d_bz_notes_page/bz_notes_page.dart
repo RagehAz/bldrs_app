@@ -72,7 +72,6 @@ class _BzNotesPageState extends State<BzNotesPage>{
       _triggerLoading(setTo: true).then((_) async {
         // -------------------------------
         NotesProvider.proSetIsFlashing(
-            context: context,
             setTo: false,
             notify: true
         );
@@ -148,7 +147,6 @@ class _BzNotesPageState extends State<BzNotesPage>{
     _markAllBzUnseenNotesAsSeen();
 
     NotesProvider.proSetIsFlashing(
-        context: context,
         setTo: false,
         notify: true
     );

@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_redundant_argument_values
+// ignore_for_file: avoid_redundant_argument_values, unused_element
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
@@ -220,16 +220,15 @@ class NewAuthorshipExit {
 
       final BzModel _bzModel = await BzProtocols.fetchBz(
         bzID: bzID,
-        context: getMainContext(),
       );
 
       if (_bzModel != null){
 
-        /// SHOW NOTICE CENTER DIALOG
-        await _iGotDeletedNoticeDialog(
-          bzID: bzID,
-          isBzDeleted: isBzDeleted,
-        );
+        /// SHOW NOTICE CENTER DIALOG : is switched of to clean wipe bz sequence
+        // await _iGotDeletedNoticeDialog(
+        //   bzID: bzID,
+        //   isBzDeleted: isBzDeleted,
+        // );
 
         /// SHOW WAIT DIALOG
         _showRemovingAuthorWaitDialog(
@@ -249,7 +248,6 @@ class NewAuthorshipExit {
           ),
           /// (only i can) : UPDATE BZ LOCALLY
           BzProtocols.deleteLocally(
-            context: getMainContext(),
             bzID: bzID,
             invoker: 'onIGotRemoved',
           ),
@@ -261,12 +259,6 @@ class NewAuthorshipExit {
           context: getMainContext(),
         );
 
-        /// SHOW SUCCESS CENTER DIALOG
-        await _showRemovedAuthorSuccessDialog(
-          context: getMainContext(),
-          isBzDeleted: isBzDeleted,
-        );
-
         /// GO HOME
         await Nav.pushHomeAndRemoveAllBelow(
           context: getMainContext(),
@@ -274,6 +266,11 @@ class NewAuthorshipExit {
           homeRoute: Routing.home,
         );
 
+        /// SHOW SUCCESS CENTER DIALOG
+        await _showRemovedAuthorSuccessDialog(
+          context: getMainContext(),
+          isBzDeleted: isBzDeleted,
+        );
 
       }
 
@@ -427,7 +424,6 @@ class NewAuthorshipExit {
 
     /// (only i can) : REMOVE BZ NOTES FROM OBELISK NUMBERS
     NotesProvider.proAuthorResignationNotesRemovalOps(
-      context: getMainContext(),
       bzIDResigned: bzID,
       notify: true,
     );

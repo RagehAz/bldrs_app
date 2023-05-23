@@ -98,7 +98,7 @@ class MainLayout extends StatelessWidget {
     @required bool mounted,
   }){
 
-    Keyboard.closeKeyboard(context);
+    Keyboard.closeKeyboard();
 
       controller?.text = '';
 
@@ -162,7 +162,7 @@ class MainLayout extends StatelessWidget {
 
   }
   // --------------------
-  Future<void> _onBack(BuildContext context) async {
+  Future<void> _onBack() async {
 
 
     if (onBack != null){
@@ -171,14 +171,14 @@ class MainLayout extends StatelessWidget {
 
     else {
 
-      final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+      final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
       if (_uiProvider.keyboardIsOn == true){
-        Keyboard.closeKeyboard(context);
+        Keyboard.closeKeyboard();
       }
 
       if (canGoBack == true){
         await Nav.goBack(
-          context: context,
+          context: getMainContext(),
           invoker: 'MainLayout._onBack',
         );
       }
@@ -197,14 +197,14 @@ class MainLayout extends StatelessWidget {
     return WillPopScope(
       key: const ValueKey<String>('Main_layout'),
       onWillPop: () async {
-        await _onBack(context);
+        await _onBack();
         return false;
       },
       child: GestureDetector(
         onTap: (){
 
           UiProvider.proSetPyramidsAreExpanded(context: context, setTo: false, notify: true);
-          Keyboard.closeKeyboard(context);
+          Keyboard.closeKeyboard();
 
         },
         child: SafeArea(
@@ -252,7 +252,7 @@ class MainLayout extends StatelessWidget {
                     appBarType: appBarType,
                     appBarRowWidgets: appBarRowWidgets,
                     pageTitleVerse: title,
-                    onBack: () => _onBack(context),
+                    onBack: () => _onBack(),
                     loading: loading,
                     progressBarModel: progressBarModel,
                     appBarScrollController: appBarScrollController,

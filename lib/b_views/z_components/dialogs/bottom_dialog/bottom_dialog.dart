@@ -189,14 +189,13 @@ class BottomDialog extends StatelessWidget {
   }
   // --------------------
   static Future<void> showBottomDialog({
-    @required BuildContext context,
     @required bool draggable,
     @required Widget child,
     double height,
     Verse titleVerse,
   }) async {
 
-    final double _height = height ?? BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.5);
+    final double _height = height ?? BottomDialog.dialogHeight(getMainContext(), ratioOfScreenHeight: 0.5);
 
     await showModalBottomSheet(
         shape: RoundedRectangleBorder(
@@ -213,7 +212,7 @@ class BottomDialog extends StatelessWidget {
         enableDrag: draggable,
         elevation: 20,
         isScrollControlled: true,
-        context: context,
+        context: getMainContext(),
         builder: (_) {
 
           return StatefulBuilder(
@@ -223,7 +222,7 @@ class BottomDialog extends StatelessWidget {
 
                 return SizedBox(
                   height: _height,
-                  width: Scale.screenWidth(context),
+                  width: Scale.screenWidth(getMainContext()),
                   child: Scaffold(
                     backgroundColor: Colorz.nothing,
                     resizeToAvoidBottomInset: false,
@@ -244,7 +243,6 @@ class BottomDialog extends StatelessWidget {
   }
   // --------------------
   static Future<void> showButtonsBottomDialog({
-    @required BuildContext context,
     @required bool draggable,
     @required int numberOfWidgets,
     double buttonHeight = wideButtonHeight,
@@ -264,7 +262,6 @@ class BottomDialog extends StatelessWidget {
 
 
     await showStatefulBottomDialog(
-      context: context,
       draggable: draggable,
       height: _height,
       titleVerse: titleVerse,
@@ -294,25 +291,24 @@ class BottomDialog extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> showStatefulBottomDialog({
-    @required BuildContext context,
     @required Widget Function(BuildContext, Function setState) builder,
     @required Verse titleVerse,
     bool draggable,
     double height,
   }) async {
 
-    final double _height = height ?? BottomDialog.dialogHeight(context, ratioOfScreenHeight: 0.5);
+    final double _height = height ?? BottomDialog.dialogHeight(getMainContext(), ratioOfScreenHeight: 0.5);
 
     await showModalBottomSheet(
       shape: RoundedRectangleBorder(
-        borderRadius: BottomDialog.dialogCorners(context),
+        borderRadius: BottomDialog.dialogCorners(getMainContext()),
       ),
       backgroundColor: Colorz.blackSemi255,
       barrierColor: Colorz.black150,
       enableDrag: draggable,
       elevation: 20,
       isScrollControlled: true,
-      context: context,
+      context: getMainContext(),
       builder: (BuildContext context) => SizedBox(
           height: _height,
           width: Scale.screenWidth(context),
@@ -344,7 +340,6 @@ class BottomDialog extends StatelessWidget {
     // final double _flyerBoxWidth = FlyerBox.width(context, 0.71);
 
     await BottomDialog.showBottomDialog(
-      context: context,
       height: Scale.screenHeight(context) - 100,
       draggable: true,
       child: Container(),

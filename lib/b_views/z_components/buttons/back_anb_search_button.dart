@@ -89,7 +89,7 @@ class BackAndSearchButton extends StatelessWidget {
 
             if (backAndSearchAction == BackAndSearchAction.goBack) {
 
-              Keyboard.closeKeyboard(context);
+              Keyboard.closeKeyboard();
 
               await Nav.goBack(
                 context: context,

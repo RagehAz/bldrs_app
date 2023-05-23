@@ -154,7 +154,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
       }
     }
 
-    Keyboard.closeKeyboard(context);
+    Keyboard.closeKeyboard();
 
     await Nav.goBack(
       context: context,

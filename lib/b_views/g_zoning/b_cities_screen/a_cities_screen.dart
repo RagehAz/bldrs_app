@@ -116,7 +116,6 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
 
       /// COMPLETE CURRENT ZONE
       final ZoneModel _completedZone = await ZoneProtocols.completeZoneModel(
-        context: context,
         incompleteZoneModel: _currentZone.value,
       );
 

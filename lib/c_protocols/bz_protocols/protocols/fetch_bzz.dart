@@ -19,7 +19,6 @@ class FetchBzProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<BzModel> fetch({
-    @required BuildContext context,
     @required String bzID
   }) async {
     BzModel _bz = await BzLDBOps.readBz(bzID);
@@ -47,7 +46,6 @@ class FetchBzProtocols {
     if (_bz != null){
       _bz = _bz.copyWith(
         zone: await ZoneProtocols.completeZoneModel(
-          context: context,
           incompleteZoneModel: _bz.zone,
         ),
       );
@@ -58,7 +56,6 @@ class FetchBzProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<BzModel> refetch({
-    @required BuildContext context,
     @required String bzID
   }) async {
     BzModel _output;
@@ -70,7 +67,6 @@ class FetchBzProtocols {
       );
 
       _output = await fetch(
-          context: context,
           bzID: bzID
       );
 
@@ -98,7 +94,6 @@ class FetchBzProtocols {
 
       if (_flyerModel != null){
         _bzModel = await fetch(
-            context: context,
             bzID: _flyerModel.bzID,
         );
       }
@@ -114,7 +109,6 @@ class FetchBzProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<BzModel>> fetchBzz({
-    @required BuildContext context,
     @required List<String> bzzIDs
   }) async {
     // blog('FetchBzProtocol.fetchBzz : START');
@@ -125,7 +119,6 @@ class FetchBzProtocols {
       for (final String bzID in bzzIDs) {
 
         final BzModel _bz = await fetch(
-          context: context,
           bzID: bzID,
         );
 

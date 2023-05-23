@@ -163,7 +163,7 @@ class ChainSplitter extends StatelessWidget {
         previousPath: previousPath,
         chain: _chain,
         boxWidth: _width,
-        icon: _chainsProvider.getPhidIcon(son: chainOrChainsOrSonOrSons, context: context),
+        icon: _chainsProvider.getPhidIcon(son: chainOrChainsOrSonOrSons),
         firstHeadline: Verse(
           id: Phider.removeIndexFromPhid(phid: _chain.id),
           translate: true,
@@ -205,7 +205,7 @@ class ChainSplitter extends StatelessWidget {
       // final DataCreator _dataCreator = DataCreation.decipherDataCreator(chainOrChainsOrSonOrSons);
       final String _chainID = ChainPathConverter.getLastPathNode(previousPath);
       final PickerModel _picker = PickerModel.getPickerByChainID(
-          pickers: ChainsProvider.proGetAllPickers(context: context, listen: false),
+          pickers: ChainsProvider.proGetAllPickers(listen: false),
           chainID: Phider.removeIndexFromPhid(phid: _chainID),
       );
       final List<SpecModel> _specs = SpecModel.generateSpecsByPhids(

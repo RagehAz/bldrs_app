@@ -75,7 +75,6 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     super.initState();
 
     final ZoneModel _initialZone = widget.currentZone ?? ZoneProvider.proGetCurrentZone(
-        context: context,
         listen: false,
     );
 
@@ -95,7 +94,6 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
       _triggerLoading(setTo: true).then((_) async {
         // --------------------
         final ZoneModel _zone = await ZoneProtocols.completeZoneModel(
-          context: context,
           incompleteZoneModel: _selectedZone.value,
         );
         // --------------------
@@ -149,7 +147,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     @required BuildContext context
   }) async {
 
-    Keyboard.closeKeyboard(context);
+    Keyboard.closeKeyboard();
 
     final ZoneModel _zone = await Nav.goToNewScreen(
       context: context,
@@ -168,7 +166,6 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
       _zone.blogZone(invoker: 'received zone');
 
       final ZoneModel _completedZone = await ZoneProtocols.completeZoneModel(
-        context: context,
         incompleteZoneModel: _zone,
       );
 
@@ -191,7 +188,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     @required BuildContext context
   }) async {
 
-    Keyboard.closeKeyboard(context);
+    Keyboard.closeKeyboard();
 
     if (_selectedZone.value.countryModel != null){
 
@@ -214,7 +211,6 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
       else {
 
         final ZoneModel _completedZone = await ZoneProtocols.completeZoneModel(
-          context: context,
           incompleteZoneModel: _zone,
         );
 

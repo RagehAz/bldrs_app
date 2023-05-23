@@ -77,7 +77,6 @@ class _PickersScreenState extends State<PickersScreen> {
     super.initState();
     // ------------------------------
     _bldrsChains = ChainsProvider.proGetBldrsChains(
-      context: context,
       onlyUseZoneChains: widget.onlyUseZoneChains,
       listen: false,
     );
@@ -139,7 +138,6 @@ class _PickersScreenState extends State<PickersScreen> {
         /// ( IN FLYER EDITOR FOR SPECS SELECTION ) => ONE FLYER TYPE IS GIVEN FOR THE FLYER
         else if ([widget.flyerTypeFilter].length == 1){
           _pickers = ChainsProvider.proGetPickersByFlyerType(
-            context: context,
             flyerType: [widget.flyerTypeFilter][0],
             listen: false,
             sort: true,
@@ -147,7 +145,6 @@ class _PickersScreenState extends State<PickersScreen> {
         }
         else {
           _pickers = ChainsProvider.proGetSortedPickersByFlyerTypes(
-            context: context,
             flyerTypes: [widget.flyerTypeFilter],
             sort: true,
             listen: false,
@@ -197,7 +194,6 @@ class _PickersScreenState extends State<PickersScreen> {
 
       for (final PickerModel _picker in refinedPickers){
         final Chain _chain = ChainsProvider.proFindChainByID(
-          context: context,
           chainID: _picker.chainID,
           onlyUseZoneChains: widget.onlyUseZoneChains,
         );

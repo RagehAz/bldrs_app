@@ -121,7 +121,6 @@ class RenovateBzProtocols {
 
       /// SET UPDATED BZ MODEL LOCALLY ( USER BZZ )
       final BzModel _finalBz = await completeBzZoneModel(
-        context: getMainContext(),
         bzModel: newBz,
       );
 
@@ -153,7 +152,6 @@ class RenovateBzProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<BzModel> completeBzZoneModel({
-    @required BuildContext context,
     @required BzModel bzModel,
   }) async {
     // blog('RenovateBzProtocol.completeBzZoneModel : START');
@@ -164,7 +162,6 @@ class RenovateBzProtocols {
 
       /// COMPLETED ZONE MODEL
       final ZoneModel _completeZoneModel = await ZoneProtocols.completeZoneModel(
-        context: context,
         incompleteZoneModel: bzModel.zone,
       );
 

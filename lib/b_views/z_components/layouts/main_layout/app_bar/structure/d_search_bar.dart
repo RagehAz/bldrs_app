@@ -62,7 +62,7 @@ class _SearchBarState extends State<SearchBar> {
   // -----------------------------------------------------------------------------
   void _onClearSearch(){
 
-    Keyboard.closeKeyboard(context);
+    Keyboard.closeKeyboard();
 
     if (widget.searchController == null){
       _searchTextController.text = '';

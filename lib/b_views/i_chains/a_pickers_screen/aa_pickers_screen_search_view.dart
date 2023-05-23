@@ -95,7 +95,6 @@ class PickersScreenSearchView extends StatelessWidget {
 
                         final PickerModel _picker = ChainsProvider.proGetPickerByChainID(
                           chainID: _chain.id,
-                          context: context,
                         );
 
 

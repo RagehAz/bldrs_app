@@ -41,7 +41,6 @@ class PickersScreenBrowseView extends StatelessWidget {
   Verse _getInstructions(BuildContext context){
     // ------
     final ZoneModel _zone = ZoneProvider.proGetCurrentZone(
-      context: context,
       listen: true,
     );
     // ------
@@ -72,10 +71,9 @@ class PickersScreenBrowseView extends StatelessWidget {
     );
   }
   // --------------------
-  String _getInstructionsIcon(BuildContext context){
+  String _getInstructionsIcon(){
     // ---------------------
     final ZoneModel _zone = ZoneProvider.proGetCurrentZone(
-      context: context,
       listen: true,
     );
     // ---------------------
@@ -194,7 +192,7 @@ class PickersScreenBrowseView extends StatelessWidget {
       },
       child: ChainInstructions(
         instructions: _getInstructions(context),
-        leadingIcon: _getInstructionsIcon(context),
+        leadingIcon: _getInstructionsIcon(),
         iconSizeFactor: onlyUseZoneChains == true ? 1 : 0.6,
       ),
 

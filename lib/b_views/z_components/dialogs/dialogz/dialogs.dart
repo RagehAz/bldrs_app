@@ -246,7 +246,6 @@ class Dialogs {
     bool _result = false;
 
     await BottomDialog.showBottomDialog(
-      context: context,
       draggable: false,
       height: BottomDialog.calculateDialogHeight(
         draggable: false,
@@ -474,7 +473,7 @@ class Dialogs {
     final KeyboardModel _keyboardModel = keyboardModel ?? KeyboardModel.standardModel();
     Future<void> _onSubmit (String text) async {
 
-      Keyboard.closeKeyboard(getMainContext());
+      Keyboard.closeKeyboard();
       await Nav.goBack(
         context: getMainContext(),
         invoker: 'keyboardDialog',
@@ -501,7 +500,6 @@ class Dialogs {
     String _text = _keyboardModel.initialText;
 
     await BottomDialog.showBottomDialog(
-      context: getMainContext(),
       draggable: true,
       height: _overridingDialogHeight,
       child: SizedBox(
@@ -623,7 +621,6 @@ class Dialogs {
     CityModel _city;
 
     await BottomDialog.showButtonsBottomDialog(
-        context: context,
         draggable: true,
         buttonHeight: 50,
         numberOfWidgets: cities.length + 1,

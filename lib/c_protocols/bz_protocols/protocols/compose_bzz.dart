@@ -11,6 +11,7 @@ import 'package:bldrs/c_protocols/bz_protocols/fire/bz_fire_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
@@ -95,7 +96,6 @@ class ComposeBzProtocols {
 
       /// ADD NEW BZ LOCALLY
       _addMyNewCreatedBzLocally(
-        context: context,
         bzModel: _bzModel,
       ),
 
@@ -138,12 +138,10 @@ class ComposeBzProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _addMyNewCreatedBzLocally({
-    @required BuildContext context,
     @required BzModel bzModel,
   }) async {
 
     final BzModel _bzModelWithCompleteZoneModel = await BzProtocols.completeBzZoneModel(
-        context: context,
         bzModel: bzModel
     );
 
@@ -151,7 +149,7 @@ class ComposeBzProtocols {
     await BzLDBOps.insertBz(_bzModelWithCompleteZoneModel);
 
     /// PRO INSERT IN MY BZZ
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
     _bzzProvider.addBzToMyBzz(
       bzModel: _bzModelWithCompleteZoneModel,
       notify: true,

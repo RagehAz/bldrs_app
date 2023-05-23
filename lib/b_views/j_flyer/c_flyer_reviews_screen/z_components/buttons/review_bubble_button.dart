@@ -42,7 +42,7 @@ class ReviewBubbleButton extends StatelessWidget {
       }
 
       else {
-        final String _formattedCount = counterCaliber(context, _count);
+        final String _formattedCount = counterCaliber(_count);
         _output = '$_formattedCount $_output';
       }
 

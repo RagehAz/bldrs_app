@@ -35,7 +35,7 @@ class CensusLineUnit extends StatelessWidget {
       verseScaleFactor: 0.9/0.6,
       verseWeight: VerseWeight.thin,
       bubble: false,
-      verse: Verse.plain(counterCaliber(context, number)),
+      verse: Verse.plain(counterCaliber(number)),
     );
 
   }

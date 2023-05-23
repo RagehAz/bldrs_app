@@ -50,7 +50,6 @@ class PhidsDataCreator extends StatelessWidget {
         previousPath: specPicker.chainID,
         chainOrChainsOrSonOrSons: Chain.filterSpecPickerChainRange(
           picker: specPicker,
-          context: context,
           onlyUseZoneChains: onlyUseZoneChains,
         )?.sons,
         selectedPhids: SpecModel.getSpecsIDs(selectedSpecs),
