@@ -126,7 +126,6 @@ class _PickerScreenState extends State<PickerScreen> {
   AppBarType _getAppBarType(){
 
     final Chain _valueChain = ChainsProvider.proFindChainByID(
-      context: context,
       chainID: widget.picker?.chainID,
       onlyUseZoneChains: widget.onlyUseZoneChains,
       // includeChainSInSearch: true,

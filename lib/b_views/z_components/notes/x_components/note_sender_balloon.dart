@@ -82,7 +82,6 @@ class NoteSenderBalloon extends StatelessWidget {
 
           return FutureBuilder<BzModel>(
               future: BzProtocols.fetchBz(
-                context: context,
                 bzID: noteModel.parties.senderID,
               ),
               builder: (_, AsyncSnapshot<Object> snap){

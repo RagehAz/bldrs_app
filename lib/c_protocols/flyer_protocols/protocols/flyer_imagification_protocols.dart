@@ -49,7 +49,6 @@ class ImagifyFlyerProtocols {
 
         /// BZ MODEL
         BzProtocols.fetchBz(
-          context: context,
           bzID: flyerModel.bzID,
         ).then((BzModel bzModel){
           _output = _output.copyWith(
@@ -107,7 +106,6 @@ class ImagifyFlyerProtocols {
 
         /// BZ MODEL
         BzProtocols.fetchBz(
-          context: context,
           bzID: flyerModel.bzID,
         ).then((BzModel bzModel){
           _output = _output.copyWith(

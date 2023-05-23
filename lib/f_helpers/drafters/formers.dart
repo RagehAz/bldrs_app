@@ -1103,7 +1103,6 @@ class Formers {
     else {
 
       final CurrencyModel selectedCurrency = ZoneProvider.proGetCurrencyByCurrencyID(
-          context: context,
           currencyID: selectedCurrencyID.value,
           listen: false
       );

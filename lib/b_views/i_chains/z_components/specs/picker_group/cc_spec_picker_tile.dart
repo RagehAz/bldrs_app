@@ -79,7 +79,7 @@ class PickerTile extends StatelessWidget {
                       color: Colorz.white10,
                       corners: _tileBorders,
                       bubble: false,
-                      icon: phidIcon(context, picker?.chainID),
+                      icon: phidIcon(picker?.chainID),
                       iconSizeFactor: 0.6,
                     ),
 

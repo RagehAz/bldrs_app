@@ -129,7 +129,7 @@ Future<void> onSubmitReview({
     /// CAN POST REVIEW
     else {
 
-      Keyboard.closeKeyboard(context);
+      Keyboard.closeKeyboard();
 
       final ReviewModel _reviewModel = ReviewModel.createNewReview(
         text: textController.text,
@@ -246,7 +246,6 @@ Future<void> onReviewOptions({
 }) async {
 
   await BottomDialog.showButtonsBottomDialog(
-      context: context,
       draggable: true,
       numberOfWidgets: 2,
       builder: (_){
@@ -552,7 +551,6 @@ Future<void> onReplyOptions({
 }) async {
 
   await BottomDialog.showButtonsBottomDialog(
-      context: context,
       draggable: true,
       numberOfWidgets: 2,
       builder: (_){

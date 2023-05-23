@@ -62,7 +62,7 @@ class Keyboard {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void closeKeyboard(BuildContext context) {
+  static void closeKeyboard() {
     /// SOLUTION 1
     // FocusScope.of(context).requestFocus(FocusNode());
     // blog('x minimizeKeyboardOnTapOutSide() unfocused keyboard');
@@ -76,7 +76,7 @@ class Keyboard {
     /// SOLUTION 4
     // final bool _keyboardIsOn = KeyboardVisibilityProvider.isKeyboardVisible(context);
     /// FINAL SOLUTION ISA
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+    final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
     final bool _keyboardIsOn = _uiProvider.keyboardIsOn;
     if (_keyboardIsOn == true){
       FocusManager.instance.primaryFocus?.unfocus();
@@ -89,7 +89,7 @@ class Keyboard {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool keyboardIsOn(BuildContext context) {
+  static bool keyboardIsOn() {
     /// SOLUTION 1
     // bool _keyboardIsOn = FocusScope.of(context).hasFocus;
     /// SOLUTION 2
@@ -108,7 +108,7 @@ class Keyboard {
     // final bool _keyboardIsOn = KeyboardVisibilityProvider?.isKeyboardVisible(context);
     /// FINAL SOLUTION ISA
 
-    return Provider.of<UiProvider>(context, listen: false).keyboardIsOn;
+    return Provider.of<UiProvider>(getMainContext(), listen: false).keyboardIsOn;
   }
   // -----------------------------------------------------------------------------
 

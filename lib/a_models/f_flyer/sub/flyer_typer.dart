@@ -500,7 +500,6 @@ class FlyerTyper{
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getChainsIDsPerViewingEvent({
-    @required BuildContext context,
     @required FlyerType flyerType,
     @required ViewingEvent event,
   }){
@@ -508,7 +507,7 @@ class FlyerTyper{
     switch(event){
 
       case ViewingEvent.admin :
-        return _allChainsIDs(context: context, flyerType: flyerType,);
+        return _allChainsIDs(flyerType: flyerType,);
         break;
 
       case ViewingEvent.homeView :
@@ -530,11 +529,9 @@ class FlyerTyper{
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> _allChainsIDs({
-    @required BuildContext context,
     @required FlyerType flyerType,
   }){
     final List<PickerModel> _pickers = ChainsProvider.proGetPickersByFlyerType(
-      context: context,
       flyerType: flyerType,
       listen: false,
       sort: true,

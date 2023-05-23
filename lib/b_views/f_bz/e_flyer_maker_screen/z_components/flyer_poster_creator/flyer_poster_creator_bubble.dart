@@ -96,14 +96,12 @@ Future<void> testPoster({
         width: _dims?.width,
         height: _dims?.height,
         ownersIDs: await FlyerModel.generateFlyerOwners(
-          context: context,
           bzID: draft.bzID,
         )
     ),
   );
 
   await BottomDialog.showBottomDialog(
-    context: context,
     draggable: true,
     height: _posterPicModel.meta.height + 50,
     child: Column(

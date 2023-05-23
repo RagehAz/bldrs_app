@@ -201,7 +201,7 @@ class UserBanner extends StatelessWidget {
         /// MY BZZ
         if (_userIsAuthor == true)
         FutureBuilder(
-          future: BzProtocols.fetchBzz(context: context, bzzIDs: userModel?.myBzzIDs),
+          future: BzProtocols.fetchBzz(bzzIDs: userModel?.myBzzIDs),
           builder: (_, AsyncSnapshot snap){
 
             final List<BzModel> _bzzModels = snap.data;

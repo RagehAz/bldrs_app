@@ -53,13 +53,11 @@ class FetchFlyerProtocols {
     if (_flyer != null){
 
       final BzModel _bzModel = await BzProtocols.fetchBz(
-        context: context,
         bzID: _flyer.bzID,
       );
 
       _flyer = _flyer.copyWith(
         zone: await ZoneProtocols.completeZoneModel(
-            context: context,
             incompleteZoneModel: _flyer.zone,
         ),
         bzModel: _bzModel,
@@ -155,7 +153,6 @@ class FetchFlyerProtocols {
     if (bzID != null && maxSlides != null && maxSlides != 0){
 
       final BzModel bzModel = await BzProtocols.fetchBz(
-          context: context,
           bzID: bzID,
       );
 

@@ -65,7 +65,7 @@ Future<void> initializeLogoScreen({
         /// LOCAL ASSETS PATHS
         initializeLocalAssetsPaths(context),
         /// APP LANGUAGE
-        initializeAppLanguage(context),
+        initializeAppLanguage(),
         /// APP STATE
         initializeAppState(context),
 
@@ -74,7 +74,7 @@ Future<void> initializeLogoScreen({
 
   // blog('3 - initializeLogoScreen : assetPaths + lang + appState should have ended');
 
-  if (_phrasesAreLoaded(context) == false){
+  if (_phrasesAreLoaded() == false){
 
     // blog('4 - initializeLogoScreen : phrases are not loaded and will restart');
 
@@ -96,7 +96,7 @@ Future<void> initializeLogoScreen({
     // blog('4 - initializeLogoScreen : phrases found and will check user device');
 
     /// DEVICE ID - TOKEN
-    await _refreshUserDeviceModel(context);
+    await _refreshUserDeviceModel();
 
     // blog('5 - initializeLogoScreen : device is refreshed');
 
@@ -122,7 +122,7 @@ Future<void> initializeLogoScreen({
 
 
       /// DAILY LDB REFRESH
-      await _refreshLDB(context);
+      await _refreshLDB();
 
       // blog('7 - initializeLogoScreen : daily refresh is done');
 
@@ -330,21 +330,19 @@ Future<void> initializeLocalAssetsPaths(BuildContext context) async {
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> initializeAppLanguage(BuildContext context) async {
+Future<void> initializeAppLanguage() async {
   // blog('_initializeAppLanguage : START');
 
-  final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
-  await _phraseProvider.fetchSetCurrentLangAndAllPhrases(
-    context: context,
-  );
+  final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(getMainContext(), listen: false);
+  await _phraseProvider.fetchSetCurrentLangAndAllPhrases();
 
   // blog('_initializeAppLanguage : END');
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-bool _phrasesAreLoaded(BuildContext context) {
+bool _phrasesAreLoaded() {
 
-  final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+  final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(getMainContext(), listen: false);
 
   // blog('_phrasesAreLoaded : _phraseProvider.mainPhrases.length : ${_phraseProvider.mainPhrases.length}');
 
@@ -364,12 +362,12 @@ bool _phrasesAreLoaded(BuildContext context) {
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _refreshUserDeviceModel(BuildContext context) async {
+Future<void> _refreshUserDeviceModel() async {
   // blog('_initializeMyDeviceFCMToken : START');
 
   await Future.wait(<Future>[
 
-    UserProtocols.refreshUserDeviceModel(context: context),
+    UserProtocols.refreshUserDeviceModel(context: getMainContext()),
 
     LDBDoc.wipeOutLDBDocs(
       /// MAIN
@@ -417,7 +415,7 @@ Future<void> _refreshUserDeviceModel(BuildContext context) async {
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _refreshLDB(BuildContext context) async {
+Future<void> _refreshLDB() async {
 
   final bool _shouldRefresh = await LDBOps.checkShouldRefreshLDB(
     refreshDurationInHours: Standards.ldbWipeIntervalInHours,

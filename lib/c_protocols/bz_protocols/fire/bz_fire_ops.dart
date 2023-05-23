@@ -171,7 +171,6 @@ class BzFireOps {
     String _feedback;
 
     await BottomDialog.showButtonsBottomDialog(
-        context: context,
         draggable: true,
         numberOfWidgets: 3,
         titleVerse: const Verse(

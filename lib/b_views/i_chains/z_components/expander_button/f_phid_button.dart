@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/i_chains/z_components/expander_button/a_chain_butt
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -45,7 +46,7 @@ class PhidButton extends StatelessWidget {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  String _getIcon(BuildContext context){
+  String _getIcon(){
 
     String _icon;
 
@@ -53,9 +54,8 @@ class PhidButton extends StatelessWidget {
       _icon = Iconz.xLarge;
     }
     else {
-      final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+      final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
       _icon = _chainsProvider.getPhidIcon(
-        context: context,
         son: phid,
       );
 
@@ -110,7 +110,7 @@ class PhidButton extends StatelessWidget {
         ),
         margins: margins,
         // secondLine: TextGenerator.bzTypeSingleStringer(context, _bz.bzType),
-        icon: _getIcon(context),
+        icon: _getIcon(),
         iconSizeFactor: _getIconScaleFactor(),
         verseScaleFactor: _getVerseScaleFactor(),
         verseCentered: false,

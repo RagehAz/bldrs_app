@@ -50,14 +50,12 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
     super.initState();
 
       final ZonePhidsModel _zonePhidsModel = ChainsProvider.proGetZonePhids(
-          context: context,
           listen: false,
       );
 
       // _zonePhidsModel?.blogZonePhidsModel(invoker: 'floating shit');
 
       final List<Chain> _bldrsChains = ChainsProvider.proGetBldrsChains(
-          context: context,
           onlyUseZoneChains: true,
           listen: false,
       );

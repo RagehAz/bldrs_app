@@ -53,14 +53,15 @@ class DataCreatorSplitter extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     final Chain _valueChain = ChainsProvider.proFindChainByID(
-      context: context,
       chainID: picker?.chainID,
       // onlyUseZoneChains: false, //onlyUseZoneChains,
       // includeChainSInSearch: true,
     );
 
-    final List<Chain> _allChains = ChainsProvider.proGetBldrsChains(context: context,
-        onlyUseZoneChains: false, listen: false);
+    final List<Chain> _allChains = ChainsProvider.proGetBldrsChains(
+        onlyUseZoneChains: false,
+        listen: false,
+    );
 
     Chain.blogChains(_allChains);
 

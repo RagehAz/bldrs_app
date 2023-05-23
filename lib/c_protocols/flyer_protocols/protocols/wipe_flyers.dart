@@ -56,7 +56,6 @@ class WipeFlyerProtocols {
     if (flyerModel != null){
 
       final BzModel _oldBz = await BzProtocols.fetchBz(
-          context: getMainContext(),
           bzID: flyerModel.bzID,
       );
 
@@ -159,7 +158,6 @@ class WipeFlyerProtocols {
     if (bzID != null){
 
       final BzModel _oldBz = await BzProtocols.fetchBz(
-        context: getMainContext(),
         bzID: bzID,
       );
 
@@ -258,7 +256,6 @@ class WipeFlyerProtocols {
     if (bzID != null){
 
       final BzModel _bzModel = await BzProtocols.fetchBz(
-          context: context,
           bzID: bzID,
       );
 

@@ -963,7 +963,6 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<String>> generateFlyerOwners({
-    @required BuildContext context,
     @required String bzID,
   }) async {
     List<String> _owners = <String>[];
@@ -971,7 +970,6 @@ class FlyerModel {
     if (bzID != null){
 
       final BzModel _bzModel = await BzProtocols.fetchBz(
-        context: context,
         bzID: bzID,
       );
 

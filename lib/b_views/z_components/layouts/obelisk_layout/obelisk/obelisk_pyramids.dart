@@ -63,7 +63,6 @@ class ObeliskPyramids extends StatelessWidget {
 
           /// STOP FLASHING
           NotesProvider.proSetIsFlashing(
-              context: context,
               setTo: false,
               notify: true
           );

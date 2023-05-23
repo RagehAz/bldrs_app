@@ -43,8 +43,8 @@ class CityPreviewBubble extends StatelessWidget {
       flags: allFlags,
       countryID: _countryID,
     );
-    final String _countryPop = counterCaliber(context, _flag?.population);
-    final String _cityPop = counterCaliber(context, cityModel?.population);
+    final String _countryPop = counterCaliber(_flag?.population);
+    final String _cityPop = counterCaliber(cityModel?.population);
     final String _percentage = Numeric.formatNumToSeparatedKilos(
       number: (cityModel?.population?? 0 / _flag?.population ?? 0) * 100,
       fractions: 1,

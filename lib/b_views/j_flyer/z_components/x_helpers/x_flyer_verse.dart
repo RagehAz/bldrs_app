@@ -25,7 +25,7 @@ class FlyerVerses {
     final int _count = count ?? 0;
     if (_count >= 1000){
       _output = Verse(
-        id: counterCaliber(context, _count),
+        id: counterCaliber(_count),
         translate: false,
       );
     }
@@ -76,14 +76,13 @@ class FlyerVerses {
   }
   // --------------------
   static Verse followersCounters({
-    @required BuildContext context,
     @required int followersCount,
     @required int authorGalleryCount,
     @required int bzGalleryCount,
     @required bool showLabel,
   }){
 
-      final String _galleryCountCalibrated = counterCaliber(context, bzGalleryCount);
+      final String _galleryCountCalibrated = counterCaliber(bzGalleryCount);
 
       final String _followersCounter =
           (authorGalleryCount == 0 && followersCount == 0)
@@ -96,7 +95,7 @@ class FlyerVerses {
           '${Numeric.formatNumToSeparatedKilos(number: authorGalleryCount)} '
           '${xPhrase('phid_flyers')}'
           :
-          '${counterCaliber(context, followersCount)} '
+          '${counterCaliber(followersCount)} '
           '${xPhrase('phid_followers')} . '
           '$_galleryCountCalibrated '
           '${xPhrase('phid_flyers')}';
