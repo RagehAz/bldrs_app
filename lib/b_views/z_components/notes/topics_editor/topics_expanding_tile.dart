@@ -66,14 +66,12 @@ class TopicsExpandingTile extends StatelessWidget {
     String _bzID;
     if (partyType == PartyType.bz){
       final BzModel _activeBz = BzzProvider.proGetActiveBzModel(
-        context: context,
         listen: true,
       );
       _bzID = _activeBz?.id;
     }
 
     final UserModel _userModel = UsersProvider.proGetMyUserModel(
-      context: context,
       listen: true,
     );
 

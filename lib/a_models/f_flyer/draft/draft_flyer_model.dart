@@ -105,9 +105,7 @@ class DraftFlyer{
     DraftFlyer _draft;
 
     if (oldFlyer == null){
-      _draft = await _createNewDraft(
-        context: context,
-      );
+      _draft = await _createNewDraft();
     }
 
     else {
@@ -121,12 +119,9 @@ class DraftFlyer{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<DraftFlyer> _createNewDraft({
-    @required BuildContext context,
-  }) async {
+  static Future<DraftFlyer> _createNewDraft() async {
 
     final BzModel bzModel = BzzProvider.proGetActiveBzModel(
-      context: context,
       listen: false,
     );
 

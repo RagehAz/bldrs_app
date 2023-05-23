@@ -44,7 +44,7 @@ class BzAboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final BzModel _bzModel = bzModel ?? BzzProvider.proGetActiveBzModel(context: context, listen: true);
+    final BzModel _bzModel = bzModel ?? BzzProvider.proGetActiveBzModel(listen: true);
 
     if (bzModel == null){
       return PullToRefresh(

@@ -6,13 +6,15 @@ import 'package:bldrs/b_views/d_user/b_user_editor_screen/user_editor_screen.dar
 import 'package:bldrs/c_protocols/auth_protocols/auth_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
-import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:provider/provider.dart';
@@ -72,7 +74,10 @@ Future<void> _checkIfUserIsMissingFields({
   if (Authing.getUserID() != null){
 
     final AuthModel _authModel = await AuthLDBOps.readAuthModel();
-    final UserModel _userModel = await UserLDBOps.readUserOps(userID: _authModel?.id);
+    final UserModel _userModel = await UserProtocols.fetch(
+      userID: _authModel?.id,
+      context: getMainContext(),
+    );
 
     if (_authModel != null){
 
@@ -105,6 +110,9 @@ Future<void> _controlMissingFieldsCase({
   @required BuildContext context,
   @required UserModel userModel,
 }) async {
+
+  blog('_controlMissingFieldsCase');
+  userModel?.blogUserModel(invoker: '_controlMissingFieldsCase');
 
   await Formers.showUserMissingFieldsDialog(
     context: context,
@@ -183,7 +191,6 @@ Future<void> initializeUserZone(BuildContext context) async {
     );
 
     UsersProvider.proSetMyUserModel(
-      context: context,
       userModel: _myUserModel?.copyWith(zone: _userZoneCompleted),
       notify: true,
     );
@@ -201,7 +208,6 @@ Future<void> initializeCurrentZone(BuildContext context) async {
   if (_zoneProvider.currentZone == null){
 
     final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
-      context: context,
       listen: false,
     );
 

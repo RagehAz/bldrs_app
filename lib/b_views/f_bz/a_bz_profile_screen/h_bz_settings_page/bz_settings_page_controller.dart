@@ -112,7 +112,6 @@ Future<void> onDeleteBzButtonTap({
 
     if (showSuccessDialog == true){
       await TopDialog.showTopDialog(
-        context: getMainContext(),
         firstVerse: const Verse(
           id: 'phid_bz_account_deleted_successfully',
           translate: true,
@@ -145,7 +144,6 @@ Future<bool> _preDeleteBzAccountChecks({
   if (_authorIsMaster == false){
 
     await _showOnlyCreatorCanDeleteBzDialog(
-      context: context,
       bzModel: bzModel,
     );
 
@@ -155,7 +153,6 @@ Future<bool> _preDeleteBzAccountChecks({
   else {
 
     final bool _confirmedDeleteBz = await _showConfirmDeleteBzDialog(
-      context: context,
       bzModel: bzModel,
     );
 
@@ -192,12 +189,10 @@ Future<bool> _preDeleteBzAccountChecks({
 // -----
 /// TESTED : WORKS PERFECT
 Future<bool> _showConfirmDeleteBzDialog({
-  @required BuildContext context,
   @required BzModel bzModel,
 }) async {
 
   final bool _result = await Dialogs.bzBannerDialog(
-    context: context,
     bzModel: bzModel,
     invertButtons: true,
     titleVerse: Verse(
@@ -220,14 +215,12 @@ Future<bool> _showConfirmDeleteBzDialog({
 // -----
 /// TESTED : WORKS PERFECT
 Future<void> _showOnlyCreatorCanDeleteBzDialog({
-  @required BuildContext context,
   @required BzModel bzModel,
 }) async {
 
   final String _creatorAuthorsString = AuthorModel.getCreatorAuthorFromAuthors(bzModel?.authors)?.name;
 
   await CenterDialog.showCenterDialog(
-    context: context,
     titleVerse: const Verse(
       id: 'phid_cant_delete_account',
       translate: true,

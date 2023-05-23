@@ -148,10 +148,10 @@ class BzSearchFiltersList extends StatelessWidget {
         ),
 
         /// SEPARATOR
-        if (UsersProvider.userIsAdmin(context) == true) const DotSeparator(),
+        if (UsersProvider.userIsAdmin() == true) const DotSeparator(),
 
         /// ACCOUNT TYPE
-        if (UsersProvider.userIsAdmin(context) == true)
+        if (UsersProvider.userIsAdmin() == true)
           FilterMultiButtonTile(
             bubbleColor: Colorz.yellow50,
             icon: Iconz.star,

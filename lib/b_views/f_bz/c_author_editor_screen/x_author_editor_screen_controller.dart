@@ -69,7 +69,6 @@ Future<void> loadAuthorEditorSession({
   if (_lastSessionAuthor != null){
 
     final bool _continue = await CenterDialog.showCenterDialog(
-      context: context,
       titleVerse: const Verse(
         id: 'phid_load_last_session_data_q',
         translate: true,
@@ -328,7 +327,6 @@ Future<void> onConfirmAuthorUpdates({
 }) async {
 
   final bool _result = await CenterDialog.showCenterDialog(
-    context: context,
     titleVerse: const Verse(
       id: 'phid_confirm_edits_?',
       translate: true,
@@ -347,7 +345,6 @@ Future<void> onConfirmAuthorUpdates({
   if (_result == true){
 
     pushWaitDialog(
-      context: context,
       verse: const Verse(
         id: 'phid_updating_author_profile',
         translate: true,
@@ -398,7 +395,6 @@ Future<void> onChangeAuthorRoleOps({
     );
 
     final bool _result = await CenterDialog.showCenterDialog(
-      context: context,
       titleVerse: const Verse(
         id: 'phid_confirm_author_role_?',
         translate: true,
@@ -424,7 +420,6 @@ Future<void> onChangeAuthorRoleOps({
     else {
 
       pushWaitDialog(
-        context: context,
         verse: const Verse(
           id: 'phid_updating_author_profile',
           translate: true,
@@ -432,7 +427,6 @@ Future<void> onChangeAuthorRoleOps({
       );
 
       final BzModel _oldBz = BzzProvider.proGetActiveBzModel(
-        context: context,
         listen: false,
       );
 
@@ -520,7 +514,6 @@ Future<bool> _checkCanChangeRole({
     if (role != AuthorRole.creator){
 
       await CenterDialog.showCenterDialog(
-        context: context,
         titleVerse: const Verse(
           id: 'phid_cant_change_member_role',
           translate: true,
@@ -538,7 +531,6 @@ Future<bool> _checkCanChangeRole({
     if (role == AuthorRole.creator){
 
       await CenterDialog.showCenterDialog(
-        context: context,
         titleVerse: const Verse(
           id: 'phid_only_one_creator_allowed',
           translate: true,

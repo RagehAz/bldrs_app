@@ -118,7 +118,6 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
         // -------------------------------
         if (widget.checkLastSession == true){
           await loadUserEditorLastSession(
-            context: context,
             draft: _draftUser,
             mounted: mounted,
             // userID: widget.userModel.id,

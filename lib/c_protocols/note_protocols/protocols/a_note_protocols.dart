@@ -692,7 +692,6 @@ class NoteProtocols {
   }) async {
 
     final UserModel _oldUser = UsersProvider.proGetMyUserModel(
-      context: context,
       listen: false,
     );
 
@@ -756,7 +755,6 @@ class NoteProtocols {
   }) async {
 
     final UserModel _oldUser = UsersProvider.proGetMyUserModel(
-      context: context,
       listen: false,
     );
 

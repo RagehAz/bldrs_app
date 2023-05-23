@@ -219,7 +219,6 @@ class NoteFunProtocols {
         case funRemoveBzTracesAfterDeletion:
           blog('2--> Switcher : FIRING : REMOVE BZ TRACES FOR (${trigger.argument}) : START');
           await NewAuthorshipExit.onIGotRemoved(
-            context: context,
             bzID: trigger.argument,
             isBzDeleted: true,
           );

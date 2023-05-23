@@ -46,7 +46,6 @@ Future<void> loadBzEditorLastSession({
   if (_lastSessionDraft != null){
 
     final bool _continue = await CenterDialog.showCenterDialog(
-      context: context,
       titleVerse: const Verse(
         id: 'phid_load_last_session_data_q',
         translate: true,
@@ -159,7 +158,6 @@ Future<bool> _preUploadCheckups({
 
     /// REQUEST CONFIRMATION
     _canContinue = await CenterDialog.showCenterDialog(
-      context: context,
       bodyVerse: const Verse(
         id: 'phid_you_want_to_continue',
         translate: true,
@@ -185,7 +183,6 @@ Future<void> _uploadDraftBz({
       context: context,
       newDraft: draftNotifier.value,
       userModel: UsersProvider.proGetMyUserModel(
-        context: context,
         listen: false,
       ),
     );
@@ -248,7 +245,7 @@ Future<void> onChangeBzSection({
   bool _canContinue = true;
 
   if (Mapper.checkCanLoopList(draftNotifier.value.scope) == true){
-    _canContinue = await _resetScopeDialog(context);
+    _canContinue = await _resetScopeDialog();
   }
 
   if (_canContinue == true){
@@ -294,7 +291,7 @@ Future<void> onChangeBzType({
   bool _canContinue = true;
 
   if (Mapper.checkCanLoopList(draftNotifier.value.scope) == true){
-    _canContinue = await _resetScopeDialog(context);
+    _canContinue = await _resetScopeDialog();
   }
 
   if (_canContinue == true){
@@ -502,10 +499,9 @@ Future<void> onChangeBzScope({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<bool> _resetScopeDialog(BuildContext context) async {
+Future<bool> _resetScopeDialog() async {
 
   final bool _result = await CenterDialog.showCenterDialog(
-    context: context,
     titleVerse: const Verse(
       id: 'phid_reset_scope',
       translate: true,

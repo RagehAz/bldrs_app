@@ -31,7 +31,6 @@ class BzFCMTopicsScreenView extends StatelessWidget {
   }) async {
 
     final BzModel _activeBz = BzzProvider.proGetActiveBzModel(
-      context: context,
       listen: false,
     );
 
@@ -68,7 +67,7 @@ class BzFCMTopicsScreenView extends StatelessWidget {
     @required bool value,
   }) async {
 
-    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(context: context, listen: false);
+    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(listen: false);
 
     /// SUBSCRIBE TO ALL BZ TOPICS
     if (value == true){
@@ -103,12 +102,10 @@ class BzFCMTopicsScreenView extends StatelessWidget {
   bool _allTopicsSwitchIsOn(BuildContext context){
 
     final UserModel _userModel = UsersProvider.proGetMyUserModel(
-        context: context,
         listen: true,
     );
 
     final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
-        context: context,
         listen: true,
     );
 

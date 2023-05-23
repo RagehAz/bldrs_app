@@ -889,12 +889,10 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkImAuthorInBzOfThisFlyer({
-    @required BuildContext context,
     @required FlyerModel flyerModel,
   }){
 
     final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
-      context: context,
       listen: false,
     );
 
@@ -1137,52 +1135,60 @@ class AuthorModel {
     @required AuthorAbility ability,
   }){
 
-    final bool _higherRank = checkAuthorHasHigherRank(
-      theDoer: theDoer,
-      theDoneWith: theDoneWith,
-    );
+    if (theDoer != null && theDoneWith != null && ability != null){
 
-    final bool _sameRank = checkAuthorHasSameRank(
+      final bool _higherRank = checkAuthorHasHigherRank(
         theDoer: theDoer,
-        theDoneWith: theDoneWith
-    );
+        theDoneWith: theDoneWith,
+      );
 
-    switch (theDoer.role){
-    /// CREATOR -------------
-      case AuthorRole.creator:
-        switch (ability) {
-          case AuthorAbility.canChangeOthersRoles :     return true; break;
-          case AuthorAbility.canChangeSelfRole :        return false; break;
-          case AuthorAbility.canEditOtherAuthor :       return true; break;
-          case AuthorAbility.canRemoveOtherAuthor :     return true; break;
-          case AuthorAbility.canSendAuthorships :       return true; break;
-          case AuthorAbility.canRemoveSelf :            return false; break;
-          default: return false;
-        } break;
-    /// MODERATOR -------------
-      case AuthorRole.moderator:
-        switch (ability) {
-          case AuthorAbility.canChangeOthersRoles :     return _higherRank; break;
-          case AuthorAbility.canChangeSelfRole :        return true; break;
-          case AuthorAbility.canEditOtherAuthor :       return _higherRank || _sameRank; break;
-          case AuthorAbility.canRemoveOtherAuthor :     return false; break;
-          case AuthorAbility.canSendAuthorships :       return true; break;
-          case AuthorAbility.canRemoveSelf :            return true; break;
-          default: return false;
-        } break;
-    /// TEAM MEMBER -------------
-      case AuthorRole.teamMember:
-        switch (ability) {
-          case AuthorAbility.canChangeOthersRoles :     return _higherRank; break;
-          case AuthorAbility.canChangeSelfRole :        return true; break;
-          case AuthorAbility.canEditOtherAuthor :       return _higherRank || _sameRank; break;
-          case AuthorAbility.canRemoveOtherAuthor :     return false; break;
-          case AuthorAbility.canSendAuthorships :       return false; break;
-          case AuthorAbility.canRemoveSelf :            return true; break;
-          default: return false;
-        } break;
-    /// DEFAULT -------------
-      default: return false;
+      final bool _sameRank = checkAuthorHasSameRank(
+          theDoer: theDoer,
+          theDoneWith: theDoneWith
+      );
+
+      switch (theDoer.role){
+        /// CREATOR -------------
+        case AuthorRole.creator:
+          switch (ability) {
+            case AuthorAbility.canChangeOthersRoles :     return true; break;
+            case AuthorAbility.canChangeSelfRole :        return false; break;
+            case AuthorAbility.canEditOtherAuthor :       return true; break;
+            case AuthorAbility.canRemoveOtherAuthor :     return true; break;
+            case AuthorAbility.canSendAuthorships :       return true; break;
+            case AuthorAbility.canRemoveSelf :            return false; break;
+            default: return false;
+          } break;
+          /// MODERATOR -------------
+        case AuthorRole.moderator:
+          switch (ability) {
+            case AuthorAbility.canChangeOthersRoles :     return _higherRank; break;
+            case AuthorAbility.canChangeSelfRole :        return true; break;
+            case AuthorAbility.canEditOtherAuthor :       return _higherRank || _sameRank; break;
+            case AuthorAbility.canRemoveOtherAuthor :     return false; break;
+            case AuthorAbility.canSendAuthorships :       return true; break;
+            case AuthorAbility.canRemoveSelf :            return true; break;
+            default: return false;
+          } break;
+          /// TEAM MEMBER -------------
+        case AuthorRole.teamMember:
+          switch (ability) {
+            case AuthorAbility.canChangeOthersRoles :     return _higherRank; break;
+            case AuthorAbility.canChangeSelfRole :        return true; break;
+            case AuthorAbility.canEditOtherAuthor :       return _higherRank || _sameRank; break;
+            case AuthorAbility.canRemoveOtherAuthor :     return false; break;
+            case AuthorAbility.canSendAuthorships :       return false; break;
+            case AuthorAbility.canRemoveSelf :            return true; break;
+            default: return false;
+          } break;
+          /// DEFAULT -------------
+        default: return false;
+      }
+
+    }
+
+    else {
+      return false;
     }
 
   }

@@ -151,7 +151,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
       notifier: _flyerIsSaved,
       mounted: mounted,
       value: UserModel.checkFlyerIsSaved(
-        userModel: UsersProvider.proGetMyUserModel(context: context, listen: false),
+        userModel: UsersProvider.proGetMyUserModel(listen: false),
         flyerID: _flyer.value?.id,
       ),
     );

@@ -44,7 +44,6 @@ Future<void> loadFlyerMakerLastSession({
   if (_lastSessionDraft != null){
 
     final bool _continue = await CenterDialog.showCenterDialog(
-      context: context,
       titleVerse: const Verse(
         id: 'phid_load_last_session_data_q',
         translate: true,
@@ -98,7 +97,6 @@ Future<void> saveFlyerMakerSession({
 Future<void> onCancelFlyerCreation(BuildContext context) async {
 
   final bool result = await CenterDialog.showCenterDialog(
-    context: context,
     boolDialog: true,
     titleVerse: const Verse(
       id: 'phid_cancel_flyer',
@@ -187,7 +185,6 @@ Future<void> onSelectFlyerType({
     if (Mapper.checkCanLoopList(draftNotifier.value.phids) == true){
 
       _canUpdate = await CenterDialog.showCenterDialog(
-        context: context,
         titleVerse: const Verse(
           id: 'phid_reset_selected_keywords_?',
           translate: true,
@@ -507,7 +504,6 @@ Future<bool> _preFlyerUpdateCheck({
   if (_areIdentical == true){
 
     await CenterDialog.showCenterDialog(
-      context: context,
       titleVerse: const Verse(
         pseudo: 'Flyer was not changed',
         id: 'phid_flyer_was_not_changed',
@@ -523,7 +519,6 @@ Future<bool> _preFlyerUpdateCheck({
     if (draft.draftSlides.isEmpty){
 
       await CenterDialog.showCenterDialog(
-        context: context,
         titleVerse: const Verse(
           id: 'phid_add_images',
           translate: true,
@@ -546,7 +541,6 @@ Future<bool> _preFlyerUpdateCheck({
 
         if (draft.headline.text.length < Standards.flyerHeadlineMinLength){
           await TopDialog.showTopDialog(
-            context: context,
             firstVerse: const Verse(
               pseudo: 'Flyer headline can not be less than ${Standards.flyerHeadlineMinLength} characters long',
               id: 'phid_flyer_headline_length_notice',
@@ -591,7 +585,6 @@ Future<void> _publishFlyerOps({
 }) async {
 
   pushWaitDialog(
-    context: context,
     verse: const Verse(
       id: 'phid_uploading_flyer',
       translate: true,
@@ -615,7 +608,6 @@ Future<void> _updateFlyerOps({
 }) async {
 
   pushWaitDialog(
-    context: context,
     verse: const Verse(
       id: 'phid_uploading_flyer',
       translate: true,

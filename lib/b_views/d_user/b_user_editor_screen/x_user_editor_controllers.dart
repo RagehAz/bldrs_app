@@ -69,7 +69,6 @@ Future<void> prepareUserForEditing({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> loadUserEditorLastSession({
-  @required BuildContext context,
   @required ValueNotifier<DraftUser> draft,
   @required bool mounted,
   // @required String userID,
@@ -85,7 +84,6 @@ Future<void> loadUserEditorLastSession({
   if (_lastSessionDraft != null){
 
     final bool _continue = await CenterDialog.showCenterDialog(
-      context: context,
       titleVerse: const Verse(
         id: 'phid_load_last_session_data_q',
         translate: true,
@@ -374,7 +372,6 @@ Future<void> confirmEdits({
     );
 
     pushWaitDialog(
-      context: context,
       verse: const Verse(
         id: 'phid_updating_profile',
         translate: true,
@@ -400,7 +397,6 @@ Future<void> confirmEdits({
     await WaitDialog.closeWaitDialog();
 
     await CenterDialog.showCenterDialog(
-      context: context,
       titleVerse: const Verse(
         id: 'phid_great_!',
         translate: true,
@@ -506,7 +502,6 @@ Future<bool> _preConfirmCheckups({
 
     else {
       _canContinue = await CenterDialog.showCenterDialog(
-        context: context,
         bodyVerse: const Verse(
             id: 'phid_you_want_to_continue',
             translate: true,
