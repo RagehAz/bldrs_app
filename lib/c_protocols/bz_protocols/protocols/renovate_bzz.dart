@@ -9,6 +9,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/bz_protocols/fire/bz_fire_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
@@ -45,7 +46,6 @@ class RenovateBzProtocols {
       /// WAIT DIALOG
       if (showWaitDialog == true){
         pushWaitDialog(
-          context: context,
           verse: const Verse(
             id: 'phid_bz_section_selection_info',
             translate: true,
@@ -74,7 +74,6 @@ class RenovateBzProtocols {
         /// UPDATE LOCALLY
         if (_areIdentical == false)
         updateBzLocally(
-            context: context,
             newBz: newBz,
             oldBz: oldBz
         ),
@@ -103,7 +102,6 @@ class RenovateBzProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateBzLocally({
-    @required BuildContext context,
     @required BzModel newBz,
     @required BzModel oldBz,
   }) async {
@@ -123,7 +121,7 @@ class RenovateBzProtocols {
 
       /// SET UPDATED BZ MODEL LOCALLY ( USER BZZ )
       final BzModel _finalBz = await completeBzZoneModel(
-        context: context,
+        context: getMainContext(),
         bzModel: newBz,
       );
 
@@ -132,7 +130,7 @@ class RenovateBzProtocols {
         bzModel: _finalBz,
       );
 
-      final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+      final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
 
       /// UPDATE MY BZZ
       _bzzProvider.updateBzInMyBzz(

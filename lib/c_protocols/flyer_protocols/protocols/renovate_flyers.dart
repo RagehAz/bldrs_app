@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
 import 'package:bldrs/c_protocols/zone_phids_protocols/zone_phids_real_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
@@ -120,7 +121,6 @@ class RenovateFlyerProtocols {
       /// UPDATE FLYER LOCALLY
       if (updateFlyerLocally == true)
         updateLocally(
-          context: context,
           flyerModel: _flyerToUpload,
           notifyFlyerPro: true,
           resetActiveBz: resetActiveBz,
@@ -201,7 +201,6 @@ class RenovateFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateLocally({
-    @required BuildContext context,
     @required FlyerModel flyerModel,
     @required bool notifyFlyerPro,
     @required bool resetActiveBz,
@@ -212,14 +211,14 @@ class RenovateFlyerProtocols {
 
       await FlyerLDBOps.insertFlyer(flyerModel);
 
-      final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+      final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(getMainContext(), listen: false);
       _flyersProvider.updateFlyerInAllProFlyers(
           flyerModel: flyerModel,
           notify: notifyFlyerPro
       );
 
       if (resetActiveBz == true){
-        BzzProvider.resetActiveBz(context);
+        BzzProvider.resetActiveBz();
       }
 
     }

@@ -41,7 +41,6 @@ class UserFCMTopicsScreenView extends StatelessWidget {
   }) async {
 
     final UserModel _userModel = UsersProvider.proGetMyUserModel(
-        context: context,
         listen: false,
     );
 
@@ -91,7 +90,7 @@ class UserFCMTopicsScreenView extends StatelessWidget {
 
     final Map<String, dynamic> _map = TopicModel.getTopicsMapByPartyType(PartyType.user);
 
-    final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: true);
+    final UserModel _userModel = UsersProvider.proGetMyUserModel(listen: true);
 
     final List<String> _thisBzUserSubscribedTopics = TopicModel.getUserTopicsFromTopics(
       topics: _userModel.fcmTopics,

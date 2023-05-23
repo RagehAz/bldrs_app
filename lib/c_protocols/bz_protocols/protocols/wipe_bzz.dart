@@ -47,7 +47,6 @@ class WipeBzProtocols {
 
     if (showWaitDialog == true){
       pushWaitDialog(
-        context: getMainContext(),
         verse: Verse(
           id: '${Verse.transBake('phid_deleting')} ${bzModel.name}',
           translate: false,
@@ -104,7 +103,8 @@ class WipeBzProtocols {
       ),
 
       /// DELETE LOCALLY
-      // if (deleteBzLocally == true)
+      if (deleteBzLocally == true)
+        /// DELETING BZ LOCALLY IMPACTS LISTENING TO NOTE TRIGGERS
       deleteLocally(
         context: getMainContext(),
         bzID: bzModel.id,
@@ -139,7 +139,6 @@ class WipeBzProtocols {
                             '${Verse.transBake('phid_flyers')}';
 
       pushWaitDialog(
-        context: getMainContext(),
         verse: Verse.plain(_text),
       );
 
@@ -168,7 +167,7 @@ class WipeBzProtocols {
     blog('WipeBzProtocol.deleteLocally : $invoker : START');
 
     final BzModel _bzModel = await BzProtocols.fetchBz(
-        context: context,
+        context: getMainContext(),
         bzID: bzID
     );
 
@@ -176,7 +175,7 @@ class WipeBzProtocols {
 
       /// DELETE ALL BZ FLYERS LOCALLY
       FlyerProtocols.deleteFlyersLocally(
-        context: context,
+        context: getMainContext(),
         flyersIDs: _bzModel?.flyersIDs,
       ),
 
@@ -197,7 +196,7 @@ class WipeBzProtocols {
     blog('WipeBzProtocol.deleteLocally : ops should reach here ba2aaaaa');
 
     /// DELETE BZ ON PROVIDER
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
     _bzzProvider.removeProBzEveryWhere(
       bzID: bzID,
       notify: true,

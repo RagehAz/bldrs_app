@@ -42,7 +42,7 @@ Future<void> onFlyerBzOptionsTap({
   final bool _canDeleteFlyer = AuthorModel.checkAuthorCanDeleteFlyer(
     flyer: flyer,
     myID: Authing.getUserID(),
-    bzModel: BzzProvider.proGetActiveBzModel(context: context, listen: false),
+    bzModel: BzzProvider.proGetActiveBzModel(listen: false),
   );
 
   final double _posterWidth = BottomDialog.clearWidth(context);
@@ -91,9 +91,7 @@ Future<void> onFlyerBzOptionsTap({
             context: context,
             verseCentered: true,
             isDeactivated: !_canDeleteFlyer,
-            onDeactivatedTap: () => _onCanNotDeleteFlyerDialog(
-              context: context,
-            ),
+            onDeactivatedTap: () => _onCanNotDeleteFlyerDialog(),
             /// --->
             verse: const Verse(id: 'phid_delete_flyer', translate: true),
             onTap: () => _onDeleteFlyerButtonTap(
@@ -162,7 +160,6 @@ Future<void> _onEditFlyerButtonTap({
   if (_result == true){
 
     await TopDialog.showTopDialog(
-      context: context,
       firstVerse: const Verse(
         id: 'phid_flyer_has_been_published',
         translate: true,
@@ -180,12 +177,9 @@ Future<void> _onEditFlyerButtonTap({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _onCanNotDeleteFlyerDialog({
-  @required BuildContext context,
-}) async {
+Future<void> _onCanNotDeleteFlyerDialog() async {
 
   await CenterDialog.showCenterDialog(
-    context: context,
     titleVerse: const Verse(
       pseudo: 'Can not Delete Flyer',
       id: 'phid_can_not_delete_flyer',
@@ -202,7 +196,6 @@ Future<void> _onDeleteFlyerButtonTap({
 }) async {
 
   final bool _result = await _preFlyerDeleteCheckups(
-    context: context,
     flyer: flyer,
   );
 
@@ -214,7 +207,6 @@ Future<void> _onDeleteFlyerButtonTap({
     );
 
     pushWaitDialog(
-      context: context,
       verse: const Verse(
         id: 'phid_deleting_flyer',
         translate: true,
@@ -228,7 +220,6 @@ Future<void> _onDeleteFlyerButtonTap({
     await WaitDialog.closeWaitDialog();
 
     await TopDialog.showTopDialog(
-      context: context,
       firstVerse: const Verse(
         id: 'phid_flyer_has_been_deleted_successfully',
         translate: true,
@@ -243,14 +234,12 @@ Future<void> _onDeleteFlyerButtonTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<bool> _preFlyerDeleteCheckups({
-  @required BuildContext context,
   @required FlyerModel flyer,
 }) async {
 
   bool _canContinue = false;
 
   final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
-      context: context,
       listen: false,
   );
 
@@ -264,7 +253,6 @@ Future<bool> _preFlyerDeleteCheckups({
   if (_canDeleteFlyer == false){
 
     await CenterDialog.showCenterDialog(
-      context: context,
       titleVerse: const Verse(
         id: 'phid_can_not_delete_flyer',
         translate: true,
@@ -282,7 +270,6 @@ Future<bool> _preFlyerDeleteCheckups({
   else {
 
     _canContinue = await Dialogs.flyerDialog(
-      context: context,
       titleVerse: const Verse(
         id: 'phid_delete_flyer',
         translate: true,

@@ -20,7 +20,6 @@ class BzSettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
-        context: context,
         listen: true
     );
     final bool _userIsCreator = AuthorModel.checkUserIsCreatorAuthor(

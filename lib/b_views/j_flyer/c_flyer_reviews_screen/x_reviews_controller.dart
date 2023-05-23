@@ -119,7 +119,6 @@ Future<void> onSubmitReview({
     /// TEXT FIELD IS EMPTY
     if (TextCheck.isEmpty(textController.text.trim()) == true){
       await Dialogs.centerNotice(
-        context: context,
         verse: const Verse(
           id: 'phid_add_review_to_submit',
           translate: true,
@@ -271,7 +270,6 @@ Future<void> onReviewOptions({
                 );
 
                 await _onEditReview(
-                  context: context,
                   reviewModel: reviewModel,
                   paginationController: paginationController,
                   mounted: mounted,
@@ -297,7 +295,6 @@ Future<void> onReviewOptions({
                 );
 
                 await _onDeleteReview(
-                  context: context,
                   reviewModel: reviewModel,
                   paginationController: paginationController,
                   bzID: bzID,
@@ -316,7 +313,6 @@ Future<void> onReviewOptions({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onEditReview({
-  @required BuildContext context,
   @required ReviewModel reviewModel,
   @required PaginationController paginationController,
   @required bool mounted,
@@ -325,7 +321,6 @@ Future<void> _onEditReview({
   bool _isConfirmed = false;
 
   final String _shit = await Dialogs.keyboardDialog(
-    context: context,
     keyboardModel: KeyboardModel(
       titleVerse: const Verse(
         id: 'phid_edit_your_review',
@@ -369,7 +364,6 @@ Future<void> _onEditReview({
     );
 
     await TopDialog.showTopDialog(
-      context: context,
       firstVerse: const Verse(
         id: 'phid_review_has_been_updated',
         translate: true,
@@ -382,7 +376,6 @@ Future<void> _onEditReview({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onDeleteReview({
-  @required BuildContext context,
   @required ReviewModel reviewModel,
   @required PaginationController paginationController,
   @required String bzID,
@@ -390,7 +383,6 @@ Future<void> _onDeleteReview({
 }) async {
 
   final bool _canContinue = await CenterDialog.showCenterDialog(
-    context: context,
     titleVerse: const Verse(
       id: 'phid_delete_review_?',
       translate: true,
@@ -420,7 +412,6 @@ Future<void> _onDeleteReview({
     );
 
     await TopDialog.showTopDialog(
-      context: context,
       firstVerse: const Verse(
         pseudo: 'Review has been deleted successfully',
         id: 'phid_review_deleted_successfully',
@@ -476,7 +467,6 @@ Future<void> onBzReply({
 }) async {
 
   final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
-      context: context,
       listen: false,
   );
 
@@ -490,7 +480,6 @@ Future<void> onBzReply({
     bool _isConfirmed = false;
 
     final String _reply = await Dialogs.keyboardDialog(
-      context: context,
       keyboardModel: KeyboardModel(
         titleVerse: const Verse(
           id: 'phid_reply_to_flyer',
@@ -541,7 +530,6 @@ Future<void> onBzReply({
       );
 
       await TopDialog.showTopDialog(
-        context: context,
         firstVerse: const Verse(
           pseudo: 'Your reply has been posted',
           id: 'phid_your_reply_has_been_posted',
@@ -633,7 +621,6 @@ Future<void> _onEditReply({
   bool _isConfirmed = false;
 
   final String _shit = await Dialogs.keyboardDialog(
-    context: context,
     keyboardModel: KeyboardModel(
       titleVerse: const Verse(
         id: 'phid_edit_your_reply',
@@ -678,7 +665,6 @@ Future<void> _onEditReply({
     );
 
     await TopDialog.showTopDialog(
-      context: context,
       firstVerse: const Verse(
         id: 'phid_reply_has_been_updated',
         translate: true,
@@ -699,7 +685,6 @@ Future<void> _onDeleteReply({
 }) async {
 
   final bool _canContinue = await CenterDialog.showCenterDialog(
-    context: context,
     titleVerse: const Verse(
       id: 'phid_delete_reply_?',
       translate: true,
@@ -741,7 +726,6 @@ Future<void> _onDeleteReply({
     );
 
     await TopDialog.showTopDialog(
-      context: context,
       firstVerse: const Verse(
         pseudo: 'Reply has been deleted',
         id: 'phid_reply_has_been_deleted',

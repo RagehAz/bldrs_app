@@ -102,7 +102,7 @@ class DraftBz {
     /// FIRST TIMER
     if (oldBz == null){
 
-      _output = await _createNewDraftBz(context);
+      _output = await _createNewDraftBz();
 
     }
 
@@ -120,10 +120,9 @@ class DraftBz {
   }
   // -------------------
   /// TESTED : WORKS PERFECT
-  static Future<DraftBz> _createNewDraftBz(BuildContext context) async {
+  static Future<DraftBz> _createNewDraftBz() async {
 
     final UserModel creatorUser = UsersProvider.proGetMyUserModel(
-      context: context,
       listen: false,
     );
 

@@ -364,7 +364,6 @@ Future<void> setActivePhidK({
                           '$_cityName';
 
     await CenterDialog.showCenterDialog(
-      context: context,
       titleVerse: Verse(
           id: _title,
           translate: false,

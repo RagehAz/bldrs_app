@@ -120,7 +120,6 @@ Future<void> onDeleteMyAccount(BuildContext context) async {
     blog('finished wipe user protocols');
 
     await CenterDialog.showCenterDialog(
-      context: context,
       titleVerse: const Verse(
         pseudo: 'Account is Deleted Successfully',
         id: 'phid_account_is_deleted',
@@ -151,7 +150,6 @@ Future<bool> _authorshipDeletionCheckups(BuildContext context) async {
   bool _canDelete = false;
 
   final UserModel _userModel = UsersProvider.proGetMyUserModel(
-    context: context,
     listen: false,
   );
 
@@ -165,7 +163,6 @@ Future<bool> _authorshipDeletionCheckups(BuildContext context) async {
     if (_userIsAuthor == true){
 
       final List<BzModel> _myBzzModels = BzzProvider.proGetMyBzz(
-        context: context,
         listen: false,
       );
 
@@ -262,14 +259,12 @@ Future<bool> reAuthenticateUser({
   bool _canContinue = false;
 
   final UserModel _userModel = UsersProvider.proGetMyUserModel(
-    context: context,
     listen: false,
   );
 
   if (_userModel != null){
 
     _canContinue = await Dialogs.userDialog(
-      context: context,
       titleVerse: dialogTitleVerse,
       bodyVerse: dialogBodyVerse,
       confirmButtonVerse: confirmButtonVerse,
@@ -295,7 +290,6 @@ Future<bool> reAuthenticateUser({
       else if (_passwordIsCorrect == false){
 
         unawaited(TopDialog.showTopDialog(
-          context: context,
           firstVerse: const Verse(
             id: 'phid_wrongPassword',
             translate: true,

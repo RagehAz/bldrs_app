@@ -38,7 +38,7 @@ Future<void> initializeLogoScreen({
 }) async {
 
   if (kDebugMode == true && DeviceChecker.deviceIsWindows() == true){
-    await signInAsRage7(context: context);
+    await signInAsRage7();
   }
   
   // blog('1 - initializeLogoScreen : START');
@@ -79,7 +79,6 @@ Future<void> initializeLogoScreen({
     // blog('4 - initializeLogoScreen : phrases are not loaded and will restart');
 
     await CenterDialog.showCenterDialog(
-      context: context,
       titleVerse: Verse.plain('Bldrs.net is currently under construction'),
       bodyVerse: Verse.plain('Sorry for inconvenience'),
       confirmButtonVerse: Verse.plain('Ok'),
@@ -169,7 +168,6 @@ Future<void> initializeUserModel(BuildContext context) async {
     );
 
     await setUserAndAuthModelsAndCompleteUserZoneLocally(
-      context: context,
       authModel: _authModel,
       userModel: _userModel,
       notify: false,
@@ -188,7 +186,6 @@ Future<void> initializeUserModel(BuildContext context) async {
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> setUserAndAuthModelsAndCompleteUserZoneLocally({
-  @required BuildContext context,
   @required AuthModel authModel,
   @required UserModel userModel,
   @required bool notify,
@@ -198,13 +195,11 @@ Future<void> setUserAndAuthModelsAndCompleteUserZoneLocally({
 
   /// B.3 - so sign in succeeded returning a userModel, then set it in provider
   UsersProvider.proSetMyAuthModel(
-    context: context,
     authModel: authModel,
     notify: false,
   );
 
   UsersProvider.proSetMyUserModel(
-    context: context,
     userModel: userModel,
     notify: notify,
   );
@@ -227,7 +222,6 @@ Future<void> initializeAppState(BuildContext context) async {
   if (Authing.userIsSignedIn() == true){
 
     final UserModel _userModel = UsersProvider.proGetMyUserModel(
-        context: context,
         listen: false,
     );
     AppStateModel _userState = _userModel?.appState?.copyWith();
@@ -294,7 +288,6 @@ Future<void> initializeAppState(BuildContext context) async {
 Future<void> _showUpdateAppDialog(BuildContext context) async {
 
   await CenterDialog.showCenterDialog(
-    context: context,
     titleVerse:  const Verse(
       id: 'phid_new_app_update_available',
       translate: true
@@ -484,14 +477,12 @@ Future<void> _refreshLDB(BuildContext context) async {
 /// RAGE7 SIGN IN
 
 // --------------------
-Future<void> signInAsRage7({
-  @required BuildContext context,
-}) async {
+Future<void> signInAsRage7() async {
   final AuthModel _authModel = await EmailAuthing.signIn(
     email: 'rageh@bldrs.net',
     password: '123456',
     onError: (String error) => AuthProtocols.onAuthError(
-      context: context,
+      context: getMainContext(),
       error: error,
     ),
   );
@@ -511,7 +502,6 @@ Future<void> signInAsRage7({
     await UserLDBOps.updateUserModel(_userModel);
 
     UsersProvider.proSetMyUserModel(
-      context: context,
       userModel: _userModel,
       notify: true,
     );

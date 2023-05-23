@@ -47,7 +47,6 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
     super.initState();
 
     _bzModel = widget.bzModel ?? BzzProvider.proGetActiveBzModel(
-      context: context,
       listen: false,
     );
 

@@ -35,7 +35,6 @@ StreamSubscription listenToUserUnseenNotes(BuildContext context){
   StreamSubscription _sub;
 
   final UserModel _userModel = UsersProvider.proGetMyUserModel(
-      context: context,
       listen: false,
   );
 
@@ -95,14 +94,14 @@ List<StreamSubscription> listenToMyBzzUnseenNotes(BuildContext context){
 
   final List<StreamSubscription> _subs = <StreamSubscription>[];
 
-  final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: false);
+  final UserModel _userModel = UsersProvider.proGetMyUserModel(listen: false);
 
   final bool _userIsAuthor = UserModel.checkUserIsAuthor(_userModel);
   // blog('initializeMyBzzNotes : _userIsAuthor : $_userIsAuthor');
 
   if (_userIsAuthor == true){
 
-    final List<BzModel> _myBzz = BzzProvider.proGetMyBzz(context: context, listen: false);
+    final List<BzModel> _myBzz = BzzProvider.proGetMyBzz(listen: false);
 
     for (final BzModel bzModel in _myBzz){
 
@@ -198,7 +197,7 @@ bool _checkNoteDotIsOn({
   @required List<NoteModel> unseenNotes,
 }){
 
-  final UserModel _userModel = UsersProvider.proGetMyUserModel(context: context, listen: false);
+  final UserModel _userModel = UsersProvider.proGetMyUserModel(listen: false);
 
   final bool _thereAreMissingFields = Formers.checkUserHasMissingFields(
     context: context,

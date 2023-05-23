@@ -199,7 +199,6 @@ class ZoneSelection {
     if (zone != null && zone.countryID != null){
 
       pushWaitDialog(
-        context: context,
         verse: const Verse(
           id: 'phid_loading',
           translate: true,

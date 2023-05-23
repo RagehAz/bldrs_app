@@ -213,7 +213,6 @@ class Keyboard {
 
     if (milliseconds != 0){
       await TopDialog.showTopDialog(
-        context: context,
         firstVerse: const Verse(
           id: 'phid_copied_to_clipboard',
           translate: true,

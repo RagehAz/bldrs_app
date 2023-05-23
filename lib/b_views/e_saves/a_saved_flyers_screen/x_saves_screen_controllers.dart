@@ -58,7 +58,6 @@ Future<void> autoRemoveSavedFlyerThatIsNotFound({
   blog('autoRemoveSavedFlyerThatIsNotFound : START');
 
   final UserModel _userModel = UsersProvider.proGetMyUserModel(
-    context: context,
     listen: false,
   );
 

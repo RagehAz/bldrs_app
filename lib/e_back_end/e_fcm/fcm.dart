@@ -656,7 +656,6 @@ class FCM {
     List<String> _topics;
 
     final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
-      context: context,
       listen: false,
     );
 

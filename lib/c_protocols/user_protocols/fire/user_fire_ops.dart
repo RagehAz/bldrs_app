@@ -164,7 +164,6 @@ class UserFireOps {
     blog('deleteMyUser : START');
 
     final UserModel _userModel = UsersProvider.proGetMyUserModel(
-      context: context,
       listen: false,
     );
 

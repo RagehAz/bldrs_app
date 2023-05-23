@@ -36,7 +36,6 @@ class AuthorshipEntryProtocols {
     /// GET AND MODIFY MY USER MODEL --------------------------
     // NOTE : modify user before bz to allow the user modify the bz in fire security rules
     final UserModel _oldUser = UsersProvider.proGetMyUserModel(
-      context: context,
       listen: false,
     );
 

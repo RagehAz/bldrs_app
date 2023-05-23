@@ -104,7 +104,6 @@ class _CountriesScreenState extends State<CountriesScreen> {
 
     /// SHOWN IDS
     final List<String> _shownIDs = _countriesStages.getIDsByViewingEvent(
-      context: context,
       event: widget.zoneViewingEvent,
       countryID: null,
       viewerCountryID: widget.viewerCountryID,
@@ -223,9 +222,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
 
     blog('onDeactivatedCountryTap : browse view : $countryID');
 
-    await Dialogs.zoneIsNotAvailable(
-      context: context,
-    );
+    await Dialogs.zoneIsNotAvailable();
 
   }
   // -----------------------------------------------------------------------------

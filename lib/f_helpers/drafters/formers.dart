@@ -823,7 +823,6 @@ class Formers {
     );
 
     await CenterDialog.showCenterDialog(
-      context: context,
       titleVerse: const Verse(id: 'phid_complete_your_profile', translate: true),
       bodyVerse: Verse(
         id: '${Verse.transBake('phid_required_fields')}'

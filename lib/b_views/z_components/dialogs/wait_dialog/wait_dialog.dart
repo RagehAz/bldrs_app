@@ -12,12 +12,10 @@ import 'package:provider/provider.dart';
 import 'package:scale/scale.dart';
 
 void pushWaitDialog({
-  @required BuildContext context,
   Verse verse,
   bool canManuallyGoBack = false,
 }){
   WaitDialog.showUnawaitedWaitDialog(
-    context: context,
     verse: verse,
     canManuallyGoBack: canManuallyGoBack,
   );
@@ -40,13 +38,11 @@ class WaitDialog extends StatelessWidget {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static void showUnawaitedWaitDialog({
-    @required BuildContext context,
     bool canManuallyGoBack = false,
     Verse verse,
   }) {
 
     unawaited(_showWaitDialog(
-      context: context,
       loadingVerse: verse,
       canManuallyGoBack: canManuallyGoBack,
     ));
@@ -55,13 +51,12 @@ class WaitDialog extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _showWaitDialog({
-    @required BuildContext context,
     bool canManuallyGoBack = false,
     Verse loadingVerse,
   }) async {
 
     await showDialog(
-      context: context,
+      context: getMainContext(),
       builder: (BuildContext ctx) => WaitDialog(
         canManuallyGoBack: canManuallyGoBack,
         loadingVerse: loadingVerse,

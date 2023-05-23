@@ -13,6 +13,7 @@ import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
@@ -58,7 +59,6 @@ class NewAuthorshipExit {
       /// (only i can) : RENOVATE MY USER MODEL
       /// (only i can) : REMOVE BZ NOTES FROM OBELISK NUMBERS
       await _doAllMyUserRemovalFromBzOps(
-        context: context,
         bzID: bzModel.id,
       );
 
@@ -99,7 +99,6 @@ class NewAuthorshipExit {
 
       /// SHOW WAIT DIALOG
       _showRemovingAuthorWaitDialog(
-        context: context,
         isBzDeleted: false,
       );
 
@@ -119,7 +118,6 @@ class NewAuthorshipExit {
       /// (only i can) : RENOVATE MY USER MODEL
       /// (only i can) : REMOVE BZ NOTES FROM OBELISK NUMBERS
       await _doAllMyUserRemovalFromBzOps(
-        context: context,
         bzID: bzModel.id,
       );
 
@@ -168,7 +166,6 @@ class NewAuthorshipExit {
 
       /// SHOW WAIT DIALOG
       _showRemovingAuthorWaitDialog(
-        context: context,
         isBzDeleted: false,
       );
 
@@ -211,74 +208,74 @@ class NewAuthorshipExit {
   /// I GOT REMOVED
 
   // --------------------
-  /// TESTED : WORKS PERFECT
+  /// TASK : TEST ME
   static Future<void> onIGotRemoved({
-    @required BuildContext context,
     @required String bzID, // this should not include my id
     @required bool isBzDeleted,
   }) async {
 
-    final BzModel bzModel = await BzProtocols.fetchBz(
-      context: context,
-      bzID: bzID,
-    );
-
     // blog('bzModel == null : ${bzModel == null}');
 
-    if (bzModel != null){
+    if (bzID != null){
 
-    /// SHOW NOTICE CENTER DIALOG
-    await _iGotDeletedNoticeDialog(
-      context: context,
-      bzID: bzModel.id,
-      isBzDeleted: isBzDeleted,
-    );
+      final BzModel _bzModel = await BzProtocols.fetchBz(
+        bzID: bzID,
+        context: getMainContext(),
+      );
 
-    /// SHOW WAIT DIALOG
-    _showRemovingAuthorWaitDialog(
-      context: context,
-      isBzDeleted: isBzDeleted,
-    );
+      if (_bzModel != null){
 
-    await Future.wait(<Future>[
+        /// SHOW NOTICE CENTER DIALOG
+        await _iGotDeletedNoticeDialog(
+          bzID: bzID,
+          isBzDeleted: isBzDeleted,
+        );
 
-      /// (only i can) : REMOVE BZ FROM PRO MY BZZ
-      /// (only i can) : REMOVE BZ & BZ TOPICS FROM MY USER MODEL
-      /// (only i can) : UNSUBSCRIBE FROM BZ FCM TOPICS
-      /// (only i can) : WIPE AUTHOR PIC
-      /// (only i can) : RENOVATE MY USER MODEL
-      /// (only i can) : REMOVE BZ NOTES FROM OBELISK NUMBERS
-      _doAllMyUserRemovalFromBzOps(
-        context: context,
-        bzID: bzModel.id,
-      ),
+        /// SHOW WAIT DIALOG
+        _showRemovingAuthorWaitDialog(
+          isBzDeleted: isBzDeleted,
+        );
 
-      /// (only i can) : UPDATE BZ LOCALLY
-      BzProtocols.deleteLocally(
-        context: context,
-        bzID: bzModel.id,
-        invoker: 'onIGotRemoved',
-      ),
+        await Future.wait(<Future>[
 
-    ]);
+          /// (only i can) : REMOVE BZ FROM PRO MY BZZ
+          /// (only i can) : REMOVE BZ & BZ TOPICS FROM MY USER MODEL
+          /// (only i can) : UNSUBSCRIBE FROM BZ FCM TOPICS
+          /// (only i can) : WIPE AUTHOR PIC
+          /// (only i can) : RENOVATE MY USER MODEL
+          /// (only i can) : REMOVE BZ NOTES FROM OBELISK NUMBERS
+          _doAllMyUserRemovalFromBzOps(
+            bzID: bzID,
+          ),
+          /// (only i can) : UPDATE BZ LOCALLY
+          BzProtocols.deleteLocally(
+            context: getMainContext(),
+            bzID: bzID,
+            invoker: 'onIGotRemoved',
+          ),
 
-    /// CLOSE WAIT DIALOG
-    await _closeWaitDialog(
-      context: context,
-    );
+        ]);
 
-    /// SHOW SUCCESS CENTER DIALOG
-    await _showRemovedAuthorSuccessDialog(
-      context: context,
-      isBzDeleted: isBzDeleted,
-    );
+        /// CLOSE WAIT DIALOG
+        await _closeWaitDialog(
+          context: getMainContext(),
+        );
 
-    /// GO HOME
-    await Nav.pushHomeAndRemoveAllBelow(
-      context: context,
-      invoker: 'NewAuthorshipExit.onRemoveMySelf',
-      homeRoute: Routing.home,
-    );
+        /// SHOW SUCCESS CENTER DIALOG
+        await _showRemovedAuthorSuccessDialog(
+          context: getMainContext(),
+          isBzDeleted: isBzDeleted,
+        );
+
+        /// GO HOME
+        await Nav.pushHomeAndRemoveAllBelow(
+          context: getMainContext(),
+          invoker: 'NewAuthorshipExit.onRemoveMySelf',
+          homeRoute: Routing.home,
+        );
+
+
+      }
 
     }
 
@@ -369,7 +366,6 @@ class NewAuthorshipExit {
     );
 
     _flyer = FlyerModel.migrateOwnership(
-        context: context,
         flyerModel: _flyer,
         newOwnerID: AuthorModel.getCreatorAuthorFromAuthors(bzModel.authors).userID,
         bzModel: bzModel,
@@ -385,13 +381,11 @@ class NewAuthorshipExit {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _doAllMyUserRemovalFromBzOps({
-    @required BuildContext context,
     @required String bzID,
   }) async {
 
     /// (only i can) : REMOVE BZ & BZ TOPICS FROM MY USER MODEL
     final UserModel _oldUser = UsersProvider.proGetMyUserModel(
-        context: context,
         listen: false,
     );
 
@@ -405,7 +399,7 @@ class NewAuthorshipExit {
       /// (only i can) : UNSUBSCRIBE FROM BZ FCM TOPICS
       NoteProtocols.unsubscribeFromAllBzTopics(
         bzID: bzID,
-        context: context,
+        context: getMainContext(),
         renovateUser: false,
       ),
 
@@ -417,7 +411,7 @@ class NewAuthorshipExit {
 
       /// (only i can) : RENOVATE MY USER MODEL
       UserProtocols.renovate(
-        context: context,
+        context: getMainContext(),
         newUser: _newUser,
         oldUser: _oldUser,
         newPic: null,
@@ -427,14 +421,13 @@ class NewAuthorshipExit {
 
     /// (only i can) : REMOVE BZ FROM PRO MY BZZ
     BzzProvider.proRemoveBzFromMyBzz(
-      context: context,
       bzID: bzID,
       notify: true,
     );
 
     /// (only i can) : REMOVE BZ NOTES FROM OBELISK NUMBERS
     NotesProvider.proAuthorResignationNotesRemovalOps(
-      context: context,
+      context: getMainContext(),
       bzIDResigned: bzID,
       notify: true,
     );
@@ -502,7 +495,6 @@ class NewAuthorshipExit {
   // --------------------
     /// TESTED : WORKS PERFECT
   static Future<void> _iGotDeletedNoticeDialog({
-    @required BuildContext context,
     @required bool isBzDeleted,
     @required String bzID,
   }) async {
@@ -513,9 +505,8 @@ class NewAuthorshipExit {
       final BzModel _bzModel = await BzLDBOps.readBz(bzID);
 
       await Dialogs.bzBannerDialog(
-        context: context,
         titleVerse: Verse(
-          id: _bzModel.name,
+          id: _bzModel?.name ?? 'Account is deleted !!',
           translate: false,
         ),
         bodyVerse: const Verse(
@@ -532,7 +523,6 @@ class NewAuthorshipExit {
     else {
 
       await CenterDialog.showCenterDialog(
-        context: context,
         titleVerse: const Verse(
           id: 'phid_bz_account_is_unavailable',
           translate: true,
@@ -549,7 +539,6 @@ class NewAuthorshipExit {
   // --------------------
     /// TESTED : WORKS PERFECT
   static void _showRemovingAuthorWaitDialog({
-    @required BuildContext context,
     @required bool isBzDeleted,
   }) {
 
@@ -559,7 +548,6 @@ class NewAuthorshipExit {
     Verse.transBake('phid_removing_author');
 
     pushWaitDialog(
-        context: context,
         verse: Verse(
           id: _waitText,
           translate: false,
@@ -584,7 +572,6 @@ class NewAuthorshipExit {
     if (isBzDeleted == true){
 
       await Dialogs.centerNotice(
-        context: context,
         verse: const Verse(
           id: 'phid_bz_has_been_removed',
           translate: true,
@@ -596,7 +583,6 @@ class NewAuthorshipExit {
     else {
 
       await Dialogs.centerNotice(
-        context: context,
         verse: const Verse(
           id: 'phid_Author_has_been_removed_successfully',
           translate: true,

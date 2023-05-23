@@ -26,7 +26,6 @@ class BzFlyersPage extends StatelessWidget {
     // blog('A - BUILDING stless BzFlyersPage');
 
     final BzModel bzModel = BzzProvider.proGetActiveBzModel(
-      context: context,
       listen: true,
     );
 

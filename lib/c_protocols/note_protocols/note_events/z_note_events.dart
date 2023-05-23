@@ -114,7 +114,6 @@ class NoteEvent {
   }) async {
 
     final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
-        context: context,
         listen: false,
     );
 
