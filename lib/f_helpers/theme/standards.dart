@@ -63,9 +63,9 @@ class Standards {
     @required BzAccountType bzAccountType,
   }) {
     switch (bzAccountType) {
-      case BzAccountType.standard:  return Standards.maxFlyerSlidesFreeAccount;     break;
-      case BzAccountType.pro: return Standards.maxFlyerSlidesPremiumAccount;  break;
-      case BzAccountType.master:  return Standards.maxFlyerSlidesFreeSuper;       break;
+      case BzAccountType.basic:  return Standards.maxFlyerSlidesFreeAccount;     break;
+      case BzAccountType.advanced: return Standards.maxFlyerSlidesPremiumAccount;  break;
+      case BzAccountType.premium:  return Standards.maxFlyerSlidesFreeSuper;       break;
       default:  return Standards.maxFlyerSlidesFreeAccount;
     }
   }
