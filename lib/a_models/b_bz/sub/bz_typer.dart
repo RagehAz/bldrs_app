@@ -642,6 +642,7 @@ class BzTyper {
     BzAccountType.premium,
   ];
   // --------------------
+  /// TESTED : WORKS PERFECT
   static String getBzAccountTypePhid({
     @required BzAccountType type,
   }){

@@ -64,6 +64,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
   ModelType _searchType;
   SearchModel _searchModel;
   UserSearchModel _userSearchModel;
+  List<SearchModel> _searchHistoryModels = [];
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -105,7 +106,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
 
       _triggerLoading(setTo: true).then((_) async {
 
-        /// FUCK
+        await _reloadSearchHistory();
 
         await _triggerLoading(setTo: false);
       });
@@ -150,13 +151,16 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
     });
   }
   // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
   /// SEARCH TYPE
   // --------------------
   void selectSearchType(ModelType modelType){
     if (_searchType != modelType){
       setNotifier(notifier: _filtersAreOn, mounted: mounted, value: false);
       _searchType = modelType;
-      _searchModel = SearchModel.createInitialModel();
+      _searchModel = SearchModel.createInitialModel(
+        searchType: _searchType,
+      );
       _generateQuery();
     }
     else {
@@ -207,10 +211,11 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
         );
       }
 
-      _searchModel = await _runSearchProtocol();
+      _searchModel = await _composeOrRenovateSearchHistoryModel();
 
       setState(() {});
     }
+
   }
   // -----------------------------------------------------------------------------
   /// TEXT SEARCH
@@ -764,9 +769,20 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
 
   }
   // -----------------------------------------------------------------------------
-  /// SEARCH PROTOCOLS
+  /// SEARCH HISTORY PROTOCOLS
   // --------------------
-  Future<SearchModel> _runSearchProtocol() async {
+  Future<void> _reloadSearchHistory() async {
+
+    final List<SearchModel> _searches = await SearchProtocols.fetchAll(
+      userID: Authing.getUserID(),
+    );
+
+    setState(() {
+      _searchHistoryModels = _searches;
+    });
+  }
+  // --------------------
+  Future<SearchModel> _composeOrRenovateSearchHistoryModel() async {
     SearchModel _output;
 
     if (_searchModel?.id == null){
@@ -788,6 +804,10 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
       _output = _searchModel;
 
     }
+
+    _searchHistoryModels = await SearchProtocols.fetchAll(
+      userID: Authing.getUserID(),
+    );
 
     return _output;
   }
@@ -847,10 +867,31 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
         bzzController: _bzzController,
         usersQuery: _usersQuery,
         usersController: _usersController,
+        searchHistoryModels: _searchHistoryModels,
+        onHistoryModelTap: (SearchModel model) async {
+
+          setNotifier(notifier: _filtersAreOn, mounted: mounted, value: true);
+          _searchType = SearchModel.concludeSearchType(
+            model: model,
+          );
+          _searchModel = model;
+          await _generateQuery();
+
+        },
+        onDeleteHistoryModel: (SearchModel model) async {
+
+          await SearchProtocols.wipe(
+              modelID: model.id,
+              userID: Authing.getUserID(),
+          );
+
+          await _reloadSearchHistory();
+
+        },
       ),
 
     );
-    // --------------------
+
   }
   // -----------------------------------------------------------------------------
 }
