@@ -1,9 +1,9 @@
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/m_search/search_model.dart';
 import 'package:bldrs/b_views/c_main_search/z_components/building_blocks/history_line.dart';
+import 'package:bldrs/b_views/c_main_search/z_components/filters_tiles/zone_filter_tile.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
@@ -13,6 +13,7 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:mapper/mapper.dart';
@@ -57,6 +58,8 @@ class SearchHistoryView extends StatelessWidget {
 
               final SearchModel _model = searchHistoryModels[index];
 
+              blog(_model);
+
               return BldrsTileBubble(
                 onTileTap: () => onHistoryModelTap(_model),
                 bubbleHeaderVM: BubbleHeaderVM(
@@ -88,11 +91,11 @@ class SearchHistoryView extends StatelessWidget {
 
                       /// ZONE
                       HistoryLine(
-                        icon: _model?.zone?.icon,
+                        icon: ZoneFilterTile.getZoneIcon(zoneModel: _model?.zone),
                         bigIcon: true,
-                        verse: ZoneModel.generateInZoneVerse(
-                          context: context,
-                          zoneModel: _model.zone,
+                        verse: ZoneFilterTile.getZoneVerse(
+                            context: context,
+                            zoneModel: _model?.zone,
                         ),
                       ),
 
