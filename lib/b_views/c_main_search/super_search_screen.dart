@@ -21,6 +21,7 @@ import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/fire/bz_search.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_search.dart';
+import 'package:bldrs/c_protocols/search_protocols/search_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_search.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
@@ -58,9 +59,9 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
   FireQueryModel _usersQuery;
   // --------------------
   final TextEditingController _searchController = TextEditingController();
-  final ValueNotifier<bool> _filtersAreOn = ValueNotifier(false);
+  final ValueNotifier<bool> _filtersAreOn = ValueNotifier(null);
   // --------------------
-  ModelType _searchType = ModelType.flyer;
+  ModelType _searchType;
   SearchModel _searchModel;
   UserSearchModel _userSearchModel;
   // -----------------------------------------------------------------------------
@@ -80,7 +81,6 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
     super.initState();
 
     _userSearchModel = UserSearchModel.initialModel;
-    _searchModel = SearchModel.createInitialModel();
 
     _flyersController = PaginationController.initialize(
       addExtraMapsAtEnd: true,
@@ -93,8 +93,6 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
     _usersController = PaginationController.initialize(
       addExtraMapsAtEnd: true,
     );
-
-    _generateQuery();
 
     _listenToPaginationLoading();
 
@@ -156,65 +154,74 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
   // --------------------
   void selectSearchType(ModelType modelType){
     if (_searchType != modelType){
-    setState(() {
+      setNotifier(notifier: _filtersAreOn, mounted: mounted, value: false);
       _searchType = modelType;
       _searchModel = SearchModel.createInitialModel();
       _generateQuery();
-    });
+    }
+    else {
+      setNotifier(notifier: _filtersAreOn, mounted: mounted, value: null);
+      setState(() {
+        _searchModel = null;
+        _searchType = null;
+      });
     }
   }
   // -----------------------------------------------------------------------------
   /// QUERY GENERATION
   // --------------------
-  void _generateQuery(){
+  Future<void> _generateQuery() async {
 
-    if (_searchType == ModelType.flyer) {
-      _flyersQuery = FlyerSearch.createQuery(
-        searchModel: _searchModel,
-        title: _getSearchText(),
-        gtaLink: _getSearchURL(),
-        // orderBy: ,
-        // descending:,
-        limit: 6,
-      );
+    if (_searchModel != null){
+
+      if (_searchType == ModelType.flyer) {
+        _flyersQuery = FlyerSearch.createQuery(
+          searchModel: _searchModel,
+          title: _getSearchText(),
+          gtaLink: _getSearchURL(),
+          // orderBy: ,
+          // descending:,
+          limit: 6,
+        );
+      }
+
+      else if (_searchType == ModelType.bz) {
+        _bzzQuery = BzSearch.createQuery(
+          searchModel: _searchModel,
+          bzName: _getSearchText(),
+          // orderBy: ,
+          // descending:,
+          // limit: 4,
+        );
+
+      }
+
+      else if (_searchType == ModelType.user) {
+        _usersQuery = UserFireSearchOps.createQuery(
+          zoneModel: _searchModel?.zone,
+          searchText: _getSearchText(),
+          userSearchModel: _userSearchModel,
+          // orderBy: ,
+          // descending:,
+          limit: 10,
+        );
+      }
+
+      _searchModel = await _runSearchProtocol();
+
+      setState(() {});
     }
-
-    else if (_searchType == ModelType.bz) {
-      _bzzQuery = BzSearch.createQuery(
-        searchModel: _searchModel,
-        bzName: _getSearchText(),
-        // orderBy: ,
-        // descending:,
-        // limit: 4,
-      );
-    }
-
-    else if (_searchType == ModelType.user) {
-      _usersQuery = UserFireSearchOps.createQuery(
-        zoneModel: _searchModel?.zone,
-        searchText: _getSearchText(),
-        userSearchModel: _userSearchModel,
-        // orderBy: ,
-        // descending:,
-        limit: 10,
-      );
-    }
-
   }
   // -----------------------------------------------------------------------------
   /// TEXT SEARCH
   // --------------------
   Future<void> _onSearch(String text) async {
-    setState(() {
-      _generateQuery();
-    });
+      await _generateQuery();
   }
   // --------------------
   Future<void> _onSearchCancelled() async {
-    setState(() {
       _searchController.clear();
-      _generateQuery();
-    });
+      await _generateQuery();
   }
   // --------------------
   String _getSearchText(){
@@ -249,22 +256,22 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
     if (_searchType == ModelType.flyer){
      return FlyersSearchFiltersList(
        searchModel: _searchModel,
-       onZoneSwitchTap: (bool value){
+       onZoneSwitchTap: (bool value) async {
           if (value == true){
-            setState(() {
+
               _searchModel = _searchModel.copyWith(
                 zone:  ZoneProvider.proGetCurrentZone(listen: false),
               );
-              _generateQuery();
-            });
+              await _generateQuery();
+
           }
           else {
-            setState(() {
+
               _searchModel = _searchModel.nullifyField(
                 zone: true,
               );
-              _generateQuery();
-            });
+              await _generateQuery();
+
           }
           },
        onZoneTap: () async {
@@ -281,30 +288,30 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
             await ZoneSelection.setCurrentZone(
               zone: _newZone,
             );
-            setState(() {
+
               _searchModel = _searchModel.copyWith(
                 zone: _newZone,
               );
-              _generateQuery();
-            });
+              await _generateQuery();
+
           }
 
           },
-       onFlyerTypeSwitchTap: (bool value){
+       onFlyerTypeSwitchTap: (bool value) async {
           if (value == false){
-            setState(() {
+
               _searchModel = _searchModel.copyWith(
                 flyerSearchModel: _searchModel.flyerSearchModel.nullifyField(
                   flyerType: true,
                   phid: true,
                 ),
               );
-              _generateQuery();
-            });
+              await _generateQuery();
+
           }
           },
-       onFlyerTypeTap: (FlyerType flyerType) {
-          setState(() {
+       onFlyerTypeTap: (FlyerType flyerType) async {
+
 
             _searchModel = _searchModel.copyWith(
               flyerSearchModel: _searchModel.flyerSearchModel?.copyWith(
@@ -324,8 +331,8 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
               );
             }
 
-            _generateQuery();
-          });
+              await _generateQuery();
+
           },
        onPickPhidTap: () async {
             final String _phid = await PhidsPickerScreen.goPickPhid(
@@ -341,103 +348,102 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
                 flyerType: _searchModel.flyerSearchModel?.flyerType,
               );
 
-              setState(() {
                 _searchModel = _searchModel.copyWith(
                   flyerSearchModel: _searchModel.flyerSearchModel.copyWith(
                     phid: _phid,
                   ),
                 );
-                _generateQuery();
-              });
+              await _generateQuery();
+
             }
           },
-       onOnlyShowAuthorSwitchTap: (bool value){
-          setState(() {
+       onOnlyShowAuthorSwitchTap: (bool value) async {
+
             _searchModel = _searchModel.copyWith(
               flyerSearchModel: _searchModel.flyerSearchModel?.copyWith(
                 onlyShowingAuthors: value,
               ),
             );
-            _generateQuery();
-          });
+            await _generateQuery();
+
           },
-       onOnlyWithPriceSwitchTap: (bool value){
-          setState(() {
+       onOnlyWithPriceSwitchTap: (bool value) async {
+
             _searchModel = _searchModel.copyWith(
               flyerSearchModel: _searchModel.flyerSearchModel?.copyWith(
                 onlyWithPrices: value,
               ),
             );
-            _generateQuery();
-          });
-          },
-       onOnlyWithPDFSwitchTap: (bool value){
-              setState(() {
-                _searchModel = _searchModel.copyWith(
-                  flyerSearchModel: _searchModel?.flyerSearchModel?.copyWith(
-                    onlyWithPDF: value,
-                  ),
-                );
-                _generateQuery();
-              });
-            },
-       onOnlyAmazonProductsSwitchTap: (bool value){
-          setState(() {
+            await _generateQuery();
 
-            _searchModel = _searchModel.copyWith(
-              flyerSearchModel: _searchModel.flyerSearchModel?.copyWith(
-                onlyAmazonProducts: value,
-                flyerType: value == true ? FlyerType.product : null,
-              ),
-            );
-            _generateQuery();
-          });
           },
-       onAuditStateSwitchTap: (bool value) {
+       onOnlyWithPDFSwitchTap: (bool value) async {
+
+         _searchModel = _searchModel.copyWith(
+           flyerSearchModel: _searchModel?.flyerSearchModel?.copyWith(
+             onlyWithPDF: value,
+           ),
+         );
+         await _generateQuery();
+
+         },
+       onOnlyAmazonProductsSwitchTap: (bool value) async {
+
+         _searchModel = _searchModel.copyWith(
+           flyerSearchModel: _searchModel.flyerSearchModel?.copyWith(
+             onlyAmazonProducts: value,
+             flyerType: value == true ? FlyerType.product : null,
+           ),
+         );
+
+         await _generateQuery();
+
+         },
+       onAuditStateSwitchTap: (bool value) async {
             if (value == false) {
-              setState(() {
+
                 _searchModel = _searchModel.copyWith(
                   flyerSearchModel: _searchModel.flyerSearchModel.nullifyField(
                     auditState: true,
                   ),
                 );
 
-                _generateQuery();
-              });
+                await _generateQuery();
+
             }
           },
-       onAuditStateTap: (AuditState state){
-            setState(() {
+       onAuditStateTap: (AuditState state) async {
+
               _searchModel = _searchModel.copyWith(
                 flyerSearchModel: _searchModel.flyerSearchModel?.copyWith(
                   auditState: state,
                 ),
               );
-              _generateQuery();
-            });
+              await _generateQuery();
+
             },
-       onPublishStateSwitchTap: (bool value) {
-              if (value == false) {
-                setState(() {
-                  _searchModel = _searchModel.copyWith(
-                    flyerSearchModel: _searchModel?.flyerSearchModel?.nullifyField(
-                      publishState: true,
-                    ),
-                  );
-                  _generateQuery();
-                });
-              }
-            },
-       onPublishStateTap: (PublishState state){
-            setState(() {
-              _searchModel = _searchModel.copyWith(
-                flyerSearchModel: _searchModel?.flyerSearchModel?.copyWith(
-                  publishState: state,
-                ),
-              );
-              _generateQuery();
-            });
-            },
+       onPublishStateSwitchTap: (bool value) async {
+         if (value == false) {
+
+           _searchModel = _searchModel.copyWith(
+             flyerSearchModel: _searchModel?.flyerSearchModel?.nullifyField(
+               publishState: true,
+             ),
+           );
+           await _generateQuery();
+
+         }
+         },
+       onPublishStateTap: (PublishState state) async {
+
+         _searchModel = _searchModel.copyWith(
+           flyerSearchModel: _searchModel?.flyerSearchModel?.copyWith(
+             publishState: state,
+           ),
+         );
+         await _generateQuery();
+         },
+
      );
     }
 
@@ -445,22 +451,22 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
     else if (_searchType == ModelType.bz){
       return BzSearchFiltersList(
         searchModel: _searchModel,
-        onZoneSwitchTap: (bool value){
+        onZoneSwitchTap: (bool value) async {
           if (value == true){
-            setState(() {
+
               _searchModel = _searchModel.copyWith(
                 zone:  ZoneProvider.proGetCurrentZone(listen: false),
               );
-              _generateQuery();
-            });
+              await _generateQuery();
+
           }
           else {
-            setState(() {
+
               _searchModel = _searchModel.nullifyField(
                 zone: true,
               );
-              _generateQuery();
-            });
+              await _generateQuery();
+
           }
           },
         onZoneTap: () async {
@@ -477,50 +483,49 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
             await ZoneSelection.setCurrentZone(
               zone: _newZone,
             );
-            setState(() {
+
               _searchModel = _searchModel.copyWith(
                 zone: _newZone,
               );
-              _generateQuery();
-            });
+              await _generateQuery();
+
           }
 
           },
-        onBzIsVerifiedSwitchTap: (bool value){
-          setState(() {
+        onBzIsVerifiedSwitchTap: (bool value) async {
+
             _searchModel = _searchModel?.copyWith(
               bzSearchModel: _searchModel?.bzSearchModel?.copyWith(
                 onlyVerified: value,
               ),
             );
-            _generateQuery();
-          });
+            await _generateQuery();
+
           },
-        onBzFormSwitchTap: (bool value){
+        onBzFormSwitchTap: (bool value) async {
           if (value == false){
-            setState(() {
+
               _searchModel = _searchModel.copyWith(
                 bzSearchModel: _searchModel.bzSearchModel?.nullifyField(
                   bzForm: true,
                 ),
               );
-              _generateQuery();
-            });
+              await _generateQuery();
+
           }
           },
-        onBzFormTap: (BzForm form) {
-          setState(() {
+        onBzFormTap: (BzForm form) async {
+
             _searchModel = _searchModel.copyWith(
               bzSearchModel: _searchModel.bzSearchModel.copyWith(
                 bzForm: form,
               ),
             );
-            _generateQuery();
-          });
+            await _generateQuery();
+
           },
-        onBzTypeSwitchTap: (bool value){
+        onBzTypeSwitchTap: (bool value) async {
           if (value == false){
-            setState(() {
 
               _searchModel = _searchModel.copyWith(
                 bzSearchModel: _searchModel.bzSearchModel.nullifyField(
@@ -529,12 +534,11 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
                 ),
               );
 
-              _generateQuery();
-            });
+              await _generateQuery();
+
           }
           },
-        onBzTypeTap: (BzType type) {
-          setState(() {
+        onBzTypeTap: (BzType type) async {
 
             _searchModel = _searchModel.copyWith(
               bzSearchModel: _searchModel.bzSearchModel.copyWith(
@@ -548,20 +552,20 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
               ),
             );
 
-            _generateQuery();
-          });
+            await _generateQuery();
+
           },
-        onScopeSwitchTap: (bool value){
+        onScopeSwitchTap: (bool value) async {
 
             if (value == false){
-              setState(() {
+
                 _searchModel = _searchModel.copyWith(
                   bzSearchModel: _searchModel.bzSearchModel?.nullifyField(
                     scopePhid: true,
                   ),
                 );
-                _generateQuery();
-              });
+                await _generateQuery();
+
             }
 
           },
@@ -575,19 +579,18 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
             );
 
             if (_phid != null) {
-              setState(() {
+
                 _searchModel = _searchModel.copyWith(
                   bzSearchModel: _searchModel.bzSearchModel?.copyWith(
                     scopePhid: _phid,
                   ),
                 );
-                _generateQuery();
-              });
+                await _generateQuery();
+
             }
 
           },
-        onBzzShowingTeamOnlySwitchTap: (bool value){
-          setState(() {
+        onBzzShowingTeamOnlySwitchTap: (bool value) async {
 
             _searchModel = _searchModel.copyWith(
               bzSearchModel: _searchModel.bzSearchModel.copyWith(
@@ -595,12 +598,11 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
               ),
             );
 
-            _generateQuery();
-          });
+            await _generateQuery();
+
           },
-        onAccountTypeSwitchTap: (bool value) {
+        onAccountTypeSwitchTap: (bool value) async {
             if (value == false) {
-              setState(() {
 
                 _searchModel = _searchModel.copyWith(
                   bzSearchModel: _searchModel.bzSearchModel.nullifyField(
@@ -608,12 +610,11 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
                   ),
                 );
 
-                _generateQuery();
-              });
+                await _generateQuery();
+
             }
           },
-        onAccountTypeTap: (BzAccountType type) {
-            setState(() {
+        onAccountTypeTap: (BzAccountType type) async {
 
               _searchModel = _searchModel.copyWith(
                 bzSearchModel: _searchModel.bzSearchModel.copyWith(
@@ -621,8 +622,8 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
                 ),
               );
 
-              _generateQuery();
-            });
+              await _generateQuery();
+
           },
       );
     }
@@ -632,22 +633,22 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
       return UserSearchFiltersList(
         searchModel: _searchModel,
         userSearchModel: _userSearchModel,
-        onZoneSwitchTap: (bool value){
+        onZoneSwitchTap: (bool value) async {
           if (value == true){
-            setState(() {
+
               _searchModel = _searchModel.copyWith(
                 zone:  ZoneProvider.proGetCurrentZone(listen: false),
               );
-              _generateQuery();
-            });
+              await _generateQuery();
+
           }
           else {
-            setState(() {
+
               _searchModel = _searchModel.nullifyField(
                 zone: true,
               );
-              _generateQuery();
-            });
+              await _generateQuery();
+
           }
           },
         onZoneTap: () async {
@@ -664,98 +665,94 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
             await ZoneSelection.setCurrentZone(
               zone: _newZone,
             );
-            setState(() {
+
               _searchModel = _searchModel.copyWith(
                 zone: _newZone,
               );
-              _generateQuery();
-            });
+              await _generateQuery();
+
           }
 
           },
-        onUserSearchTypeSwitchTap: (bool value){
-              if (value == false){
-                setState(() {
-                  _userSearchModel = _userSearchModel?.nullifyField(searchType: true);
-                  _generateQuery();
-                });
-              }
-            },
-        onUserSearchTypeTap: (UserSearchType type) {
-          setState(() {
-            _userSearchModel = _userSearchModel?.copyWith(searchType: type);
-            _generateQuery();
-          });
-          },
-        onSignInMethodSwitchTap: (bool value){
+        onUserSearchTypeSwitchTap: (bool value) async {
           if (value == false){
-            setState(() {
+            _userSearchModel = _userSearchModel?.nullifyField(searchType: true);
+            await _generateQuery();
+          }
+          },
+        onUserSearchTypeTap: (UserSearchType type) async {
+
+            _userSearchModel = _userSearchModel?.copyWith(searchType: type);
+            await _generateQuery();
+
+          },
+        onSignInMethodSwitchTap: (bool value) async {
+          if (value == false){
+
               _userSearchModel = _userSearchModel?.nullifyField(
                 signInMethod: true,
               );
-              _generateQuery();
-            });
+              await _generateQuery();
+
           }
           },
-        onSignInMethodTap: (SignInMethod method) {
-          setState(() {
+        onSignInMethodTap: (SignInMethod method) async {
+
             _userSearchModel = _userSearchModel?.copyWith(
               signInMethod: method,
             );
-            _generateQuery();
-          });
+            await _generateQuery();
+
           },
-        onGenderSwitchTap: (bool value){
+        onGenderSwitchTap: (bool value) async {
           if (value == false){
-            setState(() {
+
               _userSearchModel = _userSearchModel?.nullifyField(gender: true);
-              _generateQuery();
-            });
+              await _generateQuery();
+
           }
           },
-        onGenderTap: (Gender gender) {
-          setState(() {
+        onGenderTap: (Gender gender) async {
+
             _userSearchModel = _userSearchModel?.copyWith(gender: gender);
-            _generateQuery();
-          });
+            await _generateQuery();
+
           },
-        onLangSwitchTap: (bool value){
+        onLangSwitchTap: (bool value) async {
           if (value == false){
-            setState(() {
+
               _userSearchModel = _userSearchModel?.nullifyField(language: true);
-              _generateQuery();
-            });
+              await _generateQuery();
+
           }
           },
-        onLangTap: (String lang) {
-          setState(() {
+        onLangTap: (String lang) async {
+
             _userSearchModel = _userSearchModel?.copyWith(language: lang);
-            _generateQuery();
-          });
+            await _generateQuery();
+
           },
-        onOnlyPublicContactsSwitchTap: (bool value){
-              setState(() {
-                _userSearchModel = _userSearchModel?.copyWith(onlyWithPublicContacts: value);
-                _generateQuery();
-              });
-            },
-        onOnlyAuthorsSwitchTap: (bool value) {
-          setState(() {
+        onOnlyPublicContactsSwitchTap: (bool value) async {
+          _userSearchModel = _userSearchModel?.copyWith(onlyWithPublicContacts: value);
+          await _generateQuery();
+          },
+        onOnlyAuthorsSwitchTap: (bool value) async {
+
             _userSearchModel = _userSearchModel?.copyWith(onlyBzAuthors: value);
-            _generateQuery();
-          });
+            await _generateQuery();
+
         },
-        onOnlyAdminsSwitchTap: (bool value){
-          setState(() {
+        onOnlyAdminsSwitchTap: (bool value) async {
+
             _userSearchModel = _userSearchModel?.copyWith(onlyBldrsAdmins: value);
-            _generateQuery();
-          });
+            await _generateQuery();
+
           },
-        onOnlyVerifiedEmailsSwitchTap: (bool value){
-          setState(() {
+        onOnlyVerifiedEmailsSwitchTap: (bool value) async {
+
             _userSearchModel = _userSearchModel?.copyWith(onlyVerifiedEmails: value);
-            _generateQuery();
-          });
+            await _generateQuery();
+
           },
       );
     }
@@ -765,6 +762,34 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
       return const SizedBox();
     }
 
+  }
+  // -----------------------------------------------------------------------------
+  /// SEARCH PROTOCOLS
+  // --------------------
+  Future<SearchModel> _runSearchProtocol() async {
+    SearchModel _output;
+
+    if (_searchModel?.id == null){
+
+      _output = await SearchProtocols.compose(
+          searchModel: _searchModel,
+          userID: Authing.getUserID(),
+      );
+
+    }
+
+    else {
+
+      await SearchProtocols.renovate(
+        searchModel: _searchModel,
+        userID: Authing.getUserID(),
+      );
+
+      _output = _searchModel;
+
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
   @override
@@ -781,7 +806,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
       /// SEARCH
       searchController: _searchController,
       onSearchSubmit: _onSearch,
-      onSearchChanged: _onSearch,
+      // onSearchChanged: _onSearch,
       onSearchCancelled: _onSearchCancelled,
 
       // searchButtonIsOn: true,

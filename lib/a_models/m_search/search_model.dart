@@ -188,7 +188,7 @@ class SearchModel {
   /// TESTED : WORKS PERFECT
   static SearchModel decipher({
     @required Map<String, dynamic> map,
-}){
+  }){
     SearchModel _output;
 
     if (map != null){

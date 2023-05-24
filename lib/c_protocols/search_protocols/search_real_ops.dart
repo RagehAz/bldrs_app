@@ -19,7 +19,7 @@ class SearchRealOps {
     if (searchModel != null && userID != null) {
 
       final Map<String, dynamic> uploaded = await Real.createDocInPath(
-        pathWithoutDocName: '${RealColl.searches}/$userID',
+        pathWithoutDocName: RealPath.searches_userID(userID: userID),
         map: SearchModel.cipher(
           searchModel: searchModel,
         ),
@@ -44,7 +44,7 @@ class SearchRealOps {
 
       final List<Map<String, dynamic>> _maps = await Real.readPathMaps(
           realQueryModel: RealQueryModel(
-            path: '${RealColl.searches}/$userID',
+            path: RealPath.searches_userID(userID: userID),
           ),
       );
 
@@ -55,6 +55,28 @@ class SearchRealOps {
     }
 
     return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> update({
+    @required SearchModel searchModel,
+    @required String userID,
+  }) async {
+
+    if (searchModel != null && searchModel.id != null && userID != null){
+
+      await Real.updateDocInPath(
+        path: RealPath.searches_userID_searchID(
+          userID: userID,
+          searchID: searchModel.id,
+        ),
+        map: SearchModel.cipher(
+          searchModel: searchModel,
+        ),
+      );
+
+    }
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
