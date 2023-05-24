@@ -1,9 +1,10 @@
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/m_search/search_model.dart';
 import 'package:bldrs/c_protocols/search_protocols/search_ldb_ops.dart';
 import 'package:bldrs/c_protocols/search_protocols/search_real_ops.dart';
+import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
-
 /// => TAMAM
 class SearchProtocols {
   // -----------------------------------------------------------------------------
@@ -58,7 +59,65 @@ class SearchProtocols {
 
     }
 
+    return _completeSearchesZoneModels(_output);
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<List<SearchModel>> _completeSearchesZoneModels(List<SearchModel> searches) async {
+    final List<SearchModel> _output = [];
+
+    if (Mapper.checkCanLoopList(searches) == true){
+
+      for (final SearchModel model in searches){
+
+        if (model.zone == null){
+          _output.add(model);
+        }
+
+        else {
+
+          final ZoneModel _zone = await ZoneProtocols.completeZoneModel(
+            incompleteZoneModel: model.zone,
+          );
+
+          final SearchModel _search = model.copyWith(
+            zone: _zone,
+          );
+
+          _output.add(_search);
+
+        }
+
+      }
+
+    }
+
     return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> renovate({
+    @required SearchModel searchModel,
+    @required String userID,
+  }) async {
+
+    if (searchModel != null && searchModel.id != null && userID != null){
+
+      await Future.wait(<Future>[
+
+        SearchRealOps.update(
+          searchModel: searchModel,
+          userID: userID,
+        ),
+
+        SearchLDBOps.insert(
+          searchModel: searchModel,
+        ),
+
+      ]);
+
+    }
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
