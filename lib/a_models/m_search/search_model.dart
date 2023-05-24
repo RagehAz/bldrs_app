@@ -1,9 +1,14 @@
+import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/m_search/bz_search_model.dart';
 import 'package:bldrs/a_models/m_search/flyer_search_model.dart';
 import 'package:bldrs/a_models/x_secondary/bldrs_model_type.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
+import 'package:bldrs/world_zoning/world_zoning.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:space_time/space_time.dart';
@@ -34,7 +39,9 @@ class SearchModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static SearchModel createInitialModel(){
+  static SearchModel createInitialModel({
+    @required ModelType searchType,
+  }){
 
     return SearchModel(
       id: null,
@@ -42,7 +49,7 @@ class SearchModel {
       text: null,
       zone: ZoneProvider.proGetCurrentZone(listen: false),
       time: DateTime.now(),
-      flyerSearchModel: const FlyerSearchModel(
+      flyerSearchModel: searchType != ModelType.flyer ? null : const FlyerSearchModel(
         onlyWithPrices: false,
         onlyWithPDF: false,
         onlyShowingAuthors: false,
@@ -52,7 +59,7 @@ class SearchModel {
         auditState: null,
         flyerType: null,
       ),
-      bzSearchModel: const BzSearchModel(
+      bzSearchModel:  searchType != ModelType.bz ? null : const BzSearchModel(
         scopePhid: null,
         onlyVerified: false,
         onlyShowingTeams: false,
@@ -245,6 +252,72 @@ class SearchModel {
       return <SearchModel>[];
     }
 
+  }
+  // -----------------------------------------------------------------------------
+
+  /// SEARCH TYPE
+
+  // --------------------
+  /// TASK : TEST ME
+  static ModelType concludeSearchType({
+    @required SearchModel model,
+  }){
+    ModelType _output;
+
+    if (model != null){
+
+      if (model.flyerSearchModel != null){
+        _output = ModelType.flyer;
+      }
+      else if (model.bzSearchModel != null){
+        _output = ModelType.bz;
+      }
+      else {
+        blog('SearchModel.concludeSearchType() : No SearchType Found');
+      }
+
+    }
+
+    return _output;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// DUMMY
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static SearchModel dummyModel(){
+    return SearchModel(
+      id: 'dummySearchID',
+      userID: Authing.getUserID(),
+      zone: ZoneModel(
+        countryID: 'egy',
+        cityID: 'egy+cairo',
+        countryName: 'Masr',
+        cityName: 'kahera',
+        icon: Flag.getCountryIcon('egy'),
+      ),
+      time: DateTime.now(),
+      text: 'Bojou Handojou',
+      flyerSearchModel: const FlyerSearchModel(
+        flyerType: FlyerType.product,
+        onlyShowingAuthors: true,
+        onlyWithPrices: true,
+        onlyWithPDF: true,
+        onlyAmazonProducts: true,
+        phid: 'phid_k_prd_app_drink_blender',
+        publishState: PublishState.deleted,
+        auditState: AuditState.pending,
+      ),
+      bzSearchModel: const BzSearchModel(
+        bzType: BzType.contractor,
+        bzForm: BzForm.individual,
+        bzAccountType: BzAccountType.advanced,
+        scopePhid: 'phid_k_prd_app_bath_handDryer',
+        onlyShowingTeams: true,
+        onlyVerified: true,
+      ),
+    );
   }
   // -----------------------------------------------------------------------------
 

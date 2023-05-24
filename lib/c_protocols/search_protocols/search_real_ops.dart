@@ -45,6 +45,10 @@ class SearchRealOps {
       final List<Map<String, dynamic>> _maps = await Real.readPathMaps(
           realQueryModel: RealQueryModel(
             path: RealPath.searches_userID(userID: userID),
+            limit: 20,
+            orderType: RealOrderType.byValue,
+            fieldNameToOrderBy: 'time',
+            // readFromBeginningOfOrderedList: true,
           ),
       );
 
