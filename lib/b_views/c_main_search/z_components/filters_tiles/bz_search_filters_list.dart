@@ -69,7 +69,10 @@ class BzSearchFiltersList extends StatelessWidget {
         /// BZ IS VERIFIED
         FilterBoolTile(
           icon: Iconz.bzBadgeWhite,
-          verse: Verse.plain('Verified Businesses only'),
+          verse: const Verse(
+            id: 'phid_only_verified_bzz',
+            translate: true,
+          ),
           switchValue: searchModel?.bzSearchModel?.onlyVerified,
           iconIsBig: false,
           onSwitchTap: onBzIsVerifiedSwitchTap,
@@ -78,7 +81,7 @@ class BzSearchFiltersList extends StatelessWidget {
         /// BZ FORM
         FilterMultiButtonTile(
           icon: Iconz.bz,
-          verse: Verse.plain('Business Account form'),
+          verse: const Verse(id: 'phid_businessForm', translate: true,),
           switchValue: searchModel?.bzSearchModel?.bzForm != null,
           onSwitchTap: onBzFormSwitchTap,
           items: BzTyper.bzFormsList,
@@ -93,7 +96,10 @@ class BzSearchFiltersList extends StatelessWidget {
         /// BZ TYPE
         FilterMultiButtonTile(
           icon: Iconz.bz,
-          verse: Verse.plain('Business Account type'),
+          verse: const Verse(
+            id: 'phid_bz_entity_type',
+            translate: true,
+          ),
           switchValue: searchModel?.bzSearchModel?.bzType != null,
           onSwitchTap: onBzTypeSwitchTap,
           items: BzTyper.bzTypesList,
@@ -141,7 +147,10 @@ class BzSearchFiltersList extends StatelessWidget {
         /// BZZ SHOWING TEAMS
         FilterBoolTile(
           icon: Iconz.users,
-          verse: Verse.plain('Businesses showing their team members only'),
+          verse: const Verse(
+            id: 'phid_only_bzz_showing_team',
+            translate: true,
+          ),
           iconIsBig: false,
           switchValue: searchModel?.bzSearchModel?.onlyShowingTeams,
           onSwitchTap: onBzzShowingTeamOnlySwitchTap,
@@ -155,7 +164,10 @@ class BzSearchFiltersList extends StatelessWidget {
           FilterMultiButtonTile(
             bubbleColor: Colorz.yellow50,
             icon: Iconz.star,
-            verse: Verse.plain('Subscription type'),
+            verse: const Verse(
+              id: 'phid_subscription_type',
+              translate: true,
+            ),
             switchValue: searchModel?.bzSearchModel?.bzAccountType != null,
             onSwitchTap: onAccountTypeSwitchTap,
             items: BzTyper.bzAccountTypesList,
@@ -169,6 +181,7 @@ class BzSearchFiltersList extends StatelessWidget {
               onAccountTypeTap(_type);
             },
           ),
+
       ],
     );
 

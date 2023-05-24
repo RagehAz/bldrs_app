@@ -518,7 +518,7 @@ class BzModel{
       pendingAuthors: const <PendingAuthor>[],
       contacts: ContactModel.dummyContacts(),
       bzForm: BzForm.company,
-      accountType: BzAccountType.standard,
+      accountType: BzAccountType.basic,
       createdAt: Timers.createDate(year: 1987, month: 10, day: 06),
       about: 'About biz',
       isVerified: true,

@@ -66,7 +66,10 @@ class UserSearchFiltersList extends StatelessWidget {
       /// USER SEARCH TYPE
       FilterMultiButtonTile(
         icon: Iconz.search,
-        verse: Verse.plain('User Search type'),
+        verse: const Verse(
+          id: 'phid_search_method',
+          translate: true,
+        ),
         switchValue: userSearchModel?.searchType != null,
         onSwitchTap: onUserSearchTypeSwitchTap,
         items: UserSearchModel.userSearchTypes,
@@ -83,7 +86,10 @@ class UserSearchFiltersList extends StatelessWidget {
       /// SIGN IN METHOD
       FilterMultiButtonTile(
         icon: Iconz.comGooglePlay,
-        verse: Verse.plain('Sign in method'),
+        verse: const Verse(
+          id: 'phid_sign_in_method',
+          translate: true,
+        ),
         switchValue: userSearchModel?.signInMethod != null,
         onSwitchTap: onSignInMethodSwitchTap,
         items: AuthModel.signInMethodsList,
