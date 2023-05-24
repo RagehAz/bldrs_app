@@ -167,7 +167,7 @@ class SearchModel {
       };
     }
 
-    return Mapper.cleanNullPairs(map: _output);
+    return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -236,6 +236,10 @@ class SearchModel {
 
     return _output;
   }
+  // -----------------------------------------------------------------------------
+
+  /// SORTING
+
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<SearchModel> sortByDate({
@@ -244,7 +248,7 @@ class SearchModel {
 
     if (Mapper.checkCanLoopList(models) == true){
       final List<SearchModel> _models = [...models];
-      _models.sort((a, b) => a.time.compareTo(b.time));
+      _models.sort((a, b) => b.time.compareTo(a.time));
       return _models;
     }
 
@@ -258,7 +262,7 @@ class SearchModel {
   /// SEARCH TYPE
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static ModelType concludeSearchType({
     @required SearchModel model,
   }){
@@ -373,10 +377,12 @@ class SearchModel {
     SearchModel(
       userID: $userID,
       id: $id,
-      zone: ZoneModel(
+      zone: ${zone == null ? 'null' : '''
+      ZoneModel(
         countryID: ${zone?.countryID},
         cityID: ${zone?.cityID},
-      ),
+      )
+      '''},
       text: $text,
       time: $time,
       bzSearchModel: BzSearchModel(

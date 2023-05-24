@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/m_search/search_model.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
 /// => TAMAM
 class SearchRealOps {
   // -----------------------------------------------------------------------------
@@ -18,11 +19,15 @@ class SearchRealOps {
 
     if (searchModel != null && userID != null) {
 
+      Map<String, dynamic> _maw = SearchModel.cipher(
+          searchModel: searchModel,
+        );
+
+      _maw = Mapper.cleanNullPairs(map: _maw);
+
       final Map<String, dynamic> uploaded = await Real.createDocInPath(
         pathWithoutDocName: RealPath.searches_userID(userID: userID),
-        map: SearchModel.cipher(
-          searchModel: searchModel,
-        ),
+        map: _maw,
       );
 
       _output = SearchModel.decipher(
@@ -45,8 +50,8 @@ class SearchRealOps {
       final List<Map<String, dynamic>> _maps = await Real.readPathMaps(
           realQueryModel: RealQueryModel(
             path: RealPath.searches_userID(userID: userID),
-            limit: 20,
-            orderType: RealOrderType.byValue,
+            limit: 50,
+            orderType: RealOrderType.byKey,
             fieldNameToOrderBy: 'time',
             // readFromBeginningOfOrderedList: true,
           ),
