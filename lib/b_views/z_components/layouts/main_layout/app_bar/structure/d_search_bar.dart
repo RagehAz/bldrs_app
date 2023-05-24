@@ -247,6 +247,7 @@ class _SearchBarState extends State<SearchBar> {
                         icon: Iconz.filter,
                         iconSizeFactor: 0.5,
                         color: filtersAreOn == true ? Colorz.yellow255 : Colorz.nothing,
+                        isDisabled: filtersAreOn == null,
                         bubble: false,
                         onTap: widget.onFilterTap,
                       ),

@@ -192,6 +192,11 @@ class RealPath {
   static String searches_userID({
     @required String userID,
   }) => '${RealColl.searches}/$userID';
+  // --------------------
+  static String searches_userID_searchID({
+    @required String userID,
+    @required String searchID,
+  }) => '${RealColl.searches}/$userID/$searchID';
   // -----------------------------------------------------------------------------
 
   /// statistics
