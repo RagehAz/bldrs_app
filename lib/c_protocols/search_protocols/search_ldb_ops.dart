@@ -55,9 +55,11 @@ class SearchLDBOps{
         docName: LDBDoc.searches,
     );
 
-    return SearchModel.decipherSearches(
+    final List<SearchModel> _output = SearchModel.decipherSearches(
       maps: _maps,
     );
+
+    return SearchModel.sortByDate(models: _output);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
