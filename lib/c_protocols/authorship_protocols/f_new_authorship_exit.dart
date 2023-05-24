@@ -208,7 +208,7 @@ class NewAuthorshipExit {
   /// I GOT REMOVED
 
   // --------------------
-  /// TASK : TEST ME
+  /// TASK : TEST ME : WORKS GOOD FOR WIPING BZ CYCLE
   static Future<void> onIGotRemoved({
     @required String bzID, // this should not include my id
     @required bool isBzDeleted,

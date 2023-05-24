@@ -11,7 +11,7 @@ import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:stringer/stringer.dart';
-
+/// => TAMAM
 class NoteFunProtocols {
   /// --------------------------------------------------------------------------
 
