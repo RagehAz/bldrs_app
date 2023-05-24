@@ -15,7 +15,7 @@ class SearchLDBOps{
     @required SearchModel searchModel,
   }) async {
 
-    if (searchModel != null){
+    if (searchModel != null && searchModel.id != null){
 
       await LDBOps.insertMap(
         docName: LDBDoc.searches,
