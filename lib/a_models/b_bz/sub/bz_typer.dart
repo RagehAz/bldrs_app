@@ -29,9 +29,9 @@ enum BzForm {
 }
 
 enum BzAccountType {
-  standard,
-  pro,
-  master,
+  basic,
+  advanced,
+  premium,
 }
 
 enum BzState {
@@ -619,9 +619,9 @@ class BzTyper {
   /// TESTED : WORKS PERFECT
   static String cipherBzAccountType(BzAccountType bzAccountType) {
     switch (bzAccountType) {
-      case BzAccountType.standard:  return 'standard';  break;
-      case BzAccountType.pro:       return 'pro';       break;
-      case BzAccountType.master:    return 'master';    break;
+      case BzAccountType.basic:     return 'basic';      break;
+      case BzAccountType.advanced:  return 'advanced';   break;
+      case BzAccountType.premium:   return 'premium';    break;
       default:  return null;
     }
   }
@@ -629,18 +629,29 @@ class BzTyper {
   /// TESTED : WORKS PERFECT
   static BzAccountType decipherBzAccountType(String bzAccountType) {
     switch (bzAccountType) {
-      case 'standard'   : return BzAccountType.standard   ; break;
-      case 'pro'        : return BzAccountType.pro        ; break;
-      case 'master'     : return BzAccountType.master     ; break;
+      case 'basic'       : return BzAccountType.basic; break;
+      case 'advanced'    : return BzAccountType.advanced; break;
+      case 'premium'     : return BzAccountType.premium; break;
       default:return null;
     }
   }
   // --------------------
   static const List<BzAccountType> bzAccountTypesList = <BzAccountType>[
-    BzAccountType.standard,
-    BzAccountType.pro,
-    BzAccountType.master,
+    BzAccountType.basic,
+    BzAccountType.advanced,
+    BzAccountType.premium,
   ];
+  // --------------------
+  static String getBzAccountTypePhid({
+    @required BzAccountType type,
+  }){
+    switch (type) {
+      case BzAccountType.basic:     return 'phid_basic_account';    break;
+      case BzAccountType.advanced:  return 'phid_advanced_account'; break;
+      case BzAccountType.premium:   return 'phid_premium_account';  break;
+      default:  return null;
+    }
+  }
   // -----------------------------------------------------------------------------
 
   /// BZ FORM

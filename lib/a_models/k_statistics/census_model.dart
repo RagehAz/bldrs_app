@@ -1007,9 +1007,9 @@ class CensusModel {
   /// TESTED : WORKS PERFECT
   static String getBzAccountTypeFieldName(BzAccountType bzAccountType){
     switch (bzAccountType) {
-      case BzAccountType.standard :  return 'bzAccountTypeStandard';  break;
-      case BzAccountType.pro :       return 'bzAccountTypePro';       break;
-      case BzAccountType.master :    return 'bzAccountTypeMaster';    break;
+      case BzAccountType.basic :  return 'bzAccountTypeStandard';  break;
+      case BzAccountType.advanced :       return 'bzAccountTypePro';       break;
+      case BzAccountType.premium :    return 'bzAccountTypeMaster';    break;
       default:                       return null;
     }
   }

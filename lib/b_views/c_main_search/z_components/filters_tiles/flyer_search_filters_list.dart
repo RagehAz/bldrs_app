@@ -76,7 +76,10 @@ class FlyersSearchFiltersList extends StatelessWidget {
       /// FLYER TYPE
       FilterMultiButtonTile(
         icon: Iconz.flyer,
-        verse: Verse.plain('Flyer type'),
+        verse: const Verse(
+          id: 'phid_flyer_type',
+          translate: true,
+        ),
         switchValue: searchModel.flyerSearchModel?.flyerType != null,
         onSwitchTap: onFlyerTypeSwitchTap,
         items: FlyerTyper.flyerTypesList,
@@ -106,7 +109,7 @@ class FlyersSearchFiltersList extends StatelessWidget {
             _keywordIcon,
             headerWidth: _tileWidth,
             headlineVerse:  searchModel.flyerSearchModel?.phid == null ?
-            Verse.plain('Select keyword')
+            const Verse(id: 'phid_select_keyword', translate: true)
                 :
             SectionsButton.getBody(
               context: context,
@@ -122,14 +125,20 @@ class FlyersSearchFiltersList extends StatelessWidget {
       FilterBoolTile(
         icon: Iconz.bz,
         switchValue: searchModel.flyerSearchModel?.onlyShowingAuthors,
-        verse: Verse.plain('Flyers showing authors only'),
+        verse: const Verse(
+          id: 'phid_only_flyers_showing_authors',
+          translate: true,
+        ),
         onSwitchTap: onOnlyShowAuthorSwitchTap,
       ),
 
       /// HAS PRICE
       FilterBoolTile(
         icon: Iconz.dollar,
-        verse: Verse.plain('Flyers with prices only'),
+        verse: const Verse(
+          id: 'phid_only_flyers_with_prices',
+          translate: true,
+        ),
         switchValue: searchModel.flyerSearchModel?.onlyWithPrices,
         onSwitchTap: onOnlyWithPriceSwitchTap,
       ),
@@ -137,7 +146,10 @@ class FlyersSearchFiltersList extends StatelessWidget {
       /// HAS PDF
       FilterBoolTile(
         icon: Iconz.pfd,
-        verse: Verse.plain('Flyers with PDF attachments only'),
+        verse: const Verse(
+          id: 'only_flyers_with_pdf',
+          translate: true,
+        ),
         switchValue: searchModel?.flyerSearchModel?.onlyWithPDF,
         onSwitchTap: onOnlyWithPDFSwitchTap,
       ),
@@ -145,7 +157,10 @@ class FlyersSearchFiltersList extends StatelessWidget {
       /// IS AMAZON PRODUCT
       FilterBoolTile(
         icon: Iconz.amazon,
-        verse: Verse.plain('Amazon Products only'),
+        verse: const Verse(
+          id: 'phid_only_amazon_products',
+          translate: true,
+        ),
         switchValue: searchModel?.flyerSearchModel?.onlyAmazonProducts != null,
         onSwitchTap: onOnlyAmazonProductsSwitchTap,
       ),
@@ -159,7 +174,10 @@ class FlyersSearchFiltersList extends StatelessWidget {
         FilterMultiButtonTile(
           bubbleColor: Colorz.yellow50,
           icon: Iconz.verifyFlyer,
-          verse: Verse.plain('Audit State'),
+          verse: const Verse(
+            id: 'phid_audit_state',
+            translate: true,
+          ),
           switchValue: searchModel?.flyerSearchModel?.auditState != null,
           onSwitchTap: onAuditStateSwitchTap,
           items: FlyerModel.auditStates,
@@ -176,7 +194,10 @@ class FlyersSearchFiltersList extends StatelessWidget {
         FilterMultiButtonTile(
           bubbleColor: Colorz.yellow50,
           icon: Iconz.verifyFlyer,
-          verse: Verse.plain('Publish State'),
+          verse: const Verse(
+            id: 'phid_publish_state',
+            translate: true,
+          ),
           switchValue: searchModel.flyerSearchModel?.publishState != null,
           onSwitchTap: onPublishStateSwitchTap,
           items: FlyerModel.publishStates,
