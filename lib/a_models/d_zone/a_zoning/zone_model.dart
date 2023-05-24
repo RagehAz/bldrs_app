@@ -401,10 +401,24 @@ class ZoneModel {
   /// OVERRIDES
 
   // --------------------
-  /*
    @override
-   String toString() => 'MapModel(key: $key, value: ${value.toString()})';
-   */
+   String toString(){
+
+    final String _blog =
+    '''
+    ZoneModel(
+      countryID: $countryID,
+      cityID: $cityID,
+      countryName: $countryName,
+      cityName: $cityName,
+      countryModel: $countryModel,
+      cityModel: $cityModel,
+      icon: $icon,
+    );
+    ''';
+
+    return _blog;
+   }
   // --------------------
   /// TESTED : WORKS PERFECT
   @override

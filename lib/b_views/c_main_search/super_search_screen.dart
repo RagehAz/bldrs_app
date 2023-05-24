@@ -470,6 +470,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
               _searchModel = _searchModel.nullifyField(
                 zone: true,
               );
+
               await _generateQuery();
 
           }
@@ -784,6 +785,9 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
   // --------------------
   Future<SearchModel> _composeOrRenovateSearchHistoryModel() async {
     SearchModel _output;
+
+    blog('SearchHistoryModels: ${_searchHistoryModels.length} models');
+    blog(_searchModel);
 
     if (_searchModel?.id == null){
 
