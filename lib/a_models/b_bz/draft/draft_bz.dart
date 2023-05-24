@@ -158,7 +158,7 @@ class DraftBz {
     return DraftBz(
       id: 'newDraft',
       createdAt: null,
-      accountType: BzAccountType.standard,
+      accountType: BzAccountType.basic,
       nameController: TextEditingController(),
       trigram: const [],
       zone: creatorUser.zone,

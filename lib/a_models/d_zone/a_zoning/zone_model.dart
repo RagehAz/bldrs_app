@@ -278,9 +278,9 @@ class ZoneModel {
         _text = '$_inn $_countryName';
 
 
-        if (showCity == true && zoneModel.cityModel != null){
+        if (showCity == true && (zoneModel.cityModel != null || zoneModel.cityName != null)){
 
-          final String _cityName = CityModel.translateCity(
+          final String _cityName = zoneModel.cityName ?? CityModel.translateCity(
             context: context,
             city: zoneModel.cityModel,
           );
