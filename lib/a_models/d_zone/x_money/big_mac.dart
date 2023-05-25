@@ -1,6 +1,7 @@
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:numeric/numeric.dart';
@@ -336,7 +337,7 @@ class BigMac {
 
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TASK : FIX INDEX BUG
   static List<BigMac> sortByAccountDollarPrice({
     @required List<BigMac> bigMacs,
     @required List<BigMac> allMacs,
@@ -344,7 +345,13 @@ class BigMac {
   }){
     final List<BigMac> _output = [];
 
-    if (Mapper.checkCanLoopList(bigMacs) == true){
+    if (
+    Mapper.checkCanLoopList(bigMacs) == true
+    &&
+    Mapper.checkCanLoopList(allMacs) == true
+    ){
+
+      blog('bigMacs length : ${bigMacs.length} : ${allMacs.length}');
 
       bigMacs.sort((a, b){
 
@@ -406,6 +413,20 @@ class BigMac {
       );
       _output = Numeric.roundFractions(_accPriceDollar, 2);
 
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool checkMacsContainMac({
+    @required List<BigMac> macs,
+    @required BigMac mac,
+  }){
+    bool _output = false;
+
+    if (macs != null && mac != null){
+      _output = macs.contains(mac);
     }
 
     return _output;
@@ -569,7 +590,7 @@ class BigMac {
           toDollarRate: 6.12065),
       const BigMac(
           countryID: 'egy',
-          localPrice: 52.5,
+          localPrice: 80,
           currencyID: 'EGP',
           toDollarRate: 22),
       const BigMac(
