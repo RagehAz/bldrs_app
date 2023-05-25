@@ -120,6 +120,7 @@ class DataStrip extends StatelessWidget {
                         verseScaleFactor: 0.6,
                         bubble: false,
                         color: color,
+                        verseMaxLines: 2,
                         verseWeight: VerseWeight.thin,
                         verseHighlight: highlightText,
                         onTap: onKeyTap ?? () => onStripTap(
@@ -132,6 +133,7 @@ class DataStrip extends StatelessWidget {
                 ),
               ),
 
+              /// VALUE
               Container(
                 height: height,
                 width: _rowWidth * 0.79,
@@ -151,7 +153,7 @@ class DataStrip extends StatelessWidget {
                         translate: false,
                       ),
                       verseShadow: false,
-                      verseScaleFactor: 0.6,
+                      verseScaleFactor: 0.8,
                       bubble: false,
                       color: color,
                       verseWeight: VerseWeight.thin,

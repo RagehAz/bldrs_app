@@ -147,4 +147,6 @@ class Standards {
   // static const double notePosterWidthPixels = 1000; // NotePosterBox.standardSize.width
    */
   // -----------------------------------------------------------------------------
+  static String exchangeRateAppID = 'e34ede10438a4c22aa21cedb190ebae1';
+  // -----------------------------------------------------------------------------
 }
