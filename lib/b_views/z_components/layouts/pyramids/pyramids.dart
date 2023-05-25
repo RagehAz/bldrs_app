@@ -234,7 +234,7 @@ class _PyramidGraphic extends StatelessWidget {
     /// IF ADMIN
     if (imAdmin(context) == true){
 
-      final String _pyramidIcon = getPyramid(PyramidType.glass);
+      final String _pyramidIcon = getPyramid(pyramidType);
 
       return BldrsImage(
         width: 256 * 0.7,

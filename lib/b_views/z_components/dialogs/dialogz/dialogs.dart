@@ -82,7 +82,7 @@ class Dialogs {
   static Future<void> topNotice({
     @required BuildContext context,
     @required Verse verse,
-    Color color,
+    Color color = Colorz.yellow255,
   }) async {
 
     await TopDialog.showTopDialog(

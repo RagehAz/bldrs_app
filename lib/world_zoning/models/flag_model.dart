@@ -351,8 +351,8 @@ class Flag {
       );
 
       _output = Phrase.searchPhraseByIDAndLangCode(
-          phrases: _flag.phrases,
-          phid: _flag.id,
+          phrases: _flag?.phrases,
+          phid: _flag?.id,
           langCode: langCode
       );
 
