@@ -85,7 +85,7 @@ class AppStateModel {
 
       return AppStateModel(
         appVersion : map['appVersion'],
-        ldbVersion : map['ldbVersion'],
+        ldbVersion : map['ldbVersion']?.toInt(),
       );
     }
 
