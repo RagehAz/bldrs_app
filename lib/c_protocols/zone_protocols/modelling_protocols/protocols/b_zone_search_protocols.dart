@@ -296,7 +296,6 @@ class ZoneSearchOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CityModel> searchFetchCityByName({
-    @required BuildContext context,
     @required String cityName,
     @required String langCode,
     @required String countryID,
@@ -360,7 +359,6 @@ class ZoneSearchOps {
           /// D-2 if multiple cities found
           else {
             final CityModel _selectedCity = await Dialogs.confirmCityDialog(
-              context: context,
               cities: _foundCities,
             );
 

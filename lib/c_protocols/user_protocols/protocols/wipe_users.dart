@@ -9,6 +9,7 @@ import 'package:bldrs/c_protocols/auth_protocols/account_ldb_ops.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/f_new_authorship_exit.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
@@ -59,7 +60,6 @@ class WipeUserProtocols {
     if (_imAuthor == true){
 
       await _deleteAuthorUserProtocol(
-        context: context,
         userModel: _userModel,
       );
 
@@ -69,7 +69,6 @@ class WipeUserProtocols {
     else {
 
       await _deleteNonAuthorUserProtocol(
-        context: context,
         userModel: _userModel,
       );
 
@@ -92,7 +91,6 @@ class WipeUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _deleteAuthorUserProtocol({
-    @required BuildContext context,
     @required UserModel userModel,
   }) async {
 
@@ -102,13 +100,11 @@ class WipeUserProtocols {
 
       /// BZZ I CREATED
       _deleteBzzICreatedProtocol(
-        context: context,
         userModel: userModel,
       ),
 
       /// BZZ I DID NOT CREATE
       _exitBzzIDidNotCreateProtocol(
-        context: context,
         userModel: userModel,
       ),
 
@@ -117,7 +113,6 @@ class WipeUserProtocols {
     /// DELETE EVERYTHING AS IF I'M NOT AUTHOR
     // should be last to allow security rules do the previous ops
     await _deleteNonAuthorUserProtocol(
-      context: context,
       userModel: userModel,
     );
 
@@ -162,7 +157,6 @@ class WipeUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _deleteBzzICreatedProtocol({
-    @required BuildContext context,
     @required UserModel userModel,
   }) async {
 
@@ -184,7 +178,7 @@ class WipeUserProtocols {
         ...List.generate(_myBzzICreated.length, (index){
 
           return BzProtocols.wipeBz(
-              context: context,
+              context: getMainContext(),
               bzModel: _myBzzICreated[index],
               showWaitDialog: true,
               includeMyselfInBzDeletionNote: false,
@@ -203,7 +197,6 @@ class WipeUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _exitBzzIDidNotCreateProtocol({
-    @required BuildContext context,
     @required UserModel userModel,
   }) async {
 
@@ -232,7 +225,6 @@ class WipeUserProtocols {
           );
 
           return NewAuthorshipExit.onRemoveMyselfWhileDeletingMyUserAccount(
-            context: context,
             bzModel: _oldBz,
             authorModel: _authorModel,
           );
@@ -253,7 +245,6 @@ class WipeUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _deleteNonAuthorUserProtocol({
-    @required BuildContext context,
     @required UserModel userModel,
   }) async {
 
@@ -285,10 +276,9 @@ class WipeUserProtocols {
     await Future.wait(<Future>[
 
       /// DELETE USER : SHOULD BE LAST TO ALLOW SECURITY RULES DO THE PREVIOUS OPS
-      UserFireOps.deleteMyUser(context),
+      UserFireOps.deleteMyUser(),
 
       _deleteMyUserLocallyProtocol(
-          context: context,
           userModel: userModel
       ),
 
@@ -305,7 +295,6 @@ class WipeUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _deleteMyUserLocallyProtocol({
-    @required BuildContext context,
     @required UserModel userModel,
   }) async {
 

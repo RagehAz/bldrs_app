@@ -125,7 +125,6 @@ class ComposeBzProtocols {
 
     /// NAVIGATE
     await BldrsNav.goRebootToInitNewBzScreen(
-      context: context,
       bzID: _bzModel.id,
     );
 

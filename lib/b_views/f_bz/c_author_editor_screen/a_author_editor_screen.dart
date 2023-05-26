@@ -213,17 +213,14 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
     /// STRIP 1 : PIC - NAME - TITLE
 
     final bool _picIsValid = Formers.picValidator(
-      context: context,
       pic: _draftAuthor.value?.picModel,
       canValidate: true,
     ) == null;
     final bool _nameIsValid = Formers.personNameValidator(
-        context: context,
         name: _draftAuthor.value?.name,
         canValidate: true
     ) == null;
     final bool _titleIsValid = Formers.jobTitleValidator(
-        context: context,
         jobTitle: _draftAuthor.value?.title,
         canValidate: true
     ) == null;
@@ -242,12 +239,10 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
       contacts: _draftAuthor.value.contacts,
       zoneModel: widget.bzModel.zone,
       canValidate: true,
-      context: context,
       isRequired: false,
 
     ) == null;
     final bool _emailIsValid = Formers.contactsEmailValidator(
-      context: context,
       contacts: _draftAuthor.value?.contacts,
       canValidate: true,
     ) == null;
@@ -361,7 +356,6 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                           mounted: mounted,
                         ),
                         validator: () => Formers.picValidator(
-                          context: context,
                           pic: authorModel?.picModel,
                           canValidate: _canValidate,
                         ),
@@ -401,7 +395,6 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       ),
                       // autoValidate: true,
                       validator: (String text) => Formers.personNameValidator(
-                          context: context,
                           name: authorModel.name,
                           canValidate: _canValidate
                       ),
@@ -433,7 +426,6 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       ),
                       initialText: authorModel.title,
                       validator: (String text) => Formers.jobTitleValidator(
-                          context: context,
                           jobTitle: authorModel.title,
                           canValidate: _canValidate
                       ),
@@ -443,17 +435,14 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     NextButton(
                       onTap: _onNextTap,
                       canGoNext: Formers.picValidator(
-                          context: context,
                           pic: authorModel?.picModel,
                           canValidate: true,
                         ) == null &&
                       Formers.personNameValidator(
-                          context: context,
                           name: authorModel.name,
                           canValidate: true
                       ) == null &&
                       Formers.jobTitleValidator(
-                          context: context,
                           jobTitle: authorModel.title,
                           canValidate: true,
                       ) == null,
@@ -502,7 +491,6 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                         contacts: authorModel.contacts,
                         zoneModel: widget.bzModel.zone,
                         canValidate: _canValidate,
-                        context: context,
                         isRequired: false,
 
                       ),
@@ -538,7 +526,6 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       ),
                       canPaste: false,
                       validator: (String text) => Formers.contactsEmailValidator(
-                          context: context,
                           contacts: authorModel.contacts,
                           canValidate: _canValidate
                       ),

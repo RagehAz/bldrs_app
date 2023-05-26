@@ -4,9 +4,12 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:stringer/stringer.dart';
 
 class PhidButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -93,6 +96,44 @@ class PhidButton extends StatelessWidget {
     return _scaleFactor;
   }
   // --------------------
+  Verse _cleanVerse(){
+
+    String _text = xPhrase(Phider.removeIndexFromPhid(phid: phid));
+
+    if (_text == null){
+      return null;
+    }
+    else {
+
+      if (_text.length > Standards.maxPhidCharLengthBeforeTrim){
+
+        _text = TextMod.removeAllCharactersAfterNumberOfCharacters(
+            input: _text,
+            numberOfChars: Standards.maxPhidCharLengthBeforeTrim
+        );
+
+        return Verse(
+          id: '$_text...',
+          translate: false,
+        );
+
+      }
+      else {
+
+        return Verse(
+          id: _text,
+          translate: false,
+        );
+
+      }
+
+    }
+
+
+
+
+  }
+  // --------------------
   @override
   Widget build(BuildContext context) {
 
@@ -104,10 +145,7 @@ class PhidButton extends StatelessWidget {
         height: getHeight(),
         width: width,
         color: color,
-        verse: Verse(
-          id: Phider.removeIndexFromPhid(phid: phid),
-          translate: true,
-        ),
+        verse: _cleanVerse(),
         margins: margins,
         // secondLine: TextGenerator.bzTypeSingleStringer(context, _bz.bzType),
         icon: _getIcon(),

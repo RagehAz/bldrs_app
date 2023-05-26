@@ -36,14 +36,13 @@ class BldrsNav {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> goBackToLogoScreen({
-    @required BuildContext context,
     @required bool animatedLogoScreen,
   }) async {
 
 
     if (animatedLogoScreen){
       await Nav.pushNamedAndRemoveAllBelow(
-        context: context,
+        context: getMainContext(),
         goToRoute: Routing.animatedLogoScreen,
       );
     }
@@ -53,7 +52,7 @@ class BldrsNav {
       // Navigator.popUntil(context, ModalRoute.withName(Routing.logoScreen));
 
       await Nav.pushNamedAndRemoveAllBelow(
-        context: context,
+        context: getMainContext(),
         goToRoute: Routing.staticLogoScreen,
       );
     }
@@ -62,15 +61,14 @@ class BldrsNav {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> pushHomeAndRemoveAllBelow({
-    @required BuildContext context,
     @required String invoker,
   }) async {
 
     blog('goBackToHomeScreen : popUntil Routing.home : $invoker');
 
     await Nav.pushNamedAndRemoveAllBelow(
-      context: context,
       goToRoute: Routing.home,
+      context: getMainContext(),
     );
 
   }
@@ -81,7 +79,6 @@ class BldrsNav {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> autoNav({
-    @required BuildContext context,
     @required String routeName,
     @required bool startFromHome,
     Object arguments,
@@ -90,7 +87,6 @@ class BldrsNav {
     if (TextCheck.isEmpty(routeName) == false){
 
       UiProvider.proSetAfterHomeRoute(
-          context: context,
           routeName:routeName,
           arguments: arguments,
           notify: true
@@ -98,13 +94,12 @@ class BldrsNav {
 
       if (startFromHome == true){
         await pushHomeAndRemoveAllBelow(
-          context: context,
           invoker: 'autoNav',
         );
       }
 
       else {
-        await autoNavigateFromHomeScreen(context);
+        await autoNavigateFromHomeScreen();
       }
 
     }
@@ -112,10 +107,9 @@ class BldrsNav {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> autoNavigateFromHomeScreen(BuildContext context) async {
+  static Future<void> autoNavigateFromHomeScreen() async {
 
     final RouteSettings _afterHomeRoute = UiProvider.proGetAfterHomeRoute(
-      context: context,
       listen: false,
     );
 
@@ -131,7 +125,6 @@ class BldrsNav {
       /// TESTED : WORKS PERFECT
         case Routing.myBzFlyersPage:
           _goTo = goToMyBzScreen(
-            context: context,
             bzID: _afterHomeRoute.arguments,
             replaceCurrentScreen: false,
           ); break;
@@ -139,7 +132,6 @@ class BldrsNav {
       /// TESTED : WORKS PERFECT
         case Routing.myBzAboutPage:
           _goTo = goToMyBzScreen(
-            context: context,
             bzID: _afterHomeRoute.arguments,
             replaceCurrentScreen: false,
             initialTab: BzTab.about,
@@ -148,7 +140,6 @@ class BldrsNav {
       /// TESTED : WORKS PERFECT
         case Routing.myBzNotesPage:
           _goTo = goToMyBzScreen(
-            context: context,
             bzID: _afterHomeRoute.arguments,
             replaceCurrentScreen: false,
             initialTab: BzTab.notes,
@@ -157,7 +148,6 @@ class BldrsNav {
       /// TESTED : WORKS PERFECT
         case Routing.myBzTeamPage:
           _goTo = goToMyBzScreen(
-            context: context,
             bzID: _afterHomeRoute.arguments,
             replaceCurrentScreen: false,
             initialTab: BzTab.team,
@@ -165,49 +155,44 @@ class BldrsNav {
       // --------------------
       /// TESTED : WORKS PERFECT
         case Routing.myUserScreen:
-          _goTo = goToMyUserScreen(
-            context: context,
-          ); break;
+          _goTo = goToMyUserScreen(); break;
       // --------------------
       /// TESTED : WORKS PERFECT
         case Routing.myUserNotesPage:
           _goTo = goToMyUserScreen(
-            context: context,
             userTab: UserTab.notifications,
           ); break;
       // --------------------
       /// TESTED : WORKS PERFECT
         case Routing.userPreview:
           _goTo = jumpToUserPreviewScreen(
-            context: context,
             userID: _afterHomeRoute.arguments,
           ); break;
       // --------------------
       /// TESTED : WORKS PERFECT
         case Routing.bzPreview:
           _goTo = jumpToBzPreviewScreen(
-            context: context,
             bzID: _afterHomeRoute.arguments,
           ); break;
       // --------------------
       /// TESTED : WORKS PERFECT
         case Routing.flyerPreview:
           _goTo = jumpToFlyerPreviewScreen(
-            context: context,
             flyerID: _afterHomeRoute.arguments,
           ); break;
       // --------------------
       /// TESTED : WORKS PERFECT
         case Routing.flyerReviews:
           _goTo = jumpToFlyerReviewScreen(
-            context: context,
             flyerIDAndReviewID: _afterHomeRoute?.arguments,
           ); break;
       // --------------------
         case Routing.appSettings:
           _goTo = Nav.goToNewScreen(
-            context: context,
+            context: getMainContext(),
             screen: const AppSettingsScreen(),
+            // childCurrent: ,
+            // pageTransitionType: ,
           ); break;
       /// PLAN : ADD COUNTRIES PREVIEW SCREEN
       /*
@@ -230,7 +215,6 @@ class BldrsNav {
 
       /// CLEAR AFTER HOME ROUTE
       UiProvider.proClearAfterHomeRoute(
-        context: context,
         notify: true,
       );
 
@@ -241,12 +225,12 @@ class BldrsNav {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> onLastGoBackInHomeScreen(BuildContext context) async {
+  static Future<void> onLastGoBackInHomeScreen() async {
 
     /// TO HELP WHEN PHRASES ARE NOT LOADED TO REBOOT SCREENS
     if (PhraseProvider.proGetPhidsAreLoaded() == false){
       await Nav.pushNamedAndRemoveAllBelow(
-        context: context,
+        context: getMainContext(),
         goToRoute: Routing.staticLogoScreen,
       );
     }
@@ -255,7 +239,6 @@ class BldrsNav {
     else {
 
       final bool _result = await Dialogs.goBackDialog(
-        context: context,
         titleVerse: const Verse(
           id: 'phid_exit_app_?',
           translate: true,
@@ -276,7 +259,7 @@ class BldrsNav {
         await CenterDialog.closeCenterDialog();
 
         await Future.delayed(const Duration(milliseconds: 500), () async {
-          await Nav.closeApp(context);
+          await Nav.closeApp(getMainContext());
         },
         );
 
@@ -292,12 +275,11 @@ class BldrsNav {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> goToMyUserScreen({
-    @required BuildContext context,
     UserTab userTab = UserTab.profile,
   }) async {
 
     await Nav.goToNewScreen(
-      context: context,
+      context: getMainContext(),
       screen: UserProfileScreen(
         userTab: userTab,
       ),
@@ -311,13 +293,12 @@ class BldrsNav {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> goToMyBzScreen({
-    @required BuildContext context,
     @required String bzID,
     @required bool replaceCurrentScreen,
     BzTab initialTab = BzTab.flyers,
   }) async {
 
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
 
     final BzModel _bzModel = await BzProtocols.fetchBz(
       bzID: bzID,
@@ -330,7 +311,7 @@ class BldrsNav {
 
     if (replaceCurrentScreen == true){
       await Nav.replaceScreen(
-          context: context,
+          context: getMainContext(),
           screen: MyBzScreen(
             initialTab: initialTab,
           )
@@ -339,7 +320,7 @@ class BldrsNav {
 
     else {
       await Nav.goToNewScreen(
-          context: context,
+          context: getMainContext(),
           screen: MyBzScreen(
             initialTab: initialTab,
           )
@@ -350,19 +331,16 @@ class BldrsNav {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> goRebootToInitNewBzScreen({
-    @required BuildContext context,
     @required String bzID,
   }) async {
 
     UiProvider.proSetAfterHomeRoute(
-      context: context,
       routeName: Routing.myBzTeamPage,
       arguments: bzID,
       notify: true,
     );
 
     await goBackToLogoScreen(
-      context: context,
       animatedLogoScreen: true,
     );
 
@@ -371,14 +349,12 @@ class BldrsNav {
   // --------------------
   /// TASK : TEST ME
   static Future<void> restartAndRoute({
-    @required BuildContext context,
     String routeName,
     dynamic arguments,
   }) async {
 
     if (routeName != null) {
       UiProvider.proSetAfterHomeRoute(
-        context: getMainContext(),
         routeName: routeName,
         arguments: arguments,
         notify: true,
@@ -398,21 +374,20 @@ class BldrsNav {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> jumpToUserPreviewScreen({
-    @required BuildContext context,
     @required String userID,
   }) async {
 
     if (userID != null){
 
       final UserModel _userModel = await UserProtocols.fetch(
-        context: context,
+        context: getMainContext(),
         userID: userID,
       );
 
       if (_userModel != null){
 
         await Nav.goToNewScreen(
-          context: context,
+          context: getMainContext(),
           screen: UserPreviewScreen(
             userModel: _userModel,
           ),
@@ -422,13 +397,10 @@ class BldrsNav {
 
     }
 
-
-
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> jumpToBzPreviewScreen({
-    @required BuildContext context,
     @required String bzID,
   }) async {
 
@@ -441,7 +413,7 @@ class BldrsNav {
       if (_bzModel != null){
 
         await Nav.goToNewScreen(
-          context: context,
+          context: getMainContext(),
           screen: BzPreviewScreen(
             bzModel: _bzModel,
           ),
@@ -455,7 +427,6 @@ class BldrsNav {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> jumpToFlyerPreviewScreen({
-    @required BuildContext context,
     @required String flyerID,
   }) async {
 
@@ -464,7 +435,7 @@ class BldrsNav {
       blog('jumping to flyer preview screen');
 
       await Nav.goToNewScreen(
-        context: context,
+        context: getMainContext(),
         screen: FlyerPreviewScreen(
           flyerID: flyerID,
           // reviewID: ,
@@ -477,7 +448,6 @@ class BldrsNav {
   // --------------------
   /// TASK : DO JUMP TO REVIEW THING
   static Future<void> jumpToFlyerReviewScreen({
-    @required BuildContext context,
     @required Object flyerIDAndReviewID,
   }) async {
 
@@ -511,7 +481,7 @@ class BldrsNav {
       if (_flyerID != null){
 
         await Nav.goToNewScreen(
-          context: context,
+          context: getMainContext(),
           screen: FlyerPreviewScreen(
             flyerID: _flyerID,
             reviewID: _reviewID,
@@ -562,10 +532,10 @@ class BldrsNav {
   }
    */
   // -----------------------------------------------------------------------------
-  static Future<void> jumpToAuthScreen(BuildContext context) async {
+  static Future<void> jumpToAuthScreen() async {
 
     await Nav.goToNewScreen(
-      context: context, //context,
+      context: getMainContext(),
       screen: const AuthScreen(),
     );
 

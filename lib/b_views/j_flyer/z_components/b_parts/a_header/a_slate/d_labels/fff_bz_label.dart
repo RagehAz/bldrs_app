@@ -63,7 +63,6 @@ class BzLabel extends StatelessWidget {
           BldrsText(
             width: _bzLabelWidth,
             verse: ZoneModel.generateInZoneVerse(
-              context: context,
               zoneModel: bzModel?.zone,
             ),
             margin: _bzLabelPaddings,

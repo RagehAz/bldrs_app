@@ -93,7 +93,6 @@ class DraftBz {
   // -------------------
   /// TESTED : WORKS PERFECT
   static Future<DraftBz> createDraftBz({
-    @required BuildContext context,
     @required BzModel oldBz,
   }) async {
 
@@ -109,7 +108,6 @@ class DraftBz {
     else {
 
       _output = await _createDraftBzFromBzModel(
-        context: context,
         bzModel: oldBz,
       );
 
@@ -197,7 +195,6 @@ class DraftBz {
   // -------------------
   /// TESTED : WORKS PERFECT
   static Future<DraftBz> _createDraftBzFromBzModel({
-    @required BuildContext context,
     @required BzModel bzModel,
   }) async {
 
@@ -214,7 +211,6 @@ class DraftBz {
       nameController: TextEditingController(text: bzModel.name),
       trigram: bzModel.trigram,
       zone: await ZoneModel.prepareZoneForEditing(
-        context: context,
         zoneModel: bzModel.zone,
       ),
       aboutController: TextEditingController(text: bzModel.about),

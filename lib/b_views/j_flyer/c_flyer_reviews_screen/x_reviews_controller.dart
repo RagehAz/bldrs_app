@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -104,7 +105,6 @@ Future<void> onSubmitReview({
   /// USER IS NOT SIGNED IN
   if (Authing.userIsSignedIn() == false){
     await Dialogs.youNeedToBeSignedInDialog(
-      context: context,
       afterHomeRouteName: Routing.flyerReviews,
       afterHomeRouteArgument: createReviewsScreenRoutingArgument(
         flyerID: flyerModel.id,
@@ -190,7 +190,6 @@ Future<void> onSubmitReview({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onReviewAgree({
-  @required BuildContext context,
   @required ReviewModel reviewModel,
   @required PaginationController paginationController,
   @required bool isAgreed,
@@ -200,7 +199,6 @@ Future<void> onReviewAgree({
   /// USER IS NOT SIGNED IN
   if (Authing.getUserID() == null){
     await Dialogs.youNeedToBeSignedInDialog(
-      context: context,
       afterHomeRouteName: Routing.flyerReviews,
       afterHomeRouteArgument: createReviewsScreenRoutingArgument(
         flyerID: reviewModel.flyerID,
@@ -238,12 +236,13 @@ Future<void> onReviewAgree({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onReviewOptions({
-  @required BuildContext context,
   @required ReviewModel reviewModel,
   @required PaginationController paginationController,
   @required String bzID,
   @required bool mounted,
 }) async {
+
+  final BuildContext context = getMainContext();
 
   await BottomDialog.showButtonsBottomDialog(
       draggable: true,
@@ -428,12 +427,10 @@ Future<void> _onDeleteReview({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onReviewUserBalloonTap({
-  @required BuildContext context,
   @required UserModel userModel,
 }) async {
 
   await BldrsNav.jumpToUserPreviewScreen(
-    context: context,
     userID: userModel.id,
   );
 
@@ -441,12 +438,10 @@ Future<void> onReviewUserBalloonTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onReplyBzBalloonTap({
-  @required BuildContext context,
   @required BzModel bzModel,
 }) async {
 
   await BldrsNav.jumpToBzPreviewScreen(
-    context: context,
     bzID: bzModel.id,
   );
 
@@ -458,7 +453,6 @@ Future<void> onReplyBzBalloonTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onBzReply({
-  @required BuildContext context,
   @required ReviewModel reviewModel,
   @required PaginationController paginationController,
   @required String bzID,
@@ -523,7 +517,7 @@ Future<void> onBzReply({
       );
 
       await ReviewProtocols.composeReviewReply(
-          context: context,
+          context: getMainContext(),
           updatedReview: _updated,
           bzID: bzID,
       );
@@ -544,11 +538,12 @@ Future<void> onBzReply({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onReplyOptions({
-  @required BuildContext context,
   @required ReviewModel reviewModel,
   @required PaginationController paginationController,
   @required bool mounted,
 }) async {
+
+  final BuildContext context = getMainContext();
 
   await BottomDialog.showButtonsBottomDialog(
       draggable: true,
@@ -570,7 +565,6 @@ Future<void> onReplyOptions({
                 );
 
                 await _onEditReply(
-                  context: context,
                   reviewModel: reviewModel,
                   paginationController: paginationController,
                   mounted: mounted,
@@ -592,7 +586,6 @@ Future<void> onReplyOptions({
                 );
 
                 await _onDeleteReply(
-                  context: context,
                   reviewModel: reviewModel,
                   paginationController: paginationController,
                   mounted: mounted,
@@ -610,7 +603,6 @@ Future<void> onReplyOptions({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onEditReply({
-  @required BuildContext context,
   @required ReviewModel reviewModel,
   @required PaginationController paginationController,
   @required bool mounted,
@@ -676,7 +668,6 @@ Future<void> _onEditReply({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onDeleteReply({
-  @required BuildContext context,
   @required ReviewModel reviewModel,
   @required PaginationController paginationController,
   @required bool mounted,

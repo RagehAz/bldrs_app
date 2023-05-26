@@ -167,7 +167,6 @@ class Obelisk extends StatelessWidget {
           // color: Colorz.bloodTest,
           child: MaxBounceNavigator(
             onNavigate: () => UiProvider.proSetPyramidsAreExpanded(
-                context: context,
                 setTo: false,
                 notify: true,
             ),

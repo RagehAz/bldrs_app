@@ -23,7 +23,6 @@ final GlobalKey<NavigatorState> mainNavKey = GlobalKey<NavigatorState>();
 BuildContext getMainContext() {
   return mainNavKey.currentContext;
 }
-
 // -----------------------------------------------------------------------------
 /// => TAMAM
 // final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
@@ -47,9 +46,9 @@ class UiProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static TextDirection getAppTextDir(BuildContext context) {
+  static TextDirection getAppTextDir() {
 
-    if (Provider.of<PhraseProvider>(context, listen: false).currentLangCode == 'en') {
+    if (Provider.of<PhraseProvider>(getMainContext(), listen: false).currentLangCode == 'en') {
       return TextDirection.ltr;
     }
 
@@ -67,34 +66,30 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Dimensions proGetScreenDimensions({
-    @required BuildContext context,
     @required bool listen,
   }){
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
+    final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: listen);
     return _uiProvider.screenDims;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static void proSetScreenDimensions({
-    @required BuildContext context,
     @required bool notify,
   }){
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+    final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
     _uiProvider.getSetScreenDimensions(
-      context: context,
       notify: notify,
     );
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   void getSetScreenDimensions({
-    @required BuildContext context,
     @required bool notify,
   }){
 
     _screenDims = Dimensions(
-        width: Scale.screenWidth(context),
-        height: Scale.screenHeight(context)
+        width: Scale.screenWidth(getMainContext()),
+        height: Scale.screenHeight(getMainContext())
     );
 
     if (notify == true){
@@ -138,8 +133,8 @@ class UiProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> proGetLocalAssetsPaths(BuildContext context){
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+  static List<String> proGetLocalAssetsPaths(){
+    final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
     return _uiProvider.localAssetsPaths;
   }
   // -----------------------------------------------------------------------------
@@ -152,19 +147,17 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static RouteSettings proGetAfterHomeRoute({
-    @required BuildContext context,
     @required bool listen,
   }){
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
+    final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: listen);
     return _uiProvider.afterHomeRoute;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static void proClearAfterHomeRoute({
-    @required BuildContext context,
     @required bool notify,
   }){
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+    final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
     blog('proClearAfterHomeRoute : was : ${_uiProvider._afterHomeRoute}');
     _uiProvider.setAfterHomeRoute(
       settings: null,
@@ -175,13 +168,12 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void proSetAfterHomeRoute({
-    @required BuildContext context,
     @required String routeName,
     @required String arguments,
     @required bool notify,
   }){
 
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+    final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
     _uiProvider.setAfterHomeRoute(
       settings: RouteSettings(
         name:  routeName,
@@ -214,8 +206,8 @@ class UiProvider extends ChangeNotifier {
   bool get keyboardIsOn => _keyboardIsOn;
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool proGetKeyboardIsOn (BuildContext context) {
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+  static bool proGetKeyboardIsOn () {
+    final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
     final bool _keyboardIsOn = _uiProvider.keyboardIsOn;
     return _keyboardIsOn;
   }
@@ -368,10 +360,9 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static GlobalKey proGetTopDialogKey({
-    @required BuildContext context,
     @required bool listen,
   }){
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
+    final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: listen);
     return _uiProvider.topDialogKey;
   }
   // -----------------------------------------------------------------------------
@@ -402,11 +393,10 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void proSetPyramidsAreExpanded({
-    @required BuildContext context,
     @required bool setTo,
     @required bool notify,
   }){
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+    final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
     _uiProvider._setPyramidsAreExpanded(
         setTo: setTo,
         notify: notify,
@@ -415,10 +405,9 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool proGetPyramidsAreExpanded({
-    @required BuildContext context,
     @required bool listen,
   }){
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
+    final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: listen);
     return _uiProvider.pyramidsAreExpanded;
   }
   // -----------------------------------------------------------------------------
@@ -449,11 +438,10 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void proSetLayoutIsVisible({
-    @required BuildContext context,
     @required bool setTo,
     @required bool notify,
   }){
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+    final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
     _uiProvider._setLayoutIsVisible(
         setTo: setTo,
         notify: notify,
@@ -462,10 +450,9 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool proGetLayoutIsVisible({
-    @required BuildContext context,
     @required bool listen,
   }){
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
+    final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: listen);
     return _uiProvider.layoutIsVisible;
   }
   // -----------------------------------------------------------------------------
@@ -494,12 +481,11 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void proSetCanNavOnDynamicLink({
-    @required BuildContext context,
     @required bool setTo,
     @required bool notify,
   }){
 
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+    final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
     _uiProvider._setCanDynamicNav(
       setTo: setTo,
       notify: notify,
@@ -508,8 +494,8 @@ class UiProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool proGetCanNavOnDynamicLink(BuildContext context){
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+  static bool proGetCanNavOnDynamicLink(){
+    final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
     return _uiProvider.canNavOnDynamicLink;
   }
   // -----------------------------------------------------------------------------
@@ -537,12 +523,11 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void proSetLoadingVerse({
-    @required BuildContext context,
     @required Verse verse,
     bool notify = true,
   }){
 
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+    final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
     _uiProvider._setLoadingVerse(
       verse: verse,
       notify: notify,
@@ -611,7 +596,6 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   ///
   static Cacher proGetCacher({
-    @required BuildContext context,
     @required bool listen,
     @required String cacherID,
   }){
@@ -622,7 +606,6 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   ///
   static void proStoreCacher({
-    @required BuildContext context,
     @required Cacher cacher,
     @required bool notify,
   }){
@@ -635,13 +618,13 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   ///
   static void proDisposeCacher({
-    @required BuildContext context,
     @required String cacherID,
     @required bool notify,
   }){
 
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context,
-        listen: false,
+    final UiProvider _uiProvider = Provider.of<UiProvider>(
+      getMainContext(),
+      listen: false,
     );
 
     _uiProvider._disposeCacher(
@@ -657,11 +640,10 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void wipeOut({
-    @required BuildContext context,
     @required bool notify,
   }){
 
-    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+    final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
 
     /// _localAssetsPaths
     _uiProvider._setLocalAssetPaths(paths: <String>[], notify: false);
@@ -686,10 +668,9 @@ class UiProvider extends ChangeNotifier {
   // --------------------
 /// TESTED : WORKS PERFECT
 bool localAssetExists({
-  @required BuildContext context,
   @required String assetName,
 }){
-  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+  final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
   final List<String> _localAssetsPaths = _uiProvider.localAssetsPaths;
   final String _path = Iconizer.getLocalAssetPathFromLocalPaths(
       allAssetsPaths: _localAssetsPaths,
@@ -706,10 +687,9 @@ bool localAssetExists({
 // --------------------
 /// TESTED : WORKS PERFECT
 String getLocalAssetPath({
-  @required BuildContext context,
   @required String assetName,
 }){
-  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+  final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
   final List<String> _localAssetsPaths = _uiProvider.localAssetsPaths;
   final String _path = Iconizer.getLocalAssetPathFromLocalPaths(
       allAssetsPaths: _localAssetsPaths,

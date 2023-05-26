@@ -176,12 +176,10 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
     /// STRIP 1 : SLIDES - HEADLINE - TYPE
 
     final bool _slidesAreValid = Formers.slidesValidator(
-      context: context,
       draftFlyer: draftNotifier.value,
       canValidate: true,
     ) == null;
     final bool _headlineIsValid = Formers.flyerHeadlineValidator(
-      context: context,
       headline: draftNotifier.value?.headline?.text,
       canValidate: true,
     ) == null;
@@ -197,12 +195,10 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
     /// STRIP 2 : TYPE - DESCRIPTION
 
     final bool _typeIsValid = Formers.flyerTypeValidator(
-      context: context,
       draft: draftNotifier.value,
       canValidate: true,
     ) == null;
     final bool _descriptionIsValid = Formers.paragraphValidator(
-      context: context,
       text: draftNotifier.value?.description?.text,
       canValidate: true,
     ) == null;
@@ -219,7 +215,6 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
 
     final bool _phidsAreValid = Formers.flyerPhidsValidator(
       phids: draftNotifier.value?.phids,
-      context: context,
       canValidate: true,
     ) == null;
 
@@ -234,7 +229,6 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
     /// STRIP 4 : PDF
 
     final bool _pdfIsValid = Formers.pdfValidator(
-      context: context,
       pdfModel: draftNotifier.value.pdfModel,
       canValidate: true,
     ) == null;
@@ -250,7 +244,6 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
     /// STRIP 5 : ZONE
 
     final bool _zoneIsValid = Formers.zoneValidator(
-      context: context,
       zoneModel: draftNotifier.value?.zone,
       selectCountryIDOnly: false,
       canValidate: _canValidate,
@@ -341,7 +334,6 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
       loading: _loading,
       progressBarModel: _progressBarModel,
       onBack: () => Dialogs.goBackDialog(
-        context: context,
         goBackOnConfirm: true,
       ),
       confirmButtonModel: _confirmButtonModel,
@@ -394,7 +386,6 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                       ),
                       textController: _draft?.headline,
                       validator: (String text) => Formers.flyerHeadlineValidator(
-                        context: context,
                         headline: _draft?.headline?.text,
                         canValidate: _canValidate,
                       ),
@@ -404,12 +395,10 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                     NextButton(
                       onTap: _onNextTap,
                       canGoNext: Formers.slidesValidator(
-                        context: context,
                         draftFlyer: draftNotifier.value,
                         canValidate: true,
                       ) == null &&
                       Formers.flyerHeadlineValidator(
-                        context: context,
                         headline: _draft?.headline?.text,
                         canValidate: _canValidate,
                       ) == null,
@@ -479,7 +468,6 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                       ],
 
                       validator: () => Formers.flyerTypeValidator(
-                        context: context,
                         draft: _draft,
                         canValidate: _canValidate,
                       ),
@@ -514,7 +502,6 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                       keyboardTextInputType: TextInputType.multiline,
                       textController: _draft?.description,
                       validator: (String text) => Formers.paragraphValidator(
-                        context: context,
                         text: _draft?.description?.text,
                         canValidate: _canValidate,
                       ),
@@ -549,12 +536,10 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                     NextButton(
                       onTap: _onNextTap,
                       canGoNext: Formers.flyerTypeValidator(
-                        context: context,
                         draft: _draft,
                         canValidate: true,
                       ) == null &&
                       Formers.paragraphValidator(
-                        context: context,
                         text: _draft?.description?.text,
                         canValidate: _canValidate,
                       ) == null,
@@ -621,7 +606,6 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                       onTap: _onNextTap,
                       canGoNext:  Formers.flyerPhidsValidator(
                         phids: _draft?.phids,
-                        context: context,
                         canValidate: true,
                       ) == null,
                     ),
@@ -656,7 +640,6 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                     NextButton(
                       onTap: _onNextTap,
                       canGoNext: Formers.pdfValidator(
-                        context: context,
                         canValidate: true,
                         pdfModel: _draft?.pdfModel,
                       ) == null,
@@ -696,7 +679,6 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                         mounted: mounted,
                       ),
                       validator: () => Formers.zoneValidator(
-                        context: context,
                         zoneModel: _draft?.zone,
                         selectCountryIDOnly: false,
                         canValidate: _canValidate,
@@ -707,7 +689,6 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                     NextButton(
                       onTap: _onNextTap,
                       canGoNext: Formers.zoneValidator(
-                        context: context,
                         zoneModel: _draft?.zone,
                         selectCountryIDOnly: false,
                         canValidate: true,

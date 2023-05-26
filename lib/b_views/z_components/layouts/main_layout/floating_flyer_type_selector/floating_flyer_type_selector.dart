@@ -106,7 +106,7 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
 
       _triggerLoading(setTo: true).then((_) async {
 
-        UiProvider.proSetPyramidsAreExpanded(context: context, setTo: false, notify: true);
+        UiProvider.proSetPyramidsAreExpanded(setTo: false, notify: true);
 
         await _animationController.forward(from: 0);
 

@@ -136,7 +136,6 @@ class DraftUser {
         company: userModel.company,
         gender: userModel.gender,
         zone: await ZoneModel.prepareZoneForEditing(
-          context: context,
           zoneModel: userModel.zone,
         ),
         language: userModel.language,

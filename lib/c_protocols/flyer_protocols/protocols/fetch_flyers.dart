@@ -215,7 +215,6 @@ class FetchFlyerProtocols {
           );
 
           _flyer = await FlyerProtocols.renderBigFlyer(
-            context: context,
             flyerModel: _flyer,
           );
 

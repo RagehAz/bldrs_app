@@ -152,16 +152,16 @@ class GeneralProvider extends ChangeNotifier {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> wipeOutAllProviders(BuildContext context) async {
+  static Future<void> wipeOutAllProviders() async {
 
     /// PhraseProvider
     PhraseProvider.wipeOut(notify: true);
     /// UiProvider
-    UiProvider.wipeOut(context: context, notify: true);
+    UiProvider.wipeOut(notify: true);
     /// UsersProvider
     UsersProvider.wipeOut(notify: true);
     /// GeneralProvider
-    GeneralProvider.wipeOut(context: context, notify: true);
+    GeneralProvider.wipeOut(context: getMainContext(), notify: true);
     /// NotesProvider
     await NotesProvider.wipeOut(notify: true);
     /// UsersProvider
@@ -169,9 +169,9 @@ class GeneralProvider extends ChangeNotifier {
     /// ZoneProvider
     ZoneProvider.wipeOut(notify: true);
     /// BzzProvider
-    BzzProvider.wipeOut(context: context, notify: true);
+    BzzProvider.wipeOut(context: getMainContext(), notify: true);
     /// FlyersProvider
-    FlyersProvider.wipeOut(context: context, notify: true);
+    FlyersProvider.wipeOut(context: getMainContext(), notify: true);
     /// ChainsProvider
     ChainsProvider.wipeOut(notify: true);
 

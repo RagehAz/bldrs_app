@@ -62,7 +62,6 @@ Future<void> onReviewButtonTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onShareFlyer({
-  @required BuildContext context,
   @required FlyerModel flyerModel,
   @required ValueNotifier<bool> isSharing,
   // @required bool mounted,
@@ -75,14 +74,12 @@ Future<void> onShareFlyer({
   );
 
   final String _flyerLink = await BldrsShareLink.generateFlyerLink(
-      context: context,
       flyerID: flyerModel.id,
   );
 
   await Future.wait(<Future>[
 
     Launcher.shareURL(
-      context: context,
       url: _flyerLink,
       subject: flyerModel.headline,
     ),

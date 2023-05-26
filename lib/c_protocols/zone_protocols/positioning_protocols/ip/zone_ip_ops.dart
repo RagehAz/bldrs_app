@@ -7,9 +7,7 @@ import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-// import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:filers/filers.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:rest/rest.dart';
 /// => GEOLOCATOR_DOES_NOT_WORK
@@ -28,12 +26,10 @@ class ZoneIPOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<ZoneModel> getZoneByIP({
-    @required BuildContext context
-  }) async {
+  static Future<ZoneModel> getZoneByIP() async {
 
     /// trial 1
-    ZoneModel _zone = await _getZoneByIP_ipApi(context: context);
+    ZoneModel _zone = await _getZoneByIP_ipApi();
 
     // blog('superGetZone : trial 1 : _getZoneByIP_ipApi '
     //     ': zone is : '
@@ -41,7 +37,7 @@ class ZoneIPOps {
     //     'cityID : ${_zone.cityID}');
 
     if (_zone == null || (_zone?.countryID == null && _zone?.cityID == null)) {
-      _zone = await _getZoneByIP_ipRegistry(context: context);
+      _zone = await _getZoneByIP_ipRegistry();
       // blog('superGetZone : trial 2 : _getZoneByIP_ipRegistry : '
       //     'zone is : '
       //     'countryID : ${_zone.countryID} : '
@@ -50,7 +46,7 @@ class ZoneIPOps {
     }
 
     if (_zone == null || (_zone?.countryID == null && _zone?.cityID == null)) {
-      _zone = await _getZoneByGeoLocator(context: context);
+      _zone = await _getZoneByGeoLocator();
       // blog('superGetZone : trial 3 : _getZoneByGeoLocator : '
       //     'zone is : '
       //     'countryID : ${_zone.countryID} : '
@@ -63,9 +59,7 @@ class ZoneIPOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<ZoneModel> _getZoneByIP_ipApi({
-    @required BuildContext context
-  }) async  {
+  static Future<ZoneModel> _getZoneByIP_ipApi() async  {
 
     /// NOTE : this is limited and needs paid subscription
 
@@ -106,7 +100,6 @@ class ZoneIPOps {
                   if (_cityName != null) {
 
                     _city = await ZoneProtocols.fetchCityByName(
-                      context: context,
                       countryID: _countryID,
                       cityName: _cityName,
                       langCode: 'en',
@@ -143,9 +136,7 @@ class ZoneIPOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<ZoneModel> _getZoneByIP_ipRegistry({
-    @required BuildContext context
-  }) async {
+  static Future<ZoneModel> _getZoneByIP_ipRegistry() async {
 
     /// NOTE : this needs subscription after first 100'000 requests
     /// Note that on Android it requires the android.permission.INTERNET permission.
@@ -191,7 +182,6 @@ class ZoneIPOps {
                   // );
 
                   final CityModel _city = await ZoneProtocols.fetchCityByName(
-                    context: context,
                     countryID: _countryID,
                     cityName: _cityName,
                     langCode: 'en',
@@ -229,9 +219,7 @@ class ZoneIPOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<ZoneModel> _getZoneByGeoLocator({
-    @required BuildContext context
-  }) async {
+  static Future<ZoneModel> _getZoneByGeoLocator() async {
     ZoneModel _zoneModel;
 
     /// GEOLOCATOR_DOES_NOT_WORK

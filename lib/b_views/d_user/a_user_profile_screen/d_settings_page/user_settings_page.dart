@@ -64,7 +64,7 @@ class UserSettingsPage extends StatelessWidget {
           ),
           icon: Iconz.xSmall,
           color: Colorz.bloodTest,
-          onTap: () => onDeleteMyAccount(context),
+          onTap: () => onDeleteMyAccount(),
         ),
 
         const DotSeparator(),
@@ -76,7 +76,7 @@ class UserSettingsPage extends StatelessWidget {
             translate: true,
           ),
           icon: Iconz.exit,
-          onTap: () => onSignOut(context),
+          onTap: () => onSignOut(),
         ),
 
         const DotSeparator(color: Colorz.yellow80,),

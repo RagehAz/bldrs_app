@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/account_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
@@ -23,7 +24,6 @@ import 'package:layouts/layouts.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> authByEmailSignIn({
-  @required BuildContext context,
   @required String email,
   @required String password,
   @required GlobalKey<FormState> formKey,
@@ -33,7 +33,6 @@ Future<void> authByEmailSignIn({
 
   /// A - PREPARE FOR AUTH AND CHECK VALIDITY
   final bool _allFieldsAreValid = _prepareForEmailAuthOps(
-    context: context,
     formKey: formKey,
   );
 
@@ -47,13 +46,11 @@ Future<void> authByEmailSignIn({
     );
 
     final bool _success = await AuthProtocols.signInBldrsByEmail(
-      context: context,
       email: email,
       password: password,
     );
 
     await _rememberEmailAndNav(
-      context: context,
       email: email,
       success: _success,
       mounted: mounted,
@@ -82,7 +79,6 @@ Future<void> authByEmailRegister({
 
   /// A - PREPARE FOR AUTH AND CHECK VALIDITY
   final bool _allFieldsAreValid = _prepareForEmailAuthOps(
-    context: context,
     formKey: formKey,
   );
 
@@ -96,13 +92,11 @@ Future<void> authByEmailRegister({
     );
 
     final bool _success = await AuthProtocols.registerInBldrsByEmail(
-      context: context,
       email: email,
       password: password,
     );
 
     await _rememberEmailAndNav(
-      context: context,
       email: email,
       success: _success,
       mounted: mounted,
@@ -121,7 +115,6 @@ Future<void> authByEmailRegister({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> authBySocialMedia({
-  @required BuildContext context,
   @required AuthModel authModel,
   @required bool mounted,
 }) async {
@@ -136,13 +129,11 @@ Future<void> authBySocialMedia({
     );
 
     final bool _success = await AuthProtocols.composeOrUpdateUser(
-      context: context,
       authModel: authModel,
       authError: null,
     );
 
     await _rememberEmailAndNav(
-      context: context,
       email: null,
       success: _success,
       mounted: mounted,
@@ -156,7 +147,6 @@ Future<void> authBySocialMedia({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _rememberEmailAndNav({
-  @required BuildContext context,
   @required bool success,
   @required bool rememberMe,
   @required String email,
@@ -185,7 +175,6 @@ Future<void> _rememberEmailAndNav({
     }
 
     await _navAfterAuth(
-      context: context,
       userModel: _userModel,
       firstTimer: false,
     );
@@ -207,7 +196,6 @@ Future<void> _rememberEmailAndNav({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _navAfterAuth({
-  @required BuildContext context,
   @required UserModel userModel,
   @required bool firstTimer,
 }) async {
@@ -217,24 +205,22 @@ Future<void> _navAfterAuth({
     if (firstTimer == true){
 
       final bool _thereAreMissingFields = Formers.checkUserHasMissingFields(
-          context: context,
         userModel: userModel,
       );
 
       if (_thereAreMissingFields == true){
         await _goToUserEditorForFirstTime(
-          context: context,
           userModel: userModel,
         );
       }
       else {
-        await _goToLogoScreen(context);
+        await _goToLogoScreen();
       }
 
     }
 
     else {
-      await _goToLogoScreen(context);
+      await _goToLogoScreen();
     }
 
   }
@@ -333,21 +319,19 @@ Future<void> showMissingFieldsDialog({
 */
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _goToLogoScreen(BuildContext context) async {
+Future<void> _goToLogoScreen() async {
   await BldrsNav.goBackToLogoScreen(
-      context: context,
       animatedLogoScreen: true,
   );
 }
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _goToUserEditorForFirstTime({
-  @required BuildContext context,
   @required UserModel userModel,
 }) async {
 
   await Nav.goToNewScreen(
-      context: context,
+      context: getMainContext(),
       screen: UserEditorScreen(
         userModel: userModel,
         reAuthBeforeConfirm: false,
@@ -355,7 +339,7 @@ Future<void> _goToUserEditorForFirstTime({
         validateOnStartup: false,
         checkLastSession: false,
         onFinish: () async {
-          await _goToLogoScreen(context);
+          await _goToLogoScreen();
         },
       )
 
@@ -370,7 +354,6 @@ Future<void> _goToUserEditorForFirstTime({
 // --------------------
 /// TESTED : WORKS PERFECT
 bool _prepareForEmailAuthOps({
-  @required BuildContext context,
   @required GlobalKey<FormState> formKey,
 }) {
 

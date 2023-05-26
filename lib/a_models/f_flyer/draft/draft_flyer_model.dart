@@ -1,5 +1,4 @@
 import 'package:bldrs/a_models/f_flyer/draft/gta_model.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
@@ -283,11 +282,9 @@ class DraftFlyer{
           bzID: draft.bzID,
           authorID: draft.authorID,
         ),
-        context: getMainContext(),
       ),
       bzLogoImage: await PicProtocols.fetchPicUiImage(
         path: StoragePath.bzz_bzID_logo(draft.bzID),
-        context: getMainContext(),
       ),
       // docSnapshot: ,
     );
