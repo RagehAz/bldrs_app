@@ -158,7 +158,6 @@ Future<void> onAuthorOptionsTap({
         );
 
         await onDeleteAuthorFromBz(
-          context: context,
           oldBz: oldBz,
           authorModel: authorModel,
           showConfirmationDialog: true,
@@ -187,7 +186,6 @@ Future<void> onAuthorOptionsTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onDeleteAuthorFromBz({
-  @required BuildContext context,
   @required AuthorModel authorModel,
   @required BzModel oldBz,
   @required bool showConfirmationDialog,
@@ -197,7 +195,6 @@ Future<void> onDeleteAuthorFromBz({
 
   if (authorModel.userID == Authing.getUserID()){
     await NewAuthorshipExit.onRemoveMySelf(
-      context: context,
       authorModel: authorModel,
       bzModel: oldBz,
       showConfirmDialog: true,
@@ -206,7 +203,6 @@ Future<void> onDeleteAuthorFromBz({
 
   else {
     await NewAuthorshipExit.onRemoveOtherAuthor(
-        context: context,
         authorModel: authorModel,
         bzModel: oldBz,
     );

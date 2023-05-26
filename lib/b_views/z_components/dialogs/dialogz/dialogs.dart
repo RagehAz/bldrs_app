@@ -44,9 +44,9 @@ class Dialogs {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> closDialog(BuildContext context) async {
+  static Future<void> closDialog() async {
     await Nav.goBack(
-      context: context,
+      context: getMainContext(),
       invoker: 'closeDialog',
       addPostFrameCallback: true,
     );
@@ -80,7 +80,6 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> topNotice({
-    @required BuildContext context,
     @required Verse verse,
     Color color = Colorz.yellow255,
   }) async {
@@ -107,7 +106,7 @@ class Dialogs {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> weWillLookIntoItNotice(BuildContext context) async {
+  static Future<void> weWillLookIntoItNotice() async {
     await CenterDialog.showCenterDialog(
       titleVerse:  const Verse(
         id: 'phid_thanks_million',
@@ -128,7 +127,6 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> youNeedToBeSignedInDialog({
-    @required BuildContext context,
     @required String afterHomeRouteName,
     @required String afterHomeRouteArgument,
   }) async {
@@ -144,13 +142,12 @@ class Dialogs {
     if (_go == true){
 
       UiProvider.proSetAfterHomeRoute(
-          context: context,
           routeName: afterHomeRouteName,
           arguments: afterHomeRouteArgument,
           notify: true,
       );
 
-      await BldrsNav.jumpToAuthScreen(context);
+      await BldrsNav.jumpToAuthScreen();
 
     }
 
@@ -162,7 +159,6 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> confirmProceed({
-    @required BuildContext context,
     Verse titleVerse,
     Verse bodyVerse,
     bool invertButtons = false,
@@ -183,7 +179,6 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> goBackDialog({
-    @required BuildContext context,
     Verse titleVerse,
     Verse bodyVerse,
     Verse confirmButtonVerse,
@@ -206,7 +201,7 @@ class Dialogs {
 
     if (goBackOnConfirm == true && _result == true){
       await Nav.goBack(
-        context: context,
+        context: getMainContext(),
         invoker: 'goBackDialog : $titleVerse',
       );
     }
@@ -239,11 +234,12 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> bottomBoolDialog({
-    @required BuildContext context,
     @required Verse titleVerse,
-}) async {
+  }) async {
 
     bool _result = false;
+
+    final BuildContext context = getMainContext();
 
     await BottomDialog.showBottomDialog(
       draggable: false,
@@ -314,7 +310,9 @@ class Dialogs {
 
   // --------------------
   /// TASK : NEED TO CHECK LIST OF ERRORS FROM FIREBASE WEBSITE
-  static Future<void> authErrorDialog({BuildContext context, dynamic result}) async {
+  static Future<void> authErrorDialog({
+    @required dynamic result,
+  }) async {
 
     // final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
 
@@ -416,7 +414,7 @@ class Dialogs {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> tryAgainDialog(BuildContext context) async {
+  static Future<void> tryAgainDialog() async {
 
     await CenterDialog.showCenterDialog(
       titleVerse: const Verse(
@@ -433,7 +431,6 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> errorDialog({
-    @required BuildContext context,
     Verse titleVerse,
     Verse bodyVerse,
   }) async {
@@ -454,10 +451,10 @@ class Dialogs {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<String> showPasswordDialog(BuildContext context) async {
+  static Future<String> showPasswordDialog() async {
 
     final String _password = await Nav.goToNewScreen(
-        context: context,
+        context: getMainContext(),
         screen: const PasswordScreen(),
     );
 
@@ -615,7 +612,6 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CityModel> confirmCityDialog({
-    @required BuildContext context,
     @required List<CityModel> cities,
   }) async {
     CityModel _city;
@@ -641,12 +637,11 @@ class Dialogs {
 
               final CityModel _foundCity = cities[index];
               final String _foundCityName = CityModel.translateCity(
-                context: context,
                 city: _foundCity,
               );
 
               return BottomDialog.wideButton(
-                  context: context,
+                  context: getMainContext(),
                   verse: Verse(
                     id: _foundCityName,
                     translate: false,
@@ -657,7 +652,7 @@ class Dialogs {
                     _city = _foundCity;
 
                     await Nav.goBack(
-                      context: context,
+                      context: getMainContext(),
                       invoker: 'confirmCityDialog : city selected aho $_foundCityName',
                     );
 
@@ -753,7 +748,6 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> bzzBannersDialog({
-    @required BuildContext context,
     @required List<BzModel> bzzModels,
     @required Verse titleVerse,
     @required Verse bodyVerse,
@@ -762,7 +756,7 @@ class Dialogs {
     bool invertButtons = false,
   }) async {
 
-    final double _gridHeight = Scale.screenHeight(context) * 0.5;
+    final double _gridHeight = Scale.screenHeight(getMainContext()) * 0.5;
 
     final bool _result = await CenterDialog.showCenterDialog(
       titleVerse: titleVerse,
@@ -770,9 +764,9 @@ class Dialogs {
       confirmButtonVerse: confirmButtonVerse,
       boolDialog: boolDialog,
       invertButtons: invertButtons,
-      height: Scale.screenHeight(context) * 0.7,
+      height: Scale.screenHeight(getMainContext()) * 0.7,
       child: Container(
-        width: CenterDialog.getWidth(context),
+        width: CenterDialog.getWidth(getMainContext()),
         height: _gridHeight,
         color: Colorz.white10,
         alignment: Alignment.center,
@@ -785,8 +779,8 @@ class Dialogs {
 
             return BzBanner(
               bzModel: bzzModels[index],
-              boxWidth: CenterDialog.clearWidth(context) * 0.8,
-              boxHeight: CenterDialog.clearWidth(context),
+              boxWidth: CenterDialog.clearWidth(getMainContext()) * 0.8,
+              boxHeight: CenterDialog.clearWidth(getMainContext()),
               bigName: false,
             );
 
@@ -806,7 +800,6 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> bzContactsDialog({
-    @required BuildContext context,
     @required BzModel bzModel,
     @required Verse titleVerse,
     @required Verse bodyVerse,
@@ -814,6 +807,7 @@ class Dialogs {
     ValueChanged<ContactModel> onContact,
   }) async {
 
+    final BuildContext context = getMainContext();
     final double _gridHeight = Scale.screenHeight(context) * 0.5;
 
     await CenterDialog.showCenterDialog(
@@ -856,7 +850,6 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> flyersDialog({
-    @required BuildContext context,
     @required List<String> flyersIDs,
     @required Verse titleVerse,
     @required Verse bodyVerse,
@@ -864,6 +857,7 @@ class Dialogs {
     bool boolDialog = true,
   }) async {
 
+    final BuildContext context = getMainContext();
     final double _gridHeight = Scale.screenHeight(context) * 0.4;
 
     final bool _result = await CenterDialog.showCenterDialog(
@@ -941,7 +935,6 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> slideDialog({
-    @required BuildContext context,
     @required SlideModel slideModel,
     @required Verse titleVerse,
     Verse bodyVerse,
@@ -950,6 +943,7 @@ class Dialogs {
     bool invertButtons = false,
   }) async {
 
+    final BuildContext context = getMainContext();
     final double _screenHeight = Scale.screenHeight(context);
     final double _dialogHeight = _screenHeight * 0.7;
     final double _flyerBoxHeight = _dialogHeight * 0.5;

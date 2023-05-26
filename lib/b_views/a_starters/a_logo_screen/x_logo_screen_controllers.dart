@@ -44,12 +44,10 @@ Future<void> initializeLogoScreen({
   // blog('1 - initializeLogoScreen : START');
 
   UiProvider.proSetScreenDimensions(
-    context: context,
     notify: false,
   );
 
   UiProvider.proSetLayoutIsVisible(
-      context: context,
       setTo: true,
       notify: true,
   );
@@ -112,9 +110,7 @@ Future<void> initializeLogoScreen({
 
       // blog('7 - initializeLogoScreen : will restart app now');
 
-      await _onRestartAppInTimeCorrectionDialog(
-        context: context,
-      );
+      await _onRestartAppInTimeCorrectionDialog();
 
     }
 
@@ -135,14 +131,11 @@ Future<void> initializeLogoScreen({
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _onRestartAppInTimeCorrectionDialog({
-  @required BuildContext context,
-}) async {
+Future<void> _onRestartAppInTimeCorrectionDialog() async {
 
   // await Nav.removeRouteBelow(context, const StaticLogoScreen());
 
   await BldrsNav.goBackToLogoScreen(
-    context: context,
     animatedLogoScreen: false,
   );
 
@@ -304,7 +297,6 @@ Future<void> _showUpdateAppDialog(BuildContext context) async {
   );
 
   await Launcher.launchContactModel(
-    context: context,
     contact: ContactModel(
       type: ContactType.website,
       value: Standards.getBldrsAppUpdateLink(context),
@@ -476,11 +468,11 @@ Future<void> _refreshLDB() async {
 
 // --------------------
 Future<void> signInAsRage7() async {
+
   final AuthModel _authModel = await EmailAuthing.signIn(
     email: 'rageh@bldrs.net',
     password: '123456',
     onError: (String error) => AuthProtocols.onAuthError(
-      context: getMainContext(),
       error: error,
     ),
   );

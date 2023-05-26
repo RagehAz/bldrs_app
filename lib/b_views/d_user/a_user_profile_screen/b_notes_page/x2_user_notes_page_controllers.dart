@@ -17,7 +17,6 @@ import 'package:flutter/material.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onUserNoteTap({
-  @required BuildContext context,
   @required NoteModel noteModel,
 }) async {
 
@@ -29,7 +28,6 @@ Future<void> onUserNoteTap({
   ){
 
     await NootNavToProtocols.onNootTap(
-      context: context,
       noteModel: noteModel,
       startFromHome: false,
     );

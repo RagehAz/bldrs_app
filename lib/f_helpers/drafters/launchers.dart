@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:filers/filers.dart';
@@ -22,7 +23,6 @@ class Launcher {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> launchContactModel({
-    @required BuildContext context,
     @required ContactModel contact,
   }) async {
 
@@ -41,7 +41,6 @@ class Launcher {
       else if (contact.type == ContactType.email){
         blog('AuthorCard._onContactTap: contactModel EMAIL: $contact.value');
         await _launchEmail(
-          context: context,
           email: contact.value,
           // emailBody: '',
           // emailSubject: '',
@@ -106,7 +105,6 @@ class Launcher {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _launchEmail({
-    @required BuildContext context,
     @required String email,
     String emailSubject,
     String emailBody,
@@ -114,8 +112,8 @@ class Launcher {
 
     if (TextCheck.isEmpty(email) == false){
 
-      final String _emailSubject = emailSubject ?? _generateDefaultEmailSubject(context);
-      final String _emailBody = emailBody ?? _generateDefaultEmailBody(context);
+      final String _emailSubject = emailSubject ?? _generateDefaultEmailSubject();
+      final String _emailBody = emailBody ?? _generateDefaultEmailBody();
 
       final Uri _uri = Uri(
         scheme: 'mailto',
@@ -132,7 +130,6 @@ class Launcher {
         blog('cant launch email');
 
         await Keyboard.copyToClipboard(
-          context: context,
           copy: email,
           milliseconds: 3000,
         );
@@ -144,12 +141,12 @@ class Launcher {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String _generateDefaultEmailSubject(BuildContext context){
+  static String _generateDefaultEmailSubject(){
     return ''; //xPhrase('phid_bldrs');
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String _generateDefaultEmailBody(BuildContext context){
+  static String _generateDefaultEmailBody(){
     return '';
   }
   // -----------------------------------------------------------------------------
@@ -186,14 +183,13 @@ class Launcher {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> shareURL({
-    @required BuildContext context,
     @required String url,
     @required String subject,
   }) async {
 
     if (url != null && subject != null){
 
-      final RenderBox _box = context.findRenderObject();
+      final RenderBox _box = getMainContext().findRenderObject();
       // final String url = '${flyerLink.url} & ${flyerLink.description}';
 
       await Share.share(
@@ -207,9 +203,7 @@ class Launcher {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> shareBldrsWebsiteURL({
-    @required BuildContext context,
-  }) async {
+  static Future<void> shareBldrsWebsiteURL() async {
 
     final String _tagLine = await PhraseProtocols.translate(
         langCode: Localizer.getCurrentLangCode(),
@@ -217,7 +211,6 @@ class Launcher {
     );
 
     await shareURL(
-      context: context,
       url: Standards.bldrsWebSiteURL,
       subject: _tagLine,
     );

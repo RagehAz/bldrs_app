@@ -562,7 +562,6 @@ Future<bool> _preFlyerUpdateCheck({
   if (_canContinue == true){
 
     _canContinue = await Dialogs.confirmProceed(
-      context: context,
       titleVerse: const Verse(
         id: 'phid_confirm_upload_flyer',
         translate: true,

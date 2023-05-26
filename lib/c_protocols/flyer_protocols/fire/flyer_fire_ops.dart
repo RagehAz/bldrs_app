@@ -260,11 +260,11 @@ class FlyerFireOps {
       );
 
       if (_docRef == null){
-        await Dialogs.tryAgainDialog(context);
+        await Dialogs.tryAgainDialog();
       }
 
       else {
-        await Dialogs.weWillLookIntoItNotice(context);
+        await Dialogs.weWillLookIntoItNotice();
       }
 
     }

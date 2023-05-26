@@ -157,7 +157,6 @@ class CloudFunction {
   static const String _realIncrementationLink = 'https://www.bldrs.net/counters?operation=';
   // -----------------------------------------------------------------------------
   static Future<void> incrementDocFieldNourMethod({
-    @required BuildContext context,
     @required String docID,
     @required String fieldName,
     @required String collName,
@@ -202,7 +201,6 @@ class CloudFunction {
         onError: (String error) async {
 
           await Dialogs.errorDialog(
-              context: context,
               bodyVerse: Verse.plain(error)
           );
 

@@ -187,7 +187,6 @@ class _BzNotesPageState extends State<BzNotesPage>{
 
     if (canTapNoteBubble(_note) == true){
       return () => onBzNoteTap(
-            context: context,
             noteModel: _note,
           );
     }

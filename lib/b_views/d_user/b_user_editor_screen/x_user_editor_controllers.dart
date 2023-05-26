@@ -10,6 +10,7 @@ import 'package:bldrs/b_views/d_user/a_user_profile_screen/d_settings_page/user_
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
@@ -340,7 +341,6 @@ void onUserContactChanged({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> confirmEdits({
-  @required BuildContext context,
   @required ValueNotifier<DraftUser> draft,
   @required UserModel oldUser,
   @required Function onFinish,
@@ -356,7 +356,6 @@ Future<void> confirmEdits({
   blog('confirmEdits : _draft : ${_draft == null}');
 
   final bool _canContinue = await _preConfirmCheckups(
-    context: context,
     draft: _draft,
     forceReAuthentication: forceReAuthentication,
   );
@@ -379,11 +378,11 @@ Future<void> confirmEdits({
     );
 
     final UserModel _userUploaded = await UserProtocols.renovate(
-      context: context,
+      context: getMainContext(),
       newPic: _draft.hasNewPic == true ? _draft.picModel : null,
       oldUser: oldUser,
       newUser: DraftUser.toUserModel(
-        context: context,
+        context: getMainContext(),
         draft: _draft,
       ),
     );
@@ -447,7 +446,6 @@ DraftUser _bakeDraftTextControllers(DraftUser draft){
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<bool> _preConfirmCheckups({
-  @required BuildContext context,
   @required DraftUser draft,
   @required bool forceReAuthentication,
 }) async {
@@ -468,7 +466,7 @@ Future<bool> _preConfirmCheckups({
   if (_canContinue == true){
 
     final UserModel _oldUser = await UserProtocols.fetch(
-      context: context,
+      context: getMainContext(),
       userID: draft.id,
     );
 
@@ -482,7 +480,6 @@ Future<bool> _preConfirmCheckups({
     if (_shouldReAuthenticate == true){
 
       _canContinue = await reAuthenticateUser(
-        context: context,
         dialogTitleVerse: const Verse(
           id: 'phid_enter_your_password',
           translate: true,
