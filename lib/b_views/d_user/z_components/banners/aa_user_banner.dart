@@ -99,7 +99,6 @@ class UserBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     final bool _thereAreMissingFields = Formers.checkUserHasMissingFields(
-      context: context,
       userModel: userModel,
     );
     final String _userName = userModel?.name ?? 'phid_unknown_bldr';
@@ -221,7 +220,6 @@ class UserBanner extends StatelessWidget {
                     bzModel: _bzModel,
                     height: 50,
                     onTap: () => BldrsNav.jumpToBzPreviewScreen(
-                      context: context,
                       bzID: _bzModel.id,
                     ),
                   );

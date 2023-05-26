@@ -1,3 +1,4 @@
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -22,7 +23,6 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<bool> signInBldrsByEmail({
-    @required BuildContext context,
     @required String email,
     @required String password,
   }) async {
@@ -37,7 +37,6 @@ class AuthProtocols {
     );
 
     final bool _success = await composeOrUpdateUser(
-      context: context,
       authModel: _authModel,
       authError: _authError,
     );
@@ -51,7 +50,6 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<bool> registerInBldrsByEmail({
-    @required BuildContext context,
     @required String email,
     @required String password,
     // @required ZoneModel currentZone,
@@ -68,7 +66,6 @@ class AuthProtocols {
     );
 
     final bool _success = await composeOrUpdateUser(
-        context: context,
         authModel: _authModel,
         authError: _authError
     );
@@ -82,7 +79,6 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<bool> composeOrUpdateUser({
-    @required BuildContext context,
     @required AuthModel authModel,
     @required String authError,
   }) async {
@@ -90,7 +86,6 @@ class AuthProtocols {
 
     if (authError != null) {
       await onAuthError(
-          context: context,
           error: authError
       );
     }
@@ -111,7 +106,6 @@ class AuthProtocols {
       /// EXISTING USER
       else {
         _success = await _onExistingUser(
-          context: context,
           userModel: _userModel,
           authModel: authModel,
         );
@@ -125,14 +119,12 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<void> onAuthError({
-    @required BuildContext context,
     @required String error,
   }) async {
 
     final String _errorMessage = error ?? 'Something went wrong, please try again';
 
     await Dialogs.authErrorDialog(
-        context: context,
         result: _errorMessage,
     );
 
@@ -152,13 +144,12 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<bool> _onExistingUser({
-    @required BuildContext context,
     @required UserModel userModel,
     @required AuthModel authModel,
   }) async {
 
     await UserProtocols.updateLocally(
-      context: context,
+      context: getMainContext(),
       newUser: userModel,
     );
 
@@ -178,7 +169,6 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<void> signOutBldrs({
-    @required BuildContext context,
     @required bool routeToLogoScreen,
   }) async {
 
@@ -199,7 +189,6 @@ class AuthProtocols {
 
     if (_success == true && routeToLogoScreen == true) {
       await BldrsNav.goBackToLogoScreen(
-        context: context,
         animatedLogoScreen: true,
       );
     }

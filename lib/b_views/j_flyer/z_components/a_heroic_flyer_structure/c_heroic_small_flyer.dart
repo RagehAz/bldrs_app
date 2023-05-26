@@ -76,7 +76,6 @@ class HeroicSmallFlyer extends StatelessWidget {
       ));
 
       final FlyerModel _renderBigFlyer = await FlyerProtocols.renderBigFlyer(
-        context: context,
         flyerModel: renderedFlyer,
       );
 

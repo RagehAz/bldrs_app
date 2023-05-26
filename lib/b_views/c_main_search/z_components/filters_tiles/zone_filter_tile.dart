@@ -22,7 +22,6 @@ class ZoneFilterTile extends StatelessWidget {
   final Function(bool) onSwitchTap;
   // -----------------------------------------------------------------------------
   static Verse getZoneVerse({
-    @required BuildContext context,
     @required ZoneModel zoneModel,
   }) {
 
@@ -30,9 +29,8 @@ class ZoneFilterTile extends StatelessWidget {
     const Verse(id: 'phid_the_entire_world', translate: true)
         :
     ZoneModel.generateInZoneVerse(
-            context: context,
-            zoneModel: zoneModel,
-          );
+      zoneModel: zoneModel,
+    );
 
     return _headline;
   }
@@ -57,7 +55,6 @@ class ZoneFilterTile extends StatelessWidget {
     final double _tileWidth = SuperSearchScreen.getFilterTileWidth(context);
 
     final Verse _headline = getZoneVerse(
-      context: context,
       zoneModel: searchModel.zone,
     );
 

@@ -182,7 +182,6 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
     _switchOnValidation();
 
     await confirmEdits(
-      context: context,
       draft: _draftUser,
       mounted: mounted,
       onFinish: widget.onFinish,
@@ -200,12 +199,10 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
     /// STRIP 1 : PICTURE - GENDER
 
     final bool _picIsValid = Formers.picValidator(
-        context: context,
         pic: _draftUser.value?.picModel,
         canValidate: true,
     ) == null;
     final bool _genderIsValid = Formers.genderValidator(
-        context: context,
         gender: _draftUser.value?.gender,
         canValidate: true,
     ) == null;
@@ -221,17 +218,14 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
     /// STRIP 2 : NAME - TITLE - COMPANY
 
     final bool _nameIsValid = Formers.personNameValidator(
-        context: context,
         name: _draftUser.value?.name,
         canValidate: true,
     ) == null;
     final bool _titleIsValid = Formers.jobTitleValidator(
-        context: context,
         jobTitle: _draftUser.value?.title,
         canValidate: true,
     ) == null;
     final bool _companyIsValid = Formers.companyNameValidator(
-        context: context,
         companyName: _draftUser.value?.company,
         canValidate: true,
     ) == null;
@@ -247,7 +241,6 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
     /// STRIP 3 : ZONE
 
     final bool _zoneIsValid = Formers.zoneValidator(
-      context: context,
       zoneModel: _draftUser.value?.zone,
       selectCountryIDOnly: false,
       canValidate: true,
@@ -267,12 +260,10 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
       contacts: _draftUser.value?.contacts,
       zoneModel: _draftUser.value?.zone,
       canValidate: true,
-      context: context,
       isRequired: false,
       // focusNode: draft?.phoneNode,
     ) == null;
     final bool _emailIsValid = Formers.contactsEmailValidator(
-      context: context,
       contacts: _draftUser.value?.contacts,
       canValidate: true,
       // focusNode: draft?.emailNode,
@@ -345,7 +336,6 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
       loading: _loading,
       progressBarModel: _progressBarModel,
       onBack: () => Dialogs.goBackDialog(
-        context: context,
         goBackOnConfirm: true,
       ),
       confirmButtonModel: _confirmButtonModel,
@@ -393,7 +383,6 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                         mounted: mounted,
                       ),
                       validator: () => Formers.picValidator(
-                        context: context,
                         pic: draft?.picModel,
                         canValidate: _canValidate,
                       ),
@@ -425,12 +414,10 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                     NextButton(
                       onTap: _onNextTap,
                       canGoNext:  Formers.picValidator(
-                        context: context,
                         pic: draft?.picModel,
                         canValidate: true,
                       ) == null &&
                       Formers.genderValidator(
-                          context: context,
                           gender: draft.gender,
                           canValidate: true,
                       ) == null,
@@ -468,7 +455,6 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       ),
                       // autoValidate: true,
                       validator: (String text) => Formers.personNameValidator(
-                        context: context,
                         name: text,
                         canValidate: _canValidate,
                         // focusNode: draft?.nameNode,
@@ -500,7 +486,6 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       ),
                       // autoValidate: false,
                       validator: (String text) => Formers.jobTitleValidator(
-                        context: context,
                         jobTitle: text,
                         canValidate: _canValidate,
                         // focusNode: draft?.titleNode,
@@ -533,7 +518,6 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       ),
                       // autoValidate: false,
                       validator: (String text) => Formers.companyNameValidator(
-                        context: context,
                         companyName: text,
                         canValidate: _canValidate,
                         // focusNode: draft?.companyNode,
@@ -544,19 +528,16 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                     NextButton(
                       onTap: _onNextTap,
                       canGoNext: Formers.personNameValidator(
-                        context: context,
                         name: draft?.nameController?.text,
                         canValidate: true,
                         // focusNode: draft?.nameNode,
                       ) == null &&
                       Formers.jobTitleValidator(
-                        context: context,
                         jobTitle: draft?.titleController?.text,
                         canValidate: true,
                         // focusNode: draft?.titleNode,
                       ) == null &&
                       Formers.companyNameValidator(
-                        context: context,
                         companyName: draft?.companyController?.text,
                         canValidate: true,
                         // focusNode: draft?.companyNode,
@@ -587,7 +568,6 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       viewerCountryID: draft?.zone?.countryID,
                       // autoValidate: false,
                       validator: () => Formers.zoneValidator(
-                        context: context,
                         zoneModel: draft?.zone,
                         selectCountryIDOnly: false,
                         canValidate: _canValidate,
@@ -598,7 +578,6 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                     NextButton(
                       onTap: _onNextTap,
                       canGoNext: Formers.zoneValidator(
-                        context: context,
                         zoneModel: draft?.zone,
                         selectCountryIDOnly: false,
                         canValidate: true,
@@ -647,7 +626,6 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                         contacts: draft?.contacts,
                         zoneModel: draft?.zone,
                         canValidate: _canValidate,
-                        context: context,
                         isRequired: false,
                         // focusNode: draft?.phoneNode,
                       ),
@@ -685,7 +663,6 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       canPaste: false,
                       // autoValidate: false,
                       validator: (String text) => Formers.contactsEmailValidator(
-                        context: context,
                         contacts: draft?.contacts,
                         canValidate: _canValidate,
                         // focusNode: draft?.emailNode,

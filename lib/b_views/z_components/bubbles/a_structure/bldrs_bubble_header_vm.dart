@@ -86,7 +86,7 @@ class BldrsBubbleHeaderVM {
           headlineHighlight: headlineVerse?.notifier,
           headlineHeight: _textSizeValue,
           appIsLTR: UiProvider.checkAppIsLeftToRight(),
-          textDirection: UiProvider.getAppTextDir(context),
+          textDirection: UiProvider.getAppTextDir(),
           // moreButtonIcon: Iconz.more,
           // moreButtonIconSizeFactor: 0.6,
           switchActiveColor: Colorz.yellow255,

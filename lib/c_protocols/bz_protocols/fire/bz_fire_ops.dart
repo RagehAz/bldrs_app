@@ -236,7 +236,7 @@ class BzFireOps {
 
       if (_docRef != null){
 
-        await Dialogs.weWillLookIntoItNotice(context);
+        await Dialogs.weWillLookIntoItNotice();
 
       }
 
