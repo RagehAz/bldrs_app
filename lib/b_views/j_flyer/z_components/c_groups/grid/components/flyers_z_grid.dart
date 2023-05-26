@@ -99,7 +99,6 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
   Future<void> onZoomInStart() async {
     blog('onZoomInStart');
     UiProvider.proSetLayoutIsVisible(
-        context: context,
         setTo: false,
         notify: true,
     );
@@ -126,7 +125,6 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
     );
 
     UiProvider.proSetLayoutIsVisible(
-        context: context,
         setTo: true,
         notify: true,
     );

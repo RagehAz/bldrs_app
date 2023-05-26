@@ -340,7 +340,6 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
 
                     },
                     validator: () => Formers.zoneValidator(
-                      context: context,
                       zoneModel: userModel.zone,
                       selectCountryIDOnly: false,
                       canValidate: true,

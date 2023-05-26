@@ -48,7 +48,6 @@ class _BldrsImagePathToUiImageState extends State<BldrsImagePathToUiImage> {
       _triggerLoading(setTo: true).then((_) async {
 
         final ui.Image _image = await PicProtocols.fetchPicUiImage(
-          context: context,
           path: widget.imagePath,
         );
 

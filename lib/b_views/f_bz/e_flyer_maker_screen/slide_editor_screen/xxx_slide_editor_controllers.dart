@@ -52,7 +52,6 @@ Future<void> onCancelSlideEdits({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onResetMatrix({
-  @required BuildContext context,
   @required DraftSlide originalDraft,
   @required ValueNotifier<DraftSlide> draftNotifier,
   @required ValueNotifier<bool> canResetMatrix,
@@ -61,7 +60,6 @@ Future<void> onResetMatrix({
 }) async {
 
   final bool _go = await Dialogs.confirmProceed(
-    context: context,
     titleVerse: const Verse(
       id: 'phid_reset_orientation_?',
       translate: true,

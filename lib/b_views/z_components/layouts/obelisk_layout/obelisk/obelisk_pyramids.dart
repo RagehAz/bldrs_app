@@ -47,18 +47,17 @@ class ObeliskPyramids extends StatelessWidget {
           blog('the userID : ${Authing.getUserID()}');
 
           final bool isExpanded = UiProvider.proGetPyramidsAreExpanded(
-              context: context,
               listen: false,
           );
 
           /// TO OPEN PYRAMIDS
           if (isExpanded  == null || isExpanded  == false){
-            UiProvider.proSetPyramidsAreExpanded(context: context, setTo: true, notify: true);
+            UiProvider.proSetPyramidsAreExpanded(setTo: true, notify: true);
           }
 
           /// TO CLOSE PYRAMIDS
           else {
-            UiProvider.proSetPyramidsAreExpanded(context: context, setTo: false, notify: true);
+            UiProvider.proSetPyramidsAreExpanded(setTo: false, notify: true);
           }
 
           /// STOP FLASHING

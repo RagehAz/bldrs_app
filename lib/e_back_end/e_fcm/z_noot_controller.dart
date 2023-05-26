@@ -155,7 +155,7 @@ class NootListener {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static StreamSubscription listenToNootActionStream(BuildContext context){
+  static StreamSubscription listenToNootActionStream(){
 
     final StreamSubscription _sub = FCM.getAwesomeNoots()
         .actionStream
@@ -169,7 +169,6 @@ class NootListener {
       SchedulerBinding.instance.addPostFrameCallback((_) async {
 
         await NootNavToProtocols.onNootTap(
-          context: context,
           noteModel: NoteModel.decipherRemoteMessage(
             map: receivedNotification?.payload,
           ),

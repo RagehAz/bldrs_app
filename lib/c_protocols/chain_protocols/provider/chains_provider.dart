@@ -797,7 +797,6 @@ class ChainsProvider extends ChangeNotifier {
     }
 
     return getLocalAssetPath(
-      context: getMainContext(),
       assetName: _phid,
     );
 

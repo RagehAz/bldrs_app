@@ -1,6 +1,5 @@
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/c_noot_nav_protocols.dart';
-import 'package:filers/filers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -10,11 +9,10 @@ import 'package:flutter/material.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onBzNoteTap({
-  @required BuildContext context,
   @required NoteModel noteModel,
 }) async {
 
-  blog('namexxx : ${noteModel.navTo.name}');
+  // blog('namexxx : ${noteModel.navTo.name}');
 
   if (
       noteModel?.navTo?.name != Routing.myUserNotesPage &&
@@ -22,7 +20,6 @@ Future<void> onBzNoteTap({
   ){
 
     await NootNavToProtocols.onNootTap(
-      context: context,
       noteModel: noteModel,
       startFromHome: false,
     );

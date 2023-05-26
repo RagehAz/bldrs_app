@@ -16,7 +16,6 @@ class NootNavToProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onNootTap({
-    @required BuildContext context,
     @required NoteModel noteModel,
     bool startFromHome,
   }) async {
@@ -41,7 +40,6 @@ class NootNavToProtocols {
         final String _argument = noteModel?.navTo?.argument ?? _secondaryArgument;
 
         await BldrsNav.autoNav(
-            context: context,
             routeName: _routeName,
             arguments: _argument,
             startFromHome: startFromHome ?? _checkShouldStartFromHome(_routeName),

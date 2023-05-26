@@ -58,7 +58,6 @@ class DataStripWithHeadline extends StatelessWidget {
               width: _rowWidth,
               dataKey: dataKey,
               onTap: onKeyTap ?? () => DataStrip.onStripTap(
-                context: context,
                 dataValue: dataValue,
               ),
             ),
@@ -66,7 +65,6 @@ class DataStripWithHeadline extends StatelessWidget {
             /// VALUE
             DataStripValue(
               onTap: onValueTap ?? () => DataStrip.onStripTap(
-                context: context,
                 dataValue: dataValue,
               ),
               width: _rowWidth,

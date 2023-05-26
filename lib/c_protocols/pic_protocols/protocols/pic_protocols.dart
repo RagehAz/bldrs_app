@@ -109,7 +109,6 @@ class PicProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<ui.Image> fetchPicUiImage({
-    @required BuildContext context,
     @required String path,
   }) async {
     ui.Image _theImage;
@@ -117,7 +116,6 @@ class PicProtocols {
     if (path != null){
 
       final Cacher _cacher = UiProvider.proGetCacher(
-          context: context,
           cacherID: path,
           listen: false,
       );
@@ -136,7 +134,6 @@ class PicProtocols {
         /// PRO-CACHE IF POSSIBLE
         if (_theImage != null){
           UiProvider.proStoreCacher(
-              context: context,
               notify: false,
               cacher: Cacher(
                 id: path,

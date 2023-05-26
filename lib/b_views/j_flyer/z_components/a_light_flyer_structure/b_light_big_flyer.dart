@@ -263,7 +263,6 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
     if (_flyer.value != null){
 
       final FlyerModel _rendered = await FlyerProtocols.renderBigFlyer(
-        context: context,
         flyerModel: _flyer.value,
       );
 
@@ -364,7 +363,6 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
   // --------------------
   Future<void> _onCallTap() async {
     await onCallTap(
-      context: context,
       bzModel: _flyer.value?.bzModel,
       flyerModel: _flyer.value,
     );
@@ -468,7 +466,6 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
     else {
 
       await Dialogs.youNeedToBeSignedInDialog(
-        context: context,
         afterHomeRouteName: Routing.flyerPreview,
         afterHomeRouteArgument: _flyer.value?.id,
       );

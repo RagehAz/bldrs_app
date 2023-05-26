@@ -39,7 +39,7 @@ class AppSettingsScreen extends StatelessWidget {
             id: 'Language . اللغة', //'phid_changeLanguage',
             translate: false,
           ),
-          onTap: () => onChangeAppLanguageTap(context),
+          onTap: () => onChangeAppLanguageTap(),
           icon: Iconz.language,
         ),
 
@@ -58,7 +58,7 @@ class AppSettingsScreen extends StatelessWidget {
           verse: const Verse(id: 'phid_feedback', translate: true),
           icon: Iconz.balloonThinking,
           isOn: _userIsOnline,
-          onTap: () => onFeedbackTap(context),
+          onTap: () => onFeedbackTap(),
         ),
 
         /// TERMS AND REGULATIONS
@@ -68,7 +68,7 @@ class AppSettingsScreen extends StatelessWidget {
             translate: true,
           ),
           icon: Iconz.terms,
-          onTap: () => onTermsAndTap(context),
+          onTap: () => onTermsAndTap(),
         ),
 
         /// INVITE FRIENDS
@@ -78,7 +78,7 @@ class AppSettingsScreen extends StatelessWidget {
             translate: true,
           ),
           icon: Iconizer.shareAppIcon(),
-          onTap: () => onInviteFriendsTap(context),
+          onTap: () => onInviteFriendsTap(),
         ),
 
         const DotSeparator(),
@@ -92,7 +92,7 @@ class AppSettingsScreen extends StatelessWidget {
         SettingsWideButton(
           verse: const Verse(id: 'phid_clean_and_restart', translate: true),
           icon: Iconz.reload,
-          onTap: () => onRebootSystem(context),
+          onTap: () => onRebootSystem(),
         ),
 
         /// SIGN OUT
@@ -100,7 +100,7 @@ class AppSettingsScreen extends StatelessWidget {
           verse: const Verse(id: 'phid_signOut', translate: true),
           icon: Iconz.exit,
           isOn: _userIsOnline,
-          onTap: () => onSignOut(context),
+          onTap: () => onSignOut(),
         ),
 
         const DotSeparator(
@@ -200,7 +200,6 @@ class CreateNewBzButton extends StatelessWidget {
             onTap: () => onCreateNewBzTap(context),
             onDisabledTap: () async {
               await Dialogs.youNeedToBeSignedInDialog(
-                context: context,
                 afterHomeRouteName: Routing.appSettings,
                 afterHomeRouteArgument: null,
               );
