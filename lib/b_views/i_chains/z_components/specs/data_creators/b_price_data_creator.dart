@@ -80,7 +80,6 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
   /// TESTED : WORKS PERFECT
   String _validator(String text){
     return Formers.currencyFieldValidator(
-      context: context,
       selectedCurrencyID: _selectedCurrencyID,
       text: _textController.text,
       picker: widget.picker,

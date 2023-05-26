@@ -26,10 +26,9 @@ class TopDialog extends StatelessWidget {
   // final int duration;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> closeTopDialog(BuildContext context) async {
+  static Future<void> closeTopDialog() async {
 
     final GlobalKey _key = UiProvider.proGetTopDialogKey(
-      context: context,
       listen: false,
     );
 
@@ -182,7 +181,7 @@ class TopDialog extends StatelessWidget {
       /// INTERACTIONS ----------------------------------------------
       onTap: (Flushbar<dynamic> flushbar) {
 
-        closeTopDialog(getMainContext());
+        closeTopDialog();
         // blog('on tap : flushbar : ${flushbar.onTap}');
 
       },

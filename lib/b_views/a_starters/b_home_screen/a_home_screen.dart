@@ -92,18 +92,18 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         }
 
-        await initializeHomeScreen(context);
+        await initializeHomeScreen();
 
         await initializeNotesListeners();
 
         await _triggerLoading(setTo: false);
 
         if (mounted){
-          await BldrsNav.autoNavigateFromHomeScreen(context);
+          await BldrsNav.autoNavigateFromHomeScreen();
         }
 
         /// DYNAMIC LINKS
-        await DynamicLinks.initDynamicLinks(context);
+        await DynamicLinks.initDynamicLinks();
 
       });
 
@@ -158,7 +158,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
 
     final RouteSettings _afterHomeRoute = UiProvider.proGetAfterHomeRoute(
-      context: context,
       listen: true,
     );
 
@@ -172,7 +171,6 @@ class _HomeScreenState extends State<HomeScreen> {
         onBack: () async {
 
           UiProvider.proClearAfterHomeRoute(
-            context: context,
             notify: true,
           );
 
@@ -203,7 +201,7 @@ class _HomeScreenState extends State<HomeScreen> {
         // navBarIsOn: false,
         appBarType: AppBarType.main,
         listenToHideLayout: true,
-        onBack: () => BldrsNav.onLastGoBackInHomeScreen(context,),
+        onBack: () => BldrsNav.onLastGoBackInHomeScreen(),
         // pyramidButtons: const <Widget>[
         /// PLAN : FLOATING_SECTION_BUTTON
         //       //   SectionsMenu(),

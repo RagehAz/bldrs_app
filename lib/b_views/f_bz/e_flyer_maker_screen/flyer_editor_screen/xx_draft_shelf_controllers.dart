@@ -278,7 +278,6 @@ Future<void> onSlideTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onDeleteSlide({
-  @required BuildContext context,
   @required DraftSlide draftSlide,
   @required ValueNotifier<DraftFlyer> draftFlyer,
   @required bool mounted,
@@ -289,7 +288,6 @@ Future<void> onDeleteSlide({
   final SlideModel _slide = await DraftSlide.draftToSlide(draftSlide);
 
   final bool _continue = await Dialogs.slideDialog(
-      context: context,
       slideModel: _slide,
       titleVerse: const Verse(
         id: 'phid_delete_slide_?',

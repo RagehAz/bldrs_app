@@ -130,7 +130,6 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
                 mounted: mounted,
               ),
               onDeleteSlide: (DraftSlide slide)=> onDeleteSlide(
-                context: context,
                 draftSlide: slide,
                 draftFlyer: widget.draftNotifier,
                 mounted: mounted,

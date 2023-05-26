@@ -107,7 +107,7 @@ class DynamicLinks {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> initDynamicLinks(BuildContext context) async {
+  static Future<void> initDynamicLinks() async {
     if (DeviceChecker.deviceIsWindows() == false) {
       blog('DynamicLinks.initDynamicLinks : starting to listen to onLink');
 
@@ -117,7 +117,6 @@ class DynamicLinks {
         blogPendingDynamicLinkData(dynamicLinkData);
 
         await _jumpByReceivedDynamicLink(
-          context: context,
           link: _link,
         );
       }).onError((Object error) {
@@ -132,7 +131,6 @@ class DynamicLinks {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _jumpByReceivedDynamicLink({
-    @required BuildContext context,
     @required String link,
   }) async {
 
@@ -143,12 +141,11 @@ class DynamicLinks {
 
     if (link != null) {
 
-      final bool _canNav = UiProvider.proGetCanNavOnDynamicLink(context);
+      final bool _canNav = UiProvider.proGetCanNavOnDynamicLink();
 
       if (_canNav == true) {
 
         UiProvider.proSetCanNavOnDynamicLink(
-          context: context,
           setTo: false,
           notify: true,
         );
@@ -160,20 +157,22 @@ class DynamicLinks {
 
           if (_firstNode == flyer_page) {
             await BldrsShareLink.jumpToFlyerScreenByLink(
-              context: context,
-              link: link,
-            );
-          } else if (_firstNode == user_page) {
-            await BldrsShareLink.jumpToUserScreenByLink(
-              context: context,
-              link: link,
-            );
-          } else if (_firstNode == bz_page) {
-            await BldrsShareLink.jumpToBzScreenByLink(
-              context: context,
               link: link,
             );
           }
+
+          else if (_firstNode == user_page) {
+            await BldrsShareLink.jumpToUserScreenByLink(
+              link: link,
+            );
+          }
+
+          else if (_firstNode == bz_page) {
+            await BldrsShareLink.jumpToBzScreenByLink(
+              link: link,
+            );
+          }
+
         }
 
       }
@@ -311,7 +310,6 @@ class BldrsShareLink{
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<String> generateFlyerLink({
-    @required BuildContext context,
     @required String flyerID,
     int slideIndex = 0,
   }) async {
@@ -321,7 +319,7 @@ class BldrsShareLink{
     if (flyerID != null){
 
       final FlyerModel _flyer = await FlyerProtocols.fetchFlyer(
-        context: context,
+        context: getMainContext(),
         flyerID: flyerID,
       );
 
@@ -332,7 +330,7 @@ class BldrsShareLink{
         );
 
         final String _title = await  _createFlyerShareLinkTitle(
-          context: context,
+          context: getMainContext(),
           flyerType: _flyer.flyerType,
           langCode: 'en',
         );
@@ -391,7 +389,6 @@ class BldrsShareLink{
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> jumpToFlyerScreenByLink({
-    @required BuildContext context,
     @required String link,
   }) async {
 
@@ -401,7 +398,6 @@ class BldrsShareLink{
     blog('jumpToFlyerScreenByLink : link : ($link) : flyerID : $_flyerID : index : $_index');
 
     await BldrsNav.jumpToFlyerPreviewScreen(
-      context: context,
       flyerID: _flyerID,
       // index: _index,
     );
@@ -508,7 +504,6 @@ class BldrsShareLink{
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> jumpToBzScreenByLink({
-    @required BuildContext context,
     @required String link,
   }) async {
     /// ${DynamicLinks.bldrsURLPrefix}/bz/bzID
@@ -517,7 +512,6 @@ class BldrsShareLink{
     blog('jumpToBzScreenByLink : link : ($link) : _bzID : $_bzID');
 
     await BldrsNav.jumpToBzPreviewScreen(
-      context: context,
       bzID: _bzID,
     );
 
@@ -580,7 +574,6 @@ class BldrsShareLink{
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> jumpToUserScreenByLink({
-    @required BuildContext context,
     @required String link,
   }) async {
     /// ${DynamicLinks.bldrsURLPrefix}/user/userID
@@ -589,7 +582,6 @@ class BldrsShareLink{
     blog('jumpToUserScreenByLink : link : ($link) : _userID : $_userID');
 
     await BldrsNav.jumpToUserPreviewScreen(
-      context: context,
       userID: _userID,
     );
 

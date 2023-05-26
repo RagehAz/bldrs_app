@@ -140,7 +140,7 @@ class BldrsBox extends StatelessWidget {
       onTapDown: onTapDown,
       onTapUp: onTapUp,
       onTapCancel: onTapCancel,
-      textDirection: textDirection ?? UiProvider.getAppTextDir(context),
+      textDirection: textDirection ?? UiProvider.getAppTextDir(),
       blur: blur,
       secondTextColor: secondLineColor,
       redDot: redDot,
