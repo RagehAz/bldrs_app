@@ -56,7 +56,7 @@ class NoteCard extends StatelessWidget {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _onSenderBalloonTap(BuildContext context) async {
+  Future<void> _onSenderBalloonTap() async {
 
     /// BZ
     if (noteModel.parties.senderType == PartyType.bz){
@@ -64,7 +64,6 @@ class NoteCard extends StatelessWidget {
       blog('BZ TAPPED');
 
       await BldrsNav.jumpToBzPreviewScreen(
-        context: context,
         bzID: noteModel.parties.senderID,
       );
 
@@ -74,7 +73,6 @@ class NoteCard extends StatelessWidget {
     else if (noteModel.parties.senderType == PartyType.user){
 
       await BldrsNav.jumpToUserPreviewScreen(
-        context: context,
         userID: noteModel.parties.senderID,
       );
 
@@ -87,7 +85,7 @@ class NoteCard extends StatelessWidget {
       //     context: context,
       // );
 
-      await onFeedbackTap(context);
+      await onFeedbackTap();
 
     }
 
@@ -148,7 +146,7 @@ class NoteCard extends StatelessWidget {
 
               NoteSenderBalloon(
                 noteModel: noteModel,
-                onTap: () => _onSenderBalloonTap(context),
+                onTap: () => _onSenderBalloonTap(),
               ),
 
               /// SPACER

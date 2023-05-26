@@ -187,7 +187,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
       _triggerLoading(setTo: true).then((_) async {
 
         await Future.delayed(const Duration(milliseconds: 500));
-        UiProvider.proSetPyramidsAreExpanded(context: context, setTo: true, notify: true);
+        UiProvider.proSetPyramidsAreExpanded(setTo: true, notify: true);
 
         await _triggerLoading(setTo: false);
       });

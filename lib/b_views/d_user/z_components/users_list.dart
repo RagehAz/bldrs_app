@@ -52,7 +52,7 @@ class UsersList extends StatelessWidget {
             secondLineScaleFactor: 0.9,
             margins: Scale.superMargins(margin: margins),
             onTap: onTap == null ?
-                () => BldrsNav.jumpToUserPreviewScreen(context: context, userID: userModel.id)
+                () => BldrsNav.jumpToUserPreviewScreen(userID: userModel.id)
                 :
                 () => onTap(userModel),
           );

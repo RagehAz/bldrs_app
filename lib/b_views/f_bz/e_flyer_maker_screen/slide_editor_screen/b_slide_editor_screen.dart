@@ -187,7 +187,6 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
               context: context,
             ),
             onResetMatrix: () => onResetMatrix(
-              context: context,
               originalDraft: widget.slide,
               draftNotifier: _draftNotifier,
               canResetMatrix: _canResetMatrix,

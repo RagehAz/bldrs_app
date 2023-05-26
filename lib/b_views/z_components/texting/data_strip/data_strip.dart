@@ -42,12 +42,10 @@ class DataStrip extends StatelessWidget {
   // static const double height = 50;
   // -----------------------------------------------------------------------------
   static Future<void> onStripTap({
-    @required BuildContext context,
     @required dynamic dataValue,
   }) async {
 
     await Keyboard.copyToClipboard(
-      context: context,
       copy: dataValue.toString(),
     );
 
@@ -124,7 +122,6 @@ class DataStrip extends StatelessWidget {
                         verseWeight: VerseWeight.thin,
                         verseHighlight: highlightText,
                         onTap: onKeyTap ?? () => onStripTap(
-                          context: context,
                           dataValue: dataValue,
                         ),
                       ),
@@ -160,7 +157,6 @@ class DataStrip extends StatelessWidget {
                       verseCentered: false,
                       verseHighlight: highlightText,
                       onTap: onValueTap ?? () => onStripTap(
-                        context: context,
                         dataValue: dataValue,
                       ),
                     ),

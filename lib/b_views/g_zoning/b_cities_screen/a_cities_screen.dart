@@ -148,7 +148,6 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
         );
         /// SHOWN CITIES MODELS
         final List<CityModel> _orderedShownCities = CityModel.sortCitiesAlphabetically(
-          context: context,
           cities: CityModel.getCitiesFromCitiesByIDs(
             citiesModels: _cities,
             citiesIDs: _shownIDs,
@@ -162,7 +161,6 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
         );
         /// NOT SHOWN CITIES MODELS
         final List<CityModel> _orderedNotShownCities = CityModel.sortCitiesAlphabetically(
-          context: context,
           cities: CityModel.getCitiesFromCitiesByIDs(
             citiesModels: _cities,
             citiesIDs: _notShownIDs,

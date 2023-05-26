@@ -38,7 +38,6 @@ class NewAuthorshipExit {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onRemoveMyselfWhileDeletingMyUserAccount({
-    @required BuildContext context,
     @required AuthorModel authorModel,
     @required BzModel bzModel,
   }) async {
@@ -47,7 +46,6 @@ class NewAuthorshipExit {
       /// MIGRATE OWNERSHIP OF ALL MY FLYERS TO BZ CREATOR AND TURN OFF SHOW AUTHOR
       /// RENOVATE BZ
       await _migrateFlyersAndRemoveAuthorAndRenovateBz(
-        context: context,
         bzModel: bzModel,
         authorModel: authorModel,
       );
@@ -64,7 +62,7 @@ class NewAuthorshipExit {
 
       /// (only i can) : SEND authorExit NOTES
       await NoteEvent.sendAuthorDeletionNotes(
-        context: context,
+        context: getMainContext(),
         bzModel: bzModel,
         deletedAuthor: authorModel,
         sendToUserAuthorExitNote: false,
@@ -74,7 +72,6 @@ class NewAuthorshipExit {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onRemoveMySelf({
-    @required BuildContext context,
     @required AuthorModel authorModel,
     @required BzModel bzModel,
     @required bool showConfirmDialog,
@@ -84,16 +81,14 @@ class NewAuthorshipExit {
 
     if (showConfirmDialog == true){
       /// SHOW CONFIRM DIALOG
-      _canDelete = await _deleteMyselfConfirmationDialogs(
-        context: context,
-      );
+      _canDelete = await _deleteMyselfConfirmationDialogs();
     }
 
     if (_canDelete == true){
 
       /// THIS PREVENTS BZ STREAM FROM FIRING (onIGotRemoved) METHOD
       await Nav.goBackUntil(
-          context: context,
+          context: getMainContext(),
           routeName: '/',
       );
 
@@ -106,7 +101,6 @@ class NewAuthorshipExit {
       /// MIGRATE OWNERSHIP OF ALL MY FLYERS TO BZ CREATOR AND TURN OFF SHOW AUTHOR
       /// RENOVATE BZ
       await _migrateFlyersAndRemoveAuthorAndRenovateBz(
-        context: context,
         bzModel: bzModel,
         authorModel: authorModel,
       );
@@ -123,7 +117,7 @@ class NewAuthorshipExit {
 
       /// (only i can) : SEND authorExit NOTES
       await NoteEvent.sendAuthorDeletionNotes(
-        context: context,
+        context: getMainContext(),
         bzModel: bzModel,
         deletedAuthor: authorModel,
         sendToUserAuthorExitNote: false,
@@ -131,13 +125,12 @@ class NewAuthorshipExit {
 
       /// SHOW SUCCESS CENTER DIALOG
       await _showRemovedAuthorSuccessDialog(
-        context: context,
         isBzDeleted: false,
       );
 
       /// GO HOME
       await Nav.pushHomeAndRemoveAllBelow(
-        context: context,
+        context: getMainContext(),
         invoker: 'NewAuthorshipExit.onRemoveMySelf',
         homeRoute: Routing.home,
       );
@@ -152,15 +145,12 @@ class NewAuthorshipExit {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onRemoveOtherAuthor({
-    @required BuildContext context,
     @required AuthorModel authorModel,
     @required BzModel bzModel,
   }) async {
 
     /// SHOW DIALOG
-    final bool _canDelete = await _deleteOtherAuthorConfirmationDialog(
-      context: context,
-    );
+    final bool _canDelete = await _deleteOtherAuthorConfirmationDialog();
 
     if (_canDelete == true) {
 
@@ -173,7 +163,6 @@ class NewAuthorshipExit {
       /// MIGRATE OWNERSHIP OF ALL MY FLYERS TO BZ CREATOR AND TURN OFF SHOW AUTHOR
       /// RENOVATE BZ
       await _migrateFlyersAndRemoveAuthorAndRenovateBz(
-        context: context,
         bzModel: bzModel,
         authorModel: authorModel,
       );
@@ -184,24 +173,22 @@ class NewAuthorshipExit {
 
       /// SEND authorKick NOTES
       await NoteEvent.sendAuthorDeletionNotes(
-        context: context,
+        context: getMainContext(),
         bzModel: bzModel,
         deletedAuthor: authorModel,
         sendToUserAuthorExitNote: true,
       );
 
       /// CLOSE WAIT DIALOG
-      await _closeWaitDialog(
-        context: context,
-      );
+      await _closeWaitDialog();
 
       /// SHOW SUCCESS CENTER DIALOG
       await _showRemovedAuthorSuccessDialog(
-        context: context,
         isBzDeleted: false,
       );
 
     }
+
   }
   // -----------------------------------------------------------------------------
 
@@ -255,9 +242,7 @@ class NewAuthorshipExit {
         ]);
 
         /// CLOSE WAIT DIALOG
-        await _closeWaitDialog(
-          context: getMainContext(),
-        );
+        await _closeWaitDialog();
 
         /// GO HOME
         await Nav.pushHomeAndRemoveAllBelow(
@@ -268,7 +253,6 @@ class NewAuthorshipExit {
 
         /// SHOW SUCCESS CENTER DIALOG
         await _showRemovedAuthorSuccessDialog(
-          context: getMainContext(),
           isBzDeleted: isBzDeleted,
         );
 
@@ -284,7 +268,6 @@ class NewAuthorshipExit {
   // --------------------
     /// TESTED : WORKS PERFECT
   static Future<void> _migrateFlyersAndRemoveAuthorAndRenovateBz({
-    @required BuildContext context,
     @required BzModel bzModel,
     @required AuthorModel authorModel,
   }) async {
@@ -300,14 +283,13 @@ class NewAuthorshipExit {
       /// MIGRATE OWNERSHIP OF ALL MY FLYERS TO BZ CREATOR AND TURN OFF SHOW AUTHOR
       if (authorModel != null)
       _migrateAuthorFlyersToBzCreator(
-        context: context,
         bzModel: _newBz,
         authorModel: authorModel,
       ),
 
       /// RENOVATE BZ
       BzProtocols.renovateBz(
-        context: context,
+        context: getMainContext(),
         newBz: _newBz,
         oldBz: bzModel,
         showWaitDialog: false,
@@ -320,7 +302,6 @@ class NewAuthorshipExit {
   // --------------------
     /// TESTED : WORKS PERFECT
   static Future<void> _migrateAuthorFlyersToBzCreator({
-    @required BuildContext context,
     @required AuthorModel authorModel,
     @required BzModel bzModel,
   }) async {
@@ -334,7 +315,6 @@ class NewAuthorshipExit {
           final String _flyerID = authorModel.flyersIDs[index];
 
           return _migrateTheFlyer(
-            context: context,
             flyerID: _flyerID,
             bzModel: bzModel,
           );
@@ -352,13 +332,12 @@ class NewAuthorshipExit {
   // --------------------
     /// TESTED : WORKS PERFECT
   static Future<void> _migrateTheFlyer({
-    @required BuildContext context,
     @required String flyerID,
     @required BzModel bzModel,
   }) async {
 
     FlyerModel _flyer = await FlyerProtocols.fetchFlyer(
-      context: context,
+      context: getMainContext(),
       flyerID: flyerID,
     );
 
@@ -435,14 +414,11 @@ class NewAuthorshipExit {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<bool> _deleteMyselfConfirmationDialogs({
-    @required BuildContext context,
-  }) async {
+  static Future<bool> _deleteMyselfConfirmationDialogs() async {
     bool _canProceed = false;
 
     /// confirm you want to delete yourself
     final bool _canDeleteMyself = await Dialogs.confirmProceed(
-      context: context,
       titleVerse: const Verse(id: 'phid_exit_bz_account', translate: true),
       bodyVerse: const Verse(id: 'phid_exit_bz_account_body', translate: true),
       invertButtons: true,
@@ -452,7 +428,6 @@ class NewAuthorshipExit {
 
       /// confirm you agree on flyers migration
       final bool _canMigrateFlyers = await Dialogs.confirmProceed(
-        context: context,
         titleVerse: const Verse(id: 'phid_migrate_flyers_?', translate: true),
         bodyVerse: const Verse(id: 'phid_migrate_flyers_body', translate: true),
         invertButtons: true,
@@ -468,14 +443,11 @@ class NewAuthorshipExit {
   }
   // --------------------
     /// TESTED : WORKS PERFECT
-  static Future<bool> _deleteOtherAuthorConfirmationDialog({
-    @required BuildContext context,
-  }) async {
+  static Future<bool> _deleteOtherAuthorConfirmationDialog() async {
     bool _canProceed = false;
 
     /// confirm you want to delete yourself
     final bool _canDeleteOtherAuthor = await Dialogs.confirmProceed(
-      context: context,
       titleVerse: const Verse(id: 'phid_remove_author_?', translate: true),
       /// TRANSLATE ME
       bodyVerse: const Verse(id: 'phid_delete_author_body', translate: true),
@@ -553,15 +525,12 @@ class NewAuthorshipExit {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> _closeWaitDialog({
-    @required BuildContext context,
-  }) async {
+  static Future<void> _closeWaitDialog() async {
     await WaitDialog.closeWaitDialog();
   }
   // --------------------
     /// TESTED : WORKS PERFECT
   static Future<void> _showRemovedAuthorSuccessDialog({
-    @required BuildContext context,
     @required bool isBzDeleted,
   }) async {
 

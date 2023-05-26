@@ -353,7 +353,6 @@ class CityModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String translateCity({
-    @required BuildContext context,
     @required CityModel city,
     String langCode,
   }) {
@@ -467,7 +466,6 @@ class CityModel {
   /// TESTED : WORKS PERFECT
   static List<CityModel> sortCitiesAlphabetically({
     @required List<CityModel> cities,
-    @required BuildContext context,
   }){
     List<CityModel> _output = <CityModel>[];
 
@@ -478,12 +476,10 @@ class CityModel {
       _output.sort((CityModel a, CityModel b){
 
         final String _nameA = CityModel.translateCity(
-          context: context,
           city: a,
         );
 
         final String _nameB = CityModel.translateCity(
-          context: context,
           city: b,
         );
 

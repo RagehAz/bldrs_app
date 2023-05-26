@@ -62,7 +62,6 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String emailValidator({
-    @required BuildContext context,
     @required String email,
     @required bool canValidate,
   }) {
@@ -89,7 +88,6 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String passwordValidator({
-    @required BuildContext context,
     @required String password,
     @required bool canValidate,
   }){
@@ -112,7 +110,6 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String passwordConfirmationValidation({
-    @required BuildContext context,
     @required String password,
     @required String passwordConfirmation,
     @required bool canValidate,
@@ -142,7 +139,6 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String picValidator({
-    @required BuildContext context,
     @required dynamic pic,
     @required bool canValidate,
   }){
@@ -170,7 +166,6 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String personNameValidator({
-    @required BuildContext context,
     @required String name,
     @required bool canValidate,
     FocusNode focusNode,
@@ -208,7 +203,6 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String companyNameValidator({
-    @required BuildContext context,
     @required String companyName,
     @required bool canValidate,
     FocusNode focusNode,
@@ -258,7 +252,6 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String jobTitleValidator({
-    @required BuildContext context,
     @required String jobTitle,
     @required bool canValidate,
     FocusNode focusNode,
@@ -295,7 +288,6 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String zoneValidator({
-    @required BuildContext context,
     @required ZoneModel zoneModel,
     @required bool selectCountryIDOnly,
     @required bool canValidate,
@@ -340,7 +332,6 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String contactsPhoneValidator({
-    @required BuildContext context,
     @required List<ContactModel> contacts,
     @required ZoneModel zoneModel,
     @required bool canValidate,
@@ -383,7 +374,6 @@ class Formers {
 
         /// NUMBER FORMAT
         _message ??= numbersOnlyValidator(
-          context: context,
           text: TextMod.replaceVarTag(
             input: _phone,
             customTag: '+',
@@ -392,7 +382,6 @@ class Formers {
         );
 
         _message ??= _maxDigitsExceededValidator(
-            context: context,
             maxDigits: 0,
             text: _phone,
           );
@@ -411,7 +400,6 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String contactsEmailValidator({
-    @required BuildContext context,
     @required List<ContactModel> contacts,
     @required bool canValidate,
     FocusNode focusNode,
@@ -426,7 +414,6 @@ class Formers {
       );
 
       _message = emailValidator(
-        context: context,
         email: _email,
         canValidate: canValidate,
       );
@@ -443,7 +430,6 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String contactsWebsiteValidator({
-    @required BuildContext context,
     @required List<ContactModel> contacts,
     @required bool canValidate,
     FocusNode focusNode,
@@ -458,7 +444,6 @@ class Formers {
       );
 
       _message = webSiteValidator(
-        context: context,
         website: _website,
       );
 
@@ -474,7 +459,6 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String paragraphValidator({
-    @required BuildContext context,
     @required String text,
     @required bool canValidate,
     FocusNode focusNode,
@@ -508,7 +492,6 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String bzSectionValidator({
-    @required BuildContext context,
     @required BzSection selectedSection,
     @required bool canValidate,
   }){
@@ -525,7 +508,6 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String bzTypeValidator({
-    @required BuildContext context,
     @required List<BzType> selectedTypes,
     @required bool canValidate,
   }){
@@ -542,7 +524,6 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String bzFormValidator({
-    @required BuildContext context,
     @required BzForm bzForm,
     @required bool canValidate,
   }){
@@ -559,7 +540,6 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String bzAboutValidator({
-    @required BuildContext context,
     @required String bzAbout,
     @required bool canValidate,
     FocusNode focusNode,
@@ -588,7 +568,6 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String bzScopeValidator({
-    @required BuildContext context,
     @required List<String> scope,
     @required bool canValidate,
     FocusNode focusNode,
@@ -616,7 +595,6 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String flyerHeadlineValidator({
-    @required BuildContext context,
     @required String headline,
     @required bool canValidate,
   }){
@@ -642,7 +620,6 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String slidesValidator({
-    @required BuildContext context,
     @required DraftFlyer draftFlyer,
     @required bool canValidate,
   }){
@@ -663,7 +640,6 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String flyerTypeValidator({
-    @required BuildContext context,
     @required DraftFlyer draft,
     @required bool canValidate,
   }){
@@ -682,7 +658,6 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String pdfValidator({
-    @required BuildContext context,
     @required PDFModel pdfModel,
     @required bool canValidate,
   }){
@@ -701,17 +676,15 @@ class Formers {
           //             '${Verse.transBake('phid_mb')}';
 
           _message = PDFModel.getSizeLine(
-                                  context: context,
-                                  size: pdfModel.sizeMB,
-                                  maxSize: Standards.maxFileSizeLimit,
-                                  sizeLimitReached: _sizeLimitReached,
-                                ).id;
+            size: pdfModel.sizeMB,
+            maxSize: Standards.maxFileSizeLimit,
+            sizeLimitReached: _sizeLimitReached,
+          ).id;
 
         }
 
         else {
           _message = pdfNameValidator(
-            context: context,
             canValidate: canValidate,
             pdfModel: pdfModel,
           );
@@ -726,7 +699,6 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String pdfNameValidator({
-    @required BuildContext context,
     @required PDFModel pdfModel,
     @required bool canValidate,
   }){
@@ -764,7 +736,6 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String flyerPhidsValidator({
-    @required BuildContext context,
     @required bool canValidate,
     @required List<String> phids,
     FocusNode focusNode,
@@ -792,7 +763,6 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String genderValidator({
-    @required BuildContext context,
     @required Gender gender,
     @required bool canValidate,
   }){
@@ -813,12 +783,10 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> showUserMissingFieldsDialog({
-    @required BuildContext context,
     @required UserModel userModel,
   }) async {
 
     final String _missingFieldsString = _generateUserMissingFieldsString(
-      context: context,
       userModel: userModel,
     );
 
@@ -836,13 +804,11 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkUserHasMissingFields({
-    @required BuildContext context,
     @required UserModel userModel,
   }){
     bool _thereAreMissingFields;
 
     final List<String> _missingFields = _generateUserMissingFieldsHeadlines(
-      context: context,
       userModel: userModel,
     );
 
@@ -860,7 +826,6 @@ class Formers {
   /// TESTED : WORKS PERFECT
   static List<String> _generateUserMissingFieldsHeadlines({
     @required UserModel userModel,
-    @required BuildContext context,
   }) {
     final List<String> _missingFields = <String>[];
 
@@ -891,28 +856,27 @@ class Formers {
     */
 
     if (
-    Formers.picValidator(context: context, pic: userModel?.picPath, canValidate: true) != null) {
+    Formers.picValidator(pic: userModel?.picPath, canValidate: true) != null) {
       _missingFields.add(Verse.transBake('phid_picture'));
     }
 
-    if (Formers.genderValidator(context: context, gender: userModel?.gender, canValidate: true) != null) {
+    if (Formers.genderValidator(gender: userModel?.gender, canValidate: true) != null) {
       _missingFields.add(Verse.transBake('phid_gender'));
     }
 
-    if (Formers.personNameValidator(context: context, name: userModel?.name, canValidate: true) != null) {
+    if (Formers.personNameValidator(name: userModel?.name, canValidate: true) != null) {
       _missingFields.add(Verse.transBake('phid_name'));
     }
 
-    if (Formers.jobTitleValidator(context: context, jobTitle: userModel?.title, canValidate: true) != null) {
+    if (Formers.jobTitleValidator(jobTitle: userModel?.title, canValidate: true) != null) {
       _missingFields.add(Verse.transBake('phid_job_title'));
     }
 
-    if (Formers.companyNameValidator(context: context, companyName: userModel?.company, canValidate: true) != null) {
+    if (Formers.companyNameValidator(companyName: userModel?.company, canValidate: true) != null) {
       _missingFields.add(Verse.transBake('phid_business_name'));
     }
 
     if (Formers.zoneValidator(
-      context: context,
       zoneModel: userModel?.zone,
       selectCountryIDOnly: false,
       canValidate: true,
@@ -925,14 +889,12 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String _generateUserMissingFieldsString({
-    @required BuildContext context,
     @required UserModel userModel,
   }){
     String _output;
 
     final List<String> _missingFields = _generateUserMissingFieldsHeadlines(
       userModel: userModel,
-      context: context,
     );
 
     if (Mapper.checkCanLoopList(_missingFields) == true){
@@ -1021,7 +983,6 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String numberDataCreatorFieldValidator({
-    @required BuildContext context,
     @required String text,
     @required PickerModel picker,
     @required DataCreator dataCreatorType,
@@ -1032,7 +993,6 @@ class Formers {
     /// ONLY NUMBERS VALIDATION
     if (TextCheck.isEmpty(text) == false){
       _message = numbersOnlyValidator(
-        context: context,
         text: text,
       );
     }
@@ -1072,7 +1032,6 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String currencyFieldValidator({
-    @required BuildContext context,
     @required ValueNotifier<String> selectedCurrencyID, // IS UNIT SPEC VALUE
     @required String text, // IS THE VALUE SPEC VALUE
     @required PickerModel picker,
@@ -1082,7 +1041,6 @@ class Formers {
     /// ONLY NUMBERS VALIDATION
     if (TextCheck.isEmpty(text) == false){
       _message = numbersOnlyValidator(
-          context: context,
           text: text,
       );
     }
@@ -1116,8 +1074,7 @@ class Formers {
         );
 
         if (_invalidDigits == true) {
-          _message = Formers._maxDigitsExceededValidator(
-            context: context,
+          _message = _maxDigitsExceededValidator(
             text: text,
             maxDigits: selectedCurrency.digits,
           );
@@ -1132,7 +1089,6 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String _maxDigitsExceededValidator({
-    @required BuildContext context,
     @required int maxDigits,
     @required String text,
   }){
@@ -1177,7 +1133,6 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String numbersOnlyValidator({
-    @required BuildContext context,
     @required String text,
   }){
     String _message;
@@ -1204,7 +1159,6 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String webSiteValidator({
-    @required BuildContext context,
     @required String website,
   }){
     String _message;
@@ -1235,7 +1189,6 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String positionValidator({
-    @required BuildContext context,
     @required String latOrLng,
   }){
     String _message;
@@ -1243,7 +1196,6 @@ class Formers {
     if (TextCheck.isEmpty(latOrLng) == false){
 
       _message = numbersOnlyValidator(
-        context: context,
         text: latOrLng,
       );
 

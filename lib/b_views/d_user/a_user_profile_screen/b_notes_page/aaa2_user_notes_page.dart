@@ -180,7 +180,6 @@ class _UserNotesPageState extends State<UserNotesPage> {
 
     if (canTapNoteBubble(_note) == true){
       return () => onUserNoteTap(
-        context: context,
         noteModel: _note,
       );
     }

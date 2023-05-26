@@ -376,7 +376,6 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
   // --------------------
   Future<void> _onCallTap() async {
     await onCallTap(
-      context: context,
       bzModel: _flyer.value?.bzModel,
       flyerModel: _flyer.value,
     );
@@ -484,7 +483,6 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
     else {
 
       await Dialogs.youNeedToBeSignedInDialog(
-        context: context,
         afterHomeRouteName: Routing.flyerPreview,
         afterHomeRouteArgument: _flyer.value.id,
       );

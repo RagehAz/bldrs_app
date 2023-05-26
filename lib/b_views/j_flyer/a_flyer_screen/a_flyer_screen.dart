@@ -70,7 +70,6 @@ class _FlyerPreviewScreenState extends State<FlyerPreviewScreen> {
           if (_flyerModel != null){
 
             _flyerModel = await FlyerProtocols.renderBigFlyer(
-              context: context,
               flyerModel: _flyerModel,
             );
 
@@ -110,7 +109,6 @@ class _FlyerPreviewScreenState extends State<FlyerPreviewScreen> {
     _loading.dispose();
 
     FlyerProtocols.disposeRenderedFlyer(
-      context: context,
       mounted: mounted,
       flyerModel: _renderedFlyer,
       invoker: 'FlyerPreviewScreen',

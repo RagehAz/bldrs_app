@@ -76,7 +76,7 @@ class WaitDialog extends StatelessWidget {
   static void setVerse({
     @required Verse verse,
   }){
-    UiProvider.proSetLoadingVerse(context: getMainContext(), verse: verse);
+    UiProvider.proSetLoadingVerse(verse: verse);
   }
   // -----------------------------------------------------------------------------
   @override

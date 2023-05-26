@@ -1,3 +1,4 @@
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
@@ -278,7 +279,6 @@ Future<void> onFollowTap({
     final String argument = _goToFlyerPreview == true ? flyerID : bzModel.id;
 
     await Dialogs.youNeedToBeSignedInDialog(
-      context: context,
       afterHomeRouteName: _routeName,
       afterHomeRouteArgument: argument,
     );
@@ -289,7 +289,6 @@ Future<void> onFollowTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onCallTap({
-  @required BuildContext context,
   @required BzModel bzModel,
   @required FlyerModel flyerModel,
 }) async {
@@ -304,7 +303,6 @@ Future<void> onCallTap({
     final String argument = _goToFlyerPreview == true ? flyerModel?.id : bzModel.id;
 
     await Dialogs.youNeedToBeSignedInDialog(
-      context: context,
       afterHomeRouteName: _routeName,
       afterHomeRouteArgument: argument,
     );
@@ -333,7 +331,7 @@ Future<void> onCallTap({
       );
 
       await NoteEvent.sendNoBzContactAvailableNote(
-        context: context,
+        context: getMainContext(),
         bzModel: bzModel,
       );
 
@@ -343,7 +341,6 @@ Future<void> onCallTap({
     else {
 
       await Dialogs.bzContactsDialog(
-          context: context,
           titleVerse: const Verse(
             id: 'phid_contact_directly',
             translate: true,
@@ -359,7 +356,6 @@ Future<void> onCallTap({
 
               /// LAUNCH CONTACT
               Launcher.launchContactModel(
-                context: context,
                 contact: contact,
               ),
 

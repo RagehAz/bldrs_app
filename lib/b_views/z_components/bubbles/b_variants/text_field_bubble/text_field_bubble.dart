@@ -174,7 +174,7 @@ class BldrsTextFieldBubble extends StatelessWidget {
       fieldScrollPadding: _scrollPadding,
       // fieldTextCentered: false,
       // fieldTextColor: Colorz.white255,
-      fieldTextDirection: textDirection ?? UiProvider.getAppTextDir(context),
+      fieldTextDirection: textDirection ?? UiProvider.getAppTextDir(),
       fieldTextHeight: BldrsText.superVerseRealHeight(context: context, size: textSize, sizeFactor: 1, hasLabelBox: false),
       // fieldTextItalic: false,
       fieldTextPadding: EdgeInsets.all(_textFieldPadding),

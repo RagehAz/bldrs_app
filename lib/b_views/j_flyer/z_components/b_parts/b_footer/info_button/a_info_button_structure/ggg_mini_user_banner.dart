@@ -29,7 +29,6 @@ class MiniUserBanner extends StatelessWidget {
           icon: userModel?.picPath,
           margins: Scale.constantHorizontal5,
           onTap: () => BldrsNav.jumpToUserPreviewScreen(
-            context: context,
             userID: userModel?.id,
           ),
         ),

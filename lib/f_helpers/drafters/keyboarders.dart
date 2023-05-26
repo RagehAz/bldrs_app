@@ -202,7 +202,6 @@ class Keyboard {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> copyToClipboard({
-    @required BuildContext context,
     @required String copy,
     int milliseconds,
   }) async {
