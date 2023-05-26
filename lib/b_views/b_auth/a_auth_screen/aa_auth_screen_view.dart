@@ -76,12 +76,10 @@ class AuthScreenView extends StatelessWidget {
                   signInMethod: methods[index],
                   socialKeys: BldrsKeys.socialKeys,
                   onSuccess: (AuthModel authModel) => authBySocialMedia(
-                    context: context,
                     authModel: authModel,
                     mounted: true,
                   ),
                   onError: (String error) => AuthProtocols.onAuthError(
-                    context: context,
                     error: error,
                   ),
                   onAuthLoadingChanged: (bool loading){
@@ -96,8 +94,8 @@ class AuthScreenView extends StatelessWidget {
 
         /// DISCLAIMER LINE
         LegalDisclaimerLine(
-          onPolicyTap: () => onPrivacyTap(context),
-          onTermsTap: () => onTermsAndTap(context),
+          onPolicyTap: () => onPrivacyTap(),
+          onTermsTap: () => onTermsAndTap(),
           disclaimerLine: Verse.transBake('phid_by_using_bldrs_you_agree_to_our'),
           andLine: Verse.transBake('phid_and'),
           policyLine: Verse.transBake('phid_privacy_policy'),

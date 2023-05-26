@@ -137,7 +137,6 @@ Future<void> onConfirmBzEdits({
     await BzLDBOps.deleteBzEditorSession(draftNotifier.value.id);
 
     await BldrsNav.restartAndRoute(
-      context: context,
       routeName: Routing.myBzAboutPage,
       arguments: draftNotifier.value.id,
     );

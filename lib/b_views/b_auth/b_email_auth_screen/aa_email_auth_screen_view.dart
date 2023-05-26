@@ -256,8 +256,8 @@ class EmailAuthScreenView extends StatelessWidget {
 
               /// DISCLAIMER LINE
               LegalDisclaimerLine(
-                onPolicyTap: () => onPrivacyTap(context),
-                onTermsTap: () => onTermsAndTap(context),
+                onPolicyTap: () => onPrivacyTap(),
+                onTermsTap: () => onTermsAndTap(),
                 disclaimerLine: Verse.transBake(
                   _isSigningIn == true ?
                   'phid_by_using_bldrs_you_agree_to_our'

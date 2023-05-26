@@ -274,7 +274,6 @@ class BldrsTimers {
           time: _deviceTime
       );
       Verse _zoneLine = ZoneModel.generateInZoneVerse(
-        context: context,
         zoneModel: ZoneProvider.proGetCurrentZone(listen: false),
       );
       _zoneLine = _zoneLine.id != '...' ? _zoneLine : Verse(

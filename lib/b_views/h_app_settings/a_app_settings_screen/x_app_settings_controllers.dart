@@ -4,6 +4,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/general_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/bz_editor_screen.dart';
@@ -31,9 +32,9 @@ import 'package:provider/provider.dart';
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> onChangeAppLanguageTap(BuildContext context) async {
+Future<void> onChangeAppLanguageTap() async {
   await Nav.goToNewScreen(
-    context: context,
+    context: getMainContext(),
     pageTransitionType: PageTransitionType.fade,
     screen: const AppLangsScreen(),
   );
@@ -44,43 +45,41 @@ Future<void> onChangeAppLanguageTap(BuildContext context) async {
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> onAboutBldrsTap(BuildContext context) async {
+Future<void> onAboutBldrsTap() async {
   await Nav.goToNewScreen(
-    context: context,
+    context: getMainContext(),
     pageTransitionType: PageTransitionType.fade,
     screen: const AboutBldrsScreen(),
   );
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> onFeedbackTap(BuildContext context) async {
+Future<void> onFeedbackTap() async {
   await Nav.goToNewScreen(
-    context: context,
+    context: getMainContext(),
     pageTransitionType: PageTransitionType.fade,
     screen: const FeedbackScreen(),
   );
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> onTermsAndTap(BuildContext context) async {
+Future<void> onTermsAndTap() async {
 
   await Launcher.launchURL(Standards.termsAndRegulationsURL);
 
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> onPrivacyTap(BuildContext context) async {
+Future<void> onPrivacyTap() async {
 
   await Launcher.launchURL(Standards.privacyPolicyURL);
 
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> onInviteFriendsTap(BuildContext context) async {
+Future<void> onInviteFriendsTap() async {
 
-  await Launcher.shareBldrsWebsiteURL(
-    context: context,
-  );
+  await Launcher.shareBldrsWebsiteURL();
 
 }
 // -----------------------------------------------------------------------------
@@ -107,7 +106,7 @@ Future<void> onCreateNewBzTap(BuildContext context) async {
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> onRebootSystem(BuildContext context) async {
+Future<void> onRebootSystem() async {
 
   final bool _result = await CenterDialog.showCenterDialog(
     titleVerse: const Verse(
@@ -140,11 +139,11 @@ Future<void> onRebootSystem(BuildContext context) async {
       LDBDoc.wipeOutEntireLDB(),
 
       /// WIPE OUT PRO
-      GeneralProvider.wipeOutAllProviders(context),
+      GeneralProvider.wipeOutAllProviders(),
     ]);
 
     /// SIGN OUT
-    await AuthProtocols.signOutBldrs(context: context, routeToLogoScreen: true);
+    await AuthProtocols.signOutBldrs(routeToLogoScreen: true);
 
     await WaitDialog.closeWaitDialog();
   }
@@ -156,27 +155,27 @@ Future<void> onRebootSystem(BuildContext context) async {
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> onSignOut(BuildContext context) async {
+Future<void> onSignOut() async {
 
   /// CLEAR KEYWORDS
-  final ChainsProvider _keywordsProvider = Provider.of<ChainsProvider>(context, listen: false);
+  final ChainsProvider _keywordsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
   // _keywordsProvider.clearKeywordsChain();
   _keywordsProvider.clearWallFlyerTypeAndPhid(notify: true);
 
   /// CLEAR BZZ
-  final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+  final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
   _bzzProvider.clearMyBzz(notify: false,);
   _bzzProvider.clearFollowedBzz(notify: false,);
   _bzzProvider.clearSponsors(notify: false,);
   _bzzProvider.clearMyActiveBz(notify: false);
 
   /// CLEAR USER
-  final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+  final UsersProvider _usersProvider = Provider.of<UsersProvider>(getMainContext(), listen: false);
   _usersProvider.clearMyUserModelAndAuthModel(
     notify: true,
   );
 
-  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);
 
   // _zoneProvider.clearAllSearchesAndSelections();
   _zoneProvider.clearCurrentContinent(notify: false);
@@ -186,11 +185,10 @@ Future<void> onSignOut(BuildContext context) async {
   final String _userID = Authing.getUserID();
   await AuthLDBOps.deleteAuthModel(_userID);
   await UserLDBOps.deleteUserOps(_userID);
-  await BzLDBOps.wipeOut(context);
-  await FlyerLDBOps.wipeOut(context);
+  await BzLDBOps.wipeOut(getMainContext());
+  await FlyerLDBOps.wipeOut(getMainContext());
 
   await AuthProtocols.signOutBldrs(
-      context: context,
       routeToLogoScreen: true
   );
 

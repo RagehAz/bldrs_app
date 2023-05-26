@@ -185,14 +185,12 @@ class _FutureFlyerBuilderState extends State<_FutureFlyerBuilder> {
 
         if (widget.renderFlyer == RenderFlyer.firstSlide && mounted) {
           _flyer = await FlyerProtocols.renderSmallFlyer(
-            context: context,
             flyerModel: _flyer,
           );
         }
 
         else if (widget.renderFlyer == RenderFlyer.allSlides && mounted) {
           _flyer = await FlyerProtocols.renderBigFlyer(
-            context: context,
             flyerModel: _flyer,
           );
         }

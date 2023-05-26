@@ -552,7 +552,7 @@ class BldrsText extends StatelessWidget {
       leadingDot: leadingDot,
       redDot: redDot,
       centered: centered,
-      textDirection: textDirection ?? UiProvider.getAppTextDir(context),
+      textDirection: textDirection ?? UiProvider.getAppTextDir(),
       appIsLTR: UiProvider.checkAppIsLeftToRight(),
       onTap: onTap,
       // onDoubleTap: onDoubleTap,

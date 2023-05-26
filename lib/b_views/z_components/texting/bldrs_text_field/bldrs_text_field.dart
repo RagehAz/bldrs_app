@@ -203,7 +203,7 @@ class BldrsTextField extends StatelessWidget {
       fieldColor: fieldColor,
 
       /// text
-      textDirection: textDirection ?? UiProvider.getAppTextDir(context),
+      textDirection: textDirection ?? UiProvider.getAppTextDir(),
       centered: centered,
       maxLines: maxLines,
       minLines: minLines,

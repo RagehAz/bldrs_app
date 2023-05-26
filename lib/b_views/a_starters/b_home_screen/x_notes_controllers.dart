@@ -4,7 +4,6 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -170,7 +169,6 @@ void concludeAndActivatePyramidsFlashing({
 }){
 
   final bool _noteDotIsOn = _checkNoteDotIsOn(
-    context: getMainContext(),
     unseenNotes: unseenNotes,
   );
 
@@ -183,14 +181,12 @@ void concludeAndActivatePyramidsFlashing({
 // --------------------
 /// TESTED : WORKS PERFECT
 bool _checkNoteDotIsOn({
-  @required BuildContext context,
   @required List<NoteModel> unseenNotes,
 }){
 
   final UserModel _userModel = UsersProvider.proGetMyUserModel(listen: false);
 
   final bool _thereAreMissingFields = Formers.checkUserHasMissingFields(
-    context: context,
     userModel: _userModel,
   );
 

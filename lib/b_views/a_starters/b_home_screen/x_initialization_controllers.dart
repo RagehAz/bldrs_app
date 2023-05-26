@@ -25,11 +25,9 @@ import 'package:provider/provider.dart';
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> initializeHomeScreen(BuildContext context) async {
+Future<void> initializeHomeScreen() async {
 
-  await _checkIfUserIsMissingFields(
-    context: context,
-  );
+  await _checkIfUserIsMissingFields();
 
   await initializeUserZone();
 
@@ -64,9 +62,7 @@ Future<void> initializeHomeScreen(BuildContext context) async {
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _checkIfUserIsMissingFields({
-  @required BuildContext context,
-}) async {
+Future<void> _checkIfUserIsMissingFields() async {
   // blog('initializeHomeScreen.checkIfUserIsMissingFields : ~~~~~~~~~~ START');
   if (Authing.getUserID() != null){
 
@@ -82,7 +78,6 @@ Future<void> _checkIfUserIsMissingFields({
       // AuthModel.blogAuthModel(authModel: _authModel);
 
       final bool _thereAreMissingFields = Formers.checkUserHasMissingFields(
-        context: context,
         userModel: _userModel,
       );
 
@@ -90,7 +85,6 @@ Future<void> _checkIfUserIsMissingFields({
       if (_thereAreMissingFields == true){
 
         await _controlMissingFieldsCase(
-          context: context,
           userModel: _userModel,
         );
 
@@ -104,7 +98,6 @@ Future<void> _checkIfUserIsMissingFields({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _controlMissingFieldsCase({
-  @required BuildContext context,
   @required UserModel userModel,
 }) async {
 
@@ -112,12 +105,11 @@ Future<void> _controlMissingFieldsCase({
   userModel?.blogUserModel(invoker: '_controlMissingFieldsCase');
 
   await Formers.showUserMissingFieldsDialog(
-    context: context,
     userModel: userModel,
   );
 
   await Nav.goToNewScreen(
-      context: context,
+      context: getMainContext(),
       screen: UserEditorScreen(
         userModel: userModel,
         reAuthBeforeConfirm: false,
@@ -126,9 +118,7 @@ Future<void> _controlMissingFieldsCase({
         // checkLastSession: true,
         onFinish: () async {
 
-          await BldrsNav.restartAndRoute(
-            context: context,
-          );
+          await BldrsNav.restartAndRoute();
 
         },
       )
@@ -216,9 +206,7 @@ Future<void> initializeCurrentZone() async {
     /// USER ZONE IS NOT DEFINED
     else {
 
-      final ZoneModel _zoneByIP = await ZoneProtocols.getZoneByIP(
-        context: getMainContext(),
-      );
+      final ZoneModel _zoneByIP = await ZoneProtocols.getZoneByIP();
 
       await _zoneProvider.fetchSetCurrentCompleteZone(
         zone: _zoneByIP,
