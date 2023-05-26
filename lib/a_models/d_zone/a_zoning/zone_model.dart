@@ -37,7 +37,6 @@ class ZoneModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ZoneModel> prepareZoneForEditing({
-    @required BuildContext context,
     @required ZoneModel zoneModel,
   }) async {
 
@@ -46,7 +45,7 @@ class ZoneModel {
             ??
             ZoneProvider.proGetCurrentZone(listen: false)
             ??
-            await ZoneProtocols.getZoneByIP(context: context);
+            await ZoneProtocols.getZoneByIP();
 
     return ZoneProtocols.completeZoneModel(
       incompleteZoneModel: _zone,
@@ -256,7 +255,6 @@ class ZoneModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Verse generateInZoneVerse ({
-    @required BuildContext context,
     @required ZoneModel zoneModel,
     bool showCity = true,
   }){
@@ -281,7 +279,6 @@ class ZoneModel {
         if (showCity == true && (zoneModel.cityModel != null || zoneModel.cityName != null)){
 
           final String _cityName = zoneModel.cityName ?? CityModel.translateCity(
-            context: context,
             city: zoneModel.cityModel,
           );
 
@@ -301,7 +298,6 @@ class ZoneModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Verse generateObeliskVerse({
-    @required BuildContext context,
     @required ZoneModel zone,
   }){
 
@@ -315,7 +311,6 @@ class ZoneModel {
       );
 
       final String _cityName = CityModel.translateCity(
-        context: context,
         city: zone.cityModel,
       );
 

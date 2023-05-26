@@ -21,7 +21,6 @@ class ImagifyFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<FlyerModel> renderSmallFlyer({
-    @required BuildContext context,
     @required FlyerModel flyerModel,
   }) async {
 
@@ -32,7 +31,7 @@ class ImagifyFlyerProtocols {
       await Future.wait(<Future>[
 
         /// FIRST SLIDE
-        _imagifyFirstSlide(context: context, flyerModel: flyerModel)
+        _imagifyFirstSlide(flyerModel: flyerModel)
             .then((FlyerModel flyer){
           _output = _output.copyWith(
             slides: flyer.slides,
@@ -40,7 +39,7 @@ class ImagifyFlyerProtocols {
         }),
 
         /// BZ LOGO
-        _imagifyBzLogo(context: context, flyerModel: flyerModel)
+        _imagifyBzLogo(flyerModel: flyerModel)
             .then((FlyerModel flyer){
           _output = _output.copyWith(
             bzLogoImage: flyer.bzLogoImage,
@@ -69,7 +68,6 @@ class ImagifyFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<FlyerModel> renderBigFlyer({
-    @required BuildContext context,
     @required FlyerModel flyerModel,
   }) async {
 
@@ -80,7 +78,7 @@ class ImagifyFlyerProtocols {
       await Future.wait(<Future>[
 
         /// FIRST SLIDE
-        _imagifySlides(context: context, flyerModel: flyerModel)
+        _imagifySlides(flyerModel: flyerModel)
             .then((FlyerModel flyer){
           _output = _output.copyWith(
             slides: flyer.slides,
@@ -88,7 +86,7 @@ class ImagifyFlyerProtocols {
         }),
 
         /// BZ LOGO
-        _imagifyBzLogo(context: context, flyerModel: flyerModel)
+        _imagifyBzLogo(flyerModel: flyerModel)
             .then((FlyerModel flyer){
           _output = _output.copyWith(
             bzLogoImage: flyer.bzLogoImage,
@@ -97,7 +95,7 @@ class ImagifyFlyerProtocols {
 
         /// IMAGIFY AUTHOR PIC
         if (_output.showsAuthor == true)
-          _imagifyAuthorPic(context: context, flyerModel: flyerModel)
+          _imagifyAuthorPic(flyerModel: flyerModel)
               .then((FlyerModel flyer){
             _output = _output.copyWith(
               authorImage: flyer.authorImage,
@@ -126,7 +124,6 @@ class ImagifyFlyerProtocols {
   // --------------------
   /// TASK : TEST ME
   static void disposeRenderedFlyer({
-    @required BuildContext context,
     @required FlyerModel flyerModel,
     @required bool mounted,
     @required String invoker,
@@ -183,7 +180,6 @@ class ImagifyFlyerProtocols {
   /// TESTED : WORKS PERFECT
   static Future<FlyerModel> _imagifyFirstSlide({
     @required FlyerModel flyerModel,
-    @required BuildContext context,
   }) async {
     FlyerModel _output;
 
@@ -198,7 +194,6 @@ class ImagifyFlyerProtocols {
         if (_firstSlide.uiImage == null){
 
           final ui.Image _image = await PicProtocols.fetchPicUiImage(
-            context: context,
             path: _firstSlide.picPath,
           );
 
@@ -226,7 +221,6 @@ class ImagifyFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<FlyerModel> _imagifySlides({
-    @required BuildContext context,
     @required FlyerModel flyerModel,
   }) async {
     FlyerModel _output;
@@ -247,7 +241,6 @@ class ImagifyFlyerProtocols {
           if (_slide.uiImage == null){
 
             final ui.Image _image = await PicProtocols.fetchPicUiImage(
-              context: context,
               path: _slide.picPath,
             );
 
@@ -284,7 +277,6 @@ class ImagifyFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<FlyerModel> _imagifyBzLogo({
-    @required BuildContext context,
     @required FlyerModel flyerModel,
   }) async {
     FlyerModel _output = flyerModel;
@@ -297,7 +289,6 @@ class ImagifyFlyerProtocols {
 
         final ui.Image _logoImage = await PicProtocols.fetchPicUiImage(
           path: StoragePath.bzz_bzID_logo(flyerModel.bzID),
-          context: context,
         );
 
         _output = flyerModel.copyWith(
@@ -317,7 +308,6 @@ class ImagifyFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<FlyerModel> _imagifyAuthorPic({
-    @required BuildContext context,
     @required FlyerModel flyerModel,
   }) async {
     FlyerModel _output = flyerModel;
@@ -329,7 +319,6 @@ class ImagifyFlyerProtocols {
       if (flyerModel.authorImage == null){
 
         final ui.Image _authorImage = await PicProtocols.fetchPicUiImage(
-          context: context,
           path: StoragePath.bzz_bzID_authorID(
             authorID: flyerModel.authorID,
             bzID: flyerModel.bzID,

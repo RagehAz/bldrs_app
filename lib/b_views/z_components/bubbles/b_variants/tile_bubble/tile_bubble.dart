@@ -68,7 +68,7 @@ class BldrsTileBubble extends StatelessWidget {
 
     return TileBubble(
       key: const ValueKey<String>('BldrsTileBubble'),
-      textDirection: UiProvider.getAppTextDir(context),
+      textDirection: UiProvider.getAppTextDir(),
       font: BldrsText.superVerseFont(VerseWeight.bold),
       appIsLTR: UiProvider.checkAppIsLeftToRight(),
       textColor: verseColor,

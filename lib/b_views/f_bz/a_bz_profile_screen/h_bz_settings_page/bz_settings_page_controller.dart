@@ -71,7 +71,6 @@ Future<void> onDeleteBzButtonTap({
 }) async {
 
   final bool _canContinue = await _preDeleteBzAccountChecks(
-    context: context,
     bzModel: bzModel,
   );
 
@@ -128,7 +127,6 @@ Future<void> onDeleteBzButtonTap({
 // -----
 /// TESTED : WORKS PERFECT
 Future<bool> _preDeleteBzAccountChecks({
-  @required BuildContext context,
   @required BzModel bzModel,
 }) async {
 
@@ -167,7 +165,6 @@ Future<bool> _preDeleteBzAccountChecks({
       else {
 
         final bool _confirmDeleteAllBzFlyers = await _showConfirmDeleteAllBzFlyersDialog(
-          context: context,
           bzModel: bzModel,
         );
 
@@ -235,12 +232,10 @@ Future<void> _showOnlyCreatorCanDeleteBzDialog({
 }
 // -----
 Future<bool> _showConfirmDeleteAllBzFlyersDialog({
-  @required BuildContext context,
   @required BzModel bzModel,
 }) async {
 
   final bool _result = await Dialogs.flyersDialog(
-    context: context,
     titleVerse: const Verse(
       id: 'phid_all_bz_flyers_will_be_wiped',
       translate: true,

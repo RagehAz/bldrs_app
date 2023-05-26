@@ -79,7 +79,6 @@ class AuthorCard extends StatelessWidget {
   }
   // -----------------------------------------------------------------------------
   Future<void> _onContactTap({
-    @required BuildContext context,
     @required ContactModel contactModel,
   }) async {
 
@@ -88,7 +87,6 @@ class AuthorCard extends StatelessWidget {
     }
 
     await Launcher.launchContactModel(
-      context: context,
       contact: contactModel,
     );
 
@@ -259,7 +257,6 @@ class AuthorCard extends StatelessWidget {
                     forceShowVerse: true,
                     margins: const EdgeInsets.only(top: 5),
                     onTap: () => _onContactTap(
-                      context: context,
                       contactModel: _contact,
                     ),
                 );

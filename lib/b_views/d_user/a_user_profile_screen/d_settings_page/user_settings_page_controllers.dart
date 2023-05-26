@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -58,7 +59,6 @@ Future<void> onEditProfileTap(BuildContext context) async {
         canGoBack: true,
         onFinish: () async {
           await BldrsNav.restartAndRoute(
-            context: context,
             routeName: Routing.myUserScreen,
           );
         },
@@ -88,13 +88,12 @@ Future<void> onGoToFCMTopicsScreen(BuildContext context) async {
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> onDeleteMyAccount(BuildContext context) async {
+Future<void> onDeleteMyAccount() async {
 
-  bool _continue = await _authorshipDeletionCheckups(context);
+  bool _continue = await _authorshipDeletionCheckups();
 
   if (_continue == true){
     _continue = await reAuthenticateUser(
-      context: context,
       dialogTitleVerse: const Verse(
         id: 'phid_delete_your_account_?',
         translate: true,
@@ -113,7 +112,7 @@ Future<void> onDeleteMyAccount(BuildContext context) async {
   if (_continue == true){
 
     await UserProtocols.wipeUser(
-      context: context,
+      context: getMainContext(),
       showWaitDialog: true,
     );
 
@@ -138,14 +137,14 @@ Future<void> onDeleteMyAccount(BuildContext context) async {
     blog('finished center dialog');
 
     /// SIGN OUT OPS
-    await onSignOut(context);
+    await onSignOut();
 
   }
 
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<bool> _authorshipDeletionCheckups(BuildContext context) async {
+Future<bool> _authorshipDeletionCheckups() async {
 
   bool _canDelete = false;
 
@@ -181,7 +180,6 @@ Future<bool> _authorshipDeletionCheckups(BuildContext context) async {
 
         /// SHOW WILL DELETE BZZ DIALOG
         _canDelete = await Dialogs.bzzBannersDialog(
-          context: context,
           invertButtons: true,
           bzzModels: _myBzzICreated,
           titleVerse: const Verse(
@@ -213,7 +211,6 @@ Future<bool> _authorshipDeletionCheckups(BuildContext context) async {
 
             /// SHOW WILL EXIT BZZ DIALOG
             _canDelete = await Dialogs.bzzBannersDialog(
-              context: context,
               bzzModels: _myBzzIDidNotCreate,
               invertButtons: true,
               titleVerse: const Verse(
@@ -250,7 +247,6 @@ Future<bool> _authorshipDeletionCheckups(BuildContext context) async {
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<bool> reAuthenticateUser({
-  @required BuildContext context,
   @required Verse dialogTitleVerse,
   @required Verse dialogBodyVerse,
   @required Verse confirmButtonVerse,
@@ -275,7 +271,6 @@ Future<bool> reAuthenticateUser({
     if (_canContinue == true){
 
       final bool _passwordIsCorrect = await _checkPassword(
-        context: context,
         userModel: _userModel,
       );
 
@@ -319,13 +314,12 @@ Future<bool> reAuthenticateUser({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<bool> _checkPassword({
-  @required BuildContext context,
   @required UserModel userModel,
 }) async {
 
   bool _passwordIsCorrect;
 
-  final String _password = await Dialogs.showPasswordDialog(context);
+  final String _password = await Dialogs.showPasswordDialog();
 
   if (_password?.isNotEmpty == true){
 

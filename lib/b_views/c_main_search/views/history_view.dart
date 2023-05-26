@@ -79,7 +79,7 @@ class SearchHistoryView extends StatelessWidget {
                 child: SizedBox(
                   width: TileBubble.childWidth(context: context),
                   child: Wrap(
-                    textDirection: UiProvider.getAppTextDir(context),
+                    textDirection: UiProvider.getAppTextDir(),
                     children: <Widget>[
 
                       /// SEARCH TEXT
@@ -94,7 +94,6 @@ class SearchHistoryView extends StatelessWidget {
                         icon: ZoneFilterTile.getZoneIcon(zoneModel: _model?.zone),
                         bigIcon: true,
                         verse: ZoneFilterTile.getZoneVerse(
-                            context: context,
                             zoneModel: _model?.zone,
                         ),
                       ),

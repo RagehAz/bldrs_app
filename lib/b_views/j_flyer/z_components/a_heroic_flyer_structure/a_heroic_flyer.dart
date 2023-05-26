@@ -86,7 +86,6 @@ class _HeroicFlyerState extends State<HeroicFlyer> {
     // }
 
     FlyerProtocols.disposeRenderedFlyer(
-      context: context,
       mounted: mounted,
       flyerModel: renderedSmallFlyer,
       invoker: 'HeroicFlyer',
@@ -108,7 +107,6 @@ class _HeroicFlyerState extends State<HeroicFlyer> {
     if (widget.flyerModel != null) {
       if (mounted == true) {
         final FlyerModel _renderedSmallFlyer = await FlyerProtocols.renderSmallFlyer(
-          context: context,
           flyerModel: widget.flyerModel,
         );
 

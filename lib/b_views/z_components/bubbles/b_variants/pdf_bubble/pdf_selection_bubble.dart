@@ -111,7 +111,6 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
           return Bubble(
             bubbleColor: Formers.validatorBubbleColor(
               validator: () => Formers.pdfValidator(
-                context: context,
                 pdfModel: pdfModel,
                 canValidate: widget.canValidate,
               ),
@@ -228,7 +227,6 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                 isFloatingField: true,
                 // autoValidate: true,
                 validator: (String text) => Formers.pdfValidator(
-                  context: context,
                   canValidate: true,
                   pdfModel: pdfModel,
                 ),
@@ -309,7 +307,6 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
 
                         if (_pdf?.bytes == null){
                           await Dialogs.topNotice(
-                              context: context,
                               verse: const Verse(
                                 id: 'phid_can_not_open_file',
                                 translate: true,

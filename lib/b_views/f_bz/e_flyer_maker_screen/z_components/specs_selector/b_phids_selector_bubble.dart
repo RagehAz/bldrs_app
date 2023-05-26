@@ -110,7 +110,6 @@ class PhidsSelectorBubble extends StatelessWidget {
             width: _bubbleClearWidth - 20,
             validator: () => Formers.flyerPhidsValidator(
               phids: draft.phids,
-              context: context,
               canValidate: canValidate,
             ),
           ),

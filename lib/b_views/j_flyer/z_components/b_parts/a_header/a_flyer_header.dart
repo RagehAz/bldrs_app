@@ -304,7 +304,6 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                       translate: false,
                     ),
                     secondLine: ZoneModel.generateInZoneVerse(
-                      context: context,
                       zoneModel: widget.flyerModel.bzModel.zone,
                     ),
                     headerIsExpanded: widget.headerIsExpanded,

@@ -74,12 +74,10 @@ void onUserPicTap(){
 }
 // --------------------
 Future<void> onUserContactTap({
-  @required BuildContext context,
   @required ContactModel contact,
 }) async {
 
   await Launcher.launchContactModel(
-      context: context,
       contact: contact
   );
 

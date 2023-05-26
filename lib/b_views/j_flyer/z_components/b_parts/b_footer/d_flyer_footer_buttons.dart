@@ -106,7 +106,6 @@ class FlyerFooterButtons extends StatelessWidget {
                                 canTap: !tinyMode,
                                 isLoading: _isSharing,
                                 onTap: () => onShareFlyer(
-                                  context: context,
                                   flyerModel: flyerModel,
                                   isSharing: isSharing,
                                 ),

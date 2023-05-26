@@ -79,7 +79,6 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
   /// TESTED : WORKS PERFECT
   String _validator(String text){
     return Formers.numberDataCreatorFieldValidator(
-      context: context,
       text: text,
       picker: widget.picker,
       dataCreatorType: widget.dataCreatorType,

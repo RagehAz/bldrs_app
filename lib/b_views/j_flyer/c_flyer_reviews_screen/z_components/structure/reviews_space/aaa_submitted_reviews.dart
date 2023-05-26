@@ -190,7 +190,6 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
                         mounted: mounted,
                       ),
                       onReviewUserBalloonTap: (UserModel userModel) => onReviewUserBalloonTap(
-                        context: context,
                         userModel: userModel,
                       ),
                     );
@@ -222,38 +221,32 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
                           isAgreed: _isAlreadyAgreed,
 
                           onReviewOptionsTap: () => onReviewOptions(
-                            context: context,
                             reviewModel: _reviewModel,
                             paginationController: _paginationController,
                             bzID: widget.flyerModel.bzID,
                             mounted: mounted,
                           ),
                           onBzReplyOverReview: () => onBzReply(
-                            context: context,
                             reviewModel: _reviewModel,
                             paginationController: _paginationController,
                             bzID: widget.flyerModel.bzID,
                             mounted: mounted,
                           ),
                           onReplyOptionsTap: () => onReplyOptions(
-                            context: context,
                             reviewModel: _reviewModel,
                             paginationController: _paginationController,
                             mounted: mounted,
                           ),
                           onReviewAgreeTap: () => onReviewAgree(
-                            context: context,
                             isAgreed: _isAlreadyAgreed,
                             reviewModel: _reviewModel,
                             paginationController: _paginationController,
                             mounted: mounted,
                           ),
                           onReviewUserBalloonTap: (UserModel userModel) => onReviewUserBalloonTap(
-                            context: context,
                             userModel: userModel,
                           ),
                           onReplyBzBalloonTap: (BzModel bzModel) => onReplyBzBalloonTap(
-                            context: context,
                             bzModel: bzModel,
                           ),
                         );

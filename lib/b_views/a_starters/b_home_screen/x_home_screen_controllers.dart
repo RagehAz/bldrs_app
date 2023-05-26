@@ -107,7 +107,7 @@ List<NavModel> generateMainNavModels({
       iconSizeFactor: userModel?.picPath == null ? 0.55 : 1,
       iconColor: Colorz.nothing,
       canShow: _userIsSignedIn,
-      forceRedDot: userModel == null || Formers.checkUserHasMissingFields(userModel: userModel, context: context),
+      forceRedDot: userModel == null || Formers.checkUserHasMissingFields(userModel: userModel),
     ),
 
     /// SAVED FLYERS
@@ -171,7 +171,6 @@ List<NavModel> generateMainNavModels({
       iconSizeFactor: 1,
       iconColor: Colorz.nothing,
       titleVerse: ZoneModel.generateObeliskVerse(
-          context: context,
           zone: currentZone,
       ),
     ),
@@ -237,7 +236,7 @@ Future<void> onNavigate({
         value: ProgressBarModel.emptyModel(),
     );
 
-    UiProvider.proSetPyramidsAreExpanded(context: context, setTo: false, notify: true);
+    UiProvider.proSetPyramidsAreExpanded(setTo: false, notify: true);
 
   });
 
@@ -384,9 +383,7 @@ Future<void> setActivePhidK({
               translate: true,
             ),
             width: 133,
-            onTap: () => Launcher.shareBldrsWebsiteURL(
-              context : getMainContext(),
-            ),
+            onTap: () => Launcher.shareBldrsWebsiteURL(),
           ),
 
           DialogButton(
