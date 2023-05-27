@@ -150,6 +150,18 @@ class Standards {
   // static const double notePosterWidthPixels = 1000; // NotePosterBox.standardSize.width
    */
   // -----------------------------------------------------------------------------
+
+  /// EXCHANGE RATES KEY
+
+  // --------------------
   static String exchangeRateAppID = 'e34ede10438a4c22aa21cedb190ebae1';
+  // -----------------------------------------------------------------------------
+
+  /// GOOGLE MAPS KEYS
+
+  // --------------------
+  static String googleMapsAPIKey = 'AIzaSyDQGuhqhKu1mSdNxAbS_BCP8NfCB1ENmaI';
+  static String googleMapsPlatformAPIKey = 'AIzaSyDp6MMLw2LJflspqJ0x2uZCmQuZ32vS3XU';
+  static String googleMapsPlatformAPIKey2 = 'AIzaSyD5CBTWvMaL6gU0X7gfdcnkpFmo-aNfgx4';
   // -----------------------------------------------------------------------------
 }
