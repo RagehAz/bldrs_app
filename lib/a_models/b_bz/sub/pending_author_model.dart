@@ -298,9 +298,10 @@ class PendingAuthor {
     @required String userID,
   }){
 
-    final List<String> _usersIDs = getPendingsUsersIDs(bzModel.pendingAuthors);
+    final List<String> _usersIDs = getPendingsUsersIDs(bzModel?.pendingAuthors);
 
-    blog('checkIsPendingAuthor : _usersIDs : $_usersIDs : bzModel : ${bzModel.id} : userID : $userID');
+    blog('checkIsPendingAuthor : _usersIDs : $_usersIDs : bzModel : ${bzModel?.id} : userID : '
+        '$userID');
 
     return Stringer.checkStringsContainString(
       strings: _usersIDs,
