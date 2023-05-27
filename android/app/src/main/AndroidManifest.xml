@@ -26,7 +26,9 @@
 
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
     <!--    To opt out of the Advertising ID Permission,    -->
-    <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove"/>
+    <!--    <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove"/> -->
+    <!--    But to use it,, this is it -->
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
     <application

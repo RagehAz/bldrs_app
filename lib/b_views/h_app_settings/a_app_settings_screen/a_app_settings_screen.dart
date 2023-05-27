@@ -108,7 +108,7 @@ class AppSettingsScreen extends StatelessWidget {
         ),
 
         BldrsText(
-          verse: Verse.plain(bldrsAppVersion),
+          verse: Verse.plain(BLDRS_APP_VERSION),
           size: 0,
           italic: true,
           color: Colorz.white125,
