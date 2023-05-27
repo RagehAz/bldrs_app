@@ -83,7 +83,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen>  {
     await Nav.goBack(
       context: context,
       invoker: '_passSelectedFlyersBack',
-      passedData: Provider.of<FlyersProvider>(context, listen: false).selectedFlyers,
+      passedData: Provider.of<FlyersProvider>(getMainContext(), listen: false).selectedFlyers,
     );
 
   }

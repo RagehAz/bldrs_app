@@ -61,7 +61,7 @@ Future<void> initializeLogoScreen({
       <Future<void>>[
 
         /// LOCAL ASSETS PATHS
-        initializeLocalAssetsPaths(context),
+        initializeLocalAssetsPaths(),
         /// APP LANGUAGE
         initializeAppLanguage(),
         /// APP STATE
@@ -311,9 +311,9 @@ Future<void> _showUpdateAppDialog(BuildContext context) async {
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> initializeLocalAssetsPaths(BuildContext context) async {
+Future<void> initializeLocalAssetsPaths() async {
   // blog('_initializeLocalAssetsPaths : START');
-  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+  final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
   await _uiProvider.getSetLocalAssetsPaths(notify: true);
   // blog('_initializeLocalAssetsPaths : END');
 }

@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
@@ -17,7 +18,6 @@ import 'package:stringer/stringer.dart';
 
 // --------------------
 void onSearchCurrencies({
-  @required BuildContext context,
   @required TextEditingController searchController,
   @required ValueNotifier<bool> isSearching,
   @required ValueNotifier<List<CurrencyModel>> foundCurrencies,
@@ -36,9 +36,8 @@ void onSearchCurrencies({
     final List<CurrencyModel> _foundCurrencies = <CurrencyModel>[];
 
     /// SEARCH MAIN PHRASES
-    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(getMainContext(), listen: false);
     final List<Phrase> _phrases = onSearchPhrases(
-      context: context,
       searchController: searchController,
       phrasesToSearchIn: _phraseProvider.mainPhrases,
       isSearching: isSearching,
@@ -67,7 +66,7 @@ void onSearchCurrencies({
 
       /// GET CURRENCIES
       final List<CurrencyModel> _allCurrencies = ZoneProvider.proGetAllCurrencies(
-        context: context,
+        context: getMainContext(),
         listen: false,
       );
 

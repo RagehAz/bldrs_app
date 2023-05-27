@@ -44,13 +44,13 @@ Future<void> onInviteBusinessesTap(BuildContext context) async {
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> onEditProfileTap(BuildContext context) async {
+Future<void> onEditProfileTap() async {
 
-  final UsersProvider _userProvider = Provider.of<UsersProvider>(context, listen: false);
+  final UsersProvider _userProvider = Provider.of<UsersProvider>(getMainContext(), listen: false);
   final UserModel _myUserModel = _userProvider.myUserModel;
 
   await Nav.goToNewScreen(
-      context: context,
+      context: getMainContext(),
       screen: UserEditorScreen(
         userModel: _myUserModel,
         reAuthBeforeConfirm: true,

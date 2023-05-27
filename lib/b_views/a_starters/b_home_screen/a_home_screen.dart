@@ -135,7 +135,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
     /// Subscribe
     _keyboardSubscription = Keyboard.initializeKeyboardListener(
-      context: context,
       controller: keyboardVisibilityController,
     );
 

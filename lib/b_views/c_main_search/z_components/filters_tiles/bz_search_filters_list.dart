@@ -131,10 +131,8 @@ class BzSearchFiltersList extends StatelessWidget {
               bzType: searchModel?.bzSearchModel?.bzType,
             ),
             selectedSpecs: SpecModel.generateSpecsByPhids(
-              context: context,
-              phids: searchModel?.bzSearchModel?.scopePhid == null
-                  ? []
-                  : [searchModel?.bzSearchModel?.scopePhid],
+              phids: searchModel?.bzSearchModel?.scopePhid == null ?
+              [] : [searchModel?.bzSearchModel?.scopePhid],
             ),
             onFlyerTypeBubbleTap: onScopeTap,
             onPhidTap: (FlyerType flyerType, String phid) => onScopeTap(flyerType),
