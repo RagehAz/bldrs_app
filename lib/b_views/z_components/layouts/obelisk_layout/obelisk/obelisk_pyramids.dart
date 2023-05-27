@@ -47,7 +47,8 @@ class ObeliskPyramids extends StatelessWidget {
           blog('the userID : ${Authing.getUserID()}');
 
           final bool isExpanded = UiProvider.proGetPyramidsAreExpanded(
-              listen: false,
+            context: context,
+            listen: false,
           );
 
           /// TO OPEN PYRAMIDS

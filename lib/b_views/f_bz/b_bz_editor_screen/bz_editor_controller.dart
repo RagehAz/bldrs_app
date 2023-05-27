@@ -182,6 +182,7 @@ Future<void> _uploadDraftBz({
       context: context,
       newDraft: draftNotifier.value,
       userModel: UsersProvider.proGetMyUserModel(
+        context: context,
         listen: false,
       ),
     );

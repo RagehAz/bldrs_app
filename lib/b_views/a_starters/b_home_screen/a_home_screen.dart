@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         }
 
-        await initializeHomeScreen();
+        await initializeHomeScreen(context: context);
 
         await initializeNotesListeners();
 
@@ -158,6 +158,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
 
     final RouteSettings _afterHomeRoute = UiProvider.proGetAfterHomeRoute(
+      context: context,
       listen: true,
     );
 
@@ -182,9 +183,18 @@ class _HomeScreenState extends State<HomeScreen> {
     /// WHEN AFTER HOME ROUTE IS NULL
     else {
 
-      final List<BzModel> _bzzModels = BzzProvider.proGetMyBzz(listen: true);
-      final UserModel _userModel = UsersProvider.proGetMyUserModel(listen: true);
-      final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(listen: true);
+      final List<BzModel> _bzzModels = BzzProvider.proGetMyBzz(
+        context: context,
+          listen: true,
+      );
+      final UserModel _userModel = UsersProvider.proGetMyUserModel(
+        context: context,
+        listen: true,
+      );
+      final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(
+        context: context,
+        listen: true,
+      );
 
       final List<NavModel> _navModels = generateMainNavModels(
         context: context,

@@ -149,6 +149,7 @@ Future<bool> _authorshipDeletionCheckups() async {
   bool _canDelete = false;
 
   final UserModel _userModel = UsersProvider.proGetMyUserModel(
+    context: getMainContext(),
     listen: false,
   );
 
@@ -162,6 +163,7 @@ Future<bool> _authorshipDeletionCheckups() async {
     if (_userIsAuthor == true){
 
       final List<BzModel> _myBzzModels = BzzProvider.proGetMyBzz(
+        context: getMainContext(),
         listen: false,
       );
 
@@ -255,6 +257,7 @@ Future<bool> reAuthenticateUser({
   bool _canContinue = false;
 
   final UserModel _userModel = UsersProvider.proGetMyUserModel(
+    context: getMainContext(),
     listen: false,
   );
 

@@ -10,6 +10,7 @@ import 'package:bldrs/a_models/x_secondary/app_state_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/app_state_real_ops.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
@@ -95,6 +96,7 @@ class UserModel {
     assert(authModel.signInMethod != SignInMethod.anonymous, 'user must not be anonymous');
 
     final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(
+      context: getMainContext(),
       listen: false,
     );
 

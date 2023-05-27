@@ -8,6 +8,7 @@ import 'package:bldrs/b_views/z_components/notes/topics_editor/topics_expanding_
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:stringer/stringer.dart';
@@ -41,7 +42,8 @@ class UserFCMTopicsScreenView extends StatelessWidget {
   }) async {
 
     final UserModel _userModel = UsersProvider.proGetMyUserModel(
-        listen: false,
+      context: getMainContext(),
+      listen: false,
     );
 
     /// SUBSCRIBE TO ALL USER TOPICS
@@ -90,7 +92,10 @@ class UserFCMTopicsScreenView extends StatelessWidget {
 
     final Map<String, dynamic> _map = TopicModel.getTopicsMapByPartyType(PartyType.user);
 
-    final UserModel _userModel = UsersProvider.proGetMyUserModel(listen: true);
+    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: true,
+    );
 
     final List<String> _thisBzUserSubscribedTopics = TopicModel.getUserTopicsFromTopics(
       topics: _userModel.fcmTopics,

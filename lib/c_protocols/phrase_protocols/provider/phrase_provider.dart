@@ -92,9 +92,10 @@ class PhraseProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String proGetCurrentLangCode({
+    @required BuildContext context,
     @required bool listen,
   }){
-    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(getMainContext(), listen: listen);
+    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: listen);
     return _phraseProvider._currentLangCode;
   }
   // --------------------
@@ -245,9 +246,10 @@ class PhraseProvider extends ChangeNotifier {
   List<String> get phidsPendingTranslation => _phidsPendingTranslation;
   // --------------------
   static List<String> proGetPhidsPendingTranslation({
+    @required BuildContext context,
     @required bool listen,
   }){
-    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(getMainContext(), listen: listen);
+    final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: listen);
     return _phraseProvider.phidsPendingTranslation;
   }
   // --------------------

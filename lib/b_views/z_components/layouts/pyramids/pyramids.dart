@@ -267,6 +267,7 @@ class _PyramidGraphic extends StatelessWidget {
 
 bool imAdmin(BuildContext context){
   final UserModel _userModel = UsersProvider.proGetMyUserModel(
+    context: context,
     listen: true,
   );
   return _userModel?.isAdmin;

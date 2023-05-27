@@ -29,6 +29,7 @@ class TopDialog extends StatelessWidget {
   static Future<void> closeTopDialog() async {
 
     final GlobalKey _key = UiProvider.proGetTopDialogKey(
+      context: getMainContext(),
       listen: false,
     );
 

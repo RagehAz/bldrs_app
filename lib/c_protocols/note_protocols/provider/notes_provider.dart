@@ -108,7 +108,8 @@ class NotesProvider extends ChangeNotifier {
     /// NOTE: generates all navModels and creates a MapModel for each one in Obelisk
 
     final List<BzModel> _bzzModels = BzzProvider.proGetMyBzz(
-        listen: false,
+      context: getMainContext(),
+      listen: false,
     );
 
     final List<String> _allNavModelsIDs = NavModel.generateAllNavModelsIDs(
@@ -258,6 +259,7 @@ class NotesProvider extends ChangeNotifier {
   }) async {
 
     final List<BzModel> _myBzz = BzzProvider.proGetMyBzz(
+      context: getMainContext(),
       listen: false,
     );
 
@@ -474,9 +476,10 @@ class NotesProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static int proGetBadgeNum({
+    @required BuildContext context,
     @required bool listen,
   }){
-    final NotesProvider _notesProvider = Provider.of<NotesProvider>(getMainContext(), listen: listen);
+    final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: listen);
     return _notesProvider.badgeNum;
   }
   // -----------------------------------------------------------------------------

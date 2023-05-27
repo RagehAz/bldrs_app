@@ -19,6 +19,7 @@ class UserProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     final UserModel _user = UsersProvider.proGetMyUserModel(
+      context: context,
       listen: true,
     );
     _user?.blogUserModel(invoker: 'UserProfileScreen');
