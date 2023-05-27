@@ -46,11 +46,10 @@ class BzzProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void wipeOut({
-    @required BuildContext context,
     @required bool notify,
   }){
 
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
 
     ///_sponsors
     _bzzProvider.clearSponsors(
@@ -158,18 +157,20 @@ class BzzProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<BzModel> proGetMyBzz({
+    @required BuildContext context,
     @required bool listen,
   }){
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: listen);
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: listen);
     final List<BzModel> _myBzz = _bzzProvider.myBzz;
     return _myBzz;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> proGetMyBzzIDs({
+    @required BuildContext context,
     @required bool listen,
   }){
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: listen);
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: listen);
     final List<BzModel> _myBzz = _bzzProvider.myBzz;
     final List<String> _myBzzIDs = BzModel.getBzzIDs(_myBzz);
     return _myBzzIDs;
@@ -349,12 +350,11 @@ class BzzProvider extends ChangeNotifier {
   // --------------------
   /// TASK : TEST ME
   bool checkFollow({
-    @required BuildContext context,
     @required String bzID,
   }) {
     bool _isFollowing = false;
 
-    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(getMainContext(), listen: false);
     final UserModel _myUserModel = _usersProvider.myUserModel;
 
     final String _id = _myUserModel?.followedBzz?.all?.firstWhere((String id) => id == bzID, orElse: () => null);
@@ -400,9 +400,10 @@ class BzzProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static BzModel proGetActiveBzModel({
+    @required BuildContext context,
     @required bool listen,
   }) {
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: listen);
+    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: listen);
     return _bzzProvider.myActiveBz;
   }
   // --------------------

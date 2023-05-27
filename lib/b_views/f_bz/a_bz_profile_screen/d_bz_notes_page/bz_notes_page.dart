@@ -202,7 +202,8 @@ class _BzNotesPageState extends State<BzNotesPage>{
     // super.build(context);
 
     final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
-        listen: true,
+      context: context,
+      listen: true,
     );
 
     return PullToRefresh(

@@ -59,8 +59,9 @@ class DataCreatorSplitter extends StatelessWidget {
     );
 
     final List<Chain> _allChains = ChainsProvider.proGetBldrsChains(
-        onlyUseZoneChains: false,
-        listen: false,
+      context: context,
+      onlyUseZoneChains: false,
+      listen: false,
     );
 
     Chain.blogChains(_allChains);

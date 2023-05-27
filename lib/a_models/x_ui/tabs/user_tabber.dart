@@ -1,4 +1,5 @@
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,10 @@ class UserTabber {
   /// TAMAM : WORKS PERFECT
   static String getUserTabIcon(UserTab userTab){
     switch(userTab){
-      case UserTab.profile        : return UsersProvider.proGetMyUserModel(listen: false)?.picPath; break;
+      case UserTab.profile        : return UsersProvider.proGetMyUserModel(
+                                                context: getMainContext(),
+                                                listen: false
+                                              )?.picPath; break;
       case UserTab.notifications  : return Iconz.notification ; break;
       case UserTab.following      : return Iconz.follow       ; break;
       case UserTab.settings       : return Iconz.gears        ; break;

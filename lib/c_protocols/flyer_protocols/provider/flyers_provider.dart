@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:mapper/mapper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -198,11 +199,10 @@ class FlyersProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void wipeOut({
-    @required BuildContext context,
     @required bool notify,
   }){
 
-    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(getMainContext(), listen: false);
 
     /// _wallFlyers
     // _flyersProvider.clearWallFlyers(notify: false);

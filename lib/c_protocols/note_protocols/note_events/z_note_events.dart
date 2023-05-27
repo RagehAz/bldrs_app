@@ -114,7 +114,8 @@ class NoteEvent {
   }) async {
 
     final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
-        listen: false,
+      context: context,
+      listen: false,
     );
 
     final bool _imAuthorOfThisBz = AuthorModel.checkUserIsAuthorInThisBz(

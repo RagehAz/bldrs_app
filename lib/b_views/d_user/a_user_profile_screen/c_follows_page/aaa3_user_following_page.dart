@@ -24,6 +24,7 @@ class UserFollowingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     final UserModel userModel = UsersProvider.proGetMyUserModel(
+      context: context,
       listen: true,
     );
     final List<String> _followedBzzIds = userModel.followedBzz?.all;

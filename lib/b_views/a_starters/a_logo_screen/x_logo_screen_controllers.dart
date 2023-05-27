@@ -215,7 +215,8 @@ Future<void> initializeAppState(BuildContext context) async {
   if (Authing.userIsSignedIn() == true){
 
     final UserModel _userModel = UsersProvider.proGetMyUserModel(
-        listen: false,
+      context: context,
+      listen: false,
     );
     AppStateModel _userState = _userModel?.appState?.copyWith();
 

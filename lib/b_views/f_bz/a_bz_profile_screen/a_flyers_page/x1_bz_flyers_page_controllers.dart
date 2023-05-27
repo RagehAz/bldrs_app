@@ -17,6 +17,7 @@ import 'package:bldrs/b_views/z_components/poster/structure/x_note_poster_box.da
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
@@ -42,7 +43,10 @@ Future<void> onFlyerBzOptionsTap({
   final bool _canDeleteFlyer = AuthorModel.checkAuthorCanDeleteFlyer(
     flyer: flyer,
     myID: Authing.getUserID(),
-    bzModel: BzzProvider.proGetActiveBzModel(listen: false),
+    bzModel: BzzProvider.proGetActiveBzModel(
+      context: context,
+      listen: false,
+    ),
   );
 
   final double _posterWidth = BottomDialog.clearWidth(context);
@@ -238,7 +242,8 @@ Future<bool> _preFlyerDeleteCheckups({
   bool _canContinue = false;
 
   final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
-      listen: false,
+    context: getMainContext(),
+    listen: false,
   );
 
   final bool _canDeleteFlyer = AuthorModel.checkAuthorCanDeleteFlyer(

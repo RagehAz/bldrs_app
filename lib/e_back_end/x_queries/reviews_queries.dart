@@ -37,6 +37,7 @@ FireQueryModel reviewsStreamQuery({
 }){
 
   final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+    context: context,
     listen: false,
   );
 

@@ -168,6 +168,7 @@ class RenovateUserProtocols {
     blog('RenovateUserProtocols.followingProtocol : START');
 
     final UserModel _oldUser = UsersProvider.proGetMyUserModel(
+      context: context,
       listen: false,
     );
 
@@ -245,6 +246,7 @@ class RenovateUserProtocols {
     if (flyerModel != null){
 
       final UserModel _oldUser = UsersProvider.proGetMyUserModel(
+        context: context,
         listen: false,
       );
 
@@ -330,6 +332,7 @@ class RenovateUserProtocols {
   }) async {
 
     final UserModel _oldUser = UsersProvider.proGetMyUserModel(
+      context: context,
       listen: false,
     );
     final List<String> _userSubscribedTopics = _oldUser.fcmTopics;
@@ -389,6 +392,7 @@ class RenovateUserProtocols {
 
       /// USER DEVICE MODEL
       final UserModel _oldUser = UsersProvider.proGetMyUserModel(
+        context: context,
         listen: false,
       );
 
@@ -452,6 +456,7 @@ class RenovateUserProtocols {
   }) async {
 
     final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+      context: context,
       listen: false,
     );
 

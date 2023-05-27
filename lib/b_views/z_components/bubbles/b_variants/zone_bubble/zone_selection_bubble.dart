@@ -75,7 +75,8 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     super.initState();
 
     final ZoneModel _initialZone = widget.currentZone ?? ZoneProvider.proGetCurrentZone(
-        listen: false,
+      context: context,
+      listen: false,
     );
 
     setNotifier(

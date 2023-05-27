@@ -48,6 +48,7 @@ class FlyerAffiliateButton extends StatelessWidget {
       final String _currencyID = Speccer.getCurrencyID(flyerModel?.specs);
 
       final String _currencySymbol = ZoneProvider.proGetCurrencyByCurrencyID(
+        context: context,
         currencyID: _currencyID,
         listen: false,
       )?.symbol;

@@ -25,14 +25,20 @@ import 'package:provider/provider.dart';
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> initializeHomeScreen() async {
+Future<void> initializeHomeScreen({
+  @required BuildContext context,
+}) async {
 
   await _checkIfUserIsMissingFields();
 
-  await initializeUserZone();
+  await initializeUserZone(
+    context: context,
+  );
 
   /// D - ZONES
-  await initializeCurrentZone();
+  await initializeCurrentZone(
+    context: context,
+  );
 
   await Future.wait(
       <Future<void>>[
@@ -48,12 +54,14 @@ Future<void> initializeHomeScreen() async {
         ),
         /// H - USER FOLLOWED BZZ : USES BZZ PROVIDER
         initializeUserFollowedBzz(
-            notify: true
+            notify: true,
         ),
       ]);
 
   /// I - KEYWORDS
-  unawaited(initializeAllChains());
+  unawaited(initializeAllChains(
+    context: context,
+  ));
 
 }
 // -----------------------------------------------------------------------------
@@ -160,10 +168,12 @@ Future<void> initializeUserBzz({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> initializeUserZone() async {
+Future<void> initializeUserZone({
+  @required BuildContext context,
+}) async {
   // blog('initializeHomeScreen._initializeUserZone : ~~~~~~~~~~ START');
 
-  final UsersProvider _userProvider = Provider.of<UsersProvider>(getMainContext(), listen: false);
+  final UsersProvider _userProvider = Provider.of<UsersProvider>(context, listen: false);
   final UserModel _myUserModel = _userProvider.myUserModel;
 
   if (_myUserModel != null){
@@ -182,14 +192,17 @@ Future<void> initializeUserZone() async {
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> initializeCurrentZone() async {
+Future<void> initializeCurrentZone({
+  @required BuildContext context,
+}) async {
   // blog('initializeHomeScreen._initializeCurrentZone : ~~~~~~~~~~ START');
 
-  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);
+  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 
   if (_zoneProvider.currentZone == null){
 
     final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+      context: context,
       listen: false,
     );
 
@@ -225,9 +238,11 @@ Future<void> initializeCurrentZone() async {
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> initializeAllChains() async {
+Future<void> initializeAllChains({
+  @required BuildContext context,
+}) async {
   // blog('initializeHomeScreen._initializeAllChains : ~~~~~~~~~~ START');
-  final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
+  final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
   await _chainsProvider.initializeAllChains(
     notify: true,
   );

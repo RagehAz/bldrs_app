@@ -6,6 +6,7 @@ import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
@@ -121,6 +122,7 @@ class DraftBz {
   static Future<DraftBz> _createNewDraftBz() async {
 
     final UserModel creatorUser = UsersProvider.proGetMyUserModel(
+      context: getMainContext(),
       listen: false,
     );
 

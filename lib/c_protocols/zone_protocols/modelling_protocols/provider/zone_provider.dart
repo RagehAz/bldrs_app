@@ -79,17 +79,19 @@ class ZoneProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static ZoneModel proGetCurrentZone({
+    @required BuildContext context,
     @required bool listen,
   }){
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: listen);
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: listen);
     return _zoneProvider.currentZone;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static ZoneModel proGetCurrentZoneIDs({
+    @required BuildContext context,
     @required bool listen,
   }){
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: listen);
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: listen);
     return _zoneProvider.currentZone;
   }
   // --------------------
@@ -164,19 +166,21 @@ class ZoneProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<CurrencyModel> proGetAllCurrencies({
+    @required BuildContext context,
     @required bool listen,
   }){
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: listen);
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: listen);
     return _zoneProvider.allCurrencies;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static CurrencyModel proGetCurrencyByCountryID({
+    @required BuildContext context,
     @required String countryID,
     @required bool listen,
   }){
 
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: listen);
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: listen);
 
     final CurrencyModel _currency = CurrencyModel.getCurrencyFromCurrenciesByCountryID(
         currencies: _zoneProvider.allCurrencies,
@@ -188,6 +192,7 @@ class ZoneProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static CurrencyModel proGetCurrencyByCurrencyID({
+    @required BuildContext context,
     @required String currencyID,
     @required bool listen,
   }){
@@ -195,7 +200,7 @@ class ZoneProvider extends ChangeNotifier {
 
     if (currencyID != null) {
 
-      final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: listen);
+      final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: listen);
 
       _currency = CurrencyModel.getCurrencyByID(
         allCurrencies: _zoneProvider.allCurrencies,

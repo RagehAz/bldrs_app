@@ -28,6 +28,7 @@ class SpecsBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final List<PickerModel> _specsPickers = ChainsProvider.proGetPickersBySpecs(
+      context: context,
       specs: specs,
       listen: true,
     );

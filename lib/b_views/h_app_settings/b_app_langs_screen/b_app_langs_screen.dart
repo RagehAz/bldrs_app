@@ -31,7 +31,8 @@ class AppLangsScreen extends StatelessWidget {
     const List<Lang> _languagesModels = Lang.allLanguages;
     final List<MapModel> _languageMaps = Lang.getLingoNamesMapModels(_languagesModels);
     final String _currentLang = PhraseProvider.proGetCurrentLangCode(
-        listen: true,
+      context: context,
+      listen: true,
     );
     // --------------------
     return FloatingLayout(

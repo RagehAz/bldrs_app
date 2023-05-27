@@ -51,6 +51,7 @@ class UserProfileBanners extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final UserModel _userModel = userModel ?? UsersProvider.proGetMyUserModel(
+      context: context,
       listen: true,
     );
 

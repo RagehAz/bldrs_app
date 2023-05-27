@@ -49,6 +49,7 @@ class _AuthorSearchScreenState extends State<AuthorSearchScreen> {
   Future<void> _onSearch(String text) async {
 
     final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+      context: context,
       listen: false,
     );
 
@@ -71,6 +72,7 @@ class _AuthorSearchScreenState extends State<AuthorSearchScreen> {
   Widget build(BuildContext context) {
 
     final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+      context: context,
       listen: true,
     );
 

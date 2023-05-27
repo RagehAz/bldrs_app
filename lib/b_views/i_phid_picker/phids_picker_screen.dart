@@ -135,6 +135,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
     super.initState();
 
     final List<Chain> _allChains = ChainsProvider.proGetBldrsChains(
+      context: context,
       onlyUseZoneChains: widget.onlyUseZoneChains,
       listen: false,
     );
