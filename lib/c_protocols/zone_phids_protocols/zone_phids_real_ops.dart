@@ -125,6 +125,7 @@ class ZonePhidsRealOps {
       if (_map != null){
 
         final List<String> _citiesIDs = _map.keys.toList();
+        _citiesIDs?.remove('id');
 
         if (Mapper.checkCanLoopList(_citiesIDs) == true){
 

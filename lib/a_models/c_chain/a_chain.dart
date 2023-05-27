@@ -1327,7 +1327,6 @@ class Chain {
   /// TESTED : WORKS PERFECT
   static Chain sortChainAlphabetically({
     @required Chain chain,
-    @required BuildContext context,
   }) {
     Chain _output = chain;
 
@@ -1341,7 +1340,6 @@ class Chain {
       if (_sonsAreChains == true) {
         final List<Chain> _newSons = sortChainsAlphabetically(
           chains: sons,
-          context: context,
         );
         _output = Chain(
           id: chain.id,
@@ -1351,7 +1349,6 @@ class Chain {
 
       else if (_sonsArePhids == true) {
         _output = Chain(id: chain.id, sons: Phider.sortPhidsAlphabetically(
-          context: context,
           phids: sons,
         ));
       }
@@ -1368,7 +1365,6 @@ class Chain {
   /// TESTED : WORKS PERFECT
   static List<Chain> sortChainsAlphabetically({
     @required List<Chain> chains,
-    @required BuildContext context,
   }) {
     final List<Chain> _output = <Chain>[];
 
@@ -1377,7 +1373,6 @@ class Chain {
       List<String> _ids = getChainsIDs(chains);
       _ids = Phider.sortPhidsAlphabetically(
         phids: _ids,
-        context: context,
       );
 
       for (final String id in _ids){
@@ -1389,7 +1384,6 @@ class Chain {
 
         _chain = sortChainAlphabetically(
           chain: _chain,
-          context: context,
         );
 
         _output.add(_chain);

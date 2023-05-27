@@ -257,7 +257,6 @@ class ChainsProvider extends ChangeNotifier {
 
     _bldrsChains = Chain.sortChainsAlphabetically(
       chains: _bldrsChains,
-      context: getMainContext(),
     );
 
     _setBldrsChains(

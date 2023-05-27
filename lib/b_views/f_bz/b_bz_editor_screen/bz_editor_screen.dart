@@ -667,7 +667,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       ),
                       flyerTypes: FlyerTyper.concludePossibleFlyerTypesByBzTypes(bzTypes: draft?.bzTypes),
                       selectedSpecs: SpecModel.generateSpecsByPhids(
-                        context: context,
                         phids: draft?.scope,
                       ),
                       bulletPoints: const <Verse>[

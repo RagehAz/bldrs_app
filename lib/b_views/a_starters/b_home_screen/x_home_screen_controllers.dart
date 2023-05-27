@@ -146,7 +146,7 @@ List<NavModel> generateMainNavModels({
           screen: const MyBzScreen(),
           onNavigate: (){
 
-            final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+            final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
             _bzzProvider.setActiveBz(bzModel: _bzModel, notify: true);
 
           }

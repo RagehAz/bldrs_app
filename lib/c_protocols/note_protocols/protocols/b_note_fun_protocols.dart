@@ -258,7 +258,6 @@ class NoteFunProtocols {
           blog('2--> Switcher : FIRING : DELETE ALL BZ FLYERS LOCALLY (${trigger.argument}) : START');
           // argument: '${userID}_$bzID',
           await FlyerProtocols.deleteAllBzFlyersLocally(
-            context: context,
             bzID: trigger.argument,
           );
           blog('3--> Switcher : FIRING : END');
