@@ -20,7 +20,8 @@ class PendingAuthorsBubble extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
-        listen: true,
+      context: context,
+      listen: true,
     );
 
     /// PENDING AUTHORS EXIST

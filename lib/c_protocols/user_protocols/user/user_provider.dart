@@ -22,17 +22,19 @@ class UsersProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static AuthModel proGetAuthModel({
+    @required BuildContext context,
     @required bool listen,
   }){
-    final UsersProvider _usersProvider = Provider.of<UsersProvider>(getMainContext(), listen: listen);
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: listen);
     return _usersProvider.myAuthModel;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static UserModel proGetMyUserModel({
+    @required BuildContext context,
     @required bool listen
   }){
-    final UsersProvider _usersProvider = Provider.of<UsersProvider>(getMainContext(), listen: listen);
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: listen);
     return _usersProvider.myUserModel;
   }
   // --------------------
@@ -348,6 +350,7 @@ class UsersProvider extends ChangeNotifier {
   /// TESTED : WORKS PERFECT
   static bool userIsAuthor(){
     final UserModel _user = UsersProvider.proGetMyUserModel(
+      context: getMainContext(),
       listen: false,
     );
     return UserModel.checkUserIsAuthor(_user);
@@ -356,6 +359,7 @@ class UsersProvider extends ChangeNotifier {
   /// TESTED : WORKS PERFECT
   static ZoneModel proGetUserZone(){
     final UserModel _user = UsersProvider.proGetMyUserModel(
+      context: getMainContext(),
       listen: false,
     );
     return _user?.zone;

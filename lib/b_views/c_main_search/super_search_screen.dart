@@ -21,6 +21,7 @@ import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/fire/bz_search.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_search.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/search_protocols/search_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_search.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -265,7 +266,10 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
           if (value == true){
 
               _searchModel = _searchModel.copyWith(
-                zone:  ZoneProvider.proGetCurrentZone(listen: false),
+                zone:  ZoneProvider.proGetCurrentZone(
+                  context: context,
+                  listen: false,
+                ),
               );
               await _generateQuery();
 
@@ -291,6 +295,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
 
           if (_newZone != null){
             await ZoneSelection.setCurrentZone(
+              context: context,
               zone: _newZone,
             );
 
@@ -460,7 +465,10 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
           if (value == true){
 
               _searchModel = _searchModel.copyWith(
-                zone:  ZoneProvider.proGetCurrentZone(listen: false),
+                zone:  ZoneProvider.proGetCurrentZone(
+                  context: context,
+                  listen: false,
+                ),
               );
               await _generateQuery();
 
@@ -487,6 +495,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
 
           if (_newZone != null){
             await ZoneSelection.setCurrentZone(
+              context: context,
               zone: _newZone,
             );
 
@@ -643,7 +652,10 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
           if (value == true){
 
               _searchModel = _searchModel.copyWith(
-                zone:  ZoneProvider.proGetCurrentZone(listen: false),
+                zone:  ZoneProvider.proGetCurrentZone(
+                  context: context,
+                  listen: false,
+                ),
               );
               await _generateQuery();
 
@@ -669,6 +681,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
 
           if (_newZone != null){
             await ZoneSelection.setCurrentZone(
+              context: context,
               zone: _newZone,
             );
 
@@ -903,7 +916,8 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
   Verse getSearchHintVerse(){
 
     final ZoneModel _zone = ZoneProvider.proGetCurrentZone(
-        listen: false,
+      context: getMainContext(),
+      listen: false,
     );
 
     final String _countryName = _zone?.countryName ?? '';

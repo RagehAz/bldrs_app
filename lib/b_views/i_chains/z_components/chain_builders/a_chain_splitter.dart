@@ -205,7 +205,10 @@ class ChainSplitter extends StatelessWidget {
       // final DataCreator _dataCreator = DataCreation.decipherDataCreator(chainOrChainsOrSonOrSons);
       final String _chainID = ChainPathConverter.getLastPathNode(previousPath);
       final PickerModel _picker = PickerModel.getPickerByChainID(
-          pickers: ChainsProvider.proGetAllPickers(listen: false),
+          pickers: ChainsProvider.proGetAllPickers(
+            context: context,
+            listen: false,
+          ),
           chainID: Phider.removeIndexFromPhid(phid: _chainID),
       );
       final List<SpecModel> _specs = SpecModel.generateSpecsByPhids(

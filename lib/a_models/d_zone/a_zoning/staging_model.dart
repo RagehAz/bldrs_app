@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:filers/filers.dart';
@@ -366,7 +367,7 @@ class StagingModel {
     @required String viewerCountryID,
   }){
 
-    final UserModel _user = UsersProvider.proGetMyUserModel(listen: false);
+    final UserModel _user = UsersProvider.proGetMyUserModel(context: getMainContext(),listen: false);
     final bool _isAuthor = UserModel.checkUserIsAuthor(_user);
     final bool _isGlobal =
         countryID != null &&

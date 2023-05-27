@@ -362,7 +362,8 @@ class NewAuthorshipExit {
 
     /// (only i can) : REMOVE BZ & BZ TOPICS FROM MY USER MODEL
     final UserModel _oldUser = UsersProvider.proGetMyUserModel(
-        listen: false,
+      context: getMainContext(),
+      listen: false,
     );
 
     /// REMOVE BZ ID

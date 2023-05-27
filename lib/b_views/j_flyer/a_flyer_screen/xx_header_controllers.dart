@@ -240,7 +240,6 @@ bool checkFollowIsOn({
   final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
 
   final _followIsOn = _bzzProvider.checkFollow(
-      context: context,
       bzID: bzModel.id
   );
 
@@ -293,7 +292,10 @@ Future<void> onCallTap({
   @required FlyerModel flyerModel,
 }) async {
 
-  final UserModel _userModel = UsersProvider.proGetMyUserModel(listen: false);
+  final UserModel _userModel = UsersProvider.proGetMyUserModel(
+    context: getMainContext(),
+    listen: false,
+  );
 
   /// USER IS NOT SIGNED IN
   if (_userModel == null){

@@ -30,6 +30,7 @@ class CountryPreviewBubble extends StatelessWidget {
 
     final CurrencyModel _currencyModel = CurrencyModel.getCurrencyFromCurrenciesByCountryID(
       currencies: ZoneProvider.proGetAllCurrencies(
+        context: context,
         listen: true,
       ),
       countryID: countryID,

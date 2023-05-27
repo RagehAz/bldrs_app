@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
@@ -274,7 +275,7 @@ class BldrsTimers {
           time: _deviceTime
       );
       Verse _zoneLine = ZoneModel.generateInZoneVerse(
-        zoneModel: ZoneProvider.proGetCurrentZone(listen: false),
+        zoneModel: ZoneProvider.proGetCurrentZone(context: getMainContext(), listen: false),
       );
       _zoneLine = _zoneLine.id != '...' ? _zoneLine : Verse(
         /// PLAN : THIS NEEDS TRANSLATION : IN COMES LIKE THIS 'Africa/Cairo'

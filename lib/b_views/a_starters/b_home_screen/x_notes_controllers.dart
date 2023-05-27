@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -20,6 +21,7 @@ import 'package:mapper/mapper.dart';
 /// TESTED : WORKS PERFECT
 Future<void> initializeObeliskNumbers() async {
   await NotesProvider.proInitializeObeliskBadges(
+
     notify: false,
   );
 }
@@ -34,7 +36,8 @@ StreamSubscription listenToUserUnseenNotes(){
   StreamSubscription _sub;
 
   final UserModel _userModel = UsersProvider.proGetMyUserModel(
-      listen: false,
+    context: getMainContext(),
+    listen: false,
   );
 
   if (_userModel != null && Authing.getUserID() != null){
@@ -90,14 +93,20 @@ List<StreamSubscription> listenToMyBzzUnseenNotes(){
 
   final List<StreamSubscription> _subs = <StreamSubscription>[];
 
-  final UserModel _userModel = UsersProvider.proGetMyUserModel(listen: false);
+  final UserModel _userModel = UsersProvider.proGetMyUserModel(
+    context: getMainContext(),
+    listen: false,
+  );
 
   final bool _userIsAuthor = UserModel.checkUserIsAuthor(_userModel);
   // blog('initializeMyBzzNotes : _userIsAuthor : $_userIsAuthor');
 
   if (_userIsAuthor == true){
 
-    final List<BzModel> _myBzz = BzzProvider.proGetMyBzz(listen: false);
+    final List<BzModel> _myBzz = BzzProvider.proGetMyBzz(
+      context: getMainContext(),
+      listen: false,
+    );
 
     for (final BzModel bzModel in _myBzz){
 
@@ -184,7 +193,10 @@ bool _checkNoteDotIsOn({
   @required List<NoteModel> unseenNotes,
 }){
 
-  final UserModel _userModel = UsersProvider.proGetMyUserModel(listen: false);
+  final UserModel _userModel = UsersProvider.proGetMyUserModel(
+    context: getMainContext(),
+    listen: false,
+  );
 
   final bool _thereAreMissingFields = Formers.checkUserHasMissingFields(
     userModel: _userModel,

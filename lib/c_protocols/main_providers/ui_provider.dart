@@ -66,9 +66,10 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Dimensions proGetScreenDimensions({
+    @required BuildContext context,
     @required bool listen,
   }){
-    final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: listen);
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
     return _uiProvider.screenDims;
   }
   // --------------------
@@ -147,9 +148,10 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static RouteSettings proGetAfterHomeRoute({
+    @required BuildContext context,
     @required bool listen,
   }){
-    final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: listen);
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
     return _uiProvider.afterHomeRoute;
   }
   // --------------------
@@ -360,9 +362,10 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static GlobalKey proGetTopDialogKey({
+    @required BuildContext context,
     @required bool listen,
   }){
-    final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: listen);
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
     return _uiProvider.topDialogKey;
   }
   // -----------------------------------------------------------------------------
@@ -405,9 +408,10 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool proGetPyramidsAreExpanded({
+    @required BuildContext context,
     @required bool listen,
   }){
-    final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: listen);
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
     return _uiProvider.pyramidsAreExpanded;
   }
   // -----------------------------------------------------------------------------
@@ -450,9 +454,10 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool proGetLayoutIsVisible({
+    @required BuildContext context,
     @required bool listen,
   }){
-    final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: listen);
+    final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
     return _uiProvider.layoutIsVisible;
   }
   // -----------------------------------------------------------------------------

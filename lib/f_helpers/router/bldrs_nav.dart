@@ -110,6 +110,7 @@ class BldrsNav {
   static Future<void> autoNavigateFromHomeScreen() async {
 
     final RouteSettings _afterHomeRoute = UiProvider.proGetAfterHomeRoute(
+      context: getMainContext(),
       listen: false,
     );
 

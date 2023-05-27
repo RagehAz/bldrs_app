@@ -105,8 +105,8 @@ class GeneralProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool deviceIsConnected(BuildContext context){
-  final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
+  static bool deviceIsConnected(){
+  final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(getMainContext(), listen: false);
   return _generalProvider.isConnected;
 }
   // -----------------------------------------------------------------------------
@@ -133,11 +133,10 @@ class GeneralProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void wipeOut({
-    @required BuildContext context,
     @required bool notify,
   }){
 
-    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(context, listen: false);
+    final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(getMainContext(), listen: false);
 
     /// _isConnected
     _generalProvider.setConnectivity(
@@ -161,7 +160,7 @@ class GeneralProvider extends ChangeNotifier {
     /// UsersProvider
     UsersProvider.wipeOut(notify: true);
     /// GeneralProvider
-    GeneralProvider.wipeOut(context: getMainContext(), notify: true);
+    GeneralProvider.wipeOut(notify: true);
     /// NotesProvider
     await NotesProvider.wipeOut(notify: true);
     /// UsersProvider
@@ -169,9 +168,9 @@ class GeneralProvider extends ChangeNotifier {
     /// ZoneProvider
     ZoneProvider.wipeOut(notify: true);
     /// BzzProvider
-    BzzProvider.wipeOut(context: getMainContext(), notify: true);
+    BzzProvider.wipeOut(notify: true);
     /// FlyersProvider
-    FlyersProvider.wipeOut(context: getMainContext(), notify: true);
+    FlyersProvider.wipeOut(notify: true);
     /// ChainsProvider
     ChainsProvider.wipeOut(notify: true);
 

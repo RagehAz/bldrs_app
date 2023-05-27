@@ -51,6 +51,7 @@ class WipeUserProtocols {
     }
 
     final UserModel _userModel = UsersProvider.proGetMyUserModel(
+      context: context,
       listen: false,
     );
 
@@ -163,6 +164,7 @@ class WipeUserProtocols {
     blog('UserProtocol.deleteBzzICreatedProtocol : START');
 
     final List<BzModel> _myBzzModels = BzzProvider.proGetMyBzz(
+      context: getMainContext(),
       listen: false,
     );
 
@@ -203,6 +205,7 @@ class WipeUserProtocols {
     blog('UserProtocol.exitBzzIDidNotCreateProtocol : START');
 
     final List<BzModel> _myBzzModels = BzzProvider.proGetMyBzz(
+      context: getMainContext(),
       listen: false,
     );
 

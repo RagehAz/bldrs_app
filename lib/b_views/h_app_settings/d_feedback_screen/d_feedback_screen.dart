@@ -114,6 +114,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
   Widget build(BuildContext context) {
 
     final UserModel _userModel = UsersProvider.proGetMyUserModel(
+      context: context,
       listen: true,
     );
 

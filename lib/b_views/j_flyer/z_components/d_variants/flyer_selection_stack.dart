@@ -123,6 +123,7 @@ class FlyerSelectionStack extends StatelessWidget {
                 isOn: UserModel.checkFlyerIsSaved(
                   flyerID: flyerModel?.id,
                   userModel: UsersProvider.proGetMyUserModel(
+                    context: context,
                     listen: true,
                   ),
                 ),
