@@ -460,7 +460,8 @@ Future<void> onBzReply({
 }) async {
 
   final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
-      listen: false,
+    context: getMainContext(),
+    listen: false,
   );
 
   final bool _imAuthorInThisBz = AuthorModel.checkUserIsAuthorInThisBz(

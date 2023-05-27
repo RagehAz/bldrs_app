@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
@@ -164,6 +165,7 @@ class UserFireOps {
     blog('deleteMyUser : START');
 
     final UserModel _userModel = UsersProvider.proGetMyUserModel(
+      context: getMainContext(),
       listen: false,
     );
 

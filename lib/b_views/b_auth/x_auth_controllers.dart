@@ -158,6 +158,7 @@ Future<void> _rememberEmailAndNav({
   if (success == true) {
 
     final UserModel _userModel = UsersProvider.proGetMyUserModel(
+      context: getMainContext(),
       listen: false,
     );
 

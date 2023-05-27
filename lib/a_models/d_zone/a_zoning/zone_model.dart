@@ -1,6 +1,7 @@
 import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
@@ -43,7 +44,7 @@ class ZoneModel {
     final ZoneModel _zone =
             zoneModel
             ??
-            ZoneProvider.proGetCurrentZone(listen: false)
+            ZoneProvider.proGetCurrentZone(context: getMainContext(), listen: false)
             ??
             await ZoneProtocols.getZoneByIP();
 

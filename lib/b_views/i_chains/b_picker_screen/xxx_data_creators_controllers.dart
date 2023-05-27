@@ -75,6 +75,7 @@ void _initializeInitialCurrency({
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);
     final String _countryID = zone?.countryID ?? _zoneProvider.currentZone?.countryID;
     final CurrencyModel _initialCurrency = ZoneProvider.proGetCurrencyByCountryID(
+      context: getMainContext(),
       countryID: _countryID,
       listen: false,
     );

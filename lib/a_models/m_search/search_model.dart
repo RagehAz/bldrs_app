@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/m_search/bz_search_model.dart';
 import 'package:bldrs/a_models/m_search/flyer_search_model.dart';
 import 'package:bldrs/a_models/x_secondary/bldrs_model_type.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
@@ -47,7 +48,7 @@ class SearchModel {
       id: null,
       userID: Authing.getUserID(),
       text: null,
-      zone: ZoneProvider.proGetCurrentZone(listen: false),
+      zone: ZoneProvider.proGetCurrentZone(context: getMainContext(), listen: false),
       time: DateTime.now(),
       flyerSearchModel: searchType != ModelType.flyer ? null : const FlyerSearchModel(
         onlyWithPrices: false,

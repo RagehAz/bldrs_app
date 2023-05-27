@@ -198,8 +198,10 @@ class ChainsProvider extends ChangeNotifier {
   static void wipeOut({
     @required bool notify,
   }){
-    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen:
-    false);
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(
+        getMainContext(),
+        listen: false);
+
     _chainsProvider.wipeOutChainsPro(
       notify: notify,
     );
@@ -214,11 +216,12 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Chain> proGetBldrsChains({
+    @required BuildContext context,
     @required bool onlyUseZoneChains,
     @required bool listen,
   }){
 
-    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: listen);
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: listen);
 
     if (onlyUseZoneChains == true){
       return _chainsProvider.zoneChains;
@@ -237,6 +240,7 @@ class ChainsProvider extends ChangeNotifier {
     return Chain.getChainFromChainsByID(
         chainID: chainID,
         chains: proGetBldrsChains(
+          context: getMainContext(),
           onlyUseZoneChains: false,
           listen: false,
         ),
@@ -283,9 +287,10 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static ZonePhidsModel proGetZonePhids({
+    @required BuildContext context,
     @required bool listen,
   }){
-    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: listen);
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: listen);
     return _chainsProvider.zonePhidsModel;
   }
   // --------------------
@@ -477,17 +482,19 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static FlyerType proGetHomeWallFlyerType({
+    @required BuildContext context,
     @required bool listen,
   }){
-    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: listen);
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: listen);
     return _chainsProvider.wallFlyerType;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static String proGetHomeWallPhid({
+    @required BuildContext context,
     @required bool listen,
   }){
-    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: listen);
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: listen);
     return _chainsProvider.wallPhid;
   }
   // --------------------
@@ -544,10 +551,12 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<PickerModel> proGetAllPickers({
+    @required BuildContext context,
     @required bool listen,
   }){
 
     return proGetSortedPickersByFlyerTypes(
+      context: context,
         flyerTypes: FlyerTyper.flyerTypesList,
         sort: true,
         listen: listen
@@ -563,6 +572,7 @@ class ChainsProvider extends ChangeNotifier {
     return PickerModel.getPickerByChainID(
       chainID: Phider.removeIndexFromPhid(phid: chainID),
       pickers: proGetAllPickers(
+        context: getMainContext(),
         listen: false,
       ),
     );
@@ -571,11 +581,12 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<PickerModel> proGetPickersByFlyerType({
+    @required BuildContext context,
     @required FlyerType flyerType,
     @required bool sort,
     @required bool listen,
   }){
-    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: listen);
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: listen);
     final String _pickersKey = PickerModel.getPickersIDByFlyerType(flyerType);
     List<PickerModel> _pickers = _chainsProvider.allPickers[_pickersKey];
     if (sort == true){
@@ -586,6 +597,7 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<PickerModel> proGetSortedPickersByFlyerTypes({
+    @required BuildContext context,
     @required List<FlyerType> flyerTypes,
     @required bool sort,
     @required bool listen,
@@ -597,6 +609,7 @@ class ChainsProvider extends ChangeNotifier {
       for (final FlyerType type in flyerTypes){
 
         final List<PickerModel> _pickers = ChainsProvider.proGetPickersByFlyerType(
+          context: context,
           flyerType: type,
           listen: listen,
           sort: sort,
@@ -613,6 +626,7 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<PickerModel> proGetPickersBySpecs({
+    @required BuildContext context,
     @required List<SpecModel> specs,
     @required bool listen,
   }){
@@ -621,6 +635,7 @@ class ChainsProvider extends ChangeNotifier {
     if (Mapper.checkCanLoopList(specs)){
 
       final List<PickerModel> _allPickers = ChainsProvider.proGetAllPickers(
+        context: context,
         listen: listen,
       );
 

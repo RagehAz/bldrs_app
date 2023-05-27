@@ -67,6 +67,7 @@ void onSearchCurrencies({
 
       /// GET CURRENCIES
       final List<CurrencyModel> _allCurrencies = ZoneProvider.proGetAllCurrencies(
+        context: context,
         listen: false,
       );
 

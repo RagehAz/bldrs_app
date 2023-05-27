@@ -17,7 +17,11 @@ class FlyersZoomedLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final UserModel _user = UsersProvider.proGetMyUserModel(listen: false);
+    final UserModel _user = UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: false,
+    );
+
     final List<String> _flyersIDs = [...?_user?.savedFlyers?.all];
 
     return MainLayout(

@@ -21,7 +21,8 @@ class SavedFlyersScreenView extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final UserModel _userModel = UsersProvider.proGetMyUserModel(
-        listen: true,
+      context: context,
+      listen: true,
     );
 
     return FlyersGrid(

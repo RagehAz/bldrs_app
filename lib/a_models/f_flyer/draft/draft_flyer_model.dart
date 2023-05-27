@@ -1,4 +1,5 @@
 import 'package:bldrs/a_models/f_flyer/draft/gta_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
@@ -119,6 +120,7 @@ class DraftFlyer{
   static Future<DraftFlyer> _createNewDraft() async {
 
     final BzModel bzModel = BzzProvider.proGetActiveBzModel(
+      context: getMainContext(),
       listen: false,
     );
 

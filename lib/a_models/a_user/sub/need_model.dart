@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:filers/filers.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
@@ -340,7 +341,8 @@ class NeedModel {
   static NeedModel dummyNeed(){
 
     final UserModel _userModel = UsersProvider.proGetMyUserModel(
-        listen: false,
+      context: getMainContext(),
+      listen: false,
     );
 
     return NeedModel(

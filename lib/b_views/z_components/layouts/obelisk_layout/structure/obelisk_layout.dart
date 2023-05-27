@@ -212,7 +212,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
   Future<void> _onBack() async {
 
     /// WHEN PYRAMIDS EXPANDED
-    if (UiProvider.proGetPyramidsAreExpanded(listen: false) == true){
+    if (UiProvider.proGetPyramidsAreExpanded(context: getMainContext(), listen: false) == true){
       UiProvider.proSetPyramidsAreExpanded(setTo: false, notify: true);
     }
 

@@ -160,7 +160,10 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
       notifier: _flyerIsSaved,
       mounted: mounted,
       value: UserModel.checkFlyerIsSaved(
-        userModel: UsersProvider.proGetMyUserModel(listen: false),
+        userModel: UsersProvider.proGetMyUserModel(
+            context: context,
+            listen: false,
+        ),
         flyerID: _flyer.value?.id,
       ),
     );
