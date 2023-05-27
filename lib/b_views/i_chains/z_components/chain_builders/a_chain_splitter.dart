@@ -14,6 +14,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
@@ -155,7 +156,7 @@ class ChainSplitter extends StatelessWidget {
     /// IF SON IS CHAIN
     else if (chainOrChainsOrSonOrSons is Chain) {
 
-      final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+      final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
       final Chain _chain = chainOrChainsOrSonOrSons;
 
       return ChainBuilder(
@@ -212,7 +213,6 @@ class ChainSplitter extends StatelessWidget {
           chainID: Phider.removeIndexFromPhid(phid: _chainID),
       );
       final List<SpecModel> _specs = SpecModel.generateSpecsByPhids(
-          context: context,
           phids: selectedPhids,
       );
 

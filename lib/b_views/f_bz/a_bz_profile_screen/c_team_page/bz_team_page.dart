@@ -57,7 +57,8 @@ class _BzTeamPageState extends State<BzTeamPage> {
 
       // _triggerLoading().then((_) async {
       //
-      //   final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
+      //   final NotesProvider _notesProvider = Provider.of<NotesProvider>(getMainContext(),
+      //   listen: false);
       //   await _notesProvider.recallPendingSentAuthorshipNotes(
       //     context: context,
       //     notify: true,

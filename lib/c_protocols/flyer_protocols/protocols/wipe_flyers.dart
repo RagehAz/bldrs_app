@@ -108,7 +108,6 @@ class WipeFlyerProtocols {
 
         /// REMOVE FLYER LOCALLY
         deleteFlyersLocally(
-          context: getMainContext(),
           flyersIDs: <String>[flyerModel.id],
         ),
 
@@ -197,7 +196,6 @@ class WipeFlyerProtocols {
 
           /// REMOVE FLYER LOCALLY
           deleteFlyersLocally(
-            context: getMainContext(),
             flyersIDs: <String>[_flyerModel.id],
           ),
 
@@ -231,7 +229,6 @@ class WipeFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteFlyersLocally({
-    @required BuildContext context,
     @required List<String> flyersIDs,
   }) async {
 
@@ -239,7 +236,7 @@ class WipeFlyerProtocols {
     await FlyerLDBOps.deleteFlyers(flyersIDs);
 
     /// FLYER PRO DELETION
-    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+    final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(getMainContext(), listen: false);
     _flyersProvider.removeFlyersFromProFlyers(
       flyersIDs: flyersIDs,
       notify: true,
@@ -249,7 +246,6 @@ class WipeFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteAllBzFlyersLocally({
-    @required BuildContext context,
     @required String bzID,
   }) async {
 
@@ -262,7 +258,6 @@ class WipeFlyerProtocols {
       if (_bzModel != null){
 
        await deleteFlyersLocally(
-           context: context,
            flyersIDs: _bzModel.flyersIDs,
        );
 

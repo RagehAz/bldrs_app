@@ -19,23 +19,20 @@ import 'package:provider/provider.dart';
 
 // --------------------
 Future<void> initializeMyBzScreen({
-  @required BuildContext context,
   @required BzModel bzModel,
 }) async {
 
   await _setBzModel(
-    context: context,
     completedZoneBzModel: bzModel,
   );
 
 }
 // --------------------
 Future<void> _setBzModel({
-  @required BuildContext context,
   @required BzModel completedZoneBzModel,
 }) async {
 
-  final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+  final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
 
   /// SET ACTIVE BZ
   _bzzProvider.setActiveBz(
@@ -125,17 +122,15 @@ Future<void> onMyActiveBzStreamChanged({
 /// MY BZ SCREEN CLOSING
 
 // --------------------
-Future<void> onCloseMyBzScreen({
-  @required BuildContext context,
-}) async {
+Future<void> onCloseMyBzScreen() async {
   blog('onCloseMyBzScreen : CLOSING');
 
-  final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+  final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
   _bzzProvider.clearMyActiveBz(notify: true);
   // final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: false);
   // _notesProvider.clearPendingSentAuthorshipNotes(notify: true);
   await Nav.goBack(
-    context: context,
+    context: getMainContext(),
     invoker: 'onCloseMyBzScreen',
   );
 
@@ -155,7 +150,6 @@ Future<void> onCloseMyBzScreen({
  */
 // --------------------
 void onChangeMyBzScreenTabIndexWhileAnimation({
-  @required BuildContext context,
   @required TabController tabController,
 }){
 
@@ -163,7 +157,6 @@ void onChangeMyBzScreenTabIndexWhileAnimation({
 
     final int _indexFromAnimation = (tabController.animation.value).round();
     onChangeMyBzScreenTabIndex(
-      context: context,
       index: _indexFromAnimation,
       tabController: tabController,
     );
@@ -173,12 +166,11 @@ void onChangeMyBzScreenTabIndexWhileAnimation({
 }
 // --------------------
 void onChangeMyBzScreenTabIndex({
-  @required BuildContext context,
   @required int index,
   @required TabController tabController,
 }) {
 
-  final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+  final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
 
   final BzTab _newBzTab = BzTabber.bzTabsList[index];
   final BzTab _previousBzTab = _uiProvider.currentBzTab;

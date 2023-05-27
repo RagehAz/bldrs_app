@@ -94,7 +94,6 @@ class UserNeedsBanner extends StatelessWidget {
           SpecsBuilder(
             pageWidth: PageBubble.clearWidth(context),
             specs: SpecModel.generateSpecsByPhids(
-              context: context,
               phids: userModel?.need?.scope,
             ),
             onSpecTap: ({SpecModel value, SpecModel unit}){

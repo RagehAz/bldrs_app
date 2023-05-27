@@ -204,7 +204,6 @@ class PhraseProtocols {
 
         /// LOCAL UPDATE
         updateMainPhrasesLocally(
-          context: context,
           newMainPhrases: updatedMixedMainPhrases,
         ),
 
@@ -222,7 +221,6 @@ class PhraseProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateMainPhrasesLocally({
-    @required BuildContext context,
     @required List<Phrase> newMainPhrases,
   }) async {
 
@@ -234,7 +232,7 @@ class PhraseProtocols {
       );
 
       /// UPDATE PRO
-      final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+      final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(getMainContext(), listen: false);
       _phraseProvider.setMainPhrases(
         setTo: newMainPhrases,
         notify: true,
@@ -387,7 +385,6 @@ class PhraseProtocols {
 
 ///  TESTED : WORKS PERFECT
 List<Phrase> onSearchPhrases({
-  @required BuildContext context,
   @required ValueNotifier<bool> isSearching,
   @required TextEditingController searchController,
   @required List<Phrase> phrasesToSearchIn,
@@ -458,7 +455,7 @@ List<Phrase> onSearchPhrases({
   }
 
   if (pageController != null){
-    if (pageController.position.pixels >= Scale.screenWidth(context) == true){
+    if (pageController.position.pixels >= Scale.screenWidth(getMainContext()) == true){
       Sliders.slideToBackFrom(
         pageController: pageController,
         currentSlide: 1,

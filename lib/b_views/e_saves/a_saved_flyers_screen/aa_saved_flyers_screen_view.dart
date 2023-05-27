@@ -30,12 +30,10 @@ class SavedFlyersScreenView extends StatelessWidget {
       scrollController: scrollController,
       selectionMode: selectionMode,
       onSelectFlyer: (FlyerModel flyer) => onSelectFlyerFromSavedFlyers(
-        context: context,
         flyer: flyer,
       ),
       flyersIDs: _userModel.savedFlyers.all,
       onFlyerNotFound: (String flyerID) => autoRemoveSavedFlyerThatIsNotFound(
-        context: context,
         flyerID: flyerID,
       ),
       numberOfColumnsOrRows: 3,
