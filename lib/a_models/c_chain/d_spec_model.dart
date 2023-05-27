@@ -569,7 +569,6 @@ class SpecModel {
   // --------------------
   /// TASK : TEST ME
   static List<SpecModel> generateSpecsByPhids({
-    @required BuildContext context,
     @required List<String> phids,
   }){
     final List<SpecModel> _specs = <SpecModel>[];
@@ -579,7 +578,6 @@ class SpecModel {
       for (final String phid in phids){
 
         final String _pickerChainID = PickerModel.getPickerChainIDOfPhid(
-          context: context,
           phid: phid,
         );
 

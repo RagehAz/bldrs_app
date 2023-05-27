@@ -43,7 +43,7 @@ class UserSettingsPage extends StatelessWidget {
             translate: true,
           ),
           icon: Iconz.gears,
-          onTap: () => onEditProfileTap(context),
+          onTap: () => onEditProfileTap(),
         ),
 
         /// EDIT FCM TOPICS

@@ -31,14 +31,10 @@ Future<void> initializeHomeScreen({
 
   await _checkIfUserIsMissingFields();
 
-  await initializeUserZone(
-    context: context,
-  );
+  await initializeUserZone();
 
   /// D - ZONES
-  await initializeCurrentZone(
-    context: context,
-  );
+  await initializeCurrentZone();
 
   await Future.wait(
       <Future<void>>[
@@ -59,9 +55,7 @@ Future<void> initializeHomeScreen({
       ]);
 
   /// I - KEYWORDS
-  unawaited(initializeAllChains(
-    context: context,
-  ));
+  unawaited(initializeAllChains());
 
 }
 // -----------------------------------------------------------------------------
@@ -168,12 +162,10 @@ Future<void> initializeUserBzz({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> initializeUserZone({
-  @required BuildContext context,
-}) async {
+Future<void> initializeUserZone() async {
   // blog('initializeHomeScreen._initializeUserZone : ~~~~~~~~~~ START');
 
-  final UsersProvider _userProvider = Provider.of<UsersProvider>(context, listen: false);
+  final UsersProvider _userProvider = Provider.of<UsersProvider>(getMainContext(), listen: false);
   final UserModel _myUserModel = _userProvider.myUserModel;
 
   if (_myUserModel != null){
@@ -192,17 +184,15 @@ Future<void> initializeUserZone({
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> initializeCurrentZone({
-  @required BuildContext context,
-}) async {
+Future<void> initializeCurrentZone() async {
   // blog('initializeHomeScreen._initializeCurrentZone : ~~~~~~~~~~ START');
 
-  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
+  final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);
 
   if (_zoneProvider.currentZone == null){
 
     final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
-      context: context,
+      context: getMainContext(),
       listen: false,
     );
 
@@ -238,11 +228,9 @@ Future<void> initializeCurrentZone({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> initializeAllChains({
-  @required BuildContext context,
-}) async {
+Future<void> initializeAllChains() async {
   // blog('initializeHomeScreen._initializeAllChains : ~~~~~~~~~~ START');
-  final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+  final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
   await _chainsProvider.initializeAllChains(
     notify: true,
   );

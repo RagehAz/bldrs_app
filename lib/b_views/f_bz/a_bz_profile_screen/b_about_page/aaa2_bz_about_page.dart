@@ -26,6 +26,8 @@ import 'package:provider/provider.dart';
 import 'package:scale/scale.dart';
 import 'package:stringer/stringer.dart';
 
+import '../../../../c_protocols/main_providers/ui_provider.dart';
+
 class BzAboutPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzAboutPage({
@@ -59,7 +61,7 @@ class BzAboutPage extends StatelessWidget {
               bzID:_bzModel.id,
           );
 
-          final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+          final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
           _bzzProvider.setActiveBz(
               bzModel: _bz,
               notify: true,

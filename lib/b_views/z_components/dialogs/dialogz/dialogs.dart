@@ -314,8 +314,6 @@ class Dialogs {
     @required dynamic result,
   }) async {
 
-    // final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
-
     final List<Map<String, dynamic>> _errors = <Map<String, dynamic>>[
       /// SIGN IN ERROR
       <String, dynamic>{

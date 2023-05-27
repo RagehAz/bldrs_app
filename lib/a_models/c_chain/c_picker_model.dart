@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/c_chain/cc_pickers_blocker.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:mapper/mapper.dart';
 import 'package:stringer/stringer.dart';
 import 'package:filers/filers.dart';
@@ -922,10 +923,9 @@ class PickerModel {
   /// TESTED : WORKS PERFECT
   static String getPickerChainIDOfPhid({
     @required String phid,
-    @required BuildContext context,
   }){
 
-    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
 
     final String _rooChainID = Chain.getRootChainIDOfPhid(
       allChains: _chainsProvider.bldrsChains,

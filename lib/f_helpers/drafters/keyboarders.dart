@@ -21,7 +21,6 @@ class Keyboard {
   // --------------------
   /// TESTED : WORKS PERFECT
   static StreamSubscription<bool> initializeKeyboardListener({
-    @required BuildContext context,
     @required KeyboardVisibilityController controller,
   }){
 
@@ -30,7 +29,7 @@ class Keyboard {
 
       // blog('Keyboard visibility update. Is visible: $visible');
 
-      final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
+      final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
 
       if (visible == false){
         FocusManager.instance.primaryFocus?.unfocus();

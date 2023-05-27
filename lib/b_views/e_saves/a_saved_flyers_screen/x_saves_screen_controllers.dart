@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -14,11 +15,10 @@ import 'package:provider/provider.dart';
 
 // ---------------------------------
 void onSelectFlyerFromSavedFlyers({
-  @required BuildContext context,
   @required FlyerModel flyer,
 }) {
 
-  final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+  final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(getMainContext(), listen: false);
   final List<FlyerModel> _selectedFlyers = _flyersProvider.selectedFlyers;
 
 
@@ -51,14 +51,13 @@ void onSelectFlyerFromSavedFlyers({
 // ---------------------------------
 /// TESTED : WORKS PERFECT
 Future<void> autoRemoveSavedFlyerThatIsNotFound({
-  @required BuildContext context,
   @required String flyerID,
 }) async {
 
   blog('autoRemoveSavedFlyerThatIsNotFound : START');
 
   final UserModel _userModel = UsersProvider.proGetMyUserModel(
-    context: context,
+    context: getMainContext(),
     listen: false,
   );
 
@@ -70,13 +69,13 @@ Future<void> autoRemoveSavedFlyerThatIsNotFound({
   /// NOT TESTED : BUT IT WAS REPEATING AFTER DELETING SOME BZ FOR EACH FLYER AND TOOK TOO LONG
   /// FOR EACH FLYER TO DELETE AND RENOVATE
   unawaited(UserProtocols.renovate(
-      context: context,
+      context: getMainContext(),
       newPic: null,
       newUser: _myUpdatedModel,
       oldUser: _userModel,
     ));
 
-  final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
+  final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(getMainContext(), listen: false);
   _flyersProvider.removeFlyerFromProFlyers(
       flyerID: flyerID,
       notify: true,

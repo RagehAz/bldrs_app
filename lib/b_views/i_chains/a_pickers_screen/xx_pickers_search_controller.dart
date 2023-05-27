@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
@@ -69,13 +70,11 @@ Future<void> onSearchChains({
 
   final List<String> _phids = await _searchKeywordsPhrases(
     text: text,
-    context: context,
     phidsOfAllPickers: phidsOfAllPickers,
   );
 
 
   final List<Chain> _chains = _getChainsFromPhids(
-    context: context,
     phids: _phids,
   );
 
@@ -113,13 +112,12 @@ Future<void> onSearchChains({
 /// TESTED : WORKS PERFECT
 Future<List<String>> _searchKeywordsPhrases({
   @required String text,
-  @required BuildContext context,
   @required List<String> phidsOfAllPickers,
 }) async {
 
   List<String> _phids = <String>[];
 
-  final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+  final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
 
   final List<Phrase> _searched = Phrase.searchPhrasesTrigrams(
     sourcePhrases: _chainsProvider.chainsPhrases,
@@ -214,7 +212,6 @@ List<String> _removePhidsOutOfScope({
 // --------------------
 /// TESTED : WORKS PERFECT
 List<Chain> _getChainsFromPhids({
-  @required BuildContext context,
   @required List<String> phids,
 }){
 
@@ -222,7 +219,7 @@ List<Chain> _getChainsFromPhids({
 
   if (Mapper.checkCanLoopList(phids) == true){
 
-    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
 
     _chains = ChainPathConverter.findPhidsRelatedChains(
       phids: phids,

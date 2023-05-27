@@ -2,6 +2,7 @@
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/c_chain/dd_data_creation.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:flutter/material.dart';
@@ -610,13 +611,12 @@ class Phider {
   /// TESTED : WORKS PERFECT
   static List<String> sortPhidsAlphabetically({
     @required List<String> phids,
-    @required BuildContext context,
   }){
     List<String> _output = [];
 
     if (Mapper.checkCanLoopList(phids) == true){
 
-      final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
+      final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(getMainContext(), listen: false);
 
       List<Phrase> _phrases = [];
       for (final String phid in phids){

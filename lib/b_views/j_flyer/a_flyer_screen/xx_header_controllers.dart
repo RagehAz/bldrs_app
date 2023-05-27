@@ -233,11 +233,10 @@ void _animateHeaderExpansion({
 // --------------------
 /// TESTED : WORKS PERFECT
 bool checkFollowIsOn({
-  @required BuildContext context,
   @required BzModel bzModel,
 }){
 
-  final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
+  final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
 
   final _followIsOn = _bzzProvider.checkFollow(
       bzID: bzModel.id

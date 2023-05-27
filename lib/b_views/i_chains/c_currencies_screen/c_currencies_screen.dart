@@ -90,7 +90,6 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
   // -----------------------------------------------------------------------------
   void _onSearch(String text){
     onSearchCurrencies(
-      context: context,
       searchController: _searchController,
       isSearching: _isSearching,
       foundCurrencies: _foundCurrencies,

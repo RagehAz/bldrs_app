@@ -253,7 +253,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
       setNotifier(
         notifier: _followIsOn,
         mounted: mounted,
-        value: checkFollowIsOn(context: context, bzModel: _flyer.value?.bzModel),
+        value: checkFollowIsOn(bzModel: _flyer.value?.bzModel),
       );
 
     }
