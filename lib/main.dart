@@ -28,8 +28,8 @@ import 'package:mediators/mediators.dart';
 import 'package:stringer/stringer.dart';
 import 'bldrs_keys.dart';
 
-/// BLDRS_APP_VERSION
-const String bldrsAppVersion = '3.6.1';
+// ignore: constant_identifier_names
+const String BLDRS_APP_VERSION = '4.0.0';
 
 Future<void> main() async {
   /// -----------------------------------------------------------------------------
