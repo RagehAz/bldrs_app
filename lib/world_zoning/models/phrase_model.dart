@@ -199,6 +199,8 @@ class Phrase {
 
         for (final String key in _keys){
 
+          blog('the damn thing is ahp : $key : ${map[key]}');
+
           final List<String> _trigram =
           includeTrigram == true ?
           Stringer.createTrigram(

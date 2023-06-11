@@ -1,3 +1,4 @@
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -250,8 +251,8 @@ class NoteEvent {
     final NoteModel _note = NoteModel(
       id: null,
       parties: NoteParties(
-        senderID: NoteParties.bldrsSenderID,
-        senderImageURL: NoteParties.bldrsLogoStaticURL,
+        senderID: Standards.bldrsSenderID,
+        senderImageURL: Standards.bldrsLogoStaticURL,
         senderType: PartyType.bldrs,
         receiverID: bzModel.id,
         receiverType: PartyType.bz,
