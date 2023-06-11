@@ -30,17 +30,6 @@ class NoteParties {
   final PartyType receiverType;
   // -----------------------------------------------------------------------------
 
-  /// CONSTANTS
-
-  // --------------------
-  /// URL will be reassigned in NoteFireOps.create if note.sender == bldrsSenderID
-  // i bet the below link will be expired soon : today is 2 Oct 2022 => validate my claim when u see this again please
-  static const String bldrsLogoStaticURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/admin%2Fbldrs_notification_icon?alt=media&token=d4f781f3-ea1b-4974-b6e3-990da03c980b';
-  // --------------------
-  static const String bldrsSenderID = 'Bldrs.net';
-  static const String bldrsFCMIconFireStorageFileName = 'bldrs_notification_icon';
-  // -----------------------------------------------------------------------------
-
   /// CLONING
 
   // --------------------
