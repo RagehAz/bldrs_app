@@ -10,6 +10,7 @@ import 'package:bldrs/a_models/e_notes/aa_trigger_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
@@ -1123,8 +1124,8 @@ class NoteModel {
   static NoteModel initialNoteForCreation = NoteModel(
     id: null,
     parties: NoteParties(
-      senderID: NoteParties.bldrsSenderID, //NoteModel.bldrsSenderModel.key,
-      senderImageURL: NoteParties.bldrsLogoStaticURL, //NoteModel.bldrsSenderModel.value,
+      senderID: Standards.bldrsSenderID, //NoteModel.bldrsSenderModel.key,
+      senderImageURL: Standards.bldrsLogoStaticURL, //NoteModel.bldrsSenderModel.value,
       senderType: PartyType.bldrs,
       receiverID: Authing.getUserID(),
       receiverType: PartyType.user,
@@ -1150,8 +1151,8 @@ class NoteModel {
     return NoteModel(
       id: 'id',
       parties: NoteParties(
-        senderID: NoteParties.bldrsSenderID,
-        senderImageURL: NoteParties.bldrsLogoStaticURL,
+        senderID: Standards.bldrsSenderID,
+        senderImageURL: Standards.bldrsLogoStaticURL,
         senderType: PartyType.bldrs,
         receiverID: Authing.getUserID(),
         receiverType: PartyType.user,
@@ -1192,8 +1193,8 @@ class NoteModel {
       id: 'x',
       parties: NoteParties(
         receiverID: userID,
-        senderID: NoteParties.bldrsSenderID,
-        senderImageURL: NoteParties.bldrsLogoStaticURL,
+        senderID: Standards.bldrsSenderID,
+        senderImageURL: Standards.bldrsLogoStaticURL,
         senderType: PartyType.bldrs,
         receiverType: PartyType.user,
       ),

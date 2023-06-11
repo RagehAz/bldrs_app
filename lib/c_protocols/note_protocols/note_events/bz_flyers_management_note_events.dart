@@ -11,6 +11,7 @@ import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart
 import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:filers/filers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
@@ -117,8 +118,8 @@ class NoteEventsOfBzFlyersManagement {
     final NoteModel _note = NoteModel(
       id: null,
       parties: NoteParties(
-        senderID: NoteParties.bldrsSenderID,
-        senderImageURL: NoteParties.bldrsLogoStaticURL,
+        senderID: Standards.bldrsSenderID,
+        senderImageURL: Standards.bldrsLogoStaticURL,
         senderType: PartyType.bldrs,
         receiverID: bzID,
         receiverType: PartyType.bz,
