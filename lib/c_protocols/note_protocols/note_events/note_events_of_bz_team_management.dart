@@ -266,8 +266,8 @@ class NoteEventsOfBzTeamManagement {
             final NoteModel _note = NoteModel(
               id: 'x',
               parties: NoteParties(
-                senderID: Standards.bldrsSenderID,
-                senderImageURL: Standards.bldrsLogoStaticURL,
+                senderID: Standards.bldrsNotificationSenderID,
+                senderImageURL: Standards.bldrsNotificationIconURL,
                 senderType: PartyType.bldrs,
                 receiverID: author.userID,
                 receiverType: PartyType.user,

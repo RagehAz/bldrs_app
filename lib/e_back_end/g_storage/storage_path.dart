@@ -145,10 +145,5 @@ class StoragePath {
     }
 
   }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static String posters_tests_posterID (String id){
-    return '${StorageColl.posters}/tests/$id';
-  }
   // -----------------------------------------------------------------------------
 }

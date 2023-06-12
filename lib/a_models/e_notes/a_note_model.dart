@@ -1124,8 +1124,8 @@ class NoteModel {
   static NoteModel initialNoteForCreation = NoteModel(
     id: null,
     parties: NoteParties(
-      senderID: Standards.bldrsSenderID, //NoteModel.bldrsSenderModel.key,
-      senderImageURL: Standards.bldrsLogoStaticURL, //NoteModel.bldrsSenderModel.value,
+      senderID: Standards.bldrsNotificationSenderID,
+      senderImageURL: Standards.bldrsNotificationIconURL,
       senderType: PartyType.bldrs,
       receiverID: Authing.getUserID(),
       receiverType: PartyType.user,
@@ -1151,8 +1151,8 @@ class NoteModel {
     return NoteModel(
       id: 'id',
       parties: NoteParties(
-        senderID: Standards.bldrsSenderID,
-        senderImageURL: Standards.bldrsLogoStaticURL,
+        senderID: Standards.bldrsNotificationSenderID,
+        senderImageURL: Standards.bldrsNotificationIconURL,
         senderType: PartyType.bldrs,
         receiverID: Authing.getUserID(),
         receiverType: PartyType.user,
@@ -1193,8 +1193,8 @@ class NoteModel {
       id: 'x',
       parties: NoteParties(
         receiverID: userID,
-        senderID: Standards.bldrsSenderID,
-        senderImageURL: Standards.bldrsLogoStaticURL,
+        senderID: Standards.bldrsNotificationSenderID,
+        senderImageURL: Standards.bldrsNotificationIconURL,
         senderType: PartyType.bldrs,
         receiverType: PartyType.user,
       ),

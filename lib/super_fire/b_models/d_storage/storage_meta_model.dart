@@ -326,6 +326,45 @@ class StorageMetaModel {
 
     return _output;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<StorageMetaModel> completeMeta({
+    @required Uint8List bytes,
+    @required StorageMetaModel meta,
+  }) async {
+    StorageMetaModel _output = meta;
+
+    /// DIMENSIONS
+    if (
+    (meta?.height == null || meta?.width == null)
+    &&
+    bytes != null
+    ){
+
+      final ui.Image _decodedImage = await Floaters.getUiImageFromUint8List(bytes);
+
+      _output = _output.copyWith(
+        width: _decodedImage.width.toDouble(),
+        height: _decodedImage.height.toDouble(),
+      );
+
+    }
+
+    /// SIZE
+    if (meta?.sizeMB == null){
+
+      final double _mega = Filers.calculateSize(bytes.length, FileSizeUnit.megaByte);
+      _output = _output.copyWith(
+        sizeMB: _mega,
+      );
+    }
+
+    // final List<String> ownersIDs;
+    // final String name;
+    // final Map<String, String> data;
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// BLOGGING
@@ -511,6 +550,7 @@ class StorageMetaModel {
     return _result;
   }
   // -----------------------------------------------------------------------------
+
   /// OVERRIDES
 
   // --------------------
