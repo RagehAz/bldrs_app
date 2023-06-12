@@ -169,9 +169,22 @@ Future<void> initializeUserModel(BuildContext context) async {
   }
 
   /// IF USER IS NOT SIGNED IN
-  // else {
+  else {
   /// WILL CONTINUE NORMALLY AS ANONYMOUS
-  // }
+
+    final AuthModel _anonymousAuth = await Authing.anonymousSignin();
+
+    final UserModel _anonymousUser = await UserModel.anonymousUser(
+      authModel: _anonymousAuth,
+    );
+
+    await setUserAndAuthModelsAndCompleteUserZoneLocally(
+      authModel: _anonymousAuth,
+      userModel: _anonymousUser,
+      notify: false,
+    );
+
+  }
 
   // blog('_initializeUserModel : END');
 

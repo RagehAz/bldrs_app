@@ -15,7 +15,21 @@ class _NativeStorage {
   // --------------------
   /// TESTED: WORKS PERFECT
   static f_d.Reference _getRefByPath(String path){
-    return _NativeFirebase.getStorage().ref(path);
+
+    if (ObjectCheck.objectIsPicPath(path) == true){
+
+      final String _storagePath = TextMod.removeNumberOfCharactersFromBeginningOfAString(
+        string: path,
+        numberOfCharacters: 'storage/'.length,
+      );
+
+      return _NativeFirebase.getStorage().ref(_storagePath);
+    }
+
+    else {
+      return null;
+    }
+
   }
   // --------------------
   /// TESTED: WORKS PERFECT
@@ -76,7 +90,7 @@ class _NativeStorage {
     @required StorageMetaModel storageMetaModel,
   }) async {
 
-    assert(Mapper.checkCanLoopList(bytes) == true, 'uInt7List is empty or null');
+    assert(Mapper.checkCanLoopList(bytes) == true, 'uInt8List is empty or null');
     assert(storageMetaModel != null, 'metaData is null');
     assert(TextCheck.isEmpty(path) == false, 'path is empty or null');
 
@@ -88,28 +102,26 @@ class _NativeStorage {
 
         final f_d.Reference _ref = _getRefByPath(path);
 
-        final f_d.SettableMetadata meta = storageMetaModel.toNativeSettableMetadata();
+        if (_ref != null){
+          final f_d.SettableMetadata meta = storageMetaModel.toNativeSettableMetadata();
+          final f_d.UploadTask _uploadTask = _ref.putData(
+            bytes,
+            meta,/// NOTE : THIS DOES NOT WORK
+          );
+          await Future.wait(<Future>[
+            _uploadTask.whenComplete(() async {
+              _url = await _createURLByRef(ref: _ref);
+              await _ref.updateMetadata(meta);
+            }),
+            _uploadTask.onError((error, stackTrace) {
+              blog('createDocByUint8List : 3 - failed to upload');
+              blog('error : ${error.runtimeType} : $error');
+              blog('stackTrace : ${stackTrace.runtimeType} : $stackTrace');
+              return error;
+            }),
+          ]);
+        }
 
-        final f_d.UploadTask _uploadTask = _ref.putData(
-          bytes,
-          meta,/// NOTE : THIS DOES NOT WORK
-        );
-
-        await Future.wait(<Future>[
-
-          _uploadTask.whenComplete(() async {
-            _url = await _createURLByRef(ref: _ref);
-            await _ref.updateMetadata(meta);
-          }),
-
-          _uploadTask.onError((error, stackTrace) {
-            blog('createDocByUint8List : 3 - failed to upload');
-            blog('error : ${error.runtimeType} : $error');
-            blog('stackTrace : ${stackTrace.runtimeType} : $stackTrace');
-            return error;
-          }),
-
-        ]);
       },
       onError: StorageError.onException,
     );
@@ -135,8 +147,9 @@ class _NativeStorage {
         final Uint8List _bytes = await Floaters.getUint8ListFromFile(file);
 
         _fileURL = await uploadBytesAndGetURL(
-            bytes: _bytes, path: '$coll/$doc',
-            storageMetaModel: picMetaModel,
+          bytes: _bytes,
+          path: '$coll/$doc',
+          storageMetaModel: picMetaModel,
         );
 
       },
@@ -189,7 +202,7 @@ class _NativeStorage {
         functions: () async {
           final f_d.Reference _ref = _getRefByPath(path);
           /// 10'485'760 default max size
-          _output = await _ref.getData();
+          _output = await _ref?.getData();
         },
         onError: StorageError.onException,
       );
@@ -315,11 +328,16 @@ class _NativeStorage {
           functions: () async {
 
             final f_d.Reference _ref = _getRefByPath(path);
-            final f_d.FullMetadata _meta = await _ref.getMetadata();
 
-            _output = StorageMetaModel.decipherNativeFullMetaData(
-              fullMetadata: _meta,
-            );
+            if (_ref != null) {
+
+              final f_d.FullMetadata _meta = await _ref.getMetadata();
+
+              _output = StorageMetaModel.decipherNativeFullMetaData(
+                fullMetadata: _meta,
+              );
+
+            }
 
           },
           onError: StorageError.onException,
@@ -345,11 +363,13 @@ class _NativeStorage {
             url: url,
           );
 
+          if (_ref != null) {
             final f_d.FullMetadata _meta = await _ref.getMetadata();
 
             _output = StorageMetaModel.decipherNativeFullMetaData(
               fullMetadata: _meta,
             );
+          }
 
         },
         onError: StorageError.onException,
@@ -383,11 +403,192 @@ class _NativeStorage {
             url: url,
           );
 
-          await _ref.updateMetadata(meta.toNativeSettableMetadata());
+          if (_ref != null){
+            await _ref.updateMetadata(meta.toNativeSettableMetadata());
+          }
 
         },
       );
     }
+
+  }
+  // --------------------
+  /// TESTED: WORKS PERFECT
+  static Future<void> updateMetaByPath({
+    @required String path,
+    @required StorageMetaModel meta,
+  }) async {
+
+    /// ASSIGNING NULL TO KEY DELETES PAIR AUTOMATICALLY.
+
+    if (ObjectCheck.objectIsPicPath(path) == true && meta != null) {
+
+      await tryAndCatch(
+        invoker: 'NativeStorage.updatePicMetaData',
+        onError: StorageError.onException,
+        functions: () async {
+
+          final f_d.Reference _ref = _getRefByPath(path);
+
+          if (_ref != null){
+            await _ref.updateMetadata(meta.toNativeSettableMetadata());
+          }
+
+        },
+      );
+    }
+
+  }
+  // --------------------
+  /// TESTED: WORKS PERFECT
+  static Future<bool> move({
+    @required String oldPath,
+    @required String newPath,
+    @required String currentUserID,
+  }) async {
+
+    bool _output = false;
+
+    final bool _canDelete = await _checkCanDeleteDocByPath(
+      path: oldPath,
+      userID: currentUserID,
+    );
+
+    blog('_NativeStorage.move : _canDelete : $_canDelete');
+
+    blog('ObjectCheck.objectIsPicPath(oldPath) : ${ObjectCheck.objectIsPicPath(oldPath)}');
+    blog('ObjectCheck.objectIsPicPath(newPath) : ${ObjectCheck.objectIsPicPath(newPath)}');
+
+    if (
+        _canDelete == true
+        &&
+        ObjectCheck.objectIsPicPath(oldPath) == true
+        &&
+        ObjectCheck.objectIsPicPath(newPath) == true
+    ){
+
+      /// READ OLD PIC
+      final Uint8List _bytes = await readBytesByPath(path: oldPath);
+
+      blog('_NativeStorage.move : _bytes exist : ${_bytes != null}');
+
+      if (_bytes != null) {
+        /// READ OLD PIC META
+        StorageMetaModel _meta = await readMetaByPath(path: oldPath);
+        _meta = await StorageMetaModel.completeMeta(
+          bytes: _bytes,
+          meta: _meta,
+        );
+
+        /// CREATE NEW PIC
+        final String _url = await uploadBytesAndGetURL(
+          path: newPath,
+          bytes: _bytes,
+          storageMetaModel: _meta,
+        );
+
+        blog('_NativeStorage.move : _url : $_url');
+
+        /// DELETE OLD PIC
+        _output = await deleteDoc(
+            path: oldPath,
+            currentUserID: currentUserID,
+        );
+      }
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED: WORKS PERFECT
+  static Future<void> rename({
+    @required String path,
+    @required String newName,
+    @required String currentUserID,
+  }) async {
+
+    final bool _canEdit = await _checkCanDeleteDocByPath(
+      path: path,
+      userID: currentUserID,
+    );
+
+
+    if (
+        _canEdit == true
+        &&
+        ObjectCheck.objectIsPicPath(path) == true
+        &&
+        TextCheck.isEmpty(newName) == false
+    ){
+
+      /// READ OLD PIC
+      final Uint8List _bytes = await readBytesByPath(path: path);
+      /// READ OLD PIC META
+      StorageMetaModel _meta = await readMetaByPath(path: path);
+      _meta = _meta.copyWith(
+        name: newName,
+      );
+
+      final String _pathWithoutOldName = TextMod.removeTextAfterLastSpecialCharacter(path, '/');
+
+      /// CREATE NEW PIC
+      await uploadBytesAndGetURL(
+        path: '$_pathWithoutOldName/$newName',
+        bytes: _bytes,
+        storageMetaModel: _meta,
+      );
+
+      /// DELETE OLD PIC
+      await deleteDoc(
+          path: path,
+          currentUserID: currentUserID
+      );
+
+    }
+
+  }
+  // --------------------
+  /// TESTED: WORKS PERFECT
+  static Future<void> completeMeta({
+    @required String path,
+    @required String currentUserID,
+  }) async {
+
+    final bool _canEdit = await _checkCanDeleteDocByPath(
+      path: path,
+      userID: currentUserID,
+    );
+
+
+    if (
+        _canEdit == true
+        &&
+        ObjectCheck.objectIsPicPath(path) == true
+    ){
+
+      /// READ OLD PIC
+      final Uint8List _bytes = await readBytesByPath(path: path);
+      /// READ OLD PIC META
+      StorageMetaModel _meta = await readMetaByPath(path: path);
+      _meta = await StorageMetaModel.completeMeta(
+        bytes: _bytes,
+        meta: _meta,
+      );
+
+      /// CREATE URL
+      final String _url = await createURLByPath(
+        path: path,
+      );
+
+      /// UPDATE META
+      await updateMetaByURL(
+          url: _url,
+          meta: _meta
+      );
+
+    }
+
 
   }
   // -----------------------------------------------------------------------------
@@ -396,10 +597,11 @@ class _NativeStorage {
 
   // --------------------
   /// TESTED: WORKS PERFECT
-  static Future<void> deleteDoc({
+  static Future<bool> deleteDoc({
     @required String path,
     @required String currentUserID,
   }) async {
+    bool _output = false;
 
     if (TextCheck.isEmpty(path) == false){
 
@@ -415,6 +617,7 @@ class _NativeStorage {
           functions: () async {
             final f_d.Reference _picRef = _getRefByPath(path);
             await _picRef?.delete();
+            _output = true;
           },
           onError: StorageError.onException,
         );
@@ -427,6 +630,7 @@ class _NativeStorage {
 
     }
 
+    return _output;
   }
   // --------------------
   /// TESTED: WORKS PERFECT

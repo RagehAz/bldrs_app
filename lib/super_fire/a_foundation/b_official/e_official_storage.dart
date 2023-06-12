@@ -15,7 +15,21 @@ class _OfficialStorage {
   // --------------------
   /// TESTED: WORKS PERFECT
   static f_s.Reference _getRefByPath(String path){
-    return _OfficialFirebase.getStorage().ref(path);
+
+    if (ObjectCheck.objectIsPicPath(path) == true){
+
+      final String _storagePath = TextMod.removeNumberOfCharactersFromBeginningOfAString(
+        string: path,
+        numberOfCharacters: 'storage/'.length,
+      );
+
+      return _OfficialFirebase.getStorage().ref(_storagePath);
+    }
+
+    else {
+      return null;
+    }
+
   }
   // --------------------
   /// TESTED: WORKS PERFECT
@@ -90,32 +104,28 @@ class _OfficialStorage {
 
         blog('createDocByUint8List : 1 - got ref : $_ref');
 
-        final f_s.UploadTask _uploadTask = _ref.putData(
-          bytes,
-          storageMetaModel.toOfficialSettableMetadata(),
-        );
+        if (_ref != null) {
+          final f_s.UploadTask _uploadTask = _ref.putData(
+            bytes,
+            storageMetaModel.toOfficialSettableMetadata(),
+          );
 
-        blog('createDocByUint8List : 2 - uploaded uInt8List to path : $path');
+          blog('createDocByUint8List : 2 - uploaded uInt8List to path : $path');
 
-
-        await Future.wait(<Future>[
-
-          _uploadTask.whenComplete(() async {
-            blog('createDocByUint8List : 3 - uploaded successfully');
-            _url = await _createURLByRef(ref: _ref);
-          }),
-
-          _uploadTask.onError((error, stackTrace){
-            blog('createDocByUint8List : 3 - failed to upload');
-            blog('error : ${error.runtimeType} : $error');
-            blog('stackTrace : ${stackTrace.runtimeType} : $stackTrace');
-            return error;
-          }),
-
-        ]);
-
-
-        },
+          await Future.wait(<Future>[
+            _uploadTask.whenComplete(() async {
+              blog('createDocByUint8List : 3 - uploaded successfully');
+              _url = await _createURLByRef(ref: _ref);
+            }),
+            _uploadTask.onError((error, stackTrace) {
+              blog('createDocByUint8List : 3 - failed to upload');
+              blog('error : ${error.runtimeType} : $error');
+              blog('stackTrace : ${stackTrace.runtimeType} : $stackTrace');
+              return error;
+            }),
+          ]);
+        }
+      },
       onError: StorageError.onException,
     );
 
@@ -149,24 +159,29 @@ class _OfficialStorage {
 
           blog('uploadFile : 1 - got ref : $_ref');
 
-          blog('uploadFile : 2 - assigned meta data');
+          if (_ref != null){
 
-          final f_s.UploadTask _uploadTask = _ref.putFile(
-            file,
-            picMetaModel.toOfficialSettableMetadata(),
-          );
+            blog('uploadFile : 2 - assigned meta data');
 
-          blog('uploadFile : 3 - uploaded file : fileName : $doc : file.fileNameWithExtension : ${file.fileNameWithExtension}');
+            final f_s.UploadTask _uploadTask = _ref.putFile(
+              file,
+              picMetaModel.toOfficialSettableMetadata(),
+            );
 
-          final f_s.TaskSnapshot _snapshot = await _uploadTask.whenComplete((){
-            blog('uploadFile : 4 - upload file completed');
-          });
+            blog('uploadFile : 3 - uploaded file : fileName : $doc : file.fileNameWithExtension : ${file
+                    .fileNameWithExtension}');
 
-          blog('uploadFile : 5 - task state : ${_snapshot?.state}');
+            final f_s.TaskSnapshot _snapshot = await _uploadTask.whenComplete(() {
+              blog('uploadFile : 4 - upload file completed');
+            });
 
-          _fileURL = await _ref.getDownloadURL();
-          blog('uploadFile : 6 - got url : $_fileURL');
+            blog('uploadFile : 5 - task state : ${_snapshot?.state}');
 
+            _fileURL = await _ref.getDownloadURL();
+            blog('uploadFile : 6 - got url : $_fileURL');
+
+
+          }
         },
       onError: StorageError.onException,
     );
@@ -285,7 +300,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
           final f_s.Reference _ref = _getRefByPath(path);
           blog('got ref : $_ref');
           /// 10'485'760 default max size
-          _output = await _ref.getData();
+          _output = await _ref?.getData();
         },
         onError: StorageError.onException,
       );
@@ -407,11 +422,14 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
           functions: () async {
 
             final f_s.Reference _ref = _getRefByPath(path);
-            final f_s.FullMetadata _meta = await _ref.getMetadata();
 
-            _output = StorageMetaModel.decipherOfficialFullMetaData(
-              fullMetadata: _meta,
-            );
+            if (_ref != null) {
+              final f_s.FullMetadata _meta = await _ref.getMetadata();
+
+              _output = StorageMetaModel.decipherOfficialFullMetaData(
+                fullMetadata: _meta,
+              );
+            }
 
           },
           onError: StorageError.onException,
@@ -437,11 +455,13 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
             url: url,
           );
 
+          if (_ref != null) {
             final f_s.FullMetadata _meta = await _ref.getMetadata();
 
             _output = StorageMetaModel.decipherOfficialFullMetaData(
               fullMetadata: _meta,
             );
+          }
 
         },
         onError: StorageError.onException,
@@ -598,11 +618,185 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
             url: url,
           );
 
-          await _ref.updateMetadata(meta.toOfficialSettableMetadata());
+          if (_ref != null){
+            await _ref.updateMetadata(meta.toOfficialSettableMetadata());
+          }
 
         },
       );
     }
+
+  }
+  // --------------------
+  /// TESTED: WORKS PERFECT
+  static Future<void> updateMetaByPath({
+    @required String path,
+    @required StorageMetaModel meta,
+  }) async {
+
+    /// ASSIGNING NULL TO KEY DELETES PAIR AUTOMATICALLY.
+
+    if (ObjectCheck.objectIsPicPath(path) == true && meta != null) {
+
+      await tryAndCatch(
+        invoker: 'OfficialStorage.updatePicMetaData',
+        onError: StorageError.onException,
+        functions: () async {
+
+          final f_s.Reference _ref = _getRefByPath(path);
+
+          if (_ref != null){
+            await _ref.updateMetadata(meta.toOfficialSettableMetadata());
+          }
+
+        },
+      );
+    }
+
+  }
+  // --------------------
+  /// TESTED: WORKS PERFECT
+  static Future<bool> move({
+    @required String oldPath,
+    @required String newPath,
+    @required String currentUserID,
+  }) async {
+
+    bool _output = false;
+
+    final bool _canDelete = await _checkCanDeleteDocByPath(
+      path: oldPath,
+      userID: currentUserID,
+    );
+
+    if (
+        _canDelete == true
+        &&
+        ObjectCheck.objectIsPicPath(oldPath) == true
+        &&
+        ObjectCheck.objectIsPicPath(newPath) == true
+    ){
+
+      /// READ OLD PIC
+      final Uint8List _bytes = await readBytesByPath(path: oldPath);
+
+      if (_bytes != null){
+        /// READ OLD PIC META
+        StorageMetaModel _meta = await readMetaByPath(path: oldPath);
+        _meta = await StorageMetaModel.completeMeta(
+          bytes: _bytes,
+          meta: _meta,
+        );
+
+        /// CREATE NEW PIC
+        await uploadBytesAndGetURL(
+          path: newPath,
+          bytes: _bytes,
+          storageMetaModel: _meta,
+        );
+
+        /// DELETE OLD PIC
+        _output = await deleteDoc(
+          path: oldPath,
+          currentUserID: currentUserID,
+        );
+
+      }
+
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED: WORKS PERFECT
+  static Future<void> rename({
+    @required String path,
+    @required String newName,
+    @required String currentUserID,
+  }) async {
+
+    final bool _canEdit = await _checkCanDeleteDocByPath(
+      path: path,
+      userID: currentUserID,
+    );
+
+
+    if (
+        _canEdit == true
+        &&
+        ObjectCheck.objectIsPicPath(path) == true
+        &&
+        TextCheck.isEmpty(newName) == false
+    ){
+
+      /// READ OLD PIC
+      final Uint8List _bytes = await readBytesByPath(path: path);
+      /// READ OLD PIC META
+      StorageMetaModel _meta = await readMetaByPath(path: path);
+      _meta = _meta.copyWith(
+        name: newName,
+      );
+
+      final String _pathWithoutOldName = TextMod.removeTextAfterLastSpecialCharacter(path, '/');
+
+      /// CREATE NEW PIC
+      await uploadBytesAndGetURL(
+        path: '$_pathWithoutOldName/$newName',
+        bytes: _bytes,
+        storageMetaModel: _meta,
+      );
+
+      /// DELETE OLD PIC
+      await deleteDoc(
+          path: path,
+          currentUserID: currentUserID
+      );
+
+    }
+
+  }
+  // --------------------
+  /// TESTED: WORKS PERFECT
+  static Future<void> completeMeta({
+    @required String path,
+    @required String currentUserID,
+  }) async {
+
+    final bool _canEdit = await _checkCanDeleteDocByPath(
+      path: path,
+      userID: currentUserID,
+    );
+
+
+    if (
+        _canEdit == true
+        &&
+        ObjectCheck.objectIsPicPath(path) == true
+    ){
+
+      /// READ OLD PIC
+      final Uint8List _bytes = await readBytesByPath(path: path);
+      /// READ OLD PIC META
+      StorageMetaModel _meta = await readMetaByPath(path: path);
+      _meta = await StorageMetaModel.completeMeta(
+        bytes: _bytes,
+        meta: _meta,
+      );
+
+      /// CREATE URL
+      final String _url = await createURLByPath(
+        path: path,
+      );
+
+      /// UPDATE META
+      await updateMetaByURL(
+          url: _url,
+          meta: _meta
+      );
+
+    }
+
 
   }
   // -----------------------------------------------------------------------------
@@ -611,10 +805,11 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> deleteDoc({
+  static Future<bool> deleteDoc({
     @required String path,
     @required String currentUserID,
   }) async {
+    bool _output = false;
 
     if (TextCheck.isEmpty(path) == false){
 
@@ -631,6 +826,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
             final f_s.Reference _picRef = _getRefByPath(path);
             await _picRef?.delete();
             blog('deletePic : DELETED STORAGE FILE IN PATH: $path');
+            _output = true;
           },
           onError: StorageError.onException,
         );
@@ -643,6 +839,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
     }
 
+    return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -682,11 +879,11 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
     assert(path != null, 'path is null');
 
-    bool _canDelete = false;
+    bool _canDelete = userID == 'z0Obwze3JLYjoEl6uVeXfo4Luup1'; // bldrs rage7 ID
 
     blog('checkCanDeleteStorageFile : START');
 
-    if (path != null && userID != null){
+    if (path != null && userID != null && _canDelete == false){
 
       final StorageMetaModel _meta = await readMetaByPath(
         path: path,
@@ -709,7 +906,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
     }
 
-    blog('checkCanDeleteStorageFile : END');
+    blog('checkCanDeleteStorageFile : _canDelete : $_canDelete : END');
     return _canDelete;
   }
   // --------------------

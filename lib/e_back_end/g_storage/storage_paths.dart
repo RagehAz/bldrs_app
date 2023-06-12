@@ -56,18 +56,9 @@ abstract class StorageColl{
   /// COLL NAMES
 
   // --------------------
-  static const String users         = 'users';
-  static const String bzz           = 'bzz';
-  static const String flyers        = 'flyers';
-  // --------------------
-
-  /// DEPRECATED LOCATIONS
-  static const String logos         = 'logos';        /// storage/logos/{bzID}
-  static const String slides        = 'slides';       /// storage/slides/{flyerID__XX} => XX is two digits for slideIndex
-  static const String askPics       = 'askPics';      /// not used till now
-  static const String posters       = 'posters';      /// storage/posters/{notiID}
-  static const String authors       = 'authors';
-  static const String flyersPDFs    = 'flyersPDFs'; /// storage/flyersPDFs/{flyerID}
-
+  static const String users         = 'storage/users';
+  static const String bzz           = 'storage/bzz';
+  static const String flyers        = 'storage/flyers';
+  static const String bldrs         = 'storage/bldrs';
   // --------------------
 }
