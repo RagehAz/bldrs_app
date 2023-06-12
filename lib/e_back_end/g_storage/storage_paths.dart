@@ -56,9 +56,9 @@ abstract class StorageColl{
   /// COLL NAMES
 
   // --------------------
-  static const String users         = 'storage/users';
+  static const String bldrs         = 'storage/bldrs';
   static const String bzz           = 'storage/bzz';
   static const String flyers        = 'storage/flyers';
-  static const String bldrs         = 'storage/bldrs';
+  static const String users         = 'storage/users';
   // --------------------
 }

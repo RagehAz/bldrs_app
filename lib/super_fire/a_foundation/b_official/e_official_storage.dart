@@ -107,7 +107,9 @@ class _OfficialStorage {
         if (_ref != null) {
           final f_s.UploadTask _uploadTask = _ref.putData(
             bytes,
-            storageMetaModel.toOfficialSettableMetadata(),
+            storageMetaModel.toOfficialSettableMetadata(
+              bytes: bytes,
+            ),
           );
 
           blog('createDocByUint8List : 2 - uploaded uInt8List to path : $path');
@@ -163,9 +165,13 @@ class _OfficialStorage {
 
             blog('uploadFile : 2 - assigned meta data');
 
+            final Uint8List bytes = await Floaters.getUint8ListFromFile(file);
+
             final f_s.UploadTask _uploadTask = _ref.putFile(
               file,
-              picMetaModel.toOfficialSettableMetadata(),
+              picMetaModel.toOfficialSettableMetadata(
+                bytes: bytes,
+              ),
             );
 
             blog('uploadFile : 3 - uploaded file : fileName : $doc : file.fileNameWithExtension : ${file
@@ -619,7 +625,12 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
           );
 
           if (_ref != null){
-            await _ref.updateMetadata(meta.toOfficialSettableMetadata());
+
+            final Uint8List _bytes = await readBytesByURL(url: url);
+
+            await _ref.updateMetadata(meta.toOfficialSettableMetadata(
+              bytes: _bytes,
+            ));
           }
 
         },
@@ -646,7 +657,12 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
           final f_s.Reference _ref = _getRefByPath(path);
 
           if (_ref != null){
-            await _ref.updateMetadata(meta.toOfficialSettableMetadata());
+
+            final Uint8List _bytes = await readBytesByPath(path: path);
+
+            await _ref.updateMetadata(meta.toOfficialSettableMetadata(
+              bytes: _bytes,
+            ));
           }
 
         },

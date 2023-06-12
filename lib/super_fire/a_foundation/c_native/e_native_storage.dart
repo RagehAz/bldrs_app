@@ -103,7 +103,10 @@ class _NativeStorage {
         final f_d.Reference _ref = _getRefByPath(path);
 
         if (_ref != null){
-          final f_d.SettableMetadata meta = storageMetaModel.toNativeSettableMetadata();
+          final f_d.SettableMetadata meta = storageMetaModel.toNativeSettableMetadata(
+            bytes: bytes,
+            // extraData:
+          );
           final f_d.UploadTask _uploadTask = _ref.putData(
             bytes,
             meta,/// NOTE : THIS DOES NOT WORK
@@ -404,7 +407,14 @@ class _NativeStorage {
           );
 
           if (_ref != null){
-            await _ref.updateMetadata(meta.toNativeSettableMetadata());
+
+            final Uint8List _bytes = await readBytesByURL(
+              url: url,
+            );
+
+            await _ref.updateMetadata(meta.toNativeSettableMetadata(
+              bytes: _bytes,
+            ));
           }
 
         },
@@ -431,7 +441,14 @@ class _NativeStorage {
           final f_d.Reference _ref = _getRefByPath(path);
 
           if (_ref != null){
-            await _ref.updateMetadata(meta.toNativeSettableMetadata());
+
+            final Uint8List _bytes = await readBytesByPath(
+              path: path,
+            );
+
+            await _ref.updateMetadata(meta.toNativeSettableMetadata(
+              bytes: _bytes,
+            ));
           }
 
         },
