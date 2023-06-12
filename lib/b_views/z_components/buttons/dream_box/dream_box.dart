@@ -1,6 +1,5 @@
 import 'dart:ui' as ui;
 
-import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/b_views/z_components/images/bldrs_image_path_to_ui_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -180,38 +179,19 @@ class BldrsBox extends StatelessWidget {
     /// WITH ICON
     else {
 
-      final bool isURL = ObjectCheck.isAbsoluteURL(icon);
-      final bool isRaster = ObjectCheck.objectIsJPGorPNG(icon);
-      final bool isSVG = ObjectCheck.objectIsSVG(icon);
-      final bool isFile = ObjectCheck.objectIsFile(icon);
       final bool isPicPath = ObjectCheck.objectIsPicPath(icon);
-      final bool isPicModel = icon is PicModel;
-      final bool _isBytes = ObjectCheck.objectIsUint8List(icon);
-      final bool _isBase64 = ObjectCheck.isBase64(icon);
-      final bool _isUiImage = ObjectCheck.objectIsUiImage(icon);
-      final bool _isImgImage = ObjectCheck.objectIsImgImage(icon);
-
-      /// CAN VIEW
-      if (isURL ||
-          isRaster ||
-          isSVG ||
-          isFile ||
-          _isBytes ||
-          _isBase64 ||
-          _isUiImage ||
-          _isImgImage ||
-          isPicModel) {
-        return getChild(
-          context: context,
-          theIcon: icon,
-        );
-      }
+      // final bool isURL = ObjectCheck.isAbsoluteURL(icon);
+      // final bool isRaster = ObjectCheck.objectIsJPGorPNG(icon);
+      // final bool isSVG = ObjectCheck.objectIsSVG(icon);
+      // final bool isFile = ObjectCheck.objectIsFile(icon);
+      // final bool isPicModel = icon is PicModel;
+      // final bool _isBytes = ObjectCheck.objectIsUint8List(icon);
+      // final bool _isBase64 = ObjectCheck.isBase64(icon);
+      // final bool _isUiImage = ObjectCheck.objectIsUiImage(icon);
+      // final bool _isImgImage = ObjectCheck.objectIsImgImage(icon);
 
       /// PIC PATH
-      else if (isPicPath == true) {
-
-        // blog('image is pic path : $icon');
-
+      if (isPicPath == true) {
         return BldrsImagePathToUiImage(
           imagePath: icon,
           builder: (bool loading, ui.Image uiImage) {
@@ -223,6 +203,22 @@ class BldrsBox extends StatelessWidget {
           },
         );
       }
+
+      // /// CAN VIEW
+      // else if (isURL ||
+      //     isRaster ||
+      //     isSVG ||
+      //     isFile ||
+      //     _isBytes ||
+      //     _isBase64 ||
+      //     _isUiImage ||
+      //     _isImgImage ||
+      //     isPicModel) {
+      //   return getChild(
+      //     context: context,
+      //     theIcon: icon,
+      //   );
+      // }
 
       else {
         return getChild(

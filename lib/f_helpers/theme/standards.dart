@@ -171,23 +171,31 @@ class Standards {
   // --------------------
   /// BLDRS NAME
   static const String bldrsNamePicPath = 'storage/bldrs/bldrs_name.png';
-  static const String bldrsNamePicURL = '';
+  static const String bldrsNamePicURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bldrs%2Fbldrs_name.png?alt=media&token=e9c0e758-52ed-4709-a165-1044b2bf647a';
+  // --------------------
   /// BLDRS APP ICON
-  static const String bldrsAppIconPath = 'storage/bldrs/bldrs_app_icon';
-  static const String bldrsAppIconURL = ''; // 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/admin%2Fbldrs_notification_icon?alt=media&token=d4f781f3-ea1b-4974-b6e3-990da03c980b'
+  static const String bldrsAppIconPath = 'storage/bldrs/bldrs_app_icon.png';
+  static const String bldrsAppIconURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bldrs%2Fbldrs_app_icon.png?alt=media&token=a8c7d599-e296-4604-9e2e-33e94088ddc2';
+  // --------------------
   /// BLDRS NOTIFICATION ICON
   static const String bldrsNotificationSenderID = 'Bldrs.net';
-  static const String bldrsNotificationIconPath = 'storage/bldrs/bldrs_notification_icon';
-  static const String bldrsNotificationIconURL = '';
+  static const String bldrsNotificationIconPath = 'storage/bldrs/bldrs_notification_icon.png';
+  static const String bldrsNotificationIconURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bldrs%2Fbldrs_notification_icon.png?alt=media&token=705340f3-0c6f-4764-8197-9d35f220f906';
+  // --------------------
   /// EMAIL SIGNATURES
-  static const String ragehBzCardPicPath = 'storage/bldrs/rageh_bz_card';
-  static const String ragehBzCardPicURL = ''; // https://ci5.googleusercontent.com/proxy/XqVwTyaQh6FTf2ZNCA6gk3c1zrUyxY4puLCQhJJ_EP1SsIB4MR4EXhW_akV66hTig6766fbLBxGfERIK7I_CFi7PXcTJedd_ULrce0cE3nbfkl6Pfb9fWoSMnSl4OLbCXZHJaukPcxldiDi4gw2wWYgzcpQA5VRAAy6hIpBiWioewpq0wywcrF5MQ4k8nNqJPsjOAUjXNsOlbSJLsKyc9OIZng=s0-d-e1-ft#https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/email%2Frageh_label.png?alt=media&token=1a9d7bd4-5e07-4a0a-b59d-36a10155feaa
-  static const String onGooglePlayStoreLabelPicPath = 'storage/bldrs/on_google_play_store';
-  static const String onGooglePlayStoreLabelPicURL = ''; // https://ci5.googleusercontent.com/proxy/3dSxOLvFgZvdsnr6AShbmDcBMDhzMHydImh6E8AucWflvTUKQUhdTTU4Iwb40t-LrZtMye64krE44IqpfCb_XCGkvLErOlCf7Prt5HKDeKmc13PI28FEkBqdpIl0r_CLXg58makNPuHq7dBwvBzvNFPcOYTpFKktwcsnvdMh6f4_Q2fBP6au9LqxDYp-ouJG41EgU0Y58yhLPB-jAMH9mQsHVWfCAJ9ZfQ=s0-d-e1-ft#https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/email%2Fgoogle_play_badge.png?alt=media&token=d82991b3-68fd-4f31-aaf9-b0866f42ef91
-  static const String onAppleStoreLabelPicPath = 'storage/bldrs/on_app_store';
-  static const String onAppleStoreLabelPicURL = ''; // https://ci4.googleusercontent.com/proxy/PZJqkW_c9C9tKoNeOAn9NK4PNIiticPlHl_dpoFY2g22bzdou5fKjOjspOjbnoIJxFsWTdVryk74fezFT4X638oeQuv3QcW9wFA_4BKKcNpDglXjrkbbrTOpyZMSB1i6vmc4Sa4VJOj0lKRfMUSzR801haknSiV4DRrElVQw84e8WlEZ0WfKtVk30daDK079AnDBjVyRq4DaciFa7AP3bADWRsjpFLY=s0-d-e1-ft#https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/email%2Fapp_store_badge.png?alt=media&token=053ef29a-21b9-4609-8197-ae9647f93f09
+  static const String ragehBzCardPicPath = 'storage/bldrs/rageh_bz_card.png';
+  static const String ragehBzCardPicURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bldrs%2Frageh_bz_card.png?alt=media&token=44db04c4-f38a-4528-b227-80564a828eef';
+  // --------------------
+  /// ON GOOGLE PLAY STORE
+  static const String onGooglePlayStoreLabelPicPath = 'storage/bldrs/on_google_play_store_badge.png';
+  static const String onGooglePlayStoreLabelPicURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bldrs%2Fon_google_play_store_badge.png?alt=media&token=cac0123d-d3dd-44a2-bff8-bc4789e52726';
+  // --------------------
+  /// ON APP STORE
+  static const String onAppleStoreLabelPicPath = 'storage/bldrs/on_app_store_badge.png';
+  static const String onAppleStoreLabelPicURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bldrs%2Fon_app_store_badge.png?alt=media&token=61035387-ffcb-4f08-a382-25d980eca95e';
+  // --------------------
   /// ANONYMOUS USER
-  static const String anonymousUserPicPath = 'storage/bldrs/anonymous_user_pic';
-  static const String anonymousUserPicURL = '';
+  static const String anonymousUserPicPath = 'storage/bldrs/anonymous_user_pic.png';
+  static const String anonymousUserPicURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bldrs%2Fanonymous_user_pic.png?alt=media&token=61005a82-e697-4d28-bfcc-e8e5d831a54b';
   // -----------------------------------------------------------------------------
 }
