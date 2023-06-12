@@ -1,6 +1,6 @@
 part of super_fire;
 
-/// => TAMAM9
+/// => TAMAM
 class Storage {
   // -----------------------------------------------------------------------------
 
@@ -278,6 +278,102 @@ class Storage {
       await _NativeStorage.updateMetaByURL(
         url: url,
         meta: meta,
+      );
+    }
+
+  }
+  // --------------------
+  /// TESTED: WORKS PERFECT
+  static Future<void> updateMetaByPath({
+    @required String path,
+    @required StorageMetaModel meta,
+  }) async {
+
+    if (FirebaseInitializer.isUsingOfficialPackages() == true) {
+      await _OfficialStorage.updateMetaByPath(
+        path: path,
+        meta: meta,
+      );
+    }
+
+    else {
+      await _NativeStorage.updateMetaByPath(
+        path: path,
+        meta: meta,
+      );
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<bool> move({
+    @required String oldPath,
+    @required String newPath,
+    @required String currentUserID,
+  }) async {
+    bool _output;
+
+    if (FirebaseInitializer.isUsingOfficialPackages() == true) {
+      _output = await _OfficialStorage.move(
+        oldPath: oldPath,
+        newPath: newPath,
+        currentUserID: currentUserID
+      );
+    }
+
+    else {
+      _output = await _NativeStorage.move(
+        oldPath: oldPath,
+        newPath: newPath,
+        currentUserID: currentUserID
+      );
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> rename({
+    @required String path,
+    @required String newName,
+    @required String currentUserID,
+  }) async {
+
+    if (FirebaseInitializer.isUsingOfficialPackages() == true) {
+      await _OfficialStorage.rename(
+        path: path,
+        newName: newName,
+        currentUserID: currentUserID
+      );
+    }
+
+    else {
+      await _NativeStorage.rename(
+        path: path,
+        newName: newName,
+        currentUserID: currentUserID
+      );
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> completeMeta({
+    @required String path,
+    @required String currentUserID,
+  }) async {
+
+    if (FirebaseInitializer.isUsingOfficialPackages() == true) {
+      await _OfficialStorage.completeMeta(
+        path: path,
+        currentUserID: currentUserID
+      );
+    }
+
+    else {
+      await _NativeStorage.completeMeta(
+        path: path,
+        currentUserID: currentUserID
       );
     }
 

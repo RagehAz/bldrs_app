@@ -13,6 +13,7 @@ import 'package:bldrs/c_protocols/app_state_protocols/app_state_real_ops.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
@@ -126,7 +127,7 @@ class UserModel {
       emailIsVerified: authModel.data['credential.user.emailVerified'] ?? authModel.data['user.emailVerified'],
       isAdmin: false,
       company: null,
-      device: null,
+      device: await DeviceModel.generateDeviceModel(),
       savedFlyers: DeckModel.newDeck(),
       followedBzz: AgendaModel.newAgenda(),
       appState: await AppStateRealOps.readGlobalAppState(),
@@ -1080,6 +1081,56 @@ class UserModel {
     return _user;
   }
    */
+  // --------------------
+  static Future<UserModel> anonymousUser({
+    @required AuthModel authModel,
+  }) async {
+
+    if (authModel == null){
+      return null;
+    }
+
+    else {
+
+      final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(
+        context: getMainContext(),
+        listen: false,
+      );
+
+      return UserModel(
+        id: authModel.id,
+        signInMethod: authModel.signInMethod,
+        createdAt: DateTime.now(),
+        need: NeedModel.createInitialNeed(userZone: _currentZone),
+        name: authModel.name,
+        trigram: const [],
+        picPath: Standards.anonymousUserPicPath,
+        title: '',
+        company: '',
+        gender: null,
+        zone: _currentZone,
+        language: Localizer.getCurrentLangCode(),
+        location: null,
+        contacts: ContactModel.generateBasicContacts(
+          email: authModel.email,
+          phone: authModel.phone,
+        ),
+        contactsArePublic: false,
+        myBzzIDs: const <String>[],
+        isAuthor: false,
+        emailIsVerified: false,
+        isAdmin: false,
+        device: await DeviceModel.generateDeviceModel(),
+        fcmTopics: TopicModel.getAllPossibleUserTopicsIDs(),
+        savedFlyers: DeckModel.newDeck(),
+        followedBzz: AgendaModel.newAgenda(),
+        appState: await AppStateRealOps.readGlobalAppState(),
+      );
+
+    }
+
+  }
+  // --------------------
    /// TESTED : WORKS PERFECT
   static bool usersAreIdentical({
     @required UserModel user1,
