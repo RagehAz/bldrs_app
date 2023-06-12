@@ -251,8 +251,8 @@ class NoteEvent {
     final NoteModel _note = NoteModel(
       id: null,
       parties: NoteParties(
-        senderID: Standards.bldrsSenderID,
-        senderImageURL: Standards.bldrsLogoStaticURL,
+        senderID: Standards.bldrsNotificationSenderID,
+        senderImageURL: Standards.bldrsNotificationIconURL,
         senderType: PartyType.bldrs,
         receiverID: bzModel.id,
         receiverType: PartyType.bz,
