@@ -163,6 +163,7 @@ class StorageMetaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   f_s.SettableMetadata toOfficialSettableMetadata({
+    @required Uint8List bytes,
     Map<String, String> extraData,
   }){
 
@@ -209,7 +210,7 @@ class StorageMetaModel {
       // contentDisposition: ,
       // contentEncoding: ,
       // contentLanguage: ,
-      // contentType: ,
+      contentType: FireFileTyper.getContentType(bytes),
     );
 
   }
@@ -248,6 +249,10 @@ class StorageMetaModel {
 
     }
 
+    else {
+      _output = StorageMetaModel.emptyModel();
+    }
+
     return _output;
   }
   // --------------------
@@ -257,6 +262,7 @@ class StorageMetaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   f_d.SettableMetadata toNativeSettableMetadata({
+    @required Uint8List bytes,
     Map<String, String> extraData,
   }){
 
@@ -305,7 +311,7 @@ class StorageMetaModel {
       // contentDisposition: ,
       // contentEncoding: ,
       // contentLanguage: ,
-      // contentType: ,
+      contentType: FireFileTyper.getContentType(bytes),
     );
 
   }
@@ -322,6 +328,10 @@ class StorageMetaModel {
           customMetadata: fullMetadata.customMetadata
       );
 
+    }
+
+    else {
+      _output = StorageMetaModel.emptyModel();
     }
 
     return _output;
@@ -518,7 +528,7 @@ class StorageMetaModel {
 
     return _output;
   }
-// --------------------
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, String> _insertPairInMap({
     @required Map<String, String> map,
@@ -548,6 +558,22 @@ class StorageMetaModel {
     }
 
     return _result;
+  }
+  // -----------------------------------------------------------------------------
+
+  /// DUMMY
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static StorageMetaModel emptyModel(){
+    return const StorageMetaModel(
+      ownersIDs: [],
+      // name: null,
+      // data: null,
+      // width: null,
+      // height: null,
+      // sizeMB: null,
+    );
   }
   // -----------------------------------------------------------------------------
 

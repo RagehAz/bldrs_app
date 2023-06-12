@@ -6,6 +6,7 @@ library super_fire;
 // --------------------
 /// COMMON
 import 'dart:io';
+import 'package:bldrs/super_fire/c_helpers/storage/fire_file_typer.dart';
 import 'package:devicer/devicer.dart';
 import 'package:mapper/mapper.dart';
 import 'package:rest/rest.dart';
