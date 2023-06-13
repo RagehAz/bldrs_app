@@ -32,18 +32,24 @@ class _OfficialStorage {
 
   }
   // --------------------
+  /// DEPRECATED
+  /*
   /// TESTED: WORKS PERFECT
   static f_s.Reference _getRefByNodes({
     @required String coll,
     @required String doc, // without extension
   }) {
 
-    return _OfficialFirebase.getStorage()
-        .ref()
-        .child(coll)
-        .child(doc);
+    if (coll != null && doc != null){
+      return _getRefByPath('$coll/$doc');
+    }
+
+    else {
+      return null;
+    }
 
   }
+   */
   // --------------------
   /// TESTED: WORKS PERFECT
   static Future<f_s.Reference> _getRefByURL({
@@ -136,6 +142,8 @@ class _OfficialStorage {
     return _url;
   }
   // --------------------
+  /// DEPRECATED : SHOULD USE uploadBytesAndGetURL INSTEAD FOR WEB SUPPORT
+  /*
   /// TESTED : WORKS PERFECT
   static Future<String> uploadFileAndGetURL({
     @required File file,
@@ -261,6 +269,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     blog('uploadFile : END');
     return _fileURL;
   }
+  */
   // -----------------------------------------------------------------------------
 
   /// CREATE URL
@@ -271,19 +280,6 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     @required String path
   }) async {
     final f_s.Reference _ref = _getRefByPath(path);
-    final String _url = await _createURLByRef(ref: _ref);
-    return _url;
-  }
-  // --------------------
-  /// TESTED: WORKS PERFECT
-  static Future<String> createURLByNodes({
-    @required String coll,
-    @required String doc, // without extension
-  }) async {
-    final f_s.Reference _ref = _getRefByNodes(
-      coll: coll,
-      doc: doc,
-    );
     final String _url = await _createURLByRef(ref: _ref);
     return _url;
   }
@@ -347,6 +343,8 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
     return _bytes;
   }
   // --------------------
+  /// DEPRECATED : SHOULD USE readBytesByURL INSTEAD FOR WEB SUPPORT
+  /*
   /// TESTED : WORKS PERFECT
   static Future<File> readFileByURL({
     @required String url,
@@ -378,7 +376,10 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
     return _file;
   }
+  */
   // --------------------
+  /// DEPRECATED : SHOULD USE readBytesByPath INSTEAD FOR WEB SUPPORT
+  /*
   /// TESTED : WORKS PERFECT
   static Future<File> readFileByNodes({
     @required String coll,
@@ -410,6 +411,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
 
     return _file;
   }
+  */
   // -----------------------------------------------------------------------------
 
   /// READ META DATA
@@ -663,6 +665,7 @@ https://medium.com/@debnathakash8/firebase-cloud-storage-with-flutter-aad7de6c43
             await _ref.updateMetadata(meta.toOfficialSettableMetadata(
               bytes: _bytes,
             ));
+
           }
 
         },

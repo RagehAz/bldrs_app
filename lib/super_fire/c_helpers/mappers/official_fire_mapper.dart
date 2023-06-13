@@ -147,6 +147,11 @@ class _OfficialFireMapper {
           ihlmoo: snapshot.value,
         );
       }
+      else if (snapshot.value.runtimeType.toString() == 'IdentityMap<String, dynamic>'){
+        _output = Mapper.getMapFromIHLMOO(
+          ihlmoo: snapshot.value,
+        );
+      }
       else  {
         _output = {
           snapshot.key : snapshot.value,
