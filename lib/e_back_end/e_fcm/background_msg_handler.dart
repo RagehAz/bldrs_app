@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm_starter.dart';
-import 'package:bldrs/super_fire/super_fire.dart';
+import 'package:fire/super_fire.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 /// TESTED : WORKS PERFECT

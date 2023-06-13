@@ -183,21 +183,12 @@ dependencies:
   rest:
     git:
       url: https://github.com/RagehAz/rest.git
-#  fire:
-#    git:
-#      url: https://github.com/RagehAz/fire.git
+  fire:
+    git:
+      url: https://github.com/RagehAz/fire.git
   ldb:
     git:
       url: https://github.com/RagehAz/ldb.git
-#  real:
-#    git:
-#      url: https://github.com/RagehAz/real.git
-#  storage:
-#    git:
-#      url: https://github.com/RagehAz/storage.git
-#  authing:
-#    git:
-#      url: https://github.com/RagehAz/authing.git
   # ------------------------------------
   # MY HELPERS
   bldrs_theme:

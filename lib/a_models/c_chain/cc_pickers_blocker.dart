@@ -1,4 +1,4 @@
-import 'package:bldrs/super_fire/super_fire.dart';
+import 'package:fire/super_fire.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mapper/mapper.dart';
 /// => TAMAM

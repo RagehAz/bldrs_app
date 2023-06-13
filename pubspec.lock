@@ -498,6 +498,15 @@ packages:
       url: "https://github.com/RagehAz/filers.git"
     source: git
     version: "0.0.9"
+  fire:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "173e6e2473929adf7db6aa74f0e6208fefd8dbf1"
+      url: "https://github.com/RagehAz/fire.git"
+    source: git
+    version: "0.0.4"
   firebase_app_check:
     dependency: "direct main"
     description:

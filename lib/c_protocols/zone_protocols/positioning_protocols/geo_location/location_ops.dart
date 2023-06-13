@@ -1,7 +1,7 @@
 /// => GEOLOCATOR_DOES_NOT_WORK
 // import 'package:devicer/devicer.dart';
 // import 'package:filers/filers.dart';
-// import 'package:bldrs/super_fire/super_fire.dart';
+// import 'package:fire/super_fire.dart';
 // import 'package:flutter/material.dart';
 // import 'package:geocoding/geocoding.dart';
 // import 'package:geolocator/geolocator.dart';
