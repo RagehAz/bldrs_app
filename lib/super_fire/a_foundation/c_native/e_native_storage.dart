@@ -32,6 +32,8 @@ class _NativeStorage {
 
   }
   // --------------------
+  /// DEPRECATED
+  /*
   /// TESTED: WORKS PERFECT
   static f_d.Reference _getRefByNodes({
     @required String coll,
@@ -44,6 +46,7 @@ class _NativeStorage {
         .child(doc);
 
   }
+   */
   // --------------------
   /// TESTED: WORKS PERFECT
   static Future<f_d.Reference> _getRefByURL({
@@ -132,6 +135,8 @@ class _NativeStorage {
     return _url;
   }
   // --------------------
+  /// DEPRECATED : SHOULD USE uploadBytesAndGetURL INSTEAD FOR WEB SUPPORT
+  /*
   /// TESTED: WORKS PERFECT
   static Future<String> uploadFileAndGetURL({
     @required File file,
@@ -161,6 +166,7 @@ class _NativeStorage {
 
     return _fileURL;
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// CREATE URL
@@ -171,19 +177,6 @@ class _NativeStorage {
     @required String path
   }) async {
     final f_d.Reference _ref = _getRefByPath(path);
-    final String _url = await _createURLByRef(ref: _ref);
-    return _url;
-  }
-  // --------------------
-  /// TESTED: WORKS PERFECT
-  static Future<String> createURLByNodes({
-    @required String coll,
-    @required String doc, // without extension
-  }) async {
-    final f_d.Reference _ref = _getRefByNodes(
-      coll: coll,
-      doc: doc,
-    );
     final String _url = await _createURLByRef(ref: _ref);
     return _url;
   }
@@ -246,6 +239,8 @@ class _NativeStorage {
     return _bytes;
   }
   // --------------------
+  /// DEPRECATED : SHOULD USE readBytesByURL INSTEAD FOR WEB SUPPORT
+  /*
   /// TESTED: WORKS PERFECT
   static Future<File> readFileByURL({
     @required String url,
@@ -281,7 +276,10 @@ class _NativeStorage {
 
     return _file;
   }
+   */
   // --------------------
+  /// DEPRECATED : SHOULD USE readBytesByPath INSTEAD FOR WEB SUPPORT
+  /*
   /// TESTED: WORKS PERFECT
   static Future<File> readFileByNodes({
     @required String coll,
@@ -313,6 +311,7 @@ class _NativeStorage {
 
     return _file;
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// READ META DATA

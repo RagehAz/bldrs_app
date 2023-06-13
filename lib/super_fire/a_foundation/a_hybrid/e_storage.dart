@@ -41,6 +41,8 @@ class Storage {
     return _url;
   }
   // --------------------
+  /// DEPRECATED : SHOULD USE uploadBytesAndGetURL INSTEAD FOR WEB SUPPORT
+  /*
   /// TESTED: WORKS PERFECT
   static Future<String> uploadFileAndGetURL({
     @required File file,
@@ -70,6 +72,7 @@ class Storage {
 
     return _url;
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// CREATE URL
@@ -101,23 +104,19 @@ class Storage {
     @required String coll,
     @required String doc, // without extension
   }) async {
-    String _url;
 
-    if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      _url = await _OfficialStorage.createURLByNodes(
-          coll: coll,
-          doc: doc,
+    if (coll != null && doc != null){
+      final String _url = await createURLByPath(
+          path: 'storage/$coll/$doc',
       );
+
+      return _url;
     }
 
     else {
-      _url = await _NativeStorage.createURLByNodes(
-          coll: coll,
-          doc: doc,
-      );
+      return null;
     }
 
-    return _url;
   }
   // -----------------------------------------------------------------------------
 
@@ -166,6 +165,8 @@ class Storage {
     return _output;
   }
   // --------------------
+  /// DEPRECATED : SHOULD USE readBytesByURL INSTEAD FOR WEB SUPPORT
+  /*
   /// TESTED: WORKS PERFECT
   static Future<File> readFileByURL({
     @required String url,
@@ -186,7 +187,10 @@ class Storage {
 
     return _output;
   }
+   */
   // --------------------
+  /// DEPRECATED : SHOULD USE readBytesByPath INSTEAD FOR WEB SUPPORT
+  /*
   /// TESTED: WORKS PERFECT
   static Future<File> readFileByNodes({
     @required String coll,
@@ -210,6 +214,7 @@ class Storage {
 
     return _output;
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// READ META DATA
