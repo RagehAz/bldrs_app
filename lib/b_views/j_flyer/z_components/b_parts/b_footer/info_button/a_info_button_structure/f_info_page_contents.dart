@@ -1,5 +1,5 @@
 import 'package:bldrs/a_models/x_secondary/bldrs_model_type.dart';
-import 'package:bldrs/super_fire/super_fire.dart';
+import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/g_counters/flyer_counter_model.dart';

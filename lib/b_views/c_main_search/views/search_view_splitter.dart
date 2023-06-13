@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/c_main_search/views/bzz_paginator_view.dart';
 import 'package:bldrs/b_views/c_main_search/views/flyers_paginator_view.dart';
 import 'package:bldrs/b_views/c_main_search/views/history_view.dart';
 import 'package:bldrs/b_views/c_main_search/views/users_paginator_view.dart';
-import 'package:bldrs/super_fire/super_fire.dart';
+import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 
 class SearchViewSplitter extends StatelessWidget {

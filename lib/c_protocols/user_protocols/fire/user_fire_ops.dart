@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
-import 'package:bldrs/super_fire/super_fire.dart';
+import 'package:fire/super_fire.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

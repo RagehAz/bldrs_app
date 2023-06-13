@@ -11,7 +11,7 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
-import 'package:bldrs/super_fire/super_fire.dart';
+import 'package:fire/super_fire.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';

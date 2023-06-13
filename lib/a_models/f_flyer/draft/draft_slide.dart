@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
-import 'package:bldrs/super_fire/super_fire.dart';
+import 'package:fire/super_fire.dart';
 import 'package:colorizer/colorizer.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';

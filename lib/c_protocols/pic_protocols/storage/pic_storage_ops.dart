@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
-import 'package:bldrs/super_fire/super_fire.dart';
+import 'package:fire/super_fire.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';

@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:mapper/mapper.dart';
-import 'package:bldrs/super_fire/super_fire.dart';
+import 'package:fire/super_fire.dart';
 import 'package:stringer/stringer.dart';
 
 class PDFStorageOps {

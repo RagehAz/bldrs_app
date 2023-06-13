@@ -18,7 +18,7 @@ import 'package:bldrs/f_helpers/drafters/bldrs_providers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/firebase_options.dart';
-import 'package:bldrs/super_fire/super_fire.dart';
+import 'package:fire/super_fire.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:devicer/devicer.dart';
 import 'package:filers/filers.dart';

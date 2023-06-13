@@ -13,7 +13,7 @@ import 'package:rest/rest.dart';
 /// => GEOLOCATOR_DOES_NOT_WORK
 // import 'package:geolocator/geolocator.dart';
 // import 'package:bldrs/c_protocols/zone_protocols/positioning_protocols/geo_location/location_ops.dart';
-// import 'package:bldrs/super_fire/super_fire.dart';
+// import 'package:fire/super_fire.dart';
 /// => TAMAM
 class ZoneIPOps {
   // -----------------------------------------------------------------------------

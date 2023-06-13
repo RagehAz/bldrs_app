@@ -26,7 +26,7 @@ import 'package:bldrs/c_protocols/search_protocols/search_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_search.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:bldrs/super_fire/super_fire.dart';
+import 'package:fire/super_fire.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:night_sky/night_sky.dart';

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/super_fire/super_fire.dart';
+import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';

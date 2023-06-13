@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/k_statistics/record_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/c_protocols/recorder_protocols/record_real_ops.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
-import 'package:bldrs/super_fire/super_fire.dart';
+import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:numeric/numeric.dart';
 /// => TAMAM
