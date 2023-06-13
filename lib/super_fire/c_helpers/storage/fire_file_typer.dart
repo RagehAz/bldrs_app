@@ -1,4 +1,3 @@
-
 import 'dart:typed_data';
 
 enum FileType {
@@ -30,7 +29,7 @@ class FireFileTyper {
   const FireFileTyper();
 
   // -----------------------------------------------------------------------------
-  ///
+  /// AI GENERATED
   static FileType _detectFileType(Uint8List bytes) {
 
     if (_hasSignature(bytes, [0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A])) {
@@ -119,7 +118,7 @@ class FireFileTyper {
     }
   }
   // --------------------
-  ///
+  /// AI GENERATED
   static bool _hasSignature(Uint8List bytes, List<int> signature, {int offset = 0}) {
 
     if (offset + signature.length > bytes.length) {
@@ -135,7 +134,7 @@ class FireFileTyper {
     return true;
   }
   // --------------------
-  ///
+  /// AI GENERATED
   static String _getContentType(FileType fileType) {
 
     switch (fileType) {
@@ -162,7 +161,7 @@ class FireFileTyper {
     }
   }
   // --------------------
-  ///
+  /// AI GENERATED
   static String getContentType(Uint8List bytes) {
     final fileType = _detectFileType(bytes);
     return _getContentType(fileType);
