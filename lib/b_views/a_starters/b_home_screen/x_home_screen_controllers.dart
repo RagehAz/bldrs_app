@@ -64,7 +64,7 @@ List<NavModel> generateMainNavModels({
 }){
 
   final String _countryFlag = currentZone?.icon;
-  final bool _userIsSignedIn = Authing.userIsSignedIn();
+  final bool _userIsSignedUp = Authing.userIsSignedUp();
 
   return <NavModel>[
 
@@ -78,7 +78,7 @@ List<NavModel> generateMainNavModels({
       icon: Iconz.normalUser,
       screen: const AuthScreen(),
       iconSizeFactor: 0.6,
-      canShow: _userIsSignedIn == false,
+      canShow: _userIsSignedUp == false,
     ),
 
     /// QUESTIONS
@@ -106,7 +106,7 @@ List<NavModel> generateMainNavModels({
       screen: const UserProfileScreen(),
       iconSizeFactor: userModel?.picPath == null ? 0.55 : 1,
       iconColor: Colorz.nothing,
-      canShow: _userIsSignedIn,
+      canShow: _userIsSignedUp,
       forceRedDot: userModel == null || Formers.checkUserHasMissingFields(userModel: userModel),
     ),
 
@@ -119,11 +119,11 @@ List<NavModel> generateMainNavModels({
       ),
       icon: Iconz.saveOff,
       screen: const SavedFlyersScreen(),
-      canShow: _userIsSignedIn,
+      canShow: _userIsSignedUp,
     ),
 
     /// SEPARATOR
-    if (_userIsSignedIn == true && UserModel.checkUserIsAuthor(userModel) == true)
+    if (_userIsSignedUp == true && UserModel.checkUserIsAuthor(userModel) == true)
       null,
 
     /// MY BZZ

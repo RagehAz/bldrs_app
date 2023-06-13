@@ -8,7 +8,6 @@ class Standards {
 
   const Standards();
 
-  static const String ragehID = 'z0Obwze3JLYjoEl6uVeXfo4Luup1';
   // -----------------------------------------------------------------------------
   /// WEB SITE
   // -------
@@ -18,6 +17,7 @@ class Standards {
   // -------
   static String termsAndRegulationsURL = 'https://www.bldrs.net/#/terms';
   static String privacyPolicyURL = 'https://www.bldrs.net/#/privacy';
+  static String deleteMyDataURL = 'https://www.bldrs.net/#/deletemydata';
   // --------------------
   /// APP LINKS
   // -------
@@ -150,20 +150,6 @@ class Standards {
   // --------
   // static const double notePosterWidthPixels = 1000; // NotePosterBox.standardSize.width
    */
-  // -----------------------------------------------------------------------------
-
-  /// EXCHANGE RATES KEY
-
-  // --------------------
-  static String exchangeRateAppID = 'e34ede10438a4c22aa21cedb190ebae1';
-  // -----------------------------------------------------------------------------
-
-  /// GOOGLE MAPS KEYS
-
-  // --------------------
-  static String googleMapsAPIKey = 'AIzaSyDQGuhqhKu1mSdNxAbS_BCP8NfCB1ENmaI';
-  static String googleMapsPlatformAPIKey = 'AIzaSyDp6MMLw2LJflspqJ0x2uZCmQuZ32vS3XU';
-  static String googleMapsPlatformAPIKey2 = 'AIzaSyD5CBTWvMaL6gU0X7gfdcnkpFmo-aNfgx4';
   // -----------------------------------------------------------------------------
 
   /// BLDRS

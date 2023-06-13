@@ -80,7 +80,7 @@ class RecordersRealOps {
     if (
         record != null
         &&
-        Authing.userIsSignedIn() == true
+        Authing.userIsSignedUp() == true
     ){
 
       final String _path = RecordersRealOps.createRecordTypeRealPath(

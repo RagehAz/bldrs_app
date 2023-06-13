@@ -75,7 +75,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
       // ----------
       _triggerLoading(setTo: true).then((_) async {
         // ----------
-        if (Authing.userIsSignedIn() == true){
+        if (Authing.userHasID() == true){
           // ----------
           final FlyerCounterModel _counter = await RecorderProtocols.readFlyerCounters(
             flyerID: widget.flyerModel.id,

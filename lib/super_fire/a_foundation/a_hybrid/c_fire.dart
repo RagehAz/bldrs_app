@@ -35,7 +35,7 @@ class Fire {
     /// NATIVE
     else {
 
-      assert(Authing.userIsSignedIn() == true, 'You should be signed in');
+      assert(Authing.userIsSignedUp() == true, 'You should be signed up');
 
       _id = await _NativeFire.createDoc(
         input: input,

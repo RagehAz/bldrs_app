@@ -111,7 +111,7 @@ class DraftUser {
 
       final List<ContactModel> _contacts = ContactModel.prepareContactsForEditing(
         contacts: userModel.contacts,
-        countryID: userModel.zone.countryID,
+        countryID: userModel.zone?.countryID,
       );
 
       final String _email = ContactModel.getContactFromContacts(

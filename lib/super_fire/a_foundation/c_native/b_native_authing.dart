@@ -98,14 +98,14 @@ class _NativeAuthing{
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool userIsSignedIn() {
-    return Authing.getUserID() != null;
+  static bool userHasID() {
+    return getUserID() != null;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static SignInMethod getCurrentSignInMethod(){
 
-    if (userIsSignedIn() == true){
+    if (userHasID() == true){
       return SignInMethod.nativeEmail;
     }
     else {
@@ -113,12 +113,17 @@ class _NativeAuthing{
     }
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<String> getAuthEmail() async {
+     final fd_u.User _user = await _getUser();
+     return _user?.email;
+  }
   // -----------------------------------------------------------------------------
 
   /// USER
 
-  // --------------------
-  /*
+  // -------------------
   /// TESTED : WORKS PERFECT
   static Future<fd_u.User> _getUser() async {
     fd_u.User _user;
@@ -132,7 +137,6 @@ class _NativeAuthing{
 
     return _user;
   }
-   */
   // -----------------------------------------------------------------------------
 }
 

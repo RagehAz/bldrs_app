@@ -188,7 +188,7 @@ class BzSlide extends StatelessWidget {
               ),
 
               /// REPORT
-              if (Authing.userIsSignedIn() == true)
+              if (Authing.userIsSignedUp() == true)
               BlackBox(
                 width: flyerBoxWidth,
                 child: ReportButton(
