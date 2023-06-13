@@ -107,7 +107,7 @@ class _OfficialAuthing {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool userIsSignedIn() {
+  static bool userHasID() {
     return _getUser() != null;
   }
   // --------------------
@@ -144,6 +144,11 @@ class _OfficialAuthing {
   /// TESTED : WORKS PERFECT
   static f_a.User _getUser() {
     return _OfficialFirebase.getAuth()?.currentUser;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static String getAuthEmail(){
+    return _getUser()?.email;
   }
   // -----------------------------------------------------------------------------
 }
@@ -280,7 +285,7 @@ class _OfficialEmailAuthing {
 
     bool _success = false;
 
-    if (Authing.userIsSignedIn() == true) {
+    if (Authing.userIsSignedUp() == true) {
 
       final f_a.FirebaseAuth _auth = _OfficialFirebase.getAuth();
       final String _oldEmail = _auth?.currentUser?.email;

@@ -254,7 +254,7 @@ Future<void> onFollowTap({
   @required bool mounted,
 }) async {
 
-  if (Authing.userIsSignedIn() == true){
+  if (Authing.userIsSignedUp() == true){
 
     setNotifier(
         notifier: followIsOn,

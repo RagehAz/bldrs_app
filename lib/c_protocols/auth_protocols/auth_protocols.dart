@@ -1,14 +1,12 @@
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/auth_protocols/auth_ldb_ops.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
-import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:flutter/material.dart';
 
 class AuthProtocols {
@@ -152,13 +150,6 @@ class AuthProtocols {
       context: getMainContext(),
       newUser: userModel,
     );
-
-    UsersProvider.proSetMyAuthModel(
-      authModel: authModel,
-      notify: true,
-    );
-
-    await AuthLDBOps.insertAuthModel(authModel);
 
     return true;
   }
