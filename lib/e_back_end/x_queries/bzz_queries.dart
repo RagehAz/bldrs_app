@@ -1,5 +1,5 @@
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
-import 'package:bldrs/super_fire/super_fire.dart';
+import 'package:fire/super_fire.dart';
 // -----------------------------------------------------------------------------
 
 /// ALL BZZ PAGINATION

@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/super_fire/super_fire.dart';
+import 'package:fire/super_fire.dart';
 import 'package:mapper/mapper.dart';
 import 'package:stringer/stringer.dart';
 import 'package:filers/filers.dart';

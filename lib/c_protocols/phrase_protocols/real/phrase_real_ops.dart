@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
-import 'package:bldrs/super_fire/super_fire.dart';
+import 'package:fire/super_fire.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';

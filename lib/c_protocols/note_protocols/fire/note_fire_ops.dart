@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:bldrs/super_fire/super_fire.dart';
+import 'package:fire/super_fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:mapper/mapper.dart';
 import 'package:flutter/material.dart';
