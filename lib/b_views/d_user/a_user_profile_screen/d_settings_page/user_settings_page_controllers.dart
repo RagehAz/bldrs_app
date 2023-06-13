@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
@@ -13,13 +11,14 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/auth_protocols/auth_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
@@ -326,12 +325,12 @@ Future<bool> _checkPassword({
 
   if (_password?.isNotEmpty == true){
 
-    final AuthModel _authModel = await AuthLDBOps.readAuthModel();
+    final String _authEmail = await Authing.getAuthEmail();
 
     final String _email = ContactModel.getValueFromContacts(
       contacts: userModel?.contacts,
       contactType: ContactType.email,
-    ) ?? _authModel.email;
+    ) ?? _authEmail;
 
     _passwordIsCorrect = await EmailAuthing.checkPasswordIsCorrect(
       password: _password,

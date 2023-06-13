@@ -104,14 +104,14 @@ class Authing {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool userIsSignedIn() {
+  static bool userHasID() {
 
     if (FirebaseInitializer.isUsingOfficialPackages() == true){
-      return _OfficialAuthing.userIsSignedIn();
+      return _OfficialAuthing.userHasID();
     }
 
     else {
-      return _NativeAuthing.userIsSignedIn();
+      return _NativeAuthing.userHasID();
     }
 
   }
@@ -125,6 +125,35 @@ class Authing {
 
     else {
       return _NativeAuthing.getCurrentSignInMethod();
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<String> getAuthEmail() async {
+
+      if (FirebaseInitializer.isUsingOfficialPackages() == true){
+        return _OfficialAuthing.getAuthEmail();
+      }
+
+      else {
+        return _NativeAuthing.getAuthEmail();
+      }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool userIsSignedUp(){
+    final SignInMethod method = getCurrentSignInMethod();
+
+    if (
+    method == null ||
+    method == SignInMethod.anonymous
+    ){
+      return false;
+    }
+    else {
+      return true;
     }
 
   }
