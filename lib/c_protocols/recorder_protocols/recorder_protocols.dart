@@ -26,7 +26,7 @@ class RecorderProtocols {
   }) async {
 
     if (
-        Authing.userIsSignedIn() == true &&
+        Authing.userIsSignedUp() == true &&
         bzID != null &&
         contact != null
     ){
@@ -71,7 +71,7 @@ class RecorderProtocols {
   }) async {
 
     if (
-        Authing.userIsSignedIn() == true &&
+        Authing.userIsSignedUp() == true &&
         bzID != null
     ){
 
@@ -109,7 +109,7 @@ class RecorderProtocols {
   }) async {
 
     if (
-        Authing.userIsSignedIn() == true &&
+        Authing.userIsSignedUp() == true &&
         bzID != null
     ){
 
@@ -153,7 +153,7 @@ class RecorderProtocols {
   }) async {
 
     if (
-        Authing.userIsSignedIn() == true &&
+        Authing.userIsSignedUp() == true &&
         flyerID != null &&
         flyerID != DraftFlyer.newDraftID &&
         bzID != null &&
@@ -211,7 +211,7 @@ class RecorderProtocols {
   }) async {
 
     if (
-        Authing.userIsSignedIn() == true &&
+        Authing.userIsSignedUp() == true &&
         flyerID != null &&
         flyerID != DraftFlyer.newDraftID &&
         bzID != null &&
@@ -271,7 +271,7 @@ class RecorderProtocols {
   }) async {
 
     if (
-        Authing.userIsSignedIn() == true &&
+        Authing.userIsSignedUp() == true &&
         flyerID != null &&
         flyerID != DraftFlyer.newDraftID &&
         bzID != null
@@ -333,7 +333,7 @@ class RecorderProtocols {
     /// WE NEED A WAY TO CHECK IF THIS USER PREVIOUSLY VIEWED THE SLIDE TO CALL THIS OR NOT
 
     if (
-        Authing.userIsSignedIn() == true &&
+        Authing.userIsSignedUp() == true &&
         flyerID != DraftFlyer.newDraftID &&
         bzID != null &&
         index != null
@@ -496,7 +496,7 @@ class RecorderProtocols {
   }) async {
 
     if (
-        Authing.userIsSignedIn() == true &&
+        Authing.userIsSignedUp() == true &&
         flyerID != null &&
         flyerID != DraftFlyer.newDraftID &&
         bzID != null
@@ -540,7 +540,7 @@ class RecorderProtocols {
   }) async {
 
     if (
-        Authing.userIsSignedIn() == true &&
+        Authing.userIsSignedUp() == true &&
         flyerID != null &&
         flyerID != DraftFlyer.newDraftID &&
         bzID != null
@@ -585,7 +585,7 @@ class RecorderProtocols {
   }) async {
 
     if (
-    Authing.userIsSignedIn() == true &&
+    Authing.userIsSignedUp() == true &&
     bzID != null
     ){
 

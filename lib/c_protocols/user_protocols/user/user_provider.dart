@@ -15,19 +15,37 @@ class UsersProvider extends ChangeNotifier {
 
   // --------------------
   UserModel _myUserModel;
-  AuthModel _myAuthModel;
   // --------------------
   UserModel get myUserModel => _myUserModel;
-  AuthModel get myAuthModel => _myAuthModel;
   // --------------------
-  /// TESTED : WORKS PERFECT
-  static AuthModel proGetAuthModel({
-    @required BuildContext context,
-    @required bool listen,
-  }){
-    final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: listen);
-    return _usersProvider.myAuthModel;
+  /*
+  static bool userIsSignedUp({bool listen = false}) {
+
+    final UsersProvider _usersProvider = Provider.of<UsersProvider>(getMainContext(), listen: listen);
+    final UserModel _user = _usersProvider.myUserModel;
+    // final AuthModel _auth = _usersProvider.myAuthModel;
+
+    bool _isSignedUp = false;
+
+    if (_user == null) {
+      _isSignedUp = false;
+    }
+    else if (_user.signInMethod == null) {
+      _isSignedUp = false;
+    }
+    else if (_user.signInMethod == SignInMethod.anonymous) {
+      _isSignedUp = false;
+    }
+    else {
+      _isSignedUp = true;
+    }
+
+    blog('userIsSignedUp() : $_isSignedUp');
+    _user?.blogUserModel();
+
+    return _isSignedUp;
   }
+   */
   // --------------------
   /// TESTED : WORKS PERFECT
   static UserModel proGetMyUserModel({
@@ -48,29 +66,6 @@ class UsersProvider extends ChangeNotifier {
   }
   // --------------------
   ///
-  static void proSetMyAuthModel({
-    @required AuthModel authModel,
-    @required bool notify,
-  }) {
-    final UsersProvider _usersProvider = Provider.of<UsersProvider>(getMainContext(), listen: false);
-    _usersProvider._setMyAuthModel(authModel: authModel, notify: notify);
-  }
-  // --------------------
-  ///
-  void _setMyAuthModel({
-    @required AuthModel authModel,
-    @required bool notify,
-  }) {
-    if (UserModel.checkItIsMe(authModel?.id) == true) {
-      _myAuthModel = authModel;
-
-      if (notify == true) {
-        notifyListeners();
-      }
-    }
-  }
-  // --------------------
-  ///
   void _setMyUserModel({
     @required UserModel userModel,
     @required bool notify,
@@ -83,11 +78,10 @@ class UsersProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  void clearMyUserModelAndAuthModel({
+  void clearMyUserModel({
     @required bool notify,
   }) {
     _myUserModel = null;
-    _myAuthModel = null;
 
     if (notify == true) {
       notifyListeners();
@@ -302,7 +296,7 @@ class UsersProvider extends ChangeNotifier {
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(getMainContext(), listen: false);
 
     /// _myUserModel
-    _usersProvider.clearMyUserModelAndAuthModel(
+    _usersProvider.clearMyUserModel(
       notify: notify,
     );
 
@@ -344,7 +338,7 @@ class UsersProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool userIsRage7(){
-    return Authing.getUserID() == BldrsKeys.rage7ID;
+    return Authing.getUserID() == BldrsKeys.ragehID;
   }
   // --------------------
   /// TESTED : WORKS PERFECT

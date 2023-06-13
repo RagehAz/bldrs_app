@@ -447,7 +447,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
   // --------------------
   Future<void> _onSaveFlyer() async {
 
-    if (Authing.userIsSignedIn() == true){
+    if (Authing.userIsSignedUp() == true){
 
       if (mounted == true){
 

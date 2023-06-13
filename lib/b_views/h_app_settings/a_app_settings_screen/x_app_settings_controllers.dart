@@ -1,27 +1,26 @@
 import 'dart:async';
 
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/main_providers/general_provider.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/bz_editor_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/b_app_langs_screen/b_app_langs_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/c_about_bldrs_screen/c_about_bldrs_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/d_feedback_screen/d_feedback_screen.dart';
-import 'package:bldrs/c_protocols/auth_protocols/auth_ldb_ops.dart';
+import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
+import 'package:bldrs/c_protocols/main_providers/general_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
+import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
+import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:provider/provider.dart';
@@ -171,7 +170,7 @@ Future<void> onSignOut() async {
 
   /// CLEAR USER
   final UsersProvider _usersProvider = Provider.of<UsersProvider>(getMainContext(), listen: false);
-  _usersProvider.clearMyUserModelAndAuthModel(
+  _usersProvider.clearMyUserModel(
     notify: true,
   );
 
@@ -183,7 +182,6 @@ Future<void> onSignOut() async {
   _zoneProvider.clearCurrentCurrencyAndAllCurrencies(notify: false);
 
   final String _userID = Authing.getUserID();
-  await AuthLDBOps.deleteAuthModel(_userID);
   await UserLDBOps.deleteUserOps(_userID);
   await BzLDBOps.wipeOut(getMainContext());
   await FlyerLDBOps.wipeOut(getMainContext());

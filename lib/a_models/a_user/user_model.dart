@@ -442,6 +442,15 @@ class UserModel {
   /// CHECKERS
 
   // --------------------
+  static bool userIsSignedUp(UserModel userModel) {
+    bool _userIsSignedUp = false;
+
+    if (userModel != null && userModel.id != null) {
+      _userIsSignedUp = userModel.signInMethod != SignInMethod.anonymous;
+    }
+
+    return _userIsSignedUp;
+  }
   /// TESTED : WORKS PERFECT
   static bool checkUserIsAuthor(UserModel userModel) {
     bool _userIsAuthor = false;
@@ -1099,7 +1108,7 @@ class UserModel {
 
       return UserModel(
         id: authModel.id,
-        signInMethod: authModel.signInMethod,
+        signInMethod: SignInMethod.anonymous,
         createdAt: DateTime.now(),
         need: NeedModel.createInitialNeed(userZone: _currentZone),
         name: authModel.name,

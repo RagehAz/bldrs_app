@@ -103,7 +103,7 @@ Future<void> onSubmitReview({
 }) async {
 
   /// USER IS NOT SIGNED IN
-  if (Authing.userIsSignedIn() == false){
+  if (Authing.userHasID() == false){
     await Dialogs.youNeedToBeSignedInDialog(
       afterHomeRouteName: Routing.flyerReviews,
       afterHomeRouteArgument: createReviewsScreenRoutingArgument(
@@ -197,7 +197,7 @@ Future<void> onReviewAgree({
 }) async {
 
   /// USER IS NOT SIGNED IN
-  if (Authing.getUserID() == null){
+  if (Authing.userIsSignedUp() == false){
     await Dialogs.youNeedToBeSignedInDialog(
       afterHomeRouteName: Routing.flyerReviews,
       afterHomeRouteArgument: createReviewsScreenRoutingArgument(

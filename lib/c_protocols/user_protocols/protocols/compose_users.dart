@@ -3,12 +3,11 @@ import 'dart:typed_data';
 
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
-import 'package:bldrs/c_protocols/auth_protocols/auth_ldb_ops.dart';
+import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:filers/filers.dart';
@@ -56,14 +55,10 @@ class ComposeUserProtocols {
         CensusListener.onComposeUser(_output),
 
         /// INSERT IN LDB
-        AuthLDBOps.insertAuthModel(authModel),
         UserLDBOps.insertUserModel(_output),
 
       ]);
-      UsersProvider.proSetMyAuthModel(
-        authModel: authModel,
-        notify: false,
-      );
+
       UsersProvider.proSetMyUserModel(
         userModel: _output,
         notify: true,

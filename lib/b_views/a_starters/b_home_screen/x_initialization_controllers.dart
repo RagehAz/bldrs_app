@@ -3,11 +3,9 @@ import 'dart:async';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/d_user/b_user_editor_screen/user_editor_screen.dart';
-import 'package:bldrs/c_protocols/auth_protocols/auth_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
@@ -66,15 +64,22 @@ Future<void> initializeHomeScreen({
 /// TESTED : WORKS PERFECT
 Future<void> _checkIfUserIsMissingFields() async {
   // blog('initializeHomeScreen.checkIfUserIsMissingFields : ~~~~~~~~~~ START');
-  if (Authing.getUserID() != null){
+  if (Authing.userIsSignedUp() == true){
 
-    final AuthModel _authModel = await AuthLDBOps.readAuthModel();
-    final UserModel _userModel = await UserProtocols.fetch(
-      userID: _authModel?.id,
-      context: getMainContext(),
+    // final AuthModel _authModel = await AuthLDBOps.readAuthModel();
+    // final UserModel _userModel = await UserProtocols.fetch(
+    //   userID: _authModel?.id,
+    //   context: getMainContext(),
+    // );
+
+    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+        context: getMainContext(),
+        listen: false,
     );
 
-    if (_authModel != null){
+    _userModel?.blogUserModel(invoker: 'initializeHomeScreen.checkIfUserIsMissingFields');
+
+    if (_userModel != null){
 
       // blog('_checkIfUserIsMissingFields');
       // AuthModel.blogAuthModel(authModel: _authModel);
@@ -134,7 +139,7 @@ Future<void> initializeUserFollowedBzz({
   @required bool notify,
 }) async {
   // blog('initializeHomeScreen._initializeUserBzz : ~~~~~~~~~~ START');
-  if (Authing.userIsSignedIn() == true){
+  if (Authing.userIsSignedUp() == true){
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
     await _bzzProvider.fetchSetFollowedBzz(
       notify: notify,
@@ -148,7 +153,7 @@ Future<void> initializeUserBzz({
   @required bool notify,
 }) async {
   // blog('initializeHomeScreen._initializeUserBzz : ~~~~~~~~~~ START');
-  if (Authing.userIsSignedIn() == true){
+  if (Authing.userIsSignedUp() == true){
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
     await _bzzProvider.fetchSetMyBzz(
       notify: notify,
@@ -197,7 +202,7 @@ Future<void> initializeCurrentZone() async {
     );
 
     /// USER ZONE IS DEFINED
-    if (_myUserModel?.zone != null && Authing.userIsSignedIn() == true){
+    if (_myUserModel?.zone != null && Authing.userIsSignedUp() == true){
 
       await _zoneProvider.fetchSetCurrentCompleteZone(
         zone: _myUserModel.zone,

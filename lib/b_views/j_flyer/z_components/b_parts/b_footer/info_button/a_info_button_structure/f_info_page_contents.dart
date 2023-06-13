@@ -49,7 +49,7 @@ class InfoPageContents extends StatelessWidget {
       infoButtonType: null,
     );
 
-    final bool _userIsSignedIn = Authing.userIsSignedIn();
+    final bool _userIsSignedIn = Authing.userHasID();
 
     return Container(
       key: const ValueKey<String>('InfoPageContents'),

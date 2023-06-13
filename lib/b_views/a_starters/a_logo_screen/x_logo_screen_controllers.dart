@@ -8,7 +8,6 @@ import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/app_state_real_ops.dart';
-import 'package:bldrs/c_protocols/auth_protocols/auth_ldb_ops.dart';
 import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
@@ -24,6 +23,7 @@ import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/super_fire/super_fire.dart';
 import 'package:devicer/devicer.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
@@ -150,39 +150,44 @@ Future<void> initializeUserModel(BuildContext context) async {
 
   // blog('_initializeUserModel : START');
 
-  /// IF USER IS SIGNED IN
-  if (Authing.userIsSignedIn() == true) {
+  /// USER HAS NO ID
+  if (Authing.getUserID() == null){
 
-    final AuthModel _authModel = await AuthLDBOps.readAuthModel();
-
-    final UserModel _userModel = await UserProtocols.fetch(
-      context: context,
-      userID: Authing.getUserID(),
-    );
-
-    await setUserAndAuthModelsAndCompleteUserZoneLocally(
-      authModel: _authModel,
-      userModel: _userModel,
-      notify: false,
-    );
-
-  }
-
-  /// IF USER IS NOT SIGNED IN
-  else {
-  /// WILL CONTINUE NORMALLY AS ANONYMOUS
-
+    /// WILL CONTINUE NORMALLY AS ANONYMOUS
     final AuthModel _anonymousAuth = await Authing.anonymousSignin();
 
     final UserModel _anonymousUser = await UserModel.anonymousUser(
       authModel: _anonymousAuth,
     );
 
-    await setUserAndAuthModelsAndCompleteUserZoneLocally(
-      authModel: _anonymousAuth,
+    await setUserModelAndCompleteUserZoneLocally(
       userModel: _anonymousUser,
       notify: false,
     );
+
+  }
+
+  /// USER HAS ID
+  else {
+
+    /// USER IS ANONYMOUS
+    if (Authing.getCurrentSignInMethod() == SignInMethod.anonymous) {
+      blog('initializeUserModel : user is anonymous');
+    }
+
+    else {
+
+      final UserModel _userModel = await UserProtocols.fetch(
+        context: context,
+        userID: Authing.getUserID(),
+      );
+
+      await setUserModelAndCompleteUserZoneLocally(
+        userModel: _userModel,
+        notify: false,
+      );
+
+    }
 
   }
 
@@ -191,19 +196,12 @@ Future<void> initializeUserModel(BuildContext context) async {
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> setUserAndAuthModelsAndCompleteUserZoneLocally({
-  @required AuthModel authModel,
+Future<void> setUserModelAndCompleteUserZoneLocally({
   @required UserModel userModel,
   @required bool notify,
 }) async {
 
   // blog('setUserAndAuthModelsAndCompleteUserZoneLocally : START');
-
-  /// B.3 - so sign in succeeded returning a userModel, then set it in provider
-  UsersProvider.proSetMyAuthModel(
-    authModel: authModel,
-    notify: false,
-  );
 
   UsersProvider.proSetMyUserModel(
     userModel: userModel,
@@ -211,7 +209,6 @@ Future<void> setUserAndAuthModelsAndCompleteUserZoneLocally({
   );
 
   /// INSERT AUTH AND USER MODEL IN LDB
-  await AuthLDBOps.updateAuthModel(authModel);
   await UserLDBOps.updateUserModel(userModel);
 
   // blog('setUserAndAuthModelsAndCompleteUserZoneLocally : END');
@@ -225,7 +222,7 @@ Future<void> setUserAndAuthModelsAndCompleteUserZoneLocally({
 /// TESTED : WORKS PERFECT
 Future<void> initializeAppState(BuildContext context) async {
 
-  if (Authing.userIsSignedIn() == true){
+  if (Authing.userIsSignedUp() == true){
 
     final UserModel _userModel = UsersProvider.proGetMyUserModel(
       context: context,
