@@ -184,7 +184,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       final List<BzModel> _bzzModels = BzzProvider.proGetMyBzz(
         context: context,
-          listen: true,
+        listen: true,
       );
       final UserModel _userModel = UsersProvider.proGetMyUserModel(
         context: context,
