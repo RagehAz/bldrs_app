@@ -121,17 +121,25 @@ class FireFileTyper {
   /// AI GENERATED
   static bool _hasSignature(Uint8List bytes, List<int> signature, {int offset = 0}) {
 
-    if (offset + signature.length > bytes.length) {
+    if (bytes == null || signature == null || offset < 0) {
       return false;
     }
 
-    for (var i = 0; i < signature.length; i++) {
-      if (bytes[offset + i] != signature[i]) {
+    else {
+
+      if (offset + signature.length > bytes.length) {
         return false;
       }
-    }
 
-    return true;
+      for (var i = 0; i < signature.length; i++) {
+        if (bytes[offset + i] != signature[i]) {
+          return false;
+        }
+      }
+
+      return true;
+
+    }
   }
   // --------------------
   /// AI GENERATED
