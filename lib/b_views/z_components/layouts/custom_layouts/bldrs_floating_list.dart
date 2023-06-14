@@ -8,19 +8,25 @@ class BldrsFloatingList extends StatelessWidget {
     @required this.columnChildren,
     this.crossAxisAlignment,
     this.mainAxisAlignment,
+    this.hasMargins = true,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final List<Widget> columnChildren;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
+  final bool hasMargins;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
     return FloatingList(
       columnChildren: columnChildren,
-      padding: const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.horizon),
+      padding: hasMargins == true ?
+      const EdgeInsets.only(top: Ratioz.stratosphere, bottom: Ratioz.horizon)
+      :
+          EdgeInsets.zero
+      ,
       crossAxisAlignment: crossAxisAlignment,
       mainAxisAlignment: mainAxisAlignment,
       // height: ,

@@ -18,14 +18,14 @@ class PasswordBubbles extends StatelessWidget {
     @required this.passwordNode,
     @required this.confirmPasswordNode,
     @required this.isObscured,
-    this.boxWidth,
+    this.bubbleWidth,
     this.isTheSuperKeyboardField = false,
     this.goOnKeyboardGo = true,
     this.mainAxisAlignment,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final double boxWidth;
+  final double bubbleWidth;
   final TextEditingController passwordController;
   final bool showPasswordOnly;
   final String Function(String) passwordValidator;
@@ -70,7 +70,7 @@ class PasswordBubbles extends StatelessWidget {
           ),
           focusNode: passwordNode,
           appBarType: appBarType,
-          bubbleWidth: boxWidth,
+          bubbleWidth: bubbleWidth,
           isFormField: true,
           key: const ValueKey<String>('password'),
           textController: passwordController,
