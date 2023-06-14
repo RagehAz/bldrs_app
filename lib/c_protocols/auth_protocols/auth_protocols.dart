@@ -4,7 +4,10 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
+import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
@@ -186,4 +189,41 @@ class AuthProtocols {
 
   }
   // -----------------------------------------------------------------------------
+
+  /// RAGEH SIGN IN
+
+  // --------------------
+  static Future<void> signInAsRage7({
+    @required BuildContext context,
+  }) async {
+    final AuthModel _authModel = await EmailAuthing.signIn(
+      email: 'rageh@bldrs.net',
+      password: '123456',
+      onError: (String error) =>
+          AuthProtocols.onAuthError(
+            error: error,
+          ),
+    );
+
+    if (_authModel != null) {
+      final Map<String, dynamic> _map = await Fire.readDoc(
+        coll: FireColl.users,
+        doc: _authModel.id,
+      );
+
+      final UserModel _userModel = UserModel.decipherUser(
+        map: _map,
+        fromJSON: false,
+      );
+
+      /// UPDATE LDB USER MODEL
+      await UserLDBOps.updateUserModel(_userModel);
+
+      UsersProvider.proSetMyUserModel(
+        userModel: _userModel,
+        notify: true,
+      );
+    }
+  }
+  /// --------------------------------------------------------------------------
 }
