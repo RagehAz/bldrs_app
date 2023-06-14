@@ -30,6 +30,8 @@ class RealColl {
   // --------------------
   static const String zonesPhids = 'zonesPhids';
   // --------------------
+  static const String deletionRequests = 'deletionRequests';
+  // --------------------
 }
 
 /// => TAMAM
