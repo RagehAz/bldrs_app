@@ -18,6 +18,7 @@ import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:legalizer/legalizer.dart';
 import 'package:mapper/mapper.dart';
+import 'package:scale/scale.dart';
 
 class EmailAuthScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -41,6 +42,7 @@ class EmailAuthScreenView extends StatelessWidget {
     @required this.onSelectAccount,
     @required this.myAccounts,
     @required this.isObscured,
+    this.hasMargins = true,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -63,6 +65,7 @@ class EmailAuthScreenView extends StatelessWidget {
   final Function(int index) onSelectAccount;
   final List<AccountModel> myAccounts;
   final ValueNotifier<bool> isObscured;
+  final bool hasMargins;
   /// --------------------------------------------------------------------------
   void _onSubmitted({
     @required bool signingIn,
@@ -96,6 +99,12 @@ class EmailAuthScreenView extends StatelessWidget {
     const double _buttonHeight = 50;
     const double _verseScaleFactor = 0.7;
     // --------------------
+    final double _bubbleWidth = Scale.responsive(
+        context: context,
+        landscape: Scale.adaptiveHeight(context, 0.6),
+        portrait: Scale.adaptiveWidth(context, 0.6),
+    );
+    // --------------------
     return Form(
       key: formKey,
       child: ValueListenableBuilder(
@@ -105,10 +114,12 @@ class EmailAuthScreenView extends StatelessWidget {
           return BldrsFloatingList(
             // physics: const BouncingScrollPhysics(),
             // padding: Stratosphere.stratosphereSandwich,
+            hasMargins: hasMargins,
             columnChildren: <Widget>[
 
               /// ENTER E-MAIL
               BldrsTextFieldBubble(
+                bubbleWidth: _bubbleWidth,
                 bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                   context: context,
                   redDot: true,
@@ -176,6 +187,7 @@ class EmailAuthScreenView extends StatelessWidget {
 
               /// PASSWORD - CONFIRMATION
               PasswordBubbles(
+                bubbleWidth: _bubbleWidth,
                 confirmPasswordNode: confirmPasswordNode,
                 passwordNode: passwordNode,
                 appBarType: appBarType,
@@ -192,6 +204,7 @@ class EmailAuthScreenView extends StatelessWidget {
               ),
 
               /// REMEMBER ME
+              if (isRememberingMe != null)
               ValueListenableBuilder(
                 valueListenable: isRememberingMe,
                 builder: (_, bool rememberMe, Widget child){

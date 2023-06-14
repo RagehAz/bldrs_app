@@ -162,6 +162,8 @@ class Dialogs {
     Verse titleVerse,
     Verse bodyVerse,
     bool invertButtons = false,
+    Verse noVerse,
+    Verse yesVerse,
   }) async {
 
     final bool _result = await CenterDialog.showCenterDialog(
@@ -172,6 +174,8 @@ class Dialogs {
       bodyVerse: bodyVerse,
       boolDialog: true,
       invertButtons: invertButtons,
+      noVerse: noVerse,
+      confirmButtonVerse: yesVerse,
     );
 
     return _result;
