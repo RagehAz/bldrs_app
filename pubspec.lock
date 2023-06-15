@@ -1572,7 +1572,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "7b23f0db838143b2e301bf8ef86eca3d3eeb77f6"
+      resolved-ref: "50587fc3870dd0de9326dafb552eb47f83a9063b"
       url: "https://github.com/RagehAz/scale.git"
     source: git
     version: "1.0.1"
