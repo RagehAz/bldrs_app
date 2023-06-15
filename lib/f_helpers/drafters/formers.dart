@@ -65,19 +65,21 @@ class Formers {
   static String emailValidator({
     @required String email,
     @required bool canValidate,
+    String enterEmail,
+    String emailInvalid,
   }) {
     String _output;
 
     if (canValidate == true){
 
       if (TextCheck.isEmpty(email) == true) {
-        _output = Verse.transBake('phid_enterEmail');
+        _output = enterEmail?? Verse.transBake('phid_enterEmail');
       }
 
       else {
 
         if (EmailValidator.validate(email) == false){
-          _output = Verse.transBake('phid_emailInvalid');
+          _output = emailInvalid ?? Verse.transBake('phid_emailInvalid');
         }
 
       }
@@ -91,17 +93,19 @@ class Formers {
   static String passwordValidator({
     @required String password,
     @required bool canValidate,
+    String enterPassword,
+    String min6Chars,
   }){
     String _output;
 
     if (canValidate == true){
 
       if (password.isEmpty == true){
-        _output = Verse.transBake('phid_enterPassword');
+        _output = enterPassword ?? Verse.transBake('phid_enterPassword');
       }
 
       else if (password.length < 6){
-        _output = Verse.transBake('phid_min6CharError');
+        _output = min6Chars ?? Verse.transBake('phid_min6CharError');
       }
 
     }
