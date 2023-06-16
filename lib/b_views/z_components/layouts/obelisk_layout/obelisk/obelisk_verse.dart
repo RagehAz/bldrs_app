@@ -54,6 +54,8 @@ class ObeliskVerse extends StatelessWidget {
                 color: _isSelected ? Colorz.yellow255 : Colorz.white255,
                 shadow: true,
                 shadowColor: Colorz.black255,
+                // textDirection: TextDirection.rtl,
+                // centered: false,
               ),
             ),
           );
