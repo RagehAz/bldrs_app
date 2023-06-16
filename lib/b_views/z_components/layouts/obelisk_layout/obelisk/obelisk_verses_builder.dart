@@ -23,6 +23,22 @@ class ObeliskVersesBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    CrossAxisAlignment _crossAlignment;
+
+    final bool _isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
+
+    if (_isLandscape == true){
+      _crossAlignment = CrossAxisAlignment.end;
+    }
+
+    else {
+      if (UiProvider.checkAppIsLeftToRight() == true) {
+        _crossAlignment = CrossAxisAlignment.start;
+      } else {
+        _crossAlignment = CrossAxisAlignment.end;
+      }
+    }
+
     return Selector<UiProvider, bool>(
       key: const ValueKey<String>('ObeliskVersesBuilder'),
       selector: (_, UiProvider uiProvider) => uiProvider.pyramidsAreExpanded,
@@ -38,7 +54,7 @@ class ObeliskVersesBuilder extends StatelessWidget {
 
               return Transform.scale(
                 scaleX: value,
-                alignment: Alignment.centerLeft,
+                alignment: _isLandscape == true ? Alignment.centerRight : Alignment.centerLeft,
                 child: child,
               );
 
@@ -62,10 +78,7 @@ class ObeliskVersesBuilder extends StatelessWidget {
         ),
         child: Column(
           mainAxisAlignment: Obelisk.stuffAlignment(isCross: false),
-          crossAxisAlignment: UiProvider.checkAppIsLeftToRight() ?
-          CrossAxisAlignment.start
-              :
-          CrossAxisAlignment.end,
+          crossAxisAlignment: _crossAlignment,
           children: <Widget>[
 
             ...List.generate(navModels.length, (index){
@@ -75,6 +88,7 @@ class ObeliskVersesBuilder extends StatelessWidget {
                 progressBarModel: progressBarModel,
                 navModelIndex: index,
                 navModel: navModels[index],
+
               );
 
             }),
