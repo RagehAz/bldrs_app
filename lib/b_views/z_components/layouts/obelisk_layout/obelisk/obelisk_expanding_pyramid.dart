@@ -15,45 +15,92 @@ class ObeliskExpandingPyramid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Positioned(
-      bottom: Pyramids.verticalPositionFix,
-      right: 0,
-      child: Padding(
-        padding: const EdgeInsets.only(right: 17 * 0.7),
-        child: Selector<UiProvider, bool>(
-          selector: (_, UiProvider uiProvider) => uiProvider.pyramidsAreExpanded,
-          builder: (_, bool expanded, Widget child) {
+    final bool _isLandScape = MediaQuery.of(context).orientation == Orientation.landscape;
 
-            return AnimatedScale(
-              scale: expanded == true ? 8 : 1,
-              duration: expanded == true ? const Duration(milliseconds: 250) : const Duration(milliseconds: 700),
-              curve: expanded == true ?  Curves.easeOutQuart : Curves.easeInOutQuart,
-              alignment: Alignment.bottomRight,
-              child: AnimatedOpacity(
-                  duration: expanded == true ? const Duration(milliseconds: 250) : const Duration(milliseconds: 700),
-                  curve: expanded == true ?  Curves.easeOut : Curves.easeIn,
-                  opacity: expanded == true ? 1 : 0,
-                  child: child
-              ),
-            );
+    if (_isLandScape == true){
+      return Positioned(
+        bottom: 100.0 * 5 * -1,
+        right: 500,
+        child: Padding(
+          padding: const EdgeInsets.only(right: 17 * 0.7),
+          child: Selector<UiProvider, bool>(
+            selector: (_, UiProvider uiProvider) => uiProvider.pyramidsAreExpanded,
+            builder: (_, bool expanded, Widget child) {
 
-          },
-
-          child: Transform(
-            transform: Matrix4.rotationZ(Numeric.degreeToRadian(-48.177)),
-            alignment: Alignment.bottomRight,
-            child: const BlurLayer(
-                  width: 95.4267 * 0.7,
-                  height: 99.57 * 0.7,
-                  blur: 1,
-                  color: Colorz.black125,
-                  blurIsOn: true,
+              return AnimatedScale(
+                scale: expanded == true ? 9 : 1,
+                duration: expanded == true ? const Duration(milliseconds: 250) : const Duration(milliseconds: 700),
+                curve: expanded == true ?  Curves.easeOutQuart : Curves.easeInOutQuart,
+                alignment: Alignment.bottomLeft,
+                child: AnimatedOpacity(
+                    duration: expanded == true ? const Duration(milliseconds: 250) : const Duration(milliseconds: 700),
+                    curve: expanded == true ?  Curves.easeOut : Curves.easeIn,
+                    opacity: expanded == true ? 1 : 0,
+                    child: child
                 ),
-          ),
+              );
 
+            },
+
+            child: Transform(
+              transform: Matrix4.rotationZ(Numeric.degreeToRadian(-45.0 + 90)),
+              alignment: Alignment.bottomRight,
+              child: const BlurLayer(
+                    width: 95.4267 * 0.7,
+                    height: 99.57 * 0.7,
+                    blur: 1,
+                    color: Colorz.black125,
+                    blurIsOn: true,
+                  ),
+            ),
+
+          ),
         ),
-      ),
-    );
+      );
+    }
+
+    else {
+      return Positioned(
+        bottom: Pyramids.verticalPositionFix,
+        right: 0,
+        child: Padding(
+          padding: const EdgeInsets.only(right: 17 * 0.7),
+          child: Selector<UiProvider, bool>(
+            selector: (_, UiProvider uiProvider) => uiProvider.pyramidsAreExpanded,
+            builder: (_, bool expanded, Widget child) {
+
+              return AnimatedScale(
+                scale: expanded == true ? 8 : 1,
+                duration: expanded == true ? const Duration(milliseconds: 250) : const Duration(milliseconds: 700),
+                curve: expanded == true ?  Curves.easeOutQuart : Curves.easeInOutQuart,
+                alignment: Alignment.bottomRight,
+                child: AnimatedOpacity(
+                    duration: expanded == true ? const Duration(milliseconds: 250) : const Duration(milliseconds: 700),
+                    curve: expanded == true ?  Curves.easeOut : Curves.easeIn,
+                    opacity: expanded == true ? 1 : 0,
+                    child: child
+                ),
+              );
+
+            },
+
+            child: Transform(
+              transform: Matrix4.rotationZ(Numeric.degreeToRadian(-48.177)),
+              alignment: Alignment.bottomRight,
+              child: const BlurLayer(
+                    width: 95.4267 * 0.7,
+                    height: 99.57 * 0.7,
+                    blur: 1,
+                    color: Colorz.black125,
+                    blurIsOn: true,
+                  ),
+            ),
+
+          ),
+        ),
+      );
+    }
+
 
   }
   /// --------------------------------------------------------------------------
