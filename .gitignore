@@ -56,7 +56,7 @@ node_modules/
 # SECRET KEYS TO BE MANUALLY MOVED
 lib/bldrs_keys.dart
 lib/firebase_options.dart
-ios/Runner/Info.plist
+
 ios/Runner/GoogleService-Info.plist
 android/app/src/main/res/values/strings.xml
 firestore.rules
