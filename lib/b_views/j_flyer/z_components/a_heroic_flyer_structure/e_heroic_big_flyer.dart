@@ -464,7 +464,12 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
   // --------------------
   Future<void> _onSaveFlyer() async {
 
-    if (Authing.userIsSignedUp() == true){
+    final UserModel _user = UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: false,
+    );
+
+    if (Authing.userIsSignedUp(_user?.signInMethod) == true){
 
       if (mounted == true){
 
@@ -485,7 +490,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
 
     else {
 
-      await Dialogs.youNeedToBeSignedInDialog(
+      await Dialogs.youNeedToBeSignedUpDialog(
         afterHomeRouteName: Routing.flyerPreview,
         afterHomeRouteArgument: _flyer.value.id,
       );

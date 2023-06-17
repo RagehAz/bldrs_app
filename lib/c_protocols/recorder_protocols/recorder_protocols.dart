@@ -25,11 +25,7 @@ class RecorderProtocols {
     @required ContactModel contact,
   }) async {
 
-    if (
-        Authing.userIsSignedUp() == true &&
-        bzID != null &&
-        contact != null
-    ){
+    if (bzID != null && contact != null) {
 
       final RecordModel _record = RecordModel.createCallRecord(
         userID: Authing.getUserID(),
@@ -38,7 +34,6 @@ class RecorderProtocols {
       );
 
       await Future.wait(<Future>[
-
         /// CREATE CALL RECORD
         RecordersRealOps.createRecord(
           record: _record,
@@ -54,7 +49,6 @@ class RecorderProtocols {
           },
           isIncrementing: true,
         ),
-
       ]);
 
     }
@@ -70,14 +64,11 @@ class RecorderProtocols {
     @required String bzID,
   }) async {
 
-    if (
-        Authing.userIsSignedUp() == true &&
-        bzID != null
-    ){
+    if (bzID != null) {
 
       final RecordModel _record = RecordModel.createFollowRecord(
-          userID: Authing.getUserID(),
-          bzID: bzID,
+        userID: Authing.getUserID(),
+        bzID: bzID,
       );
 
       await Future.wait(<Future>[
@@ -99,6 +90,7 @@ class RecorderProtocols {
         ),
 
       ]);
+
     }
 
   }
@@ -108,10 +100,7 @@ class RecorderProtocols {
     @required String bzID,
   }) async {
 
-    if (
-        Authing.userIsSignedUp() == true &&
-        bzID != null
-    ){
+    if (bzID != null) {
 
       final RecordModel _record = RecordModel.createUnfollowRecord(
         userID: Authing.getUserID(),
@@ -119,7 +108,6 @@ class RecorderProtocols {
       );
 
       await Future.wait(<Future>[
-
         /// CREATE UNFOLLOW RECORD
         RecordersRealOps.createRecord(
           record: _record,
@@ -135,7 +123,6 @@ class RecorderProtocols {
           },
           isIncrementing: false,
         ),
-
       ]);
 
     }
@@ -153,11 +140,10 @@ class RecorderProtocols {
   }) async {
 
     if (
-        Authing.userIsSignedUp() == true &&
         flyerID != null &&
-        flyerID != DraftFlyer.newDraftID &&
         bzID != null &&
-        slideIndex != null
+        slideIndex != null &&
+        flyerID != DraftFlyer.newDraftID
     ){
 
       final RecordModel _record = RecordModel.createSaveRecord(
@@ -211,12 +197,11 @@ class RecorderProtocols {
   }) async {
 
     if (
-        Authing.userIsSignedUp() == true &&
         flyerID != null &&
-        flyerID != DraftFlyer.newDraftID &&
         bzID != null &&
-        slideIndex != null
-    ){
+        slideIndex != null &&
+        flyerID != DraftFlyer.newDraftID
+    ) {
 
       final RecordModel _record = RecordModel.createUnSaveRecord(
         userID: Authing.getUserID(),
@@ -271,7 +256,6 @@ class RecorderProtocols {
   }) async {
 
     if (
-        Authing.userIsSignedUp() == true &&
         flyerID != null &&
         flyerID != DraftFlyer.newDraftID &&
         bzID != null
@@ -333,7 +317,7 @@ class RecorderProtocols {
     /// WE NEED A WAY TO CHECK IF THIS USER PREVIOUSLY VIEWED THE SLIDE TO CALL THIS OR NOT
 
     if (
-        Authing.userIsSignedUp() == true &&
+        Authing.userHasID() == true &&
         flyerID != DraftFlyer.newDraftID &&
         bzID != null &&
         index != null
@@ -496,7 +480,7 @@ class RecorderProtocols {
   }) async {
 
     if (
-        Authing.userIsSignedUp() == true &&
+        Authing.userHasID() == true &&
         flyerID != null &&
         flyerID != DraftFlyer.newDraftID &&
         bzID != null
@@ -540,7 +524,7 @@ class RecorderProtocols {
   }) async {
 
     if (
-        Authing.userIsSignedUp() == true &&
+        Authing.userHasID() == true &&
         flyerID != null &&
         flyerID != DraftFlyer.newDraftID &&
         bzID != null
@@ -585,7 +569,7 @@ class RecorderProtocols {
   }) async {
 
     if (
-    Authing.userIsSignedUp() == true &&
+    Authing.userHasID() == true &&
     bzID != null
     ){
 

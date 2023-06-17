@@ -82,6 +82,10 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
   void initState() {
     super.initState();
 
+    _searchModel = SearchModel.createInitialModel(
+        searchType: ModelType.flyer,
+      );
+
     _userSearchModel = UserSearchModel.initialModel;
 
     _flyersController = PaginationController.initialize(
@@ -151,7 +155,6 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
         _triggerLoading(setTo: _usersController.isPaginating.value);
     });
   }
-  // -----------------------------------------------------------------------------
   // -----------------------------------------------------------------------------
   /// SEARCH TYPE
   // --------------------
@@ -265,7 +268,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
        onZoneSwitchTap: (bool value) async {
           if (value == true){
 
-              _searchModel = _searchModel.copyWith(
+              _searchModel = _searchModel?.copyWith(
                 zone:  ZoneProvider.proGetCurrentZone(
                   context: context,
                   listen: false,
@@ -276,7 +279,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
           }
           else {
 
-              _searchModel = _searchModel.nullifyField(
+              _searchModel = _searchModel?.nullifyField(
                 zone: true,
               );
               await _generateQuery();
@@ -298,7 +301,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
               zone: _newZone,
             );
 
-              _searchModel = _searchModel.copyWith(
+              _searchModel = _searchModel?.copyWith(
                 zone: _newZone,
               );
               await _generateQuery();
@@ -309,8 +312,8 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
        onFlyerTypeSwitchTap: (bool value) async {
           if (value == false){
 
-              _searchModel = _searchModel.copyWith(
-                flyerSearchModel: _searchModel.flyerSearchModel.nullifyField(
+              _searchModel = _searchModel?.copyWith(
+                flyerSearchModel: _searchModel?.flyerSearchModel?.nullifyField(
                   flyerType: true,
                   phid: true,
                 ),
@@ -322,19 +325,19 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
        onFlyerTypeTap: (FlyerType flyerType) async {
 
 
-            _searchModel = _searchModel.copyWith(
-              flyerSearchModel: _searchModel.flyerSearchModel?.copyWith(
+            _searchModel = _searchModel?.copyWith(
+              flyerSearchModel: _searchModel?.flyerSearchModel?.copyWith(
                 flyerType: flyerType,
               ),
             );
 
             if (
-                _searchModel.flyerSearchModel?.flyerType != FlyerType.product
+                _searchModel?.flyerSearchModel?.flyerType != FlyerType.product
                 &&
-                _searchModel.flyerSearchModel?.flyerType != FlyerType.equipment
+                _searchModel?.flyerSearchModel?.flyerType != FlyerType.equipment
             ) {
-              _searchModel = _searchModel.copyWith(
-                flyerSearchModel: _searchModel.flyerSearchModel.copyWith(
+              _searchModel = _searchModel?.copyWith(
+                flyerSearchModel: _searchModel?.flyerSearchModel?.copyWith(
                   onlyAmazonProducts: false,
                 ),
               );
@@ -346,7 +349,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
        onPickPhidTap: () async {
             final String _phid = await PhidsPickerScreen.goPickPhid(
               context: context,
-              flyerType: _searchModel.flyerSearchModel?.flyerType,
+              flyerType: _searchModel?.flyerSearchModel?.flyerType,
               event: ViewingEvent.homeView,
               onlyUseZoneChains: true,
             );
@@ -354,11 +357,11 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
             if (_phid != null) {
               await setActivePhidK(
                 phidK: _phid,
-                flyerType: _searchModel.flyerSearchModel?.flyerType,
+                flyerType: _searchModel?.flyerSearchModel?.flyerType,
               );
 
-                _searchModel = _searchModel.copyWith(
-                  flyerSearchModel: _searchModel.flyerSearchModel.copyWith(
+                _searchModel = _searchModel?.copyWith(
+                  flyerSearchModel: _searchModel?.flyerSearchModel?.copyWith(
                     phid: _phid,
                   ),
                 );
@@ -368,8 +371,8 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
           },
        onOnlyShowAuthorSwitchTap: (bool value) async {
 
-            _searchModel = _searchModel.copyWith(
-              flyerSearchModel: _searchModel.flyerSearchModel?.copyWith(
+            _searchModel = _searchModel?.copyWith(
+              flyerSearchModel: _searchModel?.flyerSearchModel?.copyWith(
                 onlyShowingAuthors: value,
               ),
             );
@@ -378,8 +381,8 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
           },
        onOnlyWithPriceSwitchTap: (bool value) async {
 
-            _searchModel = _searchModel.copyWith(
-              flyerSearchModel: _searchModel.flyerSearchModel?.copyWith(
+            _searchModel = _searchModel?.copyWith(
+              flyerSearchModel: _searchModel?.flyerSearchModel?.copyWith(
                 onlyWithPrices: value,
               ),
             );
@@ -388,7 +391,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
           },
        onOnlyWithPDFSwitchTap: (bool value) async {
 
-         _searchModel = _searchModel.copyWith(
+         _searchModel = _searchModel?.copyWith(
            flyerSearchModel: _searchModel?.flyerSearchModel?.copyWith(
              onlyWithPDF: value,
            ),
@@ -398,8 +401,8 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
          },
        onOnlyAmazonProductsSwitchTap: (bool value) async {
 
-         _searchModel = _searchModel.copyWith(
-           flyerSearchModel: _searchModel.flyerSearchModel?.copyWith(
+         _searchModel = _searchModel?.copyWith(
+           flyerSearchModel: _searchModel?.flyerSearchModel?.copyWith(
              onlyAmazonProducts: value,
              flyerType: value == true ? FlyerType.product : null,
            ),
@@ -411,8 +414,8 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
        onAuditStateSwitchTap: (bool value) async {
             if (value == false) {
 
-                _searchModel = _searchModel.copyWith(
-                  flyerSearchModel: _searchModel.flyerSearchModel.nullifyField(
+                _searchModel = _searchModel?.copyWith(
+                  flyerSearchModel: _searchModel?.flyerSearchModel?.nullifyField(
                     auditState: true,
                   ),
                 );
@@ -423,8 +426,8 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
           },
        onAuditStateTap: (AuditState state) async {
 
-              _searchModel = _searchModel.copyWith(
-                flyerSearchModel: _searchModel.flyerSearchModel?.copyWith(
+              _searchModel = _searchModel?.copyWith(
+                flyerSearchModel: _searchModel?.flyerSearchModel?.copyWith(
                   auditState: state,
                 ),
               );
@@ -434,7 +437,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
        onPublishStateSwitchTap: (bool value) async {
          if (value == false) {
 
-           _searchModel = _searchModel.copyWith(
+           _searchModel = _searchModel?.copyWith(
              flyerSearchModel: _searchModel?.flyerSearchModel?.nullifyField(
                publishState: true,
              ),
@@ -445,7 +448,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
          },
        onPublishStateTap: (PublishState state) async {
 
-         _searchModel = _searchModel.copyWith(
+         _searchModel = _searchModel?.copyWith(
            flyerSearchModel: _searchModel?.flyerSearchModel?.copyWith(
              publishState: state,
            ),
@@ -463,7 +466,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
         onZoneSwitchTap: (bool value) async {
           if (value == true){
 
-              _searchModel = _searchModel.copyWith(
+              _searchModel = _searchModel?.copyWith(
                 zone:  ZoneProvider.proGetCurrentZone(
                   context: context,
                   listen: false,
@@ -474,7 +477,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
           }
           else {
 
-              _searchModel = _searchModel.nullifyField(
+              _searchModel = _searchModel?.nullifyField(
                 zone: true,
               );
 
@@ -497,7 +500,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
               zone: _newZone,
             );
 
-              _searchModel = _searchModel.copyWith(
+              _searchModel = _searchModel?.copyWith(
                 zone: _newZone,
               );
               await _generateQuery();
@@ -518,8 +521,8 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
         onBzFormSwitchTap: (bool value) async {
           if (value == false){
 
-              _searchModel = _searchModel.copyWith(
-                bzSearchModel: _searchModel.bzSearchModel?.nullifyField(
+              _searchModel = _searchModel?.copyWith(
+                bzSearchModel: _searchModel?.bzSearchModel?.nullifyField(
                   bzForm: true,
                 ),
               );
@@ -529,8 +532,8 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
           },
         onBzFormTap: (BzForm form) async {
 
-            _searchModel = _searchModel.copyWith(
-              bzSearchModel: _searchModel.bzSearchModel.copyWith(
+            _searchModel = _searchModel?.copyWith(
+              bzSearchModel: _searchModel?.bzSearchModel?.copyWith(
                 bzForm: form,
               ),
             );
@@ -540,8 +543,8 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
         onBzTypeSwitchTap: (bool value) async {
           if (value == false){
 
-              _searchModel = _searchModel.copyWith(
-                bzSearchModel: _searchModel.bzSearchModel.nullifyField(
+              _searchModel = _searchModel?.copyWith(
+                bzSearchModel: _searchModel?.bzSearchModel?.nullifyField(
                   bzType: true,
                   scopePhid: true,
                 ),
@@ -553,14 +556,14 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
           },
         onBzTypeTap: (BzType type) async {
 
-            _searchModel = _searchModel.copyWith(
-              bzSearchModel: _searchModel.bzSearchModel.copyWith(
+            _searchModel = _searchModel?.copyWith(
+              bzSearchModel: _searchModel?.bzSearchModel?.copyWith(
                 bzType: type,
               ),
             );
 
-            _searchModel = _searchModel.copyWith(
-              bzSearchModel: _searchModel.bzSearchModel.nullifyField(
+            _searchModel = _searchModel?.copyWith(
+              bzSearchModel: _searchModel?.bzSearchModel?.nullifyField(
                 scopePhid: true,
               ),
             );
@@ -572,8 +575,8 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
 
             if (value == false){
 
-                _searchModel = _searchModel.copyWith(
-                  bzSearchModel: _searchModel.bzSearchModel?.nullifyField(
+                _searchModel = _searchModel?.copyWith(
+                  bzSearchModel: _searchModel?.bzSearchModel?.nullifyField(
                     scopePhid: true,
                   ),
                 );
@@ -593,8 +596,8 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
 
             if (_phid != null) {
 
-                _searchModel = _searchModel.copyWith(
-                  bzSearchModel: _searchModel.bzSearchModel?.copyWith(
+                _searchModel = _searchModel?.copyWith(
+                  bzSearchModel: _searchModel?.bzSearchModel?.copyWith(
                     scopePhid: _phid,
                   ),
                 );
@@ -605,8 +608,8 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
           },
         onBzzShowingTeamOnlySwitchTap: (bool value) async {
 
-            _searchModel = _searchModel.copyWith(
-              bzSearchModel: _searchModel.bzSearchModel.copyWith(
+            _searchModel = _searchModel?.copyWith(
+              bzSearchModel: _searchModel?.bzSearchModel?.copyWith(
                 onlyShowingTeams: value,
               ),
             );
@@ -617,8 +620,8 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
         onAccountTypeSwitchTap: (bool value) async {
             if (value == false) {
 
-                _searchModel = _searchModel.copyWith(
-                  bzSearchModel: _searchModel.bzSearchModel.nullifyField(
+                _searchModel = _searchModel?.copyWith(
+                  bzSearchModel: _searchModel?.bzSearchModel?.nullifyField(
                     bzAccountType: true,
                   ),
                 );
@@ -629,8 +632,8 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
           },
         onAccountTypeTap: (BzAccountType type) async {
 
-              _searchModel = _searchModel.copyWith(
-                bzSearchModel: _searchModel.bzSearchModel.copyWith(
+              _searchModel = _searchModel?.copyWith(
+                bzSearchModel: _searchModel?.bzSearchModel?.copyWith(
                   bzAccountType: type,
                 ),
               );
@@ -649,7 +652,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
         onZoneSwitchTap: (bool value) async {
           if (value == true){
 
-              _searchModel = _searchModel.copyWith(
+              _searchModel = _searchModel?.copyWith(
                 zone:  ZoneProvider.proGetCurrentZone(
                   context: context,
                   listen: false,
@@ -660,7 +663,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
           }
           else {
 
-              _searchModel = _searchModel.nullifyField(
+              _searchModel = _searchModel?.nullifyField(
                 zone: true,
               );
               await _generateQuery();
@@ -682,7 +685,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
               zone: _newZone,
             );
 
-              _searchModel = _searchModel.copyWith(
+              _searchModel = _searchModel?.copyWith(
                 zone: _newZone,
               );
               await _generateQuery();

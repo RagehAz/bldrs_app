@@ -8,6 +8,7 @@ import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
 import 'package:bldrs/c_protocols/review_protocols/fire/review_fire_ops.dart';
 import 'package:bldrs/c_protocols/review_protocols/protocols/renovate_reviews.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 class ComposeReviewProtocols {
@@ -29,26 +30,29 @@ class ComposeReviewProtocols {
 
     ReviewModel _uploadedReview;
 
-    await Future.wait(<Future>[
+    if (Authing.userHasID() == true){
 
-      ReviewFireOps.createReview(
-        reviewModel: reviewModel,
-      ).then((ReviewModel reviewModel){
-        _uploadedReview = reviewModel;
-      }),
+      await Future.wait(<Future>[
 
-      RecorderProtocols.onComposeReview(
-        flyerID: reviewModel.flyerID,
-        bzID: bzID,
-      ),
+        ReviewFireOps.createReview(
+          reviewModel: reviewModel,
+        ).then((ReviewModel reviewModel) {
+          _uploadedReview = reviewModel;
+        }),
 
-      NoteEvent.sendFlyerReceivedNewReviewByMe(
-        context: context,
-        reviewModel: reviewModel,
-        bzID: bzID,
-      ),
+        RecorderProtocols.onComposeReview(
+          flyerID: reviewModel.flyerID,
+          bzID: bzID,
+        ),
 
-    ]);
+        NoteEvent.sendFlyerReceivedNewReviewByMe(
+          context: context,
+          reviewModel: reviewModel,
+          bzID: bzID,
+        ),
+
+      ]);
+    }
 
 
     return _uploadedReview;
@@ -70,12 +74,14 @@ class ComposeReviewProtocols {
       listen: false,
     );
 
-    final bool _imAuthorOfThisBz = AuthorModel.checkUserIsAuthorInThisBz(
-      bzID: bzID,
-      userModel: _myUserModel,
-    );
+    if (_myUserModel != null){
 
-    if (_imAuthorOfThisBz == true){
+      final bool _imAuthorOfThisBz = AuthorModel.checkUserIsAuthorInThisBz(
+        bzID: bzID,
+        userModel: _myUserModel,
+      );
+
+      if (_imAuthorOfThisBz == true){
 
       final BzModel _bzModel = await BzProtocols.fetchBz(
         bzID: bzID,
@@ -94,6 +100,8 @@ class ComposeReviewProtocols {
         ),
 
       ]);
+
+    }
 
     }
 
