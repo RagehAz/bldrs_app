@@ -1,11 +1,8 @@
-import 'package:bldrs/a_models/f_flyer/draft/gta_model.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
-import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
+import 'package:bldrs/a_models/f_flyer/draft/gta_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
@@ -13,12 +10,14 @@ import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/pdf_protocols/protocols/pdf_protocols.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:filers/filers.dart';
+import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:screenshot/screenshot.dart';
@@ -255,12 +254,6 @@ class DraftFlyer{
         :
     draft.auditState;
 
-
-    final String _flyerLink = isPublishing == false ? null : await BldrsShareLink.generateFlyerLink(
-      flyerID: draft.id,
-    );
-
-
     final FlyerModel _output = FlyerModel(
       id: draft.id,
       headline: draft.headline.text,
@@ -283,7 +276,7 @@ class DraftFlyer{
       hasPDF: draft.pdfModel != null,
       score: draft.score,
       pdfPath: draft.pdfModel == null ? null : StoragePath.flyers_flyerID_pdf(draft.id),
-      shareLink: _flyerLink,
+      shareLink: null,
       affiliateLink: draft.affiliateLink,
       gtaLink: draft.gtaLink,
       bzModel: await BzProtocols.fetchBz(bzID: draft.bzID,),

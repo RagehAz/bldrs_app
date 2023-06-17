@@ -5,6 +5,7 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:filers/filers.dart';
@@ -81,6 +82,13 @@ Future<void> onShareFlyer({
       notifier: isSharing,
       mounted: true, //mounted,
       value: true,
+    );
+
+    String _shareLink = flyerModel.shareLink;
+    _shareLink ??= await BldrsShareLink.generateFlyerLink(
+      flyerID: flyerModel.id,
+      headline: flyerModel.headline,
+      flyerType: flyerModel.flyerType,
     );
 
     await Future.wait(<Future>[
