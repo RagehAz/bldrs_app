@@ -12,6 +12,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
@@ -147,7 +148,6 @@ Future<void> saveAuthorEditorSession({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> takeAuthorImage({
-  @required BuildContext context,
   @required ValueNotifier<AuthorModel> author,
   @required BzModel bzModel,
   @required PicMakerType imagePickerType,
@@ -167,7 +167,6 @@ Future<void> takeAuthorImage({
 
     if(imagePickerType == PicMakerType.galleryImage){
       _bytes = await BldrsPicMaker.pickAndCropSinglePic(
-        context: context,
         cropAfterPick: true,
         aspectRatio: 1,
         resizeToWidth: Standards.userPictureWidthPixels,
@@ -175,7 +174,7 @@ Future<void> takeAuthorImage({
     }
     else if (imagePickerType == PicMakerType.cameraImage){
       _bytes = await PicMaker.shootAndCropCameraPic(
-        context: context,
+        context: getMainContext(),
         cropAfterPick: true,
         aspectRatio: 1,
         resizeToWidth: Standards.userPictureWidthPixels,

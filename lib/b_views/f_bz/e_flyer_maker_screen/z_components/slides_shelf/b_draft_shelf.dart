@@ -86,11 +86,11 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
     /// when using with AutomaticKeepAliveClientMixin
     super.build(context);
     // --------------------
-    final double _slideZoneHeight = DraftShelfSlide.shelfSlideZoneHeight(context);
+    final double _slideZoneHeight = DraftShelfSlide.shelfSlideZoneHeight();
     // --------------------
     return Container(
       width: Scale.screenWidth(context),
-      height: DraftShelfBox.height(context),
+      height: DraftShelfBox.height(),
       decoration: BoxDecoration(
         // color: Colorz.white10,
         borderRadius: Borderers.cornerAll(context, Bubble.clearCornersValue),
@@ -124,7 +124,6 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
               scrollController: _scrollController,
               draft: draft,
               onSlideTap: (DraftSlide slide) => onSlideTap(
-                context: context,
                 slide: slide,
                 draftFlyer: widget.draftNotifier,
                 mounted: mounted,

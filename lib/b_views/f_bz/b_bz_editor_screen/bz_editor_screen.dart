@@ -448,7 +448,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                         canValidate: draft?.canValidate,
                       ),
                       onAddPicture: (PicMakerType imagePickerType) => onChangeBzLogo(
-                        context: context,
                         draftNotifier: draftNotifier,
                         imagePickerType: imagePickerType,
                         mounted: mounted,

@@ -31,7 +31,6 @@ class FlyerBox extends StatelessWidget {
     final BorderRadius _flyerBorders = FlyerDim.flyerCorners(context, flyerBoxWidth);
     // --------------------
     final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
-      context: context,
       flyerBoxWidth: flyerBoxWidth,
       forceMaxHeight: false,
     );

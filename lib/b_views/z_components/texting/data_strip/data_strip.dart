@@ -45,7 +45,7 @@ class DataStrip extends StatelessWidget {
     @required dynamic dataValue,
   }) async {
 
-    await Keyboard.copyToClipboard(
+    await Keyboard.copyToClipboardAndNotify(
       copy: dataValue.toString(),
     );
 

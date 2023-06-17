@@ -18,6 +18,12 @@ class Words {
   static String bldrsTagLine () => Localizer.translate('bldrsTagLine');
   static String bldrsDescription () => Localizer.translate('bldrsDescription');
   static String loading () => Localizer.translate('loading');
+  static String connected() => Localizer.translate('connected');
+  static String disconnected() => Localizer.translate('disconnected');
+  static String checkYourInternetConnection() => Localizer.translate('checkYourInternetConnection');
+  static String newUpdateAvailable () => Localizer.translate('newUpdateAvailable');
+  static String pleaseUpdateToContinue () => Localizer.translate('pleaseUpdateToContinue');
+  static String updateApp () => Localizer.translate('updateApp');
 // -----------------------------------------------------------------------------
 }
 

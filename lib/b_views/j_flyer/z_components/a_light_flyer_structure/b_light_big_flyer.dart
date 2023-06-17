@@ -530,7 +530,6 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
   Widget build(BuildContext context) {
     // --------------------
     final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
-      context: context,
       flyerBoxWidth: widget.flyerBoxWidth,
       forceMaxHeight: false,
     );
