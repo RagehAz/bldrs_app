@@ -22,9 +22,6 @@ import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
-import 'package:devicer/devicer.dart';
-import 'package:filers/filers.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:ldb/ldb.dart';
@@ -37,9 +34,9 @@ Future<void> initializeLogoScreen({
   @required bool mounted,
 }) async {
 
-  if (kDebugMode == true && DeviceChecker.deviceIsWindows() == true){
-    await signInAsRage7();
-  }
+  // if (kDebugMode == true && DeviceChecker.deviceIsWindows() == true){
+  //   await signInAsRage7();
+  // }
   
   // blog('1 - initializeLogoScreen : START');
 
@@ -170,13 +167,6 @@ Future<void> initializeUserModel(BuildContext context) async {
   /// USER HAS ID
   else {
 
-    /// USER IS ANONYMOUS
-    if (Authing.getCurrentSignInMethod() == SignInMethod.anonymous) {
-      blog('initializeUserModel : user is anonymous');
-    }
-
-    else {
-
       final UserModel _userModel = await UserProtocols.fetch(
         context: context,
         userID: Authing.getUserID(),
@@ -186,8 +176,6 @@ Future<void> initializeUserModel(BuildContext context) async {
         userModel: _userModel,
         notify: false,
       );
-
-    }
 
   }
 
@@ -222,12 +210,13 @@ Future<void> setUserModelAndCompleteUserZoneLocally({
 /// TESTED : WORKS PERFECT
 Future<void> initializeAppState(BuildContext context) async {
 
-  if (Authing.userIsSignedUp() == true){
+  final UserModel _userModel = UsersProvider.proGetMyUserModel(
+    context: context,
+    listen: false,
+  );
 
-    final UserModel _userModel = UsersProvider.proGetMyUserModel(
-      context: context,
-      listen: false,
-    );
+  if (Authing.userIsSignedUp(_userModel?.signInMethod) == true){
+
     AppStateModel _userState = _userModel?.appState?.copyWith();
 
     if (_userModel != null && _userState != null){
@@ -507,5 +496,6 @@ Future<void> signInAsRage7() async {
       notify: true,
     );
   }
+
 }
 // -----------------------------------------------------------------------------

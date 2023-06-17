@@ -26,7 +26,11 @@ class WipeReviewProtocols {
     /// 3. decrement flyer counter field (real/countingFlyers/flyerID/reviews)
     /// 4. decrement bzz counter field (real/countingBzz/bzID/allReviews)
 
-    if (reviewModel != null) {
+    if (
+        reviewModel != null &&
+        bzID != null &&
+        Authing.userHasID() == true
+    ) {
 
       await Future.wait(<Future>[
 

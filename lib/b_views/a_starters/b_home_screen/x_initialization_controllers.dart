@@ -64,18 +64,13 @@ Future<void> initializeHomeScreen({
 /// TESTED : WORKS PERFECT
 Future<void> _checkIfUserIsMissingFields() async {
   // blog('initializeHomeScreen.checkIfUserIsMissingFields : ~~~~~~~~~~ START');
-  if (Authing.userIsSignedUp() == true){
 
-    // final AuthModel _authModel = await AuthLDBOps.readAuthModel();
-    // final UserModel _userModel = await UserProtocols.fetch(
-    //   userID: _authModel?.id,
-    //   context: getMainContext(),
-    // );
+  final UserModel _userModel = UsersProvider.proGetMyUserModel(
+    context: getMainContext(),
+    listen: false,
+  );
 
-    final UserModel _userModel = UsersProvider.proGetMyUserModel(
-        context: getMainContext(),
-        listen: false,
-    );
+  if (Authing.userIsSignedUp(_userModel?.signInMethod) == true){
 
     _userModel?.blogUserModel(invoker: 'initializeHomeScreen.checkIfUserIsMissingFields');
 
@@ -139,7 +134,13 @@ Future<void> initializeUserFollowedBzz({
   @required bool notify,
 }) async {
   // blog('initializeHomeScreen._initializeUserBzz : ~~~~~~~~~~ START');
-  if (Authing.userIsSignedUp() == true){
+
+  final UserModel _user = UsersProvider.proGetMyUserModel(
+    context: getMainContext(),
+    listen: false,
+  );
+
+  if (Authing.userIsSignedUp(_user?.signInMethod) == true){
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
     await _bzzProvider.fetchSetFollowedBzz(
       notify: notify,
@@ -153,7 +154,13 @@ Future<void> initializeUserBzz({
   @required bool notify,
 }) async {
   // blog('initializeHomeScreen._initializeUserBzz : ~~~~~~~~~~ START');
-  if (Authing.userIsSignedUp() == true){
+
+  final UserModel _user = UsersProvider.proGetMyUserModel(
+    context: getMainContext(),
+    listen: false,
+  );
+
+  if (Authing.userIsSignedUp(_user?.signInMethod) == true){
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
     await _bzzProvider.fetchSetMyBzz(
       notify: notify,
@@ -202,7 +209,7 @@ Future<void> initializeCurrentZone() async {
     );
 
     /// USER ZONE IS DEFINED
-    if (_myUserModel?.zone != null && Authing.userIsSignedUp() == true){
+    if (_myUserModel?.zone != null && Authing.userIsSignedUp(_myUserModel?.signInMethod) == true){
 
       await _zoneProvider.fetchSetCurrentCompleteZone(
         zone: _myUserModel.zone,

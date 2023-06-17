@@ -1,5 +1,6 @@
 import 'package:bldrs/a_models/f_flyer/draft/gta_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
@@ -254,6 +255,12 @@ class DraftFlyer{
         :
     draft.auditState;
 
+
+    final String _flyerLink = isPublishing == false ? null : await BldrsShareLink.generateFlyerLink(
+      flyerID: draft.id,
+    );
+
+
     final FlyerModel _output = FlyerModel(
       id: draft.id,
       headline: draft.headline.text,
@@ -276,6 +283,7 @@ class DraftFlyer{
       hasPDF: draft.pdfModel != null,
       score: draft.score,
       pdfPath: draft.pdfModel == null ? null : StoragePath.flyers_flyerID_pdf(draft.id),
+      shareLink: _flyerLink,
       affiliateLink: draft.affiliateLink,
       gtaLink: draft.gtaLink,
       bzModel: await BzProtocols.fetchBz(bzID: draft.bzID,),
