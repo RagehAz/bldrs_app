@@ -179,7 +179,6 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
       bottomPaddingOnZoomedOut: widget.bottomPaddingOnZoomedOut,
       topPaddingOnZoomOut: widget.topPadding,
       itemAspectRatio: FlyerDim.flyerAspectRatio(
-        context: context,
         forceMaxHeight: false,
       ),
     );

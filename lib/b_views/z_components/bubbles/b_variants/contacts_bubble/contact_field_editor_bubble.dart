@@ -9,8 +9,8 @@ import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:filers/filers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
-import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
+import 'package:stringer/stringer.dart';
 
 class ContactFieldEditorBubble extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -110,7 +110,9 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
   }
   // --------------------------------------------------------------------------
   Future<void> _pasteFunction() async {
-    final String value = await FlutterClipboard.paste();
+
+    final String value = await TextClipBoard.paste();
+
 
     blog(value);
 

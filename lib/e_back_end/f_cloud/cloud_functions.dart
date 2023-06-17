@@ -128,6 +128,7 @@ class CloudFunction {
           ),
         );
       }
+
       else {
         await CenterDialog.showCenterDialog(
           titleVerse: const Verse(

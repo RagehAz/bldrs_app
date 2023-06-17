@@ -201,7 +201,6 @@ void stopAnimation({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onCropSlide({
-  @required BuildContext context,
   @required ValueNotifier<DraftSlide> draftNotifier,
   @required ValueNotifier<ImageFilterModel> filterNotifier,
   @required ValueNotifier<Matrix4> matrixNotifier,
@@ -210,10 +209,8 @@ Future<void> onCropSlide({
 }) async {
 
   final Uint8List _bytes = await BldrsPicMaker.cropPic(
-    context: context,
     bytes: draftNotifier.value.picModel.bytes,
     aspectRatio: FlyerDim.flyerAspectRatio(
-      context: context,
       forceMaxHeight: true,
     ),
   );

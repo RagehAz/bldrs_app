@@ -922,7 +922,6 @@ class Dialogs {
           child: HeroicFlyer(
             flyerModel: flyer,
             flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(
-              context: getMainContext(),
               flyerBoxHeight: _flyerBoxHeight,
               forceMaxHeight: false,
             ),
@@ -965,7 +964,6 @@ class Dialogs {
         alignment: Alignment.center,
         child: SingleSlide(
           flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(
-            context: context,
             forceMaxHeight: false,
             flyerBoxHeight: _flyerBoxHeight,
           ),

@@ -25,14 +25,13 @@ class AddSlidesButton extends StatelessWidget {
     // --------------------
     const double _flyerBoxWidth = DraftShelfSlide.flyerBoxWidth;
     final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
-      context: context,
       flyerBoxWidth: _flyerBoxWidth,
       forceMaxHeight: false,
     );
     // --------------------
     return Container(
       width: _flyerBoxWidth,
-      height: DraftShelfSlide.shelfSlideZoneHeight(context),
+      height: DraftShelfSlide.shelfSlideZoneHeight(),
       margin: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding,),
       child: Column(
         children: <Widget>[
@@ -157,7 +156,6 @@ class NewSlideImagePickerButton extends StatelessWidget {
     // --------------------
     const double _flyerBoxWidth = DraftShelfSlide.flyerBoxWidth;
     final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
-      context: context,
       flyerBoxWidth: _flyerBoxWidth,
       forceMaxHeight: false,
     );

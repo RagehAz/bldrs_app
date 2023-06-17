@@ -81,7 +81,7 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
 
     if (Mapper.checkCanLoopList(widget.flyers) == true){
 
-      final double _flyerBoxWidth = FlyerDim.flyerWidthByFactor(context, widget.flyerSizeFactor);
+      final double _flyerBoxWidth = FlyerDim.flyerWidthByFactor(widget.flyerSizeFactor);
 
       return ListView.separated(
         physics: const BouncingScrollPhysics(),

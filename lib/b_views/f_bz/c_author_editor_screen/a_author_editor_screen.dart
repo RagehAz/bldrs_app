@@ -348,7 +348,6 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                         redDot: true,
                         bubbleType: BubbleType.authorPic,
                         onAddPicture: (PicMakerType imagePickerType) => takeAuthorImage(
-                          context: context,
                           author: _draftAuthor,
                           bzModel: widget.bzModel,
                           imagePickerType: imagePickerType,

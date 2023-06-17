@@ -28,7 +28,6 @@ class BldrsPicMaker {
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<Uint8List> pickAndCropSinglePic({
-    @required BuildContext context,
     @required bool cropAfterPick,
     @required double aspectRatio,
     double resizeToWidth,
@@ -36,7 +35,7 @@ class BldrsPicMaker {
   }) async {
 
     final Uint8List _bytes = await PicMaker.pickAndCropSinglePic(
-      context: context,
+      context: getMainContext(),
       cropAfterPick: cropAfterPick,
       aspectRatio: aspectRatio,
       resizeToWidth: resizeToWidth,
@@ -50,7 +49,6 @@ class BldrsPicMaker {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Uint8List>> pickAndCropMultiplePics({
-    @required BuildContext context,
     @required double aspectRatio,
     @required bool cropAfterPick,
     double resizeToWidth,
@@ -59,7 +57,7 @@ class BldrsPicMaker {
   }) async {
 
     final List<Uint8List> _bytes = await PicMaker.pickAndCropMultiplePics(
-      context: context,
+      context: getMainContext(),
       cropAfterPick: cropAfterPick,
       aspectRatio: aspectRatio,
       resizeToWidth: resizeToWidth,
@@ -72,13 +70,12 @@ class BldrsPicMaker {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Uint8List> cropPic({
-    @required BuildContext context,
     @required Uint8List bytes,
     @required double aspectRatio,
   }) async {
 
     final Uint8List _bytes = await PicMaker.cropPic(
-      context: context,
+      context: getMainContext(),
       bytes: bytes,
       confirmText: Verse.transBake('phid_crop'),
       appIsLTR: UiProvider.checkAppIsLeftToRight(),
