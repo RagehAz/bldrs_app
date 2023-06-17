@@ -5,12 +5,10 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
-import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/bldrs_keys.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
@@ -311,19 +309,14 @@ class BldrsShareLink{
   /// TESTED : WORKS PERFECT
   static Future<String> generateFlyerLink({
     @required String flyerID,
+    @required FlyerType flyerType,
+    @required String headline,
     int slideIndex = 0,
   }) async {
 
     String _output;
 
-    if (flyerID != null){
-
-      final FlyerModel _flyer = await FlyerProtocols.fetchFlyer(
-        context: getMainContext(),
-        flyerID: flyerID,
-      );
-
-      if (_flyer != null){
+    if (flyerID != null && flyerType != null){
 
         final String _posterURL = await _createFlyerPosterURL(
           flyerID: flyerID,
@@ -331,7 +324,7 @@ class BldrsShareLink{
 
         final String _title = await  _createFlyerShareLinkTitle(
           context: getMainContext(),
-          flyerType: _flyer.flyerType,
+          flyerType: flyerType,
           langCode: 'en',
         );
 
@@ -339,14 +332,13 @@ class BldrsShareLink{
           // '$bldrsURLPrefix/flyer=${Authing.getUserID()}';
           dynamicLink: '${DynamicLinks.https_ll_bldrs_page_link_l_flyer_page}/$flyerID/$slideIndex',
           title: _title,
-          description: _flyer.headline,
+          description: headline,
           picURL: _posterURL,
           log: true,
           // isShortLink: true,
         );
 
         _output = _uri.toString();
-      }
 
     }
 
