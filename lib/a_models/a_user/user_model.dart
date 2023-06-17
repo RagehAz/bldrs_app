@@ -991,7 +991,7 @@ class UserModel {
 
     final UserModel _userModel = UserModel(
       id: 'dummy_user_model',
-      signInMethod: SignInMethod.email,
+      signInMethod: SignInMethod.password,
       createdAt: Timers.createDate(year: 1987, month: 06, day: 10),
       need: NeedModel.dummyNeed(),
       name: 'Donald duck',
