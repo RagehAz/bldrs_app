@@ -62,6 +62,7 @@ class AuthorshipEntryProtocols {
       newUser: _newUser,
       oldUser: _oldUser,
       newPic: null,
+      invoker: 'AuthorshipEntryProtocols.addMeToBz',
     );
 
     /// MODIFY BZ MODEL --------------------------

@@ -503,10 +503,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "07e122394489b518396124d522d73ed299f611f3"
+      resolved-ref: "93072784e98424d93a344ebf5d8b5e9962626ba9"
       url: "https://github.com/RagehAz/fire.git"
     source: git
-    version: "0.0.5"
+    version: "0.0.6"
   firebase_app_check:
     dependency: "direct main"
     description:

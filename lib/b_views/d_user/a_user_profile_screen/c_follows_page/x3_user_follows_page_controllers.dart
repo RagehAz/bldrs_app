@@ -30,6 +30,7 @@ Future<void> autoDeleteThisBzIDFromMyFollowedBzzIDs({
     newPic: null,
     newUser: _myUpdatedModel,
     oldUser: _userModel,
+    invoker: 'autoDeleteThisBzIDFromMyFollowedBzzIDs',
   );
 
   blog('autoDeleteThisBzIDFromMyFollowedBzzIDs : END');

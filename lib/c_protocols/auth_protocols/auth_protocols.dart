@@ -37,6 +37,8 @@ class AuthProtocols {
       },
     );
 
+    // AuthModel.blogAuthModel(authModel: _authModel, invoker: 'signInBldrsByEmail');
+
     final bool _success = await composeOrUpdateUser(
       authModel: _authModel,
       authError: _authError,
@@ -96,6 +98,8 @@ class AuthProtocols {
       final UserModel _userModel = await UserFireOps.readUser(
         userID: authModel.id,
       );
+
+    // _userModel.blogUserModel(invoker: 'composeOrUpdateUser');
 
       /// NEW USER
       if (_userModel == null){

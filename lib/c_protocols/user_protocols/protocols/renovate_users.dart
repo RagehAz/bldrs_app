@@ -1,24 +1,26 @@
 import 'dart:async';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
-import 'package:bldrs/f_helpers/router/routing.dart';
-import 'package:fire/super_fire.dart';
+
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_device_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
+import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
+import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
+import 'package:bldrs/f_helpers/drafters/debuggers.dart';
+import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:filers/filers.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:fire/super_fire.dart';
+import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:stringer/stringer.dart';
 
@@ -38,9 +40,11 @@ class RenovateUserProtocols {
     @required UserModel oldUser,
     @required UserModel newUser,
     @required PicModel newPic,
+    @required String invoker,
   }) async {
-
     UserModel _output;
+
+    await reportThis('renovateUser : invoker : $invoker');
 
     if (newUser != null && oldUser?.id != null){
 
@@ -192,6 +196,7 @@ class RenovateUserProtocols {
           newPic: null,
           newUser: _newUser,
           oldUser: _oldUser,
+          invoker: 'followingProtocol',
         ),
 
         CensusListener.onFollowBz(
@@ -222,6 +227,7 @@ class RenovateUserProtocols {
           newPic: null,
           newUser: _newUser,
           oldUser: _oldUser,
+          invoker: 'followingProtocol',
         ),
 
         CensusListener.onFollowBz(
@@ -280,6 +286,7 @@ class RenovateUserProtocols {
               newPic: null,
               newUser: _newUser,
               oldUser: _oldUser,
+              invoker: 'savingFlyerProtocol',
             ),
 
             /// CENSUS SAVE FLYER
@@ -308,6 +315,7 @@ class RenovateUserProtocols {
               newUser: _newUser,
               newPic: null,
               oldUser: _oldUser,
+              invoker: 'savingFlyerProtocol',
             ),
 
             /// CENSUS SAVE FLYER
@@ -352,6 +360,7 @@ class RenovateUserProtocols {
       newUser: _newUser,
       newPic: null,
       oldUser: _oldUser,
+      invoker: 'updateMyUserTopics',
     );
 
   }
@@ -442,6 +451,7 @@ class RenovateUserProtocols {
           newPic: null,
           newUser: _newUser,
           oldUser: _oldUser,
+          invoker: 'refreshUserDeviceModel',
         );
 
       }

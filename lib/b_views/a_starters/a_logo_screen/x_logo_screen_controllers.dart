@@ -265,6 +265,7 @@ Future<void> initializeAppState(BuildContext context) async {
             appState: _userState,
           ),
           newPic: null,
+          invoker: 'initializeAppState',
         );
 
       }
