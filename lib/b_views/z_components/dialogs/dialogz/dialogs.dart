@@ -94,12 +94,14 @@ class Dialogs {
   /// TESTED : WORKS PERFECT
   static Future<void> centerNotice({
     @required Verse verse,
+    Verse body,
     Color color,
   }) async {
 
     await CenterDialog.showCenterDialog(
       titleVerse: verse,
       color: color,
+      bodyVerse: body,
       // boolDialog: false,
     );
 

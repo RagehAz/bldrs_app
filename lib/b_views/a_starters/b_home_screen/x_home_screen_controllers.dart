@@ -66,7 +66,7 @@ List<NavModel> generateMainNavModels({
   final String _countryFlag = currentZone?.icon;
   final bool _userIsSignedUp = Authing.userIsSignedUp(userModel?.signInMethod);
 
-  blog('generateMainNavModels() _userIsSignedUp: $_userIsSignedUp');
+  blog('generateMainNavModels() _userIsSignedUp: $_userIsSignedUp : ${userModel?.signInMethod}');
 
 
   return <NavModel>[

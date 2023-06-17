@@ -385,6 +385,7 @@ Future<void> confirmEdits({
         context: getMainContext(),
         draft: _draft,
       ),
+      invoker: 'confirmEdits',
     );
 
     setNotifier(

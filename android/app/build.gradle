@@ -20,7 +20,7 @@ if (flutterVersionCode == null) {
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
     // BLDRS_APP_VERSION
-    flutterVersionName = '1.0.2'
+    flutterVersionName = '1.0.4'
 }
 
 apply plugin: 'com.android.application'

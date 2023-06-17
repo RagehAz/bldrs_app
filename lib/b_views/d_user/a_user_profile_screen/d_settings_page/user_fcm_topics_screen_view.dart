@@ -61,6 +61,7 @@ class UserFCMTopicsScreenView extends StatelessWidget {
           newUser: _userModel.copyWith(
             fcmTopics: _updatedTopics,
           ),
+        invoker: 'UserFCMTopicsScreenView._onSwitchAll',
       );
 
     }
@@ -80,10 +81,10 @@ class UserFCMTopicsScreenView extends StatelessWidget {
           fcmTopics: _updatedTopics,
         ),
         oldUser: _userModel,
+        invoker: 'UserFCMTopicsScreenView._onSwitchAll',
       );
 
     }
-
 
   }
   /// --------------------------------------------------------------------------
