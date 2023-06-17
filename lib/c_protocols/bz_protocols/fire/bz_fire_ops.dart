@@ -1,4 +1,7 @@
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/x_secondary/bldrs_model_type.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/x_secondary/feedback_model.dart';
@@ -168,79 +171,91 @@ class BzFireOps {
     @required BzModel bzModel,
   }) async {
 
-    String _feedback;
+    if (bzModel != null){
 
-    await BottomDialog.showButtonsBottomDialog(
-        draggable: true,
-        numberOfWidgets: 3,
-        titleVerse: const Verse(
-          id: 'phid_report_bz_account',
-          translate: true,
-        ),
-        builder: (_){
-
-          return <Widget>[
-
-            /// INAPPROPRIATE CONTENT
-            BottomDialog.wideButton(
-                context: context,
-                verse: const Verse(
-                  pseudo: 'This Account published Inappropriate content',
-                  id: 'phid_account_published_inapp_content',
-                  translate: true,
-                ),
-                onTap: () async {
-                  _feedback = 'This Account published Inappropriate content';
-                  await Nav.goBack(
-                    context: context,
-                    invoker: 'reportBz.Inappropriate',
-                  );
-                }
-            ),
-
-            /// COPY RIGHTS
-            BottomDialog.wideButton(
-                context: context,
-                verse: const Verse(
-                  pseudo: 'This Account violates copyrights',
-                  id: 'phid_account_published_copyright_violation',
-                  translate: true,
-                ),
-                onTap: () async {
-                  _feedback = 'This Account violates copyrights';
-                  await Nav.goBack(
-                    context: context,
-                    invoker: 'reportBz.copyrights',
-                  );
-                }
-            ),
-
-          ];
-
-        }
+      final UserModel _user = UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: false,
     );
 
-    if (_feedback != null){
+      if (Authing.userIsSignedUp(_user?.signInMethod) == false) {
+        await Dialogs.youNeedToBeSignedUpDialog(
+          afterHomeRouteName: Routing.bzPreview,
+          afterHomeRouteArgument: bzModel.id,
+        );
+      }
 
-      final FeedbackModel _model =  FeedbackModel(
-        userID: Authing.getUserID(),
-        timeStamp: DateTime.now(),
-        feedback: _feedback,
-        modelType: ModelType.bz,
-        modelID: bzModel.id,
-      );
+      else {
 
-      final FeedbackModel _docRef = await FeedbackRealOps.createFeedback(
-        feedback: _model,
-      );
+        String _feedback;
 
-      if (_docRef != null){
+        await BottomDialog.showButtonsBottomDialog(
+            draggable: true,
+            numberOfWidgets: 3,
+            titleVerse: const Verse(
+              id: 'phid_report_bz_account',
+              translate: true,
+            ),
+            builder: (_) {
+              return <Widget>[
+                /// INAPPROPRIATE CONTENT
+                BottomDialog.wideButton(
+                    context: context,
+                    verse: const Verse(
+                      pseudo: 'This Account published Inappropriate content',
+                      id: 'phid_account_published_inapp_content',
+                      translate: true,
+                    ),
+                    onTap: () async {
+                      _feedback = 'This Account published Inappropriate content';
+                      await Nav.goBack(
+                        context: context,
+                        invoker: 'reportBz.Inappropriate',
+                      );
+                    }),
 
-        await Dialogs.weWillLookIntoItNotice();
+                /// COPY RIGHTS
+                BottomDialog.wideButton(
+                    context: context,
+                    verse: const Verse(
+                      pseudo: 'This Account violates copyrights',
+                      id: 'phid_account_published_copyright_violation',
+                      translate: true,
+                    ),
+                    onTap: () async {
+                      _feedback = 'This Account violates copyrights';
+                      await Nav.goBack(
+                        context: context,
+                        invoker: 'reportBz.copyrights',
+                      );
+                    }),
+              ];
+            });
+
+        if (_feedback != null) {
+          final FeedbackModel _model = FeedbackModel(
+            userID: Authing.getUserID(),
+            timeStamp: DateTime.now(),
+            feedback: _feedback,
+            modelType: ModelType.bz,
+            modelID: bzModel.id,
+          );
+
+          final FeedbackModel _docRef = await FeedbackRealOps.createFeedback(
+            feedback: _model,
+          );
+
+          if (_docRef != null) {
+            await Dialogs.weWillLookIntoItNotice();
+          }
+        }
 
       }
 
     }
+
+
+
 
   }
   // -----------------------------------------------------------------------------

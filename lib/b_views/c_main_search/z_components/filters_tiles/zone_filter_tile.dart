@@ -55,7 +55,7 @@ class ZoneFilterTile extends StatelessWidget {
     final double _tileWidth = SuperSearchScreen.getFilterTileWidth(context);
 
     final Verse _headline = getZoneVerse(
-      zoneModel: searchModel.zone,
+      zoneModel: searchModel?.zone,
     );
 
     return TileBubble(
@@ -63,12 +63,12 @@ class ZoneFilterTile extends StatelessWidget {
       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
           context: context,
           leadingIcon: getZoneIcon(
-            zoneModel: searchModel.zone,
+            zoneModel: searchModel?.zone,
           ),
           headerWidth: _tileWidth,
           headlineVerse: _headline,
           hasSwitch: true, //UsersProvider.userIsAdmin(context),
-          switchValue: searchModel.zone != null,
+          switchValue: searchModel?.zone != null,
           onSwitchTap: onSwitchTap
       ),
       onTileTap: onTileTap,

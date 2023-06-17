@@ -126,7 +126,7 @@ class Dialogs {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> youNeedToBeSignedInDialog({
+  static Future<void> youNeedToBeSignedUpDialog({
     @required String afterHomeRouteName,
     @required String afterHomeRouteArgument,
   }) async {

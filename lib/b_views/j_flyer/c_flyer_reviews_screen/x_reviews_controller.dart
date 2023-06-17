@@ -102,9 +102,14 @@ Future<void> onSubmitReview({
   @required bool mounted,
 }) async {
 
+  final UserModel _user = UsersProvider.proGetMyUserModel(
+    context: context,
+    listen: false,
+  );
+
   /// USER IS NOT SIGNED IN
-  if (Authing.userHasID() == false){
-    await Dialogs.youNeedToBeSignedInDialog(
+  if (Authing.userIsSignedUp(_user?.signInMethod) == false){
+    await Dialogs.youNeedToBeSignedUpDialog(
       afterHomeRouteName: Routing.flyerReviews,
       afterHomeRouteArgument: createReviewsScreenRoutingArgument(
         flyerID: flyerModel.id,
@@ -196,9 +201,14 @@ Future<void> onReviewAgree({
   @required bool mounted,
 }) async {
 
+  final UserModel _user = UsersProvider.proGetMyUserModel(
+    context: getMainContext(),
+    listen: false,
+  );
+
   /// USER IS NOT SIGNED IN
-  if (Authing.userIsSignedUp() == false){
-    await Dialogs.youNeedToBeSignedInDialog(
+  if (Authing.userIsSignedUp(_user?.signInMethod) == false){
+    await Dialogs.youNeedToBeSignedUpDialog(
       afterHomeRouteName: Routing.flyerReviews,
       afterHomeRouteArgument: createReviewsScreenRoutingArgument(
         flyerID: reviewModel.flyerID,
@@ -380,44 +390,68 @@ Future<void> _onDeleteReview({
   @required bool mounted,
 }) async {
 
-  final bool _canContinue = await CenterDialog.showCenterDialog(
-    titleVerse: const Verse(
-      id: 'phid_delete_review_?',
-      translate: true,
-    ),
-    bodyVerse: const Verse(
-      id: 'phid_review_will_be_deleted',
-      translate: true,
-    ),
-    boolDialog: true,
-    invertButtons: true,
-  );
+  if (reviewModel != null && bzID != null){
 
-  if (_canContinue == true){
-
-    await ReviewProtocols.wipeSingleReview(
-      reviewModel: reviewModel,
-      bzID: bzID,
+    final UserModel _user = UsersProvider.proGetMyUserModel(
+      context: getMainContext(),
+      listen: false,
     );
 
-    setNotifier(
-        notifier: paginationController.deleteMap,
-        mounted: mounted,
-        value: reviewModel.toMap(
-          includeID: true,
-          includeDocSnapshot: true,
+    if (Authing.userIsSignedUp(_user?.signInMethod) == false){
+      await Dialogs.youNeedToBeSignedUpDialog(
+        afterHomeRouteName: Routing.flyerReviews,
+        afterHomeRouteArgument: createReviewsScreenRoutingArgument(
+          flyerID: reviewModel.flyerID,
+          reviewID: reviewModel.id,
         ),
-    );
+      );
+    }
 
-    await TopDialog.showTopDialog(
-      firstVerse: const Verse(
-        pseudo: 'Review has been deleted successfully',
-        id: 'phid_review_deleted_successfully',
-        translate: true,
-      ),
-    );
+    else {
+
+      final bool _canContinue = await CenterDialog.showCenterDialog(
+        titleVerse: const Verse(
+          id: 'phid_delete_review_?',
+          translate: true,
+        ),
+        bodyVerse: const Verse(
+          id: 'phid_review_will_be_deleted',
+          translate: true,
+        ),
+        boolDialog: true,
+        invertButtons: true,
+      );
+
+      if (_canContinue == true) {
+
+        await ReviewProtocols.wipeSingleReview(
+          reviewModel: reviewModel,
+          bzID: bzID,
+        );
+
+        setNotifier(
+          notifier: paginationController.deleteMap,
+          mounted: mounted,
+          value: reviewModel.toMap(
+            includeID: true,
+            includeDocSnapshot: true,
+          ),
+        );
+
+        await TopDialog.showTopDialog(
+          firstVerse: const Verse(
+            pseudo: 'Review has been deleted successfully',
+            id: 'phid_review_deleted_successfully',
+            translate: true,
+          ),
+        );
+
+      }
+
+    }
 
   }
+
 
 }
 // -----------------------------------------------------------------------------
@@ -459,80 +493,94 @@ Future<void> onBzReply({
   @required bool mounted,
 }) async {
 
-  final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
-    context: getMainContext(),
-    listen: false,
-  );
+  if (reviewModel != null && bzID != null) {
 
-  final bool _imAuthorInThisBz = AuthorModel.checkUserIsAuthorInThisBz(
-      bzID: bzID,
-      userModel: _myUserModel
-  );
-
-  if (_imAuthorInThisBz == true){
-
-    bool _isConfirmed = false;
-
-    final String _reply = await Dialogs.keyboardDialog(
-      keyboardModel: KeyboardModel(
-        titleVerse: const Verse(
-          id: 'phid_reply_to_flyer',
-          translate: true,
-        ),
-        hintVerse: const Verse(
-          pseudo: 'Reply ...',
-          id: 'phid_reply_dots',
-          translate: true,
-        ),
-        initialText: reviewModel.reply,
-        maxLines: 5,
-        textInputAction: TextInputAction.newline,
-        focusNode: FocusNode(),
-        isFloatingField: false,
-        onSubmitted: (String text){
-
-          _isConfirmed = true;
-
-        },
-      ),
-
+    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+      context: getMainContext(),
+      listen: false,
     );
 
-    blog('reply : $_reply : _isConfirmed : $_isConfirmed');
-
-    if (TextCheck.isEmpty(_reply) == false && _isConfirmed == true){
-
-      final ReviewModel _updated = reviewModel.copyWith(
-        reply: _reply,
-        replyAuthorID: Authing.getUserID(),
-        replyTime: DateTime.now(),
-      );
-
-      setNotifier(
-          notifier: paginationController.replaceMap,
-          mounted: mounted,
-          value: _updated.toMap(
-            includeID: true,
-            includeDocSnapshot: true,
-          ),
-      );
-
-      await ReviewProtocols.composeReviewReply(
-          context: getMainContext(),
-          updatedReview: _updated,
-          bzID: bzID,
-      );
-
-      await TopDialog.showTopDialog(
-        firstVerse: const Verse(
-          pseudo: 'Your reply has been posted',
-          id: 'phid_your_reply_has_been_posted',
-          translate: true,
+    if (Authing.userIsSignedUp(_myUserModel.signInMethod) == false) {
+      await Dialogs.youNeedToBeSignedUpDialog(
+        afterHomeRouteName: Routing.flyerReviews,
+        afterHomeRouteArgument: createReviewsScreenRoutingArgument(
+          flyerID: reviewModel.flyerID,
+          reviewID: reviewModel.id,
         ),
       );
-
     }
 
+    else {
+
+      final bool _imAuthorInThisBz = AuthorModel.checkUserIsAuthorInThisBz(
+          bzID: bzID,
+          userModel: _myUserModel,
+      );
+
+      if (_imAuthorInThisBz == true) {
+
+        bool _isConfirmed = false;
+
+        final String _reply = await Dialogs.keyboardDialog(
+          keyboardModel: KeyboardModel(
+            titleVerse: const Verse(
+              id: 'phid_reply_to_flyer',
+              translate: true,
+            ),
+            hintVerse: const Verse(
+              pseudo: 'Reply ...',
+              id: 'phid_reply_dots',
+              translate: true,
+            ),
+            initialText: reviewModel.reply,
+            maxLines: 5,
+            textInputAction: TextInputAction.newline,
+            focusNode: FocusNode(),
+            isFloatingField: false,
+            onSubmitted: (String text) {
+              _isConfirmed = true;
+            },
+          ),
+        );
+
+        blog('reply : $_reply : _isConfirmed : $_isConfirmed');
+
+        if (TextCheck.isEmpty(_reply) == false && _isConfirmed == true) {
+
+          final ReviewModel _updated = reviewModel.copyWith(
+            reply: _reply,
+            replyAuthorID: Authing.getUserID(),
+            replyTime: DateTime.now(),
+          );
+
+          setNotifier(
+            notifier: paginationController.replaceMap,
+            mounted: mounted,
+            value: _updated.toMap(
+              includeID: true,
+              includeDocSnapshot: true,
+            ),
+
+          );
+
+          await ReviewProtocols.composeReviewReply(
+            context: getMainContext(),
+            updatedReview: _updated,
+            bzID: bzID,
+          );
+
+          await TopDialog.showTopDialog(
+            firstVerse: const Verse(
+              pseudo: 'Your reply has been posted',
+              id: 'phid_your_reply_has_been_posted',
+              translate: true,
+            ),
+          );
+
+        }
+      }
+
+    }
   }
 
 }

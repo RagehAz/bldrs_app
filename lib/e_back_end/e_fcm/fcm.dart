@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/target/target_progress.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
 import 'package:bldrs/bldrs_keys.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm_starter.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_sounder.dart';
@@ -633,7 +634,12 @@ class FCM {
 
      */
 
-    if (Authing.userIsSignedUp() == true){
+    final UserModel _user = UsersProvider.proGetMyUserModel(
+      context: getMainContext(),
+      listen: false,
+    );
+
+    if (Authing.userIsSignedUp(_user?.signInMethod) == true){
       blog('User : ${Authing.getUserID()} subscribed to topic : $topicID');
       await FirebaseMessaging.instance.subscribeToTopic(topicID);
     }
@@ -644,7 +650,13 @@ class FCM {
   static Future<void> unsubscribeFromTopic({
     @required String topicID,
   }) async {
-    if (Authing.userIsSignedUp() == true){
+
+    final UserModel _user = UsersProvider.proGetMyUserModel(
+      context: getMainContext(),
+      listen: false,
+    );
+
+    if (Authing.userIsSignedUp(_user?.signInMethod) == true){
       blog('User : ${Authing.getUserID()} unSubscribed from topic : $topicID');
       await FirebaseMessaging.instance.unsubscribeFromTopic(topicID);
     }

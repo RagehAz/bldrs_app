@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
+import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:stringer/stringer.dart';
@@ -420,11 +421,16 @@ Future<void> recordFlyerView({
   @required int index,
 }) async {
 
+  /// ANONYMOUS VIEWS ARE COUNTED
+  if (Authing.userHasID() == true) {
+
     await RecorderProtocols.onViewSlide(
       flyerID: flyerModel?.id,
       bzID: flyerModel?.bzID,
       index: index,
     );
+
+  }
 
 }
 // -----------------------------------------------------------------------------
