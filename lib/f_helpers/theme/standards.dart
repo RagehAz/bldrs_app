@@ -123,10 +123,10 @@ class Standards {
   /// IMAGES WIDTHS
 
   // --------------------
-  static const double logoWidthPixels = 500;
-  static const double userPictureWidthPixels = 500;
-  static const double authorPictureWidthPixels = 500;
-  static const double slideWidthPixels = 1080;
+  static const double logoWidthPixels = 250;
+  static const double userPictureWidthPixels = 250;
+  static const double authorPictureWidthPixels = 250;
+  static const double slideWidthPixels = 750;
   // -----------------------------------------------------------------------------
 
   /// POSTER SIZE

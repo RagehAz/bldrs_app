@@ -47,27 +47,24 @@ class FlyerDim {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static double flyerWidthByFactor(BuildContext context, double flyerSizeFactor) {
-    return Scale.screenWidth(context) * flyerSizeFactor;
+  static double flyerWidthByFactor(double flyerSizeFactor) {
+    return Scale.screenWidth(getMainContext()) * flyerSizeFactor;
   }
   // ---------
   /// TESTED : WORKS PERFECT
   static double flyerWidthByFlyerHeight({
-    @required BuildContext context,
     @required double flyerBoxHeight,
     @required bool forceMaxHeight,
   }){
     return
       flyerBoxHeight /
           flyerHeightRatioToWidth(
-            context: context,
             forceMaxRatio: forceMaxHeight,
           );
   }
   // ---------
   /// TESTED : WORKS PERFECT
   static double flyerHeightRatioToWidth({
-    @required BuildContext context,
     @required bool forceMaxRatio,
   }){
 
@@ -78,8 +75,8 @@ class FlyerDim {
 
       const double _xFlyerBoxHeightRatioToWidth = 1.74;
 
-      final double _screenHeight = Scale.screenHeight(context);
-      final double _screenWidth = Scale.screenWidth(context);
+      final double _screenHeight = Scale.screenHeight(getMainContext());
+      final double _screenWidth = Scale.screenWidth(getMainContext());
       final double _maxFlyerWidth = _screenWidth - 20;
       final double _maxFlyerHeight = _maxFlyerWidth * _xFlyerBoxHeightRatioToWidth;
       final double _maxAllowableFlyerHeight = _screenHeight - 20;
@@ -99,13 +96,11 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static double flyerHeightByFlyerWidth({
-    @required BuildContext context,
     @required double flyerBoxWidth,
     @required bool forceMaxHeight,
   }) {
 
     return flyerBoxWidth * flyerHeightRatioToWidth(
-      context: context,
       forceMaxRatio: forceMaxHeight,
     );
 
@@ -131,7 +126,6 @@ class FlyerDim {
     @required bool forceMaxHeight,
   }) {
     return flyerFactorByFlyerWidth(context, flyerWidthByFlyerHeight(
-      context: context,
       flyerBoxHeight: flyerBoxHeight,
       forceMaxHeight: forceMaxHeight,
     ));
@@ -139,24 +133,20 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static double heightBySizeFactor({
-    @required BuildContext context,
     @required double flyerSizeFactor,
     @required bool forceMaxHeight,
   }) {
     return flyerHeightByFlyerWidth(
-      context: context,
-      flyerBoxWidth: flyerWidthByFactor(context, flyerSizeFactor),
+      flyerBoxWidth: flyerWidthByFactor(flyerSizeFactor),
       forceMaxHeight: forceMaxHeight,
     );
   }
   // ---------
   /// TESTED : WORKS PERFECT
   static double flyerAspectRatio({
-    @required BuildContext context,
     @required bool forceMaxHeight,
   }){
     return 1 / flyerHeightRatioToWidth(
-      context: context,
       forceMaxRatio: forceMaxHeight,
     );
   }
@@ -215,13 +205,11 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static double headerSlateAndProgressHeights({
-    @required BuildContext context,
     @required double flyerBoxWidth,
     @required bool forceMaxHeight,
   }) {
 
     final double _flyerHeight = flyerHeightByFlyerWidth(
-      context: context,
       flyerBoxWidth: flyerBoxWidth,
       forceMaxHeight: forceMaxHeight,
     );
@@ -1180,7 +1168,6 @@ class FlyerDim {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double flyerGridHorizontalScrollFlyerBoxWidth({
-    @required BuildContext context,
     @required double gridZoneHeight,
     @required int numberOfRows,
     double spacingRatio,
@@ -1191,7 +1178,7 @@ class FlyerDim {
 
     blog('numberOfRows : $numberOfRows');
     blog('gridZoneHeight : $gridZoneHeight : spacingRatio : $_ratio');
-    blog('thing : ${flyerHeightRatioToWidth(context: context, forceMaxRatio: forceMaxHeight)}');
+    blog('thing : ${flyerHeightRatioToWidth(forceMaxRatio: forceMaxHeight)}');
     assert(numberOfRows > 0, 'numberOfRows must be greater than 0');
     assert(gridZoneHeight > 0, 'gridZoneHeight must be greater than 0');
 
@@ -1200,7 +1187,6 @@ class FlyerDim {
         /
         (
             (numberOfRows * flyerHeightRatioToWidth(
-                context: context,
                 forceMaxRatio: forceMaxHeight))
             +
             (numberOfRows * _ratio) + _ratio
@@ -1297,7 +1283,6 @@ class FlyerDim {
       );
 
       return flyerGridHorizontalScrollFlyerBoxWidth(
-        context: context,
         numberOfRows: numberOfColumnsOrRows,
         gridZoneHeight: _gridZoneHeight,
         spacingRatio: spacingRatio,
@@ -1360,12 +1345,11 @@ class FlyerDim {
       crossAxisSpacing: scrollDirection == Axis.vertical ? _gridSpacingValue : 0,
       mainAxisSpacing: _gridSpacingValue,
       childAspectRatio: flyerAspectRatio(
-        context: context,
         forceMaxHeight: forceMaxHeight,
       ),
       crossAxisCount: numberOfColumnsOrRows,
       mainAxisExtent: scrollDirection == Axis.vertical ?
-      flyerBoxWidth * flyerHeightRatioToWidth(context: context, forceMaxRatio: forceMaxHeight)
+      flyerBoxWidth * flyerHeightRatioToWidth(forceMaxRatio: forceMaxHeight)
           :
       flyerBoxWidth,
       // maxCrossAxisExtent: scrollDirection == Axis.vertical ? _flyerBoxWidth : Ratioz.xxflyerZoneHeight,

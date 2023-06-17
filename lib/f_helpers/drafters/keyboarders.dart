@@ -4,7 +4,6 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:provider/provider.dart';
 import 'package:stringer/stringer.dart';
@@ -167,40 +166,11 @@ class Keyboard {
  */
   // -----------------------------------------------------------------------------
 
-  /// COPY PASTE
+  /// COPY TO CLIPBOARD
 
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  static Future<void> handlePaste(TextSelectionDelegate delegate) async {
-
-    final TextEditingValue _value = delegate.textEditingValue; // Snapshot the input before using `await`.
-    final ClipboardData _data = await Clipboard.getData(Clipboard.kTextPlain);
-
-    if (_data != null) {
-
-      final TextEditingValue _textEditingValue = TextEditingValue(
-        text: _value.selection.textBefore(_value.text)
-            + _data.text
-            + _value.selection.textAfter(_value.text),
-        selection: TextSelection.collapsed(
-            offset: _value.selection.start
-                + _data.text.length
-        ),
-      );
-
-      const SelectionChangedCause _selectionChangedCause = SelectionChangedCause.tap;
-
-      delegate.userUpdateTextEditingValue(_textEditingValue, _selectionChangedCause);
-
-    }
-
-    delegate.bringIntoView(delegate.textEditingValue.selection.extent);
-
-    delegate.hideToolbar();
-  }
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> copyToClipboard({
+  static Future<void> copyToClipboardAndNotify({
     @required String copy,
     int milliseconds,
   }) async {

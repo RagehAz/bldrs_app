@@ -36,9 +36,8 @@ class DraftShelfSlide extends StatefulWidget {
   static const double flyerBoxWidth = 150;
   static const double slideNumberBoxHeight = 20;
   // -----------------------------------------------------------------------------
-  static double shelfSlideZoneHeight(BuildContext context){
+  static double shelfSlideZoneHeight(){
     final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
-      context: context,
       flyerBoxWidth: flyerBoxWidth,
       forceMaxHeight: false,
     );
@@ -72,14 +71,13 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
   Widget build(BuildContext context) {
 
     final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
-      context: context,
       flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
       forceMaxHeight: false,
     );
 
     return Container(
       width: DraftShelfSlide.flyerBoxWidth,
-      height: DraftShelfSlide.shelfSlideZoneHeight(context),
+      height: DraftShelfSlide.shelfSlideZoneHeight(),
       margin: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding,),
       child: Column(
         children: <Widget>[

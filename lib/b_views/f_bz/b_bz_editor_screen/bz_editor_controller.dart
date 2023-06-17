@@ -13,6 +13,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
@@ -356,7 +357,6 @@ void onChangeBzForm({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onChangeBzLogo({
-  @required BuildContext context,
   @required ValueNotifier<DraftBz> draftNotifier,
   @required PicMakerType imagePickerType,
   @required bool mounted,
@@ -376,7 +376,6 @@ Future<void> onChangeBzLogo({
 
     if(imagePickerType == PicMakerType.galleryImage){
       _bytes = await BldrsPicMaker.pickAndCropSinglePic(
-        context: context,
         cropAfterPick: true,
         aspectRatio: 1,
         resizeToWidth: Standards.userPictureWidthPixels,
@@ -385,7 +384,7 @@ Future<void> onChangeBzLogo({
 
     else if (imagePickerType == PicMakerType.cameraImage){
       _bytes = await PicMaker.shootAndCropCameraPic(
-        context: context,
+        context: getMainContext(),
         cropAfterPick: true,
         aspectRatio: 1,
         resizeToWidth: Standards.userPictureWidthPixels,

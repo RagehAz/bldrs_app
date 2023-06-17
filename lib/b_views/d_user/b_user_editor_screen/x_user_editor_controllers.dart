@@ -143,7 +143,6 @@ Future<void> loadUserEditorLastSession({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> takeUserPicture({
-  @required BuildContext context,
   @required ValueNotifier<DraftUser> draft,
   @required PicMakerType picMakerType,
   @required bool mounted,
@@ -161,7 +160,6 @@ Future<void> takeUserPicture({
 
     if(picMakerType == PicMakerType.galleryImage){
       _bytes = await BldrsPicMaker.pickAndCropSinglePic(
-        context: context,
         cropAfterPick: true,
         aspectRatio: 1,
         resizeToWidth: Standards.userPictureWidthPixels,
@@ -169,7 +167,7 @@ Future<void> takeUserPicture({
     }
     else if (picMakerType == PicMakerType.cameraImage){
       _bytes = await PicMaker.shootAndCropCameraPic(
-        context: context,
+        context: getMainContext(),
         cropAfterPick: true,
         aspectRatio: 1,
         resizeToWidth: Standards.userPictureWidthPixels,

@@ -377,7 +377,6 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       picModel: draft?.picModel,
                       bubbleType: BubbleType.userPic,
                       onAddPicture: (PicMakerType imagePickerType) => takeUserPicture(
-                        context: context,
                         draft: _draftUser,
                         picMakerType: imagePickerType,
                         mounted: mounted,

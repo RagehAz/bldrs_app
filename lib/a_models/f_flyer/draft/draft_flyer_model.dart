@@ -124,42 +124,47 @@ class DraftFlyer{
       listen: false,
     );
 
-    return DraftFlyer(
-      bzModel: bzModel,
-      id: newDraftID,
-      headline: TextEditingController(),
-      trigram: const [],
-      headlineNode: FocusNode(),
-      description: TextEditingController(),
-      descriptionNode: FocusNode(),
-      flyerType: getPossibleFlyerType(bzModel),
-      publishState: PublishState.draft,
-      auditState: null,
-      phids: const <String>[],
-      showsAuthor: FlyerModel.canShowFlyerAuthor(
-        bzModel: bzModel,
-        flyerModel: null,
-      ),
-      zone: bzModel.zone,
-      authorID: Authing.getUserID(),
-      bzID: bzModel.id,
-      position: null,
-      draftSlides: const <DraftSlide>[],
-      specs: const <SpecModel>[],
-      times: const <PublishTime>[],
-      hasPriceTag: false,
-      isAmazonFlyer: false,
-      hasPDF: false,
-      score: 0,
-      pdfModel: null,
-      canPickImage: true,
-      formKey: GlobalKey<FormState>(),
-      firstTimer: true,
-      posterController: ScreenshotController(),
-      affiliateLink: null,
-      gtaLink: null,
-    );
+    if (bzModel == null){
+      return null;
+    }
 
+    else {
+      return DraftFlyer(
+        bzModel: bzModel,
+        id: newDraftID,
+        headline: TextEditingController(),
+        trigram: const [],
+        headlineNode: FocusNode(),
+        description: TextEditingController(),
+        descriptionNode: FocusNode(),
+        flyerType: getPossibleFlyerType(bzModel),
+        publishState: PublishState.draft,
+        auditState: bzModel?.isVerified == true ? AuditState.verified : AuditState.pending,
+        phids: const <String>[],
+        showsAuthor: FlyerModel.canShowFlyerAuthor(
+          bzModel: bzModel,
+          flyerModel: null,
+        ),
+        zone: bzModel.zone,
+        authorID: Authing.getUserID(),
+        bzID: bzModel.id,
+        position: null,
+        draftSlides: const <DraftSlide>[],
+        specs: const <SpecModel>[],
+        times: const <PublishTime>[],
+        hasPriceTag: false,
+        isAmazonFlyer: false,
+        hasPDF: false,
+        score: 0,
+        pdfModel: null,
+        canPickImage: true,
+        formKey: GlobalKey<FormState>(),
+        firstTimer: true,
+        posterController: ScreenshotController(),
+        affiliateLink: null,
+        gtaLink: null,
+      );
+    }
   }
   // --------------------
   /// TESTED : WORKS PERFECT

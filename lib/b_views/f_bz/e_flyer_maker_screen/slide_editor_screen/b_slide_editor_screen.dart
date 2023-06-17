@@ -199,7 +199,6 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
               mounted: mounted,
             ),
             onCrop: () => onCropSlide(
-              context: context,
               draftNotifier: _draftNotifier,
               filterNotifier: _filterModel,
               matrixNotifier: _matrix,

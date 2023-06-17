@@ -58,7 +58,7 @@ class ShelfSlidesPart extends StatelessWidget {
         child: Container(
           key: const ValueKey<String>('Loading_flyer'),
           width: DraftShelfSlide.flyerBoxWidth,
-          height: DraftShelfSlide.shelfSlideZoneHeight(context),
+          height: DraftShelfSlide.shelfSlideZoneHeight(),
           alignment: Alignment.bottomCenter,
           padding: const EdgeInsets.all(Ratioz.appBarPadding),
           child: const FlyerLoading(
