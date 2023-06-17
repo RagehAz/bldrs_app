@@ -190,6 +190,7 @@ class ComposeBzProtocols {
         newPic: null,
         newUser: _newUser,
         oldUser: _oldUser,
+        invoker: 'ComposeBzProtocols._addBzIdToMyUserModelAndRenovateAndSubscribeToAllBzTopics',
       ),
 
     ]);

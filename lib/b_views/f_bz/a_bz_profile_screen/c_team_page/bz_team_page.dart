@@ -1,3 +1,4 @@
+import 'package:filers/filers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
@@ -87,11 +88,10 @@ class _BzTeamPageState extends State<BzTeamPage> {
       context: context,
       listen: true,
     );
-    _bzModel?.blogBz(invoker: 'BzAuthorsPage');
     // --------------------
     return Selector<BzzProvider, BzModel>(
       selector: (_, BzzProvider bzzProvider) => bzzProvider.myActiveBz,
-      shouldRebuild: (oldModel, newModel) => true, /// FUCKING WORKS PERFECT
+      shouldRebuild: (oldModel, newModel) => true,
       builder: (BuildContext context, BzModel bzModel, Widget child){
 
         final List<AuthorModel> _authors = _bzModel?.authors;
@@ -104,6 +104,8 @@ class _BzTeamPageState extends State<BzTeamPage> {
           ),
           theDoneWith: null,
         );
+
+        blog('_canSendAuthorships : $_canSendAuthorships');
 
         return ListView(
           physics: const BouncingScrollPhysics(),

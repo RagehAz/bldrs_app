@@ -392,6 +392,7 @@ class NewAuthorshipExit {
         newUser: _newUser,
         oldUser: _oldUser,
         newPic: null,
+        invoker: 'onIGotRemoved',
       ),
 
     ]);

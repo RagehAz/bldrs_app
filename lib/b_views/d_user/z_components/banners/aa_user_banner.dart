@@ -219,6 +219,7 @@ class UserBanner extends StatelessWidget {
                   return BzTileButton(
                     bzModel: _bzModel,
                     height: 50,
+                    width: _bzModel.name.length > 20 ? Bubble.clearWidth(context: context) - 20 : null,
                     onTap: () => BldrsNav.jumpToBzPreviewScreen(
                       bzID: _bzModel.id,
                     ),

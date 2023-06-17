@@ -1136,7 +1136,7 @@ class AuthorModel {
     @required AuthorAbility ability,
   }){
 
-    if (theDoer != null && theDoneWith != null && ability != null){
+    if (theDoer != null && ability != null){
 
       final bool _higherRank = checkAuthorHasHigherRank(
         theDoer: theDoer,

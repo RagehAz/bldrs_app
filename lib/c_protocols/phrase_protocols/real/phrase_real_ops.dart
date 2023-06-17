@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
+import 'package:bldrs/f_helpers/drafters/debuggers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:flutter/material.dart';
@@ -90,6 +91,8 @@ class PhraseRealOps {
     List<Phrase> _output = <Phrase>[];
 
     if (langCode != null){
+
+      await reportThis('readPhrasesByLang : langCode : $langCode : createTrigram : $createTrigram');
 
       final Map<String, dynamic> _map = await Real.readDoc(
         coll: RealColl.phrases,
