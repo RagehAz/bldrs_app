@@ -1,9 +1,12 @@
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/a_flyer_reviews_screen.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
-import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
+import 'package:fire/super_fire.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
@@ -67,35 +70,41 @@ Future<void> onShareFlyer({
   // @required bool mounted,
 }) async {
 
-  setNotifier(
+  if (flyerModel != null) {
+
+    final UserModel _user = UsersProvider.proGetMyUserModel(
+      context: getMainContext(),
+      listen: false,
+    );
+
+    setNotifier(
       notifier: isSharing,
       mounted: true, //mounted,
       value: true,
-  );
+    );
 
-  final String _flyerLink = await BldrsShareLink.generateFlyerLink(
-      flyerID: flyerModel.id,
-  );
+    await Future.wait(<Future>[
 
-  await Future.wait(<Future>[
+      Launcher.shareURL(
+        url: flyerModel.shareLink,
+        subject: flyerModel.headline,
+      ),
 
-    Launcher.shareURL(
-      url: _flyerLink,
-      subject: flyerModel.headline,
-    ),
+      if (Authing.userIsSignedUp(_user?.signInMethod) == true)
+      RecorderProtocols.onShareFlyer(
+        flyerID: flyerModel.id,
+        bzID: flyerModel.bzID,
+      ),
 
-    RecorderProtocols.onShareFlyer(
-      flyerID: flyerModel.id,
-      bzID: flyerModel.bzID,
-    ),
+    ]);
 
-  ]);
+    setNotifier(
+      notifier: isSharing,
+      mounted: true, //mounted,
+      value: false,
+    );
 
-  setNotifier(
-    notifier: isSharing,
-    mounted: true, //mounted,
-    value: false,
-  );
+  }
 
 }
 // -----------------------------------------------------------------------------

@@ -254,7 +254,25 @@ Future<void> onFollowTap({
   @required bool mounted,
 }) async {
 
-  if (Authing.userIsSignedUp() == true){
+  final UserModel _user = UsersProvider.proGetMyUserModel(
+    context: context,
+    listen: false,
+  );
+
+  if (Authing.userIsSignedUp(_user?.signInMethod) == false){
+
+    final bool _goToFlyerPreview = flyerID != null;
+    final String _routeName = _goToFlyerPreview == true ? Routing.flyerPreview : Routing.bzPreview;
+    final String argument = _goToFlyerPreview == true ? flyerID : bzModel.id;
+
+    await Dialogs.youNeedToBeSignedUpDialog(
+      afterHomeRouteName: _routeName,
+      afterHomeRouteArgument: argument,
+    );
+
+  }
+
+  else {
 
     setNotifier(
         notifier: followIsOn,
@@ -266,19 +284,6 @@ Future<void> onFollowTap({
       context: context,
       bzToFollow: bzModel,
       followIsOn: followIsOn.value,
-    );
-
-  }
-
-  else {
-
-    final bool _goToFlyerPreview = flyerID != null;
-    final String _routeName = _goToFlyerPreview == true ? Routing.flyerPreview : Routing.bzPreview;
-    final String argument = _goToFlyerPreview == true ? flyerID : bzModel.id;
-
-    await Dialogs.youNeedToBeSignedInDialog(
-      afterHomeRouteName: _routeName,
-      afterHomeRouteArgument: argument,
     );
 
   }
@@ -297,13 +302,13 @@ Future<void> onCallTap({
   );
 
   /// USER IS NOT SIGNED IN
-  if (_userModel == null){
+  if (Authing.userIsSignedUp(_userModel?.signInMethod) == false){
 
     final bool _goToFlyerPreview = flyerModel?.id != null;
     final String _routeName = _goToFlyerPreview == true ? Routing.flyerPreview : Routing.bzPreview;
     final String argument = _goToFlyerPreview == true ? flyerModel?.id : bzModel.id;
 
-    await Dialogs.youNeedToBeSignedInDialog(
+    await Dialogs.youNeedToBeSignedUpDialog(
       afterHomeRouteName: _routeName,
       afterHomeRouteArgument: argument,
     );

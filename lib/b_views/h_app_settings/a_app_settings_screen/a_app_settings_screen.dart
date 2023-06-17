@@ -199,7 +199,7 @@ class CreateNewBzButton extends StatelessWidget {
             isDisabled: !_userIsOnline,
             onTap: () => onCreateNewBzTap(context),
             onDisabledTap: () async {
-              await Dialogs.youNeedToBeSignedInDialog(
+              await Dialogs.youNeedToBeSignedUpDialog(
                 afterHomeRouteName: Routing.appSettings,
                 afterHomeRouteArgument: null,
               );

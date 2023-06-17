@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
+import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -250,72 +252,73 @@ class RenovateUserProtocols {
         listen: false,
       );
 
-      if (flyerIsSaved == true){
+      if (Authing.userIsSignedUp(_oldUser?.signInMethod) == false){
 
-        final UserModel _newUser = UserModel.addFlyerToSavedFlyers(
-          oldUser: _oldUser,
-          flyerModel: flyerModel,
+        await Dialogs.youNeedToBeSignedUpDialog(
+          afterHomeRouteName: Routing.flyerPreview,
+          afterHomeRouteArgument: flyerModel.id,
         );
-
-        await Future.wait(<Future>[
-
-          /// FLYER RECORDS
-          RecorderProtocols.onSaveFlyer(
-              flyerID: flyerModel.id,
-              bzID: flyerModel.bzID,
-              slideIndex: slideIndex
-          ),
-
-          /// RENOVATE USER
-          UserProtocols.renovate(
-            context: context,
-            newPic: null,
-            newUser: _newUser,
-            oldUser: _oldUser,
-          ),
-
-          /// CENSUS SAVE FLYER
-          CensusListener.onSaveFlyer(
-              flyerModel: flyerModel,
-              isSaving: true,
-          ),
-
-        ]);
 
       }
 
       else {
 
-        final UserModel _newUser = UserModel.removeFlyerFromSavedFlyers(
-          oldUser: _oldUser,
-          flyerIDToRemove: flyerModel.id,
-        );
-
-        await Future.wait(<Future>[
-
-          RecorderProtocols.onUnSaveFlyer(
-            flyerID: flyerModel.id,
-            bzID: flyerModel.bzID,
-            slideIndex: slideIndex,
-          ),
-
-          renovateUser(
-            context: context,
-            newUser: _newUser,
-            newPic: null,
+        if (flyerIsSaved == true) {
+          final UserModel _newUser = UserModel.addFlyerToSavedFlyers(
             oldUser: _oldUser,
-          ),
-
-          /// CENSUS SAVE FLYER
-          CensusListener.onSaveFlyer(
             flyerModel: flyerModel,
-            isSaving: false,
-          ),
+          );
 
-        ]);
+          await Future.wait(<Future>[
+            /// FLYER RECORDS
+            RecorderProtocols.onSaveFlyer(
+                flyerID: flyerModel.id, bzID: flyerModel.bzID, slideIndex: slideIndex),
+
+            /// RENOVATE USER
+            UserProtocols.renovate(
+              context: context,
+              newPic: null,
+              newUser: _newUser,
+              oldUser: _oldUser,
+            ),
+
+            /// CENSUS SAVE FLYER
+            CensusListener.onSaveFlyer(
+              flyerModel: flyerModel,
+              isSaving: true,
+            ),
+          ]);
+        }
+
+        else {
+          final UserModel _newUser = UserModel.removeFlyerFromSavedFlyers(
+            oldUser: _oldUser,
+            flyerIDToRemove: flyerModel.id,
+          );
+
+          await Future.wait(<Future>[
+            RecorderProtocols.onUnSaveFlyer(
+              flyerID: flyerModel.id,
+              bzID: flyerModel.bzID,
+              slideIndex: slideIndex,
+            ),
+
+            renovateUser(
+              context: context,
+              newUser: _newUser,
+              newPic: null,
+              oldUser: _oldUser,
+            ),
+
+            /// CENSUS SAVE FLYER
+            CensusListener.onSaveFlyer(
+              flyerModel: flyerModel,
+              isSaving: false,
+            ),
+          ]);
+        }
 
       }
-
     }
 
     // blog('RenovateUserProtocols.savingFlyerProtocol : END');
@@ -363,8 +366,13 @@ class RenovateUserProtocols {
   }) async {
 
     // blog('refreshUserDeviceModel START');
+      /// USER DEVICE MODEL
+      final UserModel _oldUser = UsersProvider.proGetMyUserModel(
+        context: context,
+        listen: false,
+      );
 
-    if (Authing.userIsSignedUp() == true){
+    if (Authing.userIsSignedUp(_oldUser?.signInMethod) == true){
 
       /// TASK : UNSUBSCRIBING FROM TOKEN INSTRUCTIONS
       /*
@@ -389,12 +397,6 @@ class RenovateUserProtocols {
 
       /// THIS DEVICE MODEL
       final DeviceModel _thisDevice = await DeviceModel.generateDeviceModel();
-
-      /// USER DEVICE MODEL
-      final UserModel _oldUser = UsersProvider.proGetMyUserModel(
-        context: context,
-        listen: false,
-      );
 
       /// TASK : ACTUALLY SHOULD REBOOT SYSTEM IF DEVICE CHANGED
       final bool _userIsUsingSameDevice = DeviceModel.checkDevicesAreIdentical(

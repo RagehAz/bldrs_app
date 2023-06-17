@@ -58,7 +58,7 @@ class FlyersSearchFiltersList extends StatelessWidget {
     final double _tileWidth = SuperSearchScreen.getFilterTileWidth(context);
 
     final String _keywordIcon = ChainsProvider.proGetPhidIcon(
-      son: searchModel.flyerSearchModel?.phid,
+      son: searchModel?.flyerSearchModel?.phid,
     );
 
     // List<SpecModel> specs;
@@ -80,10 +80,10 @@ class FlyersSearchFiltersList extends StatelessWidget {
           id: 'phid_flyer_type',
           translate: true,
         ),
-        switchValue: searchModel.flyerSearchModel?.flyerType != null,
+        switchValue: searchModel?.flyerSearchModel?.flyerType != null,
         onSwitchTap: onFlyerTypeSwitchTap,
         items: FlyerTyper.flyerTypesList,
-        selectedItem: searchModel.flyerSearchModel?.flyerType,
+        selectedItem: searchModel?.flyerSearchModel?.flyerType,
         itemVerse: (dynamic flyerType) => Verse(
           id: FlyerTyper.getFlyerTypePhid(flyerType: flyerType,),
           translate: true,
@@ -97,24 +97,24 @@ class FlyersSearchFiltersList extends StatelessWidget {
 
       /// KEYWORD
       Disabler(
-        isDisabled: searchModel.flyerSearchModel?.flyerType == null,
+        isDisabled: searchModel?.flyerSearchModel?.flyerType == null,
         child: TileBubble(
           bubbleWidth: _tileWidth,
           bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
             context: context,
-            leadingIcon: searchModel.flyerSearchModel?.phid == null ? Iconz.keyword
+            leadingIcon: searchModel?.flyerSearchModel?.phid == null ? Iconz.keyword
                 :
             _keywordIcon == '' ||  _keywordIcon == null ? Iconz.dvBlankSVG
                  :
             _keywordIcon,
             headerWidth: _tileWidth,
-            headlineVerse:  searchModel.flyerSearchModel?.phid == null ?
+            headlineVerse:  searchModel?.flyerSearchModel?.phid == null ?
             const Verse(id: 'phid_select_keyword', translate: true)
                 :
             SectionsButton.getBody(
               context: context,
-              currentKeywordID:  searchModel.flyerSearchModel?.phid,
-              currentSection:  searchModel.flyerSearchModel?.flyerType,
+              currentKeywordID:  searchModel?.flyerSearchModel?.phid,
+              currentSection:  searchModel?.flyerSearchModel?.flyerType,
             ),
           ),
           onTileTap: onPickPhidTap,
@@ -124,7 +124,7 @@ class FlyersSearchFiltersList extends StatelessWidget {
       /// SHOWS AUTHOR
       FilterBoolTile(
         icon: Iconz.bz,
-        switchValue: searchModel.flyerSearchModel?.onlyShowingAuthors,
+        switchValue: searchModel?.flyerSearchModel?.onlyShowingAuthors,
         verse: const Verse(
           id: 'phid_only_flyers_showing_authors',
           translate: true,
@@ -139,7 +139,7 @@ class FlyersSearchFiltersList extends StatelessWidget {
           id: 'phid_only_flyers_with_prices',
           translate: true,
         ),
-        switchValue: searchModel.flyerSearchModel?.onlyWithPrices,
+        switchValue: searchModel?.flyerSearchModel?.onlyWithPrices,
         onSwitchTap: onOnlyWithPriceSwitchTap,
       ),
 
@@ -181,7 +181,7 @@ class FlyersSearchFiltersList extends StatelessWidget {
           switchValue: searchModel?.flyerSearchModel?.auditState != null,
           onSwitchTap: onAuditStateSwitchTap,
           items: FlyerModel.auditStates,
-          selectedItem: searchModel.flyerSearchModel?.auditState,
+          selectedItem: searchModel?.flyerSearchModel?.auditState,
           itemVerse: (dynamic state) => Verse(id: FlyerModel.getAuditStatePhid(state), translate: true,),
           onItemTap: (dynamic item){
             final AuditState _state = item;
@@ -198,10 +198,10 @@ class FlyersSearchFiltersList extends StatelessWidget {
             id: 'phid_publish_state',
             translate: true,
           ),
-          switchValue: searchModel.flyerSearchModel?.publishState != null,
+          switchValue: searchModel?.flyerSearchModel?.publishState != null,
           onSwitchTap: onPublishStateSwitchTap,
           items: FlyerModel.publishStates,
-          selectedItem: searchModel.flyerSearchModel?.publishState,
+          selectedItem: searchModel?.flyerSearchModel?.publishState,
           itemVerse: (dynamic state) => Verse(id: FlyerModel.getPublishStatePhid(state), translate: true,),
           onItemTap: (dynamic item){
             final PublishState _state = item;

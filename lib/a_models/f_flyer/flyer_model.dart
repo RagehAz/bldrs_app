@@ -53,6 +53,7 @@ class FlyerModel {
     @required this.showsAuthor,
     @required this.score,
     @required this.pdfPath,
+    @required this.shareLink,
     this.affiliateLink,
     this.gtaLink,
     this.bzLogoImage,
@@ -83,6 +84,7 @@ class FlyerModel {
   final DocumentSnapshot<Object> docSnapshot;
   final int score;
   final String pdfPath;
+  final String shareLink;
   final String affiliateLink; /// this generates money
   final String gtaLink; /// this to track gta progress
   final ui.Image bzLogoImage;
@@ -118,6 +120,7 @@ class FlyerModel {
     DocumentSnapshot docSnapshot,
     int score,
     String pdfPath,
+    String shareLink,
     String affiliateLink,
     String gtaLink,
     ui.Image bzLogoImage,
@@ -148,6 +151,7 @@ class FlyerModel {
       docSnapshot: docSnapshot ?? this.docSnapshot,
       score: score ?? this.score,
       pdfPath: pdfPath ?? this.pdfPath,
+      shareLink: shareLink ?? this.shareLink,
       affiliateLink: affiliateLink ?? this.affiliateLink,
       gtaLink: gtaLink ?? this.gtaLink,
       bzLogoImage: bzLogoImage ?? this.bzLogoImage,
@@ -188,6 +192,7 @@ class FlyerModel {
       'specs' : SpecModel.cipherSpecs(specs),
       'hasPriceTag' : hasPriceTag,
       'hasPDF' : hasPDF,
+      'shareLink' : shareLink,
       'isAmazonFlyer' : isAmazonFlyer,
       'times' : PublishTime.cipherTimes(times: times, toJSON: toJSON),
       'score' : score,
@@ -251,6 +256,7 @@ class FlyerModel {
         hasPriceTag: map['hasPriceTag'],
         isAmazonFlyer: map['isAmazonFlyer'],
         hasPDF: map['hasPDF'],
+        shareLink: map['shareLink'],
         times: PublishTime.decipherTimes(map: map['times'], fromJSON: fromJSON),
         score: map['score'],
         pdfPath: map['pdfPath'],
@@ -487,6 +493,7 @@ class FlyerModel {
     blog('hasPDF : $hasPDF');
     blog('score : $score');
     blog('pdfPath : $pdfPath');
+    blog('shareLink : $shareLink');
     blog('affiliateLink : $affiliateLink');
     blog('gtaLink : $gtaLink');
     SlideModel.blogSlides(slides);
@@ -592,6 +599,9 @@ class FlyerModel {
       if (flyer1.pdfPath != flyer2.pdfPath){
         blog('flyers pdfPath are not identical');
       }
+      if (flyer1.shareLink != flyer2.shareLink){
+        blog('flyers shareLinks are not identical');
+      }
       if (flyer1.affiliateLink != flyer2.affiliateLink){
         blog('flyers affiliateLinks are not identical');
       }
@@ -640,6 +650,7 @@ class FlyerModel {
       ],
       hasPriceTag: false,
       hasPDF: false,
+      shareLink: null,
       isAmazonFlyer: false,
       zone: ZoneModel.dummyZone(),
       score: 0,
@@ -1105,6 +1116,7 @@ class FlyerModel {
           flyer1.hasPDF == flyer2.hasPDF &&
           flyer1.isAmazonFlyer == flyer2.isAmazonFlyer &&
           flyer1.pdfPath == flyer2.pdfPath &&
+          flyer1.shareLink == flyer2.shareLink &&
           flyer1.affiliateLink == flyer2.affiliateLink &&
           flyer1.gtaLink == flyer2.gtaLink &&
           Floaters.checkUiImagesAreIdentical(flyer1.bzLogoImage, flyer2.bzLogoImage) == true &&
@@ -1180,6 +1192,7 @@ class FlyerModel {
       showsAuthor.hashCode^
       score.hashCode^
       pdfPath.hashCode^
+      shareLink.hashCode^
       affiliateLink.hashCode^
       gtaLink.hashCode^
       bzLogoImage.hashCode^

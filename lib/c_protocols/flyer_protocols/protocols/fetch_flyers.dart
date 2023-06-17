@@ -208,6 +208,7 @@ class FetchFlyerProtocols {
             times: const [],
             hasPriceTag: false,
             hasPDF: false,
+            shareLink: null,
             isAmazonFlyer: false,
             showsAuthor: false,
             score: null,

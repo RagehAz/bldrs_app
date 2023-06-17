@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
@@ -214,7 +216,12 @@ class Localizer {
 
     BldrsAppStarter.setLocale(context, _temp);
 
-    if (Authing.userIsSignedUp() == true) {
+    final UserModel _user = UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: false,
+    );
+
+    if (Authing.userIsSignedUp(_user?.signInMethod) == true) {
       await Fire.updateDocField(
         coll: FireColl.users,
         doc: Authing.getUserID(),
