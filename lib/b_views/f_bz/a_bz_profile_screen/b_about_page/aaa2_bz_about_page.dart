@@ -114,7 +114,6 @@ class AboutBzBubbles extends StatelessWidget {
     );
     final double _spacing = FlyerDim.flyerGridGridSpacingValue(flyerBoxWidth);
     final double _flyerHeight = FlyerDim.flyerHeightByFlyerWidth(
-      context: context,
       flyerBoxWidth: flyerBoxWidth,
       forceMaxHeight: false,
     );

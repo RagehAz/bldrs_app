@@ -19,8 +19,8 @@ class DraftShelfBox extends StatelessWidget {
   static const Duration animationDuration = Ratioz.duration150ms;
   static const Curve animationCurve  = Curves.easeOut;
   // -----------------------------------------------------------------------------
-  static double height(BuildContext context){
-    return DraftShelfSlide.shelfSlideZoneHeight(context);
+  static double height(){
+    return DraftShelfSlide.shelfSlideZoneHeight();
   }
   // -----------------------------------------------------------------------------
   @override
@@ -32,7 +32,7 @@ class DraftShelfBox extends StatelessWidget {
 
         child: Container(
           width: Scale.screenWidth(context),
-          height: DraftShelfSlide.shelfSlideZoneHeight(context),
+          height: DraftShelfSlide.shelfSlideZoneHeight(),
           color: Colorz.white10,
           child: child,
         ),

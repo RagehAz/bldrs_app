@@ -708,6 +708,7 @@ class NoteProtocols {
         newPic: null,
         newUser: _newUser,
         oldUser: _oldUser,
+        invoker: '_addAllBzTopicsToMyTopicsAndRenovate',
       );
 
     }
@@ -772,6 +773,7 @@ class NoteProtocols {
         newPic: null,
         newUser: _newUser,
         oldUser: _oldUser,
+        invoker: '_removeAllBzTopicsFromMyTopicsAndRenovate',
       );
 
     }

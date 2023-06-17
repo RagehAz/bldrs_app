@@ -253,7 +253,7 @@ class CenterDialog extends StatelessWidget {
                             blog('tapping on dialog bubble');
 
                             if (copyOnTap == true){
-                              Keyboard.copyToClipboard(copy: title?.id);
+                              Keyboard.copyToClipboardAndNotify(copy: title?.id);
                             }
 
                             Keyboard.closeKeyboard();

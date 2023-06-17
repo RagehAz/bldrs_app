@@ -12,6 +12,7 @@ import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:layouts/layouts.dart';
@@ -56,7 +57,6 @@ Future<void> onAddNewSlides({
 
     // if (draftFlyer.value.firstTimer == true){
       await _addImagesForNewFlyer(
-        context: context,
         mounted: mounted,
         bzModel: bzModel,
         scrollController: scrollController,
@@ -90,7 +90,6 @@ Future<void> onAddNewSlides({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _addImagesForNewFlyer({
-  @required BuildContext context,
   @required BzModel bzModel,
   @required bool mounted,
   @required ValueNotifier<DraftFlyer> draftFlyer,
@@ -106,11 +105,9 @@ Future<void> _addImagesForNewFlyer({
     if (imagePickerType == PicMakerType.galleryImage){
 
       final List<Uint8List> _bytezz = await BldrsPicMaker.pickAndCropMultiplePics(
-        context: context,
         // maxAssets: 10,
         aspectRatio: FlyerDim.flyerAspectRatio(
           forceMaxHeight: true,
-          context: context,
         ),
         cropAfterPick: false,
         resizeToWidth: Standards.slideWidthPixels,
@@ -125,9 +122,9 @@ Future<void> _addImagesForNewFlyer({
     else if (imagePickerType == PicMakerType.cameraImage){
 
       final Uint8List _bytes = await PicMaker.shootAndCropCameraPic(
-        context: context,
+        context: getMainContext(),
         // maxAssets: 10,
-        aspectRatio: FlyerDim.flyerAspectRatio(context: context, forceMaxHeight: true),
+        aspectRatio: FlyerDim.flyerAspectRatio(forceMaxHeight: true),
         cropAfterPick: false,
         resizeToWidth: Standards.slideWidthPixels,
       );
@@ -150,7 +147,6 @@ Future<void> _addImagesForNewFlyer({
       blog('the thing is : ${_picked.length} bytes');
 
       final List<DraftSlide> _newMutableSlides = await DraftSlide.createDrafts(
-        context: context,
         bytezz: _picked,
         existingDrafts: draftFlyer.value.draftSlides,
         headline: draftFlyer.value.headline.text,
@@ -172,7 +168,6 @@ Future<void> _addImagesForNewFlyer({
 
       if (_newMutableSlides.length == 1){
         await  onSlideTap(
-          context: context,
           slide: _newMutableSlides.first,
           draftFlyer: draftFlyer,
           mounted: mounted,
@@ -241,7 +236,6 @@ Future<void> _showMaxSlidesReachedDialog(BuildContext context, int maxLength) as
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onSlideTap({
-  @required BuildContext context,
   @required DraftSlide slide,
   @required ValueNotifier<DraftFlyer> draftFlyer,
   @required bool mounted,
@@ -250,7 +244,7 @@ Future<void> onSlideTap({
   Keyboard.closeKeyboard();
 
   final DraftSlide _result = await Nav.goToNewScreen(
-      context: context,
+      context: getMainContext(),
       screen: SlideEditorScreen(
         slide: slide,
         draftFlyer: draftFlyer,

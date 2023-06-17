@@ -76,7 +76,6 @@ class FlyerLoading extends StatelessWidget {
                     color: loadingColor,
                     backgroundColor: Colorz.nothing,
                     minHeight: FlyerDim.flyerHeightByFlyerWidth(
-                      context: context,
                       flyerBoxWidth: flyerBoxWidth,
                       forceMaxHeight: false,
                     ),

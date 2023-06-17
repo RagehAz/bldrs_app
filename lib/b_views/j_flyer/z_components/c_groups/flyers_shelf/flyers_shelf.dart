@@ -34,12 +34,10 @@ class FlyersShelf extends StatelessWidget {
   static const double titleIconCorner = Ratioz.appBarButtonCorner;
   // -----------------------------------------------------------------------------
   static double shelfHeight({
-    @required BuildContext context,
     @required double flyerSizeFactor,
   }) {
 
     final double _flyerZoneHeight = FlyerDim.heightBySizeFactor(
-      context: context,
       flyerSizeFactor: flyerSizeFactor,
       forceMaxHeight: false,
     );
@@ -118,7 +116,6 @@ class FlyersShelf extends StatelessWidget {
           SizedBox(
             width: _screenWidth,
             height: FlyerDim.heightBySizeFactor(
-              context: context,
               flyerSizeFactor: flyerSizeFactor,
               forceMaxHeight: false,
             ),

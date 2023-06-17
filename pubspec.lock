@@ -104,10 +104,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "45df6ed07833acdbe2841af11d755026c81fecea"
+      resolved-ref: "521c05b88429580ce4d6f1cbf143a1f40df035bd"
       url: "https://github.com/RagehAz/bldrs_theme.git"
     source: git
-    version: "1.0.13"
+    version: "1.0.14"
   boolean_selector:
     dependency: transitive
     description:
@@ -174,7 +174,7 @@ packages:
     source: hosted
     version: "1.2.1"
   clipboard:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: clipboard
       sha256: "2ec38f0e59878008ceca0ab122e4bfde98847f88ef0f83331362ba4521f565a9"
@@ -503,10 +503,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "93072784e98424d93a344ebf5d8b5e9962626ba9"
+      resolved-ref: e0ea3750a42ad48d9f96c9f7f99fe33ff8835a0b
       url: "https://github.com/RagehAz/fire.git"
     source: git
-    version: "0.0.6"
+    version: "0.0.7"
   firebase_app_check:
     dependency: "direct main"
     description:

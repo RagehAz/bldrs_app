@@ -21,6 +21,7 @@ import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
+import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
@@ -282,18 +283,9 @@ Future<void> initializeAppState(BuildContext context) async {
 Future<void> _showUpdateAppDialog(BuildContext context) async {
 
   await CenterDialog.showCenterDialog(
-    titleVerse:  const Verse(
-      id: 'phid_new_app_update_available',
-      translate: true
-    ),
-    bodyVerse: const Verse(
-      id: 'phid_new_app_update_body',
-      translate: true,
-    ),
-    confirmButtonVerse: const Verse(
-      id: 'phid_update_app',
-      translate: true,
-    ),
+    titleVerse:  Verse.plain(Words.newUpdateAvailable()),
+    bodyVerse: Verse.plain(Words.pleaseUpdateToContinue()),
+    confirmButtonVerse: Verse.plain(Words.updateApp()),
     boolDialog: false,
   );
 
@@ -321,8 +313,7 @@ Future<void> initializeLocalAssetsPaths() async {
 
 /// APP LANGUAGE INITIALIZATION
 
-// --------------------
-/// TESTED : WORKS PERFECT
+// -------------------: WORKS PERFECT
 Future<void> initializeAppLanguage() async {
   // blog('_initializeAppLanguage : START');
 

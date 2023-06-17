@@ -9,6 +9,7 @@ import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
+import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:devicer/devicer.dart';
 import 'package:flutter/material.dart';
@@ -76,10 +77,7 @@ class GeneralProvider extends ChangeNotifier {
       /// SHOW CONNECTED DIALOG
       if (isConnected == true) {
         await TopDialog.showTopDialog(
-          firstVerse: const Verse(
-            id: 'phid_connected',
-            translate: true,
-          ),
+          firstVerse: Verse.plain(Words.connected()),
           color: Colorz.green255,
           textColor: Colorz.white255,
           // seconds: 2,
@@ -89,14 +87,8 @@ class GeneralProvider extends ChangeNotifier {
       /// SHOW DISCONNECTED DIALOG
       else {
         await TopDialog.showTopDialog(
-          firstVerse: const Verse(
-            id: 'phid_disconnected',
-            translate: true,
-          ),
-          secondVerse: const Verse(
-            id: 'phid_check_your_internet_connection',
-            translate: true,
-          ),
+          firstVerse: Verse.plain(Words.disconnected()),
+          secondVerse: Verse.plain(Words.checkYourInternetConnection()),
           color: Colorz.red255,
           textColor: Colorz.white255,
         );

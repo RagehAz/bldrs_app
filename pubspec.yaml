@@ -112,7 +112,7 @@ dependencies:
   firebase_database: ^10.0.3
   another_flushbar: ^1.10.26
   awesome_notifications: ^0.6.21
-  clipboard: ^0.1.3
+#  clipboard: ^0.1.3
   cloud_functions: ^4.0.3
   dismissible_page: ^0.7.3
   email_validator: ^2.0.1

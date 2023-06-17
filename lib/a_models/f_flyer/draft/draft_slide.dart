@@ -49,7 +49,6 @@ class DraftSlide {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<DraftSlide>> createDrafts({
-    @required BuildContext context,
     @required List<Uint8List> bytezz,
     @required List<DraftSlide> existingDrafts,
     @required String headline,
@@ -68,7 +67,6 @@ class DraftSlide {
 
         /// B1 - CREATE NEW DRAFT SLIDE
         final DraftSlide _newSlide = await createDraft(
-          context: context,
           bytes: _bytes,
           index: _newSlideIndex,
           headline: _newSlideIndex  == 0 ? headline : null,
@@ -89,7 +87,6 @@ class DraftSlide {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<DraftSlide> createDraft({
-    @required BuildContext context,
     @required Uint8List bytes,
     @required int index,
     @required String headline,
@@ -124,9 +121,8 @@ class DraftSlide {
         picFit: Dimensions.concludeBoxFit(
           picWidth: _dimensions?.width,
           picHeight: _dimensions?.height,
-          viewWidth: FlyerDim.flyerWidthByFactor(context, 1),
+          viewWidth: FlyerDim.flyerWidthByFactor(1),
           viewHeight: FlyerDim.heightBySizeFactor(
-            context: context,
             flyerSizeFactor: 1,
             forceMaxHeight: false,
           ),

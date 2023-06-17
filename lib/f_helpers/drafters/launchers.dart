@@ -129,7 +129,7 @@ class Launcher {
 
         blog('cant launch email');
 
-        await Keyboard.copyToClipboard(
+        await Keyboard.copyToClipboardAndNotify(
           copy: email,
           milliseconds: 3000,
         );
