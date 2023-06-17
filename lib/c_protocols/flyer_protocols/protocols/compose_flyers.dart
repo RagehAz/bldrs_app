@@ -17,6 +17,7 @@ import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
 import 'package:bldrs/c_protocols/zone_phids_protocols/zone_phids_real_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_leveller.dart';
+import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:fire/super_fire.dart';
 import 'package:filers/filers.dart';
@@ -56,7 +57,7 @@ class ComposeFlyerProtocols {
           flyerID: flyerID,
         );
 
-        final FlyerModel _flyerToPublish = await DraftFlyer.draftToFlyer(
+        FlyerModel _flyerToPublish = await DraftFlyer.draftToFlyer(
           draft: _draftWithID,
           toLDB: false,
           isPublishing: true,
@@ -75,11 +76,20 @@ class ComposeFlyerProtocols {
           draftFlyer: draftFlyer,
         );
 
+        /// CREATE SHARE LINK
+        _flyerToPublish = _flyerToPublish.copyWith(
+          shareLink: await BldrsShareLink.generateFlyerLink(
+            flyerID: _flyerToPublish.id,
+            flyerType: _flyerToPublish.flyerType,
+            headline: _flyerToPublish.headline,
+          ),
+        );
+
+
         await Future.wait(<Future>[
 
           /// UPDATE FLYER DOC
           FlyerFireOps.updateFlyerDoc(_flyerToPublish),
-
 
           /// UPLOAD SLIDES PICS
           PicProtocols.composePics(DraftSlide.getPicModels(_draftWithID.draftSlides)),
