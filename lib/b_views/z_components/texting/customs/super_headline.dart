@@ -23,7 +23,7 @@ class SuperHeadline extends StatelessWidget {
 
     return BldrsText(
       verse: verse,
-      width: width ?? BldrsAppBar.width(context),
+      width: width ?? BldrsAppBar.width(),
       size: 5,
       maxLines: 2,
       color: color,

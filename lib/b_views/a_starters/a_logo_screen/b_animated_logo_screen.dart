@@ -279,9 +279,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
             fadeType: FadeType.fadeOut,
             curve: Curves.easeOutQuint,
             duration: Duration(milliseconds: 400),
-            child: LogoSlogan(
-              sizeFactor: 0.75,
-            ),
+            child: LogoSlogan(),
           ),
 
           /// SLIDING LOGO

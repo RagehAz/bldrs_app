@@ -74,7 +74,7 @@ class BldrsAppBarTree extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _boxWidth = BldrsAppBar.width(context);
+    final double _boxWidth = BldrsAppBar.width();
     final double _collapsedHeight = BldrsAppBar.collapsedHeight(context, appBarType);
     // --------------------
     final bool _sectionButtonIsOn = _sectionButtonIsOnCheck();

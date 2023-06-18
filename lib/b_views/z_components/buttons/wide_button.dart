@@ -39,7 +39,7 @@ class WideButton extends StatelessWidget {
 
     return BldrsBox(
       height: height,
-      width: width ?? BldrsAppBar.width(context),
+      width: width ?? BldrsAppBar.width(),
       verse: verse,
       verseColor: verseColor,
       verseScaleFactor: verseScaleFactor,

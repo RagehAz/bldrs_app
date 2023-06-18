@@ -98,7 +98,7 @@ class ChainSplitter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _width = width ?? BldrsAppBar.width(context);
+    final double _width = width ?? BldrsAppBar.width();
     // --------------------
     /// IF SON IS A PHID
     if (Phider.checkIsPhid(chainOrChainsOrSonOrSons) == true) {

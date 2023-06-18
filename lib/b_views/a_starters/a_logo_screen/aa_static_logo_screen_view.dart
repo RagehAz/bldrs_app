@@ -34,7 +34,6 @@ class LogoScreenView extends StatelessWidget {
             child: const LogoSlogan(
               showTagLine: true,
               showSlogan: true,
-              sizeFactor: 0.8,
             ),
           ),
 
@@ -42,7 +41,6 @@ class LogoScreenView extends StatelessWidget {
             const LogoSlogan(
               showTagLine: true,
               showSlogan: true,
-              sizeFactor: 0.8,
             ),
 
           SizedBox(

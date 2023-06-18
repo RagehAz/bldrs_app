@@ -73,7 +73,7 @@ class UserTileButtonsList extends StatelessWidget {
                       );
 
                       return UserTileButtonOld(
-                        boxWidth: BldrsAppBar.width(context),
+                        boxWidth: BldrsAppBar.width(),
                         userModel: _user,
                         color: _buttonColor,
                         onUserTap: () => onUserTap(_user),

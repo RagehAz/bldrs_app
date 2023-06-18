@@ -95,7 +95,7 @@ class AuthorCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _bubbleWidth = bubbleWidth ?? BldrsAppBar.width(context);
+    final double _bubbleWidth = bubbleWidth ?? BldrsAppBar.width();
     // --------------------
     final double _textAreaBoxWidth = authorTextDetailsClearWidth(
         context: context,

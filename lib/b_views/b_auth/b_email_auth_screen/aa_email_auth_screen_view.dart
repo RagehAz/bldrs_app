@@ -8,6 +8,7 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/bldrs_floating_list.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -18,7 +19,6 @@ import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:legalizer/legalizer.dart';
 import 'package:mapper/mapper.dart';
-import 'package:scale/scale.dart';
 
 class EmailAuthScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -99,11 +99,7 @@ class EmailAuthScreenView extends StatelessWidget {
     const double _buttonHeight = 50;
     const double _verseScaleFactor = 0.7;
     // --------------------
-    final double _bubbleWidth = Scale.responsive(
-        context: context,
-        landscape: Scale.adaptiveHeight(context, 0.6),
-        portrait: Scale.adaptiveWidth(context, 0.6),
-    );
+    final double _bubbleWidth = BldrsAppBar.responsiveWidth();
     // --------------------
     return Form(
       key: formKey,
@@ -210,6 +206,7 @@ class EmailAuthScreenView extends StatelessWidget {
                 builder: (_, bool rememberMe, Widget child){
 
                   return BldrsTileBubble(
+                    bubbleWidth: _bubbleWidth,
                     bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                       context: context,
                       headlineVerse: const Verse(

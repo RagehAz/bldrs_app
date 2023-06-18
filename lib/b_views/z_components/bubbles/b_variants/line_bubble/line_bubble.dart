@@ -24,7 +24,7 @@ class LineBubble extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: width ?? BldrsAppBar.width(context),
+        width: width ?? BldrsAppBar.width(),
         alignment: alignment ?? Alignment.center,
         decoration: const BoxDecoration(
           color: Colorz.white20,

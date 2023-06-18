@@ -51,7 +51,13 @@ class CenterDialog extends StatelessWidget {
 
   // --------------------
   static double getWidth(BuildContext context) {
-    return Scale.screenWidth(context) * 0.85;
+
+    return Scale.responsive(
+      context: context,
+      landscape: Scale.screenShortestSide(context) * 0.85,
+      portrait: Scale.screenWidth(context) * 0.85,
+    );
+
   }
   // --------------------
   static double clearWidth(BuildContext context){

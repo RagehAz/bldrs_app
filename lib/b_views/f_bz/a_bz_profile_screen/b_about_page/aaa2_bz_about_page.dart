@@ -130,8 +130,8 @@ class AboutBzBubbles extends StatelessWidget {
 
         /// BZ BANNER
         BzBanner(
-          boxWidth: BldrsAppBar.width(context),
-          boxHeight: BldrsAppBar.width(context),
+          boxWidth: BldrsAppBar.width(),
+          boxHeight: BldrsAppBar.width(),
           // margins: 10,
           bzModel: bzModel,
           corners: Bubble.cornersValue,

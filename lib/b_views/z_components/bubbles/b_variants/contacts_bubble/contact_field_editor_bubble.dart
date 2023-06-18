@@ -145,7 +145,7 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
     );
     // --------------------
     /// CLEAR WIDTH - SPACING
-    final double _bubbleWidth = BldrsAppBar.width(context);
+    final double _bubbleWidth = BldrsAppBar.width();
     final double bubbleClearWidth = Bubble.clearWidth(context: context);
     const double _spacer = 5;
     /// LEADING ICON SIZE

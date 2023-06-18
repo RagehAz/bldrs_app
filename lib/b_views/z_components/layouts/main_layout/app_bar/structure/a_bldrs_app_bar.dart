@@ -60,12 +60,25 @@ class BldrsAppBar extends StatelessWidget {
   /// SCALE
 
   // --------------------
-  static double width(BuildContext context) {
-    return Scale.screenWidth(context) - (2 * Ratioz.appBarMargin);
+  static double width() {
+    return Scale.screenWidth(getMainContext()) - (2 * Ratioz.appBarMargin);
+  }
+  // --------------------
+  static double responsiveWidth() {
+
+    final BuildContext context = getMainContext();
+    final double _appBarWidth = BldrsAppBar.width();
+
+    return Scale.responsive(
+      context: context,
+      landscape: Scale.screenShortestSide(context) - (2 * Ratioz.appBarMargin),
+      portrait: _appBarWidth,
+    );
+
   }
   // --------------------
   static double clearWidth(BuildContext context){
-    return width(context) - (2 * Ratioz.appBarPadding);
+    return width() - (2 * Ratioz.appBarPadding);
   }
   // --------------------
   static double collapsedHeight(BuildContext context, AppBarType appBarType) {
@@ -155,7 +168,7 @@ class BldrsAppBar extends StatelessWidget {
         BldrsAppBar.collapsedHeight(context, appBarType)
             +
         StaticProgressBar.getBoxHeight(
-          flyerBoxWidth: width(context),
+          flyerBoxWidth: width(),
           stripThicknessFactor: 0.4,
         );
 

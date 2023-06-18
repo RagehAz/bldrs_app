@@ -38,7 +38,7 @@ class UserNeedsBanner extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Bubble(
-      width: BldrsAppBar.width(context),
+      width: BldrsAppBar.width(),
       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
         context: context,
         hasMoreButton: true,

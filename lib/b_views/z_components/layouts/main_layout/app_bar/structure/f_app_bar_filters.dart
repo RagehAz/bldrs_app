@@ -14,7 +14,7 @@ class AppBarFilters extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _boxWidth = BldrsAppBar.width(context);
+    final double _boxWidth = BldrsAppBar.width();
 
     final double _filtersTopMargin = BldrsAppBar.getFiltersTopMargin(
       context: context,
