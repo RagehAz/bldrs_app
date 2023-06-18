@@ -20,7 +20,7 @@ class BzAuthorsBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     return Bubble(
-      width: BldrsAppBar.width(context),
+      width: BldrsAppBar.width(),
       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
         context: context,
         headlineVerse: const Verse(
@@ -37,7 +37,7 @@ class BzAuthorsBubble extends StatelessWidget {
           final AuthorModel _author = bzModel.authors[index];
 
           return AuthorLabel(
-            flyerBoxWidth: BldrsAppBar.width(context),
+            flyerBoxWidth: BldrsAppBar.width(),
             authorID: _author.userID,
             bzModel: bzModel,
             showLabel: true,

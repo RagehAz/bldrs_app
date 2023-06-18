@@ -89,7 +89,7 @@ class PageBubble extends StatelessWidget {
   }
   // --------------------
   static double width(BuildContext context, {double override}){
-    return override ?? BldrsAppBar.width(context);
+    return override ?? BldrsAppBar.width();
   }
   // --------------------
   static double clearWidth(BuildContext context){

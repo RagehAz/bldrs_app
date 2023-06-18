@@ -89,7 +89,7 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _bubbleWidth = widget.width ?? BldrsAppBar.width(context);
+    final double _bubbleWidth = widget.width ?? BldrsAppBar.width();
     // --------------------
     return Bubble(
       key:  const ValueKey<String>('NumberDataCreator'),

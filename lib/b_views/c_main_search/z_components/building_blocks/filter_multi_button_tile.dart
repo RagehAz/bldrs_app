@@ -39,7 +39,7 @@ class FilterMultiButtonTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _tileWidth = SuperSearchScreen.getFilterTileWidth(context);
+    final double _tileWidth = SuperSearchScreen.getFilterTileWidth();
 
     return TileBubble(
       bubbleWidth: _tileWidth,

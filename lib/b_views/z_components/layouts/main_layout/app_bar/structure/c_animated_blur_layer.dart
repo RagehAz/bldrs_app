@@ -25,7 +25,7 @@ class AppBarBlurLayer extends StatelessWidget {
 
       if (isExpanded == null){
         return BlurLayer(
-          width: BldrsAppBar.width(context),
+          width: BldrsAppBar.width(),
           height: BldrsAppBar.collapsedHeight(context, appBarType),
           blur: BldrsAppBar.blur,
           blurIsOn: true,
@@ -44,7 +44,7 @@ class AppBarBlurLayer extends StatelessWidget {
                   return AnimatedContainer(
                     duration: BldrsAppBar.expansionDuration,
                     curve: BldrsAppBar.expansionCurve,
-                    width: BldrsAppBar.width(context),
+                    width: BldrsAppBar.width(),
                     height: expanded == true ?
                     BldrsAppBar.expandedHeight(
                       context: context,

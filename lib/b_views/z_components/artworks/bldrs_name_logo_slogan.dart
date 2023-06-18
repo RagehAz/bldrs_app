@@ -9,31 +9,24 @@ import 'package:websafe_svg/websafe_svg.dart';
 class LogoSlogan extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const LogoSlogan({
-    this.sizeFactor = 1,
     this.showTagLine = false,
     this.showSlogan = false,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final double sizeFactor;
   final bool showTagLine;
   final bool showSlogan;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _screenHeight = Scale.screenHeight(context);
-    final double _logoWidth = _screenHeight * 22 * 0.016 * sizeFactor;
-    final double _logoHeight = _screenHeight * 18 * 0.016 * sizeFactor;
+    final double _shortest = Scale.screenShortestSide(context);
+    final double _logoWidth = _shortest * 0.5;//_screenHeight * 22 * 0.016 * sizeFactor;
+    final double _logoHeight = _logoWidth * 0.8;//_screenHeight * 18 * 0.016 * sizeFactor;
     // --------------------
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-
-        /// TOP SPACER
-        SizedBox(
-          height: _screenHeight * 0.005,
-        ),
 
         /// NAME & LOGO
         Container(
@@ -51,46 +44,37 @@ class LogoSlogan extends StatelessWidget {
 
         /// SLOGAN
         if (showSlogan == true)
-          SizedBox(
+          BldrsText(
             width: _logoWidth,
-            child: BldrsText(
-              verse: Verse(
-                id: Words.bldrsTagLine(),
-                pseudo: "The Builder's Network\nReal Estate\nConstruction\nSupplies",
-                translate: false,
-                casing: Casing.upperCase,
-              ),
-              size: 3,
-              shadow: true,
-              weight: VerseWeight.black,
-              centered: false,
-              italic: true,
-              scaleFactor: sizeFactor,
-              maxLines: 3,
-              margin: _logoWidth * 0.025,
+            verse: Verse(
+              id: Words.bldrsTagLine(),
+              translate: false,
+              casing: Casing.upperCase,
             ),
+            size: 3,
+            shadow: true,
+            weight: VerseWeight.black,
+            italic: true,
+            scaleFactor: _logoWidth * 0.004,
+            maxLines: 10,
+            margin: _logoWidth * 0.025,
           ),
 
         /// TAG LINE
         if (showTagLine == true)
-          SizedBox(
+          BldrsText(
             width: _logoWidth,
-            // height: _logoHeight * 0.7,
-            child: BldrsText(
-              verse: Verse(
-                pseudo: 'Connect with\nArchitects,\nInterior designers, Contractors\nAnd Artisans',
-                translate: false,
-                id: Words.bldrsDescription(),
-              ),
-              size: 3,
-              weight: VerseWeight.thin,
-              shadow: true,
-              centered: false,
-              italic: true,
-              maxLines: 5,
-              scaleFactor: sizeFactor,
-              margin: _logoWidth * 0.025,
+            verse: Verse(
+              translate: false,
+              id: Words.bldrsDescription(),
             ),
+            size: 3,
+            weight: VerseWeight.thin,
+            shadow: true,
+            italic: true,
+            maxLines: 10,
+            scaleFactor: _logoWidth * 0.003,
+            margin: _logoWidth * 0.025,
           ),
 
       ],

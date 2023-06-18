@@ -484,9 +484,9 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
       const SizedBox()
           :
       CornerWidgetMaximizer(
-        maxWidth: BldrsAppBar.width(context),
+        maxWidth: BldrsAppBar.width(),
         minWidth: 170,
-        childWidth: BldrsAppBar.width(context),
+        childWidth: BldrsAppBar.width(),
 
         /// FLYER SHELF IN SELECTED PHIDS PANEL
         topChild: widget.flyerModel == null ?
@@ -516,7 +516,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
               titleVerse: _verse,
               phids: selectedPhids,
               addButtonIsOn: false,
-              bubbleWidth: BldrsAppBar.width(context),
+              bubbleWidth: BldrsAppBar.width(),
               maxLines: 3,
               scrollController: _selectedPhidsScrollController,
               onPhidTap: (String phid) => _onPhidTap(
