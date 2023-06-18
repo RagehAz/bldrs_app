@@ -104,10 +104,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "521c05b88429580ce4d6f1cbf143a1f40df035bd"
+      resolved-ref: c0b4dc5399ec2b5207cad56fe80081ed40af3cef
       url: "https://github.com/RagehAz/bldrs_theme.git"
     source: git
-    version: "1.0.14"
+    version: "1.0.16"
   boolean_selector:
     dependency: transitive
     description:
@@ -121,10 +121,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "83c955cb56d7343c2cd31ee70d88bcb850ac9cfc"
+      resolved-ref: "9e95ac65225773b2b55d2933a470c103e86f213b"
       url: "https://github.com/RagehAz/bubbles.git"
     source: git
-    version: "0.0.9"
+    version: "1.0.0"
   camera:
     dependency: transitive
     description:
@@ -1182,10 +1182,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "389e67caacb6699978421df0f9c58e0443dd53d8"
+      resolved-ref: a19f8e57a012d350f07e2b7937a3c22b41bf6970
       url: "https://github.com/RagehAz/legalizer.git"
     source: git
-    version: "0.0.5"
+    version: "0.0.6"
   lint:
     dependency: "direct dev"
     description:
@@ -1588,10 +1588,10 @@ packages:
     dependency: transitive
     description:
       name: sembast
-      sha256: "84ee4fc05804f88f3f29326cb50b7de23e760d98fd42baabc6af702dff8e6bb9"
+      sha256: c35f2d3a5ff1c9724d887c18de6846ad090d34fdd45419a5c5abc6c2d5e638e7
       url: "https://pub.dev"
     source: hosted
-    version: "3.4.7"
+    version: "3.4.8"
   sembast_web:
     dependency: transitive
     description:
