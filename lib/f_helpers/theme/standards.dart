@@ -23,10 +23,10 @@ class Standards {
   // -------
   /// TASK : bldrs_app_publish_link add android and ios app store link : and do bldrs web as well
   static const String iosAppStoreURL = 'www.apple.com';
-  static const String androidAppStoreURL = 'www.google.com';
+  static const String androidAppStoreURL = 'https://play.google.com/store/apps/details?id=net.bldrs.app';
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getBldrsAppUpdateLink(BuildContext context){
+  static String getBldrsStoreLink(){
 
     String _url;
 

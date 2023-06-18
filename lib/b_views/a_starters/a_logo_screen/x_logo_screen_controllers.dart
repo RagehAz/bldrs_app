@@ -292,7 +292,7 @@ Future<void> _showUpdateAppDialog(BuildContext context) async {
   await Launcher.launchContactModel(
     contact: ContactModel(
       type: ContactType.website,
-      value: Standards.getBldrsAppUpdateLink(context),
+      value: Standards.getBldrsStoreLink(),
     ),
   );
 
