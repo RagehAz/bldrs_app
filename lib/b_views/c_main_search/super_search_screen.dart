@@ -41,8 +41,8 @@ class SuperSearchScreen extends StatefulWidget {
   @override
   _SuperSearchScreenState createState() => _SuperSearchScreenState();
   // --------------------------------------------------------------------------
-    static double getFilterTileWidth(BuildContext context){
-    final double _appBarWidth = BldrsAppBar.width(context);
+    static double getFilterTileWidth(){
+    final double _appBarWidth = BldrsAppBar.width();
     return _appBarWidth - 20;
   }
   // --------------------------------------------------------------------------

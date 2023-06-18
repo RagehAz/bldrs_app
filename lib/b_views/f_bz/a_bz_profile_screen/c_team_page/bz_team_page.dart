@@ -137,7 +137,7 @@ class _BzTeamPageState extends State<BzTeamPage> {
                   const DotSeparator(),
 
                   BldrsBox(
-                    width: (widget.bubbleWidth ?? BldrsAppBar.width(context)) - 20,
+                    width: (widget.bubbleWidth ?? BldrsAppBar.width()) - 20,
                     height: 80,
                     bubble: false,
                     color: Colorz.white10,

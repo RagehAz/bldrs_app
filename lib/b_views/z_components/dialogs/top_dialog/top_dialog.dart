@@ -71,7 +71,7 @@ class TopDialog extends StatelessWidget {
   }) async {
 
     final double _screenWidth = Scale.screenWidth(getMainContext());
-    final double _bubbleWidth = BldrsAppBar.width(getMainContext());
+    final double _bubbleWidth = BldrsAppBar.width();
 
     // final GlobalKey _key = UiProvider.proGetTopDialogKey(context: getMainContext(), listen: false,);
     // final Flushbar _flushbar = _key?.currentWidget;

@@ -40,7 +40,6 @@ class AboutBldrsScreen extends StatelessWidget {
 
           /// LOGO
           const LogoSlogan(
-            sizeFactor: 0.7,
             showSlogan: true,
           ),
 

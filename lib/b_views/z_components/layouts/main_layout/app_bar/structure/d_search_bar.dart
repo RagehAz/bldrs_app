@@ -77,7 +77,7 @@ class _SearchBarState extends State<SearchBar> {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _appBarClearWidth = BldrsAppBar.width(context);
+    final double _appBarClearWidth = BldrsAppBar.width();
     const double _padding = Ratioz.appBarPadding;
     final double _searchButtonWidth = widget.searchButtonIsOn == true ? 40 : 0;
     const double _searchButtonHeight = 40;

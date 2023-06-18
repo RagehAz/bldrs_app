@@ -29,7 +29,7 @@ class GoogleAd extends StatelessWidget {
 
       return BldrsBox(
         height: adSize.height.toDouble(),
-        width: BldrsAppBar.width(context),//adSize.width.toDouble(),
+        width: BldrsAppBar.width(),//adSize.width.toDouble(),
         icon: Iconz.advertise,
         iconSizeFactor: 0.5,
         iconColor: Colorz.white10,
@@ -199,7 +199,7 @@ class GoogleAdStripBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return GoogleAd(
       adSize: AdSize.banner,
-      stretchToWidth: BldrsAppBar.width(context),
+      stretchToWidth: BldrsAppBar.width(),
     );
   }
   /// --------------------------------------------------------------------------
@@ -216,7 +216,7 @@ class GoogleAdRectangleBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return GoogleAd(
       adSize: AdSize.largeBanner,
-      stretchToWidth: BldrsAppBar.width(context),
+      stretchToWidth: BldrsAppBar.width(),
     );
   }
 /// --------------------------------------------------------------------------
@@ -234,7 +234,7 @@ class GoogleAdSquareBanner extends StatelessWidget {
 
     return GoogleAd(
       adSize: AdSize.mediumRectangle,
-      stretchToWidth: BldrsAppBar.width(context),
+      stretchToWidth: BldrsAppBar.width(),
     );
 
   }
@@ -254,7 +254,7 @@ class GoogleAdSlideBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _slideWidth = flyerBoxWidth ?? BldrsAppBar.width(context);
+    final double _slideWidth = flyerBoxWidth ?? BldrsAppBar.width();
 
     return GoogleAd(
       adSize: AdSize(

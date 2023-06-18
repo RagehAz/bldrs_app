@@ -16,7 +16,7 @@ class AppBarProgressBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _abWidth = BldrsAppBar.width(context);
+    final double _abWidth = BldrsAppBar.width();
     // --------------------
     final double _appBarHeight = BldrsAppBar.collapsedHeight(context, appBarType);
     // --------------------
