@@ -103,7 +103,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
           translate: true,
         ),
       ),
-      width: widget.width ?? BldrsAppBar.width(context),
+      width: widget.width ?? BldrsAppBar.width(),
       columnChildren: <Widget>[
 
         // /// BULLET POINTS

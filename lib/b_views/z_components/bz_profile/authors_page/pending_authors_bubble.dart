@@ -35,7 +35,7 @@ class PendingAuthorsBubble extends StatelessWidget {
             translate: true,
           ),
         ),
-        width: BldrsAppBar.width(context),
+        width: BldrsAppBar.width(),
         // onBubbleTap: (){
         //   NoteModel.blogNotes(notes: _notes);
         // },

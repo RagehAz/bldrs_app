@@ -35,7 +35,7 @@ double getWidth({
 }){
 
   if (model?.isWide == true){
-    return BldrsAppBar.width(context);
+    return BldrsAppBar.width();
   }
 
   else if (model.firstLine.id.length > 20){

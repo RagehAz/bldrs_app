@@ -1,15 +1,18 @@
-import 'package:fire/super_fire.dart';
 import 'package:bldrs/b_views/b_auth/b_email_auth_screen/a_email_auth_screen.dart';
 import 'package:bldrs/b_views/b_auth/x_auth_controllers.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/b_views/z_components/buttons/main_button.dart';
+import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:devicer/devicer.dart';
 import 'package:filers/filers.dart';
+import 'package:fire/super_fire.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:legalizer/legalizer.dart';
@@ -24,19 +27,18 @@ class AuthScreenView extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final List<SignInMethod> methods = [
-      if (DeviceChecker.deviceIsIOS() == true) SignInMethod.apple,
+      if (DeviceChecker.deviceIsIOS() == true)
+        SignInMethod.apple,
       SignInMethod.google,
       SignInMethod.facebook
     ];
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
+    return FloatingList(
+      padding: Stratosphere.stratosphereSandwich,
+      columnChildren: <Widget>[
 
         const LogoSlogan(
-          showTagLine: true,
           showSlogan: true,
-          sizeFactor: 0.8,
         ),
 
         const SizedBox(
@@ -50,7 +52,6 @@ class AuthScreenView extends StatelessWidget {
             translate: true,
           ),
           icon: Iconz.comEmail,
-          buttonColor: Colorz.white10,
           buttonVerseShadow: false,
           onTap: () async {
 
@@ -63,14 +64,15 @@ class AuthScreenView extends StatelessWidget {
         ),
 
         /// SOCIAL AUTH BUTTONS
+        if (kDebugMode == true)
         SizedBox(
           width:  MainButton.getButtonWidth(
             context: context,
-            stretched: false,
           ),
           height: SocialAuthButton.standardSize,
           child: Row(
             children: <Widget>[
+
               ...List.generate(methods.length, (index) {
                 return SocialAuthButton(
                   signInMethod: methods[index],
@@ -88,6 +90,7 @@ class AuthScreenView extends StatelessWidget {
                   manualAuthing: DeviceChecker.deviceIsAndroid(),
                 );
               }),
+
             ],
           ),
         ),
@@ -100,6 +103,7 @@ class AuthScreenView extends StatelessWidget {
           andLine: Verse.transBake('phid_and'),
           policyLine: Verse.transBake('phid_privacy_policy'),
           termsLine: Verse.transBake('phid_terms_of_service'),
+          textDirection: UiProvider.getAppTextDir(),
         ),
 
       ],

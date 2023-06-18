@@ -48,7 +48,7 @@ class FlyerReviewsScreenView extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 4.5),
           child: SeparatorLine(
-            width: BldrsAppBar.width(context),
+            width: BldrsAppBar.width(),
           ),
         ),
 

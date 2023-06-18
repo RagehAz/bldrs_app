@@ -38,7 +38,7 @@ class PickerTile extends StatelessWidget {
   }
   // --------------------
   static double getDefaultWidth(BuildContext context) {
-    final double _specTileWidth = BldrsAppBar.width(context);
+    final double _specTileWidth = BldrsAppBar.width();
     return _specTileWidth;
   }
   // -----------------------------------------------------------------------------

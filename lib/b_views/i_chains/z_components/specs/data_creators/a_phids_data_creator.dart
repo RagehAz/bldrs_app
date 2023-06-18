@@ -46,7 +46,7 @@ class PhidsDataCreator extends StatelessWidget {
       height: allowableHeight,
       width: width,
       child: ChainSplitter(
-        width: width ?? BldrsAppBar.width(context),
+        width: width ?? BldrsAppBar.width(),
         previousPath: specPicker.chainID,
         chainOrChainsOrSonOrSons: Chain.filterSpecPickerChainRange(
           picker: specPicker,
@@ -92,7 +92,7 @@ class PickersViewBox extends StatelessWidget {
     final double _boxHeight = height - ( Ratioz.appBarMargin);
     // --------------------
     return Container(
-      width: width ?? BldrsAppBar.width(context),
+      width: width ?? BldrsAppBar.width(),
       height: _boxHeight,
       decoration: const BoxDecoration(
         color: Colorz.white10,
