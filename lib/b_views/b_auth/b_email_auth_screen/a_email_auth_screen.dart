@@ -1,19 +1,15 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/a_user/account_model.dart';
 import 'package:bldrs/b_views/b_auth/b_email_auth_screen/aa_email_auth_screen_view.dart';
 import 'package:bldrs/b_views/b_auth/x_auth_controllers.dart';
-import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
-import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:night_sky/night_sky.dart';
 import 'package:bldrs/c_protocols/auth_protocols/account_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
 import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
 import 'package:mapper/mapper.dart';
+import 'package:night_sky/night_sky.dart';
 
 class EmailAuthScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
