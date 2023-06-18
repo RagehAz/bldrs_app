@@ -1,0 +1,332 @@
+rules_version = '2';
+service cloud.firestore {
+
+  match /databases/{database}/documents {
+    // ------------------------------------------------------------
+
+    // LOCK DOWN
+
+    // ---------------------------
+    function isRageh(){
+      return getUserID() == "z0Obwze3JLYjoEl6uVeXfo4Luup1";
+    }
+    // ---------------------------
+    match /{document=**} {
+      allow read: if isAdmin();
+      allow write: if isRageh();
+    }
+    // ------------------------------------------------------------
+
+    // REQUEST
+
+    // ---------------------------
+    function getUserID(){
+      return request.auth.uid;
+    }
+    // ---------------------------
+    function isAuthenticated(){
+      return getUserID() != null;
+    }
+    // ---------------------------
+    function isAdmin(){
+      let userModel = getUserModel();
+      let isAdmin = userModel.isAdmin;
+      return isOnlineUser() && isAdmin;
+    }
+    // ------------------------------------------------------------
+
+    // USERS : db / users
+
+    // ---------------------------
+    function getUserModel(){
+      let userID = getUserID();
+      return get(/databases/$(database)/documents/users/$(userID)).data;
+    }
+    // ---------------------------
+    function hasUserModel(){
+      let userID = getUserID();
+      return exists(/databases/$(database)/documents/users/$(userID));
+    }
+    // ---------------------------
+    function isOnlineUser(){
+      return isAuthenticated() && hasUserModel();
+    }
+    // ---------------------------
+    match /users/{userID} {
+      allow create: if true; // test this later isAuthenticated()
+      allow read: if true;
+      allow update: if getUserID() == userID;
+      allow delete: if getUserID() == userID;
+    }
+    // ------------------------------------------------------------
+
+    // FLYERS : db / flyers
+
+    // ---------------------------
+    function getFlyerModel(flyerID){
+      return get(/databases/$(database)/documents/flyers/$(flyerID)).data;
+    }
+    // ---------------------------
+    function isFlyerBzTeamMember(flyerID){
+      let flyerModel = getFlyerModel(flyerID);
+      let isTeamMember = isBzAuthor(flyerModel.bzID);
+      return isTeamMember;
+    }
+    // ---------------------------
+    match /flyers/{flyerID} {
+      allow create: if isOnlineUser();
+      allow read: if true;
+      allow update: if isFlyerBzTeamMember(flyerID);
+      allow delete: if isFlyerBzTeamMember(flyerID);
+    }
+    // ---------------------------
+    match /flyersPromotions/{flyerID} {
+      allow create: if isAdmin();
+      allow read: if true;
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+    // ------------------------------------------------------------
+
+    // FLYERS : db / flyers / $flyerID / reviews
+
+    // ---------------------------
+    function getReviewModel(reviewID, flyerID){
+      return get(/databases/$(database)/documents/flyers/$(flyerID)/reviews/$(reviewID)).data;
+    }
+    // ---------------------------
+    function isReviewCreatorOrFlyerBzMember(reviewID, flyerID){
+    	let reviewModel = getReviewModel(reviewID, flyerID);
+    	let isBzTeamMemeber = isFlyerBzTeamMember(flyerID);
+      let isReviewCreator = getUserID() == reviewModel.userID;
+      return isBzTeamMemeber || isReviewCreator;
+    }
+    // ---------------------------
+    match /flyers/{flyerID}/reviews/{reviewID} {
+    	allow create: if isOnlineUser();
+      allow read: if true;
+      allow update: if isReviewCreatorOrFlyerBzMember(reviewID, flyerID);
+      allow delete: if isReviewCreatorOrFlyerBzMember(reviewID, flyerID);
+    }
+    // ------------------------------------------------------------
+
+    // BZZ : db / bzz
+
+    // ---------------------------
+    function isBzAuthor(bzID){
+      let userBzzIDs = getUserModel().myBzzIDs;
+
+      return bzID in userBzzIDs;
+    }
+    // ---------------------------
+    // function getBzModel(bzID){
+    //   return get(/databases/$(database)/documents/bzz/$(bzID)).data;
+    // }
+    // ---------------------------
+    // function isAuthor(){
+    //   return isAuthenticated() && getUserModel().myBzzIDs.length > 0;
+    // }
+    // ---------------------------
+    match /bzz/{bzID} {
+      allow create: if isOnlineUser();
+      allow read: if true;
+      allow update: if isBzAuthor(bzID);
+      allow delete: if isBzAuthor(bzID);
+    }
+    // ------------------------------------------------------------
+
+    // NOTES : db / notes
+
+    // ---------------------------
+    function getNoteModel(noteID){
+    	return get(/databases/$(database)/documents/notes/$(noteID)).data;
+    }
+    // ---------------------------
+    // function isNoteSender(noteID){
+    //   let noteModel = getNoteModel(noteID);
+    //   let senderID = noteModel.senderID;
+    //   return getUserID() == senderID;
+    // }
+    // ---------------------------
+    // function isNoteSenderOrReceiver(noteID){
+    //   let noteModel = getNoteModel(noteID);
+    //   let userID = getUserID();
+    //   let senderID = noteModel.senderID;
+    //   let receiverID = noteModel.receiverID;
+    //   let isSender = userID == senderID;
+    //   let isReceiver = userID == receiverID;
+    //   return isSender || isReceiver;
+    // }
+
+    // ---------------------------
+      function canEditNote(noteID){
+        let noteModel = getNoteModel(noteID);
+
+        let userID = getUserID();
+        let isSender = userID == noteModel.senderID;
+        let isReceiver = userID == noteModel.receiverID;
+
+  	    let senderIsBz = noteModel.senderType == "bz";
+        let isAuthorSender = senderIsBz == true ? isBzAuthor(noteModel.senderID) : false;
+        let receiverIsBz = noteModel.receiverType == "bz";
+        let isAuthorReceiver = receiverIsBz == true ? isBzAuthor(noteModel.receiverID) : false;
+
+      	return isSender || isAuthorSender || isReceiver || isAuthorReceiver;
+      }
+    // ---------------------------
+    match /notes/{noteID} {
+      allow create: if isOnlineUser();
+      allow read: if isOnlineUser();
+      allow update: if canEditNote(noteID);
+      allow delete: if canEditNote(noteID);
+    }
+    // ------------------------------------------------------------
+
+    // ZONE : db / zones
+
+    // ---------------------------
+    match /zones/{docName=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    // ------------------------------------------------------------
+
+    // PHRASES : db / phrases
+
+    // ---------------------------
+    match /phrases/{docName=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    // ------------------------------------------------------------
+
+    // CHAINS : db / chains
+
+    // ---------------------------
+    match /chains/{docName=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    // ------------------------------------------------------------
+
+    // RECORDS : db / records
+
+    // ---------------------------
+    function getRecordModel(recordID){
+      return get(/databases/$(database)/documents/records/$(recordID)).data;
+    }
+    // ---------------------------
+    function isRecordOwner(recordID){
+      let recordModel = getRecordModel(recordID);
+      return recordModel.userID ==  getUserID();
+    }
+    // ---------------------------
+    match /records/{recordID} {
+      allow create: if isOnlineUser();
+      allow read: if true;
+      allow update: if isRecordOwner(recordID);
+      allow delete: if isRecordOwner(recordID);
+    }
+    // ------------------------------------------------------------
+
+    // QUESTIONS : db / questions
+
+    // ---------------------------
+    function getQuestionModel(questionID){
+      return get(/databases/$(database)/documents/questions/$(questionID)).data;
+    }
+    // ---------------------------
+    function isQuestionOwner(questionID){
+      let questionModel = getQuestionModel(questionID);
+      let ownerID = questionModel.ownerID;
+      return getUserID() == ownerID;
+    }
+    // ---------------------------
+    match /questions/{questionID} {
+      allow create: if isOnlineUser();
+      allow read: if true;
+      allow update: if isQuestionOwner(questionID);
+      allow delete: if isQuestionOwner(questionID);
+    }
+    // ------------------------------------------------------------
+
+    // FEEDBACKS : db / feedbacks
+
+    // ---------------------------
+    match /feedbacks/{feedbackID} {
+      allow read: if true;
+      allow write: if isOnlineUser();
+    }
+    // ------------------------------------------------------------
+
+    // ADMIN : db / admin /
+
+    // ---------------------------
+    // APP STATE
+    match /admin/appState {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    // APP CONTROLS
+     match /admin/appControls {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    // SPONSORS
+    match /admin/sponsors {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    // STATISTICS
+    match /admin/statistics {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+   // NOUR
+    match /nour/{docID} {
+      allow read: if true;
+      allow write: if true;
+    }
+    // ------------------------------------------------------------
+
+    // STUFF
+
+    // ---------------------------
+    // function getFieldValue(fieldName){
+    //   return request.resource.data[fieldName];
+    // }
+    // ---------------------------
+    // function valueIsString(value){
+    //   return value is string;
+    // }
+    // ---------------------------
+    // function valueIsNumber(value){
+    //   return value is number;
+    // }
+    // ---------------------------
+    // function stringIsEmpty(stringValue){
+    //   return valueIsString(stringValue) && stringValue.size() > 0;
+    // }
+    // ---------------------------
+    // x -> db / collName / docName -> to specify specifc doc
+    // x -> db / collName / {docName} -> to get doc name and handle
+    // ------------------------------------------------------------
+
+    // OLD REFERENCES
+
+    // ---------------------------
+    // match /flyers/{flyerID}/counters/{docID} {
+    //   allow read: if true;
+    //   allow write: if false; // should be written only by a cloud function
+    // }
+    // ---------------------------
+    // match /flyers/{flyerID}/reviews/{reviewID} {
+    //   allow read: if true;
+    //   allow create: if isOnlineUser();
+    //   allow update: if getUserID() == reviewID;
+    //   allow delete: if getUserID() == reviewID;
+    // }
+    // ------------------------------------------------------------
+  }
+}
