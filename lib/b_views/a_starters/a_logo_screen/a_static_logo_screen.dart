@@ -8,6 +8,7 @@ import 'package:layouts/layouts.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
 
+
 class StaticLogoScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const StaticLogoScreen({
