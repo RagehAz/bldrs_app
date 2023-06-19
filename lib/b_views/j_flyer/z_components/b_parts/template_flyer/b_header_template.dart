@@ -50,6 +50,13 @@ class HeaderTemplate extends StatelessWidget {
       flyerBoxWidth: flyerBoxWidth,
     );
      */
+
+    final bool _tinyMode = FlyerDim.isTinyMode(
+      flyerBoxWidth: flyerBoxWidth,
+      gridWidth: _screenWidth,
+      gridHeight: Scale.screenHeight(context),
+    );
+
     // --------------------
     return Opacity(
       key: const ValueKey<String>('StaticHeader'),
@@ -81,7 +88,7 @@ class HeaderTemplate extends StatelessWidget {
                 flyerBoxWidth: flyerBoxWidth,
                 zeroCornerIsOn: flyerShowsAuthor,
               ),
-              zeroCornerIsOn: flyerShowsAuthor && FlyerDim.isTinyMode(context, flyerBoxWidth) == false,
+              zeroCornerIsOn: flyerShowsAuthor && _tinyMode == false,
             ),
 
             /// HEADER LABELS

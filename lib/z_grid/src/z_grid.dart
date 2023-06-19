@@ -69,6 +69,7 @@ class ZGrid extends StatelessWidget {
                       alignment: Alignment.topCenter,
                       children: <Widget>[
 
+                        /// BLUR LAYER
                         BlurLayer(
                           width: gridScale.gridWidth,
                           height: gridScale.gridHeight,

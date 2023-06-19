@@ -40,10 +40,13 @@ class SlidesShelf extends StatelessWidget {
         (Ratioz.appBarPadding * 5);
     // --------------------
     final double _flyerSizeFactor = FlyerDim.flyerFactorByFlyerHeight(
-      context: context,
       flyerBoxHeight: _flyerZoneHeight,
+      gridWidth: _screenWidth,
     );
-    final double _flyerZoneWidth = FlyerDim.flyerWidthByFactor(_flyerSizeFactor);
+    final double _flyerZoneWidth = FlyerDim.flyerWidthByFactor(
+      flyerSizeFactor: _flyerSizeFactor,
+      gridWidth: _screenWidth,
+    );
     final BorderRadius _flyerBorderRadius = FlyerDim.flyerCorners(context, _flyerZoneWidth);
     final double _titleZoneHeight = _flyerZoneWidth * 0.5;
     // --------------------

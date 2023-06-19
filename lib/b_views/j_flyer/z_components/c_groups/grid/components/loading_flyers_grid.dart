@@ -45,7 +45,7 @@ class LoadingFlyersGrid extends StatelessWidget {
         numberOfColumnsOrRows: numberOfColumnsOrRows,
         scrollDirection: scrollDirection,
         itemCount: FlyerDim.flyerGridNumberOfSlots(
-          flyersCount: 6,
+          flyersCount: 9,
           addFlyerButtonIsOn: false,
           isLoadingGrid: true,
           numberOfColumnsOrRows: numberOfColumnsOrRows,

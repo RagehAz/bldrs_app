@@ -900,7 +900,9 @@ class Dialogs {
     bool invertButtons = false,
   }) async {
 
-    final double _screenHeight = Scale.screenHeight(getMainContext());
+    final BuildContext context = getMainContext();
+    final double _screenWidth = Scale.screenWidth(context);
+    final double _screenHeight = Scale.screenHeight(context);
     final double _dialogHeight = _screenHeight * 0.7;
     final double _flyerBoxHeight = _dialogHeight * 0.5;
 
@@ -920,6 +922,8 @@ class Dialogs {
               flyerBoxHeight: _flyerBoxHeight,
             ),
             screenName: 'flyerDialogGrid',
+            gridHeight: _screenHeight,
+            gridWidth: _screenWidth,
           ),
         ),
       ),

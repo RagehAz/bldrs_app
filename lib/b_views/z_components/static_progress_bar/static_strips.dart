@@ -7,6 +7,7 @@ import 'package:animators/animators.dart';
 
 import 'package:flutter/material.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:scale/scale.dart';
 
 class StaticStrips extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -145,7 +146,13 @@ class StaticStrips extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (FlyerDim.isTinyMode(context, flyerBoxWidth) == true || barIsOn == false){
+    final bool _tinyMode = FlyerDim.isTinyMode(
+      flyerBoxWidth: flyerBoxWidth,
+      gridWidth: Scale.screenWidth(context),
+      gridHeight: Scale.screenHeight(context),
+    );
+
+    if (_tinyMode == true || barIsOn == false){
       return const SizedBox();
     }
 

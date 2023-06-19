@@ -22,6 +22,8 @@ class HeroicSmallFlyer extends StatelessWidget {
     @required this.renderedFlyer,
     @required this.flyerBoxWidth,
     @required this.heroTag,
+    @required this.gridHeight,
+    @required this.gridWidth,
     this.onMoreTap,
     this.flightDirection = FlightDirection.non,
     this.canBuildBigFlyer = false,
@@ -34,6 +36,8 @@ class HeroicSmallFlyer extends StatelessWidget {
   final FlightDirection flightDirection;
   final String heroTag;
   final bool canBuildBigFlyer;
+  final double gridWidth;
+  final double gridHeight;
   // --------------------------------------------------------------------------
   /*
   /// TESTED : WORKS PERFECT
@@ -113,9 +117,14 @@ class HeroicSmallFlyer extends StatelessWidget {
 
     // final double _tweenValue = _bakeTweenValue(context:  context);
 
-    final bool _flyerIsBigNow = FlyerDim.checkFlyerIsFullScreen(context, flyerBoxWidth) == true
-        && flightDirection == FlightDirection.non;
-        // && _tweenValue == 1;
+    final bool _flyerIsFullScreen = FlyerDim.checkFlyerIsFullScreen(
+      gridWidth: gridWidth,
+      gridHeight: gridHeight,
+      flyerBoxWidth: flyerBoxWidth,
+    );
+
+    final bool _flyerIsBigNow = _flyerIsFullScreen == true && flightDirection == FlightDirection.non;
+    // && _tweenValue == 1;
 
     // final FadeType _fadeType = _getFadeType(flyerIsBigNow: _flyerIsBigNow);
     // final Duration _duration = _getFadeDuration(flyerIsBigNow: _flyerIsBigNow);

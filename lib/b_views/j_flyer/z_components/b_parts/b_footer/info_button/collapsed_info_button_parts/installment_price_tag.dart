@@ -10,6 +10,7 @@ import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:scale/scale.dart';
 
 class InstallmentsPriceTag extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -38,7 +39,10 @@ class InstallmentsPriceTag extends StatelessWidget {
     const double _currentPrice = 100000000;
     final String _currencyID = Flag.getCountryCurrencyID(_currentCountry?.id);
     // --------------------
-    final double _flyerSizeFactor = FlyerDim.flyerFactorByFlyerWidth(context, flyerBoxWidth);
+    final double _flyerSizeFactor = FlyerDim.flyerFactorByFlyerWidth(
+      flyerBoxWidth: flyerBoxWidth,
+      gridWidth: Scale.screenWidth(context),
+    );
     // --------------------
     return CollapsedInfoButtonBox(
       flyerBoxWidth: flyerBoxWidth,

@@ -39,21 +39,27 @@ class FlyersGridBuilder extends StatelessWidget {
       gridHeight: gridHeight,
       gridWidth: gridWidth,
     );
+
+    final double _gridWidth = FlyerDim.flyerGridWidth(
+      context: context,
+      givenGridWidth: gridWidth,
+    );
+
+    final double _gridHeight = FlyerDim.flyerGridHeight(
+      context: context,
+      givenGridHeight: gridHeight,
+    );
     // --------------------
     return SizedBox(
       key: const ValueKey<String>('FlyersGridBuilder'),
-      width: FlyerDim.flyerGridWidth(
-        context: context,
-        givenGridWidth: gridWidth,
-      ),
-      height: FlyerDim.flyerGridHeight(
-        context: context,
-        givenGridHeight: gridHeight,
-      ),
+      width: _gridWidth,
+      height: _gridHeight,
       child: GridView.builder(
           controller: scrollController,
           physics: scrollable == true ? const BouncingScrollPhysics() : const NeverScrollableScrollPhysics(),
           padding: FlyerDim.flyerGridPadding(
+            gridWidth: _gridWidth,
+            gridHeight: _gridHeight,
             context: context,
             topPaddingValue: topPadding,
             endPadding: bottomPadding,
