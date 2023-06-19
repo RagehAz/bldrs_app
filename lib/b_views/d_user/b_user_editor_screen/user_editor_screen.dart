@@ -339,18 +339,6 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
         goBackOnConfirm: true,
       ),
       confirmButtonModel: _confirmButtonModel,
-      appBarRowWidgets: [
-
-        AppBarButton(
-          verse: Verse.plain('blog'),
-          onTap: () async {
-
-            _draftUser.value.blogDraftUser();
-
-          },
-        ),
-
-      ],
       child: ValueListenableBuilder(
         valueListenable: _draftUser,
         builder: (_, DraftUser draft, Widget child){

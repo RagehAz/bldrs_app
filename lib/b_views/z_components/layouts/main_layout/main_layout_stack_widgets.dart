@@ -171,7 +171,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
 
         if (confirmButtonModel != null)
           Align(
-            alignment: BldrsAligners.superInverseBottomAlignment(context),
+            alignment: Alignment.bottomCenter,
             child: ConfirmButton(
               confirmButtonModel: confirmButtonModel,
             ),

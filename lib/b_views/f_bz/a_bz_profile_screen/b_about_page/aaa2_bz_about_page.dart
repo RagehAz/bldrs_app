@@ -14,6 +14,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/e_back_end/j_ads/google_ad.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
@@ -25,8 +26,6 @@ import 'package:mapper/mapper.dart';
 import 'package:provider/provider.dart';
 import 'package:scale/scale.dart';
 import 'package:stringer/stringer.dart';
-
-import '../../../../c_protocols/main_providers/ui_provider.dart';
 
 class BzAboutPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -125,12 +124,12 @@ class AboutBzBubbles extends StatelessWidget {
       padding: Stratosphere.stratosphereSandwich,
       children: <Widget>[
 
-        const GoogleAdRectangleBanner(),
+        // const GoogleAdRectangleBanner(),
 
         /// BZ BANNER
         BzBanner(
-          boxWidth: BldrsAppBar.width(),
-          boxHeight: BldrsAppBar.width(),
+          boxWidth: Bubble.bubbleWidth(context: context),
+          // boxHeight: BldrsAppBar.width(),
           // margins: 10,
           bzModel: bzModel,
           corners: Bubble.cornersValue,

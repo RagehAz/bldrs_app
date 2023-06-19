@@ -255,7 +255,6 @@ Future<void> onReviewOptions({
   final BuildContext context = getMainContext();
 
   await BottomDialog.showButtonsBottomDialog(
-      draggable: true,
       numberOfWidgets: 2,
       builder: (_){
 
@@ -595,7 +594,6 @@ Future<void> onReplyOptions({
   final BuildContext context = getMainContext();
 
   await BottomDialog.showButtonsBottomDialog(
-      draggable: true,
       numberOfWidgets: 2,
       builder: (_){
 
