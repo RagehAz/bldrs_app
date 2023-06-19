@@ -31,8 +31,11 @@ class ZGrid extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final EdgeInsets _topPaddingOnZoomedIn = EdgeInsets.only(
-      top: ZGridScale.getTopPaddingOnZoomIn(
-        topPaddingOnZoomIn: gridScale.topPaddingOnZoomIn,
+      top: ZGridScale.getCenteredTopPaddingOnZoomedIn(
+        columnCount: gridScale.columnCount,
+        gridWidth: gridScale.gridWidth,
+        itemAspectRatio: gridScale.itemAspectRatio,
+        gridHeight: gridScale.gridHeight,
       ),
     );
 
@@ -161,17 +164,17 @@ class ZGrid extends StatelessWidget {
                 controller: controller.scrollController,
                 gridDelegate: ZGridScale.getGridDelegate(
                   gridWidth: gridScale.gridWidth,
+                  gridHeight: gridScale.gridHeight,
                   columnCount: gridScale.columnCount,
                   itemAspectRatio: gridScale.itemAspectRatio,
-                  gridSidePadding: gridScale.gridSidePadding,
                 ),
                 padding: ZGridScale.getGridPadding(
                   topPaddingOnZoomOut: gridScale.topPaddingOnZoomOut,
                   gridWidth: gridScale.gridWidth,
+                  gridHeight: gridScale.gridHeight,
                   columnCount: gridScale.columnCount,
                   itemAspectRatio: gridScale.itemAspectRatio,
                   context: context,
-                  gridSidePadding: gridScale.gridSidePadding,
                   isZoomed: zoomed,
                   bottomPaddingOnZoomedOut: gridScale.bottomPaddingOnZoomedOut,
                 ),

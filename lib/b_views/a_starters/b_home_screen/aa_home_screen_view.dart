@@ -2,10 +2,10 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
 import 'package:bldrs/e_back_end/x_queries/flyers_queries.dart';
-import 'package:fire/super_fire.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:scale/scale.dart';
+import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
+import 'package:scale/scale.dart';
 
 class HomeFlyersGrid extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -44,14 +44,17 @@ class HomeFlyersGrid extends StatelessWidget {
 
         // blog('fuck2 : ${_wallFlyers.length} : isLoading : $isLoading');
 
-        return FlyersGrid(
-          scrollController: paginationController.scrollController,
-          gridWidth: Scale.screenWidth(context),
-          gridHeight: Scale.screenHeight(context),
-          flyers: _wallFlyers,
-          screenName: 'userHomeScreen',
-          isHeroicGrid: false,
-          bottomPadding: Ratioz.horizon,
+        return Center(
+          child: FlyersGrid(
+            scrollController: paginationController.scrollController,
+            gridWidth: Scale.screenWidth(context),
+            gridHeight: Scale.screenHeight(context),
+            flyers: _wallFlyers,
+            screenName: 'userHomeScreen',
+            isHeroicGrid: false,
+            bottomPadding: Ratioz.horizon,
+            numberOfColumnsOrRows: Scale.isLandScape(context) == true ? 3 : 2,
+          ),
         );
 
       },

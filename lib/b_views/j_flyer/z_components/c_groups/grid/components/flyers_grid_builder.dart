@@ -62,7 +62,6 @@ class FlyersGridBuilder extends StatelessWidget {
           ),
           gridDelegate: FlyerDim.flyerGridDelegate(
             context: context,
-            forceMaxHeight: false,
             flyerBoxWidth: _gridSlotWidth,
             numberOfColumnsOrRows: numberOfColumnsOrRows,
             scrollDirection: scrollDirection,
