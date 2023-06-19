@@ -1,4 +1,3 @@
-import 'package:fire/super_fire.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/settings_wide_button.dart';
@@ -11,8 +10,10 @@ import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/main.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
+import 'package:scale/scale.dart';
 import 'package:super_image/super_image.dart';
 
 class AppSettingsScreen extends StatelessWidget {
@@ -109,9 +110,10 @@ class AppSettingsScreen extends StatelessWidget {
 
         BldrsText(
           verse: Verse.plain(BLDRS_APP_VERSION),
-          size: 0,
+          size: 1,
           italic: true,
           color: Colorz.white125,
+          weight: VerseWeight.thin,
         ),
 
       ],
@@ -131,9 +133,10 @@ class CreateNewBzButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final bool _userIsOnline = Authing.userHasID();
+    final double _buttonWidth = Scale.superWidth(context, 0.7);
 
     return SizedBox(
-      width: SettingsWideButton.width,
+      width: _buttonWidth,
       height: 130,
       child: Stack(
         alignment: Alignment.center,
@@ -156,26 +159,28 @@ class CreateNewBzButton extends StatelessWidget {
             top: 0,
             child: Opacity(
               opacity: _userIsOnline == true ? 1 : 0.5,
-              child: const BldrsText(
-                width: SettingsWideButton.width,
-                verse: Verse(
+              child: BldrsText(
+                width: _buttonWidth,
+                verse: const Verse(
                   id: 'phid_createBzAccount',
                   translate: true,
                   casing: Casing.upperCase,
                 ),
                 italic: true,
                 size: 3,
-                maxLines: 2,
-                margin: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                maxLines: 4,
+                margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
                 weight: VerseWeight.black,
                 shadow: true,
               ),
             ),
           ),
 
+          /// BULLETS
           const Positioned(
             bottom: 0,
             child: BldrsBulletPoints(
+              // bubbleWidth: _buttonWidth,
               centered: true,
               showBottomLine: false,
               verseSizeFactor: 0.8,
@@ -193,7 +198,7 @@ class CreateNewBzButton extends StatelessWidget {
 
           /// TAP LAYER
           BldrsBox(
-            width: SettingsWideButton.width,
+            width: _buttonWidth,
             height: 130,
             color: Colorz.yellow50,
             isDisabled: !_userIsOnline,
@@ -205,6 +210,7 @@ class CreateNewBzButton extends StatelessWidget {
               );
             },
           ),
+
         ],
       ),
     );

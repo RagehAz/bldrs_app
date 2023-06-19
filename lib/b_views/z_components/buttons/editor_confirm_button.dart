@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 
@@ -35,7 +36,7 @@ double getWidth({
 }){
 
   if (model?.isWide == true){
-    return BldrsAppBar.width();
+    return Bubble.bubbleWidth(context: context);
   }
 
   else if (model.firstLine.id.length > 20){
@@ -87,7 +88,7 @@ class ConfirmButton extends StatelessWidget {
     // --------------------
     else if (confirmButtonModel.onSkipTap == null){
       return SuperPositioned(
-        key: const ValueKey<String>('EditorConfirmButton'),
+        key: const ValueKey<String>('EditorConfirmButton.onSkipTap'),
         enAlignment: positionedAlignment,
         appIsLTR: UiProvider.checkAppIsLeftToRight(),
         child: _button,
