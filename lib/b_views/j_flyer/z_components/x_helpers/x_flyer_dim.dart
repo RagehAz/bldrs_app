@@ -54,64 +54,18 @@ class FlyerDim {
   /// TESTED : WORKS PERFECT
   static double flyerWidthByFlyerHeight({
     @required double flyerBoxHeight,
-    @required bool forceMaxHeight,
   }){
-    return
-      flyerBoxHeight /
-          flyerHeightRatioToWidth(
-            forceMaxRatio: forceMaxHeight,
-          );
+    return flyerBoxHeight / flyerHeightRatioToWidth;
   }
   // ---------
   /// TESTED : WORKS PERFECT
-  static double flyerHeightRatioToWidth({
-    @required bool forceMaxRatio,
-  }){
-
-    if (forceMaxRatio) {
-      return 1.74;
-    }
-    else {
-
-      const double _xFlyerBoxHeightRatioToWidth = 1.74;
-
-      final double _screenHeight = Scale.screenHeight(getMainContext());
-      final double _screenWidth = Scale.screenWidth(getMainContext());
-      final double _maxFlyerWidth = _screenWidth - 20;
-      final double _maxFlyerHeight = _maxFlyerWidth * _xFlyerBoxHeightRatioToWidth;
-      final double _maxAllowableFlyerHeight = _screenHeight - 20;
-
-      if (_maxFlyerHeight > _maxAllowableFlyerHeight){
-        final double _newRatio = _maxAllowableFlyerHeight / _maxFlyerWidth;
-        return _newRatio;
-      }
-
-      else {
-      return _xFlyerBoxHeightRatioToWidth;
-    }
-
-    }
-
-  }
+  static const double flyerHeightRatioToWidth = 1.74;
   // ---------
   /// TESTED : WORKS PERFECT
   static double flyerHeightByFlyerWidth({
     @required double flyerBoxWidth,
-    @required bool forceMaxHeight,
   }) {
-
-    return flyerBoxWidth * flyerHeightRatioToWidth(
-      forceMaxRatio: forceMaxHeight,
-    );
-
-    // if (checkFlyerIsFullScreen(context, flyerBoxWidth) == true){
-    //   return Scale.screenHeight(context);
-    // }
-    //
-    // else {
-    //   return flyerBoxWidth * xFlyerBoxHeightRatioToWidth;
-    // }
-
+    return flyerBoxWidth * flyerHeightRatioToWidth;
   }
   // ---------
   /// TESTED : WORKS PERFECT
@@ -123,32 +77,26 @@ class FlyerDim {
   static double flyerFactorByFlyerHeight({
     @required BuildContext context,
     @required double flyerBoxHeight,
-    @required bool forceMaxHeight,
   }) {
-    return flyerFactorByFlyerWidth(context, flyerWidthByFlyerHeight(
-      flyerBoxHeight: flyerBoxHeight,
-      forceMaxHeight: forceMaxHeight,
-    ));
+    return flyerFactorByFlyerWidth(context,
+        flyerWidthByFlyerHeight(
+          flyerBoxHeight: flyerBoxHeight,
+        )
+    );
   }
   // ---------
   /// TESTED : WORKS PERFECT
   static double heightBySizeFactor({
     @required double flyerSizeFactor,
-    @required bool forceMaxHeight,
   }) {
     return flyerHeightByFlyerWidth(
       flyerBoxWidth: flyerWidthByFactor(flyerSizeFactor),
-      forceMaxHeight: forceMaxHeight,
     );
   }
   // ---------
   /// TESTED : WORKS PERFECT
-  static double flyerAspectRatio({
-    @required bool forceMaxHeight,
-  }){
-    return 1 / flyerHeightRatioToWidth(
-      forceMaxRatio: forceMaxHeight,
-    );
+  static double flyerAspectRatio(){
+    return 1 / flyerHeightRatioToWidth;
   }
   // ---------
 
@@ -206,12 +154,10 @@ class FlyerDim {
   /// TESTED : WORKS PERFECT
   static double headerSlateAndProgressHeights({
     @required double flyerBoxWidth,
-    @required bool forceMaxHeight,
   }) {
 
     final double _flyerHeight = flyerHeightByFlyerWidth(
       flyerBoxWidth: flyerBoxWidth,
-      forceMaxHeight: forceMaxHeight,
     );
 
     return  headerSlateHeight(flyerBoxWidth)
@@ -1171,14 +1117,12 @@ class FlyerDim {
     @required double gridZoneHeight,
     @required int numberOfRows,
     double spacingRatio,
-    bool forceMaxHeight = false,
   }){
 
     final double _ratio = spacingRatio ?? _spacingRatio;
 
     blog('numberOfRows : $numberOfRows');
     blog('gridZoneHeight : $gridZoneHeight : spacingRatio : $_ratio');
-    blog('thing : ${flyerHeightRatioToWidth(forceMaxRatio: forceMaxHeight)}');
     assert(numberOfRows > 0, 'numberOfRows must be greater than 0');
     assert(gridZoneHeight > 0, 'gridZoneHeight must be greater than 0');
 
@@ -1186,8 +1130,7 @@ class FlyerDim {
         gridZoneHeight
         /
         (
-            (numberOfRows * flyerHeightRatioToWidth(
-                forceMaxRatio: forceMaxHeight))
+            (numberOfRows * flyerHeightRatioToWidth)
             +
             (numberOfRows * _ratio) + _ratio
         );
@@ -1336,7 +1279,6 @@ class FlyerDim {
     @required Axis scrollDirection,
     @required double flyerBoxWidth,
     @required int numberOfColumnsOrRows,
-    @required bool forceMaxHeight,
   }){
 
     final double _gridSpacingValue = flyerGridGridSpacingValue(flyerBoxWidth);
@@ -1344,12 +1286,10 @@ class FlyerDim {
     return SliverGridDelegateWithFixedCrossAxisCount(
       crossAxisSpacing: scrollDirection == Axis.vertical ? _gridSpacingValue : 0,
       mainAxisSpacing: _gridSpacingValue,
-      childAspectRatio: flyerAspectRatio(
-        forceMaxHeight: forceMaxHeight,
-      ),
+      childAspectRatio: flyerAspectRatio(),
       crossAxisCount: numberOfColumnsOrRows,
       mainAxisExtent: scrollDirection == Axis.vertical ?
-      flyerBoxWidth * flyerHeightRatioToWidth(forceMaxRatio: forceMaxHeight)
+      flyerBoxWidth * flyerHeightRatioToWidth
           :
       flyerBoxWidth,
       // maxCrossAxisExtent: scrollDirection == Axis.vertical ? _flyerBoxWidth : Ratioz.xxflyerZoneHeight,
