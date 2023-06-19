@@ -39,7 +39,6 @@ class DraftShelfSlide extends StatefulWidget {
   static double shelfSlideZoneHeight(){
     final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
       flyerBoxWidth: flyerBoxWidth,
-      forceMaxHeight: false,
     );
     return _flyerBoxHeight + slideNumberBoxHeight + (Ratioz.appBarPadding * 3);
   }
@@ -72,7 +71,6 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
 
     final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
       flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
-      forceMaxHeight: false,
     );
 
     return Container(

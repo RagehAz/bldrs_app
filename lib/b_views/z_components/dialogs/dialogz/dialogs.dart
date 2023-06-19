@@ -923,7 +923,6 @@ class Dialogs {
             flyerModel: flyer,
             flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(
               flyerBoxHeight: _flyerBoxHeight,
-              forceMaxHeight: false,
             ),
             screenName: 'flyerDialogGrid',
           ),
@@ -964,7 +963,6 @@ class Dialogs {
         alignment: Alignment.center,
         child: SingleSlide(
           flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(
-            forceMaxHeight: false,
             flyerBoxHeight: _flyerBoxHeight,
           ),
           flyerBoxHeight: _flyerBoxHeight,

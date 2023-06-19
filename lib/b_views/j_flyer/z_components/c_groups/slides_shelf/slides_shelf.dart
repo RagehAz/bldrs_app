@@ -42,7 +42,6 @@ class SlidesShelf extends StatelessWidget {
     final double _flyerSizeFactor = FlyerDim.flyerFactorByFlyerHeight(
       context: context,
       flyerBoxHeight: _flyerZoneHeight,
-      forceMaxHeight: false,
     );
     final double _flyerZoneWidth = FlyerDim.flyerWidthByFactor(_flyerSizeFactor);
     final BorderRadius _flyerBorderRadius = FlyerDim.flyerCorners(context, _flyerZoneWidth);

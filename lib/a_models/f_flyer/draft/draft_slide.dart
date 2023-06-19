@@ -124,7 +124,6 @@ class DraftSlide {
           viewWidth: FlyerDim.flyerWidthByFactor(1),
           viewHeight: FlyerDim.heightBySizeFactor(
             flyerSizeFactor: 1,
-            forceMaxHeight: false,
           ),
         ),
         matrix: Matrix4.identity(),

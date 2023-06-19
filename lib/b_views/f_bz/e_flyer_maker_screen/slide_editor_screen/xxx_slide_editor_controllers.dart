@@ -210,9 +210,7 @@ Future<void> onCropSlide({
 
   final Uint8List _bytes = await BldrsPicMaker.cropPic(
     bytes: draftNotifier.value.picModel.bytes,
-    aspectRatio: FlyerDim.flyerAspectRatio(
-      forceMaxHeight: true,
-    ),
+    aspectRatio: FlyerDim.flyerAspectRatio(),
   );
 
   if (_bytes != null){
