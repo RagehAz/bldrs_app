@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class NextButton extends StatelessWidget {
@@ -51,21 +52,26 @@ class NextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: <Widget>[
-        BldrsBox(
-          isDisabled: !canGoNext,
-          verse: const Verse(id: 'phid_next', translate: true),
-          verseScaleFactor: 0.7,
-          height: 50,
-          margins: 10,
-          width: 100,
-          onTap: onTap,
-          color: canGoNext == true ? Colorz.green255 : null,
-          onDisabledTap: onDisabledTap,
+    return Center(
+      child: SizedBox(
+        width: Bubble.bubbleWidth(context: context),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            BldrsBox(
+              isDisabled: !canGoNext,
+              verse: const Verse(id: 'phid_next', translate: true),
+              verseScaleFactor: 0.7,
+              height: 50,
+              margins: 10,
+              width: 100,
+              onTap: onTap,
+              color: canGoNext == true ? Colorz.green255 : null,
+              onDisabledTap: onDisabledTap,
+            ),
+          ],
         ),
-      ],
+      ),
     );
 
   }

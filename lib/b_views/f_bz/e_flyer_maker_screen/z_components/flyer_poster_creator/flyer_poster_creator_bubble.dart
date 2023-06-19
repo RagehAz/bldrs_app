@@ -102,7 +102,6 @@ Future<void> testPoster({
   );
 
   await BottomDialog.showBottomDialog(
-    draggable: true,
     height: _posterPicModel.meta.height + 50,
     child: Column(
       children: <Widget>[

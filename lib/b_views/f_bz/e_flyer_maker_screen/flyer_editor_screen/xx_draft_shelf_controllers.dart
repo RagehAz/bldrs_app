@@ -319,7 +319,6 @@ Future<void> onMoreTap({
 }) async {
 
   await BottomDialog.showButtonsBottomDialog(
-    draggable: true,
     // buttonHeight: BottomDialog.wideButtonHeight,
     numberOfWidgets: 3,
     builder: (_){

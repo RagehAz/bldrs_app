@@ -641,7 +641,9 @@ class FCM {
 
     if (Authing.userIsSignedUp(_user?.signInMethod) == true){
       blog('User : ${Authing.getUserID()} subscribed to topic : $topicID');
-      await FirebaseMessaging.instance.subscribeToTopic(topicID);
+      if (FCMStarter.canInitializeFCM() == true){
+        await FirebaseMessaging.instance.subscribeToTopic(topicID);
+      }
     }
 
   }
@@ -658,7 +660,9 @@ class FCM {
 
     if (Authing.userIsSignedUp(_user?.signInMethod) == true){
       blog('User : ${Authing.getUserID()} unSubscribed from topic : $topicID');
-      await FirebaseMessaging.instance.unsubscribeFromTopic(topicID);
+      if (FCMStarter.canInitializeFCM() == true){
+        await FirebaseMessaging.instance.unsubscribeFromTopic(topicID);
+      }
     }
   }
   // --------------------

@@ -248,9 +248,7 @@ class Dialogs {
     final BuildContext context = getMainContext();
 
     await BottomDialog.showBottomDialog(
-      draggable: false,
       height: BottomDialog.calculateDialogHeight(
-        draggable: false,
         titleIsOn: true,
         childHeight: 70,
       ),
@@ -493,7 +491,6 @@ class Dialogs {
     final double _clearHeight = BottomDialog.clearHeight(
         context: getMainContext(),
         overridingDialogHeight: _overridingDialogHeight,
-        draggable: true,
         titleIsOn: false
     );
 
@@ -501,7 +498,6 @@ class Dialogs {
     String _text = _keyboardModel.initialText;
 
     await BottomDialog.showBottomDialog(
-      draggable: true,
       height: _overridingDialogHeight,
       child: SizedBox(
         width: _clearWidth,
@@ -621,7 +617,6 @@ class Dialogs {
     CityModel _city;
 
     await BottomDialog.showButtonsBottomDialog(
-        draggable: true,
         buttonHeight: 50,
         numberOfWidgets: cities.length + 1,
         builder: (_){

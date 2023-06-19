@@ -103,7 +103,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
     // _countriesStages.blogStaging();
 
     /// SHOWN IDS
-    final List<String> _shownIDs = _countriesStages.getIDsByViewingEvent(
+    final List<String> _shownIDs = _countriesStages?.getIDsByViewingEvent(
       event: widget.zoneViewingEvent,
       countryID: null,
       viewerCountryID: widget.viewerCountryID,
