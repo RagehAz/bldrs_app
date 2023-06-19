@@ -54,6 +54,8 @@ class HeroicFlyerBigView extends StatelessWidget {
           flyerBoxWidth: Scale.screenWidth(context),
           canBuildBigFlyer: true,
           invoker: 'FlyerBigView',
+          gridWidth: Scale.screenWidth(context),
+          gridHeight: Scale.screenHeight(context),
         ),
 
       ),

@@ -4,6 +4,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:scale/scale.dart';
 
 
@@ -39,6 +40,7 @@ class FlyersShelf extends StatelessWidget {
 
     final double _flyerZoneHeight = FlyerDim.heightBySizeFactor(
       flyerSizeFactor: flyerSizeFactor,
+      gridWidth: Scale.screenWidth(getMainContext()),
     );
 
     return spacing + titleIconWidth + spacing + _flyerZoneHeight + spacing;
@@ -116,6 +118,7 @@ class FlyersShelf extends StatelessWidget {
             width: _screenWidth,
             height: FlyerDim.heightBySizeFactor(
               flyerSizeFactor: flyerSizeFactor,
+              gridWidth: _screenWidth,
             ),
             child: FlyersShelfListBuilder(
               shelfTitleVerse: titleVerse,

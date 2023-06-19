@@ -17,6 +17,8 @@ class FlyerHero extends StatelessWidget {
     @required this.canBuildBigFlyer,
     @required this.heroPath,
     @required this.invoker,
+    @required this.gridWidth,
+    @required this.gridHeight,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -25,6 +27,8 @@ class FlyerHero extends StatelessWidget {
   final double flyerBoxWidth;
   final String heroPath;
   final String invoker;
+  final double gridWidth;
+  final double gridHeight;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   Widget buildFlight(
@@ -77,6 +81,8 @@ class FlyerHero extends StatelessWidget {
         renderedFlyer: renderedFlyer,
         heroTag: heroPath,
         canBuildBigFlyer: canBuildBigFlyer,
+        gridWidth: gridWidth,
+        gridHeight: gridHeight,
         // flightDirection: FlightDirection.non,
       ),
     );
