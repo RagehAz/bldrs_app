@@ -45,7 +45,6 @@ class FlyerDeck extends StatelessWidget {
 
     final double _biggestSlideWidth = FlyerDim.flyerWidthByFlyerHeight(
       flyerBoxHeight: deckHeight,
-      forceMaxHeight: false,
     );
 
     if (numberOfSlides == 0){
@@ -94,7 +93,6 @@ class FlyerDeck extends StatelessWidget {
 
     return FlyerDim.flyerWidthByFlyerHeight(
       flyerBoxHeight: _scale * maxSlideHeight,
-      forceMaxHeight: false,
     );
   }
   // --------------------
@@ -401,7 +399,6 @@ class _TheDeck extends StatelessWidget {
                 flyerModel: flyerModel,
                 flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(
                   flyerBoxHeight: deckHeight,
-                  forceMaxHeight: false,
                 ),
                 slideIndex: _reverseIndex,
                 onTap: null,
@@ -418,7 +415,6 @@ class _TheDeck extends StatelessWidget {
                 flyerBoxWidth: _flyerBoxWidth,
                 flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(
                   flyerBoxWidth: _flyerBoxWidth,
-                  forceMaxHeight: false,
                 ),
                 slideModel: flyerModel.slides[_reverseIndex],
                 tinyMode: false,

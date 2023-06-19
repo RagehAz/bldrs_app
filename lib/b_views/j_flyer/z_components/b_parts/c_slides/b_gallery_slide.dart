@@ -150,7 +150,6 @@ class _GallerySlideState extends State<GallerySlide> {
 
     final double _headerAndProgressHeights = FlyerDim.headerSlateAndProgressHeights(
       flyerBoxWidth: widget.flyerBoxWidth,
-      forceMaxHeight: false,
     );
 
     return ClipRRect(
@@ -186,7 +185,6 @@ class _GallerySlideState extends State<GallerySlide> {
               },
               boxDistance: FlyerDim.flyerHeightByFlyerWidth(
                 flyerBoxWidth: widget.flyerBoxWidth,
-                forceMaxHeight: false,
               ),
               // numberOfScreens: 2,
               slideLimitRatio: 0.1,

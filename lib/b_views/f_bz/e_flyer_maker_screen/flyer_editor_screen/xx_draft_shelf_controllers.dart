@@ -106,9 +106,7 @@ Future<void> _addImagesForNewFlyer({
 
       final List<Uint8List> _bytezz = await BldrsPicMaker.pickAndCropMultiplePics(
         // maxAssets: 10,
-        aspectRatio: FlyerDim.flyerAspectRatio(
-          forceMaxHeight: true,
-        ),
+        aspectRatio: FlyerDim.flyerAspectRatio(),
         cropAfterPick: false,
         resizeToWidth: Standards.slideWidthPixels,
       );
@@ -124,7 +122,7 @@ Future<void> _addImagesForNewFlyer({
       final Uint8List _bytes = await PicMaker.shootAndCropCameraPic(
         context: getMainContext(),
         // maxAssets: 10,
-        aspectRatio: FlyerDim.flyerAspectRatio(forceMaxHeight: true),
+        aspectRatio: FlyerDim.flyerAspectRatio(),
         cropAfterPick: false,
         resizeToWidth: Standards.slideWidthPixels,
       );

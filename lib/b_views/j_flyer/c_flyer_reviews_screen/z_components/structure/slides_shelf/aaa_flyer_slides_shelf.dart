@@ -25,7 +25,6 @@ class FlyerSlidesShelf extends StatelessWidget {
     final double _flyerBoxHeight = shelfHeight;
     final double _flyerBoxWidth = FlyerDim.flyerWidthByFlyerHeight(
       flyerBoxHeight: _flyerBoxHeight,
-      forceMaxHeight: false,
     );
     // --------------------
     return SingleChildScrollView(

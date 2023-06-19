@@ -39,7 +39,6 @@ class FlyersShelf extends StatelessWidget {
 
     final double _flyerZoneHeight = FlyerDim.heightBySizeFactor(
       flyerSizeFactor: flyerSizeFactor,
-      forceMaxHeight: false,
     );
 
     return spacing + titleIconWidth + spacing + _flyerZoneHeight + spacing;
@@ -117,7 +116,6 @@ class FlyersShelf extends StatelessWidget {
             width: _screenWidth,
             height: FlyerDim.heightBySizeFactor(
               flyerSizeFactor: flyerSizeFactor,
-              forceMaxHeight: false,
             ),
             child: FlyersShelfListBuilder(
               shelfTitleVerse: titleVerse,

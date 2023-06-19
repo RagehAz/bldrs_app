@@ -115,7 +115,6 @@ class AboutBzBubbles extends StatelessWidget {
     final double _spacing = FlyerDim.flyerGridGridSpacingValue(flyerBoxWidth);
     final double _flyerHeight = FlyerDim.flyerHeightByFlyerWidth(
       flyerBoxWidth: flyerBoxWidth,
-      forceMaxHeight: false,
     );
     final int _numberOfFlyers = bzModel?.flyersIDs?.length ?? 0;
     final double _gridHeight = (_flyerHeight + _spacing) * (_numberOfFlyers / 2).ceil();

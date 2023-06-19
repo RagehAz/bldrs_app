@@ -7,10 +7,10 @@ import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_selection_st
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/small_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/z_grid/z_grid.dart';
 
 class FlyersZGrid extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -169,18 +169,13 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
   @override
   Widget build(BuildContext context) {
 
-    const double gridSidePadding = 10;
-
     final ZGridScale _gridScale = ZGridScale.initialize(
       gridWidth: widget.gridWidth,
       gridHeight: widget.gridHeight,
       columnCount: widget.columnCount,
-      gridSidePadding: gridSidePadding,
       bottomPaddingOnZoomedOut: widget.bottomPaddingOnZoomedOut,
       topPaddingOnZoomOut: widget.topPadding,
-      itemAspectRatio: FlyerDim.flyerAspectRatio(
-        forceMaxHeight: false,
-      ),
+      itemAspectRatio: FlyerDim.flyerAspectRatio(),
     );
 
     return ZGrid(
