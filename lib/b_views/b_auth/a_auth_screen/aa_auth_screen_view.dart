@@ -52,7 +52,7 @@ class AuthScreenView extends StatelessWidget {
             translate: true,
           ),
           icon: Iconz.comEmail,
-          buttonVerseShadow: false,
+          verseShadow: false,
           onTap: () async {
 
               await Nav.goToNewScreen(

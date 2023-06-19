@@ -13,11 +13,14 @@ class MainButton extends StatelessWidget {
     @required this.onTap,
     this.buttonColor,
     this.splashColor = Colorz.yellow255,
-    this.buttonVerseShadow = true,
+    this.verseShadow = true,
     this.iconSizeFactor = 0.6,
     this.verseColor = Colorz.white255,
     this.verseWeight = VerseWeight.bold,
     this.iconColor,
+    this.isDisabled = false,
+    this.verseCentered = false,
+    this.verseItalic = false,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -25,30 +28,32 @@ class MainButton extends StatelessWidget {
   final dynamic icon;
   final Color buttonColor;
   final Color splashColor;
-  final bool buttonVerseShadow;
+  final bool verseShadow;
   final dynamic onTap;
   final double iconSizeFactor;
   final Color verseColor;
   final VerseWeight verseWeight;
   final Color iconColor;
+  final bool isDisabled;
+  final bool verseCentered;
+  final bool verseItalic;
   /// --------------------------------------------------------------------------
   static double getButtonWidth({
     @required BuildContext context,
   }) {
-    return  Scale.superWidth(context, 0.6);
+    return  Scale.superWidth(context, 0.7);
   }
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
-    const double _buttonZoneHeight = 50;
-    // --------------------
     final double _buttonWidth = getButtonWidth(
         context: context,
     );
-    const double _buttonHeight = _buttonZoneHeight * 0.85;
+    const double _buttonHeight = 50 * 0.85;
     // --------------------
     return BldrsBox(
+      isDisabled: isDisabled,
       width: _buttonWidth,
       height: _buttonHeight,
       icon: icon,
@@ -56,15 +61,16 @@ class MainButton extends StatelessWidget {
       iconColor: iconColor,
       verse: verse,
       verseScaleFactor: 0.7 / iconSizeFactor,
-      verseCentered: false,
+      verseCentered: verseCentered,
       verseColor: verseColor,
       verseWeight: verseWeight,
       verseMaxLines: 3,
       onTap: onTap,
       color: buttonColor,
       splashColor: splashColor,
-      verseShadow: buttonVerseShadow,
+      verseShadow: verseShadow,
       margins: const EdgeInsets.only(bottom: 5),
+      verseItalic: verseItalic,
     );
     // --------------------
   }
