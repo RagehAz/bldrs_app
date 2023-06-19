@@ -59,6 +59,12 @@ class FlyerAffiliateButton extends StatelessWidget {
       final Verse _firstLine = _showPrice == true ? _priceVerse : _buyOnAmazonVerse;
       final Verse _secondLine = _showPrice == true ? _buyOnAmazonVerse : null;
 
+      final bool _isTinyMode = FlyerDim.isTinyMode(
+        flyerBoxWidth: flyerBoxWidth,
+        gridWidth: Scale.screenWidth(context),
+        gridHeight: Scale.screenHeight(context),
+      );
+
       final Widget _button = BldrsBox(
         color: const Color.fromARGB(255, 255, 153, 0),
         height: _height,
@@ -78,7 +84,7 @@ class FlyerAffiliateButton extends StatelessWidget {
           context: context,
           flyerBoxWidth: flyerBoxWidth,
         ),
-        verseWeight: FlyerDim.isTinyMode(context, flyerBoxWidth) == true ? VerseWeight.bold : VerseWeight.black,
+        verseWeight: _isTinyMode == true ? VerseWeight.bold : VerseWeight.black,
         onTap: () async {
           await Launcher.launchURL(flyerModel.affiliateLink);
           },

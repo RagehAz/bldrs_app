@@ -1,6 +1,7 @@
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:animators/animators.dart';
+import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:filers/filers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
@@ -47,8 +48,11 @@ class FlyerDim {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static double flyerWidthByFactor(double flyerSizeFactor) {
-    return Scale.screenWidth(getMainContext()) * flyerSizeFactor;
+  static double flyerWidthByFactor({
+    @required double flyerSizeFactor,
+    @required double gridWidth,
+  }) {
+    return gridWidth * flyerSizeFactor;
   }
   // ---------
   /// TESTED : WORKS PERFECT
@@ -69,28 +73,36 @@ class FlyerDim {
   }
   // ---------
   /// TESTED : WORKS PERFECT
-  static double flyerFactorByFlyerWidth(BuildContext context, double flyerBoxWidth) {
-    return flyerBoxWidth / Scale.screenWidth(context);
+  static double flyerFactorByFlyerWidth({
+    @required double gridWidth,
+    @required double flyerBoxWidth,
+  }) {
+    return flyerBoxWidth / gridWidth;
   }
   // ---------
   /// TESTED : WORKS PERFECT
   static double flyerFactorByFlyerHeight({
-    @required BuildContext context,
+    @required double gridWidth,
     @required double flyerBoxHeight,
   }) {
-    return flyerFactorByFlyerWidth(context,
-        flyerWidthByFlyerHeight(
+    return flyerFactorByFlyerWidth(
+      gridWidth: gridWidth,
+      flyerBoxWidth: flyerWidthByFlyerHeight(
           flyerBoxHeight: flyerBoxHeight,
-        )
+        ),
     );
   }
   // ---------
   /// TESTED : WORKS PERFECT
   static double heightBySizeFactor({
     @required double flyerSizeFactor,
+    @required double gridWidth,
   }) {
     return flyerHeightByFlyerWidth(
-      flyerBoxWidth: flyerWidthByFactor(flyerSizeFactor),
+      flyerBoxWidth: flyerWidthByFactor(
+        flyerSizeFactor: flyerSizeFactor,
+        gridWidth: gridWidth,
+      ),
     );
   }
   // ---------
@@ -1056,19 +1068,43 @@ class FlyerDim {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkFlyerIsFullScreen(BuildContext context, double flyerBoxWidth){
-    return flyerBoxWidth >= Scale.screenWidth(context);
+  static bool checkFlyerIsFullScreen({
+    @required double gridWidth,
+    @required double gridHeight,
+    @required double flyerBoxWidth,
+  }){
+
+    final double _bigFlyerWidth = ZGridScale.getBigItemWidth(
+        gridWidth: gridWidth,
+        gridHeight: gridHeight,
+        itemAspectRatio: flyerAspectRatio(),
+    );
+
+    return flyerBoxWidth >= _bigFlyerWidth;
   }
   // ---------
   /// TESTED : WORKS PERFECT
-  static bool isTinyMode(BuildContext context, double flyerBoxWidth) {
-    bool _tinyMode = false; // 0.4 needs calibration
+  static bool isTinyMode({
+    @required double gridWidth,
+    @required double gridHeight,
+    @required double flyerBoxWidth,
+  }) {
 
-    if (flyerBoxWidth < (Scale.screenWidth(context) * 0.58)) {
-      _tinyMode = true;
-    }
+    final bool _isFullScreen = checkFlyerIsFullScreen(
+        gridWidth: gridWidth,
+        gridHeight: gridHeight,
+      flyerBoxWidth: flyerBoxWidth,
+    );
 
-    return _tinyMode;
+    return !_isFullScreen;
+
+    // bool _tinyMode = false; // 0.4 needs calibration
+    //
+    // if (flyerBoxWidth < (Scale.screenWidth(context) * 0.58)) {
+    //   _tinyMode = true;
+    // }
+    //
+    // return _tinyMode;
   }
   // -----------------------------------------------------------------------------
 
@@ -1152,20 +1188,73 @@ class FlyerDim {
   /// TESTED : WORKS PERFECT
   static EdgeInsets flyerGridPadding({
     @required BuildContext context,
+    @required double gridWidth,
+    @required double gridHeight,
     @required double gridSpacingValue,
     @required double topPaddingValue, /// when is vertical scrolling
     @required bool isVertical,
     double endPadding,
   }){
 
+    if (isVertical == true){
+      return _verticalGridPaddings(
+        gridHeight: gridHeight,
+        gridWidth: gridWidth,
+        bottomPadding: endPadding,
+        topPaddingValue: topPaddingValue,
+      );
+    }
+
+    else {
+      return _horizontalGridPaddings(
+        endPadding: endPadding,
+        gridSpacingValue: gridSpacingValue,
+      );
+    }
+
+
+  }
+  // --------------------
+  static EdgeInsets _verticalGridPaddings({
+    @required double gridWidth,
+    @required double gridHeight,
+    @required double bottomPadding,
+    @required double topPaddingValue,
+  }){
+
+    final double gridSideMargin = ZGridScale.getGridSideMargin(
+      gridWidth: gridWidth,
+      gridHeight: gridHeight,
+      itemAspectRatio: flyerAspectRatio(),
+    );
+
+    final double _bottomPaddingOnZoomedOut = ZGridScale.getBottomPaddingOnZoomedOut(
+      bottomPaddingOnZoomedOut: bottomPadding,
+    );
+
     return Scale.superInsets(
-      context: context,
+      context: getMainContext(),
+      appIsLTR: UiProvider.checkAppIsLeftToRight(),
+      enLeft: gridSideMargin,
+      top: topPaddingValue,
+      enRight: gridSideMargin,
+      bottom: _bottomPaddingOnZoomedOut ?? Ratioz.horizon,
+    );
+
+  }
+  // --------------------
+  static EdgeInsets _horizontalGridPaddings({
+    @required double gridSpacingValue,
+    @required double endPadding,
+  }){
+
+    return Scale.superInsets(
+      context: getMainContext(),
       appIsLTR: UiProvider.checkAppIsLeftToRight(),
       enLeft: gridSpacingValue,
-      top: isVertical == true ? topPaddingValue : gridSpacingValue,
-      enRight: isVertical == true ? gridSpacingValue : endPadding ?? 0,
-      bottom: endPadding ?? (isVertical == true ? Ratioz.horizon : 0
-      ),
+      top: gridSpacingValue,
+      enRight: endPadding ?? gridSpacingValue,
+      bottom: gridSpacingValue,
     );
 
   }
@@ -1184,11 +1273,11 @@ class FlyerDim {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double flyerGridSlotWidth({
-    BuildContext context,
-    int flyersLength
+    @required BuildContext context,
+    @required double gridWidth,
+    @required int flyersLength,
   }) {
-    final double _screenWidth = Scale.screenWidth(context);
-    final double _gridWidth = _screenWidth - (2 * Ratioz.appBarMargin);
+    final double _gridWidth = gridWidth - (2 * Ratioz.appBarMargin);
     final int _numberOfColumns = flyerGridColumnCount(flyersLength);
     return (_gridWidth - ((_numberOfColumns - 1) * Ratioz.appBarMargin)) / _numberOfColumns;
   }
@@ -1205,15 +1294,11 @@ class FlyerDim {
 
     if (scrollDirection == Axis.vertical){
 
-      final double _gridZoneWidth = flyerGridWidth(
-        context: context,
-        givenGridWidth: gridWidth,
-      );
-
-      return flyerGridVerticalScrollFlyerBoxWidth(
-        numberOfColumns: numberOfColumnsOrRows,
-        gridZoneWidth: _gridZoneWidth,
-        spacingRatio: spacingRatio,
+      return ZGridScale.getSmallItemWidth(
+          gridWidth: gridWidth,
+          gridHeight: gridHeight,
+          columnCount: numberOfColumnsOrRows,
+          itemAspectRatio: flyerAspectRatio(),
       );
 
     }
@@ -1283,17 +1368,36 @@ class FlyerDim {
 
     final double _gridSpacingValue = flyerGridGridSpacingValue(flyerBoxWidth);
 
-    return SliverGridDelegateWithFixedCrossAxisCount(
-      crossAxisSpacing: scrollDirection == Axis.vertical ? _gridSpacingValue : 0,
+    if (scrollDirection == Axis.vertical){
+
+      blog('a77aaaass');
+
+      // return SliverGridDelegateWithMaxCrossAxisExtent(
+      //   maxCrossAxisExtent: flyerBoxWidth,
+      //   childAspectRatio:  flyerAspectRatio(),
+      //   crossAxisSpacing: _gridSpacingValue,
+      //   mainAxisSpacing: _gridSpacingValue,
+      //   mainAxisExtent: flyerHeightByFlyerWidth(flyerBoxWidth: flyerBoxWidth),
+      // );
+
+      return SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisSpacing: _gridSpacingValue,
       mainAxisSpacing: _gridSpacingValue,
       childAspectRatio: flyerAspectRatio(),
       crossAxisCount: numberOfColumnsOrRows,
-      mainAxisExtent: scrollDirection == Axis.vertical ?
-      flyerBoxWidth * flyerHeightRatioToWidth
-          :
-      flyerBoxWidth,
-      // maxCrossAxisExtent: scrollDirection == Axis.vertical ? _flyerBoxWidth : Ratioz.xxflyerZoneHeight,
+      mainAxisExtent: flyerHeightByFlyerWidth(flyerBoxWidth: flyerBoxWidth),
     );
+    }
+
+    else {
+      return SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisSpacing: _gridSpacingValue,
+        mainAxisSpacing: _gridSpacingValue,
+        childAspectRatio: flyerAspectRatio(),
+        crossAxisCount: numberOfColumnsOrRows,
+        mainAxisExtent: flyerBoxWidth,
+      );
+    }
 
   }
   // -----------------------------------------------------------------------------

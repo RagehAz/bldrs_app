@@ -11,6 +11,8 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/e_fo
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
+import 'package:scale/scale.dart';
+
 class StaticHeader extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const StaticHeader({
@@ -41,6 +43,12 @@ class StaticHeader extends StatelessWidget {
     // --------------------
     final bool _flyerShowsAuthor = flyerShowsAuthor ?? false;
     // --------------------
+    final bool _isTinyMode = FlyerDim.isTinyMode(
+      flyerBoxWidth: flyerBoxWidth,
+      gridWidth: Scale.screenWidth(context),
+      gridHeight: Scale.screenHeight(context),
+    );
+    // --------------------
     return HeaderBox(
       key: const ValueKey<String>('StaticHeader'),
       flyerBoxWidth: flyerBoxWidth,
@@ -68,7 +76,7 @@ class StaticHeader extends StatelessWidget {
             corners: FlyerDim.logoCornersByFlyerBoxWidth(
               context: context,
               flyerBoxWidth: flyerBoxWidth,
-              zeroCornerIsOn: _flyerShowsAuthor && FlyerDim.isTinyMode(context, flyerBoxWidth) == false,
+              zeroCornerIsOn: _flyerShowsAuthor && _isTinyMode == false,
             ),
             zeroCornerIsOn: _flyerShowsAuthor,
             margins: EdgeInsets.zero,

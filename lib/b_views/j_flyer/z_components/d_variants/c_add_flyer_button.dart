@@ -15,6 +15,7 @@ import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:provider/provider.dart';
+import 'package:scale/scale.dart';
 
 class AddFlyerButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -71,7 +72,10 @@ class AddFlyerButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _flyerSizeFactor = FlyerDim.flyerFactorByFlyerWidth(context, flyerBoxWidth);
+    final double _flyerSizeFactor = FlyerDim.flyerFactorByFlyerWidth(
+      flyerBoxWidth: flyerBoxWidth,
+      gridWidth: Scale.screenWidth(context),
+    );
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
     final BzModel _bzModel = _bzzProvider.myActiveBz;
     // --------------------

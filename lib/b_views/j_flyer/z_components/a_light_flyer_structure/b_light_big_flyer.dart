@@ -24,6 +24,7 @@ import 'package:fire/super_fire.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
+import 'package:scale/scale.dart';
 
 class LightBigFlyer extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -342,7 +343,11 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
         mounted: mounted,
       );
 
-      final bool _tinyMode = FlyerDim.isTinyMode(context, widget.flyerBoxWidth);
+      final bool _tinyMode = FlyerDim.isTinyMode(
+        flyerBoxWidth: widget.flyerBoxWidth,
+        gridWidth: Scale.screenWidth(context),
+        gridHeight: Scale.screenHeight(context),
+      );
 
       if (_headerIsExpanded.value == true && _tinyMode == false) {
         await readBzCounters(

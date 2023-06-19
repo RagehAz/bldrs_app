@@ -15,6 +15,8 @@ class HeroicFlyer extends StatefulWidget {
     @required this.flyerBoxWidth,
     @required this.flyerModel,
     @required this.screenName,
+    @required this.gridWidth,
+    @required this.gridHeight,
     Key key
   }) : super(key: key);
 
@@ -22,7 +24,8 @@ class HeroicFlyer extends StatefulWidget {
   final double flyerBoxWidth;
   final FlyerModel flyerModel;
   final String screenName;
-
+  final double gridWidth;
+  final double gridHeight;
   /// --------------------------------------------------------------------------
   @override
   _HeroicFlyerState createState() => _HeroicFlyerState();
@@ -186,6 +189,8 @@ class _HeroicFlyerState extends State<HeroicFlyer> {
                   flyerBoxWidth: widget.flyerBoxWidth,
                   heroPath: _heroPath,
                   invoker: 'Flyer',
+                  gridWidth: widget.gridWidth,
+                  gridHeight: widget.gridHeight,
                 ),
               );
             }

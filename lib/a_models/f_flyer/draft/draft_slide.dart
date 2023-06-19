@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:fire/super_fire.dart';
@@ -11,6 +12,7 @@ import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
 import 'package:mediators/mediators.dart';
+import 'package:scale/scale.dart';
 import 'package:space_time/space_time.dart';
 import 'package:super_image/super_image.dart';
 /// => TAMAM
@@ -121,9 +123,13 @@ class DraftSlide {
         picFit: Dimensions.concludeBoxFit(
           picWidth: _dimensions?.width,
           picHeight: _dimensions?.height,
-          viewWidth: FlyerDim.flyerWidthByFactor(1),
+          viewWidth: FlyerDim.flyerWidthByFactor(
+            gridWidth: Scale.screenWidth(getMainContext()),
+            flyerSizeFactor: 1,
+          ),
           viewHeight: FlyerDim.heightBySizeFactor(
             flyerSizeFactor: 1,
+            gridWidth: Scale.screenWidth(getMainContext()),
           ),
         ),
         matrix: Matrix4.identity(),
