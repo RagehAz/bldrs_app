@@ -109,6 +109,8 @@ class HeroicFlyersGrid extends StatelessWidget {
                     flyerModel: smallFlyer,
                     flyerBoxWidth: _gridSlotWidth,
                     screenName: screenName,
+                    gridHeight: gridHeight,
+                    gridWidth: gridWidth,
                   ),
                 );
               },

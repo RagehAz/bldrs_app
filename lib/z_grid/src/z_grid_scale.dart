@@ -171,7 +171,7 @@ class ZGridScale {
     @required double itemAspectRatio, // a = w / h
   }) {
     final double _widthAtMaxGridHeight = _getBigItemWidthByGridHeight(
-      gridHeight: gridHeight,
+      gridHeight: gridHeight ?? Scale.screenHeight(getMainContext()),
       itemAspectRatio: itemAspectRatio,
     );
     return gridWidth < _widthAtMaxGridHeight;
@@ -316,12 +316,12 @@ class ZGridScale {
       columnCount: columnCount,
       itemAspectRatio: itemAspectRatio,
     );
-    final double _bottomPaddingOnZoomedOut = _getBottomPaddingOnZoomedOut(
+    final double _bottomPaddingOnZoomedOut = getBottomPaddingOnZoomedOut(
         bottomPaddingOnZoomedOut: bottomPaddingOnZoomedOut,
     );
     final double _bottom = isZoomed == true ? _bottomPaddingOnZoomedIn : _bottomPaddingOnZoomedOut;
 
-    final double gridSidePadding = getGridSideMargin(
+    final double gridSideMargin = getGridSideMargin(
       gridWidth: gridWidth,
       itemAspectRatio: itemAspectRatio,
       gridHeight: gridWidth,
@@ -330,9 +330,9 @@ class ZGridScale {
     return Scale.superInsets(
       context: context,
       appIsLTR: UiProvider.checkAppIsLeftToRight(),
-      enLeft: gridSidePadding,
+      enLeft: gridSideMargin,
       top: _topPaddingOnZoomedOut,
-      enRight: gridSidePadding,
+      enRight: gridSideMargin,
       bottom: _bottom,
     );
 
@@ -370,7 +370,7 @@ class ZGridScale {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static double _getBottomPaddingOnZoomedOut({
+  static double getBottomPaddingOnZoomedOut({
     @required double bottomPaddingOnZoomedOut,
   }){
     return bottomPaddingOnZoomedOut ?? 10;

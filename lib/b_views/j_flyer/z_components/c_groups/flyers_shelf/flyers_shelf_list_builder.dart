@@ -81,7 +81,10 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
 
     if (Mapper.checkCanLoopList(widget.flyers) == true){
 
-      final double _flyerBoxWidth = FlyerDim.flyerWidthByFactor(widget.flyerSizeFactor);
+      final double _flyerBoxWidth = FlyerDim.flyerWidthByFactor(
+        flyerSizeFactor: widget.flyerSizeFactor,
+        gridWidth: Scale.screenWidth(context),
+      );
 
       return ListView.separated(
         physics: const BouncingScrollPhysics(),
@@ -109,6 +112,8 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
                   flyerBoxWidth: _flyerBoxWidth,
                   flyerModel: widget.flyers[_x],
                   screenName: 'FlyersShelfListBuilder',
+                  gridWidth: Scale.screenWidth(context),
+                  gridHeight: Scale.screenHeight(context),
                 ),
 
               ),

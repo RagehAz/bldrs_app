@@ -11,6 +11,7 @@ import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:numeric/numeric.dart';
 import 'package:provider/provider.dart';
+import 'package:scale/scale.dart';
 
 class DiscountPriceTag extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -46,7 +47,10 @@ class DiscountPriceTag extends StatelessWidget {
       currentPrice: _currentPrice,
     );
     // --------------------
-    final double _flyerSizeFactor = FlyerDim.flyerFactorByFlyerWidth(context, flyerBoxWidth);
+    final double _flyerSizeFactor = FlyerDim.flyerFactorByFlyerWidth(
+      flyerBoxWidth: flyerBoxWidth,
+      gridWidth: Scale.screenWidth(context),
+    );
     final EdgeInsets _paddings = EdgeInsets.symmetric(horizontal: paddingValue);
     final Alignment _superCenterAlignment = BldrsAligners.superCenterAlignment(context);
     const double _separatorLineWidth = 1;
