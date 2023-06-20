@@ -49,19 +49,20 @@ class LoadingFlyersGrid extends StatelessWidget {
         numberOfColumnsOrRows: numberOfColumnsOrRows,
         scrollDirection: scrollDirection,
         hasResponsiveSideMargin: hasResponsiveSideMargin,
-        itemCount: FlyerDim.flyerGridNumberOfSlots(
-          flyersCount: 9,
-          addFlyerButtonIsOn: false,
-          isLoadingGrid: true,
-          numberOfColumnsOrRows: numberOfColumnsOrRows,
-        ),
+        itemCount: 12,
+        // itemCount: FlyerDim.flyerGridNumberOfSlots(
+        //   flyersCount: 12,
+        //   addFlyerButtonIsOn: false,
+        //   isLoadingGrid: true,
+        //   numberOfColumnsOrRows: numberOfColumnsOrRows,
+        // ),
         builder: (BuildContext ctx, int index){
           // ---------------------------------------------------------------
           return FlyerLoading(
             flyerBoxWidth: _gridSlotWidth,
             animate: true,
             direction: scrollDirection,
-            // boxColor: Colors.white,
+            boxColor: Colorz.bloodTest,
             // loadingColor: Colors.grey,
           );
           // ---------------------------------------------------------------

@@ -1376,8 +1376,6 @@ class FlyerDim {
 
     if (scrollDirection == Axis.vertical){
 
-      blog('a77aaaass');
-
       // return SliverGridDelegateWithMaxCrossAxisExtent(
       //   maxCrossAxisExtent: flyerBoxWidth,
       //   childAspectRatio:  flyerAspectRatio(),
