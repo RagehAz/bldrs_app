@@ -250,6 +250,7 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
       bigItem: ValueListenableBuilder(
         valueListenable: _zoomedFlyer,
         builder: (_, FlyerModel flyerModel, Widget child) {
+
           return LightBigFlyer(
             flyerBoxWidth: _gridScale.bigItemWidth,
             renderedFlyer: flyerModel,

@@ -1,13 +1,17 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
+import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/f_bz/f_bz_preview_screen/a_bz_preview_screen.dart';
+import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_header_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/d_labels/fff_author_label.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_types_line.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/zone_line.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:layouts/layouts.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
@@ -57,6 +61,17 @@ class BzLongButton extends StatelessWidget {
       );
 
     }
+
+  }
+
+  Future<void> onAuthorTap(AuthorModel author) async {
+
+    await onCallTap(
+        bzModel: bzModel.copyWith(
+          authors: [author],
+        ),
+        flyerModel: null,
+    );
 
   }
   // -----------------------------------------------------------------------------
@@ -136,53 +151,53 @@ class BzLongButton extends StatelessWidget {
                         centered: false,
                       ),
 
+                    if (Mapper.checkCanLoopList(bzModel?.authors) == true)
+                      BldrsText(
+                        width: _textZoneWidth,
+                        maxLines: 3,
+                        verse: Verse.plain('${bzModel.authors.length} Authors in ${bzModel.name} '),
+                        margin: 5,
+                        italic: true,
+                        weight: VerseWeight.black,
+                        color: Colorz.white80,
+                        centered: false,
+                      ),
+
                     /// BZ AUTHORS
                     if (showAuthorsPics == true)
                       Container(
                         width: _textZoneWidth,
-                        constraints: const BoxConstraints(
-                          maxHeight: 200,
-                        ),
+                        // constraints: const BoxConstraints(
+                        //   maxHeight: 200,
+                        // ),
                         decoration: const BoxDecoration(
-                          color: Colorz.white10,
+                          // color: Colorz.white10,
                           borderRadius: Borderers.constantCornersAll10,
                         ),
-                        child: SingleChildScrollView(
-                          physics: const BouncingScrollPhysics(),
-                          padding: const EdgeInsets.all(5),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
+                        child: Wrap(
+                          // crossAxisAlignment: CrossAxisAlignment.start,
+                          runSpacing: 10,
+                          spacing: 10,
+                          children: <Widget>[
 
-                              if (Mapper.checkCanLoopList(bzModel?.authors) == true)
-                                BldrsText(
-                                verse: Verse.plain('${bzModel.authors.length} Authors in ${bzModel.name} '),
-                                margin: 5,
-                                italic: true,
-                                weight: VerseWeight.black,
-                                color: Colorz.white80,
-                              ),
 
-                              if (Mapper.checkCanLoopList(bzModel?.authors) == true)
-                              ...List.generate( bzModel?.authors?.length, (index){
+                            if (Mapper.checkCanLoopList(bzModel?.authors) == true)
+                            ...List.generate( bzModel?.authors?.length, (index){
 
-                                final AuthorModel _author = bzModel.authors[index];
+                              final AuthorModel _author = bzModel.authors[index];
 
-                                return Padding(
-                                  padding: const EdgeInsets.only(bottom: 5),
-                                  child: AuthorLabel(
-                                    flyerBoxWidth: _textZoneWidth ,
-                                    authorID: _author.userID,
-                                    bzModel: bzModel,
-                                    showLabel: true,
-                                    labelIsOn: true,
-                                  ),
-                                );
+                              return AuthorLabel(
+                                flyerBoxWidth: _textZoneWidth * 0.5,
+                                authorID: _author.userID,
+                                bzModel: bzModel,
+                                showLabel: true,
+                                labelIsOn: true,
+                                onLabelTap: () => onAuthorTap(_author),
+                              );
 
-                              }),
+                            }),
 
-                            ],
-                          ),
+                          ],
                         ),
                       ),
 
