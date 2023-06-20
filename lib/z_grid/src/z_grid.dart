@@ -43,6 +43,8 @@ class ZGrid extends StatelessWidget {
       valueListenable: controller.isZoomed,
       builder: (_, bool zoomed, Widget child){
 
+        blog('zoomed : $zoomed');
+
         return GestureDetector(
           onHorizontalDragUpdate: zoomed == false ? null : (details) {
             blog('prevent swipe gestures from affecting the PageView');
@@ -50,6 +52,7 @@ class ZGrid extends StatelessWidget {
           onHorizontalDragEnd: zoomed == false ? null : (details) {
             blog('prevent swipe gestures from affecting the PageView');
           },
+
           child: Stack(
             alignment: Alignment.topCenter,
             children: <Widget>[
@@ -150,48 +153,45 @@ class ZGrid extends StatelessWidget {
         //   blog(details.toString());
         // },
         // scaleFactor: 200.0, // Affects only pointer device scrolling, not pinch to zoom.
-        child: SizedBox(
-          width: gridScale.gridWidth,
-          height: gridScale.gridHeight,
-          child: ValueListenableBuilder(
-            valueListenable: controller.isZoomed,
-            builder: (_, bool zoomed, Widget theGrid){
+        child: ValueListenableBuilder(
+          valueListenable: controller.isZoomed,
+          builder: (_, bool zoomed, Widget theGrid){
 
-              /// THE GRID
-              return IgnorePointer(
-                ignoring: zoomed,
-                child: GridView.builder(
-                key: const ValueKey<String>('ZGrid'),
-                controller: controller.scrollController,
-                gridDelegate: ZGridScale.getGridDelegate(
-                  gridWidth: gridScale.gridWidth,
-                  gridHeight: gridScale.gridHeight,
-                  columnCount: gridScale.columnCount,
-                  itemAspectRatio: gridScale.itemAspectRatio,
-                ),
-                padding: ZGridScale.getGridPadding(
-                  topPaddingOnZoomOut: gridScale.topPaddingOnZoomOut,
-                  gridWidth: gridScale.gridWidth,
-                  gridHeight: gridScale.gridHeight,
-                  columnCount: gridScale.columnCount,
-                  itemAspectRatio: gridScale.itemAspectRatio,
-                  context: context,
-                  isZoomed: zoomed,
-                  bottomPaddingOnZoomedOut: gridScale.bottomPaddingOnZoomedOut,
-                ),
-                itemCount: itemCount,
-                physics: const BouncingScrollPhysics(),
-                itemBuilder: (_, int index) => builder(index)
-            ),
-              );
+            /// THE GRID
+            return IgnorePointer(
+              ignoring: zoomed,
+              child: GridView.builder(
+                  key: const ValueKey<String>('ZGrid'),
+                  controller: controller.scrollController,
+                  gridDelegate: ZGridScale.getGridDelegate(
+                    gridWidth: gridScale.gridWidth,
+                    gridHeight: gridScale.gridHeight,
+                    columnCount: gridScale.columnCount,
+                    itemAspectRatio: gridScale.itemAspectRatio,
+                  ),
+                  padding: ZGridScale.getGridPadding(
+                    topPaddingOnZoomOut: gridScale.topPaddingOnZoomOut,
+                    gridWidth: gridScale.gridWidth,
+                    gridHeight: gridScale.gridHeight,
+                    columnCount: gridScale.columnCount,
+                    itemAspectRatio: gridScale.itemAspectRatio,
+                    context: context,
+                    isZoomed: zoomed,
+                    bottomPaddingOnZoomedOut: gridScale.bottomPaddingOnZoomedOut,
+                  ),
+                  itemCount: itemCount,
+                  physics: const BouncingScrollPhysics(),
+                  itemBuilder: (_, int index) => builder(index)
+              ),
+            );
 
             },
 
-            child: const SizedBox(),
+          child: const SizedBox(),
 
-          ),
         ),
       ),
+
     );
 
   }
