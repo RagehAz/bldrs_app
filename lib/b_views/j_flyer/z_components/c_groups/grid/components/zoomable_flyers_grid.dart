@@ -18,6 +18,7 @@ class FlyersZGrid extends StatefulWidget {
     @required this.gridHeight,
     @required this.gridWidth,
     @required this.flyersIDs,
+    @required this.hasResponsiveSideMargin,
     this.scrollController,
     this.columnCount = 3,
     this.bottomPaddingOnZoomedOut,
@@ -44,6 +45,7 @@ class FlyersZGrid extends StatefulWidget {
   final Function(FlyerModel flyerModel) onFlyerOptionsTap;
   final double topPadding;
   final ZGridController zGridController;
+  final bool hasResponsiveSideMargin;
   /// --------------------------------------------------------------------------
   @override
   State<FlyersZGrid> createState() => _FlyersZGridState();
@@ -180,6 +182,7 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
       bottomPaddingOnZoomedOut: widget.bottomPaddingOnZoomedOut,
       topPaddingOnZoomOut: widget.topPadding,
       itemAspectRatio: FlyerDim.flyerAspectRatio(),
+      hasResponsiveSideMargin: widget.hasResponsiveSideMargin,
     );
 
     return ZGrid(
@@ -279,26 +282,30 @@ Future<void> zoomOutFlyer({
   @required ValueNotifier<FlyerModel> flyerNotifier,
 }) async {
 
-  if (controller?.isZoomed?.value == true) {
-    await ZGridController.zoomOut(
-      mounted: mounted,
-      zGridController: controller,
-      onZoomOutStart: () {},
-      onZoomOutEnd: () async {
-        if (flyerNotifier != null) {
-          setNotifier(
-            notifier: flyerNotifier,
-            mounted: mounted,
-            value: null,
-          );
-        }
+  if (controller != null) {
+    if (controller?.isZoomed?.value == true) {
+      await ZGridController.zoomOut(
+        mounted: mounted,
+        zGridController: controller,
+        onZoomOutStart: () {},
+        onZoomOutEnd: () async {
 
-        UiProvider.proSetLayoutIsVisible(
-          setTo: true,
-          notify: true,
-        );
-      },
-    );
+          if (flyerNotifier != null) {
+            setNotifier(
+              notifier: flyerNotifier,
+              mounted: mounted,
+              value: null,
+            );
+          }
+
+          UiProvider.proSetLayoutIsVisible(
+            setTo: true,
+            notify: true,
+          );
+
+        },
+      );
+    }
   }
 
 }

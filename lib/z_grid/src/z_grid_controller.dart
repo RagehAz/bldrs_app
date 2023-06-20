@@ -89,6 +89,7 @@ class ZGridController {
     @required double itemAspectRatio,
     @required bool mounted,
     @required ZGridController zGridController,
+    @required bool hasResponsiveSideMargin,
   }) async {
 
     final double _newOffset = ZGridScale._getRowOffset(
@@ -97,6 +98,7 @@ class ZGridController {
       gridHeight: gridHeight,
       columnCount: columnCount,
       itemAspectRatio: itemAspectRatio,
+      hasResponsiveSideMargin: hasResponsiveSideMargin,
     );
 
     setNotifier(
@@ -165,6 +167,7 @@ class ZGridController {
       itemAspectRatio: gridScale.itemAspectRatio,
       zGridController: zGridController,
       mounted: mounted,
+      hasResponsiveSideMargin: gridScale.hasResponsiveSideMargin,
     ));
 
     /// APP IS LEFT TO RIGHT INDEX
@@ -183,6 +186,7 @@ class ZGridController {
         gridHeight: gridScale.gridHeight,
         itemAspectRatio: gridScale.itemAspectRatio,
         topPaddingOnZoomOut: gridScale.topPaddingOnZoomOut,
+        hasResponsiveSideMargin: gridScale.hasResponsiveSideMargin,
       ),
     );
 

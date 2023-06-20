@@ -168,6 +168,7 @@ class ZGrid extends StatelessWidget {
                     gridHeight: gridScale.gridHeight,
                     columnCount: gridScale.columnCount,
                     itemAspectRatio: gridScale.itemAspectRatio,
+                    hasResponsiveSideMargin: gridScale.hasResponsiveSideMargin,
                   ),
                   padding: ZGridScale.getGridPadding(
                     topPaddingOnZoomOut: gridScale.topPaddingOnZoomOut,
@@ -178,6 +179,7 @@ class ZGrid extends StatelessWidget {
                     context: context,
                     isZoomed: zoomed,
                     bottomPaddingOnZoomedOut: gridScale.bottomPaddingOnZoomedOut,
+                    hasResponsiveSideMargin: gridScale.hasResponsiveSideMargin,
                   ),
                   itemCount: itemCount,
                   physics: const BouncingScrollPhysics(),
