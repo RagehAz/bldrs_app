@@ -1182,7 +1182,7 @@ class FlyerDim {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double flyerGridGridSpacingValue(double flyerBoxWidth){
-    return flyerBoxWidth * _spacingRatio;
+    return (flyerBoxWidth ?? 0) * _spacingRatio;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -1193,6 +1193,7 @@ class FlyerDim {
     @required double gridSpacingValue,
     @required double topPaddingValue, /// when is vertical scrolling
     @required bool isVertical,
+    @required bool hasResponsiveSideMargin,
     double endPadding,
   }){
 
@@ -1202,6 +1203,7 @@ class FlyerDim {
         gridWidth: gridWidth,
         bottomPadding: endPadding,
         topPaddingValue: topPaddingValue,
+        hasResponsiveSideMargin: hasResponsiveSideMargin,
       );
     }
 
@@ -1220,12 +1222,14 @@ class FlyerDim {
     @required double gridHeight,
     @required double bottomPadding,
     @required double topPaddingValue,
+    @required bool hasResponsiveSideMargin,
   }){
 
     final double gridSideMargin = ZGridScale.getGridSideMargin(
       gridWidth: gridWidth,
       gridHeight: gridHeight,
       itemAspectRatio: flyerAspectRatio(),
+      hasResponsiveSideMargin: hasResponsiveSideMargin,
     );
 
     final double _bottomPaddingOnZoomedOut = ZGridScale.getBottomPaddingOnZoomedOut(
@@ -1289,16 +1293,18 @@ class FlyerDim {
     @required int numberOfColumnsOrRows,
     @required double gridWidth,
     @required double gridHeight,
+    @required bool hasResponsiveSideMargin,
     double spacingRatio,
   }){
 
     if (scrollDirection == Axis.vertical){
 
       return ZGridScale.getSmallItemWidth(
-          gridWidth: gridWidth,
-          gridHeight: gridHeight,
-          columnCount: numberOfColumnsOrRows,
-          itemAspectRatio: flyerAspectRatio(),
+        gridWidth: gridWidth,
+        gridHeight: gridHeight,
+        columnCount: numberOfColumnsOrRows,
+        itemAspectRatio: flyerAspectRatio(),
+        hasResponsiveSideMargin: hasResponsiveSideMargin,
       );
 
     }

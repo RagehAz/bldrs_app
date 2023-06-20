@@ -14,6 +14,7 @@ class ZGridScale {
     @required this.bigItemHeight,
     @required this.smallItemHeight,
     @required this.smallItemWidth,
+    @required this.hasResponsiveSideMargin,
   });
   // --------------------------------------------------------------------------
   final double gridWidth;
@@ -28,6 +29,7 @@ class ZGridScale {
   final double bigItemHeight;
   final double smallItemWidth;
   final double smallItemHeight;
+  final bool hasResponsiveSideMargin;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static ZGridScale initialize({
@@ -37,6 +39,7 @@ class ZGridScale {
     @required int columnCount,
     @required double topPaddingOnZoomOut,
     @required double bottomPaddingOnZoomedOut,
+    @required bool hasResponsiveSideMargin,
   }){
 
     final double _topPaddingOnZoomedIn = getCenteredTopPaddingOnZoomedIn(
@@ -51,6 +54,7 @@ class ZGridScale {
       columnCount: columnCount,
       gridHeight: gridHeight,
       itemAspectRatio: itemAspectRatio,
+      hasResponsiveSideMargin: hasResponsiveSideMargin,
     );
 
     final double _smallItemHeight = getSmallItemHeight(
@@ -58,6 +62,7 @@ class ZGridScale {
       columnCount: columnCount,
       itemAspectRatio: itemAspectRatio,
       gridHeight: gridHeight,
+      hasResponsiveSideMargin: hasResponsiveSideMargin,
     );
 
     final double _bigItemWidth = getBigItemWidth(
@@ -84,6 +89,7 @@ class ZGridScale {
       bigItemHeight: _bigItemHeight,
       smallItemHeight: _smallItemHeight,
       smallItemWidth: _smallItemWidth,
+      hasResponsiveSideMargin: hasResponsiveSideMargin,
     );
 
   }
@@ -98,12 +104,14 @@ class ZGridScale {
     @required double gridHeight,
     @required int columnCount,
     @required double itemAspectRatio,
+    @required bool hasResponsiveSideMargin,
   }){
 
     final double gridSidePadding = getGridSideMargin(
       gridWidth: gridWidth,
       gridHeight: gridHeight,
       itemAspectRatio: itemAspectRatio,
+      hasResponsiveSideMargin: hasResponsiveSideMargin,
     );
 
     final double _clearWidth = gridWidth - (gridSidePadding * 2);
@@ -123,6 +131,7 @@ class ZGridScale {
     @required double gridHeight,
     @required int columnCount,
     @required double itemAspectRatio,
+    @required bool hasResponsiveSideMargin,
   }){
 
     final double _smallItemWidth = getSmallItemWidth(
@@ -130,6 +139,7 @@ class ZGridScale {
       columnCount: columnCount,
       itemAspectRatio: itemAspectRatio,
       gridHeight: gridHeight,
+      hasResponsiveSideMargin: hasResponsiveSideMargin,
     );
 
     return _smallItemWidth / itemAspectRatio;
@@ -252,6 +262,7 @@ class ZGridScale {
     @required int columnCount,
     @required double itemAspectRatio,
     @required double gridHeight,
+    @required bool hasResponsiveSideMargin,
   }){
 
     final double _smallItemWidth = getSmallItemWidth(
@@ -259,6 +270,7 @@ class ZGridScale {
       columnCount: columnCount,
       gridHeight: gridHeight,
       itemAspectRatio: itemAspectRatio,
+      hasResponsiveSideMargin: hasResponsiveSideMargin,
     );
 
     return _smallItemWidth * spacingRatio;
@@ -304,6 +316,7 @@ class ZGridScale {
     @required bool isZoomed,
     @required double itemAspectRatio,
     @required double bottomPaddingOnZoomedOut,
+    @required bool hasResponsiveSideMargin,
   }){
 
     final double _topPaddingOnZoomedOut = getTopPaddingOnZoomOut(
@@ -315,6 +328,7 @@ class ZGridScale {
       gridHeight: gridHeight,
       columnCount: columnCount,
       itemAspectRatio: itemAspectRatio,
+      hasResponsiveSideMargin: hasResponsiveSideMargin,
     );
     final double _bottomPaddingOnZoomedOut = getBottomPaddingOnZoomedOut(
         bottomPaddingOnZoomedOut: bottomPaddingOnZoomedOut,
@@ -325,6 +339,7 @@ class ZGridScale {
       gridWidth: gridWidth,
       itemAspectRatio: itemAspectRatio,
       gridHeight: gridWidth,
+      hasResponsiveSideMargin: hasResponsiveSideMargin,
     );
 
     return Scale.superInsets(
@@ -344,6 +359,7 @@ class ZGridScale {
     @required double gridHeight,
     @required int columnCount,
     @required double itemAspectRatio,
+    @required bool hasResponsiveSideMargin,
   }){
 
     final double _smallItemHeight = getSmallItemHeight(
@@ -351,6 +367,7 @@ class ZGridScale {
       columnCount: columnCount,
       itemAspectRatio: itemAspectRatio,
       gridHeight: gridHeight,
+      hasResponsiveSideMargin: hasResponsiveSideMargin,
     );
 
     final double _scale = calculateMaxScale(
@@ -358,12 +375,14 @@ class ZGridScale {
       gridWidth: gridWidth,
       gridHeight: gridHeight,
       itemAspectRatio: itemAspectRatio,
+      hasResponsiveSideMargin: hasResponsiveSideMargin,
     );
 
     final double gridSidePadding = getGridSideMargin(
       gridWidth: gridWidth,
       itemAspectRatio: itemAspectRatio,
       gridHeight: gridWidth,
+      hasResponsiveSideMargin: hasResponsiveSideMargin,
     );
 
     return (_smallItemHeight + gridSidePadding) * _scale;
@@ -381,11 +400,12 @@ class ZGridScale {
     @required double gridWidth,
     @required double gridHeight,
     @required double itemAspectRatio,
+    @required bool hasResponsiveSideMargin,
   }){
 
     final BuildContext context = getMainContext();
 
-    if (Scale.isLandScape(context) == true){
+    if (Scale.isLandScape(context) == true && hasResponsiveSideMargin == true){
       return (Scale.screenWidth(context) - Bubble.bubbleWidth(context: context)) / 2;
     }
 
@@ -405,6 +425,7 @@ class ZGridScale {
     @required double gridHeight,
     @required int columnCount,
     @required double itemAspectRatio,
+    @required bool hasResponsiveSideMargin,
   }){
 
     final double _gridSpacingValue = getSpacing(
@@ -412,6 +433,7 @@ class ZGridScale {
       columnCount: columnCount,
       gridHeight: gridHeight,
       itemAspectRatio: itemAspectRatio,
+      hasResponsiveSideMargin: hasResponsiveSideMargin,
     );
 
     final double _smallItemHeight = getSmallItemHeight(
@@ -419,6 +441,7 @@ class ZGridScale {
       columnCount: columnCount,
       itemAspectRatio: itemAspectRatio,
       gridHeight: gridHeight,
+      hasResponsiveSideMargin: hasResponsiveSideMargin,
     );
 
     return SliverGridDelegateWithFixedCrossAxisCount(
@@ -461,6 +484,7 @@ class ZGridScale {
     @required double gridHeight,
     @required int columnCount,
     @required double itemAspectRatio,
+    @required bool hasResponsiveSideMargin,
   }){
 
     final double _smallItemHeight = getSmallItemHeight(
@@ -468,6 +492,7 @@ class ZGridScale {
       columnCount: columnCount,
       itemAspectRatio: itemAspectRatio,
       gridHeight: gridHeight,
+      hasResponsiveSideMargin: hasResponsiveSideMargin,
     );
 
     final double _spacing = getSpacing(
@@ -475,6 +500,7 @@ class ZGridScale {
       columnCount: columnCount,
       gridHeight: gridHeight,
       itemAspectRatio: itemAspectRatio,
+      hasResponsiveSideMargin: hasResponsiveSideMargin,
     );
 
     return (_smallItemHeight + _spacing) * rowIndex;
@@ -487,6 +513,7 @@ class ZGridScale {
     @required double topPaddingOnZoomOut,
     @required double gridHeight,
     @required double itemAspectRatio,
+    @required bool hasResponsiveSideMargin,
   }){
 
     final double _scale = calculateMaxScale(
@@ -494,6 +521,7 @@ class ZGridScale {
       gridWidth: gridWidth,
       gridHeight: gridHeight,
       itemAspectRatio: itemAspectRatio,
+      hasResponsiveSideMargin: hasResponsiveSideMargin,
     );
 
     final double _topPaddingOnZoomedOut = getTopPaddingOnZoomOut(
@@ -519,12 +547,14 @@ class ZGridScale {
     @required double gridWidth,
     @required double gridHeight,
     @required double itemAspectRatio,
+    @required bool hasResponsiveSideMargin,
   }){
     final double _scale = calculateMaxScale(
       columnCount: columnCount,
       gridWidth: gridWidth,
       itemAspectRatio: itemAspectRatio,
       gridHeight: gridHeight,
+      hasResponsiveSideMargin: hasResponsiveSideMargin,
     );
 
     final double _spacing = getSpacing(
@@ -532,6 +562,7 @@ class ZGridScale {
       columnCount: columnCount,
       itemAspectRatio: itemAspectRatio,
       gridHeight: gridHeight,
+      hasResponsiveSideMargin: hasResponsiveSideMargin,
     );
 
     final double _smallItemWidth = getSmallItemWidth(
@@ -539,12 +570,14 @@ class ZGridScale {
       columnCount: columnCount,
       itemAspectRatio: itemAspectRatio,
       gridHeight: gridHeight,
+      hasResponsiveSideMargin: hasResponsiveSideMargin,
     );
 
     final double _gridSideMargin = getGridSideMargin(
       gridWidth: gridWidth,
       gridHeight: gridHeight,
       itemAspectRatio: itemAspectRatio,
+      hasResponsiveSideMargin: hasResponsiveSideMargin,
     );
 
     /// THE ENTIRE SIDE PADDING GETS SCALED UP
@@ -577,6 +610,7 @@ class ZGridScale {
     @required double gridHeight,
     @required int columnCount,
     @required double itemAspectRatio,
+    @required bool hasResponsiveSideMargin,
   }){
 
     final double _bigItemWidth = getBigItemWidth(
@@ -611,6 +645,7 @@ class ZGridScale {
       columnCount: columnCount,
       gridHeight: gridHeight,
       itemAspectRatio: itemAspectRatio,
+      hasResponsiveSideMargin: hasResponsiveSideMargin,
     );
 
     return _bigItemWidth / _smallItemWidth;
@@ -630,6 +665,7 @@ class ZGridScale {
     @required double gridHeight,
     @required double itemAspectRatio,
     @required double topPaddingOnZoomOut,
+    @required bool hasResponsiveSideMargin,
   }){
 
     final double _scale = calculateMaxScale(
@@ -637,6 +673,7 @@ class ZGridScale {
       gridWidth: gridWidth,
       itemAspectRatio: itemAspectRatio,
       gridHeight: gridHeight,
+      hasResponsiveSideMargin: hasResponsiveSideMargin,
     );
     final double _transX = _getHorizontalZoomOffset(
       columnIndex: columnIndex,
@@ -644,6 +681,7 @@ class ZGridScale {
       gridWidth: gridWidth,
       gridHeight: gridHeight,
       itemAspectRatio: itemAspectRatio,
+      hasResponsiveSideMargin: hasResponsiveSideMargin,
     );
     final double _transY = _getTopPaddingZoomOffset(
       columnCount: columnCount,
@@ -651,6 +689,7 @@ class ZGridScale {
       topPaddingOnZoomOut: topPaddingOnZoomOut,
       gridHeight: gridHeight,
       itemAspectRatio: itemAspectRatio,
+      hasResponsiveSideMargin: hasResponsiveSideMargin,
     );
     // const double _transY = 0;
 

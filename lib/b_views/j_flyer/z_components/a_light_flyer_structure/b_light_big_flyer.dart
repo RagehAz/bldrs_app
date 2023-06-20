@@ -168,7 +168,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
         index: 0,
         numberOfStrips: getNumberOfSlides(
           flyerModel: _flyer.value,
-          bzModel: _flyer.value.bzModel,
+          bzModel: _flyer.value?.bzModel,
           showGallerySlide: widget.showGallerySlide,
           // heroPath: _heroPath,
         ),
