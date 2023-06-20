@@ -63,7 +63,7 @@ Future<void> initializeLogoScreen({
         /// APP LANGUAGE
         initializeAppLanguage(),
         /// APP STATE
-        initializeAppState(context),
+        initializeAppState(),
 
       ]
   );
@@ -209,10 +209,10 @@ Future<void> setUserModelAndCompleteUserZoneLocally({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> initializeAppState(BuildContext context) async {
+Future<void> initializeAppState() async {
 
   final UserModel _userModel = UsersProvider.proGetMyUserModel(
-    context: context,
+    context: getMainContext(),
     listen: false,
   );
 
@@ -242,7 +242,7 @@ Future<void> initializeAppState(BuildContext context) async {
 
       /// DETECTED APP VERSION IS INCORRECT
       if (_globalState.appVersion != _detectedAppVersion){
-        await _showUpdateAppDialog(context);
+        await _showUpdateAppDialog(getMainContext());
       }
       /// DETECTED APP VERSION IS CORRECT BUT USER VERSION IS NOT
       else if (_userState.appVersion != _detectedAppVersion){
@@ -260,7 +260,7 @@ Future<void> initializeAppState(BuildContext context) async {
       if (_userStateIsUpdated == true){
 
         await UserProtocols.renovate(
-          context: context,
+          context: getMainContext(),
           oldUser: _userModel,
           newUser: _userModel.copyWith(
             appState: _userState,

@@ -51,7 +51,7 @@ class BzSearchFiltersList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _tileWidth = SuperSearchScreen.getFilterTileWidth();
+    final double _tileWidth = SuperSearchScreen.getFilterTileWidth(context);
 
     // final List<ContactModel> contacts;
     // final BzState bzState;
