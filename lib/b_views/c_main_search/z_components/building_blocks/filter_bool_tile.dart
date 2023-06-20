@@ -24,7 +24,7 @@ class FilterBoolTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _tileWidth = SuperSearchScreen.getFilterTileWidth();
+    final double _tileWidth = SuperSearchScreen.getFilterTileWidth(context);
 
     return TileBubble(
           bubbleWidth: _tileWidth,
