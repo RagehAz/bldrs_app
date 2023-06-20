@@ -62,10 +62,10 @@ packages:
     dependency: transitive
     description:
       name: asn1lib
-      sha256: ab96a1cb3beeccf8145c52e449233fe68364c9641623acd3adad66f8184f1039
+      sha256: b74e3842a52c61f8819a1ec8444b4de5419b41a7465e69d4aa681445377398b0
       url: "https://pub.dev"
     source: hosted
-    version: "1.4.0"
+    version: "1.4.1"
   async:
     dependency: transitive
     description:
@@ -503,10 +503,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: e0ea3750a42ad48d9f96c9f7f99fe33ff8835a0b
+      resolved-ref: "1c886e8426381f0e1715244e3704c8fa4415db9e"
       url: "https://github.com/RagehAz/fire.git"
     source: git
-    version: "0.0.7"
+    version: "0.0.8"
   firebase_app_check:
     dependency: "direct main"
     description:
@@ -1588,10 +1588,10 @@ packages:
     dependency: transitive
     description:
       name: sembast
-      sha256: c35f2d3a5ff1c9724d887c18de6846ad090d34fdd45419a5c5abc6c2d5e638e7
+      sha256: da8dd3774b6001bde09378da28e94c40bd4daecde32adb44837517c12e991321
       url: "https://pub.dev"
     source: hosted
-    version: "3.4.8"
+    version: "3.4.9"
   sembast_web:
     dependency: transitive
     description:

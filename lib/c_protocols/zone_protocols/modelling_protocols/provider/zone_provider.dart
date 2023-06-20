@@ -123,6 +123,7 @@ class ZoneProvider extends ChangeNotifier {
 
     setCurrentZone(
       zone: _completeZone,
+      setCountryOnly: true,
       notify: notify,
     );
 
@@ -131,6 +132,7 @@ class ZoneProvider extends ChangeNotifier {
   /// TESTED : WORKS PERFECT
   void setCurrentZone({
     @required ZoneModel zone,
+    @required bool setCountryOnly,
     @required bool notify,
   }){
 
@@ -138,7 +140,17 @@ class ZoneProvider extends ChangeNotifier {
 
     // zone?.blogZone(invoker: 'setCurrentZone');
 
-    _currentZone = zone;
+    if (setCountryOnly == true){
+      _currentZone = zone.nullifyField(
+        cityID: true,
+        cityName: true,
+        cityModel: true,
+      );
+    }
+    else {
+      _currentZone = zone;
+    }
+
     if (notify == true){
       notifyListeners();
     }
@@ -150,6 +162,7 @@ class ZoneProvider extends ChangeNotifier {
   }){
     setCurrentZone(
       zone: null,
+      setCountryOnly: false,
       notify: notify,
     );
   }
