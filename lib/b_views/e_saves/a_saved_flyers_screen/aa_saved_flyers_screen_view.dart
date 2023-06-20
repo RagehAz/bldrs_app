@@ -40,10 +40,11 @@ class SavedFlyersScreenView extends StatelessWidget {
         flyerID: flyerID,
       ),
       numberOfColumnsOrRows: Scale.isLandScape(context) == true ? 4 : 3,
-      isHeroicGrid: false,
+      gridType: FlyerGridType.zoomable,
       gridHeight: Scale.screenHeight(context),
       gridWidth: Scale.screenWidth(context),
       zGridController: zGridController,
+      hasResponsiveSideMargin: true,
       // showAddFlyerButton: false,
       // scrollDirection: Axis.vertical,
     );

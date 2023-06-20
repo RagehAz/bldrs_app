@@ -240,9 +240,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 if (loading == true) {
                   return const FlyersGrid(
                     key: ValueKey<String>('flyersGrid_loading_home'),
-                    isLoadingGrid: true,
-                    isHeroicGrid: false,
+                    gridType: FlyerGridType.loading,
                     screenName: 'Home_Screen_Flyers_Loading_Grid',
+                    hasResponsiveSideMargin: true,
                   );
                 }
 

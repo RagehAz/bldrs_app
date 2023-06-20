@@ -192,11 +192,12 @@ class _GallerySlideState extends State<GallerySlide> {
                 gridWidth: widget.flyerBoxWidth,
                 gridHeight: widget.flyerBoxHeight,
                 flyers: flyers,
-                isHeroicGrid: true,
+                gridType: FlyerGridType.heroic,
                 topPadding: _headerAndProgressHeights,
                 // numberOfColumns: 2,
                 screenName: widget.heroTag,
                 scrollController: _scrollController,
+                hasResponsiveSideMargin: false,
               ),
             );
 

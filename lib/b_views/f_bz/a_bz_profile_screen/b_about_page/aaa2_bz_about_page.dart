@@ -220,7 +220,8 @@ class AboutBzBubbles extends StatelessWidget {
             screenName: 'BzAboutPageFlyersGrid',
             gridHeight: _gridHeight,
             scrollable: false,
-            isHeroicGrid: true,
+            gridType: FlyerGridType.heroic,
+            hasResponsiveSideMargin: true,
           ),
 
         // const Horizon(),

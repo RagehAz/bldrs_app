@@ -55,9 +55,10 @@ class HomeFlyersGrid extends StatelessWidget {
             gridHeight: Scale.screenHeight(context),
             flyers: _wallFlyers,
             screenName: 'userHomeScreen',
-            isHeroicGrid: false,
+            gridType: FlyerGridType.zoomable,
             bottomPadding: Ratioz.horizon,
             numberOfColumnsOrRows: Scale.isLandScape(context) == true ? 3 : 2,
+            hasResponsiveSideMargin: true,
 
           ),
         );
