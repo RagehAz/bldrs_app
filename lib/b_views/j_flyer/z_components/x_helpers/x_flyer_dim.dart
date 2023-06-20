@@ -1080,7 +1080,7 @@ class FlyerDim {
         itemAspectRatio: flyerAspectRatio(),
     );
 
-    return flyerBoxWidth >= _bigFlyerWidth;
+    return flyerBoxWidth == _bigFlyerWidth;
   }
   // ---------
   /// TESTED : WORKS PERFECT
