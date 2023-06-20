@@ -105,8 +105,8 @@ class FlyersGrid extends StatelessWidget {
       /// LOADING GRID
       if (_isLoadingGrid == true) {
         return LoadingFlyersGrid(
-          gridWidth: gridWidth,
-          gridHeight: gridHeight,
+          gridWidth: gridWidth ?? MediaQuery.of(context).size.width,
+          gridHeight: gridHeight ?? MediaQuery.of(context).size.height,
           scrollController: scrollController,
           topPadding: topPadding,
           numberOfColumnsOrRows: numberOfColumnsOrRows,
@@ -157,6 +157,7 @@ class FlyersGrid extends StatelessWidget {
           topPadding: topPadding,
           bottomPaddingOnZoomedOut: bottomPadding,
         );
+
       }
       // --------------------
     }
