@@ -1,13 +1,14 @@
-import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
+import 'dart:ui' as ui;
+
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/d_labels/ffff_author_pic.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_color.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_verse.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/d_labels/ffff_author_pic.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
-import 'dart:ui' as ui;
 
 class AuthorLabel extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -41,7 +42,6 @@ class AuthorLabel extends StatelessWidget {
     );
     // --------------------
     final double _versesScaleFactor = FlyerVerses.authorLabelVersesScaleFactor(
-      context: context,
       flyerBoxWidth: flyerBoxWidth,
     );
     // --------------------
@@ -89,16 +89,14 @@ class AuthorLabel extends StatelessWidget {
                   children: <Widget>[
 
                     /// AUTHOR NAME
-                    SizedBox(
+                    BldrsText(
                       width: _authorLabelVersesWidth,
-                      child: BldrsText(
-                        verse: Verse(
-                          id: _author?.name,
-                          translate: false,
-                        ),
-                        centered: false,
-                        scaleFactor: _versesScaleFactor,
+                      verse: Verse(
+                        id: _author?.name,
+                        translate: false,
                       ),
+                      centered: false,
+                      scaleFactor: _versesScaleFactor,
                     ),
 
                     /// AUTHOR TITLE
@@ -129,8 +127,8 @@ class AuthorLabel extends StatelessWidget {
                         ),
                         italic: true,
                         centered: false,
-                        weight: VerseWeight.regular,
-                        size: 0,
+                        weight: VerseWeight.thin,
+                        size: 1,
                         scaleFactor: _versesScaleFactor,
                       ),
                     ),

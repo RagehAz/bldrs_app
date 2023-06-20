@@ -57,13 +57,12 @@ class PickersScreenSearchView extends StatelessWidget {
 
           /// NO RESULT FOUND
           if (_noResultsFound == true){
-            return PageBubble(
-              screenHeightWithoutSafeArea: screenHeight,
-              appBarType: AppBarType.search,
-              child: const NoResultFound(),
+            return const Center(
+                child: NoResultFound(),
             );
           }
 
+          /// RESULT FOUND
           else {
 
             return PageBubble(

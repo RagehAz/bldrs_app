@@ -1,7 +1,7 @@
-import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
-import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
+import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/x_pickers_screen_controllers.dart';
 import 'package:bldrs/b_views/i_chains/z_components/others/spec_picker_instruction.dart';
 import 'package:bldrs/b_views/i_chains/z_components/pickers/picker_splitter.dart';
@@ -10,11 +10,11 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:filers/filers.dart';
+import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 import 'package:stringer/stringer.dart';
-import 'package:filers/filers.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:flutter/material.dart';
 
 class PickersScreenBrowseView extends StatelessWidget {
   /// --------------------------------------------------------------------------

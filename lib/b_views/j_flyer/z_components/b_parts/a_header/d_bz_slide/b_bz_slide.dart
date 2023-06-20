@@ -189,6 +189,7 @@ class BzSlide extends StatelessWidget {
               BlackBox(
                 width: flyerBoxWidth,
                 child: ReportButton(
+                  width: flyerBoxWidth * 0.7,
                   modelType: ModelType.bz,
                   color: Colorz.black255,
                   onTap: () => BzFireOps.reportBz(

@@ -10,6 +10,7 @@ class ReportButton extends StatelessWidget {
   const ReportButton({
     @required this.modelType,
     @required this.onTap,
+    @required this.width,
     this.color,
     Key key
   }) : super(key: key);
@@ -17,6 +18,7 @@ class ReportButton extends StatelessWidget {
   final ModelType modelType;
   final Function onTap;
   final Color color;
+  final double width;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,8 @@ class ReportButton extends StatelessWidget {
     'phid_report';
     // --------------------
     return BldrsBox(
-      height: 35,
+      height: 45,
+      width: width,
       verse: Verse(
         id: _buttonPhid,
         translate: true,
@@ -37,9 +40,11 @@ class ReportButton extends StatelessWidget {
       icon: Iconz.yellowAlert,
       margins: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       iconSizeFactor: 0.7,
+      verseScaleFactor: 0.6 / 0.7,
       verseWeight: VerseWeight.thin,
       verseColor: Colorz.yellow255,
       verseItalic: true,
+      verseMaxLines: 2,
       onTap: onTap,
 
     );
