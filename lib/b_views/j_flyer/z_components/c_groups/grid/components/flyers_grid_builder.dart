@@ -1,6 +1,5 @@
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 
 class FlyersGridBuilder extends StatelessWidget {
@@ -53,7 +52,6 @@ class FlyersGridBuilder extends StatelessWidget {
       context: context,
       givenGridHeight: gridHeight,
     );
-    blog('555');
     // --------------------
     return SizedBox(
       key: const ValueKey<String>('FlyersGridBuilder'),
