@@ -43,6 +43,7 @@ class FlyerRecordsBox extends StatelessWidget {
           verseItalic: true,
           icon: icon,
           iconSizeFactor: 0.6,
+          verseScaleFactor: 1 / 0.6,
           bubble: false,
           verseCentered: false,
           margins: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),

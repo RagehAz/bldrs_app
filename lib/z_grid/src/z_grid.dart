@@ -43,7 +43,7 @@ class ZGrid extends StatelessWidget {
       valueListenable: controller.isZoomed,
       builder: (_, bool zoomed, Widget child){
 
-        blog('zoomed : $zoomed');
+        // blog('zoomed : $zoomed');
 
         return GestureDetector(
           onHorizontalDragUpdate: zoomed == false ? null : (details) {

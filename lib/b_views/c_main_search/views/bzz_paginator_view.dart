@@ -1,11 +1,10 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/b_views/f_bz/z_components/bzz_list.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bubbles/bubbles.dart';
 import 'package:fire/super_fire.dart';
-import 'package:bldrs/b_views/f_bz/z_components/bzz_list.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
 
 class BzzPaginatorView extends StatelessWidget {
   /// --------------------------------------------------------------------------

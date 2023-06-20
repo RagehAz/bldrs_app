@@ -1,6 +1,7 @@
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:provider/provider.dart';
 import 'package:widget_fader/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -34,6 +35,7 @@ class ObeliskLayout extends StatefulWidget {
     this.abovePyramidsChild,
     this.searchView,
     this.isSearching,
+    this.zGridController,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -54,6 +56,7 @@ class ObeliskLayout extends StatefulWidget {
   final Widget abovePyramidsChild;
   final Widget searchView;
   final ValueNotifier<bool> isSearching;
+  final ZGridController zGridController;
   /// --------------------------------------------------------------------------
   @override
   _ObeliskLayoutState createState() => _ObeliskLayoutState();
@@ -211,27 +214,24 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
   /// TESTED : WORKS PERFECT
   Future<void> _onBack() async {
 
-    /// WHEN PYRAMIDS EXPANDED
-    if (UiProvider.proGetPyramidsAreExpanded(context: getMainContext(), listen: false) == true){
-      UiProvider.proSetPyramidsAreExpanded(setTo: false, notify: true);
-    }
+    if (widget.onBack == null) {
 
-    /// WHEN PYRAMIDS COLLAPSED
-    else {
+      /// WHEN PYRAMIDS EXPANDED
+      if (UiProvider.proGetPyramidsAreExpanded(context: getMainContext(), listen: false) == true) {
+        UiProvider.proSetPyramidsAreExpanded(setTo: false, notify: true);
+      }
 
-      /// ON BACK IS NOT DEFINED
-      if (widget.onBack == null){
+      else {
         await Nav.goBack(
           context: context,
           invoker: 'ObeliskLayout.onBack',
         );
       }
 
-      /// BACK IS DEFINED
-      else {
-        await widget.onBack();
-      }
+    }
 
+    else {
+      await widget.onBack();
     }
 
   }
