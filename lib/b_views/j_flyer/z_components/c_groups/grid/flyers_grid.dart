@@ -2,6 +2,7 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/flyers_z_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/heroic_flyers_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/loading_flyers_grid.dart';
+import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -26,6 +27,7 @@ class FlyersGrid extends StatelessWidget {
     this.scrollable = true,
     this.selectionMode = false,
     this.bottomPadding,
+    this.zGridController,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -47,6 +49,7 @@ class FlyersGrid extends StatelessWidget {
   final Function(FlyerModel flyerModel) onSelectFlyer;
   final Function(String flyerID) onFlyerNotFound;
   final double bottomPadding;
+  final ZGridController zGridController;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool showLoadingGridInstead({
@@ -156,6 +159,7 @@ class FlyersGrid extends StatelessWidget {
           scrollController: scrollController,
           topPadding: topPadding,
           bottomPaddingOnZoomedOut: bottomPadding,
+          zGridController: zGridController,
         );
 
       }

@@ -1,8 +1,10 @@
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/aa_saved_flyers_screen_view.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/flyers_z_grid.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:mapper/mapper.dart';
 import 'package:night_sky/night_sky.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
@@ -56,7 +58,7 @@ class SavedFlyersScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
 }
 
-class _SavedFlyersScreenState extends State<SavedFlyersScreen>  {
+class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTickerProviderStateMixin{
   /*
    with AutomaticKeepAliveClientMixin<SavedFlyersScreen>
    @override
@@ -64,9 +66,15 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen>  {
    */
   // -----------------------------------------------------------------------------
   final ScrollController _scrollController = ScrollController();
+  ZGridController _zGridController;
   // -----------------------------------------------------------------------------
   @override
   void initState() {
+
+    _zGridController = ZGridController.initialize(
+      vsync: this,
+      scrollController: _scrollController,
+    );
     super.initState();
   }
   // --------------------
@@ -74,17 +82,43 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen>  {
   void dispose() {
     /// SCROLL_CONTROLLER_IS_DISPOSED_IN_ZOOMABLE_GRID_CONTROLLER
     // _scrollController.dispose(); // so do not dispose here, kept for reference
+    _zGridController.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
-  Future<void> _passSelectedFlyersBack() async {
+  Future<void> _onBack() async {
 
-    /// shall pass selected flyers through flyers provider
-    await Nav.goBack(
-      context: context,
-      invoker: '_passSelectedFlyersBack',
-      passedData: Provider.of<FlyersProvider>(getMainContext(), listen: false).selectedFlyers,
+    final bool _flyerIsOpen = UiProvider.proGetLayoutIsVisible(
+      context: getMainContext(),
+      listen: false,
     );
+
+    /// CLOSE FLYER
+    if (_flyerIsOpen == false) {
+      await zoomOutFlyer(
+        flyerNotifier: null,
+        mounted: true,
+        controller: _zGridController,
+      );
+    }
+
+    else if (widget.selectionMode == true) {
+      /// shall pass selected flyers through flyers provider
+      await Nav.goBack(
+        context: context,
+        invoker: '_passSelectedFlyersBack',
+        passedData: Provider
+            .of<FlyersProvider>(getMainContext(), listen: false)
+            .selectedFlyers,
+      );
+    }
+
+    else {
+      await Nav.goBack(
+        context: context,
+        invoker: '_onBack',
+      );
+    }
 
   }
   // -----------------------------------------------------------------------------
@@ -100,13 +134,14 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen>  {
         id: 'phid_savedFlyers',
         translate: true,
       ),
-      onBack: widget.selectionMode ? _passSelectedFlyersBack : null,
+      onBack: _onBack,
       listenToHideLayout: true,
       child:
 
       SavedFlyersScreenView(
         selectionMode: widget.selectionMode,
         scrollController: _scrollController,
+        zGridController: _zGridController,
       ),
 
     );

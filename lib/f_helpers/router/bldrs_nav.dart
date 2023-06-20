@@ -12,6 +12,7 @@ import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_my_bz_screen.dart';
 import 'package:bldrs/b_views/f_bz/f_bz_preview_screen/a_bz_preview_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/a_app_settings_screen.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/a_flyer_screen.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/flyers_z_grid.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -21,6 +22,7 @@ import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
+import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
@@ -226,7 +228,9 @@ class BldrsNav {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> onLastGoBackInHomeScreen() async {
+  static Future<void> onLastGoBackInHomeScreen({
+    @required ZGridController zGridController,
+  }) async {
 
     /// TO HELP WHEN PHRASES ARE NOT LOADED TO REBOOT SCREENS
     if (PhraseProvider.proGetPhidsAreLoaded() == false){
@@ -239,31 +243,51 @@ class BldrsNav {
     /// NORMAL CASE WHEN ON BACK WHILE IN HO
     else {
 
-      final bool _result = await Dialogs.goBackDialog(
-        titleVerse: const Verse(
-          id: 'phid_exit_app_?',
-          translate: true,
-        ),
-        bodyVerse: const Verse(
-          id: 'phid_exit_app_notice',
-          translate: true,
-        ),
-        confirmButtonVerse: const Verse(
-          id: 'phid_exit',
-          translate: true,
-        ),
-
+      final bool _flyerIsOpen = UiProvider.proGetLayoutIsVisible(
+          context: getMainContext(),
+          listen: false,
       );
 
-      if (_result == true){
+      /// CLOSE FLYER
+      if (_flyerIsOpen == false){
 
-        await CenterDialog.closeCenterDialog();
-
-        await Future.delayed(const Duration(milliseconds: 500), () async {
-          await Nav.closeApp(getMainContext());
-        },
+        await zoomOutFlyer(
+          flyerNotifier: null,
+          mounted: true,
+          controller: zGridController,
         );
 
+      }
+
+      /// CLOSE APP
+      else {
+        final bool _result = await Dialogs.goBackDialog(
+          titleVerse: const Verse(
+            id: 'phid_exit_app_?',
+            translate: true,
+          ),
+          bodyVerse: const Verse(
+            id: 'phid_exit_app_notice',
+            translate: true,
+          ),
+          confirmButtonVerse: const Verse(
+            id: 'phid_exit',
+            translate: true,
+          ),
+        );
+
+        if (_result == true) {
+
+          await CenterDialog.closeCenterDialog();
+
+          await Future.delayed(
+            const Duration(milliseconds: 500),
+            () async {
+              await Nav.closeApp(getMainContext());
+            },
+          );
+
+        }
       }
 
     }
