@@ -5,6 +5,7 @@ import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:numeric/numeric.dart';
 import 'package:provider/provider.dart';
+import 'package:scale/scale.dart';
 
 class ObeliskExpandingPyramid extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -60,6 +61,9 @@ class ObeliskExpandingPyramid extends StatelessWidget {
     }
 
     else {
+
+      final double _maxScale = 8.0 * Scale.screenWidth(context) * 0.0022;
+
       return Positioned(
         bottom: Pyramids.verticalPositionFix,
         right: 0,
@@ -70,7 +74,7 @@ class ObeliskExpandingPyramid extends StatelessWidget {
             builder: (_, bool expanded, Widget child) {
 
               return AnimatedScale(
-                scale: expanded == true ? 8 : 1,
+                scale: expanded == true ? _maxScale : 1,
                 duration: expanded == true ? const Duration(milliseconds: 250) : const Duration(milliseconds: 700),
                 curve: expanded == true ?  Curves.easeOutQuart : Curves.easeInOutQuart,
                 alignment: Alignment.bottomRight,

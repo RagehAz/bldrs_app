@@ -1,5 +1,6 @@
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/zoomable_flyers_grid.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/f_helpers/router/go_back_widget.dart';
 import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -92,10 +93,8 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
 
           blog('my bz screen should go back now yabn el a7ba : $_bzModel : $_authorsContainMyUserID');
 
-          /// TASK : FIX ME
-          return const SizedBox();
-          // return GoBackWidget(
-          //   onGoBack: () async {
+          return GoBackWidget(
+            onGoBack: () async {
           //
           //     // /// REF: fuck_this_shit_will_come_back_to_you
           //     // if (_authorsContainMyUserID == false){
@@ -106,8 +105,8 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
           //     //   );
           //     // }
           //
-          //   },
-          // );
+            },
+          );
 
         }
 

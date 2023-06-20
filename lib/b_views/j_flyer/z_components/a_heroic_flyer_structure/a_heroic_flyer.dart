@@ -174,12 +174,14 @@ class _HeroicFlyerState extends State<HeroicFlyer> {
           else {
 
             if (renderedSmallFlyer == null){
+              blog('(${widget.flyerModel.id}) renderedSmallFlyer == null');
               return FlyerBox(
                 flyerBoxWidth: widget.flyerBoxWidth,
               );
             }
 
             else {
+              blog('(${widget.flyerModel.id}) renderedSmallFlyer != null');
               return WidgetFader(
                 fadeType: FadeType.fadeIn,
                 duration: const Duration(milliseconds: 300),
