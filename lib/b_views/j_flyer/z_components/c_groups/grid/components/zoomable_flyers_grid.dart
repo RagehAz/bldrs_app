@@ -11,6 +11,7 @@ import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
 
 class FlyersZGrid extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -29,6 +30,7 @@ class FlyersZGrid extends StatefulWidget {
     this.onFlyerOptionsTap,
     this.topPadding,
     this.zGridController,
+    this.flyers,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
@@ -38,6 +40,7 @@ class FlyersZGrid extends StatefulWidget {
   final int columnCount;
   final double bottomPaddingOnZoomedOut;
   final List<String> flyersIDs;
+  final List<FlyerModel> flyers;
   final bool showAddFlyerButton;
   final Function(FlyerModel flyerModel) onSelectFlyer;
   final Function(String flyerID) onFlyerNotFound;
@@ -193,7 +196,7 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
       onZoomOutEnd: _onZoomOutEnd,
       onZoomOutStart: onZoomOutStart,
       itemCount: FlyerDim.flyerGridNumberOfSlots(
-        flyersCount: widget.flyersIDs?.length ?? 0,
+        flyersCount: widget.flyersIDs?.length ?? widget.flyers?.length ?? 0,
         addFlyerButtonIsOn: widget.showAddFlyerButton,
         isLoadingGrid: false,
         numberOfColumnsOrRows: widget.columnCount,
@@ -211,11 +214,13 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
         else {
 
           final int _flyerIndex = widget.showAddFlyerButton == true ? index-1 : index;
-          final String _flyerID = widget.flyersIDs[_flyerIndex];
+          final FlyerModel _flyerModel = Mapper.checkCanLoopList(widget.flyers) == true ? widget.flyers[_flyerIndex] : null;
+          final String _flyerID = _flyerModel == null ? widget.flyersIDs[_flyerIndex] : _flyerModel.id;
           final double _flyerBoxWidth = _gridScale.smallItemWidth;
 
           return FlyerBuilder(
               flyerID: _flyerID,
+              flyerModel: _flyerModel,
               flyerBoxWidth: _flyerBoxWidth,
               renderFlyer: RenderFlyer.firstSlide,
               onFlyerNotFound: widget.onFlyerNotFound,
@@ -261,7 +266,6 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
           return LightBigFlyer(
             flyerBoxWidth: _gridScale.bigItemWidth,
             renderedFlyer: flyerModel,
-            showGallerySlide: true,
             onHorizontalExit: () => zoomOutFlyer(
               mounted: mounted,
               controller: _controller,

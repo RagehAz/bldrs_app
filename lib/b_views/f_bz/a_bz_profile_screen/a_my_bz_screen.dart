@@ -89,7 +89,7 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
           userID: Authing.getUserID(),
         );
 
-        if (_bzModel == null || _authorsContainMyUserID == false){
+        if (_bzModel != null && _authorsContainMyUserID == false){
 
           blog('my bz screen should go back now yabn el a7ba : $_bzModel : $_authorsContainMyUserID');
 
@@ -108,6 +108,10 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
             },
           );
 
+        }
+
+        else if (_bzModel == null){
+          return const SizedBox();
         }
 
         else {
