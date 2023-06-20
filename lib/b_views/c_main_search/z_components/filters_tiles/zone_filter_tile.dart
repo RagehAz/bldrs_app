@@ -52,7 +52,7 @@ class ZoneFilterTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _tileWidth = SuperSearchScreen.getFilterTileWidth();
+    final double _tileWidth = SuperSearchScreen.getFilterTileWidth(context);
 
     final Verse _headline = getZoneVerse(
       zoneModel: searchModel?.zone,

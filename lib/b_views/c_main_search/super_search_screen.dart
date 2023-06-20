@@ -26,6 +26,7 @@ import 'package:bldrs/c_protocols/search_protocols/search_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_search.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:fire/super_fire.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
@@ -41,8 +42,8 @@ class SuperSearchScreen extends StatefulWidget {
   @override
   _SuperSearchScreenState createState() => _SuperSearchScreenState();
   // --------------------------------------------------------------------------
-    static double getFilterTileWidth(){
-    final double _appBarWidth = BldrsAppBar.width();
+    static double getFilterTileWidth(BuildContext context){
+    final double _appBarWidth = Bubble.bubbleWidth(context: context);
     return _appBarWidth - 20;
   }
   // --------------------------------------------------------------------------
@@ -217,7 +218,10 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
 
       _searchModel = await _composeOrRenovateSearchHistoryModel();
 
-      setState(() {});
+      if (mounted == true){
+        setState(() {});
+      }
+
     }
 
   }
@@ -791,9 +795,11 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
       userID: Authing.getUserID(),
     );
 
-    setState(() {
-      _searchHistoryModels = _searches;
-    });
+    if (mounted == true) {
+      setState(() {
+        _searchHistoryModels = _searches;
+      });
+    }
   }
   // --------------------
   Future<SearchModel> _composeOrRenovateSearchHistoryModel() async {
