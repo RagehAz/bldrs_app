@@ -15,7 +15,6 @@ import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:provider/provider.dart';
-import 'package:scale/scale.dart';
 
 class AddFlyerButton extends StatelessWidget {
   /// --------------------------------------------------------------------------

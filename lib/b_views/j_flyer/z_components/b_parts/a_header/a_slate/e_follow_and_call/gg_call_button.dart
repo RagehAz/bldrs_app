@@ -67,6 +67,8 @@ class CallButton extends StatelessWidget {
                   margin: EdgeInsets.all(flyerBoxWidth * 0.01),
                   child: WebsafeSvg.asset(
                       Iconz.comPhone,
+                      width: _callIconWidth,
+                      height: _callIconWidth,
                       // package: Iconz.bldrsTheme,
                   ),
                 ),

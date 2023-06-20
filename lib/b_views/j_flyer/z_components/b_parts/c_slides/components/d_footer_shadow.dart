@@ -34,6 +34,8 @@ class FooterShadow extends StatelessWidget {
           child: WebsafeSvg.asset(
             Iconz.footerShadow,
             fit: BoxFit.fitWidth,
+            width: flyerBoxWidth,
+            height: _height,
             // package: Iconz.bldrsTheme,
           ),
         ),
