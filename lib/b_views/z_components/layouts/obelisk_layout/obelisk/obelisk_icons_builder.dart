@@ -46,22 +46,28 @@ class ObeliskIconsBuilder extends StatelessWidget{
         padding: EdgeInsets.zero,
         children: <Widget>[
 
-          Column(
-            mainAxisAlignment: Obelisk.stuffAlignment(isCross: false),
-            // crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
+          SizedBox(
+            height: Obelisk.gotContentsScrollableHeight(
+              context: context,
+              navModels: navModels,
+            ),
+            child: Column(
+              mainAxisAlignment: Obelisk.stuffAlignment(isCross: false),
+              // crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
 
-              ...List.generate(navModels.length, (index){
+                ...List.generate(navModels.length, (index){
 
-                return ObeliskIcon(
-                  onTap: () => onRowTap(index),
-                  progressBarModel: progressBarModel,
-                  navModelIndex: index,
-                  navModel: navModels[index],
-                );
+                  return ObeliskIcon(
+                    onTap: () => onRowTap(index),
+                    progressBarModel: progressBarModel,
+                    navModelIndex: index,
+                    navModel: navModels[index],
+                  );
 
-              }),
-            ],
+                }),
+              ],
+            ),
           ),
 
         ],

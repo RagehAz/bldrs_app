@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
+import 'package:filers/filers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:mapper/mapper.dart';
@@ -290,6 +291,8 @@ bool canShowGalleryPage({
 
     }
   }
+
+  // blog('canShowGallerySlide : $_canShowGallery : bzModel != null : ${bzModel != null}');
 
   return _canShowGallery;
 }
