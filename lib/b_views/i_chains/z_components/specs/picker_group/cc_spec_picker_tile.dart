@@ -10,6 +10,7 @@ import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 
 
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class PickerTile extends StatelessWidget {
@@ -38,7 +39,7 @@ class PickerTile extends StatelessWidget {
   }
   // --------------------
   static double getDefaultWidth(BuildContext context) {
-    final double _specTileWidth = BldrsAppBar.width();
+    final double _specTileWidth = Bubble.bubbleWidth(context: context);
     return _specTileWidth;
   }
   // -----------------------------------------------------------------------------

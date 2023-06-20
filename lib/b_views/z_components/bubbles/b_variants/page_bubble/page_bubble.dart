@@ -117,7 +117,7 @@ class PageBubble extends StatelessWidget {
           context: context,
           withProgressBar: progressBarIsOn,
         ),
-        alignment: Alignment.topRight,
+        alignment: Alignment.topCenter,
         child: Container(
           width: width(context, override: bubbleWidth),
           margin: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),
