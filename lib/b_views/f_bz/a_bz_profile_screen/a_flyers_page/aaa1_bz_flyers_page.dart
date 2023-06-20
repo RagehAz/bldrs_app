@@ -52,7 +52,8 @@ class BzFlyersPage extends StatelessWidget {
       onFlyerNotFound: (String flyerID){
         blog('BzFlyersPage : flyer is not found ($flyerID)');
       },
-      isHeroicGrid: false,
+      gridType: FlyerGridType.zoomable,
+      hasResponsiveSideMargin: true,
     );
 
   }

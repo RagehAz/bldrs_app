@@ -871,6 +871,7 @@ class Dialogs {
         color: Colorz.white10,
         alignment: Alignment.center,
         child: FlyersGrid(
+          hasResponsiveSideMargin: false,
           scrollController: ScrollController(),
           flyersIDs: flyersIDs,
           scrollDirection: Axis.horizontal,
@@ -879,7 +880,7 @@ class Dialogs {
           topPadding: 0,
           numberOfColumnsOrRows: 1,
           screenName: 'flyersDialogGrid',
-          isHeroicGrid: true,
+          gridType: FlyerGridType.heroic,
         ),
       ),
 
