@@ -314,6 +314,8 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
                     child: WebsafeSvg.asset(
                       Iconz.bldrsNameSingleLine,
                       fit: BoxFit.fitHeight,
+                      width: _logoWidth,
+                      height: _logoHeight,
                       // package: Iconz.bldrsTheme,
                     ),
                   ),

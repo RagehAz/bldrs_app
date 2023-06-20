@@ -23,6 +23,7 @@ import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
+import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:fire/super_fire.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,7 @@ class HomeScreen extends StatefulWidget {
 /// --------------------------------------------------------------------------
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin{
   // -----------------------------------------------------------------------------
   final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
   PaginationController _paginationController;
@@ -53,6 +54,8 @@ class _HomeScreenState extends State<HomeScreen> {
   /// NOTES STREAM SUBSCRIPTIONS
   StreamSubscription _userNotesStreamSub;
   List<StreamSubscription> _bzzNotesStreamsSubs;
+  // -----------------------------------------------------------------------------
+  ZGridController _zGridController;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -71,9 +74,15 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
 
+
     _initializeKeyboard();
     _paginationController = PaginationController.initialize(
       addExtraMapsAtEnd: true,
+    );
+
+    _zGridController = ZGridController.initialize(
+      vsync: this,
+      scrollController: _paginationController.scrollController,
     );
 
   }
@@ -120,6 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Streamer.disposeStreamSubscriptions(_bzzNotesStreamsSubs);
     _progressBarModel.dispose();
     _paginationController.dispose();
+    _zGridController.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -210,7 +220,9 @@ class _HomeScreenState extends State<HomeScreen> {
         // navBarIsOn: false,
         appBarType: AppBarType.main,
         listenToHideLayout: true,
-        onBack: () => BldrsNav.onLastGoBackInHomeScreen(),
+        onBack: () => BldrsNav.onLastGoBackInHomeScreen(
+          zGridController: _zGridController,
+        ),
         // pyramidButtons: const <Widget>[
         /// PLAN : FLOATING_SECTION_BUTTON
         //       //   SectionsMenu(),
@@ -242,6 +254,7 @@ class _HomeScreenState extends State<HomeScreen> {
               },
               child: HomeFlyersGrid(
                 paginationController: _paginationController,
+                zGridController: _zGridController,
                 loading: _loading,
               ),
             ),
