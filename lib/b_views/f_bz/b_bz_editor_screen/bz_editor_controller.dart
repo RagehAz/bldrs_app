@@ -500,24 +500,26 @@ Future<void> onChangeBzScope({
 /// TESTED : WORKS PERFECT
 Future<bool> _resetScopeDialog() async {
 
-  final bool _result = await CenterDialog.showCenterDialog(
-    titleVerse: const Verse(
-      id: 'phid_reset_scope',
-      translate: true,
-    ),
-    bodyVerse: const Verse(
-      pseudo: 'This will delete all selected business scope keywords',
-      translate: true,
-      id: 'phid_reset_scope_warning',
-    ),
-    boolDialog: true,
-    confirmButtonVerse: const Verse(
-      id: 'phid_reset',
-      translate: true,
-    ),
+  // final bool _result = await CenterDialog.showCenterDialog(
+  //   titleVerse: const Verse(
+  //     id: 'phid_reset_scope',
+  //     translate: true,
+  //   ),
+  //   bodyVerse: const Verse(
+  //     pseudo: 'This will delete all selected business scope keywords',
+  //     translate: true,
+  //     id: 'phid_reset_scope_warning',
+  //   ),
+  //   boolDialog: true,
+  //   confirmButtonVerse: const Verse(
+  //     id: 'phid_reset',
+  //     translate: true,
+  //   ),
+  //
+  // );
+  //
+  // return _result;
 
-  );
-
-  return _result;
+  return true;
 }
 // -----------------------------------------------------------------------------

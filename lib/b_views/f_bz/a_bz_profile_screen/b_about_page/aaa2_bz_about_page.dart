@@ -1,5 +1,4 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_keywords.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
@@ -17,7 +16,6 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:mapper/mapper.dart';
@@ -151,30 +149,30 @@ class AboutBzBubbles extends StatelessWidget {
           ),
 
         /// SCOPE
-        if (Mapper.checkCanLoopList(bzModel?.scope) == true)
-          Bubble(
-            bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
-              context: context,
-              headlineVerse: const Verse(
-                id: 'phid_scopeOfServices',
-                translate: true,
-              ),
-            ),
-            columnChildren: <Widget>[
-
-              PhidsViewer(
-                pageWidth: Scale.screenWidth(context),
-                phids: bzModel?.scope,
-                onPhidTap: (String phid){
-                  blog('bzAboutPage : onPhidTap : phid: $phid');
-                },
-                onPhidLongTap: (String phid){
-                  blog('bzAboutPage : onPhidLongTap : phid: $phid');
-                },
-              ),
-
-            ],
-          ),
+        // if (Mapper.checkCanLoopList(bzModel?.scope) == true)
+        //   Bubble(
+        //     bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+        //       context: context,
+        //       headlineVerse: const Verse(
+        //         id: 'phid_scopeOfServices',
+        //         translate: true,
+        //       ),
+        //     ),
+        //     columnChildren: <Widget>[
+        //
+        //       PhidsViewer(
+        //         pageWidth: Scale.screenWidth(context),
+        //         phids: bzModel?.scope,
+        //         onPhidTap: (String phid){
+        //           blog('bzAboutPage : onPhidTap : phid: $phid');
+        //         },
+        //         onPhidLongTap: (String phid){
+        //           blog('bzAboutPage : onPhidLongTap : phid: $phid');
+        //         },
+        //       ),
+        //
+        //     ],
+        //   ),
 
         /// AUTHORS
         if (showAuthors == true)
