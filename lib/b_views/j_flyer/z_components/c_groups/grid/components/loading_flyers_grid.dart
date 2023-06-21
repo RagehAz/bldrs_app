@@ -62,7 +62,7 @@ class LoadingFlyersGrid extends StatelessWidget {
             flyerBoxWidth: _gridSlotWidth,
             animate: true,
             direction: scrollDirection,
-            boxColor: Colorz.bloodTest,
+            // boxColor: Colorz.bloodTest,
             // loadingColor: Colors.grey,
           );
           // ---------------------------------------------------------------

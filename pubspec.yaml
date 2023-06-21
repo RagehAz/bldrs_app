@@ -226,6 +226,7 @@ dependencies:
   legalizer:
     git:
       url: https://github.com/RagehAz/legalizer.git
+  device_preview: ^1.1.0
 # --------------------------------------------------------------------------------
 dev_dependencies:
   flutter_test:

@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/load
 import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
 
 enum FlyerGridType {
   zoomable,
@@ -183,7 +184,7 @@ class FlyersGrid extends StatelessWidget {
           hasResponsiveSideMargin: hasResponsiveSideMargin,
           gridWidth: gridWidth,
           gridHeight: gridHeight,
-          flyersIDs: flyers.isEmpty == true ? flyersIDs : null,
+          flyersIDs: Mapper.checkCanLoopList(flyers) == false ? flyersIDs : null,
           flyers: flyers,
           columnCount: numberOfColumnsOrRows,
           onFlyerNotFound: onFlyerNotFound,
