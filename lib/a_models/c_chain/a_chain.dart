@@ -748,8 +748,11 @@ class Chain {
     String _chainID;
 
     if (Mapper.checkCanLoopList(allChains) == true && phid != null) {
-      final List<Chain> _chains =
-          ChainPathConverter.findPhidRelatedChains(chains: allChains, phid: phid);
+
+      final List<Chain> _chains = ChainPathConverter.findPhidRelatedChains(
+          chains: allChains,
+          phid: phid,
+      );
 
       if (Mapper.checkCanLoopList(_chains) == true) {
         final Chain _chain = _chains.first;
