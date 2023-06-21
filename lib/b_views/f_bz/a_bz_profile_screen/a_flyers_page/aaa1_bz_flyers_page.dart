@@ -33,6 +33,8 @@ class BzFlyersPage extends StatelessWidget {
       listen: true,
     );
 
+    bzModel?.blogBz(invoker: 'BzFlyersPage');
+
     return FlyersGrid(
       key: const ValueKey<String>('BzFlyersPage_grid'),
       screenName: 'bzFlyersPage',

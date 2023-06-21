@@ -532,6 +532,7 @@ class FlyerTyper{
   static List<String> _allChainsIDs({
     @required FlyerType flyerType,
   }){
+
     final List<PickerModel> _pickers = ChainsProvider.proGetPickersByFlyerType(
       context: getMainContext(),
       listen: false,

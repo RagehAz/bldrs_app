@@ -215,7 +215,7 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
 
           final int _flyerIndex = widget.showAddFlyerButton == true ? index-1 : index;
           final FlyerModel _flyerModel = Mapper.checkCanLoopList(widget.flyers) == true ? widget.flyers[_flyerIndex] : null;
-          final String _flyerID = _flyerModel == null ? widget.flyersIDs[_flyerIndex] : _flyerModel.id;
+          final String _flyerID = _flyerModel == null ? widget.flyersIDs[_flyerIndex] : null;
           final double _flyerBoxWidth = _gridScale.smallItemWidth;
 
           return FlyerBuilder(
