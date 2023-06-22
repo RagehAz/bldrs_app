@@ -52,6 +52,7 @@ class ContactsBubble extends StatelessWidget {
                   contactModel: _contact,
                   margins: const EdgeInsets.all(_abPadding),
                   forceShowVerse: true,
+                  width: Bubble.clearWidth(context: context) - 20,
                   onTap: () => onUserContactTap(
                     contact: _contact,
                   ),

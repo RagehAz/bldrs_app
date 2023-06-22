@@ -103,11 +103,41 @@ class _CountriesScreenState extends State<CountriesScreen> {
     // _countriesStages.blogStaging();
 
     /// SHOWN IDS
-    final List<String> _shownIDs = _countriesStages?.getIDsByViewingEvent(
+    List<String> _shownIDs = _countriesStages?.getIDsByViewingEvent(
       event: widget.zoneViewingEvent,
       countryID: null,
       viewerCountryID: widget.viewerCountryID,
     );
+
+    /*
+    THIS IS FOR PRESENTING ARAB COUNTRIES FOR APP STORE ONLY
+    /// -->>>>>>
+    _shownIDs = [
+    "dza",  // Algeria
+    "bhr",  // Bahrain
+    "com",  // Comoros
+    "dji",  // Djibouti
+    "egy",  // Egypt
+    "irq",  // Iraq
+    "jor",  // Jordan
+    "kwt",  // Kuwait
+    "lbn",  // Lebanon
+    "lby",  // Libya
+    "mrt",  // Mauritania
+    "mar",  // Morocco
+    "omn",  // Oman
+    "pse",  // Palestine
+    "qat",  // Qatar
+    "sau",  // Saudi Arabia
+    "som",  // Somalia
+    "sdn",  // Sudan
+    "syr",  // Syria
+    "tun",  // Tunisia
+    "are",  // United Arab Emirates
+    "yem"   // Yemen
+  ];
+    /// -->>>>>>
+     */
 
     blog('CountriesScreen._loadCountries() : _shownIDs : $_shownIDs');
 
