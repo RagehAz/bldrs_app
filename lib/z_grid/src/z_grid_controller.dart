@@ -84,19 +84,21 @@ class ZGridController {
   static Future<void> _scrollToRow({
     @required int itemIndex,
     @required double gridWidth,
+    @required double gridHeight,
     @required int columnCount,
     @required double itemAspectRatio,
     @required bool mounted,
     @required ZGridController zGridController,
-    @required double gridSidePadding,
+    @required bool hasResponsiveSideMargin,
   }) async {
 
     final double _newOffset = ZGridScale._getRowOffset(
       rowIndex: itemIndex ~/ columnCount,
       gridWidth: gridWidth,
+      gridHeight: gridHeight,
       columnCount: columnCount,
       itemAspectRatio: itemAspectRatio,
-      gridSidePadding: gridSidePadding,
+      hasResponsiveSideMargin: hasResponsiveSideMargin,
     );
 
     setNotifier(
@@ -161,10 +163,11 @@ class ZGridController {
       itemIndex: itemIndex,
       columnCount: gridScale.columnCount,
       gridWidth: gridScale.gridWidth,
+      gridHeight: gridScale.gridHeight,
       itemAspectRatio: gridScale.itemAspectRatio,
       zGridController: zGridController,
       mounted: mounted,
-      gridSidePadding: gridScale.gridSidePadding,
+      hasResponsiveSideMargin: gridScale.hasResponsiveSideMargin,
     ));
 
     /// APP IS LEFT TO RIGHT INDEX
@@ -180,9 +183,10 @@ class ZGridController {
         columnIndex: UiProvider.checkAppIsLeftToRight() ? _ltrIndex : _reverseIndex,
         columnCount: gridScale.columnCount,
         gridWidth: gridScale.gridWidth,
-        topPaddingOnZoomIn: gridScale.topPaddingOnZoomIn,
+        gridHeight: gridScale.gridHeight,
+        itemAspectRatio: gridScale.itemAspectRatio,
         topPaddingOnZoomOut: gridScale.topPaddingOnZoomOut,
-        gridSidePadding: gridScale.gridSidePadding,
+        hasResponsiveSideMargin: gridScale.hasResponsiveSideMargin,
       ),
     );
 

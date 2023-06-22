@@ -71,7 +71,6 @@ class AddFlyerButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final double _flyerSizeFactor = FlyerDim.flyerFactorByFlyerWidth(context, flyerBoxWidth);
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
     final BzModel _bzModel = _bzzProvider.myActiveBz;
     // --------------------
@@ -123,11 +122,12 @@ class AddFlyerButton extends StatelessWidget {
                   translate: true,
                 ),
                 maxLines: 5,
-                scaleFactor: _flyerSizeFactor * 4,
+                scaleFactor: flyerBoxWidth * 0.008,
                 color: Colorz.white200,
                 italic: true,
-                margin: _flyerSizeFactor * 40,
+                margin: flyerBoxWidth * 0.05,
               ),
+
             ],
           ),
 

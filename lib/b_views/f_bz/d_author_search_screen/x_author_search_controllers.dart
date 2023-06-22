@@ -61,7 +61,6 @@ Future<void> onShowUserDialog({
 }) async {
 
   await BottomDialog.showBottomDialog(
-    draggable: true,
     child: UserBanner(userModel: userModel),
   );
 

@@ -213,13 +213,13 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
                   BlurLayer(
                     height: Scale.screenHeight(context),
                     width: _screenWidth,
-                    color: Colorz.black20,
+                    color: Colorz.black125,
                     blurIsOn: true,
                   ),
 
                   /// WHITE COLUMN
                   Container(
-                    width:  _screenWidth * 0.5,
+                    width:  Scale.superWidth(context, 0.4),
                     height: Scale.screenHeight(context),
                     color: Colorz.white20,
                   ),

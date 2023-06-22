@@ -49,7 +49,6 @@ Future<void> onShowNoteOptions({
 }) async {
 
   await BottomDialog.showButtonsBottomDialog(
-      draggable: true,
       numberOfWidgets: 1,
       titleVerse: const Verse(
         id: 'phid_options',

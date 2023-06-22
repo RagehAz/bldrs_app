@@ -1,15 +1,17 @@
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/a_heroic_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/flyers_grid_builder.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/c_add_flyer_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_builder.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_selection_stack.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 
-class HeroicFlyersGrid extends StatelessWidget {
+class JumpingFlyersGrid extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const HeroicFlyersGrid({
+  const JumpingFlyersGrid({
     @required this.screenName,
     @required this.gridWidth,
     @required this.gridHeight,
@@ -102,22 +104,22 @@ class HeroicFlyersGrid extends StatelessWidget {
               renderFlyer: RenderFlyer.firstSlide,
               builder: (FlyerModel smallFlyer) {
 
-
                 return FlyerSelectionStack(
                   flyerModel: smallFlyer,
                   flyerBoxWidth: _gridSlotWidth,
                   onSelectFlyer: onSelectFlyer == null ? null : () => onSelectFlyer(smallFlyer),
                   onFlyerOptionsTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap(smallFlyer),
                   selectionMode: selectionMode,
-                  flyerWidget: HeroicFlyer(
-                    flyerModel: smallFlyer,
+                  flyerWidget: FlyerBox(
                     flyerBoxWidth: _gridSlotWidth,
-                    screenName: screenName,
-                    gridHeight: gridHeight,
-                    gridWidth: gridWidth,
+                    boxColor: Colorz.bloodTest,
+                    onTap: (){
+                      blog('fuck you');
+                    },
                   ),
                 );
               },
+
             );
 
           }

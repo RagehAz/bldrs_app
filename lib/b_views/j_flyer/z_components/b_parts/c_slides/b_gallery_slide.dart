@@ -150,7 +150,6 @@ class _GallerySlideState extends State<GallerySlide> {
 
     final double _headerAndProgressHeights = FlyerDim.headerSlateAndProgressHeights(
       flyerBoxWidth: widget.flyerBoxWidth,
-      forceMaxHeight: false,
     );
 
     return ClipRRect(
@@ -186,7 +185,6 @@ class _GallerySlideState extends State<GallerySlide> {
               },
               boxDistance: FlyerDim.flyerHeightByFlyerWidth(
                 flyerBoxWidth: widget.flyerBoxWidth,
-                forceMaxHeight: false,
               ),
               // numberOfScreens: 2,
               slideLimitRatio: 0.1,
@@ -194,11 +192,12 @@ class _GallerySlideState extends State<GallerySlide> {
                 gridWidth: widget.flyerBoxWidth,
                 gridHeight: widget.flyerBoxHeight,
                 flyers: flyers,
-                isHeroicGrid: true,
+                gridType: FlyerGridType.heroic,
                 topPadding: _headerAndProgressHeights,
                 // numberOfColumns: 2,
                 screenName: widget.heroTag,
                 scrollController: _scrollController,
+                hasResponsiveSideMargin: false,
               ),
             );
 

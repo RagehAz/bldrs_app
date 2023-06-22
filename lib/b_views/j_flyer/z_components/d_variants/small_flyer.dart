@@ -64,7 +64,6 @@ class SmallFlyer extends StatelessWidget {
                 flyerBoxWidth: flyerBoxWidth,
                 flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(
                   flyerBoxWidth: flyerBoxWidth,
-                  forceMaxHeight: false,
                 ),
                 slideModel: flyerModel.slides[slideIndex],
                 tinyMode: false,

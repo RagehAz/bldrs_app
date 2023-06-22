@@ -327,6 +327,10 @@ class ZoneModel {
 
       }
 
+      else {
+        _line = xPhrase('phid_the_entire_world');
+      }
+
     }
 
     return Verse(

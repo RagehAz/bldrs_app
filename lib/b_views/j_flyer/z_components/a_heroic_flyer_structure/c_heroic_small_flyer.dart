@@ -11,8 +11,10 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/static_flyer/b_static
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/static_flyer/d_static_footer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:dismissible_page/dismissible_page.dart';
+import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mediators/mediators.dart';
 
@@ -22,6 +24,8 @@ class HeroicSmallFlyer extends StatelessWidget {
     @required this.renderedFlyer,
     @required this.flyerBoxWidth,
     @required this.heroTag,
+    @required this.gridHeight,
+    @required this.gridWidth,
     this.onMoreTap,
     this.flightDirection = FlightDirection.non,
     this.canBuildBigFlyer = false,
@@ -34,6 +38,8 @@ class HeroicSmallFlyer extends StatelessWidget {
   final FlightDirection flightDirection;
   final String heroTag;
   final bool canBuildBigFlyer;
+  final double gridWidth;
+  final double gridHeight;
   // --------------------------------------------------------------------------
   /*
   /// TESTED : WORKS PERFECT
@@ -79,7 +85,7 @@ class HeroicSmallFlyer extends StatelessWidget {
         flyerModel: renderedFlyer,
       );
 
-      await context.pushTransparentRoute(
+      await getMainContext().pushTransparentRoute(
           HeroicFlyerBigView(
             key: const ValueKey<String>('Flyer_Full_Screen'),
             renderedFlyer: _renderBigFlyer,
@@ -113,9 +119,16 @@ class HeroicSmallFlyer extends StatelessWidget {
 
     // final double _tweenValue = _bakeTweenValue(context:  context);
 
-    final bool _flyerIsBigNow = FlyerDim.checkFlyerIsFullScreen(context, flyerBoxWidth) == true
-        && flightDirection == FlightDirection.non;
-        // && _tweenValue == 1;
+    final bool _flyerIsFullScreen = FlyerDim.checkFlyerIsFullScreen(
+      gridWidth: gridWidth,
+      gridHeight: gridHeight,
+      flyerBoxWidth: flyerBoxWidth,
+    );
+
+    blog('_flyerIsFullScreen : $_flyerIsFullScreen');
+
+    final bool _flyerIsBigNow = _flyerIsFullScreen == true && flightDirection == FlightDirection.non;
+    // && _tweenValue == 1;
 
     // final FadeType _fadeType = _getFadeType(flyerIsBigNow: _flyerIsBigNow);
     // final Duration _duration = _getFadeDuration(flyerIsBigNow: _flyerIsBigNow);
@@ -141,7 +154,6 @@ class HeroicSmallFlyer extends StatelessWidget {
           flyerBoxWidth: flyerBoxWidth,
           flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(
             flyerBoxWidth: flyerBoxWidth,
-            forceMaxHeight: false,
           ),
           slideModel: renderedFlyer?.slides?.first,
           tinyMode: false,

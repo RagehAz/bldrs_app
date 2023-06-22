@@ -38,8 +38,8 @@ class BzBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double logoSize = (boxWidth ?? 100) * 0.38;
-    final double _bigNameFactor = bigName == true ? 0.005 : 0.003;
+    final double logoSize = (boxWidth ?? 100) * 0.35;
+    final double _bigNameFactor = bigName == true ? 0.0035 : 0.0028;
 
     return Center(
       child: Container(

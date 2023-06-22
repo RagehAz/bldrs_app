@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/b_he
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/c_heroic_small_flyer.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:scale/scale.dart';
 
 class FlightFlyer extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -72,6 +73,8 @@ class FlightFlyer extends StatelessWidget {
                 // flightTweenValue: 0,
                 flightDirection: _flightDirection,
                 heroTag: heroTag,
+                gridWidth: Scale.screenWidth(context),
+                gridHeight: Scale.screenHeight(context),
                 // canBuildBigFlyer: false, // DEFAULT
               ),
             ),

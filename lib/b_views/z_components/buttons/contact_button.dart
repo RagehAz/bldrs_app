@@ -24,7 +24,7 @@ class ContactButton extends StatelessWidget {
   final Function onTap;
   final bool forceShowVerse;
   // -----------------------------------------------------------------------------
-  static const double buttonHeight = 40;
+  static const double buttonHeight = 50;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

@@ -64,6 +64,13 @@ class FooterButton extends StatelessWidget {
     else {
       // --------------------
       final Color _iconAndVerseColor = isOn ? Colorz.black255 : Colorz.white255;
+
+      final bool _isTinyMode = FlyerDim.isTinyMode(
+        flyerBoxWidth: flyerBoxWidth,
+        gridWidth: Scale.screenWidth(context),
+        gridHeight: Scale.screenHeight(context),
+      );
+
       // --------------------
       return SizedBox(
         key: const ValueKey<String>('Footer_button'),
@@ -98,8 +105,8 @@ class FooterButton extends StatelessWidget {
                       color: _iconAndVerseColor,
                       // package: Iconz.bldrsTheme,
                       // fit: BoxFit.fitWidth,
-                      // width: _buttonSize * 0.8,
-                      // height: _buttonSize * 0.9 ,
+                      width: _buttonSize * 0.8,
+                      height: _buttonSize * 0.9 ,
                     // alignment: Alignment.center,
                     ),
                 ),
@@ -107,7 +114,7 @@ class FooterButton extends StatelessWidget {
             ),
 
             /// VERSE
-            if (FlyerDim.isTinyMode(context, flyerBoxWidth) == false)
+            if (_isTinyMode == false)
               Positioned(
                 bottom: flyerBoxWidth * 0.01,
                 child: BldrsText(
@@ -118,9 +125,9 @@ class FooterButton extends StatelessWidget {
                     isOn: isOn,
                   ),
                   size: 1,
-                  scaleFactor: FlyerDim.flyerFactorByFlyerWidth(context, flyerBoxWidth),
-                  color: _iconAndVerseColor,
-                  weight: isOn == true ? VerseWeight.black : VerseWeight.bold,
+                  scaleFactor: flyerBoxWidth * 0.003,
+                  color: _iconAndVerseColor.withOpacity(0.4),
+                  weight: isOn == true ? VerseWeight.black : VerseWeight.thin,
                   italic: isOn,
                 ),
               ),

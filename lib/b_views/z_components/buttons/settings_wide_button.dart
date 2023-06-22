@@ -1,6 +1,7 @@
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bldrs/b_views/z_components/buttons/main_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class SettingsWideButton extends StatelessWidget {
@@ -24,30 +25,32 @@ class SettingsWideButton extends StatelessWidget {
   final Color verseColor;
   final Color iconColor;
   /// --------------------------------------------------------------------------
-  static const double width = 300;
+  static double getWidth(){
+    // return Bubble.bubbleWidth(context: getMainContext());
+    // return Scale.adaptiveWidth(getMainContext(), 0.5);
+    return MainButton.getButtonWidth(context: getMainContext());
+  }
+  // --------------------------------------------------------------------------
   static const double height = 50;
   static const double iconSizeFactor = 0.5;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    return BldrsBox(
-      isDisabled: !isOn,
-      height: height,
+    return MainButton(
       verse: verse.copyWith(casing: Casing.upperCase),
-      verseColor: verseColor,
-      verseShadow: verseColor != Colorz.black255,
       icon: icon,
+      verseColor: verseColor,
       iconColor: iconColor,
-      width: width,
-      margins: 5,
       iconSizeFactor: iconSizeFactor,
-      verseCentered: icon == null,
-      verseMaxLines: 2,
-      verseItalic: true,
-      color: color,
-      verseScaleFactor: 1.2,
+      buttonColor: color,
+      verseShadow: verseColor != Colorz.black255,
       onTap: onTap,
+      isDisabled: !isOn,
+      verseCentered: icon == null,
+      verseItalic: true,
+      // verseWeight: VerseWeight.bold,
+      // splashColor: Colorz.yellow255,
     );
 
   }

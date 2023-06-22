@@ -1,19 +1,15 @@
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
-import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/m_search/search_model.dart';
-import 'package:bldrs/b_views/c_main_search/super_search_screen.dart';
 import 'package:bldrs/b_views/c_main_search/z_components/building_blocks/filter_bool_tile.dart';
 import 'package:bldrs/b_views/c_main_search/z_components/building_blocks/filter_multi_button_tile.dart';
 import 'package:bldrs/b_views/c_main_search/z_components/building_blocks/filters_box.dart';
 import 'package:bldrs/b_views/c_main_search/z_components/filters_tiles/zone_filter_tile.dart';
-import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/z_components/scope_selector_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
-import 'package:super_box/super_box.dart';
 
 class BzSearchFiltersList extends StatelessWidget {
   // -----------------------------------------------------------------------------
@@ -51,8 +47,7 @@ class BzSearchFiltersList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _tileWidth = SuperSearchScreen.getFilterTileWidth();
-
+    // final double _tileWidth = SuperSearchScreen.getFilterTileWidth(context);
     // final List<ContactModel> contacts;
     // final BzState bzState;
 
@@ -119,28 +114,28 @@ class BzSearchFiltersList extends StatelessWidget {
         ),
 
         /// SCOPE
-        Disabler(
-          isDisabled: searchModel?.bzSearchModel?.bzType == null,
-          child: ScopeSelectorBubble(
-            bubbleWidth: _tileWidth,
-            headlineVerse: const Verse(
-              id: 'phid_scopeOfServices',
-              translate: true,
-            ),
-            flyerTypes: FlyerTyper.concludePossibleFlyerTypesByBzType(
-              bzType: searchModel?.bzSearchModel?.bzType,
-            ),
-            selectedSpecs: SpecModel.generateSpecsByPhids(
-              phids: searchModel?.bzSearchModel?.scopePhid == null ?
-              [] : [searchModel?.bzSearchModel?.scopePhid],
-            ),
-            onFlyerTypeBubbleTap: onScopeTap,
-            onPhidTap: (FlyerType flyerType, String phid) => onScopeTap(flyerType),
-            switchValue: searchModel?.bzSearchModel?.scopePhid != null &&
-                searchModel?.bzSearchModel?.bzType != null,
-            onSwitchTap: onScopeSwitchTap,
-          ),
-        ),
+        // Disabler(
+        //   isDisabled: searchModel?.bzSearchModel?.bzType == null,
+        //   child: ScopeSelectorBubble(
+        //     bubbleWidth: _tileWidth,
+        //     headlineVerse: const Verse(
+        //       id: 'phid_scopeOfServices',
+        //       translate: true,
+        //     ),
+        //     flyerTypes: FlyerTyper.concludePossibleFlyerTypesByBzType(
+        //       bzType: searchModel?.bzSearchModel?.bzType,
+        //     ),
+        //     selectedSpecs: SpecModel.generateSpecsByPhids(
+        //       phids: searchModel?.bzSearchModel?.scopePhid == null ?
+        //       [] : [searchModel?.bzSearchModel?.scopePhid],
+        //     ),
+        //     onFlyerTypeBubbleTap: onScopeTap,
+        //     onPhidTap: (FlyerType flyerType, String phid) => onScopeTap(flyerType),
+        //     switchValue: searchModel?.bzSearchModel?.scopePhid != null &&
+        //         searchModel?.bzSearchModel?.bzType != null,
+        //     onSwitchTap: onScopeSwitchTap,
+        //   ),
+        // ),
 
         /// BZZ SHOWING TEAMS
         FilterBoolTile(
