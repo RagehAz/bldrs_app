@@ -22,6 +22,7 @@ import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
+import 'package:filers/filers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
@@ -63,7 +64,7 @@ Future<void> initializeLogoScreen({
         /// APP LANGUAGE
         initializeAppLanguage(),
         /// APP STATE
-        initializeAppState(context),
+        initializeAppState(),
 
       ]
   );
@@ -180,7 +181,7 @@ Future<void> initializeUserModel(BuildContext context) async {
 
   }
 
-  // blog('_initializeUserModel : END');
+  blog('_initializeUserModel : END : ${Authing.getUserID()}');
 
 }
 // --------------------
@@ -209,10 +210,10 @@ Future<void> setUserModelAndCompleteUserZoneLocally({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> initializeAppState(BuildContext context) async {
+Future<void> initializeAppState() async {
 
   final UserModel _userModel = UsersProvider.proGetMyUserModel(
-    context: context,
+    context: getMainContext(),
     listen: false,
   );
 
@@ -242,7 +243,7 @@ Future<void> initializeAppState(BuildContext context) async {
 
       /// DETECTED APP VERSION IS INCORRECT
       if (_globalState.appVersion != _detectedAppVersion){
-        await _showUpdateAppDialog(context);
+        await _showUpdateAppDialog(getMainContext());
       }
       /// DETECTED APP VERSION IS CORRECT BUT USER VERSION IS NOT
       else if (_userState.appVersion != _detectedAppVersion){
@@ -260,7 +261,7 @@ Future<void> initializeAppState(BuildContext context) async {
       if (_userStateIsUpdated == true){
 
         await UserProtocols.renovate(
-          context: context,
+          context: getMainContext(),
           oldUser: _userModel,
           newUser: _userModel.copyWith(
             appState: _userState,

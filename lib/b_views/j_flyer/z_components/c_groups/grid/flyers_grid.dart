@@ -1,15 +1,26 @@
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/flyers_z_grid.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/jumper_flyers_grid.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/zoomable_flyers_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/heroic_flyers_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/loading_flyers_grid.dart';
+import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:mapper/mapper.dart';
+
+enum FlyerGridType {
+  zoomable,
+  heroic,
+  jumper,
+  loading,
+}
 
 class FlyersGrid extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyersGrid({
     @required this.screenName,
-    @required this.isHeroicGrid,
+    @required this.gridType,
+    @required this.hasResponsiveSideMargin,
     this.gridWidth,
     this.gridHeight,
     this.scrollController,
@@ -21,15 +32,15 @@ class FlyersGrid extends StatelessWidget {
     this.onFlyerOptionsTap,
     this.onSelectFlyer,
     this.scrollDirection = Axis.vertical,
-    this.isLoadingGrid = false,
     this.onFlyerNotFound,
     this.scrollable = true,
     this.selectionMode = false,
     this.bottomPadding,
+    this.zGridController,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
-  final bool isHeroicGrid;
+  final FlyerGridType gridType;
   final List<FlyerModel> flyers;
   final List<String> flyersIDs;
   final double gridWidth;
@@ -40,13 +51,14 @@ class FlyersGrid extends StatelessWidget {
   final String screenName;
   final bool showAddFlyerButton;
   final Axis scrollDirection;
-  final bool isLoadingGrid;
   final bool scrollable;
   final bool selectionMode;
   final Function(FlyerModel flyerModel) onFlyerOptionsTap;
   final Function(FlyerModel flyerModel) onSelectFlyer;
   final Function(String flyerID) onFlyerNotFound;
   final double bottomPadding;
+  final ZGridController zGridController;
+  final bool hasResponsiveSideMargin;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool showLoadingGridInstead({
@@ -68,8 +80,12 @@ class FlyersGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // -----------------------------------------------------------------------------
+    final bool _isLoadingGrid = gridType == FlyerGridType.loading;
+    final bool _isHeroicGrid = gridType == FlyerGridType.heroic;
+    final bool _isJumpingGrid = gridType == FlyerGridType.jumper;
+    // -----------------------------------------------------------------------------
     /// NOTHING TO SHOW
-    if (flyers == null && flyersIDs == null && isLoadingGrid == false){
+    if (flyers == null && flyersIDs == null && _isLoadingGrid == false){
       return const SizedBox();
     }
 
@@ -82,7 +98,7 @@ class FlyersGrid extends StatelessWidget {
                 ||
                 flyersIDs != null
                 ||
-                isLoadingGrid == true;
+                _isLoadingGrid == true;
 
         if (_canBuild == false){
           throw FlutterError('FlyersGrid Widget should have either flyers or paginationFlyersIDs initialized');
@@ -94,19 +110,18 @@ class FlyersGrid extends StatelessWidget {
           'switch on (isLoadingGrid) but '
           'never leave me like this empty handed with nulls & nulls');
       // --------------------
-      final bool _isLoadingGrid = showLoadingGridInstead(
+      final bool _showLoadingGrid = showLoadingGridInstead(
         flyers : flyers,
         paginationFlyersIDs: flyersIDs,
-        isLoadingGrid: isLoadingGrid,
+        isLoadingGrid: _isLoadingGrid,
       );
       // --------------------
-      final bool _isHeroicGrid = scrollDirection == Axis.horizontal || isHeroicGrid == true;
-      // --------------------
       /// LOADING GRID
-      if (_isLoadingGrid == true) {
+      if (_showLoadingGrid == true) {
         return LoadingFlyersGrid(
-          gridWidth: gridWidth,
-          gridHeight: gridHeight,
+          hasResponsiveSideMargin: hasResponsiveSideMargin,
+          gridWidth: gridWidth ?? MediaQuery.of(context).size.width,
+          gridHeight: gridHeight ?? MediaQuery.of(context).size.height,
           scrollController: scrollController,
           topPadding: topPadding,
           numberOfColumnsOrRows: numberOfColumnsOrRows,
@@ -119,6 +134,7 @@ class FlyersGrid extends StatelessWidget {
       else if (_isHeroicGrid == true){
         // --------------------
         return HeroicFlyersGrid(
+          hasResponsiveSideMargin: hasResponsiveSideMargin,
           gridWidth: gridWidth,
           gridHeight: gridHeight,
           scrollController: scrollController,
@@ -140,13 +156,36 @@ class FlyersGrid extends StatelessWidget {
 
       }
       // --------------------
-      /// ZOOMABLE FLYERS GRID
-      else {
-
-        return FlyersZGrid(
+      /// JUMPING FLYERS GRID
+      else if (_isJumpingGrid == true){
+        return JumpingFlyersGrid(
+          hasResponsiveSideMargin: hasResponsiveSideMargin,
           gridWidth: gridWidth,
           gridHeight: gridHeight,
-          flyersIDs: flyersIDs ?? FlyerModel.getFlyersIDsFromFlyers(flyers),
+          scrollController: scrollController,
+          scrollable: scrollable,
+          topPadding: topPadding,
+          numberOfColumnsOrRows: numberOfColumnsOrRows,
+          scrollDirection: scrollDirection,
+          screenName: screenName,
+          flyers: flyers,
+          flyersIDs: flyersIDs,
+          selectionMode: selectionMode,
+          onFlyerNotFound: onFlyerNotFound,
+          onFlyerOptionsTap: onFlyerOptionsTap,
+          onSelectFlyer: onSelectFlyer,
+          showAddFlyerButton: showAddFlyerButton,
+          bottomPadding: bottomPadding,
+        );
+      }
+      /// ZOOMABLE FLYERS GRID
+      else {
+        return FlyersZGrid(
+          hasResponsiveSideMargin: hasResponsiveSideMargin,
+          gridWidth: gridWidth,
+          gridHeight: gridHeight,
+          flyersIDs: Mapper.checkCanLoopList(flyers) == false ? flyersIDs : null,
+          flyers: flyers,
           columnCount: numberOfColumnsOrRows,
           onFlyerNotFound: onFlyerNotFound,
           showAddFlyerButton: showAddFlyerButton,
@@ -156,6 +195,7 @@ class FlyersGrid extends StatelessWidget {
           scrollController: scrollController,
           topPadding: topPadding,
           bottomPaddingOnZoomedOut: bottomPadding,
+          zGridController: zGridController,
         );
       }
       // --------------------

@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/b_heroic_flyer_hero.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
+import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:layouts/layouts.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:dismissible_page/dismissible_page.dart';
@@ -37,6 +39,9 @@ class HeroicFlyerBigView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    final double _screenWidth = Scale.screenWidth(context);
+    final double _screenHeight = Scale.screenHeight(context);
+
     return DismissiblePage(
       key: const ValueKey<String>('FullScreenFlyer_DismissiblePage'),
       onDismissed: () => _onDismiss(context),
@@ -44,16 +49,23 @@ class HeroicFlyerBigView extends StatelessWidget {
       dragSensitivity: .4,
       maxTransformValue: 4,
       reverseDuration: Ratioz.duration150ms,
+      backgroundColor: Colorz.black0,
       child: Material(
-        color: Colors.transparent,
+        color: Colorz.bloodTest,
         type: MaterialType.transparency,
 
         child: FlyerHero(
           heroPath: heroPath,
           renderedFlyer: renderedFlyer,
-          flyerBoxWidth: Scale.screenWidth(context),
+          flyerBoxWidth: ZGridScale.getBigItemWidth(
+              gridWidth: _screenWidth,
+              gridHeight: _screenHeight,
+              itemAspectRatio: FlyerDim.flyerAspectRatio(),
+          ),
           canBuildBigFlyer: true,
           invoker: 'FlyerBigView',
+          gridWidth: _screenWidth,
+          gridHeight: _screenHeight,
         ),
 
       ),

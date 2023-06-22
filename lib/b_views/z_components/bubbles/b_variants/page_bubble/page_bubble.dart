@@ -3,6 +3,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 
@@ -89,7 +90,7 @@ class PageBubble extends StatelessWidget {
   }
   // --------------------
   static double width(BuildContext context, {double override}){
-    return override ?? BldrsAppBar.width();
+    return override ?? Bubble.bubbleWidth(context: context);
   }
   // --------------------
   static double clearWidth(BuildContext context){
@@ -116,7 +117,7 @@ class PageBubble extends StatelessWidget {
           context: context,
           withProgressBar: progressBarIsOn,
         ),
-        alignment: Alignment.topRight,
+        alignment: Alignment.topCenter,
         child: Container(
           width: width(context, override: bubbleWidth),
           margin: const EdgeInsets.symmetric(horizontal: Ratioz.appBarMargin),

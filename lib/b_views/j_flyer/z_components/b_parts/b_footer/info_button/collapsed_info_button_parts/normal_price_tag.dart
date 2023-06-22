@@ -8,6 +8,7 @@ import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:scale/scale.dart';
 
 class NormalPriceTag extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -35,7 +36,10 @@ class NormalPriceTag extends StatelessWidget {
     final String _currencyID = Flag.getCountryCurrencyID(_currentCountry?.id);
     // --------------------
     final EdgeInsets _paddings = EdgeInsets.symmetric(horizontal: paddingValue);
-    final double _flyerSizeFactor = FlyerDim.flyerFactorByFlyerWidth(context, flyerBoxWidth);
+    final double _flyerSizeFactor = FlyerDim.flyerFactorByFlyerWidth(
+      flyerBoxWidth: flyerBoxWidth,
+      gridWidth: Scale.screenWidth(context),
+    );
     // --------------------
     return CollapsedInfoButtonBox(
         flyerBoxWidth: flyerBoxWidth,

@@ -12,11 +12,15 @@ class FlyersPaginatorView extends StatelessWidget {
   const FlyersPaginatorView({
     @required this.paginationController,
     @required this.fireQueryModel,
+    @required this.gridType,
+    @required this.hasResponsiveSideMargin,
     Key key
   }) : super(key: key);
   // --------------------
   final FireQueryModel fireQueryModel;
   final PaginationController paginationController;
+  final FlyerGridType gridType;
+  final bool hasResponsiveSideMargin;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -38,12 +42,13 @@ class FlyersPaginatorView extends StatelessWidget {
             scrollController: paginationController.scrollController,
             screenName: 'allFlyersScreenGrid',
             // onFlyerOptionsTap: _onFlyerOptionsTap,
-            isHeroicGrid: false,
+            gridType: gridType,
             topPadding: Stratosphere.getStratosphereValue(
                 context: context,
                 appBarType: AppBarType.search,
             ),
             bottomPadding: Ratioz.horizon,
+            hasResponsiveSideMargin: hasResponsiveSideMargin,
             // numberOfColumns: 2,
           );
 

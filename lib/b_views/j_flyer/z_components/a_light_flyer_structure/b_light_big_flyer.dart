@@ -24,6 +24,7 @@ import 'package:fire/super_fire.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
+import 'package:scale/scale.dart';
 
 class LightBigFlyer extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -167,7 +168,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
         index: 0,
         numberOfStrips: getNumberOfSlides(
           flyerModel: _flyer.value,
-          bzModel: _flyer.value.bzModel,
+          bzModel: _flyer.value?.bzModel,
           showGallerySlide: widget.showGallerySlide,
           // heroPath: _heroPath,
         ),
@@ -342,7 +343,11 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
         mounted: mounted,
       );
 
-      final bool _tinyMode = FlyerDim.isTinyMode(context, widget.flyerBoxWidth);
+      final bool _tinyMode = FlyerDim.isTinyMode(
+        flyerBoxWidth: widget.flyerBoxWidth,
+        gridWidth: Scale.screenWidth(context),
+        gridHeight: Scale.screenHeight(context),
+      );
 
       if (_headerIsExpanded.value == true && _tinyMode == false) {
         await readBzCounters(
@@ -531,9 +536,8 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
     // --------------------
     final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
       flyerBoxWidth: widget.flyerBoxWidth,
-      forceMaxHeight: false,
     );
-    final bool _tinyMode = FlyerDim.isTinyMode(context, widget.flyerBoxWidth);
+    const bool _tinyMode = false; //FlyerDim.isTinyMode(context, widget.flyerBoxWidth);
     // --------------------
     return ValueListenableBuilder(
       valueListenable: _flyer,

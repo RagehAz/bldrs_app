@@ -4,13 +4,10 @@ import 'dart:async';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/draft/draft_bz.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
-import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
-import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
-import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/bz_editor_controller.dart';
-import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/z_components/scope_selector_bubble.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/contact_field_editor_bubble.dart';
@@ -238,12 +235,12 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
       bzAbout: draftNotifier.value?.aboutController?.text,
       canValidate: true,
     ) == null;
-    final bool _scopeIsValid = Formers.bzScopeValidator(
-      scope: draftNotifier.value?.scope,
-      canValidate: true,
-    ) == null;
+    // final bool _scopeIsValid = Formers.bzScopeValidator(
+    //   scope: draftNotifier.value?.scope,
+    //   canValidate: true,
+    // ) == null;
 
-    if (_aboutIsValid == false || _scopeIsValid == false){
+    if (_aboutIsValid == false){ // || _scopeIsValid == false){
       setStripIsValid(2, false);
     }
     else {
@@ -659,32 +656,32 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                     ),
 
                     /// SCOPES SELECTOR
-                    ScopeSelectorBubble(
-                      headlineVerse: const Verse(
-                        id: 'phid_scopeOfServices',
-                        translate: true,
-                      ),
-                      flyerTypes: FlyerTyper.concludePossibleFlyerTypesByBzTypes(bzTypes: draft?.bzTypes),
-                      selectedSpecs: SpecModel.generateSpecsByPhids(
-                        phids: draft?.scope,
-                      ),
-                      bulletPoints: const <Verse>[
-                        Verse(
-                          id: 'phid_select_atleast_one_scope_phid',
-                          translate: true,
-                        )
-                      ],
-                      onFlyerTypeBubbleTap: (FlyerType flyerType) => onChangeBzScope(
-                        context: context,
-                        draftNotifier: draftNotifier,
-                        flyerType: flyerType,
-                        mounted: mounted,
-                      ),
-                      validator: () => Formers.bzScopeValidator(
-                        scope: draft?.scope,
-                        canValidate: draft?.canValidate,
-                      ),
-                    ),
+                    // ScopeSelectorBubble(
+                    //   headlineVerse: const Verse(
+                    //     id: 'phid_scopeOfServices',
+                    //     translate: true,
+                    //   ),
+                    //   flyerTypes: FlyerTyper.concludePossibleFlyerTypesByBzTypes(bzTypes: draft?.bzTypes),
+                    //   selectedSpecs: SpecModel.generateSpecsByPhids(
+                    //     phids: draft?.scope,
+                    //   ),
+                    //   bulletPoints: const <Verse>[
+                    //     Verse(
+                    //       id: 'phid_select_atleast_one_scope_phid',
+                    //       translate: true,
+                    //     )
+                    //   ],
+                    //   onFlyerTypeBubbleTap: (FlyerType flyerType) => onChangeBzScope(
+                    //     context: context,
+                    //     draftNotifier: draftNotifier,
+                    //     flyerType: flyerType,
+                    //     mounted: mounted,
+                    //   ),
+                    //   validator: () => Formers.bzScopeValidator(
+                    //     scope: draft?.scope,
+                    //     canValidate: draft?.canValidate,
+                    //   ),
+                    // ),
 
                     /// NEXT
                     NextButton(
@@ -692,13 +689,11 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       canGoNext: Formers.bzAboutValidator(
                                 bzAbout: draft?.aboutController?.text,
                                 canValidate: true,
-                              ) ==
-                              null &&
-                          Formers.bzScopeValidator(
-                                scope: draft?.scope,
-                                canValidate: true,
-                              ) ==
-                              null,
+                              ) == null
+                          // && Formers.bzScopeValidator(
+                          //   scope: draft?.scope,
+                          //   canValidate: true,
+                          // ) == null,
                     ),
 
                   ],

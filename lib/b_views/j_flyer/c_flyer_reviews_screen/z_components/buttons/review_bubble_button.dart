@@ -58,7 +58,7 @@ class ReviewBubbleButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return BldrsBox(
-      height: 30,
+      height: 40,
       icon: icon,
       verse: generateCounterVerse(
         context: context,
@@ -68,6 +68,7 @@ class ReviewBubbleButton extends StatelessWidget {
       verseWeight: isOn == true ? VerseWeight.bold : VerseWeight.thin,
       iconColor: isOn == true ? null : Colorz.white255,
       iconSizeFactor: 0.6,
+      verseScaleFactor: 0.9 / 0.6,
       bubble: false,
       color: isOn == true ? Colorz.black150 : Colorz.white20,
       verseColor: isOn == true ? Colorz.white255 : Colorz.white255,

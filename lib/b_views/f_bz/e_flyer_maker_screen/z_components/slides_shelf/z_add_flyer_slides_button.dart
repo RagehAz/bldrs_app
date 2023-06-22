@@ -26,7 +26,6 @@ class AddSlidesButton extends StatelessWidget {
     const double _flyerBoxWidth = DraftShelfSlide.flyerBoxWidth;
     final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
       flyerBoxWidth: _flyerBoxWidth,
-      forceMaxHeight: false,
     );
     // --------------------
     return Container(
@@ -157,7 +156,6 @@ class NewSlideImagePickerButton extends StatelessWidget {
     const double _flyerBoxWidth = DraftShelfSlide.flyerBoxWidth;
     final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
       flyerBoxWidth: _flyerBoxWidth,
-      forceMaxHeight: false,
     );
     const double _spacing = 10;
     const double _buttonWidth = _flyerBoxWidth - (_spacing * 3);

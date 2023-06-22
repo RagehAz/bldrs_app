@@ -25,6 +25,7 @@ import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
+import 'package:scale/scale.dart';
 
 class HeroicBigFlyer extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -355,7 +356,11 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
       mounted: mounted,
     );
 
-    final bool _tinyMode = FlyerDim.isTinyMode(context, widget.flyerBoxWidth);
+    final bool _tinyMode = FlyerDim.isTinyMode(
+      flyerBoxWidth: widget.flyerBoxWidth,
+      gridWidth: Scale.screenWidth(context),
+      gridHeight: Scale.screenHeight(context),
+    );
 
     if (_headerIsExpanded.value  == true && _tinyMode == false){
       await readBzCounters(
@@ -590,10 +595,13 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
 
       final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
         flyerBoxWidth: widget.flyerBoxWidth,
-        forceMaxHeight: false,
       );
 
-      final bool _tinyMode = FlyerDim.isTinyMode(context, widget.flyerBoxWidth);
+      final bool _tinyMode = FlyerDim.isTinyMode(
+        flyerBoxWidth: widget.flyerBoxWidth,
+        gridWidth: Scale.screenWidth(context),
+        gridHeight: Scale.screenHeight(context),
+      );
 
       return ValueListenableBuilder(
         valueListenable: _flyer,

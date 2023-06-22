@@ -200,7 +200,6 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
       begin: _minHeaderHeight,
       end: FlyerDim.flyerHeightByFlyerWidth(
         flyerBoxWidth: widget.flyerBoxWidth,
-        forceMaxHeight: false,
       ),
       controller: widget.headerAnimationController,
     );
@@ -256,7 +255,6 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
             // isOn: _canBounce,
             boxDistance: FlyerDim.flyerHeightByFlyerWidth(
               flyerBoxWidth: widget.flyerBoxWidth,
-              forceMaxHeight: false,
             ),
             // numberOfScreens: 2,
             slideLimitRatio: 0.1,

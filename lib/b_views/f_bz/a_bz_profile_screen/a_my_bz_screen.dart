@@ -1,3 +1,7 @@
+import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/zoomable_flyers_grid.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/f_helpers/router/go_back_widget.dart';
+import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
@@ -14,7 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:provider/provider.dart';
 
-class MyBzScreen extends StatelessWidget {
+class MyBzScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const MyBzScreen({
     this.initialTab = BzTab.flyers,
@@ -22,14 +26,42 @@ class MyBzScreen extends StatelessWidget {
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final BzTab initialTab;
-  /// --------------------------------------------------------------------------
+
+  @override
+  State<MyBzScreen> createState() => _MyBzScreenState();
+}
+
+class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateMixin{
+  // -----------------------------------------------------------------------------
+  ZGridController _zGridController;
+  final ScrollController _scrollController = ScrollController();
+  // -----------------------------------------------------------------------------
+  @override
+  void initState() {
+    super.initState();
+
+    _zGridController = ZGridController.initialize(
+      vsync: this,
+      scrollController: _scrollController,
+    );
+
+  }
+  // --------------------
+  @override
+  void dispose() {
+    /// SCROLL_CONTROLLER_IS_DISPOSED_IN_ZOOMABLE_GRID_CONTROLLER
+    // _scrollController.dispose(); // so do not dispose here, kept for reference
+    _zGridController.dispose();
+    super.dispose();
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
     /// NO NEED TO REBUILD WHEN BZ MODEL CHANGES
     final BzzProvider _bzzPro = Provider.of<BzzProvider>(context, listen: true);
     final String bzID = _bzzPro.myActiveBz?.id;
-    blog('MyBzScreen : bzID : $bzID : initialTab : $initialTab');
+    blog('MyBzScreen : bzID : $bzID : initialTab : ${widget.initialTab}');
     // --------------------
     return FireDocStreamer(
       collName: FireColl.bzz,
@@ -57,14 +89,12 @@ class MyBzScreen extends StatelessWidget {
           userID: Authing.getUserID(),
         );
 
-        if (_bzModel == null || _authorsContainMyUserID == false){
+        if (_bzModel != null && _authorsContainMyUserID == false){
 
           blog('my bz screen should go back now yabn el a7ba : $_bzModel : $_authorsContainMyUserID');
 
-          /// TASK : FIX ME
-          return const SizedBox();
-          // return GoBackWidget(
-          //   onGoBack: () async {
+          return GoBackWidget(
+            onGoBack: () async {
           //
           //     // /// REF: fuck_this_shit_will_come_back_to_you
           //     // if (_authorsContainMyUserID == false){
@@ -75,75 +105,106 @@ class MyBzScreen extends StatelessWidget {
           //     //   );
           //     // }
           //
-          //   },
-          // );
+            },
+          );
 
+        }
+
+        else if (_bzModel == null){
+          return const SizedBox();
         }
 
         else {
 
-              return ObeliskLayout(
-                initiallyExpanded: true,
-                canGoBack: true,
-                onBack: () async {
+          final List<Widget> _pages = MyBzScreenPages.pages(
+            scrollController: _scrollController,
+            zGridController: _zGridController,
+          );
 
-                  _bzzPro.clearMyActiveBz(notify: false);
+          return ObeliskLayout(
+            initiallyExpanded: true,
+            zGridController: _zGridController,
+            canGoBack: true,
+            onBack: () async {
 
-                  await Nav.goBack(
-                    context: context,
-                    invoker: 'ObeliskLayout.onBack',
-                  );
-
-                },
-                initialIndex: BzTabber.getBzTabIndex(initialTab),
-                // appBarRowWidgets: <Widget>[
-                //
-                //   const Expander(),
-                //
-                //   BzCreditsCounter(
-                //     width: Ratioz.appBarButtonSize * 1.4,
-                //     slidesCredit: counterCaliber(context, 1234),
-                //     ankhsCredit: counterCaliber(context, 123),
-                //
-                //   ),
-                //
-                //   BzLogo(
-                //     width: 40,
-                //     image: _bzModel.logoPath,
-                //     isVerified: _bzModel.isVerified,
-                //     margins: const EdgeInsets.symmetric(horizontal: 5),
-                //     corners: BldrsAppBar.clearCorners,
-                //   ),
-                //
-                // ],
-                navModels: <NavModel>[
-
-                  ...List.generate(BzTabber.bzTabsList.length, (index){
-
-                    final BzTab _bzTab = BzTabber.bzTabsList[index];
-
-                    return NavModel(
-                      id: NavModel.getBzTabNavID(bzTab: _bzTab, bzID: _bzModel.id),
-                      titleVerse: Verse(
-                        id: BzTabber.getBzTabPhid(bzTab: _bzTab),
-                        translate: true,
-                      ),
-                      icon: _bzTab == BzTab.about ? _bzModel.logoPath : BzTabber.getBzTabIcon(_bzTab),
-                      iconSizeFactor: _bzTab == BzTab.about ? 1 : null,
-                      screen: MyBzScreenPages.pages[index],
-                    );
-
-                  }),
-
-                ],
-
+              final bool _flyerIsOpen = ! UiProvider.proGetLayoutIsVisible(
+                context: context,
+                listen: false,
               );
 
-            }
+              final bool _pyramidsExpanded = UiProvider.proGetPyramidsAreExpanded(
+                context: context,
+                listen: false,
+              );
 
+              /// CLOSE FLYER
+              if (_flyerIsOpen == true || _pyramidsExpanded == true) {
+
+                  UiProvider.proSetPyramidsAreExpanded(
+                    notify: true,
+                    setTo: false,
+                  );
+
+                  await zoomOutFlyer(
+                    flyerNotifier: null,
+                    mounted: true,
+                    controller: _zGridController,
+                  );
+
+              }
+
+              else {
+                _bzzPro.clearMyActiveBz(notify: false);
+
+                await Nav.goBack(
+                  context: context,
+                  invoker: 'ObeliskLayout.onBack',
+                );
+              }
+
+            },
+            initialIndex: BzTabber.getBzTabIndex(widget.initialTab),
+            // appBarRowWidgets: <Widget>[
+            //
+            //   const Expander(),
+            //
+            //   BzCreditsCounter(
+            //     width: Ratioz.appBarButtonSize * 1.4,
+            //     slidesCredit: counterCaliber(context, 1234),
+            //     ankhsCredit: counterCaliber(context, 123),
+            //
+            //   ),
+            //
+            //   BzLogo(
+            //     width: 40,
+            //     image: _bzModel.logoPath,
+            //     isVerified: _bzModel.isVerified,
+            //     margins: const EdgeInsets.symmetric(horizontal: 5),
+            //     corners: BldrsAppBar.clearCorners,
+            //   ),
+            //
+            // ],
+            navModels: <NavModel>[
+              ...List.generate(BzTabber.bzTabsList.length, (index) {
+                final BzTab _bzTab = BzTabber.bzTabsList[index];
+
+                return NavModel(
+                  id: NavModel.getBzTabNavID(bzTab: _bzTab, bzID: _bzModel.id),
+                  titleVerse: Verse(
+                    id: BzTabber.getBzTabPhid(bzTab: _bzTab),
+                    translate: true,
+                  ),
+                  icon: _bzTab == BzTab.about ? _bzModel.logoPath : BzTabber.getBzTabIcon(_bzTab),
+                  iconSizeFactor: _bzTab == BzTab.about ? 1 : null,
+                  screen: _pages[index],
+                );
+              }),
+            ],
+          );
+
+        }
       },
     );
     // --------------------
   }
-  // -----------------------------------------------------------------------------
 }

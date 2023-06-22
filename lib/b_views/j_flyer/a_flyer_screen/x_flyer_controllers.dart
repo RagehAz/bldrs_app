@@ -291,6 +291,8 @@ bool canShowGalleryPage({
     }
   }
 
+  // blog('canShowGallerySlide : $_canShowGallery : bzModel != null : ${bzModel != null}');
+
   return _canShowGallery;
 }
 // --------------------

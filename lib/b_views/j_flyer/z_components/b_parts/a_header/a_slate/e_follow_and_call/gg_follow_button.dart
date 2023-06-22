@@ -67,21 +67,25 @@ class FollowButton extends StatelessWidget {
                     SizedBox(
                       height: _followIconSize,
                       width: _followIconSize,
-                      child: WebsafeSvg.asset(Iconz.follow,
+                      child: WebsafeSvg.asset(
+                        Iconz.follow,
                           color: _followIconColor,
+                          width: _followIconSize,
+                          height: _followIconSize,
                           // package: Iconz.bldrsTheme,
                       ),
                     ),
 
                     /// FOLLOW TEXT
                       BldrsText(
+                        width: _width,
                         verse: Verse(
                           id: _followIsOn == true ? 'phid_following' : 'phid_follow',
                           translate: true,
                         ),
                         color: _followIconColor,
                         size: 0,
-                        scaleFactor: FlyerDim.flyerFactorByFlyerWidth(context, flyerBoxWidth),
+                        scaleFactor: flyerBoxWidth * 0.003,
                       )
 
                   ],

@@ -248,9 +248,7 @@ class Dialogs {
     final BuildContext context = getMainContext();
 
     await BottomDialog.showBottomDialog(
-      draggable: false,
       height: BottomDialog.calculateDialogHeight(
-        draggable: false,
         titleIsOn: true,
         childHeight: 70,
       ),
@@ -493,7 +491,6 @@ class Dialogs {
     final double _clearHeight = BottomDialog.clearHeight(
         context: getMainContext(),
         overridingDialogHeight: _overridingDialogHeight,
-        draggable: true,
         titleIsOn: false
     );
 
@@ -501,7 +498,6 @@ class Dialogs {
     String _text = _keyboardModel.initialText;
 
     await BottomDialog.showBottomDialog(
-      draggable: true,
       height: _overridingDialogHeight,
       child: SizedBox(
         width: _clearWidth,
@@ -621,7 +617,6 @@ class Dialogs {
     CityModel _city;
 
     await BottomDialog.showButtonsBottomDialog(
-        draggable: true,
         buttonHeight: 50,
         numberOfWidgets: cities.length + 1,
         builder: (_){
@@ -862,7 +857,7 @@ class Dialogs {
   }) async {
 
     final BuildContext context = getMainContext();
-    final double _gridHeight = Scale.screenHeight(context) * 0.4;
+    final double _gridHeight = CenterDialog.getHeight(context: context) * 0.8;
 
     final bool _result = await CenterDialog.showCenterDialog(
       titleVerse: titleVerse,
@@ -876,6 +871,7 @@ class Dialogs {
         color: Colorz.white10,
         alignment: Alignment.center,
         child: FlyersGrid(
+          hasResponsiveSideMargin: false,
           scrollController: ScrollController(),
           flyersIDs: flyersIDs,
           scrollDirection: Axis.horizontal,
@@ -884,7 +880,7 @@ class Dialogs {
           topPadding: 0,
           numberOfColumnsOrRows: 1,
           screenName: 'flyersDialogGrid',
-          isHeroicGrid: true,
+          gridType: FlyerGridType.heroic,
         ),
       ),
 
@@ -905,7 +901,9 @@ class Dialogs {
     bool invertButtons = false,
   }) async {
 
-    final double _screenHeight = Scale.screenHeight(getMainContext());
+    final BuildContext context = getMainContext();
+    final double _screenWidth = Scale.screenWidth(context);
+    final double _screenHeight = Scale.screenHeight(context);
     final double _dialogHeight = _screenHeight * 0.7;
     final double _flyerBoxHeight = _dialogHeight * 0.5;
 
@@ -923,9 +921,10 @@ class Dialogs {
             flyerModel: flyer,
             flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(
               flyerBoxHeight: _flyerBoxHeight,
-              forceMaxHeight: false,
             ),
             screenName: 'flyerDialogGrid',
+            gridHeight: _screenHeight,
+            gridWidth: _screenWidth,
           ),
         ),
       ),
@@ -964,7 +963,6 @@ class Dialogs {
         alignment: Alignment.center,
         child: SingleSlide(
           flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(
-            forceMaxHeight: false,
             flyerBoxHeight: _flyerBoxHeight,
           ),
           flyerBoxHeight: _flyerBoxHeight,
