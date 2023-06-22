@@ -4,7 +4,6 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:flutter/material.dart';
 import 'package:night_sky/night_sky.dart';
 import 'package:scale/scale.dart';
@@ -171,7 +170,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
 
         if (confirmButtonModel != null)
           Align(
-            alignment: BldrsAligners.superInverseBottomAlignment(context),
+            alignment: Alignment.bottomCenter,
             child: ConfirmButton(
               confirmButtonModel: confirmButtonModel,
             ),

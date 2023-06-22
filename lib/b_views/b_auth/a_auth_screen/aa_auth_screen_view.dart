@@ -12,7 +12,6 @@ import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:devicer/devicer.dart';
 import 'package:filers/filers.dart';
 import 'package:fire/super_fire.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:layouts/layouts.dart';
 import 'package:legalizer/legalizer.dart';
@@ -52,7 +51,7 @@ class AuthScreenView extends StatelessWidget {
             translate: true,
           ),
           icon: Iconz.comEmail,
-          buttonVerseShadow: false,
+          verseShadow: false,
           onTap: () async {
 
               await Nav.goToNewScreen(
@@ -64,7 +63,8 @@ class AuthScreenView extends StatelessWidget {
         ),
 
         /// SOCIAL AUTH BUTTONS
-        if (kDebugMode == true)
+        /// TASK : FIX_SOCIAL_AUTH_BUTTONS
+        if (AuthProtocols.showSocialAuthButtons == true)
         SizedBox(
           width:  MainButton.getButtonWidth(
             context: context,

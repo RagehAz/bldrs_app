@@ -233,7 +233,6 @@ Future<void> onUnitSelectorButtonTap({
     final List<String> _units = _unitChain.sons;
 
     await BottomDialog.showButtonsBottomDialog(
-        draggable: true,
         buttonHeight: 40,
         numberOfWidgets: _unitChain.sons.length,
         builder: (_){

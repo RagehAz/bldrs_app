@@ -1,4 +1,6 @@
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/x_secondary/bldrs_model_type.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -49,7 +51,12 @@ class InfoPageContents extends StatelessWidget {
       infoButtonType: null,
     );
 
-    final bool _userIsSignedIn = Authing.userHasID();
+    final UserModel _user = UsersProvider.proGetMyUserModel(
+      context: context,
+      listen: false,
+    );
+
+    final bool _userIsSignedIn = Authing.userIsSignedUp(_user?.signInMethod) ;
 
     return Container(
       key: const ValueKey<String>('InfoPageContents'),
@@ -232,6 +239,7 @@ class InfoPageContents extends StatelessWidget {
                 Align(
                   // alignment: Alignment.center,//Aligners.superCenterAlignment(context),
                   child: ReportButton(
+                    width: flyerBoxWidth * 0.7,
                     modelType: ModelType.flyer,
                     onTap: () => FlyerFireOps.onReportFlyer(
                       context: context,
@@ -254,5 +262,5 @@ class InfoPageContents extends StatelessWidget {
     );
 
   }
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }

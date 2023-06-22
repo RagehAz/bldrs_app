@@ -227,6 +227,7 @@ class ZoneSelection {
       /// SET ZONE
       zoneProvider.setCurrentZone(
         zone: zone,
+        setCountryOnly: false,
         notify: false,
       );
       /// SET CURRENCY

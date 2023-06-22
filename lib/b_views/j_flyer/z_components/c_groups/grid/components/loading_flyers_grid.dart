@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 class LoadingFlyersGrid extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const LoadingFlyersGrid({
+    @required this.hasResponsiveSideMargin,
     this.gridWidth,
     this.gridHeight,
     this.scrollController,
@@ -24,6 +25,7 @@ class LoadingFlyersGrid extends StatelessWidget {
   final int numberOfColumnsOrRows;
   final Axis scrollDirection;
   final bool scrollable;
+  final bool hasResponsiveSideMargin;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -34,6 +36,8 @@ class LoadingFlyersGrid extends StatelessWidget {
       numberOfColumnsOrRows: numberOfColumnsOrRows,
       gridHeight: gridHeight,
       gridWidth: gridWidth,
+      hasResponsiveSideMargin: hasResponsiveSideMargin,
+      // spacingRatio: ,
     );
     // --------------------
     return FlyersGridBuilder(
@@ -44,19 +48,21 @@ class LoadingFlyersGrid extends StatelessWidget {
         topPadding: topPadding,
         numberOfColumnsOrRows: numberOfColumnsOrRows,
         scrollDirection: scrollDirection,
-        itemCount: FlyerDim.flyerGridNumberOfSlots(
-          flyersCount: 6,
-          addFlyerButtonIsOn: false,
-          isLoadingGrid: true,
-          numberOfColumnsOrRows: numberOfColumnsOrRows,
-        ),
+        hasResponsiveSideMargin: hasResponsiveSideMargin,
+        itemCount: 12,
+        // itemCount: FlyerDim.flyerGridNumberOfSlots(
+        //   flyersCount: 12,
+        //   addFlyerButtonIsOn: false,
+        //   isLoadingGrid: true,
+        //   numberOfColumnsOrRows: numberOfColumnsOrRows,
+        // ),
         builder: (BuildContext ctx, int index){
           // ---------------------------------------------------------------
           return FlyerLoading(
             flyerBoxWidth: _gridSlotWidth,
             animate: true,
             direction: scrollDirection,
-            // boxColor: Colors.white,
+            // boxColor: Colorz.bloodTest,
             // loadingColor: Colors.grey,
           );
           // ---------------------------------------------------------------

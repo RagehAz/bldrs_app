@@ -32,7 +32,6 @@ class FlyerBox extends StatelessWidget {
     // --------------------
     final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
       flyerBoxWidth: flyerBoxWidth,
-      forceMaxHeight: false,
     );
     // --------------------
     return Center(

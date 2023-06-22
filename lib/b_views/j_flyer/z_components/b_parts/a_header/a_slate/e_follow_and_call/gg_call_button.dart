@@ -67,6 +67,8 @@ class CallButton extends StatelessWidget {
                   margin: EdgeInsets.all(flyerBoxWidth * 0.01),
                   child: WebsafeSvg.asset(
                       Iconz.comPhone,
+                      width: _callIconWidth,
+                      height: _callIconWidth,
                       // package: Iconz.bldrsTheme,
                   ),
                 ),
@@ -78,12 +80,13 @@ class CallButton extends StatelessWidget {
 
                 /// FLYERS TEXT
                 BldrsText(
+                  width: _callBTWidth,
                   verse: const Verse(
                     id: 'phid_call',
                     translate: true,
                   ),
-                  size: 1,
-                  scaleFactor: FlyerDim.flyerFactorByFlyerWidth(context, flyerBoxWidth),
+                  size: 0,
+                  scaleFactor: flyerBoxWidth * 0.003,
                 )
 
               ],

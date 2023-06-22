@@ -54,8 +54,7 @@ Future<void> onFlyerBzOptionsTap({
   final double _clearHeight = _posterHeight + (BottomDialog.wideButtonHeight * 2) + (5 * 2) + 10;
 
   await BottomDialog.showBottomDialog(
-      draggable: true,
-      height: _clearHeight + BottomDialog.draggerZoneHeight(draggable: true),
+      height: _clearHeight + BottomDialog.draggerZoneHeight(),
       child: Column(
         children: <Widget>[
 

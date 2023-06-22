@@ -115,7 +115,8 @@ class UserFCMTopicsScreenView extends StatelessWidget {
 
         /// ALL SWITCHER
         BldrsTileBubble(
-          bubbleWidth: PageBubble.clearWidth(context),
+          bubbleWidth: PageBubble.width(context),
+          bubbleColor: Colorz.yellow20,
           bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
             context: context,
             headlineVerse: const Verse(
