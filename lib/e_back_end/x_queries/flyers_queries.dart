@@ -40,7 +40,7 @@ FireQueryModel homeWallFlyersPaginationQuery(BuildContext context){
         text: null,
         time: null,
       ),
-      // limit: 4,
+      limit: 9,
       // gtaLink: ,
       // title: ,
       // descending: ,
