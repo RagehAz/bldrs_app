@@ -2,27 +2,26 @@ import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
-import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
+import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/aa_pickers_screen_browse_view.dart';
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/aa_pickers_screen_search_view.dart';
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/x_pickers_screen_controllers.dart';
 import 'package:bldrs/b_views/i_chains/a_pickers_screen/xx_pickers_search_controller.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:widget_fader/widget_fader.dart';
-import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:night_sky/night_sky.dart';
+import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
-import 'package:mapper/mapper.dart';
-import 'package:scale/scale.dart';
 import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
 import 'package:flutter/material.dart';
+import 'package:layouts/layouts.dart';
+import 'package:mapper/mapper.dart';
+import 'package:night_sky/night_sky.dart';
 import 'package:provider/provider.dart';
+import 'package:scale/scale.dart';
+import 'package:widget_fader/widget_fader.dart';
 
 class PickersScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -110,6 +109,7 @@ class _PickersScreenState extends State<PickersScreen> {
 
       List<PickerModel> _pickers = _refinedPickers.value;
 
+
       /// ( IN BZ EDITOR FOR BZ SCOPE SELECTION ) WHEN USING CHAIN K ONLY
       if (widget.onlyChainKSelection == true){
 
@@ -163,6 +163,7 @@ class _PickersScreenState extends State<PickersScreen> {
           value: widget.selectedSpecs ?? <SpecModel>[],
       );
       // ------------------------------
+      _pickers.removeWhere((element) => element.chainID == 'id');
       setState(() {
         _allPickers = _pickers;
       });
@@ -246,30 +247,6 @@ class _PickersScreenState extends State<PickersScreen> {
       title: widget.pageTitleVerse,
       pyramidsAreOn: true,
       pyramidType: PyramidType.crystalYellow,
-      appBarRowWidgets: [
-
-        const Expander(),
-
-        AppBarButton(
-          verse: Verse.plain('blog'),
-          onTap: (){
-
-            // final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
-            // final List<Phrase> _phrases = _chainsProvider.chainsPhrases;
-            //
-            // Phrase.blogPhrases(_phrases);
-
-            // Stringer.blogStrings(strings: _phidsOfAllPickers);
-
-            // Chain.blogChains(_pickersChains);
-
-            PickerModel.blogPickers(_refinedPickers.value);
-
-          },
-        ),
-
-      ],
-
       onBack: () => onGoBackFromPickersScreen(
         context: context,
         isMultipleSelectionMode: widget.isMultipleSelectionMode,

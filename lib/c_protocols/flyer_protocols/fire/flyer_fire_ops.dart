@@ -179,7 +179,6 @@ class FlyerFireOps {
     String _feedback;
 
     await BottomDialog.showButtonsBottomDialog(
-        draggable: true,
         numberOfWidgets: 3,
         titleVerse: const Verse(
           id: 'phid_report_flyer',

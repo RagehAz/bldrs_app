@@ -1,11 +1,11 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
-import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:scale/scale.dart';
 import 'package:stringer/stringer.dart';
@@ -22,50 +22,36 @@ class BottomDialog extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BottomDialog({
     this.height,
-    this.draggable = true,
     this.child,
     this.titleVerse,
     Key key,
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double height;
-  final bool draggable;
   final Widget child;
   final Verse titleVerse;
   /// --------------------------------------------------------------------------
   /// one side value only
-  static double draggerMarginValue({
-    @required bool draggable
-  }) {
-    final double _draggerHeight = draggerHeight(draggable: draggable);
-    final double _draggerZoneHeight = draggerZoneHeight(draggable: draggable);
-    final double _draggerMarginValue =
-    draggable != true ? 0 : (_draggerZoneHeight - _draggerHeight) / 2;
+  static double draggerMarginValue() {
+    // final double _draggerHeight = draggerHeight();
+    // final double _draggerZoneHeight = draggerZoneHeight();
+    const double _draggerMarginValue = 0;
     return _draggerMarginValue;
   }
   // -----------------------------------------------------------------------------
-  static EdgeInsets draggerMargins({
-    @required bool draggable
-  }) {
+  static EdgeInsets draggerMargins() {
     final EdgeInsets _draggerMargins = EdgeInsets.symmetric(
-        vertical: draggerMarginValue(
-            draggable: draggable
-        )
+        vertical: draggerMarginValue()
     );
     return _draggerMargins;
   }
   // --------------------
-  static double draggerZoneHeight({
-    @required bool draggable
-  }) {
-    final double _draggerZoneHeight = draggable == true ? Ratioz.appBarMargin * 3 : 0;
-    return _draggerZoneHeight;
+  static double draggerZoneHeight() {
+    return Ratioz.appBarMargin * 3;
   }
   // --------------------
-  static double draggerHeight({
-    @required bool draggable
-  }) {
-    final double _draggerZoneHeight = draggerZoneHeight(draggable: draggable);
+  static double draggerHeight() {
+    final double _draggerZoneHeight = draggerZoneHeight();
     final double _draggerHeight = _draggerZoneHeight * 0.35 * 0.5;
     return _draggerHeight;
   }
@@ -93,11 +79,10 @@ class BottomDialog extends StatelessWidget {
   }
   // --------------------
   static double calculateDialogHeight({
-    @required bool draggable,
     @required bool titleIsOn,
     @required double childHeight,
   }){
-    final double _draggerHeight = draggerZoneHeight(draggable: draggable);
+    final double _draggerHeight = draggerZoneHeight();
     final double _titleHeight = titleZoneHeight(titleIsOn: titleIsOn);
 
     final double _topZoneHeight = _draggerHeight + _titleHeight + childHeight;
@@ -106,7 +91,7 @@ class BottomDialog extends StatelessWidget {
   }
   // --------------------
   static double dialogWidth(BuildContext context) {
-    return Scale.screenWidth(context);
+    return Bubble.bubbleWidth(context: context);
   }
   // --------------------
   static const double dialogMarginValue = Ratioz.appBarMargin + Ratioz.appBarPadding;
@@ -116,10 +101,7 @@ class BottomDialog extends StatelessWidget {
   );
   // --------------------
   static double clearWidth(BuildContext context) {
-    final double _dialogClearWidth =
-        Scale.screenWidth(context)
-            - (dialogMarginValue * 2);
-
+    final double _dialogClearWidth = dialogWidth(context) - (dialogMarginValue * 2);
     return _dialogClearWidth;
   }
   // --------------------
@@ -147,16 +129,13 @@ class BottomDialog extends StatelessWidget {
   // --------------------
   static double clearHeight({
     @required BuildContext context,
-    @required bool draggable,
     double overridingDialogHeight,
     bool titleIsOn,
   }) {
 
-    // bool _draggable = draggable == null ? false : draggable;
-
     final double _dialogHeight = dialogHeight(context, overridingDialogHeight: overridingDialogHeight);
     final double _titleZoneHeight = titleZoneHeight(titleIsOn: titleIsOn);
-    final double _draggerZoneHeight = draggerZoneHeight(draggable: draggable);
+    final double _draggerZoneHeight = draggerZoneHeight();
 
     final double _dialogClearHeight = _dialogHeight - _titleZoneHeight - _draggerZoneHeight;
     return _dialogClearHeight;
@@ -189,12 +168,12 @@ class BottomDialog extends StatelessWidget {
   }
   // --------------------
   static Future<void> showBottomDialog({
-    @required bool draggable,
     @required Widget child,
     double height,
     Verse titleVerse,
   }) async {
 
+    final BuildContext context = getMainContext();
     final double _height = height ?? BottomDialog.dialogHeight(getMainContext(), ratioOfScreenHeight: 0.5);
 
     await showModalBottomSheet(
@@ -209,10 +188,13 @@ class BottomDialog extends StatelessWidget {
         ),
         backgroundColor: Colorz.blackSemi255,
         barrierColor: Colorz.black150,
-        enableDrag: draggable,
+        enableDrag: true,
         elevation: 20,
         isScrollControlled: true,
-        context: getMainContext(),
+        context: context,
+        constraints: BoxConstraints(
+          maxWidth: dialogWidth(context),
+        ),
         builder: (_) {
 
           return StatefulBuilder(
@@ -228,7 +210,6 @@ class BottomDialog extends StatelessWidget {
                     resizeToAvoidBottomInset: false,
                     body: BottomDialog(
                       height: _height,
-                      draggable: draggable,
                       titleVerse: titleVerse,
                       child: child,
                     ),
@@ -243,7 +224,6 @@ class BottomDialog extends StatelessWidget {
   }
   // --------------------
   static Future<void> showButtonsBottomDialog({
-    @required bool draggable,
     @required int numberOfWidgets,
     double buttonHeight = wideButtonHeight,
     List<Widget> Function(BuildContext) builder,
@@ -254,15 +234,14 @@ class BottomDialog extends StatelessWidget {
 
     final double _spacing = buttonHeight * 0.1;
     final double _height =
-        BottomDialog.draggerZoneHeight(draggable: draggable)
-            + BottomDialog.draggerMarginValue(draggable: draggable)
+        BottomDialog.draggerZoneHeight()
+            + BottomDialog.draggerMarginValue()
             + BottomDialog.titleZoneHeight(titleIsOn: titleVerse != null)
             + (buttonHeight * _widgetsLength)
             + (_spacing * _widgetsLength);
 
 
     await showStatefulBottomDialog(
-      draggable: draggable,
       height: _height,
       titleVerse: titleVerse,
       builder: (BuildContext ctx, title){
@@ -293,7 +272,6 @@ class BottomDialog extends StatelessWidget {
   static Future<void> showStatefulBottomDialog({
     @required Widget Function(BuildContext, Function setState) builder,
     @required Verse titleVerse,
-    bool draggable,
     double height,
   }) async {
 
@@ -305,7 +283,7 @@ class BottomDialog extends StatelessWidget {
       ),
       backgroundColor: Colorz.blackSemi255,
       barrierColor: Colorz.black150,
-      enableDrag: draggable,
+      enableDrag: true,
       elevation: 20,
       isScrollControlled: true,
       context: getMainContext(),
@@ -317,7 +295,6 @@ class BottomDialog extends StatelessWidget {
             resizeToAvoidBottomInset: false,
             body: BottomDialog(
               height: _height,
-              draggable: draggable,
               titleVerse: titleVerse,
               child: StatefulBuilder(
                 builder: (_, Function setState){
@@ -341,7 +318,6 @@ class BottomDialog extends StatelessWidget {
 
     await BottomDialog.showBottomDialog(
       height: Scale.screenHeight(context) - 100,
-      draggable: true,
       child: Container(),
       // child: Center(
       // child: FinalFlyer(
@@ -395,7 +371,7 @@ class BottomDialog extends StatelessWidget {
       // verseItalic: false,
       icon: icon,
       iconSizeFactor: bigIcon == true ? 1 : 0.6,
-      verseCentered: verseCentered,
+      verseCentered: icon == null,
       verseMaxLines: 2,
       onTap: onTap,
       isDisabled: isDeactivated,
@@ -426,11 +402,11 @@ class BottomDialog extends StatelessWidget {
     final double _dialogHeight = dialogHeight(context, overridingDialogHeight: height);
     final BorderRadius _dialogCorners = dialogCorners(context);
     // --------------------
-    final double _draggerZoneHeight = draggerZoneHeight(draggable: draggable);
-    final double _draggerHeight = draggerHeight(draggable: draggable);
+    final double _draggerZoneHeight = draggerZoneHeight();
+    final double _draggerHeight = draggerHeight();
     final double _draggerWidth = draggerWidth(context);
     final double _draggerCorner = _draggerHeight * 0.5;
-    final EdgeInsets _draggerMargins = draggerMargins(draggable: draggable);
+    final EdgeInsets _draggerMargins = draggerMargins();
     // --------------------
     final bool _titleIsOn = _titleIsOnCheck();
     final double _titleZoneHeight = titleZoneHeight(titleIsOn: _titleIsOn);
@@ -440,93 +416,95 @@ class BottomDialog extends StatelessWidget {
         context: context,
         titleIsOn: _titleIsOn,
         overridingDialogHeight: height,
-        draggable: draggable
     );
     // --------------------
     final BorderRadius _dialogClearCorners = dialogClearCorners(context);
     // --------------------
-    return Container(
-      width: _dialogWidth,
-      height: _dialogHeight,
-      decoration: BoxDecoration(
-        color: Colorz.white10,
-        borderRadius: _dialogCorners,
-      ),
-      child: Stack(
+    return Center(
+      child: Container(
+        width: _dialogWidth,
+        height: _dialogHeight,
+        decoration: BoxDecoration(
+          color: Colorz.white10,
+          borderRadius: _dialogCorners,
+        ),
         alignment: Alignment.center,
-        children: <Widget>[
+        child: Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
 
-          /// --- SHADOW LAYER
-          Container(
-            width: _dialogWidth,
-            height: _dialogHeight,
-            decoration: BoxDecoration(
-              borderRadius: _dialogCorners,
-              boxShadow: Shadower.appBarShadow,
+            /// --- SHADOW LAYER
+            Container(
+              width: _dialogWidth,
+              height: _dialogHeight,
+              decoration: BoxDecoration(
+                borderRadius: _dialogCorners,
+                boxShadow: Shadower.appBarShadow,
+              ),
             ),
-          ),
 
-          /// --- BLUR LAYER
-          BlurLayer(
-            width: _dialogWidth,
-            height: _dialogHeight,
-            borders: _dialogCorners,
-          ),
+            // /// --- BLUR LAYER
+            // BlurLayer(
+            //   width: _dialogWidth,
+            //   height: _dialogHeight,
+            //   borders: _dialogCorners,
+            // ),
 
-          /// --- DIALOG CONTENTS
-          SizedBox(
-            width: _dialogWidth,
-            height: _dialogHeight,
-            child: Column(
-              children: <Widget>[
-                /// --- DRAGGER
-                if (draggable == true)
-                  Container(
-                    width: _dialogWidth,
-                    height: _draggerZoneHeight,
-                    alignment: Alignment.center,
-                    // color: Colorz.BloodTest,
-                    child: Container(
-                      width: _draggerWidth,
-                      height: _draggerHeight,
-                      margin: _draggerMargins,
-                      decoration: BoxDecoration(
-                        color: Colorz.white200,
-                        borderRadius:
-                        Borderers.cornerAll(context, _draggerCorner),
+            /// --- DIALOG CONTENTS
+            SizedBox(
+              width: _dialogWidth,
+              height: _dialogHeight,
+              child: Column(
+                children: <Widget>[
+
+                  /// --- DRAGGER
+                    Container(
+                      width: _dialogWidth,
+                      height: _draggerZoneHeight,
+                      alignment: Alignment.center,
+                      // color: Colorz.BloodTest,
+                      child: Container(
+                        width: _draggerWidth,
+                        height: _draggerHeight,
+                        margin: _draggerMargins,
+                        decoration: BoxDecoration(
+                          color: Colorz.white200,
+                          borderRadius:
+                          Borderers.cornerAll(context, _draggerCorner),
+                        ),
                       ),
                     ),
-                  ),
 
-                /// --- TITLE
-                if (titleVerse != null)
-                  Container(
-                    width: _dialogWidth,
-                    height: _titleZoneHeight,
-                    alignment: Alignment.center,
-                    // color: Colorz.BloodTest,
-                    child: BldrsText(
-                      verse: titleVerse,
+                  /// --- TITLE
+                  if (titleVerse != null)
+                    Container(
+                      width: _dialogWidth,
+                      height: _titleZoneHeight,
+                      alignment: Alignment.center,
+                      // color: Colorz.BloodTest,
+                      child: BldrsText(
+                        verse: titleVerse,
+                      ),
                     ),
+
+                  /// --- DIALOG CONTENT
+                  Container(
+                    width: _dialogClearWidth,
+                    height: _dialogClearHeight,
+                    decoration: BoxDecoration(
+                      color: Colorz.white10,
+                      borderRadius: _dialogClearCorners,
+                      // gradient: Colorizer.superHeaderStripGradient(Colorz.White20)
+                    ),
+                    child: child,
                   ),
 
-                /// --- DIALOG CONTENT
-                Container(
-                  width: _dialogClearWidth,
-                  height: _dialogClearHeight,
-                  decoration: BoxDecoration(
-                    color: Colorz.white10,
-                    borderRadius: _dialogClearCorners,
-                    // gradient: Colorizer.superHeaderStripGradient(Colorz.White20)
-                  ),
-                  child: child,
-                ),
-
-              ],
+                ],
+              ),
             ),
-          ),
 
-        ],
+          ],
+        ),
       ),
     );
     // --------------------

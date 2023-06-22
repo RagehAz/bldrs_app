@@ -15,6 +15,8 @@ class HeroicFlyer extends StatefulWidget {
     @required this.flyerBoxWidth,
     @required this.flyerModel,
     @required this.screenName,
+    @required this.gridWidth,
+    @required this.gridHeight,
     Key key
   }) : super(key: key);
 
@@ -22,7 +24,8 @@ class HeroicFlyer extends StatefulWidget {
   final double flyerBoxWidth;
   final FlyerModel flyerModel;
   final String screenName;
-
+  final double gridWidth;
+  final double gridHeight;
   /// --------------------------------------------------------------------------
   @override
   _HeroicFlyerState createState() => _HeroicFlyerState();
@@ -171,12 +174,14 @@ class _HeroicFlyerState extends State<HeroicFlyer> {
           else {
 
             if (renderedSmallFlyer == null){
+              blog('(${widget.flyerModel.id}) renderedSmallFlyer == null');
               return FlyerBox(
                 flyerBoxWidth: widget.flyerBoxWidth,
               );
             }
 
             else {
+              blog('(${widget.flyerModel.id}) renderedSmallFlyer != null');
               return WidgetFader(
                 fadeType: FadeType.fadeIn,
                 duration: const Duration(milliseconds: 300),
@@ -186,6 +191,8 @@ class _HeroicFlyerState extends State<HeroicFlyer> {
                   flyerBoxWidth: widget.flyerBoxWidth,
                   heroPath: _heroPath,
                   invoker: 'Flyer',
+                  gridWidth: widget.gridWidth,
+                  gridHeight: widget.gridHeight,
                 ),
               );
             }

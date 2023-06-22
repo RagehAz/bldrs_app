@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/d_bz_notes_page/bz_notes_
 // import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/bz_powers_page.dart';
 // import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/aaa7_bz_network_page.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/h_bz_settings_page/bz_settings_page.dart';
+import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:flutter/material.dart';
 
 class MyBzScreenPages extends StatelessWidget {
@@ -13,21 +14,32 @@ class MyBzScreenPages extends StatelessWidget {
   const MyBzScreenPages({
     @required this.screenHeight,
     @required this.tabController,
+    @required this.scrollController,
+    @required this.zGridController,
     Key key
   }) : super(key: key);
   /// --------------------------------------------------------------------------
   final double screenHeight;
   final TabController tabController;
+  final ZGridController zGridController;
+  final ScrollController scrollController;
   /// --------------------------------------------------------------------------
-  static const List<Widget> pages = <Widget>[
+  static List<Widget> pages({
+    @required ScrollController scrollController,
+    @required ZGridController zGridController,
+  }){
+    return <Widget>[
 
-    BzAboutPage(),
+    const BzAboutPage(),
 
-    BzFlyersPage(),
+    BzFlyersPage(
+      zGridController: zGridController,
+      scrollController: scrollController,
+    ),
 
-    BzTeamPage(),
+    const BzTeamPage(),
 
-    BzNotesPage(),
+    const BzNotesPage(),
 
     // BzTargetsPage(),
     //
@@ -35,9 +47,10 @@ class MyBzScreenPages extends StatelessWidget {
     //
     // BzNetworkPage(),
 
-    BzSettingsPage(),
+    const BzSettingsPage(),
 
   ];
+  }
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -45,7 +58,10 @@ class MyBzScreenPages extends StatelessWidget {
     return TabBarView(
       physics: const BouncingScrollPhysics(),
       controller: tabController,
-      children: pages,
+      children: pages(
+        zGridController: zGridController,
+        scrollController: scrollController,
+      ),
     );
 
   }

@@ -9,6 +9,7 @@ class FlyersGridBuilder extends StatelessWidget {
     @required this.gridHeight,
     @required this.builder,
     @required this.itemCount,
+    @required this.hasResponsiveSideMargin,
     this.topPadding = Ratioz.stratosphere,
     this.numberOfColumnsOrRows = 2,
     this.scrollDirection = Axis.vertical,
@@ -28,6 +29,7 @@ class FlyersGridBuilder extends StatelessWidget {
   final bool scrollable;
   final ScrollController scrollController;
   final double bottomPadding;
+  final bool hasResponsiveSideMargin;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -38,31 +40,38 @@ class FlyersGridBuilder extends StatelessWidget {
       numberOfColumnsOrRows: numberOfColumnsOrRows,
       gridHeight: gridHeight,
       gridWidth: gridWidth,
+      hasResponsiveSideMargin: hasResponsiveSideMargin,
+    );
+
+    final double _gridWidth = FlyerDim.flyerGridWidth(
+      context: context,
+      givenGridWidth: gridWidth,
+    );
+
+    final double _gridHeight = FlyerDim.flyerGridHeight(
+      context: context,
+      givenGridHeight: gridHeight,
     );
     // --------------------
     return SizedBox(
       key: const ValueKey<String>('FlyersGridBuilder'),
-      width: FlyerDim.flyerGridWidth(
-        context: context,
-        givenGridWidth: gridWidth,
-      ),
-      height: FlyerDim.flyerGridHeight(
-        context: context,
-        givenGridHeight: gridHeight,
-      ),
+      width: _gridWidth,
+      height: _gridHeight,
       child: GridView.builder(
           controller: scrollController,
           physics: scrollable == true ? const BouncingScrollPhysics() : const NeverScrollableScrollPhysics(),
           padding: FlyerDim.flyerGridPadding(
+            gridWidth: _gridWidth,
+            gridHeight: _gridHeight,
             context: context,
             topPaddingValue: topPadding,
             endPadding: bottomPadding,
             gridSpacingValue: FlyerDim.flyerGridGridSpacingValue(_gridSlotWidth),
             isVertical: scrollDirection == Axis.vertical,
+            hasResponsiveSideMargin: hasResponsiveSideMargin,
           ),
           gridDelegate: FlyerDim.flyerGridDelegate(
             context: context,
-            forceMaxHeight: false,
             flyerBoxWidth: _gridSlotWidth,
             numberOfColumnsOrRows: numberOfColumnsOrRows,
             scrollDirection: scrollDirection,

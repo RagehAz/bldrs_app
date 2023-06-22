@@ -136,7 +136,10 @@ class Obelisk extends StatelessWidget {
     final bool _isLandScape = MediaQuery.of(context).orientation == Orientation.landscape;
 
     if (_isLandScape == true){
-      return Scale.screenHeight(context) * 0.65;
+      return getContentsHeight(
+                 context: context,
+                 navModels: navModels
+             ) + 100;
     }
 
     else {
@@ -148,7 +151,7 @@ class Obelisk extends StatelessWidget {
              extraHeightToAchieveScrollability(
                context: context,
                navModels: navModels,
-             );
+             ) + 40;
     }
   }
   /// --------------------------------------------------------------------------
@@ -173,7 +176,7 @@ class Obelisk extends StatelessWidget {
             );
           },
           child: SizedBox(
-            height: Scale.screenHeight(context) * 0.6,
+            height: 300,
             child: MaxBounceNavigator(
               onNavigate: () => UiProvider.proSetPyramidsAreExpanded(
                 setTo: false,
@@ -194,6 +197,7 @@ class Obelisk extends StatelessWidget {
                       onRowTap: onRowTap,
                     ),
 
+                    /// ICONS
                     ObeliskIconsBuilder(
                       navModels: navModels,
                       progressBarModel: progressBarModel,
@@ -239,6 +243,7 @@ class Obelisk extends StatelessWidget {
                   // mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: stuffAlignment(isCross: true),
                   children: <Widget>[
+
                     /// ICONS
                     if (UiProvider.checkAppIsLeftToRight() == true)
                       ObeliskIconsBuilder(

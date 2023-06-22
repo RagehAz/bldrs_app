@@ -1,8 +1,7 @@
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:numeric/numeric.dart';
-import 'package:scale/scale.dart';
 import 'package:flutter/material.dart';
+import 'package:numeric/numeric.dart';
 
 class FlyerVerses {
   /// --------------------------------------------------------------------------
@@ -69,10 +68,9 @@ class FlyerVerses {
   }
   // --------------------
   static double authorLabelVersesScaleFactor({
-    @required BuildContext context,
     @required double flyerBoxWidth,
   }){
-   return flyerBoxWidth / Scale.screenWidth(context);
+   return flyerBoxWidth * 0.0025;
   }
   // --------------------
   static Verse followersCounters({

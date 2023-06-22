@@ -14,7 +14,7 @@ class AppBarFilters extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _boxWidth = BldrsAppBar.width();
+    final double _boxWidth = Bubble.bubbleWidth(context: context);
 
     final double _filtersTopMargin = BldrsAppBar.getFiltersTopMargin(
       context: context,
@@ -26,23 +26,26 @@ class AppBarFilters extends StatelessWidget {
       appBarType: appBarType,
     );
 
-    return Padding(
-      padding: EdgeInsets.only(
-        top: _filtersTopMargin,
-        bottom: Ratioz.appBarPadding,
-        left: Ratioz.appBarPadding,
-        right: Ratioz.appBarPadding,
-      ),
-      child: ClipRRect(
-        borderRadius: BldrsAppBar.clearCorners,
-        child: Container(
-          width: _boxWidth - (Ratioz.appBarPadding * 2),
-          height: _filtersBoxHeight - (Ratioz.appBarPadding * 2),
-          decoration: const BoxDecoration(
-            color: Colorz.white10,
-            borderRadius: BldrsAppBar.clearCorners,
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.only(
+          top: _filtersTopMargin,
+          bottom: Ratioz.appBarPadding,
+          left: Ratioz.appBarPadding,
+          right: Ratioz.appBarPadding,
+        ),
+        child: ClipRRect(
+          borderRadius: BldrsAppBar.clearCorners,
+          child: Container(
+            width: _boxWidth - (Ratioz.appBarPadding * 2),
+            height: _filtersBoxHeight - (Ratioz.appBarPadding * 2),
+            decoration: const BoxDecoration(
+              color: Colorz.white10,
+              borderRadius: BldrsAppBar.clearCorners,
+            ),
+            alignment: Alignment.topCenter,
+            child: child,
           ),
-          child: child,
         ),
       ),
     );

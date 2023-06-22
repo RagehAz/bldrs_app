@@ -32,7 +32,6 @@ class BottomDialogButtons extends StatelessWidget {
     final double _dialogClearWidth = BottomDialog.clearWidth(context);
     final double _dialogCleanHeight = BottomDialog.clearHeight(
         context: context,
-        draggable: true,
         titleIsOn: true,
         overridingDialogHeight: dialogHeight);
     final BorderRadius _dialogClearCorners = BottomDialog.dialogClearCorners(context);

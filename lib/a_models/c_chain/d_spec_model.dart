@@ -1,9 +1,8 @@
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
-import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
-import 'package:mapper/mapper.dart';
 import 'package:filers/filers.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:mapper/mapper.dart';
 
 @immutable
 class SpecModel {
@@ -567,13 +566,20 @@ class SpecModel {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TASK : NOT WORKING
   static List<SpecModel> generateSpecsByPhids({
     @required List<String> phids,
   }){
     final List<SpecModel> _specs = <SpecModel>[];
 
+    blog('generateSpecsByPhids : phids : $phids');
+
     if (Mapper.checkCanLoopList(phids) == true){
+
+      // final List<String> _chainsIDs = FlyerTyper.getChainsIDsPerViewingEvent(
+      //   flyerType: flyerType,
+      //   event: ViewingEvent.admin,
+      // );
 
       for (final String phid in phids){
 
@@ -596,10 +602,13 @@ class SpecModel {
 
     }
 
+    SpecModel.blogSpecs(_specs);
+
     return _specs;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TASK : NOT WORKING
+  /*
   static List<String> getPhidsFromSpecsFilteredByFlyerType({
     @required FlyerType flyerType,
     @required List<SpecModel> specs,
@@ -608,26 +617,44 @@ class SpecModel {
 
     if (flyerType != null && Mapper.checkCanLoopList(specs) == true) {
 
+      final List<String> _chainsIDs = FlyerTyper.getChainsIDsPerViewingEvent(
+        flyerType: flyerType,
+        event: ViewingEvent.admin,
+      );
+
       for (final SpecModel spec in specs) {
-        if (spec.value is String && Phider.checkIsPhidK(spec.value) == true) {
 
-          final String _chainIDBySpec = spec.pickerChainID;
+        if (spec.value is String){ // && Phider.checkIsPhidK(spec.value) == true) {
 
-          final String _chainIDByFlyerType = FlyerTyper.concludeChainIDByFlyerType(
-              flyerType: flyerType,
+          final bool _isInChainID = Stringer.checkStringsContainString(
+              strings: _chainsIDs,
+              string: spec.pickerChainID
           );
 
-          if (_chainIDBySpec == _chainIDByFlyerType) {
+          if (_isInChainID == true){
             _output.add(spec.value);
           }
 
+          // x
+          //
+          // final String _chainIDByFlyerType = FlyerTyper.concludeChainIDByFlyerType(
+          //     flyerType: flyerType,
+          // );
+          // blog('come on : ${spec.value} : ${spec.pickerChainID} _chainIDByFlyerType : $_chainIDByFlyerType');
+          //
+          // if (_chainIDBySpec == _chainIDByFlyerType) {
+          //   _output.add(spec.value);
+          // }
+
         }
+
       }
 
     }
 
     return _output;
   }
+   */
   // -----------------------------------------------------------------------------
   /*
     /// STANDARDS

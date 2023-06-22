@@ -5,9 +5,6 @@ import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/a_static_logo_screen.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/b_animated_logo_screen.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/a_home_screen.dart';
-import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm_starter.dart';
@@ -18,14 +15,15 @@ import 'package:bldrs/f_helpers/drafters/bldrs_providers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/firebase_options.dart';
-import 'package:fire/super_fire.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:devicer/devicer.dart';
 import 'package:filers/filers.dart';
+import 'package:fire/super_fire.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:mediators/mediators.dart';
-import 'package:stringer/stringer.dart';
 import 'bldrs_keys.dart';
 
 // ignore: constant_identifier_names
@@ -70,7 +68,13 @@ Future<void> main() async {
 
   ]);
   /// --------------------
-  runApp(const BldrsAppStarter());
+  runApp(
+    DevicePreview(
+      /// ignore: avoid_redundant_argument_values
+      enabled: kDebugMode == true,
+      builder: (context) => const BldrsAppStarter(),
+    ),
+  );
   /// -----------------------------------------------------------------------------
 }
 
@@ -225,53 +229,56 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
               // scaffoldMessengerKey: ,
               // restorationScopeId: ,
 
+              useInheritedMediaQuery: true,
+
               /// DUNNO
               // actions: ,
-              builder: (BuildContext context, Widget widget) {
-
-                ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
-
-                  // blogFlutterErrorDetails(errorDetails);
-
-                  final String _text = TextMod.removeTextBeforeLastSpecialCharacter(errorDetails.exception.toString(), ':');
-
-                  return Center(
-                    child: Container(
-                      // width: double.infinity,
-                      // height: double.infinity,
-                      color: Colorz.red255,
-                      child: ListView(
-                        children: <Widget>[
-
-                          const BldrsImage(
-                            width: 40,
-                            height: 40,
-                            pic: Iconz.dvGouran,
-                            iconColor: Colorz.black255,
-                          ),
-
-                          BldrsText(
-                            verse: Verse(
-                              id: _text,
-                              translate: false,
-                              casing: Casing.upperCase,
-                            ),
-                            maxLines: 20,
-                            color: Colorz.black255,
-                            margin: 20,
-                            weight: VerseWeight.black,
-                            italic: true,
-                            labelColor: Colorz.black50,
-                          ),
-
-                        ],
-                      ),
-                    ),
-                  );
-                };
-
-                return widget;
-                },
+              // builder: (BuildContext context, Widget widget) {
+              //
+              //   ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
+              //
+              //     // blogFlutterErrorDetails(errorDetails);
+              //
+              //     final String _text = TextMod.removeTextBeforeLastSpecialCharacter(errorDetails.exception.toString(), ':');
+              //
+              //     return Center(
+              //       child: Container(
+              //         // width: double.infinity,
+              //         // height: double.infinity,
+              //         color: Colorz.red255,
+              //         child: ListView(
+              //           children: <Widget>[
+              //
+              //             const BldrsImage(
+              //               width: 40,
+              //               height: 40,
+              //               pic: Iconz.dvGouran,
+              //               iconColor: Colorz.black255,
+              //             ),
+              //
+              //             BldrsText(
+              //               verse: Verse(
+              //                 id: _text,
+              //                 translate: false,
+              //                 casing: Casing.upperCase,
+              //               ),
+              //               maxLines: 20,
+              //               color: Colorz.black255,
+              //               margin: 20,
+              //               weight: VerseWeight.black,
+              //               italic: true,
+              //               labelColor: Colorz.black50,
+              //             ),
+              //
+              //           ],
+              //         ),
+              //       ),
+              //     );
+              //   };
+              //
+              //   return widget;
+              //   },
+              builder: DevicePreview.appBuilder,
 
               // home: ,
               // useInheritedMediaQuery: ,

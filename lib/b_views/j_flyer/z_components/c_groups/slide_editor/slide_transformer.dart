@@ -101,7 +101,6 @@ class SlideTransformer extends StatelessWidget {
               width: flyerBoxWidth,
               height: FlyerDim.flyerHeightByFlyerWidth(
                 flyerBoxWidth: flyerBoxWidth,
-                forceMaxHeight: false,
               ),
               pic: slide.picModel?.bytes,
               filterModel: _filterModel,

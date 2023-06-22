@@ -31,14 +31,19 @@ class ZGrid extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final EdgeInsets _topPaddingOnZoomedIn = EdgeInsets.only(
-      top: ZGridScale.getTopPaddingOnZoomIn(
-        topPaddingOnZoomIn: gridScale.topPaddingOnZoomIn,
+      top: ZGridScale.getCenteredTopPaddingOnZoomedIn(
+        columnCount: gridScale.columnCount,
+        gridWidth: gridScale.gridWidth,
+        itemAspectRatio: gridScale.itemAspectRatio,
+        gridHeight: gridScale.gridHeight,
       ),
     );
 
     return ValueListenableBuilder(
       valueListenable: controller.isZoomed,
       builder: (_, bool zoomed, Widget child){
+
+        // blog('zoomed : $zoomed');
 
         return GestureDetector(
           onHorizontalDragUpdate: zoomed == false ? null : (details) {
@@ -47,6 +52,7 @@ class ZGrid extends StatelessWidget {
           onHorizontalDragEnd: zoomed == false ? null : (details) {
             blog('prevent swipe gestures from affecting the PageView');
           },
+
           child: Stack(
             alignment: Alignment.topCenter,
             children: <Widget>[
@@ -66,6 +72,7 @@ class ZGrid extends StatelessWidget {
                       alignment: Alignment.topCenter,
                       children: <Widget>[
 
+                        /// BLUR LAYER
                         BlurLayer(
                           width: gridScale.gridWidth,
                           height: gridScale.gridHeight,
@@ -146,48 +153,47 @@ class ZGrid extends StatelessWidget {
         //   blog(details.toString());
         // },
         // scaleFactor: 200.0, // Affects only pointer device scrolling, not pinch to zoom.
-        child: SizedBox(
-          width: gridScale.gridWidth,
-          height: gridScale.gridHeight,
-          child: ValueListenableBuilder(
-            valueListenable: controller.isZoomed,
-            builder: (_, bool zoomed, Widget theGrid){
+        child: ValueListenableBuilder(
+          valueListenable: controller.isZoomed,
+          builder: (_, bool zoomed, Widget theGrid){
 
-              /// THE GRID
-              return IgnorePointer(
-                ignoring: zoomed,
-                child: GridView.builder(
-                key: const ValueKey<String>('ZGrid'),
-                controller: controller.scrollController,
-                gridDelegate: ZGridScale.getGridDelegate(
-                  gridWidth: gridScale.gridWidth,
-                  columnCount: gridScale.columnCount,
-                  itemAspectRatio: gridScale.itemAspectRatio,
-                  gridSidePadding: gridScale.gridSidePadding,
-                ),
-                padding: ZGridScale.getGridPadding(
-                  topPaddingOnZoomOut: gridScale.topPaddingOnZoomOut,
-                  gridWidth: gridScale.gridWidth,
-                  columnCount: gridScale.columnCount,
-                  itemAspectRatio: gridScale.itemAspectRatio,
-                  context: context,
-                  gridSidePadding: gridScale.gridSidePadding,
-                  isZoomed: zoomed,
-                  bottomPaddingOnZoomedOut: gridScale.bottomPaddingOnZoomedOut,
-                ),
-                itemCount: itemCount,
-                physics: const BouncingScrollPhysics(),
-                itemBuilder: (_, int index) => builder(index)
-            ),
-              );
+            /// THE GRID
+            return IgnorePointer(
+              ignoring: zoomed,
+              child: GridView.builder(
+                  key: const ValueKey<String>('ZGrid'),
+                  controller: controller.scrollController,
+                  gridDelegate: ZGridScale.getGridDelegate(
+                    gridWidth: gridScale.gridWidth,
+                    gridHeight: gridScale.gridHeight,
+                    columnCount: gridScale.columnCount,
+                    itemAspectRatio: gridScale.itemAspectRatio,
+                    hasResponsiveSideMargin: gridScale.hasResponsiveSideMargin,
+                  ),
+                  padding: ZGridScale.getGridPadding(
+                    topPaddingOnZoomOut: gridScale.topPaddingOnZoomOut,
+                    gridWidth: gridScale.gridWidth,
+                    gridHeight: gridScale.gridHeight,
+                    columnCount: gridScale.columnCount,
+                    itemAspectRatio: gridScale.itemAspectRatio,
+                    context: context,
+                    isZoomed: zoomed,
+                    bottomPaddingOnZoomedOut: gridScale.bottomPaddingOnZoomedOut,
+                    hasResponsiveSideMargin: gridScale.hasResponsiveSideMargin,
+                  ),
+                  itemCount: itemCount,
+                  physics: const BouncingScrollPhysics(),
+                  itemBuilder: (_, int index) => builder(index)
+              ),
+            );
 
             },
 
-            child: const SizedBox(),
+          child: const SizedBox(),
 
-          ),
         ),
       ),
+
     );
 
   }

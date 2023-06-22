@@ -15,6 +15,7 @@ import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:mapper/mapper.dart';
 import 'package:scale/scale.dart';
 import 'package:animators/animators.dart';
@@ -484,9 +485,9 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
       const SizedBox()
           :
       CornerWidgetMaximizer(
-        maxWidth: BldrsAppBar.width(),
-        minWidth: 170,
-        childWidth: BldrsAppBar.width(),
+        maxWidth: Bubble.bubbleWidth(context: context),
+        minWidth: Scale.superWidth(context, 0.4),
+        childWidth: Bubble.bubbleWidth(context: context),
 
         /// FLYER SHELF IN SELECTED PHIDS PANEL
         topChild: widget.flyerModel == null ?
@@ -516,7 +517,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
               titleVerse: _verse,
               phids: selectedPhids,
               addButtonIsOn: false,
-              bubbleWidth: BldrsAppBar.width(),
+              bubbleWidth: Bubble.bubbleWidth(context: context),
               maxLines: 3,
               scrollController: _selectedPhidsScrollController,
               onPhidTap: (String phid) => _onPhidTap(

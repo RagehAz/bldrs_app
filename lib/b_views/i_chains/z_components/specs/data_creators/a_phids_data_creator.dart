@@ -4,6 +4,7 @@ import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/chain_builders/a_chain_splitter.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
+import 'package:bubbles/bubbles.dart';
 import 'package:filers/filers.dart';
 
 
@@ -42,11 +43,14 @@ class PhidsDataCreator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
+    final double _width = width ?? Bubble.bubbleWidth(context: context);
+    
+    
     return PickersViewBox(
       height: allowableHeight,
-      width: width,
+      width: _width,
       child: ChainSplitter(
-        width: width ?? BldrsAppBar.width(),
+        width: _width,
         previousPath: specPicker.chainID,
         chainOrChainsOrSonOrSons: Chain.filterSpecPickerChainRange(
           picker: specPicker,
@@ -92,7 +96,7 @@ class PickersViewBox extends StatelessWidget {
     final double _boxHeight = height - ( Ratioz.appBarMargin);
     // --------------------
     return Container(
-      width: width ?? BldrsAppBar.width(),
+      width: width ?? Bubble.bubbleWidth(context: context),
       height: _boxHeight,
       decoration: const BoxDecoration(
         color: Colorz.white10,

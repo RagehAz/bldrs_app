@@ -95,7 +95,7 @@ class SlidesBuilder extends StatelessWidget {
           controller: horizontalController,
           physics: tinyMode ? const NeverScrollableScrollPhysics() : const BouncingScrollPhysics(),
           onPageChanged: (int i) => onSwipeSlide(i),
-          itemCount: _numberOfStrips+1,
+          itemCount: _numberOfStrips,
           itemBuilder: (_, int index){
 
             /// WHEN AT FLYER REAL SLIDES

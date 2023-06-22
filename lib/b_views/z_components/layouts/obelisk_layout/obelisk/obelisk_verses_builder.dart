@@ -71,7 +71,6 @@ class ObeliskVersesBuilder extends StatelessWidget {
         },
 
       child: SizedBox(
-        // color: Colorz.white20,
         height: Obelisk.gotContentsScrollableHeight(
           context: context,
           navModels: navModels,
