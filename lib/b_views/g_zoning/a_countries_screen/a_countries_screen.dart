@@ -103,7 +103,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
     // _countriesStages.blogStaging();
 
     /// SHOWN IDS
-    List<String> _shownIDs = _countriesStages?.getIDsByViewingEvent(
+    final List<String> _shownIDs = _countriesStages?.getIDsByViewingEvent(
       event: widget.zoneViewingEvent,
       countryID: null,
       viewerCountryID: widget.viewerCountryID,
@@ -236,7 +236,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onCountryTap(String countryID) async {
-
+    blog('onCountryTap : browse view : $countryID');
     await ZoneSelection.onSelectCountry(
       context: context,
       countryID: countryID,
@@ -311,7 +311,19 @@ class _CountriesScreenState extends State<CountriesScreen> {
                   zoneViewingEvent: widget.zoneViewingEvent,
                 ),
                 planetCensus: _planetCensus,
-                onPlanetTap: () => Nav.goBack(context: context),
+                onPlanetTap: () async {
+
+                  final bool _isSettingCurrentZone =  widget.zoneViewingEvent == ViewingEvent.homeView;
+
+                  if (_isSettingCurrentZone == true){
+                    await ZoneSelection.setCurrentZone(
+                      zone: null,
+                    );
+                  }
+
+                    await Nav.goBack(context: context);
+
+                  },
               );
 
             }
