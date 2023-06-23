@@ -1604,10 +1604,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: ef1109493b0ad48fba1953fd9b443b7c8c7b0c00
+      resolved-ref: a50ed3412ddb98a4c231206cbe7add7db07b2fd8
       url: "https://github.com/RagehAz/scale.git"
     source: git
-    version: "1.0.3"
+    version: "2.0.0"
   screenshot:
     dependency: "direct main"
     description:
@@ -1911,10 +1911,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_android
-      sha256: eed4e6a1164aa9794409325c3b707ff424d4d1c2a785e7db67f8bbda00e36e51
+      sha256: "15f5acbf0dce90146a0f5a2c4a002b1814a6303c4c5c075aa2623b2d16156f03"
       url: "https://pub.dev"
     source: hosted
-    version: "6.0.35"
+    version: "6.0.36"
   url_launcher_ios:
     dependency: transitive
     description:
@@ -2117,5 +2117,5 @@ packages:
     source: hosted
     version: "8.1.2"
 sdks:
-  dart: ">=2.19.0 <3.0.0"
+  dart: ">=2.19.6 <3.0.0"
   flutter: ">=3.3.0"
