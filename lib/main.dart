@@ -333,7 +333,6 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
                 // Routing.flyerScreen: (BuildContext ctx) => const FlyerPreviewScreen(),
                 // Routez.Starting: (ctx) => StartingScreen(),
 
-
               },
             );
           },
