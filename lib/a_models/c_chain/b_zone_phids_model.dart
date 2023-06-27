@@ -25,8 +25,8 @@ class ZonePhidsModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   ZonePhidsModel copyWith({
-    String zoneID,
-    List<MapModel> phidsMaps,
+    String? zoneID,
+    List<MapModel>? phidsMaps,
   }){
     return ZonePhidsModel(
         zoneID: zoneID ?? this.zoneID,

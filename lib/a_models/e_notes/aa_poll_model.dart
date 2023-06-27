@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:basics/helpers/classes/time/timers.dart';
@@ -36,9 +37,9 @@ class PollModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   PollModel copyWith({
-    List<String> buttons,
-    String reply,
-    DateTime replyTime,
+    List<String>? buttons,
+    String? reply,
+    DateTime? replyTime,
   }){
     return PollModel(
       buttons: buttons ?? this.buttons,

@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/foundation.dart';
@@ -37,16 +38,16 @@ class ReviewModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   ReviewModel copyWith({
-    String id,
-    String text,
-    String userID,
-    DateTime time,
-    String flyerID,
-    String replyAuthorID,
-    String reply,
-    DateTime replyTime,
-    int agrees,
-    DocumentSnapshot<Object> docSnapshot,
+    String? id,
+    String? text,
+    String? userID,
+    DateTime? time,
+    String? flyerID,
+    String? replyAuthorID,
+    String? reply,
+    DateTime? replyTime,
+    int? agrees,
+    DocumentSnapshot<Object>? docSnapshot,
   }){
     return ReviewModel(
       id: id ?? this.id,
@@ -295,7 +296,7 @@ class ReviewModel {
   /// TESTED : WORKS PERFECT
   static void blogReviews({
     required List<ReviewModel> reviews,
-    String invoker,
+    String? invoker,
   }){
     blog('blogReviews : $invoker -------------------------------------- START');
     if (Mapper.checkCanLoopList(reviews) == true){

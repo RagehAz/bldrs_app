@@ -58,6 +58,7 @@ class ZGrid extends StatelessWidget {
             children: <Widget>[
 
               /// ZOOMABLE GRID
+              if (child != null)
               child,
 
               /// THE BIG ITEM ON TOP OF GRID AFTER ZOOMING IN

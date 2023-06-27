@@ -50,7 +50,7 @@ class Chain {
   // --------------------
   /// TESTED : WORKS PERFECT
   Chain copyWith({
-    String id,
+    String? id,
     dynamic sons,
   }) {
     return Chain(

@@ -36,7 +36,6 @@ class TextLinesAnalyzer extends StatelessWidget {
           maxLines: maxLines,
           textDirection: TextDir.autoSwitchTextDirection(
             val: text,
-            context: context,
             appIsLTR: UiProvider.checkAppIsLeftToRight()
           ),
         );

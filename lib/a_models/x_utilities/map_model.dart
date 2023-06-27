@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/foundation.dart';
@@ -21,7 +22,7 @@ class MapModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   MapModel copyWith({
-    String key,
+    String? key,
     dynamic value,
   }){
 

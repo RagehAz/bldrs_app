@@ -71,16 +71,16 @@ class UserSearchModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   UserSearchModel copyWith({
-    SignInMethod signInMethod,
-    NeedType needType,
-    UserSearchType searchType,
-    Gender gender,
-    String language,
-    bool onlyWithPublicContacts,
-    bool onlyBzAuthors,
-    bool onlyBldrsAdmins,
-    String devicePlatform,
-    bool onlyVerifiedEmails,
+    SignInMethod? signInMethod,
+    NeedType? needType,
+    UserSearchType? searchType,
+    Gender? gender,
+    String? language,
+    bool? onlyWithPublicContacts,
+    bool? onlyBzAuthors,
+    bool? onlyBldrsAdmins,
+    String? devicePlatform,
+    bool? onlyVerifiedEmails,
   }){
     return UserSearchModel(
         signInMethod: signInMethod ?? this.signInMethod,

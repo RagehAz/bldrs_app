@@ -1,8 +1,6 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
-import 'package:mediators/mediators.dart';
 import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:mediators/models/dimension_model.dart';

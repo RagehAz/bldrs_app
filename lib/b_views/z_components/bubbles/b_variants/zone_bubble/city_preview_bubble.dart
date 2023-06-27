@@ -10,8 +10,6 @@ import 'package:bldrs/b_views/z_components/buttons/flagbox_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
 
@@ -27,7 +25,7 @@ class CityPreviewBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final String _countryID = cityModel?.getCountryID();
+    final String? _countryID = cityModel?.getCountryID();
 
     final Phrase _countryNameEn = Flag.getCountryPhrase(
       countryID: _countryID,

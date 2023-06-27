@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -6,7 +7,6 @@ import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dar
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 
@@ -127,7 +127,7 @@ class _PDFScreenState extends State<PDFScreen> {
                 // gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{},
 
                 /// EVENTS
-                onPageChanged: (int newIndex, int numberOfPages){
+                onPageChanged: (int? newIndex, int? numberOfPages){
                   // blog('onPageChanged : x : $newIndex : y : $numberOfPages');
                   ProgressBarModel.onSwipe(
                     progressBarModel: _progressBarModel,
@@ -139,13 +139,13 @@ class _PDFScreenState extends State<PDFScreen> {
                 onError: (dynamic error){
                   blog('onError : error.runtimeType : ${error.runtimeType} : error : $error');
                 },
-                onPageError: (int x, dynamic error){
+                onPageError: (int? x, dynamic error){
                   blog('onPageError : x : $x : error.runtimeType : ${error.runtimeType} : error : $error}');
                 },
-                onLinkHandler: (String link){
+                onLinkHandler: (String? link){
                   blog('onLinkHandler : link : $link');
                 },
-                onRender: (int pageCount){
+                onRender: (int? pageCount){
                   blog('onRender : x : $pageCount');
 
                   if (

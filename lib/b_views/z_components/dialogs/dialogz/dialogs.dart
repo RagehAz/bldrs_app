@@ -1,4 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -184,9 +185,9 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> goBackDialog({
-    Verse titleVerse,
-    Verse bodyVerse,
-    Verse confirmButtonVerse,
+    Verse? titleVerse,
+    Verse? bodyVerse,
+    Verse? confirmButtonVerse,
     bool goBackOnConfirm = false,
   }) async {
 
@@ -801,8 +802,8 @@ class Dialogs {
     required BzModel bzModel,
     required Verse titleVerse,
     required Verse bodyVerse,
-    Verse confirmButtonVerse,
-    ValueChanged<ContactModel> onContact,
+    Verse? confirmButtonVerse,
+    ValueChanged<ContactModel>? onContact,
   }) async {
 
     final BuildContext context = getMainContext();

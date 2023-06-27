@@ -1,5 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/object_check.dart';
+import 'package:basics/helpers/classes/space/atlas.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
@@ -63,13 +64,13 @@ class Formers {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String emailValidator({
+  static String? emailValidator({
     required String email,
     required bool canValidate,
-    String enterEmail,
-    String emailInvalid,
+    String? enterEmail,
+    String? emailInvalid,
   }) {
-    String _output;
+    String? _output;
 
     if (canValidate == true){
 
@@ -185,6 +186,7 @@ class Formers {
       );
       final bool _containsBadLang = TextCheck.containsBadWords(
         text: name,
+        badWords: badWords,
       );
 
       /// SHORT NAME
@@ -465,17 +467,18 @@ class Formers {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String paragraphValidator({
+  static String? paragraphValidator({
     required String text,
     required bool canValidate,
-    FocusNode focusNode,
+    FocusNode? focusNode,
   }){
-    String _message;
+    String? _message;
 
     if (canValidate == true){
 
       final bool _containsBadLang = TextCheck.containsBadWords(
         text: text,
+        badWords: badWords,
       );
 
       /// BAD LANG
@@ -557,6 +560,7 @@ class Formers {
 
       final bool _hasBadWords = TextCheck.containsBadWords(
         text: bzAbout,
+        badWords: badWords,
       );
 
       if (_hasBadWords == true){
@@ -721,7 +725,10 @@ class Formers {
         string: pdfModel.name,
         subString: '.',
       );
-      final bool _nameHasBadWord = TextCheck.containsBadWords(text: pdfModel.name);
+      final bool _nameHasBadWord = TextCheck.containsBadWords(
+        text: pdfModel.name,
+        badWords: badWords,
+      );
 
       if (_hasExtension == true){
         _message =  '${Verse.transBake('phid_file_name_should_not_include_extension')}\n'
@@ -1199,10 +1206,10 @@ class Formers {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String positionValidator({
+  static String? positionValidator({
     required String latOrLng,
   }){
-    String _message;
+    String? _message;
 
     if (TextCheck.isEmpty(latOrLng) == false){
 
@@ -1212,7 +1219,7 @@ class Formers {
 
       if (_message == null){
 
-        final double _double = Numeric.transformStringToDouble(latOrLng);
+        final double? _double = Numeric.transformStringToDouble(latOrLng);
 
         if (_double == null){
           _message = Verse.transBake('phid_only_numbers_is_to_be_added');
@@ -1265,11 +1272,14 @@ class Formers {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String _bakeValidatorMessage(String message){
-    String _output;
+  static String? _bakeValidatorMessage(String? message){
+    String? _output;
 
     if (message != null){
-      _output = TextMod.removeTextBeforeFirstSpecialCharacter(message, 'Δ');
+      _output = TextMod.removeTextBeforeFirstSpecialCharacter(
+          text: message,
+          specialCharacter: 'Δ',
+      );
     }
 
     return _output;

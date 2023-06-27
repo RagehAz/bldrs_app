@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:typed_data';
-
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/files/file_size_unit.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -23,7 +22,6 @@ import 'package:fire/super_fire.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/layouts/nav/nav.dart';
-import 'package:mediators/mediators.dart';
 import 'package:mediators/models/dimension_model.dart';
 import 'package:mediators/pic_maker/pic_maker.dart';
 /// => TAMAM

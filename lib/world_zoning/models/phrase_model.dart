@@ -11,9 +11,9 @@ class Phrase {
   });
   /// --------------------------------------------------------------------------
   final String id;
-  final String langCode;
+  final String? langCode;
   final String value;
-  final List<String> trigram;
+  final List<String>? trigram;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -21,10 +21,10 @@ class Phrase {
   // --------------------
   /// AI TESTED
   Phrase copyWith({
-    String id,
-    String langCode,
-    String value,
-    List<String> trigram,
+    String? id,
+    String? langCode,
+    String? value,
+    List<String>? trigram,
   }){
     return Phrase(
       id: id ?? this.id,
@@ -72,7 +72,7 @@ class Phrase {
     required bool includeID,
     bool includeTrigram = false,
     bool includeLangCode = false,
-    String overrideLangCode,
+    String? overrideLangCode,
   }) {
 
     /// START MAP
@@ -130,8 +130,8 @@ class Phrase {
   static Phrase decipherPhraseDefaultMap({
     required String id,
     required Map<String, dynamic> map,
-    String langCodeOverride,
-    bool includeTrigram,
+    String? langCodeOverride,
+    bool includeTrigram = true,
   }) {
 
     final List<String> _trigram = _getTrigramIfIncluded(
@@ -141,7 +141,7 @@ class Phrase {
     );
 
     return Phrase(
-      id: id ?? map['id'],
+      id: id, // ?? map['id'],
       value: map['value'],
       langCode: langCodeOverride ?? map['langCode'],
       trigram: _trigram,
@@ -282,7 +282,7 @@ class Phrase {
             langCode: key,
             value: _value,
             trigram: Stringer.createTrigram(
-              input: TextMod.fixCountryName(_value),
+              input: TextMod.fixCountryName(input: _value),
             ),
           );
 
@@ -822,16 +822,16 @@ class Phrase {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Phrase searchFirstPhraseByLang({
-    required List<Phrase> phrases,
+  static Phrase? searchFirstPhraseByLang({
+    required List<Phrase>? phrases,
     required String langCode,
   }){
 
-    Phrase _phrase;
+    Phrase? _phrase;
 
     if (Mapper.checkCanLoopList(phrases) == true) {
 
-      _phrase = phrases.firstWhere(
+      _phrase = phrases!.firstWhere(
               (Phrase phrase) => phrase.langCode == langCode,
           orElse: () => null
       );
@@ -955,11 +955,11 @@ class Phrase {
     required String inputText,
   }){
     final List<Phrase> _foundPhrases = <Phrase>[];
-    final String _fixedString = TextMod.fixCountryName(inputText);
+    final String? _fixedString = TextMod.fixCountryName(input: inputText);
 
     for (final Phrase source in sourcePhrases){
 
-      final List<String> _trigram = source?.trigram;
+      final List<String>? _trigram = source?.trigram;
 
       final bool _trigramContains = Stringer.checkStringsContainString(
           strings: _trigram,

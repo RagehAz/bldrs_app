@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
@@ -7,13 +6,12 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:basics/layouts/nav/nav.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 
 void pushWaitDialog({
-  Verse verse,
+  Verse? verse,
   bool canManuallyGoBack = false,
 }){
   WaitDialog.showUnawaitedWaitDialog(
@@ -53,7 +51,7 @@ class WaitDialog extends StatelessWidget {
   /// TESTED : WORKS PERFECT
   static Future<void> _showWaitDialog({
     bool canManuallyGoBack = false,
-    Verse loadingVerse,
+    Verse? loadingVerse,
   }) async {
 
     await showDialog(

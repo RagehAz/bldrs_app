@@ -1,4 +1,5 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/files/file_size_unit.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -51,19 +52,22 @@ class PDFProtocols {
 
       final PlatformFile _platformFile = result.files.first;
 
-      blog('_platformFile name        : ${_platformFile?.name}');
-      blog('_platformFile size        : ${_platformFile?.size}');
-      blog('_platformFile path        : ${_platformFile?.path}');
-      blog('_platformFile bytes       : ${_platformFile?.bytes?.length} bytes');
-      blog('_platformFile extension   : ${_platformFile?.extension}');
-      blog('_platformFile identifier  : ${_platformFile?.identifier}');
-      blog('_platformFile identifier  : ${_platformFile?.identifier}');
+      blog('_platformFile name        : ${_platformFile.name}');
+      blog('_platformFile size        : ${_platformFile.size}');
+      blog('_platformFile path        : ${_platformFile.path}');
+      blog('_platformFile bytes       : ${_platformFile.bytes?.length} bytes');
+      blog('_platformFile extension   : ${_platformFile.extension}');
+      blog('_platformFile identifier  : ${_platformFile.identifier}');
+      blog('_platformFile identifier  : ${_platformFile.identifier}');
 
 
       _output = PDFModel(
         bytes: _platformFile.bytes,
         path: StoragePath.flyers_flyerID_pdf(flyerID),
-        name: TextMod.removeTextAfterLastSpecialCharacter(_platformFile.name, '.'),
+        name: TextMod.removeTextAfterLastSpecialCharacter(
+            text: _platformFile.name,
+            specialCharacter: '.',
+        ),
         sizeMB: Filers.calculateSize(_platformFile.bytes?.length, FileSizeUnit.megaByte),
         ownersIDs: await FlyerModel.generateFlyerOwners(bzID: bzID),
       );

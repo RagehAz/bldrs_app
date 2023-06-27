@@ -8,7 +8,6 @@ import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 
 class SpecsWrapper extends StatelessWidget {
   /// --------------------------------------------------------------------------

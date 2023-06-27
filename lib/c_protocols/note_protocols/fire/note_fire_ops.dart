@@ -18,7 +18,7 @@ class NoteFireOps {
   /// TESTED : WORKS PERFECT
   static Future<NoteModel> createNote({
     required NoteModel noteModel,
-    ValueChanged<NoteModel> onFinished,
+    ValueChanged<NoteModel>? onFinished,
   }) async {
     NoteModel _output;
 

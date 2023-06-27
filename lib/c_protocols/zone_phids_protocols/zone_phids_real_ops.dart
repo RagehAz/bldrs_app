@@ -57,7 +57,7 @@ class ZonePhidsRealOps {
 
     if (cityID != null){
 
-      final Map<String, dynamic> _map = await Real.readPathMap(
+      final Map<String, dynamic>? _map = await Real.readPathMap(
         path: RealPath.zonesPhids_countryID_cityID(
           countryID: CityModel.getCountryIDFromCityID(cityID),
           cityID: cityID,
@@ -116,7 +116,7 @@ class ZonePhidsRealOps {
       //
       // }
 
-      final Map<String, dynamic> _map = await Real.readPathMap(
+      final Map<String, dynamic>? _map = await Real.readPathMap(
         path: RealPath.zonesPhids_countryID(
             countryID: countryID,
           ),

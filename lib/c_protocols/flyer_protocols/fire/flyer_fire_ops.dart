@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/x_secondary/bldrs_model_type.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -30,7 +31,7 @@ class FlyerFireOps {
 
     blog('createFlyerDoc : START');
 
-    final String _flyerID = await Fire.createDoc(
+    final String? _flyerID = await Fire.createDoc(
       coll: FireColl.flyers,
       input: {
         /// temp id will be overridden
@@ -113,7 +114,7 @@ class FlyerFireOps {
   /// TESTED : WORKS PERFECT
   static Future<List<FlyerModel>> readFlyersByQuery({
     required FireQueryModel queryModel,
-    FlyerModel startAfterFlyer,
+    FlyerModel? startAfterFlyer,
   }) async {
 
     final List<Map<String, dynamic>> _maps = await Fire.readColl(

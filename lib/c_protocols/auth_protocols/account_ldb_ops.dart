@@ -36,7 +36,7 @@ class AccountLDBOps {
     required String id,
   }) async {
 
-    final Map<String, dynamic> _map = await LDBOps.readMap(
+    final Map<String, dynamic>? _map = await LDBOps.readMap(
       docName: LDBDoc.accounts,
       primaryKey: LDBDoc.getPrimaryKey(LDBDoc.accounts),
       id: id,

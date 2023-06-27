@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/zoomable_flyers_grid.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/router/go_back_widget.dart';
@@ -66,7 +67,9 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
     return FireDocStreamer(
       collName: FireColl.bzz,
       docName: bzID,
-      onDataChanged: (BuildContext ctx, Map<String, dynamic> oldMap, Map<String, dynamic> newMap) async {
+      onDataChanged: (BuildContext ctx,
+          Map<String, dynamic>? oldMap,
+          Map<String, dynamic>? newMap) async {
 
         final BzzProvider _bzzProvider = Provider.of<BzzProvider>(ctx, listen: false);
 

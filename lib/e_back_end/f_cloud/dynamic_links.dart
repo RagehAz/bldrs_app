@@ -329,7 +329,7 @@ class BldrsShareLink{
           langCode: 'en',
         );
 
-        final Uri _uri = await DynamicLinks.generateURI(
+        final Uri? _uri = await DynamicLinks.generateURI(
           // '$bldrsURLPrefix/flyer=${Authing.getUserID()}';
           dynamicLink: '${DynamicLinks.https_ll_bldrs_page_link_l_flyer_page}/$flyerID/$slideIndex',
           title: _title,
@@ -398,20 +398,30 @@ class BldrsShareLink{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String _getFlyerIDFromLink(String link) {
+  static String? _getFlyerIDFromLink(String? link) {
     /// sample link
     /// flyer/5FzRLxTgRekkRzKflsjs/0
-    final String _withoutIndex = TextMod.removeTextAfterLastSpecialCharacter(link, '/');
-    final String _flyerID = TextMod.removeTextBeforeLastSpecialCharacter(_withoutIndex, '/');
+    final String? _withoutIndex = TextMod.removeTextAfterLastSpecialCharacter(
+        text: link,
+        specialCharacter: '/',
+    );
+    final String? _flyerID = TextMod.removeTextBeforeLastSpecialCharacter(
+        text: _withoutIndex,
+        specialCharacter: '/',
+    );
+
     return _flyerID;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static int _getSlideIndexFromLink(String link) {
+  static int _getSlideIndexFromLink(String? link) {
 
-    final String indexString = TextMod.removeTextBeforeLastSpecialCharacter(link, '/');
+    final String? indexString = TextMod.removeTextBeforeLastSpecialCharacter(
+        text: link,
+        specialCharacter: '/',
+    );
 
-    int _index = Numeric.transformStringToInt(indexString);
+    int? _index = Numeric.transformStringToInt(indexString);
 
     /// so return zero if _index was null
     return _index ??= 0;
@@ -441,7 +451,7 @@ class BldrsShareLink{
           bzID: bzID,
         );
 
-        final Uri _uri = await DynamicLinks.generateURI(
+        final Uri? _uri = await DynamicLinks.generateURI(
           dynamicLink: '${DynamicLinks.https_ll_bldrs_page_link_l_bz_page}/$bzID',
           title: _createBzShareLinkTitle(
             context: context,
@@ -500,7 +510,10 @@ class BldrsShareLink{
     required String link,
   }) async {
     /// ${DynamicLinks.bldrsURLPrefix}/bz/bzID
-    final String _bzID = TextMod.removeTextBeforeLastSpecialCharacter(link, '/');
+    final String? _bzID = TextMod.removeTextBeforeLastSpecialCharacter(
+        text: link,
+        specialCharacter: '/',
+    );
 
     blog('jumpToBzScreenByLink : link : ($link) : _bzID : $_bzID');
 
@@ -535,7 +548,7 @@ class BldrsShareLink{
           userID: userID,
         );
 
-        final Uri _uri = await DynamicLinks.generateURI(
+        final Uri? _uri = await DynamicLinks.generateURI(
           dynamicLink: '${DynamicLinks.https_ll_bldrs_page_link_l_user_page}/$userID',
           title: _userModel.name,
           description: _userModel.title,

@@ -1,6 +1,7 @@
 import 'dart:ui' as ui;
 
 import 'package:basics/helpers/classes/checks/object_check.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/files/floaters.dart';
 import 'package:basics/helpers/classes/space/atlas.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
@@ -85,15 +86,15 @@ class FlyerModel {
   final bool hasPriceTag;
   final bool isAmazonFlyer;
   final bool hasPDF;
-  final DocumentSnapshot<Object> docSnapshot;
+  final DocumentSnapshot<Object>? docSnapshot;
   final int score;
   final String pdfPath;
-  final String shareLink;
-  final String affiliateLink; /// this generates money
-  final String gtaLink; /// this to track gta progress
-  final ui.Image bzLogoImage;
-  final ui.Image authorImage;
-  final BzModel bzModel;
+  final String? shareLink;
+  final String? affiliateLink; /// this generates money
+  final String? gtaLink; /// this to track gta progress
+  final ui.Image? bzLogoImage;
+  final ui.Image? authorImage;
+  final BzModel? bzModel;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -101,35 +102,35 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   FlyerModel copyWith({
-    String id,
-    String headline,
-    List<String> trigram,
-    String description,
-    FlyerType flyerType,
-    PublishState publishState,
-    AuditState auditState,
-    List<String> phids,
-    bool showsAuthor,
-    ZoneModel zone,
-    String authorID,
-    String bzID,
-    GeoPoint position,
-    List<SlideModel> slides,
-    bool isBanned,
-    List<SpecModel> specs,
-    List<PublishTime> times,
-    bool hasPriceTag,
-    bool hasPDF,
-    bool isAmazonFlyer,
-    DocumentSnapshot docSnapshot,
-    int score,
-    String pdfPath,
-    String shareLink,
-    String affiliateLink,
-    String gtaLink,
-    ui.Image bzLogoImage,
-    ui.Image authorImage,
-    BzModel bzModel,
+    String? id,
+    String? headline,
+    List<String>? trigram,
+    String? description,
+    FlyerType? flyerType,
+    PublishState? publishState,
+    AuditState? auditState,
+    List<String>? phids,
+    bool? showsAuthor,
+    ZoneModel? zone,
+    String? authorID,
+    String? bzID,
+    GeoPoint? position,
+    List<SlideModel>? slides,
+    bool? isBanned,
+    List<SpecModel>? specs,
+    List<PublishTime>? times,
+    bool? hasPriceTag,
+    bool? hasPDF,
+    bool? isAmazonFlyer,
+    DocumentSnapshot? docSnapshot,
+    int? score,
+    String? pdfPath,
+    String? shareLink,
+    String? affiliateLink,
+    String? gtaLink,
+    ui.Image? bzLogoImage,
+    ui.Image? authorImage,
+    BzModel? bzModel,
   }){
 
     return FlyerModel(
@@ -468,7 +469,7 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   void blogFlyer({
-    String invoker,
+    String? invoker,
   }){
 
     // if (invoker != null){

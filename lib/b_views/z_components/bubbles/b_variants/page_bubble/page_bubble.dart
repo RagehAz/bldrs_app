@@ -107,7 +107,7 @@ class PageBubble extends StatelessWidget {
     final BorderRadius _borders = corners == null ?
     BldrsAppBar.corners
     :
-    Borderers.superCorners(context: context, corners: corners)
+    Borderers.superCorners(corners: corners)
     ;
     // --------------------
     return Container(

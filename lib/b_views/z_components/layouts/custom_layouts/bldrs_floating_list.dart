@@ -1,8 +1,6 @@
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/layouts/views/floating_list.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/layouts/nav/nav.dart';
 
 class BldrsFloatingList extends StatelessWidget {
   /// --------------------------------------------------------------------------

@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:fire/super_fire.dart';
@@ -8,13 +9,13 @@ import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 typedef BzModelWidgetBuilder = Widget Function(
     BuildContext context,
-    BzModel bzModel,
+    BzModel? bzModel,
     );
 // -----------------------------------------------------------------------------
 Widget bzModelStreamBuilder({
-  String bzID,
-  BuildContext context,
-  BzModelWidgetBuilder builder,
+  required String bzID,
+  required BuildContext context,
+  required BzModelWidgetBuilder builder,
 }) {
 
   return StreamBuilder<BzModel>(
@@ -25,11 +26,12 @@ Widget bzModelStreamBuilder({
           loading: true,
         );
       } else {
-        final BzModel bzModel = snapshot.data;
+
+        final BzModel? bzModel = snapshot.data;
 
         blog('xx bzModel in  stream is : $bzModel');
 
-        bzModel.blogBz();
+        bzModel?.blogBz();
 
         return builder(context, bzModel);
       }
@@ -39,9 +41,9 @@ Widget bzModelStreamBuilder({
 }
 // -----------------------------------------------------------------------------
 Widget bzModelBuilder({
-  String bzID,
-  BuildContext context,
-  BzModelWidgetBuilder builder,
+  required String bzID,
+  required BuildContext context,
+  required BzModelWidgetBuilder builder,
 }) {
   return FutureBuilder<Map<String, dynamic>>(
       future: Fire.readDoc(

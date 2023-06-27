@@ -10,7 +10,6 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class InfoPageMainDetails extends StatelessWidget {
@@ -59,7 +58,7 @@ class InfoPageMainDetails extends StatelessWidget {
       pluralTranslation: false,
     );
     // --------------------
-    final DateTime _from = PublishTime.getPublishTimeFromTimes(
+    final DateTime? _from = PublishTime.getPublishTimeFromTimes(
         times: flyerModel.times,
         state: PublishState.published
     )?.time;
@@ -67,7 +66,7 @@ class InfoPageMainDetails extends StatelessWidget {
     final String _timeDifferance = BldrsTimers.calculateSuperTimeDifferenceString(
       context: context,
       from: _from,
-        to: DateTime.now(),
+      to: DateTime.now(),
     );
     // --------------------
 

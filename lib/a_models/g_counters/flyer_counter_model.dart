@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/foundation.dart';
 /// => TAMAM
@@ -38,11 +39,11 @@ class FlyerCounterModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   FlyerCounterModel copyWith({
-    String flyerID,
-    int saves,
-    int shares,
-    int views,
-    int reviews,
+    String? flyerID,
+    int? saves,
+    int? shares,
+    int? views,
+    int? reviews,
   }){
 
     return FlyerCounterModel(

@@ -11,21 +11,21 @@ class SearchRealOps {
 
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<SearchModel> create({
+  static Future<SearchModel?> create({
     required SearchModel searchModel,
     required String userID,
   }) async {
-    SearchModel _output;
+    SearchModel? _output;
 
     if (searchModel != null && userID != null) {
 
-      Map<String, dynamic> _maw = SearchModel.cipher(
+      Map<String, dynamic>? _maw = SearchModel.cipher(
           searchModel: searchModel,
         );
 
       _maw = Mapper.cleanNullPairs(map: _maw);
 
-      final Map<String, dynamic> uploaded = await Real.createDocInPath(
+      final Map<String, dynamic>? uploaded = await Real.createDocInPath(
         pathWithoutDocName: RealPath.searches_userID(userID: userID),
         map: _maw,
       );

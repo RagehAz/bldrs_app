@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
@@ -146,7 +147,7 @@ class _PickerScreenState extends State<PickerScreen> {
   Widget build(BuildContext context) {
     // widget.picker?.blogPicker(invoker: 'PickerScreen');
     final double _screenHeight = Scale.screenHeight(context);
-    final String _chainID = widget.picker?.chainID;
+    final String? _chainID = widget.picker?.chainID;
     final AppBarType _appBarType = _getAppBarType();
     // --------------------
     return MainLayout(

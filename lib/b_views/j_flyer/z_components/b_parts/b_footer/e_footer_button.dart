@@ -5,7 +5,6 @@ import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_verse.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:websafe_svg/websafe_svg.dart';
@@ -56,7 +55,6 @@ class FooterButton extends StatelessWidget {
          decoration: BoxDecoration(
            color: Colorz.black255,
            borderRadius: Borderers.superCorners(
-               context: context,
                corners: _buttonSize * 0.5,
            ),
          )

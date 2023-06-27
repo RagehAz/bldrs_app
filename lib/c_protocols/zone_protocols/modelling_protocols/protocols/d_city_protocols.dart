@@ -75,7 +75,7 @@ class CityProtocols {
 
       else {
 
-        final String _countryID = CityModel.getCountryIDFromCityID(cityID);
+        final String? _countryID = CityModel.getCountryIDFromCityID(cityID);
 
         _output = await CityRealOps.readCity(
           countryID: _countryID,

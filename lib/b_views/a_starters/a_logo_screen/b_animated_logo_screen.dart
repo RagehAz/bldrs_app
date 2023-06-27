@@ -40,7 +40,7 @@ class AnimatedLogoScreen extends StatefulWidget {
   static Map<String, dynamic> createBeat({
     required double start, // in milliseconds
     required double duration, // in milliseconds
-    required String text,
+    required String? text,
     Color color = Colorz.white255,
   }) {
     return {

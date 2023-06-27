@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -385,8 +386,10 @@ List<String> xPhrases(List<String> phids){
   if (Mapper.checkCanLoopList(phids) == true){
 
     for (final String phid in phids){
-      final String _trans = xPhrase(phid);
-      _output.add(_trans);
+      final String? _trans = xPhrase(phid);
+      if (_trans != null){
+        _output.add(_trans);
+      }
     }
 
   }

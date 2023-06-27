@@ -1,3 +1,4 @@
+import 'package:basics/layouts/handlers/max_bounce_navigator.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/g_counters/flyer_counter_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/footer_page_box.dart';
@@ -127,7 +128,7 @@ class InfoPageTree extends StatelessWidget {
 
                 /// EXPANDED INFO PAGE TREE
                 if (tinyMode == false && inFlight == false)
-                  expandedInfoPageTree,
+                  expandedInfoPageTree!,
 
 
               ],

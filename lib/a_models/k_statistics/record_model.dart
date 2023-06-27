@@ -1,10 +1,9 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/x_secondary/bldrs_model_type.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
@@ -46,14 +45,14 @@ class RecordModel {
   /// --------------------------------------------------------------------------
   final RecordType recordType;
   final String userID;
-  final String recordID;
+  final String? recordID;
   final DateTime timeStamp;
   final ModelType modelType;
   final String bzID;
   final String flyerID;
   final RecordDetailsType recordDetailsType;
   final dynamic recordDetails;
-  final DocumentSnapshot<Object> docSnapshot;
+  final DocumentSnapshot<Object>? docSnapshot;
   // -----------------------------------------------------------------------------
 
   /// CYPHERS
@@ -235,21 +234,21 @@ class RecordModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String _cipherRecordDetailsType(RecordDetailsType recordDetailsType){
+  static String? _cipherRecordDetailsType(RecordDetailsType? recordDetailsType){
     switch (recordDetailsType){
-      case RecordDetailsType.slideIndex:          return 'slideIndex';  break;
-      case RecordDetailsType.text:                return 'text';        break;
-      case RecordDetailsType.contact:             return 'contact';     break;
+      case RecordDetailsType.slideIndex:          return 'slideIndex';
+      case RecordDetailsType.text:                return 'text';
+      case RecordDetailsType.contact:             return 'contact';
       default: return null;
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static RecordDetailsType _decipherRecordDetailsType(String recordDetailsType){
+  static RecordDetailsType? _decipherRecordDetailsType(String? recordDetailsType){
     switch (recordDetailsType){
-      case 'slideIndex':  return RecordDetailsType.slideIndex;  break;
-      case 'text':        return RecordDetailsType.text;                break;
-      case 'contact':     return RecordDetailsType.contact;             break;
+      case 'slideIndex':  return RecordDetailsType.slideIndex;
+      case 'text':        return RecordDetailsType.text;
+      case 'contact':     return RecordDetailsType.contact;
       default: return null;
     }
   }
@@ -654,8 +653,8 @@ class RecordModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkRecordsAreIdentical({
-    required RecordModel record1,
-    required RecordModel record2,
+    required RecordModel? record1,
+    required RecordModel? record2,
   }){
     bool _identical = false;
 

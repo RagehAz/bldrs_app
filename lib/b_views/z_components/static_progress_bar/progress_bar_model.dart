@@ -1,9 +1,10 @@
-import 'package:animators/animators.dart';
+
 import 'package:basics/animators/helpers/animators.dart';
 import 'package:basics/animators/helpers/sliders.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
+
 import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
@@ -37,10 +38,10 @@ class ProgressBarModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   ProgressBarModel copyWith({
-    SwipeDirection swipeDirection,
-    int index,
-    int numberOfStrips,
-    List<Color> stripsColors,
+    SwipeDirection? swipeDirection,
+    int? index,
+    int? numberOfStrips,
+    List<Color>? stripsColors,
   }){
     return ProgressBarModel(
       swipeDirection: swipeDirection ?? this.swipeDirection,

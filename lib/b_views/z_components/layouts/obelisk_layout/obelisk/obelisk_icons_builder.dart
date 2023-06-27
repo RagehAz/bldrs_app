@@ -25,7 +25,7 @@ class ObeliskIconsBuilder extends StatelessWidget{
     return Selector<UiProvider, bool>(
       key: const ValueKey<String>('ObeliskIconsBuilder'),
       selector: (_, UiProvider uiProvider) => uiProvider.pyramidsAreExpanded,
-      builder: (_, bool expanded, Widget child) {
+      builder: (_, bool expanded, Widget? child) {
 
         return AnimatedContainer(
           duration: const Duration(milliseconds: 250),

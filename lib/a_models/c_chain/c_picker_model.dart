@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/cc_pickers_blocker.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
@@ -48,15 +49,15 @@ class PickerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   PickerModel copyWith({
-    String chainID,
-    String groupID,
-    bool canPickMany,
-    bool isRequired,
-    List<PickersBlocker> blockers,
-    List<dynamic> range,
-    String unitChainID,
-    int index,
-    bool isHeadline,
+    String? chainID,
+    String? groupID,
+    bool? canPickMany,
+    bool? isRequired,
+    List<PickersBlocker>? blockers,
+    List<dynamic>? range,
+    String? unitChainID,
+    int? index,
+    bool? isHeadline,
   }){
     return PickerModel(
       chainID: chainID ?? this.chainID,

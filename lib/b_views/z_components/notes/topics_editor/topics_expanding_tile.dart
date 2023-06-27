@@ -63,7 +63,7 @@ class TopicsExpandingTile extends StatelessWidget {
     required TopicModel topicModel,
   }){
 
-    String _bzID;
+    String? _bzID;
     if (partyType == PartyType.bz){
       final BzModel _activeBz = BzzProvider.proGetActiveBzModel(
         context: context,

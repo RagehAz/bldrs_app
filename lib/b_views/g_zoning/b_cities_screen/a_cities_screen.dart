@@ -1,5 +1,6 @@
 // ignore_for_file: invariant_booleans
-import 'package:animators/animators.dart';
+
+import 'package:basics/animators/widgets/scroller.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
@@ -51,12 +52,12 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false);
   final ValueNotifier<List<CityModel>> _countryCities = ValueNotifier<List<CityModel>>(<CityModel>[]);
   final ValueNotifier<List<CityModel>> _foundCities = ValueNotifier<List<CityModel>>(null);
-  ValueNotifier<ZoneModel> _currentZone;
+  ValueNotifier<ZoneModel>? _currentZone;
   List<String> _shownCitiesIDs = <String>[];
   // Staging _stages;
   // --------------------
-  List<CensusModel> _censuses;
-  CensusModel _countryCensus;
+  List<CensusModel>? _censuses;
+  CensusModel? _countryCensus;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -272,7 +273,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
       /// SEARCH COUNTRIES FROM LOCAL PHRASES
       final List<CityModel> _cities = await searchCitiesByName(
         context: context,
-        input: TextMod.fixCountryName(inputText),
+        input: TextMod.fixCountryName(input: inputText),
       );
 
       setNotifier(
