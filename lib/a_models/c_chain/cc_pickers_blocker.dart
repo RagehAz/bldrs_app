@@ -22,7 +22,7 @@ class PickersBlocker {
   /// TESTED : WORKS PERFECT
   PickersBlocker copyWith({
     dynamic value,
-    List<String> pickersIDsToBlock,
+    List<String>? pickersIDsToBlock,
   }){
     return PickersBlocker(
       value: value ?? this.value,
@@ -91,7 +91,7 @@ class PickersBlocker {
       }
 
       else if (maps is Map) {
-        final Map<String, dynamic> _bigMap = maps;
+        final Map<String, dynamic>? _bigMap = maps;
         final List<String> _keys = _bigMap.keys.toList();
         for (final String key in _keys) {
           final dynamic _map = maps[key];

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
@@ -45,7 +46,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin{
   // -----------------------------------------------------------------------------
   final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
-  PaginationController _paginationController;
+  late PaginationController _paginationController;
   // --------------------
   /// KEYBOARD VISIBILITY
   StreamSubscription<bool> _keyboardSubscription;
@@ -200,7 +201,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         context: context,
         listen: true,
       );
-      final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(
+      final ZoneModel? _currentZone = ZoneProvider.proGetCurrentZone(
         context: context,
         listen: true,
       );

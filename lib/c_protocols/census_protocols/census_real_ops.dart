@@ -28,7 +28,7 @@ class CensusRealOps {
 
     if (_object != null){
 
-      final Map<String, dynamic> _map = Mapper.getMapFromIHLMOO(
+      final Map<String, dynamic>? _map = Mapper.getMapFromIHLMOO(
         ihlmoo: _object,
       );
 
@@ -85,7 +85,7 @@ class CensusRealOps {
 
       if (_object != null){
 
-        final Map<String, dynamic> _map = Mapper.getMapFromIHLMOO(
+        final Map<String, dynamic>? _map = Mapper.getMapFromIHLMOO(
           ihlmoo: _object,
         );
 
@@ -148,7 +148,7 @@ class CensusRealOps {
 
       if (_object != null){
 
-        final Map<String, dynamic> _map = Mapper.getMapFromIHLMOO(
+        final Map<String, dynamic>? _map = Mapper.getMapFromIHLMOO(
           ihlmoo: _object,
         );
 
@@ -178,7 +178,7 @@ class CensusRealOps {
 
     if (map != null && zoneModel != null){
 
-      final Map<String, dynamic> _map = Mapper.cleanNullPairs(
+      final Map<String, dynamic>? _map = Mapper.cleanNullPairs(
         map: map,
       );
       final Map<String, int> _upload = CensusModel.completeMapForIncrementation(_map);

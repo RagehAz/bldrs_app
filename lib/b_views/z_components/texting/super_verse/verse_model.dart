@@ -199,7 +199,7 @@ class Verse {
 
     if (TextCheck.isEmpty(verse.id) == false && verse.translate == true){
 
-      final String _translation = xPhrase(verse.id);
+      final String? _translation = xPhrase(verse.id);
       if (_translation == null){
         _shouldButNotFound = true;
       }

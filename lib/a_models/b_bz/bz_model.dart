@@ -1,4 +1,5 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/space/atlas.dart';
 import 'package:basics/helpers/classes/time/timers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
@@ -68,26 +69,26 @@ class BzModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   BzModel copyWith({
-    String id,
-    List<BzType> bzTypes,
-    BzForm bzForm,
-    DateTime createdAt,
-    BzAccountType accountType,
-    String name,
-    List<String> trigram,
-    String logoPath,
-    List<String> scope,
-    ZoneModel zone,
-    String about,
-    GeoPoint position,
-    List<ContactModel> contacts,
-    List<AuthorModel> authors,
-    List<PendingAuthor> pendingAuthors,
-    bool showsTeam,
-    bool isVerified,
-    BzState bzState,
-    List<String> flyersIDs,
-    DocumentSnapshot<Object> docSnapshot,
+    String? id,
+    List<BzType>? bzTypes,
+    BzForm? bzForm,
+    DateTime? createdAt,
+    BzAccountType? accountType,
+    String? name,
+    List<String>? trigram,
+    String? logoPath,
+    List<String>? scope,
+    ZoneModel? zone,
+    String? about,
+    GeoPoint? position,
+    List<ContactModel>? contacts,
+    List<AuthorModel>? authors,
+    List<PendingAuthor>? pendingAuthors,
+    bool? showsTeam,
+    bool? isVerified,
+    BzState? bzState,
+    List<String>? flyersIDs,
+    DocumentSnapshot<Object>? docSnapshot,
   }){
 
     return BzModel(
@@ -570,7 +571,7 @@ class BzModel{
   /// TESTED : WORKS PERFECT
   static void blogBzz({
     required List<BzModel> bzz,
-    String invoker,
+    String? invoker,
   }){
 
     if (Mapper.checkCanLoopList(bzz)){

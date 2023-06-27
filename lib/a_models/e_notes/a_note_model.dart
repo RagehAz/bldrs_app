@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_bool_literals_in_conditional_expressions
 
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
@@ -109,23 +110,23 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   NoteModel copyWith({
-    String id,
-    NoteParties parties,
-    String title,
-    String body,
-    Map<String, dynamic> metaData,
-    DateTime sentTime,
-    PosterModel poster,
-    PollModel poll,
-    bool sendFCM,
-    bool sendNote,
-    String token,
-    String topic,
-    TriggerModel function,
-    TriggerModel navTo,
-    bool seen,
-    int progress,
-    bool dismissible,
+    String? id,
+    NoteParties? parties,
+    String? title,
+    String? body,
+    Map<String, dynamic>? metaData,
+    DateTime? sentTime,
+    PosterModel? poster,
+    PollModel? poll,
+    bool? sendFCM,
+    bool? sendNote,
+    String? token,
+    String? topic,
+    TriggerModel? function,
+    TriggerModel? navTo,
+    bool? seen,
+    int? progress,
+    bool? dismissible,
   }){
     return NoteModel(
       id: id ?? this.id,                              // String id,
@@ -404,7 +405,7 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   void blogNoteModel({
-    String invoker,
+    String? invoker,
   }) {
 
     blog('=> BLOGGING NoteModel : $invoker -------------------------------- START -- ');
@@ -431,7 +432,7 @@ class NoteModel {
   /// TESTED : WORKS PERFECT
   static void blogNotes({
     required List<NoteModel> notes,
-    String invoker,
+    String? invoker,
   }){
 
     if (Mapper.checkCanLoopList(notes) == true){

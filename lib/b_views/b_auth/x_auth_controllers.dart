@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/account_model.dart';
@@ -362,10 +363,10 @@ bool _prepareForEmailAuthOps({
   Keyboard.closeKeyboard();
 
   /// CHECK VALIDITY
-  final bool _allFieldsAreValid = formKey.currentState.validate();
+  final bool? _allFieldsAreValid = formKey.currentState?.validate();
 
 
-  return _allFieldsAreValid;
+  return _allFieldsAreValid ?? false;
 }
 // -----------------------------------------------------------------------------
 

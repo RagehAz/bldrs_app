@@ -41,19 +41,19 @@ class Flag {
   // --------------------
   /// TESTED : WORKS PERFECT
   Flag copyWith({
-    String id,
-    String iso2,
-    String icon,
-    String region,
-    String continent,
-    String language,
-    String currencyID,
-    String phoneCode,
-    String capital,
-    String langCodes,
-    int areaSqKm,
-    int population,
-    List<Phrase> phrases,
+    String? id,
+    String? iso2,
+    String? icon,
+    String? region,
+    String? continent,
+    String? language,
+    String? currencyID,
+    String? phoneCode,
+    String? capital,
+    String? langCodes,
+    int? areaSqKm,
+    int? population,
+    List<Phrase>? phrases,
   }){
     return Flag(
       id: id ?? this.id,

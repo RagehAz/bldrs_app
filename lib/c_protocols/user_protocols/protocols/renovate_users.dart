@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -348,7 +349,7 @@ class RenovateUserProtocols {
     );
     final List<String> _userSubscribedTopics = _oldUser.fcmTopics;
 
-    final UserModel _newUser = _oldUser?.copyWith(
+    final UserModel? _newUser = _oldUser?.copyWith(
       fcmTopics: Stringer.addOrRemoveStringToStrings(
         strings: _userSubscribedTopics,
         string: topicID,

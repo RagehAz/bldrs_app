@@ -1,12 +1,10 @@
 import 'package:basics/animators/helpers/animators.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:animators/animators.dart';
 import 'package:bldrs/z_grid/z_grid.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 /// => TAMAM
@@ -196,11 +194,10 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static BorderRadius headerSlateCorners({
-    required BuildContext context,
     required double flyerBoxWidth
   }) {
 
-    return Borderers.cornerAll(context, flyerBoxWidth * _xFlyerTopCorners);
+    return Borderers.cornerAll(flyerBoxWidth * _xFlyerTopCorners);
 
   }
   // -----------------------------------------------------------------------------
@@ -239,7 +236,7 @@ class FlyerDim {
     }
 
     else {
-      return Borderers.cornerAll(context, _logoRoundCorners);
+      return Borderers.cornerAll(_logoRoundCorners);
     }
 
   }
@@ -866,7 +863,7 @@ class FlyerDim {
 
     }
 
-    return Borderers.cornerAll(context, _cornersValue);
+    return Borderers.cornerAll(_cornersValue);
   }
   // ---------
   /// TESTED : WORKS PERFECT
@@ -1060,10 +1057,9 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static BorderRadius progressStripCorners({
-    required BuildContext context,
     required double flyerBoxWidth
   }) {
-    return Borderers.cornerAll(context, progressStripCornerValue(flyerBoxWidth));
+    return Borderers.cornerAll(progressStripCornerValue(flyerBoxWidth));
   }
   // -----------------------------------------------------------------------------
 

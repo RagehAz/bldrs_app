@@ -1,9 +1,7 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:mediators/mediators.dart';
+import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:mediators/models/dimension_model.dart';
 
 class NotePosterBox extends StatelessWidget {
@@ -80,12 +78,10 @@ class NotePosterBox extends StatelessWidget {
   // --------
   /// TESTED : WORKS PERFECT
   static BorderRadius getCorners({
-    required BuildContext context,
     required double boxWidth,
   }){
     // const BorderRadius posterCorners = BorderRadius.all(Radius.circular(posterCornerValue));
     return Borderers.superCorners(
-      context: context,
       corners: getCornerValue(boxWidth),
     );
   }

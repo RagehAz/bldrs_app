@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
@@ -312,7 +313,7 @@ class BzzProvider extends ChangeNotifier {
     /// 1 - get user saved followed bzz IDs
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(getMainContext(), listen: false);
     final UserModel _myUserModel = _usersProvider.myUserModel;
-    final List<String> _followedBzzIDs = _myUserModel?.followedBzz?.all;
+    final List<String>? _followedBzzIDs = _myUserModel?.followedBzz?.all;
 
     if (Mapper.checkCanLoopList(_followedBzzIDs)) {
 

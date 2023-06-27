@@ -1,6 +1,5 @@
 import 'package:basics/helpers/classes/checks/device_checker.dart';
-import 'package:devicer/devicer.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 /// => TAMAM
@@ -15,8 +14,8 @@ class AppStateModel {
     required this.ldbVersion,
   });
   // -----------------------------------------------------------------------------
-  final String appVersion;
-  final int ldbVersion;
+  final String? appVersion;
+  final int? ldbVersion;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -24,8 +23,8 @@ class AppStateModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   AppStateModel copyWith({
-    String appVersion,
-    int ldbVersion,
+    String? appVersion,
+    int? ldbVersion,
   }){
     return AppStateModel(
       appVersion: appVersion ?? this.appVersion,
@@ -76,7 +75,7 @@ class AppStateModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static AppStateModel fromMap(Map<String, dynamic> map) {
+  static AppStateModel? fromMap(Map<String, dynamic>? map) {
 
     if (map == null) {
       return null;

@@ -1,6 +1,6 @@
 import 'dart:typed_data';
-
 import 'package:basics/helpers/classes/checks/object_check.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/files/file_size_unit.dart';
 import 'package:basics/helpers/classes/files/floaters.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
@@ -18,7 +18,6 @@ import 'package:basics/helpers/classes/colors/colorizer.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:mediators/mediators.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:mediators/models/dimension_model.dart';
 import 'package:screenshot/screenshot.dart';
@@ -70,19 +69,19 @@ class GtaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   GtaModel copyWith({
-    String id,
-    String url,
-    String title,
-    List<String> images,
-    String brand,
-    double stars,
-    int ratingsCount,
-    double price,
-    String currency,
-    String about,
-    String description,
-    String importantInfo,
-    String affiliateLink,
+    String? id,
+    String? url,
+    String? title,
+    List<String>? images,
+    String? brand,
+    double? stars,
+    int? ratingsCount,
+    double? price,
+    String? currency,
+    String? about,
+    String? description,
+    String? importantInfo,
+    String? affiliateLink,
   }){
 
     return GtaModel(
@@ -432,14 +431,14 @@ class GtaModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static double _getStarsFromScrappedString(String starsString){
-    double _output;
+  static double? _getStarsFromScrappedString(String starsString){
+    double? _output;
     /// comes in this form  : 4.8 out of 5 stars
 
     if (TextCheck.isEmpty(starsString) == false){
 
       // (4.8 )
-      String _string = TextMod.removeTextAfterFirstSpecialCharacter(
+      String? _string = TextMod.removeTextAfterFirstSpecialCharacter(
           text: starsString.trim(),
           specialCharacter: 'out',
       );
@@ -453,12 +452,15 @@ class GtaModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static int _getRatingsFromScrappedString(String ratingsCountString){
-    int _output;
+  static int? _getRatingsFromScrappedString(String ratingsCountString){
+    int? _output;
 
     // comes in this form : '6,891 ratings'
     if (TextCheck.isEmpty(ratingsCountString) == false){
-      String _string = TextMod.removeTextAfterFirstSpecialCharacter(ratingsCountString.trim(), 'ratings');
+      String? _string = TextMod.removeTextAfterFirstSpecialCharacter(
+          text: ratingsCountString.trim(),
+          specialCharacter: 'ratings',
+      );
       _string = _string.replaceAll(',', '');
       _output = Numeric.transformStringToInt(_string.trim());
     }
@@ -467,16 +469,19 @@ class GtaModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static double _getPriceFromScrappedString(String priceString){
-    double _output;
+  static double? _getPriceFromScrappedString(String? priceString){
+    double? _output;
 
     // might come in this form : '$179.99'
     if (TextCheck.isEmpty(priceString) == false){
 
       /// USD
       if (TextCheck.stringContainsSubString(string: priceString, subString: r'$') == true){
-       final String _string = TextMod.removeTextBeforeFirstSpecialCharacter(priceString.trim(), r'$');
-        _output = Numeric.transformStringToDouble(_string.trim());
+       final String? _string = TextMod.removeTextBeforeFirstSpecialCharacter(
+           text: priceString.trim(),
+           specialCharacter: r'$',
+       );
+        _output = Numeric.transformStringToDouble(_string?.trim());
       }
 
     }

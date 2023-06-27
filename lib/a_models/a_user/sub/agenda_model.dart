@@ -33,14 +33,14 @@ class AgendaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   AgendaModel copyWith({
-    List<String> all,
-    List<String> developers,
-    List<String> brokers,
-    List<String> designers,
-    List<String> contractors,
-    List<String> artisans,
-    List<String> manufacturers,
-    List<String> suppliers,
+    List<String>? all,
+    List<String>? developers,
+    List<String>? brokers,
+    List<String>? designers,
+    List<String>? contractors,
+    List<String>? artisans,
+    List<String>? manufacturers,
+    List<String>? suppliers,
   }){
 
     return AgendaModel(

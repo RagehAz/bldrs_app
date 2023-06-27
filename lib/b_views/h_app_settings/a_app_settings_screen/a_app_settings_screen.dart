@@ -9,10 +9,8 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/main.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/layouts/nav/nav.dart';
 
 class AppSettingsScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------

@@ -17,10 +17,7 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:basics/layouts/nav/nav.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 
@@ -266,8 +263,8 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
                   ),
                   columnChildren: <Widget>[
 
-                    if (Mapper.checkCanLoopList(widget.bulletPoints))
-                      bulletPoints,
+                    if (Mapper.checkCanLoopList(widget.bulletPoints) == true)
+                      bulletPoints!,
 
                     /// COUNTRY BUTTON
                     ZoneSelectionButton(

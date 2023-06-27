@@ -57,7 +57,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
   // -----------------------------------------------------------------------------
   final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
   final PageController _pageController = PageController();
-  ConfirmButtonModel _confirmButtonModel;
+  ConfirmButtonModel? _confirmButtonModel;
   // -----------------------------------------------------------------------------
   /// to keep out of screen objects alive
   @override

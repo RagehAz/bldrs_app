@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/x_secondary/bldrs_model_type.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -29,7 +30,7 @@ class BzFireOps {
 
     blog('_createEmptyBzDocToGetBzID : START');
 
-    final String docID = await Fire.createDoc(
+    final String? docID = await Fire.createDoc(
       coll: FireColl.bzz,
       input: <String, dynamic>{
         'name': 'x',

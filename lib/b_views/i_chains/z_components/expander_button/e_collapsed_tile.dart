@@ -97,7 +97,7 @@ class CollapsedTile extends StatelessWidget {
       null,
       decoration: BoxDecoration(
         color: tileColor,
-        borderRadius: Borderers.cornerAll(context, corners),
+        borderRadius: Borderers.cornerAll(corners),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,

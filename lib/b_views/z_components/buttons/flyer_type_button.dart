@@ -2,7 +2,6 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class FlyerTypeButton extends StatelessWidget {
@@ -27,8 +26,8 @@ class FlyerTypeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final Color _buttonColor = isSelected == true ? Colorz.yellow255 : null;
-    final Color _iconColor = isSelected == true && triggerIconColor == true ? Colorz.black255 : null;
+    final Color? _buttonColor = isSelected == true ? Colorz.yellow255 : null;
+    final Color? _iconColor = isSelected == true && triggerIconColor == true ? Colorz.black255 : null;
     final Color _verseColor = isSelected == true ? Colorz.black255 : Colorz.white255;
     // --------------------
     return BldrsBox(

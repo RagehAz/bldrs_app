@@ -386,7 +386,7 @@ void onFlyerHeadlineChanged({
 }){
 
   /// DO YOU NEED THIS ?
-  formKey.currentState.validate();
+  formKey.currentState?.validate();
 
   setNotifier(
       notifier: draftFlyer,

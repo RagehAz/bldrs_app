@@ -21,7 +21,6 @@ import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mediators/mediators.dart';
 import 'package:mediators/models/dimension_model.dart';
 import 'package:mediators/pic_maker/pic_maker.dart';
 /// => TAMAM
@@ -121,16 +120,16 @@ Future<void> loadUserEditorLastSession({
           ),
       );
 
-      draft.value.nameController.text = _lastSessionDraft.name;
-      draft.value.titleController.text = _lastSessionDraft.title;
-      draft.value.companyController.text = _lastSessionDraft.company;
+      draft.value.nameController?.text = _lastSessionDraft.name!;
+      draft.value.titleController?.text = _lastSessionDraft.title!;
+      draft.value.companyController?.text = _lastSessionDraft.company!;
 
-      draft.value.emailController.text = ContactModel.getContactFromContacts(
+      draft.value.emailController?.text = ContactModel.getContactFromContacts(
         contacts: _lastSessionDraft.contacts,
         type: ContactType.email,
       )?.value;
 
-      draft.value.phoneController.text = ContactModel.getContactFromContacts(
+      draft.value.phoneController?.text = ContactModel.getContactFromContacts(
         contacts: _lastSessionDraft.contacts,
         type: ContactType.phone,
       )?.value;

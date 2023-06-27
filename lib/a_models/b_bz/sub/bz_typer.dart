@@ -1,7 +1,6 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
@@ -93,14 +92,14 @@ class BzTyper {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> cipherBzTypes(List<BzType> bzTypes){
-    Map<String, dynamic> _output;
+  static Map<String, dynamic>? cipherBzTypes(List<BzType>? bzTypes){
+    Map<String, dynamic>? _output;
 
     if (Mapper.checkCanLoopList(bzTypes) == true){
 
       _output = {};
 
-      for (final BzType bzType in bzTypes){
+      for (final BzType bzType in bzTypes!){
 
         final String _ciphered = cipherBzType(bzType);
 
@@ -119,15 +118,15 @@ class BzTyper {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static BzType decipherBzType(String x) {
+  static BzType? decipherBzType(String? x) {
     switch (x) {
-      case 'developer'      : return BzType.developer;      break;
-      case 'broker'         : return BzType.broker;         break;
-      case 'designer'       : return BzType.designer;       break;
-      case 'contractor'     : return BzType.contractor;     break;
-      case 'artisan'        : return BzType.artisan;        break;
-      case 'manufacturer'   : return BzType.manufacturer;   break;
-      case 'supplier'       : return BzType.supplier;       break;
+      case 'developer'      : return BzType.developer;
+      case 'broker'         : return BzType.broker;
+      case 'designer'       : return BzType.designer;
+      case 'contractor'     : return BzType.contractor;
+      case 'artisan'        : return BzType.artisan;
+      case 'manufacturer'   : return BzType.manufacturer;
+      case 'supplier'       : return BzType.supplier;
       default:  return null;
     }
   }
@@ -250,8 +249,8 @@ class BzTyper {
   /// TESTED : WORKS PERFECT
   static bool checkBzTypesAreIdentical(List<BzType> types1, List<BzType> types2){
 
-    final Map<String, dynamic> _a = cipherBzTypes(types1);
-    final Map<String, dynamic> _b = cipherBzTypes(types2);
+    final Map<String, dynamic>? _a = cipherBzTypes(types1);
+    final Map<String, dynamic>? _b = cipherBzTypes(types2);
 
     return Mapper.checkMapsAreIdentical(
         map1: _a,

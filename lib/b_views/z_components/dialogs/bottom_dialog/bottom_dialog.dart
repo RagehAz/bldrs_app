@@ -10,11 +10,8 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 // -----------------------------------------------------------------------------
 enum BottomDialogType {
   countries,
@@ -135,8 +132,8 @@ class BottomDialog extends StatelessWidget {
   // --------------------
   static double clearHeight({
     required BuildContext context,
-    double overridingDialogHeight,
-    bool titleIsOn,
+    double? overridingDialogHeight,
+    bool? titleIsOn,
   }) {
 
     final double _dialogHeight = dialogHeight(context, overridingDialogHeight: overridingDialogHeight);
@@ -278,7 +275,7 @@ class BottomDialog extends StatelessWidget {
   static Future<void> showStatefulBottomDialog({
     required Widget Function(BuildContext, Function setState) builder,
     required Verse titleVerse,
-    double height,
+    double? height,
   }) async {
 
     final double _height = height ?? BottomDialog.dialogHeight(getMainContext(), ratioOfScreenHeight: 0.5);
@@ -357,14 +354,14 @@ class BottomDialog extends StatelessWidget {
   // --------------------
   static Widget wideButton({
     required BuildContext context,
-    Verse verse,
-    Function onTap,
-    String icon,
+    Verse? verse,
+    Function? onTap,
+    String? icon,
     double height = wideButtonHeight,
     bool verseCentered = false,
     bool isDeactivated = false,
-    Function onDeactivatedTap,
-    Color color,
+    Function? onDeactivatedTap,
+    Color? color,
     bool bigIcon = false,
   }) {
 
@@ -476,7 +473,7 @@ class BottomDialog extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: Colorz.white200,
                           borderRadius:
-                          Borderers.cornerAll(context, _draggerCorner),
+                          Borderers.cornerAll(_draggerCorner),
                         ),
                       ),
                     ),

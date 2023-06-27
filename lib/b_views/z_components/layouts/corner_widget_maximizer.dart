@@ -1,15 +1,14 @@
-import 'package:animators/animators.dart';
+
 import 'package:basics/animators/helpers/animators.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/widgets/drawing/super_positioned.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/animators/widgets/widget_fader.dart';
@@ -75,10 +74,10 @@ class _Maximizer extends StatefulWidget {
 
 class _MaximizerState extends State<_Maximizer> with SingleTickerProviderStateMixin {
   // -----------------------------------------------------------------------------
-  AnimationController _animationController;
-  Animation<double> _animation;
-  Animation<double> _scaleAnimation;
-  ColorTween _backgroundColorTween;
+  AnimationController? _animationController;
+  Animation<double>? _animation;
+  Animation<double>? _scaleAnimation;
+  ColorTween? _backgroundColorTween;
   // --------------------
   final ValueNotifier<bool> _isExpanded = ValueNotifier<bool>(false);
   // -----------------------------------------------------------------------------
@@ -256,7 +255,7 @@ class _MaximizerState extends State<_Maximizer> with SingleTickerProviderStateMi
                         // maxWidth: widget.maxAllowableWidth,
                         // ),
                         decoration: BoxDecoration(
-                          borderRadius: Bubble.borders(context),
+                          borderRadius: Bubble.borders(),
                           color: Colorz.black255,
                         ),
                         alignment: Alignment.bottomCenter,

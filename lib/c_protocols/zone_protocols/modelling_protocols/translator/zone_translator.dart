@@ -43,7 +43,7 @@ class ZoneTranslator {
   /// TESTED : WORKS PERFECT
   static Verse translateCity({
     required CityModel cityModel,
-    String langCode,
+    String? langCode,
   }) {
     Verse _output;
 

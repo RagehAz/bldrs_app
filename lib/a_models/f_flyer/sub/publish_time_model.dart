@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/time/timers.dart';
@@ -63,10 +64,13 @@ class PublishTime {
 
       if (Mapper.checkCanLoopList(_keys) && Mapper.checkCanLoopList(_values)) {
         for (int i = 0; i < _keys.length; i++) {
-          final PublishState _flyerStateString =
-          FlyerModel.decipherPublishState(_keys[i]);
-          final DateTime _time =
-          Timers.decipherTime(time: _values[i], fromJSON: fromJSON);
+
+          final PublishState _flyerStateString = FlyerModel.decipherPublishState(_keys[i]);
+
+          final DateTime? _time = Timers.decipherTime(
+              time: _values[i],
+              fromJSON: fromJSON,
+          );
 
           _times.add(
             PublishTime(

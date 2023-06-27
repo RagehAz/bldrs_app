@@ -53,7 +53,7 @@ class CityRealOps {
         path: '${RealColl.zones}/${RealDoc.zones_cities}/$countryID/$cityID',
       );
 
-      final Map<String, dynamic> _map = Mapper.getMapFromIHLMOO(
+      final Map<String, dynamic>? _map = Mapper.getMapFromIHLMOO(
         ihlmoo: _cityMap,
       );
 

@@ -26,7 +26,7 @@ class BldrsPicMaker {
 
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<Uint8List> pickAndCropSinglePic({
+  static Future<Uint8List?> pickAndCropSinglePic({
     required bool cropAfterPick,
     required double aspectRatio,
     double? resizeToWidth,

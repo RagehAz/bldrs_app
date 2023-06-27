@@ -7,7 +7,6 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/b_gallery_sl
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/z_components/layouts/navigation/horizontal_bouncer.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 

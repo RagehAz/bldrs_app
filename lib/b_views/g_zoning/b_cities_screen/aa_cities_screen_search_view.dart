@@ -8,9 +8,6 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
-
-
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class CitiesScreenSearchView extends StatelessWidget {
@@ -74,7 +71,7 @@ class CitiesScreenSearchView extends StatelessWidget {
                           string: _city.cityID,
                         );
 
-                        final CensusModel _census = CensusModel.getCensusFromCensusesByID(
+                        final CensusModel? _census = CensusModel.getCensusFromCensusesByID(
                           censuses: citiesCensuses,
                           censusID: _city.cityID,
                         );

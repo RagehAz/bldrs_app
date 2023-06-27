@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/space/atlas.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
@@ -31,10 +32,10 @@ class CityModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   CityModel copyWith({
-    String cityID,
-    int population,
-    GeoPoint position,
-    List<Phrase> phrases,
+    String? cityID,
+    int? population,
+    GeoPoint? position,
+    List<Phrase>? phrases,
   }) {
     return CityModel(
       cityID: cityID ?? this.cityID,
@@ -412,14 +413,16 @@ class CityModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String createCityID({
+  static String? createCityID({
     required String countryID,
     required String cityEnName,
   }){
-    String _output;
+    String? _output;
 
     if (TextCheck.isEmpty(countryID) == false && TextCheck.isEmpty(cityEnName) == false){
-      final String _fixedCityEnName = TextMod.fixCountryName(cityEnName);
+      final String? _fixedCityEnName = TextMod.fixCountryName(
+        input: cityEnName,
+      );
       _output = '$countryID+$_fixedCityEnName';
     }
 
@@ -427,13 +430,19 @@ class CityModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  String oldGetCountryID(){
-    return TextMod.removeTextAfterFirstSpecialCharacter(cityID, '_');
+  String? oldGetCountryID(){
+    return TextMod.removeTextAfterFirstSpecialCharacter(
+        text: cityID,
+        specialCharacter: '_',
+    );
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  String getCountryID(){
-    return TextMod.removeTextAfterFirstSpecialCharacter(cityID, '+');
+  String? getCountryID(){
+    return TextMod.removeTextAfterFirstSpecialCharacter(
+        text: cityID,
+        specialCharacter: '+',
+    );
   }
   // -----------------------------------------------------------------------------
 
@@ -591,7 +600,7 @@ class CityModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkCitiesAreIdentical(CityModel city1, CityModel city2){
+  static bool checkCitiesAreIdentical(CityModel? city1, CityModel? city2){
     bool _identical = false;
 
     if (city1 == null && city2 == null){

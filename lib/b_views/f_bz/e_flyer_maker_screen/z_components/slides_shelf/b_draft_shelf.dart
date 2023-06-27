@@ -10,11 +10,9 @@ import 'package:bldrs/b_views/j_flyer/z_components/c_groups/draft_shelf/a_draft_
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/draft_shelf/e_draft_shelf_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:mediators/mediators.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:mediators/pic_maker/pic_maker.dart';
 
 class SlidesShelf extends StatefulWidget {
   /// --------------------------------------------------------------------------

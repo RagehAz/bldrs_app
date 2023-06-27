@@ -28,7 +28,7 @@ class FooterBox extends StatelessWidget {
       /// --- FLYER FOOTER BOX
       child: ValueListenableBuilder<bool>(
         valueListenable: infoButtonExpanded,
-        builder: (_,bool infoButtonExpanded, Widget childrenInPageView){
+        builder: (_,bool infoButtonExpanded, Widget? childrenInPageView){
 
           return AnimatedContainer(
             width: flyerBoxWidth,

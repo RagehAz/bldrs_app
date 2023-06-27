@@ -7,8 +7,6 @@ import 'package:bldrs/b_views/j_flyer/z_components/d_variants/c_add_flyer_button
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_builder.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_selection_stack.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 
 class JumpingFlyersGrid extends StatelessWidget {
@@ -93,8 +91,8 @@ class JumpingFlyersGrid extends StatelessWidget {
           else {
 
             final int _flyerIndex = showAddFlyerButton == true ? index-1 : index;
-            final String _flyerID = (flyersIDs?.length ?? 0) == 0 ? null : flyersIDs[_flyerIndex];
-            final FlyerModel _flyer = (flyers?.length ?? 0) == 0 ? null : flyers[_flyerIndex];
+            final String? _flyerID = (flyersIDs?.length ?? 0) == 0 ? null : flyersIDs[_flyerIndex];
+            final FlyerModel? _flyer = (flyers?.length ?? 0) == 0 ? null : flyers[_flyerIndex];
 
             return FlyerBuilder(
               key: const ValueKey<String>('FlyerBuilder_inGrid'),

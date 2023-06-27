@@ -37,14 +37,14 @@ class ZoneButton extends StatelessWidget {
 
     else {
       // --------------------
-      final ZoneModel _currentZone = zoneOverride ?? ZoneProvider.proGetCurrentZone(
+      final ZoneModel? _currentZone = zoneOverride ?? ZoneProvider.proGetCurrentZone(
         context: context,
         listen: true,
       );
       // --------------------
-      final String _countryName = _currentZone?.countryName;
-      final String _countryFlag = _currentZone?.icon;
-      final String _cityName = _currentZone?.cityName;
+      final String? _countryName = _currentZone?.countryName;
+      final String? _countryFlag = _currentZone?.icon;
+      final String? _cityName = _currentZone?.cityName;
       // --------------------
       final String _firstRow = _currentZone == null ? ' ' : _countryName;
       // --------------------

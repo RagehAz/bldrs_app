@@ -23,7 +23,7 @@ Future<void> onSearchBzz({
   required ValueNotifier<bool> isSearching,
   required ValueNotifier<bool> loading,
   required bool mounted,
-  QueryDocumentSnapshot<Object> startAfter,
+  QueryDocumentSnapshot<Object>? startAfter,
 }) async {
 
   blog('starting onSearchUsers : text : $text');

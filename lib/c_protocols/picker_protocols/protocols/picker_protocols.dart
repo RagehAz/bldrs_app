@@ -49,7 +49,7 @@ class PickerProtocols {
   /// TESTED : WORKS PERFECT
   static Future<List<PickerModel>> fetchFlyerTypPickers({
     required FlyerType flyerType,
-    ValueChanged<List<PickerModel>> onFinish,
+    ValueChanged<List<PickerModel>>? onFinish,
   }) async {
 
     /// 1 - search LDB

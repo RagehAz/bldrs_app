@@ -214,8 +214,8 @@ List<Progress> dummyTargetsProgress() {
 }
 // -----------------------------------------------------------------------------
 List<TargetModel> insertTargetsProgressIntoTargetsModels({
-  List<TargetModel> allTargets,
-  List<Progress> targetsProgress,
+  List<TargetModel>? allTargets,
+  List<Progress>? targetsProgress,
 }) {
   final List<TargetModel> _targets = <TargetModel>[];
 

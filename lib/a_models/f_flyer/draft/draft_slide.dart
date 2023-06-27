@@ -101,8 +101,8 @@ class DraftSlide {
 
     if (bytes != null){
 
-      final Dimensions _dimensions = await Dimensions.superDimensions(bytes);
-      final Color _midColor = await Colorizer.getAverageColor(bytes);
+      final Dimensions? _dimensions = await Dimensions.superDimensions(bytes);
+      final Color? _midColor = await Colorizer.getAverageColor(bytes);
 
       _slide = DraftSlide(
         flyerID: flyerID,
@@ -337,17 +337,17 @@ class DraftSlide {
   // --------------------
   /// TESTED : WORKS PERFECT
   DraftSlide copyWith({
-    String flyerID,
-    int slideIndex,
-    PicModel picModel,
-    BoxFit picFit,
-    String headline,
-    String description,
-    Color midColor,
-    double opacity,
-    Matrix4 matrix,
-    ImageFilterModel filter,
-    Curve animationCurve,
+    String? flyerID,
+    int? slideIndex,
+    PicModel? picModel,
+    BoxFit? picFit,
+    String? headline,
+    String? description,
+    Color? midColor,
+    double? opacity,
+    Matrix4? matrix,
+    ImageFilterModel? filter,
+    Curve? animationCurve,
   }){
     return DraftSlide(
       flyerID: flyerID ?? this.flyerID,

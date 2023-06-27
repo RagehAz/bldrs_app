@@ -109,7 +109,7 @@ class BldrsAligners {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static double leftPositionInRightAlignmentEn(BuildContext context, double offsetFromLeft) {
+  static double? leftPositionInRightAlignmentEn(double offsetFromLeft) {
 
     return Aligner.leftOffsetInRightAlignmentEn(
         appIsLTR: UiProvider.checkAppIsLeftToRight(),

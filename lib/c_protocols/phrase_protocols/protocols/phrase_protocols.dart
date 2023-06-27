@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:animators/animators.dart';
+
 import 'package:basics/animators/helpers/sliders.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';

@@ -21,7 +21,7 @@ class ReviewFireOps {
     assert(reviewModel != null,'review model is null');
     assert(reviewModel.flyerID != null, 'review flyerID is null');
 
-    final String _reviewID = await Fire.createDoc(
+    final String? _reviewID = await Fire.createDoc(
       coll: FireColl.flyers,
       doc: reviewModel.flyerID,
       subColl: FireSubColl.flyers_flyer_reviews,
