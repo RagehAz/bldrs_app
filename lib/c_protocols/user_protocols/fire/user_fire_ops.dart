@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
@@ -177,7 +178,6 @@ class UserFireOps {
     );
 
     blog('deleteMyUser : deleteDoc done');
-
 
     /// DELETE FIREBASE USER
     await Authing.deleteUser(

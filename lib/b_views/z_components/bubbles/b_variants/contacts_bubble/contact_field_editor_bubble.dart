@@ -11,11 +11,7 @@ import 'package:bldrs/b_views/z_components/texting/bullet_points/bldrs_bullet_po
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class ContactFieldEditorBubble extends StatefulWidget {
   /// --------------------------------------------------------------------------

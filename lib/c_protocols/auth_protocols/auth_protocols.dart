@@ -61,12 +61,12 @@ class AuthProtocols {
     // required ZoneModel currentZone,
   }) async {
 
-    String _authError;
+    String? _authError;
 
-    final AuthModel _authModel = await EmailAuthing.register(
+    final AuthModel? _authModel = await EmailAuthing.register(
       email: email,
       password: password,
-      onError: (String error){
+      onError: (String? error){
         _authError = error;
       },
     );
@@ -85,8 +85,8 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<bool> composeOrUpdateUser({
-    required AuthModel authModel,
-    required String authError,
+    required AuthModel? authModel,
+    required String? authError,
   }) async {
     bool _success = false;
 

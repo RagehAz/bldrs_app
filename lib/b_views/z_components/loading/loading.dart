@@ -2,13 +2,9 @@ import 'package:basics/animators/helpers/animators.dart';
 import 'package:basics/animators/widgets/widget_fader.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:animators/animators.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
-import 'package:basics/animators/widgets/widget_fader.dart';
 
 class Loading extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -29,28 +25,11 @@ class Loading extends StatelessWidget {
   Widget build(BuildContext context) {
 
     /// WHEN IS LOADING => TRUE
-    if (loading == true){
-
-      if (isBlackHole == true){
-        return LoadingBlackHole(
-          size: size,
-          rpm: 400,
-        );
-      }
-
-      else {
-        return SizedBox(
-          width: size,
-          height: size,
-          child: Center(
-              child: SpinKitPulse(
-                color: color ?? Colorz.yellow255,
-                size: size,
-              )
-          ),
-        );
-      }
-
+    if (loading == true) {
+      return LoadingBlackHole(
+        size: size,
+        rpm: 400,
+      );
     }
 
     /// WHEN IS NOT LOADING => FALSE

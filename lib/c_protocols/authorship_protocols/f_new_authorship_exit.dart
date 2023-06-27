@@ -512,7 +512,7 @@ class NewAuthorshipExit {
     required bool isBzDeleted,
   }) {
 
-    final String _waitText = isBzDeleted == true ?
+    final String? _waitText = isBzDeleted == true ?
     Verse.transBake('phid_removing_bz')
       :
     Verse.transBake('phid_removing_author');

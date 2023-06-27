@@ -19,15 +19,15 @@ class UserFireSearchOps{
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static FireQueryModel createQuery({
-    String orderBy,
-    bool descending,
+    String? orderBy,
+    bool? descending,
     int limit = 4,
-    String searchText,
-    UserSearchModel userSearchModel,
-    ZoneModel zoneModel,
+    String? searchText,
+    UserSearchModel? userSearchModel,
+    ZoneModel? zoneModel,
   }){
 
-    final QueryOrderBy _orderBy = orderBy == null ? null : QueryOrderBy(
+    final QueryOrderBy? _orderBy = orderBy == null ? null : QueryOrderBy(
       fieldName: orderBy,
       descending: descending,
     );
@@ -60,7 +60,7 @@ class UserFireSearchOps{
                 field: 'trigram',
                 comparison: FireComparison.arrayContains,
                 value: TextMod.removeAllCharactersAfterNumberOfCharacters(
-                  text: searchText.trim(),
+                  text: searchText?.trim(),
                   numberOfChars: Standards.maxTrigramLength,
                 )),
 
@@ -68,35 +68,35 @@ class UserFireSearchOps{
             FireFinder(
                 field: 'company',
                 comparison: FireComparison.equalTo,
-                value: searchText.trim(),
+                value: searchText?.trim(),
             ),
 
           if (userSearchModel?.searchType == UserSearchType.byJobTitle && _canSearchText == true)
             FireFinder(
                 field: 'title',
                 comparison: FireComparison.equalTo,
-                value: searchText.trim(),
+                value: searchText?.trim(),
             ),
 
           if (userSearchModel?.searchType == UserSearchType.byEmail && _canSearchText == true)
             FireFinder(
                 field: 'contacts.email',
                 comparison: FireComparison.equalTo,
-                value: searchText.trim(),
+                value: searchText?.trim(),
             ),
 
           if (userSearchModel?.searchType == UserSearchType.byPhone && _canSearchText == true)
             FireFinder(
                 field: 'contacts.phone',
                 comparison: FireComparison.equalTo,
-                value: searchText.trim(),
+                value: searchText?.trim(),
             ),
 
           if (userSearchModel?.searchType == UserSearchType.byDeviceID && _canSearchText == true)
             FireFinder(
                 field: 'device.id',
                 comparison: FireComparison.equalTo,
-                value: searchText.trim(),
+                value: searchText?.trim(),
             ),
 
           if (userSearchModel?.signInMethod != null)
@@ -176,7 +176,7 @@ class UserFireSearchOps{
   static Future<List<UserModel>> usersByUserName({
     required String name,
     required List<String> userIDsToExclude,
-    QueryDocumentSnapshot<Object> startAfter,
+    QueryDocumentSnapshot<Object>? startAfter,
     int limit = 10,
   }) async {
 
@@ -218,7 +218,7 @@ class UserFireSearchOps{
   static Future<List<UserModel>> usersByNameAndIsAuthor({
     required String name,
     int limit = 3,
-    QueryDocumentSnapshot<Object> startAfter,
+    QueryDocumentSnapshot<Object>? startAfter,
   }) async {
 
     final List<Map<String, dynamic>> _result = await Fire.readColl(

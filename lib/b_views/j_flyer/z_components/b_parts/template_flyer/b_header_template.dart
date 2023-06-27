@@ -65,7 +65,6 @@ class HeaderTemplate extends StatelessWidget {
         flyerBoxWidth: flyerBoxWidth,
         onHeaderTap: onTap,
         headerBorders: FlyerDim.headerSlateCorners(
-          context: context,
           flyerBoxWidth: flyerBoxWidth,
         ),
         headerColor: Colorz.black255,

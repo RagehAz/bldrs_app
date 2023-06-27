@@ -33,14 +33,14 @@ class DeckModel {
   // --------------------
   /// TESTED: WORKS PERFECT
   DeckModel copyWith({
-    List<String> all,
-    List<String> general,
-    List<String> properties,
-    List<String> designs,
-    List<String> undertakings,
-    List<String> trades,
-    List<String> products,
-    List<String> equipment,
+    List<String>? all,
+    List<String>? general,
+    List<String>? properties,
+    List<String>? designs,
+    List<String>? undertakings,
+    List<String>? trades,
+    List<String>? products,
+    List<String>? equipment,
   }){
 
     return DeckModel(

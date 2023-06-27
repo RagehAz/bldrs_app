@@ -32,14 +32,14 @@ class FlyerSearchModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   FlyerSearchModel copyWith({
-    FlyerType flyerType,
-    bool onlyShowingAuthors,
-    bool onlyWithPrices,
-    bool onlyWithPDF,
-    bool onlyAmazonProducts,
-    String phid,
-    PublishState publishState,
-    AuditState auditState,
+    FlyerType? flyerType,
+    bool? onlyShowingAuthors,
+    bool? onlyWithPrices,
+    bool? onlyWithPDF,
+    bool? onlyAmazonProducts,
+    String? phid,
+    PublishState? publishState,
+    AuditState? auditState,
   }){
     return FlyerSearchModel(
       flyerType: flyerType ?? this.flyerType,
@@ -83,8 +83,8 @@ class FlyerSearchModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> cipher(FlyerSearchModel flyerSearchModel){
-    Map<String, dynamic> _output;
+  static Map<String, dynamic>? cipher(FlyerSearchModel flyerSearchModel){
+    Map<String, dynamic>? _output;
 
     if (flyerSearchModel != null) {
       _output = {

@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
@@ -35,10 +36,10 @@ class CurrencyModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   CurrencyModel copyWith({
-    String id,
-    List<String> countriesIDs,
-    String symbol,
-    int digits,
+    String? id,
+    List<String>? countriesIDs,
+    String? symbol,
+    int? digits,
   }){
     return CurrencyModel(
       id: id ?? this.id,

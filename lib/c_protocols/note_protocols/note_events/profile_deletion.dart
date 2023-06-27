@@ -97,7 +97,7 @@ class NoteEventsOfProfileDeletion {
   static Future<List<NoteModel>> _paginatePendingSentAuthorshipNotes({
     required String senderID,
     required int limit,
-    required QueryDocumentSnapshot<Object> startAfter,
+    required QueryDocumentSnapshot<Object>? startAfter,
   }) async {
 
     List<NoteModel> _notes = <NoteModel>[];

@@ -17,14 +17,14 @@ class UserProfileBanners extends StatelessWidget {
   final UserModel userModel;
   final bool showContacts;
   /// --------------------------------------------------------------------------
-  static String generateTitleCompanyString({
+  static String? generateTitleCompanyString({
     required UserModel userModel,
     required BuildContext context,
   }){
 
-    String _string;
+    String? _string;
 
-    final String _title = userModel?.title;
+    final String? _title = userModel?.title;
     final String _company = userModel.company;
 
     if (_title == null && _company == null){

@@ -1,6 +1,7 @@
 import 'package:basics/animators/helpers/sliders.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -18,14 +19,10 @@ import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
-import 'package:animators/animators.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:basics/layouts/nav/nav.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class PhidsPickerScreen extends StatefulWidget {
@@ -84,7 +81,7 @@ class PhidsPickerScreen extends StatefulWidget {
     required FlyerType flyerType,
     required ViewingEvent event,
     required bool onlyUseZoneChains,
-    List<String> selectedPhids,
+    List<String>? selectedPhids,
   }) async {
 
     final List<String> phids = await Nav.goToNewScreen(
@@ -109,11 +106,11 @@ class PhidsPickerScreen extends StatefulWidget {
 
 class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTickerProviderStateMixin {
   // -----------------------------------------------------------------------------
-  TabController _tabBarController;
+  TabController? _tabBarController;
   final TextEditingController _searchController = TextEditingController();
   final GlobalKey _globalKey = GlobalKey();
   // --------------------
-  List<Chain> _chains;
+  List<Chain>? _chains;
   List<NavModel> _navModels = [];
   final ValueNotifier<List<String>> _selectedPhidsNotifier = ValueNotifier<List<String>>([]);
   final ScrollController _selectedPhidsScrollController = ScrollController();

@@ -1,4 +1,5 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/space/atlas.dart';
 import 'package:bldrs/a_models/a_user/sub/agenda_model.dart';
 import 'package:bldrs/a_models/a_user/sub/deck_model.dart';
@@ -17,8 +18,6 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zo
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/time/timers.dart';
@@ -274,30 +273,30 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   UserModel copyWith({
-    String id,
-    SignInMethod signInMethod,
-    DateTime createdAt,
-    NeedModel need,
-    String name,
-    List<String> trigram,
-    String picPath,
-    String title,
-    String company,
-    Gender gender,
-    ZoneModel zone,
-    String language,
-    GeoPoint location,
-    List<ContactModel> contacts,
-    bool contactsArePublic,
-    List<String> myBzzIDs,
-    bool isAuthor,
-    bool emailIsVerified,
-    bool isAdmin,
-    DeviceModel device,
-    DeckModel savedFlyers,
-    AgendaModel followedBzz,
-    AppStateModel appState,
-    List<String> fcmTopics,
+    String? id,
+    SignInMethod? signInMethod,
+    DateTime? createdAt,
+    NeedModel? need,
+    String? name,
+    List<String>? trigram,
+    String? picPath,
+    String? title,
+    String? company,
+    Gender? gender,
+    ZoneModel? zone,
+    String? language,
+    GeoPoint? location,
+    List<ContactModel>? contacts,
+    bool? contactsArePublic,
+    List<String>? myBzzIDs,
+    bool? isAuthor,
+    bool? emailIsVerified,
+    bool? isAdmin,
+    DeviceModel? device,
+    DeckModel? savedFlyers,
+    AgendaModel? followedBzz,
+    AppStateModel? appState,
+    List<String>? fcmTopics,
   }){
     return UserModel(
       id: id ?? this.id,
@@ -848,7 +847,7 @@ class UserModel {
   /// TESTED : WORKS PERFECT
   static void blogUsersModels({
     required List<UserModel> usersModels,
-    String invoker,
+    String? invoker,
   }){
 
     if (Mapper.checkCanLoopList(usersModels) == true){

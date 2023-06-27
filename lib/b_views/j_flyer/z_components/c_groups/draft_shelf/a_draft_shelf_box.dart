@@ -2,9 +2,6 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/draft_shelf/e_draft_shelf_slide.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
-
-
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class DraftShelfBox extends StatelessWidget {
@@ -74,9 +71,9 @@ class ShelfUI {
   int index;
   // -----------------------------------------------------------------------------
   ShelfUI copyWith({
-    double height,
-    double opacity,
-    int index,
+    double? height,
+    double? opacity,
+    int? index,
   }){
     return ShelfUI(
       height: height ?? this.height,

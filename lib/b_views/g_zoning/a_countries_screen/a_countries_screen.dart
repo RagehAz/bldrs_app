@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:animators/animators.dart';
+
+import 'package:basics/animators/widgets/scroller.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/layouts/nav/nav.dart';
@@ -49,8 +50,8 @@ class _CountriesScreenState extends State<CountriesScreen> {
   List<String> _shownCountriesIDs = <String>[];
   List<String> _notShownCountriesIDs = <String>[];
   // --------------------
-  List<CensusModel> _censuses;
-  CensusModel _planetCensus;
+  List<CensusModel>? _censuses;
+  CensusModel? _planetCensus;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);

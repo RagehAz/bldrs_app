@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/space/atlas.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
@@ -61,36 +62,36 @@ class DraftFlyer{
     required this.gtaLink,
   });
   /// --------------------------------------------------------------------------
-  final String id;
-  final TextEditingController headline;
-  final List<String> trigram;
-  final FocusNode headlineNode;
-  final TextEditingController description;
-  final FocusNode descriptionNode;
-  final FlyerType flyerType;
-  final PublishState publishState;
-  final AuditState auditState;
-  final List<String> phids;
-  final bool showsAuthor;
-  final ZoneModel zone;
-  final String authorID;
-  final String bzID;
-  final GeoPoint position;
-  final List<DraftSlide> draftSlides;
-  final List<SpecModel> specs;
-  final List<PublishTime> times;
-  final bool hasPriceTag;
-  final bool isAmazonFlyer;
-  final bool hasPDF;
-  final int score;
-  final PDFModel pdfModel;
-  final BzModel bzModel;
-  final GlobalKey<FormState> formKey;
-  final bool canPickImage;
-  final bool firstTimer;
-  final ScreenshotController posterController;
-  final String affiliateLink;
-  final String gtaLink;
+  final String? id;
+  final TextEditingController? headline;
+  final List<String>? trigram;
+  final FocusNode? headlineNode;
+  final TextEditingController? description;
+  final FocusNode? descriptionNode;
+  final FlyerType? flyerType;
+  final PublishState? publishState;
+  final AuditState? auditState;
+  final List<String>? phids;
+  final bool? showsAuthor;
+  final ZoneModel? zone;
+  final String? authorID;
+  final String? bzID;
+  final GeoPoint? position;
+  final List<DraftSlide>? draftSlides;
+  final List<SpecModel>? specs;
+  final List<PublishTime>? times;
+  final bool? hasPriceTag;
+  final bool? isAmazonFlyer;
+  final bool? hasPDF;
+  final int? score;
+  final PDFModel? pdfModel;
+  final BzModel? bzModel;
+  final GlobalKey<FormState>? formKey;
+  final bool? canPickImage;
+  final bool? firstTimer;
+  final ScreenshotController? posterController;
+  final String? affiliateLink;
+  final String? gtaLink;
   // -----------------------------------------------------------------------------
   static const String newDraftID = 'newDraft';
   // -----------------------------------------------------------------------------
@@ -118,7 +119,7 @@ class DraftFlyer{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<DraftFlyer> _createNewDraft() async {
+  static Future<DraftFlyer?> _createNewDraft() async {
 
     final BzModel bzModel = BzzProvider.proGetActiveBzModel(
       context: getMainContext(),
@@ -312,9 +313,9 @@ class DraftFlyer{
     if (draft != null){
       _map = {
         'id' : draft.id,
-        'headline' : draft.headline.text,
-        'trigram' : Stringer.createTrigram(input: draft.headline.text),
-        'description' : draft.description.text,
+        'headline' : draft.headline?.text,
+        'trigram' : Stringer.createTrigram(input: draft.headline?.text),
+        'description' : draft.description?.text,
         'flyerType' : FlyerTyper.cipherFlyerType(draft.flyerType),
         'publishState' : FlyerModel.cipherPublishState(draft.publishState),
         'auditState' : FlyerModel.cipherAuditState(draft.auditState),
@@ -394,36 +395,36 @@ class DraftFlyer{
   // --------------------
   /// TESTED : WORKS PERFECT
   DraftFlyer copyWith({
-    String id,
-    TextEditingController headline,
-    List<String> trigram,
-    FocusNode headlineNode,
-    String description,
-    FocusNode descriptionNode,
-    FlyerType flyerType,
-    PublishState publishState,
-    AuditState auditState,
-    List<String> phids,
-    bool showsAuthor,
-    ZoneModel zone,
-    String authorID,
-    String bzID,
-    GeoPoint position,
-    List<DraftSlide> draftSlides,
-    List<SpecModel> specs,
-    List<PublishTime> times,
-    bool hasPriceTag,
-    bool hasPDF,
-    bool isAmazonFlyer,
-    int score,
-    PDFModel pdfModel,
-    BzModel bzModel,
-    bool canPickImage,
-    GlobalKey<FormState> formKey,
-    bool firstTimer,
-    ScreenshotController posterController,
-    String affiliateLink,
-    String gtaLink,
+    String? id,
+    TextEditingController? headline,
+    List<String>? trigram,
+    FocusNode? headlineNode,
+    String? description,
+    FocusNode? descriptionNode,
+    FlyerType? flyerType,
+    PublishState? publishState,
+    AuditState? auditState,
+    List<String>? phids,
+    bool? showsAuthor,
+    ZoneModel? zone,
+    String? authorID,
+    String? bzID,
+    GeoPoint? position,
+    List<DraftSlide>? draftSlides,
+    List<SpecModel>? specs,
+    List<PublishTime>? times,
+    bool? hasPriceTag,
+    bool? hasPDF,
+    bool? isAmazonFlyer,
+    int? score,
+    PDFModel? pdfModel,
+    BzModel? bzModel,
+    bool? canPickImage,
+    GlobalKey<FormState>? formKey,
+    bool? firstTimer,
+    ScreenshotController? posterController,
+    String? affiliateLink,
+    String? gtaLink,
   }){
     return DraftFlyer(
       bzModel: bzModel ?? this.bzModel,

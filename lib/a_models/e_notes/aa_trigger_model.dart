@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
@@ -25,9 +26,9 @@ class TriggerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   TriggerModel copyWith({
-    String name,
-    String argument,
-    List<String> done,
+    String? name,
+    String? argument,
+    List<String>? done,
   }){
     return TriggerModel(
       name: name ?? this.name,

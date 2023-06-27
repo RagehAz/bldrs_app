@@ -16,8 +16,6 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 
@@ -118,7 +116,7 @@ class AuthorCard extends StatelessWidget {
       role: author.role,
     );
     // --------------------
-    final Color _roleIconColor = _authorIsMaster == true ? null : Colorz.white255;
+    final Color? _roleIconColor = _authorIsMaster == true ? null : Colorz.white255;
     // --------------------
     return Bubble(
       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(

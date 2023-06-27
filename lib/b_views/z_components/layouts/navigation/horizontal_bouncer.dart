@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:basics/layouts/nav/nav.dart';
@@ -32,7 +33,7 @@ class HorizontalBouncer extends StatefulWidget {
 
 class _HorizontalBouncerState extends State<HorizontalBouncer> {
   // -----------------------------------------------------------------------------
-  ValueNotifier<bool> _canNavigate;
+  ValueNotifier<bool>? _canNavigate;
   int _numberOfTimesBack = 0;
   // -----------------------------------------------------------------------------
   @override

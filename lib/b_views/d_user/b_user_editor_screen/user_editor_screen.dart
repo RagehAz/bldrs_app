@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_positional_boolean_parameters
 import 'dart:async';
 
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/a_user/draft/draft_user.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
@@ -25,10 +26,9 @@ import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_mode
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mediators/mediators.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
+import 'package:mediators/pic_maker/pic_maker.dart';
 
 class UserEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -58,7 +58,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
   // -----------------------------------------------------------------------------
   final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
   final PageController _pageController = PageController();
-  ConfirmButtonModel _confirmButtonModel;
+  ConfirmButtonModel? _confirmButtonModel;
   // -----------------------------------------------------------------------------
   bool _canValidate = true;
   void _switchOnValidation(){

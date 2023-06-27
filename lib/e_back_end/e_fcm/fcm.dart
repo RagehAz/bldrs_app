@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/device_checker.dart';
+import 'package:basics/helpers/classes/checks/error_helpers.dart';
 import 'package:basics/helpers/classes/checks/object_check.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/target/target_progress.dart';
@@ -291,14 +293,14 @@ class FCM {
     required ChannelModel channelModel,
     required String title,
     required String body,
-    Map<String, String> payloadMap,
-    String largeIconURL,
-    Progress progress,
+    Map<String, String>? payloadMap,
+    String? largeIconURL,
+    Progress? progress,
     bool progressBarIsLoading = false,
     bool canBeDismissedWithoutTapping = true,
     /// special fields in awesome notification package
-    String posterURL,
-    List<String> buttonsTexts,
+    String? posterURL,
+    List<String>? buttonsTexts,
   }) async {
 
     final String _largeIconURL = await getNootPicURLIfNotURL(largeIconURL);
@@ -374,10 +376,10 @@ class FCM {
     required String title,
     required String body,
     bool canBeDismissedWithoutTapping = true,
-    String nootIcon,
-    String posterURL,
-    Map<String, String> payloadMap,
-    Progress progress,
+    String? nootIcon,
+    String? posterURL,
+    Map<String, String>? payloadMap,
+    Progress? progress,
     bool progressBarIsLoading = false,
   }){
 
@@ -680,7 +682,7 @@ class FCM {
 
     final String token = _myUserModel.device.token;
 
-    final Response _result = await Rest.get(
+    final Response? _result = await Rest.get(
       rawLink: 'https://iid.googleapis.com/iid/info/$token?details=true',
       headers: {
         'Authorization': 'Bearer $fcmServerKey',
@@ -710,9 +712,9 @@ class FCM {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<String> generateToken() async {
+  static Future<String?> generateToken() async {
 
-    String _fcmToken;
+    String? _fcmToken;
 
     if (FCMStarter.canInitializeFCM() == true) {
       await tryAndCatch(

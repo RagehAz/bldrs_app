@@ -1,9 +1,8 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 enum PartyType {
@@ -36,11 +35,11 @@ class NoteParties {
   // --------------------
   /// TESTED : WORKS PERFECT
   NoteParties copyWith({
-    String senderID,
-    String senderImageURL,
-    PartyType senderType,
-    String receiverID,
-    PartyType receiverType,
+    String? senderID,
+    String? senderImageURL,
+    PartyType? senderType,
+    String? receiverID,
+    PartyType? receiverType,
   }){
     return NoteParties(
       senderID: senderID ?? this.senderID,

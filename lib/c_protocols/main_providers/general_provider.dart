@@ -12,7 +12,7 @@ import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
+
 import 'package:devicer/devicer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

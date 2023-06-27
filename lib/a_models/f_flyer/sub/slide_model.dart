@@ -119,18 +119,18 @@ class SlideModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   SlideModel copyWith({
-    int slideIndex,
-    String picPath,
-    String headline,
-    String description,
-    Matrix4 matrix,
-    BoxFit picFit,
-    Dimensions dimensions,
-    Color midColor,
-    String flyerID,
-    String filterID,
-    ui.Image uiImage,
-    Curve animationCurve,
+    int? slideIndex,
+    String? picPath,
+    String? headline,
+    String? description,
+    Matrix4? matrix,
+    BoxFit? picFit,
+    Dimensions? dimensions,
+    Color? midColor,
+    String? flyerID,
+    String? filterID,
+    ui.Image? uiImage,
+    Curve? animationCurve,
   }) {
     return SlideModel(
       slideIndex: slideIndex ?? this.slideIndex,

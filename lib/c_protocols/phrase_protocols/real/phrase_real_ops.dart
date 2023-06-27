@@ -50,12 +50,12 @@ class PhraseRealOps {
 
   // --------------------
   ///
-  static Future<Phrase> readPhraseByLang({
-    required String lang,
-    required String phid,
+  static Future<Phrase?> readPhraseByLang({
+    required String? lang,
+    required String? phid,
     bool createTrigram = false,
   }) async {
-    Phrase _output;
+    Phrase? _output;
 
     if (lang != null && phid != null){
 
@@ -85,7 +85,7 @@ class PhraseRealOps {
   static Future<List<Phrase>> readPhrasesByLang({
     required String langCode,
     required bool createTrigram,
-    ValueChanged<List<Phrase>> onFinish,
+    ValueChanged<List<Phrase>>? onFinish,
   }) async {
 
     List<Phrase> _output = <Phrase>[];
@@ -94,7 +94,7 @@ class PhraseRealOps {
 
       await reportThis('readPhrasesByLang : langCode : $langCode : createTrigram : $createTrigram');
 
-      final Map<String, dynamic> _map = await Real.readDoc(
+      final Map<String, dynamic>? _map = await Real.readDoc(
         coll: RealColl.phrases,
         doc: langCode,
       );

@@ -13,8 +13,8 @@ class ZoneProvider extends ChangeNotifier {
   /// CONTINENTS
 
   // --------------------
-  Continent _currentContinent;
-  Continent get currentContinent => _currentContinent;
+  Continent? _currentContinent;
+  Continent? get currentContinent => _currentContinent;
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> fetchSetContinentByCountryID({
@@ -37,7 +37,7 @@ class ZoneProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void _setCurrentContinent({
-    required Continent continent,
+    required Continent? continent,
     required bool notify,
   }){
     _currentContinent = continent;
@@ -74,11 +74,11 @@ class ZoneProvider extends ChangeNotifier {
   /// CURRENT ZONE
 
   // --------------------
-  ZoneModel _currentZone;
-  ZoneModel get currentZone => _currentZone;
+  ZoneModel? _currentZone;
+  ZoneModel? get currentZone => _currentZone;
   // --------------------
   /// TESTED : WORKS PERFECT
-  static ZoneModel proGetCurrentZone({
+  static ZoneModel? proGetCurrentZone({
     required BuildContext context,
     required bool listen,
   }){
@@ -87,7 +87,7 @@ class ZoneProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static ZoneModel proGetCurrentZoneIDs({
+  static ZoneModel? proGetCurrentZoneIDs({
     required BuildContext context,
     required bool listen,
   }){
@@ -131,7 +131,7 @@ class ZoneProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void setCurrentZone({
-    required ZoneModel zone,
+    required ZoneModel? zone,
     required bool setCountryOnly,
     required bool notify,
   }){
@@ -141,7 +141,7 @@ class ZoneProvider extends ChangeNotifier {
     // zone?.blogZone(invoker: 'setCurrentZone');
 
     if (setCountryOnly == true){
-      _currentZone = zone.nullifyField(
+      _currentZone = zone?.nullifyField(
         cityID: true,
         cityName: true,
         cityModel: true,
@@ -174,8 +174,8 @@ class ZoneProvider extends ChangeNotifier {
   List<CurrencyModel> _allCurrencies = <CurrencyModel>[];
   List<CurrencyModel> get allCurrencies => _allCurrencies;
   // --------------------
-  CurrencyModel _currentCurrency;
-  CurrencyModel get currentCurrency => _currentCurrency;
+  CurrencyModel? _currentCurrency;
+  CurrencyModel? get currentCurrency => _currentCurrency;
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<CurrencyModel> proGetAllCurrencies({
@@ -204,12 +204,12 @@ class ZoneProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static CurrencyModel proGetCurrencyByCurrencyID({
+  static CurrencyModel? proGetCurrencyByCurrencyID({
     required BuildContext context,
     required String currencyID,
     required bool listen,
   }){
-    CurrencyModel _currency;
+    CurrencyModel? _currency;
 
     if (currencyID != null) {
 

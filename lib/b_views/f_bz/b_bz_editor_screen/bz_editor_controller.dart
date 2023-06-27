@@ -27,7 +27,6 @@ import 'package:fire/super_fire.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:mediators/mediators.dart';
 import 'package:mediators/models/dimension_model.dart';
 import 'package:mediators/pic_maker/pic_maker.dart';
 /// => TAMAM
@@ -198,7 +197,7 @@ Future<void> _uploadDraftBz({
 
     blog('draftNotifier.value.hasNewLogo : ${draftNotifier.value.hasNewLogo}');
     // DraftBz.toBzModel(draftNotifier.value).blogBz(invoker: 'what the bz');
-    blog('draftNotifier.value.logoPicModel.bytes.length : ${draftNotifier.value.logoPicModel.bytes.length}');
+    blog('draftNotifier.value.logoPicModel.bytes.length : ${draftNotifier.value.logoPicModel.bytes?.length}');
 
     await BzProtocols.renovateBz(
       context: context,

@@ -1,15 +1,14 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/object_check.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 
 class AuthorPic extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -34,7 +33,6 @@ class AuthorPic extends StatelessWidget {
   Widget build(BuildContext context) {
     // --------------------
     final BorderRadius _authorPicBorders = Borderers.superCorners(
-      context: context,
       corners: cornerOverride ?? FlyerDim.authorPicCornersByPicSize(
         context: context,
         picSize: size,

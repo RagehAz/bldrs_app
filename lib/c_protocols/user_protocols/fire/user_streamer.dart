@@ -44,9 +44,9 @@ typedef UserModelWidgetBuilder = Widget Function(
  */
 // -----------------------------------------------------------------------------
 Widget userModelBuilder({
-  String userID,
-  BuildContext context,
-  UserModelWidgetBuilder builder,
+  required String userID,
+  required BuildContext context,
+  required UserModelWidgetBuilder builder,
 }) {
   return FutureBuilder<Map<String, dynamic>>(
       future: Fire.readDoc(
