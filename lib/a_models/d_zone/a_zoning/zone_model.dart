@@ -28,20 +28,20 @@ class ZoneModel {
   });
   /// --------------------------------------------------------------------------
   final String countryID;
-  final String cityID;
-  final String countryName;
-  final String cityName;
-  final CountryModel countryModel;
-  final CityModel cityModel;
-  final String icon;
+  final String? cityID;
+  final String? countryName;
+  final String? cityName;
+  final CountryModel? countryModel;
+  final CityModel? cityModel;
+  final String? icon;
   // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<ZoneModel> prepareZoneForEditing({
-    required ZoneModel zoneModel,
+  static Future<ZoneModel?> prepareZoneForEditing({
+    required ZoneModel? zoneModel,
   }) async {
 
     final ZoneModel _zone =
@@ -63,13 +63,13 @@ class ZoneModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   ZoneModel copyWith({
-    String countryID,
-    String cityID,
-    String countryName,
-    String cityName,
-    CountryModel countryModel,
-    CityModel cityModel,
-    String icon,
+    String? countryID,
+    String? cityID,
+    String? countryName,
+    String? cityName,
+    CountryModel? countryModel,
+    CityModel? cityModel,
+    String? icon,
   }){
     return ZoneModel(
       countryID: countryID ?? this.countryID,

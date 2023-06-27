@@ -74,7 +74,7 @@ class FlyerSearch {
               field: 'trigram',
               comparison: FireComparison.arrayContains,
               value: TextMod.removeAllCharactersAfterNumberOfCharacters(
-                input: title.trim(),
+                text: title.trim(),
                 numberOfChars: Standards.maxTrigramLength,
               )),
 

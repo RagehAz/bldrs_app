@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_color.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,7 @@ class StaticStrip extends StatelessWidget {
               numberOfSlides: numberOfSlides,
               colorOverride: stripColor,
             ),
-            borderRadius: Borderers.cornerAll(context, _stripCorner),
+            borderRadius: Borderers.cornerAll(_stripCorner),
         ),
       ),
     );

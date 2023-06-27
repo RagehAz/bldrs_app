@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
@@ -378,28 +379,34 @@ class ChainPathConverter {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getFirstPathNode({
+  static String? getFirstPathNode({
     required String path
   }){
     /// FIRST PATH NODE IS CHAIN ROOT ID, in this example it's [phid_a] => 'phid_a/phid_b/phid_c'
-    final String _cleanedPath = TextMod.removeTextAfterLastSpecialCharacter(path, '/');
+    final String? _cleanedPath = TextMod.removeTextAfterLastSpecialCharacter(
+        text: path,
+        specialCharacter: '/',
+    );
     /// => <String>[phid_a, phid_b, phid_c]
-    final List<String> _pathNodes = _cleanedPath.split('/');
+    final List<String>? _pathNodes = _cleanedPath?.split('/');
     /// => phid_c
-    return _pathNodes.first;
+    return _pathNodes?.first;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getLastPathNode(String path){
+  static String? getLastPathNode(String path){
     /// LAST PATH NODE IS the FURTHEST FROM ROOT ID, in this example it's [phid_c] => 'phid_a/phid_b/phid_c'
 
-    String _node;
+    String? _node;
 
     if (TextCheck.isEmpty(path) == false){
 
       final String _fixed = fixPathFormatting(path);
-      final String _cleanedPath = TextMod.removeTextAfterLastSpecialCharacter(_fixed, '/');
-      final List<String> _pathNodes = _cleanedPath.split('/');
+      final String? _cleanedPath = TextMod.removeTextAfterLastSpecialCharacter(
+          text: _fixed,
+          specialCharacter: '/',
+      );
+      final List<String> _pathNodes = _cleanedPath?.split('/');
       _node = _pathNodes.last;
 
     }
@@ -950,19 +957,25 @@ class ChainPathConverter {
     /// => no '/' in the beggining
     /// => there MUST '/' in the end
 
-    String _output = path?.trim();
+    String? _output = path?.trim();
 
     if (TextCheck.isEmpty(path) == false){
 
       /// REMOVE INITIAL SLASH IS EXISTS
-      if (_output[0] == '/'){
-        _output = TextMod.removeTextBeforeFirstSpecialCharacter(_output, '/');
+      if (_output![0] == '/'){
+        _output = TextMod.removeTextBeforeFirstSpecialCharacter(
+            text: _output,
+            specialCharacter: '/',
+        );
       }
 
       /// REMOVE LAST '//////' IF EXISTS
       int _lastIndex = _output.length - 1;
-      if (_output[_lastIndex] == '/'){
-        _output = TextMod.removeTextAfterLastSpecialCharacter(_output, '/');
+      if (_output![_lastIndex] == '/'){
+        _output = TextMod.removeTextAfterLastSpecialCharacter(
+            text: _output,
+            specialCharacter: '/',
+        );
         _output = '$_output/'; // should always keep one last slash
       }
 

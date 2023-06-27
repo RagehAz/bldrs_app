@@ -70,7 +70,7 @@ class CountriesScreenBrowseView extends StatelessWidget {
 
           final String _countryID = _countriesList[index-1];
 
-          final CensusModel _census = CensusModel.getCensusFromCensusesByID(
+          final CensusModel? _census = CensusModel.getCensusFromCensusesByID(
           censuses: countriesCensus,
           censusID: _countryID,
         );

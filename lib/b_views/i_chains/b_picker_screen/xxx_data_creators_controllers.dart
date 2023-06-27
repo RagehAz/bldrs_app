@@ -1,4 +1,5 @@
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
@@ -16,13 +17,10 @@ import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:basics/layouts/nav/nav.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:provider/provider.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 // -----------------------------------------------------------------------------
 
 /// CURRENCY DATA CREATOR
@@ -75,7 +73,7 @@ void _initializeInitialCurrency({
   if (_initialCurrencyID == null){
 
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);
-    final String _countryID = zone?.countryID ?? _zoneProvider.currentZone?.countryID;
+    final String? _countryID = zone?.countryID ?? _zoneProvider.currentZone?.countryID;
     final CurrencyModel _initialCurrency = ZoneProvider.proGetCurrencyByCountryID(
       context: getMainContext(),
       countryID: _countryID,

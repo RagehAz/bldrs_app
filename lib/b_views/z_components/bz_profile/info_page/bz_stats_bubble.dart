@@ -1,4 +1,6 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/g_counters/bz_counter_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
@@ -8,9 +10,6 @@ import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 
 class BzStatsBubble extends StatefulWidget {
@@ -91,7 +90,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
 
     return ValueListenableBuilder(
         valueListenable: _bzCounter,
-        builder: (_, BzCounterModel bzCounter, Widget? child){
+        builder: (_, BzCounterModel? bzCounter, Widget? child){
 
           final BzCounterModel _counter = bzCounter ?? BzCounterModel.createInitialModel(_bzModel?.id);
 
@@ -167,7 +166,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
                 /// BIRTH
                 StatsLine(
                   verse: Verse(
-                    id: BldrsTimers.generateString_in_bldrs_since_month_yyyy(context, _bzModel?.createdAt),
+                    id: BldrsTimers.generateString_in_bldrs_since_month_yyyy(_bzModel?.createdAt),
                     translate: false,
                   ),
                   icon: Iconz.calendar,

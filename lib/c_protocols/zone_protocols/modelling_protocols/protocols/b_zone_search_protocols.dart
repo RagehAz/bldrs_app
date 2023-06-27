@@ -182,7 +182,7 @@ class ZoneSearchOps {
     required String text,
     required String countryID,
     int limit = 10,
-    QueryDocumentSnapshot<Object> startAfter,
+    QueryDocumentSnapshot<Object>? startAfter,
   }) async {
     final List<Map<String, dynamic>> _maps = await Fire.readColl(
       queryModel: FireQueryModel(
@@ -208,7 +208,7 @@ class ZoneSearchOps {
     required String text,
     required String countryID,
     int limit = 10,
-    QueryDocumentSnapshot<Object> startAfter,
+    QueryDocumentSnapshot<Object>? startAfter,
   }) async {
     final List<Map<String, dynamic>> _maps = await Fire.readColl(
       queryModel: FireQueryModel(

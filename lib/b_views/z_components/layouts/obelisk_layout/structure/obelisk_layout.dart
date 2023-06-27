@@ -13,11 +13,8 @@ import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/obelisk_layout_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/pyramids/super_pyramids.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:animators/animators.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 
 class ObeliskLayout extends StatefulWidget {
   /// --------------------------------------------------------------------------

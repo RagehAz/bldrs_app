@@ -1,4 +1,4 @@
-import 'package:animators/animators.dart';
+
 import 'package:basics/animators/widgets/animate_widget_to_matrix.dart';
 import 'package:basics/helpers/classes/space/trinity.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';

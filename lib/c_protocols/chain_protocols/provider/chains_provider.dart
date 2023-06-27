@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/c_chain/b_zone_phids_model.dart';
@@ -798,7 +799,7 @@ class ChainsProvider extends ChangeNotifier {
     required dynamic son,
   }) {
 
-    String _phid;
+    String? _phid;
 
     /// WHEN SON IS KEYWORD ID
     if (son.runtimeType == String) {

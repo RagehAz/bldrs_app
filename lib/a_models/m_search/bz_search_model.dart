@@ -27,12 +27,12 @@ class BzSearchModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   BzSearchModel copyWith({
-    BzType bzType,
-    BzForm bzForm,
-    BzAccountType bzAccountType,
-    String scopePhid,
-    bool onlyShowingTeams,
-    bool onlyVerified,
+    BzType? bzType,
+    BzForm? bzForm,
+    BzAccountType? bzAccountType,
+    String? scopePhid,
+    bool? onlyShowingTeams,
+    bool? onlyVerified,
   }){
     return BzSearchModel(
       bzType: bzType ?? this.bzType,
@@ -70,8 +70,8 @@ class BzSearchModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> cipher(BzSearchModel bzSearchModel){
-    Map<String, dynamic> _output;
+  static Map<String, dynamic>? cipher(BzSearchModel bzSearchModel){
+    Map<String, dynamic>? _output;
 
     if (bzSearchModel != null) {
       _output = {

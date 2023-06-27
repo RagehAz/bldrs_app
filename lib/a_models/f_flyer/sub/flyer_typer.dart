@@ -9,7 +9,6 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 enum FlyerType {
@@ -43,29 +42,29 @@ class FlyerTyper{
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static FlyerType decipherFlyerType(String x) {
+  static FlyerType? decipherFlyerType(String? x) {
     switch (x) {
-      case 'general'    : return FlyerType.general;     break;
-      case 'property'   : return FlyerType.property;    break;
-      case 'design'     : return FlyerType.design;      break;
-      case 'undertaking': return FlyerType.undertaking; break;
-      case 'trade'      : return FlyerType.trade;       break;
-      case 'product'    : return FlyerType.product;     break;
-      case 'equipment'  : return FlyerType.equipment;   break;
+      case 'general'    : return FlyerType.general;
+      case 'property'   : return FlyerType.property;
+      case 'design'     : return FlyerType.design;
+      case 'undertaking': return FlyerType.undertaking;
+      case 'trade'      : return FlyerType.trade;
+      case 'product'    : return FlyerType.product;
+      case 'equipment'  : return FlyerType.equipment;
       default: return null;
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String cipherFlyerType(FlyerType x) {
+  static String? cipherFlyerType(FlyerType? x) {
     switch (x) {
-      case FlyerType.general      : return 'general';     break;
-      case FlyerType.property     : return 'property';    break;
-      case FlyerType.design       : return 'design';      break;
-      case FlyerType.undertaking  : return 'undertaking'; break;
-      case FlyerType.trade        : return 'trade';       break;
-      case FlyerType.product      : return 'product';     break;
-      case FlyerType.equipment    : return 'equipment';   break;
+      case FlyerType.general      : return 'general';
+      case FlyerType.property     : return 'property';
+      case FlyerType.design       : return 'design';
+      case FlyerType.undertaking  : return 'undertaking';
+      case FlyerType.trade        : return 'trade';
+      case FlyerType.product      : return 'product';
+      case FlyerType.equipment    : return 'equipment';
       default: return null;
     }
   }

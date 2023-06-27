@@ -53,7 +53,7 @@ class BldrsImage extends StatelessWidget {
   Widget getChild({
     required BuildContext context,
     required dynamic theIcon,
-    bool isLoading,
+    bool isLoading = false,
   }) {
     return SuperImage(
       width: width,
@@ -65,7 +65,7 @@ class BldrsImage extends StatelessWidget {
       greyscale: greyscale,
       pic: theIcon,
       iconColor: iconColor,
-      loading: isLoading ?? loading,
+      loading: isLoading,
     );
   }
   // --------------------------------------------------------------------------

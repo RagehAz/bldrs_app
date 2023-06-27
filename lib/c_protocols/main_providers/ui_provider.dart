@@ -1,15 +1,15 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
 import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
 import 'package:bldrs/a_models/x_ui/ui_image_cache_model.dart';
-import 'package:mediators/mediators.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
+import 'package:mediators/models/dimension_model.dart';
 import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
 
@@ -21,7 +21,7 @@ final GlobalKey<NavigatorState> mainNavKey = GlobalKey<NavigatorState>();
 // --------------------
 /// TESTED : WORKS PERFECT
 BuildContext getMainContext() {
-  return mainNavKey.currentContext;
+  return mainNavKey.currentContext!;
 }
 // -----------------------------------------------------------------------------
 /// => TAMAM
@@ -61,11 +61,11 @@ class UiProvider extends ChangeNotifier {
   /// SCREEN DIMENSIONS
 
   // --------------------
-  Dimensions _screenDims;
-  Dimensions get screenDims => _screenDims;
+  Dimensions? _screenDims;
+  Dimensions? get screenDims => _screenDims;
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Dimensions proGetScreenDimensions({
+  static Dimensions? proGetScreenDimensions({
     required BuildContext context,
     required bool listen,
   }){

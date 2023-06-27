@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/space/atlas.dart';
 import 'package:bldrs/a_models/a_user/sub/agenda_model.dart';
 import 'package:bldrs/a_models/a_user/sub/deck_model.dart';
@@ -177,16 +178,16 @@ class DraftUser {
   // --------------------
   /// TESTED : WORKS PERFECT
   void dispose(){
-    nameNode.dispose();
-    titleNode.dispose();
-    companyNode.dispose();
-    emailNode.dispose();
-    phoneNode.dispose();
-    nameController.dispose();
-    titleController.dispose();
-    companyController.dispose();
-    emailController.dispose();
-    phoneController.dispose();
+    nameNode?.dispose();
+    titleNode?.dispose();
+    companyNode?.dispose();
+    emailNode?.dispose();
+    phoneNode?.dispose();
+    nameController?.dispose();
+    titleController?.dispose();
+    companyController?.dispose();
+    emailController?.dispose();
+    phoneController?.dispose();
   }
   // -----------------------------------------------------------------------------
 
@@ -536,15 +537,16 @@ class DraftUser {
           draft1.emailIsVerified == draft2.emailIsVerified &&
           draft1.isAdmin == draft2.isAdmin &&
           DeckModel.checkDecksAreIdentical(deck1: draft1.savedFlyers, deck2: draft2.savedFlyers) == true &&
-          AgendaModel.checkAgendasAreIdentical(agenda1: draft1.followedBzz, agenda2: draft2.followedBzz) == true &&
-          AppStateModel.checkAppStatesAreIdentical(state1: draft1.appState, state2: draft2.appState) == true &&
-          DeviceModel.checkDevicesAreIdentical(device1: draft1.device, device2: draft2.device) == true &&
+          AgendaModel.checkAgendasAreIdentical(agenda1: draft1?.followedBzz, agenda2: draft2?.followedBzz) == true &&
+          AppStateModel.checkAppStatesAreIdentical(state1: draft1?.appState, state2: draft2?.appState) == true &&
+          DeviceModel.checkDevicesAreIdentical(device1: draft1?.device, device2: draft2?.device)
+              == true &&
           Mapper.checkListsAreIdentical(list1: draft1.fcmTopics, list2: draft2.fcmTopics) == true &&
-          draft1.nameController.text == draft2.nameController.text &&
-          draft1.titleController.text == draft2.titleController.text &&
-          draft1.companyController.text == draft2.companyController.text &&
-          draft1.emailController.text == draft2.emailController.text &&
-          draft1.phoneController.text == draft2.phoneController.text &&
+          draft1.nameController?.text == draft2.nameController?.text &&
+          draft1.titleController?.text == draft2.titleController?.text &&
+          draft1.companyController?.text == draft2.companyController?.text &&
+          draft1.emailController?.text == draft2.emailController?.text &&
+          draft1.phoneController?.text == draft2.phoneController?.text &&
           draft1.hasNewPic == draft2.hasNewPic
       ){
         _identical = true;

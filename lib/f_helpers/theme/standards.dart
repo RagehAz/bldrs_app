@@ -1,8 +1,6 @@
 import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
-import 'package:mediators/mediators.dart';
-import 'package:devicer/devicer.dart';
-import 'package:flutter/material.dart';
+import 'package:mediators/models/dimension_model.dart';
 
 class Standards {
   // -----------------------------------------------------------------------------

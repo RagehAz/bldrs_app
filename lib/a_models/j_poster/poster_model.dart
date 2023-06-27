@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_type.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
@@ -39,9 +40,9 @@ class PosterModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   PosterModel copyWith({
-    String modelID,
-    PosterType type,
-    String path,
+    String? modelID,
+    PosterType? type,
+    String? path,
   }){
     return PosterModel(
       modelID: modelID ?? this.modelID,

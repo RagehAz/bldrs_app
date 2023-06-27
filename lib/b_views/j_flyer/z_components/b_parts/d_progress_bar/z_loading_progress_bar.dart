@@ -28,7 +28,6 @@ class LoadingProgressBar extends StatelessWidget {
             decoration: BoxDecoration(
               color: FlyerColors.progressStripOffColor,
               borderRadius: FlyerDim.progressStripCorners(
-                  context: context,
                   flyerBoxWidth: flyerBoxWidth,
               ),
             ),

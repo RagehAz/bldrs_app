@@ -5,22 +5,14 @@ import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:basics/legalizer/legalizer.dart';
 import 'package:bldrs/b_views/b_auth/b_email_auth_screen/a_email_auth_screen.dart';
-import 'package:bldrs/b_views/b_auth/x_auth_controllers.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/b_views/z_components/buttons/main_button.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/bldrs_keys.dart';
-import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:devicer/devicer.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/layouts/nav/nav.dart';
-import 'package:legalizer/legalizer.dart';
 
 class AuthScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -105,10 +97,10 @@ class AuthScreenView extends StatelessWidget {
         LegalDisclaimerLine(
           onPolicyTap: () => onPrivacyTap(),
           onTermsTap: () => onTermsAndTap(),
-          disclaimerLine: Verse.transBake('phid_by_using_bldrs_you_agree_to_our'),
-          andLine: Verse.transBake('phid_and'),
-          policyLine: Verse.transBake('phid_privacy_policy'),
-          termsLine: Verse.transBake('phid_terms_of_service'),
+          disclaimerLine: Verse.transBake('phid_by_using_bldrs_you_agree_to_our')!,
+          andLine: Verse.transBake('phid_and')!,
+          policyLine: Verse.transBake('phid_privacy_policy')!,
+          termsLine: Verse.transBake('phid_terms_of_service')!,
           textDirection: UiProvider.getAppTextDir(),
         ),
 

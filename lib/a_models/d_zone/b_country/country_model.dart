@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
@@ -21,8 +22,8 @@ class CountryModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   CountryModel copyWith({
-    String id,
-    StagingModel citiesIDs,
+    String? id,
+    StagingModel? citiesIDs,
   }){
     return CountryModel(
       id: id ?? this.id,

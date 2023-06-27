@@ -29,9 +29,9 @@ class Progress{
   final int current;
   /// --------------------------------------------------------------------------
   Progress copyWith({
-    String targetID,
-    int objective,
-    int current,
+    String? targetID,
+    int? objective,
+    int? current,
   }){
     return Progress(
       targetID: targetID ?? this.targetID,

@@ -1,16 +1,13 @@
 import 'dart:typed_data';
-
 import 'package:basics/helpers/classes/checks/object_check.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/files/file_size_unit.dart';
 import 'package:basics/helpers/classes/files/floaters.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:fire/super_fire.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
-import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:mediators/mediators.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:mediators/models/dimension_model.dart';
 
 class PicStorageOps {
@@ -28,7 +25,7 @@ class PicStorageOps {
 
     PicModel.assertIsUploadable(picModel);
 
-    final String _url = await Storage.uploadBytesAndGetURL(
+    final String? _url = await Storage.uploadBytesAndGetURL(
       bytes: picModel.bytes,
       path: picModel.path,
       storageMetaModel: picModel.meta,

@@ -199,14 +199,17 @@ class Phider {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkPhidHasIndex(String phid){
+  static bool checkPhidHasIndex(String? phid){
     bool _hasIndex = false;
 
     if (phid != null && phid is String){
 
-      final String _firstFourChars = TextMod.removeTextAfterFirstSpecialCharacter(phid, '_');
+      final String? _firstFourChars = TextMod.removeTextAfterFirstSpecialCharacter(
+          text: phid,
+          specialCharacter: '_',
+      );
 
-      final int _int = Numeric.transformStringToInt(_firstFourChars);
+      final int? _int = Numeric.transformStringToInt(_firstFourChars);
 
       if (_int != null){
         _hasIndex = true;
@@ -218,13 +221,16 @@ class Phider {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static int getIndexFromPhid(String phid){
-    int _index;
+  static int? getIndexFromPhid(String? phid){
+    int? _index;
 
     if (phid != null && phid is String){
 
       if (checkPhidHasIndex(phid) == true){
-        final String _indexString = TextMod.removeTextAfterFirstSpecialCharacter(phid, '_');
+        final String? _indexString = TextMod.removeTextAfterFirstSpecialCharacter(
+            text: phid,
+            specialCharacter: '_',
+        );
         _index = Numeric.transformStringToInt(_indexString);
       }
 
@@ -238,8 +244,8 @@ class Phider {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Chain sortChainSonsByIndex(Chain chain){
-    Chain _output;
+  static Chain? sortChainSonsByIndex(Chain? chain){
+    Chain? _output;
 
     if (chain != null){
 
@@ -439,12 +445,15 @@ class Phider {
     // => '{secondNode_xxx} + {yyy}
     // => key = 'xxx_yyy'
 
-    final String _phidWithIndex = ChainPathConverter.getLastPathNode(path);
-    final String _phid = Phider.removeIndexFromPhid(phid: _phidWithIndex);
+    final String? _phidWithIndex = ChainPathConverter.getLastPathNode(path);
+    final String? _phid = Phider.removeIndexFromPhid(phid: _phidWithIndex);
     final List<String> _split = ChainPathConverter.splitPathNodes(path);
 
     final String _groupLine = _split[_split.length - 2];
-    final String group = TextMod.removeTextBeforeLastSpecialCharacter(_groupLine, '_');
+    final String? group = TextMod.removeTextBeforeLastSpecialCharacter(
+        text: _groupLine,
+        specialCharacter: '_',
+    );
     final String _key = '${group}_$_phid';
 
     return _key;
@@ -516,7 +525,7 @@ class Phider {
     if (text != null && text is String){
 
       final String _phid = TextMod.removeAllCharactersAfterNumberOfCharacters(
-        input: removeIndexFromPhid(phid: text),
+        text: removeIndexFromPhid(phid: text),
         numberOfChars: currencyCut.length,
       )?.toLowerCase();
 
@@ -539,7 +548,7 @@ class Phider {
     if (text != null){
 
       final String _phid = TextMod.removeAllCharactersAfterNumberOfCharacters(
-        input: removeIndexFromPhid(phid: text),
+        text: removeIndexFromPhid(phid: text),
         numberOfChars: headlineCut.length,
       )?.toLowerCase();
 
@@ -552,8 +561,8 @@ class Phider {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkVerseIsTemp(String text){
-    final String _temp = TextMod.removeAllCharactersAfterNumberOfCharacters(
-      input: text,
+    final String? _temp = TextMod.removeAllCharactersAfterNumberOfCharacters(
+      text: text,
       numberOfChars: 2, //'( # # )'
     );
     return _temp == '##';

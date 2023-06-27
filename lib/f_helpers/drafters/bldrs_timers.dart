@@ -9,12 +9,10 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
-import 'package:devicer/devicer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/rest/rest.dart';
 import 'package:basics/helpers/classes/time/timers.dart';
@@ -27,34 +25,34 @@ class BldrsTimers {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getMonthPhidByInt(BuildContext context, int month){
+  static String? getMonthPhidByInt(int? month){
     switch (month){
-      case 1    :    return  'phid_january'   ; break;
-      case 2    :    return  'phid_february'  ; break;
-      case 3    :    return  'phid_march'     ; break;
-      case 4    :    return  'phid_april'     ; break;
-      case 5    :    return  'phid_may'       ; break;
-      case 6    :    return  'phid_june'      ; break;
-      case 7    :    return  'phid_july'      ; break;
-      case 8    :    return  'phid_august'    ; break;
-      case 9    :    return  'phid_september' ; break;
-      case 10   :    return  'phid_october'   ; break;
-      case 11   :    return  'phid_november'  ; break;
-      case 12   :    return  'phid_december'  ; break;
+      case 1    :    return  'phid_january'   ;
+      case 2    :    return  'phid_february'  ;
+      case 3    :    return  'phid_march'     ;
+      case 4    :    return  'phid_april'     ;
+      case 5    :    return  'phid_may'       ;
+      case 6    :    return  'phid_june'      ;
+      case 7    :    return  'phid_july'      ;
+      case 8    :    return  'phid_august'    ;
+      case 9    :    return  'phid_september' ;
+      case 10   :    return  'phid_october'   ;
+      case 11   :    return  'phid_november'  ;
+      case 12   :    return  'phid_december'  ;
       default : return null;
     }
   }
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  static String generateString_in_bldrs_since_month_yyyy(BuildContext context, DateTime time){
+  static String generateString_in_bldrs_since_month_yyyy(DateTime? time){
 
     String _output = '';
 
-    if (time != null && time.year != null && time.month != null){
+    if (time != null){
       _output = '${xPhrase('phid_inn')} '
                 '${Words.bldrsShortName()} '
                 '${xPhrase('phid_since')} : '
-                '${xPhrase(getMonthPhidByInt(context, time.month))} '
+                '${xPhrase(getMonthPhidByInt(time.month))} '
                 '${time.year}';
     }
 
@@ -79,7 +77,7 @@ class BldrsTimers {
                 '${xPhrase('phid_phid_bldrsShortName')} '
                 '${xPhrase('phid_since')} : '
                 '${time.day} '
-                '${xPhrase(getMonthPhidByInt(context, time.month))} '
+                '${xPhrase(getMonthPhidByInt(time.month))} '
                 '${time.year}';
     }
 
@@ -93,18 +91,17 @@ class BldrsTimers {
     required DateTime time,
   }){
     final String _day = '${time.day}';
-    final String _monthPhid = getMonthPhidByInt(context, time.month);
-    final String _month = xPhrase(_monthPhid);
+    final String? _monthPhid = getMonthPhidByInt(time.month);
+    final String? _month = xPhrase(_monthPhid);
     final String _year = '${time.year}';
-    final String _on = xPhrase('phid_on_4date');
+    final String? _on = xPhrase('phid_on_4date');
 
     return '$_on $_day $_month $_year';
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static String generateString_hh_i_mm_ampm_day_dd_month_yyyy({
-    required BuildContext context,
-    required DateTime time,
+    required DateTime? time,
   }){
 
     String _output = '';
@@ -114,14 +111,14 @@ class BldrsTimers {
     );
 
     if (_timeIsEmpty == false){
-      final String _hh = DateFormat('h').format(time);
-      final String _mm = Numeric.formatNumberWithinDigits(num: time.minute, digits: 2);
-      final String _ampm = DateFormat('a').format(time);
-      final String _day = Timers.generateDayName(time);
-      final String _dd = '${time.day}';
-      final String _monthPhid = getMonthPhidByInt(context, time.month);
-      final String _month = xPhrase(_monthPhid);
-      final String _yyyy = '${time.year}';
+      final String? _hh = DateFormat('h').format(time);
+      final String? _mm = Numeric.formatNumberWithinDigits(num: time.minute, digits: 2);
+      final String? _ampm = DateFormat('a').format(time);
+      final String? _day = Timers.generateDayName(time);
+      final String? _dd = '${time.day}';
+      final String? _monthPhid = getMonthPhidByInt(time.month);
+      final String? _month = xPhrase(_monthPhid);
+      final String? _yyyy = '${time.year}';
 
       _output = '$_hh:$_mm $_ampm, $_day $_dd $_month $_yyyy';
     }
@@ -155,13 +152,12 @@ class BldrsTimers {
   }
   // --------------------
   /// GENERATES => [ 'dd month yyyy' ]
-  static String translate_dd_month_yyyy({
-    required BuildContext context,
-    required DateTime time
+  static String? translate_dd_month_yyyy({
+    required DateTime? time
   }){
 
-    final String _monthPhid = getMonthPhidByInt(context, time?.month);
-    final String _month = xPhrase(_monthPhid);
+    final String? _monthPhid = getMonthPhidByInt(time?.month);
+    final String? _month = xPhrase(_monthPhid);
 
     return Timers.generateString_dd_I_MM_I_yyyy(
       time: time,
@@ -241,17 +237,18 @@ class BldrsTimers {
   }) async {
 
     // int _diff;
-    DateTime _internetTime;
-    DateTime _deviceTime;
-    String _timezone;
+    DateTime? _internetTime;
+    DateTime? _deviceTime;
+    String? _timezone;
 
     final bool _isTolerable = await InternetTime.checkDeviceTimeIsAcceptable(
-      internetTime: (InternetTime time){
+      internetTime: (InternetTime? time){
+
         _internetTime = time?.utc_datetime?.toLocal();
         _timezone = time?.timezone;
         },
-      deviceTime: (DateTime time){_deviceTime = time;},
-      diff: (int diff){
+      deviceTime: (DateTime? time){_deviceTime = time;},
+      diff: (int? diff){
         // _diff = diff;
         },
     );
@@ -262,18 +259,16 @@ class BldrsTimers {
       // Timers.blogDateTime(_internetTime);
       // blog('checkDeviceTimeIsCorrect : _diff : ( $_diff ) : _isTolerable : $_isTolerable');
 
-      final String _dd_month_yyy_actual = translate_dd_month_yyyy(
-          context: context,
+      final String? _dd_month_yyy_actual = translate_dd_month_yyyy(
           time: _internetTime,
       );
-      final String _hh_i_mm_ampm_actual = Timers.generateString_hh_i_mm_ampm(
+      final String? _hh_i_mm_ampm_actual = Timers.generateString_hh_i_mm_ampm(
           time: _internetTime,
       );
-      final String _dd_month_yyy_device = translate_dd_month_yyyy(
-          context: context, 
+      final String? _dd_month_yyy_device = translate_dd_month_yyyy(
           time: _deviceTime,
       );
-      final String _hh_i_mm_ampm_device = Timers.generateString_hh_i_mm_ampm(
+      final String? _hh_i_mm_ampm_device = Timers.generateString_hh_i_mm_ampm(
           time: _deviceTime
       );
       Verse _zoneLine = ZoneModel.generateInZoneVerse(
@@ -320,12 +315,12 @@ class BldrsTimers {
   /// TESTED : WORKS PERFECT
   static Future<Map<String, dynamic>> getInternetUTCTime() async {
 
-    DateTime _dateTime;
-    String _timezone;
+    DateTime? _dateTime;
+    String? _timezone;
 
     const String url = 'http://worldtimeapi.org/api/ip';
 
-    final http.Response _response = await Rest.get(
+    final http.Response? _response = await Rest.get(
       rawLink: url,
       invoker: 'getInternetUTCTime',
     );
@@ -338,7 +333,7 @@ class BldrsTimers {
 
       final String _utcDateTimeString = _map['utc_datetime'];
 
-      final DateTime _utcTime = Timers.decipherTime(
+      final DateTime? _utcTime = Timers.decipherTime(
         time: _utcDateTimeString,
         fromJSON: true,
       );

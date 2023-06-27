@@ -43,14 +43,14 @@ class BzCounterModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   BzCounterModel copyWith({
-    String bzID,
-    int follows,
-    int calls,
-    int allSaves,
-    int allShares,
-    int allSlides,
-    int allViews,
-    int allReviews,
+    String? bzID,
+    int? follows,
+    int? calls,
+    int? allSaves,
+    int? allShares,
+    int? allSlides,
+    int? allViews,
+    int? allReviews,
   }){
 
     return BzCounterModel(

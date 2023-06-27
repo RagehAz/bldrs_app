@@ -1,6 +1,8 @@
 // ignore_for_file: non_constant_identifier_names
 import 'dart:convert';
 
+import 'package:basics/helpers/classes/checks/error_helpers.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
@@ -63,8 +65,8 @@ class ZoneIPOps {
 
     /// NOTE : this is limited and needs paid subscription
 
-    String _countryID;
-    String _cityID;
+    String? _countryID;
+    String? _cityID;
 
     const String _url = 'http://ip-api.com/json';
 
@@ -72,15 +74,15 @@ class ZoneIPOps {
         invoker: 'get Country by IP',
         functions: () async {
 
-          final Response _response = await Rest.get(
+          final Response? _response = await Rest.get(
             rawLink: _url,
             invoker: '_getZoneByIP_ipApi',
           );
 
           /// RECEIVED DATA
-          if (_response?.statusCode == 200) {
+          if (_response?.statusCode == 200 && _response?.body != null) {
 
-            final Map<String, dynamic> _countryData = json.decode(_response.body);
+            final Map<String, dynamic> _countryData = json.decode(_response!.body!);
 
             if (_countryData != null) {
               final String _countryISO = _countryData['countryCode'];
@@ -149,7 +151,7 @@ class ZoneIPOps {
         invoker: 'get Country by IP',
         functions: () async {
 
-          final Response _response = await Rest.get(
+          final Response? _response = await Rest.get(
             rawLink: _url,
             invoker: '_getZoneByIP_ipRegistry',
           );

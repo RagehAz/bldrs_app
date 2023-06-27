@@ -8,7 +8,6 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/e_extra_layers/flyer_affiliate_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class FlyerFooterButtons extends StatelessWidget {
@@ -59,8 +58,8 @@ class FlyerFooterButtons extends StatelessWidget {
     final bool _canShow = _canShowElement();
 
     return Positioned(
-      right: BldrsAligners.rightPositionInRightAlignmentEn(context, 0),
-      left: BldrsAligners.leftPositionInRightAlignmentEn(context, 0),
+      right: BldrsAligners.rightPositionInRightAlignmentEn(0),
+      left: BldrsAligners.leftPositionInRightAlignmentEn(0),
       bottom: 0,
       child: ValueListenableBuilder(
         valueListenable: flyerCounter,
@@ -91,7 +90,9 @@ class FlyerFooterButtons extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
-                      if (_canShow == true) footerButtonSpacer,
+
+                      if (_canShow == true)
+                        footerButtonSpacer!,
 
                       /// SHARE
                       if (_canShow == true)
@@ -130,7 +131,8 @@ class FlyerFooterButtons extends StatelessWidget {
                           ),
                         ),
 
-                      if (_canShow == true) footerButtonSpacer,
+                      if (_canShow == true)
+                        footerButtonSpacer!,
 
                       /// SAVE BUTTON
                       ValueListenableBuilder(
@@ -148,7 +150,8 @@ class FlyerFooterButtons extends StatelessWidget {
                         },
                       ),
 
-                      footerButtonSpacer,
+                      footerButtonSpacer!,
+
                     ],
                   ),
                 ),

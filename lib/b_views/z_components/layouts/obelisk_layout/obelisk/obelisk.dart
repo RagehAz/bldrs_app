@@ -6,9 +6,7 @@ import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelis
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk_verses_builder.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:provider/provider.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
@@ -224,7 +222,7 @@ class Obelisk extends StatelessWidget {
         bottom: Ratioz.appBarMargin,
         child: Selector<UiProvider, bool>(
           selector: (_, UiProvider uiProvider) => uiProvider.pyramidsAreExpanded,
-          builder: (_, bool expanded, Widget child) {
+          builder: (_, bool expanded, Widget? child) {
             final bool _ignore = expanded == null || expanded == true ? false : true;
 
             return IgnorePointer(

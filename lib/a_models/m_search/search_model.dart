@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -104,13 +105,13 @@ class SearchModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   SearchModel copyWith({
-    String id,
-    String userID,
-    String text,
-    ZoneModel zone,
-    DateTime time,
-    FlyerSearchModel flyerSearchModel,
-    BzSearchModel bzSearchModel,
+    String? id,
+    String? userID,
+    String? text,
+    ZoneModel? zone,
+    DateTime? time,
+    FlyerSearchModel? flyerSearchModel,
+    BzSearchModel? bzSearchModel,
   }){
     return SearchModel(
       id: id ?? this.id,
@@ -264,10 +265,10 @@ class SearchModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static ModelType concludeSearchType({
+  static ModelType? concludeSearchType({
     required SearchModel model,
   }){
-    ModelType _output;
+    ModelType? _output;
 
     if (model != null){
 

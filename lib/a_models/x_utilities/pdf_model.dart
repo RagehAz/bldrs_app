@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/files/floaters.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:fire/super_fire.dart';
@@ -21,8 +22,8 @@ class PDFModel {
   /// --------------------------------------------------------------------------
   final String name;
   final String path;
-  final Uint8List bytes;
-  final double sizeMB;
+  final Uint8List? bytes;
+  final double? sizeMB;
   final List<String> ownersIDs;
   // -----------------------------------------------------------------------------
 
@@ -31,11 +32,11 @@ class PDFModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   PDFModel copyWith({
-    String name,
-    String path,
-    List<String> ownersIDs,
-    Uint8List bytes,
-    double sizeMB,
+    String? name,
+    String? path,
+    List<String>? ownersIDs,
+    Uint8List? bytes,
+    double? sizeMB,
   }){
     return PDFModel(
       name: name ?? this.name,

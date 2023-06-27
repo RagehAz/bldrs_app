@@ -10,7 +10,7 @@
 // 
 // import 'package:basics/helpers/classes/space/scale.dart';
 // import 'package:basics/helpers/classes/files/filers.dart';
-// import 'package:bldrs_theme/bldrs_theme.dart';
+// 
 // import 'package:fire/super_fire.dart';
 // import 'package:flutter/material.dart';
 // import 'package:google_maps_flutter/google_maps_flutter.dart';

@@ -1,14 +1,14 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/bubbles/bubble/bubble_switcher.dart';
+import 'package:basics/bubbles/model/bubble_header_vm.dart';
+import 'package:basics/helpers/widgets/drawing/expander.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 
 @immutable
 class BldrsBubbleHeaderVM {
@@ -49,20 +49,20 @@ class BldrsBubbleHeaderVM {
   /// --------------------------------------------------------------------------
   static BubbleHeaderVM bake({
     required BuildContext context,
-    double headerWidth,
+    double? headerWidth,
     dynamic leadingIcon,
     double leadingIconSizeFactor = 1,
-    Color leadingIconBoxColor,
+    Color? leadingIconBoxColor,
     bool leadingIconIsBubble = false,
-    Function onLeadingIconTap,
+    Function? onLeadingIconTap,
     bool hasSwitch = false,
     bool hasMoreButton = false,
-    Verse headlineVerse,
+    Verse? headlineVerse,
     Color headlineColor = Colorz.white255,
     bool centered = false,
     bool switchValue = false,
-    ValueChanged<bool> onSwitchTap,
-    Function onMoreButtonTap,
+    ValueChanged<bool>? onSwitchTap,
+    Function? onMoreButtonTap,
     bool redDot = false,
     VerseWeight weight = VerseWeight.black,
   }){
