@@ -15,7 +15,7 @@ class CountryRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CountryModel> readCountry({
-    @required String countryID,
+    required String countryID,
   }) async {
     CountryModel _output;
 

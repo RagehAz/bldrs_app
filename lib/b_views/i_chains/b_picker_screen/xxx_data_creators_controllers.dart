@@ -1,3 +1,5 @@
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
@@ -14,13 +16,13 @@ import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:numeric/numeric.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:provider/provider.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 // -----------------------------------------------------------------------------
 
 /// CURRENCY DATA CREATOR
@@ -28,14 +30,14 @@ import 'package:stringer/stringer.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 void initializeCurrencyData({
-  @required ValueNotifier<String> selectedCurrencyID,
-  @required ZoneModel zone,
-  @required TextEditingController textController,
-  @required SpecModel initialValue,
-  @required ValueNotifier<double> priceValue,
-  @required DataCreator dataCreatorType,
-  @required String initialCurrencyID,
-  @required bool mounted,
+  required ValueNotifier<String> selectedCurrencyID,
+  required ZoneModel zone,
+  required TextEditingController textController,
+  required SpecModel initialValue,
+  required ValueNotifier<double> priceValue,
+  required DataCreator dataCreatorType,
+  required String initialCurrencyID,
+  required bool mounted,
 }){
 
   /// INITIALIZE CURRENCY
@@ -62,10 +64,10 @@ void initializeCurrencyData({
 // --------------------
 /// TESTED : WORKS PERFECT
 void _initializeInitialCurrency({
-  @required String initialCurrencyID,
-  @required ZoneModel zone,
-  @required ValueNotifier<String> selectedCurrencyID,
-  @required bool mounted,
+  required String initialCurrencyID,
+  required ZoneModel zone,
+  required ValueNotifier<String> selectedCurrencyID,
+  required bool mounted,
 }){
 
   String _initialCurrencyID = initialCurrencyID;
@@ -94,15 +96,15 @@ void _initializeInitialCurrency({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onCurrencySelectorButtonTap({
-  @required BuildContext context,
-  @required ZoneModel zone,
-  @required ValueNotifier<String> selectedCurrencyID,
-  @required GlobalKey<FormState> formKey,
-  @required String text,
-  @required ValueNotifier<dynamic> specValue,
-  @required PickerModel picker,
-  @required ValueChanged<List<SpecModel>> onExportSpecs,
-  @required bool mounted,
+  required BuildContext context,
+  required ZoneModel zone,
+  required ValueNotifier<String> selectedCurrencyID,
+  required GlobalKey<FormState> formKey,
+  required String text,
+  required ValueNotifier<dynamic> specValue,
+  required PickerModel picker,
+  required ValueChanged<List<SpecModel>> onExportSpecs,
+  required bool mounted,
 }) async {
 
   final CurrencyModel _currency = await Nav.goToNewScreen(
@@ -140,14 +142,14 @@ Future<void> onCurrencySelectorButtonTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 void initializeNumberData({
-  @required SpecModel initialValue,
-  @required TextEditingController textController,
-  @required ValueNotifier<String> selectedUnitID,
-  @required PickerModel picker,
-  @required ValueNotifier<dynamic> specValue,
-  @required DataCreator dataCreatorType,
-  @required String initialUnit,
-  @required bool mounted,
+  required SpecModel initialValue,
+  required TextEditingController textController,
+  required ValueNotifier<String> selectedUnitID,
+  required PickerModel picker,
+  required ValueNotifier<dynamic> specValue,
+  required DataCreator dataCreatorType,
+  required String initialUnit,
+  required bool mounted,
 }){
   // --------------------
   setNotifier(
@@ -177,10 +179,10 @@ void initializeNumberData({
 // --------------------
 /// TESTED : WORKS PERFECT
 void _initializeNumberUnit({
-  @required String initialUnit,
-  @required Chain unitChain,
-  @required ValueNotifier<String> selectedUnitID,
-  @required bool mounted,
+  required String initialUnit,
+  required Chain unitChain,
+  required ValueNotifier<String> selectedUnitID,
+  required bool mounted,
 }){
   String _initialUnit;
 
@@ -208,15 +210,15 @@ void _initializeNumberUnit({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onUnitSelectorButtonTap({
-  @required BuildContext context,
-  @required PickerModel picker,
-  @required String text,
-  @required ValueNotifier<String> selectedUnitID,
-  @required ValueNotifier<dynamic> specValue,
-  @required DataCreator dataCreatorType,
-  @required GlobalKey<FormState> formKey,
-  @required ValueChanged<List<SpecModel>> onExportSpecs,
-  @required bool mounted,
+  required BuildContext context,
+  required PickerModel picker,
+  required String text,
+  required ValueNotifier<String> selectedUnitID,
+  required ValueNotifier<dynamic> specValue,
+  required DataCreator dataCreatorType,
+  required GlobalKey<FormState> formKey,
+  required ValueChanged<List<SpecModel>> onExportSpecs,
+  required bool mounted,
 }) async {
 // --------------------
   final Chain _unitChain = ChainsProvider.proFindChainByID(
@@ -289,15 +291,15 @@ Future<void> onUnitSelectorButtonTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 void _onSelectUnit({
-  @required String unitID,
-  @required String text,
-  @required ValueNotifier<String> selectedUnitID,
-  @required PickerModel picker,
-  @required ValueNotifier<dynamic> specValue,
-  @required DataCreator dataCreatorType,
-  @required GlobalKey<FormState> formKey,
-  @required ValueChanged<List<SpecModel>> onExportSpecs,
-  @required bool mounted,
+  required String unitID,
+  required String text,
+  required ValueNotifier<String> selectedUnitID,
+  required PickerModel picker,
+  required ValueNotifier<dynamic> specValue,
+  required DataCreator dataCreatorType,
+  required GlobalKey<FormState> formKey,
+  required ValueChanged<List<SpecModel>> onExportSpecs,
+  required bool mounted,
 }){
 
   blog('selected unit : $unitID');
@@ -323,14 +325,14 @@ void _onSelectUnit({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onDataCreatorKeyboardChanged({
-  @required GlobalKey<FormState> formKey,
-  @required String text,
-  @required DataCreator dataCreatorType,
-  @required ValueNotifier<dynamic> specValue,
-  @required PickerModel picker,
-  @required String selectedUnitID,
-  @required ValueChanged<List<SpecModel>> onExportSpecs,
-  @required bool mounted,
+  required GlobalKey<FormState> formKey,
+  required String text,
+  required DataCreator dataCreatorType,
+  required ValueNotifier<dynamic> specValue,
+  required PickerModel picker,
+  required String selectedUnitID,
+  required ValueChanged<List<SpecModel>> onExportSpecs,
+  required bool mounted,
 }) {
 
   Formers.validateForm(formKey);
@@ -354,15 +356,15 @@ void onDataCreatorKeyboardChanged({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onDataCreatorKeyboardSubmittedAnd({
-  @required BuildContext context,
-  @required GlobalKey<FormState> formKey,
-  @required String text,
-  @required DataCreator dataCreatorType,
-  @required ValueNotifier<dynamic> specValue,
-  @required PickerModel picker,
-  @required String selectedUnitID,
-  @required ValueChanged<List<SpecModel>> onExportSpecs,
-  @required bool mounted,
+  required BuildContext context,
+  required GlobalKey<FormState> formKey,
+  required String text,
+  required DataCreator dataCreatorType,
+  required ValueNotifier<dynamic> specValue,
+  required PickerModel picker,
+  required String selectedUnitID,
+  required ValueChanged<List<SpecModel>> onExportSpecs,
+  required bool mounted,
   ValueChanged<String> onKeyboardSubmitted,
 }) async {
 
@@ -390,10 +392,10 @@ Future<void> onDataCreatorKeyboardSubmittedAnd({
 // --------------------
 /// TESTED : WORKS PERFECT
 void _fixValueDataTypeAndSetValue({
-  @required String text,
-  @required DataCreator dataCreatorType,
-  @required ValueNotifier<dynamic> specValue,
-  @required bool mounted,
+  required String text,
+  required DataCreator dataCreatorType,
+  required ValueNotifier<dynamic> specValue,
+  required bool mounted,
 }){
   // NOTE : controller.text = '$_value'; => can not redefine controller, it bugs text field
 
@@ -436,8 +438,8 @@ void _fixValueDataTypeAndSetValue({
 // --------------------
 /// TESTED : WORKS PERFECT
 dynamic _fixValueDataType({
-  @required dynamic value,
-  @required DataCreator dataCreatorType,
+  required dynamic value,
+  required DataCreator dataCreatorType,
 }){
 
   /// IF INT
@@ -478,11 +480,11 @@ dynamic _fixValueDataType({
 // --------------------
 /// TESTED : WORKS PERFECT
 void _createSpecsFromLocalDataAndExport({
-  @required String text,
-  @required ValueNotifier<dynamic> specValue,
-  @required PickerModel picker,
-  @required String selectedUnitID,
-  @required ValueChanged<List<SpecModel>> onExportSpecs,
+  required String text,
+  required ValueNotifier<dynamic> specValue,
+  required PickerModel picker,
+  required String selectedUnitID,
+  required ValueChanged<List<SpecModel>> onExportSpecs,
 }){
 
   final List<SpecModel> _specs = _createSpecsForValueAndUnit(
@@ -497,10 +499,10 @@ void _createSpecsFromLocalDataAndExport({
 // --------------------
 /// TESTED : WORKS PERFECT
 List<SpecModel> _createSpecsForValueAndUnit({
-  @required String text,
-  @required PickerModel picker,
-  @required dynamic value,
-  @required String selectedUnitID,
+  required String text,
+  required PickerModel picker,
+  required dynamic value,
+  required String selectedUnitID,
 }){
   final List<SpecModel> _output = <SpecModel>[];
 

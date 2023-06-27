@@ -3,23 +3,23 @@ import 'package:bldrs/b_views/z_components/buttons/zone_buttons/country_tile_but
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:flutter/material.dart';
 
 class CountriesScreenBrowseView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const CountriesScreenBrowseView({
-    @required this.onCountryTap,
-    @required this.onDeactivatedCountryTap,
-    @required this.shownCountriesIDs,
-    @required this.notShownCountriesIDs,
-    @required this.countriesCensus,
-    @required this.showPlanetButton,
-    @required this.planetCensus,
-    @required this.onPlanetTap,
+    required this.onCountryTap,
+    required this.onDeactivatedCountryTap,
+    required this.shownCountriesIDs,
+    required this.notShownCountriesIDs,
+    required this.countriesCensus,
+    required this.showPlanetButton,
+    required this.planetCensus,
+    required this.onPlanetTap,
     this.padding,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final ValueChanged<String> onCountryTap;
   final ValueChanged<String> onDeactivatedCountryTap;

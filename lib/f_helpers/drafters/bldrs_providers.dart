@@ -14,10 +14,10 @@ import 'package:provider/single_child_widget.dart';
 class BldrsProviders extends StatelessWidget {
 
   const BldrsProviders({
-    @required this.child,
-    Key key
-  }) : super(key: key);
-
+    required this.child,
+    super.key
+  });
+  
   final Widget child;
 
   @override

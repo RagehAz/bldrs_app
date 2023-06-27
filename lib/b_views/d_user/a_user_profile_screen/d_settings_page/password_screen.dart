@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/password_bubble/password_bubble.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -7,14 +8,14 @@ import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class PasswordScreen extends StatefulWidget {
   // -----------------------------------------------------------------------------
   const PasswordScreen({
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   // --------------------
   @override
   State<PasswordScreen> createState() => _PasswordScreenState();

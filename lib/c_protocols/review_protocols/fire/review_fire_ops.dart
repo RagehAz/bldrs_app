@@ -15,7 +15,7 @@ class ReviewFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ReviewModel> createReview({
-    @required ReviewModel reviewModel,
+    required ReviewModel reviewModel,
   }) async {
 
     assert(reviewModel != null,'review model is null');
@@ -37,8 +37,8 @@ class ReviewFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ReviewModel> readReview({
-    @required String flyerID,
-    @required String reviewID,
+    required String flyerID,
+    required String reviewID,
   }) async {
     ReviewModel _output;
 
@@ -65,8 +65,8 @@ class ReviewFireOps {
   /*
   /// TESTED : WORKS PERFECT
   static Future<List<ReviewModel>> readAllFlyerReviews({
-    @required BuildContext context,
-    @required String flyerID,
+    required BuildContext context,
+    required String flyerID,
   }) async {
 
     // final List<dynamic> _maps = await Fire.readSubCollectionDocs(
@@ -94,7 +94,7 @@ class ReviewFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateReview({
-    @required ReviewModel reviewModel,
+    required ReviewModel reviewModel,
   }) async {
 
     await Fire.updateDoc(

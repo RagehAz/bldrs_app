@@ -1,5 +1,10 @@
 import 'dart:typed_data';
 
+import 'package:basics/helpers/classes/checks/object_check.dart';
+import 'package:basics/helpers/classes/files/file_size_unit.dart';
+import 'package:basics/helpers/classes/files/floaters.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
@@ -9,36 +14,37 @@ import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:fire/super_fire.dart';
-import 'package:colorizer/colorizer.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/colors/colorizer.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:mediators/mediators.dart';
-import 'package:numeric/numeric.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:mediators/models/dimension_model.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:stringer/stringer.dart';
-import 'package:super_image/super_image.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
+import 'package:basics/super_image/super_image.dart';
 /// => TAMAM
 @immutable
 class GtaModel {
   // -----------------------------------------------------------------------------
   const GtaModel({
-    @required this.id,
-    @required this.url,
-    @required this.title,
-    @required this.images,
-    @required this.brand,
-    @required this.stars,
-    @required this.ratingsCount,
-    @required this.price,
-    @required this.currency,
-    @required this.about,
-    @required this.description,
-    @required this.importantInfo,
-    @required this.affiliateLink,
-    /// @required this.specifications,
-    /// @required this.productDetails,
-    /// @required this.badges,
+    required this.id,
+    required this.url,
+    required this.title,
+    required this.images,
+    required this.brand,
+    required this.stars,
+    required this.ratingsCount,
+    required this.price,
+    required this.currency,
+    required this.about,
+    required this.description,
+    required this.importantInfo,
+    required this.affiliateLink,
+    /// required this.specifications,
+    /// required this.productDetails,
+    /// required this.badges,
 });
   // -----------------------------------------------------------------------------
   final String id;
@@ -103,7 +109,7 @@ class GtaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> cipherMap({
-    @required GtaModel gtaModel,
+    required GtaModel gtaModel,
   }){
     Map<String, dynamic> _output;
 
@@ -132,7 +138,7 @@ class GtaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static GtaModel decipherMap({
-    @required Map<String, dynamic> map,
+    required Map<String, dynamic> map,
   }){
     GtaModel _output;
 
@@ -159,7 +165,7 @@ class GtaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> cipherMaps({
-    @required List<GtaModel> gtaModels,
+    required List<GtaModel> gtaModels,
   }){
     final List<Map<String, dynamic>> _output = [];
 
@@ -179,7 +185,7 @@ class GtaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<GtaModel> decipherMaps({
-    @required List<Map<String, dynamic>> maps,
+    required List<Map<String, dynamic>> maps,
   }){
     final List<GtaModel> _output = [];
 
@@ -203,7 +209,7 @@ class GtaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static GtaModel createGtaModelByUrl({
-    @required String url,
+    required String url,
   }){
     GtaModel _output;
 
@@ -230,9 +236,9 @@ class GtaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<DraftFlyer> createDraftFlyerByGtaProduct({
-    @required GtaModel gtaModel,
-    @required BzModel bzModel,
-    @required FlyerType flyerType,
+    required GtaModel gtaModel,
+    required BzModel bzModel,
+    required FlyerType flyerType,
   }) async {
     DraftFlyer _output;
 
@@ -288,7 +294,7 @@ class GtaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<SpecModel> _createPriceSpecs({
-    @required GtaModel gtaModel,
+    required GtaModel gtaModel,
   }){
 
     if (gtaModel == null){
@@ -316,7 +322,7 @@ class GtaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<DraftSlide>> createDraftSlidesByGtaProduct({
-    @required GtaModel product,
+    required GtaModel product,
   }) async {
     final List<DraftSlide> _output = [];
 
@@ -361,12 +367,12 @@ class GtaModel {
 
     if (ObjectCheck.isAbsoluteURL(url) == true) {
 
-      final Uint8List _bytes = await Floaters.getUint8ListFromURL(url);
+      final Uint8List? _bytes = await Floaters.getUint8ListFromURL(url);
 
       if (_bytes != null && _bytes.isNotEmpty){
 
-        final Dimensions _dims = await Dimensions.superDimensions(_bytes);
-        final double _mega = Filers.calculateSize(_bytes.length, FileSizeUnit.megaByte);
+        final Dimensions? _dims = await Dimensions.superDimensions(_bytes);
+        final double? _mega = Filers.calculateSize(_bytes.length, FileSizeUnit.megaByte);
 
         final StorageMetaModel _meta = StorageMetaModel(
           ownersIDs: <String>[Authing.getUserID()],
@@ -396,8 +402,8 @@ class GtaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static GtaModel createGtaModelScrappedMap({
-    @required String url,
-    @required Map<String, dynamic> map,
+    required String url,
+    required Map<String, dynamic> map,
   }){
     GtaModel _output;
 
@@ -433,7 +439,10 @@ class GtaModel {
     if (TextCheck.isEmpty(starsString) == false){
 
       // (4.8 )
-      String _string = TextMod.removeTextAfterFirstSpecialCharacter(starsString.trim(), 'out');
+      String _string = TextMod.removeTextAfterFirstSpecialCharacter(
+          text: starsString.trim(),
+          specialCharacter: 'out',
+      );
       _string = _string?.trim();
       // blog('_getStarsFromScrappedString : _string : $_string');
       _output = Numeric.transformStringToDouble(_string);
@@ -519,7 +528,7 @@ class GtaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getUrls({
-    @required List<GtaModel> gtaModels,
+    required List<GtaModel> gtaModels,
   }){
     final List<String> _output = <String>[];
 
@@ -538,8 +547,8 @@ class GtaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkGtaModelsIncludeURL({
-    @required List<GtaModel> products,
-    @required String url,
+    required List<GtaModel> products,
+    required String url,
   }){
     bool _output = false;
 
@@ -587,8 +596,8 @@ class GtaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<GtaModel> insertModelInModels({
-    @required List<GtaModel> products,
-    @required GtaModel product,
+    required List<GtaModel> products,
+    required GtaModel product,
   }){
     final List<GtaModel> _output = [...?products];
 
@@ -614,8 +623,8 @@ class GtaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<GtaModel> removeModelFromModels({
-    @required List<GtaModel> products,
-    @required String url,
+    required List<GtaModel> products,
+    required String url,
   }){
     final List<GtaModel> _output = [...?products];
 
@@ -638,8 +647,8 @@ class GtaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkGtaModelsAreIdentical({
-    @required GtaModel product1,
-    @required GtaModel product2,
+    required GtaModel product1,
+    required GtaModel product2,
   }){
     bool _identical = false;
 

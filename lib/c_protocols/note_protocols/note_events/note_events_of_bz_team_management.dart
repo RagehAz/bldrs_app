@@ -14,9 +14,9 @@ import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.da
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 /// => TAMAM
 class NoteEventsOfBzTeamManagement {
   // -----------------------------------------------------------------------------
@@ -30,9 +30,9 @@ class NoteEventsOfBzTeamManagement {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendAuthorRoleChangeNote({
-    @required BuildContext context,
-    @required String bzID,
-    @required AuthorModel author,
+    required BuildContext context,
+    required String bzID,
+    required AuthorModel author,
   }) async {
 
     // blog('NoteEventsOfBzTeamManagement.sendAuthorRoleChangeNote : START');
@@ -100,10 +100,10 @@ class NoteEventsOfBzTeamManagement {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendAuthorDeletionNotes({
-    @required BuildContext context,
-    @required BzModel bzModel,
-    @required AuthorModel deletedAuthor,
-    @required bool sendToUserAuthorExitNote,
+    required BuildContext context,
+    required BzModel bzModel,
+    required AuthorModel deletedAuthor,
+    required bool sendToUserAuthorExitNote,
   }) async {
     blog('NoteEventsOfBzTeamManagement.sendAuthorDeletionNotes : START');
 
@@ -127,9 +127,9 @@ class NoteEventsOfBzTeamManagement {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _authorDeletionNoteToBz({
-    @required BuildContext context,
-    @required BzModel bzModel,
-    @required AuthorModel deletedAuthor,
+    required BuildContext context,
+    required BzModel bzModel,
+    required AuthorModel deletedAuthor,
   }) async {
 
     final UserModel _user = await UserProtocols.fetch(
@@ -179,9 +179,9 @@ class NoteEventsOfBzTeamManagement {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _authorDeletionNoteToUser({
-    @required BuildContext context,
-    @required BzModel bzModel,
-    @required AuthorModel deletedAuthor,
+    required BuildContext context,
+    required BzModel bzModel,
+    required AuthorModel deletedAuthor,
   }) async {
 
     final UserModel _userModel = await UserProtocols.fetch(
@@ -224,10 +224,10 @@ class NoteEventsOfBzTeamManagement {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendBzDeletionNoteToAllAuthors({
-    @required BuildContext context,
-    @required BzModel bzModel,
+    required BuildContext context,
+    required BzModel bzModel,
     /// send bz deletion note to myself
-    @required bool includeMyself,
+    required bool includeMyself,
   }) async {
     blog('NoteEventsOfBzTeamManagement.sendBzDeletionNoteToAllAuthors : START');
 
@@ -305,8 +305,8 @@ class NoteEventsOfBzTeamManagement {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendNoBzContactAvailableNote({
-    @required BuildContext context,
-    @required BzModel bzModel,
+    required BuildContext context,
+    required BzModel bzModel,
   }) async {
     blog('NoteEventsOfBzTeamManagement.sendNoBzContactAvailableNote : START');
 

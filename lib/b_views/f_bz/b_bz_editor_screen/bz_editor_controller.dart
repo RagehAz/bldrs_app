@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:typed_data';
 
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/files/file_size_unit.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/draft/draft_bz.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
@@ -22,10 +24,12 @@ import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:mediators/mediators.dart';
+import 'package:mediators/models/dimension_model.dart';
+import 'package:mediators/pic_maker/pic_maker.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 
@@ -34,9 +38,9 @@ import 'package:mediators/mediators.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> loadBzEditorLastSession({
-  @required BuildContext context,
-  @required ValueNotifier<DraftBz> draftNotifier,
-  @required bool mounted,
+  required BuildContext context,
+  required ValueNotifier<DraftBz> draftNotifier,
+  required bool mounted,
 }) async {
 
   final DraftBz _lastSessionDraft = await BzLDBOps.loadBzEditorSession(
@@ -83,8 +87,8 @@ Future<void> loadBzEditorLastSession({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> saveBzEditorSession({
-  @required ValueNotifier<DraftBz> draftNotifier,
-  @required bool mounted,
+  required ValueNotifier<DraftBz> draftNotifier,
+  required bool mounted,
 }) async {
 
   triggerCanValidateDraftBz(
@@ -108,10 +112,10 @@ Future<void> saveBzEditorSession({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onConfirmBzEdits({
-  @required BuildContext context,
-  @required ValueNotifier<DraftBz> draftNotifier,
-  @required BzModel oldBz,
-  @required bool mounted,
+  required BuildContext context,
+  required ValueNotifier<DraftBz> draftNotifier,
+  required BzModel oldBz,
+  required bool mounted,
 }) async {
 
   triggerCanValidateDraftBz(
@@ -148,8 +152,8 @@ Future<void> onConfirmBzEdits({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<bool> _preUploadCheckups({
-  @required BuildContext context,
-  @required ValueNotifier<DraftBz> draftNotifier,
+  required BuildContext context,
+  required ValueNotifier<DraftBz> draftNotifier,
 }) async {
 
   bool _canContinue = Formers.validateForm(draftNotifier.value.formKey);
@@ -172,9 +176,9 @@ Future<bool> _preUploadCheckups({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _uploadDraftBz({
-  @required BuildContext context,
-  @required ValueNotifier<DraftBz> draftNotifier,
-  @required BzModel oldBz,
+  required BuildContext context,
+  required ValueNotifier<DraftBz> draftNotifier,
+  required BzModel oldBz,
 }) async {
 
   /// CREATING NEW BZ
@@ -214,9 +218,9 @@ Future<void> _uploadDraftBz({
 // --------------------
 /// TESTED : WORKS PERFECT
 void triggerCanValidateDraftBz({
-  @required bool setTo,
-  @required ValueNotifier<DraftBz> draftNotifier,
-  @required bool mounted,
+  required bool setTo,
+  required ValueNotifier<DraftBz> draftNotifier,
+  required bool mounted,
 }){
 
   if (draftNotifier.value.canValidate == setTo){
@@ -237,10 +241,10 @@ void triggerCanValidateDraftBz({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onChangeBzSection({
-  @required BuildContext context,
-  @required int index,
-  @required ValueNotifier<DraftBz> draftNotifier,
-  @required bool mounted,
+  required BuildContext context,
+  required int index,
+  required ValueNotifier<DraftBz> draftNotifier,
+  required bool mounted,
 }) async {
 
   bool _canContinue = true;
@@ -283,10 +287,10 @@ Future<void> onChangeBzSection({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onChangeBzType({
-  @required BuildContext context,
-  @required int index,
-  @required ValueNotifier<DraftBz> draftNotifier,
-  @required bool mounted,
+  required BuildContext context,
+  required int index,
+  required ValueNotifier<DraftBz> draftNotifier,
+  required bool mounted,
 }) async {
 
   bool _canContinue = true;
@@ -340,9 +344,9 @@ Future<void> onChangeBzType({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onChangeBzForm({
-  @required int index,
-  @required ValueNotifier<DraftBz> draftNotifier,
-  @required bool mounted,
+  required int index,
+  required ValueNotifier<DraftBz> draftNotifier,
+  required bool mounted,
 }){
 
   setNotifier(
@@ -357,9 +361,9 @@ void onChangeBzForm({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onChangeBzLogo({
-  @required ValueNotifier<DraftBz> draftNotifier,
-  @required PicMakerType imagePickerType,
-  @required bool mounted,
+  required ValueNotifier<DraftBz> draftNotifier,
+  required PicMakerType imagePickerType,
+  required bool mounted,
 }) async {
 
   if (draftNotifier.value.canPickImage == true) {
@@ -372,7 +376,7 @@ Future<void> onChangeBzLogo({
         ),
     );
 
-    Uint8List _bytes;
+    Uint8List? _bytes;
 
     if(imagePickerType == PicMakerType.galleryImage){
       _bytes = await BldrsPicMaker.pickAndCropSinglePic(
@@ -407,8 +411,8 @@ Future<void> onChangeBzLogo({
 
       final String _path = draftNotifier.value.getLogoPath();
 
-      final Dimensions _dims = await Dimensions.superDimensions(_bytes);
-      final double _mega = Filers.calculateSize(_bytes.length, FileSizeUnit.megaByte);
+      final Dimensions? _dims = await Dimensions.superDimensions(_bytes);
+      final double? _mega = Filers.calculateSize(_bytes.length, FileSizeUnit.megaByte);
 
       setNotifier(
           notifier: draftNotifier,
@@ -437,10 +441,10 @@ Future<void> onChangeBzLogo({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onChangeBzContact({
-  @required ValueNotifier<DraftBz> draftNotifier,
-  @required ContactType contactType,
-  @required String value,
-  @required bool mounted,
+  required ValueNotifier<DraftBz> draftNotifier,
+  required ContactType contactType,
+  required String value,
+  required bool mounted,
 }){
 
   final List<ContactModel> _contacts = ContactModel.insertOrReplaceContact(
@@ -463,10 +467,10 @@ void onChangeBzContact({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onChangeBzScope({
-  @required BuildContext context,
-  @required ValueNotifier<DraftBz> draftNotifier,
-  @required FlyerType flyerType,
-  @required bool mounted,
+  required BuildContext context,
+  required ValueNotifier<DraftBz> draftNotifier,
+  required FlyerType flyerType,
+  required bool mounted,
 }) async {
 
   Keyboard.closeKeyboard();

@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -18,9 +20,9 @@ import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.da
 import 'package:bldrs/c_protocols/authorship_protocols/f_new_authorship_exit.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 
@@ -43,9 +45,9 @@ Future<void> onGoToAddAuthorsScreen(BuildContext context) async {
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onAuthorOptionsTap({
-  @required BuildContext context,
-  @required AuthorModel authorModel,
-  @required BzModel oldBz,
+  required BuildContext context,
+  required AuthorModel authorModel,
+  required BzModel oldBz,
 }) async {
 
   final bool _itIsMine = Authing.getUserID() == authorModel.userID;
@@ -185,11 +187,11 @@ Future<void> onAuthorOptionsTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onDeleteAuthorFromBz({
-  @required AuthorModel authorModel,
-  @required BzModel oldBz,
-  @required bool showConfirmationDialog,
-  @required bool showWaitingDialog,
-  @required bool sendToUserAuthorExitNote,
+  required AuthorModel authorModel,
+  required BzModel oldBz,
+  required bool showConfirmationDialog,
+  required bool showWaitingDialog,
+  required bool sendToUserAuthorExitNote,
 }) async {
 
   if (authorModel.userID == Authing.getUserID()){
@@ -211,7 +213,7 @@ Future<void> onDeleteAuthorFromBz({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onShowCanNotRemoveAuthorDialog({
-  @required AuthorModel authorModel,
+  required AuthorModel authorModel,
 }) async {
 
   await CenterDialog.showCenterDialog(
@@ -234,9 +236,9 @@ Future<void> _onShowCanNotRemoveAuthorDialog({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onEditAuthor({
-  @required BuildContext context,
-  @required AuthorModel authorModel,
-  @required BzModel bzModel,
+  required BuildContext context,
+  required AuthorModel authorModel,
+  required BzModel bzModel,
 }) async {
 
   await Nav.goToNewScreen(
@@ -251,7 +253,7 @@ Future<void> _onEditAuthor({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onShowCanNotEditAuthorDialog({
-  @required AuthorModel authorModel,
+  required AuthorModel authorModel,
 }) async {
 
   await CenterDialog.showCenterDialog(
@@ -273,9 +275,9 @@ Future<void> _onShowCanNotEditAuthorDialog({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onChangeAuthorRole({
-  @required BuildContext context,
-  @required AuthorModel authorModel,
-  @required BzModel bzModel,
+  required BuildContext context,
+  required AuthorModel authorModel,
+  required BzModel bzModel,
 }) async {
 
   /// CLOSE BOTTOM DIALOG
@@ -295,7 +297,7 @@ Future<void> _onChangeAuthorRole({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onShowCanNotChangeAuthorRoleDialog({
-  @required AuthorModel authorModel,
+  required AuthorModel authorModel,
 }) async {
 
   await CenterDialog.showCenterDialog(
@@ -318,9 +320,9 @@ Future<void> _onShowCanNotChangeAuthorRoleDialog({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onSendAuthorshipInvitation({
-  @required BuildContext context,
-  @required UserModel selectedUser,
-  @required BzModel bzModel,
+  required BuildContext context,
+  required UserModel selectedUser,
+  required BzModel bzModel,
 }) async {
 
   final bool _canInviteUser = PendingAuthor.checkCanInviteUser(
@@ -407,9 +409,9 @@ Future<void> onSendAuthorshipInvitation({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onCancelSentAuthorshipInvitation({
-  @required BuildContext context,
-  @required BzModel bzModel,
-  @required String userID,
+  required BuildContext context,
+  required BzModel bzModel,
+  required String userID,
 }) async {
 
   blog('onCancelSentAuthorshipInvitation : START');

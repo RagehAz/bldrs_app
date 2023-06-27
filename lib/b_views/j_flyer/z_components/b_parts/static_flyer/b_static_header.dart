@@ -11,22 +11,22 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/e_fo
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class StaticHeader extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const StaticHeader({
-    @required this.flyerBoxWidth,
-    @required this.bzModel,
-    @required this.authorID,
-    @required this.flyerShowsAuthor,
+    required this.flyerBoxWidth,
+    required this.bzModel,
+    required this.authorID,
+    required this.flyerShowsAuthor,
     this.onTap,
     this.showHeaderLabels = false,
     this.flightDirection = FlightDirection.non,
     this.bzImageLogo,
     this.authorImage,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final BzModel bzModel;

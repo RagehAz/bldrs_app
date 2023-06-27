@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 class ProgressBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ProgressBox({
-    @required this.flyerBoxWidth,
-    @required this.stripsStack,
+    required this.flyerBoxWidth,
+    required this.stripsStack,
     this.margins,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final List<Widget> stripsStack;

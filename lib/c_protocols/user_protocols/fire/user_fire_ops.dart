@@ -1,15 +1,16 @@
 import 'dart:async';
 
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:fire/super_fire.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 /// => TAMAM
 class UserFireOps {
   // -----------------------------------------------------------------------------
@@ -23,8 +24,8 @@ class UserFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> createUser({
-    @required UserModel userModel,
-    @required SignInMethod signInMethod,
+    required UserModel userModel,
+    required SignInMethod signInMethod,
   }) async {
 
     await Fire.updateDoc(
@@ -41,7 +42,7 @@ class UserFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<UserModel> readUser({
-    @required String userID,
+    required String userID,
   }) async {
     UserModel _output;
 
@@ -68,8 +69,8 @@ class UserFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<UserModel> updateUser({
-    @required UserModel oldUser,
-    @required UserModel newUser,
+    required UserModel oldUser,
+    required UserModel newUser,
   }) async {
     UserModel _output;
 
@@ -100,8 +101,8 @@ class UserFireOps {
 // ----------------------------------
   /// TESTED : WORKS PERFECT
   static Future<UserModel> _updateUserEmailIfChanged({
-    @required UserModel oldUser,
-    @required UserModel newUser,
+    required UserModel oldUser,
+    required UserModel newUser,
   }) async {
 
     UserModel _output = newUser.copyWith();

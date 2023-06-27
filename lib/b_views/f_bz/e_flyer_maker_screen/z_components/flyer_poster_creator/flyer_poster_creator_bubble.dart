@@ -1,5 +1,7 @@
 import 'dart:typed_data';
 
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/files/file_size_unit.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -16,19 +18,20 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bubbles/bubbles.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mediators/mediators.dart';
+import 'package:mediators/models/dimension_model.dart';
 import 'package:screenshot/screenshot.dart';
 
 class FlyerPosterCreatorBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerPosterCreatorBubble({
-    @required this.draft,
-    @required this.onSwitch,
-    @required this.bzModel,
-    Key key
-  }) : super(key: key);
+    required this.draft,
+    required this.onSwitch,
+    required this.bzModel,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final DraftFlyer draft;
   final ValueChanged<bool> onSwitch;
@@ -72,8 +75,8 @@ class FlyerPosterCreatorBubble extends StatelessWidget {
 }
 
 Future<void> testPoster({
-  @required BuildContext context,
-  @required DraftFlyer draft,
+  required BuildContext context,
+  required DraftFlyer draft,
 }) async {
 
   final Uint8List _bytes = await PosterDisplay.capturePoster(
@@ -84,9 +87,9 @@ Future<void> testPoster({
     // finalDesiredPicWidth: Standards.posterDimensions.width,
   );
 
-  final Dimensions _dims = await Dimensions.superDimensions(_bytes);
-  final double _mega = Filers.calculateSize(_bytes.length, FileSizeUnit.megaByte);
-  final double _kilo = Filers.calculateSize(_bytes.length, FileSizeUnit.kiloByte);
+  final Dimensions? _dims = await Dimensions.superDimensions(_bytes);
+  final double? _mega = Filers.calculateSize(_bytes.length, FileSizeUnit.megaByte);
+  final double? _kilo = Filers.calculateSize(_bytes.length, FileSizeUnit.kiloByte);
 
   final PicModel _posterPicModel = PicModel(
     bytes: _bytes,

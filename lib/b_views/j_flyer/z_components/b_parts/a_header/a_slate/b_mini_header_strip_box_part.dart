@@ -1,18 +1,19 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class MiniHeaderStripBoxPart extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const MiniHeaderStripBoxPart({
-    @required this.flyerBoxWidth,
-    @required this.minHeaderHeight,
-    @required this.logoSizeRatioTween,
-    @required this.headerLeftSpacerTween,
-    @required this.tinyMode,
-    @required this.headerBorders,
-    @required this.children,
-    Key key
-  }) : super(key: key);
+    required this.flyerBoxWidth,
+    required this.minHeaderHeight,
+    required this.logoSizeRatioTween,
+    required this.headerLeftSpacerTween,
+    required this.tinyMode,
+    required this.headerBorders,
+    required this.children,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final double minHeaderHeight;

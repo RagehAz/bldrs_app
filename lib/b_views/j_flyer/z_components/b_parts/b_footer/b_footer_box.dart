@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 class FooterBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FooterBox({
-    @required this.flyerBoxWidth,
-    @required this.footerPageController,
-    @required this.footerPageViewChildren,
-    @required this.infoButtonExpanded,
-    @required this.hasAffiliateLink,
-    Key key
-  }) : super(key: key);
+    required this.flyerBoxWidth,
+    required this.footerPageController,
+    required this.footerPageViewChildren,
+    required this.infoButtonExpanded,
+    required this.hasAffiliateLink,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final PageController footerPageController;

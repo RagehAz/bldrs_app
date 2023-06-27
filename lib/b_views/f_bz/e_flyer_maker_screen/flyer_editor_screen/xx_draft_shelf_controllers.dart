@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:animators/animators.dart';
+import 'package:basics/animators/helpers/sliders.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
@@ -15,13 +18,10 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:layouts/layouts.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:mediators/mediators.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:mediators/pic_maker/pic_maker.dart';
 
 /// => TAMAM
 // -----------------------------------------------------------------------------
@@ -31,14 +31,14 @@ import 'package:mediators/mediators.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onAddNewSlides({
-  @required BuildContext context,
-  @required PicMakerType imagePickerType,
-  @required ValueNotifier<bool> isLoading,
-  @required ValueNotifier<DraftFlyer> draftFlyer,
-  @required BzModel bzModel,
-  @required bool mounted,
-  @required ScrollController scrollController,
-  @required double flyerWidth,
+  required BuildContext context,
+  required PicMakerType imagePickerType,
+  required ValueNotifier<bool> isLoading,
+  required ValueNotifier<DraftFlyer> draftFlyer,
+  required BzModel bzModel,
+  required bool mounted,
+  required ScrollController scrollController,
+  required double flyerWidth,
 }) async {
 
   setNotifier(notifier: isLoading, mounted: mounted, value: true);
@@ -90,12 +90,12 @@ Future<void> onAddNewSlides({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _addImagesForNewFlyer({
-  @required BzModel bzModel,
-  @required bool mounted,
-  @required ValueNotifier<DraftFlyer> draftFlyer,
-  @required ScrollController scrollController,
-  @required double flyerWidth,
-  @required PicMakerType imagePickerType,
+  required BzModel bzModel,
+  required bool mounted,
+  required ValueNotifier<DraftFlyer> draftFlyer,
+  required ScrollController scrollController,
+  required double flyerWidth,
+  required PicMakerType imagePickerType,
 }) async {
 
   List<Uint8List> _picked = <Uint8List>[];
@@ -119,7 +119,7 @@ Future<void> _addImagesForNewFlyer({
 
     else if (imagePickerType == PicMakerType.cameraImage){
 
-      final Uint8List _bytes = await PicMaker.shootAndCropCameraPic(
+      final Uint8List? _bytes = await PicMaker.shootAndCropCameraPic(
         context: getMainContext(),
         // maxAssets: 10,
         aspectRatio: FlyerDim.flyerAspectRatio(),
@@ -198,12 +198,12 @@ Future<void> _addImagesForNewFlyer({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> addImagesForExistingFlyer({
-  @required BuildContext context,
-  @required BzModel bzModel,
-  @required bool mounted,
-  @required ValueNotifier<DraftFlyer> draftFlyer,
-  @required ScrollController scrollController,
-  @required double flyerWidth,
+  required BuildContext context,
+  required BzModel bzModel,
+  required bool mounted,
+  required ValueNotifier<DraftFlyer> draftFlyer,
+  required ScrollController scrollController,
+  required double flyerWidth,
 }) async {
 
   if(mounted) {
@@ -234,9 +234,9 @@ Future<void> _showMaxSlidesReachedDialog(BuildContext context, int maxLength) as
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onSlideTap({
-  @required DraftSlide slide,
-  @required ValueNotifier<DraftFlyer> draftFlyer,
-  @required bool mounted,
+  required DraftSlide slide,
+  required ValueNotifier<DraftFlyer> draftFlyer,
+  required bool mounted,
 }) async {
 
   Keyboard.closeKeyboard();
@@ -270,9 +270,9 @@ Future<void> onSlideTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onDeleteSlide({
-  @required DraftSlide draftSlide,
-  @required ValueNotifier<DraftFlyer> draftFlyer,
-  @required bool mounted,
+  required DraftSlide draftSlide,
+  required ValueNotifier<DraftFlyer> draftFlyer,
+  required bool mounted,
 }) async {
 
   Keyboard.closeKeyboard();
@@ -312,10 +312,10 @@ Future<void> onDeleteSlide({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onMoreTap({
-  @required BuildContext context,
-  @required Function onDeleteDraft,
-  @required Function onSaveDraft,
-  @required Function onPublishFlyer,
+  required BuildContext context,
+  required Function onDeleteDraft,
+  required Function onSaveDraft,
+  required Function onPublishFlyer,
 }) async {
 
   await BottomDialog.showButtonsBottomDialog(
@@ -379,10 +379,10 @@ Future<void> onMoreTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onFlyerHeadlineChanged({
-  @required String text,
-  @required GlobalKey<FormState> formKey,
-  @required ValueNotifier<DraftFlyer> draftFlyer,
-  @required bool mounted,
+  required String text,
+  required GlobalKey<FormState> formKey,
+  required ValueNotifier<DraftFlyer> draftFlyer,
+  required bool mounted,
 }){
 
   /// DO YOU NEED THIS ?
@@ -401,13 +401,12 @@ void onFlyerHeadlineChanged({
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-String flyerHeadlineValidator({
-  @required BuildContext context,
-  @required String val,
+String? flyerHeadlineValidator({
+  required String? val,
 }){
 
   /// WHEN HEADLINE EXCEEDS MAX CHAR LENGTH
-  if(val.length >= Standards.flyerHeadlineMaxLength){
+  if(val != null && val.length >= Standards.flyerHeadlineMaxLength){
     final String _error = '${Verse.transBake('phid_headline_cant_be_more_than')}\n'
                           '${Standards.flyerHeadlineMaxLength}';
 
@@ -423,10 +422,10 @@ String flyerHeadlineValidator({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onReorderSlide({
-  @required int oldIndex,
-  @required int newIndex,
-  @required ValueNotifier<DraftFlyer> draftFlyer,
-  @required bool mounted,
+  required int oldIndex,
+  required int newIndex,
+  required ValueNotifier<DraftFlyer> draftFlyer,
+  required bool mounted,
 }){
   List<DraftSlide> _oldSlides = draftFlyer.value.draftSlides;
 

@@ -1,6 +1,7 @@
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 enum DataCreator{
 
@@ -213,7 +214,10 @@ class DataCreation {
 
           final String _first = _sons.first;
 
-          final String _dataCreator = TextMod.removeTextAfterFirstSpecialCharacter(_first, '_');
+          final String _dataCreator = TextMod.removeTextAfterFirstSpecialCharacter(
+            text: _first,
+            specialCharacter: '_',
+          );
 
           if (_dataCreator == 'DataCreator'){
             _isDataCreator = true;
@@ -229,8 +233,8 @@ class DataCreation {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkIsDataCreatorOfType({
-    @required dynamic sons,
-    @required DataCreator dataCreator,
+    required dynamic sons,
+    required DataCreator dataCreator,
   }){
 
     bool _indeed = false;

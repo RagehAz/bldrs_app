@@ -1,3 +1,5 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
@@ -18,9 +20,9 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:numeric/numeric.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:provider/provider.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 enum ChainSecondLinesType {
   non,
@@ -32,25 +34,25 @@ enum ChainSecondLinesType {
 class ChainSplitter extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ChainSplitter({
-    @required this.chainOrChainsOrSonOrSons,
-    @required this.initiallyExpanded,
-    @required this.secondLinesType,
-    @required this.onPhidTap,
-    @required this.onPhidLongTap,
-    @required this.onPhidDoubleTap,
-    @required this.selectedPhids,
-    @required this.searchText,
-    @required this.onExportSpecs,
-    @required this.zone,
-    @required this.onlyUseZoneChains,
-    @required this.isMultipleSelectionMode,
-    @required this.isCollapsable,
+    required this.chainOrChainsOrSonOrSons,
+    required this.initiallyExpanded,
+    required this.secondLinesType,
+    required this.onPhidTap,
+    required this.onPhidLongTap,
+    required this.onPhidDoubleTap,
+    required this.selectedPhids,
+    required this.searchText,
+    required this.onExportSpecs,
+    required this.zone,
+    required this.onlyUseZoneChains,
+    required this.isMultipleSelectionMode,
+    required this.isCollapsable,
     this.onDataCreatorKeyboardSubmitted,
     this.previousPath = '',
     this.level = 0,
     this.width,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final dynamic chainOrChainsOrSonOrSons;
   final int level;

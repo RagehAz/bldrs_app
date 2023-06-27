@@ -12,10 +12,10 @@ class Blurer {
 // ---------------------------------------
 /*
   static bool slideBlurIsOn({
-    @required dynamic pic,
-    @required ImageSize imageSize,
-    @required BoxFit boxFit,
-    @required double flyerBoxWidth,
+    required dynamic pic,
+    required ImageSize imageSize,
+    required BoxFit boxFit,
+    required double flyerBoxWidth,
   }) {
     /// blur layer shall only be active if the height of image supplied is smaller
     /// than flyer height when image width = flyerWidth

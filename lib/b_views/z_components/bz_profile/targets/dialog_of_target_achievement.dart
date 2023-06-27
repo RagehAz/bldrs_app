@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/a_models/b_bz/sub/target/target_model.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/targets/dialog_of_slides_and_ankhs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -10,8 +11,8 @@ import 'package:flutter/material.dart';
 class DialogOfTargetAchievement extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const DialogOfTargetAchievement({
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   static Future<void> show({
     BuildContext context,

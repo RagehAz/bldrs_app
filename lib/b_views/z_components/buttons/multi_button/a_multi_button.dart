@@ -1,8 +1,10 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/multi_button/b_double_pics_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/multi_button/c_many_pics_box.dart';
-import 'package:mapper/mapper.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +12,8 @@ import 'package:flutter/material.dart';
 class MultiButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const MultiButton({
-    @required this.pics,
-    @required this.height,
+    required this.pics,
+    required this.height,
     this.width,
     this.verse,
     this.secondLine,
@@ -19,8 +21,8 @@ class MultiButton extends StatelessWidget {
     this.margins,
     this.bubble,
     this.onTap,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double height;
   final double width;

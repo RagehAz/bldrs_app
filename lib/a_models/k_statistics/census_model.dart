@@ -5,67 +5,67 @@ import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
-import 'package:mapper/mapper.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 class CensusModel {
   /// --------------------------------------------------------------------------
   CensusModel({
-    @required this.id,
-    @required this.totalUsers,
-    @required this.totalBzz,
-    @required this.totalAuthors,
-    @required this.totalFlyers,
-    @required this.totalSlides,
-    @required this.bzSectionRealEstate,
-    @required this.bzSectionConstruction,
-    @required this.bzSectionSupplies,
-    @required this.bzTypeDeveloper,
-    @required this.bzTypeBroker,
-    @required this.bzTypeDesigner,
-    @required this.bzTypeContractor,
-    @required this.bzTypeArtisan,
-    @required this.bzTypeManufacturer,
-    @required this.bzTypeSupplier,
-    @required this.bzFormIndividual,
-    @required this.bzFormCompany,
-    @required this.bzAccountTypeStandard,
-    @required this.bzAccountTypePro,
-    @required this.bzAccountTypeMaster,
-    @required this.flyerTypeGeneral,
-    @required this.flyerTypeProperty,
-    @required this.flyerTypeDesign,
-    @required this.flyerTypeUndertaking,
-    @required this.flyerTypeTrade,
-    @required this.flyerTypeProduct,
-    @required this.flyerTypeEquipment,
-    @required this.needTypeSeekProperty,
-    @required this.needTypePlanConstruction,
-    @required this.needTypeFinishConstruction,
-    @required this.needTypeFurnish,
-    @required this.needTypeOfferProperty,
-    @required this.savesGeneral,
-    @required this.savesProperties,
-    @required this.savesDesigns,
-    @required this.savesUndertakings,
-    @required this.savesTrades,
-    @required this.savesProducts,
-    @required this.savesEquipments,
-    @required this.followsDevelopers,
-    @required this.followsBrokers,
-    @required this.followsDesigners,
-    @required this.followsContractors,
-    @required this.followsArtisans,
-    @required this.followsManufacturers,
-    @required this.followsSuppliers,
-    @required this.callsDevelopers,
-    @required this.callsBrokers,
-    @required this.callsDesigners,
-    @required this.callsContractors,
-    @required this.callsArtisans,
-    @required this.callsManufacturers,
-    @required this.callsSuppliers,
+    required this.id,
+    required this.totalUsers,
+    required this.totalBzz,
+    required this.totalAuthors,
+    required this.totalFlyers,
+    required this.totalSlides,
+    required this.bzSectionRealEstate,
+    required this.bzSectionConstruction,
+    required this.bzSectionSupplies,
+    required this.bzTypeDeveloper,
+    required this.bzTypeBroker,
+    required this.bzTypeDesigner,
+    required this.bzTypeContractor,
+    required this.bzTypeArtisan,
+    required this.bzTypeManufacturer,
+    required this.bzTypeSupplier,
+    required this.bzFormIndividual,
+    required this.bzFormCompany,
+    required this.bzAccountTypeStandard,
+    required this.bzAccountTypePro,
+    required this.bzAccountTypeMaster,
+    required this.flyerTypeGeneral,
+    required this.flyerTypeProperty,
+    required this.flyerTypeDesign,
+    required this.flyerTypeUndertaking,
+    required this.flyerTypeTrade,
+    required this.flyerTypeProduct,
+    required this.flyerTypeEquipment,
+    required this.needTypeSeekProperty,
+    required this.needTypePlanConstruction,
+    required this.needTypeFinishConstruction,
+    required this.needTypeFurnish,
+    required this.needTypeOfferProperty,
+    required this.savesGeneral,
+    required this.savesProperties,
+    required this.savesDesigns,
+    required this.savesUndertakings,
+    required this.savesTrades,
+    required this.savesProducts,
+    required this.savesEquipments,
+    required this.followsDevelopers,
+    required this.followsBrokers,
+    required this.followsDesigners,
+    required this.followsContractors,
+    required this.followsArtisans,
+    required this.followsManufacturers,
+    required this.followsSuppliers,
+    required this.callsDevelopers,
+    required this.callsBrokers,
+    required this.callsDesigners,
+    required this.callsContractors,
+    required this.callsArtisans,
+    required this.callsManufacturers,
+    required this.callsSuppliers,
   });
   // --------------------------------------------------------------------------
   final String id;
@@ -266,7 +266,7 @@ class CensusModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
-    @required bool toLDB,
+    required bool toLDB,
   }){
 
     Map<String, dynamic> _map = {
@@ -341,8 +341,8 @@ class CensusModel {
   // --------------------
   /// not tested
   static List<Map<String, dynamic>> cipherCensuses({
-    @required List<CensusModel> censuses,
-    @required bool toLDB,
+    required List<CensusModel> censuses,
+    required bool toLDB,
   }){
     final List<Map<String, dynamic>> _output = [];
 
@@ -361,8 +361,8 @@ class CensusModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static CensusModel decipher({
-    @required Map<String, dynamic> map,
-    @required String id,
+    required Map<String, dynamic> map,
+    required String id,
   }){
 
     CensusModel _output;
@@ -458,8 +458,8 @@ class CensusModel {
   /*
   /// TASK : TEST ME
   static Map<String, dynamic> cypherAgendaToCensusX({
-    @required bool isIncrementing,
-    @required AgendaModel agenda,
+    required bool isIncrementing,
+    required AgendaModel agenda,
   }){
 
     /// AGENDA IS NULL
@@ -494,8 +494,8 @@ class CensusModel {
   /*
   /// TASK : TEST ME
   static Map<String, dynamic> cypherDeckToCensusX({
-    @required bool isIncrementing,
-    @required DeckModel deck,
+    required bool isIncrementing,
+    required DeckModel deck,
   }){
 
     /// DECK IS NULL
@@ -591,8 +591,8 @@ class CensusModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> createUserCensusMap({
-    @required UserModel userModel,
-    @required bool isIncrementing,
+    required UserModel userModel,
+    required bool isIncrementing,
   }){
 
     final int _increment = isIncrementing ? 1 : -1;
@@ -622,8 +622,8 @@ class CensusModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> createFollowCensusMap({
-    @required BzModel bzModel,
-    @required bool isIncrementing,
+    required BzModel bzModel,
+    required bool isIncrementing,
     int count = 1,
   }){
     Map<String, dynamic> _map = {};
@@ -658,8 +658,8 @@ class CensusModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> createFlyerSaveCensusMap({
-    @required FlyerModel flyerModel,
-    @required bool isIncrementing,
+    required FlyerModel flyerModel,
+    required bool isIncrementing,
     int count = 1,
   }){
 
@@ -685,8 +685,8 @@ class CensusModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> createBzCensusMap({
-    @required BzModel bzModel,
-    @required bool isIncrementing,
+    required BzModel bzModel,
+    required bool isIncrementing,
   }){
 
     final int _increment = isIncrementing ? 1 : -1;
@@ -741,8 +741,8 @@ class CensusModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> createCallCensusMap({
-    @required BzModel bzModel,
-    @required bool isIncrementing, // WILL ALWAYS BE TRUE
+    required BzModel bzModel,
+    required bool isIncrementing, // WILL ALWAYS BE TRUE
     int count = 1,
   }){
     Map<String, dynamic> _map = {};
@@ -820,8 +820,8 @@ class CensusModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> createFlyerCensusMap({
-    @required FlyerModel flyerModel,
-    @required bool isIncrementing,
+    required FlyerModel flyerModel,
+    required bool isIncrementing,
   }){
 
     final int _increment = isIncrementing ? 1 : -1;
@@ -1056,8 +1056,8 @@ class CensusModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkShouldUpdateUserCensus({
-    @required UserModel oldUser,
-    @required UserModel newUser,
+    required UserModel oldUser,
+    required UserModel newUser,
   }){
     bool _shouldUpdate = false;
 
@@ -1077,8 +1077,8 @@ class CensusModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkShouldUpdateBzCensus({
-    @required BzModel oldBz,
-    @required BzModel newBz,
+    required BzModel oldBz,
+    required BzModel newBz,
   }){
     bool _shouldUpdate = false;
 
@@ -1101,8 +1101,8 @@ class CensusModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkShouldUpdateFlyerCensus({
-    @required FlyerModel oldFlyer,
-    @required FlyerModel newFlyer,
+    required FlyerModel oldFlyer,
+    required FlyerModel newFlyer,
   }){
     bool _shouldUpdate = false;
 
@@ -1126,8 +1126,8 @@ class CensusModel {
 
   // --------------------
   static CensusModel getCensusFromCensusesByID({
-    @required List<CensusModel> censuses,
-    @required String censusID,
+    required List<CensusModel> censuses,
+    required String censusID,
   }){
     CensusModel _output;
 
@@ -1239,7 +1239,7 @@ class CensusModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogCensuses({
-    @required List<CensusModel> censuses,
+    required List<CensusModel> censuses,
   }){
     if (Mapper.checkCanLoopList(censuses) == true){
       for (final CensusModel census in censuses) {

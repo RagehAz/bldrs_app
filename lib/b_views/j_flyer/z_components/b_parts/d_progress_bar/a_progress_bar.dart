@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/d_progress_bar/b_progress_bar_child.drat.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
@@ -6,13 +7,13 @@ import 'package:flutter/material.dart';
 class ProgressBar extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ProgressBar({
-    @required this.flyerBoxWidth,
-    @required this.progressBarModel,
-    @required this.progressBarOpacity,
-    @required this.tinyMode,
+    required this.flyerBoxWidth,
+    required this.progressBarModel,
+    required this.progressBarOpacity,
+    required this.tinyMode,
     this.loading = true,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final ValueNotifier<ProgressBarModel> progressBarModel;
@@ -28,7 +29,7 @@ class ProgressBar extends StatelessWidget {
       width: flyerBoxWidth,
       child: ValueListenableBuilder<double>(
         valueListenable: progressBarOpacity,
-        builder: (_, double _progressBarOpacity, Widget child){
+        builder: (_, double _progressBarOpacity, Widget? child){
 
           return AnimatedOpacity(
             duration: Ratioz.durationFading200,

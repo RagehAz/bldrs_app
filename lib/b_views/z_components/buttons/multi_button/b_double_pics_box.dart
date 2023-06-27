@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 class DoublePicsBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const DoublePicsBox({
-    @required this.pics,
-    @required this.size,
-    Key key
-  }) : super(key: key);
+    required this.pics,
+    required this.size,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double size;
   final List<String> pics;

@@ -1,5 +1,10 @@
 import 'dart:async';
 
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';
@@ -16,22 +21,22 @@ import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class NoteCard extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const NoteCard({
-    @required this.noteModel,
-    @required this.isDraftNote,
+    required this.noteModel,
+    required this.isDraftNote,
     this.onNoteOptionsTap,
     this.onCardTap,
     this.bubbleWidth,
     this.bubbleColor,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final NoteModel noteModel;
   final bool isDraftNote;
@@ -47,8 +52,8 @@ class NoteCard extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double bodyWidth({
-    @required BuildContext context,
-    @required double widthOverride
+    required BuildContext context,
+    required double widthOverride
   }) {
     return Bubble.clearWidth(
         context: context,

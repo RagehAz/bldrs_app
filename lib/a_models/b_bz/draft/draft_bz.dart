@@ -1,3 +1,5 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/space/atlas.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
@@ -10,49 +12,48 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
-import 'package:filers/filers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:space_time/space_time.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/time/timers.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 /// => TAMAM
 @immutable
 class DraftBz {
   // -----------------------------------------------------------------------------
   const DraftBz({
-    @required this.id,
-    @required this.createdAt,
-    @required this.accountType,
-    @required this.nameController,
-    @required this.trigram,
-    @required this.zone,
-    @required this.aboutController,
-    @required this.position,
-    @required this.contacts,
-    @required this.authors,
-    @required this.pendingAuthors,
-    @required this.showsTeam,
-    @required this.isVerified,
-    @required this.bzState,
-    @required this.flyersIDs,
-    @required this.bzSection,
-    @required this.bzTypes,
-    @required this.inactiveBzTypes,
-    @required this.bzForm,
-    @required this.inactiveBzForms,
-    @required this.scope,
-    @required this.logoPicModel,
-    @required this.hasNewLogo,
-    @required this.canPickImage,
-    @required this.canValidate,
-    @required this.nameNode,
-    @required this.aboutNode,
-    @required this.emailNode,
-    @required this.websiteNode,
-    @required this.phoneNode,
-    @required this.formKey,
-    @required this.firstTimer,
+    required this.id,
+    required this.createdAt,
+    required this.accountType,
+    required this.nameController,
+    required this.trigram,
+    required this.zone,
+    required this.aboutController,
+    required this.position,
+    required this.contacts,
+    required this.authors,
+    required this.pendingAuthors,
+    required this.showsTeam,
+    required this.isVerified,
+    required this.bzState,
+    required this.flyersIDs,
+    required this.bzSection,
+    required this.bzTypes,
+    required this.inactiveBzTypes,
+    required this.bzForm,
+    required this.inactiveBzForms,
+    required this.scope,
+    required this.logoPicModel,
+    required this.hasNewLogo,
+    required this.canPickImage,
+    required this.canValidate,
+    required this.nameNode,
+    required this.aboutNode,
+    required this.emailNode,
+    required this.websiteNode,
+    required this.phoneNode,
+    required this.formKey,
+    required this.firstTimer,
   });
   // -----------------------------------------------------------------------------
   final String id;
@@ -94,7 +95,7 @@ class DraftBz {
   // -------------------
   /// TESTED : WORKS PERFECT
   static Future<DraftBz> createDraftBz({
-    @required BzModel oldBz,
+    required BzModel oldBz,
   }) async {
 
     DraftBz _output;
@@ -197,7 +198,7 @@ class DraftBz {
   // -------------------
   /// TESTED : WORKS PERFECT
   static Future<DraftBz> _createDraftBzFromBzModel({
-    @required BzModel bzModel,
+    required BzModel bzModel,
   }) async {
 
     assert(bzModel != null, 'BzModel can not be null here');
@@ -254,8 +255,8 @@ class DraftBz {
   // --------------------
   /// TESTED : WORKS PERFECT
   static DraftBz reAttachNodes({
-    @required DraftBz draftFromLDB,
-    @required DraftBz originalDraft,
+    required DraftBz draftFromLDB,
+    required DraftBz originalDraft,
   }){
     return draftFromLDB.copyWith(
       nameNode: originalDraft.nameNode,
@@ -354,8 +355,8 @@ class DraftBz {
   // --------------------
   /// TESTED : WORKS PERFECT
   static DraftBz fromLDB({
-    @required BuildContext context,
-    @required Map<String, dynamic> map,
+    required BuildContext context,
+    required Map<String, dynamic> map,
   }){
 
     final List<BzType> _bzTypes = BzTyper.decipherBzTypes(map['bzTypes']);
@@ -569,8 +570,8 @@ class DraftBz {
   // -------------------
   /// TESTED : WORKS PERFECT
   static DraftBz overrideBzID({
-    @required DraftBz draft,
-    @required String bzID,
+    required DraftBz draft,
+    required String bzID,
   }){
     DraftBz _output;
 
@@ -670,8 +671,8 @@ class DraftBz {
   // -------------------
   /// TESTED : WORKS PERFECT
   static bool checkDraftsAreIdentical({
-    @required DraftBz draft1,
-    @required DraftBz draft2,
+    required DraftBz draft1,
+    required DraftBz draft2,
   }){
     bool _areIdentical = false;
 

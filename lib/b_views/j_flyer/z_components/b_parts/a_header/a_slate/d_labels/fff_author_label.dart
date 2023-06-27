@@ -13,15 +13,15 @@ import 'package:flutter/material.dart';
 class AuthorLabel extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const AuthorLabel({
-    @required this.flyerBoxWidth,
-    @required this.authorID,
-    @required this.bzModel,
-    @required this.showLabel,
+    required this.flyerBoxWidth,
+    required this.authorID,
+    required this.bzModel,
+    required this.showLabel,
     this.onLabelTap,
     this.labelIsOn = false,
     this.authorImage,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final String authorID;

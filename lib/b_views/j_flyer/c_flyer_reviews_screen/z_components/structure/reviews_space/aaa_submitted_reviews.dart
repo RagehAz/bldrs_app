@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -12,19 +13,19 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/x_queries/reviews_queries.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 
 class SubmittedReviews extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const SubmittedReviews({
-    @required this.pageWidth,
-    @required this.pageHeight,
-    @required this.flyerModel,
-    @required this.highlightReviewID,
-    Key key
-  }) : super(key: key);
+    required this.pageWidth,
+    required this.pageHeight,
+    required this.flyerModel,
+    required this.highlightReviewID,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double pageWidth;
   final double pageHeight;
@@ -48,7 +49,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -154,7 +155,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
           loadingWidget: const Loading(
             loading: true,
           ),
-          builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
+          builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget? child){
 
             final List<ReviewModel> reviews = ReviewModel.decipherReviews(
               maps: maps,

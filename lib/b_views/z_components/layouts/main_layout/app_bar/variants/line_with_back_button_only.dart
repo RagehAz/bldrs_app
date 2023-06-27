@@ -3,10 +3,10 @@ part of bldrs_app_bar;
 class LineWithBackButtonOnly extends StatelessWidget {
 
   const LineWithBackButtonOnly({
-    @required this.onBack,
-    Key key
-  }) : super(key: key);
-
+    required this.onBack,
+    super.key
+  });
+  
   final Function onBack;
 
   @override

@@ -9,10 +9,10 @@ import 'package:flutter/material.dart';
 class UsersPaginatorView extends StatelessWidget {
   // --------------------------------------------------------------------------
   const UsersPaginatorView({
-    @required this.paginationController,
-    @required this.fireQueryModel,
-    Key key
-  }) : super(key: key);
+    required this.paginationController,
+    required this.fireQueryModel,
+    super.key
+  });
   // --------------------
   final FireQueryModel fireQueryModel;
   final PaginationController paginationController;
@@ -23,7 +23,7 @@ class UsersPaginatorView extends StatelessWidget {
     return  FireCollPaginator(
         paginationQuery: fireQueryModel,
         paginationController: paginationController,
-        builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
+        builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget? child){
 
           final List<UserModel> _users = UserModel.decipherUsers(
               maps: maps,

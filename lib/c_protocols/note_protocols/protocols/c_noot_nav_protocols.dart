@@ -16,7 +16,7 @@ class NootNavToProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onNootTap({
-    @required NoteModel noteModel,
+    required NoteModel noteModel,
     bool startFromHome,
   }) async {
 

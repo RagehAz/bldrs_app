@@ -19,10 +19,10 @@ import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:fire/super_fire.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
@@ -248,9 +248,9 @@ Future<bool> _authorshipDeletionCheckups() async {
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<bool> reAuthenticateUser({
-  @required Verse dialogTitleVerse,
-  @required Verse dialogBodyVerse,
-  @required Verse confirmButtonVerse,
+  required Verse dialogTitleVerse,
+  required Verse dialogBodyVerse,
+  required Verse confirmButtonVerse,
 }) async {
 
   bool _canContinue = false;
@@ -316,7 +316,7 @@ Future<bool> reAuthenticateUser({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<bool> _checkPassword({
-  @required UserModel userModel,
+  required UserModel userModel,
 }) async {
 
   bool _passwordIsCorrect;

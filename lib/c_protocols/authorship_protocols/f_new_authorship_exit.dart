@@ -23,8 +23,8 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 /// => TAMAM
 class NewAuthorshipExit {
   // -----------------------------------------------------------------------------
@@ -38,8 +38,8 @@ class NewAuthorshipExit {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onRemoveMyselfWhileDeletingMyUserAccount({
-    @required AuthorModel authorModel,
-    @required BzModel bzModel,
+    required AuthorModel authorModel,
+    required BzModel bzModel,
   }) async {
 
       /// REMOVE AUTHOR FROM BZ MODEL
@@ -72,9 +72,9 @@ class NewAuthorshipExit {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onRemoveMySelf({
-    @required AuthorModel authorModel,
-    @required BzModel bzModel,
-    @required bool showConfirmDialog,
+    required AuthorModel authorModel,
+    required BzModel bzModel,
+    required bool showConfirmDialog,
   }) async {
 
     bool _canDelete = true;
@@ -145,8 +145,8 @@ class NewAuthorshipExit {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onRemoveOtherAuthor({
-    @required AuthorModel authorModel,
-    @required BzModel bzModel,
+    required AuthorModel authorModel,
+    required BzModel bzModel,
   }) async {
 
     /// SHOW DIALOG
@@ -197,8 +197,8 @@ class NewAuthorshipExit {
   // --------------------
   /// TASK : TEST ME : WORKS GOOD FOR WIPING BZ CYCLE
   static Future<void> onIGotRemoved({
-    @required String bzID, // this should not include my id
-    @required bool isBzDeleted,
+    required String bzID, // this should not include my id
+    required bool isBzDeleted,
   }) async {
 
     // blog('bzModel == null : ${bzModel == null}');
@@ -268,8 +268,8 @@ class NewAuthorshipExit {
   // --------------------
     /// TESTED : WORKS PERFECT
   static Future<void> _migrateFlyersAndRemoveAuthorAndRenovateBz({
-    @required BzModel bzModel,
-    @required AuthorModel authorModel,
+    required BzModel bzModel,
+    required AuthorModel authorModel,
   }) async {
 
     /// REMOVE AUTHOR FROM BZ MODEL
@@ -302,8 +302,8 @@ class NewAuthorshipExit {
   // --------------------
     /// TESTED : WORKS PERFECT
   static Future<void> _migrateAuthorFlyersToBzCreator({
-    @required AuthorModel authorModel,
-    @required BzModel bzModel,
+    required AuthorModel authorModel,
+    required BzModel bzModel,
   }) async {
 
     if (Mapper.checkCanLoopList(authorModel.flyersIDs) == true){
@@ -332,8 +332,8 @@ class NewAuthorshipExit {
   // --------------------
     /// TESTED : WORKS PERFECT
   static Future<void> _migrateTheFlyer({
-    @required String flyerID,
-    @required BzModel bzModel,
+    required String flyerID,
+    required BzModel bzModel,
   }) async {
 
     FlyerModel _flyer = await FlyerProtocols.fetchFlyer(
@@ -357,7 +357,7 @@ class NewAuthorshipExit {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _doAllMyUserRemovalFromBzOps({
-    @required String bzID,
+    required String bzID,
   }) async {
 
     /// (only i can) : REMOVE BZ & BZ TOPICS FROM MY USER MODEL
@@ -465,8 +465,8 @@ class NewAuthorshipExit {
   // --------------------
     /// TESTED : WORKS PERFECT
   static Future<void> _iGotDeletedNoticeDialog({
-    @required bool isBzDeleted,
-    @required String bzID,
+    required bool isBzDeleted,
+    required String bzID,
   }) async {
 
     /// BZ DELETED
@@ -509,7 +509,7 @@ class NewAuthorshipExit {
   // --------------------
     /// TESTED : WORKS PERFECT
   static void _showRemovingAuthorWaitDialog({
-    @required bool isBzDeleted,
+    required bool isBzDeleted,
   }) {
 
     final String _waitText = isBzDeleted == true ?
@@ -533,7 +533,7 @@ class NewAuthorshipExit {
   // --------------------
     /// TESTED : WORKS PERFECT
   static Future<void> _showRemovedAuthorSuccessDialog({
-    @required bool isBzDeleted,
+    required bool isBzDeleted,
   }) async {
 
     if (isBzDeleted == true){

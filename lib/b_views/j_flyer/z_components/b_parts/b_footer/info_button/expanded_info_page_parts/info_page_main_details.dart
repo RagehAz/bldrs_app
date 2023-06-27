@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
@@ -15,18 +16,18 @@ import 'package:flutter/material.dart';
 class InfoPageMainDetails extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const InfoPageMainDetails({
-    @required this.pageWidth,
-    @required this.flyerModel,
-    Key key
-  }) : super(key: key);
+    required this.pageWidth,
+    required this.flyerModel,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double pageWidth;
   final FlyerModel flyerModel;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   String _getZoneLine({
-    @required BuildContext context,
-    @required ZoneModel zone,
+    required BuildContext context,
+    required ZoneModel zone,
   }){
     String _output;
 

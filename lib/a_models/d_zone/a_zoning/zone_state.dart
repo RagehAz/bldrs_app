@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 class ZoneState {
 
   const ZoneState({
-    @required this.id,
-    @required this.canCreateNewUsers,
-    @required this.canCreateNewBzz,
-    @required this.canCreateNewFlyers,
-    @required this.localsCanReadBzz,
-    @required this.localCanReadFlyers,
-    @required this.globalsCanReadBzz,
-    @required this.globalsCanReadFlyers,
+    required this.id,
+    required this.canCreateNewUsers,
+    required this.canCreateNewBzz,
+    required this.canCreateNewFlyers,
+    required this.localsCanReadBzz,
+    required this.localCanReadFlyers,
+    required this.globalsCanReadBzz,
+    required this.globalsCanReadFlyers,
   });
 
   final String id;
@@ -29,8 +29,8 @@ class ZoneState {
 
 
   static bool canViewHomeWall({
-    @required ZoneState zoneState,
-    @required bool isLocal,
+    required ZoneState zoneState,
+    required bool isLocal,
   }) {
     if (isLocal) {
       return zoneState.localsCanReadBzz;

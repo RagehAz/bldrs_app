@@ -16,7 +16,7 @@ class ZoneTranslator {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Verse translateCountry({
-    @required String countryID,
+    required String countryID,
     String langCode,
   }) {
     Verse _output;
@@ -42,7 +42,7 @@ class ZoneTranslator {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Verse translateCity({
-    @required CityModel cityModel,
+    required CityModel cityModel,
     String langCode,
   }) {
     Verse _output;

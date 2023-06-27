@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_ldb_ops.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_real_ops.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 class CensusProtocols {
@@ -45,7 +45,7 @@ class CensusProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CensusModel>> fetchCountriesCensusesByIDs({
-    @required List<String> countriesIDs,
+    required List<String> countriesIDs,
   }) async {
     final List<CensusModel> _output = [];
 
@@ -95,7 +95,7 @@ class CensusProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CensusModel> fetchCountryCensus({
-    @required String countryID,
+    required String countryID,
   }) async {
     CensusModel _output;
 
@@ -128,7 +128,7 @@ class CensusProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CensusModel> refetchCountryCensus({
-    @required String countryID,
+    required String countryID,
   }) async {
     CensusModel _output;
 
@@ -151,7 +151,7 @@ class CensusProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CensusModel>> fetchCitiesCensuses({
-    @required List<String> citiesIDs,
+    required List<String> citiesIDs,
   }) async {
     final List<CensusModel> _output = <CensusModel>[];
 
@@ -182,7 +182,7 @@ class CensusProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CensusModel>> refetchAllAvailableCitiesOfCountryCensuses({
-    @required String countryID,
+    required String countryID,
   }) async {
     List<CensusModel> _output = [];
 
@@ -211,7 +211,7 @@ class CensusProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CensusModel> fetchCityCensus({
-    @required String cityID,
+    required String cityID,
   }) async {
     CensusModel _output;
 
@@ -242,7 +242,7 @@ class CensusProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CensusModel> refetchCityCensus({
-    @required String cityID,
+    required String cityID,
   }) async {
     CensusModel _output;
 

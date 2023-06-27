@@ -1,12 +1,15 @@
 import 'dart:async';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/strings/text_clip_board.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:provider/provider.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 /// => TAMAM
 class Keyboard {
   // -----------------------------------------------------------------------------
@@ -20,7 +23,7 @@ class Keyboard {
   // --------------------
   /// TESTED : WORKS PERFECT
   static StreamSubscription<bool> initializeKeyboardListener({
-    @required KeyboardVisibilityController controller,
+    required KeyboardVisibilityController controller,
   }){
 
     /// Subscribe
@@ -128,25 +131,28 @@ class Keyboard {
   ];
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String cipherTextInputType(TextInputType type){
-    return TextMod.removeTextBeforeLastSpecialCharacter(type.toJson()['name'], '.');
+  static String? cipherTextInputType(TextInputType type){
+    return TextMod.removeTextBeforeLastSpecialCharacter(
+        text: type.toJson()['name'],
+        specialCharacter: '.',
+    );
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static TextInputType decipherTextInputType(String type){
+  static TextInputType? decipherTextInputType(String? type){
 
     switch(type){
-      case 'text'            : return TextInputType.text; break;
-      case 'multiline'       : return TextInputType.multiline; break;
-      case 'number'          : return TextInputType.number; break;
-      case 'phone'           : return TextInputType.phone; break;
-      case 'datetime'        : return TextInputType.datetime; break;
-      case 'emailAddress'    : return TextInputType.emailAddress; break;
-      case 'url'             : return TextInputType.url; break;
-      case 'visiblePassword' : return TextInputType.visiblePassword; break;
-      case 'name'            : return TextInputType.name; break;
-      case 'streetAddress'   : return TextInputType.streetAddress; break;
-      case 'none'            : return TextInputType.none; break;
+      case 'text'            : return TextInputType.text;
+      case 'multiline'       : return TextInputType.multiline;
+      case 'number'          : return TextInputType.number;
+      case 'phone'           : return TextInputType.phone;
+      case 'datetime'        : return TextInputType.datetime;
+      case 'emailAddress'    : return TextInputType.emailAddress;
+      case 'url'             : return TextInputType.url;
+      case 'visiblePassword' : return TextInputType.visiblePassword;
+      case 'name'            : return TextInputType.name;
+      case 'streetAddress'   : return TextInputType.streetAddress;
+      case 'none'            : return TextInputType.none;
       default: return null;
     }
 
@@ -171,8 +177,8 @@ class Keyboard {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> copyToClipboardAndNotify({
-    @required String copy,
-    int milliseconds,
+    required String copy,
+    int? milliseconds,
   }) async {
 
     await TextClipBoard.copy(

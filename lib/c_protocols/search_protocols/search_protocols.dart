@@ -4,7 +4,7 @@ import 'package:bldrs/c_protocols/search_protocols/search_ldb_ops.dart';
 import 'package:bldrs/c_protocols/search_protocols/search_real_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 /// => TAMAM
 class SearchProtocols {
   // -----------------------------------------------------------------------------
@@ -14,8 +14,8 @@ class SearchProtocols {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<SearchModel> compose({
-    @required SearchModel searchModel,
-    @required String userID,
+    required SearchModel searchModel,
+    required String userID,
   }) async {
     SearchModel _output;
 
@@ -37,7 +37,7 @@ class SearchProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<SearchModel>> fetchAll({
-    @required String userID,
+    required String userID,
   }) async {
     List<SearchModel> _output = [];
 
@@ -97,8 +97,8 @@ class SearchProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> renovate({
-    @required SearchModel searchModel,
-    @required String userID,
+    required SearchModel searchModel,
+    required String userID,
   }) async {
 
     if (searchModel != null && searchModel.id != null && userID != null){
@@ -122,8 +122,8 @@ class SearchProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> wipe({
-    @required String modelID,
-    @required String userID,
+    required String modelID,
+    required String userID,
   }) async {
 
     if (modelID != null){
@@ -147,7 +147,7 @@ class SearchProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> wipeAllUserSearches({
-    @required String userID,
+    required String userID,
   }) async {
 
     if (userID != null){

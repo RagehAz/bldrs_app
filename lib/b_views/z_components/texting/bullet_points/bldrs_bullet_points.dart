@@ -1,23 +1,23 @@
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/super_text/super_text.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:super_text/super_text.dart';
 
 class BldrsBulletPoints extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BldrsBulletPoints({
-    @required this.bulletPoints,
+    required this.bulletPoints,
     this.bubbleWidth,
-    this.centered,
+    this.centered = false,
     this.showBottomLine = true,
     this.verseSizeFactor = 1,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final List<Verse> bulletPoints;
-  final double bubbleWidth;
+  final double? bubbleWidth;
   final bool centered;
   final bool showBottomLine;
   final double verseSizeFactor;

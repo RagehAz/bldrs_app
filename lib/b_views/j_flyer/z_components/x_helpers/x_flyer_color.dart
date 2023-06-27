@@ -1,8 +1,7 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/super_box/src/a_the_box_of_super_box/x_custom_box_shadow.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
-import 'package:mapper/mapper.dart';
-
-import 'package:bldrs_theme/bldrs_theme.dart';
-
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/material.dart';
 
 class FlyerColors {
@@ -27,13 +26,13 @@ class FlyerColors {
 
   // --------------------
   static Color headerColorBeginColor({
-    @required bool tinyMode,
+    required bool tinyMode,
   }){
     return tinyMode == true ? Colorz.nothing : Colorz.blackSemi230;
   }
   // --------------------
   static Color headerEndColor({
-    @required List<SlideModel> slides,
+    required List<SlideModel> slides,
   }){
 
     if (Mapper.checkCanLoopList(slides) == true){
@@ -73,7 +72,7 @@ class FlyerColors {
 
   // --------------------
   static Color authorLabelColor({
-    @required bool showLabel,
+    required bool showLabel,
   }){
     return showLabel == false ? Colorz.nothing : Colorz.white20;
   }
@@ -89,13 +88,13 @@ class FlyerColors {
 
   // --------------------
   static Color followButtonColor({
-    @required bool followIsOn,
+    required bool followIsOn,
   }){
     return followIsOn == true ? Colorz.yellow255 : Colorz.white20;
   }
   // --------------------
   static Color followIconColor({
-    @required bool followIsOn,
+    required bool followIsOn,
   }){
     return followIsOn == true ? Colorz.black230 : Colorz.white255;
   }
@@ -125,15 +124,15 @@ class FlyerColors {
 
   // --------------------
   static Color footerButtonColor({
-    @required bool buttonIsOn,
+    required bool buttonIsOn,
   }) {
     return buttonIsOn ? Colorz.yellow255 : Colorz.black255;
   }
   // --------------------------------------------------------------------------
   static Color infoButtonColor({
-    @required double flyerBoxWidth,
-    @required bool tinyMode,
-    @required bool isExpanded,
+    required double flyerBoxWidth,
+    required bool tinyMode,
+    required bool isExpanded,
   }){
 
     Color _color;
@@ -167,9 +166,9 @@ class FlyerColors {
   static const Color progressStripLoadingColor = Colorz.yellow200;
   // --------------------
   static Color progressStripColor({
-    @required bool isWhite,
-    @required int numberOfSlides,
-    @required Color colorOverride,
+    required bool isWhite,
+    required int numberOfSlides,
+    required Color colorOverride,
   }) {
     final int _numberOfSlides = numberOfSlides == 0 ? 1 : numberOfSlides;
 

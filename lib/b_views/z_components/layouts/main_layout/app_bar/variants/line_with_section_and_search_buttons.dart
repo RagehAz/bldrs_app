@@ -3,9 +3,9 @@ part of bldrs_app_bar;
 class LineWithSectionAndSearchButtons extends StatelessWidget {
 
   const LineWithSectionAndSearchButtons({
-    Key key
-  }) : super(key: key);
-
+    super.key
+  });
+  
   @override
   Widget build(BuildContext context) {
 

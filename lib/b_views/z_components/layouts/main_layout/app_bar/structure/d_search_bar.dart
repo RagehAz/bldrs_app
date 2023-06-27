@@ -3,10 +3,10 @@ part of bldrs_app_bar;
 class SearchBar extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const SearchBar({
-    @required this.onSearchSubmit,
-    @required this.searchButtonIsOn,
-    @required this.appBarType,
-    @required this.globalKey,
+    required this.onSearchSubmit,
+    required this.searchButtonIsOn,
+    required this.appBarType,
+    required this.globalKey,
     this.searchController,
     this.onSearchChanged,
     this.onPaste,
@@ -16,8 +16,8 @@ class SearchBar extends StatefulWidget {
     this.onSearchCancelled,
     this.filtersAreOn,
     this.onFilterTap,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final TextEditingController searchController;
   final ValueChanged<String> onSearchSubmit;
@@ -105,7 +105,7 @@ class _SearchBarState extends State<SearchBar> {
           if (widget.searchButtonIsOn == true)
             ValueListenableBuilder(
                 valueListenable: _searchTextController,
-                builder: (_, TextEditingValue value, Widget child){
+                builder: (_, TextEditingValue value, Widget? child){
 
                   final bool _canSubmit = value.text.length >= Standards.minSearchChar;
 
@@ -189,7 +189,7 @@ class _SearchBarState extends State<SearchBar> {
           if (widget.searchButtonIsOn == true && widget.filtersAreOn == null)
             ValueListenableBuilder(
                 valueListenable: _searchTextController,
-                builder: (_, TextEditingValue value, Widget child){
+                builder: (_, TextEditingValue value, Widget? child){
 
                   final bool _canSubmit = value.text.length >= Standards.minSearchChar;
 
@@ -231,7 +231,7 @@ class _SearchBarState extends State<SearchBar> {
           if (widget.filtersAreOn != null)
             ValueListenableBuilder(
                 valueListenable: widget.filtersAreOn,
-                builder: (_, bool filtersAreOn, Widget child){
+                builder: (_, bool filtersAreOn, Widget? child){
 
                   return Row(
                     children: <Widget>[

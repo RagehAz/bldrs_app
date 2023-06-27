@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
@@ -21,9 +22,9 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 
@@ -32,8 +33,8 @@ import 'package:layouts/layouts.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onFlyerBzOptionsTap({
-  @required BuildContext context,
-  @required FlyerModel flyer,
+  required BuildContext context,
+  required FlyerModel flyer,
 }) async {
 
   blog('~~~~~~~>');
@@ -127,8 +128,8 @@ Future<void> onFlyerBzOptionsTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onEditFlyerButtonTap({
-  @required BuildContext context,
-  @required FlyerModel flyer,
+  required BuildContext context,
+  required FlyerModel flyer,
 }) async {
 
   /// CLOSE BOTTOM DIALOG
@@ -192,8 +193,8 @@ Future<void> _onCanNotDeleteFlyerDialog() async {
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onDeleteFlyerButtonTap({
-  @required BuildContext context,
-  @required FlyerModel flyer,
+  required BuildContext context,
+  required FlyerModel flyer,
 }) async {
 
   final bool _result = await _preFlyerDeleteCheckups(
@@ -235,7 +236,7 @@ Future<void> _onDeleteFlyerButtonTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<bool> _preFlyerDeleteCheckups({
-  @required FlyerModel flyer,
+  required FlyerModel flyer,
 }) async {
 
   bool _canContinue = false;

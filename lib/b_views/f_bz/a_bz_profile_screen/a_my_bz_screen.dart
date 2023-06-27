@@ -13,17 +13,17 @@ import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/obel
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:provider/provider.dart';
 
 class MyBzScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const MyBzScreen({
     this.initialTab = BzTab.flyers,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final BzTab initialTab;
 

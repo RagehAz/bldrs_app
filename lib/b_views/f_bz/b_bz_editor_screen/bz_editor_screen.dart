@@ -25,10 +25,10 @@ import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mediators/mediators.dart';
-import 'package:night_sky/night_sky.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 
 class BzEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -36,8 +36,8 @@ class BzEditorScreen extends StatefulWidget {
     this.bzModel,
     this.checkLastSession = true,
     this.validateOnStartup = false,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final BzModel bzModel;
   final bool checkLastSession;
@@ -60,7 +60,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
   /// LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -384,7 +384,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
       // ],
       child: ValueListenableBuilder(
         valueListenable: draftNotifier,
-        builder: (_, DraftBz draft, Widget child){
+        builder: (_, DraftBz draft, Widget? child){
 
             final String _companyNameBubbleTitle = draft?.bzForm == BzForm.individual ?
             'phid_business_entity_name'

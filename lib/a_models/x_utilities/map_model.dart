@@ -1,5 +1,5 @@
-import 'package:mapper/mapper.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/foundation.dart';
 
 @immutable
@@ -8,8 +8,8 @@ class MapModel{
   //  NOTE : A LIST OF MAP MODELS SHOULD NEVER ALLOW DUPLICATE KEYS
   /// --------------------------------------------------------------------------
   const MapModel({
-    @required this.key,
-    @required this.value,
+    required this.key,
+    required this.value,
   });
   /// --------------------------------------------------------------------------
   final String key;
@@ -157,7 +157,7 @@ class MapModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogMapModels({
-    @required List<MapModel> phidsMaps,
+    required List<MapModel> phidsMaps,
     String invoker = 'MapModels',
   }){
     blog('$invoker ------------------------------------------- START');
@@ -225,8 +225,8 @@ class MapModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static MapModel getModelByKey({
-    @required List<MapModel> models,
-    @required String key,
+    required List<MapModel> models,
+    required String key,
   }){
     MapModel _model;
 
@@ -239,8 +239,8 @@ class MapModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<MapModel> getModelsByKeys({
-    @required List<MapModel> allModels,
-    @required List<String> keys,
+    required List<MapModel> allModels,
+    required List<String> keys,
   }){
     final List<MapModel> _output = <MapModel>[];
 
@@ -271,8 +271,8 @@ class MapModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<MapModel> replaceMapModel({
-    @required List<MapModel> mapModels,
-    @required MapModel mapModel,
+    required List<MapModel> mapModels,
+    required MapModel mapModel,
   }){
 
     final List<MapModel> _output = mapModels ?? <MapModel>[];
@@ -293,8 +293,8 @@ class MapModel{
   // --------------------
   /// TASK : TEST ME
   static List<MapModel> insertMapModel({
-    @required List<MapModel> mapModels,
-    @required MapModel mapModel,
+    required List<MapModel> mapModels,
+    required MapModel mapModel,
     bool replaceExistingID,
   }){
 
@@ -327,8 +327,8 @@ class MapModel{
   // --------------------
   /// TASK : TEST ME
   static List<MapModel> removeMapModel({
-    @required List<MapModel> mapModels,
-    @required String key,
+    required List<MapModel> mapModels,
+    required String key,
   }){
 
     final List<MapModel> _output = mapModels ?? <MapModel>[];
@@ -348,8 +348,8 @@ class MapModel{
   // --------------------
   /// TASK : TEST ME
   static List<MapModel> removeMapsWithThisValue({
-    @required List<MapModel> mapModels,
-    @required dynamic value,
+    required List<MapModel> mapModels,
+    required dynamic value,
   }){
     final List<MapModel> _output = mapModels ?? <MapModel>[];
 
@@ -366,8 +366,8 @@ class MapModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkMapExists({
-    @required List<MapModel> mapModels,
-    @required MapModel mapModel,
+    required List<MapModel> mapModels,
+    required MapModel mapModel,
   }){
 
     bool _exists = false;
@@ -391,8 +391,8 @@ class MapModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkMapsIncludeThisKey({
-    @required List<MapModel> mapModels,
-    @required String key,
+    required List<MapModel> mapModels,
+    required String key,
   }){
     bool _include = false;
 
@@ -414,8 +414,8 @@ class MapModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkMapModelsListsAreIdentical({
-    @required List<MapModel> models1,
-    @required List<MapModel> models2,
+    required List<MapModel> models1,
+    required List<MapModel> models2,
   }){
     bool _output = false;
 

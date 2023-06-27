@@ -20,7 +20,7 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_leveller.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -33,9 +33,9 @@ class ComposeBzProtocols {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> compose({
-    @required BuildContext context,
-    @required DraftBz newDraft,
-    @required UserModel userModel,
+    required BuildContext context,
+    required DraftBz newDraft,
+    required UserModel userModel,
   }) async {
     blog('ComposeBzProtocol.compose : START');
 
@@ -137,7 +137,7 @@ class ComposeBzProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _addMyNewCreatedBzLocally({
-    @required BzModel bzModel,
+    required BzModel bzModel,
   }) async {
 
     final BzModel _bzModelWithCompleteZoneModel = await BzProtocols.completeBzZoneModel(
@@ -158,8 +158,8 @@ class ComposeBzProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _addBzIdToMyUserModelAndRenovateAndSubscribeToAllBzTopics({
-    @required BuildContext context,
-    @required String bzID,
+    required BuildContext context,
+    required String bzID,
   }) async {
 
     final UserModel _oldUser = UsersProvider.proGetMyUserModel(
@@ -199,8 +199,8 @@ class ComposeBzProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _duplicateUserPicAsAuthorPic({
-    @required UserModel userModel,
-    @required String bzID,
+    required UserModel userModel,
+    required String bzID,
   }) async {
 
     if (userModel != null && bzID != null){

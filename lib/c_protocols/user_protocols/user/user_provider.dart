@@ -49,8 +49,8 @@ class UsersProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static UserModel proGetMyUserModel({
-    @required BuildContext context,
-    @required bool listen
+    required BuildContext context,
+    required bool listen
   }){
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: listen);
     return _usersProvider.myUserModel;
@@ -58,8 +58,8 @@ class UsersProvider extends ChangeNotifier {
   // --------------------
   ///
   static void proSetMyUserModel({
-    @required UserModel userModel,
-    @required bool notify,
+    required UserModel userModel,
+    required bool notify,
   }) {
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(getMainContext(), listen: false);
     _usersProvider._setMyUserModel(userModel: userModel, notify: notify);
@@ -67,8 +67,8 @@ class UsersProvider extends ChangeNotifier {
   // --------------------
   ///
   void _setMyUserModel({
-    @required UserModel userModel,
-    @required bool notify,
+    required UserModel userModel,
+    required bool notify,
   }) {
       _myUserModel = userModel;
 
@@ -79,7 +79,7 @@ class UsersProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void clearMyUserModel({
-    @required bool notify,
+    required bool notify,
   }) {
     _myUserModel = null;
 
@@ -104,8 +104,8 @@ class UsersProvider extends ChangeNotifier {
   bool get isSearchingDeviceContacts => _isSearchingDeviceContacts;
   // --------------------
   void setMyDeviceContacts({
-    @required List<Contact> contacts,
-    @required bool notify,
+    required List<Contact> contacts,
+    required bool notify,
   }){
     _myDeviceContacts = contacts;
 
@@ -145,8 +145,8 @@ class UsersProvider extends ChangeNotifier {
   }
   // --------------------
   void _setSelectedDeviceContacts({
-    @required List<String> contacts,
-    @required bool notify,
+    required List<String> contacts,
+    required bool notify,
   }){
 
     _selectedDeviceContacts = contacts;
@@ -218,8 +218,8 @@ class UsersProvider extends ChangeNotifier {
   }
   // --------------------
   void _serSearchedDeviceContacts({
-    @required List<Contact> setTo,
-    @required bool notify,
+    required List<Contact> setTo,
+    required bool notify,
   }){
 
     _searchedDeviceContacts = setTo;
@@ -231,8 +231,8 @@ class UsersProvider extends ChangeNotifier {
   }
   // --------------------
   void _triggerIsSearchingDeviceContacts({
-    @required String searchString,
-    @required bool notify,
+    required String searchString,
+    required bool notify,
   }){
 
     /// A - WHEN SEARCHING IS FALSE
@@ -274,8 +274,8 @@ class UsersProvider extends ChangeNotifier {
   }
   // --------------------
   void _setIsSearchingDeviceContacts({
-    @required bool setTo,
-    @required bool notify,
+    required bool setTo,
+    required bool notify,
   }){
     _isSearchingDeviceContacts = setTo;
     if (notify == true){
@@ -290,7 +290,7 @@ class UsersProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void wipeOut({
-    @required bool notify,
+    required bool notify,
   }){
 
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(getMainContext(), listen: false);

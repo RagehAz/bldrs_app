@@ -1,3 +1,7 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/widgets/drawing/expander.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/c_pdf_screen.dart';
 import 'package:bldrs/b_views/z_components/texting/bullet_points/bldrs_bullet_points.dart';
@@ -12,26 +16,22 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/pdf_protocols/protocols/pdf_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
 
 class PDFSelectionBubble extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const PDFSelectionBubble({
-    @required this.onChangePDF,
-    @required this.onDeletePDF,
-    @required this.existingPDF,
-    @required this.formKey,
-    @required this.appBarType,
-    @required this.canValidate,
-    @required this.flyerID,
-    @required this.bzID,
-    Key key
-  }) : super(key: key);
+    required this.onChangePDF,
+    required this.onDeletePDF,
+    required this.existingPDF,
+    required this.formKey,
+    required this.appBarType,
+    required this.canValidate,
+    required this.flyerID,
+    required this.bzID,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final ValueChanged<PDFModel> onChangePDF;
   final Function onDeletePDF;
@@ -58,7 +58,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -101,7 +101,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
 
     return ValueListenableBuilder(
         valueListenable: _pdfNotifier,
-        builder: (_, PDFModel pdfModel, Widget child){
+        builder: (_, PDFModel pdfModel, Widget? child){
 
           final bool _bytesExist = pdfModel?.bytes != null;
           final bool _pathExists = pdfModel?.path != null;
@@ -181,7 +181,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                     if (pdfModel.sizeMB == null)
                       ValueListenableBuilder(
                           valueListenable: _loading,
-                          builder: (_, bool loading, Widget child){
+                          builder: (_, bool loading, Widget? child){
 
                             return Loading(
                               loading: loading,

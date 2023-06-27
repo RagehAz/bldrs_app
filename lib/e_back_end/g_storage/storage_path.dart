@@ -57,8 +57,8 @@ class StoragePath {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String bzz_bzID_authorID({
-    @required String bzID,
-    @required String authorID,
+    required String bzID,
+    required String authorID,
   }){
 
     if (bzID == null || authorID == null){
@@ -91,7 +91,7 @@ class StoragePath {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String flyers_flyerID({
-    @required String flyerID,
+    required String flyerID,
   }){
     if (flyerID == null){
       return null;
@@ -104,8 +104,8 @@ class StoragePath {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String flyers_flyerID_slideIndex({
-    @required String flyerID,
-    @required int slideIndex,
+    required String flyerID,
+    required int slideIndex,
   }){
 
     if (flyerID == null || slideIndex == null){

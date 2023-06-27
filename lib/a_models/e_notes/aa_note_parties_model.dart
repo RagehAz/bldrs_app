@@ -1,7 +1,8 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:mapper/mapper.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -16,11 +17,11 @@ enum PartyType {
 class NoteParties {
   /// --------------------------------------------------------------------------
   const NoteParties({
-    @required this.senderID,
-    @required this.senderImageURL,
-    @required this.senderType,
-    @required this.receiverID,
-    @required this.receiverType,
+    required this.senderID,
+    required this.senderImageURL,
+    required this.senderType,
+    required this.receiverID,
+    required this.receiverType,
   });
   /// --------------------------------------------------------------------------
   final String senderID;
@@ -143,12 +144,12 @@ class NoteParties {
   ];
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getPartyIcon(PartyType type){
+  static String? getPartyIcon(PartyType? type){
     switch(type){
-      case PartyType.user:        return Iconz.normalUser;      break;
-      case PartyType.bz:          return Iconz.bz;              break;
-      case PartyType.country:     return Iconz.flag;            break;
-      case PartyType.bldrs:       return Iconz.bldrsNameSquare; break;
+      case PartyType.user:        return Iconz.normalUser;
+      case PartyType.bz:          return Iconz.bz;
+      case PartyType.country:     return Iconz.flag;
+      case PartyType.bldrs:       return Iconz.bldrsNameSquare;
       default:                        return null;
     }
   }
@@ -159,8 +160,8 @@ class NoteParties {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getReceiversIDs({
-    @required List<dynamic> receiversModels,
-    @required PartyType partyType,
+    required List<dynamic> receiversModels,
+    required PartyType partyType,
   }){
     List<String> _ids = [];
 
@@ -181,8 +182,8 @@ class NoteParties {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getReceiversPics({
-    @required List<dynamic> receiversModels,
-    @required PartyType partyType,
+    required List<dynamic> receiversModels,
+    required PartyType partyType,
   }){
     List<String> _pics = [];
 
@@ -203,8 +204,8 @@ class NoteParties {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String getReceiversTypePhid({
-    @required List<dynamic> receiversModels,
-    @required PartyType partyType,
+    required List<dynamic> receiversModels,
+    required PartyType partyType,
     bool plural = true,
   }){
     String _phid = '';
@@ -230,8 +231,8 @@ class NoteParties {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPartiesAreIdentical({
-    @required NoteParties parties1,
-    @required NoteParties parties2,
+    required NoteParties parties1,
+    required NoteParties parties2,
   }){
     bool _areIdentical = false;
 

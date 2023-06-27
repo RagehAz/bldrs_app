@@ -40,8 +40,8 @@ Future<void> onImportDeviceContactsTap(BuildContext context) async {
 // --------------------
 /*
 void onDeviceContactsSearch({
-  @required BuildContext context,
-  @required String value,
+  required BuildContext context,
+  required String value,
 }){
 
   final String _fixed = TextMod.fixSearchText(value);

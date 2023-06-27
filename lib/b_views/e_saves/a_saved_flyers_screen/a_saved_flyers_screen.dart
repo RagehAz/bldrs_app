@@ -5,10 +5,10 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/z_grid/z_grid.dart';
-import 'package:mapper/mapper.dart';
-import 'package:night_sky/night_sky.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,8 +17,8 @@ class SavedFlyersScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const SavedFlyersScreen({
     this.selectionMode = false,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------
   final bool selectionMode;
   /// --------------------

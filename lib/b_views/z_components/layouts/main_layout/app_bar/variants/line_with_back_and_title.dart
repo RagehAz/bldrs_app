@@ -3,11 +3,11 @@ part of bldrs_app_bar;
 class LineWithBackAndTitle extends StatelessWidget {
 
   const LineWithBackAndTitle({
-    @required this.pageTitleVerse,
-    @required this.onBack,
-    Key key
-  }) : super(key: key);
-
+    required this.pageTitleVerse,
+    required this.onBack,
+    super.key
+  });
+  
   final Verse pageTitleVerse;
   final Function onBack;
 

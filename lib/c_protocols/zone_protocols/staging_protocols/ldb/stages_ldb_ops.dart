@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:ldb/ldb.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/ldb/methods/ldb_ops.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 class StagingLDBOps {
@@ -16,7 +16,7 @@ class StagingLDBOps {
   // --------------------
   /// TAMAM : WORKS PERFECT
   static Future<void> insertStaging({
-    @required StagingModel staging,
+    required StagingModel staging,
   }) async {
 
     await LDBOps.insertMap(
@@ -35,7 +35,7 @@ class StagingLDBOps {
   // --------------------
   /// TAMAM : WORKS PERFECT
   static Future<StagingModel> readStaging({
-    @required String id,
+    required String id,
   }) async {
     StagingModel _output;
 
@@ -63,7 +63,7 @@ class StagingLDBOps {
   // --------------------
   /// TAMAM : WORKS PERFECT
   static Future<void> deleteStaging({
-    @required String id,
+    required String id,
   }) async {
 
     await LDBOps.deleteMaps(
@@ -76,7 +76,7 @@ class StagingLDBOps {
   // --------------------
   /// TAMAM : WORKS PERFECT
   static Future<void> deleteStagings({
-    @required List<String> ids,
+    required List<String> ids,
   }) async {
 
     if (Mapper.checkCanLoopList(ids) == true){

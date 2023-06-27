@@ -15,7 +15,7 @@ class FeedbackRealOps {
   // --------------------
   ///
   static Future<FeedbackModel> createFeedback({
-    @required FeedbackModel feedback,
+    required FeedbackModel feedback,
   }) async {
 
     FeedbackModel _output;

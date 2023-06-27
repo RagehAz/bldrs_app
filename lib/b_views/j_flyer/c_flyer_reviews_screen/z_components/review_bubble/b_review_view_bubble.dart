@@ -1,3 +1,7 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/widgets/drawing/expander.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -13,26 +17,26 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
-import 'package:scale/scale.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class ReviewViewBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ReviewViewBubble({
-    @required this.pageWidth,
-    @required this.onReviewUserBalloonTap,
-    @required this.reviewModel,
-    @required this.flyerModel,
-    @required this.isAgreed,
-    @required this.onReviewOptionsTap,
-    @required this.onBzReplyOverReview,
-    @required this.onReviewAgreeTap,
-    @required this.onReplyOptionsTap,
-    @required this.onReplyBzBalloonTap,
-    @required this.isSpecial,
-    Key key
-  }) : super(key: key);
+    required this.pageWidth,
+    required this.onReviewUserBalloonTap,
+    required this.reviewModel,
+    required this.flyerModel,
+    required this.isAgreed,
+    required this.onReviewOptionsTap,
+    required this.onBzReplyOverReview,
+    required this.onReviewAgreeTap,
+    required this.onReplyOptionsTap,
+    required this.onReplyBzBalloonTap,
+    required this.isSpecial,
+    super.key
+  });
   // --------------------------------------------------------------------------
   final double pageWidth;
   final ReviewModel reviewModel;

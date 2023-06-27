@@ -6,7 +6,7 @@
 // class FlyersBubble extends StatelessWidget {
 //   /// --------------------------------------------------------------------------
 //   const FlyersBubble({
-//     @required this.flyers,
+//     required this.flyers,
 //     this.title = 'Flyers',
 //     this.numberOfColumns = 5,
 //     this.numberOfRows = 2,

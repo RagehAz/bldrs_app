@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 
 import 'package:flutter/material.dart';
@@ -6,12 +7,12 @@ import 'package:bldrs_theme/bldrs_theme.dart';
 class ChainButtonBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ChainButtonBox({
-    @required this.boxWidth,
-    @required this.child,
+    required this.boxWidth,
+    required this.child,
     this.isDisabled = false,
     this.inverseAlignment = true,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final bool isDisabled;
   final double boxWidth;
@@ -19,8 +20,8 @@ class ChainButtonBox extends StatelessWidget {
   final bool inverseAlignment;
   /// --------------------------------------------------------------------------
   static double getSonWidth({
-    @required double parentWidth,
-    @required int level,
+    required double parentWidth,
+    required int level,
   }){
     final int _level = level ?? 0;
     const double _padding = 2 * Ratioz.appBarMargin;

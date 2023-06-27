@@ -8,8 +8,8 @@ class ZoneButton extends StatelessWidget {
     this.zoneOverride,
     this.height = Ratioz.appBarButtonSize,
     this.isPlanetButton = false,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final Function onTap;
   final bool isOn;
@@ -68,14 +68,14 @@ class ZoneButton extends StatelessWidget {
 class _ZoneButtonTree extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const _ZoneButtonTree({
-    @required this.onTap,
-    @required this.icon,
-    @required this.firstRow,
-    @required this.secondRow,
-    @required this.isOn,
+    required this.onTap,
+    required this.icon,
+    required this.firstRow,
+    required this.secondRow,
+    required this.isOn,
     this.height = Ratioz.appBarButtonSize,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   // ---------------------
   final Function onTap;
   final String icon;

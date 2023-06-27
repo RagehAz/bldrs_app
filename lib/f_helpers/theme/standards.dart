@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:mediators/mediators.dart';
 import 'package:devicer/devicer.dart';
@@ -26,9 +27,9 @@ class Standards {
   static const String androidAppStoreURL = 'https://play.google.com/store/apps/details?id=net.bldrs.app';
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getBldrsStoreLink(){
+  static String? getBldrsStoreLink(){
 
-    String _url;
+    String? _url;
 
     if (DeviceChecker.deviceIsIOS() == true){
       _url = iosAppStoreURL;
@@ -61,7 +62,7 @@ class Standards {
   // --------------------
   /// TESTED : WORKS PERFECT
   static int getMaxSlidesCount({
-    @required BzAccountType bzAccountType,
+    required BzAccountType bzAccountType,
   }) {
     switch (bzAccountType) {
       case BzAccountType.basic:  return Standards.maxFlyerSlidesFreeAccount;     break;
@@ -185,3 +186,11 @@ class Standards {
   static const String anonymousUserPicURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bldrs%2Fanonymous_user_pic.png?alt=media&token=61005a82-e697-4d28-bfcc-e8e5d831a54b';
   // -----------------------------------------------------------------------------
 }
+
+const List<String> badWords = <String>[
+  'fuck',
+  'bitch',
+  'whore',
+  'kos',
+  'omak',
+];

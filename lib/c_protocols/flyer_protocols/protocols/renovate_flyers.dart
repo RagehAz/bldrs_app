@@ -15,7 +15,7 @@ import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart'
 import 'package:bldrs/c_protocols/pdf_protocols/protocols/pdf_protocols.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -31,12 +31,12 @@ class RenovateFlyerProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<void> renovate({
-    @required BuildContext context,
-    @required DraftFlyer newDraft,
-    @required FlyerModel oldFlyer,
-    @required bool sendFlyerUpdateNoteToItsBz,
-    @required bool updateFlyerLocally,
-    @required bool resetActiveBz,
+    required BuildContext context,
+    required DraftFlyer newDraft,
+    required FlyerModel oldFlyer,
+    required bool sendFlyerUpdateNoteToItsBz,
+    required bool updateFlyerLocally,
+    required bool resetActiveBz,
   }) async {
     blog('RenovateFlyerProtocols.renovate : START');
 
@@ -132,8 +132,8 @@ class RenovateFlyerProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<void> _renovateOrWipePDF({
-    @required DraftFlyer draft,
-    @required FlyerModel oldFlyer,
+    required DraftFlyer draft,
+    required FlyerModel oldFlyer,
   }) async {
 
     /// FLYER SHOULD HAVE NO PDF
@@ -170,8 +170,8 @@ class RenovateFlyerProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<void> _wipeUnusedSlidesPics({
-    @required DraftFlyer draft,
-    @required FlyerModel oldFlyer,
+    required DraftFlyer draft,
+    required FlyerModel oldFlyer,
   }) async {
     blog('wipeUnusedSlidesPics : START');
 
@@ -200,9 +200,9 @@ class RenovateFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateLocally({
-    @required FlyerModel flyerModel,
-    @required bool notifyFlyerPro,
-    @required bool resetActiveBz,
+    required FlyerModel flyerModel,
+    required bool notifyFlyerPro,
+    required bool resetActiveBz,
   }) async {
     blog('RenovateFlyerProtocols.updateLocally : START');
 

@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:animators/animators.dart';
+import 'package:basics/animators/helpers/sliders.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
@@ -12,11 +14,11 @@ import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart
 import 'package:bldrs/c_protocols/phrase_protocols/real/phrase_real_ops.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:provider/provider.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 /// => TAMAM
 class PhraseProtocols {
   // -----------------------------------------------------------------------------
@@ -91,7 +93,7 @@ class PhraseProtocols {
   /*
   /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> fetchMainPhrasesByCurrentLang({
-    @required BuildContext context,
+    required BuildContext context,
   }) async {
     // blog('PhraseProtocols.fetchBasicPhrasesByCurrentLang : START');
 
@@ -117,8 +119,8 @@ class PhraseProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Phrase> _fetchPhid({
-    @required String langCode,
-    @required String phid,
+    required String langCode,
+    required String phid,
   }) async {
 
     Phrase _phrase = await PhraseLDBOps.searchPhraseByIDAndCode(
@@ -146,8 +148,8 @@ class PhraseProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<String> translate({
-    @required String langCode,
-    @required String phid,
+    required String langCode,
+    required String phid,
   }) async {
     final Phrase _phrase = await _fetchPhid(
       langCode: langCode,
@@ -163,9 +165,9 @@ class PhraseProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> renovateMainPhrases({
-    @required BuildContext context,
-    @required List<Phrase> updatedMixedMainPhrases,
-    @required bool showWaitDialog,
+    required BuildContext context,
+    required List<Phrase> updatedMixedMainPhrases,
+    required bool showWaitDialog,
   }) async {
 
     if (Mapper.checkCanLoopList(updatedMixedMainPhrases) == true){
@@ -221,7 +223,7 @@ class PhraseProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateMainPhrasesLocally({
-    @required List<Phrase> newMainPhrases,
+    required List<Phrase> newMainPhrases,
   }) async {
 
     if (Mapper.checkCanLoopList(newMainPhrases) == true){
@@ -270,8 +272,8 @@ class PhraseProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> generateMixedLangPhrasesFromPhids({
-    @required BuildContext context,
-    @required List<String> phids,
+    required BuildContext context,
+    required List<String> phids,
   }) async {
 
     List<Phrase> _phrases = <Phrase>[];
@@ -296,8 +298,8 @@ class PhraseProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> composeCountriesMixedLangPhrases({
-    @required BuildContext context,
-    @required List<String> langCodes,
+    required BuildContext context,
+    required List<String> langCodes,
   }) async {
 
     /// NOTE : this generates all counties phrases
@@ -326,8 +328,8 @@ class PhraseProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> generatePhrasesFromChain({
-    @required Chain chain,
-    @required BuildContext context,
+    required Chain chain,
+    required BuildContext context,
   }) async {
 
     /// should include en - ar phrases for all IDs
@@ -355,8 +357,8 @@ class PhraseProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> generatePhrasesFromChains({
-    @required List<Chain> chains,
-    @required BuildContext context,
+    required List<Chain> chains,
+    required BuildContext context,
   }) async {
     final List<Phrase> _phrases = <Phrase>[];
 
@@ -385,11 +387,11 @@ class PhraseProtocols {
 
 ///  TESTED : WORKS PERFECT
 List<Phrase> onSearchPhrases({
-  @required ValueNotifier<bool> isSearching,
-  @required TextEditingController searchController,
-  @required List<Phrase> phrasesToSearchIn,
-  @required PageController pageController,
-  @required bool mounted,
+  required ValueNotifier<bool> isSearching,
+  required TextEditingController searchController,
+  required List<Phrase> phrasesToSearchIn,
+  required PageController pageController,
+  required bool mounted,
   /// mixes between en & ar values in one list
   ValueNotifier<List<Phrase>> mixedSearchResult,
 }){

@@ -1,19 +1,19 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/super_tool_tip.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip_with_headline.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
 
 class DataStrip extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const DataStrip({
-    @required this.dataKey,
-    @required this.dataValue,
+    required this.dataKey,
+    required this.dataValue,
     this.color = Colorz.bloodTest,
     this.onKeyTap,
     this.onValueTap,
@@ -23,8 +23,8 @@ class DataStrip extends StatelessWidget {
     this.highlightText,
     this.tooTipVerse,
     this.height = 50,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final String dataKey;
   final dynamic dataValue;
@@ -42,7 +42,7 @@ class DataStrip extends StatelessWidget {
   // static const double height = 50;
   // -----------------------------------------------------------------------------
   static Future<void> onStripTap({
-    @required dynamic dataValue,
+    required dynamic dataValue,
   }) async {
 
     await Keyboard.copyToClipboardAndNotify(

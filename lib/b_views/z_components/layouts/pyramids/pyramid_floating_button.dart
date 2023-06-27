@@ -5,15 +5,15 @@ import 'package:flutter/material.dart';
 class PyramidFloatingButton extends StatelessWidget {
   /// ---------------------------------------------------------------------------
   const PyramidFloatingButton({
-    @required this.icon,
+    required this.icon,
     this.color,
     this.onTap,
     this.redDotCount = 0,
     this.onLongTap,
     this.isDeactivated,
     this.iconColor,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// ---------------------------------------------------------------------------
   final int redDotCount;
   final String icon;

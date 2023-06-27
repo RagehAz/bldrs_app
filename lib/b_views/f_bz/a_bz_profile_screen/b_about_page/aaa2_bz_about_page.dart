@@ -1,3 +1,7 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/layouts/handlers/pull_to_refresh.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
@@ -17,11 +21,11 @@ import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:provider/provider.dart';
-import 'package:scale/scale.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class BzAboutPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -30,8 +34,8 @@ class BzAboutPage extends StatelessWidget {
     this.showGallery = false,
     this.showContacts = true,
     this.showAuthors = false,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final BzModel bzModel;
   final bool showGallery;
@@ -41,7 +45,7 @@ class BzAboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final BzModel _bzModel = bzModel ?? BzzProvider.proGetActiveBzModel(
+    final BzModel? _bzModel = bzModel ?? BzzProvider.proGetActiveBzModel(
       context: context,
       listen: true,
     );
@@ -53,7 +57,7 @@ class BzAboutPage extends StatelessWidget {
         onRefresh: () async {
 
           final BzModel _bz = await BzProtocols.refetch(
-              bzID:_bzModel.id,
+              bzID:_bzModel?.id,
           );
 
           final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
@@ -88,13 +92,13 @@ class BzAboutPage extends StatelessWidget {
 class AboutBzBubbles extends StatelessWidget {
 
   const AboutBzBubbles({
-    @required this.bzModel,
-    @required this.showGallery,
-    @required this.showContacts,
-    @required this.showAuthors,
-    Key key
-  }) : super(key: key);
-
+    required this.bzModel,
+    required this.showGallery,
+    required this.showContacts,
+    required this.showAuthors,
+    super.key
+  });
+  
   final BzModel bzModel;
   final bool showGallery;
   final bool showContacts;

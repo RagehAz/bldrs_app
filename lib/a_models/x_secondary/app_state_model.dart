@@ -1,5 +1,6 @@
+import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:devicer/devicer.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 /// => TAMAM
@@ -10,8 +11,8 @@ class AppStateModel {
   /// OR AUTOMATICALLY WHEN CHANGING DATA THAT ARE SAVED ON LDB, IN ORDER TO RE FETCH THE DATA
   // -----------------------------------------------------------------------------
   const AppStateModel({
-    @required this.appVersion,
-    @required this.ldbVersion,
+    required this.appVersion,
+    required this.ldbVersion,
   });
   // -----------------------------------------------------------------------------
   final String appVersion;
@@ -98,9 +99,9 @@ class AppStateModel {
   /*
   /// TESTED : WORKS PERFECTLY
   static bool appVersionIsInSync({
-    @required String globalVersion,
-    @required String userVersion,
-    @required String detectedVersion,
+    required String globalVersion,
+    required String userVersion,
+    required String detectedVersion,
   }){
     return
         globalVersion == userVersion &&
@@ -189,8 +190,8 @@ class AppStateModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkAppStatesAreIdentical({
-    @required AppStateModel state1,
-    @required AppStateModel state2,
+    required AppStateModel state1,
+    required AppStateModel state2,
   }){
     bool _identical = false;
 

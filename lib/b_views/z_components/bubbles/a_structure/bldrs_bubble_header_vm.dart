@@ -1,3 +1,6 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -5,7 +8,7 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 @immutable
 class BldrsBubbleHeaderVM {
@@ -45,7 +48,7 @@ class BldrsBubbleHeaderVM {
   final bool redDot;
   /// --------------------------------------------------------------------------
   static BubbleHeaderVM bake({
-    @required BuildContext context,
+    required BuildContext context,
     double headerWidth,
     dynamic leadingIcon,
     double leadingIconSizeFactor = 1,
@@ -102,21 +105,21 @@ class BldrsBubbleHeaderVM {
       }
   /// --------------------------------------------------------------------------
   BldrsBubbleHeaderVM copyWith({
-    double headerWidth,
+    double? headerWidth,
     dynamic leadingIcon,
-    double leadingIconSizeFactor,
-    Color leadingIconBoxColor,
-    bool leadingIconIsBubble,
-    bool hasSwitch,
-    bool hasMoreButton,
-    Verse headlineVerse,
-    Color headlineColor,
-    bool switchValue,
-    ValueChanged<bool> onSwitchTap,
-    Function onMoreButtonTap,
-    bool redDot,
-    Function onLeadingIconTap,
-    bool centered,
+    double? leadingIconSizeFactor,
+    Color? leadingIconBoxColor,
+    bool? leadingIconIsBubble,
+    bool? hasSwitch,
+    bool? hasMoreButton,
+    Verse? headlineVerse,
+    Color? headlineColor,
+    bool? switchValue,
+    ValueChanged<bool>? onSwitchTap,
+    Function? onMoreButtonTap,
+    bool? redDot,
+    Function? onLeadingIconTap,
+    bool? centered,
   }){
     return BldrsBubbleHeaderVM(
       headerWidth: headerWidth ?? this.headerWidth,
@@ -142,9 +145,9 @@ class BldrsBubbleHeaderVM {
 class BldrsBubbleHeader extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BldrsBubbleHeader({
-    @required this.viewModel,
-    Key key
-  }) : super(key: key);
+    required this.viewModel,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final BldrsBubbleHeaderVM viewModel;
   // -----------------------------------------------------------------------------

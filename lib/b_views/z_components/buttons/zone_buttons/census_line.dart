@@ -1,29 +1,29 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/tile_buttons/a_tile_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/census_line_unit.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class CensusLine extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const CensusLine({
-    @required this.censusModel,
-    @required this.hasFlagSpace,
-    @required this.isActive,
+    required this.censusModel,
+    required this.hasFlagSpace,
+    required this.isActive,
     this.width,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   // --------------------------------------------------------------------------
   final CensusModel censusModel;
   final bool hasFlagSpace;
-  final double width;
+  final double? width;
   final bool isActive;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool canShowCensus({
-    @required CensusModel censusModel,
+    required CensusModel censusModel,
   }){
 
     if (censusModel == null){

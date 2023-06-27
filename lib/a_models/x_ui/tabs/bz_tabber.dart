@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -55,18 +56,18 @@ class BzTabber {
    */
   // --------------------
   /// TESTED: WORKS PERFECT
-  static String getBzTabPhid({
-    @required BzTab bzTab,
+  static String? getBzTabPhid({
+    required BzTab? bzTab,
   }){
     switch(bzTab){
-      case BzTab.flyers   : return 'phid_flyers'  ; break;
-      case BzTab.about    : return 'phid_info'  ; break;
-      case BzTab.team  : return 'phid_team'  ; break;
-      case BzTab.notes    : return 'phid_notifications'  ; break;
+      case BzTab.flyers   : return 'phid_flyers';
+      case BzTab.about    : return 'phid_info';
+      case BzTab.team  : return 'phid_team';
+      case BzTab.notes    : return 'phid_notifications';
       // case BzTab.targets  : return 'phid_targets'  ; break;
       // case BzTab.powers   : return 'phid_powers'  ; break;
       // case BzTab.network  : return 'phid_network'  ; break;
-      case BzTab.settings : return 'phid_settings' ; break;
+      case BzTab.settings : return 'phid_settings';
       default : return null;
     }
   }
@@ -74,22 +75,21 @@ class BzTabber {
   /// TESTED: WORKS PERFECT
   static String getBzTabIcon(BzTab bzTab){
     switch(bzTab){
-      case BzTab.flyers   : return Iconz.flyerGrid  ; break;
-      case BzTab.about    : return Iconz.info       ; break;
-      case BzTab.team  : return Iconz.bz         ; break;
-      case BzTab.notes    : return Iconz.notification       ; break;
-      // case BzTab.targets  : return Iconz.target     ; break;
-      // case BzTab.powers   : return Iconz.power      ; break;
-      // case BzTab.network  : return Iconz.follow     ; break;
-      case BzTab.settings : return Iconz.gears      ; break;
-      default : return null;
+      case BzTab.flyers   : return Iconz.flyerGrid;
+      case BzTab.about    : return Iconz.info;
+      case BzTab.team  : return Iconz.bz;
+      case BzTab.notes    : return Iconz.notification;
+      // case BzTab.targets  : return Iconz.target     ;
+      // case BzTab.powers   : return Iconz.power      ;
+      // case BzTab.network  : return Iconz.follow     ;
+      case BzTab.settings : return Iconz.gears;
     }
   }
   // --------------------
   /// TESTED: WORKS PERFECT
   static String getTabTitle({
-    @required int index,
-    @required BuildContext context,
+    required int index,
+    required BuildContext context,
   }){
     final BzTab _bzTab = bzTabsList[index];
     final String _bzTabPhid = getBzTabPhid(

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -16,7 +17,7 @@ import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 
 /// => TAMAM
 // -----------------------------------------------------------------------------
@@ -26,8 +27,8 @@ import 'package:layouts/layouts.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onEditBzButtonTap({
-  @required BuildContext context,
-  @required BzModel bzModel,
+  required BuildContext context,
+  required BzModel bzModel,
 }) async {
 
   await Nav.goToNewScreen(
@@ -47,7 +48,7 @@ Future<void> onEditBzButtonTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onGoToBzFCMSettings({
-  @required BuildContext context,
+  required BuildContext context,
 }) async {
 
   await Nav.goToNewScreen(
@@ -65,9 +66,9 @@ Future<void> onGoToBzFCMSettings({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onDeleteBzButtonTap({
-  @required BuildContext context,
-  @required BzModel bzModel,
-  @required bool showSuccessDialog,
+  required BuildContext context,
+  required BzModel bzModel,
+  required bool showSuccessDialog,
 }) async {
 
   final bool _canContinue = await _preDeleteBzAccountChecks(
@@ -127,7 +128,7 @@ Future<void> onDeleteBzButtonTap({
 // -----
 /// TESTED : WORKS PERFECT
 Future<bool> _preDeleteBzAccountChecks({
-  @required BzModel bzModel,
+  required BzModel bzModel,
 }) async {
 
   bool _canContinue = false;
@@ -185,7 +186,7 @@ Future<bool> _preDeleteBzAccountChecks({
 // -----
 /// TESTED : WORKS PERFECT
 Future<bool> _showConfirmDeleteBzDialog({
-  @required BzModel bzModel,
+  required BzModel bzModel,
 }) async {
 
   final bool _result = await Dialogs.bzBannerDialog(
@@ -211,7 +212,7 @@ Future<bool> _showConfirmDeleteBzDialog({
 // -----
 /// TESTED : WORKS PERFECT
 Future<void> _showOnlyCreatorCanDeleteBzDialog({
-  @required BzModel bzModel,
+  required BzModel bzModel,
 }) async {
 
   final String _creatorAuthorsString = AuthorModel.getCreatorAuthorFromAuthors(bzModel?.authors)?.name;
@@ -232,7 +233,7 @@ Future<void> _showOnlyCreatorCanDeleteBzDialog({
 }
 // -----
 Future<bool> _showConfirmDeleteAllBzFlyersDialog({
-  @required BzModel bzModel,
+  required BzModel bzModel,
 }) async {
 
   final bool _result = await Dialogs.flyersDialog(

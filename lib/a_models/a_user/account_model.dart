@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 class AccountModel {
   // -----------------------------------------------------------------------------
   const AccountModel({
-    @required this.id,
-    @required this.email,
-    @required this.password,
+    required this.id,
+    required this.email,
+    required this.password,
   });
   // -----------------------------------------------------------------------------
   final String id;
@@ -46,8 +46,8 @@ class AccountModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkAccountsAreIdentical({
-    @required AccountModel account1,
-    @required AccountModel account2,
+    required AccountModel account1,
+    required AccountModel account2,
   }){
     bool _identical;
 

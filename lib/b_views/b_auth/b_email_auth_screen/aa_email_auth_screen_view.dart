@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/a_models/a_user/account_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
@@ -14,37 +15,37 @@ import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:legalizer/legalizer.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 
 class EmailAuthScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const EmailAuthScreenView({
-    @required this.formKey,
-    @required this.emailController,
-    @required this.passwordController,
-    @required this.passwordConfirmationController,
-    @required this.emailValidator,
-    @required this.passwordValidator,
-    @required this.passwordConfirmationValidator,
-    @required this.switchSignIn,
-    @required this.onSignin,
-    @required this.onSignup,
-    @required this.isSigningIn,
-    @required this.appBarType,
-    @required this.passwordNode,
-    @required this.confirmPasswordNode,
-    @required this.isRememberingMe,
-    @required this.onSwitchRememberMe,
-    @required this.onSelectAccount,
-    @required this.myAccounts,
-    @required this.isObscured,
+    required this.formKey,
+    required this.emailController,
+    required this.passwordController,
+    required this.passwordConfirmationController,
+    required this.emailValidator,
+    required this.passwordValidator,
+    required this.passwordConfirmationValidator,
+    required this.switchSignIn,
+    required this.onSignin,
+    required this.onSignup,
+    required this.isSigningIn,
+    required this.appBarType,
+    required this.passwordNode,
+    required this.confirmPasswordNode,
+    required this.isRememberingMe,
+    required this.onSwitchRememberMe,
+    required this.onSelectAccount,
+    required this.myAccounts,
+    required this.isObscured,
     this.hasMargins = true,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final GlobalKey<FormState> formKey;
   final TextEditingController emailController;
@@ -68,8 +69,8 @@ class EmailAuthScreenView extends StatelessWidget {
   final bool hasMargins;
   /// --------------------------------------------------------------------------
   void _onSubmitted({
-    @required bool signingIn,
-    @required bool isOnConfirmPassword,
+    required bool signingIn,
+    required bool isOnConfirmPassword,
   }){
 
     blog('_onSubmitted : trying to submit');
@@ -105,7 +106,7 @@ class EmailAuthScreenView extends StatelessWidget {
       key: formKey,
       child: ValueListenableBuilder(
         valueListenable: isSigningIn,
-        builder: (_, bool _isSigningIn, Widget child){
+        builder: (_, bool _isSigningIn, Widget? child){
 
           return BldrsFloatingList(
             // physics: const BouncingScrollPhysics(),
@@ -161,7 +162,7 @@ class EmailAuthScreenView extends StatelessWidget {
 
                               return ValueListenableBuilder(
                                   valueListenable: emailController,
-                                  builder: (_, TextEditingValue currentEmail, Widget child) {
+                                  builder: (_, TextEditingValue currentEmail, Widget? child) {
                                     return BldrsBox(
                                       height: 35,
                                       width: 35,
@@ -203,7 +204,7 @@ class EmailAuthScreenView extends StatelessWidget {
               if (isRememberingMe != null)
               ValueListenableBuilder(
                 valueListenable: isRememberingMe,
-                builder: (_, bool rememberMe, Widget child){
+                builder: (_, bool rememberMe, Widget? child){
 
                   return BldrsTileBubble(
                     bubbleWidth: _bubbleWidth,

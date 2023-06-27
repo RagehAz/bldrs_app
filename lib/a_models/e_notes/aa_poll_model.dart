@@ -1,17 +1,18 @@
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
-import 'package:space_time/space_time.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/time/timers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 /// => TAMAM
 @immutable
 class PollModel {
   // --------------------------------------------------------------------------
   const PollModel({
-    @required this.buttons,
-    @required this.reply,
-    @required this.replyTime,
+    required this.buttons,
+    required this.reply,
+    required this.replyTime,
   });
   // --------------------------------------------------------------------------
   final List<String> buttons;
@@ -52,7 +53,7 @@ class PollModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
-    @required bool toJSON,
+    required bool toJSON,
   }){
     return {
       'buttons': cipherButtons(buttons),
@@ -66,8 +67,8 @@ class PollModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static PollModel decipherPoll({
-    @required Map<String, dynamic> map,
-    @required bool fromJSON,
+    required Map<String, dynamic> map,
+    required bool fromJSON,
   }){
     PollModel _model;
 
@@ -162,8 +163,8 @@ class PollModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPollsAreIdentical({
-    @required PollModel poll1,
-    @required PollModel poll2,
+    required PollModel poll1,
+    required PollModel poll2,
   }){
     bool _identical = false;
 

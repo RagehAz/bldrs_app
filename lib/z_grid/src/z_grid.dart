@@ -3,18 +3,18 @@ part of z_grid;
 class ZGrid extends StatelessWidget {
   // --------------------------------------------------------------------------
   const ZGrid({
-    @required this.gridScale,
-    @required this.controller,
-    @required this.itemCount,
-    @required this.mounted,
-    @required this.blurBackgroundOnZoomedIn,
-    @required this.onZoomOutStart,
-    @required this.onZoomOutEnd,
-    @required this.bigItem,
-    @required this.bigItemFootprint,
-    @required this.builder,
-    Key key
-  }) : super(key: key);
+    required this.gridScale,
+    required this.controller,
+    required this.itemCount,
+    required this.mounted,
+    required this.blurBackgroundOnZoomedIn,
+    required this.onZoomOutStart,
+    required this.onZoomOutEnd,
+    required this.bigItem,
+    required this.bigItemFootprint,
+    required this.builder,
+    super.key
+  });
   // --------------------
   final ZGridScale gridScale;
   final ZGridController controller;
@@ -41,7 +41,7 @@ class ZGrid extends StatelessWidget {
 
     return ValueListenableBuilder(
       valueListenable: controller.isZoomed,
-      builder: (_, bool zoomed, Widget child){
+      builder: (_, bool zoomed, Widget? child){
 
         // blog('zoomed : $zoomed');
 
@@ -155,7 +155,7 @@ class ZGrid extends StatelessWidget {
         // scaleFactor: 200.0, // Affects only pointer device scrolling, not pinch to zoom.
         child: ValueListenableBuilder(
           valueListenable: controller.isZoomed,
-          builder: (_, bool zoomed, Widget theGrid){
+          builder: (_, bool zoomed, Widget? theGrid){
 
             /// THE GRID
             return IgnorePointer(

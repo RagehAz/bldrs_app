@@ -1,18 +1,20 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/c_non_collabsable_tile.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/d_collapsable_tile.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:mapper/mapper.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class ExpandingTile extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ExpandingTile({
-    @required this.firstHeadline,
-    @required this.child,
-    @required this.width,
+    required this.firstHeadline,
+    required this.child,
+    required this.width,
     this.secondHeadline,
     this.collapsedHeight,
     this.maxHeight,
@@ -30,8 +32,8 @@ class ExpandingTile extends StatelessWidget {
     this.onTileLongTap,
     this.onTileDoubleTap,
     this.isCollapsable = true,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double width;
   final double collapsedHeight;
@@ -63,8 +65,8 @@ class ExpandingTile extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static ColorTween getTileColorTween({
-    @required Color collapsedColor,
-    @required Color expansionColor,
+    required Color collapsedColor,
+    required Color expansionColor,
   }){
     return ColorTween(
       begin: getCollapsedColor(collapsedColor: collapsedColor),
@@ -74,14 +76,14 @@ class ExpandingTile extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Color getExpandedColor({
-    @required Color expansionColor,
+    required Color expansionColor,
   }){
     return expansionColor ?? ExpandingTile.expandedColor;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Color getCollapsedColor({
-    @required Color collapsedColor,
+    required Color collapsedColor,
   }){
     return collapsedColor ?? ExpandingTile.collapsedColor;
   }
@@ -94,8 +96,8 @@ class ExpandingTile extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double calculateTitleIconSize({
-    @required String icon,
-    @required double collapsedHeight
+    required String icon,
+    required double collapsedHeight
   }) {
     final double _iconSize = icon == null ?
     0
@@ -111,9 +113,9 @@ class ExpandingTile extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double calculateTitleBoxWidth({
-    @required double tileWidth,
-    @required String icon,
-    @required double collapsedHeight,
+    required double tileWidth,
+    required String icon,
+    required double collapsedHeight,
   }) {
 
     final double _iconSize = calculateTitleIconSize(
@@ -145,7 +147,7 @@ class ExpandingTile extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double calculateMaxHeight({
-    @required List<String> keywordsIDs,
+    required List<String> keywordsIDs,
   }) {
 
     final int _totalNumberOfButtons = getNumberOfButtons(
@@ -163,7 +165,7 @@ class ExpandingTile extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double calculateButtonsTotalHeight({
-    @required List<String> phids,
+    required List<String> phids,
   }) {
 
     if (Mapper.checkCanLoopList(phids) == true){
@@ -186,7 +188,7 @@ class ExpandingTile extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double getCorners({
-    double corners,
+    double? corners,
   }){
 
     if (corners == null) {
@@ -223,7 +225,7 @@ class ExpandingTile extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static int getNumberOfButtons({
-    @required List<String> keywordsIDs,
+    required List<String> keywordsIDs,
   }) {
     return keywordsIDs?.length ?? 0;
   }

@@ -2,8 +2,8 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
-import 'package:mapper/mapper.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 
 class FetchUserProtocols {
@@ -18,8 +18,8 @@ class FetchUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<UserModel> fetchUser({
-    @required BuildContext context,
-    @required String userID
+    required BuildContext context,
+    required String userID
   }) async {
 
     /// 1 - GET USER FROM LDB
@@ -62,8 +62,8 @@ class FetchUserProtocols {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<List<UserModel>> fetchUsers({
-    @required BuildContext context,
-    @required List<String> usersIDs,
+    required BuildContext context,
+    required List<String> usersIDs,
   }) async {
     blog('FetchUserProtocols.fetchUsers : START');
 
@@ -98,8 +98,8 @@ class FetchUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<UserModel> refetch({
-    @required BuildContext context,
-    @required String userID
+    required BuildContext context,
+    required String userID
   }) async {
     await UserLDBOps.deleteUserOps(userID);
     final UserModel _user = await fetchUser(context: context, userID: userID);

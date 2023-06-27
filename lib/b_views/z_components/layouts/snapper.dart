@@ -4,17 +4,17 @@ import 'package:flutter/material.dart';
 class Snapper extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const Snapper({
-    @required this.snapKey,
-    @required this.child,
-    Key key
-  }) : super(key: key);
+    required this.snapKey,
+    required this.child,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final GlobalKey snapKey;
   final Widget child;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static void snapToWidget({
-    @required GlobalKey snapKey,
+    required GlobalKey snapKey,
   }){
 
     /// NOTE : snaps scroll of SingleChildScrollView to the widget holding this snapKey

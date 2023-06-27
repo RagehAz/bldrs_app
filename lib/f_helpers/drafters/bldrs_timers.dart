@@ -1,5 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 import 'dart:convert';
+import 'package:basics/helpers/classes/checks/device_checker.dart';
+import 'package:basics/helpers/classes/time/internet_time.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -13,9 +15,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:numeric/numeric.dart';
-import 'package:rest/rest.dart';
-import 'package:space_time/space_time.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:basics/helpers/classes/rest/rest.dart';
+import 'package:basics/helpers/classes/time/timers.dart';
 import 'package:app_settings/app_settings.dart';
 /// => TAMAM
 class BldrsTimers {
@@ -87,8 +89,8 @@ class BldrsTimers {
   // --------------------
   /// GENERATES => [ 'on dd month yyyy' ]
   static String generateString_on_dd_month_yyyy({
-    @required BuildContext context,
-    @required DateTime time,
+    required BuildContext context,
+    required DateTime time,
   }){
     final String _day = '${time.day}';
     final String _monthPhid = getMonthPhidByInt(context, time.month);
@@ -101,8 +103,8 @@ class BldrsTimers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String generateString_hh_i_mm_ampm_day_dd_month_yyyy({
-    @required BuildContext context,
-    @required DateTime time,
+    required BuildContext context,
+    required DateTime time,
   }){
 
     String _output = '';
@@ -154,8 +156,8 @@ class BldrsTimers {
   // --------------------
   /// GENERATES => [ 'dd month yyyy' ]
   static String translate_dd_month_yyyy({
-    @required BuildContext context,
-    @required DateTime time
+    required BuildContext context,
+    required DateTime time
   }){
 
     final String _monthPhid = getMonthPhidByInt(context, time?.month);
@@ -170,9 +172,9 @@ class BldrsTimers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String calculateSuperTimeDifferenceString({
-    @required BuildContext context,
-    @required DateTime from,
-    @required DateTime to,
+    required BuildContext context,
+    required DateTime from,
+    required DateTime to,
   }) {
     String _string = '...';
 
@@ -233,9 +235,9 @@ class BldrsTimers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> checkDeviceTimeIsCorrect({
-    @required BuildContext context,
-    @required bool showIncorrectTimeDialog,
-    Function onRestart,
+    required BuildContext context,
+    required bool showIncorrectTimeDialog,
+    Function? onRestart,
   }) async {
 
     // int _diff;

@@ -5,21 +5,21 @@ import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/b_he
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:widget_fader/widget_fader.dart';
+import 'package:basics/animators/widgets/widget_fader.dart';
 
 class HeroicFlyer extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const HeroicFlyer({
-    @required this.flyerBoxWidth,
-    @required this.flyerModel,
-    @required this.screenName,
-    @required this.gridWidth,
-    @required this.gridHeight,
-    Key key
-  }) : super(key: key);
-
+    required this.flyerBoxWidth,
+    required this.flyerModel,
+    required this.screenName,
+    required this.gridWidth,
+    required this.gridHeight,
+    super.key
+  });
+  
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final FlyerModel flyerModel;
@@ -43,7 +43,7 @@ class _HeroicFlyerState extends State<HeroicFlyer> {
   final ValueNotifier<bool> _loading = ValueNotifier(true);
 
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -161,7 +161,7 @@ class _HeroicFlyerState extends State<HeroicFlyer> {
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
         valueListenable: _loading,
-        builder: (_, bool loading, Widget child) {
+        builder: (_, bool loading, Widget? child) {
 
           if (loading == true) {
             return FlyerLoading(

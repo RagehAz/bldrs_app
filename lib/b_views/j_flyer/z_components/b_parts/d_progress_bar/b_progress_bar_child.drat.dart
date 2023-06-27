@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 class ProgressBarChild extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ProgressBarChild({
-    @required this.flyerBoxWidth,
-    @required this.progressBarModel,
-    @required this.tinyMode,
+    required this.flyerBoxWidth,
+    required this.progressBarModel,
+    required this.tinyMode,
     this.loading = false,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final ValueNotifier<ProgressBarModel> progressBarModel;
@@ -19,7 +19,7 @@ class ProgressBarChild extends StatelessWidget {
   final bool loading;
   /// --------------------------------------------------------------------------
   bool _progressBarIsLoading({
-    @required int numberOfSlides
+    required int numberOfSlides
   }){
     bool _isLoading = false;
 
@@ -40,7 +40,7 @@ class ProgressBarChild extends StatelessWidget {
           progressBarModel: progressBarModel,
           tinyMode: tinyMode,
         ),
-        builder: (_, ProgressBarModel progModel, Widget child){
+        builder: (_, ProgressBarModel progModel, Widget? child){
 
           if (_progressBarIsLoading(numberOfSlides: progModel?.numberOfStrips) == true){
             return LoadingProgressBar(

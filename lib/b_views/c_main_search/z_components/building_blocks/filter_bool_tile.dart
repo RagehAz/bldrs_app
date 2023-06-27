@@ -7,13 +7,13 @@ import 'package:flutter/material.dart';
 class FilterBoolTile extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const FilterBoolTile({
-    @required this.verse,
-    @required this.icon,
-    @required this.onSwitchTap,
-    @required this.switchValue,
+    required this.verse,
+    required this.icon,
+    required this.onSwitchTap,
+    required this.switchValue,
     this.iconIsBig = true,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   // -----------------------------------------------------------------------------
   final Verse verse;
   final String icon;

@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 class MicroPic extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const MicroPic({
-    @required this.pic,
-    @required this.size,
-    Key key
-  }) : super(key: key);
+    required this.pic,
+    required this.size,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final String pic;
   final double size;

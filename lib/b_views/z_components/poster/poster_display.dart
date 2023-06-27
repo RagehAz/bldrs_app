@@ -8,18 +8,18 @@ import 'package:bldrs/f_helpers/drafters/bldrs_providers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:screenshot/screenshot.dart';
 
 class PosterDisplay extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const PosterDisplay({
-    @required this.width,
-    @required this.model,
-    @required this.modelHelper,
-    @required this.posterType,
-    Key key
-  }) : super(key: key);
+    required this.width,
+    required this.model,
+    required this.modelHelper,
+    required this.posterType,
+    super.key
+  });
   // -----------------------------------------------------------------------------
   final double width;
   final dynamic model;
@@ -28,10 +28,10 @@ class PosterDisplay extends StatelessWidget {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<Uint8List> capturePoster({
-    @required BuildContext context,
-    @required PosterType posterType,
-    @required dynamic model,
-    @required dynamic helperModel,
+    required BuildContext context,
+    required PosterType posterType,
+    required dynamic model,
+    required dynamic helperModel,
     double finalDesiredPicWidth,
     ScreenshotController controller,
   }) async{

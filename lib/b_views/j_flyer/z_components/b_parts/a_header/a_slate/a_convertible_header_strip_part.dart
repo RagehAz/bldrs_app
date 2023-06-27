@@ -11,25 +11,25 @@ import 'package:flutter/material.dart';
 class ConvertibleHeaderStripPart extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ConvertibleHeaderStripPart({
-    @required this.flyerBoxWidth,
-    @required this.minHeaderHeight,
-    @required this.logoSizeRatioTween,
-    @required this.headerLeftSpacerTween,
-    @required this.tinyMode,
-    @required this.headerBorders,
-    @required this.logoMinWidth,
-    @required this.logoCorners,
-    @required this.headerIsExpanded,
-    @required this.headerMiddleSpacerWidthTween,
-    @required this.headerLabelsWidthTween,
-    @required this.followCallButtonsScaleTween,
-    @required this.followIsOn,
-    @required this.onFollowTap,
-    @required this.onCallTap,
-    @required this.headerRightSpacerTween,
-    @required this.flyerModel,
-    Key key
-  }) : super(key: key);
+    required this.flyerBoxWidth,
+    required this.minHeaderHeight,
+    required this.logoSizeRatioTween,
+    required this.headerLeftSpacerTween,
+    required this.tinyMode,
+    required this.headerBorders,
+    required this.logoMinWidth,
+    required this.logoCorners,
+    required this.headerIsExpanded,
+    required this.headerMiddleSpacerWidthTween,
+    required this.headerLabelsWidthTween,
+    required this.followCallButtonsScaleTween,
+    required this.followIsOn,
+    required this.onFollowTap,
+    required this.onCallTap,
+    required this.headerRightSpacerTween,
+    required this.flyerModel,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final double minHeaderHeight;

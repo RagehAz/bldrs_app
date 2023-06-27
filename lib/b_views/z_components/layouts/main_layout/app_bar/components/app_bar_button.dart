@@ -16,8 +16,8 @@ class AppBarButton extends StatelessWidget {
     this.loading,
     this.iconColor,
     this.margins,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final Verse verse;
   final Color verseColor;

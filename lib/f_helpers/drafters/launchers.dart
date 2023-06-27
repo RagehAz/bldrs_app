@@ -1,15 +1,16 @@
 import 'dart:async';
+import 'package:basics/helpers/classes/checks/device_checker.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:devicer/devicer.dart';
-import 'package:filers/filers.dart';
+
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:url_launcher/url_launcher.dart' as Launch;
 /// => TAMAM
 class Launcher {
@@ -24,7 +25,7 @@ class Launcher {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> launchContactModel({
-    @required ContactModel contact,
+    required ContactModel contact,
   }) async {
 
     if (contact != null){
@@ -106,7 +107,7 @@ class Launcher {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _launchEmail({
-    @required String email,
+    required String email,
     String emailSubject,
     String emailBody,
   }) async {
@@ -184,8 +185,8 @@ class Launcher {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> shareURL({
-    @required String url,
-    @required String subject,
+    required String url,
+    required String subject,
   }) async {
 
     if (url != null && subject != null){

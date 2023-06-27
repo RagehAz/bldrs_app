@@ -12,9 +12,9 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zo
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:fire/super_fire.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
@@ -24,7 +24,7 @@ import 'package:provider/provider.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> initializeHomeScreen({
-  @required BuildContext context,
+  required BuildContext context,
 }) async {
 
   await _checkIfUserIsMissingFields();
@@ -100,7 +100,7 @@ Future<void> _checkIfUserIsMissingFields() async {
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _controlMissingFieldsCase({
-  @required UserModel userModel,
+  required UserModel userModel,
 }) async {
 
   blog('_controlMissingFieldsCase');
@@ -131,7 +131,7 @@ Future<void> _controlMissingFieldsCase({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> initializeUserFollowedBzz({
-  @required bool notify,
+  required bool notify,
 }) async {
   // blog('initializeHomeScreen._initializeUserBzz : ~~~~~~~~~~ START');
 
@@ -151,7 +151,7 @@ Future<void> initializeUserFollowedBzz({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> initializeUserBzz({
-  @required bool notify,
+  required bool notify,
 }) async {
   // blog('initializeHomeScreen._initializeUserBzz : ~~~~~~~~~~ START');
 
@@ -255,7 +255,7 @@ Future<void> initializeAllChains() async {
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _initializeSponsors({
-  @required bool notify,
+  required bool notify,
 }) async {
   // blog('initializeHomeScreen._initializeSponsors : ~~~~~~~~~~ START');
   final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);

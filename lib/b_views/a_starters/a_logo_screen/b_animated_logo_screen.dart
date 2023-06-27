@@ -1,5 +1,8 @@
 import 'dart:async';
-
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/x_logo_screen_controllers.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -10,22 +13,20 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_sounder.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:numeric/numeric.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:websafe_svg/websafe_svg.dart';
-import 'package:widget_fader/widget_fader.dart';
+import 'package:basics/animators/widgets/widget_fader.dart';
 
 class AnimatedLogoScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const AnimatedLogoScreen({
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   @override
   State<AnimatedLogoScreen> createState() => _AnimatedLogoScreenState();
@@ -37,9 +38,9 @@ class AnimatedLogoScreen extends StatefulWidget {
   }
   // --------------------
   static Map<String, dynamic> createBeat({
-    @required double start, // in milliseconds
-    @required double duration, // in milliseconds
-    @required String text,
+    required double start, // in milliseconds
+    required double duration, // in milliseconds
+    required String text,
     Color color = Colorz.white255,
   }) {
     return {
@@ -57,7 +58,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -65,7 +66,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
     );
   }
   // -----------------------------------------------------------------------------
-  List<Map<String, dynamic>> _linesMap;
+  List<Map<String, dynamic>>? _linesMap;
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -294,7 +295,8 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
                 alignment: Alignment.bottomCenter,
                 child: AnimatedBuilder(
                   animation: _logoCurvedAnimation,
-                  builder: (BuildContext context, Widget child) {
+                  builder: (BuildContext context, Widget? child) {
+                    
                     final double _val = _tween.evaluate(_logoCurvedAnimation);
 
                     return Opacity(
@@ -340,7 +342,8 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
 
                     AnimatedBuilder(
                         animation: _sloganCurvedAnimation,
-                        builder: (BuildContext context, Widget child) {
+                        builder: (BuildContext context, Widget? child) {
+                          
                           final double _val = _tween.evaluate(_sloganCurvedAnimation);
 
                           return Opacity(
@@ -484,12 +487,12 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
 class AnimatedLine extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const AnimatedLine({
-    @required this.curvedAnimation,
-    @required this.tween,
-    @required this.verse,
-    @required this.verseColor,
-    Key key
-  }) : super(key: key);
+    required this.curvedAnimation,
+    required this.tween,
+    required this.verse,
+    required this.verseColor,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final CurvedAnimation curvedAnimation;
   final Tween<double> tween;
@@ -503,7 +506,8 @@ class AnimatedLine extends StatelessWidget {
     // --------------------
     return AnimatedBuilder(
       animation: curvedAnimation,
-      builder: (BuildContext context, Widget child) {
+      builder: (BuildContext context, Widget? child) {
+        
         final double _val = tween.evaluate(curvedAnimation);
 
         return SizedBox(

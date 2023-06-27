@@ -1,21 +1,22 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/super_text_field/super_text_field.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:super_text_field/super_text_field.dart';
 
 class BldrsTextField extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BldrsTextField({
-    @required this.appBarType,
-    @required this.globalKey,
-    @required this.width,
-    @required this.titleVerse,
+    required this.appBarType,
+    required this.globalKey,
+    required this.width,
+    required this.titleVerse,
     this.textController,
 
     /// main
@@ -63,8 +64,8 @@ class BldrsTextField extends StatelessWidget {
 
     this.isFloatingField = false,
     this.isObscured,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   // --------------------------------------------------------------------------
   /// main
   final Verse titleVerse;
@@ -120,8 +121,8 @@ class BldrsTextField extends StatelessWidget {
   // --------------------------------------------------------------------------
    /// TESTED : WORKS PERFECT
   static EdgeInsets getFieldScrollPadding({
-    @required BuildContext context,
-    @required AppBarType appBarType,
+    required BuildContext context,
+    required AppBarType appBarType,
   }){
 
     final EdgeInsets _scrollPadding = EdgeInsets.only(
@@ -134,12 +135,12 @@ class BldrsTextField extends StatelessWidget {
   // --------------------
   /// TESTED : ACCEPTED
   static double getFieldHeight({
-    @required BuildContext context,
-    @required int minLines,
-    @required int textSize,
-    @required double scaleFactor,
-    @required bool withBottomMargin,
-    @required bool withCounter,
+    required BuildContext context,
+    required int minLines,
+    required int textSize,
+    required double scaleFactor,
+    required bool withBottomMargin,
+    required bool withCounter,
   }){
 
     final _textHeight = BldrsText.superVerseRealHeight(

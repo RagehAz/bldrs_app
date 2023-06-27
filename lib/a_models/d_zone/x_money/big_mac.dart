@@ -1,19 +1,19 @@
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:numeric/numeric.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
 
 @immutable
 class BigMac {
   /// --------------------------------------------------------------------------
   const BigMac({
-    @required this.countryID,
-    @required this.localPrice,
-    @required this.currencyID,
-    @required this.toDollarRate,
+    required this.countryID,
+    required this.localPrice,
+    required this.currencyID,
+    required this.toDollarRate,
   });
   /// --------------------------------------------------------------------------
   final String countryID;
@@ -104,8 +104,8 @@ class BigMac {
   // --------------------
   /// TASK : TEST ME
   static List<BigMac> updateBigMacsExchangeRates({
-    @required Map<String, dynamic> rates,
-    @required List<BigMac> bigMacs,
+    required Map<String, dynamic> rates,
+    required List<BigMac> bigMacs,
   }){
     List<BigMac> _output = [];
 
@@ -171,8 +171,8 @@ class BigMac {
   // --------------------
   /// TASK : TEST ME
   static double getBigMacDollarPriceByISO3({
-    @required String iso3,
-    @required List<BigMac> bigMacs,
+    required String iso3,
+    required List<BigMac> bigMacs,
 }) {
     double _bigMacLocalPriceInUSD = 0;
 
@@ -201,8 +201,8 @@ class BigMac {
   // --------------------
   /// TASK : TEST ME
   static BigMac getBigMacByISO3({
-    @required String iso3,
-    @required List<BigMac> bigMacs,
+    required String iso3,
+    required List<BigMac> bigMacs,
   }) {
 
     if (Mapper.checkCanLoopList(bigMacs) == false || iso3 == null){
@@ -217,8 +217,8 @@ class BigMac {
   // --------------------
   /// TASK : TEST ME
   static List<BigMac> getBigMacsByCountriesIDs({
-    @required List<String> countriesIDs,
-    @required List<BigMac> bigMacs,
+    required List<String> countriesIDs,
+    required List<BigMac> bigMacs,
   }){
     final List<BigMac> _output = [];
 
@@ -249,8 +249,8 @@ class BigMac {
   // --------------------
   /// TASK : TEST ME
   static BigMac getBigMacByCurrencyID({
-    @required String currencyID,
-    @required List<BigMac> bigMacs,
+    required String currencyID,
+    required List<BigMac> bigMacs,
   }){
     BigMac _output;
 
@@ -272,8 +272,8 @@ class BigMac {
   // --------------------
   /// TASK : TEST ME
   static String getCurrencyByCountryIDFromBigMacs({
-    @required String countryID,
-    @required List<BigMac> bigMacs,
+    required String countryID,
+    required List<BigMac> bigMacs,
   }) {
 
     if (Mapper.checkCanLoopList(bigMacs) == false || countryID == null){
@@ -296,7 +296,7 @@ class BigMac {
   // --------------------
   /// TASK : TEST ME
   static List<BigMac> sortBigMacsByLocalPrice({
-    @required List<BigMac> bigMacs,
+    required List<BigMac> bigMacs,
 }) {
     final List<BigMac> _macs = <BigMac>[];
 
@@ -311,8 +311,8 @@ class BigMac {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<BigMac> sortBigMacsByCountryName({
-    @required List<BigMac> toSort,
-    @required List<BigMac> allMacs,
+    required List<BigMac> toSort,
+    required List<BigMac> allMacs,
   }){
 
     if (Mapper.checkCanLoopList(toSort) == true ) {
@@ -339,9 +339,9 @@ class BigMac {
   // --------------------
   /// TASK : FIX INDEX BUG
   static List<BigMac> sortByAccountDollarPrice({
-    @required List<BigMac> bigMacs,
-    @required List<BigMac> allMacs,
-    @required double accountPrice,
+    required List<BigMac> bigMacs,
+    required List<BigMac> allMacs,
+    required double accountPrice,
   }){
     final List<BigMac> _output = [];
 
@@ -389,9 +389,9 @@ class BigMac {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double convertBigMacPriceToDollar({
-    @required BigMac bigMac,
-    @required double value,
-    @required List<BigMac> bigMacs,
+    required BigMac bigMac,
+    required double value,
+    required List<BigMac> bigMacs,
   }){
     double _output;
 
@@ -420,8 +420,8 @@ class BigMac {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkMacsContainMac({
-    @required List<BigMac> macs,
-    @required BigMac mac,
+    required List<BigMac> macs,
+    required BigMac mac,
   }){
     bool _output = false;
 
@@ -438,9 +438,9 @@ class BigMac {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double accountPriceInLocalCurrencyByCountryID({
-    @required String iso3,
-    @required double accountPrice,
-    @required List<BigMac> bigMacs,
+    required String iso3,
+    required double accountPrice,
+    required List<BigMac> bigMacs,
   }) {
 
     final double _bigMacsCountToBuyProAccount = bigMacsCountToBuyAccount(
@@ -471,8 +471,8 @@ class BigMac {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double bigMacsCountToBuyAccount({
-    @required double accountPrice,
-    @required List<BigMac> bigMacs,
+    required double accountPrice,
+    required List<BigMac> bigMacs,
   }) {
 
     if (accountPrice == null || Mapper.checkCanLoopList(bigMacs) == false){
@@ -499,8 +499,8 @@ class BigMac {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double localPriceToDollar({
-    @required double localPrice,
-    @required double toDollarRate,
+    required double localPrice,
+    required double toDollarRate,
   }) {
     if (localPrice == null || toDollarRate == null){
       return 0;

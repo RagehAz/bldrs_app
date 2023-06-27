@@ -1,6 +1,8 @@
 // ignore_for_file: avoid_positional_boolean_parameters
 import 'dart:async';
 
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/strings/text_clip_board.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
@@ -30,18 +32,18 @@ import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_mode
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:night_sky/night_sky.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class NewFlyerEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const NewFlyerEditorScreen({
-    @required this.draftFlyer,
-    @required this.onConfirm,
-    Key key
-  }) : super(key: key);
+    required this.draftFlyer,
+    required this.onConfirm,
+    super.key
+  });
   /// -----------------------
   final DraftFlyer draftFlyer;
   final Function(DraftFlyer draft) onConfirm;
@@ -78,7 +80,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -339,7 +341,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
       confirmButtonModel: _confirmButtonModel,
       child: ValueListenableBuilder(
         valueListenable: draftNotifier,
-        builder: (_, DraftFlyer _draft, Widget child){
+        builder: (_, DraftFlyer _draft, Widget? child){
 
           return Form(
             key: _draft?.formKey,

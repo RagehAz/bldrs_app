@@ -1,3 +1,9 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/bubbles/model/bubble_header_vm.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/strings/text_clip_board.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_text_field.dart';
@@ -7,16 +13,16 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class ContactFieldEditorBubble extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const ContactFieldEditorBubble({
-    @required this.appBarType,
-    @required this.headerViewModel,
-    @required this.formKey,
+    required this.appBarType,
+    required this.headerViewModel,
+    required this.formKey,
     this.hintVerse,
     // this.textController,
     this.textOnChanged,
@@ -37,8 +43,8 @@ class ContactFieldEditorBubble extends StatefulWidget {
     this.focusNode,
     this.autoValidate = true,
     this.textController,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final Verse hintVerse;
   // final TextEditingController textController;
@@ -62,7 +68,7 @@ class ContactFieldEditorBubble extends StatefulWidget {
   final GlobalKey formKey;
   final FocusNode focusNode;
   final bool autoValidate;
-  final TextEditingController textController;
+  final TextEditingController? textController;
   /// --------------------------------------------------------------------------
   @override
   _ContactFieldEditorBubbleState createState() => _ContactFieldEditorBubbleState();
@@ -72,7 +78,7 @@ class ContactFieldEditorBubble extends StatefulWidget {
 class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
   // -----------------------------------------------------------------------------
   String paste = '';
-  TextEditingController _textController;
+  late TextEditingController _textController;
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -110,8 +116,7 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
   // --------------------------------------------------------------------------
   Future<void> _pasteFunction() async {
 
-    final String value = await TextClipBoard.paste();
-
+    final String? value = await TextClipBoard.paste();
 
     blog(value);
 

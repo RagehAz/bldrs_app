@@ -4,12 +4,12 @@
 //
 // import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 // import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-// import 'package:night_sky/night_sky.dart';
+// import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 // import 'package:bldrs/b_views/z_components/loading/loading.dart';
 // import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 // 
-// import 'package:scale/scale.dart';
-// import 'package:filers/filers.dart';
+// import 'package:basics/helpers/classes/space/scale.dart';
+// import 'package:basics/helpers/classes/files/filers.dart';
 // import 'package:bldrs_theme/bldrs_theme.dart';
 // import 'package:fire/super_fire.dart';
 // import 'package:flutter/material.dart';
@@ -25,7 +25,7 @@
 // class FlyerMapScreen extends StatefulWidget {
 //   /// --------------------------------------------------------------------------
 //   const FlyerMapScreen({
-//     @required this.flyerBoxWidth,
+//     required this.flyerBoxWidth,
 //     this.geoPoint, // = const PlaceLocation(latitude: 37.43296265331129, longitude: -122.08832357078792),
 //     this.isSelecting = false,
 //     Key key,

@@ -3,11 +3,11 @@ part of bldrs_app_bar;
 class AppBarProgressBar extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const AppBarProgressBar({
-    @required this.loading,
-    @required this.progressBarModel,
-    @required this.appBarType,
-    Key key
-  }) : super(key: key);
+    required this.loading,
+    required this.progressBarModel,
+    required this.appBarType,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final ValueNotifier<bool> loading;
   final ValueNotifier<ProgressBarModel> progressBarModel;
@@ -26,7 +26,7 @@ class AppBarProgressBar extends StatelessWidget {
     // --------------------
     return ValueListenableBuilder(
       valueListenable: loading,
-      builder: (_, bool isLoading, Widget child){
+      builder: (_, bool isLoading, Widget? child){
 
         if (isLoading == true){
           return StaticProgressBar(
@@ -44,7 +44,7 @@ class AppBarProgressBar extends StatelessWidget {
         else if (progressBarModel != null){
           return ValueListenableBuilder(
               valueListenable: progressBarModel,
-              builder: (_, ProgressBarModel progressBarModel, Widget childB){
+              builder: (_, ProgressBarModel progressBarModel, Widget? childB){
 
                 return StaticProgressBar(
                   index: progressBarModel?.index,

@@ -10,9 +10,9 @@ class FetchReviewProtocols {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> readIsAgreed({
-    @required String reviewID,
-    @required String flyerID,
-    @required String bzID,
+    required String reviewID,
+    required String flyerID,
+    required String bzID,
   }) async {
 
     bool _output = false;

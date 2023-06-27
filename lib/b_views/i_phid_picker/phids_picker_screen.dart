@@ -1,3 +1,6 @@
+import 'package:basics/animators/helpers/sliders.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -16,25 +19,25 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bubbles/bubbles.dart';
-import 'package:mapper/mapper.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:animators/animators.dart';
-import 'package:stringer/stringer.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class PhidsPickerScreen extends StatefulWidget {
   // -----------------------------------------------------------------------------
   const PhidsPickerScreen({
-    @required this.chainsIDs,
-    @required this.onlyUseZoneChains,
+    required this.chainsIDs,
+    required this.onlyUseZoneChains,
     this.selectedPhids,
     this.multipleSelectionMode = false,
     this.flyerModel,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   // -----------------------------------------------------------------------------
   final List<String> selectedPhids;
   /// RETURNS <String>[] if is multiple selection mode, and returns String if not
@@ -50,10 +53,10 @@ class PhidsPickerScreen extends StatefulWidget {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<String> goPickPhid({
-    @required BuildContext context,
-    @required FlyerType flyerType,
-    @required ViewingEvent event,
-    @required bool onlyUseZoneChains,
+    required BuildContext context,
+    required FlyerType flyerType,
+    required ViewingEvent event,
+    required bool onlyUseZoneChains,
     List<String> selectedPhids,
   }) async {
 
@@ -77,10 +80,10 @@ class PhidsPickerScreen extends StatefulWidget {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<List<String>> goPickPhids({
-    @required BuildContext context,
-    @required FlyerType flyerType,
-    @required ViewingEvent event,
-    @required bool onlyUseZoneChains,
+    required BuildContext context,
+    required FlyerType flyerType,
+    required ViewingEvent event,
+    required bool onlyUseZoneChains,
     List<String> selectedPhids,
   }) async {
 
@@ -123,7 +126,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -286,9 +289,9 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onPhidTap({
-    @required String path,
-    @required String phid,
-    @required bool autoScroll,
+    required String path,
+    required String phid,
+    required bool autoScroll,
   }) async {
 
     /// MULTIPLE SELECTION MODE
@@ -311,7 +314,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
   // --------------------
   ///
   Future<void> _singleSelectionModeTap({
-  @required String phid,
+  required String phid,
 }) async {
 
     await Nav.goBack(
@@ -323,9 +326,9 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _multipleSelectionModeTap({
-    @required String path,
-    @required String phid,
-    @required bool autoScroll,
+    required String path,
+    required String phid,
+    required bool autoScroll,
   }) async {
 
     final List<String> _selectedPhids = Stringer.addOrRemoveStringToStrings(
@@ -355,9 +358,9 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
   // --------------------
   /// TESTED : FAIR ENOUGH
   Future<void> _onScrollSelectedPhids({
-    @required int oldLength,
-    @required int newLength,
-    @required int selectedPhidIndex,
+    required int oldLength,
+    required int newLength,
+    required int selectedPhidIndex,
   }) async {
 
     if (_isSearching.value  == false){

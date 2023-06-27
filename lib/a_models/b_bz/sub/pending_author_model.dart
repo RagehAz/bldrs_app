@@ -1,16 +1,16 @@
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 @immutable
 class PendingAuthor {
   // -----------------------------------------------------------------------------
   const PendingAuthor({
-    @required this.userID,
-    @required this.noteID,
+    required this.userID,
+    required this.noteID,
   });
   // -----------------------------------------------------------------------------
   final String userID;
@@ -91,8 +91,8 @@ class PendingAuthor {
   // --------------------
   /// TESTED : WORKS PERFECT
   static PendingAuthor getModelByUserID({
-    @required List<PendingAuthor> pendingAuthors,
-    @required String userID,
+    required List<PendingAuthor> pendingAuthors,
+    required String userID,
   }){
     PendingAuthor _output;
 
@@ -109,9 +109,9 @@ class PendingAuthor {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<PendingAuthor> addNewPendingAuthor({
-    @required List<PendingAuthor> pendingAuthors,
-    @required String userID,
-    @required String noteID,
+    required List<PendingAuthor> pendingAuthors,
+    required String userID,
+    required String noteID,
   }){
     final List<PendingAuthor> _output = <PendingAuthor>[];
 
@@ -132,8 +132,8 @@ class PendingAuthor {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<PendingAuthor> removePendingAuthor({
-    @required List<PendingAuthor> pendingAuthors,
-    @required String userID,
+    required List<PendingAuthor> pendingAuthors,
+    required String userID,
   }){
     final List<PendingAuthor> _output = <PendingAuthor>[];
 
@@ -150,8 +150,8 @@ class PendingAuthor {
   // --------------------
   /// TESTED : WORKS PERFECT
   static BzModel removePendingAuthorFromBz({
-    @required BzModel bzModel,
-    @required String userID,
+    required BzModel bzModel,
+    required String userID,
   }){
     BzModel _bzModel = bzModel;
 
@@ -177,8 +177,8 @@ class PendingAuthor {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPendingsAuthorsAreIdentical({
-    @required PendingAuthor pending1,
-    @required PendingAuthor pending2,
+    required PendingAuthor pending1,
+    required PendingAuthor pending2,
   }){
     bool _identical = false;
 
@@ -202,8 +202,8 @@ class PendingAuthor {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPendingAuthorsListsAreIdentical({
-    @required List<PendingAuthor> list1,
-    @required List<PendingAuthor> list2,
+    required List<PendingAuthor> list1,
+    required List<PendingAuthor> list2,
   }){
     bool _listsAreIdentical = false;
 
@@ -248,8 +248,8 @@ class PendingAuthor {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPendingAuthorsIncludeUserID({
-    @required List<PendingAuthor> pendingAuthors,
-    @required String userID,
+    required List<PendingAuthor> pendingAuthors,
+    required String userID,
   }){
 
     final List<String> usersIDs = getPendingsUsersIDs(pendingAuthors);
@@ -263,8 +263,8 @@ class PendingAuthor {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkCanInviteUser({
-    @required BzModel bzModel,
-    @required String userID,
+    required BzModel bzModel,
+    required String userID,
   }){
     bool _can = false;
 
@@ -294,8 +294,8 @@ class PendingAuthor {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkIsPendingAuthor({
-    @required BzModel bzModel,
-    @required String userID,
+    required BzModel bzModel,
+    required String userID,
   }){
 
     final List<String> _usersIDs = getPendingsUsersIDs(bzModel?.pendingAuthors);

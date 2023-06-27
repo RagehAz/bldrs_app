@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:typed_data';
 
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/files/file_size_unit.dart';
 import 'package:bldrs/a_models/a_user/draft/draft_user.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
@@ -17,9 +19,11 @@ import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mediators/mediators.dart';
+import 'package:mediators/models/dimension_model.dart';
+import 'package:mediators/pic_maker/pic_maker.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 
@@ -30,9 +34,9 @@ import 'package:mediators/mediators.dart';
 /*
 ///
 void initializeUserEditorLocalVariables({
-  @required BuildContext context,
-  @required UserModel oldUser,
-  @required ValueNotifier<UserModel> tempUser,
+  required BuildContext context,
+  required UserModel oldUser,
+  required ValueNotifier<UserModel> tempUser,
 }){
   
   tempUser.value  = oldUser;
@@ -44,10 +48,10 @@ void initializeUserEditorLocalVariables({
 /*
 /// TESTED : WORKS PERFECT
 Future<void> prepareUserForEditing({
-  @required BuildContext context,
-  @required ValueNotifier<UserModel> tempUser,
-  @required UserModel oldUser,
-  @required bool mounted,
+  required BuildContext context,
+  required ValueNotifier<UserModel> tempUser,
+  required UserModel oldUser,
+  required bool mounted,
 }) async {
 
   final UserModel _userModel = await UserModel.prepareUserForEditing(
@@ -70,12 +74,12 @@ Future<void> prepareUserForEditing({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> loadUserEditorLastSession({
-  @required ValueNotifier<DraftUser> draft,
-  @required bool mounted,
-  // @required String userID,
-  // @required bool reAuthBeforeConfirm,
-  // @required bool canGoBack,
-  // @required Function onFinish,
+  required ValueNotifier<DraftUser> draft,
+  required bool mounted,
+  // required String userID,
+  // required bool reAuthBeforeConfirm,
+  // required bool canGoBack,
+  // required Function onFinish,
 }) async {
 
   final DraftUser _lastSessionDraft = await UserLDBOps.loadEditorSession(
@@ -143,9 +147,9 @@ Future<void> loadUserEditorLastSession({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> takeUserPicture({
-  @required ValueNotifier<DraftUser> draft,
-  @required PicMakerType picMakerType,
-  @required bool mounted,
+  required ValueNotifier<DraftUser> draft,
+  required PicMakerType picMakerType,
+  required bool mounted,
 }) async {
 
   if (draft.value.canPickImage == true) {
@@ -156,7 +160,7 @@ Future<void> takeUserPicture({
       setTo: false,
     );
 
-    Uint8List _bytes;
+    Uint8List? _bytes;
 
     if(picMakerType == PicMakerType.galleryImage){
       _bytes = await BldrsPicMaker.pickAndCropSinglePic(
@@ -185,8 +189,8 @@ Future<void> takeUserPicture({
     else {
       blog('takeUserPicture : we got the pic in : ${_bytes?.length} bytes');
 
-      final Dimensions _dims =  await Dimensions.superDimensions(_bytes);
-      final double _mega = Filers.calculateSize(_bytes.length, FileSizeUnit.megaByte);
+      final Dimensions? _dims =  await Dimensions.superDimensions(_bytes);
+      final double? _mega = Filers.calculateSize(_bytes.length, FileSizeUnit.megaByte);
 
       setNotifier(
           notifier: draft,
@@ -215,9 +219,9 @@ Future<void> takeUserPicture({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onChangeGender({
-  @required Gender selectedGender,
-  @required ValueNotifier<DraftUser> draft,
-  @required bool mounted,
+  required Gender selectedGender,
+  required ValueNotifier<DraftUser> draft,
+  required bool mounted,
 }){
 
   setNotifier(
@@ -232,9 +236,9 @@ void onChangeGender({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onUserNameChanged({
-  @required ValueNotifier<DraftUser> draft,
-  @required String text,
-  @required bool mounted,
+  required ValueNotifier<DraftUser> draft,
+  required String text,
+  required bool mounted,
 }){
 
   setNotifier(
@@ -250,9 +254,9 @@ void onUserNameChanged({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onUserJobTitleChanged({
-  @required ValueNotifier<DraftUser> draft,
-  @required String text,
-  @required bool mounted,
+  required ValueNotifier<DraftUser> draft,
+  required String text,
+  required bool mounted,
 }){
 
   setNotifier(
@@ -268,9 +272,9 @@ void onUserJobTitleChanged({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onUserCompanyNameChanged({
-  @required ValueNotifier<DraftUser> draft,
-  @required String text,
-  @required bool mounted,
+  required ValueNotifier<DraftUser> draft,
+  required String text,
+  required bool mounted,
 }){
 
   setNotifier(
@@ -285,9 +289,9 @@ void onUserCompanyNameChanged({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onUserZoneChanged({
-  @required ZoneModel selectedZone,
-  @required ValueNotifier<DraftUser> draft,
-  @required bool mounted,
+  required ZoneModel selectedZone,
+  required ValueNotifier<DraftUser> draft,
+  required bool mounted,
 }){
 
   setNotifier(
@@ -302,10 +306,10 @@ void onUserZoneChanged({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onUserContactChanged({
-  @required ValueNotifier<DraftUser> draft,
-  @required ContactType contactType,
-  @required String value,
-  @required bool mounted,
+  required ValueNotifier<DraftUser> draft,
+  required ContactType contactType,
+  required String value,
+  required bool mounted,
 }){
 
   final List<ContactModel> _contacts = ContactModel.insertOrReplaceContact(
@@ -339,12 +343,12 @@ void onUserContactChanged({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> confirmEdits({
-  @required ValueNotifier<DraftUser> draft,
-  @required UserModel oldUser,
-  @required Function onFinish,
-  @required ValueNotifier<bool> loading,
-  @required bool forceReAuthentication,
-  @required bool mounted,
+  required ValueNotifier<DraftUser> draft,
+  required UserModel oldUser,
+  required Function onFinish,
+  required ValueNotifier<bool> loading,
+  required bool forceReAuthentication,
+  required bool mounted,
 }) async {
 
   blog('confirmEdits : STARTED');
@@ -445,8 +449,8 @@ DraftUser _bakeDraftTextControllers(DraftUser draft){
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<bool> _preConfirmCheckups({
-  @required DraftUser draft,
-  @required bool forceReAuthentication,
+  required DraftUser draft,
+  required bool forceReAuthentication,
 }) async {
 
   bool _canContinue = true;
