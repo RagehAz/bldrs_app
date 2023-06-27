@@ -2,20 +2,21 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:mediators/mediators.dart';
 import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:night_sky/night_sky.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:flutter/material.dart';
-import 'package:super_image/super_image.dart';
+import 'package:basics/super_image/super_image.dart';
+import 'package:mediators/models/dimension_model.dart';
 
 class SlideFullScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SlideFullScreen({
-    @required this.image,
-    @required this.imageSize,
-    @required this.filter,
+    required this.image,
+    required this.imageSize,
+    required this.filter,
     this.title,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final dynamic image;
   final Dimensions imageSize;

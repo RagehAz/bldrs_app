@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:basics/bldrs_theme/classes/sounds.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/b_heroic_flyer_hero.dart';
@@ -14,23 +15,24 @@ import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.da
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:dismissible_page/dismissible_page.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mediators/mediators.dart';
+import 'package:mediators/sounder/sounder.dart';
 
 class HeroicSmallFlyer extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const HeroicSmallFlyer({
-    @required this.renderedFlyer,
-    @required this.flyerBoxWidth,
-    @required this.heroTag,
-    @required this.gridHeight,
-    @required this.gridWidth,
+    required this.renderedFlyer,
+    required this.flyerBoxWidth,
+    required this.heroTag,
+    required this.gridHeight,
+    required this.gridWidth,
     this.onMoreTap,
     this.flightDirection = FlightDirection.non,
     this.canBuildBigFlyer = false,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final FlyerModel renderedFlyer;
@@ -44,7 +46,7 @@ class HeroicSmallFlyer extends StatelessWidget {
   /*
   /// TESTED : WORKS PERFECT
   double _bakeTweenValue({
-    @required BuildContext context,
+    required BuildContext context,
   }){
     double _opacity = 1;
 
@@ -62,8 +64,8 @@ class HeroicSmallFlyer extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _openFullScreenFlyer({
-    @required BuildContext context,
-    @required bool flyerIsBigNow,
+    required BuildContext context,
+    required bool flyerIsBigNow,
   }) async {
 
     if (flyerIsBigNow == false){
@@ -101,14 +103,14 @@ class HeroicSmallFlyer extends StatelessWidget {
   /*
   /// TESTED : WORKS PERFECT
   FadeType _getFadeType({
-    @required bool flyerIsBigNow,
+    required bool flyerIsBigNow,
   }){
     return flyerIsBigNow == true ? FadeType.fadeOut : FadeType.stillAtMax;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   Duration _getFadeDuration({
-    @required bool flyerIsBigNow,
+    required bool flyerIsBigNow,
   }){
     return flyerIsBigNow == true ? const Duration(milliseconds: 500) : const Duration(milliseconds: 300);
   }

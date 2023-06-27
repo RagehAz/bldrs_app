@@ -1,19 +1,20 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class ZoneSelectionButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ZoneSelectionButton({
-    @required this.title,
-    @required this.verse,
-    @required this.onTap,
+    required this.title,
+    required this.verse,
+    required this.onTap,
     this.icon = Iconz.circleDot,
     this.loading = false,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final Verse title;
   final Verse verse;

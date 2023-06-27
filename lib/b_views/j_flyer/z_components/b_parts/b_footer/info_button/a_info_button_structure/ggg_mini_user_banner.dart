@@ -4,15 +4,15 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class MiniUserBanner extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const MiniUserBanner({
-    @required this.userModel,
-    @required this.size,
-    Key key
-  }) : super(key: key);
+    required this.userModel,
+    required this.size,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final UserModel userModel;
   final double size;

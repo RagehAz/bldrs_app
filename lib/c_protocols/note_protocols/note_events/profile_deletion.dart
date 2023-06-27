@@ -13,7 +13,7 @@ class NoteEventsOfProfileDeletion {
   /// DEPRECATED
   /*
   static Future<void> wipeUserReceivedNotes({
-    @required String userID,
+    required String userID,
   }) async {
 
     blog('NoteProtocol.deleteAllUserReceivedNotes : START');
@@ -35,7 +35,7 @@ class NoteEventsOfProfileDeletion {
   /// DEPRECATED
   /*
   static Future<void> wipeBzReceivedNotes({
-    @required String bzID,
+    required String bzID,
   }) async {
 
     blog('NoteProtocol.deleteAllBzReceivedNotes : START');
@@ -53,7 +53,7 @@ class NoteEventsOfProfileDeletion {
   /// DEPRECATED
   /*
   static Future<void> wipeBzSentAuthorshipNotes({
-    @required String bzID,
+    required String bzID,
   }) async {
 
     if (bzID != null){
@@ -95,9 +95,9 @@ class NoteEventsOfProfileDeletion {
   /// DEPRECATED
   /*
   static Future<List<NoteModel>> _paginatePendingSentAuthorshipNotes({
-    @required String senderID,
-    @required int limit,
-    @required QueryDocumentSnapshot<Object> startAfter,
+    required String senderID,
+    required int limit,
+    required QueryDocumentSnapshot<Object> startAfter,
   }) async {
 
     List<NoteModel> _notes = <NoteModel>[];
@@ -133,7 +133,7 @@ class NoteEventsOfProfileDeletion {
   /// DEPRECATED
   /*
   static List<FireFinder> _generatePendingSentAuthorshipNotesFireFinder({
-    @required String senderID,
+    required String senderID,
   }){
     return <FireFinder>[
       FireFinder(

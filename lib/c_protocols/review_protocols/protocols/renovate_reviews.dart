@@ -5,7 +5,7 @@ import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/c_protocols/review_protocols/fire/review_fire_ops.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 class RenovateReviewProtocols {
@@ -20,7 +20,7 @@ class RenovateReviewProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> renovateReview({
-    @required ReviewModel reviewModel,
+    required ReviewModel reviewModel,
   }) async {
 
     if (reviewModel != null){
@@ -39,8 +39,8 @@ class RenovateReviewProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ReviewModel> agreeOnReview({
-    @required ReviewModel reviewModel,
-    @required bool isAgreed,
+    required ReviewModel reviewModel,
+    required bool isAgreed,
   }) async {
 
     ReviewModel _output = reviewModel;
@@ -68,7 +68,7 @@ class RenovateReviewProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ReviewModel> _addAgree({
-    @required ReviewModel reviewModel,
+    required ReviewModel reviewModel,
   }) async {
 
     /// UPDATE MODEL
@@ -109,7 +109,7 @@ class RenovateReviewProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ReviewModel> _removeAgree({
-    @required ReviewModel reviewModel,
+    required ReviewModel reviewModel,
   }) async {
 
     blog('_removeAgree : START');

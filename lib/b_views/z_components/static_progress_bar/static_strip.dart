@@ -1,19 +1,19 @@
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_color.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class StaticStrip extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const StaticStrip({
-    @required this.flyerBoxWidth,
-    @required this.stripWidth,
-    @required this.numberOfSlides,
-    @required this.isWhite,
+    required this.flyerBoxWidth,
+    required this.stripWidth,
+    required this.numberOfSlides,
+    required this.isWhite,
     this.stripColor,
     this.margins,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final double stripWidth;

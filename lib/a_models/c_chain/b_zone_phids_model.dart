@@ -4,16 +4,16 @@ import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/x_utilities/map_model.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:flutter/material.dart';
 
 @immutable
 class ZonePhidsModel {
   /// --------------------------------------------------------------------------
   const ZonePhidsModel({
-    @required this.zoneID,
-    @required this.phidsMaps,
+    required this.zoneID,
+    required this.phidsMaps,
   });
   /// --------------------------------------------------------------------------
   final String zoneID;
@@ -46,8 +46,8 @@ class ZonePhidsModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static ZonePhidsModel decipherZonePhids({
-    @required Map<String, dynamic> map,
-    @required String cityID,
+    required Map<String, dynamic> map,
+    required String cityID,
   }){
 
     ZonePhidsModel _zonePhids;
@@ -68,7 +68,7 @@ class ZonePhidsModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<MapModel> createPhidsMapModelsFromSpecs({
-    @required List<SpecModel> specs,
+    required List<SpecModel> specs,
   }){
     List<MapModel> _maps = <MapModel>[];
 
@@ -125,7 +125,7 @@ class ZonePhidsModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<MapModel> createPhidsMapModelsFromFlyerPhids({
-    @required List<String> phids,
+    required List<String> phids,
   }){
     List<MapModel> _maps = <MapModel>[];
 
@@ -173,7 +173,7 @@ class ZonePhidsModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static ZonePhidsModel createZonePhidModelFromFlyer({
-    @required FlyerModel flyerModel,
+    required FlyerModel flyerModel,
   }){
     ZonePhidsModel _zonePhids;
 
@@ -193,8 +193,8 @@ class ZonePhidsModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, int> createIncrementationMap({
-    @required List<String> removedPhids,
-    @required List<String> addedPhids,
+    required List<String> removedPhids,
+    required List<String> addedPhids,
   }){
     Map<String, dynamic> _incrementationMap = {};
 
@@ -251,7 +251,7 @@ class ZonePhidsModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getPhidsFromZonePhidsModel({
-    @required ZonePhidsModel zonePhidsModel,
+    required ZonePhidsModel zonePhidsModel,
   }){
     List<String> _output = <String>[];
 
@@ -267,8 +267,8 @@ class ZonePhidsModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<FlyerType> getFlyerTypesByZonePhids({
-    @required ZonePhidsModel zonePhidsModel,
-    @required List<Chain> bldrsChains,
+    required ZonePhidsModel zonePhidsModel,
+    required List<Chain> bldrsChains,
   }){
     final List<FlyerType> _output = <FlyerType>[];
 
@@ -310,8 +310,8 @@ class ZonePhidsModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static FlyerType getFlyerTypeByPhid({
-    @required String phid,
-    @required List<Chain> bldrsChains,
+    required String phid,
+    required List<Chain> bldrsChains,
   }){
     FlyerType _output;
 
@@ -369,8 +369,8 @@ class ZonePhidsModel {
   // --------------------
   /// TASK : TEST ME
   static List<Chain> removeUnusedPhidsFromBldrsChainsForThisZone({
-    @required List<Chain> bldrsChains,
-    @required ZonePhidsModel currentZonePhidsModel,
+    required List<Chain> bldrsChains,
+    required ZonePhidsModel currentZonePhidsModel,
   }) {
 
     final List<String> _usedPhids = ZonePhidsModel.getPhidsFromZonePhidsModel(
@@ -387,9 +387,9 @@ class ZonePhidsModel {
   // --------------------
   /// TASK : TEST ME
   static ZonePhidsModel combineModels({
-    @required String zoneID,
-    @required ZonePhidsModel base,
-    @required ZonePhidsModel add,
+    required String zoneID,
+    required ZonePhidsModel base,
+    required ZonePhidsModel add,
   }){
     ZonePhidsModel _output;
 
@@ -449,8 +449,8 @@ class ZonePhidsModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkZonePhidsAreIdentical({
-    @required ZonePhidsModel model1,
-    @required ZonePhidsModel model2,
+    required ZonePhidsModel model1,
+    required ZonePhidsModel model2,
   }){
     bool _identical = false;
 

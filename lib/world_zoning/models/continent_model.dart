@@ -4,8 +4,8 @@ part of world_zoning;
 class Continent {
   /// --------------------------------------------------------------------------
   const Continent({
-    @required this.name,
-    @required this.regions,
+    required this.name,
+    required this.regions,
   });
   /// --------------------------------------------------------------------------
   final String name;
@@ -83,8 +83,8 @@ class Continent {
 
   // --------------------
   static bool checkContinentsIncludeContinent({
-    @required List<Continent> continents,
-    @required String name,
+    required List<Continent> continents,
+    required String name,
   }) {
     bool _includes = false;
 
@@ -122,8 +122,8 @@ class Continent {
 
   // --------------------
   static Continent getContinentFromContinents({
-    @required List<Continent> continents,
-    @required String name,
+    required List<Continent> continents,
+    required String name,
   }) {
 
     final Continent cont = continents.firstWhere(
@@ -134,8 +134,8 @@ class Continent {
   }
   // --------------------
   static Continent getContinentFromContinentsByCountryID({
-    @required List<Continent> continents,
-    @required String countryID,
+    required List<Continent> continents,
+    required String countryID,
   }) {
 
     Continent _cont;

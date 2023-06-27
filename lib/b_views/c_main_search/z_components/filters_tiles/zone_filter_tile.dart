@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/m_search/search_model.dart';
 import 'package:bldrs/b_views/c_main_search/super_search_screen.dart';
@@ -11,18 +12,18 @@ import 'package:flutter/material.dart';
 class ZoneFilterTile extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const ZoneFilterTile({
-    @required this.searchModel,
-    @required this.onTileTap,
-    @required this.onSwitchTap,
-    Key key
-  }) : super(key: key);
+    required this.searchModel,
+    required this.onTileTap,
+    required this.onSwitchTap,
+    super.key
+  });
   // --------------------
   final SearchModel searchModel;
   final Function onTileTap;
   final Function(bool) onSwitchTap;
   // -----------------------------------------------------------------------------
   static Verse getZoneVerse({
-    @required ZoneModel zoneModel,
+    required ZoneModel zoneModel,
   }) {
 
     final Verse _headline = zoneModel == null ?
@@ -36,7 +37,7 @@ class ZoneFilterTile extends StatelessWidget {
   }
   // --------------------
   static String getZoneIcon({
-    @required ZoneModel zoneModel,
+    required ZoneModel zoneModel,
   }){
 
     if (zoneModel == null){

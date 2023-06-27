@@ -1,3 +1,5 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
@@ -11,23 +13,23 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class PickersScreenBrowseView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const PickersScreenBrowseView({
-    @required this.selectedSpecsNotifier,
-    @required this.refinedPickersNotifier,
-    @required this.onlyUseZoneChains,
-    @required this.flyerTypes,
-    @required this.isMultipleSelectionMode,
-    @required this.zone,
-    @required this.mounted,
-    Key key
-  }) : super(key: key);
+    required this.selectedSpecsNotifier,
+    required this.refinedPickersNotifier,
+    required this.onlyUseZoneChains,
+    required this.flyerTypes,
+    required this.isMultipleSelectionMode,
+    required this.zone,
+    required this.mounted,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final ValueNotifier<List<SpecModel>> selectedSpecsNotifier;
   final ValueNotifier<List<PickerModel>> refinedPickersNotifier;
@@ -97,13 +99,13 @@ class PickersScreenBrowseView extends StatelessWidget {
 
     return ValueListenableBuilder(
       valueListenable: refinedPickersNotifier,
-      builder: (_, List<PickerModel> _refinedPickers, Widget instructions){
+      builder: (_, List<PickerModel> _refinedPickers, Widget? instructions){
 
         /// WHEN PICKERS ARE PROVIDED
         if (refinedPickersNotifier != null){
           return ValueListenableBuilder(
             valueListenable: selectedSpecsNotifier,
-            builder: (_, List<SpecModel> _allSelectedSpecs, Widget childC){
+            builder: (_, List<SpecModel> _allSelectedSpecs, Widget? childC){
 
               return ListView.builder(
                   itemCount: _refinedPickers.length + 1,

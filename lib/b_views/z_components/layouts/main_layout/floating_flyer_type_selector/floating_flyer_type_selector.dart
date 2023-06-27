@@ -8,19 +8,19 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class FloatingFlyerTypeSelector extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const FloatingFlyerTypeSelector({
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   @override
   _FloatingFlyerTypeSelectorState createState() => _FloatingFlyerTypeSelectorState();
@@ -37,7 +37,7 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -152,8 +152,8 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onFlyerTypeTap({
-    @required BuildContext context,
-    @required FlyerType flyerType,
+    required BuildContext context,
+    required FlyerType flyerType,
   }) async {
 
     // blog('Floating flyer type selector : onFlyerTypeTap : TAPPED ON $flyerType');

@@ -1,3 +1,6 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/layouts/separators/dot_separator.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/d_settings_page/user_settings_page_controllers.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';
 import 'package:bldrs/b_views/z_components/buttons/settings_wide_button.dart';
@@ -5,13 +8,13 @@ import 'package:bldrs/b_views/z_components/layouts/custom_layouts/bldrs_floating
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 
 class UserSettingsPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const UserSettingsPage({
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

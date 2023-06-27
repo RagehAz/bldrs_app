@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 class CityRealOps {
@@ -16,7 +16,7 @@ class CityRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> createCity({
-    @required CityModel cityModel
+    required CityModel cityModel
   }) async {
 
     if (cityModel != null){
@@ -42,8 +42,8 @@ class CityRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CityModel> readCity({
-    @required String countryID,
-    @required String cityID,
+    required String countryID,
+    required String cityID,
   }) async {
     CityModel _output;
 
@@ -72,7 +72,7 @@ class CityRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> readCities({
-    @required List<String> citiesIDs,
+    required List<String> citiesIDs,
   }) async {
     final List<CityModel> _output = [];
 
@@ -111,7 +111,7 @@ class CityRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> readCountryCities({
-    @required String countryID,
+    required String countryID,
   }) async {
 
     final Object _citiesMap = await Real.readPath(
@@ -136,7 +136,7 @@ class CityRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateCity({
-    @required CityModel newCity
+    required CityModel newCity
   }) async {
 
     await createCity(cityModel: newCity);
@@ -149,7 +149,7 @@ class CityRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteCity({
-  @required String cityID,
+  required String cityID,
   }) async {
 
     if (cityID != null){

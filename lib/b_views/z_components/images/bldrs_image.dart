@@ -1,16 +1,17 @@
 import 'dart:ui' as ui;
 
+import 'package:basics/helpers/classes/checks/object_check.dart';
 import 'package:bldrs/b_views/z_components/images/bldrs_image_path_to_ui_image.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:super_image/super_image.dart';
+import 'package:basics/super_image/super_image.dart';
 
 class BldrsImage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BldrsImage({
-    @required this.width,
-    @required this.height,
-    @required this.pic,
+    required this.width,
+    required this.height,
+    required this.pic,
     this.fit = BoxFit.cover,
     this.scale = 1,
     this.iconColor,
@@ -18,8 +19,8 @@ class BldrsImage extends StatelessWidget {
     this.backgroundColor,
     this.corners,
     this.greyscale = false,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final dynamic pic;
   final double width;
@@ -33,7 +34,7 @@ class BldrsImage extends StatelessWidget {
   final bool greyscale;
   /// --------------------------------------------------------------------------
   static DecorationImage decorationImage({
-    @required String picture,
+    required String picture,
     BoxFit boxFit
   }) {
     DecorationImage _image;
@@ -50,8 +51,8 @@ class BldrsImage extends StatelessWidget {
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   Widget getChild({
-    @required BuildContext context,
-    @required dynamic theIcon,
+    required BuildContext context,
+    required dynamic theIcon,
     bool isLoading,
   }) {
     return SuperImage(

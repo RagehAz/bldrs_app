@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 FireQueryModel bzNotesPaginationQueryModel({
-  @required String bzID,
+  required String bzID,
 }){
 
   return FireQueryModel(
@@ -27,7 +27,7 @@ FireQueryModel bzNotesPaginationQueryModel({
 // --------------------
 /// TESTED : WORKS PERFECT
 Stream<List<Map<String, dynamic>>> bzUnseenNotesStream({
-  @required String bzID,
+  required String bzID,
 }){
 
   final Stream<List<Map<String, dynamic>>> _stream = Fire.streamColl(
@@ -91,7 +91,7 @@ Stream<List<Map<String, dynamic>>> userUnseenNotesStream(){
 // -----------------------------------------------------------------------------
 /// TESTED : WORKS PERFECT
 Stream<List<Map<String, dynamic>>> userNotesWithPendingReplies({
-  @required BuildContext context,
+  required BuildContext context,
 }){
 
   return Fire.streamColl(
@@ -136,8 +136,8 @@ FireQueryModel userNotesWithPendingRepliesQueryModel() {
 
 // --------------------
 FireQueryModel allNotesPaginationQueryModel({
-  @required PartyType receiverPartyType,
-  @required String receiverID,
+  required PartyType receiverPartyType,
+  required String receiverID,
 }){
 
  return FireQueryModel(

@@ -1,17 +1,18 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:stringer/stringer.dart';
+
 
 class SlideHeadline extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SlideHeadline({
-    @required this.flyerBoxWidth,
-    @required this.text,
+    required this.flyerBoxWidth,
+    required this.text,
     this.verseColor = Colorz.white255,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final String text;

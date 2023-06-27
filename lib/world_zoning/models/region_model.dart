@@ -4,9 +4,9 @@ part of world_zoning;
 class Region {
   /// --------------------------------------------------------------------------
   const Region({
-    @required this.continent,
-    @required this.name,
-    @required this.countriesIDs,
+    required this.continent,
+    required this.name,
+    required this.countriesIDs,
   });
   /// --------------------------------------------------------------------------
   final String continent;
@@ -69,8 +69,8 @@ class Region {
 
   // --------------------
   static bool regionsIncludeRegion({
-    @required List<Region> regions,
-    @required String name,
+    required List<Region> regions,
+    required String name,
   }) {
     bool _includes = false;
 

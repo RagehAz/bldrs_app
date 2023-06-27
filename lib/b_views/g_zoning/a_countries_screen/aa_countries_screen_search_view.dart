@@ -1,25 +1,27 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/country_tile_button.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class SelectCountryScreenSearchView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SelectCountryScreenSearchView({
-    @required this.onCountryTap,
-    @required this.onDeactivatedCountryTap,
-    @required this.loading,
-    @required this.foundCountries,
-    @required this.shownCountriesIDs,
-    @required this.countriesCensus,
-    Key key,
-  }) : super(key: key);
+    required this.onCountryTap,
+    required this.onDeactivatedCountryTap,
+    required this.loading,
+    required this.foundCountries,
+    required this.shownCountriesIDs,
+    required this.countriesCensus,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final ValueChanged<String> onCountryTap;
   final ValueChanged<String> onDeactivatedCountryTap;
@@ -34,7 +36,7 @@ class SelectCountryScreenSearchView extends StatelessWidget {
     /// WHEN SEARCH RESULTS
     return ValueListenableBuilder(
         valueListenable: loading,
-        builder:(_, bool loading, Widget child){
+        builder:(_, bool loading, Widget? child){
 
           /// WHILE LOADING
           if (loading == true){
@@ -45,7 +47,7 @@ class SelectCountryScreenSearchView extends StatelessWidget {
           else {
             return ValueListenableBuilder(
               valueListenable: foundCountries,
-              builder: (_, List<Phrase> foundCountries, Widget child){
+              builder: (_, List<Phrase> foundCountries, Widget? child){
 
                 const EdgeInsets _topMargin = EdgeInsets.only(
                   top: Ratioz.appBarBigHeight + Ratioz.appBarMargin * 2,

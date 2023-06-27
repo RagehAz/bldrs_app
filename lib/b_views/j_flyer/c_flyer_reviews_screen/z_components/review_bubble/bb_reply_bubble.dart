@@ -1,3 +1,6 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/layouts/separators/separator_line.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -12,19 +15,19 @@ import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 
 class BzReplyBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzReplyBubble({
-    @required this.boxWidth,
-    @required this.reviewModel,
-    @required this.flyerModel,
-    @required this.onReplyOptionsTap,
-    @required this.onReplyBzBalloonTap,
-    @required this.isSpecialReview,
-    Key key
-  }) : super(key: key);
+    required this.boxWidth,
+    required this.reviewModel,
+    required this.flyerModel,
+    required this.onReplyOptionsTap,
+    required this.onReplyBzBalloonTap,
+    required this.isSpecialReview,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double boxWidth;
   final ReviewModel reviewModel;

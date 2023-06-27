@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -29,49 +30,49 @@ class UserTabber {
   ];
   // --------------------
   /// TAMAM : WORKS PERFECT
-  static String getUserTabIcon(UserTab userTab){
+  static String? getUserTabIcon(UserTab? userTab){
     switch(userTab){
       case UserTab.profile        : return UsersProvider.proGetMyUserModel(
                                                 context: getMainContext(),
                                                 listen: false
-                                              )?.picPath; break;
-      case UserTab.notifications  : return Iconz.notification ; break;
-      case UserTab.following      : return Iconz.follow       ; break;
-      case UserTab.settings       : return Iconz.gears        ; break;
+                                              )?.picPath;
+      case UserTab.notifications  : return Iconz.notification ;
+      case UserTab.following      : return Iconz.follow       ;
+      case UserTab.settings       : return Iconz.gears        ;
       default : return null;
     }
   }
   // --------------------
   /// TAMAM : WORKS PERFECT
-  static String getUserTabID(UserTab userTab){
+  static String? getUserTabID(UserTab? userTab){
     /// CAUTION : THIS HAS TO REMAIN IN ENGLISH ONLY WITH NO TRANSLATIONS
     /// BECAUSE THESE VALUES ARE USED IN WIDGETS KEYS
     switch(userTab){
-      case UserTab.profile        : return  'Profile'       ; break;
-      case UserTab.notifications  : return  'Notifications' ; break;
-      case UserTab.following      : return  'Following'     ; break;
-      case UserTab.settings       : return  'Settings'      ; break;
+      case UserTab.profile        : return  'Profile'       ;
+      case UserTab.notifications  : return  'Notifications' ;
+      case UserTab.following      : return  'Following'     ;
+      case UserTab.settings       : return  'Settings'      ;
       default: return null;
     }
   }
   // --------------------
   /// TAMAM : WORKS PERFECT
-  static String _getUserTabPhid(UserTab userTab){
+  static String? _getUserTabPhid(UserTab? userTab){
     switch(userTab){
-      case UserTab.profile        : return  'phid_profile'       ; break;
-      case UserTab.notifications  : return  'phid_notifications' ; break;
-      case UserTab.following      : return  'phid_followed_bz'   ; break;
-      case UserTab.settings       : return  'phid_settings'      ; break;
+      case UserTab.profile        : return  'phid_profile'       ;
+      case UserTab.notifications  : return  'phid_notifications' ;
+      case UserTab.following      : return  'phid_followed_bz'   ;
+      case UserTab.settings       : return  'phid_settings'      ;
       default: return null;
     }
   }
   // --------------------
   /// TAMAM : WORKS PERFECT
   static Verse translateUserTab({
-    @required BuildContext context,
-    @required UserTab userTab,
+    required BuildContext context,
+    required UserTab userTab,
   }){
-    final String _tabPhraseID = _getUserTabPhid(userTab);
+    final String? _tabPhraseID = _getUserTabPhid(userTab);
     return Verse(
       id: _tabPhraseID,
       translate: true,

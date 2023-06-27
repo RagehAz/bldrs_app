@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/x_secondary/bldrs_model_type.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -19,8 +20,8 @@ import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
 import 'package:bldrs/c_protocols/pdf_protocols/protocols/pdf_protocols.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
@@ -28,12 +29,12 @@ import 'package:flutter/material.dart';
 class InfoPageContents extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const InfoPageContents({
-    @required this.flyerBoxWidth,
-    @required this.flyerModel,
-    @required this.flyerCounter,
-    @required this.buttonExpanded,
-    Key key
-  }) : super(key: key);
+    required this.flyerBoxWidth,
+    required this.flyerModel,
+    required this.flyerCounter,
+    required this.buttonExpanded,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final FlyerModel flyerModel;
@@ -92,7 +93,7 @@ class InfoPageContents extends StatelessWidget {
 
           ValueListenableBuilder(
               valueListenable: buttonExpanded,
-              builder: (_, bool expanded, Widget column){
+              builder: (_, bool expanded, Widget? column){
 
                 if (expanded == false){
                   return const SizedBox();

@@ -1,3 +1,6 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
@@ -9,14 +12,14 @@ import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:numeric/numeric.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
 
 class CountryPreviewBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const CountryPreviewBubble({
-    @required this.countryID,
-    Key key
-  }) : super(key: key);
+    required this.countryID,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final String countryID;
   /// --------------------------------------------------------------------------

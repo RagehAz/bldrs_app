@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 class HeaderBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const HeaderBox({
-    @required this.flyerBoxWidth,
-    @required this.headerHeightTween,
-    @required this.headerColor,
-    @required this.headerBorders,
-    @required this.child,
+    required this.flyerBoxWidth,
+    required this.headerHeightTween,
+    required this.headerColor,
+    required this.headerBorders,
+    required this.child,
     this.headerIsExpanded,
     this.onHeaderTap,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final Function onHeaderTap;
   final double flyerBoxWidth;
@@ -52,7 +52,7 @@ class HeaderBox extends StatelessWidget {
 
       return ValueListenableBuilder(
           valueListenable: headerIsExpanded,
-          builder: (_, bool isExpanded, Widget widgetTree){
+          builder: (_, bool isExpanded, Widget? widgetTree){
 
             return GestureDetector(
               onTap: isExpanded == true ? null : onHeaderTap,

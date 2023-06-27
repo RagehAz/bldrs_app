@@ -8,14 +8,14 @@ import 'package:flutter/material.dart';
 class PhidsBuilderPage extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const PhidsBuilderPage({
-    @required this.chain,
-    @required this.searchText,
-    @required this.onPhidTap,
-    @required this.selectedPhidsNotifier,
+    required this.chain,
+    required this.searchText,
+    required this.onPhidTap,
+    required this.selectedPhidsNotifier,
     this.onPhidDoubleTap,
     this.onPhidLongTap,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   // -----------------------------------------------------------------------------
   final Chain chain;
   final ValueNotifier<dynamic> searchText;
@@ -29,7 +29,7 @@ class PhidsBuilderPage extends StatelessWidget {
 
     return ValueListenableBuilder(
         valueListenable: selectedPhidsNotifier,
-        builder: (_, List<String> selectedPhids, Widget child){
+        builder: (_, List<String> selectedPhids, Widget? child){
 
           return ListView.builder(
             physics: const BouncingScrollPhysics(),

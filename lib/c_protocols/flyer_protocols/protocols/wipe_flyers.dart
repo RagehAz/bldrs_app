@@ -16,9 +16,9 @@ import 'package:bldrs/c_protocols/review_protocols/protocols/a_reviews_protocols
 import 'package:bldrs/c_protocols/zone_phids_protocols/zone_phids_real_ops.dart';
 import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:provider/provider.dart';
 
 /*
@@ -50,7 +50,7 @@ class WipeFlyerProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<void> onWipeSingleFlyer({
-    @required FlyerModel flyerModel,
+    required FlyerModel flyerModel,
   }) async {
 
     if (flyerModel != null){
@@ -119,9 +119,9 @@ class WipeFlyerProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<void> _deleteFlyerIDFromBzFlyersIDsAndAuthorIDs({
-    @required BuildContext context,
-    @required FlyerModel flyer,
-    @required BzModel oldBz,
+    required BuildContext context,
+    required FlyerModel flyer,
+    required BzModel oldBz,
   }) async {
     blog('_deleteFlyerIDFromBzFlyersIDsAndAuthorIDs : START');
 
@@ -151,7 +151,7 @@ class WipeFlyerProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<void> onWipeBz({
-    @required String bzID,
+    required String bzID,
   }) async {
 
     if (bzID != null){
@@ -229,7 +229,7 @@ class WipeFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteFlyersLocally({
-    @required List<String> flyersIDs,
+    required List<String> flyersIDs,
   }) async {
 
     /// FLYER LDB DELETION
@@ -246,7 +246,7 @@ class WipeFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteAllBzFlyersLocally({
-    @required String bzID,
+    required String bzID,
   }) async {
 
     if (bzID != null){

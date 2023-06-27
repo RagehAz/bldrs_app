@@ -1,20 +1,20 @@
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/layouts/separators/separator_line.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/structure/reviews_space/aaa_submitted_reviews.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/structure/slides_shelf/aaa_flyer_slides_shelf.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
 
 class FlyerReviewsScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerReviewsScreenView({
-    @required this.flyerModel,
-    @required this.screenHeight,
-    @required this.highlightReviewID,
-    Key key
-  }) : super(key: key);
+    required this.flyerModel,
+    required this.screenHeight,
+    required this.highlightReviewID,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final FlyerModel flyerModel;
   final double screenHeight;

@@ -1,6 +1,6 @@
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -8,10 +8,10 @@ import 'package:flutter/material.dart';
 class CurrencyModel {
   // -----------------------------------------------------------------------------
   const CurrencyModel({
-    @required this.id,
-    @required this.countriesIDs,
-    @required this.symbol,
-    @required this.digits,
+    required this.id,
+    required this.countriesIDs,
+    required this.symbol,
+    required this.digits,
   });
   // --------------------
   final String id;
@@ -158,8 +158,8 @@ class CurrencyModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool currenciesContainCurrency({
-    @required List<CurrencyModel> currencies,
-    @required String currencyCode,
+    required List<CurrencyModel> currencies,
+    required String currencyCode,
   }) {
     bool _contains = false;
 
@@ -181,8 +181,8 @@ class CurrencyModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static CurrencyModel getCurrencyFromCurrenciesByCountryID({
-    @required List<CurrencyModel> currencies,
-    @required String countryID,
+    required List<CurrencyModel> currencies,
+    required String countryID,
   }) {
     CurrencyModel _currency;
 
@@ -218,8 +218,8 @@ class CurrencyModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static CurrencyModel getCurrencyByID({
-    @required List<CurrencyModel> allCurrencies,
-    @required String currencyID,
+    required List<CurrencyModel> allCurrencies,
+    required String currencyID,
   }){
     CurrencyModel _currency;
 
@@ -241,8 +241,8 @@ class CurrencyModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<CurrencyModel> removeCurrencies({
-    @required List<CurrencyModel> currencies,
-    @required List<String> removeIDs,
+    required List<CurrencyModel> currencies,
+    required List<String> removeIDs,
   }){
     List<CurrencyModel> _output = <CurrencyModel>[];
 
@@ -268,8 +268,8 @@ class CurrencyModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkCurrenciesAreIdentical({
-    @required CurrencyModel cur1,
-    @required CurrencyModel cur2,
+    required CurrencyModel cur1,
+    required CurrencyModel cur2,
   }){
     bool _identical = false;
 

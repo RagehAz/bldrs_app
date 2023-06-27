@@ -11,7 +11,7 @@ import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart
 import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -27,9 +27,9 @@ class NoteEventsOfAuthorship {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<NoteModel> sendAuthorshipInvitationNote({
-    @required BuildContext context,
-    @required BzModel bzModel,
-    @required UserModel userModelToSendTo,
+    required BuildContext context,
+    required BzModel bzModel,
+    required UserModel userModelToSendTo,
   }) async {
 
     blog('NoteEventsOfAuthorship.sendAuthorshipInvitationNote : START');
@@ -89,9 +89,9 @@ class NoteEventsOfAuthorship {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendAuthorshipCancellationNote({
-    @required BuildContext context,
-    @required BzModel bzModel,
-    @required UserModel userModelToSendTo,
+    required BuildContext context,
+    required BzModel bzModel,
+    required UserModel userModelToSendTo,
   }) async {
 
     blog('NoteEventsOfAuthorship.sendAuthorshipCancellationNote : START');
@@ -150,8 +150,8 @@ class NoteEventsOfAuthorship {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendAuthorshipAcceptanceNote({
-    @required BuildContext context,
-    @required String bzID,
+    required BuildContext context,
+    required String bzID,
   }) async {
 
     blog('NoteEventsOfAuthorship.sendAuthorshipAcceptanceNote : START');
@@ -202,8 +202,8 @@ class NoteEventsOfAuthorship {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendAuthorshipDeclinationsNote({
-    @required BuildContext context,
-    @required String bzID,
+    required BuildContext context,
+    required String bzID,
   }) async {
 
     blog('NoteEventsOfAuthorship.sendAuthorshipDeclinationsNote : START');

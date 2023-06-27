@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/cupertino.dart';
 
 /*
@@ -27,7 +27,7 @@ class ChainRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Chain>> createBldrsChains({
-    @required List<Chain> chains,
+    required List<Chain> chains,
   }) async {
     List<Chain> _uploaded;
 
@@ -73,7 +73,7 @@ class ChainRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateBldrsChains({
-    @required List<Chain> chains,
+    required List<Chain> chains,
   }) async {
 
     if (chains != null){
@@ -104,8 +104,8 @@ class ChainRealOps {
   // --------------------
   /// TASK DEPRECATED
   static Future<Chain> createBigChainK({
-    @required BuildContext context,
-    @required Chain chainK,
+    required BuildContext context,
+    required Chain chainK,
   }) async {
 
     Chain _uploaded;
@@ -136,8 +136,8 @@ class ChainRealOps {
   // --------------------
   /// TASK DEPRECATED
   static Future<Chain> createBigChainS({
-    @required BuildContext context,
-    @required Chain chainS,
+    required BuildContext context,
+    required Chain chainS,
   }) async {
 
     Chain _uploaded;
@@ -200,8 +200,8 @@ class ChainRealOps {
 
   /// TASK DEPRECATED
   static Future<void> updateBigChainK({
-    @required BuildContext context,
-    @required Chain bigChainK,
+    required BuildContext context,
+    required Chain bigChainK,
   }) async {
 
     if (bigChainK != null){
@@ -219,8 +219,8 @@ class ChainRealOps {
   // --------------------
   /// TASK DEPRECATED
   static Future<void> updateBigChainS({
-    @required BuildContext context,
-    @required Chain bigChainS,
+    required BuildContext context,
+    required Chain bigChainS,
   }) async {
 
     if (bigChainS != null){
@@ -238,8 +238,8 @@ class ChainRealOps {
 
   // --------------------
   static Future<void> updateChainKPath({
-    @required BuildContext context,
-    @required String phidK, // which is map key for the path
+    required BuildContext context,
+    required String phidK, // which is map key for the path
   }) async {
 
 
@@ -247,8 +247,8 @@ class ChainRealOps {
   }
   // --------------------
   static Future<void> updateChainSPath({
-    @required BuildContext context,
-    @required String chainSPathKey, // which is combination ( 'lastPartOfParentID' + phidS )
+    required BuildContext context,
+    required String chainSPathKey, // which is combination ( 'lastPartOfParentID' + phidS )
   }) async {
 
   }

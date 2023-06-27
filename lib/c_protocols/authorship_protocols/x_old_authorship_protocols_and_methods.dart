@@ -25,8 +25,8 @@
 // import 'package:bldrs/e_back_end/g_storage/storage.dart';
 // import 'package:bldrs/main.dart';
 // import 'package:bldrs_theme/bldrs_theme.dart';
-// import 'package:stringer/stringer.dart';
-// import 'package:filers/filers.dart';
+// import 'package:basics/helpers/classes/strings/stringer.dart';
+// import 'package:basics/helpers/classes/files/filers.dart';
 // import 'package:flutter/material.dart';
 //
 // class OldAuthorshipExit {
@@ -37,8 +37,8 @@
 //   // -----------------------------------------------------------------------------
 //   /// TESTED : WORKS PERFECT
 //   static Future<void> deleteMyAuthorPic({
-//     @required BuildContext context,
-//     @required String bzID,
+//     required BuildContext context,
+//     required String bzID,
 //   }) async {
 //     blog('WipeAuthorProtocols.deleteMyAuthorPicProtocol : START');
 //
@@ -87,8 +87,8 @@
 //   // --------------------
 //   /// TESTED : WORKS PERFECT
 //   static Future<void> removeMeFromBz({
-//     @required BuildContext context,
-//     @required BzModel streamedBzModelWithoutMyID,
+//     required BuildContext context,
+//     required BzModel streamedBzModelWithoutMyID,
 //   }) async {
 //
 //     blog('WipeAuthorProtocols.removeMeFromBzProtocol : START');
@@ -161,9 +161,9 @@
 //   // --------------------
 //   /// TESTED : WORKS PERFECT
 //   static Future<void> removeFlyerlessAuthor({
-//     @required BuildContext context,
-//     @required BzModel oldBz,
-//     @required AuthorModel author,
+//     required BuildContext context,
+//     required BzModel oldBz,
+//     required AuthorModel author,
 //   }) async {
 //     blog('WipeAuthorProtocols.removeFlyerlessAuthorProtocol : START');
 //
@@ -196,8 +196,8 @@
 //   // --------------------
 //   /// TESTED : WORKS PERFECT
 //   static Future<void> removeBzTracesAfterDeletion({
-//     @required BuildContext context,
-//     @required String bzID,
+//     required BuildContext context,
+//     required String bzID,
 //   }) async {
 //
 //     /// NOTES
@@ -275,8 +275,8 @@
 //   // --------------------
 //   /// TESTED : WORKS PERFECT
 //   static Future<void> _authorBzDeletionDialog({
-//     @required BuildContext context,
-//     @required String bzID,
+//     required BuildContext context,
+//     required String bzID,
 //   }) async {
 //
 //     final BzModel _bzModel = await BzLDBOps.readBz(bzID);
@@ -302,8 +302,8 @@
 //   }
 //   // -----------------------------------------------------------------------------
 //   Future<void> myBzResignationProtocol({
-//     @required BuildContext context,
-//     @required BzModel newBzFromStream,
+//     required BuildContext context,
+//     required BzModel newBzFromStream,
 //   }) async {
 //     /// THIS METHOD RUNS WHEN STREAMED BZ MODEL DOES NOT INCLUDE MY USER ID
 //     // description
@@ -360,12 +360,12 @@
 //   // ----------------------------------
 //   /// TESTED : WORKS PERFECT
 //   Future<void> removeAuthorWhoHasNoFlyers({
-//     @required BuildContext context,
-//     @required AuthorModel authorModel,
-//     @required BzModel oldBz,
-//     @required bool showConfirmationDialog,
-//     @required bool showWaitDialog,
-//     @required bool sendToUserAuthorExitNote,
+//     required BuildContext context,
+//     required AuthorModel authorModel,
+//     required BzModel oldBz,
+//     required bool showConfirmationDialog,
+//     required bool showWaitDialog,
+//     required bool sendToUserAuthorExitNote,
 //   }) async {
 //
 //     /// REMOVE AUTHOR MODEL FROM BZ MODEL
@@ -396,9 +396,9 @@
 //   // --------------------
 //   /// TESTED : WORKS PERFECT
 //   Future<void> _showAuthorRemovalConfirmationDialog({
-//     @required BuildContext context,
-//     @required BzModel bzModel,
-//     @required AuthorModel deletedAuthor,
+//     required BuildContext context,
+//     required BzModel bzModel,
+//     required AuthorModel deletedAuthor,
 //   }) async {
 //
 //     unawaited(TopDialog.showTopDialog(
@@ -419,12 +419,12 @@
 //   // --------------------
 //   /// TESTED : WORKS PERFECT
 //   Future<void> removeAuthorWhoHasFlyers({
-//     @required BuildContext context,
-//     @required AuthorModel authorModel,
-//     @required BzModel oldBz,
-//     @required bool showWaitDialog,
-//     @required bool showConfirmationDialog,
-//     @required bool sendToUserAuthorExitNote,
+//     required BuildContext context,
+//     required AuthorModel authorModel,
+//     required BzModel oldBz,
+//     required bool showWaitDialog,
+//     required bool showConfirmationDialog,
+//     required bool sendToUserAuthorExitNote,
 //   }) async {
 //
 //     bool _result;
@@ -516,8 +516,8 @@
 //   // --------------------
 //   /// TESTED : WORKS PERFECT
 //   Future<bool> showDeleteAllAuthorFlyers({
-//     @required BuildContext context,
-//     @required AuthorModel authorModel,
+//     required BuildContext context,
+//     required AuthorModel authorModel,
 //   }) async {
 //
 //     final bool _result = await CenterDialog.showCenterDialog(

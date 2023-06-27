@@ -3,7 +3,7 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_real_ops.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/cupertino.dart';
 /// => TAMAM
 class CensusListener {
@@ -40,8 +40,8 @@ class CensusListener {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onRenovateUser({
-    @required UserModel newUser,
-    @required UserModel oldUser,
+    required UserModel newUser,
+    required UserModel oldUser,
   }) async {
 
     final bool _shouldUpdateCensus = CensusModel.checkShouldUpdateUserCensus(
@@ -115,8 +115,8 @@ class CensusListener {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onRenovateBz({
-    @required BzModel newBz,
-    @required BzModel oldBz,
+    required BzModel newBz,
+    required BzModel oldBz,
   }) async {
 
     assert(newBz != null, 'newBz is null');
@@ -193,8 +193,8 @@ class CensusListener {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onRenovateFlyer({
-    @required FlyerModel oldFlyer,
-    @required FlyerModel newFlyer,
+    required FlyerModel oldFlyer,
+    required FlyerModel newFlyer,
   }) async {
 
     assert(oldFlyer != null, 'oldFlyer is null');
@@ -246,7 +246,7 @@ class CensusListener {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onCallBz({
-    @required BzModel bzModel,
+    required BzModel bzModel,
     int count = 1,
   }) async {
 
@@ -266,8 +266,8 @@ class CensusListener {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onFollowBz({
-    @required BzModel bzModel,
-    @required bool isFollowing,
+    required BzModel bzModel,
+    required bool isFollowing,
     int count = 1,
   }) async {
 
@@ -287,8 +287,8 @@ class CensusListener {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onSaveFlyer({
-    @required FlyerModel flyerModel,
-    @required bool isSaving,
+    required FlyerModel flyerModel,
+    required bool isSaving,
     int count = 1,
   }) async {
 

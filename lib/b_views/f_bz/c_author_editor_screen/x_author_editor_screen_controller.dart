@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:typed_data';
 
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/files/file_size_unit.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
@@ -18,10 +20,12 @@ import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:mediators/mediators.dart';
+import 'package:mediators/models/dimension_model.dart';
+import 'package:mediators/pic_maker/pic_maker.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 
@@ -30,11 +34,11 @@ import 'package:mediators/mediators.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> prepareAuthorPicForEditing({
-  @required BuildContext context,
-  @required ValueNotifier<AuthorModel> draftAuthor,
-  @required AuthorModel oldAuthor,
-  @required BzModel bzModel,
-  @required bool mounted,
+  required BuildContext context,
+  required ValueNotifier<AuthorModel> draftAuthor,
+  required AuthorModel oldAuthor,
+  required BzModel bzModel,
+  required bool mounted,
 }) async {
 
   final AuthorModel _tempAuthor = await AuthorModel.prepareAuthorForEditing(
@@ -56,11 +60,11 @@ Future<void> prepareAuthorPicForEditing({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> loadAuthorEditorSession({
-  @required BuildContext context,
-  @required bool mounted,
-  @required ValueNotifier<AuthorModel> draftAuthor,
-  @required AuthorModel oldAuthor,
-  @required BzModel bzModel,
+  required BuildContext context,
+  required bool mounted,
+  required ValueNotifier<AuthorModel> draftAuthor,
+  required AuthorModel oldAuthor,
+  required BzModel bzModel,
 }) async {
 
   final AuthorModel _lastSessionAuthor = await BzLDBOps.loadAuthorEditorSession(
@@ -106,11 +110,11 @@ Future<void> loadAuthorEditorSession({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> saveAuthorEditorSession({
-  @required BuildContext context,
-  @required AuthorModel oldAuthor,
-  @required BzModel bzModel,
-  @required ValueNotifier<AuthorModel> draftAuthor,
-  @required bool mounted,
+  required BuildContext context,
+  required AuthorModel oldAuthor,
+  required BzModel bzModel,
+  required ValueNotifier<AuthorModel> draftAuthor,
+  required bool mounted,
 }) async {
 
   final AuthorModel newAuthor = AuthorModel.bakeEditorVariablesToUpload(
@@ -148,11 +152,11 @@ Future<void> saveAuthorEditorSession({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> takeAuthorImage({
-  @required ValueNotifier<AuthorModel> author,
-  @required BzModel bzModel,
-  @required PicMakerType imagePickerType,
-  @required ValueNotifier<bool> canPickImage,
-  @required bool mounted,
+  required ValueNotifier<AuthorModel> author,
+  required BzModel bzModel,
+  required PicMakerType imagePickerType,
+  required ValueNotifier<bool> canPickImage,
+  required bool mounted,
 }) async {
 
   if (canPickImage.value  == true) {
@@ -163,7 +167,7 @@ Future<void> takeAuthorImage({
         value: false,
     );
 
-    Uint8List _bytes;
+    Uint8List? _bytes;
 
     if(imagePickerType == PicMakerType.galleryImage){
       _bytes = await BldrsPicMaker.pickAndCropSinglePic(
@@ -195,8 +199,8 @@ Future<void> takeAuthorImage({
     /// IF PICKED AN IMAGE
     else {
 
-      final Dimensions _dims = await Dimensions.superDimensions(_bytes);
-      final double _mega = Filers.calculateSize(_bytes.length, FileSizeUnit.megaByte);
+      final Dimensions? _dims = await Dimensions.superDimensions(_bytes);
+      final double? _mega = Filers.calculateSize(_bytes.length, FileSizeUnit.megaByte);
 
       setNotifier(
           notifier: author,
@@ -232,8 +236,8 @@ Future<void> takeAuthorImage({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onDeleteAuthorImage({
-  @required ValueNotifier<AuthorModel> author,
-  @required bool mounted,
+  required ValueNotifier<AuthorModel> author,
+  required bool mounted,
 }){
 
   setNotifier(
@@ -254,9 +258,9 @@ void onDeleteAuthorImage({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onAuthorNameChanged({
-  @required ValueNotifier<AuthorModel> tempAuthor,
-  @required String text,
-  @required bool mounted,
+  required ValueNotifier<AuthorModel> tempAuthor,
+  required String text,
+  required bool mounted,
 }){
 
   setNotifier(
@@ -271,9 +275,9 @@ void onAuthorNameChanged({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onAuthorTitleChanged({
-  @required ValueNotifier<AuthorModel> tempAuthor,
-  @required String text,
-  @required bool mounted,
+  required ValueNotifier<AuthorModel> tempAuthor,
+  required String text,
+  required bool mounted,
 }){
 
   setNotifier(
@@ -288,10 +292,10 @@ void onAuthorTitleChanged({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onAuthorContactChanged({
-  @required ValueNotifier<AuthorModel> tempAuthor,
-  @required ContactType contactType,
-  @required String value,
-  @required bool mounted,
+  required ValueNotifier<AuthorModel> tempAuthor,
+  required ContactType contactType,
+  required String value,
+  required bool mounted,
 }){
 
   final List<ContactModel> _contacts = ContactModel.insertOrReplaceContact(
@@ -319,10 +323,10 @@ void onAuthorContactChanged({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onConfirmAuthorUpdates({
-  @required BuildContext context,
-  @required AuthorModel oldAuthor,
-  @required ValueNotifier<AuthorModel> draftAuthor,
-  @required BzModel oldBz,
+  required BuildContext context,
+  required AuthorModel oldAuthor,
+  required ValueNotifier<AuthorModel> draftAuthor,
+  required BzModel oldBz,
 }) async {
 
   final bool _result = await CenterDialog.showCenterDialog(
@@ -380,10 +384,10 @@ Future<void> onConfirmAuthorUpdates({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onChangeAuthorRoleOps({
-  @required BuildContext context,
-  @required ValueNotifier<AuthorRole> draftRole,
-  @required AuthorModel oldAuthor,
-  @required bool mounted,
+  required BuildContext context,
+  required ValueNotifier<AuthorRole> draftRole,
+  required AuthorModel oldAuthor,
+  required bool mounted,
 }) async {
 
   if (draftRole.value != oldAuthor.role){
@@ -467,11 +471,11 @@ Future<void> onChangeAuthorRoleOps({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> setAuthorRole({
-  @required BuildContext context,
-  @required AuthorRole selectedRole,
-  @required ValueNotifier<AuthorRole> tempRole,
-  @required AuthorModel oldAuthor,
-  @required bool mounted,
+  required BuildContext context,
+  required AuthorRole selectedRole,
+  required ValueNotifier<AuthorRole> tempRole,
+  required AuthorModel oldAuthor,
+  required bool mounted,
 }) async {
 
   final bool _canChangeRole = await _checkCanChangeRole(
@@ -501,9 +505,9 @@ Future<void> setAuthorRole({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<bool> _checkCanChangeRole({
-  @required BuildContext context,
-  @required AuthorModel oldAuthor,
-  @required AuthorRole role,
+  required BuildContext context,
+  required AuthorModel oldAuthor,
+  required AuthorRole role,
 }) async {
   bool _canChange = false;
 

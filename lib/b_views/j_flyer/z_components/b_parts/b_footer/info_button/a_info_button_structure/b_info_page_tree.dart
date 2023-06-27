@@ -8,22 +8,22 @@ import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 
 class InfoPageTree extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const InfoPageTree({
-    @required this.flyerBoxWidth,
-    @required this.infoButtonType,
-    @required this.buttonIsExpanded,
-    @required this.flyerModel,
-    @required this.tinyMode,
-    @required this.inFlight,
-    @required this.infoPageVerticalController,
-    @required this.flyerCounter,
-    @required this.onVerticalBounce,
-    Key key
-  }) : super(key: key);
+    required this.flyerBoxWidth,
+    required this.infoButtonType,
+    required this.buttonIsExpanded,
+    required this.flyerModel,
+    required this.tinyMode,
+    required this.inFlight,
+    required this.infoPageVerticalController,
+    required this.flyerCounter,
+    required this.onVerticalBounce,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final InfoButtonType infoButtonType;
@@ -62,7 +62,7 @@ class InfoPageTree extends StatelessWidget {
       scrollerIsOn: false,
       child: ValueListenableBuilder(
         valueListenable: buttonIsExpanded,
-        builder: (_, bool _buttonIsExpanded, Widget expandedInfoPageTree){
+        builder: (_, bool _buttonIsExpanded, Widget? expandedInfoPageTree){
 
           return MaxBounceNavigator(
             boxDistance: FlyerDim.infoButtonHeight(

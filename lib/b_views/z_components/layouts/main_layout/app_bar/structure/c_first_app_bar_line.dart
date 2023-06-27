@@ -3,16 +3,16 @@ part of bldrs_app_bar;
 class FirstAppBarLine extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const FirstAppBarLine({
-    @required this.canGoBack,
-    @required this.appBarType,
-    @required this.sectionButtonIsOn,
-    @required this.onBack,
-    @required this.pageTitleVerse,
-    @required this.appBarRowWidgets,
-    @required this.appBarScrollController,
-    @required this.minBoxHeight,
-    Key key
-  }) : super(key: key);
+    required this.canGoBack,
+    required this.appBarType,
+    required this.sectionButtonIsOn,
+    required this.onBack,
+    required this.pageTitleVerse,
+    required this.appBarRowWidgets,
+    required this.appBarScrollController,
+    required this.minBoxHeight,
+    super.key
+  });
   // -----------------------------------------------------------------------------
   final bool canGoBack;
   final AppBarType appBarType;

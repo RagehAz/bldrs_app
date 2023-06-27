@@ -1,3 +1,7 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/layouts/separators/separator_line.dart';
 import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
 import 'package:bldrs/b_views/i_chains/c_currencies_screen/x_currencies_screen_controllers.dart';
 import 'package:bldrs/b_views/i_chains/z_components/currencies/currency_list_builder.dart';
@@ -6,23 +10,23 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_b
 import 'package:bldrs/b_views/z_components/buttons/wide_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:night_sky/night_sky.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:provider/provider.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class CurrenciesScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const CurrenciesScreen({
     this.countryIDCurrencyOverride,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final String countryIDCurrencyOverride;
   /// --------------------------------------------------------------------------
@@ -47,7 +51,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -156,7 +160,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
       },
       child: ValueListenableBuilder(
         valueListenable: _isSearching,
-        builder: (_, bool isSearching, Widget child){
+        builder: (_, bool isSearching, Widget? child){
 
           /// SEARCHING
           if (isSearching == true){
@@ -166,7 +170,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
               color: Colorz.white20,
               child: ValueListenableBuilder(
                   valueListenable: _foundCurrencies,
-                  builder: (_, List<CurrencyModel> foundCurrencies, Widget child){
+                  builder: (_, List<CurrencyModel> foundCurrencies, Widget? child){
 
                     /// NO RESULT FOUND
                     if (Mapper.checkCanLoopList(foundCurrencies) == false){
@@ -264,7 +268,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
                     /// REMAINING CURRENCIES
                     ValueListenableBuilder(
                         valueListenable: _showAllCurrencies,
-                        builder: (_, bool showAll, Widget child){
+                        builder: (_, bool showAll, Widget? child){
 
                           if (showAll == true){
 

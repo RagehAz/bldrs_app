@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_redundant_argument_values
-
 import 'dart:async';
-
+import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/x_secondary/app_state_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
@@ -22,18 +21,16 @@ import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
-import 'package:filers/filers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
-import 'package:ldb/ldb.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 /// TESTED : WORKS PERFECT
 Future<void> initializeLogoScreen({
-  @required BuildContext context,
-  @required bool mounted,
+  required BuildContext context,
+  required bool mounted,
 }) async {
 
   // if (kDebugMode == true && DeviceChecker.deviceIsWindows() == true){
@@ -187,8 +184,8 @@ Future<void> initializeUserModel(BuildContext context) async {
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> setUserModelAndCompleteUserZoneLocally({
-  @required UserModel userModel,
-  @required bool notify,
+  required UserModel userModel,
+  required bool notify,
 }) async {
 
   // blog('setUserAndAuthModelsAndCompleteUserZoneLocally : START');

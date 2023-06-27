@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/material.dart';
 
 class NoteFireOps {
@@ -17,7 +17,7 @@ class NoteFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<NoteModel> createNote({
-    @required NoteModel noteModel,
+    required NoteModel noteModel,
     ValueChanged<NoteModel> onFinished,
   }) async {
     NoteModel _output;
@@ -56,8 +56,8 @@ class NoteFireOps {
   // --------------------
   ///
   static Future<List<NoteModel>> createNotes({
-    @required NoteModel noteModel,
-    @required List<String> receiversIDs,
+    required NoteModel noteModel,
+    required List<String> receiversIDs,
   }) async {
 
     final List<NoteModel> _output = <NoteModel>[];
@@ -100,8 +100,8 @@ class NoteFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<NoteModel> readNote({
-    @required String noteID,
-    @required String userID,
+    required String noteID,
+    required String userID,
   }) async {
     NoteModel _output;
 
@@ -131,7 +131,7 @@ class NoteFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateNote({
-    @required NoteModel note,
+    required NoteModel note,
   }) async {
 
     if (note != null){
@@ -149,7 +149,7 @@ class NoteFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> markNoteAsSeen({
-    @required NoteModel noteModel,
+    required NoteModel noteModel,
   }) async {
 
     if (noteModel.seen != true){
@@ -170,7 +170,7 @@ class NoteFireOps {
   // --------------------
   ///
   static Future<void> markNotesAsSeen({
-    @required List<NoteModel> notes,
+    required List<NoteModel> notes,
   }) async {
 
     if (Mapper.checkCanLoopList(notes) == true){
@@ -193,7 +193,7 @@ class NoteFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteNote({
-    @required NoteModel note,
+    required NoteModel note,
   }) async {
 
     if (note != null){
@@ -211,7 +211,7 @@ class NoteFireOps {
   // --------------------
   ///
   static Future<void> deleteNotes({
-    @required List<NoteModel> notes,
+    required List<NoteModel> notes,
   }) async {
 
     if (Mapper.checkCanLoopList(notes) == true){

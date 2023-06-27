@@ -8,8 +8,8 @@
 // class UserScreenTabBar extends StatelessWidget {
 //   /// --------------------------------------------------------------------------
 //   const UserScreenTabBar({
-//     @required this.tabController,
-//     @required this.currentUserTab,
+//     required this.tabController,
+//     required this.currentUserTab,
 //     Key key
 //   }) : super(key: key);
 //   /// --------------------------------------------------------------------------
@@ -17,8 +17,8 @@
 //   final UserTab currentUserTab;
 //   /// --------------------------------------------------------------------------
 //   bool _isSelected({
-//     @required BuildContext context,
-//     @required UserTab userTab,
+//     required BuildContext context,
+//     required UserTab userTab,
 //   }){
 //
 //     bool _isSelected = false;

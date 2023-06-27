@@ -1,7 +1,7 @@
 // ignore_for_file: constant_identifier_names
 import 'dart:async';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:mediators/mediators.dart';
+import 'package:basics/bldrs_theme/classes/sounds.dart';
+import 'package:mediators/sounder/sounder.dart';
 /// => TAMAM
 class BldrsSounder {
   // -----------------------------------------------------------------------------

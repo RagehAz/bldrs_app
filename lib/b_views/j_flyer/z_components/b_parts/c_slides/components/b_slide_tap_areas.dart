@@ -1,20 +1,20 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class SlideTapAreas extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SlideTapAreas({
-    @required this.onTapNext,
-    @required this.onTapBack,
-    @required this.onDoubleTap,
-    @required this.flyerBoxWidth,
-    @required this.flyerBoxHeight,
-    @required this.child,
-    @required this.canTap,
+    required this.onTapNext,
+    required this.onTapBack,
+    required this.onDoubleTap,
+    required this.flyerBoxWidth,
+    required this.flyerBoxHeight,
+    required this.child,
+    required this.canTap,
     this.splashColor = Colorz.white255,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final Function onTapNext;
   final Function onTapBack;

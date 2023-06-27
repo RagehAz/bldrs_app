@@ -1,4 +1,9 @@
 import 'package:animators/animators.dart';
+import 'package:basics/animators/widgets/animate_widget_to_matrix.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/checks/device_checker.dart';
+import 'package:basics/helpers/classes/space/trinity.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shelf/delete_draft_slide_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/c_slide_shadow.dart';
@@ -13,20 +18,20 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:devicer/devicer.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:space_time/space_time.dart';
-import 'package:super_image/super_image.dart';
+import 'package:basics/helpers/classes/time/timers.dart';
+import 'package:basics/super_image/super_image.dart';
 
 class DraftShelfSlide extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const DraftShelfSlide({
-    @required this.draftSlide,
-    @required this.number,
-    @required this.onTap,
-    @required this.onDeleteSlide,
-    Key key
-  }) : super(key: key);
+    required this.draftSlide,
+    required this.number,
+    required this.onTap,
+    required this.onDeleteSlide,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final DraftSlide draftSlide;
   final int number;
@@ -143,7 +148,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                 if (widget.draftSlide != null)
                   ValueListenableBuilder(
                     valueListenable: _animateSlide,
-                    builder: (_, bool _animate, Widget child){
+                    builder: (_, bool _animate, Widget? child){
 
                       if (_animate == true){
                         return AnimateWidgetToMatrix(

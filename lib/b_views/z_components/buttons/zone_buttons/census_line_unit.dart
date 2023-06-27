@@ -8,13 +8,13 @@ import 'package:flutter/material.dart';
 class CensusLineUnit extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const CensusLineUnit({
-    @required this.width,
-    @required this.number,
-    @required this.icon,
-    @required this.isActive,
+    required this.width,
+    required this.number,
+    required this.icon,
+    required this.isActive,
     this.height = 30,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   // -----------------------------------------------------------------------------
   final double height;
   final double width;

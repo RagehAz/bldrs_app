@@ -1,19 +1,19 @@
 // ignore_for_file: avoid_returning_null
 
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/widgets/drawing/super_positioned.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
 
 class ConfirmButtonModel{
   /// --------------------------------------------------------------------------
   const ConfirmButtonModel({
-    @required this.onTap,
-    @required this.firstLine,
+    required this.onTap,
+    required this.firstLine,
     this.secondLine,
     this.isDeactivated = false,
     this.onSkipTap,
@@ -29,9 +29,9 @@ class ConfirmButtonModel{
   /// --------------------------------------------------------------------------
 }
 
-double getWidth({
-  @required BuildContext context,
-  @required ConfirmButtonModel model,
+double? getWidth({
+  required BuildContext context,
+  required ConfirmButtonModel model,
 }){
 
   if (model?.isWide == true){
@@ -50,13 +50,13 @@ double getWidth({
 class ConfirmButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ConfirmButton({
-    @required this.confirmButtonModel,
+    required this.confirmButtonModel,
     this.positionedAlignment,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final ConfirmButtonModel confirmButtonModel;
-  final Alignment positionedAlignment;
+  final Alignment? positionedAlignment;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

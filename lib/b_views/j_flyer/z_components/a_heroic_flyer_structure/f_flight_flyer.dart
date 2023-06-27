@@ -1,19 +1,20 @@
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/b_heroic_flyer_hero.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/c_heroic_small_flyer.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class FlightFlyer extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlightFlyer({
-    @required this.flightDirection,
-    @required this.renderedFlyer,
-    @required this.flyerBoxWidth,
-    @required this.heroTag,
-    Key key
-  }) : super(key: key);
+    required this.flightDirection,
+    required this.renderedFlyer,
+    required this.flyerBoxWidth,
+    required this.heroTag,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final HeroFlightDirection flightDirection;
   final FlyerModel renderedFlyer;
@@ -50,7 +51,7 @@ class FlightFlyer extends StatelessWidget {
         tween: _tween,
         duration: Ratioz.duration150ms,
         curve: _curve,
-        builder: (ctx, double value, Widget child){
+        builder: (ctx, double value, Widget? child){
 
           final FlightDirection _flightDirection = getFlightDirection(flightDirection.name);
           // final double _maxWidth = Scale.screenWidth(context);

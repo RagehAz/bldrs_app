@@ -3,13 +3,13 @@ part of bldrs_app_bar;
 class LineWithBackAndTitleAndWidgets extends StatelessWidget {
 
   const LineWithBackAndTitleAndWidgets({
-    @required this.onBack,
-    @required this.appBarRowWidgets,
-    @required this.scrollController,
-    @required this.pageTitleVerse,
-    Key key
-  }) : super(key: key);
-
+    required this.onBack,
+    required this.appBarRowWidgets,
+    required this.scrollController,
+    required this.pageTitleVerse,
+    super.key
+  });
+  
   final Function onBack;
   final List<Widget> appBarRowWidgets;
   final ScrollController scrollController;

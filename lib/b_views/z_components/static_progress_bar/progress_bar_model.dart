@@ -1,17 +1,20 @@
 import 'package:animators/animators.dart';
+import 'package:basics/animators/helpers/animators.dart';
+import 'package:basics/animators/helpers/sliders.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 
 ///=> TAMAM
 class ProgressBarModel {
   /// --------------------------------------------------------------------------
   const ProgressBarModel({
-    @required this.swipeDirection,
-    @required this.index,
-    @required this.numberOfStrips,
+    required this.swipeDirection,
+    required this.index,
+    required this.numberOfStrips,
     this.stripsColors,
   });
   /// --------------------------------------------------------------------------
@@ -53,7 +56,7 @@ class ProgressBarModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static ProgressBarModel initialModel({
-    @required int numberOfStrips,
+    required int numberOfStrips,
   }){
 
     return ProgressBarModel(
@@ -84,11 +87,11 @@ class ProgressBarModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void onSwipe({
-    @required BuildContext context,
-    @required int newIndex,
-    @required ValueNotifier<ProgressBarModel> progressBarModel,
-    @required bool mounted,
-    int numberOfPages,
+    required BuildContext context,
+    required int newIndex,
+    required ValueNotifier<ProgressBarModel> progressBarModel,
+    required bool mounted,
+    int? numberOfPages,
   }){
 
     /// A - if Keyboard is active
@@ -121,12 +124,12 @@ class ProgressBarModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void _updateProgressBarNotifierOnIndexChanged({
-    @required BuildContext context,
-    @required ValueNotifier<ProgressBarModel> progressBarModel,
-    @required int newIndex,
-    @required bool mounted,
+    required BuildContext context,
+    required ValueNotifier<ProgressBarModel> progressBarModel,
+    required int newIndex,
+    required bool mounted,
     bool syncFocusScope = true,
-    int numberOfPages,
+    int? numberOfPages,
   }){
 
     final SwipeDirection _direction = Animators.getSwipeDirection(
@@ -173,8 +176,8 @@ class ProgressBarModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Color> generateColors({
-    @required int length,
-    @required List<Color> colors,
+    required int length,
+    required List<Color> colors,
   }){
 
     if (Mapper.checkCanLoopList(colors) == true){
@@ -192,10 +195,10 @@ class ProgressBarModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void setStripColor({
-    @required int index,
-    @required Color color,
-    @required ValueNotifier<ProgressBarModel> notifier,
-    @required bool mounted,
+    required int index,
+    required Color color,
+    required ValueNotifier<ProgressBarModel> notifier,
+    required bool mounted,
   }){
 
     final List<Color> _stripsColors = <Color>[ ...?notifier.value.stripsColors];

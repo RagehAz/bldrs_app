@@ -1,22 +1,22 @@
 import 'package:fire/super_fire.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/foundation.dart';
-import 'package:mapper/mapper.dart';
-import 'package:space_time/space_time.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/time/timers.dart';
 /// => TAMAM
 @immutable
 class ReviewModel {
   /// --------------------------------------------------------------------------
   const ReviewModel({
-    @required this.id, // will be random
-    @required this.text,
-    @required this.userID,
-    @required this.time, // will order reviews by time
-    @required this.flyerID, // will be docName
-    @required this.replyAuthorID,
-    @required this.reply,
-    @required this.replyTime,
-    @required this.agrees,
+    required this.id, // will be random
+    required this.text,
+    required this.userID,
+    required this.time, // will order reviews by time
+    required this.flyerID, // will be docName
+    required this.replyAuthorID,
+    required this.reply,
+    required this.replyTime,
+    required this.agrees,
     this.docSnapshot,
   });
   /// --------------------------------------------------------------------------
@@ -107,8 +107,8 @@ class ReviewModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static ReviewModel decipherReview({
-    @required dynamic map,
-    @required String reviewID,
+    required dynamic map,
+    required String reviewID,
     bool fromJSON
   }) {
     ReviewModel _review;
@@ -133,7 +133,7 @@ class ReviewModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<ReviewModel> decipherReviews({
-    @required List<Map<String, dynamic>> maps,
+    required List<Map<String, dynamic>> maps,
     bool fromJSON
   }) {
     final List<ReviewModel> _reviews = <ReviewModel>[];
@@ -182,8 +182,8 @@ class ReviewModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static ReviewModel createNewReview({
-    @required String text,
-    @required String flyerID,
+    required String text,
+    required String flyerID,
   }){
     return ReviewModel(
       id: 'x',
@@ -205,8 +205,8 @@ class ReviewModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static ReviewModel incrementAgrees({
-    @required ReviewModel reviewModel,
-    @required bool isIncrementing,
+    required ReviewModel reviewModel,
+    required bool isIncrementing,
   }){
 
     int _value = reviewModel?.agrees ?? 0;
@@ -225,7 +225,7 @@ class ReviewModel {
   // --------------------
   /*
   static List<ReviewModel> sortReviews({
-    @required List<ReviewModel> reviews,
+    required List<ReviewModel> reviews,
   }){
 
       List<ReviewModel> _output = <ReviewModel>[];
@@ -247,8 +247,8 @@ class ReviewModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static ReviewModel dummyReview({
-    @required String flyerID,
-    @required String authorID,
+    required String flyerID,
+    required String authorID,
   }) {
     return ReviewModel(
       id: 'x',
@@ -265,8 +265,8 @@ class ReviewModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String createTempReviewID({
-    @required String flyerID,
-    @required String userID,
+    required String flyerID,
+    required String userID,
   }){
     return '${flyerID}_$userID';
   }
@@ -294,7 +294,7 @@ class ReviewModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogReviews({
-    @required List<ReviewModel> reviews,
+    required List<ReviewModel> reviews,
     String invoker,
   }){
     blog('blogReviews : $invoker -------------------------------------- START');
@@ -316,8 +316,8 @@ class ReviewModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkReviewsAreIdentical({
-    @required ReviewModel review1,
-    @required ReviewModel review2,
+    required ReviewModel review1,
+    required ReviewModel review2,
   }){
     bool _areIdentical = false;
 

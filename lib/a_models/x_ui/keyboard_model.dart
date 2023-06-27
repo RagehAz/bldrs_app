@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class KeyboardModel {
   // -----------------------------------------------------------------------------
   const KeyboardModel({
-    @required this.titleVerse,
+    required this.titleVerse,
     this.initialText,
     this.hintVerse,
     this.minLines = 1,
@@ -130,8 +130,8 @@ class KeyboardModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkKeyboardsAreIdentical({
-    @required KeyboardModel modelA,
-    @required KeyboardModel modelB,
+    required KeyboardModel modelA,
+    required KeyboardModel modelB,
   }){
     bool _areIdentical = false;
 

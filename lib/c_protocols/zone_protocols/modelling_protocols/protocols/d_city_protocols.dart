@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/fire/city_phrase_fire_ops.dart';
@@ -8,8 +9,8 @@ import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/sta
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_protocols.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 /// => TAMAM
 class CityProtocols {
   // -----------------------------------------------------------------------------
@@ -23,7 +24,7 @@ class CityProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> composeCity({
-    @required CityModel cityModel,
+    required CityModel cityModel,
   }) async {
 
     if (cityModel != null){
@@ -58,7 +59,7 @@ class CityProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CityModel> fetchCity({
-    @required String cityID,
+    required String cityID,
   }) async {
     CityModel _output;
 
@@ -103,7 +104,7 @@ class CityProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> fetchCities({
-    @required List<String> citiesIDs,
+    required List<String> citiesIDs,
     ValueChanged<CityModel> onCityRead,
   }) async {
 
@@ -145,9 +146,9 @@ class CityProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> fetchCitiesOfCountry({
-    @required String countryID,
+    required String countryID,
     /// If CITY STAGE is null, then all cities will be returned
-    StageType cityStageType,
+    StageType? cityStageType,
   }) async {
     List<CityModel> _output = <CityModel>[];
 
@@ -168,7 +169,7 @@ class CityProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> fetchCitiesOfCountryByIDs({
-    @required List<String> citiesIDsOfThisCountry,
+    required List<String> citiesIDsOfThisCountry,
   }) async {
     List<CityModel> _output = <CityModel>[];
 
@@ -227,8 +228,8 @@ class CityProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> renovateCity({
-    @required CityModel oldCity,
-    @required CityModel newCity,
+    required CityModel oldCity,
+    required CityModel newCity,
   }) async {
 
     if (CityModel.checkCitiesAreIdentical(oldCity, newCity) == false){
@@ -266,7 +267,7 @@ class CityProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> wipeCity({
-    @required CityModel cityModel,
+    required CityModel cityModel,
   }) async {
 
     if (cityModel != null){

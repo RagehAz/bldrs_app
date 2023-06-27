@@ -6,9 +6,9 @@ import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 
 class ImagifyFlyerProtocols {
   // -----------------------------------------------------------------------------
@@ -21,7 +21,7 @@ class ImagifyFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<FlyerModel> renderSmallFlyer({
-    @required FlyerModel flyerModel,
+    required FlyerModel flyerModel,
   }) async {
 
     FlyerModel _output = flyerModel;
@@ -68,7 +68,7 @@ class ImagifyFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<FlyerModel> renderBigFlyer({
-    @required FlyerModel flyerModel,
+    required FlyerModel flyerModel,
   }) async {
 
     FlyerModel _output = flyerModel;
@@ -124,9 +124,9 @@ class ImagifyFlyerProtocols {
   // --------------------
   /// TASK : TEST ME
   static void disposeRenderedFlyer({
-    @required FlyerModel flyerModel,
-    @required bool mounted,
-    @required String invoker,
+    required FlyerModel flyerModel,
+    required bool mounted,
+    required String invoker,
   }){
 
     /// TASK : search for traces by this searchID : DISPOSE_IMAGIFIED_FLYER_ISSUE
@@ -179,7 +179,7 @@ class ImagifyFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<FlyerModel> _imagifyFirstSlide({
-    @required FlyerModel flyerModel,
+    required FlyerModel flyerModel,
   }) async {
     FlyerModel _output;
 
@@ -221,7 +221,7 @@ class ImagifyFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<FlyerModel> _imagifySlides({
-    @required FlyerModel flyerModel,
+    required FlyerModel flyerModel,
   }) async {
     FlyerModel _output;
 
@@ -277,7 +277,7 @@ class ImagifyFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<FlyerModel> _imagifyBzLogo({
-    @required FlyerModel flyerModel,
+    required FlyerModel flyerModel,
   }) async {
     FlyerModel _output = flyerModel;
 
@@ -308,7 +308,7 @@ class ImagifyFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<FlyerModel> _imagifyAuthorPic({
-    @required FlyerModel flyerModel,
+    required FlyerModel flyerModel,
   }) async {
     FlyerModel _output = flyerModel;
 

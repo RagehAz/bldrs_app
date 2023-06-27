@@ -1,3 +1,6 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/f_phid_button.dart';
@@ -12,21 +15,21 @@ import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:widget_fader/widget_fader.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/animators/widgets/widget_fader.dart';
 
 class PhidsSelectorBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const PhidsSelectorBubble({
-    @required this.draft,
-    @required this.draftNotifier,
-    @required this.bzModel,
-    @required this.onPhidTap,
-    @required this.onPhidLongTap,
-    @required this.onAdd,
-    @required this.canValidate,
-    Key key
-  }) : super(key: key);
+    required this.draft,
+    required this.draftNotifier,
+    required this.bzModel,
+    required this.onPhidTap,
+    required this.onPhidLongTap,
+    required this.onAdd,
+    required this.canValidate,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final DraftFlyer draft;
   final ValueNotifier<DraftFlyer> draftNotifier;
@@ -69,7 +72,7 @@ class PhidsSelectorBubble extends StatelessWidget {
           /// SELECTED PHIDS
           ValueListenableBuilder(
               valueListenable: draftNotifier,
-              builder: (_, DraftFlyer draft, Widget child){
+              builder: (_, DraftFlyer draft, Widget? child){
 
                 if (Mapper.checkCanLoopList(draft?.phids) == true){
                   return PhidsViewer(

@@ -1,15 +1,15 @@
 import 'dart:ui' as ui;
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 
 class BldrsImagePathToUiImage extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const BldrsImagePathToUiImage({
-    @required this.imagePath,
-    @required this.builder,
-    Key key
-  }) : super(key: key);
+    required this.imagePath,
+    required this.builder,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final String imagePath;
   final Function(bool isLoading, ui.Image uiImage) builder;
@@ -27,7 +27,7 @@ class _BldrsImagePathToUiImageState extends State<BldrsImagePathToUiImage> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,

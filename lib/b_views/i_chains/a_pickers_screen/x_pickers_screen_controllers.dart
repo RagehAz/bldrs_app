@@ -6,8 +6,8 @@ import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/b_picker_screen/b_picker_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 
@@ -17,7 +17,7 @@ import 'package:flutter/material.dart';
 /*
 /// TESTED : WORKS PERFECT
 bool allChainsCanNotBeBuiltt({
-  @required BuildContext context,
+  required BuildContext context,
 }){
 
   final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
@@ -74,10 +74,10 @@ bool canBuildChain(Chain chain){
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onGoBackFromPickersScreen({
-  @required BuildContext context,
-  @required bool isMultipleSelectionMode,
-  @required ValueNotifier<List<SpecModel>> selectedSpecs,
-  @required List<SpecModel> widgetSelectedSpecs,
+  required BuildContext context,
+  required bool isMultipleSelectionMode,
+  required ValueNotifier<List<SpecModel>> selectedSpecs,
+  required List<SpecModel> widgetSelectedSpecs,
 }) async {
 
   bool _canContinue = true;
@@ -104,15 +104,15 @@ Future<void> onGoBackFromPickersScreen({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onGoToPickerScreen({
-  @required BuildContext context,
-  @required PickerModel picker,
-  @required ValueNotifier<List<SpecModel>> selectedSpecsNotifier,
-  @required bool onlyUseZoneChains,
-  @required bool isMultipleSelectionMode,
-  @required ValueNotifier<List<PickerModel>> refinedPickersNotifier,
-  @required List<PickerModel> allPickers,
-  @required ZoneModel zone,
-  @required bool mounted,
+  required BuildContext context,
+  required PickerModel picker,
+  required ValueNotifier<List<SpecModel>> selectedSpecsNotifier,
+  required bool onlyUseZoneChains,
+  required bool isMultipleSelectionMode,
+  required ValueNotifier<List<PickerModel>> refinedPickersNotifier,
+  required List<PickerModel> allPickers,
+  required ZoneModel zone,
+  required bool mounted,
 }) async {
 
   final dynamic _result = await Nav.goToNewScreen(
@@ -159,12 +159,12 @@ Future<void> onGoToPickerScreen({
 // --------------------
 /// TESTED : WORKS PERFECT
 void _updateSelectedSpecsAndRefinePickers({
-  @required dynamic specPickerResult,
-  @required PickerModel picker,
-  @required List<PickerModel> sourcePickers,
-  @required ValueNotifier<List<PickerModel>> refinedPickers,
-  @required ValueNotifier<List<SpecModel>> selectedSpecs,
-  @required bool mounted,
+  required dynamic specPickerResult,
+  required PickerModel picker,
+  required List<PickerModel> sourcePickers,
+  required ValueNotifier<List<PickerModel>> refinedPickers,
+  required ValueNotifier<List<SpecModel>> selectedSpecs,
+  required bool mounted,
 }) {
 
   final Chain _specChain = ChainsProvider.proFindChainByID(
@@ -214,11 +214,11 @@ void _updateSelectedSpecsAndRefinePickers({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onRemoveSpecs({
-  @required ValueNotifier<List<SpecModel>> selectedSpecsNotifier,
-  @required SpecModel valueSpec,
-  @required SpecModel unitSpec,
-  @required List<PickerModel> pickers,
-  @required bool mounted,
+  required ValueNotifier<List<SpecModel>> selectedSpecsNotifier,
+  required SpecModel valueSpec,
+  required SpecModel unitSpec,
+  required List<PickerModel> pickers,
+  required bool mounted,
 }){
 
   blog('should remove these specs from the list');
@@ -251,10 +251,10 @@ void onRemoveSpecs({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onAddSpecs({
-  @required List<SpecModel> specs,
-  @required PickerModel picker,
-  @required ValueNotifier<List<SpecModel>> selectedSpecs,
-  @required bool mounted,
+  required List<SpecModel> specs,
+  required PickerModel picker,
+  required ValueNotifier<List<SpecModel>> selectedSpecs,
+  required bool mounted,
 }) {
 
   final List<SpecModel> _updatedList = SpecModel.putSpecsInSpecs(

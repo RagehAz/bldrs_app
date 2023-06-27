@@ -1,5 +1,8 @@
 import 'dart:ui' as ui;
 
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/files/floaters.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
@@ -8,10 +11,10 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/ldb/pic_ldb_ops.dart';
 import 'package:bldrs/c_protocols/pic_protocols/storage/pic_storage_ops.dart';
 
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class PicProtocols {
   // -----------------------------------------------------------------------------
@@ -109,7 +112,7 @@ class PicProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<ui.Image> fetchPicUiImage({
-    @required String path,
+    required String path,
   }) async {
     ui.Image _theImage;
 
@@ -167,7 +170,7 @@ class PicProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<List<PicModel>> fetchFlyerPics({
-    @required FlyerModel flyerModel,
+    required FlyerModel flyerModel,
   }) async {
     List<PicModel> _output = <PicModel>[];
 

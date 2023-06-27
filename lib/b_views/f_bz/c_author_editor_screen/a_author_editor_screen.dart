@@ -19,20 +19,20 @@ import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_mode
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mediators/mediators.dart';
-import 'package:night_sky/night_sky.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 
 class AuthorEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const AuthorEditorScreen({
-    @required this.author,
-    @required this.bzModel,
+    required this.author,
+    required this.bzModel,
     this.checkLastSession = true,
     this.validateOnStartup = false,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final AuthorModel author;
   final BzModel bzModel;
@@ -77,7 +77,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -323,7 +323,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
       progressBarModel: _progressBarModel,
       child: ValueListenableBuilder(
         valueListenable: _draftAuthor,
-        builder: (_, AuthorModel authorModel, Widget child){
+        builder: (_, AuthorModel authorModel, Widget? child){
 
           return Form(
             key: _formKey,

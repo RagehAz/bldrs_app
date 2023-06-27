@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
@@ -20,10 +21,10 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 
@@ -32,9 +33,9 @@ import 'package:stringer/stringer.dart';
 // ---------------------------------------
 /// TESTED : WORKS PERFECT
 Future<void> loadReviewEditorLastSession({
-  @required BuildContext context,
-  @required TextEditingController reviewController,
-  @required String flyerID,
+  required BuildContext context,
+  required TextEditingController reviewController,
+  required String flyerID,
 }) async {
 
   final ReviewModel _lastSessionReview = await FlyerLDBOps.loadReviewSession(
@@ -65,8 +66,8 @@ Future<void> loadReviewEditorLastSession({
 // ---------------------------------------
 /// TESTED : WORKS PERFECT
 Future<void> saveReviewEditorSession({
-  @required TextEditingController reviewController,
-  @required String flyerID,
+  required TextEditingController reviewController,
+  required String flyerID,
 }) async {
 
   await FlyerLDBOps.saveReviewSession(
@@ -94,12 +95,12 @@ Future<void> saveReviewEditorSession({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onSubmitReview({
-  @required BuildContext context,
-  @required FlyerModel flyerModel,
-  @required TextEditingController textController,
-  @required PaginationController paginationController,
-  @required ValueNotifier<bool> isUploading,
-  @required bool mounted,
+  required BuildContext context,
+  required FlyerModel flyerModel,
+  required TextEditingController textController,
+  required PaginationController paginationController,
+  required ValueNotifier<bool> isUploading,
+  required bool mounted,
 }) async {
 
   final UserModel _user = UsersProvider.proGetMyUserModel(
@@ -195,10 +196,10 @@ Future<void> onSubmitReview({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onReviewAgree({
-  @required ReviewModel reviewModel,
-  @required PaginationController paginationController,
-  @required bool isAgreed,
-  @required bool mounted,
+  required ReviewModel reviewModel,
+  required PaginationController paginationController,
+  required bool isAgreed,
+  required bool mounted,
 }) async {
 
   final UserModel _user = UsersProvider.proGetMyUserModel(
@@ -246,10 +247,10 @@ Future<void> onReviewAgree({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onReviewOptions({
-  @required ReviewModel reviewModel,
-  @required PaginationController paginationController,
-  @required String bzID,
-  @required bool mounted,
+  required ReviewModel reviewModel,
+  required PaginationController paginationController,
+  required String bzID,
+  required bool mounted,
 }) async {
 
   final BuildContext context = getMainContext();
@@ -320,9 +321,9 @@ Future<void> onReviewOptions({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onEditReview({
-  @required ReviewModel reviewModel,
-  @required PaginationController paginationController,
-  @required bool mounted,
+  required ReviewModel reviewModel,
+  required PaginationController paginationController,
+  required bool mounted,
 }) async {
 
   bool _isConfirmed = false;
@@ -383,10 +384,10 @@ Future<void> _onEditReview({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onDeleteReview({
-  @required ReviewModel reviewModel,
-  @required PaginationController paginationController,
-  @required String bzID,
-  @required bool mounted,
+  required ReviewModel reviewModel,
+  required PaginationController paginationController,
+  required String bzID,
+  required bool mounted,
 }) async {
 
   if (reviewModel != null && bzID != null){
@@ -460,7 +461,7 @@ Future<void> _onDeleteReview({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onReviewUserBalloonTap({
-  @required UserModel userModel,
+  required UserModel userModel,
 }) async {
 
   await BldrsNav.jumpToUserPreviewScreen(
@@ -471,7 +472,7 @@ Future<void> onReviewUserBalloonTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onReplyBzBalloonTap({
-  @required BzModel bzModel,
+  required BzModel bzModel,
 }) async {
 
   await BldrsNav.jumpToBzPreviewScreen(
@@ -486,10 +487,10 @@ Future<void> onReplyBzBalloonTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onBzReply({
-  @required ReviewModel reviewModel,
-  @required PaginationController paginationController,
-  @required String bzID,
-  @required bool mounted,
+  required ReviewModel reviewModel,
+  required PaginationController paginationController,
+  required String bzID,
+  required bool mounted,
 }) async {
 
   if (reviewModel != null && bzID != null) {
@@ -586,9 +587,9 @@ Future<void> onBzReply({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onReplyOptions({
-  @required ReviewModel reviewModel,
-  @required PaginationController paginationController,
-  @required bool mounted,
+  required ReviewModel reviewModel,
+  required PaginationController paginationController,
+  required bool mounted,
 }) async {
 
   final BuildContext context = getMainContext();
@@ -650,9 +651,9 @@ Future<void> onReplyOptions({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onEditReply({
-  @required ReviewModel reviewModel,
-  @required PaginationController paginationController,
-  @required bool mounted,
+  required ReviewModel reviewModel,
+  required PaginationController paginationController,
+  required bool mounted,
 }) async {
 
   bool _isConfirmed = false;
@@ -715,9 +716,9 @@ Future<void> _onEditReply({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onDeleteReply({
-  @required ReviewModel reviewModel,
-  @required PaginationController paginationController,
-  @required bool mounted,
+  required ReviewModel reviewModel,
+  required PaginationController paginationController,
+  required bool mounted,
 }) async {
 
   final bool _canContinue = await CenterDialog.showCenterDialog(
@@ -776,8 +777,8 @@ Future<void> _onDeleteReply({
 // -----------------------------------------------------------------------------
 
 String createReviewsScreenRoutingArgument({
-  @required String flyerID,
-  @required String reviewID,
+  required String flyerID,
+  required String reviewID,
 }){
 
   return ChainPathConverter.combinePathNodes([

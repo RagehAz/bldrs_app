@@ -1,25 +1,27 @@
 import 'dart:async';
 import 'package:another_flushbar/flushbar.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/bldrs_theme/classes/shadowers.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class TopDialog extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const TopDialog({
-    @required this.verse,
-    @required this.onTap,
-    // @required this.duration,
-    Key key,
-  }) : super(key: key);
+    required this.verse,
+    required this.onTap,
+    // required this.duration,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final String verse;
   final Function onTap;
@@ -62,11 +64,11 @@ class TopDialog extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> showTopDialog({
-    @required Verse firstVerse,
-    Verse secondVerse,
+    required Verse firstVerse,
+    Verse? secondVerse,
     Color color = Colorz.yellow255,
     Color textColor = Colorz.black255,
-    Function onTap,
+    Function? onTap,
     int milliseconds = 5000,
   }) async {
 
@@ -228,8 +230,8 @@ class TopDialog extends StatelessWidget {
   /// BUG THE SHIT OUT OF LIFE
   /*
   static void showUnawaitedTopDialog({
-    @required BuildContext context,
-    @required Verse firstVerse,
+    required BuildContext context,
+    required Verse firstVerse,
     Verse secondVerse,
     Color color = Colorz.yellow255,
     Color textColor = Colorz.black255,

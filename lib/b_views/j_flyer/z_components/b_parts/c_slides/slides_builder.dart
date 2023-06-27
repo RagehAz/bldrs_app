@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/b_heroic_flyer_hero.dart';
@@ -8,33 +9,33 @@ import 'package:bldrs/b_views/z_components/layouts/navigation/horizontal_bouncer
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 
 class SlidesBuilder extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SlidesBuilder({
-    @required this.flyerBoxWidth,
-    @required this.flyerBoxHeight,
-    @required this.tinyMode,
-    @required this.flyerModel,
-    @required this.horizontalController,
-    @required this.onSwipeSlide,
-    @required this.onSlideNextTap,
-    @required this.onSlideBackTap,
-    @required this.onDoubleTap,
-    @required this.progressBarModel,
-    @required this.flightDirection,
-    @required this.heroTag,
-    @required this.canTapSlides,
-    @required this.showSlidesShadows,
-    @required this.showSlidesBlurLayers,
-    @required this.canAnimateSlides,
-    @required this.canPinch,
-    @required this.canUseFilter,
-    @required this.showGallerySlide,
+    required this.flyerBoxWidth,
+    required this.flyerBoxHeight,
+    required this.tinyMode,
+    required this.flyerModel,
+    required this.horizontalController,
+    required this.onSwipeSlide,
+    required this.onSlideNextTap,
+    required this.onSlideBackTap,
+    required this.onDoubleTap,
+    required this.progressBarModel,
+    required this.flightDirection,
+    required this.heroTag,
+    required this.canTapSlides,
+    required this.showSlidesShadows,
+    required this.showSlidesBlurLayers,
+    required this.canAnimateSlides,
+    required this.canPinch,
+    required this.canUseFilter,
+    required this.showGallerySlide,
     this.onHorizontalExit,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final double flyerBoxHeight;

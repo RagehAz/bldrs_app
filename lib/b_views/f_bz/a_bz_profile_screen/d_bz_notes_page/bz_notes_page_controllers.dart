@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onBzNoteTap({
-  @required NoteModel noteModel,
+  required NoteModel noteModel,
 }) async {
 
   // blog('namexxx : ${noteModel.navTo.name}');
@@ -35,9 +35,9 @@ Future<void> onBzNoteTap({
 /// TESTED : WORKS PERFECT
 /*
 // void decrementBzObeliskUnseenNotesNumber({
-//   @required NotesProvider notesProvider,
-//   @required int markedNotesLength,
-//   @required String bzID,
+//   required NotesProvider notesProvider,
+//   required int markedNotesLength,
+//   required String bzID,
 // }){
 //
 //   if (markedNotesLength > 0){

@@ -1,3 +1,5 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/space/atlas.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
@@ -6,12 +8,12 @@ import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:space_time/space_time.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/time/timers.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 enum NeedType {
   seekProperty,
@@ -25,13 +27,13 @@ enum NeedType {
 class NeedModel {
   /// --------------------------------------------------------------------------
   const NeedModel({
-    @required this.needType,
-    @required this.notes,
-    @required this.flyerIDs,
-    @required this.bzzIDs,
-    @required this.scope,
-    @required this.location,
-    @required this.since,
+    required this.needType,
+    required this.notes,
+    required this.flyerIDs,
+    required this.bzzIDs,
+    required this.scope,
+    required this.location,
+    required this.since,
   });
   /// --------------------------------------------------------------------------
   final NeedType needType;
@@ -48,7 +50,7 @@ class NeedModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static NeedModel createInitialNeed({
-    @required ZoneModel userZone,
+    required ZoneModel userZone,
   }){
     return NeedModel(
       needType: null,
@@ -64,8 +66,8 @@ class NeedModel {
   /*
   ///
   static Future<NeedModel> prepareNeedForEditing({
-    @required BuildContext context,
-    @required NeedModel need,
+    required BuildContext context,
+    required NeedModel need,
   }) async {
 
     return need.copyWith();
@@ -74,9 +76,9 @@ class NeedModel {
   // --------------------
   ///
   static NeedModel bakeEditorVariablesToUpload({
-    @required BuildContext context,
-    @required NeedModel oldNeed,
-    @required NeedModel tempNeed,
+    required BuildContext context,
+    required NeedModel oldNeed,
+    required NeedModel tempNeed,
   }){
 
     return tempNeed;
@@ -90,13 +92,13 @@ class NeedModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   NeedModel copyWith({
-    NeedType needType,
-    List<String> scope,
-    GeoPoint location,
-    String notes,
-    List<String> flyerIDs,
-    List<String> bzzIDs,
-    DateTime since,
+    NeedType? needType,
+    List<String>? scope,
+    GeoPoint? location,
+    String? notes,
+    List<String>? flyerIDs,
+    List<String>? bzzIDs,
+    DateTime? since,
   }){
     return NeedModel(
       needType: needType ?? this.needType,
@@ -136,7 +138,7 @@ class NeedModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
-    @required bool toJSON,
+    required bool toJSON,
   }){
     return {
       'needType': cipherNeedType(needType),
@@ -151,8 +153,8 @@ class NeedModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static NeedModel decipherNeed({
-    @required Map<String, dynamic> map,
-    @required bool fromJSON,
+    required Map<String, dynamic> map,
+    required bool fromJSON,
   }){
     NeedModel _need;
 
@@ -176,25 +178,25 @@ class NeedModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String cipherNeedType(NeedType type){
+  static String? cipherNeedType(NeedType? type){
     switch (type) {
-      case NeedType.seekProperty :       return 'seekProperty'; break;
-      case NeedType.planConstruction :   return 'planConstruction'; break;
-      case NeedType.finishConstruction : return 'finishConstruction'; break;
-      case NeedType.furnish :            return 'furnish'; break;
-      case NeedType.offerProperty :      return 'offerProperty'; break;
+      case NeedType.seekProperty :       return 'seekProperty';
+      case NeedType.planConstruction :   return 'planConstruction';
+      case NeedType.finishConstruction : return 'finishConstruction';
+      case NeedType.furnish :            return 'furnish';
+      case NeedType.offerProperty :      return 'offerProperty';
       default:return null;
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static NeedType decipherNeedType(String type){
+  static NeedType? decipherNeedType(String? type){
     switch (type) {
-      case 'seekProperty' :       return  NeedType.seekProperty; break;
-      case 'planConstruction' :   return  NeedType.planConstruction; break;
-      case 'finishConstruction' : return  NeedType.finishConstruction; break;
-      case 'furnish' :            return  NeedType.furnish; break;
-      case 'offerProperty' :      return  NeedType.offerProperty; break;
+      case 'seekProperty' :       return  NeedType.seekProperty;
+      case 'planConstruction' :   return  NeedType.planConstruction;
+      case 'finishConstruction' : return  NeedType.finishConstruction;
+      case 'furnish' :            return  NeedType.furnish;
+      case 'offerProperty' :      return  NeedType.offerProperty;
       default:return null;
     }
   }
@@ -229,8 +231,8 @@ class NeedModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Verse> getNeedsTypesVerses({
-    @required List<NeedType> needsTypes,
-    @required BuildContext context,
+    required List<NeedType> needsTypes,
+    required BuildContext context,
     Casing casing = Casing.non,
   }){
     final List<Verse> _output = <Verse>[];

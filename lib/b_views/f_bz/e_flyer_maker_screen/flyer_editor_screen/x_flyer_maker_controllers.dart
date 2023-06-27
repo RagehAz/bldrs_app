@@ -19,10 +19,10 @@ import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -32,9 +32,9 @@ import 'package:flutter/material.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> loadFlyerMakerLastSession({
-  @required BuildContext context,
-  @required ValueNotifier<DraftFlyer> draft,
-  @required bool mounted,
+  required BuildContext context,
+  required ValueNotifier<DraftFlyer> draft,
+  required bool mounted,
 }) async {
 
   final DraftFlyer _lastSessionDraft = await FlyerLDBOps.loadFlyerMakerSession(
@@ -80,7 +80,7 @@ Future<void> loadFlyerMakerLastSession({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> saveFlyerMakerSession({
-  @required ValueNotifier<DraftFlyer> draft,
+  required ValueNotifier<DraftFlyer> draft,
 }) async {
 
   await FlyerLDBOps.saveFlyerMakerSession(
@@ -127,9 +127,9 @@ Future<void> onCancelFlyerCreation(BuildContext context) async {
 // --------------------
 /// TESTED : WORKS PERFECT
 void onUpdateFlyerHeadline({
-  @required ValueNotifier<DraftFlyer> draftNotifier,
-  @required String text,
-  @required bool mounted,
+  required ValueNotifier<DraftFlyer> draftNotifier,
+  required String text,
+  required bool mounted,
 }){
 
   setNotifier(
@@ -146,9 +146,9 @@ void onUpdateFlyerHeadline({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onUpdateFlyerDescription({
-  @required ValueNotifier<DraftFlyer> draftNotifier,
-  @required String text,
-  @required bool mounted,
+  required ValueNotifier<DraftFlyer> draftNotifier,
+  required String text,
+  required bool mounted,
 }) {
 
   setNotifier(
@@ -163,10 +163,10 @@ void onUpdateFlyerDescription({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onSelectFlyerType({
-  @required BuildContext context,
-  @required int index,
-  @required ValueNotifier<DraftFlyer> draftNotifier,
-  @required bool mounted,
+  required BuildContext context,
+  required int index,
+  required ValueNotifier<DraftFlyer> draftNotifier,
+  required bool mounted,
 }) async {
 
   final FlyerType _selectedFlyerType = FlyerTyper.flyerTypesList[index];
@@ -215,9 +215,9 @@ Future<void> onSelectFlyerType({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onAddSpecsToDraftTap({
-  @required BuildContext context,
-  @required ValueNotifier<DraftFlyer> draft,
-  @required bool mounted,
+  required BuildContext context,
+  required ValueNotifier<DraftFlyer> draft,
+  required bool mounted,
 }) async {
 
   final dynamic _result = await Nav.goToNewScreen(
@@ -255,10 +255,10 @@ Future<void> onAddSpecsToDraftTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onZoneChanged({
-  @required BuildContext context,
-  @required ValueNotifier<DraftFlyer> draftNotifier,
-  @required ZoneModel zone,
-  @required bool mounted,
+  required BuildContext context,
+  required ValueNotifier<DraftFlyer> draftNotifier,
+  required ZoneModel zone,
+  required bool mounted,
 }) async {
 
   setNotifier(
@@ -273,9 +273,9 @@ Future<void> onZoneChanged({
 // --------------------
 /// TASK : TEST ME
 void onChangeFlyerPDF({
-  @required PDFModel pdfModel,
-  @required ValueNotifier<DraftFlyer> draftNotifier,
-  @required bool mounted,
+  required PDFModel pdfModel,
+  required ValueNotifier<DraftFlyer> draftNotifier,
+  required bool mounted,
 }){
 
   setNotifier(
@@ -290,8 +290,8 @@ void onChangeFlyerPDF({
 // --------------------
 /// TASK : TEST ME
 void onRemoveFlyerPDF({
-  @required ValueNotifier<DraftFlyer> draftNotifier,
-  @required bool mounted,
+  required ValueNotifier<DraftFlyer> draftNotifier,
+  required bool mounted,
 }){
 
   setNotifier(
@@ -306,9 +306,9 @@ void onRemoveFlyerPDF({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onSwitchFlyerShowsAuthor({
-  @required ValueNotifier<DraftFlyer> draftNotifier,
-  @required bool value,
-  @required bool mounted,
+  required ValueNotifier<DraftFlyer> draftNotifier,
+  required bool value,
+  required bool mounted,
 }){
 
   setNotifier(
@@ -323,9 +323,9 @@ void onSwitchFlyerShowsAuthor({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onFlyerPhidLongTap({
-  @required String phid,
-  @required ValueNotifier<DraftFlyer> draftNotifier,
-  @required bool mounted,
+  required String phid,
+  required ValueNotifier<DraftFlyer> draftNotifier,
+  required bool mounted,
 }){
 
   final List<String> _newPhids = Stringer.addOrRemoveStringToStrings(
@@ -346,9 +346,9 @@ void onFlyerPhidLongTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onFlyerPhidTap({
-  @required BuildContext context,
-  @required ValueNotifier<DraftFlyer> draftNotifier,
-  @required bool mounted,
+  required BuildContext context,
+  required ValueNotifier<DraftFlyer> draftNotifier,
+  required bool mounted,
 }) async {
 
   Keyboard.closeKeyboard();
@@ -381,9 +381,9 @@ Future<void> onFlyerPhidTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onConfirmPublishFlyerButtonTap({
-  @required BuildContext context,
-  @required DraftFlyer draft,
-  @required FlyerModel oldFlyer,
+  required BuildContext context,
+  required DraftFlyer draft,
+  required FlyerModel oldFlyer,
 }) async {
 
   if (draft.firstTimer == true){
@@ -405,8 +405,8 @@ Future<void> onConfirmPublishFlyerButtonTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onPublishNewFlyerTap({
-  @required BuildContext context,
-  @required DraftFlyer draft,
+  required BuildContext context,
+  required DraftFlyer draft,
 }) async {
 
   final bool _canContinue = await _preFlyerUpdateCheck(
@@ -436,9 +436,9 @@ Future<void> onPublishNewFlyerTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onPublishFlyerUpdatesTap({
-  @required BuildContext context,
-  @required DraftFlyer draft,
-  @required FlyerModel originalFlyer,
+  required BuildContext context,
+  required DraftFlyer draft,
+  required FlyerModel originalFlyer,
 }) async {
 
   final bool _canContinue = await _preFlyerUpdateCheck(
@@ -483,9 +483,9 @@ Future<void> _onPublishFlyerUpdatesTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<bool> _preFlyerUpdateCheck({
-  @required BuildContext context,
-  @required DraftFlyer draft,
-  @required FlyerModel originalFlyer,
+  required BuildContext context,
+  required DraftFlyer draft,
+  required FlyerModel originalFlyer,
 }) async {
 
   final FlyerModel flyerFromDraft = await DraftFlyer.draftToFlyer(
@@ -579,8 +579,8 @@ Future<bool> _preFlyerUpdateCheck({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _publishFlyerOps({
-  @required BuildContext context,
-  @required DraftFlyer draft,
+  required BuildContext context,
+  required DraftFlyer draft,
 }) async {
 
   pushWaitDialog(
@@ -601,9 +601,9 @@ Future<void> _publishFlyerOps({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _updateFlyerOps({
-  @required BuildContext context,
-  @required DraftFlyer draft,
-  @required FlyerModel oldFlyer,
+  required BuildContext context,
+  required DraftFlyer draft,
+  required FlyerModel oldFlyer,
 }) async {
 
   pushWaitDialog(

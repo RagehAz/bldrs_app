@@ -8,9 +8,9 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:fire/super_fire.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 
@@ -19,11 +19,11 @@ import 'package:layouts/layouts.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onSaveFlyer({
-  @required BuildContext context,
-  @required FlyerModel flyerModel,
-  @required ValueNotifier<bool> flyerIsSaved,
-  @required int slideIndex,
-  @required bool mounted,
+  required BuildContext context,
+  required FlyerModel flyerModel,
+  required ValueNotifier<bool> flyerIsSaved,
+  required int slideIndex,
+  required bool mounted,
 }) async {
 
   setNotifier(
@@ -47,8 +47,8 @@ Future<void> onSaveFlyer({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onReviewButtonTap({
-  @required BuildContext context,
-  @required FlyerModel flyerModel,
+  required BuildContext context,
+  required FlyerModel flyerModel,
 }) async {
 
   await Nav.goToNewScreen(
@@ -66,9 +66,9 @@ Future<void> onReviewButtonTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onShareFlyer({
-  @required FlyerModel flyerModel,
-  @required ValueNotifier<bool> isSharing,
-  // @required bool mounted,
+  required FlyerModel flyerModel,
+  required ValueNotifier<bool> isSharing,
+  // required bool mounted,
 }) async {
 
   if (flyerModel != null) {

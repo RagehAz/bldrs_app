@@ -1,3 +1,6 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
@@ -5,7 +8,7 @@ import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/chain_builders/a_chain_splitter.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bubbles/bubbles.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 
 
 import 'package:bldrs_theme/bldrs_theme.dart';
@@ -14,19 +17,19 @@ import 'package:flutter/material.dart';
 class PhidsDataCreator extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const PhidsDataCreator({
-    @required this.specPicker,
-    @required this.selectedSpecs,
-    @required this.allowableHeight,
-    @required this.searchText,
-    @required this.onPhidTap,
-    @required this.zone,
-    @required this.onlyUseZoneChains,
-    @required this.isMultipleSelectionMode,
-    @required this.onDataCreatorKeyboardSubmitted,
-    @required this.isCollapsable,
+    required this.specPicker,
+    required this.selectedSpecs,
+    required this.allowableHeight,
+    required this.searchText,
+    required this.onPhidTap,
+    required this.zone,
+    required this.onlyUseZoneChains,
+    required this.isMultipleSelectionMode,
+    required this.onDataCreatorKeyboardSubmitted,
+    required this.isCollapsable,
     this.width,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final PickerModel specPicker;
   final List<SpecModel> selectedSpecs;
@@ -79,11 +82,11 @@ class PhidsDataCreator extends StatelessWidget {
 class PickersViewBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const PickersViewBox({
-    @required this.height,
-    @required this.child,
+    required this.height,
+    required this.child,
     this.width,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double height;
   final double width;

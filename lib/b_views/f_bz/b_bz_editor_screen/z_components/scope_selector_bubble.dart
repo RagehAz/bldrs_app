@@ -6,16 +6,16 @@
 // import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 // import 'package:bubbles/bubbles.dart';
 // import 'package:flutter/material.dart';
-// import 'package:mapper/mapper.dart';
-// import 'package:widget_fader/widget_fader.dart';
+// import 'package:basics/helpers/classes/maps/mapper.dart';
+// import 'package:basics/animators/widgets/widget_fader.dart';
 //
 // class ScopeSelectorBubble extends StatefulWidget {
 //   /// --------------------------------------------------------------------------
 //   const ScopeSelectorBubble({
-//     @required this.flyerTypes,
-//     @required this.headlineVerse,
-//     @required this.selectedSpecs,
-//     @required this.onFlyerTypeBubbleTap,
+//     required this.flyerTypes,
+//     required this.headlineVerse,
+//     required this.selectedSpecs,
+//     required this.onFlyerTypeBubbleTap,
 //     this.bulletPoints,
 //     this.addButtonVerse,
 //     this.validator,
@@ -58,7 +58,7 @@
 //   /// --- LOADING
 //   final ValueNotifier<bool> _loading = ValueNotifier(false);
 //   // --------------------
-//   Future<void> _triggerLoading({@required bool setTo}) async {
+//   Future<void> _triggerLoading({required bool setTo}) async {
 //     setNotifier(
 //       notifier: _loading,
 //       mounted: mounted,

@@ -19,9 +19,9 @@ import 'package:flutter/foundation.dart';
 class Progress{
   /// --------------------------------------------------------------------------
   const Progress({
-    @required this.targetID,
-    @required this.objective,
-    @required this.current,
+    required this.targetID,
+    required this.objective,
+    required this.current,
   });
   /// --------------------------------------------------------------------------
   final String targetID;
@@ -46,8 +46,8 @@ class Progress{
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkProgressesAreIdentical({
-    @required Progress progress1,
-    @required Progress progress2,
+    required Progress progress1,
+    required Progress progress2,
   }){
     bool _areIdentical = false;
 

@@ -1,17 +1,18 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bubbles/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bubbles/bubbles.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class BldrsTextFieldBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BldrsTextFieldBubble({
-    @required this.bubbleHeaderVM,
-    @required this.appBarType,
+    required this.bubbleHeaderVM,
+    required this.appBarType,
     this.formKey,
     this.bubbleWidth,
     this.hintVerse,
@@ -44,8 +45,8 @@ class BldrsTextFieldBubble extends StatelessWidget {
     this.isFloatingField = false,
     this.onFieldTap,
     this.autoValidate = true,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
 
   final BubbleHeaderVM bubbleHeaderVM;
@@ -98,11 +99,11 @@ class BldrsTextFieldBubble extends StatelessWidget {
   }
   // --------------------
   // static double getFieldWidth({
-  //   @required String leadingIcon,
-  //   @required bool showUnObscure,
-  //   @required BuildContext context,
-  //   @required double bubbleWidth,
-  //   @required bool hasPasteButton,
+  //   required String leadingIcon,
+  //   required bool showUnObscure,
+  //   required BuildContext context,
+  //   required double bubbleWidth,
+  //   required bool hasPasteButton,
   // }){
   //
   //   final double fieldHeight = BldrsTextField.getFieldHeight(

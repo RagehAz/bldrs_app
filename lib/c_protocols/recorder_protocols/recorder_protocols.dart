@@ -7,7 +7,7 @@ import 'package:bldrs/c_protocols/recorder_protocols/record_real_ops.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:numeric/numeric.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
 /// => TAMAM
 class RecorderProtocols {
   // -----------------------------------------------------------------------------
@@ -21,8 +21,8 @@ class RecorderProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onCallBz({
-    @required String bzID,
-    @required ContactModel contact,
+    required String bzID,
+    required ContactModel contact,
   }) async {
 
     if (bzID != null && contact != null) {
@@ -61,7 +61,7 @@ class RecorderProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onFollowBz({
-    @required String bzID,
+    required String bzID,
   }) async {
 
     if (bzID != null) {
@@ -97,7 +97,7 @@ class RecorderProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onUnfollowBz({
-    @required String bzID,
+    required String bzID,
   }) async {
 
     if (bzID != null) {
@@ -134,9 +134,9 @@ class RecorderProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onSaveFlyer({
-    @required String flyerID,
-    @required String bzID,
-    @required int slideIndex,
+    required String flyerID,
+    required String bzID,
+    required int slideIndex,
   }) async {
 
     if (
@@ -191,9 +191,9 @@ class RecorderProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onUnSaveFlyer({
-    @required String flyerID,
-    @required String bzID,
-    @required int slideIndex,
+    required String flyerID,
+    required String bzID,
+    required int slideIndex,
   }) async {
 
     if (
@@ -251,8 +251,8 @@ class RecorderProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onShareFlyer({
-    @required String flyerID,
-    @required String bzID,
+    required String flyerID,
+    required String bzID,
   }) async {
 
     if (
@@ -309,9 +309,9 @@ class RecorderProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onViewSlide({
-    @required String flyerID,
-    @required String bzID,
-    @required int index,
+    required String flyerID,
+    required String bzID,
+    required int index,
   }) async {
 
     /// WE NEED A WAY TO CHECK IF THIS USER PREVIOUSLY VIEWED THE SLIDE TO CALL THIS OR NOT
@@ -372,8 +372,8 @@ class RecorderProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onComposeFlyer({
-    @required String bzID,
-    @required int numberOfSlides,
+    required String bzID,
+    required int numberOfSlides,
   }) async {
 
     if (
@@ -396,9 +396,9 @@ class RecorderProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onRenovateFlyer({
-    @required String bzID,
-    @required int oldNumberOfSlides,
-    @required int newNumberOfSlides,
+    required String bzID,
+    required int oldNumberOfSlides,
+    required int newNumberOfSlides,
   }) async {
 
     if (
@@ -424,9 +424,9 @@ class RecorderProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onWipeFlyer({
-    @required String flyerID,
-    @required String bzID,
-    @required int numberOfSlides,
+    required String flyerID,
+    required String bzID,
+    required int numberOfSlides,
   }) async {
 
     if (
@@ -475,8 +475,8 @@ class RecorderProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onComposeReview({
-    @required String flyerID,
-    @required String bzID,
+    required String flyerID,
+    required String bzID,
   }) async {
 
     if (
@@ -519,8 +519,8 @@ class RecorderProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onWipeReview({
-    @required String flyerID,
-    @required String bzID,
+    required String flyerID,
+    required String bzID,
   }) async {
 
     if (
@@ -565,7 +565,7 @@ class RecorderProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onWipeBz({
-    @required String bzID,
+    required String bzID,
   }) async {
 
     if (
@@ -601,8 +601,8 @@ class RecorderProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<FlyerCounterModel> readFlyerCounters({
-    @required String flyerID,
-    @required String bzID,
+    required String flyerID,
+    required String bzID,
   }) async {
     FlyerCounterModel _flyerCounters;
 
@@ -628,7 +628,7 @@ class RecorderProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<BzCounterModel> readBzCounters({
-    @required String bzID,
+    required String bzID,
   }) async {
     BzCounterModel _bzCounters;
 

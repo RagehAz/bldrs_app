@@ -1,3 +1,6 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/specs/specs_wrapper.dart';
@@ -16,21 +19,21 @@ import 'package:flutter/material.dart';
 class PickerTile extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const PickerTile({
-    @required this.picker,
-    @required this.pickerSelectedSpecs,
-    @required this.onDeleteSpec,
-    @required this.onSpecTap,
-    @required this.onTap,
+    required this.picker,
+    required this.pickerSelectedSpecs,
+    required this.onDeleteSpec,
+    required this.onSpecTap,
+    required this.onTap,
     this.searchText,
     this.width,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final PickerModel picker;
   final List<SpecModel> pickerSelectedSpecs;
   final Function onTap;
-  final Function({@required SpecModel value, @required SpecModel unit}) onSpecTap;
-  final Function({@required SpecModel value, @required SpecModel unit}) onDeleteSpec;
+  final Function({required SpecModel value, required SpecModel unit}) onSpecTap;
+  final Function({required SpecModel value, required SpecModel unit}) onDeleteSpec;
   final ValueNotifier<String> searchText;
   final double width;
 /// --------------------------------------------------------------------------

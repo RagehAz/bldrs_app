@@ -46,8 +46,8 @@ class StagingLeveller {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> levelUpZone({
-    @required BuildContext context,
-    @required ZoneModel zoneModel,
+    required BuildContext context,
+    required ZoneModel zoneModel,
   }) async {
 
     /// NOTE : THIS METHOD IS CALLED AFTER UPDATING CENSUS
@@ -72,7 +72,7 @@ class StagingLeveller {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _levelUpCountry({
-    @required String countryID,
+    required String countryID,
   }) async {
 
     /// NOTE : THIS METHOD IS CALLED AFTER UPDATING CENSUS
@@ -141,9 +141,9 @@ class StagingLeveller {
   // --------------------
   /// TASK : TEST ME
   static Future<StagingModel> changeCountryStageType({
-    @required String countryID,
-    @required StageType newType,
-    @required StagingModel oldCountriesStaging,
+    required String countryID,
+    required StageType newType,
+    required StagingModel oldCountriesStaging,
   }) async {
 
     StagingModel _output;
@@ -167,7 +167,7 @@ class StagingLeveller {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _levelUpCity({
-    @required String cityID,
+    required String cityID,
   }) async {
 
     /// NOTE : THIS METHOD IS CALLED AFTER UPDATING CENSUS
@@ -236,8 +236,8 @@ class StagingLeveller {
   // --------------------
   /// TASK : TEST ME
   static Future<StagingModel> changeCityStageType({
-    @required String cityID,
-    @required StageType newType,
+    required String cityID,
+    required StageType newType,
   }) async {
 
     StagingModel _output;

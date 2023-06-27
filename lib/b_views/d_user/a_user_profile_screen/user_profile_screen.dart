@@ -10,9 +10,9 @@ class UserProfileScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const UserProfileScreen({
     this.userTab = UserTab.profile,
-    Key key
-  }) : super(key: key);
-
+    super.key
+  });
+  
   final UserTab userTab;
   /// --------------------------------------------------------------------------
   @override

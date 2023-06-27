@@ -1,3 +1,5 @@
+import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/ldb/b_city_ldb_ops.dart';
@@ -7,9 +9,9 @@ import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:flutter/material.dart';
-import 'package:ldb/ldb.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/ldb/methods/ldb_ops.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 /// => TAMAM
 class ZoneSearchOps {
@@ -26,7 +28,7 @@ class ZoneSearchOps {
   // --------------------
   /// I GUESS NO NEED FOR THIS GODZILLA
   static Future<List<Phrase>> searchTheCosmos({
-    @required String text,
+    required String text,
   }) async {
     final List<Phrase> _countriesByIDs = ZoneProtocols.searchCountriesByIDFromAllFlags(
       text: text,
@@ -70,7 +72,7 @@ class ZoneSearchOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> searchCountriesByIDFromAllFlags({
-    @required String text,
+    required String text,
   }) {
     final List<Phrase> _output = <Phrase>[];
 
@@ -94,7 +96,7 @@ class ZoneSearchOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> searchCountriesByNameFromLDBFlags({
-    @required String text,
+    required String text,
   }) async {
     List<Phrase> _phrases = <Phrase>[];
 
@@ -125,11 +127,11 @@ class ZoneSearchOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> searchCitiesOfPlanetByIDFromFire({
-    @required String text,
+    required String text,
     int limit = 10,
-    QueryDocumentSnapshot<Object> startAfter,
+    QueryDocumentSnapshot<Object>? startAfter,
   }) async {
-    final List<Map<String, dynamic>> _maps = await Fire.readColl(
+    final List<Map<String, dynamic>?>? _maps = await Fire.readColl(
       queryModel: FireQueryModel(
         // idFieldName: 'id', // DEFAULT
         coll: FireColl.phrases_cities,
@@ -149,11 +151,11 @@ class ZoneSearchOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> searchCitiesOfPlanetByNameFromFire({
-    @required String text,
+    required String text,
     int limit = 10,
-    QueryDocumentSnapshot<Object> startAfter,
+    QueryDocumentSnapshot<Object>? startAfter,
   }) async {
-    final List<Map<String, dynamic>> _maps = await Fire.readColl(
+    final List<Map<String, dynamic>?>? _maps = await Fire.readColl(
       queryModel: FireQueryModel(
         // idFieldName: 'id', // DEFAULT
         coll: FireColl.phrases_cities,
@@ -177,8 +179,8 @@ class ZoneSearchOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> searchCitiesOfCountryByIDFromFire({
-    @required String text,
-    @required String countryID,
+    required String text,
+    required String countryID,
     int limit = 10,
     QueryDocumentSnapshot<Object> startAfter,
   }) async {
@@ -203,8 +205,8 @@ class ZoneSearchOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> searchCitiesOfCountryByNameFromFire({
-    @required String text,
-    @required String countryID,
+    required String text,
+    required String countryID,
     int limit = 10,
     QueryDocumentSnapshot<Object> startAfter,
   }) async {
@@ -233,9 +235,9 @@ class ZoneSearchOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<CityModel> searchCitiesByNameFromCities({
-    @required BuildContext context,
-    @required List<CityModel> sourceCities,
-    @required String inputText,
+    required BuildContext context,
+    required List<CityModel> sourceCities,
+    required String inputText,
     List<String> langCodes = const <String>['en', 'ar'],
   }) {
     /// CREATE PHRASES LIST
@@ -270,8 +272,8 @@ class ZoneSearchOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<CityModel> _getCitiesFromPhrases({
-    @required List<Phrase> phrases,
-    @required List<CityModel> sourceCities,
+    required List<Phrase> phrases,
+    required List<CityModel> sourceCities,
   }) {
     final List<CityModel> _foundCities = <CityModel>[];
 
@@ -296,9 +298,9 @@ class ZoneSearchOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CityModel> searchFetchCityByName({
-    @required String cityName,
-    @required String langCode,
-    @required String countryID,
+    required String cityName,
+    required String langCode,
+    required String countryID,
   }) async {
     CityModel _city;
 
@@ -375,8 +377,8 @@ class ZoneSearchOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> _fetchCitiesByCityName({
-    @required String cityName,
-    @required String lingoCode,
+    required String cityName,
+    required String lingoCode,
   }) async {
     List<CityModel> _cities = <CityModel>[];
 
@@ -400,9 +402,9 @@ class ZoneSearchOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> _fetchCitiesOfCountryByCityName({
-    @required String cityName,
-    @required String countryID,
-    @required String lingoCode,
+    required String cityName,
+    required String countryID,
+    required String lingoCode,
   }) async {
     List<CityModel> _cities = <CityModel>[];
 
@@ -427,8 +429,8 @@ class ZoneSearchOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> _searchLDBCitiesByName({
-    @required String cityName,
-    @required String langCode,
+    required String cityName,
+    required String langCode,
   }) async {
     final List<Map<String, dynamic>> _foundMaps = await LDBOps.searchLDBDocTrigram(
       searchValue: cityName,

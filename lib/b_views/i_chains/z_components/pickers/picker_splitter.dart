@@ -8,21 +8,21 @@ import 'package:flutter/material.dart';
 class PickerSplitter extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const PickerSplitter({
-    @required this.picker,
-    @required this.onPickerTap,
-    @required this.allSelectedSpecs,
-    @required this.onDeleteSpec,
-    @required this.onSelectedSpecTap,
+    required this.picker,
+    required this.onPickerTap,
+    required this.allSelectedSpecs,
+    required this.onDeleteSpec,
+    required this.onSelectedSpecTap,
     this.searchText,
     this.width,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final PickerModel picker;
   final List<SpecModel> allSelectedSpecs;
   final Function onPickerTap;
-  final Function({@required SpecModel value, @required SpecModel unit}) onSelectedSpecTap;
-  final Function({@required SpecModel value, @required SpecModel unit}) onDeleteSpec;
+  final Function({required SpecModel value, required SpecModel unit}) onSelectedSpecTap;
+  final Function({required SpecModel value, required SpecModel unit}) onDeleteSpec;
   final ValueNotifier<String> searchText;
   final double width;
 /// --------------------------------------------------------------------------

@@ -1,15 +1,14 @@
-
-import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:flutter/material.dart';
 
 class BlackBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BlackBox({
-    @required this.width,
-    @required this.child,
+    required this.width,
+    required this.child,
     this.onTap,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double width;
   final Widget child;

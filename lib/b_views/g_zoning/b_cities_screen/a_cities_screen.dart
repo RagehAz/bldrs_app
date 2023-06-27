@@ -1,5 +1,8 @@
 // ignore_for_file: invariant_booleans
 import 'package:animators/animators.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
@@ -17,21 +20,21 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/b
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_protocols.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
-import 'package:night_sky/night_sky.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class CitiesScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const CitiesScreen({
-    @required this.zoneViewingEvent,
-    @required this.depth,
-    @required this.countryID,
-    @required this.viewerCountryID,
-    Key key,
-  }) : super(key: key);
+    required this.zoneViewingEvent,
+    required this.depth,
+    required this.countryID,
+    required this.viewerCountryID,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final ViewingEvent zoneViewingEvent;
   final ZoneDepth depth;
@@ -58,7 +61,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -287,8 +290,8 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<List<CityModel>> searchCitiesByName({
-    @required BuildContext context,
-    @required String input,
+    required BuildContext context,
+    required String input,
   }) async {
 
     /// SEARCH SELECTED COUNTRY CITIES
@@ -416,7 +419,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
       child: Scroller(
         child: ValueListenableBuilder(
           valueListenable: _isSearching,
-          builder: (BuildContext context, bool isSearching, Widget child){
+          builder: (BuildContext context, bool isSearching, Widget? child){
 
             /// WHILE SEARCHING
             if (isSearching == true){

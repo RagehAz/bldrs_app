@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 class AuthorCardDetail extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const AuthorCardDetail({
-    @required this.icon,
-    @required this.verse,
-    @required this.boxWidth,
-    @required this.bubble,
+    required this.icon,
+    required this.verse,
+    required this.boxWidth,
+    required this.bubble,
     this.iconColor,
     this.onTap,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final String icon;
   final Verse verse;

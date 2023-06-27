@@ -16,16 +16,16 @@ enum UserSearchType {
 class UserSearchModel {
   // -----------------------------------------------------------------------------
   const UserSearchModel({
-    @required this.signInMethod,
-    @required this.needType,
-    @required this.searchType,
-    @required this.gender,
-    @required this.language,
-    @required this.onlyWithPublicContacts,
-    @required this.onlyBzAuthors,
-    @required this.onlyBldrsAdmins,
-    @required this.devicePlatform,
-    @required this.onlyVerifiedEmails,
+    required this.signInMethod,
+    required this.needType,
+    required this.searchType,
+    required this.gender,
+    required this.language,
+    required this.onlyWithPublicContacts,
+    required this.onlyBzAuthors,
+    required this.onlyBldrsAdmins,
+    required this.devicePlatform,
+    required this.onlyVerifiedEmails,
   });
   // --------------------
   final SignInMethod signInMethod;
@@ -137,8 +137,8 @@ class UserSearchModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool areIdentical({
-    @required UserSearchModel model1,
-    @required UserSearchModel model2,
+    required UserSearchModel model1,
+    required UserSearchModel model2,
   }){
     bool _output = false;
 

@@ -1,15 +1,15 @@
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:mapper/mapper.dart';
-import 'package:space_time/space_time.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/time/timers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 @immutable
 class PublishTime {
   // --------------------------------------------------------------------------
   const PublishTime({
-    @required this.state,
-    @required this.time,
+    required this.state,
+    required this.time,
   });
   // --------------------------------------------------------------------------
   final PublishState state;
@@ -21,7 +21,7 @@ class PublishTime {
   // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
-    @required bool toJSON,
+    required bool toJSON,
   }) {
     return <String, dynamic>{
       'state': FlyerModel.cipherPublishState(state),
@@ -31,8 +31,8 @@ class PublishTime {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> cipherTimes({
-    @required List<PublishTime> times,
-    @required bool toJSON,
+    required List<PublishTime> times,
+    required bool toJSON,
   }) {
     Map<String, dynamic> _outPut = <String, dynamic>{};
 
@@ -52,8 +52,8 @@ class PublishTime {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<PublishTime> decipherTimes({
-    @required Map<String, dynamic> map,
-    @required bool fromJSON,
+    required Map<String, dynamic> map,
+    required bool fromJSON,
   }) {
     final List<PublishTime> _times = <PublishTime>[];
 
@@ -133,8 +133,8 @@ class PublishTime {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogTimesListsDifferences({
-    @required List<PublishTime> times1,
-    @required List<PublishTime> times2,
+    required List<PublishTime> times1,
+    required List<PublishTime> times2,
   }){
 
     if (times1 == null){
@@ -151,8 +151,8 @@ class PublishTime {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogTimesDifferences({
-    @required PublishTime time1,
-    @required PublishTime time2,
+    required PublishTime time1,
+    required PublishTime time2,
   }){
 
     blog('blogTimesDifferences : START');
@@ -228,8 +228,8 @@ class PublishTime {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<PublishTime> addPublishTimeToTimes({
-    @required List<PublishTime> times,
-    @required PublishTime newTime,
+    required List<PublishTime> times,
+    required PublishTime newTime,
   }){
 
     final List<PublishTime> _output = <PublishTime>[];
@@ -249,8 +249,8 @@ class PublishTime {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkTimesAreIdentical({
-    @required PublishTime time1,
-    @required PublishTime time2,
+    required PublishTime time1,
+    required PublishTime time2,
   }){
     bool _identical = false;
 
@@ -281,8 +281,8 @@ class PublishTime {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkTimesListsAreIdentical({
-    @required List<PublishTime> times1,
-    @required List<PublishTime> times2,
+    required List<PublishTime> times1,
+    required List<PublishTime> times2,
   }){
     bool _identical = false;
 

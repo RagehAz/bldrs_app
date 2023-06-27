@@ -1,3 +1,6 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -7,15 +10,15 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 /// => TAMAM
 @immutable
 class ZoneModel {
   /// --------------------------------------------------------------------------
   const ZoneModel({
-    @required this.countryID,
+    required this.countryID,
     this.cityID,
     this.countryName,
     this.cityName,
@@ -38,7 +41,7 @@ class ZoneModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ZoneModel> prepareZoneForEditing({
-    @required ZoneModel zoneModel,
+    required ZoneModel zoneModel,
   }) async {
 
     final ZoneModel _zone =
@@ -137,8 +140,14 @@ class ZoneModel {
   /// TESTED : WORKS PERFECT
   static ZoneModel decipherZoneString(String zoneString) {
 
-    final String _countryID = TextMod.removeTextAfterFirstSpecialCharacter(zoneString, '/');
-    final String _cityID = TextMod.removeTextBeforeFirstSpecialCharacter(zoneString, '/');
+    final String? _countryID = TextMod.removeTextAfterFirstSpecialCharacter(
+        text: zoneString,
+        specialCharacter: '/',
+    );
+    final String? _cityID = TextMod.removeTextBeforeFirstSpecialCharacter(
+        text: zoneString,
+        specialCharacter: '/',
+    );
 
     return ZoneModel(
       countryID: _countryID,
@@ -197,8 +206,8 @@ class ZoneModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogZonesDifferences({
-    @required ZoneModel zone1,
-    @required ZoneModel zone2,
+    required ZoneModel zone1,
+    required ZoneModel zone2,
   }){
 
     blog('blogZonesDifferences ---------- START');
@@ -256,7 +265,7 @@ class ZoneModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Verse generateInZoneVerse ({
-    @required ZoneModel zoneModel,
+    required ZoneModel zoneModel,
     bool showCity = true,
   }){
 
@@ -299,7 +308,7 @@ class ZoneModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Verse generateObeliskVerse({
-    @required ZoneModel zone,
+    required ZoneModel zone,
   }){
 
     String _line = xPhrase('phid_select_a_country');
@@ -345,8 +354,8 @@ class ZoneModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkZonesAreIdentical({
-    @required ZoneModel zone1,
-    @required ZoneModel zone2,
+    required ZoneModel zone1,
+    required ZoneModel zone2,
   }){
     bool _identical = false;
 
@@ -382,8 +391,8 @@ class ZoneModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkZonesIDsAreIdentical({
-    @required ZoneModel zone1,
-    @required ZoneModel zone2,
+    required ZoneModel zone1,
+    required ZoneModel zone2,
   }) {
     bool _zonesAreIdentical = false;
 

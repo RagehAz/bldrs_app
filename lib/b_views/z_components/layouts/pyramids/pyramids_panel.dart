@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class PyramidsPanel extends StatelessWidget {
   // ---------------------------------------------------------------------------
   const PyramidsPanel({
     this.pyramidButtons,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   // --------------------
   final List<Widget> pyramidButtons;
   // --------------------

@@ -1,20 +1,19 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/shadowers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-
-import 'package:bldrs_theme/bldrs_theme.dart';
-
 import 'package:flutter/material.dart';
 
 /// VARS OPTIMIZED
 class FlyerBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerBox({
-    @required this.flyerBoxWidth,
+    required this.flyerBoxWidth,
     this.stackWidgets,
     this.boxColor = Colorz.white20,
     this.onTap,
     this.shadowIsOn = false,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   // --- NEAT AND CLEAN
   /// width factor * screenWidth = flyerWidth

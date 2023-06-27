@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
@@ -12,28 +13,28 @@ import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 
 import 'package:flutter/material.dart';
 
 class DataCreatorSplitter extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const DataCreatorSplitter({
-    @required this.height,
-    @required this.picker,
-    @required this.selectedSpecs,
-    @required this.appBarType,
-    @required this.searchText,
-    @required this.onExportSpecs,
-    @required this.onPhidTap,
-    @required this.zone,
-    @required this.onlyUseZoneChains,
-    @required this.isMultipleSelectionMode,
-    @required this.onKeyboardSubmitted,
-    @required this.isCollapsable,
+    required this.height,
+    required this.picker,
+    required this.selectedSpecs,
+    required this.appBarType,
+    required this.searchText,
+    required this.onExportSpecs,
+    required this.onPhidTap,
+    required this.zone,
+    required this.onlyUseZoneChains,
+    required this.isMultipleSelectionMode,
+    required this.onKeyboardSubmitted,
+    required this.isCollapsable,
     this.width,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double height;
   final double width;

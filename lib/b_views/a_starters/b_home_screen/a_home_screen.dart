@@ -25,17 +25,17 @@ import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:fire/super_fire.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import 'package:layouts/layouts.dart';
-import 'package:night_sky/night_sky.dart';
+import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 
 class HomeScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const HomeScreen({
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -61,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
   Future<void> _triggerLoading({
-    @required bool setTo,
+    required bool setTo,
   }) async {
     setNotifier(
       notifier: _loading,
@@ -234,7 +234,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             /// PAGE CONTENTS
             ValueListenableBuilder(
               valueListenable: _loading,
-              builder: (_, bool loading, Widget homeFlyersGrid){
+              builder: (_, bool loading, Widget? homeFlyersGrid){
 
                 /// LOADING
                 if (loading == true) {

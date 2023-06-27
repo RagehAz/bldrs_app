@@ -1,20 +1,20 @@
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 
 @immutable
 class FlyerSearchModel {
   // -----------------------------------------------------------------------------
   const FlyerSearchModel({
-    @required this.flyerType,
-    @required this.onlyShowingAuthors,
-    @required this.onlyWithPrices,
-    @required this.onlyWithPDF,
-    @required this.onlyAmazonProducts,
-    @required this.phid,
-    @required this.publishState,
-    @required this.auditState,
+    required this.flyerType,
+    required this.onlyShowingAuthors,
+    required this.onlyWithPrices,
+    required this.onlyWithPDF,
+    required this.onlyAmazonProducts,
+    required this.phid,
+    required this.publishState,
+    required this.auditState,
   });
   // -----------------------------------------------------------------------------
   final FlyerType flyerType;
@@ -128,8 +128,8 @@ class FlyerSearchModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool areIdentical({
-    @required FlyerSearchModel model1,
-    @required FlyerSearchModel model2,
+    required FlyerSearchModel model1,
+    required FlyerSearchModel model2,
   }){
     bool _output;
 

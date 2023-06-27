@@ -1,3 +1,5 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/b_expanding_tile.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
@@ -9,11 +11,11 @@ import 'package:provider/provider.dart';
 class PhidsButtonsList extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const PhidsButtonsList({
-    @required this.buttonWidth,
-    @required this.phids,
-    @required this.onPhidTap,
-    Key key,
-  }) : super(key: key);
+    required this.buttonWidth,
+    required this.phids,
+    required this.onPhidTap,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double buttonWidth;
   final List<String> phids;

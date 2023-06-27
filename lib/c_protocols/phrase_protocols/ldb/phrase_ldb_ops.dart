@@ -1,8 +1,8 @@
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:flutter/material.dart';
-import 'package:ldb/ldb.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/ldb/methods/ldb_ops.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 /// => TAMAM
 class PhraseLDBOps {
   // -----------------------------------------------------------------------------
@@ -16,7 +16,7 @@ class PhraseLDBOps {
   // --------------------
   ///  TESTED : WORKS PERFECT
   static Future<void> insertMainPhrases({
-    @required List<Phrase> mixedLangsPhrases,
+    required List<Phrase> mixedLangsPhrases,
   }) async {
 
     if (Mapper.checkCanLoopList(mixedLangsPhrases) == true){
@@ -38,7 +38,7 @@ class PhraseLDBOps {
   // --------------------
   ///  TESTED : WORKS PERFECT
   static Future<void> insertCountriesPhrases({
-    @required List<Phrase> countriesMixedLangsPhrases,
+    required List<Phrase> countriesMixedLangsPhrases,
   }) async {
 
     if (Mapper.checkCanLoopList(countriesMixedLangsPhrases) == true){
@@ -94,7 +94,7 @@ class PhraseLDBOps {
   // --------------------
   ///  TESTED : WORKS PERFECT
   static Future<List<Phrase>> searchMainPhrasesByIDs({
-    @required List<String> phids,
+    required List<String> phids,
   }) async {
 
     List<Phrase> _output = <Phrase>[];
@@ -121,8 +121,8 @@ class PhraseLDBOps {
   // --------------------
   ///  TESTED : WORKS PERFECT
   static Future<Phrase> searchPhraseByIDAndCode({
-    @required String phid,
-    @required String langCode,
+    required String phid,
+    required String langCode,
   }) async {
     Phrase _output;
 
@@ -159,7 +159,7 @@ class PhraseLDBOps {
   // --------------------
   ///  TESTED : WORKS PERFECT
   static Future<void> updateMainPhrases({
-    @required List<Phrase> updatedMixedLangsPhrases,
+    required List<Phrase> updatedMixedLangsPhrases,
   }) async {
 
     if (Mapper.checkCanLoopList(updatedMixedLangsPhrases) == true){
@@ -176,7 +176,7 @@ class PhraseLDBOps {
   // --------------------
   ///  TESTED : WORKS PERFECT
   static Future<void> updateCountriesPhrases({
-    @required List<Phrase> updatedCountriesMixedLangsPhrases,
+    required List<Phrase> updatedCountriesMixedLangsPhrases,
   }) async {
 
     if (Mapper.checkCanLoopList(updatedCountriesMixedLangsPhrases) == true){

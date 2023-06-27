@@ -1,3 +1,5 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -9,10 +11,10 @@ import 'package:flutter/material.dart';
 class FlyerSelectionLayer extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerSelectionLayer({
-    @required this.flyerBoxWidth,
-    @required this.isSelected,
-    Key key
-  }) : super(key: key);
+    required this.flyerBoxWidth,
+    required this.isSelected,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final bool isSelected;

@@ -10,9 +10,9 @@ import 'package:flutter/material.dart';
 class BzAuthorsBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzAuthorsBubble({
-    @required this.bzModel,
-    Key key
-  }) : super(key: key);
+    required this.bzModel,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final BzModel bzModel;
   /// --------------------------------------------------------------------------

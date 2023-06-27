@@ -3,8 +3,8 @@
 // class WidgetDeactivator extends StatelessWidget {
 //   /// --------------------------------------------------------------------------
 //   const WidgetDeactivator({
-//     @required this.deactivated,
-//     @required this.child,
+//     required this.deactivated,
+//     required this.child,
 //     Key key
 //   }) : super(key: key);
 //   /// --------------------------------------------------------------------------

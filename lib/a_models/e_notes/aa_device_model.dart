@@ -1,17 +1,18 @@
 import 'dart:io';
+import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:devicer/devicer.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/foundation.dart';
 /// => TAMAM
 @immutable
 class DeviceModel {
   /// --------------------------------------------------------------------------
   const DeviceModel({
-    @required this.id,
-    @required this.name,
-    @required this.token,
-    @required this.platform,
+    required this.id,
+    required this.name,
+    required this.token,
+    required this.platform,
   });
   /// --------------------------------------------------------------------------
   final String id;
@@ -56,8 +57,8 @@ class DeviceModel {
   /// TESTED : WORKS PERFECT
   static Future<DeviceModel> generateDeviceModel() async {
 
-    final String deviceID = await DeviceChecker.getDeviceID();
-    final String deviceName = await DeviceChecker.getDeviceName();
+    final String? deviceID = await DeviceChecker.getDeviceID();
+    final String? deviceName = await DeviceChecker.getDeviceName();
     final String deviceToken = await FCM.generateToken();
     final String devicePlatform = kIsWeb == true ? 'web' : Platform.operatingSystem;
 
@@ -93,8 +94,8 @@ class DeviceModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkDevicesAreIdentical({
-    @required DeviceModel device1,
-    @required DeviceModel device2,
+    required DeviceModel device1,
+    required DeviceModel device2,
   }){
     bool _identical = false;
 

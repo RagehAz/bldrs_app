@@ -15,9 +15,9 @@ class RecordersRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String createRecordTypeRealPath({
-    @required RecordType recordType,
-    @required String bzID,
-    @required String flyerID,
+    required RecordType recordType,
+    required String bzID,
+    required String flyerID,
   }){
 
     switch (recordType){
@@ -69,7 +69,7 @@ class RecordersRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<RecordModel> createRecord({
-    @required RecordModel record,
+    required RecordModel record,
   }) async {
 
     /// NOTE : if record has recordID initialized : its used automatically as docName

@@ -3,20 +3,20 @@ import 'dart:async';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 
 class FlyerBuilder extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const FlyerBuilder({
-    @required this.flyerID,
-    @required this.builder,
-    @required this.flyerBoxWidth,
-    @required this.renderFlyer,
+    required this.flyerID,
+    required this.builder,
+    required this.flyerBoxWidth,
+    required this.renderFlyer,
     this.flyerModel,
     this.onFlyerNotFound,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   // -----------------------------------------------------------------------------
   final String flyerID;
   final double flyerBoxWidth;
@@ -84,14 +84,14 @@ class FlyerBuilder extends StatelessWidget {
 class _FutureFlyerBuilder extends StatefulWidget {
   // -----------------------------------------------------------------------------
   const _FutureFlyerBuilder({
-    @required this.flyerID,
-    @required this.builder,
-    @required this.flyerBoxWidth,
-    @required this.renderFlyer,
-    @required this.flyerModel,
-    @required this.onFlyerNotFound,
-    Key key
-  }) : super(key: key);
+    required this.flyerID,
+    required this.builder,
+    required this.flyerBoxWidth,
+    required this.renderFlyer,
+    required this.flyerModel,
+    required this.onFlyerNotFound,
+    super.key
+  });
   // -----------------------------------------------------------------------------
   final String flyerID;
   final double flyerBoxWidth;
@@ -112,7 +112,7 @@ class _FutureFlyerBuilderState extends State<_FutureFlyerBuilder> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -225,7 +225,7 @@ class _FutureFlyerBuilderState extends State<_FutureFlyerBuilder> {
     return ValueListenableBuilder(
       key: const ValueKey<String>('FlyerBuilder'),
       valueListenable: _loading,
-      builder: (_, bool loading, Widget child) {
+      builder: (_, bool loading, Widget? child) {
 
         if (loading == true) {
           return FlyerLoading(

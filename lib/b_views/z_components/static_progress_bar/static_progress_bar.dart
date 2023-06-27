@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_color.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/d_progress_bar/d_progress_box.dart';
@@ -10,17 +11,17 @@ import 'package:flutter/material.dart';
 class StaticProgressBar extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const StaticProgressBar({
-    @required this.numberOfSlides,
-    @required this.index,
-    @required this.opacity,
-    @required this.flyerBoxWidth,
-    @required this.swipeDirection,
+    required this.numberOfSlides,
+    required this.index,
+    required this.opacity,
+    required this.flyerBoxWidth,
+    required this.swipeDirection,
     this.loading = true,
     this.margins,
     this.stripThicknessFactor = 1,
     this.stripsColors,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final int numberOfSlides;
   final int index;
@@ -45,8 +46,8 @@ class StaticProgressBar extends StatelessWidget {
   }
   // --------------------------------------------------------------------------
   static double getBoxHeight({
-    @required double flyerBoxWidth,
-    @required double stripThicknessFactor,
+    required double flyerBoxWidth,
+    required double stripThicknessFactor,
   }){
     final double _thickness = FlyerDim.progressStripThickness(flyerBoxWidth);
     return _thickness * stripThicknessFactor;
@@ -119,11 +120,11 @@ class StaticProgressBar extends StatelessWidget {
 class _Box extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const _Box({
-    @required this.opacity,
-    @required this.flyerBoxWidth,
-    @required this.child,
-    Key key,
-  }) : super(key: key);
+    required this.opacity,
+    required this.flyerBoxWidth,
+    required this.child,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double opacity;
   final double flyerBoxWidth;

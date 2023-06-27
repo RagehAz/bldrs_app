@@ -3,13 +3,13 @@ part of z_grid;
 class ZGridController {
   // -----------------------------------------------------------------------------
   const ZGridController({
-    @required this.isZoomed,
-    @required this.scrollController,
-    @required this.lastOffset,
-    @required this.transformationController,
-    @required this.animationController,
-    @required this.animation,
-    @required this.shouldDisposeScrollController,
+    required this.isZoomed,
+    required this.scrollController,
+    required this.lastOffset,
+    required this.transformationController,
+    required this.animationController,
+    required this.animation,
+    required this.shouldDisposeScrollController,
   });
   // --------------------
   final ValueNotifier<bool> isZoomed;
@@ -25,8 +25,8 @@ class ZGridController {
 
   // --------------------
   static ZGridController initialize({
-    @required TickerProvider vsync,
-    @required ScrollController scrollController,
+    required TickerProvider vsync,
+    required ScrollController scrollController,
   }){
 
      final AnimationController _animationController = AnimationController(
@@ -82,14 +82,14 @@ class ZGridController {
 
   // --------------------
   static Future<void> _scrollToRow({
-    @required int itemIndex,
-    @required double gridWidth,
-    @required double gridHeight,
-    @required int columnCount,
-    @required double itemAspectRatio,
-    @required bool mounted,
-    @required ZGridController zGridController,
-    @required bool hasResponsiveSideMargin,
+    required int itemIndex,
+    required double gridWidth,
+    required double gridHeight,
+    required int columnCount,
+    required double itemAspectRatio,
+    required bool mounted,
+    required ZGridController zGridController,
+    required bool hasResponsiveSideMargin,
   }) async {
 
     final double _newOffset = ZGridScale._getRowOffset(
@@ -117,8 +117,8 @@ class ZGridController {
   }
   // -----------------------------------------------------------------------------
   static Future<void> _zoomToMatrix({
-    @required Matrix4 matrix,
-    @required ZGridController zGridController,
+    required Matrix4 matrix,
+    required ZGridController zGridController,
   }) async {
 
     final Animation<Matrix4> _reset = Matrix4Tween(
@@ -142,13 +142,13 @@ class ZGridController {
 
   // --------------------
   static Future<void> zoomIn({
-    @required BuildContext context,
-    @required int itemIndex,
-    @required bool mounted,
-    @required Function onZoomInStart,
-    @required Function onZoomInEnd,
-    @required ZGridController zGridController,
-    @required ZGridScale gridScale,
+    required BuildContext context,
+    required int itemIndex,
+    required bool mounted,
+    required Function onZoomInStart,
+    required Function onZoomInEnd,
+    required ZGridController zGridController,
+    required ZGridScale gridScale,
   }) async {
 
     Keyboard.closeKeyboard();
@@ -203,10 +203,10 @@ class ZGridController {
   }
   // --------------------
   static Future<void> zoomOut({
-    @required bool mounted,
-    @required  Function onZoomOutStart,
-    @required  Function onZoomOutEnd,
-    @required ZGridController zGridController,
+    required bool mounted,
+    required  Function onZoomOutStart,
+    required  Function onZoomOutEnd,
+    required ZGridController zGridController,
   }) async {
 
     if (onZoomOutStart != null){
@@ -238,10 +238,10 @@ class ZGridController {
   }
   // --------------------
   static Future<void> onDismissBigItem({
-    @required Function onZoomOutStart,
-    @required Function onZoomOutEnd,
-    @required bool mounted,
-    @required ZGridController zGridController,
+    required Function onZoomOutStart,
+    required Function onZoomOutEnd,
+    required bool mounted,
+    required ZGridController zGridController,
   }) async {
 
     if (onZoomOutStart != null){

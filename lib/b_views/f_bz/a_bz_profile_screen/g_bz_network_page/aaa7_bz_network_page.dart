@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 class BzNetworkPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzNetworkPage({
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

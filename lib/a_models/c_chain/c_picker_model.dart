@@ -4,9 +4,9 @@ import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,9 +14,9 @@ import 'package:provider/provider.dart';
 class PickerModel {
   /// --------------------------------------------------------------------------
   const PickerModel({
-    @required this.chainID,
-    @required this.index,
-    @required this.isHeadline,
+    required this.chainID,
+    required this.index,
+    required this.isHeadline,
     this.canPickMany = false,
     this.isRequired = false,
     this.unitChainID,
@@ -103,8 +103,8 @@ class PickerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static PickerModel decipherPicker({
-    @required Map<String, dynamic> map,
-    @required String chainID,
+    required Map<String, dynamic> map,
+    required String chainID,
   }){
     PickerModel _picker;
 
@@ -235,8 +235,8 @@ class PickerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPickersContainPicker({
-    @required PickerModel picker,
-    @required List<PickerModel> pickers,
+    required PickerModel picker,
+    required List<PickerModel> pickers,
   }) {
     bool _contains = false;
 
@@ -257,8 +257,8 @@ class PickerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPickersAreIdentical({
-    @required PickerModel picker1,
-    @required PickerModel picker2,
+    required PickerModel picker1,
+    required PickerModel picker2,
   }){
     bool _areIdentical = false;
 
@@ -294,8 +294,8 @@ class PickerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPickersListsAreIdentical({
-    @required List<PickerModel> pickers1,
-    @required List<PickerModel> pickers2,
+    required List<PickerModel> pickers1,
+    required List<PickerModel> pickers2,
   }){
     bool _listsAreIdentical = false;
 
@@ -400,9 +400,9 @@ class PickerModel {
   // --------------------
   /*
   static List<PickerModel> createPickersForHomeWall({
-    @required BuildContext context,
-    @required List<Chain> bldrsChains,
-    @required bool canPickManyOfAPicker,
+    required BuildContext context,
+    required List<Chain> bldrsChains,
+    required bool canPickManyOfAPicker,
   }){
     final List<PickerModel> _pickers = <PickerModel>[];
 
@@ -450,9 +450,9 @@ class PickerModel {
   /*
   /// TESTED : WORKS PERFECT
   static List<PickerModel> createPickersFromAllChainKs({
-    @required BuildContext context,
-    @required bool canPickManyOfAPicker,
-    @required List<FlyerType> onlyUseTheseFlyerTypes,
+    required BuildContext context,
+    required bool canPickManyOfAPicker,
+    required List<FlyerType> onlyUseTheseFlyerTypes,
   }) {
 
     final List<PickerModel> allChainKPickers = createHomeWallPickers(
@@ -493,9 +493,9 @@ class PickerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<PickerModel> createHomeWallPickers({
-    @required BuildContext context,
-    @required bool canPickMany,
-    @required List<FlyerType> onlyUseTheseFlyerTypes,
+    required BuildContext context,
+    required bool canPickMany,
+    required List<FlyerType> onlyUseTheseFlyerTypes,
   }){
 
     bool _canShow(FlyerType type){
@@ -608,8 +608,8 @@ class PickerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static PickerModel getPickerByChainIDOrUnitChainID({
-    @required List<PickerModel> pickers,
-    @required String chainIDOrUnitChainID,
+    required List<PickerModel> pickers,
+    required String chainIDOrUnitChainID,
   }) {
 
     blog('getPickerFromPickersByChainIDOrUnitChainID : pickerChainID : $chainIDOrUnitChainID');
@@ -634,8 +634,8 @@ class PickerModel {
   // --------------------
   /// TASK : TEST ME
   static PickerModel getPickerByChainID({
-    @required List<PickerModel> pickers,
-    @required String chainID,
+    required List<PickerModel> pickers,
+    required String chainID,
   }) {
 
     // blog('getPickerByChainID : pickerChainID : $chainID');
@@ -655,8 +655,8 @@ class PickerModel {
   // --------------------
   /// TASK : TEST ME
   static List<PickerModel> getPickersByChainsIDs({
-    @required List<String> chainsIDs,
-    @required List<PickerModel> pickers,
+    required List<String> chainsIDs,
+    required List<PickerModel> pickers,
   }){
     final List<PickerModel> _output = <PickerModel>[];
 
@@ -683,8 +683,8 @@ class PickerModel {
   /*
   /// TESTED : WORKS PERFECT
   static List<PickerModel> getPickersByGroupID({
-    @required List<PickerModel> pickers,
-    @required String groupID,
+    required List<PickerModel> pickers,
+    required String groupID,
   }) {
     final List<PickerModel> _output = <PickerModel>[];
 
@@ -703,7 +703,7 @@ class PickerModel {
   /*
   /// TESTED : WORKS PERFECT
   static List<String> getGroupsIDs({
-    @required List<PickerModel> pickers,
+    required List<PickerModel> pickers,
   }) {
     List<String> _groups = <String>[];
 
@@ -742,9 +742,9 @@ class PickerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<PickerModel> applyBlockersAndSort({
-    @required List<PickerModel> sourcePickers,
-    @required List<SpecModel> selectedSpecs,
-    @required bool sort,
+    required List<PickerModel> sourcePickers,
+    required List<SpecModel> selectedSpecs,
+    required bool sort,
   }) {
     final List<PickerModel> _pickers = <PickerModel>[];
 
@@ -787,9 +787,9 @@ class PickerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<PickerModel> replacePicker({
-    @required List<PickerModel> sourcePickers,
-    @required String pickerChainIDtoReplace,
-    @required PickerModel updatedPicker,
+    required List<PickerModel> sourcePickers,
+    required String pickerChainIDtoReplace,
+    required PickerModel updatedPicker,
   }){
     List<PickerModel> _output = <PickerModel>[];
 
@@ -824,9 +824,9 @@ class PickerModel {
   /*
   /// TESTED : WORKS PERFECT
   static List<PickerModel> replaceAGroupID({
-    @required List<PickerModel> pickers,
-    @required String oldGroupName,
-    @required String newGroupName,
+    required List<PickerModel> pickers,
+    required String oldGroupName,
+    required String newGroupName,
   }){
     List<PickerModel> _output = <PickerModel>[];
 
@@ -922,7 +922,7 @@ class PickerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String getPickerChainIDOfPhid({
-    @required String phid,
+    required String phid,
   }){
 
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
@@ -938,9 +938,9 @@ class PickerModel {
   /// FIND PICKERS BY PHIDS
   /*
   static PickerModel _findPickerByPhid({
-    @required BuildContext context,
-    @required String phid,
-    @required List<PickerModel> allPickers,
+    required BuildContext context,
+    required String phid,
+    required List<PickerModel> allPickers,
   }){
 
     final PickerModel _picker = PickerModel.getPickerByChainIDOrUnitChainID(
@@ -958,9 +958,9 @@ class PickerModel {
   /// FIND PICKER BY PHID
   /*
   static List<PickerModel> _findPickersByPhids({
-    @required BuildContext context,
-    @required List<String> phids,
-    @required List<PickerModel> allPickers,
+    required BuildContext context,
+    required List<String> phids,
+    required List<PickerModel> allPickers,
   }){
 
     final List<PickerModel> _pickers = <PickerModel>[];

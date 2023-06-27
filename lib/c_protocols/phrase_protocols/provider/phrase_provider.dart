@@ -8,12 +8,12 @@ import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.da
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:numeric/numeric.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:provider/provider.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 // final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
 class PhraseProvider extends ChangeNotifier {
@@ -24,7 +24,7 @@ class PhraseProvider extends ChangeNotifier {
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
   Future<void> changeAppLang({
-    @required String langCode,
+    required String langCode,
   }) async {
 
     pushWaitDialog(
@@ -92,8 +92,8 @@ class PhraseProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String proGetCurrentLangCode({
-    @required BuildContext context,
-    @required bool listen,
+    required BuildContext context,
+    required bool listen,
   }){
     final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: listen);
     return _phraseProvider._currentLangCode;
@@ -101,7 +101,7 @@ class PhraseProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> getSetCurrentLangCode({
-    @required bool notify,
+    required bool notify,
     String setLangCode,
   }) async {
 
@@ -118,8 +118,8 @@ class PhraseProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void _setCurrentLanguage({
-    @required String code,
-    @required bool notify,
+    required String code,
+    required bool notify,
   }){
 
     _currentLangCode = code;
@@ -140,7 +140,7 @@ class PhraseProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> fetchSetMainPhrases({
-    @required bool notify,
+    required bool notify,
   }) async {
 
     // blog('X1- fetchSetMainPhrases : START');
@@ -161,8 +161,8 @@ class PhraseProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void setMainPhrases({
-    @required List<Phrase> setTo,
-    @required bool notify,
+    required List<Phrase> setTo,
+    required bool notify,
   }){
 
     /// NOTE : FILTERS GIVEN PHRASES AS PER CURRENT LANG + REMOVE TRIGRAMS
@@ -246,8 +246,8 @@ class PhraseProvider extends ChangeNotifier {
   List<String> get phidsPendingTranslation => _phidsPendingTranslation;
   // --------------------
   static List<String> proGetPhidsPendingTranslation({
-    @required BuildContext context,
-    @required bool listen,
+    required BuildContext context,
+    required bool listen,
   }){
     final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: listen);
     return _phraseProvider.phidsPendingTranslation;
@@ -299,8 +299,8 @@ class PhraseProvider extends ChangeNotifier {
   }
   // --------------------
   void setPhidsPendingTranslation({
-    @required List<String> setTo,
-    @required bool notify,
+    required List<String> setTo,
+    required bool notify,
   }){
 
     blog('setPhidsPendingTranslation : setTO : $setTo');
@@ -318,7 +318,7 @@ class PhraseProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void wipeOut({
-    @required bool notify,
+    required bool notify,
   }){
 
     /*
@@ -352,7 +352,7 @@ class PhraseProvider extends ChangeNotifier {
 //-------------------------------------
 /// ~~~~~~ SUPER PHRASE ~~~~~~
 //---------------------
-String xPhrase(String phid){
+String? xPhrase(String? phid){
 
   final String id = Phider.removeIndexFromPhid(phid: phid);
 

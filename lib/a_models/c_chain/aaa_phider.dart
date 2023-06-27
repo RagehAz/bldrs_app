@@ -1,15 +1,15 @@
 // ignore_for_file: constant_identifier_names
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/c_chain/dd_data_creation.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:numeric/numeric.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:provider/provider.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 /// => TAMAM
 class Phider {
   // -----------------------------------------------------------------------------
@@ -59,8 +59,8 @@ class Phider {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String addIndexToPhid({
-    @required String phid,
-    @required int index,
+    required String phid,
+    required int index,
     bool overrideExisting = true,
   }){
     String _output = phid;
@@ -118,10 +118,10 @@ class Phider {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String removeIndexFromPhid({
-    @required String phid,
+  static String? removeIndexFromPhid({
+    required String? phid,
   }){
-    String _output;
+    String? _output;
 
     if (phid != null && phid is String){
 
@@ -129,7 +129,10 @@ class Phider {
 
       /// IF HAS INDEX => REMOVE IT
       if (_hasIndex == true){
-        _output = TextMod.removeTextBeforeFirstSpecialCharacter(phid, '_');
+        _output = TextMod.removeTextBeforeFirstSpecialCharacter(
+            text: phid,
+            specialCharacter: '_',
+        );
         // blog('removeIndexFromPhid : $_output');
       }
 
@@ -328,8 +331,8 @@ class Phider {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Chain createChainIndexes({
-    @required Chain chain,
-    @required int chainIndex,
+    required Chain chain,
+    required int chainIndex,
   }){
     Chain _output = chain;
 
@@ -427,7 +430,7 @@ class Phider {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String generatePhidPathUniqueKey({
-    @required String path,
+    required String path,
   }){
 
     /// NOTE : WORKS ONLY WITH CHAIN S paths
@@ -610,7 +613,7 @@ class Phider {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> sortPhidsAlphabetically({
-    @required List<String> phids,
+    required List<String> phids,
   }){
     List<String> _output = [];
 
@@ -681,7 +684,7 @@ class Phider {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getKeywordsIDsFromPhrases({
-    @required List<Phrase> allPhrases,
+    required List<Phrase> allPhrases,
     bool includeChainsIDs = true,
   }){
 
@@ -704,7 +707,7 @@ class Phider {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getSpecsIDsFromPhrases({
-    @required List<Phrase> allPhrases,
+    required List<Phrase> allPhrases,
   }){
 
     final List<Phrase> _specsIDs = <Phrase>[];

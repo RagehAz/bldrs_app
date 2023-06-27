@@ -2,10 +2,10 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:fire/super_fire.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 // --------------------------------------------------------------------------
 
 /// NOTES:-
@@ -89,11 +89,11 @@ enum ViewingEvent {
 class StagingModel {
   // --------------------------------------------------------------------------
   const StagingModel({
-    @required this.id,
-    @required this.emptyStageIDs,
-    @required this.bzzStageIDs,
-    @required this.flyersStageIDs,
-    @required this.publicStageIDs,
+    required this.id,
+    required this.emptyStageIDs,
+    required this.bzzStageIDs,
+    required this.flyersStageIDs,
+    required this.publicStageIDs,
   });
   // --------------------------------------------------------------------------
   final String id;
@@ -132,7 +132,7 @@ class StagingModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
-    @required bool toLDB,
+    required bool toLDB,
   }){
 
     Map<String, dynamic> _map = {
@@ -156,8 +156,8 @@ class StagingModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static StagingModel decipher({
-    @required Map<String, dynamic> map,
-    @required String id,
+    required Map<String, dynamic> map,
+    required String id,
   }){
     StagingModel _output;
 
@@ -221,8 +221,8 @@ class StagingModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   StagingModel copyListWith({
-    @required List<String> newList,
-    @required StageType type,
+    required List<String> newList,
+    required StageType type,
   }){
     StagingModel _output = this;
 
@@ -292,9 +292,9 @@ class StagingModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   List<String> getIDsByViewingEvent({
-    @required ViewingEvent event,
-    @required String countryID,
-    @required String viewerCountryID,
+    required ViewingEvent event,
+    required String countryID,
+    required String viewerCountryID,
   }){
 
     if (event == ViewingEvent.admin){
@@ -319,9 +319,9 @@ class StagingModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static StageType _concludeLowestStageOnViewingEvent({
-    @required ViewingEvent event,
-    @required String countryID,
-    @required String viewerCountryID,
+    required ViewingEvent event,
+    required String countryID,
+    required String viewerCountryID,
   }){
 
     const Map<String, dynamic> _localUser = {
@@ -363,8 +363,8 @@ class StagingModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String _getUserTypeKey({
-    @required String countryID,
-    @required String viewerCountryID,
+    required String countryID,
+    required String viewerCountryID,
   }){
 
     final UserModel _user = UsersProvider.proGetMyUserModel(context: getMainContext(),listen: false);
@@ -409,7 +409,7 @@ class StagingModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   List<String> _getIDsFromMinStageToMax({
-    @required StageType minStage,
+    required StageType minStage,
   }){
     List<String> _output = <String>[];
 
@@ -430,8 +430,8 @@ class StagingModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static StagingModel removeIDFromStaging({
-    @required String id,
-    @required StagingModel staging,
+    required String id,
+    required StagingModel staging,
   }){
     StagingModel _output = staging;
 
@@ -463,9 +463,9 @@ class StagingModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static StagingModel insertIDToStaging({
-    @required String id,
-    @required StageType newType,
-    @required StagingModel staging,
+    required String id,
+    required StageType newType,
+    required StagingModel staging,
   }){
     StagingModel _output = staging;
 
@@ -512,7 +512,7 @@ class StagingModel {
   // ---------------------
   /// TESTED : WORKS PERFECT
   bool checkHasID({
-    @required String id,
+    required String id,
     StageType zoneStageType,
   }){
 
@@ -558,10 +558,10 @@ class StagingModel {
   // ---------------------
   /// TESTED : WORKS PERFECT
   static bool checkStagingHasSelectableZones({
-    @required StagingModel staging,
-    @required ViewingEvent zoneViewingEvent,
-    @required String countryID,
-    @required String viewerCountryID,
+    required StagingModel staging,
+    required ViewingEvent zoneViewingEvent,
+    required String countryID,
+    required String viewerCountryID,
   }){
     bool _output = false;
 
@@ -582,7 +582,7 @@ class StagingModel {
   // ---------------------
   /// TESTED : WORKS PERFECT
   static bool checkMayShowViewAllZonesButton({
-    @required ViewingEvent zoneViewingEvent,
+    required ViewingEvent zoneViewingEvent,
   }){
     return zoneViewingEvent == ViewingEvent.homeView
     ||

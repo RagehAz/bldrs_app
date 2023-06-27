@@ -1,8 +1,10 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/b_views/i_chains/b_picker_screen/b_picker_screen.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 
 import 'package:bldrs_theme/bldrs_theme.dart';
@@ -11,11 +13,11 @@ import 'package:flutter/material.dart';
 class ChainInstructions extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ChainInstructions({
-    @required this.instructions,
+    required this.instructions,
     this.leadingIcon,
     this.iconSizeFactor = 1,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final Verse instructions;
   final String leadingIcon;

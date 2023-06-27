@@ -10,24 +10,24 @@ import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:night_sky/night_sky.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
-import 'package:scale/scale.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:flutter/material.dart';
 
 class PickerScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const PickerScreen({
-    @required this.picker,
-    @required this.showInstructions,
-    @required this.isMultipleSelectionMode,
-    @required this.onlyUseZoneChains,
-    @required this.zone,
+    required this.picker,
+    required this.showInstructions,
+    required this.isMultipleSelectionMode,
+    required this.onlyUseZoneChains,
+    required this.zone,
     this.selectedSpecs,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final PickerModel picker;
   final ValueNotifier<List<SpecModel>> selectedSpecs;
@@ -52,7 +52,7 @@ class _PickerScreenState extends State<PickerScreen> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,

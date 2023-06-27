@@ -5,17 +5,17 @@ import 'package:bldrs/b_views/j_flyer/z_components/c_groups/deck/flyer_deck.dart
 import 'package:bldrs/b_views/z_components/poster/structure/x_note_poster_box.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class BzPoster extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const BzPoster({
-    @required this.width,
-    @required this.bzModel,
-    @required this.bzSlidesInOneFlyer,
-    @required this.screenName,
-    Key key
-  }) : super(key: key);
+    required this.width,
+    required this.bzModel,
+    required this.bzSlidesInOneFlyer,
+    required this.screenName,
+    super.key
+  });
   // --------------------
   final double width;
   final BzModel bzModel;
