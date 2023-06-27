@@ -1,3 +1,5 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/space/atlas.dart';
 import 'package:bldrs/a_models/a_user/sub/agenda_model.dart';
 import 'package:bldrs/a_models/a_user/sub/deck_model.dart';
 import 'package:bldrs/a_models/a_user/sub/need_model.dart';
@@ -16,11 +18,11 @@ import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:space_time/space_time.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/time/timers.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 enum Gender {
   male,
@@ -32,30 +34,30 @@ enum Gender {
 class UserModel {
   /// --------------------------------------------------------------------------
   const UserModel({
-    @required this.id,
-    @required this.signInMethod,
-    @required this.createdAt,
-    @required this.need,
-    @required this.name,
-    @required this.trigram,
-    @required this.picPath,
-    @required this.title,
-    @required this.company,
-    @required this.gender,
-    @required this.zone,
-    @required this.language,
-    @required this.location,
-    @required this.contacts,
-    @required this.contactsArePublic,
-    @required this.myBzzIDs,
-    @required this.isAuthor,
-    @required this.emailIsVerified,
-    @required this.isAdmin,
-    @required this.device,
-    @required this.fcmTopics,
-    @required this.savedFlyers,
-    @required this.followedBzz,
-    @required this.appState,
+    required this.id,
+    required this.signInMethod,
+    required this.createdAt,
+    required this.need,
+    required this.name,
+    required this.trigram,
+    required this.picPath,
+    required this.title,
+    required this.company,
+    required this.gender,
+    required this.zone,
+    required this.language,
+    required this.location,
+    required this.contacts,
+    required this.contactsArePublic,
+    required this.myBzzIDs,
+    required this.isAuthor,
+    required this.emailIsVerified,
+    required this.isAdmin,
+    required this.device,
+    required this.fcmTopics,
+    required this.savedFlyers,
+    required this.followedBzz,
+    required this.appState,
     this.docSnapshot,
   });
   /// --------------------------------------------------------------------------
@@ -91,7 +93,7 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<UserModel> createNewUserModelFromAuthModel({
-    @required AuthModel authModel,
+    required AuthModel authModel,
   }) async {
 
     assert(authModel.signInMethod != SignInMethod.anonymous, 'user must not be anonymous');
@@ -145,7 +147,7 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
-    @required bool toJSON,
+    required bool toJSON,
   }) {
     return <String, dynamic>{
       'id': id,
@@ -179,8 +181,8 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> cipherUsers({
-    @required List<UserModel> users,
-    @required bool toJSON,
+    required List<UserModel> users,
+    required bool toJSON,
   }){
 
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
@@ -201,8 +203,8 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static UserModel decipherUser({
-    @required Map<String, dynamic> map,
-    @required bool fromJSON,
+    required Map<String, dynamic> map,
+    required bool fromJSON,
   }) {
 
     if (map == null){
@@ -248,8 +250,8 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<UserModel> decipherUsers({
-    @required List<Map<String, dynamic>> maps,
-    @required bool fromJSON,
+    required List<Map<String, dynamic>> maps,
+    required bool fromJSON,
   }) {
     final List<UserModel> _users = <UserModel>[];
 
@@ -464,8 +466,8 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkUsersContainUser({
-    @required List<UserModel> usersModels,
-    @required UserModel userModel,
+    required List<UserModel> usersModels,
+    required UserModel userModel,
   }){
     bool _contains = false;
 
@@ -487,8 +489,8 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkUserFollowsBz({
-    @required UserModel userModel,
-    @required String bzID,
+    required UserModel userModel,
+    required String bzID,
   }){
 
     return Stringer.checkStringsContainString(
@@ -500,8 +502,8 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkFlyerIsSaved({
-    @required UserModel userModel,
-    @required String flyerID,
+    required UserModel userModel,
+    required String flyerID,
   }){
 
     return Stringer.checkStringsContainString(
@@ -561,8 +563,8 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<UserModel> addOrRemoveUserToUsers({
-    @required List<UserModel> usersModels,
-    @required UserModel userModel,
+    required List<UserModel> usersModels,
+    required UserModel userModel,
   }){
     final List<UserModel> _output = <UserModel>[...usersModels];
 
@@ -587,8 +589,8 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<UserModel> addUniqueUserToUsers({
-    @required List<UserModel> usersToGet,
-    @required UserModel userToAdd,
+    required List<UserModel> usersToGet,
+    required UserModel userToAdd,
   }){
 
     final List<UserModel> _output = usersToGet ?? <UserModel>[];
@@ -611,8 +613,8 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<UserModel> addUniqueUsersToUsers({
-    @required List<UserModel> usersToGet,
-    @required List<UserModel> usersToAdd,
+    required List<UserModel> usersToGet,
+    required List<UserModel> usersToAdd,
   }){
 
     List<UserModel> _output = usersToGet;
@@ -639,8 +641,8 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static UserModel addBzIDToUserBzzIDs({
-    @required UserModel oldUser,
-    @required String bzIDToAdd,
+    required UserModel oldUser,
+    required String bzIDToAdd,
   }){
 
     final List<String> _newBzzIDs = Stringer.addStringToListIfDoesNotContainIt(
@@ -657,8 +659,8 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static UserModel removeBzIDFromUserBzzIDs({
-    @required UserModel oldUser,
-    @required String bzIDToRemove,
+    required UserModel oldUser,
+    required String bzIDToRemove,
   }){
     UserModel _newUser = oldUser;
 
@@ -680,8 +682,8 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static UserModel addBzIDToUserFollows({
-    @required UserModel oldUser,
-    @required BzModel bzToFollow,
+    required UserModel oldUser,
+    required BzModel bzToFollow,
   }){
 
     final AgendaModel _newFollows = AgendaModel.addBz(
@@ -698,8 +700,8 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static UserModel removeBzIDFromUserFollows({
-    @required UserModel oldUser,
-    @required String bzIDToUnFollow,
+    required UserModel oldUser,
+    required String bzIDToUnFollow,
   }){
 
 
@@ -717,8 +719,8 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static UserModel addFlyerToSavedFlyers({
-    @required UserModel oldUser,
-    @required FlyerModel flyerModel,
+    required UserModel oldUser,
+    required FlyerModel flyerModel,
   }){
 
     final DeckModel _newSavedFlyers = DeckModel.addFlyer(
@@ -735,8 +737,8 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static UserModel removeFlyerFromSavedFlyers({
-    @required UserModel oldUser,
-    @required String flyerIDToRemove,
+    required UserModel oldUser,
+    required String flyerIDToRemove,
   }){
 
     final DeckModel _newSavedFlyers = DeckModel.removeFlyerByID(
@@ -753,8 +755,8 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static UserModel addAllBzTopicsToMyTopics({
-    @required UserModel oldUser,
-    @required String bzID,
+    required UserModel oldUser,
+    required String bzID,
   }){
     UserModel _newUser = oldUser;
 
@@ -778,8 +780,8 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static UserModel removeAllBzTopicsFromMyTopics({
-    @required UserModel oldUser,
-    @required String bzID,
+    required UserModel oldUser,
+    required String bzID,
   }){
     UserModel _newUser = oldUser;
 
@@ -845,7 +847,7 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogUsersModels({
-    @required List<UserModel> usersModels,
+    required List<UserModel> usersModels,
     String invoker,
   }){
 
@@ -864,8 +866,8 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogUsersDifferences({
-    @required UserModel user1,
-    @required UserModel user2,
+    required UserModel user1,
+    required UserModel user2,
   }){
 
     if (user1 == null){
@@ -1092,7 +1094,7 @@ class UserModel {
    */
   // --------------------
   static Future<UserModel> anonymousUser({
-    @required AuthModel authModel,
+    required AuthModel authModel,
   }) async {
 
     if (authModel == null){
@@ -1142,8 +1144,8 @@ class UserModel {
   // --------------------
    /// TESTED : WORKS PERFECT
   static bool usersAreIdentical({
-    @required UserModel user1,
-    @required UserModel user2,
+    required UserModel user1,
+    required UserModel user2,
   }){
     bool _identical = false;
 

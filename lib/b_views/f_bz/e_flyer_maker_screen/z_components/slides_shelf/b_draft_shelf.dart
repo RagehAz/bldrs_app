@@ -1,3 +1,6 @@
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
@@ -11,16 +14,16 @@ import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:mediators/mediators.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class SlidesShelf extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const SlidesShelf({
-    @required this.shelfNumber,
-    @required this.bzModel,
-    @required this.draftNotifier,
-    Key key,
-  }) : super(key: key);
+    required this.shelfNumber,
+    required this.bzModel,
+    required this.draftNotifier,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final int shelfNumber;
   final BzModel bzModel;
@@ -42,7 +45,7 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
   /*
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -93,12 +96,12 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
       height: DraftShelfBox.height(),
       decoration: BoxDecoration(
         // color: Colorz.white10,
-        borderRadius: Borderers.cornerAll(context, Bubble.clearCornersValue),
+        borderRadius: Borderers.cornerAll(Bubble.clearCornersValue),
       ),
       alignment: BldrsAligners.superCenterAlignment(context),
       child: ValueListenableBuilder(
         valueListenable: widget.draftNotifier,
-        builder: (_, DraftFlyer draft, Widget child){
+        builder: (_, DraftFlyer draft, Widget? child){
 
           /// WHILE LOADING GIVEN EXISTING FLYER MODEL
           if (draft == null){

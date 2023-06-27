@@ -20,7 +20,7 @@ import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
 import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:fire/super_fire.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
@@ -36,11 +36,11 @@ class WipeBzProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> wipeBz({
-    @required BuildContext context,
-    @required BzModel bzModel,
-    @required bool showWaitDialog,
-    @required bool includeMyselfInBzDeletionNote,
-    @required bool deleteBzLocally,
+    required BuildContext context,
+    required BzModel bzModel,
+    required bool showWaitDialog,
+    required bool includeMyselfInBzDeletionNote,
+    required bool deleteBzLocally,
   }) async {
 
     blog('WipeBzProtocol.wipeBz : START');
@@ -129,8 +129,8 @@ class WipeBzProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _deleteAllBzFlyersOps({
-    @required BuildContext context,
-    @required BzModel bzModel,
+    required BuildContext context,
+    required BzModel bzModel,
   }) async {
 
       final String _text =  '${Verse.transBake('phid_deleting')} '
@@ -156,8 +156,8 @@ class WipeBzProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteLocally({
-    @required String bzID,
-    @required String invoker,
+    required String bzID,
+    required String invoker,
   }) async {
 
     /// NOTE DELETES ALL BZ MODEL INSTANCES IN LDB AND BZ PRO
@@ -207,9 +207,9 @@ class WipeBzProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> wipePendingAuthor({
-    @required BuildContext context,
-    @required String bzID,
-    @required String pendingUserID,
+    required BuildContext context,
+    required String? bzID,
+    required String? pendingUserID,
   }) async {
 
     final BzModel _oldBz = await BzProtocols.fetchBz(

@@ -1,3 +1,7 @@
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/checks/object_check.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
@@ -26,17 +30,17 @@ import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_search.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bubbles/bubbles.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:night_sky/night_sky.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class SuperSearchScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const SuperSearchScreen({
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   @override
   _SuperSearchScreenState createState() => _SuperSearchScreenState();
@@ -50,27 +54,27 @@ class SuperSearchScreen extends StatefulWidget {
 
 class _SuperSearchScreenState extends State<SuperSearchScreen> {
   // -----------------------------------------------------------------------------
-  PaginationController _flyersController;
-  FireQueryModel _flyersQuery;
+  late PaginationController _flyersController;
+  late FireQueryModel _flyersQuery;
   // --------------------
-  PaginationController _bzzController;
-  FireQueryModel _bzzQuery;
+  late PaginationController _bzzController;
+  late FireQueryModel _bzzQuery;
   // --------------------
-  PaginationController _usersController;
-  FireQueryModel _usersQuery;
+  late PaginationController _usersController;
+  late FireQueryModel _usersQuery;
   // --------------------
   final TextEditingController _searchController = TextEditingController();
   final ValueNotifier<bool> _filtersAreOn = ValueNotifier(null);
   // --------------------
-  ModelType _searchType;
-  SearchModel _searchModel;
-  UserSearchModel _userSearchModel;
+  ModelType? _searchType;
+  SearchModel? _searchModel;
+  late UserSearchModel _userSearchModel;
   List<SearchModel> _searchHistoryModels = [];
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,

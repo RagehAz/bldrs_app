@@ -1,9 +1,10 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 enum BzSection {
   realestate,
@@ -230,8 +231,8 @@ class BzTyper {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkBzTypesContainThisType({
-    @required BzType bzType,
-    @required List<BzType> bzTypes,
+    required BzType bzType,
+    required List<BzType> bzTypes,
   }){
     bool _contains = false;
 
@@ -265,7 +266,7 @@ class BzTyper {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String getBzTypePhid({
-    @required BzType bzType,
+    required BzType bzType,
     bool nounTranslation = true,
     bool pluralTranslation = true,
   }){
@@ -318,8 +319,8 @@ class BzTyper {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getBzTypesPhids({
-    @required BuildContext context,
-    @required List<BzType> bzTypes,
+    required BuildContext context,
+    required List<BzType> bzTypes,
     bool pluralTranslation = true,
   }){
     final List<String> _strings = <String>[];
@@ -344,9 +345,9 @@ class BzTyper {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String translateBzTypesIntoString({
-    @required BuildContext context,
-    @required List<BzType> bzTypes,
-    @required BzForm bzForm,
+    required BuildContext context,
+    required List<BzType> bzTypes,
+    required BzForm bzForm,
     bool oneLine = false,
   }){
 
@@ -444,7 +445,7 @@ class BzTyper {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<BzType> concludeDeactivatedBzTypesBySection({
-    @required BzSection bzSection,
+    required BzSection bzSection,
     List<BzType> initialBzTypes,
   }){
 
@@ -482,7 +483,7 @@ class BzTyper {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<BzType> concludeMixableBzTypes({
-    @required BzType bzType,
+    required BzType bzType,
   }){
 
     List<BzType> _mixableTypes;
@@ -539,7 +540,7 @@ class BzTyper {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<BzType> concludeDeactivatedBzTypesBySelectedType({
-    @required BzType selectedBzType,
+    required BzType selectedBzType,
   }){
 
     final List<BzType> _mixableTypes = concludeMixableBzTypes(
@@ -559,9 +560,9 @@ class BzTyper {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<BzType> concludeDeactivatedBzTypesBasedOnSelectedBzTypes({
-    @required BzType newSelectedType,
-    @required List<BzType> selectedBzTypes,
-    @required BzSection selectedBzSection,
+    required BzType newSelectedType,
+    required List<BzType> selectedBzTypes,
+    required BzSection selectedBzSection,
   }){
 
     List<BzType> _inactiveBzTypes;
@@ -590,8 +591,8 @@ class BzTyper {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<BzType> addOrRemoveBzTypeToBzzTypes({
-    @required BzType newSelectedBzType,
-    @required List<BzType> selectedBzTypes,
+    required BzType newSelectedBzType,
+    required List<BzType> selectedBzTypes,
   }){
 
     final List<BzType> _outputTypes = <BzType>[...selectedBzTypes];
@@ -644,7 +645,7 @@ class BzTyper {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String getBzAccountTypePhid({
-    @required BzAccountType type,
+    required BzAccountType type,
   }){
     switch (type) {
       case BzAccountType.basic:     return 'phid_basic_account';    break;
@@ -729,8 +730,8 @@ class BzTyper {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getBzFormsPhids({
-    @required BuildContext context,
-    @required List<BzForm> bzForms,
+    required BuildContext context,
+    required List<BzForm> bzForms,
   }){
     final List<String> _strings = <String>[];
 
@@ -752,8 +753,8 @@ class BzTyper {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool bzFormsContainThisForm({
-    @required List<BzForm> bzForms,
-    @required BzForm bzForm,
+    required List<BzForm> bzForms,
+    required BzForm bzForm,
   }){
     bool _contains = false;
 
@@ -902,8 +903,8 @@ class BzTyper {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String getBzSectionPhid({
-    @required BuildContext context,
-    @required BzSection bzSection,
+    required BuildContext context,
+    required BzSection bzSection,
   }){
     final String _translation =
     bzSection == BzSection.realestate ? 'phid_realEstate'
@@ -919,8 +920,8 @@ class BzTyper {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getBzSectionsPhids({
-    @required BuildContext context,
-    @required List<BzSection> bzSections,
+    required BuildContext context,
+    required List<BzSection> bzSections,
   }){
     final List<String> _strings = <String>[];
 

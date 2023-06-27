@@ -3,24 +3,24 @@ import 'package:bldrs/b_views/f_bz/d_author_search_screen/x_author_search_contro
 import 'package:bldrs/b_views/z_components/buttons/users_tile_buttons_list.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:night_sky/night_sky.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
-import 'package:mapper/mapper.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:flutter/material.dart';
 
 class SearchUsersScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const SearchUsersScreen({
-    @required this.userIDsToExcludeInSearch,
+    required this.userIDsToExcludeInSearch,
     this.multipleSelection = false,
     this.selectedUsers,
     this.onUserTap,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final bool multipleSelection;
   final List<UserModel> selectedUsers;
@@ -61,7 +61,7 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -221,11 +221,11 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
 
           ValueListenableBuilder(
             valueListenable: _isSearching,
-            builder: (_, bool _isSearching, Widget childA){
+            builder: (_, bool _isSearching, Widget? childA){
 
               return ValueListenableBuilder(
                 valueListenable: _loading,
-                builder: (_, bool _isLoading, Widget childB){
+                builder: (_, bool _isLoading, Widget? childB){
 
                   /// SEARCHING
                   if (_isSearching == true){

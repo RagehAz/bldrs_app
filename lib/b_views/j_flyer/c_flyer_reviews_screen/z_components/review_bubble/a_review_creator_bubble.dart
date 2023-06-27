@@ -1,3 +1,5 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/review_bubble/a_review_box.dart';
@@ -8,20 +10,20 @@ import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_text_f
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 
 class ReviewCreatorBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ReviewCreatorBubble({
-    @required this.globalKey,
-    @required this.pageWidth,
-    @required this.reviewTextController,
-    @required this.onReviewSubmit,
-    @required this.onReviewUserBalloonTap,
-    @required this.isUploading,
-    Key key
-  }) : super(key: key);
+    required this.globalKey,
+    required this.pageWidth,
+    required this.reviewTextController,
+    required this.onReviewSubmit,
+    required this.onReviewUserBalloonTap,
+    required this.isUploading,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final GlobalKey globalKey;
   final double pageWidth;
@@ -87,7 +89,7 @@ class ReviewCreatorBubble extends StatelessWidget {
 
                     ValueListenableBuilder(
                         valueListenable: isUploading,
-                        builder: (_, bool _isUploading, Widget child){
+                        builder: (_, bool _isUploading, Widget? child){
 
                           return BldrsBox(
                             verse: const Verse(

@@ -1,3 +1,6 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/lines/zone_bubble_line.dart';
@@ -10,14 +13,14 @@ import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:numeric/numeric.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
 
 class CityPreviewBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const CityPreviewBubble({
-    @required this.cityModel,
-    Key key
-  }) : super(key: key);
+    required this.cityModel,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final CityModel cityModel;
   /// --------------------------------------------------------------------------

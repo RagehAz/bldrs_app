@@ -1,3 +1,8 @@
+import 'package:basics/animators/widgets/scroller.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/super_box/super_box.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/f_phid_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
@@ -8,18 +13,18 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:scale/scale.dart';
-import 'package:super_box/super_box.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/super_box/super_box.dart';
 
 class PhidsBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const PhidsBubble({
-    @required this.titleVerse,
-    @required this.phids,
-    @required this.selectedWords,
-    @required this.addButtonIsOn,
-    @required this.onPhidTap,
+    required this.titleVerse,
+    required this.phids,
+    required this.selectedWords,
+    required this.addButtonIsOn,
+    required this.onPhidTap,
     this.verseSize = 2,
     this.onTap,
     this.bubbleColor = Colorz.white20,
@@ -29,8 +34,8 @@ class PhidsBubble extends StatelessWidget {
     this.passPhidOnTap = false,
     this.maxLines,
     this.scrollController,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final Verse titleVerse;
   final List<String> phids;
@@ -54,7 +59,7 @@ class PhidsBubble extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double getMaxWrapHeight({
-    @required int maxLines,
+    required int maxLines,
   }){
     if (maxLines == null){
       return 0;

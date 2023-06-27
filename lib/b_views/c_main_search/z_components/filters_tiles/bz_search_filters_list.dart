@@ -1,3 +1,6 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/layouts/separators/dot_separator.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/m_search/search_model.dart';
@@ -9,26 +12,26 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 
 class BzSearchFiltersList extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const BzSearchFiltersList({
-    @required this.searchModel,
-    @required this.onZoneSwitchTap,
-    @required this.onZoneTap,
-    @required this.onBzIsVerifiedSwitchTap,
-    @required this.onBzFormSwitchTap,
-    @required this.onBzFormTap,
-    @required this.onBzTypeSwitchTap,
-    @required this.onBzTypeTap,
-    @required this.onScopeSwitchTap,
-    @required this.onScopeTap,
-    @required this.onBzzShowingTeamOnlySwitchTap,
-    @required this.onAccountTypeSwitchTap,
-    @required this.onAccountTypeTap,
-    Key key
-  }) : super(key: key);
+    required this.searchModel,
+    required this.onZoneSwitchTap,
+    required this.onZoneTap,
+    required this.onBzIsVerifiedSwitchTap,
+    required this.onBzFormSwitchTap,
+    required this.onBzFormTap,
+    required this.onBzTypeSwitchTap,
+    required this.onBzTypeTap,
+    required this.onScopeSwitchTap,
+    required this.onScopeTap,
+    required this.onBzzShowingTeamOnlySwitchTap,
+    required this.onAccountTypeSwitchTap,
+    required this.onAccountTypeTap,
+    super.key
+  });
   // --------------------
   final SearchModel searchModel;
   final Function(bool value) onZoneSwitchTap;

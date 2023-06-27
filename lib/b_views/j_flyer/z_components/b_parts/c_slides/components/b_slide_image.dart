@@ -1,25 +1,27 @@
 import 'package:animators/animators.dart';
+import 'package:basics/animators/widgets/animate_widget_to_matrix.dart';
+import 'package:basics/helpers/classes/space/trinity.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/b_slide_tap_areas.dart';
-import 'package:space_time/space_time.dart';
+import 'package:basics/helpers/classes/time/timers.dart';
 import 'package:flutter/material.dart';
-import 'package:super_image/super_image.dart';
+import 'package:basics/super_image/super_image.dart';
 
 class SlideImage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SlideImage({
-    @required this.flyerBoxWidth,
-    @required this.flyerBoxHeight,
-    @required this.slideModel,
-    @required this.onSlideNextTap,
-    @required this.onSlideBackTap,
-    @required this.onDoubleTap,
-    @required this.canTapSlide,
-    @required this.canAnimateMatrix,
-    @required this.canUseFilter,
-    @required this.canPinch,
-    Key key
-  }) : super(key: key);
+    required this.flyerBoxWidth,
+    required this.flyerBoxHeight,
+    required this.slideModel,
+    required this.onSlideNextTap,
+    required this.onSlideBackTap,
+    required this.onDoubleTap,
+    required this.canTapSlide,
+    required this.canAnimateMatrix,
+    required this.canUseFilter,
+    required this.canPinch,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final double flyerBoxHeight;

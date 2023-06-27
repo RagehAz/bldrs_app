@@ -1,27 +1,28 @@
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/x_ui/keyboard_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:night_sky/night_sky.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:flutter/material.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class KeyboardScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const KeyboardScreen({
-    @required this.keyboardModel,
+    required this.keyboardModel,
     this.confirmButtonIsOn = true,
     this.columnChildren,
     this.screenTitleVerse,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final KeyboardModel keyboardModel;
   final bool confirmButtonIsOn;
@@ -33,7 +34,7 @@ class KeyboardScreen extends StatefulWidget {
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<String> goToKeyboardScreen({
-    @required BuildContext context,
+    required BuildContext context,
     KeyboardModel keyboardModel,
     Verse screenTitleVerse,
   }) async {
@@ -63,7 +64,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
   /*
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -178,7 +179,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
       title: widget.screenTitleVerse,
       child: ValueListenableBuilder(
         valueListenable: _canSubmit,
-        builder: (_, bool canSubmit, Widget child){
+        builder: (_, bool canSubmit, Widget? child){
 
           return Column(
             children: <Widget>[

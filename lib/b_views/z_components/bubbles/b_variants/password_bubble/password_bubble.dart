@@ -8,22 +8,22 @@ import 'package:flutter/material.dart';
 class PasswordBubbles extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const PasswordBubbles({
-    @required this.appBarType,
-    @required this.passwordController,
-    @required this.showPasswordOnly,
-    @required this.passwordValidator,
-    @required this.onSubmitted,
-    @required this.passwordConfirmationController,
-    @required this.passwordConfirmationValidator,
-    @required this.passwordNode,
-    @required this.confirmPasswordNode,
-    @required this.isObscured,
+    required this.appBarType,
+    required this.passwordController,
+    required this.showPasswordOnly,
+    required this.passwordValidator,
+    required this.onSubmitted,
+    required this.passwordConfirmationController,
+    required this.passwordConfirmationValidator,
+    required this.passwordNode,
+    required this.confirmPasswordNode,
+    required this.isObscured,
     this.bubbleWidth,
     this.isTheSuperKeyboardField = false,
     this.goOnKeyboardGo = true,
     this.mainAxisAlignment,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double bubbleWidth;
   final TextEditingController passwordController;

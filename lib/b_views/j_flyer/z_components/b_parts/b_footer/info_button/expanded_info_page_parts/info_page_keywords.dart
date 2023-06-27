@@ -1,3 +1,6 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/f_phid_button.dart';
 
 
@@ -7,12 +10,12 @@ import 'package:flutter/material.dart';
 class PhidsViewer extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const PhidsViewer({
-    @required this.phids,
-    @required this.pageWidth,
-    @required this.onPhidTap,
-    @required this.onPhidLongTap,
-    Key key
-  }) : super(key: key);
+    required this.phids,
+    required this.pageWidth,
+    required this.onPhidTap,
+    required this.onPhidLongTap,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final List<String> phids;
   final double pageWidth;
@@ -36,8 +39,8 @@ class PhidsViewer extends StatelessWidget {
         // alignment: WrapAlignment.spaceAround,
         children: <Widget>[
 
-          if (phids?.isNotEmpty)
-          ...List<Widget>.generate(phids?.length, (int index) {
+          if (Mapper.checkCanLoopList(phids) == true)
+          ...List<Widget>.generate(phids.length, (int index) {
 
             final String _phid = phids[index];
 

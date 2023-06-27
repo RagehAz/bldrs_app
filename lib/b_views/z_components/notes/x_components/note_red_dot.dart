@@ -1,10 +1,11 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/space/borderers.dart';
+import 'package:basics/helpers/widgets/drawing/super_positioned.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
 
 class NoteRedDot extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -20,7 +21,7 @@ class NoteRedDot extends StatelessWidget {
   static const double maxWidth = 60;
   // --------------------
   static double getSize({
-    @required bool isNano
+    required bool isNano
   }){
     final double _factor = isNano == true ? 0.7 : 1.0;
     final double _height = defaultSize * _factor;
@@ -61,7 +62,7 @@ class NoteRedDot extends StatelessWidget {
         maxWidth: _count == null ? _size : maxWidth,
       ),
       decoration: BoxDecoration(
-        borderRadius: Borderers.cornerAll(context, _size * 0.5),
+        borderRadius: Borderers.cornerAll(_size * 0.5),
         color: Colorz.red255,
       ),
       // padding: EdgeInsets.symmetric(horizontal: 2 * factor),
@@ -91,14 +92,14 @@ class NoteRedDot extends StatelessWidget {
 class NoteRedDotWrapper extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const NoteRedDotWrapper({
-    @required this.child,
-    @required this.redDotIsOn,
-    @required this.childWidth,
+    required this.child,
+    required this.redDotIsOn,
+    required this.childWidth,
     this.count,
     this.shrinkChild = false,
     this.isNano = false,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final bool redDotIsOn;
   final int count;
@@ -108,16 +109,16 @@ class NoteRedDotWrapper extends StatelessWidget {
   final double childWidth;
   /// --------------------------------------------------------------------------
   static double getShrinkageScale({
-    @required double childWidth,
-    @required bool isNano,
+    required double childWidth,
+    required bool isNano,
   }){
     final double _viewWidth = childWidth - (NoteRedDot.getSize(isNano: isNano) * 0.2);
     return _viewWidth / childWidth;
   }
   // --------------------
   static double getShrinkageDX({
-    @required double childWidth,
-    @required bool isNano,
+    required double childWidth,
+    required bool isNano,
   }){
 
     final double ratio = getShrinkageScale(

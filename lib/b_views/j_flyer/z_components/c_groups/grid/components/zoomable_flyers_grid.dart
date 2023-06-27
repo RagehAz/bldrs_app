@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_light_flyer_structure/b_light_big_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
@@ -9,17 +10,17 @@ import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 
 class FlyersZGrid extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const FlyersZGrid({
-    @required this.gridHeight,
-    @required this.gridWidth,
-    @required this.flyersIDs,
-    @required this.hasResponsiveSideMargin,
+    required this.gridHeight,
+    required this.gridWidth,
+    required this.flyersIDs,
+    required this.hasResponsiveSideMargin,
     this.scrollController,
     this.columnCount = 3,
     this.bottomPaddingOnZoomedOut,
@@ -31,8 +32,8 @@ class FlyersZGrid extends StatefulWidget {
     this.topPadding,
     this.zGridController,
     this.flyers,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final ScrollController scrollController;
   final double gridWidth;
@@ -141,9 +142,9 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
   }
   // -----------------------------------------------------------------------------
   Future<void> _onFlyerTap({
-    @required FlyerModel flyerModel,
-    @required int index,
-    @required ZGridScale gridScale,
+    required FlyerModel flyerModel,
+    required int index,
+    required ZGridScale gridScale,
   }) async {
 
     if (flyerModel != null) {
@@ -261,7 +262,7 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
 
       bigItem: ValueListenableBuilder(
         valueListenable: _zoomedFlyer,
-        builder: (_, FlyerModel flyerModel, Widget child) {
+        builder: (_, FlyerModel flyerModel, Widget? child) {
 
           return LightBigFlyer(
             flyerBoxWidth: _gridScale.bigItemWidth,
@@ -281,9 +282,9 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
 }
 
 Future<void> zoomOutFlyer({
-  @required bool mounted,
-  @required ZGridController controller,
-  @required ValueNotifier<FlyerModel> flyerNotifier,
+  required bool mounted,
+  required ZGridController controller,
+  required ValueNotifier<FlyerModel> flyerNotifier,
 }) async {
 
   if (controller != null) {

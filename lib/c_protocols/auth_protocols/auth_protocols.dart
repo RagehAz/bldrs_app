@@ -27,8 +27,8 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<bool> signInBldrsByEmail({
-    @required String email,
-    @required String password,
+    required String email,
+    required String password,
   }) async {
     String _authError;
 
@@ -56,9 +56,9 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<bool> registerInBldrsByEmail({
-    @required String email,
-    @required String password,
-    // @required ZoneModel currentZone,
+    required String email,
+    required String password,
+    // required ZoneModel currentZone,
   }) async {
 
     String _authError;
@@ -85,8 +85,8 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<bool> composeOrUpdateUser({
-    @required AuthModel authModel,
-    @required String authError,
+    required AuthModel authModel,
+    required String authError,
   }) async {
     bool _success = false;
 
@@ -127,7 +127,7 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<void> onAuthError({
-    @required String error,
+    required String error,
   }) async {
 
     final String _errorMessage = error ?? 'Something went wrong, please try again';
@@ -140,7 +140,7 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<bool> _onNewUser({
-    @required AuthModel authModel,
+    required AuthModel authModel,
   }) async {
 
     final UserModel userModel = await UserProtocols.compose(
@@ -152,8 +152,8 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<bool> _onExistingUser({
-    @required UserModel userModel,
-    @required AuthModel authModel,
+    required UserModel userModel,
+    required AuthModel authModel,
   }) async {
 
     await UserProtocols.updateLocally(
@@ -170,7 +170,7 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<void> signOutBldrs({
-    @required bool routeToLogoScreen,
+    required bool routeToLogoScreen,
   }) async {
 
     final bool _success = await Authing.signOut(
@@ -201,7 +201,7 @@ class AuthProtocols {
 
   // --------------------
   static Future<void> signInAsRage7({
-    @required BuildContext context,
+    required BuildContext context,
   }) async {
     final AuthModel _authModel = await EmailAuthing.signIn(
       email: 'rageh@bldrs.net',

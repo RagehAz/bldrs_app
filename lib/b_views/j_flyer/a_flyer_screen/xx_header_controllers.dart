@@ -1,3 +1,5 @@
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
 import 'package:fire/super_fire.dart';
@@ -17,7 +19,7 @@ import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
@@ -26,8 +28,8 @@ import 'package:provider/provider.dart';
 
 // --------------------
 AnimationController initializeHeaderAnimationController({
-  @required BuildContext context,
-  @required TickerProvider vsync,
+  required BuildContext context,
+  required TickerProvider vsync,
 }){
 
   // final ActiveFlyerProvider _activeFlyerProvider = Provider.of<ActiveFlyerProvider>(context, listen: false);
@@ -56,13 +58,13 @@ AnimationController initializeHeaderAnimationController({
 
 // --------------------
 Future<void> onTriggerHeader({
-  @required BuildContext context,
-  @required AnimationController headerAnimationController,
-  @required ScrollController verticalController,
-  @required ValueNotifier<bool> headerIsExpanded,
-  @required ValueNotifier<double> progressBarOpacity,
-  @required ValueNotifier<double> headerPageOpacity,
-  @required bool mounted,
+  required BuildContext context,
+  required AnimationController headerAnimationController,
+  required ScrollController verticalController,
+  required ValueNotifier<bool> headerIsExpanded,
+  required ValueNotifier<double> progressBarOpacity,
+  required ValueNotifier<double> headerPageOpacity,
+  required bool mounted,
 }) async {
 
     await _triggerProgressBarOpacity(
@@ -99,9 +101,9 @@ Future<void> onTriggerHeader({
 }
 // --------------------
 Future<void> readBzCounters({
-  @required String bzID,
-  @required ValueNotifier<BzCounterModel> bzCounters,
-  @required bool mounted,
+  required String bzID,
+  required ValueNotifier<BzCounterModel> bzCounters,
+  required bool mounted,
 }) async {
 
   final BzCounterModel _bzCounters = await RecorderProtocols.readBzCounters(
@@ -114,9 +116,9 @@ Future<void> readBzCounters({
 // --------------------
 /// PROGRESS BAR OPACITY
 Future<void> _triggerProgressBarOpacity({
-  @required BuildContext context,
-  @required ValueNotifier<double> progressBarOpacity,
-  @required bool mounted,
+  required BuildContext context,
+  required ValueNotifier<double> progressBarOpacity,
+  required bool mounted,
 }) async {
   /// progressBarOpacity is used because it has a slight delay after triggering header
   /// AND SO headerIsExpanded can not be used to hold the progress bar opacity value
@@ -139,10 +141,10 @@ Future<void> _triggerProgressBarOpacity({
 // --------------------
 /// HEADER IS EXPANDED
 void _triggerHeaderExpansion({
-  @required BuildContext context,
-  @required bool notify,
-  @required ValueNotifier<bool> headerIsExpanded,
-  @required bool mounted,
+  required BuildContext context,
+  required bool notify,
+  required ValueNotifier<bool> headerIsExpanded,
+  required bool mounted,
 }) {
 
   setNotifier(
@@ -158,10 +160,10 @@ void _triggerHeaderExpansion({
 // --------------------
 /// HEADER PAGE OPACITY
 void _triggerHeaderPageOpacity({
-  @required BuildContext context,
-  @required bool notify,
-  @required ValueNotifier<double> headerPageOpacity,
-  @required bool mounted,
+  required BuildContext context,
+  required bool notify,
+  required ValueNotifier<double> headerPageOpacity,
+  required bool mounted,
 }) {
 
   // blog('_headerPageOpacity = ${headerPageOpacity.value}');
@@ -195,10 +197,10 @@ void _triggerHeaderPageOpacity({
 // --------------------
 /// HEADER EXPANSION ANIMATION
 void _animateHeaderExpansion({
-  @required BuildContext context,
-  @required AnimationController headerAnimationController,
-  @required ScrollController verticalController,
-  @required ValueNotifier<bool> headerIsExpanded,
+  required BuildContext context,
+  required AnimationController headerAnimationController,
+  required ScrollController verticalController,
+  required ValueNotifier<bool> headerIsExpanded,
 }){
 
   /// WHEN HEADER IS COLLAPSED
@@ -233,7 +235,7 @@ void _animateHeaderExpansion({
 // --------------------
 /// TESTED : WORKS PERFECT
 bool checkFollowIsOn({
-  @required BzModel bzModel,
+  required BzModel bzModel,
 }){
 
   final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
@@ -247,11 +249,11 @@ bool checkFollowIsOn({
 // --------------------
 /// ON FOLLOW
 Future<void> onFollowTap({
-  @required BuildContext context,
-  @required BzModel bzModel,
-  @required String flyerID,
-  @required ValueNotifier<bool> followIsOn,
-  @required bool mounted,
+  required BuildContext context,
+  required BzModel bzModel,
+  required String flyerID,
+  required ValueNotifier<bool> followIsOn,
+  required bool mounted,
 }) async {
 
   final UserModel _user = UsersProvider.proGetMyUserModel(
@@ -292,8 +294,8 @@ Future<void> onFollowTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onCallTap({
-  @required BzModel bzModel,
-  @required FlyerModel flyerModel,
+  required BzModel bzModel,
+  required FlyerModel flyerModel,
 }) async {
 
   final UserModel _userModel = UsersProvider.proGetMyUserModel(

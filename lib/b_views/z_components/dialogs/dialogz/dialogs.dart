@@ -1,3 +1,5 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
@@ -26,12 +28,9 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
-import 'package:scale/scale.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class Dialogs {
   // -----------------------------------------------------------------------------
@@ -58,8 +57,8 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> showSuccessDialog({
-    Verse firstLine,
-    Verse secondLine,
+    Verse? firstLine,
+    Verse? secondLine,
   }) async {
 
     await TopDialog.showTopDialog(
@@ -80,7 +79,7 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> topNotice({
-    @required Verse verse,
+    required Verse verse,
     Color color = Colorz.yellow255,
   }) async {
 
@@ -93,7 +92,7 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> centerNotice({
-    @required Verse verse,
+    required Verse verse,
     Verse body,
     Color color,
   }) async {
@@ -129,8 +128,8 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> youNeedToBeSignedUpDialog({
-    @required String afterHomeRouteName,
-    @required String afterHomeRouteArgument,
+    required String afterHomeRouteName,
+    required String afterHomeRouteArgument,
   }) async {
 
     final bool _go = await CenterDialog.showCenterDialog(
@@ -240,7 +239,7 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> bottomBoolDialog({
-    @required Verse titleVerse,
+    required Verse titleVerse,
   }) async {
 
     bool _result = false;
@@ -315,7 +314,7 @@ class Dialogs {
   // --------------------
   /// TASK : NEED TO CHECK LIST OF ERRORS FROM FIREBASE WEBSITE
   static Future<void> authErrorDialog({
-    @required dynamic result,
+    required dynamic result,
   }) async {
 
     final List<Map<String, dynamic>> _errors = <Map<String, dynamic>>[
@@ -612,7 +611,7 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CityModel> confirmCityDialog({
-    @required List<CityModel> cities,
+    required List<CityModel> cities,
   }) async {
     CityModel _city;
 
@@ -689,9 +688,9 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> userDialog({
-    @required UserModel userModel,
-    @required Verse titleVerse,
-    @required Verse bodyVerse,
+    required UserModel userModel,
+    required Verse titleVerse,
+    required Verse bodyVerse,
     Verse confirmButtonVerse,
     bool boolDialog = true,
     bool invertButtons = false,
@@ -718,9 +717,9 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> bzBannerDialog({
-    @required BzModel bzModel,
-    @required Verse titleVerse,
-    @required Verse bodyVerse,
+    required BzModel bzModel,
+    required Verse titleVerse,
+    required Verse bodyVerse,
     Verse confirmButtonVerse,
     bool boolDialog = true,
     bool invertButtons = false,
@@ -747,9 +746,9 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> bzzBannersDialog({
-    @required List<BzModel> bzzModels,
-    @required Verse titleVerse,
-    @required Verse bodyVerse,
+    required List<BzModel> bzzModels,
+    required Verse titleVerse,
+    required Verse bodyVerse,
     Verse confirmButtonVerse,
     bool boolDialog = true,
     bool invertButtons = false,
@@ -799,9 +798,9 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> bzContactsDialog({
-    @required BzModel bzModel,
-    @required Verse titleVerse,
-    @required Verse bodyVerse,
+    required BzModel bzModel,
+    required Verse titleVerse,
+    required Verse bodyVerse,
     Verse confirmButtonVerse,
     ValueChanged<ContactModel> onContact,
   }) async {
@@ -849,9 +848,9 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> flyersDialog({
-    @required List<String> flyersIDs,
-    @required Verse titleVerse,
-    @required Verse bodyVerse,
+    required List<String> flyersIDs,
+    required Verse titleVerse,
+    required Verse bodyVerse,
     Verse confirmButtonVerse,
     bool boolDialog = true,
   }) async {
@@ -893,9 +892,9 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> flyerDialog({
-    @required FlyerModel flyer,
-    @required Verse titleVerse,
-    @required Verse bodyVerse,
+    required FlyerModel flyer,
+    required Verse titleVerse,
+    required Verse bodyVerse,
     Verse confirmButtonVerse,
     bool boolDialog = true,
     bool invertButtons = false,
@@ -937,8 +936,8 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> slideDialog({
-    @required SlideModel slideModel,
-    @required Verse titleVerse,
+    required SlideModel slideModel,
+    required Verse titleVerse,
     Verse bodyVerse,
     Verse confirmButtonVerse,
     bool boolDialog = true,

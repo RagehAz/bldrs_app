@@ -1,17 +1,17 @@
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 
 @immutable
 class BzSearchModel {
   // -----------------------------------------------------------------------------
   const BzSearchModel({
-    @required this.bzType,
-    @required this.bzForm,
-    @required this.bzAccountType,
-    @required this.scopePhid,
-    @required this.onlyShowingTeams,
-    @required this.onlyVerified,
+    required this.bzType,
+    required this.bzForm,
+    required this.bzAccountType,
+    required this.scopePhid,
+    required this.onlyShowingTeams,
+    required this.onlyVerified,
   });
   // -----------------------------------------------------------------------------
   final BzType bzType;
@@ -111,8 +111,8 @@ class BzSearchModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool areIdentical({
-    @required BzSearchModel model1,
-    @required BzSearchModel model2,
+    required BzSearchModel model1,
+    required BzSearchModel model2,
   }){
     bool _output;
 

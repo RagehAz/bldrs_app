@@ -1,8 +1,8 @@
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 
 @immutable
 class SpecModel {
@@ -12,8 +12,8 @@ class SpecModel {
 
   // --------------------
   const SpecModel({
-    @required this.pickerChainID,
-    @required this.value,
+    required this.pickerChainID,
+    required this.value,
   });
   // --------------------
   /// specID is the specPicker's chain id , and the key of firebase map
@@ -143,8 +143,8 @@ class SpecModel {
 // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkSpecsContainThisSpec({
-    @required List<SpecModel> specs,
-    @required SpecModel spec,
+    required List<SpecModel> specs,
+    required SpecModel spec,
   }) {
     bool _contains = false;
 
@@ -165,8 +165,8 @@ class SpecModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkSpecsContainThisSpecValue({
-    @required List<SpecModel> specs,
-    @required dynamic value,
+    required List<SpecModel> specs,
+    required dynamic value,
   }) {
     bool _contains = false;
 
@@ -184,8 +184,8 @@ class SpecModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkSpecsContainOfSamePickerChainID({
-    @required List<SpecModel> specs,
-    @required String pickerChainID,
+    required List<SpecModel> specs,
+    required String pickerChainID,
   }) {
     bool _contains = false;
 
@@ -221,7 +221,7 @@ class SpecModel {
   // --------------------
   /// TASK : TEST ME
   static bool checkSpecIsFromChainK({
-    @required SpecModel spec,
+    required SpecModel spec,
   }){
     bool _isFromKeywords = false;
 
@@ -237,9 +237,9 @@ class SpecModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool specsIncludeOtherSpecUsingThisUnit({
-    @required List<PickerModel> pickers,
-    @required List<SpecModel> specs,
-    @required SpecModel unitSpec,
+    required List<PickerModel> pickers,
+    required List<SpecModel> specs,
+    required SpecModel unitSpec,
   }){
     bool _include = false;
 
@@ -313,8 +313,8 @@ class SpecModel {
   // --------------------
   /// TASK : TEST ME
   static List<SpecModel> getSpecsBelongingToThisPicker({
-    @required List<SpecModel> specs,
-    @required PickerModel picker,
+    required List<SpecModel> specs,
+    required PickerModel picker,
   }){
     final List<SpecModel> _result = <SpecModel>[];
 
@@ -346,8 +346,8 @@ class SpecModel {
   // --------------------
   /// TASK : TEST ME
   static List<SpecModel> getSpecsByPickerChainID({
-    @required List<SpecModel> specs,
-    @required String pickerChainID,
+    required List<SpecModel> specs,
+    required String pickerChainID,
   }) {
     List<SpecModel> _result = <SpecModel>[];
 
@@ -364,8 +364,8 @@ class SpecModel {
   // --------------------
   /// TASK : TEST ME
   static SpecModel getFirstSpecFromSpecsByPickerChainID({
-    @required List<SpecModel> specs,
-    @required String pickerChainID,
+    required List<SpecModel> specs,
+    required String pickerChainID,
   }){
     SpecModel _result;
 
@@ -424,9 +424,9 @@ class SpecModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<SpecModel> putSpecsInSpecs({
-    @required List<SpecModel> parentSpecs,
-    @required List<SpecModel> inputSpecs,
-    @required bool canPickMany,
+    required List<SpecModel> parentSpecs,
+    required List<SpecModel> inputSpecs,
+    required bool canPickMany,
   }) {
     /// This considers if the specPicker can or can't pick many spec of same list,
     /// then adds if absent and updates or ignores if exists accordingly
@@ -512,8 +512,8 @@ class SpecModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<SpecModel> removeSpecFromSpecs({
-    @required List<SpecModel> specs,
-    @required SpecModel spec,
+    required List<SpecModel> specs,
+    required SpecModel spec,
   }){
 
     List<SpecModel> _output = <SpecModel>[];
@@ -531,8 +531,8 @@ class SpecModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<SpecModel> removeSpecsFromSpecs({
-    @required List<SpecModel> sourceSpecs,
-    @required List<SpecModel> specsToRemove,
+    required List<SpecModel> sourceSpecs,
+    required List<SpecModel> specsToRemove,
   }){
 
     // blog('removeSpecsFromSpecs : removing : ${specsToRemove.length}');
@@ -568,7 +568,7 @@ class SpecModel {
   // --------------------
   /// TASK : NOT WORKING
   static List<SpecModel> generateSpecsByPhids({
-    @required List<String> phids,
+    required List<String> phids,
   }){
     final List<SpecModel> _specs = <SpecModel>[];
 
@@ -610,8 +610,8 @@ class SpecModel {
   /// TASK : NOT WORKING
   /*
   static List<String> getPhidsFromSpecsFilteredByFlyerType({
-    @required FlyerType flyerType,
-    @required List<SpecModel> specs,
+    required FlyerType flyerType,
+    required List<SpecModel> specs,
   }){
     final List<String> _output = <String>[];
 
@@ -661,7 +661,7 @@ class SpecModel {
 
     // --------------------
     static int getMaxDigitsOfSelectedUnit({
-      @required String unitID,
+      required String unitID,
     }){
 
       int _digits;

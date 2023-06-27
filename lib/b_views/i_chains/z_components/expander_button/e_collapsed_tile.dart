@@ -1,34 +1,36 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/b_expanding_tile.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
 
 class CollapsedTile extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const CollapsedTile({
-    @required this.onTileTap,
-    @required this.tileWidth,
-    @required this.collapsedHeight,
-    @required this.icon,
-    @required this.child,
-    @required this.firstHeadline,
-    @required this.secondHeadline,
-    @required this.arrowTurns,
-    @required this.arrowColor,
-    @required this.expandableHeightFactorAnimationValue,
-    @required this.tileColor,
-    @required this.corners,
+    required this.onTileTap,
+    required this.tileWidth,
+    required this.collapsedHeight,
+    required this.icon,
+    required this.child,
+    required this.firstHeadline,
+    required this.secondHeadline,
+    required this.arrowTurns,
+    required this.arrowColor,
+    required this.expandableHeightFactorAnimationValue,
+    required this.tileColor,
+    required this.corners,
     this.iconCorners,
     this.marginIsOn = true,
     this.iconSizeFactor = 1,
     this.searchText,
     this.onTileLongTap,
     this.onTileDoubleTap,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final Function onTileTap;
   final double tileWidth;
@@ -56,8 +58,8 @@ class CollapsedTile extends StatelessWidget {
   static const Color expandedColor = Colorz.blue80;
   // --------------------
   static Widget arrow({
-    double collapsedHeight,
-    Color arrowColor,
+    double? collapsedHeight,
+    Color? arrowColor,
     bool arrowDown = true,
   }) {
 

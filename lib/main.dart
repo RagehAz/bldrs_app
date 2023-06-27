@@ -1,6 +1,8 @@
 import 'dart:async';
-
-import 'package:animators/animators.dart';
+import 'package:basics/animators/helpers/app_scroll_behavior.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/checks/device_checker.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/a_static_logo_screen.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/b_animated_logo_screen.dart';
@@ -10,20 +12,16 @@ import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm_starter.dart';
 import 'package:bldrs/e_back_end/e_fcm/z_noot_controller.dart';
 import 'package:bldrs/e_back_end/i_app_check/app_check.dart';
-import 'package:bldrs/e_back_end/j_ads/google_ads.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_providers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/firebase_options.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:device_preview/device_preview.dart';
-import 'package:devicer/devicer.dart';
-import 'package:filers/filers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:mediators/mediators.dart';
+import 'package:mediators/sounder/sounder.dart';
 import 'bldrs_keys.dart';
 
 // ignore: constant_identifier_names
@@ -63,8 +61,8 @@ Future<void> main() async {
     /// APP CHECK
     AppCheck.preInitialize(),
 
-    /// GOOGLE ADS
-    GoogleAds.initialize(),
+    // /// GOOGLE ADS
+    // GoogleAds.initialize(),
 
   ]);
   /// --------------------
@@ -83,8 +81,8 @@ Future<void> main() async {
 class BldrsAppStarter extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const BldrsAppStarter({
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   static void setLocale(BuildContext context, Locale locale) {
     final _BldrsAppStarterState state = context.findAncestorStateOfType<_BldrsAppStarterState>();
@@ -103,7 +101,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -209,10 +207,10 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
     if (_locale == null || _fireError.value != null) {
       return ValueListenableBuilder<bool>(
           valueListenable: _loading,
-          builder: (_, bool loading, Widget child) {
+          builder: (_, bool loading, Widget? child) {
             return ValueListenableBuilder<String>(
                 valueListenable: _fireError,
-                builder: (_, String error, Widget child) {
+                builder: (_, String error, Widget? child) {
                   return const AnimatedLogoScreen();
                 });
           });
@@ -222,7 +220,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
       return BldrsProviders(
         child: ValueListenableBuilder<Locale>(
           valueListenable: _locale,
-          builder: (BuildContext ctx, Locale value, Widget child) {
+          builder: (BuildContext ctx, Locale value, Widget? child) {
             return MaterialApp(
               /// KEYS
               // key: ,

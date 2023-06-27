@@ -1,3 +1,6 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
@@ -11,20 +14,18 @@ import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class AuthorSearchScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const AuthorSearchScreenView({
-    @required this.bzModel,
-    @required this.foundUsers,
-    @required this.isSearching,
-    @required this.isLoading,
-    Key key
-  }) : super(key: key);
+    required this.bzModel,
+    required this.foundUsers,
+    required this.isSearching,
+    required this.isLoading,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final BzModel bzModel;
   final ValueNotifier<List<UserModel>> foundUsers;
@@ -45,11 +46,11 @@ class AuthorSearchScreenView extends StatelessWidget {
         ValueListenableBuilder(
             valueListenable: isSearching,
             child: const InviteAuthorByLinkBubble(),
-            builder: (_, bool _isSearching, Widget inviteAuthorByLinkBubble){
+            builder: (_, bool _isSearching, Widget? inviteAuthorByLinkBubble){
 
               return ValueListenableBuilder(
                 valueListenable: isLoading,
-                builder: (_, bool _isLoading, Widget childB){
+                builder: (_, bool _isLoading, Widget? childB){
 
                   /// SEARCHING
                   if (_isSearching == true){
@@ -112,8 +113,8 @@ class AuthorSearchScreenView extends StatelessWidget {
 class InviteAuthorByLinkBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const InviteAuthorByLinkBubble({
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -160,9 +161,9 @@ class InviteAuthorByLinkBubble extends StatelessWidget {
           color: Colorz.cyan255,
         ),
 
-        Row(
+        const Row(
           mainAxisAlignment: MainAxisAlignment.end,
-          children: const <Widget>[
+          children: <Widget>[
             BldrsBox(
               height: 50,
               color: Colorz.yellow255,

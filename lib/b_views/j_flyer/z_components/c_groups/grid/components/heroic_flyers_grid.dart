@@ -10,25 +10,25 @@ import 'package:flutter/material.dart';
 class HeroicFlyersGrid extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const HeroicFlyersGrid({
-    @required this.screenName,
-    @required this.gridWidth,
-    @required this.gridHeight,
-    @required this.scrollController,
-    @required this.flyers,
-    @required this.flyersIDs,
-    @required this.topPadding,
-    @required this.numberOfColumnsOrRows,
-    @required this.showAddFlyerButton,
-    @required this.onFlyerOptionsTap,
-    @required this.onSelectFlyer,
-    @required this.scrollDirection,
-    @required this.onFlyerNotFound,
-    @required this.scrollable,
-    @required this.selectionMode,
-    @required this.bottomPadding,
-    @required this.hasResponsiveSideMargin,
-    Key key
-  }) : super(key: key);
+    required this.screenName,
+    required this.gridWidth,
+    required this.gridHeight,
+    required this.scrollController,
+    required this.flyers,
+    required this.flyersIDs,
+    required this.topPadding,
+    required this.numberOfColumnsOrRows,
+    required this.showAddFlyerButton,
+    required this.onFlyerOptionsTap,
+    required this.onSelectFlyer,
+    required this.scrollDirection,
+    required this.onFlyerNotFound,
+    required this.scrollable,
+    required this.selectionMode,
+    required this.bottomPadding,
+    required this.hasResponsiveSideMargin,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final List<FlyerModel> flyers;
   final List<String> flyersIDs;

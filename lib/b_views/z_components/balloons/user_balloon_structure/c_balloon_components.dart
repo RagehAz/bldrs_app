@@ -1,6 +1,8 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/super_box/src/a_the_box_of_super_box/x_custom_box_shadow.dart';
 import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
-import 'package:colorizer/colorizer.dart';
+import 'package:basics/helpers/classes/colors/colorizer.dart';
 
 import 'package:bldrs_theme/bldrs_theme.dart';
 
@@ -9,14 +11,14 @@ import 'package:flutter/material.dart';
 class BalloonComponents extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BalloonComponents({
-    @required this.balloonWidth,
-    @required this.blackAndWhite,
-    @required this.pic,
-    @required this.child,
+    required this.balloonWidth,
+    required this.blackAndWhite,
+    required this.pic,
+    required this.child,
     this.balloonColor,
     this.loading = false,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double balloonWidth;
   final Color balloonColor;

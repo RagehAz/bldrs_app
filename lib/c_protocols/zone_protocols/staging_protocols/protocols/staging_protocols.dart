@@ -58,7 +58,7 @@ class StagingProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<StagingModel> fetchCitiesStaging({
-    @required String countryID,
+    required String countryID,
   }) async {
     StagingModel _output;
 
@@ -83,7 +83,7 @@ class StagingProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<StagingModel> refetchCitiesStaging({
-    @required String countryID,
+    required String countryID,
   }) async {
     StagingModel _output;
 
@@ -104,7 +104,7 @@ class StagingProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<void> renovateCountriesStaging({
-    @required StagingModel newStaging,
+    required StagingModel newStaging,
   }) async {
 
     if (newStaging != null){
@@ -129,7 +129,7 @@ class StagingProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<void> renovateCitiesStaging({
-    @required StagingModel newStaging,
+    required StagingModel newStaging,
   }) async {
 
     if (newStaging != null){
@@ -158,7 +158,7 @@ class StagingProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<void> removeCityFromStages({
-    @required String cityID,
+    required String cityID,
   }) async {
 
     if (cityID != null){

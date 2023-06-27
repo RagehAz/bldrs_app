@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/a_models/g_counters/flyer_counter_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/a_info_button_structure/gg_flyer_record_box.dart';
@@ -10,11 +11,11 @@ import 'package:flutter/material.dart';
 class FlyerCountersAndRecords extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerCountersAndRecords({
-    @required this.pageWidth,
-    @required this.flyerModel,
-    @required this.flyerCounter,
-    Key key
-  }) : super(key: key);
+    required this.pageWidth,
+    required this.flyerModel,
+    required this.flyerCounter,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double pageWidth;
   final FlyerModel flyerModel;
@@ -27,7 +28,7 @@ class FlyerCountersAndRecords extends StatelessWidget {
       width: pageWidth,
       child: ValueListenableBuilder(
         valueListenable: flyerCounter,
-        builder: (_, FlyerCounterModel counter, Widget child){
+        builder: (_, FlyerCounterModel counter, Widget? child){
 
 
           if (counter == null){

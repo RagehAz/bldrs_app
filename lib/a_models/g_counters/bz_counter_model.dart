@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 class BzCounterModel {
   /// -----------------------------------------------------------------------------
   const BzCounterModel({
-    @required this.bzID,
-    @required this.follows,
-    @required this.calls,
-    @required this.allSaves,
-    @required this.allShares,
-    @required this.allSlides,
-    @required this.allViews,
-    @required this.allReviews,
+    required this.bzID,
+    required this.follows,
+    required this.calls,
+    required this.allSaves,
+    required this.allShares,
+    required this.allSlides,
+    required this.allViews,
+    required this.allReviews,
   });
   /// -----------------------------------------------------------------------------
   final String bzID;
@@ -111,8 +111,8 @@ class BzCounterModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkBzCounterModelsAreIdentical({
-    @required BzCounterModel counter1,
-    @required BzCounterModel counter2,
+    required BzCounterModel counter1,
+    required BzCounterModel counter2,
   }){
     bool _areIdentical = false;
 

@@ -21,9 +21,9 @@ class AuthorshipSendingProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendRequest({
-    @required BuildContext context,
-    @required BzModel oldBz,
-    @required UserModel userModelToSendTo,
+    required BuildContext context,
+    required BzModel oldBz,
+    required UserModel userModelToSendTo,
   }) async {
 
     final NoteModel noteModel = await NoteEvent.sendAuthorshipInvitationNote(
@@ -58,9 +58,9 @@ class AuthorshipSendingProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> cancelRequest({
-    @required BuildContext context,
-    @required BzModel bzModel,
-    @required String pendingUserID
+    required BuildContext context,
+    required BzModel bzModel,
+    required String pendingUserID
   }) async {
 
     await Future.wait(<Future>[
@@ -92,9 +92,9 @@ class AuthorshipSendingProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _renovateReplyOfSentRequestToCancel({
-    @required BuildContext context,
-    @required BzModel bzModel,
-    @required String pendingUserID,
+    required BuildContext context,
+    required BzModel bzModel,
+    required String pendingUserID,
   }) async {
 
     /// get pending author model
@@ -123,9 +123,9 @@ class AuthorshipSendingProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _sendAuthorshipCancellationNote({
-    @required BuildContext context,
-    @required BzModel bzModel,
-    @required String pendingUserID
+    required BuildContext context,
+    required BzModel bzModel,
+    required String pendingUserID
   }) async {
 
     /// get that user to send him cancellation note

@@ -4,9 +4,9 @@ import 'package:flutter/foundation.dart';
 class TargetReward{
   /// --------------------------------------------------------------------------
   const TargetReward({
-    @required this.targetID,
-    @required this.ankh,
-    @required this.slides,
+    required this.targetID,
+    required this.ankh,
+    required this.slides,
   });
   /// --------------------------------------------------------------------------
   final String targetID;

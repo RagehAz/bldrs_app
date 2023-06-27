@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:ldb/ldb.dart';
+import 'package:basics/ldb/methods/ldb_ops.dart';
 /// => TAMAM
 class CountryLDBOps {
   // -----------------------------------------------------------------------------

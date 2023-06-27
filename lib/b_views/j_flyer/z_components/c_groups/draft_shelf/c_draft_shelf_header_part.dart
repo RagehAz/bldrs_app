@@ -6,8 +6,8 @@
 // import 'package:bldrs/c_controllers/i_flyer_maker_controllers/xx_draft_shelf_controllers.dart';
 // import 'package:bldrs/d_providers/phrase_provider.dart';
 // import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
-// import 'package:mapper/mapper.dart';
-// import 'package:scale/scale.dart';
+// import 'package:basics/helpers/classes/maps/mapper.dart';
+// import 'package:basics/helpers/classes/space/scale.dart';
 //
 // 
 // 
@@ -17,14 +17,14 @@
 // class ShelfHeaderPart extends StatelessWidget {
 //   /// --------------------------------------------------------------------------
 //   const ShelfHeaderPart({
-//     @required this.draft,
-//     @required this.shelfNumber,
-//     @required this.titleLength,
-//     @required this.formKey,
-//     @required this.onMoreTap,
-//     @required this.loading,
-//     @required this.onHeadlineChanged,
-//     @required this.headlineController,
+//     required this.draft,
+//     required this.shelfNumber,
+//     required this.titleLength,
+//     required this.formKey,
+//     required this.onMoreTap,
+//     required this.loading,
+//     required this.onHeadlineChanged,
+//     required this.headlineController,
 //     Key key,
 //   }) : super(key: key);
 //   /// --------------------------------------------------------------------------

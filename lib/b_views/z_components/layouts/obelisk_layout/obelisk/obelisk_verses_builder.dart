@@ -5,16 +5,16 @@ import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_mode
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:widget_fader/widget_fader.dart';
+import 'package:basics/animators/widgets/widget_fader.dart';
 
 class ObeliskVersesBuilder extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ObeliskVersesBuilder({
-    @required this.navModels,
-    @required this.progressBarModel,
-    @required this.onRowTap,
-    Key key
-  }) : super(key: key);
+    required this.navModels,
+    required this.progressBarModel,
+    required this.onRowTap,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final List<NavModel> navModels;
   final ValueNotifier<ProgressBarModel> progressBarModel;
@@ -42,13 +42,13 @@ class ObeliskVersesBuilder extends StatelessWidget {
     return Selector<UiProvider, bool>(
       key: const ValueKey<String>('ObeliskVersesBuilder'),
       selector: (_, UiProvider uiProvider) => uiProvider.pyramidsAreExpanded,
-      builder: (_, bool expanded, Widget child) {
+      builder: (_, bool expanded, Widget? child) {
 
           return WidgetFader(
             fadeType: expanded == null ? FadeType.stillAtMin : expanded == true ? FadeType.fadeIn : FadeType.fadeOut,
             curve: expanded == true ? Curves.easeOutQuart : Curves.easeOut,
             duration: const Duration(milliseconds: 200),
-            builder: (double value, Widget child){
+            builder: (double value, Widget? child){
 
               // blog('value is : $value : is Big is : $isBig');
 

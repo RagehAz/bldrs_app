@@ -10,10 +10,10 @@ import 'package:bldrs/c_protocols/zone_phids_protocols/zone_phids_real_ops.dart'
 import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/c_protocols/picker_protocols/protocols/picker_protocols.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
 // final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
@@ -25,7 +25,7 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> initializeAllChains({
-    @required bool notify,
+    required bool notify,
   }) async {
     // --------------------
     /// NOTE : initialization for fetching setting :-
@@ -120,8 +120,8 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> updateBldrsChainsOps({
-    @required List<Chain> bldrsChains,
-    @required bool notify,
+    required List<Chain> bldrsChains,
+    required bool notify,
   }) async {
     // --------------------
     /// UPDATE : BIG CHAIN K
@@ -171,7 +171,7 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void wipeOutChainsPro({
-    @required bool notify,
+    required bool notify,
   }){
 
     /// BLDRS CHAINS
@@ -196,7 +196,7 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void wipeOut({
-    @required bool notify,
+    required bool notify,
   }){
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(
         getMainContext(),
@@ -216,9 +216,9 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Chain> proGetBldrsChains({
-    @required BuildContext context,
-    @required bool onlyUseZoneChains,
-    @required bool listen,
+    required BuildContext context,
+    required bool onlyUseZoneChains,
+    required bool listen,
   }){
 
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: listen);
@@ -234,7 +234,7 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Chain proGetChainByID({
-    @required String chainID,
+    required String chainID,
   }){
 
     return Chain.getChainFromChainsByID(
@@ -250,7 +250,7 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> fetchSortSetBldrsChains({
-    @required bool notify,
+    required bool notify,
   }) async {
 
     List<Chain> _bldrsChains = await ChainProtocols.fetchBldrsChains();
@@ -268,8 +268,8 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void _setBldrsChains({
-    @required List<Chain> chains,
-    @required bool notify,
+    required List<Chain> chains,
+    required bool notify,
   }){
     _chains = chains;
     if (notify == true){
@@ -286,8 +286,8 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static ZonePhidsModel proGetZonePhids({
-    @required BuildContext context,
-    @required bool listen,
+    required BuildContext context,
+    required bool listen,
   }){
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: listen);
     return _chainsProvider.zonePhidsModel;
@@ -295,7 +295,7 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _readSetZonePhidsModel({
-    @required bool notify,
+    required bool notify,
   }) async {
 
     final ZonePhidsModel _zonePhidsModel = await ZonePhidsRealOps.readZonePhidsOfCurrentZone();
@@ -309,8 +309,8 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void _setZonePhidModels({
-    @required ZonePhidsModel zonePhidsModel,
-    @required bool notify,
+    required ZonePhidsModel zonePhidsModel,
+    required bool notify,
   }){
 
     _zonePhidsModel = zonePhidsModel;
@@ -329,8 +329,8 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _refineSetZoneChains({
-    @required bool notify,
-    @required List<Chain> chains,
+    required bool notify,
+    required List<Chain> chains,
   }) async {
 
     final List<Chain> _zoneChains = ZonePhidsModel.removeUnusedPhidsFromBldrsChainsForThisZone(
@@ -347,8 +347,8 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void _setZoneChains({
-    @required bool notify,
-    @required List<Chain> chains,
+    required bool notify,
+    required List<Chain> chains,
   }){
     _zoneChains = chains;
     if (notify == true){
@@ -365,8 +365,8 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _generateSetChainsPhrases({
-    @required List<Chain> chains,
-    @required bool notify,
+    required List<Chain> chains,
+    required bool notify,
   }) async {
 
     final List<Phrase> _phrases = await PhraseProtocols.generatePhrasesFromChains(
@@ -383,8 +383,8 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void _setBldrsChainsPhrases({
-    @required List<Phrase> phrases,
-    @required bool notify,
+    required List<Phrase> phrases,
+    required bool notify,
   }){
     _chainsPhrases = phrases;
     if (notify == true){
@@ -394,8 +394,8 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   String translateChainPhid({
-    @required String phid,
-    @required String langCode,
+    required String phid,
+    required String langCode,
   }){
 
     final Phrase _phrase = Phrase.searchPhraseByIDAndLangCode(
@@ -409,8 +409,8 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   List<String> translateChainPhids({
-    @required List<String> phids,
-    @required String langCode,
+    required List<String> phids,
+    required String langCode,
   }){
     final List<String> _output = <String>[];
 
@@ -442,8 +442,8 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _generateSetZoneChainsPhrases({
-    @required List<Chain> zoneChains,
-    @required bool notify,
+    required List<Chain> zoneChains,
+    required bool notify,
   }) async {
 
     final List<Phrase> _phrases = await PhraseProtocols.generatePhrasesFromChains(
@@ -460,8 +460,8 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void _setZoneChainsPhrases({
-    @required List<Phrase> phrases,
-    @required bool notify,
+    required List<Phrase> phrases,
+    required bool notify,
   }){
     _zoneChainsPhrases = phrases;
     if (notify == true){
@@ -481,8 +481,8 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static FlyerType proGetHomeWallFlyerType({
-    @required BuildContext context,
-    @required bool listen,
+    required BuildContext context,
+    required bool listen,
   }){
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: listen);
     return _chainsProvider.wallFlyerType;
@@ -490,8 +490,8 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String proGetHomeWallPhid({
-    @required BuildContext context,
-    @required bool listen,
+    required BuildContext context,
+    required bool listen,
   }){
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: listen);
     return _chainsProvider.wallPhid;
@@ -499,9 +499,9 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> changeHomeWallFlyerType({
-    @required FlyerType flyerType,
-    @required String phid,
-    @required bool notify,
+    required FlyerType flyerType,
+    required String phid,
+    required bool notify,
   }) async {
 
     // blog('Changing section to $flyerType');
@@ -516,9 +516,9 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void _setWallFlyerAndPhid({
-    @required FlyerType flyerType,
-    @required String phid,
-    @required bool notify,
+    required FlyerType flyerType,
+    required String phid,
+    required bool notify,
   }){
     _wallFlyerType = flyerType;
     _wallPhid = phid;
@@ -532,7 +532,7 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void clearWallFlyerTypeAndPhid({
-    @required bool notify,
+    required bool notify,
   }){
     _setWallFlyerAndPhid(
       phid: null,
@@ -550,8 +550,8 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<PickerModel> proGetAllPickers({
-    @required BuildContext context,
-    @required bool listen,
+    required BuildContext context,
+    required bool listen,
   }){
 
     return proGetSortedPickersByFlyerTypes(
@@ -565,7 +565,7 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static PickerModel proGetPickerByChainID({
-    @required String chainID,
+    required String chainID,
   }){
 
     return PickerModel.getPickerByChainID(
@@ -580,10 +580,10 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<PickerModel> proGetPickersByFlyerType({
-    @required BuildContext context,
-    @required FlyerType flyerType,
-    @required bool sort,
-    @required bool listen,
+    required BuildContext context,
+    required FlyerType flyerType,
+    required bool sort,
+    required bool listen,
   }){
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: listen);
     final String _pickersKey = PickerModel.getPickersIDByFlyerType(flyerType);
@@ -596,10 +596,10 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<PickerModel> proGetSortedPickersByFlyerTypes({
-    @required BuildContext context,
-    @required List<FlyerType> flyerTypes,
-    @required bool sort,
-    @required bool listen,
+    required BuildContext context,
+    required List<FlyerType> flyerTypes,
+    required bool sort,
+    required bool listen,
   }){
     final List<PickerModel> _output = <PickerModel>[];
 
@@ -625,9 +625,9 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<PickerModel> proGetPickersBySpecs({
-    @required BuildContext context,
-    @required List<SpecModel> specs,
-    @required bool listen,
+    required BuildContext context,
+    required List<SpecModel> specs,
+    required bool listen,
   }){
     final List<PickerModel> _output = <PickerModel>[];
 
@@ -673,7 +673,7 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> fetchSetAllPickers({
-    @required bool notify,
+    required bool notify,
   }) async {
 
     await Future.wait(<Future>[
@@ -712,9 +712,9 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void setFlyerTypePickers({
-    @required FlyerType flyerType,
-    @required List<PickerModel> pickers,
-    @required bool notify,
+    required FlyerType flyerType,
+    required List<PickerModel> pickers,
+    required bool notify,
   }){
 
     final String _pickersID = PickerModel.getPickersIDByFlyerType(flyerType);
@@ -742,7 +742,7 @@ class ChainsProvider extends ChangeNotifier {
   // -----------------------------------------------------------------------------o
   /// TESTED : WORKS PERFECT
   Chain findChainByID({
-    @required String chainID,
+    required String chainID,
     bool onlyUseZoneChains = false,
   }){
 
@@ -761,7 +761,7 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Chain proFindChainByID({
-    @required String chainID,
+    required String chainID,
     bool onlyUseZoneChains = false,
   }){
 
@@ -777,8 +777,8 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Chain getChainKByFlyerType({
-    @required FlyerType flyerType,
-    @required bool onlyUseZoneChains,
+    required FlyerType flyerType,
+    required bool onlyUseZoneChains,
   }){
 
     final String _chainID = FlyerTyper.concludeChainIDByFlyerType(
@@ -795,7 +795,7 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   String getPhidIcon({
-    @required dynamic son,
+    required dynamic son,
   }) {
 
     String _phid;
@@ -818,7 +818,7 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String proGetPhidIcon({
-    @required dynamic son,
+    required dynamic son,
   }){
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
     return _chainsProvider.getPhidIcon(son: son);
@@ -838,8 +838,8 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Chain proGetBigChainS({
-    @required BuildContext context,
-    @required bool listen,
+    required BuildContext context,
+    required bool listen,
   }){
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: listen);
     return _chainsProvider.bigChainS;
@@ -847,8 +847,8 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _fetchSetBigChainS({
-    @required BuildContext context,
-    @required bool notify,
+    required BuildContext context,
+    required bool notify,
   }) async {
 
     final Chain _bigChainS = await ChainProtocols.fetchBigChainS(context);
@@ -862,8 +862,8 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void _setBigChainS({
-    @required Chain bigChainS,
-    @required bool notify,
+    required Chain bigChainS,
+    required bool notify,
   }){
     _bigChainS = bigChainS;
     if (notify == true){
@@ -881,9 +881,9 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _generateSetBigChainSPhrases({
-    @required BuildContext context,
-    @required Chain bigChainS,
-    @required bool notify,
+    required BuildContext context,
+    required Chain bigChainS,
+    required bool notify,
   }) async {
 
     final List<Phrase> _phrases = await PhraseProtocols.generatePhrasesFromChain(
@@ -900,8 +900,8 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void _setBigChainSPhrases({
-    @required List<Phrase> phrases,
-    @required bool notify,
+    required List<Phrase> phrases,
+    required bool notify,
   }){
     _bigChainSPhrases = phrases;
     if (notify == true){
@@ -912,9 +912,9 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> updateBigChainSOps({
-    @required BuildContext context,
-    @required Chain bigChainS,
-    @required bool notify,
+    required BuildContext context,
+    required Chain bigChainS,
+    required bool notify,
   }) async {
     // --------------------
     /// KEEP : BIG CHAIN K

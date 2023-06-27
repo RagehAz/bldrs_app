@@ -10,15 +10,15 @@ import 'package:flutter/material.dart';
 class CurrencyButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const CurrencyButton({
-    @required this.currency,
-    @required this.onTap,
+    required this.currency,
+    required this.onTap,
     this.countryID,
     this.icon,
     this.width,
     this.height = standardHeight,
     this.highlightController,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double width;
   final double height;

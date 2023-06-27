@@ -1,3 +1,6 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
@@ -6,13 +9,13 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 
 class BzPowersPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzPowersPage({
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -152,7 +155,7 @@ class BzPowersPage extends StatelessWidget {
               const EdgeInsets.symmetric(vertical: Ratioz.appBarPadding),
               decoration: BoxDecoration(
                 color: Colorz.bloodTest,
-                borderRadius: Bubble.clearBorders(context),
+                borderRadius: Bubble.clearBorders(),
               ),
             ),
 

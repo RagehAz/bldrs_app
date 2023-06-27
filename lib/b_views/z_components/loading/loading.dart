@@ -1,20 +1,24 @@
+import 'package:basics/animators/helpers/animators.dart';
+import 'package:basics/animators/widgets/widget_fader.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:animators/animators.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:numeric/numeric.dart';
-import 'package:widget_fader/widget_fader.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:basics/animators/widgets/widget_fader.dart';
 
 class Loading extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const Loading({
-    @required this.loading,
+    required this.loading,
     this.size = 50,
     this.color = Colorz.yellow255,
     this.isBlackHole = true,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double size;
   final bool loading;
@@ -63,8 +67,8 @@ class LoadingBlackHole extends StatelessWidget {
   const LoadingBlackHole({
     this.size = 50,
     this.rpm = 350,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   // -----------------------------------------------------------------------------
   final double size;
   final double rpm;
@@ -81,7 +85,7 @@ class LoadingBlackHole extends StatelessWidget {
         fadeType: FadeType.repeatAndReverse,
         duration: Duration(milliseconds: (60 / (rpm*0.05) * 1000).round()),
         curve: Curves.slowMiddle,
-        builder: (double val, Widget child) {
+        builder: (double val, Widget? child) {
           return BldrsBox(
             width: size,
             height: size,
@@ -99,9 +103,9 @@ class LoadingBlackHole extends StatelessWidget {
         },
       ),
 
-      builder: (double val, Widget child) {
+      builder: (double val, Widget? child) {
         return Transform.rotate(
-          angle: Numeric.degreeToRadian(360 * val),
+          angle: Numeric.degreeToRadian(360 * val)!,
           child: child,
         );
       },

@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/g_counters/bz_counter_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
@@ -9,15 +10,15 @@ import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 
 class BzStatsBubble extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const BzStatsBubble({
     this.bzModel,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final BzModel bzModel;
   /// --------------------------------------------------------------------------
@@ -34,7 +35,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -90,7 +91,7 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
 
     return ValueListenableBuilder(
         valueListenable: _bzCounter,
-        builder: (_, BzCounterModel bzCounter, Widget child){
+        builder: (_, BzCounterModel bzCounter, Widget? child){
 
           final BzCounterModel _counter = bzCounter ?? BzCounterModel.createInitialModel(_bzModel?.id);
 

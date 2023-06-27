@@ -1,17 +1,17 @@
 // import 'package:mediators/mediators.dart';
-// import 'package:mapper/mapper.dart';
-// import 'package:numeric/numeric.dart';
+// import 'package:basics/helpers/classes/maps/mapper.dart';
+// import 'package:basics/helpers/classes/nums/numeric.dart';
 // import 'package:fire/super_fire.dart';
-// import 'package:stringer/stringer.dart';
-// import 'package:filers/filers.dart';
+// import 'package:basics/helpers/classes/strings/stringer.dart';
+// import 'package:basics/helpers/classes/files/filers.dart';
 // import 'package:flutter/material.dart';
 // /// => TAMAM
 // @immutable
 // class PicMetaModel {
 //   // -----------------------------------------------------------------------------
 //   const PicMetaModel({
-//     @required this.ownersIDs,
-//     @required this.dimensions,
+//     required this.ownersIDs,
+//     required this.dimensions,
 //   });
 //   // -----------------------------------------------------------------------------
 //   final List<String> ownersIDs;
@@ -99,7 +99,7 @@
 //   // --------------------
 //   /// TESTED : WORKS PERFECT
 //   static PicMetaModel decipherSettableMetaData({
-//     @required SettableMetadata settableMetadata,
+//     required SettableMetadata settableMetadata,
 //   }){
 //     PicMetaModel _output;
 //
@@ -116,7 +116,7 @@
 //   // --------------------
 //   /// TESTED : WORKS PERFECT
 //   static PicMetaModel decipherFullMetaData({
-//     @required FullMetadata fullMetadata,
+//     required FullMetadata fullMetadata,
 //   }){
 //     PicMetaModel _output;
 //
@@ -133,7 +133,7 @@
 //   // --------------------
 //   /// TESTED : WORKS PERFECT
 //   static PicMetaModel _decipherMetaMap({
-//     @required Map<String, String> customMetadata,
+//     required Map<String, String> customMetadata,
 //   }){
 //     PicMetaModel _output;
 //
@@ -210,8 +210,8 @@
 //   // --------------------
 //   /// TESTED : WORKS PERFECT
 //   static bool checkMetaDatasAreIdentical({
-//   @required PicMetaModel meta1,
-//   @required PicMetaModel meta2,
+//   required PicMetaModel meta1,
+//   required PicMetaModel meta2,
 //   }){
 //     bool _output = false;
 //

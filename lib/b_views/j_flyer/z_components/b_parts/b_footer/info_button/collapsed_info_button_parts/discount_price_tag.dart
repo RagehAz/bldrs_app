@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/collapsed_info_button_parts/collapsed_info_button_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
@@ -9,21 +10,21 @@ import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:numeric/numeric.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:provider/provider.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class DiscountPriceTag extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const DiscountPriceTag({
-    @required this.flyerBoxWidth,
-    @required this.tinyMode,
-    @required this.width,
-    @required this.height,
-    @required this.paddingValue,
-    @required this.buttonIsExpanded,
-    Key key
-  }) : super(key: key);
+    required this.flyerBoxWidth,
+    required this.tinyMode,
+    required this.width,
+    required this.height,
+    required this.paddingValue,
+    required this.buttonIsExpanded,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final bool tinyMode;
@@ -65,7 +66,7 @@ class DiscountPriceTag extends StatelessWidget {
         /// DISCOUNT PERCENTAGE
         ValueListenableBuilder<bool>(
             valueListenable: buttonIsExpanded,
-            builder: (_, bool _buttonExpanded, Widget child){
+            builder: (_, bool _buttonExpanded, Widget? child){
 
               final double _percentagePosition =
               tinyMode ? height * 0.05
@@ -137,7 +138,7 @@ class DiscountPriceTag extends StatelessWidget {
         /// PRICES
         ValueListenableBuilder(
             valueListenable: buttonIsExpanded,
-            builder: (_, bool _buttonExpanded, Widget child){
+            builder: (_, bool _buttonExpanded, Widget? child){
               // -------------------------------------------
               final double _pricePosition =
               tinyMode ? height * 0.1

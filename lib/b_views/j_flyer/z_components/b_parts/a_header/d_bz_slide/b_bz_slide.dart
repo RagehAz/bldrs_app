@@ -1,3 +1,6 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/g_counters/bz_counter_model.dart';
@@ -13,17 +16,17 @@ import 'package:bldrs/c_protocols/bz_protocols/fire/bz_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class BzSlide extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzSlide({
-    @required this.flyerBoxWidth,
-    @required this.bzModel,
-    @required this.bzCounters,
-    Key key,
-  }) : super(key: key);
+    required this.flyerBoxWidth,
+    required this.bzModel,
+    required this.bzCounters,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final BzModel bzModel;
@@ -63,7 +66,7 @@ class BzSlide extends StatelessWidget {
       // height: 500,
       child: ValueListenableBuilder(
         valueListenable: bzCounters,
-        builder: (_, BzCounterModel _counter, Widget child){
+        builder: (_, BzCounterModel _counter, Widget? child){
 
           return Column(
             children: <Widget>[

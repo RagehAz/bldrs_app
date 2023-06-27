@@ -1,3 +1,5 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/flyers_grid_builder.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
@@ -6,31 +8,31 @@ import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_builder.dart
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/flyer_selection_stack.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 
 class JumpingFlyersGrid extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const JumpingFlyersGrid({
-    @required this.screenName,
-    @required this.gridWidth,
-    @required this.gridHeight,
-    @required this.scrollController,
-    @required this.flyers,
-    @required this.flyersIDs,
-    @required this.topPadding,
-    @required this.numberOfColumnsOrRows,
-    @required this.showAddFlyerButton,
-    @required this.onFlyerOptionsTap,
-    @required this.onSelectFlyer,
-    @required this.scrollDirection,
-    @required this.onFlyerNotFound,
-    @required this.scrollable,
-    @required this.selectionMode,
-    @required this.bottomPadding,
-    @required this.hasResponsiveSideMargin,
-    Key key
-  }) : super(key: key);
+    required this.screenName,
+    required this.gridWidth,
+    required this.gridHeight,
+    required this.scrollController,
+    required this.flyers,
+    required this.flyersIDs,
+    required this.topPadding,
+    required this.numberOfColumnsOrRows,
+    required this.showAddFlyerButton,
+    required this.onFlyerOptionsTap,
+    required this.onSelectFlyer,
+    required this.scrollDirection,
+    required this.onFlyerNotFound,
+    required this.scrollable,
+    required this.selectionMode,
+    required this.bottomPadding,
+    required this.hasResponsiveSideMargin,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final List<FlyerModel> flyers;
   final List<String> flyersIDs;

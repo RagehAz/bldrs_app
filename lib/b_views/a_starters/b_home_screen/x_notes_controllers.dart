@@ -12,7 +12,7 @@ import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 // -----------------------------------------------------------------------------
 
 /// OBELISK
@@ -125,7 +125,7 @@ List<StreamSubscription> listenToMyBzzUnseenNotes(){
 // --------------------
 /// TESTED : WORKS PERFECT
 StreamSubscription _listenToMyBzUnseenNotes({
-  @required String bzID,
+  required String bzID,
 }){
 
   final Stream<List<Map<String, dynamic>>> _bzUnseenNotesStream  = bzUnseenNotesStream(
@@ -174,7 +174,7 @@ StreamSubscription _listenToMyBzUnseenNotes({
 // --------------------
 /// TESTED : WORKS PERFECT
 void concludeAndActivatePyramidsFlashing({
-  @required List<NoteModel> unseenNotes,
+  required List<NoteModel> unseenNotes,
 }){
 
   final bool _noteDotIsOn = _checkNoteDotIsOn(
@@ -190,7 +190,7 @@ void concludeAndActivatePyramidsFlashing({
 // --------------------
 /// TESTED : WORKS PERFECT
 bool _checkNoteDotIsOn({
-  @required List<NoteModel> unseenNotes,
+  required List<NoteModel> unseenNotes,
 }){
 
   final UserModel _userModel = UsersProvider.proGetMyUserModel(

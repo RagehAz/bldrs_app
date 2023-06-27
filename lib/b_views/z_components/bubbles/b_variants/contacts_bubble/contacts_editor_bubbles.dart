@@ -3,19 +3,19 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_head
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/contact_field_editor_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 
 class ContactsEditorsBubbles extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ContactsEditorsBubbles({
-    @required this.contacts,
-    @required this.contactsOwnerType,
-    @required this.appBarType,
-    @required this.globalKey,
-    Key key
-  }) : super(key: key);
+    required this.contacts,
+    required this.contactsOwnerType,
+    required this.appBarType,
+    required this.globalKey,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final List<ContactModel> contacts;
   final ContactsOwnerType contactsOwnerType;

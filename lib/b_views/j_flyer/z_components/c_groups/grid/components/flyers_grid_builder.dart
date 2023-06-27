@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
@@ -5,19 +6,19 @@ import 'package:flutter/material.dart';
 class FlyersGridBuilder extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyersGridBuilder({
-    @required this.gridWidth,
-    @required this.gridHeight,
-    @required this.builder,
-    @required this.itemCount,
-    @required this.hasResponsiveSideMargin,
+    required this.gridWidth,
+    required this.gridHeight,
+    required this.builder,
+    required this.itemCount,
+    required this.hasResponsiveSideMargin,
     this.topPadding = Ratioz.stratosphere,
     this.numberOfColumnsOrRows = 2,
     this.scrollDirection = Axis.vertical,
     this.scrollable = true,
     this.scrollController,
     this.bottomPadding,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double gridWidth;
   final double gridHeight;

@@ -15,10 +15,10 @@ import 'package:flutter/material.dart';
 class NotePosterBuilder extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const NotePosterBuilder({
-    @required this.noteModel,
-    @required this.width,
-    Key key
-  }) : super(key: key);
+    required this.noteModel,
+    required this.width,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final NoteModel noteModel;
   final double width;

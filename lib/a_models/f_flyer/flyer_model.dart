@@ -1,5 +1,9 @@
 import 'dart:ui' as ui;
 
+import 'package:basics/helpers/classes/checks/object_check.dart';
+import 'package:basics/helpers/classes/files/floaters.dart';
+import 'package:basics/helpers/classes/space/atlas.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
@@ -9,11 +13,11 @@ import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:fire/super_fire.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:space_time/space_time.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/time/timers.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 enum PublishState{
   draft,
@@ -32,28 +36,28 @@ enum AuditState{
 class FlyerModel {
   /// --------------------------------------------------------------------------
   const FlyerModel({
-    @required this.id,
-    @required this.headline,
-    @required this.trigram,
-    @required this.description,
-    @required this.flyerType,
-    @required this.publishState,
-    @required this.auditState,
-    @required this.phids,
-    @required this.zone,
-    @required this.authorID,
-    @required this.bzID,
-    @required this.position,
-    @required this.slides,
-    @required this.specs,
-    @required this.times,
-    @required this.hasPriceTag,
-    @required this.isAmazonFlyer,
-    @required this.hasPDF,
-    @required this.showsAuthor,
-    @required this.score,
-    @required this.pdfPath,
-    @required this.shareLink,
+    required this.id,
+    required this.headline,
+    required this.trigram,
+    required this.description,
+    required this.flyerType,
+    required this.publishState,
+    required this.auditState,
+    required this.phids,
+    required this.zone,
+    required this.authorID,
+    required this.bzID,
+    required this.position,
+    required this.slides,
+    required this.specs,
+    required this.times,
+    required this.hasPriceTag,
+    required this.isAmazonFlyer,
+    required this.hasPDF,
+    required this.showsAuthor,
+    required this.score,
+    required this.pdfPath,
+    required this.shareLink,
     this.affiliateLink,
     this.gtaLink,
     this.bzLogoImage,
@@ -167,7 +171,7 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
-    @required bool toJSON,
+    required bool toJSON,
   }){
     return <String, dynamic>{
       'id' : id,
@@ -204,8 +208,8 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Map<String, Object>> cipherFlyers({
-    @required List<FlyerModel> flyers,
-    @required bool toJSON,
+    required List<FlyerModel> flyers,
+    required bool toJSON,
   }){
     final List<Map<String, Object>> _maps = <Map<String, Object>>[];
 
@@ -226,8 +230,8 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static FlyerModel decipherFlyer({
-    @required dynamic map,
-    @required bool fromJSON,
+    required dynamic map,
+    required bool fromJSON,
   }){
     FlyerModel _flyerModel;
     if (map != null){
@@ -271,8 +275,8 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<FlyerModel> decipherFlyers({
-    @required List<Map<String, dynamic>> maps,
-    @required bool fromJSON,
+    required List<Map<String, dynamic>> maps,
+    required bool fromJSON,
   }){
     final List<FlyerModel> _flyersList = <FlyerModel>[];
 
@@ -292,7 +296,7 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> cipherPhids({
-    @required List<String> phids,
+    required List<String> phids,
   }){
     Map<String, dynamic> _output;
 
@@ -316,7 +320,7 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> decipherPhids({
-    @required Map<String, dynamic> map,
+    required Map<String, dynamic> map,
   }){
     List<String> _output = [];
 
@@ -506,7 +510,7 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogFlyers({
-    @required List<FlyerModel> flyers,
+    required List<FlyerModel> flyers,
     String invoker = 'BLOGGING FLYERS',
   }){
 
@@ -524,8 +528,8 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogFlyersDifferences({
-    @required FlyerModel flyer1,
-    @required FlyerModel flyer2,
+    required FlyerModel flyer1,
+    required FlyerModel flyer2,
   }){
 
     if (flyer1 == null){
@@ -758,8 +762,8 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static FlyerModel getFlyerFromFlyersByID({
-    @required List<FlyerModel> flyers,
-    @required String flyerID
+    required List<FlyerModel> flyers,
+    required String flyerID
   }){
     FlyerModel _output;
 
@@ -790,8 +794,8 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<FlyerModel> filterFlyersByFlyerType({
-    @required List<FlyerModel> flyers,
-    @required FlyerType flyerType,
+    required List<FlyerModel> flyers,
+    required FlyerType flyerType,
   }){
     final List<FlyerModel> _filteredFlyers = <FlyerModel>[];
 
@@ -809,8 +813,8 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<FlyerModel> getFlyersFromFlyersByAuthorID({
-    @required List<FlyerModel> flyers,
-    @required String authorID,
+    required List<FlyerModel> flyers,
+    required String authorID,
   }){
 
     final List<FlyerModel> _authorFlyers = <FlyerModel>[];
@@ -832,8 +836,8 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool flyersContainThisID({
-    @required String flyerID,
-    @required List<FlyerModel> flyers
+    required String flyerID,
+    required List<FlyerModel> flyers
   }){
     bool _hasTheID = false;
 
@@ -855,9 +859,9 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<FlyerModel> replaceFlyerInFlyers({
-    @required List<FlyerModel> flyers,
-    @required FlyerModel flyerToReplace,
-    @required bool insertIfAbsent,
+    required List<FlyerModel> flyers,
+    required FlyerModel flyerToReplace,
+    required bool insertIfAbsent,
   }){
     List<FlyerModel> _output = <FlyerModel>[];
 
@@ -897,8 +901,8 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<FlyerModel> removeFlyerFromFlyersByID({
-    @required List<FlyerModel> flyers,
-    @required String flyerIDToRemove,
+    required List<FlyerModel> flyers,
+    required String flyerIDToRemove,
   }){
     final List<FlyerModel> _output = <FlyerModel>[...flyers];
 
@@ -911,8 +915,8 @@ class FlyerModel {
   // --------------------
   /*
 //   static FlyerModel replaceSlides({
-//     @required FlyerModel flyer,
-//     @required List<SlideModel> updatedSlides,
+//     required FlyerModel flyer,
+//     required List<SlideModel> updatedSlides,
 //   }){
 //     return
 //       FlyerModel(
@@ -943,8 +947,8 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool canShowFlyerAuthor({
-    @required BzModel bzModel,
-    @required FlyerModel flyerModel,
+    required BzModel bzModel,
+    required FlyerModel flyerModel,
   }){
     bool _canShow = true;
 
@@ -962,11 +966,11 @@ class FlyerModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  String getShortHeadline({
+  String? getShortHeadline({
     int numberOfCharacters = 10
   }){
-    final String _shortHeadline = TextMod.removeAllCharactersAfterNumberOfCharacters(
-        input: headline,
+    final String? _shortHeadline = TextMod.removeAllCharactersAfterNumberOfCharacters(
+        text: headline,
         numberOfChars: numberOfCharacters
     );
     return _shortHeadline;
@@ -974,7 +978,7 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<String>> generateFlyerOwners({
-    @required String bzID,
+    required String bzID,
   }) async {
     List<String> _owners = <String>[];
 
@@ -1019,7 +1023,7 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getGtaLinks({
-    @required List<FlyerModel> flyers,
+    required List<FlyerModel> flyers,
   }){
     final List<String> _links = [];
 
@@ -1044,9 +1048,9 @@ class FlyerModel {
   // --------------------
     /// TESTED : WORKS PERFECT
   static FlyerModel migrateOwnership({
-    @required FlyerModel flyerModel,
-    @required String newOwnerID,
-    @required BzModel bzModel,
+    required FlyerModel flyerModel,
+    required String newOwnerID,
+    required BzModel bzModel,
   }){
 
     FlyerModel _output = flyerModel;
@@ -1084,8 +1088,8 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkFlyersAreIdentical({
-    @required FlyerModel flyer1,
-    @required FlyerModel flyer2,
+    required FlyerModel flyer1,
+    required FlyerModel flyer2,
   }){
 
     bool _areIdentical = false;

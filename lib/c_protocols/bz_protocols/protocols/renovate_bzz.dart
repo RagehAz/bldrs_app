@@ -13,7 +13,7 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_listeners.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
@@ -29,12 +29,12 @@ class RenovateBzProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> renovateBz({
-    @required BuildContext context,
-    @required BzModel newBz,
-    @required BzModel oldBz,
-    @required bool showWaitDialog,
-    // @required bool navigateToBzInfoPageOnEnd,
-    @required PicModel newLogo,
+    required BuildContext context,
+    required BzModel newBz,
+    required BzModel oldBz,
+    required bool showWaitDialog,
+    // required bool navigateToBzInfoPageOnEnd,
+    required PicModel newLogo,
   }) async {
     blog('RenovateBzProtocol.renovateBz : START');
 
@@ -102,8 +102,8 @@ class RenovateBzProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateBzLocally({
-    @required BzModel newBz,
-    @required BzModel oldBz,
+    required BzModel newBz,
+    required BzModel oldBz,
   }) async {
     // blog('RenovateBzProtocol.updateBzLocally : START');
 
@@ -152,7 +152,7 @@ class RenovateBzProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<BzModel> completeBzZoneModel({
-    @required BzModel bzModel,
+    required BzModel bzModel,
   }) async {
     // blog('RenovateBzProtocol.completeBzZoneModel : START');
 
@@ -203,9 +203,9 @@ class RenovateBzProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<BzModel> renovateAuthor({
-    @required BuildContext context,
-    @required BzModel oldBz,
-    @required AuthorModel newAuthor,
+    required BuildContext context,
+    required BzModel oldBz,
+    required AuthorModel newAuthor,
   }) async {
 
     // blog('RenovateBzProtocols.renovateAuthor : START');

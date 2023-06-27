@@ -1,19 +1,22 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class BzCreditsCounter extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzCreditsCounter({
-    @required this.width,
-    @required this.slidesCredit,
-    @required this.ankhsCredit,
-    Key key,
-  }) : super(key: key);
+    required this.width,
+    required this.slidesCredit,
+    required this.ankhsCredit,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double width;
   final String slidesCredit;
@@ -27,7 +30,7 @@ class BzCreditsCounter extends StatelessWidget {
       width: width,
       decoration: BoxDecoration(
         // color: Colorz.White30,
-        borderRadius: Borderers.cornerAll(context, Ratioz.appBarButtonCorner * 0.5),
+        borderRadius: Borderers.cornerAll(Ratioz.appBarButtonCorner * 0.5),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -56,11 +59,11 @@ class BzCreditsCounter extends StatelessWidget {
 class CreditsRow extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const CreditsRow({
-    @required this.icon,
-    @required this.value,
-    @required this.width,
-    Key key,
-  }) : super(key: key);
+    required this.icon,
+    required this.value,
+    required this.width,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final String icon;
   final String value;

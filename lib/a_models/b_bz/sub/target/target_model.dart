@@ -6,9 +6,9 @@ import 'package:flutter/foundation.dart';
 class TargetModel {
   /// --------------------------------------------------------------------------
   const TargetModel({
-    @required this.id,
-    @required this.name,
-    @required this.description,
+    required this.id,
+    required this.name,
+    required this.description,
     this.instructions,
     this.reward,
     this.progress,

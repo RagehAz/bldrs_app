@@ -1,13 +1,13 @@
 import 'package:fire/super_fire.dart';
 import 'package:flutter/foundation.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 /// => TAMAM
 @immutable
 class PickersBlocker {
   /// -----------------------------------------------------------------------------
   const PickersBlocker({
-    @required this.value,
-    @required this.pickersIDsToBlock,
+    required this.value,
+    required this.pickersIDsToBlock,
   });
   // -----------------------------------------------------------------------------
   /// 1. when this value is selected in selected specs list
@@ -111,8 +111,8 @@ class PickersBlocker {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkBlockersAreIdentical({
-    @required PickersBlocker blocker1,
-    @required PickersBlocker blocker2,
+    required PickersBlocker blocker1,
+    required PickersBlocker blocker2,
   }){
     bool _areIdentical = false;
 
@@ -141,8 +141,8 @@ class PickersBlocker {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkBlockersListsAreIdentical({
-    @required List<PickersBlocker> blockers1,
-    @required List<PickersBlocker> blockers2,
+    required List<PickersBlocker> blockers1,
+    required List<PickersBlocker> blockers2,
   }){
     bool _listsAreIdentical = false;
 

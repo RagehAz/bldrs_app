@@ -9,12 +9,12 @@ import 'package:flutter/material.dart';
 class PosterSwitcher extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const PosterSwitcher({
-    @required this.width,
-    @required this.posterType,
-    @required this.model,
-    @required this.modelHelper,
-    Key key
-  }) : super(key: key);
+    required this.width,
+    required this.posterType,
+    required this.model,
+    required this.modelHelper,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double width;
   final PosterType posterType;

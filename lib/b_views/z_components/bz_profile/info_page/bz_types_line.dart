@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -9,12 +10,12 @@ import 'package:flutter/material.dart';
 class BzTypesLine extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzTypesLine({
-    @required this.bzModel,
-    @required this.width,
+    required this.bzModel,
+    required this.width,
     this.centered = true,
     this.oneLine = false,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final BzModel bzModel;
   final double width;

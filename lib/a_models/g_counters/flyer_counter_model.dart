@@ -1,4 +1,4 @@
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/foundation.dart';
 /// => TAMAM
 @immutable
@@ -8,11 +8,11 @@ class FlyerCounterModel {
   /// ON RECORD CREATION => CLOUD  FUNCTION => INCREMENT - DECREMENT
   // -----------------------------------------------------------------------------
   const FlyerCounterModel({
-    @required this.flyerID,
-    @required this.saves,
-    @required this.shares,
-    @required this.views,
-    @required this.reviews,
+    required this.flyerID,
+    required this.saves,
+    required this.shares,
+    required this.views,
+    required this.reviews,
   });
   // -----------------------------------------------------------------------------
   final String flyerID;
@@ -111,8 +111,8 @@ class FlyerCounterModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkFlyerCounterModelsAreIdentical({
-    @required FlyerCounterModel counter1,
-    @required FlyerCounterModel counter2,
+    required FlyerCounterModel counter1,
+    required FlyerCounterModel counter2,
   }){
     bool _areIdentical = false;
 

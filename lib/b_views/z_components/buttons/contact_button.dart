@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -8,14 +9,14 @@ import 'package:flutter/material.dart';
 class ContactButton extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const ContactButton({
-    @required this.contactModel,
-    @required this.onTap,
+    required this.contactModel,
+    required this.onTap,
     this.height,
     this.margins,
     this.width,
     this.forceShowVerse = false,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   // -----------------------------------------------------------------------------
   final double height;
   final double width;

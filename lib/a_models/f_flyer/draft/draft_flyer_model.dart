@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/space/atlas.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
@@ -16,48 +17,48 @@ import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:space_time/space_time.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/time/timers.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 /// => TAMAM
 @immutable
 class DraftFlyer{
   /// --------------------------------------------------------------------------
   const DraftFlyer({
-    @required this.id,
-    @required this.headline,
-    @required this.trigram,
-    @required this.headlineNode,
-    @required this.description,
-    @required this.descriptionNode,
-    @required this.flyerType,
-    @required this.publishState,
-    @required this.auditState,
-    @required this.phids,
-    @required this.showsAuthor,
-    @required this.zone,
-    @required this.authorID,
-    @required this.bzID,
-    @required this.position,
-    @required this.draftSlides,
-    @required this.specs,
-    @required this.times,
-    @required this.hasPriceTag,
-    @required this.isAmazonFlyer,
-    @required this.hasPDF,
-    @required this.score,
-    @required this.pdfModel,
-    @required this.bzModel,
-    @required this.formKey,
-    @required this.canPickImage,
-    @required this.firstTimer,
-    @required this.posterController,
-    @required this.affiliateLink,
-    @required this.gtaLink,
+    required this.id,
+    required this.headline,
+    required this.trigram,
+    required this.headlineNode,
+    required this.description,
+    required this.descriptionNode,
+    required this.flyerType,
+    required this.publishState,
+    required this.auditState,
+    required this.phids,
+    required this.showsAuthor,
+    required this.zone,
+    required this.authorID,
+    required this.bzID,
+    required this.position,
+    required this.draftSlides,
+    required this.specs,
+    required this.times,
+    required this.hasPriceTag,
+    required this.isAmazonFlyer,
+    required this.hasPDF,
+    required this.score,
+    required this.pdfModel,
+    required this.bzModel,
+    required this.formKey,
+    required this.canPickImage,
+    required this.firstTimer,
+    required this.posterController,
+    required this.affiliateLink,
+    required this.gtaLink,
   });
   /// --------------------------------------------------------------------------
   final String id;
@@ -99,7 +100,7 @@ class DraftFlyer{
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<DraftFlyer> createDraft({
-    @required FlyerModel oldFlyer,
+    required FlyerModel oldFlyer,
   }) async {
     DraftFlyer _draft;
 
@@ -187,7 +188,7 @@ class DraftFlyer{
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<DraftFlyer> _createDraftFromFlyer({
-    @required FlyerModel flyer,
+    required FlyerModel flyer,
   }) async {
 
     if (flyer == null) {
@@ -233,8 +234,8 @@ class DraftFlyer{
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<FlyerModel> draftToFlyer({
-    @required DraftFlyer draft,
-    @required bool toLDB,
+    required DraftFlyer draft,
+    required bool toLDB,
     /// CORRECTS PUBLISH STATE AND ADDS NEW PUBLISH TIME RECORD
     bool isPublishing = false,
   }) async {
@@ -543,8 +544,8 @@ class DraftFlyer{
   // --------------------
   /// TESTED : WORKS PERFECT
   static String _generateStateTimeString({
-    @required BuildContext context,
-    @required PublishTime publishTime,
+    required BuildContext context,
+    required PublishTime publishTime,
   }){
 
     final String _timeString = BldrsTimers.generateString_hh_i_mm_ampm_day_dd_month_yyyy(
@@ -558,10 +559,10 @@ class DraftFlyer{
   // --------------------
   /// TESTED : WORKS PERFECT
   static String generateShelfTitle({
-    @required BuildContext context,
-    @required PublishState publishState,
-    @required List<PublishTime> times,
-    @required int shelfNumber,
+    required BuildContext context,
+    required PublishState publishState,
+    required List<PublishTime> times,
+    required int shelfNumber,
   }){
 
     final PublishTime _publishTime = PublishTime.getPublishTimeFromTimes(
@@ -588,9 +589,9 @@ class DraftFlyer{
   // --------------------
   /// TESTED : WORKS PERFECT
   static DraftFlyer updateHeadline({
-    @required String newHeadline,
-    @required DraftFlyer draft,
-    @required int slideIndex,
+    required String newHeadline,
+    required DraftFlyer draft,
+    required int slideIndex,
   }){
 
     DraftFlyer _draft = draft;
@@ -630,8 +631,8 @@ class DraftFlyer{
   // --------------------
   /// TESTED : WORKS PERFECT
   static DraftFlyer overrideFlyerID({
-    @required DraftFlyer draft,
-    @required String flyerID,
+    required DraftFlyer draft,
+    required String flyerID,
   }){
     DraftFlyer _output;
 
@@ -687,7 +688,7 @@ class DraftFlyer{
   // --------------------
   /// TESTED : WORKS PERFECT
   void blogDraft({
-    @required String invoker,
+    required String invoker,
   }){
 
       blog('[$invoker] : BLOGGING DRAFT FLYER MODEL ---------------------------------------- START');
@@ -725,8 +726,8 @@ class DraftFlyer{
   // --------------------
   /// TESTED : WORKS PERFECT
   static void _blogDraftsDifferences({
-    @required DraftFlyer draft1,
-    @required DraftFlyer draft2,
+    required DraftFlyer draft1,
+    required DraftFlyer draft2,
   }){
 
     blog('_blogDraftsDifferences : ------------------------ START');
@@ -826,8 +827,8 @@ class DraftFlyer{
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkCanPublishDraft({
-    @required DraftFlyer draft,
-    @required TextEditingController headlineController,
+    required DraftFlyer draft,
+    required TextEditingController headlineController,
   }){
     bool _canPublish = false;
 
@@ -888,8 +889,8 @@ class DraftFlyer{
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> checkPosterHasChanged({
-    @required DraftFlyer draft,
-    @required FlyerModel oldFlyer,
+    required DraftFlyer draft,
+    required FlyerModel oldFlyer,
   }) async {
     bool _hasChanged = false;
 
@@ -925,8 +926,8 @@ class DraftFlyer{
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkDraftsAreIdentical({
-    @required DraftFlyer draft1,
-    @required DraftFlyer draft2,
+    required DraftFlyer draft1,
+    required DraftFlyer draft2,
   }){
     bool _areIdentical = false;
 

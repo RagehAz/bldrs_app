@@ -5,17 +5,17 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:scale/scale.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 
 class PDFScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const PDFScreen({
-    @required this.pdf,
-    Key key
-  }) : super(key: key);
+    required this.pdf,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final PDFModel pdf;
   /// --------------------------------------------------------------------------
@@ -33,7 +33,7 @@ class _PDFScreenState extends State<PDFScreen> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -96,7 +96,7 @@ class _PDFScreenState extends State<PDFScreen> {
 
         child: ValueListenableBuilder(
           valueListenable: _uInt8List,
-          builder: (_, Uint8List data, Widget child){
+          builder: (_, Uint8List data, Widget? child){
 
             if (data == null){
               return const LoadingFullScreenLayer();

@@ -7,8 +7,8 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
-import 'package:scale/scale.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
@@ -66,8 +66,8 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Dimensions proGetScreenDimensions({
-    @required BuildContext context,
-    @required bool listen,
+    required BuildContext context,
+    required bool listen,
   }){
     final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
     return _uiProvider.screenDims;
@@ -75,7 +75,7 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void proSetScreenDimensions({
-    @required bool notify,
+    required bool notify,
   }){
     final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
     _uiProvider.getSetScreenDimensions(
@@ -85,7 +85,7 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void getSetScreenDimensions({
-    @required bool notify,
+    required bool notify,
   }){
 
     _screenDims = Dimensions(
@@ -107,7 +107,7 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> getSetLocalAssetsPaths({
-    @required bool notify,
+    required bool notify,
   }) async {
     final List<String> _paths = await Iconizer.getLocalAssetsPaths();
 
@@ -120,8 +120,8 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void _setLocalAssetPaths({
-    @required List<String> paths,
-    @required bool notify,
+    required List<String> paths,
+    required bool notify,
   }){
 
     _localAssetsPaths = paths;
@@ -148,8 +148,8 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static RouteSettings proGetAfterHomeRoute({
-    @required BuildContext context,
-    @required bool listen,
+    required BuildContext context,
+    required bool listen,
   }){
     final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
     return _uiProvider.afterHomeRoute;
@@ -157,7 +157,7 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void proClearAfterHomeRoute({
-    @required bool notify,
+    required bool notify,
   }){
     final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
     blog('proClearAfterHomeRoute : was : ${_uiProvider._afterHomeRoute}');
@@ -170,9 +170,9 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void proSetAfterHomeRoute({
-    @required String routeName,
-    @required String arguments,
-    @required bool notify,
+    required String routeName,
+    required String arguments,
+    required bool notify,
   }){
 
     final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
@@ -188,8 +188,8 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void setAfterHomeRoute({
-    @required RouteSettings settings,
-    @required bool notify,
+    required RouteSettings settings,
+    required bool notify,
   }){
 
     _afterHomeRoute = settings;
@@ -216,8 +216,8 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void setKeyboardIsOn({
-    @required bool setTo,
-    @required bool notify,
+    required bool setTo,
+    required bool notify,
   }){
 
     if (setTo != _keyboardIsOn){
@@ -242,8 +242,8 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void setCurrentFlyerTypeTab({
-    @required FlyerType flyerType,
-    @required bool notify,
+    required FlyerType flyerType,
+    required bool notify,
   }){
 
     _currentSavedFlyerTypeTab = flyerType;
@@ -264,8 +264,8 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void setCurrentBzTab({
-    @required BzTab bzTab,
-    @required bool notify,
+    required BzTab bzTab,
+    required bool notify,
   }){
     _currentBzTab = bzTab;
 
@@ -285,8 +285,8 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void setCurrentUserTab({
-    @required UserTab userTab,
-    @required bool notify,
+    required UserTab userTab,
+    required bool notify,
   }){
     _currentUserTab = userTab;
 
@@ -306,8 +306,8 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void calculateSetFlyerWidthFactor({
-    @required double tween,
-    @required bool notify,
+    required double tween,
+    required bool notify,
     double minFactor = 0.3,
     double maxFactor = 1,
   }){
@@ -330,8 +330,8 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void _setFlyerWidthSizeFactor({
-    @required double widthFactor,
-    @required bool notify,
+    required double widthFactor,
+    required bool notify,
   }){
 
     _flyerWidthFactor = widthFactor;
@@ -344,9 +344,9 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   double _flyerWidthSizeFactor({
-    @required double tween,
-    @required double minFactor,
-    @required double maxFactor,
+    required double tween,
+    required double minFactor,
+    required double maxFactor,
   }){
     /// EW3AAA
     final double _flyerWidthSizeFactor = minFactor + (tween * (maxFactor - minFactor));
@@ -362,8 +362,8 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static GlobalKey proGetTopDialogKey({
-    @required BuildContext context,
-    @required bool listen,
+    required BuildContext context,
+    required bool listen,
   }){
     final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
     return _uiProvider.topDialogKey;
@@ -378,8 +378,8 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void _setPyramidsAreExpanded({
-    @required bool setTo,
-    @required bool notify,
+    required bool setTo,
+    required bool notify,
   }){
 
     if (_pyramidsAreExpanded != setTo){
@@ -396,8 +396,8 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void proSetPyramidsAreExpanded({
-    @required bool setTo,
-    @required bool notify,
+    required bool setTo,
+    required bool notify,
   }){
     final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
     _uiProvider._setPyramidsAreExpanded(
@@ -408,8 +408,8 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool proGetPyramidsAreExpanded({
-    @required BuildContext context,
-    @required bool listen,
+    required BuildContext context,
+    required bool listen,
   }){
     final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
     return _uiProvider.pyramidsAreExpanded;
@@ -424,8 +424,8 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void _setLayoutIsVisible({
-    @required bool setTo,
-    @required bool notify,
+    required bool setTo,
+    required bool notify,
   }){
 
     if (_layoutIsVisible != setTo){
@@ -442,8 +442,8 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void proSetLayoutIsVisible({
-    @required bool setTo,
-    @required bool notify,
+    required bool setTo,
+    required bool notify,
   }){
     final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
     _uiProvider._setLayoutIsVisible(
@@ -454,8 +454,8 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool proGetLayoutIsVisible({
-    @required BuildContext context,
-    @required bool listen,
+    required BuildContext context,
+    required bool listen,
   }){
     final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
     return _uiProvider.layoutIsVisible;
@@ -470,8 +470,8 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void _setCanDynamicNav({
-    @required bool setTo,
-    @required bool notify,
+    required bool setTo,
+    required bool notify,
   }){
 
     if (_canNavOnDynamicLink != setTo){
@@ -486,8 +486,8 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void proSetCanNavOnDynamicLink({
-    @required bool setTo,
-    @required bool notify,
+    required bool setTo,
+    required bool notify,
   }){
 
     final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
@@ -513,8 +513,8 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void _setLoadingVerse({
-    @required Verse verse,
-    @required bool notify,
+    required Verse verse,
+    required bool notify,
   }){
 
     if (_loadingVerse != verse) {
@@ -528,7 +528,7 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void proSetLoadingVerse({
-    @required Verse verse,
+    required Verse verse,
     bool notify = true,
   }){
 
@@ -566,8 +566,8 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   ///
   void storeCacher({
-    @required Cacher cacher,
-    @required bool notify,
+    required Cacher cacher,
+    required bool notify,
   }){
 
     _cachers = Cacher.addCacherToCachers(
@@ -584,8 +584,8 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   ///
   void _disposeCacher({
-    @required String cacherID,
-    @required bool notify,
+    required String cacherID,
+    required bool notify,
 }){
 
     _cachers = Cacher.disposeCacherInCachers(
@@ -601,8 +601,8 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   ///
   static Cacher proGetCacher({
-    @required bool listen,
-    @required String cacherID,
+    required bool listen,
+    required String cacherID,
   }){
     return null;
     // final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: listen);
@@ -611,8 +611,8 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   ///
   static void proStoreCacher({
-    @required Cacher cacher,
-    @required bool notify,
+    required Cacher cacher,
+    required bool notify,
   }){
       // final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
       // _uiProvider._storeCacher(
@@ -623,8 +623,8 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   ///
   static void proDisposeCacher({
-    @required String cacherID,
-    @required bool notify,
+    required String cacherID,
+    required bool notify,
   }){
 
     final UiProvider _uiProvider = Provider.of<UiProvider>(
@@ -645,7 +645,7 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void wipeOut({
-    @required bool notify,
+    required bool notify,
   }){
 
     final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
@@ -673,7 +673,7 @@ class UiProvider extends ChangeNotifier {
   // --------------------
 /// TESTED : WORKS PERFECT
 bool localAssetExists({
-  @required String assetName,
+  required String assetName,
 }){
   final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
   final List<String> _localAssetsPaths = _uiProvider.localAssetsPaths;
@@ -692,7 +692,7 @@ bool localAssetExists({
 // --------------------
 /// TESTED : WORKS PERFECT
 String getLocalAssetPath({
-  @required String assetName,
+  required String assetName,
 }){
   final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
   final List<String> _localAssetsPaths = _uiProvider.localAssetsPaths;

@@ -1,3 +1,5 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
@@ -9,16 +11,16 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zo
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class FlyerAffiliateButton extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const FlyerAffiliateButton({
-    @required this.flyerBoxWidth,
-    @required this.flyerModel,
-    @required this.inStack,
-    Key key
-  }) : super(key: key);
+    required this.flyerBoxWidth,
+    required this.flyerModel,
+    required this.inStack,
+    super.key
+  });
   // --------------------
   final double flyerBoxWidth;
   final FlyerModel flyerModel;

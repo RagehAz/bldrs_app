@@ -1,3 +1,5 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
@@ -11,21 +13,21 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class UserFCMTopicsScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const UserFCMTopicsScreenView({
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onSwitch({
-    @required BuildContext context,
-    @required String topicID,
-    @required bool value,
+    required BuildContext context,
+    required String topicID,
+    required bool value,
   }) async {
 
     await UserProtocols.updateMyUserTopics(
@@ -37,8 +39,8 @@ class UserFCMTopicsScreenView extends StatelessWidget {
   // --------------------
   ///
   Future<void> _onSwitchAll({
-    @required BuildContext context,
-    @required bool value,
+    required BuildContext context,
+    required bool value,
   }) async {
 
     final UserModel _userModel = UsersProvider.proGetMyUserModel(

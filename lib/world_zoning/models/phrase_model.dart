@@ -4,8 +4,8 @@ part of world_zoning;
 class Phrase {
   /// --------------------------------------------------------------------------
   const Phrase({
-    @required this.value,
-    @required this.id,
+    required this.value,
+    required this.id,
     this.langCode,
     this.trigram,
   });
@@ -69,7 +69,7 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toDefaultMap({
-    @required bool includeID,
+    required bool includeID,
     bool includeTrigram = false,
     bool includeLangCode = false,
     String overrideLangCode,
@@ -128,8 +128,8 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Phrase decipherPhraseDefaultMap({
-    @required String id,
-    @required Map<String, dynamic> map,
+    required String id,
+    required Map<String, dynamic> map,
     String langCodeOverride,
     bool includeTrigram,
   }) {
@@ -185,8 +185,8 @@ class Phrase {
   // --------------------
   ///  TESTED : WORKS PERFECT
   static List<Phrase> decipherPhrasesFromPhidsMap({
-    @required String langCode,
-    @required Map<String, dynamic> map,
+    required String langCode,
+    required Map<String, dynamic> map,
     bool includeTrigram = true,
   }){
     final List<Phrase> _output = <Phrase>[];
@@ -261,8 +261,8 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> decipherPhrasesLangsMap({
-    @required Map<String, dynamic> langsMap,
-    @required String phid,
+    required Map<String, dynamic> langsMap,
+    required String phid,
   }){
 
     final List<Phrase> _output = <Phrase>[];
@@ -319,7 +319,7 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> cipherMixedLangPhrasesToMap({
-    @required List<Phrase> phrases,
+    required List<Phrase> phrases,
   }){
     Map<String, dynamic> _output = {};
 
@@ -346,7 +346,7 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> decipherMixedLangPhrasesFromMap({
-    @required Map<String, dynamic> map,
+    required Map<String, dynamic> map,
   }){
     final List<Phrase> _phrases = <Phrase>[];
 
@@ -396,7 +396,7 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> cipherMixedLangPhrasesToMaps({
-    @required List<Phrase> phrases,
+    required List<Phrase> phrases,
     bool includeTrigrams = true,
   }){
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
@@ -434,15 +434,15 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String createPhraseLDBPrimaryKey({
-    @required String phid,
-    @required String langCode,
+    required String phid,
+    required String langCode,
   }){
     return '${phid}_$langCode';
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> decipherMixedLangPhrasesFromMaps({
-    @required List<dynamic> maps,
+    required List<dynamic> maps,
   }){
     final List<Phrase> _phrases = <Phrase>[];
 
@@ -470,7 +470,7 @@ class Phrase {
   /*
   /// TESTED : WORKS PERFECT : used to upload to firebase
   static Map<String, dynamic> cipherOneLangPhrasesToMap({
-    @required List<Phrase> phrases,
+    required List<Phrase> phrases,
     bool addTrigrams = false,
     bool includeLangCode = false,
     String overrideLangCode,
@@ -504,7 +504,7 @@ class Phrase {
   /*
   /// used to store in LDB
   static List<Map<String, dynamic>> cipherOneLangPhrasesToMapsX({
-    @required List<Phrase> phrases,
+    required List<Phrase> phrases,
     bool addTrigrams = false,
     bool includeLangCode = false,
     String overrideLangCode,
@@ -537,7 +537,7 @@ class Phrase {
   /*
   /// TESTED : WORKS PERFECT
   static List<Phrase> decipherOneLangPhrasesMapX({
-    @required Map<String, dynamic> map,
+    required Map<String, dynamic> map,
     String addLangCodeOverride,
     bool includeTrigrams = false,
   }){
@@ -570,7 +570,7 @@ class Phrase {
   /*
   /// TESTED : WORKS PERFECT
   static List<Phrase> decipherOneLangPhrasesMapsX({
-    @required List<Map<String, dynamic>> maps,
+    required List<Map<String, dynamic>> maps,
     String langCodeOverride,
     bool includeTrigrams = false,
   }){
@@ -606,8 +606,8 @@ class Phrase {
   /// DEPRECATED
   /*
   static List<Phrase> getPhrasesFromStream({
-    @required DocumentSnapshot<Object> doc,
-    @required String langCode,
+    required DocumentSnapshot<Object> doc,
+    required String langCode,
   }) {
 
     final Map<String, dynamic> _map = Mapper.getMapFromDocumentSnapshot(
@@ -696,8 +696,8 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> searchPhrasesByID({
-    @required List<Phrase> phrases,
-    @required String phid,
+    required List<Phrase> phrases,
+    required String phid,
   }){
     final List<Phrase> _output = <Phrase>[];
 
@@ -716,8 +716,8 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> searchPhrasesByIDs({
-    @required List<Phrase> phrases,
-    @required List<String> phids,
+    required List<Phrase> phrases,
+    required List<String> phids,
   }){
     final List<Phrase> _output = <Phrase>[];
 
@@ -745,9 +745,9 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Phrase searchPhraseByIDAndLangCode({
-    @required List<Phrase> phrases,
-    @required String phid,
-    @required String langCode,
+    required List<Phrase> phrases,
+    required String phid,
+    required String langCode,
   }){
     Phrase _phrase;
 
@@ -809,8 +809,8 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> searchPhrasesByLang({
-    @required List<Phrase> phrases,
-    @required String langCode,
+    required List<Phrase> phrases,
+    required String langCode,
   }){
     List<Phrase> _output = <Phrase>[];
 
@@ -823,8 +823,8 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Phrase searchFirstPhraseByLang({
-    @required List<Phrase> phrases,
-    @required String langCode,
+    required List<Phrase> phrases,
+    required String langCode,
   }){
 
     Phrase _phrase;
@@ -849,8 +849,8 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> searchPhrasesByLangs({
-    @required List<Phrase> phrases,
-    @required List<String> langCodes,
+    required List<Phrase> phrases,
+    required List<String> langCodes,
   }){
     final List<Phrase> _output = <Phrase>[];
 
@@ -879,8 +879,8 @@ class Phrase {
   /// BY VALUE / TRIGRAM ( SEARCH )
   // --------------------
   static Phrase searchPhraseByIdenticalValue({
-    @required List<Phrase> phrases,
-    @required String value,
+    required List<Phrase> phrases,
+    required String value,
   }){
     Phrase _phrase;
 
@@ -902,8 +902,8 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> searchPhrasesRegExp({
-    @required List<Phrase> phrases,
-    @required String text,
+    required List<Phrase> phrases,
+    required String text,
     bool lookIntoIDs = true,
     bool lookIntoValues = false,
   }){
@@ -951,8 +951,8 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> searchPhrasesTrigrams({
-    @required List<Phrase> sourcePhrases,
-    @required String inputText,
+    required List<Phrase> sourcePhrases,
+    required String inputText,
   }){
     final List<Phrase> _foundPhrases = <Phrase>[];
     final String _fixedString = TextMod.fixCountryName(inputText);
@@ -981,8 +981,8 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> symmetrizePhrase({
-    @required Phrase phrase,
-    @required List<Phrase> allMixedPhrases,
+    required Phrase phrase,
+    required List<Phrase> allMixedPhrases,
   }){
     final List<Phrase> _output = <Phrase>[];
 
@@ -1012,8 +1012,8 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> symmetrizePhrases({
-    @required List<Phrase> phrasesToSymmetrize,
-    @required List<Phrase> allMixedPhrases,
+    required List<Phrase> phrasesToSymmetrize,
+    required List<Phrase> allMixedPhrases,
   }){
     final List<Phrase> _output = <Phrase>[];
 
@@ -1043,8 +1043,8 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPhrasesIncludeIdenticalPhrase({
-    @required List<Phrase> phrases,
-    @required Phrase firstPhrase,
+    required List<Phrase> phrases,
+    required Phrase firstPhrase,
   }){
     bool _include = false;
 
@@ -1073,8 +1073,8 @@ class Phrase {
   // --------------------
   /// loops phrases for any phrase of this lang code
   static bool checkPhrasesIncludeValueForThisLanguage({
-    @required List<Phrase> phrases,
-    @required String langCode,
+    required List<Phrase> phrases,
+    required String langCode,
   }){
 
     bool _phraseInclude = false;
@@ -1102,8 +1102,8 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPhrasesIncludeThisID({
-    @required List<Phrase> phrases,
-    @required String id,
+    required List<Phrase> phrases,
+    required String id,
   }){
     bool _include = false;
 
@@ -1125,8 +1125,8 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPhrasesIncludeThisValue({
-    @required List<Phrase> phrases,
-    @required String value,
+    required List<Phrase> phrases,
+    required String value,
   }){
     bool _include = false;
 
@@ -1162,7 +1162,7 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> sortPhrasesByIDAndLang({
-    @required List<Phrase> phrases,
+    required List<Phrase> phrases,
   }){
     List<Phrase> _output = <Phrase>[];
 
@@ -1190,7 +1190,7 @@ class Phrase {
   // -------------------------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> sortPhrasesByID({
-    @required List<Phrase> phrases,
+    required List<Phrase> phrases,
   }){
 
     if (Mapper.checkCanLoopList(phrases)){
@@ -1206,9 +1206,9 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> insertPhrase({
-    @required List<Phrase> phrases,
-    @required Phrase phrase,
-    @required bool overrideDuplicateID,
+    required List<Phrase> phrases,
+    required Phrase phrase,
+    required bool overrideDuplicateID,
     String addLanguageCode,
   }){
     final List<Phrase> _output = <Phrase>[...?phrases];
@@ -1251,9 +1251,9 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> insertPhrases({
-    @required List<Phrase> insertIn,
-    @required List<Phrase> phrasesToInsert,
-    @required bool overrideDuplicateID,
+    required List<Phrase> insertIn,
+    required List<Phrase> phrasesToInsert,
+    required bool overrideDuplicateID,
     String addLanguageCode,
     bool allowDuplicateIDs,
   }){
@@ -1282,8 +1282,8 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> _combinePhrasesListsAndAllowDuplicateIDs({
-    @required List<Phrase> insertIn,
-    @required List<Phrase> phrasesToInsert,
+    required List<Phrase> insertIn,
+    required List<Phrase> phrasesToInsert,
     String addLanguageCodeToInsertedPhrases,
   }){
 
@@ -1315,8 +1315,8 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> _addLangCodeToPhrases({
-    @required String langCode,
-    @required List<Phrase> phrases,
+    required String langCode,
+    required List<Phrase> phrases,
   }){
     final List<Phrase> _output = <Phrase>[];
 
@@ -1342,9 +1342,9 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> _combinePhrasesWithoutDuplicateIDs({
-    @required List<Phrase> insertIn,
-    @required List<Phrase> phrasesToInsert,
-    @required bool overrideDuplicateID,
+    required List<Phrase> insertIn,
+    required List<Phrase> phrasesToInsert,
+    required bool overrideDuplicateID,
     String addLanguageCode,
   }){
 
@@ -1378,8 +1378,8 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> replacePhraseByLangCode({
-    @required List<Phrase> phrases,
-    @required Phrase phrase,
+    required List<Phrase> phrases,
+    required Phrase phrase,
   }){
    List<Phrase> _output = <Phrase>[];
 
@@ -1412,8 +1412,8 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> removePhraseByLangCode({
-    @required List<Phrase> phrases,
-    @required String langCode,
+    required List<Phrase> phrases,
+    required String langCode,
   }){
     final List<Phrase> _output = [];
 
@@ -1464,7 +1464,7 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> cleanDuplicateIDs({
-    @required List<Phrase> phrases,
+    required List<Phrase> phrases,
   }){
     final List<Phrase> _output = <Phrase>[];
 
@@ -1517,8 +1517,8 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> deletePhidFromPhrases({
-    @required List<Phrase> phrases,
-    @required String phid,
+    required List<Phrase> phrases,
+    required String phid,
   }){
 
     List<Phrase> _output = <Phrase>[];
@@ -1550,7 +1550,7 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> onlyIncludeIDAndValue({
-    @required List<Phrase> phrases,
+    required List<Phrase> phrases,
   }){
     final List<Phrase> _output = <Phrase>[];
 
@@ -1574,9 +1574,9 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> _getTrigramIfIncluded({
-    @required bool includeTrigram,
-    @required List<String> existingTrigram,
-    @required String originalString,
+    required bool includeTrigram,
+    required List<String> existingTrigram,
+    required String originalString,
   }){
     List<String> _output = [];
 
@@ -1602,7 +1602,7 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> addTrigramsToPhrases({
-    @required List<Phrase> phrases,
+    required List<Phrase> phrases,
   }){
     final List<Phrase> _output = <Phrase>[];
 
@@ -1657,10 +1657,10 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogPhrasesListsDifferences({
-    @required List<Phrase> phrases1,
-    @required String phrases1Name,
-    @required List<Phrase> phrases2,
-    @required String phrases2Name,
+    required List<Phrase> phrases1,
+    required String phrases1Name,
+    required List<Phrase> phrases2,
+    required String phrases2Name,
     bool sortBeforeCompare = true,
   }){
 
@@ -1715,8 +1715,8 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPhrasesAreIdentical({
-    @required Phrase phrase1,
-    @required Phrase phrase2,
+    required Phrase phrase1,
+    required Phrase phrase2,
   }){
 
     bool _areIdentical = false;
@@ -1748,8 +1748,8 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPhrasesListsAreIdentical({
-    @required List<Phrase> phrases1,
-    @required List<Phrase> phrases2,
+    required List<Phrase> phrases1,
+    required List<Phrase> phrases2,
   }){
 
     bool _listsAreIdentical = false;

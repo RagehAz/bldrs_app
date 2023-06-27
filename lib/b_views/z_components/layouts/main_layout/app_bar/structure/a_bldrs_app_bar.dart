@@ -3,28 +3,28 @@ part of bldrs_app_bar;
 class BldrsAppBar extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BldrsAppBar({
-    @required this.globalKey,
-    @required this.appBarType,
-    @required this.onBack,
-    @required this.pageTitleVerse,
-    @required this.appBarRowWidgets,
-    @required this.loading,
-    @required this.progressBarModel,
-    @required this.appBarScrollController,
-    @required this.sectionButtonIsOn,
-    @required this.searchController,
-    @required this.onSearchSubmit,
-    @required this.onPaste,
-    @required this.onSearchChanged,
-    @required this.searchButtonIsOn,
-    @required this.searchHintVerse,
-    @required this.canGoBack,
-    @required this.onSearchCancelled,
-    @required this.listenToHideLayout,
-    @required this.filtersAreOn,
-    @required this.filters,
-    Key key
-  }) : super(key: key);
+    required this.globalKey,
+    required this.appBarType,
+    required this.onBack,
+    required this.pageTitleVerse,
+    required this.appBarRowWidgets,
+    required this.loading,
+    required this.progressBarModel,
+    required this.appBarScrollController,
+    required this.sectionButtonIsOn,
+    required this.searchController,
+    required this.onSearchSubmit,
+    required this.onPaste,
+    required this.onSearchChanged,
+    required this.searchButtonIsOn,
+    required this.searchHintVerse,
+    required this.canGoBack,
+    required this.onSearchCancelled,
+    required this.listenToHideLayout,
+    required this.filtersAreOn,
+    required this.filters,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final AppBarType appBarType;
   final Function onBack;
@@ -97,8 +97,8 @@ class BldrsAppBar extends StatelessWidget {
   }
   // --------------------
   static double expandedHeight({
-    @required BuildContext context,
-    @required AppBarType appBarType,
+    required BuildContext context,
+    required AppBarType appBarType,
   }){
     return Scale.screenHeight(context) - Ratioz.appBarMargin;
   }
@@ -145,8 +145,8 @@ class BldrsAppBar extends StatelessWidget {
 
   // --------------------
   static double filtersBoxHeight({
-    @required BuildContext context,
-    @required AppBarType appBarType,
+    required BuildContext context,
+    required AppBarType appBarType,
   }) {
     final double _filtersTopMargin = BldrsAppBar.getFiltersTopMargin(
       context: context,
@@ -160,8 +160,8 @@ class BldrsAppBar extends StatelessWidget {
   }
   // --------------------
   static double getFiltersTopMargin({
-    @required BuildContext context,
-    @required AppBarType appBarType,
+    required BuildContext context,
+    required AppBarType appBarType,
   }) {
 
     final double _filtersTopMargin =

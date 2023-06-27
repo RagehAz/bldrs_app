@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
@@ -6,9 +7,9 @@ import 'package:websafe_svg/websafe_svg.dart';
 class SlideShadow extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SlideShadow({
-    @required this.flyerBoxWidth,
-    Key key
-  }) : super(key: key);
+    required this.flyerBoxWidth,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   /// --------------------------------------------------------------------------

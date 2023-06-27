@@ -1,18 +1,19 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class BubbleTitle extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BubbleTitle({
-    @required this.titleVerse,
+    required this.titleVerse,
     this.centered = false,
     this.redDot = false,
     this.titleColor = Colorz.white255,
     this.titleScaleFactor = 1,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final Verse titleVerse;
   final bool redDot;

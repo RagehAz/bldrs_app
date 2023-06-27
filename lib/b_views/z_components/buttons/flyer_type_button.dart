@@ -1,3 +1,5 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
@@ -6,14 +8,14 @@ import 'package:flutter/material.dart';
 class FlyerTypeButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerTypeButton({
-    @required this.isSelected,
-    @required this.icon,
+    required this.isSelected,
+    required this.icon,
     this.iconSizeFactor = 0.85,
     this.verse,
     this.onTap,
     this.triggerIconColor = true,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final bool isSelected;
   final String icon;

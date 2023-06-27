@@ -9,22 +9,22 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:space_time/space_time.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/time/timers.dart';
 /// => TAMAM
 @immutable
 class SearchModel {
   // -----------------------------------------------------------------------------
   const SearchModel({
-    @required this.id,
-    @required this.userID,
-    @required this.text,
-    @required this.zone,
-    @required this.time,
-    @required this.flyerSearchModel,
-    @required this.bzSearchModel,
+    required this.id,
+    required this.userID,
+    required this.text,
+    required this.zone,
+    required this.time,
+    required this.flyerSearchModel,
+    required this.bzSearchModel,
   });
   // -----------------------------------------------------------------------------
   final String id;
@@ -41,7 +41,7 @@ class SearchModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static SearchModel createInitialModel({
-    @required ModelType searchType,
+    required ModelType searchType,
   }){
 
     return SearchModel(
@@ -74,9 +74,9 @@ class SearchModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static SearchModel createUploadModel({
-    @required ModelType searchType,
-    @required SearchModel searchModel,
-    @required String text,
+    required ModelType searchType,
+    required SearchModel searchModel,
+    required String text,
   }){
 
     SearchModel _searchModel = searchModel.copyWith(
@@ -152,7 +152,7 @@ class SearchModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> cipher({
-    @required SearchModel searchModel,
+    required SearchModel searchModel,
 }){
     Map<String, dynamic> _output;
 
@@ -173,7 +173,7 @@ class SearchModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> cipherSearches({
-    @required List<SearchModel> models,
+    required List<SearchModel> models,
   }){
     final List<Map<String, dynamic>> _output = [];
 
@@ -195,7 +195,7 @@ class SearchModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static SearchModel decipher({
-    @required Map<String, dynamic> map,
+    required Map<String, dynamic> map,
   }){
     SearchModel _output;
 
@@ -218,7 +218,7 @@ class SearchModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<SearchModel> decipherSearches({
-    @required List<Map<String, dynamic>> maps,
+    required List<Map<String, dynamic>> maps,
   }){
     final List<SearchModel> _output = [];
 
@@ -244,7 +244,7 @@ class SearchModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<SearchModel> sortByDate({
-    @required List<SearchModel> models,
+    required List<SearchModel> models,
   }){
 
     if (Mapper.checkCanLoopList(models) == true){
@@ -265,7 +265,7 @@ class SearchModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static ModelType concludeSearchType({
-    @required SearchModel model,
+    required SearchModel model,
   }){
     ModelType _output;
 
@@ -331,8 +331,8 @@ class SearchModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool areIdentical({
-    @required SearchModel model1,
-    @required SearchModel model2,
+    required SearchModel model1,
+    required SearchModel model2,
   }){
     bool _output = false;
 
@@ -358,8 +358,8 @@ class SearchModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool modelsAreIdentical({
-    @required List<SearchModel> models1,
-    @required List<SearchModel> models2,
+    required List<SearchModel> models1,
+    required List<SearchModel> models2,
   }){
     final List<Map<String, dynamic>> _maps1 = cipherSearches(models: models1);
     final List<Map<String, dynamic>> _maps2 = cipherSearches(models: models2);

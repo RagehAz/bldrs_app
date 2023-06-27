@@ -1,8 +1,8 @@
 import 'package:bldrs/a_models/a_user/account_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:ldb/ldb.dart';
+import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 
 class AccountLDBOps {
   // -----------------------------------------------------------------------------
@@ -16,7 +16,7 @@ class AccountLDBOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> insertAccount({
-    @required AccountModel account,
+    required AccountModel account,
   }) async {
     if (account != null && account.id != null) {
       await LDBOps.insertMap(
@@ -33,7 +33,7 @@ class AccountLDBOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<AccountModel> readAccount({
-    @required String id,
+    required String id,
   }) async {
 
     final Map<String, dynamic> _map = await LDBOps.readMap(
@@ -68,7 +68,7 @@ class AccountLDBOps {
   // --------------------
   /// TASK : TEST ME
   static Future<void> deleteAccount({
-    @required String id,
+    required String id,
   }) async {
     if (id != null) {
       await LDBOps.deleteMap(

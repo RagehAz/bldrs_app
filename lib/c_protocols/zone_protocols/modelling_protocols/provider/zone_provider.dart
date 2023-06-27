@@ -18,8 +18,8 @@ class ZoneProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> fetchSetContinentByCountryID({
-    @required String countryID,
-    @required bool notify,
+    required String countryID,
+    required bool notify,
   }) async {
 
     final List<Continent> _allContinents = await ZoneProtocols.readAllContinents();
@@ -37,8 +37,8 @@ class ZoneProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void _setCurrentContinent({
-    @required Continent continent,
-    @required bool notify,
+    required Continent continent,
+    required bool notify,
   }){
     _currentContinent = continent;
     if (notify == true){
@@ -48,7 +48,7 @@ class ZoneProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void clearCurrentContinent({
-    @required bool notify,
+    required bool notify,
   }){
     _setCurrentContinent(
       continent: null,
@@ -79,8 +79,8 @@ class ZoneProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static ZoneModel proGetCurrentZone({
-    @required BuildContext context,
-    @required bool listen,
+    required BuildContext context,
+    required bool listen,
   }){
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: listen);
     return _zoneProvider.currentZone;
@@ -88,8 +88,8 @@ class ZoneProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static ZoneModel proGetCurrentZoneIDs({
-    @required BuildContext context,
-    @required bool listen,
+    required BuildContext context,
+    required bool listen,
   }){
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: listen);
     return _zoneProvider.currentZone;
@@ -97,8 +97,8 @@ class ZoneProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> fetchSetCurrentCompleteZone({
-    @required ZoneModel zone,
-    @required bool notify,
+    required ZoneModel zone,
+    required bool notify,
   }) async {
 
     final ZoneModel _completeZone = await ZoneProtocols.completeZoneModel(
@@ -131,9 +131,9 @@ class ZoneProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void setCurrentZone({
-    @required ZoneModel zone,
-    @required bool setCountryOnly,
-    @required bool notify,
+    required ZoneModel zone,
+    required bool setCountryOnly,
+    required bool notify,
   }){
 
     // blog('setCurrentZone START : zone = $zone');
@@ -158,7 +158,7 @@ class ZoneProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void clearCurrentZone({
-    @required bool notify,
+    required bool notify,
   }){
     setCurrentZone(
       zone: null,
@@ -179,8 +179,8 @@ class ZoneProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<CurrencyModel> proGetAllCurrencies({
-    @required BuildContext context,
-    @required bool listen,
+    required BuildContext context,
+    required bool listen,
   }){
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: listen);
     return _zoneProvider.allCurrencies;
@@ -188,9 +188,9 @@ class ZoneProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static CurrencyModel proGetCurrencyByCountryID({
-    @required BuildContext context,
-    @required String countryID,
-    @required bool listen,
+    required BuildContext context,
+    required String countryID,
+    required bool listen,
   }){
 
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: listen);
@@ -205,9 +205,9 @@ class ZoneProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static CurrencyModel proGetCurrencyByCurrencyID({
-    @required BuildContext context,
-    @required String currencyID,
-    @required bool listen,
+    required BuildContext context,
+    required String currencyID,
+    required bool listen,
   }){
     CurrencyModel _currency;
 
@@ -227,8 +227,8 @@ class ZoneProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _fetchSetAllCurrenciesAndCurrentCurrency({
-    @required String countryID,
-    @required bool notify,
+    required String countryID,
+    required bool notify,
   }) async {
 
     // blog('_fetchSetAllCurrenciesAndCurrentCurrency : START');
@@ -253,8 +253,8 @@ class ZoneProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void getSetCurrentCurrency({
-    @required ZoneModel zone,
-    @required bool notify,
+    required ZoneModel zone,
+    required bool notify,
   }){
 
     if (zone != null && zone.countryID != null){
@@ -278,9 +278,9 @@ class ZoneProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void _setAllCurrenciesAndCurrentCurrency({
-    @required List<CurrencyModel> allCurrencies,
-    @required CurrencyModel currentCurrency,
-    @required bool notify,
+    required List<CurrencyModel> allCurrencies,
+    required CurrencyModel currentCurrency,
+    required bool notify,
   }){
     _allCurrencies = allCurrencies;
     _currentCurrency = currentCurrency;
@@ -291,7 +291,7 @@ class ZoneProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void clearCurrentCurrencyAndAllCurrencies({
-    @required bool notify,
+    required bool notify,
   }){
     _setAllCurrenciesAndCurrentCurrency(
       currentCurrency: null,
@@ -306,7 +306,7 @@ class ZoneProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void wipeOut({
-    @required bool notify,
+    required bool notify,
   }){
 
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);

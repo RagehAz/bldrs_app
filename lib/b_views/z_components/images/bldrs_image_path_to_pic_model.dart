@@ -1,15 +1,15 @@
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 
 class BldrsImagePathToPicModel extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const BldrsImagePathToPicModel({
-    @required this.imagePath,
-    @required this.builder,
-    Key key
-  }) : super(key: key);
+    required this.imagePath,
+    required this.builder,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final String imagePath;
   final Function(bool isLoading, PicModel picModel) builder;
@@ -27,7 +27,7 @@ class _BldrsImagePathToPicModelState extends State<BldrsImagePathToPicModel> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,

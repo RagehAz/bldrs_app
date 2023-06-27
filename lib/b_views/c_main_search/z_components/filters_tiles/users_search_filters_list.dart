@@ -1,3 +1,5 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/m_search/search_model.dart';
 import 'package:bldrs/a_models/m_search/user_search_model.dart';
@@ -10,29 +12,29 @@ import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class UserSearchFiltersList extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const UserSearchFiltersList({
-    @required this.searchModel,
-    @required this.userSearchModel,
-    @required this.onZoneSwitchTap,
-    @required this.onZoneTap,
-    @required this.onUserSearchTypeSwitchTap,
-    @required this.onUserSearchTypeTap,
-    @required this.onSignInMethodSwitchTap,
-    @required this.onSignInMethodTap,
-    @required this.onGenderSwitchTap,
-    @required this.onGenderTap,
-    @required this.onLangSwitchTap,
-    @required this.onLangTap,
-    @required this.onOnlyPublicContactsSwitchTap,
-    @required this.onOnlyAuthorsSwitchTap,
-    @required this.onOnlyAdminsSwitchTap,
-    @required this.onOnlyVerifiedEmailsSwitchTap,
-    Key key
-  }) : super(key: key);
+    required this.searchModel,
+    required this.userSearchModel,
+    required this.onZoneSwitchTap,
+    required this.onZoneTap,
+    required this.onUserSearchTypeSwitchTap,
+    required this.onUserSearchTypeTap,
+    required this.onSignInMethodSwitchTap,
+    required this.onSignInMethodTap,
+    required this.onGenderSwitchTap,
+    required this.onGenderTap,
+    required this.onLangSwitchTap,
+    required this.onLangTap,
+    required this.onOnlyPublicContactsSwitchTap,
+    required this.onOnlyAuthorsSwitchTap,
+    required this.onOnlyAdminsSwitchTap,
+    required this.onOnlyVerifiedEmailsSwitchTap,
+    super.key
+  });
   // --------------------
   final SearchModel searchModel;
   final UserSearchModel userSearchModel;
@@ -74,7 +76,10 @@ class UserSearchFiltersList extends StatelessWidget {
         onSwitchTap: onUserSearchTypeSwitchTap,
         items: UserSearchModel.userSearchTypes,
         selectedItem: userSearchModel?.searchType,
-        itemVerse: (dynamic type) => Verse.plain(TextMod.removeTextBeforeFirstSpecialCharacter(type.toString(), '.')),
+        itemVerse: (dynamic type) => Verse.plain(TextMod.removeTextBeforeFirstSpecialCharacter(
+            text: type.toString(),
+            specialCharacter: '.'),
+        ),
         onItemTap: (dynamic type) {
 
           final UserSearchType _type = type;

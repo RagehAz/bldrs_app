@@ -89,25 +89,25 @@ class RealPath {
 
   // --------------------
   static String agrees_bzID({
-    @required String bzID,
+    required String bzID,
   }) => '${RealColl.agrees}/$bzID';
   // --------------------
   static String agrees_bzID_flyerID({
-    @required String bzID,
-    @required String flyerID,
+    required String bzID,
+    required String flyerID,
   }) => '${RealColl.agrees}/$bzID/$flyerID';
   // --------------------
   static String agrees_bzID_flyerID_reviewID({
-    @required String bzID,
-    @required String flyerID,
-    @required String reviewID,
+    required String bzID,
+    required String flyerID,
+    required String reviewID,
   }) => '${RealColl.agrees}/$bzID/$flyerID/$reviewID';
   // --------------------
   static String agrees_bzID_flyerID_reviewID_userID({
-    @required String bzID,
-    @required String flyerID,
-    @required String reviewID,
-    @required String userID,
+    required String bzID,
+    required String flyerID,
+    required String reviewID,
+    required String userID,
   }) => '${RealColl.agrees}/$bzID/$flyerID/$reviewID/$userID';
   // -----------------------------------------------------------------------------
 
@@ -127,19 +127,19 @@ class RealPath {
 
   // --------------------
   static String recorders_bzz_bzID({
-    @required String bzID,
+    required String bzID,
   }) => '${RealColl.recorders}/${RealDoc.recorders_bzz}/$bzID';
   // --------------------
   static String recorders_bzz_bzID_counter({
-    @required String bzID,
+    required String bzID,
   }) => '${RealColl.recorders}/${RealDoc.recorders_bzz}/$bzID/${RealDoc.recorders_bzz_bzID_counter}';
   // --------------------
   static String recorders_bzz_bzID_recordingCalls({
-    @required String bzID,
+    required String bzID,
   }) => '${RealColl.recorders}/${RealDoc.recorders_bzz}/$bzID/${RealDoc.recorders_bzz_bzID_recordingCalls}';
   // --------------------
   static String recorders_bzz_bzID_recordingFollows({
-    @required String bzID,
+    required String bzID,
   }) => '${RealColl.recorders}/${RealDoc.recorders_bzz}/$bzID/${RealDoc.recorders_bzz_bzID_recordingFollows}';
   // -----------------------------------------------------------------------------
 
@@ -147,32 +147,32 @@ class RealPath {
 
   // --------------------
   static String recorders_flyers_bzID({
-    @required String bzID,
+    required String bzID,
   }) => '${RealColl.recorders}/${RealDoc.recorders_flyers}/$bzID';
   // --------------------
   static String recorders_flyers_bzID_flyerID({
-    @required String bzID,
-    @required String flyerID,
+    required String bzID,
+    required String flyerID,
   }) => '${RealColl.recorders}/${RealDoc.recorders_flyers}/$bzID/$flyerID';
   // --------------------
   static String recorders_flyers_bzID_flyerID_counter({
-    @required String bzID,
-    @required String flyerID,
+    required String bzID,
+    required String flyerID,
   }) => '${RealColl.recorders}/${RealDoc.recorders_flyers}/$bzID/$flyerID/${RealDoc.recorders_flyers_bzID_flyerID_counter}';
   // --------------------
   static String recorders_flyers_bzID_flyerID_recordingSaves({
-    @required String bzID,
-    @required String flyerID,
+    required String bzID,
+    required String flyerID,
   }) => '${RealColl.recorders}/${RealDoc.recorders_flyers}/$bzID/$flyerID/${RealDoc.recorders_flyers_bzID_flyerID_recordingSaves}';
   // --------------------
   static String recorders_flyers_bzID_flyerID_recordingShares({
-    @required String bzID,
-    @required String flyerID,
+    required String bzID,
+    required String flyerID,
   }) => '${RealColl.recorders}/${RealDoc.recorders_flyers}/$bzID/$flyerID/${RealDoc.recorders_flyers_bzID_flyerID_recordingShares}';
   // --------------------
   static String recorders_flyers_bzID_flyerID_recordingViews({
-    @required String bzID,
-    @required String flyerID,
+    required String bzID,
+    required String flyerID,
   }) => '${RealColl.recorders}/${RealDoc.recorders_flyers}/$bzID/$flyerID/${RealDoc.recorders_flyers_bzID_flyerID_recordingViews}';
   // -----------------------------------------------------------------------------
 
@@ -192,12 +192,12 @@ class RealPath {
 
   // --------------------
   static String searches_userID({
-    @required String userID,
+    required String userID,
   }) => '${RealColl.searches}/$userID';
   // --------------------
   static String searches_userID_searchID({
-    @required String userID,
-    @required String searchID,
+    required String userID,
+    required String searchID,
   }) => '${RealColl.searches}/$userID/$searchID';
   // -----------------------------------------------------------------------------
 
@@ -209,18 +209,18 @@ class RealPath {
   static String statistics_countries() => '${RealColl.statistics}/${RealDoc.statistics_countries}';
   // --------------------
   static String statistics_countries_countryID({
-    @required String countryID,
+    required String countryID,
   }) => '${RealColl.statistics}/${RealDoc.statistics_countries}/$countryID';
   // --------------------
   static String statistics_cities() => '${RealColl.statistics}/${RealDoc.statistics_cities}';
   // --------------------
   static String statistics_cities_countryID({
-    @required String countryID,
+    required String countryID,
   }) => '${RealColl.statistics}/${RealDoc.statistics_cities}/$countryID';
   // --------------------
   static String statistics_cities_countryID_cityID({
-    @required String countryID,
-    @required String cityID,
+    required String countryID,
+    required String cityID,
   }) => '${RealColl.statistics}/${RealDoc.statistics_cities}/$countryID/$cityID';
   // -----------------------------------------------------------------------------
 
@@ -228,16 +228,16 @@ class RealPath {
 
   // --------------------
   static String zones_cities_countryID({
-    @required String countryID,
+    required String countryID,
   }) => '${RealColl.zones}/${RealDoc.zones_cities}/$countryID';
   // --------------------
   static String zones_cities_countryID_cityID({
-    @required String countryID,
-    @required String cityID,
+    required String countryID,
+    required String cityID,
   }) => '${RealColl.zones}/${RealDoc.zones_cities}/$countryID/$cityID';
   // --------------------
   static String zones_stagesCities_countryID({
-    @required String countryID,
+    required String countryID,
   }) => '${RealColl.zones}/${RealDoc.zones_stages_cities}/$countryID';
   // --------------------
   static String zones_stagesCountries() => '${RealColl.zones}/${RealDoc.zones_stages_countries}';
@@ -247,12 +247,12 @@ class RealPath {
 
   // --------------------
   static String zonesPhids_countryID({
-    @required String countryID,
+    required String countryID,
   }) => '${RealColl.zonesPhids}/$countryID';
   // --------------------
   static String zonesPhids_countryID_cityID({
-    @required String countryID,
-    @required String cityID,
+    required String countryID,
+    required String cityID,
   }) => '${RealColl.zonesPhids}/$countryID/$cityID';
   // -----------------------------------------------------------------------------
 }

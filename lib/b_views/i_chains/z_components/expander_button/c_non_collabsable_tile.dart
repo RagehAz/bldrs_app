@@ -7,21 +7,21 @@ import 'package:flutter/material.dart';
 class NonCollapsableTile extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const NonCollapsableTile({
-    @required this.firstHeadline,
-    @required this.child,
-    @required this.width,
-    @required this.secondHeadline,
-    @required this.icon,
-    @required this.iconSizeFactor,
-    @required this.onTileTap,
-    @required this.expansionColor,
-    @required this.corners,
-    @required this.searchText,
-    @required this.onTileLongTap,
-    @required this.onTileDoubleTap,
-    @required this.margin,
-    Key key,
-  }) : super(key: key);
+    required this.firstHeadline,
+    required this.child,
+    required this.width,
+    required this.secondHeadline,
+    required this.icon,
+    required this.iconSizeFactor,
+    required this.onTileTap,
+    required this.expansionColor,
+    required this.corners,
+    required this.searchText,
+    required this.onTileLongTap,
+    required this.onTileDoubleTap,
+    required this.margin,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double width;
   final String icon;

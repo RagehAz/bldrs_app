@@ -4,11 +4,11 @@ import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
-import 'package:colorizer/colorizer.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/colors/colorizer.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
-import 'package:super_image/super_image.dart';
+import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/super_image/super_image.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 
@@ -17,7 +17,7 @@ import 'package:super_image/super_image.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 Matrix4 initializeMatrix({
-  @required DraftSlide slide,
+  required DraftSlide slide,
 }){
   Matrix4 _output;
   if (slide.matrix == null){
@@ -36,7 +36,7 @@ Matrix4 initializeMatrix({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onCancelSlideEdits({
-  @required BuildContext context,
+  required BuildContext context,
 }) async {
 
   await Nav.goBack(
@@ -52,11 +52,11 @@ Future<void> onCancelSlideEdits({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onResetMatrix({
-  @required DraftSlide originalDraft,
-  @required ValueNotifier<DraftSlide> draftNotifier,
-  @required ValueNotifier<bool> canResetMatrix,
-  @required ValueNotifier<Matrix4> matrix,
-  @required bool mounted,
+  required DraftSlide originalDraft,
+  required ValueNotifier<DraftSlide> draftNotifier,
+  required ValueNotifier<bool> canResetMatrix,
+  required ValueNotifier<Matrix4> matrix,
+  required bool mounted,
 }) async {
 
   final bool _go = await Dialogs.confirmProceed(
@@ -104,10 +104,10 @@ Future<void> onResetMatrix({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onTriggerAnimation({
-  @required ValueNotifier<DraftSlide> draftNotifier,
-  @required ValueNotifier<bool> canResetMatrix,
-  @required ValueNotifier<bool> isPlayingAnimation,
-  @required bool mounted,
+  required ValueNotifier<DraftSlide> draftNotifier,
+  required ValueNotifier<bool> canResetMatrix,
+  required ValueNotifier<bool> isPlayingAnimation,
+  required bool mounted,
 }){
 
   final Curve _oldCurve = draftNotifier.value.animationCurve;
@@ -155,10 +155,10 @@ void onTriggerAnimation({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onReplayAnimation({
-  @required ValueNotifier<DraftSlide> draftNotifier,
-  @required ValueNotifier<bool> canResetMatrix,
-  @required ValueNotifier<bool> isPlayingAnimation,
-  @required bool mounted,
+  required ValueNotifier<DraftSlide> draftNotifier,
+  required ValueNotifier<bool> canResetMatrix,
+  required ValueNotifier<bool> isPlayingAnimation,
+  required bool mounted,
 }){
 
     if (
@@ -185,8 +185,8 @@ void onReplayAnimation({
 // --------------------
 /// TESTED : WORKS PERFECT
 void stopAnimation({
-  @required ValueNotifier<bool> isPlayingAnimation,
-  @required bool mounted,
+  required ValueNotifier<bool> isPlayingAnimation,
+  required bool mounted,
 }){
   setNotifier(
       notifier: isPlayingAnimation,
@@ -201,11 +201,11 @@ void stopAnimation({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onCropSlide({
-  @required ValueNotifier<DraftSlide> draftNotifier,
-  @required ValueNotifier<ImageFilterModel> filterNotifier,
-  @required ValueNotifier<Matrix4> matrixNotifier,
-  @required String bzID,
-  @required bool mounted,
+  required ValueNotifier<DraftSlide> draftNotifier,
+  required ValueNotifier<ImageFilterModel> filterNotifier,
+  required ValueNotifier<Matrix4> matrixNotifier,
+  required String bzID,
+  required bool mounted,
 }) async {
 
   final Uint8List _bytes = await BldrsPicMaker.cropPic(
@@ -236,9 +236,9 @@ Future<void> onCropSlide({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onToggleFilter({
-  @required ValueNotifier<DraftSlide> draftNotifier,
-  @required ValueNotifier<ImageFilterModel> currentFilter,
-  @required bool mounted,
+  required ValueNotifier<DraftSlide> draftNotifier,
+  required ValueNotifier<ImageFilterModel> currentFilter,
+  required bool mounted,
 }){
 
   final ImageFilterModel _currentFilter = currentFilter.value;
@@ -276,9 +276,9 @@ void onToggleFilter({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onSlideHeadlineChanged({
-  @required ValueNotifier<DraftSlide> draftSlide,
-  @required String text,
-  @required bool mounted,
+  required ValueNotifier<DraftSlide> draftSlide,
+  required String text,
+  required bool mounted,
 }){
 
   setNotifier(
@@ -297,10 +297,10 @@ void onSlideHeadlineChanged({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onConfirmSlideEdits({
-  @required BuildContext context,
-  @required ValueNotifier<DraftSlide> draftNotifier,
-  @required ValueNotifier<ImageFilterModel> filter,
-  @required ValueNotifier<Matrix4> matrix,
+  required BuildContext context,
+  required ValueNotifier<DraftSlide> draftNotifier,
+  required ValueNotifier<ImageFilterModel> filter,
+  required ValueNotifier<Matrix4> matrix,
 }) async {
 
 

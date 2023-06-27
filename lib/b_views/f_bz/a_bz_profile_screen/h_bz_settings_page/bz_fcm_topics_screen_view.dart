@@ -1,3 +1,5 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
@@ -20,14 +22,14 @@ import 'package:flutter/material.dart';
 class BzFCMTopicsScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzFCMTopicsScreenView({
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onSwitchAuthorSubscriptionToTopic({
-    @required BuildContext context,
-    @required String topicID,
-    @required bool value,
+    required BuildContext context,
+    required String topicID,
+    required bool value,
   }) async {
 
     final BzModel _activeBz = BzzProvider.proGetActiveBzModel(
@@ -64,8 +66,8 @@ class BzFCMTopicsScreenView extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onSwitchAll({
-    @required BuildContext context,
-    @required bool value,
+    required BuildContext context,
+    required bool value,
   }) async {
 
     final BzModel _bzModel = BzzProvider.proGetActiveBzModel(

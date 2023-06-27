@@ -1,4 +1,6 @@
-import 'package:filers/filers.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
@@ -12,15 +14,15 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:provider/provider.dart';
 
 class BzTeamPage extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const BzTeamPage({
     this.bubbleWidth,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double bubbleWidth;
   /// --------------------------------------------------------------------------
@@ -37,7 +39,7 @@ class _BzTeamPageState extends State<BzTeamPage> {
    */
   // --------------------
   /*
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -92,7 +94,7 @@ class _BzTeamPageState extends State<BzTeamPage> {
     return Selector<BzzProvider, BzModel>(
       selector: (_, BzzProvider bzzProvider) => bzzProvider.myActiveBz,
       shouldRebuild: (oldModel, newModel) => true,
-      builder: (BuildContext context, BzModel bzModel, Widget child){
+      builder: (BuildContext context, BzModel bzModel, Widget? child){
 
         final List<AuthorModel> _authors = _bzModel?.authors;
 

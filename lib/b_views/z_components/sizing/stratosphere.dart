@@ -1,9 +1,8 @@
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:scale/scale.dart';
-
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 
 /// --- STRATOSPHERE IS UPPER SCREEN PADDING THAT RESPECTS APPBAR HEIGHT
 class Stratosphere extends StatelessWidget {
@@ -11,8 +10,8 @@ class Stratosphere extends StatelessWidget {
   const Stratosphere({
     this.heightFactor = 1,
     this.bigAppBar = false,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double heightFactor;
   final bool bigAppBar;
@@ -25,8 +24,8 @@ class Stratosphere extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double getStratosphereValue({
-    @required BuildContext context,
-    @required AppBarType appBarType,
+    required BuildContext context,
+    required AppBarType appBarType,
   }){
     final double _appBarHeight = BldrsAppBar.collapsedHeight(context, appBarType);
     final double _topPadding =  _appBarHeight + (2 * Ratioz.appBarMargin);
@@ -35,8 +34,8 @@ class Stratosphere extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static EdgeInsets getStratosphereSandwich({
-    @required BuildContext context,
-    @required AppBarType appBarType,
+    required BuildContext context,
+    required AppBarType appBarType,
     bool withHorizon = true
   }){
 

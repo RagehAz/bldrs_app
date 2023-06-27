@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/ldb/a_country_ldb_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/real/a_country_real_ops.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 class CountryProtocols {
@@ -22,7 +22,7 @@ class CountryProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CountryModel> fetchCountry({
-    @required String countryID,
+    required String countryID,
   }) async {
 
     CountryModel _output;
@@ -62,7 +62,7 @@ class CountryProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CountryModel> refetchCountry({
-    @required String countryID,
+    required String countryID,
   }) async {
     CountryModel _output;
 
@@ -79,7 +79,7 @@ class CountryProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CountryModel>> fetchCountries({
-    @required List<String> countriesIDs,
+    required List<String> countriesIDs,
   }) async {
     final List<CountryModel> _output = <CountryModel>[];
 

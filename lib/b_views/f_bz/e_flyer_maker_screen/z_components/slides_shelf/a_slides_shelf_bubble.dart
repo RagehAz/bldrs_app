@@ -1,3 +1,4 @@
+import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shelf/b_draft_shelf.dart';
@@ -11,12 +12,12 @@ import 'package:flutter/material.dart';
 class SlidesShelfBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SlidesShelfBubble({
-    @required this.bzModel,
-    @required this.draftNotifier,
-    @required this.canValidate,
-    @required this.focusNode,
-    Key key
-  }) : super(key: key);
+    required this.bzModel,
+    required this.draftNotifier,
+    required this.canValidate,
+    required this.focusNode,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final BzModel bzModel;
   final ValueNotifier<DraftFlyer> draftNotifier;

@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/a_models/g_counters/flyer_counter_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
@@ -11,17 +12,17 @@ import 'package:flutter/material.dart';
 class InfoButtonStarter extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const InfoButtonStarter({
-    @required this.flyerBoxWidth,
-    @required this.flyerModel,
-    @required this.tinyMode,
-    @required this.infoButtonExpanded,
-    @required this.onInfoButtonTap,
-    @required this.infoButtonType,
-    @required this.infoPageVerticalController,
-    @required this.inFlight,
-    @required this.flyerCounter,
-    Key key
-  }) : super(key: key);
+    required this.flyerBoxWidth,
+    required this.flyerModel,
+    required this.tinyMode,
+    required this.infoButtonExpanded,
+    required this.onInfoButtonTap,
+    required this.infoButtonType,
+    required this.infoPageVerticalController,
+    required this.inFlight,
+    required this.flyerCounter,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final FlyerModel flyerModel;
@@ -58,7 +59,7 @@ class InfoButtonStarter extends StatelessWidget {
         onTap: _canTapInfoButton() ? onInfoButtonTap : null,
         child: ValueListenableBuilder(
           valueListenable: infoButtonExpanded,
-          builder: (_, bool buttonExpanded, Widget infoPageTree){
+          builder: (_, bool buttonExpanded, Widget? infoPageTree){
 
 
             // final Color _color = InfoButtonStarter.getColor(

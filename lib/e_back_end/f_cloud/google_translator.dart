@@ -1,4 +1,4 @@
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:translator/translator.dart';
 /// => TAMAM
@@ -28,9 +28,9 @@ class GoogleTranslate {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<String> translate({
-    @required String input,
-    @required String from,
-    @required String to,
+    required String input,
+    required String from,
+    required String to,
   }) async {
     if (input == null || input.isEmpty) {
       return null;

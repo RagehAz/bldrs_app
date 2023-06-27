@@ -8,11 +8,11 @@ import 'dart:ui' as ui;
 class AppBarBlurLayer extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const AppBarBlurLayer({
-    @required this.blurIsOn,
-    @required this.appBarType,
-    @required this.isExpanded,
-    Key key
-  }) : super(key: key);
+    required this.blurIsOn,
+    required this.appBarType,
+    required this.isExpanded,
+    super.key
+  });
   // -----------------------------------------------------------------------------
   final bool blurIsOn;
   final AppBarType appBarType;

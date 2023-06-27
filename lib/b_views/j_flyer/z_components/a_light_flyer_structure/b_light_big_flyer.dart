@@ -1,6 +1,9 @@
 import 'dart:async';
 
 import 'package:animators/animators.dart';
+import 'package:basics/animators/helpers/sliders.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/g_counters/bz_counter_model.dart';
@@ -22,19 +25,19 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class LightBigFlyer extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const LightBigFlyer({
-    @required this.flyerBoxWidth,
-    @required this.renderedFlyer,
-    @required this.onHorizontalExit,
+    required this.flyerBoxWidth,
+    required this.renderedFlyer,
+    required this.onHorizontalExit,
     this.showGallerySlide = true,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final FlyerModel renderedFlyer;
@@ -83,7 +86,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -541,7 +544,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
     // --------------------
     return ValueListenableBuilder(
       valueListenable: _flyer,
-      builder: (_, FlyerModel flyerModel, Widget savingNotice) {
+      builder: (_, FlyerModel flyerModel, Widget? savingNotice) {
 
         // blog('light big flyer is rebuilding : ${flyerModel.id}');
 

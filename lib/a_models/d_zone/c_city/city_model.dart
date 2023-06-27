@@ -1,11 +1,14 @@
+import 'package:basics/helpers/classes/space/atlas.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:space_time/space_time.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/time/timers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 /// => TAMAM
 @immutable
 class CityModel {
@@ -47,8 +50,8 @@ class CityModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, Object> toMap({
-    @required bool toJSON,
-    @required bool toLDB,
+    required bool toJSON,
+    required bool toLDB,
   }){
 
     Map<String, dynamic> _map = {
@@ -98,9 +101,9 @@ class CityModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> cipherCities({
-    @required List<CityModel> cities,
-    @required bool toJSON,
-    @required bool toLDB,
+    required List<CityModel> cities,
+    required bool toJSON,
+    required bool toLDB,
   }) {
     final List<Map<String, dynamic>> _output = [];
 
@@ -124,10 +127,10 @@ class CityModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static CityModel decipherCity({
-    @required Map<String, dynamic> map,
-    @required String cityID,
-    @required bool fromJSON,
-    @required bool fromLDB,
+    required Map<String, dynamic> map,
+    required String cityID,
+    required bool fromJSON,
+    required bool fromLDB,
   }) {
     CityModel _city;
 
@@ -153,9 +156,9 @@ class CityModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<CityModel> decipherCities({
-    @required List<Map<String, dynamic>> maps,
-    @required bool fromJSON,
-    @required bool fromLDB,
+    required List<Map<String, dynamic>> maps,
+    required bool fromJSON,
+    required bool fromLDB,
   }) {
     final List<CityModel> _cities = <CityModel>[];
 
@@ -177,7 +180,7 @@ class CityModel {
   // --------------------
   /// DEPRECATED
   /*
-//   static List<CityModel> decipherCitiesMap({@required Map<String, dynamic> map, @required bool fromJSON}){
+//   static List<CityModel> decipherCitiesMap({required Map<String, dynamic> map, required bool fromJSON}){
 //     final List<CityModel> _cities = <CityModel>[];
 //
 //     final List<String> _keys = map.keys.toList();
@@ -208,11 +211,14 @@ class CityModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getCountryIDFromCityID(String cityID){
+  static String? getCountryIDFromCityID(String cityID){
 
     /// NEW IDS
     if (TextCheck.stringContainsSubString(string: cityID, subString: '+') == true){
-      return TextMod.removeTextAfterFirstSpecialCharacter(cityID, '+');
+      return TextMod.removeTextAfterFirstSpecialCharacter(
+          text: cityID,
+          specialCharacter: '+',
+      );
     }
 
     /// SOMETHING IS WRONG
@@ -225,8 +231,8 @@ class CityModel {
   /// DEPRECATED
   /*
   static List<String> getTranslatedCitiesNamesFromCities({
-    @required BuildContext context,
-    @required List<CityModel> cities,
+    required BuildContext context,
+    required List<CityModel> cities,
   }) {
     // final List<String> _citiesNames = <String>[];
     //
@@ -245,8 +251,8 @@ class CityModel {
   /// DEPRECATED
   /*
   static List<MapModel> getCitiesNamesMapModels({
-    @required BuildContext context,
-    @required List<CityModel> cities,
+    required BuildContext context,
+    required List<CityModel> cities,
   }) {
     final List<MapModel> _citiesMapModels = <MapModel>[];
 
@@ -289,8 +295,8 @@ class CityModel {
   /// DEPRECATED
   /*
   static CityModel getCityFromCities({
-    @required List<CityModel> cities,
-    @required String cityID,
+    required List<CityModel> cities,
+    required String cityID,
   }) {
     CityModel _city;
     if (Mapper.checkCanLoopList(cities) == true) {
@@ -303,8 +309,8 @@ class CityModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<CityModel> getCitiesFromCitiesByIDs({
-    @required List<CityModel> citiesModels,
-    @required List<String> citiesIDs,
+    required List<CityModel> citiesModels,
+    required List<String> citiesIDs,
   }){
     final List<CityModel> _output = [];
 
@@ -353,7 +359,7 @@ class CityModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String translateCity({
-    @required CityModel city,
+    required CityModel city,
     String langCode,
   }) {
 
@@ -407,8 +413,8 @@ class CityModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String createCityID({
-    @required String countryID,
-    @required String cityEnName,
+    required String countryID,
+    required String cityEnName,
   }){
     String _output;
 
@@ -436,8 +442,8 @@ class CityModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<CityModel> sortCitiesPerNearestToCity({
-    @required CityModel city,
-    @required List<CityModel> cities,
+    required CityModel city,
+    required List<CityModel> cities,
   }){
 
     /// sorting
@@ -465,7 +471,7 @@ class CityModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<CityModel> sortCitiesAlphabetically({
-    @required List<CityModel> cities,
+    required List<CityModel> cities,
   }){
     List<CityModel> _output = <CityModel>[];
 
@@ -503,8 +509,8 @@ class CityModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<CityModel> addCityToCities({
-    @required List<CityModel> cities,
-    @required CityModel city,
+    required List<CityModel> cities,
+    required CityModel city,
   }){
 
     List<CityModel> _output = <CityModel>[];
@@ -522,8 +528,8 @@ class CityModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static CityModel replacePhraseInCityPhrases({
-    @required CityModel city,
-    @required Phrase phrase,
+    required CityModel city,
+    required Phrase phrase,
   }){
     CityModel _output = city;
 
@@ -542,8 +548,8 @@ class CityModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static CityModel removePhraseFromCityPhrases({
-    @required CityModel city,
-    @required String langCode,
+    required CityModel city,
+    required String langCode,
   }){
     CityModel _output = city;
 

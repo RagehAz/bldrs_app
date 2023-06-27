@@ -3,15 +3,15 @@ import 'package:bldrs/b_views/d_user/a_user_profile_screen/d_settings_page/user_
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/h_bz_settings_page/bz_fcm_topics_screen_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:night_sky/night_sky.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:flutter/material.dart';
 
 class FCMTopicsScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FCMTopicsScreen({
-    @required this.partyType,
-    Key key
-  }) : super(key: key);
+    required this.partyType,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final PartyType partyType;
   // -----------------------------------------------------------------------------

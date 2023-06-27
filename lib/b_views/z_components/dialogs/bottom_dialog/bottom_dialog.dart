@@ -1,3 +1,9 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/bldrs_theme/classes/shadowers.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/space/borderers.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -7,8 +13,8 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 // -----------------------------------------------------------------------------
 enum BottomDialogType {
   countries,
@@ -24,8 +30,8 @@ class BottomDialog extends StatelessWidget {
     this.height,
     this.child,
     this.titleVerse,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double height;
   final Widget child;
@@ -62,7 +68,7 @@ class BottomDialog extends StatelessWidget {
   }
   // --------------------
   static double titleZoneHeight({
-    @required bool titleIsOn,
+    required bool titleIsOn,
   }) {
     bool _titleIsOn;
 
@@ -79,8 +85,8 @@ class BottomDialog extends StatelessWidget {
   }
   // --------------------
   static double calculateDialogHeight({
-    @required bool titleIsOn,
-    @required double childHeight,
+    required bool titleIsOn,
+    required double childHeight,
   }){
     final double _draggerHeight = draggerZoneHeight();
     final double _titleHeight = titleZoneHeight(titleIsOn: titleIsOn);
@@ -128,7 +134,7 @@ class BottomDialog extends StatelessWidget {
   }
   // --------------------
   static double clearHeight({
-    @required BuildContext context,
+    required BuildContext context,
     double overridingDialogHeight,
     bool titleIsOn,
   }) {
@@ -168,7 +174,7 @@ class BottomDialog extends StatelessWidget {
   }
   // --------------------
   static Future<void> showBottomDialog({
-    @required Widget child,
+    required Widget child,
     double height,
     Verse titleVerse,
   }) async {
@@ -224,7 +230,7 @@ class BottomDialog extends StatelessWidget {
   }
   // --------------------
   static Future<void> showButtonsBottomDialog({
-    @required int numberOfWidgets,
+    required int numberOfWidgets,
     double buttonHeight = wideButtonHeight,
     List<Widget> Function(BuildContext) builder,
     Verse titleVerse,
@@ -270,8 +276,8 @@ class BottomDialog extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> showStatefulBottomDialog({
-    @required Widget Function(BuildContext, Function setState) builder,
-    @required Verse titleVerse,
+    required Widget Function(BuildContext, Function setState) builder,
+    required Verse titleVerse,
     double height,
   }) async {
 
@@ -309,9 +315,9 @@ class BottomDialog extends StatelessWidget {
   }
   // --------------------
   static Future<void> slideBzBottomDialog({
-    @required BuildContext context,
-    @required BzModel bz,
-    @required AuthorModel author,
+    required BuildContext context,
+    required BzModel bz,
+    required AuthorModel author,
   }) async {
 
     // final double _flyerBoxWidth = FlyerBox.width(context, 0.71);
@@ -350,7 +356,7 @@ class BottomDialog extends StatelessWidget {
   static const double wideButtonHeight = 45;
   // --------------------
   static Widget wideButton({
-    @required BuildContext context,
+    required BuildContext context,
     Verse verse,
     Function onTap,
     String icon,

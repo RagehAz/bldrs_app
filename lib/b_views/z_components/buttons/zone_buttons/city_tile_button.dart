@@ -1,3 +1,4 @@
+import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -10,14 +11,14 @@ import 'package:flutter/material.dart';
 class WideCityButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const WideCityButton({
-    @required this.city,
-    @required this.onSingleTap,
-    @required this.isActive,
-    @required this.censusModel,
-    @required this.onDeactivatedTap,
+    required this.city,
+    required this.onSingleTap,
+    required this.isActive,
+    required this.censusModel,
+    required this.onDeactivatedTap,
     this.verse,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final CityModel city;
   final Function onSingleTap;

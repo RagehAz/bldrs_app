@@ -3,7 +3,7 @@ import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/material.dart';
 
 class WipeReviewProtocols {
@@ -18,8 +18,8 @@ class WipeReviewProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> wipeSingleReview({
-    @required ReviewModel reviewModel,
-    @required String bzID,
+    required ReviewModel reviewModel,
+    required String bzID,
   }) async {
     /// 1. delete sub doc (fire/flyers/flyerID/reviews/reviewID)
     /// 2. delete reviewAgrees node (real/agreesOnReviews/reviewID)
@@ -67,8 +67,8 @@ class WipeReviewProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<void> onWipeFlyer({
-    @required String flyerID,
-    @required String bzID,
+    required String flyerID,
+    required String bzID,
   }) async {
 
     if (flyerID != null){
@@ -98,8 +98,8 @@ class WipeReviewProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<void> onWipeBz({
-    @required List<String> flyersIDs,
-    @required String bzID,
+    required List<String> flyersIDs,
+    required String bzID,
   }) async {
 
     if (bzID != null){

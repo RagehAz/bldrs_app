@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:ldb/ldb.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/ldb/methods/ldb_ops.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 class ChainLDBOps {
@@ -55,7 +55,7 @@ class ChainLDBOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateBldrsChains({
-    @required List<Chain> chains,
+    required List<Chain> chains,
   }) async {
 
     await insertBldrsChains(chains);

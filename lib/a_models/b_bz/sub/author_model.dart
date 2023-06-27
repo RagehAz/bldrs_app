@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
@@ -9,23 +10,21 @@ import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 /// => TAMAM
 @immutable
 class AuthorModel {
   /// --------------------------------------------------------------------------
   const AuthorModel({
-    @required this.userID,
-    @required this.name,
-    @required this.picPath,
-    @required this.title,
-    @required this.role,
-    @required this.contacts,
-    @required this.flyersIDs,
+    required this.userID,
+    required this.name,
+    required this.picPath,
+    required this.title,
+    required this.role,
+    required this.contacts,
+    required this.flyersIDs,
     this.picModel,
   });
   /// --------------------------------------------------------------------------
@@ -36,7 +35,7 @@ class AuthorModel {
   final AuthorRole role;
   final List<ContactModel> contacts;
   final List<String> flyersIDs;
-  final PicModel picModel;
+  final PicModel? picModel;
   // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
@@ -44,8 +43,8 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<AuthorModel> prepareAuthorForEditing({
-    @required AuthorModel oldAuthor,
-    @required BzModel bzModel,
+    required AuthorModel oldAuthor,
+    required BzModel bzModel,
   }) async {
 
     final AuthorModel _tempAuthor = oldAuthor.copyWith(
@@ -61,9 +60,9 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static AuthorModel bakeEditorVariablesToUpload({
-    @required AuthorModel draftAuthor,
-    @required AuthorModel oldAuthor,
-    @required BzModel bzModel,
+    required AuthorModel draftAuthor,
+    required AuthorModel oldAuthor,
+    required BzModel bzModel,
   }){
 
     return draftAuthor.copyWith(
@@ -81,14 +80,14 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   AuthorModel copyWith({
-    String userID,
-    String name,
-    String picPath,
-    String title,
-    AuthorRole role,
-    List<ContactModel> contacts,
-    List<String> flyersIDs,
-    PicModel picModel,
+    String? userID,
+    String? name,
+    String? picPath,
+    String? title,
+    AuthorRole? role,
+    List<ContactModel>? contacts,
+    List<String>? flyersIDs,
+    PicModel? picModel,
   }){
     return AuthorModel(
       userID: userID ?? this.userID,
@@ -103,12 +102,12 @@ class AuthorModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<AuthorModel> createAuthorFromUserModel({
-    @required UserModel userModel,
-    @required String bzID,
-    @required bool isCreator,
+  static Future<AuthorModel?> createAuthorFromUserModel({
+    required UserModel userModel,
+    required String bzID,
+    required bool isCreator,
   }) async {
-    AuthorModel _author;
+    AuthorModel? _author;
 
     if (userModel != null) {
 
@@ -263,7 +262,7 @@ class AuthorModel {
   /*
   /// TESTED : WORKS PERFECT
   static AuthorModel getAuthorWhosePicIsFile({
-    @required List<AuthorModel> authors,
+    required List<AuthorModel> authors,
   }){
     AuthorModel _output;
 
@@ -282,8 +281,8 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getAuthorPicOwnersIDs({
-    @required BzModel bzModel,
-    @required AuthorModel authorModel,
+    required BzModel bzModel,
+    required AuthorModel authorModel,
   }){
 
     /// NOTE : GETS ONLY THE CREATOR ID AND THE AUTHOR ID IF NOT IDNETICAL
@@ -310,9 +309,9 @@ class AuthorModel {
   /*
   /// TESTED : WORKS PERFECT
   static int getAuthorGalleryCountFromBzModel({
-    @required BzModel bzModel,
-    @required AuthorModel author,
-    @required List<FlyerModel> bzFlyers
+    required BzModel bzModel,
+    required AuthorModel author,
+    required List<FlyerModel> bzFlyers
   }) {
     final String _authorID = author.userID;
 
@@ -335,8 +334,8 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static AuthorModel getAuthorFromBzByAuthorID({
-    @required BzModel bz,
-    @required String authorID,
+    required BzModel bz,
+    required String authorID,
   }) {
     final AuthorModel author = bz?.authors?.singleWhere(
             (AuthorModel au) => au?.userID == authorID,
@@ -346,8 +345,8 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static int getAuthorIndexByAuthorID({
-    @required List<AuthorModel> authors,
-    @required String authorID,
+    required List<AuthorModel> authors,
+    required String authorID,
   }) {
     final int _currentAuthorIndex = authors.indexWhere(
             (AuthorModel au) => authorID == au.userID
@@ -358,7 +357,7 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getAuthorsIDsFromAuthors({
-    @required List<AuthorModel> authors,
+    required List<AuthorModel> authors,
   }) {
     final List<String> _authorsIDs = <String>[];
 
@@ -371,8 +370,8 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static AuthorModel getAuthorFromAuthorsByID({
-    @required List<AuthorModel> authors,
-    @required String authorID,
+    required List<AuthorModel> authors,
+    required String authorID,
   }){
 
     AuthorModel _author;
@@ -391,8 +390,8 @@ class AuthorModel {
   }
   // --------------------
   static List<AuthorModel> getAuthorsFromAuthorsByAuthorsIDs({
-    @required List<AuthorModel> allAuthors,
-    @required List<String> authorsIDs,
+    required List<AuthorModel> allAuthors,
+    required List<String> authorsIDs,
   }) {
     final List<AuthorModel> _bzAuthors = <AuthorModel>[];
 
@@ -431,7 +430,7 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getAuthorsNames({
-    @required List<AuthorModel> authors
+    required List<AuthorModel> authors
   }){
     final List<String> _names = <String>[];
 
@@ -448,8 +447,8 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static AuthorModel getFlyerAuthor({
-    @required List<AuthorModel> authors,
-    @required String flyerID,
+    required List<AuthorModel> authors,
+    required String flyerID,
   }){
 
     AuthorModel _author;
@@ -516,8 +515,8 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static BzModel replaceAuthorModelInBzModel({
-    @required BzModel oldBz,
-    @required AuthorModel newAuthor,
+    required BzModel oldBz,
+    required AuthorModel newAuthor,
   }) {
 
     final List<AuthorModel> _modifiedAuthorsList = replaceAuthorModelInAuthorsListByID(
@@ -534,8 +533,8 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<AuthorModel> replaceAuthorModelInAuthorsListByID({
-    @required List<AuthorModel> authors,
-    @required AuthorModel authorToReplace,
+    required List<AuthorModel> authors,
+    required AuthorModel authorToReplace,
   }) {
 
     List<AuthorModel> _output = <AuthorModel>[];
@@ -560,9 +559,9 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> replaceAuthorIDInAuthorsIDsList({
-    @required List<AuthorModel> originalAuthors,
-    @required AuthorModel oldAuthor,
-    @required AuthorModel newAuthor
+    required List<AuthorModel> originalAuthors,
+    required AuthorModel oldAuthor,
+    required AuthorModel newAuthor
   }) {
     List<String> _modifiedAuthorsIDsList;
 
@@ -588,9 +587,9 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<AuthorModel>> addNewUserToAuthors({
-    @required List<AuthorModel> authors,
-    @required UserModel newUser,
-    @required String bzID,
+    required List<AuthorModel> authors,
+    required UserModel newUser,
+    required String bzID,
   }) async {
 
     final List<AuthorModel> _output = <AuthorModel>[...authors];
@@ -612,8 +611,8 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<AuthorModel> removeAuthorFromAuthors({
-    @required List<AuthorModel> authors,
-    @required String authorIDToRemove,
+    required List<AuthorModel> authors,
+    required String authorIDToRemove,
   }){
 
     List<AuthorModel> _output;
@@ -638,9 +637,9 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<AuthorModel> addFlyerIDToAuthor({
-    @required String flyerID,
-    @required String authorID,
-    @required List<AuthorModel> oldAuthors,
+    required String flyerID,
+    required String authorID,
+    required List<AuthorModel> oldAuthors,
   }){
 
     List<AuthorModel> _output = oldAuthors;
@@ -689,9 +688,9 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<AuthorModel> removeFlyerIDFromAuthor({
-    @required String flyerID,
-    @required String authorID,
-    @required List<AuthorModel> oldAuthors,
+    required String flyerID,
+    required String authorID,
+    required List<AuthorModel> oldAuthors,
   }){
 
     List<AuthorModel> _newAuthors = oldAuthors;
@@ -743,8 +742,8 @@ class AuthorModel {
   // --------------------
   /*
   static List<AuthorModel> removeFlyerIDFromAuthors({
-    @required String flyerID,
-    @required List<AuthorModel> authors,
+    required String flyerID,
+    required List<AuthorModel> authors,
   }){
 
     List<AuthorModel> _output = authors;
@@ -774,8 +773,8 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<AuthorModel> overrideAuthorsBzID({
-    @required List<AuthorModel> authors,
-    @required String bzID,
+    required List<AuthorModel> authors,
+    required String bzID,
   }){
     final List<AuthorModel> _output = <AuthorModel>[];
 
@@ -810,8 +809,8 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkUserIsCreatorAuthor({
-    @required String userID,
-    @required BzModel bzModel,
+    required String userID,
+    required BzModel bzModel,
   }){
 
     bool _isCreator = false;
@@ -830,8 +829,8 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkAuthorsContainUserID({
-    @required List<AuthorModel> authors,
-    @required String userID,
+    required List<AuthorModel> authors,
+    required String userID,
   }){
     bool _contains = false;
 
@@ -853,7 +852,7 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkAuthorHasFlyers({
-    @required AuthorModel author,
+    required AuthorModel author,
   }){
     bool _hasFlyers = false;
 
@@ -868,7 +867,7 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkImCreatorInThisBz({
-    @required BzModel bzModel,
+    required BzModel bzModel,
   }){
     bool _imCreator = false;
 
@@ -890,7 +889,7 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkImAuthorInBzOfThisFlyer({
-    @required FlyerModel flyerModel,
+    required FlyerModel flyerModel,
   }){
 
     final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
@@ -906,9 +905,9 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> checkUserImageIsAuthorImage({
-    @required  BuildContext context,
-    @required AuthorModel authorModel,
-    @required UserModel userModel,
+    required  BuildContext context,
+    required AuthorModel authorModel,
+    required UserModel userModel,
   }) async {
     bool _areIdentical = false;
 
@@ -925,9 +924,9 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkAuthorCanDeleteFlyer({
-    @required String myID,
-    @required FlyerModel flyer,
-    @required BzModel bzModel,
+    required String myID,
+    required FlyerModel flyer,
+    required BzModel bzModel,
   }){
     bool _canDelete = false;
 
@@ -960,8 +959,8 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkUserIsAuthorInThisBz({
-    @required String bzID,
-    @required UserModel userModel,
+    required String bzID,
+    required UserModel userModel,
   }){
     bool _isAuthor = false;
 
@@ -979,7 +978,7 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> checkImALoneAuthor({
-    @required String bzID,
+    required String bzID,
   }) async {
     bool _aLoneAuthor;
 
@@ -999,8 +998,8 @@ class AuthorModel {
   // --------------------
   /// DEPRECATED
   static String generateAuthorPicID({
-    @required String authorID,
-    @required String bzID
+    required String authorID,
+    required String bzID
   }) {
     final String _authorPicID = '$authorID---$bzID';
     return _authorPicID;
@@ -1008,8 +1007,8 @@ class AuthorModel {
   // --------------------
   /*
   static String generateMasterAuthorsNamesString({
-    @required BuildContext context,
-    @required BzModel bzModel,
+    required BuildContext context,
+    required BzModel bzModel,
 }){
 
     String _string = superPhrase(context, 'phid_account_admin');
@@ -1089,7 +1088,7 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogAuthors({
-    @required List<AuthorModel> authors,
+    required List<AuthorModel> authors,
     String invoker,
   }){
 
@@ -1114,8 +1113,8 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String getAuthorRolePhid({
-    @required BuildContext context,
-    @required AuthorRole role,
+    required BuildContext context,
+    required AuthorRole role,
   }){
     switch (role){
       case AuthorRole.creator: return 'phid_creator'; break;
@@ -1131,9 +1130,9 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkAuthorAbility({
-    @required AuthorModel theDoer,
-    @required AuthorModel theDoneWith,
-    @required AuthorAbility ability,
+    required AuthorModel theDoer,
+    required AuthorModel theDoneWith,
+    required AuthorAbility ability,
   }){
 
     if (theDoer != null && ability != null){
@@ -1196,8 +1195,8 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkAuthorHasHigherRank({
-    @required AuthorModel theDoer, // the current user doing stuff
-    @required AuthorModel theDoneWith, // the author whos done with
+    required AuthorModel theDoer, // the current user doing stuff
+    required AuthorModel theDoneWith, // the author whos done with
   }){
 
     bool _hasHigherRank = false;
@@ -1216,8 +1215,8 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkAuthorHasSameRank({
-    @required AuthorModel theDoer, // the current user doing stuff
-    @required AuthorModel theDoneWith, // the author whos done with
+    required AuthorModel theDoer, // the current user doing stuff
+    required AuthorModel theDoneWith, // the author whos done with
   }){
 
     bool _hasHigherRank = false;
@@ -1252,8 +1251,8 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkAuthorsListsAreIdentical({
-    @required List<AuthorModel> authors1,
-    @required List<AuthorModel> authors2
+    required List<AuthorModel> authors1,
+    required List<AuthorModel> authors2
   }){
     bool _output = false;
 
@@ -1299,8 +1298,8 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkAuthorsAreIdentical({
-    @required AuthorModel author1,
-    @required AuthorModel author2,
+    required AuthorModel author1,
+    required AuthorModel author2,
   }){
     bool _identical = false;
 

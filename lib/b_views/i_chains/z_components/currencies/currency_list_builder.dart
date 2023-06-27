@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 class CurrencyListBuilder extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const CurrencyListBuilder({
-    @required this.width,
-    @required this.height,
-    @required this.currencies,
-    @required this.onCurrencyTap,
+    required this.width,
+    required this.height,
+    required this.currencies,
+    required this.onCurrencyTap,
     this.searchController,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double width;
   final double height;

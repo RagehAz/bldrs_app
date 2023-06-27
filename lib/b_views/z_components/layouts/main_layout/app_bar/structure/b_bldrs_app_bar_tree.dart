@@ -3,27 +3,27 @@ part of bldrs_app_bar;
 class BldrsAppBarTree extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BldrsAppBarTree({
-    @required this.globalKey,
-    @required this.appBarType,
-    @required this.onBack,
-    @required this.pageTitleVerse,
-    @required this.appBarRowWidgets,
-    @required this.loading,
-    @required this.progressBarModel,
-    @required this.appBarScrollController,
-    @required this.sectionButtonIsOn,
-    @required this.searchController,
-    @required this.onSearchSubmit,
-    @required this.onPaste,
-    @required this.onSearchChanged,
-    @required this.searchButtonIsOn,
-    @required this.searchHintVerse,
-    @required this.canGoBack,
-    @required this.onSearchCancelled,
-    @required this.filtersAreOn,
-    @required this.filters,
-    Key key
-  }) : super(key: key);
+    required this.globalKey,
+    required this.appBarType,
+    required this.onBack,
+    required this.pageTitleVerse,
+    required this.appBarRowWidgets,
+    required this.loading,
+    required this.progressBarModel,
+    required this.appBarScrollController,
+    required this.sectionButtonIsOn,
+    required this.searchController,
+    required this.onSearchSubmit,
+    required this.onPaste,
+    required this.onSearchChanged,
+    required this.searchButtonIsOn,
+    required this.searchHintVerse,
+    required this.canGoBack,
+    required this.onSearchCancelled,
+    required this.filtersAreOn,
+    required this.filters,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final AppBarType appBarType;
   final Function onBack;
@@ -180,7 +180,7 @@ class BldrsAppBarTree extends StatelessWidget {
       return ValueListenableBuilder(
           valueListenable: filtersAreOn,
           child: _appBarContents,
-          builder: (_, bool expanded, Widget child){
+          builder: (_, bool expanded, Widget? child){
 
             return AnimatedContainer(
               duration: BldrsAppBar.expansionDuration,

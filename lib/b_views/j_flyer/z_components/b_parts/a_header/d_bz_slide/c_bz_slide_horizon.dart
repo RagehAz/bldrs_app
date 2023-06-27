@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 class BzSlideHorizon extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzSlideHorizon({
-    @required this.flyerBoxWidth,
-    Key key
-  }) : super(key: key);
+    required this.flyerBoxWidth,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   /// --------------------------------------------------------------------------

@@ -7,8 +7,8 @@ import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
-import 'package:mapper/mapper.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 
 class FetchFlyerProtocols {
@@ -23,8 +23,8 @@ class FetchFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<FlyerModel> fetchFlyer({
-    @required BuildContext context,
-    @required String flyerID,
+    required BuildContext context,
+    required String flyerID,
   }) async {
 
     FlyerModel _flyer = await FlyerLDBOps.readFlyer(flyerID);
@@ -69,8 +69,8 @@ class FetchFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<FlyerModel>> fetchFlyers({
-    @required BuildContext context,
-    @required List<String> flyersIDs,
+    required BuildContext context,
+    required List<String> flyersIDs,
   }) async {
     // blog('FetchFlyerProtocol.fetchFlyersByIDs : START');
 
@@ -107,8 +107,8 @@ class FetchFlyerProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<FlyerModel> refetch({
-    @required BuildContext context,
-    @required  String flyerID,
+    required BuildContext context,
+    required  String flyerID,
   }) async {
 
     FlyerModel _output;
@@ -144,9 +144,9 @@ class FetchFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<FlyerModel> fetchAndCombineBzSlidesInOneFlyer({
-    @required BuildContext context,
-    @required String bzID,
-    @required int maxSlides,
+    required BuildContext context,
+    required String bzID,
+    required int maxSlides,
   }) async {
     FlyerModel _flyer;
 

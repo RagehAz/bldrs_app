@@ -1,10 +1,12 @@
+import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/c_chain/dd_data_creation.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/foundation.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 /// => TAMAM
 @immutable
 class ChainPathConverter {
@@ -48,8 +50,8 @@ class ChainPathConverter {
   // --------------------
   /// TEST : WORKS PERFECT
   static Chain createChainFromPaths({
-    @required String chainID,
-    @required List<String> paths,
+    required String chainID,
+    required List<String> paths,
   }){
 
     final List<Chain> _sons = ChainPathConverter.createChainsFromPaths(
@@ -66,7 +68,7 @@ class ChainPathConverter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Chain createChainFromSinglePath({
-    @required String path,
+    required String path,
   }) {
 
     Chain _chain;
@@ -86,7 +88,7 @@ class ChainPathConverter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Chain> createChainsFromPaths({
-    @required List<String> paths,
+    required List<String> paths,
   }) {
 
     final List<Chain> chains = [];
@@ -105,7 +107,7 @@ class ChainPathConverter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Chain _createNewEmptyChainForPath({
-    @required List<String> dividedPath,
+    required List<String> dividedPath,
   }){
 
     final Chain _chain = Chain(
@@ -123,8 +125,8 @@ class ChainPathConverter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void _addPathsToChains({
-    @required List<Chain> chains,
-    @required List<String> pathsToAdd,
+    required List<Chain> chains,
+    required List<String> pathsToAdd,
   }){
 
     for (final String path in pathsToAdd) {
@@ -140,8 +142,8 @@ class ChainPathConverter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Chain _combineSonsIfChainsIntoOneChain({
-    @required List<Chain> chains,
-    @required String rootChainID,
+    required List<Chain> chains,
+    required String rootChainID,
   }){
     Chain _output;
 
@@ -173,8 +175,8 @@ class ChainPathConverter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void _addPathToChains({
-    @required List<Chain> chains,
-    @required String pathToAdd,
+    required List<Chain> chains,
+    required String pathToAdd,
   }){
 
     final List<String> _divided = splitPathNodes(pathToAdd);
@@ -193,8 +195,8 @@ class ChainPathConverter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void _addDividedPathToAllChains({
-    @required List<Chain> chains,
-    @required List<String> dividedPath,
+    required List<Chain> chains,
+    required List<String> dividedPath,
   }) {
 
     /// GET ROOT CHAIN IF EXISTED OR NULL IF NOT
@@ -250,9 +252,9 @@ class ChainPathConverter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void _addNestedSonsIDsToChain({
-    @required Chain parentChain, // has sons type defined already
-    @required List<String> nestedSonsIDs, // does not include parent chain id
-    @required int level,
+    required Chain parentChain, // has sons type defined already
+    required List<String> nestedSonsIDs, // does not include parent chain id
+    required int level,
   }) {
 
     final String _space = Chain.getChainBlogTreeSpacing(level);
@@ -346,8 +348,8 @@ class ChainPathConverter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Chain _getRootChainFromChains({
-    @required List<Chain> chains,
-    @required String rootChainID
+    required List<Chain> chains,
+    required String rootChainID
   }){
 
     final int index = chains.indexWhere((chain) => chain.id == rootChainID);
@@ -363,7 +365,7 @@ class ChainPathConverter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> _getNestedSonsIDsFromDividedPath({
-    @required List<String> dividedPath,
+    required List<String> dividedPath,
   }){
 
     List<String> _output;
@@ -377,7 +379,7 @@ class ChainPathConverter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String getFirstPathNode({
-    @required String path
+    required String path
   }){
     /// FIRST PATH NODE IS CHAIN ROOT ID, in this example it's [phid_a] => 'phid_a/phid_b/phid_c'
     final String _cleanedPath = TextMod.removeTextAfterLastSpecialCharacter(path, '/');
@@ -428,7 +430,7 @@ class ChainPathConverter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> generateChainPaths({
-    @required Chain chain,
+    required Chain chain,
     String previousPath = '', // ...xx/
   }){
     final List<String> _allPaths = <String>[];
@@ -483,8 +485,8 @@ class ChainPathConverter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> generateChainsPaths({
-    @required String parentID,
-    @required List<Chain> chains,
+    required String parentID,
+    required List<Chain> chains,
     String previousPath = '', // ...xxx/
   }){
     final List<String> _allPaths = <String>[];
@@ -515,8 +517,8 @@ class ChainPathConverter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> _generateChainPathsFromPhidsSons({
-    @required String parentID,
-    @required List<String> phids,
+    required String parentID,
+    required List<String> phids,
     String previousPath = '', // ...xx/
   }){
 
@@ -541,8 +543,8 @@ class ChainPathConverter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> findPathsContainingPhid({
-    @required List<String> paths,
-    @required String phid,
+    required List<String> paths,
+    required String phid,
   }){
     final List<String> _foundPaths = <String>[];
 
@@ -568,8 +570,8 @@ class ChainPathConverter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> findPathsContainingPhids({
-    @required List<String> paths,
-    @required List<String> phids,
+    required List<String> paths,
+    required List<String> phids,
   }){
     List<String> _output = <String>[];
 
@@ -598,8 +600,8 @@ class ChainPathConverter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Chain> findPhidRelatedChains({
-    @required List<Chain> chains,
-    @required String phid,
+    required List<Chain> chains,
+    required String phid,
   }){
 
     /// NOTE : PHID CAN BE ANY NODE (ROOT MIDDLE OR LAST NODE)
@@ -629,8 +631,8 @@ class ChainPathConverter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Chain> findPhidsRelatedChains({
-    @required List<Chain> chains,
-    @required List<String> phids,
+    required List<Chain> chains,
+    required List<String> phids,
   }){
 
     /// NOTE : SAME AS [findPhidRelatedChains] BUT SEARCHES FOR MULTIPLE PHIDS AT ONCE
@@ -654,8 +656,8 @@ class ChainPathConverter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> findPathsStartingWith({
-    @required List<Chain> chains,
-    @required String startsWith,
+    required List<Chain> chains,
+    required String startsWith,
   }){
 
     /// NOTE : THIS GETS ALL PATHS THAT EXACTLY STARTS WITH THE GIVEN PATH
@@ -687,8 +689,8 @@ class ChainPathConverter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> addPathToPaths({
-    @required List<String> paths,
-    @required String path,
+    required List<String> paths,
+    required String path,
   }){
 
     final List<String> _output = <String>[...paths];
@@ -739,7 +741,7 @@ class ChainPathConverter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String removeLastPathNode({
-    @required String path
+    required String path
   }){
     String _output;
 
@@ -764,8 +766,8 @@ class ChainPathConverter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool _chainSonsIncludeID({
-    @required Chain chain,
-    @required String sonID,
+    required Chain chain,
+    required String sonID,
   }){
     bool _include = false;
 
@@ -803,8 +805,8 @@ class ChainPathConverter {
   // --------------------
   /*
   static bool phidIsAChainID({
-    @required List<String> paths,
-    @required String phid,
+    required List<String> paths,
+    required String phid,
 }){
 
     /// when paths include this phid more than once => its a chain
@@ -827,8 +829,8 @@ class ChainPathConverter {
   }
 
   static Chain insertPathIntoChain({
-    @required Chain chain,
-    @required String path,
+    required Chain chain,
+    required String path,
 }){
 
     // final Chain _chain = chain ?? Chain

@@ -1,3 +1,4 @@
+import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/static_flyer/b_static_header.dart';
@@ -9,11 +10,11 @@ import 'package:flutter/material.dart';
 class ShowAuthorSwitchBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ShowAuthorSwitchBubble({
-    @required this.draft,
-    @required this.onSwitch,
-    @required this.bzModel,
-    Key key
-  }) : super(key: key);
+    required this.draft,
+    required this.onSwitch,
+    required this.bzModel,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final DraftFlyer draft;
   final ValueChanged<bool> onSwitch;

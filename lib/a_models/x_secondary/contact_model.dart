@@ -1,10 +1,14 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 enum ContactType {
   phone,
@@ -32,8 +36,8 @@ enum ContactsOwnerType {
 class ContactModel {
   /// --------------------------------------------------------------------------
   const ContactModel({
-    @required this.value,
-    @required this.type,
+    required this.value,
+    required this.type,
     this.controller,
   });
   /// --------------------------------------------------------------------------
@@ -72,8 +76,8 @@ class ContactModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<ContactModel> generateBasicContacts({
-    @required String email,
-    @required String phone,
+    required String email,
+    required String phone,
   }){
     final List<ContactModel> _userContacts = <ContactModel>[];
 
@@ -189,8 +193,8 @@ class ContactModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<ContactModel> prepareContactsForEditing({
-    @required List<ContactModel> contacts,
-    @required String countryID,
+    required List<ContactModel> contacts,
+    required String countryID,
   }){
     final List<ContactModel> _output = <ContactModel>[];
 
@@ -226,9 +230,9 @@ class ContactModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String getInitialContactValue({
-    @required List<ContactModel> existingContacts,
-    @required ContactType type,
-    @required String countryID,
+    required List<ContactModel> existingContacts,
+    required ContactType type,
+    required String countryID,
   }){
 
     final ContactModel _existingContact = getContactFromContacts(
@@ -245,12 +249,12 @@ class ContactModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String _initializeContactValue({
-    @required ContactModel existingContact,
-    @required ContactType type,
-    @required String countryID,
+  static String? _initializeContactValue({
+    required ContactModel existingContact,
+    required ContactType type,
+    required String countryID,
   }){
-    String _output = '';
+    String? _output = '';
 
 
     /// IF PHONE
@@ -276,8 +280,8 @@ class ContactModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void createListenersToControllers({
-    @required List<ContactModel> contacts,
-    @required Function listener,
+    required List<ContactModel> contacts,
+    required Function listener,
   }){
 
     if (Mapper.checkCanLoopList(contacts) == true){
@@ -321,8 +325,8 @@ class ContactModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<ContactModel> bakeContactsAfterEditing({
-    @required List<ContactModel> contacts,
-    @required String countryID,
+    required List<ContactModel> contacts,
+    required String countryID,
   }){
 
     final List<ContactModel> _output = <ContactModel>[];
@@ -333,9 +337,9 @@ class ContactModel {
 
         final ContactModel _contact = contacts[i];
         final ContactType _contactType = _contact.type;
-        final String _value = _contact?.controller ?? _contact.value;
+        final String? _value = _contact?.controller ?? _contact.value;
 
-        String _endValue;
+        String? _endValue;
 
         /// IF PHONE
         if (_contactType == ContactType.phone){
@@ -377,8 +381,8 @@ class ContactModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String getContactTypePhid({
-    @required BuildContext context,
-    @required ContactType contactType,
+    required BuildContext context,
+    required ContactType contactType,
   }){
 
     switch (contactType){
@@ -404,8 +408,8 @@ class ContactModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static ContactModel getContactFromContacts({
-    @required List<ContactModel> contacts,
-    @required ContactType type,
+    required List<ContactModel> contacts,
+    required ContactType type,
   }) {
     final ContactModel contact = contacts?.singleWhere(
             (ContactModel x) => x.type == type,
@@ -415,8 +419,8 @@ class ContactModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String getValueFromContacts({
-    @required List<ContactModel> contacts,
-    @required ContactType contactType,
+    required List<ContactModel> contacts,
+    required ContactType contactType,
   }) {
 
     String _contactValue;
@@ -435,8 +439,8 @@ class ContactModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static TextEditingController getControllerFromContacts({
-    @required List<ContactModel> contacts,
-    @required ContactType contactType,
+    required List<ContactModel> contacts,
+    required ContactType contactType,
   }) {
 
     TextEditingController _controller;
@@ -516,25 +520,25 @@ class ContactModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String concludeContactIcon(ContactType contactType) {
+  static String? concludeContactIcon(ContactType? contactType) {
     switch (contactType) {
-      case ContactType.phone: return Iconz.comPhone; break;
-      case ContactType.email: return Iconz.comEmail; break;
-      case ContactType.website: return Iconz.comWebsite; break;
-      case ContactType.facebook: return Iconz.comFacebook; break;
-      case ContactType.linkedIn: return Iconz.comLinkedin; break;
-      case ContactType.youtube: return Iconz.comYoutube; break;
-      case ContactType.instagram: return Iconz.comInstagram; break;
-      case ContactType.pinterest: return Iconz.comPinterest; break;
-      case ContactType.tiktok: return Iconz.comTikTok; break;
-      case ContactType.twitter: return Iconz.comTwitter; break;
+      case ContactType.phone: return Iconz.comPhone;
+      case ContactType.email: return Iconz.comEmail;
+      case ContactType.website: return Iconz.comWebsite;
+      case ContactType.facebook: return Iconz.comFacebook;
+      case ContactType.linkedIn: return Iconz.comLinkedin;
+      case ContactType.youtube: return Iconz.comYoutube;
+      case ContactType.instagram: return Iconz.comInstagram;
+      case ContactType.pinterest: return Iconz.comPinterest;
+      case ContactType.tiktok: return Iconz.comTikTok;
+      case ContactType.twitter: return Iconz.comTwitter;
       default: return null;
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static TextInputType concludeContactTextInputType({
-    @required ContactType contactType,
+    required ContactType contactType,
   }){
 
     switch (contactType){
@@ -559,8 +563,8 @@ class ContactModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<ContactModel> insertOrReplaceContact({
-    @required List<ContactModel> contacts,
-    @required ContactModel contactToReplace,
+    required List<ContactModel> contacts,
+    required ContactModel contactToReplace,
   }){
     List<ContactModel> _output = <ContactModel>[];
 
@@ -621,7 +625,7 @@ class ContactModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogContacts({
-    @required List<ContactModel> contacts,
+    required List<ContactModel> contacts,
     String invoker = 'Contacts Models',
   }){
 
@@ -643,8 +647,8 @@ class ContactModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkContactIsRequired({
-    @required ContactType contactType,
-    @required ContactsOwnerType ownerType,
+    required ContactType contactType,
+    required ContactsOwnerType ownerType,
   }){
 
     /// USER CONTACTS
@@ -701,8 +705,8 @@ class ContactModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkContactIsBlocked({
-    @required ContactType contactType,
-    @required ContactsOwnerType ownerType,
+    required ContactType contactType,
+    required ContactsOwnerType ownerType,
   }){
 
     /// USER CONTACTS
@@ -763,8 +767,8 @@ class ContactModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkContactsListsAreIdentical({
-    @required List<ContactModel> contacts1,
-    @required List<ContactModel> contacts2,
+    required List<ContactModel> contacts1,
+    required List<ContactModel> contacts2,
   }){
     bool _identical = false;
 
@@ -808,8 +812,8 @@ class ContactModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkContactsAreIdentical({
-    @required ContactModel contact1,
-    @required ContactModel contact2,
+    required ContactModel contact1,
+    required ContactModel contact2,
   }){
     bool _areIdentical = false;
 
@@ -830,8 +834,8 @@ class ContactModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkEmailChanged({
-    @required List<ContactModel> oldContacts,
-    @required List<ContactModel> newContacts,
+    required List<ContactModel> oldContacts,
+    required List<ContactModel> newContacts,
   }){
     bool _changed = false;
 

@@ -1,6 +1,10 @@
 import 'dart:convert';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/checks/device_checker.dart';
+import 'package:basics/helpers/classes/checks/object_check.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/target/target_progress.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
@@ -10,19 +14,15 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm_starter.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_sounder.dart';
 import 'package:fire/super_fire.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:devicer/devicer.dart';
-import 'package:filers/filers.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart';
-import 'package:mapper/mapper.dart';
-import 'package:mediators/mediators.dart';
-import 'package:numeric/numeric.dart';
-import 'package:rest/rest.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:mediators/sounder/sounder.dart';
+import 'package:basics/helpers/classes/rest/rest.dart';
 
 /*
 
@@ -60,9 +60,9 @@ class FCM {
   static FCM get instance => _singleton;
   // -----------------------------------------------------------------------------
   /// AWESOME NOTIFICATIONS SINGLETON
-  AwesomeNotifications _awesomeNotifications;
+  AwesomeNotifications? _awesomeNotifications;
   AwesomeNotifications get awesomeNotifications => _awesomeNotifications ??= AwesomeNotifications();
-  static AwesomeNotifications getAwesomeNoots(){
+  static AwesomeNotifications? getAwesomeNoots(){
 
     if (kIsWeb == true || DeviceChecker.deviceIsWindows() == true){
       return null;
@@ -79,7 +79,7 @@ class FCM {
   }
   // -----------------------------------------------------------------------------
   /// LOCAL NOOT PLUGIN SINGLETON
-  FlutterLocalNotificationsPlugin _localNootsPlugin;
+  FlutterLocalNotificationsPlugin? _localNootsPlugin;
   FlutterLocalNotificationsPlugin get localNootsPlugin => _localNootsPlugin ??= FlutterLocalNotificationsPlugin();
   static FlutterLocalNotificationsPlugin getLocalNootsPlugin() => FCM.instance.localNootsPlugin;
   // --------------------
@@ -115,7 +115,7 @@ class FCM {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> requestAwesomePermission({
-    @required ChannelModel channel,
+    required ChannelModel channel,
   }) async {
 
     /// NOTE : THIS PUSHES NATIVE NOTIFICATIONS PERMISSIONS SCREEN
@@ -210,7 +210,7 @@ class FCM {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<NotificationChannel> generateBldrsNootChannels({
-    @required ChannelModel channel,
+    required ChannelModel channel,
   }){
 
     final List<NotificationChannel> _channels = <NotificationChannel>[
@@ -267,7 +267,7 @@ class FCM {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<NotificationChannelGroup> getBldrsChannelGroups({
-    @required ChannelModel channel,
+    required ChannelModel channel,
   }){
 
     return <NotificationChannelGroup>[
@@ -288,9 +288,9 @@ class FCM {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> pushGlobalNoot({
-    @required ChannelModel channelModel,
-    @required String title,
-    @required String body,
+    required ChannelModel channelModel,
+    required String title,
+    required String body,
     Map<String, String> payloadMap,
     String largeIconURL,
     Progress progress,
@@ -370,9 +370,9 @@ class FCM {
   // --------------------
   /// TESTED : WORKS PERFECT
   static NotificationContent _createGlobalNootContent({
-    @required ChannelModel channelModel,
-    @required String title,
-    @required String body,
+    required ChannelModel channelModel,
+    required String title,
+    required String body,
     bool canBeDismissedWithoutTapping = true,
     String nootIcon,
     String posterURL,
@@ -464,7 +464,7 @@ class FCM {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<NotificationActionButton> _createGlobalNootActionButtons({
-    @required List<String> buttonsTexts,
+    required List<String> buttonsTexts,
   }){
 
     /// BUTTONS ARE DEFINED
@@ -491,7 +491,7 @@ class FCM {
   // --------------------
   /// TESTED : WORKS PERFECT
   static NotificationActionButton _createGlobalNootActionButton({
-    @required String text,
+    required String text,
     Color textColor = Colorz.black255,
   }){
     return NotificationActionButton(
@@ -550,8 +550,8 @@ class FCM {
   ///
   /*
   static Future<void> onNotifyButtonTap({
-    @required BuildContext context,
-    @required Widget screenToGoToOnNotiTap,
+    required BuildContext context,
+    required Widget screenToGoToOnNotiTap,
   }) async {
 
     await notify();
@@ -650,7 +650,7 @@ class FCM {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> unsubscribeFromTopic({
-    @required String topicID,
+    required String topicID,
   }) async {
 
     final UserModel _user = UsersProvider.proGetMyUserModel(
@@ -790,8 +790,8 @@ class FCM {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogRemoteMessage({
-    @required RemoteMessage remoteMessage,
-    @required String invoker,
+    required RemoteMessage remoteMessage,
+    required String invoker,
   }) {
 
     blog('blogRemoteMessage : $invoker : START');
@@ -826,8 +826,8 @@ class FCM {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogNootSettings({
-    @required NotificationSettings settings,
-    @required String invoker,
+    required NotificationSettings settings,
+    required String invoker,
   }){
 
     blog('blogNootSettings : $invoker : START');

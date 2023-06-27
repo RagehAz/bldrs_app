@@ -1,27 +1,27 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/d_user/z_components/user_tile_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:scale/scale.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class UserTileButtonsList extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const UserTileButtonsList({
-    @required this.usersModels,
-    @required this.onUserTap,
+    required this.usersModels,
+    required this.onUserTap,
     this.selectedUsers,
     this.emptyListString,
     this.sideButtonVerse,
     this.onSideButtonTap,
     this.deactivatedUsersIDs,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final ValueNotifier<List<UserModel>> usersModels;
   final ValueNotifier<List<UserModel>> selectedUsers;
@@ -36,14 +36,14 @@ class UserTileButtonsList extends StatelessWidget {
 
     return ValueListenableBuilder(
         valueListenable: usersModels,
-        builder: (_, List<UserModel> foundUsers, Widget child){
+        builder: (_, List<UserModel> foundUsers, Widget? child){
 
           /// FOUND USERS
           if (Mapper.checkCanLoopList(foundUsers) == true){
 
             return ValueListenableBuilder(
               valueListenable: selectedUsers ?? ValueNotifier<List<UserModel>>(<UserModel>[]),
-              builder: (_, List<UserModel> selectedUsers, Widget child){
+              builder: (_, List<UserModel> selectedUsers, Widget? child){
 
                 return SizedBox(
                   width: Scale.screenWidth(context),
@@ -61,7 +61,7 @@ class UserTileButtonsList extends StatelessWidget {
                       );
                       final bool _isMe = _user.id == Authing.getUserID();
 
-                      final Color _buttonColor = _isSelected == true ? Colorz.green255
+                      final Color? _buttonColor = _isSelected == true ? Colorz.green255
                           :
                       _isMe == true ? Colorz.black255
                           :

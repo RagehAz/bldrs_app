@@ -1,3 +1,4 @@
+import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/c_chain/dd_data_creation.dart';
@@ -14,18 +15,18 @@ import 'package:flutter/material.dart';
 class NumberDataCreator extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const NumberDataCreator({
-    @required this.onExportSpecs,
-    @required this.initialValue,
-    @required this.initialUnit,
-    @required this.picker,
-    @required this.onKeyboardSubmitted,
-    @required this.dataCreatorType,
-    @required this.zone,
-    @required this.onlyUseZoneChains,
-    @required this.appBarType,
+    required this.onExportSpecs,
+    required this.initialValue,
+    required this.initialUnit,
+    required this.picker,
+    required this.onKeyboardSubmitted,
+    required this.dataCreatorType,
+    required this.zone,
+    required this.onlyUseZoneChains,
+    required this.appBarType,
     this.width,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final ValueChanged<List<SpecModel>> onExportSpecs;
   final SpecModel initialValue;

@@ -14,27 +14,27 @@ import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
-import 'package:mapper/mapper.dart';
-import 'package:night_sky/night_sky.dart';
+import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:provider/provider.dart';
-import 'package:scale/scale.dart';
-import 'package:widget_fader/widget_fader.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/animators/widgets/widget_fader.dart';
 
 class PickersScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const PickersScreen({
-    @required this.flyerTypeFilter,
-    @required this.onlyUseZoneChains,
-    @required this.isMultipleSelectionMode,
-    @required this.pageTitleVerse,
-    @required this.zone,
+    required this.flyerTypeFilter,
+    required this.onlyUseZoneChains,
+    required this.isMultipleSelectionMode,
+    required this.pageTitleVerse,
+    required this.zone,
     this.selectedSpecs,
     this.onlyChainKSelection = false,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final List<SpecModel> selectedSpecs;
   /// if given flyer type : will generate flyer type chain : if null will get all chains
@@ -340,7 +340,7 @@ class _PickersScreenState extends State<PickersScreen> {
           key: const ValueKey<String>('ChainsScreen_view'),
           valueListenable: _isSearching,
           child: Container(),
-          builder: (_, bool isSearching, Widget child){
+          builder: (_, bool isSearching, Widget? child){
 
             /// WHILE SEARCHING
             if (isSearching == true){

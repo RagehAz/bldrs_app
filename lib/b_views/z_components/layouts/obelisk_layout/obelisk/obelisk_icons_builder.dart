@@ -9,11 +9,11 @@ import 'package:provider/provider.dart';
 class ObeliskIconsBuilder extends StatelessWidget{
   /// --------------------------------------------------------------------------
   const ObeliskIconsBuilder({
-    @required this.navModels,
-    @required this.progressBarModel,
-    @required this.onRowTap,
-    Key key
-  }) : super(key: key);
+    required this.navModels,
+    required this.progressBarModel,
+    required this.onRowTap,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final List<NavModel> navModels;
   final ValueNotifier<ProgressBarModel> progressBarModel;

@@ -1,8 +1,10 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/e_back_end/j_ads/google_ads.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/foundation.dart';
 
@@ -12,11 +14,11 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 class GoogleAd extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const GoogleAd({
-    @required this.adSize,
+    required this.adSize,
     this.stretchToWidth,
     this.scale,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final AdSize adSize;
   final double stretchToWidth;
@@ -54,11 +56,11 @@ class GoogleAd extends StatelessWidget {
 class GoogleAdStarter extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const GoogleAdStarter({
-    @required this.adSize,
+    required this.adSize,
     this.stretchToWidth,
     this.scale,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final AdSize adSize;
   final double stretchToWidth;
@@ -76,7 +78,7 @@ class _GoogleAdStarterState extends State<GoogleAdStarter> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -122,19 +124,20 @@ class _GoogleAdStarterState extends State<GoogleAdStarter> {
         widget.scale != oldWidget.scale
     ) {
 
-      Future.delayed(Duration.zero, () async {
+      // Future.delayed(Duration.zero, () async {
 
-        await GoogleAds.disposeAd(_ad);
+        // await GoogleAds.disposeAd(_ad);
 
-        await _initializeBannerAd();
+        // await _initializeBannerAd();
 
-      });
+      // });
 
     }
 
     super.didUpdateWidget(oldWidget);
   }
   // -----------------------------------------------------------------------------
+  /*
   /// TESTED : WORKS PERFECT
   Future<void> _initializeBannerAd() async {
 
@@ -151,6 +154,7 @@ class _GoogleAdStarterState extends State<GoogleAdStarter> {
     blog('_initializeBannerAd : CREATED NEW AD');
 
   }
+   */
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -192,8 +196,8 @@ class _GoogleAdStarterState extends State<GoogleAdStarter> {
 class GoogleAdStripBanner extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const GoogleAdStripBanner({
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -209,8 +213,8 @@ class GoogleAdStripBanner extends StatelessWidget {
 class GoogleAdRectangleBanner extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const GoogleAdRectangleBanner({
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -226,8 +230,8 @@ class GoogleAdRectangleBanner extends StatelessWidget {
 class GoogleAdSquareBanner extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const GoogleAdSquareBanner({
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -246,8 +250,8 @@ class GoogleAdSlideBanner extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const GoogleAdSlideBanner({
     this.flyerBoxWidth,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   /// --------------------------------------------------------------------------

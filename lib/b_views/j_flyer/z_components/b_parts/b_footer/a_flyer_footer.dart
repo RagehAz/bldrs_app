@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/g_counters/flyer_counter_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/b_footer_box.dart';
@@ -9,23 +10,23 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/
 import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 
 class FlyerFooter extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const FlyerFooter({
-    @required this.flyerBoxWidth,
-    @required this.flyerModel,
-    @required this.tinyMode,
-    @required this.onSaveFlyer,
-    @required this.footerPageController,
-    @required this.headerIsExpanded,
-    @required this.inFlight,
-    @required this.flyerIsSaved,
-    @required this.infoButtonExpanded,
-    Key key
-  }) : super(key: key);
+    required this.flyerBoxWidth,
+    required this.flyerModel,
+    required this.tinyMode,
+    required this.onSaveFlyer,
+    required this.footerPageController,
+    required this.headerIsExpanded,
+    required this.inFlight,
+    required this.flyerIsSaved,
+    required this.infoButtonExpanded,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final FlyerModel flyerModel;
@@ -55,7 +56,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -178,7 +179,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
     return ValueListenableBuilder(
       key: const ValueKey<String>('FlyerFooter'),
       valueListenable: widget.headerIsExpanded,
-      builder: (_, bool _headerIsExpanded, Widget footerWidgets){
+      builder: (_, bool _headerIsExpanded, Widget? footerWidgets){
 
         return AnimatedOpacity(
           opacity: _headerIsExpanded ? 0 : 1,
