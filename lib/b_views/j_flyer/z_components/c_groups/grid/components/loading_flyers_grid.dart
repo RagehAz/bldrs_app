@@ -1,13 +1,13 @@
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/flyers_grid_builder.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class LoadingFlyersGrid extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const LoadingFlyersGrid({
-    @required this.hasResponsiveSideMargin,
+    required this.hasResponsiveSideMargin,
     this.gridWidth,
     this.gridHeight,
     this.scrollController,
@@ -15,8 +15,8 @@ class LoadingFlyersGrid extends StatelessWidget {
     this.numberOfColumnsOrRows = 2,
     this.scrollDirection = Axis.vertical,
     this.scrollable = true,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double gridWidth;
   final double gridHeight;

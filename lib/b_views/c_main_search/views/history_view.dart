@@ -1,3 +1,9 @@
+import 'package:basics/animators/widgets/widget_fader.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bubbles/model/bubble_header_vm.dart';
+import 'package:basics/bubbles/tile_bubble/tile_bubble.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/layouts/views/floating_list.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
@@ -11,23 +17,18 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
-import 'package:mapper/mapper.dart';
-import 'package:scale/scale.dart';
-import 'package:widget_fader/widget_fader.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class SearchHistoryView extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const SearchHistoryView({
-    @required this.onDeleteHistoryModel,
-    @required this.onHistoryModelTap,
-    @required this.searchHistoryModels,
-    Key key
-  }) : super(key: key);
+    required this.onDeleteHistoryModel,
+    required this.onHistoryModelTap,
+    required this.searchHistoryModels,
+    super.key
+  });
   // --------------------
   final Function(SearchModel) onDeleteHistoryModel;
   final Function(SearchModel) onHistoryModelTap;

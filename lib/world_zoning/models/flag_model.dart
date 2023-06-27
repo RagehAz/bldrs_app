@@ -6,19 +6,19 @@ class Flag {
   /// THIS CLASS IS USED TO STORE CONSTANT COUNTRY DATA
   // --------------------------------------------------------------------------
   const Flag({
-    @required this.id,
-    @required this.iso2,
-    @required this.icon,
-    @required this.region,
-    @required this.continent,
-    @required this.language,
-    @required this.currencyID,
-    @required this.phoneCode,
-    @required this.capital,
-    @required this.langCodes,
-    @required this.areaSqKm,
-    @required this.population,
-    @required this.phrases,
+    required this.id,
+    required this.iso2,
+    required this.icon,
+    required this.region,
+    required this.continent,
+    required this.language,
+    required this.currencyID,
+    required this.phoneCode,
+    required this.capital,
+    required this.langCodes,
+    required this.areaSqKm,
+    required this.population,
+    required this.phrases,
   });
   /// --------------------------------------------------------------------------
   final String id;
@@ -155,8 +155,8 @@ class Flag {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Flag getFlagFromFlagsByCountryID({
-    @required List<Flag> flags,
-    @required String countryID,
+    required List<Flag> flags,
+    required String countryID,
   }){
     Flag _output;
 
@@ -176,8 +176,8 @@ class Flag {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Flag getFlagFromFlagsByISO2({
-    @required List<Flag> flags,
-    @required String iso2,
+    required List<Flag> flags,
+    required String iso2,
   }){
     Flag _output;
 
@@ -228,8 +228,8 @@ class Flag {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getAllCountriesIDsSortedByName({
-    @required BuildContext context,
-    @required String langCode,
+    required BuildContext context,
+    required String langCode,
   }){
 
     final List<String> _allCountriesIDs = getAllCountriesIDs();
@@ -271,8 +271,8 @@ class Flag {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getCountryIcon(String countryID) {
-    String _output = Iconz.contAfrica;
+  static String? getCountryIcon(String? countryID) {
+    String? _output = Iconz.contAfrica;
 
     if (countryID != null) {
 
@@ -338,8 +338,8 @@ class Flag {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Phrase getCountryPhrase({
-    @required String countryID,
-    @required String langCode,
+    required String countryID,
+    required String langCode,
   }){
     Phrase _output;
 
@@ -363,8 +363,8 @@ class Flag {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String translateCountry({
-    @required String countryID,
-    @required String langCode, // Localizer.getCurrentLangCode()
+    required String countryID,
+    required String langCode, // Localizer.getCurrentLangCode()
   }){
 
     final Phrase _phrase = getCountryPhrase(
@@ -377,7 +377,7 @@ class Flag {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> createAllCountriesPhrasesForLDB({
-    @required List<String> langCodes,
+    required List<String> langCodes,
   }){
     final List<Phrase> _output = <Phrase>[];
 
@@ -405,9 +405,9 @@ class Flag {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> sortCountriesNamesAlphabetically({
-    @required BuildContext context,
-    @required List<String> countriesIDs,
-    @required String langCode,
+    required BuildContext context,
+    required List<String> countriesIDs,
+    required String langCode,
   }){
     final List<String> _output = <String>[];
 

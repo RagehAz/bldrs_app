@@ -3,7 +3,7 @@ import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:flutter/material.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 /// => TAMAM
 class CityPhraseFireOps {
   // -----------------------------------------------------------------------------
@@ -17,7 +17,7 @@ class CityPhraseFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> createCityPhrases({
-    @required CityModel cityModel,
+    required CityModel cityModel,
   }) async {
 
     if (cityModel != null){
@@ -64,7 +64,7 @@ class CityPhraseFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateCityPhrases({
-    @required CityModel cityModel,
+    required CityModel cityModel,
   }) async {
 
     await createCityPhrases(cityModel: cityModel);
@@ -76,7 +76,7 @@ class CityPhraseFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteCityPhrases({
-    @required CityModel cityModel,
+    required CityModel cityModel,
   }) async {
 
     if (cityModel != null){

@@ -4,8 +4,8 @@ import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:ldb/ldb.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/ldb/methods/ldb_ops.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/cupertino.dart';
 /// => TAMAM
 class CensusRealOps {
@@ -73,7 +73,7 @@ class CensusRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CensusModel> readCountryCensus({
-    @required String countryID,
+    required String countryID,
   }) async {
     CensusModel _output;
 
@@ -109,7 +109,7 @@ class CensusRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CensusModel>> readCitiesOfCountryCensus({
-    @required String countryID,
+    required String countryID,
   }) async {
     List<CensusModel> _output = <CensusModel>[];
 
@@ -135,7 +135,7 @@ class CensusRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CensusModel> readCityCensus({
-    @required String cityID,
+    required String cityID,
   }) async {
     CensusModel _output;
 
@@ -172,8 +172,8 @@ class CensusRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateAllCensus({
-    @required Map<String, dynamic> map,
-    @required ZoneModel zoneModel,
+    required Map<String, dynamic> map,
+    required ZoneModel zoneModel,
   }) async {
 
     if (map != null && zoneModel != null){

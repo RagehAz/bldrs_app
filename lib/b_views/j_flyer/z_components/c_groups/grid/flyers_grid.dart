@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/jumper_flyers_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/zoomable_flyers_grid.dart';
@@ -6,7 +7,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/load
 import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 
 enum FlyerGridType {
   zoomable,
@@ -18,9 +19,9 @@ enum FlyerGridType {
 class FlyersGrid extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyersGrid({
-    @required this.screenName,
-    @required this.gridType,
-    @required this.hasResponsiveSideMargin,
+    required this.screenName,
+    required this.gridType,
+    required this.hasResponsiveSideMargin,
     this.gridWidth,
     this.gridHeight,
     this.scrollController,
@@ -37,8 +38,8 @@ class FlyersGrid extends StatelessWidget {
     this.selectionMode = false,
     this.bottomPadding,
     this.zGridController,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final FlyerGridType gridType;
   final List<FlyerModel> flyers;
@@ -62,9 +63,9 @@ class FlyersGrid extends StatelessWidget {
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool showLoadingGridInstead({
-    @required bool isLoadingGrid,
-    @required List<FlyerModel> flyers,
-    @required List<String> paginationFlyersIDs,
+    required bool isLoadingGrid,
+    required List<FlyerModel> flyers,
+    required List<String> paginationFlyersIDs,
   }){
     bool _showLoadingGrid = true;
 

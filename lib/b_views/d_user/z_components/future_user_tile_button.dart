@@ -7,15 +7,15 @@ import 'package:flutter/material.dart';
 class FutureUserTileButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FutureUserTileButton({
-    @required this.boxWidth,
-    @required this.userID,
+    required this.boxWidth,
+    required this.userID,
     this.sideButtonVerse,
     this.onSideButtonTap,
     this.onUserTap,
     this.bubble = true,
     this.color,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final String userID;
   final double boxWidth;

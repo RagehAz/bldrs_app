@@ -1,3 +1,5 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
@@ -6,13 +8,13 @@ import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 /// => GEOLOCATOR_DOES_NOT_WORK
 // import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/b_zone_search_protocols.dart';
 // import 'package:bldrs/c_protocols/zone_protocols/positioning_protocols/geo_location/location_ops.dart';
 // import 'package:bldrs/f_helpers/theme/standards.dart';
 // import 'package:geocoding/geocoding.dart';
-// import 'package:mapper/mapper.dart';
+// import 'package:basics/helpers/classes/maps/mapper.dart';
 /// => TAMAM
 class ZoneIDsProtocols {
   // -----------------------------------------------------------------------------
@@ -26,8 +28,8 @@ class ZoneIDsProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ZoneModel> fetchZoneModelByGeoPoint({
-    @required BuildContext context,
-    @required GeoPoint geoPoint
+    required BuildContext context,
+    required GeoPoint geoPoint
   }) async {
 
     ZoneModel _zoneModel;
@@ -117,7 +119,7 @@ class ZoneIDsProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ZoneModel> completeZoneModel({
-    @required ZoneModel incompleteZoneModel,
+    required ZoneModel incompleteZoneModel,
   }) async {
 
     // assert(incompleteZoneModel != null, 'incompleteZoneModel is null');

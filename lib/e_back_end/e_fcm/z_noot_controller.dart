@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/c_noot_nav_protocols.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
@@ -80,8 +80,8 @@ abstract class NootController {
 
   // --------------------
   static void blogReceivedNotification({
-    @required ReceivedNotification noot,
-    @required String invoker,
+    required ReceivedNotification noot,
+    required String invoker,
   }){
     blog('blogReceivedNotification : $invoker : START');
 
@@ -120,8 +120,8 @@ abstract class NootController {
   }
   // --------------------
   static void blogReceivedAction({
-    @required ReceivedAction action,
-    @required String invoker,
+    required ReceivedAction action,
+    required String invoker,
   }){
     blog('blogReceivedAction : $invoker : START');
 

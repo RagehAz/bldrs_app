@@ -23,9 +23,9 @@ class ComposeReviewProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ReviewModel> composeReview({
-    @required BuildContext context,
-    @required ReviewModel reviewModel,
-    @required String bzID,
+    required BuildContext context,
+    required ReviewModel reviewModel,
+    required String bzID,
   }) async {
 
     ReviewModel _uploadedReview;
@@ -64,9 +64,9 @@ class ComposeReviewProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> composeReviewReply({
-    @required BuildContext context,
-    @required String bzID,
-    @required ReviewModel updatedReview,
+    required BuildContext context,
+    required String bzID,
+    required ReviewModel updatedReview,
   }) async {
 
     final UserModel _myUserModel = UsersProvider.proGetMyUserModel(

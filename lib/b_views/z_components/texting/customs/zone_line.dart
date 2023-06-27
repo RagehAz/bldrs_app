@@ -1,21 +1,20 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/flagbox_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-
 import 'package:flutter/material.dart';
 
 class ZoneLine extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ZoneLine({
-    @required this.zoneModel,
+    required this.zoneModel,
     this.showCity = true,
     this.centered = true,
     this.width,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final ZoneModel zoneModel;
   final bool showCity;

@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
 import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/material.dart';
 
 enum MainNavModel {
@@ -17,10 +17,10 @@ enum MainNavModel {
 class NavModel {
   /// --------------------------------------------------------------------------
   const NavModel({
-    @required this.id,
-    @required this.titleVerse,
-    @required this.icon,
-    @required this.screen,
+    required this.id,
+    required this.titleVerse,
+    required this.icon,
+    required this.screen,
     this.iconColor,
     this.iconSizeFactor,
     this.onNavigate,
@@ -57,8 +57,8 @@ class NavModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Verse getTitleVerseFromNavModels({
-    @required List<NavModel> navModels,
-    @required int index,
+    required List<NavModel> navModels,
+    required int index,
   }){
 
     return navModels[index].titleVerse;
@@ -83,7 +83,7 @@ class NavModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String getMainNavIDString({
-    @required MainNavModel navID,
+    required MainNavModel navID,
     String bzID,
   }){
     switch (navID){
@@ -106,8 +106,8 @@ class NavModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String getBzTabNavID({
-    @required BzTab bzTab,
-    @required String bzID,
+    required BzTab bzTab,
+    required String bzID,
   }){
     final String _tabID = BzTabber.getBzTabPhid(bzTab: bzTab);
     return 'bz_${bzID}_$_tabID';
@@ -119,7 +119,7 @@ class NavModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> generateSuperBzNavIDs({
-    @required String bzID,
+    required String bzID,
   }){
 
     /// NOTE : INCLUDES MAIN NAV MODEL AS WELL AS INTERNAL NAV MODELS
@@ -145,7 +145,7 @@ class NavModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> generateMainNavModelsIDs({
-    @required List<String> myBzzIDs,
+    required List<String> myBzzIDs,
   }){
 
     final List<String> _mainNavModelsIDs = <String>[];
@@ -189,7 +189,7 @@ class NavModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> generateBzTabsNavModelsIDs({
-    @required String bzID,
+    required String bzID,
   }){
 
     final List<String> _bzTabsNavModelsIDs = <String>[];
@@ -211,7 +211,7 @@ class NavModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> generateAllBzzTabsNavModelsIDs({
-    @required List<String> myBzzIDs,
+    required List<String> myBzzIDs,
   }){
 
     final List<String> _allBzzTabsNavModelsIDs = <String>[];
@@ -233,7 +233,7 @@ class NavModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> generateAllNavModelsIDs({
-    @required List<String> myBzzIDs,
+    required List<String> myBzzIDs,
   }){
 
     final List<String> _allNavModelsIDs = <String>[];
@@ -273,9 +273,9 @@ class NavModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static int updateObeliskNumber({
-    @required int oldNumber,
-    @required int change,
-    @required bool isIncrementing,
+    required int oldNumber,
+    required int change,
+    required bool isIncrementing,
   }){
 
     int _output;

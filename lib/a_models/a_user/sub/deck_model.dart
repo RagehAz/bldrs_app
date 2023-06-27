@@ -1,21 +1,21 @@
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 @immutable
 class DeckModel {
   // -----------------------------------------------------------------------------
   const DeckModel({
-    @required this.all,
-    @required this.general,
-    @required this.properties,
-    @required this.designs,
-    @required this.undertakings,
-    @required this.trades,
-    @required this.products,
-    @required this.equipment,
+    required this.all,
+    required this.general,
+    required this.properties,
+    required this.designs,
+    required this.undertakings,
+    required this.trades,
+    required this.products,
+    required this.equipment,
   });
   // -----------------------------------------------------------------------------
   final List<String> all;
@@ -116,8 +116,8 @@ class DeckModel {
   // --------------------
   /// TESTED: WORKS PERFECT
   static DeckModel addFlyer({
-    @required FlyerModel flyer,
-    @required DeckModel oldDeck,
+    required FlyerModel flyer,
+    required DeckModel oldDeck,
   }){
     DeckModel _newDeck = oldDeck ?? newDeck();
 
@@ -206,8 +206,8 @@ class DeckModel {
   // --------------------
   /// TESTED: WORKS PERFECT
   static DeckModel addFlyers({
-    @required List<FlyerModel> flyers,
-    @required DeckModel deckModel,
+    required List<FlyerModel> flyers,
+    required DeckModel deckModel,
   }){
     DeckModel _newDeck = deckModel ?? newDeck();
 
@@ -229,8 +229,8 @@ class DeckModel {
   // --------------------
   /// TESTED: WORKS PERFECT
   static DeckModel addOrRemoveFlyer({
-    @required FlyerModel flyer,
-    @required DeckModel oldDeck,
+    required FlyerModel flyer,
+    required DeckModel oldDeck,
   }){
     DeckModel _newDeck = oldDeck ?? newDeck();
 
@@ -319,8 +319,8 @@ class DeckModel {
   // --------------------
   /// TESTED: WORKS PERFECT
   static DeckModel addOrRemoveFlyers({
-    @required List<FlyerModel> flyers,
-    @required DeckModel deckModel,
+    required List<FlyerModel> flyers,
+    required DeckModel deckModel,
   }){
     DeckModel _newDeck = deckModel ?? newDeck();
 
@@ -342,8 +342,8 @@ class DeckModel {
   // --------------------
   /// TESTED: WORKS PERFECT
   static DeckModel removeFlyer({
-    @required FlyerModel flyer,
-    @required DeckModel oldDeck,
+    required FlyerModel flyer,
+    required DeckModel oldDeck,
   }){
     DeckModel _newDeck = oldDeck ?? newDeck();
 
@@ -432,8 +432,8 @@ class DeckModel {
   // --------------------
   /// TESTED: WORKS PERFECT
   static DeckModel removeFlyers({
-    @required List<FlyerModel> flyers,
-    @required DeckModel oldDeck,
+    required List<FlyerModel> flyers,
+    required DeckModel oldDeck,
   }){
     DeckModel _newDeck = oldDeck ?? newDeck();
 
@@ -455,8 +455,8 @@ class DeckModel {
   // --------------------
   /// TESTED: WORKS PERFECT
   static DeckModel removeFlyerByID({
-    @required DeckModel oldDeck,
-    @required String flyerID,
+    required DeckModel oldDeck,
+    required String flyerID,
   }){
     DeckModel _newDeck = oldDeck ?? newDeck();
 
@@ -534,8 +534,8 @@ class DeckModel {
   // --------------------
   /// TESTED: WORKS PERFECT
   static DeckModel removeFlyersByIDs({
-    @required DeckModel oldDeck,
-    @required List<String> flyersIDs,
+    required DeckModel oldDeck,
+    required List<String> flyersIDs,
   }){
     DeckModel _newDeck = oldDeck ?? newDeck();
 
@@ -561,8 +561,8 @@ class DeckModel {
   // --------------------
   /// TESTED: WORKS PERFECT
   static int getCountByFlyerType({
-    @required FlyerType flyerType,
-    @required DeckModel deckModel,
+    required FlyerType flyerType,
+    required DeckModel deckModel,
   }){
     int _output;
 
@@ -590,8 +590,8 @@ class DeckModel {
   // --------------------
   /// TESTED: WORKS PERFECT
   static bool checkDecksAreIdentical({
-    @required DeckModel deck1,
-    @required DeckModel deck2,
+    required DeckModel deck1,
+    required DeckModel deck2,
   }){
     bool _areIdentical = false;
 

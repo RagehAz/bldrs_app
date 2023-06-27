@@ -18,9 +18,9 @@ import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 ///
 class WipeUserProtocols {
   // -----------------------------------------------------------------------------
@@ -34,8 +34,8 @@ class WipeUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> wipeMyUser({
-    @required BuildContext context,
-    @required bool showWaitDialog,
+    required BuildContext context,
+    required bool showWaitDialog,
   }) async {
 
     blog('WipeUserProtocols.wipeMyUserModel : START');
@@ -92,7 +92,7 @@ class WipeUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _deleteAuthorUserProtocol({
-    @required UserModel userModel,
+    required UserModel userModel,
   }) async {
 
     blog('UserProtocol._deleteAuthorUserProtocol : START');
@@ -124,8 +124,8 @@ class WipeUserProtocols {
   /// DEPRECATED
   /*
   static Future<void> _deleteAllMyAuthorPics({
-    @required BuildContext context,
-    @required UserModel userModel,
+    required BuildContext context,
+    required UserModel userModel,
   }) async {
 
     blog('UserProtocol.deleteAllMyAuthorPics : START');
@@ -158,7 +158,7 @@ class WipeUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _deleteBzzICreatedProtocol({
-    @required UserModel userModel,
+    required UserModel userModel,
   }) async {
 
     blog('UserProtocol.deleteBzzICreatedProtocol : START');
@@ -199,7 +199,7 @@ class WipeUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _exitBzzIDidNotCreateProtocol({
-    @required UserModel userModel,
+    required UserModel userModel,
   }) async {
 
     blog('UserProtocol.exitBzzIDidNotCreateProtocol : START');
@@ -248,7 +248,7 @@ class WipeUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _deleteNonAuthorUserProtocol({
-    @required UserModel userModel,
+    required UserModel userModel,
   }) async {
 
     blog('UserProtocol._deleteNonAuthorUserProtocol : START');
@@ -298,7 +298,7 @@ class WipeUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _deleteMyUserLocallyProtocol({
-    @required UserModel userModel,
+    required UserModel userModel,
   }) async {
 
     blog('UserProtocol._deleteMyUserLocallyProtocol : START');

@@ -1,26 +1,30 @@
 import 'dart:async';
 
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/layouts/handlers/max_bounce_navigator.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 
 class GallerySlide extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const GallerySlide({
-    @required this.flyerBoxWidth,
-    @required this.flyerBoxHeight,
-    @required this.flyerModel,
-    @required this.bzModel,
-    @required this.onMaxBounce,
+    required this.flyerBoxWidth,
+    required this.flyerBoxHeight,
+    required this.flyerModel,
+    required this.bzModel,
+    required this.onMaxBounce,
     this.heroTag,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final double flyerBoxHeight;
@@ -43,7 +47,7 @@ class _GallerySlideState extends State<GallerySlide> {
   /// --- FUTURE LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -167,7 +171,7 @@ class _GallerySlideState extends State<GallerySlide> {
         child: ValueListenableBuilder(
           valueListenable: _loadedFlyers,
           child: Container(),
-          builder: (_, List<FlyerModel> flyers, Widget child){
+          builder: (_, List<FlyerModel> flyers, Widget? child){
 
             return MaxBounceNavigator(
               onNavigate: () async {

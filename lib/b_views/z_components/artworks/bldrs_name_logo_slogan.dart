@@ -1,9 +1,10 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
 class LogoSlogan extends StatelessWidget {
@@ -11,8 +12,8 @@ class LogoSlogan extends StatelessWidget {
   const LogoSlogan({
     this.showTagLine = false,
     this.showSlogan = false,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final bool showTagLine;
   final bool showSlogan;

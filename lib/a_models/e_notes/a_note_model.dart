@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_bool_literals_in_conditional_expressions
 
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
@@ -12,12 +13,12 @@ import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:numeric/numeric.dart';
-import 'package:space_time/space_time.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:basics/helpers/classes/time/timers.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 enum DuplicatesAlgorithm {
   keepSecond,
@@ -49,13 +50,13 @@ enum TopicType {
 class NoteModel {
   /// --------------------------------------------------------------------------
   const NoteModel({
-    @required this.id,
-    @required this.parties,
-    @required this.title,
-    @required this.body,
-    @required this.sentTime,
-    @required this.topic,
-    @required this.navTo,
+    required this.id,
+    required this.parties,
+    required this.title,
+    required this.body,
+    required this.sentTime,
+    required this.topic,
+    required this.navTo,
     this.function,
     this.dismissible = true,
     this.seen = false,
@@ -193,7 +194,7 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
-    @required bool toJSON,
+    required bool toJSON,
   }) {
     return <String, dynamic>{
       'token': token,
@@ -230,8 +231,8 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> cipherNotesModels({
-    @required List<NoteModel> notes,
-    @required bool toJSON,
+    required List<NoteModel> notes,
+    required bool toJSON,
   }){
 
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
@@ -249,8 +250,8 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static NoteModel decipherNote({
-    @required dynamic map,
-    @required bool fromJSON
+    required dynamic map,
+    required bool fromJSON
   }) {
     NoteModel _noti;
 
@@ -308,8 +309,8 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<NoteModel> decipherNotes({
-    @required List<Map<String, dynamic>> maps,
-    @required bool fromJSON,
+    required List<Map<String, dynamic>> maps,
+    required bool fromJSON,
   }) {
     final List<NoteModel> _notesModels = <NoteModel>[];
 
@@ -334,7 +335,7 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static NoteModel decipherRemoteMessage({
-    @required Map<String, dynamic> map,
+    required Map<String, dynamic> map,
   }) {
     NoteModel _note;
 
@@ -429,7 +430,7 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogNotes({
-    @required List<NoteModel> notes,
+    required List<NoteModel> notes,
     String invoker,
   }){
 
@@ -457,7 +458,7 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getReceiversIDs({
-    @required List<NoteModel> notes,
+    required List<NoteModel> notes,
   }){
 
     final List<String> _output = <String>[];
@@ -475,8 +476,8 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static NoteModel getFirstNoteByRecieverID({
-    @required List<NoteModel> notes,
-    @required String receiverID,
+    required List<NoteModel> notes,
+    required String receiverID,
   }){
 
     NoteModel _output;
@@ -495,8 +496,8 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<NoteModel> getNotesByReceiverID({
-    @required List<NoteModel> notes,
-    @required String receiverID,
+    required List<NoteModel> notes,
+    required String receiverID,
   }){
     final List<NoteModel> _notes = <NoteModel>[];
 
@@ -518,8 +519,8 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<NoteModel> getNotesContainingTrigger({
-    @required List<NoteModel> notes,
-    @required String triggerFunctionName,
+    required List<NoteModel> notes,
+    required String triggerFunctionName,
   }){
     final List<NoteModel> _output = <NoteModel>[];
 
@@ -561,8 +562,8 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<NoteModel> getUnseenNotesByReceiverID({
-    @required List<NoteModel> notes,
-    @required String receiverID,
+    required List<NoteModel> notes,
+    required String receiverID,
   }){
     final List<NoteModel> _notes = <NoteModel>[];
 
@@ -585,7 +586,7 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<NoteModel> getOnlyUnseenNotes({
-    @required List<NoteModel> notes,
+    required List<NoteModel> notes,
   }){
     final List<NoteModel> _output = <NoteModel>[];
 
@@ -610,9 +611,9 @@ class NoteModel {
   // --------------------
   /// TASK : TEST ME
   static List<String> getMissingNoteFields({
-    @required NoteModel note,
+    required NoteModel note,
     /// if consider all fields is false, this will get only fields required to send a note
-    @required bool considerAllFields,
+    required bool considerAllFields,
   }){
     List<String> _missingFields;
 
@@ -774,8 +775,8 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkNotesContainNote({
-    @required List<NoteModel> notes,
-    @required String noteID,
+    required List<NoteModel> notes,
+    required String noteID,
   }){
 
     bool _contains = false;
@@ -815,7 +816,7 @@ class NoteModel {
   // --------------------
   /// TASK : TEST ME
   static Future<bool> checkCanShowAuthorshipButtons({
-    @required NoteModel noteModel,
+    required NoteModel noteModel,
   }) async {
 
     bool _can = false;
@@ -867,9 +868,9 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<NoteModel> insertNoteIntoNotes({
-    @required List<NoteModel> notesToGet,
-    @required NoteModel note,
-    @required DuplicatesAlgorithm duplicatesAlgorithm,
+    required List<NoteModel> notesToGet,
+    required NoteModel note,
+    required DuplicatesAlgorithm duplicatesAlgorithm,
   }){
     final List<NoteModel> _output = notesToGet ?? <NoteModel>[];
 
@@ -912,9 +913,9 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<NoteModel> insertNotesInNotes({
-    @required List<NoteModel> notesToGet,
-    @required List<NoteModel> notesToInsert,
-    @required DuplicatesAlgorithm duplicatesAlgorithm,
+    required List<NoteModel> notesToGet,
+    required List<NoteModel> notesToInsert,
+    required DuplicatesAlgorithm duplicatesAlgorithm,
   }){
     List<NoteModel> _output = notesToGet ?? <NoteModel>[];
 
@@ -937,8 +938,8 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<NoteModel> removeNoteFromNotes({
-    @required List<NoteModel> notes,
-    @required String noteID,
+    required List<NoteModel> notes,
+    required String noteID,
   }){
 
     final List<NoteModel> _output = notes == null ?
@@ -966,8 +967,8 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<NoteModel> removeNotesFromNotes({
-    @required List<NoteModel> notesToRemove,
-    @required List<NoteModel> sourceNotes,
+    required List<NoteModel> notesToRemove,
+    required List<NoteModel> sourceNotes,
   }){
 
     List<NoteModel> _output = sourceNotes ?? <NoteModel>[];
@@ -990,8 +991,8 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<NoteModel> replaceNoteInNotes({
-    @required List<NoteModel> notes,
-    @required NoteModel noteToReplace,
+    required List<NoteModel> notes,
+    required NoteModel noteToReplace,
   }){
     final List<NoteModel> _output = <NoteModel>[];
 
@@ -1019,8 +1020,8 @@ class NoteModel {
   /*
   ///
   static Map<String, List<NoteModel>> updateNoteInBzzNotesMap({
-    @required NoteModel note,
-    @required Map<String, List<NoteModel>> bzzNotesMap,
+    required NoteModel note,
+    required Map<String, List<NoteModel>> bzzNotesMap,
   }){
 
     Map<String, List<NoteModel>> _output;
@@ -1062,8 +1063,8 @@ class NoteModel {
   /// UNUSED
   /*
   static Map<String, List<NoteModel>> removeNoteFromBzzNotesMap({
-    @required String noteID,
-    @required Map<String, List<NoteModel>> bzzNotesMap
+    required String noteID,
+    required Map<String, List<NoteModel>> bzzNotesMap
   }){
     Map<String, List<NoteModel>> _output;
 
@@ -1183,9 +1184,9 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static NoteModel quickUserNotice({
-    @required String userID,
-    @required String title,
-    @required String body
+    required String userID,
+    required String title,
+    required String body
   }){
     return NoteModel(
       title: title,
@@ -1216,8 +1217,8 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String receiverVsSenderValidator({
-    @required PartyType senderType,
-    @required PartyType receiverType,
+    required PartyType senderType,
+    required PartyType receiverType,
   }){
 
     /// USER
@@ -1259,8 +1260,8 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkNotesAreIdentical({
-    @required NoteModel note1,
-    @required NoteModel note2,
+    required NoteModel note1,
+    required NoteModel note2,
   }){
     bool _areIdentical = false;
 
@@ -1298,8 +1299,8 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkNotesListsAreIdentical({
-    @required List<NoteModel> notes1,
-    @required List<NoteModel> notes2,
+    required List<NoteModel> notes1,
+    required List<NoteModel> notes2,
   }){
     bool _areIdentical = true;
 

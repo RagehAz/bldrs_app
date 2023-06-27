@@ -1,4 +1,7 @@
 import 'dart:typed_data';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/files/floaters.dart';
+import 'package:basics/helpers/classes/space/trinity.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
@@ -7,30 +10,29 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:fire/super_fire.dart';
-import 'package:colorizer/colorizer.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/colors/colorizer.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:mediators/mediators.dart';
-import 'package:scale/scale.dart';
-import 'package:space_time/space_time.dart';
-import 'package:super_image/super_image.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:mediators/models/dimension_model.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/super_image/super_image.dart';
+
 /// => TAMAM
 @immutable
 class DraftSlide {
   // --------------------------------------------------------------------------
   const DraftSlide({
-    @required this.flyerID,
-    @required this.slideIndex,
-    @required this.picModel,
-    @required this.picFit,
-    @required this.headline,
-    @required this.description,
-    @required this.midColor,
-    @required this.opacity,
-    @required this.matrix,
-    @required this.filter,
-    @required this.animationCurve,
+    required this.flyerID,
+    required this.slideIndex,
+    required this.picModel,
+    required this.picFit,
+    required this.headline,
+    required this.description,
+    required this.midColor,
+    required this.opacity,
+    required this.matrix,
+    required this.filter,
+    required this.animationCurve,
   });
   // --------------------------------------------------------------------------
   final String flyerID;
@@ -51,11 +53,11 @@ class DraftSlide {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<DraftSlide>> createDrafts({
-    @required List<Uint8List> bytezz,
-    @required List<DraftSlide> existingDrafts,
-    @required String headline,
-    @required String flyerID,
-    @required String bzID,
+    required List<Uint8List> bytezz,
+    required List<DraftSlide> existingDrafts,
+    required String headline,
+    required String flyerID,
+    required String bzID,
   }) async {
     final List<DraftSlide> _output = <DraftSlide>[];
 
@@ -89,11 +91,11 @@ class DraftSlide {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<DraftSlide> createDraft({
-    @required Uint8List bytes,
-    @required int index,
-    @required String headline,
-    @required String flyerID,
-    @required String bzID,
+    required Uint8List bytes,
+    required int index,
+    required String headline,
+    required String flyerID,
+    required String bzID,
   }) async {
     DraftSlide _slide;
 
@@ -397,7 +399,7 @@ class DraftSlide {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Uint8List> getBytezzFromDraftSlides({
-    @required List<DraftSlide> drafts,
+    required List<DraftSlide> drafts,
   }) {
 
     final List<Uint8List> _output = <Uint8List>[];
@@ -433,8 +435,8 @@ class DraftSlide {
   /*
   ///
   static int getFileTrueIndexFromMutableSlides({
-    @required List<DraftSlide> mutableSlides,
-    @required int slideIndex,
+    required List<DraftSlide> mutableSlides,
+    required int slideIndex,
   }) {
 
     /// mutable slides pics object types will look like [File, File, File, Asset, Asset, Asset]
@@ -474,8 +476,8 @@ class DraftSlide {
   /*
   ///
   static int getMutableSlideIndexThatContainsThisFile({
-    @required List<DraftSlide> mSlides,
-    @required File fileToSearchFor,
+    required List<DraftSlide> mSlides,
+    required File fileToSearchFor,
   }) {
 
     int _assetIndexInAssets = -1;
@@ -496,7 +498,7 @@ class DraftSlide {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  void blogDraft({@required String invoker}){
+  void blogDraft({required String invoker}){
 
     blog('[$invoker] : ($slideIndex)=> DraftSlide : flyerID : $flyerID : index : $slideIndex');
     blog('headline : $headline : description : $description');
@@ -508,8 +510,8 @@ class DraftSlide {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogSlides({
-    @required List<DraftSlide> slides,
-    @required String invoker,
+    required List<DraftSlide> slides,
+    required String invoker,
   }){
 
     blog('BLOGGING SLIDES [$invoker] -------- START');
@@ -525,8 +527,8 @@ class DraftSlide {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogDraftSlidesDifferences({
-    @required DraftSlide slide1,
-    @required DraftSlide slide2,
+    required DraftSlide slide1,
+    required DraftSlide slide2,
   }){
 
     if (slide1 == null){
@@ -576,8 +578,8 @@ class DraftSlide {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<DraftSlide> replaceSlide({
-    @required List<DraftSlide> drafts,
-    @required DraftSlide draft,
+    required List<DraftSlide> drafts,
+    required DraftSlide draft,
   }){
     List<DraftSlide> _output = <DraftSlide>[];
 
@@ -594,8 +596,8 @@ class DraftSlide {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<DraftSlide> removeDraftFromDrafts({
-    @required List<DraftSlide> drafts,
-    @required DraftSlide draft,
+    required List<DraftSlide> drafts,
+    required DraftSlide draft,
   }){
     List<DraftSlide> _output = <DraftSlide>[];
 
@@ -616,8 +618,8 @@ class DraftSlide {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<DraftSlide> overrideDraftsFlyerID({
-    @required List<DraftSlide> drafts,
-    @required String flyerID,
+    required List<DraftSlide> drafts,
+    required String flyerID,
   }){
     final List<DraftSlide> _output = <DraftSlide>[];
 
@@ -647,7 +649,7 @@ class DraftSlide {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<DraftSlide> overrideDraftsSlideIndexes({
-    @required List<DraftSlide> drafts,
+    required List<DraftSlide> drafts,
   }){
     final List<DraftSlide> _output = <DraftSlide>[];
 
@@ -674,8 +676,8 @@ class DraftSlide {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkSlidesAreIdentical({
-    @required DraftSlide slide1,
-    @required DraftSlide slide2,
+    required DraftSlide slide1,
+    required DraftSlide slide2,
   }){
     bool _identical = false;
 
@@ -719,8 +721,8 @@ class DraftSlide {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkSlidesListsAreIdentical({
-    @required List<DraftSlide> slides1,
-    @required List<DraftSlide> slides2,
+    required List<DraftSlide> slides1,
+    required List<DraftSlide> slides2,
   }){
     bool _listsAreIdentical = false;
 

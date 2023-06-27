@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/g_counters/bz_counter_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -8,15 +9,15 @@ import 'package:bldrs_theme/bldrs_theme.dart';
 class BzSlideTree extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzSlideTree({
-    @required this.flyerBoxWidth,
-    @required this.bzModel,
-    @required this.flyerModel,
-    @required this.headerPageOpacity,
-    @required this.bzCounters,
-    @required this.headerIsExpanded,
-    @required this.tinyMode,
-    Key key
-  }) : super(key: key);
+    required this.flyerBoxWidth,
+    required this.bzModel,
+    required this.flyerModel,
+    required this.headerPageOpacity,
+    required this.bzCounters,
+    required this.headerIsExpanded,
+    required this.tinyMode,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final BzModel bzModel;
@@ -31,7 +32,7 @@ class BzSlideTree extends StatelessWidget {
 
     return ValueListenableBuilder(
       valueListenable: headerIsExpanded,
-      builder: (_, bool isExpanded, Widget animatedBzSlide){
+      builder: (_, bool isExpanded, Widget? animatedBzSlide){
 
       if (isExpanded == true && tinyMode == false){
       //   if (tinyMode == false){
@@ -45,7 +46,7 @@ class BzSlideTree extends StatelessWidget {
       },
       child: ValueListenableBuilder(
         valueListenable: headerPageOpacity,
-        builder: (_, double _headerPageOpacity, Widget bzSlide){
+        builder: (_, double _headerPageOpacity, Widget? bzSlide){
 
           return AnimatedOpacity(
             duration: Ratioz.durationSliding400,

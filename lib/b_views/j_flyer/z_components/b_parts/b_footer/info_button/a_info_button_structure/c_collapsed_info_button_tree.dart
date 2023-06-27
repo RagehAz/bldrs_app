@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 class CollapsedInfoButtonTree extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const CollapsedInfoButtonTree({
-    @required this.buttonIsExpanded,
-    @required this.flyerBoxWidth,
-    @required this.infoButtonType,
-    @required this.tinyMode,
-    Key key
-  }) : super(key: key);
+    required this.buttonIsExpanded,
+    required this.flyerBoxWidth,
+    required this.infoButtonType,
+    required this.tinyMode,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final ValueNotifier<bool> buttonIsExpanded;
   final double flyerBoxWidth;
@@ -23,7 +23,7 @@ class CollapsedInfoButtonTree extends StatelessWidget {
     return ValueListenableBuilder(
       key: const ValueKey<String>('CollapsedInfoButtonTree'),
       valueListenable: buttonIsExpanded,
-      builder: (_, bool _buttonIsExpanded, Widget collapsedInfoButtonContent){
+      builder: (_, bool _buttonIsExpanded, Widget? collapsedInfoButtonContent){
 
         return AnimatedAlign(
             alignment: Alignment.center,

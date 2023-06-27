@@ -1,3 +1,6 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/a_flyer_reviews_screen.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/d_heroic_flyer_big_view.dart';
@@ -7,21 +10,19 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
-import 'package:widget_fader/widget_fader.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/animators/widgets/widget_fader.dart';
 
 class FlyerPreviewScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const FlyerPreviewScreen({
-    @required this.flyerID,
+    required this.flyerID,
     this.reviewID,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final String flyerID;
   final String reviewID;
@@ -35,12 +36,12 @@ class FlyerPreviewScreen extends StatefulWidget {
 
 class _FlyerPreviewScreenState extends State<FlyerPreviewScreen> {
   // -----------------------------------------------------------------------------
-  FlyerModel _renderedFlyer;
+  FlyerModel? _renderedFlyer;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -129,7 +130,7 @@ class _FlyerPreviewScreenState extends State<FlyerPreviewScreen> {
         backgroundColor: Colorz.skyDarkBlue,
         body: ValueListenableBuilder(
           valueListenable: _loading,
-          builder: (_, bool loading, Widget child){
+          builder: (_, bool loading, Widget? child){
 
             if (loading == true){
               return const LoadingFullScreenLayer();
@@ -170,7 +171,9 @@ class _FlyerPreviewScreenState extends State<FlyerPreviewScreen> {
 
 class _NoFlyerFoundView extends StatelessWidget {
   // -----------------------------------------------------------------------------
-  const _NoFlyerFoundView({Key key}) : super(key: key);
+  const _NoFlyerFoundView({
+    super.key
+  });
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

@@ -1,24 +1,29 @@
 import 'package:animators/animators.dart';
+import 'package:basics/animators/helpers/animators.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
-import 'package:widget_fader/widget_fader.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/animators/widgets/widget_fader.dart';
 
 class CornerWidgetMaximizer extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const CornerWidgetMaximizer({
-    @required this.child,
-    @required this.minWidth,
-    @required this.maxWidth,
-    @required this.childWidth,
+    required this.child,
+    required this.minWidth,
+    required this.maxWidth,
+    required this.childWidth,
     this.topChild,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final Widget child;
   final double minWidth;
@@ -47,14 +52,14 @@ class CornerWidgetMaximizer extends StatelessWidget {
 class _Maximizer extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const _Maximizer({
-    @required this.child,
-    @required this.minWidth,
-    @required this.maxWidth,
-    @required this.childWidth,
-    @required this.maxAllowableWidth,
+    required this.child,
+    required this.minWidth,
+    required this.maxWidth,
+    required this.childWidth,
+    required this.maxAllowableWidth,
     this.topChild,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final Widget child;
   final double minWidth;
@@ -80,7 +85,7 @@ class _MaximizerState extends State<_Maximizer> with SingleTickerProviderStateMi
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -210,7 +215,7 @@ class _MaximizerState extends State<_Maximizer> with SingleTickerProviderStateMi
         IgnorePointer(
           child: AnimatedBuilder(
             animation: _animationController,
-            builder: (_, Widget child){
+            builder: (_, Widget? child){
 
               final Color _backgroundColor = _backgroundColorTween.evaluate(_animation);
 
@@ -239,7 +244,7 @@ class _MaximizerState extends State<_Maximizer> with SingleTickerProviderStateMi
                 child: SingleChildScrollView(
                   child: ValueListenableBuilder(
                     valueListenable: _isExpanded,
-                    builder: (_, bool expanded, Widget child){
+                    builder: (_, bool expanded, Widget? child){
 
                       return Container(
                         // constraints: BoxConstraints(

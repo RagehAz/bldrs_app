@@ -1,3 +1,5 @@
+import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/a_user/sub/need_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
@@ -6,8 +8,8 @@ import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class UserFireSearchOps{
   // -----------------------------------------------------------------------------
@@ -58,7 +60,7 @@ class UserFireSearchOps{
                 field: 'trigram',
                 comparison: FireComparison.arrayContains,
                 value: TextMod.removeAllCharactersAfterNumberOfCharacters(
-                  input: searchText.trim(),
+                  text: searchText.trim(),
                   numberOfChars: Standards.maxTrigramLength,
                 )),
 
@@ -172,13 +174,13 @@ class UserFireSearchOps{
   // --------------------
   /// TASK : TEST ME
   static Future<List<UserModel>> usersByUserName({
-    @required String name,
-    @required List<String> userIDsToExclude,
+    required String name,
+    required List<String> userIDsToExclude,
     QueryDocumentSnapshot<Object> startAfter,
     int limit = 10,
   }) async {
 
-    final List<Map<String, dynamic>> _result = await Fire.readColl(
+    final List<Map<String, dynamic>?> _result = await Fire.readColl(
       addDocSnapshotToEachMap: true,
       startAfter: startAfter,
       queryModel: FireQueryModel(
@@ -196,7 +198,7 @@ class UserFireSearchOps{
 
     List<UserModel> _usersModels = <UserModel>[];
 
-    if (Mapper.checkCanLoopList(_result)) {
+    if (Mapper.checkCanLoopList(_result) == true) {
       _usersModels = UserModel.decipherUsers(
         maps: _result,
         fromJSON: false,
@@ -214,7 +216,7 @@ class UserFireSearchOps{
   // --------------------
   /// TASK : TEST ME
   static Future<List<UserModel>> usersByNameAndIsAuthor({
-    @required String name,
+    required String name,
     int limit = 3,
     QueryDocumentSnapshot<Object> startAfter,
   }) async {

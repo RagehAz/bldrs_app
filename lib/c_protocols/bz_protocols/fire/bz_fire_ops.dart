@@ -10,9 +10,9 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/feedback_protocols/real/app_feedback_real_ops.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 /// => TAMAM
 class BzFireOps {
   // -----------------------------------------------------------------------------
@@ -47,7 +47,7 @@ class BzFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<BzModel> readBz({
-    @required String bzID,
+    required String bzID,
   }) async {
 
     final dynamic _bzMap = await Fire.readDoc(
@@ -66,8 +66,8 @@ class BzFireOps {
   /*
   /// TESTED : WORKS PERFECT
   static Future<dynamic> readAndFilterTeamlessBzzByUserModel({
-    @required BuildContext context,
-    @required UserModel userModel,
+    required BuildContext context,
+    required UserModel userModel,
   }) async {
     // ----------
     /// This returns Map<String, dynamic> for which user bzz can he delete
@@ -124,7 +124,7 @@ class BzFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> delete({
-    @required BzModel bzModel,
+    required BzModel bzModel,
   }) async {
 
     blog('_deleteBzDoc : START');
@@ -149,8 +149,8 @@ class BzFireOps {
   /*
   ///
   static Future<void> deleteAuthorPic({
-    @required AuthorModel authorModel,
-    @required String bzID,
+    required AuthorModel authorModel,
+    required String bzID,
   }) async {
 
     await PicProtocols.wipePic(BldrStorage.generateAuthorPicPath(
@@ -167,8 +167,8 @@ class BzFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> reportBz({
-    @required BuildContext context,
-    @required BzModel bzModel,
+    required BuildContext context,
+    required BzModel bzModel,
   }) async {
 
     if (bzModel != null){

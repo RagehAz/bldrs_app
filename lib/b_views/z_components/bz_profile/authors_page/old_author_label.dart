@@ -6,10 +6,10 @@
 // import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 // import 'package:bldrs/d_providers/phrase_provider.dart';
 // import 'package:bldrs/f_helpers/drafters/borderers.dart';
-// import 'package:numeric/numeric.dart';
+// import 'package:basics/helpers/classes/nums/numeric.dart';
 // import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
-// import 'package:scale/scale.dart';
-// import 'package:filers/filers.dart';
+// import 'package:basics/helpers/classes/space/scale.dart';
+// import 'package:basics/helpers/classes/files/filers.dart';
 // 
 // 
 //
@@ -19,12 +19,12 @@
 // class OldAuthorLabel extends StatelessWidget {
 //   /// --------------------------------------------------------------------------
 //   const OldAuthorLabel({
-//     @required this.flyerBoxWidth,
-//     @required this.authorID,
-//     @required this.bzModel,
-//     @required this.showLabel,
-//     @required this.authorGalleryCount,
-//     @required this.onTap,
+//     required this.flyerBoxWidth,
+//     required this.authorID,
+//     required this.bzModel,
+//     required this.showLabel,
+//     required this.authorGalleryCount,
+//     required this.onTap,
 //     this.labelIsOn = false,
 //     Key key,
 //   }) : super(key: key);

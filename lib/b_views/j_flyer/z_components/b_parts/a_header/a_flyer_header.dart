@@ -1,4 +1,6 @@
 import 'package:animators/animators.dart';
+import 'package:basics/animators/helpers/animators.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/g_counters/bz_counter_model.dart';
@@ -10,27 +12,27 @@ import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_color.dart'
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 
 class FlyerHeader extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const FlyerHeader({
-    @required this.flyerBoxWidth,
-    @required this.flyerModel,
-    @required this.onHeaderTap,
-    @required this.onFollowTap,
-    @required this.onCallTap,
-    @required this.headerAnimationController,
-    @required this.headerScrollController,
-    @required this.tinyMode,
-    @required this.headerIsExpanded,
-    @required this.followIsOn,
-    @required this.headerPageOpacity,
-    @required this.bzCounters,
-    Key key,
-  }) : super(key: key);
+    required this.flyerBoxWidth,
+    required this.flyerModel,
+    required this.onHeaderTap,
+    required this.onFollowTap,
+    required this.onCallTap,
+    required this.headerAnimationController,
+    required this.headerScrollController,
+    required this.tinyMode,
+    required this.headerIsExpanded,
+    required this.followIsOn,
+    required this.headerPageOpacity,
+    required this.bzCounters,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final FlyerModel flyerModel;

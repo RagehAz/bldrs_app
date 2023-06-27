@@ -1,7 +1,9 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/b_expanding_tile.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/e_collapsed_tile.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -9,27 +11,27 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 class CollapsableTile extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const CollapsableTile({
-    @required this.firstHeadline,
-    @required this.child,
-    @required this.width,
-    @required this.secondHeadline,
-    @required this.collapsedHeight,
-    @required this.maxHeight,
-    @required this.scrollable,
-    @required this.icon,
-    @required this.iconSizeFactor,
-    @required this.onTileTap,
-    @required this.initiallyExpanded,
-    @required this.initialColor,
-    @required this.expansionColor,
-    @required this.corners,
-    @required this.isDisabled,
-    @required this.margin,
-    @required this.searchText,
-    @required this.onTileLongTap,
-    @required this.onTileDoubleTap,
-    Key key,
-  }) : super(key: key);
+    required this.firstHeadline,
+    required this.child,
+    required this.width,
+    required this.secondHeadline,
+    required this.collapsedHeight,
+    required this.maxHeight,
+    required this.scrollable,
+    required this.icon,
+    required this.iconSizeFactor,
+    required this.onTileTap,
+    required this.initiallyExpanded,
+    required this.initialColor,
+    required this.expansionColor,
+    required this.corners,
+    required this.isDisabled,
+    required this.margin,
+    required this.searchText,
+    required this.onTileLongTap,
+    required this.onTileDoubleTap,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double width;
   final double collapsedHeight;
@@ -270,7 +272,7 @@ class CollapsableTileState extends State<CollapsableTile> with SingleTickerProvi
           child: ValueListenableBuilder(
             key: const ValueKey<String>('ExpandingTile_expansion_column'),
             valueListenable: _isExpanded,
-            builder: (_, bool isExpanded, Widget columnAndChildren){
+            builder: (_, bool isExpanded, Widget? columnAndChildren){
 
               final bool _closed = isExpanded == false && _controller.isDismissed == true;
 

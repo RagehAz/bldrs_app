@@ -1,25 +1,28 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/bzz_tile_buttons_list.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:fire/super_fire.dart';
-import 'package:night_sky/night_sky.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/c_protocols/bz_protocols/fire/bz_search.dart';
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:flutter/material.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 Future<void> onSearchBzz({
-  @required String text,
-  @required ValueNotifier<List<BzModel>> foundBzz,
-  @required ValueNotifier<List<BzModel>> historyBzz,
-  @required ValueNotifier<bool> isSearching,
-  @required ValueNotifier<bool> loading,
-  @required bool mounted,
+  required String text,
+  required ValueNotifier<List<BzModel>> foundBzz,
+  required ValueNotifier<List<BzModel>> historyBzz,
+  required ValueNotifier<bool> isSearching,
+  required ValueNotifier<bool> loading,
+  required bool mounted,
   QueryDocumentSnapshot<Object> startAfter,
 }) async {
 
@@ -75,8 +78,8 @@ class SearchBzzScreen extends StatefulWidget {
     this.multipleSelection = false,
     this.selectedBzz,
     this.onBzTap,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final bool multipleSelection;
   final List<BzModel> selectedBzz;
@@ -97,7 +100,7 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -232,11 +235,11 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
 
           ValueListenableBuilder(
             valueListenable: _isSearching,
-            builder: (_, bool _isSearching, Widget childA){
+            builder: (_, bool _isSearching, Widget? childA){
 
               return ValueListenableBuilder(
                 valueListenable: _loading,
-                builder: (_, bool _isLoading, Widget childB){
+                builder: (_, bool _isLoading, Widget? childB){
 
                   /// SEARCHING
                   if (_isSearching == true){

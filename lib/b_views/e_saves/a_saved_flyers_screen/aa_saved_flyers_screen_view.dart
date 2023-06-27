@@ -5,16 +5,16 @@ import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/x_saves_screen_contr
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class SavedFlyersScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SavedFlyersScreenView({
-    @required this.selectionMode,
-    @required this.scrollController,
-    @required this.zGridController,
-    Key key
-  }) : super(key: key);
+    required this.selectionMode,
+    required this.scrollController,
+    required this.zGridController,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final bool selectionMode;
   final ScrollController scrollController;

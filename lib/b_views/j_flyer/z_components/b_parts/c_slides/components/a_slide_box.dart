@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/shadowers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 
 import 'package:bldrs_theme/bldrs_theme.dart';
@@ -6,14 +7,14 @@ import 'package:flutter/material.dart';
 class SlideBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SlideBox({
-    @required this.flyerBoxWidth,
-    @required this.flyerBoxHeight,
-    @required this.tinyMode,
-    @required this.slideMidColor,
-    @required this.stackChildren,
+    required this.flyerBoxWidth,
+    required this.flyerBoxHeight,
+    required this.tinyMode,
+    required this.slideMidColor,
+    required this.stackChildren,
     this.shadowIsOn = false,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final double flyerBoxHeight;

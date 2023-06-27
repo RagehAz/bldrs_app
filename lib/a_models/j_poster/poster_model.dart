@@ -1,15 +1,15 @@
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_type.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 @immutable
 class PosterModel {
   /// --------------------------------------------------------------------------
   const PosterModel({
-    @required this.modelID,
-    @required this.type,
-    @required this.path,
+    required this.modelID,
+    required this.type,
+    required this.path,
     this.picModel,
   });
   /// --------------------------------------------------------------------------
@@ -152,8 +152,8 @@ class PosterModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPostersAreIdentical({
-    @required PosterModel poster1,
-    @required PosterModel poster2,
+    required PosterModel poster1,
+    required PosterModel poster2,
   }){
     bool _areIdentical = false;
 

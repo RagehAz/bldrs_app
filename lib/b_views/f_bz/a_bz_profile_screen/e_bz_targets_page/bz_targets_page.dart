@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 class BzTargetsPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzTargetsPage({
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

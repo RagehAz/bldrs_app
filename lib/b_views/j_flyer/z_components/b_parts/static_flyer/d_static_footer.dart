@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/e_footer_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
@@ -10,11 +11,11 @@ import 'package:provider/provider.dart';
 class StaticFooter extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const StaticFooter({
-    @required this.flyerBoxWidth,
-    @required this.flyerID,
+    required this.flyerBoxWidth,
+    required this.flyerID,
     this.optionsButtonIsOn,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final bool optionsButtonIsOn;
@@ -127,7 +128,7 @@ class StaticFooter extends StatelessWidget {
             if (optionsButtonIsOn == false)
               Selector<UsersProvider, UserModel>(
                 selector: (_, UsersProvider userProvider) => userProvider.myUserModel,
-                builder: (_, UserModel userModel, Widget child) {
+                builder: (_, UserModel userModel, Widget? child) {
 
                   return Padding(
                     padding: _saveButtonPadding,

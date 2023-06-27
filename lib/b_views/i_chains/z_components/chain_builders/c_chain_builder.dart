@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
@@ -13,31 +14,31 @@ import 'package:flutter/material.dart';
 class ChainBuilder extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ChainBuilder({
-    @required this.chain,
-    @required this.previousPath,
-    @required this.boxWidth,
-    @required this.icon,
-    @required this.firstHeadline,
-    @required this.secondHeadline,
-    @required this.initiallyExpanded,
-    @required this.selectedPhids,
-    @required this.secondLinesType,
+    required this.chain,
+    required this.previousPath,
+    required this.boxWidth,
+    required this.icon,
+    required this.firstHeadline,
+    required this.secondHeadline,
+    required this.initiallyExpanded,
+    required this.selectedPhids,
+    required this.secondLinesType,
 
-    @required this.onPhidTap,
-    @required this.onPhidDoubleTap,
-    @required this.onPhidLongTap,
+    required this.onPhidTap,
+    required this.onPhidDoubleTap,
+    required this.onPhidLongTap,
 
-    @required this.onTileTap,
-    @required this.onTileDoubleTap,
-    @required this.onTileLongTap,
+    required this.onTileTap,
+    required this.onTileDoubleTap,
+    required this.onTileLongTap,
 
-    @required this.searchText,
-    @required this.onExportSpecs,
+    required this.searchText,
+    required this.onExportSpecs,
 
-    @required this.zone,
-    @required this.onlyUseZoneChains,
-    @required this.isMultipleSelectionMode,
-    @required this.onDataCreatorKeyboardSubmitted,
+    required this.zone,
+    required this.onlyUseZoneChains,
+    required this.isMultipleSelectionMode,
+    required this.onDataCreatorKeyboardSubmitted,
 
     this.inverseAlignment = true,
     this.deactivated = false,
@@ -45,8 +46,8 @@ class ChainBuilder extends StatelessWidget {
     this.expansionColor = Colorz.white20,
     this.level = 0,
     this.isCollapsable = true,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final Chain chain;
   final String previousPath;

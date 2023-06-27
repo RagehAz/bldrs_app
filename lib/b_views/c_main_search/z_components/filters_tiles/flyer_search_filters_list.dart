@@ -1,3 +1,6 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/layouts/separators/dot_separator.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/m_search/search_model.dart';
@@ -14,28 +17,28 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
-import 'package:super_box/super_box.dart';
+import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/super_box/super_box.dart';
 
 class FlyersSearchFiltersList extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const FlyersSearchFiltersList({
-    @required this.searchModel,
-    @required this.onZoneSwitchTap,
-    @required this.onZoneTap,
-    @required this.onFlyerTypeSwitchTap,
-    @required this.onFlyerTypeTap,
-    @required this.onPickPhidTap,
-    @required this.onOnlyShowAuthorSwitchTap,
-    @required this.onOnlyWithPriceSwitchTap,
-    @required this.onOnlyWithPDFSwitchTap,
-    @required this.onOnlyAmazonProductsSwitchTap,
-    @required this.onAuditStateSwitchTap,
-    @required this.onAuditStateTap,
-    @required this.onPublishStateSwitchTap,
-    @required this.onPublishStateTap,
-    Key key
-  }) : super(key: key);
+    required this.searchModel,
+    required this.onZoneSwitchTap,
+    required this.onZoneTap,
+    required this.onFlyerTypeSwitchTap,
+    required this.onFlyerTypeTap,
+    required this.onPickPhidTap,
+    required this.onOnlyShowAuthorSwitchTap,
+    required this.onOnlyWithPriceSwitchTap,
+    required this.onOnlyWithPDFSwitchTap,
+    required this.onOnlyAmazonProductsSwitchTap,
+    required this.onAuditStateSwitchTap,
+    required this.onAuditStateTap,
+    required this.onPublishStateSwitchTap,
+    required this.onPublishStateTap,
+    super.key
+  });
   // --------------------
   final SearchModel searchModel;
   final Function(bool value) onZoneSwitchTap;

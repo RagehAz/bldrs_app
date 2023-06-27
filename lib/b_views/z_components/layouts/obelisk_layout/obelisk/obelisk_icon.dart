@@ -1,3 +1,5 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/layouts/separators/separator_line.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/a_models/x_utilities/map_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
@@ -8,18 +10,18 @@ import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:provider/provider.dart';
 
 class ObeliskIcon extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ObeliskIcon({
-    @required this.navModel,
-    @required this.progressBarModel,
-    @required this.navModelIndex,
-    @required this.onTap,
-    Key key
-  }) : super(key: key);
+    required this.navModel,
+    required this.progressBarModel,
+    required this.navModelIndex,
+    required this.onTap,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final NavModel navModel;
   final ValueNotifier<ProgressBarModel> progressBarModel;
@@ -34,7 +36,7 @@ class ObeliskIcon extends StatelessWidget {
     return ValueListenableBuilder(
         key: const ValueKey<String>('ObeliskIcon'),
         valueListenable: progressBarModel,
-        builder: (_, ProgressBarModel progressBarModel, Widget child){
+        builder: (_, ProgressBarModel progressBarModel, Widget? child){
 
           final bool _isSelected = progressBarModel?.index == navModelIndex;
 
@@ -62,7 +64,7 @@ class ObeliskIcon extends StatelessWidget {
                   shouldRebuild: (int last, int next){
                     return last != next;
                   },
-                  builder: (_, int count, Widget child){
+                  builder: (_, int count, Widget? child){
 
                     return NoteRedDotWrapper(
                       redDotIsOn: navModel?.forceRedDot == true || (count != null && count > 0),

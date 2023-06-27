@@ -1,15 +1,16 @@
 import 'dart:async';
 
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 void pushWaitDialog({
   Verse verse,
@@ -30,8 +31,8 @@ class WaitDialog extends StatelessWidget {
   const WaitDialog({
     this.canManuallyGoBack = false,
     this.loadingVerse,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final bool canManuallyGoBack;
   final Verse loadingVerse;
@@ -74,7 +75,7 @@ class WaitDialog extends StatelessWidget {
   }
   // --------------------
   static void setVerse({
-    @required Verse verse,
+    required Verse verse,
   }){
     UiProvider.proSetLoadingVerse(verse: verse);
   }
@@ -134,7 +135,7 @@ class WaitDialog extends StatelessWidget {
                   /// LOADING VERSE
                   Selector<UiProvider, Verse>(
                     selector: (_, UiProvider uiProvider) => uiProvider.loadingVerse,
-                    builder: (BuildContext context, Verse verse, Widget child) {
+                    builder: (BuildContext context, Verse verse, Widget? child) {
                       if (verse == null) {
                         return const SizedBox();
                       } else {

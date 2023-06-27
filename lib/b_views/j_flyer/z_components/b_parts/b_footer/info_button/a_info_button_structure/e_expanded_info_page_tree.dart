@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 class ExpandedInfoPageTree extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ExpandedInfoPageTree({
-    @required this.buttonIsExpanded,
-    @required this.flyerBoxWidth,
-    @required this.flyerModel,
-    @required this.flyerCounter,
-    Key key
-  }) : super(key: key);
+    required this.buttonIsExpanded,
+    required this.flyerBoxWidth,
+    required this.flyerModel,
+    required this.flyerCounter,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final ValueNotifier<bool> buttonIsExpanded;
   final double flyerBoxWidth;
@@ -24,7 +24,7 @@ class ExpandedInfoPageTree extends StatelessWidget {
     return ValueListenableBuilder(
       key: const ValueKey<String>('INFO_PAGE_CONTENTS'),
       valueListenable: buttonIsExpanded,
-      builder: (_, bool buttonExpanded, Widget infoPageContents){
+      builder: (_, bool buttonExpanded, Widget? infoPageContents){
 
         return AnimatedOpacity(
           opacity: buttonExpanded == true ? 1 : 0,

@@ -1,4 +1,6 @@
 import 'package:animators/animators.dart';
+import 'package:basics/animators/helpers/sliders.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/d_progress_bar/d_progress_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
@@ -9,13 +11,13 @@ import 'package:flutter/material.dart';
 class Strips extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const Strips({
-    @required this.flyerBoxWidth,
-    @required this.progressBarModel,
-    @required this.tinyMode,
+    required this.flyerBoxWidth,
+    required this.progressBarModel,
+    required this.tinyMode,
     this.barIsOn = true,
     this.margins,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final ValueNotifier<ProgressBarModel> progressBarModel;
@@ -36,9 +38,9 @@ class Strips extends StatelessWidget {
   }
   // --------------------
   static int _getNumberOfWhiteStrips({
-    @required SwipeDirection swipeDirection,
-    @required int currentSlideIndex,
-    @required int numberOfStrips,
+    required SwipeDirection swipeDirection,
+    required int currentSlideIndex,
+    required int numberOfStrips,
   }) {
     // -----------------------------------------o
     int _numberOfStrips;
@@ -151,7 +153,7 @@ class Strips extends StatelessWidget {
 
       return ValueListenableBuilder(
           valueListenable: progressBarModel,
-          builder: (_, ProgressBarModel _progModel, Widget singleSlideProgBar){
+          builder: (_, ProgressBarModel _progModel, Widget? singleSlideProgBar){
 
             final double _aStripLength = FlyerDim.progressStripLength(
               flyerBoxWidth: flyerBoxWidth,
@@ -207,7 +209,7 @@ class Strips extends StatelessWidget {
                         numberOfSlides: _progModel.numberOfStrips,
                         isWhite: true,
                       ),
-                      builder: (BuildContext context, double tweenVal, Widget childC) {
+                      builder: (BuildContext context, double tweenVal, Widget? childC) {
 
                         final double _tweenVal = _progModel.swipeDirection == SwipeDirection.freeze ? _aStripLength : tweenVal;
 

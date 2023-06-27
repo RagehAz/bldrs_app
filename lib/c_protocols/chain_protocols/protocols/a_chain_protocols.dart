@@ -23,8 +23,8 @@ class ChainProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Chain>> composeBldrsChains({
-    @required BuildContext context,
-    @required List<Chain> chains,
+    required BuildContext context,
+    required List<Chain> chains,
   }) async {
 
     pushWaitDialog(
@@ -73,7 +73,7 @@ class ChainProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> renovateBldrsChains({
-    @required List<Chain> newChains,
+    required List<Chain> newChains,
   }) async {
 
     if (newChains != null){
@@ -103,8 +103,8 @@ class ChainProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateBldrsChainsLocally({
-    @required List<Chain> newChains,
-    @required bool showWaitDialog,
+    required List<Chain> newChains,
+    required bool showWaitDialog,
   }) async {
 
     if (newChains != null){

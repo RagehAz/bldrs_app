@@ -1,10 +1,11 @@
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class StagingRealOps {
   // -----------------------------------------------------------------------------
@@ -133,13 +134,13 @@ class StagingRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<StagingModel> readCitiesStaging({
-    @required String countryID,
+    required String countryID,
   }) async {
     StagingModel _output;
 
     if (TextCheck.isEmpty(countryID) == false){
 
-      final Map<String, dynamic> _map = await Real.readPathMap(
+      final Map<String, dynamic>? _map = await Real.readPathMap(
         path: '${RealColl.zones}/${RealDoc.zones_stages_cities}/$countryID',
       );
 
@@ -159,7 +160,7 @@ class StagingRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateCountriesStaging({
-    @required StagingModel newStaging,
+    required StagingModel newStaging,
   }) async {
 
     if (newStaging != null){
@@ -178,7 +179,7 @@ class StagingRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateCitiesStaging({
-    @required StagingModel citiesStages,
+    required StagingModel citiesStages,
   }) async {
 
     if (citiesStages != null){

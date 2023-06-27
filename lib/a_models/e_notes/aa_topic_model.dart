@@ -1,3 +1,5 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
@@ -5,16 +7,16 @@ import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 /// => TAMAM
 class TopicModel {
   // -----------------------------------------------------------------------------
   const TopicModel({
-    @required this.id,
-    @required this.description,
-    @required this.icon,
+    required this.id,
+    required this.description,
+    required this.icon,
   });
   // -----------------------------------------------------------------------------
   final String id;
@@ -263,7 +265,7 @@ class TopicModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getAllPossibleBzTopicsIDs({
-    @required String bzID,
+    required String bzID,
   }){
     final List<String> _output = <String>[];
 
@@ -289,7 +291,7 @@ class TopicModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getAllPossibleBzzTopicsIDs({
-    @required List<String> bzzIDs,
+    required List<String> bzzIDs,
   }){
     final List<String> _output = <String>[];
 
@@ -316,10 +318,10 @@ class TopicModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<String>> getTopicSubscribersPics({
-    @required BuildContext context,
-    @required String topicID,
-    @required List<dynamic> receiversModels,
-    @required PartyType receiversType,
+    required BuildContext context,
+    required String topicID,
+    required List<dynamic> receiversModels,
+    required PartyType receiversType,
   }) async {
 
     List<String> _output = <String>[];
@@ -346,9 +348,9 @@ class TopicModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<String>> _getAuthorsPicsSubscribedToTopic({
-    @required BuildContext context,
-    @required String topicID,
-    @required List<BzModel> bzzModels,
+    required BuildContext context,
+    required String topicID,
+    required List<BzModel> bzzModels,
   }) async {
     final List<String> _output = <String>[];
 
@@ -387,9 +389,9 @@ class TopicModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<String>> _getUsersPicsSubscribedToTopic({
-    @required BuildContext context,
-    @required String topicID,
-    @required List<UserModel> usersModels,
+    required BuildContext context,
+    required String topicID,
+    required List<UserModel> usersModels,
   }) async {
     final List<String> _output = <String>[];
 
@@ -416,9 +418,9 @@ class TopicModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> _checkUserIsSubscribedToTopic({
-    @required BuildContext context,
-    @required String userID,
-    @required String topicID,
+    required BuildContext context,
+    required String userID,
+    required String topicID,
   }) async {
   bool _subscribed = false;
 
@@ -445,8 +447,8 @@ class TopicModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String _generateBzTopicID({
-    @required String topicID,
-    @required String bzID,
+    required String topicID,
+    required String bzID,
   }){
 
     assert(
@@ -459,9 +461,9 @@ class TopicModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String bakeTopicID({
-    @required String topicID,
-    @required String bzID,
-    @required PartyType receiverPartyType,
+    required String topicID,
+    required String bzID,
+    required PartyType receiverPartyType,
   }){
     String _topicID = topicID;
 
@@ -481,11 +483,11 @@ class TopicModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkUserIsSubscribedToThisTopic({
-    @required PartyType partyType,
-    @required BuildContext context,
-    @required String topicID,
-    @required UserModel userModel,
-    @required String bzID,
+    required PartyType partyType,
+    required BuildContext context,
+    required String topicID,
+    required UserModel userModel,
+    required String bzID,
   }){
     bool _isSubscribed = false;
 
@@ -537,7 +539,7 @@ class TopicModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getBzTopicsIDsFromTopics({
-    @required List<String> topics,
+    required List<String> topics,
   }){
     final List<String> _output = <String>[];
 
@@ -558,8 +560,8 @@ class TopicModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getTopicsIncludingBzIDFromTopics({
-    @required List<String> topics,
-    @required String bzID,
+    required List<String> topics,
+    required String bzID,
   }){
     final List<String> _output = <String>[];
 
@@ -585,7 +587,7 @@ class TopicModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getUserTopicsFromTopics({
-    @required List<String> topics,
+    required List<String> topics,
   }){
     final List<String> _output = <String>[];
 

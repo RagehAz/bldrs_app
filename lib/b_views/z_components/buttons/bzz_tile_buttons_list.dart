@@ -2,18 +2,18 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/bz_long_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:mapper/mapper.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:flutter/material.dart';
 
 class BzzTilesButtonsList extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzzTilesButtonsList({
-    @required this.bzzModel,
+    required this.bzzModel,
     this.selectedBzz,
     this.onTap,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final ValueNotifier<List<BzModel>> bzzModel;
   final ValueNotifier<List<BzModel>> selectedBzz;
@@ -24,14 +24,14 @@ class BzzTilesButtonsList extends StatelessWidget {
 
     return ValueListenableBuilder(
         valueListenable: bzzModel,
-        builder: (_, List<BzModel> foundBzz, Widget child){
+        builder: (_, List<BzModel> foundBzz, Widget? child){
 
           /// FOUND BZZ
           if (Mapper.checkCanLoopList(foundBzz) == true){
 
             return ValueListenableBuilder(
               valueListenable: selectedBzz,
-              builder: (_, List<BzModel> selectedBzz, Widget child){
+              builder: (_, List<BzModel> selectedBzz, Widget? child){
 
                 return SizedBox(
                   width: Scale.screenWidth(context),

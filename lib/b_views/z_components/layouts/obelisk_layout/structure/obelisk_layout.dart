@@ -1,26 +1,29 @@
+import 'package:basics/animators/helpers/sliders.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:provider/provider.dart';
-import 'package:widget_fader/widget_fader.dart';
+import 'package:basics/animators/widgets/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:night_sky/night_sky.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/obelisk_layout_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/pyramids/super_pyramids.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:animators/animators.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 
 class ObeliskLayout extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const ObeliskLayout({
-    @required this.navModels,
-    @required this.canGoBack,
+    required this.navModels,
+    required this.canGoBack,
     this.appBarRowWidgets,
     this.initiallyExpanded = false,
     this.initialIndex = 0,
@@ -36,8 +39,8 @@ class ObeliskLayout extends StatefulWidget {
     this.searchView,
     this.isSearching,
     this.zGridController,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final List<Widget> appBarRowWidgets;
   final List<NavModel> navModels;
@@ -153,8 +156,8 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
   // --------------------
   /// TESTED : WORKS PERFECT
   void onChangeTabIndexWhileAnimation({
-    @required BuildContext context,
-    @required TabController tabController,
+    required BuildContext context,
+    required TabController tabController,
   }){
 
     if (tabController.indexIsChanging == false) {
@@ -292,14 +295,14 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
 class _NormalView extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const _NormalView({
-    @required this.tabController,
-    @required this.navModels,
-    @required this.onRowTap,
-    @required this.progressBarModel,
-    @required this.abovePyramidsChild,
-    @required this.mounted,
-    Key key
-  }) : super(key: key);
+    required this.tabController,
+    required this.navModels,
+    required this.onRowTap,
+    required this.progressBarModel,
+    required this.abovePyramidsChild,
+    required this.mounted,
+    super.key
+  });
   // -----------------------------------------------------------------------------
   final TabController tabController;
   final List<NavModel> navModels;

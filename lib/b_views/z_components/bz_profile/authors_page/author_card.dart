@@ -1,3 +1,7 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/widgets/drawing/expander.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
@@ -15,18 +19,18 @@ import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class AuthorCard extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const AuthorCard({
-    @required this.author,
-    @required this.bzModel,
-    @required this.bubbleWidth,
+    required this.author,
+    required this.bzModel,
+    required this.bubbleWidth,
     this.onContactTap,
     this.moreButtonIsOn = true,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final AuthorModel author;
   final BzModel bzModel;
@@ -39,9 +43,9 @@ class AuthorCard extends StatelessWidget {
   static const double moreButtonSize = 40;
   // --------------------
   static double authorTextDetailsClearWidth({
-    @required BuildContext context,
-    @required double bubbleWidth,
-    @required bool withMoreButton,
+    required BuildContext context,
+    required double bubbleWidth,
+    required bool withMoreButton,
   }){
 
     final double _bubbleClearWidth = bubbleWidth - 20;
@@ -68,8 +72,8 @@ class AuthorCard extends StatelessWidget {
   }
   // --------------------
   static Verse getAuthorTitleLine({
-    @required String title,
-    @required String companyName
+    required String title,
+    required String companyName
   }){
     return Verse(
       id: '$title @ $companyName',
@@ -78,7 +82,7 @@ class AuthorCard extends StatelessWidget {
   }
   // -----------------------------------------------------------------------------
   Future<void> _onContactTap({
-    @required ContactModel contactModel,
+    required ContactModel contactModel,
   }) async {
 
     if (onContactTap != null){

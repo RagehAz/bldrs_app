@@ -1,12 +1,17 @@
 import 'dart:typed_data';
 
+import 'package:basics/helpers/classes/checks/object_check.dart';
+import 'package:basics/helpers/classes/files/file_size_unit.dart';
+import 'package:basics/helpers/classes/files/floaters.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:fire/super_fire.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:mediators/mediators.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
+import 'package:mediators/models/dimension_model.dart';
 
 class PicStorageOps {
   // -----------------------------------------------------------------------------
@@ -45,15 +50,15 @@ class PicStorageOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<PicModel> readPic({
-    @required String path,
+    required String path,
   }) async {
     PicModel _picModel;
 
     if (TextCheck.isEmpty(path) == false){
 
       final bool _pathIsURL = ObjectCheck.isAbsoluteURL(path);
-      Uint8List _bytes;
-      StorageMetaModel _meta;
+      Uint8List? _bytes;
+      StorageMetaModel? _meta;
 
       /// GET BYTES
       if (_pathIsURL == true){
@@ -72,8 +77,8 @@ class PicStorageOps {
         );
       }
       else if (_pathIsURL == true){
-      final Dimensions _dims = await Dimensions.superDimensions(_bytes);
-      final double _mega = Filers.calculateSize(_bytes.length, FileSizeUnit.megaByte);
+      final Dimensions? _dims = await Dimensions.superDimensions(_bytes);
+      final double? _mega = Filers.calculateSize(_bytes?.length, FileSizeUnit.megaByte);
         _meta = StorageMetaModel(
           ownersIDs: const ['non'],
           name: path,
@@ -100,7 +105,7 @@ class PicStorageOps {
   // --------------------
   /// TASK : TEST ME
   static Future<PicModel> updatePic({
-    @required PicModel picModel,
+    required PicModel picModel,
   }) async {
 
     final PicModel _uploaded = await createPic(picModel);

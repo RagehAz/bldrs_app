@@ -9,12 +9,10 @@ import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/f_helpers/localization/lingo.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:bldrs/main.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:ldb/ldb.dart';
+import 'package:basics/ldb/methods/ldb_ops.dart';
 
 //
 // --- BEHOLD ---
@@ -71,8 +69,8 @@ class Localizer {
 
   // --------------------
   static Future<void> initializeLocale({
-    @required ValueNotifier<Locale> locale,
-    @required bool mounted,
+    required ValueNotifier<Locale> locale,
+    required bool mounted,
   }) async {
 
     final Locale _locale = await Localizer.getCurrentLocaleFromLDB();
@@ -132,7 +130,7 @@ class Localizer {
   ];
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Locale localeResolutionCallback(Locale deviceLocale, Iterable<Locale> supportedLocales) {
+  static Locale? localeResolutionCallback(Locale? deviceLocale, Iterable<Locale> supportedLocales) {
 
     for (final Locale locale in supportedLocales) {
       if (locale.languageCode == deviceLocale.languageCode &&
@@ -150,7 +148,7 @@ class Localizer {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Map<String, String>> getJSONLangMap({
-    @required String langCode
+    required String langCode
   }) async {
 
     final String _langFilePath = BldrsThemeLangs.getLangFilePath(
@@ -171,8 +169,8 @@ class Localizer {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<String> getTranslationFromJSONByLangCode({
-    @required String jsonKey,
-    @required String langCode,
+    required String jsonKey,
+    required String langCode,
   }) async {
 
     String _jsonStringValues;
@@ -296,7 +294,7 @@ class Localizer {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<String> translateLangCodeName({
-    @required String langCode,
+    required String langCode,
   }) async {
 
     /// while app lang is english : langCode is ar : this should be : 'Arabic'

@@ -1,11 +1,11 @@
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/material.dart';
 
 class HashGroup {
   // -----------------------------------------------------------------------------
   const HashGroup({
-    @required this.id,
-    @required this.hashtags,
+    required this.id,
+    required this.hashtags,
   });
   // -----------------------------------------------------------------------------
   final String id;
@@ -17,8 +17,8 @@ class HashGroup {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<HashModel> getHashModelsFromHashGroups({
-    @required List<HashGroup> hashGroups,
-    @required String id,
+    required List<HashGroup> hashGroups,
+    required String id,
   }) {
     List<HashModel> _output = <HashModel>[];
 
@@ -37,7 +37,7 @@ class HashGroup {
 class HashModel {
   // -----------------------------------------------------------------------------
   const HashModel({
-    @required this.id,
+    required this.id,
     this.views = 0,
     this.searches = 0,
     this.used = 0,

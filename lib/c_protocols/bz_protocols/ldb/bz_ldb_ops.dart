@@ -2,8 +2,8 @@ import 'package:bldrs/a_models/b_bz/draft/draft_bz.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:ldb/ldb.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/ldb/methods/ldb_ops.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 class BzLDBOps {
@@ -30,7 +30,7 @@ class BzLDBOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> insertBzz({
-    @required List<BzModel> bzz,
+    required List<BzModel> bzz,
   }) async {
 
     await LDBOps.insertMaps(
@@ -92,7 +92,7 @@ class BzLDBOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateBzOps({
-    @required BzModel bzModel,
+    required BzModel bzModel,
   }) async {
 
     await LDBOps.insertMap(
@@ -109,7 +109,7 @@ class BzLDBOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteBzOps({
-    @required String bzID,
+    required String bzID,
   }) async {
 
     await LDBOps.deleteMap(
@@ -133,7 +133,7 @@ class BzLDBOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> saveBzEditorSession({
-    @required DraftBz draft,
+    required DraftBz draft,
   }) async {
 
     if (draft != null){
@@ -150,8 +150,8 @@ class BzLDBOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<DraftBz> loadBzEditorSession({
-    @required BuildContext context,
-    @required String bzID,
+    required BuildContext context,
+    required String bzID,
   }) async {
     DraftBz _draft;
 
@@ -190,7 +190,7 @@ class BzLDBOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> saveAuthorEditorSession({
-    @required AuthorModel authorModel,
+    required AuthorModel authorModel,
   }) async {
 
     if (authorModel != null){
@@ -207,7 +207,7 @@ class BzLDBOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<AuthorModel> loadAuthorEditorSession({
-    @required String authorID,
+    required String authorID,
   }) async {
     AuthorModel _author;
 

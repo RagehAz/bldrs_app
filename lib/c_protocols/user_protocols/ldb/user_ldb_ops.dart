@@ -1,8 +1,8 @@
 import 'package:bldrs/a_models/a_user/draft/draft_user.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:ldb/ldb.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/ldb/methods/ldb_ops.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/material.dart';
 
 /// => TAMAM
@@ -74,7 +74,7 @@ class UserLDBOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<UserModel> readUserOps({
-    @required String userID,
+    required String userID,
   }) async {
 
     final Map<String, dynamic> _userMap = await LDBOps.searchFirstMap(
@@ -139,7 +139,7 @@ class UserLDBOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> saveEditorSession({
-    @required DraftUser draft,
+    required DraftUser draft,
   }) async {
 
     if (draft != null){
@@ -156,7 +156,7 @@ class UserLDBOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<DraftUser> loadEditorSession({
-    @required String userID,
+    required String userID,
   }) async {
     DraftUser _draft;
 

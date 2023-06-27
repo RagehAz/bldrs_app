@@ -25,22 +25,22 @@ import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_mode
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mediators/mediators.dart';
-import 'package:night_sky/night_sky.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 
 class UserEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const UserEditorScreen({
-    @required this.userModel,
-    @required this.onFinish,
-    @required this.canGoBack,
-    @required this.reAuthBeforeConfirm,
-    @required this.validateOnStartup,
+    required this.userModel,
+    required this.onFinish,
+    required this.canGoBack,
+    required this.reAuthBeforeConfirm,
+    required this.validateOnStartup,
     this.checkLastSession = true,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final UserModel userModel;
   final Function onFinish;
@@ -76,7 +76,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -340,7 +340,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
       confirmButtonModel: _confirmButtonModel,
       child: ValueListenableBuilder(
         valueListenable: _draftUser,
-        builder: (_, DraftUser draft, Widget child){
+        builder: (_, DraftUser draft, Widget? child){
 
           return Form(
             key: draft?.formKey,

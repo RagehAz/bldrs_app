@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 class InfoPageParagraph extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const InfoPageParagraph({
-    @required this.pageWidth,
-    @required this.flyerInfo,
-    Key key
-  }) : super(key: key);
+    required this.pageWidth,
+    required this.flyerInfo,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double pageWidth;
   final String flyerInfo;

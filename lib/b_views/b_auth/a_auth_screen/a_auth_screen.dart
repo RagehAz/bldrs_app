@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 class AuthScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const AuthScreen({
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   @override
   _AuthScreenState createState() => _AuthScreenState();
@@ -19,7 +19,7 @@ class _AuthScreenState extends State<AuthScreen> {
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
   /*
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,

@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -8,18 +9,18 @@ import 'package:flutter/material.dart';
 class SavedGraphic extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SavedGraphic({
-    @required this.flyerBoxWidth,
-    @required this.flyerBoxHeight,
-    @required this.isSaved,
-    @required this.ankh,
+    required this.flyerBoxWidth,
+    required this.flyerBoxHeight,
+    required this.isSaved,
+    required this.ankh,
     this.isStarGraphic = false,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final double flyerBoxHeight;
   final bool isSaved;
-  final Widget ankh;
+  final Widget? ankh;
   final bool isStarGraphic;
   /// --------------------------------------------------------------------------
   @override
@@ -31,7 +32,8 @@ class SavedGraphic extends StatelessWidget {
       boxColor: Colorz.yellow200,
       stackWidgets: <Widget>[
 
-        ankh,
+        if (ankh != null)
+        ankh!,
 
         Positioned(
           bottom: flyerBoxWidth * 0.58,

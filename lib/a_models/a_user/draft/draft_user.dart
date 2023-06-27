@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/space/atlas.dart';
 import 'package:bldrs/a_models/a_user/sub/agenda_model.dart';
 import 'package:bldrs/a_models/a_user/sub/deck_model.dart';
 import 'package:bldrs/a_models/a_user/sub/need_model.dart';
@@ -10,91 +11,90 @@ import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:fire/super_fire.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:space_time/space_time.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/time/timers.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 /// => TAMAM
 @immutable
 class DraftUser {
   /// --------------------------------------------------------------------------
   const DraftUser({
-    @required this.id,
-    @required this.signInMethod,
-    @required this.createdAt,
-    @required this.need,
-    @required this.name,
-    @required this.trigram,
-    @required this.picModel,
-    @required this.title,
-    @required this.company,
-    @required this.gender,
-    @required this.zone,
-    @required this.language,
-    @required this.location,
-    @required this.contacts,
-    @required this.contactsArePublic,
-    @required this.myBzzIDs,
-    @required this.emailIsVerified,
-    @required this.isAdmin,
-    @required this.device,
-    @required this.fcmTopics,
-    @required this.savedFlyers,
-    @required this.followedBzz,
-    @required this.appState,
-    @required this.hasNewPic,
-    @required this.nameController,
-    @required this.titleController,
-    @required this.companyController,
-    @required this.emailController,
-    @required this.phoneController,
-    @required this.nameNode,
-    @required this.titleNode,
-    @required this.companyNode,
-    @required this.emailNode,
-    @required this.phoneNode,
-    @required this.formKey,
-    @required this.canPickImage,
+    required this.id,
+    required this.signInMethod,
+    required this.createdAt,
+    required this.need,
+    required this.name,
+    required this.trigram,
+    required this.picModel,
+    required this.title,
+    required this.company,
+    required this.gender,
+    required this.zone,
+    required this.language,
+    required this.location,
+    required this.contacts,
+    required this.contactsArePublic,
+    required this.myBzzIDs,
+    required this.emailIsVerified,
+    required this.isAdmin,
+    required this.device,
+    required this.fcmTopics,
+    required this.savedFlyers,
+    required this.followedBzz,
+    required this.appState,
+    required this.hasNewPic,
+    required this.nameController,
+    required this.titleController,
+    required this.companyController,
+    required this.emailController,
+    required this.phoneController,
+    required this.nameNode,
+    required this.titleNode,
+    required this.companyNode,
+    required this.emailNode,
+    required this.phoneNode,
+    required this.formKey,
+    required this.canPickImage,
   });
   /// --------------------------------------------------------------------------
-  final String id;
-  final SignInMethod signInMethod;
-  final DateTime createdAt;
-  final NeedModel need;
-  final String name;
-  final List<String> trigram;
-  final PicModel picModel;
-  final String title;
-  final String company;
-  final Gender gender;
-  final ZoneModel zone;
-  final String language;
-  final GeoPoint location;
-  final List<ContactModel> contacts;
-  final bool contactsArePublic;
-  final List<String> myBzzIDs;
-  final bool emailIsVerified;
-  final bool isAdmin;
-  final DeviceModel device;
-  final List<String> fcmTopics;
-  final DeckModel savedFlyers;
-  final AgendaModel followedBzz;
-  final AppStateModel appState;
-  final bool hasNewPic;
-  final TextEditingController nameController;
-  final TextEditingController titleController;
-  final TextEditingController companyController;
-  final TextEditingController emailController;
-  final TextEditingController phoneController;
-  final FocusNode nameNode;
-  final FocusNode titleNode;
-  final FocusNode companyNode;
-  final FocusNode emailNode;
-  final FocusNode phoneNode;
-  final GlobalKey<FormState> formKey;
-  final bool canPickImage;
+  final String? id;
+  final SignInMethod? signInMethod;
+  final DateTime? createdAt;
+  final NeedModel? need;
+  final String? name;
+  final List<String>? trigram;
+  final PicModel? picModel;
+  final String? title;
+  final String? company;
+  final Gender? gender;
+  final ZoneModel? zone;
+  final String? language;
+  final GeoPoint? location;
+  final List<ContactModel>? contacts;
+  final bool? contactsArePublic;
+  final List<String>? myBzzIDs;
+  final bool? emailIsVerified;
+  final bool? isAdmin;
+  final DeviceModel? device;
+  final List<String>? fcmTopics;
+  final DeckModel? savedFlyers;
+  final AgendaModel? followedBzz;
+  final AppStateModel? appState;
+  final bool? hasNewPic;
+  final TextEditingController? nameController;
+  final TextEditingController? titleController;
+  final TextEditingController? companyController;
+  final TextEditingController? emailController;
+  final TextEditingController? phoneController;
+  final FocusNode? nameNode;
+  final FocusNode? titleNode;
+  final FocusNode? companyNode;
+  final FocusNode? emailNode;
+  final FocusNode? phoneNode;
+  final GlobalKey<FormState>? formKey;
+  final bool? canPickImage;
   // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
@@ -102,8 +102,8 @@ class DraftUser {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<DraftUser> createDraftUser({
-    @required BuildContext context,
-    @required UserModel userModel,
+    required BuildContext context,
+    required UserModel userModel,
   }) async {
     DraftUser _draft;
 
@@ -195,42 +195,42 @@ class DraftUser {
   // --------------------
   /// TESTED : WORKS PERFECT
   DraftUser copyWith({
-    String id,
-    SignInMethod signInMethod,
-    DateTime createdAt,
-    NeedModel need,
-    String name,
-    List<String> trigram,
-    PicModel picModel,
-    String title,
-    String company,
-    Gender gender,
-    ZoneModel zone,
-    String language,
-    GeoPoint location,
-    List<ContactModel> contacts,
-    bool contactsArePublic,
-    List<String> myBzzIDs,
-    bool emailIsVerified,
-    bool isAdmin,
-    DeviceModel device,
-    DeckModel savedFlyers,
-    AgendaModel followedBzz,
-    AppStateModel appState,
-    List<String> fcmTopics,
-    bool hasNewPic,
-    FocusNode nameNode,
-    FocusNode titleNode,
-    FocusNode companyNode,
-    FocusNode emailNode,
-    FocusNode phoneNode,
-    GlobalKey<FormState> formKey,
-    bool canPickImage,
-    TextEditingController nameController,
-    TextEditingController titleController,
-    TextEditingController companyController,
-    TextEditingController emailController,
-    TextEditingController phoneController,
+    String? id,
+    SignInMethod? signInMethod,
+    DateTime? createdAt,
+    NeedModel? need,
+    String? name,
+    List<String>? trigram,
+    PicModel? picModel,
+    String? title,
+    String? company,
+    Gender? gender,
+    ZoneModel? zone,
+    String? language,
+    GeoPoint? location,
+    List<ContactModel>? contacts,
+    bool? contactsArePublic,
+    List<String>? myBzzIDs,
+    bool? emailIsVerified,
+    bool? isAdmin,
+    DeviceModel? device,
+    DeckModel? savedFlyers,
+    AgendaModel? followedBzz,
+    AppStateModel? appState,
+    List<String>? fcmTopics,
+    bool? hasNewPic,
+    FocusNode? nameNode,
+    FocusNode? titleNode,
+    FocusNode? companyNode,
+    FocusNode? emailNode,
+    FocusNode? phoneNode,
+    GlobalKey<FormState>? formKey,
+    bool? canPickImage,
+    TextEditingController? nameController,
+    TextEditingController? titleController,
+    TextEditingController? companyController,
+    TextEditingController? emailController,
+    TextEditingController? phoneController,
   }){
     return DraftUser(
       id: id ?? this.id,
@@ -298,11 +298,11 @@ class DraftUser {
     bool appState = false,
     bool fcmTopics = false,
     bool hasNewPic = false,
-    bool nameController,
-    bool titleController,
-    bool companyController,
-    bool emailController,
-    bool phoneController,
+    bool nameController = false,
+    bool titleController = false,
+    bool companyController = false,
+    bool emailController = false,
+    bool phoneController = false,
     bool nameNode = false,
     bool titleNode = false,
     bool companyNode = false,
@@ -433,8 +433,8 @@ class DraftUser {
   // --------------------
   /// TESTED : WORKS PERFECT
   static UserModel toUserModel({
-    @required BuildContext context,
-    @required DraftUser draft,
+    required BuildContext context,
+    required DraftUser draft,
   }){
 
     final String _name = draft.nameController.text ?? draft.name;
@@ -484,9 +484,9 @@ class DraftUser {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void triggerCanPickImage({
-    @required ValueNotifier<DraftUser> draftUser,
-    @required bool setTo,
-    @required bool mounted,
+    required ValueNotifier<DraftUser> draftUser,
+    required bool setTo,
+    required bool mounted,
   }){
 
     setNotifier(
@@ -505,8 +505,8 @@ class DraftUser {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkAreIdentical({
-    @required DraftUser draft1,
-    @required DraftUser draft2,
+    required DraftUser draft1,
+    required DraftUser draft2,
   }){
     bool _identical = false;
 

@@ -9,11 +9,11 @@ import 'package:flutter/material.dart';
 class BzLabel extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzLabel({
-    @required this.flyerBoxWidth,
-    @required this.bzModel,
-    @required this.flyerShowsAuthor,
-    Key key,
-  }) : super(key: key);
+    required this.flyerBoxWidth,
+    required this.bzModel,
+    required this.flyerShowsAuthor,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final BzModel bzModel;
   final double flyerBoxWidth;

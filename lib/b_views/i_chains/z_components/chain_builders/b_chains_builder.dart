@@ -1,8 +1,9 @@
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/a_chain_button_box.dart';
 import 'package:bldrs/b_views/i_chains/z_components/chain_builders/a_chain_splitter.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 
 import 'package:flutter/material.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
@@ -10,25 +11,25 @@ import 'package:bldrs_theme/bldrs_theme.dart';
 class ChainsBuilder extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ChainsBuilder({
-    @required this.sons,
-    @required this.previousPath,
-    @required this.width,
-    @required this.level,
-    @required this.selectedPhids,
-    @required this.initiallyExpanded,
-    @required this.secondLinesType,
-    @required this.searchText,
-    @required this.onPhidTap,
-    @required this.onPhidDoubleTap,
-    @required this.onPhidLongTap,
-    @required this.onExportSpecs,
-    @required this.zone,
-    @required this.onlyUseZoneChains,
-    @required this.isMultipleSelectionMode,
-    @required this.onDataCreatorKeyboardSubmitted,
-    @required this.isCollapsable,
-    Key key
-  }) : super(key: key);
+    required this.sons,
+    required this.previousPath,
+    required this.width,
+    required this.level,
+    required this.selectedPhids,
+    required this.initiallyExpanded,
+    required this.secondLinesType,
+    required this.searchText,
+    required this.onPhidTap,
+    required this.onPhidDoubleTap,
+    required this.onPhidLongTap,
+    required this.onExportSpecs,
+    required this.zone,
+    required this.onlyUseZoneChains,
+    required this.isMultipleSelectionMode,
+    required this.onDataCreatorKeyboardSubmitted,
+    required this.isCollapsable,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final dynamic sons;
   final String previousPath;
@@ -49,9 +50,9 @@ class ChainsBuilder extends StatelessWidget {
   final bool isCollapsable;
   /// --------------------------------------------------------------------------
   static double getBottomMargin({
-    @required BuildContext context,
-    @required bool isCollapsable,
-    @required int level,
+    required BuildContext context,
+    required bool isCollapsable,
+    required int level,
   }){
 
     if (isCollapsable == true) {

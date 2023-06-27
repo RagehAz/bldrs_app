@@ -1,18 +1,18 @@
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 /// => TAMAM
 @immutable
 class TriggerModel {
   /// --------------------------------------------------------------------------
   const TriggerModel({
-    @required this.name,
-    @required this.argument,
-    @required this.done,
+    required this.name,
+    required this.argument,
+    required this.done,
   });
   /// --------------------------------------------------------------------------
   final String name;
@@ -70,7 +70,7 @@ class TriggerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static NoteModel addMeToTriggerDones({
-    @required NoteModel noteModel,
+    required NoteModel noteModel,
   }){
 
     assert(noteModel != null, 'noteModel can not be null');

@@ -11,15 +11,15 @@ class UserProfileBanners extends StatelessWidget {
   const UserProfileBanners({
     this.userModel,
     this.showContacts = false,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final UserModel userModel;
   final bool showContacts;
   /// --------------------------------------------------------------------------
   static String generateTitleCompanyString({
-    @required UserModel userModel,
-    @required BuildContext context,
+    required UserModel userModel,
+    required BuildContext context,
   }){
 
     String _string;

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
@@ -18,11 +19,10 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/f_helpers/drafters/debuggers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
-import 'package:filers/filers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class RenovateUserProtocols {
   // -----------------------------------------------------------------------------
@@ -36,11 +36,11 @@ class RenovateUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<UserModel> renovateUser({
-    @required BuildContext context,
-    @required UserModel oldUser,
-    @required UserModel newUser,
-    @required PicModel newPic,
-    @required String invoker,
+    required BuildContext context,
+    required UserModel oldUser,
+    required UserModel newUser,
+    required PicModel newPic,
+    required String invoker,
   }) async {
     UserModel _output;
 
@@ -98,8 +98,8 @@ class RenovateUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateLocally({
-    @required UserModel newUser,
-    @required BuildContext context,
+    required UserModel newUser,
+    required BuildContext context,
   }) async {
 
     // blog('RenovateUserProtocols.updateLocally : START');
@@ -141,7 +141,7 @@ class RenovateUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<UserModel> completeUserZoneModels({
-    @required UserModel userModel,
+    required UserModel userModel,
   }) async {
     UserModel _output;
 
@@ -166,9 +166,9 @@ class RenovateUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> followingProtocol({
-    @required BuildContext context,
-    @required bool followIsOn,
-    @required BzModel bzToFollow,
+    required BuildContext context,
+    required bool followIsOn,
+    required BzModel bzToFollow,
   }) async {
 
     blog('RenovateUserProtocols.followingProtocol : START');
@@ -244,10 +244,10 @@ class RenovateUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> savingFlyerProtocol({
-    @required BuildContext context,
-    @required bool flyerIsSaved,
-    @required FlyerModel flyerModel,
-    @required int slideIndex,
+    required BuildContext context,
+    required bool flyerIsSaved,
+    required FlyerModel flyerModel,
+    required int slideIndex,
   }) async {
     // blog('RenovateUserProtocols.savingFlyerProtocol : START');
 
@@ -338,8 +338,8 @@ class RenovateUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateMyUserTopics({
-    @required BuildContext context,
-    @required String topicID,
+    required BuildContext context,
+    required String topicID,
   }) async {
 
     final UserModel _oldUser = UsersProvider.proGetMyUserModel(
@@ -371,7 +371,7 @@ class RenovateUserProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<void> refreshUserDeviceModel({
-    @required BuildContext context,
+    required BuildContext context,
   }) async {
 
     // blog('refreshUserDeviceModel START');
@@ -464,7 +464,7 @@ class RenovateUserProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<void> _resubscribeToAllMyTopics({
-    @required BuildContext context,
+    required BuildContext context,
   }) async {
 
     final UserModel _myUserModel = UsersProvider.proGetMyUserModel(

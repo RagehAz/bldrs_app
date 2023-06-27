@@ -12,7 +12,7 @@ import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.
 import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -28,9 +28,9 @@ class NoteEventsOfBzFlyersManagement {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendFlyerUpdateNoteToItsBz({
-    @required BuildContext context,
-    @required BzModel bzModel,
-    @required String flyerID,
+    required BuildContext context,
+    required BzModel bzModel,
+    required String flyerID,
   }) async {
 
     blog('NoteEventsOfBzFlyersManagement.sendFlyerUpdateNoteToItsBz : START');
@@ -89,9 +89,9 @@ class NoteEventsOfBzFlyersManagement {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendFlyerIsVerifiedNoteToBz({
-    @required BuildContext context,
-    @required String flyerID,
-    @required String bzID,
+    required BuildContext context,
+    required String flyerID,
+    required String bzID,
   }) async {
 
     // blog('NoteEventsOfBzFlyersManagement.sendFlyerIsVerifiedNoteToBz : START');

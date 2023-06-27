@@ -1,8 +1,8 @@
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
@@ -12,10 +12,10 @@ import 'package:flutter/material.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onGoBackFromPickerScreen({
-  @required BuildContext context,
-  @required List<SpecModel> specsToPassBack,
-  @required String phidToPassBack,
-  @required bool isMultipleSelectionMode,
+  required BuildContext context,
+  required List<SpecModel> specsToPassBack,
+  required String phidToPassBack,
+  required bool isMultipleSelectionMode,
 }) async {
 
   if (isMultipleSelectionMode == true){
@@ -43,12 +43,12 @@ Future<void> onGoBackFromPickerScreen({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onSelectPhidInPickerScreen({
-  @required BuildContext context,
-  @required String phid,
-  @required bool isMultipleSelectionMode,
-  @required PickerModel picker,
-  @required ValueNotifier<List<SpecModel>> selectedSpecsNotifier,
-  @required bool mounted,
+  required BuildContext context,
+  required String phid,
+  required bool isMultipleSelectionMode,
+  required PickerModel picker,
+  required ValueNotifier<List<SpecModel>> selectedSpecsNotifier,
+  required bool mounted,
 }) async {
 
   picker?.blogPicker();
@@ -77,11 +77,11 @@ Future<void> onSelectPhidInPickerScreen({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _insertPhidToSelectedSpecs({
-  @required BuildContext context,
-  @required String phid,
-  @required PickerModel picker,
-  @required ValueNotifier<List<SpecModel>> selectedSpecs,
-  @required bool mounted,
+  required BuildContext context,
+  required String phid,
+  required PickerModel picker,
+  required ValueNotifier<List<SpecModel>> selectedSpecs,
+  required bool mounted,
 }) async {
 
   if (picker != null && picker.chainID != null){

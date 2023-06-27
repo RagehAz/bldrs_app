@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
@@ -14,10 +15,10 @@ import 'package:flutter/material.dart';
 class NoteSenderBalloon extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const NoteSenderBalloon({
-    @required this.noteModel,
+    required this.noteModel,
     this.onTap,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final NoteModel noteModel;
   final Function onTap;

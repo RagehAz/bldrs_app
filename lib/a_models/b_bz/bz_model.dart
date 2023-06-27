@@ -1,3 +1,6 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/space/atlas.dart';
+import 'package:basics/helpers/classes/time/timers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
@@ -6,36 +9,35 @@ import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:fire/super_fire.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:space_time/space_time.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
+
 /// => TAMAM
 @immutable
 class BzModel{
   /// --------------------------------------------------------------------------
   const BzModel({
-    @required this.id,
-    @required this.bzTypes,
-    @required this.bzForm,
-    @required this.createdAt,
-    @required this.accountType,
-    @required this.name,
-    @required this.trigram,
-    @required this.logoPath,
-    @required this.scope,
-    @required this.zone,
-    @required this.about,
-    @required this.position,
-    @required this.contacts,
-    @required this.authors,
-    @required this.pendingAuthors,
-    @required this.showsTeam,
-    @required this.isVerified,
-    @required this.bzState,
-    @required this.flyersIDs,
+    required this.id,
+    required this.bzTypes,
+    required this.bzForm,
+    required this.createdAt,
+    required this.accountType,
+    required this.name,
+    required this.trigram,
+    required this.logoPath,
+    required this.scope,
+    required this.zone,
+    required this.about,
+    required this.position,
+    required this.contacts,
+    required this.authors,
+    required this.pendingAuthors,
+    required this.showsTeam,
+    required this.isVerified,
+    required this.bzState,
+    required this.flyersIDs,
     this.docSnapshot,
   });
   /// --------------------------------------------------------------------------
@@ -165,7 +167,7 @@ class BzModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
-    @required bool toJSON,
+    required bool toJSON,
   }) {
     return <String, dynamic>{
       'id': id,
@@ -196,8 +198,8 @@ class BzModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> cipherBzz({
-    @required List<BzModel> bzz,
-    @required bool toJSON,
+    required List<BzModel> bzz,
+    required bool toJSON,
   }) {
 
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
@@ -217,8 +219,8 @@ class BzModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static BzModel decipherBz({
-    @required dynamic map,
-    @required bool fromJSON,
+    required dynamic map,
+    required bool fromJSON,
   }) {
     BzModel _bzModel;
 
@@ -266,8 +268,8 @@ class BzModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<BzModel> decipherBzz({
-    @required List<Map<String, dynamic>> maps,
-    @required bool fromJSON,
+    required List<Map<String, dynamic>> maps,
+    required bool fromJSON,
   }) {
     final List<BzModel> _bzList = <BzModel>[];
 
@@ -338,8 +340,8 @@ class BzModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<BzModel> addOrRemoveBzToBzz({
-    @required List<BzModel> bzzModels,
-    @required BzModel bzModel,
+    required List<BzModel> bzzModels,
+    required BzModel bzModel,
   }){
     final List<BzModel> _output = <BzModel>[];
 
@@ -372,8 +374,8 @@ class BzModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static BzModel removeFlyerIDFromBzAndAuthor({
-    @required BzModel oldBz,
-    @required FlyerModel flyer,
+    required BzModel oldBz,
+    required FlyerModel flyer,
   }){
 
     final List<String> _bzFlyersIDs = Stringer.removeStringsFromStrings(
@@ -397,8 +399,8 @@ class BzModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static BzModel replaceAuthor({
-    @required AuthorModel newAuthor,
-    @required BzModel oldBz,
+    required AuthorModel newAuthor,
+    required BzModel oldBz,
   }){
 
     BzModel _newBz = oldBz;
@@ -420,8 +422,8 @@ class BzModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static BzModel removeAuthor({
-    @required BzModel oldBz,
-    @required String authorID,
+    required BzModel oldBz,
+    required String authorID,
   }){
     BzModel _newBz;
 
@@ -449,8 +451,8 @@ class BzModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<BzModel> addNewUserAsAuthor({
-    @required BzModel oldBz,
-    @required UserModel newUser,
+    required BzModel oldBz,
+    required UserModel newUser,
   }) async {
 
     final List<AuthorModel> _newAuthors = await AuthorModel.addNewUserToAuthors(
@@ -468,8 +470,8 @@ class BzModel{
   // --------------------
   /*
   static BzModel removeFlyersIDs({
-    @required List<String> flyersIDs,
-    @required BzModel bzModel,
+    required List<String> flyersIDs,
+    required BzModel bzModel,
   }){
 
     BzModel _output;
@@ -567,7 +569,7 @@ class BzModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogBzz({
-    @required List<BzModel> bzz,
+    required List<BzModel> bzz,
     String invoker,
   }){
 
@@ -583,8 +585,8 @@ class BzModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogBzzDifferences({
-    @required BzModel bz1,
-    @required BzModel bz2,
+    required BzModel bz1,
+    required BzModel bz2,
   }){
 
     blog('staring blogBzzDifferences checkup ');
@@ -669,8 +671,8 @@ class BzModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static BzModel getBzFromBzzByBzID({
-    @required List<BzModel> bzz,
-    @required String bzID,
+    required List<BzModel> bzz,
+    required String bzID,
   }) {
 
     final BzModel _bz =
@@ -707,8 +709,8 @@ class BzModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<BzModel> getBzzFromBzzByBzType({
-    @required List<BzModel> bzz,
-    @required BzType bzType,
+    required List<BzModel> bzz,
+    required BzType bzType,
   }){
 
     final List<BzModel> _output = <BzModel>[];
@@ -747,8 +749,8 @@ class BzModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<BzModel> getBzzByCreatorID({
-    @required List<BzModel> bzzModels,
-    @required String creatorID,
+    required List<BzModel> bzzModels,
+    required String creatorID,
   }){
     final List<BzModel> _bzzModels = <BzModel>[];
 
@@ -771,8 +773,8 @@ class BzModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<BzModel> getBzzIDidNotCreate({
-    @required List<BzModel> bzzModels,
-    @required String userID,
+    required List<BzModel> bzzModels,
+    required String userID,
   }){
     final List<BzModel> _bzzModels = <BzModel>[];
 
@@ -799,8 +801,8 @@ class BzModel{
   // --------------------
   /// TESTED : WORKS GOOD
   static bool checkBzzContainThisBz({
-    @required List<BzModel> bzz,
-    @required BzModel bzModel,
+    required List<BzModel> bzz,
+    required BzModel bzModel,
   }) {
     bool _contains = false;
 
@@ -818,8 +820,8 @@ class BzModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkBzzAreIdentical({
-    @required BzModel bz1,
-    @required BzModel bz2,
+    required BzModel bz1,
+    required BzModel bz2,
   }){
     bool _areIdentical = false;
 
@@ -867,7 +869,7 @@ class BzModel{
   // --------------------
   /// TESTED : WORKS GOOD
   static bool checkBzHasContacts({
-    @required BzModel bzModel,
+    required BzModel bzModel,
   }){
     bool _hasContacts = false;
 

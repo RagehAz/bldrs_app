@@ -1,4 +1,7 @@
 import 'package:animators/animators.dart';
+import 'package:basics/animators/widgets/animate_widget_to_matrix.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/space/trinity.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/c_slide_shadow.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/d_footer_shadow.dart';
@@ -11,29 +14,29 @@ import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:filers/filers.dart';
-import 'package:space_time/space_time.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
+import 'package:basics/helpers/classes/time/timers.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
-import 'package:super_image/super_image.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/super_image/super_image.dart';
 
 class SlideEditorSlidePart extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SlideEditorSlidePart({
-    @required this.draftSlide,
-    @required this.height,
-    @required this.onSlideTap,
-    @required this.isTransforming,
-    @required this.matrix,
-    @required this.filterModel,
-    @required this.appBarType,
-    @required this.globalKey,
-    @required this.mounted,
-    @required this.isPlayingAnimation,
-    @required this.onSlideDoubleTap,
-    Key key
-  }) : super(key: key);
+    required this.draftSlide,
+    required this.height,
+    required this.onSlideTap,
+    required this.isTransforming,
+    required this.matrix,
+    required this.filterModel,
+    required this.appBarType,
+    required this.globalKey,
+    required this.mounted,
+    required this.isPlayingAnimation,
+    required this.onSlideDoubleTap,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final ValueNotifier<DraftSlide> draftSlide;
   final double height;
@@ -89,7 +92,7 @@ class SlideEditorSlidePart extends StatelessWidget {
             /// BACK GROUND COVER SLIDE
             ValueListenableBuilder(
               valueListenable: draftSlide,
-              builder: (_, DraftSlide _slide, Widget child) {
+              builder: (_, DraftSlide _slide, Widget? child) {
                 return SlideBackCoverImage(
                   filterModel: filterModel,
                   flyerBoxWidth: _flyerBoxWidth,
@@ -111,7 +114,7 @@ class SlideEditorSlidePart extends StatelessWidget {
             /// SLIDE
             ValueListenableBuilder(
               valueListenable: draftSlide,
-              builder: (_, DraftSlide _slide, Widget child) {
+              builder: (_, DraftSlide _slide, Widget? child) {
                 return SlideTransformer(
                   matrix: matrix,
                   filterModel: filterModel,
@@ -127,12 +130,12 @@ class SlideEditorSlidePart extends StatelessWidget {
             /// SLIDE ANIMATION PREVIEW
             ValueListenableBuilder(
                 valueListenable: isPlayingAnimation,
-                builder: (_, bool isPlaying, Widget child) {
+                builder: (_, bool isPlaying, Widget? child) {
 
                   if (isPlaying == true) {
                     return ValueListenableBuilder(
                       valueListenable: draftSlide,
-                      builder: (_, DraftSlide draft, Widget child) {
+                      builder: (_, DraftSlide draft, Widget? child) {
                         Trinity.blogMatrix(draft?.matrix);
 
                         return Stack(

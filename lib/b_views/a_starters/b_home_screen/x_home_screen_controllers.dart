@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
@@ -26,9 +28,9 @@ import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:provider/provider.dart';
 
 /*
@@ -57,10 +59,10 @@ keywords relevancy		      calls
 // --------------------
 /// TESTED : WORKS PERFECT
 List<NavModel> generateMainNavModels({
-  @required BuildContext context,
-  @required List<BzModel> bzzModels,
-  @required ZoneModel currentZone,
-  @required UserModel userModel,
+  required BuildContext context,
+  required List<BzModel> bzzModels,
+  required ZoneModel currentZone,
+  required UserModel userModel,
 }){
 
   final String _countryFlag = currentZone?.icon ?? Iconz.contAfrica;
@@ -198,11 +200,11 @@ List<NavModel> generateMainNavModels({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onNavigate({
-  @required int index,
-  @required List<NavModel> models,
-  @required ValueNotifier<ProgressBarModel> progressBarModel,
-  @required BuildContext context,
-  @required bool mounted,
+  required int index,
+  required List<NavModel> models,
+  required ValueNotifier<ProgressBarModel> progressBarModel,
+  required BuildContext context,
+  required bool mounted,
 }) async {
 
   final NavModel _navModel = models[index];
@@ -251,10 +253,10 @@ Future<void> onNavigate({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onRefreshHomeWall({
-  @required BuildContext context,
-  @required PaginationController paginationController,
-  @required ValueNotifier<bool> loading,
-  @required bool mounted,
+  required BuildContext context,
+  required PaginationController paginationController,
+  required ValueNotifier<bool> loading,
+  required bool mounted,
 }) async {
   // final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
   // final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: true);
@@ -325,8 +327,8 @@ Future<void> onSectionButtonTap(BuildContext context) async {
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> setActivePhidK({
-  @required String phidK,
-  @required FlyerType flyerType,
+  required String phidK,
+  required FlyerType flyerType,
 }) async {
 
   // blog('setActivePhidK : phidK : $phidK : for flyerType : $flyerType');

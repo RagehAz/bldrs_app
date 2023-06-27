@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 class ChannelModel {
   // -----------------------------------------------------------------------------
   const ChannelModel({
-    @required this.id,
-    @required this.name,
-    @required this.description,
-    @required this.group,
+    required this.id,
+    required this.name,
+    required this.description,
+    required this.group,
   });
   // --------------------
   final String id;

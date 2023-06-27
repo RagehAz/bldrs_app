@@ -1,20 +1,23 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/c_chain/dd_data_creation.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 @immutable
 class Chain {
   /// --------------------------------------------------------------------------
   const Chain({
-    @required this.id,
-    @required this.sons,
+    required this.id,
+    required this.sons,
   });
   /// --------------------------------------------------------------------------
   final String id;
@@ -25,8 +28,8 @@ class Chain {
 
   /// TESTED : WORKS PERFECT
   void addPathSon({
-    @required dynamic son,
-    @required bool isLastSonInPath,
+    required dynamic son,
+    required bool isLastSonInPath,
   }) {
     if (isLastSonInPath == false) {
       sons.add(son);
@@ -62,7 +65,7 @@ class Chain {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> cipherBldrsChains({
-    @required List<Chain> chains,
+    required List<Chain> chains,
   }) {
     Map<String, dynamic> _map = {
       'id': bldrsChainsMapID,
@@ -107,7 +110,7 @@ class Chain {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Chain> decipherBldrsChains({
-    @required Map<String, dynamic> map,
+    required Map<String, dynamic> map,
   }) {
     List<Chain> _bldrsChains;
 
@@ -207,11 +210,18 @@ class Chain {
 
       /// DATA CREATOR IS STRING
       else if (sons is String) {
-        final bool _isDataCreator =
-            TextMod.removeTextAfterFirstSpecialCharacter(sons, '_') == 'DataCreator';
+
+        final String? _text = TextMod.removeTextAfterFirstSpecialCharacter(
+            text: sons,
+            specialCharacter: '_',
+        );
+
+        final bool _isDataCreator = _text == 'DataCreator';
+
         if (_isDataCreator == true) {
           _output = DataCreation.decipherDataCreator(sons);
         }
+
       }
     }
 
@@ -238,8 +248,8 @@ class Chain {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Chain filterSpecPickerChainRange({
-    @required PickerModel picker,
-    @required bool onlyUseZoneChains,
+    required PickerModel picker,
+    required bool onlyUseZoneChains,
   }) {
     final List<String> _filteredIDs = <String>[];
     Chain _filteredChain = ChainsProvider.proFindChainByID(
@@ -290,8 +300,8 @@ class Chain {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkChainsAreIdentical({
-    @required Chain chain1,
-    @required Chain chain2,
+    required Chain chain1,
+    required Chain chain2,
     bool blogDifferences = false,
   }) {
     bool _areIdentical = false;
@@ -315,8 +325,8 @@ class Chain {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkChainsSonsAreIdentical({
-    @required Chain chain1,
-    @required Chain chain2,
+    required Chain chain1,
+    required Chain chain2,
     bool blogDifferences = false,
   }) {
     bool _sonsAreIdentical = false;
@@ -368,8 +378,8 @@ class Chain {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkChainsListsAreIdentical({
-    @required List<Chain> chains1,
-    @required List<Chain> chains2,
+    required List<Chain> chains1,
+    required List<Chain> chains2,
     bool blogDifferences = false,
   }) {
     bool _listsAreIdentical = false;
@@ -408,8 +418,8 @@ class Chain {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkChainsListPathsAreIdentical({
-    @required List<Chain> chains1,
-    @required List<Chain> chains2,
+    required List<Chain> chains1,
+    required List<Chain> chains2,
     bool blogDifferences = true,
   }) {
     final List<String> _pathsA =
@@ -439,8 +449,8 @@ class Chain {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkChainsPathsAreIdentical({
-    @required Chain chain1,
-    @required Chain chain2,
+    required Chain chain1,
+    required Chain chain2,
   }) {
     return checkChainsListPathsAreIdentical(
       chains1: [chain1],
@@ -450,8 +460,8 @@ class Chain {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkChainIncludeThisPhid({
-    @required Chain chain,
-    @required String phid,
+    required Chain chain,
+    required String phid,
   }) {
     bool _includes = false;
 
@@ -488,8 +498,8 @@ class Chain {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkChainsIncludeThisPhid({
-    @required List<Chain> chains,
-    @required String phid,
+    required List<Chain> chains,
+    required String phid,
   }) {
     bool _includes = false;
 
@@ -588,9 +598,9 @@ class Chain {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogChainsDifferences({
-    @required List<Chain> chains1,
-    @required List<Chain> chains2,
-    String invoker,
+    required List<Chain>? chains1,
+    required List<Chain>? chains2,
+    String? invoker,
   }) {
     blog('blogChainsDifferences : $invoker :  START');
 
@@ -630,8 +640,8 @@ class Chain {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogChainsPathsDifferences({
-    @required List<Chain> chains1,
-    @required List<Chain> chains2,
+    required List<Chain> chains1,
+    required List<Chain> chains2,
   }) {
     final List<String> _paths1 =
         ChainPathConverter.generateChainsPaths(parentID: '', chains: chains1);
@@ -691,7 +701,7 @@ class Chain {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getOnlyChainSonsIDs({
-    @required Chain chain,
+    required Chain chain,
   }) {
     /// NOTE : THIS GETS IDS OF ONLY "CHAIN SONS" OF THE GIVEN CHAIN
     final List<String> _chainSonsIDs = <String>[];
@@ -710,8 +720,8 @@ class Chain {
   // --------------------
   ///
   static Chain getChainFromChainsByID({
-    @required String chainID,
-    @required List<Chain> chains,
+    required String chainID,
+    required List<Chain> chains,
   }) {
     /// gets first matching "either parent or nested chain" in the input chains trees,
 
@@ -742,8 +752,8 @@ class Chain {
   // --------------------
   /// TESTED : WORKS PERFECT FOR [ FlyerTyper.concludeFlyerTypeByChainID() ]
   static String getRootChainIDOfPhid({
-    @required List<Chain> allChains,
-    @required String phid,
+    required List<Chain> allChains,
+    required String phid,
   }) {
     String _chainID;
 
@@ -765,8 +775,8 @@ class Chain {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getOnlyChainsIDsFromPhids({
-    @required List<Chain> allChains,
-    @required List<String> phids,
+    required List<Chain> allChains,
+    required List<String> phids,
   }) {
     final List<String> _chainsIDs = <String>[];
 
@@ -809,7 +819,7 @@ class Chain {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getOnlyPhidsSonsFromChain({
-    @required Chain chain,
+    required Chain chain,
   }) {
     final List<String> _phids = <String>[];
 
@@ -830,7 +840,7 @@ class Chain {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getOnlyPhidsSonsFromChains({
-    @required List<Chain> chains,
+    required List<Chain> chains,
   }) {
     final List<String> _phids = <String>[];
 
@@ -853,8 +863,8 @@ class Chain {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Chain addChainsToSonsIfPossible({
-    @required List<Chain> chainsToAdd,
-    @required Chain chainToTake,
+    required List<Chain> chainsToAdd,
+    required Chain chainToTake,
   }) {
     Chain _output = chainToTake;
 
@@ -877,8 +887,8 @@ class Chain {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> removeAllChainIDsFromKeywordsIDs({
-    @required List<Chain> allChains,
-    @required List<String> phids,
+    required List<Chain> allChains,
+    required List<String> phids,
   }) {
     /// GET ALL CHAINS IDS
     final List<String> _chainsIDs = getOnlyChainsIDsFromPhids(
@@ -902,10 +912,10 @@ class Chain {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Chain> updateNode({
-    @required BuildContext context,
-    @required String oldPhid,
-    @required String newPhid,
-    @required Chain sourceChain,
+    required BuildContext context,
+    required String oldPhid,
+    required String newPhid,
+    required Chain sourceChain,
   }) async {
     List<String> _modifiedPaths = <String>[];
     // int _numberOfModifiedPaths = 0;
@@ -985,8 +995,8 @@ class Chain {
   // --------------------
   /// TASK : TEST ME
   static List<Chain> replaceChainInChains({
-    @required List<Chain> chains,
-    @required Chain chainToReplace,
+    required List<Chain> chains,
+    required Chain chainToReplace,
   }) {
     List<Chain> _output = <Chain>[];
 
@@ -1011,8 +1021,8 @@ class Chain {
   // --------------------
   /// TASK : TEST ME
   static List<Chain> removeAllPhidsNotUsedInThisList({
-    @required List<Chain> chains,
-    @required List<String> usedPhids,
+    required List<Chain> chains,
+    required List<String> usedPhids,
   }) {
     List<Chain> _output;
 
@@ -1032,8 +1042,8 @@ class Chain {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Chain addPathToChain({
-    @required Chain chain,
-    @required String path,
+    required Chain chain,
+    required String path,
   }) {
     // blog('addPathToChain : START');
 
@@ -1060,8 +1070,8 @@ class Chain {
   // --------------------
   /// TASK : TEST ME
   static List<Chain> addPathToChains({
-    @required List<Chain> chains,
-    @required String path,
+    required List<Chain> chains,
+    required String path,
   }) {
     blog('addPathToChains : START');
 
@@ -1098,8 +1108,8 @@ class Chain {
   // --------------------
   /// TASK : TEST ME
   static List<Chain> addPathsToChains({
-    @required List<Chain> chains,
-    @required List<String> paths,
+    required List<Chain> chains,
+    required List<String> paths,
   }) {
     List<Chain> _output = <Chain>[];
 
@@ -1121,8 +1131,8 @@ class Chain {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Chain removePathFromChain({
-    @required Chain chain,
-    @required String path,
+    required Chain chain,
+    required String path,
   }) {
     // blog('addPathToChain : START');
 
@@ -1153,8 +1163,8 @@ class Chain {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Chain> removePathFromChains({
-    @required List<Chain> chains,
-    @required String path,
+    required List<Chain> chains,
+    required String path,
   }) {
     // blog('addPathToChain : START');
 
@@ -1184,8 +1194,8 @@ class Chain {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Chain> removePathsFromChains({
-    @required List<Chain> chains,
-    @required List<String> paths,
+    required List<Chain> chains,
+    required List<String> paths,
   }) {
     List<Chain> _chains = chains;
 
@@ -1200,9 +1210,9 @@ class Chain {
   // --------------------
   /// TEST : WORKS PERFECT
   static Chain replaceChainPathWithPath({
-    @required Chain chain,
-    @required String pathToRemove,
-    @required String pathToReplace,
+    required Chain chain,
+    required String pathToRemove,
+    required String pathToReplace,
   }) {
     Chain _output = chain;
 
@@ -1238,9 +1248,9 @@ class Chain {
   // --------------------
   /// TASK : TEST ME
   static List<Chain> replaceChainsPathWithPath({
-    @required List<Chain> chains,
-    @required String pathToRemove,
-    @required String pathToReplace,
+    required List<Chain> chains,
+    required String pathToRemove,
+    required String pathToReplace,
   }) {
     List<Chain> _output = chains;
 
@@ -1329,7 +1339,7 @@ class Chain {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Chain sortChainAlphabetically({
-    @required Chain chain,
+    required Chain chain,
   }) {
     Chain _output = chain;
 
@@ -1367,7 +1377,7 @@ class Chain {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Chain> sortChainsAlphabetically({
-    @required List<Chain> chains,
+    required List<Chain> chains,
   }) {
     final List<Chain> _output = <Chain>[];
 
@@ -1433,7 +1443,7 @@ class Chain {
 /*
   // --------------------
   static Map<String, dynamic> cipherBigChainK({
-    @required Chain chainK,
+    required Chain chainK,
   }){
 
     final List<String> chainKPaths = ChainPathConverter.generateChainsPaths(
@@ -1473,7 +1483,7 @@ class Chain {
   // --------------------
   /// DEPRECATED
   static Chain decipherBigChainK({
-    @required Map<String, dynamic> bigChainKMap,
+    required Map<String, dynamic> bigChainKMap,
   }) {
     Chain _bigChainK;
 
@@ -1502,7 +1512,7 @@ class Chain {
   // --------------------
   /// DEPRECATED
   static Map<String, dynamic> cipherBigChainS({
-    @required Chain chainS,
+    required Chain chainS,
   }){
 
     /// NOTE : CHAIN S HAS DUPLICATE LAST NODES IN THEIR PATHS
@@ -1548,7 +1558,7 @@ class Chain {
   // --------------------
   /// TASK DEPRECATED
   static Chain decipherBigChainS({
-    @required Map<String, dynamic> bigChainSMap,
+    required Map<String, dynamic> bigChainSMap,
   }) {
     Chain _bigChainS;
 

@@ -1,8 +1,9 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:provider/provider.dart';
-import 'package:widget_fader/widget_fader.dart';
+import 'package:basics/animators/widgets/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
@@ -24,14 +25,14 @@ enum PyramidType{
 class Pyramids extends StatelessWidget {
   // --------------------------------------------------------------------------
   const Pyramids({
-    @required this.pyramidType,
+    required this.pyramidType,
     this.loading,
     this.onPyramidTap,
     this.color,
     this.putInCorner = true,
     this.listenToHideLayout,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   // --------------------------------------------------------------------------
   final PyramidType pyramidType;
   final dynamic loading;
@@ -73,14 +74,14 @@ class Pyramids extends StatelessWidget {
 class _PyramidsSwitcher extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const _PyramidsSwitcher({
-    @required this.pyramidType,
-    @required this.loading,
-    @required this.onPyramidTap,
-    @required this.color,
-    @required this.putInCorner,
-    @required this.listenToHideLayout,
-    Key key,
-  }) : super(key: key);
+    required this.pyramidType,
+    required this.loading,
+    required this.onPyramidTap,
+    required this.color,
+    required this.putInCorner,
+    required this.listenToHideLayout,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final PyramidType pyramidType;
   final dynamic loading;
@@ -137,13 +138,13 @@ class _PyramidsSwitcher extends StatelessWidget {
 class _PyramidsWidgetTree extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const _PyramidsWidgetTree({
-    @required this.pyramidType,
-    @required this.loading,
-    @required this.onPyramidTap,
-    @required this.color,
-    @required this.putInCorner,
-    Key key,
-  }) : super(key: key);
+    required this.pyramidType,
+    required this.loading,
+    required this.onPyramidTap,
+    required this.color,
+    required this.putInCorner,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final PyramidType pyramidType;
   final dynamic loading;
@@ -165,7 +166,7 @@ class _PyramidsWidgetTree extends StatelessWidget {
         ValueListenableBuilder(
           valueListenable: loading,
           child: _PyramidGraphic(pyramidType, color),
-          builder: (_, bool loading, Widget child){
+          builder: (_, bool loading, Widget? child){
 
             return WidgetFader(
               fadeType: loading == true ? FadeType.repeatAndReverse : FadeType.fadeIn,
@@ -212,16 +213,16 @@ class _PyramidGraphic extends StatelessWidget {
   final PyramidType pyramidType;
   final Color color;
   // -----------------------------------------------------------------------------
-  String getPyramid(PyramidType type){
+  String? getPyramid(PyramidType? type){
 
     switch (type){
-      case PyramidType.yellow:        return Iconz.pyramidsYellow; break;
-      case PyramidType.crystalYellow: return Iconz.pyramidzYellow; break;
-      case PyramidType.white:         return Iconz.pyramidsWhite; break;
-      case PyramidType.crystalWhite:  return Iconz.pyramidzWhite; break;
-      case PyramidType.crystalBlue:   return Iconz.pyramidsCrystal; break;
-      case PyramidType.glass:         return Iconz.pyramidsGlass; break;
-      case PyramidType.non:           return null; break;
+      case PyramidType.yellow:        return Iconz.pyramidsYellow;
+      case PyramidType.crystalYellow: return Iconz.pyramidzYellow;
+      case PyramidType.white:         return Iconz.pyramidsWhite;
+      case PyramidType.crystalWhite:  return Iconz.pyramidzWhite;
+      case PyramidType.crystalBlue:   return Iconz.pyramidsCrystal;
+      case PyramidType.glass:         return Iconz.pyramidsGlass;
+      case PyramidType.non:           return null;
       default: return Iconz.pyramidzYellow;
     }
 

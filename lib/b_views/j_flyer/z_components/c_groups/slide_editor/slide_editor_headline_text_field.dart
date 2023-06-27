@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/xxx_slide_editor_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/e_slide_headline.dart';
@@ -11,14 +12,14 @@ import 'package:flutter/material.dart';
 class EditorSlideHeadlineTextField extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const EditorSlideHeadlineTextField({
-    @required this.isTransforming,
-    @required this.flyerBoxWidth,
-    @required this.appBarType,
-    @required this.globalKey,
-    @required this.mounted,
-    @required this.draftSlide,
-    Key key
-  }) : super(key: key);
+    required this.isTransforming,
+    required this.flyerBoxWidth,
+    required this.appBarType,
+    required this.globalKey,
+    required this.mounted,
+    required this.draftSlide,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final ValueNotifier<DraftSlide> draftSlide;
   final ValueNotifier<bool> isTransforming;
@@ -33,7 +34,7 @@ class EditorSlideHeadlineTextField extends StatelessWidget {
     return ValueListenableBuilder(
       key: const ValueKey<String>('EditorSlideHeadlineTextField'),
         valueListenable: isTransforming,
-        builder: (_, bool transforming, Widget child){
+        builder: (_, bool transforming, Widget? child){
 
           return AnimatedOpacity(
             duration: const Duration(milliseconds: 150),

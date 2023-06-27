@@ -8,10 +8,10 @@ import 'package:flutter/material.dart';
 class UserScreenViewPages extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const UserScreenViewPages({
-    @required this.tabController,
-    @required this.userModel,
-    Key key
-  }) : super(key: key);
+    required this.tabController,
+    required this.userModel,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final TabController tabController;
   final UserModel userModel;

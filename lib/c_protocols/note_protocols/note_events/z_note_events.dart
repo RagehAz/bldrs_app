@@ -79,7 +79,7 @@ class NoteEvent {
   /// DEPRECATED
   /*
   static Future<void> wipeUserReceivedNotes({
-    @required String userID,
+    required String userID,
   }) => NoteEventsOfProfileDeletion.wipeUserReceivedNotes(
     userID: userID,
   );
@@ -88,7 +88,7 @@ class NoteEvent {
   /// DEPRECATED
   /*
   static Future<void> wipeBzReceivedNotes({
-    @required String bzID,
+    required String bzID,
   }) => NoteEventsOfProfileDeletion.wipeBzReceivedNotes(
     bzID: bzID,
   );
@@ -97,7 +97,7 @@ class NoteEvent {
   /// DEPRECATED
   /*
   static Future<void> wipeBzSentAuthorshipNotes({
-    @required String bzID,
+    required String bzID,
   }) => NoteEventsOfProfileDeletion.wipeBzSentAuthorshipNotes(
     bzID: bzID,
   );
@@ -109,9 +109,9 @@ class NoteEvent {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendFlyerReceivedNewReviewByMe({
-    @required BuildContext context,
-    @required ReviewModel reviewModel,
-    @required String bzID,
+    required BuildContext context,
+    required ReviewModel reviewModel,
+    required String bzID,
   }) async {
 
     final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
@@ -166,10 +166,10 @@ class NoteEvent {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendFlyerReviewReceivedBzReply({
-    @required BuildContext context,
-    @required ReviewModel reviewModel,
-    @required BzModel bzModel,
-    // @required String reviewCreatorID
+    required BuildContext context,
+    required ReviewModel reviewModel,
+    required BzModel bzModel,
+    // required String reviewCreatorID
   }) async {
 
     final AuthorModel _myAuthorModel = AuthorModel.getAuthorFromBzByAuthorID(
@@ -227,8 +227,8 @@ class NoteEvent {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendBzIsVerifiedNote({
-    @required BuildContext context,
-    @required BzModel bzModel,
+    required BuildContext context,
+    required BzModel bzModel,
   }) async {
 
     assert(bzModel != null, 'bzModel is null');

@@ -1,21 +1,21 @@
-import 'package:scale/scale.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:flutter/material.dart';
 
 /// GO BACK ON HORIZONTAL MAX BOUNCE
 class HorizontalBouncer extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const HorizontalBouncer({
-    @required this.child,
-    @required this.numberOfSlides,
-    @required this.controller,
+    required this.child,
+    required this.numberOfSlides,
+    required this.controller,
     this.boxDistance,
     this.notificationListenerKey,
     this.canNavigate = true,
     this.onNavigate,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double boxDistance;
   final int numberOfSlides;
@@ -77,8 +77,8 @@ class _HorizontalBouncerState extends State<HorizontalBouncer> {
   }
   // --------------------
   bool _canSlideOnSwipe({
-    @required ScrollUpdateNotification details,
-    @required double boxDistance,
+    required ScrollUpdateNotification details,
+    required double boxDistance,
     int numberOfBoxes = 2,
   }) {
 
@@ -112,7 +112,7 @@ class _HorizontalBouncerState extends State<HorizontalBouncer> {
     return ValueListenableBuilder(
         valueListenable: _canNavigate,
         child: widget.child,
-        builder: (_, bool canNavigate, Widget child){
+        builder: (_, bool canNavigate, Widget? child){
 
           return NotificationListener<ScrollUpdateNotification>(
             key: widget.notificationListenerKey,

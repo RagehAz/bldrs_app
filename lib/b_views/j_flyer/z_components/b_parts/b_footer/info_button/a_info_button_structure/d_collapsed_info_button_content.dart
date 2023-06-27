@@ -9,12 +9,12 @@ import 'package:flutter/material.dart';
 class CollapsedInfoButtonContent extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const CollapsedInfoButtonContent({
-    @required this.infoButtonType,
-    @required this.flyerBoxWidth,
-    @required this.buttonIsExpanded,
-    @required this.tinyMode,
-    Key key
-  }) : super(key: key);
+    required this.infoButtonType,
+    required this.flyerBoxWidth,
+    required this.buttonIsExpanded,
+    required this.tinyMode,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final InfoButtonType infoButtonType;
   final double flyerBoxWidth;

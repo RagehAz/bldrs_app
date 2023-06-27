@@ -6,17 +6,17 @@ import 'package:flutter/material.dart';
 class FollowAndCallButtons extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FollowAndCallButtons({
-    @required this.flyerBoxWidth,
-    @required this.onFollowTap,
-    @required this.followIsOn,
-    @required this.onCallTap,
-    @required this.logoMinWidth,
-    @required this.followCallButtonsScaleTween,
-    @required this.logoSizeRatioTween,
-    @required this.tinyMode,
+    required this.flyerBoxWidth,
+    required this.onFollowTap,
+    required this.followIsOn,
+    required this.onCallTap,
+    required this.logoMinWidth,
+    required this.followCallButtonsScaleTween,
+    required this.logoSizeRatioTween,
+    required this.tinyMode,
     this.showButtons = true,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final Function onFollowTap;

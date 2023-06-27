@@ -1,27 +1,28 @@
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/specs/spec_label.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:mapper/mapper.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 
 class SpecsWrapper extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SpecsWrapper({
-    @required this.boxWidth,
-    @required this.specs,
-    @required this.onSpecTap,
-    @required this.onDeleteSpec,
-    @required this.xIsOn,
-    @required this.picker,
+    required this.boxWidth,
+    required this.specs,
+    required this.onSpecTap,
+    required this.onDeleteSpec,
+    required this.xIsOn,
+    required this.picker,
     this.padding = Ratioz.appBarMargin,
     this.searchText,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double boxWidth;
   final List<SpecModel> specs;
@@ -34,8 +35,8 @@ class SpecsWrapper extends StatelessWidget {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool combineTheTwoSpecs({
-    @required List<SpecModel> specs,
-    @required PickerModel picker,
+    required List<SpecModel> specs,
+    required PickerModel picker,
   }){
     bool _combine = false;
 
@@ -81,9 +82,9 @@ class SpecsWrapper extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Verse _getCombinedSpecsVerse({
-    @required BuildContext context,
-    @required List<SpecModel> specs,
-    @required PickerModel picker,
+    required BuildContext context,
+    required List<SpecModel> specs,
+    required PickerModel picker,
   }){
 
     Verse _verse;

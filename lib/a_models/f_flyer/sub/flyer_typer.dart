@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
@@ -6,8 +7,8 @@ import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -123,20 +124,20 @@ class FlyerTyper{
   // --------------------
   /// TESTED : WORKS PERFECT
   static String flyerTypeIcon({
-    @required FlyerType flyerType,
-    @required bool isOn,
+    required FlyerType flyerType,
+    required bool isOn,
   }) {
 
     /// ON ICONS
     if (isOn == true){
       switch (flyerType) {
-        case FlyerType.general      : return Iconz.flyer;           break;
-        case FlyerType.property     : return Iconz.bxPropertiesOn;  break;
-        case FlyerType.design       : return Iconz.bxDesignsOn;     break;
-        case FlyerType.undertaking  : return Iconz.bzUndertakingOn; break;
-        case FlyerType.trade        : return Iconz.bxTradesOn;      break;
-        case FlyerType.product      : return Iconz.bxProductsOn;    break;
-        case FlyerType.equipment    : return Iconz.bxEquipmentOn;   break;
+        case FlyerType.general      : return Iconz.flyer;
+        case FlyerType.property     : return Iconz.bxPropertiesOn;
+        case FlyerType.design       : return Iconz.bxDesignsOn;
+        case FlyerType.undertaking  : return Iconz.bzUndertakingOn;
+        case FlyerType.trade        : return Iconz.bxTradesOn;
+        case FlyerType.product      : return Iconz.bxProductsOn;
+        case FlyerType.equipment    : return Iconz.bxEquipmentOn;
         default: return null;
       }
     }
@@ -144,13 +145,13 @@ class FlyerTyper{
     /// OFF ICONS
     else {
       switch (flyerType) {
-        case FlyerType.general      : return Iconz.flyer;             break;
-        case FlyerType.property     : return Iconz.bxPropertiesOff;   break;
-        case FlyerType.design       : return Iconz.bxDesignsOff;      break;
-        case FlyerType.undertaking  : return Iconz.bxUndertakingOff;  break;
-        case FlyerType.trade        : return Iconz.bxTradesOff;       break;
-        case FlyerType.product      : return Iconz.bxProductsOff;     break;
-        case FlyerType.equipment    : return Iconz.bxEquipmentOff;    break;
+        case FlyerType.general      : return Iconz.flyer;
+        case FlyerType.property     : return Iconz.bxPropertiesOff;
+        case FlyerType.design       : return Iconz.bxDesignsOff;
+        case FlyerType.undertaking  : return Iconz.bxUndertakingOff;
+        case FlyerType.trade        : return Iconz.bxTradesOff;
+        case FlyerType.product      : return Iconz.bxProductsOff;
+        case FlyerType.equipment    : return Iconz.bxEquipmentOff;
         default: return null;
       }
     }
@@ -179,7 +180,7 @@ class FlyerTyper{
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<FlyerType> concludePossibleFlyerTypesByBzType({
-    @required BzType bzType
+    required BzType bzType
   }) {
     switch (bzType) {
       case BzType.developer:    return <FlyerType>[FlyerType.property];                     break;
@@ -197,7 +198,7 @@ class FlyerTyper{
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<FlyerType> concludePossibleFlyerTypesByBzTypes({
-    @required List<BzType> bzTypes
+    required List<BzType> bzTypes
   }){
     final List<FlyerType> _flyerTypes = <FlyerType>[];
 
@@ -224,7 +225,7 @@ class FlyerTyper{
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<FlyerType> concludeInactiveFlyerTypesByBzModel({
-    @required BzModel bzModel,
+    required BzModel bzModel,
   }){
 
     final List<FlyerType> _allowableTypes = concludePossibleFlyerTypesByBzTypes(
@@ -248,8 +249,8 @@ class FlyerTyper{
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkFlyerTypesIncludeThisType({
-    @required FlyerType flyerType,
-    @required List<FlyerType> flyerTypes,
+    required FlyerType flyerType,
+    required List<FlyerType> flyerTypes,
   }){
     bool _includes = false;
 
@@ -277,7 +278,7 @@ class FlyerTyper{
   // --------------------
   /// TESTED : WORKS PERFECT
   static String getFlyerTypePhid({
-    @required FlyerType flyerType,
+    required FlyerType flyerType,
     bool pluralTranslation = true,
   }){
 
@@ -317,8 +318,8 @@ class FlyerTyper{
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> translateFlyerTypes({
-    @required BuildContext context,
-    @required List<FlyerType> flyerTypes,
+    required BuildContext context,
+    required List<FlyerType> flyerTypes,
     bool pluralTranslation = true,
   }){
     final List<String> _translations = <String>[];
@@ -346,8 +347,8 @@ class FlyerTyper{
   /*
   /// TESTED : WORKS PERFECT
   static String XtranslateFlyerTypeByBzType({
-    @required BuildContext context,
-    @required BzType bzType,
+    required BuildContext context,
+    required BzType bzType,
     bool pluralTranslation = true,
   }){
 
@@ -364,8 +365,8 @@ class FlyerTyper{
   // --------------------
   /// TESTED : WORKS PERFECT
   static String translateFlyerTypeDescription({
-    @required BuildContext context,
-    @required FlyerType flyerType,
+    required BuildContext context,
+    required FlyerType flyerType,
   }){
 
     switch (flyerType) {
@@ -387,7 +388,7 @@ class FlyerTyper{
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static FlyerType concludeFlyerTypeByChainID({
-    @required String chainID,
+    required String chainID,
   }){
     switch (chainID) {
     /// REAL ESTATE
@@ -406,7 +407,7 @@ class FlyerTyper{
   // --------------------
   /// TESTED : WORKS PERFECT
   static String concludeChainIDByFlyerType({
-    @required FlyerType flyerType,
+    required FlyerType flyerType,
   }){
     String _chainID;
 
@@ -425,8 +426,8 @@ class FlyerTyper{
   // --------------------
   /// TESTED : WORKS PERFECT
   static String concludeSectionPhidByFlyerTypeChainID({
-    @required BuildContext context,
-    @required String flyerTypeChainID,
+    required BuildContext context,
+    required String flyerTypeChainID,
   }){
     switch (flyerTypeChainID) {
     /// REAL ESTATE
@@ -501,8 +502,8 @@ class FlyerTyper{
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getChainsIDsPerViewingEvent({
-    @required FlyerType flyerType,
-    @required ViewingEvent event,
+    required FlyerType flyerType,
+    required ViewingEvent event,
   }){
 
     switch(event){
@@ -530,7 +531,7 @@ class FlyerTyper{
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> _allChainsIDs({
-    @required FlyerType flyerType,
+    required FlyerType flyerType,
   }){
 
     final List<PickerModel> _pickers = ChainsProvider.proGetPickersByFlyerType(
@@ -697,7 +698,7 @@ class FlyerTyper{
   /*
   /// TESTED : WORKS PERFECT
   static List<String> getChainsIDsPerBzType({
-    @required BzType bzType,
+    required BzType bzType,
   }){
 
     switch (bzType){

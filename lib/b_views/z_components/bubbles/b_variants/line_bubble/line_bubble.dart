@@ -1,17 +1,19 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class LineBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const LineBubble({
-    @required this.child,
+    required this.child,
     this.width,
     this.alignment,
     this.onTap,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final Widget child;
   final double width;

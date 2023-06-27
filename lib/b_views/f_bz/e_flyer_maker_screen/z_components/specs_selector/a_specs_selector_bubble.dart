@@ -1,3 +1,7 @@
+import 'package:basics/animators/widgets/widget_fader.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
@@ -11,26 +15,26 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:widget_fader/widget_fader.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/animators/widgets/widget_fader.dart';
 
 class SpecsSelectorBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SpecsSelectorBubble({
-    @required this.draft,
-    @required this.draftNotifier,
-    @required this.bzModel,
-    @required this.onSpecTap,
-    @required this.onDeleteSpec,
-    @required this.onAddSpecsToDraft,
-    Key key
-  }) : super(key: key);
+    required this.draft,
+    required this.draftNotifier,
+    required this.bzModel,
+    required this.onSpecTap,
+    required this.onDeleteSpec,
+    required this.onAddSpecsToDraft,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final DraftFlyer draft;
   final ValueNotifier<DraftFlyer> draftNotifier;
   final BzModel bzModel;
-  final Function({@required SpecModel value, @required SpecModel unit}) onSpecTap; // onAddSpecsToDraftTap
-  final Function({@required SpecModel value, @required SpecModel unit}) onDeleteSpec;
+  final Function({required SpecModel value, required SpecModel unit}) onSpecTap; // onAddSpecsToDraftTap
+  final Function({required SpecModel value, required SpecModel unit}) onDeleteSpec;
   final Function onAddSpecsToDraft; // use this onAddSpecsToDraftTap
   /// --------------------------------------------------------------------------
   @override

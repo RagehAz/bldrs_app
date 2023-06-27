@@ -14,18 +14,18 @@ import 'package:flutter/material.dart';
 class PriceDataCreator extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const PriceDataCreator({
-    @required this.zone,
-    @required this.picker,
-    @required this.initialValue,
-    @required this.initialCurrencyID,
-    @required this.onKeyboardSubmitted,
-    @required this.onExportSpecs,
-    @required this.dataCreatorType,
-    @required this.onlyUseZoneChains,
-    @required this.appBarType,
+    required this.zone,
+    required this.picker,
+    required this.initialValue,
+    required this.initialCurrencyID,
+    required this.onKeyboardSubmitted,
+    required this.onExportSpecs,
+    required this.dataCreatorType,
+    required this.onlyUseZoneChains,
+    required this.appBarType,
     this.width,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final ZoneModel zone;
   final PickerModel picker;

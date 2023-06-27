@@ -1,25 +1,27 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class PageBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const PageBubble({
-    @required this.screenHeightWithoutSafeArea,
-    @required this.child,
-    @required this.appBarType,
+    required this.screenHeightWithoutSafeArea,
+    required this.child,
+    required this.appBarType,
     this.color = Colorz.black255,
     this.bubbleWidth,
     this.corners,
     this.progressBarIsOn = false,
     this.childrenAlignment = Alignment.topCenter,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final Widget child;
   final AppBarType appBarType;
@@ -31,9 +33,9 @@ class PageBubble extends StatelessWidget {
   final Alignment childrenAlignment;
   /// --------------------------------------------------------------------------
   static EdgeInsets topMargin({
-    @required BuildContext context,
-    @required AppBarType appBarType,
-    @required bool withProgressBar,
+    required BuildContext context,
+    required AppBarType appBarType,
+    required bool withProgressBar,
   }){
     EdgeInsets margins;
 
@@ -65,9 +67,9 @@ class PageBubble extends StatelessWidget {
   }
   // --------------------
   static double height({
-    @required AppBarType appBarType,
-    @required BuildContext context,
-    @required double screenHeight,
+    required AppBarType appBarType,
+    required BuildContext context,
+    required double screenHeight,
   }){
     double height;
 
@@ -89,7 +91,7 @@ class PageBubble extends StatelessWidget {
     return height;
   }
   // --------------------
-  static double width(BuildContext context, {double override}){
+  static double width(BuildContext context, {double? override}){
     return override ?? Bubble.bubbleWidth(context: context);
   }
   // --------------------

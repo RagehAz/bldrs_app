@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
@@ -9,12 +10,12 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:numeric/numeric.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class NoteProtocols {
   // -----------------------------------------------------------------------------
@@ -28,9 +29,9 @@ class NoteProtocols {
   // --------------------
   ///
   static Future<void> composeToMultipleShallDoThisLaterWhenTheTimeIsRightButNowIHaveMouthsToFeed({
-    @required BuildContext context,
-    @required NoteModel note,
-    @required List<String> receiversIDs,
+    required BuildContext context,
+    required NoteModel note,
+    required List<String> receiversIDs,
   }) async {
 
     blog('should compose note to multiple receivers');
@@ -68,8 +69,8 @@ class NoteProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<NoteModel> composeToOneReceiver({
-    @required BuildContext context,
-    @required NoteModel note,
+    required BuildContext context,
+    required NoteModel note,
     bool uploadPoster = true,
   }) async {
 
@@ -136,8 +137,8 @@ class NoteProtocols {
   /*
   /// TESTED : WORKS PERFECT
   static Future<void> composeToOneBz({
-    @required BuildContext context,
-    @required NoteModel note,
+    required BuildContext context,
+    required NoteModel note,
     bool uploadPoster = true,
   }) async {
 
@@ -187,9 +188,9 @@ class NoteProtocols {
   // --------------------
   /// TASK : FIX ME
   static Future<NoteModel> _uploadNotePoster({
-    @required BuildContext context,
-    @required NoteModel note,
-    @required bool isPublic,
+    required BuildContext context,
+    required NoteModel note,
+    required bool isPublic,
   }) async {
 
     // NoteModel _output = note;
@@ -257,8 +258,8 @@ class NoteProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static NoteModel adjustReceiverID({
-    @required String receiverID,
-    @required NoteModel note,
+    required String receiverID,
+    required NoteModel note,
   }){
 
     return note.copyWith(
@@ -272,8 +273,8 @@ class NoteProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _sendFCMToOneReceiver({
-    @required BuildContext context,
-    @required NoteModel noteModel,
+    required BuildContext context,
+    required NoteModel noteModel,
   }) async {
 
     if (noteModel != null && noteModel.sendFCM == true){
@@ -343,8 +344,8 @@ class NoteProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> _checkReceiverCanReceiveFCM({
-    @required BuildContext context,
-    @required NoteModel noteModel,
+    required BuildContext context,
+    required NoteModel noteModel,
   }) async {
     bool _canReceive = false;
 
@@ -382,8 +383,8 @@ class NoteProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<NoteModel> _adjustNoteToken({
-    @required BuildContext context,
-    @required NoteModel noteModel,
+    required BuildContext context,
+    required NoteModel noteModel,
   }) async {
     NoteModel _note = noteModel;
 
@@ -468,8 +469,8 @@ class NoteProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<NoteModel> readNote({
-    @required String noteID,
-    @required String userID,
+    required String noteID,
+    required String userID,
   }) async {
 
     final NoteModel _note = await NoteFireOps.readNote(
@@ -486,9 +487,9 @@ class NoteProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> renovate({
-    @required BuildContext context,
-    @required NoteModel newNote,
-    @required NoteModel oldNote
+    required BuildContext context,
+    required NoteModel newNote,
+    required NoteModel oldNote
   }) async {
 
     if (newNote != null && oldNote != null){
@@ -513,7 +514,7 @@ class NoteProtocols {
   // --------------------
   ///
   static Future<void> wipeNote({
-    @required NoteModel note,
+    required NoteModel note,
   }) async {
 
     blog('NoteProtocol.wipeNote : noteID : ${note.id}: START');
@@ -542,7 +543,7 @@ class NoteProtocols {
   // --------------------
   /// TASK : DO THIS POSTER THING
   static Future<void> _wipePoster({
-    @required NoteModel note,
+    required NoteModel note,
   }) async {
 
     // if (note != null && note.poster != null){
@@ -576,8 +577,8 @@ class NoteProtocols {
   // --------------------
   /// VERY VERY EXPENSIVE : TASK : OPTIMIZE THIS IN FUTURE : DEVICE WILL EXPLODE HERE
   static Future<void> wipeAllNotes({
-    @required PartyType partyType,
-    @required String id,
+    required PartyType partyType,
+    required String id,
   }) async {
 
     /// TASK : DELETE ALL NOTES PROTO FUCKING COLE
@@ -647,9 +648,9 @@ class NoteProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> subscribeToAllBzTopics({
-    @required BuildContext context,
-    @required String bzID,
-    @required bool renovateUser,
+    required BuildContext context,
+    required String bzID,
+    required bool renovateUser,
   }) async {
 
     if (bzID != null){
@@ -687,8 +688,8 @@ class NoteProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _addAllBzTopicsToMyTopicsAndRenovate({
-    @required BuildContext context,
-    @required String bzID,
+    required BuildContext context,
+    required String bzID,
   }) async {
 
     final UserModel _oldUser = UsersProvider.proGetMyUserModel(
@@ -717,9 +718,9 @@ class NoteProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> unsubscribeFromAllBzTopics({
-    @required BuildContext context,
-    @required String bzID,
-    @required bool renovateUser,
+    required BuildContext context,
+    required String bzID,
+    required bool renovateUser,
   }) async {
 
     if (bzID != null){
@@ -752,8 +753,8 @@ class NoteProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _removeAllBzTopicsFromMyTopicsAndRenovate({
-    @required BuildContext context,
-    @required String bzID,
+    required BuildContext context,
+    required String bzID,
   }) async {
 
     final UserModel _oldUser = UsersProvider.proGetMyUserModel(
@@ -782,9 +783,9 @@ class NoteProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> unsubscribeFromAllBzzTopics({
-    @required BuildContext context,
-    @required List<String> bzzIDs,
-    @required bool renovateUser,
+    required BuildContext context,
+    required List<String> bzzIDs,
+    required bool renovateUser,
   }) async {
 
     if (Mapper.checkCanLoopList(bzzIDs) == true){

@@ -1,12 +1,12 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:colorizer/colorizer.dart';
+import 'package:basics/helpers/classes/colors/colorizer.dart';
 import 'package:flutter/material.dart';
-import 'package:numeric/numeric.dart';
-import 'package:scale/scale.dart';
-import 'package:super_text/super_text.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 enum VerseWeight {
   black,
@@ -18,7 +18,7 @@ enum VerseWeight {
 class BldrsText extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BldrsText({
-    @required this.verse,
+    required this.verse,
     this.width,
     this.height,
     this.size = 2,
@@ -39,15 +39,15 @@ class BldrsText extends StatelessWidget {
     this.highlight,
     this.highlightColor = Colorz.bloodTest,
     this.shadowColor,
-    this.textDirection,
-    Key key,
-  }) : super(key: key);
+    this.textDirection = TextDirection.ltr,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final Verse verse;
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
   final int size;
-  final Color color;
+  final Color? color;
   final VerseWeight weight;
   final bool italic;
   final bool shadow;
@@ -56,21 +56,21 @@ class BldrsText extends StatelessWidget {
   final int maxLines;
   final dynamic margin;
   // final bool softWrap;
-  final Color labelColor;
-  final Function onTap;
+  final Color? labelColor;
+  final Function? onTap;
   final bool leadingDot;
   final bool redDot;
   final bool strikeThrough;
-  final ValueNotifier<dynamic> highlight;
+  final ValueNotifier<dynamic>? highlight;
   final Color highlightColor;
-  final Color shadowColor;
+  final Color? shadowColor;
   final TextDirection textDirection;
   // -----------------------------------------------------------------------------
 
   /// READY VERSES
 
   // --------------------
-  static Widget verseDot({Verse verse}) {
+  static Widget verseDot({required Verse verse}) {
     return BldrsText(
       verse: verse,
       scaleFactor: 0.9,
@@ -83,7 +83,7 @@ class BldrsText extends StatelessWidget {
   }
   // --------------------
   static Widget verseInfo({
-    @required Verse verse,
+    required Verse verse,
   }){
     return BldrsText(
       verse: verse,
@@ -96,11 +96,11 @@ class BldrsText extends StatelessWidget {
   }
   // --------------------
   static Widget versePrice({
-    @required BuildContext context,
-    @required double price,
-    Color color,
-    double scaleFactor,
-    String currency,
+    required BuildContext context,
+    required double price,
+    Color? color,
+    double? scaleFactor,
+    String? currency,
     bool strikethrough = false,
     bool isBold = true,
     bool isCentered = false
@@ -150,10 +150,10 @@ class BldrsText extends StatelessWidget {
   // --------------------
   /// TESTED : ACCEPTED
   static double superVerseRealHeight({
-    @required BuildContext context,
-    @required int size,
-    @required double sizeFactor,
-    @required bool hasLabelBox,
+    required BuildContext context,
+    required int size,
+    required double sizeFactor,
+    required bool hasLabelBox,
   }) {
     /// when SuperVerse has label color, it gets extra margin height, and is included in the final value of this function
     final double _sidePaddingValues = superVerseSidePaddingValues(context, size);
@@ -302,7 +302,7 @@ class BldrsText extends StatelessWidget {
 
   // --------------------
   static TextStyle createStyle({
-    @required BuildContext context,
+    required BuildContext context,
     Color color = Colorz.white255,
     VerseWeight weight = VerseWeight.black,
     bool italic = true,
@@ -450,12 +450,12 @@ class BldrsText extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Shadow> verseShadows({
-    @required BuildContext context,
-    @required int size,
-    @required bool shadowIsOn,
-    @required Color textColor,
-    @required double scaleFactor,
-    @required VerseWeight weight,
+    required BuildContext context,
+    required int size,
+    required bool shadowIsOn,
+    required Color textColor,
+    required double scaleFactor,
+    required VerseWeight weight,
     Color shadowColor,
   }){
 

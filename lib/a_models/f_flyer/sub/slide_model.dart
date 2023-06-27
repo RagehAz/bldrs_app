@@ -1,25 +1,27 @@
 import 'dart:ui' as ui;
-import 'package:mediators/mediators.dart';
-import 'package:filers/filers.dart';
-import 'package:space_time/space_time.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:colorizer/colorizer.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/files/floaters.dart';
+import 'package:basics/helpers/classes/space/trinity.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
+import 'package:mediators/models/dimension_model.dart';
+import 'package:basics/helpers/classes/colors/colorizer.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:numeric/numeric.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
 /// => TAMAM
 @immutable
 class SlideModel {
   /// --------------------------------------------------------------------------
   const SlideModel({
-    @required this.description,
-    @required this.picFit,
-    @required this.dimensions,
-    @required this.midColor,
-    @required this.matrix,
-    @required this.filterID,
-    @required this.animationCurve,
+    required this.description,
+    required this.picFit,
+    required this.dimensions,
+    required this.midColor,
+    required this.matrix,
+    required this.filterID,
+    required this.animationCurve,
     this.slideIndex,
     this.picPath,
     this.headline,
@@ -186,8 +188,8 @@ class SlideModel {
     // --------------------
   /// TESTED : WORKS PERFECT
   static void blogSlidesDifferences({
-    @required SlideModel slide1,
-    @required SlideModel slide2,
+    required SlideModel slide1,
+    required SlideModel slide2,
   }){
 
     blog('blogSlidesDifferences : START');
@@ -241,8 +243,8 @@ class SlideModel {
     // --------------------
   /// TESTED : WORKS PERFECT
   static void blogSlidesListsDifferences({
-    @required List<SlideModel> slides1,
-    @required List<SlideModel> slides2,
+    required List<SlideModel> slides1,
+    required List<SlideModel> slides2,
   }){
 
     if (slides1 == null){
@@ -295,8 +297,8 @@ class SlideModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String generateSlideID({
-    @required String flyerID,
-    @required int slideIndex,
+    required String flyerID,
+    required int slideIndex,
   }) {
 
     String _output;
@@ -315,8 +317,8 @@ class SlideModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> generateSlidesIDs({
-    @required String flyerID,
-    @required int numberOfSlides,
+    required String flyerID,
+    required int numberOfSlides,
   }) {
     final List<String> _slidesIDs = <String>[];
 
@@ -335,16 +337,19 @@ class SlideModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static int getSlideIndexFromSlideID(String slideID) {
+  static int? getSlideIndexFromSlideID(String slideID) {
     /// NOTE : slide index shall never have more than two digits
-    final String _lastTwoSubStrings = TextMod.cutLastTwoCharactersFromAString(slideID);
-    final int _slideIndex = Numeric.transformStringToInt(_lastTwoSubStrings);
+    final String? _lastTwoSubStrings = TextMod.cutLastTwoCharactersFromAString(slideID);
+    final int? _slideIndex = Numeric.transformStringToInt(_lastTwoSubStrings);
     return _slideIndex;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getFlyerIDFromSlideID(String slideID) {
-    final String _flyerID = TextMod.removeTextAfterFirstSpecialCharacter(slideID, '_');
+  static String? getFlyerIDFromSlideID(String slideID) {
+    final String? _flyerID = TextMod.removeTextAfterFirstSpecialCharacter(
+        text: slideID,
+        specialCharacter: '_',
+    );
     return _flyerID;
   }
   // -----------------------------------------------------------------------------
@@ -356,8 +361,8 @@ class SlideModel {
   /*
   ///
   static List<SlideModel> replaceSlidesPicturesWithNewURLs({
-    @required List<String> newPicturesURLs,
-    @required List<SlideModel> inputSlides,
+    required List<String> newPicturesURLs,
+    required List<SlideModel> inputSlides,
   }) {
     final List<SlideModel> _outputSlides = <SlideModel>[];
 
@@ -499,8 +504,8 @@ class SlideModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkSlidesAreIdentical({
-    @required SlideModel slide1,
-    @required SlideModel slide2,
+    required SlideModel slide1,
+    required SlideModel slide2,
   }){
     bool _identical = false;
 
@@ -540,8 +545,8 @@ class SlideModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkSlidesListsAreIdentical({
-    @required List<SlideModel> slides1,
-    @required List<SlideModel> slides2,
+    required List<SlideModel> slides1,
+    required List<SlideModel> slides2,
   }){
     bool _identical = false;
 

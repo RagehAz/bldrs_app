@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shelf/z_add_flyer_slides_button.dart';
@@ -7,23 +8,23 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:mediators/mediators.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class ShelfSlidesPart extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ShelfSlidesPart({
-    @required this.slideZoneHeight,
-    @required this.scrollController,
-    @required this.draft,
-    @required this.onSlideTap,
-    @required this.onDeleteSlide,
-    @required this.onAddSlides,
-    @required this.loading,
-    @required this.onReorderSlide,
-    Key key
-  }) : super(key: key);
+    required this.slideZoneHeight,
+    required this.scrollController,
+    required this.draft,
+    required this.onSlideTap,
+    required this.onDeleteSlide,
+    required this.onAddSlides,
+    required this.loading,
+    required this.onReorderSlide,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double slideZoneHeight;
   final ScrollController scrollController;
@@ -66,7 +67,7 @@ class ShelfSlidesPart extends StatelessWidget {
             animate: false,
           ),
         ),
-        builder: (_, bool isLoading, Widget loadingWidget){
+        builder: (_, bool isLoading, Widget? loadingWidget){
 
           return ReorderableListView(
               scrollController: scrollController,

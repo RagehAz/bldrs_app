@@ -1,3 +1,5 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -27,8 +29,8 @@ class GeneralProvider extends ChangeNotifier {
   bool get isConnected => _isConnected;
   // --------------------
   Future<void> getSetConnectivity({
-    @required bool mounted,
-    @required bool notify,
+    required bool mounted,
+    required bool notify,
   }) async {
 
     if (mounted == true){
@@ -45,8 +47,8 @@ class GeneralProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void setConnectivity({
-    @required bool isConnected,
-    @required bool notify,
+    required bool isConnected,
+    required bool notify,
   }) {
 
     if (isConnected != _isConnected) {
@@ -61,7 +63,7 @@ class GeneralProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onConnectivityChanged({
-    @required bool isConnected,
+    required bool isConnected,
   }) async {
 
     final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(getMainContext(), listen: false);
@@ -125,7 +127,7 @@ class GeneralProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void wipeOut({
-    @required bool notify,
+    required bool notify,
   }){
 
     final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(getMainContext(), listen: false);

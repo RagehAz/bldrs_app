@@ -25,8 +25,8 @@ class FlyerVerificationProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> verifyFlyer({
-    @required BuildContext context,
-    @required FlyerModel flyerModel,
+    required BuildContext context,
+    required FlyerModel flyerModel,
     bool showWaitAndSuccessDialogs = true,
     bool sendNote = true,
   }) async {
@@ -88,8 +88,8 @@ class FlyerVerificationProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<FlyerModel>> verifyBz({
-    @required BuildContext context,
-    @required String bzID,
+    required BuildContext context,
+    required String bzID,
   }) async {
 
     List<FlyerModel> _output = [];
@@ -140,8 +140,8 @@ class FlyerVerificationProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<FlyerModel>> _verifyAllBzFlyers({
-    @required BuildContext context,
-    @required BzModel bzModel,
+    required BuildContext context,
+    required BzModel bzModel,
   }) async {
 
     final List<FlyerModel> _nonVerifiedFlyers = await FlyerFireOps.readFlyersByQuery(
@@ -186,8 +186,8 @@ class FlyerVerificationProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _verifyBzDoc({
-    @required BuildContext context,
-    @required BzModel bzModel,
+    required BuildContext context,
+    required BzModel bzModel,
   }) async {
 
     await BzProtocols.renovateBz(

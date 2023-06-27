@@ -1,27 +1,29 @@
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/city_tile_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/country_tile_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class CitiesScreenBrowseView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const CitiesScreenBrowseView({
-    @required this.countryCities,
-    @required this.onCityTap,
-    @required this.shownCitiesIDs,
-    @required this.citiesCensuses,
-    @required this.onDeactivatedCityTap,
-    @required this.countryCensus,
-    @required this.onTapAllCities,
-    @required this.showAllCitiesButton,
-    Key key,
-  }) : super(key: key);
+    required this.countryCities,
+    required this.onCityTap,
+    required this.shownCitiesIDs,
+    required this.citiesCensuses,
+    required this.onDeactivatedCityTap,
+    required this.countryCensus,
+    required this.onTapAllCities,
+    required this.showAllCitiesButton,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final ValueNotifier<List<CityModel>> countryCities;
   final Function(String cityID) onCityTap;
@@ -39,7 +41,7 @@ class CitiesScreenBrowseView extends StatelessWidget {
     return ValueListenableBuilder(
       key: const ValueKey<String>('CitiesScreenBrowseView'),
       valueListenable: countryCities,
-      builder: (_, List<CityModel> cities, Widget child){
+      builder: (_, List<CityModel> cities, Widget? child){
 
         if (Mapper.checkCanLoopList(cities) == false){
           return const SizedBox();

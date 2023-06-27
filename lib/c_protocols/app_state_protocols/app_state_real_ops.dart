@@ -15,7 +15,7 @@ class AppStateRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> createGlobalAppState({
-    @required AppStateModel newAppState,
+    required AppStateModel newAppState,
   }) async {
     if (newAppState != null) {
       await Real.createDoc(
@@ -47,7 +47,7 @@ class AppStateRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _updateGlobalAppState({
-    @required AppStateModel newAppState,
+    required AppStateModel newAppState,
   }) async {
 
     await createGlobalAppState(
@@ -58,7 +58,7 @@ class AppStateRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateGlobalAppVersion({
-    @required String newAppVersion,
+    required String newAppVersion,
   }) async {
 
     final AppStateModel _appState = await readGlobalAppState();

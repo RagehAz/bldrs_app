@@ -15,20 +15,20 @@ import 'package:flutter/material.dart';
 class PickerScreenBrowseView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const PickerScreenBrowseView({
-    @required this.picker,
-    @required this.selectedSpecs,
-    @required this.screenHeight,
-    @required this.showInstructions,
-    @required this.isMultipleSelectionMode,
-    @required this.onlyUseZoneChains,
-    @required this.zone,
-    @required this.onKeyboardSubmitted,
-    @required this.appBarType,
-    @required this.searchText,
-    @required this.onExportSpecs,
-    @required this.onPhidTap,
-    Key key
-  }) : super(key: key);
+    required this.picker,
+    required this.selectedSpecs,
+    required this.screenHeight,
+    required this.showInstructions,
+    required this.isMultipleSelectionMode,
+    required this.onlyUseZoneChains,
+    required this.zone,
+    required this.onKeyboardSubmitted,
+    required this.appBarType,
+    required this.searchText,
+    required this.onExportSpecs,
+    required this.onPhidTap,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final PickerModel picker;
   final ValueNotifier<List<SpecModel>> selectedSpecs;
@@ -117,7 +117,7 @@ class PickerScreenBrowseView extends StatelessWidget {
         /// DATA CREATOR SPLITTER
         ValueListenableBuilder(
           valueListenable: selectedSpecs,
-          builder: (BuildContext ctx, List<SpecModel> specs, Widget child) {
+          builder: (BuildContext ctx, List<SpecModel> specs, Widget? child) {
 
             return DataCreatorSplitter(
               appBarType: appBarType,

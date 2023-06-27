@@ -16,9 +16,9 @@ import 'package:bldrs/c_protocols/note_protocols/fire/note_fire_ops.dart';
 import 'package:bldrs/c_protocols/note_protocols/note_events/z_note_events.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 /// => TAMAM
 class AuthorshipRespondingProtocols{
   // -----------------------------------------------------------------------------
@@ -28,9 +28,9 @@ class AuthorshipRespondingProtocols{
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> respond({
-    @required BuildContext context,
-    @required String reply,
-    @required NoteModel noteModel,
+    required BuildContext context,
+    required String reply,
+    required NoteModel noteModel,
   }) async {
 
     await NoteFireOps.markNoteAsSeen(
@@ -108,9 +108,9 @@ class AuthorshipRespondingProtocols{
   // -------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _onAcceptInvitation({
-    @required BuildContext context,
-    @required NoteModel noteModel,
-    @required BzModel bzModel,
+    required BuildContext context,
+    required NoteModel noteModel,
+    required BzModel bzModel,
   }) async {
 
     final bool _result = await CenterDialog.showCenterDialog(
@@ -178,9 +178,9 @@ class AuthorshipRespondingProtocols{
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _acceptRequest({
-    @required BuildContext context,
-    @required BzModel bzModel,
-    @required NoteModel noteModel,
+    required BuildContext context,
+    required BzModel bzModel,
+    required NoteModel noteModel,
   }) async {
 
     final bool _imPendingAuthor = PendingAuthor.checkIsPendingAuthor(
@@ -220,8 +220,8 @@ class AuthorshipRespondingProtocols{
   // --------------------
   /// TASK : TEST ME
   static Future<void> _goToAuthorEditor({
-    @required BuildContext context,
-    @required String bzID,
+    required BuildContext context,
+    required String bzID,
   }) async {
 
     final BzModel _bzModel = await BzProtocols.fetchBz(
@@ -249,8 +249,8 @@ class AuthorshipRespondingProtocols{
   // -------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _onDeclineInvitation({
-    @required BuildContext context,
-    @required NoteModel noteModel,
+    required BuildContext context,
+    required NoteModel noteModel,
   }) async {
     blog('_declineAuthorshipInvitation : decline ');
 
@@ -283,8 +283,8 @@ class AuthorshipRespondingProtocols{
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _declineRequest({
-    @required BuildContext context,
-    @required NoteModel noteModel,
+    required BuildContext context,
+    required NoteModel noteModel,
   }) async {
 
     final NoteModel _updatedNote = noteModel.copyWith(

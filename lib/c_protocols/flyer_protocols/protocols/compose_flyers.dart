@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:basics/helpers/classes/files/file_size_unit.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
@@ -20,10 +21,11 @@ import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/sta
 import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:fire/super_fire.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:mediators/mediators.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
+import 'package:mediators/models/dimension_model.dart';
 
 class ComposeFlyerProtocols {
   // -----------------------------------------------------------------------------
@@ -37,8 +39,8 @@ class ComposeFlyerProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<void> compose({
-    @required BuildContext context,
-    @required DraftFlyer draftFlyer,
+    required BuildContext context,
+    required DraftFlyer draftFlyer,
   }) async {
     blog('ComposeFlyerProtocol.compose : START');
 
@@ -140,7 +142,7 @@ class ComposeFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _addFlyerIDToBzAndAuthorAndRenovateBz({
-    @required FlyerModel newFlyerToAdd,
+    required FlyerModel newFlyerToAdd,
   }) async {
     blog('addFlyerIDToBzFlyersIDsAndAuthorFlyersIDs : START');
 
@@ -180,9 +182,9 @@ class ComposeFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> createFlyerPoster({
-    @required BuildContext context,
-    @required String flyerID,
-    @required DraftFlyer draftFlyer,
+    required BuildContext context,
+    required String flyerID,
+    required DraftFlyer draftFlyer,
   }) async {
 
     final Uint8List _bytes = await PosterDisplay.capturePoster(
@@ -193,8 +195,8 @@ class ComposeFlyerProtocols {
       // finalDesiredPicWidth: Standards.posterDimensions.width,
     );
 
-    final Dimensions _dims = await Dimensions.superDimensions(_bytes);
-    final double _mega = Filers.calculateSize(_bytes.length, FileSizeUnit.megaByte);
+    final Dimensions? _dims = await Dimensions.superDimensions(_bytes);
+    final double? _mega = Filers.calculateSize(_bytes.length, FileSizeUnit.megaByte);
 
     final PicModel _posterPicModel = PicModel(
       bytes: _bytes,

@@ -1,17 +1,20 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:bldrs/a_models/x_utilities/map_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:night_sky/night_sky.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class ListLayout extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -24,8 +27,8 @@ class ListLayout extends StatelessWidget {
     this.pageIcon,
     this.pageIconVerse,
     this.sky = SkyType.night,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final Verse pageTitleVerse;
   final String pyramids;

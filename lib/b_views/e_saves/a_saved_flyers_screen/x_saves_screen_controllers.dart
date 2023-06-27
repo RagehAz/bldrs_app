@@ -6,7 +6,7 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
@@ -15,7 +15,7 @@ import 'package:provider/provider.dart';
 
 // ---------------------------------
 void onSelectFlyerFromSavedFlyers({
-  @required FlyerModel flyer,
+  required FlyerModel flyer,
 }) {
 
   final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(getMainContext(), listen: false);
@@ -51,7 +51,7 @@ void onSelectFlyerFromSavedFlyers({
 // ---------------------------------
 /// TESTED : WORKS PERFECT
 Future<void> autoRemoveSavedFlyerThatIsNotFound({
-  @required String flyerID,
+  required String flyerID,
 }) async {
 
   blog('autoRemoveSavedFlyerThatIsNotFound : START');

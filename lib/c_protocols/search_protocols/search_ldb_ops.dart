@@ -1,8 +1,8 @@
 import 'package:bldrs/a_models/m_search/search_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:flutter/material.dart';
-import 'package:ldb/ldb.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/ldb/methods/ldb_ops.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 /// => TAMAM
 class SearchLDBOps{
   // -----------------------------------------------------------------------------
@@ -12,7 +12,7 @@ class SearchLDBOps{
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> insert({
-    @required SearchModel searchModel,
+    required SearchModel searchModel,
   }) async {
 
     if (searchModel != null && searchModel.id != null){
@@ -31,7 +31,7 @@ class SearchLDBOps{
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> insertAll({
-    @required List<SearchModel> searchModels,
+    required List<SearchModel> searchModels,
   }) async {
 
     if (Mapper.checkCanLoopList(searchModels) == true){
@@ -64,7 +64,7 @@ class SearchLDBOps{
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> delete({
-    @required String modelID,
+    required String modelID,
   }) async {
 
     if (modelID != null){

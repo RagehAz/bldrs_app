@@ -3,12 +3,12 @@ part of bldrs_app_bar;
 class AppBarTitle extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const AppBarTitle({
-    @required this.pageTitleVerse,
-    // @required this.backButtonIsOn,
-    @required this.width,
-    // @required this.appBarRowWidgets,
-    Key key
-  }) : super(key: key);
+    required this.pageTitleVerse,
+    // required this.backButtonIsOn,
+    required this.width,
+    // required this.appBarRowWidgets,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final Verse pageTitleVerse;
   // final bool backButtonIsOn;
@@ -16,7 +16,7 @@ class AppBarTitle extends StatelessWidget {
   // final List<Widget> appBarRowWidgets;
   /// --------------------------------------------------------------------------
   static double getTitleHorizontalMargin({
-    @required bool backButtonIsOn,
+    required bool backButtonIsOn,
   }){
     final double _titleHorizontalMargins = backButtonIsOn == true ? 5 : 15;
     return _titleHorizontalMargins;
@@ -43,7 +43,7 @@ class AppBarTitle extends StatelessWidget {
 
           ValueListenableBuilder(
             valueListenable: pageTitleVerse.notifier,
-            builder: (_, String value, Widget child){
+            builder: (_, String value, Widget? child){
 
               return _HeadlineSuperVerse(
                 title: pageTitleVerse.copyWith(id: value),
@@ -66,11 +66,11 @@ class AppBarTitle extends StatelessWidget {
 class _HeadlineSuperVerse extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const _HeadlineSuperVerse({
-    @required this.title,
-    @required this.width,
-    // @required this.appBarRowWidgets,
-    Key key
-  }) : super(key: key);
+    required this.title,
+    required this.width,
+    // required this.appBarRowWidgets,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final Verse title;
   final double width;

@@ -1,20 +1,20 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class ReviewBubbleButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ReviewBubbleButton({
-    @required this.phid,
-    @required this.count,
-    @required this.icon,
-    @required this.onTap,
-    @required this.isOn,
-    Key key
-  }) : super(key: key);
+    required this.phid,
+    required this.count,
+    required this.icon,
+    required this.onTap,
+    required this.isOn,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final String phid;
   final int count;
@@ -24,16 +24,16 @@ class ReviewBubbleButton extends StatelessWidget {
   // --------------------------------------------------------------------------
   /// TESTED :
   static Verse generateCounterVerse({
-    @required BuildContext context,
-    @required int count,
-    @required String phid,
+    required BuildContext context,
+    required int count,
+    required String phid,
   }){
 
     if (phid == null){
       return null;
     }
     else {
-      String _output = xPhrase(phid);
+      String? _output = xPhrase(phid);
 
       final int _count = count ?? 0;
 

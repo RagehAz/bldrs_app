@@ -1,21 +1,21 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:flutter/material.dart';
 
 @immutable
 class AgendaModel {
   // -----------------------------------------------------------------------------
   const AgendaModel({
-    @required this.all,
-    @required this.developers,
-    @required this.brokers,
-    @required this.designers,
-    @required this.contractors,
-    @required this.artisans,
-    @required this.manufacturers,
-    @required this.suppliers,
+    required this.all,
+    required this.developers,
+    required this.brokers,
+    required this.designers,
+    required this.contractors,
+    required this.artisans,
+    required this.manufacturers,
+    required this.suppliers,
   });
   // -----------------------------------------------------------------------------
   final List<String> all;
@@ -116,8 +116,8 @@ class AgendaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static AgendaModel addBz({
-    @required BzModel bzModel,
-    @required AgendaModel oldAgenda,
+    required BzModel bzModel,
+    required AgendaModel oldAgenda,
   }){
     AgendaModel _newAgenda = oldAgenda ?? newAgenda();
 
@@ -210,8 +210,8 @@ class AgendaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static AgendaModel addBzz({
-    @required List<BzModel> bzzModels,
-    @required AgendaModel oldAgenda,
+    required List<BzModel> bzzModels,
+    required AgendaModel oldAgenda,
   }){
     AgendaModel _newAgenda = oldAgenda ?? newAgenda();
 
@@ -233,8 +233,8 @@ class AgendaModel {
   // --------------------
   /// TASK : TEST ME
   static AgendaModel addOrRemoveBz({
-    @required BzModel bzModel,
-    @required AgendaModel oldAgenda,
+    required BzModel bzModel,
+    required AgendaModel oldAgenda,
   }){
     AgendaModel _newAgenda = oldAgenda ?? newAgenda();
 
@@ -316,8 +316,8 @@ class AgendaModel {
   // --------------------
   /// TASK : TEST ME
   static AgendaModel addOrRemoveFlyers({
-    @required List<BzModel> bzModels,
-    @required AgendaModel oldAgenda,
+    required List<BzModel> bzModels,
+    required AgendaModel oldAgenda,
   }){
     AgendaModel _newAgenda = oldAgenda ?? newAgenda();
 
@@ -339,8 +339,8 @@ class AgendaModel {
   // --------------------
   /// TASK : TEST ME
   static AgendaModel removeBz({
-    @required BzModel bz,
-    @required AgendaModel oldAgenda,
+    required BzModel bz,
+    required AgendaModel oldAgenda,
   }){
     AgendaModel _newAgenda = oldAgenda ?? newAgenda();
 
@@ -437,8 +437,8 @@ class AgendaModel {
   // --------------------
   /// TASK : TEST ME
   static AgendaModel removeBzz({
-    @required List<BzModel> bzz,
-    @required AgendaModel oldAgenda,
+    required List<BzModel> bzz,
+    required AgendaModel oldAgenda,
   }){
     AgendaModel _newAgenda = oldAgenda ?? newAgenda();
 
@@ -460,8 +460,8 @@ class AgendaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static AgendaModel removeBzByID({
-    @required AgendaModel oldAgenda,
-    @required String bzID,
+    required AgendaModel oldAgenda,
+    required String bzID,
   }){
     AgendaModel _newAgenda = oldAgenda ?? newAgenda();
 
@@ -539,8 +539,8 @@ class AgendaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static AgendaModel removeFlyersByIDs({
-    @required AgendaModel oldAgenda,
-    @required List<String> bzzIDs,
+    required AgendaModel oldAgenda,
+    required List<String> bzzIDs,
   }){
     AgendaModel _newAgenda = oldAgenda ?? newAgenda();
 
@@ -566,8 +566,8 @@ class AgendaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static int getCountByBzType({
-    @required BzType bzType,
-    @required AgendaModel agenda,
+    required BzType bzType,
+    required AgendaModel agenda,
   }){
     int _output;
 
@@ -595,8 +595,8 @@ class AgendaModel {
   // --------------------
   /// TESTED: WORKS PERFECT
   static bool checkAgendasAreIdentical({
-    @required AgendaModel agenda1,
-    @required AgendaModel agenda2,
+    required AgendaModel agenda1,
+    required AgendaModel agenda2,
   }){
     bool _areIdentical = false;
 

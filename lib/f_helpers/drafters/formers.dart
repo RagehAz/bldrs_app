@@ -1,3 +1,7 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/checks/object_check.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
@@ -14,16 +18,13 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:colorizer/colorizer.dart';
+import 'package:basics/helpers/classes/colors/colorizer.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:mediators/mediators.dart';
-import 'package:numeric/numeric.dart';
-import 'package:space_time/space_time.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
+import 'package:mediators/pic_maker/pic_maker.dart';
 /// => TAMAM
 class Formers {
   // -----------------------------------------------------------------------------
@@ -63,8 +64,8 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String emailValidator({
-    @required String email,
-    @required bool canValidate,
+    required String email,
+    required bool canValidate,
     String enterEmail,
     String emailInvalid,
   }) {
@@ -91,8 +92,8 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String passwordValidator({
-    @required String password,
-    @required bool canValidate,
+    required String password,
+    required bool canValidate,
     String enterPassword,
     String min6Chars,
   }){
@@ -115,9 +116,9 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String passwordConfirmationValidation({
-    @required String password,
-    @required String passwordConfirmation,
-    @required bool canValidate,
+    required String password,
+    required String passwordConfirmation,
+    required bool canValidate,
   }){
     String _output;
 
@@ -144,8 +145,8 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String picValidator({
-    @required dynamic pic,
-    @required bool canValidate,
+    required dynamic pic,
+    required bool canValidate,
   }){
     String _message;
 
@@ -171,8 +172,8 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String personNameValidator({
-    @required String name,
-    @required bool canValidate,
+    required String name,
+    required bool canValidate,
     FocusNode focusNode,
   }){
     String _message;
@@ -208,8 +209,8 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String companyNameValidator({
-    @required String companyName,
-    @required bool canValidate,
+    required String companyName,
+    required bool canValidate,
     FocusNode focusNode,
   }){
     String _message;
@@ -228,6 +229,7 @@ class Formers {
         );
         final bool _containsBadLang = TextCheck.containsBadWords(
           text: companyName,
+          badWords: badWords,
         );
 
         /// SHORT NAME
@@ -257,8 +259,8 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String jobTitleValidator({
-    @required String jobTitle,
-    @required bool canValidate,
+    required String jobTitle,
+    required bool canValidate,
     FocusNode focusNode,
   }){
     String _message;
@@ -293,9 +295,9 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String zoneValidator({
-    @required ZoneModel zoneModel,
-    @required bool selectCountryIDOnly,
-    @required bool canValidate,
+    required ZoneModel zoneModel,
+    required bool selectCountryIDOnly,
+    required bool canValidate,
   }){
     String _message;
 
@@ -337,10 +339,10 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String contactsPhoneValidator({
-    @required List<ContactModel> contacts,
-    @required ZoneModel zoneModel,
-    @required bool canValidate,
-    @required bool isRequired,
+    required List<ContactModel> contacts,
+    required ZoneModel zoneModel,
+    required bool canValidate,
+    required bool isRequired,
     FocusNode focusNode,
   }){
     String _message;
@@ -405,8 +407,8 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String contactsEmailValidator({
-    @required List<ContactModel> contacts,
-    @required bool canValidate,
+    required List<ContactModel> contacts,
+    required bool canValidate,
     FocusNode focusNode,
   }){
     String _message;
@@ -435,8 +437,8 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String contactsWebsiteValidator({
-    @required List<ContactModel> contacts,
-    @required bool canValidate,
+    required List<ContactModel> contacts,
+    required bool canValidate,
     FocusNode focusNode,
   }){
     String _message;
@@ -464,8 +466,8 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String paragraphValidator({
-    @required String text,
-    @required bool canValidate,
+    required String text,
+    required bool canValidate,
     FocusNode focusNode,
   }){
     String _message;
@@ -497,8 +499,8 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String bzSectionValidator({
-    @required BzSection selectedSection,
-    @required bool canValidate,
+    required BzSection selectedSection,
+    required bool canValidate,
   }){
     String _message;
 
@@ -513,8 +515,8 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String bzTypeValidator({
-    @required List<BzType> selectedTypes,
-    @required bool canValidate,
+    required List<BzType> selectedTypes,
+    required bool canValidate,
   }){
     String _message;
 
@@ -529,8 +531,8 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String bzFormValidator({
-    @required BzForm bzForm,
-    @required bool canValidate,
+    required BzForm bzForm,
+    required bool canValidate,
   }){
     String _message;
 
@@ -545,8 +547,8 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String bzAboutValidator({
-    @required String bzAbout,
-    @required bool canValidate,
+    required String bzAbout,
+    required bool canValidate,
     FocusNode focusNode,
   }){
     String _message;
@@ -573,8 +575,8 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String bzScopeValidator({
-    @required List<String> scope,
-    @required bool canValidate,
+    required List<String> scope,
+    required bool canValidate,
     FocusNode focusNode,
   }){
     String _message;
@@ -600,8 +602,8 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String flyerHeadlineValidator({
-    @required String headline,
-    @required bool canValidate,
+    required String headline,
+    required bool canValidate,
   }){
     String _message;
 
@@ -625,8 +627,8 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String slidesValidator({
-    @required DraftFlyer draftFlyer,
-    @required bool canValidate,
+    required DraftFlyer draftFlyer,
+    required bool canValidate,
   }){
     String _message;
 
@@ -645,8 +647,8 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String flyerTypeValidator({
-    @required DraftFlyer draft,
-    @required bool canValidate,
+    required DraftFlyer draft,
+    required bool canValidate,
   }){
     String _message;
 
@@ -663,8 +665,8 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String pdfValidator({
-    @required PDFModel pdfModel,
-    @required bool canValidate,
+    required PDFModel pdfModel,
+    required bool canValidate,
   }){
     String _message;
 
@@ -704,8 +706,8 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String pdfNameValidator({
-    @required PDFModel pdfModel,
-    @required bool canValidate,
+    required PDFModel pdfModel,
+    required bool canValidate,
   }){
     String _message;
 
@@ -741,8 +743,8 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String flyerPhidsValidator({
-    @required bool canValidate,
-    @required List<String> phids,
+    required bool canValidate,
+    required List<String> phids,
     FocusNode focusNode,
   }){
     String _message;
@@ -768,8 +770,8 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String genderValidator({
-    @required Gender gender,
-    @required bool canValidate,
+    required Gender gender,
+    required bool canValidate,
   }){
     String _message;
 
@@ -788,7 +790,7 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> showUserMissingFieldsDialog({
-    @required UserModel userModel,
+    required UserModel userModel,
   }) async {
 
     final String _missingFieldsString = _generateUserMissingFieldsString(
@@ -809,7 +811,7 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkUserHasMissingFields({
-    @required UserModel userModel,
+    required UserModel userModel,
   }){
     bool _thereAreMissingFields;
 
@@ -830,7 +832,7 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> _generateUserMissingFieldsHeadlines({
-    @required UserModel userModel,
+    required UserModel userModel,
   }) {
     final List<String> _missingFields = <String>[];
 
@@ -894,7 +896,7 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String _generateUserMissingFieldsString({
-    @required UserModel userModel,
+    required UserModel userModel,
   }){
     String _output;
 
@@ -917,13 +919,13 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Color validatorBubbleColor({
-    @required String Function() validator,
+    required String Function() validator,
     Color defaultColor = Colorz.white10,
     bool canErrorize = true,
   }){
 
     bool _errorIsOn = false;
-    Color _errorColor;
+    Color? _errorColor;
     if (validator != null){
       // ------
       /// MESSAGE
@@ -935,7 +937,10 @@ class Formers {
       /// BUBBLE COLOR OVERRIDE
       final bool _colorAssigned = TextCheck.stringContainsSubString(string: _validationMessage, subString: 'Δ');
       if (_colorAssigned == true){
-        final String _colorCode = TextMod.removeTextAfterFirstSpecialCharacter(_validationMessage, 'Δ');
+        final String? _colorCode = TextMod.removeTextAfterFirstSpecialCharacter(
+            text: _validationMessage,
+            specialCharacter: 'Δ',
+        );
         _errorColor = Colorizer.decipherColor(_colorCode);
       }
       // ------
@@ -952,9 +957,9 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Color validatorTextColor({
-    @required String message,
+    required String message,
   }){
-    Color _color;
+    Color? _color;
 
     if (message != null){
 
@@ -975,8 +980,8 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String colorizeValidatorMessage({
-    @required String message,
-    @required Color color,
+    required String message,
+    required Color color,
   }){
     final String _errorColor = Colorizer.cipherColor(color);
     return '$_errorColorΔ$message';
@@ -988,10 +993,10 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String numberDataCreatorFieldValidator({
-    @required String text,
-    @required PickerModel picker,
-    @required DataCreator dataCreatorType,
-    @required String selectedUnitID,
+    required String text,
+    required PickerModel picker,
+    required DataCreator dataCreatorType,
+    required String selectedUnitID,
   }) {
     String _message;
 
@@ -1037,9 +1042,9 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String currencyFieldValidator({
-    @required ValueNotifier<String> selectedCurrencyID, // IS UNIT SPEC VALUE
-    @required String text, // IS THE VALUE SPEC VALUE
-    @required PickerModel picker,
+    required ValueNotifier<String> selectedCurrencyID, // IS UNIT SPEC VALUE
+    required String text, // IS THE VALUE SPEC VALUE
+    required PickerModel picker,
   }) {
     String _message;
 
@@ -1095,8 +1100,8 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String _maxDigitsExceededValidator({
-    @required int maxDigits,
-    @required String text,
+    required int maxDigits,
+    required String text,
   }){
     String _message;
 
@@ -1139,7 +1144,7 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String numbersOnlyValidator({
-    @required String text,
+    required String text,
   }){
     String _message;
 
@@ -1165,7 +1170,7 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String webSiteValidator({
-    @required String website,
+    required String website,
   }){
     String _message;
 
@@ -1195,7 +1200,7 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String positionValidator({
-    @required String latOrLng,
+    required String latOrLng,
   }){
     String _message;
 
@@ -1236,8 +1241,8 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String bakeValidator({
-    @required String Function(String text) validator,
-    @required String text,
+    required String Function(String text) validator,
+    required String text,
     bool keepEmbeddedBubbleColor = false,
   }){
 

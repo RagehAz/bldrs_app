@@ -7,9 +7,9 @@ import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:http/http.dart';
-import 'package:rest/rest.dart';
+import 'package:basics/helpers/classes/rest/rest.dart';
 /// => GEOLOCATOR_DOES_NOT_WORK
 // import 'package:geolocator/geolocator.dart';
 // import 'package:bldrs/c_protocols/zone_protocols/positioning_protocols/geo_location/location_ops.dart';

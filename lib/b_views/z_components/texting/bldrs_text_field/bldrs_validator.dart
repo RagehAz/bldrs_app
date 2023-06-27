@@ -1,18 +1,18 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/super_text_field/super_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
-import 'package:super_text_field/super_text_field.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class BldrsValidator extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const BldrsValidator({
-    @required this.width,
-    @required this.validator,
+    required this.width,
+    required this.validator,
     this.autoValidate = true,
     this.focusNode,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   // -----------------------------------------------------------------------------
     final double width;
     final String Function() validator;

@@ -2,8 +2,8 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:ldb/ldb.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/ldb/methods/ldb_ops.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/material.dart';
 
 class FlyerLDBOps {
@@ -130,7 +130,7 @@ class FlyerLDBOps {
   // --------------------
   /// TASK : TEST ME
   static Future<void> saveFlyerMakerSession({
-    @required DraftFlyer draftFlyer,
+    required DraftFlyer draftFlyer,
   }) async {
 
     if (draftFlyer != null){
@@ -147,7 +147,7 @@ class FlyerLDBOps {
   // --------------------
   /// TASK : TEST ME
   static Future<DraftFlyer> loadFlyerMakerSession({
-    @required String flyerID,
+    required String flyerID,
   }) async {
     DraftFlyer _draft;
 
@@ -166,7 +166,7 @@ class FlyerLDBOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteFlyerMakerSession({
-    @required String flyerID,
+    required String flyerID,
   }) async {
 
     await LDBOps.deleteMap(
@@ -183,7 +183,7 @@ class FlyerLDBOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> saveReviewSession({
-    @required ReviewModel review,
+    required ReviewModel review,
   }) async {
 
     if (review != null){
@@ -200,7 +200,7 @@ class FlyerLDBOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ReviewModel> loadReviewSession({
-    @required String reviewID,
+    required String reviewID,
   }) async {
     ReviewModel _review;
 
@@ -223,7 +223,7 @@ class FlyerLDBOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteReviewSession({
-    @required String reviewID,
+    required String reviewID,
   }) async {
 
     await LDBOps.deleteMap(

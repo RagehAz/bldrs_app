@@ -1,6 +1,10 @@
 import 'dart:async';
 
 import 'package:animators/animators.dart';
+import 'package:basics/animators/helpers/sliders.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/g_counters/bz_counter_model.dart';
@@ -22,21 +26,21 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class HeroicBigFlyer extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const HeroicBigFlyer({
-    @required this.renderedFlyer, // will never be null at this point
-    @required this.heroPath,
-    @required this.flyerBoxWidth,
-    @required this.canBuild,
-    @required this.showGallerySlide,
-    Key key
-  }) : super(key: key);
+    required this.renderedFlyer, // will never be null at this point
+    required this.heroPath,
+    required this.flyerBoxWidth,
+    required this.canBuild,
+    required this.showGallerySlide,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final FlyerModel renderedFlyer;
   final String heroPath;
@@ -85,7 +89,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
   /// --- LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(true);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -605,7 +609,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
 
       return ValueListenableBuilder(
         valueListenable: _flyer,
-        builder: (_, FlyerModel flyerModel, Widget savingNotice) {
+        builder: (_, FlyerModel flyerModel, Widget? savingNotice) {
 
           return FlyerBox(
             key: const ValueKey<String>('FullScreenFlyer'),
@@ -681,6 +685,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
               ),
 
               /// SAVING NOTICE
+              if (savingNotice != null)
               savingNotice,
 
               /// AFFILIATE BUTTON

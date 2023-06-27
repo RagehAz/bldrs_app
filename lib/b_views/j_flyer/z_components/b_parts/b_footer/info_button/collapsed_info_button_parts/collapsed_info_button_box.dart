@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 class CollapsedInfoButtonBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const CollapsedInfoButtonBox({
-    @required this.flyerBoxWidth,
-    @required this.horizontalListViewChildren,
-    @required this.infoButtonType,
-    @required this.tinyMode,
-    Key key
-  }) : super(key: key);
+    required this.flyerBoxWidth,
+    required this.horizontalListViewChildren,
+    required this.infoButtonType,
+    required this.tinyMode,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final List<Widget> horizontalListViewChildren;

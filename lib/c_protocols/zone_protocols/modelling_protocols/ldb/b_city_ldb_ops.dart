@@ -1,7 +1,7 @@
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:ldb/ldb.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/ldb/methods/ldb_ops.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 class CityLDBOps{
@@ -16,7 +16,7 @@ class CityLDBOps{
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> insertCity({
-    @required CityModel city,
+    required CityModel city,
   }) async {
 
     await LDBOps.insertMap(
@@ -33,7 +33,7 @@ class CityLDBOps{
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> insertCities({
-    @required List<CityModel> cities,
+    required List<CityModel> cities,
   }) async {
 
     if (Mapper.checkCanLoopList(cities) == true){
@@ -58,7 +58,7 @@ class CityLDBOps{
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<CityModel> readCity({
-    @required String cityID,
+    required String cityID,
   }) async {
 
     final Map<String, Object> _map = await LDBOps.searchFirstMap(
@@ -80,7 +80,7 @@ class CityLDBOps{
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> readCities({
-    @required List<String> citiesIDs,
+    required List<String> citiesIDs,
   }) async {
     List<CityModel> _output = <CityModel>[];
 
@@ -109,7 +109,7 @@ class CityLDBOps{
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteCity({
-    @required String cityID,
+    required String cityID,
   }) async {
 
     await LDBOps.deleteMap(
