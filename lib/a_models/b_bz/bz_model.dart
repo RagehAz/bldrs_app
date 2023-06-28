@@ -9,8 +9,8 @@ import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
+import 'package:collection/collection.dart';
 import 'package:fire/super_fire.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
@@ -42,26 +42,26 @@ class BzModel{
     this.docSnapshot,
   });
   /// --------------------------------------------------------------------------
-  final String id;
-  final List<BzType> bzTypes;
-  final BzForm bzForm;
-  final DateTime createdAt;
-  final BzAccountType accountType;
-  final String name;
-  final List<String> trigram;
-  final String logoPath;
-  final List<String> scope;
-  final ZoneModel zone;
-  final String about;
-  final GeoPoint position;
-  final List<ContactModel> contacts;
-  final List<AuthorModel> authors;
-  final List<PendingAuthor> pendingAuthors;
-  final bool showsTeam;
-  final bool isVerified;
-  final BzState bzState;
-  final List<String> flyersIDs;
-  final DocumentSnapshot<Object> docSnapshot;
+  final String? id;
+  final List<BzType>? bzTypes;
+  final BzForm? bzForm;
+  final DateTime? createdAt;
+  final BzAccountType? accountType;
+  final String? name;
+  final List<String>? trigram;
+  final String? logoPath;
+  final List<String>? scope;
+  final ZoneModel? zone;
+  final String? about;
+  final GeoPoint? position;
+  final List<ContactModel>? contacts;
+  final List<AuthorModel>? authors;
+  final List<PendingAuthor>? pendingAuthors;
+  final bool? showsTeam;
+  final bool? isVerified;
+  final BzState? bzState;
+  final List<String>? flyersIDs;
+  final DocumentSnapshot<Object>? docSnapshot;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -671,13 +671,12 @@ class BzModel{
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static BzModel getBzFromBzzByBzID({
-    required List<BzModel> bzz,
+  static BzModel? getBzFromBzzByBzID({
+    required List<BzModel>? bzz,
     required String bzID,
   }) {
 
-    final BzModel _bz =
-    bzz.singleWhere((BzModel _b) => _b.id == bzID, orElse: () => null);
+    final BzModel? _bz = bzz?.singleWhereOrNull((BzModel _b) => _b.id == bzID);
     return _bz;
 
   }

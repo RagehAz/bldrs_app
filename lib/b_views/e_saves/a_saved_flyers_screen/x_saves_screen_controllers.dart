@@ -57,12 +57,12 @@ Future<void> autoRemoveSavedFlyerThatIsNotFound({
 
   blog('autoRemoveSavedFlyerThatIsNotFound : START');
 
-  final UserModel _userModel = UsersProvider.proGetMyUserModel(
+  final UserModel? _userModel = UsersProvider.proGetMyUserModel(
     context: getMainContext(),
     listen: false,
   );
 
-  final UserModel _myUpdatedModel = UserModel.removeFlyerFromSavedFlyers(
+  final UserModel? _myUpdatedModel = UserModel.removeFlyerFromSavedFlyers(
     oldUser: _userModel,
     flyerIDToRemove: flyerID,
   );

@@ -37,15 +37,15 @@ class PicLDBOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<PicModel> readPic(String path) async {
-    PicModel _picModel;
+  static Future<PicModel?> readPic(String? path) async {
+    PicModel? _picModel;
 
     if (TextCheck.isEmpty(path) == false){
 
       final List<Map<String, dynamic>> maps = await LDBOps.readMaps(
         docName: LDBDoc.pics,
         primaryKey: LDBDoc.getPrimaryKey(LDBDoc.pics),
-        ids: [path],
+        ids: [path!],
       );
 
       if (Mapper.checkCanLoopList(maps) == true){

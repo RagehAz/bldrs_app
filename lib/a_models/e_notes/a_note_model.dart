@@ -13,6 +13,7 @@ import 'package:bldrs/a_models/j_poster/poster_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
+import 'package:collection/collection.dart';
 import 'package:fire/super_fire.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
@@ -476,18 +477,17 @@ class NoteModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static NoteModel getFirstNoteByRecieverID({
-    required List<NoteModel> notes,
+  static NoteModel? getFirstNoteByRecieverID({
+    required List<NoteModel>? notes,
     required String receiverID,
   }){
 
-    NoteModel _output;
+    NoteModel? _output;
 
     if (Mapper.checkCanLoopList(notes) == true && receiverID != null){
 
-      _output = notes.firstWhere(
-              (note) => note.parties.receiverID == receiverID,
-          orElse: ()=> null
+      _output = notes!.firstWhereOrNull(
+              (note) => note.parties.receiverID == receiverID
       );
 
     }

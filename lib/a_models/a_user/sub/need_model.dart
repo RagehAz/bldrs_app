@@ -36,13 +36,13 @@ class NeedModel {
     required this.since,
   });
   /// --------------------------------------------------------------------------
-  final NeedType needType;
-  final List<String> scope;
-  final GeoPoint location;
-  final String notes;
-  final List<String> flyerIDs;
-  final List<String> bzzIDs;
-  final DateTime since;
+  final NeedType? needType;
+  final List<String>? scope;
+  final GeoPoint? location;
+  final String? notes;
+  final List<String>? flyerIDs;
+  final List<String>? bzzIDs;
+  final DateTime? since;
   // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
@@ -50,7 +50,7 @@ class NeedModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static NeedModel createInitialNeed({
-    required ZoneModel userZone,
+    required ZoneModel? userZone,
   }){
     return NeedModel(
       needType: null,
@@ -152,11 +152,11 @@ class NeedModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static NeedModel decipherNeed({
-    required Map<String, dynamic> map,
+  static NeedModel? decipherNeed({
+    required Map<String, dynamic>? map,
     required bool fromJSON,
   }){
-    NeedModel _need;
+    NeedModel? _need;
 
     if (map != null){
       _need = NeedModel(
@@ -218,13 +218,13 @@ class NeedModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getNeedTypePhid(NeedType type){
+  static String? getNeedTypePhid(NeedType? type){
     switch (type) {
-      case NeedType.seekProperty :       return 'phid_seekProperty'; break;
-      case NeedType.planConstruction :   return 'phid_planConstruction'; break;
-      case NeedType.finishConstruction : return 'phid_finishingConstruction'; break;
-      case NeedType.furnish :            return 'phid_furnishing_property'; break;
-      case NeedType.offerProperty :      return 'phid_offeringProperty'; break;
+      case NeedType.seekProperty :       return 'phid_seekProperty';
+      case NeedType.planConstruction :   return 'phid_planConstruction';
+      case NeedType.finishConstruction : return 'phid_finishingConstruction';
+      case NeedType.furnish :            return 'phid_furnishing_property';
+      case NeedType.offerProperty :      return 'phid_offeringProperty';
       default:return null;
     }
   }
@@ -260,46 +260,46 @@ class NeedModel {
 
   // --------------------
   /// TASK : TEST ME
-  static List<FlyerType> concludeFlyersTypesByNeedType(NeedType type){
+  static List<FlyerType>? concludeFlyersTypesByNeedType(NeedType? type){
     switch (type) {
 
       case NeedType.seekProperty :
-        return <FlyerType>[FlyerType.property]; break;
+        return <FlyerType>[FlyerType.property];
 
       case NeedType.planConstruction :
-        return <FlyerType>[FlyerType.design, FlyerType.product]; break;
+        return <FlyerType>[FlyerType.design, FlyerType.product];
 
       case NeedType.finishConstruction :
-        return <FlyerType>[FlyerType.undertaking, FlyerType.product, FlyerType.equipment, FlyerType.trade,]; break;
+        return <FlyerType>[FlyerType.undertaking, FlyerType.product, FlyerType.equipment, FlyerType.trade,];
 
       case NeedType.furnish :
-        return <FlyerType>[FlyerType.product, FlyerType.trade]; break;
+        return <FlyerType>[FlyerType.product, FlyerType.trade];
 
       case NeedType.offerProperty :
-        return <FlyerType>[FlyerType.property];break;
+        return <FlyerType>[FlyerType.property];
 
       default:return null;
     }
   }
   // --------------------
   /// TASK : TEST ME
-  static List<BzType> concludeBzzTypesByNeedType(NeedType type){
+  static List<BzType>? concludeBzzTypesByNeedType(NeedType? type){
     switch (type) {
 
       case NeedType.seekProperty :
-        return <BzType>[BzType.developer, BzType.broker]; break;
+        return <BzType>[BzType.developer, BzType.broker];
 
       case NeedType.planConstruction :
-        return <BzType>[BzType.designer, BzType.contractor, BzType.supplier,]; break;
+        return <BzType>[BzType.designer, BzType.contractor, BzType.supplier,];
 
       case NeedType.finishConstruction :
-        return <BzType>[BzType.designer, BzType.contractor, BzType.supplier, BzType.artisan,]; break;
+        return <BzType>[BzType.designer, BzType.contractor, BzType.supplier, BzType.artisan,];
 
       case NeedType.furnish :
-        return <BzType>[BzType.supplier, BzType.contractor]; break;
+        return <BzType>[BzType.supplier, BzType.contractor];
 
       case NeedType.offerProperty :
-        return <BzType>[BzType.broker];break;
+        return <BzType>[BzType.broker];
 
       default:return null;
     }
@@ -310,7 +310,7 @@ class NeedModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkNeedsAreIdentical(NeedModel need1, NeedModel need2){
+  static bool checkNeedsAreIdentical(NeedModel? need1, NeedModel? need2){
     bool _identical = false;
 
     if (need1 == null && need2 == null){
@@ -342,7 +342,7 @@ class NeedModel {
   /// TESTED : WORKS PERFECT
   static NeedModel dummyNeed(){
 
-    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+    final UserModel? _userModel = UsersProvider.proGetMyUserModel(
       context: getMainContext(),
       listen: false,
     );

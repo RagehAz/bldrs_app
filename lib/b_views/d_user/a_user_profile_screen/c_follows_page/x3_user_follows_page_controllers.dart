@@ -16,12 +16,12 @@ Future<void> autoDeleteThisBzIDFromMyFollowedBzzIDs({
 
   blog('autoDeleteThisBzIDFromMyFollowedBzzIDs : START');
 
-  final UserModel _userModel = UsersProvider.proGetMyUserModel(
+  final UserModel? _userModel = UsersProvider.proGetMyUserModel(
     context: context,
     listen: false,
   );
 
-  final UserModel _myUpdatedModel = UserModel.removeBzIDFromUserFollows(
+  final UserModel? _myUpdatedModel = UserModel.removeBzIDFromUserFollows(
     oldUser: _userModel,
     bzIDToUnFollow: bzID,
   );

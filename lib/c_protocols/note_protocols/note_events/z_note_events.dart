@@ -114,7 +114,7 @@ class NoteEvent {
     required String bzID,
   }) async {
 
-    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+    final UserModel? _myUserModel = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );

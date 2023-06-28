@@ -61,7 +61,7 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
   void initState() {
     super.initState();
 
-    UserModel _oldUser = UsersProvider.proGetMyUserModel(
+    UserModel? _oldUser = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );
@@ -107,7 +107,7 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
   // -----------------------------------------------------------------------------
   Future<void> onConfirmEditingNeed() async {
 
-    final UserModel _oldUser = UsersProvider.proGetMyUserModel(
+    final UserModel? _oldUser = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );

@@ -361,7 +361,7 @@ class NewAuthorshipExit {
   }) async {
 
     /// (only i can) : REMOVE BZ & BZ TOPICS FROM MY USER MODEL
-    final UserModel _oldUser = UsersProvider.proGetMyUserModel(
+    final UserModel? _oldUser = UsersProvider.proGetMyUserModel(
       context: getMainContext(),
       listen: false,
     );

@@ -1,6 +1,7 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:collection/collection.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -29,13 +30,13 @@ class AuthorModel {
     this.picModel,
   });
   /// --------------------------------------------------------------------------
-  final String userID;
-  final String name;
-  final String picPath;
-  final String title;
-  final AuthorRole role;
-  final List<ContactModel> contacts;
-  final List<String> flyersIDs;
+  final String? userID;
+  final String? name;
+  final String? picPath;
+  final String? title;
+  final AuthorRole? role;
+  final List<ContactModel>? contacts;
+  final List<String>? flyersIDs;
   final PicModel? picModel;
   // -----------------------------------------------------------------------------
 
@@ -52,7 +53,7 @@ class AuthorModel {
       picModel: await PicProtocols.fetchPic(oldAuthor.picPath),
       contacts: ContactModel.prepareContactsForEditing(
         contacts: oldAuthor.contacts,
-        countryID: bzModel.zone.countryID,
+        countryID: bzModel.zone?.countryID,
       ),
     );
 
@@ -69,7 +70,7 @@ class AuthorModel {
     return draftAuthor.copyWith(
       contacts: ContactModel.bakeContactsAfterEditing(
         contacts: draftAuthor.contacts,
-        countryID: bzModel.zone.countryID,
+        countryID: bzModel.zone?.countryID,
       ),
     );
 
@@ -104,7 +105,7 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<AuthorModel?> createAuthorFromUserModel({
-    required UserModel userModel,
+    required UserModel? userModel,
     required String bzID,
     required bool isCreator,
   }) async {
@@ -112,7 +113,7 @@ class AuthorModel {
 
     if (userModel != null) {
 
-      final PicModel _userPic = await PicProtocols.fetchPic(
+      final PicModel? _userPic = await PicProtocols.fetchPic(
           StoragePath.users_userID_pic(userModel.id)
       );
 
@@ -124,7 +125,7 @@ class AuthorModel {
         role: isCreator ? AuthorRole.creator : AuthorRole.teamMember,
         contacts: userModel.contacts,
         flyersIDs: const <String>[],
-        picModel: _userPic.copyWith(
+        picModel: _userPic?.copyWith(
           path: StoragePath.bzz_bzID_authorID(
             bzID: bzID,
             authorID: userModel.id,
@@ -141,9 +142,11 @@ class AuthorModel {
   static List<AuthorModel> combineAllBzzAuthors(List<BzModel> allBzz) {
     final List<AuthorModel> _allAuthors = <AuthorModel>[];
 
-    if (Mapper.checkCanLoopList(allBzz)) {
+    if (Mapper.checkCanLoopList(allBzz) == true) {
       for (final BzModel bz in allBzz) {
-        _allAuthors.addAll(bz.authors);
+        if (Mapper.checkCanLoopList(bz.authors) == true){
+          _allAuthors.addAll(bz.authors!);
+        }
       }
     }
 
@@ -198,11 +201,11 @@ class AuthorModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, Object> cipherAuthors(List<AuthorModel> authors) {
+  static Map<String, dynamic> cipherAuthors(List<AuthorModel>? authors) {
     Map<String, dynamic> _map = <String, dynamic>{};
 
-    if (Mapper.checkCanLoopList(authors)) {
-      for (final AuthorModel author in authors) {
+    if (Mapper.checkCanLoopList(authors) == true) {
+      for (final AuthorModel author in authors!) {
         _map = Mapper.insertPairInMap(
           map: _map,
           key: author.userID,
@@ -216,7 +219,7 @@ class AuthorModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<AuthorModel> decipherAuthors(Map<String, dynamic> maps) {
+  static List<AuthorModel> decipherAuthors(Map<String, dynamic>? maps) {
     final List<AuthorModel> _authors = <AuthorModel>[];
 
     if (maps != null){
@@ -236,21 +239,21 @@ class AuthorModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String cipherAuthorRole(AuthorRole role){
+  static String? cipherAuthorRole(AuthorRole? role){
     switch (role){
-      case AuthorRole.creator: return 'creator'; break;
-      case AuthorRole.moderator: return 'moderator'; break;
-      case AuthorRole.teamMember: return 'teamMember'; break;
+      case AuthorRole.creator: return 'creator';
+      case AuthorRole.moderator: return 'moderator';
+      case AuthorRole.teamMember: return 'teamMember';
       default: return null;
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static AuthorRole decipherAuthorRole(String role){
+  static AuthorRole? decipherAuthorRole(String? role){
     switch (role){
-      case 'creator'     : return AuthorRole.creator   ; break;
-      case 'moderator'   : return AuthorRole.moderator ; break;
-      case 'teamMember'  : return AuthorRole.teamMember; break;
+      case 'creator'     : return AuthorRole.creator   ;
+      case 'moderator'   : return AuthorRole.moderator ;
+      case 'teamMember'  : return AuthorRole.teamMember;
       default: return null;
     }
   }
@@ -259,31 +262,10 @@ class AuthorModel {
   /// GETTERS
 
   // --------------------
-  /// DEPRECATED
-  /*
-  /// TESTED : WORKS PERFECT
-  static AuthorModel getAuthorWhosePicIsFile({
-    required List<AuthorModel> authors,
-  }){
-    AuthorModel _output;
-
-    if (Mapper.checkCanLoopList(authors) == true){
-
-      _output = authors.firstWhere(
-              (element) => ObjectCheck.objectIsFile(element.pic) == true,
-          orElse: () => null
-      );
-
-    }
-
-    return _output;
-  }
-   */
-  // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getAuthorPicOwnersIDs({
-    required BzModel bzModel,
-    required AuthorModel authorModel,
+    required BzModel? bzModel,
+    required AuthorModel? authorModel,
   }){
 
     /// NOTE : GETS ONLY THE CREATOR ID AND THE AUTHOR ID IF NOT IDNETICAL
@@ -292,9 +274,11 @@ class AuthorModel {
 
     if (bzModel != null && authorModel != null){
 
-      final AuthorModel _creatorAuthor = getCreatorAuthorFromAuthors(bzModel.authors);
+      final AuthorModel? _creatorAuthor = getCreatorAuthorFromAuthors(bzModel.authors);
 
-      _ownersIDs.add(_creatorAuthor.userID);
+      if (_creatorAuthor?.userID != null){
+        _ownersIDs.add(_creatorAuthor!.userID!);
+      }
 
       _ownersIDs = Stringer.addStringToListIfDoesNotContainIt(
         strings: _ownersIDs,
@@ -334,20 +318,20 @@ class AuthorModel {
    */
   // --------------------
   /// TESTED : WORKS PERFECT
-  static AuthorModel getAuthorFromBzByAuthorID({
-    required BzModel bz,
-    required String authorID,
+  static AuthorModel? getAuthorFromBzByAuthorID({
+    required BzModel? bz,
+    required String? authorID,
   }) {
-    final AuthorModel author = bz?.authors?.singleWhere(
-            (AuthorModel au) => au?.userID == authorID,
-        orElse: () => null);
+    final AuthorModel? author = bz?.authors?.singleWhereOrNull(
+            (AuthorModel au) => au.userID == authorID,
+        );
     return author;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static int getAuthorIndexByAuthorID({
     required List<AuthorModel> authors,
-    required String authorID,
+    required String? authorID,
   }) {
     final int _currentAuthorIndex = authors.indexWhere(
             (AuthorModel au) => authorID == au.userID
@@ -363,48 +347,50 @@ class AuthorModel {
     final List<String> _authorsIDs = <String>[];
 
     for (final AuthorModel author in authors) {
-      _authorsIDs.add(author.userID);
+      if (author.userID != null){
+        _authorsIDs.add(author.userID!);
+      }
     }
 
     return _authorsIDs;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static AuthorModel getAuthorFromAuthorsByID({
-    required List<AuthorModel> authors,
+  static AuthorModel? getAuthorFromAuthorsByID({
+    required List<AuthorModel>? authors,
     required String authorID,
   }){
 
-    AuthorModel _author;
+    AuthorModel? _author;
 
     if (Mapper.checkCanLoopList(authors) == true){
-
-      final AuthorModel _found = authors.firstWhere(
-              (au) => au.userID == authorID, orElse: ()=> null
-      );
-
-      _author = _found;
-
+      _author = authors!.firstWhereOrNull((au) => au.userID == authorID);
     }
 
     return _author;
   }
   // --------------------
   static List<AuthorModel> getAuthorsFromAuthorsByAuthorsIDs({
-    required List<AuthorModel> allAuthors,
-    required List<String> authorsIDs,
+    required List<AuthorModel>? allAuthors,
+    required List<String>? authorsIDs,
   }) {
     final List<AuthorModel> _bzAuthors = <AuthorModel>[];
 
-    if (Mapper.checkCanLoopList(allAuthors) && Mapper.checkCanLoopList(authorsIDs)) {
-      for (final String id in authorsIDs) {
-        final AuthorModel _author = allAuthors.singleWhere(
-                (AuthorModel author) => author.userID == id,
-            orElse: () => null);
+    if (
+        Mapper.checkCanLoopList(allAuthors) == true
+        &&
+        Mapper.checkCanLoopList(authorsIDs) == true
+    ) {
+
+      for (final String id in authorsIDs!) {
+
+        final AuthorModel? _author = allAuthors!.singleWhereOrNull(
+                (AuthorModel author) => author.userID == id);
 
         if (_author != null) {
           _bzAuthors.add(_author);
         }
+
       }
     }
 
@@ -412,21 +398,8 @@ class AuthorModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static AuthorModel getCreatorAuthorFromAuthors(List<AuthorModel> authors) {
-
-    if (Mapper.checkCanLoopList(authors) == true){
-
-      final AuthorModel _masterAuthor = authors.firstWhere(
-              (AuthorModel author) => author.role == AuthorRole.creator,
-          orElse: () => null
-      );
-
-      return _masterAuthor;
-    }
-    else {
-      return null;
-    }
-
+  static AuthorModel? getCreatorAuthorFromAuthors(List<AuthorModel>? authors) {
+    return authors?.firstWhereOrNull((AuthorModel author) => author.role == AuthorRole.creator,);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -438,7 +411,9 @@ class AuthorModel {
     if (Mapper.checkCanLoopList(authors) == true){
 
       for (final AuthorModel author in authors){
-        _names.add(author.name);
+        if (author.name != null){
+          _names.add(author.name!);
+        }
       }
 
     }
@@ -447,12 +422,11 @@ class AuthorModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static AuthorModel getFlyerAuthor({
+  static AuthorModel? getFlyerAuthor({
     required List<AuthorModel> authors,
     required String flyerID,
   }){
-
-    AuthorModel _author;
+    AuthorModel? _author;
 
     if (Mapper.checkCanLoopList(authors) == true){
 
@@ -499,8 +473,8 @@ class AuthorModel {
 
       for (final AuthorModel author in authors){
 
-        if (author.picModel != null){
-          _output.add(author.picPath);
+        if (author.picModel != null && author.picPath != null){
+          _output.add(author.picPath!);
         }
 
       }
@@ -534,14 +508,14 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<AuthorModel> replaceAuthorModelInAuthorsListByID({
-    required List<AuthorModel> authors,
-    required AuthorModel authorToReplace,
+    required List<AuthorModel>? authors,
+    required AuthorModel? authorToReplace,
   }) {
 
     List<AuthorModel> _output = <AuthorModel>[];
 
     if (Mapper.checkCanLoopList(authors) == true){
-      _output = <AuthorModel>[...authors];
+      _output = <AuthorModel>[...authors!];
     }
 
     final int _index = getAuthorIndexByAuthorID(
@@ -559,12 +533,12 @@ class AuthorModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> replaceAuthorIDInAuthorsIDsList({
+  static List<String>? replaceAuthorIDInAuthorsIDsList({
     required List<AuthorModel> originalAuthors,
     required AuthorModel oldAuthor,
     required AuthorModel newAuthor
   }) {
-    List<String> _modifiedAuthorsIDsList;
+    List<String>? _modifiedAuthorsIDsList;
 
     final List<String> _originalAuthorsIDs = getAuthorsIDsFromAuthors(
       authors: originalAuthors,
@@ -579,7 +553,7 @@ class AuthorModel {
 
     if (_indexOfOldAuthor != -1) {
       _originalAuthorsIDs.removeAt(_indexOfOldAuthor);
-      _originalAuthorsIDs.insert(_indexOfOldAuthor, newAuthor.userID);
+      _originalAuthorsIDs.insert(_indexOfOldAuthor, newAuthor.userID!);
       _modifiedAuthorsIDsList = _originalAuthorsIDs;
     }
 
@@ -588,22 +562,24 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<AuthorModel>> addNewUserToAuthors({
-    required List<AuthorModel> authors,
-    required UserModel newUser,
+    required List<AuthorModel>? authors,
+    required UserModel? newUser,
     required String bzID,
   }) async {
 
-    final List<AuthorModel> _output = <AuthorModel>[...authors];
+    final List<AuthorModel> _output = <AuthorModel>[...?authors];
 
     if (newUser != null){
 
-      final AuthorModel _newAuthor = await AuthorModel.createAuthorFromUserModel(
+      final AuthorModel? _newAuthor = await AuthorModel.createAuthorFromUserModel(
         userModel: newUser,
         bzID: bzID,
         isCreator: false,
       );
 
-      _output.add(_newAuthor);
+      if (_newAuthor != null){
+        _output.add(_newAuthor);
+      }
 
     }
 
@@ -611,18 +587,18 @@ class AuthorModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<AuthorModel> removeAuthorFromAuthors({
-    required List<AuthorModel> authors,
-    required String authorIDToRemove,
+  static List<AuthorModel>? removeAuthorFromAuthors({
+    required List<AuthorModel>? authors,
+    required String? authorIDToRemove,
   }){
 
-    List<AuthorModel> _output;
+    List<AuthorModel>? _output;
 
     if (Mapper.checkCanLoopList(authors) == true && authorIDToRemove != null){
 
-      _output = <AuthorModel>[...authors];
+      _output = <AuthorModel>[...authors!];
 
-      final int _index = authors.indexWhere((a) => a.userID == authorIDToRemove);
+      final int _index = _output.indexWhere((a) => a.userID == authorIDToRemove);
 
       if (_index != -1){
         _output.removeAt(_index);
@@ -638,8 +614,8 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<AuthorModel> addFlyerIDToAuthor({
-    required String flyerID,
-    required String authorID,
+    required String? flyerID,
+    required String? authorID,
     required List<AuthorModel> oldAuthors,
   }){
 
@@ -655,7 +631,7 @@ class AuthorModel {
 
       // blog('addFlyerIDToAuthor : flyerID $flyerID : authorID $authorID : authors count : ${authors.length}');
 
-      final AuthorModel _oldAuthor = getAuthorFromAuthorsByID(
+      final AuthorModel? _oldAuthor = getAuthorFromAuthorsByID(
           authors: oldAuthors,
           authorID: authorID
       );
@@ -663,13 +639,13 @@ class AuthorModel {
       // blog('addFlyerIDToAuthor : author $authorID flyers was ${_oldAuthor.flyersIDs} ');
 
       final List<String> _newFlyersIDs = Stringer.putStringInStringsIfAbsent(
-          strings: _oldAuthor.flyersIDs,
+          strings: _oldAuthor?.flyersIDs,
           string: flyerID
       );
 
       // blog('addFlyerIDToAuthor : author $authorID flyers should be $_newFlyersIDs ');
 
-      final AuthorModel _newAuthor = _oldAuthor.copyWith(
+      final AuthorModel? _newAuthor = _oldAuthor?.copyWith(
         flyersIDs: _newFlyersIDs,
       );
 
@@ -688,13 +664,13 @@ class AuthorModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<AuthorModel> removeFlyerIDFromAuthor({
-    required String flyerID,
-    required String authorID,
-    required List<AuthorModel> oldAuthors,
+  static List<AuthorModel>? removeFlyerIDFromAuthor({
+    required String? flyerID,
+    required String? authorID,
+    required List<AuthorModel>? oldAuthors,
   }){
 
-    List<AuthorModel> _newAuthors = oldAuthors;
+    List<AuthorModel>? _newAuthors = oldAuthors;
 
     if (
         Mapper.checkCanLoopList(oldAuthors) == true
@@ -706,7 +682,7 @@ class AuthorModel {
 
       blog('removeFlyerIDToAuthor : flyerID : $flyerID : authorID : $authorID');
 
-      final AuthorModel _oldAuthor = getAuthorFromAuthorsByID(
+      final AuthorModel? _oldAuthor = getAuthorFromAuthorsByID(
           authors: oldAuthors,
           authorID: authorID
       );
@@ -720,7 +696,7 @@ class AuthorModel {
 
       blog('removeFlyerIDToAuthor : author flyers is : $_updatedFlyersIDs');
 
-      final AuthorModel _newAuthor = _oldAuthor?.copyWith(
+      final AuthorModel? _newAuthor = _oldAuthor?.copyWith(
         flyersIDs: _updatedFlyersIDs,
       );
 
@@ -773,17 +749,17 @@ class AuthorModel {
    */
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<AuthorModel> overrideAuthorsBzID({
-    required List<AuthorModel> authors,
+  static List<AuthorModel>? overrideAuthorsBzID({
+    required List<AuthorModel>? authors,
     required String bzID,
   }){
     final List<AuthorModel> _output = <AuthorModel>[];
 
     if (Mapper.checkCanLoopList(authors) == true){
 
-      for (final AuthorModel author in authors){
+      for (final AuthorModel author in authors!){
 
-        final String _picPath = StoragePath.bzz_bzID_authorID(
+        final String? _picPath = StoragePath.bzz_bzID_authorID(
           bzID: bzID,
           authorID: author.userID,
         );
@@ -810,13 +786,13 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkUserIsCreatorAuthor({
-    required String userID,
-    required BzModel bzModel,
+    required String? userID,
+    required BzModel? bzModel,
   }){
 
     bool _isCreator = false;
 
-    final AuthorModel _author = getAuthorFromBzByAuthorID(
+    final AuthorModel? _author = getAuthorFromBzByAuthorID(
       authorID: userID,
       bz: bzModel,
     );
@@ -830,14 +806,14 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkAuthorsContainUserID({
-    required List<AuthorModel> authors,
-    required String userID,
+    required List<AuthorModel>? authors,
+    required String? userID,
   }){
     bool _contains = false;
 
     if (Mapper.checkCanLoopList(authors) == true && userID != null){
 
-      final int _index = authors.indexWhere((a) => a.userID == userID);
+      final int? _index = authors?.indexWhere((a) => a.userID == userID);
 
       if (_index == -1){
         _contains = false;
@@ -853,9 +829,9 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkAuthorHasFlyers({
-    required AuthorModel author,
+    required AuthorModel? author,
   }){
-    bool _hasFlyers = false;
+    bool? _hasFlyers = false;
 
     if (author != null){
 
@@ -863,18 +839,18 @@ class AuthorModel {
 
     }
 
-    return _hasFlyers;
+    return _hasFlyers ?? false;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkImCreatorInThisBz({
-    required BzModel bzModel,
+    required BzModel? bzModel,
   }){
     bool _imCreator = false;
 
     if (bzModel != null){
 
-      final AuthorModel _myAuthorModel = getAuthorFromBzByAuthorID(
+      final AuthorModel? _myAuthorModel = getAuthorFromBzByAuthorID(
         bz: bzModel,
         authorID: Authing.getUserID(),
       );
@@ -890,25 +866,24 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkImAuthorInBzOfThisFlyer({
-    required FlyerModel flyerModel,
+    required FlyerModel? flyerModel,
   }){
 
-    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+    final UserModel? _myUserModel = UsersProvider.proGetMyUserModel(
       context: getMainContext(),
       listen: false,
     );
 
     return Stringer.checkStringsContainString(
       strings: _myUserModel?.myBzzIDs,
-      string: flyerModel.bzID,
+      string: flyerModel?.bzID,
     );
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> checkUserImageIsAuthorImage({
-    required  BuildContext context,
-    required AuthorModel authorModel,
-    required UserModel userModel,
+    required AuthorModel? authorModel,
+    required UserModel? userModel,
   }) async {
     bool _areIdentical = false;
 
@@ -925,9 +900,9 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkAuthorCanDeleteFlyer({
-    required String myID,
-    required FlyerModel flyer,
-    required BzModel bzModel,
+    required String? myID,
+    required FlyerModel? flyer,
+    required BzModel? bzModel,
   }){
     bool _canDelete = false;
 
@@ -960,8 +935,8 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkUserIsAuthorInThisBz({
-    required String bzID,
-    required UserModel userModel,
+    required String? bzID,
+    required UserModel? userModel,
   }){
     bool _isAuthor = false;
 
@@ -979,13 +954,13 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> checkImALoneAuthor({
-    required String bzID,
+    required String? bzID,
   }) async {
-    bool _aLoneAuthor;
+    bool _aLoneAuthor = true;
 
     if (bzID != null){
 
-      final BzModel _bzModel = await BzProtocols.fetchBz(bzID: bzID);
+      final BzModel? _bzModel = await BzProtocols.fetchBz(bzID: bzID);
       _aLoneAuthor = _bzModel?.authors?.length == 1;
 
     }
@@ -1071,7 +1046,7 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   void blogAuthor({
-    String invoker = '',
+    String? invoker = '',
   }) {
 
     blog('$invoker : BLOGGING AUTHOR ---------------- START -- ');
@@ -1089,13 +1064,13 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogAuthors({
-    required List<AuthorModel> authors,
+    required List<AuthorModel>? authors,
     String? invoker,
   }){
 
     if (Mapper.checkCanLoopList(authors) == true){
 
-      for (final AuthorModel author in authors){
+      for (final AuthorModel author in authors!){
         author.blogAuthor(
           invoker: invoker,
         );
@@ -1113,14 +1088,13 @@ class AuthorModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getAuthorRolePhid({
-    required BuildContext context,
-    required AuthorRole role,
+  static String? getAuthorRolePhid({
+    required AuthorRole? role,
   }){
     switch (role){
-      case AuthorRole.creator: return 'phid_creator'; break;
-      case AuthorRole.moderator: return 'phid_moderator'; break;
-      case AuthorRole.teamMember: return 'phid_teamMember'; break;
+      case AuthorRole.creator: return 'phid_creator';
+      case AuthorRole.moderator: return 'phid_moderator';
+      case AuthorRole.teamMember: return 'phid_teamMember';
       default: return null;
     }
   }
@@ -1131,9 +1105,9 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkAuthorAbility({
-    required AuthorModel theDoer,
-    required AuthorModel theDoneWith,
-    required AuthorAbility ability,
+    required AuthorModel? theDoer,
+    required AuthorModel? theDoneWith,
+    required AuthorAbility? ability,
   }){
 
     if (theDoer != null && ability != null){
@@ -1152,36 +1126,36 @@ class AuthorModel {
         /// CREATOR -------------
         case AuthorRole.creator:
           switch (ability) {
-            case AuthorAbility.canChangeOthersRoles :     return true; break;
-            case AuthorAbility.canChangeSelfRole :        return false; break;
-            case AuthorAbility.canEditOtherAuthor :       return true; break;
-            case AuthorAbility.canRemoveOtherAuthor :     return true; break;
-            case AuthorAbility.canSendAuthorships :       return true; break;
-            case AuthorAbility.canRemoveSelf :            return false; break;
+            case AuthorAbility.canChangeOthersRoles :     return true;
+            case AuthorAbility.canChangeSelfRole :        return false;
+            case AuthorAbility.canEditOtherAuthor :       return true;
+            case AuthorAbility.canRemoveOtherAuthor :     return true;
+            case AuthorAbility.canSendAuthorships :       return true;
+            case AuthorAbility.canRemoveSelf :            return false;
             default: return false;
-          } break;
+          }
           /// MODERATOR -------------
         case AuthorRole.moderator:
           switch (ability) {
-            case AuthorAbility.canChangeOthersRoles :     return _higherRank; break;
-            case AuthorAbility.canChangeSelfRole :        return true; break;
-            case AuthorAbility.canEditOtherAuthor :       return _higherRank || _sameRank; break;
-            case AuthorAbility.canRemoveOtherAuthor :     return false; break;
-            case AuthorAbility.canSendAuthorships :       return true; break;
-            case AuthorAbility.canRemoveSelf :            return true; break;
+            case AuthorAbility.canChangeOthersRoles :     return _higherRank;
+            case AuthorAbility.canChangeSelfRole :        return true;
+            case AuthorAbility.canEditOtherAuthor :       return _higherRank || _sameRank;
+            case AuthorAbility.canRemoveOtherAuthor :     return false;
+            case AuthorAbility.canSendAuthorships :       return true;
+            case AuthorAbility.canRemoveSelf :            return true;
             default: return false;
-          } break;
+          }
           /// TEAM MEMBER -------------
         case AuthorRole.teamMember:
           switch (ability) {
-            case AuthorAbility.canChangeOthersRoles :     return _higherRank; break;
-            case AuthorAbility.canChangeSelfRole :        return true; break;
-            case AuthorAbility.canEditOtherAuthor :       return _higherRank || _sameRank; break;
-            case AuthorAbility.canRemoveOtherAuthor :     return false; break;
-            case AuthorAbility.canSendAuthorships :       return false; break;
-            case AuthorAbility.canRemoveSelf :            return true; break;
+            case AuthorAbility.canChangeOthersRoles :     return _higherRank;
+            case AuthorAbility.canChangeSelfRole :        return true;
+            case AuthorAbility.canEditOtherAuthor :       return _higherRank || _sameRank;
+            case AuthorAbility.canRemoveOtherAuthor :     return false;
+            case AuthorAbility.canSendAuthorships :       return false;
+            case AuthorAbility.canRemoveSelf :            return true;
             default: return false;
-          } break;
+          }
           /// DEFAULT -------------
         default: return false;
       }
@@ -1196,8 +1170,8 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkAuthorHasHigherRank({
-    required AuthorModel theDoer, // the current user doing stuff
-    required AuthorModel theDoneWith, // the author whos done with
+    required AuthorModel? theDoer, // the current user doing stuff
+    required AuthorModel? theDoneWith, // the author whos done with
   }){
 
     bool _hasHigherRank = false;
@@ -1216,8 +1190,8 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkAuthorHasSameRank({
-    required AuthorModel theDoer, // the current user doing stuff
-    required AuthorModel theDoneWith, // the author whos done with
+    required AuthorModel? theDoer, // the current user doing stuff
+    required AuthorModel? theDoneWith, // the author whos done with
   }){
 
     bool _hasHigherRank = false;
@@ -1235,12 +1209,12 @@ class AuthorModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static int getRoleRank(AuthorRole role){
+  static int getRoleRank(AuthorRole? role){
 
     switch (role){
-      case AuthorRole.creator: return 3; break;
-      case AuthorRole.moderator: return 2; break;
-      case AuthorRole.teamMember: return 1; break;
+      case AuthorRole.creator: return 3;
+      case AuthorRole.moderator: return 2;
+      case AuthorRole.teamMember: return 1;
       default: return 0;
     }
 
@@ -1252,15 +1226,15 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkAuthorsListsAreIdentical({
-    required List<AuthorModel> authors1,
-    required List<AuthorModel> authors2
+    required List<AuthorModel>? authors1,
+    required List<AuthorModel>? authors2
   }){
     bool _output = false;
 
     if (authors1 == null && authors2 == null){
       _output = true;
     }
-    else if (authors1.isEmpty && authors2.isEmpty){
+    else if (authors1 != null && authors1.isEmpty && authors2 != null && authors2.isEmpty){
       _output = true;
     }
     else if (authors1 != null && authors2 != null){
@@ -1299,8 +1273,8 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkAuthorsAreIdentical({
-    required AuthorModel author1,
-    required AuthorModel author2,
+    required AuthorModel? author1,
+    required AuthorModel? author2,
   }){
     bool _identical = false;
 
@@ -1310,7 +1284,7 @@ class AuthorModel {
     else if (author1 == null || author2 == null){
       _identical = false;
     }
-    else if (author1 != null && author2 != null){
+    else {
 
       if (
 

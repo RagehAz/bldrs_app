@@ -28,7 +28,7 @@ class AccountModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static AccountModel decipher(Map<String, dynamic> map){
+  static AccountModel? decipher(Map<String, dynamic>? map){
     if(map == null){
       return null;
     }
@@ -46,10 +46,10 @@ class AccountModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkAccountsAreIdentical({
-    required AccountModel account1,
-    required AccountModel account2,
+    required AccountModel? account1,
+    required AccountModel? account2,
   }){
-    bool _identical;
+    bool _identical = false;
 
     if (account1 == null && account2 == null){
       _identical = true;
@@ -57,7 +57,7 @@ class AccountModel {
     else if (account1 == null || account2 == null){
       _identical = false;
     }
-    else if (account1 != null && account2 != null){
+    else {
 
       if (
           account1.id == account2.id &&

@@ -104,7 +104,7 @@ Future<void> onSubmitReview({
   required bool mounted,
 }) async {
 
-  final UserModel _user = UsersProvider.proGetMyUserModel(
+  final UserModel? _user = UsersProvider.proGetMyUserModel(
     context: context,
     listen: false,
   );
@@ -203,7 +203,7 @@ Future<void> onReviewAgree({
   required bool mounted,
 }) async {
 
-  final UserModel _user = UsersProvider.proGetMyUserModel(
+  final UserModel? _user = UsersProvider.proGetMyUserModel(
     context: getMainContext(),
     listen: false,
   );
@@ -393,7 +393,7 @@ Future<void> _onDeleteReview({
 
   if (reviewModel != null && bzID != null){
 
-    final UserModel _user = UsersProvider.proGetMyUserModel(
+    final UserModel? _user = UsersProvider.proGetMyUserModel(
       context: getMainContext(),
       listen: false,
     );
@@ -496,7 +496,7 @@ Future<void> onBzReply({
 
   if (reviewModel != null && bzID != null) {
 
-    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+    final UserModel? _myUserModel = UsersProvider.proGetMyUserModel(
       context: getMainContext(),
       listen: false,
     );
