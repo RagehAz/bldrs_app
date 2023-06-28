@@ -2,8 +2,6 @@ import 'dart:io';
 import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
-import 'package:devicer/devicer.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/foundation.dart';
 /// => TAMAM
 @immutable
@@ -16,10 +14,10 @@ class DeviceModel {
     required this.platform,
   });
   /// --------------------------------------------------------------------------
-  final String id;
-  final String name;
-  final String token;
-  final String platform;
+  final String? id;
+  final String? name;
+  final String? token;
+  final String? platform;
   // -----------------------------------------------------------------------------
 
   /// CYPHERS
@@ -36,8 +34,8 @@ class DeviceModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static DeviceModel decipherFCMToken(Map<String, dynamic> map) {
-    DeviceModel _device;
+  static DeviceModel? decipherFCMToken(Map<String, dynamic>? map) {
+    DeviceModel? _device;
 
     if (map != null) {
       _device = DeviceModel(
@@ -60,7 +58,7 @@ class DeviceModel {
 
     final String? deviceID = await DeviceChecker.getDeviceID();
     final String? deviceName = await DeviceChecker.getDeviceName();
-    final String deviceToken = await FCM.generateToken();
+    final String? deviceToken = await FCM.generateToken();
     final String devicePlatform = kIsWeb == true ? 'web' : Platform.operatingSystem;
 
     return DeviceModel(

@@ -103,7 +103,7 @@ class PDFProtocols {
 
   // --------------------
   /// TASK : TEST ME
-  static Future<PDFModel> fetch(String path) async {
+  static Future<PDFModel> fetch(String? path) async {
 
     PDFModel _pdfModel = await PDFLDBOps.read(path);
 

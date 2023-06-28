@@ -600,7 +600,7 @@ class UiProvider extends ChangeNotifier {
   }
   // --------------------
   ///
-  static Cacher proGetCacher({
+  static Cacher? proGetCacher({
     required bool listen,
     required String cacherID,
   }){

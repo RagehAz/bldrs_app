@@ -16,11 +16,11 @@ class ZonePhidsModel {
     required this.phidsMaps,
   });
   /// --------------------------------------------------------------------------
-  final String zoneID;
-  final List<MapModel> phidsMaps;
+  final String? zoneID;
+  final List<MapModel>? phidsMaps;
   // -----------------------------------------------------------------------------
 
-  /// CLONNING
+  /// CLONING
 
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -45,14 +45,13 @@ class ZonePhidsModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static ZonePhidsModel decipherZonePhids({
-    required Map<String, dynamic> map,
-    required String cityID,
+  static ZonePhidsModel? decipherZonePhids({
+    required Map<String, dynamic>? map,
+    required String? cityID,
   }){
+    ZonePhidsModel? _zonePhids;
 
-    ZonePhidsModel _zonePhids;
-
-    if (Map != null && cityID != null){
+    if (map != null && cityID != null){
       _zonePhids = ZonePhidsModel(
         zoneID: cityID,
         phidsMaps: MapModel.decipherMapModels(map),
@@ -82,7 +81,7 @@ class ZonePhidsModel {
 
         if (_specIsKeywordID == true){
 
-          final MapModel _existingMapWithThisKey = MapModel.getModelByKey(
+          final MapModel? _existingMapWithThisKey = MapModel.getModelByKey(
             models: _maps,
             key: spec.value,
           );
@@ -125,15 +124,15 @@ class ZonePhidsModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<MapModel> createPhidsMapModelsFromFlyerPhids({
-    required List<String> phids,
+    required List<String>? phids,
   }){
     List<MapModel> _maps = <MapModel>[];
 
     if (Mapper.checkCanLoopList(phids) == true){
 
-      for (final String phid in phids){
+      for (final String phid in phids!){
 
-        final MapModel _existingMapWithThisKey = MapModel.getModelByKey(
+        final MapModel? _existingMapWithThisKey = MapModel.getModelByKey(
           models: _maps,
           key: phid,
         );
@@ -172,10 +171,10 @@ class ZonePhidsModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static ZonePhidsModel createZonePhidModelFromFlyer({
-    required FlyerModel flyerModel,
+  static ZonePhidsModel? createZonePhidModelFromFlyer({
+    required FlyerModel? flyerModel,
   }){
-    ZonePhidsModel _zonePhids;
+    ZonePhidsModel? _zonePhids;
 
     if (flyerModel != null){
 
@@ -192,11 +191,11 @@ class ZonePhidsModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, int> createIncrementationMap({
+  static Map<String, dynamic>? createIncrementationMap({
     required List<String> removedPhids,
     required List<String> addedPhids,
   }){
-    Map<String, dynamic> _incrementationMap = {};
+    Map<String, dynamic>? _incrementationMap = {};
 
       /// ADD REMOVED SPECS WITH DECREMENT VALUES
     if (Mapper.checkCanLoopList(removedPhids) == true){
@@ -204,7 +203,7 @@ class ZonePhidsModel {
         _incrementationMap = Mapper.insertPairInMap(
           map: _incrementationMap,
           key: phidToRemove,
-          value: _incrementationMap[phidToRemove] == null ? -1 : _incrementationMap[phidToRemove] -1,
+          value: _incrementationMap![phidToRemove] == null ? -1 : _incrementationMap[phidToRemove] -1,
           overrideExisting: true,
         );
       }
@@ -216,7 +215,7 @@ class ZonePhidsModel {
         _incrementationMap = Mapper.insertPairInMap(
           map: _incrementationMap,
           key: phidToAdd,
-          value: _incrementationMap[phidToAdd] == null ? 1 : _incrementationMap[phidToAdd] +1,
+          value: _incrementationMap![phidToAdd] == null ? 1 : _incrementationMap[phidToAdd] +1,
           overrideExisting: true,
         );
       }
@@ -251,13 +250,13 @@ class ZonePhidsModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getPhidsFromZonePhidsModel({
-    required ZonePhidsModel zonePhidsModel,
+    required ZonePhidsModel? zonePhidsModel,
   }){
     List<String> _output = <String>[];
 
     if (zonePhidsModel != null){
-      final ZonePhidsModel _cleanedZonePhids = _cleanZeroValuesPhids(zonePhidsModel);
-      final List<dynamic> _values = MapModel.getKeysFromMapModels(_cleanedZonePhids.phidsMaps);
+      final ZonePhidsModel? _cleanedZonePhids = _cleanZeroValuesPhids(zonePhidsModel);
+      final List<dynamic> _values = MapModel.getKeysFromMapModels(_cleanedZonePhids?.phidsMaps);
       _output = Stringer.getStringsFromDynamics(dynamics: _values);
       _output.removeWhere((element) => element == 'id');
     }
@@ -286,7 +285,7 @@ class ZonePhidsModel {
 
           if (_isPhidK == true){
 
-            final FlyerType _flyerType = getFlyerTypeByPhid(
+            final FlyerType? _flyerType = getFlyerTypeByPhid(
               phid: phid,
               bldrsChains: bldrsChains,
             );
@@ -309,15 +308,15 @@ class ZonePhidsModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static FlyerType getFlyerTypeByPhid({
-    required String phid,
-    required List<Chain> bldrsChains,
+  static FlyerType? getFlyerTypeByPhid({
+    required String? phid,
+    required List<Chain>? bldrsChains,
   }){
-    FlyerType _output;
+    FlyerType? _output;
 
     if (phid != null && bldrsChains != null){
 
-      final String _rootChainID = Chain.getRootChainIDOfPhid(
+      final String? _rootChainID = Chain.getRootChainIDOfPhid(
           allChains: bldrsChains,
           phid: phid
       );
@@ -338,15 +337,15 @@ class ZonePhidsModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static ZonePhidsModel _cleanZeroValuesPhids(ZonePhidsModel zonePhids){
+  static ZonePhidsModel? _cleanZeroValuesPhids(ZonePhidsModel? zonePhids){
 
-    ZonePhidsModel _output;
+    ZonePhidsModel? _output;
 
-    if (zonePhids != null){
+    if (zonePhids != null && zonePhids.phidsMaps != null){
 
       final List<MapModel> _cleanedKeywords = <MapModel>[];
 
-      for (final MapModel mapModel in zonePhids.phidsMaps){
+      for (final MapModel mapModel in zonePhids.phidsMaps!){
 
         if (mapModel.value is int){
           /// ONLY GET USAGE VALUES BIGGER THAN 0
@@ -377,21 +376,21 @@ class ZonePhidsModel {
       zonePhidsModel: currentZonePhidsModel,
     );
 
-    final List<Chain> _refined = Chain.removeAllPhidsNotUsedInThisList(
+    final List<Chain>? _refined = Chain.removeAllPhidsNotUsedInThisList(
       chains: bldrsChains,
       usedPhids: _usedPhids,
     );
 
-    return _refined;
+    return _refined ?? [];
   }
   // --------------------
   /// TASK : TEST ME
-  static ZonePhidsModel combineModels({
-    required String zoneID,
-    required ZonePhidsModel base,
-    required ZonePhidsModel add,
+  static ZonePhidsModel? combineModels({
+    required String? zoneID,
+    required ZonePhidsModel? base,
+    required ZonePhidsModel? add,
   }){
-    ZonePhidsModel _output;
+    ZonePhidsModel? _output;
 
     if (zoneID != null){
 
@@ -404,9 +403,9 @@ class ZonePhidsModel {
 
         final List<MapModel> _combined = [];
 
-        for (final MapModel mapModel in add.phidsMaps){
+        for (final MapModel mapModel in add!.phidsMaps!){
 
-          final MapModel _existing = MapModel.getModelByKey(
+          final MapModel? _existing = MapModel.getModelByKey(
             models: _output.phidsMaps,
             key: mapModel.key,
           );
@@ -449,8 +448,8 @@ class ZonePhidsModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkZonePhidsAreIdentical({
-    required ZonePhidsModel model1,
-    required ZonePhidsModel model2,
+    required ZonePhidsModel? model1,
+    required ZonePhidsModel? model2,
   }){
     bool _identical = false;
 

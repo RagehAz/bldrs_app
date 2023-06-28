@@ -1,6 +1,5 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
@@ -14,7 +13,7 @@ class MapModel{
     required this.value,
   });
   /// --------------------------------------------------------------------------
-  final String key;
+  final String? key;
   final dynamic value;
   // -----------------------------------------------------------------------------
 
@@ -48,12 +47,12 @@ class MapModel{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> cipherMapModels(List<MapModel> maps){
+  static Map<String, dynamic> cipherMapModels(List<MapModel>? maps){
     Map<String, dynamic> _bigMap = {};
 
     if (Mapper.checkCanLoopList(maps) == true){
 
-      for (final MapModel map in maps){
+      for (final MapModel map in maps!){
 
         _bigMap = Mapper.insertPairInMap(
           map: _bigMap,
@@ -70,8 +69,8 @@ class MapModel{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static MapModel decipherMapModel(Map<String, dynamic> map){
-    MapModel model;
+  static MapModel? decipherMapModel(Map<String, dynamic>? map){
+    MapModel? model;
     if(map != null){
       model = MapModel(key: map['key'], value: map['value']);
     }
@@ -80,7 +79,7 @@ class MapModel{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<MapModel> decipherMapModels(Map<String, dynamic> bigMap, {
+  static List<MapModel> decipherMapModels(Map<String, dynamic>? bigMap, {
     bool loopingAlgorithm = true
   }){
 
@@ -130,15 +129,15 @@ class MapModel{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, int> cipherIntsMapModels(List<MapModel> maps){
+  static Map<String, int> cipherIntsMapModels(List<MapModel>? maps){
     final Map<String, int> _ints = {};
 
     if (Mapper.checkCanLoopList(maps) == true){
 
-      for (final MapModel map in maps){
+      for (final MapModel map in maps!){
 
         if (map.key != null && map.value != null && map.value is int){
-          _ints[map.key] = map.value;
+          _ints[map.key!] = map.value;
         }
 
       }
@@ -159,14 +158,19 @@ class MapModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogMapModels({
-    required List<MapModel> phidsMaps,
+    required List<MapModel>? phidsMaps,
     String invoker = 'MapModels',
   }){
     blog('$invoker ------------------------------------------- START');
-    for (int i = 0; i < phidsMaps.length; i++){
-      final int _num = i+1;
-      final MapModel _mapModel = phidsMaps[i];
-      blog('$_num : < ${_mapModel.key} : ${_mapModel.value} >');
+    if (Mapper.checkCanLoopList(phidsMaps) == true){
+      for (int i = 0; i < phidsMaps!.length; i++){
+        final int _num = i+1;
+        final MapModel _mapModel = phidsMaps[i];
+        blog('$_num : < ${_mapModel.key} : ${_mapModel.value} >');
+      }
+    }
+    else {
+      blog('phidsMaps is null or empty');
     }
     blog('$invoker ------------------------------------------- END');
   }
@@ -176,8 +180,8 @@ class MapModel{
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<MapModel> sortValuesAlphabetically(List<MapModel> mapModels){
-    mapModels.sort((MapModel a, MapModel b) => a?.value?.compareTo(b?.value));
+  static List<MapModel>? sortValuesAlphabetically(List<MapModel>? mapModels){
+    mapModels?.sort((MapModel a, MapModel b) => a.value?.compareTo(b.value));
     return mapModels;
   }
   // -----------------------------------------------------------------------------
@@ -186,18 +190,16 @@ class MapModel{
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<dynamic> getValuesFromMapModels(List<MapModel> mapModels){
+  static List<dynamic> getValuesFromMapModels(List<MapModel>? mapModels){
     final List<dynamic> _values = <dynamic>[];
 
     if (Mapper.checkCanLoopList(mapModels) == true){
 
-      for (final MapModel mm in mapModels){
+      for (final MapModel mm in mapModels!){
 
-        if (mm != null){
-          if (mm?.value != null){
+          if (mm.value != null){
             _values.add(mm.value);
           }
-        }
 
       }
 
@@ -207,17 +209,17 @@ class MapModel{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> getKeysFromMapModels(List<MapModel> mapModels){
+  static List<String> getKeysFromMapModels(List<MapModel>? mapModels){
     final List<String> _values = <String>[];
 
     if (Mapper.checkCanLoopList(mapModels) == true){
-      for (final MapModel mm in mapModels){
+      for (final MapModel mm in mapModels!){
 
-        if (mm != null){
-          if (mm?.key != null){
-            _values.add(mm.key);
+        final String? _key = mm.key;
+
+          if (_key != null){
+            _values.add(_key);
           }
-        }
 
       }
     }
@@ -228,7 +230,7 @@ class MapModel{
   /// TESTED : WORKS PERFECT
   static MapModel? getModelByKey({
     required List<MapModel>? models,
-    required String key,
+    required String? key,
   }){
     MapModel? _model;
 
@@ -241,8 +243,8 @@ class MapModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<MapModel> getModelsByKeys({
-    required List<MapModel> allModels,
-    required List<String> keys,
+    required List<MapModel>? allModels,
+    required List<String>? keys,
   }){
     final List<MapModel> _output = <MapModel>[];
 
@@ -251,14 +253,16 @@ class MapModel{
         Mapper.checkCanLoopList(keys) == true
     ){
 
-      for (final String key in keys){
+      for (final String key in keys!){
 
-        final MapModel _model = getModelByKey(
+        final MapModel? _model = getModelByKey(
             models: allModels,
             key: key
         );
 
-        _output.add(_model);
+        if (_model != null){
+          _output.add(_model);
+        }
 
       }
 
@@ -273,15 +277,15 @@ class MapModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<MapModel> replaceMapModel({
-    required List<MapModel> mapModels,
-    required MapModel mapModel,
+    required List<MapModel>? mapModels,
+    required MapModel? mapModel,
   }){
 
     final List<MapModel> _output = mapModels ?? <MapModel>[];
 
     if (Mapper.checkCanLoopList(mapModels) && mapModel != null){
 
-      final int _index = mapModels.indexWhere((m) => m.key == mapModel.key);
+      final int _index = mapModels!.indexWhere((m) => m.key == mapModel.key);
 
       if (_index != -1){
         mapModels.removeAt(_index);
@@ -295,9 +299,9 @@ class MapModel{
   // --------------------
   /// TASK : TEST ME
   static List<MapModel> insertMapModel({
-    required List<MapModel> mapModels,
-    required MapModel mapModel,
-    bool replaceExistingID,
+    required List<MapModel>? mapModels,
+    required MapModel? mapModel,
+    bool replaceExistingID = true,
   }){
 
     List<MapModel> _output = mapModels ?? <MapModel>[];
@@ -329,8 +333,8 @@ class MapModel{
   // --------------------
   /// TASK : TEST ME
   static List<MapModel> removeMapModel({
-    required List<MapModel> mapModels,
-    required String key,
+    required List<MapModel>? mapModels,
+    required String? key,
   }){
 
     final List<MapModel> _output = mapModels ?? <MapModel>[];
@@ -350,7 +354,7 @@ class MapModel{
   // --------------------
   /// TASK : TEST ME
   static List<MapModel> removeMapsWithThisValue({
-    required List<MapModel> mapModels,
+    required List<MapModel>? mapModels,
     required dynamic value,
   }){
     final List<MapModel> _output = mapModels ?? <MapModel>[];
@@ -368,15 +372,15 @@ class MapModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkMapExists({
-    required List<MapModel> mapModels,
-    required MapModel mapModel,
+    required List<MapModel>? mapModels,
+    required MapModel? mapModel,
   }){
 
     bool _exists = false;
 
     if (Mapper.checkCanLoopList(mapModels) && mapModel != null){
 
-      final MapModel _found = getModelByKey(
+      final MapModel? _found = getModelByKey(
         models: mapModels,
         key: mapModel.key,
       );
@@ -415,15 +419,15 @@ class MapModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkMapModelsListsAreIdentical({
-    required List<MapModel> models1,
-    required List<MapModel> models2,
+    required List<MapModel>? models1,
+    required List<MapModel>? models2,
   }){
     bool _output = false;
 
     if (models1 == null && models2 == null){
       _output = true;
     }
-    else if (models1.isEmpty && models2.isEmpty){
+    else if (models1 != null && models1.isEmpty && models2 != null && models2.isEmpty){
       _output = true;
     }
     else if (models1 != null && models2 != null){

@@ -56,38 +56,38 @@ class DraftBz {
     required this.firstTimer,
   });
   // -----------------------------------------------------------------------------
-  final String id;
-  final DateTime createdAt;
-  final BzAccountType accountType;
-  final TextEditingController nameController;
-  final List<String> trigram;
-  final ZoneModel zone;
-  final TextEditingController aboutController;
-  final GeoPoint position;
-  final List<ContactModel> contacts;
-  final List<AuthorModel> authors;
-  final List<PendingAuthor> pendingAuthors;
-  final bool showsTeam;
-  final bool isVerified;
-  final BzState bzState;
-  final List<String> flyersIDs;
-  final BzSection bzSection;
-  final List<BzType> bzTypes;
-  final List<BzType> inactiveBzTypes;
-  final BzForm bzForm;
-  final List<BzForm> inactiveBzForms;
-  final List<String> scope;
-  final PicModel logoPicModel;
-  final bool hasNewLogo;
-  final bool canPickImage;
-  final FocusNode nameNode;
-  final FocusNode aboutNode;
-  final FocusNode emailNode;
-  final FocusNode websiteNode;
-  final FocusNode phoneNode;
-  final bool canValidate;
-  final GlobalKey<FormState> formKey;
-  final bool firstTimer;
+  final String? id;
+  final DateTime? createdAt;
+  final BzAccountType? accountType;
+  final TextEditingController? nameController;
+  final List<String>? trigram;
+  final ZoneModel? zone;
+  final TextEditingController? aboutController;
+  final GeoPoint? position;
+  final List<ContactModel>? contacts;
+  final List<AuthorModel>? authors;
+  final List<PendingAuthor>? pendingAuthors;
+  final bool? showsTeam;
+  final bool? isVerified;
+  final BzState? bzState;
+  final List<String>? flyersIDs;
+  final BzSection? bzSection;
+  final List<BzType>? bzTypes;
+  final List<BzType>? inactiveBzTypes;
+  final BzForm? bzForm;
+  final List<BzForm>? inactiveBzForms;
+  final List<String>? scope;
+  final PicModel? logoPicModel;
+  final bool? hasNewLogo;
+  final bool? canPickImage;
+  final FocusNode? nameNode;
+  final FocusNode? aboutNode;
+  final FocusNode? emailNode;
+  final FocusNode? websiteNode;
+  final FocusNode? phoneNode;
+  final bool? canValidate;
+  final GlobalKey<FormState>? formKey;
+  final bool? firstTimer;
   // -----------------------------------------------------------------------------
 
   /// CREATION
@@ -95,10 +95,10 @@ class DraftBz {
   // -------------------
   /// TESTED : WORKS PERFECT
   static Future<DraftBz> createDraftBz({
-    required BzModel oldBz,
+    required BzModel? oldBz,
   }) async {
 
-    DraftBz _output;
+    DraftBz? _output;
 
     /// FIRST TIMER
     if (oldBz == null){
@@ -130,7 +130,7 @@ class DraftBz {
     assert(creatorUser != null, 'Creator user can not be null');
 
     final List<ContactModel> _contacts = ContactModel.prepareContactsForEditing(
-      countryID: creatorUser.zone?.countryID,
+      countryID: creatorUser!.zone?.countryID,
       contacts: <ContactModel>[
         ContactModel(
           type: ContactType.email,
@@ -150,11 +150,13 @@ class DraftBz {
     );
 
 
-    final AuthorModel _author = await AuthorModel.createAuthorFromUserModel(
+    final AuthorModel? _author = await AuthorModel.createAuthorFromUserModel(
       userModel: creatorUser,
       isCreator: true,
       bzID: null,
     );
+
+    assert(_author != null, 'Author can not be null');
 
     return DraftBz(
       id: 'newDraft',
@@ -166,7 +168,7 @@ class DraftBz {
       aboutController: TextEditingController(),
       position: null,
       contacts: _contacts,
-      authors: <AuthorModel>[_author],
+      authors: <AuthorModel>[_author!],
       pendingAuthors: const [],
       showsTeam: true,
       isVerified: false,
@@ -201,10 +203,7 @@ class DraftBz {
     required BzModel bzModel,
   }) async {
 
-    assert(bzModel != null, 'BzModel can not be null here');
-
-
-    final BzSection _bzSection = BzTyper.concludeBzSectionByBzTypes(bzModel.bzTypes);
+    final BzSection? _bzSection = BzTyper.concludeBzSectionByBzTypes(bzModel.bzTypes);
     blog('bzModel.bzTypes : ${bzModel.bzTypes} : _bzSection : $_bzSection');
 
     return DraftBz(
@@ -277,8 +276,6 @@ class DraftBz {
   /// TESTED : WORKS PERFECT
   static BzModel toBzModel(DraftBz draft){
 
-    assert(draft != null, 'Draft can not be null');
-
     return BzModel(
       /// WILL BE OVERRIDDEN
       id: draft.id,
@@ -287,16 +284,16 @@ class DraftBz {
       /// MIGHT HAVE CHANGED
       bzTypes: draft.bzTypes,
       bzForm: draft.bzForm,
-      name: draft.nameController.text,
-      trigram: Stringer.createTrigram(input: draft.nameController.text),
-      logoPath: draft.logoPicModel.path,
+      name: draft.nameController?.text,
+      trigram: Stringer.createTrigram(input: draft.nameController?.text),
+      logoPath: draft.logoPicModel?.path,
       scope: draft.scope,
       zone: draft.zone,
-      about: draft.aboutController.text,
+      about: draft.aboutController?.text,
       position: draft.position,
       contacts: ContactModel.bakeContactsAfterEditing(
         contacts: draft.contacts,
-        countryID: draft.zone.countryID,
+        countryID: draft.zone?.countryID,
       ),
 
       /// NEVER CHANGED IN BZ EDITOR
@@ -314,16 +311,16 @@ class DraftBz {
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toLDB(){
 
-    blog("map['name'] iss  should be ${nameController.text}");
+    blog("map['name'] iss  should be ${nameController?.text}");
 
     return {
       'id': id,
       'createdAt': Timers.cipherTime(time: createdAt, toJSON: true),
       'accountType': BzTyper.cipherBzAccountType(accountType),
-      'name': nameController.text,
+      'name': nameController?.text,
       'trigram': trigram,
       'zone': zone?.toMap(),
-      'about': aboutController.text,
+      'about': aboutController?.text,
       'position': Atlas.cipherGeoPoint(point: position, toJSON: true),
       'contacts': ContactModel.cipherContacts(contacts),
       'authors': AuthorModel.cipherAuthors(authors),
@@ -360,7 +357,7 @@ class DraftBz {
   }){
 
     final List<BzType> _bzTypes = BzTyper.decipherBzTypes(map['bzTypes']);
-    final BzSection _bzSection = BzTyper.decipherBzSection(map['bzSection']);
+    final BzSection? _bzSection = BzTyper.decipherBzSection(map['bzSection']);
     final List<String> _scope = Stringer.getStringsFromDynamics(dynamics: map['scope']);
 
     blog("map['name'] should be ${map['name']}");
@@ -557,11 +554,11 @@ class DraftBz {
   // -------------------
   /// TESTED : WORKS PERFECT
   void disposeDraftBzFocusNodes(){
-    nameNode.dispose();
-    aboutNode.dispose();
-    emailNode.dispose();
-    websiteNode.dispose();
-    phoneNode.dispose();
+    nameNode?.dispose();
+    aboutNode?.dispose();
+    emailNode?.dispose();
+    websiteNode?.dispose();
+    phoneNode?.dispose();
   }
   // -----------------------------------------------------------------------------
 
@@ -569,20 +566,20 @@ class DraftBz {
 
   // -------------------
   /// TESTED : WORKS PERFECT
-  static DraftBz overrideBzID({
-    required DraftBz draft,
-    required String bzID,
+  static DraftBz? overrideBzID({
+    required DraftBz? draft,
+    required String? bzID,
   }){
-    DraftBz _output;
+    DraftBz? _output;
 
     if (draft != null && bzID != null){
 
-      final List<AuthorModel> _authors = AuthorModel.overrideAuthorsBzID(
+      final List<AuthorModel>? _authors = AuthorModel.overrideAuthorsBzID(
         authors: draft.authors,
         bzID: bzID,
       );
 
-      final PicModel _picModel = draft.logoPicModel?.copyWith(
+      final PicModel? _picModel = draft.logoPicModel?.copyWith(
         path: StoragePath.bzz_bzID_logo(bzID),
       );
 
@@ -602,9 +599,9 @@ class DraftBz {
 
   // -------------------
   /// TESTED : WORKS PERFECT
-  String getLogoPath(){
+  String? getLogoPath(){
 
-    if (firstTimer == true){
+    if (firstTimer != null && firstTimer! == true){
       return null;
     }
     else {
@@ -615,8 +612,13 @@ class DraftBz {
   // -------------------
   /// TESTED : WORKS PERFECT
   List<String> getLogoOwners(){
-    final AuthorModel _author = AuthorModel.getCreatorAuthorFromAuthors(authors);
-    return <String>[_author?.userID];
+    final AuthorModel? _author = AuthorModel.getCreatorAuthorFromAuthors(authors);
+    if (_author?.userID == null){
+      return <String>[];
+    }
+    else {
+      return <String>[_author!.userID!];
+    }
   }
   // -----------------------------------------------------------------------------
 
@@ -671,8 +673,8 @@ class DraftBz {
   // -------------------
   /// TESTED : WORKS PERFECT
   static bool checkDraftsAreIdentical({
-    required DraftBz draft1,
-    required DraftBz draft2,
+    required DraftBz? draft1,
+    required DraftBz? draft2,
   }){
     bool _areIdentical = false;
 
@@ -686,10 +688,10 @@ class DraftBz {
       draft1.id == draft2.id &&
           Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: draft1.createdAt, time2: draft2.createdAt) == true &&
           draft1.accountType == draft2.accountType &&
-          draft1.nameController.text   == draft2.nameController.text &&
+          draft1.nameController?.text   == draft2.nameController?.text &&
           Mapper.checkListsAreIdentical(list1: draft1.trigram, list2: draft2.trigram) == true &&
           ZoneModel.checkZonesAreIdentical(zone1: draft1.zone, zone2: draft2.zone) == true &&
-          draft1.aboutController.text == draft2.aboutController.text &&
+          draft1.aboutController?.text == draft2.aboutController?.text &&
           Atlas.checkPointsAreIdentical(point1: draft1.position, point2: draft2.position) &&
           ContactModel.checkContactsListsAreIdentical(contacts1: draft1.contacts, contacts2: draft2.contacts) == true &&
           AuthorModel.checkAuthorsListsAreIdentical(authors1: draft1.authors, authors2: draft2.authors) == true &&

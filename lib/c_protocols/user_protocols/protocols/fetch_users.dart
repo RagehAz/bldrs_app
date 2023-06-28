@@ -18,9 +18,9 @@ class FetchUserProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<UserModel> fetchUser({
+  static Future<UserModel?> fetchUser({
     required BuildContext context,
-    required String userID
+    required String? userID
   }) async {
 
     /// 1 - GET USER FROM LDB

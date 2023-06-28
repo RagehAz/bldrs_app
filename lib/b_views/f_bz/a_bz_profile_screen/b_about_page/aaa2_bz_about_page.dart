@@ -34,7 +34,7 @@ class BzAboutPage extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final BzModel bzModel;
+  final BzModel? bzModel;
   final bool showGallery;
   final bool showContacts;
   final bool showAuthors;

@@ -742,8 +742,8 @@ class ChainsProvider extends ChangeNotifier {
 
   // -----------------------------------------------------------------------------o
   /// TESTED : WORKS PERFECT
-  Chain findChainByID({
-    required String chainID,
+  Chain? findChainByID({
+    required String? chainID,
     bool onlyUseZoneChains = false,
   }){
 
@@ -761,8 +761,8 @@ class ChainsProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Chain proFindChainByID({
-    required String chainID,
+  static Chain? proFindChainByID({
+    required String? chainID,
     bool onlyUseZoneChains = false,
   }){
 

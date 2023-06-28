@@ -86,7 +86,7 @@ class _BzTeamPageState extends State<BzTeamPage> {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+    final BzModel? _bzModel = BzzProvider.proGetActiveBzModel(
       context: context,
       listen: true,
     );

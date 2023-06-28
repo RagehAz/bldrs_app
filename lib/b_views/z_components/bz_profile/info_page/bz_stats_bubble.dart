@@ -29,7 +29,7 @@ class BzStatsBubble extends StatefulWidget {
 class _BzStatsBubbleState extends State<BzStatsBubble> {
   // -----------------------------------------------------------------------------
   final ValueNotifier<BzCounterModel> _bzCounter = ValueNotifier<BzCounterModel>(null);
-  BzModel _bzModel;
+  BzModel? _bzModel;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);

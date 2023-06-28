@@ -18,7 +18,6 @@ import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
@@ -100,10 +99,10 @@ class DraftFlyer{
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<DraftFlyer> createDraft({
-    required FlyerModel oldFlyer,
+  static Future<DraftFlyer?> createDraft({
+    required FlyerModel? oldFlyer,
   }) async {
-    DraftFlyer _draft;
+    DraftFlyer? _draft;
 
     if (oldFlyer == null){
       _draft = await _createNewDraft();
@@ -121,7 +120,7 @@ class DraftFlyer{
   /// TESTED : WORKS PERFECT
   static Future<DraftFlyer?> _createNewDraft() async {
 
-    final BzModel bzModel = BzzProvider.proGetActiveBzModel(
+    final BzModel? bzModel = BzzProvider.proGetActiveBzModel(
       context: getMainContext(),
       listen: false,
     );
@@ -131,6 +130,9 @@ class DraftFlyer{
     }
 
     else {
+
+      final bool _bzIsVerified = bzModel.isVerified != null && bzModel.isVerified! == true;
+
       return DraftFlyer(
         bzModel: bzModel,
         id: newDraftID,
@@ -141,7 +143,7 @@ class DraftFlyer{
         descriptionNode: FocusNode(),
         flyerType: getPossibleFlyerType(bzModel),
         publishState: PublishState.draft,
-        auditState: bzModel?.isVerified == true ? AuditState.verified : AuditState.pending,
+        auditState: _bzIsVerified == true ? AuditState.verified : AuditState.pending,
         phids: const <String>[],
         showsAuthor: FlyerModel.canShowFlyerAuthor(
           bzModel: bzModel,
@@ -170,12 +172,13 @@ class DraftFlyer{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static FlyerType getPossibleFlyerType(BzModel bzModel) {
+  static FlyerType? getPossibleFlyerType(BzModel? bzModel) {
+
     final List<FlyerType> _possibleFlyerType = FlyerTyper.concludePossibleFlyerTypesByBzTypes(
-      bzTypes: bzModel.bzTypes,
+      bzTypes: bzModel?.bzTypes,
     );
 
-    final FlyerType _flyerType = _possibleFlyerType.length == 1 ?
+    final FlyerType? _flyerType = _possibleFlyerType.length == 1 ?
     _possibleFlyerType.first
         :
     null;
@@ -188,8 +191,8 @@ class DraftFlyer{
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<DraftFlyer> _createDraftFromFlyer({
-    required FlyerModel flyer,
+  static Future<DraftFlyer?> _createDraftFromFlyer({
+    required FlyerModel? flyer,
   }) async {
 
     if (flyer == null) {
@@ -241,11 +244,9 @@ class DraftFlyer{
     bool isPublishing = false,
   }) async {
 
-    assert(draft != null, 'Draft is null');
-
     final List<PublishTime> _publishTimes = <PublishTime>[];
     if (Mapper.checkCanLoopList(draft.times) == true){
-      _publishTimes.addAll(draft.times);
+      _publishTimes.addAll(draft.times!);
     }
     if (isPublishing == true){
       _publishTimes.add(PublishTime(
@@ -254,7 +255,7 @@ class DraftFlyer{
       ));
     }
 
-    final AuditState _auditState =
+    final AuditState? _auditState =
     draft.auditState == AuditState.verified ? AuditState.verified
         :
     isPublishing == true ? AuditState.pending
@@ -263,9 +264,9 @@ class DraftFlyer{
 
     final FlyerModel _output = FlyerModel(
       id: draft.id,
-      headline: draft.headline.text,
-      trigram: Stringer.createTrigram(input: draft.headline.text),
-      description: draft.description.text,
+      headline: draft.headline?.text,
+      trigram: Stringer.createTrigram(input: draft.headline?.text),
+      description: draft.description?.text,
       flyerType: draft.flyerType,
       publishState: isPublishing == true ? PublishState.published : draft.publishState,
       auditState: _auditState,
@@ -307,8 +308,8 @@ class DraftFlyer{
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> draftToLDB(DraftFlyer draft){
-    Map<String, dynamic> _map;
+  static Map<String, dynamic>? draftToLDB(DraftFlyer? draft){
+    Map<String, dynamic>? _map;
 
     if (draft != null){
       _map = {
@@ -333,7 +334,7 @@ class DraftFlyer{
         'hasPDF': draft.pdfModel != null,
         'score' : draft.score,
         'pdfModel': draft.pdfModel?.toMap(includeBytes: true),
-        'bzModel': draft.bzModel.toMap(toJSON: true),
+        'bzModel': draft.bzModel?.toMap(toJSON: true),
         'canPickImage': draft.canPickImage,
         'firstTimer': draft.firstTimer,
         'headlineNode': null,
@@ -348,8 +349,8 @@ class DraftFlyer{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static DraftFlyer draftFromLDB(Map<String, dynamic> map){
-    DraftFlyer _draft;
+  static DraftFlyer? draftFromLDB(Map<String, dynamic>? map){
+    DraftFlyer? _draft;
 
     if (map != null){
       _draft = DraftFlyer(
@@ -399,7 +400,7 @@ class DraftFlyer{
     TextEditingController? headline,
     List<String>? trigram,
     FocusNode? headlineNode,
-    String? description,
+    TextEditingController? description,
     FocusNode? descriptionNode,
     FlyerType? flyerType,
     PublishState? publishState,
@@ -533,10 +534,10 @@ class DraftFlyer{
   // --------------------
   /// TESTED : WORKS PERFECT
   void dispose(){
-    headline.dispose();
-    headlineNode.dispose();
-    descriptionNode.dispose();
-    description.dispose();
+    headline?.dispose();
+    headlineNode?.dispose();
+    descriptionNode?.dispose();
+    description?.dispose();
   }
   // -----------------------------------------------------------------------------
 
@@ -544,38 +545,34 @@ class DraftFlyer{
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String _generateStateTimeString({
-    required BuildContext context,
-    required PublishTime publishTime,
+  static String? _generateStateTimeString({
+    required PublishTime? publishTime,
   }){
 
-    final String _timeString = BldrsTimers.generateString_hh_i_mm_ampm_day_dd_month_yyyy(
-      context: context,
+    final String? _timeString = BldrsTimers.generateString_hh_i_mm_ampm_day_dd_month_yyyy(
       time: publishTime?.time,
     );
-    final String _stateString = FlyerModel.getPublishStatePhid(publishTime?.state);
+    final String? _stateString = FlyerModel.getPublishStatePhid(publishTime?.state);
 
     return '$_stateString @ $_timeString';
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static String generateShelfTitle({
-    required BuildContext context,
     required PublishState publishState,
     required List<PublishTime> times,
     required int shelfNumber,
   }){
 
-    final PublishTime _publishTime = PublishTime.getPublishTimeFromTimes(
+    final PublishTime? _publishTime = PublishTime.getPublishTimeFromTimes(
       state: publishState,
       times: times,
     );
 
-    final String _stateTimeString = _publishTime == null ?
+    final String? _stateTimeString = _publishTime == null ?
     ''
         :
     _generateStateTimeString(
-      context: context,
       publishTime: _publishTime,
     );
 
@@ -589,20 +586,20 @@ class DraftFlyer{
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static DraftFlyer updateHeadline({
+  static DraftFlyer? updateHeadline({
     required String newHeadline,
-    required DraftFlyer draft,
+    required DraftFlyer? draft,
     required int slideIndex,
   }){
 
-    DraftFlyer _draft = draft;
+    DraftFlyer? _draft = draft;
 
     if (draft != null){
 
       if (Mapper.checkCanLoopList(draft.draftSlides) == true){
 
         /// UPDATE HEADLINE IN SLIDE
-        final DraftSlide _newSlide = draft.draftSlides[slideIndex].copyWith(
+        final DraftSlide _newSlide = draft.draftSlides![slideIndex].copyWith(
           headline: newHeadline,
         );
 
@@ -613,7 +610,7 @@ class DraftFlyer{
         );
 
         /// UPDATE SLIDES IN DRAFT
-        _draft = _draft.copyWith(
+        _draft = _draft?.copyWith(
           draftSlides: _newSlides,
         );
 
@@ -631,14 +628,13 @@ class DraftFlyer{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static DraftFlyer overrideFlyerID({
-    required DraftFlyer draft,
-    required String flyerID,
+  static DraftFlyer? overrideFlyerID({
+    required DraftFlyer? draft,
+    required String? flyerID,
   }){
-    DraftFlyer _output;
+    DraftFlyer? _output;
 
     if (draft != null && flyerID != null){
-
 
       _output = draft.copyWith(
         id: flyerID,
@@ -661,21 +657,23 @@ class DraftFlyer{
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getFirstSlideHeadline(DraftFlyer draft){
+  static String? getFirstSlideHeadline(DraftFlyer? draft){
     return Mapper.checkCanLoopList(draft?.draftSlides) == true ?
-    draft.draftSlides[0].headline
+    draft!.draftSlides![0].headline
         :
     null;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<PicModel> getPics(DraftFlyer draft){
+  static List<PicModel> getPics(DraftFlyer? draft){
     final List<PicModel> _output = [];
 
-    if (Mapper.checkCanLoopList(draft.draftSlides) == true){
+    if (Mapper.checkCanLoopList(draft?.draftSlides) == true){
 
-      for (final DraftSlide _slide in draft.draftSlides){
-        _output.add(_slide.picModel);
+      for (final DraftSlide _slide in draft!.draftSlides!){
+        if (_slide.picModel != null){
+          _output.add(_slide.picModel!);
+        }
       }
 
     }
@@ -702,7 +700,7 @@ class DraftFlyer{
       blog('auditState : auditState');
       blog('keywordsIDs : $phids');
       blog('showsAuthor : $showsAuthor');
-      zone.blogZone();
+      zone?.blogZone();
       blog('authorID : $authorID');
       blog('bzID : $bzID');
       blog('position : $position');
@@ -712,7 +710,7 @@ class DraftFlyer{
       blog('score : $score');
       PublishTime.blogTimes(times);
       SpecModel.blogSpecs(specs);
-      blog('draftSlides : ${draftSlides.length} slides');
+      blog('draftSlides : ${draftSlides?.length} slides');
       blog('affiliateLink : $affiliateLink');
       blog('gtaLink : $gtaLink');
       DraftSlide.blogSlides(
@@ -727,8 +725,8 @@ class DraftFlyer{
   // --------------------
   /// TESTED : WORKS PERFECT
   static void _blogDraftsDifferences({
-    required DraftFlyer draft1,
-    required DraftFlyer draft2,
+    required DraftFlyer? draft1,
+    required DraftFlyer? draft2,
   }){
 
     blog('_blogDraftsDifferences : ------------------------ START');
@@ -828,7 +826,7 @@ class DraftFlyer{
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkCanPublishDraft({
-    required DraftFlyer draft,
+    required DraftFlyer? draft,
     required TextEditingController headlineController,
   }){
     bool _canPublish = false;
@@ -836,7 +834,9 @@ class DraftFlyer{
     if (draft != null){
 
       if (
-          draft.draftSlides.isNotEmpty == true
+          draft.draftSlides != null
+          &&
+          draft.draftSlides!.isNotEmpty == true
           &&
           headlineController.text.length >= Standards.flyerHeadlineMinLength
       ){
@@ -850,20 +850,20 @@ class DraftFlyer{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkCanAddMoreSlides(DraftFlyer draft) {
+  static bool checkCanAddMoreSlides(DraftFlyer? draft) {
     bool _canAddMoreSlides = false;
 
     if (draft != null){
 
       /// FIRST TIMER
-      if (draft.firstTimer == true){
+      if (draft.firstTimer != null && draft.firstTimer! == true){
         _canAddMoreSlides = true;
       }
 
       /// UPDATING FLYER
       else {
 
-        final PublishTime _publishTime = PublishTime.getPublishTimeFromTimes(
+        final PublishTime? _publishTime = PublishTime.getPublishTimeFromTimes(
           times: draft.times,
           state: PublishState.published,
         );
@@ -890,16 +890,16 @@ class DraftFlyer{
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> checkPosterHasChanged({
-    required DraftFlyer draft,
-    required FlyerModel oldFlyer,
+    required DraftFlyer? draft,
+    required FlyerModel? oldFlyer,
   }) async {
     bool _hasChanged = false;
 
-    if (draft.draftSlides.length != oldFlyer.slides.length){
+    if (draft?.draftSlides?.length != oldFlyer?.slides?.length){
       _hasChanged = true;
     }
 
-    else if (draft.headline.text != oldFlyer.headline){
+    else if (draft?.headline?.text != oldFlyer?.headline){
       _hasChanged = true;
     }
 
@@ -927,8 +927,8 @@ class DraftFlyer{
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkDraftsAreIdentical({
-    required DraftFlyer draft1,
-    required DraftFlyer draft2,
+    required DraftFlyer? draft1,
+    required DraftFlyer? draft2,
   }){
     bool _areIdentical = false;
 
@@ -938,7 +938,7 @@ class DraftFlyer{
     else if (draft1 == null || draft2 == null){
       _areIdentical = false;
     }
-    else if (draft1 != null && draft2 != null){
+    else {
 
       if (
           draft1.id == draft2.id &&

@@ -219,11 +219,11 @@ class BzModel{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static BzModel decipherBz({
+  static BzModel? decipherBz({
     required dynamic map,
     required bool fromJSON,
   }) {
-    BzModel _bzModel;
+    BzModel? _bzModel;
 
     if (map != null) {
       _bzModel = BzModel(
@@ -258,7 +258,7 @@ class BzModel{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static BzModel decipherBzPositioned(Map<String, dynamic> map) {
+  static BzModel? decipherBzPositioned(Map<String, dynamic>? map) {
 
     return BzModel.decipherBz(
       map: map,
@@ -269,16 +269,22 @@ class BzModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<BzModel> decipherBzz({
-    required List<Map<String, dynamic>> maps,
+    required List<Map<String, dynamic>>? maps,
     required bool fromJSON,
   }) {
     final List<BzModel> _bzList = <BzModel>[];
 
-    for (final Map<String, dynamic> map in maps) {
-      _bzList.add(decipherBz(
-        map: map,
-        fromJSON: fromJSON,
-      ));
+    if (Mapper.checkCanLoopList(maps) == true){
+      for (final Map<String, dynamic> map in maps!) {
+        final BzModel? _bz = decipherBz(
+          map: map,
+          fromJSON: fromJSON,
+        );
+
+        if (_bz != null) {
+          _bzList.add(_bz);
+        }
+      }
     }
 
     return _bzList;
@@ -341,15 +347,15 @@ class BzModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<BzModel> addOrRemoveBzToBzz({
-    required List<BzModel> bzzModels,
-    required BzModel bzModel,
+    required List<BzModel>? bzzModels,
+    required BzModel? bzModel,
   }){
     final List<BzModel> _output = <BzModel>[];
 
     if (bzModel != null){
 
       if (Mapper.checkCanLoopList(bzzModels) == true){
-        _output.addAll(bzzModels);
+        _output.addAll(bzzModels!);
       }
 
       final bool _alreadySelected = checkBzzContainThisBz(
@@ -374,37 +380,42 @@ class BzModel{
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static BzModel removeFlyerIDFromBzAndAuthor({
-    required BzModel oldBz,
-    required FlyerModel flyer,
+  static BzModel? removeFlyerIDFromBzAndAuthor({
+    required BzModel? oldBz,
+    required FlyerModel? flyer,
   }){
+    BzModel? _newBz = oldBz;
 
-    final List<String> _bzFlyersIDs = Stringer.removeStringsFromStrings(
-      removeFrom: oldBz.flyersIDs,
-      removeThis: <String>[flyer.id],
-    );
+    if (flyer?.id != null && oldBz != null) {
 
-    final List<AuthorModel> _newAuthors = AuthorModel.removeFlyerIDFromAuthor(
-      flyerID: flyer.id,
-      authorID: flyer.authorID,
-      oldAuthors: oldBz.authors,
-    );
+      final List<String> _bzFlyersIDs = Stringer.removeStringsFromStrings(
+        removeFrom: oldBz.flyersIDs,
+        removeThis: <String>[flyer!.id!],
+      );
 
-    final BzModel _newBz = oldBz.copyWith(
-      flyersIDs: _bzFlyersIDs,
-      authors: _newAuthors,
-    );
+      final List<AuthorModel>? _newAuthors = AuthorModel.removeFlyerIDFromAuthor(
+        flyerID: flyer.id,
+        authorID: flyer.authorID,
+        oldAuthors: oldBz.authors,
+      );
+
+      _newBz = oldBz.copyWith(
+        flyersIDs: _bzFlyersIDs,
+        authors: _newAuthors,
+      );
+
+    }
 
     return _newBz;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static BzModel replaceAuthor({
-    required AuthorModel newAuthor,
-    required BzModel oldBz,
+  static BzModel? replaceAuthor({
+    required AuthorModel? newAuthor,
+    required BzModel? oldBz,
   }){
 
-    BzModel _newBz = oldBz;
+    BzModel? _newBz = oldBz;
 
     if (newAuthor != null && oldBz != null){
 
@@ -422,19 +433,19 @@ class BzModel{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static BzModel removeAuthor({
-    required BzModel oldBz,
-    required String authorID,
+  static BzModel? removeAuthor({
+    required BzModel? oldBz,
+    required String? authorID,
   }){
-    BzModel _newBz;
+    BzModel? _newBz = oldBz;
 
     // blog('removeAuthor : remove ($authorID) from (${AuthorModel.getAuthorsIDsFromAuthors(authors: bzModel.authors)})');
 
     if (oldBz != null && authorID != null){
 
-      final List<AuthorModel> _authors = oldBz.authors;
+      final List<AuthorModel>? _authors = oldBz.authors;
 
-      final List<AuthorModel> _updated = AuthorModel.removeAuthorFromAuthors(
+      final List<AuthorModel>? _updated = AuthorModel.removeAuthorFromAuthors(
         authors: _authors,
         authorIDToRemove: authorID,
       );
@@ -451,20 +462,26 @@ class BzModel{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<BzModel> addNewUserAsAuthor({
-    required BzModel oldBz,
-    required UserModel newUser,
+  static Future<BzModel?> addNewUserAsAuthor({
+    required BzModel? oldBz,
+    required UserModel? newUser,
   }) async {
 
-    final List<AuthorModel> _newAuthors = await AuthorModel.addNewUserToAuthors(
-      authors: oldBz.authors,
-      bzID: oldBz.id,
-      newUser: newUser,
-    );
+    BzModel? _newBz = oldBz;
 
-    final BzModel _newBz = oldBz.copyWith(
-      authors: _newAuthors,
-    );
+    if (oldBz != null && oldBz.id != null&& newUser != null) {
+
+      final List<AuthorModel> _newAuthors = await AuthorModel.addNewUserToAuthors(
+        authors: oldBz.authors,
+        bzID: oldBz.id!,
+        newUser: newUser,
+      );
+
+      _newBz = oldBz.copyWith(
+        authors: _newAuthors,
+      );
+
+    }
 
     return _newBz;
   }
@@ -502,7 +519,7 @@ class BzModel{
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static BzModel dummyBz(String bzID) {
+  static BzModel dummyBz(String? bzID) {
     final String _bzID = bzID ?? 'ytLfMwdqK565ByP1p56G';
 
     return BzModel(
@@ -547,7 +564,7 @@ class BzModel{
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  void blogBz({String invoker = ''}) {
+  void blogBz({String? invoker = ''}) {
 
     blog('$invoker : BLOGGING BZ MODEL -------------------------------- START -- ');
 
@@ -586,8 +603,8 @@ class BzModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogBzzDifferences({
-    required BzModel bz1,
-    required BzModel bz2,
+    required BzModel? bz1,
+    required BzModel? bz2,
   }){
 
     blog('staring blogBzzDifferences checkup ');
@@ -685,9 +702,11 @@ class BzModel{
   static List<String> getBzzIDs(List<BzModel> bzzModels) {
     final List<String> _ids = <String>[];
 
-    if (Mapper.checkCanLoopList(bzzModels)) {
+    if (Mapper.checkCanLoopList(bzzModels) == true) {
       for (final BzModel bz in bzzModels) {
-        _ids.add(bz.id);
+        if (bz.id != null){
+          _ids.add(bz.id!);
+        }
       }
     }
 
@@ -695,12 +714,14 @@ class BzModel{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> getBzzLogos(List<BzModel> bzzModels) {
+  static List<String> getBzzLogos(List<BzModel>? bzzModels) {
     final List<String> _pics = <String>[];
 
-    if (Mapper.checkCanLoopList(bzzModels)) {
-      for (final BzModel bz in bzzModels) {
-        _pics.add(bz.logoPath);
+    if (Mapper.checkCanLoopList(bzzModels) == true) {
+      for (final BzModel bz in bzzModels!) {
+        if (bz.logoPath != null){
+          _pics.add(bz.logoPath!);
+        }
       }
     }
 
@@ -710,7 +731,7 @@ class BzModel{
   /// TESTED : WORKS PERFECT
   static List<BzModel> getBzzFromBzzByBzType({
     required List<BzModel> bzz,
-    required BzType bzType,
+    required BzType? bzType,
   }){
 
     final List<BzModel> _output = <BzModel>[];
@@ -718,7 +739,7 @@ class BzModel{
     if (Mapper.checkCanLoopList(bzz) && bzType != null){
       for (final BzModel bz in bzz){
 
-        final List<BzType> _bzTypesOfThisBz = bz.bzTypes;
+        final List<BzType>? _bzTypesOfThisBz = bz.bzTypes;
         final bool _containsThisType = BzTyper.checkBzTypesContainThisType(
           bzTypes: _bzTypesOfThisBz,
           bzType: bzType,
@@ -735,12 +756,14 @@ class BzModel{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> getBzTeamIDs(BzModel bzModel) {
+  static List<String> getBzTeamIDs(BzModel? bzModel) {
     final List<String> _bzTeamIDs = <String>[];
 
     if (Mapper.checkCanLoopList(bzModel?.authors) == true) {
-      for (final AuthorModel author in bzModel?.authors) {
-        _bzTeamIDs.add(author.userID);
+      for (final AuthorModel author in bzModel!.authors!) {
+        if (author.userID != null){
+          _bzTeamIDs.add(author.userID!);
+        }
       }
     }
 
@@ -749,18 +772,18 @@ class BzModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<BzModel> getBzzByCreatorID({
-    required List<BzModel> bzzModels,
-    required String creatorID,
+    required List<BzModel>? bzzModels,
+    required String? creatorID,
   }){
     final List<BzModel> _bzzModels = <BzModel>[];
 
     if (creatorID != null && Mapper.checkCanLoopList(bzzModels) == true){
 
-      for (final BzModel bzModel in bzzModels){
+      for (final BzModel bzModel in bzzModels!){
 
-        final AuthorModel _creator = AuthorModel.getCreatorAuthorFromAuthors(bzModel.authors);
+        final AuthorModel? _creator = AuthorModel.getCreatorAuthorFromAuthors(bzModel.authors);
 
-        if (_creator.userID == creatorID){
+        if (_creator?.userID == creatorID){
           _bzzModels.add(bzModel);
         }
 
@@ -773,18 +796,18 @@ class BzModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<BzModel> getBzzIDidNotCreate({
-    required List<BzModel> bzzModels,
-    required String userID,
+    required List<BzModel>? bzzModels,
+    required String? userID,
   }){
     final List<BzModel> _bzzModels = <BzModel>[];
 
     if (userID != null && Mapper.checkCanLoopList(bzzModels) == true){
 
-      for (final BzModel bzModel in bzzModels){
+      for (final BzModel bzModel in bzzModels!){
 
-        final AuthorModel _creator = AuthorModel.getCreatorAuthorFromAuthors(bzModel.authors);
+        final AuthorModel? _creator = AuthorModel.getCreatorAuthorFromAuthors(bzModel.authors);
 
-        if (_creator.userID != userID){
+        if (_creator?.userID != userID){
           _bzzModels.add(bzModel);
         }
 
@@ -801,13 +824,13 @@ class BzModel{
   // --------------------
   /// TESTED : WORKS GOOD
   static bool checkBzzContainThisBz({
-    required List<BzModel> bzz,
-    required BzModel bzModel,
+    required List<BzModel>? bzz,
+    required BzModel? bzModel,
   }) {
     bool _contains = false;
 
-    if (Mapper.checkCanLoopList(bzz) && bzModel != null) {
-      for (final BzModel bz in bzz) {
+    if (Mapper.checkCanLoopList(bzz) == true && bzModel != null) {
+      for (final BzModel bz in bzz!) {
         if (bz.id == bzModel.id) {
           _contains = true;
           break;
@@ -820,8 +843,8 @@ class BzModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkBzzAreIdentical({
-    required BzModel bz1,
-    required BzModel bz2,
+    required BzModel? bz1,
+    required BzModel? bz2,
   }){
     bool _areIdentical = false;
 
@@ -869,18 +892,18 @@ class BzModel{
   // --------------------
   /// TESTED : WORKS GOOD
   static bool checkBzHasContacts({
-    required BzModel bzModel,
+    required BzModel? bzModel,
   }){
     bool _hasContacts = false;
 
-    if (bzModel != null){
+    if (Mapper.checkCanLoopList(bzModel?.authors) == true){
 
-      if (Mapper.checkCanLoopList(bzModel.contacts) == true){
+      if (Mapper.checkCanLoopList(bzModel!.contacts) == true){
         _hasContacts = true;
       }
       else {
 
-        for (final AuthorModel author in bzModel.authors){
+        for (final AuthorModel author in bzModel.authors!){
 
           if (Mapper.checkCanLoopList(author.contacts) == true){
             _hasContacts = true;

@@ -47,7 +47,7 @@ Future<void> main() async {
   await FirebaseInitializer.initialize(
     useOfficialPackages: !DeviceChecker.deviceIsWindows(),
     socialKeys: BldrsKeys.socialKeys,
-    options: DefaultFirebaseOptions.currentPlatform,
+    options: DefaultFirebaseOptions.currentPlatform!,
     // nativePersistentStoragePath: ,
   );
   // --------------------
@@ -84,9 +84,12 @@ class BldrsAppStarter extends StatefulWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  static void setLocale(BuildContext context, Locale locale) {
-    final _BldrsAppStarterState state = context.findAncestorStateOfType<_BldrsAppStarterState>();
-    state._setLocale(locale);
+  static void setLocale(BuildContext context, Locale? locale) {
+    if (locale == null) {
+      return;
+    }
+    final _BldrsAppStarterState? state = context.findAncestorStateOfType<_BldrsAppStarterState>();
+    state?._setLocale(locale);
   }
   /// --------------------------------------------------------------------------
   @override
@@ -95,8 +98,6 @@ class BldrsAppStarter extends StatefulWidget {
 }
 
 class _BldrsAppStarterState extends State<BldrsAppStarter> {
-  // -----------------------------------------------------------------------------
-  final ValueNotifier<String> _fireError = ValueNotifier<String>(null);
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -148,7 +149,6 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
   void dispose() {
     _loading.dispose();
     _locale.dispose();
-    _fireError.dispose();
 
     // Sembast.dispose(); async function,, and no need to close sembast I guess
     Sounder.dispose();
@@ -189,7 +189,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
   /// LOCALE
 
   // --------------------
-  final ValueNotifier<Locale> _locale = ValueNotifier<Locale>(null);
+  final ValueNotifier<Locale?> _locale = ValueNotifier<Locale>(null);
   // --------------------
   void _setLocale(Locale locale) {
 
@@ -204,23 +204,15 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
   @override
   Widget build(BuildContext context) {
 
-    if (_locale == null || _fireError.value != null) {
-      return ValueListenableBuilder<bool>(
-          valueListenable: _loading,
-          builder: (_, bool loading, Widget? child) {
-            return ValueListenableBuilder<String>(
-                valueListenable: _fireError,
-                builder: (_, String error, Widget? child) {
-                  return const AnimatedLogoScreen();
-                });
-          });
+    if (_locale == null) {
+      return const AnimatedLogoScreen();
     }
 
     else {
       return BldrsProviders(
-        child: ValueListenableBuilder<Locale>(
+        child: ValueListenableBuilder<Locale?>(
           valueListenable: _locale,
-          builder: (BuildContext ctx, Locale value, Widget? child) {
+          builder: (BuildContext ctx, Locale? value, Widget? child) {
             return MaterialApp(
               /// KEYS
               // key: ,

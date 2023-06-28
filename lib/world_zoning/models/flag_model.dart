@@ -31,7 +31,7 @@ class Flag {
   final String phoneCode;
   final String capital;
   final String langCodes;
-  final int population;
+  final int? population;
   final int areaSqKm;
   final List<Phrase> phrases;
   // -----------------------------------------------------------------------------
@@ -142,7 +142,7 @@ class Flag {
 
     if (Mapper.checkCanLoopList(maps) == true){
       for (final dynamic map in maps){
-        _output.add(decipher(map));
+        _output.add(decipher(map)!);
       }
     }
 
@@ -154,11 +154,11 @@ class Flag {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Flag getFlagFromFlagsByCountryID({
+  static Flag? getFlagFromFlagsByCountryID({
     required List<Flag> flags,
     required String countryID,
   }){
-    Flag _output;
+    Flag? _output;
 
     if (TextCheck.isEmpty(countryID) == false){
       if (Mapper.checkCanLoopList(flags) == true){
@@ -175,15 +175,15 @@ class Flag {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Flag getFlagFromFlagsByISO2({
-    required List<Flag> flags,
-    required String iso2,
+  static Flag? getFlagFromFlagsByISO2({
+    required List<Flag>? flags,
+    required String? iso2,
   }){
-    Flag _output;
+    Flag? _output;
 
     if (TextCheck.isEmpty(iso2) == false){
       if (Mapper.checkCanLoopList(flags) == true){
-        for (final Flag flag in flags){
+        for (final Flag flag in flags!){
           if (flag.iso2 == iso2){
             _output = flag;
             break;
@@ -200,17 +200,17 @@ class Flag {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getCountryIDByISO2(String iso2){
-    String _output;
+  static String? getCountryIDByISO2(String? iso2){
+    String? _output;
 
     if (iso2 != null) {
 
-      final Flag _flag = getFlagFromFlagsByISO2(
+      final Flag? _flag = getFlagFromFlagsByISO2(
         flags: allFlags,
         iso2: iso2,
       );
 
-      _output = _flag.id;
+      _output = _flag?.id;
 
     }
 
@@ -228,7 +228,6 @@ class Flag {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getAllCountriesIDsSortedByName({
-    required BuildContext context,
     required String langCode,
   }){
 
@@ -238,7 +237,7 @@ class Flag {
 
     for (final String id in _allCountriesIDs){
 
-      final String _countryName = Flag.translateCountry(
+      final String? _countryName = Flag.translateCountry(
         langCode: langCode,
         countryID: id,
       );
@@ -259,7 +258,9 @@ class Flag {
 
     for (final Phrase phrase in _namesSorted){
 
-      _sortedCountriesIDs.add(phrase.id);
+      if (phrase.id != null){
+        _sortedCountriesIDs.add(phrase.id!);
+      }
 
     }
 
@@ -276,7 +277,7 @@ class Flag {
 
     if (countryID != null) {
 
-      final Flag _flag = getFlagFromFlagsByCountryID(
+      final Flag? _flag = getFlagFromFlagsByCountryID(
         flags: allFlags,
         countryID: countryID,
       );
@@ -298,12 +299,12 @@ class Flag {
 
     if (countryID != null) {
 
-      final Flag _flag = getFlagFromFlagsByCountryID(
+      final Flag? _flag = getFlagFromFlagsByCountryID(
         flags: allFlags,
         countryID: countryID,
       );
 
-      _output = _flag.phoneCode;
+      _output = _flag?.phoneCode;
 
     }
 
@@ -315,17 +316,17 @@ class Flag {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getCountryCurrencyID(String countryID){
-    String _output;
+  static String? getCountryCurrencyID(String? countryID){
+    String? _output;
 
     if (countryID != null) {
 
-      final Flag _flag = getFlagFromFlagsByCountryID(
+      final Flag? _flag = getFlagFromFlagsByCountryID(
         flags: allFlags,
         countryID: countryID,
       );
 
-      _output = _flag.currencyID;
+      _output = _flag?.currencyID;
 
     }
 
@@ -337,15 +338,15 @@ class Flag {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Phrase getCountryPhrase({
-    required String countryID,
-    required String langCode,
+  static Phrase? getCountryPhrase({
+    required String? countryID,
+    required String? langCode,
   }){
-    Phrase _output;
+    Phrase? _output;
 
     if (countryID != null) {
 
-      final Flag _flag = getFlagFromFlagsByCountryID(
+      final Flag? _flag = getFlagFromFlagsByCountryID(
         flags: allFlags,
         countryID: countryID,
       );
@@ -362,12 +363,12 @@ class Flag {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String translateCountry({
-    required String countryID,
-    required String langCode, // Localizer.getCurrentLangCode()
+  static String? translateCountry({
+    required String? countryID,
+    required String? langCode, // Localizer.getCurrentLangCode()
   }){
 
-    final Phrase _phrase = getCountryPhrase(
+    final Phrase? _phrase = getCountryPhrase(
       countryID: countryID,
       langCode: langCode,
     );
@@ -405,7 +406,6 @@ class Flag {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> sortCountriesNamesAlphabetically({
-    required BuildContext context,
     required List<String> countriesIDs,
     required String langCode,
   }){
@@ -414,7 +414,6 @@ class Flag {
     if (Mapper.checkCanLoopList(countriesIDs) == true){
 
       final List<String> _allIDsSorted = getAllCountriesIDsSortedByName(
-        context: context,
         langCode: langCode,
       );
 
@@ -459,12 +458,12 @@ class Flag {
           'areaSqKm: $areaSqKm,\n'
           'population: $population,\n'
           'phrases: <Phrase>[\n'
-              "Phrase(langCode: 'de', value: '${Phrase.searchPhraseByIDAndLangCode(phrases: phrases, phid: id, langCode: 'de').value}', id: '$id'),\n"
-              "Phrase(langCode: 'ar', value: '${Phrase.searchPhraseByIDAndLangCode(phrases: phrases, phid: id, langCode: 'ar').value}', id: '$id'),\n"
-              "Phrase(langCode: 'en', value: '${Phrase.searchPhraseByIDAndLangCode(phrases: phrases, phid: id, langCode: 'en').value}', id: '$id'),\n"
-              "Phrase(langCode: 'fr', value: '${Phrase.searchPhraseByIDAndLangCode(phrases: phrases, phid: id, langCode: 'fr').value}', id: '$id'),\n"
-              "Phrase(langCode: 'es', value: '${Phrase.searchPhraseByIDAndLangCode(phrases: phrases, phid: id, langCode: 'es').value}', id: '$id'),\n"
-              "Phrase(langCode: 'zh', value: '${Phrase.searchPhraseByIDAndLangCode(phrases: phrases, phid: id, langCode: 'zh').value}', id: '$id'),\n"
+              "Phrase(langCode: 'de', value: '${Phrase.searchPhraseByIDAndLangCode(phrases: phrases, phid: id, langCode: 'de')?.value}', id: '$id'),\n"
+              "Phrase(langCode: 'ar', value: '${Phrase.searchPhraseByIDAndLangCode(phrases: phrases, phid: id, langCode: 'ar')?.value}', id: '$id'),\n"
+              "Phrase(langCode: 'en', value: '${Phrase.searchPhraseByIDAndLangCode(phrases: phrases, phid: id, langCode: 'en')?.value}', id: '$id'),\n"
+              "Phrase(langCode: 'fr', value: '${Phrase.searchPhraseByIDAndLangCode(phrases: phrases, phid: id, langCode: 'fr')?.value}', id: '$id'),\n"
+              "Phrase(langCode: 'es', value: '${Phrase.searchPhraseByIDAndLangCode(phrases: phrases, phid: id, langCode: 'es')?.value}', id: '$id'),\n"
+              "Phrase(langCode: 'zh', value: '${Phrase.searchPhraseByIDAndLangCode(phrases: phrases, phid: id, langCode: 'zh')?.value}', id: '$id'),\n"
           '],\n'
         '),\n',
     );
@@ -550,7 +549,7 @@ class Flag {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkFlagsAreIdentical(Flag flag1, Flag flag2){
+  static bool checkFlagsAreIdentical(Flag? flag1, Flag? flag2){
     bool _identical = false;
 
     if (flag1 == null && flag2 == null){
