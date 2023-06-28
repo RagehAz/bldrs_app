@@ -89,7 +89,7 @@ class DeckModel {
   }
   // --------------------
   /// TESTED: WORKS PERFECT
-  static DeckModel decipher(Map<String, dynamic> map){
+  static DeckModel decipher(Map<String, dynamic>? map){
     DeckModel _deck = newDeck();
 
     if (map != null){
@@ -116,8 +116,8 @@ class DeckModel {
   // --------------------
   /// TESTED: WORKS PERFECT
   static DeckModel addFlyer({
-    required FlyerModel flyer,
-    required DeckModel oldDeck,
+    required FlyerModel? flyer,
+    required DeckModel? oldDeck,
   }){
     DeckModel _newDeck = oldDeck ?? newDeck();
 
@@ -206,14 +206,14 @@ class DeckModel {
   // --------------------
   /// TESTED: WORKS PERFECT
   static DeckModel addFlyers({
-    required List<FlyerModel> flyers,
-    required DeckModel deckModel,
+    required List<FlyerModel>? flyers,
+    required DeckModel? deckModel,
   }){
     DeckModel _newDeck = deckModel ?? newDeck();
 
     if (Mapper.checkCanLoopList(flyers) == true){
 
-      for (final FlyerModel flyer in flyers){
+      for (final FlyerModel flyer in flyers!){
 
         _newDeck = addFlyer(
           flyer: flyer,
@@ -229,8 +229,8 @@ class DeckModel {
   // --------------------
   /// TESTED: WORKS PERFECT
   static DeckModel addOrRemoveFlyer({
-    required FlyerModel flyer,
-    required DeckModel oldDeck,
+    required FlyerModel? flyer,
+    required DeckModel? oldDeck,
   }){
     DeckModel _newDeck = oldDeck ?? newDeck();
 
@@ -319,14 +319,14 @@ class DeckModel {
   // --------------------
   /// TESTED: WORKS PERFECT
   static DeckModel addOrRemoveFlyers({
-    required List<FlyerModel> flyers,
-    required DeckModel deckModel,
+    required List<FlyerModel>? flyers,
+    required DeckModel? deckModel,
   }){
     DeckModel _newDeck = deckModel ?? newDeck();
 
     if (Mapper.checkCanLoopList(flyers) == true){
 
-      for (final FlyerModel flyer in flyers){
+      for (final FlyerModel flyer in flyers!){
 
         _newDeck = addOrRemoveFlyer(
             flyer: flyer,
@@ -342,8 +342,8 @@ class DeckModel {
   // --------------------
   /// TESTED: WORKS PERFECT
   static DeckModel removeFlyer({
-    required FlyerModel flyer,
-    required DeckModel oldDeck,
+    required FlyerModel? flyer,
+    required DeckModel? oldDeck,
   }){
     DeckModel _newDeck = oldDeck ?? newDeck();
 
@@ -432,14 +432,14 @@ class DeckModel {
   // --------------------
   /// TESTED: WORKS PERFECT
   static DeckModel removeFlyers({
-    required List<FlyerModel> flyers,
-    required DeckModel oldDeck,
+    required List<FlyerModel>? flyers,
+    required DeckModel? oldDeck,
   }){
     DeckModel _newDeck = oldDeck ?? newDeck();
 
     if (Mapper.checkCanLoopList(flyers) == true){
 
-      for (final FlyerModel flyer in flyers){
+      for (final FlyerModel flyer in flyers!){
 
         _newDeck = removeFlyer(
           flyer: flyer,
@@ -455,15 +455,15 @@ class DeckModel {
   // --------------------
   /// TESTED: WORKS PERFECT
   static DeckModel removeFlyerByID({
-    required DeckModel oldDeck,
-    required String flyerID,
+    required DeckModel? oldDeck,
+    required String? flyerID,
   }){
     DeckModel _newDeck = oldDeck ?? newDeck();
 
     if (flyerID != null){
 
       final bool _contains = Stringer.checkStringsContainString(
-          strings: oldDeck.all,
+          strings: _newDeck.all,
           string: flyerID,
       );
 
@@ -534,14 +534,14 @@ class DeckModel {
   // --------------------
   /// TESTED: WORKS PERFECT
   static DeckModel removeFlyersByIDs({
-    required DeckModel oldDeck,
-    required List<String> flyersIDs,
+    required DeckModel? oldDeck,
+    required List<String>? flyersIDs,
   }){
     DeckModel _newDeck = oldDeck ?? newDeck();
 
     if (Mapper.checkCanLoopList(flyersIDs) == true){
 
-      for (final String flyerID in flyersIDs){
+      for (final String flyerID in flyersIDs!){
 
         _newDeck = removeFlyerByID(
           flyerID: flyerID,
@@ -560,22 +560,22 @@ class DeckModel {
 
   // --------------------
   /// TESTED: WORKS PERFECT
-  static int getCountByFlyerType({
-    required FlyerType flyerType,
-    required DeckModel deckModel,
+  static int? getCountByFlyerType({
+    required FlyerType? flyerType,
+    required DeckModel? deckModel,
   }){
-    int _output;
+    int? _output;
 
     if (flyerType != null && deckModel != null){
 
       switch (flyerType) {
-        case FlyerType.general      : return _output = deckModel.general.length;      break;
-        case FlyerType.property     : return _output = deckModel.properties.length;   break;
-        case FlyerType.design       : return _output = deckModel.designs.length;      break;
-        case FlyerType.undertaking  : return _output = deckModel.undertakings.length; break;
-        case FlyerType.trade        : return _output = deckModel.trades.length;       break;
-        case FlyerType.product      : return _output = deckModel.products.length;     break;
-        case FlyerType.equipment    : return _output = deckModel.equipment.length;    break;
+        case FlyerType.general      : return _output = deckModel.general.length;
+        case FlyerType.property     : return _output = deckModel.properties.length;
+        case FlyerType.design       : return _output = deckModel.designs.length;
+        case FlyerType.undertaking  : return _output = deckModel.undertakings.length;
+        case FlyerType.trade        : return _output = deckModel.trades.length;
+        case FlyerType.product      : return _output = deckModel.products.length;
+        case FlyerType.equipment    : return _output = deckModel.equipment.length;
         default: _output = 0;
       }
 
@@ -590,8 +590,8 @@ class DeckModel {
   // --------------------
   /// TESTED: WORKS PERFECT
   static bool checkDecksAreIdentical({
-    required DeckModel deck1,
-    required DeckModel deck2,
+    required DeckModel? deck1,
+    required DeckModel? deck2,
   }){
     bool _areIdentical = false;
 

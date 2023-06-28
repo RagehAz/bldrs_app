@@ -122,7 +122,7 @@ class DraftBz {
   /// TESTED : WORKS PERFECT
   static Future<DraftBz> _createNewDraftBz() async {
 
-    final UserModel creatorUser = UsersProvider.proGetMyUserModel(
+    final UserModel? creatorUser = UsersProvider.proGetMyUserModel(
       context: getMainContext(),
       listen: false,
     );

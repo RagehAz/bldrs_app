@@ -2,6 +2,7 @@ import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 
@@ -144,15 +145,15 @@ class SpecModel {
 // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkSpecsContainThisSpec({
-    required List<SpecModel> specs,
-    required SpecModel spec,
+    required List<SpecModel>? specs,
+    required SpecModel? spec,
   }) {
     bool _contains = false;
 
     if (Mapper.checkCanLoopList(specs) && spec != null) {
-      final SpecModel _result = specs.firstWhere(
+      final SpecModel? _result = specs!.firstWhereOrNull(
               (SpecModel sp) => SpecModel.checkSpecsAreIdentical(sp, spec) == true,
-          orElse: () => null);
+          );
 
       if (_result == null) {
         _contains = false;
@@ -191,9 +192,9 @@ class SpecModel {
     bool _contains = false;
 
     if (Mapper.checkCanLoopList(specs) && pickerChainID != null) {
-      final SpecModel _result = specs.firstWhere(
+      final SpecModel? _result = specs.firstWhereOrNull(
               (SpecModel sp) => sp.pickerChainID == pickerChainID,
-          orElse: () => null);
+          );
 
       if (_result == null) {
         _contains = false;
@@ -364,17 +365,15 @@ class SpecModel {
   }
   // --------------------
   /// TASK : TEST ME
-  static SpecModel getFirstSpecFromSpecsByPickerChainID({
-    required List<SpecModel> specs,
-    required String pickerChainID,
+  static SpecModel? getFirstSpecFromSpecsByPickerChainID({
+    required List<SpecModel>? specs,
+    required String? pickerChainID,
   }){
-    SpecModel _result;
+    SpecModel? _result;
 
     if (Mapper.checkCanLoopList(specs) == true && pickerChainID != null) {
-      _result = specs
-          .firstWhere(
+      _result = specs!.firstWhere(
             (SpecModel spec) => spec.pickerChainID == pickerChainID,
-        orElse: () => null,
       );
     }
 

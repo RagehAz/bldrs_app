@@ -13,6 +13,7 @@ import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:collection/collection.dart';
 import 'package:fire/super_fire.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
@@ -296,16 +297,16 @@ class FlyerModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> cipherPhids({
-    required List<String> phids,
+  static Map<String, dynamic>? cipherPhids({
+    required List<String>? phids,
   }){
-    Map<String, dynamic> _output;
+    Map<String, dynamic>? _output;
 
     if (Mapper.checkCanLoopList(phids) == true){
 
       _output = {};
 
-      for (final String phid in phids){
+      for (final String phid in phids!){
         _output = Mapper.insertPairInMap(
           map: _output,
           key: phid,
@@ -321,12 +322,15 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> decipherPhids({
-    required Map<String, dynamic> map,
+    required Map<String, dynamic>? map,
   }){
-    List<String> _output = [];
+    final List<String> _output = [];
 
     if (map != null){
-      _output = map.keys?.toList();
+      final List<String>? _keys = map!.keys?.toList();
+      if (Mapper.checkCanLoopList(_keys) == true){
+        _output.addAll(_keys!);
+      }
     }
 
     return _output;
@@ -762,17 +766,14 @@ class FlyerModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static FlyerModel getFlyerFromFlyersByID({
-    required List<FlyerModel> flyers,
+  static FlyerModel? getFlyerFromFlyersByID({
+    required List<FlyerModel>? flyers,
     required String flyerID
   }){
-    FlyerModel _output;
+    FlyerModel? _output;
 
     if (Mapper.checkCanLoopList(flyers) == true){
-
-      _output = flyers.singleWhere((FlyerModel tinyFlyer) => tinyFlyer.id == flyerID,
-             orElse: () => null);
-
+      _output = flyers!.singleWhereOrNull((FlyerModel tinyFlyer) => tinyFlyer.id == flyerID);
     }
 
     return _output;

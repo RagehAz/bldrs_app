@@ -69,7 +69,7 @@ class ComposeReviewProtocols {
     required ReviewModel updatedReview,
   }) async {
 
-    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+    final UserModel? _myUserModel = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );

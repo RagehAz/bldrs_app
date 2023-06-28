@@ -14,9 +14,9 @@ class UsersProvider extends ChangeNotifier {
   /// MY USER MODEL
 
   // --------------------
-  UserModel _myUserModel;
+  UserModel? _myUserModel;
   // --------------------
-  UserModel get myUserModel => _myUserModel;
+  UserModel? get myUserModel => _myUserModel;
   // --------------------
   /*
   static bool userIsSignedUp({bool listen = false}) {
@@ -48,7 +48,7 @@ class UsersProvider extends ChangeNotifier {
    */
   // --------------------
   /// TESTED : WORKS PERFECT
-  static UserModel proGetMyUserModel({
+  static UserModel? proGetMyUserModel({
     required BuildContext context,
     required bool listen
   }){
@@ -343,7 +343,7 @@ class UsersProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool userIsAuthor(){
-    final UserModel _user = UsersProvider.proGetMyUserModel(
+    final UserModel? _user = UsersProvider.proGetMyUserModel(
       context: getMainContext(),
       listen: false,
     );
@@ -351,8 +351,8 @@ class UsersProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static ZoneModel proGetUserZone(){
-    final UserModel _user = UsersProvider.proGetMyUserModel(
+  static ZoneModel? proGetUserZone(){
+    final UserModel? _user = UsersProvider.proGetMyUserModel(
       context: getMainContext(),
       listen: false,
     );

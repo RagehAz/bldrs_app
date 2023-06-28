@@ -2,10 +2,10 @@ import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:collection/collection.dart';
 
 @immutable
 class BigMac {
@@ -23,7 +23,7 @@ class BigMac {
   final double toDollarRate;
   // -----------------------------------------------------------------------------
 
-  /// CLONNING
+  /// CLONING
 
   // --------------------
   BigMac copyWith({
@@ -55,8 +55,8 @@ class BigMac {
   }
   // --------------------
   /// TASK : TEST ME
-  static BigMac decipherBigMac(Map<String, dynamic> map) {
-    BigMac _bigMac;
+  static BigMac? decipherBigMac(Map<String, dynamic> map) {
+    BigMac? _bigMac;
 
     if (map != null) {
       _bigMac = BigMac(
@@ -71,14 +71,20 @@ class BigMac {
   }
   // --------------------
   /// TASK : TEST ME
-  static List<BigMac> decipherBigMacs(List<Map<String, dynamic>> maps) {
+  static List<BigMac> decipherBigMacs(List<Map<String, dynamic>>? maps) {
     /// after this should receive one big map of maps
 
     final List<BigMac> _bigMacs = <BigMac>[];
 
-    if (Mapper.checkCanLoopList(maps)) {
-      for (final Map<String, dynamic> map in maps) {
-        _bigMacs.add(decipherBigMac(map));
+    if (Mapper.checkCanLoopList(maps) == true) {
+      for (final Map<String, dynamic> map in maps!) {
+
+        final BigMac? _mac = decipherBigMac(map);
+
+        if (_mac != null){
+          _bigMacs.add(_mac);
+        }
+
       }
     }
 
@@ -177,7 +183,7 @@ class BigMac {
 }) {
     double _bigMacLocalPriceInUSD = 0;
 
-    final BigMac _bigMac = getBigMacByISO3(
+    final BigMac? _bigMac = getBigMacByISO3(
       iso3: iso3,
       bigMacs: bigMacs,
     );
@@ -201,17 +207,17 @@ class BigMac {
 
   // --------------------
   /// TASK : TEST ME
-  static BigMac getBigMacByISO3({
-    required String iso3,
-    required List<BigMac> bigMacs,
+  static BigMac? getBigMacByISO3({
+    required String? iso3,
+    required List<BigMac>? bigMacs,
   }) {
 
     if (Mapper.checkCanLoopList(bigMacs) == false || iso3 == null){
       return null;
     }
+
     else {
-    return bigMacs.firstWhere((BigMac bigMac) => bigMac.countryID == iso3,
-        orElse: () => null);
+    return bigMacs?.firstWhereOrNull((BigMac bigMac) => bigMac.countryID == iso3);
     }
 
   }
@@ -231,7 +237,7 @@ class BigMac {
 
       for (final String countryID in countriesIDs){
 
-        final BigMac _mac = getBigMacByISO3(
+        final BigMac? _mac = getBigMacByISO3(
           iso3: countryID,
           bigMacs: bigMacs,
         );
@@ -249,19 +255,16 @@ class BigMac {
   }
   // --------------------
   /// TASK : TEST ME
-  static BigMac getBigMacByCurrencyID({
-    required String currencyID,
-    required List<BigMac> bigMacs,
+  static BigMac? getBigMacByCurrencyID({
+    required String? currencyID,
+    required List<BigMac>? bigMacs,
   }){
-    BigMac _output;
+    BigMac? _output;
 
     if (currencyID != null && Mapper.checkCanLoopList(bigMacs) == true){
 
-      _output = bigMacs.singleWhere(
-          (BigMac bigMac) => bigMac.currencyID.toLowerCase() == currencyID.toLowerCase(),
-          orElse: () => null
-      );
-
+      _output = bigMacs!.singleWhereOrNull(
+          (BigMac bigMac) => bigMac.currencyID.toLowerCase() == currencyID.toLowerCase());
     }
 
     return _output;
@@ -272,9 +275,9 @@ class BigMac {
 
   // --------------------
   /// TASK : TEST ME
-  static String getCurrencyByCountryIDFromBigMacs({
-    required String countryID,
-    required List<BigMac> bigMacs,
+  static String? getCurrencyByCountryIDFromBigMacs({
+    required String? countryID,
+    required List<BigMac>? bigMacs,
   }) {
 
     if (Mapper.checkCanLoopList(bigMacs) == false || countryID == null){
@@ -282,10 +285,11 @@ class BigMac {
     }
 
     else {
-      final BigMac _bigMacOfThisCountry =
-          bigMacs.singleWhere((BigMac bigMac) => bigMac.countryID == countryID, orElse: () => null);
+      final BigMac? _bigMacOfThisCountry = bigMacs!.singleWhereOrNull(
+              (BigMac bigMac) => bigMac.countryID == countryID
+      );
 
-      final String _currency = _bigMacOfThisCountry?.currencyID;
+      final String? _currency = _bigMacOfThisCountry?.currencyID;
       return _currency;
     }
 
@@ -389,16 +393,16 @@ class BigMac {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static double convertBigMacPriceToDollar({
+  static double? convertBigMacPriceToDollar({
     required BigMac bigMac,
     required double value,
     required List<BigMac> bigMacs,
   }){
-    double _output;
+    double? _output;
 
     if (bigMac != null && value != null){
 
-      final double _toDollarRate = Numeric.roundFractions(bigMac.toDollarRate, 2);
+      final double? _toDollarRate = Numeric.roundFractions(bigMac.toDollarRate, 2);
 
       /// ACCOUNT PRICE LOCAL
       final double _accPriceLocal = BigMac.accountPriceInLocalCurrencyByCountryID(
@@ -408,7 +412,7 @@ class BigMac {
       );
 
       /// ACCOUNT PRICE DOLLAR
-      final double _accPriceDollar = BigMac.localPriceToDollar(
+      final double? _accPriceDollar = BigMac.localPriceToDollar(
         localPrice: _accPriceLocal,
         toDollarRate: _toDollarRate,
       );
@@ -449,7 +453,7 @@ class BigMac {
       bigMacs: bigMacs,
     );
 
-    final BigMac _bigMac = getBigMacByISO3(
+    final BigMac? _bigMac = getBigMacByISO3(
       iso3: iso3,
       bigMacs: bigMacs,
     );
@@ -500,8 +504,8 @@ class BigMac {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double localPriceToDollar({
-    required double localPrice,
-    required double toDollarRate,
+    required double? localPrice,
+    required double? toDollarRate,
   }) {
     if (localPrice == null || toDollarRate == null){
       return 0;

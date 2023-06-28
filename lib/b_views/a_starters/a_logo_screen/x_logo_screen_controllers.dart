@@ -210,18 +210,18 @@ Future<void> setUserModelAndCompleteUserZoneLocally({
 /// TESTED : WORKS PERFECT
 Future<void> initializeAppState() async {
 
-  final UserModel _userModel = UsersProvider.proGetMyUserModel(
+  final UserModel? _userModel = UsersProvider.proGetMyUserModel(
     context: getMainContext(),
     listen: false,
   );
 
   if (Authing.userIsSignedUp(_userModel?.signInMethod) == true){
 
-    AppStateModel _userState = _userModel?.appState?.copyWith();
+    AppStateModel? _userState = _userModel?.appState?.copyWith();
 
     if (_userModel != null && _userState != null){
 
-      final AppStateModel _globalState = await AppStateRealOps.readGlobalAppState();
+      final AppStateModel? _globalState = await AppStateRealOps.readGlobalAppState();
       final bool _statesAreIdentical = AppStateModel.checkAppStatesAreIdentical(
           state1: _userState,
           state2: _globalState

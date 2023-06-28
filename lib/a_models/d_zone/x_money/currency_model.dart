@@ -2,6 +2,7 @@ import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -181,18 +182,20 @@ class CurrencyModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static CurrencyModel getCurrencyFromCurrenciesByCountryID({
-    required List<CurrencyModel> currencies,
-    required String countryID,
+  static CurrencyModel? getCurrencyFromCurrenciesByCountryID({
+    required List<CurrencyModel>? currencies,
+    required String? countryID,
   }) {
-    CurrencyModel _currency;
+    CurrencyModel? _currency;
 
     if (Mapper.checkCanLoopList(currencies) == true && countryID != null) {
 
-      final CurrencyModel _currencyFound = currencies.firstWhere(
+      final CurrencyModel? _currencyFound = currencies!.firstWhereOrNull(
               (CurrencyModel curr) => Stringer.checkStringsContainString(
-              strings: curr.countriesIDs, string: countryID),
-          orElse: () => null);
+                  strings: curr.countriesIDs,
+                  string: countryID
+              ),
+          );
 
       if (_currencyFound != null) {
         _currency = _currencyFound;
@@ -218,17 +221,16 @@ class CurrencyModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static CurrencyModel getCurrencyByID({
-    required List<CurrencyModel> allCurrencies,
-    required String currencyID,
+  static CurrencyModel? getCurrencyByID({
+    required List<CurrencyModel>? allCurrencies,
+    required String? currencyID,
   }){
-    CurrencyModel _currency;
+    CurrencyModel? _currency;
 
     if (Mapper.checkCanLoopList(allCurrencies) == true && currencyID != null){
 
-      _currency = allCurrencies.firstWhere(
+      _currency = allCurrencies!.firstWhereOrNull(
               (element) => element.id == currencyID,
-          orElse: () => null
       );
 
     }

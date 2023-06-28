@@ -636,7 +636,7 @@ class FCM {
 
      */
 
-    final UserModel _user = UsersProvider.proGetMyUserModel(
+    final UserModel? _user = UsersProvider.proGetMyUserModel(
       context: getMainContext(),
       listen: false,
     );
@@ -655,7 +655,7 @@ class FCM {
     required String topicID,
   }) async {
 
-    final UserModel _user = UsersProvider.proGetMyUserModel(
+    final UserModel? _user = UsersProvider.proGetMyUserModel(
       context: getMainContext(),
       listen: false,
     );
@@ -673,7 +673,7 @@ class FCM {
 
     List<String> _topics;
 
-    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+    final UserModel? _myUserModel = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );

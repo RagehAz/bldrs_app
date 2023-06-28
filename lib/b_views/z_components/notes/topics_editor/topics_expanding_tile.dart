@@ -72,7 +72,7 @@ class TopicsExpandingTile extends StatelessWidget {
       _bzID = _activeBz?.id;
     }
 
-    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+    final UserModel? _userModel = UsersProvider.proGetMyUserModel(
       context: context,
       listen: true,
     );

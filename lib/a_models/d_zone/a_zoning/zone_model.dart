@@ -27,7 +27,7 @@ class ZoneModel {
     this.icon,
   });
   /// --------------------------------------------------------------------------
-  final String countryID;
+  final String? countryID;
   final String? cityID;
   final String? countryName;
   final String? cityName;
@@ -354,8 +354,8 @@ class ZoneModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkZonesAreIdentical({
-    required ZoneModel zone1,
-    required ZoneModel zone2,
+    required ZoneModel? zone1,
+    required ZoneModel? zone2,
   }){
     bool _identical = false;
 
@@ -391,8 +391,8 @@ class ZoneModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkZonesIDsAreIdentical({
-    required ZoneModel zone1,
-    required ZoneModel zone2,
+    required ZoneModel? zone1,
+    required ZoneModel? zone2,
   }) {
     bool _zonesAreIdentical = false;
 

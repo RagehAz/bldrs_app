@@ -169,12 +169,12 @@ class BzFireOps {
   /// TESTED : WORKS PERFECT
   static Future<void> reportBz({
     required BuildContext context,
-    required BzModel bzModel,
+    required BzModel? bzModel,
   }) async {
 
     if (bzModel != null){
 
-      final UserModel _user = UsersProvider.proGetMyUserModel(
+      final UserModel? _user = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );

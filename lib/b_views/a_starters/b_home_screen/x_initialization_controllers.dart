@@ -66,7 +66,7 @@ Future<void> initializeHomeScreen({
 Future<void> _checkIfUserIsMissingFields() async {
   // blog('initializeHomeScreen.checkIfUserIsMissingFields : ~~~~~~~~~~ START');
 
-  final UserModel _userModel = UsersProvider.proGetMyUserModel(
+  final UserModel? _userModel = UsersProvider.proGetMyUserModel(
     context: getMainContext(),
     listen: false,
   );
@@ -136,7 +136,7 @@ Future<void> initializeUserFollowedBzz({
 }) async {
   // blog('initializeHomeScreen._initializeUserBzz : ~~~~~~~~~~ START');
 
-  final UserModel _user = UsersProvider.proGetMyUserModel(
+  final UserModel? _user = UsersProvider.proGetMyUserModel(
     context: getMainContext(),
     listen: false,
   );
@@ -156,7 +156,7 @@ Future<void> initializeUserBzz({
 }) async {
   // blog('initializeHomeScreen._initializeUserBzz : ~~~~~~~~~~ START');
 
-  final UserModel _user = UsersProvider.proGetMyUserModel(
+  final UserModel? _user = UsersProvider.proGetMyUserModel(
     context: getMainContext(),
     listen: false,
   );
@@ -204,7 +204,7 @@ Future<void> initializeCurrentZone() async {
 
   if (_zoneProvider.currentZone == null){
 
-    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+    final UserModel? _myUserModel = UsersProvider.proGetMyUserModel(
       context: getMainContext(),
       listen: false,
     );

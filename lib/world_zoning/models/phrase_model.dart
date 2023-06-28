@@ -10,9 +10,9 @@ class Phrase {
     this.trigram,
   });
   /// --------------------------------------------------------------------------
-  final String id;
+  final String? id;
   final String? langCode;
-  final String value;
+  final String? value;
   final List<String>? trigram;
   // -----------------------------------------------------------------------------
 
@@ -160,14 +160,14 @@ class Phrase {
   /// }
   // --------------------
   ///  TESTED : WORKS PERFECT
-  static Map<String, dynamic> cipherPhrasesToPhidsMap(List<Phrase> phrases){
+  static Map<String, dynamic>? cipherPhrasesToPhidsMap(List<Phrase>? phrases){
 
-    Map<String, dynamic> _map;
+    Map<String, dynamic>? _map;
 
     if (Mapper.checkCanLoopList(phrases) == true){
       _map = {};
 
-      for (final Phrase phrase in phrases){
+      for (final Phrase phrase in phrases!){
 
         _map = Mapper.insertPairInMap(
           map: _map,
@@ -186,7 +186,7 @@ class Phrase {
   ///  TESTED : WORKS PERFECT
   static List<Phrase> decipherPhrasesFromPhidsMap({
     required String langCode,
-    required Map<String, dynamic> map,
+    required Map<String, dynamic>? map,
     bool includeTrigram = true,
   }){
     final List<Phrase> _output = <Phrase>[];
@@ -199,7 +199,7 @@ class Phrase {
 
         for (final String key in _keys){
 
-          final List<String> _trigram = includeTrigram == true ?
+          final List<String>? _trigram = includeTrigram == true ?
           Stringer.createTrigram(
             input: map[key],
             // removeSpaces: false,
@@ -261,8 +261,8 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> decipherPhrasesLangsMap({
-    required Map<String, dynamic> langsMap,
-    required String phid,
+    required Map<String, dynamic>? langsMap,
+    required String? phid,
   }){
 
     final List<Phrase> _output = <Phrase>[];
@@ -291,7 +291,6 @@ class Phrase {
         }
 
       }
-
 
     }
 
@@ -346,7 +345,7 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> decipherMixedLangPhrasesFromMap({
-    required Map<String, dynamic> map,
+    required Map<String, dynamic>? map,
   }){
     final List<Phrase> _phrases = <Phrase>[];
 
@@ -361,9 +360,9 @@ class Phrase {
           final Map<String, dynamic> _defaultPhraseMap = map[langCode];
 
           _phrases.add(decipherPhraseDefaultMap(
-              id: _defaultPhraseMap['id'],
-              map: _defaultPhraseMap,
-            includeTrigram: true,
+            id: _defaultPhraseMap['id'],
+            map: _defaultPhraseMap,
+            // includeTrigram: true,
           ));
 
         }
@@ -433,11 +432,18 @@ class Phrase {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String createPhraseLDBPrimaryKey({
-    required String phid,
-    required String langCode,
+  static String? createPhraseLDBPrimaryKey({
+    required String? phid,
+    required String? langCode,
   }){
-    return '${phid}_$langCode';
+
+    if (phid == null || langCode == null){
+      return null;
+    }
+    else {
+      return '${phid}_$langCode';
+    }
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -454,7 +460,7 @@ class Phrase {
           id: map['id'],
           map: map,
           langCodeOverride: map['langCode'],
-          includeTrigram: true,
+          // includeTrigram: true,
         );
 
         _phrases.add(_phrase);
@@ -696,14 +702,14 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> searchPhrasesByID({
-    required List<Phrase> phrases,
-    required String phid,
+    required List<Phrase>? phrases,
+    required String? phid,
   }){
     final List<Phrase> _output = <Phrase>[];
 
     if (Mapper.checkCanLoopList(phrases) == true && phid != null){
 
-      final List<Phrase> _phrases = phrases.where((ph) => ph.id == phid).toList();
+      final List<Phrase> _phrases = phrases!.where((ph) => ph.id == phid).toList();
 
       if (Mapper.checkCanLoopList(_phrases) == true){
         _output.addAll(_phrases);
@@ -744,12 +750,12 @@ class Phrase {
   /// BY ID + LANG
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Phrase searchPhraseByIDAndLangCode({
-    required List<Phrase> phrases,
-    required String phid,
-    required String langCode,
+  static Phrase? searchPhraseByIDAndLangCode({
+    required List<Phrase>? phrases,
+    required String? phid,
+    required String? langCode,
   }){
-    Phrase _phrase;
+    Phrase? _phrase;
 
     if (Mapper.checkCanLoopList(phrases) == true && TextCheck.isEmpty(phid) == false){
 
@@ -772,9 +778,6 @@ class Phrase {
           langCode: langCode,
         );
       }
-
-
-
 
       // _phrase = phrases.firstWhere((ph){
       //
@@ -799,7 +802,6 @@ class Phrase {
       //   return _found;
       // });
 
-
     }
 
     return _phrase;
@@ -809,13 +811,13 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> searchPhrasesByLang({
-    required List<Phrase> phrases,
+    required List<Phrase>? phrases,
     required String langCode,
   }){
     List<Phrase> _output = <Phrase>[];
 
     if (Mapper.checkCanLoopList(phrases) == true){
-      _output = phrases.where((phr) => phr?.langCode == langCode).toList();
+      _output = phrases!.where((phr) => phr.langCode == langCode).toList();
     }
 
     return _output;
@@ -831,16 +833,9 @@ class Phrase {
 
     if (Mapper.checkCanLoopList(phrases) == true) {
 
-      _phrase = phrases!.firstWhere(
-              (Phrase phrase) => phrase.langCode == langCode,
-          orElse: () => null
-      );
+      _phrase = phrases!.firstWhereOrNull((Phrase phrase) => phrase.langCode == langCode);
 
-      _phrase ??= phrases.firstWhere(
-              (Phrase phrase) => phrase.langCode == 'en',
-          orElse: () => null
-      );
-
+      _phrase ??= phrases.firstWhereOrNull((Phrase phrase) => phrase.langCode == 'en');
 
     }
 
@@ -878,11 +873,11 @@ class Phrase {
   // --------------------
   /// BY VALUE / TRIGRAM ( SEARCH )
   // --------------------
-  static Phrase searchPhraseByIdenticalValue({
+  static Phrase? searchPhraseByIdenticalValue({
     required List<Phrase> phrases,
     required String value,
   }){
-    Phrase _phrase;
+    Phrase? _phrase;
 
     if (Mapper.checkCanLoopList(phrases) == true && TextCheck.isEmpty(value) == false){
 
@@ -959,7 +954,7 @@ class Phrase {
 
     for (final Phrase source in sourcePhrases){
 
-      final List<String>? _trigram = source?.trigram;
+      final List<String>? _trigram = source.trigram;
 
       final bool _trigramContains = Stringer.checkStringsContainString(
           strings: _trigram,
@@ -981,7 +976,7 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> symmetrizePhrase({
-    required Phrase phrase,
+    required Phrase? phrase,
     required List<Phrase> allMixedPhrases,
   }){
     final List<Phrase> _output = <Phrase>[];
@@ -991,7 +986,7 @@ class Phrase {
 
         final String _secondLang = phrase.langCode == 'en' ? 'ar' : 'en';
 
-        final Phrase _otherLangPhrase = searchPhraseByIDAndLangCode(
+        final Phrase ?_otherLangPhrase = searchPhraseByIDAndLangCode(
           phrases: allMixedPhrases,
           phid: phrase.id,
           langCode: _secondLang,
@@ -1043,21 +1038,21 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPhrasesIncludeIdenticalPhrase({
-    required List<Phrase> phrases,
-    required Phrase firstPhrase,
+    required List<Phrase>? phrases,
+    required Phrase? firstPhrase,
   }){
     bool _include = false;
 
     if (Mapper.checkCanLoopList(phrases) == true && firstPhrase != null){
 
-      for (final Phrase secondPhrase in phrases){
+      for (final Phrase secondPhrase in phrases!){
 
         final bool _found =
-                firstPhrase?.id == secondPhrase?.id
+                firstPhrase.id == secondPhrase.id
                 &&
-                firstPhrase?.value  == secondPhrase?.value
+                firstPhrase.value  == secondPhrase.value
                 &&
-                firstPhrase?.langCode == secondPhrase?.langCode;
+                firstPhrase.langCode == secondPhrase.langCode;
 
         if (_found == true){
           _include = true;
@@ -1103,7 +1098,7 @@ class Phrase {
   /// TESTED : WORKS PERFECT
   static bool checkPhrasesIncludeThisID({
     required List<Phrase> phrases,
-    required String id,
+    required String? id,
   }){
     bool _include = false;
 
@@ -1153,8 +1148,8 @@ class Phrase {
   /// TESTED : WORKS PERFECT
   static List<Phrase> sortNamesAlphabetically(List<Phrase> phrases){
 
-    if (Mapper.checkCanLoopList(phrases)){
-      phrases.sort((Phrase a, Phrase b) => a.value.compareTo(b.value));
+    if (Mapper.checkCanLoopList(phrases) == true){
+      phrases.sort((Phrase a, Phrase b) => a.value?.compareTo(b.value ?? '') ?? 0);
     }
 
     return phrases;
@@ -1190,14 +1185,16 @@ class Phrase {
   // -------------------------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> sortPhrasesByID({
-    required List<Phrase> phrases,
+    required List<Phrase>? phrases,
   }){
 
-    if (Mapper.checkCanLoopList(phrases)){
-      phrases.sort((Phrase a, Phrase b) => a.id.compareTo(b.id));
+    final List<Phrase> _output = [...?phrases];
+
+    if (Mapper.checkCanLoopList(_output) == true){
+      _output.sort((Phrase a, Phrase b) => a.id?.compareTo(b.id ?? '') ?? 0);
     }
 
-    return phrases;
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
@@ -1206,10 +1203,10 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> insertPhrase({
-    required List<Phrase> phrases,
-    required Phrase phrase,
+    required List<Phrase>? phrases,
+    required Phrase? phrase,
     required bool overrideDuplicateID,
-    String addLanguageCode,
+    String? addLanguageCode,
   }){
     final List<Phrase> _output = <Phrase>[...?phrases];
 
@@ -1254,13 +1251,13 @@ class Phrase {
     required List<Phrase> insertIn,
     required List<Phrase> phrasesToInsert,
     required bool overrideDuplicateID,
-    String addLanguageCode,
-    bool allowDuplicateIDs,
+    String? addLanguageCode,
+    bool? allowDuplicateIDs,
   }){
 
     List<Phrase> _output = <Phrase>[];
 
-    if (allowDuplicateIDs == true){
+    if (allowDuplicateIDs != null && allowDuplicateIDs == true){
       _output = _combinePhrasesListsAndAllowDuplicateIDs(
         insertIn: insertIn,
         phrasesToInsert: phrasesToInsert,
@@ -1284,7 +1281,7 @@ class Phrase {
   static List<Phrase> _combinePhrasesListsAndAllowDuplicateIDs({
     required List<Phrase> insertIn,
     required List<Phrase> phrasesToInsert,
-    String addLanguageCodeToInsertedPhrases,
+    String? addLanguageCodeToInsertedPhrases,
   }){
 
     final List<Phrase> _output = <Phrase>[];
@@ -1300,7 +1297,7 @@ class Phrase {
       if (TextCheck.isEmpty(addLanguageCodeToInsertedPhrases) == false){
         _phrasesToInsert = _addLangCodeToPhrases(
           phrases: phrasesToInsert,
-          langCode: addLanguageCodeToInsertedPhrases,
+          langCode: addLanguageCodeToInsertedPhrases!,
         );
       }
 
@@ -1342,17 +1339,17 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> _combinePhrasesWithoutDuplicateIDs({
-    required List<Phrase> insertIn,
-    required List<Phrase> phrasesToInsert,
+    required List<Phrase>? insertIn,
+    required List<Phrase>? phrasesToInsert,
     required bool overrideDuplicateID,
-    String addLanguageCode,
+    String? addLanguageCode,
   }){
 
     List<Phrase> _output = <Phrase>[...?insertIn];
 
     if (Mapper.checkCanLoopList(phrasesToInsert) == true){
 
-      for (final Phrase phrase in phrasesToInsert){
+      for (final Phrase phrase in phrasesToInsert!){
 
         _output = insertPhrase(
           phrases: _output,
@@ -1379,7 +1376,7 @@ class Phrase {
   /// TESTED : WORKS PERFECT
   static List<Phrase> replacePhraseByLangCode({
     required List<Phrase> phrases,
-    required Phrase phrase,
+    required Phrase? phrase,
   }){
    List<Phrase> _output = <Phrase>[];
 
@@ -1412,8 +1409,8 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> removePhraseByLangCode({
-    required List<Phrase> phrases,
-    required String langCode,
+    required List<Phrase>? phrases,
+    required String? langCode,
   }){
     final List<Phrase> _output = [];
 
@@ -1715,8 +1712,8 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPhrasesAreIdentical({
-    required Phrase phrase1,
-    required Phrase phrase2,
+    required Phrase? phrase1,
+    required Phrase? phrase2,
   }){
 
     bool _areIdentical = false;
@@ -1748,8 +1745,8 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPhrasesListsAreIdentical({
-    required List<Phrase> phrases1,
-    required List<Phrase> phrases2,
+    required List<Phrase>? phrases1,
+    required List<Phrase>? phrases2,
   }){
 
     bool _listsAreIdentical = false;
@@ -1757,13 +1754,13 @@ class Phrase {
     if (phrases1 == null && phrases2 == null){
       _listsAreIdentical = true;
     }
-    else if (phrases1?.isEmpty == true && phrases2?.isEmpty == true){
+    else if (phrases1 != null && phrases1.isEmpty == true && phrases2 != null && phrases2.isEmpty == true){
       _listsAreIdentical = true;
     }
 
     else if (Mapper.checkCanLoopList(phrases1) == true && Mapper.checkCanLoopList(phrases2) == true){
 
-      if (phrases1.length == phrases2.length){
+      if (phrases1!.length == phrases2!.length){
 
         // final List<String> codes = _getLingCodesFromPhrases(phrases1);
 

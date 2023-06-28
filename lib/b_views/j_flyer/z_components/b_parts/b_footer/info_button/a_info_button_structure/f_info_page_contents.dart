@@ -51,7 +51,7 @@ class InfoPageContents extends StatelessWidget {
       infoButtonType: null,
     );
 
-    final UserModel _user = UsersProvider.proGetMyUserModel(
+    final UserModel? _user = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );

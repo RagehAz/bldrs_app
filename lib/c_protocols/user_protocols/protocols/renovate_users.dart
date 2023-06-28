@@ -174,14 +174,14 @@ class RenovateUserProtocols {
 
     blog('RenovateUserProtocols.followingProtocol : START');
 
-    final UserModel _oldUser = UsersProvider.proGetMyUserModel(
+    final UserModel? _oldUser = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );
 
     if (followIsOn == true){
 
-      final UserModel _newUser = UserModel.addBzIDToUserFollows(
+      final UserModel? _newUser = UserModel.addBzIDToUserFollows(
         oldUser: _oldUser,
         bzToFollow: bzToFollow,
       );
@@ -254,7 +254,7 @@ class RenovateUserProtocols {
 
     if (flyerModel != null){
 
-      final UserModel _oldUser = UsersProvider.proGetMyUserModel(
+      final UserModel? _oldUser = UsersProvider.proGetMyUserModel(
         context: context,
         listen: false,
       );
@@ -343,7 +343,7 @@ class RenovateUserProtocols {
     required String topicID,
   }) async {
 
-    final UserModel _oldUser = UsersProvider.proGetMyUserModel(
+    final UserModel? _oldUser = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );
@@ -377,7 +377,7 @@ class RenovateUserProtocols {
 
     // blog('refreshUserDeviceModel START');
       /// USER DEVICE MODEL
-      final UserModel _oldUser = UsersProvider.proGetMyUserModel(
+      final UserModel? _oldUser = UsersProvider.proGetMyUserModel(
         context: context,
         listen: false,
       );
@@ -468,7 +468,7 @@ class RenovateUserProtocols {
     required BuildContext context,
   }) async {
 
-    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+    final UserModel? _myUserModel = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );

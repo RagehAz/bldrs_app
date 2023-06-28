@@ -453,7 +453,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
   // --------------------
   Future<void> _onSaveFlyer() async {
 
-    final UserModel _user = UsersProvider.proGetMyUserModel(
+    final UserModel? _user = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );

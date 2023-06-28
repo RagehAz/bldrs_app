@@ -3,6 +3,7 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/time/timers.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 @immutable
@@ -184,17 +185,15 @@ class PublishTime {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static PublishTime getPublishTimeFromTimes({
-    PublishState state,
-    List<PublishTime> times,
+  static PublishTime? getPublishTimeFromTimes({
+    required PublishState? state,
+    required List<PublishTime>? times,
   }) {
 
-    PublishTime _publishTime;
+    PublishTime? _publishTime;
 
-    if (times != null) {
-      _publishTime = times
-          .firstWhere((PublishTime time) => time.state == state,
-              orElse: () => null);
+    if (state != null && Mapper.checkCanLoopList(times) == true) {
+      _publishTime = times!.firstWhereOrNull((PublishTime time) => time.state == state);
     }
 
     return _publishTime;

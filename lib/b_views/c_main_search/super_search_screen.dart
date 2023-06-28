@@ -924,7 +924,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
 
   Verse getSearchHintVerse(){
 
-    final ZoneModel _zone = ZoneProvider.proGetCurrentZone(
+    final ZoneModel? _zone = ZoneProvider.proGetCurrentZone(
       context: getMainContext(),
       listen: false,
     );
