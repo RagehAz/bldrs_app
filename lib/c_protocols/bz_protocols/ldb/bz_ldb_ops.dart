@@ -49,16 +49,16 @@ class BzLDBOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<BzModel> readBz(String bzID) async {
+  static Future<BzModel?> readBz(String? bzID) async {
 
-    final Map<String, dynamic> _bzMap = await LDBOps.searchFirstMap(
+    final Map<String, dynamic>? _bzMap = await LDBOps.searchFirstMap(
       sortFieldName: 'id',
       searchFieldName: 'id',
       searchValue: bzID,
       docName: LDBDoc.bzz,
     );
 
-    BzModel _bzModel;
+    BzModel? _bzModel;
 
     if (_bzMap != null){
       _bzModel = BzModel.decipherBz(

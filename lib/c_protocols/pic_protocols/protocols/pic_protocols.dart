@@ -111,14 +111,14 @@ class PicProtocols {
   }
   // --------------------
   /// TASK : TEST ME
-  static Future<ui.Image> fetchPicUiImage({
-    required String path,
+  static Future<ui.Image?> fetchPicUiImage({
+    required String? path,
   }) async {
-    ui.Image _theImage;
+    ui.Image? _theImage;
 
     if (path != null){
 
-      final Cacher _cacher = UiProvider.proGetCacher(
+      final Cacher? _cacher = UiProvider.proGetCacher(
           cacherID: path,
           listen: false,
       );
@@ -170,7 +170,7 @@ class PicProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<List<PicModel>> fetchFlyerPics({
-    required FlyerModel flyerModel,
+    required FlyerModel? flyerModel,
   }) async {
     List<PicModel> _output = <PicModel>[];
 

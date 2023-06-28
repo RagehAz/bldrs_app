@@ -19,7 +19,7 @@ class FetchBzProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<BzModel> fetch({
-    required String bzID
+    required String? bzID
   }) async {
     BzModel _bz = await BzLDBOps.readBz(bzID);
 

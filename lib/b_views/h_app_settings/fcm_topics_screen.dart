@@ -31,7 +31,7 @@ class FCMTopicsScreen extends StatelessWidget {
     );
     // --------------------
     /*
-    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+    final BzModel? _bzModel = BzzProvider.proGetActiveBzModel(
         context: context,
         listen: true,
     );

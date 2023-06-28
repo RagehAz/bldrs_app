@@ -46,19 +46,19 @@ class GtaModel {
     /// required this.badges,
 });
   // -----------------------------------------------------------------------------
-  final String id;
-  final String url;
-  final String title;
-  final List<String> images;
-  final String brand;
-  final double stars;
-  final int ratingsCount;
-  final double price;
-  final String currency;
-  final String about;
-  final String description;
-  final String importantInfo;
-  final String affiliateLink;
+  final String? id;
+  final String? url;
+  final String? title;
+  final List<String>? images;
+  final String? brand;
+  final double? stars;
+  final int? ratingsCount;
+  final double? price;
+  final String? currency;
+  final String? about;
+  final String? description;
+  final String? importantInfo;
+  final String? affiliateLink;
   /// final Map<String, dynamic> specifications;
   /// final Map<String, dynamic> productDetails;
   /// final Map<String, dynamic> badges;
@@ -107,10 +107,10 @@ class GtaModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> cipherMap({
-    required GtaModel gtaModel,
+  static Map<String, dynamic>? cipherMap({
+    required GtaModel? gtaModel,
   }){
-    Map<String, dynamic> _output;
+    Map<String, dynamic>? _output;
 
     if (gtaModel != null){
 
@@ -136,10 +136,10 @@ class GtaModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static GtaModel decipherMap({
-    required Map<String, dynamic> map,
+  static GtaModel? decipherMap({
+    required Map<String, dynamic>? map,
   }){
-    GtaModel _output;
+    GtaModel? _output;
 
     if (map != null){
       _output = GtaModel(
@@ -164,16 +164,18 @@ class GtaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> cipherMaps({
-    required List<GtaModel> gtaModels,
+    required List<GtaModel>? gtaModels,
   }){
     final List<Map<String, dynamic>> _output = [];
 
     if (Mapper.checkCanLoopList(gtaModels) == true){
 
-      for (final GtaModel model in gtaModels){
+      for (final GtaModel model in gtaModels!){
 
-        final Map<String, dynamic> _map = cipherMap(gtaModel: model);
-        _output.add(_map);
+        final Map<String, dynamic>? _map = cipherMap(gtaModel: model);
+        if (_map != null){
+          _output.add(_map);
+        }
 
       }
 
@@ -184,16 +186,18 @@ class GtaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<GtaModel> decipherMaps({
-    required List<Map<String, dynamic>> maps,
+    required List<Map<String, dynamic>>? maps,
   }){
     final List<GtaModel> _output = [];
 
     if (Mapper.checkCanLoopList(maps) == true){
 
-      for (final Map<String, dynamic> map in maps){
+      for (final Map<String, dynamic> map in maps!){
 
-        final GtaModel _gtaModel = decipherMap(map: map);
-        _output.add(_gtaModel);
+        final GtaModel? _gtaModel = decipherMap(map: map);
+        if (_gtaModel != null){
+          _output.add(_gtaModel);
+        }
 
       }
 
@@ -207,10 +211,10 @@ class GtaModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static GtaModel createGtaModelByUrl({
-    required String url,
+  static GtaModel? createGtaModelByUrl({
+    required String? url,
   }){
-    GtaModel _output;
+    GtaModel? _output;
 
     if (url != null){
       _output = GtaModel(
@@ -234,12 +238,12 @@ class GtaModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<DraftFlyer> createDraftFlyerByGtaProduct({
-    required GtaModel gtaModel,
+  static Future<DraftFlyer?> createDraftFlyerByGtaProduct({
+    required GtaModel? gtaModel,
     required BzModel bzModel,
     required FlyerType flyerType,
   }) async {
-    DraftFlyer _output;
+    DraftFlyer? _output;
 
     if (gtaModel != null) {
 
@@ -293,7 +297,7 @@ class GtaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<SpecModel> _createPriceSpecs({
-    required GtaModel gtaModel,
+    required GtaModel? gtaModel,
   }){
 
     if (gtaModel == null){
@@ -321,19 +325,19 @@ class GtaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<DraftSlide>> createDraftSlidesByGtaProduct({
-    required GtaModel product,
+    required GtaModel? product,
   }) async {
     final List<DraftSlide> _output = [];
 
     if (product != null && Mapper.checkCanLoopList(product.images) == true){
 
-      for (int i = 0; i < product.images.length; i++){
+      for (int i = 0; i < product.images!.length; i++){
 
-        final String _url = product.images[i];
+        final String _url = product.images![i];
 
         if (ObjectCheck.isAbsoluteURL(_url) == true) {
 
-          final PicModel _picModel = await createPicModelByGtaUrl(_url);
+          final PicModel? _picModel = await createPicModelByGtaUrl(_url);
 
           if (_picModel != null) {
 
@@ -361,8 +365,8 @@ class GtaModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<PicModel> createPicModelByGtaUrl(String url) async {
-    PicModel _output;
+  static Future<PicModel?> createPicModelByGtaUrl(String? url) async {
+    PicModel? _output;
 
     if (ObjectCheck.isAbsoluteURL(url) == true) {
 
@@ -372,12 +376,13 @@ class GtaModel {
 
         final Dimensions? _dims = await Dimensions.superDimensions(_bytes);
         final double? _mega = Filers.calculateSize(_bytes.length, FileSizeUnit.megaByte);
+        final String? _userID = Authing.getUserID();
 
-        final StorageMetaModel _meta = StorageMetaModel(
-          ownersIDs: <String>[Authing.getUserID()],
+        final StorageMetaModel? _meta = StorageMetaModel(
+          ownersIDs: _userID == null ? [] : <String>[_userID],
           name: url,
-          height: _dims.height,
-          width: _dims.width,
+          height: _dims?.height,
+          width: _dims?.width,
           sizeMB: _mega,
         );
 
@@ -400,11 +405,11 @@ class GtaModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static GtaModel createGtaModelScrappedMap({
-    required String url,
-    required Map<String, dynamic> map,
+  static GtaModel? createGtaModelScrappedMap({
+    required String? url,
+    required Map<String, dynamic>? map,
   }){
-    GtaModel _output;
+    GtaModel? _output;
 
     if (map != null){
       _output = GtaModel(
@@ -461,8 +466,8 @@ class GtaModel {
           text: ratingsCountString.trim(),
           specialCharacter: 'ratings',
       );
-      _string = _string.replaceAll(',', '');
-      _output = Numeric.transformStringToInt(_string.trim());
+      _string = _string?.replaceAll(',', '');
+      _output = Numeric.transformStringToInt(_string?.trim());
     }
 
     return _output;
@@ -478,7 +483,7 @@ class GtaModel {
       /// USD
       if (TextCheck.stringContainsSubString(string: priceString, subString: r'$') == true){
        final String? _string = TextMod.removeTextBeforeFirstSpecialCharacter(
-           text: priceString.trim(),
+           text: priceString?.trim(),
            specialCharacter: r'$',
        );
         _output = Numeric.transformStringToDouble(_string?.trim());
@@ -490,8 +495,8 @@ class GtaModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String _getCurrencyFromScrappedString(String priceString){
-    String _output;
+  static String? _getCurrencyFromScrappedString(String? priceString){
+    String? _output;
 
     // might come in this form : '$179.99'
     if (TextCheck.isEmpty(priceString) == false){
@@ -514,13 +519,15 @@ class GtaModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String _fixAboutItemString(String aboutItemString){
-    String _output;
+  static String? _fixAboutItemString(String? aboutItemString){
+    String? _output;
 
     if (TextCheck.isEmpty(aboutItemString) == false){
 
       final pattern = RegExp(r'About this item\n'); // Define the pattern to match
-      _output = aboutItemString.replaceAll(pattern, ''); // Replace the pattern with an empty string
+
+      // Replace the pattern with an empty string
+      _output = aboutItemString?.replaceAll(pattern, '');
 
     }
 
@@ -533,13 +540,15 @@ class GtaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getUrls({
-    required List<GtaModel> gtaModels,
+    required List<GtaModel>? gtaModels,
   }){
     final List<String> _output = <String>[];
 
     if (Mapper.checkCanLoopList(gtaModels) == true){
-      for (final GtaModel model in gtaModels){
-        _output.add(model.url);
+      for (final GtaModel model in gtaModels!){
+        if (model.url != null){
+          _output.add(model.url!);
+        }
       }
     }
 
@@ -570,7 +579,7 @@ class GtaModel {
   }
   // --------------------
   /// AI TESTED
-  static bool isAmazonAffiliateLink(String affiliateLink){
+  static bool isAmazonAffiliateLink(String? affiliateLink){
 
     /// AFFILIATE LINK LOOKS LIKE THIS
     /// https://amzn.to/42LyU3E
@@ -581,7 +590,7 @@ class GtaModel {
     else {
       const String affiliateDomain = 'amzn.to';
 
-      final Uri uri = Uri.parse(affiliateLink);
+      final Uri uri = Uri.parse(affiliateLink!);
 
       if (uri.host == affiliateDomain) {
         return true;
@@ -601,8 +610,8 @@ class GtaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<GtaModel> insertModelInModels({
-    required List<GtaModel> products,
-    required GtaModel product,
+    required List<GtaModel>? products,
+    required GtaModel? product,
   }){
     final List<GtaModel> _output = [...?products];
 
@@ -628,8 +637,8 @@ class GtaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<GtaModel> removeModelFromModels({
-    required List<GtaModel> products,
-    required String url,
+    required List<GtaModel>? products,
+    required String? url,
   }){
     final List<GtaModel> _output = [...?products];
 
@@ -652,8 +661,8 @@ class GtaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkGtaModelsAreIdentical({
-    required GtaModel product1,
-    required GtaModel product2,
+    required GtaModel? product1,
+    required GtaModel? product2,
   }){
     bool _identical = false;
 
@@ -663,7 +672,7 @@ class GtaModel {
     else if (product1 == null || product2 == null){
       _identical = false;
     }
-    else if (product1 != null && product2 != null){
+    else {
 
       if (
       product1.id == product2.id &&

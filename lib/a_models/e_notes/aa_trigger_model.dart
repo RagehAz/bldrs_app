@@ -2,7 +2,6 @@ import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
@@ -16,9 +15,9 @@ class TriggerModel {
     required this.done,
   });
   /// --------------------------------------------------------------------------
-  final String name;
-  final String argument;
-  final List<String> done;
+  final String? name;
+  final String? argument;
+  final List<String>? done;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -51,8 +50,8 @@ class TriggerModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static TriggerModel decipherTrigger(Map<String, dynamic> map){
-    TriggerModel _trigger;
+  static TriggerModel? decipherTrigger(Map<String, dynamic>? map){
+    TriggerModel? _trigger;
 
     if (map != null){
       _trigger = TriggerModel(
@@ -70,23 +69,23 @@ class TriggerModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static NoteModel addMeToTriggerDones({
-    required NoteModel noteModel,
+  static NoteModel? addMeToTriggerDones({
+    required NoteModel? noteModel,
   }){
 
     assert(noteModel != null, 'noteModel can not be null');
     assert(Authing.getUserID() != null, 'User is not authenticated');
 
     final List<String> _updatedDone = Stringer.addStringToListIfDoesNotContainIt(
-      strings: noteModel.function.done,
+      strings: noteModel?.function?.done,
       stringToAdd: Authing.getUserID(),
     );
 
-    final TriggerModel _updatedTrigger = noteModel.function.copyWith(
+    final TriggerModel? _updatedTrigger = noteModel?.function?.copyWith(
       done: _updatedDone,
     );
 
-    return noteModel.copyWith(
+    return noteModel?.copyWith(
       function: _updatedTrigger,
     );
 
@@ -97,7 +96,7 @@ class TriggerModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkIFiredThisTrigger(TriggerModel trigger){
+  static bool checkIFiredThisTrigger(TriggerModel? trigger){
 
     assert(Authing.getUserID() != null, 'User is not authenticated');
 
@@ -129,7 +128,7 @@ class TriggerModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkTriggersAreIdentical(TriggerModel trigger1, TriggerModel trigger2){
+  static bool checkTriggersAreIdentical(TriggerModel? trigger1, TriggerModel? trigger2){
     bool _identical = false;
 
     if (trigger1 == null && trigger2 == null){
