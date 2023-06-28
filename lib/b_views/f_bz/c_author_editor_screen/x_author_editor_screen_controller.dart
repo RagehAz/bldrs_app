@@ -427,7 +427,7 @@ Future<void> onChangeAuthorRoleOps({
         ),
       );
 
-      final BzModel _oldBz = BzzProvider.proGetActiveBzModel(
+      final BzModel? _oldBz = BzzProvider.proGetActiveBzModel(
         context: context,
         listen: false,
       );

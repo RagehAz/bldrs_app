@@ -232,14 +232,14 @@ class BzTyper {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkBzTypesContainThisType({
-    required BzType bzType,
-    required List<BzType> bzTypes,
+    required BzType? bzType,
+    required List<BzType>? bzTypes,
   }){
     bool _contains = false;
 
     if (Mapper.checkCanLoopList(bzTypes) == true){
 
-      if (bzTypes.contains(bzType) == true){
+      if (bzTypes!.contains(bzType) == true){
         _contains = true;
       }
 
@@ -777,7 +777,7 @@ class BzTyper {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<BzForm> concludeInactiveBzFormsByBzTypes(List<BzType> selectedBzTypes){
+  static List<BzForm> concludeInactiveBzFormsByBzTypes(List<BzType>? selectedBzTypes){
 
     /// INITIAL LIST OF ALL BZ FORMS
     List<BzForm>? _bzForms = <BzForm>[...bzFormsList];
@@ -785,7 +785,7 @@ class BzTyper {
     if (Mapper.checkCanLoopList(selectedBzTypes) == true){
 
       /// MORE THAN ONE BZ TYPE
-      if (selectedBzTypes.length > 1){
+      if (selectedBzTypes!.length > 1){
         _bzForms.remove(BzForm.company);
       }
 

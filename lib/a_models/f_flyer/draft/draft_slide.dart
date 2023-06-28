@@ -35,17 +35,17 @@ class DraftSlide {
     required this.animationCurve,
   });
   // --------------------------------------------------------------------------
-  final String flyerID;
+  final String? flyerID;
   final int slideIndex;
-  final PicModel picModel;
-  final BoxFit picFit;
-  final String headline;
-  final String description;
-  final Color midColor;
-  final double opacity;
-  final Matrix4 matrix;
-  final ImageFilterModel filter;
-  final Curve animationCurve;
+  final PicModel? picModel;
+  final BoxFit? picFit;
+  final String? headline;
+  final String? description;
+  final Color? midColor;
+  final double? opacity;
+  final Matrix4? matrix;
+  final ImageFilterModel? filter;
+  final Curve? animationCurve;
   // -----------------------------------------------------------------------------
 
   /// CREATION
@@ -53,24 +53,24 @@ class DraftSlide {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<DraftSlide>> createDrafts({
-    required List<Uint8List> bytezz,
+    required List<Uint8List>? bytezz,
     required List<DraftSlide> existingDrafts,
-    required String headline,
-    required String flyerID,
-    required String bzID,
+    required String? headline,
+    required String? flyerID,
+    required String? bzID,
   }) async {
     final List<DraftSlide> _output = <DraftSlide>[];
 
     if (Mapper.checkCanLoopList(bytezz) == true){
 
-      for (int i = 0; i < bytezz.length; i++){
+      for (int i = 0; i < bytezz!.length; i++){
 
         final Uint8List _bytes = bytezz[i];
 
         final int _newSlideIndex = i + existingDrafts.length;
 
         /// B1 - CREATE NEW DRAFT SLIDE
-        final DraftSlide _newSlide = await createDraft(
+        final DraftSlide? _newSlide = await createDraft(
           bytes: _bytes,
           index: _newSlideIndex,
           headline: _newSlideIndex  == 0 ? headline : null,
@@ -79,8 +79,9 @@ class DraftSlide {
         );
 
         /// B2 - ADD THIS NEW SLIDE
-        _output.add(_newSlide);
-
+        if (_newSlide != null){
+          _output.add(_newSlide);
+        }
 
       }
 
@@ -90,14 +91,14 @@ class DraftSlide {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<DraftSlide> createDraft({
-    required Uint8List bytes,
+  static Future<DraftSlide?> createDraft({
+    required Uint8List? bytes,
     required int index,
-    required String headline,
-    required String flyerID,
-    required String bzID,
+    required String? headline,
+    required String? flyerID,
+    required String? bzID,
   }) async {
-    DraftSlide _slide;
+    DraftSlide? _slide;
 
     if (bytes != null){
 
@@ -123,8 +124,8 @@ class DraftSlide {
         opacity: 1,
         slideIndex: index,
         picFit: Dimensions.concludeBoxFit(
-          picWidth: _dimensions?.width,
-          picHeight: _dimensions?.height,
+          picWidth: _dimensions?.width ?? 1,
+          picHeight: _dimensions?.height ?? 0,
           viewWidth: FlyerDim.flyerWidthByFactor(
             gridWidth: Scale.screenWidth(getMainContext()),
             flyerSizeFactor: 1,
@@ -149,8 +150,8 @@ class DraftSlide {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<SlideModel> draftToSlide(DraftSlide draft) async {
-    SlideModel slide;
+  static Future<SlideModel?> draftToSlide(DraftSlide? draft) async {
+    SlideModel? slide;
 
     if (draft != null){
 
@@ -163,13 +164,13 @@ class DraftSlide {
         midColor: draft.midColor,
         matrix: draft.matrix,
         animationCurve: draft.animationCurve,
-        filterID: draft.filter.id,
-        picPath: draft.picModel.path,
+        filterID: draft.filter?.id,
+        picPath: draft.picModel?.path,
         dimensions: Dimensions(
-          width: draft.picModel.meta?.width,
-          height: draft.picModel.meta?.height,
+          width: draft.picModel?.meta?.width,
+          height: draft.picModel?.meta?.height,
         ),
-        uiImage: await Floaters.getUiImageFromUint8List(draft.picModel.bytes),
+        uiImage: await Floaters.getUiImageFromUint8List(draft.picModel?.bytes),
       );
 
     }
@@ -178,14 +179,16 @@ class DraftSlide {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<SlideModel>> draftsToSlides(List<DraftSlide> drafts) async {
+  static Future<List<SlideModel>> draftsToSlides(List<DraftSlide>? drafts) async {
     final List<SlideModel> _slides = <SlideModel>[];
 
     if (Mapper.checkCanLoopList(drafts) == true){
 
-      for (final DraftSlide draft in drafts){
-        final SlideModel _slide = await draftToSlide(draft);
-        _slides.add(_slide);
+      for (final DraftSlide draft in drafts!){
+        final SlideModel? _slide = await draftToSlide(draft);
+        if (_slide != null){
+          _slides.add(_slide);
+        }
       }
 
     }
@@ -194,8 +197,8 @@ class DraftSlide {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<DraftSlide> draftFromSlide(SlideModel slide) async {
-    DraftSlide _draft;
+  static Future<DraftSlide?> draftFromSlide(SlideModel? slide) async {
+    DraftSlide? _draft;
 
     if (slide != null){
       _draft = DraftSlide(
@@ -217,22 +220,25 @@ class DraftSlide {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<DraftSlide>> draftsFromSlides(List<SlideModel> slides) async {
+  static Future<List<DraftSlide>> draftsFromSlides(List<SlideModel>? slides) async {
     final List<DraftSlide> _output = <DraftSlide>[];
 
     if (Mapper.checkCanLoopList(slides) == true){
 
       await Future.wait(<Future>[
 
-        ...List.generate(slides.length, (index){
+        ...List.generate(slides!.length, (index){
 
           return draftFromSlide(slides[index])
-              .then((DraftSlide draft){
+              .then((DraftSlide? draft){
 
-                blog('wadi one draft');
-                draft.copyWith();
+                // blog('wadi one draft');
+                // draft?.copyWith();
 
-                _output.add(draft);
+                if (draft != null){
+                  _output.add(draft);
+                }
+
           });
 
         }),
@@ -241,7 +247,13 @@ class DraftSlide {
 
     }
 
-    _output.sort((a, b) => a.slideIndex.compareTo(b.slideIndex));
+    _output.sort((a, b){
+
+      final int _aIndex = a.slideIndex;
+      final int _bIndex = b.slideIndex;
+
+      return _aIndex.compareTo(_bIndex);
+    });
 
     return _output;
   }
@@ -251,8 +263,8 @@ class DraftSlide {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> draftToLDB(DraftSlide draft){
-    Map<String, dynamic> _map;
+  static Map<String, dynamic>? draftToLDB(DraftSlide? draft){
+    Map<String, dynamic>? _map;
 
     if (draft != null){
       _map = {
@@ -266,7 +278,7 @@ class DraftSlide {
         'opacity': draft.opacity,
         'matrix' : Trinity.cipherMatrix(draft.matrix),
         'animationCurve' : Trinity.cipherAnimationCurve(draft.animationCurve),
-        'filterID' : draft.filter.id,
+        'filterID' : draft.filter?.id,
       };
     }
 
@@ -274,15 +286,17 @@ class DraftSlide {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<Map<String, dynamic>> draftsToLDB(List<DraftSlide> drafts){
+  static List<Map<String, dynamic>> draftsToLDB(List<DraftSlide>? drafts){
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
     if (Mapper.checkCanLoopList(drafts) == true){
 
-      for (final DraftSlide draft in drafts){
+      for (final DraftSlide draft in drafts!){
 
-        final Map<String, dynamic> _map = draftToLDB(draft);
-        _maps.add(_map);
+        final Map<String, dynamic>? _map = draftToLDB(draft);
+        if (_map != null){
+          _maps.add(_map);
+        }
 
       }
 
@@ -292,8 +306,8 @@ class DraftSlide {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static DraftSlide draftFromLDB(Map<String, dynamic> map){
-    DraftSlide _draft;
+  static DraftSlide? draftFromLDB(Map<String, dynamic>? map){
+    DraftSlide? _draft;
 
     if (map != null){
       _draft = DraftSlide(
@@ -315,15 +329,17 @@ class DraftSlide {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<DraftSlide> draftsFromLDB(List<dynamic> maps){
+  static List<DraftSlide> draftsFromLDB(List<dynamic>? maps){
     final List<DraftSlide> drafts = <DraftSlide>[];
 
     if (Mapper.checkCanLoopList(maps) == true){
 
-      for (final Map<String, dynamic> map in maps){
+      for (final Map<String, dynamic> map in maps!){
 
-        final DraftSlide _draft = draftFromLDB(map);
-        drafts.add(_draft);
+        final DraftSlide? _draft = draftFromLDB(map);
+        if (_draft != null){
+          drafts.add(_draft);
+        }
       }
 
     }
@@ -367,7 +383,7 @@ class DraftSlide {
   /// TESTED : WORKS PERFECT
   DraftSlide nullifyField({
     bool flyerID = false,
-    bool slideIndex = false,
+    // bool slideIndex = false,
     bool picModel = false,
     bool picFit = false,
     bool headline = false,
@@ -380,7 +396,7 @@ class DraftSlide {
   }){
     return DraftSlide(
       flyerID: flyerID == true ? null : this.flyerID,
-      slideIndex: slideIndex == true ? null : this.slideIndex,
+      slideIndex: slideIndex, // == true ? null : this.slideIndex,
       picModel: picModel == true ? null : this.picModel,
       picFit: picFit == true ? null : this.picFit,
       headline: headline == true ? null : this.headline,
@@ -405,8 +421,8 @@ class DraftSlide {
     final List<Uint8List> _output = <Uint8List>[];
 
     for (final DraftSlide draft in drafts) {
-      if (draft.picModel != null) {
-        _output.add(draft.picModel.bytes);
+      if (draft.picModel?.bytes != null) {
+        _output.add(draft.picModel!.bytes!);
       }
     }
 
@@ -414,13 +430,15 @@ class DraftSlide {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<PicModel> getPicModels(List<DraftSlide> drafts){
+  static List<PicModel> getPicModels(List<DraftSlide>? drafts){
     final List<PicModel> _output = <PicModel>[];
 
     if (Mapper.checkCanLoopList(drafts) == true){
 
-      for (final DraftSlide draft in drafts){
-        _output.add(draft.picModel);
+      for (final DraftSlide draft in drafts!){
+        if (draft.picModel != null){
+          _output.add(draft.picModel!);
+        }
       }
 
     }
@@ -504,22 +522,24 @@ class DraftSlide {
     blog('headline : $headline : description : $description');
     blog('midColor : $midColor : opacity : $opacity : picFit : $picFit : filter : ${filter?.id} :'
         ' hasCustomMatrix : ${matrix != Matrix4.identity()} : animationCurve L $animationCurve');
-    picModel.blogPic();
+    picModel?.blogPic();
 
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogSlides({
-    required List<DraftSlide> slides,
+    required List<DraftSlide>? slides,
     required String invoker,
   }){
 
     blog('BLOGGING SLIDES [$invoker] -------- START');
 
-    for (final DraftSlide slide in slides){
-      slide.blogDraft(
-        invoker: invoker,
-      );
+    if (Mapper.checkCanLoopList(slides) == true) {
+      for (final DraftSlide slide in slides!) {
+        slide.blogDraft(
+          invoker: invoker,
+        );
+      }
     }
 
     blog('BLOGGING SLIDES [$invoker] -------- END');
@@ -527,8 +547,8 @@ class DraftSlide {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogDraftSlidesDifferences({
-    required DraftSlide slide1,
-    required DraftSlide slide2,
+    required DraftSlide? slide1,
+    required DraftSlide? slide2,
   }){
 
     if (slide1 == null){
@@ -537,37 +557,37 @@ class DraftSlide {
     if (slide2 == null){
       blog('MutableSlidesDifferences : slide2 is null');
     }
-    if (slide1.flyerID != slide2.flyerID){
+    if (slide1?.flyerID != slide2?.flyerID){
       blog('MutableSlidesDifferences : flyerIDs are not Identical');
     }
-    if (slide1.slideIndex != slide2.slideIndex){
+    if (slide1?.slideIndex != slide2?.slideIndex){
       blog('MutableSlidesDifferences : slideIndexes are not Identical');
     }
-    if (PicModel.checkPicsAreIdentical(pic1: slide1.picModel, pic2: slide2.picModel) == false){
+    if (PicModel.checkPicsAreIdentical(pic1: slide1?.picModel, pic2: slide2?.picModel) == false){
       blog('MutableSlidesDifferences : picModels are not Identical');
     }
-    if (slide1.picFit != slide2.picFit){
+    if (slide1?.picFit != slide2?.picFit){
       blog('MutableSlidesDifferences : picFits are not Identical');
     }
-    if (slide1.headline != slide2.headline){
+    if (slide1?.headline != slide2?.headline){
       blog('MutableSlidesDifferences : headlines are not Identical');
     }
-    if (slide1.description != slide2.description){
+    if (slide1?.description != slide2?.description){
       blog('MutableSlidesDifferences : descriptions are not Identical');
     }
-    if (Colorizer.checkColorsAreIdentical(slide1.midColor, slide2.midColor) == false){
+    if (Colorizer.checkColorsAreIdentical(slide1?.midColor, slide2?.midColor) == false){
       blog('MutableSlidesDifferences : midColors are not Identical');
     }
-    if (slide1.opacity != slide2.opacity){
+    if (slide1?.opacity != slide2?.opacity){
       blog('MutableSlidesDifferences : opacities are not Identical');
     }
-    if (Trinity.checkMatrixesAreIdentical(matrix1: slide1.matrix, matrixReloaded: slide2.matrix) == false){
+    if (Trinity.checkMatrixesAreIdentical(matrix1: slide1?.matrix, matrixReloaded: slide2?.matrix) == false){
       blog('MutableSlidesDifferences : matrixes are not Identical');
     }
-    if (ImageFilterModel.checkFiltersAreIdentical(filter1: slide1.filter, filter2: slide2.filter) == false){
+    if (ImageFilterModel.checkFiltersAreIdentical(filter1: slide1?.filter, filter2: slide2?.filter) == false){
       blog('MutableSlidesDifferences : filters are not Identical');
     }
-    if (slide1.animationCurve != slide2.animationCurve){
+    if (slide1?.animationCurve != slide2?.animationCurve){
       blog('MutableSlidesDifferences : animationCurves are not Identical');
     }
   }
@@ -578,15 +598,15 @@ class DraftSlide {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<DraftSlide> replaceSlide({
-    required List<DraftSlide> drafts,
-    required DraftSlide draft,
+    required List<DraftSlide>? drafts,
+    required DraftSlide? draft,
   }){
     List<DraftSlide> _output = <DraftSlide>[];
 
     if (Mapper.checkCanLoopList(drafts) == true){
 
-      _output = [...drafts];
-      _output.removeAt(draft.slideIndex);
+      _output = [...drafts!];
+      _output.removeAt(draft!.slideIndex);
       _output.insert(draft.slideIndex, draft);
 
     }
@@ -618,14 +638,14 @@ class DraftSlide {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<DraftSlide> overrideDraftsFlyerID({
-    required List<DraftSlide> drafts,
-    required String flyerID,
+    required List<DraftSlide>? drafts,
+    required String? flyerID,
   }){
     final List<DraftSlide> _output = <DraftSlide>[];
 
     if (Mapper.checkCanLoopList(drafts) == true && flyerID != null){
 
-      for (final DraftSlide draft in drafts){
+      for (final DraftSlide draft in drafts!){
 
         final DraftSlide _updated = draft.copyWith(
           flyerID: flyerID,
@@ -676,8 +696,8 @@ class DraftSlide {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkSlidesAreIdentical({
-    required DraftSlide slide1,
-    required DraftSlide slide2,
+    required DraftSlide? slide1,
+    required DraftSlide? slide2,
   }){
     bool _identical = false;
 
@@ -721,8 +741,8 @@ class DraftSlide {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkSlidesListsAreIdentical({
-    required List<DraftSlide> slides1,
-    required List<DraftSlide> slides2,
+    required List<DraftSlide>? slides1,
+    required List<DraftSlide>? slides2,
   }){
     bool _listsAreIdentical = false;
 
@@ -730,13 +750,13 @@ class DraftSlide {
       _listsAreIdentical = true;
       blog('checkSlidesListsAreIdentical : both are null');
     }
-    else if (slides1.isEmpty == true && slides2.isEmpty == true){
+    else if (slides1 != null && slides1.isEmpty == true && slides2 != null && slides2.isEmpty == true){
       _listsAreIdentical = true;
       blog('checkSlidesListsAreIdentical : both are empty');
     }
     else if (Mapper.checkCanLoopList(slides1) == true && Mapper.checkCanLoopList(slides2) == true){
 
-      if (slides1.length != slides2.length){
+      if (slides1!.length != slides2!.length){
         _listsAreIdentical = false;
         blog('checkSlidesListsAreIdentical : lists are not the same length');
       }

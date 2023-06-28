@@ -14,7 +14,7 @@ class BzNetworkPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+    final BzModel? _bzModel = BzzProvider.proGetActiveBzModel(
       context: context,
       listen: true,
     );

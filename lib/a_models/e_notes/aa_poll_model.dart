@@ -2,7 +2,6 @@ import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:basics/helpers/classes/time/timers.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
@@ -16,9 +15,9 @@ class PollModel {
     required this.replyTime,
   });
   // --------------------------------------------------------------------------
-  final List<String> buttons;
-  final String reply;
-  final DateTime replyTime;
+  final List<String>? buttons;
+  final String? reply;
+  final DateTime? replyTime;
   // -----------------------------------------------------------------------------
 
   /// CONSTANTS
@@ -67,11 +66,11 @@ class PollModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static PollModel decipherPoll({
-    required Map<String, dynamic> map,
+  static PollModel? decipherPoll({
+    required Map<String, dynamic>? map,
     required bool fromJSON,
   }){
-    PollModel _model;
+    PollModel? _model;
 
     if (map != null){
 
@@ -90,8 +89,8 @@ class PollModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String cipherButtons(List<String> buttons){
-    String _output;
+  static String? cipherButtons(List<String>? buttons){
+    String? _output;
 
     if (Mapper.checkCanLoopList(buttons) == true){
 
@@ -106,8 +105,8 @@ class PollModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> decipherButtons(String buttonsString){
-    List<String> _buttons;
+  static List<String>? decipherButtons(String buttonsString){
+    List<String>? _buttons;
 
     // blog('1 - START : decipherButtons : buttonsString: $buttonsString');
 
@@ -164,8 +163,8 @@ class PollModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPollsAreIdentical({
-    required PollModel poll1,
-    required PollModel poll2,
+    required PollModel? poll1,
+    required PollModel? poll2,
   }){
     bool _identical = false;
 

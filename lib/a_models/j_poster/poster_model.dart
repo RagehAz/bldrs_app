@@ -1,7 +1,6 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_type.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 @immutable
@@ -14,10 +13,10 @@ class PosterModel {
     this.picModel,
   });
   /// --------------------------------------------------------------------------
-  final String modelID;
-  final PosterType type;
-  final String path;
-  final PicModel picModel;
+  final String? modelID;
+  final PosterType? type;
+  final String? path;
+  final PicModel? picModel;
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static const List<PosterType> posterTypes = <PosterType>[
@@ -65,8 +64,8 @@ class PosterModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static PosterModel decipher(Map<String, dynamic> map){
-    PosterModel _model;
+  static PosterModel? decipher(Map<String, dynamic>? map){
+    PosterModel? _model;
 
     if (map != null){
       _model = PosterModel(
@@ -80,25 +79,25 @@ class PosterModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String cipherPosterType(PosterType type){
+  static String? cipherPosterType(PosterType? type){
     switch(type){
-      case PosterType.bz:             return 'bz';    break;
-      case PosterType.flyer:          return 'flyer'; break;
-      case PosterType.cameraImage:    return 'cameraImage'; break;
-      case PosterType.galleryImage:   return 'galleryImage'; break;
-      case PosterType.url:            return 'url'; break;
+      case PosterType.bz:             return 'bz';
+      case PosterType.flyer:          return 'flyer';
+      case PosterType.cameraImage:    return 'cameraImage';
+      case PosterType.galleryImage:   return 'galleryImage';
+      case PosterType.url:            return 'url';
       default: return null;
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static PosterType decipherPosterType(String type){
+  static PosterType? decipherPosterType(String? type){
     switch(type){
-      case 'bz':            return PosterType.bz;           break;
-      case 'flyer':         return PosterType.flyer;        break;
-      case 'cameraImage':   return PosterType.cameraImage;  break;
-      case 'galleryImage':  return PosterType.galleryImage; break;
-      case 'url':           return PosterType.url;          break;
+      case 'bz':            return PosterType.bz;
+      case 'flyer':         return PosterType.flyer;
+      case 'cameraImage':   return PosterType.cameraImage;
+      case 'galleryImage':  return PosterType.galleryImage;
+      case 'url':           return PosterType.url;
 
       default: return null;
     }
@@ -114,7 +113,7 @@ class PosterModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void blogPosterDifferences(PosterModel poster1, PosterModel poster2,){
+  static void blogPosterDifferences(PosterModel? poster1, PosterModel? poster2,){
 
     blog('blogPosterDifferences : START');
 
@@ -153,8 +152,8 @@ class PosterModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPostersAreIdentical({
-    required PosterModel poster1,
-    required PosterModel poster2,
+    required PosterModel? poster1,
+    required PosterModel? poster2,
   }){
     bool _areIdentical = false;
 

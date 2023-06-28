@@ -131,7 +131,7 @@ class AgendaModel {
       );
 
       if (Mapper.checkCanLoopList(bzModel.bzTypes) == true){
-        for (final BzType bzType in bzModel.bzTypes){
+        for (final BzType bzType in bzModel.bzTypes!){
 
           switch(bzType){
 
@@ -247,7 +247,7 @@ class AgendaModel {
 
       if (Mapper.checkCanLoopList(bzModel.bzTypes) == true){
 
-        for (final BzType bzType in bzModel.bzTypes){
+        for (final BzType bzType in bzModel.bzTypes!){
 
           switch(bzType){
 
@@ -341,19 +341,20 @@ class AgendaModel {
     required AgendaModel? oldAgenda,
   }){
     AgendaModel _newAgenda = oldAgenda ?? newAgenda();
+    final String? _bzID = bz?.id;
 
-    if (bz != null){
+    if (bz != null && _bzID != null){
 
       _newAgenda = _newAgenda.copyWith(
           all: Stringer.removeStringsFromStrings(
             removeFrom: _newAgenda.all,
-            removeThis: [bz.id],
+            removeThis: [_bzID],
           )
       );
 
       if (Mapper.checkCanLoopList(bz.bzTypes) == true){
 
-        for (final BzType bzType in bz.bzTypes){
+        for (final BzType bzType in bz.bzTypes!){
 
           switch(bzType){
 
@@ -362,7 +363,7 @@ class AgendaModel {
               _newAgenda = _newAgenda.copyWith(
                 developers: Stringer.removeStringsFromStrings(
                   removeFrom: _newAgenda.developers,
-                  removeThis: [bz.id],
+                  removeThis: [_bzID],
                 ),
               ); break;
 
@@ -371,7 +372,7 @@ class AgendaModel {
               _newAgenda = _newAgenda.copyWith(
                 brokers: Stringer.removeStringsFromStrings(
                   removeFrom: _newAgenda.brokers,
-                  removeThis: [bz.id],
+                  removeThis: [_bzID],
                 ),
               ); break;
 
@@ -380,7 +381,7 @@ class AgendaModel {
             _newAgenda = _newAgenda.copyWith(
               designers: Stringer.removeStringsFromStrings(
                 removeFrom: _newAgenda.designers,
-                removeThis: [bz.id],
+                removeThis: [_bzID],
               ),
             ); break;
 
@@ -389,7 +390,7 @@ class AgendaModel {
             _newAgenda = _newAgenda.copyWith(
               contractors: Stringer.removeStringsFromStrings(
                 removeFrom: _newAgenda.contractors,
-                removeThis: [bz.id],
+                removeThis: [_bzID],
               ),
             ); break;
 
@@ -398,7 +399,7 @@ class AgendaModel {
             _newAgenda = _newAgenda.copyWith(
               artisans: Stringer.removeStringsFromStrings(
                 removeFrom: _newAgenda.artisans,
-                removeThis: [bz.id],
+                removeThis: [_bzID],
               ),
             ); break;
 
@@ -407,7 +408,7 @@ class AgendaModel {
             _newAgenda = _newAgenda.copyWith(
               manufacturers: Stringer.removeStringsFromStrings(
                 removeFrom: _newAgenda.manufacturers,
-                removeThis: [bz.id],
+                removeThis: [_bzID],
               ),
             ); break;
 
@@ -416,7 +417,7 @@ class AgendaModel {
             _newAgenda = _newAgenda.copyWith(
               suppliers: Stringer.removeStringsFromStrings(
                 removeFrom: _newAgenda.suppliers,
-                removeThis: [bz.id],
+                removeThis: [_bzID],
               ),
             ); break;
 

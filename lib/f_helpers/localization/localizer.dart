@@ -42,10 +42,10 @@ class Localizer {
   // --------------------
   Localizer(this.locale);
   // --------------------
-  final Locale locale;
-  Map<String, String> _localizedValues;
+  final Locale? locale;
+  Map<String, String>? _localizedValues;
   // --------------------
-  static Localizer of(BuildContext context) {
+  static Localizer? of(BuildContext context) {
     return Localizations.of<Localizer>(context, Localizer);
   }
   // -----------------------------------------------------------------------------
@@ -72,11 +72,11 @@ class Localizer {
 
   // --------------------
   static Future<void> initializeLocale({
-    required ValueNotifier<Locale> locale,
+    required ValueNotifier<Locale?> locale,
     required bool mounted,
   }) async {
 
-    final Locale _locale = await Localizer.getCurrentLocaleFromLDB();
+    final Locale? _locale = await Localizer.getCurrentLocaleFromLDB();
 
     setNotifier(
         notifier: locale,
@@ -88,23 +88,23 @@ class Localizer {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> load() async {
-    _localizedValues = await getJSONLangMap(langCode: locale.languageCode);
+    _localizedValues = await getJSONLangMap(langCode: locale?.languageCode);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  String getTranslatedValue(String key) {
-    return _localizedValues[key];
+  String? getTranslatedValue(String key) {
+    return _localizedValues?[key];
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<Locale> getCurrentLocaleFromLDB() async {
-    final String _langCode = await LDBOps.readField(
+  static Future<Locale?> getCurrentLocaleFromLDB() async {
+    final String? _langCode = await LDBOps.readField(
       id: LDBDoc.langCode,
       docName: LDBDoc.langCode,
       fieldName: LDBDoc.langCode,
       primaryKey: LDBDoc.getPrimaryKey(LDBDoc.langCode),
     );
-    final String _languageCode = _langCode ?? Lang.englishLingo.code;
+    final String? _languageCode = _langCode ?? Lang.englishLingo.code;
     return _concludeLocaleByLingoCode(_languageCode);
   }
   // --------------------
@@ -136,8 +136,8 @@ class Localizer {
   static Locale? localeResolutionCallback(Locale? deviceLocale, Iterable<Locale> supportedLocales) {
 
     for (final Locale locale in supportedLocales) {
-      if (locale.languageCode == deviceLocale.languageCode &&
-          locale.countryCode == deviceLocale.countryCode) {
+      if (locale.languageCode == deviceLocale?.languageCode &&
+          locale.countryCode == deviceLocale?.countryCode) {
         return deviceLocale;
       }
     }
@@ -150,13 +150,17 @@ class Localizer {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<Map<String, String>> getJSONLangMap({
-    required String langCode
+  static Future<Map<String, String>?> getJSONLangMap({
+    required String? langCode
   }) async {
 
-    final String _langFilePath = BldrsThemeLangs.getLangFilePath(
+    final String? _langFilePath = BldrsThemeLangs.getLangFilePath(
       langCode: langCode,
     );
+
+    if (_langFilePath == null){
+      return null;
+    }
 
     final String _jsonStringValues = await rootBundle.loadString(_langFilePath);
 
@@ -166,18 +170,18 @@ class Localizer {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String translate(String key) {
-    return Localizer.of(getMainContext()).getTranslatedValue(key);
+  static String? translate(String key) {
+    return Localizer.of(getMainContext())?.getTranslatedValue(key);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<String> getTranslationFromJSONByLangCode({
+  static Future<String?> getTranslationFromJSONByLangCode({
     required String jsonKey,
     required String langCode,
   }) async {
 
-    String _jsonStringValues;
-    String _output;
+    String? _jsonStringValues;
+    String? _output;
 
     final bool _result = await tryCatchAndReturnBool(
       invoker: 'getCountryNameByLingo',
@@ -187,15 +191,18 @@ class Localizer {
           langCode: langCode,
         );
 
-        _jsonStringValues = await rootBundle.loadString(_langFilePath);
+        if (_langFilePath != null){
+          _jsonStringValues = await rootBundle.loadString(_langFilePath);
+        }
+
 
       },
       onError: (String error) {},
     );
 
-    if (_result == true) {
+    if (_result == true && _jsonStringValues != null) {
 
-      final Map<String, dynamic> _mappedJson = json.decode(_jsonStringValues);
+      final Map<String, dynamic> _mappedJson = json.decode(_jsonStringValues!);
 
       final Map<String, dynamic> _map = _mappedJson
           .map((String key, value) => MapEntry(key, value.toString()));
@@ -213,7 +220,7 @@ class Localizer {
   /// TESTED : WORKS PERFECT
   static Future<void> changeAppLanguage(BuildContext context, String code) async {
 
-    final Locale _temp = await setLocale(code);
+    final Locale? _temp = await setLocale(code);
 
     BldrsAppStarter.setLocale(context, _temp);
 
@@ -225,7 +232,7 @@ class Localizer {
     if (Authing.userIsSignedUp(_user?.signInMethod) == true) {
       await Fire.updateDocField(
         coll: FireColl.users,
-        doc: Authing.getUserID(),
+        doc: Authing.getUserID()!,
         field: 'language',
         input: code,
       );
@@ -248,7 +255,7 @@ class Localizer {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<Locale> setLocale(String languageCode) async {
+  static Future<Locale?> setLocale(String languageCode) async {
 
     await LDBOps.insertMap(
         docName: LDBDoc.langCode,
@@ -263,16 +270,20 @@ class Localizer {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Locale _concludeLocaleByLingoCode(String lingoCode) {
+  static Locale? _concludeLocaleByLingoCode(String? lingoCode) {
+
+    if (lingoCode == null){
+      return null;
+    }
 
     switch (lingoCode) {
-      case Lang.englishCode:  return Locale(lingoCode, 'US');break;
-      case Lang.arabicCode:   return Locale(lingoCode, 'EG');break;
-      case Lang.spanishCode:  return Locale(lingoCode, 'ES');break;
-      case Lang.frenchCode:   return Locale(lingoCode, 'FR');break;
-      case Lang.chineseCode:  return Locale(lingoCode, 'CN');break;
-      case Lang.germanCode:   return Locale(lingoCode, 'DE');break;
-      case Lang.italianCode:  return Locale(lingoCode, 'IT');break;
+      case Lang.englishCode:  return Locale(lingoCode, 'US');
+      case Lang.arabicCode:   return Locale(lingoCode, 'EG');
+      case Lang.spanishCode:  return Locale(lingoCode, 'ES');
+      case Lang.frenchCode:   return Locale(lingoCode, 'FR');
+      case Lang.chineseCode:  return Locale(lingoCode, 'CN');
+      case Lang.germanCode:   return Locale(lingoCode, 'DE');
+      case Lang.italianCode:  return Locale(lingoCode, 'IT');
       default:                return Locale(Lang.englishLingo.code, 'US');
     }
 
@@ -301,7 +312,7 @@ class Localizer {
   }) async {
 
     /// while app lang is english : langCode is ar : this should be : 'Arabic'
-    final String _langNameByActiveAppLang = await getTranslationFromJSONByLangCode(
+    final String? _langNameByActiveAppLang = await getTranslationFromJSONByLangCode(
       langCode: langCode,
       jsonKey: 'activeLanguage',
     );

@@ -73,18 +73,18 @@ class UserLDBOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<UserModel> readUserOps({
-    required String userID,
+  static Future<UserModel?> readUserOps({
+    required String? userID,
   }) async {
 
-    final Map<String, dynamic> _userMap = await LDBOps.searchFirstMap(
+    final Map<String, dynamic>? _userMap = await LDBOps.searchFirstMap(
       sortFieldName: 'id',
       searchFieldName: 'id',
       searchValue: userID,
       docName: LDBDoc.users,
     );
 
-    UserModel _userModel;
+    UserModel? _userModel;
 
     if (_userMap != null){
       _userModel = UserModel.decipherUser(

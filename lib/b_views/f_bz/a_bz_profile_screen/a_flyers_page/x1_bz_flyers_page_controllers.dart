@@ -240,7 +240,7 @@ Future<bool> _preFlyerDeleteCheckups({
 
   bool _canContinue = false;
 
-  final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+  final BzModel? _bzModel = BzzProvider.proGetActiveBzModel(
     context: getMainContext(),
     listen: false,
   );

@@ -183,7 +183,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  Function _onNoteTap(NoteModel _note) {
+  Function? _onNoteTap(NoteModel? _note) {
 
     if (canTapNoteBubble(_note) == true){
       return () => onBzNoteTap(
@@ -201,7 +201,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
   Widget build(BuildContext context) {
     // super.build(context);
 
-    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+    final BzModel? _bzModel = BzzProvider.proGetActiveBzModel(
       context: context,
       listen: true,
     );
