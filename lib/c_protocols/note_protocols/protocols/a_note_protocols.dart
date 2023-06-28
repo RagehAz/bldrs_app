@@ -693,14 +693,14 @@ class NoteProtocols {
     required String bzID,
   }) async {
 
-    final UserModel _oldUser = UsersProvider.proGetMyUserModel(
+    final UserModel? _oldUser = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );
 
     if (_oldUser != null){
 
-      final UserModel _newUser = UserModel.addAllBzTopicsToMyTopics(
+      final UserModel? _newUser = UserModel.addAllBzTopicsToMyTopics(
           oldUser: _oldUser,
           bzID: bzID
       );
@@ -758,14 +758,14 @@ class NoteProtocols {
     required String bzID,
   }) async {
 
-    final UserModel _oldUser = UsersProvider.proGetMyUserModel(
+    final UserModel? _oldUser = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );
 
     if (_oldUser != null) {
 
-      final UserModel _newUser = UserModel.removeAllBzTopicsFromMyTopics(
+      final UserModel? _newUser = UserModel.removeAllBzTopicsFromMyTopics(
           oldUser: _oldUser,
           bzID: bzID
       );

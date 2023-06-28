@@ -106,7 +106,7 @@ class BzFCMTopicsScreenView extends StatelessWidget {
   /// TESTED : WORKS PERFECT
   bool _allTopicsSwitchIsOn(BuildContext context){
 
-    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+    final UserModel? _userModel = UsersProvider.proGetMyUserModel(
       context: context,
       listen: true,
     );

@@ -132,7 +132,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
   @override
   Widget build(BuildContext context) {
 
-    final UserModel _user = UsersProvider.proGetMyUserModel(
+    final UserModel? _user = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );

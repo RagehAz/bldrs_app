@@ -133,8 +133,8 @@ class PicModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPicsAreIdentical({
-    required PicModel pic1,
-    required PicModel pic2,
+    required PicModel? pic1,
+    required PicModel? pic2,
   }){
     bool _identical = false;
 

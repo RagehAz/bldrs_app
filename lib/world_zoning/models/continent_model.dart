@@ -121,14 +121,13 @@ class Continent {
   /// GETTERS
 
   // --------------------
-  static Continent getContinentFromContinents({
+  static Continent? getContinentFromContinents({
     required List<Continent> continents,
     required String name,
   }) {
 
-    final Continent cont = continents.firstWhere(
-            (Continent continent) => continent.name == name,
-        orElse: () => null);
+    final Continent? cont = continents?.firstWhereOrNull(
+            (Continent continent) => continent.name == name);
 
     return cont;
   }

@@ -18,14 +18,14 @@ class AgendaModel {
     required this.suppliers,
   });
   // -----------------------------------------------------------------------------
-  final List<String> all;
-  final List<String> developers;
-  final List<String> brokers;
-  final List<String> designers;
-  final List<String> contractors;
-  final List<String> artisans;
-  final List<String> manufacturers;
-  final List<String> suppliers;
+  final List<String>? all;
+  final List<String>? developers;
+  final List<String>? brokers;
+  final List<String>? designers;
+  final List<String>? contractors;
+  final List<String>? artisans;
+  final List<String>? manufacturers;
+  final List<String>? suppliers;
   // -----------------------------------------------------------------------------
 
   /// CYPHERS
@@ -89,7 +89,7 @@ class AgendaModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static AgendaModel decipher(Map<String, dynamic> map){
+  static AgendaModel decipher(Map<String, dynamic>? map){
     AgendaModel _agenda = newAgenda();
 
     if (map != null){
@@ -116,8 +116,8 @@ class AgendaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static AgendaModel addBz({
-    required BzModel bzModel,
-    required AgendaModel oldAgenda,
+    required BzModel? bzModel,
+    required AgendaModel? oldAgenda,
   }){
     AgendaModel _newAgenda = oldAgenda ?? newAgenda();
 
@@ -210,20 +210,18 @@ class AgendaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static AgendaModel addBzz({
-    required List<BzModel> bzzModels,
-    required AgendaModel oldAgenda,
+    required List<BzModel>? bzzModels,
+    required AgendaModel? oldAgenda,
   }){
     AgendaModel _newAgenda = oldAgenda ?? newAgenda();
 
     if (Mapper.checkCanLoopList(bzzModels) == true){
 
-      for (final BzModel bzModel in bzzModels){
-
+      for (final BzModel bzModel in bzzModels!){
         _newAgenda = addBz(
           bzModel: bzModel,
           oldAgenda: _newAgenda,
         );
-
       }
 
     }
@@ -233,8 +231,8 @@ class AgendaModel {
   // --------------------
   /// TASK : TEST ME
   static AgendaModel addOrRemoveBz({
-    required BzModel bzModel,
-    required AgendaModel oldAgenda,
+    required BzModel? bzModel,
+    required AgendaModel? oldAgenda,
   }){
     AgendaModel _newAgenda = oldAgenda ?? newAgenda();
 
@@ -316,14 +314,14 @@ class AgendaModel {
   // --------------------
   /// TASK : TEST ME
   static AgendaModel addOrRemoveFlyers({
-    required List<BzModel> bzModels,
-    required AgendaModel oldAgenda,
+    required List<BzModel>? bzModels,
+    required AgendaModel? oldAgenda,
   }){
     AgendaModel _newAgenda = oldAgenda ?? newAgenda();
 
     if (Mapper.checkCanLoopList(bzModels) == true){
 
-      for (final BzModel bzModel in bzModels){
+      for (final BzModel bzModel in bzModels!){
 
         _newAgenda = addOrRemoveBz(
           bzModel: bzModel,
@@ -339,8 +337,8 @@ class AgendaModel {
   // --------------------
   /// TASK : TEST ME
   static AgendaModel removeBz({
-    required BzModel bz,
-    required AgendaModel oldAgenda,
+    required BzModel? bz,
+    required AgendaModel? oldAgenda,
   }){
     AgendaModel _newAgenda = oldAgenda ?? newAgenda();
 
@@ -437,14 +435,14 @@ class AgendaModel {
   // --------------------
   /// TASK : TEST ME
   static AgendaModel removeBzz({
-    required List<BzModel> bzz,
-    required AgendaModel oldAgenda,
+    required List<BzModel>? bzz,
+    required AgendaModel? oldAgenda,
   }){
     AgendaModel _newAgenda = oldAgenda ?? newAgenda();
 
     if (Mapper.checkCanLoopList(bzz) == true){
 
-      for (final BzModel bz in bzz){
+      for (final BzModel bz in bzz!){
 
         _newAgenda = removeBz(
           bz: bz,
@@ -460,15 +458,15 @@ class AgendaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static AgendaModel removeBzByID({
-    required AgendaModel oldAgenda,
-    required String bzID,
+    required AgendaModel? oldAgenda,
+    required String? bzID,
   }){
     AgendaModel _newAgenda = oldAgenda ?? newAgenda();
 
     if (bzID != null){
 
       final bool _contains = Stringer.checkStringsContainString(
-        strings: oldAgenda.all,
+        strings: _newAgenda.all,
         string: bzID,
       );
 
@@ -539,14 +537,14 @@ class AgendaModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static AgendaModel removeFlyersByIDs({
-    required AgendaModel oldAgenda,
-    required List<String> bzzIDs,
+    required AgendaModel? oldAgenda,
+    required List<String>? bzzIDs,
   }){
     AgendaModel _newAgenda = oldAgenda ?? newAgenda();
 
     if (Mapper.checkCanLoopList(bzzIDs) == true){
 
-      for (final String bzID in bzzIDs){
+      for (final String bzID in bzzIDs!){
 
         _newAgenda = removeBzByID(
           bzID: bzID,
@@ -565,22 +563,22 @@ class AgendaModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static int getCountByBzType({
-    required BzType bzType,
-    required AgendaModel agenda,
+  static int? getCountByBzType({
+    required BzType? bzType,
+    required AgendaModel? agenda,
   }){
-    int _output;
+    int? _output;
 
     if (bzType != null && agenda != null){
 
       switch (bzType) {
-        case BzType.developer     : return _output = agenda.developers   .length; break;
-        case BzType.broker        : return _output = agenda.brokers      .length; break;
-        case BzType.designer      : return _output = agenda.designers    .length; break;
-        case BzType.contractor    : return _output = agenda.contractors  .length; break;
-        case BzType.artisan       : return _output = agenda.artisans     .length; break;
-        case BzType.manufacturer  : return _output = agenda.manufacturers.length; break;
-        case BzType.supplier      : return _output = agenda.suppliers    .length; break;
+        case BzType.developer     : return _output = agenda.developers   ?.length;
+        case BzType.broker        : return _output = agenda.brokers      ?.length;
+        case BzType.designer      : return _output = agenda.designers    ?.length;
+        case BzType.contractor    : return _output = agenda.contractors  ?.length;
+        case BzType.artisan       : return _output = agenda.artisans     ?.length;
+        case BzType.manufacturer  : return _output = agenda.manufacturers?.length;
+        case BzType.supplier      : return _output = agenda.suppliers    ?.length;
         default: _output = 0;
       }
 
@@ -595,8 +593,8 @@ class AgendaModel {
   // --------------------
   /// TESTED: WORKS PERFECT
   static bool checkAgendasAreIdentical({
-    required AgendaModel agenda1,
-    required AgendaModel agenda2,
+    required AgendaModel? agenda1,
+    required AgendaModel? agenda2,
   }){
     bool _areIdentical = false;
 

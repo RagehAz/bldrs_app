@@ -197,7 +197,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         context: context,
         listen: true,
       );
-      final UserModel _userModel = UsersProvider.proGetMyUserModel(
+      final UserModel? _userModel = UsersProvider.proGetMyUserModel(
         context: context,
         listen: true,
       );

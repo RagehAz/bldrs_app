@@ -355,10 +355,14 @@ class BzzProvider extends ChangeNotifier {
   }) {
     bool _isFollowing = false;
 
-    final UsersProvider _usersProvider = Provider.of<UsersProvider>(getMainContext(), listen: false);
-    final UserModel _myUserModel = _usersProvider.myUserModel;
+    final UserModel? _myUserModel = UsersProvider.proGetMyUserModel(
+        context: getMainContext(),
+        listen: false,
+    );
 
-    final String _id = _myUserModel?.followedBzz?.all?.firstWhere((String id) => id == bzID, orElse: () => null);
+    final String? _id = _myUserModel?.followedBzz?.all?.firstWhere(
+          (String id) => id == bzID,
+       );
 
     if (_id == null) {
       _isFollowing = false;

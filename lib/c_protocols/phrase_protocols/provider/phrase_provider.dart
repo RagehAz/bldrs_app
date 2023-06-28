@@ -10,6 +10,7 @@ import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
@@ -192,19 +193,14 @@ class PhraseProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  String translatePhid(String phid){
+  String? translatePhid(String? phid){
 
-    String _translation;
+    String? _translation;
 
-    if (
-        _mainPhrases != null
-        &&
-        Mapper.checkCanLoopList(_mainPhrases) == true
-    ){
+    if (Mapper.checkCanLoopList(_mainPhrases) == true){
 
-      final Phrase _phrase = _mainPhrases.firstWhere(
+      final Phrase? _phrase = _mainPhrases.firstWhereOrNull(
               (phrase) => phrase.id == phid,
-          orElse: ()=> null
       );
 
       if (_phrase != null){

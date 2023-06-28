@@ -60,31 +60,31 @@ class UserModel {
     this.docSnapshot,
   });
   /// --------------------------------------------------------------------------
-  final String id;
-  final SignInMethod signInMethod;
-  final DateTime createdAt;
-  final NeedModel need;
-  final String name;
-  final List<String> trigram;
-  final String picPath; // path only
-  final String title;
-  final String company;
-  final Gender gender;
-  final ZoneModel zone;
-  final String language;
-  final GeoPoint location;
-  final List<ContactModel> contacts;
-  final bool contactsArePublic;
-  final List<String> myBzzIDs;
-  final bool isAuthor;
-  final bool emailIsVerified;
-  final bool isAdmin;
-  final DeviceModel device;
-  final List<String> fcmTopics;
-  final DeckModel savedFlyers;
-  final AgendaModel followedBzz;
-  final AppStateModel appState;
-  final DocumentSnapshot docSnapshot;
+  final String? id;
+  final SignInMethod? signInMethod;
+  final DateTime? createdAt;
+  final NeedModel? need;
+  final String? name;
+  final List<String>? trigram;
+  final String? picPath; // path only
+  final String? title;
+  final String? company;
+  final Gender? gender;
+  final ZoneModel? zone;
+  final String? language;
+  final GeoPoint? location;
+  final List<ContactModel>? contacts;
+  final bool? contactsArePublic;
+  final List<String>? myBzzIDs;
+  final bool? isAuthor;
+  final bool? emailIsVerified;
+  final bool? isAdmin;
+  final DeviceModel? device;
+  final List<String>? fcmTopics;
+  final DeckModel? savedFlyers;
+  final AgendaModel? followedBzz;
+  final AppStateModel? appState;
+  final DocumentSnapshot? docSnapshot;
    // -----------------------------------------------------------------------------
 
   /// CREATION
@@ -97,7 +97,7 @@ class UserModel {
 
     assert(authModel.signInMethod != SignInMethod.anonymous, 'user must not be anonymous');
 
-    final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(
+    final ZoneModel? _currentZone = ZoneProvider.proGetCurrentZone(
       context: getMainContext(),
       listen: false,
     );
@@ -125,7 +125,7 @@ class UserModel {
       // -------------------------
       myBzzIDs: const <String>[],
       isAuthor: false,
-      emailIsVerified: authModel.data['credential.user.emailVerified'] ?? authModel.data['user.emailVerified'],
+      emailIsVerified: authModel.data?['credential.user.emailVerified'] ?? authModel.data?['user.emailVerified'],
       isAdmin: false,
       company: null,
       device: await DeviceModel.generateDeviceModel(),
@@ -174,7 +174,7 @@ class UserModel {
       'fcmTopics': fcmTopics,
       'savedFlyers': savedFlyers?.toMap(),
       'followedBzz': followedBzz?.toMap(),
-      'appState' : appState.toMap(),
+      'appState' : appState?.toMap(),
     };
   }
   // --------------------
@@ -201,8 +201,8 @@ class UserModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static UserModel decipherUser({
-    required Map<String, dynamic> map,
+  static UserModel? decipherUser({
+    required Map<String, dynamic>? map,
     required bool fromJSON,
   }) {
 
@@ -249,18 +249,23 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<UserModel> decipherUsers({
-    required List<Map<String, dynamic>> maps,
+    required List<Map<String, dynamic>>? maps,
     required bool fromJSON,
   }) {
     final List<UserModel> _users = <UserModel>[];
 
-    if (Mapper.checkCanLoopList(maps)) {
-      for (final Map<String, dynamic> map in maps) {
-        _users.add(decipherUser(
+    if (Mapper.checkCanLoopList(maps) == true) {
+      for (final Map<String, dynamic> map in maps!) {
+
+        final UserModel? _user = decipherUser(
             map: map,
             fromJSON: fromJSON
-        )
         );
+
+        if (_user != null){
+          _users.add(_user);
+        }
+
       }
     }
 
@@ -386,37 +391,37 @@ class UserModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Gender decipherGender(String gender) {
+  static Gender? decipherGender(String? gender) {
     switch (gender) {
-      case 'female' :   return Gender.female; break;
-      case 'male'   :   return Gender.male;   break;
+      case 'female' :   return Gender.female;
+      case 'male'   :   return Gender.male;
       default:return null;
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String cipherGender(Gender gender) {
+  static String? cipherGender(Gender? gender) {
     switch (gender) {
-      case Gender.female:   return 'female';    break;
-      case Gender.male:     return 'male';      break;
+      case Gender.female:   return 'female';
+      case Gender.male:     return 'male';
       default:              return null;
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getGenderPhid(Gender gender) {
+  static String? getGenderPhid(Gender? gender) {
     switch (gender) {
-      case Gender.female:   return 'phid_female';    break;
-      case Gender.male:     return 'phid_male';      break;
+      case Gender.female:   return 'phid_female';
+      case Gender.male:     return 'phid_male';
       default:              return null;
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String genderIcon(Gender gender){
+  static String? genderIcon(Gender? gender){
     switch (gender) {
-      case Gender.female:   return Iconz.female;    break;
-      case Gender.male:     return Iconz.male;      break;
+      case Gender.female:   return Iconz.female;
+      case Gender.male:     return Iconz.male;
       default:              return null;
     }
   }
@@ -432,9 +437,9 @@ class UserModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Verse generateUserJobLine(UserModel userModel){
+  static Verse generateUserJobLine(UserModel? userModel){
     return Verse(
-      id: userModel == null ? null : '${userModel?.title} @ ${userModel?.company}',
+      id: userModel == null ? null : '${userModel.title} @ ${userModel.company}',
       translate: false,
     );
   }
@@ -443,7 +448,7 @@ class UserModel {
   /// CHECKERS
 
   // --------------------
-  static bool userIsSignedUp(UserModel userModel) {
+  static bool userIsSignedUp(UserModel? userModel) {
     bool _userIsSignedUp = false;
 
     if (userModel != null && userModel.id != null) {
@@ -453,10 +458,10 @@ class UserModel {
     return _userIsSignedUp;
   }
   /// TESTED : WORKS PERFECT
-  static bool checkUserIsAuthor(UserModel userModel) {
+  static bool checkUserIsAuthor(UserModel? userModel) {
     bool _userIsAuthor = false;
 
-    if (userModel != null && Mapper.checkCanLoopList(userModel?.myBzzIDs)) {
+    if (userModel != null && Mapper.checkCanLoopList(userModel.myBzzIDs)) {
       _userIsAuthor = true;
     }
 
@@ -465,14 +470,14 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkUsersContainUser({
-    required List<UserModel> usersModels,
-    required UserModel userModel,
+    required List<UserModel>? usersModels,
+    required UserModel? userModel,
   }){
     bool _contains = false;
 
     if (Mapper.checkCanLoopList(usersModels) == true && userModel != null){
 
-      for (final UserModel user in usersModels){
+      for (final UserModel user in usersModels!){
 
         if (user.id == userModel.id){
           _contains = true;
@@ -488,7 +493,7 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkUserFollowsBz({
-    required UserModel userModel,
+    required UserModel? userModel,
     required String bzID,
   }){
 
@@ -501,7 +506,7 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkFlyerIsSaved({
-    required UserModel userModel,
+    required UserModel? userModel,
     required String flyerID,
   }){
 
@@ -513,8 +518,8 @@ class UserModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkItIsMe(String userID){
-    final String _myID = Authing.getUserID();
+  static bool checkItIsMe(String? userID){
+    final String? _myID = Authing.getUserID();
 
     if (_myID != null && userID != null){
       return userID == _myID;
@@ -531,12 +536,16 @@ class UserModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> getUsersIDs(List<UserModel> usersModels){
+  static List<String> getUsersIDs(List<UserModel>? usersModels){
     final List<String> _usersIDs = <String>[];
 
     if (Mapper.checkCanLoopList(usersModels) == true){
-      for (final UserModel user in usersModels){
-        _usersIDs.add(user.id);
+      for (final UserModel user in usersModels!){
+
+        if (user.id != null){
+          _usersIDs.add(user.id!);
+        }
+
       }
     }
 
@@ -544,12 +553,14 @@ class UserModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> getUsersPics(List<UserModel> usersModels){
+  static List<String> getUsersPics(List<UserModel>? usersModels){
     final List<String> _pics = <String>[];
 
     if (Mapper.checkCanLoopList(usersModels) == true){
-      for (final UserModel user in usersModels){
-        _pics.add(user.picPath);
+      for (final UserModel user in usersModels!){
+        if (user.picPath != null){
+          _pics.add(user.picPath!);
+        }
       }
     }
 
@@ -562,10 +573,10 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<UserModel> addOrRemoveUserToUsers({
-    required List<UserModel> usersModels,
-    required UserModel userModel,
+    required List<UserModel>? usersModels,
+    required UserModel? userModel,
   }){
-    final List<UserModel> _output = <UserModel>[...usersModels];
+    final List<UserModel> _output = <UserModel>[...?usersModels];
 
     if (userModel != null){
 
@@ -588,8 +599,8 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<UserModel> addUniqueUserToUsers({
-    required List<UserModel> usersToGet,
-    required UserModel userToAdd,
+    required List<UserModel>? usersToGet,
+    required UserModel? userToAdd,
   }){
 
     final List<UserModel> _output = usersToGet ?? <UserModel>[];
@@ -657,16 +668,16 @@ class UserModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static UserModel removeBzIDFromUserBzzIDs({
-    required UserModel oldUser,
-    required String bzIDToRemove,
+  static UserModel? removeBzIDFromUserBzzIDs({
+    required UserModel? oldUser,
+    required String? bzIDToRemove,
   }){
-    UserModel _newUser = oldUser;
+    UserModel? _newUser = oldUser;
 
-    if (Mapper.checkCanLoopList(oldUser?.myBzzIDs) == true) {
+    if (Mapper.checkCanLoopList(oldUser?.myBzzIDs) == true && bzIDToRemove != null) {
 
       final List<String> _newList = Stringer.removeStringsFromStrings(
-        removeFrom: oldUser.myBzzIDs,
+        removeFrom: oldUser!.myBzzIDs,
         removeThis: <String>[bzIDToRemove],
       );
 
@@ -680,9 +691,9 @@ class UserModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static UserModel addBzIDToUserFollows({
-    required UserModel oldUser,
-    required BzModel bzToFollow,
+  static UserModel? addBzIDToUserFollows({
+    required UserModel? oldUser,
+    required BzModel? bzToFollow,
   }){
 
     final AgendaModel _newFollows = AgendaModel.addBz(
@@ -690,7 +701,7 @@ class UserModel {
       oldAgenda: oldUser?.followedBzz,
     );
 
-    final UserModel _newUser = oldUser?.copyWith(
+    final UserModel? _newUser = oldUser?.copyWith(
       followedBzz: _newFollows,
     );
 
@@ -698,9 +709,9 @@ class UserModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static UserModel removeBzIDFromUserFollows({
-    required UserModel oldUser,
-    required String bzIDToUnFollow,
+  static UserModel? removeBzIDFromUserFollows({
+    required UserModel? oldUser,
+    required String? bzIDToUnFollow,
   }){
 
 
@@ -709,7 +720,7 @@ class UserModel {
         bzID: bzIDToUnFollow,
     );
 
-    final UserModel _newUser = oldUser.copyWith(
+    final UserModel? _newUser = oldUser?.copyWith(
       followedBzz: _newFollows,
     );
 
@@ -717,9 +728,9 @@ class UserModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static UserModel addFlyerToSavedFlyers({
-    required UserModel oldUser,
-    required FlyerModel flyerModel,
+  static UserModel? addFlyerToSavedFlyers({
+    required UserModel? oldUser,
+    required FlyerModel? flyerModel,
   }){
 
     final DeckModel _newSavedFlyers = DeckModel.addFlyer(
@@ -727,7 +738,7 @@ class UserModel {
         oldDeck: oldUser?.savedFlyers,
     );
 
-    final UserModel _newUser = oldUser?.copyWith(
+    final UserModel? _newUser = oldUser?.copyWith(
       savedFlyers: _newSavedFlyers,
     );
 
@@ -735,9 +746,9 @@ class UserModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static UserModel removeFlyerFromSavedFlyers({
-    required UserModel oldUser,
-    required String flyerIDToRemove,
+  static UserModel? removeFlyerFromSavedFlyers({
+    required UserModel? oldUser,
+    required String? flyerIDToRemove,
   }){
 
     final DeckModel _newSavedFlyers = DeckModel.removeFlyerByID(
@@ -745,7 +756,7 @@ class UserModel {
         flyerID: flyerIDToRemove
     );
 
-    final UserModel _newUser = oldUser.copyWith(
+    final UserModel? _newUser = oldUser?.copyWith(
       savedFlyers: _newSavedFlyers,
     );
 
@@ -753,15 +764,15 @@ class UserModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static UserModel addAllBzTopicsToMyTopics({
-    required UserModel oldUser,
-    required String bzID,
+  static UserModel? addAllBzTopicsToMyTopics({
+    required UserModel? oldUser,
+    required String? bzID,
   }){
-    UserModel _newUser = oldUser;
+    UserModel? _newUser = oldUser;
 
     if (bzID != null && _newUser != null){
 
-      List<String> userTopics = <String>[..._newUser.fcmTopics];
+      List<String> userTopics = <String>[...?_newUser.fcmTopics];
 
       userTopics = Stringer.addStringsToStringsIfDoNotContainThem(
         listToTake: userTopics,
@@ -778,15 +789,15 @@ class UserModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static UserModel removeAllBzTopicsFromMyTopics({
-    required UserModel oldUser,
-    required String bzID,
+  static UserModel? removeAllBzTopicsFromMyTopics({
+    required UserModel? oldUser,
+    required String? bzID,
   }){
-    UserModel _newUser = oldUser;
+    UserModel? _newUser = oldUser;
 
     if (bzID != null && _newUser != null){
 
-      List<String> userTopics = <String>[..._newUser.fcmTopics];
+      List<String> userTopics = <String>[...?_newUser.fcmTopics];
 
       userTopics = Stringer.removeStringsFromStrings(
         removeFrom: userTopics,
@@ -808,7 +819,7 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   void blogUserModel({
-    String invoker = 'BLOGGING USER MODEL',
+    String? invoker = 'BLOGGING USER MODEL',
   }) {
     blog('$invoker : ---------------- START -- ');
 
@@ -865,8 +876,8 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogUsersDifferences({
-    required UserModel user1,
-    required UserModel user2,
+    required UserModel? user1,
+    required UserModel? user2,
   }){
 
     if (user1 == null){
@@ -1092,8 +1103,8 @@ class UserModel {
   }
    */
   // --------------------
-  static Future<UserModel> anonymousUser({
-    required AuthModel authModel,
+  static Future<UserModel?> anonymousUser({
+    required AuthModel? authModel,
   }) async {
 
     if (authModel == null){
@@ -1102,7 +1113,7 @@ class UserModel {
 
     else {
 
-      final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(
+      final ZoneModel? _currentZone = ZoneProvider.proGetCurrentZone(
         context: getMainContext(),
         listen: false,
       );
@@ -1143,8 +1154,8 @@ class UserModel {
   // --------------------
    /// TESTED : WORKS PERFECT
   static bool usersAreIdentical({
-    required UserModel user1,
-    required UserModel user2,
+    required UserModel? user1,
+    required UserModel? user2,
   }){
     bool _identical = false;
 

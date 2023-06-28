@@ -24,7 +24,7 @@ class UserFollowingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final UserModel userModel = UsersProvider.proGetMyUserModel(
+    final UserModel? userModel = UsersProvider.proGetMyUserModel(
       context: context,
       listen: true,
     );

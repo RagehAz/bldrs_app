@@ -1,6 +1,7 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
 @immutable
@@ -225,14 +226,14 @@ class MapModel{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static MapModel getModelByKey({
-    required List<MapModel> models,
+  static MapModel? getModelByKey({
+    required List<MapModel>? models,
     required String key,
   }){
-    MapModel _model;
+    MapModel? _model;
 
     if (Mapper.checkCanLoopList(models) == true){
-      _model = models.firstWhere((m) => m.key == key, orElse: ()=> null);
+      _model = models!.firstWhereOrNull((m) => m.key == key);
     }
 
     return _model;
@@ -392,16 +393,15 @@ class MapModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkMapsIncludeThisKey({
-    required List<MapModel> mapModels,
+    required List<MapModel>? mapModels,
     required String key,
   }){
     bool _include = false;
 
     if (Mapper.checkCanLoopList(mapModels) == true){
 
-      final MapModel _map = mapModels.firstWhere(
+      final MapModel? _map = mapModels!.firstWhereOrNull(
               (element) => element.key == key,
-          orElse: () => null
       );
 
       if (_map != null){

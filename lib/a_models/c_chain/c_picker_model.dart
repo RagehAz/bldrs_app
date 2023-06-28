@@ -8,6 +8,7 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -603,30 +604,29 @@ class PickerModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static  String getPickersIDByFlyerType(FlyerType flyerType){
+  static  String? getPickersIDByFlyerType(FlyerType? flyerType){
     return FlyerTyper.cipherFlyerType(flyerType);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static PickerModel getPickerByChainIDOrUnitChainID({
-    required List<PickerModel> pickers,
-    required String chainIDOrUnitChainID,
+  static PickerModel? getPickerByChainIDOrUnitChainID({
+    required List<PickerModel>? pickers,
+    required String? chainIDOrUnitChainID,
   }) {
 
-    blog('getPickerFromPickersByChainIDOrUnitChainID : pickerChainID : $chainIDOrUnitChainID');
+    // blog('getPickerFromPickersByChainIDOrUnitChainID : pickerChainID : $chainIDOrUnitChainID');
     // SpecPicker.blogSpecsPickers(specsPickers);
 
     /// gets the picker where chain ID is the main chain or unit chain ID
 
-    PickerModel _specPicker;
+    PickerModel? _specPicker;
 
-    if (Mapper.checkCanLoopList(pickers) && chainIDOrUnitChainID != null) {
-      _specPicker = pickers.firstWhere(
+    if (Mapper.checkCanLoopList(pickers) == true && chainIDOrUnitChainID != null) {
+      _specPicker = pickers!.firstWhereOrNull(
               (PickerModel picker) =>
-          picker.chainID == chainIDOrUnitChainID
+              picker.chainID == chainIDOrUnitChainID
               ||
               picker.unitChainID == chainIDOrUnitChainID,
-          orElse: () => null
       );
     }
 
@@ -634,9 +634,9 @@ class PickerModel {
   }
   // --------------------
   /// TASK : TEST ME
-  static PickerModel getPickerByChainID({
-    required List<PickerModel> pickers,
-    required String chainID,
+  static PickerModel? getPickerByChainID({
+    required List<PickerModel>? pickers,
+    required String? chainID,
   }) {
 
     // blog('getPickerByChainID : pickerChainID : $chainID');
@@ -644,11 +644,11 @@ class PickerModel {
 
     /// gets the picker where chain ID is the main chain or unit chain ID
 
-    PickerModel _specPicker;
+    PickerModel? _specPicker;
 
-    if (Mapper.checkCanLoopList(pickers) && chainID != null) {
-      _specPicker = pickers.firstWhere(
-              (PickerModel picker) => picker.chainID == chainID, orElse: () => null);
+    if (Mapper.checkCanLoopList(pickers) == true && chainID != null) {
+      _specPicker = pickers!.firstWhereOrNull(
+              (PickerModel picker) => picker.chainID == chainID);
     }
 
     return _specPicker;

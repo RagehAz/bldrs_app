@@ -311,7 +311,7 @@ class NoteEventsOfBzTeamManagement {
   }) async {
     blog('NoteEventsOfBzTeamManagement.sendNoBzContactAvailableNote : START');
 
-    final UserModel userModel = UsersProvider.proGetMyUserModel(
+    final UserModel? userModel = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );

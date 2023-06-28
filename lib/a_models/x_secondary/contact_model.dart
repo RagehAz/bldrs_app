@@ -6,6 +6,7 @@ import 'package:fire/super_fire.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:collection/collection.dart';
 
 enum ContactType {
   phone,
@@ -38,9 +39,9 @@ class ContactModel {
     this.controller,
   });
   /// --------------------------------------------------------------------------
-  final String value;
+  final String? value;
   final ContactType type;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   // -----------------------------------------------------------------------------
 
   /// STANDARDS
@@ -64,7 +65,7 @@ class ContactModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<ContactModel> generateContactsFromFirebaseUser(User user) {
+  static List<ContactModel> generateContactsFromFirebaseUser(User? user) {
     return generateBasicContacts(
       email: user?.email,
       phone: user?.phoneNumber,
@@ -73,8 +74,8 @@ class ContactModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<ContactModel> generateBasicContacts({
-    required String email,
-    required String phone,
+    required String? email,
+    required String? phone,
   }){
     final List<ContactModel> _userContacts = <ContactModel>[];
 
@@ -107,11 +108,11 @@ class ContactModel {
    */
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, Object> cipherContacts(List<ContactModel> contacts) {
-    Map<String, Object> _map = <String, Object>{};
+  static Map<String, dynamic> cipherContacts(List<ContactModel>? contacts) {
+    Map<String, dynamic> _map = <String, dynamic>{};
 
-    if (Mapper.checkCanLoopList(contacts)) {
-      for (final ContactModel contact in contacts) {
+    if (Mapper.checkCanLoopList(contacts) == true) {
+      for (final ContactModel contact in contacts!) {
         if (contact.value != null && contact.value != '') {
           _map = Mapper.insertPairInMap(
             map: _map,
@@ -127,18 +128,19 @@ class ContactModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<ContactModel> decipherContacts(Map<String, dynamic> maps) {
+  static List<ContactModel> decipherContacts(Map<String, dynamic> map) {
     final List<ContactModel> _contacts = <ContactModel>[];
 
-    if (maps != null) {
-      final List<String> _keys = maps.keys.toList();
+    if (map != null) {
+      final List<String> _keys = map.keys.toList();
 
-      if (Mapper.checkCanLoopList(_keys)) {
+      if (Mapper.checkCanLoopList(_keys) == true) {
+
         for (final String key in _keys) {
 
           final ContactModel _contact = ContactModel(
-              value: maps[key],
-              type: _decipherContactType(key)
+              value: map[key],
+              type: _decipherContactType(key)!,
           );
 
           _contacts.add(_contact);
@@ -151,35 +153,35 @@ class ContactModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static ContactType _decipherContactType(String contactType) {
+  static ContactType? _decipherContactType(String? contactType) {
     switch (contactType) {
-      case 'phone':     return ContactType.phone;     break;
-      case 'email':     return ContactType.email;     break;
-      case 'website':   return ContactType.website;   break;
-      case 'facebook':  return ContactType.facebook;  break;
-      case 'linkedIn':  return ContactType.linkedIn;  break;
-      case 'youtube':   return ContactType.youtube;   break;
-      case 'instagram': return ContactType.instagram; break;
-      case 'pinterest': return ContactType.pinterest; break;
-      case 'tiktok':    return ContactType.tiktok;    break;
-      case 'twitter':   return ContactType.twitter;   break;
+      case 'phone':     return ContactType.phone;
+      case 'email':     return ContactType.email;
+      case 'website':   return ContactType.website;
+      case 'facebook':  return ContactType.facebook;
+      case 'linkedIn':  return ContactType.linkedIn;
+      case 'youtube':   return ContactType.youtube;
+      case 'instagram': return ContactType.instagram;
+      case 'pinterest': return ContactType.pinterest;
+      case 'tiktok':    return ContactType.tiktok;
+      case 'twitter':   return ContactType.twitter;
       default:          return null;
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String _cipherContactType(ContactType contactType) {
+  static String? _cipherContactType(ContactType? contactType) {
     switch (contactType) {
-      case ContactType.phone:     return 'phone';     break;
-      case ContactType.email:     return 'email';     break;
-      case ContactType.website:   return 'website';   break;
-      case ContactType.facebook:  return 'facebook';  break;
-      case ContactType.linkedIn:  return 'linkedIn';  break;
-      case ContactType.youtube:   return 'youtube';   break;
-      case ContactType.instagram: return 'instagram'; break;
-      case ContactType.pinterest: return 'pinterest'; break;
-      case ContactType.tiktok:    return 'tiktok';    break;
-      case ContactType.twitter:   return 'twitter';   break;
+      case ContactType.phone:     return 'phone';
+      case ContactType.email:     return 'email';
+      case ContactType.website:   return 'website';
+      case ContactType.facebook:  return 'facebook';
+      case ContactType.linkedIn:  return 'linkedIn';
+      case ContactType.youtube:   return 'youtube';
+      case ContactType.instagram: return 'instagram';
+      case ContactType.pinterest: return 'pinterest';
+      case ContactType.tiktok:    return 'tiktok';
+      case ContactType.twitter:   return 'twitter';
       default:  return null;
     }
   }
@@ -190,19 +192,19 @@ class ContactModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<ContactModel> prepareContactsForEditing({
-    required List<ContactModel> contacts,
-    required String countryID,
+    required List<ContactModel>? contacts,
+    required String? countryID,
   }){
     final List<ContactModel> _output = <ContactModel>[];
 
     for (final ContactType type in contactTypesList){
 
-      final ContactModel _existingContact = getContactFromContacts(
+      final ContactModel? _existingContact = getContactFromContacts(
         contacts: contacts,
         type: type,
       );
 
-      final String _initialValue = _initializeContactValue(
+      final String? _initialValue = _initializeContactValue(
         existingContact: _existingContact,
         type: type,
         countryID: countryID,
@@ -226,7 +228,7 @@ class ContactModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getInitialContactValue({
+  static String? getInitialContactValue({
     required List<ContactModel> existingContacts,
     required ContactType type,
     required String countryID,
@@ -247,9 +249,9 @@ class ContactModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String? _initializeContactValue({
-    required ContactModel existingContact,
+    required ContactModel? existingContact,
     required ContactType type,
-    required String countryID,
+    required String? countryID,
   }){
     String? _output = '';
 
@@ -286,9 +288,9 @@ class ContactModel {
       for (final ContactModel contact in contacts){
 
         if (contact.controller != null){
-          blog('createListenersToControllers : creating listener to ${contact.type} : _controller: ${contact.controller.hashCode} : ${contact.controller.text}');
-          contact.controller.addListener((){
-            blog('createListenersToControllers :  IS CHANGING TO : ${contact.controller.text}');
+          blog('createListenersToControllers : creating listener to ${contact.type} : _controller: ${contact.controller.hashCode} : ${contact.controller?.text}');
+          contact.controller!.addListener((){
+            blog('createListenersToControllers :  IS CHANGING TO : ${contact.controller!.text}');
             listener();
           });
         }
@@ -309,7 +311,7 @@ class ContactModel {
       for (final ContactModel contact in contacts){
 
         if (contact.controller != null){
-          contact.controller.dispose();
+          contact.controller!.dispose();
         }
 
       }
@@ -322,19 +324,19 @@ class ContactModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<ContactModel> bakeContactsAfterEditing({
-    required List<ContactModel> contacts,
-    required String countryID,
+    required List<ContactModel>? contacts,
+    required String? countryID,
   }){
 
     final List<ContactModel> _output = <ContactModel>[];
 
     if (Mapper.checkCanLoopList(contacts) == true){
 
-      for (int i = 0; i < contacts.length; i++){
+      for (int i = 0; i < contacts!.length; i++){
 
-        final ContactModel _contact = contacts[i];
+        final ContactModel _contact = contacts![i];
         final ContactType _contactType = _contact.type;
-        final String? _value = _contact?.controller ?? _contact.value;
+        final String? _value = _contact?.controller?.text ?? _contact.value;
 
         String? _endValue;
 
@@ -377,22 +379,21 @@ class ContactModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getContactTypePhid({
-    required BuildContext context,
-    required ContactType contactType,
+  static String? getContactTypePhid({
+    required ContactType? contactType,
   }){
 
     switch (contactType){
-      case ContactType.phone:      return 'phid_phone'; break;
-      case ContactType.email:      return 'phid_emailAddress'; break;
-      case ContactType.website:    return 'phid_website'; break;
-      case ContactType.facebook:   return 'phid_facebook'; break;
-      case ContactType.linkedIn:   return 'phid_linkedIn'; break;
-      case ContactType.youtube:    return 'phid_youtube'; break;
-      case ContactType.instagram:  return 'phid_instagram'; break;
-      case ContactType.pinterest:  return 'phid_pinterest'; break;
-      case ContactType.tiktok:     return 'phid_tiktok'; break;
-      case ContactType.twitter:    return 'phid_twitter'; break;
+      case ContactType.phone:      return 'phid_phone';
+      case ContactType.email:      return 'phid_emailAddress';
+      case ContactType.website:    return 'phid_website';
+      case ContactType.facebook:   return 'phid_facebook';
+      case ContactType.linkedIn:   return 'phid_linkedIn';
+      case ContactType.youtube:    return 'phid_youtube';
+      case ContactType.instagram:  return 'phid_instagram';
+      case ContactType.pinterest:  return 'phid_pinterest';
+      case ContactType.tiktok:     return 'phid_tiktok';
+      case ContactType.twitter:    return 'phid_twitter';
       default: return null;
 
     }
@@ -404,13 +405,11 @@ class ContactModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static ContactModel getContactFromContacts({
-    required List<ContactModel> contacts,
-    required ContactType type,
+  static ContactModel? getContactFromContacts({
+    required List<ContactModel>? contacts,
+    required ContactType? type,
   }) {
-    final ContactModel contact = contacts?.singleWhere(
-            (ContactModel x) => x.type == type,
-        orElse: () => null);
+    final ContactModel? contact = contacts?.firstWhereOrNull((ContactModel x) => x.type == type);
     return contact;
   }
   // --------------------
@@ -622,7 +621,7 @@ class ContactModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogContacts({
-    required List<ContactModel> contacts,
+    required List<ContactModel>? contacts,
     String invoker = 'Contacts Models',
   }){
 
@@ -764,15 +763,15 @@ class ContactModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkContactsListsAreIdentical({
-    required List<ContactModel> contacts1,
-    required List<ContactModel> contacts2,
+    required List<ContactModel>? contacts1,
+    required List<ContactModel>? contacts2,
   }){
     bool _identical = false;
 
     if (contacts1 == null && contacts2 == null){
       _identical = true;
     }
-    else if (contacts1?.isEmpty == true && contacts2?.isEmpty == true){
+    else if (contacts1 != null && contacts1.isEmpty == true && contacts2 != null && contacts2.isEmpty == true){
       _identical = true;
     }
     else if (contacts1 != null && contacts2 != null){

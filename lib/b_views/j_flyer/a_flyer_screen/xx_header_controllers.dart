@@ -254,7 +254,7 @@ Future<void> onFollowTap({
   required bool mounted,
 }) async {
 
-  final UserModel _user = UsersProvider.proGetMyUserModel(
+  final UserModel? _user = UsersProvider.proGetMyUserModel(
     context: context,
     listen: false,
   );
@@ -296,7 +296,7 @@ Future<void> onCallTap({
   required FlyerModel flyerModel,
 }) async {
 
-  final UserModel _userModel = UsersProvider.proGetMyUserModel(
+  final UserModel? _userModel = UsersProvider.proGetMyUserModel(
     context: getMainContext(),
     listen: false,
   );

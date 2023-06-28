@@ -8,6 +8,7 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 class CensusModel {
@@ -1133,9 +1134,7 @@ class CensusModel {
     CensusModel? _output;
 
     if (Mapper.checkCanLoopList(censuses) == true && censusID != null){
-
-      _output = censuses.firstWhere((census) => census.id == censusID, orElse: () => null);
-
+      _output = censuses!.firstWhereOrNull((census) => census.id == censusID);
     }
 
     return _output;

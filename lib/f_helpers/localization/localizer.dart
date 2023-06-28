@@ -217,7 +217,7 @@ class Localizer {
 
     BldrsAppStarter.setLocale(context, _temp);
 
-    final UserModel _user = UsersProvider.proGetMyUserModel(
+    final UserModel? _user = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );

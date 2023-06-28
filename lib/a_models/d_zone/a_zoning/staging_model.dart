@@ -368,7 +368,10 @@ class StagingModel {
     required String viewerCountryID,
   }){
 
-    final UserModel _user = UsersProvider.proGetMyUserModel(context: getMainContext(),listen: false);
+    final UserModel? _user = UsersProvider.proGetMyUserModel(
+        context: getMainContext(),
+        listen: false,
+    );
     final bool _isAuthor = UserModel.checkUserIsAuthor(_user);
     final bool _isGlobal =
         countryID != null &&

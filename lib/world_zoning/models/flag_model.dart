@@ -109,8 +109,8 @@ class Flag {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Flag decipher(Map<String, dynamic> map){
-    Flag _output;
+  static Flag? decipher(Map<String, dynamic>? map){
+    Flag? _output;
 
     if (map != null){
       _output = Flag(
@@ -293,8 +293,8 @@ class Flag {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getCountryPhoneCode(String countryID){
-    String _output;
+  static String? getCountryPhoneCode(String? countryID){
+    String? _output;
 
     if (countryID != null) {
 
