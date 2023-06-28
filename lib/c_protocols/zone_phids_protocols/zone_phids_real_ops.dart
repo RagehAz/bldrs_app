@@ -23,7 +23,7 @@ class ZonePhidsRealOps {
   static Future<ZonePhidsModel> readZonePhidsOfCurrentZone() async {
     ZonePhidsModel _output;
 
-    final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(
+    final ZoneModel? _currentZone = ZoneProvider.proGetCurrentZone(
       context: getMainContext(),
       listen: false,
     );

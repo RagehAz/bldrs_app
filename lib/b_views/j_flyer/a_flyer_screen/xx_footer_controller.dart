@@ -74,7 +74,7 @@ Future<void> onShareFlyer({
 
   if (flyerModel != null) {
 
-    final UserModel _user = UsersProvider.proGetMyUserModel(
+    final UserModel? _user = UsersProvider.proGetMyUserModel(
       context: getMainContext(),
       listen: false,
     );

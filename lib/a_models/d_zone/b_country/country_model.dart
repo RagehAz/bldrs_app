@@ -136,7 +136,7 @@ class CountryModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkCountriesAreIdentical(CountryModel country1, CountryModel country2) {
+  static bool checkCountriesAreIdentical(CountryModel? country1, CountryModel? country2) {
     bool _identical = false;
 
     if (country1 == null && country2 == null){

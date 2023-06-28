@@ -189,8 +189,8 @@ class AppStateModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkAppStatesAreIdentical({
-    required AppStateModel state1,
-    required AppStateModel state2,
+    required AppStateModel? state1,
+    required AppStateModel? state2,
   }){
     bool _identical = false;
 

@@ -163,7 +163,7 @@ class ComposeBzProtocols {
     required String bzID,
   }) async {
 
-    final UserModel _oldUser = UsersProvider.proGetMyUserModel(
+    final UserModel? _oldUser = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );

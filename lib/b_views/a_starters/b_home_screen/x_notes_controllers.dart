@@ -35,7 +35,7 @@ StreamSubscription listenToUserUnseenNotes(){
 
   StreamSubscription _sub;
 
-  final UserModel _userModel = UsersProvider.proGetMyUserModel(
+  final UserModel? _userModel = UsersProvider.proGetMyUserModel(
     context: getMainContext(),
     listen: false,
   );
@@ -93,7 +93,7 @@ List<StreamSubscription> listenToMyBzzUnseenNotes(){
 
   final List<StreamSubscription> _subs = <StreamSubscription>[];
 
-  final UserModel _userModel = UsersProvider.proGetMyUserModel(
+  final UserModel? _userModel = UsersProvider.proGetMyUserModel(
     context: getMainContext(),
     listen: false,
   );
@@ -193,7 +193,7 @@ bool _checkNoteDotIsOn({
   required List<NoteModel> unseenNotes,
 }){
 
-  final UserModel _userModel = UsersProvider.proGetMyUserModel(
+  final UserModel? _userModel = UsersProvider.proGetMyUserModel(
     context: getMainContext(),
     listen: false,
   );

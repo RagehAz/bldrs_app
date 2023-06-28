@@ -31,12 +31,12 @@ FireQueryModel reviewsPaginationQuery({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-FireQueryModel reviewsStreamQuery({
+FireQueryModel? reviewsStreamQuery({
   required BuildContext context,
-  required String flyerID,
+  required String? flyerID,
 }){
 
-  final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+  final UserModel? _myUserModel = UsersProvider.proGetMyUserModel(
     context: context,
     listen: false,
   );

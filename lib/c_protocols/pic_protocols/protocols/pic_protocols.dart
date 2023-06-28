@@ -67,7 +67,7 @@ class PicProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<PicModel> fetchPic(String path) async {
+  static Future<PicModel?> fetchPic(String? path) async {
 
     PicModel _picModel = await PicLDBOps.readPic(path);
 

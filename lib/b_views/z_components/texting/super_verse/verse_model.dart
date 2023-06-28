@@ -29,9 +29,9 @@ class Verse {
     this.notifier,
   });
   // -----------------------------------------------------------------------------
-  final String id;
+  final String? id;
   final Casing? casing;
-  final bool translate;
+  final bool? translate;
   final dynamic variables;
   final String? pseudo;
   final ValueNotifier<String>? notifier;

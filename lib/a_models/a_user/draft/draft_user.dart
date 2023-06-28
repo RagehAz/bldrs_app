@@ -102,11 +102,11 @@ class DraftUser {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<DraftUser> createDraftUser({
+  static Future<DraftUser?> createDraftUser({
     required BuildContext context,
-    required UserModel userModel,
+    required UserModel? userModel,
   }) async {
-    DraftUser _draft;
+    DraftUser? _draft;
 
     if (userModel != null){
 
@@ -115,12 +115,12 @@ class DraftUser {
         countryID: userModel.zone?.countryID,
       );
 
-      final String _email = ContactModel.getContactFromContacts(
+      final String? _email = ContactModel.getContactFromContacts(
         contacts: userModel.contacts,
         type: ContactType.email,
       )?.value;
 
-      final String _phone = ContactModel.getContactFromContacts(
+      final String? _phone = ContactModel.getContactFromContacts(
         contacts: userModel.contacts,
         type: ContactType.phone,
       )?.value;
@@ -170,7 +170,6 @@ class DraftUser {
 
     return _draft;
   }
-
   // -----------------------------------------------------------------------------
 
   /// DISPOSING
@@ -364,11 +363,11 @@ class DraftUser {
       'createdAt': Timers.cipherTime(time: createdAt, toJSON: true),
       'need': need?.toMap(toJSON: true),
       // -------------------------
-      'name': nameController.text ?? name,
+      'name': nameController?.text ?? name,
       'trigram': trigram,
       'picModel': PicModel.cipherToLDB(picModel),
-      'title': titleController.text ?? title,
-      'company': companyController.text ?? company,
+      'title': titleController?.text ?? title,
+      'company': companyController?.text ?? company,
       'gender': UserModel.cipherGender(gender),
       'zone': zone?.toMap(),
       'language': language,
@@ -383,13 +382,13 @@ class DraftUser {
       'fcmTopics': fcmTopics,
       'savedFlyers': savedFlyers?.toMap(),
       'followedBzzIDs': followedBzz?.toMap(),
-      'appState' : appState.toMap(),
+      'appState' : appState?.toMap(),
       'hasNewPic' : hasNewPic,
     };
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static DraftUser fromLDB(Map<String, dynamic> map) {
+  static DraftUser? fromLDB(Map<String, dynamic>? map) {
     return map == null ? null :
     DraftUser(
       id: map['id'],
@@ -433,48 +432,45 @@ class DraftUser {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static UserModel toUserModel({
-    required BuildContext context,
-    required DraftUser draft,
+  static UserModel? toUserModel({
+    required DraftUser? draft,
   }){
 
-    final String _name = draft.nameController.text ?? draft.name;
-
-
+    final String? _name = draft?.nameController?.text ?? draft?.name;
 
     return UserModel(
 
       /// NEEDS BAKING
-      picPath: draft.picModel.path,
+      picPath: draft?.picModel?.path,
       contacts: ContactModel.bakeContactsAfterEditing(
-        contacts: draft.contacts,
-        countryID: draft.zone.countryID,
+        contacts: draft?.contacts,
+        countryID: draft?.zone?.countryID,
       ),
 
 
       /// NO BAKING NEEDED
-      id: draft.id,
-      signInMethod: draft.signInMethod,
-      createdAt: draft.createdAt,
-      need: draft.need,
+      id: draft?.id,
+      signInMethod: draft?.signInMethod,
+      createdAt: draft?.createdAt,
+      need: draft?.need,
       name: _name,
       trigram: Stringer.createTrigram(input: _name),
-      title: draft.titleController.text ?? draft.title,
-      company: draft.companyController.text ?? draft.company,
-      gender: draft.gender,
-      zone: draft.zone,
-      language: draft.language ?? Localizer.getCurrentLangCode(),
-      location: draft.location,
-      contactsArePublic: draft.contactsArePublic,
-      myBzzIDs: draft.myBzzIDs,
-      isAuthor: Mapper.checkCanLoopList(draft.myBzzIDs),
-      emailIsVerified: draft.emailIsVerified,
-      isAdmin: draft.isAdmin,
-      device: draft.device,
-      fcmTopics: draft.fcmTopics,
-      savedFlyers: draft.savedFlyers,
-      followedBzz: draft.followedBzz,
-      appState: draft.appState,
+      title: draft?.titleController?.text ?? draft?.title,
+      company: draft?.companyController?.text ?? draft?.company,
+      gender: draft?.gender,
+      zone: draft?.zone,
+      language: draft?.language ?? Localizer.getCurrentLangCode(),
+      location: draft?.location,
+      contactsArePublic: draft?.contactsArePublic,
+      myBzzIDs: draft?.myBzzIDs,
+      isAuthor: Mapper.checkCanLoopList(draft?.myBzzIDs),
+      emailIsVerified: draft?.emailIsVerified,
+      isAdmin: draft?.isAdmin,
+      device: draft?.device,
+      fcmTopics: draft?.fcmTopics,
+      savedFlyers: draft?.savedFlyers,
+      followedBzz: draft?.followedBzz,
+      appState: draft?.appState,
     );
 
   }
@@ -506,8 +502,8 @@ class DraftUser {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkAreIdentical({
-    required DraftUser draft1,
-    required DraftUser draft2,
+    required DraftUser? draft1,
+    required DraftUser? draft2,
   }){
     bool _identical = false;
 
@@ -537,10 +533,9 @@ class DraftUser {
           draft1.emailIsVerified == draft2.emailIsVerified &&
           draft1.isAdmin == draft2.isAdmin &&
           DeckModel.checkDecksAreIdentical(deck1: draft1.savedFlyers, deck2: draft2.savedFlyers) == true &&
-          AgendaModel.checkAgendasAreIdentical(agenda1: draft1?.followedBzz, agenda2: draft2?.followedBzz) == true &&
-          AppStateModel.checkAppStatesAreIdentical(state1: draft1?.appState, state2: draft2?.appState) == true &&
-          DeviceModel.checkDevicesAreIdentical(device1: draft1?.device, device2: draft2?.device)
-              == true &&
+          AgendaModel.checkAgendasAreIdentical(agenda1: draft1.followedBzz, agenda2: draft2.followedBzz) == true &&
+          AppStateModel.checkAppStatesAreIdentical(state1: draft1.appState, state2: draft2.appState) == true &&
+          DeviceModel.checkDevicesAreIdentical(device1: draft1.device, device2: draft2.device) == true &&
           Mapper.checkListsAreIdentical(list1: draft1.fcmTopics, list2: draft2.fcmTopics) == true &&
           draft1.nameController?.text == draft2.nameController?.text &&
           draft1.titleController?.text == draft2.titleController?.text &&
@@ -556,7 +551,8 @@ class DraftUser {
 
     return _identical;
   }
-
+  // --------------------
+  /// TESTED : WORKS PERFECT
   void blogDraftUser(){
 
     blog('DraftUser(');

@@ -95,8 +95,8 @@ class DeviceModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkDevicesAreIdentical({
-    required DeviceModel device1,
-    required DeviceModel device2,
+    required DeviceModel? device1,
+    required DeviceModel? device2,
   }){
     bool _identical = false;
 

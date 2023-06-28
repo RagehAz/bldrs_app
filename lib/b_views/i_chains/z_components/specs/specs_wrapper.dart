@@ -8,6 +8,7 @@ import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:flutter/material.dart';
+import 'package:collection/collection.dart';
 
 class SpecsWrapper extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -70,13 +71,15 @@ class SpecsWrapper extends StatelessWidget {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static SpecModel getValueSpec(PickerModel picker, List<SpecModel> specs){
-    return specs?.firstWhere((element) => element.pickerChainID == picker.chainID, orElse: () => null);
+  static SpecModel? getValueSpec(PickerModel picker, List<SpecModel>? specs){
+
+    return specs?.firstWhereOrNull((element) => element.pickerChainID == picker.chainID);
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static SpecModel getUnitSpec(PickerModel picker, List<SpecModel> specs){
-    return specs?.firstWhere((element) => element.pickerChainID == picker.unitChainID, orElse: () => null);
+  static SpecModel? getUnitSpec(PickerModel picker, List<SpecModel>? specs){
+    return specs?.firstWhereOrNull((element) => element.pickerChainID == picker.unitChainID);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
