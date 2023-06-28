@@ -68,28 +68,28 @@ class FlyerModel {
     this.docSnapshot,
   });
   /// --------------------------------------------------------------------------
-  final String id;
-  final String headline;
-  final List<String> trigram;
-  final String description;
-  final FlyerType flyerType;
-  final PublishState publishState;
-  final AuditState auditState;
-  final List<String> phids;
-  final bool showsAuthor;
-  final ZoneModel zone;
-  final String authorID;
-  final String bzID;
-  final GeoPoint position;
-  final List<SlideModel> slides;
-  final List<SpecModel> specs;
-  final List<PublishTime> times;
-  final bool hasPriceTag;
-  final bool isAmazonFlyer;
-  final bool hasPDF;
+  final String? id;
+  final String? headline;
+  final List<String>? trigram;
+  final String? description;
+  final FlyerType? flyerType;
+  final PublishState? publishState;
+  final AuditState? auditState;
+  final List<String>? phids;
+  final bool? showsAuthor;
+  final ZoneModel? zone;
+  final String? authorID;
+  final String? bzID;
+  final GeoPoint? position;
+  final List<SlideModel>? slides;
+  final List<SpecModel>? specs;
+  final List<PublishTime>? times;
+  final bool? hasPriceTag;
+  final bool? isAmazonFlyer;
+  final bool? hasPDF;
   final DocumentSnapshot<Object>? docSnapshot;
-  final int score;
-  final String pdfPath;
+  final int? score;
+  final String? pdfPath;
   final String? shareLink;
   final String? affiliateLink; /// this generates money
   final String? gtaLink; /// this to track gta progress
@@ -386,23 +386,23 @@ class FlyerModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String cipherPublishState (PublishState x){
+  static String? cipherPublishState (PublishState? x){
     switch (x){
-      case PublishState.draft         :     return  'draft'       ;  break;
-      case PublishState.published     :     return  'published'   ;  break;
-      case PublishState.unpublished   :     return  'unpublished' ;  break;
-      case PublishState.deleted       :     return  'deleted'     ;  break;
+      case PublishState.draft         :     return  'draft'       ;
+      case PublishState.published     :     return  'published'   ;
+      case PublishState.unpublished   :     return  'unpublished' ;
+      case PublishState.deleted       :     return  'deleted'     ;
       default : return null;
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static PublishState decipherPublishState (String x){
+  static PublishState? decipherPublishState (String? x){
     switch (x){
-      case 'draft'       :   return  PublishState.draft;         break;
-      case 'published'   :   return  PublishState.published;     break;
-      case 'unpublished' :   return  PublishState.unpublished;   break;
-      case 'deleted'     :   return  PublishState.deleted;       break;
+      case 'draft'       :   return  PublishState.draft;
+      case 'published'   :   return  PublishState.published;
+      case 'unpublished' :   return  PublishState.unpublished;
+      case 'deleted'     :   return  PublishState.deleted;
       default : return   null;
     }
   }
@@ -416,12 +416,12 @@ class FlyerModel {
   ];
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getPublishStatePhid(PublishState state){
+  static String? getPublishStatePhid(PublishState? state){
     switch (state){
-      case PublishState.published     :     return  'phid_published'          ;  break;
-      case PublishState.draft         :     return  'phid_draft_flyer'        ;  break;
-      case PublishState.deleted       :     return  'phid_deleted_flyer'      ;  break;
-      case PublishState.unpublished   :     return  'phid_unpublished_flyer'  ;  break;
+      case PublishState.published     :     return  'phid_published'          ;
+      case PublishState.draft         :     return  'phid_draft_flyer'        ;
+      case PublishState.deleted       :     return  'phid_deleted_flyer'      ;
+      case PublishState.unpublished   :     return  'phid_unpublished_flyer'  ;
       default : return null;
     }
   }
@@ -431,21 +431,21 @@ class FlyerModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String cipherAuditState(AuditState auditState){
+  static String? cipherAuditState(AuditState? auditState){
     switch(auditState){
-      case AuditState.verified:     return 'verified';    break;
-      case AuditState.suspended:    return 'suspended';   break;
-      case AuditState.pending:      return 'pending';     break;
+      case AuditState.verified:     return 'verified';
+      case AuditState.suspended:    return 'suspended';
+      case AuditState.pending:      return 'pending';
       default: return null;
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static AuditState decipherAuditState(String state){
+  static AuditState? decipherAuditState(String? state){
     switch(state){
-      case 'verified':  return AuditState.verified;   break;
-      case 'suspended': return AuditState.suspended;  break;
-      case 'pending':   return AuditState.pending;  break;
+      case 'verified':  return AuditState.verified;
+      case 'suspended': return AuditState.suspended;
+      case 'pending':   return AuditState.pending;
       default: return null;
     }
   }
@@ -458,11 +458,11 @@ class FlyerModel {
   ];
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getAuditStatePhid(AuditState state){
+  static String? getAuditStatePhid(AuditState? state){
     switch (state){
-      case AuditState.verified  : return 'phid_verified_flyer'  ; break;
-      case AuditState.suspended : return 'phid_suspended_flyer' ; break;
-      case AuditState.pending   : return 'phid_pending_flyer'   ; break;
+      case AuditState.verified  : return 'phid_verified_flyer'  ;
+      case AuditState.suspended : return 'phid_suspended_flyer' ;
+      case AuditState.pending   : return 'phid_pending_flyer'   ;
       default : return null;
     }
   }
@@ -949,12 +949,12 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool canShowFlyerAuthor({
-    required BzModel bzModel,
-    required FlyerModel flyerModel,
+    required BzModel? bzModel,
+    required FlyerModel? flyerModel,
   }){
     bool _canShow = true;
 
-    if(bzModel.showsTeam == true){
+    if(bzModel?.showsTeam != null && bzModel!.showsTeam! == true){
       _canShow = flyerModel?.showsAuthor ?? true;
     }
     else {
@@ -980,7 +980,7 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<String>> generateFlyerOwners({
-    required String bzID,
+    required String? bzID,
   }) async {
     List<String> _owners = <String>[];
 
@@ -992,14 +992,20 @@ class FlyerModel {
 
       if (_bzModel != null){
 
-        final AuthorModel _creator = AuthorModel.getCreatorAuthorFromAuthors(_bzModel.authors);
+        final AuthorModel? _creator = AuthorModel.getCreatorAuthorFromAuthors(_bzModel.authors);
 
-        _owners.add(_creator.userID);
+        if (_creator != null){
 
-        _owners = Stringer.addStringToListIfDoesNotContainIt(
-          strings: _owners,
-          stringToAdd: Authing.getUserID(),
-        );
+          if (_creator.userID != null){
+            _owners.add(_creator.userID!);
+          }
+
+          _owners = Stringer.addStringToListIfDoesNotContainIt(
+            strings: _owners,
+            stringToAdd: Authing.getUserID(),
+          );
+
+        }
 
       }
 

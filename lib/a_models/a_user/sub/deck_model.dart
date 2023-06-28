@@ -347,12 +347,12 @@ class DeckModel {
   }){
     DeckModel _newDeck = oldDeck ?? newDeck();
 
-    if (flyer != null){
+    if (flyer?.id != null){
 
       _newDeck = _newDeck.copyWith(
           all: Stringer.removeStringsFromStrings(
             removeFrom: _newDeck.all,
-            removeThis: [flyer.id],
+            removeThis: [flyer!.id!],
           )
       );
 
@@ -363,7 +363,7 @@ class DeckModel {
         _newDeck = _newDeck.copyWith(
           general: Stringer.removeStringsFromStrings(
             removeFrom: _newDeck.general,
-            removeThis: [flyer.id],
+            removeThis: [flyer.id!],
           )
         );
         break;
@@ -373,7 +373,7 @@ class DeckModel {
           _newDeck = _newDeck.copyWith(
             properties: Stringer.removeStringsFromStrings(
               removeFrom: _newDeck.properties,
-              removeThis: [flyer.id],
+              removeThis: [flyer.id!],
             ),
           ); break;
 
@@ -382,7 +382,7 @@ class DeckModel {
           _newDeck = _newDeck.copyWith(
             designs: Stringer.removeStringsFromStrings(
               removeFrom: _newDeck.designs,
-              removeThis: [flyer.id],
+              removeThis: [flyer.id!],
             ),
           ); break;
 
@@ -391,7 +391,7 @@ class DeckModel {
           _newDeck = _newDeck.copyWith(
             undertakings: Stringer.removeStringsFromStrings(
               removeFrom: _newDeck.undertakings,
-              removeThis: [flyer.id],
+              removeThis: [flyer.id!],
             ),
           ); break;
 
@@ -400,7 +400,7 @@ class DeckModel {
           _newDeck = _newDeck.copyWith(
             trades: Stringer.removeStringsFromStrings(
               removeFrom: _newDeck.trades,
-              removeThis: [flyer.id],
+              removeThis: [flyer.id!],
             ),
           ); break;
 
@@ -409,7 +409,7 @@ class DeckModel {
           _newDeck = _newDeck.copyWith(
             products: Stringer.removeStringsFromStrings(
               removeFrom: _newDeck.products,
-              removeThis: [flyer.id],
+              removeThis: [flyer.id!],
             ),
           ); break;
 
@@ -418,7 +418,7 @@ class DeckModel {
           _newDeck = _newDeck.copyWith(
             equipment: Stringer.removeStringsFromStrings(
               removeFrom: _newDeck.equipment,
-              removeThis: [flyer.id],
+              removeThis: [flyer.id!],
             ),
           ); break;
 

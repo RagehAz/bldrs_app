@@ -415,8 +415,8 @@ class ContactModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String? getValueFromContacts({
-    required List<ContactModel> contacts,
-    required ContactType contactType,
+    required List<ContactModel>? contacts,
+    required ContactType? contactType,
   }) {
 
     String? _contactValue;

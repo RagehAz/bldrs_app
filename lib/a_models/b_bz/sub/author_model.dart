@@ -106,7 +106,7 @@ class AuthorModel {
   /// TESTED : WORKS PERFECT
   static Future<AuthorModel?> createAuthorFromUserModel({
     required UserModel? userModel,
-    required String bzID,
+    required String? bzID,
     required bool isCreator,
   }) async {
     AuthorModel? _author;

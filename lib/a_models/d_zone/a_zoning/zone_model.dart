@@ -10,9 +10,7 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 /// => TAMAM
 @immutable
 class ZoneModel {
@@ -116,7 +114,7 @@ class ZoneModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static ZoneModel decipherZone(Map<String, dynamic> map) {
+  static ZoneModel? decipherZone(Map<String, dynamic>? map) {
 
 
     if (map == null){
@@ -167,7 +165,7 @@ class ZoneModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool zoneHasAllIDs(ZoneModel zone) {
+  static bool zoneHasAllIDs(ZoneModel? zone) {
     final bool _hasAllIDs = zone != null &&
         zone.countryID != null &&
         zone.cityID != null;
@@ -175,7 +173,7 @@ class ZoneModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkZoneHasCountryAndCityIDs(ZoneModel zone){
+  static bool checkZoneHasCountryAndCityIDs(ZoneModel? zone){
     final bool _has = zone != null &&
         zone.countryID != null &&
         zone.cityID != null;
@@ -206,8 +204,8 @@ class ZoneModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogZonesDifferences({
-    required ZoneModel zone1,
-    required ZoneModel zone2,
+    required ZoneModel? zone1,
+    required ZoneModel? zone2,
   }){
 
     blog('blogZonesDifferences ---------- START');
@@ -265,20 +263,20 @@ class ZoneModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Verse generateInZoneVerse ({
-    required ZoneModel zoneModel,
+    required ZoneModel? zoneModel,
     bool showCity = true,
   }){
 
     // zoneModel?.blogZone(invoker: 'translateZoneString');
 
     String _text = '...';
-    final String _inn = xPhrase('phid_inn');
+    final String? _inn = xPhrase('phid_inn');
 
     if (zoneModel != null){
 
       if (zoneModel.countryID != null){
 
-        final String _countryName = Flag.translateCountry(
+        final String? _countryName = Flag.translateCountry(
           langCode: Localizer.getCurrentLangCode(),
           countryID: zoneModel.countryID,
         );
@@ -288,7 +286,7 @@ class ZoneModel {
 
         if (showCity == true && (zoneModel.cityModel != null || zoneModel.cityName != null)){
 
-          final String _cityName = zoneModel.cityName ?? CityModel.translateCity(
+          final String? _cityName = zoneModel.cityName ?? CityModel.translateCity(
             city: zoneModel.cityModel,
           );
 
@@ -308,19 +306,19 @@ class ZoneModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Verse generateObeliskVerse({
-    required ZoneModel zone,
+    required ZoneModel? zone,
   }){
 
-    String _line = xPhrase('phid_select_a_country');
+    String? _line = xPhrase('phid_select_a_country');
 
     if (zone != null){
 
-      final String _countryName = Flag.translateCountry(
+      final String? _countryName = Flag.translateCountry(
         langCode: Localizer.getCurrentLangCode(),
         countryID: zone.countryID,
       );
 
-      final String _cityName = CityModel.translateCity(
+      final String? _cityName = CityModel.translateCity(
         city: zone.cityModel,
       );
 

@@ -20,11 +20,11 @@ class PDFModel {
     this.sizeMB,
   });
   /// --------------------------------------------------------------------------
-  final String name;
-  final String path;
+  final String? name;
+  final String? path;
   final Uint8List? bytes;
   final double? sizeMB;
-  final List<String> ownersIDs;
+  final List<String>? ownersIDs;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -136,8 +136,8 @@ class PDFModel {
   // --------------------
   /// TASK : TEST ME
   static bool checkPDFModelsAreIdentical({
-    required PDFModel pdf1,
-    required PDFModel pdf2,
+    required PDFModel? pdf1,
+    required PDFModel? pdf2,
   }){
     bool _areIdentical = false;
 

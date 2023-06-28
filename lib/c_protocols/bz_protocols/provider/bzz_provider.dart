@@ -400,11 +400,11 @@ class BzzProvider extends ChangeNotifier {
   /// MY ACTIVE BZ
 
   // --------------------
-  BzModel _myActiveBz;
-  BzModel get myActiveBz => _myActiveBz;
+  BzModel? _myActiveBz;
+  BzModel? get myActiveBz => _myActiveBz;
   // --------------------
   /// TESTED : WORKS PERFECT
-  static BzModel proGetActiveBzModel({
+  static BzModel? proGetActiveBzModel({
     required BuildContext context,
     required bool listen,
   }) {

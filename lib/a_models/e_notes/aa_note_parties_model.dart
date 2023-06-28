@@ -23,11 +23,11 @@ class NoteParties {
     required this.receiverType,
   });
   /// --------------------------------------------------------------------------
-  final String senderID;
-  final String senderImageURL;
-  final PartyType senderType;
-  final String receiverID;
-  final PartyType receiverType;
+  final String? senderID;
+  final String? senderImageURL;
+  final PartyType? senderType;
+  final String? receiverID;
+  final PartyType? receiverType;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -83,8 +83,8 @@ class NoteParties {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static NoteParties decipherParties(Map<String, dynamic> map){
-    NoteParties _parties;
+  static NoteParties? decipherParties(Map<String, dynamic>? map){
+    NoteParties? _parties;
 
     if (map != null){
       _parties = NoteParties(
@@ -104,25 +104,25 @@ class NoteParties {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String cipherPartyType(PartyType type){
+  static String cipherPartyType(PartyType? type){
     switch (type) {
-      case PartyType.bz:           return 'bz';      break; /// data type : String bzID
+      case PartyType.bz:           return 'bz';      /// data type : String bzID
     // case NoteSenderOrRecieverType.author:       return 'author';  break; /// data type : String authorID
-      case PartyType.user:         return 'user';    break; /// data type : String userID
-      case PartyType.country:      return 'country'; break; /// data type : String countryID
-      case PartyType.bldrs:        return 'bldrs';   break; /// data type : String graphicID
+      case PartyType.user:         return 'user';    /// data type : String userID
+      case PartyType.country:      return 'country'; /// data type : String countryID
+      case PartyType.bldrs:        return 'bldrs';   /// data type : String graphicID
       default:return 'non';
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static PartyType decipherPartyType(String type){
+  static PartyType? decipherPartyType(String? type){
     switch (type) {
-      case 'bldrs':   return PartyType.bldrs;    break;
-      case 'user':    return PartyType.user;     break;
+      case 'bldrs':   return PartyType.bldrs;
+      case 'user':    return PartyType.user;
     // case 'author':  return NoteSenderOrRecieverType.author;   break;
-      case 'bz':      return PartyType.bz;       break;
-      case 'country': return PartyType.country;  break;
+      case 'bz':      return PartyType.bz;
+      case 'country': return PartyType.country;
       default:        return null;
     }
   }
@@ -159,7 +159,7 @@ class NoteParties {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getReceiversIDs({
-    required List<dynamic> receiversModels,
+    required List<dynamic>? receiversModels,
     required PartyType partyType,
   }){
     List<String> _ids = [];
@@ -167,11 +167,11 @@ class NoteParties {
     if (Mapper.checkCanLoopList(receiversModels) == true){
 
       if (partyType == PartyType.bz){
-        _ids = BzModel.getBzzIDs(receiversModels);
+        _ids = BzModel.getBzzIDs(receiversModels as List<BzModel>);
       }
 
       else if (partyType == PartyType.user){
-        _ids = UserModel.getUsersIDs(receiversModels);
+        _ids = UserModel.getUsersIDs(receiversModels as List<UserModel>);
       }
 
     }
@@ -181,7 +181,7 @@ class NoteParties {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getReceiversPics({
-    required List<dynamic> receiversModels,
+    required List<dynamic>? receiversModels,
     required PartyType partyType,
   }){
     List<String> _pics = [];
@@ -189,11 +189,11 @@ class NoteParties {
     if (Mapper.checkCanLoopList(receiversModels) == true){
 
       if (partyType == PartyType.bz){
-        _pics = BzModel.getBzzLogos(receiversModels);
+        _pics = BzModel.getBzzLogos(receiversModels as List<BzModel>);
       }
 
       else if (partyType == PartyType.user){
-        _pics = UserModel.getUsersPics(receiversModels);
+        _pics = UserModel.getUsersPics(receiversModels as List<UserModel>);
       }
 
     }
@@ -203,8 +203,8 @@ class NoteParties {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String getReceiversTypePhid({
-    required List<dynamic> receiversModels,
-    required PartyType partyType,
+    required List<dynamic>? receiversModels,
+    required PartyType? partyType,
     bool plural = true,
   }){
     String _phid = '';
@@ -230,8 +230,8 @@ class NoteParties {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPartiesAreIdentical({
-    required NoteParties parties1,
-    required NoteParties parties2,
+    required NoteParties? parties1,
+    required NoteParties? parties2,
   }){
     bool _areIdentical = false;
 

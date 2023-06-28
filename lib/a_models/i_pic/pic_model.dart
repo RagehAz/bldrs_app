@@ -23,7 +23,7 @@ class PicModel {
   // -----------------------------------------------------------------------------
   final Uint8List? bytes;
   /// collectionName/subCollectionName/fileName
-  final String path;
+  final String? path;
   final StorageMetaModel? meta;
   // -----------------------------------------------------------------------------
 
@@ -85,11 +85,11 @@ class PicModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void assertIsUploadable(PicModel picModel){
+  static void assertIsUploadable(PicModel? picModel){
     assert(picModel != null, 'picModel is null');
-    assert(picModel.bytes != null, 'bytes is null');
-    assert(picModel.path != null, 'path is null');
-    assert(picModel.meta != null, 'meta is null');
+    assert(picModel?.bytes != null, 'bytes is null');
+    assert(picModel?.path != null, 'path is null');
+    assert(picModel?.meta != null, 'meta is null');
   }
   // -----------------------------------------------------------------------------
 
@@ -161,8 +161,8 @@ class PicModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPicsListsAreIdentical({
-    required List<PicModel> list1,
-    required List<PicModel> list2,
+    required List<PicModel>? list1,
+    required List<PicModel>? list2,
   }){
 
     bool _listsAreIdentical = false;
@@ -170,13 +170,13 @@ class PicModel {
     if (list1 == null && list2 == null){
       _listsAreIdentical = true;
     }
-    else if (list1?.isEmpty == true && list2?.isEmpty == true){
+    else if (list1 != null && list1.isEmpty == true && list2 != null && list2.isEmpty == true){
       _listsAreIdentical = true;
     }
 
     else if (Mapper.checkCanLoopList(list1) == true && Mapper.checkCanLoopList(list2) == true){
 
-      if (list1.length != list2.length) {
+      if (list1!.length != list2!.length) {
         _listsAreIdentical = false;
       }
 

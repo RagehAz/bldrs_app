@@ -238,12 +238,12 @@ class Phrase {
   /// }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> cipherPhrasesToLangsMap(List<Phrase> phrases){
+  static Map<String, dynamic> cipherPhrasesToLangsMap(List<Phrase>? phrases){
     Map<String, dynamic> _output = {};
 
     if (Mapper.checkCanLoopList(phrases) == true){
 
-      for (final Phrase phrase in phrases){
+      for (final Phrase phrase in phrases!){
 
         _output = Mapper.insertPairInMap(
           map: _output,
@@ -318,13 +318,13 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> cipherMixedLangPhrasesToMap({
-    required List<Phrase> phrases,
+    required List<Phrase>? phrases,
   }){
     Map<String, dynamic> _output = {};
 
     if (Mapper.checkCanLoopList(phrases) == true){
 
-      for (final Phrase phrase in phrases){
+      for (final Phrase phrase in phrases!){
 
         _output = Mapper.insertPairInMap(
           map: _output,
@@ -1628,7 +1628,7 @@ class Phrase {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void blogPhrases(List<Phrase> phrases){
+  static void blogPhrases(List<Phrase>? phrases){
 
     int _count = 1;
 

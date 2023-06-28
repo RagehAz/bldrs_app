@@ -71,23 +71,23 @@ class NoteModel {
     this.docSnapshot,
   });
   /// --------------------------------------------------------------------------
-  final String id;
-  final NoteParties parties;
-  final String title; /// max 30 char
-  final String body; /// max 80 char
-  final DateTime sentTime;
-  final String topic;
-  final TriggerModel navTo;
-  final TriggerModel function;
-  final PosterModel poster;
-  final PollModel poll;
-  final bool sendFCM;
-  final bool sendNote;
-  final bool seen;
-  final int progress;
-  final bool dismissible;
-  final String token;
-  final QueryDocumentSnapshot<Object> docSnapshot;
+  final String? id;
+  final NoteParties? parties;
+  final String? title; /// max 30 char
+  final String? body; /// max 80 char
+  final DateTime? sentTime;
+  final String? topic;
+  final TriggerModel? navTo;
+  final TriggerModel? function;
+  final PosterModel? poster;
+  final PollModel? poll;
+  final bool? sendFCM;
+  final bool? sendNote;
+  final bool? seen;
+  final int? progress;
+  final bool? dismissible;
+  final String? token;
+  final QueryDocumentSnapshot<Object>? docSnapshot;
   // -----------------------------------------------------------------------------
 
   /// CONSTANTS
@@ -201,11 +201,11 @@ class NoteModel {
     return <String, dynamic>{
       'token': token,
       'id' : id,
-      'senderID': parties.senderID,
-      'senderImageURL': parties.senderImageURL,
-      'senderType': NoteParties.cipherPartyType(parties.senderType),
-      'receiverID': parties.receiverID,
-      'receiverType': NoteParties.cipherPartyType(parties.receiverType),
+      'senderID': parties?.senderID,
+      'senderImageURL': parties?.senderImageURL,
+      'senderType': NoteParties.cipherPartyType(parties?.senderType),
+      'receiverID': parties?.receiverID,
+      'receiverType': NoteParties.cipherPartyType(parties?.receiverType),
       'title' : title,
       'body' : body,
       'sentTime': Timers.cipherTime(time: sentTime, toJSON: toJSON),
@@ -251,11 +251,11 @@ class NoteModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static NoteModel decipherNote({
+  static NoteModel? decipherNote({
     required dynamic map,
     required bool fromJSON
   }) {
-    NoteModel _noti;
+    NoteModel? _noti;
 
     if (map != null) {
 
@@ -311,20 +311,23 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<NoteModel> decipherNotes({
-    required List<Map<String, dynamic>> maps,
+    required List<Map<String, dynamic>>? maps,
     required bool fromJSON,
   }) {
     final List<NoteModel> _notesModels = <NoteModel>[];
 
     if (Mapper.checkCanLoopList(maps) == true) {
-      for (final Map<String, dynamic> map in maps) {
+      for (final Map<String, dynamic> map in maps!) {
 
-        final NoteModel _notiModel = decipherNote(
+        final NoteModel? _notiModel = decipherNote(
           map: map,
           fromJSON: fromJSON,
         );
 
-        _notesModels.add(_notiModel);
+        if (_notiModel != null){
+          _notesModels.add(_notiModel);
+        }
+
       }
     }
 
@@ -336,10 +339,10 @@ class NoteModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static NoteModel decipherRemoteMessage({
-    required Map<String, dynamic> map,
+  static NoteModel? decipherRemoteMessage({
+    required Map<String, dynamic>? map,
   }) {
-    NoteModel _note;
+    NoteModel? _note;
 
     if (map != null){
 
@@ -432,13 +435,13 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogNotes({
-    required List<NoteModel> notes,
+    required List<NoteModel>? notes,
     String? invoker,
   }){
 
     if (Mapper.checkCanLoopList(notes) == true){
 
-      for (final NoteModel note in notes){
+      for (final NoteModel note in notes!){
 
         note.blogNoteModel(
           invoker: invoker,
@@ -460,15 +463,17 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getReceiversIDs({
-    required List<NoteModel> notes,
+    required List<NoteModel>? notes,
   }){
 
     final List<String> _output = <String>[];
 
     if (Mapper.checkCanLoopList(notes) == true){
 
-      for (final NoteModel note in notes){
-        _output.add(note.parties.receiverID);
+      for (final NoteModel note in notes!){
+        if (note.parties?.receiverID != null){
+          _output.add(note.parties!.receiverID!);
+        }
       }
 
     }
@@ -479,7 +484,7 @@ class NoteModel {
   /// TESTED : WORKS PERFECT
   static NoteModel? getFirstNoteByRecieverID({
     required List<NoteModel>? notes,
-    required String receiverID,
+    required String? receiverID,
   }){
 
     NoteModel? _output;
@@ -487,7 +492,7 @@ class NoteModel {
     if (Mapper.checkCanLoopList(notes) == true && receiverID != null){
 
       _output = notes!.firstWhereOrNull(
-              (note) => note.parties.receiverID == receiverID
+              (note) => note.parties?.receiverID == receiverID
       );
 
     }
@@ -497,20 +502,20 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<NoteModel> getNotesByReceiverID({
-    required List<NoteModel> notes,
-    required String receiverID,
+    required List<NoteModel>? notes,
+    required String? receiverID,
   }){
     final List<NoteModel> _notes = <NoteModel>[];
 
     if (Mapper.checkCanLoopList(notes) == true){
 
-      final List<NoteModel> _found = notes.where((note){
+      final List<NoteModel>? _found = notes?.where((note){
 
-        return note.parties.receiverID == receiverID;
+        return note.parties?.receiverID == receiverID;
       }).toList();
 
       if (Mapper.checkCanLoopList(_found) == true){
-        _notes.addAll(_found);
+        _notes.addAll(_found!);
       }
 
     }
@@ -572,7 +577,7 @@ class NoteModel {
 
       for (final NoteModel note in notes){
 
-        if(note.parties.receiverID == receiverID){
+        if(note.parties?.receiverID == receiverID){
           if (note.seen == false){
             _notes.add(note);
           }
@@ -611,34 +616,34 @@ class NoteModel {
 
   // --------------------
   /// TASK : TEST ME
-  static List<String> getMissingNoteFields({
-    required NoteModel note,
+  static List<String>? getMissingNoteFields({
+    required NoteModel? note,
     /// if consider all fields is false, this will get only fields required to send a note
     required bool considerAllFields,
   }){
-    List<String> _missingFields;
+    List<String>? _missingFields;
 
     if (note != null){
 
       _missingFields = <String>[];
 
-      if (note.parties.senderID == null) {
+      if (note.parties?.senderID == null) {
         _missingFields.add('senderID');
       }
 
-      if (note.parties.senderImageURL == null){
+      if (note.parties?.senderImageURL == null){
         _missingFields.add('senderImageURL');
       }
 
-      if (note.parties.senderType == null){
+      if (note.parties?.senderType == null){
         _missingFields.add('senderType');
       }
 
-      if (note.parties.receiverID == null){
+      if (note.parties?.receiverID == null){
         _missingFields.add('receiverID');
       }
 
-      if (note.parties.receiverType == null){
+      if (note.parties?.receiverType == null){
         _missingFields.add('receiverType');
       }
 
@@ -732,23 +737,26 @@ class NoteModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkNoteIsSendable(NoteModel noteModel){
+  static bool checkNoteIsSendable(NoteModel? noteModel){
     bool _canSend = false;
 
     if (noteModel != null){
 
+      final bool _canSendNote = noteModel.sendNote != null && noteModel.sendNote! == true;
+      final bool _canSendFCM = noteModel.sendFCM != null && noteModel.sendFCM! == true;
+
       if (
 
       /// NECESSARY
-      noteModel.parties.receiverID != null &&
-      noteModel.parties.receiverType != null &&
-      noteModel.parties.senderID != null &&
-      noteModel.parties.senderType != null &&
-      noteModel.parties.senderImageURL != null &&
+      noteModel.parties?.receiverID != null &&
+      noteModel.parties?.receiverType != null &&
+      noteModel.parties?.senderID != null &&
+      noteModel.parties?.senderType != null &&
+      noteModel.parties?.senderImageURL != null &&
       noteModel.title != null &&
       noteModel.body != null &&
       noteModel.topic != null &&
-      (noteModel.sendNote == true || noteModel.sendFCM == true)
+      (_canSendNote == true || _canSendFCM == true)
 
       /// WILL BE RECREATED
       // noteModel.id != null &&
@@ -776,15 +784,15 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkNotesContainNote({
-    required List<NoteModel> notes,
-    required String noteID,
+    required List<NoteModel>? notes,
+    required String? noteID,
   }){
 
     bool _contains = false;
 
     if (Mapper.checkCanLoopList(notes) == true && noteID != null){
 
-      for (final NoteModel noteModel in notes){
+      for (final NoteModel noteModel in notes!){
         if (noteModel.id == noteID){
           _contains = true;
           break;
@@ -797,7 +805,7 @@ class NoteModel {
   }
   // --------------------
   /// TASK : TEST ME
-  static bool checkIsAuthorshipNote(NoteModel noteModel){
+  static bool checkIsAuthorshipNote(NoteModel? noteModel){
     bool _isAuthorship = false;
 
     if (noteModel != null) {
@@ -817,7 +825,7 @@ class NoteModel {
   // --------------------
   /// TASK : TEST ME
   static Future<bool> checkCanShowAuthorshipButtons({
-    required NoteModel noteModel,
+    required NoteModel? noteModel,
   }) async {
 
     bool _can = false;
@@ -830,10 +838,10 @@ class NoteModel {
 
       if (_isAuthorshipNote == true){
 
-        if (noteModel.parties.senderType == PartyType.bz){
+        if (noteModel.parties?.senderType == PartyType.bz){
 
           final BzModel _bzModel = await BzProtocols.fetchBz(
-            bzID: noteModel.parties.senderID,
+            bzID: noteModel.parties?.senderID,
           );
 
           final bool _imPendingAuthor = PendingAuthor.checkIsPendingAuthor(
@@ -845,7 +853,7 @@ class NoteModel {
 
           if (_imPendingAuthor == true){
 
-            if (noteModel.poll.reply == null){
+            if (noteModel.poll?.reply == null){
 
               _can = true;
 
@@ -869,44 +877,43 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<NoteModel> insertNoteIntoNotes({
-    required List<NoteModel> notesToGet,
-    required NoteModel note,
-    required DuplicatesAlgorithm duplicatesAlgorithm,
+    required List<NoteModel>? notesToGet,
+    required NoteModel? note,
+    required DuplicatesAlgorithm? duplicatesAlgorithm,
   }){
     final List<NoteModel> _output = notesToGet ?? <NoteModel>[];
 
-    final bool _contains = checkNotesContainNote(
-      notes: _output,
-      noteID: note.id,
-    );
+    if (note != null){
 
-    /// IF NOT EXISTENT
-    if (_contains == false){
-      _output.add(note);
-    }
+      final bool _contains = checkNotesContainNote(
+        notes: _output,
+        noteID: note.id,
+      );
 
-    /// IF EXISTS
-    else {
-
-      /// if SHOULD REPLACE
-      if (duplicatesAlgorithm == DuplicatesAlgorithm.keepSecond){
-        final int _index = _output.indexWhere((n) => n.id == note.id);
-        _output.removeAt(_index);
-        _output.insert(_index, note);
-      }
-
-      else if (duplicatesAlgorithm == DuplicatesAlgorithm.keepBoth){
+      /// IF NOT EXISTENT
+      if (_contains == false){
         _output.add(note);
       }
 
-      /// IF SHOULD IGNORE
-      // else if (duplicatesAlgorithm == DuplicatesAlgorithm.keepFirst){
-      //   /// do nothing
-      // }
-      // else {
-      //   /// do nothing
-      // }
-
+      /// IF EXISTS
+      else {
+        /// if SHOULD REPLACE
+        if (duplicatesAlgorithm == DuplicatesAlgorithm.keepSecond){
+          final int _index = _output.indexWhere((n) => n.id == note.id);
+          _output.removeAt(_index);
+          _output.insert(_index, note);
+        }
+        else if (duplicatesAlgorithm == DuplicatesAlgorithm.keepBoth){
+          _output.add(note);
+        }
+        /// IF SHOULD IGNORE
+        // else if (duplicatesAlgorithm == DuplicatesAlgorithm.keepFirst){
+        //   /// do nothing
+        // }
+        // else {
+        //   /// do nothing
+        // }
+      }
     }
 
     return _output;
@@ -914,15 +921,15 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<NoteModel> insertNotesInNotes({
-    required List<NoteModel> notesToGet,
-    required List<NoteModel> notesToInsert,
+    required List<NoteModel>? notesToGet,
+    required List<NoteModel>? notesToInsert,
     required DuplicatesAlgorithm duplicatesAlgorithm,
   }){
     List<NoteModel> _output = notesToGet ?? <NoteModel>[];
 
     if (Mapper.checkCanLoopList(notesToInsert) == true){
 
-      for (final NoteModel note in notesToInsert){
+      for (final NoteModel note in notesToInsert!){
 
         _output = insertNoteIntoNotes(
           notesToGet: notesToGet,
@@ -939,8 +946,8 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<NoteModel> removeNoteFromNotes({
-    required List<NoteModel> notes,
-    required String noteID,
+    required List<NoteModel>? notes,
+    required String? noteID,
   }){
 
     final List<NoteModel> _output = notes == null ?
@@ -952,7 +959,7 @@ class NoteModel {
 
     if (Mapper.checkCanLoopList(notes) == true){
 
-      final int _index = notes.indexWhere((note) => note.id == noteID);
+      final int _index = notes!.indexWhere((note) => note.id == noteID);
 
       if (_index != -1){
         // blog('removeNoteFromNotes : removing note _index : $_index');
@@ -969,7 +976,7 @@ class NoteModel {
   /// TESTED : WORKS PERFECT
   static List<NoteModel> removeNotesFromNotes({
     required List<NoteModel> notesToRemove,
-    required List<NoteModel> sourceNotes,
+    required List<NoteModel>? sourceNotes,
   }){
 
     List<NoteModel> _output = sourceNotes ?? <NoteModel>[];
@@ -1217,19 +1224,19 @@ class NoteModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String receiverVsSenderValidator({
-    required PartyType senderType,
-    required PartyType receiverType,
+  static String? receiverVsSenderValidator({
+    required PartyType? senderType,
+    required PartyType? receiverType,
   }){
 
     /// USER
     if (receiverType == PartyType.user){
 
       switch(senderType){
-        case PartyType.user     : return null; break; /// user can receive from user
-        case PartyType.bz       : return null; break; /// user can receive from bz
-        case PartyType.bldrs    : return null; break; /// user can receive from bldrs
-        case PartyType.country  : return null; break; /// user can receive from country
+        case PartyType.user     : return null; /// user can receive from user
+        case PartyType.bz       : return null; /// user can receive from bz
+        case PartyType.bldrs    : return null; /// user can receive from bldrs
+        case PartyType.country  : return null; /// user can receive from country
         default: return null;
       }
 
@@ -1239,10 +1246,10 @@ class NoteModel {
     else if (receiverType == PartyType.bz){
 
       switch(senderType){
-        case PartyType.user     : return null; break; /// bz can receive from user
-        case PartyType.bz       : return null; break; /// bz can receive from bz
-        case PartyType.bldrs    : return null; break; /// bz can receive from bldrs
-        case PartyType.country  : return null; break; /// bz can receive from country
+        case PartyType.user     : return null; /// bz can receive from user
+        case PartyType.bz       : return null; /// bz can receive from bz
+        case PartyType.bldrs    : return null; /// bz can receive from bldrs
+        case PartyType.country  : return null; /// bz can receive from country
         default: return null;
       }
 
@@ -1261,8 +1268,8 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkNotesAreIdentical({
-    required NoteModel note1,
-    required NoteModel note2,
+    required NoteModel? note1,
+    required NoteModel? note2,
   }){
     bool _areIdentical = false;
 
@@ -1300,14 +1307,14 @@ class NoteModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkNotesListsAreIdentical({
-    required List<NoteModel> notes1,
-    required List<NoteModel> notes2,
+    required List<NoteModel>? notes1,
+    required List<NoteModel>? notes2,
   }){
     bool _areIdentical = true;
 
     if (Mapper.checkCanLoopList(notes1) == true && Mapper.checkCanLoopList(notes2) == true){
 
-      if (notes1.length != notes2.length){
+      if (notes1!.length != notes2!.length){
         _areIdentical = false;
       }
 

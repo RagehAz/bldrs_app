@@ -31,7 +31,7 @@ class BzFCMTopicsScreenView extends StatelessWidget {
     required bool value,
   }) async {
 
-    final BzModel _activeBz = BzzProvider.proGetActiveBzModel(
+    final BzModel? _activeBz = BzzProvider.proGetActiveBzModel(
       context: context,
       listen: false,
     );
@@ -69,7 +69,7 @@ class BzFCMTopicsScreenView extends StatelessWidget {
     required bool value,
   }) async {
 
-    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+    final BzModel? _bzModel = BzzProvider.proGetActiveBzModel(
       context: context,
       listen: false,
     );
@@ -111,7 +111,7 @@ class BzFCMTopicsScreenView extends StatelessWidget {
       listen: true,
     );
 
-    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+    final BzModel? _bzModel = BzzProvider.proGetActiveBzModel(
       context: context,
       listen: true,
     );
