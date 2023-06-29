@@ -282,12 +282,12 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
 
 Future<void> zoomOutFlyer({
   required bool mounted,
-  required ZGridController controller,
-  required ValueNotifier<FlyerModel> flyerNotifier,
+  required ZGridController? controller,
+  required ValueNotifier<FlyerModel>? flyerNotifier,
 }) async {
 
   if (controller != null) {
-    if (controller?.isZoomed?.value == true) {
+    if (Mapper.boolIsTrue(controller.isZoomed?.value) == true) {
       await ZGridController.zoomOut(
         mounted: mounted,
         zGridController: controller,

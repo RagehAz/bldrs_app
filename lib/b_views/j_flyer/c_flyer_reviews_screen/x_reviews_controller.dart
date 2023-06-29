@@ -22,10 +22,8 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/layouts/nav/nav.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 
@@ -39,7 +37,7 @@ Future<void> loadReviewEditorLastSession({
   required String flyerID,
 }) async {
 
-  final ReviewModel _lastSessionReview = await FlyerLDBOps.loadReviewSession(
+  final ReviewModel? _lastSessionReview = await FlyerLDBOps.loadReviewSession(
     reviewID: ReviewModel.createTempReviewID(
       flyerID: flyerID,
       userID: Authing.getUserID(),
@@ -777,15 +775,20 @@ Future<void> _onDeleteReply({
 }
 // -----------------------------------------------------------------------------
 
-String createReviewsScreenRoutingArgument({
-  required String flyerID,
-  required String reviewID,
+String? createReviewsScreenRoutingArgument({
+  required String? flyerID,
+  required String? reviewID,
 }){
 
-  return ChainPathConverter.combinePathNodes([
-    flyerID,
-    reviewID,
-  ]);
+  if (flyerID == null || reviewID == null){
+    return null;
+  }
+  else {
+    return ChainPathConverter.combinePathNodes([
+      flyerID,
+      reviewID,
+    ]);
+  }
 
 }
 

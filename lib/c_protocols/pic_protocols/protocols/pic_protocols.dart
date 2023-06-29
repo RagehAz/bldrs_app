@@ -1,5 +1,4 @@
 import 'dart:ui' as ui;
-
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/files/floaters.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
@@ -10,11 +9,7 @@ import 'package:bldrs/a_models/x_ui/ui_image_cache_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/ldb/pic_ldb_ops.dart';
 import 'package:bldrs/c_protocols/pic_protocols/storage/pic_storage_ops.dart';
-
-import 'package:basics/helpers/classes/files/filers.dart';
-import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class PicProtocols {
   // -----------------------------------------------------------------------------
@@ -69,7 +64,7 @@ class PicProtocols {
   /// TESTED : WORKS PERFECT
   static Future<PicModel?> fetchPic(String? path) async {
 
-    PicModel _picModel = await PicLDBOps.readPic(path);
+    PicModel? _picModel = await PicLDBOps.readPic(path);
 
     if (_picModel == null){
 
@@ -86,18 +81,20 @@ class PicProtocols {
   }
   // --------------------
   /// TASK : TEST ME
-  static Future<List<PicModel>> fetchPics(List<String> paths) async {
+  static Future<List<PicModel>> fetchPics(List<String>? paths) async {
     final List<PicModel> _output = <PicModel>[];
 
     if (Mapper.checkCanLoopList(paths) == true){
 
       await Future.wait(<Future>[
 
-        ...List.generate(paths.length, (index){
+        ...List.generate(paths!.length, (index){
 
-          return fetchPic(paths[index]).then((PicModel pic){
+          return fetchPic(paths[index]).then((PicModel? pic){
 
-            _output.add(pic);
+            if (pic != null){
+              _output.add(pic);
+            }
 
           });
 
@@ -131,7 +128,7 @@ class PicProtocols {
       /// PIC IS NOT PRO-CACHED
       else {
 
-        final PicModel _picModel = await PicProtocols.fetchPic(path);
+        final PicModel? _picModel = await PicProtocols.fetchPic(path);
         _theImage = await Floaters.getUiImageFromUint8List(_picModel?.bytes);
 
         /// PRO-CACHE IF POSSIBLE
@@ -199,7 +196,7 @@ class PicProtocols {
 
         blog('downloadPic : Downloading pic : $path');
 
-        final PicModel _picModel = await PicStorageOps.readPic(path: path);
+        final PicModel? _picModel = await PicStorageOps.readPic(path: path);
 
         blog('downloadPic : Downloaded pic : $path');
 
@@ -304,7 +301,7 @@ class PicProtocols {
 
         PicLDBOps.deletePic(path),
 
-        PicStorageOps.deletePic(path),
+        PicStorageOps.deletePic(path!),
 
       ]);
 

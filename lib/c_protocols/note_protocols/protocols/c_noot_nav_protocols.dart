@@ -2,7 +2,6 @@ import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
-import 'package:flutter/material.dart';
 /// TAMAM
 class NootNavToProtocols {
   // -----------------------------------------------------------------------------
@@ -16,8 +15,8 @@ class NootNavToProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onNootTap({
-    required NoteModel noteModel,
-    bool startFromHome,
+    required NoteModel? noteModel,
+    bool? startFromHome,
   }) async {
 
     if (noteModel != null){
@@ -25,19 +24,19 @@ class NootNavToProtocols {
       if (noteModel.navTo != null){
 
         final String _secondaryRouteName =
-        noteModel.parties.receiverType == PartyType.bz ?
+        noteModel.parties?.receiverType == PartyType.bz ?
         Routing.myBzNotesPage
             :
         Routing.myUserNotesPage;
 
-        final String _secondaryArgument =
-        noteModel.parties.receiverType == PartyType.bz ?
-        noteModel.parties.receiverID
+        final String? _secondaryArgument =
+        noteModel.parties?.receiverType == PartyType.bz ?
+        noteModel.parties?.receiverID
             :
         null;
 
-        final String _routeName = noteModel?.navTo?.name ?? _secondaryRouteName;
-        final String _argument = noteModel?.navTo?.argument ?? _secondaryArgument;
+        final String? _routeName = noteModel.navTo?.name ?? _secondaryRouteName;
+        final String? _argument = noteModel.navTo?.argument ?? _secondaryArgument;
 
         await BldrsNav.autoNav(
             routeName: _routeName,
@@ -52,7 +51,7 @@ class NootNavToProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool _checkShouldStartFromHome(String routeName){
+  static bool _checkShouldStartFromHome(String? routeName){
 
     switch (routeName){
 
@@ -64,31 +63,31 @@ class NootNavToProtocols {
       // case Routing.news                 : return true; break;
       // case Routing.more                 : return true; break;
 
-      case Routing.profile              : return true; break;
-      case Routing.profileEditor        : return true; break;
-      case Routing.search               : return true; break;
-      case Routing.bzEditor             : return true; break;
-      case Routing.myBzFlyersPage           : return true; break;
-      case Routing.myBzNotesPage        : return true; break;
-      case Routing.myBzTeamPage         : return true; break;
-      case Routing.editBz               : return true; break;
-      case Routing.flyerEditor          : return true; break;
-      case Routing.appSettings          : return true; break;
+      case Routing.profile              : return true;
+      case Routing.profileEditor        : return true;
+      case Routing.search               : return true;
+      case Routing.bzEditor             : return true;
+      case Routing.myBzFlyersPage       : return true;
+      case Routing.myBzNotesPage        : return true;
+      case Routing.myBzTeamPage         : return true;
+      case Routing.editBz               : return true;
+      case Routing.flyerEditor          : return true;
+      case Routing.appSettings          : return true;
 
       // case Routing.flyerScreen          : return true; break;
       // case Routing.ragehDashBoard       : return true; break;
       // case Routing.obelisk              : return true; break;
       // case Routing.dynamicLinkTest      : return true; break;
 
-      case Routing.userPreview          : return false; break;
-      case Routing.bzPreview            : return false; break;
-      case Routing.countryPreview       : return false; break;
-      case Routing.flyerPreview         : return false; break;
-      case Routing.flyerReviews         : return false; break;
-      case Routing.bldrsPreview         : return false; break;
+      case Routing.userPreview          : return false;
+      case Routing.bzPreview            : return false;
+      case Routing.countryPreview       : return false;
+      case Routing.flyerPreview         : return false;
+      case Routing.flyerReviews         : return false;
+      case Routing.bldrsPreview         : return false;
 
-      case Routing.myUserScreen         : return true; break;
-      case Routing.myUserNotesPage      : return true; break;
+      case Routing.myUserScreen         : return true;
+      case Routing.myUserNotesPage      : return true;
 
       default: return true;
     }

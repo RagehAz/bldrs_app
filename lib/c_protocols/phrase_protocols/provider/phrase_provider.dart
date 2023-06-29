@@ -9,7 +9,6 @@ import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.da
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
@@ -57,7 +56,7 @@ class PhraseProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> fetchSetCurrentLangAndAllPhrases({
-    String setLangCode,
+    String? setLangCode,
   }) async {
 
     // blog('---> fetchSetCurrentLangAndAllPhrases : START');
@@ -104,7 +103,7 @@ class PhraseProvider extends ChangeNotifier {
   /// TESTED : WORKS PERFECT
   Future<void> getSetCurrentLangCode({
     required bool notify,
-    String setLangCode,
+    String? setLangCode,
   }) async {
 
     /// A. DETECT DEVICE LANGUAGE
@@ -224,7 +223,7 @@ class PhraseProvider extends ChangeNotifier {
   List<String> _usedXPhrases = <String>[];
   List<String> get usedXPhrases => _usedXPhrases;
   // --------------------
-  void addToUsedXPhrases(String id){
+  void addToUsedXPhrases(String? id){
 
     _usedXPhrases = Stringer.addStringToListIfDoesNotContainIt(
       strings: _usedXPhrases,
@@ -250,7 +249,7 @@ class PhraseProvider extends ChangeNotifier {
     return _phraseProvider.phidsPendingTranslation;
   }
   // --------------------
-  void addToPhidsPendingTranslation(String id){
+  void addToPhidsPendingTranslation(String? id){
 
     WidgetsBinding.instance.addPostFrameCallback((_){
 
@@ -270,7 +269,7 @@ class PhraseProvider extends ChangeNotifier {
 
       for (final String phid in _phidsPendingTranslation){
 
-        final String _xPhrase = translatePhid(phid);
+        final String? _xPhrase = translatePhid(phid);
 
         if (_xPhrase != null){
           _phidsPendingTranslation = Stringer.removeStringsFromStrings(
@@ -351,7 +350,7 @@ class PhraseProvider extends ChangeNotifier {
 //---------------------
 String? xPhrase(String? phid){
 
-  final String id = Phider.removeIndexFromPhid(phid: phid);
+  final String? id = Phider.removeIndexFromPhid(phid: phid);
 
   final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(getMainContext(), listen: false);
   _phraseProvider.addToUsedXPhrases(id);
@@ -364,7 +363,7 @@ String? xPhrase(String? phid){
   /// THE PHID VERSES
   else {
 
-     String _translation = _phraseProvider.translatePhid(id);
+     String? _translation = _phraseProvider.translatePhid(id);
 
     if (_translation == null){
       _phraseProvider.addToPhidsPendingTranslation(id ?? phid);
@@ -395,7 +394,7 @@ List<String> xPhrases(List<String> phids){
 
 }
 //---------------------
-String phidIcon(dynamic icon){
+String? phidIcon(dynamic icon){
   final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
   return _chainsProvider.getPhidIcon(
     son: icon,
@@ -410,7 +409,7 @@ String phidIcon(dynamic icon){
 String counterCaliber(int x){
   return Numeric.formatNumToCounterCaliber(
     x: x,
-    thousand: xPhrase('phid_thousand'),
-    million: xPhrase('phid_million'),
+    thousand: xPhrase('phid_thousand')!,
+    million: xPhrase('phid_million')!,
   );
 }

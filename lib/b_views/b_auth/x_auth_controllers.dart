@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:fire/super_fire.dart';
@@ -14,7 +13,6 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/layouts/nav/nav.dart';
 
@@ -116,7 +114,7 @@ Future<void> authByEmailRegister({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> authBySocialMedia({
-  required AuthModel authModel,
+  required AuthModel? authModel,
   required bool mounted,
 }) async {
 
@@ -150,8 +148,8 @@ Future<void> authBySocialMedia({
 Future<void> _rememberEmailAndNav({
   required bool success,
   required bool rememberMe,
-  required String email,
-  required String password,
+  required String? email,
+  required String? password,
   required bool mounted,
 }) async {
 
@@ -198,7 +196,7 @@ Future<void> _rememberEmailAndNav({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _navAfterAuth({
-  required UserModel userModel,
+  required UserModel? userModel,
   required bool firstTimer,
 }) async {
 
@@ -375,7 +373,7 @@ bool _prepareForEmailAuthOps({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> rememberOrForgetAccount({
-  required AccountModel account,
+  required AccountModel? account,
   required bool rememberMe,
 }) async {
   if (
@@ -394,7 +392,7 @@ Future<void> rememberOrForgetAccount({
 
     else {
       await AccountLDBOps.deleteAccount(
-        id: account?.id,
+        id: account.id,
       );
     }
 

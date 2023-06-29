@@ -18,9 +18,9 @@ class LoadingFlyersGrid extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final double gridWidth;
-  final double gridHeight;
-  final ScrollController scrollController;
+  final double? gridWidth;
+  final double? gridHeight;
+  final ScrollController? scrollController;
   final double topPadding;
   final int numberOfColumnsOrRows;
   final Axis scrollDirection;

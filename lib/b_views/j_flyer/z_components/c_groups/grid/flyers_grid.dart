@@ -41,11 +41,11 @@ class FlyersGrid extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final FlyerGridType gridType;
-  final List<FlyerModel> flyers;
-  final List<String> flyersIDs;
-  final double gridWidth;
-  final double gridHeight;
-  final ScrollController scrollController;
+  final List<FlyerModel>? flyers;
+  final List<String>? flyersIDs;
+  final double? gridWidth;
+  final double? gridHeight;
+  final ScrollController? scrollController;
   final double topPadding;
   final int numberOfColumnsOrRows;
   final String screenName;
@@ -53,18 +53,18 @@ class FlyersGrid extends StatelessWidget {
   final Axis scrollDirection;
   final bool scrollable;
   final bool selectionMode;
-  final Function(FlyerModel flyerModel) onFlyerOptionsTap;
-  final Function(FlyerModel flyerModel) onSelectFlyer;
-  final Function(String flyerID) onFlyerNotFound;
-  final double bottomPadding;
-  final ZGridController zGridController;
+  final Function(FlyerModel flyerModel)? onFlyerOptionsTap;
+  final Function(FlyerModel flyerModel)? onSelectFlyer;
+  final Function(String flyerID)? onFlyerNotFound;
+  final double? bottomPadding;
+  final ZGridController? zGridController;
   final bool hasResponsiveSideMargin;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool showLoadingGridInstead({
     required bool isLoadingGrid,
-    required List<FlyerModel> flyers,
-    required List<String> paginationFlyersIDs,
+    required List<FlyerModel>? flyers,
+    required List<String>? paginationFlyersIDs,
   }){
     bool _showLoadingGrid = true;
 

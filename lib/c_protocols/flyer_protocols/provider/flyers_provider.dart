@@ -121,12 +121,14 @@ class FlyersProvider extends ChangeNotifier {
 
       for (final String flyerID in _flyersIDs){
 
-        final FlyerModel _flyer = await FlyerProtocols.fetchFlyer(
+        final FlyerModel? _flyer = await FlyerProtocols.fetchFlyer(
           context: context,
           flyerID: flyerID,
         );
 
-        _bzFlyers.add(_flyer);
+        if (_flyer != null){
+          _bzFlyers.add(_flyer);
+        }
 
       }
 
@@ -147,26 +149,26 @@ class FlyersProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  void addFlyerToSelectedFlyers(FlyerModel flyer){
+  void addFlyerToSelectedFlyers(FlyerModel? flyer){
 
     final bool _flyersContainThisFlyer = FlyerModel.flyersContainThisID(
       flyers: _selectedFlyers,
-      flyerID: flyer.id,
+      flyerID: flyer?.id,
     );
 
-    if (_flyersContainThisFlyer == false){
-      _selectedFlyers = [...?_selectedFlyers, flyer];
+    if (_flyersContainThisFlyer == false && flyer != null){
+      _selectedFlyers = [..._selectedFlyers, flyer];
       notifyListeners();
     }
 
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  void removeFlyerFromSelectedFlyers(FlyerModel flyer){
+  void removeFlyerFromSelectedFlyers(FlyerModel? flyer){
 
     final bool _flyersContainThisFlyer = FlyerModel.flyersContainThisID(
       flyers: _selectedFlyers,
-      flyerID: flyer.id,
+      flyerID: flyer?.id,
     );
 
     if (_flyersContainThisFlyer == true){

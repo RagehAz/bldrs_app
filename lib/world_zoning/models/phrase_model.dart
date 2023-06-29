@@ -448,13 +448,13 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> decipherMixedLangPhrasesFromMaps({
-    required List<dynamic> maps,
+    required List<dynamic>? maps,
   }){
     final List<Phrase> _phrases = <Phrase>[];
 
     if (Mapper.checkCanLoopList(maps) == true){
 
-      for (final Map<String, dynamic> map in maps){
+      for (final Map<String, dynamic> map in maps!){
 
         final Phrase _phrase = decipherPhraseDefaultMap(
           id: map['id'],
@@ -1632,9 +1632,9 @@ class Phrase {
 
     int _count = 1;
 
-    if (Mapper.checkCanLoopList(phrases)){
+    if (Mapper.checkCanLoopList(phrases) == true){
 
-      for (final Phrase phrase in phrases){
+      for (final Phrase phrase in phrases!){
         blog(
             '  #$_count : '
                 'id : [ ${phrase.id} ] : '

@@ -411,15 +411,21 @@ class RecorderProtocols {
         oldNumberOfSlides != newNumberOfSlides
     ){
 
-      await Real.incrementPathFields(
+      final int? _allSlides = Numeric.modulus((newNumberOfSlides-oldNumberOfSlides).toDouble())?.toInt();
+
+      if (_allSlides != null){
+
+        await Real.incrementPathFields(
         path: RealPath.recorders_bzz_bzID_counter(
             bzID: bzID
         ),
         incrementationMap: {
-          'allSlides': Numeric.modulus((newNumberOfSlides-oldNumberOfSlides).toDouble()).toInt(),
+          'allSlides': _allSlides,
         },
         isIncrementing: newNumberOfSlides > oldNumberOfSlides,
       );
+
+      }
 
     }
 
@@ -434,6 +440,7 @@ class RecorderProtocols {
 
     if (
         bzID != null &&
+        flyerID != null &&
         numberOfSlides != null &&
         numberOfSlides > 0
     ){
@@ -478,8 +485,8 @@ class RecorderProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onComposeReview({
-    required String flyerID,
-    required String bzID,
+    required String? flyerID,
+    required String? bzID,
   }) async {
 
     if (
@@ -522,8 +529,8 @@ class RecorderProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onWipeReview({
-    required String flyerID,
-    required String bzID,
+    required String? flyerID,
+    required String? bzID,
   }) async {
 
     if (

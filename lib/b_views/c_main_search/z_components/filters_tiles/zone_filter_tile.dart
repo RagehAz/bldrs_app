@@ -21,8 +21,8 @@ class ZoneFilterTile extends StatelessWidget {
   final Function onTileTap;
   final Function(bool) onSwitchTap;
   // -----------------------------------------------------------------------------
-  static Verse getZoneVerse({
-    required ZoneModel zoneModel,
+  static Verse? getZoneVerse({
+    required ZoneModel? zoneModel,
   }) {
 
     final Verse _headline = zoneModel == null ?
@@ -35,8 +35,8 @@ class ZoneFilterTile extends StatelessWidget {
     return _headline;
   }
   // --------------------
-  static String getZoneIcon({
-    required ZoneModel zoneModel,
+  static String? getZoneIcon({
+    required ZoneModel? zoneModel,
   }){
 
     if (zoneModel == null){
@@ -44,7 +44,7 @@ class ZoneFilterTile extends StatelessWidget {
     }
 
     else {
-      return zoneModel.icon ?? Flag.getCountryIcon(zoneModel?.countryID);
+      return zoneModel.icon ?? Flag.getCountryIcon(zoneModel.countryID);
     }
 
   }

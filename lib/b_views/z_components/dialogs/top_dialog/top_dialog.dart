@@ -70,7 +70,7 @@ class TopDialog extends StatelessWidget {
     Color color = Colorz.yellow255,
     Color textColor = Colorz.black255,
     Function? onTap,
-    int milliseconds = 5000,
+    int? milliseconds = 5000,
   }) async {
 
     final double _screenWidth = Scale.screenWidth(getMainContext());

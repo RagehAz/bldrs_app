@@ -6,12 +6,10 @@ import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:url_launcher/url_launcher.dart' as Launch;
 /// => TAMAM
 class Launcher {
@@ -26,7 +24,7 @@ class Launcher {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> launchContactModel({
-    required ContactModel contact,
+    required ContactModel? contact,
   }) async {
 
     if (contact != null){
@@ -63,7 +61,7 @@ class Launcher {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<bool> launchURL(String link) async {
+  static Future<bool> launchURL(String? link) async {
 
     Uri _uri;
     bool _success = false;
@@ -82,7 +80,7 @@ class Launcher {
       );
 
       if (_containsHttp == true || _containsHttps == true){
-        _uri = Uri.parse(link);
+        _uri = Uri.parse(link!);
       }
       else {
         _uri = Uri.parse('http://$link');
@@ -108,9 +106,9 @@ class Launcher {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _launchEmail({
-    required String email,
-    String emailSubject,
-    String emailBody,
+    required String? email,
+    String? emailSubject,
+    String? emailBody,
   }) async {
 
     if (TextCheck.isEmpty(email) == false){
@@ -158,7 +156,7 @@ class Launcher {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> _launchCall(String phoneNumber) async {
+  static Future<void> _launchCall(String? phoneNumber) async {
 
     if (TextCheck.isEmpty(phoneNumber) == false){
 
@@ -186,19 +184,19 @@ class Launcher {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> shareURL({
-    required String url,
-    required String subject,
+    required String? url,
+    required String? subject,
   }) async {
 
     if (url != null && subject != null){
 
       if (DeviceChecker.deviceIsWindows() == false){
-        final RenderBox _box = getMainContext().findRenderObject();
+        final RenderBox? _box = getMainContext().findRenderObject() as RenderBox;
         // final String url = '${flyerLink.url} & ${flyerLink.description}';
         await Share.share(
           url,
           subject: subject,
-          sharePositionOrigin: _box.localToGlobal(Offset.zero) & _box.size,
+          sharePositionOrigin: _box!.localToGlobal(Offset.zero) & _box.size,
         );
       }
       else {
@@ -212,7 +210,7 @@ class Launcher {
   /// TESTED : WORKS PERFECT
   static Future<void> shareBldrsWebsiteURL() async {
 
-    final String _tagLine = await PhraseProtocols.translate(
+    final String? _tagLine = await PhraseProtocols.translate(
         langCode: Localizer.getCurrentLangCode(),
         phid: 'phid_bldrsTagLine',
     );

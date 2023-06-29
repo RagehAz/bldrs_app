@@ -61,41 +61,40 @@ class MainLayout extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final List<Widget> appBarRowWidgets;
-  final Widget child;
+  final List<Widget>? appBarRowWidgets;
+  final Widget? child;
   final bool pyramidsAreOn;
-  final AppBarType appBarType;
-  final Verse title;
+  final AppBarType? appBarType;
+  final Verse? title;
   final SkyType skyType;
-  final Function onBack;
+  final Function? onBack;
   final bool canGoBack;
-  final Key scaffoldKey;
-  final ScrollController appBarScrollController;
-  final TextEditingController searchController;
-  final ValueChanged<String> onSearchSubmit;
-  final ValueChanged<String> onPaste;
-  final ValueChanged<String> onSearchChanged;
+  final Key? scaffoldKey;
+  final ScrollController? appBarScrollController;
+  final TextEditingController? searchController;
+  final ValueChanged<String>? onSearchSubmit;
+  final ValueChanged<String>? onPaste;
+  final ValueChanged<String>? onSearchChanged;
   final bool searchButtonIsOn;
   final bool sectionButtonIsOn;
-  final Verse searchHintVerse;
-  final ValueNotifier<bool> loading;
-  final ValueNotifier<ProgressBarModel> progressBarModel;
-  final PyramidType pyramidType;
-  final Function onPyramidTap;
-  final Function onSearchCancelled;
-  final ConfirmButtonModel confirmButtonModel;
-  final GlobalKey globalKey;
-  final List<Widget> pyramidButtons;
+  final Verse? searchHintVerse;
+  final ValueNotifier<bool>? loading;
+  final ValueNotifier<ProgressBarModel>? progressBarModel;
+  final PyramidType? pyramidType;
+  final Function? onPyramidTap;
+  final Function? onSearchCancelled;
+  final ConfirmButtonModel? confirmButtonModel;
+  final GlobalKey? globalKey;
+  final List<Widget>? pyramidButtons;
   final bool listenToHideLayout;
-  final ValueNotifier<bool> filtersAreOn;
-  final Widget filters;
+  final ValueNotifier<bool>? filtersAreOn;
+  final Widget? filters;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static void onCancelSearch({
-    required BuildContext context,
-    required TextEditingController controller,
-    required ValueNotifier<dynamic> foundResultNotifier,
-    required ValueNotifier<bool> isSearching,
+    required TextEditingController? controller,
+    required ValueNotifier<dynamic>? foundResultNotifier,
+    required ValueNotifier<bool>? isSearching,
     required bool mounted,
   }){
 
@@ -167,7 +166,7 @@ class MainLayout extends StatelessWidget {
 
 
     if (onBack != null){
-      await onBack();
+      await onBack?.call();
     }
 
     else {
@@ -217,7 +216,7 @@ class MainLayout extends StatelessWidget {
           // right: ,
           // top: ,
           child: ConnectivitySensor(
-            onConnectivityChanged: (bool isConnected) => GeneralProvider.onConnectivityChanged(
+            onConnectivityChanged: ({bool? isConnected}) => GeneralProvider.onConnectivityChanged(
               isConnected: isConnected,
             ),
             child: Stack(

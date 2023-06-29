@@ -170,7 +170,7 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void proSetAfterHomeRoute({
-    required String routeName,
+    required String? routeName,
     required String? arguments,
     required bool notify,
   }){
@@ -691,12 +691,12 @@ bool localAssetExists({
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-String getLocalAssetPath({
+String? getLocalAssetPath({
   required String? assetName,
 }){
   final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);
   final List<String> _localAssetsPaths = _uiProvider.localAssetsPaths;
-  final String _path = Iconizer.getLocalAssetPathFromLocalPaths(
+  final String? _path = Iconizer.getLocalAssetPathFromLocalPaths(
       allAssetsPaths: _localAssetsPaths,
       assetName: assetName
   );

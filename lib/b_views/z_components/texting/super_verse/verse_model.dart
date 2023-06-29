@@ -125,13 +125,17 @@ class Verse {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> getVersesIDs(List<Verse> verses){
+  static List<String> getVersesIDs(List<Verse>? verses){
     final List<String> _output = <String>[];
 
     if (Mapper.checkCanLoopList(verses) == true){
 
-      for (final Verse verse in verses){
-        _output.add(verse.id);
+      for (final Verse verse in verses!){
+
+        if (verse.id != null){
+          _output.add(verse.id!);
+        }
+
       }
 
     }
@@ -141,14 +145,13 @@ class Verse {
   // --------------------
   /// TASK : TEST ME
   static List<String> bakeVerses({
-    required List<Verse> verses,
-    required BuildContext context,
+    required List<Verse>? verses,
   }){
     final List<String> _output = <String>[];
 
     if (Mapper.checkCanLoopList(verses) == true){
 
-      for (final Verse verse in verses){
+      for (final Verse verse in verses!){
 
         final String? _baked = bakeVerseToString(verse: verse);
 
@@ -197,7 +200,7 @@ class Verse {
 
     bool _shouldButNotFound = false;
 
-    if (TextCheck.isEmpty(verse.id) == false && verse.translate == true){
+    if (TextCheck.isEmpty(verse.id) == false && Mapper.boolIsTrue(verse.translate) == true){
 
       final String? _translation = xPhrase(verse.id);
       if (_translation == null){
@@ -209,7 +212,7 @@ class Verse {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkPendingAssigningPhid(String string){
+  static bool checkPendingAssigningPhid(String? string){
     bool _need = false;
 
     if (
@@ -237,9 +240,9 @@ class Verse {
 
     if (verse != null && TextCheck.isEmpty(verse.id) == false){
 
-      _output = verse.translate == true ? verse.id.trim() : verse.id;
+      _output = Mapper.boolIsTrue(verse.translate) == true ? verse.id?.trim() : verse.id;
 
-      if (verse.translate == true){
+      if (Mapper.boolIsTrue(verse.translate) == true){
 
         /// ADJUST VALUE
         if (TextCheck.isEmpty(_output) == false){
@@ -250,7 +253,7 @@ class Verse {
           final bool _isHeadline = Phider.checkVerseIsHeadline(_output);
           if (_isPhid == true || _isCurrency == true || _isHeadline == true){
 
-            final String _foundXPhrase = xPhrase(verse.id);
+            final String? _foundXPhrase = xPhrase(verse.id);
 
             /// X PHRASE NOT FOUND
             if (_foundXPhrase == null){
@@ -315,7 +318,7 @@ class Verse {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool isEmpty(Verse verse){
+  static bool isEmpty(Verse? verse){
     bool _isEmpty = true;
 
     if (verse != null){

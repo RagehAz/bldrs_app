@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -26,7 +25,6 @@ import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:fire/super_fire.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:basics/layouts/nav/nav.dart';
@@ -45,18 +43,18 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin{
   // -----------------------------------------------------------------------------
-  final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
+  final ValueNotifier<ProgressBarModel?> _progressBarModel = ValueNotifier(null);
   late PaginationController _paginationController;
   // --------------------
   /// KEYBOARD VISIBILITY
-  StreamSubscription<bool> _keyboardSubscription;
+  late StreamSubscription<bool> _keyboardSubscription;
   final KeyboardVisibilityController keyboardVisibilityController = KeyboardVisibilityController();
   // --------------------
   /// NOTES STREAM SUBSCRIPTIONS
-  StreamSubscription _userNotesStreamSub;
-  List<StreamSubscription> _bzzNotesStreamsSubs;
+  late StreamSubscription? _userNotesStreamSub;
+  late List<StreamSubscription> _bzzNotesStreamsSubs;
   // -----------------------------------------------------------------------------
-  ZGridController _zGridController;
+  late ZGridController _zGridController;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -167,7 +165,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
 
-    final RouteSettings _afterHomeRoute = UiProvider.proGetAfterHomeRoute(
+    final RouteSettings? _afterHomeRoute = UiProvider.proGetAfterHomeRoute(
       context: context,
       listen: true,
     );
@@ -206,7 +204,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         listen: true,
       );
 
-      final List<NavModel> _navModels = generateMainNavModels(
+      final List<NavModel?> _navModels = generateMainNavModels(
         context: context,
         userModel: _userModel,
         bzzModels: _bzzModels,
@@ -249,7 +247,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
                 /// HOME FLYERS
                 else {
-                  return homeFlyersGrid;
+                  return homeFlyersGrid!;
                 }
 
               },

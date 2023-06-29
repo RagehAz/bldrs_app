@@ -25,13 +25,13 @@ class EmailAndPasswordBubbles extends StatelessWidget {
   final GlobalKey<FormState> formKey;
   final TextEditingController emailController;
   final TextEditingController passwordController;
-  final String Function(String) emailValidator;
-  final String Function(String) passwordValidator;
+  final String? Function(String?)? emailValidator;
+  final String? Function(String?)? passwordValidator;
   final ValueNotifier<bool> isSigningIn;
   final AppBarType appBarType;
   final FocusNode passwordNode;
   final ValueNotifier<bool> isObscured;
-  final void Function(String) onSubmitted;
+  final void Function(String?)? onSubmitted;
   final double bubbleWidth;
   /// --------------------------------------------------------------------------
   @override

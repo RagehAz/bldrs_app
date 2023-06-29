@@ -7,9 +7,7 @@ import 'package:bldrs/a_models/m_search/user_search_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
-import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class UserFireSearchOps{
   // -----------------------------------------------------------------------------
@@ -20,7 +18,7 @@ class UserFireSearchOps{
   /// TESTED : WORKS PERFECT
   static FireQueryModel createQuery({
     String? orderBy,
-    bool? descending,
+    bool descending = true,
     int limit = 4,
     String? searchText,
     UserSearchModel? userSearchModel,
@@ -180,7 +178,7 @@ class UserFireSearchOps{
     int limit = 10,
   }) async {
 
-    final List<Map<String, dynamic>?> _result = await Fire.readColl(
+    final List<Map<String, dynamic>> _result = await Fire.readColl(
       addDocSnapshotToEachMap: true,
       startAfter: startAfter,
       queryModel: FireQueryModel(
@@ -216,7 +214,7 @@ class UserFireSearchOps{
   // --------------------
   /// TASK : TEST ME
   static Future<List<UserModel>> usersByNameAndIsAuthor({
-    required String name,
+    required String? name,
     int limit = 3,
     QueryDocumentSnapshot<Object>? startAfter,
   }) async {

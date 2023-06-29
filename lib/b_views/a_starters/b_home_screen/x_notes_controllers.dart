@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
@@ -11,7 +10,6 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:fire/super_fire.dart';
-import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 // -----------------------------------------------------------------------------
 
@@ -31,9 +29,9 @@ Future<void> initializeObeliskNumbers() async {
 
 // --------------------
 /// TESTED : WORKS PERFECT
-StreamSubscription listenToUserUnseenNotes(){
+StreamSubscription? listenToUserUnseenNotes(){
 
-  StreamSubscription _sub;
+  StreamSubscription? _sub;
 
   final UserModel? _userModel = UsersProvider.proGetMyUserModel(
     context: getMainContext(),
@@ -42,13 +40,13 @@ StreamSubscription listenToUserUnseenNotes(){
 
   if (_userModel != null && Authing.getUserID() != null){
 
-    final Stream<List<Map<String, dynamic>>> _unseenNotesStream = userUnseenNotesStream();
+    final Stream<List<Map<String, dynamic>>>? _unseenNotesStream = userUnseenNotesStream();
 
     _sub = FireCollStreamer.onStreamDataChanged(
       stream: _unseenNotesStream,
       // oldMaps: _oldMaps,
       invoker: 'listenToUserUnseenNotes',
-      onChange: (List<Map<String, dynamic>> unseenNotesMaps) async {
+      onChange: (List<Map<String, dynamic>>? unseenNotesMaps) async {
 
         // blog('listenToUserUnseenNotes.onStreamDataChanged : unseenNotesMaps are ${unseenNotesMaps.length} maps');
         // Mapper.blogMaps(allUpdatedMaps, invoker: 'initializeUserNotes');
@@ -110,11 +108,13 @@ List<StreamSubscription> listenToMyBzzUnseenNotes(){
 
     for (final BzModel bzModel in _myBzz){
 
-      final StreamSubscription _sub = _listenToMyBzUnseenNotes(
+      final StreamSubscription? _sub = _listenToMyBzUnseenNotes(
         bzID: bzModel.id,
       );
 
-      _subs.add(_sub);
+      if (_sub != null){
+        _subs.add(_sub);
+      }
 
     }
 
@@ -124,15 +124,15 @@ List<StreamSubscription> listenToMyBzzUnseenNotes(){
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-StreamSubscription _listenToMyBzUnseenNotes({
-  required String bzID,
+StreamSubscription? _listenToMyBzUnseenNotes({
+  required String? bzID,
 }){
 
-  final Stream<List<Map<String, dynamic>>> _bzUnseenNotesStream  = bzUnseenNotesStream(
+  final Stream<List<Map<String, dynamic>>>? _bzUnseenNotesStream  = bzUnseenNotesStream(
     bzID: bzID,
   );
 
-  final StreamSubscription _streamSubscription = FireCollStreamer.onStreamDataChanged(
+  final StreamSubscription? _streamSubscription = FireCollStreamer.onStreamDataChanged(
     stream: _bzUnseenNotesStream,
     // oldMaps: _oldMaps,
     invoker: '_listenToMyBzUnseenNotes : bzID : $bzID',

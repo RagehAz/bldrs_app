@@ -81,9 +81,9 @@ class BldrsNav {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> autoNav({
-    required String routeName,
+    required String? routeName,
     required bool startFromHome,
-    Object? arguments,
+    String? arguments,
   }) async {
 
     if (TextCheck.isEmpty(routeName) == false){
@@ -111,7 +111,7 @@ class BldrsNav {
   /// TESTED : WORKS PERFECT
   static Future<void> autoNavigateFromHomeScreen() async {
 
-    final RouteSettings _afterHomeRoute = UiProvider.proGetAfterHomeRoute(
+    final RouteSettings? _afterHomeRoute = UiProvider.proGetAfterHomeRoute(
       context: getMainContext(),
       listen: false,
     );
@@ -121,21 +121,21 @@ class BldrsNav {
 
     if (_afterHomeRoute != null){
 
-      Future<void> _goTo;
+      Future<void>? _goTo;
 
       switch(_afterHomeRoute.name){
       // --------------------
       /// TESTED : WORKS PERFECT
         case Routing.myBzFlyersPage:
           _goTo = goToMyBzScreen(
-            bzID: _afterHomeRoute.arguments,
+            bzID: _afterHomeRoute.arguments as String,
             replaceCurrentScreen: false,
           ); break;
       // --------------------
       /// TESTED : WORKS PERFECT
         case Routing.myBzAboutPage:
           _goTo = goToMyBzScreen(
-            bzID: _afterHomeRoute.arguments,
+            bzID: _afterHomeRoute.arguments as String,
             replaceCurrentScreen: false,
             initialTab: BzTab.about,
           ); break;
@@ -143,7 +143,7 @@ class BldrsNav {
       /// TESTED : WORKS PERFECT
         case Routing.myBzNotesPage:
           _goTo = goToMyBzScreen(
-            bzID: _afterHomeRoute.arguments,
+            bzID: _afterHomeRoute.arguments as String,
             replaceCurrentScreen: false,
             initialTab: BzTab.notes,
           ); break;
@@ -151,7 +151,7 @@ class BldrsNav {
       /// TESTED : WORKS PERFECT
         case Routing.myBzTeamPage:
           _goTo = goToMyBzScreen(
-            bzID: _afterHomeRoute.arguments,
+            bzID: _afterHomeRoute.arguments as String,
             replaceCurrentScreen: false,
             initialTab: BzTab.team,
           ); break;
@@ -169,25 +169,25 @@ class BldrsNav {
       /// TESTED : WORKS PERFECT
         case Routing.userPreview:
           _goTo = jumpToUserPreviewScreen(
-            userID: _afterHomeRoute.arguments,
+            userID: _afterHomeRoute.arguments as String,
           ); break;
       // --------------------
       /// TESTED : WORKS PERFECT
         case Routing.bzPreview:
           _goTo = jumpToBzPreviewScreen(
-            bzID: _afterHomeRoute.arguments,
+            bzID: _afterHomeRoute.arguments as String,
           ); break;
       // --------------------
       /// TESTED : WORKS PERFECT
         case Routing.flyerPreview:
           _goTo = jumpToFlyerPreviewScreen(
-            flyerID: _afterHomeRoute.arguments,
+            flyerID: _afterHomeRoute.arguments as String,
           ); break;
       // --------------------
       /// TESTED : WORKS PERFECT
         case Routing.flyerReviews:
           _goTo = jumpToFlyerReviewScreen(
-            flyerIDAndReviewID: _afterHomeRoute?.arguments,
+            flyerIDAndReviewID: _afterHomeRoute.arguments as String,
           ); break;
       // --------------------
         case Routing.appSettings:
@@ -374,7 +374,7 @@ class BldrsNav {
   // --------------------
   /// TASK : TEST ME
   static Future<void> restartAndRoute({
-    String routeName,
+    String? routeName,
     dynamic arguments,
   }) async {
 
@@ -404,7 +404,7 @@ class BldrsNav {
 
     if (userID != null){
 
-      final UserModel _userModel = await UserProtocols.fetch(
+      final UserModel? _userModel = await UserProtocols.fetch(
         context: getMainContext(),
         userID: userID,
       );
@@ -452,7 +452,7 @@ class BldrsNav {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> jumpToFlyerPreviewScreen({
-    required String flyerID,
+    required String? flyerID,
   }) async {
 
     if (flyerID != null){
@@ -473,7 +473,7 @@ class BldrsNav {
   // --------------------
   /// TASK : DO JUMP TO REVIEW THING
   static Future<void> jumpToFlyerReviewScreen({
-    required Object flyerIDAndReviewID,
+    required Object? flyerIDAndReviewID,
   }) async {
 
     /*
@@ -496,14 +496,14 @@ class BldrsNav {
     assert(flyerIDAndReviewID != null, 'flyerIDAndReviewID is null');
     assert(flyerIDAndReviewID is String, 'flyerIDAndReviewID is not a String');
 
-    final List<String> _flyerIDAndReviewID = ChainPathConverter.splitPathNodes(flyerIDAndReviewID);
+    final List<String> _flyerIDAndReviewID = ChainPathConverter.splitPathNodes(flyerIDAndReviewID as String);
 
     if (Mapper.checkCanLoopList(_flyerIDAndReviewID) == true){
 
-      final String _flyerID = _flyerIDAndReviewID[0];
-      final String _reviewID = _flyerIDAndReviewID[1];
+      final String? _flyerID = _flyerIDAndReviewID[0];
+      final String? _reviewID = _flyerIDAndReviewID[1];
 
-      if (_flyerID != null){
+      if (_flyerID != null && _reviewID != null){
 
         await Nav.goToNewScreen(
           context: getMainContext(),

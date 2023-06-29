@@ -58,7 +58,7 @@ class AuthorshipEntryProtocols {
     );
 
     /// UPDATE MY USER MODEL EVERY WHERE --------------------------
-    final UserModel _uploadedUser = await UserProtocols.renovate(
+    final UserModel? _uploadedUser = await UserProtocols.renovate(
       context: getMainContext(),
       newUser: _newUser,
       oldUser: _oldUser,
@@ -81,7 +81,7 @@ class AuthorshipEntryProtocols {
 
     _newBz = PendingAuthor.removePendingAuthorFromBz(
         bzModel: _newBz,
-        userID: _uploadedUser.id,
+        userID: _uploadedUser?.id,
     );
 
     /// ADD BZ MODEL TO MY BZZ --------------------------
