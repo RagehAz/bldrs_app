@@ -3,7 +3,6 @@ import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:flutter/cupertino.dart';
 
 /*
 Map looks like this :-
@@ -26,10 +25,10 @@ class ChainRealOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<Chain>> createBldrsChains({
+  static Future<List<Chain>?> createBldrsChains({
     required List<Chain> chains,
   }) async {
-    List<Chain> _uploaded;
+    List<Chain>? _uploaded;
 
     if (Mapper.checkCanLoopList(chains) == true){
 
@@ -37,7 +36,7 @@ class ChainRealOps {
         chains: chains,
       );
 
-      final Map<String, dynamic> _uploadedChainSMap = await Real.createColl(
+      final Map<String, dynamic>? _uploadedChainSMap = await Real.createColl(
         coll: RealColl.bldrsChains,
         map: _map,
       );
@@ -56,13 +55,13 @@ class ChainRealOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<Chain>> readBldrsChains() async {
+  static Future<List<Chain>?> readBldrsChains() async {
 
-    final Map<String, dynamic> map = await Real.readPathMap(
+    final Map<String, dynamic>? map = await Real.readPathMap(
       path: RealColl.bldrsChains,
     );
 
-    final List<Chain> _chains = Chain.decipherBldrsChains(map: map);
+    final List<Chain>? _chains = Chain.decipherBldrsChains(map: map);
 
     return Phider.sortChainsByIndexes(_chains);
   }
@@ -73,7 +72,7 @@ class ChainRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateBldrsChains({
-    required List<Chain> chains,
+    required List<Chain>? chains,
   }) async {
 
     if (chains != null){

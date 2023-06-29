@@ -9,7 +9,6 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a
 import 'package:bldrs/c_protocols/flyer_protocols/fire/flyer_fire_ops.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 
 class FetchFlyerProtocols {
@@ -23,12 +22,12 @@ class FetchFlyerProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<FlyerModel> fetchFlyer({
+  static Future<FlyerModel?> fetchFlyer({
     required BuildContext context,
-    required String flyerID,
+    required String? flyerID,
   }) async {
 
-    FlyerModel _flyer = await FlyerLDBOps.readFlyer(flyerID);
+    FlyerModel? _flyer = await FlyerLDBOps.readFlyer(flyerID);
 
     if (_flyer != null){
       // blog('fetchFlyerByID : ($flyerID) FlyerModel FOUND in LDB');
@@ -53,7 +52,7 @@ class FetchFlyerProtocols {
 
     if (_flyer != null){
 
-      final BzModel _bzModel = await BzProtocols.fetchBz(
+      final BzModel? _bzModel = await BzProtocols.fetchBz(
         bzID: _flyer.bzID,
       );
 
@@ -71,7 +70,7 @@ class FetchFlyerProtocols {
   /// TESTED : WORKS PERFECT
   static Future<List<FlyerModel>> fetchFlyers({
     required BuildContext context,
-    required List<String> flyersIDs,
+    required List<String>? flyersIDs,
   }) async {
     // blog('FetchFlyerProtocol.fetchFlyersByIDs : START');
 
@@ -81,14 +80,16 @@ class FetchFlyerProtocols {
 
       await Future.wait(<Future>[
 
-        ...List.generate(flyersIDs.length, (index){
+        ...List.generate(flyersIDs!.length, (index){
 
           return fetchFlyer(
             context: context,
             flyerID: flyersIDs[index],
-          ).then((FlyerModel flyer){
+          ).then((FlyerModel? flyer){
 
-            _flyers.add(flyer);
+            if (flyer != null){
+              _flyers.add(flyer);
+            }
 
           });
 
@@ -107,16 +108,16 @@ class FetchFlyerProtocols {
 
   // --------------------
   /// TASK : TEST ME
-  static Future<FlyerModel> refetch({
+  static Future<FlyerModel?> refetch({
     required BuildContext context,
-    required  String flyerID,
+    required String? flyerID,
   }) async {
 
-    FlyerModel _output;
+    FlyerModel? _output;
 
     if (flyerID != null){
 
-      final FlyerModel _flyerModel = await fetchFlyer(
+      final FlyerModel? _flyerModel = await fetchFlyer(
         context: context,
         flyerID: flyerID,
       );
@@ -144,47 +145,49 @@ class FetchFlyerProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<FlyerModel> fetchAndCombineBzSlidesInOneFlyer({
+  static Future<FlyerModel?> fetchAndCombineBzSlidesInOneFlyer({
     required BuildContext context,
-    required String bzID,
-    required int maxSlides,
+    required String? bzID,
+    required int? maxSlides,
   }) async {
-    FlyerModel _flyer;
+    FlyerModel? _flyer;
 
     if (bzID != null && maxSlides != null && maxSlides != 0){
 
-      final BzModel bzModel = await BzProtocols.fetchBz(
+      final BzModel? bzModel = await BzProtocols.fetchBz(
           bzID: bzID,
       );
 
-      if (bzModel != null){
+      if (Mapper.checkCanLoopList(bzModel?.flyersIDs) == true){
 
         final List<SlideModel> _bzSlides = <SlideModel>[];
 
-        for (int i = 0; i < bzModel.flyersIDs.length; i++){
+        for (int i = 0; i < bzModel!.flyersIDs!.length; i++){
 
-          final String _flyerID = bzModel.flyersIDs[i];
+          final String _flyerID = bzModel.flyersIDs![i];
 
-          final FlyerModel _flyer = await fetchFlyer(
+          final FlyerModel? _flyer = await fetchFlyer(
             context: context,
             flyerID: _flyerID,
           );
 
-          for (final SlideModel _slide in _flyer.slides){
+          if (Mapper.checkCanLoopList(_flyer?.slides) == true){
 
-            _bzSlides.add(_slide);
+            for (final SlideModel _slide in _flyer!.slides!) {
+              _bzSlides.add(_slide);
 
-            blog('added slide with index ${_slide.slideIndex}');
+              blog('added slide with index ${_slide.slideIndex}');
 
-            if (_bzSlides.length >= maxSlides){
-              blog('breaking _bzSlides.length ${_bzSlides.length} : maxSlides $maxSlides : ${_bzSlides.length >= maxSlides}');
+              if (_bzSlides.length >= maxSlides) {
+                blog('breaking _bzSlides.length ${_bzSlides.length} : maxSlides $maxSlides : ${_bzSlides.length >= maxSlides}');
+                break;
+              }
+            }
+
+            if (_bzSlides.length >= maxSlides) {
               break;
             }
 
-          }
-
-          if (_bzSlides.length >= maxSlides){
-            break;
           }
 
         }
@@ -223,7 +226,6 @@ class FetchFlyerProtocols {
         }
 
       }
-
 
     }
 

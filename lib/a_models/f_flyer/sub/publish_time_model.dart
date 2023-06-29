@@ -301,11 +301,12 @@ class PublishTime {
     }
 
     else if (
-    Mapper.checkCanLoopList(times1) == true &&
+        Mapper.checkCanLoopList(times1) == true
+            &&
         Mapper.checkCanLoopList(times2) == true
     ){
 
-      if (times1.length == times2.length){
+      if (times1!.length == times2!.length){
 
         for (int i = 0; i < times1.length; i++){
 

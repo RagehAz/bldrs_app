@@ -650,17 +650,17 @@ class UserModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static UserModel addBzIDToUserBzzIDs({
-    required UserModel oldUser,
-    required String bzIDToAdd,
+  static UserModel? addBzIDToUserBzzIDs({
+    required UserModel? oldUser,
+    required String? bzIDToAdd,
   }){
 
     final List<String> _newBzzIDs = Stringer.addStringToListIfDoesNotContainIt(
-      strings: oldUser.myBzzIDs,
+      strings: oldUser?.myBzzIDs,
       stringToAdd: bzIDToAdd,
     );
 
-    final UserModel _newUser = oldUser.copyWith(
+    final UserModel? _newUser = oldUser?.copyWith(
       myBzzIDs: _newBzzIDs,
     );
 

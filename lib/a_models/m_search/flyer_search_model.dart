@@ -17,14 +17,14 @@ class FlyerSearchModel {
     required this.auditState,
   });
   // -----------------------------------------------------------------------------
-  final FlyerType flyerType;
-  final bool onlyShowingAuthors;
-  final bool onlyWithPrices;
-  final bool onlyWithPDF;
-  final bool onlyAmazonProducts;
-  final String phid;
-  final PublishState publishState;
-  final AuditState auditState;
+  final FlyerType? flyerType;
+  final bool? onlyShowingAuthors;
+  final bool? onlyWithPrices;
+  final bool? onlyWithPDF;
+  final bool? onlyAmazonProducts;
+  final String? phid;
+  final PublishState? publishState;
+  final AuditState? auditState;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -83,7 +83,7 @@ class FlyerSearchModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, dynamic>? cipher(FlyerSearchModel flyerSearchModel){
+  static Map<String, dynamic>? cipher(FlyerSearchModel? flyerSearchModel){
     Map<String, dynamic>? _output;
 
     if (flyerSearchModel != null) {
@@ -103,8 +103,8 @@ class FlyerSearchModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static FlyerSearchModel decipher(Map<String, dynamic> map){
-    FlyerSearchModel _output;
+  static FlyerSearchModel? decipher(Map<String, dynamic>? map){
+    FlyerSearchModel? _output;
 
     if (map != null){
       _output = FlyerSearchModel(
@@ -128,8 +128,8 @@ class FlyerSearchModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool areIdentical({
-    required FlyerSearchModel model1,
-    required FlyerSearchModel model2,
+    required FlyerSearchModel? model1,
+    required FlyerSearchModel? model2,
   }){
     bool _output;
 

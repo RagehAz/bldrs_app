@@ -8,10 +8,6 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:fire/super_fire.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 /// => TAMAM
 class UserFireOps {
   // -----------------------------------------------------------------------------
@@ -25,15 +21,17 @@ class UserFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> createUser({
-    required UserModel userModel,
-    required SignInMethod signInMethod,
+    required UserModel? userModel,
+    required SignInMethod? signInMethod,
   }) async {
 
-    await Fire.updateDoc(
-      coll: FireColl.users,
-      doc: userModel.id,
-      input: userModel.toMap(toJSON: false),
-    );
+    if (userModel?.id != null){
+      await Fire.updateDoc(
+        coll: FireColl.users,
+        doc: userModel!.id!,
+        input: userModel.toMap(toJSON: false),
+      );
+    }
 
   }
   // -----------------------------------------------------------------------------
@@ -42,22 +40,24 @@ class UserFireOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<UserModel> readUser({
-    required String userID,
+  static Future<UserModel?> readUser({
+    required String? userID,
   }) async {
-    UserModel _output;
+    UserModel? _output;
 
-    final Map<String, dynamic> _userMap = await Fire.readDoc(
-      coll: FireColl.users,
-      doc: userID,
-    );
+    if (userID != null) {
 
-    if (_userMap != null) {
-
-      _output = UserModel.decipherUser(
-        map: _userMap,
-        fromJSON: false,
+      final Map<String, dynamic>? _userMap = await Fire.readDoc(
+        coll: FireColl.users,
+        doc: userID,
       );
+
+      if (_userMap != null) {
+        _output = UserModel.decipherUser(
+          map: _userMap,
+          fromJSON: false,
+        );
+      }
 
     }
 
@@ -69,31 +69,33 @@ class UserFireOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<UserModel> updateUser({
-    required UserModel oldUser,
-    required UserModel newUser,
+  static Future<UserModel?> updateUser({
+    required UserModel? oldUser,
+    required UserModel? newUser,
   }) async {
-    UserModel _output;
+    UserModel? _output;
 
-    final bool _userModelsAreIdentical = UserModel.usersAreIdentical(
-      user1: oldUser,
-      user2: newUser,
-    );
+    if (newUser?.id != null) {
 
-    if (_userModelsAreIdentical == false){
-
-      final UserModel _finalUserModel = await _updateUserEmailIfChanged(
-        oldUser: oldUser,
-        newUser: newUser,
+      final bool _userModelsAreIdentical = UserModel.usersAreIdentical(
+        user1: oldUser,
+        user2: newUser,
       );
 
-      await Fire.updateDoc(
-        coll: FireColl.users,
-        doc: newUser.id,
-        input: _finalUserModel.toMap(toJSON: false),
-      );
+      if (_userModelsAreIdentical == false) {
+        final UserModel? _finalUserModel = await _updateUserEmailIfChanged(
+          oldUser: oldUser,
+          newUser: newUser,
+        );
 
-      _output = _finalUserModel;
+        await Fire.updateDoc(
+          coll: FireColl.users,
+          doc: newUser!.id!,
+          input: _finalUserModel?.toMap(toJSON: false),
+        );
+
+        _output = _finalUserModel;
+      }
 
     }
 
@@ -101,12 +103,12 @@ class UserFireOps {
   }
 // ----------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<UserModel> _updateUserEmailIfChanged({
-    required UserModel oldUser,
-    required UserModel newUser,
+  static Future<UserModel?> _updateUserEmailIfChanged({
+    required UserModel? oldUser,
+    required UserModel? newUser,
   }) async {
 
-    UserModel _output = newUser.copyWith();
+    UserModel? _output = newUser?.copyWith();
 
     final bool _emailChanged = ContactModel.checkEmailChanged(
       oldContacts: oldUser?.contacts,
@@ -115,15 +117,15 @@ class UserFireOps {
 
     if (_emailChanged == true){
 
-      final String _newEmail = ContactModel.getValueFromContacts(
-        contacts: newUser.contacts,
+      final String? _newEmail = ContactModel.getValueFromContacts(
+        contacts: newUser?.contacts,
         contactType: ContactType.email,
       );
 
       if (TextCheck.isEmpty(_newEmail) == false){
 
         final bool _success = await EmailAuthing.updateUserEmail(
-          newEmail: _newEmail,
+          newEmail: _newEmail!,
         );
 
         /// EMAIL CHANGED
@@ -133,17 +135,17 @@ class UserFireOps {
 
         else {
           /// refactor the new UserModel with the old email
-          final ContactModel _oldEmailContact = ContactModel.getContactFromContacts(
-            contacts: oldUser.contacts,
+          final ContactModel? _oldEmailContact = ContactModel.getContactFromContacts(
+            contacts: oldUser?.contacts,
             type: ContactType.email,
           );
 
           final List<ContactModel> _contacts = ContactModel.insertOrReplaceContact(
-            contacts: newUser.contacts,
+            contacts: newUser?.contacts,
             contactToReplace: _oldEmailContact,
           );
 
-          _output = newUser.copyWith(
+          _output = newUser?.copyWith(
             contacts: _contacts,
           );
 
@@ -171,18 +173,21 @@ class UserFireOps {
       listen: false,
     );
 
-    /// DELETE USER
-    await Fire.deleteDoc(
-      coll: FireColl.users,
-      doc: _userModel.id,
-    );
+    if (_userModel?.id != null) {
 
-    blog('deleteMyUser : deleteDoc done');
+      /// DELETE USER
+      await Fire.deleteDoc(
+        coll: FireColl.users,
+        doc: _userModel!.id!,
+      );
 
-    /// DELETE FIREBASE USER
-    await Authing.deleteUser(
-      userID: _userModel.id,
-    );
+      blog('deleteMyUser : deleteDoc done');
+
+      /// DELETE FIREBASE USER
+      await Authing.deleteUser(
+        userID: _userModel.id!,
+      );
+    }
 
     blog('deleteMyUser : END');
 

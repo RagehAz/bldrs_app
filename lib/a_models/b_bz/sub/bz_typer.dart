@@ -249,7 +249,7 @@ class BzTyper {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkBzTypesAreIdentical(List<BzType> types1, List<BzType> types2){
+  static bool checkBzTypesAreIdentical(List<BzType>? types1, List<BzType>? types2){
 
     final Map<String, dynamic>? _a = cipherBzTypes(types1);
     final Map<String, dynamic>? _b = cipherBzTypes(types2);

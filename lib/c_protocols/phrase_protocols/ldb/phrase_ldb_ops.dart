@@ -120,11 +120,11 @@ class PhraseLDBOps {
   }
   // --------------------
   ///  TESTED : WORKS PERFECT
-  static Future<Phrase> searchPhraseByIDAndCode({
-    required String phid,
-    required String langCode,
+  static Future<Phrase?> searchPhraseByIDAndCode({
+    required String? phid,
+    required String? langCode,
   }) async {
-    Phrase _output;
+    Phrase? _output;
 
     if (phid != null && langCode != null){
 

@@ -149,9 +149,9 @@ class Iconizer {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getLocalAssetPathFromLocalPaths({
+  static String? getLocalAssetPathFromLocalPaths({
     required List<String> allAssetsPaths,
-    required String assetName,
+    required String? assetName,
   }){
 
     final List<String> _assetPath = ChainPathConverter.findPathsContainingPhid(
@@ -159,7 +159,7 @@ class Iconizer {
       phid: assetName,
     );
 
-    return _assetPath.isNotEmpty ? _assetPath?.first : null;
+    return _assetPath.isNotEmpty ? _assetPath.first : null;
   }
   // -----------------------------------------------------------------------------
 }

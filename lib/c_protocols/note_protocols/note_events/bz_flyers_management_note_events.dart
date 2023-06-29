@@ -97,7 +97,7 @@ class NoteEventsOfBzFlyersManagement {
 
     // blog('NoteEventsOfBzFlyersManagement.sendFlyerIsVerifiedNoteToBz : START');
 
-    final BzModel _bzModel = await BzProtocols.fetchBz(
+    final BzModel? _bzModel = await BzProtocols.fetchBz(
       bzID: bzID,
     );
 

@@ -47,7 +47,7 @@ class StagingLeveller {
   /// TESTED : WORKS PERFECT
   static Future<void> levelUpZone({
     required BuildContext context,
-    required ZoneModel zoneModel,
+    required ZoneModel? zoneModel,
   }) async {
 
     /// NOTE : THIS METHOD IS CALLED AFTER UPDATING CENSUS
@@ -72,7 +72,7 @@ class StagingLeveller {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _levelUpCountry({
-    required String countryID,
+    required String? countryID,
   }) async {
 
     /// NOTE : THIS METHOD IS CALLED AFTER UPDATING CENSUS
@@ -80,7 +80,7 @@ class StagingLeveller {
     if (countryID != null){
 
       final StagingModel _countriesStage = await StagingProtocols.refetchCountiesStaging();
-      final StageType _countryStageType = _countriesStage?.getTypeByID(countryID);
+      final StageType? _countryStageType = _countriesStage?.getTypeByID(countryID);
 
       /// WHEN PUBLIC STAGE NO LEVEL UP WILL BE AVAILABLE
       if (_countryStageType != null && _countryStageType != StageType.publicStage){

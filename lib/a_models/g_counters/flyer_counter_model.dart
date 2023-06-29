@@ -1,5 +1,4 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/foundation.dart';
 /// => TAMAM
 @immutable
@@ -72,9 +71,9 @@ class FlyerCounterModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static FlyerCounterModel decipherCounterMap(Map<String, dynamic> map){
+  static FlyerCounterModel? decipherCounterMap(Map<String, dynamic>? map){
 
-    FlyerCounterModel _model;
+    FlyerCounterModel? _model;
 
     if (map != null){
       _model = FlyerCounterModel(
@@ -112,8 +111,8 @@ class FlyerCounterModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkFlyerCounterModelsAreIdentical({
-    required FlyerCounterModel counter1,
-    required FlyerCounterModel counter2,
+    required FlyerCounterModel? counter1,
+    required FlyerCounterModel? counter2,
   }){
     bool _areIdentical = false;
 

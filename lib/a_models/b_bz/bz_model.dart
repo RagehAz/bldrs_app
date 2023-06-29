@@ -199,7 +199,7 @@ class BzModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> cipherBzz({
-    required List<BzModel> bzz,
+    required List<BzModel>? bzz,
     required bool toJSON,
   }) {
 
@@ -207,7 +207,7 @@ class BzModel{
 
     if (Mapper.checkCanLoopList(bzz) == true){
 
-      for (final BzModel bz in bzz){
+      for (final BzModel bz in bzz!){
 
         _maps.add(bz.toMap(toJSON: toJSON));
 

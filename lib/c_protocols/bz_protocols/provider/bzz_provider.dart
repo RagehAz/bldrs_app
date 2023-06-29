@@ -4,7 +4,6 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +17,7 @@ class BzzProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void removeProBzEveryWhere({
-    required String bzID,
+    required String? bzID,
     required bool notify,
   }){
 
@@ -129,7 +128,7 @@ class BzzProvider extends ChangeNotifier {
   }
   // --------------------
   void removeBzFromSponsors({
-    required String bzIDToRemove,
+    required String? bzIDToRemove,
     required bool notify,
   }){
 
@@ -184,9 +183,9 @@ class BzzProvider extends ChangeNotifier {
 
     /// 1 - get userBzzIDs from userModel
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(getMainContext(), listen: false);
-    final List<String> _userBzzIDs = _usersProvider.myUserModel?.myBzzIDs;
+    final List<String>? _userBzzIDs = _usersProvider.myUserModel?.myBzzIDs;
 
-    if (Mapper.checkCanLoopList(_userBzzIDs)) {
+    if (Mapper.checkCanLoopList(_userBzzIDs) == true) {
       /// 2 - fetch bzz
       final List<BzModel> _bzz = await BzProtocols.fetchBzz(
         bzzIDs: _userBzzIDs,
@@ -225,7 +224,7 @@ class BzzProvider extends ChangeNotifier {
   // --------------------
   /// TASK : TEST ME
   static void proRemoveBzFromMyBzz({
-    required String bzID,
+    required String? bzID,
     required bool notify,
   }){
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
@@ -237,11 +236,11 @@ class BzzProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void removeBzFromMyBzz({
-    required String bzID,
+    required String? bzID,
     required bool notify,
   }) {
 
-    if (Mapper.checkCanLoopList(_myBzz)) {
+    if (Mapper.checkCanLoopList(_myBzz) == true) {
 
       final int _index = _myBzz.indexWhere((BzModel bzModel) => bzModel.id == bzID);
 
@@ -259,22 +258,24 @@ class BzzProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void addBzToMyBzz({
-    required BzModel bzModel,
+    required BzModel? bzModel,
     required bool notify,
   }) {
-    _myBzz.add(bzModel);
-    if (notify == true){
-      notifyListeners();
+    if (bzModel != null){
+      _myBzz.add(bzModel);
+      if (notify == true){
+        notifyListeners();
+      }
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   void updateBzInMyBzz({
-    required BzModel modifiedBz,
+    required BzModel? modifiedBz,
     required bool notify,
   }) {
 
-    if (Mapper.checkCanLoopList(_myBzz)) {
+    if (Mapper.checkCanLoopList(_myBzz) == true && modifiedBz != null) {
 
       final int _index = _myBzz.indexWhere((BzModel bz) => modifiedBz.id == bz.id);
 
@@ -290,7 +291,6 @@ class BzzProvider extends ChangeNotifier {
         );
 
       }
-
 
     }
 
@@ -312,7 +312,7 @@ class BzzProvider extends ChangeNotifier {
   }) async {
     /// 1 - get user saved followed bzz IDs
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(getMainContext(), listen: false);
-    final UserModel _myUserModel = _usersProvider.myUserModel;
+    final UserModel? _myUserModel = _usersProvider.myUserModel;
     final List<String>? _followedBzzIDs = _myUserModel?.followedBzz?.all;
 
     if (Mapper.checkCanLoopList(_followedBzzIDs)) {
@@ -379,7 +379,7 @@ class BzzProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void removeBzFromFollowedBzz({
-    required String bzIDToRemove,
+    required String? bzIDToRemove,
     required bool notify,
   }){
 
@@ -414,7 +414,7 @@ class BzzProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void setActiveBz({
-    required BzModel bzModel,
+    required BzModel? bzModel,
     required bool notify,
   }) {
 
@@ -432,7 +432,7 @@ class BzzProvider extends ChangeNotifier {
   static void resetActiveBz(){
 
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
-    final BzModel _bzModel = _bzzProvider.myActiveBz?.copyWith();
+    final BzModel? _bzModel = _bzzProvider.myActiveBz?.copyWith();
 
     if (_bzModel != null){
       _bzzProvider.setActiveBz(

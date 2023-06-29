@@ -23,10 +23,10 @@ class ComposeUserProtocols {
 
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<UserModel> compose({
-    required AuthModel authModel,
+  static Future<UserModel?> compose({
+    required AuthModel? authModel,
   }) async {
-    UserModel _output;
+    UserModel? _output;
 
     if (authModel != null){
 
@@ -45,7 +45,7 @@ class ComposeUserProtocols {
       /// CREATE FIRE USER
       await UserFireOps.createUser(
         userModel: _output,
-        signInMethod: authModel.signInMethod,
+        signInMethod: authModel?.signInMethod,
       );
 
       await Future.wait(<Future>[
@@ -86,13 +86,13 @@ class ComposeUserProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<UserModel> _composeUserImageFromUserPicURL({
-    required String picURL,
-    required String userID,
-    required UserModel userModel,
+  static Future<UserModel?> _composeUserImageFromUserPicURL({
+    required String? picURL,
+    required String? userID,
+    required UserModel? userModel,
   }) async {
 
-    UserModel _output = userModel;
+    UserModel? _output = userModel;
 
     if (TextCheck.isEmpty(picURL) == false){
 
@@ -103,7 +103,7 @@ class ComposeUserProtocols {
       if (Mapper.checkCanLoopList(_bytes) == true){
 
         final Dimensions? _dims = await Dimensions.superDimensions(_bytes);
-        final String _picPath = StoragePath.users_userID_pic(userID);
+        final String? _picPath = StoragePath.users_userID_pic(userID);
         final double? _mega = Filers.calculateSize(_bytes!.length, FileSizeUnit.megaByte);
 
         await PicProtocols.composePic(
@@ -112,14 +112,14 @@ class ComposeUserProtocols {
               path: _picPath,
               meta: StorageMetaModel(
                 sizeMB: _mega,
-                ownersIDs: [userID],
+                ownersIDs: userID == null ? [] : [userID],
                 width: _dims?.width,
                 height: _dims?.height,
               ),
             )
         );
 
-        _output = _output.copyWith(
+        _output = _output?.copyWith(
           picPath: _picPath,
         );
 

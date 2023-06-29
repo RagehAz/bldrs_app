@@ -21,11 +21,11 @@ class CountryProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<CountryModel> fetchCountry({
-    required String countryID,
+  static Future<CountryModel?> fetchCountry({
+    required String? countryID,
   }) async {
 
-    CountryModel _output;
+    CountryModel? _output;
 
     if (countryID != null){
 

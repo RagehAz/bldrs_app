@@ -2,7 +2,6 @@ import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/ldb/stages_ldb_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/real/staging_real_ops.dart';
-import 'package:flutter/material.dart';
 
 class StagingProtocols {
   // -----------------------------------------------------------------------------
@@ -57,10 +56,10 @@ class StagingProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<StagingModel> fetchCitiesStaging({
-    required String countryID,
+  static Future<StagingModel?> fetchCitiesStaging({
+    required String? countryID,
   }) async {
-    StagingModel _output;
+    StagingModel? _output;
 
     if (countryID != null){
 
@@ -82,10 +81,10 @@ class StagingProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<StagingModel> refetchCitiesStaging({
-    required String countryID,
+  static Future<StagingModel?> refetchCitiesStaging({
+    required String? countryID,
   }) async {
-    StagingModel _output;
+    StagingModel? _output;
 
     if (countryID != null){
 
@@ -104,7 +103,7 @@ class StagingProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<void> renovateCountriesStaging({
-    required StagingModel newStaging,
+    required StagingModel? newStaging,
   }) async {
 
     if (newStaging != null){
@@ -129,7 +128,7 @@ class StagingProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<void> renovateCitiesStaging({
-    required StagingModel newStaging,
+    required StagingModel? newStaging,
   }) async {
 
     if (newStaging != null){
@@ -158,18 +157,18 @@ class StagingProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<void> removeCityFromStages({
-    required String cityID,
+    required String? cityID,
   }) async {
 
     if (cityID != null){
 
-      final StagingModel _oldCitiesStaging = await StagingProtocols.fetchCitiesStaging(
+      final StagingModel? _oldCitiesStaging = await StagingProtocols.fetchCitiesStaging(
         countryID: CityModel.getCountryIDFromCityID(cityID),
       );
 
       if (_oldCitiesStaging != null){
 
-        final StagingModel _new = StagingModel.removeIDFromStaging(
+        final StagingModel? _new = StagingModel.removeIDFromStaging(
           staging: _oldCitiesStaging,
           id: cityID,
         );
@@ -179,8 +178,6 @@ class StagingProtocols {
         );
 
       }
-
-
 
     }
 

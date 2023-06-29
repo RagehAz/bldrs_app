@@ -86,12 +86,12 @@ class BzTabber {
   }
   // --------------------
   /// TESTED: WORKS PERFECT
-  static String getTabTitle({
+  static String? getTabTitle({
     required int index,
     required BuildContext context,
   }){
     final BzTab _bzTab = bzTabsList[index];
-    final String _bzTabPhid = getBzTabPhid(
+    final String? _bzTabPhid = getBzTabPhid(
       bzTab: _bzTab,
     );
     return _bzTabPhid;
