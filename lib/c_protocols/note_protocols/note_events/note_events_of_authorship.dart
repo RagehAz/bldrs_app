@@ -91,15 +91,15 @@ class NoteEventsOfAuthorship {
   /// TESTED : WORKS PERFECT
   static Future<void> sendAuthorshipCancellationNote({
     required BuildContext context,
-    required BzModel bzModel,
-    required UserModel userModelToSendTo,
+    required BzModel? bzModel,
+    required UserModel? userModelToSendTo,
   }) async {
 
     blog('NoteEventsOfAuthorship.sendAuthorshipCancellationNote : START');
 
     final String _title = await PhraseProtocols.translate(
         phid: 'phid_membership_invitation_is_cancelled',
-        langCode: userModelToSendTo.language,
+        langCode: userModelToSendTo?.language,
     );
 
     final NoteModel _note = NoteModel(
@@ -152,7 +152,7 @@ class NoteEventsOfAuthorship {
   /// TESTED : WORKS PERFECT
   static Future<void> sendAuthorshipAcceptanceNote({
     required BuildContext context,
-    required String bzID,
+    required String? bzID,
   }) async {
 
     blog('NoteEventsOfAuthorship.sendAuthorshipAcceptanceNote : START');
@@ -164,20 +164,20 @@ class NoteEventsOfAuthorship {
 
     final String _title = await PhraseProtocols.translate(
         phid: 'phid_membership_invitation_is_accepted',
-        langCode: senderModel.language,
+        langCode: senderModel?.language,
     );
 
     final NoteModel _note =  NoteModel(
       id: null,
       parties: NoteParties(
-        senderID: senderModel.id,
-        senderImageURL: senderModel.picPath,
+        senderID: senderModel?.id,
+        senderImageURL: senderModel?.picPath,
         senderType: PartyType.user,
         receiverID: bzID,
         receiverType: PartyType.bz,
       ),
       title: _title,
-      body: senderModel.name,
+      body: senderModel?.name,
       sentTime: DateTime.now(),
       topic: TopicModel.bakeTopicID(
         topicID: TopicModel.bzAuthorshipsInvitations,
@@ -204,7 +204,7 @@ class NoteEventsOfAuthorship {
   /// TESTED : WORKS PERFECT
   static Future<void> sendAuthorshipDeclinationsNote({
     required BuildContext context,
-    required String bzID,
+    required String? bzID,
   }) async {
 
     blog('NoteEventsOfAuthorship.sendAuthorshipDeclinationsNote : START');
@@ -216,20 +216,20 @@ class NoteEventsOfAuthorship {
 
     final String _title = await PhraseProtocols.translate(
         phid: 'phid_membership_invitation_is_declined',
-        langCode: senderModel.language,
+        langCode: senderModel?.language,
     );
 
     final NoteModel _note =  NoteModel(
       id: null,
       parties: NoteParties(
-        senderID: senderModel.id,
-        senderImageURL: senderModel.picPath,
+        senderID: senderModel?.id,
+        senderImageURL: senderModel?.picPath,
         senderType: PartyType.user,
         receiverID: bzID,
         receiverType: PartyType.bz,
       ),
       title: _title,
-      body: senderModel.name,
+      body: senderModel?.name,
       sentTime: DateTime.now(),
       topic: TopicModel.bakeTopicID(
         topicID: TopicModel.bzAuthorshipsInvitations,
@@ -237,7 +237,7 @@ class NoteEventsOfAuthorship {
         receiverPartyType: PartyType.bz,
       ),
       function: NoteFunProtocols.createDeletePendingAuthorTrigger(
-        userID: senderModel.id,
+        userID: senderModel?.id,
         bzID: bzID,
       ),
       navTo: TriggerModel(

@@ -118,8 +118,8 @@ class ZoneIDsProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<ZoneModel> completeZoneModel({
-    required ZoneModel incompleteZoneModel,
+  static Future<ZoneModel?> completeZoneModel({
+    required ZoneModel? incompleteZoneModel,
   }) async {
 
     // assert(incompleteZoneModel != null, 'incompleteZoneModel is null');
@@ -128,7 +128,7 @@ class ZoneIDsProtocols {
     /// incomplete zone model is what only has (countryID - cityID)
     /// complete zone model is that has all IDs  Models and Names initialized
 
-    ZoneModel _output = incompleteZoneModel;
+    ZoneModel? _output = incompleteZoneModel;
 
     if (incompleteZoneModel != null && incompleteZoneModel.countryID != null){
 

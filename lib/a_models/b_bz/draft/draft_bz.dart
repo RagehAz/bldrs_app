@@ -274,9 +274,13 @@ class DraftBz {
 
   // -------------------
   /// TESTED : WORKS PERFECT
-  static BzModel toBzModel(DraftBz draft){
+  static BzModel? toBzModel(DraftBz? draft){
 
-    return BzModel(
+    if (draft == null){
+      return null;
+    }
+    else {
+      return BzModel(
       /// WILL BE OVERRIDDEN
       id: draft.id,
       createdAt: draft.createdAt,
@@ -305,6 +309,7 @@ class DraftBz {
       bzState: draft.bzState,
       flyersIDs: draft.flyersIDs,
     );
+    }
 
   }
   // --------------------

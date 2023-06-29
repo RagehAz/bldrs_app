@@ -176,7 +176,7 @@ class NotesProvider extends ChangeNotifier {
   Future<void> _setObeliskNumberAndRebuild({
     required String invoker,
     required int value,
-    required String navModelID,
+    required String? navModelID,
     required bool notify,
     required bool rebuildAllMainNumbers,
   }) async {
@@ -289,7 +289,7 @@ class NotesProvider extends ChangeNotifier {
   // -----
   /// TESTED : WORKS PERFECT
   Future<void> _calculateAndSetMainBzProfileNumber({
-    required String bzID,
+    required String? bzID,
     required bool notify,
   }) async {
 
@@ -378,7 +378,7 @@ class NotesProvider extends ChangeNotifier {
   // -----
   /// TESTED : WORKS PERFECT
   Future<void> removeAllObeliskNoteNumbersRelatedToBzID({
-    required String bzID,
+    required String? bzID,
     required bool notify,
   }) async {
 
@@ -414,7 +414,7 @@ class NotesProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void proAuthorResignationNotesRemovalOps({
-    required String bzIDResigned,
+    required String? bzIDResigned,
     bool notify = true,
   }){
 

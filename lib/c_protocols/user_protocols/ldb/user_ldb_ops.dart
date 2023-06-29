@@ -3,7 +3,6 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:flutter/material.dart';
 
 /// => TAMAM
 class UserLDBOps {
@@ -17,7 +16,7 @@ class UserLDBOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> insertUserModel(UserModel userModel) async {
+  static Future<void> insertUserModel(UserModel? userModel) async {
 
     if (userModel != null){
 
@@ -35,7 +34,7 @@ class UserLDBOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> insertUsers(List<UserModel> users) async {
+  static Future<void> insertUsers(List<UserModel>? users) async {
 
     if (Mapper.checkCanLoopList(users) == true){
 
@@ -44,7 +43,7 @@ class UserLDBOps {
         docName: LDBDoc.users,
         primaryKey: LDBDoc.getPrimaryKey(LDBDoc.users),
         inputs: UserModel.cipherUsers(
-          users: users,
+          users: users!,
           toJSON: true,
         ),
       );
@@ -101,7 +100,7 @@ class UserLDBOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> updateUserModel(UserModel userModel) async {
+  static Future<void> updateUserModel(UserModel? userModel) async {
 
     if (userModel != null){
 
@@ -123,13 +122,17 @@ class UserLDBOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> deleteUserOps(String userID) async {
+  static Future<void> deleteUserOps(String? userID) async {
 
-    await LDBOps.deleteMap(
-      docName: LDBDoc.users,
-      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.users),
-      objectID: userID,
-    );
+    if (userID != null){
+
+      await LDBOps.deleteMap(
+        docName: LDBDoc.users,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.users),
+        objectID: userID,
+      );
+
+    }
 
   }
   // -----------------------------------------------------------------------------
@@ -139,7 +142,7 @@ class UserLDBOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> saveEditorSession({
-    required DraftUser draft,
+    required DraftUser? draft,
   }) async {
 
     if (draft != null){
@@ -155,20 +158,22 @@ class UserLDBOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<DraftUser> loadEditorSession({
-    required String userID,
+  static Future<DraftUser?> loadEditorSession({
+    required String? userID,
   }) async {
-    DraftUser _draft;
+    DraftUser? _draft;
 
-    final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
-      ids: <String>[userID],
-      docName: LDBDoc.userEditor,
-      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.userEditor),
-    );
+    if (userID != null) {
 
-    if (Mapper.checkCanLoopList(_maps) == true){
+      final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
+        ids: <String>[userID],
+        docName: LDBDoc.userEditor,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.userEditor),
+      );
 
-      _draft = DraftUser.fromLDB(_maps.first);
+      if (Mapper.checkCanLoopList(_maps) == true) {
+        _draft = DraftUser.fromLDB(_maps.first);
+      }
 
     }
 

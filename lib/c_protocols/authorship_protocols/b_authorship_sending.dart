@@ -98,22 +98,21 @@ class AuthorshipSendingProtocols {
   }) async {
 
     /// get pending author model
-    final PendingAuthor _pendingAuthorModel = PendingAuthor.getModelByUserID(
+    final PendingAuthor? _pendingAuthorModel = PendingAuthor.getModelByUserID(
       pendingAuthors: bzModel.pendingAuthors,
       userID: pendingUserID,
     );
 
     /// to get the sent previously sent note to delete
-    final NoteModel _sentNote = await NoteProtocols.readNote(
-      noteID: _pendingAuthorModel.noteID,
-      userID: _pendingAuthorModel.userID,
+    final NoteModel? _sentNote = await NoteProtocols.readNote(
+      noteID: _pendingAuthorModel?.noteID,
+      userID: _pendingAuthorModel?.userID,
     );
 
     await NoteProtocols.renovate(
-      context: context,
       oldNote: _sentNote,
-      newNote: _sentNote.copyWith(
-        poll: _sentNote.poll.copyWith(
+      newNote: _sentNote?.copyWith(
+        poll: _sentNote.poll?.copyWith(
           reply: PollModel.cancel,
         ),
       ),
@@ -129,7 +128,7 @@ class AuthorshipSendingProtocols {
   }) async {
 
     /// get that user to send him cancellation note
-    final UserModel userModelToSendTo = await UserProtocols.fetch(
+    final UserModel? userModelToSendTo = await UserProtocols.fetch(
       context: context,
       userID: pendingUserID,
     );

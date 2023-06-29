@@ -6,9 +6,7 @@ import 'package:bldrs/a_models/m_search/search_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
-import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class BzSearch {
   // -----------------------------------------------------------------------------
@@ -17,14 +15,14 @@ class BzSearch {
 
   // -----------------------------------------------------------------------------
   static FireQueryModel createQuery({
-    SearchModel searchModel,
-    String bzName,
-    String orderBy,
-    bool descending,
+    SearchModel? searchModel,
+    String? bzName,
+    String? orderBy,
+    bool descending = true,
     int limit = 4,
 }){
 
-    final QueryOrderBy _orderBy = orderBy == null ? null : QueryOrderBy(
+    final QueryOrderBy? _orderBy = orderBy == null ? null : QueryOrderBy(
       fieldName: orderBy,
       descending: descending,
     );
@@ -69,7 +67,7 @@ class BzSearch {
                 field: 'trigram',
                 comparison: FireComparison.arrayContains,
                 value: TextMod.removeAllCharactersAfterNumberOfCharacters(
-                  text: bzName.trim(),
+                  text: bzName!.trim(),
                   numberOfChars: Standards.maxTrigramLength,
                 )),
 
@@ -87,14 +85,14 @@ class BzSearch {
             value: BzTyper.cipherBzAccountType(searchModel?.bzSearchModel?.bzAccountType),
           ),
 
-          if (searchModel?.bzSearchModel?.onlyShowingTeams == true)
+          if (Mapper.boolIsTrue(searchModel?.bzSearchModel?.onlyShowingTeams) == true)
             const FireFinder(
               field: 'showsTeam',
               comparison: FireComparison.equalTo,
               value: true,
             ),
 
-          if (searchModel?.bzSearchModel?.onlyVerified == true)
+          if (Mapper.boolIsTrue(searchModel?.bzSearchModel?.onlyVerified) == true)
             const FireFinder(
               field: 'isVerified',
               comparison: FireComparison.equalTo,
@@ -117,7 +115,7 @@ class BzSearch {
     required int limit,
   }) async {
 
-  final List<Map<String, dynamic>> _result = await Fire.readColl(
+  final List<Map<String, dynamic>>? _result = await Fire.readColl(
     addDocSnapshotToEachMap: true,
     startAfter: startAfter,
     queryModel: FireQueryModel(
@@ -128,7 +126,7 @@ class BzSearch {
           field: 'trigram',
           comparison: FireComparison.arrayContains,
           value: TextMod.removeAllCharactersAfterNumberOfCharacters(
-            input: bzName.trim(),
+            text: bzName.trim(),
             numberOfChars: Standards.maxTrigramLength,
           ),
         ),

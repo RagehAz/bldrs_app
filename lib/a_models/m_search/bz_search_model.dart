@@ -14,12 +14,12 @@ class BzSearchModel {
     required this.onlyVerified,
   });
   // -----------------------------------------------------------------------------
-  final BzType bzType;
-  final BzForm bzForm;
-  final BzAccountType bzAccountType;
-  final String scopePhid;
-  final bool onlyShowingTeams;
-  final bool onlyVerified;
+  final BzType? bzType;
+  final BzForm? bzForm;
+  final BzAccountType? bzAccountType;
+  final String? scopePhid;
+  final bool? onlyShowingTeams;
+  final bool? onlyVerified;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -70,7 +70,7 @@ class BzSearchModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, dynamic>? cipher(BzSearchModel bzSearchModel){
+  static Map<String, dynamic>? cipher(BzSearchModel? bzSearchModel){
     Map<String, dynamic>? _output;
 
     if (bzSearchModel != null) {
@@ -88,8 +88,8 @@ class BzSearchModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static BzSearchModel decipher(Map<String, dynamic> map){
-    BzSearchModel _output;
+  static BzSearchModel? decipher(Map<String, dynamic>? map){
+    BzSearchModel? _output;
 
     if (map != null){
       _output = BzSearchModel(
@@ -111,8 +111,8 @@ class BzSearchModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool areIdentical({
-    required BzSearchModel model1,
-    required BzSearchModel model2,
+    required BzSearchModel? model1,
+    required BzSearchModel? model2,
   }){
     bool _output;
 

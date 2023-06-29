@@ -162,13 +162,13 @@ class ZonePhidsRealOps {
   // --------------------
   /// TASK : TEST ME
   static Future<void> incrementFlyerCityPhids({
-    required FlyerModel flyerModel,
+    required FlyerModel? flyerModel,
     required bool isIncrementing,
   }) async {
 
     if (flyerModel != null){
 
-      final ZonePhidsModel _cityPhidsToAdd = ZonePhidsModel.createZonePhidModelFromFlyer(
+      final ZonePhidsModel? _cityPhidsToAdd = ZonePhidsModel.createZonePhidModelFromFlyer(
         flyerModel: flyerModel,
       );
 
@@ -214,8 +214,8 @@ class ZonePhidsRealOps {
 
     if (flyerModel != null && oldFlyer != null){
 
-      final List<String> _oldPhids = oldFlyer.phids;
-      final List<String> _newPhids = flyerModel.phids;
+      final List<String>? _oldPhids = oldFlyer.phids;
+      final List<String>? _newPhids = flyerModel.phids;
 
       final bool _areIdentical = Mapper.checkListsAreIdentical(
           list1: _oldPhids,

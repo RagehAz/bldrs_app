@@ -11,7 +11,6 @@ import 'package:bldrs/c_protocols/zone_phids_protocols/zone_phids_real_ops.dart'
 import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/c_protocols/picker_protocols/protocols/picker_protocols.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
@@ -212,11 +211,11 @@ class ChainsProvider extends ChangeNotifier {
   /// BLDRS CHAINS
 
   // --------------------
-  List<Chain> _chains;
-  List<Chain> get bldrsChains => _chains;
+  List<Chain>? _chains;
+  List<Chain>? get bldrsChains => _chains;
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<Chain> proGetBldrsChains({
+  static List<Chain>? proGetBldrsChains({
     required BuildContext context,
     required bool onlyUseZoneChains,
     required bool listen,
@@ -234,8 +233,8 @@ class ChainsProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Chain proGetChainByID({
-    required String chainID,
+  static Chain? proGetChainByID({
+    required String? chainID,
   }){
 
     return Chain.getChainFromChainsByID(
@@ -254,7 +253,7 @@ class ChainsProvider extends ChangeNotifier {
     required bool notify,
   }) async {
 
-    List<Chain> _bldrsChains = await ChainProtocols.fetchBldrsChains();
+    List<Chain>? _bldrsChains = await ChainProtocols.fetchBldrsChains();
 
     _bldrsChains = Chain.sortChainsAlphabetically(
       chains: _bldrsChains,
@@ -282,11 +281,11 @@ class ChainsProvider extends ChangeNotifier {
   /// ZONE PHIDS MODEL
 
   // --------------------
-  ZonePhidsModel _zonePhidsModel;
-  ZonePhidsModel get zonePhidsModel => _zonePhidsModel;
+  ZonePhidsModel? _zonePhidsModel;
+  ZonePhidsModel? get zonePhidsModel => _zonePhidsModel;
   // --------------------
   /// TESTED : WORKS PERFECT
-  static ZonePhidsModel proGetZonePhids({
+  static ZonePhidsModel? proGetZonePhids({
     required BuildContext context,
     required bool listen,
   }){
@@ -325,13 +324,13 @@ class ChainsProvider extends ChangeNotifier {
   /// ZONE CHAIN ( zone's chains according to Zone Phids Model )
 
   // --------------------
-  List<Chain> _zoneChains;
-  List<Chain> get zoneChains => _zoneChains;
+  List<Chain>? _zoneChains;
+  List<Chain>? get zoneChains => _zoneChains;
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _refineSetZoneChains({
     required bool notify,
-    required List<Chain> chains,
+    required List<Chain>? chains,
   }) async {
 
     final List<Chain> _zoneChains = ZonePhidsModel.removeUnusedPhidsFromBldrsChainsForThisZone(
@@ -361,12 +360,12 @@ class ChainsProvider extends ChangeNotifier {
   /// BLDRS CHAINS PHRASES
 
   // --------------------
-  List<Phrase> _chainsPhrases = <Phrase>[];
-  List<Phrase> get chainsPhrases => _chainsPhrases;
+  List<Phrase>? _chainsPhrases = <Phrase>[];
+  List<Phrase>? get chainsPhrases => _chainsPhrases;
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _generateSetChainsPhrases({
-    required List<Chain> chains,
+    required List<Chain>? chains,
     required bool notify,
   }) async {
 
@@ -384,7 +383,7 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void _setBldrsChainsPhrases({
-    required List<Phrase> phrases,
+    required List<Phrase>? phrases,
     required bool notify,
   }){
     _chainsPhrases = phrases;
@@ -394,12 +393,12 @@ class ChainsProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  String translateChainPhid({
-    required String phid,
+  String? translateChainPhid({
+    required String? phid,
     required String langCode,
   }){
 
-    final Phrase _phrase = Phrase.searchPhraseByIDAndLangCode(
+    final Phrase? _phrase = Phrase.searchPhraseByIDAndLangCode(
       phrases: _chainsPhrases,
       langCode: langCode,
       phid: phid,
@@ -419,12 +418,14 @@ class ChainsProvider extends ChangeNotifier {
 
       for (final String phid in phids){
 
-        final String _translation = translateChainPhid(
+        final String? _translation = translateChainPhid(
           phid: phid,
           langCode: langCode,
         );
-        
-        _output.add(_translation);
+
+        if (_translation != null){
+          _output.add(_translation);
+        }
 
       }
 
@@ -443,7 +444,7 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _generateSetZoneChainsPhrases({
-    required List<Chain> zoneChains,
+    required List<Chain>? zoneChains,
     required bool notify,
   }) async {
 
@@ -474,14 +475,14 @@ class ChainsProvider extends ChangeNotifier {
   /// HOME WALL FLYER TYPE AND PHID
 
   // --------------------
-  FlyerType _wallFlyerType;
-  String _wallPhid;
+  FlyerType? _wallFlyerType;
+  String? _wallPhid;
   // --------------------
-  FlyerType get wallFlyerType => _wallFlyerType;
-  String get wallPhid => _wallPhid;
+  FlyerType? get wallFlyerType => _wallFlyerType;
+  String? get wallPhid => _wallPhid;
   // --------------------
   /// TESTED : WORKS PERFECT
-  static FlyerType proGetHomeWallFlyerType({
+  static FlyerType? proGetHomeWallFlyerType({
     required BuildContext context,
     required bool listen,
   }){
@@ -490,12 +491,12 @@ class ChainsProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String proGetHomeWallPhid({
+  static String? proGetHomeWallPhid({
     required BuildContext context,
     required bool listen,
   }){
-    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: listen);
-    return _chainsProvider.wallPhid;
+    final ChainsProvider? _chainsProvider = Provider.of<ChainsProvider>(context, listen: listen);
+    return _chainsProvider?.wallPhid;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -517,8 +518,8 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void _setWallFlyerAndPhid({
-    required FlyerType flyerType,
-    required String phid,
+    required FlyerType? flyerType,
+    required String? phid,
     required bool notify,
   }){
     _wallFlyerType = flyerType;
@@ -565,8 +566,8 @@ class ChainsProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static PickerModel proGetPickerByChainID({
-    required String chainID,
+  static PickerModel? proGetPickerByChainID({
+    required String? chainID,
   }){
 
     return PickerModel.getPickerByChainID(
@@ -587,7 +588,7 @@ class ChainsProvider extends ChangeNotifier {
     required bool listen,
   }){
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: listen);
-    final String _pickersKey = PickerModel.getPickersIDByFlyerType(flyerType);
+    final String? _pickersKey = PickerModel.getPickersIDByFlyerType(flyerType);
     List<PickerModel> _pickers = _chainsProvider.allPickers[_pickersKey];
     if (sort == true){
       _pickers = PickerModel.sortPickersByIndexes(_pickers);
@@ -632,7 +633,7 @@ class ChainsProvider extends ChangeNotifier {
   }){
     final List<PickerModel> _output = <PickerModel>[];
 
-    if (Mapper.checkCanLoopList(specs)){
+    if (Mapper.checkCanLoopList(specs) == true){
 
       final List<PickerModel> _allPickers = ChainsProvider.proGetAllPickers(
         context: context,
@@ -645,7 +646,7 @@ class ChainsProvider extends ChangeNotifier {
 
         if (_isCurrency == false){
 
-          final PickerModel _picker = PickerModel.getPickerByChainID(
+          final PickerModel? _picker = PickerModel.getPickerByChainID(
             pickers: _allPickers,
             chainID: _spec.pickerChainID,
           );
@@ -718,7 +719,7 @@ class ChainsProvider extends ChangeNotifier {
     required bool notify,
   }){
 
-    final String _pickersID = PickerModel.getPickersIDByFlyerType(flyerType);
+    final String? _pickersID = PickerModel.getPickersIDByFlyerType(flyerType);
 
     // blog('setFlyerTypePickers : $_pickersID : $flyerType');
 
@@ -747,12 +748,12 @@ class ChainsProvider extends ChangeNotifier {
     bool onlyUseZoneChains = false,
   }){
 
-    final List<Chain> _chainsToSearch = onlyUseZoneChains == true ?
+    final List<Chain>? _chainsToSearch = onlyUseZoneChains == true ?
     _zoneChains
         :
     _chains;
 
-    final Chain _chain = Chain.getChainFromChainsByID(
+    final Chain? _chain = Chain.getChainFromChainsByID(
       chainID: chainID,
       chains: _chainsToSearch,
     );
@@ -768,7 +769,7 @@ class ChainsProvider extends ChangeNotifier {
 
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
 
-    final Chain _chain = _chainsProvider.findChainByID(
+    final Chain? _chain = _chainsProvider.findChainByID(
       chainID: chainID,
       onlyUseZoneChains: onlyUseZoneChains,
     );
@@ -777,16 +778,16 @@ class ChainsProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  Chain getChainKByFlyerType({
+  Chain? getChainKByFlyerType({
     required FlyerType flyerType,
     required bool onlyUseZoneChains,
   }){
 
-    final String _chainID = FlyerTyper.concludeChainIDByFlyerType(
+    final String? _chainID = FlyerTyper.concludeChainIDByFlyerType(
       flyerType: flyerType,
     );
 
-    final Chain _chain = findChainByID(
+    final Chain? _chain = findChainByID(
       chainID: _chainID,
       onlyUseZoneChains: onlyUseZoneChains,
     );
