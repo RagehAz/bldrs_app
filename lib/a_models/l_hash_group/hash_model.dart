@@ -1,5 +1,4 @@
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:flutter/material.dart';
 
 class HashGroup {
   // -----------------------------------------------------------------------------
@@ -16,11 +15,11 @@ class HashGroup {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<HashModel> getHashModelsFromHashGroups({
+  static List<HashModel>? getHashModelsFromHashGroups({
     required List<HashGroup> hashGroups,
     required String id,
   }) {
-    List<HashModel> _output = <HashModel>[];
+    List<HashModel>? _output = <HashModel>[];
 
     if (id != null && Mapper.checkCanLoopList(hashGroups) == true) {
 

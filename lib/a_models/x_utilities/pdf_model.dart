@@ -5,7 +5,6 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:fire/super_fire.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 
@@ -93,8 +92,8 @@ class PDFModel {
   }
   // --------------------
   /// TASK : TEST ME
-  static PDFModel decipherFromMap(Map<String, dynamic> map){
-    PDFModel _output;
+  static PDFModel? decipherFromMap(Map<String, dynamic>? map){
+    PDFModel? _output;
 
     if (map != null){
 
@@ -113,12 +112,12 @@ class PDFModel {
 
   // --------------------
   /// TASK : TEST ME
-  StorageMetaModel createStorageMetaModel({
-    Map<String, String> extraData,
+  StorageMetaModel? createStorageMetaModel({
+    Map<String, String>? extraData,
   }){
 
     return StorageMetaModel(
-      ownersIDs: ownersIDs,
+      ownersIDs: ownersIDs ?? [],
       name: name,
       sizeMB: sizeMB,
       data: Mapper.combineStringStringMap(
@@ -169,7 +168,7 @@ class PDFModel {
     bool _bigger = false;
 
     if (sizeMB != null){
-      _bigger = sizeMB > Standards.maxFileSizeLimit;
+      _bigger = sizeMB! > Standards.maxFileSizeLimit;
     }
 
     return _bigger;
@@ -197,7 +196,7 @@ class PDFModel {
   }){
 
     // Mb / 3 Mb
-    final String _mb = Verse.transBake('phid_mb');
+    final String? _mb = Verse.transBake('phid_mb');
 
     if (sizeLimitReached == true){
 

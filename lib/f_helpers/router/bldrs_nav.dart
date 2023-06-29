@@ -318,14 +318,14 @@ class BldrsNav {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> goToMyBzScreen({
-    required String bzID,
+    required String? bzID,
     required bool replaceCurrentScreen,
     BzTab initialTab = BzTab.flyers,
   }) async {
 
     final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
 
-    final BzModel _bzModel = await BzProtocols.fetchBz(
+    final BzModel? _bzModel = await BzProtocols.fetchBz(
       bzID: bzID,
     );
 
@@ -356,7 +356,7 @@ class BldrsNav {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> goRebootToInitNewBzScreen({
-    required String bzID,
+    required String? bzID,
   }) async {
 
     UiProvider.proSetAfterHomeRoute(
@@ -426,12 +426,12 @@ class BldrsNav {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> jumpToBzPreviewScreen({
-    required String bzID,
+    required String? bzID,
   }) async {
 
     if (bzID != null){
 
-      final BzModel _bzModel = await BzProtocols.fetchBz(
+      final BzModel? _bzModel = await BzProtocols.fetchBz(
         bzID: bzID,
       );
 

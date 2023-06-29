@@ -58,7 +58,7 @@ class UsersProvider extends ChangeNotifier {
   // --------------------
   ///
   static void proSetMyUserModel({
-    required UserModel userModel,
+    required UserModel? userModel,
     required bool notify,
   }) {
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(getMainContext(), listen: false);
@@ -67,7 +67,7 @@ class UsersProvider extends ChangeNotifier {
   // --------------------
   ///
   void _setMyUserModel({
-    required UserModel userModel,
+    required UserModel? userModel,
     required bool notify,
   }) {
       _myUserModel = userModel;

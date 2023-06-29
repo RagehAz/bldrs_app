@@ -32,13 +32,13 @@ class FlyersProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void removeFlyersFromProFlyers({
-    required List<String> flyersIDs,
+    required List<String>? flyersIDs,
     required bool notify,
   }){
 
     if (Mapper.checkCanLoopList(flyersIDs) == true){
 
-      for (int i = 0; i < flyersIDs.length; i++){
+      for (int i = 0; i < flyersIDs!.length; i++){
 
         final String _flyerIDToRemove = flyersIDs[i];
 
@@ -103,7 +103,7 @@ class FlyersProvider extends ChangeNotifier {
   ///
   Future<List<FlyerModel>> fetchFirstFlyersByBzModel({
     required BuildContext context,
-    required BzModel bz,
+    required BzModel? bz,
     int limit = 3,
   }) async {
 
@@ -112,10 +112,10 @@ class FlyersProvider extends ChangeNotifier {
 
     if (bz != null && Mapper.checkCanLoopList(bz.flyersIDs) == true){
 
-      final int _limit = bz.flyersIDs.length > limit ? limit : bz.flyersIDs.length;
+      final int _limit = bz.flyersIDs!.length > limit ? limit : bz.flyersIDs!.length;
 
       for (int i = 0; i < _limit; i++){
-        _flyersIDs.add(bz.flyersIDs[i]);
+        _flyersIDs.add(bz.flyersIDs![i]);
       }
 
 

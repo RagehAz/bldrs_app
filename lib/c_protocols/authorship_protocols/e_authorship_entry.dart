@@ -22,14 +22,14 @@ class AuthorshipEntryProtocols {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> addMeToBz({
-    required String bzID,
+    required String? bzID,
   }) async {
 
     assert(bzID != null, 'AuthorshipEntryProtocols.addMeToBz : bzID is null');
 
     blog('AuthorshipEntryProtocols.addMeToBz : START');
 
-    final BzModel _oldBz = await BzProtocols.fetchBz(
+    final BzModel? _oldBz = await BzProtocols.fetchBz(
       bzID: bzID,
     );
 
@@ -42,7 +42,7 @@ class AuthorshipEntryProtocols {
 
     UserModel? _newUser = UserModel.addBzIDToUserBzzIDs(
       oldUser: _oldUser,
-      bzIDToAdd: _oldBz.id,
+      bzIDToAdd: _oldBz?.id,
     );
 
     _newUser = UserModel.addAllBzTopicsToMyTopics(
@@ -67,17 +67,17 @@ class AuthorshipEntryProtocols {
     );
 
     /// MODIFY BZ MODEL --------------------------
-    BzModel _newBz = await BzModel.addNewUserAsAuthor(
+    BzModel? _newBz = await BzModel.addNewUserAsAuthor(
       oldBz: _oldBz,
       newUser: _uploadedUser,
     );
 
     /// upload author pic // author pic model is adjusted inside this method
-    final AuthorModel _author = AuthorModel.getAuthorFromAuthorsByID(
-        authors: _newBz.authors,
-        authorID: _uploadedUser.id,
+    final AuthorModel? _author = AuthorModel.getAuthorFromAuthorsByID(
+        authors: _newBz?.authors,
+        authorID: _uploadedUser?.id,
     );
-    await PicProtocols.composePic(_author.picModel);
+    await PicProtocols.composePic(_author?.picModel);
 
     _newBz = PendingAuthor.removePendingAuthorFromBz(
         bzModel: _newBz,

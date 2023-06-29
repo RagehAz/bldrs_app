@@ -308,14 +308,14 @@ class BldrsShareLink{
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<String> generateFlyerLink({
-    required String flyerID,
-    required FlyerType flyerType,
-    required String headline,
+  static Future<String?> generateFlyerLink({
+    required String? flyerID,
+    required FlyerType? flyerType,
+    required String? headline,
     int slideIndex = 0,
   }) async {
 
-    String _output;
+    String? _output;
 
     if (flyerID != null && flyerType != null){
 
@@ -434,14 +434,14 @@ class BldrsShareLink{
   /// TESTED : WORKS PERFECT
   static Future<String> generateBzLink({
     required BuildContext context,
-    required String bzID,
+    required String? bzID,
   }) async {
 
-    String _output;
+    String? _output;
 
     if (bzID != null){
 
-      final BzModel _bzModel = await BzProtocols.fetchBz(
+      final BzModel? _bzModel = await BzProtocols.fetchBz(
         bzID: bzID,
       );
 

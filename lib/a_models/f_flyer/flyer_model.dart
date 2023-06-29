@@ -15,7 +15,6 @@ import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:collection/collection.dart';
 import 'package:fire/super_fire.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/time/timers.dart';
@@ -87,7 +86,7 @@ class FlyerModel {
   final bool? hasPriceTag;
   final bool? isAmazonFlyer;
   final bool? hasPDF;
-  final DocumentSnapshot<Object>? docSnapshot;
+  final QueryDocumentSnapshot<Object>? docSnapshot;
   final int? score;
   final String? pdfPath;
   final String? shareLink;
@@ -123,7 +122,7 @@ class FlyerModel {
     bool? hasPriceTag,
     bool? hasPDF,
     bool? isAmazonFlyer,
-    DocumentSnapshot? docSnapshot,
+    QueryDocumentSnapshot<Object>? docSnapshot,
     int? score,
     String? pdfPath,
     String? shareLink,
@@ -209,17 +208,17 @@ class FlyerModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<Map<String, Object>> cipherFlyers({
-    required List<FlyerModel> flyers,
+  static List<Map<String, dynamic>> cipherFlyers({
+    required List<FlyerModel>? flyers,
     required bool toJSON,
   }){
-    final List<Map<String, Object>> _maps = <Map<String, Object>>[];
+    final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
-    if (Mapper.checkCanLoopList(flyers)){
+    if (Mapper.checkCanLoopList(flyers) == true){
 
-      for (final FlyerModel flyer in flyers){
+      for (final FlyerModel flyer in flyers!){
 
-        final Map<String, Object> _flyerMap = flyer.toMap(toJSON: toJSON);
+        final Map<String, dynamic> _flyerMap = flyer.toMap(toJSON: toJSON);
 
         _maps.add(_flyerMap);
 
@@ -231,11 +230,12 @@ class FlyerModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static FlyerModel decipherFlyer({
+  static FlyerModel? decipherFlyer({
     required dynamic map,
     required bool fromJSON,
   }){
-    FlyerModel _flyerModel;
+    FlyerModel? _flyerModel;
+
     if (map != null){
 
       _flyerModel = FlyerModel(
@@ -272,23 +272,30 @@ class FlyerModel {
       );
 
     }
+
     return _flyerModel;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<FlyerModel> decipherFlyers({
-    required List<Map<String, dynamic>> maps,
+  static List<FlyerModel>? decipherFlyers({
+    required List<Map<String, dynamic>>? maps,
     required bool fromJSON,
   }){
     final List<FlyerModel> _flyersList = <FlyerModel>[];
 
     if (Mapper.checkCanLoopList(maps) == true){
 
-      for (final Map<String, dynamic> map in maps){
-        _flyersList.add(decipherFlyer(
+      for (final Map<String, dynamic> map in maps!){
+
+        final FlyerModel? _flyer = decipherFlyer(
           map: map,
           fromJSON: fromJSON,
-        ));
+        );
+
+        if (_flyer != null){
+          _flyersList.add(_flyer);
+        }
+
       }
 
     }
@@ -327,7 +334,7 @@ class FlyerModel {
     final List<String> _output = [];
 
     if (map != null){
-      final List<String>? _keys = map!.keys?.toList();
+      final List<String>? _keys = map.keys.toList();
       if (Mapper.checkCanLoopList(_keys) == true){
         _output.addAll(_keys!);
       }
@@ -341,8 +348,8 @@ class FlyerModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static FlyerModel mapToFlyer(Map<String, dynamic> map){
-    final FlyerModel _flyerModel = FlyerModel.decipherFlyer(
+  static FlyerModel? mapToFlyer(Map<String, dynamic>? map){
+    final FlyerModel? _flyerModel = FlyerModel.decipherFlyer(
       map: map,
       fromJSON: false,
     );
@@ -350,12 +357,12 @@ class FlyerModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<TextEditingController> createHeadlinesControllersForExistingFlyer(FlyerModel flyerModel){
+  static List<TextEditingController> createHeadlinesControllersForExistingFlyer(FlyerModel? flyerModel){
     final List<TextEditingController> _controllers = <TextEditingController>[];
 
     if (flyerModel != null && Mapper.checkCanLoopList(flyerModel.slides) == true){
 
-      for (final SlideModel slide in flyerModel.slides){
+      for (final SlideModel slide in flyerModel.slides!){
         final TextEditingController _controller = TextEditingController(text: slide.headline);
         _controllers.add(_controller);
       }
@@ -366,12 +373,12 @@ class FlyerModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<TextEditingController> createDescriptionsControllersForExistingFlyer(FlyerModel flyerModel){
+  static List<TextEditingController> createDescriptionsControllersForExistingFlyer(FlyerModel? flyerModel){
     final List<TextEditingController> _controllers = <TextEditingController>[];
 
     if (flyerModel != null && Mapper.checkCanLoopList(flyerModel.slides) == true){
 
-      for (final SlideModel slide in flyerModel.slides){
+      for (final SlideModel slide in flyerModel.slides!){
         final TextEditingController _controller = TextEditingController(text: slide.description);
         _controllers.add(_controller);
       }
@@ -522,9 +529,7 @@ class FlyerModel {
     if (Mapper.checkCanLoopList(flyers) == true){
 
       for (final FlyerModel flyer in flyers){
-
-        flyer?.blogFlyer(invoker: invoker);
-
+        flyer.blogFlyer(invoker: invoker);
       }
 
     }
@@ -533,8 +538,8 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogFlyersDifferences({
-    required FlyerModel flyer1,
-    required FlyerModel flyer2,
+    required FlyerModel? flyer1,
+    required FlyerModel? flyer2,
   }){
 
     if (flyer1 == null){
@@ -745,14 +750,14 @@ class FlyerModel {
    */
   // --------------------
   /// TESTED : WORKS PERFECT
-  static int getNumberOfFlyersSlides(List<FlyerModel> flyers){
+  static int getNumberOfFlyersSlides(List<FlyerModel>? flyers){
     int _count = 0;
 
     if (Mapper.checkCanLoopList(flyers) == true){
 
-      for (final FlyerModel flyer in flyers){
+      for (final FlyerModel flyer in flyers!){
 
-        _count = _count + flyer.slides.length;
+        _count = _count + (flyer.slides?.length ?? 0);
 
       }
 
@@ -780,13 +785,15 @@ class FlyerModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> getFlyersIDsFromFlyers(List<FlyerModel> flyers){
+  static List<String> getFlyersIDsFromFlyers(List<FlyerModel>? flyers){
     final List<String> _flyerIDs = <String>[];
 
-    if (Mapper.checkCanLoopList(flyers)){
+    if (Mapper.checkCanLoopList(flyers) == true){
 
-      for (final FlyerModel flyer in flyers){
-        _flyerIDs.add(flyer.id);
+      for (final FlyerModel flyer in flyers!){
+        if (flyer.id != null){
+          _flyerIDs.add(flyer.id!);
+        }
       }
 
     }
@@ -815,17 +822,17 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<FlyerModel> getFlyersFromFlyersByAuthorID({
-    required List<FlyerModel> flyers,
-    required String authorID,
+    required List<FlyerModel>? flyers,
+    required String? authorID,
   }){
 
     final List<FlyerModel> _authorFlyers = <FlyerModel>[];
 
     if (Mapper.checkCanLoopList(flyers) == true && authorID != null){
 
-      for (final FlyerModel flyer in flyers){
+      for (final FlyerModel flyer in flyers!){
 
-        if (flyer?.authorID == authorID){
+        if (flyer.authorID == authorID){
           _authorFlyers.add(flyer);
         }
 
@@ -838,14 +845,14 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool flyersContainThisID({
-    required String flyerID,
-    required List<FlyerModel> flyers
+    required String? flyerID,
+    required List<FlyerModel>? flyers
   }){
     bool _hasTheID = false;
 
-    if (flyerID != null && Mapper.checkCanLoopList(flyers)){
+    if (flyerID != null && Mapper.checkCanLoopList(flyers) == true){
 
-      for (final FlyerModel flyer in flyers){
+      for (final FlyerModel flyer in flyers!){
 
         if (flyer.id == flyerID){
           _hasTheID = true;
@@ -861,14 +868,14 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<FlyerModel> replaceFlyerInFlyers({
-    required List<FlyerModel> flyers,
-    required FlyerModel flyerToReplace,
+    required List<FlyerModel>? flyers,
+    required FlyerModel? flyerToReplace,
     required bool insertIfAbsent,
   }){
     List<FlyerModel> _output = <FlyerModel>[];
 
     if (Mapper.checkCanLoopList(flyers) == true){
-      _output = <FlyerModel>[...flyers];
+      _output = <FlyerModel>[...flyers!];
     }
 
     if (flyerToReplace != null){
@@ -903,10 +910,10 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<FlyerModel> removeFlyerFromFlyersByID({
-    required List<FlyerModel> flyers,
-    required String flyerIDToRemove,
+    required List<FlyerModel>? flyers,
+    required String? flyerIDToRemove,
   }){
-    final List<FlyerModel> _output = <FlyerModel>[...flyers];
+    final List<FlyerModel> _output = <FlyerModel>[...?flyers];
 
     if (Mapper.checkCanLoopList(flyers) == true && flyerIDToRemove != null){
       _output.removeWhere((flyer) => flyer.id == flyerIDToRemove);
@@ -986,7 +993,7 @@ class FlyerModel {
 
     if (bzID != null){
 
-      final BzModel _bzModel = await BzProtocols.fetchBz(
+      final BzModel? _bzModel = await BzProtocols.fetchBz(
         bzID: bzID,
       );
 
@@ -1015,13 +1022,15 @@ class FlyerModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> getPicsPaths(FlyerModel flyer){
+  static List<String> getPicsPaths(FlyerModel? flyer){
     final List<String> _output = <String>[];
 
     if (Mapper.checkCanLoopList(flyer?.slides) == true){
 
-      for (final SlideModel slide in flyer?.slides){
-        _output.add(slide.picPath);
+      for (final SlideModel slide in flyer!.slides!){
+        if (slide.picPath != null){
+          _output.add(slide.picPath!);
+        }
       }
 
     }
@@ -1038,11 +1047,11 @@ class FlyerModel {
     if (Mapper.checkCanLoopList(flyers) == true){
 
       for (final FlyerModel flyer in flyers){
-       if (flyer != null){
+
           if (ObjectCheck.isAbsoluteURL(flyer.gtaLink) == true){
-          _links.add(flyer.gtaLink);
+          _links.add(flyer.gtaLink!);
         }
-       }
+
       }
 
     }
@@ -1055,13 +1064,13 @@ class FlyerModel {
 
   // --------------------
     /// TESTED : WORKS PERFECT
-  static FlyerModel migrateOwnership({
-    required FlyerModel flyerModel,
-    required String newOwnerID,
-    required BzModel bzModel,
+  static FlyerModel? migrateOwnership({
+    required FlyerModel? flyerModel,
+    required String? newOwnerID,
+    required BzModel? bzModel,
   }){
 
-    FlyerModel _output = flyerModel;
+    FlyerModel? _output = flyerModel;
 
     if (flyerModel == null || newOwnerID == null || bzModel == null){
       return _output;
@@ -1096,8 +1105,8 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkFlyersAreIdentical({
-    required FlyerModel flyer1,
-    required FlyerModel flyer2,
+    required FlyerModel? flyer1,
+    required FlyerModel? flyer2,
   }){
 
     bool _areIdentical = false;

@@ -226,8 +226,8 @@ class BldrsCloudFunctions{
   /// TESTED : WORKS PERFECT
   static Future<void> deleteStorageDirectory({
     required BuildContext context,
-    required String path,
-    Function onFinish,
+    required String? path,
+    Function? onFinish,
   }) async {
 
     if (TextCheck.isEmpty(path) == false){

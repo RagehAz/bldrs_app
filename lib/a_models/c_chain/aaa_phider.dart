@@ -292,12 +292,12 @@ class Phider {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<Chain> sortChainsByIndexes(List<Chain> input){
+  static List<Chain> sortChainsByIndexes(List<Chain>? input){
     final List<Chain> _output = <Chain>[];
 
     if (Mapper.checkCanLoopList(input) == true){
 
-      final List<Chain> _sortedChainsIDs = <Chain>[...input];
+      final List<Chain> _sortedChainsIDs = <Chain>[...input!];
 
       /// SORT CHAINS BY IDs
       _sortedChainsIDs.sort((a, b){

@@ -358,7 +358,7 @@ class AuthorModel {
   /// TESTED : WORKS PERFECT
   static AuthorModel? getAuthorFromAuthorsByID({
     required List<AuthorModel>? authors,
-    required String authorID,
+    required String? authorID,
   }){
 
     AuthorModel? _author;
@@ -466,12 +466,12 @@ class AuthorModel {
    */
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> getAuthorsPicsPaths(List<AuthorModel> authors){
+  static List<String> getAuthorsPicsPaths(List<AuthorModel>? authors){
     final List<String> _output = <String>[];
 
     if (Mapper.checkCanLoopList(authors) == true){
 
-      for (final AuthorModel author in authors){
+      for (final AuthorModel author in authors!){
 
         if (author.picModel != null && author.picPath != null){
           _output.add(author.picPath!);
@@ -616,10 +616,10 @@ class AuthorModel {
   static List<AuthorModel> addFlyerIDToAuthor({
     required String? flyerID,
     required String? authorID,
-    required List<AuthorModel> oldAuthors,
+    required List<AuthorModel>? oldAuthors,
   }){
 
-    List<AuthorModel> _output = oldAuthors;
+    List<AuthorModel> _output = [...?oldAuthors];
 
     if (
     Mapper.checkCanLoopList(oldAuthors) == true

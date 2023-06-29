@@ -10,7 +10,6 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/time/timers.dart';
@@ -28,13 +27,13 @@ class SearchModel {
     required this.bzSearchModel,
   });
   // -----------------------------------------------------------------------------
-  final String id;
-  final String userID;
-  final String text;
-  final ZoneModel zone;
-  final DateTime time;
-  final FlyerSearchModel flyerSearchModel;
-  final BzSearchModel bzSearchModel;
+  final String? id;
+  final String? userID;
+  final String? text;
+  final ZoneModel? zone;
+  final DateTime? time;
+  final FlyerSearchModel? flyerSearchModel;
+  final BzSearchModel? bzSearchModel;
   // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
@@ -152,10 +151,10 @@ class SearchModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> cipher({
-    required SearchModel searchModel,
+  static Map<String, dynamic>? cipher({
+    required SearchModel? searchModel,
 }){
-    Map<String, dynamic> _output;
+    Map<String, dynamic>? _output;
 
     if (searchModel != null) {
       _output = {
@@ -182,10 +181,12 @@ class SearchModel {
 
       for (final SearchModel model in models){
 
-        final Map<String, dynamic> _map = cipher(
+        final Map<String, dynamic>? _map = cipher(
           searchModel: model,
         );
-        _output.add(_map);
+        if (_map != null){
+          _output.add(_map);
+        }
 
       }
 
@@ -195,10 +196,10 @@ class SearchModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static SearchModel decipher({
-    required Map<String, dynamic> map,
+  static SearchModel? decipher({
+    required Map<String, dynamic>? map,
   }){
-    SearchModel _output;
+    SearchModel? _output;
 
     if (map != null){
 
@@ -227,10 +228,13 @@ class SearchModel {
 
       for (final Map<String, dynamic> map in maps){
 
-        final SearchModel _model = decipher(
+        final SearchModel? _model = decipher(
           map: map,
         );
-        _output.add(_model);
+
+        if (_model != null){
+          _output.add(_model);
+        }
 
       }
 
@@ -250,7 +254,9 @@ class SearchModel {
 
     if (Mapper.checkCanLoopList(models) == true){
       final List<SearchModel> _models = [...models];
-      _models.sort((a, b) => b.time.compareTo(a.time));
+
+      _models.sort((a, b) => b.time!.compareTo(a.time!));
+
       return _models;
     }
 
@@ -266,7 +272,7 @@ class SearchModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static ModelType? concludeSearchType({
-    required SearchModel model,
+    required SearchModel? model,
   }){
     ModelType? _output;
 
@@ -332,8 +338,8 @@ class SearchModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool areIdentical({
-    required SearchModel model1,
-    required SearchModel model2,
+    required SearchModel? model1,
+    required SearchModel? model2,
   }){
     bool _output = false;
 

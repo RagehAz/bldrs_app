@@ -1,6 +1,5 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:fire/super_fire.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/time/timers.dart';
@@ -21,16 +20,16 @@ class ReviewModel {
     this.docSnapshot,
   });
   /// --------------------------------------------------------------------------
-  final String id;
-  final String text;
-  final String userID;
-  final DateTime time;
-  final String flyerID;
-  final String replyAuthorID;
-  final String reply;
-  final DateTime replyTime;
-  final int agrees;
-  final DocumentSnapshot<Object> docSnapshot;
+  final String? id;
+  final String? text;
+  final String? userID;
+  final DateTime? time;
+  final String? flyerID;
+  final String? replyAuthorID;
+  final String? reply;
+  final DateTime? replyTime;
+  final int? agrees;
+  final DocumentSnapshot<Object>? docSnapshot;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -107,12 +106,12 @@ class ReviewModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static ReviewModel decipherReview({
+  static ReviewModel? decipherReview({
     required dynamic map,
-    required String reviewID,
-    bool fromJSON
+    required String? reviewID,
+    required bool fromJSON
   }) {
-    ReviewModel _review;
+    ReviewModel? _review;
 
     if (map != null) {
       _review = ReviewModel(
@@ -134,18 +133,24 @@ class ReviewModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<ReviewModel> decipherReviews({
-    required List<Map<String, dynamic>> maps,
-    bool fromJSON
+    required List<Map<String, dynamic>>? maps,
+    required bool fromJSON
   }) {
     final List<ReviewModel> _reviews = <ReviewModel>[];
 
-    if (Mapper.checkCanLoopList(maps)) {
-      for (final Map<String, dynamic> map in maps) {
-        _reviews.add(decipherReview(
+    if (Mapper.checkCanLoopList(maps) == true) {
+      for (final Map<String, dynamic> map in maps!) {
+
+        final ReviewModel? _review = decipherReview(
           map: map,
           reviewID: map['id'],
           fromJSON: fromJSON,
-        ));
+        );
+
+        if (_review != null){
+          _reviews.add(_review);
+        }
+
       }
     }
     return _reviews;
@@ -205,15 +210,15 @@ class ReviewModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static ReviewModel incrementAgrees({
-    required ReviewModel reviewModel,
+  static ReviewModel? incrementAgrees({
+    required ReviewModel? reviewModel,
     required bool isIncrementing,
   }){
 
     int _value = reviewModel?.agrees ?? 0;
     _value = isIncrementing == true ? _value + 1 : _value - 1;
 
-    final ReviewModel _output = reviewModel.copyWith(
+    final ReviewModel? _output = reviewModel?.copyWith(
       agrees: _value < 0 ? 0 : _value,
     );
 
@@ -278,7 +283,7 @@ class ReviewModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   void blogReview({
-    String invoker = '',
+    String? invoker = '',
   }){
       blog('blogReview : $invoker ------ START');
       blog('reviewID : $id');
@@ -317,8 +322,8 @@ class ReviewModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkReviewsAreIdentical({
-    required ReviewModel review1,
-    required ReviewModel review2,
+    required ReviewModel? review1,
+    required ReviewModel? review2,
   }){
     bool _areIdentical = false;
 

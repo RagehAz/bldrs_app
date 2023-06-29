@@ -40,7 +40,7 @@ class ContactModel {
   });
   /// --------------------------------------------------------------------------
   final String? value;
-  final ContactType type;
+  final ContactType? type;
   final TextEditingController? controller;
   // -----------------------------------------------------------------------------
 
@@ -128,7 +128,7 @@ class ContactModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<ContactModel> decipherContacts(Map<String, dynamic> map) {
+  static List<ContactModel> decipherContacts(Map<String, dynamic>? map) {
     final List<ContactModel> _contacts = <ContactModel>[];
 
     if (map != null) {
@@ -229,12 +229,12 @@ class ContactModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String? getInitialContactValue({
-    required List<ContactModel> existingContacts,
+    required List<ContactModel>? existingContacts,
     required ContactType type,
     required String countryID,
   }){
 
-    final ContactModel _existingContact = getContactFromContacts(
+    final ContactModel? _existingContact = getContactFromContacts(
       contacts: existingContacts,
       type: type,
     );
@@ -334,9 +334,9 @@ class ContactModel {
 
       for (int i = 0; i < contacts!.length; i++){
 
-        final ContactModel _contact = contacts![i];
-        final ContactType _contactType = _contact.type;
-        final String? _value = _contact?.controller?.text ?? _contact.value;
+        final ContactModel _contact = contacts[i];
+        final ContactType? _contactType = _contact.type;
+        final String? _value = _contact.controller?.text ?? _contact.value;
 
         String? _endValue;
 
@@ -434,12 +434,12 @@ class ContactModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static TextEditingController getControllerFromContacts({
+  static TextEditingController? getControllerFromContacts({
     required List<ContactModel> contacts,
     required ContactType contactType,
   }) {
 
-    TextEditingController _controller;
+    TextEditingController? _controller;
 
     if (Mapper.checkCanLoopList(contacts) == true){
 
@@ -468,13 +468,13 @@ class ContactModel {
 
       if (_shouldViewString == true){
 
-        final ContactModel _contact = getContactFromContacts(
+        final ContactModel? _contact = getContactFromContacts(
           contacts: contacts,
           type: type,
         );
 
         if (ContactModel.checkContactIsEmpty(_contact) == false) {
-          _contacts.add(_contact);
+          _contacts.add(_contact!);
         }
 
       }
@@ -495,13 +495,13 @@ class ContactModel {
 
       if (_isSocialMedia == true){
 
-        final ContactModel _contact = getContactFromContacts(
+        final ContactModel? _contact = getContactFromContacts(
           contacts: contacts,
           type: type,
         );
 
         if (ContactModel.checkContactIsEmpty(_contact) == false) {
-          _contacts.add(_contact);
+          _contacts.add(_contact!);
         }
 
       }
@@ -534,20 +534,20 @@ class ContactModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static TextInputType concludeContactTextInputType({
-    required ContactType contactType,
+    required ContactType? contactType,
   }){
 
     switch (contactType){
-      case ContactType.phone:      return TextInputType.phone  ; break;
-      case ContactType.email:      return TextInputType.emailAddress  ; break;
-      case ContactType.website:    return TextInputType.url  ; break;
-      case ContactType.facebook:   return TextInputType.url  ; break;
-      case ContactType.linkedIn:   return TextInputType.url  ; break;
-      case ContactType.youtube:    return TextInputType.url  ; break;
-      case ContactType.instagram:  return TextInputType.url  ; break;
-      case ContactType.pinterest:  return TextInputType.url  ; break;
-      case ContactType.tiktok:     return TextInputType.url  ; break;
-      case ContactType.twitter:    return TextInputType.url  ; break;
+      case ContactType.phone:      return TextInputType.phone  ;
+      case ContactType.email:      return TextInputType.emailAddress  ;
+      case ContactType.website:    return TextInputType.url  ;
+      case ContactType.facebook:   return TextInputType.url  ;
+      case ContactType.linkedIn:   return TextInputType.url  ;
+      case ContactType.youtube:    return TextInputType.url  ;
+      case ContactType.instagram:  return TextInputType.url  ;
+      case ContactType.pinterest:  return TextInputType.url  ;
+      case ContactType.tiktok:     return TextInputType.url  ;
+      case ContactType.twitter:    return TextInputType.url  ;
       default: return TextInputType.text;
     }
 
@@ -559,8 +559,8 @@ class ContactModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<ContactModel> insertOrReplaceContact({
-    required List<ContactModel> contacts,
-    required ContactModel contactToReplace,
+    required List<ContactModel>? contacts,
+    required ContactModel? contactToReplace,
   }){
     List<ContactModel> _output = <ContactModel>[];
 
@@ -568,7 +568,7 @@ class ContactModel {
 
     if (Mapper.checkCanLoopList(contacts) == true && contactToReplace != null){
 
-      _output = <ContactModel>[...contacts];
+      _output = <ContactModel>[...contacts!];
 
       final int _index = contacts.indexWhere((element) => element.type == contactToReplace.type);
 
@@ -626,7 +626,7 @@ class ContactModel {
   }){
 
     if (Mapper.checkCanLoopList(contacts) == true){
-      for (final ContactModel contact in contacts){
+      for (final ContactModel contact in contacts!){
 
         contact.blogContact(
           invoker: invoker,
@@ -643,23 +643,23 @@ class ContactModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkContactIsRequired({
-    required ContactType contactType,
-    required ContactsOwnerType ownerType,
+    required ContactType? contactType,
+    required ContactsOwnerType? ownerType,
   }){
 
     /// USER CONTACTS
     if (ownerType == ContactsOwnerType.user){
       switch (contactType){
-        case ContactType.phone:      return false   ; break;
-        case ContactType.email:      return true   ; break;
-        case ContactType.website:    return false   ; break;
-        case ContactType.facebook:   return false   ; break;
-        case ContactType.linkedIn:   return false   ; break;
-        case ContactType.youtube:    return false   ; break;
-        case ContactType.instagram:  return false   ; break;
-        case ContactType.pinterest:  return false   ; break;
-        case ContactType.tiktok:     return false   ; break;
-        case ContactType.twitter:    return false   ; break;
+        case ContactType.phone:      return false   ;
+        case ContactType.email:      return true   ;
+        case ContactType.website:    return false   ;
+        case ContactType.facebook:   return false   ;
+        case ContactType.linkedIn:   return false   ;
+        case ContactType.youtube:    return false   ;
+        case ContactType.instagram:  return false   ;
+        case ContactType.pinterest:  return false   ;
+        case ContactType.tiktok:     return false   ;
+        case ContactType.twitter:    return false   ;
         default: return false;
       }
     }
@@ -667,16 +667,16 @@ class ContactModel {
     /// BZ CONTACTS
     else if (ownerType == ContactsOwnerType.bz){
       switch (contactType){
-        case ContactType.phone:      return true   ; break;
-        case ContactType.email:      return true   ; break;
-        case ContactType.website:    return false   ; break;
-        case ContactType.facebook:   return false   ; break;
-        case ContactType.linkedIn:   return false   ; break;
-        case ContactType.youtube:    return false   ; break;
-        case ContactType.instagram:  return false   ; break;
-        case ContactType.pinterest:  return false   ; break;
-        case ContactType.tiktok:     return false   ; break;
-        case ContactType.twitter:    return false   ; break;
+        case ContactType.phone:      return true   ;
+        case ContactType.email:      return true   ;
+        case ContactType.website:    return false   ;
+        case ContactType.facebook:   return false   ;
+        case ContactType.linkedIn:   return false   ;
+        case ContactType.youtube:    return false   ;
+        case ContactType.instagram:  return false   ;
+        case ContactType.pinterest:  return false   ;
+        case ContactType.tiktok:     return false   ;
+        case ContactType.twitter:    return false   ;
         default: return false;
       }
     }
@@ -684,16 +684,16 @@ class ContactModel {
     /// AUTHOR CONTACTS
     else {
       switch (contactType){
-        case ContactType.phone:      return true   ; break;
-        case ContactType.email:      return true   ; break;
-        case ContactType.website:    return false   ; break;
-        case ContactType.facebook:   return false   ; break;
-        case ContactType.linkedIn:   return false   ; break;
-        case ContactType.youtube:    return false   ; break;
-        case ContactType.instagram:  return false   ; break;
-        case ContactType.pinterest:  return false   ; break;
-        case ContactType.tiktok:     return false   ; break;
-        case ContactType.twitter:    return false   ; break;
+        case ContactType.phone:      return true   ;
+        case ContactType.email:      return true   ;
+        case ContactType.website:    return false   ;
+        case ContactType.facebook:   return false   ;
+        case ContactType.linkedIn:   return false   ;
+        case ContactType.youtube:    return false   ;
+        case ContactType.instagram:  return false   ;
+        case ContactType.pinterest:  return false   ;
+        case ContactType.tiktok:     return false   ;
+        case ContactType.twitter:    return false   ;
         default: return false;
       }
     }
@@ -708,16 +708,16 @@ class ContactModel {
     /// USER CONTACTS
     if (ownerType == ContactsOwnerType.user){
       switch (contactType){
-        case ContactType.phone:      return false   ; break;
-        case ContactType.email:      return false   ; break;
-        case ContactType.website:    return true   ; break;
-        case ContactType.facebook:   return false   ; break;
-        case ContactType.linkedIn:   return false   ; break;
-        case ContactType.youtube:    return true   ; break;
-        case ContactType.instagram:  return false   ; break;
-        case ContactType.pinterest:  return true   ; break;
-        case ContactType.tiktok:     return true   ; break;
-        case ContactType.twitter:    return false   ; break;
+        case ContactType.phone:      return false   ;
+        case ContactType.email:      return false   ;
+        case ContactType.website:    return true   ;
+        case ContactType.facebook:   return false   ;
+        case ContactType.linkedIn:   return false   ;
+        case ContactType.youtube:    return true   ;
+        case ContactType.instagram:  return false   ;
+        case ContactType.pinterest:  return true   ;
+        case ContactType.tiktok:     return true   ;
+        case ContactType.twitter:    return false   ;
         default: return true;
       }
     }
@@ -725,16 +725,16 @@ class ContactModel {
     /// BZ CONTACTS
     else if (ownerType == ContactsOwnerType.bz){
       switch (contactType){
-        case ContactType.phone:      return false   ; break;
-        case ContactType.email:      return false   ; break;
-        case ContactType.website:    return false   ; break;
-        case ContactType.facebook:   return false   ; break;
-        case ContactType.linkedIn:   return false   ; break;
-        case ContactType.youtube:    return false   ; break;
-        case ContactType.instagram:  return false   ; break;
-        case ContactType.pinterest:  return true   ; break;
-        case ContactType.tiktok:     return false   ; break;
-        case ContactType.twitter:    return false   ; break;
+        case ContactType.phone:      return false   ;
+        case ContactType.email:      return false   ;
+        case ContactType.website:    return false   ;
+        case ContactType.facebook:   return false   ;
+        case ContactType.linkedIn:   return false   ;
+        case ContactType.youtube:    return false   ;
+        case ContactType.instagram:  return false   ;
+        case ContactType.pinterest:  return true   ;
+        case ContactType.tiktok:     return false   ;
+        case ContactType.twitter:    return false   ;
         default: return true;
       }
     }
@@ -742,16 +742,16 @@ class ContactModel {
     /// AUTHOR CONTACTS
     else {
       switch (contactType){
-        case ContactType.phone:      return false   ; break;
-        case ContactType.email:      return false   ; break;
-        case ContactType.website:    return false   ; break;
-        case ContactType.facebook:   return false   ; break;
-        case ContactType.linkedIn:   return false   ; break;
-        case ContactType.youtube:    return false   ; break;
-        case ContactType.instagram:  return false   ; break;
-        case ContactType.pinterest:  return true   ; break;
-        case ContactType.tiktok:     return false   ; break;
-        case ContactType.twitter:    return false   ; break;
+        case ContactType.phone:      return false   ;
+        case ContactType.email:      return false   ;
+        case ContactType.website:    return false   ;
+        case ContactType.facebook:   return false   ;
+        case ContactType.linkedIn:   return false   ;
+        case ContactType.youtube:    return false   ;
+        case ContactType.instagram:  return false   ;
+        case ContactType.pinterest:  return true   ;
+        case ContactType.tiktok:     return false   ;
+        case ContactType.twitter:    return false   ;
         default: return true;
       }
     }
@@ -808,8 +808,8 @@ class ContactModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkContactsAreIdentical({
-    required ContactModel contact1,
-    required ContactModel contact2,
+    required ContactModel? contact1,
+    required ContactModel? contact2,
   }){
     bool _areIdentical = false;
 
@@ -818,7 +818,7 @@ class ContactModel {
       if (
           contact1.value  == contact2.value &&
           contact1.type == contact2.type &&
-          contact1?.controller?.text == contact2?.controller?.text
+          contact1.controller?.text == contact2.controller?.text
       ){
         _areIdentical = true;
       }
@@ -830,22 +830,22 @@ class ContactModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkEmailChanged({
-    required List<ContactModel> oldContacts,
-    required List<ContactModel> newContacts,
+    required List<ContactModel>? oldContacts,
+    required List<ContactModel>? newContacts,
   }){
     bool _changed = false;
 
-    final ContactModel _oldModel = getContactFromContacts(
+    final ContactModel? _oldModel = getContactFromContacts(
       contacts: oldContacts,
       type: ContactType.email,
     );
 
-    final ContactModel _newModel = getContactFromContacts(
+    final ContactModel? _newModel = getContactFromContacts(
       contacts: newContacts,
       type: ContactType.email,
     );
 
-    blog('checkEmailChanged : ${_oldModel.value} == ${_newModel.value} ?');
+    blog('checkEmailChanged : ${_oldModel?.value} == ${_newModel?.value} ?');
 
     if (_oldModel?.value != _newModel?.value){
       _changed = true;
@@ -859,7 +859,7 @@ class ContactModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkContactIsEmpty(ContactModel contact){
+  static bool checkContactIsEmpty(ContactModel? contact){
     bool _isEmpty = true;
 
     if (contact != null){
@@ -878,22 +878,20 @@ class ContactModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkContactIsSocialMedia(ContactType type){
+  static bool checkContactIsSocialMedia(ContactType? type){
 
     switch (type) {
 
-      case ContactType.phone:     return false; break;
-      case ContactType.email:     return false; break;
-
-      case ContactType.website:   return false; break;
-
-      case ContactType.facebook:  return true; break;
-      case ContactType.linkedIn:  return true; break;
-      case ContactType.youtube:   return true; break;
-      case ContactType.instagram: return true; break;
-      case ContactType.pinterest: return true; break;
-      case ContactType.tiktok:    return true; break;
-      case ContactType.twitter:   return true; break;
+      case ContactType.phone:     return false;
+      case ContactType.email:     return false;
+      case ContactType.website:   return false;
+      case ContactType.facebook:  return true;
+      case ContactType.linkedIn:  return true;
+      case ContactType.youtube:   return true;
+      case ContactType.instagram: return true;
+      case ContactType.pinterest: return true;
+      case ContactType.tiktok:    return true;
+      case ContactType.twitter:   return true;
 
       default: return false;
 
@@ -901,42 +899,38 @@ class ContactModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkIsWebLink(ContactType type){
+  static bool checkIsWebLink(ContactType? type){
     switch (type) {
 
-      case ContactType.phone:     return false; break;
-      case ContactType.email:     return false; break;
-
-      case ContactType.website:   return true; break;
-
-      case ContactType.facebook:  return true; break;
-      case ContactType.linkedIn:  return true; break;
-      case ContactType.youtube:   return true; break;
-      case ContactType.instagram: return true; break;
-      case ContactType.pinterest: return true; break;
-      case ContactType.tiktok:    return true; break;
-      case ContactType.twitter:   return true; break;
+      case ContactType.phone:     return false;
+      case ContactType.email:     return false;
+      case ContactType.website:   return true;
+      case ContactType.facebook:  return true;
+      case ContactType.linkedIn:  return true;
+      case ContactType.youtube:   return true;
+      case ContactType.instagram: return true;
+      case ContactType.pinterest: return true;
+      case ContactType.tiktok:    return true;
+      case ContactType.twitter:   return true;
 
       default: return false;
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkShouldViewValue(ContactType type){
+  static bool checkShouldViewValue(ContactType? type){
     switch (type) {
 
-      case ContactType.phone:     return true; break;
-      case ContactType.email:     return true; break;
-
-      case ContactType.website:   return true; break;
-
-      case ContactType.facebook:  return false; break;
-      case ContactType.linkedIn:  return false; break;
-      case ContactType.youtube:   return false; break;
-      case ContactType.instagram: return false; break;
-      case ContactType.pinterest: return false; break;
-      case ContactType.tiktok:    return false; break;
-      case ContactType.twitter:   return false; break;
+      case ContactType.phone:     return true;
+      case ContactType.email:     return true;
+      case ContactType.website:   return true;
+      case ContactType.facebook:  return false;
+      case ContactType.linkedIn:  return false;
+      case ContactType.youtube:   return false;
+      case ContactType.instagram: return false;
+      case ContactType.pinterest: return false;
+      case ContactType.tiktok:    return false;
+      case ContactType.twitter:   return false;
 
       default: return false;
     }

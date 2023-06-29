@@ -27,13 +27,13 @@ class PicProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> composePic(PicModel picModel) async {
+  static Future<void> composePic(PicModel? picModel) async {
 
     if (picModel != null){
 
       await Future.wait(<Future>[
 
-        PicStorageOps.createPic(picModel,),
+        PicStorageOps.createPic(picModel),
 
         PicLDBOps.insertPic(picModel),
 
@@ -242,13 +242,13 @@ class PicProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> renovatePic(PicModel picModel) async {
+  static Future<void> renovatePic(PicModel? picModel) async {
 
     blog('1 - renovatePic : picModel : $picModel');
 
     if (picModel != null){
 
-      final PicModel _oldPic = await fetchPic(picModel.path);
+      final PicModel? _oldPic = await fetchPic(picModel.path);
 
       final bool _areIdentical = PicModel.checkPicsAreIdentical(
           pic1: _oldPic,
@@ -296,7 +296,7 @@ class PicProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> wipePic(String path) async {
+  static Future<void> wipePic(String? path) async {
 
     if (TextCheck.isEmpty(path) == false){
 

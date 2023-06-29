@@ -14,15 +14,15 @@ class FeedbackRealOps {
 
   // --------------------
   ///
-  static Future<FeedbackModel> createFeedback({
-    required FeedbackModel feedback,
+  static Future<FeedbackModel?> createFeedback({
+    required FeedbackModel? feedback,
   }) async {
 
-    FeedbackModel _output;
+    FeedbackModel? _output;
 
     if (feedback != null){
 
-      final Map<String, dynamic> _map = await Real.createDoc(
+      final Map<String, dynamic>? _map = await Real.createDoc(
         coll: RealColl.feedbacks,
         map: feedback.toMap(),
       );

@@ -27,15 +27,15 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<bool> signInBldrsByEmail({
-    required String email,
-    required String password,
+    required String? email,
+    required String? password,
   }) async {
-    String _authError;
+    String? _authError;
 
-    final AuthModel _authModel = await EmailAuthing.signIn(
-      email: email.trim(),
+    final AuthModel? _authModel = await EmailAuthing.signIn(
+      email: email?.trim(),
       password: password,
-      onError: (String error) {
+      onError: (String? error) {
         _authError = error;
       },
     );
@@ -56,8 +56,8 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<bool> registerInBldrsByEmail({
-    required String email,
-    required String password,
+    required String? email,
+    required String? password,
     // required ZoneModel currentZone,
   }) async {
 
@@ -98,7 +98,7 @@ class AuthProtocols {
 
     else if (authModel != null) {
 
-      final UserModel _userModel = await UserFireOps.readUser(
+      final UserModel? _userModel = await UserFireOps.readUser(
         userID: authModel.id,
       );
 
@@ -127,7 +127,7 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<void> onAuthError({
-    required String error,
+    required String? error,
   }) async {
 
     final String _errorMessage = error ?? 'Something went wrong, please try again';
@@ -140,10 +140,10 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<bool> _onNewUser({
-    required AuthModel authModel,
+    required AuthModel? authModel,
   }) async {
 
-    final UserModel userModel = await UserProtocols.compose(
+    final UserModel? userModel = await UserProtocols.compose(
       authModel: authModel,
     );
 
@@ -174,7 +174,7 @@ class AuthProtocols {
   }) async {
 
     final bool _success = await Authing.signOut(
-        onError: (String error) async {
+        onError: (String? error) async {
           await CenterDialog.showCenterDialog(
             titleVerse: const Verse(
               id: 'phid_trouble_signing_out',
@@ -203,22 +203,22 @@ class AuthProtocols {
   static Future<void> signInAsRage7({
     required BuildContext context,
   }) async {
-    final AuthModel _authModel = await EmailAuthing.signIn(
+    final AuthModel? _authModel = await EmailAuthing.signIn(
       email: 'rageh@bldrs.net',
       password: '123456',
-      onError: (String error) =>
+      onError: (String? error) =>
           AuthProtocols.onAuthError(
             error: error,
           ),
     );
 
-    if (_authModel != null) {
-      final Map<String, dynamic> _map = await Fire.readDoc(
+    if (_authModel != null && _authModel.id != null) {
+      final Map<String, dynamic>? _map = await Fire.readDoc(
         coll: FireColl.users,
-        doc: _authModel.id,
+        doc: _authModel.id!,
       );
 
-      final UserModel _userModel = UserModel.decipherUser(
+      final UserModel? _userModel = UserModel.decipherUser(
         map: _map,
         fromJSON: false,
       );

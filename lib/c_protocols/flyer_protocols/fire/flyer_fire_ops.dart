@@ -10,7 +10,6 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/feedback_protocols/real/app_feedback_real_ops.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:basics/layouts/nav/nav.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 
@@ -25,8 +24,8 @@ class FlyerFireOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<String> createEmptyFlyerDocToGetFlyerID({
-    required String bzID,
+  static Future<String?> createEmptyFlyerDocToGetFlyerID({
+    required String? bzID,
   }) async {
 
     blog('createFlyerDoc : START');
@@ -51,32 +50,33 @@ class FlyerFireOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<FlyerModel> readFlyer({
-    required String flyerID,
+  static Future<FlyerModel?> readFlyer({
+    required String? flyerID,
   }) async {
+    FlyerModel? _flyer;
 
-    final dynamic _flyerMap = await Fire.readDoc(
-        coll: FireColl.flyers,
-        doc: flyerID
-    );
+    if (flyerID != null) {
 
-    final FlyerModel _flyer = FlyerModel.decipherFlyer(
-        map: _flyerMap,
-        fromJSON: false
-    );
+      final dynamic _flyerMap = await Fire.readDoc(
+          coll: FireColl.flyers,
+          doc: flyerID
+      );
+
+      _flyer = FlyerModel.decipherFlyer(map: _flyerMap, fromJSON: false);
+    }
 
     return _flyer;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<FlyerModel>> readBzFlyers({
-    required BzModel bzModel
+    required BzModel? bzModel
   }) async {
     final List<FlyerModel> _flyers = <FlyerModel>[];
 
-    if (Mapper.checkCanLoopList(bzModel?.flyersIDs)) {
-      for (final String id in bzModel.flyersIDs) {
-        final FlyerModel _flyer = await readFlyer(
+    if (Mapper.checkCanLoopList(bzModel?.flyersIDs) == true) {
+      for (final String id in bzModel!.flyersIDs!) {
+        final FlyerModel? _flyer = await readFlyer(
           flyerID: id,
         );
 
@@ -91,13 +91,13 @@ class FlyerFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<FlyerModel>> readBzzFlyers({
-    required List<BzModel> bzzModels,
+    required List<BzModel>? bzzModels,
   }) async {
     final List<FlyerModel> _allFlyers = <FlyerModel>[];
 
-    if (Mapper.checkCanLoopList(bzzModels)) {
+    if (Mapper.checkCanLoopList(bzzModels) == true) {
 
-      for (final BzModel bz in bzzModels) {
+      for (final BzModel bz in bzzModels!) {
         final List<FlyerModel> _bzFlyers = await FlyerFireOps.readBzFlyers(
           bzModel: bz,
         );
@@ -112,12 +112,12 @@ class FlyerFireOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<FlyerModel>> readFlyersByQuery({
+  static Future<List<FlyerModel>?> readFlyersByQuery({
     required FireQueryModel queryModel,
     FlyerModel? startAfterFlyer,
   }) async {
 
-    final List<Map<String, dynamic>> _maps = await Fire.readColl(
+    final List<Map<String, dynamic>>? _maps = await Fire.readColl(
       queryModel: queryModel,
       startAfter: startAfterFlyer?.docSnapshot,
       addDocSnapshotToEachMap: true,
@@ -135,15 +135,19 @@ class FlyerFireOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> updateFlyerDoc(FlyerModel finalFlyer) async {
+  static Future<void> updateFlyerDoc(FlyerModel? finalFlyer) async {
 
     blog('_updateFlyerDoc : START');
 
-    await Fire.updateDoc(
-      coll: FireColl.flyers,
-      doc: finalFlyer.id,
-      input: finalFlyer.toMap(toJSON: false),
-    );
+    if (finalFlyer?.id != null){
+
+      await Fire.updateDoc(
+        coll: FireColl.flyers,
+        doc: finalFlyer!.id!,
+        input: finalFlyer.toMap(toJSON: false),
+      );
+
+    }
 
     blog('_updateFlyerDoc : END');
 
@@ -155,7 +159,7 @@ class FlyerFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteFlyerDoc({
-    required String flyerID,
+    required String? flyerID,
   }) async {
 
     blog('_deleteFlyerDoc : START');
@@ -174,10 +178,10 @@ class FlyerFireOps {
   ///
   static Future<void> onReportFlyer({
     required BuildContext context,
-    required FlyerModel flyer,
+    required FlyerModel? flyer,
   }) async {
 
-    String _feedback;
+    String? _feedback;
 
     await BottomDialog.showButtonsBottomDialog(
         numberOfWidgets: 3,
@@ -252,10 +256,10 @@ class FlyerFireOps {
         timeStamp: DateTime.now(),
         feedback: _feedback,
         modelType: ModelType.flyer,
-        modelID: flyer.id,
+        modelID: flyer?.id,
       );
 
-      final FeedbackModel _docRef = await FeedbackRealOps.createFeedback(
+      final FeedbackModel? _docRef = await FeedbackRealOps.createFeedback(
         feedback: _model,
       );
 

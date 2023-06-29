@@ -11,7 +11,6 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/feedback_protocols/real/app_feedback_real_ops.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/layouts/nav/nav.dart';
 /// => TAMAM
@@ -26,7 +25,7 @@ class BzFireOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<String> createEmptyBzDocToGetBzID() async {
+  static Future<String?> createEmptyBzDocToGetBzID() async {
 
     blog('_createEmptyBzDocToGetBzID : START');
 
@@ -47,16 +46,20 @@ class BzFireOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<BzModel> readBz({
-    required String bzID,
+  static Future<BzModel?> readBz({
+    required String? bzID,
   }) async {
+
+    if (bzID == null){
+      return null;
+    }
 
     final dynamic _bzMap = await Fire.readDoc(
       coll: FireColl.bzz,
       doc: bzID,
     );
 
-    final BzModel _bz = BzModel.decipherBz(
+    final BzModel? _bz = BzModel.decipherBz(
       map: _bzMap,
       fromJSON: false,
     );
@@ -105,13 +108,13 @@ class BzFireOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> update(BzModel bzModel) async {
+  static Future<void> update(BzModel? bzModel) async {
 
-    if (bzModel != null){
+    if (bzModel?.id != null){
 
       await Fire.updateDoc(
         coll: FireColl.bzz,
-        doc: bzModel.id,
+        doc: bzModel!.id!,
         input: bzModel.toMap(toJSON: false),
       );
 
@@ -125,16 +128,16 @@ class BzFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> delete({
-    required BzModel bzModel,
+    required BzModel? bzModel,
   }) async {
 
     blog('_deleteBzDoc : START');
 
-    if (bzModel != null){
+    if (bzModel?.id != null){
 
       await Fire.deleteDoc(
         coll: FireColl.bzz,
-        doc: bzModel.id,
+        doc: bzModel!.id!,
       );
 
     }
@@ -188,7 +191,7 @@ class BzFireOps {
 
       else {
 
-        String _feedback;
+        String? _feedback;
 
         await BottomDialog.showButtonsBottomDialog(
             numberOfWidgets: 3,
@@ -241,7 +244,7 @@ class BzFireOps {
             modelID: bzModel.id,
           );
 
-          final FeedbackModel _docRef = await FeedbackRealOps.createFeedback(
+          final FeedbackModel? _docRef = await FeedbackRealOps.createFeedback(
             feedback: _model,
           );
 
@@ -253,9 +256,6 @@ class BzFireOps {
       }
 
     }
-
-
-
 
   }
   // -----------------------------------------------------------------------------

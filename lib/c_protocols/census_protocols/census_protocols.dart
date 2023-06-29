@@ -3,7 +3,6 @@ import 'package:bldrs/c_protocols/census_protocols/census_ldb_ops.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_real_ops.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:flutter/material.dart';
 /// => TAMAM
 class CensusProtocols {
   // -----------------------------------------------------------------------------
@@ -16,9 +15,9 @@ class CensusProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<CensusModel> fetchPlanetCensus() async {
+  static Future<CensusModel?> fetchPlanetCensus() async {
 
-    CensusModel _output = await CensusLDBOps.readCensus(
+    CensusModel? _output = await CensusLDBOps.readCensus(
         id: RealDoc.statistics_planet,
     );
 
@@ -45,7 +44,7 @@ class CensusProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CensusModel>> fetchCountriesCensusesByIDs({
-    required List<String> countriesIDs,
+    required List<String>? countriesIDs,
   }) async {
     final List<CensusModel> _output = [];
 
@@ -53,11 +52,11 @@ class CensusProtocols {
 
       await Future.wait(<Future>[
 
-        ...List.generate(countriesIDs.length, (index){
+        ...List.generate(countriesIDs!.length, (index){
 
           return fetchCountryCensus(
               countryID: countriesIDs[index],
-          ).then((CensusModel census){
+          ).then((CensusModel? census){
 
             if (census != null){
               _output.add(census);
@@ -94,10 +93,10 @@ class CensusProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<CensusModel> fetchCountryCensus({
-    required String countryID,
+  static Future<CensusModel?> fetchCountryCensus({
+    required String? countryID,
   }) async {
-    CensusModel _output;
+    CensusModel? _output;
 
     if (countryID != null){
 
@@ -127,10 +126,10 @@ class CensusProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<CensusModel> refetchCountryCensus({
-    required String countryID,
+  static Future<CensusModel?> refetchCountryCensus({
+    required String? countryID,
   }) async {
-    CensusModel _output;
+    CensusModel? _output;
 
     if (countryID != null){
 
@@ -151,7 +150,7 @@ class CensusProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CensusModel>> fetchCitiesCensuses({
-    required List<String> citiesIDs,
+    required List<String>? citiesIDs,
   }) async {
     final List<CensusModel> _output = <CensusModel>[];
 
@@ -159,11 +158,11 @@ class CensusProtocols {
 
       await Future.wait(<Future>[
 
-        ...List.generate(citiesIDs.length, (index){
+        ...List.generate(citiesIDs!.length, (index){
 
           return fetchCityCensus(
               cityID: citiesIDs[index],
-          ).then((CensusModel census){
+          ).then((CensusModel? census){
 
             if (census != null){
               _output.add(census);
@@ -182,7 +181,7 @@ class CensusProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CensusModel>> refetchAllAvailableCitiesOfCountryCensuses({
-    required String countryID,
+    required String? countryID,
   }) async {
     List<CensusModel> _output = [];
 
@@ -210,10 +209,10 @@ class CensusProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<CensusModel> fetchCityCensus({
-    required String cityID,
+  static Future<CensusModel?> fetchCityCensus({
+    required String? cityID,
   }) async {
-    CensusModel _output;
+    CensusModel? _output;
 
     if (cityID != null){
 
@@ -241,10 +240,10 @@ class CensusProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<CensusModel> refetchCityCensus({
-    required String cityID,
+  static Future<CensusModel?> refetchCityCensus({
+    required String? cityID,
   }) async {
-    CensusModel _output;
+    CensusModel? _output;
 
     if (cityID != null){
 
