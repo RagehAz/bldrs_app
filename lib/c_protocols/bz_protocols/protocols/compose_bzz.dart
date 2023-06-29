@@ -21,7 +21,6 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_leveller.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -51,11 +50,11 @@ class ComposeBzProtocols {
     );
 
     /// CREATE BZ ID
-    final String _bzID = await BzFireOps.createEmptyBzDocToGetBzID();
+    final String? _bzID = await BzFireOps.createEmptyBzDocToGetBzID();
     assert(_bzID != null, 'bzID is null');
 
     /// OVERRIDE BZ ID
-    final DraftBz _draftWithID = DraftBz.overrideBzID(
+    final DraftBz? _draftWithID = DraftBz.overrideBzID(
       draft: newDraft,
       bzID: _bzID,
     );
@@ -64,16 +63,16 @@ class ComposeBzProtocols {
     _draftWithID?.blogDraft();
 
     /// BAKE DRAFT TO INITIAL BZ
-    BzModel _bzModel = DraftBz.toBzModel(_draftWithID);
+    BzModel? _bzModel = DraftBz.toBzModel(_draftWithID);
 
     /// UPDATE MY USER MODEL
     await _addBzIdToMyUserModelAndRenovateAndSubscribeToAllBzTopics(
       context: context,
-      bzID: _bzModel.id,
+      bzID: _bzModel?.id,
     );
 
     /// OVERRIDE CREATION TIME
-    _bzModel = _bzModel.copyWith(
+    _bzModel = _bzModel?.copyWith(
       createdAt: DateTime.now(),
     );
 
@@ -84,7 +83,7 @@ class ComposeBzProtocols {
       BzFireOps.update(_bzModel),
 
       /// UPLOAD BZ LOGO
-      PicProtocols.composePic(_draftWithID.logoPicModel),
+      PicProtocols.composePic(_draftWithID?.logoPicModel),
 
       /// UPLOAD AUTHOR PIC
       _duplicateUserPicAsAuthorPic(
@@ -104,7 +103,7 @@ class ComposeBzProtocols {
 
     await StagingLeveller.levelUpZone(
       context: context,
-      zoneModel: _bzModel.zone,
+      zoneModel: _bzModel?.zone,
     );
 
     /// CLOSE WAIT DIALOG
@@ -126,7 +125,7 @@ class ComposeBzProtocols {
 
     /// NAVIGATE
     await BldrsNav.goRebootToInitNewBzScreen(
-      bzID: _bzModel.id,
+      bzID: _bzModel?.id,
     );
 
     blog('ComposeBzProtocol.compose : END');
@@ -138,10 +137,10 @@ class ComposeBzProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _addMyNewCreatedBzLocally({
-    required BzModel bzModel,
+    required BzModel? bzModel,
   }) async {
 
-    final BzModel _bzModelWithCompleteZoneModel = await BzProtocols.completeBzZoneModel(
+    final BzModel? _bzModelWithCompleteZoneModel = await BzProtocols.completeBzZoneModel(
         bzModel: bzModel
     );
 
@@ -160,7 +159,7 @@ class ComposeBzProtocols {
   /// TESTED : WORKS PERFECT
   static Future<void> _addBzIdToMyUserModelAndRenovateAndSubscribeToAllBzTopics({
     required BuildContext context,
-    required String bzID,
+    required String? bzID,
   }) async {
 
     final UserModel? _oldUser = UsersProvider.proGetMyUserModel(
@@ -168,7 +167,7 @@ class ComposeBzProtocols {
       listen: false,
     );
 
-    UserModel _newUser = UserModel.addBzIDToUserBzzIDs(
+    UserModel? _newUser = UserModel.addBzIDToUserBzzIDs(
       oldUser: _oldUser,
       bzIDToAdd: bzID,
     );
@@ -200,22 +199,22 @@ class ComposeBzProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _duplicateUserPicAsAuthorPic({
-    required UserModel userModel,
-    required String bzID,
+    required UserModel? userModel,
+    required String? bzID,
   }) async {
 
     if (userModel != null && bzID != null){
 
-      final PicModel _picModel = await PicProtocols.fetchPic(userModel.picPath);
+      final PicModel? _picModel = await PicProtocols.fetchPic(userModel.picPath);
 
-      final PicModel _authorModel = _picModel.copyWith(
+      final PicModel? _authorModel = _picModel?.copyWith(
         path: StoragePath.bzz_bzID_authorID(
           bzID: bzID,
           authorID: userModel.id,
         ),
       );
 
-      _authorModel.blogPic(invoker: '_duplicateUserPicAsAuthorPic');
+      _authorModel?.blogPic(invoker: '_duplicateUserPicAsAuthorPic');
 
       await PicProtocols.composePic(_authorModel);
 

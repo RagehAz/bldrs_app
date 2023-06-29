@@ -38,12 +38,12 @@ class RenovateUserProtocols {
   /// TESTED : WORKS PERFECT
   static Future<UserModel> renovateUser({
     required BuildContext context,
-    required UserModel oldUser,
-    required UserModel newUser,
-    required PicModel newPic,
-    required String invoker,
+    required UserModel? oldUser,
+    required UserModel? newUser,
+    required PicModel? newPic,
+    required String? invoker,
   }) async {
-    UserModel _output;
+    UserModel? _output;
 
     await reportThis('renovateUser : invoker : $invoker');
 
@@ -53,7 +53,7 @@ class RenovateUserProtocols {
 
       final UserModel _oldUser = await UserProtocols.refetch(
           context: context,
-          userID: oldUser.id,
+          userID: oldUser?.id,
       );
 
         await Future.wait(<Future>[

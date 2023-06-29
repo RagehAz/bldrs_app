@@ -80,11 +80,11 @@ class SlideModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> cipherSlides(List<SlideModel> slides) {
+  static Map<String, dynamic> cipherSlides(List<SlideModel>? slides) {
     Map<String, dynamic> _slidesMap = <String, dynamic>{};
 
-    if (Mapper.checkCanLoopList(slides)) {
-      for (final SlideModel slide in slides) {
+    if (Mapper.checkCanLoopList(slides) == true) {
+      for (final SlideModel slide in slides!) {
         _slidesMap = Mapper.insertPairInMap(
           map: _slidesMap,
           key: '${slide.slideIndex}',
@@ -168,16 +168,16 @@ class SlideModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void blogSlides(List<SlideModel> slides) {
+  static void blogSlides(List<SlideModel>? slides) {
 
-    blog('blogSlides : ${slides.length} SLIDES -----------------------------------------START');
+    blog('blogSlides : ${slides?.length} SLIDES -----------------------------------------START');
     if (Mapper.checkCanLoopList(slides) == false) {
       blog('blogSlides : slides can not be printed : slides are : $slides');
     }
 
     else {
 
-      for (final SlideModel slide in slides) {
+      for (final SlideModel slide in slides!) {
         slide.blogSlide();
       }
 

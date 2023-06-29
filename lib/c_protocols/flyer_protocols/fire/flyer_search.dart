@@ -6,7 +6,6 @@ import 'package:bldrs/a_models/m_search/search_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class FlyerSearch {
   // -----------------------------------------------------------------------------
@@ -16,14 +15,14 @@ class FlyerSearch {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static FireQueryModel createQuery({
-    SearchModel searchModel,
-    String title,
-    String orderBy,
-    bool descending,
+    SearchModel? searchModel,
+    String? title,
+    String? orderBy,
+    bool descending = true,
     int limit = 4,
-    String gtaLink,
+    String? gtaLink,
   }) {
-    final QueryOrderBy _orderBy = orderBy == null ? null
+    final QueryOrderBy? _orderBy = orderBy == null ? null
         : QueryOrderBy(
             fieldName: orderBy,
             descending: descending,
@@ -74,7 +73,7 @@ class FlyerSearch {
               field: 'trigram',
               comparison: FireComparison.arrayContains,
               value: TextMod.removeAllCharactersAfterNumberOfCharacters(
-                text: title.trim(),
+                text: title!.trim(),
                 numberOfChars: Standards.maxTrigramLength,
               )),
 

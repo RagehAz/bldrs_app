@@ -56,7 +56,7 @@ class WipeFlyerProtocols {
 
     if (flyerModel != null){
 
-      final BzModel _oldBz = await BzProtocols.fetchBz(
+      final BzModel? _oldBz = await BzProtocols.fetchBz(
           bzID: flyerModel.bzID,
       );
 
@@ -152,18 +152,18 @@ class WipeFlyerProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<void> onWipeBz({
-    required String bzID,
+    required String? bzID,
   }) async {
 
     if (bzID != null){
 
-      final BzModel _oldBz = await BzProtocols.fetchBz(
+      final BzModel? _oldBz = await BzProtocols.fetchBz(
         bzID: bzID,
       );
 
       Future<void> _wipeAFlyer(String flyerID) async {
 
-        final FlyerModel _flyerModel = await FlyerProtocols.fetchFlyer(
+        final FlyerModel? _flyerModel = await FlyerProtocols.fetchFlyer(
           context: getMainContext(),
           flyerID: flyerID,
         );
@@ -230,7 +230,7 @@ class WipeFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteFlyersLocally({
-    required List<String> flyersIDs,
+    required List<String>? flyersIDs,
   }) async {
 
     /// FLYER LDB DELETION
@@ -247,12 +247,12 @@ class WipeFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteAllBzFlyersLocally({
-    required String bzID,
+    required String? bzID,
   }) async {
 
     if (bzID != null){
 
-      final BzModel _bzModel = await BzProtocols.fetchBz(
+      final BzModel? _bzModel = await BzProtocols.fetchBz(
           bzID: bzID,
       );
 

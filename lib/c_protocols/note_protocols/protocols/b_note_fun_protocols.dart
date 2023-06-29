@@ -99,8 +99,8 @@ class NoteFunProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static TriggerModel createDeletePendingAuthorTrigger({
-    required String userID,
-    required String bzID,
+    required String? userID,
+    required String? bzID,
   }){
     return TriggerModel(
       name: funWipePendingAuthor,

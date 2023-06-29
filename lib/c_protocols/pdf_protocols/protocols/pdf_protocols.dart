@@ -23,13 +23,13 @@ class PDFProtocols {
 
   // --------------------
   /// TASK : TEST ME
-  static Future<PDFModel> pickPDF({
+  static Future<PDFModel?> pickPDF({
     required BuildContext context,
-    required String flyerID,
-    required String bzID,
+    required String? flyerID,
+    required String? bzID,
   }) async {
 
-    PDFModel _output;
+    PDFModel? _output;
 
     final FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
@@ -82,7 +82,7 @@ class PDFProtocols {
 
   // --------------------
   /// TASK : TEST ME
-  static Future<void> compose(PDFModel pdfModel) async {
+  static Future<void> compose(PDFModel? pdfModel) async {
 
     if (pdfModel != null){
 

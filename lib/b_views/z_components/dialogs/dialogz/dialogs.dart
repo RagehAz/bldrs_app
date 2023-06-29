@@ -129,8 +129,8 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> youNeedToBeSignedUpDialog({
-    required String afterHomeRouteName,
-    required String afterHomeRouteArgument,
+    required String? afterHomeRouteName,
+    required String? afterHomeRouteArgument,
   }) async {
 
     final bool _go = await CenterDialog.showCenterDialog(
@@ -718,10 +718,10 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> bzBannerDialog({
-    required BzModel bzModel,
-    required Verse titleVerse,
-    required Verse bodyVerse,
-    Verse confirmButtonVerse,
+    required BzModel? bzModel,
+    required Verse? titleVerse,
+    required Verse? bodyVerse,
+    Verse? confirmButtonVerse,
     bool boolDialog = true,
     bool invertButtons = false,
   }) async {

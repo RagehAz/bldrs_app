@@ -17,16 +17,16 @@ class NoteFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<NoteModel> createNote({
-    required NoteModel noteModel,
+    required NoteModel? noteModel,
     ValueChanged<NoteModel>? onFinished,
   }) async {
     NoteModel _output;
 
     if (noteModel != null){
 
-      if (noteModel.sendNote == true){
+      if (noteModel.sendNote != null && noteModel.sendNote! == true){
 
-        final String docID = await Fire.createDoc(
+        final String? docID = await Fire.createDoc(
           coll: FireColl.getPartyCollName(noteModel.parties.receiverType),
           doc: noteModel.parties.receiverID,
           subColl: FireSubColl.noteReceiver_receiver_notes,
@@ -99,15 +99,15 @@ class NoteFireOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<NoteModel> readNote({
-    required String noteID,
-    required String userID,
+  static Future<NoteModel?> readNote({
+    required String? noteID,
+    required String? userID,
   }) async {
-    NoteModel _output;
+    NoteModel? _output;
 
     if (noteID != null && userID != null){
 
-      final Map<String, dynamic> map = await Fire.readDoc(
+      final Map<String, dynamic>? map = await Fire.readDoc(
         coll: FireColl.users,
         doc: userID,
         subColl: FireSubColl.noteReceiver_receiver_notes,

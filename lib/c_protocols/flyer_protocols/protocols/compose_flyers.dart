@@ -44,22 +44,22 @@ class ComposeFlyerProtocols {
   }) async {
     blog('ComposeFlyerProtocol.compose : START');
 
-    assert(draftFlyer != null, 'Draft is null');
+    // assert(draftFlyer != null, 'Draft is null');
 
     if (draftFlyer != null){
 
-      final String flyerID = await FlyerFireOps.createEmptyFlyerDocToGetFlyerID(
+      final String? flyerID = await FlyerFireOps.createEmptyFlyerDocToGetFlyerID(
         bzID: draftFlyer.bzID,
       );
 
       if (flyerID != null){
 
-        final DraftFlyer _draftWithID = DraftFlyer.overrideFlyerID(
+        final DraftFlyer? _draftWithID = DraftFlyer.overrideFlyerID(
           draft: draftFlyer,
           flyerID: flyerID,
         );
 
-        FlyerModel _flyerToPublish = await DraftFlyer.draftToFlyer(
+        FlyerModel? _flyerToPublish = await DraftFlyer.draftToFlyer(
           draft: _draftWithID,
           toLDB: false,
           isPublishing: true,
@@ -67,7 +67,7 @@ class ComposeFlyerProtocols {
 
         /// TASK : SHOULD ASSERT FLYER IS COMPOSABLE METHOD
         assert (_flyerToPublish != null, 'Flyer is null');
-        assert (_flyerToPublish.id != null, 'Flyer ID is null');
+        assert (_flyerToPublish?.id != null, 'Flyer ID is null');
 
         /// CREATE FLYER POSTER
         // NOTE : when this is put among the below methods in Future.wait,
@@ -79,7 +79,7 @@ class ComposeFlyerProtocols {
         );
 
         /// CREATE SHARE LINK
-        _flyerToPublish = _flyerToPublish.copyWith(
+        _flyerToPublish = _flyerToPublish?.copyWith(
           shareLink: await BldrsShareLink.generateFlyerLink(
             flyerID: _flyerToPublish.id,
             flyerType: _flyerToPublish.flyerType,
@@ -94,10 +94,10 @@ class ComposeFlyerProtocols {
           FlyerFireOps.updateFlyerDoc(_flyerToPublish),
 
           /// UPLOAD SLIDES PICS
-          PicProtocols.composePics(DraftSlide.getPicModels(_draftWithID.draftSlides)),
+          PicProtocols.composePics(DraftSlide.getPicModels(_draftWithID?.draftSlides)),
 
           /// UPLOAD PDF
-          PDFProtocols.compose(_draftWithID.pdfModel),
+          PDFProtocols.compose(_draftWithID?.pdfModel),
 
           /// ADD FLYER TO LDB
           FlyerLDBOps.insertFlyer(_flyerToPublish),
@@ -109,8 +109,8 @@ class ComposeFlyerProtocols {
 
           /// INCREMENT BZ COUNTER (allSlides) COUNT
           RecorderProtocols.onComposeFlyer(
-            bzID: _flyerToPublish.bzID,
-            numberOfSlides: _flyerToPublish.slides.length,
+            bzID: _flyerToPublish?.bzID,
+            numberOfSlides: _flyerToPublish?.slides?.length,
           ),
 
           /// INCREMENT CITY FLYER CHAIN USAGE
@@ -126,7 +126,7 @@ class ComposeFlyerProtocols {
 
         await StagingLeveller.levelUpZone(
           context: context,
-          zoneModel: _flyerToPublish.zone,
+          zoneModel: _flyerToPublish?.zone,
         );
 
       }
@@ -142,38 +142,42 @@ class ComposeFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _addFlyerIDToBzAndAuthorAndRenovateBz({
-    required FlyerModel newFlyerToAdd,
+    required FlyerModel? newFlyerToAdd,
   }) async {
     blog('addFlyerIDToBzFlyersIDsAndAuthorFlyersIDs : START');
 
-    final BzModel _oldBz = await BzProtocols.fetchBz(
-      bzID: newFlyerToAdd.bzID,
-    );
+    if (newFlyerToAdd != null){
 
-    final List<String> _newBzFlyersIDs = Stringer.addStringToListIfDoesNotContainIt(
-      strings: _oldBz.flyersIDs,
-      stringToAdd: newFlyerToAdd.id,
-    );
+      final BzModel? _oldBz = await BzProtocols.fetchBz(
+        bzID: newFlyerToAdd.bzID,
+      );
 
-    final List<AuthorModel> _newAuthors = AuthorModel.addFlyerIDToAuthor(
-      flyerID: newFlyerToAdd.id,
-      authorID: newFlyerToAdd.authorID,
-      oldAuthors: _oldBz.authors,
-    );
+      final List<String> _newBzFlyersIDs = Stringer.addStringToListIfDoesNotContainIt(
+        strings: _oldBz?.flyersIDs,
+        stringToAdd: newFlyerToAdd.id,
+      );
 
-    final BzModel _newBz = _oldBz.copyWith(
-      flyersIDs: _newBzFlyersIDs,
-      authors: _newAuthors,
-    );
+      final List<AuthorModel> _newAuthors = AuthorModel.addFlyerIDToAuthor(
+        flyerID: newFlyerToAdd.id,
+        authorID: newFlyerToAdd.authorID,
+        oldAuthors: _oldBz?.authors,
+      );
 
-    // final BzModel _uploadedBzModel =
-    await BzProtocols.renovateBz(
+      final BzModel? _newBz = _oldBz?.copyWith(
+        flyersIDs: _newBzFlyersIDs,
+        authors: _newAuthors,
+      );
+
+      // final BzModel _uploadedBzModel =
+      await BzProtocols.renovateBz(
         context: getMainContext(),
         newBz: _newBz,
         oldBz: _oldBz,
         showWaitDialog: false,
         newLogo: null,
-    );
+      );
+
+    }
 
     blog('_addFlyerIDToBzFlyersIDsAndAuthorFlyersIDs : END');
 

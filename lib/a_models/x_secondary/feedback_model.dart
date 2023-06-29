@@ -16,12 +16,12 @@ class FeedbackModel {
     this.modelID,
   });
   /// --------------------------------------------------------------------------
-  final String id;
-  final String userID;
-  final DateTime timeStamp;
-  final String feedback;
-  final ModelType modelType;
-  final String modelID;
+  final String? id;
+  final String? userID;
+  final DateTime? timeStamp;
+  final String? feedback;
+  final ModelType? modelType;
+  final String? modelID;
   // -----------------------------------------------------------------------------
 
   /// CYPHERS
@@ -71,8 +71,8 @@ class FeedbackModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkFeedbacksAreIdentical({
-    required FeedbackModel feedback1,
-    required FeedbackModel feedback2,
+    required FeedbackModel? feedback1,
+    required FeedbackModel? feedback2,
   }){
     bool _areIdentical = false;
 

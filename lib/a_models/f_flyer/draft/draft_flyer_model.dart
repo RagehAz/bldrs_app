@@ -237,14 +237,18 @@ class DraftFlyer{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<FlyerModel> draftToFlyer({
-    required DraftFlyer draft,
+  static Future<FlyerModel?> draftToFlyer({
+    required DraftFlyer? draft,
     required bool toLDB,
     /// CORRECTS PUBLISH STATE AND ADDS NEW PUBLISH TIME RECORD
     bool isPublishing = false,
   }) async {
 
-    final List<PublishTime> _publishTimes = <PublishTime>[];
+    FlyerModel? _output;
+
+    if (draft != null){
+
+       final List<PublishTime> _publishTimes = <PublishTime>[];
     if (Mapper.checkCanLoopList(draft.times) == true){
       _publishTimes.addAll(draft.times!);
     }
@@ -262,7 +266,7 @@ class DraftFlyer{
         :
     draft.auditState;
 
-    final FlyerModel _output = FlyerModel(
+    _output = FlyerModel(
       id: draft.id,
       headline: draft.headline?.text,
       trigram: Stringer.createTrigram(input: draft.headline?.text),
@@ -299,6 +303,8 @@ class DraftFlyer{
       ),
       // docSnapshot: ,
     );
+
+    }
 
     return _output;
   }

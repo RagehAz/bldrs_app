@@ -17,12 +17,12 @@ class BzLDBOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> insertBz(BzModel bzModel) async {
+  static Future<void> insertBz(BzModel? bzModel) async {
 
     await LDBOps.insertMap(
       docName: LDBDoc.bzz,
       primaryKey: LDBDoc.getPrimaryKey(LDBDoc.bzz),
-      input: bzModel.toMap(toJSON: true),
+      input: bzModel?.toMap(toJSON: true),
       // allowDuplicateIDs: false,
     );
 
@@ -30,7 +30,7 @@ class BzLDBOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> insertBzz({
-    required List<BzModel> bzz,
+    required List<BzModel>? bzz,
   }) async {
 
     await LDBOps.insertMaps(
@@ -92,13 +92,13 @@ class BzLDBOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateBzOps({
-    required BzModel bzModel,
+    required BzModel? bzModel,
   }) async {
 
     await LDBOps.insertMap(
       docName: LDBDoc.bzz,
       primaryKey: LDBDoc.getPrimaryKey(LDBDoc.bzz),
-      input: bzModel.toMap(toJSON: true),
+      input: bzModel?.toMap(toJSON: true),
     );
 
   }
@@ -109,7 +109,7 @@ class BzLDBOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteBzOps({
-    required String bzID,
+    required String? bzID,
   }) async {
 
     await LDBOps.deleteMap(
@@ -121,10 +121,8 @@ class BzLDBOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> wipeOut(BuildContext context) async {
-
+  static Future<void> wipeOut() async {
     await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.bzz);
-
   }
   // -----------------------------------------------------------------------------
 
@@ -133,7 +131,7 @@ class BzLDBOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> saveBzEditorSession({
-    required DraftBz draft,
+    required DraftBz? draft,
   }) async {
 
     if (draft != null){
@@ -149,24 +147,26 @@ class BzLDBOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<DraftBz> loadBzEditorSession({
+  static Future<DraftBz?> loadBzEditorSession({
     required BuildContext context,
-    required String bzID,
+    required String? bzID,
   }) async {
-    DraftBz _draft;
+    DraftBz? _draft;
 
-    final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
-      ids: <String>[bzID],
-      docName: LDBDoc.bzEditor,
-      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.bzEditor),
-    );
+    if (bzID != null) {
 
-    if (Mapper.checkCanLoopList(_maps) == true){
-
-      _draft = DraftBz.fromLDB(
-        map: _maps.first,
-        context: context,
+      final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
+        ids: <String>[bzID],
+        docName: LDBDoc.bzEditor,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.bzEditor),
       );
+
+      if (Mapper.checkCanLoopList(_maps) == true) {
+        _draft = DraftBz.fromLDB(
+          map: _maps.first,
+          context: context,
+        );
+      }
 
     }
 
@@ -174,7 +174,7 @@ class BzLDBOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> deleteBzEditorSession(String bzID) async {
+  static Future<void> deleteBzEditorSession(String? bzID) async {
 
     await LDBOps.deleteMap(
       objectID: bzID,
@@ -190,7 +190,7 @@ class BzLDBOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> saveAuthorEditorSession({
-    required AuthorModel authorModel,
+    required AuthorModel? authorModel,
   }) async {
 
     if (authorModel != null){
@@ -206,26 +206,31 @@ class BzLDBOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<AuthorModel> loadAuthorEditorSession({
-    required String authorID,
+  static Future<AuthorModel?> loadAuthorEditorSession({
+    required String? authorID,
   }) async {
-    AuthorModel _author;
+    AuthorModel? _author;
 
-    final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
-      ids: <String>[authorID],
-      docName: LDBDoc.authorEditor,
-      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.authorEditor),
-    );
+    if (authorID != null){
 
-    if (Mapper.checkCanLoopList(_maps) == true){
-      _author = AuthorModel.decipherAuthor(_maps.first);
+      final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
+        ids: <String>[authorID],
+        docName: LDBDoc.authorEditor,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.authorEditor),
+      );
+
+      if (Mapper.checkCanLoopList(_maps) == true){
+        _author = AuthorModel.decipherAuthor(_maps.first);
+      }
+
     }
+
 
     return _author;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> deleteAuthorEditorSession(String authorID) async {
+  static Future<void> deleteAuthorEditorSession(String? authorID) async {
 
     await LDBOps.deleteMap(
       objectID: authorID,

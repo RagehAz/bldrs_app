@@ -1,6 +1,4 @@
 import 'dart:async';
-
-
 import 'package:basics/animators/helpers/sliders.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
@@ -14,7 +12,6 @@ import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart
 import 'package:bldrs/c_protocols/phrase_protocols/real/phrase_real_ops.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:provider/provider.dart';
@@ -119,11 +116,11 @@ class PhraseProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Phrase> _fetchPhid({
-    required String langCode,
-    required String phid,
+    required String? langCode,
+    required String? phid,
   }) async {
 
-    Phrase _phrase = await PhraseLDBOps.searchPhraseByIDAndCode(
+    Phrase? _phrase = await PhraseLDBOps.searchPhraseByIDAndCode(
       phid: phid,
       langCode: langCode,
     );
@@ -147,11 +144,11 @@ class PhraseProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<String> translate({
-    required String langCode,
-    required String phid,
+  static Future<String?> translate({
+    required String? langCode,
+    required String? phid,
   }) async {
-    final Phrase _phrase = await _fetchPhid(
+    final Phrase? _phrase = await _fetchPhid(
       langCode: langCode,
       phid: phid,
     );
@@ -328,7 +325,7 @@ class PhraseProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> generatePhrasesFromChain({
-    required Chain chain,
+    required Chain? chain,
     required BuildContext context,
   }) async {
 
@@ -341,8 +338,8 @@ class PhraseProtocols {
         chain: chain,
       );
 
-      if (chain.id != ''){
-        _sonsPhids.add(chain.id);
+      if (chain.id != null && chain.id != ''){
+        _sonsPhids.add(chain.id!);
       }
 
       _phrases = await generateMixedLangPhrasesFromPhids(
@@ -357,7 +354,7 @@ class PhraseProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> generatePhrasesFromChains({
-    required List<Chain> chains,
+    required List<Chain>? chains,
     required BuildContext context,
   }) async {
     final List<Phrase> _phrases = <Phrase>[];
@@ -373,7 +370,7 @@ class PhraseProtocols {
       }
 
       await Future.wait(<Future>[
-        ...List.generate(chains.length, (index){
+        ...List.generate(chains!.length, (index){
           return _generate(chains[index]);
         }),
       ]);
@@ -390,10 +387,10 @@ List<Phrase> onSearchPhrases({
   required ValueNotifier<bool> isSearching,
   required TextEditingController searchController,
   required List<Phrase> phrasesToSearchIn,
-  required PageController pageController,
+  required PageController? pageController,
   required bool mounted,
   /// mixes between en & ar values in one list
-  ValueNotifier<List<Phrase>> mixedSearchResult,
+  ValueNotifier<List<Phrase>>? mixedSearchResult,
 }){
 
   List<Phrase> _foundPhrases = <Phrase>[];

@@ -368,8 +368,8 @@ class ZonePhidsModel {
   // --------------------
   /// TASK : TEST ME
   static List<Chain> removeUnusedPhidsFromBldrsChainsForThisZone({
-    required List<Chain> bldrsChains,
-    required ZonePhidsModel currentZonePhidsModel,
+    required List<Chain>? bldrsChains,
+    required ZonePhidsModel? currentZonePhidsModel,
   }) {
 
     final List<String> _usedPhids = ZonePhidsModel.getPhidsFromZonePhidsModel(

@@ -21,7 +21,6 @@ import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
 import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:fire/super_fire.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
@@ -135,7 +134,7 @@ class WipeBzProtocols {
   }) async {
 
       final String _text =  '${Verse.transBake('phid_deleting')} '
-                            '${bzModel.flyersIDs.length} '
+                            '${bzModel.flyersIDs?.length} '
                             '${Verse.transBake('phid_flyers')}';
 
       pushWaitDialog(
@@ -157,7 +156,7 @@ class WipeBzProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteLocally({
-    required String bzID,
+    required String? bzID,
     required String invoker,
   }) async {
 
@@ -165,7 +164,7 @@ class WipeBzProtocols {
 
     blog('WipeBzProtocol.deleteLocally : $invoker : START');
 
-    final BzModel _bzModel = await BzProtocols.fetchBz(
+    final BzModel? _bzModel = await BzProtocols.fetchBz(
         bzID: bzID
     );
 
@@ -213,7 +212,7 @@ class WipeBzProtocols {
     required String? pendingUserID,
   }) async {
 
-    final BzModel _oldBz = await BzProtocols.fetchBz(
+    final BzModel? _oldBz = await BzProtocols.fetchBz(
         bzID: bzID,
     );
 
