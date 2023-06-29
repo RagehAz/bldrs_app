@@ -16,19 +16,19 @@ class NoteFireOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<NoteModel> createNote({
+  static Future<NoteModel?> createNote({
     required NoteModel? noteModel,
-    ValueChanged<NoteModel>? onFinished,
+    ValueChanged<NoteModel?>? onFinished,
   }) async {
-    NoteModel _output;
+    NoteModel? _output;
 
     if (noteModel != null){
 
       if (noteModel.sendNote != null && noteModel.sendNote! == true){
 
         final String? docID = await Fire.createDoc(
-          coll: FireColl.getPartyCollName(noteModel.parties.receiverType),
-          doc: noteModel.parties.receiverID,
+          coll: FireColl.getPartyCollName(noteModel.parties?.receiverType),
+          doc: noteModel.parties?.receiverID,
           subColl: FireSubColl.noteReceiver_receiver_notes,
           input: noteModel.toMap(toJSON: false),
         );
@@ -56,8 +56,8 @@ class NoteFireOps {
   // --------------------
   ///
   static Future<List<NoteModel>> createNotes({
-    required NoteModel noteModel,
-    required List<String> receiversIDs,
+    required NoteModel? noteModel,
+    required List<String>? receiversIDs,
   }) async {
 
     final List<NoteModel> _output = <NoteModel>[];
@@ -67,17 +67,17 @@ class NoteFireOps {
 
       await Future.wait(<Future>[
 
-        ...List.generate(receiversIDs.length, (index){
+        ...List.generate(receiversIDs!.length, (index){
 
           final NoteModel _note = noteModel.copyWith(
-            parties: noteModel.parties.copyWith(
+            parties: noteModel.parties?.copyWith(
               receiverID: receiversIDs[index],
             ),
           );
 
           return createNote(
             noteModel: _note,
-            onFinished: (NoteModel uploaded){
+            onFinished: (NoteModel? uploaded){
               if (uploaded != null){
                 _output.add(uploaded);
               }
@@ -91,7 +91,7 @@ class NoteFireOps {
       _success = true;
     }
 
-    return _success == true ? _output : null;
+    return _success == true ? _output : [];
   }
   // -----------------------------------------------------------------------------
 
@@ -131,14 +131,14 @@ class NoteFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateNote({
-    required NoteModel note,
+    required NoteModel? note,
   }) async {
 
-    if (note != null){
+    if (note != null && note.parties?.receiverID != null){
 
       await Fire.updateDoc(
-        coll: FireColl.getPartyCollName(note.parties.receiverType),
-        doc: note.parties.receiverID,
+        coll: FireColl.getPartyCollName(note.parties?.receiverType),
+        doc: note.parties!.receiverID!,
         subColl: FireSubColl.noteReceiver_receiver_notes,
         subDoc: note.id,
         input: note.toMap(toJSON: false),
@@ -170,13 +170,13 @@ class NoteFireOps {
   // --------------------
   ///
   static Future<void> markNotesAsSeen({
-    required List<NoteModel> notes,
+    required List<NoteModel>? notes,
   }) async {
 
     if (Mapper.checkCanLoopList(notes) == true){
 
       /// MARK ON FIREBASE
-      for (final NoteModel note in notes){
+      for (final NoteModel note in notes!){
         unawaited(markNoteAsSeen(
           noteModel: note,
         ));
@@ -193,14 +193,14 @@ class NoteFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteNote({
-    required NoteModel note,
+    required NoteModel? note,
   }) async {
 
-    if (note != null){
+    if (note != null && note.parties?.receiverID != null){
 
       await Fire.deleteDoc(
-        coll: FireColl.getPartyCollName(note.parties.receiverType),
-        doc: note.parties.receiverID,
+        coll: FireColl.getPartyCollName(note.parties?.receiverType),
+        doc: note.parties!.receiverID!,
         subColl: FireSubColl.noteReceiver_receiver_notes,
         subDoc: note.id,
       );
@@ -211,14 +211,14 @@ class NoteFireOps {
   // --------------------
   ///
   static Future<void> deleteNotes({
-    required List<NoteModel> notes,
+    required List<NoteModel>? notes,
   }) async {
 
     if (Mapper.checkCanLoopList(notes) == true){
 
       await Future.wait(<Future>[
 
-        ...List.generate(notes.length, (index){
+        ...List.generate(notes!.length, (index){
 
           return deleteNote(
             note: notes[index],

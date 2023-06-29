@@ -35,8 +35,8 @@ class AppCheck {
   }
   // --------------------------------------------
   ///
-  static Future<String> getAppCheckToken() async {
-    final String appCheckToken = await FirebaseAppCheck.instance.getToken();
+  static Future<String?> getAppCheckToken() async {
+    final String? appCheckToken = await FirebaseAppCheck.instance.getToken();
     return appCheckToken;
   }
 // -----------------------------------------------------------------------------

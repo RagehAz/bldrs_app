@@ -5,7 +5,6 @@ import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:provider/provider.dart';
@@ -176,7 +175,7 @@ class Keyboard {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> copyToClipboardAndNotify({
-    required String copy,
+    required String? copy,
     int? milliseconds,
   }) async {
 

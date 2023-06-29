@@ -26,7 +26,7 @@ class AuthorshipSendingProtocols {
     required UserModel userModelToSendTo,
   }) async {
 
-    final NoteModel noteModel = await NoteEvent.sendAuthorshipInvitationNote(
+    final NoteModel? noteModel = await NoteEvent.sendAuthorshipInvitationNote(
       context: context,
       bzModel: oldBz,
       userModelToSendTo: userModelToSendTo,
@@ -34,7 +34,7 @@ class AuthorshipSendingProtocols {
 
     final List<PendingAuthor> _pendingAuthors = PendingAuthor.addNewPendingAuthor(
       pendingAuthors: oldBz.pendingAuthors,
-      noteID: noteModel.id,
+      noteID: noteModel?.id,
       userID: userModelToSendTo.id,
     );
 

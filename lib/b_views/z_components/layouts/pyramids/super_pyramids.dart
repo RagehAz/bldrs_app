@@ -19,9 +19,9 @@ class SuperPyramids extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final ValueNotifier<ProgressBarModel> progressBarModel;
+  final ValueNotifier<ProgressBarModel?> progressBarModel;
   final ValueChanged<int> onRowTap;
-  final List<NavModel> navModels;
+  final List<NavModel?> navModels;
   final bool isYellow;
   final bool mounted;
   /// --------------------------------------------------------------------------

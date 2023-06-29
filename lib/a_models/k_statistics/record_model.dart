@@ -78,8 +78,8 @@ class RecordModel {
   /// TESTED : WORKS PERFECT
   static RecordModel? decipherRecord({
     required Map<String, dynamic>? map,
-    required String bzID,
-    required String flyerID,
+    required String? bzID,
+    required String? flyerID,
     required bool fromJSON,
   }) {
     RecordModel? _record;

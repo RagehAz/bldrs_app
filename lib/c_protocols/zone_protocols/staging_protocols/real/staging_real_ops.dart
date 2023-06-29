@@ -3,10 +3,7 @@ import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
-import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class StagingRealOps {
   // -----------------------------------------------------------------------------
@@ -112,7 +109,7 @@ class StagingRealOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<StagingModel> readCountriesStaging() async {
+  static Future<StagingModel?> readCountriesStaging() async {
 
     final dynamic _dynamic = await Real.readPath(
       path: '${RealColl.zones}/${RealDoc.zones_stages_countries}',
@@ -120,7 +117,7 @@ class StagingRealOps {
 
     blog('readCountriesStaging : _dynamic : $_dynamic');
 
-    final Map<String, dynamic> _map = Mapper.getMapFromIHLMOO(
+    final Map<String, dynamic>? _map = Mapper.getMapFromIHLMOO(
       ihlmoo: _dynamic,
     );
 
@@ -134,10 +131,10 @@ class StagingRealOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<StagingModel> readCitiesStaging({
-    required String countryID,
+  static Future<StagingModel?> readCitiesStaging({
+    required String? countryID,
   }) async {
-    StagingModel _output;
+    StagingModel? _output;
 
     if (TextCheck.isEmpty(countryID) == false){
 

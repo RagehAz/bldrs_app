@@ -30,7 +30,7 @@ class HomeFlyersGrid extends StatelessWidget {
       paginationController: paginationController,
       onDataChanged: (List<Map<String, dynamic>>? maps) async {
 
-        final List<FlyerModel> _wallFlyers = FlyerModel.decipherFlyers(
+        final List<FlyerModel>? _wallFlyers = FlyerModel.decipherFlyers(
           maps: maps,
           fromJSON: false,
         );
@@ -38,9 +38,9 @@ class HomeFlyersGrid extends StatelessWidget {
         await FlyerLDBOps.insertFlyers(_wallFlyers);
 
       },
-      builder: (_, List<Map<String, dynamic>?>? maps, bool isLoading, Widget? child){
+      builder: (_, List<Map<String, dynamic>>? maps, bool isLoading, Widget? child){
 
-        final List<FlyerModel> _wallFlyers = FlyerModel.decipherFlyers(
+        final List<FlyerModel>? _wallFlyers = FlyerModel.decipherFlyers(
           maps: maps,
           fromJSON: false,
         );

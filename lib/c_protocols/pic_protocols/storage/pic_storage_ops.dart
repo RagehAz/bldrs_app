@@ -21,14 +21,14 @@ class PicStorageOps {
 
   // --------------------
   /// TESTED: WORKS PERFECT
-  static Future<PicModel> createPic(PicModel picModel) async {
+  static Future<PicModel?> createPic(PicModel? picModel) async {
 
     PicModel.assertIsUploadable(picModel);
 
     final String? _url = await Storage.uploadBytesAndGetURL(
-      bytes: picModel.bytes,
-      path: picModel.path,
-      storageMetaModel: picModel.meta,
+      bytes: picModel?.bytes,
+      path: picModel?.path,
+      storageMetaModel: picModel?.meta,
     );
 
     if (_url == null){
@@ -46,10 +46,10 @@ class PicStorageOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<PicModel> readPic({
-    required String path,
+  static Future<PicModel?> readPic({
+    required String? path,
   }) async {
-    PicModel _picModel;
+    PicModel? _picModel;
 
     if (TextCheck.isEmpty(path) == false){
 
@@ -79,8 +79,8 @@ class PicStorageOps {
         _meta = StorageMetaModel(
           ownersIDs: const ['non'],
           name: path,
-          height: _dims.height,
-          width: _dims.width,
+          height: _dims?.height,
+          width: _dims?.width,
           sizeMB: _mega,
         );
       }
@@ -101,11 +101,11 @@ class PicStorageOps {
 
   // --------------------
   /// TASK : TEST ME
-  static Future<PicModel> updatePic({
-    required PicModel picModel,
+  static Future<PicModel?> updatePic({
+    required PicModel? picModel,
   }) async {
 
-    final PicModel _uploaded = await createPic(picModel);
+    final PicModel? _uploaded = await createPic(picModel);
 
     return _uploaded;
   }
@@ -115,25 +115,27 @@ class PicStorageOps {
 
   // --------------------
   /// TASK : TEST ME
-  static Future<void> deletePic(String path) async {
+  static Future<void> deletePic(String? path) async {
     blog('deletePic : START');
 
-    await Storage.deleteDoc(
-      path: path,
-      currentUserID: Authing.getUserID(),
-    );
+    if (path != null && Authing.getUserID() != null){
+      await Storage.deleteDoc(
+        path: path,
+        currentUserID: Authing.getUserID()!,
+      );
+    }
 
     blog('deletePic : END');
   }
   // --------------------
   /// TASK : TEST ME
-  static Future<void> deletePics(List<String> paths) async {
+  static Future<void> deletePics(List<String>? paths) async {
 
-    if (Mapper.checkCanLoopList(paths) == true){
+    if (Authing.getUserID() != null && Mapper.checkCanLoopList(paths) == true){
 
       await Storage.deleteDocs(
-        paths: paths,
-        currentUserID: Authing.getUserID(),
+        paths: paths!,
+        currentUserID: Authing.getUserID()!,
       );
 
     }

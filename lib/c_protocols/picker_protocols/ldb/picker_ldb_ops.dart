@@ -3,7 +3,6 @@ import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:flutter/material.dart';
 
 class PickerLDBOps{
   // -----------------------------------------------------------------------------
@@ -40,15 +39,19 @@ class PickerLDBOps{
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<PickerModel>> readPickers({
-    required FlyerType flyerType,
+    required FlyerType? flyerType,
   }) async {
 
     List<PickerModel> _pickers = <PickerModel>[];
 
-    final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
+    final String? _pickersID = PickerModel.getPickersIDByFlyerType(flyerType);
+
+    if (_pickersID != null){
+
+          final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
         docName: LDBDoc.pickers,
         primaryKey: LDBDoc.getPrimaryKey(LDBDoc.pickers),
-        ids: <String>[PickerModel.getPickersIDByFlyerType(flyerType)]
+        ids: <String>[_pickersID]
     );
 
     if (Mapper.checkCanLoopList(_maps) == true){
@@ -56,6 +59,8 @@ class PickerLDBOps{
       final Map<String, dynamic> _map = _maps.first['pickers'];
 
       _pickers = PickerModel.decipherPickers(_map);
+
+    }
 
     }
 

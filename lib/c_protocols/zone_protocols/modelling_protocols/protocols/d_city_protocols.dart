@@ -10,7 +10,6 @@ import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/sta
 import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 /// => TAMAM
 class CityProtocols {
   // -----------------------------------------------------------------------------
@@ -24,7 +23,7 @@ class CityProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> composeCity({
-    required CityModel cityModel,
+    required CityModel? cityModel,
   }) async {
 
     if (cityModel != null){
@@ -58,10 +57,10 @@ class CityProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<CityModel> fetchCity({
-    required String cityID,
+  static Future<CityModel?> fetchCity({
+    required String? cityID,
   }) async {
-    CityModel _output;
+    CityModel? _output;
 
     if (cityID != null){
 
@@ -105,7 +104,7 @@ class CityProtocols {
   /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> fetchCities({
     required List<String> citiesIDs,
-    ValueChanged<CityModel> onCityRead,
+    ValueChanged<CityModel>? onCityRead,
   }) async {
 
     final List<CityModel> _cities = <CityModel>[];
@@ -118,7 +117,7 @@ class CityProtocols {
 
           return fetchCity(
             cityID: citiesIDs[index],
-          ).then((CityModel city) {
+          ).then((CityModel? city) {
 
             if (city != null) {
 
@@ -154,7 +153,7 @@ class CityProtocols {
 
     if (TextCheck.isEmpty(countryID) == false){
 
-      final StagingModel _citiesStages = await StagingProtocols.fetchCitiesStaging(
+      final StagingModel? _citiesStages = await StagingProtocols.fetchCitiesStaging(
         countryID: countryID,
       );
 
@@ -169,7 +168,7 @@ class CityProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> fetchCitiesOfCountryByIDs({
-    required List<String> citiesIDsOfThisCountry,
+    required List<String>? citiesIDsOfThisCountry,
   }) async {
     List<CityModel> _output = <CityModel>[];
 
@@ -182,7 +181,7 @@ class CityProtocols {
       // blog('ldb cities aho');
       // CityModel.blogCities(_ldbCities);
 
-      if (_ldbCities.length == citiesIDsOfThisCountry.length){
+      if (_ldbCities.length == citiesIDsOfThisCountry!.length){
         _output = _ldbCities;
       }
 
@@ -193,27 +192,33 @@ class CityProtocols {
 
         /// COLLECT NOT FOUND CITIES
         final List<String> _citiesIDsToReadFromReal = <String>[];
-        for (final String cityID in citiesIDsOfThisCountry){
-          final bool _wasInLDB = CityModel.checkCitiesIncludeCityID(_ldbCities, cityID);
-          if (_wasInLDB == false){
-            _citiesIDsToReadFromReal.add(cityID);
+
+        if (Mapper.checkCanLoopList(citiesIDsOfThisCountry) == true){
+
+          for (final String cityID in citiesIDsOfThisCountry){
+            final bool _wasInLDB = CityModel.checkCitiesIncludeCityID(_ldbCities, cityID);
+            if (_wasInLDB == false){
+              _citiesIDsToReadFromReal.add(cityID);
+            }
           }
-        }
 
-        /// READ REMAINING CITIES FROM REAL
-        final List<CityModel> _remainingCities = await CityRealOps.readCities(
-          citiesIDs: _citiesIDsToReadFromReal,
-        );
-
-        if (Mapper.checkCanLoopList(_remainingCities) == true){
-
-          await CityLDBOps.insertCities(
-            cities: _remainingCities,
+          /// READ REMAINING CITIES FROM REAL
+          final List<CityModel> _remainingCities = await CityRealOps.readCities(
+            citiesIDs: _citiesIDsToReadFromReal,
           );
 
-          _output.addAll(_remainingCities);
+          if (Mapper.checkCanLoopList(_remainingCities) == true){
+
+            await CityLDBOps.insertCities(
+              cities: _remainingCities,
+            );
+
+            _output.addAll(_remainingCities);
+
+          }
 
         }
+
 
       }
 
@@ -228,11 +233,17 @@ class CityProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> renovateCity({
-    required CityModel oldCity,
-    required CityModel newCity,
+    required CityModel? oldCity,
+    required CityModel? newCity,
   }) async {
 
-    if (CityModel.checkCitiesAreIdentical(oldCity, newCity) == false){
+    if (
+        oldCity != null
+        &&
+        newCity != null
+        &&
+        CityModel.checkCitiesAreIdentical(oldCity, newCity) == false
+    ){
 
       await Future.wait(<Future>[
 
@@ -248,8 +259,8 @@ class CityProtocols {
 
         /// UPDATE CITY PHRASE IN FIRE
         if (Phrase.checkPhrasesListsAreIdentical(
-            phrases1: oldCity?.phrases,
-            phrases2: newCity?.phrases
+            phrases1: oldCity.phrases,
+            phrases2: newCity.phrases
         ) == false)
         CityPhraseFireOps.updateCityPhrases(
             cityModel: newCity
@@ -267,7 +278,7 @@ class CityProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> wipeCity({
-    required CityModel cityModel,
+    required CityModel? cityModel,
   }) async {
 
     if (cityModel != null){

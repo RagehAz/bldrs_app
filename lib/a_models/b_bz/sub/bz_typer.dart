@@ -267,7 +267,7 @@ class BzTyper {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String getBzTypePhid({
-    required BzType bzType,
+    required BzType? bzType,
     bool nounTranslation = true,
     bool pluralTranslation = true,
   }){
@@ -321,14 +321,14 @@ class BzTyper {
   /// TESTED : WORKS PERFECT
   static List<String> getBzTypesPhids({
     required BuildContext context,
-    required List<BzType> bzTypes,
+    required List<BzType>? bzTypes,
     bool pluralTranslation = true,
   }){
     final List<String> _strings = <String>[];
 
     if (Mapper.checkCanLoopList(bzTypes) == true){
 
-      for (final BzType type in bzTypes){
+      for (final BzType type in bzTypes!){
 
         final String _bzTypePhid = getBzTypePhid(
           bzType: type,
@@ -347,8 +347,8 @@ class BzTyper {
   /// TESTED : WORKS PERFECT
   static String translateBzTypesIntoString({
     required BuildContext context,
-    required List<BzType> bzTypes,
-    required BzForm bzForm,
+    required List<BzType>? bzTypes,
+    required BzForm? bzForm,
     bool oneLine = false,
   }){
 
@@ -369,7 +369,7 @@ class BzTyper {
       strings: _typesTranslated,
     ) ?? '';
 
-    final String _bzFormPhid = getBzFormPhid(bzForm)!;
+    final String? _bzFormPhid = getBzFormPhid(bzForm)!;
     final String _formTranslated = xPhrase(_bzFormPhid) ?? '';
 
     String _output = '$_bzTypesOneString\n$_formTranslated';
@@ -715,7 +715,7 @@ class BzTyper {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String? getBzFormPhid(BzForm bzForm){
+  static String? getBzFormPhid(BzForm? bzForm){
 
     if (bzForm == BzForm.company){
       return 'phid_company';

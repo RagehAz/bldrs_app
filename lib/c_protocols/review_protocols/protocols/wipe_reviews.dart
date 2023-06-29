@@ -4,7 +4,6 @@ import 'package:fire/super_fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:flutter/material.dart';
 
 class WipeReviewProtocols {
   // -----------------------------------------------------------------------------
@@ -18,8 +17,8 @@ class WipeReviewProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> wipeSingleReview({
-    required ReviewModel reviewModel,
-    required String bzID,
+    required ReviewModel? reviewModel,
+    required String? bzID,
   }) async {
     /// 1. delete sub doc (fire/flyers/flyerID/reviews/reviewID)
     /// 2. delete reviewAgrees node (real/agreesOnReviews/reviewID)
@@ -27,7 +26,8 @@ class WipeReviewProtocols {
     /// 4. decrement bzz counter field (real/countingBzz/bzID/allReviews)
 
     if (
-        reviewModel != null &&
+        reviewModel?.flyerID != null &&
+        reviewModel?.id != null &&
         bzID != null &&
         Authing.userHasID() == true
     ) {
@@ -37,17 +37,17 @@ class WipeReviewProtocols {
         /// DELETE REVIEW SUB DOC
         Fire.deleteDoc(
           coll: FireColl.flyers,
-          doc: reviewModel.flyerID,
+          doc: reviewModel!.flyerID!,
           subColl: FireSubColl.flyers_flyer_reviews,
-          subDoc: reviewModel.id,
+          subDoc: reviewModel.id!,
         ),
 
         /// DELETE REVIEW AGREES
         Real.deletePath(
           pathWithDocName: RealPath.agrees_bzID_flyerID_reviewID(
             bzID: bzID,
-            flyerID: reviewModel.flyerID,
-            reviewID: reviewModel.id,
+            flyerID: reviewModel.flyerID!,
+            reviewID: reviewModel.id!,
           ),
         ),
 
@@ -67,11 +67,11 @@ class WipeReviewProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<void> onWipeFlyer({
-    required String flyerID,
-    required String bzID,
+    required String? flyerID,
+    required String? bzID,
   }) async {
 
-    if (flyerID != null){
+    if (flyerID != null && bzID != null){
 
       /// DELETE REVIEWS SUB COLL
       await Fire.deleteColl(
@@ -98,8 +98,8 @@ class WipeReviewProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<void> onWipeBz({
-    required List<String> flyersIDs,
-    required String bzID,
+    required List<String>? flyersIDs,
+    required String? bzID,
   }) async {
 
     if (bzID != null){
@@ -108,7 +108,7 @@ class WipeReviewProtocols {
 
         /// WIPE ALL REVIEWS OF ALL FLYERS
         if (Mapper.checkCanLoopList(flyersIDs) == true)
-          ...List.generate(flyersIDs.length, (index) {
+          ...List.generate(flyersIDs!.length, (index) {
             return Fire.deleteColl(
               coll: FireColl.flyers,
               doc: flyersIDs[index],

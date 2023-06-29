@@ -1290,10 +1290,10 @@ class FlyerDim {
     required BuildContext context,
     required Axis scrollDirection,
     required int numberOfColumnsOrRows,
-    required double gridWidth,
-    required double gridHeight,
+    required double? gridWidth,
+    required double? gridHeight,
     required bool hasResponsiveSideMargin,
-    double spacingRatio,
+    double? spacingRatio,
   }){
 
     if (scrollDirection == Axis.vertical){

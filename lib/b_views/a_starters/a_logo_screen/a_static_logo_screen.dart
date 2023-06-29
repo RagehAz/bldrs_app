@@ -5,7 +5,6 @@ import 'package:bldrs/b_views/a_starters/a_logo_screen/x_logo_screen_controllers
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +25,7 @@ class StaticLogoScreen extends StatefulWidget {
 
 class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProviderStateMixin {
   // -----------------------------------------------------------------------------
-  AnimationController _scaleController;
+  late AnimationController _scaleController;
   // final String error;
   static const int _fadeCycleDuration = 800;
   // -----------------------------------------------------------------------------

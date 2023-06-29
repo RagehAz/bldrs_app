@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 typedef UserModelWidgetBuilder = Widget Function(
     BuildContext context,
-    UserModel userModel,
+    UserModel? userModel,
     );
 // -----------------------------------------------------------------------------
 /*
@@ -48,12 +48,12 @@ Widget userModelBuilder({
   required BuildContext context,
   required UserModelWidgetBuilder builder,
 }) {
-  return FutureBuilder<Map<String, dynamic>>(
+  return FutureBuilder<Map<String, dynamic>?>(
       future: Fire.readDoc(
         coll: FireColl.users,
         doc: userID,
       ),
-      builder: (BuildContext ctx, AsyncSnapshot<Object> snapshot) {
+      builder: (BuildContext ctx, AsyncSnapshot<Map<String, dynamic>?> snapshot) {
 
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Loading(
@@ -66,8 +66,8 @@ Widget userModelBuilder({
         }
 
         else {
-          final Map<String, dynamic> _map = snapshot.data;
-          final UserModel userModel = UserModel.decipherUser(
+          final Map<String, dynamic>? _map = snapshot.data;
+          final UserModel? userModel = UserModel.decipherUser(
             map: _map,
             fromJSON: false,
           );

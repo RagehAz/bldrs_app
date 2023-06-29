@@ -298,7 +298,7 @@ class ChainsProvider extends ChangeNotifier {
     required bool notify,
   }) async {
 
-    final ZonePhidsModel _zonePhidsModel = await ZonePhidsRealOps.readZonePhidsOfCurrentZone();
+    final ZonePhidsModel? _zonePhidsModel = await ZonePhidsRealOps.readZonePhidsOfCurrentZone();
 
     _setZonePhidModels(
       zonePhidsModel: _zonePhidsModel,
@@ -309,7 +309,7 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void _setZonePhidModels({
-    required ZonePhidsModel zonePhidsModel,
+    required ZonePhidsModel? zonePhidsModel,
     required bool notify,
   }){
 
@@ -796,7 +796,7 @@ class ChainsProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  String getPhidIcon({
+  String? getPhidIcon({
     required dynamic son,
   }) {
 
@@ -819,7 +819,7 @@ class ChainsProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String proGetPhidIcon({
+  static String? proGetPhidIcon({
     required dynamic son,
   }){
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);

@@ -12,7 +12,7 @@ class GoBackWidget extends StatefulWidget {
     super.key
   });
   // -----------------------------------------------------------------------------
-  final Function onGoBack;
+  final Function? onGoBack;
   // -----------------------------------------------------------------------------
   @override
   State<GoBackWidget> createState() => _GoBackWidgetState();
@@ -41,9 +41,7 @@ class _GoBackWidgetState extends State<GoBackWidget> {
       _triggerLoading(setTo: true).then((_) async {
         // -------------------------------
 
-        if (widget.onGoBack != null){
-          widget.onGoBack();
-        }
+        widget.onGoBack?.call();
 
         await Nav.pushHomeAndRemoveAllBelow(
           context: context,

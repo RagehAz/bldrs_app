@@ -277,7 +277,7 @@ class FlyerModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<FlyerModel>? decipherFlyers({
+  static List<FlyerModel> decipherFlyers({
     required List<Map<String, dynamic>>? maps,
     required bool fromJSON,
   }){
