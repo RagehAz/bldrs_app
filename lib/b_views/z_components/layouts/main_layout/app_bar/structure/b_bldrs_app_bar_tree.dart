@@ -25,30 +25,30 @@ class BldrsAppBarTree extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final AppBarType appBarType;
+  final AppBarType? appBarType;
   final Function onBack;
-  final Verse pageTitleVerse;
-  final List<Widget> appBarRowWidgets;
-  final ValueNotifier<bool> loading;
-  final ValueNotifier<ProgressBarModel> progressBarModel;
-  final ScrollController appBarScrollController;
-  final bool sectionButtonIsOn;
-  final TextEditingController searchController;
-  final ValueChanged<String> onSearchSubmit;
-  final ValueChanged<String> onPaste;
-  final ValueChanged<String> onSearchChanged;
+  final Verse? pageTitleVerse;
+  final List<Widget>? appBarRowWidgets;
+  final ValueNotifier<bool>? loading;
+  final ValueNotifier<ProgressBarModel>? progressBarModel;
+  final ScrollController? appBarScrollController;
+  final bool? sectionButtonIsOn;
+  final TextEditingController? searchController;
+  final ValueChanged<String>? onSearchSubmit;
+  final ValueChanged<String>? onPaste;
+  final ValueChanged<String>? onSearchChanged;
   final bool searchButtonIsOn;
-  final Verse searchHintVerse;
+  final Verse? searchHintVerse;
   final bool canGoBack;
-  final Function onSearchCancelled;
-  final GlobalKey globalKey;
-  final ValueNotifier<bool> filtersAreOn;
-  final Widget filters;
+  final Function? onSearchCancelled;
+  final GlobalKey? globalKey;
+  final ValueNotifier<bool>? filtersAreOn;
+  final Widget? filters;
   // -----------------------------------------------------------------------------
   bool _sectionButtonIsOnCheck() {
 
     if (sectionButtonIsOn != null) {
-      return sectionButtonIsOn;
+      return sectionButtonIsOn!;
     }
     else if (sectionButtonIsOn == false) {
       return false;

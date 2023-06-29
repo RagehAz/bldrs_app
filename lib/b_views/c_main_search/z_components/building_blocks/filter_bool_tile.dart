@@ -19,7 +19,7 @@ class FilterBoolTile extends StatelessWidget {
   final Verse verse;
   final String icon;
   final bool iconIsBig;
-  final bool switchValue;
+  final bool? switchValue;
   final Function(bool value) onSwitchTap;
   // -----------------------------------------------------------------------------
   @override

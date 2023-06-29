@@ -9,9 +9,7 @@ import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 
 /// => TAMAM
 class ZoneSearchOps {
@@ -30,13 +28,14 @@ class ZoneSearchOps {
   static Future<List<Phrase>> searchTheCosmos({
     required String text,
   }) async {
-    final List<Phrase> _countriesByIDs = ZoneProtocols.searchCountriesByIDFromAllFlags(
+
+    final List<Phrase>? _countriesByIDs = ZoneProtocols.searchCountriesByIDFromAllFlags(
       text: text,
     );
 
-    List<Phrase> _countriesByName;
-    List<Phrase> _citiesByID;
-    List<Phrase> _citiesByName;
+    List<Phrase>? _countriesByName;
+    List<Phrase>? _citiesByID;
+    List<Phrase>? _citiesByName;
 
     await Future.wait(<Future>[
       /// COUNTRIES BY NAME
@@ -72,7 +71,7 @@ class ZoneSearchOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> searchCountriesByIDFromAllFlags({
-    required String text,
+    required String? text,
   }) {
     final List<Phrase> _output = <Phrase>[];
 
@@ -81,12 +80,15 @@ class ZoneSearchOps {
     if (_textIsEng == true) {
       for (final Flag flag in allFlags) {
         if (text == flag.id) {
-          final Phrase _phrase = Phrase.searchFirstPhraseByLang(
+          final Phrase? _phrase = Phrase.searchFirstPhraseByLang(
             phrases: flag.phrases,
             langCode: 'en',
           );
 
-          _output.add(_phrase);
+          if (_phrase != null){
+            _output.add(_phrase);
+          }
+
         }
       }
     }
@@ -96,7 +98,7 @@ class ZoneSearchOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> searchCountriesByNameFromLDBFlags({
-    required String text,
+    required String? text,
   }) async {
     List<Phrase> _phrases = <Phrase>[];
 
@@ -205,8 +207,8 @@ class ZoneSearchOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> searchCitiesOfCountryByNameFromFire({
-    required String text,
-    required String countryID,
+    required String? text,
+    required String? countryID,
     int limit = 10,
     QueryDocumentSnapshot<Object>? startAfter,
   }) async {
@@ -246,12 +248,16 @@ class ZoneSearchOps {
     /// ADD ALL MIXED LANG PHRASES IN THE LIST
     for (final String langCode in langCodes) {
       for (final CityModel city in sourceCities) {
-        final Phrase _cityPhrase = Phrase.searchPhraseByIDAndLangCode(
+        final Phrase? _cityPhrase = Phrase.searchPhraseByIDAndLangCode(
           phid: city.cityID,
           langCode: langCode,
           phrases: city.phrases,
         );
-        _citiesPhrases.add(_cityPhrase);
+
+        if (_cityPhrase != null){
+          _citiesPhrases.add(_cityPhrase);
+        }
+
       }
     }
 
@@ -280,11 +286,15 @@ class ZoneSearchOps {
     if (Mapper.checkCanLoopList(sourceCities) && Mapper.checkCanLoopList(phrases)) {
       for (final Phrase phrase in phrases) {
         for (final CityModel city in sourceCities) {
-          if (city.phrases.contains(phrase)) {
-            if (!_foundCities.contains(city)) {
-              _foundCities.add(city);
+
+          if (Mapper.checkCanLoopList(phrases) == true){
+            if (city.phrases!.contains(phrase) == true) {
+              if (!_foundCities.contains(city) == true) {
+                _foundCities.add(city);
+              }
             }
           }
+
         }
       }
     }
@@ -297,17 +307,17 @@ class ZoneSearchOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<CityModel> searchFetchCityByName({
-    required String cityName,
-    required String langCode,
-    required String countryID,
+  static Future<CityModel?> searchFetchCityByName({
+    required String? cityName,
+    required String? langCode,
+    required String? countryID,
   }) async {
-    CityModel _city;
+    CityModel? _city;
 
     if (TextCheck.isEmpty(cityName) == false) {
       /// A - trial 1 : search by generated cityID
       if (countryID != null) {
-        final String _cityID = CityModel.createCityID(
+        final String? _cityID = CityModel.createCityID(
           countryID: countryID,
           cityEnName: cityName,
         );
@@ -360,7 +370,7 @@ class ZoneSearchOps {
 
           /// D-2 if multiple cities found
           else {
-            final CityModel _selectedCity = await Dialogs.confirmCityDialog(
+            final CityModel? _selectedCity = await Dialogs.confirmCityDialog(
               cities: _foundCities,
             );
 
@@ -377,8 +387,8 @@ class ZoneSearchOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> _fetchCitiesByCityName({
-    required String cityName,
-    required String lingoCode,
+    required String? cityName,
+    required String? lingoCode,
   }) async {
     List<CityModel> _cities = <CityModel>[];
 
@@ -402,9 +412,9 @@ class ZoneSearchOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> _fetchCitiesOfCountryByCityName({
-    required String cityName,
-    required String countryID,
-    required String lingoCode,
+    required String? cityName,
+    required String? countryID,
+    required String? lingoCode,
   }) async {
     List<CityModel> _cities = <CityModel>[];
 
@@ -429,8 +439,8 @@ class ZoneSearchOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> _searchLDBCitiesByName({
-    required String cityName,
-    required String langCode,
+    required String? cityName,
+    required String? langCode,
   }) async {
     final List<Map<String, dynamic>> _foundMaps = await LDBOps.searchLDBDocTrigram(
       searchValue: cityName,

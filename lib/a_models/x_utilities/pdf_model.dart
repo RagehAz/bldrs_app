@@ -191,7 +191,7 @@ class PDFModel {
   /// TESTED : WORKS PERFECT
   static Verse getSizeLine({
     required bool sizeLimitReached,
-    required double size,
+    required double? size,
     required int maxSize,
   }){
 

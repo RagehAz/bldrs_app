@@ -18,13 +18,13 @@ class ZoneProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> fetchSetContinentByCountryID({
-    required String countryID,
+    required String? countryID,
     required bool notify,
   }) async {
 
     final List<Continent> _allContinents = await ZoneProtocols.readAllContinents();
 
-    final Continent _continent = Continent.getContinentFromContinentsByCountryID(
+    final Continent? _continent = Continent.getContinentFromContinentsByCountryID(
       continents: _allContinents,
       countryID: countryID,
     );
@@ -97,11 +97,11 @@ class ZoneProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> fetchSetCurrentCompleteZone({
-    required ZoneModel zone,
+    required ZoneModel? zone,
     required bool notify,
   }) async {
 
-    final ZoneModel _completeZone = await ZoneProtocols.completeZoneModel(
+    final ZoneModel? _completeZone = await ZoneProtocols.completeZoneModel(
       incompleteZoneModel: zone,
     );
 
@@ -109,13 +109,13 @@ class ZoneProvider extends ChangeNotifier {
 
       /// CURRENCIES
       _fetchSetAllCurrenciesAndCurrentCurrency(
-        countryID: zone.countryID,
+        countryID: zone?.countryID,
         notify: false,
       ),
 
       /// CONTINENTS
       fetchSetContinentByCountryID(
-        countryID: zone.countryID,
+        countryID: zone?.countryID,
         notify: false,
       ),
 
@@ -171,8 +171,8 @@ class ZoneProvider extends ChangeNotifier {
   /// CURRENCY
 
   // --------------------
-  List<CurrencyModel> _allCurrencies = <CurrencyModel>[];
-  List<CurrencyModel> get allCurrencies => _allCurrencies;
+  List<CurrencyModel>? _allCurrencies = <CurrencyModel>[];
+  List<CurrencyModel>? get allCurrencies => _allCurrencies;
   // --------------------
   CurrencyModel? _currentCurrency;
   CurrencyModel? get currentCurrency => _currentCurrency;
@@ -183,11 +183,11 @@ class ZoneProvider extends ChangeNotifier {
     required bool listen,
   }){
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: listen);
-    return _zoneProvider.allCurrencies;
+    return _zoneProvider.allCurrencies ?? [];
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static CurrencyModel proGetCurrencyByCountryID({
+  static CurrencyModel? proGetCurrencyByCountryID({
     required BuildContext context,
     required String countryID,
     required bool listen,
@@ -195,9 +195,9 @@ class ZoneProvider extends ChangeNotifier {
 
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: listen);
 
-    final CurrencyModel _currency = CurrencyModel.getCurrencyFromCurrenciesByCountryID(
+    final CurrencyModel? _currency = CurrencyModel.getCurrencyFromCurrenciesByCountryID(
         currencies: _zoneProvider.allCurrencies,
-        countryID: countryID
+        countryID: countryID,
     );
 
     return _currency;
@@ -206,7 +206,7 @@ class ZoneProvider extends ChangeNotifier {
   /// TESTED : WORKS PERFECT
   static CurrencyModel? proGetCurrencyByCurrencyID({
     required BuildContext context,
-    required String currencyID,
+    required String? currencyID,
     required bool listen,
   }){
     CurrencyModel? _currency;
@@ -227,7 +227,7 @@ class ZoneProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _fetchSetAllCurrenciesAndCurrentCurrency({
-    required String countryID,
+    required String? countryID,
     required bool notify,
   }) async {
 
@@ -235,7 +235,7 @@ class ZoneProvider extends ChangeNotifier {
 
     final List<CurrencyModel> _currencies = await ZoneProtocols.fetchCurrencies();
 
-    final CurrencyModel _currencyByCountryID = CurrencyModel.getCurrencyFromCurrenciesByCountryID(
+    final CurrencyModel? _currencyByCountryID = CurrencyModel.getCurrencyFromCurrenciesByCountryID(
       currencies: _currencies,
       countryID: countryID,
     );
@@ -253,13 +253,14 @@ class ZoneProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void getSetCurrentCurrency({
-    required ZoneModel zone,
+    required ZoneModel? zone,
     required bool notify,
   }){
 
     if (zone != null && zone.countryID != null){
 
-      final CurrencyModel _currencyByCountryID = CurrencyModel.getCurrencyFromCurrenciesByCountryID(
+      final CurrencyModel? _currencyByCountryID = CurrencyModel
+          .getCurrencyFromCurrenciesByCountryID(
         currencies: _allCurrencies,
         countryID: _currentZone?.countryID,
       );
@@ -278,8 +279,8 @@ class ZoneProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void _setAllCurrenciesAndCurrentCurrency({
-    required List<CurrencyModel> allCurrencies,
-    required CurrencyModel currentCurrency,
+    required List<CurrencyModel>? allCurrencies,
+    required CurrencyModel? currentCurrency,
     required bool notify,
   }){
     _allCurrencies = allCurrencies;

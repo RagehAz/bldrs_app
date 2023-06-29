@@ -42,7 +42,7 @@ class ZoneModel {
     required ZoneModel? zoneModel,
   }) async {
 
-    final ZoneModel _zone =
+    final ZoneModel? _zone =
             zoneModel
             ??
             ZoneProvider.proGetCurrentZone(context: getMainContext(), listen: false)

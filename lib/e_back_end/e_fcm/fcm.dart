@@ -154,7 +154,7 @@ class FCM {
   static Future<bool> checkIsAwesomeNootAllowed() async {
     bool _allowed = false;
 
-    final AwesomeNotifications _awesomeNotification = getAwesomeNoots();
+    final AwesomeNotifications? _awesomeNotification = getAwesomeNoots();
 
     if (_awesomeNotification != null){
       _allowed = await _awesomeNotification.isNotificationAllowed();
@@ -185,10 +185,10 @@ class FCM {
     // }
 
     final NotificationSettings _settings = await FirebaseMessaging.instance.requestPermission(
-      alert: true,
-      badge: true,
-      provisional: false,
-      sound: true,
+      // alert: true,
+      // badge: true,
+      // provisional: false,
+      // sound: true,
       announcement: true,
       carPlay: true,
       criticalAlert: true,
@@ -290,9 +290,9 @@ class FCM {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> pushGlobalNoot({
-    required ChannelModel channelModel,
-    required String title,
-    required String body,
+    required ChannelModel? channelModel,
+    required String? title,
+    required String? body,
     Map<String, String>? payloadMap,
     String? largeIconURL,
     Progress? progress,
@@ -303,33 +303,40 @@ class FCM {
     List<String>? buttonsTexts,
   }) async {
 
-    final String _largeIconURL = await getNootPicURLIfNotURL(largeIconURL);
-    final String _posterURL = await getNootPicURLIfNotURL(posterURL);
+    final String? _largeIconURL = await getNootPicURLIfNotURL(largeIconURL);
+    final String? _posterURL = await getNootPicURLIfNotURL(posterURL);
 
     await tryAndCatch(
       invoker: 'pushGlobalNotification',
       functions: () async {
 
-        await getAwesomeNoots()?.createNotification(
-          /// CONTENT
-          content: _createGlobalNootContent(
-            channelModel: channelModel,
-            body: body,
-            title: title,
-            nootIcon: _largeIconURL,
-            posterURL: _posterURL,
-            progress: progress,
-            payloadMap: payloadMap,
-            progressBarIsLoading: progressBarIsLoading,
-            canBeDismissedWithoutTapping: canBeDismissedWithoutTapping,
-          ),
-          /// BUTTONS
-          actionButtons: _createGlobalNootActionButtons(
-            buttonsTexts: buttonsTexts,
-          ),
-          /// SCHEDULE
-          // schedule: _createNootSchedule(),
+        final NotificationContent? _content = _createGlobalNootContent(
+          channelModel: channelModel,
+          body: body,
+          title: title,
+          nootIcon: _largeIconURL,
+          posterURL: _posterURL,
+          progress: progress,
+          payloadMap: payloadMap,
+          progressBarIsLoading: progressBarIsLoading,
+          canBeDismissedWithoutTapping: canBeDismissedWithoutTapping,
         );
+
+        if (_content != null){
+
+          await getAwesomeNoots()?.createNotification(
+            /// CONTENT
+            content: _content,
+            /// BUTTONS
+            actionButtons: _createGlobalNootActionButtons(
+              buttonsTexts: buttonsTexts,
+            ),
+            /// SCHEDULE
+            // schedule: _createNootSchedule(),
+          );
+
+        }
+
 
       },
     );
@@ -337,8 +344,8 @@ class FCM {
   }
   // --------------------
   ///
-  static Future<String> getNootPicURLIfNotURL(String urlOrPath) async {
-    String _url;
+  static Future<String?> getNootPicURLIfNotURL(String? urlOrPath) async {
+    String? _url;
 
     if (TextCheck.isEmpty(urlOrPath) == false){
 
@@ -371,10 +378,10 @@ class FCM {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static NotificationContent _createGlobalNootContent({
-    required ChannelModel channelModel,
-    required String title,
-    required String body,
+  static NotificationContent? _createGlobalNootContent({
+    required ChannelModel? channelModel,
+    required String? title,
+    required String? body,
     bool canBeDismissedWithoutTapping = true,
     String? nootIcon,
     String? posterURL,
@@ -385,9 +392,19 @@ class FCM {
 
     blog('_createNotificationContent : START');
 
-    int _progress;
-    if (progress != null && progressBarIsLoading == false){
-      _progress = ((progress.current / progress.objective) * 100).toInt();
+    int? _progress;
+    if (
+        progress != null
+        &&
+        progressBarIsLoading == false
+        &&
+        progress.objective != null
+        &&
+        progress.current != null
+        &&
+        channelModel != null
+    ){
+      _progress = ((progress.current! / progress.objective!) * 100).toInt();
     }
 
     NotificationLayout _layout;
@@ -409,12 +426,9 @@ class FCM {
       id: Numeric.createUniqueID(maxDigitsCount: 8),
 
       /// CHANNEL
-      channelKey: channelModel.id,
+      channelKey: channelModel!.id,
       summary: channelModel.description,
       groupKey: channelModel.group,
-
-      /// ACTION
-      // actionType: ActionType.Default,
 
       /// TEXT
       title: title,
@@ -426,7 +440,6 @@ class FCM {
       bigPicture: posterURL, // redBldrsBanner,
       /// NOOT ICON
       largeIcon: nootIcon, //NoteParties.bldrsLogoStaticURL,
-      roundedLargeIcon: true,
       hideLargeIconOnExpand: posterURL == null, // in-effective anyways
 
       /// DEVICE STATUS BAR ICON
@@ -451,22 +464,20 @@ class FCM {
       progress: _progress,
 
       /// FAKES
-      // roundedBigPicture: false, /// very silly
-      // autoDismissible: false,
-      // fullScreenIntent: false,
       showWhen: true,
-      // category: NotificationCategory.Email,
-      // criticalAlert: false,
-      // ticker: 'wtf is ticker',
 
-
+      // autoDismissible: ,
+      // category: ,
+      // criticalAlert: ,
+      // fullScreenIntent: ,
+      // ticker: ,
     );
 
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<NotificationActionButton> _createGlobalNootActionButtons({
-    required List<String> buttonsTexts,
+  static List<NotificationActionButton>? _createGlobalNootActionButtons({
+    required List<String>? buttonsTexts,
   }){
 
     /// BUTTONS ARE DEFINED
@@ -474,7 +485,7 @@ class FCM {
 
       final List<NotificationActionButton> _nootButtons = [];
 
-      for (final String buttonText in buttonsTexts) {
+      for (final String buttonText in buttonsTexts!) {
         _nootButtons.add(_createGlobalNootActionButton(
           text: buttonText,
         ));
@@ -530,7 +541,9 @@ class FCM {
 
   // --------------------
   ///
-  static Future<void> onLocalNootTap(String payload) async {
+  static Future<void> onLocalNootTap(NotificationResponse? payload) async {
+
+    FCM.blogNotificationResponse(payload);
 
     if (payload != null) {
 
@@ -613,7 +626,7 @@ class FCM {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> subscribeToTopic({
-    String topicID
+    String? topicID
   }) async {
 
     /*
@@ -643,7 +656,7 @@ class FCM {
 
     if (Authing.userIsSignedUp(_user?.signInMethod) == true){
       blog('User : ${Authing.getUserID()} subscribed to topic : $topicID');
-      if (FCMStarter.canInitializeFCM() == true){
+      if (FCMStarter.canInitializeFCM() == true && topicID != null){
         await FirebaseMessaging.instance.subscribeToTopic(topicID);
       }
     }
@@ -669,9 +682,9 @@ class FCM {
   }
   // --------------------
   /// TESTED : WORKS PERFECT : TASK : SHOULD BE DONE ON SERVER SIDE TO CONCEAL FCM SERVER KEY
-  static Future<List<String>> readMySubscribedTopics(BuildContext context) async {
+  static Future<List<String>?> readMySubscribedTopics(BuildContext context) async {
 
-    List<String> _topics;
+    List<String>? _topics;
 
     final UserModel? _myUserModel = UsersProvider.proGetMyUserModel(
       context: context,
@@ -680,27 +693,29 @@ class FCM {
 
     const String fcmServerKey = BldrsKeys.fcmServerKey;
 
-    final String token = _myUserModel.device.token;
+    final String? token = _myUserModel?.device?.token;
 
-    final Response? _result = await Rest.get(
-      rawLink: 'https://iid.googleapis.com/iid/info/$token?details=true',
-      headers: {
-        'Authorization': 'Bearer $fcmServerKey',
-        // 'Content-Type': 'application/json',
-        // 'Authorization': 'key=$fcmServerKey',
-      },
-      invoker: 'readMySubscribedTopics',
-    );
+    if (token != null){
 
-    if (_result?.body != null){
-
-      final Map<String, dynamic> _map = json.decode(_result.body);
-
-      final Map<String, dynamic> _topicsMap = Mapper.getMapFromIHLMOO(
-          ihlmoo: _map['rel']['topics'],
+      final Response? _result = await Rest.get(
+        rawLink: 'https://iid.googleapis.com/iid/info/$token?details=true',
+        headers: {
+          'Authorization': 'Bearer $fcmServerKey',
+          // 'Content-Type': 'application/json',
+          // 'Authorization': 'key=$fcmServerKey',
+        },
+        invoker: 'readMySubscribedTopics',
       );
 
-      _topics = _topicsMap.keys.toList();
+      if (_result?.body != null) {
+        final Map<String, dynamic> _map = json.decode(_result!.body);
+
+        final Map<String, dynamic>? _topicsMap = Mapper.getMapFromIHLMOO(
+          ihlmoo: _map['rel']['topics'],
+        );
+
+        _topics = _topicsMap?.keys.toList();
+      }
 
     }
 
@@ -759,7 +774,7 @@ class FCM {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<int> getGlobalBadgeNumber() async {
-    final int _num = await getAwesomeNoots()?.getGlobalBadgeCounter();
+    final int? _num = await getAwesomeNoots()?.getGlobalBadgeCounter();
     // blog('getGlobalBadgeNumber : _num : $_num');
     return _num ?? 0;
   }
@@ -792,7 +807,7 @@ class FCM {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogRemoteMessage({
-    required RemoteMessage remoteMessage,
+    required RemoteMessage? remoteMessage,
     required String invoker,
   }) {
 
@@ -828,7 +843,7 @@ class FCM {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogNootSettings({
-    required NotificationSettings settings,
+    required NotificationSettings? settings,
     required String invoker,
   }){
 
@@ -854,6 +869,22 @@ class FCM {
     }
 
     blog('blogNootSettings : $invoker : END');
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void blogNotificationResponse(NotificationResponse? res){
+
+    if (res == null){
+      blog('blogNotificationResponse : response is null');
+    }
+    else {
+      blog('blogNotificationResponse : res.id : ${res.id}');
+      blog('blogNotificationResponse : res.input : ${res.input}');
+      blog('blogNotificationResponse : res.actionId : ${res.actionId}');
+      blog('blogNotificationResponse : res.notificationResponseType : ${res.notificationResponseType}');
+      blog('blogNotificationResponse : res.payload : ${res.payload}');
+    }
 
   }
   // -----------------------------------------------------------------------------

@@ -4,7 +4,6 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 
 class FetchUserProtocols {
@@ -24,7 +23,7 @@ class FetchUserProtocols {
   }) async {
 
     /// 1 - GET USER FROM LDB
-    UserModel _userModel= await UserLDBOps.readUserOps(
+    UserModel? _userModel= await UserLDBOps.readUserOps(
       userID: userID,
     );
 
@@ -74,7 +73,7 @@ class FetchUserProtocols {
 
       for (final String userID in usersIDs){
 
-        final UserModel _userModel = await fetchUser(
+        final UserModel? _userModel = await fetchUser(
           context: context,
           userID: userID,
         );

@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/d_user/b_user_editor_screen/user_editor_screen.dart';
@@ -13,7 +11,6 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zo
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:fire/super_fire.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:provider/provider.dart';
@@ -104,8 +101,8 @@ Future<void> _controlMissingFieldsCase({
   required UserModel userModel,
 }) async {
 
-  blog('_controlMissingFieldsCase');
-  userModel?.blogUserModel(invoker: '_controlMissingFieldsCase');
+  // blog('_controlMissingFieldsCase');
+  // userModel.blogUserModel(invoker: '_controlMissingFieldsCase');
 
   await Formers.showUserMissingFieldsDialog(
     userModel: userModel,
@@ -179,16 +176,16 @@ Future<void> initializeUserZone() async {
   // blog('initializeHomeScreen._initializeUserZone : ~~~~~~~~~~ START');
 
   final UsersProvider _userProvider = Provider.of<UsersProvider>(getMainContext(), listen: false);
-  final UserModel _myUserModel = _userProvider.myUserModel;
+  final UserModel? _myUserModel = _userProvider.myUserModel;
 
   if (_myUserModel != null){
 
-    final ZoneModel _userZoneCompleted = await ZoneProtocols.completeZoneModel(
-      incompleteZoneModel: _myUserModel?.zone,
+    final ZoneModel? _userZoneCompleted = await ZoneProtocols.completeZoneModel(
+      incompleteZoneModel: _myUserModel.zone,
     );
 
     UsersProvider.proSetMyUserModel(
-      userModel: _myUserModel?.copyWith(zone: _userZoneCompleted),
+      userModel: _myUserModel.copyWith(zone: _userZoneCompleted),
       notify: true,
     );
 
@@ -213,7 +210,7 @@ Future<void> initializeCurrentZone() async {
     if (_myUserModel?.zone != null && Authing.userIsSignedUp(_myUserModel?.signInMethod) == true){
 
       await _zoneProvider.fetchSetCurrentCompleteZone(
-        zone: _myUserModel.zone,
+        zone: _myUserModel?.zone,
         notify: true,
       );
 
@@ -222,7 +219,7 @@ Future<void> initializeCurrentZone() async {
     /// USER ZONE IS NOT DEFINED
     else {
 
-      final ZoneModel _zoneByIP = await ZoneProtocols.getZoneByIP();
+      final ZoneModel? _zoneByIP = await ZoneProtocols.getZoneByIP();
 
       await _zoneProvider.fetchSetCurrentCompleteZone(
         zone: _zoneByIP,

@@ -23,13 +23,13 @@ class CensusListener {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> onComposeUser(UserModel userModel) async {
+  static Future<void> onComposeUser(UserModel? userModel) async {
 
     // assert(userModel != null, 'userModel is null');
 
     /// INCREMENT USER CENSUS
     await CensusRealOps.updateAllCensus(
-      zoneModel: userModel.zone,
+      zoneModel: userModel?.zone,
       map: CensusModel.createUserCensusMap(
         userModel: userModel,
         isIncrementing: true,
@@ -40,8 +40,8 @@ class CensusListener {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onRenovateUser({
-    required UserModel newUser,
-    required UserModel oldUser,
+    required UserModel? newUser,
+    required UserModel? oldUser,
   }) async {
 
     final bool _shouldUpdateCensus = CensusModel.checkShouldUpdateUserCensus(
@@ -55,7 +55,7 @@ class CensusListener {
 
         /// DECREMENT OLD USER CENSUS
         CensusRealOps.updateAllCensus(
-          zoneModel: oldUser.zone,
+          zoneModel: oldUser?.zone,
           map: CensusModel.createUserCensusMap(
             userModel: oldUser,
             isIncrementing: false,
@@ -64,7 +64,7 @@ class CensusListener {
 
         /// INCREMENT NEW USER CENSUS
         CensusRealOps.updateAllCensus(
-          zoneModel: newUser.zone,
+          zoneModel: newUser?.zone,
           map: CensusModel.createUserCensusMap(
             userModel: newUser,
             isIncrementing: true,
@@ -78,13 +78,13 @@ class CensusListener {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> onWipeUser(UserModel userModel) async {
+  static Future<void> onWipeUser(UserModel? userModel) async {
 
     // assert(userModel != null, 'userModel is null');
 
     /// DECREMENT USER CENSUS
     await CensusRealOps.updateAllCensus(
-      zoneModel: userModel.zone,
+      zoneModel: userModel?.zone,
       map: CensusModel.createUserCensusMap(
         userModel: userModel,
         isIncrementing: false,

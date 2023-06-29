@@ -3,12 +3,10 @@ import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 /// => GEOLOCATOR_DOES_NOT_WORK
 // import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/b_zone_search_protocols.dart';
 // import 'package:bldrs/c_protocols/zone_protocols/positioning_protocols/geo_location/location_ops.dart';
@@ -27,12 +25,12 @@ class ZoneIDsProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<ZoneModel> fetchZoneModelByGeoPoint({
+  static Future<ZoneModel?> fetchZoneModelByGeoPoint({
     required BuildContext context,
-    required GeoPoint geoPoint
+    required GeoPoint? geoPoint
   }) async {
 
-    ZoneModel _zoneModel;
+    ZoneModel? _zoneModel;
 
     /// GEOLOCATOR_DOES_NOT_WORK
     // if (geoPoint != null){
@@ -137,23 +135,23 @@ class ZoneIDsProtocols {
 
         // blog('completeZoneModel : country model is null');
 
-        final CountryModel _bzCountry = await ZoneProtocols.fetchCountry(
+        final CountryModel? _bzCountry = await ZoneProtocols.fetchCountry(
           countryID: incompleteZoneModel.countryID,
         );
 
         // blog('completeZoneModel : got country model : $_bzCountry');
 
-        _output = _output.copyWith(
+        _output = _output?.copyWith(
           countryModel: _bzCountry,
         );
       }
 
       /// CITY MODEL
       if (incompleteZoneModel.cityModel == null){
-        final CityModel _bzCity = await ZoneProtocols.fetchCity(
+        final CityModel? _bzCity = await ZoneProtocols.fetchCity(
           cityID: incompleteZoneModel.cityID,
         );
-        _output = _output.copyWith(
+        _output = _output?.copyWith(
           cityModel: _bzCity,
         );
 
@@ -167,7 +165,7 @@ class ZoneIDsProtocols {
           // langCode:
         )?.id;
 
-        _output = _output.copyWith(
+        _output = _output?.copyWith(
           countryName: _countryName,
         );
 
@@ -176,12 +174,12 @@ class ZoneIDsProtocols {
       /// CITY NAME
       if (TextCheck.isEmpty(incompleteZoneModel.cityName) == true || incompleteZoneModel.cityName == '...'){
 
-        final String _cityName = ZoneProtocols.translateCity(
-          cityModel: _output.cityModel,
+        final String? _cityName = ZoneProtocols.translateCity(
+          cityModel: _output?.cityModel,
           // langCode:
         )?.id;
 
-        _output = _output.copyWith(
+        _output = _output?.copyWith(
           cityName: _cityName,
         );
 
@@ -189,7 +187,7 @@ class ZoneIDsProtocols {
 
       /// FLAG
       if (TextCheck.isEmpty(incompleteZoneModel.icon) == true || incompleteZoneModel.icon == Iconz.dvBlankSVG){
-        _output = _output.copyWith(
+        _output = _output?.copyWith(
           icon: Flag.getCountryIcon(incompleteZoneModel.countryID),
         );
       }

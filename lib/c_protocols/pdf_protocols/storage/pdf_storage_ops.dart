@@ -16,24 +16,33 @@ class PDFStorageOps {
 
   // --------------------
   /// TASK : TEST ME
-  static Future<PDFModel> insert(PDFModel pdfModel) async {
+  static Future<PDFModel?> insert(PDFModel? pdfModel) async {
 
     assert(pdfModel != null, 'picModel is null');
-    assert(pdfModel.bytes != null, 'bytes is null');
-    assert(pdfModel.path != null, 'path is null');
-    assert(Mapper.checkCanLoopList(pdfModel.ownersIDs) == true, 'owners are Empty');
+    assert(pdfModel?.bytes != null, 'bytes is null');
+    assert(pdfModel?.path != null, 'path is null');
+    assert(Mapper.checkCanLoopList(pdfModel?.ownersIDs) == true, 'owners are Empty');
 
-    final String _url = await Storage.uploadBytesAndGetURL(
-      bytes: pdfModel.bytes,
-      path: pdfModel.path,
-      storageMetaModel: pdfModel.createStorageMetaModel(),
-    );
+    if (pdfModel != null && pdfModel.bytes != null && pdfModel.path != null) {
 
-    if (_url == null){
-      return null;
+      final String? _url = await Storage.uploadBytesAndGetURL(
+        bytes: pdfModel.bytes,
+        path: pdfModel.path!,
+        storageMetaModel: pdfModel.createStorageMetaModel()!,
+      );
+
+      if (_url == null) {
+        return null;
+      }
+
+      else {
+        return pdfModel;
+      }
+
     }
+
     else {
-      return pdfModel;
+      return null;
     }
 
   }
@@ -43,20 +52,20 @@ class PDFStorageOps {
 
   // --------------------
   /// TASK : TEST ME
-  static Future<PDFModel> read(String path) async {
-    PDFModel _model;
+  static Future<PDFModel?> read(String? path) async {
+    PDFModel? _model;
 
     if (TextCheck.isEmpty(path) == false){
 
       /// GET BYTES
-      final Uint8List _bytes = await Storage.readBytesByPath(
-        path: path,
+      final Uint8List? _bytes = await Storage.readBytesByPath(
+        path: path!,
       );
 
       if (Mapper.checkCanLoopList(_bytes) == true){
 
         /// GET META
-        final StorageMetaModel _meta = await Storage.readMetaByPath(
+        final StorageMetaModel? _meta = await Storage.readMetaByPath(
           path: path,
         );
 
@@ -80,12 +89,15 @@ class PDFStorageOps {
 
   // --------------------
   /// TASK : TEST ME
-  static Future<void> delete(String path) async {
+  static Future<void> delete(String? path) async {
 
-    await Storage.deleteDoc(
-      path: path,
-      currentUserID: Authing.getUserID(),
-    );
+    if (Authing.getUserID() != null && path != null) {
+      await Storage.deleteDoc(
+        path: path,
+        currentUserID: Authing.getUserID()!,
+      );
+
+    }
 
   }
   // -----------------------------------------------------------------------------

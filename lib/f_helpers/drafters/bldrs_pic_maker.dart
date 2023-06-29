@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:mediators/pic_maker/pic_maker.dart';
+import 'package:photo_manager/photo_manager.dart';
 
 // // -----------------------------------------------------------------------------
 // /*
@@ -40,7 +41,7 @@ class BldrsPicMaker {
       resizeToWidth: resizeToWidth,
       selectedAsset: selectedAsset,
       appIsLTR: UiProvider.checkAppIsLeftToRight(),
-      confirmText: Verse.transBake('phid_crop'),
+      confirmText: Verse.transBake('phid_crop')!,
     );
 
     return _bytes;
@@ -50,9 +51,9 @@ class BldrsPicMaker {
   static Future<List<Uint8List>> pickAndCropMultiplePics({
     required double aspectRatio,
     required bool cropAfterPick,
-    double resizeToWidth,
+    double? resizeToWidth,
     int maxAssets = 10,
-    List<AssetEntity> selectedAssets,
+    List<AssetEntity>? selectedAssets,
   }) async {
 
     final List<Uint8List> _bytes = await PicMaker.pickAndCropMultiplePics(
@@ -61,22 +62,22 @@ class BldrsPicMaker {
       aspectRatio: aspectRatio,
       resizeToWidth: resizeToWidth,
       appIsLTR: UiProvider.checkAppIsLeftToRight(),
-      confirmText: Verse.transBake('phid_crop'),
+      confirmText: Verse.transBake('phid_crop')!,
     );
 
     return _bytes;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<Uint8List> cropPic({
+  static Future<Uint8List?> cropPic({
     required Uint8List bytes,
     required double aspectRatio,
   }) async {
 
-    final Uint8List _bytes = await PicMaker.cropPic(
+    final Uint8List? _bytes = await PicMaker.cropPic(
       context: getMainContext(),
       bytes: bytes,
-      confirmText: Verse.transBake('phid_crop'),
+      confirmText: Verse.transBake('phid_crop')!,
       appIsLTR: UiProvider.checkAppIsLeftToRight(),
       aspectRatio: aspectRatio,
     );

@@ -50,9 +50,9 @@ class EmailAuthScreenView extends StatelessWidget {
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final TextEditingController passwordConfirmationController;
-  final String Function(String) emailValidator;
-  final String Function(String) passwordValidator;
-  final String Function(String) passwordConfirmationValidator;
+  final String? Function(String?)? emailValidator;
+  final String? Function(String?)? passwordValidator;
+  final String? Function(String?)? passwordConfirmationValidator;
   final Function switchSignIn;
   final Function onSignin;
   final Function onSignup;
@@ -60,7 +60,7 @@ class EmailAuthScreenView extends StatelessWidget {
   final AppBarType appBarType;
   final FocusNode passwordNode;
   final FocusNode confirmPasswordNode;
-  final ValueNotifier<bool> isRememberingMe;
+  final ValueNotifier<bool>? isRememberingMe;
   final Function(bool rememberMe) onSwitchRememberMe;
   final Function(int index) onSelectAccount;
   final List<AccountModel> myAccounts;
@@ -146,15 +146,15 @@ class EmailAuthScreenView extends StatelessWidget {
                         ...List.generate(myAccounts.length, (index) {
                           final AccountModel _account = myAccounts[index];
 
-                          return FutureBuilder(
+                          return FutureBuilder<UserModel?>(
                             future: UserProtocols.fetch(
                               context: context,
                               userID: _account.id,
                             ),
-                            builder: (_, AsyncSnapshot<UserModel> snap) {
+                            builder: (_, AsyncSnapshot<UserModel?> snap) {
 
-                              final UserModel _userModel = snap.data;
-                              final String _userEmail = ContactModel.getValueFromContacts(
+                              final UserModel? _userModel = snap.data;
+                              final String? _userEmail = ContactModel.getValueFromContacts(
                                 contacts: _userModel?.contacts,
                                 contactType: ContactType.email,
                               );
@@ -192,7 +192,7 @@ class EmailAuthScreenView extends StatelessWidget {
                 passwordValidator: passwordValidator,
                 passwordConfirmationController: passwordConfirmationController,
                 passwordConfirmationValidator: passwordConfirmationValidator,
-                onSubmitted: (String text) => _onSubmitted(
+                onSubmitted: (String? text) => _onSubmitted(
                   signingIn: _isSigningIn,
                   isOnConfirmPassword: false,
                 ),
@@ -202,7 +202,7 @@ class EmailAuthScreenView extends StatelessWidget {
               /// REMEMBER ME
               if (isRememberingMe != null)
               ValueListenableBuilder(
-                valueListenable: isRememberingMe,
+                valueListenable: isRememberingMe!,
                 builder: (_, bool rememberMe, Widget? child){
 
                   return BldrsTileBubble(
@@ -273,10 +273,10 @@ class EmailAuthScreenView extends StatelessWidget {
                   'phid_by_using_bldrs_you_agree_to_our'
                       :
                   'phid_by_signing_up_you_agree_to_our',
-                ),
-                andLine: Verse.transBake('phid_and'),
-                policyLine: Verse.transBake('phid_privacy_policy'),
-                termsLine: Verse.transBake('phid_terms_of_service'),
+                )!,
+                andLine: Verse.transBake('phid_and')!,
+                policyLine: Verse.transBake('phid_privacy_policy')!,
+                termsLine: Verse.transBake('phid_terms_of_service')!,
               ),
 
               const Horizon(),

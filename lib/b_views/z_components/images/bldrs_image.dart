@@ -27,17 +27,17 @@ class BldrsImage extends StatelessWidget {
   final double height;
   final BoxFit fit;
   final double scale;
-  final Color iconColor;
+  final Color? iconColor;
   final bool loading;
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final dynamic corners;
   final bool greyscale;
   /// --------------------------------------------------------------------------
-  static DecorationImage decorationImage({
-    required String picture,
-    BoxFit boxFit
+  static DecorationImage? decorationImage({
+    required String? picture,
+    BoxFit? boxFit
   }) {
-    DecorationImage _image;
+    DecorationImage? _image;
 
     if (picture != null && picture != '') {
       _image = DecorationImage(

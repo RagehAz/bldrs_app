@@ -23,7 +23,7 @@ class BzzPaginatorView extends StatelessWidget {
     return  FireCollPaginator(
         paginationQuery: fireQueryModel,
         paginationController: paginationController,
-        builder: (_, List<Map<String, dynamic>?>? maps, bool isLoading, Widget? child){
+        builder: (_, List<Map<String, dynamic>>? maps, bool isLoading, Widget? child){
 
           final List<BzModel> _bzz = BzModel.decipherBzz(
               maps: maps,

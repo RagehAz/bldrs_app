@@ -25,20 +25,20 @@ class PasswordBubbles extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final double bubbleWidth;
+  final double? bubbleWidth;
   final TextEditingController passwordController;
   final bool showPasswordOnly;
-  final String Function(String) passwordValidator;
-  final ValueChanged<String> onSubmitted;
-  final TextEditingController passwordConfirmationController;
-  final String Function(String) passwordConfirmationValidator;
+  final String? Function(String?)? passwordValidator;
+  final Function(String?)? onSubmitted;
+  final TextEditingController? passwordConfirmationController;
+  final String? Function(String?)? passwordConfirmationValidator;
   final bool isTheSuperKeyboardField;
   final AppBarType appBarType;
   final FocusNode passwordNode;
-  final FocusNode confirmPasswordNode;
+  final FocusNode? confirmPasswordNode;
   final bool goOnKeyboardGo;
   final ValueNotifier<bool> isObscured;
-  final MainAxisAlignment mainAxisAlignment;
+  final MainAxisAlignment? mainAxisAlignment;
   /// --------------------------------------------------------------------------
   TextInputAction _getTextInputAction(){
 

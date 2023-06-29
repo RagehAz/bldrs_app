@@ -14,12 +14,12 @@ class CountryRealOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<CountryModel> readCountry({
-    required String countryID,
+  static Future<CountryModel?> readCountry({
+    required String? countryID,
   }) async {
-    CountryModel _output;
+    CountryModel? _output;
 
-    final StagingModel _citiesIDs = await StagingProtocols.fetchCitiesStaging(
+    final StagingModel? _citiesIDs = await StagingProtocols.fetchCitiesStaging(
       countryID: countryID,
     );
 

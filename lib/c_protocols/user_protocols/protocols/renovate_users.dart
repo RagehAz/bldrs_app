@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
@@ -36,7 +35,7 @@ class RenovateUserProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<UserModel> renovateUser({
+  static Future<UserModel?> renovateUser({
     required BuildContext context,
     required UserModel? oldUser,
     required UserModel? newUser,
@@ -51,7 +50,7 @@ class RenovateUserProtocols {
 
       _output = oldUser;
 
-      final UserModel _oldUser = await UserProtocols.refetch(
+      final UserModel? _oldUser = await UserProtocols.refetch(
           context: context,
           userID: oldUser?.id,
       );
@@ -62,7 +61,7 @@ class RenovateUserProtocols {
           UserFireOps.updateUser(
             newUser: newUser,
             oldUser: _oldUser,
-          ).then((UserModel uploadedModel){
+          ).then((UserModel? uploadedModel){
             if (uploadedModel != null){
               _output = uploadedModel;
             }
@@ -99,15 +98,15 @@ class RenovateUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateLocally({
-    required UserModel newUser,
+    required UserModel? newUser,
     required BuildContext context,
   }) async {
 
     // blog('RenovateUserProtocols.updateLocally : START');
 
-    final UserModel _oldUser = await UserProtocols.fetch(
+    final UserModel? _oldUser = await UserProtocols.fetch(
       context: context,
-      userID: newUser.id,
+      userID: newUser?.id,
     );
 
     final bool _modelsAreIdentical = UserModel.usersAreIdentical(
@@ -118,7 +117,7 @@ class RenovateUserProtocols {
     if (_modelsAreIdentical == false){
 
       /// UPDATE PRO USER AND AUTH MODELS
-      if (UserModel.checkItIsMe(newUser.id) == true){
+      if (UserModel.checkItIsMe(newUser?.id) == true){
 
         /// UPDATE LDB USER MODEL
         await UserLDBOps.updateUserModel(newUser);
@@ -141,18 +140,18 @@ class RenovateUserProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<UserModel> completeUserZoneModels({
-    required UserModel userModel,
+  static Future<UserModel?> completeUserZoneModels({
+    required UserModel? userModel,
   }) async {
-    UserModel _output;
+    UserModel? _output;
 
     if (userModel != null){
 
-      final ZoneModel _completeZoneModel = await ZoneProtocols.completeZoneModel(
+      final ZoneModel? _completeZoneModel = await ZoneProtocols.completeZoneModel(
         incompleteZoneModel: userModel.zone,
       );
 
-      _output = userModel?.copyWith(
+      _output = userModel.copyWith(
         zone: _completeZoneModel,
       );
 
@@ -212,7 +211,7 @@ class RenovateUserProtocols {
 
     else {
 
-      final UserModel _newUser = UserModel.removeBzIDFromUserFollows(
+      final UserModel? _newUser = UserModel.removeBzIDFromUserFollows(
         oldUser: _oldUser,
         bzIDToUnFollow: bzToFollow.id,
       );
@@ -247,7 +246,7 @@ class RenovateUserProtocols {
   static Future<void> savingFlyerProtocol({
     required BuildContext context,
     required bool flyerIsSaved,
-    required FlyerModel flyerModel,
+    required FlyerModel? flyerModel,
     required int slideIndex,
   }) async {
     // blog('RenovateUserProtocols.savingFlyerProtocol : START');
@@ -271,7 +270,8 @@ class RenovateUserProtocols {
       else {
 
         if (flyerIsSaved == true) {
-          final UserModel _newUser = UserModel.addFlyerToSavedFlyers(
+
+          final UserModel? _newUser = UserModel.addFlyerToSavedFlyers(
             oldUser: _oldUser,
             flyerModel: flyerModel,
           );
@@ -299,7 +299,7 @@ class RenovateUserProtocols {
         }
 
         else {
-          final UserModel _newUser = UserModel.removeFlyerFromSavedFlyers(
+          final UserModel? _newUser = UserModel.removeFlyerFromSavedFlyers(
             oldUser: _oldUser,
             flyerIDToRemove: flyerModel.id,
           );
@@ -347,7 +347,7 @@ class RenovateUserProtocols {
       context: context,
       listen: false,
     );
-    final List<String> _userSubscribedTopics = _oldUser.fcmTopics;
+    final List<String>? _userSubscribedTopics = _oldUser?.fcmTopics;
 
     final UserModel? _newUser = _oldUser?.copyWith(
       fcmTopics: Stringer.addOrRemoveStringToStrings(
@@ -433,7 +433,7 @@ class RenovateUserProtocols {
         /// we should get the most updated version of his model
         /// so we refetch model
         /// cheers
-        UserModel _newUser = await UserProtocols.refetch(
+        UserModel? _newUser = await UserProtocols.refetch(
             context: context,
             userID: _oldUser?.id,
         );
@@ -475,10 +475,10 @@ class RenovateUserProtocols {
 
     if (_myUserModel != null){
 
-      final List<String> _userTopics = _myUserModel.fcmTopics;
+      final List<String>? _userTopics = _myUserModel.fcmTopics;
 
       final List<String> _topicsIShouldSubscribeTo = <String>[];
-      for (final String topicID in _userTopics){
+      for (final String topicID in [...?_userTopics]){
 
         final bool _containUnderscore = TextCheck.stringContainsSubString(
           string: topicID,

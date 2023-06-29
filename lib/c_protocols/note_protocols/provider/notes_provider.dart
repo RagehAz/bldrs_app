@@ -9,7 +9,6 @@ import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -87,8 +86,8 @@ class NotesProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> proSetBzObeliskBadge({
-    required String bzID,
-    required List<NoteModel> unseenNotes,
+    required String? bzID,
+    required List<NoteModel>? unseenNotes,
     required bool notify,
   }) async {
     final NotesProvider _notesProvider = Provider.of<NotesProvider>(getMainContext(), listen: false);
@@ -154,14 +153,14 @@ class NotesProvider extends ChangeNotifier {
   // -----
   /// TESTED : WORKS PERFECT
   Future<void> _setBzObeliskNumber({
-    required String bzID,
-    required List<NoteModel> unseenNotes,
+    required String? bzID,
+    required List<NoteModel>? unseenNotes,
     required bool notify,
   }) async {
 
     await _setObeliskNumberAndRebuild(
       invoker: 'setBzObeliskNumber',
-      value: unseenNotes.length,
+      value: unseenNotes?.length,
       notify: notify,
       rebuildAllMainNumbers: true,
       navModelID: NavModel.getBzTabNavID(
@@ -175,7 +174,7 @@ class NotesProvider extends ChangeNotifier {
   /// TESTED : WORKS PERFECT
   Future<void> _setObeliskNumberAndRebuild({
     required String invoker,
-    required int value,
+    required int? value,
     required String? navModelID,
     required bool notify,
     required bool rebuildAllMainNumbers,
@@ -311,7 +310,11 @@ class NotesProvider extends ChangeNotifier {
 
         for (final dynamic value in _values){
 
-          _totalCount = _totalCount + (value.toInt());
+          if (value != null){
+            final int _addOn = value.toInt();
+            _totalCount = _totalCount + _addOn;
+          }
+
 
         }
 
@@ -359,7 +362,10 @@ class NotesProvider extends ChangeNotifier {
     final List<dynamic> _values = MapModel.getValuesFromMapModels(_obeliskBadges);
     if (Mapper.checkCanLoopList(_values) == true){
       for (final dynamic value in _values){
-        _obeliskTotal = _obeliskTotal + value;
+        if (value != null){
+          final int _addOn = value.toInt();
+          _obeliskTotal = _obeliskTotal + _addOn;
+        }
       }
     }
     // ---
@@ -465,7 +471,7 @@ class NotesProvider extends ChangeNotifier {
   int _badgeNum = 0;
   int get badgeNum => _badgeNum;
   Future<void> setBadgeNum() async {
-    _badgeNum = await FCM.getAwesomeNoots()?.getGlobalBadgeCounter();
+    _badgeNum = await FCM.getAwesomeNoots()?.getGlobalBadgeCounter() ?? 0;
     notifyListeners();
   }
   // --------------------

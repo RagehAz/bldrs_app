@@ -1,7 +1,6 @@
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
-import 'package:flutter/material.dart';
 /// => TAMAM
 class ReviewFireOps {
   // -----------------------------------------------------------------------------
@@ -18,8 +17,8 @@ class ReviewFireOps {
     required ReviewModel reviewModel,
   }) async {
 
-    assert(reviewModel != null,'review model is null');
-    assert(reviewModel.flyerID != null, 'review flyerID is null');
+    // assert(reviewModel != null,'review model is null');
+    // assert(reviewModel.flyerID != null, 'review flyerID is null');
 
     final String? _reviewID = await Fire.createDoc(
       coll: FireColl.flyers,
@@ -36,15 +35,15 @@ class ReviewFireOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<ReviewModel> readReview({
+  static Future<ReviewModel?> readReview({
     required String flyerID,
-    required String reviewID,
+    required String? reviewID,
   }) async {
-    ReviewModel _output;
+    ReviewModel? _output;
 
     if (reviewID != null){
 
-      final Map<String, dynamic> _map = await Fire.readDoc(
+      final Map<String, dynamic>? _map = await Fire.readDoc(
           coll: FireColl.flyers,
           doc: flyerID,
           subColl: FireSubColl.flyers_flyer_reviews,
@@ -94,16 +93,21 @@ class ReviewFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateReview({
-    required ReviewModel reviewModel,
+    required ReviewModel? reviewModel,
   }) async {
 
-    await Fire.updateDoc(
-      coll: FireColl.flyers,
-      doc: reviewModel.flyerID,
-      subColl: FireSubColl.flyers_flyer_reviews,
-      subDoc: reviewModel.id,
-      input: reviewModel.toMap(),
-    );
+    if (reviewModel?.id != null && reviewModel?.flyerID != null){
+
+      await Fire.updateDoc(
+        coll: FireColl.flyers,
+        doc: reviewModel!.flyerID!,
+        subColl: FireSubColl.flyers_flyer_reviews,
+        subDoc: reviewModel.id!,
+        input: reviewModel.toMap(),
+      );
+
+    }
+
 
   }
   // -----------------------------------------------------------------------------

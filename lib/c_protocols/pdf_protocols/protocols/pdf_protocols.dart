@@ -103,9 +103,9 @@ class PDFProtocols {
 
   // --------------------
   /// TASK : TEST ME
-  static Future<PDFModel> fetch(String? path) async {
+  static Future<PDFModel?> fetch(String? path) async {
 
-    PDFModel _pdfModel = await PDFLDBOps.read(path);
+    PDFModel? _pdfModel = await PDFLDBOps.read(path);
 
     if (_pdfModel == null){
 
@@ -125,17 +125,17 @@ class PDFProtocols {
 
   // --------------------
   /// TASK : TEST ME
-  static Future<void> download(String path) async {
+  static Future<void> download(String? path) async {
 
     if (TextCheck.isEmpty(path) == false){
 
-      final bool _existsInLDB = await PDFLDBOps.checkExists(path);
+      final bool _existsInLDB = await PDFLDBOps.checkExists(path!);
 
       if (_existsInLDB == false){
 
         blog('downloadPic : Downloading pic : $path');
 
-        final PDFModel _pdfModel = await PDFStorageOps.read(path);
+        final PDFModel? _pdfModel = await PDFStorageOps.read(path);
 
         blog('downloadPic : Downloaded pic : $path');
 
@@ -157,7 +157,7 @@ class PDFProtocols {
 
   // --------------------
   /// TASK : TEST ME
-  static Future<void> renovate(PDFModel pdfModel) async {
+  static Future<void> renovate(PDFModel? pdfModel) async {
 
     if (pdfModel != null){
 
@@ -172,7 +172,7 @@ class PDFProtocols {
 
   // --------------------
   /// TASK : TEST ME
-  static Future<void> wipe(String path) async {
+  static Future<void> wipe(String? path) async {
 
     if (TextCheck.isEmpty(path) == false){
 

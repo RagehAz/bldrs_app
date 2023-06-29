@@ -26,26 +26,26 @@ class BldrsAppBar extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final AppBarType appBarType;
+  final AppBarType? appBarType;
   final Function onBack;
-  final Verse pageTitleVerse;
-  final List<Widget> appBarRowWidgets;
-  final ValueNotifier<bool> loading;
-  final ValueNotifier<ProgressBarModel> progressBarModel;
-  final ScrollController appBarScrollController;
+  final Verse? pageTitleVerse;
+  final List<Widget>? appBarRowWidgets;
+  final ValueNotifier<bool>? loading;
+  final ValueNotifier<ProgressBarModel>? progressBarModel;
+  final ScrollController? appBarScrollController;
   final bool sectionButtonIsOn;
-  final TextEditingController searchController;
-  final ValueChanged<String> onSearchSubmit;
-  final ValueChanged<String> onPaste;
-  final ValueChanged<String> onSearchChanged;
+  final TextEditingController? searchController;
+  final ValueChanged<String>? onSearchSubmit;
+  final ValueChanged<String>? onPaste;
+  final ValueChanged<String>? onSearchChanged;
   final bool searchButtonIsOn;
-  final Verse searchHintVerse;
+  final Verse? searchHintVerse;
   final bool canGoBack;
-  final Function onSearchCancelled;
-  final GlobalKey globalKey;
+  final Function? onSearchCancelled;
+  final GlobalKey? globalKey;
   final bool listenToHideLayout;
-  final ValueNotifier<bool> filtersAreOn;
-  final Widget filters;
+  final ValueNotifier<bool>? filtersAreOn;
+  final Widget? filters;
   /// --------------------------------------------------------------------------
   static const Widget appBarDot = SuperBox(
     height: Ratioz.appBarButtonSize,
@@ -81,7 +81,7 @@ class BldrsAppBar extends StatelessWidget {
     return width() - (2 * Ratioz.appBarPadding);
   }
   // --------------------
-  static double collapsedHeight(BuildContext context, AppBarType appBarType) {
+  static double collapsedHeight(BuildContext context, AppBarType? appBarType) {
 
     if (appBarType == AppBarType.search){
       return Ratioz.appBarBigHeight;

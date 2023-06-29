@@ -12,7 +12,7 @@ class SearchLDBOps{
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> insert({
-    required SearchModel searchModel,
+    required SearchModel? searchModel,
   }) async {
 
     if (searchModel != null && searchModel.id != null){

@@ -31,20 +31,20 @@ class BldrsBubbleHeaderVM {
     this.centered = false,
   });
   /// --------------------------------------------------------------------------
-  final double headerWidth;
+  final double? headerWidth;
   final dynamic leadingIcon;
   final double leadingIconSizeFactor;
-  final Color leadingIconBoxColor;
+  final Color? leadingIconBoxColor;
   final bool leadingIconIsBubble;
-  final Function onLeadingIconTap;
+  final Function? onLeadingIconTap;
   final bool hasSwitch;
   final bool hasMoreButton;
-  final Verse headlineVerse;
+  final Verse? headlineVerse;
   final Color headlineColor;
   final bool centered;
   final bool switchValue;
-  final ValueChanged<bool> onSwitchTap;
-  final Function onMoreButtonTap;
+  final ValueChanged<bool>? onSwitchTap;
+  final Function? onMoreButtonTap;
   final bool redDot;
   /// --------------------------------------------------------------------------
   static BubbleHeaderVM bake({
@@ -60,7 +60,7 @@ class BldrsBubbleHeaderVM {
     Verse? headlineVerse,
     Color headlineColor = Colorz.white255,
     bool centered = false,
-    bool switchValue = false,
+    bool? switchValue = false,
     ValueChanged<bool>? onSwitchTap,
     Function? onMoreButtonTap,
     bool redDot = false,
@@ -80,7 +80,7 @@ class BldrsBubbleHeaderVM {
           hasMoreButton: hasMoreButton,
           headlineText: Verse.bakeVerseToString(verse: headlineVerse),
           headlineColor: headlineColor,
-          switchValue: switchValue,
+          switchValue: switchValue ?? false,
           onSwitchTap: onSwitchTap,
           onMoreButtonTap: onMoreButtonTap,
           redDot: redDot,

@@ -17,6 +17,7 @@ import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/rest/rest.dart';
 import 'package:basics/helpers/classes/time/timers.dart';
 import 'package:app_settings/app_settings.dart';
+import 'package:intl/intl.dart';
 /// => TAMAM
 class BldrsTimers {
   // -----------------------------------------------------------------------------
@@ -60,18 +61,18 @@ class BldrsTimers {
   }
     // --------------------
   /// TESTED : WORKS PERFECT
-  static String generateString_in_bldrs_since_dd_month_yyyy(BuildContext context, DateTime time){
+  static String generateString_in_bldrs_since_dd_month_yyyy(DateTime? time){
 
     String _output = '';
 
     if (
         time != null
-        &&
-        time.year != null
-        &&
-        time.month != null
-        &&
-        time.day != null
+        // &&
+        // time.year != null
+        // &&
+        // time.month != null
+        // &&
+        // time.day != null
     ){
       _output = '${xPhrase('phid_inn')} '
                 '${xPhrase('phid_phid_bldrsShortName')} '
@@ -87,7 +88,6 @@ class BldrsTimers {
   // --------------------
   /// GENERATES => [ 'on dd month yyyy' ]
   static String generateString_on_dd_month_yyyy({
-    required BuildContext context,
     required DateTime time,
   }){
     final String _day = '${time.day}';
@@ -111,7 +111,7 @@ class BldrsTimers {
     );
 
     if (_timeIsEmpty == false){
-      final String? _hh = DateFormat('h').format(time);
+      final String? _hh = DateFormat('h').format(time!);
       final String? _mm = Numeric.formatNumberWithinDigits(num: time.minute, digits: 2);
       final String? _ampm = DateFormat('a').format(time);
       final String? _day = Timers.generateDayName(time);
@@ -131,9 +131,9 @@ class BldrsTimers {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String translateTimeUnit(BuildContext context, TimeAccuracy accuracy){
+  static String? translateTimeUnit(TimeAccuracy? accuracy){
 
-    String _phid;
+    String? _phid;
 
     switch(accuracy){
       case TimeAccuracy.year        : _phid = 'phid_time_unit_year'; break;
@@ -168,9 +168,8 @@ class BldrsTimers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String calculateSuperTimeDifferenceString({
-    required BuildContext context,
-    required DateTime from,
-    required DateTime to,
+    required DateTime? from,
+    required DateTime? to,
   }) {
     String _string = '...';
 
@@ -178,48 +177,48 @@ class BldrsTimers {
       final int _seconds = Timers.calculateTimeDifferenceInSeconds(from: from, to: to);
 
       if (_seconds < 60){
-        final String _s = translateTimeUnit(context, TimeAccuracy.second);
+        final String? _s = translateTimeUnit(TimeAccuracy.second);
         _string = '$_seconds $_s';
       }
 
       /// MINUTE = 60 s
       else if (_seconds >= 60 && _seconds < 3600){
-        final String _m = translateTimeUnit(context, TimeAccuracy.minute);
+        final String? _m = translateTimeUnit(TimeAccuracy.minute);
         final int _minutes = Timers.calculateTimeDifferenceInMinutes(from: from, to: to);
         _string = '$_minutes $_m';
       }
 
       /// HOUR = 3'600 s
       else if (_seconds >= 3600 && _seconds < 86400){
-        final String _h = translateTimeUnit(context, TimeAccuracy.hour);
+        final String? _h = translateTimeUnit(TimeAccuracy.hour);
         final int _hours = Timers.calculateTimeDifferenceInHours(from: from, to: to);
         _string = '$_hours $_h';
       }
 
       /// DAY = 86'400 s
       else if (_seconds >= 86400 && _seconds < 604800){
-        final String _d = translateTimeUnit(context, TimeAccuracy.day);
+        final String? _d = translateTimeUnit(TimeAccuracy.day);
         final int _days = Timers.calculateTimeDifferenceInDays(from: from, to: to);
         _string = '$_days $_d';
       }
 
       /// WEEK = 604'800 s
       else if (_seconds >= 604800 && _seconds < 2592000){
-        final String _w = translateTimeUnit(context, TimeAccuracy.week);
+        final String? _w = translateTimeUnit(TimeAccuracy.week);
         final int _weeks = Timers.calculateTimeDifferenceInWeeks(from: from, to: to);
         _string = '$_weeks $_w';
       }
 
       /// MONTH = 2'592'000 s
       else if (_seconds >= 2592000 && _seconds < 31536000){
-        final String _m = translateTimeUnit(context, TimeAccuracy.month);
+        final String? _m = translateTimeUnit(TimeAccuracy.month);
         final int _months = Timers.calculateTimeDifferenceInMonths(from: from, to: to);
         _string = '$_months $_m';
       }
 
       /// YEAR = 31'536'000 s
       else {
-        final String _y = translateTimeUnit(context, TimeAccuracy.year);
+        final String? _y = translateTimeUnit(TimeAccuracy.year);
         final int _years = Timers.calculateTimeDifferenceInYears(from: from, to: to);
         _string = '$_years $_y';
       }
