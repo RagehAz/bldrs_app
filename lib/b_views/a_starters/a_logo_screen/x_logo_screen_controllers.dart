@@ -151,9 +151,9 @@ Future<void> initializeUserModel(BuildContext context) async {
   if (Authing.getUserID() == null){
 
     /// WILL CONTINUE NORMALLY AS ANONYMOUS
-    final AuthModel _anonymousAuth = await Authing.anonymousSignin();
+    final AuthModel? _anonymousAuth = await Authing.anonymousSignin();
 
-    final UserModel _anonymousUser = await UserModel.anonymousUser(
+    final UserModel? _anonymousUser = await UserModel.anonymousUser(
       authModel: _anonymousAuth,
     );
 
@@ -167,7 +167,7 @@ Future<void> initializeUserModel(BuildContext context) async {
   /// USER HAS ID
   else {
 
-      final UserModel _userModel = await UserProtocols.fetch(
+      final UserModel? _userModel = await UserProtocols.fetch(
         context: context,
         userID: Authing.getUserID(),
       );
@@ -185,7 +185,7 @@ Future<void> initializeUserModel(BuildContext context) async {
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> setUserModelAndCompleteUserZoneLocally({
-  required UserModel userModel,
+  required UserModel? userModel,
   required bool notify,
 }) async {
 
@@ -253,7 +253,7 @@ Future<void> initializeAppState() async {
       /// UPDATE USER STATE
       final bool _userStateIsUpdated = ! AppStateModel.checkAppStatesAreIdentical(
           state1: _userState,
-          state2: _userModel?.appState,
+          state2: _userModel.appState,
       );
 
       if (_userStateIsUpdated == true){
@@ -460,21 +460,22 @@ Future<void> _refreshLDB() async {
 // --------------------
 Future<void> signInAsRage7() async {
 
-  final AuthModel _authModel = await EmailAuthing.signIn(
+  final AuthModel? _authModel = await EmailAuthing.signIn(
     email: 'rageh@bldrs.net',
     password: '123456',
-    onError: (String error) => AuthProtocols.onAuthError(
+    onError: (String? error) => AuthProtocols.onAuthError(
       error: error,
     ),
   );
 
-  if (_authModel != null) {
-    final Map<String, dynamic> _map = await Fire.readDoc(
+  if (_authModel?.id != null) {
+
+    final Map<String, dynamic>? _map = await Fire.readDoc(
       coll: FireColl.users,
-      doc: _authModel.id,
+      doc: _authModel!.id!,
     );
 
-    final UserModel _userModel = UserModel.decipherUser(
+    final UserModel? _userModel = UserModel.decipherUser(
       map: _map,
       fromJSON: false,
     );

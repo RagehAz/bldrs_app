@@ -13,7 +13,7 @@ class LogoScreenView extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final Animation<double> scaleController;
+  final Animation<double>? scaleController;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class LogoScreenView extends StatelessWidget {
 
           if (scaleController != null)
           ScaleTransition(
-            scale: scaleController,
+            scale: scaleController!,
             child: const LogoSlogan(
               showTagLine: true,
               showSlogan: true,

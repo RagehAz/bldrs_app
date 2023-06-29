@@ -129,7 +129,7 @@ class FlyerTyper{
   // --------------------
   /// TESTED : WORKS PERFECT
   static String? flyerTypeIcon({
-    required FlyerType flyerType,
+    required FlyerType? flyerType,
     required bool isOn,
   }) {
 

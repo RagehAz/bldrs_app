@@ -43,37 +43,37 @@ class MainLayoutStackWidgets extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final Alignment alignment;
   final SkyType skyType;
-  final Widget layoutWidget;
-  final AppBarType appBarType;
-  final List<Widget> appBarRowWidgets;
-  final Verse pageTitleVerse;
+  final Widget? layoutWidget;
+  final AppBarType? appBarType;
+  final List<Widget>? appBarRowWidgets;
+  final Verse? pageTitleVerse;
   final Function onBack;
   // final bool loading;
-  final ScrollController appBarScrollController;
-  final TextEditingController searchController;
-  final ValueChanged<String> onSearchSubmit;
-  final ValueChanged<String> onPaste;
-  final ValueChanged<String> onSearchChanged;
+  final ScrollController? appBarScrollController;
+  final TextEditingController? searchController;
+  final ValueChanged<String>? onSearchSubmit;
+  final ValueChanged<String>? onPaste;
+  final ValueChanged<String>? onSearchChanged;
   final bool pyramidsAreOn;
   final bool searchButtonIsOn;
   final bool sectionButtonIsOn;
-  final Verse searchHintVerse;
-  final ValueNotifier<bool> loading;
-  final ValueNotifier<ProgressBarModel> progressBarModel;
-  final PyramidType pyramidType;
-  final Function onPyramidTap;
+  final Verse? searchHintVerse;
+  final ValueNotifier<bool>? loading;
+  final ValueNotifier<ProgressBarModel>? progressBarModel;
+  final PyramidType? pyramidType;
+  final Function? onPyramidTap;
   final bool canGoBack;
-  final Function onSearchCancelled;
-  final ConfirmButtonModel confirmButtonModel;
+  final Function? onSearchCancelled;
+  final ConfirmButtonModel? confirmButtonModel;
   final bool listenToHideLayout;
-  final GlobalKey globalKey;
-  final ValueNotifier<bool> filtersAreOn;
-  final Widget filters;
+  final GlobalKey? globalKey;
+  final ValueNotifier<bool>? filtersAreOn;
+  final Widget? filters;
   /// --------------------------------------------------------------------------
   PyramidType _concludePyramidTypePerSkyType(){
 
     if (pyramidType != null){
-      return pyramidType;
+      return pyramidType!;
     }
 
     else {

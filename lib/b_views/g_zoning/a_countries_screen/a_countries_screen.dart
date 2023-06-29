@@ -35,7 +35,7 @@ class CountriesScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   final ViewingEvent zoneViewingEvent;
   final ZoneDepth depth;
-  final String viewerCountryID;
+  final String? viewerCountryID;
   /// --------------------------------------------------------------------------
   @override
   _CountriesScreenState createState() => _CountriesScreenState();

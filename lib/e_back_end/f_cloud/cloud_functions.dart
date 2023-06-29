@@ -77,7 +77,7 @@ class CloudFunction {
     required BuildContext context,
     required String functionName,
     Map<String, dynamic>? mapToPass,
-    ValueChanged<dynamic>? onFinish,
+    Function(dynamic)? onFinish,
   }) async {
 
     dynamic _output;
@@ -157,7 +157,7 @@ class CloudFunction {
   /// TESTED : WORKS PERFECT
   static const String _realIncrementationLink = 'https://www.bldrs.net/counters?operation=';
   // -----------------------------------------------------------------------------
-  static Future<void> incrementDocFieldNourMethod({
+  static Future<String?> incrementDocFieldNourMethod({
     required String docID,
     required String fieldName,
     required String collName,
@@ -166,7 +166,7 @@ class CloudFunction {
 
     /// TASK : SHOULD RETURN THE ENTIRE MAP
 
-    String _docID;
+    String? _docID;
 
     await tryAndCatch(
         functions: () async {
@@ -210,8 +210,6 @@ class CloudFunction {
     );
 
     return _docID;
-
-
   }
 // -----------------------------------------------------------------------------
 
@@ -227,7 +225,7 @@ class BldrsCloudFunctions{
   static Future<void> deleteStorageDirectory({
     required BuildContext context,
     required String? path,
-    Function? onFinish,
+    Function(dynamic)? onFinish,
   }) async {
 
     if (TextCheck.isEmpty(path) == false){

@@ -25,14 +25,14 @@ class FilterMultiButtonTile extends StatelessWidget {
   });
   // -----------------------------------------------------------------------------
   final String icon;
-  final bool iconIsBig;
+  final bool? iconIsBig;
   final Verse verse;
   final bool switchValue;
-  final Function(bool value) onSwitchTap;
+  final Function(bool value)? onSwitchTap;
   final List<dynamic> items;
   final dynamic selectedItem;
   final Verse Function(dynamic item) itemVerse;
-  final String Function(dynamic item) itemIcon;
+  final String Function(dynamic item)? itemIcon;
   final Function(dynamic item) onItemTap;
   final Color bubbleColor;
   // -----------------------------------------------------------------------------
@@ -47,7 +47,7 @@ class FilterMultiButtonTile extends StatelessWidget {
       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
         context: context,
         leadingIcon: icon,
-        leadingIconSizeFactor: iconIsBig == true ? 1 : 0.7,
+        leadingIconSizeFactor: Mapper.boolIsTrue(iconIsBig) == true ? 1 : 0.7,
         headerWidth: _tileWidth,
         headlineVerse: verse,
         hasSwitch: onSwitchTap != null,
@@ -68,7 +68,7 @@ class FilterMultiButtonTile extends StatelessWidget {
               // width: 40,
               verse: itemVerse(item),
               verseScaleFactor: 0.7,
-              icon: itemIcon == null ? null : itemIcon(item),
+              icon: itemIcon == null ? null : itemIcon!.call(item),
               color: _isSelected == true ? Colorz.yellow255 : Colorz.white20,
               iconColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
               verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,

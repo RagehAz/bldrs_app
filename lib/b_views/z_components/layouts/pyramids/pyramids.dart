@@ -35,10 +35,10 @@ class Pyramids extends StatelessWidget {
   // --------------------------------------------------------------------------
   final PyramidType pyramidType;
   final dynamic loading;
-  final Function onPyramidTap;
-  final Color color;
+  final Function? onPyramidTap;
+  final Color? color;
   final bool putInCorner;
-  final bool listenToHideLayout;
+  final bool? listenToHideLayout;
   // --------------------------------------------------------------------------
   static const double verticalPositionFix = -0.2;
   // --------------------------------------------------------------------------
@@ -84,10 +84,10 @@ class _PyramidsSwitcher extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final PyramidType pyramidType;
   final dynamic loading;
-  final Function onPyramidTap;
-  final Color color;
+  final Function? onPyramidTap;
+  final Color? color;
   final bool putInCorner;
-  final bool listenToHideLayout;
+  final bool? listenToHideLayout;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -106,7 +106,7 @@ class _PyramidsSwitcher extends StatelessWidget {
 
       return Selector<UiProvider, bool>(
         selector: (_, UiProvider uiProvider) => uiProvider.layoutIsVisible,
-        builder: (_, bool isVisible, Widget child) {
+        builder: (_, bool isVisible, Widget? child) {
 
           return IgnorePointer(
             ignoring: !isVisible,
@@ -147,8 +147,8 @@ class _PyramidsWidgetTree extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final PyramidType pyramidType;
   final dynamic loading;
-  final Function onPyramidTap;
-  final Color color;
+  final Function? onPyramidTap;
+  final Color? color;
   final bool putInCorner;
   /// --------------------------------------------------------------------------
   @override
@@ -164,7 +164,8 @@ class _PyramidsWidgetTree extends StatelessWidget {
         loading is ValueNotifier<bool> ?
         ValueListenableBuilder(
           valueListenable: loading,
-          child: _PyramidGraphic(pyramidType, color),
+          child: _PyramidGraphic(pyramidType: pyramidType, color: color),
+          // child: _PyramidGraphic(PyramidType pyramidType, color),
           builder: (_, bool loading, Widget? child){
 
             return WidgetFader(
@@ -204,13 +205,14 @@ class _PyramidsWidgetTree extends StatelessWidget {
 
 class _PyramidGraphic extends StatelessWidget {
   // -----------------------------------------------------------------------------
-  const _PyramidGraphic(
-      this.pyramidType, this.color,
-      {Key key}
-      ) : super(key: key);
+  const _PyramidGraphic({
+    this.pyramidType,
+    this.color,
+    super.key
+  });
   // -----------------------------------------------------------------------------
-  final PyramidType pyramidType;
-  final Color color;
+  final PyramidType? pyramidType;
+  final Color? color;
   // -----------------------------------------------------------------------------
   String? getPyramid(PyramidType? type){
 
@@ -233,7 +235,7 @@ class _PyramidGraphic extends StatelessWidget {
     /// IF ADMIN
     if (imAdmin(context) == true){
 
-      final String _pyramidIcon = getPyramid(pyramidType);
+      final String? _pyramidIcon = getPyramid(pyramidType);
 
       return BldrsImage(
         width: 256 * 0.7,

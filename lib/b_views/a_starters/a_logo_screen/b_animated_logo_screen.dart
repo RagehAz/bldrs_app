@@ -170,10 +170,10 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
   }
   // -----------------------------------------------------------------------------
   final Tween<double> _tween = Tween<double>(begin: 0, end: 1);
-  AnimationController _logoAniController;
-  CurvedAnimation _logoCurvedAnimation;
-  CurvedAnimation _sloganCurvedAnimation;
-  List<CurvedAnimation> _linesControllers;
+  late AnimationController _logoAniController;
+  late CurvedAnimation _logoCurvedAnimation;
+  late CurvedAnimation _sloganCurvedAnimation;
+  late List<CurvedAnimation> _linesControllers;
   // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
@@ -181,8 +181,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
   // --------------------
   void _initializeAnimationControllers() {
     /// LOGO CONTROLLERS
-    _logoAniController =
-        AnimationController(duration: const Duration(milliseconds: 8500), vsync: this);
+    _logoAniController = AnimationController(duration: const Duration(milliseconds: 8500), vsync: this);
 
     _logoCurvedAnimation = CurvedAnimation(
       parent: _logoAniController,
@@ -207,7 +206,10 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
   // --------------------
   List<CurvedAnimation> _initializedLinesAnimations() {
     final List<CurvedAnimation> _animations = <CurvedAnimation>[];
-    for (final Map<String, dynamic> map in _linesMap) {
+
+    if (Mapper.checkCanLoopList(_linesMap) == true){
+
+      for (final Map<String, dynamic> map in _linesMap!) {
       final CurvedAnimation _curvedAni = CurvedAnimation(
         parent: _logoAniController,
         curve: Interval(
@@ -217,6 +219,8 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
         ),
       );
       _animations.add(_curvedAni);
+    }
+
     }
 
     return _animations;
@@ -288,7 +292,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
             bottom: 20,
             left: _leftOffset,
             child: Transform.rotate(
-              angle: Numeric.degreeToRadian(-45),
+              angle: Numeric.degreeToRadian(-45)!,
               alignment: Alignment.bottomCenter,
               child: Transform.scale(
                 scale: 2,
@@ -331,7 +335,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
             bottom: 20,
             left: _leftOffset,
             child: Transform.rotate(
-              angle: Numeric.degreeToRadian(-45),
+              angle: Numeric.degreeToRadian(-45)!,
               alignment: Alignment.bottomCenter,
               child: Transform.scale(
                 scale: 2,
@@ -394,12 +398,13 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
 
+                if (Mapper.checkCanLoopList(_linesMap) == true)
                 ...List.generate(_linesControllers.length, (index) {
                   return AnimatedLine(
                     curvedAnimation: _linesControllers[index],
                     tween: _tween,
-                    verse: _linesMap[index]['verse'],
-                    verseColor: _linesMap[index]['color'],
+                    verse: _linesMap![index]['verse'],
+                    verseColor: _linesMap![index]['color'],
                   );
                 })
 

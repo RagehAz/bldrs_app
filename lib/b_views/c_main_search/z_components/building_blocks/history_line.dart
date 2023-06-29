@@ -16,8 +16,8 @@ class HistoryLine extends StatelessWidget {
     super.key
   });
   // --------------------
-  final Verse verse;
-  final String icon;
+  final Verse? verse;
+  final String? icon;
   final bool bigIcon;
   final bool boldText;
   // -----------------------------------------------------------------------------

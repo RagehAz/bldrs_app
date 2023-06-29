@@ -101,7 +101,7 @@ class ZGridScale {
   /// TESTED : WORKS PERFECT
   static double getSmallItemWidth({
     required double gridWidth,
-    required double gridHeight,
+    required double? gridHeight,
     required int columnCount,
     required double itemAspectRatio,
     required bool hasResponsiveSideMargin,
@@ -177,7 +177,7 @@ class ZGridScale {
   /// TESTED : WORKS PERFECT
   static bool _gridWidthIsNarrow({
     required double gridWidth,
-    required double gridHeight,
+    required double? gridHeight,
     required double itemAspectRatio, // a = w / h
   }) {
     final double _widthAtMaxGridHeight = _getBigItemWidthByGridHeight(
@@ -301,7 +301,7 @@ class ZGridScale {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double getTopPaddingOnZoomOut({
-    required double topPaddingOnZoomOut
+    required double? topPaddingOnZoomOut
   }){
     return topPaddingOnZoomOut ?? Stratosphere.smallAppBarStratosphere;
   }
@@ -397,8 +397,8 @@ class ZGridScale {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double getGridSideMargin({
-    required double gridWidth,
-    required double gridHeight,
+    required double? gridWidth,
+    required double? gridHeight,
     required double itemAspectRatio,
     required bool hasResponsiveSideMargin,
   }){

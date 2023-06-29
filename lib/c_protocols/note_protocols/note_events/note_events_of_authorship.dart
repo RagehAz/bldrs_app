@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -12,7 +11,6 @@ import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart
 import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -27,7 +25,7 @@ class NoteEventsOfAuthorship {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<NoteModel> sendAuthorshipInvitationNote({
+  static Future<NoteModel?> sendAuthorshipInvitationNote({
     required BuildContext context,
     required BzModel bzModel,
     required UserModel userModelToSendTo,
@@ -35,7 +33,7 @@ class NoteEventsOfAuthorship {
 
     blog('NoteEventsOfAuthorship.sendAuthorshipInvitationNote : START');
 
-    final String _title = await PhraseProtocols.translate(
+    final String? _title = await PhraseProtocols.translate(
         phid: 'phid_you_are_invited_to_become_author',
         langCode: userModelToSendTo.language,
     );
@@ -57,7 +55,7 @@ class NoteEventsOfAuthorship {
         reply: PollModel.pending,
         replyTime: null,
       ),
-      token: userModelToSendTo?.device?.token,
+      token: userModelToSendTo.device?.token,
       topic: TopicModel.userAuthorshipsInvitations,
       dismissible: false,
       // poster: PosterModel(
@@ -78,8 +76,7 @@ class NoteEventsOfAuthorship {
       ),
     );
 
-    final NoteModel _uploaded = await NoteProtocols.composeToOneReceiver(
-      context: context,
+    final NoteModel? _uploaded = await NoteProtocols.composeToOneReceiver(
       note: _note,
     );
 
@@ -97,49 +94,55 @@ class NoteEventsOfAuthorship {
 
     blog('NoteEventsOfAuthorship.sendAuthorshipCancellationNote : START');
 
-    final String _title = await PhraseProtocols.translate(
+    if (bzModel != null && userModelToSendTo != null) {
+
+      final String? _title = await PhraseProtocols.translate(
         phid: 'phid_membership_invitation_is_cancelled',
-        langCode: userModelToSendTo?.language,
-    );
+        langCode: userModelToSendTo.language,
+      );
 
-    final NoteModel _note = NoteModel(
-      id: null, // will be defined in composeNoteProtocol
-      parties: NoteParties(
-        senderID: bzModel.id, /// HAS TO BE BZ ID NOT AUTHOR ID
-        senderImageURL: bzModel.logoPath,
-        senderType: PartyType.bz,
-        receiverID: userModelToSendTo.id,
-        receiverType: PartyType.user,
-      ),
-      title: _title,
-      body: bzModel.name,
-      sentTime: DateTime.now(),
-      // poll: null,
-      token: userModelToSendTo?.device?.token,
-      topic: TopicModel.userAuthorshipsInvitations,
-      navTo: const TriggerModel(
-        name: Routing.myUserNotesPage,
-        argument: null,
-        done: [],
-      ),
-      // dismissible: true,
-      // poster: PosterModel(
-      //   type: PosterType.bz,
-      //   modelID: bzModel.id,
-      //   url: bzPosterID,
-      // ),
-      // seen: false,
-      // sendFCM: true,
-      // sendNote: true,
-      // trigger: TriggerProtocols.createRefetchBzTrigger( /// no need
-      //   bzID: bzModel.id,
-      // ),
-    );
+      final NoteModel _note = NoteModel(
+        id: null,
+        // will be defined in composeNoteProtocol
+        parties: NoteParties(
+          senderID: bzModel.id,
 
-    await NoteProtocols.composeToOneReceiver(
-      context: context,
-      note: _note,
-    );
+          /// HAS TO BE BZ ID NOT AUTHOR ID
+          senderImageURL: bzModel.logoPath,
+          senderType: PartyType.bz,
+          receiverID: userModelToSendTo.id,
+          receiverType: PartyType.user,
+        ),
+        title: _title,
+        body: bzModel.name,
+        sentTime: DateTime.now(),
+        // poll: null,
+        token: userModelToSendTo.device?.token,
+        topic: TopicModel.userAuthorshipsInvitations,
+        navTo: const TriggerModel(
+          name: Routing.myUserNotesPage,
+          argument: null,
+          done: [],
+        ),
+        // dismissible: true,
+        // poster: PosterModel(
+        //   type: PosterType.bz,
+        //   modelID: bzModel.id,
+        //   url: bzPosterID,
+        // ),
+        // seen: false,
+        // sendFCM: true,
+        // sendNote: true,
+        // trigger: TriggerProtocols.createRefetchBzTrigger( /// no need
+        //   bzID: bzModel.id,
+        // ),
+      );
+
+      await NoteProtocols.composeToOneReceiver(
+        note: _note,
+      );
+
+    }
 
     blog('NoteEventsOfAuthorship.sendAuthorshipCancellationNote : END');
 
@@ -162,7 +165,7 @@ class NoteEventsOfAuthorship {
       listen: false,
     );
 
-    final String _title = await PhraseProtocols.translate(
+    final String? _title = await PhraseProtocols.translate(
         phid: 'phid_membership_invitation_is_accepted',
         langCode: senderModel?.language,
     );
@@ -193,7 +196,6 @@ class NoteEventsOfAuthorship {
     );
 
     await NoteProtocols.composeToOneReceiver(
-      context: context,
       note: _note,
     );
 
@@ -214,7 +216,7 @@ class NoteEventsOfAuthorship {
       listen: false,
     );
 
-    final String _title = await PhraseProtocols.translate(
+    final String? _title = await PhraseProtocols.translate(
         phid: 'phid_membership_invitation_is_declined',
         langCode: senderModel?.language,
     );
@@ -248,7 +250,6 @@ class NoteEventsOfAuthorship {
     );
 
     await NoteProtocols.composeToOneReceiver(
-      context: context,
       note: _note,
     );
 

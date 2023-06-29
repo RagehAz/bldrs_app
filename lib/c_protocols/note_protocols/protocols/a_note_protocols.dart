@@ -5,6 +5,7 @@ import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/fire/note_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -97,7 +98,6 @@ class NoteProtocols {
       /// UPLOAD POSTER
       if (uploadPoster == true){
         _note = await _uploadNotePoster(
-          context: context,
           note: _note,
           isPublic: false,
         );
@@ -119,7 +119,7 @@ class NoteProtocols {
 
       /// SEND FCM
       await _sendFCMToOneReceiver(
-        context: context,
+        context: getMainContext(),
         noteModel: _note,
       );
 
@@ -188,7 +188,6 @@ class NoteProtocols {
   // --------------------
   /// TASK : FIX ME
   static Future<NoteModel?> _uploadNotePoster({
-    required BuildContext context,
     required NoteModel? note,
     required bool isPublic,
   }) async {

@@ -10,10 +10,8 @@ import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class KeyboardScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------

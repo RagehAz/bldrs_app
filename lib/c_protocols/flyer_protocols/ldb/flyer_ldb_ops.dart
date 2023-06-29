@@ -30,7 +30,7 @@ class FlyerLDBOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> insertFlyers(List<FlyerModel> flyers) async {
+  static Future<void> insertFlyers(List<FlyerModel>? flyers) async {
 
     if (Mapper.checkCanLoopList(flyers) == true){
 

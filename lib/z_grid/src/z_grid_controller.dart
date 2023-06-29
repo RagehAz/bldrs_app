@@ -26,7 +26,7 @@ class ZGridController {
   // --------------------
   static ZGridController initialize({
     required TickerProvider vsync,
-    required ScrollController scrollController,
+    required ScrollController? scrollController,
   }){
 
      final AnimationController _animationController = AnimationController(

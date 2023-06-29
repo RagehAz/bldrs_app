@@ -1,8 +1,8 @@
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
 /// => TAMAM
 class CityPhraseFireOps {
@@ -17,18 +17,20 @@ class CityPhraseFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> createCityPhrases({
-    required CityModel cityModel,
+    required CityModel? cityModel,
   }) async {
 
     if (cityModel != null){
 
-      final String _countryID = cityModel.getCountryID();
+      final String? _countryID = cityModel.getCountryID();
 
-      await Future.wait(<Future>[
+      if (Mapper.checkCanLoopList(cityModel.phrases) == true){
 
-        ...List.generate(cityModel.phrases.length, (index){
+        await Future.wait(<Future>[
 
-          final Phrase _phrase = cityModel.phrases[index];
+        ...List.generate(cityModel.phrases!.length, (index){
+
+          final Phrase _phrase = cityModel.phrases![index];
 
           _phrase.blogPhrase(invoker: 'ahooo');
 
@@ -47,6 +49,8 @@ class CityPhraseFireOps {
         }),
 
       ]);
+
+      }
 
     }
 
@@ -76,16 +80,16 @@ class CityPhraseFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteCityPhrases({
-    required CityModel cityModel,
+    required CityModel? cityModel,
   }) async {
 
-    if (cityModel != null){
+    if (cityModel != null && Mapper.checkCanLoopList(cityModel.phrases) == true){
 
       await Future.wait(<Future>[
 
-        ...List.generate(cityModel.phrases.length, (index){
+        ...List.generate(cityModel.phrases!.length, (index){
 
-          final Phrase _phrase = cityModel.phrases[index];
+          final Phrase _phrase = cityModel.phrases![index];
 
           return Fire.deleteDoc(
             coll: FireColl.phrases_cities,

@@ -51,37 +51,37 @@ class BldrsTextFieldBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
 
   final BubbleHeaderVM bubbleHeaderVM;
-  final double bubbleWidth;
-  final Verse hintVerse;
+  final double? bubbleWidth;
+  final Verse? hintVerse;
   final bool counterIsOn;
   final int maxLines;
   final int maxLength;
-  final TextEditingController textController;
+  final TextEditingController? textController;
   final TextInputType keyboardTextInputType;
-  final ValueChanged<String> onTextChanged;
-  final ValueChanged<String> onSubmitted;
-  final ValueNotifier<bool> isObscured;
-  final bool isFormField;
-  final ValueChanged<String> onSavedForForm;
-  final TextInputAction keyboardTextInputAction;
-  final String initialText;
-  final String Function(String) validator;
-  final List<Verse> bulletPoints;
+  final ValueChanged<String?>? onTextChanged;
+  final ValueChanged<String?>? onSubmitted;
+  final ValueNotifier<bool>? isObscured;
+  final bool? isFormField;
+  final ValueChanged<String?>? onSavedForForm;
+  final TextInputAction? keyboardTextInputAction;
+  final String? initialText;
+  final String? Function(String?)? validator;
+  final List<Verse>? bulletPoints;
   final dynamic leadingIcon;
-  final Function pasteFunction;
-  final TextDirection textDirection;
+  final Function? pasteFunction;
+  final TextDirection? textDirection;
   final Color bubbleColor;
-  final Function onBubbleTap;
+  final Function? onBubbleTap;
   final bool isLoading;
   // final bool isError;
-  final List<Widget> columnChildren;
+  final List<Widget>? columnChildren;
   final int textSize;
   final int minLines;
   final bool autoFocus;
-  final FocusNode focusNode;
+  final FocusNode? focusNode;
   final bool isFloatingField;
-  final Function onFieldTap;
-  final GlobalKey formKey;
+  final Function? onFieldTap;
+  final GlobalKey? formKey;
   final AppBarType appBarType;
   final bool autoValidate;
   /// --------------------------------------------------------------------------
@@ -161,14 +161,14 @@ class BldrsTextFieldBubble extends StatelessWidget {
       maxLines: maxLines,
       isObscured: isObscured,
       formKey: formKey,
-      isFormField: isFormField,
+      isFormField: isFormField ?? true,
       keyboardTextInputAction: keyboardTextInputAction,
       onSubmitted: onSubmitted,
       keyboardTextInputType: keyboardTextInputType,
       pasteFunction: pasteFunction,
       textController: textController,
       autoFocus: autoFocus,
-      bulletPoints: Verse.bakeVerses(verses: bulletPoints, context: context),
+      bulletPoints: Verse.bakeVerses(verses: bulletPoints),
       bulletPointsFont: BldrsText.superVerseFont(VerseWeight.thin),
       columnChildren: columnChildren,
       counterIsOn: counterIsOn,

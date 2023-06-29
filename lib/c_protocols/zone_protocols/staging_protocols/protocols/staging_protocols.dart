@@ -14,9 +14,9 @@ class StagingProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<StagingModel> fetchCountriesStaging() async {
+  static Future<StagingModel?> fetchCountriesStaging() async {
 
-    StagingModel _output = await StagingLDBOps.readStaging(
+    StagingModel? _output = await StagingLDBOps.readStaging(
         id: StagingModel.countriesStagingId,
     );
 
@@ -42,11 +42,11 @@ class StagingProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<StagingModel> refetchCountiesStaging() async {
+  static Future<StagingModel?> refetchCountiesStaging() async {
 
     await StagingLDBOps.deleteStaging(id: StagingModel.countriesStagingId);
 
-    final StagingModel _output = await fetchCountriesStaging();
+    final StagingModel? _output = await fetchCountriesStaging();
 
     return _output;
   }

@@ -9,10 +9,8 @@ import 'package:bldrs/c_protocols/authorship_protocols/f_new_authorship_exit.dar
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 /// => TAMAM
 class NoteFunProtocols {
   /// --------------------------------------------------------------------------
@@ -88,7 +86,7 @@ class NoteFunProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static TriggerModel createRefetchBzTrigger({
-    required String bzID,
+    required String? bzID,
   }){
     return TriggerModel(
       name: funRefetchBz,
@@ -149,7 +147,7 @@ class NoteFunProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _fireTrigger({
-    required NoteModel noteModel,
+    required NoteModel? noteModel,
   }) async {
 
     // blog('TriggerProtocols._fireTrigger  (noteID : ${noteModel.id}) -- START');
@@ -164,15 +162,14 @@ class NoteFunProtocols {
 
       await _triggerSwitcher(
         context: getMainContext(),
-        trigger: noteModel.function,
+        trigger: noteModel.function!,
       );
 
-      final NoteModel _newNote = TriggerModel.addMeToTriggerDones(
+      final NoteModel? _newNote = TriggerModel.addMeToTriggerDones(
         noteModel: noteModel,
       );
 
       await NoteProtocols.renovate(
-        context: getMainContext(),
         oldNote: noteModel,
         newNote: _newNote,
       );
@@ -191,12 +188,12 @@ class NoteFunProtocols {
   /// TESTED : WORKS PERFECT
   static Future<void> _triggerSwitcher({
     required BuildContext context,
-    required TriggerModel trigger,
+    required TriggerModel? trigger,
   }) async {
 
     assert(
     TriggerModel.checkIFiredThisTrigger(trigger) == false,
-    'This user ${Authing.getUserID()} already fired this trigger ${trigger.name}',
+    'This user ${Authing.getUserID()} already fired this trigger ${trigger?.name}',
     );
 
     if (trigger != null && TriggerModel.checkIFiredThisTrigger(trigger) == false){

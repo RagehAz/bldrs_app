@@ -22,15 +22,15 @@ class ComposeReviewProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<ReviewModel> composeReview({
+  static Future<ReviewModel?> composeReview({
     required BuildContext context,
-    required ReviewModel reviewModel,
-    required String bzID,
+    required ReviewModel? reviewModel,
+    required String? bzID,
   }) async {
 
-    ReviewModel _uploadedReview;
+    ReviewModel? _uploadedReview;
 
-    if (Authing.userHasID() == true){
+    if (reviewModel != null && bzID != null && Authing.userHasID() == true){
 
       await Future.wait(<Future>[
 

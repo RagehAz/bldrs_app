@@ -59,13 +59,10 @@ class SearchHistoryView extends StatelessWidget {
 
               final SearchModel _model = searchHistoryModels[index];
 
-              blog(_model);
-
               return BldrsTileBubble(
                 onTileTap: () => onHistoryModelTap(_model),
                 bubbleHeaderVM: BubbleHeaderVM(
                   headlineText: BldrsTimers.calculateSuperTimeDifferenceString(
-                    context: context,
                     from: _model.time,
                     to: DateTime.now(),
                   ),
@@ -92,10 +89,10 @@ class SearchHistoryView extends StatelessWidget {
 
                       /// ZONE
                       HistoryLine(
-                        icon: ZoneFilterTile.getZoneIcon(zoneModel: _model?.zone),
+                        icon: ZoneFilterTile.getZoneIcon(zoneModel: _model.zone),
                         bigIcon: true,
                         verse: ZoneFilterTile.getZoneVerse(
-                            zoneModel: _model?.zone,
+                            zoneModel: _model.zone,
                         ),
                       ),
 
@@ -129,7 +126,7 @@ class SearchHistoryView extends StatelessWidget {
                         ),
 
                       /// ONLY FLYERS SHOWING AUTHORS
-                      if (_model.flyerSearchModel?.onlyShowingAuthors == true)
+                      if (Mapper.boolIsTrue(_model.flyerSearchModel?.onlyShowingAuthors) == true)
                         const HistoryLine(
                           icon: Iconz.bz,
                           verse: Verse(
@@ -139,7 +136,7 @@ class SearchHistoryView extends StatelessWidget {
                         ),
 
                       /// ONLY FLYERS SHOWING PRICES
-                      if (_model.flyerSearchModel?.onlyWithPrices == true)
+                      if (Mapper.boolIsTrue(_model.flyerSearchModel?.onlyWithPrices) == true)
                         const HistoryLine(
                           icon: Iconz.dollar,
                           verse: Verse(
@@ -148,7 +145,7 @@ class SearchHistoryView extends StatelessWidget {
                           ),
                         ),
 
-                      if (_model.flyerSearchModel?.onlyWithPDF == true)
+                      if (Mapper.boolIsTrue(_model.flyerSearchModel?.onlyWithPDF) == true)
                         const HistoryLine(
                             icon: Iconz.pfd,
                             verse: Verse(
@@ -157,7 +154,7 @@ class SearchHistoryView extends StatelessWidget {
                             )),
 
                       /// AMAZON PRODUCTS
-                      if (_model.flyerSearchModel?.onlyAmazonProducts == true)
+                      if (Mapper.boolIsTrue(_model.flyerSearchModel?.onlyAmazonProducts) == true)
                         const HistoryLine(
                             icon: Iconz.amazon,
                             verse: Verse(
@@ -188,7 +185,7 @@ class SearchHistoryView extends StatelessWidget {
                         ),
 
                       /// ONLY VERIFIED BZZ
-                      if (_model.bzSearchModel?.onlyVerified == true)
+                      if (Mapper.boolIsTrue(_model.bzSearchModel?.onlyVerified) == true)
                         const HistoryLine(
                           icon: Iconz.bzBadgeWhite,
                           verse: Verse(
