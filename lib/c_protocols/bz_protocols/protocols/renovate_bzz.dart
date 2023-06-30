@@ -204,8 +204,8 @@ class RenovateBzProtocols {
   /// TESTED : WORKS PERFECT
   static Future<BzModel?> renovateAuthor({
     required BuildContext context,
-    required BzModel oldBz,
-    required AuthorModel newAuthor,
+    required BzModel? oldBz,
+    required AuthorModel? newAuthor,
   }) async {
 
     // blog('RenovateBzProtocols.renovateAuthor : START');
@@ -218,7 +218,7 @@ class RenovateBzProtocols {
     await Future.wait(<Future>[
 
       /// UPDATE AUTHOR PIC
-      PicProtocols.renovatePic(newAuthor.picModel),
+      PicProtocols.renovatePic(newAuthor?.picModel),
 
       /// UPDATE BZ ON FIREBASE
       renovateBz(

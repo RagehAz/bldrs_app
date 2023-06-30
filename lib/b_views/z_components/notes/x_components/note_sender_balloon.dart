@@ -5,7 +5,7 @@ import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/b_balloona.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
@@ -20,8 +20,8 @@ class NoteSenderBalloon extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final NoteModel noteModel;
-  final Function onTap;
+  final NoteModel? noteModel;
+  final Function? onTap;
   /// --------------------------------------------------------------------------
   static const double balloonWidth = 70;
   /// --------------------------------------------------------------------------
@@ -42,7 +42,7 @@ class NoteSenderBalloon extends StatelessWidget {
     else {
 
       /// BLDRS
-      if (noteModel.parties.senderType == PartyType.bldrs){
+      if (noteModel?.parties?.senderType == PartyType.bldrs){
 
         return BldrsBox(
           width: balloonWidth,
@@ -57,15 +57,15 @@ class NoteSenderBalloon extends StatelessWidget {
       }
 
       /// USER
-      else if (noteModel.parties.senderType == PartyType.user){
-        return FutureBuilder(
+      else if (noteModel?.parties?.senderType == PartyType.user){
+        return FutureBuilder<UserModel?>(
           future: UserProtocols.fetch(
               context: context,
-              userID: noteModel.parties.senderID,
+              userID: noteModel?.parties?.senderID,
           ),
-          builder: (_, AsyncSnapshot<Object> snap){
+          builder: (_, AsyncSnapshot<UserModel?> snap){
 
-            final UserModel _userModel = snap.data;
+            final UserModel? _userModel = snap.data;
 
             return Balloona(
               size: balloonWidth,
@@ -79,20 +79,20 @@ class NoteSenderBalloon extends StatelessWidget {
       }
 
       /// BZ
-      else if (noteModel.parties.senderType == PartyType.bz){
+      else if (noteModel?.parties?.senderType == PartyType.bz){
 
-          return FutureBuilder<BzModel>(
+          return FutureBuilder<BzModel?>(
               future: BzProtocols.fetchBz(
-                bzID: noteModel.parties.senderID,
+                bzID: noteModel?.parties?.senderID,
               ),
-              builder: (_, AsyncSnapshot<Object> snap){
+              builder: (_, AsyncSnapshot<BzModel?> snap){
 
-                final BzModel _bzModel = snap.data;
+                final BzModel? _bzModel = snap.data;
 
                 return BzLogo(
                   width: balloonWidth,
-                  image: noteModel.parties.senderImageURL ?? _bzModel?.logoPath,
-                  isVerified: _bzModel?.isVerified,
+                  image: noteModel?.parties?.senderImageURL ?? _bzModel?.logoPath,
+                  isVerified: _bzModel?.isVerified ?? false,
                   zeroCornerIsOn: false,
                   onTap: onTap,
 
@@ -104,11 +104,11 @@ class NoteSenderBalloon extends StatelessWidget {
       }
 
       /// COUNTRY
-      else if (noteModel.parties.senderType == PartyType.country){
+      else if (noteModel?.parties?.senderType == PartyType.country){
         return BldrsBox(
           width: balloonWidth,
           height: balloonWidth,
-          icon: Flag.getCountryIcon(noteModel.parties.senderID), // countryID
+          icon: Flag.getCountryIcon(noteModel?.parties?.senderID), // countryID
           onTap: onTap,
         );
       }

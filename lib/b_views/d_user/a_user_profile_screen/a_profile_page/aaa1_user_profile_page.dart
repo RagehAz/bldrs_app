@@ -22,7 +22,7 @@ class UserProfilePage extends StatelessWidget {
       circleColor: Colorz.yellow255,
       onRefresh: () async {
 
-        final UserModel _userModel = await UserProtocols.refetch(
+        final UserModel? _userModel = await UserProtocols.refetch(
             context: context,
             userID: Authing.getUserID(),
         );

@@ -20,7 +20,7 @@ class SlideEditorScreen extends StatefulWidget {
   });
   /// --------------------------------------------------------------------------
   final DraftSlide slide;
-  final ValueNotifier<DraftFlyer> draftFlyer;
+  final ValueNotifier<DraftFlyer?> draftFlyer;
   /// --------------------------------------------------------------------------
   @override
   State<SlideEditorScreen> createState() => _SlideEditorScreenState();
@@ -33,9 +33,9 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
   // --------------------
   final List<ImageFilterModel> _allFilters = ImageFilterModel.bldrsImageFilters;
   // --------------------
-  final ValueNotifier<DraftSlide> _draftNotifier = ValueNotifier(null);
-  final ValueNotifier<Matrix4> _matrix = ValueNotifier(null);
-  final ValueNotifier<ImageFilterModel> _filterModel = ValueNotifier(null);
+  final ValueNotifier<DraftSlide?> _draftNotifier = ValueNotifier(null);
+  final ValueNotifier<Matrix4?> _matrix = ValueNotifier(null);
+  final ValueNotifier<ImageFilterModel?> _filterModel = ValueNotifier(null);
   final ValueNotifier<bool> _isTransforming = ValueNotifier(false);
   final ValueNotifier<bool> _canResetMatrix = ValueNotifier(false);
   final ValueNotifier<bool> _isPlayingAnimation = ValueNotifier(false);
@@ -76,7 +76,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
     );
 
     final bool _initialMatrixIsIdentity = Trinity.checkMatrixesAreIdentical(
-      matrix1: _draftNotifier.value.matrix,
+      matrix1: _draftNotifier.value?.matrix,
       matrixReloaded: Matrix4.identity(),
     );
 
@@ -116,7 +116,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
       setNotifier(
           notifier: _draftNotifier,
           mounted: mounted,
-          value: _draftNotifier.value.copyWith(
+          value: _draftNotifier.value?.copyWith(
             matrix: _matrix.value,
           ),
       );

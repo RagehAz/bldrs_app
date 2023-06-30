@@ -16,7 +16,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dar
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_banner.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
@@ -799,7 +799,7 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> bzContactsDialog({
-    required BzModel bzModel,
+    required BzModel? bzModel,
     required Verse titleVerse,
     required Verse bodyVerse,
     Verse? confirmButtonVerse,
@@ -829,7 +829,7 @@ class Dialogs {
           itemBuilder: (_, int index){
 
             return AuthorCard(
-              author: bzModel.authors[index],
+              author: bzModel?.authors[index],
               bzModel: bzModel,
               onContactTap: onContact,
               bubbleWidth: CenterDialog.getWidth(context),
@@ -849,10 +849,10 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> flyersDialog({
-    required List<String> flyersIDs,
+    required List<String>? flyersIDs,
     required Verse titleVerse,
     required Verse bodyVerse,
-    Verse confirmButtonVerse,
+    Verse? confirmButtonVerse,
     bool boolDialog = true,
   }) async {
 
@@ -896,7 +896,7 @@ class Dialogs {
     required FlyerModel flyer,
     required Verse titleVerse,
     required Verse bodyVerse,
-    Verse confirmButtonVerse,
+    Verse? confirmButtonVerse,
     bool boolDialog = true,
     bool invertButtons = false,
   }) async {
@@ -939,8 +939,8 @@ class Dialogs {
   static Future<bool> slideDialog({
     required SlideModel slideModel,
     required Verse titleVerse,
-    Verse bodyVerse,
-    Verse confirmButtonVerse,
+    Verse? bodyVerse,
+    Verse? confirmButtonVerse,
     bool boolDialog = true,
     bool invertButtons = false,
   }) async {

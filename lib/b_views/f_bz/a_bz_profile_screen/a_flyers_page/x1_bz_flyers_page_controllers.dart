@@ -137,7 +137,7 @@ Future<void> _onEditFlyerButtonTap({
     invoker: '_onEditFlyerButtonTap',
   );
 
-  final DraftFlyer _draft = await DraftFlyer.createDraft(
+  final DraftFlyer? _draft = await DraftFlyer.createDraft(
     oldFlyer: flyer,
   );
 
@@ -145,8 +145,9 @@ Future<void> _onEditFlyerButtonTap({
     context: context,
     screen: NewFlyerEditorScreen(
       draftFlyer: _draft,
-      onConfirm: (DraftFlyer draft) async {
-        draft.blogDraft(invoker: 'New Flyer Editor Test');
+      onConfirm: (DraftFlyer? draft) async {
+
+        draft?.blogDraft(invoker: 'New Flyer Editor Test');
 
         await onConfirmPublishFlyerButtonTap(
           context: context,

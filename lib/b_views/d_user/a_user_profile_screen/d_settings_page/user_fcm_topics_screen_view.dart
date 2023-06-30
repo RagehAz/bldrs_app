@@ -25,7 +25,7 @@ class UserFCMTopicsScreenView extends StatelessWidget {
   /// TESTED : WORKS PERFECT
   Future<void> _onSwitch({
     required BuildContext context,
-    required String topicID,
+    required String? topicID,
     required bool value,
   }) async {
 
@@ -51,7 +51,7 @@ class UserFCMTopicsScreenView extends StatelessWidget {
     if (value == true){
 
       final List<String> _updatedTopics = Stringer.addStringsToStringsIfDoNotContainThem(
-          listToTake: _userModel.fcmTopics,
+          listToTake: _userModel?.fcmTopics,
           listToAdd: TopicModel.getAllPossibleUserTopicsIDs(),
       );
 
@@ -59,7 +59,7 @@ class UserFCMTopicsScreenView extends StatelessWidget {
           context: context,
           newPic: null,
           oldUser: _userModel,
-          newUser: _userModel.copyWith(
+          newUser: _userModel?.copyWith(
             fcmTopics: _updatedTopics,
           ),
         invoker: 'UserFCMTopicsScreenView._onSwitchAll',
@@ -71,14 +71,14 @@ class UserFCMTopicsScreenView extends StatelessWidget {
     else {
 
       final List<String> _updatedTopics = Stringer.removeStringsFromStrings(
-        removeFrom: _userModel.fcmTopics,
+        removeFrom: _userModel?.fcmTopics,
         removeThis: TopicModel.getAllPossibleUserTopicsIDs(),
       );
 
       await UserProtocols.renovate(
         context: context,
         newPic: null,
-        newUser: _userModel.copyWith(
+        newUser: _userModel?.copyWith(
           fcmTopics: _updatedTopics,
         ),
         oldUser: _userModel,
@@ -100,7 +100,7 @@ class UserFCMTopicsScreenView extends StatelessWidget {
     );
 
     final List<String> _thisBzUserSubscribedTopics = TopicModel.getUserTopicsFromTopics(
-      topics: _userModel.fcmTopics,
+      topics: _userModel?.fcmTopics,
     );
 
     final bool _allIsOn = _thisBzUserSubscribedTopics.isNotEmpty;

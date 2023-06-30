@@ -11,7 +11,7 @@ class AddKeywordsButton extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final Function onTap;
+  final Function? onTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class AddKeywordsButton extends StatelessWidget {
     const double _corners = Ratioz.boxCorner12;
 
     return GestureDetector(
-      onTap: onTap,
+      onTap: () => onTap?.call(),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
@@ -35,13 +35,13 @@ class AddKeywordsButton extends StatelessWidget {
                 color: Colorz.blue20,
                 borderRadius: BorderRadius.circular(_corners),
               ),
-              child: Row(
+              child: const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
 
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    padding: EdgeInsets.symmetric(horizontal: 10),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,7 +49,7 @@ class AddKeywordsButton extends StatelessWidget {
 
                         /// 'Group' TITLE
                         // if (title != null)
-                        const BldrsText(
+                        BldrsText(
                           verse: Verse(
                             id: 'phid_add',
                             translate: true,
@@ -65,7 +65,7 @@ class AddKeywordsButton extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.end,
-                          children: const <Widget>[
+                          children: <Widget>[
                             BldrsText(
                               verse: Verse(
                                 id: 'phid_keywords',

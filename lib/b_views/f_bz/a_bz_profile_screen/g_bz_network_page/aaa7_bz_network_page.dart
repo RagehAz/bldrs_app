@@ -24,9 +24,9 @@ class BzNetworkPage extends StatelessWidget {
 
         BldrsText(
           verse: Verse(
-            id: '#!#${_bzModel.name}\nNetwork\nPage',
+            id: '#!#${_bzModel?.name}\nNetwork\nPage',
             translate: true,
-            variables: _bzModel.name,
+            variables: _bzModel?.name,
           ),
           size: 4,
           maxLines: 3,

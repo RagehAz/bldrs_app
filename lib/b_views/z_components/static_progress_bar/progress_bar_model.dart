@@ -1,11 +1,8 @@
-
 import 'package:basics/animators/helpers/animators.dart';
 import 'package:basics/animators/helpers/sliders.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 
@@ -22,7 +19,7 @@ class ProgressBarModel {
   final SwipeDirection swipeDirection;
   final int index;
   final int numberOfStrips;
-  final List<Color> stripsColors;
+  final List<Color>? stripsColors;
   // --------------------------------------------------------------------------
 
   /// CONSTANTS
@@ -89,8 +86,8 @@ class ProgressBarModel {
   /// TESTED : WORKS PERFECT
   static void onSwipe({
     required BuildContext context,
-    required int newIndex,
-    required ValueNotifier<ProgressBarModel> progressBarModel,
+    required int? newIndex,
+    required ValueNotifier<ProgressBarModel?> progressBarModel,
     required bool mounted,
     int? numberOfPages,
   }){
@@ -126,8 +123,8 @@ class ProgressBarModel {
   /// TESTED : WORKS PERFECT
   static void _updateProgressBarNotifierOnIndexChanged({
     required BuildContext context,
-    required ValueNotifier<ProgressBarModel> progressBarModel,
-    required int newIndex,
+    required ValueNotifier<ProgressBarModel?> progressBarModel,
+    required int? newIndex,
     required bool mounted,
     bool syncFocusScope = true,
     int? numberOfPages,
@@ -135,7 +132,7 @@ class ProgressBarModel {
 
     final SwipeDirection _direction = Animators.getSwipeDirection(
       newIndex: newIndex,
-      oldIndex: progressBarModel.value.index,
+      oldIndex: progressBarModel.value?.index,
     );
 
     if (syncFocusScope == true){
@@ -151,21 +148,21 @@ class ProgressBarModel {
     final bool _shouldChangeStripColors =
         numberOfPages != null
         &&
-        progressBarModel.value.stripsColors?.length != numberOfPages;
+        progressBarModel.value?.stripsColors?.length != numberOfPages;
 
-    final int _numberOfPages = numberOfPages ?? progressBarModel.value.stripsColors?.length;
+    final int _numberOfPages = numberOfPages ?? progressBarModel.value?.stripsColors?.length ?? 0;
 
     setNotifier(
         notifier: progressBarModel,
         mounted: mounted,
-        value: progressBarModel.value.copyWith(
+        value: progressBarModel.value?.copyWith(
           swipeDirection: _direction,
           index: newIndex,
           numberOfStrips: _numberOfPages,
           stripsColors: _shouldChangeStripColors == true ? ProgressBarModel.generateColors(
             colors: null,
             length: _numberOfPages,
-          ) : progressBarModel.value.stripsColors,
+          ) : progressBarModel.value?.stripsColors,
         ),
     );
 
@@ -178,12 +175,12 @@ class ProgressBarModel {
   /// TESTED : WORKS PERFECT
   static List<Color> generateColors({
     required int length,
-    required List<Color> colors,
+    required List<Color>? colors,
   }){
 
     if (Mapper.checkCanLoopList(colors) == true){
       blog('generateColors : colors : $colors');
-      return colors;
+      return colors!;
     }
 
     else {
@@ -198,11 +195,11 @@ class ProgressBarModel {
   static void setStripColor({
     required int index,
     required Color color,
-    required ValueNotifier<ProgressBarModel> notifier,
+    required ValueNotifier<ProgressBarModel?> notifier,
     required bool mounted,
   }){
 
-    final List<Color> _stripsColors = <Color>[ ...?notifier.value.stripsColors];
+    final List<Color> _stripsColors = <Color>[ ...?notifier.value?.stripsColors];
 
     _stripsColors.removeAt(index);
     _stripsColors.insert(index, color);
@@ -210,7 +207,7 @@ class ProgressBarModel {
     setNotifier(
       notifier: notifier,
       mounted: mounted,
-      value: notifier.value.copyWith(
+      value: notifier.value?.copyWith(
         stripsColors: _stripsColors,
       ),
     );

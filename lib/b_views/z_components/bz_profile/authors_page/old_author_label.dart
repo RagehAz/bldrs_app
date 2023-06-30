@@ -1,6 +1,6 @@
 // import 'package:bldrs/a_models/bz/author_model.dart';
 // import 'package:bldrs/a_models/bz/bz_model.dart';
-// import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+// import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 // import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_pic.dart';
 // import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 // import 'package:bldrs/b_views/z_components/texting/super_verse.dart';

@@ -586,10 +586,10 @@ class Chain {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void blogChains(List<Chain> chains, {int level = 0}) {
+  static void blogChains(List<Chain>? chains, {int level = 0}) {
     if (Mapper.checkCanLoopList(chains) == true) {
       // int _count = 1;
-      for (final Chain chain in chains) {
+      for (final Chain chain in chains!) {
         // blog('--- --- --- --- --->>> BLOGGING CHAIN : $_count / ${chains.length} chains');
 
         chain.blogChain(level: level + 1);

@@ -4,7 +4,8 @@ import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:basics/bubbles/model/bubble_header_vm.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/text_lines_analyzer.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -31,12 +32,12 @@ class ParagraphBubble extends StatefulWidget {
   final Verse paragraph;
   final int maxLines;
   final bool centered;
-  final String actionBtIcon;
-  final double bubbleWidth;
+  final String? actionBtIcon;
+  final double? bubbleWidth;
   final dynamic margins;
   final dynamic corners;
   final bool editMode;
-  final Function onParagraphTap;
+  final Function? onParagraphTap;
   final Color bubbleColor;
   final BubbleHeaderVM headerViewModel;
   /// --------------------------------------------------------------------------
@@ -47,15 +48,15 @@ class ParagraphBubble extends StatefulWidget {
 
 class _ParagraphBubbleState extends State<ParagraphBubble> {
   // -----------------------------------------------------------------------------
-  int _maxLines;
+  int? _maxLines;
   bool _isMax = false;
-  bool _canExpand;
+  bool? _canExpand;
   // -----------------------------------------------------------------------------
   @override
   void initState() {
     super.initState();
     _maxLines = widget.maxLines;
-    _canExpand = widget.paragraph.id.length > 100;
+    _canExpand = (widget.paragraph.id?.length ?? 0) > 100;
   }
   // --------------------
   @override
@@ -68,8 +69,8 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
   // -----------------------------------------------------------------------------
   void _onParagraphTap() {
     if (widget.editMode == true) {
-      widget.onParagraphTap();
-    } else if (_canExpand == true) {
+      widget.onParagraphTap?.call();
+    } else if (Mapper.boolIsTrue(_canExpand) == true) {
       // widget.onParagraphTap();
 
       if (_maxLines == widget.maxLines) {
@@ -111,7 +112,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
         corners: widget.corners,
         childrenCentered: widget.centered,
         bubbleColor: widget.bubbleColor,
-        onBubbleTap: widget.editMode == true || _canExpand == true ?
+        onBubbleTap: widget.editMode == true || Mapper.boolIsTrue(_canExpand) == true ?
         _onParagraphTap
             :
         null,
@@ -133,7 +134,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
           /// ARROW
           if (widget.paragraph != null && widget.paragraph.id != '')
             TextLinesAnalyzer(
-              text: widget.paragraph.id.trim(),
+              text: widget.paragraph.id?.trim(),
               textStyle: _paragraphTextStyle,
               maxLines: widget.maxLines,
               childIfWithinMaxLines: Container(),

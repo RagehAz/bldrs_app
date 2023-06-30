@@ -31,66 +31,71 @@ class NoteEventsOfBzTeamManagement {
   /// TESTED : WORKS PERFECT
   static Future<void> sendAuthorRoleChangeNote({
     required BuildContext context,
-    required String bzID,
-    required AuthorModel author,
+    required String? bzID,
+    required AuthorModel? author,
   }) async {
 
     // blog('NoteEventsOfBzTeamManagement.sendAuthorRoleChangeNote : START');
 
-    final String? _authorRolePhid = AuthorModel.getAuthorRolePhid(
-      role:  author.role,
-    );
+    if (author != null){
 
-    final UserModel? _userModel = await UserProtocols.fetch(
+      final String? _authorRolePhid = AuthorModel.getAuthorRolePhid(
+        role:  author.role,
+      );
+
+      final UserModel? _userModel = await UserProtocols.fetch(
         context: context,
         userID: author.userID,
-    );
+      );
 
-    final String? _title = await PhraseProtocols.translate(
-      phid: 'phid_member_role_changed',
-      langCode: _userModel?.language,
-    );
+      final String? _title = await PhraseProtocols.translate(
+        phid: 'phid_member_role_changed',
+        langCode: _userModel?.language,
+      );
 
-    /// TASK : ARABIC TRANSLATION IS MESSED UP IN ORDER
-    final String? _hasNewRole = await PhraseProtocols.translate(
+      /// TASK : ARABIC TRANSLATION IS MESSED UP IN ORDER
+      final String? _hasNewRole = await PhraseProtocols.translate(
         phid: 'phid_has_new_role',
         langCode: _userModel?.language,
-    );
+      );
 
-    final String? _role = await PhraseProtocols.translate(
-      phid: _authorRolePhid,
-      langCode: _userModel?.language,
-    );
+      final String? _role = await PhraseProtocols.translate(
+        phid: _authorRolePhid,
+        langCode: _userModel?.language,
+      );
 
-    final String _body =  '${author.name}\n$_hasNewRole $_role';
+      final String _body =  '${author.name}\n$_hasNewRole $_role';
 
-    final NoteModel _note = NoteModel(
-      id: null,
-      parties: NoteParties(
-        senderID: bzID,
-        senderImageURL: author.picPath,
-        senderType: PartyType.bz,
-        receiverID: bzID,
-        receiverType: PartyType.bz,
-      ),
-      title: _title,
-      body: _body,
-      sentTime: DateTime.now(),
-      topic: TopicModel.bakeTopicID(
-        topicID: TopicModel.bzTeamRolesUpdates,
-        bzID: bzID,
-        receiverPartyType: PartyType.bz,
-      ),
-      navTo: TriggerModel(
-        name: Routing.myBzTeamPage,
-        argument: bzID,
-        done: const [],
-      ),
-    );
+      final NoteModel _note = NoteModel(
+        id: null,
+        parties: NoteParties(
+          senderID: bzID,
+          senderImageURL: author.picPath,
+          senderType: PartyType.bz,
+          receiverID: bzID,
+          receiverType: PartyType.bz,
+        ),
+        title: _title,
+        body: _body,
+        sentTime: DateTime.now(),
+        topic: TopicModel.bakeTopicID(
+          topicID: TopicModel.bzTeamRolesUpdates,
+          bzID: bzID,
+          receiverPartyType: PartyType.bz,
+        ),
+        navTo: TriggerModel(
+          name: Routing.myBzTeamPage,
+          argument: bzID,
+          done: const [],
+        ),
+      );
 
-    await NoteProtocols.composeToOneReceiver(
+      await NoteProtocols.composeToOneReceiver(
       note: _note,
     );
+
+
+    }
 
     // blog('NoteEventsOfBzTeamManagement.sendAuthorRoleChangeNote : END');
 
@@ -194,7 +199,7 @@ class NoteEventsOfBzTeamManagement {
 
       final String? _title = await PhraseProtocols.translate(
         phid: 'phid_you_have_exited_bz',
-        langCode: _userModel?.language,
+        langCode: _userModel.language,
       );
 
       final NoteModel _noteToUser = NoteModel(

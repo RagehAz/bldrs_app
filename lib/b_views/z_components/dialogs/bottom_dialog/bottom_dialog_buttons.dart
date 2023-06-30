@@ -2,7 +2,7 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:bldrs/a_models/x_utilities/map_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -22,7 +22,7 @@ class BottomDialogButtons extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final List<MapModel> mapsModels;
   final Alignment alignment;
-  final ValueChanged<String> buttonTap;
+  final ValueChanged<String?> buttonTap;
   final BottomDialogType bottomDialogType;
   final double? dialogHeight;
   final double buttonHeight;
@@ -53,7 +53,7 @@ class BottomDialogButtons extends StatelessWidget {
         // padding: EdgeInsets.zero, /// AGAIN => ENTA EBN WES5A
         itemBuilder: (BuildContext context, int index) {
 
-          final String _id = mapsModels[index].key;
+          final String? _id = mapsModels[index].key;
           final dynamic _value = mapsModels[index].value;
 
           final String? _icon = bottomDialogType == BottomDialogType.countries ?

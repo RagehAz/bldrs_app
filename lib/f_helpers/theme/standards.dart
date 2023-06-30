@@ -60,12 +60,12 @@ class Standards {
   // --------------------
   /// TESTED : WORKS PERFECT
   static int getMaxSlidesCount({
-    required BzAccountType bzAccountType,
+    required BzAccountType? bzAccountType,
   }) {
     switch (bzAccountType) {
-      case BzAccountType.basic:  return Standards.maxFlyerSlidesFreeAccount;     break;
-      case BzAccountType.advanced: return Standards.maxFlyerSlidesPremiumAccount;  break;
-      case BzAccountType.premium:  return Standards.maxFlyerSlidesFreeSuper;       break;
+      case BzAccountType.basic:  return Standards.maxFlyerSlidesFreeAccount;
+      case BzAccountType.advanced: return Standards.maxFlyerSlidesPremiumAccount;
+      case BzAccountType.premium:  return Standards.maxFlyerSlidesFreeSuper;
       default:  return Standards.maxFlyerSlidesFreeAccount;
     }
   }

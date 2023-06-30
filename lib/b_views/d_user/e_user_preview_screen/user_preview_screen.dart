@@ -4,7 +4,7 @@ import 'package:basics/layouts/handlers/pull_to_refresh.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/d_user/z_components/banners/a_user_profile_banners.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -20,13 +20,13 @@ class UserPreviewScreen extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final UserModel userModel;
+  final UserModel? userModel;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
 
-    final bool _userIsNotFound = userModel == null || userModel.id == null;
+    final bool _userIsNotFound = userModel == null || userModel?.id == null;
 
     return MainLayout(
       appBarType: AppBarType.basic,
@@ -35,7 +35,7 @@ class UserPreviewScreen extends StatelessWidget {
       child: _userIsNotFound == true ?
       const _NoUserFoundView()
           :
-      _UserProfileView(userModel: userModel),
+      _UserProfileView(userModel: userModel!),
     );
     // --------------------
   }
@@ -51,9 +51,9 @@ class _NoUserFoundView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Stack(
+    return const Stack(
       alignment: Alignment.center,
-      children: const <Widget>[
+      children: <Widget>[
 
         BldrsBox(
           height: 400,
@@ -95,7 +95,7 @@ class _UserProfileView extends StatelessWidget {
         circleColor: Colorz.yellow255,
         onRefresh: () async {
 
-          final UserModel _userModel = await UserProtocols.refetch(
+          final UserModel? _userModel = await UserProtocols.refetch(
               context: context,
               userID: userModel.id,
           );

@@ -19,12 +19,12 @@ class BzTileButton extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final double height;
-  final double width;
+  final double? height;
+  final double? width;
   final Color color;
-  final Function onTap;
+  final Function? onTap;
   final BzModel bzModel;
-  final Verse secondLine;
+  final Verse? secondLine;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

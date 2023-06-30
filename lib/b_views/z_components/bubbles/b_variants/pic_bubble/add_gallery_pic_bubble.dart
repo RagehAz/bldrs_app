@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/balloons/balloons.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/b_balloona.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_validator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -42,16 +42,16 @@ class AddImagePicBubble extends StatelessWidget {
     super.key
   });
   // --------------------
-  final Function onAddPicture;
-  final PicModel picModel;
+  final ValueChanged<PicMakerType>? onAddPicture;
+  final PicModel? picModel;
   final Verse titleVerse;
   final BubbleType bubbleType;
   final bool redDot;
-  final double width;
-  final String Function() validator;
-  final GlobalKey<FormState> formKey;
+  final double? width;
+  final String? Function()? validator;
+  final GlobalKey<FormState>? formKey;
   final bool autoValidate;
-  final Function onPicLongTap;
+  final Function? onPicLongTap;
   // --------------------
   static BorderRadius getPicBorder ({
     required BuildContext context,
@@ -66,7 +66,7 @@ class AddImagePicBubble extends StatelessWidget {
       Borderers.shapeOfLogo(
           appIsLTR: UiProvider.checkAppIsLeftToRight(),
           corner: corner,
-          zeroCornerEnIsRight: true
+          // zeroCornerEnIsRight: true
       )
           :
       bubbleType == BubbleType.authorPic ?
@@ -93,7 +93,7 @@ class AddImagePicBubble extends StatelessWidget {
     // --------------------
     return Bubble(
         bubbleColor: Formers.validatorBubbleColor(
-          validator: validator == null ? null : () => validator(),
+          validator: validator == null ? null : () => validator?.call(),
         ),
         bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
           context: context,
@@ -152,7 +152,7 @@ class AddImagePicBubble extends StatelessWidget {
                       height: btWidth,
                       icon: Iconz.phoneGallery,
                       iconSizeFactor: 0.6,
-                      onTap: () => onAddPicture(PicMakerType.galleryImage),
+                      onTap: () => onAddPicture?.call(PicMakerType.galleryImage),
                       onLongTap: onPicLongTap,
                     ),
 
@@ -162,7 +162,7 @@ class AddImagePicBubble extends StatelessWidget {
                       height: btWidth,
                       icon: Iconz.camera,
                       iconSizeFactor: 0.5,
-                      onTap: () => onAddPicture(PicMakerType.cameraImage),
+                      onTap: () => onAddPicture?.call(PicMakerType.cameraImage),
                     ),
 
                   ],
@@ -194,7 +194,7 @@ class _FilePicSplitter extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final PicModel picModel;
+  final PicModel? picModel;
   final BubbleType bubbleType;
   final double picWidth;
   /// --------------------------------------------------------------------------
@@ -286,11 +286,11 @@ class _PlusIconLayer extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final PicModel picModel;
-  final ValueChanged<PicMakerType> onAddPic;
+  final PicModel? picModel;
+  final ValueChanged<PicMakerType>? onAddPic;
   final BubbleType bubbleType;
   final double picWidth;
-  final Function onLongTap;
+  final Function? onLongTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -312,7 +312,7 @@ class _PlusIconLayer extends StatelessWidget {
         bubble: false,
         opacity: 0.9,
         iconColor: Colorz.white255,
-        onTap: () => onAddPic(PicMakerType.galleryImage),
+        onTap: () => onAddPic?.call(PicMakerType.galleryImage),
         onLongTap: onLongTap,
       );
     }
@@ -328,7 +328,7 @@ class _PlusIconLayer extends StatelessWidget {
       /// SIZE
       else {
 
-        final bool _isExceedingMaxSize = picModel.bytes.length > (3 * 1024 * 1024);
+        final bool _isExceedingMaxSize = (picModel?.bytes?.length ?? 0) > (3 * 1024 * 1024);
 
         return SizedBox(
           width: AddImagePicBubble.picWidth,
@@ -341,7 +341,7 @@ class _PlusIconLayer extends StatelessWidget {
 
               BldrsText(
                 width: AddImagePicBubble.picWidth * 0.6,
-                verse: Verse.plain('${Filers.calculateSize(picModel.bytes.length, FileSizeUnit.megaByte)} Mb'),
+                verse: Verse.plain('${Filers.calculateSize(picModel?.bytes?.length, FileSizeUnit.megaByte)} Mb'),
                 size: 1,
                 shadow: true,
                 labelColor: _isExceedingMaxSize ? Colorz.red255 : Colorz.black150,

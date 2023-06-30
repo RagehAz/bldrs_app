@@ -14,18 +14,17 @@ class UserProfileBanners extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final UserModel userModel;
+  final UserModel? userModel;
   final bool showContacts;
   /// --------------------------------------------------------------------------
   static String? generateTitleCompanyString({
-    required UserModel userModel,
-    required BuildContext context,
+    required UserModel? userModel,
   }){
 
     String? _string;
 
     final String? _title = userModel?.title;
-    final String _company = userModel.company;
+    final String? _company = userModel?.company;
 
     if (_title == null && _company == null){
       _string = null;
@@ -49,7 +48,7 @@ class UserProfileBanners extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final UserModel _userModel = userModel ?? UsersProvider.proGetMyUserModel(
+    final UserModel? _userModel = userModel ?? UsersProvider.proGetMyUserModel(
       context: context,
       listen: true,
     );

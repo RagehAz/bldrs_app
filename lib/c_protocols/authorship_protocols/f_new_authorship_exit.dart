@@ -71,8 +71,8 @@ class NewAuthorshipExit {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onRemoveMySelf({
-    required AuthorModel authorModel,
-    required BzModel bzModel,
+    required AuthorModel? authorModel,
+    required BzModel? bzModel,
     required bool showConfirmDialog,
   }) async {
 
@@ -111,7 +111,7 @@ class NewAuthorshipExit {
       /// (only i can) : RENOVATE MY USER MODEL
       /// (only i can) : REMOVE BZ NOTES FROM OBELISK NUMBERS
       await _doAllMyUserRemovalFromBzOps(
-        bzID: bzModel.id,
+        bzID: bzModel?.id,
       );
 
       /// (only i can) : SEND authorExit NOTES
@@ -144,8 +144,8 @@ class NewAuthorshipExit {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onRemoveOtherAuthor({
-    required AuthorModel authorModel,
-    required BzModel bzModel,
+    required AuthorModel? authorModel,
+    required BzModel? bzModel,
   }) async {
 
     /// SHOW DIALOG

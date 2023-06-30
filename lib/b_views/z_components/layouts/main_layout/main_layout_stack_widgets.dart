@@ -59,7 +59,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
   final bool sectionButtonIsOn;
   final Verse? searchHintVerse;
   final ValueNotifier<bool>? loading;
-  final ValueNotifier<ProgressBarModel>? progressBarModel;
+  final ValueNotifier<ProgressBarModel?>? progressBarModel;
   final PyramidType? pyramidType;
   final Function? onPyramidTap;
   final bool canGoBack;

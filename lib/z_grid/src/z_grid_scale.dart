@@ -390,7 +390,7 @@ class ZGridScale {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double getBottomPaddingOnZoomedOut({
-    required double bottomPaddingOnZoomedOut,
+    required double? bottomPaddingOnZoomedOut,
   }){
     return bottomPaddingOnZoomedOut ?? 10;
   }

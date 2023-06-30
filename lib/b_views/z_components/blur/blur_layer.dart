@@ -14,11 +14,11 @@ class BlurLayer extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final BorderRadius borders;
+  final BorderRadius? borders;
   final double blur;
   final double width;
   final double height;
-  final Color color;
+  final Color? color;
   final bool blurIsOn;
   /// --------------------------------------------------------------------------
   @override

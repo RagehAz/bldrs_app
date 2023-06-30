@@ -406,7 +406,7 @@ String? phidIcon(dynamic icon){
 /// ----------------------------------------------------------------------------------------
 /// ----------------------------------------------------------------------------------------
 
-String counterCaliber(int x){
+String? counterCaliber(int? x){
   return Numeric.formatNumToCounterCaliber(
     x: x,
     thousand: xPhrase('phid_thousand')!,

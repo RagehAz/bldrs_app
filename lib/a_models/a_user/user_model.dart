@@ -623,15 +623,15 @@ class UserModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<UserModel> addUniqueUsersToUsers({
-    required List<UserModel> usersToGet,
-    required List<UserModel> usersToAdd,
+    required List<UserModel>? usersToGet,
+    required List<UserModel>? usersToAdd,
   }){
 
-    List<UserModel> _output = usersToGet;
+    List<UserModel> _output = [...?usersToGet];
 
     if (Mapper.checkCanLoopList(usersToAdd) == true){
 
-      for (final UserModel user in usersToAdd){
+      for (final UserModel user in usersToAdd!){
 
         _output = addUniqueUserToUsers(
             usersToGet: usersToGet,

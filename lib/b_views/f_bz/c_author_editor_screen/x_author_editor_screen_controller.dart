@@ -33,13 +33,13 @@ import 'package:mediators/pic_maker/pic_maker.dart';
 /// TESTED : WORKS PERFECT
 Future<void> prepareAuthorPicForEditing({
   required BuildContext context,
-  required ValueNotifier<AuthorModel> draftAuthor,
-  required AuthorModel oldAuthor,
-  required BzModel bzModel,
+  required ValueNotifier<AuthorModel?>? draftAuthor,
+  required AuthorModel? oldAuthor,
+  required BzModel? bzModel,
   required bool mounted,
 }) async {
 
-  final AuthorModel _tempAuthor = await AuthorModel.prepareAuthorForEditing(
+  final AuthorModel? _tempAuthor = await AuthorModel.prepareAuthorForEditing(
     oldAuthor: oldAuthor,
     bzModel: bzModel,
   );
@@ -60,13 +60,13 @@ Future<void> prepareAuthorPicForEditing({
 Future<void> loadAuthorEditorSession({
   required BuildContext context,
   required bool mounted,
-  required ValueNotifier<AuthorModel> draftAuthor,
-  required AuthorModel oldAuthor,
-  required BzModel bzModel,
+  required ValueNotifier<AuthorModel?> draftAuthor,
+  required AuthorModel? oldAuthor,
+  required BzModel? bzModel,
 }) async {
 
-  final AuthorModel _lastSessionAuthor = await BzLDBOps.loadAuthorEditorSession(
-    authorID: oldAuthor.userID,
+  final AuthorModel? _lastSessionAuthor = await BzLDBOps.loadAuthorEditorSession(
+    authorID: oldAuthor?.userID,
   );
 
   if (_lastSessionAuthor != null){
@@ -85,7 +85,7 @@ Future<void> loadAuthorEditorSession({
 
     if (_continue == true){
       // -------------------------
-      final AuthorModel _initialAuthor = await AuthorModel.prepareAuthorForEditing(
+      final AuthorModel? _initialAuthor = await AuthorModel.prepareAuthorForEditing(
         oldAuthor: _lastSessionAuthor,
         bzModel: bzModel,
       );
@@ -109,13 +109,13 @@ Future<void> loadAuthorEditorSession({
 /// TESTED : WORKS PERFECT
 Future<void> saveAuthorEditorSession({
   required BuildContext context,
-  required AuthorModel oldAuthor,
-  required BzModel bzModel,
-  required ValueNotifier<AuthorModel> draftAuthor,
+  required AuthorModel? oldAuthor,
+  required BzModel? bzModel,
+  required ValueNotifier<AuthorModel?> draftAuthor,
   required bool mounted,
 }) async {
 
-  final AuthorModel newAuthor = AuthorModel.bakeEditorVariablesToUpload(
+  final AuthorModel? newAuthor = AuthorModel.bakeEditorVariablesToUpload(
     bzModel: bzModel,
     oldAuthor: oldAuthor,
     draftAuthor: draftAuthor.value,
@@ -150,8 +150,8 @@ Future<void> saveAuthorEditorSession({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> takeAuthorImage({
-  required ValueNotifier<AuthorModel> author,
-  required BzModel bzModel,
+  required ValueNotifier<AuthorModel?> author,
+  required BzModel? bzModel,
   required PicMakerType imagePickerType,
   required ValueNotifier<bool> canPickImage,
   required bool mounted,
@@ -203,18 +203,18 @@ Future<void> takeAuthorImage({
       setNotifier(
           notifier: author,
           mounted: mounted,
-          value: author.value.copyWith(
+          value: author.value?.copyWith(
             picModel: PicModel(
               bytes: _bytes,
-              path: StoragePath.bzz_bzID_authorID(bzID: bzModel.id, authorID: author.value.userID),
+              path: StoragePath.bzz_bzID_authorID(bzID: bzModel?.id, authorID: author.value?.userID),
               meta: StorageMetaModel(
                 sizeMB: _mega,
                 ownersIDs: AuthorModel.getAuthorPicOwnersIDs(
                   bzModel: bzModel,
                   authorModel: author.value,
                 ),
-                width: _dims.width,
-                height: _dims.height,
+                width: _dims?.width,
+                height: _dims?.height,
               ),
             ),
           ),
@@ -256,15 +256,15 @@ void onDeleteAuthorImage({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onAuthorNameChanged({
-  required ValueNotifier<AuthorModel> tempAuthor,
-  required String text,
+  required ValueNotifier<AuthorModel?> tempAuthor,
+  required String? text,
   required bool mounted,
 }){
 
   setNotifier(
       notifier: tempAuthor,
       mounted: mounted,
-      value: tempAuthor.value.copyWith(
+      value: tempAuthor.value?.copyWith(
         name: text,
       ),
   );
@@ -273,15 +273,15 @@ void onAuthorNameChanged({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onAuthorTitleChanged({
-  required ValueNotifier<AuthorModel> tempAuthor,
-  required String text,
+  required ValueNotifier<AuthorModel?> tempAuthor,
+  required String? text,
   required bool mounted,
 }){
 
   setNotifier(
       notifier: tempAuthor,
       mounted: mounted,
-      value: tempAuthor.value.copyWith(
+      value: tempAuthor.value?.copyWith(
         title: text,
       ),
   );
@@ -290,14 +290,14 @@ void onAuthorTitleChanged({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onAuthorContactChanged({
-  required ValueNotifier<AuthorModel> tempAuthor,
+  required ValueNotifier<AuthorModel?> tempAuthor,
   required ContactType contactType,
   required String value,
   required bool mounted,
 }){
 
   final List<ContactModel> _contacts = ContactModel.insertOrReplaceContact(
-    contacts: tempAuthor.value.contacts,
+    contacts: tempAuthor.value?.contacts,
     contactToReplace: ContactModel(
       value: value,
       type: contactType,
@@ -307,7 +307,7 @@ void onAuthorContactChanged({
   setNotifier(
       notifier: tempAuthor,
       mounted: mounted,
-      value: tempAuthor.value.copyWith(
+      value: tempAuthor.value?.copyWith(
         contacts: _contacts,
       ),
   );
@@ -322,9 +322,9 @@ void onAuthorContactChanged({
 /// TESTED : WORKS PERFECT
 Future<void> onConfirmAuthorUpdates({
   required BuildContext context,
-  required AuthorModel oldAuthor,
-  required ValueNotifier<AuthorModel> draftAuthor,
-  required BzModel oldBz,
+  required AuthorModel? oldAuthor,
+  required ValueNotifier<AuthorModel?> draftAuthor,
+  required BzModel? oldBz,
 }) async {
 
   final bool _result = await CenterDialog.showCenterDialog(
@@ -352,7 +352,7 @@ Future<void> onConfirmAuthorUpdates({
       ),
     );
 
-    final AuthorModel _newAuthor = AuthorModel.bakeEditorVariablesToUpload(
+    final AuthorModel? _newAuthor = AuthorModel.bakeEditorVariablesToUpload(
       bzModel: oldBz,
       oldAuthor: oldAuthor,
       draftAuthor: draftAuthor.value,
@@ -364,7 +364,7 @@ Future<void> onConfirmAuthorUpdates({
       newAuthor: _newAuthor,
     );
 
-    await BzLDBOps.deleteAuthorEditorSession(oldAuthor.userID);
+    await BzLDBOps.deleteAuthorEditorSession(oldAuthor?.userID);
 
     await WaitDialog.closeWaitDialog();
 
@@ -383,15 +383,14 @@ Future<void> onConfirmAuthorUpdates({
 /// TESTED : WORKS PERFECT
 Future<void> onChangeAuthorRoleOps({
   required BuildContext context,
-  required ValueNotifier<AuthorRole> draftRole,
-  required AuthorModel oldAuthor,
+  required ValueNotifier<AuthorRole?> draftRole,
+  required AuthorModel? oldAuthor,
   required bool mounted,
 }) async {
 
-  if (draftRole.value != oldAuthor.role){
+  if (draftRole.value != oldAuthor?.role){
 
-    final String _rolePhid = AuthorModel.getAuthorRolePhid(
-      context: context,
+    final String? _rolePhid = AuthorModel.getAuthorRolePhid(
       role: draftRole.value,
     );
 
@@ -402,7 +401,7 @@ Future<void> onChangeAuthorRoleOps({
       ),
       bodyVerse: Verse(
         id: '${Verse.transBake('phid_this_will_change_the_role_of')}\n'
-              '${oldAuthor.name}\n'
+              '${oldAuthor?.name}\n'
               '${Verse.transBake('phid_to')}'
               '${Verse.transBake(_rolePhid)}',
         translate: false,
@@ -414,7 +413,7 @@ Future<void> onChangeAuthorRoleOps({
       setNotifier(
           notifier: draftRole,
           mounted: mounted,
-          value: oldAuthor.role
+          value: oldAuthor?.role
       );
     }
 
@@ -432,7 +431,7 @@ Future<void> onChangeAuthorRoleOps({
         listen: false,
       );
 
-      final AuthorModel _newAuthor = oldAuthor.copyWith(
+      final AuthorModel? _newAuthor = oldAuthor?.copyWith(
         role: draftRole.value,
       );
 
@@ -446,7 +445,7 @@ Future<void> onChangeAuthorRoleOps({
 
         NoteEvent.sendAuthorRoleChangeNote(
           context: context,
-          bzID: _oldBz.id,
+          bzID: _oldBz?.id,
           author: _newAuthor,
         )
 
@@ -471,8 +470,8 @@ Future<void> onChangeAuthorRoleOps({
 Future<void> setAuthorRole({
   required BuildContext context,
   required AuthorRole selectedRole,
-  required ValueNotifier<AuthorRole> tempRole,
-  required AuthorModel oldAuthor,
+  required ValueNotifier<AuthorRole?> tempRole,
+  required AuthorModel? oldAuthor,
   required bool mounted,
 }) async {
 
@@ -504,13 +503,13 @@ Future<void> setAuthorRole({
 /// TESTED : WORKS PERFECT
 Future<bool> _checkCanChangeRole({
   required BuildContext context,
-  required AuthorModel oldAuthor,
+  required AuthorModel? oldAuthor,
   required AuthorRole role,
 }) async {
   bool _canChange = false;
 
   /// IF AUTHOR IS ALREADY THE CREATOR
-  if (oldAuthor.role == AuthorRole.creator){
+  if (oldAuthor?.role == AuthorRole.creator){
 
     /// WHEN CHOOSING SOMETHING OTHER THAN CREATOR
     if (role != AuthorRole.creator){

@@ -16,7 +16,7 @@ class BldrsBulletPoints extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final List<Verse> bulletPoints;
+  final List<Verse>? bulletPoints;
   final double? bubbleWidth;
   final bool centered;
   final bool showBottomLine;
@@ -34,7 +34,6 @@ class BldrsBulletPoints extends StatelessWidget {
       boxWidth: _bubbleWidth,
       textHeight: BldrsText.superVerseRealHeight(context: context, size: 2, sizeFactor: verseSizeFactor, hasLabelBox: false),
       bulletPoints: Verse.bakeVerses(
-        context: context,
         verses: bulletPoints,
       ),
       appIsLTR: UiProvider.checkAppIsLeftToRight(),

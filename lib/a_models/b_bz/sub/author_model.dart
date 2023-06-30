@@ -44,16 +44,16 @@ class AuthorModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<AuthorModel> prepareAuthorForEditing({
-    required AuthorModel oldAuthor,
-    required BzModel bzModel,
+  static Future<AuthorModel?> prepareAuthorForEditing({
+    required AuthorModel? oldAuthor,
+    required BzModel? bzModel,
   }) async {
 
-    final AuthorModel _tempAuthor = oldAuthor.copyWith(
+    final AuthorModel? _tempAuthor = oldAuthor?.copyWith(
       picModel: await PicProtocols.fetchPic(oldAuthor.picPath),
       contacts: ContactModel.prepareContactsForEditing(
         contacts: oldAuthor.contacts,
-        countryID: bzModel.zone?.countryID,
+        countryID: bzModel?.zone?.countryID,
       ),
     );
 
@@ -61,16 +61,16 @@ class AuthorModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static AuthorModel bakeEditorVariablesToUpload({
-    required AuthorModel draftAuthor,
-    required AuthorModel oldAuthor,
-    required BzModel bzModel,
+  static AuthorModel? bakeEditorVariablesToUpload({
+    required AuthorModel? draftAuthor,
+    required AuthorModel? oldAuthor,
+    required BzModel? bzModel,
   }){
 
-    return draftAuthor.copyWith(
+    return draftAuthor?.copyWith(
       contacts: ContactModel.bakeContactsAfterEditing(
         contacts: draftAuthor.contacts,
-        countryID: bzModel.zone?.countryID,
+        countryID: bzModel?.zone?.countryID,
       ),
     );
 
@@ -342,13 +342,15 @@ class AuthorModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getAuthorsIDsFromAuthors({
-    required List<AuthorModel> authors,
+    required List<AuthorModel>? authors,
   }) {
     final List<String> _authorsIDs = <String>[];
 
-    for (final AuthorModel author in authors) {
-      if (author.userID != null){
-        _authorsIDs.add(author.userID!);
+    if (Mapper.checkCanLoopList(authors) == true) {
+      for (final AuthorModel author in authors!) {
+        if (author.userID != null) {
+          _authorsIDs.add(author.userID!);
+        }
       }
     }
 

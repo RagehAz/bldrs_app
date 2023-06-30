@@ -15,9 +15,9 @@ class BldrsValidator extends StatelessWidget {
   });
   // -----------------------------------------------------------------------------
     final double width;
-    final String Function() validator;
+    final String? Function()? validator;
     final bool autoValidate ;
-    final FocusNode focusNode;
+    final FocusNode? focusNode;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

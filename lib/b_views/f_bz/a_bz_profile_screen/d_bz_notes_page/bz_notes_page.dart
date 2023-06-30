@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/layouts/handlers/pull_to_refresh.dart';
@@ -38,7 +37,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
   // bool get wantKeepAlive => true;
    */
   // -----------------------------------------------------------------------------
-  PaginationController _paginationController;
+  PaginationController? _paginationController;
   // --------------------
   final List<NoteModel> _localNotesToMarkUnseen = <NoteModel>[];
   // --------------------
@@ -96,7 +95,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
   void dispose() {
     blog('BzNotesPage dispose START');
     _loading.dispose();
-    _paginationController.dispose();
+    _paginationController?.dispose();
     super.dispose();
     blog('BzNotesPage dispose END');
   }
@@ -162,12 +161,12 @@ class _BzNotesPageState extends State<BzNotesPage>{
     await Future.delayed(const Duration(milliseconds: 200), (){
 
       setNotifier(
-          notifier: _paginationController.paginatorMaps,
+          notifier: _paginationController?.paginatorMaps,
           mounted: mounted,
           value: <Map<String, dynamic>>[],
       );
       setNotifier(
-          notifier: _paginationController.startAfter,
+          notifier: _paginationController?.startAfter,
           mounted: mounted,
           value: null,
       );
@@ -214,25 +213,25 @@ class _BzNotesPageState extends State<BzNotesPage>{
 
       FireCollPaginator(
           paginationQuery: bzNotesPaginationQueryModel(
-            bzID: _bzModel.id,
+            bzID: _bzModel?.id,
           ),
           paginationController: _paginationController,
           builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget? child){
 
             return ListView.builder(
               physics: const BouncingScrollPhysics(),
-              controller: _paginationController.scrollController,
-              itemCount: maps?.length,
+              controller: _paginationController?.scrollController,
+              itemCount: maps.length,
               padding: Stratosphere.stratosphereSandwich,
               itemBuilder: (BuildContext ctx, int index) {
 
-                final NoteModel _note = NoteModel.decipherNote(
+                final NoteModel? _note = NoteModel.decipherNote(
                   map: maps[index],
                   fromJSON: false,
                 );
 
                 return NoteCard(
-                  key: PageStorageKey<String>('bz_note_card_${_note.id}'),
+                  key: PageStorageKey<String>('bz_note_card_${_note?.id}'),
                   noteModel: _note,
                   isDraftNote: false,
                   onCardTap: _onNoteTap(_note),

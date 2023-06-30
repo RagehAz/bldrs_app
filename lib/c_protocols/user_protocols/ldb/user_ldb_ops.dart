@@ -181,7 +181,7 @@ class UserLDBOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> wipeEditorSession(String userID) async {
+  static Future<void> wipeEditorSession(String? userID) async {
 
     await LDBOps.deleteMap(
       objectID: userID,

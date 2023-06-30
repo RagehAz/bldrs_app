@@ -2,7 +2,7 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/bullet_points/bldrs_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_validator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -30,16 +30,16 @@ class MultipleChoiceBubble extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final Verse titleVerse;
-  final List<Verse> bulletPoints;
+  final List<Verse>? bulletPoints;
   final List<Verse> buttonsVerses;
   final ValueChanged<int> onButtonTap;
   final List<String> selectedButtonsPhids;
-  final List<Verse> inactiveButtons;
-  final String Function() validator;
+  final List<Verse>? inactiveButtons;
+  final String? Function()? validator;
   final bool autoValidate;
   final bool isRequired;
   final bool wrapButtons;
-  final FocusNode focusNode;
+  final FocusNode? focusNode;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class MultipleChoiceBubble extends StatelessWidget {
     return Bubble(
         width: _bubbleWidth,
         bubbleColor: Formers.validatorBubbleColor(
-          validator: validator == null ? null : () => validator(),
+          validator: validator == null ? null : () => validator?.call(),
         ),
         bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
           context: context,
@@ -109,7 +109,7 @@ class _ButtonsBuilder extends StatelessWidget {
   final List<Verse> buttonsVerses;
   final ValueChanged<int> onButtonTap;
   final List<String> selectedButtonsPhids;
-  final List<Verse> inactiveButtons;
+  final List<Verse>? inactiveButtons;
   /// --------------------------------------------------------------------------
   static const double buttonHeight = 40;
   static const double margins = 5;
@@ -217,7 +217,7 @@ class _TheButton extends StatelessWidget {
   final Verse verse;
   final bool isSelected;
   final Function onTap;
-  final String icon;
+  final String? icon;
   /// --------------------------------------------------------------------------
   static const double buttonHeight = 40;
   static const double margins = 5;

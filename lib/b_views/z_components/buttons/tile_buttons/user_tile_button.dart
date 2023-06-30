@@ -16,12 +16,12 @@ class UserTileButton extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final double height;
-  final double width;
-  final Color color;
-  final Function onTap;
+  final double? height;
+  final double? width;
+  final Color? color;
+  final Function? onTap;
   final UserModel userModel;
-  final Verse secondLine;
+  final Verse? secondLine;
   final dynamic margins;
   /// --------------------------------------------------------------------------
   @override

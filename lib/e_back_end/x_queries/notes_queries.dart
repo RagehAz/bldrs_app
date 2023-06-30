@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 FireQueryModel bzNotesPaginationQueryModel({
-  required String bzID,
+  required String? bzID,
 }){
 
   return FireQueryModel(

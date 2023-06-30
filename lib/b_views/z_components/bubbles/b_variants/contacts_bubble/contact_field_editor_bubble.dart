@@ -4,7 +4,7 @@ import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:basics/bubbles/model/bubble_header_vm.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/text_clip_board.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/bullet_points/bldrs_bullet_points.dart';
@@ -42,27 +42,27 @@ class ContactFieldEditorBubble extends StatefulWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final Verse hintVerse;
+  final Verse? hintVerse;
   // final TextEditingController textController;
-  final Function textOnChanged;
-  final bool isFormField;
-  final Function onSaved;
-  final TextInputAction keyboardTextInputAction;
-  final String initialTextValue;
-  final Function(String) validator;
-  final List<Verse> bulletPoints;
+  final ValueChanged<String?>? textOnChanged;
+  final bool? isFormField;
+  final ValueChanged<String?>? onSaved;
+  final TextInputAction? keyboardTextInputAction;
+  final String? initialTextValue;
+  final String? Function(String?)? validator;
+  final List<Verse>? bulletPoints;
   final bool fieldIsRequired;
   final bool loading;
-  final Function horusOnTapDown;
-  final Function horusOnTapUp;
-  final Function horusOnTapCancel;
-  final String fieldLeadingIcon;
+  final Function? horusOnTapDown;
+  final Function? horusOnTapUp;
+  final Function? horusOnTapCancel;
+  final String? fieldLeadingIcon;
   final TextInputType keyboardTextInputType;
   final bool canPaste;
   final AppBarType appBarType;
   final BubbleHeaderVM headerViewModel;
-  final GlobalKey formKey;
-  final FocusNode focusNode;
+  final GlobalKey? formKey;
+  final FocusNode? focusNode;
   final bool autoValidate;
   final TextEditingController? textController;
   /// --------------------------------------------------------------------------
@@ -93,7 +93,7 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
   void dispose() {
 
     if (widget.textController == null){
-      _textController?.dispose();
+      _textController.dispose();
     }
 
     super.dispose();
@@ -117,11 +117,11 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
     blog(value);
 
     // if (_textController != null){
-      _textController.text = value;
+      _textController.text = value ?? '';
     // }
 
     if (widget.textOnChanged != null){
-      widget.textOnChanged(value);
+      widget.textOnChanged?.call(value);
     }
 
     // setState(() {
@@ -165,7 +165,7 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
     // --------------------
     return Bubble(
         bubbleColor: Formers.validatorBubbleColor(
-          validator: () => widget.validator(_textController.text),
+          validator: () => widget.validator?.call(_textController.text),
         ),
         bubbleHeaderVM: widget.headerViewModel,
         width: _bubbleWidth,
@@ -205,7 +205,7 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
                 focusNode: widget.focusNode,
                 appBarType: widget.appBarType,
                 globalKey: widget.formKey,
-                titleVerse: Verse.plain(widget.headerViewModel?.headlineText),
+                titleVerse: Verse.plain(widget.headerViewModel.headlineText),
                 width: fieldWidth,
                 isFormField: widget.isFormField,
                 initialValue: paste == '' ? widget.initialTextValue : null,

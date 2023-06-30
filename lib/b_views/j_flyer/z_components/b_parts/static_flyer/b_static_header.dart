@@ -29,14 +29,14 @@ class StaticHeader extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final BzModel bzModel;
-  final String authorID;
-  final Function onTap;
-  final bool flyerShowsAuthor;
+  final BzModel? bzModel;
+  final String? authorID;
+  final Function? onTap;
+  final bool? flyerShowsAuthor;
   final bool showHeaderLabels;
   final FlightDirection flightDirection;
-  final ui.Image bzImageLogo;
-  final ui.Image authorImage;
+  final ui.Image? bzImageLogo;
+  final ui.Image? authorImage;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -54,11 +54,10 @@ class StaticHeader extends StatelessWidget {
       flyerBoxWidth: flyerBoxWidth,
       headerHeightTween: FlyerDim.headerSlateHeight(flyerBoxWidth),
       headerBorders: FlyerDim.headerSlateCorners(
-        context: context,
         flyerBoxWidth: flyerBoxWidth,
       ),
       headerColor: FlyerColors.headerColor,
-      onHeaderTap: onTap,
+      onHeaderTap: onTap == null ? null : () => onTap?.call(),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[

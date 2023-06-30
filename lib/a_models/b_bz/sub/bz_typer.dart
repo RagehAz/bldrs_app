@@ -565,7 +565,7 @@ class BzTyper {
   static List<BzType> concludeDeactivatedBzTypesBasedOnSelectedBzTypes({
     required BzType newSelectedType,
     required List<BzType> selectedBzTypes,
-    required BzSection selectedBzSection,
+    required BzSection? selectedBzSection,
   }){
 
     List<BzType> _inactiveBzTypes;
@@ -595,10 +595,10 @@ class BzTyper {
   /// TESTED : WORKS PERFECT
   static List<BzType> addOrRemoveBzTypeToBzzTypes({
     required BzType newSelectedBzType,
-    required List<BzType> selectedBzTypes,
+    required List<BzType>? selectedBzTypes,
   }){
 
-    final List<BzType> _outputTypes = <BzType>[...selectedBzTypes];
+    final List<BzType> _outputTypes = <BzType>[...?selectedBzTypes];
 
     final bool _alreadySelected = checkBzTypesContainThisType(
       bzTypes: selectedBzTypes,
@@ -733,14 +733,13 @@ class BzTyper {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getBzFormsPhids({
-    required BuildContext context,
-    required List<BzForm> bzForms,
+    required List<BzForm>? bzForms,
   }){
     final List<String> _strings = <String>[];
 
     if (Mapper.checkCanLoopList(bzForms) == true){
 
-      for (final BzForm bzForm in bzForms){
+      for (final BzForm bzForm in bzForms!){
         final String _translation = getBzFormPhid(bzForm)!;
         _strings.add(_translation);
       }
@@ -906,8 +905,7 @@ class BzTyper {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String getBzSectionPhid({
-    required BuildContext context,
-    required BzSection bzSection,
+    required BzSection? bzSection,
   }){
     final String _translation =
     bzSection == BzSection.realestate ? 'phid_realEstate'
@@ -932,7 +930,6 @@ class BzTyper {
 
       for (final BzSection section in bzSections){
         final String _translation = getBzSectionPhid(
-          context: context,
           bzSection: section,
         );
         _strings.add(_translation);

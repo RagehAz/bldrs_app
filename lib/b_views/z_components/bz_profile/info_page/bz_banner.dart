@@ -19,10 +19,10 @@ class BzBanner extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final BzModel bzModel;
-  final double boxWidth;
-  final double boxHeight;
-  final double corners;
+  final BzModel? bzModel;
+  final double? boxWidth;
+  final double? boxHeight;
+  final double? corners;
   final bool bigName;
   /// --------------------------------------------------------------------------
   /*
@@ -38,7 +38,8 @@ class BzBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double logoSize = (boxWidth ?? 100) * 0.35;
+    final double _boxWidth = boxWidth ?? 100;
+    final double logoSize = _boxWidth * 0.35;
     final double _bigNameFactor = bigName == true ? 0.0035 : 0.0028;
 
     return Center(
@@ -47,7 +48,7 @@ class BzBanner extends StatelessWidget {
         height: boxHeight,
         decoration: BoxDecoration(
           color: Colorz.white10,
-          borderRadius: Borderers.cornerAll(corners ?? boxWidth * 0.1),
+          borderRadius: Borderers.cornerAll(corners ?? _boxWidth * 0.1),
         ),
         padding: const EdgeInsets.symmetric(vertical: 20),
         alignment: Alignment.center,
@@ -73,7 +74,7 @@ class BzBanner extends StatelessWidget {
                   translate: false,
                 ),
                 size: 3,
-                scaleFactor: boxWidth * _bigNameFactor,
+                scaleFactor: _boxWidth * _bigNameFactor,
                 maxLines: 3,
                 margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
               ),

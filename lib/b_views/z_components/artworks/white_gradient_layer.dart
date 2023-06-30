@@ -15,7 +15,7 @@ class GradientLayer extends StatelessWidget {
   final double width;
   final double height;
   final bool isWhite;
-  final Color color;
+  final Color? color;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

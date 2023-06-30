@@ -15,7 +15,7 @@ class UserTileButtonsList extends StatelessWidget {
   const UserTileButtonsList({
     required this.usersModels,
     required this.onUserTap,
-    this.selectedUsers,
+    required this.selectedUsers,
     this.emptyListString,
     this.sideButtonVerse,
     this.onSideButtonTap,
@@ -23,33 +23,33 @@ class UserTileButtonsList extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final ValueNotifier<List<UserModel>> usersModels;
-  final ValueNotifier<List<UserModel>> selectedUsers;
-  final ValueChanged<UserModel> onUserTap;
-  final Verse emptyListString;
-  final Verse sideButtonVerse;
-  final ValueChanged<UserModel> onSideButtonTap;
-  final List<String> deactivatedUsersIDs;
+  final ValueNotifier<List<UserModel>?> usersModels;
+  final ValueNotifier<List<UserModel>?> selectedUsers;
+  final ValueChanged<UserModel>? onUserTap;
+  final Verse? emptyListString;
+  final Verse? sideButtonVerse;
+  final ValueChanged<UserModel>? onSideButtonTap;
+  final List<String>? deactivatedUsersIDs;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     return ValueListenableBuilder(
         valueListenable: usersModels,
-        builder: (_, List<UserModel> foundUsers, Widget? child){
+        builder: (_, List<UserModel>? foundUsers, Widget? child){
 
           /// FOUND USERS
           if (Mapper.checkCanLoopList(foundUsers) == true){
 
             return ValueListenableBuilder(
-              valueListenable: selectedUsers ?? ValueNotifier<List<UserModel>>(<UserModel>[]),
-              builder: (_, List<UserModel> selectedUsers, Widget? child){
+              valueListenable: selectedUsers,
+              builder: (_, List<UserModel>? selectedUsers, Widget? child){
 
                 return SizedBox(
                   width: Scale.screenWidth(context),
                   height: Scale.screenHeight(context),
                   child: ListView.builder(
-                    itemCount: foundUsers.length,
+                    itemCount: foundUsers!.length,
                     physics: const NeverScrollableScrollPhysics(),
                     // padding: EdgeInsets.zero, /// AGAIN => ENTA EBN WES5A
                     itemBuilder: (_, index){
@@ -76,10 +76,10 @@ class UserTileButtonsList extends StatelessWidget {
                         boxWidth: BldrsAppBar.width(),
                         userModel: _user,
                         color: _buttonColor,
-                        onUserTap: () => onUserTap(_user),
+                        onUserTap: () => onUserTap?.call(_user),
                         sideButtonVerse: sideButtonVerse,
                         sideButtonDeactivated: _isDeactivated || _isMe,
-                        onSideButtonTap: () => onSideButtonTap(_user),
+                        onSideButtonTap: () => onSideButtonTap?.call(_user),
                       );
 
                     },

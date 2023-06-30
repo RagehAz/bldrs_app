@@ -6,7 +6,6 @@ import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_flyers_page/x1_bz_flyer
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 
 class BzFlyersPage extends StatelessWidget {
@@ -20,9 +19,9 @@ class BzFlyersPage extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final double width;
-  final double height;
-  final double topPadding;
+  final double? width;
+  final double? height;
+  final double? topPadding;
   final ZGridController zGridController;
   final ScrollController scrollController;
   /// --------------------------------------------------------------------------
@@ -41,7 +40,7 @@ class BzFlyersPage extends StatelessWidget {
       screenName: 'bzFlyersPage',
       zGridController: zGridController,
       scrollController: scrollController,
-      flyersIDs: bzModel.flyersIDs?.reversed?.toList(),
+      flyersIDs: bzModel?.flyersIDs?.reversed.toList(),
       gridWidth: width ?? Scale.screenWidth(context),
       gridHeight: height ?? Scale.screenHeight(context),
       numberOfColumnsOrRows: Scale.isLandScape(context) == true ? 4 : 3,

@@ -17,7 +17,7 @@ class ZoneFilterTile extends StatelessWidget {
     super.key
   });
   // --------------------
-  final SearchModel searchModel;
+  final SearchModel? searchModel;
   final Function onTileTap;
   final Function(bool) onSwitchTap;
   // -----------------------------------------------------------------------------
@@ -54,7 +54,7 @@ class ZoneFilterTile extends StatelessWidget {
 
     final double _tileWidth = SuperSearchScreen.getFilterTileWidth(context);
 
-    final Verse _headline = getZoneVerse(
+    final Verse? _headline = getZoneVerse(
       zoneModel: searchModel?.zone,
     );
 

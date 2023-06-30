@@ -34,99 +34,103 @@ class ComposeBzProtocols {
   /// TESTED : WORKS PERFECT
   static Future<void> compose({
     required BuildContext context,
-    required DraftBz newDraft,
-    required UserModel userModel,
+    required DraftBz? newDraft,
+    required UserModel? userModel,
   }) async {
     blog('ComposeBzProtocol.compose : START');
 
-    assert(newDraft.logoPicModel != null, 'logoPicModel is null');
+    // assert(newDraft.logoPicModel != null, 'logoPicModel is null');
 
-    /// WAIT DIALOG
-    pushWaitDialog(
-      verse: const Verse(
-        id: 'phid_creating_new_bz_account',
-        translate: true,
-      ),
-    );
+    if (newDraft?.logoPicModel != null){
 
-    /// CREATE BZ ID
-    final String? _bzID = await BzFireOps.createEmptyBzDocToGetBzID();
-    assert(_bzID != null, 'bzID is null');
+      /// WAIT DIALOG
+      pushWaitDialog(
+        verse: const Verse(
+          id: 'phid_creating_new_bz_account',
+          translate: true,
+        ),
+      );
 
-    /// OVERRIDE BZ ID
-    final DraftBz? _draftWithID = DraftBz.overrideBzID(
-      draft: newDraft,
-      bzID: _bzID,
-    );
+      /// CREATE BZ ID
+      final String? _bzID = await BzFireOps.createEmptyBzDocToGetBzID();
+      assert(_bzID != null, 'bzID is null');
 
-    blog('the draft is');
-    _draftWithID?.blogDraft();
-
-    /// BAKE DRAFT TO INITIAL BZ
-    BzModel? _bzModel = DraftBz.toBzModel(_draftWithID);
-
-    /// UPDATE MY USER MODEL
-    await _addBzIdToMyUserModelAndRenovateAndSubscribeToAllBzTopics(
-      context: context,
-      bzID: _bzModel?.id,
-    );
-
-    /// OVERRIDE CREATION TIME
-    _bzModel = _bzModel?.copyWith(
-      createdAt: DateTime.now(),
-    );
-
-    /// UPLOAD
-    await Future.wait(<Future>[
-
-      /// UPDATE BZ DOC
-      BzFireOps.update(_bzModel),
-
-      /// UPLOAD BZ LOGO
-      PicProtocols.composePic(_draftWithID?.logoPicModel),
-
-      /// UPLOAD AUTHOR PIC
-      _duplicateUserPicAsAuthorPic(
-        userModel: userModel,
+      /// OVERRIDE BZ ID
+      final DraftBz? _draftWithID = DraftBz.overrideBzID(
+        draft: newDraft,
         bzID: _bzID,
-      ),
+      );
 
-      /// CENSUS
-      CensusListener.onComposeBz(_bzModel),
+      blog('the draft is');
+      _draftWithID?.blogDraft();
 
-      /// ADD NEW BZ LOCALLY
-      _addMyNewCreatedBzLocally(
-        bzModel: _bzModel,
-      ),
+      /// BAKE DRAFT TO INITIAL BZ
+      BzModel? _bzModel = DraftBz.toBzModel(_draftWithID);
 
-    ]);
+      /// UPDATE MY USER MODEL
+      await _addBzIdToMyUserModelAndRenovateAndSubscribeToAllBzTopics(
+        context: context,
+        bzID: _bzModel?.id,
+      );
 
-    await StagingLeveller.levelUpZone(
-      context: context,
-      zoneModel: _bzModel?.zone,
-    );
+      /// OVERRIDE CREATION TIME
+      _bzModel = _bzModel?.copyWith(
+        createdAt: DateTime.now(),
+      );
 
-    /// CLOSE WAIT DIALOG
-    await WaitDialog.closeWaitDialog();
+      /// UPLOAD
+      await Future.wait(<Future>[
 
-    /// SHOW SUCCESS DIALOG
-    await CenterDialog.showCenterDialog(
-      titleVerse: const Verse(
-        id: 'phid_great_!',
-        translate: true,
-      ),
-      bodyVerse: const Verse(
-        pseudo: 'Successfully created your Business Account\n system will reboot now',
-        id: 'phid_created_bz_successfully',
-        translate: true,
-      ),
-      // color: Colorz.green255,
-    );
+        /// UPDATE BZ DOC
+        BzFireOps.update(_bzModel),
 
-    /// NAVIGATE
-    await BldrsNav.goRebootToInitNewBzScreen(
-      bzID: _bzModel?.id,
-    );
+        /// UPLOAD BZ LOGO
+        PicProtocols.composePic(_draftWithID?.logoPicModel),
+
+        /// UPLOAD AUTHOR PIC
+        _duplicateUserPicAsAuthorPic(
+          userModel: userModel,
+          bzID: _bzID,
+        ),
+
+        /// CENSUS
+        CensusListener.onComposeBz(_bzModel),
+
+        /// ADD NEW BZ LOCALLY
+        _addMyNewCreatedBzLocally(
+          bzModel: _bzModel,
+        ),
+
+      ]);
+
+      await StagingLeveller.levelUpZone(
+        context: context,
+        zoneModel: _bzModel?.zone,
+      );
+
+      /// CLOSE WAIT DIALOG
+      await WaitDialog.closeWaitDialog();
+
+      /// SHOW SUCCESS DIALOG
+      await CenterDialog.showCenterDialog(
+        titleVerse: const Verse(
+          id: 'phid_great_!',
+          translate: true,
+        ),
+        bodyVerse: const Verse(
+          pseudo: 'Successfully created your Business Account\n system will reboot now',
+          id: 'phid_created_bz_successfully',
+          translate: true,
+        ),
+        // color: Colorz.green255,
+      );
+
+      /// NAVIGATE
+      await BldrsNav.goRebootToInitNewBzScreen(
+        bzID: _bzModel?.id,
+      );
+
+    }
 
     blog('ComposeBzProtocol.compose : END');
   }

@@ -20,7 +20,7 @@ class UserNeedsBanner extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final UserModel userModel;
+  final UserModel? userModel;
   final bool editorMode;
   /// --------------------------------------------------------------------------
   Future<void> onGoToNeedsEditorScreen(BuildContext context) async {
