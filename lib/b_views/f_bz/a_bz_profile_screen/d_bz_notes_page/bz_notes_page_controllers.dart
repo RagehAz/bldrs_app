@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onBzNoteTap({
-  required NoteModel noteModel,
+  required NoteModel? noteModel,
 }) async {
 
   // blog('namexxx : ${noteModel.navTo.name}');

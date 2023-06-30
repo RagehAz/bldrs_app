@@ -30,7 +30,7 @@ class BldrsAppBarTree extends StatelessWidget {
   final Verse? pageTitleVerse;
   final List<Widget>? appBarRowWidgets;
   final ValueNotifier<bool>? loading;
-  final ValueNotifier<ProgressBarModel>? progressBarModel;
+  final ValueNotifier<ProgressBarModel?>? progressBarModel;
   final ScrollController? appBarScrollController;
   final bool? sectionButtonIsOn;
   final TextEditingController? searchController;
@@ -130,7 +130,7 @@ class BldrsAppBarTree extends StatelessWidget {
                       setNotifier(
                           notifier: filtersAreOn,
                           mounted: true,
-                          value: !filtersAreOn.value,
+                          value: !Mapper.boolIsTrue(filtersAreOn?.value),
                       );
 
                     }
@@ -174,11 +174,10 @@ class BldrsAppBarTree extends StatelessWidget {
 
       final double _expandedHeight = BldrsAppBar.expandedHeight(
           context: context,
-          appBarType: appBarType,
       );
 
       return ValueListenableBuilder(
-          valueListenable: filtersAreOn,
+          valueListenable: filtersAreOn!,
           child: _appBarContents,
           builder: (_, bool expanded, Widget? child){
 

@@ -13,14 +13,14 @@ class HeaderBox extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final Function onHeaderTap;
+  final Function? onHeaderTap;
   final double flyerBoxWidth;
   /// either double of Animation<double>
   final dynamic headerHeightTween;
   final Color headerColor;
   final BorderRadius headerBorders;
   final Widget child;
-  final ValueNotifier<bool> headerIsExpanded;
+  final ValueNotifier<bool>? headerIsExpanded;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -43,19 +43,19 @@ class HeaderBox extends StatelessWidget {
 
     if (headerIsExpanded == null){
       return GestureDetector(
-        onTap: onHeaderTap,
-          child: tree,
+        onTap: onHeaderTap == null ? null : () => onHeaderTap!.call(),
+        child: tree,
       );
     }
 
     else {
 
       return ValueListenableBuilder(
-          valueListenable: headerIsExpanded,
+          valueListenable: headerIsExpanded!,
           builder: (_, bool isExpanded, Widget? widgetTree){
 
             return GestureDetector(
-              onTap: isExpanded == true ? null : onHeaderTap,
+              onTap: isExpanded == true ? null : () => onHeaderTap?.call(),
               child: widgetTree,
             );
 

@@ -10,14 +10,14 @@ class BzzTilesButtonsList extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzzTilesButtonsList({
     required this.bzzModel,
-    this.selectedBzz,
+    required this.selectedBzz,
     this.onTap,
     super.key
   });
   /// --------------------------------------------------------------------------
   final ValueNotifier<List<BzModel>> bzzModel;
   final ValueNotifier<List<BzModel>> selectedBzz;
-  final ValueChanged<BzModel> onTap;
+  final ValueChanged<BzModel>? onTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class BzzTilesButtonsList extends StatelessWidget {
 
             return ValueListenableBuilder(
               valueListenable: selectedBzz,
-              builder: (_, List<BzModel> selectedBzz, Widget? child){
+              builder: (_, List<BzModel>? selectedBzz, Widget? child){
 
                 return SizedBox(
                   width: Scale.screenWidth(context),
@@ -51,7 +51,7 @@ class BzzTilesButtonsList extends StatelessWidget {
                       return BzLongButton(
                         bzModel: _bzModel,
                         isSelected: _isSelected,
-                        onTap: () => onTap(_bzModel),
+                        onTap: () => onTap?.call(_bzModel),
                       );
 
                     },

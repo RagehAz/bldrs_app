@@ -340,7 +340,7 @@ class RenovateUserProtocols {
   /// TESTED : WORKS PERFECT
   static Future<void> updateMyUserTopics({
     required BuildContext context,
-    required String topicID,
+    required String? topicID,
   }) async {
 
     final UserModel? _oldUser = UsersProvider.proGetMyUserModel(

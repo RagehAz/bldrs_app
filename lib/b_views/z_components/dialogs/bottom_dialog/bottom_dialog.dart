@@ -6,7 +6,7 @@ import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
@@ -30,9 +30,9 @@ class BottomDialog extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final double height;
-  final Widget child;
-  final Verse titleVerse;
+  final double? height;
+  final Widget? child;
+  final Verse? titleVerse;
   /// --------------------------------------------------------------------------
   /// one side value only
   static double draggerMarginValue() {
@@ -65,7 +65,7 @@ class BottomDialog extends StatelessWidget {
   }
   // --------------------
   static double titleZoneHeight({
-    required bool titleIsOn,
+    required bool? titleIsOn,
   }) {
     bool _titleIsOn;
 
@@ -111,8 +111,8 @@ class BottomDialog extends StatelessWidget {
   static double dialogHeight(
       BuildContext context,
       {
-        double overridingDialogHeight,
-        double ratioOfScreenHeight
+        double? overridingDialogHeight,
+        double? ratioOfScreenHeight
       }) {
 
     double _dialogHeight;final double _screenHeight = Scale.screenHeight(context);
@@ -155,7 +155,7 @@ class BottomDialog extends StatelessWidget {
     return _dialogCorners;
   }
   // --------------------
-  static double dialogClearCornerValue({double corner}) {
+  static double dialogClearCornerValue({double? corner}) {
     return corner ?? Ratioz.appBarCorner;
   }
   // --------------------
@@ -172,8 +172,8 @@ class BottomDialog extends StatelessWidget {
   // --------------------
   static Future<void> showBottomDialog({
     required Widget child,
-    double height,
-    Verse titleVerse,
+    double? height,
+    Verse? titleVerse,
   }) async {
 
     final BuildContext context = getMainContext();
@@ -228,9 +228,9 @@ class BottomDialog extends StatelessWidget {
   // --------------------
   static Future<void> showButtonsBottomDialog({
     required int numberOfWidgets,
+    required List<Widget> Function(BuildContext) builder,
     double buttonHeight = wideButtonHeight,
-    List<Widget> Function(BuildContext) builder,
-    Verse titleVerse,
+    Verse? titleVerse,
   }) async {
 
     final int _widgetsLength = numberOfWidgets;
@@ -274,7 +274,7 @@ class BottomDialog extends StatelessWidget {
   /// TESTED : WORKS PERFECT
   static Future<void> showStatefulBottomDialog({
     required Widget Function(BuildContext, Function setState) builder,
-    required Verse titleVerse,
+    required Verse? titleVerse,
     double? height,
   }) async {
 

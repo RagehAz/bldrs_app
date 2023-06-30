@@ -19,7 +19,7 @@ class BzStatsBubble extends StatefulWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final BzModel bzModel;
+  final BzModel? bzModel;
   /// --------------------------------------------------------------------------
   @override
   State<BzStatsBubble> createState() => _BzStatsBubbleState();
@@ -28,7 +28,7 @@ class BzStatsBubble extends StatefulWidget {
 
 class _BzStatsBubbleState extends State<BzStatsBubble> {
   // -----------------------------------------------------------------------------
-  final ValueNotifier<BzCounterModel> _bzCounter = ValueNotifier<BzCounterModel>(null);
+  final ValueNotifier<BzCounterModel?> _bzCounter = ValueNotifier<BzCounterModel?>(null);
   BzModel? _bzModel;
   // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -60,8 +60,8 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
 
       _triggerLoading(setTo: true).then((_) async {
 
-        final BzCounterModel _counters = await RecorderProtocols.readBzCounters(
-          bzID: _bzModel.id,
+        final BzCounterModel? _counters = await RecorderProtocols.readBzCounters(
+          bzID: _bzModel?.id,
         );
 
         setNotifier(

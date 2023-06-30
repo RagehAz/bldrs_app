@@ -11,7 +11,7 @@ class ZoneNameLine extends StatelessWidget {
     super.key
   });
   
-  final String name;
+  final String? name;
 
   @override
   Widget build(BuildContext context) {

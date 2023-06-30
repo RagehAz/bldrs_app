@@ -24,7 +24,7 @@ class SearchViewSplitter extends StatelessWidget {
     super.key
   });
   // --------------------
-  final ModelType searchType;
+  final ModelType? searchType;
   final FireQueryModel flyersQuery;
   final PaginationController flyersController;
   final FireQueryModel bzzQuery;

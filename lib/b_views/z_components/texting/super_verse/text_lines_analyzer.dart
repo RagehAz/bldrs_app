@@ -14,7 +14,7 @@ class TextLinesAnalyzer extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final String text;
+  final String? text;
   final TextStyle textStyle;
   final int maxLines;
   final Widget childIfExceededMaxLines;

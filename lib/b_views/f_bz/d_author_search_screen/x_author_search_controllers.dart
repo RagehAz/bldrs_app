@@ -18,7 +18,7 @@ import 'package:basics/helpers/classes/strings/stringer.dart';
 /// TESTED : WORKS PERFECT
 Future<void> onSearchUsers({
   required String text,
-  required ValueNotifier<List<UserModel>> foundUsers,
+  required ValueNotifier<List<UserModel>?> foundUsers,
   required ValueNotifier<bool> isSearching,
   required ValueNotifier<bool> loading,
   required List<String> userIDsToExclude,

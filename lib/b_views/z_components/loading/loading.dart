@@ -3,7 +3,7 @@ import 'package:basics/animators/widgets/widget_fader.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
 
 class Loading extends StatelessWidget {

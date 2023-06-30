@@ -9,7 +9,6 @@ import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
 import 'package:basics/layouts/nav/nav.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,7 +24,7 @@ class SavedFlyersScreen extends StatefulWidget {
   @override
   _SavedFlyersScreenState createState() => _SavedFlyersScreenState();
   /// --------------------
-  static Future<FlyerModel> pickFlyer() async {
+  static Future<FlyerModel?> pickFlyer() async {
 
     final List<FlyerModel> _selectedFlyers = await Nav.goToNewScreen(
       context: getMainContext(),
@@ -66,7 +65,7 @@ class _SavedFlyersScreenState extends State<SavedFlyersScreen> with SingleTicker
    */
   // -----------------------------------------------------------------------------
   final ScrollController _scrollController = ScrollController();
-  ZGridController _zGridController;
+  late ZGridController _zGridController;
   // -----------------------------------------------------------------------------
   @override
   void initState() {

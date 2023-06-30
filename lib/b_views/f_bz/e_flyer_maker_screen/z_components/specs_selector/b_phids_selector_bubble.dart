@@ -7,7 +7,7 @@ import 'package:bldrs/b_views/i_chains/z_components/expander_button/f_phid_butto
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/info_page_keywords.dart';
 import 'package:bldrs/b_views/z_components/texting/bullet_points/bldrs_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_validator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -29,9 +29,9 @@ class PhidsSelectorBubble extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final DraftFlyer draft;
-  final ValueNotifier<DraftFlyer> draftNotifier;
-  final BzModel bzModel;
+  final DraftFlyer? draft;
+  final ValueNotifier<DraftFlyer?> draftNotifier;
+  final BzModel? bzModel;
   final Function(String phid) onPhidTap;
   final Function(String phid) onPhidLongTap;
   final Function onAdd;
@@ -70,12 +70,12 @@ class PhidsSelectorBubble extends StatelessWidget {
           /// SELECTED PHIDS
           ValueListenableBuilder(
               valueListenable: draftNotifier,
-              builder: (_, DraftFlyer draft, Widget? child){
+              builder: (_, DraftFlyer? draft, Widget? child){
 
                 if (Mapper.checkCanLoopList(draft?.phids) == true){
                   return PhidsViewer(
                     pageWidth: _bubbleClearWidth,
-                    phids: draft.phids,
+                    phids: draft?.phids ?? [],
                     onPhidLongTap: onPhidLongTap,
                     onPhidTap: onPhidTap,
 
@@ -110,7 +110,7 @@ class PhidsSelectorBubble extends StatelessWidget {
           BldrsValidator(
             width: _bubbleClearWidth - 20,
             validator: () => Formers.flyerPhidsValidator(
-              phids: draft.phids,
+              phids: draft?.phids,
               canValidate: canValidate,
             ),
           ),

@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_positional_boolean_parameters
 import 'dart:async';
-
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/text_clip_board.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
@@ -32,10 +32,8 @@ import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_mode
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class NewFlyerEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -45,8 +43,8 @@ class NewFlyerEditorScreen extends StatefulWidget {
     super.key
   });
   /// -----------------------
-  final DraftFlyer draftFlyer;
-  final Function(DraftFlyer draft) onConfirm;
+  final DraftFlyer? draftFlyer;
+  final Function(DraftFlyer? draft) onConfirm;
   /// -----------------------
   @override
   State<NewFlyerEditorScreen> createState() => _NewFlyerEditorScreenState();
@@ -55,7 +53,7 @@ class NewFlyerEditorScreen extends StatefulWidget {
 
 class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with AutomaticKeepAliveClientMixin{
   // -----------------------------------------------------------------------------
-  final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
+  final ValueNotifier<ProgressBarModel?> _progressBarModel = ValueNotifier(null);
   final PageController _pageController = PageController();
   ConfirmButtonModel? _confirmButtonModel;
   // -----------------------------------------------------------------------------
@@ -63,7 +61,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
   @override
   bool get wantKeepAlive => true;
   // -----------------------------------------------------------------------------
-  final ValueNotifier<DraftFlyer> draftNotifier = ValueNotifier(null);
+  final ValueNotifier<DraftFlyer?> draftNotifier = ValueNotifier(null);
   // --------------------
   bool _canValidate = false;
   void _switchOnValidation(){
@@ -125,9 +123,9 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
           mounted: mounted,
         );
         // -----------------------------
-        if (draftNotifier.value.firstTimer == false){
+        if (draftNotifier.value?.firstTimer == false){
           _switchOnValidation();
-          Formers.validateForm(draftNotifier.value.formKey);
+          Formers.validateForm(draftNotifier.value?.formKey);
         }
         // -------------------------------
         await _triggerLoading(setTo: false);
@@ -142,7 +140,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
   void dispose(){
 
     _loading.dispose();
-    draftNotifier.value.dispose();
+    draftNotifier.value?.dispose();
     draftNotifier.dispose();
     _progressBarModel.dispose();
     _pageController.dispose();
@@ -231,7 +229,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
     /// STRIP 4 : PDF
 
     final bool _pdfIsValid = Formers.pdfValidator(
-      pdfModel: draftNotifier.value.pdfModel,
+      pdfModel: draftNotifier.value?.pdfModel,
       canValidate: true,
     ) == null;
 
@@ -279,7 +277,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
   /// TESTED : WORKS PERFECT
   void _updateConfirmButton(){
 
-    if (_progressBarModel.value.stripsColors.contains(ProgressBarModel.errorStripColor) == true){
+    if (Mapper.boolIsTrue(_progressBarModel.value?.stripsColors?.contains(ProgressBarModel.errorStripColor)) == true){
       setState(() {
         _confirmButtonModel = null;
       });
@@ -327,7 +325,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
     return MainLayout(
       key: const ValueKey<String>('FlyerPublisherScreen'),
       title: Verse(
-        id: widget.draftFlyer.firstTimer == true ? 'phid_createFlyer' : 'phid_edit_flyer',
+        id: Mapper.boolIsTrue(widget.draftFlyer?.firstTimer) == true ? 'phid_createFlyer' : 'phid_edit_flyer',
         translate: true,
       ),
       pyramidsAreOn: true,
@@ -341,7 +339,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
       confirmButtonModel: _confirmButtonModel,
       child: ValueListenableBuilder(
         valueListenable: draftNotifier,
-        builder: (_, DraftFlyer _draft, Widget? child){
+        builder: (_, DraftFlyer? _draft, Widget? child){
 
           return Form(
             key: _draft?.formKey,
@@ -381,13 +379,13 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                       maxLength: Standards.flyerHeadlineMaxLength,
                       maxLines: 5,
                       keyboardTextInputType: TextInputType.multiline,
-                      onTextChanged: (String text) => onUpdateFlyerHeadline(
+                      onTextChanged: (String? text) => onUpdateFlyerHeadline(
                         draftNotifier: draftNotifier,
                         text: text,
                         mounted: mounted,
                       ),
                       textController: _draft?.headline,
-                      validator: (String text) => Formers.flyerHeadlineValidator(
+                      validator: (String? text) => Formers.flyerHeadlineValidator(
                         headline: _draft?.headline?.text,
                         canValidate: _canValidate,
                       ),
@@ -447,7 +445,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                       ),
                       selectedButtonsPhids: FlyerTyper.translateFlyerTypes(
                         context: context,
-                        flyerTypes: <FlyerType>[_draft?.flyerType],
+                        flyerTypes: _draft?.flyerType == null ? [] : <FlyerType>[_draft!.flyerType!],
                         pluralTranslation: false,
                       ),
                       onButtonTap: (int index) => onSelectFlyerType(
@@ -503,17 +501,17 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                       maxLines: 7,
                       keyboardTextInputType: TextInputType.multiline,
                       textController: _draft?.description,
-                      validator: (String text) => Formers.paragraphValidator(
+                      validator: (String? text) => Formers.paragraphValidator(
                         text: _draft?.description?.text,
                         canValidate: _canValidate,
                       ),
                       pasteFunction: () async {
 
-                        final String _text = await TextClipBoard.paste();
+                        final String? _text = await TextClipBoard.paste();
 
                         blog('pasteFunction _text: $_text');
 
-                        _draft?.description?.text = _text;
+                        _draft?.description?.text = _text ?? '';
 
                         // onUpdateFlyerDescription(
                         //   draftNotifier: draftNotifier,
@@ -582,18 +580,18 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                         draft: _draft,
                         draftNotifier: draftNotifier,
                         bzModel: _draft?.bzModel,
-                        onSpecTap: ({SpecModel value, SpecModel unit}){
+                        onSpecTap: ({SpecModel? value, SpecModel? unit}){
 
                           blog('on spec Tap');
-                          value.blogSpec();
-                          unit.blogSpec();
+                          value?.blogSpec();
+                          unit?.blogSpec();
 
                         },
-                        onDeleteSpec: ({SpecModel value, SpecModel unit}){
+                        onDeleteSpec: ({SpecModel? value, SpecModel? unit}){
 
                           blog('on Delete spec');
-                          value.blogSpec();
-                          unit.blogSpec();
+                          value?.blogSpec();
+                          unit?.blogSpec();
 
                         },
                         onAddSpecsToDraft: () => onAddSpecsToDraftTap(
@@ -620,12 +618,13 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                   columnChildren: <Widget>[
 
                     /// PDF SELECTOR
+                    if (_draft != null && _draft.id != null)
                     PDFSelectionBubble(
-                      flyerID: _draft?.id,
-                      bzID: _draft?.bzID,
+                      flyerID: _draft.id!,
+                      bzID: _draft.bzID!,
                       appBarType: AppBarType.non,
-                      formKey: _draft?.formKey,
-                      existingPDF: _draft?.pdfModel,
+                      formKey: _draft.formKey!,
+                      existingPDF: _draft.pdfModel!,
                       canValidate: _canValidate,
                       onChangePDF: (PDFModel pdf) => onChangeFlyerPDF(
                         draftNotifier: draftNotifier,
@@ -674,7 +673,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                       ],
                       currentZone: _draft?.zone,
                       viewerCountryID: _draft?.bzModel?.zone?.countryID,
-                      onZoneChanged: (ZoneModel zone) => onZoneChanged(
+                      onZoneChanged: (ZoneModel? zone) => onZoneChanged(
                         context: context,
                         draftNotifier: draftNotifier,
                         zone: zone,

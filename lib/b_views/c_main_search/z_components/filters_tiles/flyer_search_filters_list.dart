@@ -16,7 +16,6 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/super_box/super_box.dart';
 
 class FlyersSearchFiltersList extends StatelessWidget {
@@ -39,7 +38,7 @@ class FlyersSearchFiltersList extends StatelessWidget {
     super.key
   });
   // --------------------
-  final SearchModel searchModel;
+  final SearchModel? searchModel;
   final Function(bool value) onZoneSwitchTap;
   final Function onZoneTap;
   final Function(bool value) onFlyerTypeSwitchTap;
@@ -59,7 +58,7 @@ class FlyersSearchFiltersList extends StatelessWidget {
 
     final double _tileWidth = SuperSearchScreen.getFilterTileWidth(context);
 
-    final String _keywordIcon = ChainsProvider.proGetPhidIcon(
+    final String? _keywordIcon = ChainsProvider.proGetPhidIcon(
       son: searchModel?.flyerSearchModel?.phid,
     );
 
@@ -115,8 +114,8 @@ class FlyersSearchFiltersList extends StatelessWidget {
                 :
             SectionsButton.getBody(
               context: context,
-              currentKeywordID:  searchModel?.flyerSearchModel?.phid,
-              currentSection:  searchModel?.flyerSearchModel?.flyerType,
+              currentKeywordID: searchModel?.flyerSearchModel?.phid,
+              currentSection: searchModel?.flyerSearchModel?.flyerType,
             ),
           ),
           onTileTap: onPickPhidTap,

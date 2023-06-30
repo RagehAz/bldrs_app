@@ -1,5 +1,4 @@
 // ignore_for_file: invariant_booleans
-
 import 'package:basics/animators/widgets/scroller.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
@@ -21,7 +20,6 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/b
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_protocols.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
@@ -39,8 +37,8 @@ class CitiesScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   final ViewingEvent zoneViewingEvent;
   final ZoneDepth depth;
-  final String countryID;
-  final String viewerCountryID;
+  final String? countryID;
+  final String? viewerCountryID;
   /// --------------------------------------------------------------------------
   @override
   State<CitiesScreen> createState() => _NewSelectCityScreen();
@@ -51,7 +49,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   // -----------------------------------------------------------------------------
   final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false);
   final ValueNotifier<List<CityModel>> _countryCities = ValueNotifier<List<CityModel>>(<CityModel>[]);
-  final ValueNotifier<List<CityModel>> _foundCities = ValueNotifier<List<CityModel>>(null);
+  final ValueNotifier<List<CityModel>?> _foundCities = ValueNotifier<List<CityModel>?>(null);
   ValueNotifier<ZoneModel>? _currentZone;
   List<String> _shownCitiesIDs = <String>[];
   // Staging _stages;
@@ -105,7 +103,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
     _isSearching.dispose();
     _foundCities.dispose();
     _countryCities.dispose();
-    _currentZone.dispose();
+    _currentZone?.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -119,8 +117,8 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
     if (widget.countryID != null){
 
       /// COMPLETE CURRENT ZONE
-      final ZoneModel _completedZone = await ZoneProtocols.completeZoneModel(
-        incompleteZoneModel: _currentZone.value,
+      final ZoneModel? _completedZone = await ZoneProtocols.completeZoneModel(
+        incompleteZoneModel: _currentZone?.value,
       );
 
       setNotifier(
@@ -129,7 +127,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
           value: _completedZone,
       );
 
-      final StagingModel _citiesStages = await StagingProtocols.fetchCitiesStaging(
+      final StagingModel? _citiesStages = await StagingProtocols.fetchCitiesStaging(
         countryID: widget.countryID,
       );
 
@@ -145,7 +143,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
       if (mounted == true){
 
         /// SHOWN CITIES IDS
-        final List<String> _shownIDs = _citiesStages?.getIDsByViewingEvent(
+        final List<String>? _shownIDs = _citiesStages?.getIDsByViewingEvent(
           event: widget.zoneViewingEvent,
           countryID: widget.countryID,
           viewerCountryID: widget.viewerCountryID,

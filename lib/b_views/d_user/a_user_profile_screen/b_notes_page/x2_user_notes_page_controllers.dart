@@ -17,10 +17,10 @@ import 'package:flutter/material.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onUserNoteTap({
-  required NoteModel noteModel,
+  required NoteModel? noteModel,
 }) async {
 
-  noteModel.blogNoteModel(invoker: 'onUserNoteTap');
+  // noteModel.blogNoteModel(invoker: 'onUserNoteTap');
 
   if (
       noteModel?.navTo?.name != Routing.myUserNotesPage ||
@@ -43,8 +43,8 @@ Future<void> onUserNoteTap({
 /// TESTED : WORKS PERFECT
 Future<void> onShowNoteOptions({
   required BuildContext context,
-  required NoteModel noteModel,
-  required PaginationController paginationController,
+  required NoteModel? noteModel,
+  required PaginationController? paginationController,
   required bool mounted,
 }) async {
 
@@ -84,8 +84,8 @@ Future<void> onShowNoteOptions({
 /// TESTED : WORKS PERFECT
 Future<void> _wipeNote({
   required BuildContext context,
-  required NoteModel noteModel,
-  required PaginationController paginationController,
+  required NoteModel? noteModel,
+  required PaginationController? paginationController,
   required bool mounted,
 }) async {
 
@@ -100,8 +100,8 @@ Future<void> _wipeNote({
     note: noteModel,
   );
 
-  paginationController.deleteMapByID(
-    id: noteModel.id,
+  paginationController?.deleteMapByID(
+    id: noteModel?.id,
     mounted: mounted,
   );
 
@@ -191,17 +191,17 @@ Future<void> onNoteButtonTap({
 }
 // -----------------------------------------------------------------------------
 
-bool canTapNoteBubble(NoteModel noteModel){
+bool canTapNoteBubble(NoteModel? noteModel){
 
   if (noteModel == null){
     return false;
   }
   else if (
-      noteModel.navTo.name == Routing.myUserNotesPage
+      noteModel.navTo?.name == Routing.myUserNotesPage
       ||
-      noteModel.navTo.name == Routing.myBzNotesPage
+      noteModel.navTo?.name == Routing.myBzNotesPage
       ||
-      noteModel.navTo.name == null
+      noteModel.navTo?.name == null
   ){
     return false;
   }

@@ -587,13 +587,15 @@ class RecordModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Verse getVerseByModelType(ModelType modelType){
-    String _text;
+  static Verse getVerseByModelType(ModelType? modelType){
+    String? _text;
 
-    switch(modelType){
-      case ModelType.flyer:     _text = 'phid_flyers'; break;
-      case ModelType.bz:        _text = 'phid_bzz'; break;
-      case ModelType.user:      _text = 'phid_users'; break;
+    if (modelType != null){
+      switch(modelType){
+        case ModelType.flyer:     _text = 'phid_flyers'; break;
+        case ModelType.bz:        _text = 'phid_bzz'; break;
+        case ModelType.user:      _text = 'phid_users'; break;
+      }
     }
 
     return Verse(

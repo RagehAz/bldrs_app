@@ -53,7 +53,7 @@ class BzAboutPage extends StatelessWidget {
         fadeOnBuild: true,
         onRefresh: () async {
 
-          final BzModel _bz = await BzProtocols.refetch(
+          final BzModel? _bz = await BzProtocols.refetch(
               bzID:_bzModel?.id,
           );
 
@@ -96,7 +96,7 @@ class AboutBzBubbles extends StatelessWidget {
     super.key
   });
   
-  final BzModel bzModel;
+  final BzModel? bzModel;
   final bool showGallery;
   final bool showContacts;
   final bool showAuthors;

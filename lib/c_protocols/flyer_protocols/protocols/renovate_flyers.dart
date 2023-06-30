@@ -32,8 +32,8 @@ class RenovateFlyerProtocols {
   /// TASK : TEST ME
   static Future<void> renovate({
     required BuildContext context,
-    required DraftFlyer newDraft,
-    required FlyerModel oldFlyer,
+    required DraftFlyer? newDraft,
+    required FlyerModel? oldFlyer,
     required bool sendFlyerUpdateNoteToItsBz,
     required bool updateFlyerLocally,
     required bool resetActiveBz,
@@ -47,83 +47,80 @@ class RenovateFlyerProtocols {
     // assert(newDraft != null, 'flyer is null');
     // -------------------------------
 
-    final BzModel? _bzModel = await BzProtocols.fetchBz(
+    if (newDraft != null && oldFlyer != null){
+
+      final BzModel? _bzModel = await BzProtocols.fetchBz(
         bzID: newDraft.bzID,
-    );
-
-    final FlyerModel? _flyerToUpload = await DraftFlyer.draftToFlyer(
-      draft: newDraft,
-      toLDB: false,
-    );
-
-    if (_flyerToUpload != null && _bzModel != null && newDraft.id != null) {
-
-          /// CHECK IF POSTER HAS CHANGED
-      final bool _posterHasChanged = await DraftFlyer.checkPosterHasChanged(
-        draft: newDraft,
-        oldFlyer: oldFlyer,
       );
 
-      /// RENOVATE POSTER PIC
-      if (_posterHasChanged == true) {
-        await ComposeFlyerProtocols.createFlyerPoster(
-            flyerID: oldFlyer.id!, context: context, draftFlyer: newDraft);
+      final FlyerModel? _flyerToUpload = await DraftFlyer.draftToFlyer(
+        draft: newDraft,
+        toLDB: false,
+      );
+
+      if (_flyerToUpload != null && _bzModel != null && newDraft.id != null) {
+
+        /// CHECK IF POSTER HAS CHANGED
+        final bool _posterHasChanged = await DraftFlyer.checkPosterHasChanged(
+          draft: newDraft,
+          oldFlyer: oldFlyer,
+        );
+
+        /// RENOVATE POSTER PIC
+        if (_posterHasChanged == true) {
+          await ComposeFlyerProtocols.createFlyerPoster(
+              flyerID: oldFlyer.id!, context: context, draftFlyer: newDraft);
+        }
+
+        await Future.wait(<Future>[
+          /// RENOVATE SLIDES PICS
+          PicProtocols.renovatePics(DraftSlide.getPicModels(newDraft.draftSlides)),
+          /// WIPE UN-USED PICS
+          _wipeUnusedSlidesPics(
+            draft: newDraft,
+            oldFlyer: oldFlyer,
+          ),
+          /// UPDATE PDF (RENOVATE PDF || WIPE UNUSED PDF)
+          _renovateOrWipePDF(
+            draft: newDraft,
+            oldFlyer: oldFlyer,
+          ),
+          /// UPDATE FLYER DOC
+          FlyerFireOps.updateFlyerDoc(_flyerToUpload),
+          /// INCREMENT BZ COUNTER (all slides) COUNT
+          RecorderProtocols.onRenovateFlyer(
+            bzID: newDraft.bzID,
+            newNumberOfSlides: newDraft.draftSlides?.length,
+            oldNumberOfSlides: oldFlyer.slides?.length,
+          ),
+          /// INCREMENT CITY PHIDS
+          ZonePhidsRealOps.onRenovateFlyer(
+            flyerModel: _flyerToUpload,
+            oldFlyer: oldFlyer,
+          ),
+          /// CENSUS
+          CensusListener.onRenovateFlyer(
+            oldFlyer: oldFlyer,
+            newFlyer: _flyerToUpload,
+          ),
+          /// SEND UPDATE NOTE TO BZ TEAM
+          if (sendFlyerUpdateNoteToItsBz == true)
+            NoteEvent.sendFlyerUpdateNoteToItsBz(
+              context: context,
+              bzModel: _bzModel,
+              flyerID: newDraft.id,
+            ),
+          /// UPDATE FLYER LOCALLY
+          if (updateFlyerLocally == true)
+            updateLocally(
+              flyerModel: _flyerToUpload,
+              notifyFlyerPro: true,
+              resetActiveBz: resetActiveBz,
+            ),
+        ]);
       }
 
-      await Future.wait(<Future>[
-        /// RENOVATE SLIDES PICS
-        PicProtocols.renovatePics(DraftSlide.getPicModels(newDraft.draftSlides)),
 
-        /// WIPE UN-USED PICS
-        _wipeUnusedSlidesPics(
-          draft: newDraft,
-          oldFlyer: oldFlyer,
-        ),
-
-        /// UPDATE PDF (RENOVATE PDF || WIPE UNUSED PDF)
-        _renovateOrWipePDF(
-          draft: newDraft,
-          oldFlyer: oldFlyer,
-        ),
-
-        /// UPDATE FLYER DOC
-        FlyerFireOps.updateFlyerDoc(_flyerToUpload),
-
-        /// INCREMENT BZ COUNTER (all slides) COUNT
-        RecorderProtocols.onRenovateFlyer(
-          bzID: newDraft.bzID,
-          newNumberOfSlides: newDraft.draftSlides?.length,
-          oldNumberOfSlides: oldFlyer.slides?.length,
-        ),
-
-        /// INCREMENT CITY PHIDS
-        ZonePhidsRealOps.onRenovateFlyer(
-          flyerModel: _flyerToUpload,
-          oldFlyer: oldFlyer,
-        ),
-
-        /// CENSUS
-        CensusListener.onRenovateFlyer(
-          oldFlyer: oldFlyer,
-          newFlyer: _flyerToUpload,
-        ),
-
-        /// SEND UPDATE NOTE TO BZ TEAM
-        if (sendFlyerUpdateNoteToItsBz == true)
-          NoteEvent.sendFlyerUpdateNoteToItsBz(
-            context: context,
-            bzModel: _bzModel,
-            flyerID: newDraft.id,
-          ),
-
-        /// UPDATE FLYER LOCALLY
-        if (updateFlyerLocally == true)
-          updateLocally(
-            flyerModel: _flyerToUpload,
-            notifyFlyerPro: true,
-            resetActiveBz: resetActiveBz,
-          ),
-      ]);
     }
 
     blog('RenovateFlyerProtocols.renovate : END');

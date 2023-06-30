@@ -1,4 +1,5 @@
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:flutter/material.dart';
 
@@ -13,13 +14,13 @@ class ChainButtonBox extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final bool isDisabled;
-  final double boxWidth;
+  final double? boxWidth;
   final Widget child;
-  final bool inverseAlignment;
+  final bool? inverseAlignment;
   /// --------------------------------------------------------------------------
   static double getSonWidth({
     required double parentWidth,
-    required int level,
+    required int? level,
   }){
     final int _level = level ?? 0;
     const double _padding = 2 * Ratioz.appBarMargin;
@@ -40,7 +41,7 @@ class ChainButtonBox extends StatelessWidget {
       opacity: isDisabled == true ? 0.3 : 1,
       child: Container(
         width: boxWidth,
-        alignment: inverseAlignment == true ? BldrsAligners.superInverseCenterAlignment(context) : null,
+        alignment: Mapper.boolIsTrue(inverseAlignment) == true ? BldrsAligners.superInverseCenterAlignment(context) : null,
         // margin: const EdgeInsets.all(Ratioz.appBarPadding),
         child: child,
       ),

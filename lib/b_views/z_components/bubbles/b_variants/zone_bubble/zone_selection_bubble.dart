@@ -38,17 +38,17 @@ class ZoneSelectionBubble extends StatefulWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final ZoneModel currentZone;
-  final ValueChanged<ZoneModel> onZoneChanged;
-  final Verse titleVerse;
-  final List<Verse> bulletPoints;
+  final ZoneModel? currentZone;
+  final ValueChanged<ZoneModel?> onZoneChanged;
+  final Verse? titleVerse;
+  final List<Verse>? bulletPoints;
   final bool translateBullets;
-  final String Function() validator;
+  final String? Function()? validator;
   final bool autoValidate;
   final ZoneDepth depth;
   final bool isRequired;
   final ViewingEvent zoneViewingEvent;
-  final String viewerCountryID;
+  final String? viewerCountryID;
   /// --------------------------------------------------------------------------
   @override
   _ZoneSelectionBubbleState createState() => _ZoneSelectionBubbleState();
@@ -57,7 +57,7 @@ class ZoneSelectionBubble extends StatefulWidget {
 
 class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
   // -----------------------------------------------------------------------------
-  final ValueNotifier<ZoneModel> _selectedZone = ValueNotifier<ZoneModel>(null);
+  final ValueNotifier<ZoneModel?> _selectedZone = ValueNotifier<ZoneModel?>(null);
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -74,7 +74,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
   void initState() {
     super.initState();
 
-    final ZoneModel _initialZone = widget.currentZone ?? ZoneProvider.proGetCurrentZone(
+    final ZoneModel? _initialZone = widget.currentZone ?? ZoneProvider.proGetCurrentZone(
       context: context,
       listen: false,
     );
@@ -94,7 +94,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
       _triggerLoading(setTo: true).then((_) async {
         // --------------------
-        final ZoneModel _zone = await ZoneProtocols.completeZoneModel(
+        final ZoneModel? _zone = await ZoneProtocols.completeZoneModel(
           incompleteZoneModel: _selectedZone.value,
         );
         // --------------------
@@ -150,7 +150,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
     Keyboard.closeKeyboard();
 
-    final ZoneModel _zone = await Nav.goToNewScreen(
+    final ZoneModel? _zone = await Nav.goToNewScreen(
       context: context,
       screen: CountriesScreen(
         zoneViewingEvent: widget.zoneViewingEvent,
@@ -166,7 +166,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
       _zone.blogZone(invoker: 'received zone');
 
-      final ZoneModel _completedZone = await ZoneProtocols.completeZoneModel(
+      final ZoneModel? _completedZone = await ZoneProtocols.completeZoneModel(
         incompleteZoneModel: _zone,
       );
 
@@ -191,14 +191,14 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
     Keyboard.closeKeyboard();
 
-    if (_selectedZone.value.countryModel != null){
+    if (_selectedZone.value?.countryModel != null){
 
-      final ZoneModel _zone = await Nav.goToNewScreen(
+      final ZoneModel? _zone = await Nav.goToNewScreen(
           context: context,
           screen: CitiesScreen(
             zoneViewingEvent: widget.zoneViewingEvent,
             depth: widget.depth,
-            countryID: _selectedZone.value.countryID,
+            countryID: _selectedZone.value?.countryID,
             viewerCountryID: widget.viewerCountryID,
           )
       );
@@ -211,7 +211,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
       /// WHEN SELECTED A CITY
       else {
 
-        final ZoneModel _completedZone = await ZoneProtocols.completeZoneModel(
+        final ZoneModel? _completedZone = await ZoneProtocols.completeZoneModel(
           incompleteZoneModel: _zone,
         );
 
@@ -229,12 +229,12 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
   }
   // -----------------------------------------------------------------------------
-  String _validator(){
+  String? _validator(){
     if (widget.validator == null){
       return null;
     }
     else {
-      return widget.validator();
+      return widget.validator?.call();
     }
   }
   // -----------------------------------------------------------------------------
@@ -247,7 +247,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
 
           return ValueListenableBuilder(
             valueListenable: _selectedZone,
-            builder: (_, ZoneModel zone, Widget? bulletPoints){
+            builder: (_, ZoneModel? zone, Widget? bulletPoints){
 
               return Bubble(
                   bubbleColor: Formers.validatorBubbleColor(

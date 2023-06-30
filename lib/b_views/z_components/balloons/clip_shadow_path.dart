@@ -12,7 +12,7 @@ class ClipShadowPath extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final Shadow shadow;
-  final CustomClipper<Path> clipper;
+  final CustomClipper<Path>? clipper;
   final bool shadowIsOn;
   final Widget child;
   /// --------------------------------------------------------------------------
@@ -52,12 +52,12 @@ class _ClipShadowPainter extends CustomPainter {
   });
   /// --------------------------------------------------------------------------
   final Shadow shadow;
-  final CustomClipper<Path> clipper;
+  final CustomClipper<Path>? clipper;
   /// --------------------------------------------------------------------------
   @override
   void paint(Canvas canvas, Size size) {
     final dynamic paint = shadow.toPaint();
-    final dynamic clipPath = clipper.getClip(size).shift(shadow.offset);
+    final dynamic clipPath = clipper?.getClip(size).shift(shadow.offset);
     canvas.drawPath(clipPath, paint);
   }
   /// --------------------------------------------------------------------------

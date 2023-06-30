@@ -66,13 +66,13 @@ class Formers {
   /// TESTED : WORKS PERFECT
   static String? emailValidator({
     required String? email,
-    required bool canValidate,
+    required bool? canValidate,
     String? enterEmail,
     String? emailInvalid,
   }) {
     String? _output;
 
-    if (canValidate == true){
+    if (Mapper.boolIsTrue(canValidate) == true){
 
       if (TextCheck.isEmpty(email) == true) {
         _output = enterEmail?? Verse.transBake('phid_enterEmail');
@@ -147,7 +147,7 @@ class Formers {
   /// TESTED : WORKS PERFECT
   static String? picValidator({
     required dynamic pic,
-    required bool canValidate,
+    required bool? canValidate,
   }){
     String? _message;
 
@@ -212,12 +212,12 @@ class Formers {
   /// TESTED : WORKS PERFECT
   static String? companyNameValidator({
     required String? companyName,
-    required bool canValidate,
+    required bool? canValidate,
     FocusNode? focusNode,
   }){
     String? _message;
 
-    if (canValidate == true){
+    if (Mapper.boolIsTrue(canValidate) == true){
 
       if (TextCheck.isEmpty(companyName) == true){
         _message = Verse.transBake('phid_enter_business_name');
@@ -299,11 +299,11 @@ class Formers {
   static String? zoneValidator({
     required ZoneModel? zoneModel,
     required bool selectCountryIDOnly,
-    required bool canValidate,
+    required bool? canValidate,
   }){
     String? _message;
 
-    if (canValidate == true){
+    if (Mapper.boolIsTrue(canValidate) == true){
 
       if (zoneModel == null){
         _message = Verse.transBake('phid_select_a_zone');
@@ -341,15 +341,15 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String? contactsPhoneValidator({
-    required List<ContactModel> contacts,
+    required List<ContactModel>? contacts,
     required ZoneModel? zoneModel,
-    required bool canValidate,
+    required bool? canValidate,
     required bool isRequired,
     FocusNode? focusNode,
   }){
     String? _message;
 
-    if (canValidate == true){
+    if (Mapper.boolIsTrue(canValidate) == true){
 
       final String? _phone = ContactModel.getValueFromContacts(
         contacts: contacts,
@@ -409,13 +409,13 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String? contactsEmailValidator({
-    required List<ContactModel> contacts,
-    required bool canValidate,
+    required List<ContactModel>? contacts,
+    required bool? canValidate,
     FocusNode? focusNode,
   }){
     String? _message;
 
-    if (canValidate == true){
+    if (Mapper.boolIsTrue(canValidate) == true){
 
       final String? _email = ContactModel.getValueFromContacts(
         contacts: contacts,
@@ -439,13 +439,13 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String? contactsWebsiteValidator({
-    required List<ContactModel> contacts,
-    required bool canValidate,
+    required List<ContactModel>? contacts,
+    required bool? canValidate,
     FocusNode? focusNode,
   }){
     String? _message;
 
-    if (canValidate == true){
+    if (Mapper.boolIsTrue(canValidate) == true){
 
       final String? _website = ContactModel.getValueFromContacts(
         contacts: contacts,
@@ -468,7 +468,7 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String? paragraphValidator({
-    required String text,
+    required String? text,
     required bool canValidate,
     FocusNode? focusNode,
   }){
@@ -503,11 +503,11 @@ class Formers {
   /// TESTED : WORKS PERFECT
   static String? bzSectionValidator({
     required BzSection? selectedSection,
-    required bool canValidate,
+    required bool? canValidate,
   }){
     String? _message;
 
-    if (canValidate == true){
+    if (Mapper.boolIsTrue(canValidate) == true){
       if (selectedSection == null){
         _message = Verse.transBake('phid_select_the_main_field_of_business');
       }
@@ -518,12 +518,12 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String? bzTypeValidator({
-    required List<BzType> selectedTypes,
-    required bool canValidate,
+    required List<BzType>? selectedTypes,
+    required bool? canValidate,
   }){
     String? _message;
 
-    if (canValidate == true){
+    if (Mapper.boolIsTrue(canValidate) == true){
       if (Mapper.checkCanLoopList(selectedTypes) == false){
         _message = Verse.transBake('phid_select_at_least_one_bz_type');
       }
@@ -535,11 +535,11 @@ class Formers {
   /// TESTED : WORKS PERFECT
   static String? bzFormValidator({
     required BzForm? bzForm,
-    required bool canValidate,
+    required bool? canValidate,
   }){
     String? _message;
 
-    if (canValidate == true){
+    if (Mapper.boolIsTrue(canValidate) == true){
       if (bzForm == null){
         _message = Verse.transBake('phid_select_company_or_pro');
       }
@@ -550,13 +550,13 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String? bzAboutValidator({
-    required String bzAbout,
-    required bool canValidate,
+    required String? bzAbout,
+    required bool? canValidate,
     FocusNode? focusNode,
   }){
     String? _message;
 
-    if (canValidate == true){
+    if (Mapper.boolIsTrue(canValidate) == true){
 
       final bool _hasBadWords = TextCheck.containsBadWords(
         text: bzAbout,
@@ -751,7 +751,7 @@ class Formers {
   /// TESTED : WORKS PERFECT
   static String? flyerPhidsValidator({
     required bool canValidate,
-    required List<String> phids,
+    required List<String>? phids,
     FocusNode? focusNode,
   }){
     String? _message;
@@ -926,7 +926,7 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Color validatorBubbleColor({
-    required String Function()? validator,
+    required String? Function()? validator,
     Color defaultColor = Colorz.white10,
     bool canErrorize = true,
   }){

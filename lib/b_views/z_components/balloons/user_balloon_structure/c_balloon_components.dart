@@ -1,4 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/super_box/src/a_the_box_of_super_box/x_custom_box_shadow.dart';
 import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
@@ -18,16 +19,16 @@ class BalloonComponents extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final double balloonWidth;
-  final Color balloonColor;
+  final Color? balloonColor;
   final bool blackAndWhite;
-  final bool loading;
+  final bool? loading;
   final dynamic pic;
-  final Widget child;
+  final Widget? child;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    final Color _balloonColor = pic == null ? balloonColor : null;
+    final Color? _balloonColor = pic == null ? balloonColor : null;
 
     return Stack(
       alignment: Alignment.center,
@@ -43,8 +44,8 @@ class BalloonComponents extends StatelessWidget {
                 colorFilter: Colorizer.desaturationColorFilter(
                     isItBlackAndWhite: blackAndWhite
                 ),
-                child: loading == true ?
-                Loading(loading: loading,)
+                child: Mapper.boolIsTrue(loading) == true ?
+                Loading(loading: loading!)
                     :
                 _balloonColor == null ?
                 BldrsImage(
@@ -97,7 +98,7 @@ class BalloonComponents extends StatelessWidget {
 
         /// Child
         if (child != null)
-          child,
+          child!,
 
       ],
     );

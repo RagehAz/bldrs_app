@@ -593,7 +593,7 @@ class DraftFlyer{
   // --------------------
   /// TESTED : WORKS PERFECT
   static DraftFlyer? updateHeadline({
-    required String newHeadline,
+    required String? newHeadline,
     required DraftFlyer? draft,
     required int slideIndex,
   }){

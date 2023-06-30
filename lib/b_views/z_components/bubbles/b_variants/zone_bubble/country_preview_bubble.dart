@@ -24,12 +24,12 @@ class CountryPreviewBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final Flag _flag = Flag.getFlagFromFlagsByCountryID(
+    final Flag? _flag = Flag.getFlagFromFlagsByCountryID(
       flags: allFlags,
       countryID: countryID,
     );
 
-    final CurrencyModel _currencyModel = CurrencyModel.getCurrencyFromCurrenciesByCountryID(
+    final CurrencyModel? _currencyModel = CurrencyModel.getCurrencyFromCurrenciesByCountryID(
       currencies: ZoneProvider.proGetAllCurrencies(
         context: context,
         listen: true,
@@ -37,20 +37,20 @@ class CountryPreviewBubble extends StatelessWidget {
       countryID: countryID,
     );
 
-    final Phrase _nameEn = Flag.getCountryPhrase(
+    final Phrase? _nameEn = Flag.getCountryPhrase(
       countryID: countryID,
       langCode: 'en',
     );
 
-    final Phrase _nameAr = Flag.getCountryPhrase(
+    final Phrase? _nameAr = Flag.getCountryPhrase(
       countryID: countryID,
       langCode: 'ar',
     );
 
-    final String _areaNumbers = counterCaliber(_flag.areaSqKm);
-    final String _population = counterCaliber(_flag.population);
-    final double _popDensityValue = _flag.population / (_flag.areaSqKm);
-    final String _popDensity = Numeric.formatNumToSeparatedKilos(
+    final String? _areaNumbers = counterCaliber(_flag?.areaSqKm);
+    final String? _population = counterCaliber(_flag?.population);
+    final double? _popDensityValue = (_flag?.population ?? 0) / (_flag?.areaSqKm ?? 0);
+    final String? _popDensity = Numeric.formatNumToSeparatedKilos(
       number: _popDensityValue,
       fractions: 0,
     );
@@ -78,15 +78,15 @@ class CountryPreviewBubble extends StatelessWidget {
         ),
 
         /// COUNTRY NAME EN
-        ZoneNameLine(name: _nameEn.value,),
+        ZoneNameLine(name: _nameEn?.value),
 
         /// COUNTRY NAME AR
-        ZoneNameLine(name: _nameAr.value,),
+        ZoneNameLine(name: _nameAr?.value),
 
         /// CAPITAL
         ZoneBubbleLine(
           icon: Iconz.star,
-          line: _flag.capital,
+          line: _flag?.capital,
         ),
 
         /// CURRENCY

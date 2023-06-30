@@ -511,29 +511,32 @@ class NoteProtocols {
   // --------------------
   ///
   static Future<void> wipeNote({
-    required NoteModel note,
+    required NoteModel? note,
   }) async {
 
-    blog('NoteProtocol.wipeNote : noteID : ${note.id}: START');
+    blog('NoteProtocol.wipeNote : noteID : ${note?.id}: START');
 
-    /// DELETE POSTER IF EXISTED
-    await _wipePoster(
-      note: note,
-    );
+    if (note != null){
 
+      /// DELETE POSTER IF EXISTED
+      await _wipePoster(
+        note: note,
+      );
 
-    /// FIRE DELETE
-    await NoteFireOps.deleteNote(
-      note: note,
-    );
+      /// FIRE DELETE
+      await NoteFireOps.deleteNote(
+        note: note,
+      );
 
-    /// DEPRECATED
-    // /// PRO DELETE
-    // NotesProvider.proDeleteNoteEverywhereIfExists(
-    //   context: context,
-    //   noteID: note.id,
-    //   notify: true,
-    // );
+      /// DEPRECATED
+      // /// PRO DELETE
+      // NotesProvider.proDeleteNoteEverywhereIfExists(
+      //   context: context,
+      //   noteID: note.id,
+      //   notify: true,
+      // );
+
+    }
 
     blog('NoteProtocol.wipeNote : END');
   }

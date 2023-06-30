@@ -1,7 +1,7 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bubbles/tile_bubble/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/b_views/c_main_search/super_search_screen.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +32,7 @@ class FilterMultiButtonTile extends StatelessWidget {
   final List<dynamic> items;
   final dynamic selectedItem;
   final Verse Function(dynamic item) itemVerse;
-  final String Function(dynamic item)? itemIcon;
+  final String? Function(dynamic item)? itemIcon;
   final Function(dynamic item) onItemTap;
   final Color bubbleColor;
   // -----------------------------------------------------------------------------

@@ -41,7 +41,7 @@ class SearchModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static SearchModel createInitialModel({
-    required ModelType searchType,
+    required ModelType? searchType,
   }){
 
     return SearchModel(

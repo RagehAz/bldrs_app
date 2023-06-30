@@ -17,7 +17,7 @@ class PDFScreen extends StatefulWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final PDFModel pdf;
+  final PDFModel? pdf;
   /// --------------------------------------------------------------------------
   @override
   _PDFScreenState createState() => _PDFScreenState();
@@ -26,9 +26,10 @@ class PDFScreen extends StatefulWidget {
 
 class _PDFScreenState extends State<PDFScreen> {
   // -----------------------------------------------------------------------------
-  final ValueNotifier<Uint8List> _uInt8List = ValueNotifier(null);
-  final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);//ProgressBarModel.emptyModel());
-  final ValueNotifier<PDFViewController> _pdfController = ValueNotifier<PDFViewController>(null);
+  final ValueNotifier<Uint8List?> _uInt8List = ValueNotifier(null);
+  // ProgressBarModel.emptyModel());
+  final ValueNotifier<ProgressBarModel?> _progressBarModel = ValueNotifier(null);
+  final ValueNotifier<PDFViewController?> _pdfController = ValueNotifier(null);
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -47,7 +48,7 @@ class _PDFScreenState extends State<PDFScreen> {
     setNotifier(
         notifier: _uInt8List,
         mounted: mounted,
-        value: widget.pdf.bytes,
+        value: widget.pdf?.bytes,
     );
 
     super.initState();
@@ -83,7 +84,7 @@ class _PDFScreenState extends State<PDFScreen> {
     return MainLayout(
       loading: _loading,
       title: Verse(
-        id: '${widget.pdf.name}.pdf',
+        id: '${widget.pdf?.name}.pdf',
         translate: false,
       ),
       appBarType: AppBarType.basic,
@@ -96,7 +97,7 @@ class _PDFScreenState extends State<PDFScreen> {
 
         child: ValueListenableBuilder(
           valueListenable: _uInt8List,
-          builder: (_, Uint8List data, Widget? child){
+          builder: (_, Uint8List? data, Widget? child){
 
             if (data == null){
               return const LoadingFullScreenLayer();

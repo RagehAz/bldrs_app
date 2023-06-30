@@ -17,7 +17,7 @@ class SlideBox extends StatelessWidget {
   final double flyerBoxWidth;
   final double flyerBoxHeight;
   final bool tinyMode;
-  final Color slideMidColor;
+  final Color? slideMidColor;
   final List<Widget> stackChildren;
   final bool shadowIsOn;
   // -----------------------------------------------------------------------------

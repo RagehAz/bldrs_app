@@ -31,7 +31,7 @@ class BldrsAppBar extends StatelessWidget {
   final Verse? pageTitleVerse;
   final List<Widget>? appBarRowWidgets;
   final ValueNotifier<bool>? loading;
-  final ValueNotifier<ProgressBarModel>? progressBarModel;
+  final ValueNotifier<ProgressBarModel?>? progressBarModel;
   final ScrollController? appBarScrollController;
   final bool sectionButtonIsOn;
   final TextEditingController? searchController;
@@ -98,7 +98,6 @@ class BldrsAppBar extends StatelessWidget {
   // --------------------
   static double expandedHeight({
     required BuildContext context,
-    required AppBarType appBarType,
   }){
     return Scale.screenHeight(context) - Ratioz.appBarMargin;
   }
@@ -154,7 +153,6 @@ class BldrsAppBar extends StatelessWidget {
     );
     final double _maxBoxHeight = BldrsAppBar.expandedHeight(
       context: context,
-      appBarType: appBarType,
     );
     return _maxBoxHeight - _filtersTopMargin;
   }
@@ -208,7 +206,7 @@ class BldrsAppBar extends StatelessWidget {
     else {
       return Selector<UiProvider, bool>(
         selector: (_, UiProvider uiProvider) => uiProvider.layoutIsVisible,
-        builder: (_, bool isVisible, Widget child) {
+        builder: (_, bool isVisible, Widget? child) {
 
           // blog('bldrs app bar isVisible: $isVisible');
 

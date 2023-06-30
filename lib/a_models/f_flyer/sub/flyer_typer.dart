@@ -454,7 +454,7 @@ class FlyerTyper{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<FlyerType> concludePossibleFlyerTypesByChains(List<Chain> chains){
+  static List<FlyerType> concludePossibleFlyerTypesByChains(List<Chain>? chains){
     final List<FlyerType> _types = <FlyerType>[];
 
     if (Mapper.checkCanLoopList(chains) == true){
@@ -513,23 +513,23 @@ class FlyerTyper{
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getChainsIDsPerViewingEvent({
-    required FlyerType flyerType,
-    required ViewingEvent event,
+    required FlyerType? flyerType,
+    required ViewingEvent? event,
   }){
 
     switch(event){
 
       case ViewingEvent.admin :
-        return _allChainsIDs(flyerType: flyerType,);
+        return _allChainsIDs(flyerType: flyerType);
 
       case ViewingEvent.homeView :
         return _homeWallChainsIDs(flyerType);
 
       case ViewingEvent.flyerEditor :
-        return _flyerCreatorChainsIDs(flyerType,);
+        return _flyerCreatorChainsIDs(flyerType);
 
       case ViewingEvent.bzEditor :
-        return _bzCreatorChainsIDs(flyerType,);
+        return _bzCreatorChainsIDs(flyerType);
 
       default: return  [];
     }
@@ -538,7 +538,7 @@ class FlyerTyper{
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> _allChainsIDs({
-    required FlyerType flyerType,
+    required FlyerType? flyerType,
   }){
 
     final List<PickerModel> _pickers = ChainsProvider.proGetPickersByFlyerType(
@@ -583,7 +583,7 @@ class FlyerTyper{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> _flyerCreatorChainsIDs(FlyerType flyerType){
+  static List<String> _flyerCreatorChainsIDs(FlyerType? flyerType){
 
     switch (flyerType){
       case FlyerType.general      :
@@ -651,7 +651,7 @@ class FlyerTyper{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> _bzCreatorChainsIDs(FlyerType flyerType){
+  static List<String> _bzCreatorChainsIDs(FlyerType? flyerType){
 
     switch (flyerType){
       case FlyerType.general      :

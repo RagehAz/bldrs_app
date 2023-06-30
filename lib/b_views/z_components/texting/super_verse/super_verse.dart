@@ -44,7 +44,7 @@ class BldrsText extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final Verse verse;
+  final Verse? verse;
   final double? width;
   final double? height;
   final int size;
@@ -53,8 +53,8 @@ class BldrsText extends StatelessWidget {
   final bool italic;
   final bool shadow;
   final bool centered;
-  final double scaleFactor;
-  final int maxLines;
+  final double? scaleFactor;
+  final int? maxLines;
   final dynamic margin;
   // final bool softWrap;
   final Color? labelColor;
@@ -65,7 +65,7 @@ class BldrsText extends StatelessWidget {
   final ValueNotifier<dynamic>? highlight;
   final Color highlightColor;
   final Color? shadowColor;
-  final TextDirection textDirection;
+  final TextDirection? textDirection;
   // -----------------------------------------------------------------------------
 
   /// READY VERSES
@@ -137,7 +137,7 @@ class BldrsText extends StatelessWidget {
             color: color,
             italic: true,
             size: 3,
-            margin: scaleFactor * 3,
+            margin: (scaleFactor??1) * 3,
             scaleFactor: scaleFactor,
           ),
 
@@ -247,7 +247,7 @@ class BldrsText extends StatelessWidget {
   static double superVerseSizeValue(
       BuildContext context,
       int verseSize,
-      double scalingFactor
+      double? scalingFactor
       ) {
     // double _screenHeight = Scale.superScreenHeight(context);
 
@@ -273,26 +273,28 @@ class BldrsText extends StatelessWidget {
     // _screenHeight * Ratioz.fontSize1
     // ;
 
+    final double _scale = scalingFactor ?? 1;
+
     final double _verseSizeValue =
-    (verseSize == 0) ? 8 * scalingFactor
+    (verseSize == 0) ? 8 * _scale
         :
-    (verseSize == 1) ? 12 * scalingFactor
+    (verseSize == 1) ? 12 * _scale
         :
-    (verseSize == 2) ? 16 * scalingFactor
+    (verseSize == 2) ? 16 * _scale
         :
-    (verseSize == 3) ? 20 * scalingFactor
+    (verseSize == 3) ? 20 * _scale
         :
-    (verseSize == 4) ? 24 * scalingFactor
+    (verseSize == 4) ? 24 * _scale
         :
-    (verseSize == 5) ? 28 * scalingFactor
+    (verseSize == 5) ? 28 * _scale
         :
-    (verseSize == 6) ? 32 * scalingFactor
+    (verseSize == 6) ? 32 * _scale
         :
-    (verseSize == 7) ? 36 * scalingFactor
+    (verseSize == 7) ? 36 * _scale
         :
-    (verseSize == 8) ? 40 * scalingFactor
+    (verseSize == 8) ? 40 * _scale
         :
-    12 * scalingFactor;
+    12 * _scale;
 
     return _verseSizeValue;
   }
@@ -309,8 +311,8 @@ class BldrsText extends StatelessWidget {
     bool italic = true,
     int size = 2,
     bool shadowIsOn = true,
-    Color shadowColor,
-    double scaleFactor = 1,
+    Color? shadowColor,
+    double? scaleFactor = 1,
     bool strikeThrough = false,
   }) {
     const double _verseHeight = 1.438; //1.48; // The sacred golden reverse engineered factor
@@ -382,7 +384,7 @@ class BldrsText extends StatelessWidget {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static FontWeight superVerseWeight(VerseWeight weight) {
+  static FontWeight superVerseWeight(VerseWeight? weight) {
     final FontWeight _verseWeight =
     weight == VerseWeight.thin ? FontWeight.w100
         :
@@ -401,7 +403,7 @@ class BldrsText extends StatelessWidget {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String superVerseFont(VerseWeight weight) {
+  static String superVerseFont(VerseWeight? weight) {
     final String _verseFont =
     weight == VerseWeight.thin ? Words.bodyFont()
         :
@@ -420,7 +422,7 @@ class BldrsText extends StatelessWidget {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static double superVerseLetterSpacing(VerseWeight weight, double verseSizeValue) {
+  static double superVerseLetterSpacing(VerseWeight? weight, double verseSizeValue) {
     final double _verseLetterSpacing =
     weight == VerseWeight.thin ? verseSizeValue * 0.035
         :
@@ -454,10 +456,10 @@ class BldrsText extends StatelessWidget {
     required BuildContext context,
     required int size,
     required bool shadowIsOn,
-    required Color textColor,
-    required double scaleFactor,
+    required Color? textColor,
+    required double? scaleFactor,
     required VerseWeight weight,
-    Color shadowColor,
+    Color? shadowColor,
   }){
 
     if (shadowIsOn == true){
