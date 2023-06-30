@@ -175,7 +175,7 @@ class FlyerLDBOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteFlyerMakerSession({
-    required String flyerID,
+    required String? flyerID,
   }) async {
 
     await LDBOps.deleteMap(

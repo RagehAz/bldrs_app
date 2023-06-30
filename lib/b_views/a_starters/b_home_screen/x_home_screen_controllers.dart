@@ -328,8 +328,8 @@ Future<void> onSectionButtonTap(BuildContext context) async {
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> setActivePhidK({
-  required String phidK,
-  required FlyerType flyerType,
+  required String? phidK,
+  required FlyerType? flyerType,
 }) async {
 
   // blog('setActivePhidK : phidK : $phidK : for flyerType : $flyerType');

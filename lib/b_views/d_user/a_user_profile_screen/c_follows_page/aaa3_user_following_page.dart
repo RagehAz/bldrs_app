@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -12,7 +11,6 @@ import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 
 class UserFollowingPage extends StatelessWidget {
@@ -28,7 +26,7 @@ class UserFollowingPage extends StatelessWidget {
       context: context,
       listen: true,
     );
-    final List<String> _followedBzzIds = userModel.followedBzz?.all;
+    final List<String> _followedBzzIds = userModel?.followedBzz?.all ?? [];
     // --------------------
     /// FOLLOWS EXIST
     if (Mapper.checkCanLoopList(_followedBzzIds) == false){
@@ -53,9 +51,9 @@ class UserFollowingPage extends StatelessWidget {
 
           final String _bzID = _followedBzzIds[index];
 
-          return FutureBuilder(
+          return FutureBuilder<BzModel?>(
             future: BzProtocols.fetchBz(bzID: _bzID),
-            builder: (_, AsyncSnapshot<BzModel> snapshot){
+            builder: (_, AsyncSnapshot<BzModel?> snapshot){
 
               blog('snapshot connectionState is : ${snapshot.connectionState}');
 

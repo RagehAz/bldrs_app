@@ -69,12 +69,12 @@ class BldrsTextField extends StatelessWidget {
   // --------------------------------------------------------------------------
   /// main
   final Verse titleVerse;
-  final bool isFormField;
-  final TextEditingController textController;
-  final String initialValue;
-  final Verse hintVerse;
+  final bool? isFormField;
+  final TextEditingController? textController;
+  final String? initialValue;
+  final Verse? hintVerse;
   final bool autofocus;
-  final FocusNode focusNode;
+  final FocusNode? focusNode;
   final bool counterIsOn;
   final bool autoValidate;
 
@@ -85,16 +85,16 @@ class BldrsTextField extends StatelessWidget {
   final Color fieldColor;
 
   /// keyboard
-  final TextInputType textInputType;
-  final TextInputAction textInputAction;
+  final TextInputType? textInputType;
+  final TextInputAction? textInputAction;
 
   /// text
-  final TextDirection textDirection;
+  final TextDirection? textDirection;
   final bool centered;
   final int maxLines;
   final int minLines;
   final int maxLength;
-  final ScrollController scrollController;
+  final ScrollController? scrollController;
 
   /// styling
   final VerseWeight textWeight;
@@ -105,18 +105,18 @@ class BldrsTextField extends StatelessWidget {
   final bool textShadow;
 
   /// functions
-  final Function onTap;
-  final ValueChanged<String> onChanged;
-  final ValueChanged<String> onSubmitted;
-  final ValueChanged<String> onSavedForForm;
-  final Function onEditingComplete;
+  final Function? onTap;
+  final ValueChanged<String?>? onChanged;
+  final ValueChanged<String?>? onSubmitted;
+  final ValueChanged<String?>? onSavedForForm;
+  final Function? onEditingComplete;
   // final ValueChanged<String> onPaste;
   /// should return error string or null if there is no error
-  final String Function(String) validator;
+  final String? Function(String?)? validator;
 
   final bool isFloatingField;
-  final ValueNotifier<bool> isObscured;
-  final GlobalKey globalKey;
+  final ValueNotifier<bool>? isObscured;
+  final GlobalKey? globalKey;
   final AppBarType appBarType;
   // --------------------------------------------------------------------------
    /// TESTED : WORKS PERFECT
@@ -188,7 +188,7 @@ class BldrsTextField extends StatelessWidget {
       textController: textController,
 
       /// main
-      isFormField: isFormField,
+      isFormField: isFormField ?? true,
       initialValue: initialValue,
       hintText: Verse.bakeVerseToString(
         verse: hintVerse,
@@ -238,9 +238,9 @@ class BldrsTextField extends StatelessWidget {
 
       /// functions
       onTap: onTap,
-      onChanged: onChanged,
-      onSubmitted: onSubmitted,
-      onSavedForForm: onSavedForForm,
+      onChanged: onChanged == null ? null : (String? text) => onChanged!(text),
+      onSubmitted: onSubmitted == null ? null : (String? text) => onSubmitted!(text),
+      onSavedForForm: onSavedForForm == null ? null : (String? text) => onSavedForForm!(text),
       onEditingComplete: onEditingComplete,
       validator: validator,
 

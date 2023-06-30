@@ -8,7 +8,7 @@ import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/c_team_page/bz_team_page_controllers.dart';
 import 'package:bldrs/b_views/f_bz/d_author_search_screen/x_author_search_controllers.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/users_tile_buttons_list.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
@@ -27,8 +27,8 @@ class AuthorSearchScreenView extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final BzModel bzModel;
-  final ValueNotifier<List<UserModel>> foundUsers;
+  final BzModel? bzModel;
+  final ValueNotifier<List<UserModel>?> foundUsers;
   final ValueNotifier<bool> isSearching;
   final ValueNotifier<bool> isLoading;
   /// --------------------------------------------------------------------------
@@ -75,8 +75,8 @@ class AuthorSearchScreenView extends StatelessWidget {
                           translate: true,
                         ),
                         deactivatedUsersIDs: <String>[
-                          ...AuthorModel.getAuthorsIDsFromAuthors(authors: bzModel.authors),
-                          ... PendingAuthor.getPendingsUsersIDs(bzModel.pendingAuthors)
+                          ...AuthorModel.getAuthorsIDsFromAuthors(authors: bzModel?.authors),
+                          ... PendingAuthor.getPendingsUsersIDs(bzModel?.pendingAuthors)
                         ],
                         onSideButtonTap: (UserModel userModel) => onSendAuthorshipInvitation(
                           context: context,

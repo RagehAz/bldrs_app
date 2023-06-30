@@ -231,7 +231,7 @@ class ContactModel {
   static String? getInitialContactValue({
     required List<ContactModel>? existingContacts,
     required ContactType type,
-    required String countryID,
+    required String? countryID,
   }){
 
     final ContactModel? _existingContact = getContactFromContacts(
@@ -458,7 +458,7 @@ class ContactModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<ContactModel> filterContactsWhichShouldViewValue(List<ContactModel> contacts) {
+  static List<ContactModel> filterContactsWhichShouldViewValue(List<ContactModel>? contacts) {
 
     final List<ContactModel> _contacts = <ContactModel>[];
 
@@ -485,7 +485,7 @@ class ContactModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<ContactModel> filterSocialMediaContacts(List<ContactModel> contacts) {
+  static List<ContactModel> filterSocialMediaContacts(List<ContactModel>? contacts) {
 
     final List<ContactModel> _contacts = <ContactModel>[];
 
@@ -701,8 +701,8 @@ class ContactModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkContactIsBlocked({
-    required ContactType contactType,
-    required ContactsOwnerType ownerType,
+    required ContactType? contactType,
+    required ContactsOwnerType ?ownerType,
   }){
 
     /// USER CONTACTS

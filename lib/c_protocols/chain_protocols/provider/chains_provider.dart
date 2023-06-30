@@ -501,8 +501,8 @@ class ChainsProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> changeHomeWallFlyerType({
-    required FlyerType flyerType,
-    required String phid,
+    required FlyerType? flyerType,
+    required String? phid,
     required bool notify,
   }) async {
 
@@ -583,7 +583,7 @@ class ChainsProvider extends ChangeNotifier {
   /// TESTED : WORKS PERFECT
   static List<PickerModel> proGetPickersByFlyerType({
     required BuildContext context,
-    required FlyerType flyerType,
+    required FlyerType? flyerType,
     required bool sort,
     required bool listen,
   }){

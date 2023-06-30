@@ -27,58 +27,65 @@ class NoteEventsOfAuthorship {
   /// TESTED : WORKS PERFECT
   static Future<NoteModel?> sendAuthorshipInvitationNote({
     required BuildContext context,
-    required BzModel bzModel,
-    required UserModel userModelToSendTo,
+    required BzModel? bzModel,
+    required UserModel? userModelToSendTo,
   }) async {
+
+    NoteModel? _uploaded;
 
     blog('NoteEventsOfAuthorship.sendAuthorshipInvitationNote : START');
 
-    final String? _title = await PhraseProtocols.translate(
+    if (bzModel != null && userModelToSendTo != null){
+
+      final String? _title = await PhraseProtocols.translate(
         phid: 'phid_you_are_invited_to_become_author',
         langCode: userModelToSendTo.language,
-    );
+      );
 
-    final NoteModel _note = NoteModel(
-      id: null, // will be defined in composeNoteProtocol
-      parties: NoteParties(
-        senderID: bzModel.id, /// HAS TO BE BZ ID NOT AUTHOR ID
-        senderImageURL: bzModel.logoPath,
-        senderType: PartyType.bz,
-        receiverID: userModelToSendTo.id,
-        receiverType: PartyType.user,
-      ),
-      title: _title,
-      body: bzModel.name,
-      sentTime: DateTime.now(),
-      poll: const PollModel(
-        buttons: PollModel.acceptDeclineButtons,
-        reply: PollModel.pending,
-        replyTime: null,
-      ),
-      token: userModelToSendTo.device?.token,
-      topic: TopicModel.userAuthorshipsInvitations,
-      dismissible: false,
-      // poster: PosterModel(
-      //   type: PosterType.bz,
-      //   modelID: bzModel.id,
-      //   url: bzPosterID,
-      // ),
-      // seen: false,
-      // sendFCM: true,
-      // sendNote: true,
-      function: NoteFunProtocols.createRefetchBzTrigger(
+      final NoteModel _note = NoteModel(
+        id: null, // will be defined in composeNoteProtocol
+        parties: NoteParties(
+          senderID: bzModel.id, /// HAS TO BE BZ ID NOT AUTHOR ID
+          senderImageURL: bzModel.logoPath,
+          senderType: PartyType.bz,
+          receiverID: userModelToSendTo.id,
+          receiverType: PartyType.user,
+        ),
+        title: _title,
+        body: bzModel.name,
+        sentTime: DateTime.now(),
+        poll: const PollModel(
+          buttons: PollModel.acceptDeclineButtons,
+          reply: PollModel.pending,
+          replyTime: null,
+        ),
+        token: userModelToSendTo.device?.token,
+        topic: TopicModel.userAuthorshipsInvitations,
+        dismissible: false,
+        // poster: PosterModel(
+        //   type: PosterType.bz,
+        //   modelID: bzModel.id,
+        //   url: bzPosterID,
+        // ),
+        // seen: false,
+        // sendFCM: true,
+        // sendNote: true,
+        function: NoteFunProtocols.createRefetchBzTrigger(
           bzID: bzModel.id,
-      ),
-      navTo: const TriggerModel(
-        name: Routing.myUserNotesPage,
-        argument: null,
-        done: [],
-      ),
-    );
+        ),
+        navTo: const TriggerModel(
+          name: Routing.myUserNotesPage,
+          argument: null,
+          done: [],
+        ),
+      );
 
-    final NoteModel? _uploaded = await NoteProtocols.composeToOneReceiver(
-      note: _note,
-    );
+      _uploaded = await NoteProtocols.composeToOneReceiver(
+        note: _note,
+      );
+
+    }
+
 
     blog('NoteEventsOfAuthorship.sendAuthorshipInvitationNote : END');
 

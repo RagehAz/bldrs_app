@@ -19,21 +19,21 @@ class FutureUserTileButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final String userID;
   final double boxWidth;
-  final Verse sideButtonVerse;
-  final Function onUserTap;
-  final Function onSideButtonTap;
+  final Verse? sideButtonVerse;
+  final Function? onUserTap;
+  final Function? onSideButtonTap;
   final bool bubble;
-  final Color color;
+  final Color? color;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    return FutureBuilder(
+    return FutureBuilder<UserModel?>(
         key: const ValueKey('FutureUserTileButton'),
         future: UserProtocols.fetch(context: context, userID: userID),
-        builder: (_, AsyncSnapshot<Object> snapshot){
+        builder: (_, AsyncSnapshot<UserModel?> snapshot){
 
-          final UserModel _userModel = snapshot.data;
+          final UserModel? _userModel = snapshot.data;
 
           if (_userModel == null){
             return const SizedBox();

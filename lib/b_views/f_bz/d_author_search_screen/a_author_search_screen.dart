@@ -22,7 +22,7 @@ class AuthorSearchScreen extends StatefulWidget {
 
 class _AuthorSearchScreenState extends State<AuthorSearchScreen> {
   // -----------------------------------------------------------------------------
-  final ValueNotifier<List<UserModel>> _foundUsers = ValueNotifier(null);
+  final ValueNotifier<List<UserModel>?> _foundUsers = ValueNotifier(null);
   final ValueNotifier<bool> _isSearching = ValueNotifier(false);
   // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -54,7 +54,7 @@ class _AuthorSearchScreenState extends State<AuthorSearchScreen> {
     );
 
     final List<String> _bzAuthorsIDs = AuthorModel.getAuthorsIDsFromAuthors(
-      authors: _bzModel.authors,
+      authors: _bzModel?.authors,
     );
 
     await onSearchUsers(

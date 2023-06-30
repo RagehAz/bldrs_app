@@ -9,7 +9,6 @@ import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:flutter/material.dart';
 
@@ -24,14 +23,14 @@ class SearchUsersScreen extends StatefulWidget {
   });
   /// --------------------------------------------------------------------------
   final bool multipleSelection;
-  final List<UserModel> selectedUsers;
-  final ValueChanged<UserModel> onUserTap;
+  final List<UserModel>? selectedUsers;
+  final ValueChanged<UserModel>? onUserTap;
   final List<String> userIDsToExcludeInSearch;
   /// --------------------------------------------------------------------------
   @override
   _SearchUsersScreenState createState() => _SearchUsersScreenState();
   /// --------------------------------------------------------------------------
-  static Future<UserModel> selectUser(BuildContext context) async {
+  static Future<UserModel?> selectUser(BuildContext context) async {
 
     final List<UserModel> _users = await Nav.goToNewScreen(
         context: context,
@@ -54,9 +53,9 @@ class SearchUsersScreen extends StatefulWidget {
 
 class _SearchUsersScreenState extends State<SearchUsersScreen> {
   // -----------------------------------------------------------------------------
-  final ValueNotifier<List<UserModel>> _foundUsers = ValueNotifier(null);
+  final ValueNotifier<List<UserModel>?> _foundUsers = ValueNotifier(null);
   final ValueNotifier<List<UserModel>> _historyUsers = ValueNotifier(<UserModel>[]);
-  ValueNotifier<List<UserModel>> _selectedUsers;
+  ValueNotifier<List<UserModel>?>? _selectedUsers;
   final ValueNotifier<bool> _isSearching = ValueNotifier(false);
   // -----------------------------------------------------------------------------
   /// --- LOADING
@@ -73,7 +72,7 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
   @override
   void initState() {
     super.initState();
-    _selectedUsers = ValueNotifier<List<UserModel>>(widget.selectedUsers);
+    _selectedUsers = ValueNotifier<List<UserModel>?>(widget.selectedUsers);
   }
   // --------------------
   bool _isInit = true;
@@ -105,7 +104,7 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
     _loading.dispose();
     _foundUsers.dispose();
     _isSearching.dispose();
-    _selectedUsers.dispose();
+    _selectedUsers?.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -144,7 +143,7 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
       if (widget.multipleSelection == true){
 
         final List<UserModel> _newList = UserModel.addOrRemoveUserToUsers(
-          usersModels: _selectedUsers.value,
+          usersModels: _selectedUsers?.value,
           userModel: userModel,
         );
 
@@ -156,7 +155,7 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
       else {
 
         final bool _isSelected = UserModel.checkUsersContainUser(
-            usersModels: _selectedUsers.value,
+            usersModels: _selectedUsers?.value,
             userModel: userModel
         );
 
@@ -186,7 +185,7 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
 
     /// WHEN FUNCTION IS EXTERNALLY PASSED
     else {
-      widget.onUserTap(userModel);
+      widget.onUserTap?.call(userModel);
     }
 
   }
@@ -196,7 +195,7 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
     await Nav.goBack(
       context: context,
       invoker: 'SearchUsersScreen.onBack',
-      passedData: _selectedUsers.value,
+      passedData: _selectedUsers?.value,
     );
 
   }

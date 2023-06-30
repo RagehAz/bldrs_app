@@ -24,8 +24,8 @@ class SlidesShelf extends StatefulWidget {
   });
   /// --------------------------------------------------------------------------
   final int shelfNumber;
-  final BzModel bzModel;
-  final ValueNotifier<DraftFlyer> draftNotifier;
+  final BzModel? bzModel;
+  final ValueNotifier<DraftFlyer?> draftNotifier;
   /// --------------------------------------------------------------------------
   @override
   _SlidesShelfState createState() => _SlidesShelfState();
@@ -99,7 +99,7 @@ class _SlidesShelfState extends State<SlidesShelf> with AutomaticKeepAliveClient
       alignment: BldrsAligners.superCenterAlignment(context),
       child: ValueListenableBuilder(
         valueListenable: widget.draftNotifier,
-        builder: (_, DraftFlyer draft, Widget? child){
+        builder: (_, DraftFlyer? draft, Widget? child){
 
           /// WHILE LOADING GIVEN EXISTING FLYER MODEL
           if (draft == null){

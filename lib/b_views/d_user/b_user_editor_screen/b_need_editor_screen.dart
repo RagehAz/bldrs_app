@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
@@ -42,7 +41,7 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
   // -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   // --------------------
-  final ValueNotifier<UserModel> _userModel = ValueNotifier(null);
+  final ValueNotifier<UserModel?> _userModel = ValueNotifier(null);
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -66,8 +65,8 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
       listen: false,
     );
 
-    if (_oldUser.need == null){
-      _oldUser = _oldUser.copyWith(
+    if (_oldUser?.need == null){
+      _oldUser = _oldUser?.copyWith(
         need: NeedModel.createInitialNeed(
           userZone: _oldUser.zone,
         ),
@@ -121,8 +120,8 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
 
       pushWaitDialog();
 
-      final UserModel _newUser = _userModel.value.copyWith(
-        need: _userModel.value.need.copyWith(
+      final UserModel? _newUser = _userModel.value?.copyWith(
+        need: _userModel.value?.need?.copyWith(
           since: DateTime.now(),
         ),
       );
@@ -179,7 +178,7 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
         key: _formKey,
         child: ValueListenableBuilder(
             valueListenable: _userModel,
-            builder: (_, UserModel userModel, Widget? child){
+            builder: (_, UserModel? userModel, Widget? child){
 
               return ListView(
                 physics: const BouncingScrollPhysics(),
@@ -230,7 +229,7 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                         ...List.generate(NeedModel.needsTypes.length, (index){
 
                           final NeedType _type = NeedModel.needsTypes[index];
-                          final bool _isSelected = userModel.need.needType == _type;
+                          final bool _isSelected = userModel?.need?.needType == _type;
 
                           return Bubble(
                             width: _clearWidth,
@@ -243,8 +242,8 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                               setNotifier(
                                   notifier: _userModel,
                                   mounted: mounted,
-                                  value: _userModel.value.copyWith(
-                                    need: _userModel.value.need.copyWith(
+                                  value: _userModel.value?.copyWith(
+                                    need: _userModel.value?.need?.copyWith(
                                       needType: _type,
                                     ),
                                   ),
@@ -296,14 +295,14 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                     maxLength: 1000,
                     maxLines: 20,
                     keyboardTextInputType: TextInputType.multiline,
-                    initialText: userModel.need?.notes,
-                    onTextChanged: (String text){
+                    initialText: userModel?.need?.notes,
+                    onTextChanged: (String? text){
 
                       setNotifier(
                           notifier: _userModel,
                           mounted: mounted,
-                          value: _userModel.value.copyWith(
-                            need: _userModel.value.need.copyWith(
+                          value: _userModel.value?.copyWith(
+                            need: _userModel.value?.need?.copyWith(
                               notes: text,
                             ),
                           ),
@@ -311,7 +310,7 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
 
                     },
                     // autoValidate: true,
-                    validator: (String text){
+                    validator: (String? text){
                       return null;
                     },
                   ),
@@ -324,26 +323,26 @@ class _NeedEditorScreenState extends State<NeedEditorScreen> {
                       translate: true,
                     ),
                     isRequired: false,
-                    currentZone: userModel.zone,
-                    viewerCountryID: userModel.zone?.countryID,
+                    currentZone: userModel?.zone,
+                    viewerCountryID: userModel?.zone?.countryID,
                     depth: ZoneDepth.city,
-                    onZoneChanged: (ZoneModel zone) async {
+                    onZoneChanged: (ZoneModel? zone) async {
 
-                      final ZoneModel _completeZone = await ZoneProtocols.completeZoneModel(
+                      final ZoneModel? _completeZone = await ZoneProtocols.completeZoneModel(
                         incompleteZoneModel: zone,
                       );
 
                       setNotifier(
                           notifier: _userModel,
                           mounted: mounted,
-                          value: _userModel.value.copyWith(
+                          value: _userModel.value?.copyWith(
                             zone: _completeZone,
                           ),
                       );
 
                     },
                     validator: () => Formers.zoneValidator(
-                      zoneModel: userModel.zone,
+                      zoneModel: userModel?.zone,
                       selectCountryIDOnly: false,
                       canValidate: true,
                     ),

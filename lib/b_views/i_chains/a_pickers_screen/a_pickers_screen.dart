@@ -37,14 +37,14 @@ class PickersScreen extends StatefulWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final List<SpecModel> selectedSpecs;
+  final List<SpecModel>? selectedSpecs;
   /// if given flyer type : will generate flyer type chain : if null will get all chains
-  final FlyerType flyerTypeFilter;
+  final FlyerType? flyerTypeFilter;
   final bool onlyUseZoneChains;
   final bool isMultipleSelectionMode;
   final Verse pageTitleVerse;
   final bool onlyChainKSelection;
-  final ZoneModel zone;
+  final ZoneModel? zone;
   /// --------------------------------------------------------------------------
   @override
   State<PickersScreen> createState() => _PickersScreenState();
@@ -55,8 +55,8 @@ class _PickersScreenState extends State<PickersScreen> {
   // -----------------------------------------------------------------------------
   /// DATA
   // --------------------
-  List<Chain> _bldrsChains;
-  List<Chain> _pickersChains;
+  List<Chain>? _bldrsChains;
+  List<Chain>? _pickersChains;
   // --------------------
   List<PickerModel> _allPickers = <PickerModel>[];
   final ValueNotifier<List<PickerModel>> _refinedPickers = ValueNotifier([]);
@@ -64,7 +64,7 @@ class _PickersScreenState extends State<PickersScreen> {
   /// SEARCHING
   // --------------------
   final TextEditingController _searchTextController = TextEditingController();
-  final ValueNotifier<String> _searchText = ValueNotifier<String>(null);
+  final ValueNotifier<String?> _searchText = ValueNotifier<String?>(null);
   final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false);
   /// FOUND RESULTS
   final ValueNotifier<List<Chain>> _foundChains = ValueNotifier<List<Chain>>(<Chain>[]);
@@ -104,7 +104,7 @@ class _PickersScreenState extends State<PickersScreen> {
   }
   // -----------------------------------------------------------------------------
   bool _isInitialized = false;
-  void _initializeScreen(List<Chain> _bldrsChains){
+  void _initializeScreen(List<Chain>? _bldrsChains){
     if (_isInitialized == false){
       // ------------------------------
 
@@ -116,7 +116,6 @@ class _PickersScreenState extends State<PickersScreen> {
 
 
         _pickers = PickerModel.createHomeWallPickers(
-          context: context,
           canPickMany: true,
           onlyUseTheseFlyerTypes: [widget.flyerTypeFilter],
         );
@@ -131,7 +130,6 @@ class _PickersScreenState extends State<PickersScreen> {
           blog('should pick a phid');
 
           _pickers = PickerModel.createHomeWallPickers(
-            context: context,
             canPickMany: false,
             onlyUseTheseFlyerTypes: FlyerTyper.concludePossibleFlyerTypesByChains(_bldrsChains),
           );

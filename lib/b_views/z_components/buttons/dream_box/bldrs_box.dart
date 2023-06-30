@@ -59,7 +59,7 @@ class BldrsBox extends StatelessWidget {
   final dynamic icon;
   /// works as a verseSizeFactor as well
   final double? iconSizeFactor;
-  final Color color;
+  final Color? color;
   final double? width;
   final double height;
   final dynamic corners;
@@ -76,18 +76,18 @@ class BldrsBox extends StatelessWidget {
   final dynamic margins;
   final bool greyscale;
   final bool iconRounded;
-  final bool bubble;
+  final bool? bubble;
   final Verse? secondLine;
   final bool verseCentered;
   final Widget? subChild;
   final Alignment childAlignment;
   final double? opacity;
-  final bool isDisabled;
+  final bool? isDisabled;
   final Color? splashColor;
   final Function? onTapDown;
   final Function? onTapUp;
   final Function? onTapCancel;
-  final TextDirection textDirection;
+  final TextDirection? textDirection;
   final double? blur;
   final Color? secondLineColor;
   final bool redDot;
@@ -104,7 +104,7 @@ class BldrsBox extends StatelessWidget {
   Widget getChild({
     required BuildContext context,
     required dynamic theIcon,
-    bool isLoading = false,
+    bool? isLoading = false,
   }) {
     return SuperBox(
       // package: 'bldrs_theme',
@@ -127,11 +127,11 @@ class BldrsBox extends StatelessWidget {
       margins: margins,
       greyscale: greyscale,
       iconRounded: iconRounded,
-      bubble: bubble,
+      bubble: bubble ?? true,
       secondText: Verse.bakeVerseToString(verse: secondLine),
       textCentered: verseCentered,
       opacity: opacity,
-      isDisabled: isDisabled,
+      isDisabled: isDisabled ?? false,
       splashColor: splashColor,
       onTapDown: onTapDown,
       onTapUp: onTapUp,

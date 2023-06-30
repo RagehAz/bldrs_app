@@ -27,7 +27,7 @@ class PageBubble extends StatelessWidget {
   final AppBarType appBarType;
   final Color color;
   final double screenHeightWithoutSafeArea;
-  final double bubbleWidth;
+  final double? bubbleWidth;
   final dynamic corners;
   final bool progressBarIsOn;
   final Alignment childrenAlignment;

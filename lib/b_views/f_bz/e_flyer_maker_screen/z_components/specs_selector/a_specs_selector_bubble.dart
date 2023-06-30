@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/i_chains/z_components/expander_button/f_phid_butto
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/expanded_info_page_parts/specs_builder.dart';
 import 'package:bldrs/b_views/z_components/texting/bullet_points/bldrs_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
@@ -27,9 +27,9 @@ class SpecsSelectorBubble extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final DraftFlyer draft;
-  final ValueNotifier<DraftFlyer> draftNotifier;
-  final BzModel bzModel;
+  final DraftFlyer? draft;
+  final ValueNotifier<DraftFlyer?> draftNotifier;
+  final BzModel? bzModel;
   final Function({required SpecModel value, required SpecModel unit}) onSpecTap; // onAddSpecsToDraftTap
   final Function({required SpecModel value, required SpecModel unit}) onDeleteSpec;
   final Function onAddSpecsToDraft; // use this onAddSpecsToDraftTap
@@ -38,9 +38,9 @@ class SpecsSelectorBubble extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return WidgetFader(
-      fadeType: draft.flyerType == null ? FadeType.stillAtMin : FadeType.stillAtMax,
+      fadeType: draft?.flyerType == null ? FadeType.stillAtMin : FadeType.stillAtMax,
       min: 0.35,
-      ignorePointer: draft.flyerType == null,
+      ignorePointer: draft?.flyerType == null,
       child: Bubble(
         bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
           context: context,

@@ -99,14 +99,14 @@ class _PasswordScreenState extends State<PasswordScreen> {
                         bubbleWidth: CenterDialog.clearWidth(context) - 20,
                         passwordController: _password,
                         showPasswordOnly: true,
-                        passwordValidator: (String text) => Formers.passwordValidator(
+                        passwordValidator: (String? text) => Formers.passwordValidator(
                           password: _password.text,
                           canValidate: true,
                         ),
                         passwordConfirmationController: null,
                         passwordConfirmationValidator: null,
                         goOnKeyboardGo: false,
-                        onSubmitted: (String text) async {
+                        onSubmitted: (String? text) async {
 
                           Keyboard.closeKeyboard();
 

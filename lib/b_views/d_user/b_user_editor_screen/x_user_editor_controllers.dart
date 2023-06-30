@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/files/file_size_unit.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/a_user/draft/draft_user.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
@@ -73,7 +74,7 @@ Future<void> prepareUserForEditing({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> loadUserEditorLastSession({
-  required ValueNotifier<DraftUser> draft,
+  required ValueNotifier<DraftUser?>? draft,
   required bool mounted,
   // required String userID,
   // required bool reAuthBeforeConfirm,
@@ -81,8 +82,8 @@ Future<void> loadUserEditorLastSession({
   // required Function onFinish,
 }) async {
 
-  final DraftUser _lastSessionDraft = await UserLDBOps.loadEditorSession(
-    userID: draft.value?.id,
+  final DraftUser? _lastSessionDraft = await UserLDBOps.loadEditorSession(
+    userID: draft?.value?.id,
   );
 
   if (_lastSessionDraft != null){
@@ -105,34 +106,34 @@ Future<void> loadUserEditorLastSession({
           notifier: draft,
           mounted: mounted,
           value: _lastSessionDraft.copyWith(
-            nameController: draft.value.nameController,
-            titleController: draft.value.titleController,
-            companyController: draft.value.companyController,
-            emailController: draft.value.emailController,
-            phoneController: draft.value.phoneController,
-            nameNode: draft.value.nameNode,
-            titleNode: draft.value.titleNode,
-            companyNode: draft.value.companyNode,
-            emailNode: draft.value.emailNode,
-            phoneNode: draft.value.phoneNode,
-            formKey: draft.value.formKey,
+            nameController: draft?.value?.nameController,
+            titleController: draft?.value?.titleController,
+            companyController: draft?.value?.companyController,
+            emailController: draft?.value?.emailController,
+            phoneController: draft?.value?.phoneController,
+            nameNode: draft?.value?.nameNode,
+            titleNode: draft?.value?.titleNode,
+            companyNode: draft?.value?.companyNode,
+            emailNode: draft?.value?.emailNode,
+            phoneNode: draft?.value?.phoneNode,
+            formKey: draft?.value?.formKey,
             canPickImage: true,
           ),
       );
 
-      draft.value.nameController?.text = _lastSessionDraft.name!;
-      draft.value.titleController?.text = _lastSessionDraft.title!;
-      draft.value.companyController?.text = _lastSessionDraft.company!;
+      draft?.value?.nameController?.text = _lastSessionDraft.name!;
+      draft?.value?.titleController?.text = _lastSessionDraft.title!;
+      draft?.value?.companyController?.text = _lastSessionDraft.company!;
 
-      draft.value.emailController?.text = ContactModel.getContactFromContacts(
+      draft?.value?.emailController?.text = ContactModel.getContactFromContacts(
         contacts: _lastSessionDraft.contacts,
         type: ContactType.email,
-      )?.value;
+      )?.value ?? '';
 
-      draft.value.phoneController?.text = ContactModel.getContactFromContacts(
+      draft?.value?.phoneController?.text = ContactModel.getContactFromContacts(
         contacts: _lastSessionDraft.contacts,
         type: ContactType.phone,
-      )?.value;
+      )?.value ?? '';
 
     }
 
@@ -146,12 +147,12 @@ Future<void> loadUserEditorLastSession({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> takeUserPicture({
-  required ValueNotifier<DraftUser> draft,
+  required ValueNotifier<DraftUser?> draft,
   required PicMakerType picMakerType,
   required bool mounted,
 }) async {
 
-  if (draft.value.canPickImage == true) {
+  if (Mapper.boolIsTrue(draft.value?.canPickImage) == true) {
 
     DraftUser.triggerCanPickImage(
       draftUser: draft,
@@ -186,7 +187,7 @@ Future<void> takeUserPicture({
 
     /// IF PICKED AN IMAGE
     else {
-      blog('takeUserPicture : we got the pic in : ${_bytes?.length} bytes');
+      blog('takeUserPicture : we got the pic in : ${_bytes.length} bytes');
 
       final Dimensions? _dims =  await Dimensions.superDimensions(_bytes);
       final double? _mega = Filers.calculateSize(_bytes.length, FileSizeUnit.megaByte);
@@ -194,15 +195,15 @@ Future<void> takeUserPicture({
       setNotifier(
           notifier: draft,
           mounted: mounted,
-          value: draft.value.copyWith(
+          value: draft.value?.copyWith(
               picModel: PicModel(
                 bytes: _bytes,
-                path: StoragePath.users_userID_pic(draft.value.id),
+                path: StoragePath.users_userID_pic(draft.value?.id),
                 meta: StorageMetaModel(
                   sizeMB: _mega,
                   width: _dims?.width,
                   height: _dims?.height,
-                  ownersIDs: [draft.value.id],
+                  ownersIDs: draft.value?.id == null ? [] : [draft.value!.id!],
                 ),
               ),
               hasNewPic: true,
@@ -219,14 +220,14 @@ Future<void> takeUserPicture({
 /// TESTED : WORKS PERFECT
 void onChangeGender({
   required Gender selectedGender,
-  required ValueNotifier<DraftUser> draft,
+  required ValueNotifier<DraftUser?> draft,
   required bool mounted,
 }){
 
   setNotifier(
       notifier: draft,
       mounted: mounted,
-      value: draft.value.copyWith(
+      value: draft.value?.copyWith(
         gender: selectedGender,
       )
   );
@@ -235,15 +236,15 @@ void onChangeGender({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onUserNameChanged({
-  required ValueNotifier<DraftUser> draft,
-  required String text,
+  required ValueNotifier<DraftUser?> draft,
+  required String? text,
   required bool mounted,
 }){
 
   setNotifier(
       notifier: draft,
       mounted: mounted,
-      value: draft.value.copyWith(
+      value: draft.value?.copyWith(
         name: text,
       ),
   );
@@ -253,33 +254,32 @@ void onUserNameChanged({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onUserJobTitleChanged({
-  required ValueNotifier<DraftUser> draft,
-  required String text,
+  required ValueNotifier<DraftUser?> draft,
+  required String? text,
   required bool mounted,
 }){
 
   setNotifier(
       notifier: draft,
       mounted: mounted,
-      value: draft.value.copyWith(
+      value: draft.value?.copyWith(
         title: text,
       ),
   );
-
 
 }
 // --------------------
 /// TESTED : WORKS PERFECT
 void onUserCompanyNameChanged({
-  required ValueNotifier<DraftUser> draft,
-  required String text,
+  required ValueNotifier<DraftUser?> draft,
+  required String? text,
   required bool mounted,
 }){
 
   setNotifier(
       notifier: draft,
       mounted: mounted,
-      value: draft.value.copyWith(
+      value: draft.value?.copyWith(
         company: text,
       ),
   );
@@ -288,15 +288,15 @@ void onUserCompanyNameChanged({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onUserZoneChanged({
-  required ZoneModel selectedZone,
-  required ValueNotifier<DraftUser> draft,
+  required ZoneModel? selectedZone,
+  required ValueNotifier<DraftUser?> draft,
   required bool mounted,
 }){
 
   setNotifier(
       notifier: draft,
       mounted: mounted,
-      value: draft.value.copyWith(
+      value: draft.value?.copyWith(
         zone: selectedZone,
       ),
   );
@@ -305,14 +305,14 @@ void onUserZoneChanged({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onUserContactChanged({
-  required ValueNotifier<DraftUser> draft,
+  required ValueNotifier<DraftUser?> draft,
   required ContactType contactType,
   required String value,
   required bool mounted,
 }){
 
   final List<ContactModel> _contacts = ContactModel.insertOrReplaceContact(
-    contacts: draft.value.contacts,
+    contacts: draft.value?.contacts,
     contactToReplace: ContactModel(
       value: value,
       type: contactType,
@@ -322,7 +322,7 @@ void onUserContactChanged({
   setNotifier(
       notifier: draft,
       mounted: mounted,
-      value: draft.value.copyWith(
+      value: draft.value?.copyWith(
         contacts: _contacts,
       ),
   );
@@ -342,8 +342,8 @@ void onUserContactChanged({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> confirmEdits({
-  required ValueNotifier<DraftUser> draft,
-  required UserModel oldUser,
+  required ValueNotifier<DraftUser?> draft,
+  required UserModel? oldUser,
   required Function onFinish,
   required ValueNotifier<bool> loading,
   required bool forceReAuthentication,
@@ -352,7 +352,7 @@ Future<void> confirmEdits({
 
   blog('confirmEdits : STARTED');
 
-  final DraftUser _draft = _bakeDraftTextControllers(draft.value);
+  final DraftUser? _draft = _bakeDraftTextControllers(draft.value);
 
   blog('confirmEdits : _draft : ${_draft == null}');
 
@@ -378,12 +378,11 @@ Future<void> confirmEdits({
       ),
     );
 
-    final UserModel _userUploaded = await UserProtocols.renovate(
+    final UserModel? _userUploaded = await UserProtocols.renovate(
       context: getMainContext(),
-      newPic: _draft.hasNewPic == true ? _draft.picModel : null,
+      newPic: Mapper.boolIsTrue(_draft?.hasNewPic) == true ? _draft?.picModel : null,
       oldUser: oldUser,
       newUser: DraftUser.toUserModel(
-        context: getMainContext(),
         draft: _draft,
       ),
       invoker: 'confirmEdits',
@@ -418,11 +417,12 @@ Future<void> confirmEdits({
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-DraftUser _bakeDraftTextControllers(DraftUser draft){
+DraftUser? _bakeDraftTextControllers(DraftUser? draft){
+
   List<ContactModel> _contacts = ContactModel.insertOrReplaceContact(
-    contacts: draft.contacts,
+    contacts: draft?.contacts,
     contactToReplace: ContactModel(
-      value: draft.emailController.text,
+      value: draft?.emailController?.text,
       type: ContactType.email,
     ),
   );
@@ -430,15 +430,15 @@ DraftUser _bakeDraftTextControllers(DraftUser draft){
   _contacts = ContactModel.insertOrReplaceContact(
     contacts: _contacts,
     contactToReplace: ContactModel(
-      value: draft.phoneController.text,
+      value: draft?.phoneController?.text,
       type: ContactType.phone,
     ),
   );
 
-  final DraftUser _draft = draft.copyWith(
-    name: draft.nameController.text,
-    title: draft.titleController.text,
-    company: draft.companyController.text,
+  final DraftUser? _draft = draft?.copyWith(
+    name: draft.nameController?.text,
+    title: draft.titleController?.text,
+    company: draft.companyController?.text,
     contacts: _contacts,
   );
 
@@ -448,7 +448,7 @@ DraftUser _bakeDraftTextControllers(DraftUser draft){
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<bool> _preConfirmCheckups({
-  required DraftUser draft,
+  required DraftUser? draft,
   required bool forceReAuthentication,
 }) async {
 
@@ -467,16 +467,16 @@ Future<bool> _preConfirmCheckups({
   /// A - IF ALL REQUIRED FIELDS ARE VALID
   if (_canContinue == true){
 
-    final UserModel _oldUser = await UserProtocols.fetch(
+    final UserModel? _oldUser = await UserProtocols.fetch(
       context: getMainContext(),
-      userID: draft.id,
+      userID: draft?.id,
     );
 
     final bool _shouldReAuthenticate =  forceReAuthentication == true
                                         &&
                                         ContactModel.checkEmailChanged(
-                                           oldContacts: _oldUser.contacts,
-                                           newContacts: draft.contacts,
+                                           oldContacts: _oldUser?.contacts,
+                                           newContacts: draft?.contacts,
                                          ) == true;
 
     if (_shouldReAuthenticate == true){

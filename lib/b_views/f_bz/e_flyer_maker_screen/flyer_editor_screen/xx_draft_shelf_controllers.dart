@@ -48,7 +48,7 @@ Future<void> onAddNewSlides({
   );
 
   /// A - if max images reached
-  if(_maxLength <= draftFlyer.value.draftSlides.length ){
+  if(_maxLength <= (draftFlyer.value.draftSlides?.length ?? 0)){
     await _showMaxSlidesReachedDialog(context, _maxLength);
   }
 
@@ -146,13 +146,13 @@ Future<void> _addImagesForNewFlyer({
 
       final List<DraftSlide> _newMutableSlides = await DraftSlide.createDrafts(
         bytezz: _picked,
-        existingDrafts: draftFlyer.value.draftSlides,
-        headline: draftFlyer.value.headline.text,
+        existingDrafts: draftFlyer.value.draftSlides ?? [],
+        headline: draftFlyer.value.headline?.text,
         bzID: draftFlyer.value.bzID,
         flyerID: draftFlyer.value.id,
       );
 
-      final List<DraftSlide> _combinedSlides = <DraftSlide>[...draftFlyer.value.draftSlides, ... _newMutableSlides];
+      final List<DraftSlide> _combinedSlides = <DraftSlide>[...?draftFlyer.value.draftSlides, ..._newMutableSlides];
 
       final DraftFlyer _newDraft = draftFlyer.value.copyWith(
         draftSlides: _combinedSlides,
@@ -175,7 +175,7 @@ Future<void> _addImagesForNewFlyer({
       await Future.delayed(Ratioz.duration150ms,() async {
         await Sliders.scrollTo(
           controller: scrollController,
-          offset: scrollController?.position?.maxScrollExtent ?? 0 - flyerWidth,
+          offset: (scrollController.position.maxScrollExtent) - flyerWidth,
         );
       });
 
@@ -235,7 +235,7 @@ Future<void> _showMaxSlidesReachedDialog(BuildContext context, int maxLength) as
 /// TESTED : WORKS PERFECT
 Future<void> onSlideTap({
   required DraftSlide slide,
-  required ValueNotifier<DraftFlyer> draftFlyer,
+  required ValueNotifier<DraftFlyer?> draftFlyer,
   required bool mounted,
 }) async {
 
@@ -271,13 +271,13 @@ Future<void> onSlideTap({
 /// TESTED : WORKS PERFECT
 Future<void> onDeleteSlide({
   required DraftSlide draftSlide,
-  required ValueNotifier<DraftFlyer> draftFlyer,
+  required ValueNotifier<DraftFlyer>? draftFlyer,
   required bool mounted,
 }) async {
 
   Keyboard.closeKeyboard();
 
-  final SlideModel _slide = await DraftSlide.draftToSlide(draftSlide);
+  final SlideModel? _slide = await DraftSlide.draftToSlide(draftSlide);
 
   final bool _continue = await Dialogs.slideDialog(
       slideModel: _slide,

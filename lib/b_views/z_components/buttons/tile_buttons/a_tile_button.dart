@@ -1,5 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 
@@ -21,13 +21,13 @@ class TileButton extends StatelessWidget {
     super.key
   });
   // -----------------------------------------------------------------------------
-  final Verse verse;
-  final Verse secondLine;
-  final double height;
-  final double width;
-  final Color color;
-  final Function onTap;
-  final String icon;
+  final Verse? verse;
+  final Verse? secondLine;
+  final double? height;
+  final double? width;
+  final Color? color;
+  final Function? onTap;
+  final String? icon;
   final double iconSizeFactor;
   final dynamic margins;
   final bool isActive;

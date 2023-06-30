@@ -19,11 +19,11 @@ class BzLogoBox extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final double width;
-  final BzModel bzModel;
+  final BzModel? bzModel;
   final bool showName;
   final Color logoColor;
   final bool zeroCornerIsOn;
-  final Function onTap;
+  final Function? onTap;
   /// --------------------------------------------------------------------------
   static const double _boxAspectRatio = 1.25;
   static const double _nameHeightRatio = _boxAspectRatio - 1;
@@ -49,9 +49,9 @@ class BzLogoBox extends StatelessWidget {
       showName: showName,
     );
     // --------------------
-    final dynamic _bzLogo = bzModel == null ? logoColor : bzModel.logoPath;
-    final bool _bzIsVerified = bzModel == null ? false : bzModel.isVerified;
-    final String _bzName = bzModel == null ? '...' : bzModel.name;
+    final dynamic _bzLogo = bzModel == null ? logoColor : bzModel?.logoPath;
+    final bool? _bzIsVerified = bzModel == null ? false : bzModel?.isVerified;
+    final String? _bzName = bzModel == null ? '...' : bzModel?.name;
     // --------------------
     return SizedBox(
       width: width,

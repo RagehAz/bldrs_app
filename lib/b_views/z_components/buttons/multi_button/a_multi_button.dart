@@ -1,6 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/multi_button/b_double_pics_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/multi_button/c_many_pics_box.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
@@ -24,14 +24,14 @@ class MultiButton extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final double height;
-  final double width;
+  final double? width;
   final List<String> pics;
-  final Verse verse;
-  final Verse secondLine;
-  final Color color;
+  final Verse? verse;
+  final Verse? secondLine;
+  final Color? color;
   final dynamic margins;
-  final bool bubble;
-  final Function onTap;
+  final bool? bubble;
+  final Function? onTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class MultiButton extends StatelessWidget {
 
     else {
       return GestureDetector(
-        onTap: onTap,
+        onTap: onTap == null ? null : () => onTap!(),
         child: Container(
           width: width,
           height: height,

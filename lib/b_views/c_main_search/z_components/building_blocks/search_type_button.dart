@@ -13,8 +13,8 @@ class SearchTypeButton extends StatelessWidget {
     super.key
   });
   // --------------------
-  final ModelType modelType;
-  final ModelType currentModel;
+  final ModelType? modelType;
+  final ModelType? currentModel;
   final Function onTap;
   // -----------------------------------------------------------------------------
   @override

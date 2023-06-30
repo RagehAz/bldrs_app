@@ -1,7 +1,7 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:flutter/material.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 
@@ -22,12 +22,12 @@ class WideButton extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final dynamic icon;
-  final Function onTap;
-  final Verse verse;
+  final Function? onTap;
+  final Verse? verse;
   final bool isActive;
-  final Color color;
+  final Color? color;
   final Color verseColor;
-  final double width;
+  final double? width;
   final double iconSizeFactor;
   final double verseScaleFactor;
   final bool bubble;

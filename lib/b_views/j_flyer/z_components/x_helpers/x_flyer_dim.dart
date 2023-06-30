@@ -1,6 +1,7 @@
 import 'package:basics/animators/helpers/animators.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
@@ -242,7 +243,7 @@ class FlyerDim {
   }
   // ---------
   /// TESTED : WORKS PERFECT
-  static double logoCornerValueByLogoWidth(double logoWidth) {
+  static double logoCornerValueByLogoWidth(double? logoWidth) {
     if (logoWidth == null){
       return 0;
     }
@@ -253,13 +254,13 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static BorderRadius logoCornersByLogoWidth({
-    required BorderRadius cornersOverride,
+    required BorderRadius? cornersOverride,
     required BuildContext context,
     required double logoWidth,
-    bool zeroCornerIsOn = false
+    bool? zeroCornerIsOn = false
   }) {
     final double _roundCornerValue = logoCornerValueByLogoWidth(logoWidth);
-    final double _zeroCornerValue = zeroCornerIsOn == true ? 0 : _roundCornerValue;
+    final double _zeroCornerValue = Mapper.boolIsTrue(zeroCornerIsOn) == true ? 0 : _roundCornerValue;
 
     return cornersOverride ?? Borderers.cornerOnly(
         appIsLTR: UiProvider.checkAppIsLeftToRight(),
@@ -1009,7 +1010,7 @@ class FlyerDim {
   /// TESTED : WORKS PERFECT
   static EdgeInsets progressBarBoxMargins({
     required double flyerBoxWidth,
-    EdgeInsets margins,
+    EdgeInsets? margins,
   }) {
     return margins ?? EdgeInsets.only(top: flyerBoxWidth * 0.27);
   }
@@ -1113,7 +1114,7 @@ class FlyerDim {
   /// TESTED : WORKS PERFECT
   static double flyerGridWidth({
     required BuildContext context,
-    required double givenGridWidth,
+    required double? givenGridWidth,
   }){
     return givenGridWidth ?? Scale.screenWidth(context);
   }
@@ -1121,7 +1122,7 @@ class FlyerDim {
   /// TESTED : WORKS PERFECT
   static double flyerGridHeight({
     required BuildContext context,
-    required double givenGridHeight,
+    required double? givenGridHeight,
   }){
     return givenGridHeight ?? Scale.screenHeight(context);
   }
@@ -1132,7 +1133,7 @@ class FlyerDim {
   static double flyerGridVerticalScrollFlyerBoxWidth({
     required double gridZoneWidth,
     required int numberOfColumns,
-    double spacingRatio,
+    double? spacingRatio,
   }){
 
     final double _ratio = spacingRatio ?? _spacingRatio;
@@ -1151,7 +1152,7 @@ class FlyerDim {
   static double flyerGridHorizontalScrollFlyerBoxWidth({
     required double gridZoneHeight,
     required int numberOfRows,
-    double spacingRatio,
+    double? spacingRatio,
   }){
 
     final double _ratio = spacingRatio ?? _spacingRatio;
@@ -1193,7 +1194,7 @@ class FlyerDim {
     required double topPaddingValue, /// when is vertical scrolling
     required bool isVertical,
     required bool hasResponsiveSideMargin,
-    double endPadding,
+    double? endPadding,
   }){
 
     if (isVertical == true){
@@ -1219,7 +1220,7 @@ class FlyerDim {
   static EdgeInsets _verticalGridPaddings({
     required double gridWidth,
     required double gridHeight,
-    required double bottomPadding,
+    required double? bottomPadding,
     required double topPaddingValue,
     required bool hasResponsiveSideMargin,
   }){

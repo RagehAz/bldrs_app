@@ -15,7 +15,7 @@ class BzTypesLine extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final BzModel bzModel;
+  final BzModel? bzModel;
   final double width;
   final bool centered;
   final bool oneLine;

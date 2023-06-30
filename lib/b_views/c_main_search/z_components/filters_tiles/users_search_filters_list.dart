@@ -34,8 +34,8 @@ class UserSearchFiltersList extends StatelessWidget {
     super.key
   });
   // --------------------
-  final SearchModel searchModel;
-  final UserSearchModel userSearchModel;
+  final SearchModel? searchModel;
+  final UserSearchModel? userSearchModel;
   final Function(bool value) onZoneSwitchTap;
   final Function onZoneTap;
   final Function(bool value) onUserSearchTypeSwitchTap;

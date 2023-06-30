@@ -19,10 +19,10 @@ class SlidesShelfBubble extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final BzModel bzModel;
-  final ValueNotifier<DraftFlyer> draftNotifier;
+  final BzModel? bzModel;
+  final ValueNotifier<DraftFlyer?> draftNotifier;
   final bool canValidate;
-  final FocusNode focusNode;
+  final FocusNode? focusNode;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

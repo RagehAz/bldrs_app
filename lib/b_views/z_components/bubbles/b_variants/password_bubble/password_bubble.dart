@@ -82,10 +82,10 @@ class PasswordBubbles extends StatelessWidget {
             Verse(id: 'phid_min6Char', translate: true,),
           ],
           isObscured: isObscured,
-          onSubmitted: (String text){
+          onSubmitted: (String? text){
 
             if (onSubmitted != null){
-              onSubmitted(text);
+              onSubmitted?.call(text);
             }
 
             if (showPasswordOnly == false){
