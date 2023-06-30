@@ -16,10 +16,10 @@ class ZoneLine extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final ZoneModel zoneModel;
+  final ZoneModel? zoneModel;
   final bool showCity;
   final bool centered;
-  final double width;
+  final double? width;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

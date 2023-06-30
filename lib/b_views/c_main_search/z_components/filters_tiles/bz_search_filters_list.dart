@@ -31,7 +31,7 @@ class BzSearchFiltersList extends StatelessWidget {
     super.key
   });
   // --------------------
-  final SearchModel searchModel;
+  final SearchModel? searchModel;
   final Function(bool value) onZoneSwitchTap;
   final Function onZoneTap;
   final Function(bool value) onBzIsVerifiedSwitchTap;

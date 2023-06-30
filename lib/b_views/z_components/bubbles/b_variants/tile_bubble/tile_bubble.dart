@@ -26,19 +26,19 @@ class BldrsTileBubble extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final double bubbleWidth;
-  final BubbleHeaderVM bubbleHeaderVM;
+  final double? bubbleWidth;
+  final BubbleHeaderVM? bubbleHeaderVM;
   final Color verseColor;
-  final Function onTileTap;
-  final Verse secondLineVerse;
+  final Function? onTileTap;
+  final Verse? secondLineVerse;
   final bool iconIsBubble;
   final bool insideDialog;
-  final Function moreBtOnTap;
-  final Widget child;
-  final List<Verse> bulletPoints;
+  final Function? moreBtOnTap;
+  final Widget? child;
+  final List<Verse>? bulletPoints;
   final int bulletPointsMaxLines;
   final Color bubbleColor;
-  final String Function() validator;
+  final String Function()? validator;
   final bool autoValidate;
   /// --------------------------------------------------------------------------
   // static const double iconBoxWidth = 30; /// delete me 5alas (im in BubbleHeader class)
@@ -78,7 +78,7 @@ class BldrsTileBubble extends StatelessWidget {
       bubbleColor: bubbleColor,
       bubbleHeaderVM: bubbleHeaderVM,
       bubbleWidth: bubbleWidth,
-      bulletPoints: Verse.bakeVerses(verses: bulletPoints, context: context),
+      bulletPoints: Verse.bakeVerses(verses: bulletPoints),
       bulletPointsMaxLines: bulletPointsMaxLines,
       iconIsBubble: iconIsBubble,
       insideDialog: insideDialog,

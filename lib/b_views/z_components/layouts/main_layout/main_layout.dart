@@ -79,7 +79,7 @@ class MainLayout extends StatelessWidget {
   final bool sectionButtonIsOn;
   final Verse? searchHintVerse;
   final ValueNotifier<bool>? loading;
-  final ValueNotifier<ProgressBarModel>? progressBarModel;
+  final ValueNotifier<ProgressBarModel?>? progressBarModel;
   final PyramidType? pyramidType;
   final Function? onPyramidTap;
   final Function? onSearchCancelled;
@@ -87,7 +87,7 @@ class MainLayout extends StatelessWidget {
   final GlobalKey? globalKey;
   final List<Widget>? pyramidButtons;
   final bool listenToHideLayout;
-  final ValueNotifier<bool>? filtersAreOn;
+  final ValueNotifier<bool?>? filtersAreOn;
   final Widget? filters;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT

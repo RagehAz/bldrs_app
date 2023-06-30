@@ -253,19 +253,19 @@ class DraftBz {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static DraftBz reAttachNodes({
-    required DraftBz draftFromLDB,
-    required DraftBz originalDraft,
+  static DraftBz? reAttachNodes({
+    required DraftBz? draftFromLDB,
+    required DraftBz? originalDraft,
   }){
-    return draftFromLDB.copyWith(
-      nameNode: originalDraft.nameNode,
-      aboutNode: originalDraft.aboutNode,
-      emailNode: originalDraft.emailNode,
-      websiteNode: originalDraft.websiteNode,
-      phoneNode: originalDraft.phoneNode,
-      formKey: originalDraft.formKey,
-      nameController: originalDraft.nameController,
-      aboutController: originalDraft.aboutController,
+    return draftFromLDB?.copyWith(
+      nameNode: originalDraft?.nameNode,
+      aboutNode: originalDraft?.aboutNode,
+      emailNode: originalDraft?.emailNode,
+      websiteNode: originalDraft?.websiteNode,
+      phoneNode: originalDraft?.phoneNode,
+      formKey: originalDraft?.formKey,
+      nameController: originalDraft?.nameController,
+      aboutController: originalDraft?.aboutController,
     );
   }
   // -----------------------------------------------------------------------------

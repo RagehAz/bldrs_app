@@ -40,7 +40,7 @@ class ComposeFlyerProtocols {
   /// TASK : TEST ME
   static Future<void> compose({
     required BuildContext context,
-    required DraftFlyer draftFlyer,
+    required DraftFlyer? draftFlyer,
   }) async {
     blog('ComposeFlyerProtocol.compose : START');
 

@@ -1,4 +1,3 @@
-import 'package:bldrs/b_views/z_components/bz_profile/targets/targets_bubble.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +18,7 @@ class BzTargetsPage extends StatelessWidget {
       padding: Stratosphere.stratosphereSandwich,
       children: const <Widget>[
 
-        TargetsBubble(),
+        // TargetsBubble(),
 
         Horizon(),
 

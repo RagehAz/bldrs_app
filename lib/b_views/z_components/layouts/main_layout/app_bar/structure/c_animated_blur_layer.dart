@@ -15,8 +15,8 @@ class AppBarBlurLayer extends StatelessWidget {
   });
   // -----------------------------------------------------------------------------
   final bool blurIsOn;
-  final AppBarType appBarType;
-  final ValueNotifier<bool> isExpanded;
+  final AppBarType? appBarType;
+  final ValueNotifier<bool>? isExpanded;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class AppBarBlurLayer extends StatelessWidget {
           child: BackdropFilter(
             filter: ui.ImageFilter.blur(sigmaX: BldrsAppBar.blur, sigmaY: BldrsAppBar.blur),
             child: ValueListenableBuilder(
-                valueListenable: isExpanded,
+                valueListenable: isExpanded!,
                 builder: (_, bool expanded, Widget? child) {
                   return AnimatedContainer(
                     duration: BldrsAppBar.expansionDuration,
@@ -48,7 +48,6 @@ class AppBarBlurLayer extends StatelessWidget {
                     height: expanded == true ?
                     BldrsAppBar.expandedHeight(
                       context: context,
-                      appBarType: appBarType,
                     )
                         :
                     BldrsAppBar.collapsedHeight(context, appBarType),

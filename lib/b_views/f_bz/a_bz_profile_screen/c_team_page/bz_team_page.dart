@@ -1,14 +1,13 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:basics/layouts/separators/dot_separator.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/c_team_page/bz_team_page_controllers.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/pending_authors_bubble.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
@@ -24,7 +23,7 @@ class BzTeamPage extends StatefulWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final double bubbleWidth;
+  final double? bubbleWidth;
   /// --------------------------------------------------------------------------
   @override
   State<BzTeamPage> createState() => _BzTeamPageState();
@@ -86,17 +85,18 @@ class _BzTeamPageState extends State<BzTeamPage> {
   @override
   Widget build(BuildContext context) {
     // --------------------
+    /// DUPLICATE_ACTIVE_BZ_MODEL_ISSUE
     final BzModel? _bzModel = BzzProvider.proGetActiveBzModel(
       context: context,
       listen: true,
     );
     // --------------------
-    return Selector<BzzProvider, BzModel>(
+    return Selector<BzzProvider, BzModel?>(
       selector: (_, BzzProvider bzzProvider) => bzzProvider.myActiveBz,
       shouldRebuild: (oldModel, newModel) => true,
-      builder: (BuildContext context, BzModel bzModel, Widget? child){
+      builder: (BuildContext context, BzModel? bzModel, Widget? child){
 
-        final List<AuthorModel> _authors = _bzModel?.authors;
+        final List<AuthorModel> _authors = _bzModel?.authors ?? [];
 
         final bool _canSendAuthorships = AuthorModel.checkAuthorAbility(
           ability: AuthorAbility.canSendAuthorships,

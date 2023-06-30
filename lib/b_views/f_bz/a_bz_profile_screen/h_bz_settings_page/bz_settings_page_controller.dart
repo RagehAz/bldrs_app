@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -27,7 +28,7 @@ import 'package:basics/layouts/nav/nav.dart';
 /// TESTED : WORKS PERFECT
 Future<void> onEditBzButtonTap({
   required BuildContext context,
-  required BzModel bzModel,
+  required BzModel? bzModel,
 }) async {
 
   await Nav.goToNewScreen(
@@ -66,7 +67,7 @@ Future<void> onGoToBzFCMSettings({
 /// TESTED : WORKS PERFECT
 Future<void> onDeleteBzButtonTap({
   required BuildContext context,
-  required BzModel bzModel,
+  required BzModel? bzModel,
   required bool showSuccessDialog,
 }) async {
 
@@ -98,7 +99,7 @@ Future<void> onDeleteBzButtonTap({
 
     /// DELETE BZ LOCALLY
     await BzProtocols.deleteLocally(
-      bzID: bzModel.id,
+      bzID: bzModel?.id,
       invoker: 'onDeleteBzButtonTap',
     );
 
@@ -127,7 +128,7 @@ Future<void> onDeleteBzButtonTap({
 // -----
 /// TESTED : WORKS PERFECT
 Future<bool> _preDeleteBzAccountChecks({
-  required BzModel bzModel,
+  required BzModel? bzModel,
 }) async {
 
   bool _canContinue = false;
@@ -157,7 +158,7 @@ Future<bool> _preDeleteBzAccountChecks({
     if (_confirmedDeleteBz == true){
 
       /// IF BZ HAS NO FLYERS
-      if (bzModel.flyersIDs.isEmpty == true) {
+      if (Mapper.checkCanLoopList(bzModel?.flyersIDs) == false) {
         _canContinue = true;
       }
 
@@ -185,7 +186,7 @@ Future<bool> _preDeleteBzAccountChecks({
 // -----
 /// TESTED : WORKS PERFECT
 Future<bool> _showConfirmDeleteBzDialog({
-  required BzModel bzModel,
+  required BzModel? bzModel,
 }) async {
 
   final bool _result = await Dialogs.bzBannerDialog(
@@ -194,7 +195,7 @@ Future<bool> _showConfirmDeleteBzDialog({
     titleVerse: Verse(
       id: 'phid_delete_bz_account_?',
       translate: true,
-      variables: bzModel.name,
+      variables: bzModel?.name,
     ),
     bodyVerse: const Verse(
       id: 'phid_bz_deletion_warning',
@@ -211,10 +212,10 @@ Future<bool> _showConfirmDeleteBzDialog({
 // -----
 /// TESTED : WORKS PERFECT
 Future<void> _showOnlyCreatorCanDeleteBzDialog({
-  required BzModel bzModel,
+  required BzModel? bzModel,
 }) async {
 
-  final String _creatorAuthorsString = AuthorModel.getCreatorAuthorFromAuthors(bzModel?.authors)?.name;
+  final String? _creatorAuthorsString = AuthorModel.getCreatorAuthorFromAuthors(bzModel?.authors)?.name;
 
   await CenterDialog.showCenterDialog(
     titleVerse: const Verse(
@@ -232,7 +233,7 @@ Future<void> _showOnlyCreatorCanDeleteBzDialog({
 }
 // -----
 Future<bool> _showConfirmDeleteAllBzFlyersDialog({
-  required BzModel bzModel,
+  required BzModel? bzModel,
 }) async {
 
   final bool _result = await Dialogs.flyersDialog(
@@ -247,9 +248,9 @@ Future<bool> _showConfirmDeleteAllBzFlyersDialog({
     confirmButtonVerse: Verse(
       id: 'phid_delete_all_flyers',
       translate: true,
-      variables: bzModel.name,
+      variables: bzModel?.name,
     ),
-    flyersIDs: bzModel.flyersIDs,
+    flyersIDs: bzModel?.flyersIDs,
   );
 
   return _result;

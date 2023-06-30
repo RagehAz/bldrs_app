@@ -36,17 +36,17 @@ class PhidsBubble extends StatelessWidget {
   final Verse titleVerse;
   final List<String> phids;
   final int verseSize;
-  final Function onTap;
+  final Function? onTap;
   final ValueChanged<String> onPhidTap;
   final Color bubbleColor;
   final List<dynamic> selectedWords;
-  final double bubbleWidth;
+  final double? bubbleWidth;
   final dynamic margins;
   final dynamic corners;
   final bool passPhidOnTap;
   final bool addButtonIsOn;
-  final int maxLines;
-  final ScrollController scrollController;
+  final int? maxLines;
+  final ScrollController? scrollController;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static double getLineHeightWithItsPadding(){
@@ -55,7 +55,7 @@ class PhidsBubble extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double getMaxWrapHeight({
-    required int maxLines,
+    required int? maxLines,
   }){
     if (maxLines == null){
       return 0;
@@ -121,7 +121,8 @@ class PhidsBubble extends StatelessWidget {
                     child: Wrap(
                       children: <Widget>[
 
-                        ...List<Widget>.generate(phids?.length, (int index) {
+                        if (Mapper.checkCanLoopList(phids) == true)
+                        ...List<Widget>.generate(phids.length, (int index) {
 
                           final String _phid = phids[index];
 
@@ -152,7 +153,7 @@ class PhidsBubble extends StatelessWidget {
 
         if (phids != null && phids.isEmpty && addButtonIsOn == true)
           AddKeywordsButton(
-            onTap: passPhidOnTap == true ? null : onTap,
+            onTap: passPhidOnTap == true ? null : () => onTap?.call(),
           ),
 
         Container(

@@ -35,7 +35,7 @@ class SavedFlyersScreenView extends StatelessWidget {
       onSelectFlyer: (FlyerModel flyer) => onSelectFlyerFromSavedFlyers(
         flyer: flyer,
       ),
-      flyersIDs: _userModel.savedFlyers.all,
+      flyersIDs: _userModel?.savedFlyers?.all,
       onFlyerNotFound: (String flyerID) => autoRemoveSavedFlyerThatIsNotFound(
         flyerID: flyerID,
       ),

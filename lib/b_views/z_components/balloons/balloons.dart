@@ -27,30 +27,30 @@ class Balloon {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static CustomClipper<Path> getBalloonClipPath(BalloonType type) {
+  static CustomClipper<Path> getBalloonClipPath(BalloonType? type) {
 
     switch (type){
-      case BalloonType.circle:        return PathOfCircleBalloon();         break;
-      case BalloonType.thinking:      return PathOfThinkingBalloon();       break;
-      case BalloonType.arrowed:       return PathOfArrowedBalloon();        break;
-      case BalloonType.speaking:      return PathOfSpeakingBalloon();       break;
-      case BalloonType.zeroCornered:  return PathOfZeroCorneredBalloon();   break;
-      case BalloonType.roundCornered: return PathOfRoundCorneredBalloon();   break;
-      default: return PathOfCircleBalloon(); break;
+      case BalloonType.circle:        return PathOfCircleBalloon();
+      case BalloonType.thinking:      return PathOfThinkingBalloon();
+      case BalloonType.arrowed:       return PathOfArrowedBalloon();
+      case BalloonType.speaking:      return PathOfSpeakingBalloon();
+      case BalloonType.zeroCornered:  return PathOfZeroCorneredBalloon();
+      case BalloonType.roundCornered: return PathOfRoundCorneredBalloon();
+      default: return PathOfCircleBalloon();
 
     }
 
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static BalloonType concludeBalloonByNeedType(NeedType userStatus) {
+  static BalloonType concludeBalloonByNeedType(NeedType? userStatus) {
 
     switch (userStatus){
-      case NeedType.seekProperty         : return BalloonType.thinking; break;
-      case NeedType.planConstruction     : return BalloonType.speaking; break;
-      case NeedType.finishConstruction   : return BalloonType.zeroCornered; break;
-      case NeedType.furnish              : return BalloonType.roundCornered; break;
-      case NeedType.offerProperty        : return BalloonType.arrowed; break;
+      case NeedType.seekProperty         : return BalloonType.thinking;
+      case NeedType.planConstruction     : return BalloonType.speaking;
+      case NeedType.finishConstruction   : return BalloonType.zeroCornered;
+      case NeedType.furnish              : return BalloonType.roundCornered;
+      case NeedType.offerProperty        : return BalloonType.arrowed;
       default: return BalloonType.circle;
     }
 

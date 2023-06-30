@@ -16,9 +16,9 @@ class ShowAuthorSwitchBubble extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final DraftFlyer draft;
+  final DraftFlyer? draft;
   final ValueChanged<bool> onSwitch;
-  final BzModel bzModel;
+  final BzModel? bzModel;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class ShowAuthorSwitchBubble extends StatelessWidget {
             id: 'phid_show_author_on_flyer',
             translate: true,
           ),
-          switchValue: draft.showsAuthor,
+          switchValue: draft?.showsAuthor,
           hasSwitch: true,
           onSwitchTap: onSwitch
       ),
@@ -41,8 +41,8 @@ class ShowAuthorSwitchBubble extends StatelessWidget {
           flyerBoxWidth: Bubble.clearWidth(context: context),
           bzModel: bzModel,
           showHeaderLabels: true,
-          authorID: draft.authorID,
-          flyerShowsAuthor: draft.showsAuthor,
+          authorID: draft?.authorID,
+          flyerShowsAuthor: draft?.showsAuthor,
         ),
 
       ],

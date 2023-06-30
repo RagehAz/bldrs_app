@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
@@ -20,7 +19,6 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/f_new_authorship_exit.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
-
 import 'package:flutter/material.dart';
 import 'package:basics/layouts/nav/nav.dart';
 /// => TAMAM
@@ -46,14 +44,14 @@ Future<void> onGoToAddAuthorsScreen(BuildContext context) async {
 /// TESTED : WORKS PERFECT
 Future<void> onAuthorOptionsTap({
   required BuildContext context,
-  required AuthorModel authorModel,
-  required BzModel oldBz,
+  required AuthorModel? authorModel,
+  required BzModel? oldBz,
 }) async {
 
-  final bool _itIsMine = Authing.getUserID() == authorModel.userID;
+  final bool _itIsMine = Authing.getUserID() == authorModel?.userID;
 
-  final AuthorModel _myAuthorModel = AuthorModel.getAuthorFromAuthorsByID(
-      authors: oldBz.authors,
+  final AuthorModel? _myAuthorModel = AuthorModel.getAuthorFromAuthorsByID(
+      authors: oldBz?.authors,
       authorID: Authing.getUserID(),
   );
 
@@ -187,14 +185,14 @@ Future<void> onAuthorOptionsTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onDeleteAuthorFromBz({
-  required AuthorModel authorModel,
-  required BzModel oldBz,
+  required AuthorModel? authorModel,
+  required BzModel? oldBz,
   required bool showConfirmationDialog,
   required bool showWaitingDialog,
   required bool sendToUserAuthorExitNote,
 }) async {
 
-  if (authorModel.userID == Authing.getUserID()){
+  if (authorModel?.userID == Authing.getUserID()){
     await NewAuthorshipExit.onRemoveMySelf(
       authorModel: authorModel,
       bzModel: oldBz,
@@ -213,14 +211,14 @@ Future<void> onDeleteAuthorFromBz({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onShowCanNotRemoveAuthorDialog({
-  required AuthorModel authorModel,
+  required AuthorModel? authorModel,
 }) async {
 
   await CenterDialog.showCenterDialog(
     titleVerse: Verse(
-      id: '${Verse.transBake('phid_you_cant_remove')} ${authorModel.name}',
+      id: '${Verse.transBake('phid_you_cant_remove')} ${authorModel?.name}',
       translate: true,
-      variables: authorModel.name,
+      variables: authorModel?.name,
     ),
     // bodyVerse: const Verse(
     //   text: 'phid_only_admins_can_remove_other_authors',
@@ -237,8 +235,8 @@ Future<void> _onShowCanNotRemoveAuthorDialog({
 /// TESTED : WORKS PERFECT
 Future<void> _onEditAuthor({
   required BuildContext context,
-  required AuthorModel authorModel,
-  required BzModel bzModel,
+  required AuthorModel? authorModel,
+  required BzModel? bzModel,
 }) async {
 
   await Nav.goToNewScreen(
@@ -253,16 +251,16 @@ Future<void> _onEditAuthor({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onShowCanNotEditAuthorDialog({
-  required AuthorModel authorModel,
+  required AuthorModel? authorModel,
 }) async {
 
   await CenterDialog.showCenterDialog(
     titleVerse: Verse(
-      id: '${Verse.transBake('phid_you_cant_edit')}\n${authorModel.name}',
+      id: '${Verse.transBake('phid_you_cant_edit')}\n${authorModel?.name}',
       translate: false,
     ),
     bodyVerse: Verse(
-      id: '${authorModel.name} ${Verse.transBake('phid_is_only_who_can_edit_his_account')}',
+      id: '${authorModel?.name} ${Verse.transBake('phid_is_only_who_can_edit_his_account')}',
       translate: false,
     ),
   );
@@ -276,8 +274,8 @@ Future<void> _onShowCanNotEditAuthorDialog({
 /// TESTED : WORKS PERFECT
 Future<void> _onChangeAuthorRole({
   required BuildContext context,
-  required AuthorModel authorModel,
-  required BzModel bzModel,
+  required AuthorModel? authorModel,
+  required BzModel? bzModel,
 }) async {
 
   /// CLOSE BOTTOM DIALOG
@@ -297,7 +295,7 @@ Future<void> _onChangeAuthorRole({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onShowCanNotChangeAuthorRoleDialog({
-  required AuthorModel authorModel,
+  required AuthorModel? authorModel,
 }) async {
 
   await CenterDialog.showCenterDialog(
@@ -322,7 +320,7 @@ Future<void> _onShowCanNotChangeAuthorRoleDialog({
 Future<void> onSendAuthorshipInvitation({
   required BuildContext context,
   required UserModel selectedUser,
-  required BzModel bzModel,
+  required BzModel? bzModel,
 }) async {
 
   final bool _canInviteUser = PendingAuthor.checkCanInviteUser(
@@ -335,7 +333,7 @@ Future<void> onSendAuthorshipInvitation({
 
     final String _body =  '${selectedUser.name}\n'
                           '${Verse.transBake('phid_will_be_invited_to_join')}\n'
-                          '${bzModel.name}';
+                          '${bzModel?.name}';
 
     final bool _result = await Dialogs.userDialog(
       titleVerse: const Verse(
@@ -384,7 +382,7 @@ Future<void> onSendAuthorshipInvitation({
   else {
 
     final bool _isAuthor = AuthorModel.checkAuthorsContainUserID(
-      authors: bzModel.authors,
+      authors: bzModel?.authors,
       userID: selectedUser.id,
     );
 
@@ -410,20 +408,20 @@ Future<void> onSendAuthorshipInvitation({
 /// TESTED : WORKS PERFECT
 Future<void> onCancelSentAuthorshipInvitation({
   required BuildContext context,
-  required BzModel bzModel,
-  required String userID,
+  required BzModel? bzModel,
+  required String? userID,
 }) async {
 
   blog('onCancelSentAuthorshipInvitation : START');
 
   if (bzModel != null && userID != null){
 
-    final UserModel _receiverModel = await UserProtocols.fetch(
+    final UserModel? _receiverModel = await UserProtocols.fetch(
       context: context,
       userID: userID,
     );
 
-    final String _body =  '${_receiverModel.name}\n'
+    final String _body =  '${_receiverModel?.name}\n'
                           '${Verse.transBake('phid_will_be_notified')}';
 
     final bool _result = await CenterDialog.showCenterDialog(

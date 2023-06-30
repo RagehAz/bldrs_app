@@ -18,12 +18,12 @@ class SettingsWideButton extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final Verse verse;
-  final String icon;
+  final String? icon;
   final Function onTap;
   final bool isOn;
   final Color color;
   final Color verseColor;
-  final Color iconColor;
+  final Color? iconColor;
   /// --------------------------------------------------------------------------
   static double getWidth(){
     // return Bubble.bubbleWidth(context: getMainContext());

@@ -1,6 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
@@ -17,12 +17,12 @@ class ContactButton extends StatelessWidget {
     super.key
   });
   // -----------------------------------------------------------------------------
-  final double height;
-  final double width;
-  final ContactModel contactModel;
+  final double? height;
+  final double? width;
+  final ContactModel? contactModel;
   final dynamic margins;
   final Function onTap;
-  final bool forceShowVerse;
+  final bool? forceShowVerse;
   // -----------------------------------------------------------------------------
   static const double buttonHeight = 50;
   // -----------------------------------------------------------------------------
@@ -45,7 +45,7 @@ class ContactButton extends StatelessWidget {
       verseScaleFactor: _isSocialMediaContact == true ? 0.7 : 0.7/0.6,
       bubble: false,
       color: Colorz.white10,
-      textDirection: TextDirection.ltr,
+      // textDirection: TextDirection.ltr,
       verseCentered: false,
       onTap: onTap,
     );

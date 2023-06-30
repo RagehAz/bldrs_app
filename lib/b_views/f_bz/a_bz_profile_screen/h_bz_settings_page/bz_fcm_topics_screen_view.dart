@@ -27,7 +27,7 @@ class BzFCMTopicsScreenView extends StatelessWidget {
   /// TESTED : WORKS PERFECT
   Future<void> _onSwitchAuthorSubscriptionToTopic({
     required BuildContext context,
-    required String topicID,
+    required String? topicID,
     required bool value,
   }) async {
 
@@ -36,9 +36,9 @@ class BzFCMTopicsScreenView extends StatelessWidget {
       listen: false,
     );
 
-    final String _customTopicID = TopicModel.bakeTopicID(
+    final String? _customTopicID = TopicModel.bakeTopicID(
       topicID: topicID,
-      bzID: _activeBz.id,
+      bzID: _activeBz?.id,
       receiverPartyType: PartyType.bz,
     );
 
@@ -79,13 +79,13 @@ class BzFCMTopicsScreenView extends StatelessWidget {
 
       await NoteProtocols.unsubscribeFromAllBzTopics(
           context: context,
-          bzID: _bzModel.id,
+          bzID: _bzModel?.id,
           renovateUser: false
       );
 
       await NoteProtocols.subscribeToAllBzTopics(
           context: context,
-          bzID: _bzModel.id,
+          bzID: _bzModel?.id,
           renovateUser: true,
       );
     }
@@ -95,7 +95,7 @@ class BzFCMTopicsScreenView extends StatelessWidget {
 
       await NoteProtocols.unsubscribeFromAllBzTopics(
           context: context,
-          bzID: _bzModel.id,
+          bzID: _bzModel?.id,
           renovateUser: true,
       );
 
@@ -117,8 +117,8 @@ class BzFCMTopicsScreenView extends StatelessWidget {
     );
 
     final List<String> _thisBzUserSubscribedTopics = TopicModel.getTopicsIncludingBzIDFromTopics(
-      topics: _userModel.fcmTopics,
-      bzID: _bzModel.id,
+      topics: _userModel?.fcmTopics,
+      bzID: _bzModel?.id,
     );
 
     return _thisBzUserSubscribedTopics.isNotEmpty;

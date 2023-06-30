@@ -30,9 +30,9 @@ class FlyerPosterCreatorBubble extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final DraftFlyer draft;
+  final DraftFlyer? draft;
   final ValueChanged<bool> onSwitch;
-  final BzModel bzModel;
+  final BzModel? bzModel;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -54,8 +54,9 @@ class FlyerPosterCreatorBubble extends StatelessWidget {
       width: Bubble.bubbleWidth(context: context),
       columnChildren: <Widget>[
 
+        if (draft?.posterController != null)
         Screenshot(
-          controller: draft.posterController,
+          controller: draft!.posterController!,
           child: PosterSwitcher(
             posterType: PosterType.flyer,
             width: Bubble.clearWidth(context: context),

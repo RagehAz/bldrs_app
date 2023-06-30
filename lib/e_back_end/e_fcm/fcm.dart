@@ -665,7 +665,7 @@ class FCM {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> unsubscribeFromTopic({
-    required String topicID,
+    required String? topicID,
   }) async {
 
     final UserModel? _user = UsersProvider.proGetMyUserModel(
@@ -675,7 +675,7 @@ class FCM {
 
     if (Authing.userIsSignedUp(_user?.signInMethod) == true){
       blog('User : ${Authing.getUserID()} unSubscribed from topic : $topicID');
-      if (FCMStarter.canInitializeFCM() == true){
+      if (FCMStarter.canInitializeFCM() == true && topicID != null){
         await FirebaseMessaging.instance.unsubscribeFromTopic(topicID);
       }
     }

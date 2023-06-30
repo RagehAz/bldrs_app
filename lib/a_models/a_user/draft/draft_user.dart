@@ -481,7 +481,7 @@ class DraftUser {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void triggerCanPickImage({
-    required ValueNotifier<DraftUser> draftUser,
+    required ValueNotifier<DraftUser?> draftUser,
     required bool setTo,
     required bool mounted,
   }){
@@ -489,7 +489,7 @@ class DraftUser {
     setNotifier(
         notifier: draftUser,
         mounted: mounted,
-        value: draftUser.value.copyWith(
+        value: draftUser.value?.copyWith(
           canPickImage: setTo,
         ),
     );

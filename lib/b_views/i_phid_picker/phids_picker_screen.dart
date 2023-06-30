@@ -51,10 +51,10 @@ class PhidsPickerScreen extends StatefulWidget {
   /// TESTED : WORKS PERFECT
   static Future<String> goPickPhid({
     required BuildContext context,
-    required FlyerType flyerType,
-    required ViewingEvent event,
+    required FlyerType? flyerType,
+    required ViewingEvent? event,
     required bool onlyUseZoneChains,
-    List<String> selectedPhids,
+    List<String>? selectedPhids,
   }) async {
 
     final String phid = await Nav.goToNewScreen(
@@ -78,7 +78,7 @@ class PhidsPickerScreen extends StatefulWidget {
   /// TESTED : WORKS PERFECT
   static Future<List<String>> goPickPhids({
     required BuildContext context,
-    required FlyerType flyerType,
+    required FlyerType? flyerType,
     required ViewingEvent event,
     required bool onlyUseZoneChains,
     List<String>? selectedPhids,
@@ -93,7 +93,7 @@ class PhidsPickerScreen extends StatefulWidget {
           event: ViewingEvent.homeView,
         ),
         onlyUseZoneChains: onlyUseZoneChains,
-        selectedPhids: selectedPhids,
+        selectedPhids: selectedPhids ?? [],
         // flyerModel: ,
         multipleSelectionMode: true,
       ),
@@ -135,7 +135,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
   void initState() {
     super.initState();
 
-    final List<Chain> _allChains = ChainsProvider.proGetBldrsChains(
+    final List<Chain>? _allChains = ChainsProvider.proGetBldrsChains(
       context: context,
       onlyUseZoneChains: widget.onlyUseZoneChains,
       listen: false,
@@ -149,7 +149,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
     // setState(() {
 
       if (
-          _chainsByIDs?.length == 1
+          _chainsByIDs.length == 1
           &&
           Chain.checkIsChains(_chainsByIDs.first.sons) == true
       ){
@@ -160,14 +160,14 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
       }
 
       _allPhids = Chain.getOnlyPhidsSonsFromChains(
-          chains: _chains,
+          chains: _chains ?? [],
       );
     // });
 
     _tabBarController = TabController(
         vsync: this,
         animationDuration: const Duration(milliseconds: 300),
-        length: _chains.length ?? 1,
+        length: _chains?.length ?? 1,
         // initialIndex: 0,
     );
 
@@ -202,7 +202,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
   @override
   void dispose() {
     _loading.dispose();
-    _tabBarController.dispose();
+    _tabBarController?.dispose();
     _searchController.dispose();
     _selectedPhidsNotifier.dispose();
     _selectedPhidsScrollController.dispose();

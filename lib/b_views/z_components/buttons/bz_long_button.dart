@@ -9,7 +9,7 @@ import 'package:bldrs/b_views/f_bz/f_bz_preview_screen/a_bz_preview_screen.dart'
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_header_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/d_labels/fff_author_label.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_types_line.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/zone_line.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -29,10 +29,10 @@ class BzLongButton extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final BzModel bzModel;
-  final double boxWidth;
+  final BzModel? bzModel;
+  final double? boxWidth;
   final bool showID;
-  final Function onTap;
+  final Function? onTap;
   final bool isSelected;
   final bool showAuthorsPics;
   /// --------------------------------------------------------------------------
@@ -42,11 +42,11 @@ class BzLongButton extends StatelessWidget {
   // --------------------
   Future<void> _onTap({
     required BuildContext context,
-    required BzModel bzModel,
+    required BzModel? bzModel,
   }) async {
 
     if (onTap != null){
-      onTap();
+      onTap?.call();
     }
 
     else {
@@ -65,7 +65,7 @@ class BzLongButton extends StatelessWidget {
   Future<void> onAuthorTap(AuthorModel author) async {
 
     await onCallTap(
-        bzModel: bzModel.copyWith(
+        bzModel: bzModel?.copyWith(
           authors: [author],
         ),
         flyerModel: null,
@@ -153,7 +153,7 @@ class BzLongButton extends StatelessWidget {
                       BldrsText(
                         width: _textZoneWidth,
                         maxLines: 3,
-                        verse: Verse.plain('${bzModel.authors.length} Authors in ${bzModel.name} '),
+                        verse: Verse.plain('${bzModel?.authors?.length} Authors in ${bzModel?.name}'),
                         margin: 5,
                         italic: true,
                         weight: VerseWeight.black,
@@ -180,9 +180,9 @@ class BzLongButton extends StatelessWidget {
 
 
                             if (Mapper.checkCanLoopList(bzModel?.authors) == true)
-                            ...List.generate( bzModel?.authors?.length, (index){
+                            ...List.generate( bzModel!.authors!.length, (index){
 
-                              final AuthorModel _author = bzModel.authors[index];
+                              final AuthorModel _author = bzModel!.authors![index];
 
                               return AuthorLabel(
                                 flyerBoxWidth: _textZoneWidth * 0.5,

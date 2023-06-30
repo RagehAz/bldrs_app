@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -20,11 +19,9 @@ import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:fire/super_fire.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:provider/provider.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 
@@ -46,8 +43,10 @@ Future<void> onInviteBusinessesTap(BuildContext context) async {
 /// TESTED : WORKS PERFECT
 Future<void> onEditProfileTap() async {
 
-  final UsersProvider _userProvider = Provider.of<UsersProvider>(getMainContext(), listen: false);
-  final UserModel _myUserModel = _userProvider.myUserModel;
+  final UserModel? _myUserModel = UsersProvider.proGetMyUserModel(
+      context: getMainContext(),
+      listen: false,
+  );
 
   await Nav.goToNewScreen(
       context: getMainContext(),
@@ -273,7 +272,7 @@ Future<bool> reAuthenticateUser({
 
     if (_canContinue == true){
 
-      final bool _passwordIsCorrect = await _checkPassword(
+      final bool? _passwordIsCorrect = await _checkPassword(
         userModel: _userModel,
       );
 
@@ -316,27 +315,29 @@ Future<bool> reAuthenticateUser({
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<bool> _checkPassword({
-  required UserModel userModel,
+Future<bool?> _checkPassword({
+  required UserModel? userModel,
 }) async {
 
-  bool _passwordIsCorrect;
+  bool? _passwordIsCorrect;
 
-  final String _password = await Dialogs.showPasswordDialog();
+  final String? _password = await Dialogs.showPasswordDialog();
 
-  if (_password?.isNotEmpty == true){
+  if (Mapper.boolIsTrue(_password?.isNotEmpty) == true){
 
-    final String _authEmail = await Authing.getAuthEmail();
+    final String? _authEmail = await Authing.getAuthEmail();
 
-    final String _email = ContactModel.getValueFromContacts(
+    final String? _email = ContactModel.getValueFromContacts(
       contacts: userModel?.contacts,
       contactType: ContactType.email,
     ) ?? _authEmail;
 
-    _passwordIsCorrect = await EmailAuthing.checkPasswordIsCorrect(
-      password: _password,
-      email: _email,
-    );
+    if (_password != null && _email != null){
+      _passwordIsCorrect = await EmailAuthing.checkPasswordIsCorrect(
+        password: _password,
+        email: _email,
+      );
+    }
 
   }
 

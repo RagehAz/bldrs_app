@@ -14,15 +14,15 @@ class LineBubble extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final Widget child;
-  final double width;
-  final Alignment alignment;
-  final Function onTap;
+  final double? width;
+  final Alignment? alignment;
+  final Function? onTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     return GestureDetector(
-      onTap: onTap,
+      onTap: onTap == null ? null : () => onTap!(),
       child: Container(
         width: width ?? BldrsAppBar.width(),
         alignment: alignment ?? Alignment.center,

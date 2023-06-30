@@ -2,7 +2,7 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/widgets/drawing/super_positioned.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
@@ -24,12 +24,12 @@ class BzLogo extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double width;
   final dynamic image;
-  final BorderRadius corners;
-  final bool zeroCornerIsOn;
-  final EdgeInsets margins;
-  final Function onTap;
+  final BorderRadius? corners;
+  final bool? zeroCornerIsOn;
+  final EdgeInsets? margins;
+  final Function? onTap;
   final bool shadowIsOn;
-  final bool isVerified;
+  final bool? isVerified;
 
   /// --------------------------------------------------------------------------
   @override

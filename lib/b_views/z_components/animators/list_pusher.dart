@@ -15,8 +15,8 @@ class ListPusher extends StatefulWidget {
   });
   /// --------------------------------------------------------------------------
   final double maxHeight;
-  final double width;
-  final Duration duration;
+  final double? width;
+  final Duration? duration;
   final bool expand;
   final Curve curve;
   /// --------------------------------------------------------------------------

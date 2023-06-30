@@ -36,7 +36,7 @@ class SlideEditorSlidePart extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final ValueNotifier<DraftSlide> draftSlide;
+  final ValueNotifier<DraftSlide?> draftSlide;
   final double height;
   final Function onSlideTap;
   final Function onSlideDoubleTap;

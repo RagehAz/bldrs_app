@@ -292,8 +292,8 @@ Future<void> onFollowTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onCallTap({
-  required BzModel bzModel,
-  required FlyerModel flyerModel,
+  required BzModel? bzModel,
+  required FlyerModel? flyerModel,
 }) async {
 
   final UserModel? _userModel = UsersProvider.proGetMyUserModel(
@@ -306,7 +306,7 @@ Future<void> onCallTap({
 
     final bool _goToFlyerPreview = flyerModel?.id != null;
     final String _routeName = _goToFlyerPreview == true ? Routing.flyerPreview : Routing.bzPreview;
-    final String argument = _goToFlyerPreview == true ? flyerModel?.id : bzModel.id;
+    final String? argument = _goToFlyerPreview == true ? flyerModel?.id : bzModel?.id;
 
     await Dialogs.youNeedToBeSignedUpDialog(
       afterHomeRouteName: _routeName,

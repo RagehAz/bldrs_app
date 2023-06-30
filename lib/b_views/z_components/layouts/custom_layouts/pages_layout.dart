@@ -12,8 +12,8 @@ class PagerBuilder extends StatefulWidget {
   });
   // --------------------------------------------------------------------------
   final List<Widget> pageBubbles;
-  final ValueNotifier<ProgressBarModel> progressBarModel;
-  final PageController pageController;
+  final ValueNotifier<ProgressBarModel?>? progressBarModel;
+  final PageController? pageController;
   // --------------------------------------------------------------------------
   @override
   _PagerBuilderState createState() => _PagerBuilderState();
@@ -22,8 +22,8 @@ class PagerBuilder extends StatefulWidget {
 
 class _PagerBuilderState extends State<PagerBuilder> {
   // -----------------------------------------------------------------------------
-  ValueNotifier<ProgressBarModel> _progressBarModel;
-  PageController _pageController;
+  late ValueNotifier<ProgressBarModel?> _progressBarModel;
+  late PageController _pageController;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -83,7 +83,7 @@ class _PagerBuilderState extends State<PagerBuilder> {
     }
 
     else {
-      _progressBarModel = widget.progressBarModel;
+      _progressBarModel = widget.progressBarModel!;
     }
 
   }

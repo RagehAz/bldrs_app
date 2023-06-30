@@ -21,19 +21,19 @@ class Balloona extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final double size;
-  final Function onTap;
+  final Function ?onTap;
   final dynamic pic;
   final BalloonType balloonType;
   final bool shadowIsOn;
-  final Widget child;
-  final bool loading;
-  final Color balloonColor;
+  final Widget? child;
+  final bool? loading;
+  final Color? balloonColor;
   final bool blackAndWhite;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    final CustomClipper _clipper = Balloon.getBalloonClipPath(BalloonType.speaking); //balloonType) ;
+    final CustomClipper<Path>? _clipper = Balloon.getBalloonClipPath(BalloonType.speaking); //balloonType) ;
 
     return ClipShadowPath(
       clipper: _clipper,
@@ -59,7 +59,7 @@ class Balloona extends StatelessWidget {
             child: Material(
               color: Colors.transparent,
               child: InkWell(
-                onTap: onTap,
+                onTap: onTap == null ? null : () => onTap!(),
                 splashColor: Colorz.white10,
               ),
             ),

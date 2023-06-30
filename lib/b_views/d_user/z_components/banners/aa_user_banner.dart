@@ -27,17 +27,16 @@ class UserBanner extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final UserModel userModel;
+  final UserModel? userModel;
   /// --------------------------------------------------------------------------
   static Verse generateTitleCompanyString({
-    required UserModel userModel,
-    required BuildContext context,
+    required UserModel? userModel,
   }){
 
-    String _string;
+    String? _string;
 
-    final String _title = userModel?.title;
-    final String _company = userModel.company;
+    final String? _title = userModel?.title;
+    final String? _company = userModel?.company;
 
     if (_title == null && _company == null){
       _string = null;
@@ -63,7 +62,7 @@ class UserBanner extends StatelessWidget {
   }
   // --------------------
   static bool canShowTitleCompanyLine({
-    required UserModel userModel,
+    required UserModel? userModel,
   }){
     bool _can = false;
 
@@ -78,15 +77,15 @@ class UserBanner extends StatelessWidget {
     return _can;
   }
   // --------------------
-  static String getBzzString({
-    required UserModel userModel,
+  static String? getBzzString({
+    required UserModel? userModel,
   }){
 
-    userModel.blogUserModel();
+    // userModel.blogUserModel();
 
     if (UserModel.checkUserIsAuthor(userModel) == true){
       return Stringer.generateStringFromStrings(
-          strings: userModel.myBzzIDs,
+          strings: userModel!.myBzzIDs,
           stringsSeparator: ','
       );
 
@@ -104,7 +103,7 @@ class UserBanner extends StatelessWidget {
     );
     final String _userName = userModel?.name ?? 'phid_unknown_bldr';
     // --------------------
-    final Function _onTap = _thereAreMissingFields == false ?
+    final Function? _onTap = _thereAreMissingFields == false ?
     null : () => onEditProfileTap();
     // --------------------
     final bool _itIsMe = UserModel.checkItIsMe(userModel?.id);
@@ -157,7 +156,6 @@ class UserBanner extends StatelessWidget {
             weight: VerseWeight.thin,
             verse: generateTitleCompanyString(
               userModel: userModel,
-              context: context,
             ),
           ),
 
@@ -220,7 +218,10 @@ class UserBanner extends StatelessWidget {
                   return BzTileButton(
                     bzModel: _bzModel,
                     height: 50,
-                    width: _bzModel.name.length > 20 ? Bubble.clearWidth(context: context) - 20 : null,
+                    width: (_bzModel.name?.length ?? 0) > 20 ?
+                    Bubble.clearWidth(context: context) - 20
+                        :
+                    null,
                     onTap: () => BldrsNav.jumpToBzPreviewScreen(
                       bzID: _bzModel.id,
                     ),

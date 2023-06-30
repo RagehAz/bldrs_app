@@ -48,14 +48,14 @@ Future<void> _setBzModel({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onMyActiveBzStreamChanged({
-  required Map<String, dynamic> newMap,
-  required Map<String, dynamic> oldMap,
+  required Map<String, dynamic>? newMap,
+  required Map<String, dynamic>? oldMap,
   required BzzProvider bzzProvider,
 }) async {
 
   /// REF : BZ_STREAM_OPENS_ON_ACTIVE_BZ_AND_UPDATES_LOCALLY
 
-  final BzModel _newBz = BzModel.decipherBz(
+  final BzModel? _newBz = BzModel.decipherBz(
     map: newMap,
     fromJSON: false,
   );
@@ -100,7 +100,7 @@ Future<void> onMyActiveBzStreamChanged({
 
       else {
 
-        final BzModel _oldBz = BzModel.decipherBz(
+        final BzModel? _oldBz = BzModel.decipherBz(
           map: oldMap,
           fromJSON: false,
         );
@@ -155,9 +155,9 @@ void onChangeMyBzScreenTabIndexWhileAnimation({
 
   if (tabController.indexIsChanging == false) {
 
-    final int _indexFromAnimation = (tabController.animation.value).round();
+    final int? _indexFromAnimation = tabController.animation?.value.round();
     onChangeMyBzScreenTabIndex(
-      index: _indexFromAnimation,
+      index: _indexFromAnimation ?? 0,
       tabController: tabController,
     );
 

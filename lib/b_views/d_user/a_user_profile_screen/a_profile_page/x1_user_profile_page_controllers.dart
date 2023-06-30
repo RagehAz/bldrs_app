@@ -86,7 +86,7 @@ Future<void> onUserContactTap({
 }
 // --------------------
 ///
-Future<void> onUserLocationTap(GeoPoint geoPoint) async {
+Future<void> onUserLocationTap(GeoPoint? geoPoint) async {
 
   Atlas.blogGeoPoint(
     point: geoPoint,

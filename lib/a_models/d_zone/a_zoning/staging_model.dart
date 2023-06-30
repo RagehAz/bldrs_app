@@ -293,8 +293,8 @@ class StagingModel {
   /// TESTED : WORKS PERFECT
   List<String> getIDsByViewingEvent({
     required ViewingEvent event,
-    required String countryID,
-    required String viewerCountryID,
+    required String? countryID,
+    required String? viewerCountryID,
   }){
 
     if (event == ViewingEvent.admin){

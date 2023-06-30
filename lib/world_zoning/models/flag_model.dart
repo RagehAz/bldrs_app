@@ -155,14 +155,14 @@ class Flag {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Flag? getFlagFromFlagsByCountryID({
-    required List<Flag> flags,
-    required String countryID,
+    required List<Flag>? flags,
+    required String? countryID,
   }){
     Flag? _output;
 
     if (TextCheck.isEmpty(countryID) == false){
       if (Mapper.checkCanLoopList(flags) == true){
-        for (final Flag flag in flags){
+        for (final Flag flag in flags!){
           if (flag.id == countryID){
             _output = flag;
             break;

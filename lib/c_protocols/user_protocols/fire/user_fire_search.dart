@@ -125,21 +125,21 @@ class UserFireSearchOps{
                 value: userSearchModel?.language,
             ),
 
-          if (userSearchModel?.onlyWithPublicContacts == true)
+          if (Mapper.boolIsTrue(userSearchModel?.onlyWithPublicContacts) == true)
             const FireFinder(
                 field: 'contactsArePublic',
                 comparison: FireComparison.equalTo,
                 value: true,
             ),
 
-          if (userSearchModel?.onlyBzAuthors == true)
+          if (Mapper.boolIsTrue(userSearchModel?.onlyBzAuthors) == true)
             const FireFinder(
               field: 'isAuthor',
               comparison: FireComparison.equalTo,
               value: true,
             ),
 
-          if (userSearchModel?.onlyBldrsAdmins == true)
+          if (Mapper.boolIsTrue(userSearchModel?.onlyBldrsAdmins) == true)
             const FireFinder(
               field: 'isAdmin',
               comparison: FireComparison.equalTo,
@@ -153,7 +153,7 @@ class UserFireSearchOps{
               value: userSearchModel?.devicePlatform,
             ),
 
-          if (userSearchModel?.onlyVerifiedEmails == true)
+          if (Mapper.boolIsTrue(userSearchModel?.onlyVerifiedEmails) == true)
             const FireFinder(
               field: 'emailIsVerified',
               comparison: FireComparison.equalTo,
@@ -172,7 +172,7 @@ class UserFireSearchOps{
   // --------------------
   /// TASK : TEST ME
   static Future<List<UserModel>> usersByUserName({
-    required String name,
+    required String? name,
     required List<String> userIDsToExclude,
     QueryDocumentSnapshot<Object>? startAfter,
     int limit = 10,
@@ -188,7 +188,7 @@ class UserFireSearchOps{
           FireFinder(
             field: 'trigram',
             comparison: FireComparison.arrayContains,
-            value: name.trim(),
+            value: name?.trim(),
           ),
         ],
       ),
