@@ -15,9 +15,9 @@ class ZoneButtonBox extends StatelessWidget {
   });
   // --------------------------------------------------------------------------
   final List<Widget> columnChildren;
-  final Function onTap;
+  final Function? onTap;
   final bool isActive;
-  final Function onDeactivatedTap;
+  final Function? onDeactivatedTap;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class ZoneButtonBox extends StatelessWidget {
       child: Center(
         child: InkWell(
           borderRadius: Borderers.constantCornersAll12,
-          onTap: isActive == true ? onTap : onDeactivatedTap,
+          onTap: isActive == true ? () => onTap?.call() : () => onDeactivatedTap?.call(),
           highlightColor: Colorz.white10,
           child: Container(
             width: _buttonWidth,

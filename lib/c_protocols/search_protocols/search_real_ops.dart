@@ -102,7 +102,7 @@ class SearchRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteAllUserSearches({
-    required String userID,
+    required String? userID,
   }) async {
 
     if (userID != null){

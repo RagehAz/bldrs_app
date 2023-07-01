@@ -16,17 +16,17 @@ class ReviewBubbleButton extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final String phid;
-  final int count;
+  final String? phid;
+  final int? count;
   final String icon;
   final Function onTap;
   final bool isOn;
   // --------------------------------------------------------------------------
   /// TESTED :
-  static Verse generateCounterVerse({
+  static Verse? generateCounterVerse({
     required BuildContext context,
-    required int count,
-    required String phid,
+    required int? count,
+    required String? phid,
   }){
 
     if (phid == null){
@@ -42,7 +42,7 @@ class ReviewBubbleButton extends StatelessWidget {
       }
 
       else {
-        final String _formattedCount = counterCaliber(_count);
+        final String? _formattedCount = counterCaliber(_count);
         _output = '$_formattedCount $_output';
       }
 

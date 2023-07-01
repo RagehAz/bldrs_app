@@ -19,9 +19,9 @@ class PhidsBuilderPage extends StatelessWidget {
   // -----------------------------------------------------------------------------
   final Chain chain;
   final ValueNotifier<dynamic> searchText;
-  final Function(String path, String phid) onPhidTap;
-  final Function(String path, String phid) onPhidDoubleTap;
-  final Function(String path, String phid) onPhidLongTap;
+  final Function(String? path, String? phid)? onPhidTap;
+  final Function(String? path, String? phid)? onPhidDoubleTap;
+  final Function(String? path, String? phid)? onPhidLongTap;
   final ValueNotifier<List<String>> selectedPhidsNotifier;
   // -----------------------------------------------------------------------------
   @override

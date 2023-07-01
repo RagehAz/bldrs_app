@@ -20,22 +20,22 @@ class WideCityButton extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final CityModel city;
-  final Function onSingleTap;
+  final CityModel? city;
+  final Function? onSingleTap;
   final bool isActive;
-  final Function onDeactivatedTap;
-  final CensusModel censusModel;
-  final Verse verse;
+  final Function? onDeactivatedTap;
+  final CensusModel? censusModel;
+  final Verse? verse;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final String _cityNameValue = CityModel.translateCity(
+    final String? _cityNameValue = CityModel.translateCity(
         city: city,
     );
     // --------------------
     return ZoneButtonBox(
-      onTap: onSingleTap,
+      onTap: onSingleTap == null ? null : () => onSingleTap?.call(),
       onDeactivatedTap: onDeactivatedTap,
       isActive: isActive,
       columnChildren: <Widget>[

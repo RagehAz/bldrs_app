@@ -23,7 +23,7 @@ class BzTileButton extends StatelessWidget {
   final double? width;
   final Color color;
   final Function? onTap;
-  final BzModel bzModel;
+  final BzModel? bzModel;
   final Verse? secondLine;
   /// --------------------------------------------------------------------------
   @override

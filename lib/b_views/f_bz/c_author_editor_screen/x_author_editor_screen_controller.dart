@@ -292,7 +292,7 @@ void onAuthorTitleChanged({
 void onAuthorContactChanged({
   required ValueNotifier<AuthorModel?> tempAuthor,
   required ContactType contactType,
-  required String value,
+  required String? value,
   required bool mounted,
 }){
 

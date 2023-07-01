@@ -34,7 +34,7 @@ class FlyerHeader extends StatefulWidget {
   });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final FlyerModel flyerModel;
+  final FlyerModel? flyerModel;
   final Function onHeaderTap;
   final Function onFollowTap;
   final Function onCallTap;
@@ -44,7 +44,7 @@ class FlyerHeader extends StatefulWidget {
   final ValueNotifier<bool> headerIsExpanded;
   final ValueNotifier<bool> followIsOn;
   final ValueNotifier<double> headerPageOpacity;
-  final ValueNotifier<BzCounterModel> bzCounters;
+  final ValueNotifier<BzCounterModel?> bzCounters;
   /// --------------------------------------------------------------------------
   @override
   _FlyerHeaderState createState() => _FlyerHeaderState();
@@ -79,7 +79,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
 
     _backgroundColorTween = ColorTween(
       begin: FlyerColors.headerColorBeginColor(tinyMode: widget.tinyMode),
-      end: FlyerColors.headerEndColor(slides: widget.flyerModel.slides),
+      end: FlyerColors.headerEndColor(slides: widget.flyerModel?.slides),
     );
 
     _headerCornerTween = BorderRadiusTween();
@@ -111,7 +111,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
   // --------------------
   @override
   void dispose() {
-    _animation.dispose();
+    _animation?.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -133,7 +133,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
       begin: FlyerDim.headerSlateCorners(
         flyerBoxWidth: widget.flyerBoxWidth,
       ),
-      end: FlyerDim.flyerCorners(context, widget.flyerBoxWidth),
+      end: FlyerDim.flyerCorners(widget.flyerBoxWidth),
     );
     // -----------------------------------------------------------------------
 
@@ -296,11 +296,11 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                     key: const ValueKey<String>('FlyerHeader_BzNameBelowLogoPart'),
                     flyerBoxWidth: widget.flyerBoxWidth,
                     firstLine: Verse(
-                      id: widget.flyerModel.bzModel.name,
+                      id: widget.flyerModel?.bzModel?.name,
                       translate: false,
                     ),
                     secondLine: ZoneModel.generateInZoneVerse(
-                      zoneModel: widget.flyerModel.bzModel.zone,
+                      zoneModel: widget.flyerModel?.bzModel?.zone,
                     ),
                     headerIsExpanded: widget.headerIsExpanded,
                   ),
@@ -321,7 +321,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
       child: BzSlideTree(
         key: const ValueKey<String>('FlyerHeader_BzInfoPart'),
         flyerBoxWidth: widget.flyerBoxWidth,
-        bzModel: widget.flyerModel.bzModel,
+        bzModel: widget.flyerModel?.bzModel,
         flyerModel: widget.flyerModel,
         headerPageOpacity: widget.headerPageOpacity,
         bzCounters: widget.bzCounters,

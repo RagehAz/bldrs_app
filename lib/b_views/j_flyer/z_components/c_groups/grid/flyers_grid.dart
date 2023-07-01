@@ -135,8 +135,8 @@ class FlyersGrid extends StatelessWidget {
         // --------------------
         return HeroicFlyersGrid(
           hasResponsiveSideMargin: hasResponsiveSideMargin,
-          gridWidth: gridWidth,
-          gridHeight: gridHeight,
+          gridWidth: gridWidth ?? MediaQuery.of(context).size.width,
+          gridHeight: gridHeight ?? MediaQuery.of(context).size.height,
           scrollController: scrollController,
           scrollable: scrollable,
           topPadding: topPadding,
@@ -160,8 +160,8 @@ class FlyersGrid extends StatelessWidget {
       else if (_isJumpingGrid == true){
         return JumpingFlyersGrid(
           hasResponsiveSideMargin: hasResponsiveSideMargin,
-          gridWidth: gridWidth,
-          gridHeight: gridHeight,
+          gridWidth: gridWidth ?? MediaQuery.of(context).size.width,
+          gridHeight: gridHeight ?? MediaQuery.of(context).size.height,
           scrollController: scrollController,
           scrollable: scrollable,
           topPadding: topPadding,
@@ -182,8 +182,8 @@ class FlyersGrid extends StatelessWidget {
       else {
         return FlyersZGrid(
           hasResponsiveSideMargin: hasResponsiveSideMargin,
-          gridWidth: gridWidth,
-          gridHeight: gridHeight,
+          gridWidth: gridWidth ?? MediaQuery.of(context).size.width,
+          gridHeight: gridHeight ?? MediaQuery.of(context).size.height,
           flyersIDs: Mapper.checkCanLoopList(flyers) == false ? flyersIDs : null,
           flyers: flyers,
           columnCount: numberOfColumnsOrRows,

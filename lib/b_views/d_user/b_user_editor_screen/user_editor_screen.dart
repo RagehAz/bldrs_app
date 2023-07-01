@@ -601,7 +601,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       //   existingContacts: draft?.contacts,
                       // ),
                       textController: draft?.phoneController,
-                      textOnChanged: (String text) => onUserContactChanged(
+                      textOnChanged: (String? text) => onUserContactChanged(
                         contactType: ContactType.phone,
                         value: text,
                         draft: _draftUser,
@@ -641,7 +641,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       //   existingContacts: draft?.contacts,
                       // ),
                       textController: draft?.emailController,
-                      textOnChanged: (String text) => onUserContactChanged(
+                      textOnChanged: (String? text) => onUserContactChanged(
                         contactType: ContactType.email,
                         value: text,
                         draft: _draftUser,

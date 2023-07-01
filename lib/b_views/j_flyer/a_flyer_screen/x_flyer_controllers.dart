@@ -60,8 +60,8 @@ Future<CityModel> getFlyerBzCity({
 // --------------------
 /// TESTED : WORKS PERFECT
 int getNumberOfSlides({
-  required FlyerModel flyerModel,
-  required BzModel bzModel,
+  required FlyerModel? flyerModel,
+  required BzModel? bzModel,
   // required String heroPath,
   required bool showGallerySlide,
 }){
@@ -74,11 +74,11 @@ int getNumberOfSlides({
   );
 
   if (_canShowGallery == true){
-    _numberOfSlides = flyerModel.slides.length + 1;
+    _numberOfSlides = (flyerModel?.slides?.length??0) + 1;
   }
 
   else {
-    _numberOfSlides = flyerModel.slides.length;
+    _numberOfSlides = flyerModel?.slides?.length ?? 0;
   }
 
   // blog('getNumberOfSlides : $_numberOfSlides');
@@ -87,8 +87,8 @@ int getNumberOfSlides({
 // --------------------
 /// TESTED : WORKS PERFECT
 int getPossibleStartingIndex({
-  required FlyerModel flyerModel,
-  required BzModel bzModel,
+  required FlyerModel? flyerModel,
+  required BzModel? bzModel,
   required String heroTag,
   required int startFromIndex,
 }){
@@ -122,13 +122,13 @@ int getPossibleStartingIndex({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-String createFlyerHeroTag({
+String? createFlyerHeroTag({
   required String flyerID,
   required String heroPath,
 }){
   // ------
-  assert(flyerID != null, 'createFlyerHeroTag : flyerID can not be null');
-  assert(heroPath != null, 'createFlyerHeroTag : heroPath can not be null');
+  // assert(flyerID != null, 'createFlyerHeroTag : flyerID can not be null');
+  // assert(heroPath != null, 'createFlyerHeroTag : heroPath can not be null');
   // ------
   /// NOTES
   /// - flyer either is at screen level or inside flyer's gallery slide
@@ -265,19 +265,19 @@ FlightDirection getFlightDirection(String direction){
 // --------------------
 /// TESTED : WORKS PERFECT
 bool canShowGalleryPage({
-  required BzModel bzModel,
+  required BzModel? bzModel,
   // required String heroPath,
   required bool canShowGallerySlide,
 }){
   bool _canShowGallery = false;
-  assert(bzModel != null, 'canShowGalleryPage : BzModel can not be null');
+  // assert(bzModel != null, 'canShowGalleryPage : BzModel can not be null');
 
   if (canShowGallerySlide == true){
-    if (bzModel != null){
+    // if (bzModel != null){
 
-      if (Mapper.checkCanLoopList(bzModel.flyersIDs) == true){
+      if (Mapper.checkCanLoopList(bzModel?.flyersIDs) == true){
 
-        final bool _bzHasMoreThanOneFlyer = bzModel.flyersIDs.length > 1;
+        final bool _bzHasMoreThanOneFlyer = (bzModel?.flyersIDs?.length ?? 0) > 1;
 
         // final bool isGalleryFlyer = checkFlyerHeroTagHasGalleryFlyerID(heroPath);
 
@@ -289,7 +289,7 @@ bool canShowGalleryPage({
 
       }
 
-    }
+    // }
   }
 
   // blog('canShowGallerySlide : $_canShowGallery : bzModel != null : ${bzModel != null}');
@@ -382,7 +382,7 @@ Future<List<FlyerModel>> fetchMoreFlyers({
     heroTag: heroTag,
     allFlyersIDsWithoutParentFlyerID: Stringer.removeStringsFromStrings(
         removeFrom: bzModel.flyersIDs,
-        removeThis: [flyerModel.id],
+        removeThis: flyerModel.id == null ? [] : [flyerModel.id!],
     ),
     loadedFlyersIDs: _loadedFlyersIDs,
     // numberOfFlyers: 4
@@ -420,7 +420,7 @@ double flyerWidthSizeFactor({
 // --------------------
 /// TASK : TEST ME
 Future<void> recordFlyerView({
-  required FlyerModel flyerModel,
+  required FlyerModel? flyerModel,
   required int index,
 }) async {
 

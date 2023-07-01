@@ -29,7 +29,7 @@ class ParagraphBubble extends StatefulWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final Verse paragraph;
+  final Verse? paragraph;
   final int maxLines;
   final bool centered;
   final String? actionBtIcon;
@@ -56,7 +56,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
   void initState() {
     super.initState();
     _maxLines = widget.maxLines;
-    _canExpand = (widget.paragraph.id?.length ?? 0) > 100;
+    _canExpand = (widget.paragraph?.id?.length ?? 0) > 100;
   }
   // --------------------
   @override
@@ -119,7 +119,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
         columnChildren: <Widget>[
 
           /// PARAGRAPH TEXT
-          if (widget.paragraph != null && widget.paragraph.id != '')
+          if (widget.paragraph != null && widget.paragraph?.id != '')
             Padding(
               padding: Scale.superMargins(margin: widget.margins),
               child: BldrsText(
@@ -132,9 +132,9 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
             ),
 
           /// ARROW
-          if (widget.paragraph != null && widget.paragraph.id != '')
+          if (widget.paragraph != null && widget.paragraph?.id != '')
             TextLinesAnalyzer(
-              text: widget.paragraph.id?.trim(),
+              text: widget.paragraph?.id?.trim(),
               textStyle: _paragraphTextStyle,
               maxLines: widget.maxLines,
               childIfWithinMaxLines: Container(),

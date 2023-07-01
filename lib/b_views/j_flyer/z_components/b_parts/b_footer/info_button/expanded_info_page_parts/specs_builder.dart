@@ -20,16 +20,16 @@ class SpecsBuilder extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final double pageWidth;
-  final List<SpecModel> specs;
-  final Function({required SpecModel value, required SpecModel unit}) onSpecTap;
-  final Function({required SpecModel value, required SpecModel unit}) onDeleteSpec;
+  final List<SpecModel>? specs;
+  final Function({required SpecModel? value, required SpecModel? unit})? onSpecTap;
+  final Function({required SpecModel? value, required SpecModel? unit})? onDeleteSpec;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     final List<PickerModel> _specsPickers = ChainsProvider.proGetPickersBySpecs(
       context: context,
-      specs: specs,
+      specs: specs ?? [],
       listen: true,
     );
 
@@ -47,7 +47,7 @@ class SpecsBuilder extends StatelessWidget {
             padding: EdgeInsets.zero, /// AGAIN => ENTA EBN WES5A
             itemBuilder: (_, int index){
 
-              final PickerModel _picker = _specsPickers[index];
+              final PickerModel? _picker = _specsPickers[index];
 
               // _picker?.blogPicker(invoker: 'bobo');
 

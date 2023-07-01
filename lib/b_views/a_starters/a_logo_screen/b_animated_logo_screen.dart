@@ -550,7 +550,7 @@ class AnimatedLine extends StatelessWidget {
             casing: Casing.upperCase,
             translate: false,
           ),
-          textDirection: TextDirection.ltr,
+          // textDirection: TextDirection.ltr,
           size: 3,
           weight: VerseWeight.black,
           italic: true,

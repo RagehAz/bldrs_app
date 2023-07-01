@@ -1,6 +1,5 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:flutter/material.dart';
 
@@ -18,13 +17,13 @@ class HorizontalBouncer extends StatefulWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final double boxDistance;
+  final double? boxDistance;
   final int numberOfSlides;
   final Widget child;
-  final Key notificationListenerKey;
+  final Key? notificationListenerKey;
   final PageController controller;
   final bool canNavigate;
-  final Function onNavigate;
+  final Function? onNavigate;
   /// --------------------------------------------------------------------------
   @override
   _HorizontalBouncerState createState() => _HorizontalBouncerState();
@@ -33,7 +32,7 @@ class HorizontalBouncer extends StatefulWidget {
 
 class _HorizontalBouncerState extends State<HorizontalBouncer> {
   // -----------------------------------------------------------------------------
-  ValueNotifier<bool>? _canNavigate;
+  late ValueNotifier<bool> _canNavigate;
   int _numberOfTimesBack = 0;
   // -----------------------------------------------------------------------------
   @override
@@ -63,7 +62,7 @@ class _HorizontalBouncerState extends State<HorizontalBouncer> {
         }
 
         else {
-          widget.onNavigate();
+          widget.onNavigate!();
         }
 
       }
@@ -131,7 +130,7 @@ class _HorizontalBouncerState extends State<HorizontalBouncer> {
 
               return true;
             },
-            child: child,
+            child: child ?? const SizedBox(),
           );
 
         }

@@ -16,9 +16,9 @@ class ReviewBox extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final double pageWidth;
-  final String userID;
-  final ValueChanged<UserModel> onReviewUserBalloonTap;
-  final Widget Function(UserModel userModel) builder;
+  final String? userID;
+  final ValueChanged<UserModel?>? onReviewUserBalloonTap;
+  final Widget Function(UserModel? userModel) builder;
   // -----------------------------------------------------------------------------
 
   /// USER BALLOON
@@ -56,9 +56,9 @@ class ReviewBox extends StatelessWidget {
           context: context,
           userID: userID,
         ),
-        builder: (_, AsyncSnapshot<UserModel> snap){
+        builder: (_, AsyncSnapshot<UserModel?> snap){
 
-          final UserModel _userModel = snap.data;
+          final UserModel? _userModel = snap.data;
 
           return Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,7 +70,7 @@ class ReviewBox extends StatelessWidget {
               /// USER IMAGE BALLOON PART
               ReviewUserImageBalloon(
                 userModel: _userModel,
-                onTap: () => onReviewUserBalloonTap(_userModel),
+                onTap: () => onReviewUserBalloonTap?.call(_userModel),
               ),
 
 

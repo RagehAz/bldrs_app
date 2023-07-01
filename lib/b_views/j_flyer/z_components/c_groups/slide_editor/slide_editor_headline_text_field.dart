@@ -20,7 +20,7 @@ class EditorSlideHeadlineTextField extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final ValueNotifier<DraftSlide> draftSlide;
+  final ValueNotifier<DraftSlide?> draftSlide;
   final ValueNotifier<bool> isTransforming;
   final double flyerBoxWidth;
   final AppBarType appBarType;
@@ -75,14 +75,14 @@ class EditorSlideHeadlineTextField extends StatelessWidget {
                       textScaleFactor: flyerBoxWidth * SlideHeadline.headlineScaleFactor,
                       centered: true,
                       // autoValidate: true,
-                      onChanged: (String text) => onSlideHeadlineChanged(
+                      onChanged: (String? text) => onSlideHeadlineChanged(
                         draftSlide: draftSlide,
                         text: text,
                         mounted: mounted,
                       ),
                       textWeight: VerseWeight.bold,
                       textShadow: true,
-                      initialValue: draftSlide.value.headline,
+                      initialValue: draftSlide.value?.headline,
                       // autofocus: false,
                       // fieldIsFormField: true,
                       // onSubmitted: null,

@@ -25,8 +25,8 @@ class KeyboardScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   final KeyboardModel keyboardModel;
   final bool confirmButtonIsOn;
-  final List<Widget> columnChildren;
-  final Verse screenTitleVerse;
+  final List<Widget>? columnChildren;
+  final Verse? screenTitleVerse;
   /// --------------------------------------------------------------------------
   @override
   _KeyboardScreenState createState() => _KeyboardScreenState();
@@ -34,8 +34,8 @@ class KeyboardScreen extends StatefulWidget {
   /// TESTED : WORKS PERFECT
   static Future<String> goToKeyboardScreen({
     required BuildContext context,
-    KeyboardModel keyboardModel,
-    Verse screenTitleVerse,
+    KeyboardModel? keyboardModel,
+    Verse? screenTitleVerse,
   }) async {
 
     final String _output = await Nav.goToNewScreen(
@@ -55,7 +55,7 @@ class KeyboardScreen extends StatefulWidget {
 class _KeyboardScreenState extends State<KeyboardScreen> {
   // -----------------------------------------------------------------------------
   final GlobalKey _globalKey = GlobalKey<FormState>();
-  KeyboardModel _keyboardModel;
+  late KeyboardModel _keyboardModel;
   final ValueNotifier<bool> _canSubmit = ValueNotifier<bool>(false);
   final TextEditingController _controller = TextEditingController();
   // -----------------------------------------------------------------------------
@@ -77,7 +77,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
     super.initState();
 
     _keyboardModel = widget.keyboardModel;
-    _controller.text = _keyboardModel.initialText;
+    _controller.text = _keyboardModel.initialText ?? '';
 
   }
   // --------------------
@@ -106,17 +106,17 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
-  void _onTextChanged(String text){
+  void _onTextChanged(String? text){
 
     if (_keyboardModel.onChanged != null){
-      _keyboardModel.onChanged(text);
+      _keyboardModel.onChanged?.call(text);
     }
 
     /// VALIDATOR IS DEFINED
     if (_keyboardModel.validator != null){
 
       /// VALIDATOR IS VALID
-      if (_keyboardModel.validator(_controller.text) == null){
+      if (_keyboardModel.validator?.call(_controller.text) == null){
         setNotifier(
           notifier: _canSubmit,
           mounted: mounted,
@@ -146,11 +146,11 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
 
   }
   // --------------------
-  Future<void> _onSubmit (String text) async {
+  Future<void> _onSubmit (String? text) async {
 
     if (_keyboardModel.onSubmitted != null){
-      if (_keyboardModel.validator == null || _keyboardModel.validator(text) == null){
-        _keyboardModel.onSubmitted(text);
+      if (_keyboardModel.validator == null || _keyboardModel.validator?.call(text) == null){
+        _keyboardModel.onSubmitted?.call(text);
       }
     }
 
@@ -205,11 +205,11 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                 keyboardTextInputAction: _keyboardModel.textInputAction,
                 autoFocus: true,
                 isFormField: true,
-                onSubmitted: (String text) => _onSubmit(text),
+                onSubmitted: (String? text) => _onSubmit(text),
                 // autoValidate: true,
-                validator: (String text){
-                  if (_keyboardModel?.validator != null){
-                    return _keyboardModel.validator(_controller.text);
+                validator: (String? text){
+                  if (_keyboardModel.validator != null){
+                    return _keyboardModel.validator?.call(_controller.text);
                   }
                   else {
                     return null;
@@ -242,7 +242,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
 
               /// EXTRA CHILDREN
               if (widget.columnChildren != null)
-                ... widget.columnChildren,
+                ... widget.columnChildren!,
 
               const Horizon(),
 

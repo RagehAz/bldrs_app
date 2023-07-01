@@ -16,8 +16,8 @@ class CurrencyListBuilder extends StatelessWidget {
   final double width;
   final double height;
   final List<CurrencyModel> currencies;
-  final ValueChanged<CurrencyModel> onCurrencyTap;
-  final TextEditingController searchController;
+  final ValueChanged<CurrencyModel?>? onCurrencyTap;
+  final TextEditingController? searchController;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class CurrencyListBuilder extends StatelessWidget {
             return CurrencyButton(
               width: width - 20,
               currency: _currency,
-              countryID: _currency.countriesIDs.first,
+              countryID: _currency.countriesIDs?.first,
               onTap: onCurrencyTap,
               highlightController: searchController,
             );

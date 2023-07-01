@@ -27,21 +27,20 @@ class PosterDisplay extends StatelessWidget {
   final PosterType posterType;
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<Uint8List> capturePoster({
-    required BuildContext context,
+  static Future<Uint8List?> capturePoster({
     required PosterType posterType,
     required dynamic model,
     required dynamic helperModel,
-    double finalDesiredPicWidth,
-    ScreenshotController controller,
+    double? finalDesiredPicWidth,
+    ScreenshotController? controller,
   }) async{
 
-    final ScreenshotController _controller = controller ?? ScreenshotController();
+    final ScreenshotController? _controller = controller ?? ScreenshotController();
     final double _screenWidth = Scale.screenWidth(getMainContext());
-    final double _finalDesiredWidth = finalDesiredPicWidth ?? Standards.posterDimensions.width;
+    final double _finalDesiredWidth = finalDesiredPicWidth ?? Standards.posterDimensions.width!;
     // final double _posterHeight = NotePosterBox.getBoxHeight(width);
 
-    final Uint8List _bytes = await _controller.captureFromWidget(
+    final Uint8List? _bytes = await _controller?.captureFromWidget(
       BldrsProviders(
         child: PosterDisplay(
         posterType: posterType,

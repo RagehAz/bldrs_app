@@ -98,7 +98,7 @@ class Continent {
     return _includes;
   }
   // --------------------
-  static bool checkIconIsContinent(String icon) {
+  static bool checkIconIsContinent(String? icon) {
     bool _iconIsContinent;
 
     if (icon == Iconz.contAfrica ||

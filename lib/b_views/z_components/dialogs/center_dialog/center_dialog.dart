@@ -3,6 +3,7 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/bldrs_theme/classes/shadowers.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/layouts/nav/nav.dart';
@@ -37,18 +38,18 @@ class CenterDialog extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final Verse bodyVerse;
+  final Verse? bodyVerse;
   final bool bodyCentered;
-  final Verse title;
-  final bool boolDialog;
-  final double height;
-  final Widget child;
-  final Verse confirmButtonVerse;
+  final Verse? title;
+  final bool? boolDialog;
+  final double? height;
+  final Widget? child;
+  final Verse? confirmButtonVerse;
   final Color color;
-  final Function onOk;
+  final Function? onOk;
   final bool invertButtons;
   final bool copyOnTap;
-  final Verse noVerse;
+  final Verse? noVerse;
   // -----------------------------------------------------------------------------
 
   /// SIZES
@@ -109,7 +110,7 @@ class CenterDialog extends StatelessWidget {
     Widget? child,
     Verse? confirmButtonVerse,
     Verse? noVerse,
-    Color color = Colorz.skyDarkBlue,
+    Color? color = Colorz.skyDarkBlue,
     Function? onOk,
     bool invertButtons = false,
     bool copyOnTap = false,
@@ -158,9 +159,9 @@ class CenterDialog extends StatelessWidget {
    */
   // --------------------
   /// TESTED : WORKS PERFECT
-  Verse _getConfirmButtonVerse(){
+  Verse? _getConfirmButtonVerse(){
 
-    Verse _verse = boolDialog ?
+    Verse? _verse = Mapper.boolIsTrue(boolDialog) ?
     const Verse(
       id: 'phid_yes',
       translate: true,
@@ -364,7 +365,7 @@ class CenterDialog extends StatelessWidget {
                                       children: <Widget>[
 
                                         /// NO BUTTON
-                                        if (boolDialog == true && invertButtons == false)
+                                        if (boolDialog! == true && invertButtons == false)
                                           DialogButton(
                                             verse: noVerse ?? _noVerse,
                                             color: defaultButtonColor,
@@ -380,7 +381,7 @@ class CenterDialog extends StatelessWidget {
                                           verse: _getConfirmButtonVerse(),
                                           verseColor: invertButtons == true ? Colorz.white255 : Colorz.black230,
                                           color: invertButtons == true ? defaultButtonColor : activeButtonColor,
-                                          onTap: boolDialog == true ? () => Nav.goBack(
+                                          onTap: Mapper.boolIsTrue(boolDialog) == true ? () => Nav.goBack(
                                             context: xxx,
                                             invoker: 'CenterDialog.yes',
                                             passedData: true,
@@ -395,7 +396,7 @@ class CenterDialog extends StatelessWidget {
                                         ),
 
                                         /// NO BUTTON
-                                        if (boolDialog == true && invertButtons == true)
+                                        if (Mapper.boolIsTrue(boolDialog) == true && invertButtons == true)
                                           DialogButton(
                                             verse: noVerse ?? _noVerse,
                                             verseColor: Colorz.black230,

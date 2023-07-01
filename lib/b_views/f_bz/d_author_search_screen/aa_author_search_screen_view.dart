@@ -67,6 +67,7 @@ class AuthorSearchScreenView extends StatelessWidget {
 
                       return UserTileButtonsList(
                         usersModels: foundUsers,
+                        selectedUsers: null,
                         onUserTap: (UserModel userModel) => onShowUserDialog(
                           userModel: userModel,
                         ),

@@ -20,13 +20,13 @@ class CurrencyButton extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final double width;
+  final double? width;
   final double height;
-  final CurrencyModel currency;
-  final String countryID;
-  final ValueChanged<CurrencyModel> onTap;
-  final String icon;
-  final TextEditingController highlightController;
+  final CurrencyModel? currency;
+  final String? countryID;
+  final ValueChanged<CurrencyModel?>? onTap;
+  final String? icon;
+  final TextEditingController? highlightController;
   /// --------------------------------------------------------------------------
   static const double standardHeight = 60 + 10.0;
   // --------------------------------------------------------------------------
@@ -42,9 +42,9 @@ class CurrencyButton extends StatelessWidget {
         height: height,
         width: width ?? PageBubble.clearWidth(context),
         color: Colorz.blackSemi255,
-        icon: icon ?? Flag.getCountryIcon(countryID.toLowerCase()),
+        icon: icon ?? Flag.getCountryIcon(countryID?.toLowerCase()),
         verse: Verse(
-          id: '${currency.symbol} . ${xPhrase(currency.id)}',
+          id: '${currency?.symbol} . ${xPhrase(currency?.id)}',
           translate: false,
         ),
         // translateSecondLine: false,
@@ -52,7 +52,7 @@ class CurrencyButton extends StatelessWidget {
         iconSizeFactor: 0.7,
         verseCentered: false,
         bubble: false,
-        onTap: onTap == null ? null : () => onTap(currency),
+        onTap: onTap == null ? null : () => onTap!.call(currency),
         margins: const EdgeInsets.only(bottom: 5),
         verseHighlight: highlightController,
       );

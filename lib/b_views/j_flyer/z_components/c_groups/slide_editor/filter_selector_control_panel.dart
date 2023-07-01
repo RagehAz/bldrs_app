@@ -26,7 +26,7 @@ class FiltersSelectorControlPanel extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final double height;
-  final ValueChanged<ImageFilterModel> onSelectFilter;
+  final ValueChanged<ImageFilterModel?> onSelectFilter;
   final Function onBack;
   final ValueNotifier<DraftSlide> slide;
   final ValueNotifier<double> opacity;
@@ -86,7 +86,7 @@ class FiltersSelectorControlPanel extends StatelessWidget {
                 final int index = i - 1;
                 final bool isBackButton = i == 0;
 
-                final ImageFilterModel _filter = isBackButton ? null : presetFiltersList[index];
+                final ImageFilterModel? _filter = isBackButton ? null : presetFiltersList[index];
 
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
@@ -117,7 +117,7 @@ class FiltersSelectorControlPanel extends StatelessWidget {
                                   filterModel: _filter,
                                   width: _boxWidth,
                                   height: _boxHeight,
-                                  pic: _slide.picModel.bytes,
+                                  pic: _slide.picModel?.bytes,
                                   // boxFit: BoxFit.cover,
                                 );
 
@@ -128,7 +128,7 @@ class FiltersSelectorControlPanel extends StatelessWidget {
                             alignment: Alignment.bottomCenter,
                             child: BldrsText(
                               verse: Verse(
-                                id: _filter.id,
+                                id: _filter?.id,
                                 translate: true,
                               ),
                               maxLines: 2,

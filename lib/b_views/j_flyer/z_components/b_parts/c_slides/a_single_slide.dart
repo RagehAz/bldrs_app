@@ -30,11 +30,11 @@ class SingleSlide extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final double flyerBoxHeight;
-  final SlideModel slideModel;
+  final SlideModel? slideModel;
   final bool tinyMode;
-  final Function onSlideNextTap;
-  final Function onSlideBackTap;
-  final Function onDoubleTap;
+  final Function? onSlideNextTap;
+  final Function? onSlideBackTap;
+  final Function? onDoubleTap;
   final bool slideShadowIsOn;
   final bool blurLayerIsOn;
   final bool canTapSlide;
@@ -71,7 +71,7 @@ class SingleSlide extends StatelessWidget {
             height: flyerBoxHeight,
             blurIsOn: true,
             blur: 20,
-            borders: FlyerDim.flyerCorners(context, flyerBoxWidth),
+            borders: FlyerDim.flyerCorners(flyerBoxWidth),
           ),
 
         /// ANIMATED SLIDE
@@ -80,7 +80,7 @@ class SingleSlide extends StatelessWidget {
           flyerBoxWidth: flyerBoxWidth,
           flyerBoxHeight: flyerBoxHeight,
           onDoubleTap: onDoubleTap,
-          canAnimateMatrix: slideModel.animationCurve != null,
+          canAnimateMatrix: slideModel?.animationCurve != null,
           slideModel: slideModel,
           canUseFilter: canUseFilter,
           canTapSlide: canTapSlide,

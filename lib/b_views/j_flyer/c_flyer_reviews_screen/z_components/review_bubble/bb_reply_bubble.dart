@@ -28,10 +28,10 @@ class BzReplyBubble extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final double boxWidth;
-  final ReviewModel reviewModel;
-  final FlyerModel flyerModel;
+  final ReviewModel? reviewModel;
+  final FlyerModel? flyerModel;
   final Function onReplyOptionsTap;
-  final ValueChanged<BzModel> onReplyBzBalloonTap;
+  final ValueChanged<BzModel?> onReplyBzBalloonTap;
   final bool isSpecialReview;
   /// --------------------------------------------------------------------------
   @override
@@ -52,9 +52,9 @@ class BzReplyBubble extends StatelessWidget {
             context: context,
             flyerID: reviewModel?.flyerID,
         ),
-        builder: (_, AsyncSnapshot<Object> snapshot){
+        builder: (_, AsyncSnapshot<BzModel?> snapshot){
 
-          final BzModel _bzModel = snapshot.data;
+          final BzModel? _bzModel = snapshot.data;
 
           return Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,8 +92,7 @@ class BzReplyBubble extends StatelessWidget {
                     BldrsText(
                       verse: Verse(
                         id: BldrsTimers.calculateSuperTimeDifferenceString(
-                          context: context,
-                          from: reviewModel.replyTime,
+                          from: reviewModel?.replyTime,
                           to: DateTime.now(),
                         ),
                         translate: false,
@@ -106,7 +105,7 @@ class BzReplyBubble extends StatelessWidget {
 
                     /// TEXT
                     BldrsText(
-                      verse: Verse.plain(reviewModel.reply),
+                      verse: Verse.plain(reviewModel?.reply),
                       maxLines: 100,
                       centered: false,
                       weight: isSpecialReview ? VerseWeight.bold : VerseWeight.thin,

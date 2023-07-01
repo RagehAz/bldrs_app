@@ -19,7 +19,7 @@ class SlideEditorButton extends StatelessWidget {
   final String icon;
   final Verse verse;
   final Function onTap;
-  final bool isDisabled;
+  final bool? isDisabled;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static double getVerseZoneHeight({

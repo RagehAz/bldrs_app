@@ -7,7 +7,6 @@ import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/b_picker_screen/b_picker_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -78,7 +77,7 @@ Future<void> onGoBackFromPickersScreen({
   required BuildContext context,
   required bool isMultipleSelectionMode,
   required ValueNotifier<List<SpecModel>> selectedSpecs,
-  required List<SpecModel> widgetSelectedSpecs,
+  required List<SpecModel>? widgetSelectedSpecs,
 }) async {
 
   bool _canContinue = true;
@@ -112,7 +111,7 @@ Future<void> onGoToPickerScreen({
   required bool isMultipleSelectionMode,
   required ValueNotifier<List<PickerModel>> refinedPickersNotifier,
   required List<PickerModel> allPickers,
-  required ZoneModel zone,
+  required ZoneModel? zone,
   required bool mounted,
 }) async {
 
@@ -168,7 +167,7 @@ void _updateSelectedSpecsAndRefinePickers({
   required bool mounted,
 }) {
 
-  final Chain _specChain = ChainsProvider.proFindChainByID(
+  final Chain? _specChain = ChainsProvider.proFindChainByID(
     chainID: picker.chainID,
   );
 
@@ -216,8 +215,8 @@ void _updateSelectedSpecsAndRefinePickers({
 /// TESTED : WORKS PERFECT
 void onRemoveSpecs({
   required ValueNotifier<List<SpecModel>> selectedSpecsNotifier,
-  required SpecModel valueSpec,
-  required SpecModel unitSpec,
+  required SpecModel? valueSpec,
+  required SpecModel? unitSpec,
   required List<PickerModel> pickers,
   required bool mounted,
 }){
@@ -253,7 +252,7 @@ void onRemoveSpecs({
 /// TESTED : WORKS PERFECT
 void onAddSpecs({
   required List<SpecModel> specs,
-  required PickerModel picker,
+  required PickerModel? picker,
   required ValueNotifier<List<SpecModel>> selectedSpecs,
   required bool mounted,
 }) {
@@ -261,7 +260,7 @@ void onAddSpecs({
   final List<SpecModel> _updatedList = SpecModel.putSpecsInSpecs(
     parentSpecs: selectedSpecs.value,
     inputSpecs: specs,
-    canPickMany: picker.canPickMany,
+    canPickMany: picker?.canPickMany,
   );
 
   setNotifier(

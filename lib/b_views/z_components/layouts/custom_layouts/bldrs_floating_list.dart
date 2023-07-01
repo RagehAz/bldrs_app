@@ -13,8 +13,8 @@ class BldrsFloatingList extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final List<Widget> columnChildren;
-  final MainAxisAlignment mainAxisAlignment;
-  final CrossAxisAlignment crossAxisAlignment;
+  final MainAxisAlignment? mainAxisAlignment;
+  final CrossAxisAlignment? crossAxisAlignment;
   final bool hasMargins;
   /// --------------------------------------------------------------------------
   @override

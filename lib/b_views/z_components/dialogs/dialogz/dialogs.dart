@@ -94,8 +94,8 @@ class Dialogs {
   /// TESTED : WORKS PERFECT
   static Future<void> centerNotice({
     required Verse verse,
-    Verse body,
-    Color color,
+    Verse? body,
+    Color? color,
   }) async {
 
     await CenterDialog.showCenterDialog(
@@ -161,11 +161,11 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> confirmProceed({
-    Verse titleVerse,
-    Verse bodyVerse,
+    Verse? titleVerse,
+    Verse? bodyVerse,
     bool invertButtons = false,
-    Verse noVerse,
-    Verse yesVerse,
+    Verse? noVerse,
+    Verse? yesVerse,
   }) async {
 
     final bool _result = await CenterDialog.showCenterDialog(
@@ -375,7 +375,7 @@ class Dialogs {
 
     // blog('authErrorDialog result : $result');
 
-    Verse _errorReplyVerse;
+    Verse? _errorReplyVerse;
 
     for (final Map<String, dynamic> map in _errors) {
 
@@ -404,7 +404,7 @@ class Dialogs {
     // [firebase_auth/user-not-found]
     // [firebase_auth/user-not-found]
 
-    blog('_errorReplyVerse : ${_errorReplyVerse.id}');
+    blog('_errorReplyVerse : ${_errorReplyVerse?.id}');
 
     await CenterDialog.showCenterDialog(
       titleVerse: const Verse(
@@ -433,8 +433,8 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> errorDialog({
-    Verse titleVerse,
-    Verse bodyVerse,
+    Verse? titleVerse,
+    Verse? bodyVerse,
   }) async {
 
     await CenterDialog.showCenterDialog(
@@ -464,22 +464,22 @@ class Dialogs {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<String> keyboardDialog({
-    KeyboardModel keyboardModel,
+  static Future<String?> keyboardDialog({
+    KeyboardModel? keyboardModel,
     bool confirmButtonIsOn = true,
   }) async {
 
-    final KeyboardModel _keyboardModel = keyboardModel ?? KeyboardModel.standardModel();
-    Future<void> _onSubmit (String text) async {
+    final KeyboardModel? _keyboardModel = keyboardModel ?? KeyboardModel.standardModel();
+    Future<void> _onSubmit (String? text) async {
 
       Keyboard.closeKeyboard();
       await Nav.goBack(
         context: getMainContext(),
         invoker: 'keyboardDialog',
       );
-      if (_keyboardModel.onSubmitted != null){
-        if (_keyboardModel.validator == null || _keyboardModel.validator(text) == null){
-          _keyboardModel.onSubmitted(text);
+      if (_keyboardModel?.onSubmitted != null){
+        if (_keyboardModel?.validator == null || _keyboardModel?.validator?.call(text) == null){
+          _keyboardModel?.onSubmitted?.call(text);
         }
       }
 
@@ -494,8 +494,8 @@ class Dialogs {
         titleIsOn: false
     );
 
-    bool _buttonDeactivated;
-    String _text = _keyboardModel.initialText;
+    bool? _buttonDeactivated;
+    String? _text = _keyboardModel?.initialText;
 
     await BottomDialog.showBottomDialog(
       height: _overridingDialogHeight,
@@ -511,49 +511,49 @@ class Dialogs {
               children: <Widget>[
 
                 BldrsTextFieldBubble(
-                  formKey: _keyboardModel.globalKey,
+                  formKey: _keyboardModel?.globalKey,
                   bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
                     context: getMainContext(),
-                    headlineVerse: _keyboardModel.titleVerse,
+                    headlineVerse: _keyboardModel?.titleVerse,
                   ),
                   appBarType: AppBarType.non,
-                  isFloatingField: _keyboardModel.isFloatingField,
-                  initialText: _keyboardModel.initialText,
-                  maxLines: _keyboardModel.maxLines,
-                  minLines: _keyboardModel.minLines,
-                  maxLength: _keyboardModel.maxLength,
+                  isFloatingField: _keyboardModel?.isFloatingField,
+                  initialText: _keyboardModel?.initialText,
+                  maxLines: _keyboardModel?.maxLines,
+                  minLines: _keyboardModel?.minLines,
+                  maxLength: _keyboardModel?.maxLength,
                   bubbleWidth: _clearWidth,
-                  hintVerse: _keyboardModel.hintVerse,
-                  counterIsOn: _keyboardModel.counterIsOn,
-                  isObscured: _keyboardModel.isObscured,
-                  keyboardTextInputType: _keyboardModel.textInputType,
-                  keyboardTextInputAction: _keyboardModel.textInputAction,
+                  hintVerse: _keyboardModel?.hintVerse,
+                  counterIsOn: _keyboardModel?.counterIsOn,
+                  isObscured: _keyboardModel?.isObscured,
+                  keyboardTextInputType: _keyboardModel?.textInputType,
+                  keyboardTextInputAction: _keyboardModel?.textInputAction,
                   autoFocus: true,
-                  isFormField: _keyboardModel.isFormField,
+                  isFormField: _keyboardModel?.isFormField,
                   onSubmitted: _onSubmit,
                   // autoValidate: true,
-                  validator: (String text){
-                    if (_keyboardModel.validator != null){
-                      return _keyboardModel?.validator(_text);
+                  validator: (String? text){
+                    if (_keyboardModel?.validator != null){
+                      return _keyboardModel?.validator?.call(_text);
                     }
                     else {
                       return null;
                     }
                   },
-                  onTextChanged: (String text){
+                  onTextChanged: (String? text){
 
                     setState((){
                       _text = text;
                     });
 
-                    if (_keyboardModel.onChanged != null){
-                      _keyboardModel.onChanged(text);
+                    if (_keyboardModel?.onChanged != null){
+                      _keyboardModel?.onChanged?.call(text);
                     }
 
-                    if (_keyboardModel.validator != null){
+                    if (_keyboardModel?.validator != null){
 
                       setState((){
-                        if (_keyboardModel.validator(_text) == null){
+                        if (_keyboardModel?.validator?.call(_text) == null){
                           _buttonDeactivated = false;
                         }
                         else {
@@ -611,10 +611,10 @@ class Dialogs {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<CityModel> confirmCityDialog({
+  static Future<CityModel?> confirmCityDialog({
     required List<CityModel> cities,
   }) async {
-    CityModel _city;
+    CityModel? _city;
 
     await BottomDialog.showButtonsBottomDialog(
         buttonHeight: 50,
@@ -635,7 +635,7 @@ class Dialogs {
             ...List<Widget>.generate(cities.length, (int index) {
 
               final CityModel _foundCity = cities[index];
-              final String _foundCityName = CityModel.translateCity(
+              final String? _foundCityName = CityModel.translateCity(
                 city: _foundCity,
               );
 
@@ -692,7 +692,7 @@ class Dialogs {
     required UserModel userModel,
     required Verse titleVerse,
     required Verse bodyVerse,
-    Verse confirmButtonVerse,
+    Verse? confirmButtonVerse,
     bool boolDialog = true,
     bool invertButtons = false,
   }) async {
@@ -747,10 +747,10 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> bzzBannersDialog({
-    required List<BzModel> bzzModels,
+    required List<BzModel>? bzzModels,
     required Verse titleVerse,
     required Verse bodyVerse,
-    Verse confirmButtonVerse,
+    Verse? confirmButtonVerse,
     bool boolDialog = true,
     bool invertButtons = false,
   }) async {
@@ -777,7 +777,7 @@ class Dialogs {
           itemBuilder: (_, int index){
 
             return BzBanner(
-              bzModel: bzzModels[index],
+              bzModel: bzzModels![index],
               boxWidth: CenterDialog.clearWidth(getMainContext()) * 0.8,
               boxHeight: CenterDialog.clearWidth(getMainContext()),
               bigName: false,
@@ -829,7 +829,7 @@ class Dialogs {
           itemBuilder: (_, int index){
 
             return AuthorCard(
-              author: bzModel?.authors[index],
+              author: bzModel!.authors![index],
               bzModel: bzModel,
               onContactTap: onContact,
               bubbleWidth: CenterDialog.getWidth(context),
@@ -937,7 +937,7 @@ class Dialogs {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> slideDialog({
-    required SlideModel slideModel,
+    required SlideModel? slideModel,
     required Verse titleVerse,
     Verse? bodyVerse,
     Verse? confirmButtonVerse,
@@ -957,7 +957,7 @@ class Dialogs {
       confirmButtonVerse: confirmButtonVerse,
       height: _dialogHeight,
       invertButtons: invertButtons,
-      copyOnTap: false,
+      // copyOnTap: false,
       child: Container(
         width: CenterDialog.getWidth(context),
         alignment: Alignment.center,

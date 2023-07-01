@@ -17,9 +17,9 @@ class FlyerAuditLayer extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final AuditState auditState;
+  final AuditState? auditState;
   /// --------------------------------------------------------------------------
-  static bool showAuditLayer(AuditState auditState){
+  static bool showAuditLayer(AuditState? auditState){
     final bool _shouldHide =
             auditState == null
             ||
@@ -39,7 +39,7 @@ class FlyerAuditLayer extends StatelessWidget {
     /// IF SUSPENDED OR PENDING
     else {
 
-      final String _phid =
+      final String? _phid =
       auditState == AuditState.pending ? 'phid_waiting_verification'
           :
       auditState == AuditState.suspended ? 'phid_suspended'
@@ -58,7 +58,7 @@ class FlyerAuditLayer extends StatelessWidget {
               Transform.scale(
                 scale: 2,
                 child: Transform.rotate(
-                  angle: Numeric.degreeToRadian(-45),
+                  angle: Numeric.degreeToRadian(-45)!,
                   child: Center(
                     child: WidgetFader(
                       fadeType: FadeType.repeatAndReverse,

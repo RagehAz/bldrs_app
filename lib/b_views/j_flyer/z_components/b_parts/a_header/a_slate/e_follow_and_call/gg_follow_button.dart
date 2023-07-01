@@ -11,14 +11,12 @@ class FollowButton extends StatelessWidget {
   const FollowButton({
     required this.flyerBoxWidth,
     required this.onFollowTap,
-    required this.tappingUnfollow,
     required this.followIsOn,
     super.key
   });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final Function onFollowTap;
-  final Function tappingUnfollow;
+  final Function? onFollowTap;
   final ValueNotifier<bool> followIsOn;
   /// --------------------------------------------------------------------------
   @override
@@ -29,7 +27,7 @@ class FollowButton extends StatelessWidget {
     final double _followIconSize = _followBTHeight * 0.5;
     // --------------------
     return GestureDetector(
-      onTap: onFollowTap,
+      onTap: onFollowTap == null ? null : () => onFollowTap!(),
       child: ValueListenableBuilder(
         valueListenable: followIsOn,
         builder: (_, bool _followIsOn, Widget? child){

@@ -17,8 +17,8 @@ class HeaderBox extends StatelessWidget {
   final double flyerBoxWidth;
   /// either double of Animation<double>
   final dynamic headerHeightTween;
-  final Color headerColor;
-  final BorderRadius headerBorders;
+  final Color? headerColor;
+  final BorderRadius? headerBorders;
   final Widget child;
   final ValueNotifier<bool>? headerIsExpanded;
   /// --------------------------------------------------------------------------

@@ -12,7 +12,7 @@ class NoResultFound extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final Color color;
-  final Verse verse;
+  final Verse? verse;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

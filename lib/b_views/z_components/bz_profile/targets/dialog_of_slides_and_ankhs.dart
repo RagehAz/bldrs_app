@@ -35,8 +35,8 @@ class DialogOfSlidesAndAnkhs extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: const <Widget>[
+    return const Column(
+      children: <Widget>[
         BldrsText(
           verse:  Verse(
             id: 'Blo blo blo',

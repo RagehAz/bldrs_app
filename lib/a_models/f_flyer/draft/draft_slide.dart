@@ -616,14 +616,14 @@ class DraftSlide {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<DraftSlide> removeDraftFromDrafts({
-    required List<DraftSlide> drafts,
+    required List<DraftSlide>? drafts,
     required DraftSlide draft,
   }){
     List<DraftSlide> _output = <DraftSlide>[];
 
     if (Mapper.checkCanLoopList(drafts) == true){
 
-      final List<DraftSlide> _list = [...drafts];
+      final List<DraftSlide> _list = [...drafts!];
       _list.removeAt(draft.slideIndex);
 
 

@@ -18,12 +18,12 @@ class HeaderLabelsTree extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final Animation<double> headerLabelsWidthTween;
+  final Animation<double>? headerLabelsWidthTween;
   final double logoMinWidth;
-  final Animation<double> logoSizeRatioTween;
+  final Animation<double>? logoSizeRatioTween;
   final double flyerBoxWidth;
-  final FlyerModel flyerModel;
-  final BzModel bzModel;
+  final FlyerModel? flyerModel;
+  final BzModel? bzModel;
   final bool tinyMode;
   final ValueNotifier<bool> headerIsExpanded;
   /// --------------------------------------------------------------------------
@@ -51,8 +51,8 @@ class HeaderLabelsTree extends StatelessWidget {
       },
       child: Center(
         child: SizedBox(
-          width: headerLabelsWidthTween.value,
-          height: logoMinWidth * logoSizeRatioTween.value,
+          width: headerLabelsWidthTween?.value ?? 0,
+          height: logoMinWidth * (logoSizeRatioTween?.value ?? 1),
           child: ListView(
             physics: const NeverScrollableScrollPhysics(),
             scrollDirection: Axis.horizontal,
@@ -61,12 +61,12 @@ class HeaderLabelsTree extends StatelessWidget {
 
               if (tinyMode == false)
                 HeaderLabels(
-                  flyerBoxWidth: flyerBoxWidth  * logoSizeRatioTween.value,
-                  authorID: flyerModel.authorID,
-                  authorImage: flyerModel.authorImage,
+                  flyerBoxWidth: flyerBoxWidth  * (logoSizeRatioTween?.value ?? 1),
+                  authorID: flyerModel?.authorID,
+                  authorImage: flyerModel?.authorImage,
                   bzModel: bzModel,
                   headerIsExpanded: false, //_headerIsExpanded,
-                  flyerShowsAuthor: flyerModel.showsAuthor,
+                  flyerShowsAuthor: flyerModel?.showsAuthor ?? false,
                   showHeaderLabels: true,
                 ),
 

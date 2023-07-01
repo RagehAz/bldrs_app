@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -94,7 +95,7 @@ class FlyerSearch {
           ),
 
         /// SHOWING AUTHORS ONLY
-        if (searchModel?.flyerSearchModel?.onlyShowingAuthors == true)
+        if (Mapper.boolIsTrue(searchModel?.flyerSearchModel?.onlyShowingAuthors) == true)
           const FireFinder(
             field: 'showsAuthor',
             comparison: FireComparison.equalTo,
@@ -102,7 +103,7 @@ class FlyerSearch {
           ),
 
         /// PRICES ONLY
-        if (searchModel?.flyerSearchModel?.onlyWithPrices == true)
+        if (Mapper.boolIsTrue(searchModel?.flyerSearchModel?.onlyWithPrices) == true)
           const FireFinder(
             field: 'hasPriceTag',
             comparison: FireComparison.equalTo,
@@ -110,7 +111,7 @@ class FlyerSearch {
           ),
 
         /// AMAZON ONLY
-        if (searchModel?.flyerSearchModel?.onlyAmazonProducts == true)
+        if (Mapper.boolIsTrue(searchModel?.flyerSearchModel?.onlyAmazonProducts) == true)
           const FireFinder(
             field: 'isAmazonFlyer',
             comparison: FireComparison.equalTo,
@@ -134,7 +135,7 @@ class FlyerSearch {
           ),
 
         /// PDF
-        if (searchModel?.flyerSearchModel?.onlyWithPDF == true)
+        if (Mapper.boolIsTrue(searchModel?.flyerSearchModel?.onlyWithPDF) == true)
           const FireFinder(
             field: 'hasPDF',
             comparison: FireComparison.equalTo,

@@ -32,13 +32,13 @@ class WaitDialog extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final bool canManuallyGoBack;
-  final Verse loadingVerse;
+  final bool? canManuallyGoBack;
+  final Verse? loadingVerse;
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static void showUnawaitedWaitDialog({
     bool canManuallyGoBack = false,
-    Verse verse,
+    Verse? verse,
   }) {
 
     unawaited(_showWaitDialog(
@@ -86,7 +86,12 @@ class WaitDialog extends StatelessWidget {
     // --------------------
     return WillPopScope(
       onWillPop: () async {
-        return !canManuallyGoBack;
+        if (canManuallyGoBack == null){
+          return true;
+        }
+        else {
+          return !canManuallyGoBack!;
+        }
       },
       child: Scaffold(
         backgroundColor: Colorz.black125,
@@ -131,9 +136,9 @@ class WaitDialog extends StatelessWidget {
                   const Loading(loading: true),
 
                   /// LOADING VERSE
-                  Selector<UiProvider, Verse>(
+                  Selector<UiProvider, Verse?>(
                     selector: (_, UiProvider uiProvider) => uiProvider.loadingVerse,
-                    builder: (BuildContext context, Verse verse, Widget? child) {
+                    builder: (BuildContext context, Verse? verse, Widget? child) {
                       if (verse == null) {
                         return const SizedBox();
                       } else {

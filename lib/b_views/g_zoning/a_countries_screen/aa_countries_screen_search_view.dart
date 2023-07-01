@@ -22,12 +22,12 @@ class SelectCountryScreenSearchView extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final ValueChanged<String> onCountryTap;
-  final ValueChanged<String> onDeactivatedCountryTap;
+  final ValueChanged<String?> onCountryTap;
+  final ValueChanged<String?> onDeactivatedCountryTap;
   final ValueNotifier<bool> loading;
-  final ValueNotifier<List<Phrase>> foundCountries;
+  final ValueNotifier<List<Phrase>?> foundCountries;
   final List<String> shownCountriesIDs;
-  final List<CensusModel> countriesCensus;
+  final List<CensusModel>? countriesCensus;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class SelectCountryScreenSearchView extends StatelessWidget {
           else {
             return ValueListenableBuilder(
               valueListenable: foundCountries,
-              builder: (_, List<Phrase> foundCountries, Widget? child){
+              builder: (_, List<Phrase>? foundCountries, Widget? child){
 
                 const EdgeInsets _topMargin = EdgeInsets.only(
                   top: Ratioz.appBarBigHeight + Ratioz.appBarMargin * 2,
@@ -58,24 +58,27 @@ class SelectCountryScreenSearchView extends StatelessWidget {
 
                   return ListView.builder(
                       physics: const BouncingScrollPhysics(),
-                      itemCount: foundCountries.length,
+                      itemCount: foundCountries!.length,
                       padding: _topMargin,
                       shrinkWrap: true,
                       itemBuilder: (_, int index) {
 
-                        final Phrase _countryPhrase = foundCountries[index];
+                        final Phrase? _countryPhrase = foundCountries[index];
 
                         final CensusModel? _census = CensusModel.getCensusFromCensusesByID(
                           censuses: countriesCensus,
-                          censusID: _countryPhrase.id,
+                          censusID: _countryPhrase?.id,
                         );
 
                         return CountryTileButton(
-                          countryID: _countryPhrase.id,
-                          isActive: Stringer.checkStringsContainString(strings: shownCountriesIDs, string: _countryPhrase.id),
+                          countryID: _countryPhrase?.id,
+                          isActive: Stringer.checkStringsContainString(
+                              strings: shownCountriesIDs,
+                              string: _countryPhrase?.id,
+                          ),
                           censusModel: _census,
-                          onTap: () => onCountryTap(_countryPhrase.id),
-                          onDeactivatedTap: () => onDeactivatedCountryTap(_countryPhrase.id),
+                          onTap: () => onCountryTap(_countryPhrase?.id),
+                          onDeactivatedTap: () => onDeactivatedCountryTap(_countryPhrase?.id),
                         );
 
                       }

@@ -29,10 +29,10 @@ class DraftShelfSlide extends StatefulWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final DraftSlide draftSlide;
-  final int number;
-  final Function onTap;
-  final Function onDeleteSlide;
+  final DraftSlide? draftSlide;
+  final int? number;
+  final Function? onTap;
+  final Function? onDeleteSlide;
   /// --------------------------------------------------------------------------
   static const double flyerBoxWidth = 150;
   static const double slideNumberBoxHeight = 20;
@@ -88,7 +88,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
 
           /// FLYER NUMBER
           ReorderableDragStartListener(
-            index: widget.draftSlide.slideIndex,
+            index: widget.draftSlide?.slideIndex ?? 0,
             child: Container(
               width: DraftShelfSlide.flyerBoxWidth,
               height: DraftShelfSlide.slideNumberBoxHeight,
@@ -112,7 +112,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
 
           /// SLIDE
           GestureDetector(
-            onTap: widget.onTap,
+            onTap: widget.onTap == null ? null : () => widget.onTap?.call(),
             onDoubleTap: _onReAnimate,
             child: FlyerBox(
               key: const ValueKey<String>('shelf_slide_flyer_box'),
@@ -125,7 +125,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                   SuperFilteredImage(
                     width: DraftShelfSlide.flyerBoxWidth,
                     height: _flyerBoxHeight,
-                    pic: widget.draftSlide.picModel?.bytes,
+                    pic: widget.draftSlide?.picModel?.bytes,
                     filterModel: widget.draftSlide?.filter,
                   ),
 
@@ -137,7 +137,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                     height: _flyerBoxHeight,
                     blurIsOn: true,
                     blur: 20,
-                    borders: FlyerDim.flyerCorners(context, DraftShelfSlide.flyerBoxWidth),
+                    borders: FlyerDim.flyerCorners(DraftShelfSlide.flyerBoxWidth),
                   ),
 
                 /// IMAGE
@@ -149,16 +149,16 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                       if (_animate == true){
                         return AnimateWidgetToMatrix(
                           matrix: Trinity.renderSlideMatrix(
-                              matrix: widget.draftSlide.matrix,
+                              matrix: widget.draftSlide?.matrix,
                               flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
                               flyerBoxHeight: _flyerBoxHeight
                           ),
                           replayOnRebuild: true,
-                          child: child,
+                          child: child!,
                         );
                       }
                       else {
-                        return child;
+                        return child!;
                       }
 
                     },
@@ -166,9 +166,9 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                       width: DraftShelfSlide.flyerBoxWidth,
                       height: _flyerBoxHeight,
                       // bytes: widget.draftSlide.picModel.bytes,
-                      pic: widget.draftSlide.picModel?.bytes,
+                      pic: widget.draftSlide?.picModel?.bytes,
                       filterModel: widget.draftSlide?.filter,
-                      boxFit: widget.draftSlide.picFit,
+                      boxFit: widget.draftSlide?.picFit ?? BoxFit.cover,
                     ),
                   ),
 
@@ -201,12 +201,12 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                 if (widget.draftSlide != null)
                   SlideHeadline(
                     flyerBoxWidth: DraftShelfSlide.flyerBoxWidth, /// i don't know why i decreased the 10
-                    text: widget.draftSlide.headline,
+                    text: widget.draftSlide?.headline,
                   ),
 
                 if (widget.draftSlide != null)
                   DeleteDraftSlideButton(
-                    onTap: widget.onDeleteSlide,
+                    onTap: () => widget.onDeleteSlide?.call(),
                   ),
 
               ],

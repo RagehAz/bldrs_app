@@ -2,6 +2,7 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:basics/bubbles/model/bubble_header_vm.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/layouts/handlers/max_bounce_navigator.dart';
 import 'package:bldrs/a_models/x_utilities/map_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
@@ -29,13 +30,13 @@ class ListLayout extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final Verse pageTitleVerse;
-  final String pyramids;
-  final List<MapModel> mapModels;
-  final List<String> icons;
-  final ValueChanged<String> onItemTap;
-  final String pageIcon;
-  final Verse pageIconVerse;
+  final Verse? pageTitleVerse;
+  final String? pyramids;
+  final List<MapModel>? mapModels;
+  final List<String>? icons;
+  final ValueChanged<String>? onItemTap;
+  final String? pageIcon;
+  final Verse? pageIconVerse;
   final SkyType sky;
   /// --------------------------------------------------------------------------
   @override
@@ -105,7 +106,7 @@ class ListLayout extends StatelessWidget {
                     boxDistance: _bubbleHeight - (Ratioz.appBarMargin * 5),
                     child: ListView.builder(
                       physics: const BouncingScrollPhysics(),
-                      itemCount: mapModels.length,
+                      itemCount: mapModels?.length ?? 0,
                       // padding: EdgeInsets.zero, /// AGAIN => ENTA EBN WES5A
                       itemBuilder: (BuildContext context, int index) {
                         return Align(
@@ -113,15 +114,17 @@ class ListLayout extends StatelessWidget {
                           child: BldrsBox(
                             height: 40,
                             width: _clearWidth - 10,
-                            icon: icons == null || icons.isEmpty ? null : icons[index],
+                            icon: Mapper.checkCanLoopList(icons) == false ? null : icons![index],
                             iconSizeFactor: 0.8,
-                            verse: mapModels[index].value,
+                            verse: Mapper.checkCanLoopList(mapModels) == false ? null : mapModels![index].value,
                             bubble: false,
                             margins: const EdgeInsets.symmetric(vertical: 5),
                             verseScaleFactor: 0.8,
                             color: Colorz.white10,
                             // textDirection: superTextDirection(context),
-                            onTap: () => onItemTap(mapModels[index].key),
+                            onTap: Mapper.checkCanLoopList(mapModels) == false ? null
+                                :
+                                () => onItemTap?.call(mapModels![index].key!),
                           ),
                         );
                       },

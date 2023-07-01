@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/g_counters/flyer_counter_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/a_info_button_structure/f_info_page_contents.dart';
@@ -13,10 +14,10 @@ class ExpandedInfoPageTree extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final ValueNotifier<bool> buttonIsExpanded;
+  final ValueNotifier<bool?> buttonIsExpanded;
   final double flyerBoxWidth;
-  final FlyerModel flyerModel;
-  final ValueNotifier<FlyerCounterModel> flyerCounter;
+  final FlyerModel? flyerModel;
+  final ValueNotifier<FlyerCounterModel?> flyerCounter;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -24,10 +25,12 @@ class ExpandedInfoPageTree extends StatelessWidget {
     return ValueListenableBuilder(
       key: const ValueKey<String>('INFO_PAGE_CONTENTS'),
       valueListenable: buttonIsExpanded,
-      builder: (_, bool buttonExpanded, Widget? infoPageContents){
+      builder: (_, bool? buttonExpanded, Widget? infoPageContents){
+
+        final bool _expanded = Mapper.boolIsTrue(buttonExpanded);
 
         return AnimatedOpacity(
-          opacity: buttonExpanded == true ? 1 : 0,
+          opacity: _expanded == true ? 1 : 0,
           duration: const Duration(milliseconds: 400),
           curve: Curves.easeOut,
           child: infoPageContents,

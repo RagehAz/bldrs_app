@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/layouts/handlers/max_bounce_navigator.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -27,7 +28,7 @@ class GallerySlide extends StatefulWidget {
   final double flyerBoxHeight;
   final FlyerModel flyerModel;
   final BzModel bzModel;
-  final String heroTag;
+  final String? heroTag;
   final Function onMaxBounce;
   /// --------------------------------------------------------------------------
   @override
@@ -99,7 +100,7 @@ class _GallerySlideState extends State<GallerySlide> {
     // final double _screenHeight = Scale.superScreenHeight(context);
     const double _paginationHeightLight = Ratioz.horizon * 3;
 
-    if (_maxScroll - _currentScroll <= _paginationHeightLight && _canPaginate == true){
+    if (_maxScroll - _currentScroll <= _paginationHeightLight && Mapper.boolIsTrue(_canPaginate) == true){
 
       // blog('_maxScroll : $_maxScroll : _currentScroll : $_currentScroll : diff : ${_maxScroll - _currentScroll} : _delta : $_delta');
 
@@ -128,7 +129,7 @@ class _GallerySlideState extends State<GallerySlide> {
       flyerModel: widget.flyerModel,
       bzModel: widget.bzModel,
       loadedFlyers: _loadedFlyers.value,
-      heroTag: widget.heroTag,
+      heroTag: widget.heroTag ?? '',
     );
 
     _addToBzFlyers(_moreFlyers);
@@ -196,7 +197,7 @@ class _GallerySlideState extends State<GallerySlide> {
                 gridType: FlyerGridType.heroic,
                 topPadding: _headerAndProgressHeights,
                 // numberOfColumns: 2,
-                screenName: widget.heroTag,
+                screenName: widget.heroTag ?? '',
                 scrollController: _scrollController,
                 hasResponsiveSideMargin: false,
               ),

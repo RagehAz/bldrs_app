@@ -6,7 +6,6 @@ import 'package:bldrs/b_views/j_flyer/z_components/c_groups/deck/flyer_deck.dart
 import 'package:bldrs/b_views/z_components/poster/structure/x_note_poster_box.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 
 class BzPoster extends StatelessWidget {
   // -----------------------------------------------------------------------------
@@ -20,8 +19,8 @@ class BzPoster extends StatelessWidget {
   // --------------------
   final double width;
   final BzModel bzModel;
-  final FlyerModel bzSlidesInOneFlyer;
-  final String screenName;
+  final FlyerModel? bzSlidesInOneFlyer;
+  final String? screenName;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

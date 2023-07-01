@@ -38,12 +38,12 @@ class SlideEditorSlidePart extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final ValueNotifier<DraftSlide?> draftSlide;
   final double height;
-  final Function onSlideTap;
-  final Function onSlideDoubleTap;
+  final Function? onSlideTap;
+  final Function? onSlideDoubleTap;
   final ValueNotifier<bool> isPlayingAnimation;
   final ValueNotifier<bool> isTransforming;
-  final ValueNotifier<Matrix4> matrix;
-  final ValueNotifier<ImageFilterModel> filterModel;
+  final ValueNotifier<Matrix4?> matrix;
+  final ValueNotifier<ImageFilterModel?> filterModel;
   final AppBarType appBarType;
   final GlobalKey globalKey;
   final bool mounted;
@@ -75,8 +75,8 @@ class SlideEditorSlidePart extends StatelessWidget {
     // --------------------
     return GestureDetector(
       key: const ValueKey<String>('SlideEditorSlidePart'),
-      onTap: onSlideTap,
-      onDoubleTap: onSlideDoubleTap,
+      onTap: () => onSlideTap?.call(),
+      onDoubleTap: () => onSlideDoubleTap?.call(),
       child: Container(
         width: _screenWidth,
         height: _slideZoneHeight,
@@ -84,13 +84,13 @@ class SlideEditorSlidePart extends StatelessWidget {
         child: FlyerBox(
           key: const ValueKey<String>('flyer_box_slide_editor'),
           flyerBoxWidth: _flyerBoxWidth,
-          boxColor: draftSlide.value.midColor,
+          boxColor: draftSlide.value?.midColor,
           stackWidgets: <Widget>[
 
             /// BACK GROUND COVER SLIDE
             ValueListenableBuilder(
               valueListenable: draftSlide,
-              builder: (_, DraftSlide _slide, Widget? child) {
+              builder: (_, DraftSlide? _slide, Widget? child) {
                 return SlideBackCoverImage(
                   filterModel: filterModel,
                   flyerBoxWidth: _flyerBoxWidth,
@@ -106,13 +106,13 @@ class SlideEditorSlidePart extends StatelessWidget {
               height: _flyerBoxHeight,
               blurIsOn: true,
               blur: 20,
-              borders: FlyerDim.flyerCorners(context, _flyerBoxWidth),
+              borders: FlyerDim.flyerCorners(_flyerBoxWidth),
             ),
 
             /// SLIDE
             ValueListenableBuilder(
               valueListenable: draftSlide,
-              builder: (_, DraftSlide _slide, Widget? child) {
+              builder: (_, DraftSlide? _slide, Widget? child) {
                 return SlideTransformer(
                   matrix: matrix,
                   filterModel: filterModel,
@@ -133,7 +133,8 @@ class SlideEditorSlidePart extends StatelessWidget {
                   if (isPlaying == true) {
                     return ValueListenableBuilder(
                       valueListenable: draftSlide,
-                      builder: (_, DraftSlide draft, Widget? child) {
+                      builder: (_, DraftSlide? draft, Widget? child) {
+
                         Trinity.blogMatrix(draft?.matrix);
 
                         return Stack(
@@ -145,7 +146,7 @@ class SlideEditorSlidePart extends StatelessWidget {
                               height: _flyerBoxHeight,
                               blurIsOn: true,
                               blur: 20,
-                              borders: FlyerDim.flyerCorners(context, _flyerBoxWidth),
+                              borders: FlyerDim.flyerCorners(_flyerBoxWidth),
                             ),
 
                             AnimateWidgetToMatrix(
@@ -155,7 +156,7 @@ class SlideEditorSlidePart extends StatelessWidget {
                                 flyerBoxHeight: _flyerBoxHeight,
                               ),
                               // canAnimate: true,
-                              curve: draft.animationCurve,
+                              curve: draft?.animationCurve ?? Curves.easeIn,
                               replayOnRebuild: true,
                               onAnimationEnds: () {
                                 setNotifier(
@@ -166,7 +167,7 @@ class SlideEditorSlidePart extends StatelessWidget {
                                 height: _flyerBoxHeight,
                                 pic: draft?.picModel?.bytes,
                                 filterModel: ImageFilterModel.getFilterByID(draft?.filter?.id),
-                                boxFit: draft?.picFit,
+                                boxFit: draft?.picFit ?? BoxFit.cover,
                                 // canUseFilter: false,
                               ),
                             ),

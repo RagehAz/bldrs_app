@@ -53,11 +53,11 @@ class BldrsTextFieldBubble extends StatelessWidget {
   final BubbleHeaderVM bubbleHeaderVM;
   final double? bubbleWidth;
   final Verse? hintVerse;
-  final bool counterIsOn;
-  final int maxLines;
-  final int maxLength;
+  final bool? counterIsOn;
+  final int? maxLines;
+  final int? maxLength;
   final TextEditingController? textController;
-  final TextInputType keyboardTextInputType;
+  final TextInputType? keyboardTextInputType;
   final ValueChanged<String?>? onTextChanged;
   final ValueChanged<String?>? onSubmitted;
   final ValueNotifier<bool>? isObscured;
@@ -76,10 +76,10 @@ class BldrsTextFieldBubble extends StatelessWidget {
   // final bool isError;
   final List<Widget>? columnChildren;
   final int textSize;
-  final int minLines;
+  final int? minLines;
   final bool autoFocus;
   final FocusNode? focusNode;
-  final bool isFloatingField;
+  final bool? isFloatingField;
   final Function? onFieldTap;
   final GlobalKey? formKey;
   final AppBarType appBarType;
@@ -171,7 +171,7 @@ class BldrsTextFieldBubble extends StatelessWidget {
       bulletPoints: Verse.bakeVerses(verses: bulletPoints),
       bulletPointsFont: BldrsText.superVerseFont(VerseWeight.thin),
       columnChildren: columnChildren,
-      counterIsOn: counterIsOn,
+      counterIsOn: counterIsOn ?? false,
       // fieldScrollController: null,
       fieldScrollPadding: _scrollPadding,
       // fieldTextCentered: false,

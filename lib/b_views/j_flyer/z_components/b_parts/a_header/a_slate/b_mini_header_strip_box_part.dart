@@ -16,21 +16,24 @@ class MiniHeaderStripBoxPart extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final double minHeaderHeight;
-  final Animation<double> logoSizeRatioTween;
-  final Animation<double> headerLeftSpacerTween;
+  final Animation<double>? logoSizeRatioTween;
+  final Animation<double>? headerLeftSpacerTween;
   final bool tinyMode;
-  final BorderRadius headerBorders;
+  final BorderRadius? headerBorders;
   final List<Widget> children;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
+    final double _logoSizeRatioTweenWidth = logoSizeRatioTween?.value ?? 1;
+    final double _headerLeftSpacerTweenValue = headerLeftSpacerTween?.value ?? 0;
+
     return Container(
       key: const ValueKey<String>('miniHeaderStrip'),
       width: flyerBoxWidth,
-      height: (minHeaderHeight * logoSizeRatioTween.value) + (headerLeftSpacerTween.value),
+      height: (minHeaderHeight * _logoSizeRatioTweenWidth) + _headerLeftSpacerTweenValue,
       alignment: Alignment.topCenter,
-      padding: EdgeInsets.only(top: headerLeftSpacerTween.value),
+      padding: EdgeInsets.only(top: headerLeftSpacerTween?.value ?? 0),
       color: Colorz.black80,
       // decoration: BoxDecoration(
         // color: tinyMode == true ? Colorz.white50 : Colorz.black80,

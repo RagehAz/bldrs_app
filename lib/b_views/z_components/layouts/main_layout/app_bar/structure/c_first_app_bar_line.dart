@@ -15,12 +15,12 @@ class FirstAppBarLine extends StatelessWidget {
   });
   // -----------------------------------------------------------------------------
   final bool canGoBack;
-  final AppBarType appBarType;
+  final AppBarType? appBarType;
   final bool sectionButtonIsOn;
   final Function onBack;
-  final Verse pageTitleVerse;
-  final List<Widget> appBarRowWidgets;
-  final ScrollController appBarScrollController;
+  final Verse? pageTitleVerse;
+  final List<Widget>? appBarRowWidgets;
+  final ScrollController? appBarScrollController;
   final double minBoxHeight;
   // -----------------------------------------------------------------------------
   @override

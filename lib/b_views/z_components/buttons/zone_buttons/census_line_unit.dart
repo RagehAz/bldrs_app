@@ -18,7 +18,7 @@ class CensusLineUnit extends StatelessWidget {
   // -----------------------------------------------------------------------------
   final double height;
   final double width;
-  final int number;
+  final int? number;
   final String icon;
   final bool isActive;
   // -----------------------------------------------------------------------------

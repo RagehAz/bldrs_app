@@ -21,7 +21,7 @@ class HeroicFlyerBigView extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final FlyerModel renderedFlyer;
+  final FlyerModel? renderedFlyer;
   final double flyerBoxWidth;
   final String heroPath;
   /// --------------------------------------------------------------------------

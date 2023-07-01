@@ -13,7 +13,7 @@ class ReviewBubbleBox extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final double width;
-  final Widget child;
+  final Widget? child;
   final bool isSpecialReview;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT

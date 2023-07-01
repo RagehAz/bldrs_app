@@ -23,10 +23,10 @@ class AnimatedBar extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final CurvedAnimation curvedAnimation;
   final Tween<double> tween;
-  final String text;
+  final String? text;
   final Color verseColor;
   final Function onTap;
-  final String icon;
+  final String? icon;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

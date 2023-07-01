@@ -5,7 +5,6 @@ import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/a_static_logo_screen.dart';
-import 'package:bldrs/b_views/a_starters/a_logo_screen/b_animated_logo_screen.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/a_home_screen.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
@@ -162,10 +161,10 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
   /// NOOT STREAMS
 
   // --------------------
-  StreamSubscription _action;
-  StreamSubscription _created;
-  StreamSubscription _dismissed;
-  StreamSubscription _displayed;
+  StreamSubscription? _action;
+  StreamSubscription? _created;
+  StreamSubscription? _dismissed;
+  StreamSubscription? _displayed;
   // --------------------
   void _initializeNootListeners() {
     if (FCMStarter.canInitializeFCM() == true) {
@@ -178,10 +177,10 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
   // --------------------
   void _closeNootListeners(){
     if (FCMStarter.canInitializeFCM() == true) {
-      _action.cancel();
-      _created.cancel();
-      _dismissed.cancel();
-      _displayed.cancel();
+      _action?.cancel();
+      _created?.cancel();
+      _dismissed?.cancel();
+      _displayed?.cancel();
     }
   }
   // -----------------------------------------------------------------------------
@@ -189,7 +188,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
   /// LOCALE
 
   // --------------------
-  final ValueNotifier<Locale?> _locale = ValueNotifier<Locale>(null);
+  final ValueNotifier<Locale?> _locale = ValueNotifier<Locale?>(null);
   // --------------------
   void _setLocale(Locale locale) {
 
@@ -204,11 +203,6 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
   @override
   Widget build(BuildContext context) {
 
-    if (_locale == null) {
-      return const AnimatedLogoScreen();
-    }
-
-    else {
       return BldrsProviders(
         child: ValueListenableBuilder<Locale?>(
           valueListenable: _locale,
@@ -219,7 +213,8 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
               // scaffoldMessengerKey: ,
               // restorationScopeId: ,
 
-              useInheritedMediaQuery: true,
+              // useInheritedMediaQuery: true,
+
 
               /// DUNNO
               // actions: ,
@@ -328,7 +323,6 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
           },
         ),
       );
-    }
 
   }
   // -----------------------------------------------------------------------------

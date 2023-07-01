@@ -15,7 +15,6 @@ import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
@@ -117,7 +116,7 @@ class _PickersScreenState extends State<PickersScreen> {
 
         _pickers = PickerModel.createHomeWallPickers(
           canPickMany: true,
-          onlyUseTheseFlyerTypes: [widget.flyerTypeFilter],
+          onlyUseTheseFlyerTypes: widget.flyerTypeFilter == null ? [] : [widget.flyerTypeFilter!],
         );
       }
 
@@ -147,7 +146,7 @@ class _PickersScreenState extends State<PickersScreen> {
         else {
           _pickers = ChainsProvider.proGetSortedPickersByFlyerTypes(
             context: context,
-            flyerTypes: [widget.flyerTypeFilter],
+            flyerTypes: [widget.flyerTypeFilter!],
             sort: true,
             listen: false,
           );
@@ -196,7 +195,7 @@ class _PickersScreenState extends State<PickersScreen> {
       final List<Chain> _sons = <Chain>[];
 
       for (final PickerModel _picker in refinedPickers){
-        final Chain _chain = ChainsProvider.proFindChainByID(
+        final Chain? _chain = ChainsProvider.proFindChainByID(
           chainID: _picker.chainID,
           onlyUseZoneChains: widget.onlyUseZoneChains,
         );
@@ -226,11 +225,11 @@ class _PickersScreenState extends State<PickersScreen> {
   List<Chain> _getBldrsChains (BuildContext ctx, ChainsProvider chainsPro){
 
     if (widget.onlyUseZoneChains == true){
-      return chainsPro.zoneChains;
+      return chainsPro.zoneChains ?? [];
     }
 
     else {
-      return chainsPro.bldrsChains;
+      return chainsPro.bldrsChains ?? [];
     }
 
   }
@@ -266,7 +265,7 @@ class _PickersScreenState extends State<PickersScreen> {
           );
         },
       ),
-      onSearchChanged: (String text) => onChainsSearchChanged(
+      onSearchChanged: (String? text) => onChainsSearchChanged(
         text: text,
         isSearching: _isSearching,
         context: context,
@@ -276,7 +275,7 @@ class _PickersScreenState extends State<PickersScreen> {
         chains: _pickersChains,
         mounted: mounted,
       ),
-      onSearchSubmit: (String text) => onSearchChains(
+      onSearchSubmit: (String? text) => onSearchChains(
         text: text,
         isSearching: _isSearching,
         foundChains: _foundChains,
@@ -287,7 +286,6 @@ class _PickersScreenState extends State<PickersScreen> {
         mounted: mounted,
       ),
       onSearchCancelled: () => MainLayout.onCancelSearch(
-        context: context,
         controller: _searchTextController,
         foundResultNotifier: _foundChains,
         isSearching: _isSearching,
@@ -302,7 +300,7 @@ class _PickersScreenState extends State<PickersScreen> {
         selector: _getBldrsChains,
         // child: ,
         // shouldRebuild: ,
-        builder: (_, List<Chain> chains, Widget screenView){
+        builder: (_, List<Chain>? chains, Widget? screenView){
 
           /// WHILE LOADING CHAIN
           if (chains == null){
@@ -328,7 +326,7 @@ class _PickersScreenState extends State<PickersScreen> {
 
             _initializeScreen(chains);
 
-            return screenView;
+            return screenView!;
 
           }
 
@@ -367,7 +365,7 @@ class _PickersScreenState extends State<PickersScreen> {
                 onlyUseZoneChains: widget.onlyUseZoneChains,
                 refinedPickersNotifier: _refinedPickers,
                 selectedSpecsNotifier: _selectedSpecs,
-                flyerTypes: [widget.flyerTypeFilter],
+                flyerTypes: widget.flyerTypeFilter == null ? [] : [widget.flyerTypeFilter!],
                 zone: widget.zone,
                 isMultipleSelectionMode: widget.isMultipleSelectionMode,
                 mounted: mounted,

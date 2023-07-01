@@ -54,7 +54,7 @@ class FlyerLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (flyerBoxWidth == null || flyerBoxWidth == 0){
+    if (flyerBoxWidth == 0){
       return const SizedBox();
     }
 

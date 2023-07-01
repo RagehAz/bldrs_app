@@ -214,7 +214,7 @@ class NoteEventsOfBzTeamManagement {
         title: _title,
         body: bzModel.name,
         sentTime: DateTime.now(),
-        token: _userModel?.device?.token,
+        token: _userModel.device?.token,
         topic: TopicModel.userAuthorshipsInvitations,
         navTo: const TriggerModel(
           name: Routing.myUserNotesPage,

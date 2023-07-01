@@ -14,8 +14,8 @@ class FlyerReviewsScreen extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final FlyerModel flyerModel;
-  final String highlightReviewID;
+  final FlyerModel? flyerModel;
+  final String? highlightReviewID;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

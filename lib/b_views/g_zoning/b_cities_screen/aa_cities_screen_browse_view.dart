@@ -24,11 +24,11 @@ class CitiesScreenBrowseView extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final ValueNotifier<List<CityModel>> countryCities;
-  final Function(String cityID) onCityTap;
-  final Function(String cityID) onDeactivatedCityTap;
-  final List<String> shownCitiesIDs;
-  final List<CensusModel> citiesCensuses;
-  final CensusModel countryCensus;
+  final Function(String? cityID) onCityTap;
+  final Function(String? cityID) onDeactivatedCityTap;
+  final List<String>? shownCitiesIDs;
+  final List<CensusModel>? citiesCensuses;
+  final CensusModel? countryCensus;
   final Function onTapAllCities;
   final bool showAllCitiesButton;
   /// --------------------------------------------------------------------------
@@ -62,7 +62,7 @@ class CitiesScreenBrowseView extends StatelessWidget {
                 }
 
                 else {
-                  final String _countryID = CityModel.getCountryIDFromCityID(cities.first.cityID);
+                  final String? _countryID = CityModel.getCountryIDFromCityID(cities.first.cityID);
                   return CountryTileButton(
                     verse: const Verse(
                       id: 'phid_view_all_cities',

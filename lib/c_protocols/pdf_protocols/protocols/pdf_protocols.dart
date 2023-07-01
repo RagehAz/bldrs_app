@@ -33,10 +33,10 @@ class PDFProtocols {
 
     final FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowCompression: true,
-      allowMultiple: false,
+      // allowCompression: true,
+      // allowMultiple: false,
       dialogTitle: Verse.transBake('phid_select_a_pdf'),
-      lockParentWindow: false,
+      // lockParentWindow: false,
       onFileLoading: (FilePickerStatus status){
         blog('status : ${status.name}');
       },

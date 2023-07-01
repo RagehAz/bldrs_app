@@ -15,7 +15,7 @@ class BzzTilesButtonsList extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final ValueNotifier<List<BzModel>> bzzModel;
+  final ValueNotifier<List<BzModel>?> bzzModel;
   final ValueNotifier<List<BzModel>> selectedBzz;
   final ValueChanged<BzModel>? onTap;
   /// --------------------------------------------------------------------------
@@ -24,7 +24,7 @@ class BzzTilesButtonsList extends StatelessWidget {
 
     return ValueListenableBuilder(
         valueListenable: bzzModel,
-        builder: (_, List<BzModel> foundBzz, Widget? child){
+        builder: (_, List<BzModel>? foundBzz, Widget? child){
 
           /// FOUND BZZ
           if (Mapper.checkCanLoopList(foundBzz) == true){
@@ -37,12 +37,12 @@ class BzzTilesButtonsList extends StatelessWidget {
                   width: Scale.screenWidth(context),
                   height: Scale.screenHeight(context),
                   child: ListView.builder(
-                    itemCount: foundBzz.length,
+                    itemCount: foundBzz?.length ?? 0,
                     physics: const NeverScrollableScrollPhysics(),
                     // padding: EdgeInsets.zero, /// AGAIN => ENTA EBN WES5A
                     itemBuilder: (_, index){
 
-                      final BzModel _bzModel = foundBzz[index];
+                      final BzModel _bzModel = foundBzz![index];
                       final bool _isSelected = BzModel.checkBzzContainThisBz(
                         bzz: selectedBzz,
                         bzModel: _bzModel,

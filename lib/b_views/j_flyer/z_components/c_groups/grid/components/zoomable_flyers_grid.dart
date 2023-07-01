@@ -34,20 +34,20 @@ class FlyersZGrid extends StatefulWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final ScrollController scrollController;
+  final ScrollController? scrollController;
   final double gridWidth;
   final double gridHeight;
   final int columnCount;
-  final double bottomPaddingOnZoomedOut;
-  final List<String> flyersIDs;
-  final List<FlyerModel> flyers;
+  final double? bottomPaddingOnZoomedOut;
+  final List<String>? flyersIDs;
+  final List<FlyerModel>? flyers;
   final bool showAddFlyerButton;
-  final Function(FlyerModel flyerModel) onSelectFlyer;
-  final Function(String flyerID) onFlyerNotFound;
-  final bool selectionMode;
-  final Function(FlyerModel flyerModel) onFlyerOptionsTap;
-  final double topPadding;
-  final ZGridController zGridController;
+  final Function(FlyerModel flyerModel)? onSelectFlyer;
+  final Function(String flyerID)? onFlyerNotFound;
+  final bool? selectionMode;
+  final Function(FlyerModel flyerModel)? onFlyerOptionsTap;
+  final double? topPadding;
+  final ZGridController? zGridController;
   final bool hasResponsiveSideMargin;
   /// --------------------------------------------------------------------------
   @override
@@ -57,8 +57,8 @@ class FlyersZGrid extends StatefulWidget {
 
 class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStateMixin{
   // -----------------------------------------------------------------------------
-  final ValueNotifier<FlyerModel> _zoomedFlyer = ValueNotifier(null);
-  ZGridController _controller;
+  final ValueNotifier<FlyerModel?> _zoomedFlyer = ValueNotifier(null);
+  late ZGridController _controller;
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -141,15 +141,15 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
   }
   // -----------------------------------------------------------------------------
   Future<void> _onFlyerTap({
-    required FlyerModel flyerModel,
+    required FlyerModel? flyerModel,
     required int index,
     required ZGridScale gridScale,
   }) async {
 
     if (flyerModel != null) {
 
-      if (widget.onSelectFlyer != null && widget.selectionMode == true) {
-        widget.onSelectFlyer(flyerModel);
+      if (widget.onSelectFlyer != null && Mapper.boolIsTrue(widget.selectionMode) == true) {
+        widget.onSelectFlyer?.call(flyerModel);
       }
 
       else {
@@ -214,8 +214,12 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
         else {
 
           final int _flyerIndex = widget.showAddFlyerButton == true ? index-1 : index;
-          final FlyerModel _flyerModel = Mapper.checkCanLoopList(widget.flyers) == true ? widget.flyers[_flyerIndex] : null;
-          final String _flyerID = _flyerModel == null ? widget.flyersIDs[_flyerIndex] : null;
+          final FlyerModel? _flyerModel = Mapper.checkCanLoopList(widget.flyers) == true ?
+          widget.flyers![_flyerIndex]
+              :
+          null;
+
+          final String? _flyerID = _flyerModel == null ? widget.flyersIDs![_flyerIndex] : null;
           final double _flyerBoxWidth = _gridScale.smallItemWidth;
 
           return FlyerBuilder(
@@ -223,8 +227,8 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
               flyerModel: _flyerModel,
               flyerBoxWidth: _flyerBoxWidth,
               renderFlyer: RenderFlyer.firstSlide,
-              onFlyerNotFound: widget.onFlyerNotFound,
-              builder: (FlyerModel flyerModel){
+              onFlyerNotFound: (String? id) => widget.onFlyerNotFound?.call(id!),
+              builder: (FlyerModel? flyerModel){
 
                 return FlyerSelectionStack(
                   flyerModel: flyerModel,
@@ -232,8 +236,11 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
                   onSelectFlyer: widget.onSelectFlyer == null ?
                       null //() => _onFlyerTap(flyerModel: flyerModel, index: index)
                       :
-                      () => widget.onSelectFlyer(flyerModel),
-                  onFlyerOptionsTap: widget.onFlyerOptionsTap == null ? null : () => widget.onFlyerOptionsTap(flyerModel),
+                      () => widget.onSelectFlyer?.call(flyerModel!),
+                  onFlyerOptionsTap: widget.onFlyerOptionsTap == null ?
+                  null
+                      :
+                      () => widget.onFlyerOptionsTap?.call(flyerModel!),
                   selectionMode: widget.selectionMode,
                   flyerWidget: SmallFlyer(
                     flyerModel: flyerModel,
@@ -261,11 +268,11 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
 
       bigItem: ValueListenableBuilder(
         valueListenable: _zoomedFlyer,
-        builder: (_, FlyerModel flyerModel, Widget? child) {
+        builder: (_, FlyerModel? flyerModel, Widget? child) {
 
           return LightBigFlyer(
             flyerBoxWidth: _gridScale.bigItemWidth,
-            renderedFlyer: flyerModel,
+            renderedFlyer: flyerModel!,
             onHorizontalExit: () => zoomOutFlyer(
               mounted: mounted,
               controller: _controller,
@@ -283,24 +290,24 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
 Future<void> zoomOutFlyer({
   required bool mounted,
   required ZGridController? controller,
-  required ValueNotifier<FlyerModel>? flyerNotifier,
+  required ValueNotifier<FlyerModel?>? flyerNotifier,
 }) async {
 
   if (controller != null) {
-    if (Mapper.boolIsTrue(controller.isZoomed?.value) == true) {
+    if (Mapper.boolIsTrue(controller.isZoomed.value) == true) {
       await ZGridController.zoomOut(
         mounted: mounted,
         zGridController: controller,
         onZoomOutStart: () {},
         onZoomOutEnd: () async {
 
-          if (flyerNotifier != null) {
+          // if (flyerNotifier != null) {
             setNotifier(
               notifier: flyerNotifier,
               mounted: mounted,
               value: null,
             );
-          }
+          // }
 
           UiProvider.proSetLayoutIsVisible(
             setTo: true,

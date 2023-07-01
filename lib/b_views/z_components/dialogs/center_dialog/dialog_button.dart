@@ -16,11 +16,11 @@ class DialogButton extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final Verse verse;
+  final Verse? verse;
   final Color verseColor;
   final double width;
-  final Color color;
-  final Function onTap;
+  final Color? color;
+  final Function? onTap;
   static const double height = 50;
   /// --------------------------------------------------------------------------
   @override

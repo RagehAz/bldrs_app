@@ -22,7 +22,7 @@ class FlyerHero extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final FlyerModel renderedFlyer;
+  final FlyerModel? renderedFlyer;
   final bool canBuildBigFlyer;
   final double flyerBoxWidth;
   final String heroPath;

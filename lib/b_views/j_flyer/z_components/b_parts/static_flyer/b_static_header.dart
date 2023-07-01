@@ -108,25 +108,24 @@ class StaticHeader extends StatelessWidget {
 
                   /// FOLLOW BUTTON
                   if (showHeaderLabels == true)
-                  FollowButton(
-                    flyerBoxWidth: flyerBoxWidth,
-                    onFollowTap: null,
-                    tappingUnfollow: null,
-                    followIsOn: ValueNotifier(false),
-                  ),
+                    FollowButton(
+                      flyerBoxWidth: flyerBoxWidth,
+                      onFollowTap: null,
+                      followIsOn: ValueNotifier(false),
+                    ),
 
                   /// FAKE SPACE PADDING BETWEEN FOLLOW & GALLERY BUTTONS
                   if (showHeaderLabels == true)
                     StaticHeaderSlateSpacer(
-                    flyerBoxWidth: flyerBoxWidth,
-                  ),
+                      flyerBoxWidth: flyerBoxWidth,
+                    ),
 
                   /// Call BUTTON
                   if (showHeaderLabels == true)
                     CallButton(
-                    flyerBoxWidth: flyerBoxWidth,
-                    onCallTap: null,
-                  ),
+                      flyerBoxWidth: flyerBoxWidth,
+                      onCallTap: null,
+                    ),
 
                 ],
               ),

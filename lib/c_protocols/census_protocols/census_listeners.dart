@@ -247,21 +247,22 @@ class CensusListener {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onCallBz({
-    required BzModel bzModel,
+    required BzModel? bzModel,
     int count = 1,
   }) async {
 
     // assert(bzModel != null, 'bzModel is null');
 
-    await CensusRealOps.updateAllCensus(
-      zoneModel: bzModel.zone,
-      map: CensusModel.createCallCensusMap(
-        bzModel: bzModel,
-        isIncrementing: true,
-        count: count,
-      ),
-    );
-
+    if (bzModel != null){
+      await CensusRealOps.updateAllCensus(
+        zoneModel: bzModel.zone,
+        map: CensusModel.createCallCensusMap(
+          bzModel: bzModel,
+          isIncrementing: true,
+          count: count,
+        ),
+      );
+    }
 
   }
   // --------------------

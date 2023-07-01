@@ -19,19 +19,19 @@ class SearchBar extends StatefulWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final TextEditingController searchController;
-  final ValueChanged<String> onSearchSubmit;
-  final ValueChanged<String> onPaste;
-  final ValueChanged<String> onSearchChanged;
+  final TextEditingController? searchController;
+  final ValueChanged<String?>? onSearchSubmit;
+  final ValueChanged<String?>? onPaste;
+  final ValueChanged<String?>? onSearchChanged;
   final bool searchButtonIsOn;
   // final double boxWidth;
-  final Verse hintVerse;
-  final double height;
-  final Function onSearchCancelled;
-  final AppBarType appBarType;
-  final GlobalKey globalKey;
-  final ValueNotifier<bool> filtersAreOn;
-  final Function onFilterTap;
+  final Verse ?hintVerse;
+  final double? height;
+  final Function? onSearchCancelled;
+  final AppBarType? appBarType;
+  final GlobalKey? globalKey;
+  final ValueNotifier<bool?>? filtersAreOn;
+  final Function? onFilterTap;
   /// --------------------------------------------------------------------------
   @override
   _SearchBarState createState() => _SearchBarState();
@@ -42,7 +42,7 @@ class _SearchBarState extends State<SearchBar> {
   // -----------------------------------------------------------------------------
   final GlobalKey globalKey = GlobalKey();
   // --------------------
-  TextEditingController _searchTextController;
+  late TextEditingController _searchTextController;
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -69,7 +69,7 @@ class _SearchBarState extends State<SearchBar> {
     }
 
     if (widget.onSearchCancelled != null){
-      widget.onSearchCancelled();
+      widget.onSearchCancelled?.call();
     }
 
   }
@@ -123,7 +123,7 @@ class _SearchBarState extends State<SearchBar> {
                         onTap: () async {
 
                           if (widget.onSearchSubmit != null){
-                            widget.onSearchSubmit(value.text);
+                            widget.onSearchSubmit?.call(value.text);
                           }
 
                         },
@@ -161,10 +161,10 @@ class _SearchBarState extends State<SearchBar> {
             textInputAction: TextInputAction.search,
             corners: Ratioz.appBarButtonCorner,
             // onTap: () {},
-            onChanged: (String val) {
+            onChanged: (String? val) {
               if (widget.onSearchChanged != null) {
                 if (val != null) {
-                  widget.onSearchChanged(val);
+                  widget.onSearchChanged?.call(val);
                 }
               }
             },
@@ -175,9 +175,9 @@ class _SearchBarState extends State<SearchBar> {
             textColor: Colorz.yellow255,
             textWeight: VerseWeight.thin,
             textScaleFactor: 1.15,
-            onSubmitted: (String val) {
+            onSubmitted: (String? val) {
               if (widget.onSearchSubmit != null){
-                widget.onSearchSubmit(val);
+                widget.onSearchSubmit?.call(val);
               }
             },
           ),
@@ -215,7 +215,7 @@ class _SearchBarState extends State<SearchBar> {
                           else {
                             await TextMod.controllerPaste(_searchTextController);
                             if (widget.onPaste != null){
-                              widget.onPaste(_searchTextController.text);
+                              widget.onPaste?.call(_searchTextController.text);
                             }
                           }
 
@@ -230,8 +230,8 @@ class _SearchBarState extends State<SearchBar> {
           /// FILTER BUTTON
           if (widget.filtersAreOn != null)
             ValueListenableBuilder(
-                valueListenable: widget.filtersAreOn,
-                builder: (_, bool filtersAreOn, Widget? child){
+                valueListenable: widget.filtersAreOn!,
+                builder: (_, bool? filtersAreOn, Widget? child){
 
                   return Row(
                     children: <Widget>[
@@ -246,7 +246,7 @@ class _SearchBarState extends State<SearchBar> {
                         height: _searchButtonHeight,
                         icon: Iconz.filter,
                         iconSizeFactor: 0.5,
-                        color: filtersAreOn == true ? Colorz.yellow255 : Colorz.nothing,
+                        color: Mapper.boolIsTrue(filtersAreOn) == true ? Colorz.yellow255 : Colorz.nothing,
                         isDisabled: filtersAreOn == null,
                         bubble: false,
                         onTap: widget.onFilterTap,

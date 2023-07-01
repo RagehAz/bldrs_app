@@ -251,7 +251,7 @@ class FCMStarter {
       // final Map<String, dynamic> data = remoteMessage?.data;
 
       final NoteModel? _note = NoteModel.decipherRemoteMessage(
-        map: remoteMessage?.data,
+        map: remoteMessage.data,
       );
 
       // _note.blogNoteModel(

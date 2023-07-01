@@ -16,7 +16,7 @@ class FlightFlyer extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final HeroFlightDirection flightDirection;
-  final FlyerModel renderedFlyer;
+  final FlyerModel? renderedFlyer;
   final double flyerBoxWidth;
   final String heroTag;
 
@@ -25,8 +25,8 @@ class FlightFlyer extends StatelessWidget {
   FlightDirection getFlightDirection(String direction){
 
     switch(direction){
-      case 'push': return FlightDirection.push; break;
-      case 'pop' : return FlightDirection.pop; break;
+      case 'push': return FlightDirection.push;
+      case 'pop' : return FlightDirection.pop;
       default: return FlightDirection.non;
     }
 

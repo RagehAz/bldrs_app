@@ -35,24 +35,24 @@ class ExpandingTile extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final double width;
-  final double collapsedHeight;
-  final double maxHeight;
+  final double? collapsedHeight;
+  final double? maxHeight;
   final bool scrollable;
-  final String icon;
+  final String? icon;
   final double iconSizeFactor;
   final bool initiallyExpanded;
   final Verse firstHeadline;
-  final Verse secondHeadline;
+  final Verse? secondHeadline;
   final Color initialColor;
-  final Color expansionColor;
-  final double corners;
+  final Color? expansionColor;
+  final double? corners;
   final Widget child;
   final bool isDisabled;
-  final EdgeInsets margin;
-  final ValueNotifier<dynamic> searchText;
-  final ValueChanged<bool> onTileTap;
-  final Function onTileLongTap;
-  final Function onTileDoubleTap;
+  final EdgeInsets? margin;
+  final ValueNotifier<dynamic>? searchText;
+  final ValueChanged<bool>? onTileTap;
+  final Function? onTileLongTap;
+  final Function? onTileDoubleTap;
   final bool isCollapsable;
   // -----------------------------------------------------------------------------
 
@@ -75,14 +75,14 @@ class ExpandingTile extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Color getExpandedColor({
-    required Color expansionColor,
+    required Color? expansionColor,
   }){
     return expansionColor ?? ExpandingTile.expandedColor;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Color getCollapsedColor({
-    required Color collapsedColor,
+    required Color? collapsedColor,
   }){
     return collapsedColor ?? ExpandingTile.collapsedColor;
   }
@@ -95,8 +95,8 @@ class ExpandingTile extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double calculateTitleIconSize({
-    required String icon,
-    required double collapsedHeight
+    required String? icon,
+    required double? collapsedHeight
   }) {
     final double _iconSize = icon == null ?
     0
@@ -113,7 +113,7 @@ class ExpandingTile extends StatelessWidget {
   /// TESTED : WORKS PERFECT
   static double calculateTitleBoxWidth({
     required double tileWidth,
-    required String icon,
+    required String? icon,
     required double collapsedHeight,
   }) {
 
@@ -139,7 +139,7 @@ class ExpandingTile extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double getCollapsedHeight({
-    double collapsedHeight,
+    double? collapsedHeight,
   }){
     return collapsedHeight ?? ExpandingTile.collapsedGroupHeight;
   }
@@ -224,7 +224,7 @@ class ExpandingTile extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static int getNumberOfButtons({
-    required List<String> keywordsIDs,
+    required List<String>? keywordsIDs,
   }) {
     return keywordsIDs?.length ?? 0;
   }

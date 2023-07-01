@@ -34,7 +34,7 @@ class Verse {
   final bool? translate;
   final dynamic variables;
   final String? pseudo;
-  final ValueNotifier<String>? notifier;
+  final ValueNotifier<dynamic>? notifier;
   // -----------------------------------------------------------------------------
 
   /// CLONING

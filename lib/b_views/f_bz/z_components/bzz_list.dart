@@ -19,10 +19,10 @@ class BzzList extends StatelessWidget {
   // -----------------------------------------------------------------------------
   final List<BzModel> bzz;
   final ScrollController scrollController;
-  final double width;
-  final List<String> selectedBzzIDs;
-  final Function(BzModel bz) onBzTap;
-  final EdgeInsets scrollPadding;
+  final double? width;
+  final List<String>? selectedBzzIDs;
+  final Function(BzModel? bz)? onBzTap;
+  final EdgeInsets? scrollPadding;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -35,13 +35,13 @@ class BzzList extends StatelessWidget {
         padding: scrollPadding ?? const EdgeInsets.only(bottom: 10, top: 10,),
         itemBuilder: (BuildContext ctx, int index) {
 
-          final BzModel _bz = bzz[index];
+          final BzModel? _bz = bzz[index];
 
           return BzLongButton(
             bzModel: _bz,
             boxWidth: width ?? PageBubble.width(context),
             showAuthorsPics: true,
-            onTap: onBzTap == null ? null : () => onBzTap(_bz),
+            onTap: onBzTap == null ? null : () => onBzTap?.call(_bz),
             isSelected: Stringer.checkStringsContainString(
               strings: selectedBzzIDs,
               string: _bz?.id,

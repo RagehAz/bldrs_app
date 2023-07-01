@@ -110,7 +110,7 @@ class BzSearch {
 
   // --------------------
   static Future<List<BzModel>> paginateBzzBySearchingBzName({
-    required String bzName,
+    required String? bzName,
     required QueryDocumentSnapshot<Object>? startAfter,
     required int limit,
   }) async {
@@ -126,7 +126,7 @@ class BzSearch {
           field: 'trigram',
           comparison: FireComparison.arrayContains,
           value: TextMod.removeAllCharactersAfterNumberOfCharacters(
-            text: bzName.trim(),
+            text: bzName?.trim(),
             numberOfChars: Standards.maxTrigramLength,
           ),
         ),
