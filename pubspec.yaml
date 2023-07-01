@@ -112,9 +112,9 @@ dev_dependencies:
 #  android: "launcher_icon"
 #  ios: true
 #  remove_alpha_ios: true
-#  image_path: "packages/bldrs_theme/assets/aw/aw_bldrs_app_icon.png"
-#  adaptive_icon_background: "packages/bldrs_theme/assets/aw/aw_bldrs_app_icon.png"
-#  adaptive_icon_foreground: "packages/bldrs_theme/assets/aw/aw_bldrs_app_icon.png"
+#  image_path: "packages/basics/bldrs_theme/assets/aw/aw_bldrs_app_icon.png"
+#  adaptive_icon_background: "packages/basics/bldrs_theme/assets/aw/aw_bldrs_app_icon.png"
+#  adaptive_icon_foreground: "packages/basics/bldrs_theme/assets/aw/aw_bldrs_app_icon.png"
 # --------------------------------------------------------------------------------
 flutter:
   uses-material-design: true
@@ -132,28 +132,28 @@ flutter:
   fonts:
     - family: BldrsHeadlineFont
       fonts:
-        - asset: packages/bldrs_theme/assets/fonts/bldrs_font_bold.ttf
+        - asset: packages/basics/bldrs_theme/assets/fonts/bldrs_font_bold.ttf
 
     - family: BldrsBodyFont
       fonts:
-        - asset: packages/bldrs_theme/assets/fonts/bldrs_font_regular.ttf
+        - asset: packages/basics/bldrs_theme/assets/fonts/bldrs_font_regular.ttf
 
     - family: EnglishHeadline
       fonts:
-        - asset: packages/bldrs_theme/assets/fonts/arabic/BldrsFont.ttf
+        - asset: packages/basics/bldrs_theme/assets/fonts/arabic/BldrsFont.ttf
 
     - family: EnglishBody
       fonts:
-        - asset: packages/bldrs_theme/assets/fonts/english/Roboto_Thin.ttf
-        - asset: packages/bldrs_theme/assets/fonts/english/Roboto_ThinItalic.ttf
+        - asset: packages/basics/bldrs_theme/assets/fonts/english/Roboto_Thin.ttf
+        - asset: packages/basics/bldrs_theme/assets/fonts/english/Roboto_ThinItalic.ttf
 
     - family: ArabicHeadline
       fonts:
-        - asset: packages/bldrs_theme/assets/fonts/arabic/BldrsFont.ttf
+        - asset: packages/basics/bldrs_theme/assets/fonts/arabic/BldrsFont.ttf
 
     - family: ArabicBody
       fonts:
-        - asset: packages/bldrs_theme/assets/fonts/arabic/Tajawal_Light.ttf
-        - asset: packages/bldrs_theme/assets/fonts/arabic/Tajawal_Regular.ttf
-        - asset: packages/bldrs_theme/assets/fonts/arabic/BldrsFont.ttf
+        - asset: packages/basics/bldrs_theme/assets/fonts/arabic/Tajawal_Light.ttf
+        - asset: packages/basics/bldrs_theme/assets/fonts/arabic/Tajawal_Regular.ttf
+        - asset: packages/basics/bldrs_theme/assets/fonts/arabic/BldrsFont.ttf
 # --------------------------------------------------------------------------------
