@@ -1,4 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -16,7 +17,7 @@ class AppBarBlurLayer extends StatelessWidget {
   // -----------------------------------------------------------------------------
   final bool blurIsOn;
   final AppBarType? appBarType;
-  final ValueNotifier<bool>? isExpanded;
+  final ValueNotifier<bool?>? isExpanded;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -40,12 +41,12 @@ class AppBarBlurLayer extends StatelessWidget {
             filter: ui.ImageFilter.blur(sigmaX: BldrsAppBar.blur, sigmaY: BldrsAppBar.blur),
             child: ValueListenableBuilder(
                 valueListenable: isExpanded!,
-                builder: (_, bool expanded, Widget? child) {
+                builder: (_, bool? expanded, Widget? child) {
                   return AnimatedContainer(
                     duration: BldrsAppBar.expansionDuration,
                     curve: BldrsAppBar.expansionCurve,
                     width: BldrsAppBar.width(),
-                    height: expanded == true ?
+                    height: Mapper.boolIsTrue(expanded) == true ?
                     BldrsAppBar.expandedHeight(
                       context: context,
                     )

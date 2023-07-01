@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/specs/picker_group/b_pickers_group_headline.dart';
@@ -18,24 +19,24 @@ class PickerSplitter extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final PickerModel picker;
+  final PickerModel? picker;
   final List<SpecModel> allSelectedSpecs;
   final Function onPickerTap;
-  final Function({required SpecModel value, required SpecModel unit}) onSelectedSpecTap;
-  final Function({required SpecModel value, required SpecModel unit}) onDeleteSpec;
-  final ValueNotifier<String> searchText;
-  final double width;
+  final Function({required SpecModel? value, required SpecModel? unit})? onSelectedSpecTap;
+  final Function({required SpecModel? value, required SpecModel? unit})? onDeleteSpec;
+  final ValueNotifier<String?>? searchText;
+  final double? width;
 /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     /// HEADLINE
-    if (picker?.isHeadline == true){
+    if (Mapper.boolIsTrue(picker?.isHeadline) == true){
 
       return PickersGroupHeadline(
         width: width,
         headline: Verse(
-          id: picker.chainID,
+          id: picker?.chainID,
           translate: true,
           casing: Casing.upperCase,
         ),

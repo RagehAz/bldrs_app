@@ -11,11 +11,12 @@ class NoteRedDot extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const NoteRedDot({
     this.isNano = false,
-    this.count, Key key
-  }) : super(key: key);
+    this.count,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final bool isNano;
-  final int count;
+  final int? count;
   /// --------------------------------------------------------------------------
   static const double defaultSize = 18;
   static const double maxWidth = 60;
@@ -28,8 +29,8 @@ class NoteRedDot extends StatelessWidget {
     return _height;
   }
   // --------------------
-  String _concludeCount(int count) {
-    String _count;
+  String? _concludeCount(int? count) {
+    String? _count;
 
     if (count == null || count == 0) {
       _count = null;
@@ -49,7 +50,7 @@ class NoteRedDot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final String _count = _concludeCount(count);
+    final String? _count = _concludeCount(count);
     final double factor = isNano == true ? 0.7 : 1.0;
     final double _size = getSize(isNano: isNano);
     // --------------------
@@ -102,7 +103,7 @@ class NoteRedDotWrapper extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final bool redDotIsOn;
-  final int count;
+  final int? count;
   final Widget child;
   final bool shrinkChild;
   final bool isNano;

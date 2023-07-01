@@ -19,11 +19,11 @@ class SlideTransformer extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final ValueNotifier<Matrix4> matrix;
-  final ValueNotifier<ImageFilterModel> filterModel;
+  final ValueNotifier<Matrix4?> matrix;
+  final ValueNotifier<ImageFilterModel?> filterModel;
   final double flyerBoxWidth;
   final double flyerBoxHeight;
-  final DraftSlide slide;
+  final DraftSlide? slide;
   final ValueNotifier<bool> isTransforming;
   final bool mounted;
   /// --------------------------------------------------------------------------
@@ -72,7 +72,7 @@ class SlideTransformer extends StatelessWidget {
       clipChild: false,
       child: ValueListenableBuilder(
         valueListenable: matrix,
-        builder: (_, Matrix4 _matrix, Widget? childA){
+        builder: (_, Matrix4? _matrix, Widget? childA){
 
           // blog('rebuilding transforming image');
 
@@ -81,7 +81,7 @@ class SlideTransformer extends StatelessWidget {
               matrix: _matrix,
               flyerBoxWidth: flyerBoxWidth,
               flyerBoxHeight: flyerBoxHeight,
-            ),
+            )!,
             // alignment: Alignment.center,
             // origin: Offset(0,0),
             filterQuality: FilterQuality.high,
@@ -93,7 +93,7 @@ class SlideTransformer extends StatelessWidget {
 
         child: ValueListenableBuilder(
           valueListenable: filterModel,
-          builder: (_, ImageFilterModel _filterModel, Widget? child){
+          builder: (_, ImageFilterModel? _filterModel, Widget? child){
 
             // blog('changing filterModel to ${_filterModel.id}');
 
@@ -102,9 +102,9 @@ class SlideTransformer extends StatelessWidget {
               height: FlyerDim.flyerHeightByFlyerWidth(
                 flyerBoxWidth: flyerBoxWidth,
               ),
-              pic: slide.picModel?.bytes,
+              pic: slide?.picModel?.bytes,
               filterModel: _filterModel,
-              boxFit: slide.picFit,
+              boxFit: slide?.picFit ?? BoxFit.cover,
             );
 
           },

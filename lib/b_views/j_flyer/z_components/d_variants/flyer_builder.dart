@@ -1,10 +1,10 @@
-import 'dart:async';
+// ignore_for_file: unused_element
 
+import 'dart:async';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 
 class FlyerBuilder extends StatelessWidget {
@@ -19,12 +19,12 @@ class FlyerBuilder extends StatelessWidget {
     super.key
   });
   // -----------------------------------------------------------------------------
-  final String flyerID;
+  final String? flyerID;
   final double flyerBoxWidth;
-  final Function(String flyerID) onFlyerNotFound;
-  final FlyerModel flyerModel;
+  final Function(String? flyerID)? onFlyerNotFound;
+  final FlyerModel? flyerModel;
   final RenderFlyer renderFlyer;
-  final Widget Function(FlyerModel flyerModel) builder;
+  final Widget Function(FlyerModel? flyerModel) builder;
   // -----------------------------------------------------------------------------
   bool shouldDirectlyBuildByFlyerModel(){
     bool _shouldBuildByFlyer = false;
@@ -43,12 +43,12 @@ class FlyerBuilder extends StatelessWidget {
       }
       /// WHEN RENDER FIRST SLIDE
       else if (renderFlyer == RenderFlyer.firstSlide){
-        _shouldBuildByFlyer = flyerModel.slides.first.uiImage != null;
+        _shouldBuildByFlyer = flyerModel?.slides?.first.uiImage != null;
       }
       /// WHEN RENDER ALL SLIDES
       else {
-        final bool _allSlidesAreRendered = flyerModel.slides.every((slide) => slide.uiImage != null);
-        _shouldBuildByFlyer = _allSlidesAreRendered;
+        final bool? _allSlidesAreRendered = flyerModel?.slides?.every((slide) => slide.uiImage != null);
+        _shouldBuildByFlyer = _allSlidesAreRendered ?? false;
       }
 
     }
@@ -94,12 +94,12 @@ class _FutureFlyerBuilder extends StatefulWidget {
     super.key
   });
   // -----------------------------------------------------------------------------
-  final String flyerID;
+  final String? flyerID;
   final double flyerBoxWidth;
-  final Function(String flyerID) onFlyerNotFound;
+  final Function(String? flyerID)? onFlyerNotFound;
   final RenderFlyer renderFlyer;
-  final Widget Function(FlyerModel flyerModel) builder;
-  final FlyerModel flyerModel;
+  final Widget Function(FlyerModel? flyerModel) builder;
+  final FlyerModel? flyerModel;
   // -----------------------------------------------------------------------------
   @override
   State<_FutureFlyerBuilder> createState() => _FutureFlyerBuilderState();
@@ -108,7 +108,7 @@ class _FutureFlyerBuilder extends StatefulWidget {
 
 class _FutureFlyerBuilderState extends State<_FutureFlyerBuilder> {
   // -----------------------------------------------------------------------------
-  FlyerModel _flyerModel;
+  FlyerModel? _flyerModel;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -177,7 +177,7 @@ class _FutureFlyerBuilderState extends State<_FutureFlyerBuilder> {
 
     if (mounted == true){
 
-      FlyerModel _flyer = widget.flyerModel ?? await FlyerProtocols.fetchFlyer(
+      FlyerModel? _flyer = widget.flyerModel ?? await FlyerProtocols.fetchFlyer(
         context: context,
         flyerID: widget.flyerID,
       );
@@ -208,7 +208,7 @@ class _FutureFlyerBuilderState extends State<_FutureFlyerBuilder> {
       else {
 
         if (widget.onFlyerNotFound != null) {
-          widget.onFlyerNotFound(widget.flyerID);
+          widget.onFlyerNotFound!.call(widget.flyerID);
         }
 
       }

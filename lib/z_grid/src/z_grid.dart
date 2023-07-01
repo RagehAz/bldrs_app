@@ -23,8 +23,8 @@ class ZGrid extends StatelessWidget {
   final bool blurBackgroundOnZoomedIn;
   final Function onZoomOutStart;
   final Function onZoomOutEnd;
-  final Widget bigItem;
-  final Widget bigItemFootprint;
+  final Widget? bigItem;
+  final Widget? bigItemFootprint;
   final Widget Function(int index) builder;
   // -----------------------------------------------------------------------------
   @override

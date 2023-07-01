@@ -36,15 +36,15 @@ class DataCreatorSplitter extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final double height;
-  final double width;
-  final PickerModel picker;
+  final double? width;
+  final PickerModel? picker;
   final List<SpecModel> selectedSpecs;
   final AppBarType appBarType;
   final ValueNotifier<dynamic> searchText;
-  final ValueChanged<List<SpecModel>> onExportSpecs;
-  final Function(String path, String phid) onPhidTap;
-  final ZoneModel zone;
-  final ValueChanged<String> onKeyboardSubmitted;
+  final ValueChanged<List<SpecModel>>? onExportSpecs;
+  final Function(String? path, String? phid)? onPhidTap;
+  final ZoneModel? zone;
+  final ValueChanged<String?>? onKeyboardSubmitted;
   final bool isMultipleSelectionMode;
   final bool onlyUseZoneChains;
   final bool isCollapsable;
@@ -52,13 +52,13 @@ class DataCreatorSplitter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final Chain _valueChain = ChainsProvider.proFindChainByID(
+    final Chain? _valueChain = ChainsProvider.proFindChainByID(
       chainID: picker?.chainID,
       // onlyUseZoneChains: false, //onlyUseZoneChains,
       // includeChainSInSearch: true,
     );
 
-    final List<Chain> _allChains = ChainsProvider.proGetBldrsChains(
+    final List<Chain>? _allChains = ChainsProvider.proGetBldrsChains(
       context: context,
       onlyUseZoneChains: false,
       listen: false,
@@ -76,7 +76,7 @@ class DataCreatorSplitter extends StatelessWidget {
     );
      */
     // --------------------
-    final DataCreator _dataCreatorType = DataCreation.decipherDataCreator(_valueChain?.sons);
+    final DataCreator? _dataCreatorType = DataCreation.decipherDataCreator(_valueChain?.sons);
     blog('the bitchhhhhh : '
         '_dataCreatorType : '
         '$_dataCreatorType : '
@@ -121,12 +121,12 @@ class DataCreatorSplitter extends StatelessWidget {
     /// PHIDS OR CHAINS
     if (_isPhids == true || _isChains == true){
 
-      final List<SpecModel> _selectedSpecs =
+      final List<SpecModel>? _selectedSpecs =
       isMultipleSelectionMode == false ? null
           :
       SpecModel.getSpecsByPickerChainID(
         specs: selectedSpecs,
-        pickerChainID: picker.chainID,
+        pickerChainID: picker?.chainID,
       );
 
       return PhidsDataCreator(
@@ -149,14 +149,14 @@ class DataCreatorSplitter extends StatelessWidget {
     else if (_hasCurrencyUnit == true){
 
       /// INITIAL VALUE
-      final SpecModel _initialPrice = SpecModel.getFirstSpecFromSpecsByPickerChainID(
+      final SpecModel? _initialPrice = SpecModel.getFirstSpecFromSpecsByPickerChainID(
         specs: selectedSpecs,
-        pickerChainID: picker.chainID,
+        pickerChainID: picker?.chainID,
       );
 
-      final SpecModel _initialCurrencySpec = SpecModel.getFirstSpecFromSpecsByPickerChainID(
+      final SpecModel? _initialCurrencySpec = SpecModel.getFirstSpecFromSpecsByPickerChainID(
         specs: selectedSpecs,
-        pickerChainID: picker.unitChainID,
+        pickerChainID: picker?.unitChainID,
       );
 
       return PriceDataCreator(
@@ -178,15 +178,15 @@ class DataCreatorSplitter extends StatelessWidget {
     else if (_isIntegerKeyboard == true || _isDoubleKeyboard == true){
 
       /// INITIAL VALUE
-      final SpecModel _valueSpec = SpecModel.getFirstSpecFromSpecsByPickerChainID(
+      final SpecModel? _valueSpec = SpecModel.getFirstSpecFromSpecsByPickerChainID(
         specs: selectedSpecs,
-        pickerChainID: picker.chainID,
+        pickerChainID: picker?.chainID,
       );
 
       /// INITIAL UNIT
-      final SpecModel _unitSpec = SpecModel.getFirstSpecFromSpecsByPickerChainID(
+      final SpecModel? _unitSpec = SpecModel.getFirstSpecFromSpecsByPickerChainID(
         specs: selectedSpecs,
-        pickerChainID: picker.unitChainID,
+        pickerChainID: picker?.unitChainID,
       );
 
       return NumberDataCreator(

@@ -30,8 +30,8 @@ class SpecsSelectorBubble extends StatelessWidget {
   final DraftFlyer? draft;
   final ValueNotifier<DraftFlyer?> draftNotifier;
   final BzModel? bzModel;
-  final Function({required SpecModel value, required SpecModel unit}) onSpecTap; // onAddSpecsToDraftTap
-  final Function({required SpecModel value, required SpecModel unit}) onDeleteSpec;
+  final Function({required SpecModel? value, required SpecModel? unit})? onSpecTap; // onAddSpecsToDraftTap
+  final Function({required SpecModel? value, required SpecModel? unit})? onDeleteSpec;
   final Function onAddSpecsToDraft; // use this onAddSpecsToDraftTap
   /// --------------------------------------------------------------------------
   @override
@@ -64,7 +64,7 @@ class SpecsSelectorBubble extends StatelessWidget {
 
           SpecsBuilder(
             pageWidth: Bubble.clearWidth(context: context),
-            specs: draft.specs,
+            specs: draft?.specs,
             onSpecTap: onSpecTap,
             onDeleteSpec: onDeleteSpec,
           ),
@@ -72,7 +72,7 @@ class SpecsSelectorBubble extends StatelessWidget {
           BldrsBox(
             height: PhidButton.getHeight(),
             verse: Verse(
-              id: Mapper.checkCanLoopList(draft.specs) ? 'phid_edit_specs' : 'phid_add_specs',
+              id: Mapper.checkCanLoopList(draft?.specs) ? 'phid_edit_specs' : 'phid_add_specs',
               translate: true,
             ),
             bubble: false,

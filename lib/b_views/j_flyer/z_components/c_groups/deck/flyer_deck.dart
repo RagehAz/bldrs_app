@@ -1,8 +1,11 @@
+// ignore_for_file: unused_element
+
 import 'dart:ui' as ui;
 
 import 'package:basics/animators/helpers/animators.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/files/floaters.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/widgets/drawing/super_positioned.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
@@ -12,10 +15,8 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/a_single_sli
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/small_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 
 class FlyerDeck extends StatelessWidget {
   // -----------------------------------------------------------------------------
@@ -32,12 +33,12 @@ class FlyerDeck extends StatelessWidget {
   // -----------------------------------------------------------------------------
   final double maxPossibleWidth;
   final double deckHeight;
-  final FlyerModel flyerModel;
+  final FlyerModel? flyerModel;
   /// HEIGHT FACTOR OF SMALLEST SLIDE TO THE BIGGEST SLIDE HEIGHT
   final double minSlideHeightFactor;
   final double expansion;
-  final String screenName;
-  final DraftFlyer draft;
+  final String? screenName;
+  final DraftFlyer? draft;
   // -----------------------------------------------------------------------------
   static double concludeDeckWidth({
     required int numberOfSlides,
@@ -235,24 +236,26 @@ class FlyerDeck extends StatelessWidget {
   }
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  Future<FlyerModel> _transformDraft({
+  Future<FlyerModel?> _transformDraft({
     required BuildContext context,
-    required DraftFlyer draft,
+    required DraftFlyer? draft,
   }) async {
 
-    final FlyerModel _flyer = await DraftFlyer.draftToFlyer(draft: draft, toLDB: false);
+    final FlyerModel? _flyer = await DraftFlyer.draftToFlyer(draft: draft, toLDB: false);
 
     final List<SlideModel> _flyerSlides = <SlideModel>[];
 
-    for (int i = 0; i < _flyer.slides.length; i++){
+    if (Mapper.checkCanLoopList(_flyer?.slides) == true){
 
-      final SlideModel _slide = _flyer.slides[i];
+      for (int i = 0; i < _flyer!.slides!.length; i++){
+
+      final SlideModel _slide = _flyer.slides![i];
 
       /// UI IMAGE IS MISSING
       if (_slide.uiImage == null){
 
-        final DraftSlide _draft = draft.draftSlides.firstWhere((element) => element.slideIndex == _slide.slideIndex);
-        final ui.Image? _image = await Floaters.getUiImageFromUint8List(_draft.picModel.bytes);
+        final DraftSlide? _draft = draft?.draftSlides?.firstWhere((element) => element.slideIndex == _slide.slideIndex);
+        final ui.Image? _image = await Floaters.getUiImageFromUint8List(_draft?.picModel?.bytes);
         final SlideModel _updatedSlide = _slide.copyWith(
           uiImage: _image,
         );
@@ -269,7 +272,10 @@ class FlyerDeck extends StatelessWidget {
 
     }
 
-    return _flyer.copyWith(
+    }
+
+
+    return _flyer?.copyWith(
       slides: _flyerSlides,
     );
 
@@ -288,16 +294,16 @@ class FlyerDeck extends StatelessWidget {
     /// BUILD DRAFT
     else if (draft != null){
 
-      blog('BUILDING DRAFT : ${draft.draftSlides.length}');
+      blog('BUILDING DRAFT : ${draft?.draftSlides?.length}');
 
       return FutureBuilder(
         future: _transformDraft(
           context: context,
           draft: draft,
         ),
-        builder: (_, AsyncSnapshot<FlyerModel> snap){
+        builder: (_, AsyncSnapshot<FlyerModel?> snap){
 
-          final FlyerModel _flyer = snap.data;
+          final FlyerModel? _flyer = snap.data;
 
           return _TheDeck(
             screenName: screenName,
@@ -345,10 +351,10 @@ class _TheDeck extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double maxPossibleWidth;
   final double deckHeight;
-  final FlyerModel flyerModel;
+  final FlyerModel? flyerModel;
   final double minSlideHeightFactor;
   final double expansion;
-  final String screenName;
+  final String? screenName;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -373,7 +379,7 @@ class _TheDeck extends StatelessWidget {
           if (_slidesLength > 0)
           ...List.generate(_slidesLength, (_index){
 
-            final _reverseIndex = Numeric.reverseIndex(
+            final int? _reverseIndex = Numeric.reverseIndex(
               listLength: _slidesLength,
               index: _index,
             );
@@ -404,7 +410,7 @@ class _TheDeck extends StatelessWidget {
                 flyerBoxWidth: FlyerDim.flyerWidthByFlyerHeight(
                   flyerBoxHeight: deckHeight,
                 ),
-                slideIndex: _reverseIndex,
+                slideIndex: _reverseIndex ?? 0,
                 onTap: null,
 
                 // flyerShadowIsOn: true,
@@ -420,7 +426,7 @@ class _TheDeck extends StatelessWidget {
                 flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(
                   flyerBoxWidth: _flyerBoxWidth,
                 ),
-                slideModel: flyerModel.slides[_reverseIndex],
+                slideModel: flyerModel!.slides![_reverseIndex!],
                 tinyMode: false,
                 onSlideNextTap: null,
                 onSlideBackTap: null,

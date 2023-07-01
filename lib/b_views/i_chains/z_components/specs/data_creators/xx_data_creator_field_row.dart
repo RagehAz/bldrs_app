@@ -31,10 +31,10 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
   final bool hasUnit;
   final GlobalKey<FormState> formKey;
   final TextEditingController textController;
-  final String Function(String) validator;
-  final ValueChanged<String> onKeyboardChanged;
-  final ValueChanged<String> onKeyboardSubmitted;
-  final ValueNotifier<String> selectedUnitID;
+  final String? Function(String?) validator;
+  final ValueChanged<String?>? onKeyboardChanged;
+  final ValueChanged<String?>? onKeyboardSubmitted;
+  final ValueNotifier<String?> selectedUnitID;
   final Function onUnitSelectorButtonTap;
   final Verse hintVerse;
   final AppBarType appBarType;
@@ -104,7 +104,7 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
         if (hasUnit == true)
           ValueListenableBuilder(
               valueListenable: selectedUnitID,
-              builder: (_, String selectedUnitID, Widget? child){
+              builder: (_, String? selectedUnitID, Widget? child){
 
 
                 Verse _verse = Verse(
@@ -114,13 +114,13 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
 
                 final bool _isCurrency = Phider.checkVerseIsCurrency(selectedUnitID);
                 if (_isCurrency == true){
-                  final CurrencyModel _currency = ZoneProvider.proGetCurrencyByCurrencyID(
+                  final CurrencyModel? _currency = ZoneProvider.proGetCurrencyByCurrencyID(
                     context: context,
                     currencyID: selectedUnitID,
                     listen: false,
                   );
                   _verse = Verse(
-                    id: _currency.symbol,
+                    id: _currency?.symbol,
                     translate: false,
                   );
                 }

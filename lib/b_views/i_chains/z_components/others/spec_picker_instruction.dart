@@ -17,7 +17,7 @@ class ChainInstructions extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final Verse instructions;
-  final String leadingIcon;
+  final String? leadingIcon;
   final double iconSizeFactor;
   /// --------------------------------------------------------------------------
   @override

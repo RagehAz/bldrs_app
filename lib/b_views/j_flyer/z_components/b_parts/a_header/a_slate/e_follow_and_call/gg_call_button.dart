@@ -15,7 +15,7 @@ class CallButton extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final Function onCallTap;
+  final Function? onCallTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class CallButton extends StatelessWidget {
     );
     // --------------------
     return GestureDetector(
-      onTap: onCallTap,
+      onTap: onCallTap == null ? null : () => onCallTap!(),
       child: Container(
         height: _callBTHeight,
         width: _callBTWidth,

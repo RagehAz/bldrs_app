@@ -29,20 +29,22 @@ class LoadingFlyersGrid extends StatelessWidget {
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+    final double _gridWidth = gridWidth ?? MediaQuery.of(context).size.width;
+    final double _gridHeight = gridHeight ?? MediaQuery.of(context).size.height;
     // --------------------
     final double _gridSlotWidth = FlyerDim.flyerGridFlyerBoxWidth(
       context: context,
       scrollDirection: scrollDirection,
       numberOfColumnsOrRows: numberOfColumnsOrRows,
-      gridHeight: gridHeight,
-      gridWidth: gridWidth,
+      gridHeight: _gridHeight,
+      gridWidth: _gridWidth,
       hasResponsiveSideMargin: hasResponsiveSideMargin,
       // spacingRatio: ,
     );
     // --------------------
     return FlyersGridBuilder(
-        gridWidth: gridWidth,
-        gridHeight: gridHeight,
+        gridWidth: _gridWidth,
+        gridHeight: _gridHeight,
         scrollController: scrollController,
         scrollable: scrollable,
         topPadding: topPadding,

@@ -17,11 +17,11 @@ class PyramidFloatingButton extends StatelessWidget {
   /// ---------------------------------------------------------------------------
   final int redDotCount;
   final String icon;
-  final Color color;
-  final Function onTap;
-  final Function onLongTap;
-  final bool isDeactivated;
-  final Color iconColor;
+  final Color? color;
+  final Function? onTap;
+  final Function? onLongTap;
+  final bool? isDeactivated;
+  final Color? iconColor;
   /// ---------------------------------------------------------------------------
   static double size = 45;
   /// ---------------------------------------------------------------------------

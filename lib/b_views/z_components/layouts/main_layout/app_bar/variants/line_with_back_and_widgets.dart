@@ -10,8 +10,8 @@ class LineWithBackAndWidgets extends StatelessWidget {
   });
   
   final Function onBack;
-    final List<Widget> appBarRowWidgets;
-  final ScrollController scrollController;
+  final List<Widget>? appBarRowWidgets;
+  final ScrollController? scrollController;
 
   @override
   Widget build(BuildContext context) {

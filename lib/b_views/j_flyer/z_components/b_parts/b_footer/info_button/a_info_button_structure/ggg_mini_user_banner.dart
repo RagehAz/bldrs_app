@@ -14,7 +14,7 @@ class MiniUserBanner extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final UserModel userModel;
+  final UserModel? userModel;
   final double size;
   /// --------------------------------------------------------------------------
   @override

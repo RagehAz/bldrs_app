@@ -19,7 +19,7 @@ class SlideEditorScreen extends StatefulWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final DraftSlide slide;
+  final DraftSlide? slide;
   final ValueNotifier<DraftFlyer?> draftFlyer;
   /// --------------------------------------------------------------------------
   @override
@@ -49,7 +49,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
   void initializeTempSlide(){
 
     /// INITIALIZE TEMP SLIDE
-    final DraftSlide _initialSlide = widget.slide.copyWith(
+    final DraftSlide? _initialSlide = widget.slide?.copyWith(
       filter: widget.slide?.filter ?? _allFilters[0],
       matrix: initializeMatrix(slide: widget.slide),
     );
@@ -65,14 +65,14 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
     setNotifier(
       notifier: _matrix,
       mounted: mounted,
-      value: _initialSlide.matrix,
+      value: _initialSlide?.matrix,
     );
 
     /// SET FILTER
     setNotifier(
       notifier: _filterModel,
       mounted: mounted,
-      value: _initialSlide.filter ?? _allFilters[0],
+      value: _initialSlide?.filter ?? _allFilters[0],
     );
 
     final bool _initialMatrixIsIdentity = Trinity.checkMatrixesAreIdentical(
@@ -161,7 +161,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
             isTransforming: _isTransforming,
             mounted: mounted,
             onSlideTap: (){
-              blog('slide is tapped ahowann');
+              blog('slide is tapped aho');
             },
             isPlayingAnimation: _isPlayingAnimation,
             onSlideDoubleTap: () => onReplayAnimation(
@@ -202,7 +202,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
               draftNotifier: _draftNotifier,
               filterNotifier: _filterModel,
               matrixNotifier: _matrix,
-              bzID: widget.draftFlyer.value.bzID,
+              bzID: widget.draftFlyer.value?.bzID,
               mounted: mounted,
             ),
             onConfirm: () => onConfirmSlideEdits(

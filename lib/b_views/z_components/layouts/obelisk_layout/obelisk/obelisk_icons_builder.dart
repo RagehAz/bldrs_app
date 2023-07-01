@@ -15,8 +15,8 @@ class ObeliskIconsBuilder extends StatelessWidget{
     super.key
   });
   /// --------------------------------------------------------------------------
-  final List<NavModel> navModels;
-  final ValueNotifier<ProgressBarModel> progressBarModel;
+  final List<NavModel?> navModels;
+  final ValueNotifier<ProgressBarModel?> progressBarModel;
   final ValueChanged<int> onRowTap;
   /// --------------------------------------------------------------------------
   @override

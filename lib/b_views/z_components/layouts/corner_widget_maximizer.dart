@@ -1,4 +1,4 @@
-
+// ignore_for_file: unused_element
 import 'package:basics/animators/helpers/animators.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
@@ -28,7 +28,7 @@ class CornerWidgetMaximizer extends StatelessWidget {
   final double minWidth;
   final double maxWidth;
   final double childWidth;
-  final Widget topChild;
+  final Widget? topChild;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -64,7 +64,7 @@ class _Maximizer extends StatefulWidget {
   final double minWidth;
   final double maxWidth;
   final double childWidth;
-  final Widget topChild;
+  final Widget? topChild;
   final double maxAllowableWidth;
   /// --------------------------------------------------------------------------
   @override
@@ -74,10 +74,10 @@ class _Maximizer extends StatefulWidget {
 
 class _MaximizerState extends State<_Maximizer> with SingleTickerProviderStateMixin {
   // -----------------------------------------------------------------------------
-  AnimationController? _animationController;
-  Animation<double>? _animation;
-  Animation<double>? _scaleAnimation;
-  ColorTween? _backgroundColorTween;
+  late AnimationController _animationController;
+  late Animation<double> _animation;
+  late Animation<double> _scaleAnimation;
+  late ColorTween _backgroundColorTween;
   // --------------------
   final ValueNotifier<bool> _isExpanded = ValueNotifier<bool>(false);
   // -----------------------------------------------------------------------------
@@ -118,7 +118,7 @@ class _MaximizerState extends State<_Maximizer> with SingleTickerProviderStateMi
       controller: _animationController,
       curve: Curves.easeInOut,
       reverseCurve: Curves.easeInOut,
-    );
+    )!;
 
     _scaleAnimation = Animators.animateDouble(
       begin: _getBeginRatio(),
@@ -126,7 +126,7 @@ class _MaximizerState extends State<_Maximizer> with SingleTickerProviderStateMi
       controller: _animationController,
       curve: Curves.easeInOut,
       reverseCurve: Curves.easeInOut,
-    );
+    )!;
 
   }
   // --------------------
@@ -163,7 +163,7 @@ class _MaximizerState extends State<_Maximizer> with SingleTickerProviderStateMi
           controller: _animationController,
           curve: Curves.easeInOut,
           reverseCurve: Curves.easeInOut,
-        );
+        )!;
       });
     }
 
@@ -189,7 +189,7 @@ class _MaximizerState extends State<_Maximizer> with SingleTickerProviderStateMi
   // -----------------------------------------------------------------------------
   Future<void> _animate() async {
 
-    if (_scaleAnimation.value >= _getEndRatio()){
+    if ((_scaleAnimation.value) >= _getEndRatio()){
 
       await _animationController.reverse();
       setNotifier(notifier: _isExpanded, mounted: mounted, value: false);
@@ -213,10 +213,10 @@ class _MaximizerState extends State<_Maximizer> with SingleTickerProviderStateMi
         /// BACKGROUND,
         IgnorePointer(
           child: AnimatedBuilder(
-            animation: _animationController,
+            animation: _animationController.view,
             builder: (_, Widget? child){
 
-              final Color _backgroundColor = _backgroundColorTween.evaluate(_animation);
+              final Color? _backgroundColor = _backgroundColorTween.evaluate(_animation);
 
               return Container(
                 width: Scale.screenWidth(context),

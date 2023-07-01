@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
@@ -21,12 +20,8 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
-
-
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class NoteCard extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -190,7 +185,6 @@ class NoteCard extends StatelessWidget {
                     BldrsText(
                       verse: Verse(
                         id: BldrsTimers.calculateSuperTimeDifferenceString(
-                          context: context,
                           from: noteModel?.sentTime,
                           to: DateTime.now(),
                         ),

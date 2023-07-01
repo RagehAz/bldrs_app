@@ -191,7 +191,7 @@ class BldrsBox extends StatelessWidget {
       if (isPicPath == true) {
         return BldrsImagePathToUiImage(
           imagePath: icon,
-          builder: (bool loading, ui.Image uiImage) {
+          builder: (bool loading, ui.Image? uiImage) {
             return getChild(
               context: context,
               theIcon: uiImage,

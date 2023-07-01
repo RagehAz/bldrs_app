@@ -55,14 +55,14 @@ class ConfirmButton extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final ConfirmButtonModel confirmButtonModel;
+  final ConfirmButtonModel? confirmButtonModel;
   final Alignment? positionedAlignment;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
     final Widget _button = BldrsBox(
-      isDisabled: confirmButtonModel.isDeactivated,
+      isDisabled: confirmButtonModel?.isDeactivated,
       height: 50,
       width: getWidth(
         context: context,
@@ -73,19 +73,19 @@ class ConfirmButton extends StatelessWidget {
       verseColor: Colorz.black230,
       verseWeight: VerseWeight.black,
       verseItalic: true,
-      verse: confirmButtonModel.firstLine.copyWith(casing: Casing.upperCase),
-      secondLine: confirmButtonModel.secondLine,
+      verse: confirmButtonModel?.firstLine.copyWith(casing: Casing.upperCase),
+      secondLine: confirmButtonModel?.secondLine,
       secondLineColor: Colorz.black255,
       verseScaleFactor: 0.7,
       margins: const EdgeInsets.all(10),
-      onTap: confirmButtonModel.onTap,
+      onTap: confirmButtonModel?.onTap,
     );
     // --------------------
     if (positionedAlignment == null){
       return _button;
     }
     // --------------------
-    else if (confirmButtonModel.onSkipTap == null){
+    else if (confirmButtonModel?.onSkipTap == null){
       return SuperPositioned(
         key: const ValueKey<String>('EditorConfirmButton.onSkipTap'),
         enAlignment: positionedAlignment ?? Alignment.bottomCenter,
@@ -110,7 +110,7 @@ class ConfirmButton extends StatelessWidget {
                   id: 'phid_skip',
                   translate: true,
                 ),
-                onTap: confirmButtonModel.onSkipTap,
+                onTap: confirmButtonModel?.onSkipTap,
                 // secondLine: null,
                 // isDeactivated: false,
                 // onSkipTap: null,

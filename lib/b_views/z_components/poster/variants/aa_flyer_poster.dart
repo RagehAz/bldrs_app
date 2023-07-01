@@ -15,9 +15,9 @@ class FlyerPoster extends StatelessWidget {
   });
   // -----------------------------------------------------------------------------
   final double width;
-  final FlyerModel flyerModel;
-  final String screenName;
-  final DraftFlyer draft;
+  final FlyerModel? flyerModel;
+  final String? screenName;
+  final DraftFlyer? draft;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

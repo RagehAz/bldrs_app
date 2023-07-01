@@ -53,36 +53,36 @@ class ChainSplitter extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final dynamic chainOrChainsOrSonOrSons;
-  final int level;
-  final String previousPath;
-  final double width;
+  final int? level;
+  final String? previousPath;
+  final double? width;
   final List<String> selectedPhids;
   final bool initiallyExpanded;
   final ValueNotifier<dynamic> searchText;
   final ChainSecondLinesType secondLinesType;
-  final Function(String path, String phid) onPhidTap;
-  final Function(String path, String phid) onPhidDoubleTap;
-  final Function(String path, String phid) onPhidLongTap;
-  final ValueChanged<List<SpecModel>> onExportSpecs;
-  final ZoneModel zone;
-  final ValueChanged<String> onDataCreatorKeyboardSubmitted;
+  final Function(String? path, String? phid)? onPhidTap;
+  final Function(String? path, String? phid)? onPhidDoubleTap;
+  final Function(String? path, String? phid)? onPhidLongTap;
+  final ValueChanged<List<SpecModel>>? onExportSpecs;
+  final ZoneModel? zone;
+  final ValueChanged<String?>? onDataCreatorKeyboardSubmitted;
   final bool isMultipleSelectionMode;
   final bool onlyUseZoneChains;
   final bool isCollapsable;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  Verse createSecondLineVerse(ChainSecondLinesType type, String phid, {int index}){
-    String _output;
+  Verse? createSecondLineVerse(ChainSecondLinesType type, String? phid, {int? index}){
+    String? _output;
 
     if (type == ChainSecondLinesType.id){
       _output = phid;
     }
     else if (type == ChainSecondLinesType.indexAndID){
-      final int _index = Phider.getIndexFromPhid(phid);
-      final String _phid = Phider.removeIndexFromPhid(phid: phid);
+      final int? _index = Phider.getIndexFromPhid(phid);
+      final String? _phid = Phider.removeIndexFromPhid(phid: phid);
 
-      final String _outsideIndex = Numeric.formatNumberWithinDigits(num: index, digits: 4);
-      final String _indexFromPhid = Numeric.formatNumberWithinDigits(num: _index, digits: 4);
+      final String? _outsideIndex = Numeric.formatNumberWithinDigits(num: index, digits: 4);
+      final String? _indexFromPhid = Numeric.formatNumberWithinDigits(num: _index, digits: 4);
       _output = index == null ? '$_indexFromPhid : $_phid' : '$_outsideIndex : $_indexFromPhid : $_phid';
     }
 
@@ -104,7 +104,7 @@ class ChainSplitter extends StatelessWidget {
     if (Phider.checkIsPhid(chainOrChainsOrSonOrSons) == true) {
 
       final String _phid = chainOrChainsOrSonOrSons;
-      final String _path = ChainPathConverter.fixPathFormatting('$previousPath/$_phid/');
+      final String? _path = ChainPathConverter.fixPathFormatting('$previousPath/$_phid/');
 
       final bool _isSelected = Stringer.checkStringsContainString(
         strings: Phider.removePhidsIndexes(selectedPhids),
@@ -118,9 +118,9 @@ class ChainSplitter extends StatelessWidget {
         level: level,
         searchText: searchText,
         color: _isSelected == true ? Colorz.blue125 : Colorz.white20,
-        onPhidTap: () => onPhidTap(_path, _phid),
-        onPhidDoubleTap: () => onPhidDoubleTap(_path, _phid),
-        onPhidLongTap: () => onPhidLongTap(_path, _phid),
+        onPhidTap: () => onPhidTap?.call(_path, _phid),
+        onPhidDoubleTap: () => onPhidDoubleTap?.call(_path, _phid),
+        onPhidLongTap: () => onPhidLongTap?.call(_path, _phid),
         // inverseAlignment: ,
         margins: const EdgeInsets.only(bottom: 5),
         // isDisabled: ,
@@ -160,7 +160,7 @@ class ChainSplitter extends StatelessWidget {
       final Chain _chain = chainOrChainsOrSonOrSons;
 
       return ChainBuilder(
-        key: PageStorageKey<String>(_chain.id),
+        key: PageStorageKey<String>('${_chain.id}'),
         previousPath: previousPath,
         chain: _chain,
         boxWidth: _width,
@@ -204,8 +204,8 @@ class ChainSplitter extends StatelessWidget {
     else if (DataCreation.checkIsDataCreator(chainOrChainsOrSonOrSons) == true){
 
       // final DataCreator _dataCreator = DataCreation.decipherDataCreator(chainOrChainsOrSonOrSons);
-      final String _chainID = ChainPathConverter.getLastPathNode(previousPath);
-      final PickerModel _picker = PickerModel.getPickerByChainID(
+      final String? _chainID = ChainPathConverter.getLastPathNode(previousPath);
+      final PickerModel? _picker = PickerModel.getPickerByChainID(
           pickers: ChainsProvider.proGetAllPickers(
             context: context,
             listen: false,

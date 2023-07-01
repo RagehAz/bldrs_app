@@ -28,12 +28,12 @@ import 'package:provider/provider.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 void initializeCurrencyData({
-  required ValueNotifier<String> selectedCurrencyID,
-  required ZoneModel zone,
+  required ValueNotifier<String?> selectedCurrencyID,
+  required ZoneModel? zone,
   required TextEditingController textController,
-  required SpecModel initialValue,
-  required ValueNotifier<double> priceValue,
-  required DataCreator dataCreatorType,
+  required SpecModel? initialValue,
+  required ValueNotifier<double?> priceValue,
+  required DataCreator? dataCreatorType,
   required String initialCurrencyID,
   required bool mounted,
 }){
@@ -62,19 +62,19 @@ void initializeCurrencyData({
 // --------------------
 /// TESTED : WORKS PERFECT
 void _initializeInitialCurrency({
-  required String initialCurrencyID,
-  required ZoneModel zone,
-  required ValueNotifier<String> selectedCurrencyID,
+  required String? initialCurrencyID,
+  required ZoneModel? zone,
+  required ValueNotifier<String?> selectedCurrencyID,
   required bool mounted,
 }){
 
-  String _initialCurrencyID = initialCurrencyID;
+  String? _initialCurrencyID = initialCurrencyID;
 
   if (_initialCurrencyID == null){
 
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);
     final String? _countryID = zone?.countryID ?? _zoneProvider.currentZone?.countryID;
-    final CurrencyModel _initialCurrency = ZoneProvider.proGetCurrencyByCountryID(
+    final CurrencyModel? _initialCurrency = ZoneProvider.proGetCurrencyByCountryID(
       context: getMainContext(),
       countryID: _countryID,
       listen: false,
@@ -95,17 +95,17 @@ void _initializeInitialCurrency({
 /// TESTED : WORKS PERFECT
 Future<void> onCurrencySelectorButtonTap({
   required BuildContext context,
-  required ZoneModel zone,
-  required ValueNotifier<String> selectedCurrencyID,
+  required ZoneModel? zone,
+  required ValueNotifier<String?> selectedCurrencyID,
   required GlobalKey<FormState> formKey,
   required String text,
   required ValueNotifier<dynamic> specValue,
-  required PickerModel picker,
-  required ValueChanged<List<SpecModel>> onExportSpecs,
+  required PickerModel? picker,
+  required ValueChanged<List<SpecModel>>? onExportSpecs,
   required bool mounted,
 }) async {
 
-  final CurrencyModel _currency = await Nav.goToNewScreen(
+  final CurrencyModel? _currency = await Nav.goToNewScreen(
     context: context,
     screen: CurrenciesScreen(
       countryIDCurrencyOverride: zone?.countryID,
@@ -140,12 +140,12 @@ Future<void> onCurrencySelectorButtonTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 void initializeNumberData({
-  required SpecModel initialValue,
+  required SpecModel? initialValue,
   required TextEditingController textController,
-  required ValueNotifier<String> selectedUnitID,
-  required PickerModel picker,
+  required ValueNotifier<String?> selectedUnitID,
+  required PickerModel? picker,
   required ValueNotifier<dynamic> specValue,
-  required DataCreator dataCreatorType,
+  required DataCreator? dataCreatorType,
   required String initialUnit,
   required bool mounted,
 }){
@@ -161,8 +161,8 @@ void initializeNumberData({
   // --------------------
   textController.text = specValue.value?.toString() ?? '';
 // --------------------
-  final Chain _unitChain = ChainsProvider.proFindChainByID(
-    chainID: picker.unitChainID,
+  final Chain? _unitChain = ChainsProvider.proFindChainByID(
+    chainID: picker?.unitChainID,
   );
 // --------------------
   _initializeNumberUnit(
@@ -177,12 +177,12 @@ void initializeNumberData({
 // --------------------
 /// TESTED : WORKS PERFECT
 void _initializeNumberUnit({
-  required String initialUnit,
-  required Chain unitChain,
-  required ValueNotifier<String> selectedUnitID,
+  required String? initialUnit,
+  required Chain? unitChain,
+  required ValueNotifier<String?> selectedUnitID,
   required bool mounted,
 }){
-  String _initialUnit;
+  String? _initialUnit;
 
   if (unitChain != null){
 
@@ -209,18 +209,18 @@ void _initializeNumberUnit({
 /// TESTED : WORKS PERFECT
 Future<void> onUnitSelectorButtonTap({
   required BuildContext context,
-  required PickerModel picker,
+  required PickerModel? picker,
   required String text,
-  required ValueNotifier<String> selectedUnitID,
+  required ValueNotifier<String?> selectedUnitID,
   required ValueNotifier<dynamic> specValue,
-  required DataCreator dataCreatorType,
+  required DataCreator? dataCreatorType,
   required GlobalKey<FormState> formKey,
-  required ValueChanged<List<SpecModel>> onExportSpecs,
+  required ValueChanged<List<SpecModel>>? onExportSpecs,
   required bool mounted,
 }) async {
 // --------------------
-  final Chain _unitChain = ChainsProvider.proFindChainByID(
-    chainID: picker.unitChainID,
+  final Chain? _unitChain = ChainsProvider.proFindChainByID(
+    chainID: picker?.unitChainID,
   );
 // --------------------
   Keyboard.closeKeyboard();
@@ -230,14 +230,14 @@ Future<void> onUnitSelectorButtonTap({
   /// SONS ARE PHIDS
   if (_arePhids == true){
 
-    final List<String> _units = _unitChain.sons;
+    final List<String> _units = _unitChain?.sons;
 
     await BottomDialog.showButtonsBottomDialog(
         buttonHeight: 40,
-        numberOfWidgets: _unitChain.sons.length,
+        numberOfWidgets: _unitChain?.sons.length,
         builder: (_){
 
-          return List.generate(_unitChain.sons.length,
+          return List.generate(_unitChain?.sons.length,
                   (index){
 
                 final String _unitID = _units[index];
@@ -291,12 +291,12 @@ Future<void> onUnitSelectorButtonTap({
 void _onSelectUnit({
   required String unitID,
   required String text,
-  required ValueNotifier<String> selectedUnitID,
-  required PickerModel picker,
+  required ValueNotifier<String?> selectedUnitID,
+  required PickerModel? picker,
   required ValueNotifier<dynamic> specValue,
-  required DataCreator dataCreatorType,
+  required DataCreator? dataCreatorType,
   required GlobalKey<FormState> formKey,
-  required ValueChanged<List<SpecModel>> onExportSpecs,
+  required ValueChanged<List<SpecModel>>? onExportSpecs,
   required bool mounted,
 }){
 
@@ -325,11 +325,11 @@ void _onSelectUnit({
 void onDataCreatorKeyboardChanged({
   required GlobalKey<FormState> formKey,
   required String text,
-  required DataCreator dataCreatorType,
+  required DataCreator? dataCreatorType,
   required ValueNotifier<dynamic> specValue,
-  required PickerModel picker,
-  required String selectedUnitID,
-  required ValueChanged<List<SpecModel>> onExportSpecs,
+  required PickerModel? picker,
+  required String? selectedUnitID,
+  required ValueChanged<List<SpecModel>>? onExportSpecs,
   required bool mounted,
 }) {
 
@@ -357,13 +357,13 @@ Future<void> onDataCreatorKeyboardSubmittedAnd({
   required BuildContext context,
   required GlobalKey<FormState> formKey,
   required String text,
-  required DataCreator dataCreatorType,
+  required DataCreator? dataCreatorType,
   required ValueNotifier<dynamic> specValue,
-  required PickerModel picker,
-  required String selectedUnitID,
-  required ValueChanged<List<SpecModel>> onExportSpecs,
+  required PickerModel? picker,
+  required String? selectedUnitID,
+  required ValueChanged<List<SpecModel>>? onExportSpecs,
   required bool mounted,
-  ValueChanged<String> onKeyboardSubmitted,
+  ValueChanged<String>? onKeyboardSubmitted,
 }) async {
 
   onDataCreatorKeyboardChanged(
@@ -391,7 +391,7 @@ Future<void> onDataCreatorKeyboardSubmittedAnd({
 /// TESTED : WORKS PERFECT
 void _fixValueDataTypeAndSetValue({
   required String text,
-  required DataCreator dataCreatorType,
+  required DataCreator? dataCreatorType,
   required ValueNotifier<dynamic> specValue,
   required bool mounted,
 }){
@@ -403,8 +403,8 @@ void _fixValueDataTypeAndSetValue({
   /// IF INT
   if (DataCreation.checkIsIntDataCreator(dataCreatorType) == true){
 
-    final double _doubleFromString = Numeric.transformStringToDouble(text);
-    setNotifier(notifier: specValue, mounted: mounted, value: _doubleFromString.toInt());
+    final double? _doubleFromString = Numeric.transformStringToDouble(text);
+    setNotifier(notifier: specValue, mounted: mounted, value: _doubleFromString?.toInt());
 
   }
 
@@ -437,12 +437,12 @@ void _fixValueDataTypeAndSetValue({
 /// TESTED : WORKS PERFECT
 dynamic _fixValueDataType({
   required dynamic value,
-  required DataCreator dataCreatorType,
+  required DataCreator? dataCreatorType,
 }){
 
   /// IF INT
   if (DataCreation.checkIsIntDataCreator(dataCreatorType) == true){
-    int _output;
+    int? _output;
 
     if (value is String){
       _output = Numeric.transformStringToInt(value);
@@ -456,7 +456,7 @@ dynamic _fixValueDataType({
 
   /// IF DOUBLE
   else if (DataCreation.checkIsDoubleDataCreator(dataCreatorType) == true){
-    double _output;
+    double? _output;
 
     if (value is String){
       _output = Numeric.transformStringToDouble(value);
@@ -480,9 +480,9 @@ dynamic _fixValueDataType({
 void _createSpecsFromLocalDataAndExport({
   required String text,
   required ValueNotifier<dynamic> specValue,
-  required PickerModel picker,
-  required String selectedUnitID,
-  required ValueChanged<List<SpecModel>> onExportSpecs,
+  required PickerModel? picker,
+  required String? selectedUnitID,
+  required ValueChanged<List<SpecModel>>? onExportSpecs,
 }){
 
   final List<SpecModel> _specs = _createSpecsForValueAndUnit(
@@ -492,15 +492,15 @@ void _createSpecsFromLocalDataAndExport({
     selectedUnitID: selectedUnitID,
   );
 
-  onExportSpecs(_specs);
+  onExportSpecs?.call(_specs);
 }
 // --------------------
 /// TESTED : WORKS PERFECT
 List<SpecModel> _createSpecsForValueAndUnit({
   required String text,
-  required PickerModel picker,
+  required PickerModel? picker,
   required dynamic value,
-  required String selectedUnitID,
+  required String? selectedUnitID,
 }){
   final List<SpecModel> _output = <SpecModel>[];
 
@@ -509,16 +509,16 @@ List<SpecModel> _createSpecsForValueAndUnit({
 
     /// CREATE SPEC FOR VALUE
     final SpecModel _valueSpec = SpecModel(
-      pickerChainID: picker.chainID,
+      pickerChainID: picker?.chainID,
       value: value,
     );
     _output.add(_valueSpec);
 
     /// CREATE SPEC FOR UNIT IF EXISTS
-    if (picker.unitChainID != null){
+    if (picker?.unitChainID != null){
 
       final SpecModel _unitSpec = SpecModel(
-        pickerChainID: picker.unitChainID,
+        pickerChainID: picker?.unitChainID,
         value: selectedUnitID,
       );
       _output.add(_unitSpec);

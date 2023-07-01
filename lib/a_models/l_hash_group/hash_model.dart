@@ -16,14 +16,14 @@ class HashGroup {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<HashModel>? getHashModelsFromHashGroups({
-    required List<HashGroup> hashGroups,
-    required String id,
+    required List<HashGroup> ?hashGroups,
+    required String? id,
   }) {
     List<HashModel>? _output = <HashModel>[];
 
     if (id != null && Mapper.checkCanLoopList(hashGroups) == true) {
 
-      _output = hashGroups.firstWhere((HashGroup hashModel) => hashModel.id == id)?.hashtags;
+      _output = hashGroups!.firstWhere((HashGroup hashModel) => hashModel.id == id).hashtags;
 
     }
 

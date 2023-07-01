@@ -19,15 +19,15 @@ class FlyerBox extends StatelessWidget {
   /// width factor * screenWidth = flyerWidth
   final double flyerBoxWidth;
   /// internal parts of the flyer
-  final List<Widget> stackWidgets;
-  final Color boxColor;
-  final Function onTap;
+  final List<Widget>? stackWidgets;
+  final Color? boxColor;
+  final Function? onTap;
   final bool shadowIsOn;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final BorderRadius _flyerBorders = FlyerDim.flyerCorners(context, flyerBoxWidth);
+    final BorderRadius _flyerBorders = FlyerDim.flyerCorners(flyerBoxWidth);
     // --------------------
     final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
       flyerBoxWidth: flyerBoxWidth,
@@ -36,7 +36,7 @@ class FlyerBox extends StatelessWidget {
     return Center(
       key: const ValueKey<String>('flyer_box'),
       child: GestureDetector(
-        onTap: onTap,
+        onTap: () => onTap?.call(),
         child: Container(
           width: flyerBoxWidth,
           height: _flyerBoxHeight,

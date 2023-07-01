@@ -14,7 +14,7 @@ class SuperHeadline extends StatelessWidget {
   });
   // -----------------------------------------------------------------------------
   final Verse verse;
-  final double width;
+  final double? width;
   final Color color;
   // -----------------------------------------------------------------------------
   @override

@@ -14,14 +14,14 @@ class ManyPicsBox extends StatelessWidget {
     super.key
   });
   
-  final List<String> pics;
+  final List<String>? pics;
   final double size;
   /// --------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
 
-    if (pics != null && pics.length >= 3){
+    if (pics != null && pics!.length >= 3){
 
       final double _size = size * 0.47;
 
@@ -39,14 +39,14 @@ class ManyPicsBox extends StatelessWidget {
 
                 MicroPic(
                   size: _size,
-                  pic: pics[0],
+                  pic: pics![0],
                 ),
 
                 const Expander(),
 
                 MicroPic(
                   size: _size,
-                  pic: pics[1],
+                  pic: pics![1],
                 ),
 
               ],
@@ -59,29 +59,29 @@ class ManyPicsBox extends StatelessWidget {
 
                 MicroPic(
                   size: _size,
-                  pic: pics[2],
+                  pic: pics![2],
                 ),
 
                 const Expander(),
 
-                if (pics.length == 3)
+                if (pics!.length == 3)
                   Container(
                     width: _size,
                     height: _size,
                     color: Colorz.nothing,
                   ),
 
-                if (pics.length == 4)
+                if (pics!.length == 4)
                   MicroPic(
                     size: _size,
-                    pic: pics[3],
+                    pic: pics![3],
                   ),
 
-                if (pics.length > 4)
+                if (pics!.length > 4)
                   BldrsBox(
                     height: _size,
                     width: _size,
-                    verse: Verse.plain('+${pics.length - 3}'),
+                    verse: Verse.plain('+${pics!.length - 3}'),
                     verseWeight: VerseWeight.thin,
                     verseScaleFactor: 0.35,
                     bubble: false,

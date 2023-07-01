@@ -40,16 +40,16 @@ class PhidsButtonsList extends StatelessWidget {
 
           final String _phid = phids[index];
 
-          final String _icon = _chainsProvider.getPhidIcon(
+          final String? _icon = _chainsProvider.getPhidIcon(
               son: _phid,
           );
 
-          final String _enName = _chainsProvider.translateChainPhid(
+          final String? _enName = _chainsProvider.translateChainPhid(
             phid: _phid,
             langCode: 'en',
           );
 
-          final String _arName = _chainsProvider.translateChainPhid(
+          final String? _arName = _chainsProvider.translateChainPhid(
             phid: _phid,
             langCode: 'ar',
           );

@@ -151,7 +151,7 @@ class Formers {
   }){
     String? _message;
 
-    if (canValidate == true){
+    if (Mapper.boolIsTrue(canValidate) == true){
 
       if (pic != null && pic is PicModel){
 
@@ -1000,9 +1000,9 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String? numberDataCreatorFieldValidator({
-    required String text,
-    required PickerModel picker,
-    required DataCreator dataCreatorType,
+    required String? text,
+    required PickerModel? picker,
+    required DataCreator? dataCreatorType,
     required String? selectedUnitID,
   }) {
     String? _message;
@@ -1015,14 +1015,14 @@ class Formers {
     }
 
     /// IF REQUIRED AND EMPTY
-    if (Mapper.boolIsTrue(picker.isRequired) == true){
+    if (Mapper.boolIsTrue(picker?.isRequired) == true){
       if (TextCheck.isEmpty(text) == true){
         _message = Verse.transBake('phid_this_field_can_not_be_empty');
       }
     }
 
     /// IF SHOULD HAVE UNIT BUT NOT YET SELECTED
-    if (picker.unitChainID != null && selectedUnitID == null){
+    if (picker?.unitChainID != null && selectedUnitID == null){
       _message = Verse.transBake('phid_should_select_a_measurement_unit');
     }
 
@@ -1049,9 +1049,9 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String? currencyFieldValidator({
-    required ValueNotifier<String>? selectedCurrencyID, // IS UNIT SPEC VALUE
-    required String text, // IS THE VALUE SPEC VALUE
-    required PickerModel picker,
+    required ValueNotifier<String?>? selectedCurrencyID, // IS UNIT SPEC VALUE
+    required String? text, // IS THE VALUE SPEC VALUE
+    required PickerModel? picker,
   }) {
     String? _message;
 
@@ -1063,7 +1063,7 @@ class Formers {
     }
 
     /// IF REQUIRED AND EMPTY
-    if (Mapper.boolIsTrue(picker.isRequired) == true){
+    if (Mapper.boolIsTrue(picker?.isRequired) == true){
       if (TextCheck.isEmpty(text) == true){
         _message = Verse.transBake('phid_this_field_can_not_be_empty');
       }

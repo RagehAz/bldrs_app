@@ -1,3 +1,4 @@
+// ignore_for_file: unused_element
 part of bldrs_app_bar;
 
 class ZoneButton extends StatelessWidget {
@@ -11,9 +12,9 @@ class ZoneButton extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final Function onTap;
+  final Function? onTap;
   final bool isOn;
-  final ZoneModel zoneOverride;
+  final ZoneModel? zoneOverride;
   final double height;
   final bool isPlanetButton;
   // -----------------------------------------------------------------------------
@@ -46,9 +47,9 @@ class ZoneButton extends StatelessWidget {
       final String? _countryFlag = _currentZone?.icon;
       final String? _cityName = _currentZone?.cityName;
       // --------------------
-      final String _firstRow = _currentZone == null ? ' ' : _countryName;
+      final String? _firstRow = _currentZone == null ? ' ' : _countryName;
       // --------------------
-      final String _secondRow = _currentZone == null ? ' ' : _cityName;
+      final String? _secondRow = _currentZone == null ? ' ' : _cityName;
       // --------------------
       return _ZoneButtonTree(
         onTap: onTap,
@@ -77,10 +78,10 @@ class _ZoneButtonTree extends StatelessWidget {
     super.key
   });
   // ---------------------
-  final Function onTap;
-  final String icon;
-  final String firstRow;
-  final String secondRow;
+  final Function? onTap;
+  final String? icon;
+  final String? firstRow;
+  final String? secondRow;
   final bool isOn;
   final double height;
   // -----------------------------------------------------------------------------
@@ -90,7 +91,7 @@ class _ZoneButtonTree extends StatelessWidget {
     const double _flagHorizontalMargins = 2;
 
     return GestureDetector(
-      onTap: onTap,
+      onTap: onTap == null ? null : () => onTap!(),
       child: Container(
         height: height,
         alignment: Alignment.centerRight,

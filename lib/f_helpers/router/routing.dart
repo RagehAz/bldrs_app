@@ -81,36 +81,29 @@ class Routing {
     /// STATIC LOGO SCREEN
       case Routing.staticLogoScreen:
         return Nav.fadeToScreen(const StaticLogoScreen(), settings);
-        break;
     // --------------------------
     /// ANIMATED LOGO SCREEN
       case Routing.animatedLogoScreen:
         return Nav.fadeToScreen(const AnimatedLogoScreen(), settings);
-        break;
     // --------------------------
     /// AUTH SCREEN
       case Routing.auth:
         return Nav.fadeToScreen(const AuthScreen(), settings);
-        break;
     // --------------------------
     /// HOME SCREEN
       case Routing.home:
         return Nav.fadeToScreen(const HomeScreen(), settings);
-        break;
     // --------------------------
     /// s12
       case Routing.savedFlyers:
         return Nav.slideToScreen(const SavedFlyersScreen(), settings);
-        break;
     // --------------------------
     /// s20
       case Routing.search:
         return Nav.fadeToScreen(const SuperSearchScreen(), settings);
-        break;
     // --------------------------
       case Routing.appSettings:
         return Nav.fadeToScreen(const AppSettingsScreen(), settings);
-        break;
     // --------------------------
     /*
     ///  s51

@@ -17,8 +17,8 @@ class FlyerCountersAndRecords extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final double pageWidth;
-  final FlyerModel flyerModel;
-  final ValueNotifier<FlyerCounterModel> flyerCounter;
+  final FlyerModel? flyerModel;
+  final ValueNotifier<FlyerCounterModel?> flyerCounter;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class FlyerCountersAndRecords extends StatelessWidget {
       width: pageWidth,
       child: ValueListenableBuilder(
         valueListenable: flyerCounter,
-        builder: (_, FlyerCounterModel counter, Widget? child){
+        builder: (_, FlyerCounterModel? counter, Widget? child){
 
 
           if (counter == null){
@@ -38,53 +38,53 @@ class FlyerCountersAndRecords extends StatelessWidget {
 
             // counter?.blogCounter();
 
-            final int _saves = counter.saves ?? 0;
-            final int _shares = counter.shares ?? 0;
-            final int _views = counter.views ?? 0;
+            final int _saves = counter.saves; // ?? 0;
+            final int _shares = counter.shares; // ?? 0;
+            final int _views = counter.views; // ?? 0;
 
             return Column(
               children: <Widget>[
 
                 /// SAVES
-                if (counter != null && _saves > 0)
+                if (_saves > 0)
                   FlyerRecordsBox(
                     pageWidth: pageWidth,
                     headlineVerse: Verse.plain('$_saves ${xPhrase('phid_totalSaves')}'),
                     icon: Iconz.saveOn,
                     realNodePath: RealPath.recorders_flyers_bzID_flyerID_recordingSaves(
-                        bzID: flyerModel.bzID,
-                        flyerID: flyerModel.id,
+                        bzID: flyerModel!.bzID!,
+                        flyerID: flyerModel!.id!,
                     ),
-                    bzID: flyerModel.bzID,
-                    flyerID: flyerModel.id,
+                    bzID: flyerModel!.bzID!,
+                    flyerID: flyerModel!.id!,
                   ),
 
                 /// SHARES
-                if (counter != null && _shares > 0)
+                if (_shares > 0)
                   FlyerRecordsBox(
                     pageWidth: pageWidth,
                     headlineVerse: Verse.plain('$_shares ${xPhrase('phid_totalShares')}'),
                     icon: Iconz.share,
                     realNodePath: RealPath.recorders_flyers_bzID_flyerID_recordingShares(
-                        bzID: flyerModel.bzID,
-                        flyerID: flyerModel.id,
+                        bzID: flyerModel!.bzID!,
+                        flyerID: flyerModel!.id!,
                     ),
-                    bzID: flyerModel.bzID,
-                    flyerID: flyerModel.id,
+                    bzID: flyerModel!.bzID!,
+                    flyerID: flyerModel!.id!,
                   ),
 
                 /// VIEWS
-                if (counter != null && _views > 0)
+                if (_views > 0)
                   FlyerRecordsBox(
                     pageWidth: pageWidth,
                     headlineVerse: Verse.plain('$_views ${xPhrase('phid_totalViews')}'),
                     icon: Iconz.viewsIcon,
                     realNodePath: RealPath.recorders_flyers_bzID_flyerID_recordingViews(
-                        bzID: flyerModel.bzID,
-                        flyerID: flyerModel.id,
+                        bzID: flyerModel!.bzID!,
+                        flyerID: flyerModel!.id!,
                     ),
-                    bzID: flyerModel.bzID,
-                    flyerID: flyerModel.id,
+                    bzID: flyerModel!.bzID!,
+                    flyerID: flyerModel!.id!,
                   ),
 
               ],

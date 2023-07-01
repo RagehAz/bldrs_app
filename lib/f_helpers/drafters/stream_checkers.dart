@@ -71,15 +71,15 @@ class Streamer {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> disposeStreamSubscriptions(List<StreamSubscription> subs) async {
+  static Future<void> disposeStreamSubscriptions(List<StreamSubscription>? subs) async {
 
     if (Mapper.checkCanLoopList(subs) == true){
 
-      for (final StreamSubscription sub in subs){
+      for (final StreamSubscription sub in subs!){
 
-        if (sub != null){
+        // if (sub != null){
           await sub.cancel();
-        }
+        // }
 
       }
 

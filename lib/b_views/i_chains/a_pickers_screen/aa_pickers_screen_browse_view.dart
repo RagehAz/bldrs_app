@@ -1,6 +1,7 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
@@ -35,7 +36,7 @@ class PickersScreenBrowseView extends StatelessWidget {
   final bool onlyUseZoneChains;
   final List<FlyerType> flyerTypes;
   final bool isMultipleSelectionMode;
-  final ZoneModel zone;
+  final ZoneModel? zone;
   final bool mounted;
   // --------------------------------------------------------------------------
   /// CHAIN GROUPS ( PICKERS )  INSTRUCTIONS
@@ -51,7 +52,7 @@ class PickersScreenBrowseView extends StatelessWidget {
       flyerTypes: flyerTypes,
     );
     // ------
-    final String _flyerTypesString = Stringer.generateStringFromStrings(
+    final String? _flyerTypesString = Stringer.generateStringFromStrings(
       strings: _translations,
     );
     // ------
@@ -61,7 +62,7 @@ class PickersScreenBrowseView extends StatelessWidget {
     final String _instructions =
         onlyUseZoneChains == true ?
             '${xPhrase('phid_showing_only_keywords_used_in')}\n'
-            '${_zone.cityName}, ${_zone.countryName}'
+            '${_zone?.cityName}, ${_zone?.countryName}'
             // '$_flyerTypesStringWithNewLineIfNotNull'
                 :
             '${xPhrase('phid_showing_all_available_keywords')}\n'
@@ -82,13 +83,13 @@ class PickersScreenBrowseView extends StatelessWidget {
     // ---------------------
 
     // ---------------------
-    final String _icon = onlyUseZoneChains == true ?
-    _zone.icon
+    final String? _icon = onlyUseZoneChains == true ?
+    _zone?.icon
         :
     Iconz.info;
     // ---------------------
 
-    return _icon;
+    return _icon ?? Iconz.info;
   }
   // --------------------------------------------------------------------------
   @override
@@ -101,7 +102,7 @@ class PickersScreenBrowseView extends StatelessWidget {
       builder: (_, List<PickerModel> _refinedPickers, Widget? instructions){
 
         /// WHEN PICKERS ARE PROVIDED
-        if (refinedPickersNotifier != null){
+        if (Mapper.checkCanLoopList(_refinedPickers) == true){
           return ValueListenableBuilder(
             valueListenable: selectedSpecsNotifier,
             builder: (_, List<SpecModel> _allSelectedSpecs, Widget? childC){
@@ -143,14 +144,14 @@ class PickersScreenBrowseView extends StatelessWidget {
                         ),
 
                         /// TAPPING ON BLACK SPEC => NOTHING FOR NOW
-                        onSelectedSpecTap: ({SpecModel value, SpecModel unit}){
+                        onSelectedSpecTap: ({SpecModel? value, SpecModel? unit}){
                           blog('PickersScreenBrowseView : onSpecTap');
-                          value.blogSpec();
+                          value?.blogSpec();
                           unit?.blogSpec();
                         },
 
                         /// TAPPING ON X ON BLACK SPEC => REMOVE THAT SPEC/COMPOUND SPEC
-                        onDeleteSpec: ({SpecModel value, SpecModel unit}) => onRemoveSpecs(
+                        onDeleteSpec: ({SpecModel? value, SpecModel? unit}) => onRemoveSpecs(
                           valueSpec: value,
                           unitSpec: unit,
                           pickers: _refinedPickers,

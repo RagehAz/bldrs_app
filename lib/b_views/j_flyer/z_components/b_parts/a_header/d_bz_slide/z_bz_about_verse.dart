@@ -16,7 +16,7 @@ class BzAboutVerse extends StatefulWidget {
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final Verse verse;
-  final String bzName;
+  final String? bzName;
   /// --------------------------------------------------------------------------
   @override
   _BzAboutVerseState createState() => _BzAboutVerseState();

@@ -266,8 +266,8 @@ class ZonePhidsModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<FlyerType> getFlyerTypesByZonePhids({
-    required ZonePhidsModel zonePhidsModel,
-    required List<Chain> bldrsChains,
+    required ZonePhidsModel? zonePhidsModel,
+    required List<Chain>? bldrsChains,
   }){
     final List<FlyerType> _output = <FlyerType>[];
 

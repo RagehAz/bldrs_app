@@ -25,13 +25,13 @@ class PickerTile extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final PickerModel picker;
+  final PickerModel? picker;
   final List<SpecModel> pickerSelectedSpecs;
-  final Function onTap;
-  final Function({required SpecModel value, required SpecModel unit}) onSpecTap;
-  final Function({required SpecModel value, required SpecModel unit}) onDeleteSpec;
-  final ValueNotifier<String> searchText;
-  final double width;
+  final Function? onTap;
+  final Function({required SpecModel? value, required SpecModel? unit})? onSpecTap;
+  final Function({required SpecModel? value, required SpecModel? unit})? onDeleteSpec;
+  final ValueNotifier<String?>? searchText;
+  final double? width;
 /// --------------------------------------------------------------------------
   static double height() {
     return 70;
@@ -52,7 +52,7 @@ class PickerTile extends StatelessWidget {
     // --------------------
     return GestureDetector(
       key: const ValueKey<String>('PickerTile'),
-      onTap: onTap,
+      onTap: onTap == null ? null : () => onTap!(),
       child: Center(
         child: Container(
           width: _specTileWidth,

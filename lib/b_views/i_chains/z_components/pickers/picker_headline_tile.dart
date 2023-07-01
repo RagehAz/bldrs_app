@@ -14,15 +14,15 @@ class PickerHeadlineTile extends StatelessWidget {
   });
   
   final PickerModel picker;
-  final Verse secondLine;
-  final Function onTap;
+  final Verse? secondLine;
+  final Function? onTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
 
     return Align(
-      key: ValueKey<String>(picker.chainID),
+      key: ValueKey<String>('${picker.chainID}'),
       alignment: Alignment.centerLeft,
       child: BldrsBox(
         height: 40,

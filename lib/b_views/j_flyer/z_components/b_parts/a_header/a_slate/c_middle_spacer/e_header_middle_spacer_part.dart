@@ -9,17 +9,17 @@ class HeaderMiddleSpacerPart extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final Animation<double> headerMiddleSpacerWidthTween;
+  final Animation<double>? headerMiddleSpacerWidthTween;
   final double logoMinWidth;
-  final Animation<double> logoSizeRatioTween;
+  final Animation<double>? logoSizeRatioTween;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     return Center(
       child: SizedBox(
-        width: headerMiddleSpacerWidthTween.value,
-        height: logoMinWidth * logoSizeRatioTween.value,
+        width: headerMiddleSpacerWidthTween?.value ?? 0,
+        height: logoMinWidth * (logoSizeRatioTween?.value ?? 1),
       ),
     );
   }

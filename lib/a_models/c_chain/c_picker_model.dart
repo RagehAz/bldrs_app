@@ -388,7 +388,7 @@ class PickerModel {
     if (Mapper.checkCanLoopList(pickers)) {
       for (final PickerModel _picker in pickers) {
 
-        final String _indent = _picker.isHeadline == true ? '->' : '---->';
+        final String _indent = Mapper.boolIsTrue(_picker.isHeadline) == true ? '->' : '---->';
 
         blog('$_indent ${_picker.index} : ${_picker.chainID} : ${_picker.chainID}');
       }
@@ -744,12 +744,12 @@ class PickerModel {
   /// TESTED : WORKS PERFECT
   static List<PickerModel> applyBlockersAndSort({
     required List<PickerModel> sourcePickers,
-    required List<SpecModel> selectedSpecs,
+    required List<SpecModel>? selectedSpecs,
     required bool sort,
   }) {
     final List<PickerModel> _pickers = <PickerModel>[];
 
-    if (Mapper.checkCanLoopList(sourcePickers)) {
+    if (Mapper.checkCanLoopList(sourcePickers) == true) {
       final List<String> _allPickersIDsToBlock = <String>[];
 
       /// GET BLOCKED PICKERS
@@ -760,7 +760,7 @@ class PickerModel {
         if (Mapper.checkCanLoopList(_blockers) == true) {
           for (final PickersBlocker blocker in _blockers!) {
             final bool _isSelected = SpecModel.checkSpecsContainThisSpecValue(
-                specs: selectedSpecs,
+                specs: selectedSpecs!,
                 value: blocker.value
             );
 

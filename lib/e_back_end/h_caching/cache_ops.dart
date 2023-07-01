@@ -30,7 +30,10 @@ class CacheOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<FileStat> _getFilesStatesFromDirectory(Directory directory){
-    final List<FileSystemEntity> entities = directory.listSync(recursive: true, followLinks: true);
+    final List<FileSystemEntity> entities = directory.listSync(
+        recursive: true,
+        // followLinks: true,
+    );
 
     final List<FileStat> stats = <FileStat>[];
     for (final FileSystemEntity entity in entities){

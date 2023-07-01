@@ -34,12 +34,12 @@ class PhidsBubble extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final Verse titleVerse;
-  final List<String> phids;
+  final List<String>? phids;
   final int verseSize;
   final Function? onTap;
   final ValueChanged<String> onPhidTap;
   final Color bubbleColor;
-  final List<dynamic> selectedWords;
+  final List<dynamic>? selectedWords;
   final double? bubbleWidth;
   final dynamic margins;
   final dynamic corners;
@@ -122,9 +122,9 @@ class PhidsBubble extends StatelessWidget {
                       children: <Widget>[
 
                         if (Mapper.checkCanLoopList(phids) == true)
-                        ...List<Widget>.generate(phids.length, (int index) {
+                        ...List<Widget>.generate(phids!.length, (int index) {
 
-                          final String _phid = phids[index];
+                          final String _phid = phids![index];
 
                           return Padding(
                             padding: Scale.superInsets(
@@ -151,7 +151,7 @@ class PhidsBubble extends StatelessWidget {
             ),
           ),
 
-        if (phids != null && phids.isEmpty && addButtonIsOn == true)
+        if (phids != null && phids!.isEmpty == true && addButtonIsOn == true)
           AddKeywordsButton(
             onTap: passPhidOnTap == true ? null : () => onTap?.call(),
           ),

@@ -351,7 +351,7 @@ class BzzProvider extends ChangeNotifier {
   // --------------------
   /// TASK : TEST ME
   bool checkFollow({
-    required String bzID,
+    required String? bzID,
   }) {
     bool _isFollowing = false;
 

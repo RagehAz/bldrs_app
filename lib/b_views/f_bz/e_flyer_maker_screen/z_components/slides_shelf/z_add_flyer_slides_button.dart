@@ -130,7 +130,6 @@ class NewSlideImagePickerButton extends StatelessWidget {
     const double _spacing = 5;
     final double _topFlyerCorners = FlyerDim.flyerTopCornerValue(DraftShelfSlide.flyerBoxWidth);
     final double _bottomFlyerCorners = FlyerDim.flyerBottomCornerValue(DraftShelfSlide.flyerBoxWidth);
-
     final double _topCorners = _topFlyerCorners - _spacing;
 
     final BorderRadius _upperBoxCorners = Borderers.cornerOnly(
@@ -164,7 +163,7 @@ class NewSlideImagePickerButton extends StatelessWidget {
     final double _buttonHeight = (_flyerBoxHeight - (_spacing * 3)) * 0.5;
     // --------------------
     return GestureDetector(
-      onTap: onTap,
+      onTap: () => onTap(),
       child: Container(
         width: _buttonWidth,
         height: _buttonHeight,

@@ -19,10 +19,10 @@ class BzSlideTree extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final BzModel bzModel;
-  final FlyerModel flyerModel;
+  final BzModel? bzModel;
+  final FlyerModel? flyerModel;
   final ValueNotifier<double> headerPageOpacity;
-  final ValueNotifier<BzCounterModel> bzCounters;
+  final ValueNotifier<BzCounterModel?> bzCounters;
   final ValueNotifier<bool> headerIsExpanded;
   final bool tinyMode;
   /// --------------------------------------------------------------------------
@@ -35,7 +35,7 @@ class BzSlideTree extends StatelessWidget {
 
       if (isExpanded == true && tinyMode == false){
       //   if (tinyMode == false){
-          return animatedBzSlide;
+          return animatedBzSlide!;
         }
 
         else {

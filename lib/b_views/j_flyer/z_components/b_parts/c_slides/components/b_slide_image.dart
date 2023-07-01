@@ -1,9 +1,8 @@
-
 import 'package:basics/animators/widgets/animate_widget_to_matrix.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/space/trinity.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/b_slide_tap_areas.dart';
-import 'package:basics/helpers/classes/time/timers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/super_image/super_image.dart';
 
@@ -25,10 +24,10 @@ class SlideImage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final double flyerBoxHeight;
-  final SlideModel slideModel;
-  final Function onSlideNextTap;
-  final Function onSlideBackTap;
-  final Function onDoubleTap;
+  final SlideModel? slideModel;
+  final Function? onSlideNextTap;
+  final Function? onSlideBackTap;
+  final Function? onDoubleTap;
   final bool canTapSlide;
   final bool canAnimateMatrix;
   final bool canUseFilter;
@@ -47,7 +46,7 @@ class SlideImage extends StatelessWidget {
         onTapBack: onSlideBackTap,
         onDoubleTap: onDoubleTap,
         canTap: canTapSlide,
-        splashColor: slideModel?.midColor,
+        splashColor: slideModel?.midColor ?? Colorz.white20,
         child: AnimateWidgetToMatrix(
           matrix: Trinity.renderSlideMatrix(
             matrix: slideModel?.matrix,
@@ -61,7 +60,7 @@ class SlideImage extends StatelessWidget {
             height: flyerBoxHeight,
             pic: slideModel?.uiImage,
             filterModel: ImageFilterModel.getFilterByID(slideModel?.filterID),
-            boxFit: slideModel?.picFit,
+            boxFit: slideModel?.picFit ?? BoxFit.cover,
             canUseFilter: canUseFilter,
           ),
         ),

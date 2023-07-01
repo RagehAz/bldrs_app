@@ -12,7 +12,7 @@ class FlyerVerses {
   static Verse generateFooterButtonVerse({
     required BuildContext context,
     required String phid,
-    required int count,
+    required int? count,
     required bool isOn,
   }){
 
@@ -74,13 +74,13 @@ class FlyerVerses {
   }
   // --------------------
   static Verse followersCounters({
-    required int followersCount,
-    required int authorGalleryCount,
+    required int? followersCount,
+    required int? authorGalleryCount,
     required int bzGalleryCount,
     required bool showLabel,
   }){
 
-      final String _galleryCountCalibrated = counterCaliber(bzGalleryCount);
+      final String? _galleryCountCalibrated = counterCaliber(bzGalleryCount);
 
       final String _followersCounter =
           (authorGalleryCount == 0 && followersCount == 0)

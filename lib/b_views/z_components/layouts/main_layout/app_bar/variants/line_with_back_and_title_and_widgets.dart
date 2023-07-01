@@ -11,9 +11,9 @@ class LineWithBackAndTitleAndWidgets extends StatelessWidget {
   });
   
   final Function onBack;
-  final List<Widget> appBarRowWidgets;
-  final ScrollController scrollController;
-  final Verse pageTitleVerse;
+  final List<Widget>? appBarRowWidgets;
+  final ScrollController? scrollController;
+  final Verse? pageTitleVerse;
 
   @override
   Widget build(BuildContext context) {

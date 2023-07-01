@@ -21,8 +21,8 @@ class Obelisk extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final ValueChanged<int> onRowTap;
-  final ValueNotifier<ProgressBarModel> progressBarModel;
-  final List<NavModel> navModels;
+  final ValueNotifier<ProgressBarModel?> progressBarModel;
+  final List<NavModel?> navModels;
   // --------------------
   static const double circleWidth = 40;
   static const boxWidth = circleWidth + (2 * Ratioz.appBarPadding);
@@ -43,7 +43,7 @@ class Obelisk extends StatelessWidget {
   /// TESTED : WORKS PERFECT
   static double getContentsHeight({
     required BuildContext context,
-    required List<NavModel> navModels,
+    required List<NavModel?> navModels,
   }){
 
     double _result = 0;
@@ -51,13 +51,13 @@ class Obelisk extends StatelessWidget {
 
     if (Mapper.checkCanLoopList(navModels) == true){
 
-      for (final NavModel navModel in navModels){
+      for (final NavModel? navModel in navModels){
 
-        if (navModel?.canShow == true){
+        if (Mapper.boolIsTrue(navModel?.canShow) == true){
           _result = _result + Obelisk.circleWidth;
           // _numberOfCircles++;
         }
-        else if (navModel?.canShow == false){
+        else if (Mapper.boolIsTrue(navModel?.canShow) == false){
           _result = _result + 0;
         }
         else {
@@ -97,7 +97,7 @@ class Obelisk extends StatelessWidget {
   /// TESTED : WORKS PERFECT
   static double extraHeightToAchieveScrollability({
     required BuildContext context,
-    required List<NavModel> navModels,
+    required List<NavModel?> navModels,
   }){
 
       /// so the inner box that has a height specified by [getContentsHeight] can be less
@@ -116,7 +116,7 @@ class Obelisk extends StatelessWidget {
         return (_maxHeight - _contentsHeight) + 20;
       }
 
-      /// contets height is more than max height : contents are LONGER
+      /// contents height is more than max height : contents are LONGER
       else {
         return 0;
       }
@@ -131,7 +131,7 @@ class Obelisk extends StatelessWidget {
   /// TESTED : WORKS PERFECT
   static double gotContentsScrollableHeight({
     required BuildContext context,
-    required List<NavModel> navModels,
+    required List<NavModel?> navModels,
   }){
 
     final bool _isLandScape = MediaQuery.of(context).orientation == Orientation.landscape;
@@ -168,7 +168,7 @@ class Obelisk extends StatelessWidget {
         bottom: Ratioz.appBarMargin,
         child: Selector<UiProvider, bool>(
           selector: (_, UiProvider uiProvider) => uiProvider.pyramidsAreExpanded,
-          builder: (_, bool expanded, Widget? child) {
+          builder: (_, bool? expanded, Widget? child) {
 
             final bool _ignore = expanded == null || expanded == true ? false : true;
 
@@ -222,7 +222,8 @@ class Obelisk extends StatelessWidget {
         bottom: Ratioz.appBarMargin,
         child: Selector<UiProvider, bool>(
           selector: (_, UiProvider uiProvider) => uiProvider.pyramidsAreExpanded,
-          builder: (_, bool expanded, Widget? child) {
+          builder: (_, bool? expanded, Widget? child) {
+
             final bool _ignore = expanded == null || expanded == true ? false : true;
 
             return IgnorePointer(

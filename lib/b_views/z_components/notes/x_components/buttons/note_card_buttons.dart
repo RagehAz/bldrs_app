@@ -1,4 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_poll_model.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/b_notes_page/x2_user_notes_page_controllers.dart';
@@ -19,7 +20,7 @@ class NoteCardButtons extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final double boxWidth;
-  final NoteModel noteModel;
+  final NoteModel? noteModel;
   /// --------------------------------------------------------------------------
   /*
   Verse _getResponseTimeString(BuildContext context, NoteModel noteModel){
@@ -37,7 +38,7 @@ class NoteCardButtons extends StatelessWidget {
    */
   // --------------------
   /// TASK : FINALIZE THIS SHIT
-  Verse _getResponseVerse(BuildContext context, NoteModel noteModel){
+  Verse _getResponseVerse(NoteModel? noteModel){
 
     Verse _output = const Verse(
       id: 'phid_responded',
@@ -46,28 +47,28 @@ class NoteCardButtons extends StatelessWidget {
 
     if (noteModel != null){
 
-      if (noteModel.poll.reply == PollModel.accept){
+      if (noteModel.poll?.reply == PollModel.accept){
         _output = const Verse(
           id: 'phid_accepted',
           translate: true,
         );
       }
 
-      else if (noteModel.poll.reply == PollModel.decline){
+      else if (noteModel.poll?.reply == PollModel.decline){
         _output = const Verse(
           id: 'phid_declined',
           translate: true,
         );
       }
 
-      else if (noteModel.poll.reply == PollModel.cancel){
+      else if (noteModel.poll?.reply == PollModel.cancel){
         _output = const Verse(
           id: 'phid_cancelled',
           translate: true,
         );
       }
 
-      else if (noteModel.poll.reply == PollModel.expired){
+      else if (noteModel.poll?.reply == PollModel.expired){
         _output = const Verse(
           id: 'phid_expired',
           translate: true,
@@ -76,7 +77,7 @@ class NoteCardButtons extends StatelessWidget {
 
       else {
         _output = Verse(
-          id: noteModel.poll.reply,
+          id: noteModel.poll?.reply,
           translate: false,
         );
       }
@@ -109,12 +110,14 @@ class NoteCardButtons extends StatelessWidget {
           if (_replyIsNull == true || _replyIsPending == true)
             Row(
               children: [
-                ...List<Widget>.generate(noteModel.poll.buttons.length,
+
+                if (Mapper.checkCanLoopList(noteModel?.poll?.buttons) == true)
+                ...List<Widget>.generate(noteModel!.poll!.buttons!.length,
                         (int index) {
-                      final String _phid = noteModel.poll.buttons[index];
+                      final String _phid = noteModel!.poll!.buttons![index];
                       final double _width = Scale.getUniformRowItemWidth(
                         context: context,
-                        numberOfItems: noteModel.poll.buttons.length,
+                        numberOfItems: noteModel!.poll!.buttons!.length,
                         boxWidth: boxWidth,
                       );
                       return BldrsBox(
@@ -130,7 +133,7 @@ class NoteCardButtons extends StatelessWidget {
                         onTap: () => onNoteButtonTap(
                           context: context,
                           reply: _phid,
-                          noteModel: noteModel,
+                          noteModel: noteModel!,
                         ),
                       );
                     }
@@ -201,7 +204,7 @@ class NoteCardButtons extends StatelessWidget {
                 children: <Widget>[
 
                   BldrsText(
-                    verse: _getResponseVerse(context, noteModel),
+                    verse: _getResponseVerse(noteModel),
                     maxLines: 3,
                     weight: VerseWeight.black,
                     italic: true,

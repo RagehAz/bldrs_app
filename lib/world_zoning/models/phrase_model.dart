@@ -946,23 +946,27 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> searchPhrasesTrigrams({
-    required List<Phrase> sourcePhrases,
-    required String inputText,
+    required List<Phrase>? sourcePhrases,
+    required String? inputText,
   }){
     final List<Phrase> _foundPhrases = <Phrase>[];
     final String? _fixedString = TextMod.fixCountryName(input: inputText);
 
-    for (final Phrase source in sourcePhrases){
+    if (Mapper.checkCanLoopList(sourcePhrases) == true){
 
-      final List<String>? _trigram = source.trigram;
+      for (final Phrase source in sourcePhrases!){
 
-      final bool _trigramContains = Stringer.checkStringsContainString(
-          strings: _trigram,
-          string: _fixedString
-      );
+        final List<String>? _trigram = source.trigram;
 
-      if (_trigramContains == true){
-        _foundPhrases.add(source);
+        final bool _trigramContains = Stringer.checkStringsContainString(
+            strings: _trigram,
+            string: _fixedString
+        );
+
+        if (_trigramContains == true){
+          _foundPhrases.add(source);
+        }
+
       }
 
     }
@@ -1304,7 +1308,6 @@ class Phrase {
       _output.addAll(_phrasesToInsert);
     }
 
-    // blog('THE FUCKINGGGGGGGGGGG THING IS :');
     // blogPhrases(_output);
 
     return cleanIdenticalPhrases(_output);

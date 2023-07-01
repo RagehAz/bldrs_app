@@ -44,7 +44,7 @@ class ObeliskExpandingPyramid extends StatelessWidget {
             },
 
             child: Transform(
-              transform: Matrix4.rotationZ(Numeric.degreeToRadian(-45.0 + 90)),
+              transform: Matrix4.rotationZ(Numeric.degreeToRadian(-45.0 + 90)!),
               alignment: Alignment.bottomRight,
               child: const BlurLayer(
                     width: 95.4267 * 0.7,
@@ -89,7 +89,7 @@ class ObeliskExpandingPyramid extends StatelessWidget {
             },
 
             child: Transform(
-              transform: Matrix4.rotationZ(Numeric.degreeToRadian(-48.177)),
+              transform: Matrix4.rotationZ(Numeric.degreeToRadian(-48.177)!),
               alignment: Alignment.bottomRight,
               child: const BlurLayer(
                     width: 95.4267 * 0.7,

@@ -24,14 +24,14 @@ class FooterButton extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final String icon;
+  final String? icon;
   final double flyerBoxWidth;
-  final Function onTap;
+  final Function? onTap;
   final String phid;
   final bool isOn;
   final bool canTap;
-  final int count;
-  final Color color;
+  final int? count;
+  final Color? color;
   final bool isLoading;
   // --------------------
   @override
@@ -100,9 +100,12 @@ class FooterButton extends StatelessWidget {
                 height: _buttonSize * 0.9,
                 child: Transform.scale(
                   scale: 0.5,
-                  child: WebsafeSvg.asset(
-                    icon,
-                      color: _iconAndVerseColor,
+                  child: icon == null ? const SizedBox() : WebsafeSvg.asset(
+                    icon!,
+                      colorFilter: ColorFilter.mode(
+                        _iconAndVerseColor,
+                        BlendMode.color,
+                      ),
                       // package: Iconz.bldrsTheme,
                       // fit: BoxFit.fitWidth,
                       width: _buttonSize * 0.8,

@@ -11,8 +11,8 @@ class ReviewUserImageBalloon extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final UserModel userModel;
-  final Function onTap;
+  final UserModel? userModel;
+  final Function? onTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

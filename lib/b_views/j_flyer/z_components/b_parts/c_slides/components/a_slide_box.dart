@@ -34,7 +34,7 @@ class SlideBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final BorderRadius _flyerBorders = FlyerDim.flyerCorners(context, flyerBoxWidth);
+    final BorderRadius _flyerBorders = FlyerDim.flyerCorners(flyerBoxWidth);
 
     return AbsorbPointer(
       absorbing: !_canTapSlide(),

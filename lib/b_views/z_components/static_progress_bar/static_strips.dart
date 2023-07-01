@@ -28,13 +28,13 @@ class StaticStrips extends StatelessWidget {
   final bool barIsOn;
   final int numberOfStrips;
   final int slideIndex;
-  final EdgeInsets margins;
+  final EdgeInsets? margins;
   final SwipeDirection swipeDirection;
-  final List<Color> stripsColors;
+  final List<Color>? stripsColors;
   /// --------------------------------------------------------------------------
   int _getNumberOfWhiteStrips() {
     // -----------------------------------------o
-    int _numberOfStrips;
+    int? _numberOfStrips;
     final SwipeDirection _swipeDirection = swipeDirection;
     // -----------------------------------------o
     /// A - at first slide
@@ -104,7 +104,7 @@ class StaticStrips extends StatelessWidget {
 
     // blog('_getNumberOfWhiteStrips : $_numberOfStrips : index : $slideIndex');
 
-    return _numberOfStrips;
+    return _numberOfStrips ?? 1;
   }
   // -----------------------------------------------------------------------------
   Tween<double> _tween() {
@@ -136,7 +136,7 @@ class StaticStrips extends StatelessWidget {
   Color _stripColorOverride(int index){
 
     if (Mapper.checkCanLoopList(stripsColors) == true){
-      return stripsColors[index];
+      return stripsColors![index];
     }
 
     else {

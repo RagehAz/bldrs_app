@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
@@ -7,9 +6,7 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/d_user/z_components/banners/aa_user_banner.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_search.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 // -----------------------------------------------------------------------------
 
 /// SEARCH
@@ -17,7 +14,7 @@ import 'package:basics/helpers/classes/strings/stringer.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onSearchUsers({
-  required String text,
+  required String? text,
   required ValueNotifier<List<UserModel>?> foundUsers,
   required ValueNotifier<bool> isSearching,
   required ValueNotifier<bool> loading,

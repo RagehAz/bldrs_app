@@ -117,12 +117,12 @@ class BldrsTextField extends StatelessWidget {
   final bool isFloatingField;
   final ValueNotifier<bool>? isObscured;
   final GlobalKey? globalKey;
-  final AppBarType appBarType;
+  final AppBarType? appBarType;
   // --------------------------------------------------------------------------
    /// TESTED : WORKS PERFECT
   static EdgeInsets getFieldScrollPadding({
     required BuildContext context,
-    required AppBarType appBarType,
+    required AppBarType? appBarType,
   }){
 
     final EdgeInsets _scrollPadding = EdgeInsets.only(

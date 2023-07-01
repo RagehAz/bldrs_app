@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/a_info_button_structure/d_collapsed_info_button_content.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,7 @@ class CollapsedInfoButtonTree extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final ValueNotifier<bool> buttonIsExpanded;
+  final ValueNotifier<bool?> buttonIsExpanded;
   final double flyerBoxWidth;
   final InfoButtonType infoButtonType;
   final bool tinyMode;
@@ -23,17 +24,18 @@ class CollapsedInfoButtonTree extends StatelessWidget {
     return ValueListenableBuilder(
       key: const ValueKey<String>('CollapsedInfoButtonTree'),
       valueListenable: buttonIsExpanded,
-      builder: (_, bool _buttonIsExpanded, Widget? collapsedInfoButtonContent){
+      builder: (_, bool? _buttonIsExpanded, Widget? collapsedInfoButtonContent){
 
         return AnimatedAlign(
             alignment: Alignment.center,
             duration: const Duration(milliseconds: 100),
             child: AnimatedScale(
               duration: const Duration(milliseconds: 100),
-              scale: _buttonIsExpanded == true ? 1.4 : 1,
+              scale: Mapper.boolIsTrue(_buttonIsExpanded) == true ? 1.4 : 1,
               child: AnimatedPadding(
                 duration: const Duration(milliseconds: 100),
-                padding: EdgeInsets.only(top: _buttonIsExpanded == true ? 10 : 0),
+                padding: EdgeInsets.only(top: Mapper.boolIsTrue(_buttonIsExpanded) == true ? 10 :
+                0),
                 child: collapsedInfoButtonContent,
               ),
             )

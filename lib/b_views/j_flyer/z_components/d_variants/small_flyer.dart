@@ -25,9 +25,9 @@ class SmallFlyer extends StatelessWidget {
     super.key
   });
   // -----------------------------------------------------------------------------
-  final FlyerModel flyerModel;
+  final FlyerModel? flyerModel;
   final double flyerBoxWidth;
-  final Function onTap;
+  final Function? onTap;
   final bool flyerShadowIsOn;
   final bool bluerLayerIsOn;
   final bool slideShadowIsOn;
@@ -59,13 +59,13 @@ class SmallFlyer extends StatelessWidget {
           onTap: onTap,
           stackWidgets: <Widget>[
             /// STATIC SINGLE SLIDE
-            if (Mapper.checkCanLoopList(flyerModel.slides) == true)
+            if (Mapper.checkCanLoopList(flyerModel?.slides) == true)
               SingleSlide(
                 flyerBoxWidth: flyerBoxWidth,
                 flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(
                   flyerBoxWidth: flyerBoxWidth,
                 ),
-                slideModel: flyerModel.slides[slideIndex],
+                slideModel: flyerModel!.slides![slideIndex],
                 tinyMode: false,
                 onSlideNextTap: null,
                 onSlideBackTap: null,
@@ -81,11 +81,11 @@ class SmallFlyer extends StatelessWidget {
             /// STATIC HEADER
             StaticHeader(
               flyerBoxWidth: flyerBoxWidth,
-              bzModel: flyerModel.bzModel,
-              authorID: flyerModel.authorID,
-              flyerShowsAuthor: flyerModel.showsAuthor,
-              bzImageLogo: flyerModel.bzLogoImage,
-              authorImage: flyerModel.authorImage,
+              bzModel: flyerModel?.bzModel,
+              authorID: flyerModel?.authorID,
+              flyerShowsAuthor: flyerModel?.showsAuthor,
+              bzImageLogo: flyerModel?.bzLogoImage,
+              authorImage: flyerModel?.authorImage,
               // showHeaderLabels: false,
               // onTap: null,
               // flightDirection: FlightDirection.non,
@@ -94,7 +94,7 @@ class SmallFlyer extends StatelessWidget {
             /// STATIC FOOTER
             StaticFooter(
               flyerBoxWidth: flyerBoxWidth,
-              flyerID: flyerModel.id,
+              flyerID: flyerModel?.id,
               optionsButtonIsOn: optionsButtonIsOn,
             ),
 

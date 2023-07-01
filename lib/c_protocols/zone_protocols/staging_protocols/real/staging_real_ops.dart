@@ -158,7 +158,7 @@ class StagingRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateCountriesStaging({
-    required StagingModel newStaging,
+    required StagingModel? newStaging,
   }) async {
 
     if (newStaging != null){
@@ -177,7 +177,7 @@ class StagingRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateCitiesStaging({
-    required StagingModel citiesStages,
+    required StagingModel? citiesStages,
   }) async {
 
     if (citiesStages != null){

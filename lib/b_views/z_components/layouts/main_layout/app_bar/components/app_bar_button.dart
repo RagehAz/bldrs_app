@@ -19,18 +19,18 @@ class AppBarButton extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final Verse verse;
+  final Verse? verse;
   final Color verseColor;
   final Color buttonColor;
-  final Function onTap;
-  final Function onDeactivatedTap;
+  final Function? onTap;
+  final Function? onDeactivatedTap;
   final dynamic icon;
   final bool bubble;
   final bool isDeactivated;
   final bool bigIcon;
-  final double width;
-  final bool loading;
-  final Color iconColor;
+  final double? width;
+  final bool? loading;
+  final Color? iconColor;
   final dynamic margins;
   /// --------------------------------------------------------------------------
   @override
@@ -57,7 +57,7 @@ class AppBarButton extends StatelessWidget {
       isDisabled: isDeactivated,
       onDisabledTap: onDeactivatedTap,
       verseMaxLines: 2,
-      loading: loading,
+      loading: loading ?? false,
       // loading: loading,
     );
 

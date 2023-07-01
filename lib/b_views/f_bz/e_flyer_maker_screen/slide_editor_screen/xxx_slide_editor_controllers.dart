@@ -6,7 +6,6 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
 import 'package:basics/helpers/classes/colors/colorizer.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/super_image/super_image.dart';
@@ -17,16 +16,16 @@ import 'package:basics/super_image/super_image.dart';
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Matrix4 initializeMatrix({
-  required DraftSlide slide,
+Matrix4? initializeMatrix({
+  required DraftSlide? slide,
 }){
-  Matrix4 _output;
-  if (slide.matrix == null){
+  Matrix4? _output;
+  if (slide?.matrix == null){
     _output = Matrix4.identity();
   }
 
   else {
-    _output = slide.matrix;
+    _output = slide!.matrix;
   }
   return _output;
 }
@@ -53,10 +52,10 @@ Future<void> onCancelSlideEdits({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onResetMatrix({
-  required DraftSlide originalDraft,
-  required ValueNotifier<DraftSlide> draftNotifier,
+  required DraftSlide? originalDraft,
+  required ValueNotifier<DraftSlide?> draftNotifier,
   required ValueNotifier<bool> canResetMatrix,
-  required ValueNotifier<Matrix4> matrix,
+  required ValueNotifier<Matrix4?> matrix,
   required bool mounted,
 }) async {
 
@@ -77,7 +76,7 @@ Future<void> onResetMatrix({
     setNotifier(
         notifier: draftNotifier,
         mounted: mounted,
-        value: originalDraft.copyWith(
+        value: originalDraft?.copyWith(
           matrix: Matrix4.identity(),
           filter: ImageFilterModel.noFilter(),
         )
@@ -105,19 +104,19 @@ Future<void> onResetMatrix({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onTriggerAnimation({
-  required ValueNotifier<DraftSlide> draftNotifier,
+  required ValueNotifier<DraftSlide?> draftNotifier,
   required ValueNotifier<bool> canResetMatrix,
   required ValueNotifier<bool> isPlayingAnimation,
   required bool mounted,
 }){
 
-  final Curve _oldCurve = draftNotifier.value.animationCurve;
-  final Curve _newCurve = _oldCurve == Curves.easeInOut ? null : Curves.easeInOut;
+  final Curve? _oldCurve = draftNotifier.value?.animationCurve;
+  final Curve? _newCurve = _oldCurve == Curves.easeInOut ? null : Curves.easeInOut;
   bool _shouldReanimate = false;
 
-  DraftSlide _newSlide;
+  DraftSlide? _newSlide;
   if (_oldCurve == null){
-    _newSlide = draftNotifier.value.copyWith(
+    _newSlide = draftNotifier.value?.copyWith(
       animationCurve: _newCurve,
     );
 
@@ -126,7 +125,7 @@ void onTriggerAnimation({
   }
 
   else {
-    _newSlide = draftNotifier.value.nullifyField(
+    _newSlide = draftNotifier.value?.nullifyField(
       animationCurve: true,
     );
   }
@@ -156,7 +155,7 @@ void onTriggerAnimation({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onReplayAnimation({
-  required ValueNotifier<DraftSlide> draftNotifier,
+  required ValueNotifier<DraftSlide?> draftNotifier,
   required ValueNotifier<bool> canResetMatrix,
   required ValueNotifier<bool> isPlayingAnimation,
   required bool mounted,
@@ -165,7 +164,7 @@ void onReplayAnimation({
     if (
         // isPlayingAnimation.value == false && // to allow reanimate when playing
         canResetMatrix.value == true &&
-        draftNotifier.value.animationCurve != null
+        draftNotifier.value?.animationCurve != null
     ){
 
       setNotifier(
@@ -202,15 +201,15 @@ void stopAnimation({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onCropSlide({
-  required ValueNotifier<DraftSlide> draftNotifier,
-  required ValueNotifier<ImageFilterModel> filterNotifier,
-  required ValueNotifier<Matrix4> matrixNotifier,
-  required String bzID,
+  required ValueNotifier<DraftSlide?> draftNotifier,
+  required ValueNotifier<ImageFilterModel?> filterNotifier,
+  required ValueNotifier<Matrix4?> matrixNotifier,
+  required String? bzID,
   required bool mounted,
 }) async {
 
-  final Uint8List _bytes = await BldrsPicMaker.cropPic(
-    bytes: draftNotifier.value.picModel.bytes,
+  final Uint8List? _bytes = await BldrsPicMaker.cropPic(
+    bytes: draftNotifier.value?.picModel?.bytes,
     aspectRatio: FlyerDim.flyerAspectRatio(),
   );
 
@@ -219,9 +218,9 @@ Future<void> onCropSlide({
     setNotifier(
         notifier: draftNotifier,
         mounted: mounted,
-        value: draftNotifier.value.copyWith(
+        value: draftNotifier.value?.copyWith(
           midColor: await Colorizer.getAverageColor(_bytes),
-          picModel: draftNotifier.value.picModel.copyWith(
+          picModel: draftNotifier.value?.picModel?.copyWith(
             bytes: _bytes,
           ),
         ),
@@ -237,15 +236,15 @@ Future<void> onCropSlide({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onToggleFilter({
-  required ValueNotifier<DraftSlide> draftNotifier,
-  required ValueNotifier<ImageFilterModel> currentFilter,
+  required ValueNotifier<DraftSlide?> draftNotifier,
+  required ValueNotifier<ImageFilterModel?> currentFilter,
   required bool mounted,
 }){
 
-  final ImageFilterModel _currentFilter = currentFilter.value;
+  final ImageFilterModel? _currentFilter = currentFilter.value;
 
   final List<ImageFilterModel> _bldrsFilters = ImageFilterModel.bldrsImageFilters;
-  int _filterIndex = _bldrsFilters.indexWhere((fil) => fil.id == _currentFilter.id);
+  int _filterIndex = _bldrsFilters.indexWhere((fil) => fil.id == _currentFilter?.id);
 
   _filterIndex++;
   if (_filterIndex >= _bldrsFilters.length){
@@ -255,7 +254,7 @@ void onToggleFilter({
   setNotifier(
       notifier: draftNotifier,
       mounted: mounted,
-      value: draftNotifier.value.copyWith(
+      value: draftNotifier.value?.copyWith(
         filter: _bldrsFilters[_filterIndex],
       ),
   );
@@ -277,15 +276,15 @@ void onToggleFilter({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onSlideHeadlineChanged({
-  required ValueNotifier<DraftSlide> draftSlide,
-  required String text,
+  required ValueNotifier<DraftSlide?> draftSlide,
+  required String? text,
   required bool mounted,
 }){
 
   setNotifier(
       notifier: draftSlide,
       mounted: mounted,
-      value: draftSlide.value.copyWith(
+      value: draftSlide.value?.copyWith(
         headline: text,
       ),
   );
@@ -299,13 +298,13 @@ void onSlideHeadlineChanged({
 /// TESTED : WORKS PERFECT
 Future<void> onConfirmSlideEdits({
   required BuildContext context,
-  required ValueNotifier<DraftSlide> draftNotifier,
-  required ValueNotifier<ImageFilterModel> filter,
-  required ValueNotifier<Matrix4> matrix,
+  required ValueNotifier<DraftSlide?> draftNotifier,
+  required ValueNotifier<ImageFilterModel?> filter,
+  required ValueNotifier<Matrix4?> matrix,
 }) async {
 
 
-  final DraftSlide _slide = draftNotifier.value.copyWith(
+  final DraftSlide? _slide = draftNotifier.value?.copyWith(
     matrix: matrix.value,
     filter: filter.value,
   );
