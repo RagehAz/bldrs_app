@@ -55,10 +55,10 @@ class FlyerRecordsBox extends StatelessWidget {
               limit: 6,
             ),
             // scrollController: ScrollController(),
-            builder: (_, List<Map<String, dynamic>> maps, bool loading, Widget? child){
+            builder: (_, List<Map<String, dynamic>>? maps, bool loading, Widget? child){
 
               List<RecordModel> _records = RecordModel.decipherRecords(
-                maps: maps,
+                maps: maps ?? [],
                 flyerID: flyerID,
                 bzID: bzID,
                 fromJSON: true,

@@ -118,7 +118,7 @@ class FlyerDim {
 
   // ---------
   /// TESTED : WORKS PERFECT
-  static BorderRadius flyerCorners(BuildContext context, double flyerBoxWidth) {
+  static BorderRadius flyerCorners(double flyerBoxWidth) {
 
     final double _flyerTopCorners = flyerTopCornerValue(flyerBoxWidth);
     final double _flyerBottomCorners = flyerBottomCornerValue(flyerBoxWidth);
@@ -661,8 +661,8 @@ class FlyerDim {
     required BuildContext context,
     required double flyerBoxWidth,
     required bool tinyMode,
-    required bool isExpanded,
-    required InfoButtonType infoButtonType,
+    required bool? isExpanded,
+    required InfoButtonType? infoButtonType,
   }){
 
     /// TINY MODE
@@ -677,7 +677,7 @@ class FlyerDim {
     else {
 
       /// EXPANDED
-      if (isExpanded == true){
+      if (Mapper.boolIsTrue(isExpanded) == true){
         return _infoButtonExpandedWidth(
           context: context,
           flyerBoxWidth: flyerBoxWidth,
@@ -714,7 +714,7 @@ class FlyerDim {
     required BuildContext context,
     required double flyerBoxWidth,
     required bool tinyMode,
-    required bool isExpanded,
+    required bool? isExpanded,
   }){
 
     if (tinyMode == true){
@@ -726,7 +726,7 @@ class FlyerDim {
 
     else {
 
-      if (isExpanded == true){
+      if (Mapper.boolIsTrue(isExpanded) == true){
         return _infoButtonExpandedHeight(
           flyerBoxWidth: flyerBoxWidth,
         );
@@ -834,7 +834,7 @@ class FlyerDim {
     required BuildContext context,
     required double flyerBoxWidth,
     required bool tinyMode,
-    required bool isExpanded,
+    required bool? isExpanded,
   }){
 
     double _cornersValue = 0;
@@ -848,7 +848,7 @@ class FlyerDim {
 
     else {
 
-      if (isExpanded == true){
+      if (Mapper.boolIsTrue(isExpanded) == true){
         _cornersValue = _infoButtonExpandedCornerValue(
           context: context,
           flyerBoxWidth: flyerBoxWidth,
@@ -919,7 +919,7 @@ class FlyerDim {
     required BuildContext context,
     required double flyerBoxWidth,
     required bool tinyMode,
-    required bool isExpanded,
+    required bool? isExpanded,
   }){
     double _marginValue = 0;
 
@@ -932,7 +932,7 @@ class FlyerDim {
 
     else {
 
-      if (isExpanded == true){
+      if (Mapper.boolIsTrue(isExpanded) == true){
         _marginValue = _infoButtonExpandedMarginValue(
           context: context,
           flyerBoxWidth: flyerBoxWidth,
@@ -1037,7 +1037,7 @@ class FlyerDim {
   /// TESTED : WORKS PERFECT
   static double progressStripLength({
     required double flyerBoxWidth,
-    required int numberOfStrips,
+    required int? numberOfStrips,
   }) {
     return progressStripsTotalLength(flyerBoxWidth) / (numberOfStrips ?? 1);
   }
@@ -1181,7 +1181,7 @@ class FlyerDim {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static double flyerGridGridSpacingValue(double flyerBoxWidth){
+  static double flyerGridGridSpacingValue(double? flyerBoxWidth){
     return (flyerBoxWidth ?? 0) * _spacingRatio;
   }
   // --------------------
@@ -1232,7 +1232,7 @@ class FlyerDim {
       hasResponsiveSideMargin: hasResponsiveSideMargin,
     );
 
-    final double _bottomPaddingOnZoomedOut = ZGridScale.getBottomPaddingOnZoomedOut(
+    final double? _bottomPaddingOnZoomedOut = ZGridScale.getBottomPaddingOnZoomedOut(
       bottomPaddingOnZoomedOut: bottomPadding,
     );
 
@@ -1249,7 +1249,7 @@ class FlyerDim {
   // --------------------
   static EdgeInsets _horizontalGridPaddings({
     required double gridSpacingValue,
-    required double endPadding,
+    required double? endPadding,
   }){
 
     return Scale.superInsets(
@@ -1291,7 +1291,7 @@ class FlyerDim {
     required BuildContext context,
     required Axis scrollDirection,
     required int numberOfColumnsOrRows,
-    required double? gridWidth,
+    required double gridWidth,
     required double? gridHeight,
     required bool hasResponsiveSideMargin,
     double? spacingRatio,

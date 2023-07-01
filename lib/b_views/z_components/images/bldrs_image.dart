@@ -1,8 +1,6 @@
 import 'dart:ui' as ui;
-
 import 'package:basics/helpers/classes/checks/object_check.dart';
 import 'package:bldrs/b_views/z_components/images/bldrs_image_path_to_ui_image.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/super_image/super_image.dart';
 
@@ -23,8 +21,8 @@ class BldrsImage extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final dynamic pic;
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
   final BoxFit fit;
   final double scale;
   final Color? iconColor;
@@ -98,7 +96,7 @@ class BldrsImage extends StatelessWidget {
       if (isPicPath == true) {
         return BldrsImagePathToUiImage(
           imagePath: pic,
-          builder: (bool loading, ui.Image uiImage) {
+          builder: (bool loading, ui.Image? uiImage) {
             return getChild(
               context: context,
               theIcon: uiImage,

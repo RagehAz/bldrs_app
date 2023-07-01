@@ -25,17 +25,17 @@ class NonCollapsableTile extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final double width;
-  final String icon;
+  final String? icon;
   final double iconSizeFactor;
-  final Verse firstHeadline;
-  final Verse secondHeadline;
-  final Color expansionColor;
-  final double corners;
+  final Verse? firstHeadline;
+  final Verse? secondHeadline;
+  final Color? expansionColor;
+  final double? corners;
   final Widget child;
-  final ValueNotifier<String> searchText;
-  final ValueChanged<bool> onTileTap;
-  final Function onTileLongTap;
-  final Function onTileDoubleTap;
+  final ValueNotifier<dynamic>? searchText;
+  final ValueChanged<bool>? onTileTap;
+  final Function? onTileLongTap;
+  final Function? onTileDoubleTap;
   final dynamic margin;
   /// --------------------------------------------------------------------------
   @override

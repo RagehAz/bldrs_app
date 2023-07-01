@@ -228,7 +228,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
   // -----------------------------------------------------------------------------
   /// TEXT SEARCH
   // --------------------
-  Future<void> _onSearch(String text) async {
+  Future<void> _onSearch(String? text) async {
       await _generateQuery();
   }
   // --------------------

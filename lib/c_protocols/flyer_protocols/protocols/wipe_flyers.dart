@@ -185,15 +185,15 @@ class WipeFlyerProtocols {
 
             /// DELETE LDB SLIDES AND POSTER PICS + PDF
             PicLDBOps.deletePics(FlyerModel.getPicsPaths(_flyerModel)),
-            PicLDBOps.deletePic(StoragePath.flyers_flyerID_poster(_flyerModel?.id)),
-            PDFLDBOps.delete(_flyerModel?.pdfPath),
+            PicLDBOps.deletePic(StoragePath.flyers_flyerID_poster(_flyerModel.id)),
+            PDFLDBOps.delete(_flyerModel.pdfPath),
 
             /// CENSUS
             CensusListener.onWipeFlyer(_flyerModel),
 
             /// REMOVE FLYER DOC
             FlyerFireOps.deleteFlyerDoc(
-              flyerID: _flyerModel?.id,
+              flyerID: _flyerModel.id,
             ),
 
             /// REMOVE FLYER LOCALLY

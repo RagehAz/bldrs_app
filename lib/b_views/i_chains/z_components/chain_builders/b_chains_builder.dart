@@ -30,19 +30,19 @@ class ChainsBuilder extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final dynamic sons;
-  final String previousPath;
+  final String? previousPath;
   final double width;
-  final int level;
+  final int? level;
   final List<String> selectedPhids;
   final bool initiallyExpanded;
   final ValueNotifier<dynamic> searchText;
   final ChainSecondLinesType secondLinesType;
-  final Function(String path, String phid) onPhidTap;
-  final Function(String path, String phid) onPhidDoubleTap;
-  final Function(String path, String phid) onPhidLongTap;
-  final ValueChanged<List<SpecModel>> onExportSpecs;
-  final ZoneModel zone;
-  final Function onDataCreatorKeyboardSubmitted;
+  final Function(String? path, String? phid)? onPhidTap;
+  final Function(String? path, String? phid)? onPhidDoubleTap;
+  final Function(String? path, String? phid)? onPhidLongTap;
+  final ValueChanged<List<SpecModel>>? onExportSpecs;
+  final ZoneModel? zone;
+  final ValueChanged<String?>? onDataCreatorKeyboardSubmitted;
   final bool isMultipleSelectionMode;
   final bool onlyUseZoneChains;
   final bool isCollapsable;
@@ -50,7 +50,7 @@ class ChainsBuilder extends StatelessWidget {
   static double getBottomMargin({
     required BuildContext context,
     required bool isCollapsable,
-    required int level,
+    required int? level,
   }){
 
     if (isCollapsable == true) {
@@ -121,7 +121,7 @@ class ChainsBuilder extends StatelessWidget {
                 width: _sonWidth,
                 selectedPhids: selectedPhids,
                 initiallyExpanded: initiallyExpanded,
-                level: level+1,
+                level: (level??0)+1,
                 searchText: searchText,
                 secondLinesType: secondLinesType,
                 onPhidTap: onPhidTap,

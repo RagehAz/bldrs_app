@@ -82,6 +82,7 @@ dependencies:
   collection: ^1.17.1
   photo_manager: ^2.6.0
   intl: ^0.18.0
+  firebase_core: ^2.14.0
 # --------------------------------------------------------------------------------
 dev_dependencies:
   flutter_test:

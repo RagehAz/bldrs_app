@@ -25,12 +25,12 @@ class DataStripWithHeadline extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final String dataKey;
   final dynamic dataValue;
-  final double width;
+  final double? width;
   final Color valueBoxColor;
   final bool isPercent;
-  final Function onKeyTap;
-  final Function onValueTap;
-  final ValueNotifier<dynamic> highlightText;
+  final Function? onKeyTap;
+  final Function? onValueTap;
+  final ValueNotifier<dynamic>? highlightText;
   /// --------------------------------------------------------------------------
   static const double rowHeight = 60;
   static const double keyRowHeight = rowHeight * 0.4;
@@ -100,7 +100,7 @@ class DataStripKey extends StatelessWidget {
   final double height;
   final double width;
   final String dataKey;
-  final Function onTap;
+  final Function? onTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -143,7 +143,7 @@ class DataStripValue extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final Function onTap;
+  final Function? onTap;
   final double width;
   final double height;
   final Color color;
@@ -151,13 +151,13 @@ class DataStripValue extends StatelessWidget {
   final dynamic dataValue;
   final String valueString;
   final double horizontalMargin;
-  final ValueNotifier<dynamic> highlightText;
+  final ValueNotifier<dynamic>? highlightText;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     return GestureDetector(
-      onTap: onTap,
+      onTap: () => onTap?.call(),
       child: Container(
         width: width,
         height: height,

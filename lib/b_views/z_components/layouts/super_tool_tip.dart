@@ -16,14 +16,14 @@ class SuperToolTip extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final Verse verse;
+  final Verse? verse;
   final Widget child;
   // --------------------------------------------------------------------------
   static const int millisecondsPerWord = 400;
   // --------------------
   ///
   Duration _calculateShowDuration(){
-    final int _length = verse.id.split(' ').length;
+    final int _length = verse?.id?.split(' ').length ?? 0;
     return Duration(milliseconds: _length * millisecondsPerWord);
   }
   // --------------------------------------------------------------------------
@@ -31,7 +31,7 @@ class SuperToolTip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    if (verse == null || TextCheck.isEmpty(verse.id) == true){
+    if (verse == null || TextCheck.isEmpty(verse?.id) == true){
       return child;
     }
 

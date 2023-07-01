@@ -18,10 +18,10 @@ class HeaderLabels extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final BzModel bzModel;
+  final BzModel? bzModel;
   final bool flyerShowsAuthor;
   final bool headerIsExpanded;
-  final String authorID;
+  final String? authorID;
   final bool showHeaderLabels;
   final dynamic authorImage;
   // -----------------------------------------------------------------------------

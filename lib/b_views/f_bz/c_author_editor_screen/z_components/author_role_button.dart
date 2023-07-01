@@ -32,7 +32,7 @@ class AuthorRoleButton extends StatelessWidget {
       color: isOn == true ? Colorz.yellow255 : Colorz.nothing,
       iconColor: isOn == true ? Colorz.black255 : Colorz.white255,
       verseColor: isOn == true ? Colorz.black255 : Colorz.white255,
-      verseShadow: false,
+      // verseShadow: false,
       verseWeight: isOn == true ? VerseWeight.black : VerseWeight.thin,
       verseItalic: true,
       margins: const EdgeInsets.only(bottom: 10),

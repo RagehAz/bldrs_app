@@ -33,21 +33,21 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final double minHeaderHeight;
-  final Animation<double> logoSizeRatioTween;
-  final Animation<double> headerLeftSpacerTween;
+  final Animation<double>? logoSizeRatioTween;
+  final Animation<double>? headerLeftSpacerTween;
   final bool tinyMode;
-  final BorderRadius headerBorders;
+  final BorderRadius? headerBorders;
   final double logoMinWidth;
-  final BorderRadius logoCorners;
+  final BorderRadius? logoCorners;
   final ValueNotifier<bool> headerIsExpanded;
-  final Animation<double> headerMiddleSpacerWidthTween;
-  final Animation<double> headerLabelsWidthTween;
-  final Animation<double> followCallButtonsScaleTween;
+  final Animation<double>? headerMiddleSpacerWidthTween;
+  final Animation<double>? headerLabelsWidthTween;
+  final Animation<double>? followCallButtonsScaleTween;
   final ValueNotifier<bool> followIsOn;
   final Function onFollowTap;
   final Function onCallTap;
-  final Animation<double> headerRightSpacerTween;
-  final FlyerModel flyerModel;
+  final Animation<double>? headerRightSpacerTween;
+  final FlyerModel? flyerModel;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -74,11 +74,11 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
         /// LOGO
         BzLogo(
           key: const ValueKey<String>('ConvertibleHeaderStripPart_BzLogo'),
-          width: logoMinWidth * logoSizeRatioTween.value,
-          image: flyerModel.bzLogoImage ?? flyerModel.bzModel?.logoPath,
+          width: logoMinWidth * (logoSizeRatioTween?.value ?? 1),
+          image: flyerModel?.bzLogoImage ?? flyerModel?.bzModel?.logoPath,
           isVerified: flyerModel?.bzModel?.isVerified,
           corners: logoCorners,
-          zeroCornerIsOn: flyerModel.showsAuthor,
+          zeroCornerIsOn: flyerModel?.showsAuthor,
         ),
 
         /// MIDDLE SPACER
@@ -107,7 +107,7 @@ class ConvertibleHeaderStripPart extends StatelessWidget {
           key: const ValueKey<String>('ConvertibleHeaderStripPart_FollowAndCallPart'),
           tinyMode: tinyMode,
           logoSizeRatioTween: logoSizeRatioTween,
-          flyerBoxWidth: flyerBoxWidth * followCallButtonsScaleTween.value,
+          flyerBoxWidth: flyerBoxWidth * (followCallButtonsScaleTween?.value ?? 1),
           followCallButtonsScaleTween: followCallButtonsScaleTween,
           followIsOn: followIsOn,
           onCallTap: onCallTap,

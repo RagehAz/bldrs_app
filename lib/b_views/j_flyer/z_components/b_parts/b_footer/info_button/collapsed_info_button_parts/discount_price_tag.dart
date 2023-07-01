@@ -1,4 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/collapsed_info_button_parts/collapsed_info_button_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
@@ -10,7 +11,6 @@ import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
-import 'package:provider/provider.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 
 class DiscountPriceTag extends StatelessWidget {
@@ -30,19 +30,18 @@ class DiscountPriceTag extends StatelessWidget {
   final double width;
   final double height;
   final double paddingValue;
-  final ValueNotifier<bool> buttonIsExpanded;
+  final ValueNotifier<bool?> buttonIsExpanded;
   /// --------------------------------------------------------------------------
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
-    final CountryModel _currentCountry = _zoneProvider.currentZone?.countryModel;
+    final CountryModel? _currentCountry = ZoneProvider.proGetCurrentZone(context: context, listen: true)?.countryModel;
     // --------------------
     const double _currentPrice = 14019.50;
-    final String _currencyID = Flag.getCountryCurrencyID(_currentCountry.id);
+    final String? _currencyID = Flag.getCountryCurrencyID(_currentCountry?.id);
     const double _oldPrice = 17800;
-    final int _discountPercentage = Numeric.calculateDiscountPercentage(
+    final int? _discountPercentage = Numeric.calculateDiscountPercentage(
       oldPrice: _oldPrice,
       currentPrice: _currentPrice,
     );
@@ -63,14 +62,14 @@ class DiscountPriceTag extends StatelessWidget {
       horizontalListViewChildren: <Widget>[
 
         /// DISCOUNT PERCENTAGE
-        ValueListenableBuilder<bool>(
+        ValueListenableBuilder<bool?>(
             valueListenable: buttonIsExpanded,
-            builder: (_, bool _buttonExpanded, Widget? child){
+            builder: (_, bool? _buttonExpanded, Widget? child){
 
               final double _percentagePosition =
               tinyMode ? height * 0.05
                   :
-              _buttonExpanded ? height * 0.02
+              Mapper.boolIsTrue(_buttonExpanded) ? height * 0.02
                   :
               height * 0.1;
 
@@ -137,26 +136,26 @@ class DiscountPriceTag extends StatelessWidget {
         /// PRICES
         ValueListenableBuilder(
             valueListenable: buttonIsExpanded,
-            builder: (_, bool _buttonExpanded, Widget? child){
+            builder: (_, bool? _buttonExpanded, Widget? child){
               // -------------------------------------------
               final double _pricePosition =
               tinyMode ? height * 0.1
                   :
-              _buttonExpanded ? height * 0.05
+              Mapper.boolIsTrue(_buttonExpanded) ? height * 0.05
                   :
               height * 0.1;
               // -------------------------------------------
               final double _oldPriceSizeFactor =
               tinyMode ? _flyerSizeFactor * 0.7
                   :
-              _buttonExpanded ? _flyerSizeFactor * 0.35
+              Mapper.boolIsTrue(_buttonExpanded) ? _flyerSizeFactor * 0.35
                   :
               _flyerSizeFactor * 0.35;
               // -------------------------------------------
               final double _currentPriceSizeFactor =
               tinyMode ? _flyerSizeFactor * 1.2
                   :
-              _buttonExpanded ? _flyerSizeFactor * 0.6
+              Mapper.boolIsTrue(_buttonExpanded) ? _flyerSizeFactor * 0.6
                   :
               _flyerSizeFactor * 0.6;
               // -------------------------------------------

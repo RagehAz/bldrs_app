@@ -21,14 +21,14 @@ class InfoPageMainDetails extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final double pageWidth;
-  final FlyerModel flyerModel;
+  final FlyerModel? flyerModel;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  String _getZoneLine({
+  String? _getZoneLine({
     required BuildContext context,
-    required ZoneModel zone,
+    required ZoneModel? zone,
   }){
-    String _output;
+    String? _output;
 
     if (zone != null){
 
@@ -37,7 +37,7 @@ class InfoPageMainDetails extends StatelessWidget {
         _city = '';
       }
 
-      String _country = zone.countryName;
+      String? _country = zone.countryName;
       _country ??= Flag.translateCountry(
           langCode: Localizer.getCurrentLangCode(),
           countryID: zone.countryID,
@@ -53,18 +53,17 @@ class InfoPageMainDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final String _flyerTypePhid = FlyerTyper.getFlyerTypePhid(
-      flyerType: flyerModel.flyerType,
+    final String? _flyerTypePhid = FlyerTyper.getFlyerTypePhid(
+      flyerType: flyerModel?.flyerType,
       pluralTranslation: false,
     );
     // --------------------
     final DateTime? _from = PublishTime.getPublishTimeFromTimes(
-        times: flyerModel.times,
+        times: flyerModel?.times,
         state: PublishState.published
     )?.time;
     // --------------------
     final String _timeDifferance = BldrsTimers.calculateSuperTimeDifferenceString(
-      context: context,
       from: _from,
       to: DateTime.now(),
     );
@@ -81,7 +80,7 @@ class InfoPageMainDetails extends StatelessWidget {
             id: '${xPhrase('phid_flyer_type')} : ${xPhrase(_flyerTypePhid)}',
             translate: false,
           ),
-          icon: FlyerTyper.flyerTypeIcon(flyerType: flyerModel.flyerType, isOn: false),
+          icon: FlyerTyper.flyerTypeIcon(flyerType: flyerModel?.flyerType, isOn: false),
           bigIcon: true,
         ),
 
@@ -99,12 +98,12 @@ class InfoPageMainDetails extends StatelessWidget {
         if (flyerModel?.zone != null)
         FutureBuilder(
           future: ZoneProtocols.completeZoneModel(
-              incompleteZoneModel: flyerModel.zone,
+              incompleteZoneModel: flyerModel!.zone,
           ),
-          initialData: flyerModel.zone,
+          initialData: flyerModel!.zone,
           builder: (_, AsyncSnapshot snap){
 
-            final ZoneModel _zone = snap.data;
+            final ZoneModel? _zone = snap.data;
 
             return StatsLine(
               bubbleWidth: pageWidth - 20,

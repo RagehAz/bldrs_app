@@ -9,14 +9,14 @@ class FetchReviewProtocols {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> readIsAgreed({
-    required String reviewID,
-    required String flyerID,
-    required String bzID,
+    required String? reviewID,
+    required String? flyerID,
+    required String? bzID,
   }) async {
 
     bool _output = false;
 
-    if (Authing.getUserID() != null){
+    if (reviewID != null && flyerID != null && bzID != null && Authing.getUserID() != null){
 
       final dynamic _result = await Real.readPath(
         path: RealPath.agrees_bzID_flyerID_reviewID_userID(

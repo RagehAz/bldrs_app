@@ -384,11 +384,11 @@ class SpecModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> getSpecsIDs(List<SpecModel> specs){
+  static List<String> getSpecsIDs(List<SpecModel>? specs){
     final List<String> _output = <String>[];
 
     if (Mapper.checkCanLoopList(specs) == true){
-      for (final SpecModel spec in specs){
+      for (final SpecModel spec in specs!){
 
         if (spec.value is String){
           _output.add(spec.value);
@@ -429,7 +429,7 @@ class SpecModel {
   static List<SpecModel> putSpecsInSpecs({
     required List<SpecModel> parentSpecs,
     required List<SpecModel> inputSpecs,
-    required bool canPickMany,
+    required bool? canPickMany,
   }) {
     /// This considers if the specPicker can or can't pick many spec of same list,
     /// then adds if absent and updates or ignores if exists accordingly
@@ -444,7 +444,7 @@ class SpecModel {
       for (final SpecModel inputSpec in inputSpecs) {
 
         /// A - CAN PICK MANY "of this list ID"
-        if (canPickMany == true) {
+        if (Mapper.boolIsTrue(canPickMany) == true) {
           final bool _alreadyThere = checkSpecsContainThisSpec(specs: _specs, spec: inputSpec);
 
           /// A1 - SPEC ALREADY SELECTED => do nothing

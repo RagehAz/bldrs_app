@@ -108,7 +108,7 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
-  Future<void> _onSearch(String text) async {
+  Future<void> _onSearch(String? text) async {
 
     await onSearchUsers(
       text: text,

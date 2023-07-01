@@ -19,7 +19,7 @@ class PhraseRealOps {
   // --------------------
   ///  TESTED : WORKS PERFECT
   static Future<void> createPhrasesForLang({
-    required String langCode,
+    required String? langCode,
     required List<Phrase> phrases,
   }) async {
 
@@ -59,7 +59,7 @@ class PhraseRealOps {
 
     if (lang != null && phid != null){
 
-      final String _value = await Real.readPath(
+      final String? _value = await Real.readPath(
           path: '${RealColl.phrases}/$lang/$phid',
       );
 
@@ -83,7 +83,7 @@ class PhraseRealOps {
   // --------------------
   ///  TESTED : WORKS PERFECT
   static Future<List<Phrase>> readPhrasesByLang({
-    required String langCode,
+    required String? langCode,
     required bool createTrigram,
     ValueChanged<List<Phrase>>? onFinish,
   }) async {
@@ -123,7 +123,7 @@ class PhraseRealOps {
 
   // --------------------
   static Future<void> updatePhrasesForLang({
-    required String langCode,
+    required String? langCode,
     required List<Phrase> updatedPhrases,
   }) async {
 

@@ -1,4 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/layouts/separators/separator_line.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/a_models/x_utilities/map_model.dart';
@@ -21,8 +22,8 @@ class ObeliskIcon extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final NavModel navModel;
-  final ValueNotifier<ProgressBarModel> progressBarModel;
+  final NavModel? navModel;
+  final ValueNotifier<ProgressBarModel?> progressBarModel;
   final int navModelIndex;
   final Function onTap;
   /// --------------------------------------------------------------------------
@@ -34,14 +35,14 @@ class ObeliskIcon extends StatelessWidget {
     return ValueListenableBuilder(
         key: const ValueKey<String>('ObeliskIcon'),
         valueListenable: progressBarModel,
-        builder: (_, ProgressBarModel progressBarModel, Widget? child){
+        builder: (_, ProgressBarModel? progressBarModel, Widget? child){
 
           final bool _isSelected = progressBarModel?.index == navModelIndex;
 
           /// BUTTON CIRCLE
-          if (navModel?.canShow == true){
+          if (Mapper.boolIsTrue(navModel?.canShow) == true){
             return GestureDetector(
-              onTap: onTap,
+              onTap: () => onTap.call(),
               child: Container(
                 height: Obelisk.circleWidth,
                 width: Obelisk.circleWidth,
@@ -52,9 +53,9 @@ class ObeliskIcon extends StatelessWidget {
 
                     final List<MapModel> _mapModels = notesProvider.obeliskBadges;
 
-                    final MapModel _mapModel = MapModel.getModelByKey(
+                    final MapModel? _mapModel = MapModel.getModelByKey(
                         models: _mapModels,
-                        key: navModel.id,
+                        key: navModel?.id,
                     );
 
                     return _mapModel?.value;
@@ -62,14 +63,14 @@ class ObeliskIcon extends StatelessWidget {
                   shouldRebuild: (int last, int next){
                     return last != next;
                   },
-                  builder: (_, int count, Widget? child){
+                  builder: (_, int? count, Widget? child){
 
                     return NoteRedDotWrapper(
-                      redDotIsOn: navModel?.forceRedDot == true || (count != null && count > 0),
+                      redDotIsOn: Mapper.boolIsTrue(navModel?.forceRedDot) == true || (count != null && count > 0),
                       count: count,
                       childWidth: Obelisk.circleWidth,
                       shrinkChild: true,
-                      child: child,
+                      child: child!,
                     );
 
                   },
@@ -78,9 +79,9 @@ class ObeliskIcon extends StatelessWidget {
                     height: Obelisk.circleWidth,
                     corners: Obelisk.circleWidth * 0.5,
                     color: _isSelected ? Colorz.yellow255 : Colorz.black255,
-                    icon: navModel.icon,
-                    iconColor: navModel.iconColor == Colorz.nothing ? null : _isSelected ? Colorz.black255 : Colorz.white255,
-                    iconSizeFactor: navModel.iconSizeFactor ?? 0.45,
+                    icon: navModel?.icon,
+                    iconColor: navModel?.iconColor == Colorz.nothing ? null : _isSelected ? Colorz.black255 : Colorz.white255,
+                    iconSizeFactor: navModel?.iconSizeFactor ?? 0.45,
                     // margins: const EdgeInsets.only(bottom: 5),
                   ),
                 ),

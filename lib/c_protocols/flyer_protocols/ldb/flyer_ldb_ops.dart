@@ -4,7 +4,6 @@ import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:flutter/material.dart';
 
 class FlyerLDBOps {
   // -----------------------------------------------------------------------------
@@ -93,7 +92,7 @@ class FlyerLDBOps {
 
     }
 
-    return _flyers ?? [];
+    return _flyers;
   }
   // -----------------------------------------------------------------------------
 
@@ -127,7 +126,7 @@ class FlyerLDBOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> wipeOut(BuildContext context) async {
+  static Future<void> wipeOut() async {
 
     await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.flyers);
 

@@ -16,14 +16,14 @@ class CensusLine extends StatelessWidget {
     super.key
   });
   // --------------------------------------------------------------------------
-  final CensusModel censusModel;
+  final CensusModel? censusModel;
   final bool hasFlagSpace;
   final double? width;
   final bool isActive;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool canShowCensus({
-    required CensusModel censusModel,
+    required CensusModel? censusModel,
   }){
 
     if (censusModel == null){
@@ -82,7 +82,7 @@ class CensusLine extends StatelessWidget {
             CensusLineUnit(
               width: _censusUnitBoxWidth,
               icon: Iconz.normalUser,
-              number: censusModel.totalUsers,
+              number: censusModel?.totalUsers,
               isActive: isActive,
             ),
 
@@ -90,7 +90,7 @@ class CensusLine extends StatelessWidget {
             CensusLineUnit(
               width: _censusUnitBoxWidth,
               icon: Iconz.bz,
-              number: censusModel.totalBzz,
+              number: censusModel?.totalBzz,
               isActive: isActive,
             ),
 
@@ -98,7 +98,7 @@ class CensusLine extends StatelessWidget {
             CensusLineUnit(
               width: _censusUnitBoxWidth,
               icon: Iconz.flyer,
-              number: censusModel.totalFlyers,
+              number: censusModel?.totalFlyers,
               isActive: isActive,
             ),
 

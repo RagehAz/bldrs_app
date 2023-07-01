@@ -1,5 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/widgets/drawing/super_positioned.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
@@ -65,7 +66,7 @@ class BzLogo extends StatelessWidget {
             ),
 
             /// VERIFIED ICON
-            if (isVerified == true)
+            if (Mapper.boolIsTrue(isVerified) == true)
               SuperPositioned(
                 enAlignment: Alignment.topLeft,
                 horizontalOffset: width * 0.00,
@@ -79,7 +80,7 @@ class BzLogo extends StatelessWidget {
                 ),
               ),
 
-            if (isVerified == true)
+            if (Mapper.boolIsTrue(isVerified) == true)
               SuperPositioned(
                 enAlignment: Alignment.topLeft,
                 horizontalOffset: width * 0.00,

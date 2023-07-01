@@ -2,7 +2,6 @@ import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_color.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 
 class StaticStrip extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -19,9 +18,9 @@ class StaticStrip extends StatelessWidget {
   final double flyerBoxWidth;
   final double stripWidth;
   final int numberOfSlides;
-  final EdgeInsets margins;
+  final EdgeInsets? margins;
   final bool isWhite;
-  final Color stripColor;
+  final Color? stripColor;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

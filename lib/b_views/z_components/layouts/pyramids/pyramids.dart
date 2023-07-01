@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element
+
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
@@ -155,7 +157,7 @@ class _PyramidsWidgetTree extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return GestureDetector(
-        onTap: onPyramidTap,
+        onTap: () => onPyramidTap?.call(),
         onDoubleTap: (){
           blog('Pyramids are double tapped');
         },
@@ -185,7 +187,10 @@ class _PyramidsWidgetTree extends StatelessWidget {
           fadeType: loading == true ? FadeType.repeatAndReverse : FadeType.fadeIn,
           duration: const Duration(milliseconds: 600),
           min: 0.4,
-          child: _PyramidGraphic(pyramidType, color),
+          child: _PyramidGraphic(
+              pyramidType: pyramidType,
+              color: color,
+          ),
         )
 
             :
@@ -194,7 +199,10 @@ class _PyramidsWidgetTree extends StatelessWidget {
           fadeType: FadeType.stillAtMax,
           duration: const Duration(milliseconds: 400),
           min: 0.4,
-          child: _PyramidGraphic(pyramidType, color),
+          child: _PyramidGraphic(
+              pyramidType: pyramidType,
+              color: color,
+          ),
         )
 
     );
@@ -250,7 +258,7 @@ class _PyramidGraphic extends StatelessWidget {
     /// IF USER
     else {
 
-      final String _pyramidIcon = getPyramid(pyramidType);
+      final String? _pyramidIcon = getPyramid(pyramidType);
 
       return BldrsImage(
         width: 256 * 0.7,
@@ -271,5 +279,5 @@ bool imAdmin(BuildContext context){
     context: context,
     listen: true,
   );
-  return _userModel?.isAdmin;
+  return _userModel?.isAdmin ?? false;
 }

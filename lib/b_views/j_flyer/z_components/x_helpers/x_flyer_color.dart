@@ -31,12 +31,12 @@ class FlyerColors {
     return tinyMode == true ? Colorz.nothing : Colorz.blackSemi230;
   }
   // --------------------
-  static Color headerEndColor({
-    required List<SlideModel> slides,
+  static Color? headerEndColor({
+    required List<SlideModel>? slides,
   }){
 
     if (Mapper.checkCanLoopList(slides) == true){
-      return slides[0].midColor;
+      return slides![0].midColor;
     }
 
     else {
@@ -56,7 +56,7 @@ class FlyerColors {
   // --------------------
   /// BZ LOGO COLORS
   // --------------------
-  static List<BoxShadow> logoShadows(double logoWidth){
+  static List<BoxShadow> logoShadows(double? logoWidth){
     return <BoxShadow>[
       if (logoWidth != null)
       CustomBoxShadow(
@@ -168,7 +168,7 @@ class FlyerColors {
   static Color progressStripColor({
     required bool isWhite,
     required int numberOfSlides,
-    required Color colorOverride,
+    required Color? colorOverride,
   }) {
     final int _numberOfSlides = numberOfSlides == 0 ? 1 : numberOfSlides;
 

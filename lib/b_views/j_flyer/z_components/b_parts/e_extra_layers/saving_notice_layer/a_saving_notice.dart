@@ -30,7 +30,7 @@ class SavingNotice extends StatefulWidget {
 
 class _SavingNoticeState extends State<SavingNotice> {
   // -----------------------------------------------------------------------------
-  CurvedAnimation _curvedAnimation;
+  late CurvedAnimation _curvedAnimation;
   // -----------------------------------------------------------------------------
   @override
   void initState() {

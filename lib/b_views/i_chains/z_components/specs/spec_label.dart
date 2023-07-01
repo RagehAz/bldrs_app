@@ -21,11 +21,11 @@ class SpecLabel extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final bool xIsOn;
-  final Verse verse;
+  final Verse? verse;
   final Function onTap;
   final Function onXTap;
-  final double maxBoxWidth;
-  final ValueNotifier<String> searchText;
+  final double? maxBoxWidth;
+  final ValueNotifier<String?>? searchText;
   /// --------------------------------------------------------------------------
   static const double height = 40;
   // --------------------
@@ -33,7 +33,7 @@ class SpecLabel extends StatelessWidget {
   Widget build(BuildContext context) {
 
     const EdgeInsets _margins = EdgeInsets.symmetric(vertical: 2.5);
-    final double _maxLabelWidth = maxBoxWidth == null ? double.infinity : maxBoxWidth - (_margins.right * 2);
+    final double _maxLabelWidth = maxBoxWidth == null ? double.infinity : maxBoxWidth! - (_margins.right * 2);
     final double _iconWidth = xIsOn == true ? height : 0;
     final double _verseMaxWidth = maxBoxWidth == null ? double.infinity : _maxLabelWidth - _iconWidth;
 
@@ -62,7 +62,7 @@ class SpecLabel extends StatelessWidget {
           ),
 
           GestureDetector(
-            onTap: onTap,
+            onTap: () => onTap(),
             child: Container(
               height: height,
               constraints: BoxConstraints(

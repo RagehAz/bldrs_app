@@ -18,7 +18,7 @@ class CollapsedInfoButtonContent extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final InfoButtonType infoButtonType;
   final double flyerBoxWidth;
-  final ValueNotifier<bool> buttonIsExpanded;
+  final ValueNotifier<bool?> buttonIsExpanded;
   final bool tinyMode;
   /// --------------------------------------------------------------------------
   @override

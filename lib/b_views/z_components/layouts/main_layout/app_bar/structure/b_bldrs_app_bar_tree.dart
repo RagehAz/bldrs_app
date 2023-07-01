@@ -34,15 +34,15 @@ class BldrsAppBarTree extends StatelessWidget {
   final ScrollController? appBarScrollController;
   final bool? sectionButtonIsOn;
   final TextEditingController? searchController;
-  final ValueChanged<String>? onSearchSubmit;
-  final ValueChanged<String>? onPaste;
-  final ValueChanged<String>? onSearchChanged;
+  final ValueChanged<String?>? onSearchSubmit;
+  final ValueChanged<String?>? onPaste;
+  final ValueChanged<String?>? onSearchChanged;
   final bool searchButtonIsOn;
   final Verse? searchHintVerse;
   final bool canGoBack;
   final Function? onSearchCancelled;
   final GlobalKey? globalKey;
-  final ValueNotifier<bool>? filtersAreOn;
+  final ValueNotifier<bool?>? filtersAreOn;
   final Widget? filters;
   // -----------------------------------------------------------------------------
   bool _sectionButtonIsOnCheck() {
@@ -146,14 +146,14 @@ class BldrsAppBarTree extends StatelessWidget {
         if (loading != null)
           AppBarProgressBar(
             progressBarModel: progressBarModel,
-            loading: loading,
+            loading: loading!,
             appBarType: appBarType,
           ),
 
         if (filtersAreOn != null && filters != null)
           AppBarFilters(
-            appBarType: appBarType,
-            child: filters,
+            appBarType: appBarType!,
+            child: filters!,
           ),
 
       ],
@@ -179,13 +179,13 @@ class BldrsAppBarTree extends StatelessWidget {
       return ValueListenableBuilder(
           valueListenable: filtersAreOn!,
           child: _appBarContents,
-          builder: (_, bool expanded, Widget? child){
+          builder: (_, bool? expanded, Widget? child){
 
             return AnimatedContainer(
               duration: BldrsAppBar.expansionDuration,
               curve: BldrsAppBar.expansionCurve,
               width: _boxWidth,
-              height: expanded == true ? _expandedHeight : _collapsedHeight,
+              height: Mapper.boolIsTrue(expanded) == true ? _expandedHeight : _collapsedHeight,
               alignment: Alignment.topCenter,
               margin: const EdgeInsets.all(Ratioz.appBarMargin),
               decoration: BldrsAppBar.boxDecoration,

@@ -72,9 +72,9 @@ class MainLayout extends StatelessWidget {
   final Key? scaffoldKey;
   final ScrollController? appBarScrollController;
   final TextEditingController? searchController;
-  final ValueChanged<String>? onSearchSubmit;
-  final ValueChanged<String>? onPaste;
-  final ValueChanged<String>? onSearchChanged;
+  final ValueChanged<String?>? onSearchSubmit;
+  final ValueChanged<String?>? onPaste;
+  final ValueChanged<String?>? onSearchChanged;
   final bool searchButtonIsOn;
   final bool sectionButtonIsOn;
   final Verse? searchHintVerse;

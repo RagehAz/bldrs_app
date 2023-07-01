@@ -84,9 +84,9 @@ class ShelfSlidesPart extends StatelessWidget {
 
                 /// SLIDES
                 if (Mapper.checkCanLoopList(draft.draftSlides) == true)
-                ...List.generate(draft.draftSlides.length, (index){
+                ...List.generate(draft.draftSlides!.length, (index){
 
-                  final DraftSlide _draftSlide = draft.draftSlides[index];
+                  final DraftSlide _draftSlide = draft.draftSlides![index];
 
                   return DraftShelfSlide(
                       key: ValueKey<String>('son_${_draftSlide.picModel.hashCode}'),

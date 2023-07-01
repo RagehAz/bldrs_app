@@ -70,7 +70,7 @@ class BldrsPicMaker {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<Uint8List?> cropPic({
-    required Uint8List bytes,
+    required Uint8List? bytes,
     required double aspectRatio,
   }) async {
 

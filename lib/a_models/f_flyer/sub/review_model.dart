@@ -189,7 +189,7 @@ class ReviewModel {
   /// TESTED : WORKS PERFECT
   static ReviewModel createNewReview({
     required String text,
-    required String flyerID,
+    required String? flyerID,
   }){
     return ReviewModel(
       id: 'x',
@@ -271,8 +271,8 @@ class ReviewModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String createTempReviewID({
-    required String flyerID,
-    required String userID,
+    required String? flyerID,
+    required String? userID,
   }){
     return '${flyerID}_$userID';
   }

@@ -9,7 +9,6 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/f_cloud/dynamic_links.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:fire/super_fire.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/layouts/nav/nav.dart';
 /// => TAMAM
@@ -21,7 +20,7 @@ import 'package:basics/layouts/nav/nav.dart';
 /// TESTED : WORKS PERFECT
 Future<void> onSaveFlyer({
   required BuildContext context,
-  required FlyerModel flyerModel,
+  required FlyerModel? flyerModel,
   required ValueNotifier<bool> flyerIsSaved,
   required int slideIndex,
   required bool mounted,
@@ -49,7 +48,7 @@ Future<void> onSaveFlyer({
 /// TESTED : WORKS PERFECT
 Future<void> onReviewButtonTap({
   required BuildContext context,
-  required FlyerModel flyerModel,
+  required FlyerModel? flyerModel,
 }) async {
 
   await Nav.goToNewScreen(
@@ -67,7 +66,7 @@ Future<void> onReviewButtonTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onShareFlyer({
-  required FlyerModel flyerModel,
+  required FlyerModel? flyerModel,
   required ValueNotifier<bool> isSharing,
   // required bool mounted,
 }) async {
@@ -85,7 +84,7 @@ Future<void> onShareFlyer({
       value: true,
     );
 
-    String _shareLink = flyerModel.shareLink;
+    String? _shareLink = flyerModel.shareLink;
     _shareLink ??= await BldrsShareLink.generateFlyerLink(
       flyerID: flyerModel.id,
       headline: flyerModel.headline,

@@ -507,7 +507,7 @@ class UserModel {
   /// TESTED : WORKS PERFECT
   static bool checkFlyerIsSaved({
     required UserModel? userModel,
-    required String flyerID,
+    required String? flyerID,
   }){
 
     return Stringer.checkStringsContainString(

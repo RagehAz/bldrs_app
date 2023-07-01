@@ -9,7 +9,7 @@ class PyramidsPanel extends StatelessWidget {
     super.key
   });
   // --------------------
-  final List<Widget> pyramidButtons;
+  final List<Widget>? pyramidButtons;
   // --------------------
   static const double bottomMargin = 50;
   // ---------------------------------------------------------------------------
@@ -28,9 +28,9 @@ class PyramidsPanel extends StatelessWidget {
 
               /// EXTRA BUTTONS
               if (Mapper.checkCanLoopList(pyramidButtons) == true)
-                ...List.generate(pyramidButtons.length, (index){
+                ...List.generate(pyramidButtons!.length, (index){
 
-                  return pyramidButtons[index];
+                  return pyramidButtons![index];
 
                 }),
 

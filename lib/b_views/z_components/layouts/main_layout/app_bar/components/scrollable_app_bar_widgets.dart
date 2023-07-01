@@ -10,8 +10,8 @@ class ScrollableAppBarWidgets extends StatelessWidget {
   });
   
   final double width;
-  final ScrollController scrollController;
-  final List<Widget> children;
+  final ScrollController? scrollController;
+  final List<Widget>? children;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class ScrollableAppBarWidgets extends StatelessWidget {
             // stepWidth: width,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
-              children: children,
+              children: children ?? [],
             ),
           ),
         ),

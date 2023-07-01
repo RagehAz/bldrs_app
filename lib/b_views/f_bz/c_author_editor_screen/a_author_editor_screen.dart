@@ -480,7 +480,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                         countryID: widget.bzModel?.zone?.countryID,
                         existingContacts: authorModel?.contacts,
                       ),
-                      textOnChanged: (String text) => onAuthorContactChanged(
+                      textOnChanged: (String? text) => onAuthorContactChanged(
                         contactType: ContactType.phone,
                         value: text,
                         tempAuthor: _draftAuthor,
@@ -517,7 +517,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                         countryID: widget.bzModel?.zone?.countryID,
                         existingContacts: authorModel?.contacts,
                       ),
-                      textOnChanged: (String text) => onAuthorContactChanged(
+                      textOnChanged: (String? text) => onAuthorContactChanged(
                         contactType: ContactType.email,
                         value: text,
                         tempAuthor: _draftAuthor,

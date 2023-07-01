@@ -30,11 +30,11 @@ class HeroicFlyersGrid extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final List<FlyerModel> flyers;
-  final List<String> flyersIDs;
+  final List<FlyerModel>? flyers;
+  final List<String>? flyersIDs;
   final double gridWidth;
   final double gridHeight;
-  final ScrollController scrollController;
+  final ScrollController? scrollController;
   final double topPadding;
   final int numberOfColumnsOrRows;
   final String screenName;
@@ -42,10 +42,10 @@ class HeroicFlyersGrid extends StatelessWidget {
   final Axis scrollDirection;
   final bool scrollable;
   final bool selectionMode;
-  final Function(FlyerModel flyerModel) onFlyerOptionsTap;
-  final Function(FlyerModel flyerModel) onSelectFlyer;
-  final Function(String flyerID) onFlyerNotFound;
-  final double bottomPadding;
+  final Function(FlyerModel flyerModel)? onFlyerOptionsTap;
+  final Function(FlyerModel flyerModel)? onSelectFlyer;
+  final Function(String flyerID)? onFlyerNotFound;
+  final double? bottomPadding;
   final bool hasResponsiveSideMargin;
   // --------------------------------------------------------------------------
   @override
@@ -89,8 +89,8 @@ class HeroicFlyersGrid extends StatelessWidget {
           else {
 
             final int _flyerIndex = showAddFlyerButton == true ? index-1 : index;
-            final String _flyerID = (flyersIDs?.length ?? 0) == 0 ? null : flyersIDs[_flyerIndex];
-            final FlyerModel _flyer = (flyers?.length ?? 0) == 0 ? null : flyers[_flyerIndex];
+            final String? _flyerID = (flyersIDs?.length ?? 0) == 0 ? null : flyersIDs![_flyerIndex];
+            final FlyerModel? _flyer = (flyers?.length ?? 0) == 0 ? null : flyers![_flyerIndex];
 
             return FlyerBuilder(
               key: const ValueKey<String>('FlyerBuilder_inGrid'),
@@ -98,16 +98,16 @@ class HeroicFlyersGrid extends StatelessWidget {
               flyerModel: _flyer,
               flyerBoxWidth: _gridSlotWidth,
               onFlyerNotFound: onFlyerNotFound == null || _flyerID == null ?
-              null : (String flyerID) => onFlyerNotFound(_flyerID),
+              null : (String? flyerID) => onFlyerNotFound?.call(_flyerID),
               renderFlyer: RenderFlyer.firstSlide,
-              builder: (FlyerModel smallFlyer) {
+              builder: (FlyerModel? smallFlyer) {
 
 
                 return FlyerSelectionStack(
                   flyerModel: smallFlyer,
                   flyerBoxWidth: _gridSlotWidth,
-                  onSelectFlyer: onSelectFlyer == null ? null : () => onSelectFlyer(smallFlyer),
-                  onFlyerOptionsTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap(smallFlyer),
+                  onSelectFlyer: onSelectFlyer == null ? null : () => onSelectFlyer!(smallFlyer!),
+                  onFlyerOptionsTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap!(smallFlyer!),
                   selectionMode: selectionMode,
                   flyerWidget: HeroicFlyer(
                     flyerModel: smallFlyer,

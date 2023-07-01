@@ -14,7 +14,7 @@ class Snapper extends StatelessWidget {
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static void snapToWidget({
-    required GlobalKey snapKey,
+    required GlobalKey? snapKey,
   }){
 
     /// NOTE : snaps scroll of SingleChildScrollView to the widget holding this snapKey
@@ -22,7 +22,7 @@ class Snapper extends StatelessWidget {
 
     if (snapKey != null){
       WidgetsBinding.instance.addPostFrameCallback((_){
-        Scrollable.ensureVisible(snapKey.currentContext);
+        Scrollable.ensureVisible(snapKey.currentContext!);
       });
     }
 

@@ -25,32 +25,35 @@ class PhraseProvider extends ChangeNotifier {
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
   Future<void> changeAppLang({
-    required String langCode,
+    required String? langCode,
   }) async {
 
-    pushWaitDialog(
-      verse: const Verse(
-        id: 'phid_change_app_lang_description',
-        translate: true,
-      ),
-    );
+    if (langCode != null) {
 
-    await fetchSetCurrentLangAndAllPhrases(
-      setLangCode: langCode,
-    );
+      pushWaitDialog(
+        verse: const Verse(
+          id: 'phid_change_app_lang_description',
+          translate: true,
+        ),
+      );
 
-    await Localizer.changeAppLanguage(getMainContext(), langCode);
+      await fetchSetCurrentLangAndAllPhrases(
+        setLangCode: langCode,
+      );
 
-    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
-    await _chainsProvider.fetchSortSetBldrsChains(
-      notify: true,
-    );
+      await Localizer.changeAppLanguage(getMainContext(), langCode);
 
-    await WaitDialog.closeWaitDialog();
+      final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
+      await _chainsProvider.fetchSortSetBldrsChains(
+        notify: true,
+      );
 
-    await BldrsNav.goBackToLogoScreen(
-      animatedLogoScreen: true,
-    );
+      await WaitDialog.closeWaitDialog();
+
+      await BldrsNav.goBackToLogoScreen(
+        animatedLogoScreen: true,
+      );
+    }
 
   }
   // --------------------

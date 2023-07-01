@@ -33,7 +33,7 @@ class SuperPyramids extends StatelessWidget {
     return Selector<UiProvider, bool>(
       key: const ValueKey('SuperPyramids_tree'),
       selector: (_, UiProvider uiProvider) => uiProvider.layoutIsVisible,
-      builder: (_, bool isVisible, Widget child) {
+      builder: (_, bool isVisible, Widget? child) {
 
         return IgnorePointer(
           ignoring: !isVisible,

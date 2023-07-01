@@ -15,7 +15,7 @@ class SlideHeadline extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final String text;
+  final String? text;
   final Color verseColor;
   // --------------------------------------------------------------------------
   static const headlineScaleFactor = 0.0032;
@@ -27,7 +27,7 @@ class SlideHeadline extends StatelessWidget {
       return 1;
     }
     else {
-      return text.length > 100 ? 1 : 1.4;
+      return text!.length > 100 ? 1 : 1.4;
     }
 
   }

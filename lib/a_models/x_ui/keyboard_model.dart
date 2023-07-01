@@ -39,9 +39,9 @@ class KeyboardModel {
   final bool? counterIsOn;
   final bool? isFormField;
 
-  final ValueChanged<String>? onChanged;
-  final ValueChanged<String>? onSubmitted;
-  final ValueChanged<String>? onSavedForForm;
+  final ValueChanged<String?>? onChanged;
+  final ValueChanged<String?>? onSubmitted;
+  final ValueChanged<String?>? onSavedForForm;
   final Function? onEditingComplete;
   final bool? isFloatingField;
   final GlobalKey<FormState>? globalKey;
@@ -65,9 +65,9 @@ class KeyboardModel {
     ValueNotifier<bool>? isObscured,
     bool? counterIsOn,
     bool? isFormField,
-    ValueChanged<String>? onChanged,
-    ValueChanged<String>? onSubmitted,
-    ValueChanged<String>? onSavedForForm,
+    ValueChanged<String?>? onChanged,
+    ValueChanged<String?>? onSubmitted,
+    ValueChanged<String?>? onSavedForForm,
     Function? onEditingComplete,
     bool? isFloatingField,
     GlobalKey<FormState>? globalKey,

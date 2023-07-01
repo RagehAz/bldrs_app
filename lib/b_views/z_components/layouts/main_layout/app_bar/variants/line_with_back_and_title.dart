@@ -8,7 +8,7 @@ class LineWithBackAndTitle extends StatelessWidget {
     super.key
   });
   
-  final Verse pageTitleVerse;
+  final Verse? pageTitleVerse;
   final Function onBack;
 
   @override

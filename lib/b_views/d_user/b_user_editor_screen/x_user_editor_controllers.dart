@@ -307,7 +307,7 @@ void onUserZoneChanged({
 void onUserContactChanged({
   required ValueNotifier<DraftUser?> draft,
   required ContactType contactType,
-  required String value,
+  required String? value,
   required bool mounted,
 }){
 

@@ -16,7 +16,7 @@ class AppLangsScreen extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  Future<void> _tapLanguage(String langCode) async {
+  Future<void> _tapLanguage(String? langCode) async {
 
     final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(getMainContext(), listen: false);
     await _phraseProvider.changeAppLang(

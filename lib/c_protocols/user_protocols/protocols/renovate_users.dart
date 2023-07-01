@@ -168,76 +168,81 @@ class RenovateUserProtocols {
   static Future<void> followingProtocol({
     required BuildContext context,
     required bool followIsOn,
-    required BzModel bzToFollow,
+    required BzModel? bzToFollow,
   }) async {
 
     blog('RenovateUserProtocols.followingProtocol : START');
 
-    final UserModel? _oldUser = UsersProvider.proGetMyUserModel(
-      context: context,
-      listen: false,
-    );
+    if (bzToFollow != null){
 
-    if (followIsOn == true){
-
-      final UserModel? _newUser = UserModel.addBzIDToUserFollows(
-        oldUser: _oldUser,
-        bzToFollow: bzToFollow,
+      final UserModel? _oldUser = UsersProvider.proGetMyUserModel(
+        context: context,
+        listen: false,
       );
 
-      await Future.wait(<Future>[
+      if (followIsOn == true){
 
-        RecorderProtocols.onFollowBz(
-          bzID: bzToFollow.id,
-        ),
-
-        renovateUser(
-          context: context,
-          newPic: null,
-          newUser: _newUser,
+        final UserModel? _newUser = UserModel.addBzIDToUserFollows(
           oldUser: _oldUser,
-          invoker: 'followingProtocol',
-        ),
+          bzToFollow: bzToFollow,
+        );
 
-        CensusListener.onFollowBz(
-            bzModel: bzToFollow,
-            isFollowing: true
-        ),
+        await Future.wait(<Future>[
 
-      ]);
+          RecorderProtocols.onFollowBz(
+            bzID: bzToFollow.id,
+          ),
 
+          renovateUser(
+            context: context,
+            newPic: null,
+            newUser: _newUser,
+            oldUser: _oldUser,
+            invoker: 'followingProtocol',
+          ),
+
+          CensusListener.onFollowBz(
+              bzModel: bzToFollow,
+              isFollowing: true
+          ),
+
+        ]);
+
+
+      }
+
+      else {
+
+        final UserModel? _newUser = UserModel.removeBzIDFromUserFollows(
+          oldUser: _oldUser,
+          bzIDToUnFollow: bzToFollow.id,
+        );
+
+        await Future.wait(<Future>[
+
+          RecorderProtocols.onUnfollowBz(
+            bzID: bzToFollow.id,
+          ),
+
+          renovateUser(
+            context: context,
+            newPic: null,
+            newUser: _newUser,
+            oldUser: _oldUser,
+            invoker: 'followingProtocol',
+          ),
+
+          CensusListener.onFollowBz(
+              bzModel: bzToFollow,
+              isFollowing: false
+          ),
+
+        ]);
+
+      }
 
     }
 
-    else {
-
-      final UserModel? _newUser = UserModel.removeBzIDFromUserFollows(
-        oldUser: _oldUser,
-        bzIDToUnFollow: bzToFollow.id,
-      );
-
-      await Future.wait(<Future>[
-
-        RecorderProtocols.onUnfollowBz(
-          bzID: bzToFollow.id,
-        ),
-
-        renovateUser(
-          context: context,
-          newPic: null,
-          newUser: _newUser,
-          oldUser: _oldUser,
-          invoker: 'followingProtocol',
-        ),
-
-        CensusListener.onFollowBz(
-            bzModel: bzToFollow,
-            isFollowing: false
-        ),
-
-      ]);
-
-    }
 
     blog('RenovateUserProtocols.followingProtocol : END');
   }
@@ -399,7 +404,7 @@ class RenovateUserProtocols {
          you should unsubscribe it from topics using the Firebase Admin
          SDK to delete the token/topic mapping from the FCM backend.
 
-         - The benefit of these two steps is that your fanouts will occur
+         - The benefit of these two steps is that your fan outs will occur
          faster since there are fewer stale tokens to fan out to, and your
           stale app instances will automatically resubscribe once they are active again.
 

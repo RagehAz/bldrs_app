@@ -22,9 +22,9 @@ class ZGridScale {
   /// SPACING RATIO BETWEEN ITEMS AND AROUND THE GRID TO SMALL ITEM WIDTH
   final double itemAspectRatio;
   final int columnCount;
-  final double topPaddingOnZoomOut; // can be null
-  final double topPaddingOnZoomIn; // can be null
-  final double bottomPaddingOnZoomedOut;
+  final double? topPaddingOnZoomOut; // can be null
+  final double? topPaddingOnZoomIn; // can be null
+  final double? bottomPaddingOnZoomedOut;
   final double bigItemWidth;
   final double bigItemHeight;
   final double smallItemWidth;
@@ -37,8 +37,8 @@ class ZGridScale {
     required double gridHeight,
     required double itemAspectRatio,
     required int columnCount,
-    required double topPaddingOnZoomOut,
-    required double bottomPaddingOnZoomedOut,
+    required double? topPaddingOnZoomOut,
+    required double? bottomPaddingOnZoomedOut,
     required bool hasResponsiveSideMargin,
   }){
 
@@ -312,10 +312,10 @@ class ZGridScale {
     required double gridWidth,
     required double gridHeight,
     required int columnCount,
-    required double topPaddingOnZoomOut,
+    required double? topPaddingOnZoomOut,
     required bool isZoomed,
     required double itemAspectRatio,
-    required double bottomPaddingOnZoomedOut,
+    required double? bottomPaddingOnZoomedOut,
     required bool hasResponsiveSideMargin,
   }){
 
@@ -510,7 +510,7 @@ class ZGridScale {
   static double _getTopPaddingZoomOffset({
     required int columnCount,
     required double gridWidth,
-    required double topPaddingOnZoomOut,
+    required double? topPaddingOnZoomOut,
     required double gridHeight,
     required double itemAspectRatio,
     required bool hasResponsiveSideMargin,
@@ -664,7 +664,7 @@ class ZGridScale {
     required int columnCount,
     required double gridHeight,
     required double itemAspectRatio,
-    required double topPaddingOnZoomOut,
+    required double? topPaddingOnZoomOut,
     required bool hasResponsiveSideMargin,
   }){
 

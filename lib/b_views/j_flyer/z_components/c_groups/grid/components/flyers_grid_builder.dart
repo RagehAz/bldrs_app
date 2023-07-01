@@ -27,8 +27,8 @@ class FlyersGridBuilder extends StatelessWidget {
   final int numberOfColumnsOrRows;
   final Axis scrollDirection;
   final bool scrollable;
-  final ScrollController scrollController;
-  final double bottomPadding;
+  final ScrollController? scrollController;
+  final double? bottomPadding;
   final bool hasResponsiveSideMargin;
   // --------------------------------------------------------------------------
   @override

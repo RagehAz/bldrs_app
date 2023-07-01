@@ -34,8 +34,8 @@ Future<void> onAddNewSlides({
   required BuildContext context,
   required PicMakerType imagePickerType,
   required ValueNotifier<bool> isLoading,
-  required ValueNotifier<DraftFlyer> draftFlyer,
-  required BzModel bzModel,
+  required ValueNotifier<DraftFlyer?> draftFlyer,
+  required BzModel? bzModel,
   required bool mounted,
   required ScrollController scrollController,
   required double flyerWidth,
@@ -44,11 +44,11 @@ Future<void> onAddNewSlides({
   setNotifier(notifier: isLoading, mounted: mounted, value: true);
 
   final int _maxLength = Standards.getMaxSlidesCount(
-    bzAccountType: bzModel.accountType,
+    bzAccountType: bzModel?.accountType,
   );
 
   /// A - if max images reached
-  if(_maxLength <= (draftFlyer.value.draftSlides?.length ?? 0)){
+  if(_maxLength <= (draftFlyer.value?.draftSlides?.length ?? 0)){
     await _showMaxSlidesReachedDialog(context, _maxLength);
   }
 
@@ -90,9 +90,9 @@ Future<void> onAddNewSlides({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _addImagesForNewFlyer({
-  required BzModel bzModel,
+  required BzModel? bzModel,
   required bool mounted,
-  required ValueNotifier<DraftFlyer> draftFlyer,
+  required ValueNotifier<DraftFlyer?> draftFlyer,
   required ScrollController scrollController,
   required double flyerWidth,
   required PicMakerType imagePickerType,
@@ -146,15 +146,15 @@ Future<void> _addImagesForNewFlyer({
 
       final List<DraftSlide> _newMutableSlides = await DraftSlide.createDrafts(
         bytezz: _picked,
-        existingDrafts: draftFlyer.value.draftSlides ?? [],
-        headline: draftFlyer.value.headline?.text,
-        bzID: draftFlyer.value.bzID,
-        flyerID: draftFlyer.value.id,
+        existingDrafts: draftFlyer.value?.draftSlides ?? [],
+        headline: draftFlyer.value?.headline?.text,
+        bzID: draftFlyer.value?.bzID,
+        flyerID: draftFlyer.value?.id,
       );
 
-      final List<DraftSlide> _combinedSlides = <DraftSlide>[...?draftFlyer.value.draftSlides, ..._newMutableSlides];
+      final List<DraftSlide> _combinedSlides = <DraftSlide>[...?draftFlyer.value?.draftSlides, ..._newMutableSlides];
 
-      final DraftFlyer _newDraft = draftFlyer.value.copyWith(
+      final DraftFlyer? _newDraft = draftFlyer.value?.copyWith(
         draftSlides: _combinedSlides,
       );
 
@@ -241,7 +241,7 @@ Future<void> onSlideTap({
 
   Keyboard.closeKeyboard();
 
-  final DraftSlide _result = await Nav.goToNewScreen(
+  final DraftSlide? _result = await Nav.goToNewScreen(
       context: getMainContext(),
       screen: SlideEditorScreen(
         slide: slide,
@@ -252,14 +252,14 @@ Future<void> onSlideTap({
   if (_result != null){
 
     final List<DraftSlide> _updatedSlides = DraftSlide.replaceSlide(
-      drafts: draftFlyer.value.draftSlides,
+      drafts: draftFlyer.value?.draftSlides,
       draft: _result,
     );
 
     setNotifier(
         notifier: draftFlyer,
         mounted: mounted,
-        value: draftFlyer.value.copyWith(
+        value: draftFlyer.value?.copyWith(
           draftSlides: _updatedSlides,
         ),
     );
@@ -271,7 +271,7 @@ Future<void> onSlideTap({
 /// TESTED : WORKS PERFECT
 Future<void> onDeleteSlide({
   required DraftSlide draftSlide,
-  required ValueNotifier<DraftFlyer>? draftFlyer,
+  required ValueNotifier<DraftFlyer?>? draftFlyer,
   required bool mounted,
 }) async {
 
@@ -292,19 +292,19 @@ Future<void> onDeleteSlide({
     blog('should delete not');
 
     final List<DraftSlide> _slides = DraftSlide.removeDraftFromDrafts(
-      drafts: draftFlyer.value.draftSlides,
+      drafts: draftFlyer?.value!.draftSlides,
       draft: draftSlide,
     );
 
     setNotifier(
         notifier: draftFlyer,
         mounted: mounted,
-        value: draftFlyer.value.copyWith(
+        value: draftFlyer?.value?.copyWith(
           draftSlides: _slides,
         ),
     );
 
-    _slide.uiImage.dispose();
+    _slide?.uiImage?.dispose();
 
   }
 
@@ -424,13 +424,13 @@ String? flyerHeadlineValidator({
 void onReorderSlide({
   required int oldIndex,
   required int newIndex,
-  required ValueNotifier<DraftFlyer> draftFlyer,
+  required ValueNotifier<DraftFlyer?> draftFlyer,
   required bool mounted,
 }){
-  List<DraftSlide> _oldSlides = draftFlyer.value.draftSlides;
+  List<DraftSlide>? _oldSlides = draftFlyer.value?.draftSlides;
 
   if (Mapper.checkCanLoopList(_oldSlides) == true) {
-    final DraftSlide _slide = draftFlyer.value.draftSlides[oldIndex];
+    final DraftSlide _slide = _oldSlides![oldIndex];
     _oldSlides.removeAt(oldIndex);
     _oldSlides.insert(newIndex, _slide.copyWith(slideIndex: newIndex,));
     _oldSlides = DraftSlide.overrideDraftsSlideIndexes(
@@ -441,7 +441,7 @@ void onReorderSlide({
   setNotifier(
     notifier: draftFlyer,
     mounted: mounted,
-    value: draftFlyer.value.copyWith(
+    value: draftFlyer.value?.copyWith(
       draftSlides: _oldSlides,
     ),
   );

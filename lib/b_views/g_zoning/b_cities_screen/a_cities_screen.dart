@@ -51,7 +51,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   final ValueNotifier<List<CityModel>> _countryCities = ValueNotifier<List<CityModel>>(<CityModel>[]);
   final ValueNotifier<List<CityModel>?> _foundCities = ValueNotifier<List<CityModel>?>(null);
   ValueNotifier<ZoneModel>? _currentZone;
-  List<String> _shownCitiesIDs = <String>[];
+  List<String>? _shownCitiesIDs = <String>[];
   // Staging _stages;
   // --------------------
   List<CensusModel>? _censuses;
@@ -157,7 +157,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
         );
 
         /// NOT SHOWN CITIES IDS
-        final List<String> _notShownIDs = Stringer.removeStringsFromStrings(
+        final List<String>? _notShownIDs = Stringer.removeStringsFromStrings(
           removeFrom: CityModel.getCitiesIDs(_cities),
           removeThis: _shownIDs,
         );
@@ -172,7 +172,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
         final List<CensusModel> _citiesCensuses = await CensusProtocols.fetchCitiesCensuses(
             citiesIDs: <String>[...?_shownIDs, ...?_notShownIDs]
         );
-        final CensusModel _censusOfCountry = await CensusProtocols.fetchCountryCensus(
+        final CensusModel? _censusOfCountry = await CensusProtocols.fetchCountryCensus(
             countryID: widget.countryID,
         );
 
@@ -247,7 +247,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _onSearchCity(String inputText) async {
+  Future<void> _onSearchCity(String? inputText) async {
 
     TextCheck.triggerIsSearchingNotifier(
       text: inputText,
@@ -290,7 +290,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   /// TESTED : WORKS PERFECT
   Future<List<CityModel>> searchCitiesByName({
     required BuildContext context,
-    required String input,
+    required String? input,
   }) async {
 
     /// SEARCH SELECTED COUNTRY CITIES
@@ -310,7 +310,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _onCitySelected(String cityID) async {
+  Future<void> _onCitySelected(String? cityID) async {
 
     await ZoneSelection.onSelectCity(
         context: context,
@@ -322,7 +322,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _onDeactivatedTap(String cityID) async {
+  Future<void> _onDeactivatedTap(String? cityID) async {
 
     blog('onDeactivatedCityTap : browseView : cityID : $cityID');
 
@@ -350,10 +350,10 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   @override
   Widget build(BuildContext context) {
 
-        final String _countryName = Flag.translateCountry(
-          langCode: Localizer.getCurrentLangCode(),
-          countryID: widget.countryID,
-        );
+    final String? _countryName = Flag.translateCountry(
+      langCode: Localizer.getCurrentLangCode(),
+      countryID: widget.countryID,
+    );
 
     return MainLayout(
       skyType: SkyType.black,

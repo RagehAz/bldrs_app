@@ -180,10 +180,10 @@ Future<void> onSignOut() async {
   _zoneProvider.clearCurrentZone(notify: false);
   _zoneProvider.clearCurrentCurrencyAndAllCurrencies(notify: false);
 
-  final String _userID = Authing.getUserID();
+  final String? _userID = Authing.getUserID();
   await UserLDBOps.deleteUserOps(_userID);
-  await BzLDBOps.wipeOut(getMainContext());
-  await FlyerLDBOps.wipeOut(getMainContext());
+  await BzLDBOps.wipeOut();
+  await FlyerLDBOps.wipeOut();
 
   await AuthProtocols.signOutBldrs(
       routeToLogoScreen: true

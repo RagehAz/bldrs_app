@@ -46,7 +46,7 @@ class _AuthorSearchScreenState extends State<AuthorSearchScreen> {
     super.dispose();
   }
   // --------------------
-  Future<void> _onSearch(String text) async {
+  Future<void> _onSearch(String? text) async {
 
     final BzModel? _bzModel = BzzProvider.proGetActiveBzModel(
       context: context,

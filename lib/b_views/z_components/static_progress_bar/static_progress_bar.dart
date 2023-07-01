@@ -1,3 +1,4 @@
+// ignore_for_file: unused_element
 import 'package:basics/animators/helpers/sliders.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_color.dart';
@@ -21,17 +22,17 @@ class StaticProgressBar extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final int numberOfSlides;
+  final int? numberOfSlides;
   final int index;
   final double opacity;
   final double flyerBoxWidth;
   final bool loading;
   final SwipeDirection swipeDirection;
-  final EdgeInsets margins;
+  final EdgeInsets? margins;
   final double stripThicknessFactor;
-  final List<Color> stripsColors;
+  final List<Color>? stripsColors;
   /// --------------------------------------------------------------------------
-  static bool canBuildStrips(int numberOfStrips) {
+  static bool canBuildStrips(int? numberOfStrips) {
     bool _canBuild = false;
 
     if (numberOfStrips != null) {
@@ -96,7 +97,7 @@ class StaticProgressBar extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             child: StaticStrips(
               flyerBoxWidth: flyerBoxWidth,
-              numberOfStrips: numberOfSlides,
+              numberOfStrips: numberOfSlides!,
               slideIndex: index,
               swipeDirection: swipeDirection,
               margins: margins,
@@ -123,7 +124,7 @@ class _Box extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final double opacity;
+  final double? opacity;
   final double flyerBoxWidth;
   final Widget child;
   /// --------------------------------------------------------------------------

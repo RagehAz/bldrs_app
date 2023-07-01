@@ -18,7 +18,7 @@ class ReportButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final ModelType modelType;
   final Function onTap;
-  final Color color;
+  final Color? color;
   final double width;
   /// --------------------------------------------------------------------------
   @override

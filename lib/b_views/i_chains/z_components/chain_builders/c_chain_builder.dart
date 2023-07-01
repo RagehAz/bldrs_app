@@ -48,33 +48,33 @@ class ChainBuilder extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final Chain chain;
-  final String previousPath;
+  final String? previousPath;
   final bool deactivated;
   final double boxWidth;
   final bool inverseAlignment;
-  final String icon;
+  final String? icon;
   final Verse firstHeadline;
-  final Verse secondHeadline;
+  final Verse? secondHeadline;
   final Color initialColor;
   final Color expansionColor;
   final bool initiallyExpanded;
-  final int level;
+  final int? level;
   final List<String> selectedPhids;
   final ValueNotifier<dynamic> searchText;
   final ChainSecondLinesType secondLinesType;
 
-  final Function(String path, String phid) onPhidTap;
-  final Function(String path, String phid) onPhidDoubleTap;
-  final Function(String path, String phid) onPhidLongTap;
+  final Function(String? path, String? phid)? onPhidTap;
+  final Function(String? path, String? phid)? onPhidDoubleTap;
+  final Function(String? path, String? phid)? onPhidLongTap;
 
-  final Function(String path, String phid) onTileLongTap;
-  final Function(String path, String phid) onTileTap;
-  final Function(String path, String phid) onTileDoubleTap;
+  final Function(String? path, String? phid)? onTileLongTap;
+  final Function(String? path, String? phid)? onTileTap;
+  final Function(String? path, String? phid)? onTileDoubleTap;
 
-  final ValueChanged<List<SpecModel>> onExportSpecs;
+  final ValueChanged<List<SpecModel>>? onExportSpecs;
 
-  final ZoneModel zone;
-  final ValueChanged<String> onDataCreatorKeyboardSubmitted;
+  final ZoneModel? zone;
+  final ValueChanged<String?>? onDataCreatorKeyboardSubmitted;
   final bool isMultipleSelectionMode;
   final bool onlyUseZoneChains;
   final bool isCollapsable;
@@ -87,14 +87,14 @@ class ChainBuilder extends StatelessWidget {
       parentWidth: boxWidth,
     );
     // --------------------
-    final String _cleanedPath = ChainPathConverter.fixPathFormatting('$previousPath/${chain.id}');
+    final String? _cleanedPath = ChainPathConverter.fixPathFormatting('$previousPath/${chain.id}');
     // --------------------
     return ChainButtonBox(
       key: ValueKey<String>('ChainExpanderStarter_${chain.id}'),
       boxWidth: boxWidth,
       inverseAlignment: inverseAlignment,
       child: ExpandingTile(
-        key: PageStorageKey<String>(chain.id),
+        key: PageStorageKey<String>('${chain.id}'),
         width: boxWidth,
         isDisabled: deactivated,
         icon: icon,
@@ -104,9 +104,9 @@ class ChainBuilder extends StatelessWidget {
         expansionColor: expansionColor,
         initiallyExpanded: initiallyExpanded,
         searchText: searchText,
-        onTileLongTap: onTileLongTap == null ? null : () => onTileLongTap(_cleanedPath, chain.id),
-        onTileTap: onTileTap == null ? null : (bool isExpanded) => onTileTap(_cleanedPath, chain.id),
-        onTileDoubleTap: onTileDoubleTap == null ? null : () => onTileDoubleTap(_cleanedPath, chain.id),
+        onTileLongTap: onTileLongTap == null ? null : () => onTileLongTap?.call(_cleanedPath, chain.id),
+        onTileTap: onTileTap == null ? null : (bool isExpanded) => onTileTap?.call(_cleanedPath, chain.id),
+        onTileDoubleTap: onTileDoubleTap == null ? null : () => onTileDoubleTap?.call(_cleanedPath, chain.id),
         isCollapsable: isCollapsable,
         child: ChainSplitter(
           width: _sonWidth,

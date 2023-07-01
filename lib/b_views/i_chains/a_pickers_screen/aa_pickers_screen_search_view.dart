@@ -38,8 +38,8 @@ class PickersScreenSearchView extends StatelessWidget {
   final double screenHeight;
   final ValueNotifier<List<Chain>> foundChains;
   final ValueNotifier<List<SpecModel>> selectedSpecsNotifier;
-  final ValueNotifier<String> searchText;
-  final ZoneModel zone;
+  final ValueNotifier<String?> searchText;
+  final ZoneModel? zone;
   final bool isMultipleSelectionMode;
   final bool onlyUseZoneChains;
   final ValueNotifier<List<PickerModel>> refinedPickersNotifier;
@@ -93,7 +93,7 @@ class PickersScreenSearchView extends StatelessWidget {
 
                         final Chain _chain = _foundChains[index];
 
-                        final PickerModel _picker = ChainsProvider.proGetPickerByChainID(
+                        final PickerModel? _picker = ChainsProvider.proGetPickerByChainID(
                           chainID: _chain.id,
                         );
 
@@ -117,16 +117,16 @@ class PickersScreenSearchView extends StatelessWidget {
                             picker: _picker,
                             searchText: searchText,
                             allSelectedSpecs: _selectedSpecs,
-                            onDeleteSpec: ({SpecModel value, SpecModel unit}) => onRemoveSpecs(
+                            onDeleteSpec: ({SpecModel? value, SpecModel? unit}) => onRemoveSpecs(
                               valueSpec: value,
                               unitSpec: unit,
                               pickers: allPickers,
                               selectedSpecsNotifier: selectedSpecsNotifier,
                               mounted: mounted,
                             ),
-                            onSelectedSpecTap: ({SpecModel value, SpecModel unit}){
+                            onSelectedSpecTap: ({SpecModel? value, SpecModel? unit}){
                               blog('a 77 aaa ChainsPickingScreen : onSpecTap');
-                              value.blogSpec();
+                              value?.blogSpec();
                               unit?.blogSpec();
                             },
                             onPickerTap: () => onGoToPickerScreen(
@@ -157,7 +157,7 @@ class PickersScreenSearchView extends StatelessWidget {
                             zone: zone,
 
                             /// ON PHID TAP => ADD PHID
-                            onPhidTap: (String path, String phid) => onSelectPhidInPickerScreen(
+                            onPhidTap: (String? path, String? phid) => onSelectPhidInPickerScreen(
                               context: context,
                               mounted: mounted,
                               phid: phid,
@@ -170,10 +170,10 @@ class PickersScreenSearchView extends StatelessWidget {
                             ),
 
 
-                            onPhidDoubleTap: (String path, String phid) => blog('ChainsScreenSearchView : onPhidDoubleTap : $path : $phid'),
-                            onPhidLongTap: (String path, String phid) => blog('ChainsScreenSearchView : onPhidLongTap : $path : $phid'),
+                            onPhidDoubleTap: (String? path, String? phid) => blog('ChainsScreenSearchView : onPhidDoubleTap : $path : $phid'),
+                            onPhidLongTap: (String? path, String? phid) => blog('ChainsScreenSearchView : onPhidLongTap : $path : $phid'),
                             onExportSpecs: (List<SpecModel> specs) => blog('ChainsScreenSearchView : specs : ${specs.length} specs'),
-                            onDataCreatorKeyboardSubmitted: (String text){
+                            onDataCreatorKeyboardSubmitted: (String? text){
                               blog('fuck this $text');
 
                               /*

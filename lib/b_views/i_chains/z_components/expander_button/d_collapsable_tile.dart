@@ -33,24 +33,24 @@ class CollapsableTile extends StatefulWidget {
   });
   /// --------------------------------------------------------------------------
   final double width;
-  final double collapsedHeight;
-  final double maxHeight;
+  final double? collapsedHeight;
+  final double? maxHeight;
   final bool scrollable;
-  final String icon;
+  final String? icon;
   final double iconSizeFactor;
-  final bool initiallyExpanded;
-  final Verse firstHeadline;
-  final Verse secondHeadline;
-  final Color initialColor;
-  final Color expansionColor;
-  final double corners;
+  final bool? initiallyExpanded;
+  final Verse? firstHeadline;
+  final Verse? secondHeadline;
+  final Color? initialColor;
+  final Color? expansionColor;
+  final double? corners;
   final Widget child;
   final bool isDisabled;
-  final EdgeInsets margin;
-  final ValueNotifier<dynamic> searchText;
-  final ValueChanged<bool> onTileTap;
-  final Function onTileLongTap;
-  final Function onTileDoubleTap;
+  final EdgeInsets? margin;
+  final ValueNotifier<dynamic>? searchText;
+  final ValueChanged<bool>? onTileTap;
+  final Function? onTileLongTap;
+  final Function? onTileDoubleTap;
   /// --------------------------------------------------------------------------
   @override
   CollapsableTileState createState() => CollapsableTileState();
@@ -59,13 +59,13 @@ class CollapsableTile extends StatefulWidget {
 
 class CollapsableTileState extends State<CollapsableTile> with SingleTickerProviderStateMixin {
   // -----------------------------------------------------------------------------
-  AnimationController _controller;
-  CurvedAnimation _easeInAnimation;
-  ColorTween _borderColor;
-  ColorTween _tileColorTween;
+  late AnimationController _controller;
+  late CurvedAnimation _easeInAnimation;
+  late ColorTween _borderColor;
+  late ColorTween _tileColorTween;
   // ColorTween _subtitleLabelColorTween;
   // BorderRadiusTween _borderRadius;
-  Animation<double> _arrowTurns;
+  late Animation<double> _arrowTurns;
   // --------------------
   final ValueNotifier<bool> _isExpanded = ValueNotifier<bool>(false);
   // --------------------
@@ -90,8 +90,8 @@ class CollapsableTileState extends State<CollapsableTile> with SingleTickerProvi
 
     // ---
     _tileColorTween = ExpandingTile.getTileColorTween(
-      collapsedColor: widget.initialColor,
-      expansionColor: widget.expansionColor,
+      collapsedColor: widget.initialColor ?? Colorz.white10,
+      expansionColor: widget.expansionColor ?? Colorz.white30,
     );
     // ---
     /*
@@ -104,7 +104,7 @@ class CollapsableTileState extends State<CollapsableTile> with SingleTickerProvi
     // ---
     _arrowTurns = Tween<double>(begin: 0, end: 0.5).animate(_easeInAnimation);
     // ---
-    final bool _storedExpanded = PageStorage.of(context)?.readState(context, identifier: 'expansion') as bool ?? false;
+    final bool? _storedExpanded = PageStorage.of(context).readState(context, identifier: 'expansion') as bool? ?? false;
     setNotifier(
         notifier: _isExpanded,
         mounted: mounted,
@@ -176,7 +176,7 @@ class CollapsableTileState extends State<CollapsableTile> with SingleTickerProvi
     /// WHEN CAN NOT EXPAND IN INACTIVE MODE
     else {
       if (widget.onTileTap != null) {
-        widget.onTileTap(_isExpanded.value);
+        widget.onTileTap!.call(_isExpanded.value);
       }
     }
 
@@ -192,12 +192,12 @@ class CollapsableTileState extends State<CollapsableTile> with SingleTickerProvi
 
         /// SAVE STATE
         if (mounted == true){
-          PageStorage.of(context)?.writeState(context, _isExpanded.value, identifier: 'expansion');
+          PageStorage.of(context).writeState(context, _isExpanded.value, identifier: 'expansion');
         }
 
         /// PASS ON TILE TAP
         if (widget.onTileTap != null) {
-          widget.onTileTap(_isExpanded.value);
+          widget.onTileTap!.call(_isExpanded.value);
         }
 
         /// ANIMATE FORWARD
@@ -241,9 +241,9 @@ class CollapsableTileState extends State<CollapsableTile> with SingleTickerProvi
         child: AnimatedBuilder(
           key: const ValueKey<String>('ExpandingTile_AnimatedBuilder'),
           animation: _controller.view,
-          builder: (BuildContext context, Widget expansionColumn) {
+          builder: (BuildContext context, Widget? expansionColumn) {
 
-            final Color _tileColor = _tileColorTween.evaluate(_easeInAnimation);
+            final Color? _tileColor = _tileColorTween.evaluate(_easeInAnimation);
 
             return CollapsedTile(
               tileWidth: widget.width,
@@ -263,7 +263,7 @@ class CollapsableTileState extends State<CollapsableTile> with SingleTickerProvi
               onTileTap: _toggleExpansion,
               onTileLongTap: widget.onTileLongTap,
               onTileDoubleTap: widget.onTileDoubleTap,
-              child: expansionColumn,
+              child: expansionColumn!,
             );
           },
 
@@ -284,7 +284,7 @@ class CollapsableTileState extends State<CollapsableTile> with SingleTickerProvi
               else {
 
                 /// COLUMN AND CHILDREN
-                return columnAndChildren;
+                return columnAndChildren!;
               }
 
             },

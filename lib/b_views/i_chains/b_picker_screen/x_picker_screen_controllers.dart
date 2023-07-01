@@ -1,8 +1,8 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 Future<void> onGoBackFromPickerScreen({
   required BuildContext context,
   required List<SpecModel> specsToPassBack,
-  required String phidToPassBack,
+  required String? phidToPassBack,
   required bool isMultipleSelectionMode,
 }) async {
 
@@ -45,9 +45,9 @@ Future<void> onGoBackFromPickerScreen({
 /// TESTED : WORKS PERFECT
 Future<void> onSelectPhidInPickerScreen({
   required BuildContext context,
-  required String phid,
+  required String? phid,
   required bool isMultipleSelectionMode,
-  required PickerModel picker,
+  required PickerModel? picker,
   required ValueNotifier<List<SpecModel>> selectedSpecsNotifier,
   required bool mounted,
 }) async {
@@ -79,8 +79,8 @@ Future<void> onSelectPhidInPickerScreen({
 /// TESTED : WORKS PERFECT
 Future<void> _insertPhidToSelectedSpecs({
   required BuildContext context,
-  required String phid,
-  required PickerModel picker,
+  required String? phid,
+  required PickerModel? picker,
   required ValueNotifier<List<SpecModel>> selectedSpecs,
   required bool mounted,
 }) async {
@@ -88,7 +88,7 @@ Future<void> _insertPhidToSelectedSpecs({
   if (picker != null && picker.chainID != null){
 
     final SpecModel _spec = SpecModel(
-      pickerChainID: picker?.chainID,
+      pickerChainID: picker.chainID,
       value: phid,
     );
 
@@ -105,7 +105,7 @@ Future<void> _insertPhidToSelectedSpecs({
     /// A - ALREADY SELECTED SPEC
     if (_alreadySelected == true) {
       /// A1 - CAN PICK MANY
-      if (picker.canPickMany == true) {
+      if (Mapper.boolIsTrue(picker.canPickMany) == true) {
 
         final List<SpecModel> _specs = [...selectedSpecs.value];
         _specs.removeAt(_specIndex);
@@ -139,7 +139,7 @@ Future<void> _insertPhidToSelectedSpecs({
     /// B - NEW SELECTED SPEC
     else {
       /// B1 - WHEN CAN PICK MANY
-      if (picker.canPickMany == true) {
+      if (Mapper.boolIsTrue(picker.canPickMany) == true) {
         final List<SpecModel> _specs = [...selectedSpecs.value, _spec];
 
         setNotifier(

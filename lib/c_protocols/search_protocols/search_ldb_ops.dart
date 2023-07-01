@@ -1,6 +1,5 @@
 import 'package:bldrs/a_models/m_search/search_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:flutter/material.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 /// => TAMAM
@@ -64,7 +63,7 @@ class SearchLDBOps{
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> delete({
-    required String modelID,
+    required String? modelID,
   }) async {
 
     if (modelID != null){

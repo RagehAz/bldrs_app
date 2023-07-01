@@ -151,13 +151,8 @@ void onUpdateFlyerDescription({
   required bool mounted,
 }) {
 
-  setNotifier(
-      notifier: draftNotifier,
-      mounted: mounted,
-      value: draftNotifier.value?.copyWith(
-        description: text,
-      ),
-  );
+  draftNotifier.value?.description?.text = text ?? '';
+  draftNotifier.value?.copyWith();
 
 }
 // --------------------
@@ -273,7 +268,7 @@ Future<void> onZoneChanged({
 // --------------------
 /// TASK : TEST ME
 void onChangeFlyerPDF({
-  required PDFModel pdfModel,
+  required PDFModel? pdfModel,
   required ValueNotifier<DraftFlyer?> draftNotifier,
   required bool mounted,
 }){
@@ -383,7 +378,7 @@ Future<void> onFlyerPhidTap({
 Future<void> onConfirmPublishFlyerButtonTap({
   required BuildContext context,
   required DraftFlyer? draft,
-  required FlyerModel oldFlyer,
+  required FlyerModel? oldFlyer,
 }) async {
 
   if (Mapper.boolIsTrue(draft?.firstTimer) == true){

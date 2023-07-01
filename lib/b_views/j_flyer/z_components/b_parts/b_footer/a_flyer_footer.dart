@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/g_counters/flyer_counter_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/b_footer_box.dart';
@@ -28,14 +29,14 @@ class FlyerFooter extends StatefulWidget {
   });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final FlyerModel flyerModel;
+  final FlyerModel? flyerModel;
   final bool tinyMode;
   final Function onSaveFlyer;
   final PageController footerPageController;
   final ValueNotifier<bool> headerIsExpanded;
   final bool inFlight;
   final ValueNotifier<bool> flyerIsSaved;
-  final ValueNotifier<bool> infoButtonExpanded;
+  final ValueNotifier<bool?> infoButtonExpanded;
   /// --------------------------------------------------------------------------
   @override
   State<FlyerFooter> createState() => _FlyerFooterState();
@@ -47,7 +48,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
   final ScrollController _infoPageVerticalController = ScrollController();
   final ScrollController _reviewPageVerticalController = ScrollController();
   final TextEditingController _reviewTextController = TextEditingController();
-  final ValueNotifier<FlyerCounterModel> _flyerCounter = ValueNotifier(null);
+  final ValueNotifier<FlyerCounterModel?> _flyerCounter = ValueNotifier(null);
   final ValueNotifier<bool> _isSharing = ValueNotifier(false);
   // --------------------
   final ValueNotifier<bool> _canShowConvertibleReviewButton = ValueNotifier(true);
@@ -77,9 +78,9 @@ class _FlyerFooterState extends State<FlyerFooter> {
         // ----------
         if (Authing.userHasID() == true){
           // ----------
-          final FlyerCounterModel _counter = await RecorderProtocols.readFlyerCounters(
-            flyerID: widget.flyerModel.id,
-            bzID: widget.flyerModel.bzID,
+          final FlyerCounterModel? _counter = await RecorderProtocols.readFlyerCounters(
+            flyerID: widget.flyerModel?.id,
+            bzID: widget.flyerModel?.bzID,
           );
           // ----------
           setNotifier(
@@ -116,7 +117,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
     setNotifier(
         notifier: widget.infoButtonExpanded,
         mounted: mounted,
-        value: !widget.infoButtonExpanded.value,
+        value: !widget.infoButtonExpanded.value!,
     );
 
     if(widget.infoButtonExpanded.value  == false){
@@ -137,7 +138,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
 
     }
 
-    if (widget.infoButtonExpanded.value  == true){
+    if (Mapper.boolIsTrue(widget.infoButtonExpanded.value)  == true){
       setNotifier(
         notifier: _canShowConvertibleReviewButton,
         mounted: mounted,

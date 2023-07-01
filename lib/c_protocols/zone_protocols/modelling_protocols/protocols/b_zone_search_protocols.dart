@@ -239,7 +239,7 @@ class ZoneSearchOps {
   static List<CityModel> searchCitiesByNameFromCities({
     required BuildContext context,
     required List<CityModel> sourceCities,
-    required String inputText,
+    required String? inputText,
     List<String> langCodes = const <String>['en', 'ar'],
   }) {
     /// CREATE PHRASES LIST
@@ -268,8 +268,10 @@ class ZoneSearchOps {
     );
 
     /// GET CITIES BY IDS FROM NAMES
-    final List<CityModel> _foundCities =
-        _getCitiesFromPhrases(phrases: _foundPhrases, sourceCities: sourceCities);
+    final List<CityModel> _foundCities = _getCitiesFromPhrases(
+        phrases: _foundPhrases,
+        sourceCities: sourceCities,
+    );
 
     // CityModel.blogCities(_foundCities);
 

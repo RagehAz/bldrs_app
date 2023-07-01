@@ -14,7 +14,6 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:flutter/material.dart';
 
@@ -30,12 +29,12 @@ class PickerScreen extends StatefulWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final PickerModel picker;
-  final ValueNotifier<List<SpecModel>> selectedSpecs;
+  final PickerModel? picker;
+  final ValueNotifier<List<SpecModel>>? selectedSpecs;
   final bool showInstructions;
   final bool isMultipleSelectionMode;
   final bool onlyUseZoneChains;
-  final ZoneModel zone;
+  final ZoneModel? zone;
   /// --------------------------------------------------------------------------
   static const double instructionBoxHeight = 60;
   /// --------------------------------------------------------------------------
@@ -68,7 +67,7 @@ class _PickerScreenState extends State<PickerScreen> {
     setNotifier(
         notifier: _tempSpecs,
         mounted: mounted,
-        value: widget.selectedSpecs.value,
+        value: widget.selectedSpecs?.value,
     );
 
     super.initState();
@@ -107,7 +106,7 @@ class _PickerScreenState extends State<PickerScreen> {
     bool _canContinue = true;
 
     final bool _specsChanged = SpecModel.checkSpecsListsAreIdentical(
-        widget.selectedSpecs.value,
+        widget.selectedSpecs?.value,
         _tempSpecs.value,
     ) == false;
 
@@ -126,7 +125,7 @@ class _PickerScreenState extends State<PickerScreen> {
   // -----------------------------------------------------------------------------
   AppBarType _getAppBarType(){
 
-    final Chain _valueChain = ChainsProvider.proFindChainByID(
+    final Chain? _valueChain = ChainsProvider.proFindChainByID(
       chainID: widget.picker?.chainID,
       onlyUseZoneChains: widget.onlyUseZoneChains,
       // includeChainSInSearch: true,
@@ -154,10 +153,9 @@ class _PickerScreenState extends State<PickerScreen> {
       key: const ValueKey<String>('PickerScreen'),
       appBarType: _appBarType,
       searchController: _searchController,
-      onSearchChanged: (String text){blog('PickerScreen : onSearchChanged : $text');},
-      onSearchSubmit: (String text){blog('PickerScreen : onSearchSubmit : $text');},
+      onSearchChanged: (String? text){blog('PickerScreen : onSearchChanged : $text');},
+      onSearchSubmit: (String? text){blog('PickerScreen : onSearchSubmit : $text');},
       onSearchCancelled: () => MainLayout.onCancelSearch(
-        context: context,
         controller: _searchController,
         foundResultNotifier: null,
         isSearching: null,
@@ -193,7 +191,7 @@ class _PickerScreenState extends State<PickerScreen> {
           isMultipleSelectionMode: widget.isMultipleSelectionMode,
           onlyUseZoneChains: widget.onlyUseZoneChains,
           zone: widget.zone,
-          onKeyboardSubmitted: (String text) => onGoBackFromPickerScreen(
+          onKeyboardSubmitted: (String? text) => onGoBackFromPickerScreen(
             context: context,
             specsToPassBack: _tempSpecs.value,
             isMultipleSelectionMode: widget.isMultipleSelectionMode,
@@ -205,7 +203,7 @@ class _PickerScreenState extends State<PickerScreen> {
             selectedSpecs: _tempSpecs,
             mounted: mounted,
           ),
-          onPhidTap: (String path, String phid) => onSelectPhidInPickerScreen(
+          onPhidTap: (String? path, String? phid) => onSelectPhidInPickerScreen(
             context: context,
             mounted: mounted,
             phid: phid,

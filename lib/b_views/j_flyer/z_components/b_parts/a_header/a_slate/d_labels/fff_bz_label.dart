@@ -15,7 +15,7 @@ class BzLabel extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final BzModel bzModel;
+  final BzModel? bzModel;
   final double flyerBoxWidth;
   final bool flyerShowsAuthor;
   /// --------------------------------------------------------------------------

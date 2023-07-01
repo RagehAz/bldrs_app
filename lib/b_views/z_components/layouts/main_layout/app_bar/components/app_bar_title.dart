@@ -1,3 +1,4 @@
+// ignore_for_file: unused_element
 part of bldrs_app_bar;
 
 class AppBarTitle extends StatelessWidget {
@@ -10,7 +11,7 @@ class AppBarTitle extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final Verse pageTitleVerse;
+  final Verse? pageTitleVerse;
   // final bool backButtonIsOn;
   final double width;
   // final List<Widget> appBarRowWidgets;
@@ -42,11 +43,13 @@ class AppBarTitle extends StatelessWidget {
               :
 
           ValueListenableBuilder(
-            valueListenable: pageTitleVerse.notifier,
-            builder: (_, String value, Widget? child){
+            valueListenable: pageTitleVerse!.notifier!,
+            builder: (_, dynamic value, Widget? child){
+
+              final String? _string = value as String?;
 
               return _HeadlineSuperVerse(
-                title: pageTitleVerse.copyWith(id: value),
+                title: pageTitleVerse?.copyWith(id: _string),
                 width: width,
                 // appBarRowWidgets: appBarRowWidgets,
                 // backButtonIsOn: backButtonIsOn,
@@ -69,10 +72,11 @@ class _HeadlineSuperVerse extends StatelessWidget {
     required this.title,
     required this.width,
     // required this.appBarRowWidgets,
-    super.key
+    super.
+key
   });
   /// --------------------------------------------------------------------------
-  final Verse title;
+  final Verse? title;
   final double width;
   // final List<Widget> appBarRowWidgets;
   // --------------------------------------------------------------------------
@@ -96,7 +100,7 @@ class _HeadlineSuperVerse extends StatelessWidget {
     // else {
       return BldrsText(
         width: width,
-        verse: title.copyWith(casing: Casing.upperCase),
+        verse: title?.copyWith(casing: Casing.upperCase),
         weight: VerseWeight.black,
         color: Colorz.white200,
         shadow: true,

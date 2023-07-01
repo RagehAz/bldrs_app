@@ -59,7 +59,7 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
     // --------------------
     /// NO NEED TO REBUILD WHEN BZ MODEL CHANGES
-    final BzzProvider _bzzPro = Provider.of<BzzProvider>(context, listen: true);
+    final BzzProvider _bzzPro = Provider.of<BzzProvider>(context);
     final String? bzID = _bzzPro.myActiveBz?.id;
     blog('MyBzScreen : bzID : $bzID : initialTab : ${widget.initialTab}');
     // --------------------

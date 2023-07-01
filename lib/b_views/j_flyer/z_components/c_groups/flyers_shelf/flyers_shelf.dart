@@ -22,11 +22,11 @@ class FlyersShelf extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final Verse titleVerse;
-  final List<FlyerModel> flyers;
-  final String titleIcon;
-  final Function flyerOnTap;
-  final Function onScrollEnd;
+  final Verse? titleVerse;
+  final List<FlyerModel>? flyers;
+  final String? titleIcon;
+  final ValueChanged<FlyerModel>? flyerOnTap;
+  final Function? onScrollEnd;
   final double flyerSizeFactor;
   /// --------------------------------------------------------------------------
   static const double spacing = Ratioz.appBarMargin;
@@ -68,7 +68,7 @@ class FlyersShelf extends StatelessWidget {
           /// --- COLLECTION TITLE
           if (titleVerse != null)
             GestureDetector(
-              onTap: onScrollEnd,
+              onTap: onScrollEnd == null ? null : () => onScrollEnd!(),
               child: Container(
                 width: _screenWidth,
                 padding: const EdgeInsets.symmetric(horizontal: 15),

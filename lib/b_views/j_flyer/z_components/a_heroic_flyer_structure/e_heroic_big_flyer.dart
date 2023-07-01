@@ -39,7 +39,7 @@ class HeroicBigFlyer extends StatefulWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final FlyerModel renderedFlyer;
+  final FlyerModel? renderedFlyer;
   final String heroPath;
   final double flyerBoxWidth;
   final bool canBuild;
@@ -52,21 +52,21 @@ class HeroicBigFlyer extends StatefulWidget {
 
 class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStateMixin {
   // -----------------------------------------------------------------------------
-  final ValueNotifier<FlyerModel> _flyer = ValueNotifier(null);
+  final ValueNotifier<FlyerModel?> _flyer = ValueNotifier(null);
   final ValueNotifier<bool> _flyerIsSaved = ValueNotifier<bool>(false);
   final ValueNotifier<bool> _followIsOn = ValueNotifier<bool>(false);
   // --------------------
-  final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
+  final ValueNotifier<ProgressBarModel?> _progressBarModel = ValueNotifier(null);
   // --------------------
   /// FOR HEADER
-  AnimationController _headerAnimationController;
+  late AnimationController _headerAnimationController;
   final ScrollController _headerScrollController = ScrollController();
   /// FOR SLIDES
-  PageController _horizontalSlidesController;
+  late PageController _horizontalSlidesController;
   /// FOR FOOTER
   final PageController _footerPageController = PageController();
   /// FOR SAVING GRAPHIC
-  AnimationController _savingAnimationController;
+  late AnimationController _savingAnimationController;
   // --------------------
   /// PROGRESS BAR OPACITY
   final ValueNotifier<double> _progressBarOpacity = ValueNotifier(1);
@@ -75,10 +75,10 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
   /// HEADER PAGE OPACITY
   final ValueNotifier<double> _headerPageOpacity = ValueNotifier(0);
   // --------------------
-  final ValueNotifier<BzCounterModel> _bzCounters = ValueNotifier(null);
+  final ValueNotifier<BzCounterModel?> _bzCounters = ValueNotifier(null);
   // --------------------
   /// FOOTER
-  final ValueNotifier<bool> _infoButtonExpanded = ValueNotifier(null);
+  final ValueNotifier<bool?> _infoButtonExpanded = ValueNotifier(null);
   // --------------------
   final ValueNotifier<bool> _graphicIsOn = ValueNotifier(false);
   final ValueNotifier<double> _graphicOpacity = ValueNotifier(1);
@@ -99,7 +99,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
     super.initState();
 
     if (widget.canBuild == true){
-    blog('HH- BIGFLYER BigFlyer initState');
+    blog('HH- BIG FLYER BigFlyer initState');
       _initializations();
     }
 
@@ -199,7 +199,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
     );
     // ----------
     /// FOR SLIDES
-    _horizontalSlidesController = PageController(initialPage: _progressBarModel?.value?.index ?? 0);
+    _horizontalSlidesController = PageController(initialPage: _progressBarModel.value?.index ?? 0);
     // ----------
     /// FOR FOOTER & PRICE TAG
     _horizontalSlidesController.addListener(_listenToHorizontalController);
@@ -220,7 +220,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
     final int _numberOfSlide = _realSlidesLength - 1;
     final double _totalRealSlidesWidth = widget.flyerBoxWidth * _numberOfSlide;
 
-    final bool _reachedGallerySlide = _horizontalSlidesController.page > _numberOfSlide;
+    final bool _reachedGallerySlide = (_horizontalSlidesController.page ?? 0) > _numberOfSlide;
     final bool _atBackBounce = _horizontalSlidesController.position.pixels < 0;
 
     /// WHEN AT INITIAL SLIDE
@@ -321,21 +321,21 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
     if (widget.canBuild == true){
 
       _flyer.dispose();
-      _loading?.dispose();
-      _progressBarModel?.dispose();
-      _flyerIsSaved?.dispose();
-      _headerAnimationController?.dispose();
-      _headerScrollController?.dispose();
-      _savingAnimationController?.dispose();
-      _horizontalSlidesController?.dispose();
-      _footerPageController?.dispose();
-      _followIsOn?.dispose();
-      _progressBarOpacity?.dispose();
-      _headerIsExpanded?.dispose();
-      _headerPageOpacity?.dispose();
-      _graphicIsOn?.dispose();
-      _graphicOpacity?.dispose();
-      _bzCounters?.dispose();
+      _loading.dispose();
+      _progressBarModel.dispose();
+      _flyerIsSaved.dispose();
+      _headerAnimationController.dispose();
+      _headerScrollController.dispose();
+      _savingAnimationController.dispose();
+      _horizontalSlidesController.dispose();
+      _footerPageController.dispose();
+      _followIsOn.dispose();
+      _progressBarOpacity.dispose();
+      _headerIsExpanded.dispose();
+      _headerPageOpacity.dispose();
+      _graphicIsOn.dispose();
+      _graphicOpacity.dispose();
+      _bzCounters.dispose();
     }
 
 
@@ -419,7 +419,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
     final int _lastIndex = _flyer.value?.slides?.length ?? 0;
 
     /// WHEN AT LAST INDEX
-    if (_progressBarModel.value.index == _lastIndex){
+    if (_progressBarModel.value?.index == _lastIndex){
       await Nav.goBack(
         context: context,
         invoker: '_onSlideNextTap',
@@ -432,7 +432,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
       final int _newIndex = await Sliders.slideToNextAndGetNewIndex(
         pageController: _horizontalSlidesController,
         numberOfSlides: (_flyer.value?.slides?.length ?? 0) + 1,
-        currentSlide: _progressBarModel.value.index,
+        currentSlide: _progressBarModel.value?.index ?? 0,
       );
 
       blog('_onSlideNextTap : _newIndex : $_newIndex');
@@ -443,7 +443,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
   Future<void> _onSlideBackTap() async {
 
     /// WHEN AT FIRST INDEX
-    if (_progressBarModel.value.index == 0){
+    if (_progressBarModel.value?.index == 0){
       await Nav.goBack(
         context: context,
         invoker: '_onSlideBackTap',
@@ -455,7 +455,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
 
       final int _newIndex = await Sliders.slideToBackAndGetNewIndex(
         pageController: _horizontalSlidesController,
-        currentSlide: _progressBarModel.value.index,
+        currentSlide: _progressBarModel.value?.index ?? 0,
       );
 
       blog('onSlideBackTap _newIndex : $_newIndex');
@@ -484,7 +484,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
           onSaveFlyer(
             context: context,
             flyerModel: _flyer.value,
-            slideIndex: _progressBarModel.value.index,
+            slideIndex: _progressBarModel.value?.index ?? 0,
             flyerIsSaved: _flyerIsSaved,
             mounted: mounted,
           ),
@@ -498,7 +498,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
 
       await Dialogs.youNeedToBeSignedUpDialog(
         afterHomeRouteName: Routing.flyerPreview,
-        afterHomeRouteArgument: _flyer.value.id,
+        afterHomeRouteArgument: _flyer.value?.id,
       );
 
     }
@@ -592,8 +592,6 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
 
     else {
 
-      // blog('H - BUILDING stful BigFlyer');
-
       final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
         flyerBoxWidth: widget.flyerBoxWidth,
       );
@@ -606,7 +604,7 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
 
       return ValueListenableBuilder(
         valueListenable: _flyer,
-        builder: (_, FlyerModel flyerModel, Widget? savingNotice) {
+        builder: (_, FlyerModel? flyerModel, Widget? savingNotice) {
 
           return FlyerBox(
             key: const ValueKey<String>('FullScreenFlyer'),

@@ -28,16 +28,16 @@ class PriceDataCreator extends StatefulWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final ZoneModel zone;
-  final PickerModel picker;
-  final SpecModel initialValue;
+  final ZoneModel? zone;
+  final PickerModel? picker;
+  final SpecModel? initialValue;
   final String initialCurrencyID;
-  final ValueChanged<String> onKeyboardSubmitted;
-  final ValueChanged<List<SpecModel>> onExportSpecs;
-  final DataCreator dataCreatorType;
+  final ValueChanged<String?>? onKeyboardSubmitted;
+  final ValueChanged<List<SpecModel>>? onExportSpecs;
+  final DataCreator? dataCreatorType;
   final bool onlyUseZoneChains;
   final AppBarType appBarType;
-  final double width;
+  final double? width;
   /// --------------------------------------------------------------------------
   @override
   State<PriceDataCreator> createState() => _PriceDataCreatorState();
@@ -48,8 +48,8 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
   // -----------------------------------------------------------------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _textController = TextEditingController();
-  final ValueNotifier<String> _selectedCurrencyID = ValueNotifier(null);
-  final ValueNotifier<double> _priceValue = ValueNotifier(null); // specValue
+  final ValueNotifier<String?> _selectedCurrencyID = ValueNotifier(null);
+  final ValueNotifier<double?> _priceValue = ValueNotifier(null); // specValue
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -78,7 +78,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
   }
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  String _validator(String text){
+  String? _validator(String? text){
     return Formers.currencyFieldValidator(
       selectedCurrencyID: _selectedCurrencyID,
       text: _textController.text,
@@ -120,7 +120,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
             id: 'phid_add_price',
             translate: true,
           ),
-          validator: (String text) => _validator(_textController.text),
+          validator: (String? text) => _validator(_textController.text),
           textController: _textController,
           formKey: _formKey,
           selectedUnitID: _selectedCurrencyID,
@@ -135,7 +135,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
             selectedCurrencyID: _selectedCurrencyID,
             mounted: mounted,
           ),
-          onKeyboardChanged: (String text) => onDataCreatorKeyboardChanged(
+          onKeyboardChanged: (String? text) => onDataCreatorKeyboardChanged(
             formKey: _formKey,
             specValue: _priceValue,
             dataCreatorType: widget.dataCreatorType,
@@ -145,7 +145,7 @@ class _PriceDataCreatorState extends State<PriceDataCreator> {
             onExportSpecs: widget.onExportSpecs,
             mounted: mounted,
           ),
-          onKeyboardSubmitted: (String text) => onDataCreatorKeyboardSubmittedAnd(
+          onKeyboardSubmitted: (String? text) => onDataCreatorKeyboardSubmittedAnd(
             context: context,
             onKeyboardSubmitted: widget.onKeyboardSubmitted,
             formKey: _formKey,

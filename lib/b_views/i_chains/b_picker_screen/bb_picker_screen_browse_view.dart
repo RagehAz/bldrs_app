@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
@@ -30,18 +31,18 @@ class PickerScreenBrowseView extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final PickerModel picker;
+  final PickerModel? picker;
   final ValueNotifier<List<SpecModel>> selectedSpecs;
   final double screenHeight;
   final bool showInstructions;
   final bool isMultipleSelectionMode;
   final bool onlyUseZoneChains;
-  final ZoneModel zone;
-  final ValueChanged<String> onKeyboardSubmitted;
+  final ZoneModel? zone;
+  final ValueChanged<String?>? onKeyboardSubmitted;
   final AppBarType appBarType;
   final ValueNotifier<dynamic> searchText;
   final ValueChanged<List<SpecModel>> onExportSpecs;
-  final Function(String path, String phid) onPhidTap;
+  final Function(String? path, String? phid)? onPhidTap;
   // -----------------------------------------------------------------------------
   /// TASK : TEST ME
   double _getListZoneHeight(BuildContext context){
@@ -65,7 +66,7 @@ class PickerScreenBrowseView extends StatelessWidget {
   Verse _getInstructions(BuildContext context){
     Verse _instructions;
 
-    final Chain _chain = ChainsProvider.proFindChainByID(
+    final Chain? _chain = ChainsProvider.proFindChainByID(
       chainID: picker?.chainID,
       onlyUseZoneChains: onlyUseZoneChains,
     );
@@ -83,7 +84,7 @@ class PickerScreenBrowseView extends StatelessWidget {
     /// WHEN PHIDS
     else {
       _instructions = Verse(
-        id: picker?.canPickMany == true ?
+        id: Mapper.boolIsTrue(picker?.canPickMany) == true ?
         '##You may pick multiple specifications from this list'
             :
         '##You can pick only one specification from this list',
@@ -99,8 +100,8 @@ class PickerScreenBrowseView extends StatelessWidget {
     // --------------------
     final double _listZoneHeight = _getListZoneHeight(context);
     // --------------------
-    final Verse _instructions = _getInstructions(context);
-    _instructions.blogVerse(invoker: 'PickersScreenView');
+    final Verse? _instructions = _getInstructions(context);
+    _instructions?.blogVerse(invoker: 'PickersScreenView');
     // --------------------
     return Column(
       key: const ValueKey<String>('PickersScreenView'),

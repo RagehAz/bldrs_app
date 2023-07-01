@@ -32,24 +32,24 @@ class CollapsedTile extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final Function onTileTap;
+  final Function? onTileTap;
   final double tileWidth;
-  final double collapsedHeight;
-  final String icon;
+  final double? collapsedHeight;
+  final String? icon;
   final Widget child;
-  final Verse firstHeadline;
-  final Verse secondHeadline;
+  final Verse? firstHeadline;
+  final Verse? secondHeadline;
   final Animation<double> arrowTurns;
   final Color arrowColor;
   final double expandableHeightFactorAnimationValue;
-  final Color tileColor;
+  final Color? tileColor;
   final double corners;
-  final double iconCorners;
+  final double? iconCorners;
   final bool marginIsOn;
   final double iconSizeFactor;
-  final ValueNotifier<dynamic> searchText;
-  final Function onTileLongTap;
-  final Function onTileDoubleTap;
+  final ValueNotifier<dynamic>? searchText;
+  final Function? onTileLongTap;
+  final Function? onTileDoubleTap;
   /// --------------------------------------------------------------------------
   static const double collapsedGroupHeight = ((Ratioz.appBarCorner + Ratioz.appBarMargin) * 2) + Ratioz.appBarMargin;
   static const double arrowBoxSize = ExpandingTile.arrowBoxSize;
@@ -106,9 +106,9 @@ class CollapsedTile extends StatelessWidget {
           /// COLLAPSED ZONE
           GestureDetector(
             key: const ValueKey<String>('CollapsedTile_collapsed_zone'),
-            onTap: onTileTap,
-            onLongPress: onTileLongTap,
-            onDoubleTap: onTileDoubleTap,
+            onTap: onTileTap == null ? null : () => onTileTap?.call(),
+            onLongPress: onTileLongTap == null ? null : () => onTileLongTap?.call(),
+            onDoubleTap: onTileDoubleTap == null ? null : () => onTileDoubleTap?.call(),
             child: Container(
               width: tileWidth,
               color: Colorz.nothing,

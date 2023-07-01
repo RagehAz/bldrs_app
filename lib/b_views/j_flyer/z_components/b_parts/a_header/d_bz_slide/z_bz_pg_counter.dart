@@ -18,9 +18,9 @@ class BzPgCounter extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final int count;
+  final int? count;
   final Verse verse;
-  final String icon;
+  final String? icon;
   final double iconSizeFactor;
   /// --------------------------------------------------------------------------
   @override
@@ -47,8 +47,8 @@ class BzPgCounter extends StatelessWidget {
               // color: Colorz.BloodTest,
               child: Padding(
                 padding: EdgeInsets.all(iconMargin),
-                child: WebsafeSvg.asset(
-                    icon,
+                child: icon == null ? const SizedBox() : WebsafeSvg.asset(
+                    icon!,
                     width: iconBoxHeight,
                     height: iconBoxHeight,
                     // package: Iconz.bldrsTheme,

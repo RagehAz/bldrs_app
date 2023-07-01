@@ -23,7 +23,7 @@ class AuthorPic extends StatelessWidget {
   final double size;
   final bool isAddAuthorButton;
   final dynamic authorPic;
-  final double cornerOverride;
+  final double? cornerOverride;
   /// --------------------------------------------------------------------------
   void _tapAddAuthor(BuildContext context) {
     blog('should go to add new author screen');

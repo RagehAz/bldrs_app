@@ -17,12 +17,12 @@ class StatsLine extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final String icon;
+  final String? icon;
   final bool bigIcon;
   final Verse verse;
-  final Function onTap;
-  final double bubbleWidth;
-  final Color color;
+  final Function? onTap;
+  final double? bubbleWidth;
+  final Color? color;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
