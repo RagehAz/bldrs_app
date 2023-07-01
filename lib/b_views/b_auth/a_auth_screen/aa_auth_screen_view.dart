@@ -1,6 +1,5 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
-import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:basics/legalizer/legalizer.dart';
@@ -11,7 +10,6 @@ import 'package:bldrs/b_views/z_components/buttons/main_button.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 
 class AuthScreenView extends StatelessWidget {
@@ -23,12 +21,13 @@ class AuthScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final List<SignInMethod> methods = [
-      if (DeviceChecker.deviceIsIOS() == true)
-        SignInMethod.apple,
-      SignInMethod.google,
-      SignInMethod.facebook
-    ];
+    /// TASK : FIX_SOCIAL_AUTH_BUTTONS
+    // final List<SignInMethod> methods = [
+    //   if (DeviceChecker.deviceIsIOS() == true)
+    //     SignInMethod.apple,
+    //   SignInMethod.google,
+    //   SignInMethod.facebook
+    // ];
 
     return FloatingList(
       padding: Stratosphere.stratosphereSandwich,

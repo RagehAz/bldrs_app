@@ -106,7 +106,7 @@ class RenovateReviewProtocols {
               path: RealPath.agrees_bzID_flyerID_reviewID(
                 bzID: _flyer!.bzID!,
                 flyerID: reviewModel!.flyerID!,
-                reviewID: reviewModel!.id!,
+                reviewID: reviewModel.id!,
               ),
               map: {
                 Authing.getUserID()!: true,

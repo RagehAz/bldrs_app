@@ -23,14 +23,14 @@ class InfoButtonStarter extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final FlyerModel flyerModel;
+  final FlyerModel? flyerModel;
   final bool tinyMode;
-  final ValueNotifier<bool> infoButtonExpanded;
+  final ValueNotifier<bool?> infoButtonExpanded;
   final Function onInfoButtonTap;
   final InfoButtonType infoButtonType;
   final ScrollController infoPageVerticalController;
   final bool inFlight;
-  final ValueNotifier<FlyerCounterModel> flyerCounter;
+  final ValueNotifier<FlyerCounterModel?> flyerCounter;
   // --------------------------------------------------------------------------
   bool _canTapInfoButton(){
     bool _canTap;
@@ -54,10 +54,10 @@ class InfoButtonStarter extends StatelessWidget {
       key: const ValueKey<String>('InfoButtonStarter'),
       alignment: BldrsAligners.superBottomAlignment(context),
       child: GestureDetector(
-        onTap: _canTapInfoButton() ? onInfoButtonTap : null,
+        onTap: _canTapInfoButton() ? () => onInfoButtonTap.call() : null,
         child: ValueListenableBuilder(
           valueListenable: infoButtonExpanded,
-          builder: (_, bool buttonExpanded, Widget? infoPageTree){
+          builder: (_, bool? buttonExpanded, Widget? infoPageTree){
 
 
             // final Color _color = InfoButtonStarter.getColor(
@@ -114,7 +114,7 @@ class InfoButtonStarter extends StatelessWidget {
             infoPageVerticalController: infoPageVerticalController,
             inFlight: inFlight,
             flyerCounter: flyerCounter,
-            onVerticalBounce: _canTapInfoButton() ? onInfoButtonTap : null,
+            onVerticalBounce: _canTapInfoButton() ? () => onInfoButtonTap.call() : null,
           ),
 
         ),

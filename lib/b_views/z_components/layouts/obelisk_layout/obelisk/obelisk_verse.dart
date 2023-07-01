@@ -1,4 +1,5 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/layouts/separators/separator_line.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk.dart';
@@ -6,7 +7,6 @@ import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_mode
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 
 class ObeliskVerse extends StatelessWidget {
@@ -19,8 +19,8 @@ class ObeliskVerse extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final NavModel navModel;
-  final ValueNotifier<ProgressBarModel> progressBarModel;
+  final NavModel? navModel;
+  final ValueNotifier<ProgressBarModel?> progressBarModel;
   final int navModelIndex;
   final Function onTap;
   /// --------------------------------------------------------------------------
@@ -30,14 +30,14 @@ class ObeliskVerse extends StatelessWidget {
     return ValueListenableBuilder(
       key: const ValueKey<String>('ObeliskVerse'),
       valueListenable: progressBarModel,
-      builder: (_, ProgressBarModel _progressBarModel, Widget? child){
+      builder: (_, ProgressBarModel? _progressBarModel, Widget? child){
 
         final bool _isSelected = _progressBarModel?.index == navModelIndex;
 
         /// TEXT
-        if (navModel?.canShow == true){
+        if (Mapper.boolIsTrue(navModel?.canShow) == true){
           return GestureDetector(
-            onTap: onTap,
+            onTap: () => onTap.call(),
             child: Container(
               height: Obelisk.circleWidth,
               alignment: Alignment.centerLeft,

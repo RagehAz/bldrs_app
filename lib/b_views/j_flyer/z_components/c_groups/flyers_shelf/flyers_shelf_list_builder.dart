@@ -20,11 +20,11 @@ class FlyersShelfListBuilder extends StatefulWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final Verse shelfTitleVerse;
-  final List<FlyerModel> flyers;
+  final Verse? shelfTitleVerse;
+  final List<FlyerModel>? flyers;
   final double flyerSizeFactor;
-  final ValueChanged<FlyerModel> flyerOnTap;
-  final Function onScrollEnd;
+  final ValueChanged<FlyerModel>? flyerOnTap;
+  final Function? onScrollEnd;
   /// --------------------------------------------------------------------------
   @override
   _FlyersShelfListBuilderState createState() => _FlyersShelfListBuilderState();
@@ -58,7 +58,7 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
       } else {
         blog('we reached the scroll end');
         if (widget.onScrollEnd != null) {
-          widget.onScrollEnd();
+          widget.onScrollEnd!.call();
         }
       }
     }
@@ -88,7 +88,7 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
 
       return ListView.separated(
         physics: const BouncingScrollPhysics(),
-        itemCount: widget.flyers.length,
+        itemCount: widget.flyers!.length,
         controller: _controller,
         scrollDirection: Axis.horizontal,
         padding: Scale.superInsets(
@@ -105,12 +105,12 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
         itemBuilder: (BuildContext context, int _x) {
 
           return GestureDetector(
-            onTap: widget.flyerOnTap == null ? null : () => widget.flyerOnTap(widget.flyers[_x]),
+            onTap: widget.flyerOnTap == null ? null : () => widget.flyerOnTap!.call(widget.flyers![_x]),
             child: AbsorbPointer(
                 absorbing: _absorbingFlyerTap(),
                 child: HeroicFlyer(
                   flyerBoxWidth: _flyerBoxWidth,
-                  flyerModel: widget.flyers[_x],
+                  flyerModel: widget.flyers![_x],
                   screenName: 'FlyersShelfListBuilder',
                   gridWidth: Scale.screenWidth(context),
                   gridHeight: Scale.screenHeight(context),

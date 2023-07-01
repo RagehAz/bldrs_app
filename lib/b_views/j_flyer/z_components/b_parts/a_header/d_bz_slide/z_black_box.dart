@@ -12,7 +12,7 @@ class BlackBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double width;
   final Widget child;
-  final Function onTap;
+  final Function? onTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class BlackBox extends StatelessWidget {
     final double _margins = width * 0.05;
     // --------------------
     return GestureDetector(
-      onTap: onTap,
+      onTap: onTap == null ? null : () => onTap!(),
       child: Padding(
         padding: EdgeInsets.only(top: _bzPageDividers),
         child: Container(

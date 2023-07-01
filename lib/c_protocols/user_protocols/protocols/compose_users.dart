@@ -45,7 +45,7 @@ class ComposeUserProtocols {
       /// CREATE FIRE USER
       await UserFireOps.createUser(
         userModel: _output,
-        signInMethod: authModel?.signInMethod,
+        signInMethod: authModel.signInMethod,
       );
 
       await Future.wait(<Future>[

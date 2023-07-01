@@ -27,12 +27,12 @@ class FlyerSelectionStack extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final Function onSelectFlyer;
-  final Function onFlyerOptionsTap;
-  final FlyerModel flyerModel;
+  final Function? onSelectFlyer;
+  final Function? onFlyerOptionsTap;
+  final FlyerModel? flyerModel;
   final double flyerBoxWidth;
   final Widget flyerWidget;
-  final bool selectionMode;
+  final bool? selectionMode;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -94,7 +94,7 @@ class FlyerSelectionStack extends StatelessWidget {
                   flyerBoxWidth: flyerBoxWidth,
                   isSelected: FlyerModel.flyersContainThisID(
                     flyers: flyersProvider.selectedFlyers,
-                    flyerID: flyerModel.id,
+                    flyerID: flyerModel?.id,
                   ),
                 );
 
@@ -106,7 +106,7 @@ class FlyerSelectionStack extends StatelessWidget {
             BldrsBox(
               height: _flyerBoxHeight,
               width: flyerBoxWidth,
-              corners: FlyerDim.flyerCorners(context, flyerBoxWidth),
+              corners: FlyerDim.flyerCorners(flyerBoxWidth),
               bubble: false,
               splashColor: Colorz.yellow125,
               onTap: onSelectFlyer,
@@ -123,7 +123,7 @@ class FlyerSelectionStack extends StatelessWidget {
                 icon: Iconz.more,
                 phid: 'phid_more',
                 flyerBoxWidth: flyerBoxWidth,
-                onTap: onFlyerOptionsTap,
+                onTap: onFlyerOptionsTap == null ? null : onFlyerOptionsTap!(),
                 isOn: UserModel.checkFlyerIsSaved(
                   flyerID: flyerModel?.id,
                   userModel: UsersProvider.proGetMyUserModel(

@@ -34,7 +34,7 @@ class PhidButton extends StatelessWidget {
   final double? width;
   final Color color;
   final String phid; // phrase id
-  final int level;
+  final int? level;
   final bool isDisabled;
   final bool xIsOn;
   final dynamic margins;
@@ -155,7 +155,7 @@ class PhidButton extends StatelessWidget {
         verseCentered: false,
         verseMaxLines: secondLine == null ? 2 : 1,
         bubble: false,
-        verseShadow: false,
+        // verseShadow: false,
         verseItalic: true,
         verseHighlight: searchText,
         secondLine: secondLine,

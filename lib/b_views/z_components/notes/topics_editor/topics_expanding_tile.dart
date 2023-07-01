@@ -25,13 +25,13 @@ class TopicsExpandingTile extends StatelessWidget {
   final List<TopicModel> topics;
   final String groupName;
   final Widget Function(TopicModel topic) builder;
-  final double width;
+  final double? width;
   // -----------------------------------------------------------------------------
   static List<Widget> buildTopicsMapTiles({
     required Map<String, dynamic> map,
     required BuildContext context,
     required Widget Function(TopicModel topic) builder,
-    double width,
+    double? width,
   }){
     final List<Widget> _output = <Widget>[];
 
@@ -78,7 +78,6 @@ class TopicsExpandingTile extends StatelessWidget {
     );
 
     return TopicModel.checkUserIsSubscribedToThisTopic(
-      context: context,
       topicID: topicModel.id,
       partyType: partyType,
       bzID: _bzID,

@@ -13,7 +13,7 @@ class ProgressBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final List<Widget> stripsStack;
-  final EdgeInsets margins;
+  final EdgeInsets? margins;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

@@ -14,7 +14,7 @@ class PickersGroupHeadline extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final Verse headline;
-  final double width;
+  final double? width;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

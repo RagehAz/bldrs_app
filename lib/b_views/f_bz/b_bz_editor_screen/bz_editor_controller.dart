@@ -443,7 +443,7 @@ Future<void> onChangeBzLogo({
 void onChangeBzContact({
   required ValueNotifier<DraftBz?> draftNotifier,
   required ContactType contactType,
-  required String value,
+  required String? value,
   required bool mounted,
 }){
 

@@ -1,7 +1,6 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 
 class BldrsImagePathToPicModel extends StatefulWidget {
@@ -13,7 +12,7 @@ class BldrsImagePathToPicModel extends StatefulWidget {
   });
   /// --------------------------------------------------------------------------
   final String imagePath;
-  final Function(bool isLoading, PicModel picModel) builder;
+  final Function(bool isLoading, PicModel? picModel) builder;
   /// --------------------------------------------------------------------------
   @override
   _BldrsImagePathToPicModelState createState() => _BldrsImagePathToPicModelState();
@@ -23,7 +22,7 @@ class BldrsImagePathToPicModel extends StatefulWidget {
 class _BldrsImagePathToPicModelState extends State<BldrsImagePathToPicModel> {
   // -----------------------------------------------------------------------------
   bool _isFetching = true;
-  PicModel _picModel;
+  PicModel? _picModel;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -48,7 +47,7 @@ class _BldrsImagePathToPicModelState extends State<BldrsImagePathToPicModel> {
 
       _triggerLoading(setTo: true).then((_) async {
 
-        final PicModel _image = await PicProtocols.fetchPic(
+        final PicModel? _image = await PicProtocols.fetchPic(
           widget.imagePath,
         );
 

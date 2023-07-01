@@ -27,14 +27,14 @@ class HeaderTemplate extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final double opacity;
-  final Function onTap;
-  final String logo;
-  final String authorImage;
-  final Verse firstLine;
-  final Verse secondLine;
-  final Verse thirdLine;
-  final Verse fourthLine;
-  final Verse fifthLine;
+  final Function? onTap;
+  final String? logo;
+  final String? authorImage;
+  final Verse? firstLine;
+  final Verse? secondLine;
+  final Verse? thirdLine;
+  final Verse? fourthLine;
+  final Verse? fifthLine;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -109,7 +109,7 @@ class HeaderTemplate extends StatelessWidget {
                           flyerShowsAuthor: flyerShowsAuthor,
                       ),
                       // width: FlyerDim.headerLabelsWidth(flyerBoxWidth),
-                      child: Column(
+                      child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         // children: const <Widget>[
                           //

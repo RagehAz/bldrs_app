@@ -25,18 +25,18 @@ class CountryTileButton extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final Function onTap;
-  final Function onDeactivatedTap;
-  final String countryID;
-  final double width;
-  final double height;
+  final Function? onDeactivatedTap;
+  final String? countryID;
+  final double? width;
+  final double? height;
   final bool isActive;
-  final CensusModel censusModel;
-  final Verse verse;
+  final CensusModel? censusModel;
+  final Verse? verse;
   final bool verseCentered;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool canShowCensus({
-    required CensusModel censusModel,
+    required CensusModel? censusModel,
   }){
 
     if (censusModel == null){

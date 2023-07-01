@@ -29,7 +29,7 @@ class SlideEditorControlPanel extends StatelessWidget {
   final Function onConfirm;
   final double height;
   final ValueNotifier<bool> canResetMatrix;
-  final ValueNotifier<DraftSlide> draftNotifier;
+  final ValueNotifier<DraftSlide?> draftNotifier;
   final Function onTriggerAnimation;
   final Function onToggleFilter;
   // --------------------------------------------------------------------------
@@ -96,9 +96,9 @@ class SlideEditorControlPanel extends StatelessWidget {
           /// ANIMATE
           ValueListenableBuilder(
               valueListenable: draftNotifier,
-              builder: (_, DraftSlide draftSlide, Widget? child){
+              builder: (_, DraftSlide? draftSlide, Widget? child){
 
-                final bool animate = draftSlide.animationCurve != null;
+                final bool animate = draftSlide?.animationCurve != null;
 
                 return ValueListenableBuilder(
                     valueListenable: canResetMatrix,

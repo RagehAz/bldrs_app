@@ -191,8 +191,7 @@ class ComposeFlyerProtocols {
     required DraftFlyer draftFlyer,
   }) async {
 
-    final Uint8List _bytes = await PosterDisplay.capturePoster(
-      context: context,
+    final Uint8List? _bytes = await PosterDisplay.capturePoster(
       posterType: PosterType.flyer,
       model: draftFlyer,
       helperModel: draftFlyer.bzModel,
@@ -200,7 +199,7 @@ class ComposeFlyerProtocols {
     );
 
     final Dimensions? _dims = await Dimensions.superDimensions(_bytes);
-    final double? _mega = Filers.calculateSize(_bytes.length, FileSizeUnit.megaByte);
+    final double? _mega = Filers.calculateSize(_bytes?.length, FileSizeUnit.megaByte);
 
     final PicModel _posterPicModel = PicModel(
       bytes: _bytes,

@@ -24,8 +24,8 @@ class SectionsButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   static Verse getTitle({
     required BuildContext context,
-    required String currentKeywordID,
-    required FlyerType currentSection,
+    required String? currentKeywordID,
+    required FlyerType? currentSection,
   }){
     String? _title;
 
@@ -75,7 +75,7 @@ class SectionsButton extends StatelessWidget {
 
     return Builder(
       builder: (BuildContext context) => GestureDetector(
-        onTap: onTap ?? () => onSectionButtonTap(context),
+        onTap: onTap == null ? () => onSectionButtonTap(context) : () => onTap!(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
@@ -98,13 +98,13 @@ class SectionsButton extends StatelessWidget {
                       currentSection: chainsPro.wallFlyerType,
                     );
 
-                    final Verse _sectionVerse = getBody(
+                    final Verse? _sectionVerse = getBody(
                         context: context,
                         currentKeywordID: chainsPro.wallPhid,
                         currentSection: chainsPro.wallFlyerType
                     );
 
-                    final String _icon = chainsPro.getPhidIcon(
+                    final String? _icon = chainsPro.getPhidIcon(
                       son: chainsPro.wallPhid,
                     );
 

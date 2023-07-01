@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element
+
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
@@ -24,8 +26,8 @@ class FlyerPreviewScreen extends StatefulWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final String flyerID;
-  final String reviewID;
+  final String? flyerID;
+  final String? reviewID;
   /// --------------------------------------------------------------------------
   static const String routeName = Routing.flyerScreen;
   /// --------------------------------------------------------------------------
@@ -63,7 +65,7 @@ class _FlyerPreviewScreenState extends State<FlyerPreviewScreen> {
 
         if (widget.flyerID != null) {
 
-          FlyerModel _flyerModel = await FlyerProtocols.fetchFlyer(
+          FlyerModel? _flyerModel = await FlyerProtocols.fetchFlyer(
             context: context,
             flyerID: widget.flyerID,
           );
@@ -148,7 +150,7 @@ class _FlyerPreviewScreenState extends State<FlyerPreviewScreen> {
                   fadeType: FadeType.fadeIn,
                   duration: const Duration(milliseconds: 500),
                   child: HeroicFlyerBigView(
-                    key: ValueKey<String>(_renderedFlyer.id),
+                    key: ValueKey<String>('${_renderedFlyer?.id}'),
                     flyerBoxWidth: Scale.screenWidth(context),
                     renderedFlyer: _renderedFlyer,
                     heroPath: 'FlyerPreviewScreen',

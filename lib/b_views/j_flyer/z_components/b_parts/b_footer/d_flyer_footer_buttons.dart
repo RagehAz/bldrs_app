@@ -26,14 +26,14 @@ class FlyerFooterButtons extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final FlyerModel flyerModel;
+  final FlyerModel? flyerModel;
   final bool tinyMode;
   final Function onSaveFlyer;
   final bool inFlight;
   final InfoButtonType infoButtonType;
   final ValueNotifier<bool> flyerIsSaved;
   final ValueNotifier<bool> isSharing;
-  final ValueNotifier<FlyerCounterModel> flyerCounter;
+  final ValueNotifier<FlyerCounterModel?> flyerCounter;
   /// --------------------------------------------------------------------------
   bool _canShowElement(){
     // bool _canShow = true;
@@ -63,7 +63,7 @@ class FlyerFooterButtons extends StatelessWidget {
       bottom: 0,
       child: ValueListenableBuilder(
         valueListenable: flyerCounter,
-        builder: (_, FlyerCounterModel counter, Widget? footerButtonSpacer){
+        builder: (_, FlyerCounterModel? counter, Widget? footerButtonSpacer){
 
           return SizedBox(
             width: flyerBoxWidth,

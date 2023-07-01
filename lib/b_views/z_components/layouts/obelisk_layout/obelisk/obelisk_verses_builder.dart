@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk_verse.dart';
@@ -16,8 +17,8 @@ class ObeliskVersesBuilder extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final List<NavModel> navModels;
-  final ValueNotifier<ProgressBarModel> progressBarModel;
+  final List<NavModel?> navModels;
+  final ValueNotifier<ProgressBarModel?> progressBarModel;
   final ValueChanged<int> onRowTap;
   /// --------------------------------------------------------------------------
   @override
@@ -42,11 +43,13 @@ class ObeliskVersesBuilder extends StatelessWidget {
     return Selector<UiProvider, bool>(
       key: const ValueKey<String>('ObeliskVersesBuilder'),
       selector: (_, UiProvider uiProvider) => uiProvider.pyramidsAreExpanded,
-      builder: (_, bool expanded, Widget? child) {
+      builder: (_, bool? expanded, Widget? child) {
+
+        final bool _isExpanded = Mapper.boolIsTrue(expanded);
 
           return WidgetFader(
             fadeType: expanded == null ? FadeType.stillAtMin : expanded == true ? FadeType.fadeIn : FadeType.fadeOut,
-            curve: expanded == true ? Curves.easeOutQuart : Curves.easeOut,
+            curve: _isExpanded  == true ? Curves.easeOutQuart : Curves.easeOut,
             duration: const Duration(milliseconds: 200),
             builder: (double value, Widget? child){
 
@@ -60,9 +63,9 @@ class ObeliskVersesBuilder extends StatelessWidget {
 
             },
             child: AnimatedOpacity(
-              duration: Duration(milliseconds: expanded == true ? 150 : 500),
-              curve: expanded == true ? Curves.easeOutBack : Curves.easeOutQuart,
-              opacity: expanded == true ? 1 : 0.5,
+              duration: Duration(milliseconds: _isExpanded == true ? 150 : 500),
+              curve: _isExpanded == true ? Curves.easeOutBack : Curves.easeOutQuart,
+              opacity: _isExpanded == true ? 1 : 0.5,
               child: child,
             ),
 

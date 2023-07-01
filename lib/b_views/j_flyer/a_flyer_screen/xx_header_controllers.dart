@@ -99,12 +99,12 @@ Future<void> onTriggerHeader({
 }
 // --------------------
 Future<void> readBzCounters({
-  required String bzID,
-  required ValueNotifier<BzCounterModel> bzCounters,
+  required String? bzID,
+  required ValueNotifier<BzCounterModel?> bzCounters,
   required bool mounted,
 }) async {
 
-  final BzCounterModel _bzCounters = await RecorderProtocols.readBzCounters(
+  final BzCounterModel? _bzCounters = await RecorderProtocols.readBzCounters(
     bzID: bzID,
   );
 
@@ -152,7 +152,7 @@ void _triggerHeaderExpansion({
   );
 
   /// TASK : MAYBE WILL REMOVE THIS
-  PageStorage.of(context)?.writeState(context, headerIsExpanded.value);
+  PageStorage.of(context).writeState(context, headerIsExpanded.value);
 
 }
 // --------------------
@@ -202,7 +202,6 @@ void _animateHeaderExpansion({
 }){
 
   /// WHEN HEADER IS COLLAPSED
-  // TASK : MAYBE NEED TO INVERT THESE METHODS
   if (headerIsExpanded.value == false) {
     headerAnimationController.forward();
   }
@@ -216,12 +215,6 @@ void _animateHeaderExpansion({
           curve: Curves.easeOut
       );
 
-
-      /// TASK : SHOOF KEDA EL IMPACT BTA3 DAWWAN
-      // setState(() {
-      //   // Rebuild without widget.children.
-      // });
-
     });
   }
 
@@ -233,13 +226,13 @@ void _animateHeaderExpansion({
 // --------------------
 /// TESTED : WORKS PERFECT
 bool checkFollowIsOn({
-  required BzModel bzModel,
+  required BzModel? bzModel,
 }){
 
   final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
 
   final _followIsOn = _bzzProvider.checkFollow(
-      bzID: bzModel.id
+      bzID: bzModel?.id
   );
 
   return _followIsOn;
@@ -248,8 +241,8 @@ bool checkFollowIsOn({
 /// ON FOLLOW
 Future<void> onFollowTap({
   required BuildContext context,
-  required BzModel bzModel,
-  required String flyerID,
+  required BzModel? bzModel,
+  required String? flyerID,
   required ValueNotifier<bool> followIsOn,
   required bool mounted,
 }) async {
@@ -263,7 +256,7 @@ Future<void> onFollowTap({
 
     final bool _goToFlyerPreview = flyerID != null;
     final String _routeName = _goToFlyerPreview == true ? Routing.flyerPreview : Routing.bzPreview;
-    final String argument = _goToFlyerPreview == true ? flyerID : bzModel.id;
+    final String? argument = _goToFlyerPreview == true ? flyerID : bzModel?.id;
 
     await Dialogs.youNeedToBeSignedUpDialog(
       afterHomeRouteName: _routeName,
@@ -367,7 +360,7 @@ Future<void> onCallTap({
 
               /// CALL RECORD PROTOCOL
               RecorderProtocols.onCallBz(
-                bzID: bzModel.id,
+                bzID: bzModel?.id,
                 contact: contact,
               ),
 

@@ -1,3 +1,4 @@
+// ignore_for_file: unused_element
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
@@ -346,7 +347,7 @@ class _PlusIconLayer extends StatelessWidget {
                 shadow: true,
                 labelColor: _isExceedingMaxSize ? Colorz.red255 : Colorz.black150,
                 maxLines: 2,
-                textDirection: TextDirection.ltr,
+                // textDirection: TextDirection.ltr,
                 margin: 0,
               ),
 

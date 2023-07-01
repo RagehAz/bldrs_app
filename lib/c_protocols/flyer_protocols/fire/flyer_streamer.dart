@@ -159,9 +159,9 @@ Widget reviewsStreamBuilder({
           loading: true,
         );
       } else {
-        final List<ReviewModel>? reviews = snapshot?.data;
+        final List<ReviewModel>? reviews = snapshot.data;
 
-        return builder!(context, reviews);
+        return builder(context, reviews);
       }
     },
   );

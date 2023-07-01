@@ -16,7 +16,6 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/layouts/nav/nav.dart';
-import 'package:provider/provider.dart';
 
 class AddFlyerButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -29,14 +28,14 @@ class AddFlyerButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   Future<void> _goToFlyerMaker({
     required BuildContext context,
-    required BzModel bzModel,
+    required BzModel? bzModel,
   }) async {
 
     blog('going to create new flyer keda');
 
     await Future<void>.delayed(Ratioz.durationFading200, () async {
 
-      final DraftFlyer _draft = await DraftFlyer.createDraft(
+      final DraftFlyer? _draft = await DraftFlyer.createDraft(
         oldFlyer: null,
       );
 
@@ -44,7 +43,7 @@ class AddFlyerButton extends StatelessWidget {
         context: context,
         screen: NewFlyerEditorScreen(
           draftFlyer: _draft,
-          onConfirm: (DraftFlyer draft) async {
+          onConfirm: (DraftFlyer? draft) async {
 
             await onConfirmPublishFlyerButtonTap(
               context: context,
@@ -73,8 +72,7 @@ class AddFlyerButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
-    final BzModel _bzModel = _bzzProvider.myActiveBz;
+    final BzModel? _bzModel = BzzProvider.proGetActiveBzModel(context: context, listen: false);
     // --------------------
     return GestureDetector(
       key: const ValueKey<String>('AddFlyerButton'),

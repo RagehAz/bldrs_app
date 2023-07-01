@@ -76,7 +76,7 @@ class UserFollowingPage extends StatelessWidget {
 
                 else {
                   return BzLongButton(
-                    bzModel: snapshot?.data,
+                    bzModel: snapshot.data,
                   );
                 }
 
@@ -90,7 +90,7 @@ class UserFollowingPage extends StatelessWidget {
           //   title: _bzTypeString,
           //   icon: _bzTypeIcon,
           //   onBzTap: (BzModel bzModel){
-          //     bzModel.blogBz(invoker: 'Yabny tapped bzModel aho tapped aho');
+          //     bzModel.blogBz(invoker: 'tapped bzModel aho tapped aho');
           //   },
           // );
 

@@ -66,7 +66,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
     unawaited(_triggerLoading(setTo: true));
 
     /// upload text to firebase
-    final FeedbackModel _uploadedModel = await FeedbackRealOps.createFeedback(
+    final FeedbackModel? _uploadedModel = await FeedbackRealOps.createFeedback(
       feedback: FeedbackModel(
         userID: Authing.getUserID(),
         timeStamp: DateTime.now(),
@@ -167,7 +167,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
 
           BldrsImagePathToUiImage(
             imagePath: _userModel?.picPath,
-            builder: (bool loading, ui.Image uiImage){
+            builder: (bool loading, ui.Image? uiImage){
 
               return BldrsTextFieldBubble(
                 appBarType: AppBarType.basic,

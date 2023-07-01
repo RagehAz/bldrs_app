@@ -25,7 +25,7 @@ class MultiButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double height;
   final double? width;
-  final List<String> pics;
+  final List<String>? pics;
   final Verse? verse;
   final Verse? secondLine;
   final Color? color;
@@ -63,23 +63,23 @@ class MultiButton extends StatelessWidget {
                 verseScaleFactor: 0.6,
                 verseCentered: false,
                 secondLine: secondLine,
-                icon: pics?.length == 1 ? pics.first : Iconz.dvBlankSVG,
+                icon: pics?.length == 1 ? pics?.first : Iconz.dvBlankSVG,
                 iconColor: pics?.length == 1 ? null : Colorz.nothing,
                 bubble: bubble,
                 color: color,
                 verseMaxLines: 2,
               ),
 
-              if (pics.length == 2)
+              if (pics?.length == 2)
                 DoublePicsBox(
                   size: height,
-                  pics: pics,
+                  pics: pics ?? [],
                 ),
 
-              if (pics.length > 2)
+              if ((pics?.length ?? 0) > 2)
                 ManyPicsBox(
                   size: height,
-                  pics: pics,
+                  pics: pics ?? [],
                 ),
 
             ],

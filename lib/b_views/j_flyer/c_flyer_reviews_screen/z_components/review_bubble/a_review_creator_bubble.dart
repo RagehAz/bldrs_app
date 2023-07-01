@@ -27,7 +27,7 @@ class ReviewCreatorBubble extends StatelessWidget {
   final GlobalKey globalKey;
   final double pageWidth;
   final TextEditingController reviewTextController;
-  final ValueChanged<UserModel> onReviewUserBalloonTap;
+  final ValueChanged<UserModel?>? onReviewUserBalloonTap;
   final Function onReviewSubmit;
   final ValueNotifier<bool> isUploading;
   // -----------------------------------------------------------------------------
@@ -41,8 +41,11 @@ class ReviewCreatorBubble extends StatelessWidget {
     return ReviewBox(
         pageWidth: pageWidth,
         userID: Authing.getUserID(),
-        onReviewUserBalloonTap: onReviewUserBalloonTap,
-        builder: (UserModel userModel){
+        onReviewUserBalloonTap: onReviewUserBalloonTap == null ?
+          null
+            :
+            (UserModel? user) => onReviewUserBalloonTap?.call(user),
+        builder: (UserModel? userModel){
 
           return ReviewBubbleBox(
             width: _textBubbleWidth,
@@ -78,7 +81,7 @@ class ReviewCreatorBubble extends StatelessWidget {
                   margins: const EdgeInsets.all(5),
                   // onTap: onEditReview,
                   // autofocus: false,
-                  onChanged: (String x){blog(x);},
+                  onChanged: (String? x){blog(x);},
                 ),
 
                 /// SUBMIT BUTTON

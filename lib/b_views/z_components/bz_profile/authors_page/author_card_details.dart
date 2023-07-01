@@ -39,7 +39,7 @@ class AuthorCardDetail extends StatelessWidget {
       verse: verse,
       bubble: bubble,
       verseWeight: VerseWeight.thin,
-      verseShadow: false,
+      // verseShadow: false,
       verseCentered: false,
     );
 

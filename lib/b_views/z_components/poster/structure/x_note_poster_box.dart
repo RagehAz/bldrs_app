@@ -15,7 +15,7 @@ class NotePosterBox extends StatelessWidget {
   // --------------------
   final double width;
   final Color color;
-  final Widget child;
+  final Widget? child;
   // --------------------
 
   /// STANDARD WIDTH AND HEIGHT
@@ -26,7 +26,7 @@ class NotePosterBox extends StatelessWidget {
     return Dimensions.getHeightByAspectRatio(
         aspectRatio: Standards.posterDimensions.getAspectRatio(),
         width: boxWidth,
-    );
+    )!;
   }
   // --------------------
 
@@ -35,7 +35,7 @@ class NotePosterBox extends StatelessWidget {
   // --------
   /// TESTED : WORKS PERFECT
   static double getAspectRatio(){
-    return Standards.posterDimensions.getAspectRatio();
+    return Standards.posterDimensions.getAspectRatio()!;
   }
   // --------------------
 

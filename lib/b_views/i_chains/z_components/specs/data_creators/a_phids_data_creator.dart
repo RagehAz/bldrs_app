@@ -27,14 +27,14 @@ class PhidsDataCreator extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final PickerModel specPicker;
-  final List<SpecModel> selectedSpecs;
+  final PickerModel? specPicker;
+  final List<SpecModel>? selectedSpecs;
   final double allowableHeight;
   final ValueNotifier<dynamic> searchText;
-  final Function(String path, String phid) onPhidTap;
-  final double width;
-  final ZoneModel zone;
-  final ValueChanged<String> onDataCreatorKeyboardSubmitted;
+  final Function(String? path, String? phid)? onPhidTap;
+  final double? width;
+  final ZoneModel? zone;
+  final ValueChanged<String?>? onDataCreatorKeyboardSubmitted;
   final bool isMultipleSelectionMode;
   final bool onlyUseZoneChains;
   final bool isCollapsable;
@@ -50,7 +50,7 @@ class PhidsDataCreator extends StatelessWidget {
       width: _width,
       child: ChainSplitter(
         width: _width,
-        previousPath: specPicker.chainID,
+        previousPath: specPicker?.chainID,
         chainOrChainsOrSonOrSons: Chain.filterSpecPickerChainRange(
           picker: specPicker,
           onlyUseZoneChains: onlyUseZoneChains,
@@ -59,8 +59,8 @@ class PhidsDataCreator extends StatelessWidget {
         initiallyExpanded: false,
         secondLinesType: ChainSecondLinesType.non,
         onPhidTap: onPhidTap,
-        onPhidDoubleTap: (String path, String phid){blog('PhidsDataCreator : onPhidDoubleTap : $path : $phid');},
-        onPhidLongTap:(String path, String phid){blog('PhidsDataCreator : onPhidLongTap : $path : $phid');},
+        onPhidDoubleTap: (String? path, String? phid){blog('PhidsDataCreator : onPhidDoubleTap : $path : $phid');},
+        onPhidLongTap:(String? path, String? phid){blog('PhidsDataCreator : onPhidLongTap : $path : $phid');},
         searchText: searchText,
         onExportSpecs: (List<SpecModel> specs) => blog('PhidsDataCreator : ${specs.length} specs'),
         isMultipleSelectionMode: isMultipleSelectionMode,
@@ -85,7 +85,7 @@ class PickersViewBox extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final double height;
-  final double width;
+  final double? width;
   final Widget child;
   /// --------------------------------------------------------------------------
   @override

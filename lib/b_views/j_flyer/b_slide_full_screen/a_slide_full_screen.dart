@@ -19,7 +19,7 @@ class SlideFullScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final dynamic image;
   final Dimensions imageSize;
-  final Verse title;
+  final Verse? title;
   final ImageFilterModel filter;
   /// --------------------------------------------------------------------------
   @override
@@ -50,8 +50,8 @@ class SlideFullScreen extends StatelessWidget {
             boxFit: Dimensions.concludeBoxFit(
               viewWidth: _screenWidth,
               viewHeight: _screenHeight,
-              picWidth: imageSize.width,
-              picHeight: imageSize.height,
+              picWidth: imageSize.width ?? 0,
+              picHeight: imageSize.height ?? 0,
             ),
             width: Scale.screenWidth(context),
             height: Scale.screenHeight(context),

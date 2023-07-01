@@ -16,9 +16,9 @@ class SlideTapAreas extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final Function onTapNext;
-  final Function onTapBack;
-  final Function onDoubleTap;
+  final Function? onTapNext;
+  final Function? onTapBack;
+  final Function? onDoubleTap;
   final double flyerBoxWidth;
   final double flyerBoxHeight;
   final Widget child;

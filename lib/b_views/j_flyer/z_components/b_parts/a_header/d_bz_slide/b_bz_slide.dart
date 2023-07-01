@@ -27,8 +27,8 @@ class BzSlide extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final BzModel bzModel;
-  final ValueNotifier<BzCounterModel> bzCounters;
+  final BzModel? bzModel;
+  final ValueNotifier<BzCounterModel?> bzCounters;
   /// --------------------------------------------------------------------------
   /*
   Future<void> _openGalleryFlyer (BuildContext context, String flyerID) async {
@@ -46,14 +46,15 @@ class BzSlide extends StatelessWidget {
     // --------------------
     // final List<String> _bzScope = bzModel != null ? bzModel.scope : <String>[];
     // --------------------
-    final List<AuthorModel> _bzAuthors =
-    bzModel != null ? bzModel?.authors : <AuthorModel>[];
+    final List<AuthorModel> _bzAuthors = bzModel != null ? (bzModel?.authors ?? []) : [];
     // --------------------
     final List<String> _bzTeamIDs = <String>[];
     // --------------------
-    if (Mapper.checkCanLoopList(_bzAuthors)) {
+    if (Mapper.checkCanLoopList(_bzAuthors) == true) {
       for (final AuthorModel author in _bzAuthors) {
-        _bzTeamIDs.add(author.userID);
+        if (author.userID != null){
+          _bzTeamIDs.add(author.userID!);
+        }
       }
 
     }
@@ -64,7 +65,7 @@ class BzSlide extends StatelessWidget {
       // height: 500,
       child: ValueListenableBuilder(
         valueListenable: bzCounters,
-        builder: (_, BzCounterModel _counter, Widget? child){
+        builder: (_, BzCounterModel? _counter, Widget? child){
 
           return Column(
             children: <Widget>[
@@ -81,7 +82,7 @@ class BzSlide extends StatelessWidget {
               BzSlideVerse(
                 key: const ValueKey<String>('max_header_BzPgVerse'),
                 flyerBoxWidth: flyerBoxWidth,
-                verse: Verse.plain(BldrsTimers.generateString_in_bldrs_since_month_yyyy(bzModel.createdAt)),
+                verse: Verse.plain(BldrsTimers.generateString_in_bldrs_since_month_yyyy(bzModel?.createdAt)),
                 size: 2,
               ),
 
@@ -90,8 +91,8 @@ class BzSlide extends StatelessWidget {
               BzAboutVerse(
                 key: const ValueKey<String>('max_header_BzAboutVerse'),
                 flyerBoxWidth: flyerBoxWidth,
-                verse: Verse.plain(bzModel != null ? bzModel.about : ''),
-                bzName: bzModel != null ? bzModel.name : '',
+                verse: Verse.plain(bzModel != null ? bzModel?.about : ''),
+                bzName: bzModel != null ? bzModel?.name : '',
               ),
 
               /// FOLLOWERS
@@ -124,7 +125,7 @@ class BzSlide extends StatelessWidget {
               BzPgCounter(
                 key: const ValueKey<String>('max_header_BzPgCounter_flyers'),
                 flyerBoxWidth: flyerBoxWidth,
-                count: bzModel.flyersIDs.length,
+                count: bzModel?.flyersIDs?.length,
                 verse: const Verse(
                   id: 'phid_published_flyers',
                   translate: true,

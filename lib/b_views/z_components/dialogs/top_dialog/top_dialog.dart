@@ -25,18 +25,18 @@ class TopDialog extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final String verse;
-  final Function onTap;
+  final Function(Flushbar<dynamic> flush)? onTap;
   // final int duration;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> closeTopDialog() async {
 
-    final GlobalKey _key = UiProvider.proGetTopDialogKey(
+    final GlobalKey? _key = UiProvider.proGetTopDialogKey(
       context: getMainContext(),
       listen: false,
     );
 
-    final Flushbar _flushbar = _key?.currentWidget;
+    final Flushbar? _flushbar = _key?.currentWidget as Flushbar?;
 
     if (_flushbar?.isDismissed() == false){
 
@@ -55,7 +55,7 @@ class TopDialog extends StatelessWidget {
         //   isHiding() : ${_flushbar.isHiding()}
         //   isShowing() : ${_flushbar.isShowing()}
         // ''');
-        final dynamic previousDialogDismissed = await _flushbar.dismiss();
+        final dynamic previousDialogDismissed = await _flushbar?.dismiss();
         blog('closeTopDialog : previousDialogDismissed ${previousDialogDismissed.runtimeType} : $previousDialogDismissed');
       });
 
@@ -190,7 +190,7 @@ class TopDialog extends StatelessWidget {
 
       },
 
-      onStatusChanged: (FlushbarStatus status) {
+      onStatusChanged: (FlushbarStatus? status) {
 
         // switch (status) {
         //   case FlushbarStatus.SHOWING:
@@ -218,8 +218,8 @@ class TopDialog extends StatelessWidget {
       },
 
       /// UNKNOWN ----------------------------------------------
-      message: 'SHIKA',
-      title: 'wtf',
+      message: "The Builder's Network",
+      title: 'Bldrs.net',
       endOffset: Offset.zero,
       shouldIconPulse: false,
       // positionOffset: 0,
@@ -260,7 +260,7 @@ class TopDialog extends StatelessWidget {
 
     return Flushbar(
       message: verse,
-      onTap: onTap,
+      onTap: onTap == null ? null : (Flushbar<dynamic> flush) => onTap?.call(flush),
       duration: const Duration(milliseconds: 5000),
       // title: 'wtf',
       // padding: EdgeInsets.zero,

@@ -18,7 +18,7 @@ class FloatingLayout extends StatelessWidget {
   final List<Widget> columnChildren;
   final SkyType skyType;
   final PyramidType pyramidType;
-  final Verse titleVerse;
+  final Verse? titleVerse;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

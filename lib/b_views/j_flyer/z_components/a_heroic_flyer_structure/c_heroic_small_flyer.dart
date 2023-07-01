@@ -33,8 +33,8 @@ class HeroicSmallFlyer extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final FlyerModel renderedFlyer;
-  final Function onMoreTap;
+  final FlyerModel? renderedFlyer;
+  final Function? onMoreTap;
   final FlightDirection flightDirection;
   final String heroTag;
   final bool canBuildBigFlyer;
@@ -81,7 +81,7 @@ class HeroicSmallFlyer extends StatelessWidget {
         flyerModel: renderedFlyer,
       ));
 
-      final FlyerModel _renderBigFlyer = await FlyerProtocols.renderBigFlyer(
+      final FlyerModel? _renderBigFlyer = await FlyerProtocols.renderBigFlyer(
         flyerModel: renderedFlyer,
       );
 
@@ -172,7 +172,7 @@ class HeroicSmallFlyer extends StatelessWidget {
         if (_flyerIsBigNow == false)
         StaticHeader(
           flyerBoxWidth: flyerBoxWidth,
-          bzModel: renderedFlyer.bzModel,
+          bzModel: renderedFlyer?.bzModel,
           bzImageLogo: renderedFlyer?.bzLogoImage,
           authorID: renderedFlyer?.authorID,
           flyerShowsAuthor: renderedFlyer?.showsAuthor,

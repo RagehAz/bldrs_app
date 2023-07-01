@@ -12,8 +12,8 @@ class SlideBackCoverImage extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final ValueNotifier<ImageFilterModel> filterModel;
-  final DraftSlide slide;
+  final ValueNotifier<ImageFilterModel?> filterModel;
+  final DraftSlide? slide;
   final double flyerBoxWidth;
   final double flyerBoxHeight;
   /// --------------------------------------------------------------------------
@@ -23,12 +23,12 @@ class SlideBackCoverImage extends StatelessWidget {
     return ValueListenableBuilder(
         key: const ValueKey<String>('SlideBackCoverImage'),
         valueListenable: filterModel,
-        builder: (_, ImageFilterModel _filterModel, Widget? child){
+        builder: (_, ImageFilterModel? _filterModel, Widget? child){
 
           return SuperFilteredImage(
             width: flyerBoxWidth,
             height: flyerBoxHeight,
-            pic: slide.picModel?.bytes,
+            pic: slide?.picModel?.bytes,
             filterModel: _filterModel,
           );
         }

@@ -29,13 +29,13 @@ class DataStrip extends StatelessWidget {
   final String dataKey;
   final dynamic dataValue;
   final Color color;
-  final Function onKeyTap;
-  final Function onValueTap;
-  final double width;
+  final Function? onKeyTap;
+  final Function? onValueTap;
+  final double? width;
   final bool withHeadline;
   final bool isPercent;
-  final ValueNotifier<dynamic> highlightText;
-  final Verse tooTipVerse;
+  final ValueNotifier<dynamic>? highlightText;
+  final Verse? tooTipVerse;
   final double height;
   /// --------------------------------------------------------------------------
   static const double verticalMargin = 2.5;
@@ -114,7 +114,7 @@ class DataStrip extends StatelessWidget {
                           id: dataKey,
                           translate: false,
                         ),
-                        verseShadow: false,
+                        // verseShadow: false,
                         verseScaleFactor: 0.6,
                         bubble: false,
                         color: color,
@@ -149,7 +149,7 @@ class DataStrip extends StatelessWidget {
                         id: dataValue.toString(),
                         translate: false,
                       ),
-                      verseShadow: false,
+                      // verseShadow: false,
                       verseScaleFactor: 0.8,
                       bubble: false,
                       color: color,

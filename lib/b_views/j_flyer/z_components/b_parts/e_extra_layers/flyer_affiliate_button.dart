@@ -23,7 +23,7 @@ class FlyerAffiliateButton extends StatelessWidget {
   });
   // --------------------
   final double flyerBoxWidth;
-  final FlyerModel flyerModel;
+  final FlyerModel? flyerModel;
   final bool inStack;
   // -----------------------------------------------------------------------------
   @override
@@ -46,10 +46,10 @@ class FlyerAffiliateButton extends StatelessWidget {
     }
     else {
 
-      final double _price = Speccer.getSalePrice(flyerModel?.specs);
-      final String _currencyID = Speccer.getCurrencyID(flyerModel?.specs);
+      final double? _price = Speccer.getSalePrice(flyerModel?.specs);
+      final String? _currencyID = Speccer.getCurrencyID(flyerModel?.specs);
 
-      final String _currencySymbol = ZoneProvider.proGetCurrencyByCurrencyID(
+      final String? _currencySymbol = ZoneProvider.proGetCurrencyByCurrencyID(
         context: context,
         currencyID: _currencyID,
         listen: false,
@@ -59,7 +59,7 @@ class FlyerAffiliateButton extends StatelessWidget {
       const Verse _buyOnAmazonVerse = Verse(id: 'phid_buy_on_amazon', translate: true,);
       final bool _showPrice = _price != null && _currencyID != null;
       final Verse _firstLine = _showPrice == true ? _priceVerse : _buyOnAmazonVerse;
-      final Verse _secondLine = _showPrice == true ? _buyOnAmazonVerse : null;
+      final Verse? _secondLine = _showPrice == true ? _buyOnAmazonVerse : null;
 
       final bool _isTinyMode = FlyerDim.isTinyMode(
         flyerBoxWidth: flyerBoxWidth,
@@ -88,7 +88,7 @@ class FlyerAffiliateButton extends StatelessWidget {
         ),
         verseWeight: _isTinyMode == true ? VerseWeight.bold : VerseWeight.black,
         onTap: () async {
-          await Launcher.launchURL(flyerModel.affiliateLink);
+          await Launcher.launchURL(flyerModel?.affiliateLink);
           },
       );
 

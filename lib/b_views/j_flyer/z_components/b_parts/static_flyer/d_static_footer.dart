@@ -17,8 +17,8 @@ class StaticFooter extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final bool optionsButtonIsOn;
-  final String flyerID;
+  final bool? optionsButtonIsOn;
+  final String? flyerID;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -125,9 +125,9 @@ class StaticFooter extends StatelessWidget {
 
             /// SAVE BUTTON
             if (optionsButtonIsOn == false)
-              Selector<UsersProvider, UserModel>(
+              Selector<UsersProvider, UserModel?>(
                 selector: (_, UsersProvider userProvider) => userProvider.myUserModel,
-                builder: (_, UserModel userModel, Widget? child) {
+                builder: (_, UserModel? userModel, Widget? child) {
 
                   return Padding(
                     padding: _saveButtonPadding,

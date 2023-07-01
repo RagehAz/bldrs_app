@@ -51,9 +51,9 @@ class MainLayoutStackWidgets extends StatelessWidget {
   // final bool loading;
   final ScrollController? appBarScrollController;
   final TextEditingController? searchController;
-  final ValueChanged<String>? onSearchSubmit;
-  final ValueChanged<String>? onPaste;
-  final ValueChanged<String>? onSearchChanged;
+  final ValueChanged<String?>? onSearchSubmit;
+  final ValueChanged<String?>? onPaste;
+  final ValueChanged<String?>? onSearchChanged;
   final bool pyramidsAreOn;
   final bool searchButtonIsOn;
   final bool sectionButtonIsOn;
@@ -67,7 +67,7 @@ class MainLayoutStackWidgets extends StatelessWidget {
   final ConfirmButtonModel? confirmButtonModel;
   final bool listenToHideLayout;
   final GlobalKey? globalKey;
-  final ValueNotifier<bool>? filtersAreOn;
+  final ValueNotifier<bool?>? filtersAreOn;
   final Widget? filters;
   /// --------------------------------------------------------------------------
   PyramidType _concludePyramidTypePerSkyType(){

@@ -7,8 +7,6 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/provider/flyers_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
 

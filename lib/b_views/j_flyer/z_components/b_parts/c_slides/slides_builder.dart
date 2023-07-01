@@ -39,16 +39,16 @@ class SlidesBuilder extends StatelessWidget {
   final double flyerBoxWidth;
   final double flyerBoxHeight;
   final bool tinyMode;
-  final FlyerModel flyerModel;
+  final FlyerModel? flyerModel;
   final PageController horizontalController;
   final ValueChanged<int> onSwipeSlide;
   final Function onSlideNextTap;
   final Function onSlideBackTap;
   final Function onDoubleTap;
-  final ValueNotifier<ProgressBarModel> progressBarModel;
+  final ValueNotifier<ProgressBarModel?> progressBarModel;
   final String heroTag;
   final FlightDirection flightDirection;
-  final Function onHorizontalExit;
+  final Function? onHorizontalExit;
   final bool canTapSlides;
   final bool showSlidesShadows;
   final bool showSlidesBlurLayers;
@@ -81,7 +81,7 @@ class SlidesBuilder extends StatelessWidget {
 
     if (Mapper.checkCanLoopList(flyerModel?.slides) == true){
 
-      final int _realNumberOfSlide = flyerModel.slides.length;
+      final int _realNumberOfSlide = flyerModel?.slides?.length ?? 0;
       final int _numberOfStrips = concludeNumberOfPages();
 
       return HorizontalBouncer(
@@ -101,7 +101,7 @@ class SlidesBuilder extends StatelessWidget {
             /// WHEN AT FLYER REAL SLIDES
             if (index < _realNumberOfSlide){
 
-              final SlideModel _slide = flyerModel.slides[index];
+              final SlideModel _slide = flyerModel!.slides![index];
 
               return SingleSlide(
                 key: const ValueKey<String>('SingleSlide'),
@@ -132,10 +132,10 @@ class SlidesBuilder extends StatelessWidget {
               return GallerySlide(
                 flyerBoxWidth: flyerBoxWidth,
                 flyerBoxHeight: flyerBoxHeight,
-                flyerModel: flyerModel,
-                bzModel: flyerModel.bzModel,
+                flyerModel: flyerModel!,
+                bzModel: flyerModel!.bzModel!,
                 heroTag: heroTag,
-                onMaxBounce: onHorizontalExit,
+                onMaxBounce: onHorizontalExit!,
               );
             }
 

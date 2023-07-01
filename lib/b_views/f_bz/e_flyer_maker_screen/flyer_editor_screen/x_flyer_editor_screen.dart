@@ -626,7 +626,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                       formKey: _draft.formKey!,
                       existingPDF: _draft.pdfModel!,
                       canValidate: _canValidate,
-                      onChangePDF: (PDFModel pdf) => onChangeFlyerPDF(
+                      onChangePDF: (PDFModel? pdf) => onChangeFlyerPDF(
                         draftNotifier: draftNotifier,
                         pdfModel: pdf,
                         mounted: mounted,

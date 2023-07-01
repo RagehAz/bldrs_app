@@ -3,7 +3,6 @@ import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:fire/super_fire.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class PDFStorageOps {
   // -----------------------------------------------------------------------------

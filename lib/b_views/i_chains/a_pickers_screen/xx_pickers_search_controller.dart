@@ -6,7 +6,6 @@ import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:provider/provider.dart';
@@ -19,16 +18,16 @@ import 'package:basics/helpers/classes/strings/stringer.dart';
 /// TESTED : WORKS PERFECT
 Future<void> onChainsSearchChanged({
   required BuildContext context,
-  required String text,
+  required String? text,
   required ValueNotifier<bool> isSearching,
   required ValueNotifier<List<Chain>> foundChains,
-  required ValueNotifier<String> searchText,
+  required ValueNotifier<String?> searchText,
   required List<String> phidsOfAllPickers,
-  required List<Chain> chains,
+  required List<Chain>? chains,
   required bool mounted,
 }) async {
 
-  blog('drawer receives text : $text : Length ${text.length}: isSearching : ${isSearching.value}');
+  blog('drawer receives text : $text : Length ${text?.length}: isSearching : ${isSearching.value}');
 
   TextCheck.triggerIsSearchingNotifier(
     text: text,
@@ -59,12 +58,12 @@ Future<void> onChainsSearchChanged({
 /// TESTED : WORKS PERFECT
 Future<void> onSearchChains({
   required BuildContext context,
-  required String text,
+  required String? text,
   required ValueNotifier<bool> isSearching,
   required ValueNotifier<List<Chain>> foundChains,
-  required ValueNotifier<String> searchText,
+  required ValueNotifier<String?> searchText,
   required List<String> phidsOfAllPickers,
-  required List<Chain> chains,
+  required List<Chain>? chains,
   required bool mounted,
 }) async {
 
@@ -113,7 +112,7 @@ Future<void> onSearchChains({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<List<String>> _searchKeywordsPhrases({
-  required String text,
+  required String? text,
   required List<String> phidsOfAllPickers,
 }) async {
 

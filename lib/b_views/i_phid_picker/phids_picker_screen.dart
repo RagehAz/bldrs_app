@@ -36,11 +36,11 @@ class PhidsPickerScreen extends StatefulWidget {
     super.key
   });
   // -----------------------------------------------------------------------------
-  final List<String> selectedPhids;
+  final List<String>? selectedPhids;
   /// RETURNS <String>[] if is multiple selection mode, and returns String if not
   final bool multipleSelectionMode;
   /// SHOWS flyer in the corner widget maximizer showing selected keywords,
-  final FlyerModel flyerModel;
+  final FlyerModel? flyerModel;
 
   final List<String> chainsIDs;
   final bool onlyUseZoneChains;
@@ -223,7 +223,9 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
 
     final List<NavModel> _output = [];
 
-    for (final Chain _chain in _chains){
+    if (Mapper.checkCanLoopList(_chains) == true){
+
+      for (final Chain _chain in _chains!){
 
       final NavModel _navModel = NavModel(
         id: _chain.id,
@@ -234,7 +236,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
           chain: _chain,
           searchText: _searchText,
           selectedPhidsNotifier: _selectedPhidsNotifier,
-          onPhidTap: (String path, String phid) => _onPhidTap(
+          onPhidTap: (String? path, String? phid) => _onPhidTap(
             path: path,
             phid: phid,
             autoScroll: true,
@@ -245,6 +247,10 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
       _output.add(_navModel);
 
     }
+
+    }
+
+
 
     setState(() {
       _navModels = _output;
@@ -257,7 +263,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _onSearchSubmit(String text) async {
+  Future<void> _onSearchSubmit(String? text) async {
 
     await onChainsSearchChanged(
       context: context,
@@ -286,8 +292,8 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onPhidTap({
-    required String path,
-    required String phid,
+    required String? path,
+    required String? phid,
     required bool autoScroll,
   }) async {
 
@@ -311,7 +317,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
   // --------------------
   ///
   Future<void> _singleSelectionModeTap({
-  required String phid,
+  required String? phid,
 }) async {
 
     await Nav.goBack(
@@ -323,8 +329,8 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _multipleSelectionModeTap({
-    required String path,
-    required String phid,
+    required String? path,
+    required String? phid,
     required bool autoScroll,
   }) async {
 
@@ -335,7 +341,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
 
     final int _oldLength = _selectedPhidsNotifier.value.length;
     final int _newLength = _selectedPhids.length;
-    final int _selectedPhidIndex = _selectedPhidsNotifier.value.indexOf(phid);
+    final int _selectedPhidIndex = phid == null ? -1 : _selectedPhidsNotifier.value.indexOf(phid);
 
     setNotifier(
         notifier: _selectedPhidsNotifier,
@@ -454,7 +460,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
         height: Scale.screenHeight(context),
         child: ValueListenableBuilder(
           valueListenable: _foundChains,
-          builder: (BuildContext context, List<Chain> foundChains, Widget child) {
+          builder: (BuildContext context, List<Chain>? foundChains, Widget? child) {
 
             if (Mapper.checkCanLoopList(foundChains) == true){
               return PhidsBuilderPage(
@@ -464,7 +470,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
                 ),
                 searchText: _searchText,
                 selectedPhidsNotifier: _selectedPhidsNotifier,
-                onPhidTap: (String path, String phid) => _onPhidTap(
+                onPhidTap: (String? path, String? phid) => _onPhidTap(
                   path: path,
                   phid: phid,
                   autoScroll: true,
@@ -501,12 +507,12 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
         /// SELECTED PHIDS PANEL
         child: ValueListenableBuilder(
           valueListenable: _selectedPhidsNotifier,
-          builder: (BuildContext context, List<String> selectedPhids, Widget child) {
+          builder: (BuildContext context, List<String>? selectedPhids, Widget? child) {
 
-            final String _selectedKeywords = Verse.transBake('phid_selected_keywords');
+            final String? _selectedKeywords = Verse.transBake('phid_selected_keywords');
 
             final Verse _verse = Verse(
-              id: '(${selectedPhids.length}) $_selectedKeywords',
+              id: '(${selectedPhids?.length}) $_selectedKeywords',
               translate: false,
             );
 

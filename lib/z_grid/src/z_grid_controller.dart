@@ -145,8 +145,8 @@ class ZGridController {
     required BuildContext context,
     required int itemIndex,
     required bool mounted,
-    required Function onZoomInStart,
-    required Function onZoomInEnd,
+    required Function? onZoomInStart,
+    required Function? onZoomInEnd,
     required ZGridController zGridController,
     required ZGridScale gridScale,
   }) async {
@@ -204,8 +204,8 @@ class ZGridController {
   // --------------------
   static Future<void> zoomOut({
     required bool mounted,
-    required  Function onZoomOutStart,
-    required  Function onZoomOutEnd,
+    required  Function? onZoomOutStart,
+    required  Function? onZoomOutEnd,
     required ZGridController zGridController,
   }) async {
 
@@ -238,8 +238,8 @@ class ZGridController {
   }
   // --------------------
   static Future<void> onDismissBigItem({
-    required Function onZoomOutStart,
-    required Function onZoomOutEnd,
+    required Function? onZoomOutStart,
+    required Function? onZoomOutEnd,
     required bool mounted,
     required ZGridController zGridController,
   }) async {

@@ -1,3 +1,4 @@
+// ignore_for_file: unused_element
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/layouts/handlers/pull_to_refresh.dart';

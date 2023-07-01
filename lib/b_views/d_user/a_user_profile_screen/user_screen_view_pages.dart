@@ -14,7 +14,7 @@ class UserScreenViewPages extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final TabController tabController;
-  final UserModel userModel;
+  final UserModel? userModel;
   /// --------------------------------------------------------------------------
   static const List<Widget> pages = <Widget>[
 

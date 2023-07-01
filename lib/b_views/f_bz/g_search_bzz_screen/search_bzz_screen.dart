@@ -11,14 +11,12 @@ import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/c_protocols/bz_protocols/fire/bz_search.dart';
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 
 Future<void> onSearchBzz({
-  required String text,
-  required ValueNotifier<List<BzModel>> foundBzz,
+  required String? text,
+  required ValueNotifier<List<BzModel>?> foundBzz,
   required ValueNotifier<List<BzModel>> historyBzz,
   required ValueNotifier<bool> isSearching,
   required ValueNotifier<bool> loading,
@@ -47,7 +45,7 @@ Future<void> onSearchBzz({
 
     setNotifier(notifier: loading, mounted: mounted, value: true);
 
-    final String _fixedText = TextMod.fixSearchText(text);
+    final String? _fixedText = TextMod.fixSearchText(text);
 
     final List<BzModel> _bzz = await BzSearch.paginateBzzBySearchingBzName(
       bzName: _fixedText,
@@ -82,8 +80,8 @@ class SearchBzzScreen extends StatefulWidget {
   });
   /// --------------------------------------------------------------------------
   final bool multipleSelection;
-  final List<BzModel> selectedBzz;
-  final ValueChanged<BzModel> onBzTap;
+  final List<BzModel>? selectedBzz;
+  final ValueChanged<BzModel>? onBzTap;
   /// --------------------------------------------------------------------------
   @override
   _SearchBzzScreenState createState() => _SearchBzzScreenState();
@@ -92,7 +90,7 @@ class SearchBzzScreen extends StatefulWidget {
 
 class _SearchBzzScreenState extends State<SearchBzzScreen> {
   // -----------------------------------------------------------------------------
-  final ValueNotifier<List<BzModel>> _foundBzz = ValueNotifier(null);
+  final ValueNotifier<List<BzModel>?> _foundBzz = ValueNotifier(null);
   final ValueNotifier<List<BzModel>> _historyBzz = ValueNotifier(<BzModel>[]);
   final ValueNotifier<List<BzModel>> _selectedBzz = ValueNotifier(<BzModel>[]);
   final ValueNotifier<bool> _isSearching = ValueNotifier(false);
@@ -153,7 +151,7 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
-  Future<void> _onSearch(String text) async {
+  Future<void> _onSearch(String? text) async {
 
     await onSearchBzz(
       text: text,
@@ -200,7 +198,7 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
 
     /// WHEN FUNCTION IS EXTERNALLY PASSED
     else {
-      widget.onBzTap(bzModel);
+      widget.onBzTap?.call(bzModel);
     }
 
   }

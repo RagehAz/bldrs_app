@@ -60,7 +60,7 @@ class BldrsText extends StatelessWidget {
   final Color? labelColor;
   final Function? onTap;
   final bool leadingDot;
-  final bool redDot;
+  final bool? redDot;
   final bool strikeThrough;
   final ValueNotifier<dynamic>? highlight;
   final Color highlightColor;
@@ -553,7 +553,7 @@ class BldrsText extends StatelessWidget {
       // lineColor: lineColor,
       // lineThickness: lineThickness,
       leadingDot: leadingDot,
-      redDot: redDot,
+      redDot: redDot ?? false,
       centered: centered,
       textDirection: textDirection ?? UiProvider.getAppTextDir(),
       appIsLTR: UiProvider.checkAppIsLeftToRight(),

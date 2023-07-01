@@ -61,7 +61,7 @@ class FlyerPosterCreatorBubble extends StatelessWidget {
             posterType: PosterType.flyer,
             width: Bubble.clearWidth(context: context),
             model: draft,
-            modelHelper: draft.bzModel,
+            modelHelper: draft?.bzModel,
           ),
         ),
 
@@ -77,8 +77,7 @@ Future<void> testPoster({
   required DraftFlyer draft,
 }) async {
 
-  final Uint8List _bytes = await PosterDisplay.capturePoster(
-    context: context,
+  final Uint8List? _bytes = await PosterDisplay.capturePoster(
     posterType: PosterType.flyer,
     model: draft,
     helperModel: draft.bzModel,
@@ -86,8 +85,8 @@ Future<void> testPoster({
   );
 
   final Dimensions? _dims = await Dimensions.superDimensions(_bytes);
-  final double? _mega = Filers.calculateSize(_bytes.length, FileSizeUnit.megaByte);
-  final double? _kilo = Filers.calculateSize(_bytes.length, FileSizeUnit.kiloByte);
+  final double? _mega = Filers.calculateSize(_bytes?.length, FileSizeUnit.megaByte);
+  final double? _kilo = Filers.calculateSize(_bytes?.length, FileSizeUnit.kiloByte);
 
   final PicModel _posterPicModel = PicModel(
     bytes: _bytes,
@@ -103,7 +102,7 @@ Future<void> testPoster({
   );
 
   await BottomDialog.showBottomDialog(
-    height: _posterPicModel.meta.height + 50,
+    height: (_posterPicModel.meta?.height ?? 0) + 50,
     child: Column(
       children: <Widget>[
 
@@ -117,8 +116,8 @@ Future<void> testPoster({
         /// POSTER
         BldrsImage(
           pic: _bytes,
-          height: _posterPicModel.meta.height,
-          width: _posterPicModel.meta.width,
+          height: _posterPicModel.meta?.height,
+          width: _posterPicModel.meta?.width,
           corners: BldrsAppBar.corners,
         ),
 

@@ -767,7 +767,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                         canValidate: draft?.canValidate,
                         isRequired: false,
                       ),
-                      textOnChanged: (String text) => onChangeBzContact(
+                      textOnChanged: (String? text) => onChangeBzContact(
                         contactType: ContactType.phone,
                         value: text,
                         draftNotifier: draftNotifier,
@@ -804,7 +804,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                         contacts: draft?.contacts,
                         canValidate: draft?.canValidate,
                       ),
-                      textOnChanged: (String text) => onChangeBzContact(
+                      textOnChanged: (String? text) => onChangeBzContact(
                         contactType: ContactType.email,
                         value: text,
                         draftNotifier: draftNotifier,
@@ -839,7 +839,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                         contacts: draft?.contacts,
                         canValidate: draft?.canValidate,
                       ),
-                      textOnChanged: (String text) => onChangeBzContact(
+                      textOnChanged: (String? text) => onChangeBzContact(
                         contactType: ContactType.website,
                         value: text,
                         draftNotifier: draftNotifier,

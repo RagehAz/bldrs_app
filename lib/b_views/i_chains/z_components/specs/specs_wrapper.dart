@@ -27,16 +27,16 @@ class SpecsWrapper extends StatelessWidget {
   final double boxWidth;
   final List<SpecModel> specs;
   final bool xIsOn;
-  final PickerModel picker;
+  final PickerModel? picker;
   final dynamic padding;
-  final Function({SpecModel value, SpecModel unit}) onDeleteSpec;
-  final Function({SpecModel value, SpecModel unit}) onSpecTap;
-  final ValueNotifier<String> searchText;
+  final Function({required SpecModel? value, required SpecModel? unit})? onDeleteSpec;
+  final Function({required SpecModel? value, required SpecModel? unit})? onSpecTap;
+  final ValueNotifier<String?>? searchText;
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool combineTheTwoSpecs({
     required List<SpecModel> specs,
-    required PickerModel picker,
+    required PickerModel? picker,
   }){
     bool _combine = false;
 
@@ -47,13 +47,13 @@ class SpecsWrapper extends StatelessWidget {
 
       _first.blogSpec();
       _second.blogSpec();
-      picker.blogPicker();
+      picker?.blogPicker();
 
-      final bool _firstSpecIsChainID = picker.chainID == _first.pickerChainID;
-      final bool _secondSpecIsChainID = picker.chainID == _second.pickerChainID;
+      final bool _firstSpecIsChainID = picker?.chainID == _first.pickerChainID;
+      final bool _secondSpecIsChainID = picker?.chainID == _second.pickerChainID;
 
-      final bool _firstChainIsUnitChainID = picker.unitChainID == _first.pickerChainID;
-      final bool _secondSpecIsUnitChainID = picker.unitChainID == _second.pickerChainID;
+      final bool _firstChainIsUnitChainID = picker?.unitChainID == _first.pickerChainID;
+      final bool _secondSpecIsUnitChainID = picker?.unitChainID == _second.pickerChainID;
 
       /// FIRST IS CHAIN ID + SECOND IS UNIT CHAIN ID
       if ( _firstSpecIsChainID == true && _secondSpecIsUnitChainID == true){
@@ -71,33 +71,33 @@ class SpecsWrapper extends StatelessWidget {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static SpecModel? getValueSpec(PickerModel picker, List<SpecModel>? specs){
+  static SpecModel? getValueSpec(PickerModel? picker, List<SpecModel>? specs){
 
-    return specs?.firstWhereOrNull((element) => element.pickerChainID == picker.chainID);
+    return specs?.firstWhereOrNull((element) => element.pickerChainID == picker?.chainID);
 
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static SpecModel? getUnitSpec(PickerModel picker, List<SpecModel>? specs){
-    return specs?.firstWhereOrNull((element) => element.pickerChainID == picker.unitChainID);
+  static SpecModel? getUnitSpec(PickerModel? picker, List<SpecModel>? specs){
+    return specs?.firstWhereOrNull((element) => element.pickerChainID == picker?.unitChainID);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Verse _getCombinedSpecsVerse({
+  static Verse? _getCombinedSpecsVerse({
     required BuildContext context,
     required List<SpecModel> specs,
-    required PickerModel picker,
+    required PickerModel? picker,
   }){
 
-    Verse _verse;
+    Verse? _verse;
 
     if (Mapper.checkCanLoopList(specs) == true && specs.length == 2){
 
-      final SpecModel _value = getValueSpec(picker, specs);
-      final SpecModel _unit = getUnitSpec(picker, specs);
+      final SpecModel? _value = getValueSpec(picker, specs);
+      final SpecModel? _unit = getUnitSpec(picker, specs);
 
       _verse = Verse(
-        id: '${_value.value} ${xPhrase(_unit.value)}',
+        id: '${_value?.value} ${xPhrase(_unit?.value)}',
         translate: false,
       );
 
@@ -135,8 +135,8 @@ class SpecsWrapper extends StatelessWidget {
                       id: Phider.removeIndexFromPhid(phid: _spec.value.toString()),
                       translate: true,
                     ),
-                    onTap: () => onSpecTap(value: _spec, unit: null),
-                    onXTap: () => onDeleteSpec(value: _spec, unit: null),
+                    onTap: () => onSpecTap?.call(value: _spec, unit: null),
+                    onXTap: () => onDeleteSpec?.call(value: _spec, unit: null),
                   );
 
                 }),
@@ -150,11 +150,11 @@ class SpecsWrapper extends StatelessWidget {
                 picker: picker,
                 specs: specs,
               ),
-              onTap: () => onSpecTap(
+              onTap: () => onSpecTap?.call(
                   value: getValueSpec(picker, specs),
                   unit: getUnitSpec(picker, specs)
               ),
-              onXTap: () => onDeleteSpec(
+              onXTap: () => onDeleteSpec?.call(
                   value: getValueSpec(picker, specs),
                   unit: getUnitSpec(picker, specs)
               ),

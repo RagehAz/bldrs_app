@@ -24,9 +24,9 @@ class FloatingDialog extends StatefulWidget {
   final Verse titleVerse;
   final List<String> list;
   final bool fieldIsRequired;
-  final String actionBtIcon;
-  final Color actionBtColor;
-  final Function actionBtFunction;
+  final String? actionBtIcon;
+  final Color? actionBtColor;
+  final Function? actionBtFunction;
   /// --------------------------------------------------------------------------
   @override
   _FloatingDialogState createState() => _FloatingDialogState();
@@ -35,7 +35,7 @@ class FloatingDialog extends StatefulWidget {
 
 class _FloatingDialogState extends State<FloatingDialog> {
 
-  int selectedIndex;
+  int? selectedIndex;
 
   @override
   Widget build(BuildContext context) {
