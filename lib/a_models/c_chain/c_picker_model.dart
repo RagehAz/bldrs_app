@@ -743,7 +743,7 @@ class PickerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<PickerModel> applyBlockersAndSort({
-    required List<PickerModel> sourcePickers,
+    required List<PickerModel>? sourcePickers,
     required List<SpecModel>? selectedSpecs,
     required bool sort,
   }) {
@@ -753,7 +753,7 @@ class PickerModel {
       final List<String> _allPickersIDsToBlock = <String>[];
 
       /// GET BLOCKED PICKERS
-      for (final PickerModel picker in sourcePickers) {
+      for (final PickerModel picker in sourcePickers!) {
 
         final List<PickersBlocker>? _blockers = picker.blockers;
 

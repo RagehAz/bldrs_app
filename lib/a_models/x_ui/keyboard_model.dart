@@ -45,7 +45,7 @@ class KeyboardModel {
   final Function? onEditingComplete;
   final bool? isFloatingField;
   final GlobalKey<FormState>? globalKey;
-  final String Function(String? text)? validator;
+  final String? Function(String? text)? validator;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -71,7 +71,7 @@ class KeyboardModel {
     Function? onEditingComplete,
     bool? isFloatingField,
     GlobalKey<FormState>? globalKey,
-    String Function(String? text)? validator,
+    String? Function(String? text)? validator,
   }){
     return KeyboardModel(
       titleVerse: titleVerse ?? this.titleVerse,

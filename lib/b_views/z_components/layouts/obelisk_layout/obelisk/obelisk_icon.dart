@@ -48,7 +48,7 @@ class ObeliskIcon extends StatelessWidget {
                 width: Obelisk.circleWidth,
                 color: Colorz.nothing,
                 alignment: Alignment.centerLeft,
-                child: Selector<NotesProvider, int>(
+                child: Selector<NotesProvider, int?>(
                   selector: (_, NotesProvider notesProvider){
 
                     final List<MapModel> _mapModels = notesProvider.obeliskBadges;
@@ -60,7 +60,7 @@ class ObeliskIcon extends StatelessWidget {
 
                     return _mapModel?.value;
                   },
-                  shouldRebuild: (int last, int next){
+                  shouldRebuild: (int? last, int? next){
                     return last != next;
                   },
                   builder: (_, int? count, Widget? child){

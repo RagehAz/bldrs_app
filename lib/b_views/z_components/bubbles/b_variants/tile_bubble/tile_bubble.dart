@@ -38,7 +38,7 @@ class BldrsTileBubble extends StatelessWidget {
   final List<Verse>? bulletPoints;
   final int bulletPointsMaxLines;
   final Color bubbleColor;
-  final String Function()? validator;
+  final String? Function()? validator;
   final bool autoValidate;
   /// --------------------------------------------------------------------------
   // static const double iconBoxWidth = 30; /// delete me 5alas (im in BubbleHeader class)

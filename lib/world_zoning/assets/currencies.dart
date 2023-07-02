@@ -2,6 +2,6 @@ part of world_zoning;
 
 class BldrsThemeCurrencies {
   // -----------------------------------------------------------------------------
-  static const String currenciesFilePath = 'packages/bldrs_theme/lib/assets/planet/currencies.json';
+  static const String currenciesFilePath = 'packages/basics/lib/bldrs_theme/assets/planet/currencies.json';
   // -----------------------------------------------------------------------------
 }

@@ -17,7 +17,7 @@ class PickerLDBOps{
   /// TESTED : WORKS PERFECT
   static Future<void> insertPickers({
     required List<PickerModel> pickers,
-    required FlyerType flyerType,
+    required FlyerType? flyerType,
   }) async {
 
     if (Mapper.checkCanLoopList(pickers) == true) {

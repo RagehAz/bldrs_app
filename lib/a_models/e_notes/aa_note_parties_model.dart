@@ -160,7 +160,7 @@ class NoteParties {
   /// TESTED : WORKS PERFECT
   static List<String> getReceiversIDs({
     required List<dynamic>? receiversModels,
-    required PartyType partyType,
+    required PartyType? partyType,
   }){
     List<String> _ids = [];
 
@@ -182,7 +182,7 @@ class NoteParties {
   /// TESTED : WORKS PERFECT
   static List<String> getReceiversPics({
     required List<dynamic>? receiversModels,
-    required PartyType partyType,
+    required PartyType? partyType,
   }){
     List<String> _pics = [];
 

@@ -89,8 +89,8 @@ class SearchRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> delete({
-    required String userID,
-    required String modelID,
+    required String? userID,
+    required String? modelID,
   }) async {
 
     await Real.deletePath(

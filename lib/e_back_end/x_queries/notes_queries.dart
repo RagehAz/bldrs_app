@@ -137,7 +137,7 @@ FireQueryModel userNotesWithPendingRepliesQueryModel() {
 // --------------------
 FireQueryModel allNotesPaginationQueryModel({
   required PartyType receiverPartyType,
-  required String receiverID,
+  required String? receiverID,
 }){
 
  return FireQueryModel(

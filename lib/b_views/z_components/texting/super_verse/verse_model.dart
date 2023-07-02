@@ -86,7 +86,7 @@ class Verse {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Verse trans(String phid){
+  static Verse trans(String? phid){
     return Verse(
       id: phid,
       translate: true,
@@ -95,7 +95,7 @@ class Verse {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Verse> createVerses({
-    required List<String> strings,
+    required List<String?>? strings,
     required bool translate,
     Casing? casing,
   }){
@@ -103,15 +103,19 @@ class Verse {
 
     if (Mapper.checkCanLoopList(strings) == true){
 
-      for (final String string in strings){
+      for (final String? string in strings!){
 
-        final Verse _verse = Verse(
-          id: string,
-          translate: translate,
-          casing: casing,
-        );
+        if (string != null){
 
-        _output.add(_verse);
+          final Verse _verse = Verse(
+            id: string,
+            translate: translate,
+            casing: casing,
+          );
+
+          _output.add(_verse);
+
+        }
 
       }
 

@@ -453,9 +453,9 @@ class Dialogs {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<String> showPasswordDialog() async {
+  static Future<String?> showPasswordDialog() async {
 
-    final String _password = await Nav.goToNewScreen(
+    final String? _password = await Nav.goToNewScreen(
         context: getMainContext(),
         screen: const PasswordScreen(),
     );

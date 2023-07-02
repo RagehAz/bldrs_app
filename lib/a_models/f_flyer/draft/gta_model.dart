@@ -240,7 +240,7 @@ class GtaModel {
   /// TESTED : WORKS PERFECT
   static Future<DraftFlyer?> createDraftFlyerByGtaProduct({
     required GtaModel? gtaModel,
-    required BzModel bzModel,
+    required BzModel? bzModel,
     required FlyerType flyerType,
   }) async {
     DraftFlyer? _output;
@@ -264,9 +264,9 @@ class GtaModel {
         auditState: AuditState.verified,
         phids: const <String>[],
         showsAuthor: false,
-        zone: bzModel.zone,
+        zone: bzModel?.zone,
         authorID: Authing.getUserID(),
-        bzID: bzModel.id,
+        bzID: bzModel?.id,
         position: null,
         draftSlides: await createDraftSlidesByGtaProduct(
           product: gtaModel,

@@ -2,6 +2,7 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/x_flyer_editor_screen.dart';
@@ -39,7 +40,7 @@ class AddFlyerButton extends StatelessWidget {
         oldFlyer: null,
       );
 
-      final bool _result = await Nav.goToNewScreen(
+      final bool? _result = await Nav.goToNewScreen(
         context: context,
         screen: NewFlyerEditorScreen(
           draftFlyer: _draft,
@@ -55,7 +56,7 @@ class AddFlyerButton extends StatelessWidget {
         ),
       );
 
-      if (_result == true) {
+      if (Mapper.boolIsTrue(_result) == true) {
         await TopDialog.showTopDialog(
           firstVerse: const Verse(
             id: 'phid_flyer_has_been_published',

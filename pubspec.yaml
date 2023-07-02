@@ -42,14 +42,20 @@ dependencies:
   # ------------------------------------
   # FOR PUBLISHING
   basics:
-    git:
-      url: https://github.com/RagehAz/basics.git
+    path: D:/projects/packages/helpers/basics
+#    git:
+#      url: https://github.com/RagehAz/basics.git
+  # ------------------------------------
   mediators:
-    git:
-      url: https://github.com/RagehAz/mediators.git
+    path: D:/projects/packages/helpers/mediators
+#    git:
+#      url: https://github.com/RagehAz/mediators.git
+  # ------------------------------------
   fire:
-    git:
-      url: https://github.com/RagehAz/fire.git
+      path: D:/projects/packages/backend/fire
+#    git:
+#      url: https://github.com/RagehAz/fire.git
+  # ------------------------------------
   bldrs_keywords:
     git:
       url: https://github.com/RagehAz/bldrs_keywords.git
