@@ -49,7 +49,7 @@ class PhidsPickerScreen extends StatefulWidget {
   _TheStatefulScreenState createState() => _TheStatefulScreenState();
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<String> goPickPhid({
+  static Future<String?> goPickPhid({
     required BuildContext context,
     required FlyerType? flyerType,
     required ViewingEvent? event,
@@ -57,7 +57,7 @@ class PhidsPickerScreen extends StatefulWidget {
     List<String>? selectedPhids,
   }) async {
 
-    final String phid = await Nav.goToNewScreen(
+    final String? phid = await Nav.goToNewScreen(
       context: context,
       pageTransitionType: Nav.superHorizontalTransition(context: context),
       screen: PhidsPickerScreen(
@@ -84,7 +84,7 @@ class PhidsPickerScreen extends StatefulWidget {
     List<String>? selectedPhids,
   }) async {
 
-    final List<String> phids = await Nav.goToNewScreen(
+    final List<String>? phids = await Nav.goToNewScreen(
       context: context,
       pageTransitionType: Nav.superHorizontalTransition(context: context),
       screen: PhidsPickerScreen(
@@ -99,7 +99,7 @@ class PhidsPickerScreen extends StatefulWidget {
       ),
     );
 
-    return phids;
+    return phids ?? [];
   }
   // -----------------------------------------------------------------------------
 }

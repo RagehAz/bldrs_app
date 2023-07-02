@@ -24,11 +24,11 @@ class PosterDisplay extends StatelessWidget {
   final double width;
   final dynamic model;
   final dynamic modelHelper;
-  final PosterType posterType;
+  final PosterType? posterType;
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<Uint8List?> capturePoster({
-    required PosterType posterType,
+    required PosterType? posterType,
     required dynamic model,
     required dynamic helperModel,
     double? finalDesiredPicWidth,

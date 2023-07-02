@@ -220,7 +220,7 @@ class TopicModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> getTopicsMapByPartyType(PartyType type){
+  static Map<String, dynamic> getTopicsMapByPartyType(PartyType? type){
 
     if (type == PartyType.user){
       return TopicModel.userTopicMap;
@@ -320,9 +320,9 @@ class TopicModel {
   /// TESTED : WORKS PERFECT
   static Future<List<String>> getTopicSubscribersPics({
     required BuildContext context,
-    required String topicID,
+    required String? topicID,
     required List<dynamic>? receiversModels,
-    required PartyType receiversType,
+    required PartyType? receiversType,
   }) async {
 
     List<String> _output = <String>[];
@@ -350,7 +350,7 @@ class TopicModel {
   /// TESTED : WORKS PERFECT
   static Future<List<String>> _getAuthorsPicsSubscribedToTopic({
     required BuildContext context,
-    required String topicID,
+    required String? topicID,
     required List<BzModel>? bzzModels,
   }) async {
     final List<String> _output = <String>[];
@@ -393,7 +393,7 @@ class TopicModel {
   /// TESTED : WORKS PERFECT
   static Future<List<String>> _getUsersPicsSubscribedToTopic({
     required BuildContext context,
-    required String topicID,
+    required String? topicID,
     required List<UserModel> usersModels,
   }) async {
     final List<String> _output = <String>[];

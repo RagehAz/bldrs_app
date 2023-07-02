@@ -61,7 +61,7 @@ class BzModel{
   final bool? isVerified;
   final BzState? bzState;
   final List<String>? flyersIDs;
-  final DocumentSnapshot<Object>? docSnapshot;
+  final QueryDocumentSnapshot<Object?>? docSnapshot;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -88,7 +88,7 @@ class BzModel{
     bool? isVerified,
     BzState? bzState,
     List<String>? flyersIDs,
-    DocumentSnapshot<Object>? docSnapshot,
+    QueryDocumentSnapshot<Object>? docSnapshot,
   }){
 
     return BzModel(
@@ -587,13 +587,13 @@ class BzModel{
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogBzz({
-    required List<BzModel> bzz,
+    required List<BzModel>? bzz,
     String? invoker,
   }){
 
-    if (Mapper.checkCanLoopList(bzz)){
+    if (Mapper.checkCanLoopList(bzz) == true){
 
-      for (final BzModel bz in bzz){
+      for (final BzModel bz in bzz!){
         bz.blogBz(invoker: invoker);
       }
 

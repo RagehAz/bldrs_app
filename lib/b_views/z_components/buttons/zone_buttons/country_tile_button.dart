@@ -24,7 +24,7 @@ class CountryTileButton extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final Function onTap;
+  final Function? onTap;
   final Function? onDeactivatedTap;
   final String? countryID;
   final double? width;

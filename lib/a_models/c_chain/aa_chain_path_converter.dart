@@ -671,8 +671,8 @@ class ChainPathConverter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> findPathsStartingWith({
-    required List<Chain> chains,
-    required String startsWith,
+    required List<Chain>? chains,
+    required String? startsWith,
   }){
 
     /// NOTE : THIS GETS ALL PATHS THAT EXACTLY STARTS WITH THE GIVEN PATH

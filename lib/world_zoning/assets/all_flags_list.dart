@@ -3,7 +3,7 @@ part of world_zoning;
 /// AS WIDGETS USE (package: "bldrs_theme") no need to include
 /// packages/bldrs_theme/
 /// in the path
-const String _path = 'packages/bldrs_theme/lib/assets/icons/flags';
+const String _path = 'packages/basics/lib/bldrs_theme/assets/icons/flags';
 
 const List<Flag> allFlags = <Flag>[
 

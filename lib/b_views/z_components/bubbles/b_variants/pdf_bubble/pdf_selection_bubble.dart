@@ -39,8 +39,8 @@ class PDFSelectionBubble extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final AppBarType appBarType;
   final bool canValidate;
-  final String flyerID;
-  final String bzID;
+  final String? flyerID;
+  final String? bzID;
   /// --------------------------------------------------------------------------
   @override
   _PDFSelectionBubbleState createState() => _PDFSelectionBubbleState();

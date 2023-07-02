@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
@@ -141,7 +142,7 @@ Future<void> _onEditFlyerButtonTap({
     oldFlyer: flyer,
   );
 
-  final bool _result = await Nav.goToNewScreen(
+  final bool? _result = await Nav.goToNewScreen(
     context: context,
     screen: NewFlyerEditorScreen(
       draftFlyer: _draft,
@@ -159,7 +160,7 @@ Future<void> _onEditFlyerButtonTap({
     ),
   );
 
-  if (_result == true){
+  if (Mapper.boolIsTrue(_result) == true){
 
     await TopDialog.showTopDialog(
       firstVerse: const Verse(

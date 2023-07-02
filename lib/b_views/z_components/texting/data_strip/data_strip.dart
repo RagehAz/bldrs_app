@@ -26,7 +26,7 @@ class DataStrip extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final String dataKey;
+  final String? dataKey;
   final dynamic dataValue;
   final Color color;
   final Function? onKeyTap;
