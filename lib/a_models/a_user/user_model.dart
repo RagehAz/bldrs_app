@@ -84,7 +84,7 @@ class UserModel {
   final DeckModel? savedFlyers;
   final AgendaModel? followedBzz;
   final AppStateModel? appState;
-  final DocumentSnapshot? docSnapshot;
+  final QueryDocumentSnapshot<Object?>? docSnapshot;
    // -----------------------------------------------------------------------------
 
   /// CREATION

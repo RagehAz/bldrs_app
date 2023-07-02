@@ -19,7 +19,7 @@ class CountryPreviewBubble extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final String countryID;
+  final String? countryID;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

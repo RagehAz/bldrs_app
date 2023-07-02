@@ -33,7 +33,7 @@ class PhidButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double? width;
   final Color color;
-  final String phid; // phrase id
+  final String? phid; // phrase id
   final int? level;
   final bool isDisabled;
   final bool xIsOn;

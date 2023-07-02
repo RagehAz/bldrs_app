@@ -52,13 +52,13 @@ class SuperSearchScreen extends StatefulWidget {
 class _SuperSearchScreenState extends State<SuperSearchScreen> {
   // -----------------------------------------------------------------------------
   late PaginationController _flyersController;
-  late FireQueryModel _flyersQuery;
+  FireQueryModel? _flyersQuery;
   // --------------------
   late PaginationController _bzzController;
-  late FireQueryModel _bzzQuery;
+  FireQueryModel? _bzzQuery;
   // --------------------
   late PaginationController _usersController;
-  late FireQueryModel _usersQuery;
+  FireQueryModel? _usersQuery;
   // --------------------
   final TextEditingController _searchController = TextEditingController();
   final ValueNotifier<bool?> _filtersAreOn = ValueNotifier(null);

@@ -154,6 +154,8 @@ class Localizer {
     required String? langCode
   }) async {
 
+    Map<String, String>? _output;
+
     final String? _langFilePath = BldrsThemeLangs.getLangFilePath(
       langCode: langCode,
     );
@@ -162,11 +164,20 @@ class Localizer {
       return null;
     }
 
-    final String _jsonStringValues = await rootBundle.loadString(_langFilePath);
+    await tryAndCatch(
+      invoker: 'getJSONLangMap',
+      functions: () async {
 
-    final Map<String, dynamic> _mappedJson = json.decode(_jsonStringValues);
+        final String _jsonStringValues = await rootBundle.loadString(_langFilePath);
 
-    return _mappedJson.map((String key, value) => MapEntry(key, value.toString()));
+        final Map<String, dynamic> _mappedJson = json.decode(_jsonStringValues);
+
+        _output = _mappedJson.map((String key, value) => MapEntry(key, value.toString()));
+
+        },
+    );
+
+    return _output ?? {};
   }
   // --------------------
   /// TESTED : WORKS PERFECT

@@ -26,7 +26,7 @@ class SavedFlyersScreen extends StatefulWidget {
   /// --------------------
   static Future<FlyerModel?> pickFlyer() async {
 
-    final List<FlyerModel> _selectedFlyers = await Nav.goToNewScreen(
+    final List<FlyerModel>? _selectedFlyers = await Nav.goToNewScreen(
       context: getMainContext(),
       screen: const SavedFlyersScreen(
         selectionMode: true,
@@ -34,7 +34,7 @@ class SavedFlyersScreen extends StatefulWidget {
     );
 
     if (Mapper.checkCanLoopList(_selectedFlyers) == true){
-      return _selectedFlyers.first;
+      return _selectedFlyers!.first;
     }
     else {
       return null;
@@ -44,14 +44,14 @@ class SavedFlyersScreen extends StatefulWidget {
   /// --------------------
   static Future<List<FlyerModel>> pickFlyers() async {
 
-    final List<FlyerModel> _selectedFlyers = await Nav.goToNewScreen(
+    final List<FlyerModel>? _selectedFlyers = await Nav.goToNewScreen(
       context: getMainContext(),
       screen: const SavedFlyersScreen(
         selectionMode: true,
       ),
     );
 
-    return _selectedFlyers;
+    return _selectedFlyers ?? [];
 
   }
   /// --------------------------------------------------------------------------

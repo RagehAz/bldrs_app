@@ -32,13 +32,13 @@ class KeyboardScreen extends StatefulWidget {
   _KeyboardScreenState createState() => _KeyboardScreenState();
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<String> goToKeyboardScreen({
+  static Future<String?> goToKeyboardScreen({
     required BuildContext context,
     KeyboardModel? keyboardModel,
     Verse? screenTitleVerse,
   }) async {
 
-    final String _output = await Nav.goToNewScreen(
+    final String? _output = await Nav.goToNewScreen(
       context: context,
       screen: KeyboardScreen(
         keyboardModel: keyboardModel ?? KeyboardModel.standardModel(),

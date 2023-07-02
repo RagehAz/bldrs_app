@@ -17,7 +17,7 @@ class PosterSwitcher extends StatelessWidget {
   });
   /// --------------------------------------------------------------------------
   final double width;
-  final PosterType posterType;
+  final PosterType? posterType;
   final dynamic model;
   final dynamic modelHelper; // is a secondary model like bz for a flyer attachment and slides flyer for a bz attachment
   /// --------------------------------------------------------------------------

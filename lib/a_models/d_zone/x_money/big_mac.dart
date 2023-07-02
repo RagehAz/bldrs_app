@@ -175,8 +175,8 @@ class BigMac {
   // --------------------
   /// TASK : TEST ME
   static double getBigMacDollarPriceByISO3({
-    required String iso3,
-    required List<BigMac> bigMacs,
+    required String? iso3,
+    required List<BigMac>? bigMacs,
 }) {
     double _bigMacLocalPriceInUSD = 0;
 

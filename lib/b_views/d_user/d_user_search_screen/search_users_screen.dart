@@ -32,7 +32,7 @@ class SearchUsersScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   static Future<UserModel?> selectUser(BuildContext context) async {
 
-    final List<UserModel> _users = await Nav.goToNewScreen(
+    final List<UserModel>? _users = await Nav.goToNewScreen(
         context: context,
         screen: const SearchUsersScreen(
           userIDsToExcludeInSearch: [],
@@ -41,7 +41,7 @@ class SearchUsersScreen extends StatefulWidget {
     );
 
     if (Mapper.checkCanLoopList(_users) == true){
-      return _users.first;
+      return _users!.first;
     }
     else {
       return null;
