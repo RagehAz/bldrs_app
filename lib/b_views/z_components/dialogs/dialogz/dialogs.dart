@@ -807,7 +807,8 @@ class Dialogs {
   }) async {
 
     final BuildContext context = getMainContext();
-    final double _gridHeight = Scale.screenHeight(context) * 0.5;
+    final double _dialogHeight = Scale.screenHeight(context) - 30;
+    final double _gridHeight = _dialogHeight - 80;
 
     await CenterDialog.showCenterDialog(
       titleVerse: titleVerse,
@@ -816,7 +817,7 @@ class Dialogs {
         id: 'phid_cancel',
         translate: true,
       ),
-      height: Scale.screenHeight(context) * 0.7,
+      height: _dialogHeight,
       child: Container(
         width: CenterDialog.getWidth(context),
         height: _gridHeight,

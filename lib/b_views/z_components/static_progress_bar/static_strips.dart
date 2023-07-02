@@ -1,14 +1,12 @@
 import 'package:basics/animators/helpers/sliders.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_color.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/d_progress_bar/d_progress_box.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/static_strip.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-
-
 import 'package:flutter/material.dart';
-
 import 'package:basics/helpers/classes/space/scale.dart';
 
 class StaticStrips extends StatelessWidget {
@@ -135,8 +133,10 @@ class StaticStrips extends StatelessWidget {
   // -----------------------------------------------------------------------------
   Color _stripColorOverride(int index){
 
+    blog('stripsColors : $stripsColors}');
+
     if (Mapper.checkCanLoopList(stripsColors) == true){
-      return stripsColors![index];
+      return stripsColors![index]; // ?? Colorz.white10;
     }
 
     else {

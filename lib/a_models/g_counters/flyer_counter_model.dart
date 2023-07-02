@@ -15,11 +15,11 @@ class FlyerCounterModel {
     required this.reviews,
   });
   // -----------------------------------------------------------------------------
-  final String flyerID;
-  final int saves;
-  final int shares;
-  final int views;
-  final int reviews;
+  final String? flyerID;
+  final int? saves;
+  final int? shares;
+  final int? views;
+  final int? reviews;
   // -----------------------------------------------------------------------------
 
   /// INITIALIZATION

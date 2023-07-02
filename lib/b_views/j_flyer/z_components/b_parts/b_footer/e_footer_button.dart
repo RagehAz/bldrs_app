@@ -104,7 +104,7 @@ class FooterButton extends StatelessWidget {
                     icon!,
                       colorFilter: ColorFilter.mode(
                         _iconAndVerseColor,
-                        BlendMode.color,
+                        BlendMode.srcIn,
                       ),
                       // package: Iconz.bldrsTheme,
                       // fit: BoxFit.fitWidth,

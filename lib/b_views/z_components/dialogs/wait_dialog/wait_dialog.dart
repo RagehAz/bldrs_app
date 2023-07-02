@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -157,7 +158,14 @@ class WaitDialog extends StatelessWidget {
             Pyramids(
               pyramidType: PyramidType.crystalYellow,
               loading: true,
-              onPyramidTap: canManuallyGoBack == null ? null : () => Nav.goBack(context: context),
+              // onPyramidTap: canManuallyGoBack == null ? null : () => Nav.goBack(context: context),
+              onPyramidDoubleTap: () async {
+
+                if (Mapper.boolIsTrue(canManuallyGoBack) == true){
+                  await Nav.goBack(context: context);
+                }
+
+              },
             ),
 
           ],

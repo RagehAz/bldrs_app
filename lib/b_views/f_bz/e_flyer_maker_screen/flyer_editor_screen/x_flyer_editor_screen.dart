@@ -620,11 +620,11 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                     /// PDF SELECTOR
                     if (_draft != null && _draft.id != null)
                     PDFSelectionBubble(
-                      flyerID: _draft.id!,
-                      bzID: _draft.bzID!,
+                      flyerID: _draft.id,
+                      bzID: _draft.bzID,
                       appBarType: AppBarType.non,
-                      formKey: _draft.formKey!,
-                      existingPDF: _draft.pdfModel!,
+                      formKey: _draft.formKey,
+                      existingPDF: _draft.pdfModel,
                       canValidate: _canValidate,
                       onChangePDF: (PDFModel? pdf) => onChangeFlyerPDF(
                         draftNotifier: draftNotifier,
