@@ -61,7 +61,7 @@ class BzModel{
   final bool? isVerified;
   final BzState? bzState;
   final List<String>? flyersIDs;
-  final QueryDocumentSnapshot<Object?>? docSnapshot;
+  final dynamic docSnapshot;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -88,7 +88,7 @@ class BzModel{
     bool? isVerified,
     BzState? bzState,
     List<String>? flyersIDs,
-    QueryDocumentSnapshot<Object>? docSnapshot,
+    dynamic docSnapshot,
   }){
 
     return BzModel(

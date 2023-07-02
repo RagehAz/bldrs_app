@@ -49,7 +49,7 @@ class CityRealOps {
 
     if (countryID != null && cityID != null){
 
-      final Object _cityMap = await Real.readPath(
+      final Object? _cityMap = await Real.readPath(
         path: '${RealColl.zones}/${RealDoc.zones_cities}/$countryID/$cityID',
       );
 

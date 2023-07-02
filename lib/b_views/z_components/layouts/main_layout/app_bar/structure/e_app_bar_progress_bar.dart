@@ -46,6 +46,8 @@ class AppBarProgressBar extends StatelessWidget {
               valueListenable: progressBarModel!,
               builder: (_, ProgressBarModel? progressBarModel, Widget? childB){
 
+                blog('progressBarModel?.stripsColors : ${progressBarModel?.stripsColors}');
+
                 return StaticProgressBar(
                   index: progressBarModel?.index ?? 0,
                   numberOfSlides: progressBarModel?.numberOfStrips ?? 1,
@@ -55,7 +57,7 @@ class AppBarProgressBar extends StatelessWidget {
                   flyerBoxWidth: _abWidth,
                   margins: _margins,
                   stripThicknessFactor: 0.4,
-                  stripsColors: progressBarModel?.stripsColors ?? const [Colorz.white10],
+                  stripsColors: progressBarModel?.stripsColors,// ?? const [Colorz.white10],
                 );
 
               }

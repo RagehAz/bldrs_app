@@ -202,7 +202,7 @@ class UserBanner extends StatelessWidget {
           future: BzProtocols.fetchBzz(bzzIDs: userModel?.myBzzIDs),
           builder: (_, AsyncSnapshot snap){
 
-            final List<BzModel> _bzzModels = snap.data;
+            final List<BzModel>? _bzzModels = snap.data;
 
             return Wrap(
               alignment: WrapAlignment.center,
@@ -211,7 +211,7 @@ class UserBanner extends StatelessWidget {
               children: <Widget>[
 
                 if (Mapper.checkCanLoopList(_bzzModels) == true)
-                ...List.generate(_bzzModels.length, (index){
+                ...List.generate(_bzzModels!.length, (index){
 
                   final BzModel _bzModel = _bzzModels[index];
 

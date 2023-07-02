@@ -7,6 +7,7 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:collection/collection.dart';
 
 // final BzzProvider _bzzProvider = Provider.of<BzzProvider>(context, listen: false);
 class BzzProvider extends ChangeNotifier {
@@ -360,7 +361,7 @@ class BzzProvider extends ChangeNotifier {
         listen: false,
     );
 
-    final String? _id = _myUserModel?.followedBzz?.all?.firstWhere(
+    final String? _id = _myUserModel?.followedBzz?.all?.firstWhereOrNull(
           (String id) => id == bzID,
        );
 

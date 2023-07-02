@@ -24,7 +24,46 @@ class Words {
   static String newUpdateAvailable () => Localizer.translate('newUpdateAvailable')!;
   static String pleaseUpdateToContinue () => Localizer.translate('pleaseUpdateToContinue')!;
   static String updateApp () => Localizer.translate('updateApp')!;
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
+  static String pleaseWait(){
+
+    final String _langCode = Localizer.getCurrentLangCode();
+
+    if (_langCode == 'ar'){
+      return 'من فضلك انتظر';
+    }
+    else {
+      return 'Please wait';
+    }
+
+  }
+
+  static String thisIsBabyApp(){
+
+    final String _langCode = Localizer.getCurrentLangCode();
+
+    if (_langCode == 'ar'){
+      return '🤏 مازلت أقرأ البيانات، من فضلك أصبر قليلا';
+    }
+    else {
+      return 'Still loading, please be patient 🤏';
+    }
+
+  }
+
+  static String thankYouForWaiting(){
+
+      final String _langCode = Localizer.getCurrentLangCode();
+
+      if (_langCode == 'ar'){
+        return 'شكرا لصبرك 💛';
+      }
+      else {
+        return 'Thank you for waiting 💛';
+      }
+
+  }
+
 }
 
 // String xxx3 () => Localizer.translate('xxx3');

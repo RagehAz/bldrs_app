@@ -130,6 +130,11 @@ class ProgressBarModel {
     int? numberOfPages,
   }){
 
+    // blogProgressBarModel(
+    //   model: progressBarModel.value,
+    //   invoker: '_updateProgressBarNotifierOnIndexChanged BEGINNING -->',
+    // );
+
     final SwipeDirection _direction = Animators.getSwipeDirection(
       newIndex: newIndex,
       oldIndex: progressBarModel.value?.index,
@@ -150,7 +155,7 @@ class ProgressBarModel {
         &&
         progressBarModel.value?.stripsColors?.length != numberOfPages;
 
-    final int _numberOfPages = numberOfPages ?? progressBarModel.value?.stripsColors?.length ?? 0;
+    final int _numberOfPages = numberOfPages ?? progressBarModel.value?.numberOfStrips ?? 0;
 
     setNotifier(
         notifier: progressBarModel,
@@ -165,6 +170,11 @@ class ProgressBarModel {
           ) : progressBarModel.value?.stripsColors,
         ),
     );
+
+    // blogProgressBarModel(
+    //   model: progressBarModel.value,
+    //   invoker: '_updateProgressBarNotifierOnIndexChanged ENGINGGG -->',
+    // );
 
   }
   // --------------------------------------------------------------------------
@@ -211,6 +221,26 @@ class ProgressBarModel {
         stripsColors: _stripsColors,
       ),
     );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void blogProgressBarModel({
+    required ProgressBarModel? model,
+    required String invoker,
+  }){
+
+    if (model == null){
+      blog('blogProgressBarModel : $invoker : model is null');
+    }
+    else {
+      blog('blogProgressBarModel : $invoker : START');
+      blog('blogProgressModel : swipeDirection : ${model.swipeDirection}');
+      blog('blogProgressModel : index : ${model.index}');
+      blog('blogProgressModel : numberOfStrips : ${model.numberOfStrips}');
+      blog('blogProgressModel : stripsColors : ${model.stripsColors}');
+      blog('blogProgressBarModel : $invoker : END');
+    }
 
   }
   // --------------------------------------------------------------------------

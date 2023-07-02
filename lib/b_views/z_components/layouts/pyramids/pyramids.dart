@@ -1,7 +1,5 @@
 // ignore_for_file: unused_element
-
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:provider/provider.dart';
@@ -32,6 +30,7 @@ class Pyramids extends StatelessWidget {
     this.color,
     this.putInCorner = true,
     this.listenToHideLayout,
+    this.onPyramidDoubleTap,
     super.key
   });
   // --------------------------------------------------------------------------
@@ -41,6 +40,7 @@ class Pyramids extends StatelessWidget {
   final Color? color;
   final bool putInCorner;
   final bool? listenToHideLayout;
+  final void Function()? onPyramidDoubleTap;
   // --------------------------------------------------------------------------
   static const double verticalPositionFix = -0.2;
   // --------------------------------------------------------------------------
@@ -54,6 +54,7 @@ class Pyramids extends StatelessWidget {
       color: color,
       putInCorner: putInCorner,
       listenToHideLayout: listenToHideLayout,
+      onPyramidDoubleTap: onPyramidDoubleTap,
     );
     // --------------------
     if (putInCorner == true){
@@ -81,6 +82,7 @@ class _PyramidsSwitcher extends StatelessWidget {
     required this.color,
     required this.putInCorner,
     required this.listenToHideLayout,
+    required this.onPyramidDoubleTap,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -90,18 +92,20 @@ class _PyramidsSwitcher extends StatelessWidget {
   final Color? color;
   final bool putInCorner;
   final bool? listenToHideLayout;
+  final void Function()? onPyramidDoubleTap;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     if (listenToHideLayout == false){
       return _PyramidsWidgetTree(
-            pyramidType: pyramidType,
-            loading: loading,
-            onPyramidTap: onPyramidTap,
-            color: color,
-            putInCorner: putInCorner,
-          );
+        pyramidType: pyramidType,
+        loading: loading,
+        onPyramidTap: onPyramidTap,
+        color: color,
+        putInCorner: putInCorner,
+        onPyramidDoubleTap: onPyramidDoubleTap,
+      );
     }
 
     else {
@@ -127,6 +131,7 @@ class _PyramidsSwitcher extends StatelessWidget {
           onPyramidTap: onPyramidTap,
           color: color,
           putInCorner: putInCorner,
+          onPyramidDoubleTap: onPyramidDoubleTap,
         ),
       );
 
@@ -144,6 +149,7 @@ class _PyramidsWidgetTree extends StatelessWidget {
     required this.onPyramidTap,
     required this.color,
     required this.putInCorner,
+    required this.onPyramidDoubleTap,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -152,15 +158,14 @@ class _PyramidsWidgetTree extends StatelessWidget {
   final Function? onPyramidTap;
   final Color? color;
   final bool putInCorner;
+  final void Function()? onPyramidDoubleTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     return GestureDetector(
-        onTap: () => onPyramidTap?.call(),
-        onDoubleTap: (){
-          blog('Pyramids are double tapped');
-        },
+        // onTap: () => onPyramidTap?.call(),
+        onDoubleTap: onPyramidDoubleTap,
         child:
 
         loading is ValueNotifier<bool> ?

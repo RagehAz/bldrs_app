@@ -38,9 +38,9 @@ class FlyerCountersAndRecords extends StatelessWidget {
 
             // counter?.blogCounter();
 
-            final int _saves = counter.saves; // ?? 0;
-            final int _shares = counter.shares; // ?? 0;
-            final int _views = counter.views; // ?? 0;
+            final int _saves = counter.saves ?? 0;
+            final int _shares = counter.shares ?? 0;
+            final int _views = counter.views ?? 0;
 
             return Column(
               children: <Widget>[

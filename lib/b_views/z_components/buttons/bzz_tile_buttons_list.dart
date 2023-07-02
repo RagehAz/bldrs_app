@@ -1,5 +1,7 @@
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/bz_long_button.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
+import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
@@ -38,8 +40,8 @@ class BzzTilesButtonsList extends StatelessWidget {
                   height: Scale.screenHeight(context),
                   child: ListView.builder(
                     itemCount: foundBzz?.length ?? 0,
-                    physics: const NeverScrollableScrollPhysics(),
-                    // padding: EdgeInsets.zero, /// AGAIN => ENTA EBN WES5A
+                    physics: const BouncingScrollPhysics(),
+                    padding: Stratosphere.getStratosphereSandwich(context: context, appBarType: AppBarType.search),
                     itemBuilder: (_, index){
 
                       final BzModel _bzModel = foundBzz![index];
