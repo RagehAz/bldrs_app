@@ -36,7 +36,7 @@ class PDFSelectionBubble extends StatefulWidget {
   final ValueChanged<PDFModel?> onChangePDF;
   final Function onDeletePDF;
   final PDFModel? existingPDF;
-  final GlobalKey<FormState> formKey;
+  final GlobalKey<FormState>? formKey;
   final AppBarType appBarType;
   final bool canValidate;
   final String? flyerID;

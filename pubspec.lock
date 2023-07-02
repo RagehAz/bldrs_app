@@ -84,11 +84,9 @@ packages:
   basics:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "4e70b2a308b9e7b87b999164e862c7eb3852b627"
-      url: "https://github.com/RagehAz/basics.git"
-    source: git
+      path: "D:/projects/packages/helpers/basics"
+      relative: false
+    source: path
     version: "2.0.1"
   bldrs_keywords:
     dependency: "direct main"
@@ -1105,11 +1103,9 @@ packages:
   mediators:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "5de48368e5b89b875df7fd29f42d010386a0dc90"
-      url: "https://github.com/RagehAz/mediators.git"
-    source: git
+      path: "D:/projects/packages/helpers/mediators"
+      relative: false
+    source: path
     version: "2.0.0"
   meta:
     dependency: transitive
@@ -1524,6 +1520,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.0"
+  stop_watch_timer:
+    dependency: transitive
+    description:
+      name: stop_watch_timer
+      sha256: eb690e4f6d983ba12ddfbf51a5d489fdba8b64982b9651cb538650888cec2886
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   stream_channel:
     dependency: transitive
     description:

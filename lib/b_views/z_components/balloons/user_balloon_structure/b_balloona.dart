@@ -23,7 +23,7 @@ class Balloona extends StatelessWidget {
   final double size;
   final Function ?onTap;
   final dynamic pic;
-  final BalloonType balloonType;
+  final BalloonType? balloonType;
   final bool shadowIsOn;
   final Widget? child;
   final bool? loading;
@@ -33,7 +33,7 @@ class Balloona extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final CustomClipper<Path>? _clipper = Balloon.getBalloonClipPath(BalloonType.speaking); //balloonType) ;
+    final CustomClipper<Path>? _clipper = Balloon.getBalloonClipPath(balloonType) ;
 
     return ClipShadowPath(
       clipper: _clipper,

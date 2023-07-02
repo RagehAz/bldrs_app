@@ -528,7 +528,7 @@ class UiProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void proSetLoadingVerse({
-    required Verse verse,
+    required Verse? verse,
     bool notify = true,
   }){
 

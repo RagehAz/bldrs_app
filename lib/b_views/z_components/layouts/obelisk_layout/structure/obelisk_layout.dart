@@ -117,6 +117,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
             swipeDirection: SwipeDirection.next,
             index: widget.initialIndex,
             numberOfStrips: widget.navModels?.length ?? 1,
+
           ),
       );
 
