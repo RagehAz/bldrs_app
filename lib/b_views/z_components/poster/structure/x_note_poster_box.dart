@@ -22,7 +22,7 @@ class NotePosterBox extends StatelessWidget {
 
   // --------
   /// TESTED : WORKS PERFECT
-  static double getBoxHeight(double boxWidth){
+  static double getBoxHeight(double? boxWidth){
     return Dimensions.getHeightByAspectRatio(
         aspectRatio: Standards.posterDimensions.getAspectRatio(),
         width: boxWidth,

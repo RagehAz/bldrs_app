@@ -17,7 +17,6 @@ import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/firebase_options.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:fire/super_fire.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:mediators/sounder/sounder.dart';
@@ -68,7 +67,7 @@ Future<void> main() async {
   runApp(
     DevicePreview(
       /// ignore: avoid_redundant_argument_values
-      enabled: kDebugMode == true,
+      enabled: false,
       builder: (context) => const BldrsAppStarter(),
     ),
   );
@@ -80,8 +79,7 @@ Future<void> main() async {
 class BldrsAppStarter extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const BldrsAppStarter({
-    super.key
-  });
+    super.key});
   /// --------------------------------------------------------------------------
   static void setLocale(BuildContext context, Locale? locale) {
     if (locale == null) {

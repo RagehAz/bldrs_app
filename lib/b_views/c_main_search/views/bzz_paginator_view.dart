@@ -14,7 +14,7 @@ class BzzPaginatorView extends StatelessWidget {
     super.key
   });
   // --------------------
-  final FireQueryModel fireQueryModel;
+  final FireQueryModel? fireQueryModel;
   final PaginationController paginationController;
   // --------------------------------------------------------------------------
   @override

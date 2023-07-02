@@ -1207,7 +1207,7 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String? positionValidator({
-    required String latOrLng,
+    required String? latOrLng,
   }){
     String? _message;
 

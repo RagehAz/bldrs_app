@@ -229,7 +229,7 @@ class BldrsNav {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onLastGoBackInHomeScreen({
-    required ZGridController zGridController,
+    required ZGridController? zGridController,
   }) async {
 
     /// TO HELP WHEN PHRASES ARE NOT LOADED TO REBOOT SCREENS

@@ -17,7 +17,7 @@ class FlyersPaginatorView extends StatelessWidget {
     super.key
   });
   // --------------------
-  final FireQueryModel fireQueryModel;
+  final FireQueryModel? fireQueryModel;
   final PaginationController paginationController;
   final FlyerGridType gridType;
   final bool hasResponsiveSideMargin;

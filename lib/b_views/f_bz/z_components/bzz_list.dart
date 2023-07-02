@@ -18,7 +18,7 @@ class BzzList extends StatelessWidget {
   });
   // -----------------------------------------------------------------------------
   final List<BzModel> bzz;
-  final ScrollController scrollController;
+  final ScrollController? scrollController;
   final double? width;
   final List<String>? selectedBzzIDs;
   final Function(BzModel? bz)? onBzTap;

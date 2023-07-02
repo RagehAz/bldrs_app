@@ -23,7 +23,7 @@ class DataStripWithHeadline extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final String dataKey;
+  final String? dataKey;
   final dynamic dataValue;
   final double? width;
   final Color valueBoxColor;
@@ -99,7 +99,7 @@ class DataStripKey extends StatelessWidget {
   /// --------------------------------------------------------------------------
   final double height;
   final double width;
-  final String dataKey;
+  final String? dataKey;
   final Function? onTap;
   /// --------------------------------------------------------------------------
   @override

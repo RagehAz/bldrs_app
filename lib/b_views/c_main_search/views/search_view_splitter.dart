@@ -25,11 +25,11 @@ class SearchViewSplitter extends StatelessWidget {
   });
   // --------------------
   final ModelType? searchType;
-  final FireQueryModel flyersQuery;
+  final FireQueryModel? flyersQuery;
   final PaginationController flyersController;
-  final FireQueryModel bzzQuery;
+  final FireQueryModel? bzzQuery;
   final PaginationController bzzController;
-  final FireQueryModel usersQuery;
+  final FireQueryModel? usersQuery;
   final PaginationController usersController;
   final Function(SearchModel) onHistoryModelTap;
   final Function(SearchModel) onDeleteHistoryModel;

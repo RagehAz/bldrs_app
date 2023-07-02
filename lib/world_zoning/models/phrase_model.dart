@@ -675,12 +675,12 @@ class Phrase {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> getLangCodes(List<Phrase> phrases){
+  static List<String> getLangCodes(List<Phrase>? phrases){
      List<String> _codes = <String>[];
 
     if (Mapper.checkCanLoopList(phrases) == true){
 
-      for (final Phrase _phrase in phrases){
+      for (final Phrase _phrase in phrases!){
 
         _codes = Stringer.addStringToListIfDoesNotContainIt(
             strings: _codes,
@@ -1517,19 +1517,19 @@ class Phrase {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Phrase> deletePhidFromPhrases({
-    required List<Phrase> phrases,
-    required String phid,
+    required List<Phrase>? phrases,
+    required String? phid,
   }){
 
     List<Phrase> _output = <Phrase>[];
 
     if (
-    Mapper.checkCanLoopList(phrases) == true
+        Mapper.checkCanLoopList(phrases) == true
         &&
         TextCheck.isEmpty(phid) == false
     ){
 
-      _output = <Phrase>[...phrases];
+      _output = <Phrase>[...phrases!];
 
       for (int i = 0; i< phrases.length; i++){
 

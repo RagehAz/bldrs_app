@@ -129,7 +129,7 @@ class ZoneSearchOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> searchCitiesOfPlanetByIDFromFire({
-    required String text,
+    required String? text,
     int limit = 10,
     QueryDocumentSnapshot<Object>? startAfter,
   }) async {
@@ -153,7 +153,7 @@ class ZoneSearchOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> searchCitiesOfPlanetByNameFromFire({
-    required String text,
+    required String? text,
     int limit = 10,
     QueryDocumentSnapshot<Object>? startAfter,
   }) async {
@@ -181,7 +181,7 @@ class ZoneSearchOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Phrase>> searchCitiesOfCountryByIDFromFire({
-    required String text,
+    required String? text,
     required String countryID,
     int limit = 10,
     QueryDocumentSnapshot<Object>? startAfter,

@@ -20,7 +20,7 @@ class SlideFullScreen extends StatelessWidget {
   final dynamic image;
   final Dimensions imageSize;
   final Verse? title;
-  final ImageFilterModel filter;
+  final ImageFilterModel? filter;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
