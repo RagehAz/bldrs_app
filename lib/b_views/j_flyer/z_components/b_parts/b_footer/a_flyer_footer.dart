@@ -117,7 +117,7 @@ class _FlyerFooterState extends State<FlyerFooter> {
     setNotifier(
         notifier: widget.infoButtonExpanded,
         mounted: mounted,
-        value: !widget.infoButtonExpanded.value!,
+        value: !Mapper.boolIsTrue(widget.infoButtonExpanded.value),
     );
 
     if(widget.infoButtonExpanded.value  == false){

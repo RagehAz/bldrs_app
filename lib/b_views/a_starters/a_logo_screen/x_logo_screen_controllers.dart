@@ -52,6 +52,10 @@ Future<void> initializeLogoScreen({
   /// USER MODEL
   await initializeUserModel(context);
 
+  UiProvider.proSetLoadingVerse(
+      verse: Verse.plain(Words.pleaseWait()),
+  );
+
   // blog('2 - initializeLogoScreen : ${Authing.getUserID()}');
 
   await Future.wait(
@@ -68,6 +72,10 @@ Future<void> initializeLogoScreen({
   );
 
   // blog('3 - initializeLogoScreen : assetPaths + lang + appState should have ended');
+
+  UiProvider.proSetLoadingVerse(
+    verse: Verse.plain(Words.thisIsBabyApp()),
+  );
 
   if (_phrasesAreLoaded() == false){
 
@@ -113,6 +121,9 @@ Future<void> initializeLogoScreen({
 
     else {
 
+      UiProvider.proSetLoadingVerse(
+        verse: Verse.plain(Words.thankYouForWaiting()),
+      );
 
       /// DAILY LDB REFRESH
       await _refreshLDB();
@@ -124,6 +135,8 @@ Future<void> initializeLogoScreen({
     // blog('8 - initializeLogoScreen : END');
 
   }
+
+  UiProvider.clearLoadingVerse();
 
 }
 // --------------------

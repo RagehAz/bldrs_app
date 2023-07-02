@@ -216,7 +216,7 @@ class MainLayout extends StatelessWidget {
           // right: ,
           // top: ,
           child: ConnectivitySensor(
-            onConnectivityChanged: ({bool? isConnected}) => GeneralProvider.onConnectivityChanged(
+            onConnectivityChanged: (bool isConnected) => GeneralProvider.onConnectivityChanged(
               isConnected: isConnected,
             ),
             child: Stack(

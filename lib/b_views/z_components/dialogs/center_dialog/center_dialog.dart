@@ -117,7 +117,7 @@ class CenterDialog extends StatelessWidget {
     bool bodyCentered = true,
   }) async {
 
-    final bool _result = await showDialog(
+    final bool? _result = await showDialog(
       context: getMainContext(),
       builder: (BuildContext ctx) => CenterDialog(
         bodyVerse: bodyVerse,
@@ -135,7 +135,7 @@ class CenterDialog extends StatelessWidget {
       ),
     );
 
-    return _result;
+    return Mapper.boolIsTrue(_result);
   }
   // --------------------
   /// TESTED : WORKS PERFECT

@@ -105,7 +105,7 @@ class PollModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String>? decipherButtons(String buttonsString){
+  static List<String>? decipherButtons(String? buttonsString){
     List<String>? _buttons;
 
     // blog('1 - START : decipherButtons : buttonsString: $buttonsString');

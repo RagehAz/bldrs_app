@@ -90,6 +90,7 @@ class ObeliskPyramids extends StatelessWidget {
                   pyramidType: isYellow ? PyramidType.yellow : PyramidType.white,
                   loading: isFlashing,
                   putInCorner: false,
+
                 );
 
               },

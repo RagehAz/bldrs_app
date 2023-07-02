@@ -123,7 +123,7 @@ class FlyerSelectionStack extends StatelessWidget {
                 icon: Iconz.more,
                 phid: 'phid_more',
                 flyerBoxWidth: flyerBoxWidth,
-                onTap: onFlyerOptionsTap == null ? null : onFlyerOptionsTap!(),
+                onTap: onFlyerOptionsTap == null ? null : () => onFlyerOptionsTap!(),
                 isOn: UserModel.checkFlyerIsSaved(
                   flyerID: flyerModel?.id,
                   userModel: UsersProvider.proGetMyUserModel(

@@ -48,7 +48,7 @@ class AuthorLabel extends StatelessWidget {
     final double _authorLabelVersesWidth = FlyerDim.authorLabelVersesWidth(flyerBoxWidth);
     // --------------------
     return GestureDetector(
-      onTap: showLabel == true ? onLabelTap?.call() : null,
+      onTap: showLabel == true ? () => onLabelTap?.call() : null,
       child: Container(
         height: FlyerDim.authorLabelBoxHeight(
           flyerBoxWidth: flyerBoxWidth,

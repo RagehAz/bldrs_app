@@ -345,7 +345,7 @@ class NoteModel {
 
     if (map != null){
 
-      String get(String field){
+      String? get(String field){
         return Stringer.nullifyNullString(map[field]);
       }
 
