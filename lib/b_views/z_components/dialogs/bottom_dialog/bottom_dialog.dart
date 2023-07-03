@@ -369,7 +369,7 @@ class BottomDialog extends StatelessWidget {
       height: height,
       width: clearWidth(context),
       verse: verse,
-      verseScaleFactor: bigIcon == true ? 1 : 1 /0.6,
+      verseScaleFactor: bigIcon == true ? 0.7 : 0.7 /0.6,
       verseWeight: VerseWeight.thin,
       // verseItalic: false,
       icon: icon,
