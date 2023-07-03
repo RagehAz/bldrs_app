@@ -27,7 +27,7 @@ class SmallFlyer extends StatelessWidget {
   // -----------------------------------------------------------------------------
   final FlyerModel? flyerModel;
   final double flyerBoxWidth;
-  final Function? onTap;
+  final void Function()? onTap;
   final bool flyerShadowIsOn;
   final bool bluerLayerIsOn;
   final bool slideShadowIsOn;
@@ -43,7 +43,7 @@ class SmallFlyer extends StatelessWidget {
     if (flyerModel == null) {
       return FlyerBox(
         key: const ValueKey<String>('DummyListSmallFlyer'),
-        flyerBoxWidth: flyerBoxWidth,
+        flyerBoxWidth: flyerBoxWidth
       );
     }
 

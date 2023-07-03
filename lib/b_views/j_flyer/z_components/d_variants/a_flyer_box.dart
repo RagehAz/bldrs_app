@@ -21,7 +21,7 @@ class FlyerBox extends StatelessWidget {
   /// internal parts of the flyer
   final List<Widget>? stackWidgets;
   final Color? boxColor;
-  final Function? onTap;
+  final void Function()? onTap;
   final bool shadowIsOn;
   // -----------------------------------------------------------------------------
   @override
@@ -35,8 +35,10 @@ class FlyerBox extends StatelessWidget {
     // --------------------
     return Center(
       key: const ValueKey<String>('flyer_box'),
-      child: GestureDetector(
-        onTap: () => onTap?.call(),
+      child: InkWell(
+        onTap: onTap,
+        splashColor: boxColor?.withOpacity(0.2),
+        borderRadius: _flyerBorders,
         child: Container(
           width: flyerBoxWidth,
           height: _flyerBoxHeight,

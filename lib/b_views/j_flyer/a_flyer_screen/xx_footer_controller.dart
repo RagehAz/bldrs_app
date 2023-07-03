@@ -91,10 +91,12 @@ Future<void> onShareFlyer({
       flyerType: flyerModel.flyerType,
     );
 
+    blog('_shareLink : $_shareLink');
+
     await Future.wait(<Future>[
 
       Launcher.shareURL(
-        url: flyerModel.shareLink,
+        url: _shareLink,
         subject: flyerModel.headline,
       ),
 
