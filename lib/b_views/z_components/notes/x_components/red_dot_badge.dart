@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element
+
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:basics/helpers/widgets/drawing/super_positioned.dart';
@@ -7,16 +9,20 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:flutter/material.dart';
 
-class NoteRedDot extends StatelessWidget {
+class _RedDot extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const NoteRedDot({
+  const _RedDot({
     this.isNano = false,
     this.count,
+    this.verse,
+    this.color,
     super.key
   });
   /// --------------------------------------------------------------------------
   final bool isNano;
   final int? count;
+  final Verse? verse;
+  final Color? color;
   /// --------------------------------------------------------------------------
   static const double defaultSize = 18;
   static const double maxWidth = 60;
@@ -55,16 +61,16 @@ class NoteRedDot extends StatelessWidget {
     final double _size = getSize(isNano: isNano);
     // --------------------
     return Container(
-      width: _size * 0.3,
+      // width: _size * 0.3,
       height: _size,
       // margin: const EdgeInsets.all(buttonWidth * 0.1),
       constraints: BoxConstraints(
         minWidth: _size,
-        maxWidth: _count == null ? _size : maxWidth,
+        maxWidth: _count != null || verse != null ? maxWidth : _size,
       ),
       decoration: BoxDecoration(
         borderRadius: Borderers.cornerAll(_size * 0.5),
-        color: Colorz.red255,
+        color: color ?? Colorz.red255,
       ),
       // padding: EdgeInsets.symmetric(horizontal: 2 * factor),
       // alignment: Alignment.topCenter,
@@ -72,7 +78,7 @@ class NoteRedDot extends StatelessWidget {
         children: <Widget>[
 
           BldrsText(
-            verse: Verse(
+            verse: verse ?? Verse(
               id: _count,
               translate: false,
             ),
@@ -90,15 +96,17 @@ class NoteRedDot extends StatelessWidget {
 // -----------------------------------------------------------------------------
 }
 
-class NoteRedDotWrapper extends StatelessWidget {
+class RedDotBadge extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const NoteRedDotWrapper({
+  const RedDotBadge({
     required this.child,
     required this.redDotIsOn,
     required this.childWidth,
     this.count,
     this.shrinkChild = false,
     this.isNano = false,
+    this.verse,
+    this.color,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -108,12 +116,14 @@ class NoteRedDotWrapper extends StatelessWidget {
   final bool shrinkChild;
   final bool isNano;
   final double childWidth;
+  final Verse? verse;
+  final Color? color;
   /// --------------------------------------------------------------------------
   static double getShrinkageScale({
     required double childWidth,
     required bool isNano,
   }){
-    final double _viewWidth = childWidth - (NoteRedDot.getSize(isNano: isNano) * 0.2);
+    final double _viewWidth = childWidth - (_RedDot.getSize(isNano: isNano) * 0.2);
     return _viewWidth / childWidth;
   }
   // --------------------
@@ -156,9 +166,11 @@ class NoteRedDotWrapper extends StatelessWidget {
             enAlignment: Alignment.topRight,
             // horizontalOffset: -(NoteRedDot.size * 0.5),
             appIsLTR: UiProvider.checkAppIsLeftToRight(),
-            child: NoteRedDot(
+            child: _RedDot(
               count: count,
               isNano: isNano,
+              verse: verse,
+              color: color,
             ),
           ),
 

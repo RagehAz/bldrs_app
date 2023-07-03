@@ -11,7 +11,7 @@ import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/buttons/note_card_buttons.dart';
-import 'package:bldrs/b_views/z_components/notes/x_components/note_red_dot.dart';
+import 'package:bldrs/b_views/z_components/notes/x_components/red_dot_badge.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/note_sender_balloon.dart';
 import 'package:bldrs/b_views/z_components/poster/note_poster_builder.dart';
 import 'package:bldrs/b_views/z_components/poster/structure/x_note_poster_box.dart';
@@ -123,7 +123,7 @@ class NoteCard extends StatelessWidget {
         bubbleWidthOverride: _bubbleWidth,
     );
     // --------------------
-    return NoteRedDotWrapper(
+    return RedDotBadge(
       childWidth: _bubbleWidth,
       redDotIsOn: noteModel?.seen != true,
       shrinkChild: true,
