@@ -6,6 +6,7 @@ import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/a_static_logo_screen.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/a_home_screen.dart';
+import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm_starter.dart';
@@ -118,6 +119,10 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
   void didChangeDependencies() {
     if (_isInit) {
       _triggerLoading(setTo: true).then((_) async {
+
+        if (DeviceChecker.deviceIsWindows() == true){
+          await AuthProtocols.signInAsRage7(context: context);
+        }
 
         /// LOCALE
         await Localizer.initializeLocale(

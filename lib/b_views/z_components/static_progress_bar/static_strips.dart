@@ -133,7 +133,7 @@ class StaticStrips extends StatelessWidget {
   // -----------------------------------------------------------------------------
   Color _stripColorOverride(int index){
 
-    blog('stripsColors : $stripsColors}');
+    // blog('stripsColors : $stripsColors}');
 
     if (Mapper.checkCanLoopList(stripsColors) == true){
       return stripsColors![index]; // ?? Colorz.white10;
