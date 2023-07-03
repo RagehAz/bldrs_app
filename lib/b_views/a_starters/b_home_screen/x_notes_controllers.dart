@@ -38,7 +38,7 @@ StreamSubscription? listenToUserUnseenNotes(){
     listen: false,
   );
 
-  if (_userModel != null && Authing.getUserID() != null){
+  if (Authing.userIsSignedUp(_userModel?.signInMethod) == true){
 
     final Stream<List<Map<String, dynamic>>>? _unseenNotesStream = userUnseenNotesStream();
 
