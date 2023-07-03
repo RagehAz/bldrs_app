@@ -144,37 +144,42 @@ class RedDotBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Stack(
-      alignment: Alignment.center,
-      children: <Widget>[
+    return Center(
+      child: SizedBox(
+        width: childWidth,
+        child: Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
 
-        if (shrinkChild == true)
-          Transform.scale(
-            scale: getShrinkageScale(
-              isNano: isNano,
-              childWidth: childWidth,
-            ),
-            alignment: BldrsAligners.superBottomAlignment(context),
-            child: child,
-          ),
+            if (shrinkChild == true)
+              Transform.scale(
+                scale: getShrinkageScale(
+                  isNano: isNano,
+                  childWidth: childWidth,
+                ),
+                alignment: BldrsAligners.superBottomAlignment(context),
+                child: child,
+              ),
 
-        if (shrinkChild == false)
-          child,
+            if (shrinkChild == false)
+              child,
 
-        if (redDotIsOn == true)
-          SuperPositioned(
-            enAlignment: Alignment.topRight,
-            // horizontalOffset: -(NoteRedDot.size * 0.5),
-            appIsLTR: UiProvider.checkAppIsLeftToRight(),
-            child: _RedDot(
-              count: count,
-              isNano: isNano,
-              verse: verse,
-              color: color,
-            ),
-          ),
+            if (redDotIsOn == true)
+              SuperPositioned(
+                enAlignment: Alignment.topRight,
+                // horizontalOffset: -(NoteRedDot.size * 0.5),
+                appIsLTR: UiProvider.checkAppIsLeftToRight(),
+                child: _RedDot(
+                  count: count,
+                  isNano: isNano,
+                  verse: verse,
+                  color: color,
+                ),
+              ),
 
-      ],
+          ],
+        ),
+      ),
     );
 
   }

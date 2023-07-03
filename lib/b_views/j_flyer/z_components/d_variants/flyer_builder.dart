@@ -1,5 +1,4 @@
 // ignore_for_file: unused_element
-
 import 'dart:async';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -16,6 +15,7 @@ class FlyerBuilder extends StatelessWidget {
     required this.renderFlyer,
     this.flyerModel,
     this.onFlyerNotFound,
+    this.loadingWidget,
     super.key
   });
   // -----------------------------------------------------------------------------
@@ -25,6 +25,7 @@ class FlyerBuilder extends StatelessWidget {
   final FlyerModel? flyerModel;
   final RenderFlyer renderFlyer;
   final Widget Function(FlyerModel? flyerModel) builder;
+  final Widget? loadingWidget;
   // -----------------------------------------------------------------------------
   bool shouldDirectlyBuildByFlyerModel(){
     bool _shouldBuildByFlyer = false;
@@ -74,6 +75,7 @@ class FlyerBuilder extends StatelessWidget {
         onFlyerNotFound: onFlyerNotFound,
         renderFlyer: renderFlyer,
         builder: builder,
+        loadingWidget: loadingWidget,
       );
 
     }
@@ -91,6 +93,7 @@ class _FutureFlyerBuilder extends StatefulWidget {
     required this.renderFlyer,
     required this.flyerModel,
     required this.onFlyerNotFound,
+    required this.loadingWidget,
     super.key
   });
   // -----------------------------------------------------------------------------
@@ -100,6 +103,7 @@ class _FutureFlyerBuilder extends StatefulWidget {
   final RenderFlyer renderFlyer;
   final Widget Function(FlyerModel? flyerModel) builder;
   final FlyerModel? flyerModel;
+  final Widget? loadingWidget;
   // -----------------------------------------------------------------------------
   @override
   State<_FutureFlyerBuilder> createState() => _FutureFlyerBuilderState();
@@ -229,7 +233,7 @@ class _FutureFlyerBuilderState extends State<_FutureFlyerBuilder> {
       builder: (_, bool loading, Widget? child) {
 
         if (loading == true) {
-          return FlyerLoading(
+          return widget.loadingWidget ?? FlyerLoading(
             flyerBoxWidth: widget.flyerBoxWidth,
             animate: true,
             direction: Axis.vertical,
