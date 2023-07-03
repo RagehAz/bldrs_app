@@ -154,9 +154,13 @@ class Standards {
   /// BLDRS
 
   // --------------------
+  /// BLDRS NAME SQUARE
+  static const String bldrsNameSquarePicPath = 'storage/bldrs/bldrs_name.png';
+  static const String bldrsNameSquarePicURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bldrs%2Fbldrs_name.png?alt=media&token=e9c0e758-52ed-4709-a165-1044b2bf647a';
+  // --------------------
   /// BLDRS NAME
-  static const String bldrsNamePicPath = 'storage/bldrs/bldrs_name.png';
-  static const String bldrsNamePicURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bldrs%2Fbldrs_name.png?alt=media&token=e9c0e758-52ed-4709-a165-1044b2bf647a';
+  static const String bldrsNamePosterPicPath = 'storage/bldrs/bldrs_name_poster.png';
+  static const String bldrsNamePosterPicURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bldrs%2Fbldrs_name_poster.png?alt=media&token=455317df-dfcc-4313-9ee1-7971696734fc';
   // --------------------
   /// BLDRS APP ICON
   static const String bldrsAppIconPath = 'storage/bldrs/bldrs_app_icon.png';
