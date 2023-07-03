@@ -46,7 +46,7 @@ class AppBarProgressBar extends StatelessWidget {
               valueListenable: progressBarModel!,
               builder: (_, ProgressBarModel? progressBarModel, Widget? childB){
 
-                blog('progressBarModel?.stripsColors : ${progressBarModel?.stripsColors}');
+                // blog('progressBarModel?.stripsColors : ${progressBarModel?.stripsColors}');
 
                 return StaticProgressBar(
                   index: progressBarModel?.index ?? 0,

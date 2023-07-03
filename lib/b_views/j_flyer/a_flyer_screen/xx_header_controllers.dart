@@ -108,7 +108,11 @@ Future<void> readBzCounters({
     bzID: bzID,
   );
 
-  setNotifier(notifier: bzCounters, mounted: mounted, value: _bzCounters);
+  setNotifier(
+      notifier: bzCounters,
+      mounted: mounted,
+      value: _bzCounters,
+  );
 
 }
 // --------------------
