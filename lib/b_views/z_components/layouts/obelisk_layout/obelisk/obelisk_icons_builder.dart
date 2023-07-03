@@ -47,7 +47,7 @@ class ObeliskIconsBuilder extends StatelessWidget{
         children: <Widget>[
 
           SizedBox(
-            height: Obelisk.gotContentsScrollableHeight( /// something_wrong_obelisk_icons_renderFlex
+            height: Obelisk.gotContentsScrollableHeight(
               context: context,
               navModels: navModels,
             ),
