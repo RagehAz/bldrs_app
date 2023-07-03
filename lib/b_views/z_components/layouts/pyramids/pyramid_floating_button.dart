@@ -1,5 +1,5 @@
 import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
-import 'package:bldrs/b_views/z_components/notes/x_components/note_red_dot.dart';
+import 'package:bldrs/b_views/z_components/notes/x_components/red_dot_badge.dart';
 import 'package:flutter/material.dart';
 
 class PyramidFloatingButton extends StatelessWidget {
@@ -28,7 +28,7 @@ class PyramidFloatingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return NoteRedDotWrapper(
+    return RedDotBadge(
       childWidth: size,
       redDotIsOn: redDotCount > 0,
       count: redDotCount,
