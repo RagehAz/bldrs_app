@@ -85,18 +85,12 @@ class _BzTeamPageState extends State<BzTeamPage> {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    /// DUPLICATE_ACTIVE_BZ_MODEL_ISSUE
-    final BzModel? _bzModel = BzzProvider.proGetActiveBzModel(
-      context: context,
-      listen: true,
-    );
-    // --------------------
     return Selector<BzzProvider, BzModel?>(
       selector: (_, BzzProvider bzzProvider) => bzzProvider.myActiveBz,
       shouldRebuild: (oldModel, newModel) => true,
       builder: (BuildContext context, BzModel? bzModel, Widget? child){
 
-        final List<AuthorModel> _authors = _bzModel?.authors ?? [];
+        final List<AuthorModel> _authors = bzModel?.authors ?? [];
 
         final bool _canSendAuthorships = AuthorModel.checkAuthorAbility(
           ability: AuthorAbility.canSendAuthorships,

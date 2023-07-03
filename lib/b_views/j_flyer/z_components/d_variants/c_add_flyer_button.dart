@@ -75,65 +75,62 @@ class AddFlyerButton extends StatelessWidget {
     // --------------------
     final BzModel? _bzModel = BzzProvider.proGetActiveBzModel(context: context, listen: false);
     // --------------------
-    return GestureDetector(
-      key: const ValueKey<String>('AddFlyerButton'),
+    return FlyerBox(
+      flyerBoxWidth: flyerBoxWidth,
       onTap: () => _goToFlyerMaker(
         context: context,
         bzModel: _bzModel,
       ),
-      child: FlyerBox(
-        flyerBoxWidth: flyerBoxWidth,
-        stackWidgets: <Widget>[
+      stackWidgets: <Widget>[
 
-          StaticHeader(
-            flyerBoxWidth: flyerBoxWidth,
-            bzModel: _bzModel,
-            authorID: null,
-            flyerShowsAuthor: false,
-          ),
+        StaticHeader(
+          flyerBoxWidth: flyerBoxWidth,
+          bzModel: _bzModel,
+          authorID: null,
+          flyerShowsAuthor: false,
+        ),
 
-          /// ADD FLYER BUTTON
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
+        /// ADD FLYER BUTTON
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
 
-              /// --- FAKE HEADER FOOTPRINT
-              SizedBox(
-                height: FlyerDim.headerSlateHeight(flyerBoxWidth),
+            /// --- FAKE HEADER FOOTPRINT
+            SizedBox(
+              height: FlyerDim.headerSlateHeight(flyerBoxWidth),
+            ),
+
+            /// PLUS ICON
+            BldrsBox(
+              height: flyerBoxWidth * 0.4,
+              width: flyerBoxWidth * 0.4,
+              icon: Iconz.plus,
+              iconColor: Colorz.white200,
+              iconSizeFactor: 0.6,
+              bubble: false,
+              // onTap: () async {
+              //   await _goToFlyerEditor(context);
+              // },
+            ),
+
+            /// ADD NEW FLYER TEXT
+            BldrsText(
+              verse: const Verse(
+                id: 'phid_add_new_flyer',
+                casing: Casing.upperCase,
+                translate: true,
               ),
+              maxLines: 5,
+              scaleFactor: flyerBoxWidth * 0.008,
+              color: Colorz.white200,
+              italic: true,
+              margin: flyerBoxWidth * 0.05,
+            ),
 
-              /// PLUS ICON
-              BldrsBox(
-                height: flyerBoxWidth * 0.4,
-                width: flyerBoxWidth * 0.4,
-                icon: Iconz.plus,
-                iconColor: Colorz.white200,
-                iconSizeFactor: 0.6,
-                bubble: false,
-                // onTap: () async {
-                //   await _goToFlyerEditor(context);
-                // },
-              ),
+          ],
+        ),
 
-              /// ADD NEW FLYER TEXT
-              BldrsText(
-                verse: const Verse(
-                  id: 'phid_add_new_flyer',
-                  casing: Casing.upperCase,
-                  translate: true,
-                ),
-                maxLines: 5,
-                scaleFactor: flyerBoxWidth * 0.008,
-                color: Colorz.white200,
-                italic: true,
-                margin: flyerBoxWidth * 0.05,
-              ),
-
-            ],
-          ),
-
-        ],
-      ),
+      ],
     );
     // --------------------
   }
