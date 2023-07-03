@@ -20,6 +20,7 @@ class KeyboardScreen extends StatefulWidget {
     this.confirmButtonIsOn = true,
     this.columnChildren,
     this.screenTitleVerse,
+    this.initialText,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -27,6 +28,7 @@ class KeyboardScreen extends StatefulWidget {
   final bool confirmButtonIsOn;
   final List<Widget>? columnChildren;
   final Verse? screenTitleVerse;
+  final String? initialText;
   /// --------------------------------------------------------------------------
   @override
   _KeyboardScreenState createState() => _KeyboardScreenState();
@@ -36,6 +38,7 @@ class KeyboardScreen extends StatefulWidget {
     required BuildContext context,
     KeyboardModel? keyboardModel,
     Verse? screenTitleVerse,
+    String? initialText,
   }) async {
 
     final String? _output = await Nav.goToNewScreen(
@@ -43,6 +46,7 @@ class KeyboardScreen extends StatefulWidget {
       screen: KeyboardScreen(
         keyboardModel: keyboardModel ?? KeyboardModel.standardModel(),
         screenTitleVerse: screenTitleVerse,
+        initialText: initialText,
         // confirmButtonIsOn: true,
       ),
     );
@@ -77,7 +81,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
     super.initState();
 
     _keyboardModel = widget.keyboardModel;
-    _controller.text = _keyboardModel.initialText ?? '';
+    _controller.text = widget.initialText ?? _keyboardModel.initialText ?? '';
 
   }
   // --------------------
