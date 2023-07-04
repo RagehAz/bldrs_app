@@ -1,3 +1,6 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/layouts/views/floating_list.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk_icon.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
@@ -41,37 +44,70 @@ class ObeliskIconsBuilder extends StatelessWidget{
 
       },
 
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-
-          SizedBox(
-            height: Obelisk.gotContentsScrollableHeight(
-              context: context,
-              navModels: navModels,
-            ),
-            child: Column(
-              mainAxisAlignment: Obelisk.stuffAlignment(isCross: false),
-              // crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-
-                ...List.generate(navModels.length, (index){
-
-                  return ObeliskIcon(
-                    onTap: () => onRowTap(index),
-                    progressBarModel: progressBarModel,
-                    navModelIndex: index,
-                    navModel: navModels[index],
-                  );
-
-                }),
-              ],
-            ),
+      child: Container(
+        height: Obelisk.gotContentsScrollableHeight(
+          context: context,
+          navModels: navModels,
+        ),
+        color: Colorz.bloodTest,
+        child: FloatingList(
+          height: Obelisk.gotContentsScrollableHeight(
+            context: context,
+            navModels: navModels,
           ),
-
-        ],
+          mainAxisAlignment: Obelisk.stuffAlignment(isCross: false),
+          physics: const NeverScrollableScrollPhysics(),
+          columnChildren: <Widget>[
+            ...List.generate(navModels.length, (index){
+              return SingleChildScrollView(
+                physics: const NeverScrollableScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                padding: EdgeInsets.zero,
+                child: ObeliskIcon(
+                  onTap: () => onRowTap(index),
+                  progressBarModel: progressBarModel,
+                  navModelIndex: index,
+                  navModel: navModels[index],
+                ),
+              );
+            }),
+          ],
+        ),
       ),
+
+      // child: ListView(
+      //   scrollDirection: Axis.horizontal,
+      //   padding: EdgeInsets.zero,
+      //   children: <Widget>[
+      //
+      //     if (Mapper.checkCanLoopList(navModels) == true)
+      //       SizedBox(
+      //         height: Obelisk.gotContentsScrollableHeight(
+      //           context: context,
+      //           navModels: navModels,
+      //         ),
+      //         child: SingleChildScrollView(
+      //           physics: const NeverScrollableScrollPhysics(),
+      //           child: Column(
+      //             mainAxisAlignment: Obelisk.stuffAlignment(isCross: false),
+      //             // crossAxisAlignment: CrossAxisAlignment.start,
+      //             children: <Widget>[
+      //               ...List.generate(navModels.length, (index) {
+      //                 return ObeliskIcon(
+      //                   onTap: () => onRowTap(index),
+      //                   progressBarModel: progressBarModel,
+      //                   navModelIndex: index,
+      //                   navModel: navModels[index],
+      //                 );
+      //               }),
+      //             ],
+      //           ),
+      //         ),
+      //       ),
+      //
+      //   ],
+      // ),
+
     );
 
   }

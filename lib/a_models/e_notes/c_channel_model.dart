@@ -19,14 +19,14 @@ class ChannelModel {
 
   // --------------------
   static const ChannelModel bldrsChannel = ChannelModel(
-    id: 'net.bldrs.app.urgent',
+    id: 'net.bldrs.app',
     name: "The Builder's Network",
     description: 'News & Notifications',
     group: 'Notifications',
   );
   // --------------------
   static const ChannelModel bldrsDashboardChannel = ChannelModel(
-    id: 'net.bldrs.dashboard.urgent',
+    id: 'net.bldrs.dashboard',
     name: "The Builder's Network",
     description: 'News & Notifications',
     group: 'Notifications',

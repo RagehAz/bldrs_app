@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
@@ -252,9 +253,17 @@ Future<void> initializeAppState() async {
       final String _detectedAppVersion = await AppStateModel.detectAppVersion();
 
       /// DETECTED APP VERSION IS INCORRECT
-      if (_globalState.appVersion != _detectedAppVersion){
-        await _showUpdateAppDialog(getMainContext());
+      if (
+          TextCheck.isEmpty(_globalState.appVersion) == false &&
+          TextCheck.isEmpty(_detectedAppVersion) == false &&
+          _globalState.appVersion != _detectedAppVersion
+      ){
+        await _showUpdateAppDialog(
+          global: _globalState.appVersion,
+          detected: _detectedAppVersion,
+        );
       }
+
       /// DETECTED APP VERSION IS CORRECT BUT USER VERSION IS NOT
       else if (_userState.appVersion != _detectedAppVersion){
         _userState = _userState.copyWith(
@@ -291,11 +300,20 @@ Future<void> initializeAppState() async {
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _showUpdateAppDialog(BuildContext context) async {
+Future<void> _showUpdateAppDialog({
+  required String? global,
+  required String? detected,
+}) async {
 
   await CenterDialog.showCenterDialog(
     titleVerse:  Verse.plain(Words.newUpdateAvailable()),
-    bodyVerse: Verse.plain(Words.pleaseUpdateToContinue()),
+    bodyVerse: Verse.plain(
+      '''
+      ${Words.pleaseUpdateToContinue()}
+      your version : $detected
+      new version : $global
+      '''
+    ),
     confirmButtonVerse: Verse.plain(Words.updateApp()),
     boolDialog: false,
   );
