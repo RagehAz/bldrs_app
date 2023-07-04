@@ -41,7 +41,7 @@ class BldrsBox extends StatelessWidget {
     this.onTapDown,
     this.onTapUp,
     this.onTapCancel,
-    this.textDirection = TextDirection.ltr,
+    this.textDirection,
     this.blur,
     this.secondLineColor = Colorz.white255,
     this.redDot = false,
