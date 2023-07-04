@@ -24,7 +24,7 @@ import 'package:mediators/sounder/sounder.dart';
 import 'bldrs_keys.dart';
 
 // ignore: constant_identifier_names
-const String BLDRS_APP_VERSION = '1.0.3'; // NEWEST
+const String BLDRS_APP_VERSION = '1.0.3'; // yalla
 
 Future<void> main() async {
   /// -----------------------------------------------------------------------------
