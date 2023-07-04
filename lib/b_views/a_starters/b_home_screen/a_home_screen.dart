@@ -44,17 +44,17 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin{
   // -----------------------------------------------------------------------------
   final ValueNotifier<ProgressBarModel?> _progressBarModel = ValueNotifier(null);
-  late PaginationController _paginationController;
+  PaginationController? _paginationController;
   // --------------------
   /// KEYBOARD VISIBILITY
-  late StreamSubscription<bool> _keyboardSubscription;
+  StreamSubscription<bool>? _keyboardSubscription;
   final KeyboardVisibilityController keyboardVisibilityController = KeyboardVisibilityController();
   // --------------------
   /// NOTES STREAM SUBSCRIPTIONS
-  late StreamSubscription? _userNotesStreamSub;
-  late List<StreamSubscription> _bzzNotesStreamsSubs;
+  StreamSubscription? _userNotesStreamSub;
+  List<StreamSubscription>? _bzzNotesStreamsSubs;
   // -----------------------------------------------------------------------------
-  late ZGridController _zGridController;
+  ZGridController? _zGridController;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -81,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
     _zGridController = ZGridController.initialize(
       vsync: this,
-      scrollController: _paginationController.scrollController,
+      scrollController: _paginationController?.scrollController,
     );
 
   }
@@ -123,12 +123,12 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   @override
   void dispose() {
     _loading.dispose();
-    _keyboardSubscription.cancel();
+    _keyboardSubscription?.cancel();
     _userNotesStreamSub?.cancel();
     Streamer.disposeStreamSubscriptions(_bzzNotesStreamsSubs);
     _progressBarModel.dispose();
-    _paginationController.dispose();
-    _zGridController.dispose();
+    _paginationController?.dispose();
+    _zGridController?.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -205,7 +205,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       );
 
       final List<NavModel?> _navModels = generateMainNavModels(
-        context: context,
         userModel: _userModel,
         bzzModels: _bzzModels,
         currentZone: _currentZone,

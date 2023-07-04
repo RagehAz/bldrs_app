@@ -31,17 +31,16 @@ class ZoneLine extends StatelessWidget {
     // --------------------
     final double _width = width ?? 200;
 
-    return Container(
-      width: _width - 20,
-      // height: 35,
-      margin: const EdgeInsets.symmetric(horizontal: 10),
-      alignment: centered == true ? Alignment.center : BldrsAligners.superCenterAlignment(context),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        physics: const NeverScrollableScrollPhysics(),
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      physics: const NeverScrollableScrollPhysics(),
+      child: Container(
+        width: _width - 20,
+        // margin: const EdgeInsets.symmetric(horizontal: 10),
+        alignment: centered == true ? Alignment.center : BldrsAligners.superCenterAlignment(context),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
-          // mainAxisAlignment: centered == true ? MainAxisAlignment.center : MainAxisAlignment.start,
+          mainAxisAlignment: centered == true ? MainAxisAlignment.center : MainAxisAlignment.start,
           children: <Widget>[
 
             Padding(
@@ -58,7 +57,12 @@ class ZoneLine extends StatelessWidget {
             ),
 
             BldrsText(
-              width: (_zoneVerse.id?.length ?? 0) > 20 ? _width - 20 - 20 - 5 : null,
+              width: centered == true ?
+              null
+                  :
+              (_zoneVerse.id?.length ?? 0) > 20 ? _width - 20 - 20 - 5 - 10
+                  :
+              null,
               verse: _zoneVerse,
               weight: VerseWeight.thin,
               italic: true,

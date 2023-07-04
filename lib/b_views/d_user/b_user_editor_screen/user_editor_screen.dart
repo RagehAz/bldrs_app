@@ -497,6 +497,12 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       // keyboardTextInputType: TextInputType.text,
                       keyboardTextInputAction: TextInputAction.next,
                       textController: draft?.companyController,
+                      bulletPoints: const [
+                        Verse(
+                          id: 'phid_company_name_u_work_for',
+                          translate: true,
+                        ),
+                      ],
                       // autoValidate: true,
                       onTextChanged: (String? text) => onUserCompanyNameChanged(
                         text: text,

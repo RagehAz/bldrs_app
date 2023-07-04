@@ -1,12 +1,15 @@
+import 'package:basics/animators/widgets/widget_fader.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/b_views/a_starters/b_home_screen/aa_no_flyers_view.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/ldb/flyer_ldb_ops.dart';
 import 'package:bldrs/e_back_end/x_queries/flyers_queries.dart';
 import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 
 class HomeFlyersGrid extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -17,8 +20,8 @@ class HomeFlyersGrid extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final PaginationController paginationController;
-  final ZGridController zGridController;
+  final PaginationController? paginationController;
+  final ZGridController? zGridController;
   final ValueNotifier<bool> loading;
   /// --------------------------------------------------------------------------
   @override
@@ -45,23 +48,44 @@ class HomeFlyersGrid extends StatelessWidget {
           fromJSON: false,
         );
 
-        // blog('fuck2 : ${_wallFlyers.length} : isLoading : $isLoading');
+        if (Mapper.checkCanLoopList(_wallFlyers) == false){
 
-        return Center(
-          child: FlyersGrid(
-            scrollController: paginationController.scrollController,
-            zGridController: zGridController,
-            gridWidth: Scale.screenWidth(context),
-            gridHeight: Scale.screenHeight(context),
-            flyers: _wallFlyers,
-            screenName: 'userHomeScreen',
-            gridType: FlyerGridType.zoomable,
-            bottomPadding: Ratioz.horizon,
-            numberOfColumnsOrRows: Scale.isLandScape(context) == true ? 3 : 2,
-            hasResponsiveSideMargin: true,
+          if (isLoading == true){
+            return const FlyersGrid(
+              gridType: FlyerGridType.loading,
+              hasResponsiveSideMargin: true,
+              screenName: 'userHomeScreen',
+            );
+          }
 
-          ),
-        );
+          else {
+            return const WidgetFader(
+                fadeType: FadeType.fadeIn,
+                duration: Duration(seconds: 1),
+                child: NoFlyersView()
+            );
+          }
+
+        }
+
+        else {
+
+          return Center(
+            child: FlyersGrid(
+              scrollController: paginationController?.scrollController,
+              zGridController: zGridController,
+              gridWidth: Scale.screenWidth(context),
+              gridHeight: Scale.screenHeight(context),
+              flyers: _wallFlyers,
+              screenName: 'userHomeScreen',
+              gridType: FlyerGridType.zoomable,
+              bottomPadding: Ratioz.horizon,
+              numberOfColumnsOrRows: Scale.isLandScape(context) == true ? 3 : 2,
+              hasResponsiveSideMargin: true,
+            ),
+          );
+
+        }
 
       },
     );
