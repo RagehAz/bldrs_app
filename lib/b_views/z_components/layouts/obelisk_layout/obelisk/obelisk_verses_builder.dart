@@ -1,4 +1,5 @@
 import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/layouts/views/floating_list.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk_verse.dart';
@@ -73,31 +74,56 @@ class ObeliskVersesBuilder extends StatelessWidget {
 
         },
 
-      child: SizedBox(
+      child: FloatingList(
         height: Obelisk.gotContentsScrollableHeight(
           context: context,
           navModels: navModels,
         ),
-        child: Column(
-          mainAxisAlignment: Obelisk.stuffAlignment(isCross: false),
-          crossAxisAlignment: _crossAlignment,
-          children: <Widget>[
+        mainAxisAlignment: Obelisk.stuffAlignment(isCross: false),
+        crossAxisAlignment: _crossAlignment,
+        physics: const NeverScrollableScrollPhysics(),
+        columnChildren: <Widget>[
 
-            ...List.generate(navModels.length, (index){
+          ...List.generate(navModels.length, (index){
+            return ObeliskVerse(
+              onTap: () => onRowTap(index),
+              progressBarModel: progressBarModel,
+              navModelIndex: index,
+              navModel: navModels[index],
+            );
+          }),
 
-              return ObeliskVerse(
-                onTap: () => onRowTap(index),
-                progressBarModel: progressBarModel,
-                navModelIndex: index,
-                navModel: navModels[index],
-
-              );
-
-            }),
-
-          ],
-        ),
+        ],
       ),
+
+      // child: SizedBox(
+      //   height: Obelisk.gotContentsScrollableHeight(
+      //     context: context,
+      //     navModels: navModels,
+      //   ),
+      //   child: SingleChildScrollView(
+      //     physics: const NeverScrollableScrollPhysics(),
+      //     child: Column(
+      //       mainAxisAlignment: Obelisk.stuffAlignment(isCross: false),
+      //       crossAxisAlignment: _crossAlignment,
+      //       children: <Widget>[
+      //
+      //         ...List.generate(navModels.length, (index){
+      //
+      //           return ObeliskVerse(
+      //             onTap: () => onRowTap(index),
+      //             progressBarModel: progressBarModel,
+      //             navModelIndex: index,
+      //             navModel: navModels[index],
+      //
+      //           );
+      //
+      //         }),
+      //
+      //       ],
+      //     ),
+      //   ),
+      // ),
     );
 
   }

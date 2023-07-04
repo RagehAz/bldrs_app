@@ -1,5 +1,6 @@
 // ignore_for_file: unused_element
 import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/d_user/z_components/user_tile_button.dart';
@@ -42,6 +43,8 @@ class UserTileButtonsList extends StatelessWidget {
           /// FOUND USERS
           if (Mapper.checkCanLoopList(users) == true){
 
+            blog('UserTileButtonsList: found users (${users!.length})');
+
             /// SELECTION MODE
             if (selectedUsers == null){
               return _UsersButtons(
@@ -50,7 +53,7 @@ class UserTileButtonsList extends StatelessWidget {
                 onUserTap: onUserTap,
                 selectedUsers: const <UserModel>[],
                 sideButtonVerse: sideButtonVerse,
-                users: users ?? const <UserModel>[],
+                users: users,
               );          }
 
             /// NO SELECTION
@@ -65,7 +68,7 @@ class UserTileButtonsList extends StatelessWidget {
                     onUserTap: onUserTap,
                     selectedUsers: selectedUsers ?? const <UserModel>[],
                     sideButtonVerse: sideButtonVerse,
-                    users: users ?? const <UserModel>[],
+                    users: users,
                   );
 
                   },
