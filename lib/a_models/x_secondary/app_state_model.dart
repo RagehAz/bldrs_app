@@ -1,5 +1,6 @@
 import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/app_state_real_ops.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 /// => TAMAM
@@ -37,11 +38,16 @@ class AppStateModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static AppStateModel initialState() {
-    return const AppStateModel(
-      appVersion : null,
-      ldbVersion : null,
+  static Future<AppStateModel> createInitialModel() async {
+
+    final String _detectedAppVersion = await AppStateModel.detectAppVersion();
+    final AppStateModel? _globalState = await AppStateRealOps.readGlobalAppState();
+
+    return AppStateModel(
+      appVersion : _detectedAppVersion,
+      ldbVersion : _globalState?.ldbVersion ?? 0,
     );
+
   }
   // -----------------------------------------------------------------------------
 

@@ -131,7 +131,7 @@ class UserModel {
       device: await DeviceModel.generateDeviceModel(),
       savedFlyers: DeckModel.newDeck(),
       followedBzz: AgendaModel.newAgenda(),
-      appState: await AppStateRealOps.readGlobalAppState(),
+      appState: await AppStateModel.createInitialModel(),
       fcmTopics: TopicModel.getAllPossibleUserTopicsIDs(),
     );
 
