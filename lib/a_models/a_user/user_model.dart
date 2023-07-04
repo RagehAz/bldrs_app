@@ -812,6 +812,28 @@ class UserModel {
 
     return _newUser;
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static List<UserModel> cleanDuplicateUsers({
+    @required List<UserModel>? users,
+  }){
+    final List<UserModel> _output = [];
+
+    if (Mapper.checkCanLoopList(users) == true) {
+      for (final UserModel model in users!) {
+        final bool _contains = checkUsersContainUser(
+          usersModels: _output,
+          userModel: model,
+        );
+
+        if (_contains == false) {
+          _output.add(model);
+        }
+      }
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// BLOGGING

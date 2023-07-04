@@ -2,6 +2,7 @@ import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
 import 'package:fire/super_fire.dart';
@@ -114,6 +115,39 @@ int getPossibleStartingIndex({
 
 
   // blog('getPossibleStartingIndex : $_output');
+  return _output;
+}
+
+bool isAtGallerySlide({
+  required FlyerModel? flyerModel,
+  required BzModel? bzModel,
+  required bool showGallerySlide,
+  required ProgressBarModel? progressBarModel,
+}){
+  bool _output = false;
+
+  if (progressBarModel != null){
+
+    final bool _canShowGallery = canShowGalleryPage(
+      bzModel: bzModel,
+      // heroPath: heroPath,
+      canShowGallerySlide: showGallerySlide,
+    );
+
+    if (_canShowGallery == true) {
+      final int _numberOfSlides = getNumberOfSlides(
+        bzModel: bzModel,
+        flyerModel: flyerModel,
+        showGallerySlide: showGallerySlide,
+      );
+
+      if (progressBarModel.index + 1 == _numberOfSlides) {
+        _output = true;
+      }
+    }
+
+  }
+
   return _output;
 }
 // -----------------------------------------------------------------------------

@@ -13,6 +13,7 @@ import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_footer_controller.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_header_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/b_heroic_flyer_hero.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_flyer_header.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/gallery_header/gallery_header.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/a_flyer_footer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/slides_builder.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/d_progress_bar/a_progress_bar.dart';
@@ -596,6 +597,14 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
               followIsOn: _followIsOn,
               headerPageOpacity: _headerPageOpacity,
               bzCounters: _bzCounters,
+            ),
+
+            GalleryHeader(
+              flyerBoxWidth: widget.flyerBoxWidth,
+              bzModel: flyerModel?.bzModel,
+              flyerModel: flyerModel,
+              showGallerySlide: widget.showGallerySlide,
+              progressBarModel: _progressBarModel,
             ),
 
             /// FOOTER
