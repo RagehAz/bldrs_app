@@ -68,7 +68,9 @@ class UserLDBOps {
       fromJSON: true,
     );
 
-    return _users;
+    return UserModel.cleanDuplicateUsers(
+      users: _users,
+    );
   }
   // --------------------
   /// TESTED : WORKS PERFECT

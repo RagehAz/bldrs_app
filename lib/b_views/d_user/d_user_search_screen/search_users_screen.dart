@@ -73,6 +73,9 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
   void initState() {
     super.initState();
     _selectedUsers = ValueNotifier<List<UserModel>?>(widget.selectedUsers);
+
+    blog('users : ${_selectedUsers?.value?.length}');
+
   }
   // --------------------
   bool _isInit = true;
@@ -83,6 +86,8 @@ class _SearchUsersScreenState extends State<SearchUsersScreen> {
       _triggerLoading(setTo: true).then((_) async {
 
         final List<UserModel> _history = await UserLDBOps.readAll();
+
+        blog('history : ${_history.length}');
 
         setNotifier(
             notifier: _historyUsers,
