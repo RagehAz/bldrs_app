@@ -293,7 +293,6 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
        onZoneTap: () async {
 
           final ZoneModel? _newZone = await ZoneSelection.goBringAZone(
-            context: context,
             depth: ZoneDepth.city,
             settingCurrentZone: false,
             zoneViewingEvent: ViewingEvent.homeView,
@@ -492,7 +491,6 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
         onZoneTap: () async {
 
           final ZoneModel? _newZone = await ZoneSelection.goBringAZone(
-            context: context,
             depth: ZoneDepth.city,
             settingCurrentZone: false,
             zoneViewingEvent: ViewingEvent.homeView,
@@ -677,7 +675,6 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
         onZoneTap: () async {
 
           final ZoneModel? _newZone = await ZoneSelection.goBringAZone(
-            context: context,
             depth: ZoneDepth.city,
             settingCurrentZone: false,
             zoneViewingEvent: ViewingEvent.homeView,

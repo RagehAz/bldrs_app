@@ -59,7 +59,6 @@ keywords relevancy		      calls
 // --------------------
 /// TESTED : WORKS PERFECT
 List<NavModel?> generateMainNavModels({
-  required BuildContext context,
   required List<BzModel>? bzzModels,
   required ZoneModel? currentZone,
   required UserModel? userModel,
@@ -168,7 +167,6 @@ List<NavModel?> generateMainNavModels({
       id: NavModel.getMainNavIDString(navID: MainNavModel.zone),
       icon: _countryFlag,
       screen: () => ZoneSelection.goBringAZone(
-        context: context,
         depth: ZoneDepth.city,
         zoneViewingEvent: ViewingEvent.homeView,
         settingCurrentZone: true,
