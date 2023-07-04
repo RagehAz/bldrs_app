@@ -283,7 +283,7 @@ class BldrsNav {
           await Future.delayed(
             const Duration(milliseconds: 500),
             () async {
-              await Nav.closeApp(getMainContext());
+              await Nav.closeApp();
             },
           );
 
