@@ -22,16 +22,16 @@ class ChainProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<Chain>> composeBldrsChains({
-    @required BuildContext context,
-    @required List<Chain> chains,
+  static Future<List<Chain>?> composeBldrsChains({
+    required BuildContext context,
+    required List<Chain> chains,
   }) async {
 
     pushWaitDialog(
       verse: Verse.plain('Uploading Bldrs Chains to RealTime Database'),
     );
 
-    final List<Chain> _bldrsChains = await ChainRealOps.createBldrsChains(
+    final List<Chain>? _bldrsChains = await ChainRealOps.createBldrsChains(
       chains: chains,
     );
 
@@ -45,10 +45,10 @@ class ChainProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<Chain>> fetchBldrsChains() async {
+  static Future<List<Chain>?> fetchBldrsChains() async {
 
     /// 1 - search LDB
-    List<Chain> _chains = await ChainLDBOps.readBldrsChains();
+    List<Chain>? _chains = await ChainLDBOps.readBldrsChains();
 
     /// 2 - BLDRS CHAINS not found in LDB
     if (_chains == null) {
@@ -73,7 +73,7 @@ class ChainProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> renovateBldrsChains({
-    @required List<Chain> newChains,
+    required List<Chain>? newChains,
   }) async {
 
     if (newChains != null){
@@ -103,8 +103,8 @@ class ChainProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateBldrsChainsLocally({
-    @required List<Chain> newChains,
-    @required bool showWaitDialog,
+    required List<Chain>? newChains,
+    required bool showWaitDialog,
   }) async {
 
     if (newChains != null){

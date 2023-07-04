@@ -1,26 +1,27 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_editor_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_editor_slide_part.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
-import 'package:scale/scale.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:flutter/material.dart';
 
 class SlideEditorControlPanel extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SlideEditorControlPanel({
-    @required this.onCancel,
-    @required this.onResetMatrix,
-    @required this.onCrop,
-    @required this.onConfirm,
-    @required this.height,
-    @required this.canResetMatrix,
-    @required this.draftNotifier,
-    @required this.onTriggerAnimation,
-    @required this.onToggleFilter,
-    Key key
-  }) : super(key: key);
+    required this.onCancel,
+    required this.onResetMatrix,
+    required this.onCrop,
+    required this.onConfirm,
+    required this.height,
+    required this.canResetMatrix,
+    required this.draftNotifier,
+    required this.onTriggerAnimation,
+    required this.onToggleFilter,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final Function onCancel;
   final Function onResetMatrix;
@@ -28,7 +29,7 @@ class SlideEditorControlPanel extends StatelessWidget {
   final Function onConfirm;
   final double height;
   final ValueNotifier<bool> canResetMatrix;
-  final ValueNotifier<DraftSlide> draftNotifier;
+  final ValueNotifier<DraftSlide?> draftNotifier;
   final Function onTriggerAnimation;
   final Function onToggleFilter;
   // --------------------------------------------------------------------------
@@ -76,7 +77,7 @@ class SlideEditorControlPanel extends StatelessWidget {
           /// RESET MATRIX
           ValueListenableBuilder(
               valueListenable: canResetMatrix,
-              builder: (_, bool _canResetMatrix, Widget child){
+              builder: (_, bool _canResetMatrix, Widget? child){
 
                 return SlideEditorButton(
                   size: _buttonSize,
@@ -95,13 +96,13 @@ class SlideEditorControlPanel extends StatelessWidget {
           /// ANIMATE
           ValueListenableBuilder(
               valueListenable: draftNotifier,
-              builder: (_, DraftSlide draftSlide, Widget child){
+              builder: (_, DraftSlide? draftSlide, Widget? child){
 
-                final bool animate = draftSlide.animationCurve != null;
+                final bool animate = draftSlide?.animationCurve != null;
 
                 return ValueListenableBuilder(
                     valueListenable: canResetMatrix,
-                    builder: (_, bool canReset, Widget child) {
+                    builder: (_, bool canReset, Widget? child) {
                       return SlideEditorButton(
                         size: _buttonSize,
                         icon: animate == true ? Iconz.flyerScale : Iconz.flyer,

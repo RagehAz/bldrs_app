@@ -1,11 +1,11 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:fire/super_fire.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 // --------------------------------------------------------------------------
 
 /// NOTES:-
@@ -89,18 +89,18 @@ enum ViewingEvent {
 class StagingModel {
   // --------------------------------------------------------------------------
   const StagingModel({
-    @required this.id,
-    @required this.emptyStageIDs,
-    @required this.bzzStageIDs,
-    @required this.flyersStageIDs,
-    @required this.publicStageIDs,
+    required this.id,
+    required this.emptyStageIDs,
+    required this.bzzStageIDs,
+    required this.flyersStageIDs,
+    required this.publicStageIDs,
   });
   // --------------------------------------------------------------------------
-  final String id;
-  final List<String> emptyStageIDs;
-  final List<String> bzzStageIDs;
-  final List<String> flyersStageIDs;
-  final List<String> publicStageIDs;
+  final String? id;
+  final List<String>? emptyStageIDs;
+  final List<String>? bzzStageIDs;
+  final List<String>? flyersStageIDs;
+  final List<String>? publicStageIDs;
   // --------------------------------------------------------------------------
 
   /// CONSTANTS
@@ -132,7 +132,7 @@ class StagingModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
-    @required bool toLDB,
+    required bool toLDB,
   }){
 
     Map<String, dynamic> _map = {
@@ -155,11 +155,11 @@ class StagingModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static StagingModel decipher({
-    @required Map<String, dynamic> map,
-    @required String id,
+  static StagingModel? decipher({
+    required Map<String, dynamic>? map,
+    required String? id,
   }){
-    StagingModel _output;
+    StagingModel? _output;
 
     if (map != null){
 
@@ -177,26 +177,26 @@ class StagingModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String cipherStageType(StageType type){
+  static String? cipherStageType(StageType? type){
 
     switch (type) {
-      case StageType.emptyStage:     return '1_empty';     break;
-      case StageType.bzzStage:       return '2_bzz';       break;
-      case StageType.flyersStage:    return '3_flyers';    break;
-      case StageType.publicStage:    return '4_public';    break;
+      case StageType.emptyStage:     return '1_empty';
+      case StageType.bzzStage:       return '2_bzz';
+      case StageType.flyersStage:    return '3_flyers';
+      case StageType.publicStage:    return '4_public';
       default: return null;
     }
 
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static StageType decipherStageType(String type){
+  static StageType? decipherStageType(String? type){
 
       switch (type) {
-        case '1_empty':    return StageType.emptyStage;    break;
-        case '2_bzz':      return StageType.bzzStage;      break;
-        case '3_flyers':   return StageType.flyersStage;   break;
-        case '4_public':   return StageType.publicStage;   break;
+        case '1_empty':    return StageType.emptyStage;
+        case '2_bzz':      return StageType.bzzStage;
+        case '3_flyers':   return StageType.flyersStage;
+        case '4_public':   return StageType.publicStage;
         default: return null;
       }
 
@@ -204,11 +204,11 @@ class StagingModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   StagingModel copyWith({
-    String id,
-    List<String> emptyStageIDs,
-    List<String> bzzStageIDs,
-    List<String> flyersStageIDs,
-    List<String> publicStageIDs,
+    String? id,
+    List<String>? emptyStageIDs,
+    List<String>? bzzStageIDs,
+    List<String>? flyersStageIDs,
+    List<String>? publicStageIDs,
   }) {
     return StagingModel(
       id: id ?? this.id,
@@ -221,12 +221,12 @@ class StagingModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   StagingModel copyListWith({
-    @required List<String> newList,
-    @required StageType type,
+    required List<String>? newList,
+    required StageType? type,
   }){
-    StagingModel _output = this;
+    StagingModel? _output = this;
 
-    if (this != null && newList != null && type != null){
+    if (newList != null && type != null){
 
       _output = _output.copyWith(
         emptyStageIDs:    type == StageType.emptyStage    ? newList : _output.emptyStageIDs,
@@ -255,18 +255,18 @@ class StagingModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  List<String> getIDsByType(StageType stageType){
+  List<String>? getIDsByType(StageType? stageType){
     switch (stageType) {
-      case StageType.emptyStage:    return emptyStageIDs;   break;
-      case StageType.bzzStage:      return bzzStageIDs;     break;
-      case StageType.flyersStage:   return flyersStageIDs;  break;
-      case StageType.publicStage:   return publicStageIDs;  break;
+      case StageType.emptyStage:    return emptyStageIDs;
+      case StageType.bzzStage:      return bzzStageIDs;
+      case StageType.flyersStage:   return flyersStageIDs;
+      case StageType.publicStage:   return publicStageIDs;
       default: return getAllIDs();
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  StageType getTypeByID(String id){
+  StageType? getTypeByID(String? id){
 
     if (checkHasID(id: id, zoneStageType: StageType.emptyStage) == true){
       return StageType.emptyStage;
@@ -292,9 +292,9 @@ class StagingModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   List<String> getIDsByViewingEvent({
-    @required ViewingEvent event,
-    @required String countryID,
-    @required String viewerCountryID,
+    required ViewingEvent event,
+    required String? countryID,
+    required String? viewerCountryID,
   }){
 
     if (event == ViewingEvent.admin){
@@ -303,7 +303,7 @@ class StagingModel {
 
     else {
 
-      final StageType _minStage = _concludeLowestStageOnViewingEvent(
+      final StageType? _minStage = _concludeLowestStageOnViewingEvent(
         event: event,
         countryID: countryID,
         viewerCountryID: viewerCountryID,
@@ -318,10 +318,10 @@ class StagingModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static StageType _concludeLowestStageOnViewingEvent({
-    @required ViewingEvent event,
-    @required String countryID,
-    @required String viewerCountryID,
+  static StageType? _concludeLowestStageOnViewingEvent({
+    required ViewingEvent? event,
+    required String? countryID,
+    required String? viewerCountryID,
   }){
 
     const Map<String, dynamic> _localUser = {
@@ -351,7 +351,7 @@ class StagingModel {
       },
     };
 
-    final String _view = cipherViewingEvent(event);
+    final String? _view = cipherViewingEvent(event);
     final String _userType = _getUserTypeKey(
       countryID: countryID,
       viewerCountryID: viewerCountryID,
@@ -363,11 +363,14 @@ class StagingModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String _getUserTypeKey({
-    @required String countryID,
-    @required String viewerCountryID,
+    required String? countryID,
+    required String? viewerCountryID,
   }){
 
-    final UserModel _user = UsersProvider.proGetMyUserModel(context: getMainContext(),listen: false);
+    final UserModel? _user = UsersProvider.proGetMyUserModel(
+        context: getMainContext(),
+        listen: false,
+    );
     final bool _isAuthor = UserModel.checkUserIsAuthor(_user);
     final bool _isGlobal =
         countryID != null &&
@@ -397,19 +400,19 @@ class StagingModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String cipherViewingEvent(ViewingEvent event){
+  static String? cipherViewingEvent(ViewingEvent? event){
       switch(event){
-        case ViewingEvent.homeView        : return 'homeView'; break;
-        case ViewingEvent.userEditor      : return 'userEditor'; break;
-        case ViewingEvent.bzEditor        : return 'bzEditor'; break;
-        case ViewingEvent.flyerEditor     : return 'flyerEditor'; break;
-        default: return null; break;
+        case ViewingEvent.homeView        : return 'homeView';
+        case ViewingEvent.userEditor      : return 'userEditor';
+        case ViewingEvent.bzEditor        : return 'bzEditor';
+        case ViewingEvent.flyerEditor     : return 'flyerEditor';
+        default: return null;
       }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   List<String> _getIDsFromMinStageToMax({
-    @required StageType minStage,
+    required StageType? minStage,
   }){
     List<String> _output = <String>[];
 
@@ -417,7 +420,8 @@ class StagingModel {
       case StageType.emptyStage:    _output = getAllIDs();                                                  break;
       case StageType.bzzStage:  _output.addAll([...?bzzStageIDs, ...?flyersStageIDs, ...?publicStageIDs]);  break;
       case StageType.flyersStage:    _output.addAll([...?flyersStageIDs, ...?publicStageIDs]);              break;
-      case StageType.publicStage:    _output.addAll(publicStageIDs);                                        break;
+      case StageType.publicStage:    _output.addAll([...?publicStageIDs]);
+      break;
       default: break;
     }
 
@@ -429,11 +433,11 @@ class StagingModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static StagingModel removeIDFromStaging({
-    @required String id,
-    @required StagingModel staging,
+  static StagingModel? removeIDFromStaging({
+    required String? id,
+    required StagingModel? staging,
   }){
-    StagingModel _output = staging;
+    StagingModel? _output = staging;
 
     if (staging != null && id != null){
 
@@ -441,15 +445,15 @@ class StagingModel {
 
       if (_idExists == true){
 
-        final StageType _type = staging.getTypeByID(id);
-        final List<String> _oldList = staging.getIDsByType(_type);
+        final StageType? _type = staging.getTypeByID(id);
+        final List<String>? _oldList = staging.getIDsByType(_type);
 
         final List<String> _newList = Stringer.removeStringsFromStrings(
             removeFrom: _oldList,
             removeThis: [id],
         );
 
-        _output = _output.copyListWith(
+        _output = _output?.copyListWith(
             newList: _newList,
             type: _type,
         );
@@ -462,12 +466,12 @@ class StagingModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static StagingModel insertIDToStaging({
-    @required String id,
-    @required StageType newType,
-    @required StagingModel staging,
+  static StagingModel? insertIDToStaging({
+    required String? id,
+    required StageType? newType,
+    required StagingModel? staging,
   }){
-    StagingModel _output = staging;
+    StagingModel? _output = staging;
 
     if (staging != null && id != null){
 
@@ -489,14 +493,14 @@ class StagingModel {
       }
 
 
-      final List<String> _oldList = staging.getIDsByType(newType);
+      final List<String>? _oldList = staging.getIDsByType(newType);
 
       final List<String> _newList = Stringer.addStringToListIfDoesNotContainIt(
           strings: _oldList,
           stringToAdd: id,
       );
 
-      _output = _output.copyListWith(
+      _output = _output?.copyListWith(
         newList: _newList,
         type: newType,
       );
@@ -512,8 +516,8 @@ class StagingModel {
   // ---------------------
   /// TESTED : WORKS PERFECT
   bool checkHasID({
-    @required String id,
-    StageType zoneStageType,
+    required String? id,
+    StageType? zoneStageType,
   }){
 
     /// CHECK ALL
@@ -535,13 +539,13 @@ class StagingModel {
   }
   // ---------------------
   /// TESTED : WORKS PERFECT
-  static bool checkAllZonesAreInEmptyStage(StagingModel staging){
-    bool _output;
+  static bool checkAllZonesAreInEmptyStage(StagingModel? staging){
+    bool _output = false;
 
     if (staging != null){
 
       final List<String> _allIDs = staging.getAllIDs();
-      final List<String> _emptyStageIDs = staging.getIDsByType(StageType.emptyStage);
+      final List<String>? _emptyStageIDs = staging.getIDsByType(StageType.emptyStage);
 
       _output = Mapper.checkListsAreIdentical(
           list1: _allIDs,
@@ -558,10 +562,10 @@ class StagingModel {
   // ---------------------
   /// TESTED : WORKS PERFECT
   static bool checkStagingHasSelectableZones({
-    @required StagingModel staging,
-    @required ViewingEvent zoneViewingEvent,
-    @required String countryID,
-    @required String viewerCountryID,
+    required StagingModel? staging,
+    required ViewingEvent? zoneViewingEvent,
+    required String countryID,
+    required String viewerCountryID,
   }){
     bool _output = false;
 
@@ -582,7 +586,7 @@ class StagingModel {
   // ---------------------
   /// TESTED : WORKS PERFECT
   static bool checkMayShowViewAllZonesButton({
-    @required ViewingEvent zoneViewingEvent,
+    required ViewingEvent? zoneViewingEvent,
   }){
     return zoneViewingEvent == ViewingEvent.homeView
     ||
@@ -591,7 +595,7 @@ class StagingModel {
   }
   // ---------------------
   /// TASK : TEST ME
-  static bool isEmpty(StagingModel staging){
+  static bool isEmpty(StagingModel? staging){
     bool _output = true;
 
     if (staging != null){
@@ -606,7 +610,7 @@ class StagingModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkStagingsAreIdentical(StagingModel staging1, StagingModel staging2){
+  static bool checkStagingsAreIdentical(StagingModel? staging1, StagingModel? staging2){
     bool _identical = false;
 
     if (staging1 == null && staging2 == null){
@@ -630,10 +634,10 @@ class StagingModel {
   /// TESTED : WORKS PERFECT
   void blogStaging(){
     blog('STAGING :--- >');
-    blog('emptyStage : ${emptyStageIDs.length} : $emptyStageIDs');
-    blog('bzzStage : ${bzzStageIDs.length} : $bzzStageIDs');
-    blog('flyerStage : ${flyersStageIDs.length} : $flyersStageIDs');
-    blog('publicStage : ${publicStageIDs.length} : $publicStageIDs');
+    blog('emptyStage : ${emptyStageIDs?.length} : $emptyStageIDs');
+    blog('bzzStage : ${bzzStageIDs?.length} : $bzzStageIDs');
+    blog('flyerStage : ${flyersStageIDs?.length} : $flyersStageIDs');
+    blog('publicStage : ${publicStageIDs?.length} : $publicStageIDs');
   }
   // -----------------------------------------------------------------------------
 

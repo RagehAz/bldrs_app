@@ -12,12 +12,12 @@ import 'package:flutter/material.dart';
 class MyBzScreenPages extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const MyBzScreenPages({
-    @required this.screenHeight,
-    @required this.tabController,
-    @required this.scrollController,
-    @required this.zGridController,
-    Key key
-  }) : super(key: key);
+    required this.screenHeight,
+    required this.tabController,
+    required this.scrollController,
+    required this.zGridController,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double screenHeight;
   final TabController tabController;
@@ -25,8 +25,8 @@ class MyBzScreenPages extends StatelessWidget {
   final ScrollController scrollController;
   /// --------------------------------------------------------------------------
   static List<Widget> pages({
-    @required ScrollController scrollController,
-    @required ZGridController zGridController,
+    required ScrollController scrollController,
+    required ZGridController zGridController,
   }){
     return <Widget>[
 

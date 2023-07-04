@@ -8,8 +8,8 @@
 // class MyBzScreenTabBar extends StatelessWidget {
 //   /// --------------------------------------------------------------------------
 //   const MyBzScreenTabBar({
-//     @required this.tabController,
-//     @required this.currentBzTab,
+//     required this.tabController,
+//     required this.currentBzTab,
 //     Key key
 //   }) : super(key: key);
 //   /// --------------------------------------------------------------------------
@@ -17,8 +17,8 @@
 //   final BzTab currentBzTab;
 //   /// --------------------------------------------------------------------------
 //   bool _isSelected({
-//     @required BuildContext context,
-//     @required BzTab bzTab
+//     required BuildContext context,
+//     required BzTab bzTab
 //   }){
 //
 //     bool _isSelected = false;

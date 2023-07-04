@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
@@ -25,13 +26,17 @@ class FlyerVerificationProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> verifyFlyer({
-    @required BuildContext context,
-    @required FlyerModel flyerModel,
+    required BuildContext context,
+    required FlyerModel? flyerModel,
     bool showWaitAndSuccessDialogs = true,
     bool sendNote = true,
   }) async {
 
-    if (flyerModel != null && flyerModel.auditState != AuditState.verified) {
+    if (
+        flyerModel?.id != null &&
+        flyerModel?.bzID != null &&
+        flyerModel?.auditState != AuditState.verified
+    ) {
 
       if (showWaitAndSuccessDialogs == true){
         pushWaitDialog();
@@ -42,7 +47,7 @@ class FlyerVerificationProtocols {
         /// UPDATE FIELD
         Fire.updateDocField(
           coll: FireColl.flyers,
-          doc: flyerModel.id,
+          doc: flyerModel!.id!,
           field: 'auditState',
           input: FlyerModel.cipherAuditState(AuditState.verified),
         ),
@@ -51,8 +56,8 @@ class FlyerVerificationProtocols {
         if (sendNote == true)
         NoteEvent.sendFlyerIsVerifiedNoteToBz(
           context: context,
-          flyerID: flyerModel.id,
-          bzID: flyerModel.bzID,
+          flyerID: flyerModel.id!,
+          bzID: flyerModel.bzID!,
         ),
 
       ]);
@@ -88,8 +93,8 @@ class FlyerVerificationProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<FlyerModel>> verifyBz({
-    @required BuildContext context,
-    @required String bzID,
+    required BuildContext context,
+    required String? bzID,
   }) async {
 
     List<FlyerModel> _output = [];
@@ -98,41 +103,37 @@ class FlyerVerificationProtocols {
 
       pushWaitDialog();
 
-      final BzModel _bzModel = await BzProtocols.fetchBz(
+      final BzModel? _bzModel = await BzProtocols.fetchBz(
           bzID: bzID,
       );
 
-      assert(_bzModel != null, 'BzModel is null');
+      if (_bzModel?.id != null) {
 
-      await Future.wait(<Future>[
+        await Future.wait(<Future>[
+          _verifyAllBzFlyers(
+            context: context,
+            bzModel: _bzModel!,
+          ).then((List<FlyerModel> flyers) {
+            _output = flyers;
+          }),
+          _verifyBzDoc(
+            context: context,
+            bzModel: _bzModel,
+          ),
+          NoteEvent.sendBzIsVerifiedNote(
+            context: context,
+            bzModel: _bzModel,
+          ),
+        ]);
 
-        _verifyAllBzFlyers(
-          context: context,
-          bzModel: _bzModel,
-        ).then((List<FlyerModel> flyers){
-          _output = flyers;
-        }),
+        await WaitDialog.closeWaitDialog();
 
-        _verifyBzDoc(
-          context: context,
-          bzModel: _bzModel,
-        ),
-
-        NoteEvent.sendBzIsVerifiedNote(
-          context: context,
-          bzModel: _bzModel,
-        ),
-
-      ]);
-
-      await WaitDialog.closeWaitDialog();
-
-      /// SHOW SUCCESS DIALOG
-      await Dialogs.showSuccessDialog(
-        firstLine: Verse.plain('Done'),
-        secondLine: Verse.plain('Bz ${_bzModel.name}... got verified'),
-      );
-
+        /// SHOW SUCCESS DIALOG
+        await Dialogs.showSuccessDialog(
+          firstLine: Verse.plain('Done'),
+          secondLine: Verse.plain('Bz ${_bzModel.name}... got verified'),
+        );
+      }
     }
 
     return  _output;
@@ -140,11 +141,11 @@ class FlyerVerificationProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<FlyerModel>> _verifyAllBzFlyers({
-    @required BuildContext context,
-    @required BzModel bzModel,
+    required BuildContext context,
+    required BzModel bzModel,
   }) async {
 
-    final List<FlyerModel> _nonVerifiedFlyers = await FlyerFireOps.readFlyersByQuery(
+    final List<FlyerModel>? _nonVerifiedFlyers = await FlyerFireOps.readFlyersByQuery(
       queryModel: FireQueryModel(
         coll: FireColl.flyers,
         limit: 1000,
@@ -166,28 +167,33 @@ class FlyerVerificationProtocols {
       ),
     );
 
-    await Future.wait(<Future>[
+    if (Mapper.checkCanLoopList(_nonVerifiedFlyers) == true){
 
-      ...List.generate(_nonVerifiedFlyers.length, (index){
+      await Future.wait(<Future>[
 
-        return verifyFlyer(
-          context: context,
-          flyerModel: _nonVerifiedFlyers[index],
-          sendNote: false,
-          showWaitAndSuccessDialogs: false,
-        );
+        ...List.generate(_nonVerifiedFlyers!.length, (index){
 
-    }),
+          return verifyFlyer(
+            context: context,
+            flyerModel: _nonVerifiedFlyers[index],
+            sendNote: false,
+            showWaitAndSuccessDialogs: false,
+          );
 
-    ]);
+      }),
 
-    return _nonVerifiedFlyers;
+      ]);
+
+    }
+
+
+    return [...?_nonVerifiedFlyers];
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _verifyBzDoc({
-    @required BuildContext context,
-    @required BzModel bzModel,
+    required BuildContext context,
+    required BzModel bzModel,
   }) async {
 
     await BzProtocols.renovateBz(

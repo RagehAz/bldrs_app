@@ -1,25 +1,26 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:bldrs/a_models/a_user/draft/draft_user.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_validator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class GenderBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
-  const GenderBubble(
-      {@required this.onTap, @required this.draftUser, @required this.canValidate, Key key})
-      : super(key: key);
-
+  const GenderBubble({
+    required this.onTap,
+    required this.draftUser,
+    required this.canValidate,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final ValueChanged<Gender> onTap;
-  final DraftUser draftUser;
+  final DraftUser? draftUser;
   final bool canValidate;
-
   /// --------------------------------------------------------------------------
   static double buttonWidth(BuildContext context) {
     const double _spacing = 10;
@@ -62,8 +63,8 @@ class GenderBubble extends StatelessWidget {
           children: <Widget>[
             ...List.generate(_gendersList.length, (index) {
               final Gender _gender = UserModel.gendersList[index];
-              final String _genderPhid = UserModel.getGenderPhid(_gender);
-              final String _genderIcon = UserModel.genderIcon(_gender);
+              final String? _genderPhid = UserModel.getGenderPhid(_gender);
+              final String? _genderIcon = UserModel.genderIcon(_gender);
 
               final bool _isSelected = _gender == draftUser?.gender;
 

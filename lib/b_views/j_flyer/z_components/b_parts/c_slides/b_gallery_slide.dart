@@ -1,32 +1,34 @@
 import 'dart:async';
 
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/layouts/handlers/max_bounce_navigator.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
 
 class GallerySlide extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const GallerySlide({
-    @required this.flyerBoxWidth,
-    @required this.flyerBoxHeight,
-    @required this.flyerModel,
-    @required this.bzModel,
-    @required this.onMaxBounce,
+    required this.flyerBoxWidth,
+    required this.flyerBoxHeight,
+    required this.flyerModel,
+    required this.bzModel,
+    required this.onMaxBounce,
     this.heroTag,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final double flyerBoxHeight;
   final FlyerModel flyerModel;
   final BzModel bzModel;
-  final String heroTag;
+  final String? heroTag;
   final Function onMaxBounce;
   /// --------------------------------------------------------------------------
   @override
@@ -37,13 +39,13 @@ class GallerySlide extends StatefulWidget {
 class _GallerySlideState extends State<GallerySlide> {
   /// --------------------------------------------------------------------------
   final ScrollController _scrollController = ScrollController();
-  bool _canPaginate;
+  bool? _canPaginate;
   bool _canBounce = false;
   // -----------------------------------------------------------------------------
   /// --- FUTURE LOADING BLOCK
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -98,7 +100,7 @@ class _GallerySlideState extends State<GallerySlide> {
     // final double _screenHeight = Scale.superScreenHeight(context);
     const double _paginationHeightLight = Ratioz.horizon * 3;
 
-    if (_maxScroll - _currentScroll <= _paginationHeightLight && _canPaginate == true){
+    if (_maxScroll - _currentScroll <= _paginationHeightLight && Mapper.boolIsTrue(_canPaginate) == true){
 
       // blog('_maxScroll : $_maxScroll : _currentScroll : $_currentScroll : diff : ${_maxScroll - _currentScroll} : _delta : $_delta');
 
@@ -127,7 +129,7 @@ class _GallerySlideState extends State<GallerySlide> {
       flyerModel: widget.flyerModel,
       bzModel: widget.bzModel,
       loadedFlyers: _loadedFlyers.value,
-      heroTag: widget.heroTag,
+      heroTag: widget.heroTag ?? '',
     );
 
     _addToBzFlyers(_moreFlyers);
@@ -167,7 +169,7 @@ class _GallerySlideState extends State<GallerySlide> {
         child: ValueListenableBuilder(
           valueListenable: _loadedFlyers,
           child: Container(),
-          builder: (_, List<FlyerModel> flyers, Widget child){
+          builder: (_, List<FlyerModel> flyers, Widget? child){
 
             return MaxBounceNavigator(
               onNavigate: () async {
@@ -195,7 +197,7 @@ class _GallerySlideState extends State<GallerySlide> {
                 gridType: FlyerGridType.heroic,
                 topPadding: _headerAndProgressHeights,
                 // numberOfColumns: 2,
-                screenName: widget.heroTag,
+                screenName: widget.heroTag ?? '',
                 scrollController: _scrollController,
                 hasResponsiveSideMargin: false,
               ),

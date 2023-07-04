@@ -1,7 +1,6 @@
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/c_noot_nav_protocols.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
-import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 
 /// NOTE TAP
@@ -9,7 +8,7 @@ import 'package:flutter/material.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onBzNoteTap({
-  @required NoteModel noteModel,
+  required NoteModel? noteModel,
 }) async {
 
   // blog('namexxx : ${noteModel.navTo.name}');
@@ -35,9 +34,9 @@ Future<void> onBzNoteTap({
 /// TESTED : WORKS PERFECT
 /*
 // void decrementBzObeliskUnseenNotesNumber({
-//   @required NotesProvider notesProvider,
-//   @required int markedNotesLength,
-//   @required String bzID,
+//   required NotesProvider notesProvider,
+//   required int markedNotesLength,
+//   required String bzID,
 // }){
 //
 //   if (markedNotesLength > 0){

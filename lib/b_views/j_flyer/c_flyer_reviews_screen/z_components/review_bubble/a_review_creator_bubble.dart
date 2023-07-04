@@ -1,32 +1,33 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/review_bubble/a_review_box.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/review_bubble/review_bubble_box.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 
 class ReviewCreatorBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ReviewCreatorBubble({
-    @required this.globalKey,
-    @required this.pageWidth,
-    @required this.reviewTextController,
-    @required this.onReviewSubmit,
-    @required this.onReviewUserBalloonTap,
-    @required this.isUploading,
-    Key key
-  }) : super(key: key);
+    required this.globalKey,
+    required this.pageWidth,
+    required this.reviewTextController,
+    required this.onReviewSubmit,
+    required this.onReviewUserBalloonTap,
+    required this.isUploading,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final GlobalKey globalKey;
   final double pageWidth;
   final TextEditingController reviewTextController;
-  final ValueChanged<UserModel> onReviewUserBalloonTap;
+  final ValueChanged<UserModel?>? onReviewUserBalloonTap;
   final Function onReviewSubmit;
   final ValueNotifier<bool> isUploading;
   // -----------------------------------------------------------------------------
@@ -40,8 +41,11 @@ class ReviewCreatorBubble extends StatelessWidget {
     return ReviewBox(
         pageWidth: pageWidth,
         userID: Authing.getUserID(),
-        onReviewUserBalloonTap: onReviewUserBalloonTap,
-        builder: (UserModel userModel){
+        onReviewUserBalloonTap: onReviewUserBalloonTap == null ?
+          null
+            :
+            (UserModel? user) => onReviewUserBalloonTap?.call(user),
+        builder: (UserModel? userModel){
 
           return ReviewBubbleBox(
             width: _textBubbleWidth,
@@ -77,7 +81,7 @@ class ReviewCreatorBubble extends StatelessWidget {
                   margins: const EdgeInsets.all(5),
                   // onTap: onEditReview,
                   // autofocus: false,
-                  onChanged: (String x){blog(x);},
+                  onChanged: (String? x){blog(x);},
                 ),
 
                 /// SUBMIT BUTTON
@@ -87,7 +91,7 @@ class ReviewCreatorBubble extends StatelessWidget {
 
                     ValueListenableBuilder(
                         valueListenable: isUploading,
-                        builder: (_, bool _isUploading, Widget child){
+                        builder: (_, bool _isUploading, Widget? child){
 
                           return BldrsBox(
                             verse: const Verse(

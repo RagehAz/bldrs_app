@@ -1,43 +1,44 @@
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+
 import 'package:flutter/material.dart';
 
 class NumberDataCreatorFieldRow extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const NumberDataCreatorFieldRow({
-    @required this.hasUnit,
-    @required this.formKey,
-    @required this.textController,
-    @required this.validator,
-    @required this.onKeyboardChanged,
-    @required this.onKeyboardSubmitted,
-    @required this.selectedUnitID,
-    @required this.onUnitSelectorButtonTap,
-    @required this.hintVerse,
-    @required this.appBarType,
+    required this.hasUnit,
+    required this.formKey,
+    required this.textController,
+    required this.validator,
+    required this.onKeyboardChanged,
+    required this.onKeyboardSubmitted,
+    required this.selectedUnitID,
+    required this.onUnitSelectorButtonTap,
+    required this.hintVerse,
+    required this.appBarType,
     this.width,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final bool hasUnit;
   final GlobalKey<FormState> formKey;
   final TextEditingController textController;
-  final String Function(String) validator;
-  final ValueChanged<String> onKeyboardChanged;
-  final ValueChanged<String> onKeyboardSubmitted;
-  final ValueNotifier<String> selectedUnitID;
+  final String? Function(String?) validator;
+  final ValueChanged<String?>? onKeyboardChanged;
+  final ValueChanged<String?>? onKeyboardSubmitted;
+  final ValueNotifier<String?> selectedUnitID;
   final Function onUnitSelectorButtonTap;
   final Verse hintVerse;
   final AppBarType appBarType;
-  final double width;
+  final double? width;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -103,7 +104,7 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
         if (hasUnit == true)
           ValueListenableBuilder(
               valueListenable: selectedUnitID,
-              builder: (_, String selectedUnitID, Widget child){
+              builder: (_, String? selectedUnitID, Widget? child){
 
 
                 Verse _verse = Verse(
@@ -113,13 +114,13 @@ class NumberDataCreatorFieldRow extends StatelessWidget {
 
                 final bool _isCurrency = Phider.checkVerseIsCurrency(selectedUnitID);
                 if (_isCurrency == true){
-                  final CurrencyModel _currency = ZoneProvider.proGetCurrencyByCurrencyID(
+                  final CurrencyModel? _currency = ZoneProvider.proGetCurrencyByCurrencyID(
                     context: context,
                     currencyID: selectedUnitID,
                     listen: false,
                   );
                   _verse = Verse(
-                    id: _currency.symbol,
+                    id: _currency?.symbol,
                     translate: false,
                   );
                 }

@@ -3,15 +3,15 @@ part of bldrs_app_bar;
 class AppBarProgressBar extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const AppBarProgressBar({
-    @required this.loading,
-    @required this.progressBarModel,
-    @required this.appBarType,
-    Key key
-  }) : super(key: key);
+    required this.loading,
+    required this.progressBarModel,
+    required this.appBarType,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final ValueNotifier<bool> loading;
-  final ValueNotifier<ProgressBarModel> progressBarModel;
-  final AppBarType appBarType;
+  final ValueNotifier<ProgressBarModel?>? progressBarModel;
+  final AppBarType? appBarType;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class AppBarProgressBar extends StatelessWidget {
     // --------------------
     return ValueListenableBuilder(
       valueListenable: loading,
-      builder: (_, bool isLoading, Widget child){
+      builder: (_, bool isLoading, Widget? child){
 
         if (isLoading == true){
           return StaticProgressBar(
@@ -43,19 +43,21 @@ class AppBarProgressBar extends StatelessWidget {
 
         else if (progressBarModel != null){
           return ValueListenableBuilder(
-              valueListenable: progressBarModel,
-              builder: (_, ProgressBarModel progressBarModel, Widget childB){
+              valueListenable: progressBarModel!,
+              builder: (_, ProgressBarModel? progressBarModel, Widget? childB){
+
+                // blog('progressBarModel?.stripsColors : ${progressBarModel?.stripsColors}');
 
                 return StaticProgressBar(
-                  index: progressBarModel?.index,
-                  numberOfSlides: progressBarModel?.numberOfStrips,
+                  index: progressBarModel?.index ?? 0,
+                  numberOfSlides: progressBarModel?.numberOfStrips ?? 1,
                   opacity: 1,
-                  swipeDirection: progressBarModel?.swipeDirection,
+                  swipeDirection: progressBarModel?.swipeDirection ?? SwipeDirection.freeze,
                   loading: isLoading,
                   flyerBoxWidth: _abWidth,
                   margins: _margins,
                   stripThicknessFactor: 0.4,
-                  stripsColors: progressBarModel?.stripsColors,
+                  stripsColors: progressBarModel?.stripsColors,// ?? const [Colorz.white10],
                 );
 
               }

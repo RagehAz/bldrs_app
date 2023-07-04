@@ -1,3 +1,6 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/layouts/separators/dot_separator.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
@@ -6,20 +9,18 @@ import 'package:bldrs/b_views/z_components/buttons/settings_wide_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/bldrs_floating_list.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
 
 class BzSettingsPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzSettingsPage({
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+    final BzModel? _bzModel = BzzProvider.proGetActiveBzModel(
         context: context,
         listen: true,
     );

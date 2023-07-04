@@ -1,13 +1,13 @@
 import 'package:fire/super_fire.dart';
 import 'package:flutter/foundation.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 /// => TAMAM
 @immutable
 class PickersBlocker {
   /// -----------------------------------------------------------------------------
   const PickersBlocker({
-    @required this.value,
-    @required this.pickersIDsToBlock,
+    required this.value,
+    required this.pickersIDsToBlock,
   });
   // -----------------------------------------------------------------------------
   /// 1. when this value is selected in selected specs list
@@ -22,7 +22,7 @@ class PickersBlocker {
   /// TESTED : WORKS PERFECT
   PickersBlocker copyWith({
     dynamic value,
-    List<String> pickersIDsToBlock,
+    List<String>? pickersIDsToBlock,
   }){
     return PickersBlocker(
       value: value ?? this.value,
@@ -43,8 +43,8 @@ class PickersBlocker {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static PickersBlocker _decipherBlocker(Map<String, dynamic> map){
-    PickersBlocker _blocker;
+  static PickersBlocker? _decipherBlocker(Map<String, dynamic>? map){
+    PickersBlocker? _blocker;
 
     if (map != null){
       _blocker = PickersBlocker(
@@ -57,12 +57,12 @@ class PickersBlocker {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<Map<String, dynamic>> cipherBlockers(List<PickersBlocker> blockers){
+  static List<Map<String, dynamic>> cipherBlockers(List<PickersBlocker>? blockers){
     final List <Map<String, dynamic>> _maps  = <Map<String, dynamic>>[];
 
     if (Mapper.checkCanLoopList(blockers) == true){
 
-      for (final PickersBlocker blocker in blockers){
+      for (final PickersBlocker blocker in blockers!){
 
         _maps.add(blocker._toMap());
 
@@ -79,25 +79,32 @@ class PickersBlocker {
 
     if (maps != null) {
 
-      if (Map is List) {
+      if (maps is List) {
         for (final Object _linkedHashMap in maps) {
-          final Map<String, dynamic> map = Mapper.getMapFromIHLMOO(
+          final Map<String, dynamic>? map = Mapper.getMapFromIHLMOO(
             ihlmoo: _linkedHashMap,
           );
 
-          final PickersBlocker _blocker = _decipherBlocker(map);
-          _blockers.add(_blocker);
+          final PickersBlocker? _blocker = _decipherBlocker(map);
+          if (_blocker != null){
+            _blockers.add(_blocker);
+          }
         }
       }
 
-      else if (maps is Map) {
-        final Map<String, dynamic> _bigMap = maps;
-        final List<String> _keys = _bigMap.keys.toList();
-        for (final String key in _keys) {
-          final dynamic _map = maps[key];
-          final PickersBlocker _blocker = _decipherBlocker(_map);
-          _blockers.add(_blocker);
+      else if (maps is Map<String, dynamic>? || maps is Map<String, dynamic>) {
+        final Map<String, dynamic>? _bigMap = maps;
+        final List<String>? _keys = _bigMap?.keys.toList();
+        if (Mapper.checkCanLoopList(_keys) == true){
+          for (final String key in _keys!) {
+            final dynamic _map = maps[key];
+            final PickersBlocker? _blocker = _decipherBlocker(_map);
+            if (_blocker != null){
+              _blockers.add(_blocker);
+            }
+          }
         }
+
       }
 
     }
@@ -111,8 +118,8 @@ class PickersBlocker {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkBlockersAreIdentical({
-    @required PickersBlocker blocker1,
-    @required PickersBlocker blocker2,
+    required PickersBlocker? blocker1,
+    required PickersBlocker? blocker2,
   }){
     bool _areIdentical = false;
 
@@ -141,20 +148,20 @@ class PickersBlocker {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkBlockersListsAreIdentical({
-    @required List<PickersBlocker> blockers1,
-    @required List<PickersBlocker> blockers2,
+    required List<PickersBlocker>? blockers1,
+    required List<PickersBlocker>? blockers2,
   }){
     bool _listsAreIdentical = false;
 
     if (blockers1 == null && blockers2 == null){
       _listsAreIdentical = true;
     }
-    else if (blockers1.isEmpty == true && blockers2.isEmpty == true){
+    else if (blockers1 != null && blockers1.isEmpty == true && blockers2 != null && blockers2.isEmpty == true){
       _listsAreIdentical = true;
     }
     else if (Mapper.checkCanLoopList(blockers1) == true && Mapper.checkCanLoopList(blockers2) == true){
 
-      if (blockers1.length != blockers2.length){
+      if (blockers1!.length != blockers2!.length){
         _listsAreIdentical = false;
       }
       else {

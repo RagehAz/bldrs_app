@@ -1,3 +1,8 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/widgets/drawing/expander.dart';
+import 'package:basics/layouts/separators/separator_line.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -11,39 +16,35 @@ import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/review
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
-import 'package:scale/scale.dart';
-import 'package:stringer/stringer.dart';
 
 class ReviewViewBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ReviewViewBubble({
-    @required this.pageWidth,
-    @required this.onReviewUserBalloonTap,
-    @required this.reviewModel,
-    @required this.flyerModel,
-    @required this.isAgreed,
-    @required this.onReviewOptionsTap,
-    @required this.onBzReplyOverReview,
-    @required this.onReviewAgreeTap,
-    @required this.onReplyOptionsTap,
-    @required this.onReplyBzBalloonTap,
-    @required this.isSpecial,
-    Key key
-  }) : super(key: key);
+    required this.pageWidth,
+    required this.onReviewUserBalloonTap,
+    required this.reviewModel,
+    required this.flyerModel,
+    required this.isAgreed,
+    required this.onReviewOptionsTap,
+    required this.onBzReplyOverReview,
+    required this.onReviewAgreeTap,
+    required this.onReplyOptionsTap,
+    required this.onReplyBzBalloonTap,
+    required this.isSpecial,
+    super.key
+  });
   // --------------------------------------------------------------------------
   final double pageWidth;
-  final ReviewModel reviewModel;
-  final FlyerModel flyerModel;
+  final ReviewModel? reviewModel;
+  final FlyerModel? flyerModel;
   final bool isAgreed;
   final Function onReviewOptionsTap;
   final Function onBzReplyOverReview;
   final Function onReviewAgreeTap;
   final Function onReplyOptionsTap;
-  final ValueChanged<UserModel> onReviewUserBalloonTap;
-  final ValueChanged<BzModel> onReplyBzBalloonTap;
+  final ValueChanged<UserModel?> onReviewUserBalloonTap;
+  final ValueChanged<BzModel?> onReplyBzBalloonTap;
   final bool isSpecial;
   // --------------------------------------------------------------------------
   @override
@@ -65,9 +66,9 @@ class ReviewViewBubble extends StatelessWidget {
     // --------------------
     return ReviewBox(
       pageWidth: pageWidth,
-      userID: reviewModel.userID,
-      onReviewUserBalloonTap: onReviewUserBalloonTap,
-      builder: (UserModel userModel){
+      userID: reviewModel?.userID,
+      onReviewUserBalloonTap: (UserModel? user) => onReviewUserBalloonTap(user),
+      builder: (UserModel? userModel){
 
         return Column(
           children: <Widget>[
@@ -92,8 +93,7 @@ class ReviewViewBubble extends StatelessWidget {
                     BldrsText(
                       verse: Verse(
                         id: BldrsTimers.calculateSuperTimeDifferenceString(
-                          context: context,
-                          from: reviewModel.time,
+                          from: reviewModel?.time,
                           to: DateTime.now(),
                         ),
                         translate: false,
@@ -106,7 +106,7 @@ class ReviewViewBubble extends StatelessWidget {
 
                   /// TEXT
                     BldrsText(
-                      verse: Verse.plain(reviewModel.text),
+                      verse: Verse.plain(reviewModel?.text),
                       maxLines: 100,
                       centered: false,
                       weight: isSpecial ? VerseWeight.bold : VerseWeight.thin,
@@ -160,7 +160,7 @@ class ReviewViewBubble extends StatelessWidget {
                           /// AGREED
                           ReviewBubbleButton(
                             icon: Iconz.sexyStar,
-                            count: reviewModel.agrees,
+                            count: reviewModel?.agrees,
                             isOn: isAgreed,
                             phid: isAgreed == true ? 'phid_agreed' : 'phid_agree',
                             onTap: onReviewAgreeTap,

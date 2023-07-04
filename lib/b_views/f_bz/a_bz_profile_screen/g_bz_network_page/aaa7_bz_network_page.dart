@@ -8,13 +8,13 @@ import 'package:flutter/material.dart';
 class BzNetworkPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzNetworkPage({
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+    final BzModel? _bzModel = BzzProvider.proGetActiveBzModel(
       context: context,
       listen: true,
     );
@@ -24,9 +24,9 @@ class BzNetworkPage extends StatelessWidget {
 
         BldrsText(
           verse: Verse(
-            id: '#!#${_bzModel.name}\nNetwork\nPage',
+            id: '#!#${_bzModel?.name}\nNetwork\nPage',
             translate: true,
-            variables: _bzModel.name,
+            variables: _bzModel?.name,
           ),
           size: 4,
           maxLines: 3,

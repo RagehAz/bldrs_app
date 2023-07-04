@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 FireQueryModel reviewsPaginationQuery({
-  @required String flyerID,
+  required String? flyerID,
 }){
 
   return FireQueryModel(
@@ -31,12 +31,12 @@ FireQueryModel reviewsPaginationQuery({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-FireQueryModel reviewsStreamQuery({
-  @required BuildContext context,
-  @required String flyerID,
+FireQueryModel? reviewsStreamQuery({
+  required BuildContext context,
+  required String? flyerID,
 }){
 
-  final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+  final UserModel? _myUserModel = UsersProvider.proGetMyUserModel(
     context: context,
     listen: false,
   );

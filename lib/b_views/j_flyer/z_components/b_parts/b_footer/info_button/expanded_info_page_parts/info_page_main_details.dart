@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
@@ -9,26 +10,25 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class InfoPageMainDetails extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const InfoPageMainDetails({
-    @required this.pageWidth,
-    @required this.flyerModel,
-    Key key
-  }) : super(key: key);
+    required this.pageWidth,
+    required this.flyerModel,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double pageWidth;
-  final FlyerModel flyerModel;
+  final FlyerModel? flyerModel;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  String _getZoneLine({
-    @required BuildContext context,
-    @required ZoneModel zone,
+  String? _getZoneLine({
+    required BuildContext context,
+    required ZoneModel? zone,
   }){
-    String _output;
+    String? _output;
 
     if (zone != null){
 
@@ -37,7 +37,7 @@ class InfoPageMainDetails extends StatelessWidget {
         _city = '';
       }
 
-      String _country = zone.countryName;
+      String? _country = zone.countryName;
       _country ??= Flag.translateCountry(
           langCode: Localizer.getCurrentLangCode(),
           countryID: zone.countryID,
@@ -53,20 +53,19 @@ class InfoPageMainDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final String _flyerTypePhid = FlyerTyper.getFlyerTypePhid(
-      flyerType: flyerModel.flyerType,
+    final String? _flyerTypePhid = FlyerTyper.getFlyerTypePhid(
+      flyerType: flyerModel?.flyerType,
       pluralTranslation: false,
     );
     // --------------------
-    final DateTime _from = PublishTime.getPublishTimeFromTimes(
-        times: flyerModel.times,
+    final DateTime? _from = PublishTime.getPublishTimeFromTimes(
+        times: flyerModel?.times,
         state: PublishState.published
     )?.time;
     // --------------------
     final String _timeDifferance = BldrsTimers.calculateSuperTimeDifferenceString(
-      context: context,
       from: _from,
-        to: DateTime.now(),
+      to: DateTime.now(),
     );
     // --------------------
 
@@ -81,7 +80,7 @@ class InfoPageMainDetails extends StatelessWidget {
             id: '${xPhrase('phid_flyer_type')} : ${xPhrase(_flyerTypePhid)}',
             translate: false,
           ),
-          icon: FlyerTyper.flyerTypeIcon(flyerType: flyerModel.flyerType, isOn: false),
+          icon: FlyerTyper.flyerTypeIcon(flyerType: flyerModel?.flyerType, isOn: false),
           bigIcon: true,
         ),
 
@@ -99,12 +98,12 @@ class InfoPageMainDetails extends StatelessWidget {
         if (flyerModel?.zone != null)
         FutureBuilder(
           future: ZoneProtocols.completeZoneModel(
-              incompleteZoneModel: flyerModel.zone,
+              incompleteZoneModel: flyerModel!.zone,
           ),
-          initialData: flyerModel.zone,
+          initialData: flyerModel!.zone,
           builder: (_, AsyncSnapshot snap){
 
-            final ZoneModel _zone = snap.data;
+            final ZoneModel? _zone = snap.data;
 
             return StatsLine(
               bubbleWidth: pageWidth - 20,

@@ -1,8 +1,7 @@
 import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:ldb/ldb.dart';
-import 'package:mapper/mapper.dart';
-import 'package:flutter/material.dart';
+import 'package:basics/ldb/methods/ldb_ops.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 /// => TAMAM
 class StagingLDBOps {
   // -----------------------------------------------------------------------------
@@ -16,7 +15,7 @@ class StagingLDBOps {
   // --------------------
   /// TAMAM : WORKS PERFECT
   static Future<void> insertStaging({
-    @required StagingModel staging,
+    required StagingModel? staging,
   }) async {
 
     await LDBOps.insertMap(
@@ -34,15 +33,15 @@ class StagingLDBOps {
 
   // --------------------
   /// TAMAM : WORKS PERFECT
-  static Future<StagingModel> readStaging({
-    @required String id,
+  static Future<StagingModel?> readStaging({
+    required String? id,
   }) async {
-    StagingModel _output;
+    StagingModel? _output;
 
     final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
       docName: LDBDoc.staging,
       primaryKey: LDBDoc.getPrimaryKey(LDBDoc.staging),
-      ids: <String>[id],
+      ids: id == null ? [] : <String>[id],
     );
 
     if (Mapper.checkCanLoopList(_maps) == true){
@@ -63,7 +62,7 @@ class StagingLDBOps {
   // --------------------
   /// TAMAM : WORKS PERFECT
   static Future<void> deleteStaging({
-    @required String id,
+    required String id,
   }) async {
 
     await LDBOps.deleteMaps(
@@ -76,7 +75,7 @@ class StagingLDBOps {
   // --------------------
   /// TAMAM : WORKS PERFECT
   static Future<void> deleteStagings({
-    @required List<String> ids,
+    required List<String> ids,
   }) async {
 
     if (Mapper.checkCanLoopList(ids) == true){

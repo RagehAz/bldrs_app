@@ -1,6 +1,5 @@
 import 'dart:io';
-
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/widgets.dart';
@@ -31,7 +30,10 @@ class CacheOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<FileStat> _getFilesStatesFromDirectory(Directory directory){
-    final List<FileSystemEntity> entities = directory.listSync(recursive: true, followLinks: true);
+    final List<FileSystemEntity> entities = directory.listSync(
+        recursive: true,
+        // followLinks: true,
+    );
 
     final List<FileStat> stats = <FileStat>[];
     for (final FileSystemEntity entity in entities){

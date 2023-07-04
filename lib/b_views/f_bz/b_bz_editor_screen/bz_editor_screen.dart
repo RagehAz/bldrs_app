@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_positional_boolean_parameters
 import 'dart:async';
-
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/draft/draft_bz.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
@@ -25,10 +26,9 @@ import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mediators/mediators.dart';
-import 'package:night_sky/night_sky.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
+import 'package:mediators/pic_maker/pic_maker.dart';
 
 class BzEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -36,10 +36,10 @@ class BzEditorScreen extends StatefulWidget {
     this.bzModel,
     this.checkLastSession = true,
     this.validateOnStartup = false,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final BzModel bzModel;
+  final BzModel? bzModel;
   final bool checkLastSession;
   final bool validateOnStartup;
   /// --------------------------------------------------------------------------
@@ -50,17 +50,17 @@ class BzEditorScreen extends StatefulWidget {
 
 class _BzEditorScreenState extends State<BzEditorScreen> {
   // -----------------------------------------------------------------------------
-  final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
+  final ValueNotifier<ProgressBarModel?> _progressBarModel = ValueNotifier(null);
   final PageController _pageController = PageController();
-  ConfirmButtonModel _confirmButtonModel;
+  ConfirmButtonModel? _confirmButtonModel;
   // --------------------
-  final ValueNotifier<DraftBz> draftNotifier = ValueNotifier(null);
+  final ValueNotifier<DraftBz?> draftNotifier = ValueNotifier(null);
   final ScrollController scrollController = ScrollController();
   // -----------------------------------------------------------------------------
   /// LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -117,7 +117,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
             setTo: true,
             mounted: mounted,
           );
-          Formers.validateForm(draftNotifier.value.formKey);
+          Formers.validateForm(draftNotifier.value?.formKey);
         }
         // -----------------------------
         if (mounted == true){
@@ -125,9 +125,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
         }
         // -------------------------------
 
-        draftNotifier.value.nameController.addListener(() {
+        draftNotifier.value?.nameController?.addListener(() {
 
-          blog('the fucking name is : ${draftNotifier.value.nameController.text}');
+          blog('the fucking name is : ${draftNotifier.value?.nameController?.text}');
 
         });
 
@@ -141,9 +141,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
   // --------------------
   @override
   void dispose() {
-    draftNotifier.value.disposeDraftBzFocusNodes();
-    draftNotifier.value.nameController.dispose();
-    draftNotifier.value.aboutController.dispose();
+    draftNotifier.value?.disposeDraftBzFocusNodes();
+    draftNotifier.value?.nameController?.dispose();
+    draftNotifier.value?.aboutController?.dispose();
     draftNotifier.dispose();
     _loading.dispose();
     _progressBarModel.dispose();
@@ -307,7 +307,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
   /// TESTED : WORKS PERFECT
   void _controlConfirmButton(){
 
-    if (_progressBarModel.value.stripsColors.contains(ProgressBarModel.errorStripColor) == true){
+    if (Mapper.boolIsTrue(_progressBarModel.value?.stripsColors?.contains(ProgressBarModel.errorStripColor)) == true){
       setState(() {
         _confirmButtonModel = null;
       });
@@ -352,7 +352,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
     );
 
     final List<String> _allBzzFormsButtons = BzTyper.getBzFormsPhids(
-      context: context,
       bzForms: BzTyper.bzFormsList,
     );
     // --------------------
@@ -384,7 +383,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
       // ],
       child: ValueListenableBuilder(
         valueListenable: draftNotifier,
-        builder: (_, DraftBz draft, Widget child){
+        builder: (_, DraftBz? draft, Widget? child){
 
             final String _companyNameBubbleTitle = draft?.bzForm == BzForm.individual ?
             'phid_business_entity_name'
@@ -392,7 +391,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
             'phid_companyName';
 
             final String _selectedBzSectionPhid = BzTyper.getBzSectionPhid(
-              context: context,
               bzSection: draft?.bzSection,
             );
 
@@ -408,10 +406,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
               pluralTranslation: false,
             );
 
-            final String _selectedBzFormPhid = BzTyper.getBzFormPhid(draft?.bzForm);
+            final String? _selectedBzFormPhid = BzTyper.getBzFormPhid(draft?.bzForm);
 
             final List<String> _inactiveBzFormsPhids = BzTyper.getBzFormsPhids(
-              context: context,
               bzForms: draft?.inactiveBzForms,
             );
 
@@ -474,11 +471,11 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       textController: draftNotifier.value?.nameController,
 
                       // autoValidate: true,
-                      validator: (String text) => Formers.companyNameValidator(
+                      validator: (String? text) => Formers.companyNameValidator(
                         companyName: text,
                         canValidate: draft?.canValidate,
                       ),
-                      onTextChanged: (String text) async {
+                      onTextChanged: (String? text) async {
                         blog('the text is $text');
                         await _onDraftChanged();
                       },
@@ -575,11 +572,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                         translate: true,
                       ),
                       // description: superPhrase(context, 'phid_businessForm_description'),
-                      buttonsVerses:
-                          Verse.createVerses(strings: _allBzzFormsButtons, translate: true),
-                      selectedButtonsPhids: <String>[_selectedBzFormPhid],
-                      inactiveButtons:
-                          Verse.createVerses(strings: _inactiveBzFormsPhids, translate: true),
+                      buttonsVerses: Verse.createVerses(strings: _allBzzFormsButtons, translate: true),
+                      selectedButtonsPhids: _selectedBzFormPhid == null ? [] : <String>[_selectedBzFormPhid],
+                      inactiveButtons: Verse.createVerses(strings: _inactiveBzFormsPhids, translate: true),
                       bulletPoints: const <Verse>[
                         Verse(
                           id: 'phid_bz_form_pro_description',
@@ -646,11 +641,11 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       textController: draft?.aboutController,
 
                       // autoValidate: true,
-                      validator: (String text) => Formers.bzAboutValidator(
+                      validator: (String? text) => Formers.bzAboutValidator(
                         bzAbout: text,
                         canValidate: draft?.canValidate,
                       ),
-                      onTextChanged: (String text) async {
+                      onTextChanged: (String? text) async {
                         await _onDraftChanged();
                       },
                     ),
@@ -717,7 +712,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                               canValidate: draft?.canValidate,
                             ),
                         viewerCountryID: draft?.zone?.countryID,
-                        onZoneChanged: (ZoneModel zone) {
+                        onZoneChanged: (ZoneModel? zone) {
                           setNotifier(
                             notifier: draftNotifier,
                             mounted: mounted,
@@ -766,13 +761,13 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       ),
                       canPaste: false,
                       // autoValidate: true,
-                      validator: (String text) => Formers.contactsPhoneValidator(
+                      validator: (String? text) => Formers.contactsPhoneValidator(
                         contacts: draft?.contacts,
                         zoneModel: draft?.zone,
                         canValidate: draft?.canValidate,
                         isRequired: false,
                       ),
-                      textOnChanged: (String text) => onChangeBzContact(
+                      textOnChanged: (String? text) => onChangeBzContact(
                         contactType: ContactType.phone,
                         value: text,
                         draftNotifier: draftNotifier,
@@ -805,11 +800,11 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
 
                       canPaste: false,
                       // autoValidate: true,
-                      validator: (String text) => Formers.contactsEmailValidator(
+                      validator: (String? text) => Formers.contactsEmailValidator(
                         contacts: draft?.contacts,
                         canValidate: draft?.canValidate,
                       ),
-                      textOnChanged: (String text) => onChangeBzContact(
+                      textOnChanged: (String? text) => onChangeBzContact(
                         contactType: ContactType.email,
                         value: text,
                         draftNotifier: draftNotifier,
@@ -840,11 +835,11 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       ),
                       // canPaste: true,
                       // autoValidate: true,
-                      validator: (String text) => Formers.contactsWebsiteValidator(
+                      validator: (String? text) => Formers.contactsWebsiteValidator(
                         contacts: draft?.contacts,
                         canValidate: draft?.canValidate,
                       ),
-                      textOnChanged: (String text) => onChangeBzContact(
+                      textOnChanged: (String? text) => onChangeBzContact(
                         contactType: ContactType.website,
                         value: text,
                         draftNotifier: draftNotifier,

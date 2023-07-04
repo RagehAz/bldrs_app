@@ -27,15 +27,15 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<bool> signInBldrsByEmail({
-    @required String email,
-    @required String password,
+    required String? email,
+    required String? password,
   }) async {
-    String _authError;
+    String? _authError;
 
-    final AuthModel _authModel = await EmailAuthing.signIn(
-      email: email.trim(),
+    final AuthModel? _authModel = await EmailAuthing.signIn(
+      email: email?.trim(),
       password: password,
-      onError: (String error) {
+      onError: (String? error) {
         _authError = error;
       },
     );
@@ -56,17 +56,17 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<bool> registerInBldrsByEmail({
-    @required String email,
-    @required String password,
-    // @required ZoneModel currentZone,
+    required String? email,
+    required String? password,
+    // required ZoneModel currentZone,
   }) async {
 
-    String _authError;
+    String? _authError;
 
-    final AuthModel _authModel = await EmailAuthing.register(
+    final AuthModel? _authModel = await EmailAuthing.register(
       email: email,
       password: password,
-      onError: (String error){
+      onError: (String? error){
         _authError = error;
       },
     );
@@ -85,8 +85,8 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<bool> composeOrUpdateUser({
-    @required AuthModel authModel,
-    @required String authError,
+    required AuthModel? authModel,
+    required String? authError,
   }) async {
     bool _success = false;
 
@@ -98,7 +98,7 @@ class AuthProtocols {
 
     else if (authModel != null) {
 
-      final UserModel _userModel = await UserFireOps.readUser(
+      final UserModel? _userModel = await UserFireOps.readUser(
         userID: authModel.id,
       );
 
@@ -127,7 +127,7 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<void> onAuthError({
-    @required String error,
+    required String? error,
   }) async {
 
     final String _errorMessage = error ?? 'Something went wrong, please try again';
@@ -140,10 +140,10 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<bool> _onNewUser({
-    @required AuthModel authModel,
+    required AuthModel? authModel,
   }) async {
 
-    final UserModel userModel = await UserProtocols.compose(
+    final UserModel? userModel = await UserProtocols.compose(
       authModel: authModel,
     );
 
@@ -152,8 +152,8 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<bool> _onExistingUser({
-    @required UserModel userModel,
-    @required AuthModel authModel,
+    required UserModel userModel,
+    required AuthModel authModel,
   }) async {
 
     await UserProtocols.updateLocally(
@@ -170,11 +170,11 @@ class AuthProtocols {
   // --------------------
   ///
   static Future<void> signOutBldrs({
-    @required bool routeToLogoScreen,
+    required bool routeToLogoScreen,
   }) async {
 
     final bool _success = await Authing.signOut(
-        onError: (String error) async {
+        onError: (String? error) async {
           await CenterDialog.showCenterDialog(
             titleVerse: const Verse(
               id: 'phid_trouble_signing_out',
@@ -201,24 +201,24 @@ class AuthProtocols {
 
   // --------------------
   static Future<void> signInAsRage7({
-    @required BuildContext context,
+    required BuildContext context,
   }) async {
-    final AuthModel _authModel = await EmailAuthing.signIn(
+    final AuthModel? _authModel = await EmailAuthing.signIn(
       email: 'rageh@bldrs.net',
       password: '123456',
-      onError: (String error) =>
+      onError: (String? error) =>
           AuthProtocols.onAuthError(
             error: error,
           ),
     );
 
-    if (_authModel != null) {
-      final Map<String, dynamic> _map = await Fire.readDoc(
+    if (_authModel != null && _authModel.id != null) {
+      final Map<String, dynamic>? _map = await Fire.readDoc(
         coll: FireColl.users,
-        doc: _authModel.id,
+        doc: _authModel.id!,
       );
 
-      final UserModel _userModel = UserModel.decipherUser(
+      final UserModel? _userModel = UserModel.decipherUser(
         map: _map,
         fromJSON: false,
       );

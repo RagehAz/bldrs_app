@@ -1,29 +1,29 @@
-import 'package:animators/animators.dart';
+import 'package:basics/animators/helpers/sliders.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/d_progress_bar/d_progress_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/static_strip.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class Strips extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const Strips({
-    @required this.flyerBoxWidth,
-    @required this.progressBarModel,
-    @required this.tinyMode,
+    required this.flyerBoxWidth,
+    required this.progressBarModel,
+    required this.tinyMode,
     this.barIsOn = true,
     this.margins,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final ValueNotifier<ProgressBarModel> progressBarModel;
+  final ValueNotifier<ProgressBarModel?> progressBarModel;
   final bool barIsOn;
-  final EdgeInsets margins;
+  final EdgeInsets? margins;
   final bool tinyMode;
   // -----------------------------------------------------------------------------
-  static bool canBuildStrips(int numberOfStrips) {
+  static bool canBuildStrips(int? numberOfStrips) {
     bool _canBuild = false;
 
     if (numberOfStrips != null) {
@@ -36,12 +36,12 @@ class Strips extends StatelessWidget {
   }
   // --------------------
   static int _getNumberOfWhiteStrips({
-    @required SwipeDirection swipeDirection,
-    @required int currentSlideIndex,
-    @required int numberOfStrips,
+    required SwipeDirection swipeDirection,
+    required int currentSlideIndex,
+    required int numberOfStrips,
   }) {
     // -----------------------------------------o
-    int _numberOfStrips;
+    int? _numberOfStrips;
     final SwipeDirection _swipeDirection = swipeDirection;
     // -----------------------------------------o
     /// A - at first slide
@@ -111,7 +111,7 @@ class Strips extends StatelessWidget {
 
     // blog('_getNumberOfWhiteStrips : $_numberOfStrips : index : ${currentSlideIndex}');
 
-    return _numberOfStrips;
+    return _numberOfStrips ?? 1;
   }
   // --------------------
   Tween<double> _tween(ProgressBarModel _progModel) {
@@ -151,21 +151,21 @@ class Strips extends StatelessWidget {
 
       return ValueListenableBuilder(
           valueListenable: progressBarModel,
-          builder: (_, ProgressBarModel _progModel, Widget singleSlideProgBar){
+          builder: (_, ProgressBarModel? _progModel, Widget? singleSlideProgBar){
 
             final double _aStripLength = FlyerDim.progressStripLength(
               flyerBoxWidth: flyerBoxWidth,
-              numberOfStrips: _progModel.numberOfStrips,
+              numberOfStrips: _progModel?.numberOfStrips,
             );
 
             final int _numberOfStrips = _getNumberOfWhiteStrips(
-              currentSlideIndex: _progModel.index,
-              numberOfStrips: _progModel.numberOfStrips,
-              swipeDirection: _progModel.swipeDirection,
+              currentSlideIndex: _progModel?.index ?? 0,
+              numberOfStrips: _progModel?.numberOfStrips ?? 1,
+              swipeDirection: _progModel?.swipeDirection ?? SwipeDirection.freeze,
             );
 
-            if (_progModel.numberOfStrips == 1){
-              return singleSlideProgBar;
+            if (_progModel?.numberOfStrips == 1){
+              return singleSlideProgBar!;
             }
 
             else {
@@ -179,7 +179,8 @@ class Strips extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
 
-                        ...List<Widget>.generate(_progModel.numberOfStrips, (int index) {
+                        if (_progModel?.numberOfStrips != null && _progModel?.numberOfStrips != 0)
+                        ...List<Widget>.generate(_progModel!.numberOfStrips, (int index) {
 
                           return StaticStrip(
                             flyerBoxWidth: flyerBoxWidth,
@@ -196,6 +197,7 @@ class Strips extends StatelessWidget {
                     ),
 
                     /// --- TOP STRIP
+                    if (_progModel != null)
                     TweenAnimationBuilder<double>(
                       key: ValueKey<String>('top_strip_${_progModel.index}'),
                       duration: Ratioz.duration150ms,
@@ -207,7 +209,7 @@ class Strips extends StatelessWidget {
                         numberOfSlides: _progModel.numberOfStrips,
                         isWhite: true,
                       ),
-                      builder: (BuildContext context, double tweenVal, Widget childC) {
+                      builder: (BuildContext context, double tweenVal, Widget? childC) {
 
                         final double _tweenVal = _progModel.swipeDirection == SwipeDirection.freeze ? _aStripLength : tweenVal;
 
@@ -231,7 +233,7 @@ class Strips extends StatelessWidget {
 
                                 /// IF STATIC STRIPS
                                 else {
-                                  return childC;
+                                  return childC!;
                                 }
 
                               }

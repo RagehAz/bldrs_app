@@ -1,3 +1,4 @@
+// ignore_for_file: unused_element
 part of bldrs_app_bar;
 
 class ZoneButton extends StatelessWidget {
@@ -8,12 +9,12 @@ class ZoneButton extends StatelessWidget {
     this.zoneOverride,
     this.height = Ratioz.appBarButtonSize,
     this.isPlanetButton = false,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final Function onTap;
+  final Function? onTap;
   final bool isOn;
-  final ZoneModel zoneOverride;
+  final ZoneModel? zoneOverride;
   final double height;
   final bool isPlanetButton;
   // -----------------------------------------------------------------------------
@@ -37,18 +38,18 @@ class ZoneButton extends StatelessWidget {
 
     else {
       // --------------------
-      final ZoneModel _currentZone = zoneOverride ?? ZoneProvider.proGetCurrentZone(
+      final ZoneModel? _currentZone = zoneOverride ?? ZoneProvider.proGetCurrentZone(
         context: context,
         listen: true,
       );
       // --------------------
-      final String _countryName = _currentZone?.countryName;
-      final String _countryFlag = _currentZone?.icon;
-      final String _cityName = _currentZone?.cityName;
+      final String? _countryName = _currentZone?.countryName;
+      final String? _countryFlag = _currentZone?.icon;
+      final String? _cityName = _currentZone?.cityName;
       // --------------------
-      final String _firstRow = _currentZone == null ? ' ' : _countryName;
+      final String? _firstRow = _currentZone == null ? ' ' : _countryName;
       // --------------------
-      final String _secondRow = _currentZone == null ? ' ' : _cityName;
+      final String? _secondRow = _currentZone == null ? ' ' : _cityName;
       // --------------------
       return _ZoneButtonTree(
         onTap: onTap,
@@ -68,19 +69,19 @@ class ZoneButton extends StatelessWidget {
 class _ZoneButtonTree extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const _ZoneButtonTree({
-    @required this.onTap,
-    @required this.icon,
-    @required this.firstRow,
-    @required this.secondRow,
-    @required this.isOn,
+    required this.onTap,
+    required this.icon,
+    required this.firstRow,
+    required this.secondRow,
+    required this.isOn,
     this.height = Ratioz.appBarButtonSize,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   // ---------------------
-  final Function onTap;
-  final String icon;
-  final String firstRow;
-  final String secondRow;
+  final Function? onTap;
+  final String? icon;
+  final String? firstRow;
+  final String? secondRow;
   final bool isOn;
   final double height;
   // -----------------------------------------------------------------------------
@@ -90,7 +91,7 @@ class _ZoneButtonTree extends StatelessWidget {
     const double _flagHorizontalMargins = 2;
 
     return GestureDetector(
-      onTap: onTap,
+      onTap: onTap == null ? null : () => onTap!(),
       child: Container(
         height: height,
         alignment: Alignment.centerRight,

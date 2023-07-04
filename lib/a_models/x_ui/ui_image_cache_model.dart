@@ -1,32 +1,32 @@
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 
 @immutable
 class Cacher {
   // -----------------------------------------------------------------------------
   const Cacher({
-    @required this.id,
-    @required this.image,
+    required this.id,
+    required this.image,
   });
   // -----------------------------------------------------------------------------
-  final String id;
-  final ui.Image image;
+  final String? id;
+  final ui.Image? image;
   // -----------------------------------------------------------------------------
 
   /// GETTERS
 
   // --------------------
   /// TASK : TEST ME
-  static Cacher getCacherFromCachers({
-    @required List<Cacher> cachers,
-    @required String cacherID,
+  static Cacher? getCacherFromCachers({
+    required List<Cacher>? cachers,
+    required String? cacherID,
   }){
-    Cacher _output;
+    Cacher? _output;
 
     if (Mapper.checkCanLoopList(cachers) == true && cacherID != null){
 
-      for (final Cacher cacher in cachers){
+      for (final Cacher cacher in cachers!){
 
         if (cacher.id == cacherID){
           _output = cacher;
@@ -46,9 +46,9 @@ class Cacher {
   // --------------------
   /// TESTED: WORKS PERFECT
   static List<Cacher> addCacherToCachers({
-    @required List<Cacher> cachers,
-    @required Cacher cacher,
-    @required bool overrideExisting,
+    required List<Cacher>? cachers,
+    required Cacher? cacher,
+    required bool overrideExisting,
   }) {
     List<Cacher> _output = <Cacher>[...?cachers];
 
@@ -81,14 +81,14 @@ class Cacher {
   // --------------------
   /// TASK : TEST ME
   static List<Cacher> disposeCacherInCachers({
-    @required List<Cacher> cachers,
-    @required String cacherID,
+    required List<Cacher>? cachers,
+    required String? cacherID,
   }){
     final List<Cacher> _output = <Cacher>[...?cachers];
 
     if (Mapper.checkCanLoopList(cachers) == true && cacherID != null){
 
-      final Cacher _cacher = Cacher.getCacherFromCachers(
+      final Cacher? _cacher = Cacher.getCacherFromCachers(
         cachers: cachers,
         cacherID: cacherID,
       );
@@ -109,14 +109,14 @@ class Cacher {
   // --------------------
   /// TESTED: WORKS PERFECT
   static bool cachersContainCacher({
-    @required List<Cacher> cachers,
-    @required String cacherID,
+    required List<Cacher>? cachers,
+    required String? cacherID,
   }){
     bool _contains = false;
 
     if (Mapper.checkCanLoopList(cachers) == true && cacherID != null){
 
-      for (final Cacher cacher in cachers){
+      for (final Cacher cacher in cachers!){
 
         if (cacher.id == cacherID){
           _contains = true;
@@ -132,8 +132,8 @@ class Cacher {
   // --------------------
   /// TESTED: WORKS PERFECT
   static bool checkCachersAreIdentical({
-    @required Cacher cacher1,
-    @required Cacher cacher2,
+    required Cacher? cacher1,
+    required Cacher? cacher2,
   }){
 
     if (cacher1 == null && cacher2 == null){

@@ -1,21 +1,20 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-
 import 'package:flutter/material.dart';
 
 class SuperHeadline extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const SuperHeadline({
-    @required this.verse,
+    required this.verse,
     this.width,
     this.color = Colorz.white255,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   // -----------------------------------------------------------------------------
   final Verse verse;
-  final double width;
+  final double? width;
   final Color color;
   // -----------------------------------------------------------------------------
   @override

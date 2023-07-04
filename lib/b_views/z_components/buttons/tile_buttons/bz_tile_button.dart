@@ -1,29 +1,30 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';
 import 'package:bldrs/b_views/z_components/buttons/tile_buttons/a_tile_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class BzTileButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzTileButton({
-    @required this.bzModel,
+    required this.bzModel,
     this.height,
     this.width,
     this.color = Colorz.white10,
     this.onTap,
     this.secondLine,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final double height;
-  final double width;
+  final double? height;
+  final double? width;
   final Color color;
-  final Function onTap;
-  final BzModel bzModel;
-  final Verse secondLine;
+  final Function? onTap;
+  final BzModel? bzModel;
+  final Verse? secondLine;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

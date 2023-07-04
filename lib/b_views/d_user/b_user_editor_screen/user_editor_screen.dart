@@ -1,6 +1,8 @@
 // ignore_for_file: avoid_positional_boolean_parameters
 import 'dart:async';
 
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/a_user/draft/draft_user.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
@@ -25,24 +27,23 @@ import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_mode
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mediators/mediators.dart';
-import 'package:night_sky/night_sky.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
+import 'package:mediators/pic_maker/pic_maker.dart';
 
 class UserEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const UserEditorScreen({
-    @required this.userModel,
-    @required this.onFinish,
-    @required this.canGoBack,
-    @required this.reAuthBeforeConfirm,
-    @required this.validateOnStartup,
+    required this.userModel,
+    required this.onFinish,
+    required this.canGoBack,
+    required this.reAuthBeforeConfirm,
+    required this.validateOnStartup,
     this.checkLastSession = true,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final UserModel userModel;
+  final UserModel? userModel;
   final Function onFinish;
   final bool canGoBack;
   final bool reAuthBeforeConfirm;
@@ -56,9 +57,9 @@ class UserEditorScreen extends StatefulWidget {
 
 class _UserEditorScreenState extends State<UserEditorScreen> {
   // -----------------------------------------------------------------------------
-  final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
+  final ValueNotifier<ProgressBarModel?> _progressBarModel = ValueNotifier(null);
   final PageController _pageController = PageController();
-  ConfirmButtonModel _confirmButtonModel;
+  ConfirmButtonModel? _confirmButtonModel;
   // -----------------------------------------------------------------------------
   bool _canValidate = true;
   void _switchOnValidation(){
@@ -71,12 +72,12 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
     }
   }
   // --------------------
-  final ValueNotifier<DraftUser> _draftUser = ValueNotifier(null);
+  final ValueNotifier<DraftUser?> _draftUser = ValueNotifier(null);
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -105,7 +106,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
 
       _triggerLoading(setTo: true).then((_) async {
         // -------------------------------
-        final DraftUser _newDraft = await DraftUser.createDraftUser(
+        final DraftUser? _newDraft = await DraftUser.createDraftUser(
           context: context,
           userModel: widget.userModel,
         );
@@ -151,7 +152,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
 
     _loading.dispose();
     _draftUser.value?.dispose();
-    _draftUser?.dispose();
+    _draftUser.dispose();
     _pageController.dispose();
     _progressBarModel.dispose();
 
@@ -294,7 +295,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
   /// TESTED : WORKS PERFECT
   void _controlConfirmButton(){
 
-    if (_progressBarModel.value.stripsColors.contains(ProgressBarModel.errorStripColor) == true){
+    if (Mapper.boolIsTrue(_progressBarModel.value?.stripsColors?.contains(ProgressBarModel.errorStripColor)) == true){
       setState(() {
         _confirmButtonModel = null;
       });
@@ -340,7 +341,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
       confirmButtonModel: _confirmButtonModel,
       child: ValueListenableBuilder(
         valueListenable: _draftUser,
-        builder: (_, DraftUser draft, Widget child){
+        builder: (_, DraftUser? draft, Widget? child){
 
           return Form(
             key: draft?.formKey,
@@ -377,7 +378,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                         setNotifier(
                           notifier: _draftUser,
                           mounted: mounted,
-                          value: draft.nullifyField(
+                          value: draft?.nullifyField(
                             picModel: true,
                           ),
                         );
@@ -404,7 +405,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                         canValidate: true,
                       ) == null &&
                       Formers.genderValidator(
-                          gender: draft.gender,
+                          gender: draft?.gender,
                           canValidate: true,
                       ) == null,
                     ),
@@ -434,13 +435,13 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       keyboardTextInputType: TextInputType.name,
                       keyboardTextInputAction: TextInputAction.next,
                       textController: draft?.nameController,
-                      onTextChanged: (String text) => onUserNameChanged(
+                      onTextChanged: (String? text) => onUserNameChanged(
                         text: text,
                         draft: _draftUser,
                         mounted: mounted,
                       ),
                       // autoValidate: true,
-                      validator: (String text) => Formers.personNameValidator(
+                      validator: (String? text) => Formers.personNameValidator(
                         name: text,
                         canValidate: _canValidate,
                         // focusNode: draft?.nameNode,
@@ -465,13 +466,13 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       // keyboardTextInputType: TextInputType.text,
                       keyboardTextInputAction: TextInputAction.next,
                       textController: draft?.titleController,
-                      onTextChanged: (String text) => onUserJobTitleChanged(
+                      onTextChanged: (String? text) => onUserJobTitleChanged(
                         draft: _draftUser,
                         text: text,
                         mounted: mounted,
                       ),
                       // autoValidate: false,
-                      validator: (String text) => Formers.jobTitleValidator(
+                      validator: (String? text) => Formers.jobTitleValidator(
                         jobTitle: text,
                         canValidate: _canValidate,
                         // focusNode: draft?.titleNode,
@@ -496,14 +497,20 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       // keyboardTextInputType: TextInputType.text,
                       keyboardTextInputAction: TextInputAction.next,
                       textController: draft?.companyController,
+                      bulletPoints: const [
+                        Verse(
+                          id: 'phid_company_name_u_work_for',
+                          translate: true,
+                        ),
+                      ],
                       // autoValidate: true,
-                      onTextChanged: (String text) => onUserCompanyNameChanged(
+                      onTextChanged: (String? text) => onUserCompanyNameChanged(
                         text: text,
                         draft: _draftUser,
                         mounted: mounted,
                       ),
                       // autoValidate: false,
-                      validator: (String text) => Formers.companyNameValidator(
+                      validator: (String? text) => Formers.companyNameValidator(
                         companyName: text,
                         canValidate: _canValidate,
                         // focusNode: draft?.companyNode,
@@ -545,7 +552,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                     ZoneSelectionBubble(
                       currentZone: draft?.zone,
                       zoneViewingEvent: ViewingEvent.userEditor,
-                      onZoneChanged: (ZoneModel zoneModel) => onUserZoneChanged(
+                      onZoneChanged: (ZoneModel? zoneModel) => onUserZoneChanged(
                         selectedZone: zoneModel,
                         draft: _draftUser,
                         mounted: mounted,
@@ -600,7 +607,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       //   existingContacts: draft?.contacts,
                       // ),
                       textController: draft?.phoneController,
-                      textOnChanged: (String text) => onUserContactChanged(
+                      textOnChanged: (String? text) => onUserContactChanged(
                         contactType: ContactType.phone,
                         value: text,
                         draft: _draftUser,
@@ -608,7 +615,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       ),
                       canPaste: false,
                       // autoValidate: false,
-                      validator: (String text) => Formers.contactsPhoneValidator(
+                      validator: (String? text) => Formers.contactsPhoneValidator(
                         contacts: draft?.contacts,
                         zoneModel: draft?.zone,
                         canValidate: _canValidate,
@@ -640,7 +647,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       //   existingContacts: draft?.contacts,
                       // ),
                       textController: draft?.emailController,
-                      textOnChanged: (String text) => onUserContactChanged(
+                      textOnChanged: (String? text) => onUserContactChanged(
                         contactType: ContactType.email,
                         value: text,
                         draft: _draftUser,
@@ -648,7 +655,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       ),
                       canPaste: false,
                       // autoValidate: false,
-                      validator: (String text) => Formers.contactsEmailValidator(
+                      validator: (String? text) => Formers.contactsEmailValidator(
                         contacts: draft?.contacts,
                         canValidate: _canValidate,
                         // focusNode: draft?.emailNode,

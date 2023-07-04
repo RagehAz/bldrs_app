@@ -7,34 +7,34 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/e
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:flutter/material.dart';
-import 'package:super_image/super_image.dart';
+import 'package:basics/super_image/super_image.dart';
 
 class SingleSlide extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SingleSlide({
-    @required this.flyerBoxWidth,
-    @required this.flyerBoxHeight,
-    @required this.slideModel,
-    @required this.tinyMode,
-    @required this.onSlideNextTap,
-    @required this.onSlideBackTap,
-    @required this.onDoubleTap,
-    @required this.canTapSlide,
-    // @required this.canAnimateMatrix,
-    @required this.slideShadowIsOn,
-    @required this.blurLayerIsOn,
-    @required this.canUseFilter,
-    @required this.canPinch,
-    Key key
-  }) : super(key: key);
+    required this.flyerBoxWidth,
+    required this.flyerBoxHeight,
+    required this.slideModel,
+    required this.tinyMode,
+    required this.onSlideNextTap,
+    required this.onSlideBackTap,
+    required this.onDoubleTap,
+    required this.canTapSlide,
+    // required this.canAnimateMatrix,
+    required this.slideShadowIsOn,
+    required this.blurLayerIsOn,
+    required this.canUseFilter,
+    required this.canPinch,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final double flyerBoxHeight;
-  final SlideModel slideModel;
+  final SlideModel? slideModel;
   final bool tinyMode;
-  final Function onSlideNextTap;
-  final Function onSlideBackTap;
-  final Function onDoubleTap;
+  final Function? onSlideNextTap;
+  final Function? onSlideBackTap;
+  final Function? onDoubleTap;
   final bool slideShadowIsOn;
   final bool blurLayerIsOn;
   final bool canTapSlide;
@@ -71,7 +71,7 @@ class SingleSlide extends StatelessWidget {
             height: flyerBoxHeight,
             blurIsOn: true,
             blur: 20,
-            borders: FlyerDim.flyerCorners(context, flyerBoxWidth),
+            borders: FlyerDim.flyerCorners(flyerBoxWidth),
           ),
 
         /// ANIMATED SLIDE
@@ -80,7 +80,7 @@ class SingleSlide extends StatelessWidget {
           flyerBoxWidth: flyerBoxWidth,
           flyerBoxHeight: flyerBoxHeight,
           onDoubleTap: onDoubleTap,
-          canAnimateMatrix: slideModel.animationCurve != null,
+          canAnimateMatrix: slideModel?.animationCurve != null,
           slideModel: slideModel,
           canUseFilter: canUseFilter,
           canTapSlide: canTapSlide,

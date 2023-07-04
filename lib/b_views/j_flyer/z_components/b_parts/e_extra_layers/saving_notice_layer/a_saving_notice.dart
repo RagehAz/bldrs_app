@@ -1,20 +1,20 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/e_extra_layers/saving_notice_layer/b_saving_graphic.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class SavingNotice extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const SavingNotice({
-    @required this.flyerBoxWidth,
-    @required this.flyerBoxHeight,
-    @required this.flyerIsSaved,
-    @required this.animationController,
-    @required this.graphicIsOn,
-    @required this.graphicOpacity,
+    required this.flyerBoxWidth,
+    required this.flyerBoxHeight,
+    required this.flyerIsSaved,
+    required this.animationController,
+    required this.graphicIsOn,
+    required this.graphicOpacity,
     this.isStarGraphic = false, // if not star would be Ankh
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final double flyerBoxHeight;
@@ -30,7 +30,7 @@ class SavingNotice extends StatefulWidget {
 
 class _SavingNoticeState extends State<SavingNotice> {
   // -----------------------------------------------------------------------------
-  CurvedAnimation _curvedAnimation;
+  late CurvedAnimation _curvedAnimation;
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -66,12 +66,12 @@ class _SavingNoticeState extends State<SavingNotice> {
     return ValueListenableBuilder(
       key: const ValueKey<String>('SavingNotice'),
       valueListenable: widget.graphicIsOn,
-        builder: (_, bool canShowGraphic, Widget canShowGraphicChild){
+        builder: (_, bool canShowGraphic, Widget? canShowGraphicChild){
 
           /// SHOWING GRAPHIC
           if (canShowGraphic == true){
 
-            return canShowGraphicChild;
+            return canShowGraphicChild!;
 
           }
 
@@ -85,7 +85,7 @@ class _SavingNoticeState extends State<SavingNotice> {
         },
       child: ValueListenableBuilder<double>(
         valueListenable: widget.graphicOpacity,
-        builder: (_, double graphicOpacity, Widget fadeOutChild){
+        builder: (_, double graphicOpacity, Widget? fadeOutChild){
 
           return AnimatedOpacity(
             opacity: graphicOpacity,
@@ -99,7 +99,7 @@ class _SavingNoticeState extends State<SavingNotice> {
         /// FADE OUT CHILD
         child: ValueListenableBuilder(
           valueListenable: widget.flyerIsSaved,
-          builder: (_, bool isSaved, Widget ankh){
+          builder: (_, bool isSaved, Widget? ankh){
 
             return AnimatedOpacity(
               opacity: isSaved ? 1 : 0,

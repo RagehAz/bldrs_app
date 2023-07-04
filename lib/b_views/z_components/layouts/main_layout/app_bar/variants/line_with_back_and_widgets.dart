@@ -3,15 +3,15 @@ part of bldrs_app_bar;
 class LineWithBackAndWidgets extends StatelessWidget {
 
   const LineWithBackAndWidgets({
-    @required this.onBack,
-    @required this.scrollController,
-    @required this.appBarRowWidgets,
-    Key key
-  }) : super(key: key);
-
+    required this.onBack,
+    required this.scrollController,
+    required this.appBarRowWidgets,
+    super.key
+  });
+  
   final Function onBack;
-    final List<Widget> appBarRowWidgets;
-  final ScrollController scrollController;
+  final List<Widget>? appBarRowWidgets;
+  final ScrollController? scrollController;
 
   @override
   Widget build(BuildContext context) {

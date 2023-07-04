@@ -8,30 +8,30 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/material.dart';
 
 class TopicsExpandingTile extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const TopicsExpandingTile({
-    @required this.groupName,
-    @required this.topics,
-    @required this.builder,
-    @required this.width,
-    Key key
-  }) : super(key: key);
-
+    required this.groupName,
+    required this.topics,
+    required this.builder,
+    required this.width,
+    super.key
+  });
+  
   /// --------------------------------------------------------------------------
   final List<TopicModel> topics;
   final String groupName;
   final Widget Function(TopicModel topic) builder;
-  final double width;
+  final double? width;
   // -----------------------------------------------------------------------------
   static List<Widget> buildTopicsMapTiles({
-    @required Map<String, dynamic> map,
-    @required BuildContext context,
-    @required Widget Function(TopicModel topic) builder,
-    double width,
+    required Map<String, dynamic> map,
+    required BuildContext context,
+    required Widget Function(TopicModel topic) builder,
+    double? width,
   }){
     final List<Widget> _output = <Widget>[];
 
@@ -58,27 +58,26 @@ class TopicsExpandingTile extends StatelessWidget {
   // -----------------------------------------------------------------------------
  /// TESTED : WORKS PERFECT
   static bool checkIsTopicSelected({
-    @required PartyType partyType,
-    @required BuildContext context,
-    @required TopicModel topicModel,
+    required PartyType partyType,
+    required BuildContext context,
+    required TopicModel topicModel,
   }){
 
-    String _bzID;
+    String? _bzID;
     if (partyType == PartyType.bz){
-      final BzModel _activeBz = BzzProvider.proGetActiveBzModel(
+      final BzModel? _activeBz = BzzProvider.proGetActiveBzModel(
         context: context,
         listen: true,
       );
       _bzID = _activeBz?.id;
     }
 
-    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+    final UserModel? _userModel = UsersProvider.proGetMyUserModel(
       context: context,
       listen: true,
     );
 
     return TopicModel.checkUserIsSubscribedToThisTopic(
-      context: context,
       topicID: topicModel.id,
       partyType: partyType,
       bzID: _bzID,

@@ -3,52 +3,52 @@ part of bldrs_app_bar;
 class BldrsAppBarTree extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BldrsAppBarTree({
-    @required this.globalKey,
-    @required this.appBarType,
-    @required this.onBack,
-    @required this.pageTitleVerse,
-    @required this.appBarRowWidgets,
-    @required this.loading,
-    @required this.progressBarModel,
-    @required this.appBarScrollController,
-    @required this.sectionButtonIsOn,
-    @required this.searchController,
-    @required this.onSearchSubmit,
-    @required this.onPaste,
-    @required this.onSearchChanged,
-    @required this.searchButtonIsOn,
-    @required this.searchHintVerse,
-    @required this.canGoBack,
-    @required this.onSearchCancelled,
-    @required this.filtersAreOn,
-    @required this.filters,
-    Key key
-  }) : super(key: key);
+    required this.globalKey,
+    required this.appBarType,
+    required this.onBack,
+    required this.pageTitleVerse,
+    required this.appBarRowWidgets,
+    required this.loading,
+    required this.progressBarModel,
+    required this.appBarScrollController,
+    required this.sectionButtonIsOn,
+    required this.searchController,
+    required this.onSearchSubmit,
+    required this.onPaste,
+    required this.onSearchChanged,
+    required this.searchButtonIsOn,
+    required this.searchHintVerse,
+    required this.canGoBack,
+    required this.onSearchCancelled,
+    required this.filtersAreOn,
+    required this.filters,
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final AppBarType appBarType;
+  final AppBarType? appBarType;
   final Function onBack;
-  final Verse pageTitleVerse;
-  final List<Widget> appBarRowWidgets;
-  final ValueNotifier<bool> loading;
-  final ValueNotifier<ProgressBarModel> progressBarModel;
-  final ScrollController appBarScrollController;
-  final bool sectionButtonIsOn;
-  final TextEditingController searchController;
-  final ValueChanged<String> onSearchSubmit;
-  final ValueChanged<String> onPaste;
-  final ValueChanged<String> onSearchChanged;
+  final Verse? pageTitleVerse;
+  final List<Widget>? appBarRowWidgets;
+  final ValueNotifier<bool>? loading;
+  final ValueNotifier<ProgressBarModel?>? progressBarModel;
+  final ScrollController? appBarScrollController;
+  final bool? sectionButtonIsOn;
+  final TextEditingController? searchController;
+  final ValueChanged<String?>? onSearchSubmit;
+  final ValueChanged<String?>? onPaste;
+  final ValueChanged<String?>? onSearchChanged;
   final bool searchButtonIsOn;
-  final Verse searchHintVerse;
+  final Verse? searchHintVerse;
   final bool canGoBack;
-  final Function onSearchCancelled;
-  final GlobalKey globalKey;
-  final ValueNotifier<bool> filtersAreOn;
-  final Widget filters;
+  final Function? onSearchCancelled;
+  final GlobalKey? globalKey;
+  final ValueNotifier<bool?>? filtersAreOn;
+  final Widget? filters;
   // -----------------------------------------------------------------------------
   bool _sectionButtonIsOnCheck() {
 
     if (sectionButtonIsOn != null) {
-      return sectionButtonIsOn;
+      return sectionButtonIsOn!;
     }
     else if (sectionButtonIsOn == false) {
       return false;
@@ -130,7 +130,7 @@ class BldrsAppBarTree extends StatelessWidget {
                       setNotifier(
                           notifier: filtersAreOn,
                           mounted: true,
-                          value: !filtersAreOn.value,
+                          value: !Mapper.boolIsTrue(filtersAreOn?.value),
                       );
 
                     }
@@ -146,14 +146,14 @@ class BldrsAppBarTree extends StatelessWidget {
         if (loading != null)
           AppBarProgressBar(
             progressBarModel: progressBarModel,
-            loading: loading,
+            loading: loading!,
             appBarType: appBarType,
           ),
 
         if (filtersAreOn != null && filters != null)
           AppBarFilters(
-            appBarType: appBarType,
-            child: filters,
+            appBarType: appBarType!,
+            child: filters!,
           ),
 
       ],
@@ -174,19 +174,18 @@ class BldrsAppBarTree extends StatelessWidget {
 
       final double _expandedHeight = BldrsAppBar.expandedHeight(
           context: context,
-          appBarType: appBarType,
       );
 
       return ValueListenableBuilder(
-          valueListenable: filtersAreOn,
+          valueListenable: filtersAreOn!,
           child: _appBarContents,
-          builder: (_, bool expanded, Widget child){
+          builder: (_, bool? expanded, Widget? child){
 
             return AnimatedContainer(
               duration: BldrsAppBar.expansionDuration,
               curve: BldrsAppBar.expansionCurve,
               width: _boxWidth,
-              height: expanded == true ? _expandedHeight : _collapsedHeight,
+              height: Mapper.boolIsTrue(expanded) == true ? _expandedHeight : _collapsedHeight,
               alignment: Alignment.topCenter,
               margin: const EdgeInsets.all(Ratioz.appBarMargin),
               decoration: BldrsAppBar.boxDecoration,

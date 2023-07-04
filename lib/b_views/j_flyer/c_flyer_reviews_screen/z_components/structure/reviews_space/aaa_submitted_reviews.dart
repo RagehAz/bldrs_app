@@ -1,3 +1,6 @@
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/layouts/handlers/max_bounce_navigator.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -11,25 +14,22 @@ import 'package:bldrs/c_protocols/review_protocols/protocols/a_reviews_protocols
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/x_queries/reviews_queries.dart';
 import 'package:fire/super_fire.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
 
 class SubmittedReviews extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const SubmittedReviews({
-    @required this.pageWidth,
-    @required this.pageHeight,
-    @required this.flyerModel,
-    @required this.highlightReviewID,
-    Key key
-  }) : super(key: key);
+    required this.pageWidth,
+    required this.pageHeight,
+    required this.flyerModel,
+    required this.highlightReviewID,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double pageWidth;
   final double pageHeight;
-  final FlyerModel flyerModel;
-  final String highlightReviewID;
+  final FlyerModel? flyerModel;
+  final String? highlightReviewID;
   /// --------------------------------------------------------------------------
   @override
   State<SubmittedReviews> createState() => _SubmittedReviewsState();
@@ -41,14 +41,14 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
   final GlobalKey globalKey = GlobalKey();
   // --------------------
   final TextEditingController _reviewTextController = TextEditingController();
-  PaginationController _paginationController;
+  late PaginationController _paginationController;
   // --------------------
   final ValueNotifier<bool> _isUploading = ValueNotifier<bool>(false);
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -75,7 +75,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
           await loadReviewEditorLastSession(
             context: context,
             reviewController: _reviewTextController,
-            flyerID: widget.flyerModel.id,
+            flyerID: widget.flyerModel?.id,
           );
         // -----------------------------
         // if (widget.validateOnStartup == true){
@@ -122,7 +122,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
     _reviewTextController.addListener(() async {
 
       await saveReviewEditorSession(
-        flyerID: widget.flyerModel.id,
+        flyerID: widget.flyerModel?.id,
         reviewController: _reviewTextController,
       );
 
@@ -132,7 +132,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
   @override
   Widget build(BuildContext context) {
 
-    final UserModel _user = UsersProvider.proGetMyUserModel(
+    final UserModel? _user = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );
@@ -144,17 +144,17 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
       child: MaxBounceNavigator(
         child: FireCollPaginator(
           paginationQuery: reviewsPaginationQuery(
-            flyerID: widget.flyerModel.id,
+            flyerID: widget.flyerModel?.id,
           ),
           streamQuery: reviewsStreamQuery(
             context: context,
-            flyerID: widget.flyerModel.id,
+            flyerID: widget.flyerModel?.id,
           ),
           paginationController: _paginationController,
           loadingWidget: const Loading(
             loading: true,
           ),
-          builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
+          builder: (_, List<Map<String, dynamic>>? maps, bool isLoading, Widget? child){
 
             final List<ReviewModel> reviews = ReviewModel.decipherReviews(
               maps: maps,
@@ -195,7 +195,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
                         isUploading: _isUploading,
                         mounted: mounted,
                       ),
-                      onReviewUserBalloonTap: (UserModel userModel) => onReviewUserBalloonTap(
+                      onReviewUserBalloonTap: (UserModel? userModel) => onReviewUserBalloonTap(
                         userModel: userModel,
                       ),
                     );
@@ -212,12 +212,12 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
                       future: ReviewProtocols.readIsAgreed(
                         reviewID: _reviewModel.id,
                         flyerID: _reviewModel.flyerID,
-                        bzID: widget.flyerModel.bzID,
+                        bzID: widget.flyerModel?.bzID,
                       ),
                       initialData: false,
-                      builder: (_, AsyncSnapshot<Object> snapshot){
+                      builder: (_, AsyncSnapshot<bool> snapshot){
 
-                        final bool _isAlreadyAgreed = snapshot.data;
+                        final bool _isAlreadyAgreed = snapshot.data ?? false;
 
                         return ReviewViewBubble(
                           isSpecial: widget.highlightReviewID == _reviewModel.id,
@@ -229,13 +229,13 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
                           onReviewOptionsTap: () => onReviewOptions(
                             reviewModel: _reviewModel,
                             paginationController: _paginationController,
-                            bzID: widget.flyerModel.bzID,
+                            bzID: widget.flyerModel?.bzID,
                             mounted: mounted,
                           ),
                           onBzReplyOverReview: () => onBzReply(
                             reviewModel: _reviewModel,
                             paginationController: _paginationController,
-                            bzID: widget.flyerModel.bzID,
+                            bzID: widget.flyerModel?.bzID,
                             mounted: mounted,
                           ),
                           onReplyOptionsTap: () => onReplyOptions(
@@ -249,10 +249,10 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
                             paginationController: _paginationController,
                             mounted: mounted,
                           ),
-                          onReviewUserBalloonTap: (UserModel userModel) => onReviewUserBalloonTap(
+                          onReviewUserBalloonTap: (UserModel? userModel) => onReviewUserBalloonTap(
                             userModel: userModel,
                           ),
-                          onReplyBzBalloonTap: (BzModel bzModel) => onReplyBzBalloonTap(
+                          onReplyBzBalloonTap: (BzModel? bzModel) => onReplyBzBalloonTap(
                             bzModel: bzModel,
                           ),
                         );

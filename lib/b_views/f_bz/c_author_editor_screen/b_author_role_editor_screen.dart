@@ -1,3 +1,7 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/bubbles/model/bubble_header_vm.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/b_views/f_bz/c_author_editor_screen/x_author_editor_screen_controller.dart';
@@ -6,22 +10,20 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/d_la
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/floating_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:night_sky/night_sky.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class AuthorRoleEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const AuthorRoleEditorScreen({
-    @required this.authorModel,
-    Key key
-  }) : super(key: key);
+    required this.authorModel,
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final AuthorModel authorModel;
+  final AuthorModel? authorModel;
   /// --------------------------------------------------------------------------
   @override
   _AuthorRoleEditorScreenState createState() => _AuthorRoleEditorScreenState();
@@ -30,13 +32,13 @@ class AuthorRoleEditorScreen extends StatefulWidget {
 
 class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
   // -----------------------------------------------------------------------------
-  ValueNotifier<AuthorRole> _tempRole;
+  late ValueNotifier<AuthorRole?> _tempRole;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
   /*
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -48,7 +50,7 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
   @override
   void initState() {
     super.initState();
-    _tempRole = ValueNotifier(widget.authorModel.role);
+    _tempRole = ValueNotifier(widget.authorModel?.role);
   }
   // --------------------
   bool _isInit = true;
@@ -90,7 +92,7 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+    final BzModel? _bzModel = BzzProvider.proGetActiveBzModel(
       context: context,
       listen: true,
     );
@@ -116,14 +118,14 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
             Center(
               child: AuthorPic(
                 size: 100,
-                authorPic: widget.authorModel.picPath,
+                authorPic: widget.authorModel?.picPath,
               ),
             ),
 
             /// USER NAME
             BldrsText(
               verse: Verse(
-                id: widget.authorModel.name,
+                id: widget.authorModel?.name,
                 translate: false,
               ),
               shadow: true,
@@ -138,8 +140,8 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
               italic: true,
               weight: VerseWeight.thin,
               verse: AuthorCard.getAuthorTitleLine(
-                title: widget.authorModel.title,
-                companyName: _bzModel.name,
+                title: widget.authorModel?.title,
+                companyName: _bzModel?.name,
               ),
             ),
 
@@ -149,8 +151,7 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
               weight: VerseWeight.thin,
               verse: Verse(
                 id: AuthorModel.getAuthorRolePhid(
-                  context: context,
-                  role: widget.authorModel.role,
+                  role: widget.authorModel?.role,
                 ),
                 translate: true,
               ),
@@ -165,9 +166,9 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
           ],
         ),
 
-        ValueListenableBuilder<AuthorRole>(
+        ValueListenableBuilder<AuthorRole?>(
             valueListenable: _tempRole,
-            builder: (_, AuthorRole role, Widget child){
+            builder: (_, AuthorRole? role, Widget? child){
 
               return Column(
                 children: <Widget>[

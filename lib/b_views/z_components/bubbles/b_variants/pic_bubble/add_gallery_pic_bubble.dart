@@ -1,21 +1,24 @@
+// ignore_for_file: unused_element
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/files/file_size_unit.dart';
+import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/balloons/balloons.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/b_balloona.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_validator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mediators/mediators.dart';
-import 'package:scale/scale.dart';
+import 'package:mediators/pic_maker/pic_maker.dart';
 
 enum BubbleType {
   bzLogo,
@@ -27,34 +30,34 @@ enum BubbleType {
 class AddImagePicBubble extends StatelessWidget {
   // --------------------------------------------------------------------------
   const AddImagePicBubble({
-    @required this.picModel,
-    @required this.onAddPicture,
-    @required this.titleVerse,
-    @required this.redDot,
+    required this.picModel,
+    required this.onAddPicture,
+    required this.titleVerse,
+    required this.redDot,
     this.formKey,
     this.bubbleType = BubbleType.none,
     this.width,
     this.validator,
     this.autoValidate = true,
     this.onPicLongTap,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   // --------------------
-  final Function onAddPicture;
-  final PicModel picModel;
+  final ValueChanged<PicMakerType>? onAddPicture;
+  final PicModel? picModel;
   final Verse titleVerse;
   final BubbleType bubbleType;
   final bool redDot;
-  final double width;
-  final String Function() validator;
-  final GlobalKey<FormState> formKey;
+  final double? width;
+  final String? Function()? validator;
+  final GlobalKey<FormState>? formKey;
   final bool autoValidate;
-  final Function onPicLongTap;
+  final Function? onPicLongTap;
   // --------------------
   static BorderRadius getPicBorder ({
-    @required BuildContext context,
-    @required BubbleType bubbleType,
-    @required double picWidth,
+    required BuildContext context,
+    required BubbleType bubbleType,
+    required double picWidth,
   }){
 
     final double corner = FlyerDim.logoCornerValueByLogoWidth(picWidth);
@@ -64,7 +67,7 @@ class AddImagePicBubble extends StatelessWidget {
       Borderers.shapeOfLogo(
           appIsLTR: UiProvider.checkAppIsLeftToRight(),
           corner: corner,
-          zeroCornerEnIsRight: true
+          // zeroCornerEnIsRight: true
       )
           :
       bubbleType == BubbleType.authorPic ?
@@ -75,9 +78,9 @@ class AddImagePicBubble extends StatelessWidget {
       )
           :
       bubbleType == BubbleType.userPic ?
-      Borderers.cornerAll(context, picWidth * 0.5)
+      Borderers.cornerAll(picWidth * 0.5)
           :
-      Borderers.cornerAll(context, corner);
+      Borderers.cornerAll(corner);
   }
   // --------------------
   static const double picWidth = 100;
@@ -91,7 +94,7 @@ class AddImagePicBubble extends StatelessWidget {
     // --------------------
     return Bubble(
         bubbleColor: Formers.validatorBubbleColor(
-          validator: validator == null ? null : () => validator(),
+          validator: validator == null ? null : () => validator?.call(),
         ),
         bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
           context: context,
@@ -150,7 +153,7 @@ class AddImagePicBubble extends StatelessWidget {
                       height: btWidth,
                       icon: Iconz.phoneGallery,
                       iconSizeFactor: 0.6,
-                      onTap: () => onAddPicture(PicMakerType.galleryImage),
+                      onTap: () => onAddPicture?.call(PicMakerType.galleryImage),
                       onLongTap: onPicLongTap,
                     ),
 
@@ -160,7 +163,7 @@ class AddImagePicBubble extends StatelessWidget {
                       height: btWidth,
                       icon: Iconz.camera,
                       iconSizeFactor: 0.5,
-                      onTap: () => onAddPicture(PicMakerType.cameraImage),
+                      onTap: () => onAddPicture?.call(PicMakerType.cameraImage),
                     ),
 
                   ],
@@ -186,20 +189,20 @@ class AddImagePicBubble extends StatelessWidget {
 class _FilePicSplitter extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const _FilePicSplitter({
-    @required this.picModel,
-    @required this.bubbleType,
-    @required this.picWidth,
-    Key key
-  }) : super(key: key);
+    required this.picModel,
+    required this.bubbleType,
+    required this.picWidth,
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final PicModel picModel;
+  final PicModel? picModel;
   final BubbleType bubbleType;
   final double picWidth;
   /// --------------------------------------------------------------------------
   static BorderRadius _getPicBorder ({
-    @required BuildContext context,
-    @required BubbleType bubbleType,
-    @required double picWidth,
+    required BuildContext context,
+    required BubbleType bubbleType,
+    required double picWidth,
   }){
 
     final double corner = FlyerDim.logoCornerValueByLogoWidth(picWidth);
@@ -209,7 +212,7 @@ class _FilePicSplitter extends StatelessWidget {
       Borderers.shapeOfLogo(
           appIsLTR: UiProvider.checkAppIsLeftToRight(),
           corner: corner,
-          zeroCornerEnIsRight: true
+          // zeroCornerEnIsRight: true
       )
           :
       bubbleType == BubbleType.authorPic ?
@@ -220,9 +223,9 @@ class _FilePicSplitter extends StatelessWidget {
       )
           :
       bubbleType == BubbleType.userPic ?
-      Borderers.cornerAll(context, picWidth * 0.5)
+      Borderers.cornerAll(picWidth * 0.5)
           :
-      Borderers.cornerAll(context, corner);
+      Borderers.cornerAll(corner);
   }
   // -----------------------------------------------------------------------------
   @override
@@ -276,19 +279,19 @@ class _FilePicSplitter extends StatelessWidget {
 class _PlusIconLayer extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const _PlusIconLayer({
-    @required this.picModel,
-    @required this.onAddPic,
-    @required this.bubbleType,
-    @required this.picWidth,
-    @required this.onLongTap,
-    Key key
-  }) : super(key: key);
+    required this.picModel,
+    required this.onAddPic,
+    required this.bubbleType,
+    required this.picWidth,
+    required this.onLongTap,
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final PicModel picModel;
-  final ValueChanged<PicMakerType> onAddPic;
+  final PicModel? picModel;
+  final ValueChanged<PicMakerType>? onAddPic;
   final BubbleType bubbleType;
   final double picWidth;
-  final Function onLongTap;
+  final Function? onLongTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -310,7 +313,7 @@ class _PlusIconLayer extends StatelessWidget {
         bubble: false,
         opacity: 0.9,
         iconColor: Colorz.white255,
-        onTap: () => onAddPic(PicMakerType.galleryImage),
+        onTap: () => onAddPic?.call(PicMakerType.galleryImage),
         onLongTap: onLongTap,
       );
     }
@@ -326,7 +329,7 @@ class _PlusIconLayer extends StatelessWidget {
       /// SIZE
       else {
 
-        final bool _isExceedingMaxSize = picModel.bytes.length > (3 * 1024 * 1024);
+        final bool _isExceedingMaxSize = (picModel?.bytes?.length ?? 0) > (3 * 1024 * 1024);
 
         return SizedBox(
           width: AddImagePicBubble.picWidth,
@@ -339,12 +342,12 @@ class _PlusIconLayer extends StatelessWidget {
 
               BldrsText(
                 width: AddImagePicBubble.picWidth * 0.6,
-                verse: Verse.plain('${Filers.calculateSize(picModel.bytes.length, FileSizeUnit.megaByte)} Mb'),
+                verse: Verse.plain('${Filers.calculateSize(picModel?.bytes?.length, FileSizeUnit.megaByte)} Mb'),
                 size: 1,
                 shadow: true,
                 labelColor: _isExceedingMaxSize ? Colorz.red255 : Colorz.black150,
                 maxLines: 2,
-                textDirection: TextDirection.ltr,
+                // textDirection: TextDirection.ltr,
                 margin: 0,
               ),
 
@@ -362,10 +365,10 @@ class _PlusIconLayer extends StatelessWidget {
 // class OldAddImagePicBubble extends StatelessWidget {
 //   /// --------------------------------------------------------------------------
 //   const OldAddImagePicBubble({
-//     @required this.fileModel,
-//     @required this.onAddPicture,
-//     @required this.titleVerse,
-//     @required this.redDot,
+//     required this.fileModel,
+//     required this.onAddPicture,
+//     required this.titleVerse,
+//     required this.redDot,
 //     this.bubbleType = BubbleType.none,
 //     Key key,
 //   }) : super(key: key);
@@ -377,9 +380,9 @@ class _PlusIconLayer extends StatelessWidget {
 //   final bool redDot;
 //   /// --------------------------------------------------------------------------
 //   static BorderRadius _getPicBorder ({
-//     @required BuildContext context,
-//     @required BubbleType bubbleType,
-//     @required double picWidth,
+//     required BuildContext context,
+//     required BubbleType bubbleType,
+//     required double picWidth,
 //   }){
 //
 //     final double corner = BzLogo.cornersValue(picWidth);

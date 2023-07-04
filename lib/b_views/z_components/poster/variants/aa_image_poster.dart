@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 class ImagePoster extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const ImagePoster({
-    @required this.width,
-    @required this.pic,
-    Key key
-  }) : super(key: key);
+    required this.width,
+    required this.pic,
+    super.key
+  });
   // --------------------
   final double width;
   final dynamic pic;

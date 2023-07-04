@@ -1,19 +1,18 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
-import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
-import 'package:mapper/mapper.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 @immutable
 class CountryModel {
   /// --------------------------------------------------------------------------
   const CountryModel({
-    @required this.id,
-    @required this.citiesIDs,
+    required this.id,
+    required this.citiesIDs,
   });
   /// --------------------------------------------------------------------------
-  final String id;
-  final StagingModel citiesIDs;
+  final String? id;
+  final StagingModel? citiesIDs;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -21,8 +20,8 @@ class CountryModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   CountryModel copyWith({
-    String id,
-    StagingModel citiesIDs,
+    String? id,
+    StagingModel? citiesIDs,
   }){
     return CountryModel(
       id: id ?? this.id,
@@ -36,7 +35,7 @@ class CountryModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
-    @required bool toLDB,
+    required bool toLDB,
   }) {
     return <String, dynamic>{
       'id': id,
@@ -47,10 +46,10 @@ class CountryModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static CountryModel decipherCountryMap({
-    @required Map<String, dynamic> map,
+  static CountryModel? decipherCountryMap({
+    required Map<String, dynamic>? map,
   }) {
-    CountryModel _countryModel;
+    CountryModel? _countryModel;
 
     if (map != null) {
 
@@ -68,17 +67,21 @@ class CountryModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<CountryModel> decipherCountriesMaps({
-    @required List<Map<String, dynamic>> maps,
+    required List<Map<String, dynamic>>? maps,
   }) {
     final List<CountryModel> _countries = <CountryModel>[];
 
-    if (Mapper.checkCanLoopList(maps)) {
-      for (final Map<String, dynamic> map in maps) {
-        _countries.add(
-            decipherCountryMap(
-              map: map,
-            )
+    if (Mapper.checkCanLoopList(maps) == true) {
+      for (final Map<String, dynamic> map in maps!) {
+
+        final CountryModel? _map = decipherCountryMap(
+          map: map,
         );
+
+        if (_map != null){
+          _countries.add(_map);
+        }
+
       }
     }
 
@@ -119,7 +122,7 @@ class CountryModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool countriesIDsAreIdentical(CountryModel country1, CountryModel country2) {
+  static bool countriesIDsAreIdentical(CountryModel? country1, CountryModel? country2) {
     bool _identical = false;
 
     if (country1 == null && country2 == null){
@@ -135,7 +138,7 @@ class CountryModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkCountriesAreIdentical(CountryModel country1, CountryModel country2) {
+  static bool checkCountriesAreIdentical(CountryModel? country1, CountryModel? country2) {
     bool _identical = false;
 
     if (country1 == null && country2 == null){
@@ -187,15 +190,15 @@ class CountryModel {
   // -----------------------------------------------------------------------------
 }
 
-@immutable
-class AmericanState extends CountryModel {
-  /// --------------------------------------------------------------------------
-  const AmericanState({
-    @required this.state,
-    @required this.cities,
-  });
-  /// --------------------------------------------------------------------------
-  final String state;
-  final List<CityModel> cities;
-  /// --------------------------------------------------------------------------
-}
+// @immutable
+// class AmericanState extends CountryModel {
+//   /// --------------------------------------------------------------------------
+//   const AmericanState({
+//     required this.state,
+//     required this.cities, required super.id, required super.citiesIDs,
+//   });
+//   /// --------------------------------------------------------------------------
+//   final String? state;
+//   final List<CityModel>? cities;
+//   /// --------------------------------------------------------------------------
+// }

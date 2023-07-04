@@ -1,14 +1,14 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/x_secondary/bldrs_model_type.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:numeric/numeric.dart';
-import 'package:space_time/space_time.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:basics/helpers/classes/time/timers.dart';
 
 enum RecordType {
   follow,
@@ -31,38 +31,38 @@ enum RecordDetailsType{
 class RecordModel {
   /// --------------------------------------------------------------------------
   const RecordModel({
-    @required this.recordType,
-    @required this.userID,
-    @required this.timeStamp,
-    @required this.modelType,
-    @required this.bzID,
-    @required this.flyerID,
-    @required this.recordDetailsType,
-    @required this.recordDetails,
+    required this.recordType,
+    required this.userID,
+    required this.timeStamp,
+    required this.modelType,
+    required this.bzID,
+    required this.flyerID,
+    required this.recordDetailsType,
+    required this.recordDetails,
     this.recordID,
     this.docSnapshot,
   });
   /// --------------------------------------------------------------------------
-  final RecordType recordType;
-  final String userID;
-  final String recordID;
-  final DateTime timeStamp;
-  final ModelType modelType;
-  final String bzID;
-  final String flyerID;
-  final RecordDetailsType recordDetailsType;
+  final RecordType? recordType;
+  final String? userID;
+  final String? recordID;
+  final DateTime? timeStamp;
+  final ModelType? modelType;
+  final String? bzID;
+  final String? flyerID;
+  final RecordDetailsType? recordDetailsType;
   final dynamic recordDetails;
-  final DocumentSnapshot<Object> docSnapshot;
+  final DocumentSnapshot<Object>? docSnapshot;
   // -----------------------------------------------------------------------------
 
   /// CYPHERS
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  Map<String, Object> toMap({
-    @required bool toJSON,
+  Map<String, dynamic> toMap({
+    required bool toJSON,
   }) {
-    return <String, Object>{
+    return <String, dynamic>{
       'recordType' : cipherRecordType(recordType),
       'userID' : userID,
       'timeStamp' : Timers.cipherTime(time: timeStamp, toJSON: toJSON),
@@ -76,13 +76,13 @@ class RecordModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static RecordModel decipherRecord({
-    @required Map<String, dynamic> map,
-    @required String bzID,
-    @required String flyerID,
-    @required bool fromJSON,
+  static RecordModel? decipherRecord({
+    required Map<String, dynamic>? map,
+    required String? bzID,
+    required String? flyerID,
+    required bool fromJSON,
   }) {
-    RecordModel _record;
+    RecordModel? _record;
 
     if (map != null) {
 
@@ -109,8 +109,8 @@ class RecordModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Map<String, dynamic>> cipherRecords({
-    @required List<RecordModel> records,
-    @required bool toJSON,
+    required List<RecordModel> records,
+    required bool toJSON,
   }) {
 
     final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
@@ -131,10 +131,10 @@ class RecordModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<RecordModel> decipherRecords({
-    @required List<Map<String, dynamic>> maps,
-    @required String bzID,
-    @required String flyerID,
-    @required bool fromJSON,
+    required List<Map<String, dynamic>> maps,
+    required String bzID,
+    required String flyerID,
+    required bool fromJSON,
   }){
     final List<RecordModel> _records = <RecordModel>[];
 
@@ -142,13 +142,16 @@ class RecordModel {
 
       for (final Map<String, dynamic> map in maps){
 
-        final RecordModel _record = decipherRecord(
+        final RecordModel? _record = decipherRecord(
           map: map,
           bzID: bzID,
           flyerID: flyerID,
           fromJSON: fromJSON,
         );
-        _records.add(_record);
+
+        if (_record != null){
+          _records.add(_record);
+        }
 
       }
 
@@ -162,29 +165,29 @@ class RecordModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String cipherRecordType(RecordType recordType) {
+  static String? cipherRecordType(RecordType? recordType) {
     switch (recordType) {
-      case RecordType.follow:         return 'follow';          break;
-      case RecordType.unfollow:       return 'unfollow';        break;
-      case RecordType.call:           return 'call';            break;
-      case RecordType.share:          return 'share';           break;
-      case RecordType.view:           return 'view';            break;
-      case RecordType.save:           return 'save';            break;
-      case RecordType.unSave:         return 'unSave';          break;
+      case RecordType.follow:         return 'follow';
+      case RecordType.unfollow:       return 'unfollow';
+      case RecordType.call:           return 'call';
+      case RecordType.share:          return 'share';
+      case RecordType.view:           return 'view';
+      case RecordType.save:           return 'save';
+      case RecordType.unSave:         return 'unSave';
       default:return null;
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static RecordType decipherRecordType(String type) {
+  static RecordType? decipherRecordType(String? type) {
     switch (type) {
-      case 'follow':          return RecordType.follow;         break;
-      case 'unfollow':        return RecordType.unfollow;       break;
-      case 'call':            return RecordType.call;           break;
-      case 'share':           return RecordType.share;          break;
-      case 'view':            return RecordType.view;           break;
-      case 'save':            return RecordType.save;           break;
-      case 'unSave':          return RecordType.unSave;         break;
+      case 'follow':          return RecordType.follow;
+      case 'unfollow':        return RecordType.unfollow;
+      case 'call':            return RecordType.call;
+      case 'share':           return RecordType.share;
+      case 'view':            return RecordType.view;
+      case 'save':            return RecordType.save;
+      case 'unSave':          return RecordType.unSave;
       default:return null;
     }
   }
@@ -194,36 +197,36 @@ class RecordModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String cipherModelType(ModelType modelType){
+  static String? cipherModelType(ModelType? modelType){
     switch (modelType){
-      case ModelType.flyer:     return 'flyer';     break;
-      case ModelType.bz:        return 'bz';        break;
-      case ModelType.user:      return 'user';      break;
+      case ModelType.flyer:     return 'flyer';
+      case ModelType.bz:        return 'bz';
+      case ModelType.user:      return 'user';
       default: return null;
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static ModelType decipherModelType(String modelType){
+  static ModelType? decipherModelType(String? modelType){
     switch (modelType){
-      case 'flyer':     return ModelType.flyer;     break;
-      case 'bz':        return ModelType.bz;        break;
-      case 'user':      return ModelType.user;      break;
+      case 'flyer':     return ModelType.flyer;
+      case 'bz':        return ModelType.bz;
+      case 'user':      return ModelType.user;
       default: return null;
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static ModelType getModelTypeByRecordType(RecordType recordType){
+  static ModelType? getModelTypeByRecordType(RecordType? recordType){
 
     switch(recordType){
-      case RecordType.follow          : return ModelType.bz; break;
-      case RecordType.unfollow        : return ModelType.bz; break;
-      case RecordType.call            : return ModelType.bz; break;
-      case RecordType.share           : return ModelType.flyer; break;
-      case RecordType.view            : return ModelType.flyer; break;
-      case RecordType.save            : return ModelType.flyer; break;
-      case RecordType.unSave          : return ModelType.flyer; break;
+      case RecordType.follow          : return ModelType.bz;
+      case RecordType.unfollow        : return ModelType.bz;
+      case RecordType.call            : return ModelType.bz;
+      case RecordType.share           : return ModelType.flyer;
+      case RecordType.view            : return ModelType.flyer;
+      case RecordType.save            : return ModelType.flyer;
+      case RecordType.unSave          : return ModelType.flyer;
       default: return null;
     }
 
@@ -234,21 +237,21 @@ class RecordModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String _cipherRecordDetailsType(RecordDetailsType recordDetailsType){
+  static String? _cipherRecordDetailsType(RecordDetailsType? recordDetailsType){
     switch (recordDetailsType){
-      case RecordDetailsType.slideIndex:          return 'slideIndex';  break;
-      case RecordDetailsType.text:                return 'text';        break;
-      case RecordDetailsType.contact:             return 'contact';     break;
+      case RecordDetailsType.slideIndex:          return 'slideIndex';
+      case RecordDetailsType.text:                return 'text';
+      case RecordDetailsType.contact:             return 'contact';
       default: return null;
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static RecordDetailsType _decipherRecordDetailsType(String recordDetailsType){
+  static RecordDetailsType? _decipherRecordDetailsType(String? recordDetailsType){
     switch (recordDetailsType){
-      case 'slideIndex':  return RecordDetailsType.slideIndex;  break;
-      case 'text':        return RecordDetailsType.text;                break;
-      case 'contact':     return RecordDetailsType.contact;             break;
+      case 'slideIndex':  return RecordDetailsType.slideIndex;
+      case 'text':        return RecordDetailsType.text;
+      case 'contact':     return RecordDetailsType.contact;
       default: return null;
     }
   }
@@ -259,8 +262,8 @@ class RecordModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<RecordModel> insertRecordToRecords({
-    @required List<RecordModel> records,
-    @required RecordModel record,
+    required List<RecordModel>? records,
+    required RecordModel? record,
   }){
 
     final List<RecordModel> _output = <RecordModel>[...?records];
@@ -272,7 +275,7 @@ class RecordModel {
         record: record,
       );
 
-      if (_recordsContainRecord == false){
+      if (_recordsContainRecord == false && record != null){
         _output.add(record);
       }
 
@@ -283,8 +286,8 @@ class RecordModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<RecordModel> insertRecordsToRecords({
-    @required List<RecordModel> originalRecords,
-    @required List<RecordModel> addRecords,
+    required List<RecordModel> originalRecords,
+    required List<RecordModel> addRecords,
   }){
 
     List<RecordModel> _output = <RecordModel>[];
@@ -305,7 +308,7 @@ class RecordModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<RecordModel> cleanDuplicateUsers({
-    @required List<RecordModel> records,
+    required List<RecordModel> records,
   }){
     final List<RecordModel> _output = <RecordModel>[];
 
@@ -335,15 +338,15 @@ class RecordModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool recordsContainRecord({
-    @required List<RecordModel> records,
-    @required RecordModel record,
+    required List<RecordModel>? records,
+    required RecordModel? record,
   }){
 
     bool _contains = false;
 
     if (Mapper.checkCanLoopList(records) == true && record != null){
 
-      for (final RecordModel rec in records){
+      for (final RecordModel rec in records!){
 
         if (rec.recordID == record.recordID){
           _contains = true;
@@ -359,16 +362,16 @@ class RecordModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool recordsContainUserID({
-    @required List<RecordModel> records,
-    @required String userID,
+    required List<RecordModel>? records,
+    required String? userID,
   }){
     bool _includes = false;
 
     if (Mapper.checkCanLoopList(records) == true){
 
-      final int _index = records.indexWhere((element) => element.userID == userID);
+      final int? _index = records?.indexWhere((element) => element.userID == userID);
 
-      if (_index == -1){
+      if (_index == null || _index == -1){
         _includes = false;
       }
       else {
@@ -386,8 +389,8 @@ class RecordModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static RecordModel createFollowRecord({
-    @required String userID,
-    @required String bzID,
+    required String userID,
+    required String bzID,
   }){
 
     return RecordModel(
@@ -406,8 +409,8 @@ class RecordModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static RecordModel createUnfollowRecord({
-    @required String userID,
-    @required String bzID,
+    required String userID,
+    required String bzID,
   }){
 
     return RecordModel(
@@ -426,9 +429,9 @@ class RecordModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static RecordModel createCallRecord({
-    @required String userID,
-    @required String bzID,
-    @required ContactModel contact,
+    required String userID,
+    required String bzID,
+    required ContactModel contact,
   }){
 
     return RecordModel(
@@ -451,9 +454,9 @@ class RecordModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static RecordModel createShareRecord({
-    @required String userID,
-    @required String flyerID,
-    @required String bzID,
+    required String userID,
+    required String flyerID,
+    required String bzID,
   }){
 
     return RecordModel(
@@ -472,11 +475,11 @@ class RecordModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static RecordModel createViewRecord({
-    @required String userID,
-    @required String flyerID,
-    @required String bzID,
-    // @required int durationSeconds,
-    @required int slideIndex,
+    required String userID,
+    required String flyerID,
+    required String bzID,
+    // required int durationSeconds,
+    required int slideIndex,
   }){
 
     return RecordModel(
@@ -499,11 +502,11 @@ class RecordModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String createIndexAndDurationString({
-    @required int index,
-    @required int durationSeconds,
+    required int index,
+    required int durationSeconds,
   }){
 
-    final String _index = Numeric.formatNumberWithinDigits(
+    final String? _index = Numeric.formatNumberWithinDigits(
       num: index,
       digits: 3,
     );
@@ -526,10 +529,10 @@ class RecordModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static RecordModel createSaveRecord({
-    @required String userID,
-    @required String flyerID,
-    @required String bzID,
-    @required int slideIndex,
+    required String userID,
+    required String flyerID,
+    required String bzID,
+    required int slideIndex,
   }){
 
     return RecordModel(
@@ -548,9 +551,9 @@ class RecordModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static RecordModel createUnSaveRecord({
-    @required String userID,
-    @required String flyerID,
-    @required String bzID,
+    required String userID,
+    required String flyerID,
+    required String bzID,
   }){
 
     return RecordModel(
@@ -572,25 +575,27 @@ class RecordModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getIconByModelType(ModelType modelType){
+  static String? getIconByModelType(ModelType? modelType){
 
     switch(modelType){
-      case ModelType.flyer: return Iconz.flyer; break;
-      case ModelType.bz: return Iconz.bz; break;
-      case ModelType.user: return Iconz.normalUser; break;
+      case ModelType.flyer: return Iconz.flyer;
+      case ModelType.bz: return Iconz.bz;
+      case ModelType.user: return Iconz.normalUser;
       default: return null;
     }
 
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Verse getVerseByModelType(ModelType modelType){
-    String _text;
+  static Verse getVerseByModelType(ModelType? modelType){
+    String? _text;
 
-    switch(modelType){
-      case ModelType.flyer:     _text = 'phid_flyers'; break;
-      case ModelType.bz:        _text = 'phid_bzz'; break;
-      case ModelType.user:      _text = 'phid_users'; break;
+    if (modelType != null){
+      switch(modelType){
+        case ModelType.flyer:     _text = 'phid_flyers'; break;
+        case ModelType.bz:        _text = 'phid_bzz'; break;
+        case ModelType.user:      _text = 'phid_users'; break;
+      }
     }
 
     return Verse(
@@ -605,7 +610,7 @@ class RecordModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  void blogRecord({@required String invoker}){
+  void blogRecord({required String invoker}){
 
     final String _text =
     '''
@@ -627,8 +632,8 @@ class RecordModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogRecords({
-    @required String invoker,
-    @required List<RecordModel> records,
+    required String invoker,
+    required List<RecordModel> records,
   }){
 
     if (Mapper.checkCanLoopList(records) == true){
@@ -653,8 +658,8 @@ class RecordModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkRecordsAreIdentical({
-    @required RecordModel record1,
-    @required RecordModel record2,
+    required RecordModel? record1,
+    required RecordModel? record2,
   }){
     bool _identical = false;
 

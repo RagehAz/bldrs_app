@@ -6,25 +6,25 @@ import 'package:flutter/material.dart';
 class FollowAndCallButtons extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FollowAndCallButtons({
-    @required this.flyerBoxWidth,
-    @required this.onFollowTap,
-    @required this.followIsOn,
-    @required this.onCallTap,
-    @required this.logoMinWidth,
-    @required this.followCallButtonsScaleTween,
-    @required this.logoSizeRatioTween,
-    @required this.tinyMode,
+    required this.flyerBoxWidth,
+    required this.onFollowTap,
+    required this.followIsOn,
+    required this.onCallTap,
+    required this.logoMinWidth,
+    required this.followCallButtonsScaleTween,
+    required this.logoSizeRatioTween,
+    required this.tinyMode,
     this.showButtons = true,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final Function onFollowTap;
   final Function onCallTap;
   final ValueNotifier<bool> followIsOn;
   final double logoMinWidth;
-  final Animation<double> followCallButtonsScaleTween;
-  final Animation<double> logoSizeRatioTween;
+  final Animation<double>? followCallButtonsScaleTween;
+  final Animation<double>? logoSizeRatioTween;
   final bool showButtons;
   final bool tinyMode;
   // -----------------------------------------------------------------------------
@@ -39,7 +39,7 @@ class FollowAndCallButtons extends StatelessWidget {
 
       return Container(
         width: FlyerDim.followAndCallBoxWidth(flyerBoxWidth),
-        height: logoMinWidth * logoSizeRatioTween.value,
+        height: logoMinWidth * (logoSizeRatioTween?.value ?? 1),
         alignment: Alignment.topCenter,
         // color: Colorz.bloodTest,
         child: SizedBox(
@@ -55,7 +55,6 @@ class FollowAndCallButtons extends StatelessWidget {
               FollowButton(
                 flyerBoxWidth: flyerBoxWidth,
                 onFollowTap: onFollowTap,
-                tappingUnfollow: () {},
                 followIsOn: followIsOn,
               ),
 

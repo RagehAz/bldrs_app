@@ -1,3 +1,7 @@
+import 'package:basics/animators/helpers/sliders.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -15,32 +19,28 @@ import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
-import 'package:bubbles/bubbles.dart';
-import 'package:mapper/mapper.dart';
-import 'package:scale/scale.dart';
-import 'package:animators/animators.dart';
-import 'package:stringer/stringer.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:flutter/material.dart';
 
 class PhidsPickerScreen extends StatefulWidget {
   // -----------------------------------------------------------------------------
   const PhidsPickerScreen({
-    @required this.chainsIDs,
-    @required this.onlyUseZoneChains,
+    required this.chainsIDs,
+    required this.onlyUseZoneChains,
     this.selectedPhids,
     this.multipleSelectionMode = false,
     this.flyerModel,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   // -----------------------------------------------------------------------------
-  final List<String> selectedPhids;
+  final List<String>? selectedPhids;
   /// RETURNS <String>[] if is multiple selection mode, and returns String if not
   final bool multipleSelectionMode;
   /// SHOWS flyer in the corner widget maximizer showing selected keywords,
-  final FlyerModel flyerModel;
+  final FlyerModel? flyerModel;
 
   final List<String> chainsIDs;
   final bool onlyUseZoneChains;
@@ -49,15 +49,15 @@ class PhidsPickerScreen extends StatefulWidget {
   _TheStatefulScreenState createState() => _TheStatefulScreenState();
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<String> goPickPhid({
-    @required BuildContext context,
-    @required FlyerType flyerType,
-    @required ViewingEvent event,
-    @required bool onlyUseZoneChains,
-    List<String> selectedPhids,
+  static Future<String?> goPickPhid({
+    required BuildContext context,
+    required FlyerType? flyerType,
+    required ViewingEvent? event,
+    required bool onlyUseZoneChains,
+    List<String>? selectedPhids,
   }) async {
 
-    final String phid = await Nav.goToNewScreen(
+    final String? phid = await Nav.goToNewScreen(
       context: context,
       pageTransitionType: Nav.superHorizontalTransition(context: context),
       screen: PhidsPickerScreen(
@@ -77,14 +77,14 @@ class PhidsPickerScreen extends StatefulWidget {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<List<String>> goPickPhids({
-    @required BuildContext context,
-    @required FlyerType flyerType,
-    @required ViewingEvent event,
-    @required bool onlyUseZoneChains,
-    List<String> selectedPhids,
+    required BuildContext context,
+    required FlyerType? flyerType,
+    required ViewingEvent event,
+    required bool onlyUseZoneChains,
+    List<String>? selectedPhids,
   }) async {
 
-    final List<String> phids = await Nav.goToNewScreen(
+    final List<String>? phids = await Nav.goToNewScreen(
       context: context,
       pageTransitionType: Nav.superHorizontalTransition(context: context),
       screen: PhidsPickerScreen(
@@ -93,24 +93,24 @@ class PhidsPickerScreen extends StatefulWidget {
           event: ViewingEvent.homeView,
         ),
         onlyUseZoneChains: onlyUseZoneChains,
-        selectedPhids: selectedPhids,
+        selectedPhids: selectedPhids ?? [],
         // flyerModel: ,
         multipleSelectionMode: true,
       ),
     );
 
-    return phids;
+    return phids ?? [];
   }
   // -----------------------------------------------------------------------------
 }
 
 class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTickerProviderStateMixin {
   // -----------------------------------------------------------------------------
-  TabController _tabBarController;
+  TabController? _tabBarController;
   final TextEditingController _searchController = TextEditingController();
   final GlobalKey _globalKey = GlobalKey();
   // --------------------
-  List<Chain> _chains;
+  List<Chain>? _chains;
   List<NavModel> _navModels = [];
   final ValueNotifier<List<String>> _selectedPhidsNotifier = ValueNotifier<List<String>>([]);
   final ScrollController _selectedPhidsScrollController = ScrollController();
@@ -123,7 +123,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -135,7 +135,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
   void initState() {
     super.initState();
 
-    final List<Chain> _allChains = ChainsProvider.proGetBldrsChains(
+    final List<Chain>? _allChains = ChainsProvider.proGetBldrsChains(
       context: context,
       onlyUseZoneChains: widget.onlyUseZoneChains,
       listen: false,
@@ -149,7 +149,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
     // setState(() {
 
       if (
-          _chainsByIDs?.length == 1
+          _chainsByIDs.length == 1
           &&
           Chain.checkIsChains(_chainsByIDs.first.sons) == true
       ){
@@ -160,14 +160,14 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
       }
 
       _allPhids = Chain.getOnlyPhidsSonsFromChains(
-          chains: _chains,
+          chains: _chains ?? [],
       );
     // });
 
     _tabBarController = TabController(
         vsync: this,
         animationDuration: const Duration(milliseconds: 300),
-        length: _chains.length ?? 1,
+        length: _chains?.length ?? 1,
         // initialIndex: 0,
     );
 
@@ -202,7 +202,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
   @override
   void dispose() {
     _loading.dispose();
-    _tabBarController.dispose();
+    _tabBarController?.dispose();
     _searchController.dispose();
     _selectedPhidsNotifier.dispose();
     _selectedPhidsScrollController.dispose();
@@ -223,7 +223,9 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
 
     final List<NavModel> _output = [];
 
-    for (final Chain _chain in _chains){
+    if (Mapper.checkCanLoopList(_chains) == true){
+
+      for (final Chain _chain in _chains!){
 
       final NavModel _navModel = NavModel(
         id: _chain.id,
@@ -234,7 +236,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
           chain: _chain,
           searchText: _searchText,
           selectedPhidsNotifier: _selectedPhidsNotifier,
-          onPhidTap: (String path, String phid) => _onPhidTap(
+          onPhidTap: (String? path, String? phid) => _onPhidTap(
             path: path,
             phid: phid,
             autoScroll: true,
@@ -245,6 +247,10 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
       _output.add(_navModel);
 
     }
+
+    }
+
+
 
     setState(() {
       _navModels = _output;
@@ -257,7 +263,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _onSearchSubmit(String text) async {
+  Future<void> _onSearchSubmit(String? text) async {
 
     await onChainsSearchChanged(
       context: context,
@@ -286,9 +292,9 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onPhidTap({
-    @required String path,
-    @required String phid,
-    @required bool autoScroll,
+    required String? path,
+    required String? phid,
+    required bool autoScroll,
   }) async {
 
     /// MULTIPLE SELECTION MODE
@@ -311,7 +317,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
   // --------------------
   ///
   Future<void> _singleSelectionModeTap({
-  @required String phid,
+  required String? phid,
 }) async {
 
     await Nav.goBack(
@@ -323,9 +329,9 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _multipleSelectionModeTap({
-    @required String path,
-    @required String phid,
-    @required bool autoScroll,
+    required String? path,
+    required String? phid,
+    required bool autoScroll,
   }) async {
 
     final List<String> _selectedPhids = Stringer.addOrRemoveStringToStrings(
@@ -335,7 +341,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
 
     final int _oldLength = _selectedPhidsNotifier.value.length;
     final int _newLength = _selectedPhids.length;
-    final int _selectedPhidIndex = _selectedPhidsNotifier.value.indexOf(phid);
+    final int _selectedPhidIndex = phid == null ? -1 : _selectedPhidsNotifier.value.indexOf(phid);
 
     setNotifier(
         notifier: _selectedPhidsNotifier,
@@ -355,9 +361,9 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
   // --------------------
   /// TESTED : FAIR ENOUGH
   Future<void> _onScrollSelectedPhids({
-    @required int oldLength,
-    @required int newLength,
-    @required int selectedPhidIndex,
+    required int oldLength,
+    required int newLength,
+    required int selectedPhidIndex,
   }) async {
 
     if (_isSearching.value  == false){
@@ -454,7 +460,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
         height: Scale.screenHeight(context),
         child: ValueListenableBuilder(
           valueListenable: _foundChains,
-          builder: (BuildContext context, List<Chain> foundChains, Widget child) {
+          builder: (BuildContext context, List<Chain>? foundChains, Widget? child) {
 
             if (Mapper.checkCanLoopList(foundChains) == true){
               return PhidsBuilderPage(
@@ -464,7 +470,7 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
                 ),
                 searchText: _searchText,
                 selectedPhidsNotifier: _selectedPhidsNotifier,
-                onPhidTap: (String path, String phid) => _onPhidTap(
+                onPhidTap: (String? path, String? phid) => _onPhidTap(
                   path: path,
                   phid: phid,
                   autoScroll: true,
@@ -501,12 +507,12 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
         /// SELECTED PHIDS PANEL
         child: ValueListenableBuilder(
           valueListenable: _selectedPhidsNotifier,
-          builder: (BuildContext context, List<String> selectedPhids, Widget child) {
+          builder: (BuildContext context, List<String>? selectedPhids, Widget? child) {
 
-            final String _selectedKeywords = Verse.transBake('phid_selected_keywords');
+            final String? _selectedKeywords = Verse.transBake('phid_selected_keywords');
 
             final Verse _verse = Verse(
-              id: '(${selectedPhids.length}) $_selectedKeywords',
+              id: '(${selectedPhids?.length}) $_selectedKeywords',
               translate: false,
             );
 

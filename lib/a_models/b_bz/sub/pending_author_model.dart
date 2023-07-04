@@ -1,16 +1,16 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 @immutable
 class PendingAuthor {
   // -----------------------------------------------------------------------------
   const PendingAuthor({
-    @required this.userID,
-    @required this.noteID,
+    required this.userID,
+    required this.noteID,
   });
   // -----------------------------------------------------------------------------
   final String userID;
@@ -21,14 +21,14 @@ class PendingAuthor {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> cipherPendingAuthors(List<PendingAuthor> pendings){
-    Map<String, dynamic> _map;
+  static Map<String, dynamic>? cipherPendingAuthors(List<PendingAuthor>? pendings){
+    Map<String, dynamic>? _map;
 
     if (Mapper.checkCanLoopList(pendings) == true){
 
       _map = {};
 
-      for (final PendingAuthor pending in pendings){
+      for (final PendingAuthor pending in pendings!){
 
         _map = Mapper.insertPairInMap(
           map: _map,
@@ -45,7 +45,7 @@ class PendingAuthor {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<PendingAuthor> decipherPendingAuthors(Map<String, dynamic> map){
+  static List<PendingAuthor> decipherPendingAuthors(Map<String, dynamic>? map){
     final List<PendingAuthor> _output = <PendingAuthor>[];
 
     if (map != null){
@@ -76,13 +76,15 @@ class PendingAuthor {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> getPendingsUsersIDs(List<PendingAuthor> pendingAuthors){
+  static List<String> getPendingsUsersIDs(List<PendingAuthor>? pendingAuthors){
     final List<String> _usersIDs = <String>[];
 
     if (Mapper.checkCanLoopList(pendingAuthors) == true){
 
-      final Map<String, dynamic> _map = cipherPendingAuthors(pendingAuthors);
-      _usersIDs.addAll(_map.keys.toList());
+      final Map<String, dynamic>? _map = cipherPendingAuthors(pendingAuthors);
+      if (_map != null){
+        _usersIDs.addAll(_map.keys.toList());
+      }
 
     }
 
@@ -90,14 +92,14 @@ class PendingAuthor {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static PendingAuthor getModelByUserID({
-    @required List<PendingAuthor> pendingAuthors,
-    @required String userID,
+  static PendingAuthor? getModelByUserID({
+    required List<PendingAuthor>? pendingAuthors,
+    required String? userID,
   }){
-    PendingAuthor _output;
+    PendingAuthor? _output;
 
     if (Mapper.checkCanLoopList(pendingAuthors) == true && userID != null){
-      _output = pendingAuthors.firstWhere((element) => element.userID == userID);
+      _output = pendingAuthors!.firstWhere((element) => element.userID == userID);
     }
 
     return _output;
@@ -109,14 +111,14 @@ class PendingAuthor {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<PendingAuthor> addNewPendingAuthor({
-    @required List<PendingAuthor> pendingAuthors,
-    @required String userID,
-    @required String noteID,
+    required List<PendingAuthor>? pendingAuthors,
+    required String? userID,
+    required String? noteID,
   }){
     final List<PendingAuthor> _output = <PendingAuthor>[];
 
     if (Mapper.checkCanLoopList(pendingAuthors) == true){
-      _output.addAll(pendingAuthors);
+      _output.addAll(pendingAuthors!);
     }
 
     if (userID != null && noteID != null){
@@ -132,13 +134,13 @@ class PendingAuthor {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<PendingAuthor> removePendingAuthor({
-    @required List<PendingAuthor> pendingAuthors,
-    @required String userID,
+    required List<PendingAuthor>? pendingAuthors,
+    required String? userID,
   }){
     final List<PendingAuthor> _output = <PendingAuthor>[];
 
     if (Mapper.checkCanLoopList(pendingAuthors) == true){
-      _output.addAll(pendingAuthors);
+      _output.addAll(pendingAuthors!);
     }
 
     if (userID != null){
@@ -149,11 +151,11 @@ class PendingAuthor {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static BzModel removePendingAuthorFromBz({
-    @required BzModel bzModel,
-    @required String userID,
+  static BzModel? removePendingAuthorFromBz({
+    required BzModel? bzModel,
+    required String? userID,
   }){
-    BzModel _bzModel = bzModel;
+    BzModel? _bzModel = bzModel;
 
     if (bzModel != null){
 
@@ -162,7 +164,7 @@ class PendingAuthor {
         userID: userID,
       );
 
-      _bzModel = _bzModel.copyWith(
+      _bzModel = _bzModel!.copyWith(
         pendingAuthors: _updatedPendingAuthors,
       );
 
@@ -177,8 +179,8 @@ class PendingAuthor {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPendingsAuthorsAreIdentical({
-    @required PendingAuthor pending1,
-    @required PendingAuthor pending2,
+    required PendingAuthor? pending1,
+    required PendingAuthor? pending2,
   }){
     bool _identical = false;
 
@@ -202,21 +204,21 @@ class PendingAuthor {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPendingAuthorsListsAreIdentical({
-    @required List<PendingAuthor> list1,
-    @required List<PendingAuthor> list2,
+    required List<PendingAuthor>? list1,
+    required List<PendingAuthor>? list2,
   }){
     bool _listsAreIdentical = false;
 
     if (list1 == null && list2 == null){
       _listsAreIdentical = true;
     }
-    else if (list1?.isEmpty == true && list2?.isEmpty == true){
+    else if (list1 != null && list1.isEmpty == true && list2 != null && list2.isEmpty == true){
       _listsAreIdentical = true;
     }
 
     else if (Mapper.checkCanLoopList(list1) == true && Mapper.checkCanLoopList(list2) == true){
 
-      if (list1.length != list2.length) {
+      if (list1!.length != list2!.length) {
         // blog('lists do not have the same length : list1 is ${list1.length} : list2 is ${list2.length}');
         // blog(' ---> lis1 is ( ${list1.toString()} )');
         // blog(' ---> lis2 is ( ${list2.toString()} )');
@@ -248,8 +250,8 @@ class PendingAuthor {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPendingAuthorsIncludeUserID({
-    @required List<PendingAuthor> pendingAuthors,
-    @required String userID,
+    required List<PendingAuthor>? pendingAuthors,
+    required String? userID,
   }){
 
     final List<String> usersIDs = getPendingsUsersIDs(pendingAuthors);
@@ -263,8 +265,8 @@ class PendingAuthor {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkCanInviteUser({
-    @required BzModel bzModel,
-    @required String userID,
+    required BzModel? bzModel,
+    required String? userID,
   }){
     bool _can = false;
 
@@ -294,14 +296,13 @@ class PendingAuthor {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkIsPendingAuthor({
-    @required BzModel bzModel,
-    @required String userID,
+    required BzModel? bzModel,
+    required String? userID,
   }){
 
     final List<String> _usersIDs = getPendingsUsersIDs(bzModel?.pendingAuthors);
 
-    blog('checkIsPendingAuthor : _usersIDs : $_usersIDs : bzModel : ${bzModel?.id} : userID : '
-        '$userID');
+    blog('checkIsPendingAuthor : _usersIDs : $_usersIDs : bzModel : ${bzModel?.id} : userID : $userID');
 
     return Stringer.checkStringsContainString(
       strings: _usersIDs,
@@ -311,11 +312,11 @@ class PendingAuthor {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void blogPendingAuthors(List<PendingAuthor> pendingAuthors){
+  static void blogPendingAuthors(List<PendingAuthor>? pendingAuthors){
 
     if (Mapper.checkCanLoopList(pendingAuthors) == true){
 
-      for (int i = 0; i < pendingAuthors.length; i++){
+      for (int i = 0; i < pendingAuthors!.length; i++){
 
         final PendingAuthor pending = pendingAuthors[i];
 

@@ -1,35 +1,36 @@
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/space/borderers.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/data_strip/data_strip.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
 
 class DataStripWithHeadline extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const DataStripWithHeadline({
-    @required this.dataKey,
-    @required this.dataValue,
+    required this.dataKey,
+    required this.dataValue,
     this.width,
     this.valueBoxColor = Colorz.white10,
     this.isPercent = false,
     this.onKeyTap,
     this.onValueTap,
     this.highlightText,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final String dataKey;
+  final String? dataKey;
   final dynamic dataValue;
-  final double width;
+  final double? width;
   final Color valueBoxColor;
   final bool isPercent;
-  final Function onKeyTap;
-  final Function onValueTap;
-  final ValueNotifier<dynamic> highlightText;
+  final Function? onKeyTap;
+  final Function? onValueTap;
+  final ValueNotifier<dynamic>? highlightText;
   /// --------------------------------------------------------------------------
   static const double rowHeight = 60;
   static const double keyRowHeight = rowHeight * 0.4;
@@ -89,17 +90,17 @@ class DataStripWithHeadline extends StatelessWidget {
 class DataStripKey extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const DataStripKey({
-    @required this.height,
-    @required this.width,
-    @required this.dataKey,
+    required this.height,
+    required this.width,
+    required this.dataKey,
     this.onTap,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double height;
   final double width;
-  final String dataKey;
-  final Function onTap;
+  final String? dataKey;
+  final Function? onTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -130,19 +131,19 @@ class DataStripKey extends StatelessWidget {
 class DataStripValue extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const DataStripValue({
-    @required this.onTap,
-    @required this.width,
-    @required this.height,
-    @required this.color,
-    @required this.valueIsPercentage,
-    @required this.dataValue,
-    @required this.valueString,
-    @required this.horizontalMargin,
+    required this.onTap,
+    required this.width,
+    required this.height,
+    required this.color,
+    required this.valueIsPercentage,
+    required this.dataValue,
+    required this.valueString,
+    required this.horizontalMargin,
     this.highlightText,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final Function onTap;
+  final Function? onTap;
   final double width;
   final double height;
   final Color color;
@@ -150,13 +151,13 @@ class DataStripValue extends StatelessWidget {
   final dynamic dataValue;
   final String valueString;
   final double horizontalMargin;
-  final ValueNotifier<dynamic> highlightText;
+  final ValueNotifier<dynamic>? highlightText;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     return GestureDetector(
-      onTap: onTap,
+      onTap: () => onTap?.call(),
       child: Container(
         width: width,
         height: height,
@@ -174,8 +175,7 @@ class DataStripValue extends StatelessWidget {
                 height: height,
                 // decoration: BoxDecoration(
                 color: Colorz.yellow80,
-                corners: Borderers.cornerAll(
-                    context, Ratioz.boxCorner8),
+                corners: Borderers.cornerAll(Ratioz.boxCorner8),
                 // ),
               ),
 

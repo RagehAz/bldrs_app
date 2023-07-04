@@ -1,5 +1,6 @@
-import 'package:devicer/devicer.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/checks/device_checker.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:bldrs/c_protocols/app_state_protocols/app_state_real_ops.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 /// => TAMAM
@@ -10,12 +11,12 @@ class AppStateModel {
   /// OR AUTOMATICALLY WHEN CHANGING DATA THAT ARE SAVED ON LDB, IN ORDER TO RE FETCH THE DATA
   // -----------------------------------------------------------------------------
   const AppStateModel({
-    @required this.appVersion,
-    @required this.ldbVersion,
+    required this.appVersion,
+    required this.ldbVersion,
   });
   // -----------------------------------------------------------------------------
-  final String appVersion;
-  final int ldbVersion;
+  final String? appVersion;
+  final int? ldbVersion;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -23,8 +24,8 @@ class AppStateModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   AppStateModel copyWith({
-    String appVersion,
-    int ldbVersion,
+    String? appVersion,
+    int? ldbVersion,
   }){
     return AppStateModel(
       appVersion: appVersion ?? this.appVersion,
@@ -37,11 +38,16 @@ class AppStateModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static AppStateModel initialState() {
-    return const AppStateModel(
-      appVersion : null,
-      ldbVersion : null,
+  static Future<AppStateModel> createInitialModel() async {
+
+    final String _detectedAppVersion = await AppStateModel.detectAppVersion();
+    final AppStateModel? _globalState = await AppStateRealOps.readGlobalAppState();
+
+    return AppStateModel(
+      appVersion : _detectedAppVersion,
+      ldbVersion : _globalState?.ldbVersion ?? 0,
     );
+
   }
   // -----------------------------------------------------------------------------
 
@@ -75,7 +81,7 @@ class AppStateModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static AppStateModel fromMap(Map<String, dynamic> map) {
+  static AppStateModel? fromMap(Map<String, dynamic>? map) {
 
     if (map == null) {
       return null;
@@ -98,9 +104,9 @@ class AppStateModel {
   /*
   /// TESTED : WORKS PERFECTLY
   static bool appVersionIsInSync({
-    @required String globalVersion,
-    @required String userVersion,
-    @required String detectedVersion,
+    required String globalVersion,
+    required String userVersion,
+    required String detectedVersion,
   }){
     return
         globalVersion == userVersion &&
@@ -189,8 +195,8 @@ class AppStateModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkAppStatesAreIdentical({
-    @required AppStateModel state1,
-    @required AppStateModel state2,
+    required AppStateModel? state1,
+    required AppStateModel? state2,
   }){
     bool _identical = false;
 

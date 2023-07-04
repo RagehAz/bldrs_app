@@ -4,18 +4,18 @@ import 'package:flutter/material.dart';
 class FooterBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FooterBox({
-    @required this.flyerBoxWidth,
-    @required this.footerPageController,
-    @required this.footerPageViewChildren,
-    @required this.infoButtonExpanded,
-    @required this.hasAffiliateLink,
-    Key key
-  }) : super(key: key);
+    required this.flyerBoxWidth,
+    required this.footerPageController,
+    required this.footerPageViewChildren,
+    required this.infoButtonExpanded,
+    required this.hasAffiliateLink,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final PageController footerPageController;
   final List<Widget> footerPageViewChildren;
-  final ValueNotifier<bool> infoButtonExpanded;
+  final ValueNotifier<bool?> infoButtonExpanded;
   final bool hasAffiliateLink;
   /// --------------------------------------------------------------------------
   @override
@@ -26,16 +26,16 @@ class FooterBox extends StatelessWidget {
       alignment: Alignment.bottomCenter,
 
       /// --- FLYER FOOTER BOX
-      child: ValueListenableBuilder<bool>(
+      child: ValueListenableBuilder<bool?>(
         valueListenable: infoButtonExpanded,
-        builder: (_,bool infoButtonExpanded, Widget childrenInPageView){
+        builder: (_,bool? infoButtonExpanded, Widget? childrenInPageView){
 
           return AnimatedContainer(
             width: flyerBoxWidth,
             height: FlyerDim.footerBoxHeight(
               context: context,
               flyerBoxWidth: flyerBoxWidth,
-              infoButtonExpanded: infoButtonExpanded,
+              infoButtonExpanded: infoButtonExpanded ?? false,
               hasLink: hasAffiliateLink,
             ) ,
             duration: const Duration(milliseconds: 150),

@@ -1,29 +1,31 @@
+// ignore_for_file: unused_element
 import 'dart:async';
-
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 
 class FlyerBuilder extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const FlyerBuilder({
-    @required this.flyerID,
-    @required this.builder,
-    @required this.flyerBoxWidth,
-    @required this.renderFlyer,
+    required this.flyerID,
+    required this.builder,
+    required this.flyerBoxWidth,
+    required this.renderFlyer,
     this.flyerModel,
     this.onFlyerNotFound,
-    Key key
-  }) : super(key: key);
+    this.loadingWidget,
+    super.key
+  });
   // -----------------------------------------------------------------------------
-  final String flyerID;
+  final String? flyerID;
   final double flyerBoxWidth;
-  final Function(String flyerID) onFlyerNotFound;
-  final FlyerModel flyerModel;
+  final Function(String? flyerID)? onFlyerNotFound;
+  final FlyerModel? flyerModel;
   final RenderFlyer renderFlyer;
-  final Widget Function(FlyerModel flyerModel) builder;
+  final Widget Function(FlyerModel? flyerModel) builder;
+  final Widget? loadingWidget;
   // -----------------------------------------------------------------------------
   bool shouldDirectlyBuildByFlyerModel(){
     bool _shouldBuildByFlyer = false;
@@ -42,12 +44,12 @@ class FlyerBuilder extends StatelessWidget {
       }
       /// WHEN RENDER FIRST SLIDE
       else if (renderFlyer == RenderFlyer.firstSlide){
-        _shouldBuildByFlyer = flyerModel.slides.first.uiImage != null;
+        _shouldBuildByFlyer = flyerModel?.slides?.first.uiImage != null;
       }
       /// WHEN RENDER ALL SLIDES
       else {
-        final bool _allSlidesAreRendered = flyerModel.slides.every((slide) => slide.uiImage != null);
-        _shouldBuildByFlyer = _allSlidesAreRendered;
+        final bool? _allSlidesAreRendered = flyerModel?.slides?.every((slide) => slide.uiImage != null);
+        _shouldBuildByFlyer = _allSlidesAreRendered ?? false;
       }
 
     }
@@ -73,6 +75,7 @@ class FlyerBuilder extends StatelessWidget {
         onFlyerNotFound: onFlyerNotFound,
         renderFlyer: renderFlyer,
         builder: builder,
+        loadingWidget: loadingWidget,
       );
 
     }
@@ -84,21 +87,23 @@ class FlyerBuilder extends StatelessWidget {
 class _FutureFlyerBuilder extends StatefulWidget {
   // -----------------------------------------------------------------------------
   const _FutureFlyerBuilder({
-    @required this.flyerID,
-    @required this.builder,
-    @required this.flyerBoxWidth,
-    @required this.renderFlyer,
-    @required this.flyerModel,
-    @required this.onFlyerNotFound,
-    Key key
-  }) : super(key: key);
+    required this.flyerID,
+    required this.builder,
+    required this.flyerBoxWidth,
+    required this.renderFlyer,
+    required this.flyerModel,
+    required this.onFlyerNotFound,
+    required this.loadingWidget,
+    super.key
+  });
   // -----------------------------------------------------------------------------
-  final String flyerID;
+  final String? flyerID;
   final double flyerBoxWidth;
-  final Function(String flyerID) onFlyerNotFound;
+  final Function(String? flyerID)? onFlyerNotFound;
   final RenderFlyer renderFlyer;
-  final Widget Function(FlyerModel flyerModel) builder;
-  final FlyerModel flyerModel;
+  final Widget Function(FlyerModel? flyerModel) builder;
+  final FlyerModel? flyerModel;
+  final Widget? loadingWidget;
   // -----------------------------------------------------------------------------
   @override
   State<_FutureFlyerBuilder> createState() => _FutureFlyerBuilderState();
@@ -107,12 +112,12 @@ class _FutureFlyerBuilder extends StatefulWidget {
 
 class _FutureFlyerBuilderState extends State<_FutureFlyerBuilder> {
   // -----------------------------------------------------------------------------
-  FlyerModel _flyerModel;
+  FlyerModel? _flyerModel;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -176,7 +181,7 @@ class _FutureFlyerBuilderState extends State<_FutureFlyerBuilder> {
 
     if (mounted == true){
 
-      FlyerModel _flyer = widget.flyerModel ?? await FlyerProtocols.fetchFlyer(
+      FlyerModel? _flyer = widget.flyerModel ?? await FlyerProtocols.fetchFlyer(
         context: context,
         flyerID: widget.flyerID,
       );
@@ -207,7 +212,7 @@ class _FutureFlyerBuilderState extends State<_FutureFlyerBuilder> {
       else {
 
         if (widget.onFlyerNotFound != null) {
-          widget.onFlyerNotFound(widget.flyerID);
+          widget.onFlyerNotFound!.call(widget.flyerID);
         }
 
       }
@@ -225,10 +230,10 @@ class _FutureFlyerBuilderState extends State<_FutureFlyerBuilder> {
     return ValueListenableBuilder(
       key: const ValueKey<String>('FlyerBuilder'),
       valueListenable: _loading,
-      builder: (_, bool loading, Widget child) {
+      builder: (_, bool loading, Widget? child) {
 
         if (loading == true) {
-          return FlyerLoading(
+          return widget.loadingWidget ?? FlyerLoading(
             flyerBoxWidth: widget.flyerBoxWidth,
             animate: true,
             direction: Axis.vertical,

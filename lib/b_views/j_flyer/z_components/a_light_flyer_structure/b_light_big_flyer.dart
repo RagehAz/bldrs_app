@@ -1,6 +1,10 @@
 import 'dart:async';
 
-import 'package:animators/animators.dart';
+
+import 'package:basics/animators/helpers/sliders.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/g_counters/bz_counter_model.dart';
@@ -9,6 +13,7 @@ import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_footer_controller.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_header_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/b_heroic_flyer_hero.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_flyer_header.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/gallery_header/gallery_header.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/a_flyer_footer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/slides_builder.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/d_progress_bar/a_progress_bar.dart';
@@ -21,23 +26,21 @@ import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.da
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:fire/super_fire.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class LightBigFlyer extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const LightBigFlyer({
-    @required this.flyerBoxWidth,
-    @required this.renderedFlyer,
-    @required this.onHorizontalExit,
+    required this.flyerBoxWidth,
+    required this.renderedFlyer,
+    required this.onHorizontalExit,
     this.showGallerySlide = true,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final FlyerModel renderedFlyer;
+  final FlyerModel? renderedFlyer;
   final Function onHorizontalExit;
   final bool showGallerySlide;
   /// --------------------------------------------------------------------------
@@ -48,21 +51,21 @@ class LightBigFlyer extends StatefulWidget {
 
 class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateMixin {
   // -----------------------------------------------------------------------------
-  final ValueNotifier<FlyerModel> _flyer = ValueNotifier(null);
+  final ValueNotifier<FlyerModel?> _flyer = ValueNotifier(null);
   final ValueNotifier<bool> _flyerIsSaved = ValueNotifier<bool>(false);
   final ValueNotifier<bool> _followIsOn = ValueNotifier<bool>(false);
   // --------------------
-  final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
+  final ValueNotifier<ProgressBarModel?> _progressBarModel = ValueNotifier(null);
   // --------------------
   /// FOR HEADER
-  AnimationController _headerAnimationController;
+  late AnimationController _headerAnimationController;
   final ScrollController _headerScrollController = ScrollController();
   /// FOR SLIDES
-  PageController _horizontalSlidesController;
+  late PageController _horizontalSlidesController;
   /// FOR FOOTER
   final PageController _footerPageController = PageController();
   /// FOR SAVING GRAPHIC
-  AnimationController _savingAnimationController;
+  late AnimationController _savingAnimationController;
   // --------------------
   /// PROGRESS BAR OPACITY
   final ValueNotifier<double> _progressBarOpacity = ValueNotifier(1);
@@ -71,19 +74,19 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
   /// HEADER PAGE OPACITY
   final ValueNotifier<double> _headerPageOpacity = ValueNotifier(0);
   // --------------------
-  final ValueNotifier<BzCounterModel> _bzCounters = ValueNotifier(null);
+  final ValueNotifier<BzCounterModel?> _bzCounters = ValueNotifier(null);
   /// FOOTER
   final ValueNotifier<bool> _infoButtonExpanded = ValueNotifier(false);
   // --------------------
   final ValueNotifier<bool> _graphicIsOn = ValueNotifier(false);
   final ValueNotifier<double> _graphicOpacity = ValueNotifier(1);
   // --------------------
-  String _heroPath;
+  late String _heroPath;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -183,7 +186,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
     );
     // ----------
     /// FOR SLIDES
-    _horizontalSlidesController = PageController(initialPage: _progressBarModel?.value?.index ?? 0);
+    _horizontalSlidesController = PageController(initialPage: _progressBarModel.value?.index ?? 0);
     // blog('horizontalSlidesController initial page : ${_progressBarModel?.value?.index}');
     // ----------
     /// FOR FOOTER & PRICE TAG
@@ -205,7 +208,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
     final int _numberOfSlide = _realSlidesLength - 1;
     final double _totalRealSlidesWidth = widget.flyerBoxWidth * _numberOfSlide;
 
-    final bool _reachedGallerySlide = _horizontalSlidesController.page > _numberOfSlide;
+    final bool _reachedGallerySlide = (_horizontalSlidesController.page ?? 0) > _numberOfSlide;
     final bool _atBackBounce = _horizontalSlidesController.position.pixels < 0;
 
     /// WHEN AT INITIAL SLIDE
@@ -266,7 +269,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
 
     if (_flyer.value != null){
 
-      final FlyerModel _rendered = await FlyerProtocols.renderBigFlyer(
+      final FlyerModel? _rendered = await FlyerProtocols.renderBigFlyer(
         flyerModel: _flyer.value,
       );
 
@@ -290,7 +293,8 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
   void _disposeBigFlyer(){
 
     // ------->
-    for (int i = 0; i < _flyer.value?.slides?.length ?? 0; i++){
+    if (Mapper.checkCanLoopList(_flyer.value?.slides) == true){
+      for (int i = 0; i < _flyer.value!.slides!.length; i++){
       if (i != 0){
 
         // blog('disposeRenderedFlyer (LightBigFlyer) : '
@@ -300,6 +304,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
         // _flyer.value.slides[i].uiImage?.dispose();
       }
     }
+    }
     // ------->
     // blog('disposeRenderedFlyer (LightBigFlyer) : '
     //     '${_flyer.value.id} => disposing AUTHOR PIC : '
@@ -308,22 +313,22 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
     // _flyer.value?.authorImage?.dispose();
     // ------->
     _flyer.dispose();
-    _loading?.dispose();
-    _progressBarModel?.dispose();
-    _flyerIsSaved?.dispose();
-    _headerAnimationController?.dispose();
-    _headerScrollController?.dispose();
-    _savingAnimationController?.dispose();
-    _horizontalSlidesController?.dispose();
-    _footerPageController?.dispose();
-    _followIsOn?.dispose();
-    _progressBarOpacity?.dispose();
-    _headerIsExpanded?.dispose();
-    _headerPageOpacity?.dispose();
-    _graphicIsOn?.dispose();
-    _graphicOpacity?.dispose();
-    _bzCounters?.dispose();
-    _infoButtonExpanded?.dispose();
+    _loading.dispose();
+    _progressBarModel.dispose();
+    _flyerIsSaved.dispose();
+    _headerAnimationController.dispose();
+    _headerScrollController.dispose();
+    _savingAnimationController.dispose();
+    _horizontalSlidesController.dispose();
+    _footerPageController.dispose();
+    _followIsOn.dispose();
+    _progressBarOpacity.dispose();
+    _headerIsExpanded.dispose();
+    _headerPageOpacity.dispose();
+    _graphicIsOn.dispose();
+    _graphicOpacity.dispose();
+    _bzCounters.dispose();
+    _infoButtonExpanded.dispose();
 
   }
   // -----------------------------------------------------------------------------
@@ -407,7 +412,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
     final int _lastIndex = _flyer.value?.slides?.length ?? 0;
 
     /// WHEN AT LAST INDEX
-    if (_progressBarModel.value.index == _lastIndex){
+    if (_progressBarModel.value?.index == _lastIndex){
       await widget.onHorizontalExit();
     }
 
@@ -417,7 +422,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
       final int _newIndex = await Sliders.slideToNextAndGetNewIndex(
         pageController: _horizontalSlidesController,
         numberOfSlides: (_flyer.value?.slides?.length ?? 0) + 1,
-        currentSlide: _progressBarModel.value.index,
+        currentSlide: _progressBarModel.value?.index ?? 0,
       );
 
       blog('_onSlideNextTap : _newIndex : $_newIndex');
@@ -428,7 +433,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
   Future<void> _onSlideBackTap() async {
 
     /// WHEN AT FIRST INDEX
-    if (_progressBarModel.value.index == 0){
+    if (_progressBarModel.value?.index == 0){
       await widget.onHorizontalExit();
     }
 
@@ -437,7 +442,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
 
       final int _newIndex = await Sliders.slideToBackAndGetNewIndex(
         pageController: _horizontalSlidesController,
-        currentSlide: _progressBarModel.value.index,
+        currentSlide: _progressBarModel.value?.index ?? 0,
       );
 
       blog('onSlideBackTap _newIndex : $_newIndex');
@@ -452,7 +457,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
   // --------------------
   Future<void> _onSaveFlyer() async {
 
-    final UserModel _user = UsersProvider.proGetMyUserModel(
+    final UserModel? _user = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );
@@ -466,7 +471,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
           onSaveFlyer(
             context: context,
             flyerModel: _flyer.value,
-            slideIndex: _progressBarModel.value.index,
+            slideIndex: _progressBarModel.value?.index ?? 0,
             flyerIsSaved: _flyerIsSaved,
             mounted: mounted,
           ),
@@ -541,7 +546,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
     // --------------------
     return ValueListenableBuilder(
       valueListenable: _flyer,
-      builder: (_, FlyerModel flyerModel, Widget savingNotice) {
+      builder: (_, FlyerModel? flyerModel, Widget? savingNotice) {
 
         // blog('light big flyer is rebuilding : ${flyerModel.id}');
 
@@ -574,7 +579,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
               canUseFilter: false,
               showGallerySlide: canShowGalleryPage(
                 bzModel: flyerModel?.bzModel,
-                canShowGallerySlide: checkFlyerHeroTagHasGalleryFlyerID('flyer/${flyerModel.id}'),
+                canShowGallerySlide: checkFlyerHeroTagHasGalleryFlyerID('flyer/${flyerModel?.id}'),
               ),
             ),
 
@@ -592,6 +597,14 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
               followIsOn: _followIsOn,
               headerPageOpacity: _headerPageOpacity,
               bzCounters: _bzCounters,
+            ),
+
+            GalleryHeader(
+              flyerBoxWidth: widget.flyerBoxWidth,
+              bzModel: flyerModel?.bzModel,
+              flyerModel: flyerModel,
+              showGallerySlide: widget.showGallerySlide,
+              progressBarModel: _progressBarModel,
             ),
 
             /// FOOTER
@@ -617,7 +630,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
             ),
 
             /// SAVING NOTICE
-            savingNotice,
+            savingNotice!,
 
 
           ],

@@ -1,21 +1,21 @@
 import 'dart:async';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/a_user/account_model.dart';
 import 'package:bldrs/b_views/b_auth/b_email_auth_screen/aa_email_auth_screen_view.dart';
 import 'package:bldrs/b_views/b_auth/x_auth_controllers.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/c_protocols/auth_protocols/account_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
-import 'package:mapper/mapper.dart';
-import 'package:night_sky/night_sky.dart';
+import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 
 class EmailAuthScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const EmailAuthScreen({
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   @override
   _EmailAuthScreenState createState() => _EmailAuthScreenState();
@@ -55,7 +55,7 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -116,7 +116,7 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   void _switchSignIn() {
-    _formKey.currentState.reset();
+    _formKey.currentState?.reset();
 
     setNotifier(
         notifier: _isSigningIn,
@@ -186,10 +186,10 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  void _setAccount(AccountModel account){
+  void _setAccount(AccountModel? account){
 
-    _emailController.text = account.email;
-    _passwordController.text = account.password;
+    _emailController.text = account?.email ?? '';
+    _passwordController.text = account?.password ?? '';
 
     setNotifier(
         notifier: _isSigningIn,
@@ -226,15 +226,15 @@ class _EmailAuthScreenState extends State<EmailAuthScreen> {
         passwordConfirmationController: _confirmPasswordController,
         passwordNode: _passwordNode,
         confirmPasswordNode: _confirmPasswordNode,
-        emailValidator: (String text) => Formers.emailValidator(
+        emailValidator: (String? text) => Formers.emailValidator(
           email: _emailController.text,
           canValidate: _canValidate,
         ),
-        passwordValidator: (String text) => Formers.passwordValidator(
+        passwordValidator: (String? text) => Formers.passwordValidator(
           password: _passwordController.text,
           canValidate: _canValidate,
         ),
-        passwordConfirmationValidator: (String text) => Formers.passwordConfirmationValidation(
+        passwordConfirmationValidator: (String? text) => Formers.passwordConfirmationValidation(
           password: _passwordController.text,
           passwordConfirmation: _confirmPasswordController.text,
           canValidate: _canValidate,

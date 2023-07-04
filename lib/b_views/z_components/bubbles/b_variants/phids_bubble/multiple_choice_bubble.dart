@@ -1,24 +1,25 @@
+// ignore_for_file: unused_element
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/bullet_points/bldrs_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_validator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class MultipleChoiceBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const MultipleChoiceBubble({
-    @required this.titleVerse,
-    @required this.buttonsVerses,
-    @required this.onButtonTap,
-    @required this.selectedButtonsPhids,
+    required this.titleVerse,
+    required this.buttonsVerses,
+    required this.onButtonTap,
+    required this.selectedButtonsPhids,
     this.bulletPoints,
     this.inactiveButtons,
     this.validator,
@@ -26,20 +27,20 @@ class MultipleChoiceBubble extends StatelessWidget {
     this.isRequired = true,
     this.wrapButtons = true,
     this.focusNode,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final Verse titleVerse;
-  final List<Verse> bulletPoints;
+  final List<Verse>? bulletPoints;
   final List<Verse> buttonsVerses;
   final ValueChanged<int> onButtonTap;
   final List<String> selectedButtonsPhids;
-  final List<Verse> inactiveButtons;
-  final String Function() validator;
+  final List<Verse>? inactiveButtons;
+  final String? Function()? validator;
   final bool autoValidate;
   final bool isRequired;
   final bool wrapButtons;
-  final FocusNode focusNode;
+  final FocusNode? focusNode;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -50,7 +51,7 @@ class MultipleChoiceBubble extends StatelessWidget {
     return Bubble(
         width: _bubbleWidth,
         bubbleColor: Formers.validatorBubbleColor(
-          validator: validator == null ? null : () => validator(),
+          validator: validator == null ? null : () => validator?.call(),
         ),
         bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
           context: context,
@@ -95,21 +96,21 @@ class MultipleChoiceBubble extends StatelessWidget {
 class _ButtonsBuilder extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const _ButtonsBuilder({
-    @required this.width,
-    @required this.buttonsVerses,
-    @required this.onButtonTap,
-    @required this.selectedButtonsPhids,
+    required this.width,
+    required this.buttonsVerses,
+    required this.onButtonTap,
+    required this.selectedButtonsPhids,
     this.inactiveButtons = const [],
     this.wrapButtons = true,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double width;
   final bool wrapButtons;
   final List<Verse> buttonsVerses;
   final ValueChanged<int> onButtonTap;
   final List<String> selectedButtonsPhids;
-  final List<Verse> inactiveButtons;
+  final List<Verse>? inactiveButtons;
   /// --------------------------------------------------------------------------
   static const double buttonHeight = 40;
   static const double margins = 5;
@@ -205,19 +206,19 @@ class _ButtonsBuilder extends StatelessWidget {
 class _TheButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const _TheButton({
-    @required this.isDeactivated,
-    @required this.verse,
-    @required this.isSelected,
-    @required this.onTap,
-    @required this.icon,
-    Key key
-  }) : super(key: key);
+    required this.isDeactivated,
+    required this.verse,
+    required this.isSelected,
+    required this.onTap,
+    required this.icon,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final bool isDeactivated;
   final Verse verse;
   final bool isSelected;
   final Function onTap;
-  final String icon;
+  final String? icon;
   /// --------------------------------------------------------------------------
   static const double buttonHeight = 40;
   static const double margins = 5;

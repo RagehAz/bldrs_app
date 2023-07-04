@@ -7,17 +7,17 @@ import 'package:flutter/material.dart';
 class FlyerPoster extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const FlyerPoster({
-    @required this.width,
-    @required this.flyerModel,
-    @required this.screenName,
+    required this.width,
+    required this.flyerModel,
+    required this.screenName,
     this.draft,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   // -----------------------------------------------------------------------------
   final double width;
-  final FlyerModel flyerModel;
-  final String screenName;
-  final DraftFlyer draft;
+  final FlyerModel? flyerModel;
+  final String? screenName;
+  final DraftFlyer? draft;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

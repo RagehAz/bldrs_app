@@ -1,17 +1,19 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bubbles/model/bubble_header_vm.dart';
+import 'package:basics/bubbles/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bubbles/bubbles.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class BldrsTextFieldBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BldrsTextFieldBubble({
-    @required this.bubbleHeaderVM,
-    @required this.appBarType,
+    required this.bubbleHeaderVM,
+    required this.appBarType,
     this.formKey,
     this.bubbleWidth,
     this.hintVerse,
@@ -44,42 +46,42 @@ class BldrsTextFieldBubble extends StatelessWidget {
     this.isFloatingField = false,
     this.onFieldTap,
     this.autoValidate = true,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
 
   final BubbleHeaderVM bubbleHeaderVM;
-  final double bubbleWidth;
-  final Verse hintVerse;
-  final bool counterIsOn;
-  final int maxLines;
-  final int maxLength;
-  final TextEditingController textController;
-  final TextInputType keyboardTextInputType;
-  final ValueChanged<String> onTextChanged;
-  final ValueChanged<String> onSubmitted;
-  final ValueNotifier<bool> isObscured;
-  final bool isFormField;
-  final ValueChanged<String> onSavedForForm;
-  final TextInputAction keyboardTextInputAction;
-  final String initialText;
-  final String Function(String) validator;
-  final List<Verse> bulletPoints;
+  final double? bubbleWidth;
+  final Verse? hintVerse;
+  final bool? counterIsOn;
+  final int? maxLines;
+  final int? maxLength;
+  final TextEditingController? textController;
+  final TextInputType? keyboardTextInputType;
+  final ValueChanged<String?>? onTextChanged;
+  final ValueChanged<String?>? onSubmitted;
+  final ValueNotifier<bool>? isObscured;
+  final bool? isFormField;
+  final ValueChanged<String?>? onSavedForForm;
+  final TextInputAction? keyboardTextInputAction;
+  final String? initialText;
+  final String? Function(String?)? validator;
+  final List<Verse>? bulletPoints;
   final dynamic leadingIcon;
-  final Function pasteFunction;
-  final TextDirection textDirection;
+  final Function? pasteFunction;
+  final TextDirection? textDirection;
   final Color bubbleColor;
-  final Function onBubbleTap;
+  final Function? onBubbleTap;
   final bool isLoading;
   // final bool isError;
-  final List<Widget> columnChildren;
+  final List<Widget>? columnChildren;
   final int textSize;
-  final int minLines;
+  final int? minLines;
   final bool autoFocus;
-  final FocusNode focusNode;
-  final bool isFloatingField;
-  final Function onFieldTap;
-  final GlobalKey formKey;
+  final FocusNode? focusNode;
+  final bool? isFloatingField;
+  final Function? onFieldTap;
+  final GlobalKey? formKey;
   final AppBarType appBarType;
   final bool autoValidate;
   /// --------------------------------------------------------------------------
@@ -98,11 +100,11 @@ class BldrsTextFieldBubble extends StatelessWidget {
   }
   // --------------------
   // static double getFieldWidth({
-  //   @required String leadingIcon,
-  //   @required bool showUnObscure,
-  //   @required BuildContext context,
-  //   @required double bubbleWidth,
-  //   @required bool hasPasteButton,
+  //   required String leadingIcon,
+  //   required bool showUnObscure,
+  //   required BuildContext context,
+  //   required double bubbleWidth,
+  //   required bool hasPasteButton,
   // }){
   //
   //   final double fieldHeight = BldrsTextField.getFieldHeight(
@@ -159,17 +161,17 @@ class BldrsTextFieldBubble extends StatelessWidget {
       maxLines: maxLines,
       isObscured: isObscured,
       formKey: formKey,
-      isFormField: isFormField,
+      isFormField: isFormField ?? true,
       keyboardTextInputAction: keyboardTextInputAction,
       onSubmitted: onSubmitted,
       keyboardTextInputType: keyboardTextInputType,
       pasteFunction: pasteFunction,
       textController: textController,
       autoFocus: autoFocus,
-      bulletPoints: Verse.bakeVerses(verses: bulletPoints, context: context),
+      bulletPoints: Verse.bakeVerses(verses: bulletPoints),
       bulletPointsFont: BldrsText.superVerseFont(VerseWeight.thin),
       columnChildren: columnChildren,
-      counterIsOn: counterIsOn,
+      counterIsOn: counterIsOn ?? false,
       // fieldScrollController: null,
       fieldScrollPadding: _scrollPadding,
       // fieldTextCentered: false,

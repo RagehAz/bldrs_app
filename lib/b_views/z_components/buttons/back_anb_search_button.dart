@@ -1,10 +1,12 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/b_views/c_main_search/super_search_screen.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 enum BackAndSearchAction {
@@ -16,21 +18,21 @@ enum BackAndSearchAction {
 class BackAndSearchButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BackAndSearchButton({
-    @required this.backAndSearchAction,
+    required this.backAndSearchAction,
     this.onTap,
     this.color = Colorz.white10,
     this.icon,
     this.iconSizeFactor,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final Function onTap;
+  final Function? onTap;
   final Color color;
   final BackAndSearchAction backAndSearchAction;
-  final String icon;
-  final double iconSizeFactor;
+  final String? icon;
+  final double? iconSizeFactor;
   /// --------------------------------------------------------------------------
-  String _getIcon(BuildContext context){
+  String? _getIcon(BuildContext context){
 
     if (backAndSearchAction == BackAndSearchAction.goBack){
       return Iconizer.superBackIcon(context);
@@ -82,7 +84,7 @@ class BackAndSearchButton extends StatelessWidget {
         onTap: () async {
 
           if (onTap != null) {
-            onTap();
+            onTap?.call();
           }
 
           else {

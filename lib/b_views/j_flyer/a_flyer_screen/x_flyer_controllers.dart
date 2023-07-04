@@ -1,12 +1,14 @@
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
+import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 // -----------------------------------------------------------------------------
 
@@ -16,11 +18,11 @@ import 'package:stringer/stringer.dart';
 /// DEPRECATED
 /*
 Future<BzModel> getFlyerBzModel({
-  @required BuildContext context,
-  @required FlyerModel flyerModel,
+  required BuildContext context,
+  required FlyerModel flyerModel,
 }) async {
 
-  final BzModel _bzModel = await BzProtocols.fetchBz(
+  final BzModel? _bzModel = await BzProtocols.fetchBz(
       context: context,
       bzID: flyerModel?.bzID
   );
@@ -32,7 +34,7 @@ Future<BzModel> getFlyerBzModel({
 /// DEPRECATED
 /*
 Future<CountryModel> getFlyerBzCountry({
-  @required String countryID,
+  required String countryID,
 }) async {
 
   final CountryModel _country = await ZoneProtocols.fetchCountry(
@@ -46,7 +48,7 @@ Future<CountryModel> getFlyerBzCountry({
 /// DEPRECATED
 /*
 Future<CityModel> getFlyerBzCity({
-  @required String cityID,
+  required String cityID,
 }) async {
   final CityModel _city = await ZoneProtocols.fetchCity(cityID: cityID,);
   return _city;
@@ -59,10 +61,10 @@ Future<CityModel> getFlyerBzCity({
 // --------------------
 /// TESTED : WORKS PERFECT
 int getNumberOfSlides({
-  @required FlyerModel flyerModel,
-  @required BzModel bzModel,
-  // @required String heroPath,
-  @required bool showGallerySlide,
+  required FlyerModel? flyerModel,
+  required BzModel? bzModel,
+  // required String heroPath,
+  required bool showGallerySlide,
 }){
   int _numberOfSlides;
 
@@ -73,11 +75,11 @@ int getNumberOfSlides({
   );
 
   if (_canShowGallery == true){
-    _numberOfSlides = flyerModel.slides.length + 1;
+    _numberOfSlides = (flyerModel?.slides?.length??0) + 1;
   }
 
   else {
-    _numberOfSlides = flyerModel.slides.length;
+    _numberOfSlides = flyerModel?.slides?.length ?? 0;
   }
 
   // blog('getNumberOfSlides : $_numberOfSlides');
@@ -86,10 +88,10 @@ int getNumberOfSlides({
 // --------------------
 /// TESTED : WORKS PERFECT
 int getPossibleStartingIndex({
-  @required FlyerModel flyerModel,
-  @required BzModel bzModel,
-  @required String heroTag,
-  @required int startFromIndex,
+  required FlyerModel? flyerModel,
+  required BzModel? bzModel,
+  required String heroTag,
+  required int startFromIndex,
 }){
 
   const int _output = 0;
@@ -115,19 +117,52 @@ int getPossibleStartingIndex({
   // blog('getPossibleStartingIndex : $_output');
   return _output;
 }
+
+bool isAtGallerySlide({
+  required FlyerModel? flyerModel,
+  required BzModel? bzModel,
+  required bool showGallerySlide,
+  required ProgressBarModel? progressBarModel,
+}){
+  bool _output = false;
+
+  if (progressBarModel != null){
+
+    final bool _canShowGallery = canShowGalleryPage(
+      bzModel: bzModel,
+      // heroPath: heroPath,
+      canShowGallerySlide: showGallerySlide,
+    );
+
+    if (_canShowGallery == true) {
+      final int _numberOfSlides = getNumberOfSlides(
+        bzModel: bzModel,
+        flyerModel: flyerModel,
+        showGallerySlide: showGallerySlide,
+      );
+
+      if (progressBarModel.index + 1 == _numberOfSlides) {
+        _output = true;
+      }
+    }
+
+  }
+
+  return _output;
+}
 // -----------------------------------------------------------------------------
 
 /// HERO
 
 // --------------------
 /// TESTED : WORKS PERFECT
-String createFlyerHeroTag({
-  @required String flyerID,
-  @required String heroPath,
+String? createFlyerHeroTag({
+  required String flyerID,
+  required String heroPath,
 }){
   // ------
-  assert(flyerID != null, 'createFlyerHeroTag : flyerID can not be null');
-  assert(heroPath != null, 'createFlyerHeroTag : heroPath can not be null');
+  // assert(flyerID != null, 'createFlyerHeroTag : flyerID can not be null');
+  // assert(heroPath != null, 'createFlyerHeroTag : heroPath can not be null');
   // ------
   /// NOTES
   /// - flyer either is at screen level or inside flyer's gallery slide
@@ -171,15 +206,15 @@ bool checkFlyerHeroTagHasGalleryFlyerID(String heroTag){
 /*
 /// DEPRECATED
 Widget flyerFlightShuttle({
-  @required BuildContext flightContext,
-  @required Animation<double> animation, // 0 to 1
-  @required HeroFlightDirection flightDirection,
-  @required BuildContext fromHeroContext,
-  @required BuildContext toHeroContext,
-  @required FlyerModel flyerModel,
-  @required BzModel bzModel,
-  @required double flyerBoxWidth,
-  @required String heroTag,
+  required BuildContext flightContext,
+  required Animation<double> animation, // 0 to 1
+  required HeroFlightDirection flightDirection,
+  required BuildContext fromHeroContext,
+  required BuildContext toHeroContext,
+  required FlyerModel flyerModel,
+  required BzModel bzModel,
+  required double flyerBoxWidth,
+  required String heroTag,
 }) {
 
   /*
@@ -264,19 +299,19 @@ FlightDirection getFlightDirection(String direction){
 // --------------------
 /// TESTED : WORKS PERFECT
 bool canShowGalleryPage({
-  @required BzModel bzModel,
-  // @required String heroPath,
-  @required bool canShowGallerySlide,
+  required BzModel? bzModel,
+  // required String heroPath,
+  required bool canShowGallerySlide,
 }){
   bool _canShowGallery = false;
-  assert(bzModel != null, 'canShowGalleryPage : BzModel can not be null');
+  // assert(bzModel != null, 'canShowGalleryPage : BzModel can not be null');
 
   if (canShowGallerySlide == true){
-    if (bzModel != null){
+    // if (bzModel != null){
 
-      if (Mapper.checkCanLoopList(bzModel.flyersIDs) == true){
+      if (Mapper.checkCanLoopList(bzModel?.flyersIDs) == true){
 
-        final bool _bzHasMoreThanOneFlyer = bzModel.flyersIDs.length > 1;
+        final bool _bzHasMoreThanOneFlyer = (bzModel?.flyersIDs?.length ?? 0) > 1;
 
         // final bool isGalleryFlyer = checkFlyerHeroTagHasGalleryFlyerID(heroPath);
 
@@ -288,7 +323,7 @@ bool canShowGalleryPage({
 
       }
 
-    }
+    // }
   }
 
   // blog('canShowGallerySlide : $_canShowGallery : bzModel != null : ${bzModel != null}');
@@ -298,10 +333,10 @@ bool canShowGalleryPage({
 // --------------------
 /// TESTED : WORKS PERFECT
 List<String> getNextFlyersIDs({
-  @required List<String> allFlyersIDsWithoutParentFlyerID,
-  @required List<String> loadedFlyersIDs,
-  @required String heroTag,
-  @required FlyerModel flyerModel,
+  required List<String> allFlyersIDsWithoutParentFlyerID,
+  required List<String> loadedFlyersIDs,
+  required String heroTag,
+  required FlyerModel flyerModel,
   int numberOfFlyers = 4,
 }){
 
@@ -367,11 +402,11 @@ List<String> getNextFlyersIDs({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<List<FlyerModel>> fetchMoreFlyers({
-  @required BuildContext context,
-  @required List<FlyerModel> loadedFlyers,
-  @required FlyerModel flyerModel,
-  @required String heroTag,
-  @required BzModel bzModel,
+  required BuildContext context,
+  required List<FlyerModel> loadedFlyers,
+  required FlyerModel flyerModel,
+  required String heroTag,
+  required BzModel bzModel,
 }) async {
 
   final List<String> _loadedFlyersIDs = FlyerModel.getFlyersIDsFromFlyers(loadedFlyers);
@@ -381,7 +416,7 @@ Future<List<FlyerModel>> fetchMoreFlyers({
     heroTag: heroTag,
     allFlyersIDsWithoutParentFlyerID: Stringer.removeStringsFromStrings(
         removeFrom: bzModel.flyersIDs,
-        removeThis: [flyerModel.id],
+        removeThis: flyerModel.id == null ? [] : [flyerModel.id!],
     ),
     loadedFlyersIDs: _loadedFlyersIDs,
     // numberOfFlyers: 4
@@ -401,9 +436,9 @@ Future<List<FlyerModel>> fetchMoreFlyers({
 // --------------------
 /// TESTED : WORKS PERFECT
 double flyerWidthSizeFactor({
-  @required double tween,
+  required double tween,
   /// min flyer width factor * screen width = minimum flyer width
-  @required double minWidthFactor,
+  required double minWidthFactor,
   /// max flyer width factor * screen width = max flyer width
   double maxWidthFactor = 1,
 }) {
@@ -419,8 +454,8 @@ double flyerWidthSizeFactor({
 // --------------------
 /// TASK : TEST ME
 Future<void> recordFlyerView({
-  @required FlyerModel flyerModel,
-  @required int index,
+  required FlyerModel? flyerModel,
+  required int index,
 }) async {
 
   /// ANONYMOUS VIEWS ARE COUNTED

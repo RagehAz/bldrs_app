@@ -1,3 +1,6 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/layouts/separators/dot_separator.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/create_new_bz_button.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';
 import 'package:bldrs/b_views/z_components/buttons/settings_wide_button.dart';
@@ -6,16 +9,14 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/main.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
 
 class AppSettingsScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const AppSettingsScreen({
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

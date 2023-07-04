@@ -1,5 +1,7 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/lines/zone_bubble_line.dart';
@@ -7,28 +9,27 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/lines/
 import 'package:bldrs/b_views/z_components/buttons/flagbox_button.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:numeric/numeric.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
 
 class CountryPreviewBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const CountryPreviewBubble({
-    @required this.countryID,
-    Key key
-  }) : super(key: key);
+    required this.countryID,
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final String countryID;
+  final String? countryID;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    final Flag _flag = Flag.getFlagFromFlagsByCountryID(
+    final Flag? _flag = Flag.getFlagFromFlagsByCountryID(
       flags: allFlags,
       countryID: countryID,
     );
 
-    final CurrencyModel _currencyModel = CurrencyModel.getCurrencyFromCurrenciesByCountryID(
+    final CurrencyModel? _currencyModel = CurrencyModel.getCurrencyFromCurrenciesByCountryID(
       currencies: ZoneProvider.proGetAllCurrencies(
         context: context,
         listen: true,
@@ -36,20 +37,20 @@ class CountryPreviewBubble extends StatelessWidget {
       countryID: countryID,
     );
 
-    final Phrase _nameEn = Flag.getCountryPhrase(
+    final Phrase? _nameEn = Flag.getCountryPhrase(
       countryID: countryID,
       langCode: 'en',
     );
 
-    final Phrase _nameAr = Flag.getCountryPhrase(
+    final Phrase? _nameAr = Flag.getCountryPhrase(
       countryID: countryID,
       langCode: 'ar',
     );
 
-    final String _areaNumbers = counterCaliber(_flag.areaSqKm);
-    final String _population = counterCaliber(_flag.population);
-    final double _popDensityValue = _flag.population / (_flag.areaSqKm);
-    final String _popDensity = Numeric.formatNumToSeparatedKilos(
+    final String? _areaNumbers = counterCaliber(_flag?.areaSqKm);
+    final String? _population = counterCaliber(_flag?.population);
+    final double? _popDensityValue = (_flag?.population ?? 0) / (_flag?.areaSqKm ?? 0);
+    final String? _popDensity = Numeric.formatNumToSeparatedKilos(
       number: _popDensityValue,
       fractions: 0,
     );
@@ -77,15 +78,15 @@ class CountryPreviewBubble extends StatelessWidget {
         ),
 
         /// COUNTRY NAME EN
-        ZoneNameLine(name: _nameEn.value,),
+        ZoneNameLine(name: _nameEn?.value),
 
         /// COUNTRY NAME AR
-        ZoneNameLine(name: _nameAr.value,),
+        ZoneNameLine(name: _nameAr?.value),
 
         /// CAPITAL
         ZoneBubbleLine(
           icon: Iconz.star,
-          line: _flag.capital,
+          line: _flag?.capital,
         ),
 
         /// CURRENCY

@@ -1,4 +1,4 @@
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:flutter/foundation.dart';
 /// => TAMAM
 @immutable
@@ -8,18 +8,18 @@ class FlyerCounterModel {
   /// ON RECORD CREATION => CLOUD  FUNCTION => INCREMENT - DECREMENT
   // -----------------------------------------------------------------------------
   const FlyerCounterModel({
-    @required this.flyerID,
-    @required this.saves,
-    @required this.shares,
-    @required this.views,
-    @required this.reviews,
+    required this.flyerID,
+    required this.saves,
+    required this.shares,
+    required this.views,
+    required this.reviews,
   });
   // -----------------------------------------------------------------------------
-  final String flyerID;
-  final int saves;
-  final int shares;
-  final int views;
-  final int reviews;
+  final String? flyerID;
+  final int? saves;
+  final int? shares;
+  final int? views;
+  final int? reviews;
   // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
@@ -38,11 +38,11 @@ class FlyerCounterModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   FlyerCounterModel copyWith({
-    String flyerID,
-    int saves,
-    int shares,
-    int views,
-    int reviews,
+    String? flyerID,
+    int? saves,
+    int? shares,
+    int? views,
+    int? reviews,
   }){
 
     return FlyerCounterModel(
@@ -71,9 +71,9 @@ class FlyerCounterModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static FlyerCounterModel decipherCounterMap(Map<String, dynamic> map){
+  static FlyerCounterModel? decipherCounterMap(Map<String, dynamic>? map){
 
-    FlyerCounterModel _model;
+    FlyerCounterModel? _model;
 
     if (map != null){
       _model = FlyerCounterModel(
@@ -111,8 +111,8 @@ class FlyerCounterModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkFlyerCounterModelsAreIdentical({
-    @required FlyerCounterModel counter1,
-    @required FlyerCounterModel counter2,
+    required FlyerCounterModel? counter1,
+    required FlyerCounterModel? counter2,
   }){
     bool _areIdentical = false;
 

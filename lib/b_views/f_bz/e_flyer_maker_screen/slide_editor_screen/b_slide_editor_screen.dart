@@ -1,26 +1,26 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/space/trinity.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_editor_control_panel.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_editor_slide_part.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:night_sky/night_sky.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/xxx_slide_editor_controllers.dart';
-import 'package:space_time/space_time.dart';
-import 'package:scale/scale.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:flutter/material.dart';
-import 'package:super_image/super_image.dart';
+import 'package:basics/super_image/super_image.dart';
 
 class SlideEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const SlideEditorScreen({
-    @required this.slide,
-    @required this.draftFlyer,
-    Key key
-  }) : super(key: key);
+    required this.slide,
+    required this.draftFlyer,
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final DraftSlide slide;
-  final ValueNotifier<DraftFlyer> draftFlyer;
+  final DraftSlide? slide;
+  final ValueNotifier<DraftFlyer?> draftFlyer;
   /// --------------------------------------------------------------------------
   @override
   State<SlideEditorScreen> createState() => _SlideEditorScreenState();
@@ -33,9 +33,9 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
   // --------------------
   final List<ImageFilterModel> _allFilters = ImageFilterModel.bldrsImageFilters;
   // --------------------
-  final ValueNotifier<DraftSlide> _draftNotifier = ValueNotifier(null);
-  final ValueNotifier<Matrix4> _matrix = ValueNotifier(null);
-  final ValueNotifier<ImageFilterModel> _filterModel = ValueNotifier(null);
+  final ValueNotifier<DraftSlide?> _draftNotifier = ValueNotifier(null);
+  final ValueNotifier<Matrix4?> _matrix = ValueNotifier(null);
+  final ValueNotifier<ImageFilterModel?> _filterModel = ValueNotifier(null);
   final ValueNotifier<bool> _isTransforming = ValueNotifier(false);
   final ValueNotifier<bool> _canResetMatrix = ValueNotifier(false);
   final ValueNotifier<bool> _isPlayingAnimation = ValueNotifier(false);
@@ -49,7 +49,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
   void initializeTempSlide(){
 
     /// INITIALIZE TEMP SLIDE
-    final DraftSlide _initialSlide = widget.slide.copyWith(
+    final DraftSlide? _initialSlide = widget.slide?.copyWith(
       filter: widget.slide?.filter ?? _allFilters[0],
       matrix: initializeMatrix(slide: widget.slide),
     );
@@ -65,18 +65,18 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
     setNotifier(
       notifier: _matrix,
       mounted: mounted,
-      value: _initialSlide.matrix,
+      value: _initialSlide?.matrix,
     );
 
     /// SET FILTER
     setNotifier(
       notifier: _filterModel,
       mounted: mounted,
-      value: _initialSlide.filter ?? _allFilters[0],
+      value: _initialSlide?.filter ?? _allFilters[0],
     );
 
     final bool _initialMatrixIsIdentity = Trinity.checkMatrixesAreIdentical(
-      matrix1: _draftNotifier.value.matrix,
+      matrix1: _draftNotifier.value?.matrix,
       matrixReloaded: Matrix4.identity(),
     );
 
@@ -116,7 +116,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
       setNotifier(
           notifier: _draftNotifier,
           mounted: mounted,
-          value: _draftNotifier.value.copyWith(
+          value: _draftNotifier.value?.copyWith(
             matrix: _matrix.value,
           ),
       );
@@ -161,7 +161,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
             isTransforming: _isTransforming,
             mounted: mounted,
             onSlideTap: (){
-              blog('slide is tapped ahowann');
+              blog('slide is tapped aho');
             },
             isPlayingAnimation: _isPlayingAnimation,
             onSlideDoubleTap: () => onReplayAnimation(
@@ -202,7 +202,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
               draftNotifier: _draftNotifier,
               filterNotifier: _filterModel,
               matrixNotifier: _matrix,
-              bzID: widget.draftFlyer.value.bzID,
+              bzID: widget.draftFlyer.value?.bzID,
               mounted: mounted,
             ),
             onConfirm: () => onConfirmSlideEdits(

@@ -1,26 +1,26 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/k_statistics/record_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/a_info_button_structure/ggg_mini_user_banner.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:fire/super_fire.dart';
-import 'package:scale/scale.dart';
 
 class FlyerRecordsBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerRecordsBox({
-    @required this.pageWidth,
-    @required this.headlineVerse,
-    @required this.icon,
-    @required this.realNodePath,
-    @required this.flyerID,
-    @required this.bzID,
-    Key key
-  }) : super(key: key);
+    required this.pageWidth,
+    required this.headlineVerse,
+    required this.icon,
+    required this.realNodePath,
+    required this.flyerID,
+    required this.bzID,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double pageWidth;
   final Verse headlineVerse;
@@ -55,10 +55,10 @@ class FlyerRecordsBox extends StatelessWidget {
               limit: 6,
             ),
             // scrollController: ScrollController(),
-            builder: (_, List<Map<String, dynamic>> maps, bool loading, Widget child){
+            builder: (_, List<Map<String, dynamic>>? maps, bool loading, Widget? child){
 
               List<RecordModel> _records = RecordModel.decipherRecords(
-                maps: maps,
+                maps: maps ?? [],
                 flyerID: flyerID,
                 bzID: bzID,
                 fromJSON: true,
@@ -83,10 +83,13 @@ class FlyerRecordsBox extends StatelessWidget {
                   itemBuilder: (_, int index){
 
                     return FutureBuilder(
-                      future: UserProtocols.fetch(context: context, userID: _records[index].userID),
-                      builder: (_, AsyncSnapshot<dynamic> snapshot){
+                      future: UserProtocols.fetch(
+                          context: context,
+                          userID: _records[index].userID,
+                      ),
+                      builder: (_, AsyncSnapshot<UserModel?> snapshot){
 
-                        final UserModel _user = snapshot.data;
+                        final UserModel? _user = snapshot.data;
 
                         return MiniUserBanner(
                           size: 50,

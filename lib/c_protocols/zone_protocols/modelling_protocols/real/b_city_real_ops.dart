@@ -1,8 +1,8 @@
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
-import 'package:mapper/mapper.dart';
-import 'package:flutter/material.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+
 /// => TAMAM
 class CityRealOps {
   // -----------------------------------------------------------------------------
@@ -16,12 +16,12 @@ class CityRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> createCity({
-    @required CityModel cityModel
+    required CityModel? cityModel
   }) async {
 
     if (cityModel != null){
 
-      final String _countryID = cityModel.getCountryID();
+      final String? _countryID = cityModel.getCountryID();
 
       await Real.createDocInPath(
         pathWithoutDocName: '${RealColl.zones}/${RealDoc.zones_cities}/$_countryID',
@@ -41,19 +41,19 @@ class CityRealOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<CityModel> readCity({
-    @required String countryID,
-    @required String cityID,
+  static Future<CityModel?> readCity({
+    required String? countryID,
+    required String? cityID,
   }) async {
-    CityModel _output;
+    CityModel? _output;
 
     if (countryID != null && cityID != null){
 
-      final Object _cityMap = await Real.readPath(
+      final Object? _cityMap = await Real.readPath(
         path: '${RealColl.zones}/${RealDoc.zones_cities}/$countryID/$cityID',
       );
 
-      final Map<String, dynamic> _map = Mapper.getMapFromIHLMOO(
+      final Map<String, dynamic>? _map = Mapper.getMapFromIHLMOO(
         ihlmoo: _cityMap,
       );
 
@@ -72,7 +72,7 @@ class CityRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> readCities({
-    @required List<String> citiesIDs,
+    required List<String> citiesIDs,
   }) async {
     final List<CityModel> _output = [];
 
@@ -83,12 +83,12 @@ class CityRealOps {
         ...List.generate(citiesIDs.length, (index){
 
           final String _cityID = citiesIDs[index];
-          final String _countryID = CityModel.getCountryIDFromCityID(_cityID);
+          final String? _countryID = CityModel.getCountryIDFromCityID(_cityID);
 
           return readCity(
             countryID: _countryID,
             cityID: _cityID,
-          ).then((CityModel _cityModel){
+          ).then((CityModel? _cityModel){
 
             if (_cityModel != null){
               _output.add(_cityModel);
@@ -111,7 +111,7 @@ class CityRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CityModel>> readCountryCities({
-    @required String countryID,
+    required String countryID,
   }) async {
 
     final Object _citiesMap = await Real.readPath(
@@ -136,7 +136,7 @@ class CityRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateCity({
-    @required CityModel newCity
+    required CityModel newCity
   }) async {
 
     await createCity(cityModel: newCity);
@@ -149,12 +149,12 @@ class CityRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteCity({
-  @required String cityID,
+  required String? cityID,
   }) async {
 
     if (cityID != null){
 
-      final String _countryID = CityModel.getCountryIDFromCityID(cityID);
+      final String? _countryID = CityModel.getCountryIDFromCityID(cityID);
 
       await Real.deletePath(
           pathWithDocName: '${RealColl.zones}/${RealDoc.zones_cities}/$_countryID/$cityID',

@@ -1,15 +1,15 @@
 // import 'package:bldrs/a_models/bz/author_model.dart';
 // import 'package:bldrs/a_models/bz/bz_model.dart';
-// import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+// import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 // import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_pic.dart';
 // import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 // import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 // import 'package:bldrs/d_providers/phrase_provider.dart';
 // import 'package:bldrs/f_helpers/drafters/borderers.dart';
-// import 'package:numeric/numeric.dart';
+// import 'package:basics/helpers/classes/nums/numeric.dart';
 // import 'package:bldrs/f_helpers/drafters/object_checkers.dart';
-// import 'package:scale/scale.dart';
-// import 'package:filers/filers.dart';
+// import 'package:basics/helpers/classes/space/scale.dart';
+// import 'package:basics/helpers/classes/files/filers.dart';
 // 
 // 
 //
@@ -19,12 +19,12 @@
 // class OldAuthorLabel extends StatelessWidget {
 //   /// --------------------------------------------------------------------------
 //   const OldAuthorLabel({
-//     @required this.flyerBoxWidth,
-//     @required this.authorID,
-//     @required this.bzModel,
-//     @required this.showLabel,
-//     @required this.authorGalleryCount,
-//     @required this.onTap,
+//     required this.flyerBoxWidth,
+//     required this.authorID,
+//     required this.bzModel,
+//     required this.showLabel,
+//     required this.authorGalleryCount,
+//     required this.onTap,
 //     this.labelIsOn = false,
 //     Key key,
 //   }) : super(key: key);

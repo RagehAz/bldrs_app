@@ -1,27 +1,27 @@
 import 'package:bldrs/a_models/k_statistics/record_model.dart';
 import 'package:bldrs/a_models/x_secondary/bldrs_model_type.dart';
-import 'package:mapper/mapper.dart';
-import 'package:space_time/space_time.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/time/timers.dart';
 import 'package:flutter/foundation.dart';
 /// => TAMAM
 @immutable
 class FeedbackModel {
   /// --------------------------------------------------------------------------
   const FeedbackModel({
-    @required this.userID,
-    @required this.timeStamp,
-    @required this.feedback,
+    required this.userID,
+    required this.timeStamp,
+    required this.feedback,
     this.id,
     this.modelType,
     this.modelID,
   });
   /// --------------------------------------------------------------------------
-  final String id;
-  final String userID;
-  final DateTime timeStamp;
-  final String feedback;
-  final ModelType modelType;
-  final String modelID;
+  final String? id;
+  final String? userID;
+  final DateTime? timeStamp;
+  final String? feedback;
+  final ModelType? modelType;
+  final String? modelID;
   // -----------------------------------------------------------------------------
 
   /// CYPHERS
@@ -71,8 +71,8 @@ class FeedbackModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkFeedbacksAreIdentical({
-    @required FeedbackModel feedback1,
-    @required FeedbackModel feedback2,
+    required FeedbackModel? feedback1,
+    required FeedbackModel? feedback2,
   }){
     bool _areIdentical = false;
 

@@ -1,17 +1,18 @@
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-
 import 'package:flutter/material.dart';
 
 class XButtonPart extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const XButtonPart({
-    @required this.headerBorders,
-    @required this.onHeaderTap,
-    @required this.headerIsExpanded,
-    Key key
-  }) : super(key: key);
+    required this.headerBorders,
+    required this.onHeaderTap,
+    required this.headerIsExpanded,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final BorderRadius headerBorders;
   final Function onHeaderTap;
@@ -22,7 +23,7 @@ class XButtonPart extends StatelessWidget {
 
     return ValueListenableBuilder(
       valueListenable: headerIsExpanded,
-      builder: (_, bool _headerIsExpanded, Widget child){
+      builder: (_, bool _headerIsExpanded, Widget? child){
 
         return AnimatedOpacity(
           opacity: _headerIsExpanded == true ? 1 : 0,

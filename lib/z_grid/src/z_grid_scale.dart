@@ -3,18 +3,18 @@ part of z_grid;
 class ZGridScale {
   // --------------------------------------------------------------------------
   const ZGridScale({
-    @required this.gridWidth,
-    @required this.gridHeight,
-    @required this.itemAspectRatio,
-    @required this.columnCount,
-    @required this.topPaddingOnZoomOut,
-    @required this.topPaddingOnZoomIn,
-    @required this.bottomPaddingOnZoomedOut,
-    @required this.bigItemWidth,
-    @required this.bigItemHeight,
-    @required this.smallItemHeight,
-    @required this.smallItemWidth,
-    @required this.hasResponsiveSideMargin,
+    required this.gridWidth,
+    required this.gridHeight,
+    required this.itemAspectRatio,
+    required this.columnCount,
+    required this.topPaddingOnZoomOut,
+    required this.topPaddingOnZoomIn,
+    required this.bottomPaddingOnZoomedOut,
+    required this.bigItemWidth,
+    required this.bigItemHeight,
+    required this.smallItemHeight,
+    required this.smallItemWidth,
+    required this.hasResponsiveSideMargin,
   });
   // --------------------------------------------------------------------------
   final double gridWidth;
@@ -22,9 +22,9 @@ class ZGridScale {
   /// SPACING RATIO BETWEEN ITEMS AND AROUND THE GRID TO SMALL ITEM WIDTH
   final double itemAspectRatio;
   final int columnCount;
-  final double topPaddingOnZoomOut; // can be null
-  final double topPaddingOnZoomIn; // can be null
-  final double bottomPaddingOnZoomedOut;
+  final double? topPaddingOnZoomOut; // can be null
+  final double? topPaddingOnZoomIn; // can be null
+  final double? bottomPaddingOnZoomedOut;
   final double bigItemWidth;
   final double bigItemHeight;
   final double smallItemWidth;
@@ -33,13 +33,13 @@ class ZGridScale {
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static ZGridScale initialize({
-    @required double gridWidth,
-    @required double gridHeight,
-    @required double itemAspectRatio,
-    @required int columnCount,
-    @required double topPaddingOnZoomOut,
-    @required double bottomPaddingOnZoomedOut,
-    @required bool hasResponsiveSideMargin,
+    required double gridWidth,
+    required double gridHeight,
+    required double itemAspectRatio,
+    required int columnCount,
+    required double? topPaddingOnZoomOut,
+    required double? bottomPaddingOnZoomedOut,
+    required bool hasResponsiveSideMargin,
   }){
 
     final double _topPaddingOnZoomedIn = getCenteredTopPaddingOnZoomedIn(
@@ -100,11 +100,11 @@ class ZGridScale {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double getSmallItemWidth({
-    @required double gridWidth,
-    @required double gridHeight,
-    @required int columnCount,
-    @required double itemAspectRatio,
-    @required bool hasResponsiveSideMargin,
+    required double gridWidth,
+    required double? gridHeight,
+    required int columnCount,
+    required double itemAspectRatio,
+    required bool hasResponsiveSideMargin,
   }){
 
     final double gridSidePadding = getGridSideMargin(
@@ -127,11 +127,11 @@ class ZGridScale {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double getSmallItemHeight({
-    @required double gridWidth,
-    @required double gridHeight,
-    @required int columnCount,
-    @required double itemAspectRatio,
-    @required bool hasResponsiveSideMargin,
+    required double gridWidth,
+    required double gridHeight,
+    required int columnCount,
+    required double itemAspectRatio,
+    required bool hasResponsiveSideMargin,
   }){
 
     final double _smallItemWidth = getSmallItemWidth(
@@ -151,8 +151,8 @@ class ZGridScale {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double _getBigItemWidthByGridHeight({
-    @required double gridHeight,
-    @required double itemAspectRatio,
+    required double gridHeight,
+    required double itemAspectRatio,
   }){
 
     /// TURNING POINT is when the gridWidth is just the width of the big item when the big item
@@ -169,16 +169,16 @@ class ZGridScale {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double _getBigItemWidthByGridWidth({
-    @required double gridWidth,
+    required double gridWidth,
   }){
       return gridWidth - 20;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool _gridWidthIsNarrow({
-    @required double gridWidth,
-    @required double gridHeight,
-    @required double itemAspectRatio, // a = w / h
+    required double gridWidth,
+    required double? gridHeight,
+    required double itemAspectRatio, // a = w / h
   }) {
     final double _widthAtMaxGridHeight = _getBigItemWidthByGridHeight(
       gridHeight: gridHeight ?? Scale.screenHeight(getMainContext()),
@@ -189,9 +189,9 @@ class ZGridScale {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double getBigItemWidth({
-    @required double gridWidth,
-    @required double gridHeight,
-    @required double itemAspectRatio, // a = w / h
+    required double gridWidth,
+    required double gridHeight,
+    required double itemAspectRatio, // a = w / h
   }){
 
     final bool _gridIsNarrow = _gridWidthIsNarrow(
@@ -218,9 +218,9 @@ class ZGridScale {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double getBigItemHeight({
-    @required double gridWidth,
-    @required double gridHeight,
-    @required double itemAspectRatio,
+    required double gridWidth,
+    required double gridHeight,
+    required double itemAspectRatio,
   }){
 
     final double _bigItemWidth = getBigItemWidth(
@@ -235,9 +235,9 @@ class ZGridScale {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double getBigItemSideMargin({
-    @required double gridWidth,
-    @required double gridHeight,
-    @required double itemAspectRatio,
+    required double gridWidth,
+    required double gridHeight,
+    required double itemAspectRatio,
   }){
 
     final double _bigItemWidth = getBigItemWidth(
@@ -258,11 +258,11 @@ class ZGridScale {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double getSpacing({
-    @required double gridWidth,
-    @required int columnCount,
-    @required double itemAspectRatio,
-    @required double gridHeight,
-    @required bool hasResponsiveSideMargin,
+    required double gridWidth,
+    required int columnCount,
+    required double itemAspectRatio,
+    required double gridHeight,
+    required bool hasResponsiveSideMargin,
   }){
 
     final double _smallItemWidth = getSmallItemWidth(
@@ -282,10 +282,10 @@ class ZGridScale {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double getCenteredTopPaddingOnZoomedIn({
-    @required double gridHeight,
-    @required double gridWidth,
-    @required int columnCount,
-    @required double itemAspectRatio,
+    required double gridHeight,
+    required double gridWidth,
+    required int columnCount,
+    required double itemAspectRatio,
   }){
 
     final double _bigItemHeight = getBigItemHeight(
@@ -301,22 +301,22 @@ class ZGridScale {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double getTopPaddingOnZoomOut({
-    @required double topPaddingOnZoomOut
+    required double? topPaddingOnZoomOut
   }){
     return topPaddingOnZoomOut ?? Stratosphere.smallAppBarStratosphere;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static EdgeInsets getGridPadding({
-    @required BuildContext context,
-    @required double gridWidth,
-    @required double gridHeight,
-    @required int columnCount,
-    @required double topPaddingOnZoomOut,
-    @required bool isZoomed,
-    @required double itemAspectRatio,
-    @required double bottomPaddingOnZoomedOut,
-    @required bool hasResponsiveSideMargin,
+    required BuildContext context,
+    required double gridWidth,
+    required double gridHeight,
+    required int columnCount,
+    required double? topPaddingOnZoomOut,
+    required bool isZoomed,
+    required double itemAspectRatio,
+    required double? bottomPaddingOnZoomedOut,
+    required bool hasResponsiveSideMargin,
   }){
 
     final double _topPaddingOnZoomedOut = getTopPaddingOnZoomOut(
@@ -355,11 +355,11 @@ class ZGridScale {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double _getBottomPaddingOnZoomedIn({
-    @required double gridWidth,
-    @required double gridHeight,
-    @required int columnCount,
-    @required double itemAspectRatio,
-    @required bool hasResponsiveSideMargin,
+    required double gridWidth,
+    required double gridHeight,
+    required int columnCount,
+    required double itemAspectRatio,
+    required bool hasResponsiveSideMargin,
   }){
 
     final double _smallItemHeight = getSmallItemHeight(
@@ -390,17 +390,17 @@ class ZGridScale {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double getBottomPaddingOnZoomedOut({
-    @required double bottomPaddingOnZoomedOut,
+    required double? bottomPaddingOnZoomedOut,
   }){
     return bottomPaddingOnZoomedOut ?? 10;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static double getGridSideMargin({
-    @required double gridWidth,
-    @required double gridHeight,
-    @required double itemAspectRatio,
-    @required bool hasResponsiveSideMargin,
+    required double? gridWidth,
+    required double? gridHeight,
+    required double itemAspectRatio,
+    required bool hasResponsiveSideMargin,
   }){
 
     final BuildContext context = getMainContext();
@@ -421,11 +421,11 @@ class ZGridScale {
   // --------------------
   /// TESTED : WORKS PERFECT
   static SliverGridDelegate getGridDelegate({
-    @required double gridWidth,
-    @required double gridHeight,
-    @required int columnCount,
-    @required double itemAspectRatio,
-    @required bool hasResponsiveSideMargin,
+    required double gridWidth,
+    required double gridHeight,
+    required int columnCount,
+    required double itemAspectRatio,
+    required bool hasResponsiveSideMargin,
   }){
 
     final double _gridSpacingValue = getSpacing(
@@ -462,8 +462,8 @@ class ZGridScale {
   /*
   /// TESTED : WORKS PERFECT
   static double _getZoomableWidth({
-    @required double gridWidth,
-    @required int columnCount,
+    required double gridWidth,
+    required int columnCount,
   }){
     final double _spacing = getSpacing(
       gridWidth: gridWidth,
@@ -479,12 +479,12 @@ class ZGridScale {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double _getRowOffset({
-    @required int rowIndex,
-    @required double gridWidth,
-    @required double gridHeight,
-    @required int columnCount,
-    @required double itemAspectRatio,
-    @required bool hasResponsiveSideMargin,
+    required int rowIndex,
+    required double gridWidth,
+    required double gridHeight,
+    required int columnCount,
+    required double itemAspectRatio,
+    required bool hasResponsiveSideMargin,
   }){
 
     final double _smallItemHeight = getSmallItemHeight(
@@ -508,12 +508,12 @@ class ZGridScale {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double _getTopPaddingZoomOffset({
-    @required int columnCount,
-    @required double gridWidth,
-    @required double topPaddingOnZoomOut,
-    @required double gridHeight,
-    @required double itemAspectRatio,
-    @required bool hasResponsiveSideMargin,
+    required int columnCount,
+    required double gridWidth,
+    required double? topPaddingOnZoomOut,
+    required double gridHeight,
+    required double itemAspectRatio,
+    required bool hasResponsiveSideMargin,
   }){
 
     final double _scale = calculateMaxScale(
@@ -542,12 +542,12 @@ class ZGridScale {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double _getHorizontalZoomOffset({
-    @required int columnIndex,
-    @required int columnCount,
-    @required double gridWidth,
-    @required double gridHeight,
-    @required double itemAspectRatio,
-    @required bool hasResponsiveSideMargin,
+    required int columnIndex,
+    required int columnCount,
+    required double gridWidth,
+    required double gridHeight,
+    required double itemAspectRatio,
+    required bool hasResponsiveSideMargin,
   }){
     final double _scale = calculateMaxScale(
       columnCount: columnCount,
@@ -606,11 +606,11 @@ class ZGridScale {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double calculateMaxScale({
-    @required double gridWidth,
-    @required double gridHeight,
-    @required int columnCount,
-    @required double itemAspectRatio,
-    @required bool hasResponsiveSideMargin,
+    required double gridWidth,
+    required double gridHeight,
+    required int columnCount,
+    required double itemAspectRatio,
+    required bool hasResponsiveSideMargin,
   }){
 
     final double _bigItemWidth = getBigItemWidth(
@@ -657,15 +657,15 @@ class ZGridScale {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Matrix4 _getZoomMatrix({
-    @required BuildContext context,
-    @required int rowIndex,
-    @required int columnIndex,
-    @required double gridWidth,
-    @required int columnCount,
-    @required double gridHeight,
-    @required double itemAspectRatio,
-    @required double topPaddingOnZoomOut,
-    @required bool hasResponsiveSideMargin,
+    required BuildContext context,
+    required int rowIndex,
+    required int columnIndex,
+    required double gridWidth,
+    required int columnCount,
+    required double gridHeight,
+    required double itemAspectRatio,
+    required double? topPaddingOnZoomOut,
+    required bool hasResponsiveSideMargin,
   }){
 
     final double _scale = calculateMaxScale(

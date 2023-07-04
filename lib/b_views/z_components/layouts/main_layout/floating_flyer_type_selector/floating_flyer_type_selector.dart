@@ -1,3 +1,5 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/b_zone_phids_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
@@ -8,19 +10,17 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class FloatingFlyerTypeSelector extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const FloatingFlyerTypeSelector({
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   @override
   _FloatingFlyerTypeSelectorState createState() => _FloatingFlyerTypeSelectorState();
@@ -30,14 +30,14 @@ class FloatingFlyerTypeSelector extends StatefulWidget {
 class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> with TickerProviderStateMixin {
   // -----------------------------------------------------------------------------
   List<CurvedAnimation> _linesControllers = <CurvedAnimation>[];
-  AnimationController _animationController;
+  late AnimationController _animationController;
   List<Map<String, dynamic>> _linesMaps = <Map<String, dynamic>>[];
   final Tween<double> _tween = Tween<double>(begin: 0, end: 1);
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -49,14 +49,14 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
   void initState() {
     super.initState();
 
-      final ZonePhidsModel _zonePhidsModel = ChainsProvider.proGetZonePhids(
+      final ZonePhidsModel? _zonePhidsModel = ChainsProvider.proGetZonePhids(
         context: context,
         listen: false,
       );
 
       // _zonePhidsModel?.blogZonePhidsModel(invoker: 'floating shit');
 
-      final List<Chain> _bldrsChains = ChainsProvider.proGetBldrsChains(
+      final List<Chain>? _bldrsChains = ChainsProvider.proGetBldrsChains(
         context: context,
         onlyUseZoneChains: true,
         listen: false,
@@ -152,8 +152,8 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onFlyerTypeTap({
-    @required BuildContext context,
-    @required FlyerType flyerType,
+    required BuildContext context,
+    required FlyerType? flyerType,
   }) async {
 
     // blog('Floating flyer type selector : onFlyerTypeTap : TAPPED ON $flyerType');
@@ -249,9 +249,9 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
 
                       ...List.generate(_linesControllers.length, (index) {
 
-                        final FlyerType _flyerType = FlyerTyper.decipherFlyerType(_linesMaps[index]['verse']);
-                        final String _phid = FlyerTyper.getFlyerTypePhid(flyerType: _flyerType);
-                        final String _translation = Verse.transBake(_phid);
+                        final FlyerType? _flyerType = FlyerTyper.decipherFlyerType(_linesMaps[index]['verse']);
+                        final String? _phid = FlyerTyper.getFlyerTypePhid(flyerType: _flyerType);
+                        final String? _translation = Verse.transBake(_phid);
 
                         return AnimatedBar(
                           curvedAnimation: _linesControllers[index],

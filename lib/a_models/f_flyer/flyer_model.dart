@@ -1,5 +1,10 @@
 import 'dart:ui' as ui;
 
+import 'package:basics/helpers/classes/checks/object_check.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/files/floaters.dart';
+import 'package:basics/helpers/classes/space/atlas.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
@@ -8,12 +13,12 @@ import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/f_flyer/sub/publish_time_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:collection/collection.dart';
 import 'package:fire/super_fire.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:space_time/space_time.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/time/timers.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 enum PublishState{
   draft,
@@ -32,28 +37,28 @@ enum AuditState{
 class FlyerModel {
   /// --------------------------------------------------------------------------
   const FlyerModel({
-    @required this.id,
-    @required this.headline,
-    @required this.trigram,
-    @required this.description,
-    @required this.flyerType,
-    @required this.publishState,
-    @required this.auditState,
-    @required this.phids,
-    @required this.zone,
-    @required this.authorID,
-    @required this.bzID,
-    @required this.position,
-    @required this.slides,
-    @required this.specs,
-    @required this.times,
-    @required this.hasPriceTag,
-    @required this.isAmazonFlyer,
-    @required this.hasPDF,
-    @required this.showsAuthor,
-    @required this.score,
-    @required this.pdfPath,
-    @required this.shareLink,
+    required this.id,
+    required this.headline,
+    required this.trigram,
+    required this.description,
+    required this.flyerType,
+    required this.publishState,
+    required this.auditState,
+    required this.phids,
+    required this.zone,
+    required this.authorID,
+    required this.bzID,
+    required this.position,
+    required this.slides,
+    required this.specs,
+    required this.times,
+    required this.hasPriceTag,
+    required this.isAmazonFlyer,
+    required this.hasPDF,
+    required this.showsAuthor,
+    required this.score,
+    required this.pdfPath,
+    required this.shareLink,
     this.affiliateLink,
     this.gtaLink,
     this.bzLogoImage,
@@ -62,34 +67,34 @@ class FlyerModel {
     this.docSnapshot,
   });
   /// --------------------------------------------------------------------------
-  final String id;
-  final String headline;
-  final List<String> trigram;
-  final String description;
-  final FlyerType flyerType;
-  final PublishState publishState;
-  final AuditState auditState;
-  final List<String> phids;
-  final bool showsAuthor;
-  final ZoneModel zone;
-  final String authorID;
-  final String bzID;
-  final GeoPoint position;
-  final List<SlideModel> slides;
-  final List<SpecModel> specs;
-  final List<PublishTime> times;
-  final bool hasPriceTag;
-  final bool isAmazonFlyer;
-  final bool hasPDF;
-  final DocumentSnapshot<Object> docSnapshot;
-  final int score;
-  final String pdfPath;
-  final String shareLink;
-  final String affiliateLink; /// this generates money
-  final String gtaLink; /// this to track gta progress
-  final ui.Image bzLogoImage;
-  final ui.Image authorImage;
-  final BzModel bzModel;
+  final String? id;
+  final String? headline;
+  final List<String>? trigram;
+  final String? description;
+  final FlyerType? flyerType;
+  final PublishState? publishState;
+  final AuditState? auditState;
+  final List<String>? phids;
+  final bool? showsAuthor;
+  final ZoneModel? zone;
+  final String? authorID;
+  final String? bzID;
+  final GeoPoint? position;
+  final List<SlideModel>? slides;
+  final List<SpecModel>? specs;
+  final List<PublishTime>? times;
+  final bool? hasPriceTag;
+  final bool? isAmazonFlyer;
+  final bool? hasPDF;
+  final QueryDocumentSnapshot<Object>? docSnapshot;
+  final int? score;
+  final String? pdfPath;
+  final String? shareLink;
+  final String? affiliateLink; /// this generates money
+  final String? gtaLink; /// this to track gta progress
+  final ui.Image? bzLogoImage;
+  final ui.Image? authorImage;
+  final BzModel? bzModel;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -97,35 +102,35 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   FlyerModel copyWith({
-    String id,
-    String headline,
-    List<String> trigram,
-    String description,
-    FlyerType flyerType,
-    PublishState publishState,
-    AuditState auditState,
-    List<String> phids,
-    bool showsAuthor,
-    ZoneModel zone,
-    String authorID,
-    String bzID,
-    GeoPoint position,
-    List<SlideModel> slides,
-    bool isBanned,
-    List<SpecModel> specs,
-    List<PublishTime> times,
-    bool hasPriceTag,
-    bool hasPDF,
-    bool isAmazonFlyer,
-    DocumentSnapshot docSnapshot,
-    int score,
-    String pdfPath,
-    String shareLink,
-    String affiliateLink,
-    String gtaLink,
-    ui.Image bzLogoImage,
-    ui.Image authorImage,
-    BzModel bzModel,
+    String? id,
+    String? headline,
+    List<String>? trigram,
+    String? description,
+    FlyerType? flyerType,
+    PublishState? publishState,
+    AuditState? auditState,
+    List<String>? phids,
+    bool? showsAuthor,
+    ZoneModel? zone,
+    String? authorID,
+    String? bzID,
+    GeoPoint? position,
+    List<SlideModel>? slides,
+    bool? isBanned,
+    List<SpecModel>? specs,
+    List<PublishTime>? times,
+    bool? hasPriceTag,
+    bool? hasPDF,
+    bool? isAmazonFlyer,
+    QueryDocumentSnapshot<Object>? docSnapshot,
+    int? score,
+    String? pdfPath,
+    String? shareLink,
+    String? affiliateLink,
+    String? gtaLink,
+    ui.Image? bzLogoImage,
+    ui.Image? authorImage,
+    BzModel? bzModel,
   }){
 
     return FlyerModel(
@@ -167,7 +172,7 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
-    @required bool toJSON,
+    required bool toJSON,
   }){
     return <String, dynamic>{
       'id' : id,
@@ -203,17 +208,17 @@ class FlyerModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<Map<String, Object>> cipherFlyers({
-    @required List<FlyerModel> flyers,
-    @required bool toJSON,
+  static List<Map<String, dynamic>> cipherFlyers({
+    required List<FlyerModel>? flyers,
+    required bool toJSON,
   }){
-    final List<Map<String, Object>> _maps = <Map<String, Object>>[];
+    final List<Map<String, dynamic>> _maps = <Map<String, dynamic>>[];
 
-    if (Mapper.checkCanLoopList(flyers)){
+    if (Mapper.checkCanLoopList(flyers) == true){
 
-      for (final FlyerModel flyer in flyers){
+      for (final FlyerModel flyer in flyers!){
 
-        final Map<String, Object> _flyerMap = flyer.toMap(toJSON: toJSON);
+        final Map<String, dynamic> _flyerMap = flyer.toMap(toJSON: toJSON);
 
         _maps.add(_flyerMap);
 
@@ -225,11 +230,12 @@ class FlyerModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static FlyerModel decipherFlyer({
-    @required dynamic map,
-    @required bool fromJSON,
+  static FlyerModel? decipherFlyer({
+    required dynamic map,
+    required bool fromJSON,
   }){
-    FlyerModel _flyerModel;
+    FlyerModel? _flyerModel;
+
     if (map != null){
 
       _flyerModel = FlyerModel(
@@ -266,23 +272,30 @@ class FlyerModel {
       );
 
     }
+
     return _flyerModel;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<FlyerModel> decipherFlyers({
-    @required List<Map<String, dynamic>> maps,
-    @required bool fromJSON,
+    required List<Map<String, dynamic>>? maps,
+    required bool fromJSON,
   }){
     final List<FlyerModel> _flyersList = <FlyerModel>[];
 
     if (Mapper.checkCanLoopList(maps) == true){
 
-      for (final Map<String, dynamic> map in maps){
-        _flyersList.add(decipherFlyer(
+      for (final Map<String, dynamic> map in maps!){
+
+        final FlyerModel? _flyer = decipherFlyer(
           map: map,
           fromJSON: fromJSON,
-        ));
+        );
+
+        if (_flyer != null){
+          _flyersList.add(_flyer);
+        }
+
       }
 
     }
@@ -291,16 +304,16 @@ class FlyerModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> cipherPhids({
-    @required List<String> phids,
+  static Map<String, dynamic>? cipherPhids({
+    required List<String>? phids,
   }){
-    Map<String, dynamic> _output;
+    Map<String, dynamic>? _output;
 
     if (Mapper.checkCanLoopList(phids) == true){
 
       _output = {};
 
-      for (final String phid in phids){
+      for (final String phid in phids!){
         _output = Mapper.insertPairInMap(
           map: _output,
           key: phid,
@@ -316,12 +329,15 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> decipherPhids({
-    @required Map<String, dynamic> map,
+    required Map<String, dynamic>? map,
   }){
-    List<String> _output = [];
+    final List<String> _output = [];
 
     if (map != null){
-      _output = map.keys?.toList();
+      final List<String>? _keys = map.keys.toList();
+      if (Mapper.checkCanLoopList(_keys) == true){
+        _output.addAll(_keys!);
+      }
     }
 
     return _output;
@@ -332,8 +348,8 @@ class FlyerModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static FlyerModel mapToFlyer(Map<String, dynamic> map){
-    final FlyerModel _flyerModel = FlyerModel.decipherFlyer(
+  static FlyerModel? mapToFlyer(Map<String, dynamic>? map){
+    final FlyerModel? _flyerModel = FlyerModel.decipherFlyer(
       map: map,
       fromJSON: false,
     );
@@ -341,12 +357,12 @@ class FlyerModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<TextEditingController> createHeadlinesControllersForExistingFlyer(FlyerModel flyerModel){
+  static List<TextEditingController> createHeadlinesControllersForExistingFlyer(FlyerModel? flyerModel){
     final List<TextEditingController> _controllers = <TextEditingController>[];
 
     if (flyerModel != null && Mapper.checkCanLoopList(flyerModel.slides) == true){
 
-      for (final SlideModel slide in flyerModel.slides){
+      for (final SlideModel slide in flyerModel.slides!){
         final TextEditingController _controller = TextEditingController(text: slide.headline);
         _controllers.add(_controller);
       }
@@ -357,12 +373,12 @@ class FlyerModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<TextEditingController> createDescriptionsControllersForExistingFlyer(FlyerModel flyerModel){
+  static List<TextEditingController> createDescriptionsControllersForExistingFlyer(FlyerModel? flyerModel){
     final List<TextEditingController> _controllers = <TextEditingController>[];
 
     if (flyerModel != null && Mapper.checkCanLoopList(flyerModel.slides) == true){
 
-      for (final SlideModel slide in flyerModel.slides){
+      for (final SlideModel slide in flyerModel.slides!){
         final TextEditingController _controller = TextEditingController(text: slide.description);
         _controllers.add(_controller);
       }
@@ -377,23 +393,23 @@ class FlyerModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String cipherPublishState (PublishState x){
+  static String? cipherPublishState (PublishState? x){
     switch (x){
-      case PublishState.draft         :     return  'draft'       ;  break;
-      case PublishState.published     :     return  'published'   ;  break;
-      case PublishState.unpublished   :     return  'unpublished' ;  break;
-      case PublishState.deleted       :     return  'deleted'     ;  break;
+      case PublishState.draft         :     return  'draft'       ;
+      case PublishState.published     :     return  'published'   ;
+      case PublishState.unpublished   :     return  'unpublished' ;
+      case PublishState.deleted       :     return  'deleted'     ;
       default : return null;
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static PublishState decipherPublishState (String x){
+  static PublishState? decipherPublishState (String? x){
     switch (x){
-      case 'draft'       :   return  PublishState.draft;         break;
-      case 'published'   :   return  PublishState.published;     break;
-      case 'unpublished' :   return  PublishState.unpublished;   break;
-      case 'deleted'     :   return  PublishState.deleted;       break;
+      case 'draft'       :   return  PublishState.draft;
+      case 'published'   :   return  PublishState.published;
+      case 'unpublished' :   return  PublishState.unpublished;
+      case 'deleted'     :   return  PublishState.deleted;
       default : return   null;
     }
   }
@@ -407,12 +423,12 @@ class FlyerModel {
   ];
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getPublishStatePhid(PublishState state){
+  static String? getPublishStatePhid(PublishState? state){
     switch (state){
-      case PublishState.published     :     return  'phid_published'          ;  break;
-      case PublishState.draft         :     return  'phid_draft_flyer'        ;  break;
-      case PublishState.deleted       :     return  'phid_deleted_flyer'      ;  break;
-      case PublishState.unpublished   :     return  'phid_unpublished_flyer'  ;  break;
+      case PublishState.published     :     return  'phid_published'          ;
+      case PublishState.draft         :     return  'phid_draft_flyer'        ;
+      case PublishState.deleted       :     return  'phid_deleted_flyer'      ;
+      case PublishState.unpublished   :     return  'phid_unpublished_flyer'  ;
       default : return null;
     }
   }
@@ -422,21 +438,21 @@ class FlyerModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String cipherAuditState(AuditState auditState){
+  static String? cipherAuditState(AuditState? auditState){
     switch(auditState){
-      case AuditState.verified:     return 'verified';    break;
-      case AuditState.suspended:    return 'suspended';   break;
-      case AuditState.pending:      return 'pending';     break;
+      case AuditState.verified:     return 'verified';
+      case AuditState.suspended:    return 'suspended';
+      case AuditState.pending:      return 'pending';
       default: return null;
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static AuditState decipherAuditState(String state){
+  static AuditState? decipherAuditState(String? state){
     switch(state){
-      case 'verified':  return AuditState.verified;   break;
-      case 'suspended': return AuditState.suspended;  break;
-      case 'pending':   return AuditState.pending;  break;
+      case 'verified':  return AuditState.verified;
+      case 'suspended': return AuditState.suspended;
+      case 'pending':   return AuditState.pending;
       default: return null;
     }
   }
@@ -449,11 +465,11 @@ class FlyerModel {
   ];
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getAuditStatePhid(AuditState state){
+  static String? getAuditStatePhid(AuditState? state){
     switch (state){
-      case AuditState.verified  : return 'phid_verified_flyer'  ; break;
-      case AuditState.suspended : return 'phid_suspended_flyer' ; break;
-      case AuditState.pending   : return 'phid_pending_flyer'   ; break;
+      case AuditState.verified  : return 'phid_verified_flyer'  ;
+      case AuditState.suspended : return 'phid_suspended_flyer' ;
+      case AuditState.pending   : return 'phid_pending_flyer'   ;
       default : return null;
     }
   }
@@ -464,7 +480,7 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   void blogFlyer({
-    String invoker,
+    String? invoker,
   }){
 
     // if (invoker != null){
@@ -506,16 +522,14 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogFlyers({
-    @required List<FlyerModel> flyers,
+    required List<FlyerModel> flyers,
     String invoker = 'BLOGGING FLYERS',
   }){
 
     if (Mapper.checkCanLoopList(flyers) == true){
 
       for (final FlyerModel flyer in flyers){
-
-        flyer?.blogFlyer(invoker: invoker);
-
+        flyer.blogFlyer(invoker: invoker);
       }
 
     }
@@ -524,8 +538,8 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogFlyersDifferences({
-    @required FlyerModel flyer1,
-    @required FlyerModel flyer2,
+    required FlyerModel? flyer1,
+    required FlyerModel? flyer2,
   }){
 
     if (flyer1 == null){
@@ -736,14 +750,14 @@ class FlyerModel {
    */
   // --------------------
   /// TESTED : WORKS PERFECT
-  static int getNumberOfFlyersSlides(List<FlyerModel> flyers){
+  static int getNumberOfFlyersSlides(List<FlyerModel>? flyers){
     int _count = 0;
 
     if (Mapper.checkCanLoopList(flyers) == true){
 
-      for (final FlyerModel flyer in flyers){
+      for (final FlyerModel flyer in flyers!){
 
-        _count = _count + flyer.slides.length;
+        _count = _count + (flyer.slides?.length ?? 0);
 
       }
 
@@ -757,30 +771,29 @@ class FlyerModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static FlyerModel getFlyerFromFlyersByID({
-    @required List<FlyerModel> flyers,
-    @required String flyerID
+  static FlyerModel? getFlyerFromFlyersByID({
+    required List<FlyerModel>? flyers,
+    required String flyerID
   }){
-    FlyerModel _output;
+    FlyerModel? _output;
 
     if (Mapper.checkCanLoopList(flyers) == true){
-
-      _output = flyers.singleWhere((FlyerModel tinyFlyer) => tinyFlyer.id == flyerID,
-             orElse: () => null);
-
+      _output = flyers!.singleWhereOrNull((FlyerModel tinyFlyer) => tinyFlyer.id == flyerID);
     }
 
     return _output;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> getFlyersIDsFromFlyers(List<FlyerModel> flyers){
+  static List<String> getFlyersIDsFromFlyers(List<FlyerModel>? flyers){
     final List<String> _flyerIDs = <String>[];
 
-    if (Mapper.checkCanLoopList(flyers)){
+    if (Mapper.checkCanLoopList(flyers) == true){
 
-      for (final FlyerModel flyer in flyers){
-        _flyerIDs.add(flyer.id);
+      for (final FlyerModel flyer in flyers!){
+        if (flyer.id != null){
+          _flyerIDs.add(flyer.id!);
+        }
       }
 
     }
@@ -790,8 +803,8 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<FlyerModel> filterFlyersByFlyerType({
-    @required List<FlyerModel> flyers,
-    @required FlyerType flyerType,
+    required List<FlyerModel> flyers,
+    required FlyerType flyerType,
   }){
     final List<FlyerModel> _filteredFlyers = <FlyerModel>[];
 
@@ -809,17 +822,17 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<FlyerModel> getFlyersFromFlyersByAuthorID({
-    @required List<FlyerModel> flyers,
-    @required String authorID,
+    required List<FlyerModel>? flyers,
+    required String? authorID,
   }){
 
     final List<FlyerModel> _authorFlyers = <FlyerModel>[];
 
     if (Mapper.checkCanLoopList(flyers) == true && authorID != null){
 
-      for (final FlyerModel flyer in flyers){
+      for (final FlyerModel flyer in flyers!){
 
-        if (flyer?.authorID == authorID){
+        if (flyer.authorID == authorID){
           _authorFlyers.add(flyer);
         }
 
@@ -832,14 +845,14 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool flyersContainThisID({
-    @required String flyerID,
-    @required List<FlyerModel> flyers
+    required String? flyerID,
+    required List<FlyerModel>? flyers
   }){
     bool _hasTheID = false;
 
-    if (flyerID != null && Mapper.checkCanLoopList(flyers)){
+    if (flyerID != null && Mapper.checkCanLoopList(flyers) == true){
 
-      for (final FlyerModel flyer in flyers){
+      for (final FlyerModel flyer in flyers!){
 
         if (flyer.id == flyerID){
           _hasTheID = true;
@@ -855,14 +868,14 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<FlyerModel> replaceFlyerInFlyers({
-    @required List<FlyerModel> flyers,
-    @required FlyerModel flyerToReplace,
-    @required bool insertIfAbsent,
+    required List<FlyerModel>? flyers,
+    required FlyerModel? flyerToReplace,
+    required bool insertIfAbsent,
   }){
     List<FlyerModel> _output = <FlyerModel>[];
 
     if (Mapper.checkCanLoopList(flyers) == true){
-      _output = <FlyerModel>[...flyers];
+      _output = <FlyerModel>[...flyers!];
     }
 
     if (flyerToReplace != null){
@@ -897,10 +910,10 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<FlyerModel> removeFlyerFromFlyersByID({
-    @required List<FlyerModel> flyers,
-    @required String flyerIDToRemove,
+    required List<FlyerModel>? flyers,
+    required String? flyerIDToRemove,
   }){
-    final List<FlyerModel> _output = <FlyerModel>[...flyers];
+    final List<FlyerModel> _output = <FlyerModel>[...?flyers];
 
     if (Mapper.checkCanLoopList(flyers) == true && flyerIDToRemove != null){
       _output.removeWhere((flyer) => flyer.id == flyerIDToRemove);
@@ -911,8 +924,8 @@ class FlyerModel {
   // --------------------
   /*
 //   static FlyerModel replaceSlides({
-//     @required FlyerModel flyer,
-//     @required List<SlideModel> updatedSlides,
+//     required FlyerModel flyer,
+//     required List<SlideModel> updatedSlides,
 //   }){
 //     return
 //       FlyerModel(
@@ -943,12 +956,12 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool canShowFlyerAuthor({
-    @required BzModel bzModel,
-    @required FlyerModel flyerModel,
+    required BzModel? bzModel,
+    required FlyerModel? flyerModel,
   }){
     bool _canShow = true;
 
-    if(bzModel.showsTeam == true){
+    if(bzModel?.showsTeam != null && bzModel!.showsTeam! == true){
       _canShow = flyerModel?.showsAuthor ?? true;
     }
     else {
@@ -962,11 +975,11 @@ class FlyerModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  String getShortHeadline({
+  String? getShortHeadline({
     int numberOfCharacters = 10
   }){
-    final String _shortHeadline = TextMod.removeAllCharactersAfterNumberOfCharacters(
-        input: headline,
+    final String? _shortHeadline = TextMod.removeAllCharactersAfterNumberOfCharacters(
+        text: headline,
         numberOfChars: numberOfCharacters
     );
     return _shortHeadline;
@@ -974,26 +987,32 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<String>> generateFlyerOwners({
-    @required String bzID,
+    required String? bzID,
   }) async {
     List<String> _owners = <String>[];
 
     if (bzID != null){
 
-      final BzModel _bzModel = await BzProtocols.fetchBz(
+      final BzModel? _bzModel = await BzProtocols.fetchBz(
         bzID: bzID,
       );
 
       if (_bzModel != null){
 
-        final AuthorModel _creator = AuthorModel.getCreatorAuthorFromAuthors(_bzModel.authors);
+        final AuthorModel? _creator = AuthorModel.getCreatorAuthorFromAuthors(_bzModel.authors);
 
-        _owners.add(_creator.userID);
+        if (_creator != null){
 
-        _owners = Stringer.addStringToListIfDoesNotContainIt(
-          strings: _owners,
-          stringToAdd: Authing.getUserID(),
-        );
+          if (_creator.userID != null){
+            _owners.add(_creator.userID!);
+          }
+
+          _owners = Stringer.addStringToListIfDoesNotContainIt(
+            strings: _owners,
+            stringToAdd: Authing.getUserID(),
+          );
+
+        }
 
       }
 
@@ -1003,13 +1022,15 @@ class FlyerModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> getPicsPaths(FlyerModel flyer){
+  static List<String> getPicsPaths(FlyerModel? flyer){
     final List<String> _output = <String>[];
 
     if (Mapper.checkCanLoopList(flyer?.slides) == true){
 
-      for (final SlideModel slide in flyer?.slides){
-        _output.add(slide.picPath);
+      for (final SlideModel slide in flyer!.slides!){
+        if (slide.picPath != null){
+          _output.add(slide.picPath!);
+        }
       }
 
     }
@@ -1019,18 +1040,18 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getGtaLinks({
-    @required List<FlyerModel> flyers,
+    required List<FlyerModel> flyers,
   }){
     final List<String> _links = [];
 
     if (Mapper.checkCanLoopList(flyers) == true){
 
       for (final FlyerModel flyer in flyers){
-       if (flyer != null){
+
           if (ObjectCheck.isAbsoluteURL(flyer.gtaLink) == true){
-          _links.add(flyer.gtaLink);
+          _links.add(flyer.gtaLink!);
         }
-       }
+
       }
 
     }
@@ -1043,13 +1064,13 @@ class FlyerModel {
 
   // --------------------
     /// TESTED : WORKS PERFECT
-  static FlyerModel migrateOwnership({
-    @required FlyerModel flyerModel,
-    @required String newOwnerID,
-    @required BzModel bzModel,
+  static FlyerModel? migrateOwnership({
+    required FlyerModel? flyerModel,
+    required String? newOwnerID,
+    required BzModel? bzModel,
   }){
 
-    FlyerModel _output = flyerModel;
+    FlyerModel? _output = flyerModel;
 
     if (flyerModel == null || newOwnerID == null || bzModel == null){
       return _output;
@@ -1084,8 +1105,8 @@ class FlyerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkFlyersAreIdentical({
-    @required FlyerModel flyer1,
-    @required FlyerModel flyer2,
+    required FlyerModel? flyer1,
+    required FlyerModel? flyer2,
   }){
 
     bool _areIdentical = false;

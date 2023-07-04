@@ -1,3 +1,7 @@
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/checks/object_check.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
@@ -25,18 +29,15 @@ import 'package:bldrs/c_protocols/search_protocols/search_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_search.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:bubbles/bubbles.dart';
-import 'package:filers/filers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:night_sky/night_sky.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 
 class SuperSearchScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const SuperSearchScreen({
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   @override
   _SuperSearchScreenState createState() => _SuperSearchScreenState();
@@ -50,27 +51,27 @@ class SuperSearchScreen extends StatefulWidget {
 
 class _SuperSearchScreenState extends State<SuperSearchScreen> {
   // -----------------------------------------------------------------------------
-  PaginationController _flyersController;
-  FireQueryModel _flyersQuery;
+  late PaginationController _flyersController;
+  FireQueryModel? _flyersQuery;
   // --------------------
-  PaginationController _bzzController;
-  FireQueryModel _bzzQuery;
+  late PaginationController _bzzController;
+  FireQueryModel? _bzzQuery;
   // --------------------
-  PaginationController _usersController;
-  FireQueryModel _usersQuery;
+  late PaginationController _usersController;
+  FireQueryModel? _usersQuery;
   // --------------------
   final TextEditingController _searchController = TextEditingController();
-  final ValueNotifier<bool> _filtersAreOn = ValueNotifier(null);
+  final ValueNotifier<bool?> _filtersAreOn = ValueNotifier(null);
   // --------------------
-  ModelType _searchType;
-  SearchModel _searchModel;
-  UserSearchModel _userSearchModel;
+  ModelType? _searchType;
+  SearchModel? _searchModel;
+  UserSearchModel? _userSearchModel;
   List<SearchModel> _searchHistoryModels = [];
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -227,7 +228,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
   // -----------------------------------------------------------------------------
   /// TEXT SEARCH
   // --------------------
-  Future<void> _onSearch(String text) async {
+  Future<void> _onSearch(String? text) async {
       await _generateQuery();
   }
   // --------------------
@@ -236,7 +237,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
       await _generateQuery();
   }
   // --------------------
-  String _getSearchText(){
+  String? _getSearchText(){
     if (TextCheck.isEmpty(_searchController.text) == true){
       return null;
     }
@@ -248,7 +249,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
     }
   }
   // --------------------
-  String _getSearchURL(){
+  String? _getSearchURL(){
     if (TextCheck.isEmpty(_searchController.text) == true){
       return null;
     }
@@ -291,8 +292,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
           },
        onZoneTap: () async {
 
-          final ZoneModel _newZone = await ZoneSelection.goBringAZone(
-            context: context,
+          final ZoneModel? _newZone = await ZoneSelection.goBringAZone(
             depth: ZoneDepth.city,
             settingCurrentZone: false,
             zoneViewingEvent: ViewingEvent.homeView,
@@ -350,7 +350,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
 
           },
        onPickPhidTap: () async {
-            final String _phid = await PhidsPickerScreen.goPickPhid(
+            final String? _phid = await PhidsPickerScreen.goPickPhid(
               context: context,
               flyerType: _searchModel?.flyerSearchModel?.flyerType,
               event: ViewingEvent.homeView,
@@ -490,8 +490,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
           },
         onZoneTap: () async {
 
-          final ZoneModel _newZone = await ZoneSelection.goBringAZone(
-            context: context,
+          final ZoneModel? _newZone = await ZoneSelection.goBringAZone(
             depth: ZoneDepth.city,
             settingCurrentZone: false,
             zoneViewingEvent: ViewingEvent.homeView,
@@ -590,7 +589,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
           },
         onScopeTap: (FlyerType flyerType) async {
 
-            final String _phid = await PhidsPickerScreen.goPickPhid(
+            final String? _phid = await PhidsPickerScreen.goPickPhid(
               context: context,
               flyerType: flyerType,
               event: ViewingEvent.homeView,
@@ -675,8 +674,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
           },
         onZoneTap: () async {
 
-          final ZoneModel _newZone = await ZoneSelection.goBringAZone(
-            context: context,
+          final ZoneModel? _newZone = await ZoneSelection.goBringAZone(
             depth: ZoneDepth.city,
             settingCurrentZone: false,
             zoneViewingEvent: ViewingEvent.homeView,
@@ -801,8 +799,8 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
     }
   }
   // --------------------
-  Future<SearchModel> _composeOrRenovateSearchHistoryModel() async {
-    SearchModel _output;
+  Future<SearchModel?> _composeOrRenovateSearchHistoryModel() async {
+    SearchModel? _output;
 
     blog('SearchHistoryModels: ${_searchHistoryModels.length} models');
     blog(_searchModel);
@@ -920,7 +918,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
 
   Verse getSearchHintVerse(){
 
-    final ZoneModel _zone = ZoneProvider.proGetCurrentZone(
+    final ZoneModel? _zone = ZoneProvider.proGetCurrentZone(
       context: getMainContext(),
       listen: false,
     );

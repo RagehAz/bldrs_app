@@ -3,21 +3,21 @@ import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/zoom
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class FlyersZoomedLayout extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyersZoomedLayout({
     this.columnsCount = 2,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final int columnsCount;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    final UserModel _user = UsersProvider.proGetMyUserModel(
+    final UserModel? _user = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );

@@ -1,8 +1,9 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bubbles/model/bubble_header_vm.dart';
+import 'package:basics/bubbles/tile_bubble/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bubbles/bubbles.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class BldrsTileBubble extends StatelessWidget {
@@ -22,28 +23,28 @@ class BldrsTileBubble extends StatelessWidget {
     this.bubbleColor = Colorz.white10,
     this.validator,
     this.autoValidate = true,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final double bubbleWidth;
-  final BubbleHeaderVM bubbleHeaderVM;
+  final double? bubbleWidth;
+  final BubbleHeaderVM? bubbleHeaderVM;
   final Color verseColor;
-  final Function onTileTap;
-  final Verse secondLineVerse;
+  final Function? onTileTap;
+  final Verse? secondLineVerse;
   final bool iconIsBubble;
   final bool insideDialog;
-  final Function moreBtOnTap;
-  final Widget child;
-  final List<Verse> bulletPoints;
+  final Function? moreBtOnTap;
+  final Widget? child;
+  final List<Verse>? bulletPoints;
   final int bulletPointsMaxLines;
   final Color bubbleColor;
-  final String Function() validator;
+  final String? Function()? validator;
   final bool autoValidate;
   /// --------------------------------------------------------------------------
   // static const double iconBoxWidth = 30; /// delete me 5alas (im in BubbleHeader class)
   // /// --------------------------------------------------------------------------
   // static double getBubbleWidth({
-  //   @required BuildContext context,
+  //   required BuildContext context,
   //   double bubbleWidthOverride,
   // }){
   //   final double _bubbleWidth = bubbleWidthOverride ?? BldrsAppBar.width(context);
@@ -51,7 +52,7 @@ class BldrsTileBubble extends StatelessWidget {
   // }
   // // --------------------
   // static double childWidth({
-  //   @required BuildContext context,
+  //   required BuildContext context,
   //   double bubbleWidthOverride,
   // }) {
   //
@@ -77,7 +78,7 @@ class BldrsTileBubble extends StatelessWidget {
       bubbleColor: bubbleColor,
       bubbleHeaderVM: bubbleHeaderVM,
       bubbleWidth: bubbleWidth,
-      bulletPoints: Verse.bakeVerses(verses: bulletPoints, context: context),
+      bulletPoints: Verse.bakeVerses(verses: bulletPoints),
       bulletPointsMaxLines: bulletPointsMaxLines,
       iconIsBubble: iconIsBubble,
       insideDialog: insideDialog,

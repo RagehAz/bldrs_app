@@ -1,6 +1,5 @@
 // ignore_for_file: always_put_control_body_on_new_line
-import 'package:flutter/material.dart';
-import 'package:ldb/ldb.dart';
+import 'package:basics/ldb/methods/ldb_ops.dart';
 
 /*
 
@@ -181,39 +180,39 @@ class LDBDoc {
   /// TESTED : WORKS PERFECT
   static Future<void> wipeOutLDBDocs({
     /// MAIN
-    @required bool flyers,
-    @required bool bzz,
-    @required bool notes,
-    @required bool pics,
-    @required bool pdfs,
+    required bool flyers,
+    required bool bzz,
+    required bool notes,
+    required bool pics,
+    required bool pdfs,
     /// USER
-    @required bool users,
-    @required bool authModel,
-    @required bool accounts,
-    @required bool searches,
+    required bool users,
+    required bool authModel,
+    required bool accounts,
+    required bool searches,
     /// CHAINS
-    @required bool bldrsChains,
-    @required bool pickers,
+    required bool bldrsChains,
+    required bool pickers,
     /// ZONES
-    @required bool countries,
-    @required bool cities,
-    @required bool staging,
-    @required bool census,
+    required bool countries,
+    required bool cities,
+    required bool staging,
+    required bool census,
     /// PHRASES
-    @required bool mainPhrases,
-    @required bool countriesPhrases,
+    required bool mainPhrases,
+    required bool countriesPhrases,
     /// EDITORS
-    @required bool userEditor,
-    @required bool bzEditor,
-    @required bool authorEditor,
-    @required bool flyerMaker,
-    @required bool reviewEditor,
+    required bool userEditor,
+    required bool bzEditor,
+    required bool authorEditor,
+    required bool flyerMaker,
+    required bool reviewEditor,
     /// SETTINGS
-    @required bool theLastWipe,
-    @required bool appState,
-    @required bool langCode,
+    required bool theLastWipe,
+    required bool appState,
+    required bool langCode,
     /// DASHBOARD
-    @required bool gta,
+    required bool gta,
   }) async {
 
     final List<String> _docs = <String>[];

@@ -1,28 +1,29 @@
+// ignore_for_file: unused_element
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/b_about_page/aaa2_bz_about_page.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:night_sky/night_sky.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:flutter/material.dart';
 
 class BzPreviewScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzPreviewScreen({
-    @required this.bzModel,
-    Key key
-  }) : super(key: key);
+    required this.bzModel,
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final BzModel bzModel;
+  final BzModel? bzModel;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     bzModel?.blogBz(invoker: 'BzPreviewScreen');
 
-    final bool _bzIsNotFound = bzModel == null || bzModel.id == null || bzModel.name == null;
+    final bool _bzIsNotFound = bzModel == null || bzModel?.id == null || bzModel?.name == null;
 
     return MainLayout(
       skyType: SkyType.black,
@@ -68,15 +69,15 @@ class BzPreviewScreen extends StatelessWidget {
 class _NoBzFoundView extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const _NoBzFoundView({
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    return Stack(
+    return const Stack(
       alignment: Alignment.center,
-      children: const <Widget>[
+      children: <Widget>[
 
         BldrsBox(
           height: 400,
