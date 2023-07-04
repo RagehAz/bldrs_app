@@ -1,17 +1,18 @@
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/multi_button/b_double_pics_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/multi_button/c_many_pics_box.dart';
-import 'package:mapper/mapper.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class MultiButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const MultiButton({
-    @required this.pics,
-    @required this.height,
+    required this.pics,
+    required this.height,
     this.width,
     this.verse,
     this.secondLine,
@@ -19,18 +20,18 @@ class MultiButton extends StatelessWidget {
     this.margins,
     this.bubble,
     this.onTap,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double height;
-  final double width;
-  final List<String> pics;
-  final Verse verse;
-  final Verse secondLine;
-  final Color color;
+  final double? width;
+  final List<String>? pics;
+  final Verse? verse;
+  final Verse? secondLine;
+  final Color? color;
   final dynamic margins;
-  final bool bubble;
-  final Function onTap;
+  final bool? bubble;
+  final Function? onTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -46,7 +47,7 @@ class MultiButton extends StatelessWidget {
 
     else {
       return GestureDetector(
-        onTap: onTap,
+        onTap: onTap == null ? null : () => onTap!(),
         child: Container(
           width: width,
           height: height,
@@ -62,23 +63,23 @@ class MultiButton extends StatelessWidget {
                 verseScaleFactor: 0.6,
                 verseCentered: false,
                 secondLine: secondLine,
-                icon: pics?.length == 1 ? pics.first : Iconz.dvBlankSVG,
+                icon: pics?.length == 1 ? pics?.first : Iconz.dvBlankSVG,
                 iconColor: pics?.length == 1 ? null : Colorz.nothing,
                 bubble: bubble,
                 color: color,
                 verseMaxLines: 2,
               ),
 
-              if (pics.length == 2)
+              if (pics?.length == 2)
                 DoublePicsBox(
                   size: height,
-                  pics: pics,
+                  pics: pics ?? [],
                 ),
 
-              if (pics.length > 2)
+              if ((pics?.length ?? 0) > 2)
                 ManyPicsBox(
                   size: height,
-                  pics: pics,
+                  pics: pics ?? [],
                 ),
 
             ],

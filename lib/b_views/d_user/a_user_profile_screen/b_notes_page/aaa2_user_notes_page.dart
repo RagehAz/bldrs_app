@@ -1,5 +1,7 @@
 import 'dart:async';
-
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/layouts/handlers/pull_to_refresh.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/b_notes_page/x2_user_notes_page_controllers.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
@@ -9,18 +11,15 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/note_protocols/fire/note_fire_ops.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 
 class UserNotesPage extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const UserNotesPage({
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   @override
   State<UserNotesPage> createState() => _UserNotesPageState();
@@ -35,7 +34,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
   // bool get wantKeepAlive => true;
    */
   // -----------------------------------------------------------------------------
-  PaginationController _paginationController;
+  PaginationController? _paginationController;
   // --------------------
   final List<NoteModel> _localNotesToMarkUnseen = <NoteModel>[];
   // --------------------
@@ -44,7 +43,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -94,7 +93,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
   void dispose() {
     blog('UserNotesPage dispose START');
     _loading.dispose();
-    _paginationController.dispose();
+    _paginationController?.dispose();
     super.dispose();
     blog('UserNotesPage dispose END');
   }
@@ -161,7 +160,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
 
     await Future.delayed(const Duration(milliseconds: 200), (){
 
-      _paginationController.clear(
+      _paginationController?.clear(
         mounted: mounted,
       );
 
@@ -176,7 +175,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  Function _onNoteTap(NoteModel _note) {
+  Function? _onNoteTap(NoteModel? _note) {
 
     if (canTapNoteBubble(_note) == true){
       return () => onUserNoteTap(
@@ -204,22 +203,22 @@ class _UserNotesPageState extends State<UserNotesPage> {
           paginationQuery: userNotesPaginationQueryModel(),
           streamQuery: userNotesWithPendingRepliesQueryModel(),
           paginationController: _paginationController,
-          builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
+          builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget? child){
 
             return ListView.builder(
               physics: const BouncingScrollPhysics(),
-              controller: _paginationController.scrollController,
-              itemCount: maps?.length,
+              controller: _paginationController?.scrollController,
+              itemCount: maps.length,
               padding: Stratosphere.stratosphereSandwich,
               itemBuilder: (BuildContext ctx, int index) {
 
-                final NoteModel _note = NoteModel.decipherNote(
+                final NoteModel? _note = NoteModel.decipherNote(
                   map: maps[index],
                   fromJSON: false,
                 );
 
                 return NoteCard(
-                  key: PageStorageKey<String>('user_note_card_${_note.id}'),
+                  key: PageStorageKey<String>('user_note_card_${_note?.id}'),
                   noteModel: _note,
                   isDraftNote: false,
                   onNoteOptionsTap: () => onShowNoteOptions(

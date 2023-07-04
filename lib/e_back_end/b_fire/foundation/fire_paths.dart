@@ -86,7 +86,7 @@ abstract class FireColl{
   static const String gta = 'gta';
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getPartyCollName(PartyType partyType){
+  static String getPartyCollName(PartyType? partyType){
     return partyType == PartyType.user ?
     FireColl.users
         :

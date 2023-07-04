@@ -16,28 +16,28 @@ enum UserSearchType {
 class UserSearchModel {
   // -----------------------------------------------------------------------------
   const UserSearchModel({
-    @required this.signInMethod,
-    @required this.needType,
-    @required this.searchType,
-    @required this.gender,
-    @required this.language,
-    @required this.onlyWithPublicContacts,
-    @required this.onlyBzAuthors,
-    @required this.onlyBldrsAdmins,
-    @required this.devicePlatform,
-    @required this.onlyVerifiedEmails,
+    required this.signInMethod,
+    required this.needType,
+    required this.searchType,
+    required this.gender,
+    required this.language,
+    required this.onlyWithPublicContacts,
+    required this.onlyBzAuthors,
+    required this.onlyBldrsAdmins,
+    required this.devicePlatform,
+    required this.onlyVerifiedEmails,
   });
   // --------------------
-  final SignInMethod signInMethod;
-  final NeedType needType;
-  final UserSearchType searchType;
-  final Gender gender;
-  final String language;
-  final bool onlyWithPublicContacts;
-  final bool onlyBzAuthors;
-  final bool onlyBldrsAdmins;
-  final String devicePlatform;
-  final bool onlyVerifiedEmails;
+  final SignInMethod? signInMethod;
+  final NeedType? needType;
+  final UserSearchType? searchType;
+  final Gender? gender;
+  final String? language;
+  final bool? onlyWithPublicContacts;
+  final bool? onlyBzAuthors;
+  final bool? onlyBldrsAdmins;
+  final String? devicePlatform;
+  final bool? onlyVerifiedEmails;
   // -----------------------------------------------------------------------------
 
   /// CONSTANTS
@@ -71,16 +71,16 @@ class UserSearchModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   UserSearchModel copyWith({
-    SignInMethod signInMethod,
-    NeedType needType,
-    UserSearchType searchType,
-    Gender gender,
-    String language,
-    bool onlyWithPublicContacts,
-    bool onlyBzAuthors,
-    bool onlyBldrsAdmins,
-    String devicePlatform,
-    bool onlyVerifiedEmails,
+    SignInMethod? signInMethod,
+    NeedType? needType,
+    UserSearchType? searchType,
+    Gender? gender,
+    String? language,
+    bool? onlyWithPublicContacts,
+    bool? onlyBzAuthors,
+    bool? onlyBldrsAdmins,
+    String? devicePlatform,
+    bool? onlyVerifiedEmails,
   }){
     return UserSearchModel(
         signInMethod: signInMethod ?? this.signInMethod,
@@ -137,8 +137,8 @@ class UserSearchModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool areIdentical({
-    @required UserSearchModel model1,
-    @required UserSearchModel model2,
+    required UserSearchModel? model1,
+    required UserSearchModel? model2,
   }){
     bool _output = false;
 

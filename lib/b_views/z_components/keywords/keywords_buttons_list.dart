@@ -1,19 +1,20 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/b_expanding_tile.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class PhidsButtonsList extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const PhidsButtonsList({
-    @required this.buttonWidth,
-    @required this.phids,
-    @required this.onPhidTap,
-    Key key,
-  }) : super(key: key);
+    required this.buttonWidth,
+    required this.phids,
+    required this.onPhidTap,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double buttonWidth;
   final List<String> phids;
@@ -39,16 +40,16 @@ class PhidsButtonsList extends StatelessWidget {
 
           final String _phid = phids[index];
 
-          final String _icon = _chainsProvider.getPhidIcon(
+          final String? _icon = _chainsProvider.getPhidIcon(
               son: _phid,
           );
 
-          final String _enName = _chainsProvider.translateChainPhid(
+          final String? _enName = _chainsProvider.translateChainPhid(
             phid: _phid,
             langCode: 'en',
           );
 
-          final String _arName = _chainsProvider.translateChainPhid(
+          final String? _arName = _chainsProvider.translateChainPhid(
             phid: _phid,
             langCode: 'ar',
           );

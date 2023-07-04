@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/x_secondary/bldrs_model_type.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
@@ -10,9 +11,8 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/feedback_protocols/real/app_feedback_real_ops.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 /// => TAMAM
 class BzFireOps {
   // -----------------------------------------------------------------------------
@@ -25,11 +25,11 @@ class BzFireOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<String> createEmptyBzDocToGetBzID() async {
+  static Future<String?> createEmptyBzDocToGetBzID() async {
 
     blog('_createEmptyBzDocToGetBzID : START');
 
-    final String docID = await Fire.createDoc(
+    final String? docID = await Fire.createDoc(
       coll: FireColl.bzz,
       input: <String, dynamic>{
         'name': 'x',
@@ -46,16 +46,20 @@ class BzFireOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<BzModel> readBz({
-    @required String bzID,
+  static Future<BzModel?> readBz({
+    required String? bzID,
   }) async {
+
+    if (bzID == null){
+      return null;
+    }
 
     final dynamic _bzMap = await Fire.readDoc(
       coll: FireColl.bzz,
       doc: bzID,
     );
 
-    final BzModel _bz = BzModel.decipherBz(
+    final BzModel? _bz = BzModel.decipherBz(
       map: _bzMap,
       fromJSON: false,
     );
@@ -66,8 +70,8 @@ class BzFireOps {
   /*
   /// TESTED : WORKS PERFECT
   static Future<dynamic> readAndFilterTeamlessBzzByUserModel({
-    @required BuildContext context,
-    @required UserModel userModel,
+    required BuildContext context,
+    required UserModel userModel,
   }) async {
     // ----------
     /// This returns Map<String, dynamic> for which user bzz can he delete
@@ -104,13 +108,13 @@ class BzFireOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> update(BzModel bzModel) async {
+  static Future<void> update(BzModel? bzModel) async {
 
-    if (bzModel != null){
+    if (bzModel?.id != null){
 
       await Fire.updateDoc(
         coll: FireColl.bzz,
-        doc: bzModel.id,
+        doc: bzModel!.id!,
         input: bzModel.toMap(toJSON: false),
       );
 
@@ -124,16 +128,16 @@ class BzFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> delete({
-    @required BzModel bzModel,
+    required BzModel? bzModel,
   }) async {
 
     blog('_deleteBzDoc : START');
 
-    if (bzModel != null){
+    if (bzModel?.id != null){
 
       await Fire.deleteDoc(
         coll: FireColl.bzz,
-        doc: bzModel.id,
+        doc: bzModel!.id!,
       );
 
     }
@@ -149,8 +153,8 @@ class BzFireOps {
   /*
   ///
   static Future<void> deleteAuthorPic({
-    @required AuthorModel authorModel,
-    @required String bzID,
+    required AuthorModel authorModel,
+    required String bzID,
   }) async {
 
     await PicProtocols.wipePic(BldrStorage.generateAuthorPicPath(
@@ -167,13 +171,13 @@ class BzFireOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> reportBz({
-    @required BuildContext context,
-    @required BzModel bzModel,
+    required BuildContext context,
+    required BzModel? bzModel,
   }) async {
 
     if (bzModel != null){
 
-      final UserModel _user = UsersProvider.proGetMyUserModel(
+      final UserModel? _user = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );
@@ -187,7 +191,7 @@ class BzFireOps {
 
       else {
 
-        String _feedback;
+        String? _feedback;
 
         await BottomDialog.showButtonsBottomDialog(
             numberOfWidgets: 3,
@@ -240,7 +244,7 @@ class BzFireOps {
             modelID: bzModel.id,
           );
 
-          final FeedbackModel _docRef = await FeedbackRealOps.createFeedback(
+          final FeedbackModel? _docRef = await FeedbackRealOps.createFeedback(
             feedback: _model,
           );
 
@@ -252,9 +256,6 @@ class BzFireOps {
       }
 
     }
-
-
-
 
   }
   // -----------------------------------------------------------------------------

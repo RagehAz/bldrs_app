@@ -1,9 +1,13 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/widgets/drawing/expander.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/c_pdf_screen.dart';
 import 'package:bldrs/b_views/z_components/texting/bullet_points/bldrs_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bubble_title.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
@@ -12,35 +16,31 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/pdf_protocols/protocols/pdf_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
 
 class PDFSelectionBubble extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const PDFSelectionBubble({
-    @required this.onChangePDF,
-    @required this.onDeletePDF,
-    @required this.existingPDF,
-    @required this.formKey,
-    @required this.appBarType,
-    @required this.canValidate,
-    @required this.flyerID,
-    @required this.bzID,
-    Key key
-  }) : super(key: key);
+    required this.onChangePDF,
+    required this.onDeletePDF,
+    required this.existingPDF,
+    required this.formKey,
+    required this.appBarType,
+    required this.canValidate,
+    required this.flyerID,
+    required this.bzID,
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final ValueChanged<PDFModel> onChangePDF;
+  final ValueChanged<PDFModel?> onChangePDF;
   final Function onDeletePDF;
-  final PDFModel existingPDF;
-  final GlobalKey<FormState> formKey;
+  final PDFModel? existingPDF;
+  final GlobalKey<FormState>? formKey;
   final AppBarType appBarType;
   final bool canValidate;
-  final String flyerID;
-  final String bzID;
+  final String? flyerID;
+  final String? bzID;
   /// --------------------------------------------------------------------------
   @override
   _PDFSelectionBubbleState createState() => _PDFSelectionBubbleState();
@@ -51,14 +51,14 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
   // -----------------------------------------------------------------------------
   final GlobalKey globalKey = GlobalKey();
   // --------------------
-  final ValueNotifier<PDFModel> _pdfNotifier = ValueNotifier(null);
+  final ValueNotifier<PDFModel?> _pdfNotifier = ValueNotifier(null);
   // --------------------
   final TextEditingController _textController = TextEditingController();
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -70,7 +70,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
   void initState() {
     super.initState();
     setNotifier(notifier: _pdfNotifier, mounted: mounted, value: widget.existingPDF);
-    _textController.text = widget.existingPDF?.name;
+    _textController.text = widget.existingPDF?.name ?? '';
   }
   // --------------------
   bool _isInit = true;
@@ -101,7 +101,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
 
     return ValueListenableBuilder(
         valueListenable: _pdfNotifier,
-        builder: (_, PDFModel pdfModel, Widget child){
+        builder: (_, PDFModel? pdfModel, Widget? child){
 
           final bool _bytesExist = pdfModel?.bytes != null;
           final bool _pathExists = pdfModel?.path != null;
@@ -178,10 +178,10 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                     // ),
 
                     /// LOADING
-                    if (pdfModel.sizeMB == null)
+                    if (pdfModel?.sizeMB == null)
                       ValueListenableBuilder(
                           valueListenable: _loading,
-                          builder: (_, bool loading, Widget child){
+                          builder: (_, bool loading, Widget? child){
 
                             return Loading(
                               loading: loading,
@@ -210,12 +210,12 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                 ),
                 maxLines: 1,
                 textController: _textController,
-                onChanged: (String text){
+                onChanged: (String? text){
 
                   setNotifier(
                       notifier: _pdfNotifier,
                       mounted: mounted,
-                      value: _pdfNotifier.value.copyWith(
+                      value: _pdfNotifier.value?.copyWith(
                         name: _textController.text,
                       ),
                   );
@@ -226,7 +226,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                 isFormField: true,
                 isFloatingField: true,
                 // autoValidate: true,
-                validator: (String text) => Formers.pdfValidator(
+                validator: (String? text) => Formers.pdfValidator(
                   canValidate: true,
                   pdfModel: pdfModel,
                 ),
@@ -296,7 +296,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
                       margins: const EdgeInsets.only(top: 10),
                       onTap: () async {
 
-                        PDFModel _pdf = pdfModel;
+                        PDFModel? _pdf = pdfModel;
 
                         if (_bytesExist == true){
                          // do nothing
@@ -363,7 +363,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
 
                       await _triggerLoading(setTo: true);
 
-                      final PDFModel _pdfModel = await PDFProtocols.pickPDF(
+                      final PDFModel? _pdfModel = await PDFProtocols.pickPDF(
                         context: context,
                         flyerID: widget.flyerID,
                         bzID: widget.bzID,
@@ -371,7 +371,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
 
                       if (_pdfModel != null){
 
-                        _textController.text = _pdfModel.name;
+                        _textController.text = _pdfModel.name ?? '';
 
                         setNotifier(notifier: _pdfNotifier, mounted: mounted, value: _pdfModel);
 

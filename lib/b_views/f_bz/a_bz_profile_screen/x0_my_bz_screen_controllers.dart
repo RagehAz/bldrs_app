@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
@@ -8,10 +10,8 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/f_new_authorship_exit.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
 
@@ -19,7 +19,7 @@ import 'package:provider/provider.dart';
 
 // --------------------
 Future<void> initializeMyBzScreen({
-  @required BzModel bzModel,
+  required BzModel bzModel,
 }) async {
 
   await _setBzModel(
@@ -29,7 +29,7 @@ Future<void> initializeMyBzScreen({
 }
 // --------------------
 Future<void> _setBzModel({
-  @required BzModel completedZoneBzModel,
+  required BzModel completedZoneBzModel,
 }) async {
 
   final BzzProvider _bzzProvider = Provider.of<BzzProvider>(getMainContext(), listen: false);
@@ -48,14 +48,14 @@ Future<void> _setBzModel({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onMyActiveBzStreamChanged({
-  @required Map<String, dynamic> newMap,
-  @required Map<String, dynamic> oldMap,
-  @required BzzProvider bzzProvider,
+  required Map<String, dynamic>? newMap,
+  required Map<String, dynamic>? oldMap,
+  required BzzProvider bzzProvider,
 }) async {
 
   /// REF : BZ_STREAM_OPENS_ON_ACTIVE_BZ_AND_UPDATES_LOCALLY
 
-  final BzModel _newBz = BzModel.decipherBz(
+  final BzModel? _newBz = BzModel.decipherBz(
     map: newMap,
     fromJSON: false,
   );
@@ -100,7 +100,7 @@ Future<void> onMyActiveBzStreamChanged({
 
       else {
 
-        final BzModel _oldBz = BzModel.decipherBz(
+        final BzModel? _oldBz = BzModel.decipherBz(
           map: oldMap,
           fromJSON: false,
         );
@@ -150,14 +150,14 @@ Future<void> onCloseMyBzScreen() async {
  */
 // --------------------
 void onChangeMyBzScreenTabIndexWhileAnimation({
-  @required TabController tabController,
+  required TabController tabController,
 }){
 
   if (tabController.indexIsChanging == false) {
 
-    final int _indexFromAnimation = (tabController.animation.value).round();
+    final int? _indexFromAnimation = tabController.animation?.value.round();
     onChangeMyBzScreenTabIndex(
-      index: _indexFromAnimation,
+      index: _indexFromAnimation ?? 0,
       tabController: tabController,
     );
 
@@ -166,8 +166,8 @@ void onChangeMyBzScreenTabIndexWhileAnimation({
 }
 // --------------------
 void onChangeMyBzScreenTabIndex({
-  @required int index,
-  @required TabController tabController,
+  required int index,
+  required TabController tabController,
 }) {
 
   final UiProvider _uiProvider = Provider.of<UiProvider>(getMainContext(), listen: false);

@@ -1,19 +1,18 @@
-
-import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:flutter/material.dart';
 
 class BlackBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BlackBox({
-    @required this.width,
-    @required this.child,
+    required this.width,
+    required this.child,
     this.onTap,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double width;
   final Widget child;
-  final Function onTap;
+  final Function? onTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -23,7 +22,7 @@ class BlackBox extends StatelessWidget {
     final double _margins = width * 0.05;
     // --------------------
     return GestureDetector(
-      onTap: onTap,
+      onTap: onTap == null ? null : () => onTap!(),
       child: Padding(
         padding: EdgeInsets.only(top: _bzPageDividers),
         child: Container(

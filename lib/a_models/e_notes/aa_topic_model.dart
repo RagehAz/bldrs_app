@@ -1,25 +1,26 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 /// => TAMAM
 class TopicModel {
   // -----------------------------------------------------------------------------
   const TopicModel({
-    @required this.id,
-    @required this.description,
-    @required this.icon,
+    required this.id,
+    required this.description,
+    required this.icon,
   });
   // -----------------------------------------------------------------------------
-  final String id;
-  final String description;
-  final String icon;
+  final String? id;
+  final String? description;
+  final String? icon;
   // -----------------------------------------------------------------------------
 
   /// CONSTANTS
@@ -219,7 +220,7 @@ class TopicModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> getTopicsMapByPartyType(PartyType type){
+  static Map<String, dynamic> getTopicsMapByPartyType(PartyType? type){
 
     if (type == PartyType.user){
       return TopicModel.userTopicMap;
@@ -246,7 +247,9 @@ class TopicModel {
       for (final String key in keys){
         final List<TopicModel> topicModels = _topicsMap[key];
         for (final TopicModel topicModel in topicModels){
-          _topicsIDs.add(topicModel.id);
+          if (topicModel.id != null){
+            _topicsIDs.add(topicModel.id!);
+          }
         }
       }
 
@@ -263,7 +266,7 @@ class TopicModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getAllPossibleBzTopicsIDs({
-    @required String bzID,
+    required String? bzID,
   }){
     final List<String> _output = <String>[];
 
@@ -289,7 +292,7 @@ class TopicModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getAllPossibleBzzTopicsIDs({
-    @required List<String> bzzIDs,
+    required List<String> bzzIDs,
   }){
     final List<String> _output = <String>[];
 
@@ -316,10 +319,10 @@ class TopicModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<String>> getTopicSubscribersPics({
-    @required BuildContext context,
-    @required String topicID,
-    @required List<dynamic> receiversModels,
-    @required PartyType receiversType,
+    required BuildContext context,
+    required String? topicID,
+    required List<dynamic>? receiversModels,
+    required PartyType? receiversType,
   }) async {
 
     List<String> _output = <String>[];
@@ -329,7 +332,7 @@ class TopicModel {
       _output = await _getAuthorsPicsSubscribedToTopic(
         context: context,
         topicID: topicID,
-        bzzModels: receiversModels,
+        bzzModels: receiversModels as List<BzModel>,
       );
     }
     /// RECEIVERS USERS
@@ -337,7 +340,7 @@ class TopicModel {
       _output = await _getUsersPicsSubscribedToTopic(
         context: context,
         topicID: topicID,
-        usersModels: receiversModels,
+        usersModels: receiversModels as List<UserModel>,
       );
     }
 
@@ -346,37 +349,39 @@ class TopicModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<String>> _getAuthorsPicsSubscribedToTopic({
-    @required BuildContext context,
-    @required String topicID,
-    @required List<BzModel> bzzModels,
+    required BuildContext context,
+    required String? topicID,
+    required List<BzModel>? bzzModels,
   }) async {
     final List<String> _output = <String>[];
 
     if (Mapper.checkCanLoopList(bzzModels) == true){
 
-      for (final BzModel bz in bzzModels){
+      for (final BzModel bz in bzzModels!){
 
-        final String _topicID = bakeTopicID(
+        final String? _topicID = bakeTopicID(
             topicID: topicID,
             bzID: bz.id,
             receiverPartyType: PartyType.bz,
         );
 
-        for (final AuthorModel _author in bz.authors){
+        if (Mapper.checkCanLoopList(bz.authors) == true){
 
-          final bool _isSubscribed = await _checkUserIsSubscribedToTopic(
-            context: context,
-            topicID: _topicID,
-            userID: _author.userID,
-          );
+          for (final AuthorModel _author in bz.authors!) {
+            final bool _isSubscribed = await _checkUserIsSubscribedToTopic(
+              context: context,
+              topicID: _topicID,
+              userID: _author.userID,
+            );
 
-          if (_isSubscribed == true){
-            _output.add(_author.picPath);
+            if (_isSubscribed == true) {
+              if (_author.picPath != null){
+                _output.add(_author.picPath!);
+              }
+            }
           }
 
-
         }
-
 
       }
 
@@ -387,9 +392,9 @@ class TopicModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<String>> _getUsersPicsSubscribedToTopic({
-    @required BuildContext context,
-    @required String topicID,
-    @required List<UserModel> usersModels,
+    required BuildContext context,
+    required String? topicID,
+    required List<UserModel> usersModels,
   }) async {
     final List<String> _output = <String>[];
 
@@ -403,8 +408,8 @@ class TopicModel {
           userID: user.id,
         );
 
-        if (_isSubscribed == true){
-          _output.add(user.picPath);
+        if (_isSubscribed == true && user.picPath != null){
+          _output.add(user.picPath!);
         }
 
       }
@@ -416,15 +421,15 @@ class TopicModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> _checkUserIsSubscribedToTopic({
-    @required BuildContext context,
-    @required String userID,
-    @required String topicID,
+    required BuildContext context,
+    required String? userID,
+    required String? topicID,
   }) async {
   bool _subscribed = false;
 
   if (userID != null && topicID != null){
 
-    final UserModel _userModel = await UserProtocols.fetch(
+    final UserModel? _userModel = await UserProtocols.fetch(
       context: context,
       userID: userID,
     );
@@ -445,8 +450,8 @@ class TopicModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String _generateBzTopicID({
-    @required String topicID,
-    @required String bzID,
+    required String? topicID,
+    required String? bzID,
   }){
 
     assert(
@@ -458,12 +463,12 @@ class TopicModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String bakeTopicID({
-    @required String topicID,
-    @required String bzID,
-    @required PartyType receiverPartyType,
+  static String? bakeTopicID({
+    required String? topicID,
+    required String? bzID,
+    required PartyType? receiverPartyType,
   }){
-    String _topicID = topicID;
+    String? _topicID = topicID;
 
     if (receiverPartyType == PartyType.bz){
       _topicID = _generateBzTopicID(
@@ -481,23 +486,22 @@ class TopicModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkUserIsSubscribedToThisTopic({
-    @required PartyType partyType,
-    @required BuildContext context,
-    @required String topicID,
-    @required UserModel userModel,
-    @required String bzID,
+    required PartyType? partyType,
+    required String? topicID,
+    required UserModel? userModel,
+    required String? bzID,
   }){
     bool _isSubscribed = false;
 
     if (partyType != null && topicID != null && userModel != null){
 
-      final List<String> _userSubscribedTopics = userModel.fcmTopics;
+      final List<String>? _userSubscribedTopics = userModel.fcmTopics;
 
       if (partyType == PartyType.bz){
 
         if (bzID != null){
 
-          final String _customTopicID = bakeTopicID(
+          final String? _customTopicID = bakeTopicID(
             bzID: bzID,
             topicID: topicID,
             receiverPartyType: PartyType.bz,
@@ -527,7 +531,7 @@ class TopicModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkTopicIDIsBzTopic(String topicID){
+  static bool checkTopicIDIsBzTopic(String? topicID){
     return TextCheck.stringContainsSubString(string: topicID, subString: '_');
   }
   // -----------------------------------------------------------------------------
@@ -537,7 +541,7 @@ class TopicModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getBzTopicsIDsFromTopics({
-    @required List<String> topics,
+    required List<String> topics,
   }){
     final List<String> _output = <String>[];
 
@@ -558,14 +562,14 @@ class TopicModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getTopicsIncludingBzIDFromTopics({
-    @required List<String> topics,
-    @required String bzID,
+    required List<String>? topics,
+    required String? bzID,
   }){
     final List<String> _output = <String>[];
 
     if (Mapper.checkCanLoopList(topics) == true && bzID != null){
 
-      for (final String topic in topics){
+      for (final String topic in topics!){
 
         final bool _contains = TextCheck.stringContainsSubString(
             string: topic,
@@ -585,7 +589,7 @@ class TopicModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getUserTopicsFromTopics({
-    @required List<String> topics,
+    required List<String>? topics,
   }){
     final List<String> _output = <String>[];
 
@@ -593,7 +597,7 @@ class TopicModel {
 
       final List<String> _userPossibleTopics = getAllPossibleUserTopicsIDs();
 
-      for (final String topic in topics){
+      for (final String topic in topics!){
 
         final bool _contains = Stringer.checkStringsContainString(
             strings: _userPossibleTopics,

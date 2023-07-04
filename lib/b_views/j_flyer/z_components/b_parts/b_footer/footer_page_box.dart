@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 class FooterPageBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FooterPageBox({
-    @required this.width,
-    @required this.height,
-    @required this.borders,
-    @required this.child,
-    @required this.alignment,
-    @required this.scrollerIsOn,
-    Key key
-  }) : super(key: key);
+    required this.width,
+    required this.height,
+    required this.borders,
+    required this.child,
+    required this.alignment,
+    required this.scrollerIsOn,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final BorderRadius borders;
   final double width;

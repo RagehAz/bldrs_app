@@ -1,25 +1,24 @@
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/buttons/ba_review_user_image_balloon.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
-
 import 'package:flutter/material.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 
 class ReviewBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ReviewBox({
-    @required this.pageWidth,
-    @required this.userID,
-    @required this.builder,
-    @required this.onReviewUserBalloonTap,
-    Key key
-  }) : super(key: key);
+    required this.pageWidth,
+    required this.userID,
+    required this.builder,
+    required this.onReviewUserBalloonTap,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double pageWidth;
-  final String userID;
-  final ValueChanged<UserModel> onReviewUserBalloonTap;
-  final Widget Function(UserModel userModel) builder;
+  final String? userID;
+  final ValueChanged<UserModel?>? onReviewUserBalloonTap;
+  final Widget Function(UserModel? userModel) builder;
   // -----------------------------------------------------------------------------
 
   /// USER BALLOON
@@ -38,7 +37,7 @@ class ReviewBox extends StatelessWidget {
 
   // --------------------
   static double getTextBubbleWidth({
-    @required double pageWidth,
+    required double pageWidth,
   }){
     return pageWidth - (3 * spacer) - userBalloonSize;
   }
@@ -57,9 +56,9 @@ class ReviewBox extends StatelessWidget {
           context: context,
           userID: userID,
         ),
-        builder: (_, AsyncSnapshot<UserModel> snap){
+        builder: (_, AsyncSnapshot<UserModel?> snap){
 
-          final UserModel _userModel = snap.data;
+          final UserModel? _userModel = snap.data;
 
           return Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,7 +70,7 @@ class ReviewBox extends StatelessWidget {
               /// USER IMAGE BALLOON PART
               ReviewUserImageBalloon(
                 userModel: _userModel,
-                onTap: () => onReviewUserBalloonTap(_userModel),
+                onTap: () => onReviewUserBalloonTap?.call(_userModel),
               ),
 
 

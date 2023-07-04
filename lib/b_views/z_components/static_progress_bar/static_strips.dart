@@ -1,38 +1,37 @@
+import 'package:basics/animators/helpers/sliders.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_color.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/d_progress_bar/d_progress_box.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/static_strip.dart';
-import 'package:mapper/mapper.dart';
-import 'package:animators/animators.dart';
-
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class StaticStrips extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const StaticStrips({
-    @required this.flyerBoxWidth,
-    @required this.numberOfStrips,
-    @required this.swipeDirection,
+    required this.flyerBoxWidth,
+    required this.numberOfStrips,
+    required this.swipeDirection,
     this.barIsOn = true,
     this.slideIndex = 0,
     this.margins,
     this.stripsColors,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final bool barIsOn;
   final int numberOfStrips;
   final int slideIndex;
-  final EdgeInsets margins;
+  final EdgeInsets? margins;
   final SwipeDirection swipeDirection;
-  final List<Color> stripsColors;
+  final List<Color>? stripsColors;
   /// --------------------------------------------------------------------------
   int _getNumberOfWhiteStrips() {
     // -----------------------------------------o
-    int _numberOfStrips;
+    int? _numberOfStrips;
     final SwipeDirection _swipeDirection = swipeDirection;
     // -----------------------------------------o
     /// A - at first slide
@@ -102,7 +101,7 @@ class StaticStrips extends StatelessWidget {
 
     // blog('_getNumberOfWhiteStrips : $_numberOfStrips : index : $slideIndex');
 
-    return _numberOfStrips;
+    return _numberOfStrips ?? 1;
   }
   // -----------------------------------------------------------------------------
   Tween<double> _tween() {
@@ -133,8 +132,10 @@ class StaticStrips extends StatelessWidget {
   // -----------------------------------------------------------------------------
   Color _stripColorOverride(int index){
 
+    // blog('stripsColors : $stripsColors}');
+
     if (Mapper.checkCanLoopList(stripsColors) == true){
-      return stripsColors[index];
+      return stripsColors![index]; // ?? Colorz.white10;
     }
 
     else {
@@ -212,7 +213,7 @@ class StaticStrips extends StatelessWidget {
               curve: Curves.easeOut,
               // onEnd: (){},
               key: ValueKey<int>(slideIndex),
-              builder: (BuildContext context, double tweenVal, Widget child) {
+              builder: (BuildContext context, double tweenVal, Widget? child) {
 
                 final double _tweenVal = swipeDirection == SwipeDirection.freeze ? _aStripLength : tweenVal;
 

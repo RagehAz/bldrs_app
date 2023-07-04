@@ -1,3 +1,7 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/layouts/separators/separator_line.dart';
 import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
 import 'package:bldrs/b_views/i_chains/c_currencies_screen/x_currencies_screen_controllers.dart';
 import 'package:bldrs/b_views/i_chains/z_components/currencies/currency_list_builder.dart';
@@ -6,25 +10,22 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_b
 import 'package:bldrs/b_views/z_components/buttons/wide_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:night_sky/night_sky.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:provider/provider.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class CurrenciesScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const CurrenciesScreen({
     this.countryIDCurrencyOverride,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final String countryIDCurrencyOverride;
+  final String? countryIDCurrencyOverride;
   /// --------------------------------------------------------------------------
   @override
   _CurrenciesScreenState createState() => _CurrenciesScreenState();
@@ -47,7 +48,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -77,7 +78,6 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
     super.didChangeDependencies();
   }
   // --------------------
-  /// XXXX
   @override
   void dispose() {
     // _loading.dispose();
@@ -88,7 +88,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
-  void _onSearch(String text){
+  void _onSearch(String? text){
     onSearchCurrencies(
       searchController: _searchController,
       isSearching: _isSearching,
@@ -104,7 +104,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
       context: context,
       screenHeight: screenHeight,
     )
-        - 20 // page bubble pading
+        - 20 // page bubble loading
         - SeparatorLine.getTotalHeight * 3
         - CurrencyButton.standardHeight * 3;
   }
@@ -115,18 +115,18 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
     final double _screenHeight = Scale.screenHeight(context);
     final double _scrollableHeight = _getScrollableHeight(_screenHeight);
     // --------------------
-    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: true);
-    final List<CurrencyModel> _allCurrencies = _zoneProvider.allCurrencies;
+    final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context);
+    final List<CurrencyModel> _allCurrencies = _zoneProvider.allCurrencies ?? [];
     // --------------------
-    final CurrencyModel _currencyOverride = ZoneProvider.proGetCurrencyByCountryID(
+    final CurrencyModel? _currencyOverride = ZoneProvider.proGetCurrencyByCountryID(
       context: context,
       countryID: widget.countryIDCurrencyOverride,
       listen: false,
     );
-    final CurrencyModel _currentCurrency = _currencyOverride ?? _zoneProvider.currentCurrency;
+    final CurrencyModel? _currentCurrency = _currencyOverride ?? _zoneProvider.currentCurrency;
     // --------------------
-    blog('_currentCurrency : ${_currentCurrency.id}');
-    _currentCurrency.blogCurrency();
+    blog('_currentCurrency : ${_currentCurrency?.id}');
+    _currentCurrency?.blogCurrency();
     // --------------------
     return MainLayout(
       title: const Verse(
@@ -156,7 +156,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
       },
       child: ValueListenableBuilder(
         valueListenable: _isSearching,
-        builder: (_, bool isSearching, Widget child){
+        builder: (_, bool isSearching, Widget? child){
 
           /// SEARCHING
           if (isSearching == true){
@@ -166,7 +166,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
               color: Colorz.white20,
               child: ValueListenableBuilder(
                   valueListenable: _foundCurrencies,
-                  builder: (_, List<CurrencyModel> foundCurrencies, Widget child){
+                  builder: (_, List<CurrencyModel> foundCurrencies, Widget? child){
 
                     /// NO RESULT FOUND
                     if (Mapper.checkCanLoopList(foundCurrencies) == false){
@@ -185,7 +185,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
                             screenHeight: _screenHeight
                         ),
                         currencies: foundCurrencies,
-                        onCurrencyTap: (CurrencyModel currency) => onSelectCurrency(
+                        onCurrencyTap: (CurrencyModel? currency) => onSelectCurrency(
                           context: context,
                           currency: currency,
                         ),
@@ -222,8 +222,8 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
                     /// CURRENT CURRENCY
                     CurrencyButton(
                       currency: _currentCurrency,
-                      countryID: widget.countryIDCurrencyOverride ?? _zoneProvider.currentZone.countryID,
-                      onTap: (CurrencyModel currency) => onSelectCurrency(
+                      countryID: widget.countryIDCurrencyOverride ?? _zoneProvider.currentZone?.countryID,
+                      onTap: (CurrencyModel? currency) => onSelectCurrency(
                         context: context,
                         currency: _currentCurrency,
                       ),
@@ -239,7 +239,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
                           currencyID: CurrencyModel.usaCurrencyID,
                         ),
                         countryID: CurrencyModel.usaCountryID,
-                        onTap: (CurrencyModel currency) => onSelectCurrency(
+                        onTap: (CurrencyModel? currency) => onSelectCurrency(
                           context: context,
                           currency: currency,
                         ),
@@ -253,7 +253,7 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
                           currencyID: CurrencyModel.euroCurrencyID,
                         ),
                         countryID: CurrencyModel.euroCountryID,
-                        onTap: (CurrencyModel currency) => onSelectCurrency(
+                        onTap: (CurrencyModel? currency) => onSelectCurrency(
                           context: context,
                           currency: currency,
                         ),
@@ -264,24 +264,30 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
                     /// REMAINING CURRENCIES
                     ValueListenableBuilder(
                         valueListenable: _showAllCurrencies,
-                        builder: (_, bool showAll, Widget child){
+                        builder: (_, bool showAll, Widget? child){
 
                           if (showAll == true){
 
-                            final List<CurrencyModel> _remainingCurrencies = CurrencyModel.removeCurrencies(
-                              currencies: _allCurrencies,
-                              removeIDs: <String>[
-                                _currentCurrency?.id,
+                            final List<String> _currencies = <String>[
                                 CurrencyModel.usaCurrencyID,
                                 CurrencyModel.euroCurrencyID,
-                              ],
+                              ];
+
+                            if (_currentCurrency?.id != null){
+                              _currencies.add(_currentCurrency!.id!);
+                            }
+
+
+                            final List<CurrencyModel> _remainingCurrencies = CurrencyModel.removeCurrencies(
+                              currencies: _allCurrencies,
+                              removeIDs: _currencies,
                             );
 
                             return CurrencyListBuilder(
                               width: PageBubble.clearWidth(context),
                               height: _scrollableHeight,
                               currencies: _remainingCurrencies,
-                              onCurrencyTap: (CurrencyModel currency) => onSelectCurrency(
+                              onCurrencyTap: (CurrencyModel? currency) => onSelectCurrency(
                                 context: context,
                                 currency: currency,
                               ),

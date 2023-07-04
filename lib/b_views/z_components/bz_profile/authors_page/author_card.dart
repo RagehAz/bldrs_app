@@ -1,3 +1,8 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/widgets/drawing/expander.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
@@ -5,43 +10,41 @@ import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/c_team_page/bz_team_page_
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/d_labels/ffff_author_pic.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/buttons/contact_button.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/bz_profile/authors_page/author_card_details.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class AuthorCard extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const AuthorCard({
-    @required this.author,
-    @required this.bzModel,
-    @required this.bubbleWidth,
+    required this.author,
+    required this.bzModel,
+    required this.bubbleWidth,
     this.onContactTap,
     this.moreButtonIsOn = true,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final AuthorModel author;
-  final BzModel bzModel;
-  final double bubbleWidth;
-  final ValueChanged<ContactModel> onContactTap;
-  final bool moreButtonIsOn;
+  final BzModel? bzModel;
+  final double? bubbleWidth;
+  final ValueChanged<ContactModel>? onContactTap;
+  final bool? moreButtonIsOn;
   // --------------------
   static const double authorPicSize = 80;
   static const double spaceBetweenImageAndText = 5;
   static const double moreButtonSize = 40;
   // --------------------
   static double authorTextDetailsClearWidth({
-    @required BuildContext context,
-    @required double bubbleWidth,
-    @required bool withMoreButton,
+    required BuildContext context,
+    required double bubbleWidth,
+    required bool withMoreButton,
   }){
 
     final double _bubbleClearWidth = bubbleWidth - 20;
@@ -68,8 +71,8 @@ class AuthorCard extends StatelessWidget {
   }
   // --------------------
   static Verse getAuthorTitleLine({
-    @required String title,
-    @required String companyName
+    required String? title,
+    required String? companyName
   }){
     return Verse(
       id: '$title @ $companyName',
@@ -78,11 +81,11 @@ class AuthorCard extends StatelessWidget {
   }
   // -----------------------------------------------------------------------------
   Future<void> _onContactTap({
-    @required ContactModel contactModel,
+    required ContactModel contactModel,
   }) async {
 
     if (onContactTap != null){
-      onContactTap(contactModel);
+      onContactTap?.call(contactModel);
     }
 
     await Launcher.launchContactModel(
@@ -109,12 +112,11 @@ class AuthorCard extends StatelessWidget {
       bzModel: bzModel,
     );
     // --------------------
-    final String _rolePhid = AuthorModel.getAuthorRolePhid(
-      context: context,
+    final String? _rolePhid = AuthorModel.getAuthorRolePhid(
       role: author.role,
     );
     // --------------------
-    final Color _roleIconColor = _authorIsMaster == true ? null : Colorz.white255;
+    final Color? _roleIconColor = _authorIsMaster == true ? null : Colorz.white255;
     // --------------------
     return Bubble(
       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
@@ -169,7 +171,7 @@ class AuthorCard extends StatelessWidget {
                         BldrsText(
                           verse: getAuthorTitleLine(
                             title: author.title,
-                            companyName: bzModel.name,
+                            companyName: bzModel?.name,
                           ),
                           italic: true,
                           weight: VerseWeight.thin,
@@ -195,7 +197,7 @@ class AuthorCard extends StatelessWidget {
               ),
             ),
 
-            if (moreButtonIsOn == true)
+            if (Mapper.boolIsTrue(moreButtonIsOn) == true)
               BldrsBox(
                 width: moreButtonSize,
                 height: moreButtonSize,
@@ -237,7 +239,7 @@ class AuthorCard extends StatelessWidget {
               /// NUMBER OF FLYERS
               AuthorCardDetail(
                 verse: Verse(
-                  id: '${author.flyersIDs.length} ${xPhrase('phid_published_flyers')}',
+                  id: '${author.flyersIDs?.length} ${xPhrase('phid_published_flyers')}',
                   translate: false,
                 ),
                 bubble: false,
@@ -246,9 +248,10 @@ class AuthorCard extends StatelessWidget {
               ),
 
               /// CONTACTS
-              ...List.generate(author.contacts.length, (index){
+              if (Mapper.checkCanLoopList(author.contacts) == true)
+              ...List.generate(author.contacts!.length, (index){
 
-                final ContactModel _contact = author.contacts[index];
+                final ContactModel _contact = author.contacts![index];
 
                 return ContactButton(
                     contactModel: _contact,

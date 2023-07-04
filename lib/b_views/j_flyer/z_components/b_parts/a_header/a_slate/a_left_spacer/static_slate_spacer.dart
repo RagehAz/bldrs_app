@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 class StaticHeaderSlateSpacer extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const StaticHeaderSlateSpacer({
-    @required this.flyerBoxWidth,
-    Key key
-  }) : super(key: key);
+    required this.flyerBoxWidth,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   /// --------------------------------------------------------------------------

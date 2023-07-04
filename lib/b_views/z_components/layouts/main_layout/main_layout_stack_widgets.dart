@@ -5,75 +5,75 @@ import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
-import 'package:night_sky/night_sky.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class MainLayoutStackWidgets extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const MainLayoutStackWidgets({
-    @required this.alignment,
-    @required this.skyType,
-    @required this.layoutWidget,
-    @required this.appBarType,
-    @required this.appBarRowWidgets,
-    @required this.pageTitleVerse,
-    @required this.onBack,
-    @required this.loading,
-    @required this.progressBarModel,
-    @required this.appBarScrollController,
-    @required this.searchController,
-    @required this.onSearchSubmit,
-    @required this.onPaste,
-    @required this.onSearchChanged,
-    @required this.sectionButtonIsOn,
-    @required this.searchButtonIsOn,
-    @required this.pyramidsAreOn,
-    @required this.searchHintVerse,
-    @required this.pyramidType,
-    @required this.onPyramidTap,
-    @required this.canGoBack,
-    @required this.onSearchCancelled,
-    @required this.confirmButtonModel,
-    @required this.globalKey,
-    @required this.listenToHideLayout,
-    @required this.filtersAreOn,
-    @required this.filters,
-    Key key
-  }) : super(key: key);
+    required this.alignment,
+    required this.skyType,
+    required this.layoutWidget,
+    required this.appBarType,
+    required this.appBarRowWidgets,
+    required this.pageTitleVerse,
+    required this.onBack,
+    required this.loading,
+    required this.progressBarModel,
+    required this.appBarScrollController,
+    required this.searchController,
+    required this.onSearchSubmit,
+    required this.onPaste,
+    required this.onSearchChanged,
+    required this.sectionButtonIsOn,
+    required this.searchButtonIsOn,
+    required this.pyramidsAreOn,
+    required this.searchHintVerse,
+    required this.pyramidType,
+    required this.onPyramidTap,
+    required this.canGoBack,
+    required this.onSearchCancelled,
+    required this.confirmButtonModel,
+    required this.globalKey,
+    required this.listenToHideLayout,
+    required this.filtersAreOn,
+    required this.filters,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final Alignment alignment;
   final SkyType skyType;
-  final Widget layoutWidget;
-  final AppBarType appBarType;
-  final List<Widget> appBarRowWidgets;
-  final Verse pageTitleVerse;
+  final Widget? layoutWidget;
+  final AppBarType? appBarType;
+  final List<Widget>? appBarRowWidgets;
+  final Verse? pageTitleVerse;
   final Function onBack;
   // final bool loading;
-  final ScrollController appBarScrollController;
-  final TextEditingController searchController;
-  final ValueChanged<String> onSearchSubmit;
-  final ValueChanged<String> onPaste;
-  final ValueChanged<String> onSearchChanged;
+  final ScrollController? appBarScrollController;
+  final TextEditingController? searchController;
+  final ValueChanged<String?>? onSearchSubmit;
+  final ValueChanged<String?>? onPaste;
+  final ValueChanged<String?>? onSearchChanged;
   final bool pyramidsAreOn;
   final bool searchButtonIsOn;
   final bool sectionButtonIsOn;
-  final Verse searchHintVerse;
-  final ValueNotifier<bool> loading;
-  final ValueNotifier<ProgressBarModel> progressBarModel;
-  final PyramidType pyramidType;
-  final Function onPyramidTap;
+  final Verse? searchHintVerse;
+  final ValueNotifier<bool>? loading;
+  final ValueNotifier<ProgressBarModel?>? progressBarModel;
+  final PyramidType? pyramidType;
+  final Function? onPyramidTap;
   final bool canGoBack;
-  final Function onSearchCancelled;
-  final ConfirmButtonModel confirmButtonModel;
+  final Function? onSearchCancelled;
+  final ConfirmButtonModel? confirmButtonModel;
   final bool listenToHideLayout;
-  final GlobalKey globalKey;
-  final ValueNotifier<bool> filtersAreOn;
-  final Widget filters;
+  final GlobalKey? globalKey;
+  final ValueNotifier<bool?>? filtersAreOn;
+  final Widget? filters;
   /// --------------------------------------------------------------------------
   PyramidType _concludePyramidTypePerSkyType(){
 
     if (pyramidType != null){
-      return pyramidType;
+      return pyramidType!;
     }
 
     else {

@@ -1,3 +1,6 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/checks/device_checker.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -10,8 +13,6 @@ import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:devicer/devicer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
@@ -27,8 +28,8 @@ class GeneralProvider extends ChangeNotifier {
   bool get isConnected => _isConnected;
   // --------------------
   Future<void> getSetConnectivity({
-    @required bool mounted,
-    @required bool notify,
+    required bool mounted,
+    required bool notify,
   }) async {
 
     if (mounted == true){
@@ -45,8 +46,8 @@ class GeneralProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void setConnectivity({
-    @required bool isConnected,
-    @required bool notify,
+    required bool isConnected,
+    required bool notify,
   }) {
 
     if (isConnected != _isConnected) {
@@ -61,7 +62,7 @@ class GeneralProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onConnectivityChanged({
-    @required bool isConnected,
+    required bool? isConnected,
   }) async {
 
     final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(getMainContext(), listen: false);
@@ -70,12 +71,12 @@ class GeneralProvider extends ChangeNotifier {
 
     if (_wasConnected != isConnected){
       _generalProvider.setConnectivity(
-        isConnected: isConnected,
+        isConnected: isConnected ?? false,
         notify: true,
       );
 
       /// SHOW CONNECTED DIALOG
-      if (isConnected == true) {
+      if (Mapper.boolIsTrue(isConnected) == true) {
         await TopDialog.showTopDialog(
           firstVerse: Verse.plain(Words.connected()),
           color: Colorz.green255,
@@ -125,7 +126,7 @@ class GeneralProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void wipeOut({
-    @required bool notify,
+    required bool notify,
   }){
 
     final GeneralProvider _generalProvider = Provider.of<GeneralProvider>(getMainContext(), listen: false);

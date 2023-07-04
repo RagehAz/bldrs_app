@@ -1,19 +1,19 @@
 // import 'package:fire/super_fire.dart';
-// import 'package:filers/filers.dart';
+// import 'package:basics/helpers/classes/files/filers.dart';
 // import 'package:flutter/material.dart';
-// import 'package:mapper/mapper.dart';
+// import 'package:basics/helpers/classes/maps/mapper.dart';
 // // -----------------------------------------------------------------------------
 //
 // /// GENERAL
 //
 // // --------------------
 // Future<dynamic> subCollectionMapsByFieldValue({
-//   @required String coll,
-//   @required String doc,
-//   @required String subColl,
-//   @required String field,
-//   @required dynamic compareValue,
-//   @required FireComparison valueIs,
+//   required String coll,
+//   required String doc,
+//   required String subColl,
+//   required String field,
+//   required dynamic compareValue,
+//   required FireComparison valueIs,
 //   bool addDocsIDs = false,
 //   bool addDocSnapshotToEachMap = false,
 //   int limit = 3,
@@ -49,11 +49,11 @@
 // }
 // // --------------------
 // Future<QuerySnapshot<Object>> _searchAndGetCollectionSnapshots({
-//   @required CollectionReference<Object> collRef,
-//   @required FireComparison valueIs,
-//   @required String field,
-//   @required dynamic compareValue,
-//   @required int limit,
+//   required CollectionReference<Object> collRef,
+//   required FireComparison valueIs,
+//   required String field,
+//   required dynamic compareValue,
+//   required int limit,
 // }) async {
 //   QuerySnapshot<Object> _collectionSnapshot;
 //
@@ -153,10 +153,10 @@
 // }
 // // --------------------
 // Future<dynamic> mapsByFieldValue({
-//   @required String collName,
-//   @required String field,
-//   @required dynamic compareValue,
-//   @required FireComparison valueIs,
+//   required String collName,
+//   required String field,
+//   required dynamic compareValue,
+//   required FireComparison valueIs,
 //   bool addDocsIDs = false,
 //   bool addDocSnapshotToEachMap = false,
 //   int limit = 3,
@@ -191,10 +191,10 @@
 // // -----------------------------------------------------------------------------
 // /*
 // Future<dynamic> mapsByValueInArray({
-//   @required BuildContext context,
-//   @required CollectionReference<Object> collRef,
-//   @required String field,
-//   @required dynamic value,
+//   required BuildContext context,
+//   required CollectionReference<Object> collRef,
+//   required String field,
+//   required dynamic value,
 //   bool addDocsIDs = false,
 //   bool addDocSnapshotToEachMap = false,
 // }) async {
@@ -232,13 +232,13 @@
 // /*
 //
 // Future<dynamic> mapsByTwoValuesEqualTo({
-//   @required BuildContext context,
-//   @required String collName,
-//   @required String fieldA,
-//   @required dynamic valueA,
-//   @required String fieldB,
-//   @required dynamic valueB,
-//   @required int limit,
+//   required BuildContext context,
+//   required String collName,
+//   required String fieldA,
+//   required dynamic valueA,
+//   required String fieldB,
+//   required dynamic valueB,
+//   required int limit,
 //   bool addDocsIDs = false,
 //   bool addDocSnapshotToEachMap = false,
 // }) async {

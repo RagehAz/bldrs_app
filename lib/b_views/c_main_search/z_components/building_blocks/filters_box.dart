@@ -1,12 +1,12 @@
-import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:flutter/material.dart';
 
 class SearchFilterBox extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const SearchFilterBox({
-    @required this.children,
-    Key key
-  }) : super(key: key);
+    required this.children,
+    super.key
+  });
   // --------------------
   final List<Widget> children;
   // -----------------------------------------------------------------------------

@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 class FooterButtonSpacer extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FooterButtonSpacer({
-    @required this.flyerBoxWidth,
-    Key key
-  }) : super(key: key);
+    required this.flyerBoxWidth,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   /// --------------------------------------------------------------------------

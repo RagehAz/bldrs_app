@@ -10,15 +10,15 @@ class UserProfileScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const UserProfileScreen({
     this.userTab = UserTab.profile,
-    Key key
-  }) : super(key: key);
-
+    super.key
+  });
+  
   final UserTab userTab;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final UserModel _user = UsersProvider.proGetMyUserModel(
+    final UserModel? _user = UsersProvider.proGetMyUserModel(
       context: context,
       listen: true,
     );

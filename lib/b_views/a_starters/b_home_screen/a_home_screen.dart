@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
@@ -25,43 +25,42 @@ import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:fire/super_fire.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import 'package:layouts/layouts.dart';
-import 'package:night_sky/night_sky.dart';
+import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 
 class HomeScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const HomeScreen({
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   @override
   _HomeScreenState createState() => _HomeScreenState();
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
 }
 
 class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin{
   // -----------------------------------------------------------------------------
-  final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
-  PaginationController _paginationController;
+  final ValueNotifier<ProgressBarModel?> _progressBarModel = ValueNotifier(null);
+  PaginationController? _paginationController;
   // --------------------
   /// KEYBOARD VISIBILITY
-  StreamSubscription<bool> _keyboardSubscription;
+  StreamSubscription<bool>? _keyboardSubscription;
   final KeyboardVisibilityController keyboardVisibilityController = KeyboardVisibilityController();
   // --------------------
   /// NOTES STREAM SUBSCRIPTIONS
-  StreamSubscription _userNotesStreamSub;
-  List<StreamSubscription> _bzzNotesStreamsSubs;
+  StreamSubscription? _userNotesStreamSub;
+  List<StreamSubscription>? _bzzNotesStreamsSubs;
   // -----------------------------------------------------------------------------
-  ZGridController _zGridController;
+  ZGridController? _zGridController;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
   Future<void> _triggerLoading({
-    @required bool setTo,
+    required bool setTo,
   }) async {
     setNotifier(
       notifier: _loading,
@@ -82,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
     _zGridController = ZGridController.initialize(
       vsync: this,
-      scrollController: _paginationController.scrollController,
+      scrollController: _paginationController?.scrollController,
     );
 
   }
@@ -124,12 +123,12 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   @override
   void dispose() {
     _loading.dispose();
-    _keyboardSubscription.cancel();
+    _keyboardSubscription?.cancel();
     _userNotesStreamSub?.cancel();
     Streamer.disposeStreamSubscriptions(_bzzNotesStreamsSubs);
     _progressBarModel.dispose();
-    _paginationController.dispose();
-    _zGridController.dispose();
+    _paginationController?.dispose();
+    _zGridController?.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -166,7 +165,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
 
-    final RouteSettings _afterHomeRoute = UiProvider.proGetAfterHomeRoute(
+    final RouteSettings? _afterHomeRoute = UiProvider.proGetAfterHomeRoute(
       context: context,
       listen: true,
     );
@@ -196,17 +195,16 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         context: context,
         listen: true,
       );
-      final UserModel _userModel = UsersProvider.proGetMyUserModel(
+      final UserModel? _userModel = UsersProvider.proGetMyUserModel(
         context: context,
         listen: true,
       );
-      final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(
+      final ZoneModel? _currentZone = ZoneProvider.proGetCurrentZone(
         context: context,
         listen: true,
       );
 
-      final List<NavModel> _navModels = generateMainNavModels(
-        context: context,
+      final List<NavModel?> _navModels = generateMainNavModels(
         userModel: _userModel,
         bzzModels: _bzzModels,
         currentZone: _currentZone,
@@ -234,7 +232,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             /// PAGE CONTENTS
             ValueListenableBuilder(
               valueListenable: _loading,
-              builder: (_, bool loading, Widget homeFlyersGrid){
+              builder: (_, bool loading, Widget? homeFlyersGrid){
 
                 /// LOADING
                 if (loading == true) {
@@ -248,7 +246,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
                 /// HOME FLYERS
                 else {
-                  return homeFlyersGrid;
+                  return homeFlyersGrid!;
                 }
 
               },

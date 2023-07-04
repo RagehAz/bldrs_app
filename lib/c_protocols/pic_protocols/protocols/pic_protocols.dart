@@ -1,5 +1,7 @@
 import 'dart:ui' as ui;
-
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/files/floaters.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
@@ -7,11 +9,7 @@ import 'package:bldrs/a_models/x_ui/ui_image_cache_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/pic_protocols/ldb/pic_ldb_ops.dart';
 import 'package:bldrs/c_protocols/pic_protocols/storage/pic_storage_ops.dart';
-
-import 'package:filers/filers.dart';
-import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 
 class PicProtocols {
   // -----------------------------------------------------------------------------
@@ -24,13 +22,13 @@ class PicProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> composePic(PicModel picModel) async {
+  static Future<void> composePic(PicModel? picModel) async {
 
     if (picModel != null){
 
       await Future.wait(<Future>[
 
-        PicStorageOps.createPic(picModel,),
+        PicStorageOps.createPic(picModel),
 
         PicLDBOps.insertPic(picModel),
 
@@ -64,9 +62,9 @@ class PicProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<PicModel> fetchPic(String path) async {
+  static Future<PicModel?> fetchPic(String? path) async {
 
-    PicModel _picModel = await PicLDBOps.readPic(path);
+    PicModel? _picModel = await PicLDBOps.readPic(path);
 
     if (_picModel == null){
 
@@ -83,18 +81,20 @@ class PicProtocols {
   }
   // --------------------
   /// TASK : TEST ME
-  static Future<List<PicModel>> fetchPics(List<String> paths) async {
+  static Future<List<PicModel>> fetchPics(List<String>? paths) async {
     final List<PicModel> _output = <PicModel>[];
 
     if (Mapper.checkCanLoopList(paths) == true){
 
       await Future.wait(<Future>[
 
-        ...List.generate(paths.length, (index){
+        ...List.generate(paths!.length, (index){
 
-          return fetchPic(paths[index]).then((PicModel pic){
+          return fetchPic(paths[index]).then((PicModel? pic){
 
-            _output.add(pic);
+            if (pic != null){
+              _output.add(pic);
+            }
 
           });
 
@@ -108,14 +108,14 @@ class PicProtocols {
   }
   // --------------------
   /// TASK : TEST ME
-  static Future<ui.Image> fetchPicUiImage({
-    @required String path,
+  static Future<ui.Image?> fetchPicUiImage({
+    required String? path,
   }) async {
-    ui.Image _theImage;
+    ui.Image? _theImage;
 
     if (path != null){
 
-      final Cacher _cacher = UiProvider.proGetCacher(
+      final Cacher? _cacher = UiProvider.proGetCacher(
           cacherID: path,
           listen: false,
       );
@@ -128,7 +128,7 @@ class PicProtocols {
       /// PIC IS NOT PRO-CACHED
       else {
 
-        final PicModel _picModel = await PicProtocols.fetchPic(path);
+        final PicModel? _picModel = await PicProtocols.fetchPic(path);
         _theImage = await Floaters.getUiImageFromUint8List(_picModel?.bytes);
 
         /// PRO-CACHE IF POSSIBLE
@@ -167,7 +167,7 @@ class PicProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<List<PicModel>> fetchFlyerPics({
-    @required FlyerModel flyerModel,
+    required FlyerModel? flyerModel,
   }) async {
     List<PicModel> _output = <PicModel>[];
 
@@ -196,7 +196,7 @@ class PicProtocols {
 
         blog('downloadPic : Downloading pic : $path');
 
-        final PicModel _picModel = await PicStorageOps.readPic(path: path);
+        final PicModel? _picModel = await PicStorageOps.readPic(path: path);
 
         blog('downloadPic : Downloaded pic : $path');
 
@@ -239,13 +239,13 @@ class PicProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> renovatePic(PicModel picModel) async {
+  static Future<void> renovatePic(PicModel? picModel) async {
 
     blog('1 - renovatePic : picModel : $picModel');
 
     if (picModel != null){
 
-      final PicModel _oldPic = await fetchPic(picModel.path);
+      final PicModel? _oldPic = await fetchPic(picModel.path);
 
       final bool _areIdentical = PicModel.checkPicsAreIdentical(
           pic1: _oldPic,
@@ -293,7 +293,7 @@ class PicProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> wipePic(String path) async {
+  static Future<void> wipePic(String? path) async {
 
     if (TextCheck.isEmpty(path) == false){
 
@@ -301,7 +301,7 @@ class PicProtocols {
 
         PicLDBOps.deletePic(path),
 
-        PicStorageOps.deletePic(path),
+        PicStorageOps.deletePic(path!),
 
       ]);
 

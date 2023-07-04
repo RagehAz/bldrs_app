@@ -1,12 +1,12 @@
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/jumper_flyers_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/zoomable_flyers_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/heroic_flyers_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/loading_flyers_grid.dart';
 import 'package:bldrs/z_grid/z_grid.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 
 enum FlyerGridType {
   zoomable,
@@ -18,9 +18,9 @@ enum FlyerGridType {
 class FlyersGrid extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyersGrid({
-    @required this.screenName,
-    @required this.gridType,
-    @required this.hasResponsiveSideMargin,
+    required this.screenName,
+    required this.gridType,
+    required this.hasResponsiveSideMargin,
     this.gridWidth,
     this.gridHeight,
     this.scrollController,
@@ -37,15 +37,15 @@ class FlyersGrid extends StatelessWidget {
     this.selectionMode = false,
     this.bottomPadding,
     this.zGridController,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final FlyerGridType gridType;
-  final List<FlyerModel> flyers;
-  final List<String> flyersIDs;
-  final double gridWidth;
-  final double gridHeight;
-  final ScrollController scrollController;
+  final List<FlyerModel>? flyers;
+  final List<String>? flyersIDs;
+  final double? gridWidth;
+  final double? gridHeight;
+  final ScrollController? scrollController;
   final double topPadding;
   final int numberOfColumnsOrRows;
   final String screenName;
@@ -53,18 +53,18 @@ class FlyersGrid extends StatelessWidget {
   final Axis scrollDirection;
   final bool scrollable;
   final bool selectionMode;
-  final Function(FlyerModel flyerModel) onFlyerOptionsTap;
-  final Function(FlyerModel flyerModel) onSelectFlyer;
-  final Function(String flyerID) onFlyerNotFound;
-  final double bottomPadding;
-  final ZGridController zGridController;
+  final Function(FlyerModel flyerModel)? onFlyerOptionsTap;
+  final Function(FlyerModel flyerModel)? onSelectFlyer;
+  final Function(String flyerID)? onFlyerNotFound;
+  final double? bottomPadding;
+  final ZGridController? zGridController;
   final bool hasResponsiveSideMargin;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool showLoadingGridInstead({
-    @required bool isLoadingGrid,
-    @required List<FlyerModel> flyers,
-    @required List<String> paginationFlyersIDs,
+    required bool isLoadingGrid,
+    required List<FlyerModel>? flyers,
+    required List<String>? paginationFlyersIDs,
   }){
     bool _showLoadingGrid = true;
 
@@ -135,8 +135,8 @@ class FlyersGrid extends StatelessWidget {
         // --------------------
         return HeroicFlyersGrid(
           hasResponsiveSideMargin: hasResponsiveSideMargin,
-          gridWidth: gridWidth,
-          gridHeight: gridHeight,
+          gridWidth: gridWidth ?? MediaQuery.of(context).size.width,
+          gridHeight: gridHeight ?? MediaQuery.of(context).size.height,
           scrollController: scrollController,
           scrollable: scrollable,
           topPadding: topPadding,
@@ -160,8 +160,8 @@ class FlyersGrid extends StatelessWidget {
       else if (_isJumpingGrid == true){
         return JumpingFlyersGrid(
           hasResponsiveSideMargin: hasResponsiveSideMargin,
-          gridWidth: gridWidth,
-          gridHeight: gridHeight,
+          gridWidth: gridWidth ?? MediaQuery.of(context).size.width,
+          gridHeight: gridHeight ?? MediaQuery.of(context).size.height,
           scrollController: scrollController,
           scrollable: scrollable,
           topPadding: topPadding,
@@ -182,8 +182,8 @@ class FlyersGrid extends StatelessWidget {
       else {
         return FlyersZGrid(
           hasResponsiveSideMargin: hasResponsiveSideMargin,
-          gridWidth: gridWidth,
-          gridHeight: gridHeight,
+          gridWidth: gridWidth ?? MediaQuery.of(context).size.width,
+          gridHeight: gridHeight ?? MediaQuery.of(context).size.height,
           flyersIDs: Mapper.checkCanLoopList(flyers) == false ? flyersIDs : null,
           flyers: flyers,
           columnCount: numberOfColumnsOrRows,

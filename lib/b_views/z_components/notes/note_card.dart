@@ -1,11 +1,17 @@
 import 'dart:async';
-
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/bubbles/model/bubble_header_vm.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/buttons/note_card_buttons.dart';
-import 'package:bldrs/b_views/z_components/notes/x_components/note_red_dot.dart';
+import 'package:bldrs/b_views/z_components/notes/x_components/red_dot_badge.dart';
 import 'package:bldrs/b_views/z_components/notes/x_components/note_sender_balloon.dart';
 import 'package:bldrs/b_views/z_components/poster/note_poster_builder.dart';
 import 'package:bldrs/b_views/z_components/poster/structure/x_note_poster_box.dart';
@@ -14,31 +20,27 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 
 class NoteCard extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const NoteCard({
-    @required this.noteModel,
-    @required this.isDraftNote,
+    required this.noteModel,
+    required this.isDraftNote,
     this.onNoteOptionsTap,
     this.onCardTap,
     this.bubbleWidth,
     this.bubbleColor,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final NoteModel noteModel;
+  final NoteModel? noteModel;
   final bool isDraftNote;
-  final Function onNoteOptionsTap;
-  final Function onCardTap;
-  final double bubbleWidth;
-  final Color bubbleColor;
+  final Function? onNoteOptionsTap;
+  final Function? onCardTap;
+  final double? bubbleWidth;
+  final Color? bubbleColor;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static double getBubbleWidth(BuildContext context) {
@@ -47,8 +49,8 @@ class NoteCard extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double bodyWidth({
-    @required BuildContext context,
-    @required double widthOverride
+    required BuildContext context,
+    required double? widthOverride
   }) {
     return Bubble.clearWidth(
         context: context,
@@ -59,27 +61,27 @@ class NoteCard extends StatelessWidget {
   Future<void> _onSenderBalloonTap() async {
 
     /// BZ
-    if (noteModel.parties.senderType == PartyType.bz){
+    if (noteModel?.parties?.senderType == PartyType.bz){
 
       blog('BZ TAPPED');
 
       await BldrsNav.jumpToBzPreviewScreen(
-        bzID: noteModel.parties.senderID,
+        bzID: noteModel?.parties?.senderID,
       );
 
     }
 
     /// USER
-    else if (noteModel.parties.senderType == PartyType.user){
+    else if (noteModel?.parties?.senderType == PartyType.user){
 
       await BldrsNav.jumpToUserPreviewScreen(
-        userID: noteModel.parties.senderID,
+        userID: noteModel?.parties?.senderID,
       );
 
     }
 
     /// BLDRS
-    else if (noteModel.parties.senderType == PartyType.bldrs){
+    else if (noteModel?.parties?.senderType == PartyType.bldrs){
 
       // await Nav.jumpToBldrsPreviewScreen(
       //     context: context,
@@ -90,7 +92,7 @@ class NoteCard extends StatelessWidget {
     }
 
     /// COUNTRY
-    else if (noteModel.parties.senderType == PartyType.country){
+    else if (noteModel?.parties?.senderType == PartyType.country){
       // await Nav.jumpToCountryPreviewScreen(
       //     context: context,
       //     countryID: noteModel.parties.senderID,
@@ -121,7 +123,7 @@ class NoteCard extends StatelessWidget {
         bubbleWidthOverride: _bubbleWidth,
     );
     // --------------------
-    return NoteRedDotWrapper(
+    return RedDotBadge(
       childWidth: _bubbleWidth,
       redDotIsOn: noteModel?.seen != true,
       shrinkChild: true,
@@ -136,7 +138,7 @@ class NoteCard extends StatelessWidget {
             bottom: Ratioz.appBarMargin,
         ),
         onBubbleTap: _noteHasButtons ? null : onCardTap,
-        bubbleColor: bubbleColor ?? (noteModel?.seen == true ? Colorz.white10 : Colorz.yellow50),
+        bubbleColor: bubbleColor ?? (Mapper.boolIsTrue(noteModel?.seen) == true ? Colorz.white10 : Colorz.yellow50),
         columnChildren: <Widget>[
 
           /// SENDER BALLOON - TITLE - TIMESTAMP - BODY
@@ -183,7 +185,6 @@ class NoteCard extends StatelessWidget {
                     BldrsText(
                       verse: Verse(
                         id: BldrsTimers.calculateSuperTimeDifferenceString(
-                          context: context,
                           from: noteModel?.sentTime,
                           to: DateTime.now(),
                         ),
@@ -248,7 +249,6 @@ class NoteCard extends StatelessWidget {
               alignment: BldrsAligners.superInverseCenterAlignment(context),
               child: ClipRRect(
                 borderRadius: NotePosterBox.getCorners(
-                    context: context,
                     boxWidth: _bodyWidth,
                 ),
                 child: NotePosterBuilder(

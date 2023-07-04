@@ -1,17 +1,20 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/bubbles/model/bubble_header_vm.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/layouts/handlers/max_bounce_navigator.dart';
 import 'package:bldrs/a_models/x_utilities/map_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:night_sky/night_sky.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class ListLayout extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -24,16 +27,16 @@ class ListLayout extends StatelessWidget {
     this.pageIcon,
     this.pageIconVerse,
     this.sky = SkyType.night,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final Verse pageTitleVerse;
-  final String pyramids;
-  final List<MapModel> mapModels;
-  final List<String> icons;
-  final ValueChanged<String> onItemTap;
-  final String pageIcon;
-  final Verse pageIconVerse;
+  final Verse? pageTitleVerse;
+  final String? pyramids;
+  final List<MapModel>? mapModels;
+  final List<String>? icons;
+  final ValueChanged<String>? onItemTap;
+  final String? pageIcon;
+  final Verse? pageIconVerse;
   final SkyType sky;
   /// --------------------------------------------------------------------------
   @override
@@ -103,7 +106,7 @@ class ListLayout extends StatelessWidget {
                     boxDistance: _bubbleHeight - (Ratioz.appBarMargin * 5),
                     child: ListView.builder(
                       physics: const BouncingScrollPhysics(),
-                      itemCount: mapModels.length,
+                      itemCount: mapModels?.length ?? 0,
                       // padding: EdgeInsets.zero, /// AGAIN => ENTA EBN WES5A
                       itemBuilder: (BuildContext context, int index) {
                         return Align(
@@ -111,15 +114,17 @@ class ListLayout extends StatelessWidget {
                           child: BldrsBox(
                             height: 40,
                             width: _clearWidth - 10,
-                            icon: icons == null || icons.isEmpty ? null : icons[index],
+                            icon: Mapper.checkCanLoopList(icons) == false ? null : icons![index],
                             iconSizeFactor: 0.8,
-                            verse: mapModels[index].value,
+                            verse: Mapper.checkCanLoopList(mapModels) == false ? null : mapModels![index].value,
                             bubble: false,
                             margins: const EdgeInsets.symmetric(vertical: 5),
                             verseScaleFactor: 0.8,
                             color: Colorz.white10,
                             // textDirection: superTextDirection(context),
-                            onTap: () => onItemTap(mapModels[index].key),
+                            onTap: Mapper.checkCanLoopList(mapModels) == false ? null
+                                :
+                                () => onItemTap?.call(mapModels![index].key!),
                           ),
                         );
                       },

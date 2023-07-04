@@ -1,3 +1,4 @@
+import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/c_chain/dd_data_creation.dart';
@@ -8,35 +9,35 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_head
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:bubbles/bubbles.dart';
+
 import 'package:flutter/material.dart';
 
 class NumberDataCreator extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const NumberDataCreator({
-    @required this.onExportSpecs,
-    @required this.initialValue,
-    @required this.initialUnit,
-    @required this.picker,
-    @required this.onKeyboardSubmitted,
-    @required this.dataCreatorType,
-    @required this.zone,
-    @required this.onlyUseZoneChains,
-    @required this.appBarType,
+    required this.onExportSpecs,
+    required this.initialValue,
+    required this.initialUnit,
+    required this.picker,
+    required this.onKeyboardSubmitted,
+    required this.dataCreatorType,
+    required this.zone,
+    required this.onlyUseZoneChains,
+    required this.appBarType,
     this.width,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final ValueChanged<List<SpecModel>> onExportSpecs;
-  final SpecModel initialValue;
+  final ValueChanged<List<SpecModel>>? onExportSpecs;
+  final SpecModel? initialValue;
   final String initialUnit;
-  final PickerModel picker;
-  final Function onKeyboardSubmitted;
-  final DataCreator dataCreatorType;
-  final ZoneModel zone;
+  final PickerModel? picker;
+  final ValueChanged<String?>? onKeyboardSubmitted;
+  final DataCreator? dataCreatorType;
+  final ZoneModel? zone;
   final bool onlyUseZoneChains;
   final AppBarType appBarType;
-  final double width;
+  final double? width;
   /// --------------------------------------------------------------------------
   @override
   State<NumberDataCreator> createState() => _NumberDataCreatorState();
@@ -48,7 +49,7 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _textController = TextEditingController();
   final ValueNotifier<dynamic> _specValue = ValueNotifier(null);
-  final ValueNotifier<String> _selectedUnitID = ValueNotifier(null);
+  final ValueNotifier<String?> _selectedUnitID = ValueNotifier(null);
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -76,7 +77,7 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
   }
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  String _validator(String text){
+  String? _validator(String? text){
     return Formers.numberDataCreatorFieldValidator(
       text: text,
       picker: widget.picker,
@@ -114,12 +115,12 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
         NumberDataCreatorFieldRow(
           width: _bubbleWidth,
           appBarType: widget.appBarType,
-          hasUnit: widget.picker.unitChainID != null,
-          validator: (String text) => _validator(text),
+          hasUnit: widget.picker?.unitChainID != null,
+          validator: (String? text) => _validator(text),
           textController: _textController,
           formKey: _formKey,
           hintVerse: Verse(
-            id: widget.picker.chainID,
+            id: widget.picker?.chainID,
             translate: true,
           ),
           selectedUnitID: _selectedUnitID,
@@ -134,7 +135,7 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
             onExportSpecs: widget.onExportSpecs,
             mounted: mounted,
           ),
-          onKeyboardChanged: (String text) => onDataCreatorKeyboardChanged(
+          onKeyboardChanged: (String? text) => onDataCreatorKeyboardChanged(
             formKey: _formKey,
             specValue: _specValue,
             dataCreatorType: widget.dataCreatorType,
@@ -144,7 +145,7 @@ class _NumberDataCreatorState extends State<NumberDataCreator> {
             onExportSpecs: widget.onExportSpecs,
             mounted: mounted,
           ),
-          onKeyboardSubmitted: (String text) => onDataCreatorKeyboardSubmittedAnd(
+          onKeyboardSubmitted: (String? text) => onDataCreatorKeyboardSubmittedAnd(
             context: context,
             onKeyboardSubmitted: widget.onKeyboardSubmitted,
             formKey: _formKey,

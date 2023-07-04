@@ -1,5 +1,7 @@
 import 'dart:async';
-
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/layouts/handlers/pull_to_refresh.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/b_notes_page/x2_user_notes_page_controllers.dart';
@@ -12,18 +14,15 @@ import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/fire/note_fire_ops.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
 import 'package:bldrs/e_back_end/x_queries/notes_queries.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 
 class BzNotesPage extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const BzNotesPage({
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   @override
   State<BzNotesPage> createState() => _BzNotesPageState();
@@ -38,7 +37,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
   // bool get wantKeepAlive => true;
    */
   // -----------------------------------------------------------------------------
-  PaginationController _paginationController;
+  PaginationController? _paginationController;
   // --------------------
   final List<NoteModel> _localNotesToMarkUnseen = <NoteModel>[];
   // --------------------
@@ -47,7 +46,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -96,7 +95,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
   void dispose() {
     blog('BzNotesPage dispose START');
     _loading.dispose();
-    _paginationController.dispose();
+    _paginationController?.dispose();
     super.dispose();
     blog('BzNotesPage dispose END');
   }
@@ -162,12 +161,12 @@ class _BzNotesPageState extends State<BzNotesPage>{
     await Future.delayed(const Duration(milliseconds: 200), (){
 
       setNotifier(
-          notifier: _paginationController.paginatorMaps,
+          notifier: _paginationController?.paginatorMaps,
           mounted: mounted,
           value: <Map<String, dynamic>>[],
       );
       setNotifier(
-          notifier: _paginationController.startAfter,
+          notifier: _paginationController?.startAfter,
           mounted: mounted,
           value: null,
       );
@@ -183,7 +182,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  Function _onNoteTap(NoteModel _note) {
+  Function? _onNoteTap(NoteModel? _note) {
 
     if (canTapNoteBubble(_note) == true){
       return () => onBzNoteTap(
@@ -201,7 +200,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
   Widget build(BuildContext context) {
     // super.build(context);
 
-    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+    final BzModel? _bzModel = BzzProvider.proGetActiveBzModel(
       context: context,
       listen: true,
     );
@@ -214,25 +213,25 @@ class _BzNotesPageState extends State<BzNotesPage>{
 
       FireCollPaginator(
           paginationQuery: bzNotesPaginationQueryModel(
-            bzID: _bzModel.id,
+            bzID: _bzModel?.id,
           ),
           paginationController: _paginationController,
-          builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
+          builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget? child){
 
             return ListView.builder(
               physics: const BouncingScrollPhysics(),
-              controller: _paginationController.scrollController,
-              itemCount: maps?.length,
+              controller: _paginationController?.scrollController,
+              itemCount: maps.length,
               padding: Stratosphere.stratosphereSandwich,
               itemBuilder: (BuildContext ctx, int index) {
 
-                final NoteModel _note = NoteModel.decipherNote(
+                final NoteModel? _note = NoteModel.decipherNote(
                   map: maps[index],
                   fromJSON: false,
                 );
 
                 return NoteCard(
-                  key: PageStorageKey<String>('bz_note_card_${_note.id}'),
+                  key: PageStorageKey<String>('bz_note_card_${_note?.id}'),
                   noteModel: _note,
                   isDraftNote: false,
                   onCardTap: _onNoteTap(_note),

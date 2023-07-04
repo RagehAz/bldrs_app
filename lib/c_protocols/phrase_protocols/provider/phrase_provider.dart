@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
@@ -8,12 +9,12 @@ import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.da
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:filers/filers.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:numeric/numeric.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:provider/provider.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 // final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: false);
 class PhraseProvider extends ChangeNotifier {
@@ -24,38 +25,41 @@ class PhraseProvider extends ChangeNotifier {
 // --------------------------------------------
   /// TESTED : WORKS PERFECT
   Future<void> changeAppLang({
-    @required String langCode,
+    required String? langCode,
   }) async {
 
-    pushWaitDialog(
-      verse: const Verse(
-        id: 'phid_change_app_lang_description',
-        translate: true,
-      ),
-    );
+    if (langCode != null) {
 
-    await fetchSetCurrentLangAndAllPhrases(
-      setLangCode: langCode,
-    );
+      pushWaitDialog(
+        verse: const Verse(
+          id: 'phid_change_app_lang_description',
+          translate: true,
+        ),
+      );
 
-    await Localizer.changeAppLanguage(getMainContext(), langCode);
+      await fetchSetCurrentLangAndAllPhrases(
+        setLangCode: langCode,
+      );
 
-    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
-    await _chainsProvider.fetchSortSetBldrsChains(
-      notify: true,
-    );
+      await Localizer.changeAppLanguage(getMainContext(), langCode);
 
-    await WaitDialog.closeWaitDialog();
+      final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
+      await _chainsProvider.fetchSortSetBldrsChains(
+        notify: true,
+      );
 
-    await BldrsNav.goBackToLogoScreen(
-      animatedLogoScreen: true,
-    );
+      await WaitDialog.closeWaitDialog();
+
+      await BldrsNav.goBackToLogoScreen(
+        animatedLogoScreen: true,
+      );
+    }
 
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> fetchSetCurrentLangAndAllPhrases({
-    String setLangCode,
+    String? setLangCode,
   }) async {
 
     // blog('---> fetchSetCurrentLangAndAllPhrases : START');
@@ -92,8 +96,8 @@ class PhraseProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String proGetCurrentLangCode({
-    @required BuildContext context,
-    @required bool listen,
+    required BuildContext context,
+    required bool listen,
   }){
     final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: listen);
     return _phraseProvider._currentLangCode;
@@ -101,8 +105,8 @@ class PhraseProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> getSetCurrentLangCode({
-    @required bool notify,
-    String setLangCode,
+    required bool notify,
+    String? setLangCode,
   }) async {
 
     /// A. DETECT DEVICE LANGUAGE
@@ -118,8 +122,8 @@ class PhraseProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void _setCurrentLanguage({
-    @required String code,
-    @required bool notify,
+    required String code,
+    required bool notify,
   }){
 
     _currentLangCode = code;
@@ -140,7 +144,7 @@ class PhraseProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> fetchSetMainPhrases({
-    @required bool notify,
+    required bool notify,
   }) async {
 
     // blog('X1- fetchSetMainPhrases : START');
@@ -161,8 +165,8 @@ class PhraseProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void setMainPhrases({
-    @required List<Phrase> setTo,
-    @required bool notify,
+    required List<Phrase> setTo,
+    required bool notify,
   }){
 
     /// NOTE : FILTERS GIVEN PHRASES AS PER CURRENT LANG + REMOVE TRIGRAMS
@@ -191,19 +195,14 @@ class PhraseProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  String translatePhid(String phid){
+  String? translatePhid(String? phid){
 
-    String _translation;
+    String? _translation;
 
-    if (
-        _mainPhrases != null
-        &&
-        Mapper.checkCanLoopList(_mainPhrases) == true
-    ){
+    if (Mapper.checkCanLoopList(_mainPhrases) == true){
 
-      final Phrase _phrase = _mainPhrases.firstWhere(
+      final Phrase? _phrase = _mainPhrases.firstWhereOrNull(
               (phrase) => phrase.id == phid,
-          orElse: ()=> null
       );
 
       if (_phrase != null){
@@ -227,7 +226,7 @@ class PhraseProvider extends ChangeNotifier {
   List<String> _usedXPhrases = <String>[];
   List<String> get usedXPhrases => _usedXPhrases;
   // --------------------
-  void addToUsedXPhrases(String id){
+  void addToUsedXPhrases(String? id){
 
     _usedXPhrases = Stringer.addStringToListIfDoesNotContainIt(
       strings: _usedXPhrases,
@@ -246,14 +245,14 @@ class PhraseProvider extends ChangeNotifier {
   List<String> get phidsPendingTranslation => _phidsPendingTranslation;
   // --------------------
   static List<String> proGetPhidsPendingTranslation({
-    @required BuildContext context,
-    @required bool listen,
+    required BuildContext context,
+    required bool listen,
   }){
     final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(context, listen: listen);
     return _phraseProvider.phidsPendingTranslation;
   }
   // --------------------
-  void addToPhidsPendingTranslation(String id){
+  void addToPhidsPendingTranslation(String? id){
 
     WidgetsBinding.instance.addPostFrameCallback((_){
 
@@ -273,7 +272,7 @@ class PhraseProvider extends ChangeNotifier {
 
       for (final String phid in _phidsPendingTranslation){
 
-        final String _xPhrase = translatePhid(phid);
+        final String? _xPhrase = translatePhid(phid);
 
         if (_xPhrase != null){
           _phidsPendingTranslation = Stringer.removeStringsFromStrings(
@@ -299,8 +298,8 @@ class PhraseProvider extends ChangeNotifier {
   }
   // --------------------
   void setPhidsPendingTranslation({
-    @required List<String> setTo,
-    @required bool notify,
+    required List<String> setTo,
+    required bool notify,
   }){
 
     blog('setPhidsPendingTranslation : setTO : $setTo');
@@ -318,7 +317,7 @@ class PhraseProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void wipeOut({
-    @required bool notify,
+    required bool notify,
   }){
 
     /*
@@ -352,9 +351,9 @@ class PhraseProvider extends ChangeNotifier {
 //-------------------------------------
 /// ~~~~~~ SUPER PHRASE ~~~~~~
 //---------------------
-String xPhrase(String phid){
+String? xPhrase(String? phid){
 
-  final String id = Phider.removeIndexFromPhid(phid: phid);
+  final String? id = Phider.removeIndexFromPhid(phid: phid);
 
   final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(getMainContext(), listen: false);
   _phraseProvider.addToUsedXPhrases(id);
@@ -367,7 +366,7 @@ String xPhrase(String phid){
   /// THE PHID VERSES
   else {
 
-     String _translation = _phraseProvider.translatePhid(id);
+     String? _translation = _phraseProvider.translatePhid(id);
 
     if (_translation == null){
       _phraseProvider.addToPhidsPendingTranslation(id ?? phid);
@@ -385,8 +384,10 @@ List<String> xPhrases(List<String> phids){
   if (Mapper.checkCanLoopList(phids) == true){
 
     for (final String phid in phids){
-      final String _trans = xPhrase(phid);
-      _output.add(_trans);
+      final String? _trans = xPhrase(phid);
+      if (_trans != null){
+        _output.add(_trans);
+      }
     }
 
   }
@@ -396,7 +397,7 @@ List<String> xPhrases(List<String> phids){
 
 }
 //---------------------
-String phidIcon(dynamic icon){
+String? phidIcon(dynamic icon){
   final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
   return _chainsProvider.getPhidIcon(
     son: icon,
@@ -408,10 +409,10 @@ String phidIcon(dynamic icon){
 /// ----------------------------------------------------------------------------------------
 /// ----------------------------------------------------------------------------------------
 
-String counterCaliber(int x){
+String? counterCaliber(int? x){
   return Numeric.formatNumToCounterCaliber(
     x: x,
-    thousand: xPhrase('phid_thousand'),
-    million: xPhrase('phid_million'),
+    thousand: xPhrase('phid_thousand')!,
+    million: xPhrase('phid_million')!,
   );
 }

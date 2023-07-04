@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/account_model.dart';
@@ -13,9 +13,8 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 
 // -----------------------------------------------------------------------------
 
@@ -24,11 +23,11 @@ import 'package:layouts/layouts.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> authByEmailSignIn({
-  @required String email,
-  @required String password,
-  @required GlobalKey<FormState> formKey,
-  @required bool mounted,
-  @required bool rememberMe,
+  required String email,
+  required String password,
+  required GlobalKey<FormState> formKey,
+  required bool mounted,
+  required bool rememberMe,
 }) async {
 
   /// A - PREPARE FOR AUTH AND CHECK VALIDITY
@@ -68,13 +67,13 @@ Future<void> authByEmailSignIn({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> authByEmailRegister({
-  @required BuildContext context,
-  @required String email,
-  @required String password,
-  @required String passwordConfirmation,
-  @required GlobalKey<FormState> formKey,
-  @required bool rememberMe,
-  @required bool mounted,
+  required BuildContext context,
+  required String email,
+  required String password,
+  required String passwordConfirmation,
+  required GlobalKey<FormState> formKey,
+  required bool rememberMe,
+  required bool mounted,
 }) async {
 
   /// A - PREPARE FOR AUTH AND CHECK VALIDITY
@@ -115,8 +114,8 @@ Future<void> authByEmailRegister({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> authBySocialMedia({
-  @required AuthModel authModel,
-  @required bool mounted,
+  required AuthModel? authModel,
+  required bool mounted,
 }) async {
 
   if (authModel != null) {
@@ -147,17 +146,17 @@ Future<void> authBySocialMedia({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _rememberEmailAndNav({
-  @required bool success,
-  @required bool rememberMe,
-  @required String email,
-  @required String password,
-  @required bool mounted,
+  required bool success,
+  required bool rememberMe,
+  required String? email,
+  required String? password,
+  required bool mounted,
 }) async {
 
   /// ON SUCCESS
   if (success == true) {
 
-    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+    final UserModel? _userModel = UsersProvider.proGetMyUserModel(
       context: getMainContext(),
       listen: false,
     );
@@ -197,8 +196,8 @@ Future<void> _rememberEmailAndNav({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _navAfterAuth({
-  @required UserModel userModel,
-  @required bool firstTimer,
+  required UserModel? userModel,
+  required bool firstTimer,
 }) async {
 
   if (userModel != null){
@@ -234,8 +233,8 @@ Future<void> _navAfterAuth({
 // --------------------
 /*
 Future<void> setUserAndAuthModelsLocallyAndOnLDB({
-  @required BuildContext context,
-  @required AuthModel authModel,
+  required BuildContext context,
+  required AuthModel authModel,
 }) async {
 
   final UserModel _userModel = authModel.userModel;
@@ -274,8 +273,8 @@ Future<void> setUserAndAuthModelsLocallyAndOnLDB({
 }
 // --------------------
 Future<void> _controlMissingFieldsCase({
-  @required BuildContext context,
-  @required AuthModel authModel,
+  required BuildContext context,
+  required AuthModel authModel,
 }) async {
 
   await showMissingFieldsDialog(
@@ -299,8 +298,8 @@ Future<void> _controlMissingFieldsCase({
 }
 // --------------------
 Future<void> showMissingFieldsDialog({
-  @required BuildContext context,
-  @required UserModel userModel,
+  required BuildContext context,
+  required UserModel userModel,
 }) async {
 
   final List<String> _missingFields = UserModel.missingFields(userModel);
@@ -328,7 +327,7 @@ Future<void> _goToLogoScreen() async {
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _goToUserEditorForFirstTime({
-  @required UserModel userModel,
+  required UserModel userModel,
 }) async {
 
   await Nav.goToNewScreen(
@@ -355,17 +354,17 @@ Future<void> _goToUserEditorForFirstTime({
 // --------------------
 /// TESTED : WORKS PERFECT
 bool _prepareForEmailAuthOps({
-  @required GlobalKey<FormState> formKey,
+  required GlobalKey<FormState> formKey,
 }) {
 
   /// MINIMIZE KEYBOARD
   Keyboard.closeKeyboard();
 
   /// CHECK VALIDITY
-  final bool _allFieldsAreValid = formKey.currentState.validate();
+  final bool? _allFieldsAreValid = formKey.currentState?.validate();
 
 
-  return _allFieldsAreValid;
+  return _allFieldsAreValid ?? false;
 }
 // -----------------------------------------------------------------------------
 
@@ -374,8 +373,8 @@ bool _prepareForEmailAuthOps({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> rememberOrForgetAccount({
-  @required AccountModel account,
-  @required bool rememberMe,
+  required AccountModel? account,
+  required bool rememberMe,
 }) async {
   if (
       account != null
@@ -393,7 +392,7 @@ Future<void> rememberOrForgetAccount({
 
     else {
       await AccountLDBOps.deleteAccount(
-        id: account?.id,
+        id: account.id,
       );
     }
 

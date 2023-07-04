@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_positional_boolean_parameters
 import 'dart:async';
-
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
@@ -19,23 +20,22 @@ import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_mode
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mediators/mediators.dart';
-import 'package:night_sky/night_sky.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
+import 'package:mediators/pic_maker/pic_maker.dart';
 
 class AuthorEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const AuthorEditorScreen({
-    @required this.author,
-    @required this.bzModel,
+    required this.author,
+    required this.bzModel,
     this.checkLastSession = true,
     this.validateOnStartup = false,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final AuthorModel author;
-  final BzModel bzModel;
+  final AuthorModel? author;
+  final BzModel? bzModel;
   final bool checkLastSession;
   final bool validateOnStartup;
   /// --------------------------------------------------------------------------
@@ -46,9 +46,9 @@ class AuthorEditorScreen extends StatefulWidget {
 
 class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
   // -----------------------------------------------------------------------------
-  final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
+  final ValueNotifier<ProgressBarModel?> _progressBarModel = ValueNotifier(null);
   final PageController _pageController = PageController();
-  ConfirmButtonModel _confirmButtonModel;
+  ConfirmButtonModel? _confirmButtonModel;
   // --------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   // --------------------
@@ -65,7 +65,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
   // --------------------
   final ValueNotifier<bool> _canPickImage = ValueNotifier(true);
   // --------------------
-  final ValueNotifier<AuthorModel> _draftAuthor = ValueNotifier(null);
+  final ValueNotifier<AuthorModel?> _draftAuthor = ValueNotifier(null);
   // --------------------
   final ScrollController _scrollController = ScrollController();
   // --------------------
@@ -77,7 +77,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -236,8 +236,8 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
     /// STRIP 5 : PHONE - EMAIL
 
     final bool _phoneIsValid = Formers.contactsPhoneValidator(
-      contacts: _draftAuthor.value.contacts,
-      zoneModel: widget.bzModel.zone,
+      contacts: _draftAuthor.value?.contacts,
+      zoneModel: widget.bzModel?.zone,
       canValidate: true,
       isRequired: false,
 
@@ -273,7 +273,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
   /// TESTED : WORKS PERFECT
   void _controlConfirmButton(){
 
-    if (_progressBarModel.value.stripsColors.contains(ProgressBarModel.errorStripColor) == true){
+    if (Mapper.boolIsTrue(_progressBarModel.value?.stripsColors?.contains(ProgressBarModel.errorStripColor)) == true){
       setState(() {
         _confirmButtonModel = null;
       });
@@ -323,7 +323,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
       progressBarModel: _progressBarModel,
       child: ValueListenableBuilder(
         valueListenable: _draftAuthor,
-        builder: (_, AuthorModel authorModel, Widget child){
+        builder: (_, AuthorModel? authorModel, Widget? child){
 
           return Form(
             key: _formKey,
@@ -340,7 +340,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     Center(
                       child: AddImagePicBubble(
                         // width: BldrsAppBar.width(context),
-                        picModel: authorModel.picModel,
+                        picModel: authorModel?.picModel,
                         titleVerse: const Verse(
                           id: 'phid_author_picture',
                           translate: true,
@@ -386,15 +386,15 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                           translate: true,
                         ),
                       ],
-                      initialText: authorModel.name,
-                      onTextChanged: (String text) => onAuthorNameChanged(
+                      initialText: authorModel?.name,
+                      onTextChanged: (String? text) => onAuthorNameChanged(
                         tempAuthor: _draftAuthor,
                         text: text,
                         mounted: mounted,
                       ),
                       // autoValidate: true,
-                      validator: (String text) => Formers.personNameValidator(
-                          name: authorModel.name,
+                      validator: (String? text) => Formers.personNameValidator(
+                          name: authorModel?.name,
                           canValidate: _canValidate
                       ),
 
@@ -418,14 +418,14 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       maxLength: 72,
                       keyboardTextInputType: TextInputType.name,
                       keyboardTextInputAction: TextInputAction.next,
-                      onTextChanged: (String text) => onAuthorTitleChanged(
+                      onTextChanged: (String? text) => onAuthorTitleChanged(
                         text: text,
                         tempAuthor: _draftAuthor,
                         mounted: mounted,
                       ),
-                      initialText: authorModel.title,
-                      validator: (String text) => Formers.jobTitleValidator(
-                          jobTitle: authorModel.title,
+                      initialText: authorModel?.title,
+                      validator: (String? text) => Formers.jobTitleValidator(
+                          jobTitle: authorModel?.title,
                           canValidate: _canValidate
                       ),
                     ),
@@ -438,11 +438,11 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                           canValidate: true,
                         ) == null &&
                       Formers.personNameValidator(
-                          name: authorModel.name,
+                          name: authorModel?.name,
                           canValidate: true
                       ) == null &&
                       Formers.jobTitleValidator(
-                          jobTitle: authorModel.title,
+                          jobTitle: authorModel?.title,
                           canValidate: true,
                       ) == null,
                     ),
@@ -477,18 +477,18 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       keyboardTextInputAction: TextInputAction.next,
                       initialTextValue: ContactModel.getInitialContactValue(
                         type: ContactType.phone,
-                        countryID: widget.bzModel.zone.countryID,
-                        existingContacts: authorModel.contacts,
+                        countryID: widget.bzModel?.zone?.countryID,
+                        existingContacts: authorModel?.contacts,
                       ),
-                      textOnChanged: (String text) => onAuthorContactChanged(
+                      textOnChanged: (String? text) => onAuthorContactChanged(
                         contactType: ContactType.phone,
                         value: text,
                         tempAuthor: _draftAuthor,
                         mounted: mounted,
                       ),
-                      validator: (String text) => Formers.contactsPhoneValidator(
-                        contacts: authorModel.contacts,
-                        zoneModel: widget.bzModel.zone,
+                      validator: (String? text) => Formers.contactsPhoneValidator(
+                        contacts: authorModel?.contacts,
+                        zoneModel: widget.bzModel?.zone,
                         canValidate: _canValidate,
                         isRequired: false,
 
@@ -514,18 +514,18 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       keyboardTextInputAction: TextInputAction.done,
                       initialTextValue: ContactModel.getInitialContactValue(
                         type: ContactType.email,
-                        countryID: widget.bzModel.zone.countryID,
-                        existingContacts: authorModel.contacts,
+                        countryID: widget.bzModel?.zone?.countryID,
+                        existingContacts: authorModel?.contacts,
                       ),
-                      textOnChanged: (String text) => onAuthorContactChanged(
+                      textOnChanged: (String? text) => onAuthorContactChanged(
                         contactType: ContactType.email,
                         value: text,
                         tempAuthor: _draftAuthor,
                         mounted: mounted,
                       ),
                       canPaste: false,
-                      validator: (String text) => Formers.contactsEmailValidator(
-                          contacts: authorModel.contacts,
+                      validator: (String? text) => Formers.contactsEmailValidator(
+                          contacts: authorModel?.contacts,
                           canValidate: _canValidate
                       ),
                     ),

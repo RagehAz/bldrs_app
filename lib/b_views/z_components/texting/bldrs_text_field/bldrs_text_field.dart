@@ -1,21 +1,22 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/super_text_field/super_text_field.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:super_text_field/super_text_field.dart';
 
 class BldrsTextField extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BldrsTextField({
-    @required this.appBarType,
-    @required this.globalKey,
-    @required this.width,
-    @required this.titleVerse,
+    required this.appBarType,
+    required this.globalKey,
+    required this.width,
+    required this.titleVerse,
     this.textController,
 
     /// main
@@ -63,17 +64,17 @@ class BldrsTextField extends StatelessWidget {
 
     this.isFloatingField = false,
     this.isObscured,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   // --------------------------------------------------------------------------
   /// main
   final Verse titleVerse;
-  final bool isFormField;
-  final TextEditingController textController;
-  final String initialValue;
-  final Verse hintVerse;
+  final bool? isFormField;
+  final TextEditingController? textController;
+  final String? initialValue;
+  final Verse? hintVerse;
   final bool autofocus;
-  final FocusNode focusNode;
+  final FocusNode? focusNode;
   final bool counterIsOn;
   final bool autoValidate;
 
@@ -84,16 +85,16 @@ class BldrsTextField extends StatelessWidget {
   final Color fieldColor;
 
   /// keyboard
-  final TextInputType textInputType;
-  final TextInputAction textInputAction;
+  final TextInputType? textInputType;
+  final TextInputAction? textInputAction;
 
   /// text
-  final TextDirection textDirection;
+  final TextDirection? textDirection;
   final bool centered;
   final int maxLines;
   final int minLines;
   final int maxLength;
-  final ScrollController scrollController;
+  final ScrollController? scrollController;
 
   /// styling
   final VerseWeight textWeight;
@@ -104,24 +105,24 @@ class BldrsTextField extends StatelessWidget {
   final bool textShadow;
 
   /// functions
-  final Function onTap;
-  final ValueChanged<String> onChanged;
-  final ValueChanged<String> onSubmitted;
-  final ValueChanged<String> onSavedForForm;
-  final Function onEditingComplete;
+  final Function? onTap;
+  final ValueChanged<String?>? onChanged;
+  final ValueChanged<String?>? onSubmitted;
+  final ValueChanged<String?>? onSavedForForm;
+  final Function? onEditingComplete;
   // final ValueChanged<String> onPaste;
   /// should return error string or null if there is no error
-  final String Function(String) validator;
+  final String? Function(String?)? validator;
 
   final bool isFloatingField;
-  final ValueNotifier<bool> isObscured;
-  final GlobalKey globalKey;
-  final AppBarType appBarType;
+  final ValueNotifier<bool>? isObscured;
+  final GlobalKey? globalKey;
+  final AppBarType? appBarType;
   // --------------------------------------------------------------------------
    /// TESTED : WORKS PERFECT
   static EdgeInsets getFieldScrollPadding({
-    @required BuildContext context,
-    @required AppBarType appBarType,
+    required BuildContext context,
+    required AppBarType? appBarType,
   }){
 
     final EdgeInsets _scrollPadding = EdgeInsets.only(
@@ -134,12 +135,12 @@ class BldrsTextField extends StatelessWidget {
   // --------------------
   /// TESTED : ACCEPTED
   static double getFieldHeight({
-    @required BuildContext context,
-    @required int minLines,
-    @required int textSize,
-    @required double scaleFactor,
-    @required bool withBottomMargin,
-    @required bool withCounter,
+    required BuildContext context,
+    required int minLines,
+    required int textSize,
+    required double scaleFactor,
+    required bool withBottomMargin,
+    required bool withCounter,
   }){
 
     final _textHeight = BldrsText.superVerseRealHeight(
@@ -187,7 +188,7 @@ class BldrsTextField extends StatelessWidget {
       textController: textController,
 
       /// main
-      isFormField: isFormField,
+      isFormField: isFormField ?? true,
       initialValue: initialValue,
       hintText: Verse.bakeVerseToString(
         verse: hintVerse,
@@ -237,9 +238,9 @@ class BldrsTextField extends StatelessWidget {
 
       /// functions
       onTap: onTap,
-      onChanged: onChanged,
-      onSubmitted: onSubmitted,
-      onSavedForForm: onSavedForForm,
+      onChanged: onChanged == null ? null : (String? text) => onChanged!(text),
+      onSubmitted: onSubmitted == null ? null : (String? text) => onSubmitted!(text),
+      onSavedForForm: onSavedForForm == null ? null : (String? text) => onSavedForForm!(text),
       onEditingComplete: onEditingComplete,
       validator: validator,
 

@@ -1,36 +1,37 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_color.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_verse.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
 class FooterButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FooterButton({
-    @required this.flyerBoxWidth,
-    @required this.icon,
-    @required this.onTap,
-    @required this.phid,
-    @required this.isOn,
-    @required this.canTap,
-    @required this.count,
+    required this.flyerBoxWidth,
+    required this.icon,
+    required this.onTap,
+    required this.phid,
+    required this.isOn,
+    required this.canTap,
+    required this.count,
     this.color,
     this.isLoading = false,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final String icon;
+  final String? icon;
   final double flyerBoxWidth;
-  final Function onTap;
+  final Function? onTap;
   final String phid;
   final bool isOn;
   final bool canTap;
-  final int count;
-  final Color color;
+  final int? count;
+  final Color? color;
   final bool isLoading;
   // --------------------
   @override
@@ -54,7 +55,6 @@ class FooterButton extends StatelessWidget {
          decoration: BoxDecoration(
            color: Colorz.black255,
            borderRadius: Borderers.superCorners(
-               context: context,
                corners: _buttonSize * 0.5,
            ),
          )
@@ -100,9 +100,12 @@ class FooterButton extends StatelessWidget {
                 height: _buttonSize * 0.9,
                 child: Transform.scale(
                   scale: 0.5,
-                  child: WebsafeSvg.asset(
-                    icon,
-                      color: _iconAndVerseColor,
+                  child: icon == null ? const SizedBox() : WebsafeSvg.asset(
+                    icon!,
+                      colorFilter: ColorFilter.mode(
+                        _iconAndVerseColor,
+                        BlendMode.srcIn,
+                      ),
                       // package: Iconz.bldrsTheme,
                       // fit: BoxFit.fitWidth,
                       width: _buttonSize * 0.8,

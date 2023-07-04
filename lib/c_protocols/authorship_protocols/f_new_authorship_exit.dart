@@ -22,9 +22,8 @@ import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
-import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 /// => TAMAM
 class NewAuthorshipExit {
   // -----------------------------------------------------------------------------
@@ -38,8 +37,8 @@ class NewAuthorshipExit {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onRemoveMyselfWhileDeletingMyUserAccount({
-    @required AuthorModel authorModel,
-    @required BzModel bzModel,
+    required AuthorModel? authorModel,
+    required BzModel? bzModel,
   }) async {
 
       /// REMOVE AUTHOR FROM BZ MODEL
@@ -57,7 +56,7 @@ class NewAuthorshipExit {
       /// (only i can) : RENOVATE MY USER MODEL
       /// (only i can) : REMOVE BZ NOTES FROM OBELISK NUMBERS
       await _doAllMyUserRemovalFromBzOps(
-        bzID: bzModel.id,
+        bzID: bzModel?.id,
       );
 
       /// (only i can) : SEND authorExit NOTES
@@ -72,9 +71,9 @@ class NewAuthorshipExit {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onRemoveMySelf({
-    @required AuthorModel authorModel,
-    @required BzModel bzModel,
-    @required bool showConfirmDialog,
+    required AuthorModel? authorModel,
+    required BzModel? bzModel,
+    required bool showConfirmDialog,
   }) async {
 
     bool _canDelete = true;
@@ -112,7 +111,7 @@ class NewAuthorshipExit {
       /// (only i can) : RENOVATE MY USER MODEL
       /// (only i can) : REMOVE BZ NOTES FROM OBELISK NUMBERS
       await _doAllMyUserRemovalFromBzOps(
-        bzID: bzModel.id,
+        bzID: bzModel?.id,
       );
 
       /// (only i can) : SEND authorExit NOTES
@@ -145,8 +144,8 @@ class NewAuthorshipExit {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onRemoveOtherAuthor({
-    @required AuthorModel authorModel,
-    @required BzModel bzModel,
+    required AuthorModel? authorModel,
+    required BzModel? bzModel,
   }) async {
 
     /// SHOW DIALOG
@@ -197,15 +196,15 @@ class NewAuthorshipExit {
   // --------------------
   /// TASK : TEST ME : WORKS GOOD FOR WIPING BZ CYCLE
   static Future<void> onIGotRemoved({
-    @required String bzID, // this should not include my id
-    @required bool isBzDeleted,
+    required String? bzID, // this should not include my id
+    required bool isBzDeleted,
   }) async {
 
     // blog('bzModel == null : ${bzModel == null}');
 
     if (bzID != null){
 
-      final BzModel _bzModel = await BzProtocols.fetchBz(
+      final BzModel? _bzModel = await BzProtocols.fetchBz(
         bzID: bzID,
       );
 
@@ -268,12 +267,12 @@ class NewAuthorshipExit {
   // --------------------
     /// TESTED : WORKS PERFECT
   static Future<void> _migrateFlyersAndRemoveAuthorAndRenovateBz({
-    @required BzModel bzModel,
-    @required AuthorModel authorModel,
+    required BzModel? bzModel,
+    required AuthorModel? authorModel,
   }) async {
 
     /// REMOVE AUTHOR FROM BZ MODEL
-    final BzModel _newBz = BzModel.removeAuthor(
+    final BzModel? _newBz = BzModel.removeAuthor(
         oldBz: bzModel,
         authorID: authorModel?.userID,
     );
@@ -302,17 +301,17 @@ class NewAuthorshipExit {
   // --------------------
     /// TESTED : WORKS PERFECT
   static Future<void> _migrateAuthorFlyersToBzCreator({
-    @required AuthorModel authorModel,
-    @required BzModel bzModel,
+    required AuthorModel? authorModel,
+    required BzModel? bzModel,
   }) async {
 
-    if (Mapper.checkCanLoopList(authorModel.flyersIDs) == true){
+    if (Mapper.checkCanLoopList(authorModel?.flyersIDs) == true){
 
       await Future.wait(<Future>[
 
-        ...List.generate(authorModel.flyersIDs.length, (index){
+        ...List.generate(authorModel!.flyersIDs!.length, (index){
 
-          final String _flyerID = authorModel.flyersIDs[index];
+          final String _flyerID = authorModel.flyersIDs![index];
 
           return _migrateTheFlyer(
             flyerID: _flyerID,
@@ -332,18 +331,18 @@ class NewAuthorshipExit {
   // --------------------
     /// TESTED : WORKS PERFECT
   static Future<void> _migrateTheFlyer({
-    @required String flyerID,
-    @required BzModel bzModel,
+    required String? flyerID,
+    required BzModel? bzModel,
   }) async {
 
-    FlyerModel _flyer = await FlyerProtocols.fetchFlyer(
+    FlyerModel? _flyer = await FlyerProtocols.fetchFlyer(
       context: getMainContext(),
       flyerID: flyerID,
     );
 
     _flyer = FlyerModel.migrateOwnership(
         flyerModel: _flyer,
-        newOwnerID: AuthorModel.getCreatorAuthorFromAuthors(bzModel.authors).userID,
+        newOwnerID: AuthorModel.getCreatorAuthorFromAuthors(bzModel?.authors)?.userID,
         bzModel: bzModel,
     );
 
@@ -357,17 +356,17 @@ class NewAuthorshipExit {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _doAllMyUserRemovalFromBzOps({
-    @required String bzID,
+    required String? bzID,
   }) async {
 
     /// (only i can) : REMOVE BZ & BZ TOPICS FROM MY USER MODEL
-    final UserModel _oldUser = UsersProvider.proGetMyUserModel(
+    final UserModel? _oldUser = UsersProvider.proGetMyUserModel(
       context: getMainContext(),
       listen: false,
     );
 
     /// REMOVE BZ ID
-    UserModel _newUser = UserModel.removeBzIDFromUserBzzIDs(bzIDToRemove: bzID, oldUser: _oldUser);
+    UserModel? _newUser = UserModel.removeBzIDFromUserBzzIDs(bzIDToRemove: bzID, oldUser: _oldUser);
     /// REMOVE BZ TOPICS
     _newUser = UserModel.removeAllBzTopicsFromMyTopics(oldUser: _newUser, bzID: bzID);
 
@@ -383,7 +382,7 @@ class NewAuthorshipExit {
       /// (only i can) : WIPE AUTHOR PIC
       PicProtocols.wipePic(StoragePath.bzz_bzID_authorID(
         bzID: bzID,
-        authorID: _oldUser.id,
+        authorID: _oldUser?.id,
       )),
 
       /// (only i can) : RENOVATE MY USER MODEL
@@ -465,14 +464,14 @@ class NewAuthorshipExit {
   // --------------------
     /// TESTED : WORKS PERFECT
   static Future<void> _iGotDeletedNoticeDialog({
-    @required bool isBzDeleted,
-    @required String bzID,
+    required bool isBzDeleted,
+    required String bzID,
   }) async {
 
     /// BZ DELETED
     if (isBzDeleted == true){
 
-      final BzModel _bzModel = await BzLDBOps.readBz(bzID);
+      final BzModel? _bzModel = await BzLDBOps.readBz(bzID);
 
       await Dialogs.bzBannerDialog(
         titleVerse: Verse(
@@ -509,10 +508,10 @@ class NewAuthorshipExit {
   // --------------------
     /// TESTED : WORKS PERFECT
   static void _showRemovingAuthorWaitDialog({
-    @required bool isBzDeleted,
+    required bool isBzDeleted,
   }) {
 
-    final String _waitText = isBzDeleted == true ?
+    final String? _waitText = isBzDeleted == true ?
     Verse.transBake('phid_removing_bz')
       :
     Verse.transBake('phid_removing_author');
@@ -533,7 +532,7 @@ class NewAuthorshipExit {
   // --------------------
     /// TESTED : WORKS PERFECT
   static Future<void> _showRemovedAuthorSuccessDialog({
-    @required bool isBzDeleted,
+    required bool isBzDeleted,
   }) async {
 
     if (isBzDeleted == true){

@@ -1,8 +1,7 @@
 import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/ldb/a_country_ldb_ops.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/real/a_country_real_ops.dart';
-import 'package:mapper/mapper.dart';
-import 'package:flutter/material.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 /// => TAMAM
 class CountryProtocols {
   // -----------------------------------------------------------------------------
@@ -21,11 +20,11 @@ class CountryProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<CountryModel> fetchCountry({
-    @required String countryID,
+  static Future<CountryModel?> fetchCountry({
+    required String? countryID,
   }) async {
 
-    CountryModel _output;
+    CountryModel? _output;
 
     if (countryID != null){
 
@@ -61,10 +60,10 @@ class CountryProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<CountryModel> refetchCountry({
-    @required String countryID,
+  static Future<CountryModel?> refetchCountry({
+    required String? countryID,
   }) async {
-    CountryModel _output;
+    CountryModel? _output;
 
     if (countryID != null){
 
@@ -79,7 +78,7 @@ class CountryProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CountryModel>> fetchCountries({
-    @required List<String> countriesIDs,
+    required List<String>? countriesIDs,
   }) async {
     final List<CountryModel> _output = <CountryModel>[];
 
@@ -87,11 +86,11 @@ class CountryProtocols {
 
       await Future.wait(<Future>[
 
-        ...List.generate(countriesIDs.length, (index){
+        ...List.generate(countriesIDs!.length, (index){
 
           return fetchCountry(
             countryID: countriesIDs[index],
-          ).then((CountryModel country){
+          ).then((CountryModel? country){
             if (country != null){
               _output.add(country);
             }

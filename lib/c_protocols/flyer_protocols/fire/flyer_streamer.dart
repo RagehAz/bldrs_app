@@ -1,10 +1,10 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
@@ -97,20 +97,20 @@ typedef FlyerModelWidgetBuilder = Widget Function(
  */
 // --------------------
 /// get flyer doc stream
-Stream<FlyerModel> getFlyerStream(String flyerID) {
+Stream<FlyerModel?>? getFlyerStream(String flyerID) {
 
-  final Stream<Map<String, dynamic>> _flyerSnapshot = Fire.streamDoc(
+  final Stream<Map<String, dynamic>?>? _flyerSnapshot = Fire.streamDoc(
     coll: FireColl.flyers,
     doc: flyerID,
   );
 
-  final Stream<FlyerModel> _flyerStream = _flyerSnapshot.map(FlyerModel.mapToFlyer);
+  final Stream<FlyerModel?>? _flyerStream = _flyerSnapshot?.map(FlyerModel.mapToFlyer);
 
   return _flyerStream;
 }
 // --------------------
 /// get flyer doc stream
-Stream<List<ReviewModel>> getFlyerReviewsStream(String flyerID) {
+Stream<List<ReviewModel>?>? getFlyerReviewsStream(String? flyerID) {
 
   // final Stream<QuerySnapshot<Object>> _reviewsStream = Fire.streamSubCollection(
   //   collName: FireColl.flyers,
@@ -139,18 +139,19 @@ Stream<List<ReviewModel>> getFlyerReviewsStream(String flyerID) {
 // -----------------------------------------------------------------------------
 typedef ReviewModelsWidgetsBuilder = Widget Function(
     BuildContext context,
-    List<ReviewModel> reviews,
+    List<ReviewModel>? reviews,
     );
 // --------------------
 Widget reviewsStreamBuilder({
-  BuildContext context,
-  ReviewModelsWidgetsBuilder builder,
-  String flyerID,
+  required BuildContext context,
+  required ReviewModelsWidgetsBuilder builder,
+  String? flyerID,
 }) {
-  return StreamBuilder<List<ReviewModel>>(
+  return StreamBuilder<List<ReviewModel>?>(
     key: const ValueKey<String>('reviews_stream_builder'),
     stream: getFlyerReviewsStream(flyerID),
-    builder: (BuildContext context, AsyncSnapshot<List<ReviewModel>> snapshot) {
+    builder: (BuildContext context, AsyncSnapshot<List<ReviewModel>?> snapshot) {
+
       blog('reviewsStreamBuilder : snapshot is : $snapshot');
 
       if (Streamer.connectionIsLoading(snapshot) == true) {
@@ -158,7 +159,7 @@ Widget reviewsStreamBuilder({
           loading: true,
         );
       } else {
-        final List<ReviewModel> reviews = snapshot?.data;
+        final List<ReviewModel>? reviews = snapshot.data;
 
         return builder(context, reviews);
       }

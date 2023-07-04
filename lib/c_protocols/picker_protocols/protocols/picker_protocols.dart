@@ -10,7 +10,7 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/picker_protocols/ldb/picker_ldb_ops.dart';
 import 'package:bldrs/c_protocols/picker_protocols/real/picker_real_ops.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
 class PickerProtocols {
@@ -25,8 +25,8 @@ class PickerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> composeFlyerTypePickers({
-    @required List<PickerModel> pickers,
-    @required FlyerType flyerType,
+    required List<PickerModel> pickers,
+    required FlyerType flyerType,
   }) async {
 
     pushWaitDialog(
@@ -48,8 +48,8 @@ class PickerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<PickerModel>> fetchFlyerTypPickers({
-    @required FlyerType flyerType,
-    ValueChanged<List<PickerModel>> onFinish,
+    required FlyerType? flyerType,
+    ValueChanged<List<PickerModel>>? onFinish,
   }) async {
 
     /// 1 - search LDB
@@ -85,8 +85,8 @@ class PickerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> renovateFlyerTypePickers({
-    @required FlyerType flyerType,
-    @required List<PickerModel> pickers,
+    required FlyerType flyerType,
+    required List<PickerModel> pickers,
   }) async {
 
     if (Mapper.checkCanLoopList(pickers) == true){
@@ -118,9 +118,9 @@ class PickerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateFlyerTypePickerLocally({
-    @required FlyerType flyerType,
-    @required List<PickerModel> pickers,
-    @required bool showWaitDialog,
+    required FlyerType flyerType,
+    required List<PickerModel> pickers,
+    required bool showWaitDialog,
   }) async {
 
     if (Mapper.checkCanLoopList(pickers) == true){

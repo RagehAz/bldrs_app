@@ -6,15 +6,15 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/static_flyer/b_static
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/static_flyer/d_static_footer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:widget_fader/widget_fader.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/animators/widgets/widget_fader.dart';
 
 class SmallFlyer extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const SmallFlyer({
-    @required this.flyerModel,
-    @required this.flyerBoxWidth,
-    @required this.onTap,
+    required this.flyerModel,
+    required this.flyerBoxWidth,
+    required this.onTap,
     this.flyerShadowIsOn = true,
     this.bluerLayerIsOn = true,
     this.slideShadowIsOn = true,
@@ -22,12 +22,12 @@ class SmallFlyer extends StatelessWidget {
     this.canUseFilter = true,
     this.optionsButtonIsOn = false,
     this.slideIndex = 0,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   // -----------------------------------------------------------------------------
-  final FlyerModel flyerModel;
+  final FlyerModel? flyerModel;
   final double flyerBoxWidth;
-  final Function onTap;
+  final void Function()? onTap;
   final bool flyerShadowIsOn;
   final bool bluerLayerIsOn;
   final bool slideShadowIsOn;
@@ -43,7 +43,7 @@ class SmallFlyer extends StatelessWidget {
     if (flyerModel == null) {
       return FlyerBox(
         key: const ValueKey<String>('DummyListSmallFlyer'),
-        flyerBoxWidth: flyerBoxWidth,
+        flyerBoxWidth: flyerBoxWidth
       );
     }
 
@@ -59,13 +59,13 @@ class SmallFlyer extends StatelessWidget {
           onTap: onTap,
           stackWidgets: <Widget>[
             /// STATIC SINGLE SLIDE
-            if (Mapper.checkCanLoopList(flyerModel.slides) == true)
+            if (Mapper.checkCanLoopList(flyerModel?.slides) == true)
               SingleSlide(
                 flyerBoxWidth: flyerBoxWidth,
                 flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(
                   flyerBoxWidth: flyerBoxWidth,
                 ),
-                slideModel: flyerModel.slides[slideIndex],
+                slideModel: flyerModel!.slides![slideIndex],
                 tinyMode: false,
                 onSlideNextTap: null,
                 onSlideBackTap: null,
@@ -81,11 +81,11 @@ class SmallFlyer extends StatelessWidget {
             /// STATIC HEADER
             StaticHeader(
               flyerBoxWidth: flyerBoxWidth,
-              bzModel: flyerModel.bzModel,
-              authorID: flyerModel.authorID,
-              flyerShowsAuthor: flyerModel.showsAuthor,
-              bzImageLogo: flyerModel.bzLogoImage,
-              authorImage: flyerModel.authorImage,
+              bzModel: flyerModel?.bzModel,
+              authorID: flyerModel?.authorID,
+              flyerShowsAuthor: flyerModel?.showsAuthor,
+              bzImageLogo: flyerModel?.bzLogoImage,
+              authorImage: flyerModel?.authorImage,
               // showHeaderLabels: false,
               // onTap: null,
               // flightDirection: FlightDirection.non,
@@ -94,7 +94,7 @@ class SmallFlyer extends StatelessWidget {
             /// STATIC FOOTER
             StaticFooter(
               flyerBoxWidth: flyerBoxWidth,
-              flyerID: flyerModel.id,
+              flyerID: flyerModel?.id,
               optionsButtonIsOn: optionsButtonIsOn,
             ),
 

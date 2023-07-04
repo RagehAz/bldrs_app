@@ -1,6 +1,6 @@
 import 'package:bldrs/a_models/d_zone/b_country/country_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:ldb/ldb.dart';
+import 'package:basics/ldb/methods/ldb_ops.dart';
 /// => TAMAM
 class CountryLDBOps {
   // -----------------------------------------------------------------------------
@@ -13,7 +13,7 @@ class CountryLDBOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> insertCountry(CountryModel country) async {
+  static Future<void> insertCountry(CountryModel? country) async {
 
     await LDBOps.insertMap(
       docName: LDBDoc.countries,
@@ -30,16 +30,16 @@ class CountryLDBOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<CountryModel> readCountry(String countryID) async {
+  static Future<CountryModel?> readCountry(String? countryID) async {
 
-    final Map<String, Object> _map = await LDBOps.searchFirstMap(
+    final Map<String, Object?>? _map = await LDBOps.searchFirstMap(
       docName: LDBDoc.countries,
       sortFieldName: 'id',
       searchFieldName: 'id',
       searchValue: countryID,
     );
 
-    final CountryModel _country  = CountryModel.decipherCountryMap(
+    final CountryModel? _country  = CountryModel.decipherCountryMap(
       map: _map,
     );
 

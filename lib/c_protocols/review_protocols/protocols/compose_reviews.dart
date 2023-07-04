@@ -22,15 +22,15 @@ class ComposeReviewProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<ReviewModel> composeReview({
-    @required BuildContext context,
-    @required ReviewModel reviewModel,
-    @required String bzID,
+  static Future<ReviewModel?> composeReview({
+    required BuildContext context,
+    required ReviewModel? reviewModel,
+    required String? bzID,
   }) async {
 
-    ReviewModel _uploadedReview;
+    ReviewModel? _uploadedReview;
 
-    if (Authing.userHasID() == true){
+    if (reviewModel != null && bzID != null && Authing.userHasID() == true){
 
       await Future.wait(<Future>[
 
@@ -64,12 +64,12 @@ class ComposeReviewProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> composeReviewReply({
-    @required BuildContext context,
-    @required String bzID,
-    @required ReviewModel updatedReview,
+    required BuildContext context,
+    required String bzID,
+    required ReviewModel updatedReview,
   }) async {
 
-    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+    final UserModel? _myUserModel = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );
@@ -83,7 +83,7 @@ class ComposeReviewProtocols {
 
       if (_imAuthorOfThisBz == true){
 
-      final BzModel _bzModel = await BzProtocols.fetchBz(
+      final BzModel? _bzModel = await BzProtocols.fetchBz(
         bzID: bzID,
       );
 

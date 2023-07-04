@@ -1,15 +1,16 @@
-import 'package:filers/filers.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
 
 class BldrsSliverTabBar extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BldrsSliverTabBar({
-    @required this.tabs,
-    @required this.tabController,
-    Key key
-  }) : super(key: key);
+    required this.tabs,
+    required this.tabController,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final List<Widget> tabs;
   final TabController tabController;

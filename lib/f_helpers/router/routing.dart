@@ -4,7 +4,7 @@ import 'package:bldrs/b_views/b_auth/a_auth_screen/a_auth_screen.dart';
 import 'package:bldrs/b_views/c_main_search/super_search_screen.dart';
 import 'package:bldrs/b_views/e_saves/a_saved_flyers_screen/a_saved_flyers_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/a_app_settings_screen.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/b_animated_logo_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -81,36 +81,29 @@ class Routing {
     /// STATIC LOGO SCREEN
       case Routing.staticLogoScreen:
         return Nav.fadeToScreen(const StaticLogoScreen(), settings);
-        break;
     // --------------------------
     /// ANIMATED LOGO SCREEN
       case Routing.animatedLogoScreen:
         return Nav.fadeToScreen(const AnimatedLogoScreen(), settings);
-        break;
     // --------------------------
     /// AUTH SCREEN
       case Routing.auth:
         return Nav.fadeToScreen(const AuthScreen(), settings);
-        break;
     // --------------------------
     /// HOME SCREEN
       case Routing.home:
         return Nav.fadeToScreen(const HomeScreen(), settings);
-        break;
     // --------------------------
     /// s12
       case Routing.savedFlyers:
         return Nav.slideToScreen(const SavedFlyersScreen(), settings);
-        break;
     // --------------------------
     /// s20
       case Routing.search:
         return Nav.fadeToScreen(const SuperSearchScreen(), settings);
-        break;
     // --------------------------
       case Routing.appSettings:
         return Nav.fadeToScreen(const AppSettingsScreen(), settings);
-        break;
     // --------------------------
     /*
     ///  s51

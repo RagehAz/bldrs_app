@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
@@ -18,9 +19,8 @@ import 'package:bldrs/c_protocols/pic_protocols/protocols/pic_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 ///
 class WipeUserProtocols {
   // -----------------------------------------------------------------------------
@@ -34,8 +34,8 @@ class WipeUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> wipeMyUser({
-    @required BuildContext context,
-    @required bool showWaitDialog,
+    required BuildContext context,
+    required bool showWaitDialog,
   }) async {
 
     blog('WipeUserProtocols.wipeMyUserModel : START');
@@ -50,7 +50,7 @@ class WipeUserProtocols {
       );
     }
 
-    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+    final UserModel? _userModel = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );
@@ -92,7 +92,7 @@ class WipeUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _deleteAuthorUserProtocol({
-    @required UserModel userModel,
+    required UserModel? userModel,
   }) async {
 
     blog('UserProtocol._deleteAuthorUserProtocol : START');
@@ -124,8 +124,8 @@ class WipeUserProtocols {
   /// DEPRECATED
   /*
   static Future<void> _deleteAllMyAuthorPics({
-    @required BuildContext context,
-    @required UserModel userModel,
+    required BuildContext context,
+    required UserModel userModel,
   }) async {
 
     blog('UserProtocol.deleteAllMyAuthorPics : START');
@@ -158,7 +158,7 @@ class WipeUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _deleteBzzICreatedProtocol({
-    @required UserModel userModel,
+    required UserModel? userModel,
   }) async {
 
     blog('UserProtocol.deleteBzzICreatedProtocol : START');
@@ -170,7 +170,7 @@ class WipeUserProtocols {
 
     final List<BzModel> _myBzzICreated = BzModel.getBzzByCreatorID(
       bzzModels: _myBzzModels,
-      creatorID: userModel.id,
+      creatorID: userModel?.id,
     );
 
     if (Mapper.checkCanLoopList(_myBzzICreated) == true){
@@ -199,7 +199,7 @@ class WipeUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _exitBzzIDidNotCreateProtocol({
-    @required UserModel userModel,
+    required UserModel? userModel,
   }) async {
 
     blog('UserProtocol.exitBzzIDidNotCreateProtocol : START');
@@ -211,7 +211,7 @@ class WipeUserProtocols {
 
     final List<BzModel> _myBzzIDidNotCreate = BzModel.getBzzIDidNotCreate(
       bzzModels: _myBzzModels,
-      userID: userModel.id,
+      userID: userModel?.id,
     );
 
     if (Mapper.checkCanLoopList(_myBzzIDidNotCreate) == true){
@@ -222,9 +222,9 @@ class WipeUserProtocols {
 
           final BzModel _oldBz = _myBzzIDidNotCreate[index];
 
-          final AuthorModel _authorModel = AuthorModel.getAuthorFromBzByAuthorID(
+          final AuthorModel? _authorModel = AuthorModel.getAuthorFromBzByAuthorID(
             bz: _oldBz,
-            authorID: userModel.id,
+            authorID: userModel?.id,
           );
 
           return NewAuthorshipExit.onRemoveMyselfWhileDeletingMyUserAccount(
@@ -248,7 +248,7 @@ class WipeUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _deleteNonAuthorUserProtocol({
-    @required UserModel userModel,
+    required UserModel? userModel,
   }) async {
 
     blog('UserProtocol._deleteNonAuthorUserProtocol : START');
@@ -258,11 +258,11 @@ class WipeUserProtocols {
       /// WIPE NOTES
       NoteProtocols.wipeAllNotes(
         partyType: PartyType.user,
-        id: userModel.id,
+        id: userModel?.id,
       ),
 
       /// WIPE USER PIC
-      PicProtocols.wipePic(userModel.picPath),
+      PicProtocols.wipePic(userModel?.picPath),
 
       // TASK : SHOULD WIPE USER SEARCHES
       // UserRecordRealOps.deleteAllUserRecords(
@@ -298,7 +298,7 @@ class WipeUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _deleteMyUserLocallyProtocol({
-    @required UserModel userModel,
+    required UserModel? userModel,
   }) async {
 
     blog('UserProtocol._deleteMyUserLocallyProtocol : START');
@@ -312,7 +312,7 @@ class WipeUserProtocols {
       FlyerLDBOps.deleteFlyers(userModel?.savedFlyers?.all),
 
       /// DELETE ACCOUNT MODEL
-      AccountLDBOps.deleteAccount(id: userModel.id),
+      AccountLDBOps.deleteAccount(id: userModel?.id),
 
       /// TASK : SHOULD DELETE USER SEARCHES LOCALLY
 

@@ -1,6 +1,10 @@
 // ignore_for_file: constant_identifier_names
 import 'dart:async';
 
+import 'package:basics/helpers/classes/checks/device_checker.dart';
+import 'package:basics/helpers/classes/checks/object_check.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
@@ -15,14 +19,11 @@ import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
-import 'package:devicer/devicer.dart';
-import 'package:filers/filers.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:numeric/numeric.dart';
-import 'package:rest/rest.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:basics/helpers/classes/rest/rest.dart';
 
 /*
 
@@ -55,7 +56,7 @@ class DynamicLinks {
 
   // --------------------
   /// FirebaseDynamicLinks SINGLETON
-  FirebaseDynamicLinks _fireDynamicLinks;
+  FirebaseDynamicLinks? _fireDynamicLinks;
   FirebaseDynamicLinks get firebaseDynamicLinks => _fireDynamicLinks ??= FirebaseDynamicLinks.instance;
   static FirebaseDynamicLinks getFireDynamicLinks() => DynamicLinks.instance.firebaseDynamicLinks;
   // -----------------------------------------------------------------------------
@@ -109,8 +110,8 @@ class DynamicLinks {
     if (DeviceChecker.deviceIsWindows() == false) {
       blog('DynamicLinks.initDynamicLinks : starting to listen to onLink');
 
-      getFireDynamicLinks().onLink.listen((PendingDynamicLinkData dynamicLinkData) async {
-        final String _link = dynamicLinkData?.link?.path;
+      getFireDynamicLinks().onLink.listen((PendingDynamicLinkData? dynamicLinkData) async {
+        final String? _link = dynamicLinkData?.link.path;
 
         blogPendingDynamicLinkData(dynamicLinkData);
 
@@ -129,7 +130,7 @@ class DynamicLinks {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _jumpByReceivedDynamicLink({
-    @required String link,
+    required String? link,
   }) async {
 
     // link looks like this
@@ -182,40 +183,45 @@ class DynamicLinks {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<Uri> generateURI({
-    @required String dynamicLink,
-    @required String title,
-    @required String description,
-    @required String picURL,
+  static Future<Uri?> generateURI({
+    required String? dynamicLink,
+    required String? title,
+    required String? description,
+    required String? picURL,
     bool isShortLink = true,
     bool log = false,
   }) async {
 
-    final DynamicLinkParameters _params = _createDynamicLinkParameters(
+    final DynamicLinkParameters? _params = _createDynamicLinkParameters(
       dynamicLink: dynamicLink,
       title: title,
       description: description,
       picUrl: picURL,
     );
 
-    Uri _uri;
+    Uri? _uri;
 
-    /// WHEN SHORT URL
-    if (isShortLink == true){
+    if (_params != null){
 
-      final ShortDynamicLink _shorDynamicLink = await getFireDynamicLinks().buildShortLink(_params);
-      _uri = _shorDynamicLink?.shortUrl;
+      /// WHEN SHORT URL
+      if (isShortLink == true){
 
-      if (log == true) {
-        blogShortDynamicLink(_shorDynamicLink);
+        final ShortDynamicLink? _shorDynamicLink = await getFireDynamicLinks().buildShortLink(_params);
+        _uri = _shorDynamicLink?.shortUrl;
+
+        if (log == true) {
+          blogShortDynamicLink(_shorDynamicLink);
+        }
+
+      }
+
+      /// WHEN LONG URL
+      else {
+        _uri = await getFireDynamicLinks().buildLink(_params);
       }
 
     }
 
-    /// WHEN LONG URL
-    else {
-      _uri = await getFireDynamicLinks().buildLink(_params);
-    }
 
     if (log == true){
       Rest.blogURI(uri: _uri,);
@@ -225,17 +231,18 @@ class DynamicLinks {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static DynamicLinkParameters _createDynamicLinkParameters({
-    @required String dynamicLink,
-    @required String title,
-    @required String description,
-    @required String picUrl,
+  static DynamicLinkParameters? _createDynamicLinkParameters({
+    required String? dynamicLink,
+    required String? title,
+    required String? description,
+    required String? picUrl,
   }){
 
     final bool _picIsURL = ObjectCheck.isAbsoluteURL(picUrl);
     assert(picUrl == null || _picIsURL == true, 'pic can only be null or absolute url');
 
-    return DynamicLinkParameters(
+    if (dynamicLink != null){
+      return DynamicLinkParameters(
       link: Uri.parse(dynamicLink),
       uriPrefix: https_ll_bldrs_page_link,
       androidParameters: androidParameters,
@@ -244,9 +251,14 @@ class DynamicLinks {
       socialMetaTagParameters: SocialMetaTagParameters(
         title: title,
         description: description,
-        imageUrl: Uri.parse(picUrl),
+        imageUrl: Uri.parse(picUrl!),
       ),
     );
+    }
+
+    else {
+      return null;
+    }
 
   }
   // -----------------------------------------------------------------------------
@@ -255,7 +267,7 @@ class DynamicLinks {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void blogPendingDynamicLinkData(PendingDynamicLinkData data){
+  static void blogPendingDynamicLinkData(PendingDynamicLinkData? data){
 
     blog('blogPendingDynamicLinkData : START');
     if (data == null){
@@ -264,15 +276,15 @@ class DynamicLinks {
 
     else {
       blog('blogPendingDynamicLinkData : START');
-      blog('PendingDynamicLinkData : android : ${data?.android}');
-      blog('PendingDynamicLinkData : android.clickTimestamp : ${data?.android?.clickTimestamp}');
-      blog('PendingDynamicLinkData : android.minimumVersion : ${data?.android?.minimumVersion}');
-      blog('PendingDynamicLinkData : ios : ${data?.ios}');
-      blog('PendingDynamicLinkData : ios.matchType : ${data?.ios?.matchType}');
-      blog('PendingDynamicLinkData : ios.minimumVersion : ${data?.ios?.minimumVersion}');
-      blog('PendingDynamicLinkData : utmParameters : ${data?.utmParameters}');
+      blog('PendingDynamicLinkData : android : ${data.android}');
+      blog('PendingDynamicLinkData : android.clickTimestamp : ${data.android?.clickTimestamp}');
+      blog('PendingDynamicLinkData : android.minimumVersion : ${data.android?.minimumVersion}');
+      blog('PendingDynamicLinkData : ios : ${data.ios}');
+      blog('PendingDynamicLinkData : ios.matchType : ${data.ios?.matchType}');
+      blog('PendingDynamicLinkData : ios.minimumVersion : ${data.ios?.minimumVersion}');
+      blog('PendingDynamicLinkData : utmParameters : ${data.utmParameters}');
       Rest.blogURI(
-        uri: data?.link,
+        uri: data.link,
         invoker: 'PendingDynamicLinkData',
       );
     }
@@ -282,7 +294,7 @@ class DynamicLinks {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void blogShortDynamicLink(ShortDynamicLink shortDynamicLink){
+  static void blogShortDynamicLink(ShortDynamicLink? shortDynamicLink){
 
     if (shortDynamicLink == null){
       blog('blogShortDynamicLink : link is null');
@@ -307,28 +319,27 @@ class BldrsShareLink{
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<String> generateFlyerLink({
-    @required String flyerID,
-    @required FlyerType flyerType,
-    @required String headline,
+  static Future<String?> generateFlyerLink({
+    required String? flyerID,
+    required FlyerType? flyerType,
+    required String? headline,
     int slideIndex = 0,
   }) async {
 
-    String _output;
+    String? _output;
 
     if (flyerID != null && flyerType != null){
 
-        final String _posterURL = await _createFlyerPosterURL(
+        final String? _posterURL = await _createFlyerPosterURL(
           flyerID: flyerID,
         );
 
-        final String _title = await  _createFlyerShareLinkTitle(
-          context: getMainContext(),
+        final String? _title = await  _createFlyerShareLinkTitle(
           flyerType: flyerType,
           langCode: 'en',
         );
 
-        final Uri _uri = await DynamicLinks.generateURI(
+        final Uri? _uri = await DynamicLinks.generateURI(
           // '$bldrsURLPrefix/flyer=${Authing.getUserID()}';
           dynamicLink: '${DynamicLinks.https_ll_bldrs_page_link_l_flyer_page}/$flyerID/$slideIndex',
           title: _title,
@@ -346,18 +357,17 @@ class BldrsShareLink{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<String> _createFlyerShareLinkTitle({
-    @required BuildContext context,
-    @required FlyerType flyerType,
-    @required String langCode, /// PLAN : IMPLEMENT ME
+  static Future<String?> _createFlyerShareLinkTitle({
+    required FlyerType flyerType,
+    required String? langCode, /// PLAN : IMPLEMENT ME
   }) async {
 
-    final String _phid = FlyerTyper.getFlyerTypePhid(
+    final String? _phid = FlyerTyper.getFlyerTypePhid(
       flyerType: flyerType,
       pluralTranslation: false,
     );
 
-    final String _flyerTypeTranslation = await PhraseProtocols.translate(
+    final String? _flyerTypeTranslation = await PhraseProtocols.translate(
       langCode: langCode ?? Localizer.getCurrentLangCode(),
       phid: _phid,
     );
@@ -367,11 +377,11 @@ class BldrsShareLink{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<String> _createFlyerPosterURL({
-    @required String flyerID,
+  static Future<String?> _createFlyerPosterURL({
+    required String? flyerID,
   }) async {
-    final String _posterPath = StoragePath.flyers_flyerID_poster(flyerID);
-    final String _picURL = await FCM.getNootPicURLIfNotURL(_posterPath);
+    final String? _posterPath = StoragePath.flyers_flyerID_poster(flyerID);
+    final String? _picURL = await FCM.getNootPicURLIfNotURL(_posterPath);
     return _picURL;
   }
   // -----------------------------------------------------------------------------
@@ -381,10 +391,10 @@ class BldrsShareLink{
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> jumpToFlyerScreenByLink({
-    @required String link,
+    required String? link,
   }) async {
 
-    final String _flyerID = _getFlyerIDFromLink(link);
+    final String? _flyerID = _getFlyerIDFromLink(link);
     final int _index = _getSlideIndexFromLink(link);
 
     blog('jumpToFlyerScreenByLink : link : ($link) : flyerID : $_flyerID : index : $_index');
@@ -397,20 +407,30 @@ class BldrsShareLink{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String _getFlyerIDFromLink(String link) {
+  static String? _getFlyerIDFromLink(String? link) {
     /// sample link
     /// flyer/5FzRLxTgRekkRzKflsjs/0
-    final String _withoutIndex = TextMod.removeTextAfterLastSpecialCharacter(link, '/');
-    final String _flyerID = TextMod.removeTextBeforeLastSpecialCharacter(_withoutIndex, '/');
+    final String? _withoutIndex = TextMod.removeTextAfterLastSpecialCharacter(
+        text: link,
+        specialCharacter: '/',
+    );
+    final String? _flyerID = TextMod.removeTextBeforeLastSpecialCharacter(
+        text: _withoutIndex,
+        specialCharacter: '/',
+    );
+
     return _flyerID;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static int _getSlideIndexFromLink(String link) {
+  static int _getSlideIndexFromLink(String? link) {
 
-    final String indexString = TextMod.removeTextBeforeLastSpecialCharacter(link, '/');
+    final String? indexString = TextMod.removeTextBeforeLastSpecialCharacter(
+        text: link,
+        specialCharacter: '/',
+    );
 
-    int _index = Numeric.transformStringToInt(indexString);
+    int? _index = Numeric.transformStringToInt(indexString);
 
     /// so return zero if _index was null
     return _index ??= 0;
@@ -421,26 +441,26 @@ class BldrsShareLink{
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<String> generateBzLink({
-    @required BuildContext context,
-    @required String bzID,
+  static Future<String?> generateBzLink({
+    required BuildContext context,
+    required String? bzID,
   }) async {
 
-    String _output;
+    String? _output;
 
     if (bzID != null){
 
-      final BzModel _bzModel = await BzProtocols.fetchBz(
+      final BzModel? _bzModel = await BzProtocols.fetchBz(
         bzID: bzID,
       );
 
       if (_bzModel != null){
 
-        final String _posterURL = await _createBzPosterURL(
+        final String? _posterURL = await _createBzPosterURL(
           bzID: bzID,
         );
 
-        final Uri _uri = await DynamicLinks.generateURI(
+        final Uri? _uri = await DynamicLinks.generateURI(
           dynamicLink: '${DynamicLinks.https_ll_bldrs_page_link_l_bz_page}/$bzID',
           title: _createBzShareLinkTitle(
             context: context,
@@ -463,15 +483,15 @@ class BldrsShareLink{
   // --------------------
   /// TESTED : WORKS PERFECT
   static String _createBzShareLinkTitle({
-    @required BuildContext context,
-    @required BzModel bzModel,
-    @required String langCode, /// PLAN : IMPLEMENT LANG CODE
+    required BuildContext context,
+    required BzModel? bzModel,
+    required String? langCode, /// PLAN : IMPLEMENT LANG CODE
   }){
 
     final String _line = BzTyper.translateBzTypesIntoString(
       context: context,
-      bzForm: bzModel.bzForm,
-      bzTypes: bzModel.bzTypes,
+      bzForm: bzModel?.bzForm,
+      bzTypes: bzModel?.bzTypes,
       oneLine: true,
     );
 
@@ -482,11 +502,11 @@ class BldrsShareLink{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<String> _createBzPosterURL({
-    @required String bzID,
+  static Future<String?> _createBzPosterURL({
+    required String? bzID,
   }) async {
-    final String _posterPath = StoragePath.bzz_bzID_logo(bzID);
-    final String _picURL = await FCM.getNootPicURLIfNotURL(_posterPath);
+    final String? _posterPath = StoragePath.bzz_bzID_logo(bzID);
+    final String? _picURL = await FCM.getNootPicURLIfNotURL(_posterPath);
     return _picURL;
   }
   // -----------------------------------------------------------------------------
@@ -496,10 +516,13 @@ class BldrsShareLink{
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> jumpToBzScreenByLink({
-    @required String link,
+    required String link,
   }) async {
     /// ${DynamicLinks.bldrsURLPrefix}/bz/bzID
-    final String _bzID = TextMod.removeTextBeforeLastSpecialCharacter(link, '/');
+    final String? _bzID = TextMod.removeTextBeforeLastSpecialCharacter(
+        text: link,
+        specialCharacter: '/',
+    );
 
     blog('jumpToBzScreenByLink : link : ($link) : _bzID : $_bzID');
 
@@ -514,27 +537,27 @@ class BldrsShareLink{
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<String> generateUserLink({
-    @required BuildContext context,
-    @required String userID,
+  static Future<String?> generateUserLink({
+    required BuildContext context,
+    required String? userID,
   }) async {
 
-    String _output;
+    String? _output;
 
     if (userID != null){
 
-      final UserModel _userModel = await UserProtocols.fetch(
+      final UserModel? _userModel = await UserProtocols.fetch(
         context: context,
         userID: userID,
       );
 
       if (_userModel != null){
 
-        final String _posterURL = await _createUserPosterURL(
+        final String? _posterURL = await _createUserPosterURL(
           userID: userID,
         );
 
-        final Uri _uri = await DynamicLinks.generateURI(
+        final Uri? _uri = await DynamicLinks.generateURI(
           dynamicLink: '${DynamicLinks.https_ll_bldrs_page_link_l_user_page}/$userID',
           title: _userModel.name,
           description: _userModel.title,
@@ -552,11 +575,11 @@ class BldrsShareLink{
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<String> _createUserPosterURL({
-    @required String userID,
+  static Future<String?> _createUserPosterURL({
+    required String? userID,
   }) async {
-    final String _posterPath = StoragePath.users_userID_pic(userID);
-    final String _picURL = await FCM.getNootPicURLIfNotURL(_posterPath);
+    final String? _posterPath = StoragePath.users_userID_pic(userID);
+    final String? _picURL = await FCM.getNootPicURLIfNotURL(_posterPath);
     return _picURL;
   }
   // -----------------------------------------------------------------------------
@@ -566,10 +589,13 @@ class BldrsShareLink{
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> jumpToUserScreenByLink({
-    @required String link,
+    required String link,
   }) async {
     /// ${DynamicLinks.bldrsURLPrefix}/user/userID
-    final String _userID = TextMod.removeTextBeforeLastSpecialCharacter(link, '/');
+    final String? _userID = TextMod.removeTextBeforeLastSpecialCharacter(
+        text: link,
+        specialCharacter: '/',
+    );
 
     blog('jumpToUserScreenByLink : link : ($link) : _userID : $_userID');
 

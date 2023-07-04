@@ -1,19 +1,19 @@
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class ZoneBubbleLine extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ZoneBubbleLine({
-    @required this.line,
-    @required this.icon,
-    Key key
-  }) : super(key: key);
+    required this.line,
+    required this.icon,
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final String line;
-  final String icon;
+  final String? line;
+  final String? icon;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

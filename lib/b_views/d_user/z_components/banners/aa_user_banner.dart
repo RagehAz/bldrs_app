@@ -1,3 +1,7 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/layouts/separators/separator_line.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/d_settings_page/user_settings_page_controllers.dart';
@@ -12,31 +16,29 @@ import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class UserBanner extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const UserBanner({
-    @required this.userModel,
-    Key key
-  }) : super(key: key);
+    required this.userModel,
+    this.width,
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final UserModel userModel;
+  final UserModel? userModel;
+  final double? width;
   /// --------------------------------------------------------------------------
   static Verse generateTitleCompanyString({
-    @required UserModel userModel,
-    @required BuildContext context,
+    required UserModel? userModel,
   }){
 
-    String _string;
+    String? _string;
 
-    final String _title = userModel?.title;
-    final String _company = userModel.company;
+    final String? _title = userModel?.title;
+    final String? _company = userModel?.company;
 
     if (_title == null && _company == null){
       _string = null;
@@ -62,12 +64,12 @@ class UserBanner extends StatelessWidget {
   }
   // --------------------
   static bool canShowTitleCompanyLine({
-    @required UserModel userModel,
+    required UserModel? userModel,
   }){
     bool _can = false;
 
     if (
-    TextCheck.isEmpty(userModel?.title) == false
+        TextCheck.isEmpty(userModel?.title) == false
         ||
         TextCheck.isEmpty(userModel?.company) == false
     ){
@@ -77,15 +79,15 @@ class UserBanner extends StatelessWidget {
     return _can;
   }
   // --------------------
-  static String getBzzString({
-    @required UserModel userModel,
+  static String? getBzzString({
+    required UserModel? userModel,
   }){
 
-    userModel.blogUserModel();
+    // userModel.blogUserModel();
 
     if (UserModel.checkUserIsAuthor(userModel) == true){
       return Stringer.generateStringFromStrings(
-          strings: userModel.myBzzIDs,
+          strings: userModel!.myBzzIDs,
           stringsSeparator: ','
       );
 
@@ -103,14 +105,26 @@ class UserBanner extends StatelessWidget {
     );
     final String _userName = userModel?.name ?? 'phid_unknown_bldr';
     // --------------------
-    final Function _onTap = _thereAreMissingFields == false ?
+    final Function? _onTap = _thereAreMissingFields == false ?
     null : () => onEditProfileTap();
     // --------------------
     final bool _itIsMe = UserModel.checkItIsMe(userModel?.id);
 
     final bool _userIsAuthor = UserModel.checkUserIsAuthor(userModel);
+
+    final double _bubbleWidth = Bubble.bubbleWidth(
+      context: context,
+      bubbleWidthOverride: width,
+    );
+
+    final double _clearWidth = Bubble.clearWidth(
+      context: context,
+      bubbleWidthOverride: width,
+    );
+
     // --------------------
     return Bubble(
+      width: _bubbleWidth,
       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
         context: context,
       ),
@@ -141,6 +155,7 @@ class UserBanner extends StatelessWidget {
             id: _userName,
             translate: false,
           ),
+          width: _clearWidth,
           shadow: true,
           size: 4,
           margin: 5,
@@ -152,24 +167,26 @@ class UserBanner extends StatelessWidget {
         /// USER JOB TITLE
         if (canShowTitleCompanyLine(userModel: userModel) == true)
           BldrsText(
+            width: _clearWidth,
             italic: true,
             weight: VerseWeight.thin,
             verse: generateTitleCompanyString(
               userModel: userModel,
-              context: context,
             ),
           ),
 
         /// USER LOCALE
         ZoneLine(
+          width: _clearWidth,
           zoneModel: userModel?.zone,
           // centered: true,
         ),
 
         /// JOINED AT
         BldrsText(
+          width: _clearWidth,
           verse: Verse(
-            id: BldrsTimers.generateString_in_bldrs_since_month_yyyy(context, userModel?.createdAt),
+            id: BldrsTimers.generateString_in_bldrs_since_month_yyyy(userModel?.createdAt),
             translate: false,
           ),
           weight: VerseWeight.thin,
@@ -180,21 +197,22 @@ class UserBanner extends StatelessWidget {
         /// SEPARATOR
         if (_userIsAuthor == true)
         SeparatorLine(
-          width: Bubble.clearWidth(context: context) * 0.5,
+          width: _clearWidth * 0.5,
           withMargins: true,
         ),
 
         /// AUTHOR IN STRING
         if (_userIsAuthor == true)
-          const BldrsText(
-            verse: Verse(
+          BldrsText(
+            width: _clearWidth,
+            verse: const Verse(
               id: 'phid_author_in',
               translate: true,
             ),
             weight: VerseWeight.thin,
             italic: true,
             color: Colorz.grey255,
-            margin: EdgeInsets.only(bottom: 10),
+            margin: const EdgeInsets.only(bottom: 10),
           ),
 
         /// MY BZZ
@@ -203,7 +221,7 @@ class UserBanner extends StatelessWidget {
           future: BzProtocols.fetchBzz(bzzIDs: userModel?.myBzzIDs),
           builder: (_, AsyncSnapshot snap){
 
-            final List<BzModel> _bzzModels = snap.data;
+            final List<BzModel>? _bzzModels = snap.data;
 
             return Wrap(
               alignment: WrapAlignment.center,
@@ -212,14 +230,17 @@ class UserBanner extends StatelessWidget {
               children: <Widget>[
 
                 if (Mapper.checkCanLoopList(_bzzModels) == true)
-                ...List.generate(_bzzModels.length, (index){
+                ...List.generate(_bzzModels!.length, (index){
 
                   final BzModel _bzModel = _bzzModels[index];
 
                   return BzTileButton(
                     bzModel: _bzModel,
                     height: 50,
-                    width: _bzModel.name.length > 20 ? Bubble.clearWidth(context: context) - 20 : null,
+                    width: (_bzModel.name?.length ?? 0) > 20 ?
+                    _clearWidth - 20
+                        :
+                    null,
                     onTap: () => BldrsNav.jumpToBzPreviewScreen(
                       bzID: _bzModel.id,
                     ),

@@ -1,25 +1,27 @@
 import 'dart:async';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/bldrs_theme/classes/sounds.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/b_heroic_flyer_hero.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/z_grid/z_grid.dart';
-import 'package:layouts/layouts.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
-import 'package:mediators/mediators.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:mediators/sounder/sounder.dart';
 
 class HeroicFlyerBigView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const HeroicFlyerBigView({
-    @required this.flyerBoxWidth,
-    @required this.renderedFlyer,
-    @required this.heroPath,
-    Key key
-  }) : super(key: key);
+    required this.flyerBoxWidth,
+    required this.renderedFlyer,
+    required this.heroPath,
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final FlyerModel renderedFlyer;
+  final FlyerModel? renderedFlyer;
   final double flyerBoxWidth;
   final String heroPath;
   /// --------------------------------------------------------------------------

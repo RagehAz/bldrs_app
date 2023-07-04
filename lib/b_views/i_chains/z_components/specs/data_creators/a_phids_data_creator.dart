@@ -1,41 +1,40 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/i_chains/z_components/chain_builders/a_chain_splitter.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
-import 'package:bubbles/bubbles.dart';
-import 'package:filers/filers.dart';
-
-
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class PhidsDataCreator extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const PhidsDataCreator({
-    @required this.specPicker,
-    @required this.selectedSpecs,
-    @required this.allowableHeight,
-    @required this.searchText,
-    @required this.onPhidTap,
-    @required this.zone,
-    @required this.onlyUseZoneChains,
-    @required this.isMultipleSelectionMode,
-    @required this.onDataCreatorKeyboardSubmitted,
-    @required this.isCollapsable,
+    required this.specPicker,
+    required this.selectedSpecs,
+    required this.allowableHeight,
+    required this.searchText,
+    required this.onPhidTap,
+    required this.zone,
+    required this.onlyUseZoneChains,
+    required this.isMultipleSelectionMode,
+    required this.onDataCreatorKeyboardSubmitted,
+    required this.isCollapsable,
     this.width,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final PickerModel specPicker;
-  final List<SpecModel> selectedSpecs;
+  final PickerModel? specPicker;
+  final List<SpecModel>? selectedSpecs;
   final double allowableHeight;
   final ValueNotifier<dynamic> searchText;
-  final Function(String path, String phid) onPhidTap;
-  final double width;
-  final ZoneModel zone;
-  final ValueChanged<String> onDataCreatorKeyboardSubmitted;
+  final Function(String? path, String? phid)? onPhidTap;
+  final double? width;
+  final ZoneModel? zone;
+  final ValueChanged<String?>? onDataCreatorKeyboardSubmitted;
   final bool isMultipleSelectionMode;
   final bool onlyUseZoneChains;
   final bool isCollapsable;
@@ -51,7 +50,7 @@ class PhidsDataCreator extends StatelessWidget {
       width: _width,
       child: ChainSplitter(
         width: _width,
-        previousPath: specPicker.chainID,
+        previousPath: specPicker?.chainID,
         chainOrChainsOrSonOrSons: Chain.filterSpecPickerChainRange(
           picker: specPicker,
           onlyUseZoneChains: onlyUseZoneChains,
@@ -60,8 +59,8 @@ class PhidsDataCreator extends StatelessWidget {
         initiallyExpanded: false,
         secondLinesType: ChainSecondLinesType.non,
         onPhidTap: onPhidTap,
-        onPhidDoubleTap: (String path, String phid){blog('PhidsDataCreator : onPhidDoubleTap : $path : $phid');},
-        onPhidLongTap:(String path, String phid){blog('PhidsDataCreator : onPhidLongTap : $path : $phid');},
+        onPhidDoubleTap: (String? path, String? phid){blog('PhidsDataCreator : onPhidDoubleTap : $path : $phid');},
+        onPhidLongTap:(String? path, String? phid){blog('PhidsDataCreator : onPhidLongTap : $path : $phid');},
         searchText: searchText,
         onExportSpecs: (List<SpecModel> specs) => blog('PhidsDataCreator : ${specs.length} specs'),
         isMultipleSelectionMode: isMultipleSelectionMode,
@@ -79,14 +78,14 @@ class PhidsDataCreator extends StatelessWidget {
 class PickersViewBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const PickersViewBox({
-    @required this.height,
-    @required this.child,
+    required this.height,
+    required this.child,
     this.width,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double height;
-  final double width;
+  final double? width;
   final Widget child;
   /// --------------------------------------------------------------------------
   @override

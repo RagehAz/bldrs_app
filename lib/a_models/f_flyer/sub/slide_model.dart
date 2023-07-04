@@ -1,26 +1,28 @@
 import 'dart:ui' as ui;
-import 'package:mediators/mediators.dart';
-import 'package:filers/filers.dart';
-import 'package:space_time/space_time.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:colorizer/colorizer.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/files/floaters.dart';
+import 'package:basics/helpers/classes/space/trinity.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
+import 'package:mediators/models/dimension_model.dart';
+import 'package:basics/helpers/classes/colors/colorizer.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:numeric/numeric.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
 /// => TAMAM
 @immutable
 class SlideModel {
   /// --------------------------------------------------------------------------
   const SlideModel({
-    @required this.description,
-    @required this.picFit,
-    @required this.dimensions,
-    @required this.midColor,
-    @required this.matrix,
-    @required this.filterID,
-    @required this.animationCurve,
-    this.slideIndex,
+    required this.description,
+    required this.picFit,
+    required this.dimensions,
+    required this.midColor,
+    required this.matrix,
+    required this.filterID,
+    required this.animationCurve,
+    required this.slideIndex,
     this.picPath,
     this.headline,
     this.flyerID,
@@ -28,17 +30,17 @@ class SlideModel {
   });
   /// --------------------------------------------------------------------------
   final int slideIndex;
-  final String picPath;
-  final String headline;
-  final String description;
-  final Matrix4 matrix;
-  final BoxFit picFit;
-  final Dimensions dimensions;
-  final Color midColor;
-  final String flyerID;
-  final String filterID;
-  final ui.Image uiImage;
-  final Curve animationCurve;
+  final String? picPath;
+  final String? headline;
+  final String? description;
+  final Matrix4? matrix;
+  final BoxFit? picFit;
+  final Dimensions? dimensions;
+  final Color? midColor;
+  final String? flyerID;
+  final String? filterID;
+  final ui.Image? uiImage;
+  final Curve? animationCurve;
   // -----------------------------------------------------------------------------
 
   /// CYPHERS
@@ -78,11 +80,11 @@ class SlideModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, Object> cipherSlides(List<SlideModel> slides) {
-    Map<String, Object> _slidesMap = <String, Object>{};
+  static Map<String, dynamic> cipherSlides(List<SlideModel>? slides) {
+    Map<String, dynamic> _slidesMap = <String, dynamic>{};
 
-    if (Mapper.checkCanLoopList(slides)) {
-      for (final SlideModel slide in slides) {
+    if (Mapper.checkCanLoopList(slides) == true) {
+      for (final SlideModel slide in slides!) {
         _slidesMap = Mapper.insertPairInMap(
           map: _slidesMap,
           key: '${slide.slideIndex}',
@@ -98,10 +100,10 @@ class SlideModel {
   /// TESTED : WORKS PERFECT
   static List<SlideModel> decipherSlides(Map<String, dynamic> maps) {
     final List<SlideModel> _slides = <SlideModel>[];
-    final List<String> _keys = maps?.keys?.toList();
+    final List<String> ?_keys = maps.keys.toList();
 
-    if (Mapper.checkCanLoopList(_keys)) {
-      for (final String key in _keys) {
+    if (Mapper.checkCanLoopList(_keys) == true) {
+      for (final String key in _keys!) {
         final Map<String, dynamic> _slideMap = maps[key];
         final SlideModel _slide = decipherSlide(_slideMap);
         _slides.add(_slide);
@@ -117,18 +119,18 @@ class SlideModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   SlideModel copyWith({
-    int slideIndex,
-    String picPath,
-    String headline,
-    String description,
-    Matrix4 matrix,
-    BoxFit picFit,
-    Dimensions dimensions,
-    Color midColor,
-    String flyerID,
-    String filterID,
-    ui.Image uiImage,
-    Curve animationCurve,
+    int? slideIndex,
+    String? picPath,
+    String? headline,
+    String? description,
+    Matrix4? matrix,
+    BoxFit? picFit,
+    Dimensions? dimensions,
+    Color? midColor,
+    String? flyerID,
+    String? filterID,
+    ui.Image? uiImage,
+    Curve? animationCurve,
   }) {
     return SlideModel(
       slideIndex: slideIndex ?? this.slideIndex,
@@ -166,16 +168,16 @@ class SlideModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void blogSlides(List<SlideModel> slides) {
+  static void blogSlides(List<SlideModel>? slides) {
 
-    blog('blogSlides : ${slides.length} SLIDES -----------------------------------------START');
+    blog('blogSlides : ${slides?.length} SLIDES -----------------------------------------START');
     if (Mapper.checkCanLoopList(slides) == false) {
       blog('blogSlides : slides can not be printed : slides are : $slides');
     }
 
     else {
 
-      for (final SlideModel slide in slides) {
+      for (final SlideModel slide in slides!) {
         slide.blogSlide();
       }
 
@@ -186,8 +188,8 @@ class SlideModel {
     // --------------------
   /// TESTED : WORKS PERFECT
   static void blogSlidesDifferences({
-    @required SlideModel slide1,
-    @required SlideModel slide2,
+    required SlideModel? slide1,
+    required SlideModel? slide2,
   }){
 
     blog('blogSlidesDifferences : START');
@@ -200,40 +202,40 @@ class SlideModel {
       blog('slide2 == null');
     }
 
-    if (slide1.slideIndex != slide2.slideIndex){
+    if (slide1?.slideIndex != slide2?.slideIndex){
       blog('slide1.slideIndex != slide2.slideIndex');
     }
-    if (slide1.picPath != slide2.picPath){
+    if (slide1?.picPath != slide2?.picPath){
       blog('slide1.pic != slide2.pic');
     }
-    if (slide1.headline != slide2.headline){
+    if (slide1?.headline != slide2?.headline){
       blog('slide1.headline != slide2.headline');
     }
-    if (slide1.description != slide2.description){
+    if (slide1?.description != slide2?.description){
       blog('slide1.description != slide2.description');
     }
-    if (Trinity.checkMatrixesAreIdentical(matrix1: slide1.matrix, matrixReloaded: slide2.matrix) == false){
+    if (Trinity.checkMatrixesAreIdentical(matrix1: slide1?.matrix, matrixReloaded: slide2?.matrix) == false){
       blog('slide1.matrix != slide2.matrix');
     }
-    if (slide1.picFit != slide2.picFit){
+    if (slide1?.picFit != slide2?.picFit){
       blog('slide1.picFit != slide2.picFit');
     }
-    if (Dimensions.checkDimensionsAreIdentical(dim1: slide1.dimensions, dim2: slide2.dimensions) == false){
+    if (Dimensions.checkDimensionsAreIdentical(dim1: slide1?.dimensions, dim2: slide2?.dimensions) == false){
       blog('slide1.dimensions != slide2.dimensions');
     }
-    if (Colorizer.checkColorsAreIdentical(slide1.midColor, slide2.midColor) == false){
+    if (Colorizer.checkColorsAreIdentical(slide1?.midColor, slide2?.midColor) == false){
       blog('slide1.midColor !=  slideB.midColor');
     }
-    if (slide1.flyerID != slide2.flyerID){
+    if (slide1?.flyerID != slide2?.flyerID){
       blog('slide1.flyerID != slide2.flyerID');
     }
-    if (slide1.filterID != slide2.filterID){
+    if (slide1?.filterID != slide2?.filterID){
       blog('slide1.filterID != slide2.filterID');
     }
-    if (Floaters.checkUiImagesAreIdentical(slide1.uiImage, slide2.uiImage) == false){
+    if (Floaters.checkUiImagesAreIdentical(slide1?.uiImage, slide2?.uiImage) == false){
       blog('slide1.uiImage != slide2.uiImage');
     }
-    if (slide1.animationCurve != slide2.animationCurve){
+    if (slide1?.animationCurve != slide2?.animationCurve){
       blog('slide1.animationCurve != slide2.animationCurve');
     }
     blog('blogSlidesDifferences : END');
@@ -241,8 +243,8 @@ class SlideModel {
     // --------------------
   /// TESTED : WORKS PERFECT
   static void blogSlidesListsDifferences({
-    @required List<SlideModel> slides1,
-    @required List<SlideModel> slides2,
+    required List<SlideModel>? slides1,
+    required List<SlideModel>? slides2,
   }){
 
     if (slides1 == null){
@@ -257,7 +259,7 @@ class SlideModel {
 
     if (Mapper.checkCanLoopList(slides1) == true && Mapper.checkCanLoopList(slides2) == true){
 
-      if (slides1.length != slides2.length) {
+      if (slides1!.length != slides2!.length) {
         blog(' > maps1.length != maps2.length');
       }
 
@@ -294,12 +296,12 @@ class SlideModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String generateSlideID({
-    @required String flyerID,
-    @required int slideIndex,
+  static String? generateSlideID({
+    required String? flyerID,
+    required int? slideIndex,
   }) {
 
-    String _output;
+    String? _output;
 
     if (flyerID != null && slideIndex != null){
       /// NOTE : slide index shall never have more than two digits
@@ -315,19 +317,22 @@ class SlideModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> generateSlidesIDs({
-    @required String flyerID,
-    @required int numberOfSlides,
+    required String flyerID,
+    required int numberOfSlides,
   }) {
     final List<String> _slidesIDs = <String>[];
 
     for (int i = 0; i < numberOfSlides; i++) {
 
-      final String _slideID = SlideModel.generateSlideID(
+      final String? _slideID = SlideModel.generateSlideID(
         flyerID: flyerID,
         slideIndex: i,
       );
 
-      _slidesIDs.add(_slideID);
+      if (_slideID != null){
+        _slidesIDs.add(_slideID);
+      }
+
 
     }
 
@@ -335,16 +340,19 @@ class SlideModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static int getSlideIndexFromSlideID(String slideID) {
+  static int? getSlideIndexFromSlideID(String slideID) {
     /// NOTE : slide index shall never have more than two digits
-    final String _lastTwoSubStrings = TextMod.cutLastTwoCharactersFromAString(slideID);
-    final int _slideIndex = Numeric.transformStringToInt(_lastTwoSubStrings);
+    final String? _lastTwoSubStrings = TextMod.cutLastTwoCharactersFromAString(slideID);
+    final int? _slideIndex = Numeric.transformStringToInt(_lastTwoSubStrings);
     return _slideIndex;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getFlyerIDFromSlideID(String slideID) {
-    final String _flyerID = TextMod.removeTextAfterFirstSpecialCharacter(slideID, '_');
+  static String? getFlyerIDFromSlideID(String slideID) {
+    final String? _flyerID = TextMod.removeTextAfterFirstSpecialCharacter(
+        text: slideID,
+        specialCharacter: '_',
+    );
     return _flyerID;
   }
   // -----------------------------------------------------------------------------
@@ -356,8 +364,8 @@ class SlideModel {
   /*
   ///
   static List<SlideModel> replaceSlidesPicturesWithNewURLs({
-    @required List<String> newPicturesURLs,
-    @required List<SlideModel> inputSlides,
+    required List<String> newPicturesURLs,
+    required List<SlideModel> inputSlides,
   }) {
     final List<SlideModel> _outputSlides = <SlideModel>[];
 
@@ -399,13 +407,15 @@ class SlideModel {
    */
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> getSlidePicsPaths(List<SlideModel> slides){
+  static List<String> getSlidePicsPaths(List<SlideModel>? slides){
     final List<String> _paths = <String>[];
 
     if (Mapper.checkCanLoopList(slides) == true){
 
-      for (final SlideModel slide in slides){
-        _paths.add(slide.picPath);
+      for (final SlideModel slide in slides!){
+        if (slide.picPath != null){
+          _paths.add(slide.picPath!);
+        }
       }
 
     }
@@ -499,8 +509,8 @@ class SlideModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkSlidesAreIdentical({
-    @required SlideModel slide1,
-    @required SlideModel slide2,
+    required SlideModel? slide1,
+    required SlideModel? slide2,
   }){
     bool _identical = false;
 
@@ -540,23 +550,24 @@ class SlideModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkSlidesListsAreIdentical({
-    @required List<SlideModel> slides1,
-    @required List<SlideModel> slides2,
+    required List<SlideModel>? slides1,
+    required List<SlideModel>? slides2,
   }){
     bool _identical = false;
 
     if (slides1 == null && slides2 == null){
       _identical = true;
     }
-    else if (slides1?.isEmpty == true && slides2?.isEmpty == true){
+    else if (slides1 != null && slides1.isEmpty == true && slides2 != null && slides2.isEmpty == true){
       _identical = true;
     }
     else if (
-    Mapper.checkCanLoopList(slides1) == true &&
+        Mapper.checkCanLoopList(slides1) == true
+        &&
         Mapper.checkCanLoopList(slides2) == true
     ){
 
-      if (slides1.length == slides2.length){
+      if (slides1!.length == slides2!.length){
 
         for (int i = 0; i < slides1.length; i++){
 

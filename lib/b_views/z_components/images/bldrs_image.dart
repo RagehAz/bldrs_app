@@ -1,16 +1,15 @@
 import 'dart:ui' as ui;
-
+import 'package:basics/helpers/classes/checks/object_check.dart';
 import 'package:bldrs/b_views/z_components/images/bldrs_image_path_to_ui_image.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:super_image/super_image.dart';
+import 'package:basics/super_image/super_image.dart';
 
 class BldrsImage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BldrsImage({
-    @required this.width,
-    @required this.height,
-    @required this.pic,
+    required this.width,
+    required this.height,
+    required this.pic,
     this.fit = BoxFit.cover,
     this.scale = 1,
     this.iconColor,
@@ -18,25 +17,25 @@ class BldrsImage extends StatelessWidget {
     this.backgroundColor,
     this.corners,
     this.greyscale = false,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final dynamic pic;
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
   final BoxFit fit;
   final double scale;
-  final Color iconColor;
+  final Color? iconColor;
   final bool loading;
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final dynamic corners;
   final bool greyscale;
   /// --------------------------------------------------------------------------
-  static DecorationImage decorationImage({
-    @required String picture,
-    BoxFit boxFit
+  static DecorationImage? decorationImage({
+    required String? picture,
+    BoxFit? boxFit
   }) {
-    DecorationImage _image;
+    DecorationImage? _image;
 
     if (picture != null && picture != '') {
       _image = DecorationImage(
@@ -50,9 +49,9 @@ class BldrsImage extends StatelessWidget {
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   Widget getChild({
-    @required BuildContext context,
-    @required dynamic theIcon,
-    bool isLoading,
+    required BuildContext context,
+    required dynamic theIcon,
+    bool isLoading = false,
   }) {
     return SuperImage(
       width: width,
@@ -64,7 +63,7 @@ class BldrsImage extends StatelessWidget {
       greyscale: greyscale,
       pic: theIcon,
       iconColor: iconColor,
-      loading: isLoading ?? loading,
+      loading: isLoading,
     );
   }
   // --------------------------------------------------------------------------
@@ -97,7 +96,7 @@ class BldrsImage extends StatelessWidget {
       if (isPicPath == true) {
         return BldrsImagePathToUiImage(
           imagePath: pic,
-          builder: (bool loading, ui.Image uiImage) {
+          builder: (bool loading, ui.Image? uiImage) {
             return getChild(
               context: context,
               theIcon: uiImage,

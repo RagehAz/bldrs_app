@@ -1,27 +1,30 @@
 import 'dart:typed_data';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/files/file_size_unit.dart';
+import 'package:basics/helpers/classes/files/floaters.dart';
 import 'package:fire/super_fire.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:mediators/mediators.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:mediators/models/dimension_model.dart';
 /// => TAMAM
 @immutable
 class PicModel {
   // -----------------------------------------------------------------------------
   const PicModel({
-    @required this.bytes,
-    @required this.path,
-    @required this.meta,
+    required this.bytes,
+    required this.path,
+    required this.meta,
   });
       // :
       //   assert(bytes != null, 'bytes is null'),
       //   assert(path != null, 'path is null'),
       //   assert(meta != null, 'meta is null');
   // -----------------------------------------------------------------------------
-  final Uint8List bytes;
+  final Uint8List? bytes;
   /// collectionName/subCollectionName/fileName
-  final String path;
-  final StorageMetaModel meta;
+  final String? path;
+  final StorageMetaModel? meta;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -29,9 +32,9 @@ class PicModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   PicModel copyWith({
-    Uint8List bytes,
-    String path,
-    StorageMetaModel meta,
+    Uint8List? bytes,
+    String? path,
+    StorageMetaModel? meta,
   }){
     return PicModel(
       bytes: bytes ?? this.bytes,
@@ -45,8 +48,8 @@ class PicModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> cipherToLDB(PicModel picModel){
-    Map<String, dynamic> _map;
+  static Map<String, dynamic>? cipherToLDB(PicModel? picModel){
+    Map<String, dynamic>? _map;
 
     if (picModel != null){
       _map = {
@@ -60,8 +63,8 @@ class PicModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static PicModel decipherFromLDB(Map<String, dynamic> map){
-    PicModel _picModel;
+  static PicModel? decipherFromLDB(Map<String, dynamic>? map){
+    PicModel? _picModel;
 
     if (map != null){
 
@@ -82,11 +85,11 @@ class PicModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void assertIsUploadable(PicModel picModel){
+  static void assertIsUploadable(PicModel? picModel){
     assert(picModel != null, 'picModel is null');
-    assert(picModel.bytes != null, 'bytes is null');
-    assert(picModel.path != null, 'path is null');
-    assert(picModel.meta != null, 'meta is null');
+    assert(picModel?.bytes != null, 'bytes is null');
+    assert(picModel?.path != null, 'path is null');
+    assert(picModel?.meta != null, 'meta is null');
   }
   // -----------------------------------------------------------------------------
 
@@ -94,16 +97,16 @@ class PicModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<Dimensions> getDimensions(Uint8List bytes) async {
-    final Dimensions _dim = await Dimensions.superDimensions(bytes);
+  static Future<Dimensions?> getDimensions(Uint8List? bytes) async {
+    final Dimensions? _dim = await Dimensions.superDimensions(bytes);
     return _dim;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  double getSize({
+  double? getSize({
     FileSizeUnit fileSizeUnit = FileSizeUnit.megaByte,
   }){
-    return Filers.calculateSize(bytes.length, fileSizeUnit);
+    return Filers.calculateSize(bytes?.length, fileSizeUnit);
   }
   // -----------------------------------------------------------------------------
 
@@ -115,8 +118,8 @@ class PicModel {
     String invoker = '',
   }){
 
-    final double _mega = Filers.calculateSize(bytes?.length, FileSizeUnit.megaByte);
-    final double _kilo = Filers.calculateSize(bytes?.length, FileSizeUnit.kiloByte);
+    final double? _mega = Filers.calculateSize(bytes?.length, FileSizeUnit.megaByte);
+    final double? _kilo = Filers.calculateSize(bytes?.length, FileSizeUnit.kiloByte);
 
     blog('=> $invoker :: path : $path : ${bytes?.length} Bytes | '
         '[ (${meta?.width})w x (${meta?.height})h ] | '
@@ -130,8 +133,8 @@ class PicModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPicsAreIdentical({
-    @required PicModel pic1,
-    @required PicModel pic2,
+    required PicModel? pic1,
+    required PicModel? pic2,
   }){
     bool _identical = false;
 
@@ -158,8 +161,8 @@ class PicModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPicsListsAreIdentical({
-    @required List<PicModel> list1,
-    @required List<PicModel> list2,
+    required List<PicModel>? list1,
+    required List<PicModel>? list2,
   }){
 
     bool _listsAreIdentical = false;
@@ -167,13 +170,13 @@ class PicModel {
     if (list1 == null && list2 == null){
       _listsAreIdentical = true;
     }
-    else if (list1?.isEmpty == true && list2?.isEmpty == true){
+    else if (list1 != null && list1.isEmpty == true && list2 != null && list2.isEmpty == true){
       _listsAreIdentical = true;
     }
 
     else if (Mapper.checkCanLoopList(list1) == true && Mapper.checkCanLoopList(list2) == true){
 
-      if (list1.length != list2.length) {
+      if (list1!.length != list2!.length) {
         _listsAreIdentical = false;
       }
 
@@ -215,7 +218,7 @@ class PicModel {
     final String _text =
     '''
     PicModel(
-      bytes: ${bytes.length},
+      bytes: ${bytes?.length},
       path: $path,
       meta: $meta
     );

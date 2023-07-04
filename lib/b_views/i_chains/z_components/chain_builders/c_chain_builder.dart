@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
@@ -6,38 +7,36 @@ import 'package:bldrs/b_views/i_chains/z_components/expander_button/a_chain_butt
 import 'package:bldrs/b_views/i_chains/z_components/expander_button/b_expanding_tile.dart';
 import 'package:bldrs/b_views/i_chains/z_components/chain_builders/a_chain_splitter.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-
 import 'package:flutter/material.dart';
 
 class ChainBuilder extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ChainBuilder({
-    @required this.chain,
-    @required this.previousPath,
-    @required this.boxWidth,
-    @required this.icon,
-    @required this.firstHeadline,
-    @required this.secondHeadline,
-    @required this.initiallyExpanded,
-    @required this.selectedPhids,
-    @required this.secondLinesType,
+    required this.chain,
+    required this.previousPath,
+    required this.boxWidth,
+    required this.icon,
+    required this.firstHeadline,
+    required this.secondHeadline,
+    required this.initiallyExpanded,
+    required this.selectedPhids,
+    required this.secondLinesType,
 
-    @required this.onPhidTap,
-    @required this.onPhidDoubleTap,
-    @required this.onPhidLongTap,
+    required this.onPhidTap,
+    required this.onPhidDoubleTap,
+    required this.onPhidLongTap,
 
-    @required this.onTileTap,
-    @required this.onTileDoubleTap,
-    @required this.onTileLongTap,
+    required this.onTileTap,
+    required this.onTileDoubleTap,
+    required this.onTileLongTap,
 
-    @required this.searchText,
-    @required this.onExportSpecs,
+    required this.searchText,
+    required this.onExportSpecs,
 
-    @required this.zone,
-    @required this.onlyUseZoneChains,
-    @required this.isMultipleSelectionMode,
-    @required this.onDataCreatorKeyboardSubmitted,
+    required this.zone,
+    required this.onlyUseZoneChains,
+    required this.isMultipleSelectionMode,
+    required this.onDataCreatorKeyboardSubmitted,
 
     this.inverseAlignment = true,
     this.deactivated = false,
@@ -45,37 +44,37 @@ class ChainBuilder extends StatelessWidget {
     this.expansionColor = Colorz.white20,
     this.level = 0,
     this.isCollapsable = true,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final Chain chain;
-  final String previousPath;
+  final String? previousPath;
   final bool deactivated;
   final double boxWidth;
   final bool inverseAlignment;
-  final String icon;
+  final String? icon;
   final Verse firstHeadline;
-  final Verse secondHeadline;
+  final Verse? secondHeadline;
   final Color initialColor;
   final Color expansionColor;
   final bool initiallyExpanded;
-  final int level;
+  final int? level;
   final List<String> selectedPhids;
   final ValueNotifier<dynamic> searchText;
   final ChainSecondLinesType secondLinesType;
 
-  final Function(String path, String phid) onPhidTap;
-  final Function(String path, String phid) onPhidDoubleTap;
-  final Function(String path, String phid) onPhidLongTap;
+  final Function(String? path, String? phid)? onPhidTap;
+  final Function(String? path, String? phid)? onPhidDoubleTap;
+  final Function(String? path, String? phid)? onPhidLongTap;
 
-  final Function(String path, String phid) onTileLongTap;
-  final Function(String path, String phid) onTileTap;
-  final Function(String path, String phid) onTileDoubleTap;
+  final Function(String? path, String? phid)? onTileLongTap;
+  final Function(String? path, String? phid)? onTileTap;
+  final Function(String? path, String? phid)? onTileDoubleTap;
 
-  final ValueChanged<List<SpecModel>> onExportSpecs;
+  final ValueChanged<List<SpecModel>>? onExportSpecs;
 
-  final ZoneModel zone;
-  final ValueChanged<String> onDataCreatorKeyboardSubmitted;
+  final ZoneModel? zone;
+  final ValueChanged<String?>? onDataCreatorKeyboardSubmitted;
   final bool isMultipleSelectionMode;
   final bool onlyUseZoneChains;
   final bool isCollapsable;
@@ -88,14 +87,14 @@ class ChainBuilder extends StatelessWidget {
       parentWidth: boxWidth,
     );
     // --------------------
-    final String _cleanedPath = ChainPathConverter.fixPathFormatting('$previousPath/${chain.id}');
+    final String? _cleanedPath = ChainPathConverter.fixPathFormatting('$previousPath/${chain.id}');
     // --------------------
     return ChainButtonBox(
       key: ValueKey<String>('ChainExpanderStarter_${chain.id}'),
       boxWidth: boxWidth,
       inverseAlignment: inverseAlignment,
       child: ExpandingTile(
-        key: PageStorageKey<String>(chain.id),
+        key: PageStorageKey<String>('${chain.id}'),
         width: boxWidth,
         isDisabled: deactivated,
         icon: icon,
@@ -105,9 +104,9 @@ class ChainBuilder extends StatelessWidget {
         expansionColor: expansionColor,
         initiallyExpanded: initiallyExpanded,
         searchText: searchText,
-        onTileLongTap: onTileLongTap == null ? null : () => onTileLongTap(_cleanedPath, chain.id),
-        onTileTap: onTileTap == null ? null : (bool isExpanded) => onTileTap(_cleanedPath, chain.id),
-        onTileDoubleTap: onTileDoubleTap == null ? null : () => onTileDoubleTap(_cleanedPath, chain.id),
+        onTileLongTap: onTileLongTap == null ? null : () => onTileLongTap?.call(_cleanedPath, chain.id),
+        onTileTap: onTileTap == null ? null : (bool isExpanded) => onTileTap?.call(_cleanedPath, chain.id),
+        onTileDoubleTap: onTileDoubleTap == null ? null : () => onTileDoubleTap?.call(_cleanedPath, chain.id),
         isCollapsable: isCollapsable,
         child: ChainSplitter(
           width: _sonWidth,

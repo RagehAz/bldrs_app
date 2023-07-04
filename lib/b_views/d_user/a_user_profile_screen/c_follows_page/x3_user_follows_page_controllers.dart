@@ -1,7 +1,7 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
 
@@ -9,18 +9,18 @@ import 'package:flutter/material.dart';
 
 // --------------------
 Future<void> autoDeleteThisBzIDFromMyFollowedBzzIDs({
-  @required BuildContext context,
-  @required String bzID,
+  required BuildContext context,
+  required String bzID,
 }) async {
 
   blog('autoDeleteThisBzIDFromMyFollowedBzzIDs : START');
 
-  final UserModel _userModel = UsersProvider.proGetMyUserModel(
+  final UserModel? _userModel = UsersProvider.proGetMyUserModel(
     context: context,
     listen: false,
   );
 
-  final UserModel _myUpdatedModel = UserModel.removeBzIDFromUserFollows(
+  final UserModel? _myUpdatedModel = UserModel.removeBzIDFromUserFollows(
     oldUser: _userModel,
     bzIDToUnFollow: bzID,
   );

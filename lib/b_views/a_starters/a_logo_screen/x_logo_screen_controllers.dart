@@ -1,20 +1,21 @@
 // ignore_for_file: avoid_redundant_argument_values
-
 import 'dart:async';
 
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/x_secondary/app_state_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/app_state_real_ops.dart';
-import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
@@ -22,18 +23,15 @@ import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
-import 'package:filers/filers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
-import 'package:ldb/ldb.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 /// TESTED : WORKS PERFECT
 Future<void> initializeLogoScreen({
-  @required BuildContext context,
-  @required bool mounted,
+  required BuildContext context,
+  required bool mounted,
 }) async {
 
   // if (kDebugMode == true && DeviceChecker.deviceIsWindows() == true){
@@ -54,6 +52,10 @@ Future<void> initializeLogoScreen({
   /// USER MODEL
   await initializeUserModel(context);
 
+  UiProvider.proSetLoadingVerse(
+      verse: Verse.plain(Words.pleaseWait()),
+  );
+
   // blog('2 - initializeLogoScreen : ${Authing.getUserID()}');
 
   await Future.wait(
@@ -70,6 +72,10 @@ Future<void> initializeLogoScreen({
   );
 
   // blog('3 - initializeLogoScreen : assetPaths + lang + appState should have ended');
+
+  UiProvider.proSetLoadingVerse(
+    verse: Verse.plain(Words.thisIsBabyApp()),
+  );
 
   if (_phrasesAreLoaded() == false){
 
@@ -115,6 +121,9 @@ Future<void> initializeLogoScreen({
 
     else {
 
+      UiProvider.proSetLoadingVerse(
+        verse: Verse.plain(Words.thankYouForWaiting()),
+      );
 
       /// DAILY LDB REFRESH
       await _refreshLDB();
@@ -126,6 +135,8 @@ Future<void> initializeLogoScreen({
     // blog('8 - initializeLogoScreen : END');
 
   }
+
+  UiProvider.clearLoadingVerse();
 
 }
 // --------------------
@@ -153,9 +164,9 @@ Future<void> initializeUserModel(BuildContext context) async {
   if (Authing.getUserID() == null){
 
     /// WILL CONTINUE NORMALLY AS ANONYMOUS
-    final AuthModel _anonymousAuth = await Authing.anonymousSignin();
+    final AuthModel? _anonymousAuth = await Authing.anonymousSignin();
 
-    final UserModel _anonymousUser = await UserModel.anonymousUser(
+    final UserModel? _anonymousUser = await UserModel.anonymousUser(
       authModel: _anonymousAuth,
     );
 
@@ -169,7 +180,7 @@ Future<void> initializeUserModel(BuildContext context) async {
   /// USER HAS ID
   else {
 
-      final UserModel _userModel = await UserProtocols.fetch(
+      final UserModel? _userModel = await UserProtocols.fetch(
         context: context,
         userID: Authing.getUserID(),
       );
@@ -187,8 +198,8 @@ Future<void> initializeUserModel(BuildContext context) async {
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> setUserModelAndCompleteUserZoneLocally({
-  @required UserModel userModel,
-  @required bool notify,
+  required UserModel? userModel,
+  required bool notify,
 }) async {
 
   // blog('setUserAndAuthModelsAndCompleteUserZoneLocally : START');
@@ -212,18 +223,18 @@ Future<void> setUserModelAndCompleteUserZoneLocally({
 /// TESTED : WORKS PERFECT
 Future<void> initializeAppState() async {
 
-  final UserModel _userModel = UsersProvider.proGetMyUserModel(
+  final UserModel? _userModel = UsersProvider.proGetMyUserModel(
     context: getMainContext(),
     listen: false,
   );
 
   if (Authing.userIsSignedUp(_userModel?.signInMethod) == true){
 
-    AppStateModel _userState = _userModel?.appState?.copyWith();
+    AppStateModel? _userState = _userModel?.appState?.copyWith();
 
     if (_userModel != null && _userState != null){
 
-      final AppStateModel _globalState = await AppStateRealOps.readGlobalAppState();
+      final AppStateModel? _globalState = await AppStateRealOps.readGlobalAppState();
       final bool _statesAreIdentical = AppStateModel.checkAppStatesAreIdentical(
           state1: _userState,
           state2: _globalState
@@ -242,9 +253,17 @@ Future<void> initializeAppState() async {
       final String _detectedAppVersion = await AppStateModel.detectAppVersion();
 
       /// DETECTED APP VERSION IS INCORRECT
-      if (_globalState.appVersion != _detectedAppVersion){
-        await _showUpdateAppDialog(getMainContext());
+      if (
+          TextCheck.isEmpty(_globalState.appVersion) == false &&
+          TextCheck.isEmpty(_detectedAppVersion) == false &&
+          _globalState.appVersion != _detectedAppVersion
+      ){
+        await _showUpdateAppDialog(
+          global: _globalState.appVersion,
+          detected: _detectedAppVersion,
+        );
       }
+
       /// DETECTED APP VERSION IS CORRECT BUT USER VERSION IS NOT
       else if (_userState.appVersion != _detectedAppVersion){
         _userState = _userState.copyWith(
@@ -255,7 +274,7 @@ Future<void> initializeAppState() async {
       /// UPDATE USER STATE
       final bool _userStateIsUpdated = ! AppStateModel.checkAppStatesAreIdentical(
           state1: _userState,
-          state2: _userModel?.appState,
+          state2: _userModel.appState,
       );
 
       if (_userStateIsUpdated == true){
@@ -281,11 +300,20 @@ Future<void> initializeAppState() async {
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _showUpdateAppDialog(BuildContext context) async {
+Future<void> _showUpdateAppDialog({
+  required String? global,
+  required String? detected,
+}) async {
 
   await CenterDialog.showCenterDialog(
     titleVerse:  Verse.plain(Words.newUpdateAvailable()),
-    bodyVerse: Verse.plain(Words.pleaseUpdateToContinue()),
+    bodyVerse: Verse.plain(
+      '''
+      ${Words.pleaseUpdateToContinue()}
+      your version : $detected
+      new version : $global
+      '''
+    ),
     confirmButtonVerse: Verse.plain(Words.updateApp()),
     boolDialog: false,
   );
@@ -453,42 +481,6 @@ Future<void> _refreshLDB() async {
   //   blog('_dailyRefreshLDB : IT HAS NOT BEEN A DAY YET : will leave the ldb as is');
   //
   // }
-
-}
-// -----------------------------------------------------------------------------
-
-/// RAGE7 SIGN IN
-
-// --------------------
-Future<void> signInAsRage7() async {
-
-  final AuthModel _authModel = await EmailAuthing.signIn(
-    email: 'rageh@bldrs.net',
-    password: '123456',
-    onError: (String error) => AuthProtocols.onAuthError(
-      error: error,
-    ),
-  );
-
-  if (_authModel != null) {
-    final Map<String, dynamic> _map = await Fire.readDoc(
-      coll: FireColl.users,
-      doc: _authModel.id,
-    );
-
-    final UserModel _userModel = UserModel.decipherUser(
-      map: _map,
-      fromJSON: false,
-    );
-
-    /// UPDATE LDB USER MODEL
-    await UserLDBOps.updateUserModel(_userModel);
-
-    UsersProvider.proSetMyUserModel(
-      userModel: _userModel,
-      notify: true,
-    );
-  }
 
 }
 // -----------------------------------------------------------------------------

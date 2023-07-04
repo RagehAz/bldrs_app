@@ -1,9 +1,9 @@
 
 // -----------------------------------------------------------------------------
 // void onHorizontalSlideSwipe({
-//   @required BuildContext context,
-//   @required int newIndex,
-//   @required ValueNotifier<ProgressBarModel> progressBarModel,
+//   required BuildContext context,
+//   required int newIndex,
+//   required ValueNotifier<ProgressBarModel> progressBarModel,
 // }) {
 //
 //   ProgressBarModel.onSwipe(

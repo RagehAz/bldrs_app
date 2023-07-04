@@ -1,39 +1,42 @@
 import 'dart:async';
 import 'package:another_flushbar/flushbar.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/bldrs_theme/classes/shadowers.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class TopDialog extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const TopDialog({
-    @required this.verse,
-    @required this.onTap,
-    // @required this.duration,
-    Key key,
-  }) : super(key: key);
+    required this.verse,
+    required this.onTap,
+    // required this.duration,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final String verse;
-  final Function onTap;
+  final Function(Flushbar<dynamic> flush)? onTap;
   // final int duration;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> closeTopDialog() async {
 
-    final GlobalKey _key = UiProvider.proGetTopDialogKey(
+    final GlobalKey? _key = UiProvider.proGetTopDialogKey(
       context: getMainContext(),
       listen: false,
     );
 
-    final Flushbar _flushbar = _key?.currentWidget;
+    final Flushbar? _flushbar = _key?.currentWidget as Flushbar?;
 
     if (_flushbar?.isDismissed() == false){
 
@@ -52,7 +55,7 @@ class TopDialog extends StatelessWidget {
         //   isHiding() : ${_flushbar.isHiding()}
         //   isShowing() : ${_flushbar.isShowing()}
         // ''');
-        final dynamic previousDialogDismissed = await _flushbar.dismiss();
+        final dynamic previousDialogDismissed = await _flushbar?.dismiss();
         blog('closeTopDialog : previousDialogDismissed ${previousDialogDismissed.runtimeType} : $previousDialogDismissed');
       });
 
@@ -62,12 +65,12 @@ class TopDialog extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> showTopDialog({
-    @required Verse firstVerse,
-    Verse secondVerse,
+    required Verse firstVerse,
+    Verse? secondVerse,
     Color color = Colorz.yellow255,
     Color textColor = Colorz.black255,
-    Function onTap,
-    int milliseconds = 5000,
+    Function? onTap,
+    int? milliseconds = 5000,
   }) async {
 
     final double _screenWidth = Scale.screenWidth(getMainContext());
@@ -187,7 +190,7 @@ class TopDialog extends StatelessWidget {
 
       },
 
-      onStatusChanged: (FlushbarStatus status) {
+      onStatusChanged: (FlushbarStatus? status) {
 
         // switch (status) {
         //   case FlushbarStatus.SHOWING:
@@ -215,8 +218,8 @@ class TopDialog extends StatelessWidget {
       },
 
       /// UNKNOWN ----------------------------------------------
-      message: 'SHIKA',
-      title: 'wtf',
+      message: "The Builder's Network",
+      title: 'Bldrs.net',
       endOffset: Offset.zero,
       shouldIconPulse: false,
       // positionOffset: 0,
@@ -228,8 +231,8 @@ class TopDialog extends StatelessWidget {
   /// BUG THE SHIT OUT OF LIFE
   /*
   static void showUnawaitedTopDialog({
-    @required BuildContext context,
-    @required Verse firstVerse,
+    required BuildContext context,
+    required Verse firstVerse,
     Verse secondVerse,
     Color color = Colorz.yellow255,
     Color textColor = Colorz.black255,
@@ -257,7 +260,7 @@ class TopDialog extends StatelessWidget {
 
     return Flushbar(
       message: verse,
-      onTap: onTap,
+      onTap: onTap == null ? null : (Flushbar<dynamic> flush) => onTap?.call(flush),
       duration: const Duration(milliseconds: 5000),
       // title: 'wtf',
       // padding: EdgeInsets.zero,

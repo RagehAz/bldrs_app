@@ -1,5 +1,8 @@
 // ignore_for_file: invariant_booleans
-import 'package:animators/animators.dart';
+import 'package:basics/animators/widgets/scroller.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
@@ -17,26 +20,25 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/b
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_protocols.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
-import 'package:night_sky/night_sky.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class CitiesScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const CitiesScreen({
-    @required this.zoneViewingEvent,
-    @required this.depth,
-    @required this.countryID,
-    @required this.viewerCountryID,
-    Key key,
-  }) : super(key: key);
+    required this.zoneViewingEvent,
+    required this.depth,
+    required this.countryID,
+    required this.viewerCountryID,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final ViewingEvent zoneViewingEvent;
   final ZoneDepth depth;
-  final String countryID;
-  final String viewerCountryID;
+  final String? countryID;
+  final String? viewerCountryID;
   /// --------------------------------------------------------------------------
   @override
   State<CitiesScreen> createState() => _NewSelectCityScreen();
@@ -47,18 +49,18 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   // -----------------------------------------------------------------------------
   final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false);
   final ValueNotifier<List<CityModel>> _countryCities = ValueNotifier<List<CityModel>>(<CityModel>[]);
-  final ValueNotifier<List<CityModel>> _foundCities = ValueNotifier<List<CityModel>>(null);
-  ValueNotifier<ZoneModel> _currentZone;
-  List<String> _shownCitiesIDs = <String>[];
+  final ValueNotifier<List<CityModel>?> _foundCities = ValueNotifier<List<CityModel>?>(null);
+  ValueNotifier<ZoneModel>? _currentZone;
+  List<String>? _shownCitiesIDs = <String>[];
   // Staging _stages;
   // --------------------
-  List<CensusModel> _censuses;
-  CensusModel _countryCensus;
+  List<CensusModel>? _censuses;
+  CensusModel? _countryCensus;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -101,7 +103,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
     _isSearching.dispose();
     _foundCities.dispose();
     _countryCities.dispose();
-    _currentZone.dispose();
+    _currentZone?.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -115,8 +117,8 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
     if (widget.countryID != null){
 
       /// COMPLETE CURRENT ZONE
-      final ZoneModel _completedZone = await ZoneProtocols.completeZoneModel(
-        incompleteZoneModel: _currentZone.value,
+      final ZoneModel? _completedZone = await ZoneProtocols.completeZoneModel(
+        incompleteZoneModel: _currentZone?.value,
       );
 
       setNotifier(
@@ -125,7 +127,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
           value: _completedZone,
       );
 
-      final StagingModel _citiesStages = await StagingProtocols.fetchCitiesStaging(
+      final StagingModel? _citiesStages = await StagingProtocols.fetchCitiesStaging(
         countryID: widget.countryID,
       );
 
@@ -141,7 +143,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
       if (mounted == true){
 
         /// SHOWN CITIES IDS
-        final List<String> _shownIDs = _citiesStages?.getIDsByViewingEvent(
+        final List<String>? _shownIDs = _citiesStages?.getIDsByViewingEvent(
           event: widget.zoneViewingEvent,
           countryID: widget.countryID,
           viewerCountryID: widget.viewerCountryID,
@@ -155,7 +157,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
         );
 
         /// NOT SHOWN CITIES IDS
-        final List<String> _notShownIDs = Stringer.removeStringsFromStrings(
+        final List<String>? _notShownIDs = Stringer.removeStringsFromStrings(
           removeFrom: CityModel.getCitiesIDs(_cities),
           removeThis: _shownIDs,
         );
@@ -170,7 +172,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
         final List<CensusModel> _citiesCensuses = await CensusProtocols.fetchCitiesCensuses(
             citiesIDs: <String>[...?_shownIDs, ...?_notShownIDs]
         );
-        final CensusModel _censusOfCountry = await CensusProtocols.fetchCountryCensus(
+        final CensusModel? _censusOfCountry = await CensusProtocols.fetchCountryCensus(
             countryID: widget.countryID,
         );
 
@@ -245,7 +247,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _onSearchCity(String inputText) async {
+  Future<void> _onSearchCity(String? inputText) async {
 
     TextCheck.triggerIsSearchingNotifier(
       text: inputText,
@@ -269,7 +271,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
       /// SEARCH COUNTRIES FROM LOCAL PHRASES
       final List<CityModel> _cities = await searchCitiesByName(
         context: context,
-        input: TextMod.fixCountryName(inputText),
+        input: TextMod.fixCountryName(input: inputText),
       );
 
       setNotifier(
@@ -287,8 +289,8 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<List<CityModel>> searchCitiesByName({
-    @required BuildContext context,
-    @required String input,
+    required BuildContext context,
+    required String? input,
   }) async {
 
     /// SEARCH SELECTED COUNTRY CITIES
@@ -308,7 +310,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _onCitySelected(String cityID) async {
+  Future<void> _onCitySelected(String? cityID) async {
 
     await ZoneSelection.onSelectCity(
         context: context,
@@ -320,7 +322,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _onDeactivatedTap(String cityID) async {
+  Future<void> _onDeactivatedTap(String? cityID) async {
 
     blog('onDeactivatedCityTap : browseView : cityID : $cityID');
 
@@ -348,10 +350,10 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
   @override
   Widget build(BuildContext context) {
 
-        final String _countryName = Flag.translateCountry(
-          langCode: Localizer.getCurrentLangCode(),
-          countryID: widget.countryID,
-        );
+    final String? _countryName = Flag.translateCountry(
+      langCode: Localizer.getCurrentLangCode(),
+      countryID: widget.countryID,
+    );
 
     return MainLayout(
       skyType: SkyType.black,
@@ -416,7 +418,7 @@ class _NewSelectCityScreen extends State<CitiesScreen> {
       child: Scroller(
         child: ValueListenableBuilder(
           valueListenable: _isSearching,
-          builder: (BuildContext context, bool isSearching, Widget child){
+          builder: (BuildContext context, bool isSearching, Widget? child){
 
             /// WHILE SEARCHING
             if (isSearching == true){

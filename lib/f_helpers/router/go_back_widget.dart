@@ -1,18 +1,18 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class GoBackWidget extends StatefulWidget {
   // -----------------------------------------------------------------------------
   const GoBackWidget({
     this.onGoBack,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   // -----------------------------------------------------------------------------
-  final Function onGoBack;
+  final Function? onGoBack;
   // -----------------------------------------------------------------------------
   @override
   State<GoBackWidget> createState() => _GoBackWidgetState();
@@ -25,7 +25,7 @@ class _GoBackWidgetState extends State<GoBackWidget> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
 // -----------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -41,9 +41,7 @@ class _GoBackWidgetState extends State<GoBackWidget> {
       _triggerLoading(setTo: true).then((_) async {
         // -------------------------------
 
-        if (widget.onGoBack != null){
-          widget.onGoBack();
-        }
+        widget.onGoBack?.call();
 
         await Nav.pushHomeAndRemoveAllBelow(
           context: context,

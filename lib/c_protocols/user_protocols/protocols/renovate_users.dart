@@ -1,5 +1,6 @@
 import 'dart:async';
-
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
@@ -18,11 +19,10 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/f_helpers/drafters/debuggers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
-import 'package:filers/filers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class RenovateUserProtocols {
   // -----------------------------------------------------------------------------
@@ -35,14 +35,14 @@ class RenovateUserProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<UserModel> renovateUser({
-    @required BuildContext context,
-    @required UserModel oldUser,
-    @required UserModel newUser,
-    @required PicModel newPic,
-    @required String invoker,
+  static Future<UserModel?> renovateUser({
+    required BuildContext context,
+    required UserModel? oldUser,
+    required UserModel? newUser,
+    required PicModel? newPic,
+    required String? invoker,
   }) async {
-    UserModel _output;
+    UserModel? _output;
 
     await reportThis('renovateUser : invoker : $invoker');
 
@@ -50,9 +50,9 @@ class RenovateUserProtocols {
 
       _output = oldUser;
 
-      final UserModel _oldUser = await UserProtocols.refetch(
+      final UserModel? _oldUser = await UserProtocols.refetch(
           context: context,
-          userID: oldUser.id,
+          userID: oldUser?.id,
       );
 
         await Future.wait(<Future>[
@@ -61,7 +61,7 @@ class RenovateUserProtocols {
           UserFireOps.updateUser(
             newUser: newUser,
             oldUser: _oldUser,
-          ).then((UserModel uploadedModel){
+          ).then((UserModel? uploadedModel){
             if (uploadedModel != null){
               _output = uploadedModel;
             }
@@ -98,15 +98,15 @@ class RenovateUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateLocally({
-    @required UserModel newUser,
-    @required BuildContext context,
+    required UserModel? newUser,
+    required BuildContext context,
   }) async {
 
     // blog('RenovateUserProtocols.updateLocally : START');
 
-    final UserModel _oldUser = await UserProtocols.fetch(
+    final UserModel? _oldUser = await UserProtocols.fetch(
       context: context,
-      userID: newUser.id,
+      userID: newUser?.id,
     );
 
     final bool _modelsAreIdentical = UserModel.usersAreIdentical(
@@ -117,7 +117,7 @@ class RenovateUserProtocols {
     if (_modelsAreIdentical == false){
 
       /// UPDATE PRO USER AND AUTH MODELS
-      if (UserModel.checkItIsMe(newUser.id) == true){
+      if (UserModel.checkItIsMe(newUser?.id) == true){
 
         /// UPDATE LDB USER MODEL
         await UserLDBOps.updateUserModel(newUser);
@@ -140,18 +140,18 @@ class RenovateUserProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<UserModel> completeUserZoneModels({
-    @required UserModel userModel,
+  static Future<UserModel?> completeUserZoneModels({
+    required UserModel? userModel,
   }) async {
-    UserModel _output;
+    UserModel? _output;
 
     if (userModel != null){
 
-      final ZoneModel _completeZoneModel = await ZoneProtocols.completeZoneModel(
+      final ZoneModel? _completeZoneModel = await ZoneProtocols.completeZoneModel(
         incompleteZoneModel: userModel.zone,
       );
 
-      _output = userModel?.copyWith(
+      _output = userModel.copyWith(
         zone: _completeZoneModel,
       );
 
@@ -166,94 +166,99 @@ class RenovateUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> followingProtocol({
-    @required BuildContext context,
-    @required bool followIsOn,
-    @required BzModel bzToFollow,
+    required BuildContext context,
+    required bool followIsOn,
+    required BzModel? bzToFollow,
   }) async {
 
     blog('RenovateUserProtocols.followingProtocol : START');
 
-    final UserModel _oldUser = UsersProvider.proGetMyUserModel(
-      context: context,
-      listen: false,
-    );
+    if (bzToFollow != null){
 
-    if (followIsOn == true){
-
-      final UserModel _newUser = UserModel.addBzIDToUserFollows(
-        oldUser: _oldUser,
-        bzToFollow: bzToFollow,
+      final UserModel? _oldUser = UsersProvider.proGetMyUserModel(
+        context: context,
+        listen: false,
       );
 
-      await Future.wait(<Future>[
+      if (followIsOn == true){
 
-        RecorderProtocols.onFollowBz(
-          bzID: bzToFollow.id,
-        ),
-
-        renovateUser(
-          context: context,
-          newPic: null,
-          newUser: _newUser,
+        final UserModel? _newUser = UserModel.addBzIDToUserFollows(
           oldUser: _oldUser,
-          invoker: 'followingProtocol',
-        ),
+          bzToFollow: bzToFollow,
+        );
 
-        CensusListener.onFollowBz(
-            bzModel: bzToFollow,
-            isFollowing: true
-        ),
+        await Future.wait(<Future>[
 
-      ]);
+          RecorderProtocols.onFollowBz(
+            bzID: bzToFollow.id,
+          ),
 
+          renovateUser(
+            context: context,
+            newPic: null,
+            newUser: _newUser,
+            oldUser: _oldUser,
+            invoker: 'followingProtocol',
+          ),
+
+          CensusListener.onFollowBz(
+              bzModel: bzToFollow,
+              isFollowing: true
+          ),
+
+        ]);
+
+
+      }
+
+      else {
+
+        final UserModel? _newUser = UserModel.removeBzIDFromUserFollows(
+          oldUser: _oldUser,
+          bzIDToUnFollow: bzToFollow.id,
+        );
+
+        await Future.wait(<Future>[
+
+          RecorderProtocols.onUnfollowBz(
+            bzID: bzToFollow.id,
+          ),
+
+          renovateUser(
+            context: context,
+            newPic: null,
+            newUser: _newUser,
+            oldUser: _oldUser,
+            invoker: 'followingProtocol',
+          ),
+
+          CensusListener.onFollowBz(
+              bzModel: bzToFollow,
+              isFollowing: false
+          ),
+
+        ]);
+
+      }
 
     }
 
-    else {
-
-      final UserModel _newUser = UserModel.removeBzIDFromUserFollows(
-        oldUser: _oldUser,
-        bzIDToUnFollow: bzToFollow.id,
-      );
-
-      await Future.wait(<Future>[
-
-        RecorderProtocols.onUnfollowBz(
-          bzID: bzToFollow.id,
-        ),
-
-        renovateUser(
-          context: context,
-          newPic: null,
-          newUser: _newUser,
-          oldUser: _oldUser,
-          invoker: 'followingProtocol',
-        ),
-
-        CensusListener.onFollowBz(
-            bzModel: bzToFollow,
-            isFollowing: false
-        ),
-
-      ]);
-
-    }
 
     blog('RenovateUserProtocols.followingProtocol : END');
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> savingFlyerProtocol({
-    @required BuildContext context,
-    @required bool flyerIsSaved,
-    @required FlyerModel flyerModel,
-    @required int slideIndex,
+    required BuildContext context,
+    required bool flyerIsSaved,
+    required FlyerModel? flyerModel,
+    required int slideIndex,
   }) async {
     // blog('RenovateUserProtocols.savingFlyerProtocol : START');
 
     if (flyerModel != null){
 
-      final UserModel _oldUser = UsersProvider.proGetMyUserModel(
+      final UserModel? _oldUser = UsersProvider.proGetMyUserModel(
         context: context,
         listen: false,
       );
@@ -270,7 +275,8 @@ class RenovateUserProtocols {
       else {
 
         if (flyerIsSaved == true) {
-          final UserModel _newUser = UserModel.addFlyerToSavedFlyers(
+
+          final UserModel? _newUser = UserModel.addFlyerToSavedFlyers(
             oldUser: _oldUser,
             flyerModel: flyerModel,
           );
@@ -298,7 +304,7 @@ class RenovateUserProtocols {
         }
 
         else {
-          final UserModel _newUser = UserModel.removeFlyerFromSavedFlyers(
+          final UserModel? _newUser = UserModel.removeFlyerFromSavedFlyers(
             oldUser: _oldUser,
             flyerIDToRemove: flyerModel.id,
           );
@@ -338,17 +344,17 @@ class RenovateUserProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateMyUserTopics({
-    @required BuildContext context,
-    @required String topicID,
+    required BuildContext context,
+    required String? topicID,
   }) async {
 
-    final UserModel _oldUser = UsersProvider.proGetMyUserModel(
+    final UserModel? _oldUser = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );
-    final List<String> _userSubscribedTopics = _oldUser.fcmTopics;
+    final List<String>? _userSubscribedTopics = _oldUser?.fcmTopics;
 
-    final UserModel _newUser = _oldUser?.copyWith(
+    final UserModel? _newUser = _oldUser?.copyWith(
       fcmTopics: Stringer.addOrRemoveStringToStrings(
         strings: _userSubscribedTopics,
         string: topicID,
@@ -371,12 +377,12 @@ class RenovateUserProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<void> refreshUserDeviceModel({
-    @required BuildContext context,
+    required BuildContext context,
   }) async {
 
     // blog('refreshUserDeviceModel START');
       /// USER DEVICE MODEL
-      final UserModel _oldUser = UsersProvider.proGetMyUserModel(
+      final UserModel? _oldUser = UsersProvider.proGetMyUserModel(
         context: context,
         listen: false,
       );
@@ -398,7 +404,7 @@ class RenovateUserProtocols {
          you should unsubscribe it from topics using the Firebase Admin
          SDK to delete the token/topic mapping from the FCM backend.
 
-         - The benefit of these two steps is that your fanouts will occur
+         - The benefit of these two steps is that your fan outs will occur
          faster since there are fewer stale tokens to fan out to, and your
           stale app instances will automatically resubscribe once they are active again.
 
@@ -432,7 +438,7 @@ class RenovateUserProtocols {
         /// we should get the most updated version of his model
         /// so we refetch model
         /// cheers
-        UserModel _newUser = await UserProtocols.refetch(
+        UserModel? _newUser = await UserProtocols.refetch(
             context: context,
             userID: _oldUser?.id,
         );
@@ -464,20 +470,20 @@ class RenovateUserProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<void> _resubscribeToAllMyTopics({
-    @required BuildContext context,
+    required BuildContext context,
   }) async {
 
-    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+    final UserModel? _myUserModel = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );
 
     if (_myUserModel != null){
 
-      final List<String> _userTopics = _myUserModel.fcmTopics;
+      final List<String>? _userTopics = _myUserModel.fcmTopics;
 
       final List<String> _topicsIShouldSubscribeTo = <String>[];
-      for (final String topicID in _userTopics){
+      for (final String topicID in [...?_userTopics]){
 
         final bool _containUnderscore = TextCheck.stringContainsSubString(
           string: topicID,

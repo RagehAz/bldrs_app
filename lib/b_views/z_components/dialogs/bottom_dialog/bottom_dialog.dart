@@ -1,14 +1,17 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/bldrs_theme/classes/shadowers.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/space/borderers.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 // -----------------------------------------------------------------------------
 enum BottomDialogType {
   countries,
@@ -24,12 +27,12 @@ class BottomDialog extends StatelessWidget {
     this.height,
     this.child,
     this.titleVerse,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final double height;
-  final Widget child;
-  final Verse titleVerse;
+  final double? height;
+  final Widget? child;
+  final Verse? titleVerse;
   /// --------------------------------------------------------------------------
   /// one side value only
   static double draggerMarginValue() {
@@ -62,7 +65,7 @@ class BottomDialog extends StatelessWidget {
   }
   // --------------------
   static double titleZoneHeight({
-    @required bool titleIsOn,
+    required bool? titleIsOn,
   }) {
     bool _titleIsOn;
 
@@ -79,8 +82,8 @@ class BottomDialog extends StatelessWidget {
   }
   // --------------------
   static double calculateDialogHeight({
-    @required bool titleIsOn,
-    @required double childHeight,
+    required bool titleIsOn,
+    required double childHeight,
   }){
     final double _draggerHeight = draggerZoneHeight();
     final double _titleHeight = titleZoneHeight(titleIsOn: titleIsOn);
@@ -108,8 +111,8 @@ class BottomDialog extends StatelessWidget {
   static double dialogHeight(
       BuildContext context,
       {
-        double overridingDialogHeight,
-        double ratioOfScreenHeight
+        double? overridingDialogHeight,
+        double? ratioOfScreenHeight
       }) {
 
     double _dialogHeight;final double _screenHeight = Scale.screenHeight(context);
@@ -128,9 +131,9 @@ class BottomDialog extends StatelessWidget {
   }
   // --------------------
   static double clearHeight({
-    @required BuildContext context,
-    double overridingDialogHeight,
-    bool titleIsOn,
+    required BuildContext context,
+    double? overridingDialogHeight,
+    bool? titleIsOn,
   }) {
 
     final double _dialogHeight = dialogHeight(context, overridingDialogHeight: overridingDialogHeight);
@@ -152,7 +155,7 @@ class BottomDialog extends StatelessWidget {
     return _dialogCorners;
   }
   // --------------------
-  static double dialogClearCornerValue({double corner}) {
+  static double dialogClearCornerValue({double? corner}) {
     return corner ?? Ratioz.appBarCorner;
   }
   // --------------------
@@ -168,9 +171,9 @@ class BottomDialog extends StatelessWidget {
   }
   // --------------------
   static Future<void> showBottomDialog({
-    @required Widget child,
-    double height,
-    Verse titleVerse,
+    required Widget child,
+    double? height,
+    Verse? titleVerse,
   }) async {
 
     final BuildContext context = getMainContext();
@@ -224,10 +227,10 @@ class BottomDialog extends StatelessWidget {
   }
   // --------------------
   static Future<void> showButtonsBottomDialog({
-    @required int numberOfWidgets,
+    required int numberOfWidgets,
+    required List<Widget> Function(BuildContext) builder,
     double buttonHeight = wideButtonHeight,
-    List<Widget> Function(BuildContext) builder,
-    Verse titleVerse,
+    Verse? titleVerse,
   }) async {
 
     final int _widgetsLength = numberOfWidgets;
@@ -270,9 +273,9 @@ class BottomDialog extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> showStatefulBottomDialog({
-    @required Widget Function(BuildContext, Function setState) builder,
-    @required Verse titleVerse,
-    double height,
+    required Widget Function(BuildContext, Function setState) builder,
+    required Verse? titleVerse,
+    double? height,
   }) async {
 
     final double _height = height ?? BottomDialog.dialogHeight(getMainContext(), ratioOfScreenHeight: 0.5);
@@ -309,9 +312,9 @@ class BottomDialog extends StatelessWidget {
   }
   // --------------------
   static Future<void> slideBzBottomDialog({
-    @required BuildContext context,
-    @required BzModel bz,
-    @required AuthorModel author,
+    required BuildContext context,
+    required BzModel bz,
+    required AuthorModel author,
   }) async {
 
     // final double _flyerBoxWidth = FlyerBox.width(context, 0.71);
@@ -350,15 +353,15 @@ class BottomDialog extends StatelessWidget {
   static const double wideButtonHeight = 45;
   // --------------------
   static Widget wideButton({
-    @required BuildContext context,
-    Verse verse,
-    Function onTap,
-    String icon,
+    required BuildContext context,
+    Verse? verse,
+    Function? onTap,
+    String? icon,
     double height = wideButtonHeight,
     bool verseCentered = false,
     bool isDeactivated = false,
-    Function onDeactivatedTap,
-    Color color,
+    Function? onDeactivatedTap,
+    Color? color,
     bool bigIcon = false,
   }) {
 
@@ -366,7 +369,7 @@ class BottomDialog extends StatelessWidget {
       height: height,
       width: clearWidth(context),
       verse: verse,
-      verseScaleFactor: bigIcon == true ? 1 : 1 /0.6,
+      verseScaleFactor: bigIcon == true ? 0.7 : 0.7 /0.6,
       verseWeight: VerseWeight.thin,
       // verseItalic: false,
       icon: icon,
@@ -470,7 +473,7 @@ class BottomDialog extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: Colorz.white200,
                           borderRadius:
-                          Borderers.cornerAll(context, _draggerCorner),
+                          Borderers.cornerAll(_draggerCorner),
                         ),
                       ),
                     ),

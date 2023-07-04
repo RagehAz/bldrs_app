@@ -1,6 +1,5 @@
 import 'package:bldrs/a_models/x_utilities/map_model.dart';
-import 'package:mapper/mapper.dart';
-import 'package:flutter/material.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 
 /// --- BEHOLD ---
 
@@ -29,8 +28,8 @@ import 'package:flutter/material.dart';
 class Lang {
   /// --------------------------------------------------------------------------
   const Lang({
-    @required this.code,
-    @required this.name,
+    required this.code,
+    required this.name,
   });
   /// --------------------------------------------------------------------------
   final String code;

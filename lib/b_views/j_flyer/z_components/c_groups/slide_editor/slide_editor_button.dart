@@ -1,36 +1,36 @@
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 
 class SlideEditorButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SlideEditorButton({
-    @required this.size,
-    @required this.icon,
-    @required this.verse,
-    @required this.onTap,
+    required this.size,
+    required this.icon,
+    required this.verse,
+    required this.onTap,
     this.isDisabled,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double size;
   final String icon;
   final Verse verse;
   final Function onTap;
-  final bool isDisabled;
+  final bool? isDisabled;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static double getVerseZoneHeight({
-    @required double buttonSize,
+    required double buttonSize,
   }){
     return buttonSize * 0.4;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static double getBoxHeight({
-    @required double buttonSize,
+    required double buttonSize,
   }){
     final double _verseZoneHeight = getVerseZoneHeight(buttonSize: buttonSize);
     return buttonSize + _verseZoneHeight;

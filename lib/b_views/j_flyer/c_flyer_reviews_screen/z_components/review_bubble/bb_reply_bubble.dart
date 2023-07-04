@@ -1,3 +1,6 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/layouts/separators/separator_line.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
@@ -10,27 +13,25 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_timers.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
 
 class BzReplyBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzReplyBubble({
-    @required this.boxWidth,
-    @required this.reviewModel,
-    @required this.flyerModel,
-    @required this.onReplyOptionsTap,
-    @required this.onReplyBzBalloonTap,
-    @required this.isSpecialReview,
-    Key key
-  }) : super(key: key);
+    required this.boxWidth,
+    required this.reviewModel,
+    required this.flyerModel,
+    required this.onReplyOptionsTap,
+    required this.onReplyBzBalloonTap,
+    required this.isSpecialReview,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double boxWidth;
-  final ReviewModel reviewModel;
-  final FlyerModel flyerModel;
+  final ReviewModel? reviewModel;
+  final FlyerModel? flyerModel;
   final Function onReplyOptionsTap;
-  final ValueChanged<BzModel> onReplyBzBalloonTap;
+  final ValueChanged<BzModel?> onReplyBzBalloonTap;
   final bool isSpecialReview;
   /// --------------------------------------------------------------------------
   @override
@@ -51,9 +52,9 @@ class BzReplyBubble extends StatelessWidget {
             context: context,
             flyerID: reviewModel?.flyerID,
         ),
-        builder: (_, AsyncSnapshot<Object> snapshot){
+        builder: (_, AsyncSnapshot<BzModel?> snapshot){
 
-          final BzModel _bzModel = snapshot.data;
+          final BzModel? _bzModel = snapshot.data;
 
           return Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,8 +92,7 @@ class BzReplyBubble extends StatelessWidget {
                     BldrsText(
                       verse: Verse(
                         id: BldrsTimers.calculateSuperTimeDifferenceString(
-                          context: context,
-                          from: reviewModel.replyTime,
+                          from: reviewModel?.replyTime,
                           to: DateTime.now(),
                         ),
                         translate: false,
@@ -105,7 +105,7 @@ class BzReplyBubble extends StatelessWidget {
 
                     /// TEXT
                     BldrsText(
-                      verse: Verse.plain(reviewModel.reply),
+                      verse: Verse.plain(reviewModel?.reply),
                       maxLines: 100,
                       centered: false,
                       weight: isSpecialReview ? VerseWeight.bold : VerseWeight.thin,

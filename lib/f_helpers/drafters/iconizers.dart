@@ -1,11 +1,10 @@
 import 'dart:convert';
 import 'dart:core';
-
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:devicer/devicer.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 /// => TAMAM
@@ -92,10 +91,10 @@ class Iconizer {
   /*
   ///
   static String imageDir({
-    @required String prefix,
-    @required String fileName,
-    @required double pixelRatio,
-    @required bool isIOS,
+    required String prefix,
+    required String fileName,
+    required double pixelRatio,
+    required bool isIOS,
   }) {
 
     /// MediaQueryData data = MediaQuery.of(context);
@@ -147,9 +146,9 @@ class Iconizer {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getLocalAssetPathFromLocalPaths({
-    @required List<String> allAssetsPaths,
-    @required String assetName,
+  static String? getLocalAssetPathFromLocalPaths({
+    required List<String> allAssetsPaths,
+    required String? assetName,
   }){
 
     final List<String> _assetPath = ChainPathConverter.findPathsContainingPhid(
@@ -157,7 +156,7 @@ class Iconizer {
       phid: assetName,
     );
 
-    return _assetPath.isNotEmpty ? _assetPath?.first : null;
+    return _assetPath.isNotEmpty ? _assetPath.first : null;
   }
   // -----------------------------------------------------------------------------
 }

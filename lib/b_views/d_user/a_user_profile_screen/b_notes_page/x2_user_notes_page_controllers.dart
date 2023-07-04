@@ -7,7 +7,7 @@ import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.da
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/c_noot_nav_protocols.dart';
 import 'package:fire/super_fire.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
 // -----------------------------------------------------------------------------
@@ -17,10 +17,10 @@ import 'package:flutter/material.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onUserNoteTap({
-  @required NoteModel noteModel,
+  required NoteModel? noteModel,
 }) async {
 
-  noteModel.blogNoteModel(invoker: 'onUserNoteTap');
+  // noteModel.blogNoteModel(invoker: 'onUserNoteTap');
 
   if (
       noteModel?.navTo?.name != Routing.myUserNotesPage ||
@@ -42,10 +42,10 @@ Future<void> onUserNoteTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onShowNoteOptions({
-  @required BuildContext context,
-  @required NoteModel noteModel,
-  @required PaginationController paginationController,
-  @required bool mounted,
+  required BuildContext context,
+  required NoteModel? noteModel,
+  required PaginationController? paginationController,
+  required bool mounted,
 }) async {
 
   await BottomDialog.showButtonsBottomDialog(
@@ -83,10 +83,10 @@ Future<void> onShowNoteOptions({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _wipeNote({
-  @required BuildContext context,
-  @required NoteModel noteModel,
-  @required PaginationController paginationController,
-  @required bool mounted,
+  required BuildContext context,
+  required NoteModel? noteModel,
+  required PaginationController? paginationController,
+  required bool mounted,
 }) async {
 
   /// CLOSE BOTTOM DIALOG
@@ -100,8 +100,8 @@ Future<void> _wipeNote({
     note: noteModel,
   );
 
-  paginationController.deleteMapByID(
-    id: noteModel.id,
+  paginationController?.deleteMapByID(
+    id: noteModel?.id,
     mounted: mounted,
   );
 
@@ -113,9 +113,9 @@ Future<void> _wipeNote({
 // --------------------
 /*
 // void decrementUserObelisksNotesNumber({
-//   @required NotesProvider notesProvider,
-//   @required int markedNotesLength,
-//   @required bool notify,
+//   required NotesProvider notesProvider,
+//   required int markedNotesLength,
+//   required bool notify,
 // }){
 //
 //   blog('decrementUserObelisksNotesNumber : receiving $markedNotesLength notes');
@@ -168,9 +168,9 @@ Future<void> _wipeNote({
 // --------------------
 ///
 Future<void> onNoteButtonTap({
-  @required BuildContext context,
-  @required String reply,
-  @required NoteModel noteModel,
+  required BuildContext context,
+  required String reply,
+  required NoteModel noteModel,
 }) async {
 
   // blog('${noteModel.topic} == TopicModel.bzInvitations  ? ${noteModel.topic == TopicModel.bzInvitations}');
@@ -191,17 +191,17 @@ Future<void> onNoteButtonTap({
 }
 // -----------------------------------------------------------------------------
 
-bool canTapNoteBubble(NoteModel noteModel){
+bool canTapNoteBubble(NoteModel? noteModel){
 
   if (noteModel == null){
     return false;
   }
   else if (
-      noteModel.navTo.name == Routing.myUserNotesPage
+      noteModel.navTo?.name == Routing.myUserNotesPage
       ||
-      noteModel.navTo.name == Routing.myBzNotesPage
+      noteModel.navTo?.name == Routing.myBzNotesPage
       ||
-      noteModel.navTo.name == null
+      noteModel.navTo?.name == null
   ){
     return false;
   }

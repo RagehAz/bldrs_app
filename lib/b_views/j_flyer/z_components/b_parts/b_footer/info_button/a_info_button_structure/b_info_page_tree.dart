@@ -1,3 +1,5 @@
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/layouts/handlers/max_bounce_navigator.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/g_counters/flyer_counter_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/footer_page_box.dart';
@@ -8,32 +10,31 @@ import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:layouts/layouts.dart';
 
 class InfoPageTree extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const InfoPageTree({
-    @required this.flyerBoxWidth,
-    @required this.infoButtonType,
-    @required this.buttonIsExpanded,
-    @required this.flyerModel,
-    @required this.tinyMode,
-    @required this.inFlight,
-    @required this.infoPageVerticalController,
-    @required this.flyerCounter,
-    @required this.onVerticalBounce,
-    Key key
-  }) : super(key: key);
+    required this.flyerBoxWidth,
+    required this.infoButtonType,
+    required this.buttonIsExpanded,
+    required this.flyerModel,
+    required this.tinyMode,
+    required this.inFlight,
+    required this.infoPageVerticalController,
+    required this.flyerCounter,
+    required this.onVerticalBounce,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final InfoButtonType infoButtonType;
-  final ValueNotifier<bool> buttonIsExpanded;
-  final FlyerModel flyerModel;
+  final ValueNotifier<bool?> buttonIsExpanded;
+  final FlyerModel? flyerModel;
   final bool tinyMode;
   final bool inFlight;
   final ScrollController infoPageVerticalController;
-  final ValueNotifier<FlyerCounterModel> flyerCounter;
-  final Function onVerticalBounce;
+  final ValueNotifier<FlyerCounterModel?> flyerCounter;
+  final Function? onVerticalBounce;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -62,7 +63,7 @@ class InfoPageTree extends StatelessWidget {
       scrollerIsOn: false,
       child: ValueListenableBuilder(
         valueListenable: buttonIsExpanded,
-        builder: (_, bool _buttonIsExpanded, Widget expandedInfoPageTree){
+        builder: (_, bool? _buttonIsExpanded, Widget? expandedInfoPageTree){
 
           return MaxBounceNavigator(
             boxDistance: FlyerDim.infoButtonHeight(
@@ -71,14 +72,15 @@ class InfoPageTree extends StatelessWidget {
               tinyMode: false,
               isExpanded: true,
             ),
-            isOn: _buttonIsExpanded,
+            isOn: _buttonIsExpanded ?? false,
             onNavigate: onVerticalBounce,
             slideLimitRatio: 0.22,
             child: ListView(
               controller: infoPageVerticalController,
               // shrinkWrap: false,
-              physics: _buttonIsExpanded == true ? const BouncingScrollPhysics() : const NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.zero, /// ENTA EBN WES5A
+              physics: Mapper.boolIsTrue(_buttonIsExpanded) == true ? const BouncingScrollPhysics() : const
+              NeverScrollableScrollPhysics(),
+              padding: EdgeInsets.zero,
               children: <Widget>[
 
                 // Column(
@@ -127,7 +129,7 @@ class InfoPageTree extends StatelessWidget {
 
                 /// EXPANDED INFO PAGE TREE
                 if (tinyMode == false && inFlight == false)
-                  expandedInfoPageTree,
+                  expandedInfoPageTree!,
 
 
               ],

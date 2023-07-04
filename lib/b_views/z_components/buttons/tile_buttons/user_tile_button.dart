@@ -6,22 +6,22 @@ import 'package:flutter/material.dart';
 class UserTileButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const UserTileButton({
-    @required this.userModel,
+    required this.userModel,
     this.height,
     this.width,
     this.color,
     this.onTap,
     this.secondLine,
     this.margins,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final double height;
-  final double width;
-  final Color color;
-  final Function onTap;
-  final UserModel userModel;
-  final Verse secondLine;
+  final double? height;
+  final double? width;
+  final Color? color;
+  final Function? onTap;
+  final UserModel? userModel;
+  final Verse? secondLine;
   final dynamic margins;
   /// --------------------------------------------------------------------------
   @override

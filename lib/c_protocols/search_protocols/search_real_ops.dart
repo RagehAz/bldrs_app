@@ -1,8 +1,7 @@
 import 'package:bldrs/a_models/m_search/search_model.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:fire/super_fire.dart';
-import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 /// => TAMAM
 class SearchRealOps {
   // -----------------------------------------------------------------------------
@@ -11,21 +10,21 @@ class SearchRealOps {
 
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<SearchModel> create({
-    @required SearchModel searchModel,
-    @required String userID,
+  static Future<SearchModel?> create({
+    required SearchModel? searchModel,
+    required String? userID,
   }) async {
-    SearchModel _output;
+    SearchModel? _output;
 
     if (searchModel != null && userID != null) {
 
-      Map<String, dynamic> _maw = SearchModel.cipher(
+      Map<String, dynamic>? _maw = SearchModel.cipher(
           searchModel: searchModel,
         );
 
       _maw = Mapper.cleanNullPairs(map: _maw);
 
-      final Map<String, dynamic> uploaded = await Real.createDocInPath(
+      final Map<String, dynamic>? uploaded = await Real.createDocInPath(
         pathWithoutDocName: RealPath.searches_userID(userID: userID),
         map: _maw,
       );
@@ -41,7 +40,7 @@ class SearchRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<SearchModel>> readAll({
-    @required String userID,
+    required String? userID,
   }) async {
     List<SearchModel> _output = [];
 
@@ -68,8 +67,8 @@ class SearchRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> update({
-    @required SearchModel searchModel,
-    @required String userID,
+    required SearchModel? searchModel,
+    required String? userID,
   }) async {
 
     if (searchModel != null && searchModel.id != null && userID != null){
@@ -77,7 +76,7 @@ class SearchRealOps {
       await Real.updateDocInPath(
         path: RealPath.searches_userID_searchID(
           userID: userID,
-          searchID: searchModel.id,
+          searchID: searchModel.id!,
         ),
         map: SearchModel.cipher(
           searchModel: searchModel,
@@ -90,8 +89,8 @@ class SearchRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> delete({
-    @required String userID,
-    @required String modelID,
+    required String? userID,
+    required String? modelID,
   }) async {
 
     await Real.deletePath(
@@ -103,7 +102,7 @@ class SearchRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteAllUserSearches({
-    @required String userID,
+    required String? userID,
   }) async {
 
     if (userID != null){

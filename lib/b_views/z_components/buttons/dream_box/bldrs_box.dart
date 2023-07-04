@@ -1,18 +1,17 @@
 import 'dart:ui' as ui;
-
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/checks/object_check.dart';
 import 'package:bldrs/b_views/z_components/images/bldrs_image_path_to_ui_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:super_box/super_box.dart';
+import 'package:basics/super_box/super_box.dart';
 
 class BldrsBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BldrsBox({
-    @required this.height,
+    required this.height,
     this.width,
     this.icon,
     this.iconSizeFactor = 1,
@@ -23,7 +22,7 @@ class BldrsBox extends StatelessWidget {
     this.verseColor = Colorz.white255,
     this.verseWeight = VerseWeight.bold,
     this.verseScaleFactor = 1,
-    this.verseShadow,
+    this.verseShadow = false,
     this.verseItalic = false,
     this.verseMaxLines = 1,
     this.secondVerseMaxLines = 10,
@@ -54,60 +53,58 @@ class BldrsBox extends StatelessWidget {
     this.verseHighlightColor = Colorz.bloodTest,
     this.onLongTap,
     this.onDoubleTap,
-    Key key,
-  }) : super(key: key);
-
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final dynamic icon;
-
   /// works as a verseSizeFactor as well
-  final double iconSizeFactor;
-  final Color color;
-  final double width;
+  final double? iconSizeFactor;
+  final Color? color;
+  final double? width;
   final double height;
   final dynamic corners;
-  final Color iconColor;
-  final Verse verse;
-  final Color verseColor;
-  final VerseWeight verseWeight;
-  final double verseScaleFactor;
+  final Color? iconColor;
+  final Verse? verse;
+  final Color? verseColor;
+  final VerseWeight? verseWeight;
+  final double? verseScaleFactor;
   final bool verseShadow;
   final bool verseItalic;
-  final int verseMaxLines;
-  final int secondVerseMaxLines;
-  final Function onTap;
+  final int? verseMaxLines;
+  final int? secondVerseMaxLines;
+  final Function? onTap;
   final dynamic margins;
   final bool greyscale;
   final bool iconRounded;
-  final bool bubble;
-  final Verse secondLine;
+  final bool? bubble;
+  final Verse? secondLine;
   final bool verseCentered;
-  final Widget subChild;
+  final Widget? subChild;
   final Alignment childAlignment;
-  final double opacity;
-  final bool isDisabled;
-  final Color splashColor;
-  final Function onTapDown;
-  final Function onTapUp;
-  final Function onTapCancel;
-  final TextDirection textDirection;
-  final double blur;
-  final Color secondLineColor;
+  final double? opacity;
+  final bool? isDisabled;
+  final Color? splashColor;
+  final Function? onTapDown;
+  final Function? onTapUp;
+  final Function? onTapCancel;
+  final TextDirection? textDirection;
+  final double? blur;
+  final Color? secondLineColor;
   final bool redDot;
-  final double secondLineScaleFactor;
+  final double? secondLineScaleFactor;
   final bool loading;
-  final Color iconBackgroundColor;
-  final Function onDisabledTap;
-  final ValueNotifier<dynamic> verseHighlight;
-  final Color verseHighlightColor;
-  final Function onLongTap;
-  final Function onDoubleTap;
+  final Color? iconBackgroundColor;
+  final Function? onDisabledTap;
+  final ValueNotifier<dynamic>? verseHighlight;
+  final Color? verseHighlightColor;
+  final Function? onLongTap;
+  final Function? onDoubleTap;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   Widget getChild({
-    @required BuildContext context,
-    @required dynamic theIcon,
-    bool isLoading,
+    required BuildContext context,
+    required dynamic theIcon,
+    bool? isLoading = false,
   }) {
     return SuperBox(
       // package: 'bldrs_theme',
@@ -130,11 +127,11 @@ class BldrsBox extends StatelessWidget {
       margins: margins,
       greyscale: greyscale,
       iconRounded: iconRounded,
-      bubble: bubble,
+      bubble: bubble ?? true,
       secondText: Verse.bakeVerseToString(verse: secondLine),
       textCentered: verseCentered,
       opacity: opacity,
-      isDisabled: isDisabled,
+      isDisabled: isDisabled ?? false,
       splashColor: splashColor,
       onTapDown: onTapDown,
       onTapUp: onTapUp,
@@ -194,7 +191,7 @@ class BldrsBox extends StatelessWidget {
       if (isPicPath == true) {
         return BldrsImagePathToUiImage(
           imagePath: icon,
-          builder: (bool loading, ui.Image uiImage) {
+          builder: (bool loading, ui.Image? uiImage) {
             return getChild(
               context: context,
               theIcon: uiImage,

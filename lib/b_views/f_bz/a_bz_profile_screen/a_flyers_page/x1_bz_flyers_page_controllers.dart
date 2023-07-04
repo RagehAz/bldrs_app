@@ -1,5 +1,8 @@
 import 'dart:async';
 
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
@@ -20,10 +23,8 @@ import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.da
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:fire/super_fire.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 
@@ -32,8 +33,8 @@ import 'package:layouts/layouts.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onFlyerBzOptionsTap({
-  @required BuildContext context,
-  @required FlyerModel flyer,
+  required BuildContext context,
+  required FlyerModel flyer,
 }) async {
 
   blog('~~~~~~~>');
@@ -127,8 +128,8 @@ Future<void> onFlyerBzOptionsTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onEditFlyerButtonTap({
-  @required BuildContext context,
-  @required FlyerModel flyer,
+  required BuildContext context,
+  required FlyerModel flyer,
 }) async {
 
   /// CLOSE BOTTOM DIALOG
@@ -137,16 +138,17 @@ Future<void> _onEditFlyerButtonTap({
     invoker: '_onEditFlyerButtonTap',
   );
 
-  final DraftFlyer _draft = await DraftFlyer.createDraft(
+  final DraftFlyer? _draft = await DraftFlyer.createDraft(
     oldFlyer: flyer,
   );
 
-  final bool _result = await Nav.goToNewScreen(
+  final bool? _result = await Nav.goToNewScreen(
     context: context,
     screen: NewFlyerEditorScreen(
       draftFlyer: _draft,
-      onConfirm: (DraftFlyer draft) async {
-        draft.blogDraft(invoker: 'New Flyer Editor Test');
+      onConfirm: (DraftFlyer? draft) async {
+
+        draft?.blogDraft(invoker: 'New Flyer Editor Test');
 
         await onConfirmPublishFlyerButtonTap(
           context: context,
@@ -158,7 +160,7 @@ Future<void> _onEditFlyerButtonTap({
     ),
   );
 
-  if (_result == true){
+  if (Mapper.boolIsTrue(_result) == true){
 
     await TopDialog.showTopDialog(
       firstVerse: const Verse(
@@ -192,8 +194,8 @@ Future<void> _onCanNotDeleteFlyerDialog() async {
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _onDeleteFlyerButtonTap({
-  @required BuildContext context,
-  @required FlyerModel flyer,
+  required BuildContext context,
+  required FlyerModel flyer,
 }) async {
 
   final bool _result = await _preFlyerDeleteCheckups(
@@ -235,12 +237,12 @@ Future<void> _onDeleteFlyerButtonTap({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<bool> _preFlyerDeleteCheckups({
-  @required FlyerModel flyer,
+  required FlyerModel flyer,
 }) async {
 
   bool _canContinue = false;
 
-  final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+  final BzModel? _bzModel = BzzProvider.proGetActiveBzModel(
     context: getMainContext(),
     listen: false,
   );

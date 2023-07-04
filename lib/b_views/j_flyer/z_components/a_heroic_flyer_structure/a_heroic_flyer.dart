@@ -1,28 +1,28 @@
 import 'dart:async';
 
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/b_heroic_flyer_hero.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:widget_fader/widget_fader.dart';
+import 'package:basics/animators/widgets/widget_fader.dart';
 
 class HeroicFlyer extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const HeroicFlyer({
-    @required this.flyerBoxWidth,
-    @required this.flyerModel,
-    @required this.screenName,
-    @required this.gridWidth,
-    @required this.gridHeight,
-    Key key
-  }) : super(key: key);
-
+    required this.flyerBoxWidth,
+    required this.flyerModel,
+    required this.screenName,
+    required this.gridWidth,
+    required this.gridHeight,
+    super.key
+  });
+  
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final FlyerModel flyerModel;
+  final FlyerModel? flyerModel;
   final String screenName;
   final double gridWidth;
   final double gridHeight;
@@ -35,22 +35,20 @@ class HeroicFlyer extends StatefulWidget {
 
 class _HeroicFlyerState extends State<HeroicFlyer> {
   // -----------------------------------------------------------------------------
-  FlyerModel renderedSmallFlyer;
-  String _heroPath;
+  FlyerModel? renderedSmallFlyer;
+  String? _heroPath;
 
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(true);
-
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
       value: setTo,
     );
   }
-
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -109,7 +107,7 @@ class _HeroicFlyerState extends State<HeroicFlyer> {
   Future<void> _preparations() async {
     if (widget.flyerModel != null) {
       if (mounted == true) {
-        final FlyerModel _renderedSmallFlyer = await FlyerProtocols.renderSmallFlyer(
+        final FlyerModel? _renderedSmallFlyer = await FlyerProtocols.renderSmallFlyer(
           flyerModel: widget.flyerModel,
         );
 
@@ -161,7 +159,7 @@ class _HeroicFlyerState extends State<HeroicFlyer> {
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
         valueListenable: _loading,
-        builder: (_, bool loading, Widget child) {
+        builder: (_, bool loading, Widget? child) {
 
           if (loading == true) {
             return FlyerLoading(
@@ -174,14 +172,14 @@ class _HeroicFlyerState extends State<HeroicFlyer> {
           else {
 
             if (renderedSmallFlyer == null){
-              blog('(${widget.flyerModel.id}) renderedSmallFlyer == null');
+              blog('(${widget.flyerModel?.id}) renderedSmallFlyer == null');
               return FlyerBox(
                 flyerBoxWidth: widget.flyerBoxWidth,
               );
             }
 
             else {
-              blog('(${widget.flyerModel.id}) renderedSmallFlyer != null');
+              blog('(${widget.flyerModel?.id}) renderedSmallFlyer != null');
               return WidgetFader(
                 fadeType: FadeType.fadeIn,
                 duration: const Duration(milliseconds: 300),
@@ -189,7 +187,7 @@ class _HeroicFlyerState extends State<HeroicFlyer> {
                   renderedFlyer: renderedSmallFlyer,
                   canBuildBigFlyer: false,
                   flyerBoxWidth: widget.flyerBoxWidth,
-                  heroPath: _heroPath,
+                  heroPath: _heroPath ?? '',
                   invoker: 'Flyer',
                   gridWidth: widget.gridWidth,
                   gridHeight: widget.gridHeight,

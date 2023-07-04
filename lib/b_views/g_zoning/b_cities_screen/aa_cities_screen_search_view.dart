@@ -1,41 +1,40 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/city_tile_button.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
-
-
-import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:flutter/material.dart';
 
 class CitiesScreenSearchView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const CitiesScreenSearchView({
-    @required this.onCityTap,
-    @required this.onDeactivatedCityTap,
-    @required this.loading,
-    @required this.foundCities,
-    @required this.shownCitiesIDs,
-    @required this.citiesCensuses,
-    Key key,
-  }) : super(key: key);
+    required this.onCityTap,
+    required this.onDeactivatedCityTap,
+    required this.loading,
+    required this.foundCities,
+    required this.shownCitiesIDs,
+    required this.citiesCensuses,
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final Function(String cityID) onCityTap;
-  final Function(String cityID) onDeactivatedCityTap;
+  final Function(String? cityID)? onCityTap;
+  final Function(String? cityID) onDeactivatedCityTap;
   final ValueNotifier<bool> loading;
-  final ValueNotifier<List<CityModel>> foundCities;
-  final List<String> shownCitiesIDs;
-  final List<CensusModel> citiesCensuses;
+  final ValueNotifier<List<CityModel>?> foundCities;
+  final List<String>? shownCitiesIDs;
+  final List<CensusModel>? citiesCensuses;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     return ValueListenableBuilder(
         valueListenable: loading,
-        builder:(_, bool loading, Widget child){
+        builder:(_, bool loading, Widget? child){
 
           /// WHILE LOADING
           if (loading == true){
@@ -47,7 +46,7 @@ class CitiesScreenSearchView extends StatelessWidget {
 
             return ValueListenableBuilder(
               valueListenable: foundCities,
-              builder: (_, List<CityModel> foundCities, Widget child){
+              builder: (_, List<CityModel>? foundCities, Widget? child){
 
                 const EdgeInsets _topMargin = EdgeInsets.only(
                   top: Ratioz.appBarBigHeight + Ratioz.appBarMargin * 2,
@@ -57,32 +56,31 @@ class CitiesScreenSearchView extends StatelessWidget {
                 /// WHEN SEARCH RESULTS
                 if (Mapper.checkCanLoopList(foundCities) == true){
 
-
                   return ListView.builder(
                       physics: const BouncingScrollPhysics(),
-                      itemCount: foundCities.length,
+                      itemCount: foundCities!.length,
                       padding: _topMargin,
                       shrinkWrap: true,
                       itemBuilder: (_, int index) {
 
-                        final CityModel _city = foundCities[index];
+                        final CityModel? _city = foundCities[index];
 
                         final bool _isActive = Stringer.checkStringsContainString(
                           strings: shownCitiesIDs,
-                          string: _city.cityID,
+                          string: _city?.cityID,
                         );
 
-                        final CensusModel _census = CensusModel.getCensusFromCensusesByID(
+                        final CensusModel? _census = CensusModel.getCensusFromCensusesByID(
                           censuses: citiesCensuses,
-                          censusID: _city.cityID,
+                          censusID: _city?.cityID,
                         );
 
                         return WideCityButton(
                           city: _city,
                           isActive: _isActive,
                           censusModel: _census,
-                          onSingleTap: () => onCityTap(_city.cityID),
-                          onDeactivatedTap: () => onDeactivatedCityTap(_city.cityID),
+                          onSingleTap: onCityTap == null ? null : () => onCityTap?.call(_city?.cityID),
+                          onDeactivatedTap: () => onDeactivatedCityTap(_city?.cityID),
                         );
 
                       }

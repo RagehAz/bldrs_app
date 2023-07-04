@@ -1,29 +1,28 @@
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-
 import 'package:flutter/material.dart';
 
 class StatsLine extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const StatsLine({
-    @required this.icon,
-    @required this.verse,
+    required this.icon,
+    required this.verse,
     this.bigIcon = false,
     this.onTap,
     this.bubbleWidth,
     this.color,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final String icon;
+  final String? icon;
   final bool bigIcon;
   final Verse verse;
-  final Function onTap;
-  final double bubbleWidth;
-  final Color color;
+  final Function? onTap;
+  final double? bubbleWidth;
+  final Color? color;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

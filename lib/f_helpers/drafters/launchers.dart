@@ -1,15 +1,15 @@
 import 'dart:async';
+import 'package:basics/helpers/classes/checks/device_checker.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:devicer/devicer.dart';
-import 'package:filers/filers.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
-import 'package:stringer/stringer.dart';
 import 'package:url_launcher/url_launcher.dart' as Launch;
 /// => TAMAM
 class Launcher {
@@ -24,7 +24,7 @@ class Launcher {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> launchContactModel({
-    @required ContactModel contact,
+    required ContactModel? contact,
   }) async {
 
     if (contact != null){
@@ -61,7 +61,7 @@ class Launcher {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<bool> launchURL(String link) async {
+  static Future<bool> launchURL(String? link) async {
 
     Uri _uri;
     bool _success = false;
@@ -80,7 +80,7 @@ class Launcher {
       );
 
       if (_containsHttp == true || _containsHttps == true){
-        _uri = Uri.parse(link);
+        _uri = Uri.parse(link!);
       }
       else {
         _uri = Uri.parse('http://$link');
@@ -88,7 +88,12 @@ class Launcher {
 
       if (await Launch.canLaunchUrl(_uri) == true) {
 
-        unawaited(Launch.launchUrl(_uri));
+        unawaited(Launch.launchUrl(
+          _uri,
+          // mode: LaunchMode.inAppWebView,
+          // webOnlyWindowName: ,
+          // webViewConfiguration: ,
+        ));
         _success = true;
       }
       else {
@@ -106,10 +111,13 @@ class Launcher {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _launchEmail({
-    @required String email,
-    String emailSubject,
-    String emailBody,
+    required String? email,
+    String? emailSubject,
+    String? emailBody,
   }) async {
+
+    /// MORE REF : https://www.youtube.com/watch?v=R6mA6_GRMZQ&t=42s
+
 
     if (TextCheck.isEmpty(email) == false){
 
@@ -156,13 +164,36 @@ class Launcher {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> _launchCall(String phoneNumber) async {
+  static Future<void> _launchCall(String? phoneNumber) async {
 
     if (TextCheck.isEmpty(phoneNumber) == false){
 
       final Uri _uri = Uri(
         path: phoneNumber,
         scheme: 'tel',
+      );
+
+      if (await Launch.canLaunchUrl(_uri) == true) {
+        await Launch.launchUrl(_uri);
+      }
+
+      else {
+        blog('cant call');
+      }
+
+
+    }
+
+  }
+  // --------------------
+  /// NOT TESTED
+  static Future<void> launchSMS(String? phoneNumber) async {
+
+    if (TextCheck.isEmpty(phoneNumber) == false){
+
+      final Uri _uri = Uri(
+        path: phoneNumber,
+        scheme: 'sms',
       );
 
       if (await Launch.canLaunchUrl(_uri) == true) {
@@ -184,19 +215,19 @@ class Launcher {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> shareURL({
-    @required String url,
-    @required String subject,
+    required String? url,
+    required String? subject,
   }) async {
 
     if (url != null && subject != null){
 
       if (DeviceChecker.deviceIsWindows() == false){
-        final RenderBox _box = getMainContext().findRenderObject();
+        final RenderBox? _box = getMainContext().findRenderObject() as RenderBox;
         // final String url = '${flyerLink.url} & ${flyerLink.description}';
         await Share.share(
           url,
           subject: subject,
-          sharePositionOrigin: _box.localToGlobal(Offset.zero) & _box.size,
+          sharePositionOrigin: _box!.localToGlobal(Offset.zero) & _box.size,
         );
       }
       else {
@@ -210,7 +241,7 @@ class Launcher {
   /// TESTED : WORKS PERFECT
   static Future<void> shareBldrsWebsiteURL() async {
 
-    final String _tagLine = await PhraseProtocols.translate(
+    final String? _tagLine = await PhraseProtocols.translate(
         langCode: Localizer.getCurrentLangCode(),
         phid: 'phid_bldrsTagLine',
     );
@@ -222,4 +253,124 @@ class Launcher {
 
   }
   // -----------------------------------------------------------------------------
+
+
+
+  //
+  // static Future<bool> launchSocial(String? link) async {
+  //
+  //   Uri _uri;
+  //   bool _success = false;
+  //
+  //   if (TextCheck.isEmpty(link) == false){
+  //
+  //     /// LINK SHOULD CONTAIN 'http://' to work
+  //     final bool _containsHttp = TextCheck.stringContainsSubString(
+  //       string: link,
+  //       subString: 'http://',
+  //     );
+  //
+  //     final bool _containsHttps = TextCheck.stringContainsSubString(
+  //       string: link,
+  //       subString: 'https://',
+  //     );
+  //
+  //     if (_containsHttp == true || _containsHttps == true){
+  //       _uri = Uri.parse(link!);
+  //     }
+  //     else {
+  //       _uri = Uri.parse('http://$link');
+  //     }
+  //
+  //     final bool _canLaunch = await Launch.canLaunchUrl(_uri);
+  //
+  //     if (_canLaunch == true) {
+  //
+  //       /// WEB
+  //       if (kIsWeb == true) {
+  //         unawaited(Launch.launchUrl(
+  //           _uri,
+  //           // mode: LaunchMode.inAppWebView,
+  //           // webOnlyWindowName: ,
+  //           // webViewConfiguration: ,
+  //         ));
+  //         _success = true;
+  //       }
+  //
+  //       else if (DeviceChecker.deviceIsAndroid() == true) {
+  //         final bool _isFacebookLink = TextCheck.stringStartsExactlyWith(
+  //           text: _uri.path,
+  //           startsWith: "https://www.facebook.com/",
+  //         );
+  //
+  //         if (_isFacebookLink == true) {
+  //           final url2 = 'fb://facewebmodal/f?href=$_isFacebookLink';
+  //           final intent2 = AndroidIntent(action: "action_view", data: url2);
+  //           final canWork = await intent2.canResolveActivity();
+  //           if (canWork == true){
+  //             intent2.launch();
+  //           }
+  //         }
+  //         final intent = AndroidIntent(action: "action_view", data: url);
+  //         return intent.launch();
+  //       }
+  //
+  //       else {
+  //         if (_canLaunch) {
+  //           await launch(url, forceSafariVC: false);
+  //         } else {
+  //           throw "Could not launch $url";
+  //         }
+  //       }
+  //
+  //
+  //   }
+  //
+  //     }
+  //     else {
+  //       blog('Can Not launch link');
+  //     }
+  //
+  //   }
+  //
+  //   return _success;
+  // }
+  //
+
+
+//
+// Future<void> _launchSocialMediaAppIfInstalled({
+//   String url,
+// }) async {
+//   try {
+//     bool launched = await launch(url, forceSafariVC: false); // Launch the app if installed!
+//
+//     if (!launched) {
+//       launch(url); // Launch web view if app is not installed!
+//     }
+//   } catch (e) {
+//     launch(url); // Launch web view if app is not installed!
+//   }
+// }
+// And then simply call it like this:
+//
+// _launchSocialMediaAppIfInstalled(
+//   url: 'https://www.instagram.com/avey.world/', //Instagram
+// );
+//
+// _launchSocialMediaAppIfInstalled(
+//   url: 'https://www.facebook.com/avey.pal/', // Facebook
+// );
+//
+// _launchSocialMediaAppIfInstalled(
+//   url: 'https://twitter.com/avey_pal', // Twitter
+// );
+//
+// _launchSocialMediaAppIfInstalled(
+//   url: 'https://www.linkedin.com/company/avey-ai/', // Linkedin
+// );
+//
+// ...
+// Don't forget to replace the example page by yours ;) and that's it!
+
 }

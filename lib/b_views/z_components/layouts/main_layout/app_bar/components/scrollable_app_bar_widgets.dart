@@ -3,15 +3,15 @@ part of bldrs_app_bar;
 class ScrollableAppBarWidgets extends StatelessWidget {
 
   const ScrollableAppBarWidgets({
-    @required this.width,
-    @required this.scrollController,
-    @required this.children,
-    Key key
-  }) : super(key: key);
-
+    required this.width,
+    required this.scrollController,
+    required this.children,
+    super.key
+  });
+  
   final double width;
-  final ScrollController scrollController;
-  final List<Widget> children;
+  final ScrollController? scrollController;
+  final List<Widget>? children;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class ScrollableAppBarWidgets extends StatelessWidget {
             // stepWidth: width,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
-              children: children,
+              children: children ?? [],
             ),
           ),
         ),

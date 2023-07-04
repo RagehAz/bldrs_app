@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
@@ -14,9 +15,8 @@ import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.da
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 /// => TAMAM
 class NoteEventsOfBzTeamManagement {
   // -----------------------------------------------------------------------------
@@ -30,69 +30,72 @@ class NoteEventsOfBzTeamManagement {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendAuthorRoleChangeNote({
-    @required BuildContext context,
-    @required String bzID,
-    @required AuthorModel author,
+    required BuildContext context,
+    required String? bzID,
+    required AuthorModel? author,
   }) async {
 
     // blog('NoteEventsOfBzTeamManagement.sendAuthorRoleChangeNote : START');
 
-    final String _authorRolePhid = AuthorModel.getAuthorRolePhid(
-      context: context,
-      role:  author.role,
-    );
+    if (author != null){
 
-    final UserModel _userModel = await UserProtocols.fetch(
+      final String? _authorRolePhid = AuthorModel.getAuthorRolePhid(
+        role:  author.role,
+      );
+
+      final UserModel? _userModel = await UserProtocols.fetch(
         context: context,
         userID: author.userID,
-    );
+      );
 
-    final String _title = await PhraseProtocols.translate(
-      phid: 'phid_member_role_changed',
-      langCode: _userModel?.language,
-    );
+      final String? _title = await PhraseProtocols.translate(
+        phid: 'phid_member_role_changed',
+        langCode: _userModel?.language,
+      );
 
-    /// TASK : ARABIC TRANSLATION IS MESSED UP IN ORDER
-    final String _hasNewRole = await PhraseProtocols.translate(
+      /// TASK : ARABIC TRANSLATION IS MESSED UP IN ORDER
+      final String? _hasNewRole = await PhraseProtocols.translate(
         phid: 'phid_has_new_role',
         langCode: _userModel?.language,
-    );
+      );
 
-    final String _role = await PhraseProtocols.translate(
-      phid: _authorRolePhid,
-      langCode: _userModel?.language,
-    );
+      final String? _role = await PhraseProtocols.translate(
+        phid: _authorRolePhid,
+        langCode: _userModel?.language,
+      );
 
-    final String _body =  '${author.name}\n$_hasNewRole $_role';
+      final String _body =  '${author.name}\n$_hasNewRole $_role';
 
-    final NoteModel _note = NoteModel(
-      id: null,
-      parties: NoteParties(
-        senderID: bzID,
-        senderImageURL: author.picPath,
-        senderType: PartyType.bz,
-        receiverID: bzID,
-        receiverType: PartyType.bz,
-      ),
-      title: _title,
-      body: _body,
-      sentTime: DateTime.now(),
-      topic: TopicModel.bakeTopicID(
-        topicID: TopicModel.bzTeamRolesUpdates,
-        bzID: bzID,
-        receiverPartyType: PartyType.bz,
-      ),
-      navTo: TriggerModel(
-        name: Routing.myBzTeamPage,
-        argument: bzID,
-        done: const [],
-      ),
-    );
+      final NoteModel _note = NoteModel(
+        id: null,
+        parties: NoteParties(
+          senderID: bzID,
+          senderImageURL: author.picPath,
+          senderType: PartyType.bz,
+          receiverID: bzID,
+          receiverType: PartyType.bz,
+        ),
+        title: _title,
+        body: _body,
+        sentTime: DateTime.now(),
+        topic: TopicModel.bakeTopicID(
+          topicID: TopicModel.bzTeamRolesUpdates,
+          bzID: bzID,
+          receiverPartyType: PartyType.bz,
+        ),
+        navTo: TriggerModel(
+          name: Routing.myBzTeamPage,
+          argument: bzID,
+          done: const [],
+        ),
+      );
 
-    await NoteProtocols.composeToOneReceiver(
-      context: context,
+      await NoteProtocols.composeToOneReceiver(
       note: _note,
     );
+
+
+    }
 
     // blog('NoteEventsOfBzTeamManagement.sendAuthorRoleChangeNote : END');
 
@@ -100,10 +103,10 @@ class NoteEventsOfBzTeamManagement {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendAuthorDeletionNotes({
-    @required BuildContext context,
-    @required BzModel bzModel,
-    @required AuthorModel deletedAuthor,
-    @required bool sendToUserAuthorExitNote,
+    required BuildContext context,
+    required BzModel? bzModel,
+    required AuthorModel? deletedAuthor,
+    required bool sendToUserAuthorExitNote,
   }) async {
     blog('NoteEventsOfBzTeamManagement.sendAuthorDeletionNotes : START');
 
@@ -127,116 +130,122 @@ class NoteEventsOfBzTeamManagement {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _authorDeletionNoteToBz({
-    @required BuildContext context,
-    @required BzModel bzModel,
-    @required AuthorModel deletedAuthor,
+    required BuildContext context,
+    required BzModel? bzModel,
+    required AuthorModel? deletedAuthor,
   }) async {
 
-    final UserModel _user = await UserProtocols.fetch(
-      context: context,
-      userID: deletedAuthor.userID,
-    );
+    if (bzModel?.id != null && deletedAuthor != null) {
 
-    final String _title = await PhraseProtocols.translate(
-      phid: 'phid_a_member_exited_the_team',
-      langCode: _user.language,
-    );
+      final UserModel? _user = await UserProtocols.fetch(
+        context: context,
+        userID: deletedAuthor.userID,
+      );
 
-    /// NOTE TO BZ
-    final NoteModel _noteToBz = NoteModel(
-      id: null,
-      parties: NoteParties(
-        senderID: deletedAuthor.userID,
-        senderImageURL: deletedAuthor.picPath,
-        senderType: PartyType.user,
-        receiverID: bzModel.id,
-        receiverType: PartyType.bz,
-      ),
-      title: _title,
-      body: deletedAuthor.name,
-      sentTime: DateTime.now(),
-      topic: TopicModel.bakeTopicID(
-        topicID: TopicModel.bzTeamMembersExit,
-        bzID: bzModel.id,
-        receiverPartyType: PartyType.bz,
-      ),
-      navTo: TriggerModel(
-        name: Routing.myBzTeamPage,
-        argument: bzModel.id,
-        done: const [],
-      ),
-      function: NoteFunProtocols.createDeleteAllBzFlyersLocally(
+      final String? _title = await PhraseProtocols.translate(
+        phid: 'phid_a_member_exited_the_team',
+        langCode: _user?.language,
+      );
+
+      /// NOTE TO BZ
+      final NoteModel _noteToBz = NoteModel(
+        id: null,
+        parties: NoteParties(
+          senderID: deletedAuthor.userID,
+          senderImageURL: deletedAuthor.picPath,
+          senderType: PartyType.user,
+          receiverID: bzModel!.id!,
+          receiverType: PartyType.bz,
+        ),
+        title: _title,
+        body: deletedAuthor.name,
+        sentTime: DateTime.now(),
+        topic: TopicModel.bakeTopicID(
+          topicID: TopicModel.bzTeamMembersExit,
           bzID: bzModel.id,
-      ),
-    );
+          receiverPartyType: PartyType.bz,
+        ),
+        navTo: TriggerModel(
+          name: Routing.myBzTeamPage,
+          argument: bzModel.id,
+          done: const [],
+        ),
+        function: NoteFunProtocols.createDeleteAllBzFlyersLocally(
+          bzID: bzModel.id!,
+        ),
+      );
 
-    await NoteProtocols.composeToOneReceiver(
-      context: context,
-      note: _noteToBz,
-    );
+      await NoteProtocols.composeToOneReceiver(
+        note: _noteToBz,
+      );
+
+    }
 
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _authorDeletionNoteToUser({
-    @required BuildContext context,
-    @required BzModel bzModel,
-    @required AuthorModel deletedAuthor,
+    required BuildContext context,
+    required BzModel? bzModel,
+    required AuthorModel? deletedAuthor,
   }) async {
 
-    final UserModel _userModel = await UserProtocols.fetch(
+    final UserModel? _userModel = await UserProtocols.fetch(
       context: context,
-      userID: deletedAuthor.userID,
+      userID: deletedAuthor?.userID,
     );
 
-    final String _title = await PhraseProtocols.translate(
-      phid: 'phid_you_have_exited_bz',
-      langCode: _userModel.language,
-    );
+    if (bzModel != null && _userModel != null){
 
-    final NoteModel _noteToUser = NoteModel(
-      id: null,
-      parties: NoteParties(
-        senderID: bzModel.id,
-        senderImageURL: bzModel.logoPath,
-        senderType: PartyType.bz,
-        receiverID: deletedAuthor.userID,
-        receiverType: PartyType.user,
-      ),
-      title: _title,
-      body: bzModel.name,
-      sentTime: DateTime.now(),
-      token: _userModel?.device?.token,
-      topic: TopicModel.userAuthorshipsInvitations,
-      navTo: const TriggerModel(
-        name: Routing.myUserNotesPage,
-        argument: null,
-        done: [],
-      ),
-    );
+      final String? _title = await PhraseProtocols.translate(
+        phid: 'phid_you_have_exited_bz',
+        langCode: _userModel.language,
+      );
 
-    await NoteProtocols.composeToOneReceiver(
-      context: context,
+      final NoteModel _noteToUser = NoteModel(
+        id: null,
+        parties: NoteParties(
+          senderID: bzModel.id,
+          senderImageURL: bzModel.logoPath,
+          senderType: PartyType.bz,
+          receiverID: deletedAuthor?.userID,
+          receiverType: PartyType.user,
+        ),
+        title: _title,
+        body: bzModel.name,
+        sentTime: DateTime.now(),
+        token: _userModel.device?.token,
+        topic: TopicModel.userAuthorshipsInvitations,
+        navTo: const TriggerModel(
+          name: Routing.myUserNotesPage,
+          argument: null,
+          done: [],
+        ),
+      );
+
+      await NoteProtocols.composeToOneReceiver(
       note: _noteToUser,
     );
+
+    }
 
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendBzDeletionNoteToAllAuthors({
-    @required BuildContext context,
-    @required BzModel bzModel,
+    required BuildContext context,
+    required BzModel? bzModel,
     /// send bz deletion note to myself
-    @required bool includeMyself,
+    required bool includeMyself,
   }) async {
     blog('NoteEventsOfBzTeamManagement.sendBzDeletionNoteToAllAuthors : START');
 
-    if (bzModel != null && Mapper.checkCanLoopList(bzModel.authors) == true){
+    if (bzModel?.id != null && Mapper.checkCanLoopList(bzModel?.authors) == true){
 
       // final AuthorModel _creator = AuthorModel.getCreatorAuthorFromAuthors(bzModel.authors);
 
       /// ADJUST AUTHORS LIST IF DOES NOT INCLUDE MYSELF
-      List<AuthorModel> _authors = <AuthorModel>[...bzModel.authors];
+      List<AuthorModel>? _authors = <AuthorModel>[...bzModel!.authors!];
       if (includeMyself == false){
         _authors = AuthorModel.removeAuthorFromAuthors(
           authors: _authors,
@@ -249,18 +258,18 @@ class NoteEventsOfBzTeamManagement {
 
         await Future.wait(<Future>[
 
-          ...List.generate(_authors.length, (index) async {
+          ...List.generate(_authors!.length, (index) async {
 
-            final AuthorModel author = _authors[index];
+            final AuthorModel author = _authors![index];
 
-            final UserModel _userModel = await UserProtocols.fetch(
+            final UserModel? _userModel = await UserProtocols.fetch(
               context: context,
               userID: author.userID,
             );
 
-            final String _title = await PhraseProtocols.translate(
+            final String? _title = await PhraseProtocols.translate(
               phid: 'phid_bz_has_been_deleted',
-              langCode: _userModel.language,
+              langCode: _userModel?.language,
             );
 
             final NoteModel _note = NoteModel(
@@ -277,7 +286,7 @@ class NoteEventsOfBzTeamManagement {
               sentTime: DateTime.now(),
               token: _userModel?.device?.token,
               function: NoteFunProtocols.createDeleteBzLocallyTrigger(
-                bzID: bzModel.id,
+                bzID: bzModel.id!,
               ),
               topic: TopicModel.userAuthorshipsInvitations,
               navTo: const TriggerModel(
@@ -288,7 +297,6 @@ class NoteEventsOfBzTeamManagement {
             );
 
             await NoteProtocols.composeToOneReceiver(
-              context: context,
               note: _note,
             );
 
@@ -305,24 +313,26 @@ class NoteEventsOfBzTeamManagement {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendNoBzContactAvailableNote({
-    @required BuildContext context,
-    @required BzModel bzModel,
+    required BuildContext context,
+    required BzModel? bzModel,
   }) async {
     blog('NoteEventsOfBzTeamManagement.sendNoBzContactAvailableNote : START');
 
-    final UserModel userModel = UsersProvider.proGetMyUserModel(
+    final UserModel? userModel = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );
 
-    final String _title = await PhraseProtocols.translate(
+    if (bzModel != null && userModel != null){
+
+          final String? _title = await PhraseProtocols.translate(
       phid: 'has_tried_to_contact_you',
-      langCode: userModel?.language,
+      langCode: userModel.language,
     );
 
-    final String _hasTriedToContactYou = await PhraseProtocols.translate(
+    final String? _hasTriedToContactYou = await PhraseProtocols.translate(
         phid: 'has_tried_to_contact_you',
-        langCode: userModel?.language,
+        langCode: userModel.language,
     );
 
     final String _body = '${userModel.name}\n'
@@ -355,6 +365,8 @@ class NoteEventsOfBzTeamManagement {
     await NoteFireOps.createNote(
         noteModel: _note
     );
+
+    }
 
     blog('NoteEventsOfBzTeamManagement.sendNoBzContactAvailableNote : END');
   }

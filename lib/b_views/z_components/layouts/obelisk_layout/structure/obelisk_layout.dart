@@ -1,26 +1,28 @@
+// ignore_for_file: unused_element
+
+import 'package:basics/animators/helpers/sliders.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:provider/provider.dart';
-import 'package:widget_fader/widget_fader.dart';
+import 'package:basics/animators/widgets/widget_fader.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:night_sky/night_sky.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/obelisk_layout_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/pyramids/super_pyramids.dart';
-import 'package:mapper/mapper.dart';
-import 'package:animators/animators.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 
 class ObeliskLayout extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const ObeliskLayout({
-    @required this.navModels,
-    @required this.canGoBack,
+    required this.navModels,
+    required this.canGoBack,
     this.appBarRowWidgets,
     this.initiallyExpanded = false,
     this.initialIndex = 0,
@@ -36,27 +38,27 @@ class ObeliskLayout extends StatefulWidget {
     this.searchView,
     this.isSearching,
     this.zGridController,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final List<Widget> appBarRowWidgets;
-  final List<NavModel> navModels;
+  final List<Widget>? appBarRowWidgets;
+  final List<NavModel>? navModels;
   final bool initiallyExpanded;
   final int initialIndex;
-  final Function onBack;
+  final Function? onBack;
   final bool canGoBack;
   final AppBarType appBarType;
 
-  final Function onSearchCancelled;
-  final Verse searchHintVerse;
-  final ValueChanged<String> onSearchChanged;
-  final TextEditingController searchController;
-  final ValueChanged<String> onSearchSubmit;
-  final GlobalKey globalKey;
-  final Widget abovePyramidsChild;
-  final Widget searchView;
-  final ValueNotifier<bool> isSearching;
-  final ZGridController zGridController;
+  final Function? onSearchCancelled;
+  final Verse? searchHintVerse;
+  final ValueChanged<String?>? onSearchChanged;
+  final TextEditingController? searchController;
+  final ValueChanged<String?>? onSearchSubmit;
+  final GlobalKey? globalKey;
+  final Widget? abovePyramidsChild;
+  final Widget? searchView;
+  final ValueNotifier<bool>? isSearching;
+  final ZGridController? zGridController;
   /// --------------------------------------------------------------------------
   @override
   _ObeliskLayoutState createState() => _ObeliskLayoutState();
@@ -65,7 +67,7 @@ class ObeliskLayout extends StatefulWidget {
 
 class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProviderStateMixin {
   // -----------------------------------------------------------------------------
-  TabController _tabController;
+  late TabController _tabController;
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -73,9 +75,9 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
 
     if (Mapper.checkCanLoopList(widget.navModels) == true){
       _pageTitleVerse = Verse(
-        id: widget.navModels[0].titleVerse.id,
-        translate: widget.navModels[0].titleVerse.translate,
-        notifier: ValueNotifier(widget.navModels[0].titleVerse.id),
+        id: widget.navModels![0].titleVerse?.id,
+        translate: widget.navModels![0].titleVerse?.translate,
+        notifier: ValueNotifier(widget.navModels![0].titleVerse?.id),
       );
     }
     else {
@@ -94,7 +96,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
   void dispose() {
     _tabController.dispose();
     _progressBarModel.dispose();
-    _pageTitleVerse.notifier?.dispose();
+    _pageTitleVerse?.notifier?.dispose();
     super.dispose();
   }
   // -----------------------------------------------------------------------------
@@ -103,7 +105,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
 
   // --------------------
   /// PROGRESS BAR MODEL : ( INDEX - SWIPE DIRECTION - NUMBER OF SLIDES )
-  final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);
+  final ValueNotifier<ProgressBarModel?> _progressBarModel = ValueNotifier(null);
   // --------------------
   /// TESTED : WORKS PERFECT
   void _initializeTabs(){
@@ -114,19 +116,20 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
           value: ProgressBarModel(
             swipeDirection: SwipeDirection.next,
             index: widget.initialIndex,
-            numberOfStrips: widget.navModels.length ?? 1,
+            numberOfStrips: widget.navModels?.length ?? 1,
+
           ),
       );
 
       // blog('should go now to tab : ${widget.initialIndex}');
       _tabController = TabController(
         vsync: this,
-        length: widget.navModels.length ?? 1,
+        length: widget.navModels?.length ?? 1,
         initialIndex: widget.initialIndex,
         animationDuration: const Duration(milliseconds: 250),
       );
 
-      _tabController.animation.addListener((){
+      _tabController.animation?.addListener((){
 
         onChangeTabIndexWhileAnimation(
           context: context,
@@ -141,9 +144,9 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
         );
 
         setNotifier(
-          notifier: _pageTitleVerse.notifier,
+          notifier: _pageTitleVerse?.notifier,
           mounted: mounted,
-          value: widget.navModels[_progressBarModel.value.index].titleVerse.id,
+          value: widget.navModels![_progressBarModel.value!.index].titleVerse?.id,
         );
 
       });
@@ -153,21 +156,21 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
   // --------------------
   /// TESTED : WORKS PERFECT
   void onChangeTabIndexWhileAnimation({
-    @required BuildContext context,
-    @required TabController tabController,
+    required BuildContext context,
+    required TabController tabController,
   }){
 
     if (tabController.indexIsChanging == false) {
 
-      final int _indexFromAnimation = (tabController.animation.value).round();
+      final int _indexFromAnimation = tabController.animation?.value.round() ?? 0;
 
       // blog('tabController.animation.value : ${tabController.animation.value}');
 
-      final Verse _newTab = widget.navModels[_indexFromAnimation].titleVerse;
-      final Verse _oldTab = widget.navModels[_progressBarModel.value.index].titleVerse;
+      final Verse? _newTab = widget.navModels![_indexFromAnimation].titleVerse;
+      final Verse? _oldTab = widget.navModels![_progressBarModel.value!.index].titleVerse;
 
       /// ONLY WHEN THE TAB CHANGES FOR REAL IN THE EXACT MIDDLE BETWEEN BUTTONS
-      if (_newTab.id != _oldTab.id){
+      if (_newTab?.id != _oldTab?.id){
 
         // _uiProvider.setCurrentUserTab(_newTab);
         tabController.animateTo(_indexFromAnimation,
@@ -183,12 +186,12 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
   Future<void> onRowTap(int index) async {
 
     setNotifier(
-        notifier: _pageTitleVerse.notifier,
+        notifier: _pageTitleVerse?.notifier,
         mounted: mounted,
-        value: widget.navModels[index].titleVerse.id,
+        value: widget.navModels![index].titleVerse?.id,
     );
 
-    blog('onRowTap index : $index : _pageTitle.value : ${_pageTitleVerse.notifier.value}');
+    blog('onRowTap index : $index : _pageTitle.value : ${_pageTitleVerse?.notifier?.value}');
 
     ProgressBarModel.onSwipe(
       context: context,
@@ -197,7 +200,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
       mounted: mounted,
     );
 
-    _tabController.animateTo(_progressBarModel.value.index,
+    _tabController.animateTo(_progressBarModel.value?.index ?? 0,
       duration: const Duration(milliseconds: 500),
       curve: Curves.easeOutExpo,
     );
@@ -205,7 +208,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
   }
   // --------------------
   /// PAGE TITLE
-  Verse _pageTitleVerse;
+  Verse? _pageTitleVerse;
   // -----------------------------------------------------------------------------
 
   /// NAVIGATION
@@ -231,7 +234,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
     }
 
     else {
-      await widget.onBack();
+      await widget.onBack?.call();
     }
 
   }
@@ -241,7 +244,7 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
 
     final Widget _normalView = _NormalView(
       progressBarModel: _progressBarModel,
-      navModels: widget.navModels,
+      navModels: widget.navModels ?? [],
       onRowTap: onRowTap,
       tabController: _tabController,
       mounted: mounted,
@@ -268,16 +271,16 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
       _normalView
           :
           ValueListenableBuilder(
-            valueListenable: widget.isSearching,
+            valueListenable: widget.isSearching!,
             child: _normalView,
-            builder: (_, bool isSearching, Widget normalView){
+            builder: (_, bool isSearching, Widget? normalView){
 
               if (isSearching == true){
-                return widget.searchView;
+                return widget.searchView!;
               }
 
               else {
-                return normalView;
+                return normalView!;
               }
 
             },
@@ -292,20 +295,20 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
 class _NormalView extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const _NormalView({
-    @required this.tabController,
-    @required this.navModels,
-    @required this.onRowTap,
-    @required this.progressBarModel,
-    @required this.abovePyramidsChild,
-    @required this.mounted,
-    Key key
-  }) : super(key: key);
+    required this.tabController,
+    required this.navModels,
+    required this.onRowTap,
+    required this.progressBarModel,
+    required this.abovePyramidsChild,
+    required this.mounted,
+    super.key
+  });
   // -----------------------------------------------------------------------------
   final TabController tabController;
   final List<NavModel> navModels;
   final ValueChanged<int> onRowTap;
-  final ValueNotifier<ProgressBarModel> progressBarModel;
-  final Widget abovePyramidsChild;
+  final ValueNotifier<ProgressBarModel?> progressBarModel;
+  final Widget? abovePyramidsChild;
   final bool mounted;
   // -----------------------------------------------------------------------------
   @override
@@ -333,7 +336,7 @@ class _NormalView extends StatelessWidget {
           Selector<UiProvider, bool>(
             key: const ValueKey<String>('abovePyramidsChildIsNotNull'),
             selector: (_, UiProvider uiProvider) => uiProvider.pyramidsAreExpanded,
-            builder: (_, bool expanded, Widget child) {
+            builder: (_, bool expanded, Widget? child) {
 
               return WidgetFader(
                 fadeType: expanded == true ? FadeType.fadeOut : FadeType.fadeIn,

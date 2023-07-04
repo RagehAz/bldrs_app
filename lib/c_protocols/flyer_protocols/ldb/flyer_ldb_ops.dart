@@ -2,9 +2,8 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/review_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:ldb/ldb.dart';
-import 'package:mapper/mapper.dart';
-import 'package:flutter/material.dart';
+import 'package:basics/ldb/methods/ldb_ops.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 
 class FlyerLDBOps {
   // -----------------------------------------------------------------------------
@@ -17,20 +16,20 @@ class FlyerLDBOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> insertFlyer(FlyerModel flyerModel) async {
+  static Future<void> insertFlyer(FlyerModel? flyerModel) async {
     // blog('FlyerLDBOps.insertFlyer : START');
 
     await LDBOps.insertMap(
       docName: LDBDoc.flyers,
       primaryKey: LDBDoc.getPrimaryKey(LDBDoc.flyers),
-      input: flyerModel.toMap(toJSON: true),
+      input: flyerModel?.toMap(toJSON: true),
     );
 
     // blog('FlyerLDBOps.insertFlyer : END');
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> insertFlyers(List<FlyerModel> flyers) async {
+  static Future<void> insertFlyers(List<FlyerModel>? flyers) async {
 
     if (Mapper.checkCanLoopList(flyers) == true){
 
@@ -53,16 +52,16 @@ class FlyerLDBOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<FlyerModel> readFlyer(String flyerID) async {
+  static Future<FlyerModel?> readFlyer(String? flyerID) async {
 
-    final Map<String, dynamic> _map = await LDBOps.searchFirstMap(
+    final Map<String, dynamic>? _map = await LDBOps.searchFirstMap(
       sortFieldName: 'id',
       searchFieldName: 'id',
       searchValue: flyerID,
       docName: LDBDoc.flyers,
     );
 
-    final FlyerModel _flyer = FlyerModel.decipherFlyer(
+    final FlyerModel? _flyer = FlyerModel.decipherFlyer(
       map: _map,
       fromJSON: true,
     );
@@ -71,18 +70,27 @@ class FlyerLDBOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<List<FlyerModel>> readFlyers(List<String> flyersIDs) async {
+  static Future<List<FlyerModel>> readFlyers(List<String>? flyersIDs) async {
 
-    final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
-      ids: flyersIDs,
-      docName: LDBDoc.flyers,
-      primaryKey: LDBDoc.getPrimaryKey(LDBDoc.flyers),
-    );
+    List<FlyerModel>? _flyers = <FlyerModel>[];
 
-    final List<FlyerModel> _flyers = FlyerModel.decipherFlyers(
-      maps: _maps,
-      fromJSON: true,
-    );
+    if (Mapper.checkCanLoopList(flyersIDs) == false){
+      return <FlyerModel>[];
+    }
+    else {
+
+      final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
+        ids: flyersIDs!,
+        docName: LDBDoc.flyers,
+        primaryKey: LDBDoc.getPrimaryKey(LDBDoc.flyers),
+      );
+
+      _flyers = FlyerModel.decipherFlyers(
+        maps: _maps,
+        fromJSON: true,
+      );
+
+    }
 
     return _flyers;
   }
@@ -107,7 +115,7 @@ class FlyerLDBOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> deleteFlyers (List<String> flyersIDs) async {
+  static Future<void> deleteFlyers (List<String>? flyersIDs) async {
 
     await LDBOps.deleteMaps(
       docName: LDBDoc.flyers,
@@ -118,7 +126,7 @@ class FlyerLDBOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> wipeOut(BuildContext context) async {
+  static Future<void> wipeOut() async {
 
     await LDBOps.deleteAllMapsAtOnce(docName: LDBDoc.flyers);
 
@@ -130,7 +138,7 @@ class FlyerLDBOps {
   // --------------------
   /// TASK : TEST ME
   static Future<void> saveFlyerMakerSession({
-    @required DraftFlyer draftFlyer,
+    required DraftFlyer? draftFlyer,
   }) async {
 
     if (draftFlyer != null){
@@ -146,13 +154,13 @@ class FlyerLDBOps {
   }
   // --------------------
   /// TASK : TEST ME
-  static Future<DraftFlyer> loadFlyerMakerSession({
-    @required String flyerID,
+  static Future<DraftFlyer?> loadFlyerMakerSession({
+    required String? flyerID,
   }) async {
-    DraftFlyer _draft;
+    DraftFlyer? _draft;
 
     final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
-      ids: <String>[flyerID],
+      ids: flyerID == null ? [] : <String>[flyerID],
       docName: LDBDoc.flyerMaker,
       primaryKey: LDBDoc.getPrimaryKey(LDBDoc.flyerMaker),
     );
@@ -166,7 +174,7 @@ class FlyerLDBOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteFlyerMakerSession({
-    @required String flyerID,
+    required String? flyerID,
   }) async {
 
     await LDBOps.deleteMap(
@@ -183,7 +191,7 @@ class FlyerLDBOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> saveReviewSession({
-    @required ReviewModel review,
+    required ReviewModel? review,
   }) async {
 
     if (review != null){
@@ -199,13 +207,13 @@ class FlyerLDBOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<ReviewModel> loadReviewSession({
-    @required String reviewID,
+  static Future<ReviewModel?> loadReviewSession({
+    required String? reviewID,
   }) async {
-    ReviewModel _review;
+    ReviewModel? _review;
 
     final List<Map<String, dynamic>> _maps = await LDBOps.readMaps(
-      ids: <String>[reviewID],
+      ids: reviewID == null ? [] : <String>[reviewID],
       docName: LDBDoc.reviewEditor,
       primaryKey: LDBDoc.getPrimaryKey(LDBDoc.reviewEditor),
     );
@@ -223,7 +231,7 @@ class FlyerLDBOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteReviewSession({
-    @required String reviewID,
+    required String reviewID,
   }) async {
 
     await LDBOps.deleteMap(

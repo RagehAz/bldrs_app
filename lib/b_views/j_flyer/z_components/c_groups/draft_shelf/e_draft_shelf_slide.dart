@@ -1,4 +1,9 @@
-import 'package:animators/animators.dart';
+import 'package:basics/animators/widgets/animate_widget_to_matrix.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/checks/device_checker.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/space/trinity.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shelf/delete_draft_slide_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/components/c_slide_shadow.dart';
@@ -8,30 +13,26 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/template_flyer/b_head
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:devicer/devicer.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:space_time/space_time.dart';
-import 'package:super_image/super_image.dart';
+import 'package:basics/super_image/super_image.dart';
 
 class DraftShelfSlide extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const DraftShelfSlide({
-    @required this.draftSlide,
-    @required this.number,
-    @required this.onTap,
-    @required this.onDeleteSlide,
-    Key key
-  }) : super(key: key);
+    required this.draftSlide,
+    required this.number,
+    required this.onTap,
+    required this.onDeleteSlide,
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final DraftSlide draftSlide;
-  final int number;
-  final Function onTap;
-  final Function onDeleteSlide;
+  final DraftSlide? draftSlide;
+  final int? number;
+  final Function? onTap;
+  final Function? onDeleteSlide;
   /// --------------------------------------------------------------------------
   static const double flyerBoxWidth = 150;
   static const double slideNumberBoxHeight = 20;
@@ -87,7 +88,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
 
           /// FLYER NUMBER
           ReorderableDragStartListener(
-            index: widget.draftSlide.slideIndex,
+            index: widget.draftSlide?.slideIndex ?? 0,
             child: Container(
               width: DraftShelfSlide.flyerBoxWidth,
               height: DraftShelfSlide.slideNumberBoxHeight,
@@ -111,7 +112,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
 
           /// SLIDE
           GestureDetector(
-            onTap: widget.onTap,
+            onTap: widget.onTap == null ? null : () => widget.onTap?.call(),
             onDoubleTap: _onReAnimate,
             child: FlyerBox(
               key: const ValueKey<String>('shelf_slide_flyer_box'),
@@ -124,7 +125,7 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                   SuperFilteredImage(
                     width: DraftShelfSlide.flyerBoxWidth,
                     height: _flyerBoxHeight,
-                    pic: widget.draftSlide.picModel?.bytes,
+                    pic: widget.draftSlide?.picModel?.bytes,
                     filterModel: widget.draftSlide?.filter,
                   ),
 
@@ -136,28 +137,28 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                     height: _flyerBoxHeight,
                     blurIsOn: true,
                     blur: 20,
-                    borders: FlyerDim.flyerCorners(context, DraftShelfSlide.flyerBoxWidth),
+                    borders: FlyerDim.flyerCorners(DraftShelfSlide.flyerBoxWidth),
                   ),
 
                 /// IMAGE
                 if (widget.draftSlide != null)
                   ValueListenableBuilder(
                     valueListenable: _animateSlide,
-                    builder: (_, bool _animate, Widget child){
+                    builder: (_, bool _animate, Widget? child){
 
                       if (_animate == true){
                         return AnimateWidgetToMatrix(
                           matrix: Trinity.renderSlideMatrix(
-                              matrix: widget.draftSlide.matrix,
+                              matrix: widget.draftSlide?.matrix,
                               flyerBoxWidth: DraftShelfSlide.flyerBoxWidth,
                               flyerBoxHeight: _flyerBoxHeight
                           ),
                           replayOnRebuild: true,
-                          child: child,
+                          child: child!,
                         );
                       }
                       else {
-                        return child;
+                        return child!;
                       }
 
                     },
@@ -165,9 +166,9 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                       width: DraftShelfSlide.flyerBoxWidth,
                       height: _flyerBoxHeight,
                       // bytes: widget.draftSlide.picModel.bytes,
-                      pic: widget.draftSlide.picModel?.bytes,
+                      pic: widget.draftSlide?.picModel?.bytes,
                       filterModel: widget.draftSlide?.filter,
-                      boxFit: widget.draftSlide.picFit,
+                      boxFit: widget.draftSlide?.picFit ?? BoxFit.cover,
                     ),
                   ),
 
@@ -200,12 +201,12 @@ class _DraftShelfSlideState extends State<DraftShelfSlide> {
                 if (widget.draftSlide != null)
                   SlideHeadline(
                     flyerBoxWidth: DraftShelfSlide.flyerBoxWidth, /// i don't know why i decreased the 10
-                    text: widget.draftSlide.headline,
+                    text: widget.draftSlide?.headline,
                   ),
 
                 if (widget.draftSlide != null)
                   DeleteDraftSlideButton(
-                    onTap: widget.onDeleteSlide,
+                    onTap: () => widget.onDeleteSlide?.call(),
                   ),
 
               ],

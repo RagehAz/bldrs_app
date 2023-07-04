@@ -1,12 +1,10 @@
 import 'dart:async';
-
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/c_noot_nav_protocols.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
-import 'package:filers/filers.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
 /// for AWESOME NOTIFICATION VERSION 7.
@@ -80,8 +78,8 @@ abstract class NootController {
 
   // --------------------
   static void blogReceivedNotification({
-    @required ReceivedNotification noot,
-    @required String invoker,
+    required ReceivedNotification? noot,
+    required String invoker,
   }){
     blog('blogReceivedNotification : $invoker : START');
 
@@ -108,8 +106,15 @@ abstract class NootController {
       blog('noot.privacy            : ${noot.privacy}');
       blog('noot.category           : ${noot.category}');
       // blog('noot.actionType         : ${noot.actionType}');
-      blog('noot.roundedLargeIcon   : ${noot.roundedLargeIcon}');
-      blog('noot.roundedBigPicture  : ${noot.roundedBigPicture}');
+      blog('noot.bigPictureImage    : ${noot.bigPictureImage}');
+      blog('noot.bigPicturePath     : ${noot.bigPicturePath}');
+      blog('noot.bodyWithoutHtml    : ${noot.bodyWithoutHtml}');
+      blog('noot.createdDate        : ${noot.createdDate}');
+      blog('noot.fullScreenIntent   : ${noot.fullScreenIntent}');
+      blog('noot.displayedDate      : ${noot.displayedDate}');
+      blog('noot.createdSource      : ${noot.createdSource}');
+      blog('noot.createdLifeCycle   : ${noot.createdLifeCycle}');
+      blog('noot.displayedLifeCycle : ${noot.displayedLifeCycle}');
 
     }
     else {
@@ -120,8 +125,8 @@ abstract class NootController {
   }
   // --------------------
   static void blogReceivedAction({
-    @required ReceivedAction action,
-    @required String invoker,
+    required ReceivedAction? action,
+    required String invoker,
   }){
     blog('blogReceivedAction : $invoker : START');
 
@@ -155,11 +160,10 @@ class NootListener {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static StreamSubscription listenToNootActionStream(){
+  static StreamSubscription? listenToNootActionStream(){
 
-    final StreamSubscription _sub = FCM.getAwesomeNoots()
-        .actionStream
-        .listen((ReceivedNotification receivedNotification) async {
+    final StreamSubscription? _sub = FCM.getAwesomeNoots()?.actionStream
+        .listen((ReceivedNotification? receivedNotification) async {
 
       // NootController.blogReceivedNotification(
       //   noot: receivedNotification,
@@ -187,11 +191,10 @@ class NootListener {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static StreamSubscription listenToNootCreatedStream(){
+  static StreamSubscription? listenToNootCreatedStream(){
 
-    final StreamSubscription _sub = FCM.getAwesomeNoots()
-        .createdStream
-        .listen((ReceivedNotification receivedNotification) {
+    final StreamSubscription? _sub = FCM.getAwesomeNoots()?.createdStream
+        .listen((ReceivedNotification? receivedNotification) {
 
           // blog('listenToNootCreatedStream --- START');
 
@@ -212,20 +215,19 @@ class NootListener {
 
   // --------------------
   ///
-  static StreamSubscription listenToNootDismissedStream(){
+  static StreamSubscription? listenToNootDismissedStream(){
 
-    final StreamSubscription _sub = FCM.getAwesomeNoots()
-        .dismissedStream // BUG : STREAM IS ALREADY ACTIVE AT THIS POINT I DUNNO HOW
-        .listen((ReceivedNotification receivedNotification) {
+    final StreamSubscription? _sub = FCM.getAwesomeNoots()?.dismissedStream // BUG : STREAM IS ALREADY ACTIVE AT THIS POINT I DUNNO HOW
+        .listen((ReceivedNotification? receivedNotification) {
 
-      // blog('listenToNootDismissedStream --- START');
-      //
-      // NootController.blogReceivedNotification(
-      //   noot: receivedNotification,
-      //   invoker: 'listenToNootDismissedStream',
-      // );
-      //
-      // blog('listenToNootDismissedStream --- END');
+      blog('listenToNootDismissedStream --- START');
+
+      NootController.blogReceivedNotification(
+        noot: receivedNotification,
+        invoker: 'listenToNootDismissedStream',
+      );
+
+      blog('listenToNootDismissedStream --- END');
 
     });
 
@@ -237,20 +239,19 @@ class NootListener {
 
   // --------------------
   ///
-  static StreamSubscription listenToNootDisplayedStream(){
+  static StreamSubscription? listenToNootDisplayedStream(){
 
-    final StreamSubscription _sub = FCM.getAwesomeNoots()
-        .dismissedStream
-        .listen((ReceivedNotification receivedNotification) {
+    final StreamSubscription? _sub = FCM.getAwesomeNoots()?.dismissedStream
+        .listen((ReceivedNotification? receivedNotification) {
 
-      // blog('listenToNootDismissedStream --- START');
-      //
-      // NootController.blogReceivedNotification(
-      //   noot: receivedNotification,
-      //   invoker: 'listenToNootDismissedStream',
-      // );
-      //
-      // blog('listenToNootDismissedStream --- END');
+      blog('listenToNootDismissedStream --- START');
+
+      NootController.blogReceivedNotification(
+        noot: receivedNotification,
+        invoker: 'listenToNootDismissedStream',
+      );
+
+      blog('listenToNootDismissedStream --- END');
 
     });
 
