@@ -1,11 +1,11 @@
 import 'dart:async';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/aa_static_logo_screen_view.dart';
 import 'package:bldrs/b_views/a_starters/a_logo_screen/x_logo_screen_controllers.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
 
@@ -13,10 +13,10 @@ import 'package:flutter/material.dart';
 class StaticLogoScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const StaticLogoScreen({
-    // @required this.error,
-    // @required this.loading,
-    Key key
-  }) : super(key: key);
+    // required this.error,
+    // required this.loading,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   @override
   State<StaticLogoScreen> createState() => _StaticLogoScreenState();
@@ -25,14 +25,14 @@ class StaticLogoScreen extends StatefulWidget {
 
 class _StaticLogoScreenState extends State<StaticLogoScreen> with TickerProviderStateMixin {
   // -----------------------------------------------------------------------------
-  AnimationController _scaleController;
+  late AnimationController _scaleController;
   // final String error;
   static const int _fadeCycleDuration = 800;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,

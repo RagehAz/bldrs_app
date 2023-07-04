@@ -1,9 +1,11 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+
 
 enum Casing {
   non,
@@ -19,20 +21,20 @@ enum Casing {
 class Verse {
   // -----------------------------------------------------------------------------
   const Verse({
-    @required this.id,
-    @required this.translate,
+    required this.id,
+    required this.translate,
     this.casing = Casing.non,
     this.variables,
     this.pseudo,
     this.notifier,
   });
   // -----------------------------------------------------------------------------
-  final String id;
-  final Casing casing;
-  final bool translate;
+  final String? id;
+  final Casing? casing;
+  final bool? translate;
   final dynamic variables;
-  final String pseudo;
-  final ValueNotifier<String> notifier;
+  final String? pseudo;
+  final ValueNotifier<dynamic>? notifier;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -40,12 +42,12 @@ class Verse {
   // --------------------
   /// TESTED : WORKS PERFECT
   Verse copyWith({
-    String id,
-    Casing casing,
-    bool translate,
+    String? id,
+    Casing? casing,
+    bool? translate,
     dynamic variables,
-    String pseudo,
-    ValueNotifier<String> notifier,
+    String? pseudo,
+    ValueNotifier<String>? notifier,
   }){
 
     return Verse(
@@ -76,7 +78,7 @@ class Verse {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Verse plain(String text){
+  static Verse plain(String? text){
     return Verse(
       id: text ?? '',
       translate: false,
@@ -84,7 +86,7 @@ class Verse {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Verse trans(String phid){
+  static Verse trans(String? phid){
     return Verse(
       id: phid,
       translate: true,
@@ -93,23 +95,27 @@ class Verse {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Verse> createVerses({
-    @required List<String> strings,
-    @required bool translate,
-    Casing casing,
+    required List<String?>? strings,
+    required bool translate,
+    Casing? casing,
   }){
     final List<Verse> _output = <Verse>[];
 
     if (Mapper.checkCanLoopList(strings) == true){
 
-      for (final String string in strings){
+      for (final String? string in strings!){
 
-        final Verse _verse = Verse(
-          id: string,
-          translate: translate,
-          casing: casing,
-        );
+        if (string != null){
 
-        _output.add(_verse);
+          final Verse _verse = Verse(
+            id: string,
+            translate: translate,
+            casing: casing,
+          );
+
+          _output.add(_verse);
+
+        }
 
       }
 
@@ -123,13 +129,17 @@ class Verse {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> getVersesIDs(List<Verse> verses){
+  static List<String> getVersesIDs(List<Verse>? verses){
     final List<String> _output = <String>[];
 
     if (Mapper.checkCanLoopList(verses) == true){
 
-      for (final Verse verse in verses){
-        _output.add(verse.id);
+      for (final Verse verse in verses!){
+
+        if (verse.id != null){
+          _output.add(verse.id!);
+        }
+
       }
 
     }
@@ -139,18 +149,19 @@ class Verse {
   // --------------------
   /// TASK : TEST ME
   static List<String> bakeVerses({
-    @required List<Verse> verses,
-    @required BuildContext context,
+    required List<Verse>? verses,
   }){
     final List<String> _output = <String>[];
 
     if (Mapper.checkCanLoopList(verses) == true){
 
-      for (final Verse verse in verses){
+      for (final Verse verse in verses!){
 
-        final String _baked = bakeVerseToString(verse: verse);
+        final String? _baked = bakeVerseToString(verse: verse);
 
-        _output.add(_baked);
+        if (_baked != null){
+          _output.add(_baked);
+        }
 
       }
 
@@ -164,18 +175,18 @@ class Verse {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String convertVerseCase({
-    @required String verse,
-    @required Casing verseCasing,
+  static String? convertVerseCase({
+    required String? verse,
+    required Casing? verseCasing,
   }){
 
     switch (verseCasing){
-      case Casing.non:             return verse;                   break;
-      case Casing.lowerCase:       return verse?.toLowerCase();     break;
-      case Casing.upperCase:       return verse?.toUpperCase();     break;
-    // case VerseCasing.Proper:          return properVerse(verse);      break;
-    // case VerseCasing.upperCamelCase:  return upperCemelVerse(verse);  break;
-    // case VerseCasing.lowerCamelCase:  return lowelCamelVerse(verse);  break;
+      case Casing.non:             return verse;
+      case Casing.lowerCase:       return verse?.toLowerCase();
+      case Casing.upperCase:       return verse?.toUpperCase();
+    // case VerseCasing.Proper:          return properVerse(verse);
+    // case VerseCasing.upperCamelCase:  return upperCemelVerse(verse);
+    // case VerseCasing.lowerCamelCase:  return lowelCamelVerse(verse);
       default: return verse;
     }
 
@@ -187,15 +198,15 @@ class Verse {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkShouldTranslateButNotFound({
-    @required BuildContext context,
-    @required Verse verse,
+    required BuildContext context,
+    required Verse verse,
   }){
 
     bool _shouldButNotFound = false;
 
-    if (TextCheck.isEmpty(verse.id) == false && verse.translate == true){
+    if (TextCheck.isEmpty(verse.id) == false && Mapper.boolIsTrue(verse.translate) == true){
 
-      final String _translation = xPhrase(verse.id);
+      final String? _translation = xPhrase(verse.id);
       if (_translation == null){
         _shouldButNotFound = true;
       }
@@ -205,12 +216,12 @@ class Verse {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkPendingAssigningPhid(String string){
+  static bool checkPendingAssigningPhid(String? string){
     bool _need = false;
 
     if (
     TextMod.removeAllCharactersAfterNumberOfCharacters(
-        input: string,
+        text: string,
         numberOfChars: 2
     ) == '##'
     ){
@@ -225,17 +236,17 @@ class Verse {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String bakeVerseToString({
-    @required Verse verse,
+  static String? bakeVerseToString({
+    required Verse? verse,
   }){
 
-    String _output;
+    String? _output;
 
-    if (verse != null && TextCheck.isEmpty(verse?.id) == false){
+    if (verse != null && TextCheck.isEmpty(verse.id) == false){
 
-      _output = verse?.translate == true ? verse.id.trim() : verse?.id;
+      _output = Mapper.boolIsTrue(verse.translate) == true ? verse.id?.trim() : verse.id;
 
-      if (verse?.translate == true){
+      if (Mapper.boolIsTrue(verse.translate) == true){
 
         /// ADJUST VALUE
         if (TextCheck.isEmpty(_output) == false){
@@ -246,7 +257,7 @@ class Verse {
           final bool _isHeadline = Phider.checkVerseIsHeadline(_output);
           if (_isPhid == true || _isCurrency == true || _isHeadline == true){
 
-            final String _foundXPhrase = xPhrase(verse.id);
+            final String? _foundXPhrase = xPhrase(verse.id);
 
             /// X PHRASE NOT FOUND
             if (_foundXPhrase == null){
@@ -266,7 +277,10 @@ class Verse {
             /// IS TEMP
             final bool _isTemp = Phider.checkVerseIsTemp(_output);
             if (_isTemp == true){
-              _output = TextMod.removeTextBeforeLastSpecialCharacter(_output, '#');
+              _output = TextMod.removeTextBeforeLastSpecialCharacter(
+                  text: _output,
+                  specialCharacter: '#',
+              );
               _output = '##$_output'; // should be translated : phid not assigned yet : not yet in allPhrases
             }
 
@@ -288,13 +302,19 @@ class Verse {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String transBake(String phid){
-    return Verse.bakeVerseToString(
-      verse: Verse(
-        id: phid,
-        translate: true,
-      ),
-    );
+  static String? transBake(String? phid){
+
+    if (phid == null){
+      return null;
+    }
+    else {
+      return Verse.bakeVerseToString(
+        verse: Verse(
+          id: phid,
+          translate: true,
+        ),
+      );
+    }
   }
   // -----------------------------------------------------------------------------
 
@@ -302,7 +322,7 @@ class Verse {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool isEmpty(Verse verse){
+  static bool isEmpty(Verse? verse){
     bool _isEmpty = true;
 
     if (verse != null){

@@ -1,6 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:bldrs/e_back_end/g_storage/storage_paths.dart';
-import 'package:flutter/material.dart';
 /// => TAMAM
 class StoragePath {
   // -----------------------------------------------------------------------------
@@ -13,7 +12,7 @@ class StoragePath {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String users_userID_pic(String userID){
+  static String? users_userID_pic(String? userID){
 
     if (userID == null){
       return null;
@@ -30,7 +29,7 @@ class StoragePath {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String bzz_bzID(String bzID){
+  static String? bzz_bzID(String? bzID){
 
     if (bzID == null){
       return null;
@@ -43,7 +42,7 @@ class StoragePath {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String bzz_bzID_logo(String bzID){
+  static String? bzz_bzID_logo(String? bzID){
 
     if (bzID == null){
       return null;
@@ -56,9 +55,9 @@ class StoragePath {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String bzz_bzID_authorID({
-    @required String bzID,
-    @required String authorID,
+  static String? bzz_bzID_authorID({
+    required String? bzID,
+    required String? authorID,
   }){
 
     if (bzID == null || authorID == null){
@@ -73,7 +72,7 @@ class StoragePath {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String bzz_bzID_poster(String bzID){
+  static String? bzz_bzID_poster(String? bzID){
 
     if (bzID == null){
       return null;
@@ -90,8 +89,8 @@ class StoragePath {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String flyers_flyerID({
-    @required String flyerID,
+  static String? flyers_flyerID({
+    required String? flyerID,
   }){
     if (flyerID == null){
       return null;
@@ -103,9 +102,9 @@ class StoragePath {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String flyers_flyerID_slideIndex({
-    @required String flyerID,
-    @required int slideIndex,
+  static String? flyers_flyerID_slideIndex({
+    required String? flyerID,
+    required int? slideIndex,
   }){
 
     if (flyerID == null || slideIndex == null){
@@ -121,7 +120,7 @@ class StoragePath {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String flyers_flyerID_poster(String flyerID){
+  static String? flyers_flyerID_poster(String? flyerID){
 
     if (flyerID == null){
       return null;
@@ -134,7 +133,7 @@ class StoragePath {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String flyers_flyerID_pdf(String flyerID){
+  static String? flyers_flyerID_pdf(String? flyerID){
 
     if (flyerID == null){
       return null;

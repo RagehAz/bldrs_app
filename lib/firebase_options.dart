@@ -15,16 +15,17 @@ import 'package:flutter/foundation.dart'
 /// );
 /// ```
 class DefaultFirebaseOptions {
-  static FirebaseOptions get currentPlatform {
+
+  static FirebaseOptions? get currentPlatform {
     if (kIsWeb) {
       return web;
     }
     switch (defaultTargetPlatform) {
-      case TargetPlatform.android:  return android; break;
-      case TargetPlatform.iOS:      return ios; break;
-      case TargetPlatform.windows:  return web; break;
-      case TargetPlatform.macOS:    platformNotSupported('MacOS'); return null; break;
-      case TargetPlatform.linux:    platformNotSupported('Linux'); return null; break;
+      case TargetPlatform.android:  return android;
+      case TargetPlatform.iOS:      return ios;
+      case TargetPlatform.windows:  return web;
+      case TargetPlatform.macOS:    platformNotSupported('MacOS'); return null;
+      case TargetPlatform.linux:    platformNotSupported('Linux'); return null;
       default: platformNotSupported('NOTHING'); return null;
     }
   }

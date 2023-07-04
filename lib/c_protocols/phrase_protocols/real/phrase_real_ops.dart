@@ -5,7 +5,7 @@ import 'package:bldrs/f_helpers/drafters/debuggers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 
 class PhraseRealOps {
   // -----------------------------------------------------------------------------
@@ -19,8 +19,8 @@ class PhraseRealOps {
   // --------------------
   ///  TESTED : WORKS PERFECT
   static Future<void> createPhrasesForLang({
-    @required String langCode,
-    @required List<Phrase> phrases,
+    required String? langCode,
+    required List<Phrase> phrases,
   }) async {
 
     if (langCode != null && Mapper.checkCanLoopList(phrases) == true){
@@ -50,16 +50,16 @@ class PhraseRealOps {
 
   // --------------------
   ///
-  static Future<Phrase> readPhraseByLang({
-    @required String lang,
-    @required String phid,
+  static Future<Phrase?> readPhraseByLang({
+    required String? lang,
+    required String? phid,
     bool createTrigram = false,
   }) async {
-    Phrase _output;
+    Phrase? _output;
 
     if (lang != null && phid != null){
 
-      final String _value = await Real.readPath(
+      final String? _value = await Real.readPath(
           path: '${RealColl.phrases}/$lang/$phid',
       );
 
@@ -83,9 +83,9 @@ class PhraseRealOps {
   // --------------------
   ///  TESTED : WORKS PERFECT
   static Future<List<Phrase>> readPhrasesByLang({
-    @required String langCode,
-    @required bool createTrigram,
-    ValueChanged<List<Phrase>> onFinish,
+    required String? langCode,
+    required bool createTrigram,
+    ValueChanged<List<Phrase>>? onFinish,
   }) async {
 
     List<Phrase> _output = <Phrase>[];
@@ -94,7 +94,7 @@ class PhraseRealOps {
 
       await reportThis('readPhrasesByLang : langCode : $langCode : createTrigram : $createTrigram');
 
-      final Map<String, dynamic> _map = await Real.readDoc(
+      final Map<String, dynamic>? _map = await Real.readDoc(
         coll: RealColl.phrases,
         doc: langCode,
       );
@@ -123,8 +123,8 @@ class PhraseRealOps {
 
   // --------------------
   static Future<void> updatePhrasesForLang({
-    @required String langCode,
-    @required List<Phrase> updatedPhrases,
+    required String? langCode,
+    required List<Phrase> updatedPhrases,
   }) async {
 
     if (Mapper.checkCanLoopList(updatedPhrases) == true && langCode != null){
@@ -144,7 +144,7 @@ class PhraseRealOps {
 
   // --------------------
   static Future<void> deletePhraseInMultipleLangs({
-    @required String phid, // phrase id
+    required String phid, // phrase id
     List<String> langCodes = const <String>['en', 'ar'],
   }) async {
 

@@ -1,4 +1,4 @@
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
@@ -6,20 +6,20 @@ import 'package:flutter/material.dart';
 class AuthorCardDetail extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const AuthorCardDetail({
-    @required this.icon,
-    @required this.verse,
-    @required this.boxWidth,
-    @required this.bubble,
+    required this.icon,
+    required this.verse,
+    required this.boxWidth,
+    required this.bubble,
     this.iconColor,
     this.onTap,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final String icon;
   final Verse verse;
   final double boxWidth;
-  final Color iconColor;
-  final Function onTap;
+  final Color? iconColor;
+  final Function? onTap;
   final bool bubble;
   /// --------------------------------------------------------------------------
   static const double height = 30;
@@ -39,7 +39,7 @@ class AuthorCardDetail extends StatelessWidget {
       verse: verse,
       bubble: bubble,
       verseWeight: VerseWeight.thin,
-      verseShadow: false,
+      // verseShadow: false,
       verseCentered: false,
     );
 

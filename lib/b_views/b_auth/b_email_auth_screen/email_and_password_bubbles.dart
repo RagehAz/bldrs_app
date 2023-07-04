@@ -8,30 +8,30 @@ import 'package:flutter/material.dart';
 class EmailAndPasswordBubbles extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const EmailAndPasswordBubbles({
-    @required this.formKey,
-    @required this.emailController,
-    @required this.passwordController,
-    @required this.emailValidator,
-    @required this.passwordValidator,
-    @required this.isSigningIn,
-    @required this.appBarType,
-    @required this.passwordNode,
-    @required this.isObscured,
-    @required this.onSubmitted,
-    @required this.bubbleWidth,
-    Key key
-  }) : super(key: key);
+    required this.formKey,
+    required this.emailController,
+    required this.passwordController,
+    required this.emailValidator,
+    required this.passwordValidator,
+    required this.isSigningIn,
+    required this.appBarType,
+    required this.passwordNode,
+    required this.isObscured,
+    required this.onSubmitted,
+    required this.bubbleWidth,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final GlobalKey<FormState> formKey;
   final TextEditingController emailController;
   final TextEditingController passwordController;
-  final String Function(String) emailValidator;
-  final String Function(String) passwordValidator;
+  final String? Function(String?)? emailValidator;
+  final String? Function(String?)? passwordValidator;
   final ValueNotifier<bool> isSigningIn;
   final AppBarType appBarType;
   final FocusNode passwordNode;
   final ValueNotifier<bool> isObscured;
-  final void Function(String) onSubmitted;
+  final void Function(String?)? onSubmitted;
   final double bubbleWidth;
   /// --------------------------------------------------------------------------
   @override

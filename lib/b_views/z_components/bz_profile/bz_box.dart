@@ -1,38 +1,36 @@
 // ignore_for_file: avoid_bool_literals_in_conditional_expressions
-
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-
 import 'package:flutter/material.dart';
 
 class BzLogoBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzLogoBox({
-    @required this.width,
+    required this.width,
     this.bzModel,
     this.showName = true,
     this.logoColor = Colorz.white10,
     this.zeroCornerIsOn = false,
     this.onTap,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double width;
-  final BzModel bzModel;
+  final BzModel? bzModel;
   final bool showName;
   final Color logoColor;
   final bool zeroCornerIsOn;
-  final Function onTap;
+  final Function? onTap;
   /// --------------------------------------------------------------------------
   static const double _boxAspectRatio = 1.25;
   static const double _nameHeightRatio = _boxAspectRatio - 1;
   // --------------------
   static double boxHeight({
-    @required double width,
-    @required bool showName,
+    required double width,
+    required bool showName,
   }){
     double _height = width;
 
@@ -51,9 +49,9 @@ class BzLogoBox extends StatelessWidget {
       showName: showName,
     );
     // --------------------
-    final dynamic _bzLogo = bzModel == null ? logoColor : bzModel.logoPath;
-    final bool _bzIsVerified = bzModel == null ? false : bzModel.isVerified;
-    final String _bzName = bzModel == null ? '...' : bzModel.name;
+    final dynamic _bzLogo = bzModel == null ? logoColor : bzModel?.logoPath;
+    final bool? _bzIsVerified = bzModel == null ? false : bzModel?.isVerified;
+    final String? _bzName = bzModel == null ? '...' : bzModel?.name;
     // --------------------
     return SizedBox(
       width: width,

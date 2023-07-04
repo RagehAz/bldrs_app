@@ -46,8 +46,8 @@ class StagingLeveller {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> levelUpZone({
-    @required BuildContext context,
-    @required ZoneModel zoneModel,
+    required BuildContext context,
+    required ZoneModel? zoneModel,
   }) async {
 
     /// NOTE : THIS METHOD IS CALLED AFTER UPDATING CENSUS
@@ -72,20 +72,20 @@ class StagingLeveller {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _levelUpCountry({
-    @required String countryID,
+    required String? countryID,
   }) async {
 
     /// NOTE : THIS METHOD IS CALLED AFTER UPDATING CENSUS
 
     if (countryID != null){
 
-      final StagingModel _countriesStage = await StagingProtocols.refetchCountiesStaging();
-      final StageType _countryStageType = _countriesStage?.getTypeByID(countryID);
+      final StagingModel? _countriesStage = await StagingProtocols.refetchCountiesStaging();
+      final StageType? _countryStageType = _countriesStage?.getTypeByID(countryID);
 
       /// WHEN PUBLIC STAGE NO LEVEL UP WILL BE AVAILABLE
       if (_countryStageType != null && _countryStageType != StageType.publicStage){
 
-        final CensusModel _countryCensus = await CensusProtocols.refetchCountryCensus(
+        final CensusModel? _countryCensus = await CensusProtocols.refetchCountryCensus(
             countryID: countryID,
         );
 
@@ -140,13 +140,13 @@ class StagingLeveller {
   }
   // --------------------
   /// TASK : TEST ME
-  static Future<StagingModel> changeCountryStageType({
-    @required String countryID,
-    @required StageType newType,
-    @required StagingModel oldCountriesStaging,
+  static Future<StagingModel?> changeCountryStageType({
+    required String? countryID,
+    required StageType? newType,
+    required StagingModel? oldCountriesStaging,
   }) async {
 
-    StagingModel _output;
+    StagingModel? _output;
 
     if (countryID != null && newType != null && oldCountriesStaging != null){
 
@@ -167,23 +167,23 @@ class StagingLeveller {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _levelUpCity({
-    @required String cityID,
+    required String? cityID,
   }) async {
 
     /// NOTE : THIS METHOD IS CALLED AFTER UPDATING CENSUS
 
     if (cityID != null){
 
-      final String _countryID = CityModel.getCountryIDFromCityID(cityID);
-      final StagingModel _citiesStages = await StagingProtocols.refetchCitiesStaging(
+      final String? _countryID = CityModel.getCountryIDFromCityID(cityID);
+      final StagingModel? _citiesStages = await StagingProtocols.refetchCitiesStaging(
           countryID: _countryID,
       );
-      final StageType _cityStageType = _citiesStages?.getTypeByID(cityID);
+      final StageType? _cityStageType = _citiesStages?.getTypeByID(cityID);
 
       /// WHEN PUBLIC STAGE NO LEVEL UP WILL BE AVAILABLE
       if (_cityStageType != null && _cityStageType != StageType.publicStage){
 
-        final CensusModel _cityCensus = await CensusProtocols.refetchCityCensus(
+        final CensusModel? _cityCensus = await CensusProtocols.refetchCityCensus(
           cityID: cityID,
         );
 
@@ -235,16 +235,16 @@ class StagingLeveller {
   }
   // --------------------
   /// TASK : TEST ME
-  static Future<StagingModel> changeCityStageType({
-    @required String cityID,
-    @required StageType newType,
+  static Future<StagingModel?> changeCityStageType({
+    required String? cityID,
+    required StageType? newType,
   }) async {
 
-    StagingModel _output;
+    StagingModel? _output;
 
     if (cityID != null && newType != null){
 
-      final StagingModel _oldCitiesStaging = await StagingProtocols.fetchCitiesStaging(
+      final StagingModel? _oldCitiesStaging = await StagingProtocols.fetchCitiesStaging(
           countryID: CityModel.getCountryIDFromCityID(cityID),
       );
 
@@ -273,7 +273,7 @@ class StagingLeveller {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool _shouldLevelEmptyToBzzStage(CensusModel census){
+  static bool _shouldLevelEmptyToBzzStage(CensusModel? census){
 
     if (
         census != null &&
@@ -289,7 +289,7 @@ class StagingLeveller {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool _shouldLevelBzzToFlyersStage(CensusModel census){
+  static bool _shouldLevelBzzToFlyersStage(CensusModel? census){
 
     if (
         census != null &&
@@ -305,7 +305,7 @@ class StagingLeveller {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool _shouldLevelFlyersToPublicStage(CensusModel census){
+  static bool _shouldLevelFlyersToPublicStage(CensusModel? census){
 
     if (
         census != null &&

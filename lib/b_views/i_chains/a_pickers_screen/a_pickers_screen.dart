@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
@@ -14,36 +15,35 @@ import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
-import 'package:mapper/mapper.dart';
-import 'package:night_sky/night_sky.dart';
+import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:provider/provider.dart';
-import 'package:scale/scale.dart';
-import 'package:widget_fader/widget_fader.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/animators/widgets/widget_fader.dart';
 
 class PickersScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const PickersScreen({
-    @required this.flyerTypeFilter,
-    @required this.onlyUseZoneChains,
-    @required this.isMultipleSelectionMode,
-    @required this.pageTitleVerse,
-    @required this.zone,
+    required this.flyerTypeFilter,
+    required this.onlyUseZoneChains,
+    required this.isMultipleSelectionMode,
+    required this.pageTitleVerse,
+    required this.zone,
     this.selectedSpecs,
     this.onlyChainKSelection = false,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final List<SpecModel> selectedSpecs;
+  final List<SpecModel>? selectedSpecs;
   /// if given flyer type : will generate flyer type chain : if null will get all chains
-  final FlyerType flyerTypeFilter;
+  final FlyerType? flyerTypeFilter;
   final bool onlyUseZoneChains;
   final bool isMultipleSelectionMode;
   final Verse pageTitleVerse;
   final bool onlyChainKSelection;
-  final ZoneModel zone;
+  final ZoneModel? zone;
   /// --------------------------------------------------------------------------
   @override
   State<PickersScreen> createState() => _PickersScreenState();
@@ -54,8 +54,8 @@ class _PickersScreenState extends State<PickersScreen> {
   // -----------------------------------------------------------------------------
   /// DATA
   // --------------------
-  List<Chain> _bldrsChains;
-  List<Chain> _pickersChains;
+  List<Chain>? _bldrsChains;
+  List<Chain>? _pickersChains;
   // --------------------
   List<PickerModel> _allPickers = <PickerModel>[];
   final ValueNotifier<List<PickerModel>> _refinedPickers = ValueNotifier([]);
@@ -63,7 +63,7 @@ class _PickersScreenState extends State<PickersScreen> {
   /// SEARCHING
   // --------------------
   final TextEditingController _searchTextController = TextEditingController();
-  final ValueNotifier<String> _searchText = ValueNotifier<String>(null);
+  final ValueNotifier<String?> _searchText = ValueNotifier<String?>(null);
   final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false);
   /// FOUND RESULTS
   final ValueNotifier<List<Chain>> _foundChains = ValueNotifier<List<Chain>>(<Chain>[]);
@@ -103,7 +103,7 @@ class _PickersScreenState extends State<PickersScreen> {
   }
   // -----------------------------------------------------------------------------
   bool _isInitialized = false;
-  void _initializeScreen(List<Chain> _bldrsChains){
+  void _initializeScreen(List<Chain>? _bldrsChains){
     if (_isInitialized == false){
       // ------------------------------
 
@@ -115,9 +115,8 @@ class _PickersScreenState extends State<PickersScreen> {
 
 
         _pickers = PickerModel.createHomeWallPickers(
-          context: context,
           canPickMany: true,
-          onlyUseTheseFlyerTypes: [widget.flyerTypeFilter],
+          onlyUseTheseFlyerTypes: widget.flyerTypeFilter == null ? [] : [widget.flyerTypeFilter!],
         );
       }
 
@@ -130,7 +129,6 @@ class _PickersScreenState extends State<PickersScreen> {
           blog('should pick a phid');
 
           _pickers = PickerModel.createHomeWallPickers(
-            context: context,
             canPickMany: false,
             onlyUseTheseFlyerTypes: FlyerTyper.concludePossibleFlyerTypesByChains(_bldrsChains),
           );
@@ -148,7 +146,7 @@ class _PickersScreenState extends State<PickersScreen> {
         else {
           _pickers = ChainsProvider.proGetSortedPickersByFlyerTypes(
             context: context,
-            flyerTypes: [widget.flyerTypeFilter],
+            flyerTypes: [widget.flyerTypeFilter!],
             sort: true,
             listen: false,
           );
@@ -197,7 +195,7 @@ class _PickersScreenState extends State<PickersScreen> {
       final List<Chain> _sons = <Chain>[];
 
       for (final PickerModel _picker in refinedPickers){
-        final Chain _chain = ChainsProvider.proFindChainByID(
+        final Chain? _chain = ChainsProvider.proFindChainByID(
           chainID: _picker.chainID,
           onlyUseZoneChains: widget.onlyUseZoneChains,
         );
@@ -227,11 +225,11 @@ class _PickersScreenState extends State<PickersScreen> {
   List<Chain> _getBldrsChains (BuildContext ctx, ChainsProvider chainsPro){
 
     if (widget.onlyUseZoneChains == true){
-      return chainsPro.zoneChains;
+      return chainsPro.zoneChains ?? [];
     }
 
     else {
-      return chainsPro.bldrsChains;
+      return chainsPro.bldrsChains ?? [];
     }
 
   }
@@ -267,7 +265,7 @@ class _PickersScreenState extends State<PickersScreen> {
           );
         },
       ),
-      onSearchChanged: (String text) => onChainsSearchChanged(
+      onSearchChanged: (String? text) => onChainsSearchChanged(
         text: text,
         isSearching: _isSearching,
         context: context,
@@ -277,7 +275,7 @@ class _PickersScreenState extends State<PickersScreen> {
         chains: _pickersChains,
         mounted: mounted,
       ),
-      onSearchSubmit: (String text) => onSearchChains(
+      onSearchSubmit: (String? text) => onSearchChains(
         text: text,
         isSearching: _isSearching,
         foundChains: _foundChains,
@@ -288,7 +286,6 @@ class _PickersScreenState extends State<PickersScreen> {
         mounted: mounted,
       ),
       onSearchCancelled: () => MainLayout.onCancelSearch(
-        context: context,
         controller: _searchTextController,
         foundResultNotifier: _foundChains,
         isSearching: _isSearching,
@@ -303,7 +300,7 @@ class _PickersScreenState extends State<PickersScreen> {
         selector: _getBldrsChains,
         // child: ,
         // shouldRebuild: ,
-        builder: (_, List<Chain> chains, Widget screenView){
+        builder: (_, List<Chain>? chains, Widget? screenView){
 
           /// WHILE LOADING CHAIN
           if (chains == null){
@@ -329,7 +326,7 @@ class _PickersScreenState extends State<PickersScreen> {
 
             _initializeScreen(chains);
 
-            return screenView;
+            return screenView!;
 
           }
 
@@ -340,7 +337,7 @@ class _PickersScreenState extends State<PickersScreen> {
           key: const ValueKey<String>('ChainsScreen_view'),
           valueListenable: _isSearching,
           child: Container(),
-          builder: (_, bool isSearching, Widget child){
+          builder: (_, bool isSearching, Widget? child){
 
             /// WHILE SEARCHING
             if (isSearching == true){
@@ -368,7 +365,7 @@ class _PickersScreenState extends State<PickersScreen> {
                 onlyUseZoneChains: widget.onlyUseZoneChains,
                 refinedPickersNotifier: _refinedPickers,
                 selectedSpecsNotifier: _selectedSpecs,
-                flyerTypes: [widget.flyerTypeFilter],
+                flyerTypes: widget.flyerTypeFilter == null ? [] : [widget.flyerTypeFilter!],
                 zone: widget.zone,
                 isMultipleSelectionMode: widget.isMultipleSelectionMode,
                 mounted: mounted,

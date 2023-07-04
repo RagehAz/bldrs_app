@@ -1,5 +1,9 @@
 import 'dart:async';
 
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
@@ -25,10 +29,8 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zo
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:fire/super_fire.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:provider/provider.dart';
 
 /*
@@ -56,11 +58,10 @@ keywords relevancy		      calls
 
 // --------------------
 /// TESTED : WORKS PERFECT
-List<NavModel> generateMainNavModels({
-  @required BuildContext context,
-  @required List<BzModel> bzzModels,
-  @required ZoneModel currentZone,
-  @required UserModel userModel,
+List<NavModel?> generateMainNavModels({
+  required List<BzModel>? bzzModels,
+  required ZoneModel? currentZone,
+  required UserModel? userModel,
 }){
 
   final String _countryFlag = currentZone?.icon ?? Iconz.contAfrica;
@@ -69,7 +70,7 @@ List<NavModel> generateMainNavModels({
   // blog('generateMainNavModels() _userIsSignedUp: $_userIsSignedUp : ${userModel?.signInMethod}');
 
 
-  return <NavModel>[
+  return <NavModel?>[
 
     /// SIGN IN
     NavModel(
@@ -102,7 +103,7 @@ List<NavModel> generateMainNavModels({
       )
           :
       Verse(
-        id: userModel.name,
+        id: userModel?.name,
         translate: false,
       ),
       icon: userModel?.picPath ?? Iconz.normalUser,
@@ -130,7 +131,8 @@ List<NavModel> generateMainNavModels({
       null,
 
     /// MY BZZ
-    ...List.generate(bzzModels.length, (index){
+    if (Mapper.checkCanLoopList(bzzModels) == true)
+    ...List.generate(bzzModels!.length, (index){
 
       final BzModel _bzModel = bzzModels[index];
 
@@ -165,7 +167,6 @@ List<NavModel> generateMainNavModels({
       id: NavModel.getMainNavIDString(navID: MainNavModel.zone),
       icon: _countryFlag,
       screen: () => ZoneSelection.goBringAZone(
-        context: context,
         depth: ZoneDepth.city,
         zoneViewingEvent: ViewingEvent.homeView,
         settingCurrentZone: true,
@@ -198,37 +199,37 @@ List<NavModel> generateMainNavModels({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onNavigate({
-  @required int index,
-  @required List<NavModel> models,
-  @required ValueNotifier<ProgressBarModel> progressBarModel,
-  @required BuildContext context,
-  @required bool mounted,
+  required int index,
+  required List<NavModel?> models,
+  required ValueNotifier<ProgressBarModel?>? progressBarModel,
+  required BuildContext context,
+  required bool mounted,
 }) async {
 
-  final NavModel _navModel = models[index];
+  final NavModel? _navModel = models[index];
 
   setNotifier(
       notifier: progressBarModel,
       mounted: mounted,
-      value: progressBarModel.value?.copyWith(
+      value: progressBarModel?.value?.copyWith(
         index: index,
       ),
   );
 
   await Future.delayed(const Duration(milliseconds: 50), () async {
 
-    if (_navModel.onNavigate != null){
-      await _navModel.onNavigate();
+    if (_navModel?.onNavigate != null){
+      await _navModel?.onNavigate?.call();
     }
 
-    if ( _navModel.screen is Function){
-      await _navModel.screen();
+    if ( _navModel?.screen is Function){
+      await _navModel?.screen();
     }
 
     else {
       await Nav.goToNewScreen(
         context: context,
-        screen: _navModel.screen,
+        screen: _navModel?.screen,
         // pageTransitionType: PageTransitionType.bottomToTop,
       );
     }
@@ -251,10 +252,10 @@ Future<void> onNavigate({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onRefreshHomeWall({
-  @required BuildContext context,
-  @required PaginationController paginationController,
-  @required ValueNotifier<bool> loading,
-  @required bool mounted,
+  required BuildContext context,
+  required PaginationController paginationController,
+  required ValueNotifier<bool> loading,
+  required bool mounted,
 }) async {
   // final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(context, listen: false);
   // final KeywordsProvider _keywordsProvider = Provider.of<KeywordsProvider>(context, listen: true);
@@ -294,7 +295,7 @@ Future<void> onRefreshHomeWall({
 /// TESTED : WORKS PERFECT
 Future<void> onSectionButtonTap(BuildContext context) async {
 
-  final FlyerType flyerType = await Nav.goToNewScreen(
+  final FlyerType? flyerType = await Nav.goToNewScreen(
     context: context,
     pageTransitionType: Nav.superHorizontalTransition(context: context, inverse: true),
     screen: const FloatingFlyerTypeSelector(),
@@ -302,7 +303,7 @@ Future<void> onSectionButtonTap(BuildContext context) async {
 
   if (flyerType != null){
 
-    final String phid = await PhidsPickerScreen.goPickPhid(
+    final String? phid = await PhidsPickerScreen.goPickPhid(
       context: context,
       flyerType: flyerType,
       event: ViewingEvent.homeView,
@@ -325,8 +326,8 @@ Future<void> onSectionButtonTap(BuildContext context) async {
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> setActivePhidK({
-  @required String phidK,
-  @required FlyerType flyerType,
+  required String? phidK,
+  required FlyerType? flyerType,
 }) async {
 
   // blog('setActivePhidK : phidK : $phidK : for flyerType : $flyerType');
@@ -351,9 +352,9 @@ Future<void> setActivePhidK({
   if (deactivated == true) {
 
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);
-    final String _cityName = _zoneProvider.currentZone.cityName;
+    final String? _cityName = _zoneProvider.currentZone?.cityName;
 
-    final String _flyerTypePhid = FlyerTyper.getFlyerTypePhid(
+    final String? _flyerTypePhid = FlyerTyper.getFlyerTypePhid(
         flyerType: flyerType
     );
 

@@ -1,3 +1,5 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
@@ -15,12 +17,10 @@ import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:numeric/numeric.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:provider/provider.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 enum ChainSecondLinesType {
   non,
@@ -32,57 +32,57 @@ enum ChainSecondLinesType {
 class ChainSplitter extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ChainSplitter({
-    @required this.chainOrChainsOrSonOrSons,
-    @required this.initiallyExpanded,
-    @required this.secondLinesType,
-    @required this.onPhidTap,
-    @required this.onPhidLongTap,
-    @required this.onPhidDoubleTap,
-    @required this.selectedPhids,
-    @required this.searchText,
-    @required this.onExportSpecs,
-    @required this.zone,
-    @required this.onlyUseZoneChains,
-    @required this.isMultipleSelectionMode,
-    @required this.isCollapsable,
+    required this.chainOrChainsOrSonOrSons,
+    required this.initiallyExpanded,
+    required this.secondLinesType,
+    required this.onPhidTap,
+    required this.onPhidLongTap,
+    required this.onPhidDoubleTap,
+    required this.selectedPhids,
+    required this.searchText,
+    required this.onExportSpecs,
+    required this.zone,
+    required this.onlyUseZoneChains,
+    required this.isMultipleSelectionMode,
+    required this.isCollapsable,
     this.onDataCreatorKeyboardSubmitted,
     this.previousPath = '',
     this.level = 0,
     this.width,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final dynamic chainOrChainsOrSonOrSons;
-  final int level;
-  final String previousPath;
-  final double width;
+  final int? level;
+  final String? previousPath;
+  final double? width;
   final List<String> selectedPhids;
   final bool initiallyExpanded;
   final ValueNotifier<dynamic> searchText;
   final ChainSecondLinesType secondLinesType;
-  final Function(String path, String phid) onPhidTap;
-  final Function(String path, String phid) onPhidDoubleTap;
-  final Function(String path, String phid) onPhidLongTap;
-  final ValueChanged<List<SpecModel>> onExportSpecs;
-  final ZoneModel zone;
-  final ValueChanged<String> onDataCreatorKeyboardSubmitted;
+  final Function(String? path, String? phid)? onPhidTap;
+  final Function(String? path, String? phid)? onPhidDoubleTap;
+  final Function(String? path, String? phid)? onPhidLongTap;
+  final ValueChanged<List<SpecModel>>? onExportSpecs;
+  final ZoneModel? zone;
+  final ValueChanged<String?>? onDataCreatorKeyboardSubmitted;
   final bool isMultipleSelectionMode;
   final bool onlyUseZoneChains;
   final bool isCollapsable;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  Verse createSecondLineVerse(ChainSecondLinesType type, String phid, {int index}){
-    String _output;
+  Verse? createSecondLineVerse(ChainSecondLinesType type, String? phid, {int? index}){
+    String? _output;
 
     if (type == ChainSecondLinesType.id){
       _output = phid;
     }
     else if (type == ChainSecondLinesType.indexAndID){
-      final int _index = Phider.getIndexFromPhid(phid);
-      final String _phid = Phider.removeIndexFromPhid(phid: phid);
+      final int? _index = Phider.getIndexFromPhid(phid);
+      final String? _phid = Phider.removeIndexFromPhid(phid: phid);
 
-      final String _outsideIndex = Numeric.formatNumberWithinDigits(num: index, digits: 4);
-      final String _indexFromPhid = Numeric.formatNumberWithinDigits(num: _index, digits: 4);
+      final String? _outsideIndex = Numeric.formatNumberWithinDigits(num: index, digits: 4);
+      final String? _indexFromPhid = Numeric.formatNumberWithinDigits(num: _index, digits: 4);
       _output = index == null ? '$_indexFromPhid : $_phid' : '$_outsideIndex : $_indexFromPhid : $_phid';
     }
 
@@ -104,7 +104,7 @@ class ChainSplitter extends StatelessWidget {
     if (Phider.checkIsPhid(chainOrChainsOrSonOrSons) == true) {
 
       final String _phid = chainOrChainsOrSonOrSons;
-      final String _path = ChainPathConverter.fixPathFormatting('$previousPath/$_phid/');
+      final String? _path = ChainPathConverter.fixPathFormatting('$previousPath/$_phid/');
 
       final bool _isSelected = Stringer.checkStringsContainString(
         strings: Phider.removePhidsIndexes(selectedPhids),
@@ -118,9 +118,9 @@ class ChainSplitter extends StatelessWidget {
         level: level,
         searchText: searchText,
         color: _isSelected == true ? Colorz.blue125 : Colorz.white20,
-        onPhidTap: () => onPhidTap(_path, _phid),
-        onPhidDoubleTap: () => onPhidDoubleTap(_path, _phid),
-        onPhidLongTap: () => onPhidLongTap(_path, _phid),
+        onPhidTap: () => onPhidTap?.call(_path, _phid),
+        onPhidDoubleTap: () => onPhidDoubleTap?.call(_path, _phid),
+        onPhidLongTap: () => onPhidLongTap?.call(_path, _phid),
         // inverseAlignment: ,
         margins: const EdgeInsets.only(bottom: 5),
         // isDisabled: ,
@@ -160,7 +160,7 @@ class ChainSplitter extends StatelessWidget {
       final Chain _chain = chainOrChainsOrSonOrSons;
 
       return ChainBuilder(
-        key: PageStorageKey<String>(_chain.id),
+        key: PageStorageKey<String>('${_chain.id}'),
         previousPath: previousPath,
         chain: _chain,
         boxWidth: _width,
@@ -204,8 +204,8 @@ class ChainSplitter extends StatelessWidget {
     else if (DataCreation.checkIsDataCreator(chainOrChainsOrSonOrSons) == true){
 
       // final DataCreator _dataCreator = DataCreation.decipherDataCreator(chainOrChainsOrSonOrSons);
-      final String _chainID = ChainPathConverter.getLastPathNode(previousPath);
-      final PickerModel _picker = PickerModel.getPickerByChainID(
+      final String? _chainID = ChainPathConverter.getLastPathNode(previousPath);
+      final PickerModel? _picker = PickerModel.getPickerByChainID(
           pickers: ChainsProvider.proGetAllPickers(
             context: context,
             listen: false,

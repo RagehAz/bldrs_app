@@ -1,6 +1,7 @@
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -8,16 +9,16 @@ import 'package:flutter/material.dart';
 class CurrencyModel {
   // -----------------------------------------------------------------------------
   const CurrencyModel({
-    @required this.id,
-    @required this.countriesIDs,
-    @required this.symbol,
-    @required this.digits,
+    required this.id,
+    required this.countriesIDs,
+    required this.symbol,
+    required this.digits,
   });
   // --------------------
-  final String id;
-  final List<String> countriesIDs;
-  final String symbol;
-  final int digits;
+  final String? id;
+  final List<String>? countriesIDs;
+  final String? symbol;
+  final int? digits;
   // -----------------------------------------------------------------------------
 
   /// STANDARDS
@@ -35,10 +36,10 @@ class CurrencyModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   CurrencyModel copyWith({
-    String id,
-    List<String> countriesIDs,
-    String symbol,
-    int digits,
+    String? id,
+    List<String>? countriesIDs,
+    String? symbol,
+    int? digits,
   }){
     return CurrencyModel(
       id: id ?? this.id,
@@ -63,8 +64,8 @@ class CurrencyModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static CurrencyModel decipherCurrency(Map<String, dynamic> map) {
-    CurrencyModel _currency;
+  static CurrencyModel? decipherCurrency(Map<String, dynamic>? map) {
+    CurrencyModel? _currency;
 
     if (map != null) {
       _currency = CurrencyModel(
@@ -79,11 +80,11 @@ class CurrencyModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> cipherCurrencies(List<CurrencyModel> currencies) {
+  static Map<String, dynamic>? cipherCurrencies(List<CurrencyModel>? currencies) {
     Map<String, dynamic> _map = <String, dynamic>{};
 
-    if (Mapper.checkCanLoopList(currencies)) {
-      for (final CurrencyModel currency in currencies) {
+    if (Mapper.checkCanLoopList(currencies) == true) {
+      for (final CurrencyModel currency in currencies!) {
         _map = Mapper.insertPairInMap(
           map: _map,
           key: currency.id,
@@ -105,7 +106,7 @@ class CurrencyModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<CurrencyModel> decipherCurrencies(Map<String, dynamic> map) {
+  static List<CurrencyModel> decipherCurrencies(Map<String, dynamic>? map) {
     final List<CurrencyModel> _currencies = <CurrencyModel>[];
 
     if (map != null) {
@@ -115,8 +116,10 @@ class CurrencyModel {
         for (final String key in _keys) {
 
           if (map[key] != currenciesMapID){
-            final CurrencyModel _currency = decipherCurrency(map[key]);
-            _currencies.add(_currency);
+            final CurrencyModel? _currency = decipherCurrency(map[key]);
+            if (_currency != null){
+              _currencies.add(_currency);
+            }
           }
 
         }
@@ -136,10 +139,10 @@ class CurrencyModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void blogCurrencies(List<CurrencyModel> currencies){
+  static void blogCurrencies(List<CurrencyModel>? currencies){
 
     if (Mapper.checkCanLoopList(currencies) == true){
-      for (final CurrencyModel currency in currencies){
+      for (final CurrencyModel currency in currencies!){
 
         currency.blogCurrency();
 
@@ -158,13 +161,13 @@ class CurrencyModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool currenciesContainCurrency({
-    @required List<CurrencyModel> currencies,
-    @required String currencyCode,
+    required List<CurrencyModel>? currencies,
+    required String? currencyCode,
   }) {
     bool _contains = false;
 
     if (Mapper.checkCanLoopList(currencies) && currencyCode != null) {
-      for (final CurrencyModel currency in currencies) {
+      for (final CurrencyModel currency in currencies!) {
         if (currency.id == currencyCode) {
           _contains = true;
           break;
@@ -180,18 +183,20 @@ class CurrencyModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static CurrencyModel getCurrencyFromCurrenciesByCountryID({
-    @required List<CurrencyModel> currencies,
-    @required String countryID,
+  static CurrencyModel? getCurrencyFromCurrenciesByCountryID({
+    required List<CurrencyModel>? currencies,
+    required String? countryID,
   }) {
-    CurrencyModel _currency;
+    CurrencyModel? _currency;
 
     if (Mapper.checkCanLoopList(currencies) == true && countryID != null) {
 
-      final CurrencyModel _currencyFound = currencies.firstWhere(
+      final CurrencyModel? _currencyFound = currencies!.firstWhereOrNull(
               (CurrencyModel curr) => Stringer.checkStringsContainString(
-              strings: curr.countriesIDs, string: countryID),
-          orElse: () => null);
+                  strings: curr.countriesIDs,
+                  string: countryID
+              ),
+          );
 
       if (_currencyFound != null) {
         _currency = _currencyFound;
@@ -202,13 +207,15 @@ class CurrencyModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> getCurrenciesIDs(List<CurrencyModel> currencies){
+  static List<String> getCurrenciesIDs(List<CurrencyModel>? currencies){
     final List<String> _ids = <String>[];
 
     if (Mapper.checkCanLoopList(currencies) == true){
 
-      for (final CurrencyModel currency in currencies){
-        _ids.add(currency.id);
+      for (final CurrencyModel currency in currencies!){
+        if (currency.id != null){
+          _ids.add(currency.id!);
+        }
       }
 
     }
@@ -217,17 +224,16 @@ class CurrencyModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static CurrencyModel getCurrencyByID({
-    @required List<CurrencyModel> allCurrencies,
-    @required String currencyID,
+  static CurrencyModel? getCurrencyByID({
+    required List<CurrencyModel>? allCurrencies,
+    required String? currencyID,
   }){
-    CurrencyModel _currency;
+    CurrencyModel? _currency;
 
     if (Mapper.checkCanLoopList(allCurrencies) == true && currencyID != null){
 
-      _currency = allCurrencies.firstWhere(
+      _currency = allCurrencies!.firstWhereOrNull(
               (element) => element.id == currencyID,
-          orElse: () => null
       );
 
     }
@@ -241,8 +247,8 @@ class CurrencyModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<CurrencyModel> removeCurrencies({
-    @required List<CurrencyModel> currencies,
-    @required List<String> removeIDs,
+    required List<CurrencyModel> currencies,
+    required List<String> removeIDs,
   }){
     List<CurrencyModel> _output = <CurrencyModel>[];
 
@@ -268,8 +274,8 @@ class CurrencyModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkCurrenciesAreIdentical({
-    @required CurrencyModel cur1,
-    @required CurrencyModel cur2,
+    required CurrencyModel? cur1,
+    required CurrencyModel? cur2,
   }){
     bool _identical = false;
 

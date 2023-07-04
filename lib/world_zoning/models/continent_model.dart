@@ -4,8 +4,8 @@ part of world_zoning;
 class Continent {
   /// --------------------------------------------------------------------------
   const Continent({
-    @required this.name,
-    @required this.regions,
+    required this.name,
+    required this.regions,
   });
   /// --------------------------------------------------------------------------
   final String name;
@@ -57,7 +57,7 @@ class Continent {
     return _map;
   }
   // --------------------
-  static List<Continent> decipherContinents(Map<String, dynamic> map) {
+  static List<Continent> decipherContinents(Map<String, dynamic>? map) {
     final List<Continent> _continents = <Continent>[];
 
     if (map != null) {
@@ -83,8 +83,8 @@ class Continent {
 
   // --------------------
   static bool checkContinentsIncludeContinent({
-    @required List<Continent> continents,
-    @required String name,
+    required List<Continent> continents,
+    required String name,
   }) {
     bool _includes = false;
 
@@ -98,7 +98,7 @@ class Continent {
     return _includes;
   }
   // --------------------
-  static bool checkIconIsContinent(String icon) {
+  static bool checkIconIsContinent(String? icon) {
     bool _iconIsContinent;
 
     if (icon == Iconz.contAfrica ||
@@ -121,28 +121,27 @@ class Continent {
   /// GETTERS
 
   // --------------------
-  static Continent getContinentFromContinents({
-    @required List<Continent> continents,
-    @required String name,
+  static Continent? getContinentFromContinents({
+    required List<Continent>? continents,
+    required String? name,
   }) {
 
-    final Continent cont = continents.firstWhere(
-            (Continent continent) => continent.name == name,
-        orElse: () => null);
+    final Continent? cont = continents?.firstWhereOrNull(
+            (Continent continent) => continent.name == name);
 
     return cont;
   }
   // --------------------
-  static Continent getContinentFromContinentsByCountryID({
-    @required List<Continent> continents,
-    @required String countryID,
+  static Continent? getContinentFromContinentsByCountryID({
+    required List<Continent>? continents,
+    required String? countryID,
   }) {
 
-    Continent _cont;
+    Continent? _cont;
 
-    if (countryID != null){
+    if (Mapper.checkCanLoopList(continents) == true && countryID != null){
 
-      for (final Continent continent in continents) {
+      for (final Continent continent in continents!) {
         for (final Region region in continent.regions) {
           for (final String id in region.countriesIDs) {
 
@@ -171,16 +170,16 @@ class Continent {
     return _cont;
   }
   // --------------------
-  static String getContinentIcon(Continent continent) {
-    final String _name = continent.name;
+  static String? getContinentIcon(Continent? continent) {
+    final String? _name = continent?.name;
 
     switch (_name) {
-      case 'Africa': return Iconz.contAfrica; break;
-      case 'Asia': return Iconz.contAsia; break;
-      case 'Oceania': return Iconz.contAustralia; break;
-      case 'Europe': return Iconz.contEurope; break;
-      case 'North America': return Iconz.contNorthAmerica; break;
-      case 'South America': return Iconz.contSouthAmerica; break;
+      case 'Africa': return Iconz.contAfrica;
+      case 'Asia': return Iconz.contAsia;
+      case 'Oceania': return Iconz.contAustralia;
+      case 'Europe': return Iconz.contEurope;
+      case 'North America': return Iconz.contNorthAmerica;
+      case 'South America': return Iconz.contSouthAmerica;
       default: return null;
     }
   }

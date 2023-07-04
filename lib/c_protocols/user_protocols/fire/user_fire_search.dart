@@ -1,3 +1,5 @@
+import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/a_user/sub/need_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
@@ -5,9 +7,7 @@ import 'package:bldrs/a_models/m_search/user_search_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
-import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 
 class UserFireSearchOps{
   // -----------------------------------------------------------------------------
@@ -17,15 +17,15 @@ class UserFireSearchOps{
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static FireQueryModel createQuery({
-    String orderBy,
-    bool descending,
+    String? orderBy,
+    bool descending = true,
     int limit = 4,
-    String searchText,
-    UserSearchModel userSearchModel,
-    ZoneModel zoneModel,
+    String? searchText,
+    UserSearchModel? userSearchModel,
+    ZoneModel? zoneModel,
   }){
 
-    final QueryOrderBy _orderBy = orderBy == null ? null : QueryOrderBy(
+    final QueryOrderBy? _orderBy = orderBy == null ? null : QueryOrderBy(
       fieldName: orderBy,
       descending: descending,
     );
@@ -58,7 +58,7 @@ class UserFireSearchOps{
                 field: 'trigram',
                 comparison: FireComparison.arrayContains,
                 value: TextMod.removeAllCharactersAfterNumberOfCharacters(
-                  input: searchText.trim(),
+                  text: searchText?.trim(),
                   numberOfChars: Standards.maxTrigramLength,
                 )),
 
@@ -66,35 +66,35 @@ class UserFireSearchOps{
             FireFinder(
                 field: 'company',
                 comparison: FireComparison.equalTo,
-                value: searchText.trim(),
+                value: searchText?.trim(),
             ),
 
           if (userSearchModel?.searchType == UserSearchType.byJobTitle && _canSearchText == true)
             FireFinder(
                 field: 'title',
                 comparison: FireComparison.equalTo,
-                value: searchText.trim(),
+                value: searchText?.trim(),
             ),
 
           if (userSearchModel?.searchType == UserSearchType.byEmail && _canSearchText == true)
             FireFinder(
                 field: 'contacts.email',
                 comparison: FireComparison.equalTo,
-                value: searchText.trim(),
+                value: searchText?.trim(),
             ),
 
           if (userSearchModel?.searchType == UserSearchType.byPhone && _canSearchText == true)
             FireFinder(
                 field: 'contacts.phone',
                 comparison: FireComparison.equalTo,
-                value: searchText.trim(),
+                value: searchText?.trim(),
             ),
 
           if (userSearchModel?.searchType == UserSearchType.byDeviceID && _canSearchText == true)
             FireFinder(
                 field: 'device.id',
                 comparison: FireComparison.equalTo,
-                value: searchText.trim(),
+                value: searchText?.trim(),
             ),
 
           if (userSearchModel?.signInMethod != null)
@@ -125,21 +125,21 @@ class UserFireSearchOps{
                 value: userSearchModel?.language,
             ),
 
-          if (userSearchModel?.onlyWithPublicContacts == true)
+          if (Mapper.boolIsTrue(userSearchModel?.onlyWithPublicContacts) == true)
             const FireFinder(
                 field: 'contactsArePublic',
                 comparison: FireComparison.equalTo,
                 value: true,
             ),
 
-          if (userSearchModel?.onlyBzAuthors == true)
+          if (Mapper.boolIsTrue(userSearchModel?.onlyBzAuthors) == true)
             const FireFinder(
               field: 'isAuthor',
               comparison: FireComparison.equalTo,
               value: true,
             ),
 
-          if (userSearchModel?.onlyBldrsAdmins == true)
+          if (Mapper.boolIsTrue(userSearchModel?.onlyBldrsAdmins) == true)
             const FireFinder(
               field: 'isAdmin',
               comparison: FireComparison.equalTo,
@@ -153,7 +153,7 @@ class UserFireSearchOps{
               value: userSearchModel?.devicePlatform,
             ),
 
-          if (userSearchModel?.onlyVerifiedEmails == true)
+          if (Mapper.boolIsTrue(userSearchModel?.onlyVerifiedEmails) == true)
             const FireFinder(
               field: 'emailIsVerified',
               comparison: FireComparison.equalTo,
@@ -172,9 +172,9 @@ class UserFireSearchOps{
   // --------------------
   /// TASK : TEST ME
   static Future<List<UserModel>> usersByUserName({
-    @required String name,
-    @required List<String> userIDsToExclude,
-    QueryDocumentSnapshot<Object> startAfter,
+    required String? name,
+    required List<String> userIDsToExclude,
+    QueryDocumentSnapshot<Object>? startAfter,
     int limit = 10,
   }) async {
 
@@ -188,7 +188,7 @@ class UserFireSearchOps{
           FireFinder(
             field: 'trigram',
             comparison: FireComparison.arrayContains,
-            value: name.trim(),
+            value: name?.trim(),
           ),
         ],
       ),
@@ -196,7 +196,7 @@ class UserFireSearchOps{
 
     List<UserModel> _usersModels = <UserModel>[];
 
-    if (Mapper.checkCanLoopList(_result)) {
+    if (Mapper.checkCanLoopList(_result) == true) {
       _usersModels = UserModel.decipherUsers(
         maps: _result,
         fromJSON: false,
@@ -214,9 +214,9 @@ class UserFireSearchOps{
   // --------------------
   /// TASK : TEST ME
   static Future<List<UserModel>> usersByNameAndIsAuthor({
-    @required String name,
+    required String? name,
     int limit = 3,
-    QueryDocumentSnapshot<Object> startAfter,
+    QueryDocumentSnapshot<Object>? startAfter,
   }) async {
 
     final List<Map<String, dynamic>> _result = await Fire.readColl(

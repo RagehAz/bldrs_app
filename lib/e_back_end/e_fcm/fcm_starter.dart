@@ -1,3 +1,6 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/checks/device_checker.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/b_bz/sub/target/target_progress.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
@@ -5,13 +8,10 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/e_back_end/e_fcm/background_msg_handler.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:devicer/devicer.dart';
-import 'package:filers/filers.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 
 class FCMStarter {
   // -----------------------------------------------------------------------------
@@ -35,7 +35,7 @@ class FCMStarter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> preInitializeNootsInMainFunction({
-    @required ChannelModel channelModel,
+    required ChannelModel channelModel,
   }) async {
 
       if (canInitializeFCM() == true) {
@@ -59,7 +59,7 @@ class FCMStarter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> initializeNootsInBldrsAppStarter({
-    @required ChannelModel channelModel,
+    required ChannelModel channelModel,
   }) async {
 
       if (canInitializeFCM() == true) {
@@ -86,7 +86,7 @@ class FCMStarter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _initializeAwesomeNootsService({
-    @required ChannelModel channel,
+    required ChannelModel channel,
   }) async {
 
     await FCM.getAwesomeNoots()?.initialize(
@@ -118,11 +118,11 @@ class FCMStarter {
       /// INITIALIZATION SETTINGS
       InitializationSettings(
         android: const AndroidInitializationSettings(FCM.fcmWhiteLogoFileName),
-        iOS: IOSInitializationSettings(
+        iOS: DarwinInitializationSettings(
           // defaultPresentAlert: true,
           // defaultPresentBadge: ,
           // defaultPresentSound: ,
-          onDidReceiveLocalNotification: (int integer, String a, String b, String c){
+          onDidReceiveLocalNotification: (int integer, String? a, String? b, String? c){
             blog('onDidReceiveLocalNotification : int $integer, String $a, String $b, String $c');
           },
           // requestAlertPermission: ,
@@ -134,8 +134,8 @@ class FCMStarter {
       ),
 
       /// ON NOOT TAP
-      onSelectNotification: FCM.onLocalNootTap,
-
+      onDidReceiveNotificationResponse: FCM.onLocalNootTap,
+      onDidReceiveBackgroundNotificationResponse: FCM.onLocalNootTap,
     );
 
   }
@@ -146,11 +146,11 @@ class FCMStarter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void _initializeNootsListeners({
-    @required ChannelModel channelModel,
+    required ChannelModel? channelModel,
   }){
 
       /// APP IS IN FOREGROUND ( FRONT AND ACTIVE )
-      FirebaseMessaging.onMessage.listen((RemoteMessage remoteMessage) async {
+      FirebaseMessaging.onMessage.listen((RemoteMessage? remoteMessage) async {
         await pushGlobalNootFromRemoteMessage(
           channelModel: channelModel,
           remoteMessage: remoteMessage,
@@ -159,7 +159,7 @@ class FCMStarter {
       });
 
       /// ONCE APP STARTS AFTER NOOT TAP WHILE APP WAS IN BACKGROUND
-      FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage remoteMessage) async {
+      FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage? remoteMessage) async {
 
         blog('APP WAS IN BACKGROUND AND YOU HAVE JUST TAPPED THIS NOTIFICATION : -');
 
@@ -168,13 +168,13 @@ class FCMStarter {
           invoker: '_initializeNootsListeners.onMessageOpenedApp',
         );
 
-        final NoteModel _note = NoteModel.decipherRemoteMessage(
+        final NoteModel? _note = NoteModel.decipherRemoteMessage(
           map: remoteMessage?.data,
         );
 
         await CenterDialog.showCenterDialog(
           titleVerse: Verse.plain('App was on background'),
-          bodyVerse: Verse.plain('noteTitle is : ${_note.title}'),
+          bodyVerse: Verse.plain('noteTitle is : ${_note?.title}'),
           color: Colorz.green50,
           height: 400,
           confirmButtonVerse: Verse.plain('Tamam'),
@@ -198,7 +198,7 @@ class FCMStarter {
   ///
   static Future<void> _receiveInitialRemoteMessage() async {
 
-    final RemoteMessage initialRemoteMessage = await FirebaseMessaging.instance.getInitialMessage();
+    final RemoteMessage? initialRemoteMessage = await FirebaseMessaging.instance.getInitialMessage();
 
     if (initialRemoteMessage != null) {
 
@@ -219,9 +219,9 @@ class FCMStarter {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> pushGlobalNootFromRemoteMessage({
-    @required ChannelModel channelModel,
-    @required RemoteMessage remoteMessage,
-    @required String invoker,
+    required ChannelModel? channelModel,
+    required RemoteMessage? remoteMessage,
+    required String invoker,
   }) async {
 
     if (remoteMessage != null){
@@ -250,8 +250,8 @@ class FCMStarter {
       // final int ttl = remoteMessage?.ttl;
       // final Map<String, dynamic> data = remoteMessage?.data;
 
-      final NoteModel _note = NoteModel.decipherRemoteMessage(
-        map: remoteMessage?.data,
+      final NoteModel? _note = NoteModel.decipherRemoteMessage(
+        map: remoteMessage.data,
       );
 
       // _note.blogNoteModel(
@@ -268,17 +268,17 @@ class FCMStarter {
             channelModel: channelModel,
             title: _note.title,
             body: _note.body,
-            largeIconURL: _note.parties.senderImageURL,
-            posterURL: _note.poster.path,
+            largeIconURL: _note.parties?.senderImageURL,
+            posterURL: _note.poster?.path,
             progress: Progress.generateModelFromNoteProgress(_note),
             progressBarIsLoading: _note.progress == -1,
-            canBeDismissedWithoutTapping: _note.dismissible,
+            canBeDismissedWithoutTapping: _note.dismissible ?? true,
 
             /// FAKES BUTTONS IN NOOT
             // buttonsTexts: null, // _note.poll.buttons,
 
             payloadMap: Mapper.createStringStringMap(
-              hashMap: remoteMessage?.data,
+              hashMap: remoteMessage.data,
               stringifyNonStrings: false,
             ),
           ),

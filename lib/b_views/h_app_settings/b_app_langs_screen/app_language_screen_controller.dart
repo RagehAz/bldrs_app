@@ -13,7 +13,7 @@
 // // --------------------
 // /// TESTED : WORKS PERFECT
 // Future<void> changeAppLang({
-//   @required String langCode,
+//   required String langCode,
 // }) async {
 //   pushWaitDialog(
 //     verse: const Verse(

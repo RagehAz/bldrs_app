@@ -1,13 +1,12 @@
-
-import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:flutter/material.dart';
 
 class InfoPageSeparator extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const InfoPageSeparator({
-    @required this.pageWidth,
-    Key key
-  }) : super(key: key);
+    required this.pageWidth,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double pageWidth;
   /// --------------------------------------------------------------------------

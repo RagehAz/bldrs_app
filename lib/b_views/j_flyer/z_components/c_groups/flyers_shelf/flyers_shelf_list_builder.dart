@@ -1,30 +1,30 @@
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/a_heroic_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:filers/filers.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class FlyersShelfListBuilder extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const FlyersShelfListBuilder({
-    @required this.flyers,
-    @required this.flyerSizeFactor,
-    @required this.flyerOnTap,
-    @required this.shelfTitleVerse,
+    required this.flyers,
+    required this.flyerSizeFactor,
+    required this.flyerOnTap,
+    required this.shelfTitleVerse,
     this.onScrollEnd,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final Verse shelfTitleVerse;
-  final List<FlyerModel> flyers;
+  final Verse? shelfTitleVerse;
+  final List<FlyerModel>? flyers;
   final double flyerSizeFactor;
-  final ValueChanged<FlyerModel> flyerOnTap;
-  final Function onScrollEnd;
+  final ValueChanged<FlyerModel>? flyerOnTap;
+  final Function? onScrollEnd;
   /// --------------------------------------------------------------------------
   @override
   _FlyersShelfListBuilderState createState() => _FlyersShelfListBuilderState();
@@ -58,7 +58,7 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
       } else {
         blog('we reached the scroll end');
         if (widget.onScrollEnd != null) {
-          widget.onScrollEnd();
+          widget.onScrollEnd!.call();
         }
       }
     }
@@ -88,7 +88,7 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
 
       return ListView.separated(
         physics: const BouncingScrollPhysics(),
-        itemCount: widget.flyers.length,
+        itemCount: widget.flyers!.length,
         controller: _controller,
         scrollDirection: Axis.horizontal,
         padding: Scale.superInsets(
@@ -105,12 +105,12 @@ class _FlyersShelfListBuilderState extends State<FlyersShelfListBuilder> {
         itemBuilder: (BuildContext context, int _x) {
 
           return GestureDetector(
-            onTap: widget.flyerOnTap == null ? null : () => widget.flyerOnTap(widget.flyers[_x]),
+            onTap: widget.flyerOnTap == null ? null : () => widget.flyerOnTap!.call(widget.flyers![_x]),
             child: AbsorbPointer(
                 absorbing: _absorbingFlyerTap(),
                 child: HeroicFlyer(
                   flyerBoxWidth: _flyerBoxWidth,
-                  flyerModel: widget.flyers[_x],
+                  flyerModel: widget.flyers![_x],
                   screenName: 'FlyersShelfListBuilder',
                   gridWidth: Scale.screenWidth(context),
                   gridHeight: Scale.screenHeight(context),

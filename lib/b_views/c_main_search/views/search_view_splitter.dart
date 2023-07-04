@@ -11,25 +11,25 @@ import 'package:flutter/material.dart';
 class SearchViewSplitter extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const SearchViewSplitter({
-    @required this.searchType,
-    @required this.flyersQuery,
-    @required this.flyersController,
-    @required this.bzzQuery,
-    @required this.bzzController,
-    @required this.usersQuery,
-    @required this.usersController,
-    @required this.onDeleteHistoryModel,
-    @required this.onHistoryModelTap,
-    @required this.searchHistoryModels,
-    Key key
-  }) : super(key: key);
+    required this.searchType,
+    required this.flyersQuery,
+    required this.flyersController,
+    required this.bzzQuery,
+    required this.bzzController,
+    required this.usersQuery,
+    required this.usersController,
+    required this.onDeleteHistoryModel,
+    required this.onHistoryModelTap,
+    required this.searchHistoryModels,
+    super.key
+  });
   // --------------------
-  final ModelType searchType;
-  final FireQueryModel flyersQuery;
+  final ModelType? searchType;
+  final FireQueryModel? flyersQuery;
   final PaginationController flyersController;
-  final FireQueryModel bzzQuery;
+  final FireQueryModel? bzzQuery;
   final PaginationController bzzController;
-  final FireQueryModel usersQuery;
+  final FireQueryModel? usersQuery;
   final PaginationController usersController;
   final Function(SearchModel) onHistoryModelTap;
   final Function(SearchModel) onDeleteHistoryModel;

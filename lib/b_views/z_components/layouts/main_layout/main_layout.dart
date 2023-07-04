@@ -1,3 +1,7 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/widgets/sensors/connectivity_sensor.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout_stack_widgets.dart';
@@ -8,15 +12,12 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/main_providers/general_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:devicer/devicer.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
-import 'package:mapper/mapper.dart';
-import 'package:night_sky/night_sky.dart';
+import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:provider/provider.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 enum AppBarType {
   basic,
@@ -57,45 +58,44 @@ class MainLayout extends StatelessWidget {
     this.listenToHideLayout = false,
     this.filtersAreOn,
     this.filters,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final List<Widget> appBarRowWidgets;
-  final Widget child;
+  final List<Widget>? appBarRowWidgets;
+  final Widget? child;
   final bool pyramidsAreOn;
-  final AppBarType appBarType;
-  final Verse title;
+  final AppBarType? appBarType;
+  final Verse? title;
   final SkyType skyType;
-  final Function onBack;
+  final Function? onBack;
   final bool canGoBack;
-  final Key scaffoldKey;
-  final ScrollController appBarScrollController;
-  final TextEditingController searchController;
-  final ValueChanged<String> onSearchSubmit;
-  final ValueChanged<String> onPaste;
-  final ValueChanged<String> onSearchChanged;
+  final Key? scaffoldKey;
+  final ScrollController? appBarScrollController;
+  final TextEditingController? searchController;
+  final ValueChanged<String?>? onSearchSubmit;
+  final ValueChanged<String?>? onPaste;
+  final ValueChanged<String?>? onSearchChanged;
   final bool searchButtonIsOn;
   final bool sectionButtonIsOn;
-  final Verse searchHintVerse;
-  final ValueNotifier<bool> loading;
-  final ValueNotifier<ProgressBarModel> progressBarModel;
-  final PyramidType pyramidType;
-  final Function onPyramidTap;
-  final Function onSearchCancelled;
-  final ConfirmButtonModel confirmButtonModel;
-  final GlobalKey globalKey;
-  final List<Widget> pyramidButtons;
+  final Verse? searchHintVerse;
+  final ValueNotifier<bool>? loading;
+  final ValueNotifier<ProgressBarModel?>? progressBarModel;
+  final PyramidType? pyramidType;
+  final Function? onPyramidTap;
+  final Function? onSearchCancelled;
+  final ConfirmButtonModel? confirmButtonModel;
+  final GlobalKey? globalKey;
+  final List<Widget>? pyramidButtons;
   final bool listenToHideLayout;
-  final ValueNotifier<bool> filtersAreOn;
-  final Widget filters;
+  final ValueNotifier<bool?>? filtersAreOn;
+  final Widget? filters;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static void onCancelSearch({
-    @required BuildContext context,
-    @required TextEditingController controller,
-    @required ValueNotifier<dynamic> foundResultNotifier,
-    @required ValueNotifier<bool> isSearching,
-    @required bool mounted,
+    required TextEditingController? controller,
+    required ValueNotifier<dynamic>? foundResultNotifier,
+    required ValueNotifier<bool>? isSearching,
+    required bool mounted,
   }){
 
     Keyboard.closeKeyboard();
@@ -137,7 +137,7 @@ class MainLayout extends StatelessWidget {
   }
   // --------------------
   static double clearLayoutHeight({
-    @required BuildContext context,
+    required BuildContext context,
     AppBarType appBarType = AppBarType.basic,
   }){
 
@@ -166,7 +166,7 @@ class MainLayout extends StatelessWidget {
 
 
     if (onBack != null){
-      await onBack();
+      await onBack?.call();
     }
 
     else {

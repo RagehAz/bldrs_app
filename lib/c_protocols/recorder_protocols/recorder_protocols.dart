@@ -6,8 +6,7 @@ import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/c_protocols/recorder_protocols/record_real_ops.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:fire/super_fire.dart';
-import 'package:flutter/material.dart';
-import 'package:numeric/numeric.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
 /// => TAMAM
 class RecorderProtocols {
   // -----------------------------------------------------------------------------
@@ -21,14 +20,14 @@ class RecorderProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onCallBz({
-    @required String bzID,
-    @required ContactModel contact,
+    required String? bzID,
+    required ContactModel? contact,
   }) async {
 
-    if (bzID != null && contact != null) {
+    if (Authing.getUserID() != null && bzID != null && contact != null) {
 
       final RecordModel _record = RecordModel.createCallRecord(
-        userID: Authing.getUserID(),
+        userID: Authing.getUserID()!,
         bzID: bzID,
         contact: contact,
       );
@@ -61,13 +60,13 @@ class RecorderProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onFollowBz({
-    @required String bzID,
+    required String? bzID,
   }) async {
 
-    if (bzID != null) {
+    if (bzID != null && Authing.getUserID() != null) {
 
       final RecordModel _record = RecordModel.createFollowRecord(
-        userID: Authing.getUserID(),
+        userID: Authing.getUserID()!,
         bzID: bzID,
       );
 
@@ -97,13 +96,13 @@ class RecorderProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onUnfollowBz({
-    @required String bzID,
+    required String? bzID,
   }) async {
 
-    if (bzID != null) {
+    if (bzID != null && Authing.getUserID() != null) {
 
       final RecordModel _record = RecordModel.createUnfollowRecord(
-        userID: Authing.getUserID(),
+        userID: Authing.getUserID()!,
         bzID: bzID,
       );
 
@@ -134,20 +133,21 @@ class RecorderProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onSaveFlyer({
-    @required String flyerID,
-    @required String bzID,
-    @required int slideIndex,
+    required String? flyerID,
+    required String? bzID,
+    required int? slideIndex,
   }) async {
 
     if (
         flyerID != null &&
         bzID != null &&
         slideIndex != null &&
-        flyerID != DraftFlyer.newDraftID
+        flyerID != DraftFlyer.newDraftID &&
+        Authing.getUserID() != null
     ){
 
       final RecordModel _record = RecordModel.createSaveRecord(
-        userID: Authing.getUserID(),
+        userID: Authing.getUserID()!,
         flyerID: flyerID,
         bzID: bzID,
         slideIndex: slideIndex,
@@ -191,20 +191,21 @@ class RecorderProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onUnSaveFlyer({
-    @required String flyerID,
-    @required String bzID,
-    @required int slideIndex,
+    required String? flyerID,
+    required String? bzID,
+    required int? slideIndex,
   }) async {
 
     if (
         flyerID != null &&
         bzID != null &&
         slideIndex != null &&
-        flyerID != DraftFlyer.newDraftID
+        flyerID != DraftFlyer.newDraftID &&
+        Authing.getUserID() != null
     ) {
 
       final RecordModel _record = RecordModel.createUnSaveRecord(
-        userID: Authing.getUserID(),
+        userID: Authing.getUserID()!,
         flyerID: flyerID,
         bzID: bzID,
       );
@@ -251,18 +252,19 @@ class RecorderProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onShareFlyer({
-    @required String flyerID,
-    @required String bzID,
+    required String? flyerID,
+    required String? bzID,
   }) async {
 
     if (
         flyerID != null &&
         flyerID != DraftFlyer.newDraftID &&
-        bzID != null
+        bzID != null &&
+        Authing.getUserID() != null
     ){
 
       final RecordModel _record = RecordModel.createShareRecord(
-        userID: Authing.getUserID(),
+        userID: Authing.getUserID()!,
         flyerID: flyerID,
         bzID: bzID,
       );
@@ -309,22 +311,23 @@ class RecorderProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onViewSlide({
-    @required String flyerID,
-    @required String bzID,
-    @required int index,
+    required String? flyerID,
+    required String? bzID,
+    required int? index,
   }) async {
 
     /// WE NEED A WAY TO CHECK IF THIS USER PREVIOUSLY VIEWED THE SLIDE TO CALL THIS OR NOT
 
     if (
-        Authing.userHasID() == true &&
+        Authing.getUserID() != null &&
+        flyerID != null &&
         flyerID != DraftFlyer.newDraftID &&
         bzID != null &&
         index != null
     ){
 
         final RecordModel _record = RecordModel.createViewRecord(
-          userID: Authing.getUserID(),
+          userID: Authing.getUserID()!,
           flyerID: flyerID,
           bzID: bzID,
           slideIndex: index,
@@ -372,8 +375,8 @@ class RecorderProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onComposeFlyer({
-    @required String bzID,
-    @required int numberOfSlides,
+    required String? bzID,
+    required int? numberOfSlides,
   }) async {
 
     if (
@@ -396,9 +399,9 @@ class RecorderProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onRenovateFlyer({
-    @required String bzID,
-    @required int oldNumberOfSlides,
-    @required int newNumberOfSlides,
+    required String? bzID,
+    required int? oldNumberOfSlides,
+    required int? newNumberOfSlides,
   }) async {
 
     if (
@@ -408,15 +411,21 @@ class RecorderProtocols {
         oldNumberOfSlides != newNumberOfSlides
     ){
 
-      await Real.incrementPathFields(
+      final int? _allSlides = Numeric.modulus((newNumberOfSlides-oldNumberOfSlides).toDouble())?.toInt();
+
+      if (_allSlides != null){
+
+        await Real.incrementPathFields(
         path: RealPath.recorders_bzz_bzID_counter(
             bzID: bzID
         ),
         incrementationMap: {
-          'allSlides': Numeric.modulus((newNumberOfSlides-oldNumberOfSlides).toDouble()).toInt(),
+          'allSlides': _allSlides,
         },
         isIncrementing: newNumberOfSlides > oldNumberOfSlides,
       );
+
+      }
 
     }
 
@@ -424,18 +433,19 @@ class RecorderProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onWipeFlyer({
-    @required String flyerID,
-    @required String bzID,
-    @required int numberOfSlides,
+    required String? flyerID,
+    required String? bzID,
+    required int? numberOfSlides,
   }) async {
 
     if (
         bzID != null &&
+        flyerID != null &&
         numberOfSlides != null &&
         numberOfSlides > 0
     ){
 
-      final FlyerCounterModel _flyerCounterModel = await readFlyerCounters(
+      final FlyerCounterModel? _flyerCounterModel = await readFlyerCounters(
         flyerID: flyerID,
         bzID: bzID,
       );
@@ -475,8 +485,8 @@ class RecorderProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onComposeReview({
-    @required String flyerID,
-    @required String bzID,
+    required String? flyerID,
+    required String? bzID,
   }) async {
 
     if (
@@ -519,8 +529,8 @@ class RecorderProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onWipeReview({
-    @required String flyerID,
-    @required String bzID,
+    required String? flyerID,
+    required String? bzID,
   }) async {
 
     if (
@@ -565,7 +575,7 @@ class RecorderProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onWipeBz({
-    @required String bzID,
+    required String? bzID,
   }) async {
 
     if (
@@ -600,15 +610,15 @@ class RecorderProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<FlyerCounterModel> readFlyerCounters({
-    @required String flyerID,
-    @required String bzID,
+  static Future<FlyerCounterModel?> readFlyerCounters({
+    required String? flyerID,
+    required String? bzID,
   }) async {
-    FlyerCounterModel _flyerCounters;
+    FlyerCounterModel? _flyerCounters;
 
     if (flyerID != null && bzID != null){
 
-      final Map<String, dynamic> _map = await Real.readPathMap(
+      final Map<String, dynamic>? _map = await Real.readPathMap(
         path: RealPath.recorders_flyers_bzID_flyerID_counter(
           bzID: bzID,
           flyerID: flyerID,
@@ -627,14 +637,14 @@ class RecorderProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<BzCounterModel> readBzCounters({
-    @required String bzID,
+  static Future<BzCounterModel?> readBzCounters({
+    required String? bzID,
   }) async {
-    BzCounterModel _bzCounters;
+    BzCounterModel? _bzCounters;
 
     if (bzID != null) {
 
-      final Map<String, dynamic> _map = await Real.readPathMap(
+      final Map<String, dynamic>? _map = await Real.readPathMap(
         path: RealPath.recorders_bzz_bzID_counter(
           bzID: bzID,
         ),

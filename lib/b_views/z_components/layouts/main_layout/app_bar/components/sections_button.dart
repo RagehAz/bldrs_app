@@ -1,14 +1,13 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/x_home_screen_controllers.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
-
-
-
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,25 +16,25 @@ class SectionsButton extends StatelessWidget {
   const SectionsButton({
     this.onTap,
     this.color = Colorz.white10,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final Function onTap;
+  final Function? onTap;
   final Color color;
   /// --------------------------------------------------------------------------
   static Verse getTitle({
-    @required BuildContext context,
-    @required String currentKeywordID,
-    @required FlyerType currentSection,
+    required BuildContext context,
+    required String? currentKeywordID,
+    required FlyerType? currentSection,
   }){
-    String _title;
+    String? _title;
 
     if (currentKeywordID == null){
       _title = 'phid_section';
     }
 
     else {
-      final String _flyerTypePhid = FlyerTyper.getFlyerTypePhid(
+      final String? _flyerTypePhid = FlyerTyper.getFlyerTypePhid(
         flyerType: currentSection,
       );
       _title = _flyerTypePhid;
@@ -47,18 +46,18 @@ class SectionsButton extends StatelessWidget {
     );
   }
 // -----------------------------------------------------------------------------
-  static Verse getBody({
-    @required BuildContext context,
-    @required String currentKeywordID,
-    @required FlyerType currentSection,
+  static Verse? getBody({
+    required BuildContext context,
+    required String? currentKeywordID,
+    required FlyerType? currentSection,
   }){
-    String _body;
+    String? _body;
 
     if (currentKeywordID != null){
       _body = Phider.removeIndexFromPhid(phid: currentKeywordID);
     }
     else {
-      final String _flyerTypePhid = FlyerTyper.getFlyerTypePhid(
+      final String? _flyerTypePhid = FlyerTyper.getFlyerTypePhid(
         flyerType: currentSection,
       );
 
@@ -76,7 +75,7 @@ class SectionsButton extends StatelessWidget {
 
     return Builder(
       builder: (BuildContext context) => GestureDetector(
-        onTap: onTap ?? () => onSectionButtonTap(context),
+        onTap: onTap == null ? () => onSectionButtonTap(context) : () => onTap!(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
@@ -91,7 +90,7 @@ class SectionsButton extends StatelessWidget {
                   borderRadius: BorderRadius.circular(Ratioz.boxCorner12),
                 ),
                 child: Consumer<ChainsProvider>(
-                  builder: (_, ChainsProvider chainsPro, Widget child){
+                  builder: (_, ChainsProvider chainsPro, Widget? child){
 
                     final Verse _titleVerse = getTitle(
                       context: context,
@@ -99,13 +98,13 @@ class SectionsButton extends StatelessWidget {
                       currentSection: chainsPro.wallFlyerType,
                     );
 
-                    final Verse _sectionVerse = getBody(
+                    final Verse? _sectionVerse = getBody(
                         context: context,
                         currentKeywordID: chainsPro.wallPhid,
                         currentSection: chainsPro.wallFlyerType
                     );
 
-                    final String _icon = chainsPro.getPhidIcon(
+                    final String? _icon = chainsPro.getPhidIcon(
                       son: chainsPro.wallPhid,
                     );
 

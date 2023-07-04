@@ -1,40 +1,41 @@
+import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/census_line.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/zone_button_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bubbles/bubbles.dart';
+
 import 'package:flutter/material.dart';
 
 class WideCityButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const WideCityButton({
-    @required this.city,
-    @required this.onSingleTap,
-    @required this.isActive,
-    @required this.censusModel,
-    @required this.onDeactivatedTap,
+    required this.city,
+    required this.onSingleTap,
+    required this.isActive,
+    required this.censusModel,
+    required this.onDeactivatedTap,
     this.verse,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final CityModel city;
-  final Function onSingleTap;
+  final CityModel? city;
+  final Function? onSingleTap;
   final bool isActive;
-  final Function onDeactivatedTap;
-  final CensusModel censusModel;
-  final Verse verse;
+  final Function? onDeactivatedTap;
+  final CensusModel? censusModel;
+  final Verse? verse;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final String _cityNameValue = CityModel.translateCity(
+    final String? _cityNameValue = CityModel.translateCity(
         city: city,
     );
     // --------------------
     return ZoneButtonBox(
-      onTap: onSingleTap,
+      onTap: onSingleTap == null ? null : () => onSingleTap?.call(),
       onDeactivatedTap: onDeactivatedTap,
       isActive: isActive,
       columnChildren: <Widget>[

@@ -1,11 +1,9 @@
 import 'dart:async';
-
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/space/atlas.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
-import 'package:space_time/space_time.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
-import 'package:filers/filers.dart';
 import 'package:fire/super_fire.dart';
-import 'package:flutter/material.dart';
 
 // -----------------------------------------------------------------------------
 
@@ -24,8 +22,8 @@ int getInitialUserScreenTabIndex(BuildContext context){
 }
 // ---------------------------------
 void onChangeUserScreenTabIndexWhileAnimation({
-  @required BuildContext context,
-  @required TabController tabController,
+  required BuildContext context,
+  required TabController tabController,
 }){
 
   if (tabController.indexIsChanging == false) {
@@ -42,9 +40,9 @@ void onChangeUserScreenTabIndexWhileAnimation({
 }
 // ---------------------------------
 void onChangeUserScreenTabIndex({
-  @required BuildContext context,
-  @required int index,
-  @required TabController tabController,
+  required BuildContext context,
+  required int index,
+  required TabController tabController,
 }) {
 
   final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
@@ -74,7 +72,7 @@ void onUserPicTap(){
 }
 // --------------------
 Future<void> onUserContactTap({
-  @required ContactModel contact,
+  required ContactModel contact,
 }) async {
 
   await Launcher.launchContactModel(
@@ -84,7 +82,7 @@ Future<void> onUserContactTap({
 }
 // --------------------
 ///
-Future<void> onUserLocationTap(GeoPoint geoPoint) async {
+Future<void> onUserLocationTap(GeoPoint? geoPoint) async {
 
   Atlas.blogGeoPoint(
     point: geoPoint,

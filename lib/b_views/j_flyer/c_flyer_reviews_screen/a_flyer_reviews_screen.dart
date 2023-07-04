@@ -2,20 +2,20 @@ import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/c_flyer_reviews_screen/z_components/structure/reviews_space/aa_flyer_review_screen_view.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:night_sky/night_sky.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:flutter/material.dart';
 
 class FlyerReviewsScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerReviewsScreen({
-    @required this.flyerModel,
+    required this.flyerModel,
     this.highlightReviewID,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final FlyerModel flyerModel;
-  final String highlightReviewID;
+  final FlyerModel? flyerModel;
+  final String? highlightReviewID;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

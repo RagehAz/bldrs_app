@@ -3,10 +3,10 @@ part of bldrs_app_bar;
 class AppBarFilters extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const AppBarFilters({
-    @required this.appBarType,
-    @required this.child,
-    Key key
-  }) : super(key: key);
+    required this.appBarType,
+    required this.child,
+    super.key
+  });
   // --------------------
   final AppBarType appBarType;
   final Widget child;

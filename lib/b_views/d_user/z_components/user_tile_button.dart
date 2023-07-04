@@ -1,33 +1,32 @@
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:scale/scale.dart';
-
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:flutter/material.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 
 class UserTileButtonOld extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const UserTileButtonOld({
-    @required this.boxWidth,
-    @required this.userModel,
+    required this.boxWidth,
+    required this.userModel,
     this.sideButtonVerse,
     this.onSideButtonTap,
     this.onUserTap,
     this.bubble = true,
     this.color,
     this.sideButtonDeactivated,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final UserModel userModel;
+  final UserModel? userModel;
   final double boxWidth;
-  final Verse sideButtonVerse;
-  final Function onUserTap;
-  final Function onSideButtonTap;
+  final Verse? sideButtonVerse;
+  final Function? onUserTap;
+  final Function? onSideButtonTap;
   final bool bubble;
-  final Color color;
-  final bool sideButtonDeactivated;
+  final Color? color;
+  final bool? sideButtonDeactivated;
   /// --------------------------------------------------------------------------
   static const double boxHeight = 80;
   static const double inviteButtonWidth = 80;
@@ -35,16 +34,16 @@ class UserTileButtonOld extends StatelessWidget {
   static const double buttonHeight = boxHeight - (2 * boxPadding);
   // --------------------
   static double getBoxWidth({
-    @required BuildContext context,
-    double boxWidthOverride,
+    required BuildContext context,
+    double? boxWidthOverride,
   }){
     return boxWidthOverride ?? Scale.screenWidth(context);
   }
   // --------------------
   static double getUserButtonWidth({
-    @required BuildContext context,
-    @required bool inviteButtonIsOn,
-    @required double boxWidth,
+    required BuildContext context,
+    required bool inviteButtonIsOn,
+    required double boxWidth,
   }){
 
     double _width;

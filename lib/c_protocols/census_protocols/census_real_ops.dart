@@ -4,9 +4,8 @@ import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:ldb/ldb.dart';
-import 'package:mapper/mapper.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:basics/ldb/methods/ldb_ops.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 /// => TAMAM
 class CensusRealOps {
   // -----------------------------------------------------------------------------
@@ -19,16 +18,16 @@ class CensusRealOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<CensusModel> readPlanetCensus() async {
-    CensusModel _output;
+  static Future<CensusModel?> readPlanetCensus() async {
+    CensusModel? _output;
 
-    final Object _object = await Real.readPath(
+    final Object? _object = await Real.readPath(
       path: '${RealColl.statistics}/${RealDoc.statistics_planet}',
     );
 
     if (_object != null){
 
-      final Map<String, dynamic> _map = Mapper.getMapFromIHLMOO(
+      final Map<String, dynamic>? _map = Mapper.getMapFromIHLMOO(
         ihlmoo: _object,
       );
 
@@ -72,20 +71,20 @@ class CensusRealOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<CensusModel> readCountryCensus({
-    @required String countryID,
+  static Future<CensusModel?> readCountryCensus({
+    required String? countryID,
   }) async {
-    CensusModel _output;
+    CensusModel? _output;
 
     if (countryID != null){
 
-      final Object _object = await Real.readPath(
+      final Object? _object = await Real.readPath(
           path: '${RealColl.statistics}/${RealDoc.statistics_countries}/$countryID',
       );
 
       if (_object != null){
 
-        final Map<String, dynamic> _map = Mapper.getMapFromIHLMOO(
+        final Map<String, dynamic>? _map = Mapper.getMapFromIHLMOO(
           ihlmoo: _object,
         );
 
@@ -109,7 +108,7 @@ class CensusRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<CensusModel>> readCitiesOfCountryCensus({
-    @required String countryID,
+    required String? countryID,
   }) async {
     List<CensusModel> _output = <CensusModel>[];
 
@@ -134,21 +133,21 @@ class CensusRealOps {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<CensusModel> readCityCensus({
-    @required String cityID,
+  static Future<CensusModel?> readCityCensus({
+    required String? cityID,
   }) async {
-    CensusModel _output;
+    CensusModel? _output;
 
     if (cityID != null){
 
-      final String _countryID = CityModel.getCountryIDFromCityID(cityID);
-      final Object _object = await Real.readPath(
+      final String? _countryID = CityModel.getCountryIDFromCityID(cityID);
+      final Object? _object = await Real.readPath(
           path: '${RealColl.statistics}/${RealDoc.statistics_cities}/$_countryID/$cityID',
       );
 
       if (_object != null){
 
-        final Map<String, dynamic> _map = Mapper.getMapFromIHLMOO(
+        final Map<String, dynamic>? _map = Mapper.getMapFromIHLMOO(
           ihlmoo: _object,
         );
 
@@ -172,13 +171,13 @@ class CensusRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updateAllCensus({
-    @required Map<String, dynamic> map,
-    @required ZoneModel zoneModel,
+    required Map<String, dynamic>? map,
+    required ZoneModel? zoneModel,
   }) async {
 
     if (map != null && zoneModel != null){
 
-      final Map<String, dynamic> _map = Mapper.cleanNullPairs(
+      final Map<String, dynamic>? _map = Mapper.cleanNullPairs(
         map: map,
       );
       final Map<String, int> _upload = CensusModel.completeMapForIncrementation(_map);
@@ -216,9 +215,16 @@ class CensusRealOps {
       /// DELETE LDB CENSUSES
       final List<String> _idsToDeleteInLDB = <String>[
         CensusModel.planetID,
-        zoneModel.countryID,
-        zoneModel.cityID,
       ];
+
+      if (zoneModel.countryID != null){
+        _idsToDeleteInLDB.add(zoneModel.countryID!);
+      }
+
+      if (zoneModel.cityID != null){
+        _idsToDeleteInLDB.add(zoneModel.cityID!);
+      }
+
 
       await LDBOps.deleteMaps(
         docName: LDBDoc.census,

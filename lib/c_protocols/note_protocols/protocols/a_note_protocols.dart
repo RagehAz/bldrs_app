@@ -1,20 +1,21 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/fire/note_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
-import 'package:filers/filers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:numeric/numeric.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
 
 class NoteProtocols {
   // -----------------------------------------------------------------------------
@@ -28,9 +29,9 @@ class NoteProtocols {
   // --------------------
   ///
   static Future<void> composeToMultipleShallDoThisLaterWhenTheTimeIsRightButNowIHaveMouthsToFeed({
-    @required BuildContext context,
-    @required NoteModel note,
-    @required List<String> receiversIDs,
+    required BuildContext context,
+    required NoteModel note,
+    required List<String> receiversIDs,
   }) async {
 
     blog('should compose note to multiple receivers');
@@ -67,36 +68,36 @@ class NoteProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<NoteModel> composeToOneReceiver({
-    @required BuildContext context,
-    @required NoteModel note,
+  static Future<NoteModel?> composeToOneReceiver({
+    required NoteModel? note,
     bool uploadPoster = true,
   }) async {
 
-    NoteModel _output;
+    NoteModel? _output;
 
-    assert(note.parties.receiverID.length > 5, 'Something is wrong with receiverID');
-    assert(note.parties.receiverID != 'xxx', 'receiverID is xxx');
-    assert(note.parties.receiverID != null, 'noteModel.parties.receiverID == null');
-    assert(note.parties.receiverType != null, 'noteModel.parties.receiverType == null');
-    assert(note.parties.senderID != null, 'noteModel.parties.senderID == null');
-    assert(note.parties.senderType != null, 'noteModel.parties.senderType == null');
-    assert(note.parties.senderImageURL != null, 'noteModel.parties.senderImageURL == null');
-    assert(note.title != null, 'noteModel.title == null');
-    assert(note.body != null, 'noteModel.body == null');
-    assert(note.topic != null, 'noteModel.topic == null');
-    assert(note.sendNote == true || note.sendFCM == true, 'noteModel.sendNote == true || noteModel.sendFCM == true');
+    assert((note?.parties?.receiverID?.length ?? 0) > 5, 'Something is wrong with receiverID');
+    assert(note?.parties?.receiverID != 'xxx', 'receiverID is xxx');
+    assert(note?.parties?.receiverID != null, 'noteModel.parties.receiverID == null');
+    assert(note?.parties?.receiverType != null, 'noteModel.parties.receiverType == null');
+    assert(note?.parties?.senderID != null, 'noteModel.parties.senderID == null');
+    assert(note?.parties?.senderType != null, 'noteModel.parties.senderType == null');
+    assert(note?.parties?.senderImageURL != null, 'noteModel.parties.senderImageURL == null');
+    assert(note?.title != null, 'noteModel.title == null');
+    assert(note?.body != null, 'noteModel.body == null');
+    assert(note?.topic != null, 'noteModel.topic == null');
+    assert((note?.sendNote != null && note!.sendNote! == true) || (note?.sendFCM != null && note!.sendFCM! == true),
+    'noteModel.sendNote == true || noteModel.sendFCM == true'
+    );
 
     final bool _canSendNote = NoteModel.checkNoteIsSendable(note);
 
     if (_canSendNote == true){
 
-      NoteModel _note = note;
+      NoteModel? _note = note;
 
       /// UPLOAD POSTER
       if (uploadPoster == true){
         _note = await _uploadNotePoster(
-          context: context,
           note: _note,
           isPublic: false,
         );
@@ -106,7 +107,7 @@ class NoteProtocols {
       _note = _rebakeTopic(_note);
 
       /// UPDATE SENT TIME
-      _note = _note.copyWith(
+      _note = _note?.copyWith(
         sentTime: DateTime.now(),
       );
 
@@ -118,7 +119,7 @@ class NoteProtocols {
 
       /// SEND FCM
       await _sendFCMToOneReceiver(
-        context: context,
+        context: getMainContext(),
         noteModel: _note,
       );
 
@@ -136,8 +137,8 @@ class NoteProtocols {
   /*
   /// TESTED : WORKS PERFECT
   static Future<void> composeToOneBz({
-    @required BuildContext context,
-    @required NoteModel note,
+    required BuildContext context,
+    required NoteModel note,
     bool uploadPoster = true,
   }) async {
 
@@ -186,10 +187,9 @@ class NoteProtocols {
    */
   // --------------------
   /// TASK : FIX ME
-  static Future<NoteModel> _uploadNotePoster({
-    @required BuildContext context,
-    @required NoteModel note,
-    @required bool isPublic,
+  static Future<NoteModel?> _uploadNotePoster({
+    required NoteModel? note,
+    required bool isPublic,
   }) async {
 
     // NoteModel _output = note;
@@ -256,13 +256,13 @@ class NoteProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static NoteModel adjustReceiverID({
-    @required String receiverID,
-    @required NoteModel note,
+  static NoteModel? adjustReceiverID({
+    required String receiverID,
+    required NoteModel? note,
   }){
 
-    return note.copyWith(
-      parties: note.parties.copyWith(
+    return note?.copyWith(
+      parties: note.parties?.copyWith(
         receiverID: receiverID,
       ),
     );
@@ -272,13 +272,13 @@ class NoteProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _sendFCMToOneReceiver({
-    @required BuildContext context,
-    @required NoteModel noteModel,
+    required BuildContext context,
+    required NoteModel? noteModel,
   }) async {
 
-    if (noteModel != null && noteModel.sendFCM == true){
+    if (Mapper.boolIsTrue(noteModel?.sendFCM) == true){
 
-      NoteModel _note = noteModel;
+      NoteModel _note = noteModel!;
       if (noteModel.sendNote == false){
         _note = noteModel.copyWith(
           id: Numeric.createUniqueID().toString(),
@@ -292,22 +292,22 @@ class NoteProtocols {
 
       if (_receiverCanReceive == true){
 
-        final NoteModel _note = await _adjustNoteToken(
+        final NoteModel? _note = await _adjustNoteToken(
             context: context,
             noteModel: noteModel
         );
 
         /// USER RECEIVER : SEND TO DEVICE
-        if (noteModel.parties.receiverType == PartyType.user){
+        if (noteModel.parties?.receiverType == PartyType.user){
 
-          if (_note.token != null) {
+          if (_note?.token != null) {
 
-            blog('should send TO DEVICE aho note to ${_note.parties.receiverID}');
+            blog('should send TO DEVICE aho note to ${_note?.parties?.receiverID}');
 
             await CloudFunction.call(
                 context: context,
                 functionName: CloudFunction.callSendFCMToDevice,
-                mapToPass: _note.toMap(toJSON: true),
+                mapToPass: _note?.toMap(toJSON: true),
                 onFinish: (dynamic result){
                   blog('NoteFireOps.createNote : FCM SENT : $result');
                 }
@@ -318,14 +318,14 @@ class NoteProtocols {
         }
 
         /// BZ RECEIVER : SEND TO TOPIC
-        if (noteModel.parties.receiverType == PartyType.bz){
+        if (noteModel.parties?.receiverType == PartyType.bz){
 
-          blog('should send TO DEVICE aho note to ${_note.parties.receiverID}');
+          blog('should send TO DEVICE aho note to ${_note?.parties?.receiverID}');
 
           await CloudFunction.call(
               context: context,
               functionName: CloudFunction.callSendFCMToTopic,
-              mapToPass: _note.toMap(toJSON: true),
+              mapToPass: _note?.toMap(toJSON: true),
               onFinish: (dynamic result){
                 blog('NoteFireOps.createNote : FCM SENT : $result');
               }
@@ -343,23 +343,22 @@ class NoteProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> _checkReceiverCanReceiveFCM({
-    @required BuildContext context,
-    @required NoteModel noteModel,
+    required BuildContext context,
+    required NoteModel? noteModel,
   }) async {
     bool _canReceive = false;
 
-    if (noteModel != null && noteModel.sendFCM == true){
+    if (Mapper.boolIsTrue(noteModel?.sendFCM) == true){
 
       /// RECEIVER IS USER
-      if (noteModel.parties.receiverType == PartyType.user){
+      if (noteModel!.parties?.receiverType == PartyType.user){
 
-        final UserModel _userModel = await UserProtocols.refetch(
+        final UserModel? _userModel = await UserProtocols.refetch(
           context: context,
-          userID: noteModel.parties.receiverID,
+          userID: noteModel.parties?.receiverID,
         );
 
         _canReceive = TopicModel.checkUserIsSubscribedToThisTopic(
-          context: context,
           topicID: noteModel.topic,
           partyType: PartyType.user,
           bzID: null,
@@ -368,7 +367,7 @@ class NoteProtocols {
       }
 
       /// RECEIVER IS BZ
-      else if (noteModel.parties.receiverType == PartyType.bz){
+      else if (noteModel.parties?.receiverType == PartyType.bz){
 
         /// BZ AUTHORS SHOULD BE SUBSCRIBED OR NOT TO THE TOPIC
         /// AND BZ RECEIVES THIS NOTE
@@ -381,20 +380,20 @@ class NoteProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<NoteModel> _adjustNoteToken({
-    @required BuildContext context,
-    @required NoteModel noteModel,
+  static Future<NoteModel?> _adjustNoteToken({
+    required BuildContext context,
+    required NoteModel? noteModel,
   }) async {
-    NoteModel _note = noteModel;
+    NoteModel? _note = noteModel;
 
     if (noteModel != null){
 
       /// USER RECEIVER : INJECT USER TOKEN IN NOTE
-      if (noteModel.parties.receiverType == PartyType.user){
+      if (noteModel.parties?.receiverType == PartyType.user){
 
-        final UserModel _user = await UserProtocols.fetch(
+        final UserModel? _user = await UserProtocols.fetch(
           context: context,
-          userID: noteModel.parties.receiverID,
+          userID: noteModel.parties?.receiverID,
         );
 
         blog('_adjustNoteToken : userToken is : ${_user?.device?.token}');
@@ -414,7 +413,7 @@ class NoteProtocols {
       }
 
       /// BZ RECEIVED : WILL SEND TO TOPIC NOT TO DEVICE
-      if (noteModel.parties.receiverType == PartyType.bz){
+      if (noteModel.parties?.receiverType == PartyType.bz){
 
         _note = noteModel.nullifyField(
           token: true,
@@ -428,16 +427,16 @@ class NoteProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static NoteModel _rebakeTopic(NoteModel note){
+  static NoteModel? _rebakeTopic(NoteModel? note){
 
-    if (note.parties.receiverType == PartyType.user){
+    if (note?.parties?.receiverType == PartyType.user){
       return note;
     }
 
     else {
 
       final bool _isBakedAlready = TextCheck.stringContainsSubString(
-          string: note.topic,
+          string: note?.topic,
           subString: '_') == true;
 
       if (_isBakedAlready == true){
@@ -446,13 +445,13 @@ class NoteProtocols {
 
       else {
 
-        final String _bakedTopicID = TopicModel.bakeTopicID(
-          topicID: note.topic,
-          bzID: note.parties.receiverID,
+        final String? _bakedTopicID = TopicModel.bakeTopicID(
+          topicID: note?.topic,
+          bzID: note?.parties?.receiverID,
           receiverPartyType: PartyType.bz,
         );
 
-        return note.copyWith(
+        return note?.copyWith(
           topic: _bakedTopicID,
         );
       }
@@ -467,12 +466,12 @@ class NoteProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<NoteModel> readNote({
-    @required String noteID,
-    @required String userID,
+  static Future<NoteModel?> readNote({
+    required String? noteID,
+    required String? userID,
   }) async {
 
-    final NoteModel _note = await NoteFireOps.readNote(
+    final NoteModel? _note = await NoteFireOps.readNote(
       noteID: noteID,
       userID: userID,
     );
@@ -486,9 +485,8 @@ class NoteProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> renovate({
-    @required BuildContext context,
-    @required NoteModel newNote,
-    @required NoteModel oldNote
+    required NoteModel? newNote,
+    required NoteModel? oldNote
   }) async {
 
     if (newNote != null && oldNote != null){
@@ -513,36 +511,39 @@ class NoteProtocols {
   // --------------------
   ///
   static Future<void> wipeNote({
-    @required NoteModel note,
+    required NoteModel? note,
   }) async {
 
-    blog('NoteProtocol.wipeNote : noteID : ${note.id}: START');
+    blog('NoteProtocol.wipeNote : noteID : ${note?.id}: START');
 
-    /// DELETE POSTER IF EXISTED
-    await _wipePoster(
-      note: note,
-    );
+    if (note != null){
 
+      /// DELETE POSTER IF EXISTED
+      await _wipePoster(
+        note: note,
+      );
 
-    /// FIRE DELETE
-    await NoteFireOps.deleteNote(
-      note: note,
-    );
+      /// FIRE DELETE
+      await NoteFireOps.deleteNote(
+        note: note,
+      );
 
-    /// DEPRECATED
-    // /// PRO DELETE
-    // NotesProvider.proDeleteNoteEverywhereIfExists(
-    //   context: context,
-    //   noteID: note.id,
-    //   notify: true,
-    // );
+      /// DEPRECATED
+      // /// PRO DELETE
+      // NotesProvider.proDeleteNoteEverywhereIfExists(
+      //   context: context,
+      //   noteID: note.id,
+      //   notify: true,
+      // );
+
+    }
 
     blog('NoteProtocol.wipeNote : END');
   }
   // --------------------
   /// TASK : DO THIS POSTER THING
   static Future<void> _wipePoster({
-    @required NoteModel note,
+    required NoteModel note,
   }) async {
 
     // if (note != null && note.poster != null){
@@ -576,8 +577,8 @@ class NoteProtocols {
   // --------------------
   /// VERY VERY EXPENSIVE : TASK : OPTIMIZE THIS IN FUTURE : DEVICE WILL EXPLODE HERE
   static Future<void> wipeAllNotes({
-    @required PartyType partyType,
-    @required String id,
+    required PartyType partyType,
+    required String? id,
   }) async {
 
     /// TASK : DELETE ALL NOTES PROTO FUCKING COLE
@@ -592,7 +593,7 @@ class NoteProtocols {
 
         final List<Map<String, dynamic>> _maps = await Fire.readColl(
           addDocSnapshotToEachMap: true,
-          startAfter: _notesToDelete.isEmpty == true ? null : _notesToDelete?.last?.docSnapshot,
+          startAfter: _notesToDelete.isEmpty == true ? null : _notesToDelete.last.docSnapshot,
           queryModel: FireQueryModel(
             limit: 10,
             coll: FireColl.getPartyCollName(partyType),
@@ -647,9 +648,9 @@ class NoteProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> subscribeToAllBzTopics({
-    @required BuildContext context,
-    @required String bzID,
-    @required bool renovateUser,
+    required BuildContext context,
+    required String? bzID,
+    required bool renovateUser,
   }) async {
 
     if (bzID != null){
@@ -687,18 +688,18 @@ class NoteProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _addAllBzTopicsToMyTopicsAndRenovate({
-    @required BuildContext context,
-    @required String bzID,
+    required BuildContext context,
+    required String bzID,
   }) async {
 
-    final UserModel _oldUser = UsersProvider.proGetMyUserModel(
+    final UserModel? _oldUser = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );
 
     if (_oldUser != null){
 
-      final UserModel _newUser = UserModel.addAllBzTopicsToMyTopics(
+      final UserModel? _newUser = UserModel.addAllBzTopicsToMyTopics(
           oldUser: _oldUser,
           bzID: bzID
       );
@@ -717,9 +718,9 @@ class NoteProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> unsubscribeFromAllBzTopics({
-    @required BuildContext context,
-    @required String bzID,
-    @required bool renovateUser,
+    required BuildContext context,
+    required String? bzID,
+    required bool renovateUser,
   }) async {
 
     if (bzID != null){
@@ -752,18 +753,18 @@ class NoteProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _removeAllBzTopicsFromMyTopicsAndRenovate({
-    @required BuildContext context,
-    @required String bzID,
+    required BuildContext context,
+    required String bzID,
   }) async {
 
-    final UserModel _oldUser = UsersProvider.proGetMyUserModel(
+    final UserModel? _oldUser = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );
 
     if (_oldUser != null) {
 
-      final UserModel _newUser = UserModel.removeAllBzTopicsFromMyTopics(
+      final UserModel? _newUser = UserModel.removeAllBzTopicsFromMyTopics(
           oldUser: _oldUser,
           bzID: bzID
       );
@@ -782,9 +783,9 @@ class NoteProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> unsubscribeFromAllBzzTopics({
-    @required BuildContext context,
-    @required List<String> bzzIDs,
-    @required bool renovateUser,
+    required BuildContext context,
+    required List<String> bzzIDs,
+    required bool renovateUser,
   }) async {
 
     if (Mapper.checkCanLoopList(bzzIDs) == true){

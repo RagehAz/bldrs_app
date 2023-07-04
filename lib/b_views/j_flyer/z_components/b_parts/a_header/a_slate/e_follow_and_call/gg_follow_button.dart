@@ -1,24 +1,22 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_color.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
 class FollowButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FollowButton({
-    @required this.flyerBoxWidth,
-    @required this.onFollowTap,
-    @required this.tappingUnfollow,
-    @required this.followIsOn,
-    Key key,
-  }) : super(key: key);
+    required this.flyerBoxWidth,
+    required this.onFollowTap,
+    required this.followIsOn,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final Function onFollowTap;
-  final Function tappingUnfollow;
+  final Function? onFollowTap;
   final ValueNotifier<bool> followIsOn;
   /// --------------------------------------------------------------------------
   @override
@@ -29,10 +27,10 @@ class FollowButton extends StatelessWidget {
     final double _followIconSize = _followBTHeight * 0.5;
     // --------------------
     return GestureDetector(
-      onTap: onFollowTap,
+      onTap: onFollowTap == null ? null : () => onFollowTap!(),
       child: ValueListenableBuilder(
         valueListenable: followIsOn,
-        builder: (_, bool _followIsOn, Widget child){
+        builder: (_, bool _followIsOn, Widget? child){
 
           final Color _followIconColor = FlyerColors.followIconColor(
             followIsOn: _followIsOn,
@@ -56,7 +54,7 @@ class FollowButton extends StatelessWidget {
               children: <Widget>[
 
                 /// BUTTON GRADIENT
-                child,
+                child!,
 
                 /// FOLLOW BUTTON CONTENTS
                 Column(
@@ -69,7 +67,7 @@ class FollowButton extends StatelessWidget {
                       width: _followIconSize,
                       child: WebsafeSvg.asset(
                         Iconz.follow,
-                          color: _followIconColor,
+                          colorFilter: ColorFilter.mode(_followIconColor, BlendMode.srcIn),
                           width: _followIconSize,
                           height: _followIconSize,
                           // package: Iconz.bldrsTheme,

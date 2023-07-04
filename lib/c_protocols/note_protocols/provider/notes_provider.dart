@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
@@ -7,8 +8,7 @@ import 'package:bldrs/a_models/x_utilities/map_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
-import 'package:mapper/mapper.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,8 +24,8 @@ class NotesProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void _setIsFlashing({
-    @required bool setTo,
-    @required bool notify,
+    required bool setTo,
+    required bool notify,
   }){
 
     if (_isFlashing != setTo){
@@ -44,8 +44,8 @@ class NotesProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void proSetIsFlashing({
-    @required bool setTo,
-    @required bool notify,
+    required bool setTo,
+    required bool notify,
   }){
     final NotesProvider _notesProvider = Provider.of<NotesProvider>(getMainContext(), listen: false);
     _notesProvider._setIsFlashing(
@@ -64,7 +64,7 @@ class NotesProvider extends ChangeNotifier {
   // -------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> proInitializeObeliskBadges({
-    @required bool notify,
+    required bool notify,
   }) async {
     final NotesProvider _notesProvider = Provider.of<NotesProvider>(getMainContext(), listen: false);
     await _notesProvider._initializeObeliskBadges(
@@ -74,8 +74,8 @@ class NotesProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> proSetUserObeliskBadge({
-    @required List<NoteModel> unseenNotes,
-    @required bool notify,
+    required List<NoteModel> unseenNotes,
+    required bool notify,
   }) async {
     final NotesProvider _notesProvider = Provider.of<NotesProvider>(getMainContext(), listen: false);
     await _notesProvider._setUserObeliskNumber(
@@ -86,9 +86,9 @@ class NotesProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> proSetBzObeliskBadge({
-    @required String bzID,
-    @required List<NoteModel> unseenNotes,
-    @required bool notify,
+    required String? bzID,
+    required List<NoteModel>? unseenNotes,
+    required bool notify,
   }) async {
     final NotesProvider _notesProvider = Provider.of<NotesProvider>(getMainContext(), listen: false);
     await _notesProvider._setBzObeliskNumber(
@@ -102,7 +102,7 @@ class NotesProvider extends ChangeNotifier {
   // -----
   /// TESTED : WORKS PERFECT
   Future<void> _initializeObeliskBadges({
-    @required bool notify,
+    required bool notify,
   }) async {
 
     /// NOTE: generates all navModels and creates a MapModel for each one in Obelisk
@@ -137,8 +137,8 @@ class NotesProvider extends ChangeNotifier {
   // -----
   /// TESTED : WORKS PERFECT
   Future<void> _setUserObeliskNumber({
-    @required List<NoteModel> unseenNotes,
-    @required bool notify,
+    required List<NoteModel> unseenNotes,
+    required bool notify,
   }) async {
 
     await _setObeliskNumberAndRebuild(
@@ -153,14 +153,14 @@ class NotesProvider extends ChangeNotifier {
   // -----
   /// TESTED : WORKS PERFECT
   Future<void> _setBzObeliskNumber({
-    @required String bzID,
-    @required List<NoteModel> unseenNotes,
-    @required bool notify,
+    required String? bzID,
+    required List<NoteModel>? unseenNotes,
+    required bool notify,
   }) async {
 
     await _setObeliskNumberAndRebuild(
       invoker: 'setBzObeliskNumber',
-      value: unseenNotes.length,
+      value: unseenNotes?.length,
       notify: notify,
       rebuildAllMainNumbers: true,
       navModelID: NavModel.getBzTabNavID(
@@ -173,11 +173,11 @@ class NotesProvider extends ChangeNotifier {
   // -----
   /// TESTED : WORKS PERFECT
   Future<void> _setObeliskNumberAndRebuild({
-    @required String invoker,
-    @required int value,
-    @required String navModelID,
-    @required bool notify,
-    @required bool rebuildAllMainNumbers,
+    required String invoker,
+    required int? value,
+    required String? navModelID,
+    required bool notify,
+    required bool rebuildAllMainNumbers,
   }) async {
 
     final MapModel _mapModel = MapModel(
@@ -218,7 +218,7 @@ class NotesProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _calculateAndSetMainUserProfileNumber({
-    @required bool notify,
+    required bool notify,
   }) async {
 
     final List<String> _userProfileNavIDs = NavModel.generateUserTabsNavModelsIDs();
@@ -255,7 +255,7 @@ class NotesProvider extends ChangeNotifier {
   // -----
   /// TESTED : WORKS PERFECT
   Future<void> _calculateAndSetAllMainBzzProfilesNumbers({
-    @required bool notify,
+    required bool notify,
   }) async {
 
     final List<BzModel> _myBzz = BzzProvider.proGetMyBzz(
@@ -288,8 +288,8 @@ class NotesProvider extends ChangeNotifier {
   // -----
   /// TESTED : WORKS PERFECT
   Future<void> _calculateAndSetMainBzProfileNumber({
-    @required String bzID,
-    @required bool notify,
+    required String? bzID,
+    required bool notify,
   }) async {
 
     if (bzID != null){
@@ -310,7 +310,11 @@ class NotesProvider extends ChangeNotifier {
 
         for (final dynamic value in _values){
 
-          _totalCount = _totalCount + (value.toInt());
+          if (value != null){
+            final int _addOn = value.toInt();
+            _totalCount = _totalCount + _addOn;
+          }
+
 
         }
 
@@ -333,7 +337,7 @@ class NotesProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _rebuildObeliskNumbers({
-    @required bool notify
+    required bool notify
   }) async {
 
     if (notify == true){
@@ -358,7 +362,10 @@ class NotesProvider extends ChangeNotifier {
     final List<dynamic> _values = MapModel.getValuesFromMapModels(_obeliskBadges);
     if (Mapper.checkCanLoopList(_values) == true){
       for (final dynamic value in _values){
-        _obeliskTotal = _obeliskTotal + value;
+        if (value != null){
+          final int _addOn = value.toInt();
+          _obeliskTotal = _obeliskTotal + _addOn;
+        }
       }
     }
     // ---
@@ -377,8 +384,8 @@ class NotesProvider extends ChangeNotifier {
   // -----
   /// TESTED : WORKS PERFECT
   Future<void> removeAllObeliskNoteNumbersRelatedToBzID({
-    @required String bzID,
-    @required bool notify,
+    required String? bzID,
+    required bool notify,
   }) async {
 
     final List<String> _bzNavModelsIDs = NavModel.generateSuperBzNavIDs(
@@ -397,7 +404,7 @@ class NotesProvider extends ChangeNotifier {
   }
   // -----
   /// TESTED : WORKS PERFECT
-  Future<void> wipeObeliskNumbers({@required bool notify}) async {
+  Future<void> wipeObeliskNumbers({required bool notify}) async {
 
     _obeliskBadges = <MapModel>[];
 
@@ -413,7 +420,7 @@ class NotesProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void proAuthorResignationNotesRemovalOps({
-    @required String bzIDResigned,
+    required String? bzIDResigned,
     bool notify = true,
   }){
 
@@ -434,7 +441,7 @@ class NotesProvider extends ChangeNotifier {
 
   // --------------------
   static Future<void> wipeOut({
-    @required bool notify,
+    required bool notify,
   }) async {
 
     final NotesProvider _notesProvider = Provider.of<NotesProvider>(getMainContext(), listen: false);
@@ -464,7 +471,7 @@ class NotesProvider extends ChangeNotifier {
   int _badgeNum = 0;
   int get badgeNum => _badgeNum;
   Future<void> setBadgeNum() async {
-    _badgeNum = await FCM.getAwesomeNoots()?.getGlobalBadgeCounter();
+    _badgeNum = await FCM.getAwesomeNoots()?.getGlobalBadgeCounter() ?? 0;
     notifyListeners();
   }
   // --------------------
@@ -476,8 +483,8 @@ class NotesProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static int proGetBadgeNum({
-    @required BuildContext context,
-    @required bool listen,
+    required BuildContext context,
+    required bool listen,
   }){
     final NotesProvider _notesProvider = Provider.of<NotesProvider>(context, listen: listen);
     return _notesProvider.badgeNum;

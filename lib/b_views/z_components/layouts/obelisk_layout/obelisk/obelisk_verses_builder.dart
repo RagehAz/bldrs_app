@@ -1,3 +1,5 @@
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/layouts/views/floating_list.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk_verse.dart';
@@ -5,19 +7,19 @@ import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_mode
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:widget_fader/widget_fader.dart';
+import 'package:basics/animators/widgets/widget_fader.dart';
 
 class ObeliskVersesBuilder extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ObeliskVersesBuilder({
-    @required this.navModels,
-    @required this.progressBarModel,
-    @required this.onRowTap,
-    Key key
-  }) : super(key: key);
+    required this.navModels,
+    required this.progressBarModel,
+    required this.onRowTap,
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final List<NavModel> navModels;
-  final ValueNotifier<ProgressBarModel> progressBarModel;
+  final List<NavModel?> navModels;
+  final ValueNotifier<ProgressBarModel?> progressBarModel;
   final ValueChanged<int> onRowTap;
   /// --------------------------------------------------------------------------
   @override
@@ -42,13 +44,15 @@ class ObeliskVersesBuilder extends StatelessWidget {
     return Selector<UiProvider, bool>(
       key: const ValueKey<String>('ObeliskVersesBuilder'),
       selector: (_, UiProvider uiProvider) => uiProvider.pyramidsAreExpanded,
-      builder: (_, bool expanded, Widget child) {
+      builder: (_, bool? expanded, Widget? child) {
+
+        final bool _isExpanded = Mapper.boolIsTrue(expanded);
 
           return WidgetFader(
             fadeType: expanded == null ? FadeType.stillAtMin : expanded == true ? FadeType.fadeIn : FadeType.fadeOut,
-            curve: expanded == true ? Curves.easeOutQuart : Curves.easeOut,
+            curve: _isExpanded  == true ? Curves.easeOutQuart : Curves.easeOut,
             duration: const Duration(milliseconds: 200),
-            builder: (double value, Widget child){
+            builder: (double value, Widget? child){
 
               // blog('value is : $value : is Big is : $isBig');
 
@@ -60,9 +64,9 @@ class ObeliskVersesBuilder extends StatelessWidget {
 
             },
             child: AnimatedOpacity(
-              duration: Duration(milliseconds: expanded == true ? 150 : 500),
-              curve: expanded == true ? Curves.easeOutBack : Curves.easeOutQuart,
-              opacity: expanded == true ? 1 : 0.5,
+              duration: Duration(milliseconds: _isExpanded == true ? 150 : 500),
+              curve: _isExpanded == true ? Curves.easeOutBack : Curves.easeOutQuart,
+              opacity: _isExpanded == true ? 1 : 0.5,
               child: child,
             ),
 
@@ -70,31 +74,56 @@ class ObeliskVersesBuilder extends StatelessWidget {
 
         },
 
-      child: SizedBox(
+      child: FloatingList(
         height: Obelisk.gotContentsScrollableHeight(
           context: context,
           navModels: navModels,
         ),
-        child: Column(
-          mainAxisAlignment: Obelisk.stuffAlignment(isCross: false),
-          crossAxisAlignment: _crossAlignment,
-          children: <Widget>[
+        mainAxisAlignment: Obelisk.stuffAlignment(isCross: false),
+        crossAxisAlignment: _crossAlignment,
+        physics: const NeverScrollableScrollPhysics(),
+        columnChildren: <Widget>[
 
-            ...List.generate(navModels.length, (index){
+          ...List.generate(navModels.length, (index){
+            return ObeliskVerse(
+              onTap: () => onRowTap(index),
+              progressBarModel: progressBarModel,
+              navModelIndex: index,
+              navModel: navModels[index],
+            );
+          }),
 
-              return ObeliskVerse(
-                onTap: () => onRowTap(index),
-                progressBarModel: progressBarModel,
-                navModelIndex: index,
-                navModel: navModels[index],
-
-              );
-
-            }),
-
-          ],
-        ),
+        ],
       ),
+
+      // child: SizedBox(
+      //   height: Obelisk.gotContentsScrollableHeight(
+      //     context: context,
+      //     navModels: navModels,
+      //   ),
+      //   child: SingleChildScrollView(
+      //     physics: const NeverScrollableScrollPhysics(),
+      //     child: Column(
+      //       mainAxisAlignment: Obelisk.stuffAlignment(isCross: false),
+      //       crossAxisAlignment: _crossAlignment,
+      //       children: <Widget>[
+      //
+      //         ...List.generate(navModels.length, (index){
+      //
+      //           return ObeliskVerse(
+      //             onTap: () => onRowTap(index),
+      //             progressBarModel: progressBarModel,
+      //             navModelIndex: index,
+      //             navModel: navModels[index],
+      //
+      //           );
+      //
+      //         }),
+      //
+      //       ],
+      //     ),
+      //   ),
+      // ),
     );
 
   }

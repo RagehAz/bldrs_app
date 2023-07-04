@@ -1,20 +1,20 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/password_bubble/password_bubble.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class PasswordScreen extends StatefulWidget {
   // -----------------------------------------------------------------------------
   const PasswordScreen({
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   // --------------------
   @override
   State<PasswordScreen> createState() => _PasswordScreenState();
@@ -99,14 +99,14 @@ class _PasswordScreenState extends State<PasswordScreen> {
                         bubbleWidth: CenterDialog.clearWidth(context) - 20,
                         passwordController: _password,
                         showPasswordOnly: true,
-                        passwordValidator: (String text) => Formers.passwordValidator(
+                        passwordValidator: (String? text) => Formers.passwordValidator(
                           password: _password.text,
                           canValidate: true,
                         ),
                         passwordConfirmationController: null,
                         passwordConfirmationValidator: null,
                         goOnKeyboardGo: false,
-                        onSubmitted: (String text) async {
+                        onSubmitted: (String? text) async {
 
                           Keyboard.closeKeyboard();
 

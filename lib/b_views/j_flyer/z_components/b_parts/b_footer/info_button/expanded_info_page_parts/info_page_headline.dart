@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 class InfoPageHeadline extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const InfoPageHeadline({
-    @required this.pageWidth,
-    @required this.verse,
-    Key key
-  }) : super(key: key);
+    required this.pageWidth,
+    required this.verse,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double pageWidth;
   final Verse verse;

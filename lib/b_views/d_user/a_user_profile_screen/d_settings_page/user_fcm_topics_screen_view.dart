@@ -1,3 +1,5 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
@@ -11,21 +13,20 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:stringer/stringer.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:flutter/material.dart';
 
 class UserFCMTopicsScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const UserFCMTopicsScreenView({
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onSwitch({
-    @required BuildContext context,
-    @required String topicID,
-    @required bool value,
+    required BuildContext context,
+    required String? topicID,
+    required bool value,
   }) async {
 
     await UserProtocols.updateMyUserTopics(
@@ -37,11 +38,11 @@ class UserFCMTopicsScreenView extends StatelessWidget {
   // --------------------
   ///
   Future<void> _onSwitchAll({
-    @required BuildContext context,
-    @required bool value,
+    required BuildContext context,
+    required bool value,
   }) async {
 
-    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+    final UserModel? _userModel = UsersProvider.proGetMyUserModel(
       context: getMainContext(),
       listen: false,
     );
@@ -50,7 +51,7 @@ class UserFCMTopicsScreenView extends StatelessWidget {
     if (value == true){
 
       final List<String> _updatedTopics = Stringer.addStringsToStringsIfDoNotContainThem(
-          listToTake: _userModel.fcmTopics,
+          listToTake: _userModel?.fcmTopics,
           listToAdd: TopicModel.getAllPossibleUserTopicsIDs(),
       );
 
@@ -58,7 +59,7 @@ class UserFCMTopicsScreenView extends StatelessWidget {
           context: context,
           newPic: null,
           oldUser: _userModel,
-          newUser: _userModel.copyWith(
+          newUser: _userModel?.copyWith(
             fcmTopics: _updatedTopics,
           ),
         invoker: 'UserFCMTopicsScreenView._onSwitchAll',
@@ -70,14 +71,14 @@ class UserFCMTopicsScreenView extends StatelessWidget {
     else {
 
       final List<String> _updatedTopics = Stringer.removeStringsFromStrings(
-        removeFrom: _userModel.fcmTopics,
+        removeFrom: _userModel?.fcmTopics,
         removeThis: TopicModel.getAllPossibleUserTopicsIDs(),
       );
 
       await UserProtocols.renovate(
         context: context,
         newPic: null,
-        newUser: _userModel.copyWith(
+        newUser: _userModel?.copyWith(
           fcmTopics: _updatedTopics,
         ),
         oldUser: _userModel,
@@ -93,13 +94,13 @@ class UserFCMTopicsScreenView extends StatelessWidget {
 
     final Map<String, dynamic> _map = TopicModel.getTopicsMapByPartyType(PartyType.user);
 
-    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+    final UserModel? _userModel = UsersProvider.proGetMyUserModel(
       context: context,
       listen: true,
     );
 
     final List<String> _thisBzUserSubscribedTopics = TopicModel.getUserTopicsFromTopics(
-      topics: _userModel.fcmTopics,
+      topics: _userModel?.fcmTopics,
     );
 
     final bool _allIsOn = _thisBzUserSubscribedTopics.isNotEmpty;

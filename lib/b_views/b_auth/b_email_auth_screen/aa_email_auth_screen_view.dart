@@ -1,3 +1,6 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/legalizer/legalizer.dart';
 import 'package:bldrs/a_models/a_user/account_model.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
@@ -6,7 +9,7 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_head
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/password_bubble/password_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/bldrs_floating_list.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -14,45 +17,42 @@ import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
-import 'package:filers/filers.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:legalizer/legalizer.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 
 class EmailAuthScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const EmailAuthScreenView({
-    @required this.formKey,
-    @required this.emailController,
-    @required this.passwordController,
-    @required this.passwordConfirmationController,
-    @required this.emailValidator,
-    @required this.passwordValidator,
-    @required this.passwordConfirmationValidator,
-    @required this.switchSignIn,
-    @required this.onSignin,
-    @required this.onSignup,
-    @required this.isSigningIn,
-    @required this.appBarType,
-    @required this.passwordNode,
-    @required this.confirmPasswordNode,
-    @required this.isRememberingMe,
-    @required this.onSwitchRememberMe,
-    @required this.onSelectAccount,
-    @required this.myAccounts,
-    @required this.isObscured,
+    required this.formKey,
+    required this.emailController,
+    required this.passwordController,
+    required this.passwordConfirmationController,
+    required this.emailValidator,
+    required this.passwordValidator,
+    required this.passwordConfirmationValidator,
+    required this.switchSignIn,
+    required this.onSignin,
+    required this.onSignup,
+    required this.isSigningIn,
+    required this.appBarType,
+    required this.passwordNode,
+    required this.confirmPasswordNode,
+    required this.isRememberingMe,
+    required this.onSwitchRememberMe,
+    required this.onSelectAccount,
+    required this.myAccounts,
+    required this.isObscured,
     this.hasMargins = true,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final GlobalKey<FormState> formKey;
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final TextEditingController passwordConfirmationController;
-  final String Function(String) emailValidator;
-  final String Function(String) passwordValidator;
-  final String Function(String) passwordConfirmationValidator;
+  final String? Function(String?)? emailValidator;
+  final String? Function(String?)? passwordValidator;
+  final String? Function(String?)? passwordConfirmationValidator;
   final Function switchSignIn;
   final Function onSignin;
   final Function onSignup;
@@ -60,7 +60,7 @@ class EmailAuthScreenView extends StatelessWidget {
   final AppBarType appBarType;
   final FocusNode passwordNode;
   final FocusNode confirmPasswordNode;
-  final ValueNotifier<bool> isRememberingMe;
+  final ValueNotifier<bool>? isRememberingMe;
   final Function(bool rememberMe) onSwitchRememberMe;
   final Function(int index) onSelectAccount;
   final List<AccountModel> myAccounts;
@@ -68,8 +68,8 @@ class EmailAuthScreenView extends StatelessWidget {
   final bool hasMargins;
   /// --------------------------------------------------------------------------
   void _onSubmitted({
-    @required bool signingIn,
-    @required bool isOnConfirmPassword,
+    required bool signingIn,
+    required bool isOnConfirmPassword,
   }){
 
     blog('_onSubmitted : trying to submit');
@@ -105,7 +105,7 @@ class EmailAuthScreenView extends StatelessWidget {
       key: formKey,
       child: ValueListenableBuilder(
         valueListenable: isSigningIn,
-        builder: (_, bool _isSigningIn, Widget child){
+        builder: (_, bool _isSigningIn, Widget? child){
 
           return BldrsFloatingList(
             // physics: const BouncingScrollPhysics(),
@@ -146,22 +146,22 @@ class EmailAuthScreenView extends StatelessWidget {
                         ...List.generate(myAccounts.length, (index) {
                           final AccountModel _account = myAccounts[index];
 
-                          return FutureBuilder(
+                          return FutureBuilder<UserModel?>(
                             future: UserProtocols.fetch(
                               context: context,
                               userID: _account.id,
                             ),
-                            builder: (_, AsyncSnapshot<UserModel> snap) {
+                            builder: (_, AsyncSnapshot<UserModel?> snap) {
 
-                              final UserModel _userModel = snap.data;
-                              final String _userEmail = ContactModel.getValueFromContacts(
+                              final UserModel? _userModel = snap.data;
+                              final String? _userEmail = ContactModel.getValueFromContacts(
                                 contacts: _userModel?.contacts,
                                 contactType: ContactType.email,
                               );
 
                               return ValueListenableBuilder(
                                   valueListenable: emailController,
-                                  builder: (_, TextEditingValue currentEmail, Widget child) {
+                                  builder: (_, TextEditingValue currentEmail, Widget? child) {
                                     return BldrsBox(
                                       height: 35,
                                       width: 35,
@@ -192,7 +192,7 @@ class EmailAuthScreenView extends StatelessWidget {
                 passwordValidator: passwordValidator,
                 passwordConfirmationController: passwordConfirmationController,
                 passwordConfirmationValidator: passwordConfirmationValidator,
-                onSubmitted: (String text) => _onSubmitted(
+                onSubmitted: (String? text) => _onSubmitted(
                   signingIn: _isSigningIn,
                   isOnConfirmPassword: false,
                 ),
@@ -202,8 +202,8 @@ class EmailAuthScreenView extends StatelessWidget {
               /// REMEMBER ME
               if (isRememberingMe != null)
               ValueListenableBuilder(
-                valueListenable: isRememberingMe,
-                builder: (_, bool rememberMe, Widget child){
+                valueListenable: isRememberingMe!,
+                builder: (_, bool rememberMe, Widget? child){
 
                   return BldrsTileBubble(
                     bubbleWidth: _bubbleWidth,
@@ -273,10 +273,10 @@ class EmailAuthScreenView extends StatelessWidget {
                   'phid_by_using_bldrs_you_agree_to_our'
                       :
                   'phid_by_signing_up_you_agree_to_our',
-                ),
-                andLine: Verse.transBake('phid_and'),
-                policyLine: Verse.transBake('phid_privacy_policy'),
-                termsLine: Verse.transBake('phid_terms_of_service'),
+                )!,
+                andLine: Verse.transBake('phid_and')!,
+                policyLine: Verse.transBake('phid_privacy_policy')!,
+                termsLine: Verse.transBake('phid_terms_of_service')!,
               ),
 
               const Horizon(),

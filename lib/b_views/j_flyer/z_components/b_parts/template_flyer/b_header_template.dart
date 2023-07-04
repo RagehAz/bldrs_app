@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/a_left_spacer/static_slate_spacer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/d_labels/ffff_author_pic.dart';
@@ -5,14 +6,13 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_header_box
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:scale/scale.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:flutter/material.dart';
 
 class HeaderTemplate extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const HeaderTemplate({
-    @required this.flyerBoxWidth,
+    required this.flyerBoxWidth,
     this.opacity = 1,
     this.onTap,
     this.logo,
@@ -22,19 +22,19 @@ class HeaderTemplate extends StatelessWidget {
     this.thirdLine,
     this.fourthLine,
     this.fifthLine,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final double opacity;
-  final Function onTap;
-  final String logo;
-  final String authorImage;
-  final Verse firstLine;
-  final Verse secondLine;
-  final Verse thirdLine;
-  final Verse fourthLine;
-  final Verse fifthLine;
+  final Function? onTap;
+  final String? logo;
+  final String? authorImage;
+  final Verse? firstLine;
+  final Verse? secondLine;
+  final Verse? thirdLine;
+  final Verse? fourthLine;
+  final Verse? fifthLine;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,6 @@ class HeaderTemplate extends StatelessWidget {
         flyerBoxWidth: flyerBoxWidth,
         onHeaderTap: onTap,
         headerBorders: FlyerDim.headerSlateCorners(
-          context: context,
           flyerBoxWidth: flyerBoxWidth,
         ),
         headerColor: Colorz.black255,
@@ -110,7 +109,7 @@ class HeaderTemplate extends StatelessWidget {
                           flyerShowsAuthor: flyerShowsAuthor,
                       ),
                       // width: FlyerDim.headerLabelsWidth(flyerBoxWidth),
-                      child: Column(
+                      child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         // children: const <Widget>[
                           //

@@ -1,16 +1,15 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_color.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/d_progress_bar/d_progress_box.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-
 import 'package:flutter/material.dart';
 
 class LoadingProgressBar extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const LoadingProgressBar({
-    @required this.flyerBoxWidth,
-    Key key
-  }) : super(key: key);
+    required this.flyerBoxWidth,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   /// --------------------------------------------------------------------------
@@ -29,7 +28,6 @@ class LoadingProgressBar extends StatelessWidget {
             decoration: BoxDecoration(
               color: FlyerColors.progressStripOffColor,
               borderRadius: FlyerDim.progressStripCorners(
-                  context: context,
                   flyerBoxWidth: flyerBoxWidth,
               ),
             ),

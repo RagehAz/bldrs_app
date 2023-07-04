@@ -1,17 +1,17 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/widgets/drawing/expander.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/e_footer_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/f_footer_button_spacer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
 
 class FooterTemplate extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FooterTemplate({
-    @required this.flyerBoxWidth,
-    Key key
-  }) : super(key: key);
+    required this.flyerBoxWidth,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   /// --------------------------------------------------------------------------

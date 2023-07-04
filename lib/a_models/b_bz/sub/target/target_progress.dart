@@ -19,19 +19,19 @@ import 'package:flutter/foundation.dart';
 class Progress{
   /// --------------------------------------------------------------------------
   const Progress({
-    @required this.targetID,
-    @required this.objective,
-    @required this.current,
+    required this.targetID,
+    required this.objective,
+    required this.current,
   });
   /// --------------------------------------------------------------------------
-  final String targetID;
-  final int objective;
-  final int current;
+  final String? targetID;
+  final int? objective;
+  final int? current;
   /// --------------------------------------------------------------------------
   Progress copyWith({
-    String targetID,
-    int objective,
-    int current,
+    String? targetID,
+    int? objective,
+    int? current,
   }){
     return Progress(
       targetID: targetID ?? this.targetID,
@@ -46,8 +46,8 @@ class Progress{
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkProgressesAreIdentical({
-    @required Progress progress1,
-    @required Progress progress2,
+    required Progress? progress1,
+    required Progress? progress2,
   }){
     bool _areIdentical = false;
 
@@ -70,8 +70,8 @@ class Progress{
   }
   // --------------------
 
-  static Progress generateModelFromNoteProgress(NoteModel note){
-    Progress _output;
+  static Progress? generateModelFromNoteProgress(NoteModel? note){
+    Progress? _output;
 
     if (note != null){
 

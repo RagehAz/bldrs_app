@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 class ClipShadowPath extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ClipShadowPath({
-    @required this.shadow,
-    @required this.clipper,
-    @required this.child,
-    @required this.shadowIsOn,
-    Key key,
-  }) : super(key: key);
+    required this.shadow,
+    required this.clipper,
+    required this.child,
+    required this.shadowIsOn,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final Shadow shadow;
-  final CustomClipper<Path> clipper;
+  final CustomClipper<Path>? clipper;
   final bool shadowIsOn;
   final Widget child;
   /// --------------------------------------------------------------------------
@@ -47,17 +47,17 @@ class ClipShadowPath extends StatelessWidget {
 class _ClipShadowPainter extends CustomPainter {
   /// --------------------------------------------------------------------------
   _ClipShadowPainter({
-    @required this.shadow,
-    @required this.clipper
+    required this.shadow,
+    required this.clipper
   });
   /// --------------------------------------------------------------------------
   final Shadow shadow;
-  final CustomClipper<Path> clipper;
+  final CustomClipper<Path>? clipper;
   /// --------------------------------------------------------------------------
   @override
   void paint(Canvas canvas, Size size) {
     final dynamic paint = shadow.toPaint();
-    final dynamic clipPath = clipper.getClip(size).shift(shadow.offset);
+    final dynamic clipPath = clipper?.getClip(size).shift(shadow.offset);
     canvas.drawPath(clipPath, paint);
   }
   /// --------------------------------------------------------------------------

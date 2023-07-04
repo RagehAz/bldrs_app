@@ -1,10 +1,12 @@
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/m_search/search_model.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
-import 'package:stringer/stringer.dart';
 
 class FlyerSearch {
   // -----------------------------------------------------------------------------
@@ -14,14 +16,14 @@ class FlyerSearch {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static FireQueryModel createQuery({
-    SearchModel searchModel,
-    String title,
-    String orderBy,
-    bool descending,
+    SearchModel? searchModel,
+    String? title,
+    String? orderBy,
+    bool descending = true,
     int limit = 4,
-    String gtaLink,
+    String? gtaLink,
   }) {
-    final QueryOrderBy _orderBy = orderBy == null ? null
+    final QueryOrderBy? _orderBy = orderBy == null ? null
         : QueryOrderBy(
             fieldName: orderBy,
             descending: descending,
@@ -72,7 +74,7 @@ class FlyerSearch {
               field: 'trigram',
               comparison: FireComparison.arrayContains,
               value: TextMod.removeAllCharactersAfterNumberOfCharacters(
-                input: title.trim(),
+                text: title!.trim(),
                 numberOfChars: Standards.maxTrigramLength,
               )),
 
@@ -93,7 +95,7 @@ class FlyerSearch {
           ),
 
         /// SHOWING AUTHORS ONLY
-        if (searchModel?.flyerSearchModel?.onlyShowingAuthors == true)
+        if (Mapper.boolIsTrue(searchModel?.flyerSearchModel?.onlyShowingAuthors) == true)
           const FireFinder(
             field: 'showsAuthor',
             comparison: FireComparison.equalTo,
@@ -101,7 +103,7 @@ class FlyerSearch {
           ),
 
         /// PRICES ONLY
-        if (searchModel?.flyerSearchModel?.onlyWithPrices == true)
+        if (Mapper.boolIsTrue(searchModel?.flyerSearchModel?.onlyWithPrices) == true)
           const FireFinder(
             field: 'hasPriceTag',
             comparison: FireComparison.equalTo,
@@ -109,7 +111,7 @@ class FlyerSearch {
           ),
 
         /// AMAZON ONLY
-        if (searchModel?.flyerSearchModel?.onlyAmazonProducts == true)
+        if (Mapper.boolIsTrue(searchModel?.flyerSearchModel?.onlyAmazonProducts) == true)
           const FireFinder(
             field: 'isAmazonFlyer',
             comparison: FireComparison.equalTo,
@@ -133,7 +135,7 @@ class FlyerSearch {
           ),
 
         /// PDF
-        if (searchModel?.flyerSearchModel?.onlyWithPDF == true)
+        if (Mapper.boolIsTrue(searchModel?.flyerSearchModel?.onlyWithPDF) == true)
           const FireFinder(
             field: 'hasPDF',
             comparison: FireComparison.equalTo,

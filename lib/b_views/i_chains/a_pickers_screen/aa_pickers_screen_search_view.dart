@@ -1,3 +1,6 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
@@ -13,32 +16,30 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_b
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/no_result_found.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
-import 'package:mapper/mapper.dart';
-import 'package:filers/filers.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/material.dart';
 
 class PickersScreenSearchView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const PickersScreenSearchView({
-    @required this.screenHeight,
-    @required this.foundChains,
-    @required this.selectedSpecsNotifier,
-    @required this.searchText,
-    @required this.zone,
-    @required this.onlyUseZoneChains,
-    @required this.isMultipleSelectionMode,
-    @required this.refinedPickersNotifier,
-    @required this.allPickers,
-    @required this.mounted,
-    Key key
-  }) : super(key: key);
+    required this.screenHeight,
+    required this.foundChains,
+    required this.selectedSpecsNotifier,
+    required this.searchText,
+    required this.zone,
+    required this.onlyUseZoneChains,
+    required this.isMultipleSelectionMode,
+    required this.refinedPickersNotifier,
+    required this.allPickers,
+    required this.mounted,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double screenHeight;
   final ValueNotifier<List<Chain>> foundChains;
   final ValueNotifier<List<SpecModel>> selectedSpecsNotifier;
-  final ValueNotifier<String> searchText;
-  final ZoneModel zone;
+  final ValueNotifier<String?> searchText;
+  final ZoneModel? zone;
   final bool isMultipleSelectionMode;
   final bool onlyUseZoneChains;
   final ValueNotifier<List<PickerModel>> refinedPickersNotifier;
@@ -51,7 +52,7 @@ class PickersScreenSearchView extends StatelessWidget {
     return ValueListenableBuilder(
         key: const ValueKey<String>('PickersScreenSearchView'),
         valueListenable: foundChains,
-        builder: (_, List<Chain> _foundChains, Widget childB){
+        builder: (_, List<Chain> _foundChains, Widget? childB){
 
           final bool _noResultsFound = Mapper.checkCanLoopList(_foundChains) == false;
 
@@ -71,7 +72,7 @@ class PickersScreenSearchView extends StatelessWidget {
               color: Colorz.white10,
               child: ValueListenableBuilder(
                 valueListenable: selectedSpecsNotifier,
-                builder: (_, List<SpecModel> _selectedSpecs, Widget child){
+                builder: (_, List<SpecModel> _selectedSpecs, Widget? child){
 
                   return ListView.separated(
                       itemCount: _foundChains.length,
@@ -92,7 +93,7 @@ class PickersScreenSearchView extends StatelessWidget {
 
                         final Chain _chain = _foundChains[index];
 
-                        final PickerModel _picker = ChainsProvider.proGetPickerByChainID(
+                        final PickerModel? _picker = ChainsProvider.proGetPickerByChainID(
                           chainID: _chain.id,
                         );
 
@@ -116,16 +117,16 @@ class PickersScreenSearchView extends StatelessWidget {
                             picker: _picker,
                             searchText: searchText,
                             allSelectedSpecs: _selectedSpecs,
-                            onDeleteSpec: ({SpecModel value, SpecModel unit}) => onRemoveSpecs(
+                            onDeleteSpec: ({SpecModel? value, SpecModel? unit}) => onRemoveSpecs(
                               valueSpec: value,
                               unitSpec: unit,
                               pickers: allPickers,
                               selectedSpecsNotifier: selectedSpecsNotifier,
                               mounted: mounted,
                             ),
-                            onSelectedSpecTap: ({SpecModel value, SpecModel unit}){
+                            onSelectedSpecTap: ({SpecModel? value, SpecModel? unit}){
                               blog('a 77 aaa ChainsPickingScreen : onSpecTap');
-                              value.blogSpec();
+                              value?.blogSpec();
                               unit?.blogSpec();
                             },
                             onPickerTap: () => onGoToPickerScreen(
@@ -156,7 +157,7 @@ class PickersScreenSearchView extends StatelessWidget {
                             zone: zone,
 
                             /// ON PHID TAP => ADD PHID
-                            onPhidTap: (String path, String phid) => onSelectPhidInPickerScreen(
+                            onPhidTap: (String? path, String? phid) => onSelectPhidInPickerScreen(
                               context: context,
                               mounted: mounted,
                               phid: phid,
@@ -169,10 +170,10 @@ class PickersScreenSearchView extends StatelessWidget {
                             ),
 
 
-                            onPhidDoubleTap: (String path, String phid) => blog('ChainsScreenSearchView : onPhidDoubleTap : $path : $phid'),
-                            onPhidLongTap: (String path, String phid) => blog('ChainsScreenSearchView : onPhidLongTap : $path : $phid'),
+                            onPhidDoubleTap: (String? path, String? phid) => blog('ChainsScreenSearchView : onPhidDoubleTap : $path : $phid'),
+                            onPhidLongTap: (String? path, String? phid) => blog('ChainsScreenSearchView : onPhidLongTap : $path : $phid'),
                             onExportSpecs: (List<SpecModel> specs) => blog('ChainsScreenSearchView : specs : ${specs.length} specs'),
-                            onDataCreatorKeyboardSubmitted: (String text){
+                            onDataCreatorKeyboardSubmitted: (String? text){
                               blog('fuck this $text');
 
                               /*

@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shelf/z_add_flyer_slides_button.dart';
@@ -5,25 +6,24 @@ import 'package:bldrs/b_views/j_flyer/z_components/c_groups/draft_shelf/e_draft_
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:mediators/mediators.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:mediators/pic_maker/pic_maker.dart';
 
 class ShelfSlidesPart extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ShelfSlidesPart({
-    @required this.slideZoneHeight,
-    @required this.scrollController,
-    @required this.draft,
-    @required this.onSlideTap,
-    @required this.onDeleteSlide,
-    @required this.onAddSlides,
-    @required this.loading,
-    @required this.onReorderSlide,
-    Key key
-  }) : super(key: key);
+    required this.slideZoneHeight,
+    required this.scrollController,
+    required this.draft,
+    required this.onSlideTap,
+    required this.onDeleteSlide,
+    required this.onAddSlides,
+    required this.loading,
+    required this.onReorderSlide,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double slideZoneHeight;
   final ScrollController scrollController;
@@ -66,7 +66,7 @@ class ShelfSlidesPart extends StatelessWidget {
             animate: false,
           ),
         ),
-        builder: (_, bool isLoading, Widget loadingWidget){
+        builder: (_, bool isLoading, Widget? loadingWidget){
 
           return ReorderableListView(
               scrollController: scrollController,
@@ -84,9 +84,9 @@ class ShelfSlidesPart extends StatelessWidget {
 
                 /// SLIDES
                 if (Mapper.checkCanLoopList(draft.draftSlides) == true)
-                ...List.generate(draft.draftSlides.length, (index){
+                ...List.generate(draft.draftSlides!.length, (index){
 
-                  final DraftSlide _draftSlide = draft.draftSlides[index];
+                  final DraftSlide _draftSlide = draft.draftSlides![index];
 
                   return DraftShelfSlide(
                       key: ValueKey<String>('son_${_draftSlide.picModel.hashCode}'),
@@ -107,7 +107,7 @@ class ShelfSlidesPart extends StatelessWidget {
 
                 /// LOADING WIDGET
                 if (isLoading == true)
-                  loadingWidget,
+                  loadingWidget!,
 
               ],
           );

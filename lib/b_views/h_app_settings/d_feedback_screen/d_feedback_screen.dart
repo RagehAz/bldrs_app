@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'dart:ui' as ui;
-
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/x_secondary/feedback_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/images/bldrs_image_path_to_ui_image.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -16,18 +17,16 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/feedback_protocols/real/app_feedback_real_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
-import 'package:night_sky/night_sky.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class FeedbackScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const FeedbackScreen({
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   @override
   _FeedbackScreenState createState() => _FeedbackScreenState();
@@ -36,12 +35,12 @@ class FeedbackScreen extends StatefulWidget {
 
 class _FeedbackScreenState extends State<FeedbackScreen> {
   // -----------------------------------------------------------------------------
-  TextEditingController _feedbackController;
+  late TextEditingController _feedbackController;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -67,7 +66,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
     unawaited(_triggerLoading(setTo: true));
 
     /// upload text to firebase
-    final FeedbackModel _uploadedModel = await FeedbackRealOps.createFeedback(
+    final FeedbackModel? _uploadedModel = await FeedbackRealOps.createFeedback(
       feedback: FeedbackModel(
         userID: Authing.getUserID(),
         timeStamp: DateTime.now(),
@@ -113,7 +112,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+    final UserModel? _userModel = UsersProvider.proGetMyUserModel(
       context: context,
       listen: true,
     );
@@ -168,7 +167,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
 
           BldrsImagePathToUiImage(
             imagePath: _userModel?.picPath,
-            builder: (bool loading, ui.Image uiImage){
+            builder: (bool loading, ui.Image? uiImage){
 
               return BldrsTextFieldBubble(
                 appBarType: AppBarType.basic,

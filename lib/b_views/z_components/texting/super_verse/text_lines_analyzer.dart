@@ -1,19 +1,19 @@
+import 'package:basics/helpers/classes/strings/text_directioners.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:stringer/stringer.dart';
 
 class TextLinesAnalyzer extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const TextLinesAnalyzer({
-    @required this.text,
-    @required this.textStyle,
-    @required this.maxLines,
-    @required this.childIfExceededMaxLines,
-    @required this.childIfWithinMaxLines,
-    Key key,
-  }) : super(key: key);
+    required this.text,
+    required this.textStyle,
+    required this.maxLines,
+    required this.childIfExceededMaxLines,
+    required this.childIfWithinMaxLines,
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final String text;
+  final String? text;
   final TextStyle textStyle;
   final int maxLines;
   final Widget childIfExceededMaxLines;
@@ -35,7 +35,6 @@ class TextLinesAnalyzer extends StatelessWidget {
           maxLines: maxLines,
           textDirection: TextDir.autoSwitchTextDirection(
             val: text,
-            context: context,
             appIsLTR: UiProvider.checkAppIsLeftToRight()
           ),
         );

@@ -1,13 +1,13 @@
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/flyers_grid_builder.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class LoadingFlyersGrid extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const LoadingFlyersGrid({
-    @required this.hasResponsiveSideMargin,
+    required this.hasResponsiveSideMargin,
     this.gridWidth,
     this.gridHeight,
     this.scrollController,
@@ -15,12 +15,12 @@ class LoadingFlyersGrid extends StatelessWidget {
     this.numberOfColumnsOrRows = 2,
     this.scrollDirection = Axis.vertical,
     this.scrollable = true,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final double gridWidth;
-  final double gridHeight;
-  final ScrollController scrollController;
+  final double? gridWidth;
+  final double? gridHeight;
+  final ScrollController? scrollController;
   final double topPadding;
   final int numberOfColumnsOrRows;
   final Axis scrollDirection;
@@ -29,20 +29,22 @@ class LoadingFlyersGrid extends StatelessWidget {
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+    final double _gridWidth = gridWidth ?? MediaQuery.of(context).size.width;
+    final double _gridHeight = gridHeight ?? MediaQuery.of(context).size.height;
     // --------------------
     final double _gridSlotWidth = FlyerDim.flyerGridFlyerBoxWidth(
       context: context,
       scrollDirection: scrollDirection,
       numberOfColumnsOrRows: numberOfColumnsOrRows,
-      gridHeight: gridHeight,
-      gridWidth: gridWidth,
+      gridHeight: _gridHeight,
+      gridWidth: _gridWidth,
       hasResponsiveSideMargin: hasResponsiveSideMargin,
       // spacingRatio: ,
     );
     // --------------------
     return FlyersGridBuilder(
-        gridWidth: gridWidth,
-        gridHeight: gridHeight,
+        gridWidth: _gridWidth,
+        gridHeight: _gridHeight,
         scrollController: scrollController,
         scrollable: scrollable,
         topPadding: topPadding,

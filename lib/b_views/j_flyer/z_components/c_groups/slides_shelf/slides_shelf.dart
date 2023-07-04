@@ -1,23 +1,26 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class SlidesShelf extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SlidesShelf({
-    @required this.title,
-    @required this.pics,
-    @required this.onImageTap,
-    @required this.onAddButtonOnTap,
-    @required this.shelfHeight,
-    Key key,
-  }) : super(key: key);
+    required this.title,
+    required this.pics,
+    required this.onImageTap,
+    required this.onAddButtonOnTap,
+    required this.shelfHeight,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final String title;
   final List<dynamic> pics;
@@ -47,7 +50,7 @@ class SlidesShelf extends StatelessWidget {
       flyerSizeFactor: _flyerSizeFactor,
       gridWidth: _screenWidth,
     );
-    final BorderRadius _flyerBorderRadius = FlyerDim.flyerCorners(context, _flyerZoneWidth);
+    final BorderRadius _flyerBorderRadius = FlyerDim.flyerCorners(_flyerZoneWidth);
     final double _titleZoneHeight = _flyerZoneWidth * 0.5;
     // --------------------
     return SizedBox(
@@ -106,8 +109,7 @@ class SlidesShelf extends StatelessWidget {
                         height: _flyerNumberTagZoneHeight,
                         // padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
                         decoration: BoxDecoration(
-                          borderRadius: Borderers.cornerAll(
-                              context, Ratioz.appBarButtonCorner * 0.5),
+                          borderRadius: Borderers.cornerAll(Ratioz.appBarButtonCorner * 0.5),
                           // color: Colorz.WhiteAir,
                         ),
                         alignment: BldrsAligners.superCenterAlignment(context),

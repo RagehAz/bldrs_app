@@ -1,30 +1,30 @@
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 
 @immutable
 class FlyerSearchModel {
   // -----------------------------------------------------------------------------
   const FlyerSearchModel({
-    @required this.flyerType,
-    @required this.onlyShowingAuthors,
-    @required this.onlyWithPrices,
-    @required this.onlyWithPDF,
-    @required this.onlyAmazonProducts,
-    @required this.phid,
-    @required this.publishState,
-    @required this.auditState,
+    required this.flyerType,
+    required this.onlyShowingAuthors,
+    required this.onlyWithPrices,
+    required this.onlyWithPDF,
+    required this.onlyAmazonProducts,
+    required this.phid,
+    required this.publishState,
+    required this.auditState,
   });
   // -----------------------------------------------------------------------------
-  final FlyerType flyerType;
-  final bool onlyShowingAuthors;
-  final bool onlyWithPrices;
-  final bool onlyWithPDF;
-  final bool onlyAmazonProducts;
-  final String phid;
-  final PublishState publishState;
-  final AuditState auditState;
+  final FlyerType? flyerType;
+  final bool? onlyShowingAuthors;
+  final bool? onlyWithPrices;
+  final bool? onlyWithPDF;
+  final bool? onlyAmazonProducts;
+  final String? phid;
+  final PublishState? publishState;
+  final AuditState? auditState;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -32,14 +32,14 @@ class FlyerSearchModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   FlyerSearchModel copyWith({
-    FlyerType flyerType,
-    bool onlyShowingAuthors,
-    bool onlyWithPrices,
-    bool onlyWithPDF,
-    bool onlyAmazonProducts,
-    String phid,
-    PublishState publishState,
-    AuditState auditState,
+    FlyerType? flyerType,
+    bool? onlyShowingAuthors,
+    bool? onlyWithPrices,
+    bool? onlyWithPDF,
+    bool? onlyAmazonProducts,
+    String? phid,
+    PublishState? publishState,
+    AuditState? auditState,
   }){
     return FlyerSearchModel(
       flyerType: flyerType ?? this.flyerType,
@@ -83,8 +83,8 @@ class FlyerSearchModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> cipher(FlyerSearchModel flyerSearchModel){
-    Map<String, dynamic> _output;
+  static Map<String, dynamic>? cipher(FlyerSearchModel? flyerSearchModel){
+    Map<String, dynamic>? _output;
 
     if (flyerSearchModel != null) {
       _output = {
@@ -103,8 +103,8 @@ class FlyerSearchModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static FlyerSearchModel decipher(Map<String, dynamic> map){
-    FlyerSearchModel _output;
+  static FlyerSearchModel? decipher(Map<String, dynamic>? map){
+    FlyerSearchModel? _output;
 
     if (map != null){
       _output = FlyerSearchModel(
@@ -128,8 +128,8 @@ class FlyerSearchModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool areIdentical({
-    @required FlyerSearchModel model1,
-    @required FlyerSearchModel model2,
+    required FlyerSearchModel? model1,
+    required FlyerSearchModel? model2,
   }){
     bool _output;
 

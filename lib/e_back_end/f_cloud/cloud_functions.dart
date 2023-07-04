@@ -1,14 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
-
+import 'package:basics/helpers/classes/checks/error_helpers.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:cloud_functions/cloud_functions.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:stringer/stringer.dart';
 
 /// http trigger -> ( callable function - end point request )
 class CloudFunction {
@@ -27,7 +27,7 @@ class CloudFunction {
 
   // --------------------
   /// FirebaseFunctions SINGLETON
-  FirebaseFunctions _fireFunctions;
+  FirebaseFunctions? _fireFunctions;
   FirebaseFunctions get fireFunctions => _fireFunctions ??= FirebaseFunctions.instanceFor(
       region: bldrsCloudFunctionsRegion,
   );
@@ -57,7 +57,7 @@ class CloudFunction {
   // --------------------
   /// TESTED : WORKS PERFECT
   static HttpsCallable _createHttpsCallableFunction({
-    @required String funcName,
+    required String funcName,
     Duration timeout = const Duration(seconds: 60),
   }) {
     return getFireFunctionsInstance().httpsCallable(
@@ -74,10 +74,10 @@ class CloudFunction {
   // --------------------
   /// TESTED : WORKS
   static Future<dynamic> call({
-    @required BuildContext context,
-    @required String functionName,
-    Map<String, dynamic> mapToPass,
-    ValueChanged<dynamic> onFinish,
+    required BuildContext context,
+    required String functionName,
+    Map<String, dynamic>? mapToPass,
+    Function(dynamic)? onFinish,
   }) async {
 
     dynamic _output;
@@ -157,16 +157,16 @@ class CloudFunction {
   /// TESTED : WORKS PERFECT
   static const String _realIncrementationLink = 'https://www.bldrs.net/counters?operation=';
   // -----------------------------------------------------------------------------
-  static Future<void> incrementDocFieldNourMethod({
-    @required String docID,
-    @required String fieldName,
-    @required String collName,
-    @required bool increment,
+  static Future<String?> incrementDocFieldNourMethod({
+    required String docID,
+    required String fieldName,
+    required String collName,
+    required bool increment,
   }) async {
 
     /// TASK : SHOULD RETURN THE ENTIRE MAP
 
-    String _docID;
+    String? _docID;
 
     await tryAndCatch(
         functions: () async {
@@ -210,8 +210,6 @@ class CloudFunction {
     );
 
     return _docID;
-
-
   }
 // -----------------------------------------------------------------------------
 
@@ -225,9 +223,9 @@ class BldrsCloudFunctions{
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteStorageDirectory({
-    @required BuildContext context,
-    @required String path,
-    Function onFinish,
+    required BuildContext context,
+    required String? path,
+    Function(dynamic)? onFinish,
   }) async {
 
     if (TextCheck.isEmpty(path) == false){

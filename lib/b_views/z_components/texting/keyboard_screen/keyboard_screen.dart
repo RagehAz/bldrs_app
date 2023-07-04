@@ -1,48 +1,52 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/x_ui/keyboard_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:night_sky/night_sky.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:flutter/material.dart';
-import 'package:stringer/stringer.dart';
 
 class KeyboardScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const KeyboardScreen({
-    @required this.keyboardModel,
+    required this.keyboardModel,
     this.confirmButtonIsOn = true,
     this.columnChildren,
     this.screenTitleVerse,
-    Key key
-  }) : super(key: key);
+    this.initialText,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final KeyboardModel keyboardModel;
   final bool confirmButtonIsOn;
-  final List<Widget> columnChildren;
-  final Verse screenTitleVerse;
+  final List<Widget>? columnChildren;
+  final Verse? screenTitleVerse;
+  final String? initialText;
   /// --------------------------------------------------------------------------
   @override
   _KeyboardScreenState createState() => _KeyboardScreenState();
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<String> goToKeyboardScreen({
-    @required BuildContext context,
-    KeyboardModel keyboardModel,
-    Verse screenTitleVerse,
+  static Future<String?> goToKeyboardScreen({
+    required BuildContext context,
+    KeyboardModel? keyboardModel,
+    Verse? screenTitleVerse,
+    String? initialText,
   }) async {
 
-    final String _output = await Nav.goToNewScreen(
+    final String? _output = await Nav.goToNewScreen(
       context: context,
       screen: KeyboardScreen(
         keyboardModel: keyboardModel ?? KeyboardModel.standardModel(),
         screenTitleVerse: screenTitleVerse,
+        initialText: initialText,
         // confirmButtonIsOn: true,
       ),
     );
@@ -55,7 +59,7 @@ class KeyboardScreen extends StatefulWidget {
 class _KeyboardScreenState extends State<KeyboardScreen> {
   // -----------------------------------------------------------------------------
   final GlobalKey _globalKey = GlobalKey<FormState>();
-  KeyboardModel _keyboardModel;
+  late KeyboardModel _keyboardModel;
   final ValueNotifier<bool> _canSubmit = ValueNotifier<bool>(false);
   final TextEditingController _controller = TextEditingController();
   // -----------------------------------------------------------------------------
@@ -63,7 +67,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
   /*
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -77,7 +81,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
     super.initState();
 
     _keyboardModel = widget.keyboardModel;
-    _controller.text = _keyboardModel.initialText;
+    _controller.text = widget.initialText ?? _keyboardModel.initialText ?? '';
 
   }
   // --------------------
@@ -106,17 +110,17 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
-  void _onTextChanged(String text){
+  void _onTextChanged(String? text){
 
     if (_keyboardModel.onChanged != null){
-      _keyboardModel.onChanged(text);
+      _keyboardModel.onChanged?.call(text);
     }
 
     /// VALIDATOR IS DEFINED
     if (_keyboardModel.validator != null){
 
       /// VALIDATOR IS VALID
-      if (_keyboardModel.validator(_controller.text) == null){
+      if (_keyboardModel.validator?.call(_controller.text) == null){
         setNotifier(
           notifier: _canSubmit,
           mounted: mounted,
@@ -146,11 +150,11 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
 
   }
   // --------------------
-  Future<void> _onSubmit (String text) async {
+  Future<void> _onSubmit (String? text) async {
 
     if (_keyboardModel.onSubmitted != null){
-      if (_keyboardModel.validator == null || _keyboardModel.validator(text) == null){
-        _keyboardModel.onSubmitted(text);
+      if (_keyboardModel.validator == null || _keyboardModel.validator?.call(text) == null){
+        _keyboardModel.onSubmitted?.call(text);
       }
     }
 
@@ -178,7 +182,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
       title: widget.screenTitleVerse,
       child: ValueListenableBuilder(
         valueListenable: _canSubmit,
-        builder: (_, bool canSubmit, Widget child){
+        builder: (_, bool canSubmit, Widget? child){
 
           return Column(
             children: <Widget>[
@@ -205,11 +209,11 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                 keyboardTextInputAction: _keyboardModel.textInputAction,
                 autoFocus: true,
                 isFormField: true,
-                onSubmitted: (String text) => _onSubmit(text),
+                onSubmitted: (String? text) => _onSubmit(text),
                 // autoValidate: true,
-                validator: (String text){
-                  if (_keyboardModel?.validator != null){
-                    return _keyboardModel.validator(_controller.text);
+                validator: (String? text){
+                  if (_keyboardModel.validator != null){
+                    return _keyboardModel.validator?.call(_controller.text);
                   }
                   else {
                     return null;
@@ -242,7 +246,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
 
               /// EXTRA CHILDREN
               if (widget.columnChildren != null)
-                ... widget.columnChildren,
+                ... widget.columnChildren!,
 
               const Horizon(),
 

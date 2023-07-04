@@ -1,22 +1,21 @@
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-
 import 'package:flutter/material.dart';
 
 class AuthorRoleButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const AuthorRoleButton({
-    @required this.verse,
-    @required this.isOn,
-    @required this.icon,
+    required this.verse,
+    required this.isOn,
+    required this.icon,
     this.onTap,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final Verse verse;
-  final Function onTap;
+  final Function? onTap;
   final bool isOn;
   final String icon;
   /// --------------------------------------------------------------------------
@@ -33,7 +32,7 @@ class AuthorRoleButton extends StatelessWidget {
       color: isOn == true ? Colorz.yellow255 : Colorz.nothing,
       iconColor: isOn == true ? Colorz.black255 : Colorz.white255,
       verseColor: isOn == true ? Colorz.black255 : Colorz.white255,
-      verseShadow: false,
+      // verseShadow: false,
       verseWeight: isOn == true ? VerseWeight.black : VerseWeight.thin,
       verseItalic: true,
       margins: const EdgeInsets.only(bottom: 10),

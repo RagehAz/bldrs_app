@@ -1,34 +1,35 @@
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/layouts/handlers/max_bounce_navigator.dart';
+import 'package:basics/layouts/separators/separator_line.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk_icons_builder.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk_verses_builder.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:provider/provider.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class Obelisk extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const Obelisk({
-    @required this.onRowTap,
-    @required this.progressBarModel,
-    @required this.navModels,
-    Key key
-  }) : super(key: key);
+    required this.onRowTap,
+    required this.progressBarModel,
+    required this.navModels,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final ValueChanged<int> onRowTap;
-  final ValueNotifier<ProgressBarModel> progressBarModel;
-  final List<NavModel> navModels;
+  final ValueNotifier<ProgressBarModel?> progressBarModel;
+  final List<NavModel?> navModels;
   // --------------------
   static const double circleWidth = 40;
   static const boxWidth = circleWidth + (2 * Ratioz.appBarPadding);
   // --------------------
   // static double getBoxMaxHeight({
-  //   @required bool isBig,
-  //   @required int numberOfButtons,
+  //   required bool isBig,
+  //   required int numberOfButtons,
   // }){
     // const double _circleWidth = Obelisk.circleWidth;
     // final double _height = isBig ?
@@ -41,8 +42,8 @@ class Obelisk extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double getContentsHeight({
-    @required BuildContext context,
-    @required List<NavModel> navModels,
+    required BuildContext context,
+    required List<NavModel?> navModels,
   }){
 
     double _result = 0;
@@ -50,13 +51,13 @@ class Obelisk extends StatelessWidget {
 
     if (Mapper.checkCanLoopList(navModels) == true){
 
-      for (final NavModel navModel in navModels){
+      for (final NavModel? navModel in navModels){
 
-        if (navModel?.canShow == true){
+        if (Mapper.boolIsTrue(navModel?.canShow) == true){
           _result = _result + Obelisk.circleWidth;
           // _numberOfCircles++;
         }
-        else if (navModel?.canShow == false){
+        else if (Mapper.boolIsTrue(navModel?.canShow) == false){
           _result = _result + 0;
         }
         else {
@@ -76,7 +77,7 @@ class Obelisk extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static dynamic stuffAlignment({
-    @required bool isCross,
+    required bool isCross,
   }){
 
     const bool isStart = true;
@@ -95,8 +96,8 @@ class Obelisk extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double extraHeightToAchieveScrollability({
-    @required BuildContext context,
-    @required List<NavModel> navModels,
+    required BuildContext context,
+    required List<NavModel?> navModels,
   }){
 
       /// so the inner box that has a height specified by [getContentsHeight] can be less
@@ -115,7 +116,7 @@ class Obelisk extends StatelessWidget {
         return (_maxHeight - _contentsHeight) + 20;
       }
 
-      /// contets height is more than max height : contents are LONGER
+      /// contents height is more than max height : contents are LONGER
       else {
         return 0;
       }
@@ -129,8 +130,8 @@ class Obelisk extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double gotContentsScrollableHeight({
-    @required BuildContext context,
-    @required List<NavModel> navModels,
+    required BuildContext context,
+    required List<NavModel?> navModels,
   }){
 
     final bool _isLandScape = MediaQuery.of(context).orientation == Orientation.landscape;
@@ -164,10 +165,11 @@ class Obelisk extends StatelessWidget {
       return Positioned(
         key: const ValueKey<String>('Obelisk'),
         right: Ratioz.appBarMargin,
-        bottom: Ratioz.appBarMargin,
+        bottom: 0,
         child: Selector<UiProvider, bool>(
           selector: (_, UiProvider uiProvider) => uiProvider.pyramidsAreExpanded,
-          builder: (_, bool expanded, Widget child) {
+          builder: (_, bool? expanded, Widget? child) {
+
             final bool _ignore = expanded == null || expanded == true ? false : true;
 
             return IgnorePointer(
@@ -184,7 +186,7 @@ class Obelisk extends StatelessWidget {
               ),
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
-                padding: EdgeInsets.zero,
+                padding: const EdgeInsets.only(bottom: 20),
                 child: Row(
                   // mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -217,10 +219,11 @@ class Obelisk extends StatelessWidget {
       return Positioned(
         key: const ValueKey<String>('Obelisk'),
         left: Ratioz.appBarMargin,
-        bottom: Ratioz.appBarMargin,
+        bottom: 0,
         child: Selector<UiProvider, bool>(
           selector: (_, UiProvider uiProvider) => uiProvider.pyramidsAreExpanded,
-          builder: (_, bool expanded, Widget child) {
+          builder: (_, bool? expanded, Widget? child) {
+
             final bool _ignore = expanded == null || expanded == true ? false : true;
 
             return IgnorePointer(
@@ -238,7 +241,7 @@ class Obelisk extends StatelessWidget {
               ),
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
-                padding: EdgeInsets.zero,
+                padding: const EdgeInsets.only(bottom: 30),
                 child: Row(
                   // mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: stuffAlignment(isCross: true),

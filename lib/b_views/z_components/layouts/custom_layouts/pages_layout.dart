@@ -1,19 +1,19 @@
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:flutter/material.dart';
 
 class PagerBuilder extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const PagerBuilder({
-    @required this.pageBubbles,
+    required this.pageBubbles,
     this.progressBarModel,
     this.pageController,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   // --------------------------------------------------------------------------
   final List<Widget> pageBubbles;
-  final ValueNotifier<ProgressBarModel> progressBarModel;
-  final PageController pageController;
+  final ValueNotifier<ProgressBarModel?>? progressBarModel;
+  final PageController? pageController;
   // --------------------------------------------------------------------------
   @override
   _PagerBuilderState createState() => _PagerBuilderState();
@@ -22,14 +22,14 @@ class PagerBuilder extends StatefulWidget {
 
 class _PagerBuilderState extends State<PagerBuilder> {
   // -----------------------------------------------------------------------------
-  ValueNotifier<ProgressBarModel> _progressBarModel;
-  PageController _pageController;
+  late ValueNotifier<ProgressBarModel?> _progressBarModel;
+  late PageController _pageController;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
   /*
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -83,7 +83,7 @@ class _PagerBuilderState extends State<PagerBuilder> {
     }
 
     else {
-      _progressBarModel = widget.progressBarModel;
+      _progressBarModel = widget.progressBarModel!;
     }
 
   }

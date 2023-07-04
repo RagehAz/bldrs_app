@@ -1,6 +1,6 @@
+import 'package:basics/helpers/classes/space/aligner.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
 /// => TAMAM
 class BldrsAligners {
   // -----------------------------------------------------------------------------
@@ -78,7 +78,7 @@ class BldrsAligners {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static double rightPositionInLeftAlignmentEn(BuildContext context, double offsetFromRight) {
+  static double? rightPositionInLeftAlignmentEn(double? offsetFromRight) {
 
     return Aligner.rightOffsetInLeftAlignmentEn(
         appIsLTR: UiProvider.checkAppIsLeftToRight(),
@@ -88,7 +88,7 @@ class BldrsAligners {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static double leftPositionInLeftAlignmentEn(BuildContext context, double offsetFromLeft) {
+  static double? leftPositionInLeftAlignmentEn(double? offsetFromLeft) {
 
     return Aligner.leftOffsetInLeftAlignmentEn(
         appIsLTR: UiProvider.checkAppIsLeftToRight(),
@@ -98,7 +98,7 @@ class BldrsAligners {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static double rightPositionInRightAlignmentEn(BuildContext context, double offsetFromRight) {
+  static double? rightPositionInRightAlignmentEn(double offsetFromRight) {
 
     return Aligner.rightOffsetInRightAlignmentEn(
         appIsLTR: UiProvider.checkAppIsLeftToRight(),
@@ -108,7 +108,7 @@ class BldrsAligners {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static double leftPositionInRightAlignmentEn(BuildContext context, double offsetFromLeft) {
+  static double? leftPositionInRightAlignmentEn(double offsetFromLeft) {
 
     return Aligner.leftOffsetInRightAlignmentEn(
         appIsLTR: UiProvider.checkAppIsLeftToRight(),

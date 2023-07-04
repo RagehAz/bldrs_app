@@ -11,32 +11,32 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/e_fo
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class StaticHeader extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const StaticHeader({
-    @required this.flyerBoxWidth,
-    @required this.bzModel,
-    @required this.authorID,
-    @required this.flyerShowsAuthor,
+    required this.flyerBoxWidth,
+    required this.bzModel,
+    required this.authorID,
+    required this.flyerShowsAuthor,
     this.onTap,
     this.showHeaderLabels = false,
     this.flightDirection = FlightDirection.non,
     this.bzImageLogo,
     this.authorImage,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final BzModel bzModel;
-  final String authorID;
-  final Function onTap;
-  final bool flyerShowsAuthor;
+  final BzModel? bzModel;
+  final String? authorID;
+  final Function? onTap;
+  final bool? flyerShowsAuthor;
   final bool showHeaderLabels;
   final FlightDirection flightDirection;
-  final ui.Image bzImageLogo;
-  final ui.Image authorImage;
+  final ui.Image? bzImageLogo;
+  final ui.Image? authorImage;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -54,11 +54,10 @@ class StaticHeader extends StatelessWidget {
       flyerBoxWidth: flyerBoxWidth,
       headerHeightTween: FlyerDim.headerSlateHeight(flyerBoxWidth),
       headerBorders: FlyerDim.headerSlateCorners(
-        context: context,
         flyerBoxWidth: flyerBoxWidth,
       ),
       headerColor: FlyerColors.headerColor,
-      onHeaderTap: onTap,
+      onHeaderTap: onTap == null ? null : () => onTap?.call(),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -109,25 +108,24 @@ class StaticHeader extends StatelessWidget {
 
                   /// FOLLOW BUTTON
                   if (showHeaderLabels == true)
-                  FollowButton(
-                    flyerBoxWidth: flyerBoxWidth,
-                    onFollowTap: null,
-                    tappingUnfollow: null,
-                    followIsOn: ValueNotifier(false),
-                  ),
+                    FollowButton(
+                      flyerBoxWidth: flyerBoxWidth,
+                      onFollowTap: null,
+                      followIsOn: ValueNotifier(false),
+                    ),
 
                   /// FAKE SPACE PADDING BETWEEN FOLLOW & GALLERY BUTTONS
                   if (showHeaderLabels == true)
                     StaticHeaderSlateSpacer(
-                    flyerBoxWidth: flyerBoxWidth,
-                  ),
+                      flyerBoxWidth: flyerBoxWidth,
+                    ),
 
                   /// Call BUTTON
                   if (showHeaderLabels == true)
                     CallButton(
-                    flyerBoxWidth: flyerBoxWidth,
-                    onCallTap: null,
-                  ),
+                      flyerBoxWidth: flyerBoxWidth,
+                      onCallTap: null,
+                    ),
 
                 ],
               ),

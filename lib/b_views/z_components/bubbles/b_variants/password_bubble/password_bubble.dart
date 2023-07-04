@@ -8,37 +8,37 @@ import 'package:flutter/material.dart';
 class PasswordBubbles extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const PasswordBubbles({
-    @required this.appBarType,
-    @required this.passwordController,
-    @required this.showPasswordOnly,
-    @required this.passwordValidator,
-    @required this.onSubmitted,
-    @required this.passwordConfirmationController,
-    @required this.passwordConfirmationValidator,
-    @required this.passwordNode,
-    @required this.confirmPasswordNode,
-    @required this.isObscured,
+    required this.appBarType,
+    required this.passwordController,
+    required this.showPasswordOnly,
+    required this.passwordValidator,
+    required this.onSubmitted,
+    required this.passwordConfirmationController,
+    required this.passwordConfirmationValidator,
+    required this.passwordNode,
+    required this.confirmPasswordNode,
+    required this.isObscured,
     this.bubbleWidth,
     this.isTheSuperKeyboardField = false,
     this.goOnKeyboardGo = true,
     this.mainAxisAlignment,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final double bubbleWidth;
+  final double? bubbleWidth;
   final TextEditingController passwordController;
   final bool showPasswordOnly;
-  final String Function(String) passwordValidator;
-  final ValueChanged<String> onSubmitted;
-  final TextEditingController passwordConfirmationController;
-  final String Function(String) passwordConfirmationValidator;
+  final String? Function(String?)? passwordValidator;
+  final Function(String?)? onSubmitted;
+  final TextEditingController? passwordConfirmationController;
+  final String? Function(String?)? passwordConfirmationValidator;
   final bool isTheSuperKeyboardField;
   final AppBarType appBarType;
   final FocusNode passwordNode;
-  final FocusNode confirmPasswordNode;
+  final FocusNode? confirmPasswordNode;
   final bool goOnKeyboardGo;
   final ValueNotifier<bool> isObscured;
-  final MainAxisAlignment mainAxisAlignment;
+  final MainAxisAlignment? mainAxisAlignment;
   /// --------------------------------------------------------------------------
   TextInputAction _getTextInputAction(){
 
@@ -82,10 +82,10 @@ class PasswordBubbles extends StatelessWidget {
             Verse(id: 'phid_min6Char', translate: true,),
           ],
           isObscured: isObscured,
-          onSubmitted: (String text){
+          onSubmitted: (String? text){
 
             if (onSubmitted != null){
-              onSubmitted(text);
+              onSubmitted?.call(text);
             }
 
             if (showPasswordOnly == false){

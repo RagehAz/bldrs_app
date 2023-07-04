@@ -1,21 +1,21 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class GradientLayer extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const GradientLayer({
-    @required this.width,
-    @required this.height,
-    @required this.isWhite,
+    required this.width,
+    required this.height,
+    required this.isWhite,
     this.color,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double width;
   final double height;
   final bool isWhite;
-  final Color color;
+  final Color? color;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

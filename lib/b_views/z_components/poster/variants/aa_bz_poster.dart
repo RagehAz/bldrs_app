@@ -1,3 +1,4 @@
+import 'package:basics/helpers/widgets/drawing/super_positioned.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/static_flyer/b_static_header.dart';
@@ -5,22 +6,21 @@ import 'package:bldrs/b_views/j_flyer/z_components/c_groups/deck/flyer_deck.dart
 import 'package:bldrs/b_views/z_components/poster/structure/x_note_poster_box.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
 
 class BzPoster extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const BzPoster({
-    @required this.width,
-    @required this.bzModel,
-    @required this.bzSlidesInOneFlyer,
-    @required this.screenName,
-    Key key
-  }) : super(key: key);
+    required this.width,
+    required this.bzModel,
+    required this.bzSlidesInOneFlyer,
+    required this.screenName,
+    super.key
+  });
   // --------------------
   final double width;
   final BzModel bzModel;
-  final FlyerModel bzSlidesInOneFlyer;
-  final String screenName;
+  final FlyerModel? bzSlidesInOneFlyer;
+  final String? screenName;
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

@@ -1,31 +1,32 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_editor_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/slide_editor/slide_editor_control_panel.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
-import 'package:scale/scale.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:flutter/material.dart';
-import 'package:super_image/super_image.dart';
+import 'package:basics/super_image/super_image.dart';
 
 class FiltersSelectorControlPanel extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FiltersSelectorControlPanel({
-    @required this.height,
-    @required this.onSelectFilter,
-    @required this.onBack,
-    @required this.slide,
-    @required this.opacity,
-    @required this.onOpacityChanged,
-    Key key
-  }) : super(key: key);
+    required this.height,
+    required this.onSelectFilter,
+    required this.onBack,
+    required this.slide,
+    required this.opacity,
+    required this.onOpacityChanged,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double height;
-  final ValueChanged<ImageFilterModel> onSelectFilter;
+  final ValueChanged<ImageFilterModel?> onSelectFilter;
   final Function onBack;
   final ValueNotifier<DraftSlide> slide;
   final ValueNotifier<double> opacity;
@@ -58,7 +59,7 @@ class FiltersSelectorControlPanel extends StatelessWidget {
             height: _sliderZoneHeight,
             child: ValueListenableBuilder(
               valueListenable: opacity,
-              builder: (_, double _opacity, Widget child){
+              builder: (_, double _opacity, Widget? child){
 
                 return Slider(
                   activeColor: Colorz.yellow255,
@@ -85,7 +86,7 @@ class FiltersSelectorControlPanel extends StatelessWidget {
                 final int index = i - 1;
                 final bool isBackButton = i == 0;
 
-                final ImageFilterModel _filter = isBackButton ? null : presetFiltersList[index];
+                final ImageFilterModel? _filter = isBackButton ? null : presetFiltersList[index];
 
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
@@ -110,13 +111,13 @@ class FiltersSelectorControlPanel extends StatelessWidget {
                         if (isBackButton == false)
                           ValueListenableBuilder(
                               valueListenable: slide,
-                              builder: (_, DraftSlide _slide, Widget child){
+                              builder: (_, DraftSlide _slide, Widget? child){
 
                                 return SuperFilteredImage(
                                   filterModel: _filter,
                                   width: _boxWidth,
                                   height: _boxHeight,
-                                  pic: _slide.picModel.bytes,
+                                  pic: _slide.picModel?.bytes,
                                   // boxFit: BoxFit.cover,
                                 );
 
@@ -127,7 +128,7 @@ class FiltersSelectorControlPanel extends StatelessWidget {
                             alignment: Alignment.bottomCenter,
                             child: BldrsText(
                               verse: Verse(
-                                id: _filter.id,
+                                id: _filter?.id,
                                 translate: true,
                               ),
                               maxLines: 2,

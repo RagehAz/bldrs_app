@@ -1,9 +1,10 @@
 import 'dart:typed_data';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/files/floaters.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:fire/super_fire.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 
@@ -11,18 +12,18 @@ import 'package:flutter/material.dart';
 class PDFModel {
   /// --------------------------------------------------------------------------
   const PDFModel({
-    @required this.name,
-    @required this.path,
-    @required this.ownersIDs,
+    required this.name,
+    required this.path,
+    required this.ownersIDs,
     this.bytes,
     this.sizeMB,
   });
   /// --------------------------------------------------------------------------
-  final String name;
-  final String path;
-  final Uint8List bytes;
-  final double sizeMB;
-  final List<String> ownersIDs;
+  final String? name;
+  final String? path;
+  final Uint8List? bytes;
+  final double? sizeMB;
+  final List<String>? ownersIDs;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -30,11 +31,11 @@ class PDFModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   PDFModel copyWith({
-    String name,
-    String path,
-    List<String> ownersIDs,
-    Uint8List bytes,
-    double sizeMB,
+    String? name,
+    String? path,
+    List<String>? ownersIDs,
+    Uint8List? bytes,
+    double? sizeMB,
   }){
     return PDFModel(
       name: name ?? this.name,
@@ -91,8 +92,8 @@ class PDFModel {
   }
   // --------------------
   /// TASK : TEST ME
-  static PDFModel decipherFromMap(Map<String, dynamic> map){
-    PDFModel _output;
+  static PDFModel? decipherFromMap(Map<String, dynamic>? map){
+    PDFModel? _output;
 
     if (map != null){
 
@@ -111,12 +112,12 @@ class PDFModel {
 
   // --------------------
   /// TASK : TEST ME
-  StorageMetaModel createStorageMetaModel({
-    Map<String, String> extraData,
+  StorageMetaModel? createStorageMetaModel({
+    Map<String, String>? extraData,
   }){
 
     return StorageMetaModel(
-      ownersIDs: ownersIDs,
+      ownersIDs: ownersIDs ?? [],
       name: name,
       sizeMB: sizeMB,
       data: Mapper.combineStringStringMap(
@@ -134,8 +135,8 @@ class PDFModel {
   // --------------------
   /// TASK : TEST ME
   static bool checkPDFModelsAreIdentical({
-    @required PDFModel pdf1,
-    @required PDFModel pdf2,
+    required PDFModel? pdf1,
+    required PDFModel? pdf2,
   }){
     bool _areIdentical = false;
 
@@ -167,7 +168,7 @@ class PDFModel {
     bool _bigger = false;
 
     if (sizeMB != null){
-      _bigger = sizeMB > Standards.maxFileSizeLimit;
+      _bigger = sizeMB! > Standards.maxFileSizeLimit;
     }
 
     return _bigger;
@@ -189,13 +190,13 @@ class PDFModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Verse getSizeLine({
-    @required bool sizeLimitReached,
-    @required double size,
-    @required int maxSize,
+    required bool sizeLimitReached,
+    required double? size,
+    required int maxSize,
   }){
 
     // Mb / 3 Mb
-    final String _mb = Verse.transBake('phid_mb');
+    final String? _mb = Verse.transBake('phid_mb');
 
     if (sizeLimitReached == true){
 

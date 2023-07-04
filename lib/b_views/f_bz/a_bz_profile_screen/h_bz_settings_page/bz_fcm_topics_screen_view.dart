@@ -1,3 +1,5 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
@@ -14,30 +16,29 @@ import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class BzFCMTopicsScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzFCMTopicsScreenView({
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onSwitchAuthorSubscriptionToTopic({
-    @required BuildContext context,
-    @required String topicID,
-    @required bool value,
+    required BuildContext context,
+    required String? topicID,
+    required bool value,
   }) async {
 
-    final BzModel _activeBz = BzzProvider.proGetActiveBzModel(
+    final BzModel? _activeBz = BzzProvider.proGetActiveBzModel(
       context: context,
       listen: false,
     );
 
-    final String _customTopicID = TopicModel.bakeTopicID(
+    final String? _customTopicID = TopicModel.bakeTopicID(
       topicID: topicID,
-      bzID: _activeBz.id,
+      bzID: _activeBz?.id,
       receiverPartyType: PartyType.bz,
     );
 
@@ -64,11 +65,11 @@ class BzFCMTopicsScreenView extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onSwitchAll({
-    @required BuildContext context,
-    @required bool value,
+    required BuildContext context,
+    required bool value,
   }) async {
 
-    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+    final BzModel? _bzModel = BzzProvider.proGetActiveBzModel(
       context: context,
       listen: false,
     );
@@ -78,13 +79,13 @@ class BzFCMTopicsScreenView extends StatelessWidget {
 
       await NoteProtocols.unsubscribeFromAllBzTopics(
           context: context,
-          bzID: _bzModel.id,
+          bzID: _bzModel?.id,
           renovateUser: false
       );
 
       await NoteProtocols.subscribeToAllBzTopics(
           context: context,
-          bzID: _bzModel.id,
+          bzID: _bzModel?.id,
           renovateUser: true,
       );
     }
@@ -94,7 +95,7 @@ class BzFCMTopicsScreenView extends StatelessWidget {
 
       await NoteProtocols.unsubscribeFromAllBzTopics(
           context: context,
-          bzID: _bzModel.id,
+          bzID: _bzModel?.id,
           renovateUser: true,
       );
 
@@ -105,19 +106,19 @@ class BzFCMTopicsScreenView extends StatelessWidget {
   /// TESTED : WORKS PERFECT
   bool _allTopicsSwitchIsOn(BuildContext context){
 
-    final UserModel _userModel = UsersProvider.proGetMyUserModel(
+    final UserModel? _userModel = UsersProvider.proGetMyUserModel(
       context: context,
       listen: true,
     );
 
-    final BzModel _bzModel = BzzProvider.proGetActiveBzModel(
+    final BzModel? _bzModel = BzzProvider.proGetActiveBzModel(
       context: context,
       listen: true,
     );
 
     final List<String> _thisBzUserSubscribedTopics = TopicModel.getTopicsIncludingBzIDFromTopics(
-      topics: _userModel.fcmTopics,
-      bzID: _bzModel.id,
+      topics: _userModel?.fcmTopics,
+      bzID: _bzModel?.id,
     );
 
     return _thisBzUserSubscribedTopics.isNotEmpty;

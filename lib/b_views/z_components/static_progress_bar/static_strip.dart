@@ -1,26 +1,26 @@
+import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_color.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
 
 class StaticStrip extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const StaticStrip({
-    @required this.flyerBoxWidth,
-    @required this.stripWidth,
-    @required this.numberOfSlides,
-    @required this.isWhite,
+    required this.flyerBoxWidth,
+    required this.stripWidth,
+    required this.numberOfSlides,
+    required this.isWhite,
     this.stripColor,
     this.margins,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final double stripWidth;
   final int numberOfSlides;
-  final EdgeInsets margins;
+  final EdgeInsets? margins;
   final bool isWhite;
-  final Color stripColor;
+  final Color? stripColor;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class StaticStrip extends StatelessWidget {
               numberOfSlides: numberOfSlides,
               colorOverride: stripColor,
             ),
-            borderRadius: Borderers.cornerAll(context, _stripCorner),
+            borderRadius: Borderers.cornerAll(_stripCorner),
         ),
       ),
     );

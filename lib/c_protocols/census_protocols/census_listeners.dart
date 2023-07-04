@@ -3,8 +3,8 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_real_ops.dart';
-import 'package:mapper/mapper.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+
 /// => TAMAM
 class CensusListener {
   // -----------------------------------------------------------------------------
@@ -23,13 +23,13 @@ class CensusListener {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> onComposeUser(UserModel userModel) async {
+  static Future<void> onComposeUser(UserModel? userModel) async {
 
-    assert(userModel != null, 'userModel is null');
+    // assert(userModel != null, 'userModel is null');
 
     /// INCREMENT USER CENSUS
     await CensusRealOps.updateAllCensus(
-      zoneModel: userModel.zone,
+      zoneModel: userModel?.zone,
       map: CensusModel.createUserCensusMap(
         userModel: userModel,
         isIncrementing: true,
@@ -40,8 +40,8 @@ class CensusListener {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onRenovateUser({
-    @required UserModel newUser,
-    @required UserModel oldUser,
+    required UserModel? newUser,
+    required UserModel? oldUser,
   }) async {
 
     final bool _shouldUpdateCensus = CensusModel.checkShouldUpdateUserCensus(
@@ -55,7 +55,7 @@ class CensusListener {
 
         /// DECREMENT OLD USER CENSUS
         CensusRealOps.updateAllCensus(
-          zoneModel: oldUser.zone,
+          zoneModel: oldUser?.zone,
           map: CensusModel.createUserCensusMap(
             userModel: oldUser,
             isIncrementing: false,
@@ -64,7 +64,7 @@ class CensusListener {
 
         /// INCREMENT NEW USER CENSUS
         CensusRealOps.updateAllCensus(
-          zoneModel: newUser.zone,
+          zoneModel: newUser?.zone,
           map: CensusModel.createUserCensusMap(
             userModel: newUser,
             isIncrementing: true,
@@ -78,13 +78,13 @@ class CensusListener {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> onWipeUser(UserModel userModel) async {
+  static Future<void> onWipeUser(UserModel? userModel) async {
 
-    assert(userModel != null, 'userModel is null');
+    // assert(userModel != null, 'userModel is null');
 
     /// DECREMENT USER CENSUS
     await CensusRealOps.updateAllCensus(
-      zoneModel: userModel.zone,
+      zoneModel: userModel?.zone,
       map: CensusModel.createUserCensusMap(
         userModel: userModel,
         isIncrementing: false,
@@ -98,13 +98,13 @@ class CensusListener {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> onComposeBz(BzModel bzModel) async {
+  static Future<void> onComposeBz(BzModel? bzModel) async {
 
     assert(bzModel != null, 'bzModel is null');
 
     /// INCREMENT USER CENSUS
     await CensusRealOps.updateAllCensus(
-      zoneModel: bzModel.zone,
+      zoneModel: bzModel?.zone,
       map: CensusModel.createBzCensusMap(
         bzModel: bzModel,
         isIncrementing: true,
@@ -115,18 +115,18 @@ class CensusListener {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onRenovateBz({
-    @required BzModel newBz,
-    @required BzModel oldBz,
+    required BzModel? newBz,
+    required BzModel? oldBz,
   }) async {
 
-    assert(newBz != null, 'newBz is null');
-    assert(oldBz != null, 'oldBz is null');
+    // assert(newBz != null, 'newBz is null');
+    // assert(oldBz != null, 'oldBz is null');
 
     await Future.wait(<Future>[
 
       /// DECREMENT BZ CENSUS
       CensusRealOps.updateAllCensus(
-        zoneModel: oldBz.zone,
+        zoneModel: oldBz?.zone,
         map: CensusModel.createBzCensusMap(
           bzModel: oldBz,
           isIncrementing: false,
@@ -135,7 +135,7 @@ class CensusListener {
 
       /// INCREMENT BZ CENSUS
       CensusRealOps.updateAllCensus(
-        zoneModel: newBz.zone,
+        zoneModel: newBz?.zone,
         map: CensusModel.createBzCensusMap(
           bzModel: newBz,
           isIncrementing: true,
@@ -149,7 +149,7 @@ class CensusListener {
   /// TESTED : WORKS PERFECT
   static Future<void> onWipeBz(BzModel bzModel) async {
 
-    assert(bzModel != null, 'bzModel is null');
+    // assert(bzModel != null, 'bzModel is null');
 
     final Map<String, dynamic> _censusMap = CensusModel.createBzCensusMap(
       bzModel: bzModel,
@@ -176,29 +176,30 @@ class CensusListener {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> onComposeFlyer(FlyerModel flyerModel) async {
+  static Future<void> onComposeFlyer(FlyerModel? flyerModel) async {
 
-    assert(flyerModel != null, 'flyerModel is null');
+    // assert(flyerModel != null, 'flyerModel is null');
 
-    /// INCREMENT FLYER CENSUS
-    await CensusRealOps.updateAllCensus(
-      zoneModel: flyerModel.zone,
-      map: CensusModel.createFlyerCensusMap(
-        flyerModel: flyerModel,
-        isIncrementing: true,
-      ),
-    );
-
+    if (flyerModel != null) {
+      /// INCREMENT FLYER CENSUS
+      await CensusRealOps.updateAllCensus(
+        zoneModel: flyerModel.zone,
+        map: CensusModel.createFlyerCensusMap(
+          flyerModel: flyerModel,
+          isIncrementing: true,
+        ),
+      );
+    }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onRenovateFlyer({
-    @required FlyerModel oldFlyer,
-    @required FlyerModel newFlyer,
+    required FlyerModel oldFlyer,
+    required FlyerModel newFlyer,
   }) async {
 
-    assert(oldFlyer != null, 'oldFlyer is null');
-    assert(newFlyer != null, 'newFlyer is null');
+    // assert(oldFlyer != null, 'oldFlyer is null');
+    // assert(newFlyer != null, 'newFlyer is null');
 
     await Future.wait(<Future>[
 
@@ -227,7 +228,7 @@ class CensusListener {
   /// TESTED : WORKS PERFECT
   static Future<void> onWipeFlyer(FlyerModel flyerModel) async {
 
-    assert(flyerModel != null, 'flyerModel is null');
+    // assert(flyerModel != null, 'flyerModel is null');
 
     /// DECREMENT FLYER CENSUS
     await CensusRealOps.updateAllCensus(
@@ -246,32 +247,33 @@ class CensusListener {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onCallBz({
-    @required BzModel bzModel,
+    required BzModel? bzModel,
     int count = 1,
   }) async {
 
-    assert(bzModel != null, 'bzModel is null');
+    // assert(bzModel != null, 'bzModel is null');
 
-    await CensusRealOps.updateAllCensus(
-      zoneModel: bzModel.zone,
-      map: CensusModel.createCallCensusMap(
-        bzModel: bzModel,
-        isIncrementing: true,
-        count: count,
-      ),
-    );
-
+    if (bzModel != null){
+      await CensusRealOps.updateAllCensus(
+        zoneModel: bzModel.zone,
+        map: CensusModel.createCallCensusMap(
+          bzModel: bzModel,
+          isIncrementing: true,
+          count: count,
+        ),
+      );
+    }
 
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onFollowBz({
-    @required BzModel bzModel,
-    @required bool isFollowing,
+    required BzModel bzModel,
+    required bool isFollowing,
     int count = 1,
   }) async {
 
-    assert(bzModel != null, 'bzModel is null');
+    // assert(bzModel != null, 'bzModel is null');
 
     await CensusRealOps.updateAllCensus(
       zoneModel: bzModel.zone, // should be bz zone to be wiped with bz wipe
@@ -287,12 +289,12 @@ class CensusListener {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onSaveFlyer({
-    @required FlyerModel flyerModel,
-    @required bool isSaving,
+    required FlyerModel flyerModel,
+    required bool isSaving,
     int count = 1,
   }) async {
 
-    assert(flyerModel != null, 'flyerModel is null');
+    // assert(flyerModel != null, 'flyerModel is null');
 
     await CensusRealOps.updateAllCensus(
       zoneModel: flyerModel.zone, // should be user zone to delete it on wipe user protocols

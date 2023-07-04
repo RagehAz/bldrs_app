@@ -1,12 +1,13 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/super_text/super_text.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:colorizer/colorizer.dart';
+import 'package:basics/helpers/classes/colors/colorizer.dart';
 import 'package:flutter/material.dart';
-import 'package:numeric/numeric.dart';
-import 'package:scale/scale.dart';
-import 'package:super_text/super_text.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 enum VerseWeight {
   black,
@@ -18,7 +19,7 @@ enum VerseWeight {
 class BldrsText extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BldrsText({
-    @required this.verse,
+    required this.verse,
     this.width,
     this.height,
     this.size = 2,
@@ -39,38 +40,38 @@ class BldrsText extends StatelessWidget {
     this.highlight,
     this.highlightColor = Colorz.bloodTest,
     this.shadowColor,
-    this.textDirection,
-    Key key,
-  }) : super(key: key);
+    this.textDirection = TextDirection.ltr,
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final Verse verse;
-  final double width;
-  final double height;
+  final Verse? verse;
+  final double? width;
+  final double? height;
   final int size;
-  final Color color;
+  final Color? color;
   final VerseWeight weight;
   final bool italic;
   final bool shadow;
   final bool centered;
-  final double scaleFactor;
-  final int maxLines;
+  final double? scaleFactor;
+  final int? maxLines;
   final dynamic margin;
   // final bool softWrap;
-  final Color labelColor;
-  final Function onTap;
+  final Color? labelColor;
+  final Function? onTap;
   final bool leadingDot;
-  final bool redDot;
+  final bool? redDot;
   final bool strikeThrough;
-  final ValueNotifier<dynamic> highlight;
+  final ValueNotifier<dynamic>? highlight;
   final Color highlightColor;
-  final Color shadowColor;
-  final TextDirection textDirection;
+  final Color? shadowColor;
+  final TextDirection? textDirection;
   // -----------------------------------------------------------------------------
 
   /// READY VERSES
 
   // --------------------
-  static Widget verseDot({Verse verse}) {
+  static Widget verseDot({required Verse verse}) {
     return BldrsText(
       verse: verse,
       scaleFactor: 0.9,
@@ -83,7 +84,7 @@ class BldrsText extends StatelessWidget {
   }
   // --------------------
   static Widget verseInfo({
-    @required Verse verse,
+    required Verse verse,
   }){
     return BldrsText(
       verse: verse,
@@ -96,11 +97,11 @@ class BldrsText extends StatelessWidget {
   }
   // --------------------
   static Widget versePrice({
-    @required BuildContext context,
-    @required double price,
-    Color color,
-    double scaleFactor,
-    String currency,
+    required BuildContext context,
+    required double price,
+    Color? color,
+    double? scaleFactor,
+    String? currency,
     bool strikethrough = false,
     bool isBold = true,
     bool isCentered = false
@@ -136,7 +137,7 @@ class BldrsText extends StatelessWidget {
             color: color,
             italic: true,
             size: 3,
-            margin: scaleFactor * 3,
+            margin: (scaleFactor??1) * 3,
             scaleFactor: scaleFactor,
           ),
 
@@ -150,10 +151,10 @@ class BldrsText extends StatelessWidget {
   // --------------------
   /// TESTED : ACCEPTED
   static double superVerseRealHeight({
-    @required BuildContext context,
-    @required int size,
-    @required double sizeFactor,
-    @required bool hasLabelBox,
+    required BuildContext context,
+    required int size,
+    required double sizeFactor,
+    required bool hasLabelBox,
   }) {
     /// when SuperVerse has label color, it gets extra margin height, and is included in the final value of this function
     final double _sidePaddingValues = superVerseSidePaddingValues(context, size);
@@ -246,7 +247,7 @@ class BldrsText extends StatelessWidget {
   static double superVerseSizeValue(
       BuildContext context,
       int verseSize,
-      double scalingFactor
+      double? scalingFactor
       ) {
     // double _screenHeight = Scale.superScreenHeight(context);
 
@@ -272,26 +273,28 @@ class BldrsText extends StatelessWidget {
     // _screenHeight * Ratioz.fontSize1
     // ;
 
+    final double _scale = scalingFactor ?? 1;
+
     final double _verseSizeValue =
-    (verseSize == 0) ? 8 * scalingFactor
+    (verseSize == 0) ? 8 * _scale
         :
-    (verseSize == 1) ? 12 * scalingFactor
+    (verseSize == 1) ? 12 * _scale
         :
-    (verseSize == 2) ? 16 * scalingFactor
+    (verseSize == 2) ? 16 * _scale
         :
-    (verseSize == 3) ? 20 * scalingFactor
+    (verseSize == 3) ? 20 * _scale
         :
-    (verseSize == 4) ? 24 * scalingFactor
+    (verseSize == 4) ? 24 * _scale
         :
-    (verseSize == 5) ? 28 * scalingFactor
+    (verseSize == 5) ? 28 * _scale
         :
-    (verseSize == 6) ? 32 * scalingFactor
+    (verseSize == 6) ? 32 * _scale
         :
-    (verseSize == 7) ? 36 * scalingFactor
+    (verseSize == 7) ? 36 * _scale
         :
-    (verseSize == 8) ? 40 * scalingFactor
+    (verseSize == 8) ? 40 * _scale
         :
-    12 * scalingFactor;
+    12 * _scale;
 
     return _verseSizeValue;
   }
@@ -302,14 +305,14 @@ class BldrsText extends StatelessWidget {
 
   // --------------------
   static TextStyle createStyle({
-    @required BuildContext context,
+    required BuildContext context,
     Color color = Colorz.white255,
     VerseWeight weight = VerseWeight.black,
     bool italic = true,
     int size = 2,
     bool shadowIsOn = true,
-    Color shadowColor,
-    double scaleFactor = 1,
+    Color? shadowColor,
+    double? scaleFactor = 1,
     bool strikeThrough = false,
   }) {
     const double _verseHeight = 1.438; //1.48; // The sacred golden reverse engineered factor
@@ -381,7 +384,7 @@ class BldrsText extends StatelessWidget {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static FontWeight superVerseWeight(VerseWeight weight) {
+  static FontWeight superVerseWeight(VerseWeight? weight) {
     final FontWeight _verseWeight =
     weight == VerseWeight.thin ? FontWeight.w100
         :
@@ -400,7 +403,7 @@ class BldrsText extends StatelessWidget {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String superVerseFont(VerseWeight weight) {
+  static String superVerseFont(VerseWeight? weight) {
     final String _verseFont =
     weight == VerseWeight.thin ? Words.bodyFont()
         :
@@ -419,7 +422,7 @@ class BldrsText extends StatelessWidget {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static double superVerseLetterSpacing(VerseWeight weight, double verseSizeValue) {
+  static double superVerseLetterSpacing(VerseWeight? weight, double verseSizeValue) {
     final double _verseLetterSpacing =
     weight == VerseWeight.thin ? verseSizeValue * 0.035
         :
@@ -450,13 +453,13 @@ class BldrsText extends StatelessWidget {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Shadow> verseShadows({
-    @required BuildContext context,
-    @required int size,
-    @required bool shadowIsOn,
-    @required Color textColor,
-    @required double scaleFactor,
-    @required VerseWeight weight,
-    Color shadowColor,
+    required BuildContext context,
+    required int size,
+    required bool shadowIsOn,
+    required Color? textColor,
+    required double? scaleFactor,
+    required VerseWeight weight,
+    Color? shadowColor,
   }){
 
     if (shadowIsOn == true){
@@ -550,7 +553,7 @@ class BldrsText extends StatelessWidget {
       // lineColor: lineColor,
       // lineThickness: lineThickness,
       leadingDot: leadingDot,
-      redDot: redDot,
+      redDot: redDot ?? false,
       centered: centered,
       textDirection: textDirection ?? UiProvider.getAppTextDir(),
       appIsLTR: UiProvider.checkAppIsLeftToRight(),

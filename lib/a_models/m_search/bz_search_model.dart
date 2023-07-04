@@ -1,25 +1,25 @@
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 
 @immutable
 class BzSearchModel {
   // -----------------------------------------------------------------------------
   const BzSearchModel({
-    @required this.bzType,
-    @required this.bzForm,
-    @required this.bzAccountType,
-    @required this.scopePhid,
-    @required this.onlyShowingTeams,
-    @required this.onlyVerified,
+    required this.bzType,
+    required this.bzForm,
+    required this.bzAccountType,
+    required this.scopePhid,
+    required this.onlyShowingTeams,
+    required this.onlyVerified,
   });
   // -----------------------------------------------------------------------------
-  final BzType bzType;
-  final BzForm bzForm;
-  final BzAccountType bzAccountType;
-  final String scopePhid;
-  final bool onlyShowingTeams;
-  final bool onlyVerified;
+  final BzType? bzType;
+  final BzForm? bzForm;
+  final BzAccountType? bzAccountType;
+  final String? scopePhid;
+  final bool? onlyShowingTeams;
+  final bool? onlyVerified;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -27,12 +27,12 @@ class BzSearchModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   BzSearchModel copyWith({
-    BzType bzType,
-    BzForm bzForm,
-    BzAccountType bzAccountType,
-    String scopePhid,
-    bool onlyShowingTeams,
-    bool onlyVerified,
+    BzType? bzType,
+    BzForm? bzForm,
+    BzAccountType? bzAccountType,
+    String? scopePhid,
+    bool? onlyShowingTeams,
+    bool? onlyVerified,
   }){
     return BzSearchModel(
       bzType: bzType ?? this.bzType,
@@ -70,8 +70,8 @@ class BzSearchModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> cipher(BzSearchModel bzSearchModel){
-    Map<String, dynamic> _output;
+  static Map<String, dynamic>? cipher(BzSearchModel? bzSearchModel){
+    Map<String, dynamic>? _output;
 
     if (bzSearchModel != null) {
       _output = {
@@ -88,8 +88,8 @@ class BzSearchModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static BzSearchModel decipher(Map<String, dynamic> map){
-    BzSearchModel _output;
+  static BzSearchModel? decipher(Map<String, dynamic>? map){
+    BzSearchModel? _output;
 
     if (map != null){
       _output = BzSearchModel(
@@ -111,8 +111,8 @@ class BzSearchModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool areIdentical({
-    @required BzSearchModel model1,
-    @required BzSearchModel model2,
+    required BzSearchModel? model1,
+    required BzSearchModel? model2,
   }){
     bool _output;
 

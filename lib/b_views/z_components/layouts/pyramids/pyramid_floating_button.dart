@@ -1,34 +1,34 @@
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs/b_views/z_components/notes/x_components/note_red_dot.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
+import 'package:bldrs/b_views/z_components/notes/x_components/red_dot_badge.dart';
 import 'package:flutter/material.dart';
 
 class PyramidFloatingButton extends StatelessWidget {
   /// ---------------------------------------------------------------------------
   const PyramidFloatingButton({
-    @required this.icon,
+    required this.icon,
     this.color,
     this.onTap,
     this.redDotCount = 0,
     this.onLongTap,
     this.isDeactivated,
     this.iconColor,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// ---------------------------------------------------------------------------
   final int redDotCount;
   final String icon;
-  final Color color;
-  final Function onTap;
-  final Function onLongTap;
-  final bool isDeactivated;
-  final Color iconColor;
+  final Color? color;
+  final Function? onTap;
+  final Function? onLongTap;
+  final bool? isDeactivated;
+  final Color? iconColor;
   /// ---------------------------------------------------------------------------
   static double size = 45;
   /// ---------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    return NoteRedDotWrapper(
+    return RedDotBadge(
       childWidth: size,
       redDotIsOn: redDotCount > 0,
       count: redDotCount,

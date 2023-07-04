@@ -1,3 +1,5 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/tile_buttons/a_tile_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/census_line.dart';
@@ -5,38 +7,36 @@ import 'package:bldrs/b_views/z_components/buttons/zone_buttons/zone_button_box.
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class CountryTileButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const CountryTileButton({
-    @required this.onTap,
-    @required this.onDeactivatedTap,
-    @required this.countryID,
-    @required this.isActive,
+    required this.onTap,
+    required this.onDeactivatedTap,
+    required this.countryID,
+    required this.isActive,
     this.width,
     this.height,
     this.censusModel,
     this.verse,
     this.verseCentered = true,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final Function onTap;
-  final Function onDeactivatedTap;
-  final String countryID;
-  final double width;
-  final double height;
+  final Function? onTap;
+  final Function? onDeactivatedTap;
+  final String? countryID;
+  final double? width;
+  final double? height;
   final bool isActive;
-  final CensusModel censusModel;
-  final Verse verse;
+  final CensusModel? censusModel;
+  final Verse? verse;
   final bool verseCentered;
   // --------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static bool canShowCensus({
-    @required CensusModel censusModel,
+    required CensusModel? censusModel,
   }){
 
     if (censusModel == null){
