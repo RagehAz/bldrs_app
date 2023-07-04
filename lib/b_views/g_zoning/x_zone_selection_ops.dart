@@ -50,7 +50,6 @@ class ZoneSelection {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ZoneModel?> goBringAZone({
-    required BuildContext context,
     required ZoneDepth depth,
     required bool settingCurrentZone,
     required ViewingEvent zoneViewingEvent,
@@ -58,7 +57,6 @@ class ZoneSelection {
   }) async {
 
     final ZoneModel? _output = await _goToCountriesScreen(
-      context: context,
       zoneViewingEvent: zoneViewingEvent,
       depth: depth,
       viewerCountryID: viewerCountryID,
@@ -66,7 +64,6 @@ class ZoneSelection {
 
     if (settingCurrentZone == true && _output != null){
       await setCurrentZoneAndNavHome(
-        context: context,
         zone: _output,
       );
     }
@@ -76,14 +73,13 @@ class ZoneSelection {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<ZoneModel?> _goToCountriesScreen({
-    required BuildContext context,
     required ViewingEvent zoneViewingEvent,
     required ZoneDepth depth,
     required String? viewerCountryID,
   }) async {
 
     final ZoneModel? _zone = await Nav.goToNewScreen(
-      context: context,
+      context: getMainContext(),
       screen: CountriesScreen(
         zoneViewingEvent: zoneViewingEvent,
         depth: depth,
@@ -190,7 +186,6 @@ class ZoneSelection {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> setCurrentZoneAndNavHome({
-    required BuildContext context,
     required ZoneModel? zone,
   }) async {
 
@@ -210,7 +205,7 @@ class ZoneSelection {
       await WaitDialog.closeWaitDialog();
 
       await Nav.pushHomeAndRemoveAllBelow(
-        context: context,
+        context: getMainContext(),
         invoker: 'SelectCountryScreen._onCountryTap',
         homeRoute: Routing.home,
       );

@@ -165,7 +165,7 @@ class Obelisk extends StatelessWidget {
       return Positioned(
         key: const ValueKey<String>('Obelisk'),
         right: Ratioz.appBarMargin,
-        bottom: Ratioz.appBarMargin,
+        bottom: 0,
         child: Selector<UiProvider, bool>(
           selector: (_, UiProvider uiProvider) => uiProvider.pyramidsAreExpanded,
           builder: (_, bool? expanded, Widget? child) {
@@ -186,7 +186,7 @@ class Obelisk extends StatelessWidget {
               ),
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
-                padding: EdgeInsets.zero,
+                padding: const EdgeInsets.only(bottom: 20),
                 child: Row(
                   // mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -219,7 +219,7 @@ class Obelisk extends StatelessWidget {
       return Positioned(
         key: const ValueKey<String>('Obelisk'),
         left: Ratioz.appBarMargin,
-        bottom: Ratioz.appBarMargin,
+        bottom: 0,
         child: Selector<UiProvider, bool>(
           selector: (_, UiProvider uiProvider) => uiProvider.pyramidsAreExpanded,
           builder: (_, bool? expanded, Widget? child) {
@@ -241,7 +241,7 @@ class Obelisk extends StatelessWidget {
               ),
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
-                padding: EdgeInsets.zero,
+                padding: const EdgeInsets.only(bottom: 30),
                 child: Row(
                   // mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: stuffAlignment(isCross: true),
