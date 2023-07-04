@@ -84,10 +84,12 @@ packages:
   basics:
     dependency: "direct main"
     description:
-      path: "D:/projects/packages/helpers/basics"
-      relative: false
-    source: path
-    version: "2.0.4"
+      path: "."
+      ref: HEAD
+      resolved-ref: "68b4c245e8bd9313f51b25432dbc9f93f0544636"
+      url: "https://github.com/RagehAz/basics.git"
+    source: git
+    version: "2.0.6"
   bldrs_keywords:
     dependency: "direct main"
     description:
@@ -420,10 +422,12 @@ packages:
   fire:
     dependency: "direct main"
     description:
-      path: "D:/projects/packages/backend/fire"
-      relative: false
-    source: path
-    version: "2.0.4"
+      path: "."
+      ref: HEAD
+      resolved-ref: "73d765e4a517bb6113464b985c7cb1afe39bb189"
+      url: "https://github.com/RagehAz/fire.git"
+    source: git
+    version: "2.0.5"
   firebase_app_check:
     dependency: "direct main"
     description:
@@ -1103,10 +1107,12 @@ packages:
   mediators:
     dependency: "direct main"
     description:
-      path: "D:/projects/packages/helpers/mediators"
-      relative: false
-    source: path
-    version: "2.0.0"
+      path: "."
+      ref: HEAD
+      resolved-ref: "7ab7daf6b156321ce55ca56463e5a9586ad8af45"
+      url: "https://github.com/RagehAz/mediators.git"
+    source: git
+    version: "2.0.1"
   meta:
     dependency: transitive
     description:
