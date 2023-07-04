@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/bz_editor_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/b_app_langs_screen/b_app_langs_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/c_about_bldrs_screen/c_about_bldrs_screen.dart';
@@ -22,7 +22,6 @@ import 'package:bldrs/f_helpers/drafters/launchers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
@@ -181,10 +180,10 @@ Future<void> onSignOut() async {
   _zoneProvider.clearCurrentZone(notify: false);
   _zoneProvider.clearCurrentCurrencyAndAllCurrencies(notify: false);
 
-  final String _userID = Authing.getUserID();
+  final String? _userID = Authing.getUserID();
   await UserLDBOps.deleteUserOps(_userID);
-  await BzLDBOps.wipeOut(getMainContext());
-  await FlyerLDBOps.wipeOut(getMainContext());
+  await BzLDBOps.wipeOut();
+  await FlyerLDBOps.wipeOut();
 
   await AuthProtocols.signOutBldrs(
       routeToLogoScreen: true

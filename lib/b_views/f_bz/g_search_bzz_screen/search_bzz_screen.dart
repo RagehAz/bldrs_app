@@ -1,26 +1,26 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/bzz_tile_buttons_list.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:fire/super_fire.dart';
-import 'package:night_sky/night_sky.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:bldrs/b_views/z_components/loading/loading.dart';
-import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/c_protocols/bz_protocols/fire/bz_search.dart';
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:flutter/material.dart';
-import 'package:stringer/stringer.dart';
 
 Future<void> onSearchBzz({
-  @required String text,
-  @required ValueNotifier<List<BzModel>> foundBzz,
-  @required ValueNotifier<List<BzModel>> historyBzz,
-  @required ValueNotifier<bool> isSearching,
-  @required ValueNotifier<bool> loading,
-  @required bool mounted,
-  QueryDocumentSnapshot<Object> startAfter,
+  required String? text,
+  required ValueNotifier<List<BzModel>?> foundBzz,
+  required ValueNotifier<List<BzModel>> historyBzz,
+  required ValueNotifier<bool> isSearching,
+  required ValueNotifier<bool> loading,
+  required bool mounted,
+  QueryDocumentSnapshot<Object>? startAfter,
 }) async {
 
   blog('starting onSearchUsers : text : $text');
@@ -44,7 +44,7 @@ Future<void> onSearchBzz({
 
     setNotifier(notifier: loading, mounted: mounted, value: true);
 
-    final String _fixedText = TextMod.fixSearchText(text);
+    final String? _fixedText = TextMod.fixSearchText(text);
 
     final List<BzModel> _bzz = await BzSearch.paginateBzzBySearchingBzName(
       bzName: _fixedText,
@@ -75,12 +75,12 @@ class SearchBzzScreen extends StatefulWidget {
     this.multipleSelection = false,
     this.selectedBzz,
     this.onBzTap,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final bool multipleSelection;
-  final List<BzModel> selectedBzz;
-  final ValueChanged<BzModel> onBzTap;
+  final List<BzModel>? selectedBzz;
+  final ValueChanged<BzModel>? onBzTap;
   /// --------------------------------------------------------------------------
   @override
   _SearchBzzScreenState createState() => _SearchBzzScreenState();
@@ -89,7 +89,7 @@ class SearchBzzScreen extends StatefulWidget {
 
 class _SearchBzzScreenState extends State<SearchBzzScreen> {
   // -----------------------------------------------------------------------------
-  final ValueNotifier<List<BzModel>> _foundBzz = ValueNotifier(null);
+  final ValueNotifier<List<BzModel>?> _foundBzz = ValueNotifier(null);
   final ValueNotifier<List<BzModel>> _historyBzz = ValueNotifier(<BzModel>[]);
   final ValueNotifier<List<BzModel>> _selectedBzz = ValueNotifier(<BzModel>[]);
   final ValueNotifier<bool> _isSearching = ValueNotifier(false);
@@ -97,7 +97,7 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -112,7 +112,7 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
     setNotifier(
         notifier: _selectedBzz,
         mounted: mounted,
-        value: widget.selectedBzz,
+        value: [...?widget.selectedBzz],
     );
 
   }
@@ -150,7 +150,7 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
-  Future<void> _onSearch(String text) async {
+  Future<void> _onSearch(String? text) async {
 
     await onSearchBzz(
       text: text,
@@ -186,7 +186,7 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
         );
 
         if (_isSelected == true){
-          setNotifier(notifier: _selectedBzz, mounted: mounted, value: null);
+          setNotifier(notifier: _selectedBzz, mounted: mounted, value: <BzModel>[]);
         }
         else {
           setNotifier(notifier: _selectedBzz, mounted: mounted, value: <BzModel>[bzModel]);
@@ -197,7 +197,7 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
 
     /// WHEN FUNCTION IS EXTERNALLY PASSED
     else {
-      widget.onBzTap(bzModel);
+      widget.onBzTap?.call(bzModel);
     }
 
   }
@@ -225,18 +225,13 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
       onSearchChanged: _onSearch,
       loading: _loading,
       onBack: _onBack,
-      child: ListView(
-        children: <Widget>[
-
-          const Stratosphere(bigAppBar: true),
-
-          ValueListenableBuilder(
+      child: ValueListenableBuilder(
             valueListenable: _isSearching,
-            builder: (_, bool _isSearching, Widget childA){
+            builder: (_, bool _isSearching, Widget? childA){
 
               return ValueListenableBuilder(
                 valueListenable: _loading,
-                builder: (_, bool _isLoading, Widget childB){
+                builder: (_, bool _isLoading, Widget? childB){
 
                   /// SEARCHING
                   if (_isSearching == true){
@@ -274,9 +269,6 @@ class _SearchBzzScreenState extends State<SearchBzzScreen> {
 
             },
           ),
-
-        ],
-      ),
 
     );
 

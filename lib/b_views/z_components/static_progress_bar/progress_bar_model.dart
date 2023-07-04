@@ -1,24 +1,25 @@
-import 'package:animators/animators.dart';
+import 'package:basics/animators/helpers/animators.dart';
+import 'package:basics/animators/helpers/sliders.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 
 ///=> TAMAM
 class ProgressBarModel {
   /// --------------------------------------------------------------------------
   const ProgressBarModel({
-    @required this.swipeDirection,
-    @required this.index,
-    @required this.numberOfStrips,
+    required this.swipeDirection,
+    required this.index,
+    required this.numberOfStrips,
     this.stripsColors,
   });
   /// --------------------------------------------------------------------------
   final SwipeDirection swipeDirection;
   final int index;
   final int numberOfStrips;
-  final List<Color> stripsColors;
+  final List<Color>? stripsColors;
   // --------------------------------------------------------------------------
 
   /// CONSTANTS
@@ -34,10 +35,10 @@ class ProgressBarModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   ProgressBarModel copyWith({
-    SwipeDirection swipeDirection,
-    int index,
-    int numberOfStrips,
-    List<Color> stripsColors,
+    SwipeDirection? swipeDirection,
+    int? index,
+    int? numberOfStrips,
+    List<Color>? stripsColors,
   }){
     return ProgressBarModel(
       swipeDirection: swipeDirection ?? this.swipeDirection,
@@ -53,7 +54,7 @@ class ProgressBarModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static ProgressBarModel initialModel({
-    @required int numberOfStrips,
+    required int numberOfStrips,
   }){
 
     return ProgressBarModel(
@@ -84,11 +85,11 @@ class ProgressBarModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void onSwipe({
-    @required BuildContext context,
-    @required int newIndex,
-    @required ValueNotifier<ProgressBarModel> progressBarModel,
-    @required bool mounted,
-    int numberOfPages,
+    required BuildContext context,
+    required int? newIndex,
+    required ValueNotifier<ProgressBarModel?> progressBarModel,
+    required bool mounted,
+    int? numberOfPages,
   }){
 
     /// A - if Keyboard is active
@@ -121,17 +122,22 @@ class ProgressBarModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void _updateProgressBarNotifierOnIndexChanged({
-    @required BuildContext context,
-    @required ValueNotifier<ProgressBarModel> progressBarModel,
-    @required int newIndex,
-    @required bool mounted,
+    required BuildContext context,
+    required ValueNotifier<ProgressBarModel?> progressBarModel,
+    required int? newIndex,
+    required bool mounted,
     bool syncFocusScope = true,
-    int numberOfPages,
+    int? numberOfPages,
   }){
+
+    // blogProgressBarModel(
+    //   model: progressBarModel.value,
+    //   invoker: '_updateProgressBarNotifierOnIndexChanged BEGINNING -->',
+    // );
 
     final SwipeDirection _direction = Animators.getSwipeDirection(
       newIndex: newIndex,
-      oldIndex: progressBarModel.value.index,
+      oldIndex: progressBarModel.value?.index,
     );
 
     if (syncFocusScope == true){
@@ -147,23 +153,28 @@ class ProgressBarModel {
     final bool _shouldChangeStripColors =
         numberOfPages != null
         &&
-        progressBarModel.value.stripsColors?.length != numberOfPages;
+        progressBarModel.value?.stripsColors?.length != numberOfPages;
 
-    final int _numberOfPages = numberOfPages ?? progressBarModel.value.stripsColors?.length;
+    final int _numberOfPages = numberOfPages ?? progressBarModel.value?.numberOfStrips ?? 0;
 
     setNotifier(
         notifier: progressBarModel,
         mounted: mounted,
-        value: progressBarModel.value.copyWith(
+        value: progressBarModel.value?.copyWith(
           swipeDirection: _direction,
           index: newIndex,
           numberOfStrips: _numberOfPages,
           stripsColors: _shouldChangeStripColors == true ? ProgressBarModel.generateColors(
             colors: null,
             length: _numberOfPages,
-          ) : progressBarModel.value.stripsColors,
+          ) : progressBarModel.value?.stripsColors,
         ),
     );
+
+    // blogProgressBarModel(
+    //   model: progressBarModel.value,
+    //   invoker: '_updateProgressBarNotifierOnIndexChanged ENGINGGG -->',
+    // );
 
   }
   // --------------------------------------------------------------------------
@@ -173,13 +184,13 @@ class ProgressBarModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Color> generateColors({
-    @required int length,
-    @required List<Color> colors,
+    required int length,
+    required List<Color>? colors,
   }){
 
     if (Mapper.checkCanLoopList(colors) == true){
       blog('generateColors : colors : $colors');
-      return colors;
+      return colors!;
     }
 
     else {
@@ -192,13 +203,13 @@ class ProgressBarModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void setStripColor({
-    @required int index,
-    @required Color color,
-    @required ValueNotifier<ProgressBarModel> notifier,
-    @required bool mounted,
+    required int index,
+    required Color color,
+    required ValueNotifier<ProgressBarModel?> notifier,
+    required bool mounted,
   }){
 
-    final List<Color> _stripsColors = <Color>[ ...?notifier.value.stripsColors];
+    final List<Color> _stripsColors = <Color>[ ...?notifier.value?.stripsColors];
 
     _stripsColors.removeAt(index);
     _stripsColors.insert(index, color);
@@ -206,10 +217,30 @@ class ProgressBarModel {
     setNotifier(
       notifier: notifier,
       mounted: mounted,
-      value: notifier.value.copyWith(
+      value: notifier.value?.copyWith(
         stripsColors: _stripsColors,
       ),
     );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static void blogProgressBarModel({
+    required ProgressBarModel? model,
+    required String invoker,
+  }){
+
+    if (model == null){
+      blog('blogProgressBarModel : $invoker : model is null');
+    }
+    else {
+      blog('blogProgressBarModel : $invoker : START');
+      blog('blogProgressModel : swipeDirection : ${model.swipeDirection}');
+      blog('blogProgressModel : index : ${model.index}');
+      blog('blogProgressModel : numberOfStrips : ${model.numberOfStrips}');
+      blog('blogProgressModel : stripsColors : ${model.stripsColors}');
+      blog('blogProgressBarModel : $invoker : END');
+    }
 
   }
   // --------------------------------------------------------------------------

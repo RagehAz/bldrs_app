@@ -1,14 +1,13 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/flyers_shelf/flyers_shelf_list_builder.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:scale/scale.dart';
-
-
-import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:flutter/material.dart';
 
 class FlyersShelf extends StatelessWidget {
@@ -20,14 +19,14 @@ class FlyersShelf extends StatelessWidget {
     this.flyerOnTap,
     this.onScrollEnd,
     this.flyerSizeFactor = 0.3,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final Verse titleVerse;
-  final List<FlyerModel> flyers;
-  final String titleIcon;
-  final Function flyerOnTap;
-  final Function onScrollEnd;
+  final Verse? titleVerse;
+  final List<FlyerModel>? flyers;
+  final String? titleIcon;
+  final ValueChanged<FlyerModel>? flyerOnTap;
+  final Function? onScrollEnd;
   final double flyerSizeFactor;
   /// --------------------------------------------------------------------------
   static const double spacing = Ratioz.appBarMargin;
@@ -35,7 +34,7 @@ class FlyersShelf extends StatelessWidget {
   static const double titleIconCorner = Ratioz.appBarButtonCorner;
   // -----------------------------------------------------------------------------
   static double shelfHeight({
-    @required double flyerSizeFactor,
+    required double flyerSizeFactor,
   }) {
 
     final double _flyerZoneHeight = FlyerDim.heightBySizeFactor(
@@ -69,7 +68,7 @@ class FlyersShelf extends StatelessWidget {
           /// --- COLLECTION TITLE
           if (titleVerse != null)
             GestureDetector(
-              onTap: onScrollEnd,
+              onTap: onScrollEnd == null ? null : () => onScrollEnd!(),
               child: Container(
                 width: _screenWidth,
                 padding: const EdgeInsets.symmetric(horizontal: 15),

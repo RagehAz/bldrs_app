@@ -1,12 +1,13 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/cc_pickers_blocker.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,9 +15,9 @@ import 'package:provider/provider.dart';
 class PickerModel {
   /// --------------------------------------------------------------------------
   const PickerModel({
-    @required this.chainID,
-    @required this.index,
-    @required this.isHeadline,
+    required this.chainID,
+    required this.index,
+    required this.isHeadline,
     this.canPickMany = false,
     this.isRequired = false,
     this.unitChainID,
@@ -24,23 +25,23 @@ class PickerModel {
     this.blockers,
   });
   /// --------------------------------------------------------------------------
-  final String chainID;
+  final String? chainID;
 
   /// can pick many allows selecting either only 1 value from the chain or multiple values
-  final bool canPickMany;
+  final bool? canPickMany;
 
   /// this dictates which specs are required for publishing the flyer, and which are optional
-  final bool isRequired;
-  final List<PickersBlocker> blockers;
+  final bool? isRequired;
+  final List<PickersBlocker>? blockers;
 
   /// THE SELECTABLE RANGE allows selecting only parts of the original spec list
   /// if <KW>['id1', 'id2'] only these IDs will be included out of <KW>['id1', 'id2', 'id3', 'id4', 'id5'],
   /// if <int>[1, 5] then only this range is selectable
-  final List<String> range;
+  final List<dynamic>? range;
   /// FOR DATA CREATORS, they require measurement unit like day meter dollar
-  final String unitChainID;
-  final int index;
-  final bool isHeadline;
+  final String? unitChainID;
+  final int? index;
+  final bool? isHeadline;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -48,15 +49,15 @@ class PickerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   PickerModel copyWith({
-    String chainID,
-    String groupID,
-    bool canPickMany,
-    bool isRequired,
-    List<PickersBlocker> blockers,
-    List<dynamic> range,
-    String unitChainID,
-    int index,
-    bool isHeadline,
+    String? chainID,
+    String? groupID,
+    bool? canPickMany,
+    bool? isRequired,
+    List<PickersBlocker>? blockers,
+    List<dynamic>? range,
+    String? unitChainID,
+    int? index,
+    bool? isHeadline,
   }){
     return PickerModel(
       chainID: chainID ?? this.chainID,
@@ -102,11 +103,11 @@ class PickerModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static PickerModel decipherPicker({
-    @required Map<String, dynamic> map,
-    @required String chainID,
+  static PickerModel? decipherPicker({
+    required Map<String, dynamic>? map,
+    required String? chainID,
   }){
-    PickerModel _picker;
+    PickerModel? _picker;
 
     if (map != null){
       _picker = PickerModel(
@@ -125,13 +126,13 @@ class PickerModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Map<String, dynamic> cipherPickers(List<PickerModel> pickers){
-    Map<String, dynamic> _output;
+  static Map<String, dynamic>? cipherPickers(List<PickerModel>? pickers){
+    Map<String, dynamic>? _output;
 
     if (Mapper.checkCanLoopList(pickers) == true){
       _output = {};
 
-      for (final PickerModel picker in pickers){
+      for (final PickerModel picker in pickers!){
 
         _output = Mapper.insertPairInMap(
           map: _output,
@@ -150,7 +151,7 @@ class PickerModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<PickerModel> decipherPickers(Map<String, dynamic> bigMap){
+  static List<PickerModel> decipherPickers(Map<String, dynamic>? bigMap){
     final List<PickerModel> _output = <PickerModel>[];
 
     if (bigMap != null){
@@ -167,7 +168,8 @@ class PickerModel {
         for (final String chainID in _keys){
 
 
-          Map<String, dynamic> _pickerMap;
+          Map<String, dynamic>? _pickerMap;
+
           if (bigMap[chainID] is String){
           // blog('getMapFromIHLMOO : bigMap[chainID] : ${bigMap[chainID].runtimeType} : ${bigMap[chainID]}');
             _pickerMap = {chainID : bigMap[chainID]};
@@ -178,12 +180,15 @@ class PickerModel {
             );
           }
 
-          final PickerModel _model = decipherPicker(
+          final PickerModel? _model = decipherPicker(
               map: _pickerMap,
               chainID: chainID
           );
 
-          _output.add(_model);
+          if (_model != null){
+            _output.add(_model);
+          }
+
         }
 
       }
@@ -198,14 +203,14 @@ class PickerModel {
 
   // --------------------
   /// TASK : TEST ME
-  static List<String> cipherRange(List<String> range){
-    List<String> _output;
+  static List<dynamic> cipherRange(List<dynamic>? range){
+    List<dynamic> _output = [];
 
     if (Mapper.checkCanLoopList(range) == true){
 
-      _output = <String>[];
+      _output = <dynamic>[];
 
-      for (final String item in range){
+      for (final String item in range!){
         _output.add(item);
       }
 
@@ -215,8 +220,8 @@ class PickerModel {
   }
   // --------------------
   /// TASK : TEST ME
-  static List<dynamic> decipherRange(List<dynamic> dynamics){
-    List<dynamic> _output;
+  static List<dynamic> decipherRange(List<dynamic>? dynamics){
+    List<dynamic> _output = [];
 
     if (Mapper.checkCanLoopList(dynamics) == true){
 
@@ -235,20 +240,21 @@ class PickerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPickersContainPicker({
-    @required PickerModel picker,
-    @required List<PickerModel> pickers,
+    required PickerModel? picker,
+    required List<PickerModel>? pickers,
   }) {
     bool _contains = false;
 
     if (Mapper.checkCanLoopList(pickers) == true && picker != null) {
-      for (int i = 0; i < pickers.length; i++) {
+      for (int i = 0; i < pickers!.length; i++) {
 
         final PickerModel _picker = pickers[i];
 
-        if (_picker?.chainID == picker.chainID) {
+        if (_picker.chainID == picker.chainID) {
           _contains = true;
           break;
         }
+
       }
     }
 
@@ -257,8 +263,8 @@ class PickerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPickersAreIdentical({
-    @required PickerModel picker1,
-    @required PickerModel picker2,
+    required PickerModel? picker1,
+    required PickerModel? picker2,
   }){
     bool _areIdentical = false;
 
@@ -294,20 +300,20 @@ class PickerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkPickersListsAreIdentical({
-    @required List<PickerModel> pickers1,
-    @required List<PickerModel> pickers2,
+    required List<PickerModel>? pickers1,
+    required List<PickerModel>? pickers2,
   }){
     bool _listsAreIdentical = false;
 
     if (pickers1 == null && pickers2 == null){
       _listsAreIdentical = true;
     }
-    else if (pickers1.isEmpty == true && pickers2.isEmpty == true){
+    else if (pickers1 != null && pickers1.isEmpty == true && pickers2 != null && pickers2.isEmpty== true){
       _listsAreIdentical = true;
     }
     else if (Mapper.checkCanLoopList(pickers1) == true && Mapper.checkCanLoopList(pickers2) == true){
 
-      if (pickers1.length != pickers2.length){
+      if (pickers1!.length != pickers2!.length){
         _listsAreIdentical = false;
       }
       else {
@@ -343,7 +349,7 @@ class PickerModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  void blogPicker({String invoker = 'PICKER'}) {
+  void blogPicker({String? invoker = 'PICKER'}) {
     blog('PICKER-BLOG : $invoker --------------------------------------------------START');
 
     blog('isHeadline : $isHeadline');
@@ -359,7 +365,7 @@ class PickerModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void blogPickers(List<PickerModel> pickers, {String invoker = 'PICKER'}) {
+  static void blogPickers(List<PickerModel>? pickers, {String? invoker = 'PICKER'}) {
 
 
     if (Mapper.checkCanLoopList(pickers) == true) {
@@ -367,7 +373,7 @@ class PickerModel {
       final List<PickerModel> _pickers = sortPickersByIndexes(pickers);
 
       for (final PickerModel _picker in _pickers) {
-        _picker?.blogPicker(invoker: invoker);
+        _picker.blogPicker(invoker: invoker);
       }
     }
     else {
@@ -382,7 +388,7 @@ class PickerModel {
     if (Mapper.checkCanLoopList(pickers)) {
       for (final PickerModel _picker in pickers) {
 
-        final String _indent = _picker.isHeadline == true ? '->' : '---->';
+        final String _indent = Mapper.boolIsTrue(_picker.isHeadline) == true ? '->' : '---->';
 
         blog('$_indent ${_picker.index} : ${_picker.chainID} : ${_picker.chainID}');
       }
@@ -400,9 +406,9 @@ class PickerModel {
   // --------------------
   /*
   static List<PickerModel> createPickersForHomeWall({
-    @required BuildContext context,
-    @required List<Chain> bldrsChains,
-    @required bool canPickManyOfAPicker,
+    required BuildContext context,
+    required List<Chain> bldrsChains,
+    required bool canPickManyOfAPicker,
   }){
     final List<PickerModel> _pickers = <PickerModel>[];
 
@@ -450,9 +456,9 @@ class PickerModel {
   /*
   /// TESTED : WORKS PERFECT
   static List<PickerModel> createPickersFromAllChainKs({
-    @required BuildContext context,
-    @required bool canPickManyOfAPicker,
-    @required List<FlyerType> onlyUseTheseFlyerTypes,
+    required BuildContext context,
+    required bool canPickManyOfAPicker,
+    required List<FlyerType> onlyUseTheseFlyerTypes,
   }) {
 
     final List<PickerModel> allChainKPickers = createHomeWallPickers(
@@ -493,9 +499,8 @@ class PickerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<PickerModel> createHomeWallPickers({
-    @required BuildContext context,
-    @required bool canPickMany,
-    @required List<FlyerType> onlyUseTheseFlyerTypes,
+    required bool canPickMany,
+    required List<FlyerType> onlyUseTheseFlyerTypes,
   }){
 
     bool _canShow(FlyerType type){
@@ -510,7 +515,6 @@ class PickerModel {
         index: 0,
         isHeadline: true,
         chainID: FlyerTyper.concludeSectionPhidByFlyerTypeChainID(
-          context: context,
           flyerTypeChainID: FlyerTyper.propertyChainID,
         ),
       ),
@@ -530,7 +534,6 @@ class PickerModel {
         index: 2,
         isHeadline: true,
         chainID: FlyerTyper.concludeSectionPhidByFlyerTypeChainID(
-          context: context,
           flyerTypeChainID: FlyerTyper.designChainID,
         ),
       ),
@@ -570,7 +573,6 @@ class PickerModel {
         index: 5,
         isHeadline: true,
         chainID: FlyerTyper.concludeSectionPhidByFlyerTypeChainID(
-          context: context,
           flyerTypeChainID: FlyerTyper.productChainID,
         ),
       ),
@@ -602,30 +604,29 @@ class PickerModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static  String getPickersIDByFlyerType(FlyerType flyerType){
+  static  String? getPickersIDByFlyerType(FlyerType? flyerType){
     return FlyerTyper.cipherFlyerType(flyerType);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static PickerModel getPickerByChainIDOrUnitChainID({
-    @required List<PickerModel> pickers,
-    @required String chainIDOrUnitChainID,
+  static PickerModel? getPickerByChainIDOrUnitChainID({
+    required List<PickerModel>? pickers,
+    required String? chainIDOrUnitChainID,
   }) {
 
-    blog('getPickerFromPickersByChainIDOrUnitChainID : pickerChainID : $chainIDOrUnitChainID');
+    // blog('getPickerFromPickersByChainIDOrUnitChainID : pickerChainID : $chainIDOrUnitChainID');
     // SpecPicker.blogSpecsPickers(specsPickers);
 
     /// gets the picker where chain ID is the main chain or unit chain ID
 
-    PickerModel _specPicker;
+    PickerModel? _specPicker;
 
-    if (Mapper.checkCanLoopList(pickers) && chainIDOrUnitChainID != null) {
-      _specPicker = pickers.firstWhere(
+    if (Mapper.checkCanLoopList(pickers) == true && chainIDOrUnitChainID != null) {
+      _specPicker = pickers!.firstWhereOrNull(
               (PickerModel picker) =>
-          picker.chainID == chainIDOrUnitChainID
+              picker.chainID == chainIDOrUnitChainID
               ||
               picker.unitChainID == chainIDOrUnitChainID,
-          orElse: () => null
       );
     }
 
@@ -633,9 +634,9 @@ class PickerModel {
   }
   // --------------------
   /// TASK : TEST ME
-  static PickerModel getPickerByChainID({
-    @required List<PickerModel> pickers,
-    @required String chainID,
+  static PickerModel? getPickerByChainID({
+    required List<PickerModel>? pickers,
+    required String? chainID,
   }) {
 
     // blog('getPickerByChainID : pickerChainID : $chainID');
@@ -643,11 +644,11 @@ class PickerModel {
 
     /// gets the picker where chain ID is the main chain or unit chain ID
 
-    PickerModel _specPicker;
+    PickerModel? _specPicker;
 
-    if (Mapper.checkCanLoopList(pickers) && chainID != null) {
-      _specPicker = pickers.firstWhere(
-              (PickerModel picker) => picker.chainID == chainID, orElse: () => null);
+    if (Mapper.checkCanLoopList(pickers) == true && chainID != null) {
+      _specPicker = pickers!.firstWhereOrNull(
+              (PickerModel picker) => picker.chainID == chainID);
     }
 
     return _specPicker;
@@ -655,16 +656,16 @@ class PickerModel {
   // --------------------
   /// TASK : TEST ME
   static List<PickerModel> getPickersByChainsIDs({
-    @required List<String> chainsIDs,
-    @required List<PickerModel> pickers,
+    required List<String>? chainsIDs,
+    required List<PickerModel>? pickers,
   }){
     final List<PickerModel> _output = <PickerModel>[];
 
     if (Mapper.checkCanLoopList(pickers) == true && Mapper.checkCanLoopList(chainsIDs) == true){
 
-      for (final String chainID in chainsIDs){
+      for (final String chainID in chainsIDs!){
 
-        final PickerModel _picker = getPickerByChainID(
+        final PickerModel? _picker = getPickerByChainID(
             pickers: pickers,
             chainID: chainID
         );
@@ -683,8 +684,8 @@ class PickerModel {
   /*
   /// TESTED : WORKS PERFECT
   static List<PickerModel> getPickersByGroupID({
-    @required List<PickerModel> pickers,
-    @required String groupID,
+    required List<PickerModel> pickers,
+    required String groupID,
   }) {
     final List<PickerModel> _output = <PickerModel>[];
 
@@ -703,7 +704,7 @@ class PickerModel {
   /*
   /// TESTED : WORKS PERFECT
   static List<String> getGroupsIDs({
-    @required List<PickerModel> pickers,
+    required List<PickerModel> pickers,
   }) {
     List<String> _groups = <String>[];
 
@@ -742,23 +743,24 @@ class PickerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<PickerModel> applyBlockersAndSort({
-    @required List<PickerModel> sourcePickers,
-    @required List<SpecModel> selectedSpecs,
-    @required bool sort,
+    required List<PickerModel>? sourcePickers,
+    required List<SpecModel>? selectedSpecs,
+    required bool sort,
   }) {
     final List<PickerModel> _pickers = <PickerModel>[];
 
-    if (Mapper.checkCanLoopList(sourcePickers)) {
+    if (Mapper.checkCanLoopList(sourcePickers) == true) {
       final List<String> _allPickersIDsToBlock = <String>[];
 
       /// GET BLOCKED PICKERS
-      for (final PickerModel picker in sourcePickers) {
-        final List<PickersBlocker> _blockers = picker.blockers;
+      for (final PickerModel picker in sourcePickers!) {
 
-        if (Mapper.checkCanLoopList(_blockers)) {
-          for (final PickersBlocker blocker in _blockers) {
+        final List<PickersBlocker>? _blockers = picker.blockers;
+
+        if (Mapper.checkCanLoopList(_blockers) == true) {
+          for (final PickersBlocker blocker in _blockers!) {
             final bool _isSelected = SpecModel.checkSpecsContainThisSpecValue(
-                specs: selectedSpecs,
+                specs: selectedSpecs!,
                 value: blocker.value
             );
 
@@ -787,9 +789,9 @@ class PickerModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<PickerModel> replacePicker({
-    @required List<PickerModel> sourcePickers,
-    @required String pickerChainIDtoReplace,
-    @required PickerModel updatedPicker,
+    required List<PickerModel> sourcePickers,
+    required String? pickerChainIDtoReplace,
+    required PickerModel? updatedPicker,
   }){
     List<PickerModel> _output = <PickerModel>[];
 
@@ -824,9 +826,9 @@ class PickerModel {
   /*
   /// TESTED : WORKS PERFECT
   static List<PickerModel> replaceAGroupID({
-    @required List<PickerModel> pickers,
-    @required String oldGroupName,
-    @required String newGroupName,
+    required List<PickerModel> pickers,
+    required String oldGroupName,
+    required String newGroupName,
   }){
     List<PickerModel> _output = <PickerModel>[];
 
@@ -872,13 +874,13 @@ class PickerModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<PickerModel> sortPickersByIndexes(List<PickerModel> pickers){
+  static List<PickerModel> sortPickersByIndexes(List<PickerModel>? pickers){
 
     final List<PickerModel> _output = <PickerModel>[];
 
     if (Mapper.checkCanLoopList(pickers) == true){
 
-      final List<PickerModel> _pickers = <PickerModel>[... pickers];
+      final List<PickerModel> _pickers = <PickerModel>[... pickers!];
 
       /// SORT PICKERS BY GROUPS INDEXES
       _pickers.sort((PickerModel a, PickerModel b){
@@ -921,13 +923,13 @@ class PickerModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getPickerChainIDOfPhid({
-    @required String phid,
+  static String? getPickerChainIDOfPhid({
+    required String? phid,
   }){
 
     final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
 
-    final String _rooChainID = Chain.getRootChainIDOfPhid(
+    final String? _rooChainID = Chain.getRootChainIDOfPhid(
       allChains: _chainsProvider.bldrsChains,
       phid: phid,
     );
@@ -938,9 +940,9 @@ class PickerModel {
   /// FIND PICKERS BY PHIDS
   /*
   static PickerModel _findPickerByPhid({
-    @required BuildContext context,
-    @required String phid,
-    @required List<PickerModel> allPickers,
+    required BuildContext context,
+    required String phid,
+    required List<PickerModel> allPickers,
   }){
 
     final PickerModel _picker = PickerModel.getPickerByChainIDOrUnitChainID(
@@ -958,9 +960,9 @@ class PickerModel {
   /// FIND PICKER BY PHID
   /*
   static List<PickerModel> _findPickersByPhids({
-    @required BuildContext context,
-    @required List<String> phids,
-    @required List<PickerModel> allPickers,
+    required BuildContext context,
+    required List<String> phids,
+    required List<PickerModel> allPickers,
   }){
 
     final List<PickerModel> _pickers = <PickerModel>[];

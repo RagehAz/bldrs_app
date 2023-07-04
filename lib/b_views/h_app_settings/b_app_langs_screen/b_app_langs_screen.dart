@@ -1,3 +1,5 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/layouts/separators/dot_separator.dart';
 import 'package:bldrs/a_models/x_utilities/map_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/settings_wide_button.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/floating_layout.dart';
@@ -5,18 +7,16 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/f_helpers/localization/lingo.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
 import 'package:provider/provider.dart';
 
 class AppLangsScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const AppLangsScreen({
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  Future<void> _tapLanguage(String langCode) async {
+  Future<void> _tapLanguage(String? langCode) async {
 
     final PhraseProvider _phraseProvider = Provider.of<PhraseProvider>(getMainContext(), listen: false);
     await _phraseProvider.changeAppLang(

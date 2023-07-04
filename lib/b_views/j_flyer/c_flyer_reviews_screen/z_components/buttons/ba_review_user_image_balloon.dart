@@ -6,13 +6,13 @@ import 'package:flutter/material.dart';
 class ReviewUserImageBalloon extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ReviewUserImageBalloon({
-    @required this.userModel,
+    required this.userModel,
     this.onTap,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final UserModel userModel;
-  final Function onTap;
+  final UserModel? userModel;
+  final Function? onTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

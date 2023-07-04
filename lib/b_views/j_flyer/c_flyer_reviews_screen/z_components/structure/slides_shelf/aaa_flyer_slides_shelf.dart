@@ -1,22 +1,23 @@
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/a_single_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class FlyerSlidesShelf extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerSlidesShelf({
-    @required this.flyerModel,
+    required this.flyerModel,
     this.shelfHeight = 120,
     this.shelfWidth,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final FlyerModel flyerModel;
+  final FlyerModel? flyerModel;
   final double shelfHeight;
-  final double shelfWidth;
+  final double? shelfWidth;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,8 @@ class FlyerSlidesShelf extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
 
-            ...List.generate(flyerModel.slides.length, (index){
+            if (Mapper.checkCanLoopList(flyerModel?.slides) == true)
+            ...List.generate(flyerModel!.slides!.length, (index){
 
               return Container(
                 margin: Scale.superInsets(
@@ -51,7 +53,7 @@ class FlyerSlidesShelf extends StatelessWidget {
                 child: SingleSlide(
                   flyerBoxWidth: _flyerBoxWidth,
                   flyerBoxHeight: _flyerBoxHeight,
-                  slideModel: flyerModel.slides[index],
+                  slideModel: flyerModel!.slides![index],
                   tinyMode: false,
                   onSlideNextTap: null,
                   onSlideBackTap: null,
@@ -66,6 +68,7 @@ class FlyerSlidesShelf extends StatelessWidget {
               );
 
             }),
+
 
           ],
         ),

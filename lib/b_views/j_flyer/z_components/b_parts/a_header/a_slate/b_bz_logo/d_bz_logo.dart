@@ -1,34 +1,36 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/widgets/drawing/super_positioned.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
 
 class BzLogo extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BzLogo({
-    @required this.width,
-    @required this.isVerified,
+    required this.width,
+    required this.isVerified,
     this.image,
     this.corners,
     this.zeroCornerIsOn,
     this.margins,
     this.onTap,
     this.shadowIsOn = false,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
 
   /// --------------------------------------------------------------------------
   final double width;
   final dynamic image;
-  final BorderRadius corners;
-  final bool zeroCornerIsOn;
-  final EdgeInsets margins;
-  final Function onTap;
+  final BorderRadius? corners;
+  final bool? zeroCornerIsOn;
+  final EdgeInsets? margins;
+  final Function? onTap;
   final bool shadowIsOn;
-  final bool isVerified;
+  final bool? isVerified;
 
   /// --------------------------------------------------------------------------
   @override
@@ -64,7 +66,7 @@ class BzLogo extends StatelessWidget {
             ),
 
             /// VERIFIED ICON
-            if (isVerified == true)
+            if (Mapper.boolIsTrue(isVerified) == true)
               SuperPositioned(
                 enAlignment: Alignment.topLeft,
                 horizontalOffset: width * 0.00,
@@ -78,7 +80,7 @@ class BzLogo extends StatelessWidget {
                 ),
               ),
 
-            if (isVerified == true)
+            if (Mapper.boolIsTrue(isVerified) == true)
               SuperPositioned(
                 enAlignment: Alignment.topLeft,
                 horizontalOffset: width * 0.00,

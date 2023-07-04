@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/g_counters/flyer_counter_model.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_footer_controller.dart';
@@ -7,33 +8,32 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/e_extra_layers/flyer_affiliate_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class FlyerFooterButtons extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerFooterButtons({
-    @required this.flyerModel,
-    @required this.flyerBoxWidth,
-    @required this.tinyMode,
-    @required this.onSaveFlyer,
-    @required this.inFlight,
-    @required this.infoButtonType,
-    @required this.flyerIsSaved,
-    @required this.isSharing,
-    @required this.flyerCounter,
-    Key key
-  }) : super(key: key);
+    required this.flyerModel,
+    required this.flyerBoxWidth,
+    required this.tinyMode,
+    required this.onSaveFlyer,
+    required this.inFlight,
+    required this.infoButtonType,
+    required this.flyerIsSaved,
+    required this.isSharing,
+    required this.flyerCounter,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final FlyerModel flyerModel;
+  final FlyerModel? flyerModel;
   final bool tinyMode;
   final Function onSaveFlyer;
   final bool inFlight;
   final InfoButtonType infoButtonType;
   final ValueNotifier<bool> flyerIsSaved;
   final ValueNotifier<bool> isSharing;
-  final ValueNotifier<FlyerCounterModel> flyerCounter;
+  final ValueNotifier<FlyerCounterModel?> flyerCounter;
   /// --------------------------------------------------------------------------
   bool _canShowElement(){
     // bool _canShow = true;
@@ -58,12 +58,12 @@ class FlyerFooterButtons extends StatelessWidget {
     final bool _canShow = _canShowElement();
 
     return Positioned(
-      right: BldrsAligners.rightPositionInRightAlignmentEn(context, 0),
-      left: BldrsAligners.leftPositionInRightAlignmentEn(context, 0),
+      right: BldrsAligners.rightPositionInRightAlignmentEn(0),
+      left: BldrsAligners.leftPositionInRightAlignmentEn(0),
       bottom: 0,
       child: ValueListenableBuilder(
         valueListenable: flyerCounter,
-        builder: (_, FlyerCounterModel counter, Widget footerButtonSpacer){
+        builder: (_, FlyerCounterModel? counter, Widget? footerButtonSpacer){
 
           return SizedBox(
             width: flyerBoxWidth,
@@ -90,13 +90,15 @@ class FlyerFooterButtons extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
-                      if (_canShow == true) footerButtonSpacer,
+
+                      if (_canShow == true)
+                        footerButtonSpacer!,
 
                       /// SHARE
                       if (_canShow == true)
                         ValueListenableBuilder(
                             valueListenable: isSharing,
-                            builder: (_, bool _isSharing, Widget child) {
+                            builder: (_, bool _isSharing, Widget? child) {
                               return FooterButton(
                                 count: counter?.shares,
                                 flyerBoxWidth: flyerBoxWidth,
@@ -112,7 +114,7 @@ class FlyerFooterButtons extends StatelessWidget {
                               );
                             }),
 
-                      if (_canShow == true) footerButtonSpacer,
+                      if (_canShow == true) footerButtonSpacer!,
 
                       /// REVIEWS
                       if (_canShow == true)
@@ -129,12 +131,13 @@ class FlyerFooterButtons extends StatelessWidget {
                           ),
                         ),
 
-                      if (_canShow == true) footerButtonSpacer,
+                      if (_canShow == true)
+                        footerButtonSpacer!,
 
                       /// SAVE BUTTON
                       ValueListenableBuilder(
                         valueListenable: flyerIsSaved,
-                        builder: (_, bool isSaved, Widget child) {
+                        builder: (_, bool isSaved, Widget? child) {
                           return FooterButton(
                             count: counter?.saves,
                             flyerBoxWidth: flyerBoxWidth,
@@ -147,7 +150,8 @@ class FlyerFooterButtons extends StatelessWidget {
                         },
                       ),
 
-                      footerButtonSpacer,
+                      footerButtonSpacer!,
+
                     ],
                   ),
                 ),

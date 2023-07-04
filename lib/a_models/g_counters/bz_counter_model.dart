@@ -4,17 +4,17 @@ import 'package:flutter/material.dart';
 class BzCounterModel {
   /// -----------------------------------------------------------------------------
   const BzCounterModel({
-    @required this.bzID,
-    @required this.follows,
-    @required this.calls,
-    @required this.allSaves,
-    @required this.allShares,
-    @required this.allSlides,
-    @required this.allViews,
-    @required this.allReviews,
+    required this.bzID,
+    required this.follows,
+    required this.calls,
+    required this.allSaves,
+    required this.allShares,
+    required this.allSlides,
+    required this.allViews,
+    required this.allReviews,
   });
   /// -----------------------------------------------------------------------------
-  final String bzID;
+  final String? bzID;
   final int follows;
   final int calls;
   final int allSaves;
@@ -28,7 +28,7 @@ class BzCounterModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static BzCounterModel createInitialModel(String bzID){
+  static BzCounterModel createInitialModel(String? bzID){
     return BzCounterModel(
       bzID:  bzID,
       follows: 0,
@@ -43,14 +43,14 @@ class BzCounterModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   BzCounterModel copyWith({
-    String bzID,
-    int follows,
-    int calls,
-    int allSaves,
-    int allShares,
-    int allSlides,
-    int allViews,
-    int allReviews,
+    String? bzID,
+    int? follows,
+    int? calls,
+    int? allSaves,
+    int? allShares,
+    int? allSlides,
+    int? allViews,
+    int? allReviews,
   }){
 
     return BzCounterModel(
@@ -85,7 +85,7 @@ class BzCounterModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static BzCounterModel decipherCounterMap(Map<String, dynamic> map){
+  static BzCounterModel? decipherCounterMap(Map<String, dynamic>? map){
 
     BzCounterModel _model = createInitialModel(null);
 
@@ -111,8 +111,8 @@ class BzCounterModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkBzCounterModelsAreIdentical({
-    @required BzCounterModel counter1,
-    @required BzCounterModel counter2,
+    required BzCounterModel? counter1,
+    required BzCounterModel? counter2,
   }){
     bool _areIdentical = false;
 

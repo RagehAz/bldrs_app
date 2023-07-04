@@ -7,21 +7,21 @@ import 'package:flutter/material.dart';
 class HeaderLabels extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const HeaderLabels({
-    @required this.flyerBoxWidth,
-    @required this.bzModel,
-    @required this.flyerShowsAuthor,
-    @required this.headerIsExpanded,
-    @required this.authorID,
-    @required this.showHeaderLabels,
+    required this.flyerBoxWidth,
+    required this.bzModel,
+    required this.flyerShowsAuthor,
+    required this.headerIsExpanded,
+    required this.authorID,
+    required this.showHeaderLabels,
     this.authorImage,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final BzModel bzModel;
+  final BzModel? bzModel;
   final bool flyerShowsAuthor;
   final bool headerIsExpanded;
-  final String authorID;
+  final String? authorID;
   final bool showHeaderLabels;
   final dynamic authorImage;
   // -----------------------------------------------------------------------------

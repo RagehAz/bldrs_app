@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
@@ -20,7 +21,6 @@ import 'package:bldrs/c_protocols/recorder_protocols/recorder_protocols.dart';
 import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:fire/super_fire.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 /// => TAMAM
@@ -36,92 +36,89 @@ class WipeBzProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> wipeBz({
-    @required BuildContext context,
-    @required BzModel bzModel,
-    @required bool showWaitDialog,
-    @required bool includeMyselfInBzDeletionNote,
-    @required bool deleteBzLocally,
+    required BuildContext context,
+    required BzModel? bzModel,
+    required bool showWaitDialog,
+    required bool includeMyselfInBzDeletionNote,
+    required bool deleteBzLocally,
   }) async {
 
     blog('WipeBzProtocol.wipeBz : START');
 
-    if (showWaitDialog == true){
-      pushWaitDialog(
-        verse: Verse(
-          id: '${Verse.transBake('phid_deleting')} ${bzModel.name}',
-          translate: false,
-          variables: bzModel.name,
+    if (bzModel != null){
+
+      if (showWaitDialog == true){
+        pushWaitDialog(
+          verse: Verse(
+            id: '${Verse.transBake('phid_deleting')} ${bzModel.name}',
+            translate: false,
+            variables: bzModel.name,
+          ),
+        );
+      }
+
+      await Future.wait(<Future>[
+
+        /// DELETE BZ FLYERS
+        _deleteAllBzFlyersOps(
+          context: getMainContext(),
+          bzModel: bzModel,
         ),
+        /// DELETE BZ NOTES
+        NoteProtocols.wipeAllNotes(
+          partyType: PartyType.bz,
+          id: bzModel.id,
+        ),
+        NoteProtocols.unsubscribeFromAllBzTopics(
+          context: getMainContext(),
+          bzID: bzModel.id,
+          renovateUser: true,
+        ),
+        /// DELETE BZ STORAGE DIRECTORY
+        BldrsCloudFunctions.deleteStorageDirectory(
+          context: getMainContext(),
+          path: StoragePath.bzz_bzID(bzModel.id),
+        ),
+        /// DELETE BZ LOGO & AUTHORS PICS
+        PicLDBOps.deletePic(bzModel.logoPath),
+        PicLDBOps.deletePics(AuthorModel.getAuthorsPicsPaths(bzModel.authors)),
+        /// CENSUS
+        CensusListener.onWipeBz(bzModel),
+
+      ]);
+
+      await Future.wait(<Future>[
+
+        /// DELETE BZ RECORDS - COUNTERS : NOTE : SHOULD BE DELETED AFTER CENSUS WIPE PROTOCOL IS DONE
+        RecorderProtocols.onWipeBz(
+          bzID: bzModel.id,
+        ),
+        /// DELETE BZ ON FIREBASE
+        BzFireOps.delete(
+          bzModel: bzModel,
+        ),
+        /// DELETE LOCALLY
+        if (deleteBzLocally == true)
+          /// DELETING BZ LOCALLY IMPACTS LISTENING TO NOTE TRIGGERS
+          deleteLocally(
+            bzID: bzModel.id,
+            invoker: 'wipeBz',
+          ),
+
+      ]);
+
+      /// SEND DELETION NOTES TO AUTHORS
+      await NoteEvent.sendBzDeletionNoteToAllAuthors(
+        context: getMainContext(),
+        bzModel: bzModel,
+        includeMyself: includeMyselfInBzDeletionNote,
       );
-    }
 
-    await Future.wait(<Future>[
+      /// CLOSE DIALOG BEFORE SENDING NOTES => FIXES A goBack() bug
+      if (showWaitDialog == true){
+        await WaitDialog.closeWaitDialog();
+      }
 
-      /// DELETE BZ FLYERS
-      _deleteAllBzFlyersOps(
-        context: getMainContext(),
-        bzModel: bzModel,
-      ),
-
-      /// DELETE BZ NOTES
-      NoteProtocols.wipeAllNotes(
-        partyType: PartyType.bz,
-        id: bzModel.id,
-      ),
-
-      NoteProtocols.unsubscribeFromAllBzTopics(
-        context: getMainContext(),
-        bzID: bzModel.id,
-        renovateUser: true,
-      ),
-
-      /// DELETE BZ STORAGE DIRECTORY
-      BldrsCloudFunctions.deleteStorageDirectory(
-        context: getMainContext(),
-        path: StoragePath.bzz_bzID(bzModel.id),
-      ),
-
-      /// DELETE BZ LOGO & AUTHORS PICS
-      PicLDBOps.deletePic(bzModel.logoPath),
-      PicLDBOps.deletePics(AuthorModel.getAuthorsPicsPaths(bzModel.authors)),
-
-      /// CENSUS
-      CensusListener.onWipeBz(bzModel),
-
-    ]);
-
-    await Future.wait(<Future>[
-
-      /// DELETE BZ RECORDS - COUNTERS : NOTE : SHOULD BE DELETED AFTER CENSUS WIPE PROTOCOL IS DONE
-      RecorderProtocols.onWipeBz(
-        bzID: bzModel.id,
-      ),
-
-      /// DELETE BZ ON FIREBASE
-      BzFireOps.delete(
-        bzModel: bzModel,
-      ),
-
-      /// DELETE LOCALLY
-      if (deleteBzLocally == true)
-        /// DELETING BZ LOCALLY IMPACTS LISTENING TO NOTE TRIGGERS
-      deleteLocally(
-        bzID: bzModel.id,
-        invoker: 'wipeBz',
-      ),
-
-    ]);
-
-    /// SEND DELETION NOTES TO AUTHORS
-    await NoteEvent.sendBzDeletionNoteToAllAuthors(
-      context: getMainContext(),
-      bzModel: bzModel,
-      includeMyself: includeMyselfInBzDeletionNote,
-    );
-
-    /// CLOSE DIALOG BEFORE SENDING NOTES => FIXES A goBack() bug
-    if (showWaitDialog == true){
-      await WaitDialog.closeWaitDialog();
     }
 
     blog('WipeBzProtocol.wipeBz : END');
@@ -129,12 +126,12 @@ class WipeBzProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _deleteAllBzFlyersOps({
-    @required BuildContext context,
-    @required BzModel bzModel,
+    required BuildContext context,
+    required BzModel? bzModel,
   }) async {
 
       final String _text =  '${Verse.transBake('phid_deleting')} '
-                            '${bzModel.flyersIDs.length} '
+                            '${bzModel?.flyersIDs?.length} '
                             '${Verse.transBake('phid_flyers')}';
 
       pushWaitDialog(
@@ -143,7 +140,7 @@ class WipeBzProtocols {
 
 
     await FlyerProtocols.onWipeBz(
-      bzID: bzModel.id,
+      bzID: bzModel?.id,
     );
 
     await WaitDialog.closeWaitDialog();
@@ -156,15 +153,15 @@ class WipeBzProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteLocally({
-    @required String bzID,
-    @required String invoker,
+    required String? bzID,
+    required String invoker,
   }) async {
 
     /// NOTE DELETES ALL BZ MODEL INSTANCES IN LDB AND BZ PRO
 
     blog('WipeBzProtocol.deleteLocally : $invoker : START');
 
-    final BzModel _bzModel = await BzProtocols.fetchBz(
+    final BzModel? _bzModel = await BzProtocols.fetchBz(
         bzID: bzID
     );
 
@@ -207,12 +204,12 @@ class WipeBzProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> wipePendingAuthor({
-    @required BuildContext context,
-    @required String bzID,
-    @required String pendingUserID,
+    required BuildContext context,
+    required String? bzID,
+    required String? pendingUserID,
   }) async {
 
-    final BzModel _oldBz = await BzProtocols.fetchBz(
+    final BzModel? _oldBz = await BzProtocols.fetchBz(
         bzID: bzID,
     );
 

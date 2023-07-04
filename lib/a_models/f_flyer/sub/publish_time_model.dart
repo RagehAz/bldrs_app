@@ -1,19 +1,20 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:mapper/mapper.dart';
-import 'package:space_time/space_time.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/time/timers.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
 @immutable
 class PublishTime {
   // --------------------------------------------------------------------------
   const PublishTime({
-    @required this.state,
-    @required this.time,
+    required this.state,
+    required this.time,
   });
   // --------------------------------------------------------------------------
-  final PublishState state;
-  final DateTime time;
+  final PublishState? state;
+  final DateTime? time;
   // -----------------------------------------------------------------------------
 
   /// CYPHERS
@@ -21,7 +22,7 @@ class PublishTime {
   // --------------------
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toMap({
-    @required bool toJSON,
+    required bool toJSON,
   }) {
     return <String, dynamic>{
       'state': FlyerModel.cipherPublishState(state),
@@ -31,13 +32,13 @@ class PublishTime {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Map<String, dynamic> cipherTimes({
-    @required List<PublishTime> times,
-    @required bool toJSON,
+    required List<PublishTime>? times,
+    required bool toJSON,
   }) {
     Map<String, dynamic> _outPut = <String, dynamic>{};
 
-    if (Mapper.checkCanLoopList(times)) {
-      for (final PublishTime time in times) {
+    if (Mapper.checkCanLoopList(times) == true) {
+      for (final PublishTime time in times!) {
         _outPut = Mapper.insertPairInMap(
           map: _outPut,
           key: FlyerModel.cipherPublishState(time.state),
@@ -52,8 +53,8 @@ class PublishTime {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<PublishTime> decipherTimes({
-    @required Map<String, dynamic> map,
-    @required bool fromJSON,
+    required Map<String, dynamic>? map,
+    required bool fromJSON,
   }) {
     final List<PublishTime> _times = <PublishTime>[];
 
@@ -61,12 +62,15 @@ class PublishTime {
       final List<String> _keys = map.keys.toList();
       final List<dynamic> _values = map.values.toList();
 
-      if (Mapper.checkCanLoopList(_keys) && Mapper.checkCanLoopList(_values)) {
+      if (Mapper.checkCanLoopList(_keys) == true && Mapper.checkCanLoopList(_values) == true) {
         for (int i = 0; i < _keys.length; i++) {
-          final PublishState _flyerStateString =
-          FlyerModel.decipherPublishState(_keys[i]);
-          final DateTime _time =
-          Timers.decipherTime(time: _values[i], fromJSON: fromJSON);
+
+          final PublishState? _flyerStateString = FlyerModel.decipherPublishState(_keys[i]);
+
+          final DateTime? _time = Timers.decipherTime(
+              time: _values[i],
+              fromJSON: fromJSON,
+          );
 
           _times.add(
             PublishTime(
@@ -119,11 +123,11 @@ class PublishTime {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void blogTimes(List<PublishTime> times){
+  static void blogTimes(List<PublishTime>? times){
 
     if (Mapper.checkCanLoopList(times) == true){
 
-      for (final PublishTime time in times){
+      for (final PublishTime time in times!){
         time.blogPublishTime();
       }
 
@@ -133,8 +137,8 @@ class PublishTime {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogTimesListsDifferences({
-    @required List<PublishTime> times1,
-    @required List<PublishTime> times2,
+    required List<PublishTime>? times1,
+    required List<PublishTime>? times2,
   }){
 
     if (times1 == null){
@@ -151,8 +155,8 @@ class PublishTime {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void blogTimesDifferences({
-    @required PublishTime time1,
-    @required PublishTime time2,
+    required PublishTime? time1,
+    required PublishTime? time2,
   }){
 
     blog('blogTimesDifferences : START');
@@ -165,10 +169,14 @@ class PublishTime {
       blog('time2 == null');
     }
 
-    if (time1.state != time2.state){
+    if (time1 != null && time2 != null && time1.state != time2.state){
       blog('time1.state != time2.state');
     }
-    if (Timers.checkTimesAreIdentical(accuracy: TimeAccuracy.microSecond, time1: time1.time, time2: time2.time) == false){
+    if (Timers.checkTimesAreIdentical(
+        accuracy: TimeAccuracy.microSecond,
+        time1: time1?.time,
+        time2: time2?.time
+    ) == false){
       blog('time1.time != time2.time');
     }
 
@@ -180,17 +188,15 @@ class PublishTime {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static PublishTime getPublishTimeFromTimes({
-    PublishState state,
-    List<PublishTime> times,
+  static PublishTime? getPublishTimeFromTimes({
+    required PublishState? state,
+    required List<PublishTime>? times,
   }) {
 
-    PublishTime _publishTime;
+    PublishTime? _publishTime;
 
-    if (times != null) {
-      _publishTime = times
-          .firstWhere((PublishTime time) => time.state == state,
-              orElse: () => null);
+    if (state != null && Mapper.checkCanLoopList(times) == true) {
+      _publishTime = times!.firstWhereOrNull((PublishTime time) => time.state == state);
     }
 
     return _publishTime;
@@ -228,8 +234,8 @@ class PublishTime {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<PublishTime> addPublishTimeToTimes({
-    @required List<PublishTime> times,
-    @required PublishTime newTime,
+    required List<PublishTime> times,
+    required PublishTime newTime,
   }){
 
     final List<PublishTime> _output = <PublishTime>[];
@@ -249,8 +255,8 @@ class PublishTime {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkTimesAreIdentical({
-    @required PublishTime time1,
-    @required PublishTime time2,
+    required PublishTime? time1,
+    required PublishTime? time2,
   }){
     bool _identical = false;
 
@@ -281,8 +287,8 @@ class PublishTime {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkTimesListsAreIdentical({
-    @required List<PublishTime> times1,
-    @required List<PublishTime> times2,
+    required List<PublishTime>? times1,
+    required List<PublishTime>? times2,
   }){
     bool _identical = false;
 
@@ -290,16 +296,17 @@ class PublishTime {
       _identical = true;
     }
 
-    else if (times1?.isEmpty == true && times2?.isEmpty == true){
+    else if (times1 != null && times1.isEmpty == true && times2 != null && times2.isEmpty == true){
       _identical = true;
     }
 
     else if (
-    Mapper.checkCanLoopList(times1) == true &&
+        Mapper.checkCanLoopList(times1) == true
+            &&
         Mapper.checkCanLoopList(times2) == true
     ){
 
-      if (times1.length == times2.length){
+      if (times1!.length == times2!.length){
 
         for (int i = 0; i < times1.length; i++){
 

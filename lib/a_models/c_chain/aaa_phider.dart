@@ -1,15 +1,15 @@
 // ignore_for_file: constant_identifier_names
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/c_chain/dd_data_creation.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:numeric/numeric.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:provider/provider.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 /// => TAMAM
 class Phider {
   // -----------------------------------------------------------------------------
@@ -41,8 +41,8 @@ class Phider {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String _formatPhidIndex(int index){
-    String _output;
+  static String? _formatPhidIndex(int? index){
+    String? _output;
 
     if (index != null){
 
@@ -58,14 +58,14 @@ class Phider {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String addIndexToPhid({
-    @required String phid,
-    @required int index,
+  static String? addIndexToPhid({
+    required String? phid,
+    required int? index,
     bool overrideExisting = true,
   }){
-    String _output = phid;
+    String? _output = phid;
 
-    if (phid != null && index != null && phid is String){
+    if (phid != null && index != null){
 
       final bool _hasIndex = checkPhidHasIndex(phid);
 
@@ -82,7 +82,7 @@ class Phider {
         /// IF OVERRIDE EXISTING INDEX
         if (overrideExisting == true){
 
-          final String _withoutIndex = removeIndexFromPhid(
+          final String? _withoutIndex = removeIndexFromPhid(
               phid: phid,
           );
           _output = _mergeIndexWithPhid(index, _withoutIndex);
@@ -102,10 +102,10 @@ class Phider {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String _mergeIndexWithPhid(int index, String phid){
-    String _output;
+  static String? _mergeIndexWithPhid(int? index, String? phid){
+    String? _output;
 
-    if (phid != null && phid is String){
+    if (phid != null){
       if (index != null){
         _output = '${_formatPhidIndex(index)}_$phid';
       }
@@ -118,18 +118,21 @@ class Phider {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String removeIndexFromPhid({
-    @required String phid,
+  static String? removeIndexFromPhid({
+    required String? phid,
   }){
-    String _output;
+    String? _output;
 
-    if (phid != null && phid is String){
+    if (phid != null){
 
       final bool _hasIndex = checkPhidHasIndex(phid);
 
       /// IF HAS INDEX => REMOVE IT
       if (_hasIndex == true){
-        _output = TextMod.removeTextBeforeFirstSpecialCharacter(phid, '_');
+        _output = TextMod.removeTextBeforeFirstSpecialCharacter(
+            text: phid,
+            specialCharacter: '_',
+        );
         // blog('removeIndexFromPhid : $_output');
       }
 
@@ -145,12 +148,15 @@ class Phider {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<String> removePhidsIndexes(List<String> phids){
+  static List<String> removePhidsIndexes(List<String>? phids){
     final List<String> _output = <String>[];
 
     if (Mapper.checkCanLoopList(phids) == true){
-      for (final String phid in phids){
-        _output.add(removeIndexFromPhid(phid: phid));
+      for (final String phid in phids!){
+        final String? _list = removeIndexFromPhid(phid: phid);
+        if (_list != null){
+          _output.add(_list);
+        }
       }
     }
 
@@ -158,16 +164,18 @@ class Phider {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String removePathIndexes(String path){
-    String _output;
+  static String? removePathIndexes(String? path){
+    String? _output;
     if (TextCheck.isEmpty(path) == false){
 
       final List<String> _nodes = ChainPathConverter.splitPathNodes(path);
 
       final List<String> _nodesWithoutIndexes = <String>[];
       for (final String node in _nodes){
-        final String _nodeWithoutIndex = removeIndexFromPhid(phid: node);
-        _nodesWithoutIndexes.add(_nodeWithoutIndex);
+        final String? _nodeWithoutIndex = removeIndexFromPhid(phid: node);
+        if (_nodeWithoutIndex != null){
+          _nodesWithoutIndexes.add(_nodeWithoutIndex);
+        }
       }
 
       _output = ChainPathConverter.combinePathNodes(_nodesWithoutIndexes);
@@ -185,8 +193,10 @@ class Phider {
 
       for (final String path in paths){
 
-        final String _pathWithoutIndex = removePathIndexes(path);
-        _output.add(_pathWithoutIndex);
+        final String? _pathWithoutIndex = removePathIndexes(path);
+        if (_pathWithoutIndex != null){
+          _output.add(_pathWithoutIndex);
+        }
 
       }
 
@@ -196,14 +206,17 @@ class Phider {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkPhidHasIndex(String phid){
+  static bool checkPhidHasIndex(String? phid){
     bool _hasIndex = false;
 
-    if (phid != null && phid is String){
+    if (phid != null){
 
-      final String _firstFourChars = TextMod.removeTextAfterFirstSpecialCharacter(phid, '_');
+      final String? _firstFourChars = TextMod.removeTextAfterFirstSpecialCharacter(
+          text: phid,
+          specialCharacter: '_',
+      );
 
-      final int _int = Numeric.transformStringToInt(_firstFourChars);
+      final int? _int = Numeric.transformStringToInt(_firstFourChars);
 
       if (_int != null){
         _hasIndex = true;
@@ -215,13 +228,16 @@ class Phider {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static int getIndexFromPhid(String phid){
-    int _index;
+  static int? getIndexFromPhid(String? phid){
+    int? _index;
 
-    if (phid != null && phid is String){
+    if (phid != null){
 
       if (checkPhidHasIndex(phid) == true){
-        final String _indexString = TextMod.removeTextAfterFirstSpecialCharacter(phid, '_');
+        final String? _indexString = TextMod.removeTextAfterFirstSpecialCharacter(
+            text: phid,
+            specialCharacter: '_',
+        );
         _index = Numeric.transformStringToInt(_indexString);
       }
 
@@ -235,8 +251,8 @@ class Phider {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Chain sortChainSonsByIndex(Chain chain){
-    Chain _output;
+  static Chain? sortChainSonsByIndex(Chain? chain){
+    Chain? _output;
 
     if (chain != null){
 
@@ -276,12 +292,12 @@ class Phider {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<Chain> sortChainsByIndexes(List<Chain> input){
+  static List<Chain> sortChainsByIndexes(List<Chain>? input){
     final List<Chain> _output = <Chain>[];
 
     if (Mapper.checkCanLoopList(input) == true){
 
-      final List<Chain> _sortedChainsIDs = <Chain>[...input];
+      final List<Chain> _sortedChainsIDs = <Chain>[...input!];
 
       /// SORT CHAINS BY IDs
       _sortedChainsIDs.sort((a, b){
@@ -292,8 +308,10 @@ class Phider {
 
       /// SORT EACH CHAIN SONS
       for (final Chain chain in _sortedChainsIDs){
-        final Chain _sortedSon = sortChainSonsByIndex(chain);
-        _output.add(_sortedSon);
+        final Chain? _sortedSon = sortChainSonsByIndex(chain);
+        if (_sortedSon != null){
+          _output.add(_sortedSon);
+        }
       }
 
     }
@@ -327,11 +345,11 @@ class Phider {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Chain createChainIndexes({
-    @required Chain chain,
-    @required int chainIndex,
+  static Chain? createChainIndexes({
+    required Chain? chain,
+    required int chainIndex,
   }){
-    Chain _output = chain;
+    Chain? _output = chain;
 
     if (chain != null){
 
@@ -339,7 +357,7 @@ class Phider {
       final bool _isChains = Chain.checkIsChains(chain.sons);
       final bool _isDataCreator = DataCreation.checkIsDataCreator(chain.sons);
 
-      final String _chainID = addIndexToPhid(
+      final String? _chainID = addIndexToPhid(
         phid: chain.id,
         index: chainIndex,
         // overrideExisting: true,
@@ -372,23 +390,25 @@ class Phider {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static List<Chain> createChainsIndexes(List<Chain> chains){
+  static List<Chain> createChainsIndexes(List<Chain>? chains){
     final List<Chain> _output = <Chain>[];
 
     // Chain.blogChains(chains);
 
     if (Mapper.checkCanLoopList(chains) == true){
 
-      for (int i = 0; i< chains.length; i++){
+      for (int i = 0; i< chains!.length; i++){
 
         final Chain _original = chains[i];
 
-        final Chain _modified = createChainIndexes(
+        final Chain? _modified = createChainIndexes(
           chain: _original,
           chainIndex: i,
         );
 
-        _output.add(_modified);
+        if (_modified != null){
+          _output.add(_modified);
+        }
 
       }
 
@@ -407,12 +427,14 @@ class Phider {
 
       for (int i = 0; i< phids.length; i++){
 
-        final String _modified = addIndexToPhid(
+        final String? _modified = addIndexToPhid(
             phid: removeIndexFromPhid(phid: phids[i]),
             index: i
         );
 
-        _output.add(_modified);
+        if (_modified != null){
+          _output.add(_modified);
+        }
 
       }
 
@@ -427,7 +449,7 @@ class Phider {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String generatePhidPathUniqueKey({
-    @required String path,
+    required String path,
   }){
 
     /// NOTE : WORKS ONLY WITH CHAIN S paths
@@ -436,12 +458,15 @@ class Phider {
     // => '{secondNode_xxx} + {yyy}
     // => key = 'xxx_yyy'
 
-    final String _phidWithIndex = ChainPathConverter.getLastPathNode(path);
-    final String _phid = Phider.removeIndexFromPhid(phid: _phidWithIndex);
+    final String? _phidWithIndex = ChainPathConverter.getLastPathNode(path);
+    final String? _phid = Phider.removeIndexFromPhid(phid: _phidWithIndex);
     final List<String> _split = ChainPathConverter.splitPathNodes(path);
 
     final String _groupLine = _split[_split.length - 2];
-    final String group = TextMod.removeTextBeforeLastSpecialCharacter(_groupLine, '_');
+    final String? group = TextMod.removeTextBeforeLastSpecialCharacter(
+        text: _groupLine,
+        specialCharacter: '_',
+    );
     final String _key = '${group}_$_phid';
 
     return _key;
@@ -496,10 +521,10 @@ class Phider {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkVerseIsPhid(String text){
+  static bool checkVerseIsPhid(String? text){
 
-    final String _phid = TextMod.removeAllCharactersAfterNumberOfCharacters(
-      input: removeIndexFromPhid(phid: text),
+    final String? _phid = TextMod.removeAllCharactersAfterNumberOfCharacters(
+      text: removeIndexFromPhid(phid: text),
       numberOfChars: phidCut.length, // 'phid'
     )?.toLowerCase();
 
@@ -512,8 +537,8 @@ class Phider {
 
     if (text != null && text is String){
 
-      final String _phid = TextMod.removeAllCharactersAfterNumberOfCharacters(
-        input: removeIndexFromPhid(phid: text),
+      final String? _phid = TextMod.removeAllCharactersAfterNumberOfCharacters(
+        text: removeIndexFromPhid(phid: text),
         numberOfChars: currencyCut.length,
       )?.toLowerCase();
 
@@ -530,13 +555,13 @@ class Phider {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkVerseIsHeadline(String text){
+  static bool checkVerseIsHeadline(String? text){
     bool _isHeadline = false;
 
     if (text != null){
 
-      final String _phid = TextMod.removeAllCharactersAfterNumberOfCharacters(
-        input: removeIndexFromPhid(phid: text),
+      final String? _phid = TextMod.removeAllCharactersAfterNumberOfCharacters(
+        text: removeIndexFromPhid(phid: text),
         numberOfChars: headlineCut.length,
       )?.toLowerCase();
 
@@ -548,16 +573,16 @@ class Phider {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkVerseIsTemp(String text){
-    final String _temp = TextMod.removeAllCharactersAfterNumberOfCharacters(
-      input: text,
+  static bool checkVerseIsTemp(String? text){
+    final String? _temp = TextMod.removeAllCharactersAfterNumberOfCharacters(
+      text: text,
       numberOfChars: 2, //'( # # )'
     );
     return _temp == '##';
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkIsPhidK(String text){
+  static bool checkIsPhidK(String? text){
     bool _isPhidK= false;
 
     if (text != null){
@@ -581,7 +606,7 @@ class Phider {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkIsPhidS(String text){
+  static bool checkIsPhidS(String? text){
     bool _isPhidK= false;
 
     if (text != null){
@@ -610,7 +635,7 @@ class Phider {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> sortPhidsAlphabetically({
-    @required List<String> phids,
+    required List<String> phids,
   }){
     List<String> _output = [];
 
@@ -620,7 +645,7 @@ class Phider {
 
       List<Phrase> _phrases = [];
       for (final String phid in phids){
-        final String _translation = _phraseProvider.translatePhid(phid);
+        final String? _translation = _phraseProvider.translatePhid(phid);
         final Phrase _phrase = Phrase(id: phid, value: _translation);
         _phrases.add(_phrase);
       }
@@ -639,9 +664,9 @@ class Phider {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getPossibleID(dynamic son){
+  static String? getPossibleID(dynamic son){
 
-    String _id;
+    String? _id;
 
     if (son != null){
 
@@ -681,7 +706,7 @@ class Phider {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getKeywordsIDsFromPhrases({
-    @required List<Phrase> allPhrases,
+    required List<Phrase> allPhrases,
     bool includeChainsIDs = true,
   }){
 
@@ -704,7 +729,7 @@ class Phider {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> getSpecsIDsFromPhrases({
-    @required List<Phrase> allPhrases,
+    required List<Phrase> allPhrases,
   }){
 
     final List<Phrase> _specsIDs = <Phrase>[];

@@ -1,23 +1,23 @@
 import 'dart:typed_data';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/page_bubble/page_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/loading/loading_full_screen_layer.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:scale/scale.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 
 class PDFScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const PDFScreen({
-    @required this.pdf,
-    Key key
-  }) : super(key: key);
+    required this.pdf,
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final PDFModel pdf;
+  final PDFModel? pdf;
   /// --------------------------------------------------------------------------
   @override
   _PDFScreenState createState() => _PDFScreenState();
@@ -26,14 +26,15 @@ class PDFScreen extends StatefulWidget {
 
 class _PDFScreenState extends State<PDFScreen> {
   // -----------------------------------------------------------------------------
-  final ValueNotifier<Uint8List> _uInt8List = ValueNotifier(null);
-  final ValueNotifier<ProgressBarModel> _progressBarModel = ValueNotifier(null);//ProgressBarModel.emptyModel());
-  final ValueNotifier<PDFViewController> _pdfController = ValueNotifier<PDFViewController>(null);
+  final ValueNotifier<Uint8List?> _uInt8List = ValueNotifier(null);
+  // ProgressBarModel.emptyModel());
+  final ValueNotifier<ProgressBarModel?> _progressBarModel = ValueNotifier(null);
+  final ValueNotifier<PDFViewController?> _pdfController = ValueNotifier(null);
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -47,7 +48,7 @@ class _PDFScreenState extends State<PDFScreen> {
     setNotifier(
         notifier: _uInt8List,
         mounted: mounted,
-        value: widget.pdf.bytes,
+        value: widget.pdf?.bytes,
     );
 
     super.initState();
@@ -83,7 +84,7 @@ class _PDFScreenState extends State<PDFScreen> {
     return MainLayout(
       loading: _loading,
       title: Verse(
-        id: '${widget.pdf.name}.pdf',
+        id: '${widget.pdf?.name}.pdf',
         translate: false,
       ),
       appBarType: AppBarType.basic,
@@ -96,7 +97,7 @@ class _PDFScreenState extends State<PDFScreen> {
 
         child: ValueListenableBuilder(
           valueListenable: _uInt8List,
-          builder: (_, Uint8List data, Widget child){
+          builder: (_, Uint8List? data, Widget? child){
 
             if (data == null){
               return const LoadingFullScreenLayer();
@@ -127,7 +128,7 @@ class _PDFScreenState extends State<PDFScreen> {
                 // gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{},
 
                 /// EVENTS
-                onPageChanged: (int newIndex, int numberOfPages){
+                onPageChanged: (int? newIndex, int? numberOfPages){
                   // blog('onPageChanged : x : $newIndex : y : $numberOfPages');
                   ProgressBarModel.onSwipe(
                     progressBarModel: _progressBarModel,
@@ -139,13 +140,13 @@ class _PDFScreenState extends State<PDFScreen> {
                 onError: (dynamic error){
                   blog('onError : error.runtimeType : ${error.runtimeType} : error : $error');
                 },
-                onPageError: (int x, dynamic error){
+                onPageError: (int? x, dynamic error){
                   blog('onPageError : x : $x : error.runtimeType : ${error.runtimeType} : error : $error}');
                 },
-                onLinkHandler: (String link){
+                onLinkHandler: (String? link){
                   blog('onLinkHandler : link : $link');
                 },
-                onRender: (int pageCount){
+                onRender: (int? pageCount){
                   blog('onRender : x : $pageCount');
 
                   if (

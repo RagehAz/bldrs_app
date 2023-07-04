@@ -1,22 +1,22 @@
-import 'package:scale/scale.dart';
-import 'package:filers/filers.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:flutter/material.dart';
 
 class ListPusher extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const ListPusher({
-    @required this.maxHeight,
+    required this.maxHeight,
     this.width,
     this.duration,
     this.expand = true,
     this.curve = Curves.easeOut,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double maxHeight;
-  final double width;
-  final Duration duration;
+  final double? width;
+  final Duration? duration;
   final bool expand;
   final Curve curve;
   /// --------------------------------------------------------------------------
@@ -27,10 +27,10 @@ class ListPusher extends StatefulWidget {
 
 class _ListPusherState extends State<ListPusher> with SingleTickerProviderStateMixin {
   // -----------------------------------------------------------------------------
-  AnimationController _animationController;
-  CurvedAnimation _curvedAnimation;
-  Duration _duration;
-  Animation<double> _heightTween;
+  late AnimationController _animationController;
+  late CurvedAnimation _curvedAnimation;
+  late Duration _duration;
+  late Animation<double> _heightTween;
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -88,7 +88,7 @@ class _ListPusherState extends State<ListPusher> with SingleTickerProviderStateM
     // --------------------
     return AnimatedBuilder(
         animation: _animationController.view,
-        builder: (_, Widget child){
+        builder: (_, Widget? child){
 
           // final double _height = _heightTween.evaluate(_animation);
 

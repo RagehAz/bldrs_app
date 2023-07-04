@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
@@ -16,9 +16,8 @@ import 'package:bldrs/c_protocols/review_protocols/protocols/a_reviews_protocols
 import 'package:bldrs/c_protocols/zone_phids_protocols/zone_phids_real_ops.dart';
 import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:provider/provider.dart';
 
 /*
@@ -50,14 +49,14 @@ class WipeFlyerProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<void> onWipeSingleFlyer({
-    @required FlyerModel flyerModel,
+    required FlyerModel? flyerModel,
   }) async {
 
-    if (flyerModel != null){
+    final BzModel? _oldBz = await BzProtocols.fetchBz(
+      bzID: flyerModel?.bzID,
+    );
 
-      final BzModel _oldBz = await BzProtocols.fetchBz(
-          bzID: flyerModel.bzID,
-      );
+    if (flyerModel != null && flyerModel.id != null && _oldBz != null){
 
       await Future.wait(<Future>[
 
@@ -78,7 +77,7 @@ class WipeFlyerProtocols {
         RecorderProtocols.onWipeFlyer(
           flyerID: flyerModel.id,
             bzID: _oldBz.id,
-            numberOfSlides: flyerModel.slides.length,
+            numberOfSlides: flyerModel.slides?.length,
         ),
 
         /// REMOVE SPECS FROM CITY CHAIN USAGE
@@ -107,9 +106,10 @@ class WipeFlyerProtocols {
         ),
 
         /// REMOVE FLYER LOCALLY
-        deleteFlyersLocally(
-          flyersIDs: <String>[flyerModel.id],
-        ),
+        if (flyerModel.id != null)
+          deleteFlyersLocally(
+            flyersIDs: <String>[flyerModel.id!],
+          ),
 
       ]);
 
@@ -119,15 +119,15 @@ class WipeFlyerProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<void> _deleteFlyerIDFromBzFlyersIDsAndAuthorIDs({
-    @required BuildContext context,
-    @required FlyerModel flyer,
-    @required BzModel oldBz,
+    required BuildContext context,
+    required FlyerModel? flyer,
+    required BzModel? oldBz,
   }) async {
     blog('_deleteFlyerIDFromBzFlyersIDsAndAuthorIDs : START');
 
     if (oldBz != null && flyer != null){
 
-      final BzModel _newBz = BzModel.removeFlyerIDFromBzAndAuthor(
+      final BzModel? _newBz = BzModel.removeFlyerIDFromBzAndAuthor(
         oldBz: oldBz,
         flyer: flyer,
       );
@@ -151,70 +151,75 @@ class WipeFlyerProtocols {
   // --------------------
   /// TASK : TEST ME
   static Future<void> onWipeBz({
-    @required String bzID,
+    required String? bzID,
   }) async {
 
     if (bzID != null){
 
-      final BzModel _oldBz = await BzProtocols.fetchBz(
+      final BzModel? _oldBz = await BzProtocols.fetchBz(
         bzID: bzID,
       );
 
-      Future<void> _wipeAFlyer(String flyerID) async {
+      Future<void> _wipeAFlyer(String? flyerID) async {
 
-        final FlyerModel _flyerModel = await FlyerProtocols.fetchFlyer(
+        final FlyerModel? _flyerModel = await FlyerProtocols.fetchFlyer(
           context: getMainContext(),
           flyerID: flyerID,
         );
 
-        await Future.wait(<Future>[
+        if (_flyerModel != null && _flyerModel.id != null){
 
-          /// REMOVE SPECS FROM CITY CHAIN USAGE
-          ZonePhidsRealOps.incrementFlyerCityPhids(
-            flyerModel: _flyerModel,
-            isIncrementing: false,
-          ),
+          await Future.wait(<Future>[
 
-          /// DELETE SLIDES PICS + PDF + POSTER
-          BldrsCloudFunctions.deleteStorageDirectory(
-            context: getMainContext(),
-            path: StoragePath.flyers_flyerID(flyerID: flyerID),
-          ),
+            /// REMOVE SPECS FROM CITY CHAIN USAGE
+            ZonePhidsRealOps.incrementFlyerCityPhids(
+              flyerModel: _flyerModel,
+              isIncrementing: false,
+            ),
 
-          /// DELETE LDB SLIDES AND POSTER PICS + PDF
-          PicLDBOps.deletePics(FlyerModel.getPicsPaths(_flyerModel)),
-          PicLDBOps.deletePic(StoragePath.flyers_flyerID_poster(_flyerModel?.id)),
-          PDFLDBOps.delete(_flyerModel?.pdfPath),
+            /// DELETE SLIDES PICS + PDF + POSTER
+            BldrsCloudFunctions.deleteStorageDirectory(
+              context: getMainContext(),
+              path: StoragePath.flyers_flyerID(flyerID: flyerID),
+            ),
 
-          /// CENSUS
-          CensusListener.onWipeFlyer(_flyerModel),
+            /// DELETE LDB SLIDES AND POSTER PICS + PDF
+            PicLDBOps.deletePics(FlyerModel.getPicsPaths(_flyerModel)),
+            PicLDBOps.deletePic(StoragePath.flyers_flyerID_poster(_flyerModel.id)),
+            PDFLDBOps.delete(_flyerModel.pdfPath),
 
-          /// REMOVE FLYER DOC
-          FlyerFireOps.deleteFlyerDoc(
-            flyerID: _flyerModel?.id,
-          ),
+            /// CENSUS
+            CensusListener.onWipeFlyer(_flyerModel),
 
-          /// REMOVE FLYER LOCALLY
-          deleteFlyersLocally(
-            flyersIDs: <String>[_flyerModel.id],
-          ),
+            /// REMOVE FLYER DOC
+            FlyerFireOps.deleteFlyerDoc(
+              flyerID: _flyerModel.id,
+            ),
 
-        ]);
+            /// REMOVE FLYER LOCALLY
+            deleteFlyersLocally(
+              flyersIDs: <String>[_flyerModel.id!],
+            ),
+
+          ]);
+
+        }
+
       }
 
       await Future.wait(<Future>[
 
         /// WIPE FLYERS
-        if (Mapper.checkCanLoopList(_oldBz.flyersIDs) == true)
-          ...List.generate(_oldBz.flyersIDs.length, (index){
-            final String _flyerID = _oldBz.flyersIDs[index];
+        if (Mapper.checkCanLoopList(_oldBz?.flyersIDs) == true)
+          ...List.generate(_oldBz!.flyersIDs!.length, (index){
+            final String _flyerID = _oldBz.flyersIDs![index];
             return _wipeAFlyer(_flyerID);
           }),
 
         /// WIPE FLYER REVIEWS
         ReviewProtocols.onWipeBz(
-          flyersIDs: _oldBz.flyersIDs,
-          bzID: _oldBz.id,
+          flyersIDs: _oldBz?.flyersIDs,
+          bzID: _oldBz?.id,
         ),
 
       ]);
@@ -229,7 +234,7 @@ class WipeFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteFlyersLocally({
-    @required List<String> flyersIDs,
+    required List<String>? flyersIDs,
   }) async {
 
     /// FLYER LDB DELETION
@@ -246,12 +251,12 @@ class WipeFlyerProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> deleteAllBzFlyersLocally({
-    @required String bzID,
+    required String? bzID,
   }) async {
 
     if (bzID != null){
 
-      final BzModel _bzModel = await BzProtocols.fetchBz(
+      final BzModel? _bzModel = await BzProtocols.fetchBz(
           bzID: bzID,
       );
 

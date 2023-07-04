@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/c_follows_page/x3_user_follows_page_controllers.dart';
@@ -9,25 +9,24 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/f_helpers/drafters/stream_checkers.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 
 class UserFollowingPage extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const UserFollowingPage({
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
-    final UserModel userModel = UsersProvider.proGetMyUserModel(
+    final UserModel? userModel = UsersProvider.proGetMyUserModel(
       context: context,
       listen: true,
     );
-    final List<String> _followedBzzIds = userModel.followedBzz?.all;
+    final List<String> _followedBzzIds = userModel?.followedBzz?.all ?? [];
     // --------------------
     /// FOLLOWS EXIST
     if (Mapper.checkCanLoopList(_followedBzzIds) == false){
@@ -52,9 +51,9 @@ class UserFollowingPage extends StatelessWidget {
 
           final String _bzID = _followedBzzIds[index];
 
-          return FutureBuilder(
+          return FutureBuilder<BzModel?>(
             future: BzProtocols.fetchBz(bzID: _bzID),
-            builder: (_, AsyncSnapshot<BzModel> snapshot){
+            builder: (_, AsyncSnapshot<BzModel?> snapshot){
 
               blog('snapshot connectionState is : ${snapshot.connectionState}');
 
@@ -77,7 +76,7 @@ class UserFollowingPage extends StatelessWidget {
 
                 else {
                   return BzLongButton(
-                    bzModel: snapshot?.data,
+                    bzModel: snapshot.data,
                   );
                 }
 
@@ -91,7 +90,7 @@ class UserFollowingPage extends StatelessWidget {
           //   title: _bzTypeString,
           //   icon: _bzTypeIcon,
           //   onBzTap: (BzModel bzModel){
-          //     bzModel.blogBz(invoker: 'Yabny tapped bzModel aho tapped aho');
+          //     bzModel.blogBz(invoker: 'tapped bzModel aho tapped aho');
           //   },
           // );
 

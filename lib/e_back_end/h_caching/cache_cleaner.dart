@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 class CacheCleaner extends StatefulWidget {
 
   const CacheCleaner({
-    @required this.child,
-    Key key
-  }) : super(key: key);
-
+    required this.child,
+    super.key
+  });
+  
   final Widget child;
 
   @override

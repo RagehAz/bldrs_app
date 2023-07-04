@@ -1,26 +1,25 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/flagbox_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-
 import 'package:flutter/material.dart';
 
 class ZoneLine extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ZoneLine({
-    @required this.zoneModel,
+    required this.zoneModel,
     this.showCity = true,
     this.centered = true,
     this.width,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final ZoneModel zoneModel;
+  final ZoneModel? zoneModel;
   final bool showCity;
   final bool centered;
-  final double width;
+  final double? width;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -32,17 +31,16 @@ class ZoneLine extends StatelessWidget {
     // --------------------
     final double _width = width ?? 200;
 
-    return Container(
-      width: _width - 20,
-      // height: 35,
-      margin: const EdgeInsets.symmetric(horizontal: 10),
-      alignment: centered == true ? Alignment.center : BldrsAligners.superCenterAlignment(context),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        physics: const NeverScrollableScrollPhysics(),
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      physics: const NeverScrollableScrollPhysics(),
+      child: Container(
+        width: _width - 20,
+        // margin: const EdgeInsets.symmetric(horizontal: 10),
+        alignment: centered == true ? Alignment.center : BldrsAligners.superCenterAlignment(context),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
-          // mainAxisAlignment: centered == true ? MainAxisAlignment.center : MainAxisAlignment.start,
+          mainAxisAlignment: centered == true ? MainAxisAlignment.center : MainAxisAlignment.start,
           children: <Widget>[
 
             Padding(
@@ -59,7 +57,12 @@ class ZoneLine extends StatelessWidget {
             ),
 
             BldrsText(
-              width: _zoneVerse.id.length > 20 ? _width - 20 - 20 - 5 : null,
+              width: centered == true ?
+              null
+                  :
+              (_zoneVerse.id?.length ?? 0) > 20 ? _width - 20 - 20 - 5 - 10
+                  :
+              null,
               verse: _zoneVerse,
               weight: VerseWeight.thin,
               italic: true,

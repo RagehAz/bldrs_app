@@ -4,18 +4,18 @@ import 'package:flutter/material.dart';
 class DoublePicsBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const DoublePicsBox({
-    @required this.pics,
-    @required this.size,
-    Key key
-  }) : super(key: key);
+    required this.pics,
+    required this.size,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double size;
-  final List<String> pics;
+  final List<String>? pics;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
-    if (pics != null && pics.length >= 2){
+    if (pics != null && pics!.length >= 2){
       return SizedBox(
         width: size,
         height: size,
@@ -27,7 +27,7 @@ class DoublePicsBox extends StatelessWidget {
               left: 0,
               child: MicroPic(
                 size: size * 0.7,
-                pic: pics[0],
+                pic: pics![0],
               ),
             ),
 
@@ -36,7 +36,7 @@ class DoublePicsBox extends StatelessWidget {
               right: 0,
               child: MicroPic(
                 size: size * 0.7,
-                pic: pics[1],
+                pic: pics![1],
               ),
             ),
 

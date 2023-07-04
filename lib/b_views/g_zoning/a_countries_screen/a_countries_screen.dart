@@ -1,6 +1,8 @@
 import 'dart:async';
-
-import 'package:animators/animators.dart';
+import 'package:basics/animators/widgets/scroller.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/f_helpers/localization/localizer.dart';
@@ -11,27 +13,25 @@ import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:night_sky/night_sky.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:bldrs/c_protocols/census_protocols/census_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/staging_protocols/protocols/staging_protocols.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
 import 'package:flutter/material.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 
 class CountriesScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const CountriesScreen({
-    @required this.zoneViewingEvent,
-    @required this.depth,
-    @required this.viewerCountryID,
-    Key key
-  }) : super(key: key);
+    required this.zoneViewingEvent,
+    required this.depth,
+    required this.viewerCountryID,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final ViewingEvent zoneViewingEvent;
   final ZoneDepth depth;
-  final String viewerCountryID;
+  final String? viewerCountryID;
   /// --------------------------------------------------------------------------
   @override
   _CountriesScreenState createState() => _CountriesScreenState();
@@ -41,18 +41,18 @@ class CountriesScreen extends StatefulWidget {
 class _CountriesScreenState extends State<CountriesScreen> {
   // -----------------------------------------------------------------------------
   final ValueNotifier<bool> _isSearching = ValueNotifier<bool>(false);
-  final ValueNotifier<List<Phrase>> _foundCountries = ValueNotifier<List<Phrase>>(null);
+  final ValueNotifier<List<Phrase>?> _foundCountries = ValueNotifier<List<Phrase>?>(null);
   // --------------------
   List<String> _shownCountriesIDs = <String>[];
   List<String> _notShownCountriesIDs = <String>[];
   // --------------------
-  List<CensusModel> _censuses;
-  CensusModel _planetCensus;
+  List<CensusModel>? _censuses;
+  CensusModel? _planetCensus;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
   // --------------------
-  Future<void> _triggerLoading({@required bool setTo}) async {
+  Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
       notifier: _loading,
       mounted: mounted,
@@ -98,12 +98,12 @@ class _CountriesScreenState extends State<CountriesScreen> {
   Future<void> _loadCountries() async {
 
     /// COUNTRIES STAGES
-    final StagingModel _countriesStages = await StagingProtocols.fetchCountriesStaging();
+    final StagingModel? _countriesStages = await StagingProtocols.fetchCountriesStaging();
 
     // _countriesStages.blogStaging();
 
     /// SHOWN IDS
-    final List<String> _shownIDs = _countriesStages?.getIDsByViewingEvent(
+    final List<String>? _shownIDs = _countriesStages?.getIDsByViewingEvent(
       event: widget.zoneViewingEvent,
       countryID: null,
       viewerCountryID: widget.viewerCountryID,
@@ -142,7 +142,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
     blog('CountriesScreen._loadCountries() : _shownIDs : $_shownIDs');
 
     /// NOT SHOWN IDS
-    final List<String> _notShownIDs = Stringer.removeStringsFromStrings(
+    final List<String>? _notShownIDs = Stringer.removeStringsFromStrings(
       removeFrom: Flag.getAllCountriesIDs(),
       removeThis: _shownIDs,
     );
@@ -151,19 +151,17 @@ class _CountriesScreenState extends State<CountriesScreen> {
     final List<CensusModel> _countriesCensuses = await  CensusProtocols.fetchCountriesCensusesByIDs(
         countriesIDs: [...?_shownIDs, ...?_notShownIDs],
     );
-    final CensusModel _fetchedPlanetCensus = await CensusProtocols.fetchPlanetCensus();
+    final CensusModel? _fetchedPlanetCensus = await CensusProtocols.fetchPlanetCensus();
 
     if (mounted) {
       setState(() {
 
         _shownCountriesIDs = Flag.sortCountriesNamesAlphabetically(
-          context: context,
           countriesIDs: _shownIDs,
           langCode: Localizer.getCurrentLangCode(),
         );
 
         _notShownCountriesIDs = Flag.sortCountriesNamesAlphabetically(
-          context: context,
           countriesIDs: _notShownIDs,
           langCode: Localizer.getCurrentLangCode(),
         );
@@ -182,7 +180,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _onSearchCountry(String val) async {
+  Future<void> _onSearchCountry(String? val) async {
 
     TextCheck.triggerIsSearchingNotifier(
       text: val,
@@ -235,7 +233,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _onCountryTap(String countryID) async {
+  Future<void> _onCountryTap(String? countryID) async {
     blog('onCountryTap : browse view : $countryID');
     await ZoneSelection.onSelectCountry(
       context: context,
@@ -248,7 +246,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _onDeactivatedCountryTap(String countryID) async {
+  Future<void> _onDeactivatedCountryTap(String? countryID) async {
 
     blog('onDeactivatedCountryTap : browse view : $countryID');
 
@@ -282,7 +280,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
       child: Scroller(
         child: ValueListenableBuilder(
           valueListenable: _isSearching,
-          builder: (BuildContext context, bool isSearching, Widget child){
+          builder: (BuildContext context, bool isSearching, Widget? child){
 
             /// WHILE SEARCHING
             if (isSearching == true){

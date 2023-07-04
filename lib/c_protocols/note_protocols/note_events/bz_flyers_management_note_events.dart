@@ -1,3 +1,4 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
@@ -12,7 +13,6 @@ import 'package:bldrs/c_protocols/note_protocols/protocols/b_note_fun_protocols.
 import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:filers/filers.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
 /// => TAMAM
@@ -28,60 +28,66 @@ class NoteEventsOfBzFlyersManagement {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendFlyerUpdateNoteToItsBz({
-    @required BuildContext context,
-    @required BzModel bzModel,
-    @required String flyerID,
+    required BuildContext context,
+    required BzModel? bzModel,
+    required String? flyerID,
   }) async {
 
     blog('NoteEventsOfBzFlyersManagement.sendFlyerUpdateNoteToItsBz : START');
 
-    final UserModel _userModel = await UserProtocols.fetch(
-      context: context,
-      userID: bzModel?.authors?.first?.userID,
-    );
+    if (bzModel != null && flyerID != null) {
 
-    final FlyerModel _flyer = await FlyerProtocols.fetchFlyer(
-      context: context,
-      flyerID: flyerID,
-    );
+      final UserModel? _userModel = await UserProtocols.fetch(
+        context: context,
+        userID: bzModel.authors?.first.userID,
+      );
 
-    final String _title = await PhraseProtocols.translate(
-        phid: 'phid_flyer_has_been_updated',
-        langCode: _userModel?.language,
-    );
+      final FlyerModel? _flyer = await FlyerProtocols.fetchFlyer(
+        context: context,
+        flyerID: flyerID,
+      );
 
-    final NoteModel _note = NoteModel(
-      id: null,
-      parties: NoteParties(
-        senderID: bzModel.id,
-        senderImageURL: bzModel.logoPath,
-        senderType: PartyType.bz,
-        receiverID: bzModel.id,
-        receiverType: PartyType.bz,
-      ),
-      title: _title,
-      body: _flyer.headline,
-      sentTime: DateTime.now(),
-      sendFCM: false,
-      topic: TopicModel.bakeTopicID(
-        topicID: TopicModel.bzFlyersUpdates,
-        bzID: bzModel.id,
-        receiverPartyType: PartyType.bz,
-      ),
-      function: NoteFunProtocols.createFlyerRefetchTrigger(
-          flyerID: flyerID,
-      ),
-      navTo: TriggerModel(
-        name: Routing.flyerPreview,
-        argument: flyerID,
-        done: const [],
-      ),
-    );
+      if (_flyer != null) {
 
-    await NoteProtocols.composeToOneReceiver(
-      context: context,
-      note: _note,
-    );
+        final String? _title = await PhraseProtocols.translate(
+          phid: 'phid_flyer_has_been_updated',
+          langCode: _userModel?.language,
+        );
+
+        final NoteModel _note = NoteModel(
+          id: null,
+          parties: NoteParties(
+            senderID: bzModel.id,
+            senderImageURL: bzModel.logoPath,
+            senderType: PartyType.bz,
+            receiverID: bzModel.id,
+            receiverType: PartyType.bz,
+          ),
+          title: _title,
+          body: _flyer.headline,
+          sentTime: DateTime.now(),
+          sendFCM: false,
+          topic: TopicModel.bakeTopicID(
+            topicID: TopicModel.bzFlyersUpdates,
+            bzID: bzModel.id,
+            receiverPartyType: PartyType.bz,
+          ),
+          function: NoteFunProtocols.createFlyerRefetchTrigger(
+            flyerID: flyerID,
+          ),
+          navTo: TriggerModel(
+            name: Routing.flyerPreview,
+            argument: flyerID,
+            done: const [],
+          ),
+        );
+
+        await NoteProtocols.composeToOneReceiver(
+          note: _note,
+        );
+      }
+
+    }
 
     blog('NoteEventsOfBzFlyersManagement.sendFlyerUpdateNoteToItsBz : END');
 
@@ -89,28 +95,28 @@ class NoteEventsOfBzFlyersManagement {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendFlyerIsVerifiedNoteToBz({
-    @required BuildContext context,
-    @required String flyerID,
-    @required String bzID,
+    required BuildContext context,
+    required String flyerID,
+    required String bzID,
   }) async {
 
     // blog('NoteEventsOfBzFlyersManagement.sendFlyerIsVerifiedNoteToBz : START');
 
-    final BzModel _bzModel = await BzProtocols.fetchBz(
+    final BzModel? _bzModel = await BzProtocols.fetchBz(
       bzID: bzID,
     );
 
-    final UserModel _userModel = await UserProtocols.fetch(
+    final UserModel? _userModel = await UserProtocols.fetch(
       context: context,
-      userID: _bzModel?.authors?.first?.userID,
+      userID: _bzModel?.authors?.first.userID,
     );
 
-    final String _title = await PhraseProtocols.translate(
+    final String? _title = await PhraseProtocols.translate(
         phid: 'phid_flyer_has_been_verified',
         langCode: _userModel?.language,
     );
 
-    final String _body = await PhraseProtocols.translate(
+    final String? _body = await PhraseProtocols.translate(
       phid: 'phid_flyer_is_public_now_and_can_be_seen',
       langCode: _userModel?.language,
     );
@@ -143,7 +149,6 @@ class NoteEventsOfBzFlyersManagement {
     );
 
     await NoteProtocols.composeToOneReceiver(
-        context: context,
         note: _note
     );
 

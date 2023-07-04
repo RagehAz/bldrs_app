@@ -1,17 +1,16 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/draft_shelf/e_draft_shelf_slide.dart';
-import 'package:scale/scale.dart';
-
-
-import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:flutter/material.dart';
 
 class DraftShelfBox extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const DraftShelfBox({
-    @required this.child,
-    @required this.shelfUI,
-    Key key
-  }) : super(key: key);
+    required this.child,
+    required this.shelfUI,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final Widget child;
   final ValueNotifier<ShelfUI> shelfUI;
@@ -37,7 +36,7 @@ class DraftShelfBox extends StatelessWidget {
           child: child,
         ),
 
-        builder: (_, ShelfUI shelfUI, Widget kid){
+        builder: (_, ShelfUI shelfUI, Widget? kid){
 
           return AnimatedContainer(
             duration: animationDuration,
@@ -62,9 +61,9 @@ class DraftShelfBox extends StatelessWidget {
 class ShelfUI {
   // -----------------------------------------------------------------------------
   ShelfUI({
-    @required this.height,
-    @required this.opacity,
-    @required this.index,
+    required this.height,
+    required this.opacity,
+    required this.index,
   });
   // -----------------------------------------------------------------------------
   double height;
@@ -72,9 +71,9 @@ class ShelfUI {
   int index;
   // -----------------------------------------------------------------------------
   ShelfUI copyWith({
-    double height,
-    double opacity,
-    int index,
+    double? height,
+    double? opacity,
+    int? index,
   }){
     return ShelfUI(
       height: height ?? this.height,

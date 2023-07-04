@@ -21,24 +21,24 @@ class AuthorshipSendingProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendRequest({
-    @required BuildContext context,
-    @required BzModel oldBz,
-    @required UserModel userModelToSendTo,
+    required BuildContext context,
+    required BzModel? oldBz,
+    required UserModel? userModelToSendTo,
   }) async {
 
-    final NoteModel noteModel = await NoteEvent.sendAuthorshipInvitationNote(
+    final NoteModel? noteModel = await NoteEvent.sendAuthorshipInvitationNote(
       context: context,
       bzModel: oldBz,
       userModelToSendTo: userModelToSendTo,
     );
 
     final List<PendingAuthor> _pendingAuthors = PendingAuthor.addNewPendingAuthor(
-      pendingAuthors: oldBz.pendingAuthors,
-      noteID: noteModel.id,
-      userID: userModelToSendTo.id,
+      pendingAuthors: oldBz?.pendingAuthors,
+      noteID: noteModel?.id,
+      userID: userModelToSendTo?.id,
     );
 
-    final BzModel _newBz = oldBz.copyWith(
+    final BzModel? _newBz = oldBz?.copyWith(
       pendingAuthors: _pendingAuthors,
     );
 
@@ -58,9 +58,9 @@ class AuthorshipSendingProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> cancelRequest({
-    @required BuildContext context,
-    @required BzModel bzModel,
-    @required String pendingUserID
+    required BuildContext context,
+    required BzModel bzModel,
+    required String pendingUserID
   }) async {
 
     await Future.wait(<Future>[
@@ -92,28 +92,27 @@ class AuthorshipSendingProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _renovateReplyOfSentRequestToCancel({
-    @required BuildContext context,
-    @required BzModel bzModel,
-    @required String pendingUserID,
+    required BuildContext context,
+    required BzModel bzModel,
+    required String pendingUserID,
   }) async {
 
     /// get pending author model
-    final PendingAuthor _pendingAuthorModel = PendingAuthor.getModelByUserID(
+    final PendingAuthor? _pendingAuthorModel = PendingAuthor.getModelByUserID(
       pendingAuthors: bzModel.pendingAuthors,
       userID: pendingUserID,
     );
 
     /// to get the sent previously sent note to delete
-    final NoteModel _sentNote = await NoteProtocols.readNote(
-      noteID: _pendingAuthorModel.noteID,
-      userID: _pendingAuthorModel.userID,
+    final NoteModel? _sentNote = await NoteProtocols.readNote(
+      noteID: _pendingAuthorModel?.noteID,
+      userID: _pendingAuthorModel?.userID,
     );
 
     await NoteProtocols.renovate(
-      context: context,
       oldNote: _sentNote,
-      newNote: _sentNote.copyWith(
-        poll: _sentNote.poll.copyWith(
+      newNote: _sentNote?.copyWith(
+        poll: _sentNote.poll?.copyWith(
           reply: PollModel.cancel,
         ),
       ),
@@ -123,13 +122,13 @@ class AuthorshipSendingProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _sendAuthorshipCancellationNote({
-    @required BuildContext context,
-    @required BzModel bzModel,
-    @required String pendingUserID
+    required BuildContext context,
+    required BzModel bzModel,
+    required String pendingUserID
   }) async {
 
     /// get that user to send him cancellation note
-    final UserModel userModelToSendTo = await UserProtocols.fetch(
+    final UserModel? userModelToSendTo = await UserProtocols.fetch(
       context: context,
       userID: pendingUserID,
     );

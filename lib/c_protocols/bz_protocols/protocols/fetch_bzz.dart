@@ -4,7 +4,7 @@ import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.da
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/bz_protocols/fire/bz_fire_ops.dart';
 import 'package:bldrs/c_protocols/bz_protocols/ldb/bz_ldb_ops.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/material.dart';
 
 class FetchBzProtocols {
@@ -18,10 +18,10 @@ class FetchBzProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<BzModel> fetch({
-    @required String bzID
+  static Future<BzModel?> fetch({
+    required String? bzID
   }) async {
-    BzModel _bz = await BzLDBOps.readBz(bzID);
+    BzModel? _bz = await BzLDBOps.readBz(bzID);
 
     if (_bz != null){
       // blog('FetchBzProtocol.fetchBz : ($bzID) BzModel FOUND in LDB');
@@ -55,10 +55,10 @@ class FetchBzProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<BzModel> refetch({
-    @required String bzID
+  static Future<BzModel?> refetch({
+    required String? bzID
   }) async {
-    BzModel _output;
+    BzModel? _output;
 
     if (bzID != null){
 
@@ -79,15 +79,15 @@ class FetchBzProtocols {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<BzModel> fetchBzByFlyerID({
-    @required BuildContext context,
-    @required String flyerID,
+  static Future<BzModel?> fetchBzByFlyerID({
+    required BuildContext context,
+    required String? flyerID,
   }) async {
-    BzModel _bzModel;
+    BzModel? _bzModel;
 
     if (flyerID != null){
 
-      final FlyerModel _flyerModel = await FlyerProtocols.fetchFlyer(
+      final FlyerModel? _flyerModel = await FlyerProtocols.fetchFlyer(
         context: context,
         flyerID: flyerID,
       );
@@ -109,16 +109,16 @@ class FetchBzProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<BzModel>> fetchBzz({
-    @required List<String> bzzIDs
+    required List<String>? bzzIDs
   }) async {
     // blog('FetchBzProtocol.fetchBzz : START');
 
     final List<BzModel> _bzz = <BzModel>[];
 
-    if (Mapper.checkCanLoopList(bzzIDs)) {
-      for (final String bzID in bzzIDs) {
+    if (Mapper.checkCanLoopList(bzzIDs) == true) {
+      for (final String bzID in bzzIDs!) {
 
-        final BzModel _bz = await fetch(
+        final BzModel? _bz = await fetch(
           bzID: bzID,
         );
 

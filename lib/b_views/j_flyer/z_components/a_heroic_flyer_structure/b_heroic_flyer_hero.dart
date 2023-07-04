@@ -12,17 +12,17 @@ enum FlightDirection{
 class FlyerHero extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerHero({
-    @required this.renderedFlyer,
-    @required this.flyerBoxWidth,
-    @required this.canBuildBigFlyer,
-    @required this.heroPath,
-    @required this.invoker,
-    @required this.gridWidth,
-    @required this.gridHeight,
-    Key key
-  }) : super(key: key);
+    required this.renderedFlyer,
+    required this.flyerBoxWidth,
+    required this.canBuildBigFlyer,
+    required this.heroPath,
+    required this.invoker,
+    required this.gridWidth,
+    required this.gridHeight,
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final FlyerModel renderedFlyer;
+  final FlyerModel? renderedFlyer;
   final bool canBuildBigFlyer;
   final double flyerBoxWidth;
   final String heroPath;

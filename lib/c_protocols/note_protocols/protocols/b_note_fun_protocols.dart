@@ -1,3 +1,5 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
@@ -7,10 +9,8 @@ import 'package:bldrs/c_protocols/authorship_protocols/f_new_authorship_exit.dar
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 /// => TAMAM
 class NoteFunProtocols {
   /// --------------------------------------------------------------------------
@@ -57,7 +57,7 @@ class NoteFunProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static TriggerModel createFlyerRefetchTrigger({
-    @required String flyerID,
+    required String flyerID,
   }){
     return TriggerModel(
       name: funRefetchFlyer,
@@ -75,7 +75,7 @@ class NoteFunProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static TriggerModel createDeleteBzLocallyTrigger({
-    @required String bzID,
+    required String bzID,
   }){
     return TriggerModel(
       name: funRemoveBzTracesAfterDeletion,
@@ -86,7 +86,7 @@ class NoteFunProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static TriggerModel createRefetchBzTrigger({
-    @required String bzID,
+    required String? bzID,
   }){
     return TriggerModel(
       name: funRefetchBz,
@@ -97,8 +97,8 @@ class NoteFunProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static TriggerModel createDeletePendingAuthorTrigger({
-    @required String userID,
-    @required String bzID,
+    required String? userID,
+    required String? bzID,
   }){
     return TriggerModel(
       name: funWipePendingAuthor,
@@ -109,7 +109,7 @@ class NoteFunProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static TriggerModel createDeleteAllBzFlyersLocally({
-    @required String bzID,
+    required String bzID,
   }){
     return TriggerModel(
       name: funDeleteAllBzFlyersLocally,
@@ -124,7 +124,7 @@ class NoteFunProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> fireTriggers({
-    @required List<NoteModel> notes,
+    required List<NoteModel> notes,
   }) async {
 
     if (Mapper.checkCanLoopList(notes) == true){
@@ -147,7 +147,7 @@ class NoteFunProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _fireTrigger({
-    @required NoteModel noteModel,
+    required NoteModel? noteModel,
   }) async {
 
     // blog('TriggerProtocols._fireTrigger  (noteID : ${noteModel.id}) -- START');
@@ -162,15 +162,14 @@ class NoteFunProtocols {
 
       await _triggerSwitcher(
         context: getMainContext(),
-        trigger: noteModel.function,
+        trigger: noteModel.function!,
       );
 
-      final NoteModel _newNote = TriggerModel.addMeToTriggerDones(
+      final NoteModel? _newNote = TriggerModel.addMeToTriggerDones(
         noteModel: noteModel,
       );
 
       await NoteProtocols.renovate(
-        context: getMainContext(),
         oldNote: noteModel,
         newNote: _newNote,
       );
@@ -188,13 +187,13 @@ class NoteFunProtocols {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> _triggerSwitcher({
-    @required BuildContext context,
-    @required TriggerModel trigger,
+    required BuildContext context,
+    required TriggerModel? trigger,
   }) async {
 
     assert(
     TriggerModel.checkIFiredThisTrigger(trigger) == false,
-    'This user ${Authing.getUserID()} already fired this trigger ${trigger.name}',
+    'This user ${Authing.getUserID()} already fired this trigger ${trigger?.name}',
     );
 
     if (trigger != null && TriggerModel.checkIFiredThisTrigger(trigger) == false){
@@ -247,8 +246,14 @@ class NoteFunProtocols {
           // argument: '${userID}_$bzID',
           await BzProtocols.wipePendingAuthor(
             context: context,
-            pendingUserID: TextMod.removeTextAfterFirstSpecialCharacter(trigger.argument, '_'),
-            bzID: TextMod.removeTextBeforeFirstSpecialCharacter(trigger.argument, '_'),
+            pendingUserID: TextMod.removeTextAfterFirstSpecialCharacter(
+                text: trigger.argument,
+                specialCharacter: '_',
+            ),
+            bzID: TextMod.removeTextBeforeFirstSpecialCharacter(
+                text: trigger.argument,
+                specialCharacter: '_',
+            ),
           );
           blog('3--> Switcher : FIRING : END');
           break;

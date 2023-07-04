@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:typed_data';
 
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/files/file_size_unit.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/draft/draft_bz.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
@@ -22,10 +24,11 @@ import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
-import 'package:filers/filers.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:mediators/mediators.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:mediators/models/dimension_model.dart';
+import 'package:mediators/pic_maker/pic_maker.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 
@@ -34,14 +37,14 @@ import 'package:mediators/mediators.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> loadBzEditorLastSession({
-  @required BuildContext context,
-  @required ValueNotifier<DraftBz> draftNotifier,
-  @required bool mounted,
+  required BuildContext context,
+  required ValueNotifier<DraftBz?>? draftNotifier,
+  required bool mounted,
 }) async {
 
-  final DraftBz _lastSessionDraft = await BzLDBOps.loadBzEditorSession(
+  final DraftBz? _lastSessionDraft = await BzLDBOps.loadBzEditorSession(
     context: context,
-    bzID: draftNotifier.value.id,
+    bzID: draftNotifier?.value?.id,
   );
 
   if (_lastSessionDraft != null){
@@ -60,17 +63,17 @@ Future<void> loadBzEditorLastSession({
 
     if (_continue == true){
 
-      blog('name of the bz is : ${_lastSessionDraft.nameController.text}');
+      blog('name of the bz is : ${_lastSessionDraft.nameController?.text}');
 
-      draftNotifier.value.nameController.text = _lastSessionDraft.nameController.text;
-      draftNotifier.value.aboutController.text = _lastSessionDraft.aboutController.text;
+      draftNotifier?.value?.nameController?.text = _lastSessionDraft.nameController?.text ?? '';
+      draftNotifier?.value?.aboutController?.text = _lastSessionDraft.aboutController?.text ?? '';
 
       setNotifier(
           notifier: draftNotifier,
           mounted: mounted,
           value: DraftBz.reAttachNodes(
             draftFromLDB: _lastSessionDraft,
-            originalDraft: draftNotifier.value,
+            originalDraft: draftNotifier?.value,
           ),
       );
 
@@ -83,8 +86,8 @@ Future<void> loadBzEditorLastSession({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> saveBzEditorSession({
-  @required ValueNotifier<DraftBz> draftNotifier,
-  @required bool mounted,
+  required ValueNotifier<DraftBz?>? draftNotifier,
+  required bool mounted,
 }) async {
 
   triggerCanValidateDraftBz(
@@ -93,11 +96,10 @@ Future<void> saveBzEditorSession({
     mounted: mounted,
   );
 
-  blog('saving bz name : ${draftNotifier.value.nameController.text} : ${draftNotifier.value
-      .aboutController.text}');
+  blog('saving bz name : ${draftNotifier?.value?.nameController?.text} : ${draftNotifier?.value?.aboutController?.text}');
 
   await BzLDBOps.saveBzEditorSession(
-      draft: draftNotifier.value,
+      draft: draftNotifier?.value,
   );
 
 }
@@ -108,10 +110,10 @@ Future<void> saveBzEditorSession({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onConfirmBzEdits({
-  @required BuildContext context,
-  @required ValueNotifier<DraftBz> draftNotifier,
-  @required BzModel oldBz,
-  @required bool mounted,
+  required BuildContext context,
+  required ValueNotifier<DraftBz?> draftNotifier,
+  required BzModel? oldBz,
+  required bool mounted,
 }) async {
 
   triggerCanValidateDraftBz(
@@ -135,11 +137,11 @@ Future<void> onConfirmBzEdits({
       oldBz: oldBz,
     );
 
-    await BzLDBOps.deleteBzEditorSession(draftNotifier.value.id);
+    await BzLDBOps.deleteBzEditorSession(draftNotifier.value?.id);
 
     await BldrsNav.restartAndRoute(
       routeName: Routing.myBzAboutPage,
-      arguments: draftNotifier.value.id,
+      arguments: draftNotifier.value?.id,
     );
 
   }
@@ -148,11 +150,11 @@ Future<void> onConfirmBzEdits({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<bool> _preUploadCheckups({
-  @required BuildContext context,
-  @required ValueNotifier<DraftBz> draftNotifier,
+  required BuildContext context,
+  required ValueNotifier<DraftBz?> draftNotifier,
 }) async {
 
-  bool _canContinue = Formers.validateForm(draftNotifier.value.formKey);
+  bool _canContinue = Formers.validateForm(draftNotifier.value?.formKey);
 
   if (_canContinue == true){
 
@@ -172,13 +174,13 @@ Future<bool> _preUploadCheckups({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _uploadDraftBz({
-  @required BuildContext context,
-  @required ValueNotifier<DraftBz> draftNotifier,
-  @required BzModel oldBz,
+  required BuildContext context,
+  required ValueNotifier<DraftBz?> draftNotifier,
+  required BzModel? oldBz,
 }) async {
 
   /// CREATING NEW BZ
-  if (draftNotifier.value.firstTimer == true){
+  if (Mapper.boolIsTrue(draftNotifier.value?.firstTimer) == true){
     await BzProtocols.composeBz(
       context: context,
       newDraft: draftNotifier.value,
@@ -192,16 +194,19 @@ Future<void> _uploadDraftBz({
   /// EDITING EXISTING BZ
   else {
 
-    blog('draftNotifier.value.hasNewLogo : ${draftNotifier.value.hasNewLogo}');
+    blog('draftNotifier.value.hasNewLogo : ${draftNotifier.value?.hasNewLogo}');
     // DraftBz.toBzModel(draftNotifier.value).blogBz(invoker: 'what the bz');
-    blog('draftNotifier.value.logoPicModel.bytes.length : ${draftNotifier.value.logoPicModel.bytes.length}');
+    blog('draftNotifier.value.logoPicModel.bytes.length : ${draftNotifier.value?.logoPicModel?.bytes?.length}');
 
     await BzProtocols.renovateBz(
       context: context,
       newBz: DraftBz.toBzModel(draftNotifier.value),
       oldBz: oldBz,
       showWaitDialog: true,
-      newLogo: draftNotifier.value.hasNewLogo == true ? draftNotifier.value.logoPicModel : null,
+      newLogo: Mapper.boolIsTrue(draftNotifier.value?.hasNewLogo) == true ?
+      draftNotifier.value?.logoPicModel
+          :
+      null,
     );
   }
 
@@ -214,12 +219,12 @@ Future<void> _uploadDraftBz({
 // --------------------
 /// TESTED : WORKS PERFECT
 void triggerCanValidateDraftBz({
-  @required bool setTo,
-  @required ValueNotifier<DraftBz> draftNotifier,
-  @required bool mounted,
+  required bool setTo,
+  required ValueNotifier<DraftBz?>? draftNotifier,
+  required bool mounted,
 }){
 
-  if (draftNotifier.value.canValidate == setTo){
+  if (draftNotifier?.value?.canValidate == setTo){
     // nothing
   }
   else {
@@ -227,7 +232,7 @@ void triggerCanValidateDraftBz({
     setNotifier(
         notifier: draftNotifier,
         mounted: mounted,
-        value: draftNotifier.value.copyWith(
+        value: draftNotifier?.value?.copyWith(
           canValidate: setTo,
         ),
     );
@@ -237,15 +242,15 @@ void triggerCanValidateDraftBz({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onChangeBzSection({
-  @required BuildContext context,
-  @required int index,
-  @required ValueNotifier<DraftBz> draftNotifier,
-  @required bool mounted,
+  required BuildContext context,
+  required int index,
+  required ValueNotifier<DraftBz?>? draftNotifier,
+  required bool mounted,
 }) async {
 
   bool _canContinue = true;
 
-  if (Mapper.checkCanLoopList(draftNotifier.value.scope) == true){
+  if (Mapper.checkCanLoopList(draftNotifier?.value?.scope) == true){
     _canContinue = await _resetScopeDialog();
   }
 
@@ -256,7 +261,7 @@ Future<void> onChangeBzSection({
       bzSection: _selectedSection,
     );
 
-    DraftBz _newDraft = draftNotifier.value.copyWith(
+    DraftBz? _newDraft = draftNotifier?.value?.copyWith(
       bzSection: _selectedSection,
       inactiveBzTypes: _generatedInactiveBzTypes,
       inactiveBzForms: [],
@@ -264,7 +269,7 @@ Future<void> onChangeBzSection({
       scope: [],
     );
 
-    _newDraft = _newDraft.nullifyField(
+    _newDraft = _newDraft?.nullifyField(
       bzForm: true,
       inactiveBzForms: true,
       bzTypes: true,
@@ -283,15 +288,15 @@ Future<void> onChangeBzSection({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onChangeBzType({
-  @required BuildContext context,
-  @required int index,
-  @required ValueNotifier<DraftBz> draftNotifier,
-  @required bool mounted,
+  required BuildContext context,
+  required int index,
+  required ValueNotifier<DraftBz?> draftNotifier,
+  required bool mounted,
 }) async {
 
   bool _canContinue = true;
 
-  if (Mapper.checkCanLoopList(draftNotifier.value.scope) == true){
+  if (Mapper.checkCanLoopList(draftNotifier.value?.scope) == true){
     _canContinue = await _resetScopeDialog();
   }
 
@@ -301,7 +306,7 @@ Future<void> onChangeBzType({
 
     /// UPDATE SELECTED BZ TYPES
     final List<BzType> _newBzTypes = BzTyper.addOrRemoveBzTypeToBzzTypes(
-      selectedBzTypes: draftNotifier.value.bzTypes,
+      selectedBzTypes: draftNotifier.value?.bzTypes,
       newSelectedBzType: _selectedBzType,
     );
 
@@ -309,21 +314,21 @@ Future<void> onChangeBzType({
     final List<BzType> _inactiveBzTypes = BzTyper.concludeDeactivatedBzTypesBasedOnSelectedBzTypes(
       newSelectedType: _selectedBzType,
       selectedBzTypes: _newBzTypes,
-      selectedBzSection: draftNotifier.value.bzSection,
+      selectedBzSection: draftNotifier.value?.bzSection,
     );
 
     /// INACTIVATE BZ FORMS
     final List<BzForm> _inactiveBzForms = BzTyper.concludeInactiveBzFormsByBzTypes(_newBzTypes);
 
 
-    DraftBz _newDraft = draftNotifier.value.copyWith(
+    DraftBz? _newDraft = draftNotifier.value?.copyWith(
       bzTypes: _newBzTypes,
       inactiveBzTypes: _inactiveBzTypes,
       inactiveBzForms: _inactiveBzForms,
 
     );
 
-    _newDraft = _newDraft.nullifyField(
+    _newDraft = _newDraft?.nullifyField(
       bzForm: true,
       scope: true,
     );
@@ -340,15 +345,15 @@ Future<void> onChangeBzType({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onChangeBzForm({
-  @required int index,
-  @required ValueNotifier<DraftBz> draftNotifier,
-  @required bool mounted,
+  required int index,
+  required ValueNotifier<DraftBz?> draftNotifier,
+  required bool mounted,
 }){
 
   setNotifier(
       notifier: draftNotifier,
       mounted: mounted,
-      value: draftNotifier.value.copyWith(
+      value: draftNotifier.value?.copyWith(
         bzForm: BzTyper.bzFormsList[index],
       ),
   );
@@ -357,22 +362,22 @@ void onChangeBzForm({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onChangeBzLogo({
-  @required ValueNotifier<DraftBz> draftNotifier,
-  @required PicMakerType imagePickerType,
-  @required bool mounted,
+  required ValueNotifier<DraftBz?> draftNotifier,
+  required PicMakerType imagePickerType,
+  required bool mounted,
 }) async {
 
-  if (draftNotifier.value.canPickImage == true) {
+  if (Mapper.boolIsTrue(draftNotifier.value?.canPickImage) == true) {
 
     setNotifier(
         notifier: draftNotifier,
         mounted: mounted,
-        value: draftNotifier.value.copyWith(
+        value: draftNotifier.value?.copyWith(
           canPickImage: false,
         ),
     );
 
-    Uint8List _bytes;
+    Uint8List? _bytes;
 
     if(imagePickerType == PicMakerType.galleryImage){
       _bytes = await BldrsPicMaker.pickAndCropSinglePic(
@@ -397,7 +402,7 @@ Future<void> onChangeBzLogo({
       setNotifier(
         notifier: draftNotifier,
         mounted: mounted,
-        value: draftNotifier.value.copyWith(canPickImage: true,),
+        value: draftNotifier.value?.copyWith(canPickImage: true,),
       );
 
     }
@@ -405,15 +410,14 @@ Future<void> onChangeBzLogo({
     /// IF PICKED AN IMAGE
     else {
 
-      final String _path = draftNotifier.value.getLogoPath();
-
-      final Dimensions _dims = await Dimensions.superDimensions(_bytes);
-      final double _mega = Filers.calculateSize(_bytes.length, FileSizeUnit.megaByte);
+      final String? _path = draftNotifier.value?.getLogoPath();
+      final Dimensions? _dims = await Dimensions.superDimensions(_bytes);
+      final double? _mega = Filers.calculateSize(_bytes.length, FileSizeUnit.megaByte);
 
       setNotifier(
           notifier: draftNotifier,
           mounted: mounted,
-          value: draftNotifier.value.copyWith(
+          value: draftNotifier.value?.copyWith(
             canPickImage: true,
             hasNewLogo: true,
             logoPicModel: PicModel(
@@ -423,7 +427,7 @@ Future<void> onChangeBzLogo({
                     sizeMB: _mega,
                     width: _dims?.width,
                     height: _dims?.height,
-                    ownersIDs: draftNotifier.value.getLogoOwners()
+                    ownersIDs: draftNotifier.value?.getLogoOwners() ?? [],
                 )
             ),
           ),
@@ -437,14 +441,14 @@ Future<void> onChangeBzLogo({
 // --------------------
 /// TESTED : WORKS PERFECT
 void onChangeBzContact({
-  @required ValueNotifier<DraftBz> draftNotifier,
-  @required ContactType contactType,
-  @required String value,
-  @required bool mounted,
+  required ValueNotifier<DraftBz?> draftNotifier,
+  required ContactType contactType,
+  required String? value,
+  required bool mounted,
 }){
 
   final List<ContactModel> _contacts = ContactModel.insertOrReplaceContact(
-    contacts: draftNotifier.value.contacts,
+    contacts: draftNotifier.value?.contacts,
     contactToReplace: ContactModel(
       value: value,
       type: contactType,
@@ -454,7 +458,7 @@ void onChangeBzContact({
   setNotifier(
       notifier: draftNotifier,
       mounted: mounted,
-      value: draftNotifier.value.copyWith(
+      value: draftNotifier.value?.copyWith(
         contacts: _contacts,
       ),
   );
@@ -463,10 +467,10 @@ void onChangeBzContact({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onChangeBzScope({
-  @required BuildContext context,
-  @required ValueNotifier<DraftBz> draftNotifier,
-  @required FlyerType flyerType,
-  @required bool mounted,
+  required BuildContext context,
+  required ValueNotifier<DraftBz> draftNotifier,
+  required FlyerType flyerType,
+  required bool mounted,
 }) async {
 
   Keyboard.closeKeyboard();

@@ -1,23 +1,24 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/a_models/x_secondary/bldrs_model_type.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class ReportButton extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ReportButton({
-    @required this.modelType,
-    @required this.onTap,
-    @required this.width,
+    required this.modelType,
+    required this.onTap,
+    required this.width,
     this.color,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final ModelType modelType;
   final Function onTap;
-  final Color color;
+  final Color? color;
   final double width;
   /// --------------------------------------------------------------------------
   @override

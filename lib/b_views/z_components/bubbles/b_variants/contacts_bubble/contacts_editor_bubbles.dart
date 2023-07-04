@@ -1,21 +1,22 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/layouts/separators/dot_separator.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/contact_field_editor_bubble.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
 
 class ContactsEditorsBubbles extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ContactsEditorsBubbles({
-    @required this.contacts,
-    @required this.contactsOwnerType,
-    @required this.appBarType,
-    @required this.globalKey,
-    Key key
-  }) : super(key: key);
+    required this.contacts,
+    required this.contactsOwnerType,
+    required this.appBarType,
+    required this.globalKey,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final List<ContactModel> contacts;
   final ContactsOwnerType contactsOwnerType;
@@ -25,7 +26,7 @@ class ContactsEditorsBubbles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    const List<ContactType> _types = <ContactType>[
+    const List<ContactType?> _types = <ContactType?>[
       ContactType.phone,
       ContactType.email,
       ContactType.website,
@@ -47,9 +48,10 @@ class ContactsEditorsBubbles extends StatelessWidget {
         const DotSeparator(),
 
         /// CONTACTS
+        if (Mapper.checkCanLoopList(_types) == true)
         ...List.generate(_types.length, (index){
 
-          final ContactType _contactType = _types[index];
+          final ContactType? _contactType = _types[index];
 
           final bool _isBlocked = ContactModel.checkContactIsBlocked(
             contactType: _contactType,
@@ -62,7 +64,7 @@ class ContactsEditorsBubbles extends StatelessWidget {
 
           else {
 
-            final TextEditingController _controller = ContactModel.getControllerFromContacts(
+            final TextEditingController? _controller = ContactModel.getControllerFromContacts(
               contacts: contacts,
               contactType: _contactType,
             );
@@ -79,7 +81,6 @@ class ContactsEditorsBubbles extends StatelessWidget {
                     context: context,
                     headlineVerse: Verse(
                       id: ContactModel.getContactTypePhid(
-                        context: context,
                         contactType: _contactType,
                       ),
                       translate: true,

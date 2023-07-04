@@ -1,3 +1,8 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/checks/object_check.dart';
+import 'package:basics/helpers/classes/space/atlas.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
@@ -14,16 +19,13 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:colorizer/colorizer.dart';
+import 'package:basics/helpers/classes/colors/colorizer.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:mediators/mediators.dart';
-import 'package:numeric/numeric.dart';
-import 'package:space_time/space_time.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
+import 'package:mediators/pic_maker/pic_maker.dart';
 /// => TAMAM
 class Formers {
   // -----------------------------------------------------------------------------
@@ -36,18 +38,18 @@ class Formers {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool validateForm(GlobalKey<FormState> formKey) {
+  static bool validateForm(GlobalKey<FormState>? formKey) {
     bool _inputsAreValid = true;
 
     if (formKey != null){
-      _inputsAreValid = formKey.currentState?.validate();
+      _inputsAreValid = formKey.currentState?.validate() ?? false;
     }
 
     return _inputsAreValid;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void focusOnNode(FocusNode node){
+  static void focusOnNode(FocusNode? node){
 
     if (node != null){
       if (node.hasFocus == false){
@@ -62,15 +64,15 @@ class Formers {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String emailValidator({
-    @required String email,
-    @required bool canValidate,
-    String enterEmail,
-    String emailInvalid,
+  static String? emailValidator({
+    required String? email,
+    required bool? canValidate,
+    String? enterEmail,
+    String? emailInvalid,
   }) {
-    String _output;
+    String? _output;
 
-    if (canValidate == true){
+    if (Mapper.boolIsTrue(canValidate) == true){
 
       if (TextCheck.isEmpty(email) == true) {
         _output = enterEmail?? Verse.transBake('phid_enterEmail');
@@ -78,7 +80,7 @@ class Formers {
 
       else {
 
-        if (EmailValidator.validate(email) == false){
+        if (EmailValidator.validate(email!) == false){
           _output = emailInvalid ?? Verse.transBake('phid_emailInvalid');
         }
 
@@ -90,13 +92,13 @@ class Formers {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String passwordValidator({
-    @required String password,
-    @required bool canValidate,
-    String enterPassword,
-    String min6Chars,
+  static String? passwordValidator({
+    required String password,
+    required bool canValidate,
+    String? enterPassword,
+    String? min6Chars,
   }){
-    String _output;
+    String? _output;
 
     if (canValidate == true){
 
@@ -114,12 +116,12 @@ class Formers {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String passwordConfirmationValidation({
-    @required String password,
-    @required String passwordConfirmation,
-    @required bool canValidate,
+  static String? passwordConfirmationValidation({
+    required String password,
+    required String passwordConfirmation,
+    required bool canValidate,
   }){
-    String _output;
+    String? _output;
 
     if (canValidate == true){
       if (passwordConfirmation.isEmpty || password.isEmpty){
@@ -143,18 +145,18 @@ class Formers {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String picValidator({
-    @required dynamic pic,
-    @required bool canValidate,
+  static String? picValidator({
+    required dynamic pic,
+    required bool? canValidate,
   }){
-    String _message;
+    String? _message;
 
-    if (canValidate == true){
+    if (Mapper.boolIsTrue(canValidate) == true){
 
       if (pic != null && pic is PicModel){
 
         final PicModel _picModel = pic;
-        if (_picModel.bytes?.isEmpty == true && _picModel.path == null){
+        if (Mapper.boolIsTrue(_picModel.bytes?.isEmpty) == true && _picModel.path == null){
           _message = Verse.transBake('phid_add_an_image');
         }
 
@@ -170,12 +172,12 @@ class Formers {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String personNameValidator({
-    @required String name,
-    @required bool canValidate,
-    FocusNode focusNode,
+  static String? personNameValidator({
+    required String? name,
+    required bool canValidate,
+    FocusNode? focusNode,
   }){
-    String _message;
+    String? _message;
 
     if (canValidate == true){
       final bool _userNameIsShort = TextCheck.isShorterThan(
@@ -184,6 +186,7 @@ class Formers {
       );
       final bool _containsBadLang = TextCheck.containsBadWords(
         text: name,
+        badWords: badWords,
       );
 
       /// SHORT NAME
@@ -207,14 +210,14 @@ class Formers {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String companyNameValidator({
-    @required String companyName,
-    @required bool canValidate,
-    FocusNode focusNode,
+  static String? companyNameValidator({
+    required String? companyName,
+    required bool? canValidate,
+    FocusNode? focusNode,
   }){
-    String _message;
+    String? _message;
 
-    if (canValidate == true){
+    if (Mapper.boolIsTrue(canValidate) == true){
 
       if (TextCheck.isEmpty(companyName) == true){
         _message = Verse.transBake('phid_enter_business_name');
@@ -228,6 +231,7 @@ class Formers {
         );
         final bool _containsBadLang = TextCheck.containsBadWords(
           text: companyName,
+          badWords: badWords,
         );
 
         /// SHORT NAME
@@ -256,12 +260,12 @@ class Formers {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String jobTitleValidator({
-    @required String jobTitle,
-    @required bool canValidate,
-    FocusNode focusNode,
+  static String? jobTitleValidator({
+    required String? jobTitle,
+    required bool canValidate,
+    FocusNode? focusNode,
   }){
-    String _message;
+    String? _message;
 
     if (canValidate == true){
 
@@ -292,14 +296,14 @@ class Formers {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String zoneValidator({
-    @required ZoneModel zoneModel,
-    @required bool selectCountryIDOnly,
-    @required bool canValidate,
+  static String? zoneValidator({
+    required ZoneModel? zoneModel,
+    required bool selectCountryIDOnly,
+    required bool? canValidate,
   }){
-    String _message;
+    String? _message;
 
-    if (canValidate == true){
+    if (Mapper.boolIsTrue(canValidate) == true){
 
       if (zoneModel == null){
         _message = Verse.transBake('phid_select_a_zone');
@@ -307,8 +311,8 @@ class Formers {
 
       else {
 
-        final String _countryID = zoneModel.countryID;
-        final String _cityID = zoneModel.cityID;
+        final String? _countryID = zoneModel.countryID;
+        final String? _cityID = zoneModel.cityID;
 
         /// ONLY SELECTING COUNTRY ID
         if (selectCountryIDOnly == true){
@@ -336,18 +340,18 @@ class Formers {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String contactsPhoneValidator({
-    @required List<ContactModel> contacts,
-    @required ZoneModel zoneModel,
-    @required bool canValidate,
-    @required bool isRequired,
-    FocusNode focusNode,
+  static String? contactsPhoneValidator({
+    required List<ContactModel>? contacts,
+    required ZoneModel? zoneModel,
+    required bool? canValidate,
+    required bool isRequired,
+    FocusNode? focusNode,
   }){
-    String _message;
+    String? _message;
 
-    if (canValidate == true){
+    if (Mapper.boolIsTrue(canValidate) == true){
 
-      final String _phone = ContactModel.getValueFromContacts(
+      final String? _phone = ContactModel.getValueFromContacts(
         contacts: contacts,
         contactType: ContactType.phone,
       );
@@ -362,7 +366,7 @@ class Formers {
         /// COUNTRY CODE
         if (zoneModel != null && zoneModel.countryID != null){
 
-          final String _code = Flag.getCountryPhoneCode(zoneModel.countryID);
+          final String? _code = Flag.getCountryPhoneCode(zoneModel.countryID);
           final bool _startsWithCode = TextCheck.stringStartsExactlyWith(
             text: _phone,
             startsWith: _code,
@@ -404,16 +408,16 @@ class Formers {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String contactsEmailValidator({
-    @required List<ContactModel> contacts,
-    @required bool canValidate,
-    FocusNode focusNode,
+  static String? contactsEmailValidator({
+    required List<ContactModel>? contacts,
+    required bool? canValidate,
+    FocusNode? focusNode,
   }){
-    String _message;
+    String? _message;
 
-    if (canValidate == true){
+    if (Mapper.boolIsTrue(canValidate) == true){
 
-      final String _email = ContactModel.getValueFromContacts(
+      final String? _email = ContactModel.getValueFromContacts(
         contacts: contacts,
         contactType: ContactType.email,
       );
@@ -434,16 +438,16 @@ class Formers {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String contactsWebsiteValidator({
-    @required List<ContactModel> contacts,
-    @required bool canValidate,
-    FocusNode focusNode,
+  static String? contactsWebsiteValidator({
+    required List<ContactModel>? contacts,
+    required bool? canValidate,
+    FocusNode? focusNode,
   }){
-    String _message;
+    String? _message;
 
-    if (canValidate == true){
+    if (Mapper.boolIsTrue(canValidate) == true){
 
-      final String _website = ContactModel.getValueFromContacts(
+      final String? _website = ContactModel.getValueFromContacts(
         contacts: contacts,
         contactType: ContactType.website,
       );
@@ -463,17 +467,18 @@ class Formers {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String paragraphValidator({
-    @required String text,
-    @required bool canValidate,
-    FocusNode focusNode,
+  static String? paragraphValidator({
+    required String? text,
+    required bool canValidate,
+    FocusNode? focusNode,
   }){
-    String _message;
+    String? _message;
 
     if (canValidate == true){
 
       final bool _containsBadLang = TextCheck.containsBadWords(
         text: text,
+        badWords: badWords,
       );
 
       /// BAD LANG
@@ -496,13 +501,13 @@ class Formers {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String bzSectionValidator({
-    @required BzSection selectedSection,
-    @required bool canValidate,
+  static String? bzSectionValidator({
+    required BzSection? selectedSection,
+    required bool? canValidate,
   }){
-    String _message;
+    String? _message;
 
-    if (canValidate == true){
+    if (Mapper.boolIsTrue(canValidate) == true){
       if (selectedSection == null){
         _message = Verse.transBake('phid_select_the_main_field_of_business');
       }
@@ -512,13 +517,13 @@ class Formers {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String bzTypeValidator({
-    @required List<BzType> selectedTypes,
-    @required bool canValidate,
+  static String? bzTypeValidator({
+    required List<BzType>? selectedTypes,
+    required bool? canValidate,
   }){
-    String _message;
+    String? _message;
 
-    if (canValidate == true){
+    if (Mapper.boolIsTrue(canValidate) == true){
       if (Mapper.checkCanLoopList(selectedTypes) == false){
         _message = Verse.transBake('phid_select_at_least_one_bz_type');
       }
@@ -528,13 +533,13 @@ class Formers {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String bzFormValidator({
-    @required BzForm bzForm,
-    @required bool canValidate,
+  static String? bzFormValidator({
+    required BzForm? bzForm,
+    required bool? canValidate,
   }){
-    String _message;
+    String? _message;
 
-    if (canValidate == true){
+    if (Mapper.boolIsTrue(canValidate) == true){
       if (bzForm == null){
         _message = Verse.transBake('phid_select_company_or_pro');
       }
@@ -544,17 +549,18 @@ class Formers {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String bzAboutValidator({
-    @required String bzAbout,
-    @required bool canValidate,
-    FocusNode focusNode,
+  static String? bzAboutValidator({
+    required String? bzAbout,
+    required bool? canValidate,
+    FocusNode? focusNode,
   }){
-    String _message;
+    String? _message;
 
-    if (canValidate == true){
+    if (Mapper.boolIsTrue(canValidate) == true){
 
       final bool _hasBadWords = TextCheck.containsBadWords(
         text: bzAbout,
+        badWords: badWords,
       );
 
       if (_hasBadWords == true){
@@ -572,12 +578,12 @@ class Formers {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String bzScopeValidator({
-    @required List<String> scope,
-    @required bool canValidate,
-    FocusNode focusNode,
+  static String? bzScopeValidator({
+    required List<String> scope,
+    required bool canValidate,
+    FocusNode? focusNode,
   }){
-    String _message;
+    String? _message;
 
     if (canValidate == true){
       if (Mapper.checkCanLoopList(scope) == false){
@@ -599,16 +605,16 @@ class Formers {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String flyerHeadlineValidator({
-    @required String headline,
-    @required bool canValidate,
+  static String? flyerHeadlineValidator({
+    required String? headline,
+    required bool canValidate,
   }){
-    String _message;
+    String? _message;
 
     if (canValidate == true){
 
-      final bool _isEmpty = headline.trim() == '';
-      final bool _isShort = headline.trim().length < Standards.flyerHeadlineMinLength;
+      final bool _isEmpty = headline?.trim() == '';
+      final bool _isShort = (headline?.trim().length ?? 0) < Standards.flyerHeadlineMinLength;
 
       if (_isEmpty == true){
         _message = Verse.transBake('phid_flyer_should_have_headline');
@@ -624,11 +630,11 @@ class Formers {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String slidesValidator({
-    @required DraftFlyer draftFlyer,
-    @required bool canValidate,
+  static String? slidesValidator({
+    required DraftFlyer? draftFlyer,
+    required bool canValidate,
   }){
-    String _message;
+    String? _message;
 
     if (canValidate == true){
 
@@ -644,11 +650,11 @@ class Formers {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String flyerTypeValidator({
-    @required DraftFlyer draft,
-    @required bool canValidate,
+  static String? flyerTypeValidator({
+    required DraftFlyer? draft,
+    required bool canValidate,
   }){
-    String _message;
+    String? _message;
 
     if (canValidate == true){
 
@@ -662,17 +668,17 @@ class Formers {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String pdfValidator({
-    @required PDFModel pdfModel,
-    @required bool canValidate,
+  static String? pdfValidator({
+    required PDFModel? pdfModel,
+    required bool canValidate,
   }){
-    String _message;
+    String? _message;
 
     if (canValidate == true){
 
       if (pdfModel != null){
 
-        final bool _sizeLimitReached = pdfModel?.checkSizeLimitReached() == true;
+        final bool _sizeLimitReached = Mapper.boolIsTrue(pdfModel.checkSizeLimitReached()) == true;
 
         if (_sizeLimitReached == true){
 
@@ -703,13 +709,13 @@ class Formers {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String pdfNameValidator({
-    @required PDFModel pdfModel,
-    @required bool canValidate,
+  static String? pdfNameValidator({
+    required PDFModel? pdfModel,
+    required bool canValidate,
   }){
-    String _message;
+    String? _message;
 
-    if (canValidate == true){
+    if (canValidate == true && pdfModel != null){
 
       final bool _hasExtension = TextCheck.stringContainsSubString(
         string: pdfModel.name,
@@ -719,7 +725,10 @@ class Formers {
         string: pdfModel.name,
         subString: '.',
       );
-      final bool _nameHasBadWord = TextCheck.containsBadWords(text: pdfModel.name);
+      final bool _nameHasBadWord = TextCheck.containsBadWords(
+        text: pdfModel.name,
+        badWords: badWords,
+      );
 
       if (_hasExtension == true){
         _message =  '${Verse.transBake('phid_file_name_should_not_include_extension')}\n'
@@ -740,12 +749,12 @@ class Formers {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String flyerPhidsValidator({
-    @required bool canValidate,
-    @required List<String> phids,
-    FocusNode focusNode,
+  static String? flyerPhidsValidator({
+    required bool canValidate,
+    required List<String>? phids,
+    FocusNode? focusNode,
   }){
-    String _message;
+    String? _message;
 
     if (canValidate == true){
       if (Mapper.checkCanLoopList(phids) == false){
@@ -767,11 +776,11 @@ class Formers {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String genderValidator({
-    @required Gender gender,
-    @required bool canValidate,
+  static String? genderValidator({
+    required Gender? gender,
+    required bool canValidate,
   }){
-    String _message;
+    String? _message;
 
     if (canValidate == true){
       if (gender == null){
@@ -788,10 +797,10 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> showUserMissingFieldsDialog({
-    @required UserModel userModel,
+    required UserModel userModel,
   }) async {
 
-    final String _missingFieldsString = _generateUserMissingFieldsString(
+    final String? _missingFieldsString = _generateUserMissingFieldsString(
       userModel: userModel,
     );
 
@@ -809,7 +818,7 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkUserHasMissingFields({
-    @required UserModel userModel,
+    required UserModel? userModel,
   }){
     bool _thereAreMissingFields;
 
@@ -830,7 +839,7 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<String> _generateUserMissingFieldsHeadlines({
-    @required UserModel userModel,
+    required UserModel? userModel,
   }) {
     final List<String> _missingFields = <String>[];
 
@@ -862,23 +871,23 @@ class Formers {
 
     if (
     Formers.picValidator(pic: userModel?.picPath, canValidate: true) != null) {
-      _missingFields.add(Verse.transBake('phid_picture'));
+      _missingFields.add(Verse.transBake('phid_picture')!);
     }
 
     if (Formers.genderValidator(gender: userModel?.gender, canValidate: true) != null) {
-      _missingFields.add(Verse.transBake('phid_gender'));
+      _missingFields.add(Verse.transBake('phid_gender')!);
     }
 
     if (Formers.personNameValidator(name: userModel?.name, canValidate: true) != null) {
-      _missingFields.add(Verse.transBake('phid_name'));
+      _missingFields.add(Verse.transBake('phid_name')!);
     }
 
     if (Formers.jobTitleValidator(jobTitle: userModel?.title, canValidate: true) != null) {
-      _missingFields.add(Verse.transBake('phid_job_title'));
+      _missingFields.add(Verse.transBake('phid_job_title')!);
     }
 
     if (Formers.companyNameValidator(companyName: userModel?.company, canValidate: true) != null) {
-      _missingFields.add(Verse.transBake('phid_business_name'));
+      _missingFields.add(Verse.transBake('phid_business_name')!);
     }
 
     if (Formers.zoneValidator(
@@ -886,17 +895,17 @@ class Formers {
       selectCountryIDOnly: false,
       canValidate: true,
     ) != null) {
-      _missingFields.add(Verse.transBake('phid_zone'));
+      _missingFields.add(Verse.transBake('phid_zone')!);
     }
 
     return _missingFields;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String _generateUserMissingFieldsString({
-    @required UserModel userModel,
+  static String? _generateUserMissingFieldsString({
+    required UserModel? userModel,
   }){
-    String _output;
+    String? _output;
 
     final List<String> _missingFields = _generateUserMissingFieldsHeadlines(
       userModel: userModel,
@@ -917,17 +926,17 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Color validatorBubbleColor({
-    @required String Function() validator,
+    required String? Function()? validator,
     Color defaultColor = Colorz.white10,
     bool canErrorize = true,
   }){
 
     bool _errorIsOn = false;
-    Color _errorColor;
+    Color? _errorColor;
     if (validator != null){
       // ------
       /// MESSAGE
-      final String _validationMessage = validator();
+      final String? _validationMessage = validator();
       // ------
       /// ERROR IS ON
       _errorIsOn = _validationMessage != null;
@@ -935,7 +944,10 @@ class Formers {
       /// BUBBLE COLOR OVERRIDE
       final bool _colorAssigned = TextCheck.stringContainsSubString(string: _validationMessage, subString: 'Δ');
       if (_colorAssigned == true){
-        final String _colorCode = TextMod.removeTextAfterFirstSpecialCharacter(_validationMessage, 'Δ');
+        final String? _colorCode = TextMod.removeTextAfterFirstSpecialCharacter(
+            text: _validationMessage,
+            specialCharacter: 'Δ',
+        );
         _errorColor = Colorizer.decipherColor(_colorCode);
       }
       // ------
@@ -951,10 +963,10 @@ class Formers {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Color validatorTextColor({
-    @required String message,
+  static Color? validatorTextColor({
+    required String? message,
   }){
-    Color _color;
+    Color? _color;
 
     if (message != null){
 
@@ -975,10 +987,10 @@ class Formers {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String colorizeValidatorMessage({
-    @required String message,
-    @required Color color,
+    required String message,
+    required Color color,
   }){
-    final String _errorColor = Colorizer.cipherColor(color);
+    final String? _errorColor = Colorizer.cipherColor(color);
     return '$_errorColorΔ$message';
   }
   // -----------------------------------------------------------------------------
@@ -987,13 +999,13 @@ class Formers {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String numberDataCreatorFieldValidator({
-    @required String text,
-    @required PickerModel picker,
-    @required DataCreator dataCreatorType,
-    @required String selectedUnitID,
+  static String? numberDataCreatorFieldValidator({
+    required String? text,
+    required PickerModel? picker,
+    required DataCreator? dataCreatorType,
+    required String? selectedUnitID,
   }) {
-    String _message;
+    String? _message;
 
     /// ONLY NUMBERS VALIDATION
     if (TextCheck.isEmpty(text) == false){
@@ -1003,14 +1015,14 @@ class Formers {
     }
 
     /// IF REQUIRED AND EMPTY
-    if (picker.isRequired == true){
+    if (Mapper.boolIsTrue(picker?.isRequired) == true){
       if (TextCheck.isEmpty(text) == true){
         _message = Verse.transBake('phid_this_field_can_not_be_empty');
       }
     }
 
     /// IF SHOULD HAVE UNIT BUT NOT YET SELECTED
-    if (picker.unitChainID != null && selectedUnitID == null){
+    if (picker?.unitChainID != null && selectedUnitID == null){
       _message = Verse.transBake('phid_should_select_a_measurement_unit');
     }
 
@@ -1036,12 +1048,12 @@ class Formers {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String currencyFieldValidator({
-    @required ValueNotifier<String> selectedCurrencyID, // IS UNIT SPEC VALUE
-    @required String text, // IS THE VALUE SPEC VALUE
-    @required PickerModel picker,
+  static String? currencyFieldValidator({
+    required ValueNotifier<String?>? selectedCurrencyID, // IS UNIT SPEC VALUE
+    required String? text, // IS THE VALUE SPEC VALUE
+    required PickerModel? picker,
   }) {
-    String _message;
+    String? _message;
 
     /// ONLY NUMBERS VALIDATION
     if (TextCheck.isEmpty(text) == false){
@@ -1051,7 +1063,7 @@ class Formers {
     }
 
     /// IF REQUIRED AND EMPTY
-    if (picker.isRequired == true){
+    if (Mapper.boolIsTrue(picker?.isRequired) == true){
       if (TextCheck.isEmpty(text) == true){
         _message = Verse.transBake('phid_this_field_can_not_be_empty');
       }
@@ -1065,7 +1077,7 @@ class Formers {
     /// IF CURRENCY IS SELECTED
     else {
 
-      final CurrencyModel selectedCurrency = ZoneProvider.proGetCurrencyByCurrencyID(
+      final CurrencyModel? selectedCurrency = ZoneProvider.proGetCurrencyByCurrencyID(
           context: getMainContext(),
           currencyID: selectedCurrencyID.value,
           listen: false
@@ -1074,7 +1086,7 @@ class Formers {
       /// IF EXCEEDED CURRENCY DIGITS
       if (selectedCurrency != null){
 
-        final bool _invalidDigits = Numeric.checkNumberAsStringHasInvalidDigits(
+        final bool _invalidDigits = Numeric.checkNumberAsStringHasMoreThanMaxDigits(
           numberAsText: text,
           maxDigits: selectedCurrency.digits,
         );
@@ -1094,11 +1106,11 @@ class Formers {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String _maxDigitsExceededValidator({
-    @required int maxDigits,
-    @required String text,
+  static String? _maxDigitsExceededValidator({
+    required int? maxDigits,
+    required String? text,
   }){
-    String _message;
+    String? _message;
 
     if (TextCheck.isEmpty(text) == false){
 
@@ -1117,12 +1129,12 @@ class Formers {
 
       else {
 
-        final bool _invalidDigits = Numeric.checkNumberAsStringHasInvalidDigits(
+        final bool _invalidDigits = Numeric.checkNumberAsStringHasMoreThanMaxDigits(
           numberAsText: text,
           maxDigits: maxDigits,
         );
 
-        if (_invalidDigits == true){
+        if (_invalidDigits == true) {
 
           _message ??=  '${Verse.transBake('phid_number_fractions_cant_exceed')} '
                         '$maxDigits '
@@ -1138,22 +1150,22 @@ class Formers {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String numbersOnlyValidator({
-    @required String text,
+  static String? numbersOnlyValidator({
+    required String? text,
   }){
-    String _message;
+    String? _message;
 
     if (TextCheck.isEmpty(text) == false){
 
       /// PARSING VALIDATION
-      final double _double = Numeric.transformStringToDouble(text);
-      final int _int = Numeric.transformStringToInt(text);
+      final double? _double = Numeric.transformStringToDouble(text);
+      final int? _int = Numeric.transformStringToInt(text);
       if (_double == null && _int == null){
         _message = Verse.transBake('phid_only_numbers_is_to_be_added');
       }
 
       /// EMPTY SPACES CHECK
-      final String _withoutSpaces = TextMod.removeSpacesFromAString(text);
+      final String? _withoutSpaces = TextMod.removeSpacesFromAString(text);
       if (text != _withoutSpaces){
         _message = Verse.transBake('phid_cant_add_empty_spaces');
       }
@@ -1164,10 +1176,10 @@ class Formers {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String webSiteValidator({
-    @required String website,
+  static String? webSiteValidator({
+    required String? website,
   }){
-    String _message;
+    String? _message;
 
     /// WEBSITE HAS VALUE
     if (TextCheck.isEmpty(website) == false){
@@ -1194,10 +1206,10 @@ class Formers {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String positionValidator({
-    @required String latOrLng,
+  static String? positionValidator({
+    required String? latOrLng,
   }){
-    String _message;
+    String? _message;
 
     if (TextCheck.isEmpty(latOrLng) == false){
 
@@ -1207,7 +1219,7 @@ class Formers {
 
       if (_message == null){
 
-        final double _double = Numeric.transformStringToDouble(latOrLng);
+        final double? _double = Numeric.transformStringToDouble(latOrLng);
 
         if (_double == null){
           _message = Verse.transBake('phid_only_numbers_is_to_be_added');
@@ -1235,9 +1247,9 @@ class Formers {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String bakeValidator({
-    @required String Function(String text) validator,
-    @required String text,
+  static String? bakeValidator({
+    required String Function(String? text)? validator,
+    required String text,
     bool keepEmbeddedBubbleColor = false,
   }){
 
@@ -1260,11 +1272,14 @@ class Formers {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String _bakeValidatorMessage(String message){
-    String _output;
+  static String? _bakeValidatorMessage(String? message){
+    String? _output;
 
     if (message != null){
-      _output = TextMod.removeTextBeforeFirstSpecialCharacter(message, 'Δ');
+      _output = TextMod.removeTextBeforeFirstSpecialCharacter(
+          text: message,
+          specialCharacter: 'Δ',
+      );
     }
 
     return _output;

@@ -2,7 +2,7 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,8 +15,8 @@ class FlyersProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void removeFlyerFromProFlyers({
-    @required String flyerID,
-    @required bool notify,
+    required String flyerID,
+    required bool notify,
   }) {
 
     _selectedFlyers = FlyerModel.removeFlyerFromFlyersByID(
@@ -32,13 +32,13 @@ class FlyersProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void removeFlyersFromProFlyers({
-    @required List<String> flyersIDs,
-    @required bool notify,
+    required List<String>? flyersIDs,
+    required bool notify,
   }){
 
     if (Mapper.checkCanLoopList(flyersIDs) == true){
 
-      for (int i = 0; i < flyersIDs.length; i++){
+      for (int i = 0; i < flyersIDs!.length; i++){
 
         final String _flyerIDToRemove = flyersIDs[i];
 
@@ -60,8 +60,8 @@ class FlyersProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void updateFlyerInAllProFlyers({
-    @required FlyerModel flyerModel,
-    @required bool notify,
+    required FlyerModel flyerModel,
+    required bool notify,
   }){
 
     _selectedFlyers = FlyerModel.replaceFlyerInFlyers(
@@ -82,8 +82,8 @@ class FlyersProvider extends ChangeNotifier {
   // --------------------
   /*
   Future<List<FlyerModel>> fetchFlyersByCurrentZoneAndKeyword({
-    @required BuildContext context,
-    @required String keywordID,
+    required BuildContext context,
+    required String keywordID,
     int limit = 3,
   }) async {
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
@@ -102,8 +102,8 @@ class FlyersProvider extends ChangeNotifier {
   // --------------------
   ///
   Future<List<FlyerModel>> fetchFirstFlyersByBzModel({
-    @required BuildContext context,
-    @required BzModel bz,
+    required BuildContext context,
+    required BzModel? bz,
     int limit = 3,
   }) async {
 
@@ -112,21 +112,23 @@ class FlyersProvider extends ChangeNotifier {
 
     if (bz != null && Mapper.checkCanLoopList(bz.flyersIDs) == true){
 
-      final int _limit = bz.flyersIDs.length > limit ? limit : bz.flyersIDs.length;
+      final int _limit = bz.flyersIDs!.length > limit ? limit : bz.flyersIDs!.length;
 
       for (int i = 0; i < _limit; i++){
-        _flyersIDs.add(bz.flyersIDs[i]);
+        _flyersIDs.add(bz.flyersIDs![i]);
       }
 
 
       for (final String flyerID in _flyersIDs){
 
-        final FlyerModel _flyer = await FlyerProtocols.fetchFlyer(
+        final FlyerModel? _flyer = await FlyerProtocols.fetchFlyer(
           context: context,
           flyerID: flyerID,
         );
 
-        _bzFlyers.add(_flyer);
+        if (_flyer != null){
+          _bzFlyers.add(_flyer);
+        }
 
       }
 
@@ -147,26 +149,26 @@ class FlyersProvider extends ChangeNotifier {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  void addFlyerToSelectedFlyers(FlyerModel flyer){
+  void addFlyerToSelectedFlyers(FlyerModel? flyer){
 
     final bool _flyersContainThisFlyer = FlyerModel.flyersContainThisID(
       flyers: _selectedFlyers,
-      flyerID: flyer.id,
+      flyerID: flyer?.id,
     );
 
-    if (_flyersContainThisFlyer == false){
-      _selectedFlyers = [...?_selectedFlyers, flyer];
+    if (_flyersContainThisFlyer == false && flyer != null){
+      _selectedFlyers = [..._selectedFlyers, flyer];
       notifyListeners();
     }
 
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  void removeFlyerFromSelectedFlyers(FlyerModel flyer){
+  void removeFlyerFromSelectedFlyers(FlyerModel? flyer){
 
     final bool _flyersContainThisFlyer = FlyerModel.flyersContainThisID(
       flyers: _selectedFlyers,
-      flyerID: flyer.id,
+      flyerID: flyer?.id,
     );
 
     if (_flyersContainThisFlyer == true){
@@ -183,7 +185,7 @@ class FlyersProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   void clearSelectedFlyers({
-    @required bool notify,
+    required bool notify,
   }){
     _selectedFlyers = <FlyerModel>[];
 
@@ -199,7 +201,7 @@ class FlyersProvider extends ChangeNotifier {
   // --------------------
   /// TESTED : WORKS PERFECT
   static void wipeOut({
-    @required bool notify,
+    required bool notify,
   }){
 
     final FlyersProvider _flyersProvider = Provider.of<FlyersProvider>(getMainContext(), listen: false);

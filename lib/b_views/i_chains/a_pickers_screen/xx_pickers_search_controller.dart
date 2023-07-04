@@ -1,14 +1,15 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:provider/provider.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 // -----------------------------------------------------------------------------
 
 /// CHAINS SEARCH TRIGGER
@@ -16,17 +17,17 @@ import 'package:stringer/stringer.dart';
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onChainsSearchChanged({
-  @required BuildContext context,
-  @required String text,
-  @required ValueNotifier<bool> isSearching,
-  @required ValueNotifier<List<Chain>> foundChains,
-  @required ValueNotifier<String> searchText,
-  @required List<String> phidsOfAllPickers,
-  @required List<Chain> chains,
-  @required bool mounted,
+  required BuildContext context,
+  required String? text,
+  required ValueNotifier<bool> isSearching,
+  required ValueNotifier<List<Chain>> foundChains,
+  required ValueNotifier<String?> searchText,
+  required List<String> phidsOfAllPickers,
+  required List<Chain>? chains,
+  required bool mounted,
 }) async {
 
-  blog('drawer receives text : $text : Length ${text.length}: isSearching : ${isSearching.value}');
+  blog('drawer receives text : $text : Length ${text?.length}: isSearching : ${isSearching.value}');
 
   TextCheck.triggerIsSearchingNotifier(
     text: text,
@@ -56,14 +57,14 @@ Future<void> onChainsSearchChanged({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onSearchChains({
-  @required BuildContext context,
-  @required String text,
-  @required ValueNotifier<bool> isSearching,
-  @required ValueNotifier<List<Chain>> foundChains,
-  @required ValueNotifier<String> searchText,
-  @required List<String> phidsOfAllPickers,
-  @required List<Chain> chains,
-  @required bool mounted,
+  required BuildContext context,
+  required String? text,
+  required ValueNotifier<bool> isSearching,
+  required ValueNotifier<List<Chain>> foundChains,
+  required ValueNotifier<String?> searchText,
+  required List<String> phidsOfAllPickers,
+  required List<Chain>? chains,
+  required bool mounted,
 }) async {
 
   setNotifier(notifier: searchText, mounted: mounted, value: text);
@@ -111,8 +112,8 @@ Future<void> onSearchChains({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<List<String>> _searchKeywordsPhrases({
-  @required String text,
-  @required List<String> phidsOfAllPickers,
+  required String? text,
+  required List<String> phidsOfAllPickers,
 }) async {
 
   List<String> _phids = <String>[];
@@ -157,7 +158,7 @@ Future<List<String>> _searchKeywordsPhrases({
 // --------------------
 /// TESTED : WORKS PERFECT
 List<String> _removeCurrenciesFromPhids({
-  @required List<String> phids,
+  required List<String> phids,
 }){
   final List<String> _output = <String>[];
 
@@ -180,8 +181,8 @@ List<String> _removeCurrenciesFromPhids({
 // --------------------
 /// TESTED : WORKS PERFECT
 List<String> _removePhidsOutOfScope({
-  @required List<String> phids,
-  @required List<String> scope,
+  required List<String> phids,
+  required List<String> scope,
 }){
   List<String> _output = <String>[];
 
@@ -212,7 +213,7 @@ List<String> _removePhidsOutOfScope({
 // --------------------
 /// TESTED : WORKS PERFECT
 List<Chain> _getChainsFromPhids({
-  @required List<String> phids,
+  required List<String> phids,
 }){
 
   List<Chain> _chains = <Chain>[];
@@ -233,10 +234,10 @@ List<Chain> _getChainsFromPhids({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _setFoundResults({
-  @required BuildContext context,
-  @required ValueNotifier<List<Chain>> foundChainsNotifier,
-  @required List<Chain> foundChainsResult,
-  @required bool mounted,
+  required BuildContext context,
+  required ValueNotifier<List<Chain>> foundChainsNotifier,
+  required List<Chain> foundChainsResult,
+  required bool mounted,
 }) async {
 
   /// found results
@@ -269,8 +270,8 @@ Future<void> _setFoundResults({
 // --------------------
 /// TESTED : WORKS PERFECT
 void _clearSearchResult({
-  @required ValueNotifier<List<Chain>> foundChains,
-  @required bool mounted,
+  required ValueNotifier<List<Chain>> foundChains,
+  required bool mounted,
 }){
 
   setNotifier(

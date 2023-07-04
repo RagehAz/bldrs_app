@@ -1,23 +1,23 @@
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:fire/super_fire.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 
 class FlyersPaginatorView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyersPaginatorView({
-    @required this.paginationController,
-    @required this.fireQueryModel,
-    @required this.gridType,
-    @required this.hasResponsiveSideMargin,
-    Key key
-  }) : super(key: key);
+    required this.paginationController,
+    required this.fireQueryModel,
+    required this.gridType,
+    required this.hasResponsiveSideMargin,
+    super.key
+  });
   // --------------------
-  final FireQueryModel fireQueryModel;
+  final FireQueryModel? fireQueryModel;
   final PaginationController paginationController;
   final FlyerGridType gridType;
   final bool hasResponsiveSideMargin;
@@ -28,7 +28,7 @@ class FlyersPaginatorView extends StatelessWidget {
     return  FireCollPaginator(
         paginationQuery: fireQueryModel,
         paginationController: paginationController,
-        builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget child){
+        builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget? child){
 
           final List<FlyerModel> _flyers = FlyerModel.decipherFlyers(
               maps: maps,

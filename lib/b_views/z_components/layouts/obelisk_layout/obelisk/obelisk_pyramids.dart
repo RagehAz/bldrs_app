@@ -1,19 +1,19 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramids.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/provider/notes_provider.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:filers/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ObeliskPyramids extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ObeliskPyramids({
-    @required this.isYellow,
-    @required this.mounted,
-    Key key
-  }) : super(key: key);
+    required this.isYellow,
+    required this.mounted,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final bool isYellow;
   final bool mounted;
@@ -24,7 +24,7 @@ class ObeliskPyramids extends StatelessWidget {
     return Selector<UiProvider, bool>(
           key: const ValueKey<String>('ObeliskPyramids'),
           selector: (_, UiProvider uiProvider) => uiProvider.pyramidsAreExpanded,
-          builder: (_, bool expanded, Widget child) {
+          builder: (_, bool expanded, Widget? child) {
 
 
         return Positioned(
@@ -46,13 +46,13 @@ class ObeliskPyramids extends StatelessWidget {
 
           blog('the userID : ${Authing.getUserID()}');
 
-          final bool isExpanded = UiProvider.proGetPyramidsAreExpanded(
+          final bool? isExpanded = UiProvider.proGetPyramidsAreExpanded(
             context: context,
             listen: false,
           );
 
           /// TO OPEN PYRAMIDS
-          if (isExpanded  == null || isExpanded  == false){
+          if (isExpanded == null || isExpanded  == false){
             UiProvider.proSetPyramidsAreExpanded(setTo: true, notify: true);
           }
 
@@ -82,7 +82,7 @@ class ObeliskPyramids extends StatelessWidget {
             /// PYRAMIDS GRAPHIC
             Selector<NotesProvider, bool>(
               selector: (_,NotesProvider notesProvider) => notesProvider.isFlashing,
-              builder: (_, bool isFlashing, Widget child){
+              builder: (_, bool isFlashing, Widget? child){
 
                 // blog('PYRAMIDS ARE FLASHING : $isFlashing');
 
@@ -90,6 +90,7 @@ class ObeliskPyramids extends StatelessWidget {
                   pyramidType: isYellow ? PyramidType.yellow : PyramidType.white,
                   loading: isFlashing,
                   putInCorner: false,
+
                 );
 
               },

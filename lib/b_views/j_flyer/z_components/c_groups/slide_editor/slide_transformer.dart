@@ -1,29 +1,29 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/space/trinity.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:filers/filers.dart';
-import 'package:space_time/space_time.dart';
 import 'package:flutter/material.dart';
 import 'package:matrix_gesture_detector/matrix_gesture_detector.dart';
-import 'package:super_image/super_image.dart';
+import 'package:basics/super_image/super_image.dart';
 
 class SlideTransformer extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SlideTransformer({
-    @required this.matrix,
-    @required this.filterModel,
-    @required this.flyerBoxWidth,
-    @required this.flyerBoxHeight,
-    @required this.slide,
-    @required this.isTransforming,
-    @required this.mounted,
-    Key key
-  }) : super(key: key);
+    required this.matrix,
+    required this.filterModel,
+    required this.flyerBoxWidth,
+    required this.flyerBoxHeight,
+    required this.slide,
+    required this.isTransforming,
+    required this.mounted,
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final ValueNotifier<Matrix4> matrix;
-  final ValueNotifier<ImageFilterModel> filterModel;
+  final ValueNotifier<Matrix4?> matrix;
+  final ValueNotifier<ImageFilterModel?> filterModel;
   final double flyerBoxWidth;
   final double flyerBoxHeight;
-  final DraftSlide slide;
+  final DraftSlide? slide;
   final ValueNotifier<bool> isTransforming;
   final bool mounted;
   /// --------------------------------------------------------------------------
@@ -72,7 +72,7 @@ class SlideTransformer extends StatelessWidget {
       clipChild: false,
       child: ValueListenableBuilder(
         valueListenable: matrix,
-        builder: (_, Matrix4 _matrix, Widget childA){
+        builder: (_, Matrix4? _matrix, Widget? childA){
 
           // blog('rebuilding transforming image');
 
@@ -81,7 +81,7 @@ class SlideTransformer extends StatelessWidget {
               matrix: _matrix,
               flyerBoxWidth: flyerBoxWidth,
               flyerBoxHeight: flyerBoxHeight,
-            ),
+            )!,
             // alignment: Alignment.center,
             // origin: Offset(0,0),
             filterQuality: FilterQuality.high,
@@ -93,7 +93,7 @@ class SlideTransformer extends StatelessWidget {
 
         child: ValueListenableBuilder(
           valueListenable: filterModel,
-          builder: (_, ImageFilterModel _filterModel, Widget child){
+          builder: (_, ImageFilterModel? _filterModel, Widget? child){
 
             // blog('changing filterModel to ${_filterModel.id}');
 
@@ -102,9 +102,9 @@ class SlideTransformer extends StatelessWidget {
               height: FlyerDim.flyerHeightByFlyerWidth(
                 flyerBoxWidth: flyerBoxWidth,
               ),
-              pic: slide.picModel?.bytes,
+              pic: slide?.picModel?.bytes,
               filterModel: _filterModel,
-              boxFit: slide.picFit,
+              boxFit: slide?.picFit ?? BoxFit.cover,
             );
 
           },

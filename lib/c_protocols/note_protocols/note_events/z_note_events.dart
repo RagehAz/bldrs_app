@@ -79,7 +79,7 @@ class NoteEvent {
   /// DEPRECATED
   /*
   static Future<void> wipeUserReceivedNotes({
-    @required String userID,
+    required String userID,
   }) => NoteEventsOfProfileDeletion.wipeUserReceivedNotes(
     userID: userID,
   );
@@ -88,7 +88,7 @@ class NoteEvent {
   /// DEPRECATED
   /*
   static Future<void> wipeBzReceivedNotes({
-    @required String bzID,
+    required String bzID,
   }) => NoteEventsOfProfileDeletion.wipeBzReceivedNotes(
     bzID: bzID,
   );
@@ -97,7 +97,7 @@ class NoteEvent {
   /// DEPRECATED
   /*
   static Future<void> wipeBzSentAuthorshipNotes({
-    @required String bzID,
+    required String bzID,
   }) => NoteEventsOfProfileDeletion.wipeBzSentAuthorshipNotes(
     bzID: bzID,
   );
@@ -109,24 +109,26 @@ class NoteEvent {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendFlyerReceivedNewReviewByMe({
-    @required BuildContext context,
-    @required ReviewModel reviewModel,
-    @required String bzID,
+    required BuildContext context,
+    required ReviewModel? reviewModel,
+    required String? bzID,
   }) async {
 
-    final UserModel _myUserModel = UsersProvider.proGetMyUserModel(
+    final UserModel? _myUserModel = UsersProvider.proGetMyUserModel(
       context: context,
       listen: false,
     );
 
-    final bool _imAuthorOfThisBz = AuthorModel.checkUserIsAuthorInThisBz(
+    if (reviewModel != null && _myUserModel != null && bzID != null){
+
+          final bool _imAuthorOfThisBz = AuthorModel.checkUserIsAuthorInThisBz(
       bzID: bzID,
       userModel: _myUserModel,
     );
 
-    final String _title = await PhraseProtocols.translate(
+    final String? _title = await PhraseProtocols.translate(
       phid: 'phid_you_have_new_flyer_review',
-      langCode: _myUserModel?.language,
+      langCode: _myUserModel.language,
     );
 
     final NoteModel _note = NoteModel(
@@ -158,66 +160,70 @@ class NoteEvent {
     );
 
     await NoteProtocols.composeToOneReceiver(
-        context: context,
         note: _note
     );
+
+    }
 
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendFlyerReviewReceivedBzReply({
-    @required BuildContext context,
-    @required ReviewModel reviewModel,
-    @required BzModel bzModel,
-    // @required String reviewCreatorID
+    required BuildContext context,
+    required ReviewModel? reviewModel,
+    required BzModel? bzModel,
+    // required String reviewCreatorID
   }) async {
 
-    final AuthorModel _myAuthorModel = AuthorModel.getAuthorFromBzByAuthorID(
+    final AuthorModel? _myAuthorModel = AuthorModel.getAuthorFromBzByAuthorID(
         bz: bzModel,
         authorID: Authing.getUserID(),
     );
 
-    final UserModel _userModel = await UserProtocols.fetch(
+    final UserModel? _userModel = await UserProtocols.fetch(
       context: context,
-      userID: _myAuthorModel.userID,
+      userID: _myAuthorModel?.userID,
     );
 
-    final String _title = await PhraseProtocols.translate(
-      phid: 'phid_you_have_new_flyer_review',
-      langCode: _userModel?.language,
-    );
+    if (reviewModel !=null && _userModel != null && bzModel != null){
 
-    final NoteModel _note = NoteModel(
-      id: null,
-      parties: NoteParties(
-        senderID: bzModel.id,
-        senderImageURL: bzModel.logoPath,
-        senderType: PartyType.bz,
-        receiverID: reviewModel.userID,
-        receiverType: PartyType.user,
-      ),
-      title: _title,
-      body: reviewModel.reply,
-      sentTime: DateTime.now(),
-      topic: TopicModel.bakeTopicID(
-        topicID: TopicModel.userReviewsReplies,
-        bzID: bzModel.id,
-        receiverPartyType: PartyType.user,
-      ),
-      navTo: TriggerModel(
-        name: Routing.flyerReviews,
-        argument: createReviewsScreenRoutingArgument(
-          flyerID: reviewModel.flyerID,
-          reviewID: reviewModel.id,
+      final String? _title = await PhraseProtocols.translate(
+        phid: 'phid_you_have_new_flyer_review',
+        langCode: _userModel.language,
+      );
+
+      final NoteModel _note = NoteModel(
+        id: null,
+        parties: NoteParties(
+          senderID: bzModel.id,
+          senderImageURL: bzModel.logoPath,
+          senderType: PartyType.bz,
+          receiverID: reviewModel.userID,
+          receiverType: PartyType.user,
         ),
-        done: const [],
-      ),
-    );
+        title: _title,
+        body: reviewModel.reply,
+        sentTime: DateTime.now(),
+        topic: TopicModel.bakeTopicID(
+          topicID: TopicModel.userReviewsReplies,
+          bzID: bzModel.id,
+          receiverPartyType: PartyType.user,
+        ),
+        navTo: TriggerModel(
+          name: Routing.flyerReviews,
+          argument: createReviewsScreenRoutingArgument(
+            flyerID: reviewModel.flyerID,
+            reviewID: reviewModel.id,
+          ),
+          done: const [],
+        ),
+      );
 
-    await NoteProtocols.composeToOneReceiver(
-        context: context,
-        note: _note
-    );
+      await NoteProtocols.composeToOneReceiver(
+          note: _note
+      );
+
+    }
 
   }
   // -----------------------------------------------------------------------------
@@ -227,58 +233,61 @@ class NoteEvent {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> sendBzIsVerifiedNote({
-    @required BuildContext context,
-    @required BzModel bzModel,
+    required BuildContext context,
+    required BzModel? bzModel,
   }) async {
 
-    assert(bzModel != null, 'bzModel is null');
+    // assert(bzModel != null, 'bzModel is null');
 
-    final UserModel _userModel = await UserProtocols.fetch(
+    final UserModel? _userModel = await UserProtocols.fetch(
       context: context,
-      userID: bzModel?.authors?.first?.userID,
+      userID: bzModel?.authors?.first.userID,
     );
 
-    final String _title = await PhraseProtocols.translate(
-      phid: 'phid_ur_bz_is_verified_now',
-      langCode: _userModel?.language,
-    );
+    if (bzModel?.id != null && _userModel != null){
 
-    final String _body = await PhraseProtocols.translate(
-      phid: 'phid_you_may_publish_without_verification',
-      langCode: _userModel?.language,
-    );
+      final String? _title = await PhraseProtocols.translate(
+        phid: 'phid_ur_bz_is_verified_now',
+        langCode: _userModel.language,
+      );
 
-    final NoteModel _note = NoteModel(
-      id: null,
-      parties: NoteParties(
-        senderID: Standards.bldrsNotificationSenderID,
-        senderImageURL: Standards.bldrsNotificationIconURL,
-        senderType: PartyType.bldrs,
-        receiverID: bzModel.id,
-        receiverType: PartyType.bz,
-      ),
-      title: _title,
-      body: _body,
-      sentTime: DateTime.now(),
-      function: NoteFunProtocols.createDeleteAllBzFlyersLocally(
-        bzID: bzModel.id,
-      ),
-      topic: TopicModel.bakeTopicID(
-        topicID: TopicModel.bzVerifications,
-        bzID: bzModel.id,
-        receiverPartyType: PartyType.bz,
-      ),
-      navTo: TriggerModel(
-        name: Routing.myBzNotesPage,
-        argument: bzModel.id,
-        done: const [],
-      ),
-    );
+      final String? _body = await PhraseProtocols.translate(
+        phid: 'phid_you_may_publish_without_verification',
+        langCode: _userModel.language,
+      );
 
-    await NoteProtocols.composeToOneReceiver(
-        context: context,
-        note: _note
-    );
+      final NoteModel _note = NoteModel(
+        id: null,
+        parties: NoteParties(
+          senderID: Standards.bldrsNotificationSenderID,
+          senderImageURL: Standards.bldrsNotificationIconURL,
+          senderType: PartyType.bldrs,
+          receiverID: bzModel!.id!,
+          receiverType: PartyType.bz,
+        ),
+        title: _title,
+        body: _body,
+        sentTime: DateTime.now(),
+        function: NoteFunProtocols.createDeleteAllBzFlyersLocally(
+          bzID: bzModel.id!,
+        ),
+        topic: TopicModel.bakeTopicID(
+          topicID: TopicModel.bzVerifications,
+          bzID: bzModel.id,
+          receiverPartyType: PartyType.bz,
+        ),
+        navTo: TriggerModel(
+          name: Routing.myBzNotesPage,
+          argument: bzModel.id,
+          done: const [],
+        ),
+      );
+
+      await NoteProtocols.composeToOneReceiver(
+          note: _note
+      );
+
+    }
 
   }
   // -----------------------------------------------------------------------------

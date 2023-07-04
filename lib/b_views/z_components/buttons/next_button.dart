@@ -1,34 +1,34 @@
-import 'package:animators/animators.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:basics/animators/helpers/sliders.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
 
 class NextButton extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const NextButton({
-    @required this.onTap,
-    @required this.canGoNext,
+    required this.onTap,
+    required this.canGoNext,
     this.onDisabledTap,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   // -----------------------------------------------------------------------------
   final Function onTap;
   final bool canGoNext;
-  final Function onDisabledTap;
+  final Function? onDisabledTap;
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onNextTap({
-    @required BuildContext context,
-    @required ValueNotifier<ProgressBarModel> progressBarModel,
-    @required PageController pageController,
-    @required bool mounted,
+    required BuildContext context,
+    required ValueNotifier<ProgressBarModel?> progressBarModel,
+    required PageController pageController,
+    required bool mounted,
   }) async {
 
-    final int _numberOfPages = progressBarModel.value.numberOfStrips;
-    final int _currentIndex = pageController?.page?.toInt() ?? 0;
+    final int _numberOfPages = progressBarModel.value?.numberOfStrips ?? 1;
+    final int _currentIndex = pageController.page?.toInt() ?? 0;
     final bool _isLastPage = _currentIndex == _numberOfPages - 1;
     final int _nextIndex = _isLastPage == true ? 0 : _currentIndex + 1;
 

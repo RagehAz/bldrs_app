@@ -7,8 +7,8 @@
 class SectionsMenu extends StatefulWidget {
   // -----------------------------------------------------------------------------
   const SectionsMenu({
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   // -----------------------------------------------------------------------------
   @override
   State<SectionsMenu> createState() => _SectionsMenuState();
@@ -80,19 +80,19 @@ class _SectionsMenuState extends State<SectionsMenu> {
 class SectionsMenuButton extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const SectionsMenuButton({
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   // -----------------------------------------------------------------------------
   List<String> getPhids({
-    @required BuildContext context,
+    required BuildContext context,
   }){
     final ZonePhidsModel _phidsModels = ChainsProvider.proGetZonePhids(context: context, listen: true);
     return ZonePhidsModel.getPhidsFromZonePhidsModel(zonePhidsModel: _phidsModels);
   }
   // --------------------
   String getIcon({
-    @required BuildContext context,
-    @required List<String> phids,
+    required BuildContext context,
+    required List<String> phids,
   }){
 
     // final bool _canRenderImages = Mapper.checkCanLoopList(phids);
@@ -116,7 +116,7 @@ class SectionsMenuButton extends StatelessWidget {
     return ClockRebuilder(
       startTime: DateTime.now(),
       duration: const Duration(milliseconds: 300),
-      builder: (int timeDifference, Widget child){
+      builder: (int timeDifference, Widget? child){
 
         return SuperBox(
           height: PyramidFloatingButton.size,
@@ -140,8 +140,8 @@ class SectionsMenuButton extends StatelessWidget {
 class BigSectionsMenu extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const BigSectionsMenu({
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {

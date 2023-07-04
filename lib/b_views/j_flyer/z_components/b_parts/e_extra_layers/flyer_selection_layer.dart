@@ -1,18 +1,19 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 
 class FlyerSelectionLayer extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const FlyerSelectionLayer({
-    @required this.flyerBoxWidth,
-    @required this.isSelected,
-    Key key
-  }) : super(key: key);
+    required this.flyerBoxWidth,
+    required this.isSelected,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final bool isSelected;
@@ -28,7 +29,7 @@ class FlyerSelectionLayer extends StatelessWidget {
       final double _flyerBoxHeight = FlyerDim.flyerHeightByFlyerWidth(
         flyerBoxWidth: flyerBoxWidth,
       );
-      final BorderRadius _corners = FlyerDim.flyerCorners(context, flyerBoxWidth);
+      final BorderRadius _corners = FlyerDim.flyerCorners(flyerBoxWidth);
       final double _checkIconSize = FlyerDim.flyerBottomCornerValue(flyerBoxWidth) * 2;
       // --------------------
       return Stack(

@@ -1,29 +1,29 @@
-import 'package:scale/scale.dart';
-import 'package:filers/filers.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:flutter/material.dart';
 
 /// GO BACK ON HORIZONTAL MAX BOUNCE
 class HorizontalBouncer extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const HorizontalBouncer({
-    @required this.child,
-    @required this.numberOfSlides,
-    @required this.controller,
+    required this.child,
+    required this.numberOfSlides,
+    required this.controller,
     this.boxDistance,
     this.notificationListenerKey,
     this.canNavigate = true,
     this.onNavigate,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final double boxDistance;
+  final double? boxDistance;
   final int numberOfSlides;
   final Widget child;
-  final Key notificationListenerKey;
+  final Key? notificationListenerKey;
   final PageController controller;
   final bool canNavigate;
-  final Function onNavigate;
+  final Function? onNavigate;
   /// --------------------------------------------------------------------------
   @override
   _HorizontalBouncerState createState() => _HorizontalBouncerState();
@@ -32,7 +32,7 @@ class HorizontalBouncer extends StatefulWidget {
 
 class _HorizontalBouncerState extends State<HorizontalBouncer> {
   // -----------------------------------------------------------------------------
-  ValueNotifier<bool> _canNavigate;
+  late ValueNotifier<bool> _canNavigate;
   int _numberOfTimesBack = 0;
   // -----------------------------------------------------------------------------
   @override
@@ -62,7 +62,7 @@ class _HorizontalBouncerState extends State<HorizontalBouncer> {
         }
 
         else {
-          widget.onNavigate();
+          widget.onNavigate!();
         }
 
       }
@@ -77,8 +77,8 @@ class _HorizontalBouncerState extends State<HorizontalBouncer> {
   }
   // --------------------
   bool _canSlideOnSwipe({
-    @required ScrollUpdateNotification details,
-    @required double boxDistance,
+    required ScrollUpdateNotification details,
+    required double boxDistance,
     int numberOfBoxes = 2,
   }) {
 
@@ -112,7 +112,7 @@ class _HorizontalBouncerState extends State<HorizontalBouncer> {
     return ValueListenableBuilder(
         valueListenable: _canNavigate,
         child: widget.child,
-        builder: (_, bool canNavigate, Widget child){
+        builder: (_, bool canNavigate, Widget? child){
 
           return NotificationListener<ScrollUpdateNotification>(
             key: widget.notificationListenerKey,
@@ -130,7 +130,7 @@ class _HorizontalBouncerState extends State<HorizontalBouncer> {
 
               return true;
             },
-            child: child,
+            child: child ?? const SizedBox(),
           );
 
         }

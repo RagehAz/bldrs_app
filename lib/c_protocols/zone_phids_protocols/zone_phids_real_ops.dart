@@ -6,8 +6,7 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:fire/super_fire.dart';
-import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 
 class ZonePhidsRealOps {
   // -----------------------------------------------------------------------------
@@ -20,10 +19,10 @@ class ZonePhidsRealOps {
 
   // --------------------
   /// TASK : TEST ME
-  static Future<ZonePhidsModel> readZonePhidsOfCurrentZone() async {
-    ZonePhidsModel _output;
+  static Future<ZonePhidsModel?> readZonePhidsOfCurrentZone() async {
+    ZonePhidsModel? _output;
 
-    final ZoneModel _currentZone = ZoneProvider.proGetCurrentZone(
+    final ZoneModel? _currentZone = ZoneProvider.proGetCurrentZone(
       context: getMainContext(),
       listen: false,
     );
@@ -50,16 +49,16 @@ class ZonePhidsRealOps {
   }
   // --------------------
   /// TASK : TEST ME
-  static Future<ZonePhidsModel> _readCityPhids({
-    @required String cityID,
+  static Future<ZonePhidsModel?> _readCityPhids({
+    required String? cityID,
   }) async {
-    ZonePhidsModel _output;
+    ZonePhidsModel? _output;
 
     if (cityID != null){
 
-      final Map<String, dynamic> _map = await Real.readPathMap(
+      final Map<String, dynamic>? _map = await Real.readPathMap(
         path: RealPath.zonesPhids_countryID_cityID(
-          countryID: CityModel.getCountryIDFromCityID(cityID),
+          countryID: CityModel.getCountryIDFromCityID(cityID)!,
           cityID: cityID,
         ),
       );
@@ -77,10 +76,10 @@ class ZonePhidsRealOps {
   }
   // --------------------
   /// TASK : TEST ME
-  static Future<ZonePhidsModel> _readCountryPhids({
-    @required String countryID,
+  static Future<ZonePhidsModel?> _readCountryPhids({
+    required String? countryID,
   }) async {
-    ZonePhidsModel _output;
+    ZonePhidsModel? _output;
 
     if (countryID != null){
 
@@ -116,7 +115,7 @@ class ZonePhidsRealOps {
       //
       // }
 
-      final Map<String, dynamic> _map = await Real.readPathMap(
+      final Map<String, dynamic>? _map = await Real.readPathMap(
         path: RealPath.zonesPhids_countryID(
             countryID: countryID,
           ),
@@ -124,16 +123,16 @@ class ZonePhidsRealOps {
 
       if (_map != null){
 
-        final List<String> _citiesIDs = _map.keys.toList();
+        final List<String>? _citiesIDs = _map.keys.toList();
         _citiesIDs?.remove('id');
 
         if (Mapper.checkCanLoopList(_citiesIDs) == true){
 
-          for (final String cityID in _citiesIDs){
+          for (final String cityID in _citiesIDs!){
 
             final Map<String, dynamic> _cityPhids = _map[cityID];
 
-            final ZonePhidsModel _model = ZonePhidsModel.decipherZonePhids(
+            final ZonePhidsModel? _model = ZonePhidsModel.decipherZonePhids(
               map: _cityPhids,
               cityID: cityID,
             );
@@ -162,22 +161,22 @@ class ZonePhidsRealOps {
   // --------------------
   /// TASK : TEST ME
   static Future<void> incrementFlyerCityPhids({
-    @required FlyerModel flyerModel,
-    @required bool isIncrementing,
+    required FlyerModel? flyerModel,
+    required bool isIncrementing,
   }) async {
 
-    if (flyerModel != null){
+    if (flyerModel != null && flyerModel.zone?.countryID != null&& flyerModel.zone?.cityID != null){
 
-      final ZonePhidsModel _cityPhidsToAdd = ZonePhidsModel.createZonePhidModelFromFlyer(
+      final ZonePhidsModel? _cityPhidsToAdd = ZonePhidsModel.createZonePhidModelFromFlyer(
         flyerModel: flyerModel,
       );
 
       await Real.incrementPathFields(
         path: RealPath.zonesPhids_countryID_cityID(
-            countryID: flyerModel.zone?.countryID,
-            cityID: flyerModel.zone?.cityID,
+            countryID: flyerModel.zone!.countryID!,
+            cityID: flyerModel.zone!.cityID!,
         ),
-        incrementationMap: _cityPhidsToAdd.toMap(),
+        incrementationMap: _cityPhidsToAdd?.toMap(),
         isIncrementing: isIncrementing,
       );
 
@@ -187,8 +186,8 @@ class ZonePhidsRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> incrementFlyersCitiesPhids({
-    @required List<FlyerModel> flyersModels,
-    @required bool isIncrementing,
+    required List<FlyerModel> flyersModels,
+    required bool isIncrementing,
   }) async {
 
     if (Mapper.checkCanLoopList(flyersModels) == true){
@@ -208,14 +207,14 @@ class ZonePhidsRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onRenovateFlyer({
-    @required FlyerModel flyerModel,
-    @required FlyerModel oldFlyer,
+    required FlyerModel? flyerModel,
+    required FlyerModel? oldFlyer,
   }) async {
 
     if (flyerModel != null && oldFlyer != null){
 
-      final List<String> _oldPhids = oldFlyer.phids;
-      final List<String> _newPhids = flyerModel.phids;
+      final List<String>? _oldPhids = oldFlyer.phids;
+      final List<String>? _newPhids = flyerModel.phids;
 
       final bool _areIdentical = Mapper.checkListsAreIdentical(
           list1: _oldPhids,

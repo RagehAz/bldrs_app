@@ -1,31 +1,32 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:filers/filers.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
 
 class FloatingDialog extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const FloatingDialog({
-    @required this.titleVerse,
-    @required this.list,
+    required this.titleVerse,
+    required this.list,
     this.fieldIsRequired = false,
     this.actionBtColor,
     this.actionBtIcon,
     this.actionBtFunction,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final Verse titleVerse;
   final List<String> list;
   final bool fieldIsRequired;
-  final String actionBtIcon;
-  final Color actionBtColor;
-  final Function actionBtFunction;
+  final String? actionBtIcon;
+  final Color? actionBtColor;
+  final Function? actionBtFunction;
   /// --------------------------------------------------------------------------
   @override
   _FloatingDialogState createState() => _FloatingDialogState();
@@ -34,7 +35,7 @@ class FloatingDialog extends StatefulWidget {
 
 class _FloatingDialogState extends State<FloatingDialog> {
 
-  int selectedIndex;
+  int? selectedIndex;
 
   @override
   Widget build(BuildContext context) {

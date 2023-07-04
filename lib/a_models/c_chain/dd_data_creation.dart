@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 
 enum DataCreator{
 
@@ -28,26 +27,26 @@ class DataCreation {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String cipherDataCreator(dynamic sons){
+  static String? cipherDataCreator(dynamic sons){
     switch (sons){
 
-      case DataCreator.doubleKeyboard:      return 'DataCreator_doubleKeyboard';      break;
-      case DataCreator.doubleSlider:        return 'DataCreator_doubleSlider';        break;
-      case DataCreator.doubleRangeSlider:   return 'DataCreator_doubleRangeSlider';   break;
+      case DataCreator.doubleKeyboard:      return 'DataCreator_doubleKeyboard';
+      case DataCreator.doubleSlider:        return 'DataCreator_doubleSlider';
+      case DataCreator.doubleRangeSlider:   return 'DataCreator_doubleRangeSlider';
 
-      case DataCreator.integerKeyboard:     return 'DataCreator_integerKeyboard';     break;
-      case DataCreator.integerSlider:       return 'DataCreator_integerSlider';       break;
-      case DataCreator.integerRangeSlider:  return 'DataCreator_integerRangeSlider';  break;
+      case DataCreator.integerKeyboard:     return 'DataCreator_integerKeyboard';
+      case DataCreator.integerSlider:       return 'DataCreator_integerSlider';
+      case DataCreator.integerRangeSlider:  return 'DataCreator_integerRangeSlider';
 
-      case DataCreator.boolSwitch:          return 'DataCreator_boolSwitch';          break;
-      case DataCreator.country:             return 'DataCreator_country';             break;
+      case DataCreator.boolSwitch:          return 'DataCreator_boolSwitch';
+      case DataCreator.country:             return 'DataCreator_country';
       default: return null;
 
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static DataCreator decipherDataCreator(dynamic sons){
+  static DataCreator? decipherDataCreator(dynamic sons){
 
     /// IS DATA CREATOR
     if (sons is DataCreator){
@@ -213,7 +212,10 @@ class DataCreation {
 
           final String _first = _sons.first;
 
-          final String _dataCreator = TextMod.removeTextAfterFirstSpecialCharacter(_first, '_');
+          final String? _dataCreator = TextMod.removeTextAfterFirstSpecialCharacter(
+            text: _first,
+            specialCharacter: '_',
+          );
 
           if (_dataCreator == 'DataCreator'){
             _isDataCreator = true;
@@ -229,8 +231,8 @@ class DataCreation {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkIsDataCreatorOfType({
-    @required dynamic sons,
-    @required DataCreator dataCreator,
+    required dynamic sons,
+    required DataCreator dataCreator,
   }){
 
     bool _indeed = false;
@@ -251,7 +253,7 @@ class DataCreation {
           if (Mapper.checkCanLoopList(_sons) == true){
 
             final String _first = _sons.first;
-            final String _cipheredType = DataCreation.cipherDataCreator(dataCreator);
+            final String? _cipheredType = DataCreation.cipherDataCreator(dataCreator);
 
             // blog('_first : $_first');
             // blog('dataCreator : $dataCreator');
@@ -276,24 +278,24 @@ class DataCreation {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkIsDoubleDataCreator(DataCreator creator){
+  static bool checkIsDoubleDataCreator(DataCreator? creator){
 
     switch (creator){
-      case DataCreator.doubleKeyboard : return true; break;
-      case DataCreator.doubleRangeSlider : return true; break;
-      case DataCreator.doubleSlider : return true; break;
+      case DataCreator.doubleKeyboard : return true;
+      case DataCreator.doubleRangeSlider : return true;
+      case DataCreator.doubleSlider : return true;
 
       default : return false;
     }
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static bool checkIsIntDataCreator(DataCreator creator){
+  static bool checkIsIntDataCreator(DataCreator? creator){
 
     switch (creator){
-      case DataCreator.integerKeyboard : return true; break;
-      case DataCreator.integerSlider : return true; break;
-      case DataCreator.integerRangeSlider : return true; break;
+      case DataCreator.integerKeyboard : return true;
+      case DataCreator.integerSlider : return true;
+      case DataCreator.integerRangeSlider : return true;
 
       default : return false;
     }

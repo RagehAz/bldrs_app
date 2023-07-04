@@ -1,13 +1,13 @@
 // import 'package:alphabet_list_scroll_view/alphabet_list_scroll_view.dart';
-// import 'package:scale/scale.dart';
+// import 'package:basics/helpers/classes/space/scale.dart';
 // 
 // import 'package:bldrs/b_views/z_components/texting/super_verse.dart';
 // import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
-// import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+// import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 // import 'package:bldrs/c_controllers/d_user_controllers/a_user_profile/z_invite_bzz_screen_controllers.dart';
 // import 'package:bldrs/d_providers/user_provider.dart';
-// import 'package:mapper/mapper.dart';
-// import 'package:bldrs_theme/bldrs_theme.dart';
+// import 'package:basics/helpers/classes/maps/mapper.dart';
+// 
 // import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';
@@ -29,13 +29,13 @@ List<String> getNamesFromDeviceContacts(List<Contact> deviceContacts){
 class InviteBusinessesScreenView extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const InviteBusinessesScreenView({
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   // -----------------------------------------------------------------------------
   /*
   bool _contactIsSelected({
-    @required BuildContext context,
-    @required String contactString,
+    required BuildContext context,
+    required String contactString,
   }){
 
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
@@ -45,8 +45,8 @@ class InviteBusinessesScreenView extends StatelessWidget {
   }
 // -----------------------------------------------------------------------------
   void _onContactTap({
-    @required BuildContext context,
-    @required String contactString,
+    required BuildContext context,
+    required String contactString,
   }){
     final UsersProvider _usersProvider = Provider.of<UsersProvider>(context, listen: false);
     _usersProvider.selectDeviceContact(contactString);

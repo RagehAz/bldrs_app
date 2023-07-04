@@ -1,25 +1,26 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/a_profile_page/x1_user_profile_page_controllers.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/buttons/contact_button.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 
 class ContactsBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const ContactsBubble({
-    @required this.contacts,
-    @required this.location,
-    @required this.canLaunchOnTap,
-    Key key,
-  }) : super(key: key);
+    required this.contacts,
+    required this.location,
+    required this.canLaunchOnTap,
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final List<ContactModel> contacts;
-  final GeoPoint location;
+  final List<ContactModel>? contacts;
+  final GeoPoint? location;
   final bool canLaunchOnTap;
   /// --------------------------------------------------------------------------
   @override

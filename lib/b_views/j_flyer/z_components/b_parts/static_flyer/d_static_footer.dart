@@ -1,24 +1,24 @@
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/e_footer_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class StaticFooter extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const StaticFooter({
-    @required this.flyerBoxWidth,
-    @required this.flyerID,
+    required this.flyerBoxWidth,
+    required this.flyerID,
     this.optionsButtonIsOn,
-    Key key
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
-  final bool optionsButtonIsOn;
-  final String flyerID;
+  final bool? optionsButtonIsOn;
+  final String? flyerID;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -125,9 +125,9 @@ class StaticFooter extends StatelessWidget {
 
             /// SAVE BUTTON
             if (optionsButtonIsOn == false)
-              Selector<UsersProvider, UserModel>(
+              Selector<UsersProvider, UserModel?>(
                 selector: (_, UsersProvider userProvider) => userProvider.myUserModel,
-                builder: (_, UserModel userModel, Widget child) {
+                builder: (_, UserModel? userModel, Widget? child) {
 
                   return Padding(
                     padding: _saveButtonPadding,

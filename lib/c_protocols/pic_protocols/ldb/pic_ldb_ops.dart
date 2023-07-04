@@ -1,8 +1,8 @@
+import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
-import 'package:ldb/ldb.dart';
-import 'package:mapper/mapper.dart';
-import 'package:stringer/stringer.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 
 class PicLDBOps {
   // -----------------------------------------------------------------------------
@@ -15,7 +15,7 @@ class PicLDBOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> insertPic(PicModel picModel) async {
+  static Future<void> insertPic(PicModel? picModel) async {
 
     if (picModel != null){
 
@@ -35,15 +35,15 @@ class PicLDBOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<PicModel> readPic(String path) async {
-    PicModel _picModel;
+  static Future<PicModel?> readPic(String? path) async {
+    PicModel? _picModel;
 
     if (TextCheck.isEmpty(path) == false){
 
       final List<Map<String, dynamic>> maps = await LDBOps.readMaps(
         docName: LDBDoc.pics,
         primaryKey: LDBDoc.getPrimaryKey(LDBDoc.pics),
-        ids: [path],
+        ids: [path!],
       );
 
       if (Mapper.checkCanLoopList(maps) == true){
@@ -60,7 +60,7 @@ class PicLDBOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> deletePic(String path) async {
+  static Future<void> deletePic(String? path) async {
     if (TextCheck.isEmpty(path) == false) {
       await LDBOps.deleteMap(
         docName: LDBDoc.pics,

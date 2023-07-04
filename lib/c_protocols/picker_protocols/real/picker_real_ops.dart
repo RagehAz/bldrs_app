@@ -2,8 +2,7 @@ import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
-import 'package:mapper/mapper.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 
 class PickerRealOps {
   // -----------------------------------------------------------------------------
@@ -16,7 +15,7 @@ class PickerRealOps {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static  String _getPickerRealDocNameByFlyerType(FlyerType flyerType){
+  static  String? _getPickerRealDocNameByFlyerType(FlyerType? flyerType){
     return FlyerTyper.cipherFlyerType(flyerType);
   }
   // -----------------------------------------------------------------------------
@@ -26,8 +25,8 @@ class PickerRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> createPickers({
-    @required List<PickerModel> pickers,
-    @required FlyerType flyerType,
+    required List<PickerModel> pickers,
+    required FlyerType flyerType,
   }) async {
 
     await Real.createDoc(
@@ -44,16 +43,17 @@ class PickerRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<PickerModel>> readPickers({
-    @required FlyerType flyerType,
+    required FlyerType? flyerType,
   }) async {
     List<PickerModel> _output = <PickerModel>[];
 
-    if (flyerType != null){
+    final String? _doc = _getPickerRealDocNameByFlyerType(flyerType);
 
+    if (_doc != null){
 
-      final Map<String, dynamic> _map = await Real.readDoc(
+      final Map<String, dynamic>? _map = await Real.readDoc(
         coll: RealColl.pickers,
-        doc: _getPickerRealDocNameByFlyerType(flyerType),
+        doc: _doc,
       );
 
       if (_map != null){
@@ -73,20 +73,25 @@ class PickerRealOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> updatePickers({
-    @required FlyerType flyerType,
-    @required List<PickerModel> updatedPickers,
+    required FlyerType? flyerType,
+    required List<PickerModel>? updatedPickers,
   }) async {
 
-    if (flyerType != null && Mapper.checkCanLoopList(updatedPickers) == true){
+    final String? _doc = _getPickerRealDocNameByFlyerType(flyerType);
+
+    if (
+        _doc != null
+        &&
+        Mapper.checkCanLoopList(updatedPickers) == true
+    ){
 
       await Real.updateDoc(
         coll: RealColl.pickers,
-        doc: _getPickerRealDocNameByFlyerType(flyerType),
+        doc: _doc,
         map: PickerModel.cipherPickers(updatedPickers),
       );
 
     }
-
 
   }
   // -----------------------------------------------------------------------------

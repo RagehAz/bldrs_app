@@ -14,7 +14,7 @@ import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zo
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:flutter/material.dart';
-import 'package:layouts/layouts.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:provider/provider.dart';
 
 /*
@@ -49,16 +49,14 @@ class ZoneSelection {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<ZoneModel> goBringAZone({
-    @required BuildContext context,
-    @required ZoneDepth depth,
-    @required bool settingCurrentZone,
-    @required ViewingEvent zoneViewingEvent,
-    @required String viewerCountryID,
+  static Future<ZoneModel?> goBringAZone({
+    required ZoneDepth depth,
+    required bool settingCurrentZone,
+    required ViewingEvent zoneViewingEvent,
+    required String? viewerCountryID,
   }) async {
 
-    final ZoneModel _output = await _goToCountriesScreen(
-      context: context,
+    final ZoneModel? _output = await _goToCountriesScreen(
       zoneViewingEvent: zoneViewingEvent,
       depth: depth,
       viewerCountryID: viewerCountryID,
@@ -66,7 +64,6 @@ class ZoneSelection {
 
     if (settingCurrentZone == true && _output != null){
       await setCurrentZoneAndNavHome(
-        context: context,
         zone: _output,
       );
     }
@@ -75,15 +72,14 @@ class ZoneSelection {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<ZoneModel> _goToCountriesScreen({
-    @required BuildContext context,
-    @required ViewingEvent zoneViewingEvent,
-    @required ZoneDepth depth,
-    @required String viewerCountryID,
+  static Future<ZoneModel?> _goToCountriesScreen({
+    required ViewingEvent zoneViewingEvent,
+    required ZoneDepth depth,
+    required String? viewerCountryID,
   }) async {
 
-    final ZoneModel _zone = await Nav.goToNewScreen(
-      context: context,
+    final ZoneModel? _zone = await Nav.goToNewScreen(
+      context: getMainContext(),
       screen: CountriesScreen(
         zoneViewingEvent: zoneViewingEvent,
         depth: depth,
@@ -92,7 +88,7 @@ class ZoneSelection {
     );
 
     if (_zone?.countryID != null){
-      final ZoneModel _output = await ZoneProtocols.completeZoneModel(
+      final ZoneModel? _output = await ZoneProtocols.completeZoneModel(
         incompleteZoneModel: _zone,
       );
       return _output;
@@ -106,17 +102,17 @@ class ZoneSelection {
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onSelectCountry({
-    @required BuildContext context,
-    @required String countryID,
-    @required ZoneDepth depth,
-    @required ViewingEvent zoneViewingEvent,
-    @required String viewerCountryID,
+    required BuildContext context,
+    required String? countryID,
+    required ZoneDepth depth,
+    required ViewingEvent zoneViewingEvent,
+    required String? viewerCountryID,
   }) async {
 
     Keyboard.closeKeyboard();
 
     /// COMPLETE ZONE
-    final ZoneModel _zoneWithCountry = await ZoneProtocols.completeZoneModel(
+    final ZoneModel? _zoneWithCountry = await ZoneProtocols.completeZoneModel(
       incompleteZoneModel: ZoneModel(
         countryID: countryID,
       ),
@@ -136,7 +132,7 @@ class ZoneSelection {
     /// Go to Cities Screen
     else {
 
-      final ZoneModel _zoneWithCity = await Nav.goToNewScreen(
+      final ZoneModel? _zoneWithCity = await Nav.goToNewScreen(
           context: context,
           screen: CitiesScreen(
             zoneViewingEvent: zoneViewingEvent,
@@ -163,16 +159,16 @@ class ZoneSelection {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> onSelectCity({
-    @required BuildContext context,
-    @required String cityID,
-    @required ZoneDepth depth,
-    @required ViewingEvent zoneViewingEvent,
+    required BuildContext context,
+    required String? cityID,
+    required ZoneDepth depth,
+    required ViewingEvent zoneViewingEvent,
   }) async {
 
     Keyboard.closeKeyboard();
 
     /// COMPLETE ZONE
-    final ZoneModel _zoneWithCity = await ZoneProtocols.completeZoneModel(
+    final ZoneModel? _zoneWithCity = await ZoneProtocols.completeZoneModel(
       incompleteZoneModel: ZoneModel(
         countryID: CityModel.getCountryIDFromCityID(cityID),
         cityID: cityID,
@@ -190,8 +186,7 @@ class ZoneSelection {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> setCurrentZoneAndNavHome({
-    @required BuildContext context,
-    @required ZoneModel zone,
+    required ZoneModel? zone,
   }) async {
 
     if (zone != null && zone.countryID != null){
@@ -210,7 +205,7 @@ class ZoneSelection {
       await WaitDialog.closeWaitDialog();
 
       await Nav.pushHomeAndRemoveAllBelow(
-        context: context,
+        context: getMainContext(),
         invoker: 'SelectCountryScreen._onCountryTap',
         homeRoute: Routing.home,
       );
@@ -220,7 +215,7 @@ class ZoneSelection {
   }
   // -----------------------------------------------------------------------------
   static Future<void> setCurrentZone({
-    @required ZoneModel zone,
+    required ZoneModel? zone,
   }) async {
 
     final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);

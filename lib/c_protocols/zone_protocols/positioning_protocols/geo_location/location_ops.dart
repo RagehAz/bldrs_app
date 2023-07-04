@@ -1,6 +1,6 @@
 /// => GEOLOCATOR_DOES_NOT_WORK
 // import 'package:devicer/devicer.dart';
-// import 'package:filers/filers.dart';
+// import 'package:basics/helpers/classes/files/filers.dart';
 // import 'package:fire/super_fire.dart';
 // import 'package:flutter/material.dart';
 // import 'package:geocoding/geocoding.dart';
@@ -71,7 +71,7 @@ class LocationOps {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Placemark>> getPlaceMarksFromGeoPoint({
-    @required GeoPoint geoPoint
+    required GeoPoint geoPoint
   }) async {
 
     List<Placemark> _placeMarks = <Placemark>[];

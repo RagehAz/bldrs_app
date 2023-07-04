@@ -1,13 +1,13 @@
-// import 'package:mapper/mapper.dart';
+// import 'package:basics/helpers/classes/maps/mapper.dart';
 // import 'package:flutter/foundation.dart';
 //
 // @immutable
 // class AlertModel {
 //   /// ----------------------------------------------------------------------------
 //   const AlertModel({
-//     @required this.alertID,
-//     @required this.titlePhraseID,
-//     @required this.messagePhraseID,
+//     required this.alertID,
+//     required this.titlePhraseID,
+//     required this.messagePhraseID,
 //   });
 //   /// ----------------------------------------------------------------------------
 //   final String alertID;
@@ -90,8 +90,8 @@
 //   // --------------------
 //   /*
 // //   static List<Phrase> getTranslatedAlertsTitles({
-// //   @required BuildContext context,
-// //     @required List<>
+// //   required BuildContext context,
+// //     required List<>
 // // }){
 // //     final List<Phrase> _outputs = <Phrase>[];
 // //

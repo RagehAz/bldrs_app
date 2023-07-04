@@ -1,28 +1,28 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/a_models/c_chain/c_picker_model.dart';
-import 'package:bldrs/b_views/z_components/buttons/dream_box/dream_box.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
 
 class PickerHeadlineTile extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const PickerHeadlineTile({
-    @required this.picker,
+    required this.picker,
     this.onTap,
     this.secondLine,
-    Key key
-  }) : super(key: key);
-
+    super.key
+  });
+  
   final PickerModel picker;
-  final Verse secondLine;
-  final Function onTap;
+  final Verse? secondLine;
+  final Function? onTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
 
     return Align(
-      key: ValueKey<String>(picker.chainID),
+      key: ValueKey<String>('${picker.chainID}'),
       alignment: Alignment.centerLeft,
       child: BldrsBox(
         height: 40,

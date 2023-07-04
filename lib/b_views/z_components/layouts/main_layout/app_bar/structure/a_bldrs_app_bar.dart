@@ -3,49 +3,49 @@ part of bldrs_app_bar;
 class BldrsAppBar extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const BldrsAppBar({
-    @required this.globalKey,
-    @required this.appBarType,
-    @required this.onBack,
-    @required this.pageTitleVerse,
-    @required this.appBarRowWidgets,
-    @required this.loading,
-    @required this.progressBarModel,
-    @required this.appBarScrollController,
-    @required this.sectionButtonIsOn,
-    @required this.searchController,
-    @required this.onSearchSubmit,
-    @required this.onPaste,
-    @required this.onSearchChanged,
-    @required this.searchButtonIsOn,
-    @required this.searchHintVerse,
-    @required this.canGoBack,
-    @required this.onSearchCancelled,
-    @required this.listenToHideLayout,
-    @required this.filtersAreOn,
-    @required this.filters,
-    Key key
-  }) : super(key: key);
+    required this.globalKey,
+    required this.appBarType,
+    required this.onBack,
+    required this.pageTitleVerse,
+    required this.appBarRowWidgets,
+    required this.loading,
+    required this.progressBarModel,
+    required this.appBarScrollController,
+    required this.sectionButtonIsOn,
+    required this.searchController,
+    required this.onSearchSubmit,
+    required this.onPaste,
+    required this.onSearchChanged,
+    required this.searchButtonIsOn,
+    required this.searchHintVerse,
+    required this.canGoBack,
+    required this.onSearchCancelled,
+    required this.listenToHideLayout,
+    required this.filtersAreOn,
+    required this.filters,
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final AppBarType appBarType;
+  final AppBarType? appBarType;
   final Function onBack;
-  final Verse pageTitleVerse;
-  final List<Widget> appBarRowWidgets;
-  final ValueNotifier<bool> loading;
-  final ValueNotifier<ProgressBarModel> progressBarModel;
-  final ScrollController appBarScrollController;
+  final Verse? pageTitleVerse;
+  final List<Widget>? appBarRowWidgets;
+  final ValueNotifier<bool>? loading;
+  final ValueNotifier<ProgressBarModel?>? progressBarModel;
+  final ScrollController? appBarScrollController;
   final bool sectionButtonIsOn;
-  final TextEditingController searchController;
-  final ValueChanged<String> onSearchSubmit;
-  final ValueChanged<String> onPaste;
-  final ValueChanged<String> onSearchChanged;
+  final TextEditingController? searchController;
+  final ValueChanged<String?>? onSearchSubmit;
+  final ValueChanged<String?>? onPaste;
+  final ValueChanged<String?>? onSearchChanged;
   final bool searchButtonIsOn;
-  final Verse searchHintVerse;
+  final Verse? searchHintVerse;
   final bool canGoBack;
-  final Function onSearchCancelled;
-  final GlobalKey globalKey;
+  final Function? onSearchCancelled;
+  final GlobalKey? globalKey;
   final bool listenToHideLayout;
-  final ValueNotifier<bool> filtersAreOn;
-  final Widget filters;
+  final ValueNotifier<bool?>? filtersAreOn;
+  final Widget? filters;
   /// --------------------------------------------------------------------------
   static const Widget appBarDot = SuperBox(
     height: Ratioz.appBarButtonSize,
@@ -81,7 +81,7 @@ class BldrsAppBar extends StatelessWidget {
     return width() - (2 * Ratioz.appBarPadding);
   }
   // --------------------
-  static double collapsedHeight(BuildContext context, AppBarType appBarType) {
+  static double collapsedHeight(BuildContext context, AppBarType? appBarType) {
 
     if (appBarType == AppBarType.search){
       return Ratioz.appBarBigHeight;
@@ -97,8 +97,7 @@ class BldrsAppBar extends StatelessWidget {
   }
   // --------------------
   static double expandedHeight({
-    @required BuildContext context,
-    @required AppBarType appBarType,
+    required BuildContext context,
   }){
     return Scale.screenHeight(context) - Ratioz.appBarMargin;
   }
@@ -145,8 +144,8 @@ class BldrsAppBar extends StatelessWidget {
 
   // --------------------
   static double filtersBoxHeight({
-    @required BuildContext context,
-    @required AppBarType appBarType,
+    required BuildContext context,
+    required AppBarType appBarType,
   }) {
     final double _filtersTopMargin = BldrsAppBar.getFiltersTopMargin(
       context: context,
@@ -154,14 +153,13 @@ class BldrsAppBar extends StatelessWidget {
     );
     final double _maxBoxHeight = BldrsAppBar.expandedHeight(
       context: context,
-      appBarType: appBarType,
     );
     return _maxBoxHeight - _filtersTopMargin;
   }
   // --------------------
   static double getFiltersTopMargin({
-    @required BuildContext context,
-    @required AppBarType appBarType,
+    required BuildContext context,
+    required AppBarType appBarType,
   }) {
 
     final double _filtersTopMargin =
@@ -208,7 +206,7 @@ class BldrsAppBar extends StatelessWidget {
     else {
       return Selector<UiProvider, bool>(
         selector: (_, UiProvider uiProvider) => uiProvider.layoutIsVisible,
-        builder: (_, bool isVisible, Widget child) {
+        builder: (_, bool isVisible, Widget? child) {
 
           // blog('bldrs app bar isVisible: $isVisible');
 

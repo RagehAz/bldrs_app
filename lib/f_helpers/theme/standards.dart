@@ -1,7 +1,6 @@
+import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
-import 'package:mediators/mediators.dart';
-import 'package:devicer/devicer.dart';
-import 'package:flutter/material.dart';
+import 'package:mediators/models/dimension_model.dart';
 
 class Standards {
   // -----------------------------------------------------------------------------
@@ -26,9 +25,9 @@ class Standards {
   static const String androidAppStoreURL = 'https://play.google.com/store/apps/details?id=net.bldrs.app';
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String getBldrsStoreLink(){
+  static String? getBldrsStoreLink(){
 
-    String _url;
+    String? _url;
 
     if (DeviceChecker.deviceIsIOS() == true){
       _url = iosAppStoreURL;
@@ -61,12 +60,12 @@ class Standards {
   // --------------------
   /// TESTED : WORKS PERFECT
   static int getMaxSlidesCount({
-    @required BzAccountType bzAccountType,
+    required BzAccountType? bzAccountType,
   }) {
     switch (bzAccountType) {
-      case BzAccountType.basic:  return Standards.maxFlyerSlidesFreeAccount;     break;
-      case BzAccountType.advanced: return Standards.maxFlyerSlidesPremiumAccount;  break;
-      case BzAccountType.premium:  return Standards.maxFlyerSlidesFreeSuper;       break;
+      case BzAccountType.basic:  return Standards.maxFlyerSlidesFreeAccount;
+      case BzAccountType.advanced: return Standards.maxFlyerSlidesPremiumAccount;
+      case BzAccountType.premium:  return Standards.maxFlyerSlidesFreeSuper;
       default:  return Standards.maxFlyerSlidesFreeAccount;
     }
   }
@@ -155,9 +154,13 @@ class Standards {
   /// BLDRS
 
   // --------------------
+  /// BLDRS NAME SQUARE
+  static const String bldrsNameSquarePicPath = 'storage/bldrs/bldrs_name.png';
+  static const String bldrsNameSquarePicURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bldrs%2Fbldrs_name.png?alt=media&token=e9c0e758-52ed-4709-a165-1044b2bf647a';
+  // --------------------
   /// BLDRS NAME
-  static const String bldrsNamePicPath = 'storage/bldrs/bldrs_name.png';
-  static const String bldrsNamePicURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bldrs%2Fbldrs_name.png?alt=media&token=e9c0e758-52ed-4709-a165-1044b2bf647a';
+  static const String bldrsNamePosterPicPath = 'storage/bldrs/bldrs_name_poster.png';
+  static const String bldrsNamePosterPicURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bldrs%2Fbldrs_name_poster.png?alt=media&token=455317df-dfcc-4313-9ee1-7971696734fc';
   // --------------------
   /// BLDRS APP ICON
   static const String bldrsAppIconPath = 'storage/bldrs/bldrs_app_icon.png';
@@ -185,3 +188,11 @@ class Standards {
   static const String anonymousUserPicURL = 'https://firebasestorage.googleapis.com/v0/b/bldrsnet.appspot.com/o/bldrs%2Fanonymous_user_pic.png?alt=media&token=61005a82-e697-4d28-bfcc-e8e5d831a54b';
   // -----------------------------------------------------------------------------
 }
+
+const List<String> badWords = <String>[
+  'fuck',
+  'bitch',
+  'whore',
+  'kos',
+  'omak',
+];

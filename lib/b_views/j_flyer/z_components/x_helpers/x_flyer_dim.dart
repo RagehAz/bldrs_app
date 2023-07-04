@@ -1,11 +1,13 @@
+import 'package:basics/animators/helpers/animators.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:animators/animators.dart';
 import 'package:bldrs/z_grid/z_grid.dart';
-import 'package:filers/filers.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 /// => TAMAM
 class FlyerDim {
   /// --------------------------------------------------------------------------
@@ -49,15 +51,15 @@ class FlyerDim {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double flyerWidthByFactor({
-    @required double flyerSizeFactor,
-    @required double gridWidth,
+    required double flyerSizeFactor,
+    required double gridWidth,
   }) {
     return gridWidth * flyerSizeFactor;
   }
   // ---------
   /// TESTED : WORKS PERFECT
   static double flyerWidthByFlyerHeight({
-    @required double flyerBoxHeight,
+    required double flyerBoxHeight,
   }){
     return flyerBoxHeight / flyerHeightRatioToWidth;
   }
@@ -67,23 +69,23 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static double flyerHeightByFlyerWidth({
-    @required double flyerBoxWidth,
+    required double flyerBoxWidth,
   }) {
     return flyerBoxWidth * flyerHeightRatioToWidth;
   }
   // ---------
   /// TESTED : WORKS PERFECT
   static double flyerFactorByFlyerWidth({
-    @required double gridWidth,
-    @required double flyerBoxWidth,
+    required double gridWidth,
+    required double flyerBoxWidth,
   }) {
     return flyerBoxWidth / gridWidth;
   }
   // ---------
   /// TESTED : WORKS PERFECT
   static double flyerFactorByFlyerHeight({
-    @required double gridWidth,
-    @required double flyerBoxHeight,
+    required double gridWidth,
+    required double flyerBoxHeight,
   }) {
     return flyerFactorByFlyerWidth(
       gridWidth: gridWidth,
@@ -95,8 +97,8 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static double heightBySizeFactor({
-    @required double flyerSizeFactor,
-    @required double gridWidth,
+    required double flyerSizeFactor,
+    required double gridWidth,
   }) {
     return flyerHeightByFlyerWidth(
       flyerBoxWidth: flyerWidthByFactor(
@@ -116,7 +118,7 @@ class FlyerDim {
 
   // ---------
   /// TESTED : WORKS PERFECT
-  static BorderRadius flyerCorners(BuildContext context, double flyerBoxWidth) {
+  static BorderRadius flyerCorners(double flyerBoxWidth) {
 
     final double _flyerTopCorners = flyerTopCornerValue(flyerBoxWidth);
     final double _flyerBottomCorners = flyerBottomCornerValue(flyerBoxWidth);
@@ -165,7 +167,7 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static double headerSlateAndProgressHeights({
-    @required double flyerBoxWidth,
+    required double flyerBoxWidth,
   }) {
 
     final double _flyerHeight = flyerHeightByFlyerWidth(
@@ -193,11 +195,10 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static BorderRadius headerSlateCorners({
-    @required BuildContext context,
-    @required double flyerBoxWidth
+    required double flyerBoxWidth
   }) {
 
-    return Borderers.cornerAll(context, flyerBoxWidth * _xFlyerTopCorners);
+    return Borderers.cornerAll(flyerBoxWidth * _xFlyerTopCorners);
 
   }
   // -----------------------------------------------------------------------------
@@ -216,8 +217,8 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static BorderRadius logoCornersByFlyerBoxWidth({
-    @required BuildContext context,
-    @required double flyerBoxWidth,
+    required BuildContext context,
+    required double flyerBoxWidth,
     bool zeroCornerIsOn = false
   }) {
 
@@ -236,13 +237,13 @@ class FlyerDim {
     }
 
     else {
-      return Borderers.cornerAll(context, _logoRoundCorners);
+      return Borderers.cornerAll(_logoRoundCorners);
     }
 
   }
   // ---------
   /// TESTED : WORKS PERFECT
-  static double logoCornerValueByLogoWidth(double logoWidth) {
+  static double logoCornerValueByLogoWidth(double? logoWidth) {
     if (logoWidth == null){
       return 0;
     }
@@ -253,13 +254,13 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static BorderRadius logoCornersByLogoWidth({
-    @required BorderRadius cornersOverride,
-    @required BuildContext context,
-    @required double logoWidth,
-    bool zeroCornerIsOn = false
+    required BorderRadius? cornersOverride,
+    required BuildContext context,
+    required double logoWidth,
+    bool? zeroCornerIsOn = false
   }) {
     final double _roundCornerValue = logoCornerValueByLogoWidth(logoWidth);
-    final double _zeroCornerValue = zeroCornerIsOn == true ? 0 : _roundCornerValue;
+    final double _zeroCornerValue = Mapper.boolIsTrue(zeroCornerIsOn) == true ? 0 : _roundCornerValue;
 
     return cornersOverride ?? Borderers.cornerOnly(
         appIsLTR: UiProvider.checkAppIsLeftToRight(),
@@ -294,8 +295,8 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static double bzLabelHeight({
-    @required double flyerBoxWidth,
-    @required bool flyerShowsAuthor,
+    required double flyerBoxWidth,
+    required bool flyerShowsAuthor,
   }){
 
     if (flyerShowsAuthor == true){
@@ -326,7 +327,7 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static double authorLabelBoxHeight({
-    @required double flyerBoxWidth
+    required double flyerBoxWidth
   }){
     // flyerShowsAuthor == true ?
     return flyerBoxWidth * _xFlyerAuthorPicWidth;
@@ -336,8 +337,8 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static double authorLabelBoxWidth({
-    @required double flyerBoxWidth,
-    @required bool labelIsOn,
+    required double flyerBoxWidth,
+    required bool labelIsOn,
   }){
     final double _authorLabelBoxHeight = authorLabelBoxHeight(
       flyerBoxWidth: flyerBoxWidth,
@@ -364,15 +365,15 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static double authorPicCornerValue({
-    @required double flyerBoxWidth,
+    required double flyerBoxWidth,
   }){
     return flyerBoxWidth * _xFlyerAuthorPicCorner;
   }
   // ---------
   /// TESTED : WORKS PERFECT
   static BorderRadius authorPicCornersByFlyerBoxWidth({
-    @required BuildContext context,
-    @required double flyerBoxWidth,
+    required BuildContext context,
+    required double flyerBoxWidth,
   }){
 
     final double _authorImageCorners = authorPicCornerValue(
@@ -391,8 +392,8 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static BorderRadius authorPicCornersByPicSize({
-    @required BuildContext context,
-    @required double picSize,
+    required BuildContext context,
+    required double picSize,
   }){
 
     return authorPicCornersByFlyerBoxWidth(
@@ -449,9 +450,9 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static BorderRadius superFollowOrCallCorners({
-    @required BuildContext context,
-    @required double flyerBoxWidth,
-    @required bool gettingFollowCorner,
+    required BuildContext context,
+    required double flyerBoxWidth,
+    required bool gettingFollowCorner,
   }) {
     final double headerMainCorners = flyerBoxWidth * _xFlyerTopCorners;
     final double headerOffsetCorner = headerMainCorners - flyerBoxWidth * _xFollowCallSpacing;
@@ -498,10 +499,10 @@ class FlyerDim {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double footerBoxHeight({
-    @required BuildContext context,
-    @required double flyerBoxWidth,
-    @required bool infoButtonExpanded,
-    @required bool hasLink,
+    required BuildContext context,
+    required double flyerBoxWidth,
+    required bool infoButtonExpanded,
+    required bool hasLink,
   }){
 
     if (infoButtonExpanded == true){
@@ -520,9 +521,9 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static double _footerBoxCollapsedHeight({
-    @required BuildContext context,
-    @required double flyerBoxWidth,
-    @required bool hasLink,
+    required BuildContext context,
+    required double flyerBoxWidth,
+    required bool hasLink,
   }) {
 
     final double _footerBTMargins = footerButtonMarginValue(flyerBoxWidth,);
@@ -544,8 +545,8 @@ class FlyerDim {
   // ---------
   /*
   static double footerBoxExpandedReviewHeight({
-    @required BuildContext context,
-    @required double flyerBoxWidth,
+    required BuildContext context,
+    required double flyerBoxWidth,
   }){
 
     final double _headerHeight = headerBoxHeight(flyerBoxWidth);
@@ -563,8 +564,8 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static BorderRadius footerBoxCorners({
-    @required BuildContext context,
-    @required double flyerBoxWidth,
+    required BuildContext context,
+    required double flyerBoxWidth,
   }){
 
     final double _bottomCorner = footerBoxBottomCornerValue(flyerBoxWidth);
@@ -589,8 +590,8 @@ class FlyerDim {
 
   // --------------------
   static double footerButtonSize({
-    @required BuildContext context,
-    @required double flyerBoxWidth,
+    required BuildContext context,
+    required double flyerBoxWidth,
   }) {
     return 2 * footerButtonRadius(
       context: context,
@@ -604,10 +605,10 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static EdgeInsets footerButtonEnRightMargin({
-    @required double flyerBoxWidth,
-    @required BuildContext context,
-    @required int buttonNumber,
-    @required double flightTweenValue,
+    required double flyerBoxWidth,
+    required BuildContext context,
+    required int buttonNumber,
+    required double flightTweenValue,
   }){
     final double _buttonSize = footerButtonSize(
         context: context,
@@ -644,8 +645,8 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static double footerButtonRadius({
-    @required BuildContext context,
-    @required double flyerBoxWidth,
+    required BuildContext context,
+    required double flyerBoxWidth,
   }) {
     final double _flyerBottomCorners = footerBoxBottomCornerValue(flyerBoxWidth);
     final double _footerBTMargins = footerButtonMarginValue(flyerBoxWidth);
@@ -657,11 +658,11 @@ class FlyerDim {
 
   // --------------------
   static double infoButtonWidth({
-    @required BuildContext context,
-    @required double flyerBoxWidth,
-    @required bool tinyMode,
-    @required bool isExpanded,
-    @required InfoButtonType infoButtonType,
+    required BuildContext context,
+    required double flyerBoxWidth,
+    required bool tinyMode,
+    required bool? isExpanded,
+    required InfoButtonType? infoButtonType,
   }){
 
     /// TINY MODE
@@ -676,7 +677,7 @@ class FlyerDim {
     else {
 
       /// EXPANDED
-      if (isExpanded == true){
+      if (Mapper.boolIsTrue(isExpanded) == true){
         return _infoButtonExpandedWidth(
           context: context,
           flyerBoxWidth: flyerBoxWidth,
@@ -710,10 +711,10 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static double infoButtonHeight({
-    @required BuildContext context,
-    @required double flyerBoxWidth,
-    @required bool tinyMode,
-    @required bool isExpanded,
+    required BuildContext context,
+    required double flyerBoxWidth,
+    required bool tinyMode,
+    required bool? isExpanded,
   }){
 
     if (tinyMode == true){
@@ -725,7 +726,7 @@ class FlyerDim {
 
     else {
 
-      if (isExpanded == true){
+      if (Mapper.boolIsTrue(isExpanded) == true){
         return _infoButtonExpandedHeight(
           flyerBoxWidth: flyerBoxWidth,
         );
@@ -744,8 +745,8 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static double _infoButtonTinyWidth({
-    @required BuildContext context,
-    @required double flyerBoxWidth,
+    required BuildContext context,
+    required double flyerBoxWidth,
   }){
     final _footerButtonWidth = footerButtonSize(
       context: context,
@@ -761,8 +762,8 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static double _infoButtonCollapsedWidth({
-    @required BuildContext context,
-    @required double flyerBoxWidth,
+    required BuildContext context,
+    required double flyerBoxWidth,
   }){
 
     final double _footerButtonSize = footerButtonSize(
@@ -789,16 +790,16 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static double _infoButtonExpandedWidth({
-    @required BuildContext context,
-    @required double flyerBoxWidth,
+    required BuildContext context,
+    required double flyerBoxWidth,
   }){
     return flyerBoxWidth - (2 * footerButtonMarginValue(flyerBoxWidth));
   }
   // ---------
   /// TESTED : WORKS PERFECT
   static double _infoButtonTinyHeight({
-    @required BuildContext context,
-    @required double flyerBoxWidth,
+    required BuildContext context,
+    required double flyerBoxWidth,
   }){
     return footerButtonSize(
       context: context,
@@ -808,8 +809,8 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static double _infoButtonCollapsedHeight({
-    @required BuildContext context,
-    @required double flyerBoxWidth,
+    required BuildContext context,
+    required double flyerBoxWidth,
   }){
     return 0.7 * footerButtonSize(
       context: context,
@@ -819,7 +820,7 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static double _infoButtonExpandedHeight({
-    @required double flyerBoxWidth,
+    required double flyerBoxWidth,
   }){
     return flyerBoxWidth;
   }
@@ -830,10 +831,10 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static BorderRadius infoButtonCorners({
-    @required BuildContext context,
-    @required double flyerBoxWidth,
-    @required bool tinyMode,
-    @required bool isExpanded,
+    required BuildContext context,
+    required double flyerBoxWidth,
+    required bool tinyMode,
+    required bool? isExpanded,
   }){
 
     double _cornersValue = 0;
@@ -847,7 +848,7 @@ class FlyerDim {
 
     else {
 
-      if (isExpanded == true){
+      if (Mapper.boolIsTrue(isExpanded) == true){
         _cornersValue = _infoButtonExpandedCornerValue(
           context: context,
           flyerBoxWidth: flyerBoxWidth,
@@ -863,13 +864,13 @@ class FlyerDim {
 
     }
 
-    return Borderers.cornerAll(context, _cornersValue);
+    return Borderers.cornerAll(_cornersValue);
   }
   // ---------
   /// TESTED : WORKS PERFECT
   static double _infoButtonTinyCornerValue({
-    @required BuildContext context,
-    @required double flyerBoxWidth,
+    required BuildContext context,
+    required double flyerBoxWidth,
   }){
 
     final double _footerBottomCorners = footerBoxBottomCornerValue(flyerBoxWidth);
@@ -884,8 +885,8 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static double _infoButtonCollapsedCornerValue({
-    @required BuildContext context,
-    @required double flyerBoxWidth,
+    required BuildContext context,
+    required double flyerBoxWidth,
   }){
 
     final double _footerBottomCorners = footerBoxBottomCornerValue(flyerBoxWidth);
@@ -900,8 +901,8 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static double _infoButtonExpandedCornerValue({
-    @required BuildContext context,
-    @required double flyerBoxWidth,
+    required BuildContext context,
+    required double flyerBoxWidth,
   }){
     return footerButtonRadius(
       context: context,
@@ -915,10 +916,10 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static EdgeInsets infoButtonMargins({
-    @required BuildContext context,
-    @required double flyerBoxWidth,
-    @required bool tinyMode,
-    @required bool isExpanded,
+    required BuildContext context,
+    required double flyerBoxWidth,
+    required bool tinyMode,
+    required bool? isExpanded,
   }){
     double _marginValue = 0;
 
@@ -931,7 +932,7 @@ class FlyerDim {
 
     else {
 
-      if (isExpanded == true){
+      if (Mapper.boolIsTrue(isExpanded) == true){
         _marginValue = _infoButtonExpandedMarginValue(
           context: context,
           flyerBoxWidth: flyerBoxWidth,
@@ -952,16 +953,16 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static double _infoButtonTinyMarginValue({
-    @required BuildContext context,
-    @required double flyerBoxWidth,
+    required BuildContext context,
+    required double flyerBoxWidth,
   }){
     return footerButtonMarginValue(flyerBoxWidth);
   }
   // ---------
   /// TESTED : WORKS PERFECT
   static double infoButtonCollapsedMarginValue({
-    @required BuildContext context,
-    @required double flyerBoxWidth,
+    required BuildContext context,
+    required double flyerBoxWidth,
   }){
 
     final double _buttonMinHeight = _infoButtonCollapsedHeight(
@@ -982,8 +983,8 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static double _infoButtonExpandedMarginValue({
-    @required BuildContext context,
-    @required double flyerBoxWidth,
+    required BuildContext context,
+    required double flyerBoxWidth,
   }){
     return footerButtonMarginValue(flyerBoxWidth);
   }
@@ -1008,8 +1009,8 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static EdgeInsets progressBarBoxMargins({
-    @required double flyerBoxWidth,
-    EdgeInsets margins,
+    required double flyerBoxWidth,
+    EdgeInsets? margins,
   }) {
     return margins ?? EdgeInsets.only(top: flyerBoxWidth * 0.27);
   }
@@ -1035,8 +1036,8 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static double progressStripLength({
-    @required double flyerBoxWidth,
-    @required int numberOfStrips,
+    required double flyerBoxWidth,
+    required int? numberOfStrips,
   }) {
     return progressStripsTotalLength(flyerBoxWidth) / (numberOfStrips ?? 1);
   }
@@ -1057,10 +1058,9 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static BorderRadius progressStripCorners({
-    @required BuildContext context,
-    @required double flyerBoxWidth
+    required double flyerBoxWidth
   }) {
-    return Borderers.cornerAll(context, progressStripCornerValue(flyerBoxWidth));
+    return Borderers.cornerAll(progressStripCornerValue(flyerBoxWidth));
   }
   // -----------------------------------------------------------------------------
 
@@ -1069,9 +1069,9 @@ class FlyerDim {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkFlyerIsFullScreen({
-    @required double gridWidth,
-    @required double gridHeight,
-    @required double flyerBoxWidth,
+    required double gridWidth,
+    required double gridHeight,
+    required double flyerBoxWidth,
   }){
 
     final double _bigFlyerWidth = ZGridScale.getBigItemWidth(
@@ -1085,9 +1085,9 @@ class FlyerDim {
   // ---------
   /// TESTED : WORKS PERFECT
   static bool isTinyMode({
-    @required double gridWidth,
-    @required double gridHeight,
-    @required double flyerBoxWidth,
+    required double gridWidth,
+    required double gridHeight,
+    required double flyerBoxWidth,
   }) {
 
     final bool _isFullScreen = checkFlyerIsFullScreen(
@@ -1113,16 +1113,16 @@ class FlyerDim {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double flyerGridWidth({
-    @required BuildContext context,
-    @required double givenGridWidth,
+    required BuildContext context,
+    required double? givenGridWidth,
   }){
     return givenGridWidth ?? Scale.screenWidth(context);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static double flyerGridHeight({
-    @required BuildContext context,
-    @required double givenGridHeight,
+    required BuildContext context,
+    required double? givenGridHeight,
   }){
     return givenGridHeight ?? Scale.screenHeight(context);
   }
@@ -1131,9 +1131,9 @@ class FlyerDim {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double flyerGridVerticalScrollFlyerBoxWidth({
-    @required double gridZoneWidth,
-    @required int numberOfColumns,
-    double spacingRatio,
+    required double gridZoneWidth,
+    required int numberOfColumns,
+    double? spacingRatio,
   }){
 
     final double _ratio = spacingRatio ?? _spacingRatio;
@@ -1150,9 +1150,9 @@ class FlyerDim {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double flyerGridHorizontalScrollFlyerBoxWidth({
-    @required double gridZoneHeight,
-    @required int numberOfRows,
-    double spacingRatio,
+    required double gridZoneHeight,
+    required int numberOfRows,
+    double? spacingRatio,
   }){
 
     final double _ratio = spacingRatio ?? _spacingRatio;
@@ -1181,20 +1181,20 @@ class FlyerDim {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static double flyerGridGridSpacingValue(double flyerBoxWidth){
+  static double flyerGridGridSpacingValue(double? flyerBoxWidth){
     return (flyerBoxWidth ?? 0) * _spacingRatio;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static EdgeInsets flyerGridPadding({
-    @required BuildContext context,
-    @required double gridWidth,
-    @required double gridHeight,
-    @required double gridSpacingValue,
-    @required double topPaddingValue, /// when is vertical scrolling
-    @required bool isVertical,
-    @required bool hasResponsiveSideMargin,
-    double endPadding,
+    required BuildContext context,
+    required double gridWidth,
+    required double gridHeight,
+    required double gridSpacingValue,
+    required double topPaddingValue, /// when is vertical scrolling
+    required bool isVertical,
+    required bool hasResponsiveSideMargin,
+    double? endPadding,
   }){
 
     if (isVertical == true){
@@ -1218,11 +1218,11 @@ class FlyerDim {
   }
   // --------------------
   static EdgeInsets _verticalGridPaddings({
-    @required double gridWidth,
-    @required double gridHeight,
-    @required double bottomPadding,
-    @required double topPaddingValue,
-    @required bool hasResponsiveSideMargin,
+    required double gridWidth,
+    required double gridHeight,
+    required double? bottomPadding,
+    required double topPaddingValue,
+    required bool hasResponsiveSideMargin,
   }){
 
     final double gridSideMargin = ZGridScale.getGridSideMargin(
@@ -1232,7 +1232,7 @@ class FlyerDim {
       hasResponsiveSideMargin: hasResponsiveSideMargin,
     );
 
-    final double _bottomPaddingOnZoomedOut = ZGridScale.getBottomPaddingOnZoomedOut(
+    final double? _bottomPaddingOnZoomedOut = ZGridScale.getBottomPaddingOnZoomedOut(
       bottomPaddingOnZoomedOut: bottomPadding,
     );
 
@@ -1248,8 +1248,8 @@ class FlyerDim {
   }
   // --------------------
   static EdgeInsets _horizontalGridPaddings({
-    @required double gridSpacingValue,
-    @required double endPadding,
+    required double gridSpacingValue,
+    required double? endPadding,
   }){
 
     return Scale.superInsets(
@@ -1269,17 +1269,17 @@ class FlyerDim {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double flyerGridSlotMinWidthFactor({
-    @required double gridFlyerWidth,
-    @required double gridZoneWidth,
+    required double gridFlyerWidth,
+    required double gridZoneWidth,
   }){
     return gridFlyerWidth / gridZoneWidth;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   static double flyerGridSlotWidth({
-    @required BuildContext context,
-    @required double gridWidth,
-    @required int flyersLength,
+    required BuildContext context,
+    required double gridWidth,
+    required int flyersLength,
   }) {
     final double _gridWidth = gridWidth - (2 * Ratioz.appBarMargin);
     final int _numberOfColumns = flyerGridColumnCount(flyersLength);
@@ -1288,13 +1288,13 @@ class FlyerDim {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double flyerGridFlyerBoxWidth({
-    @required BuildContext context,
-    @required Axis scrollDirection,
-    @required int numberOfColumnsOrRows,
-    @required double gridWidth,
-    @required double gridHeight,
-    @required bool hasResponsiveSideMargin,
-    double spacingRatio,
+    required BuildContext context,
+    required Axis scrollDirection,
+    required int numberOfColumnsOrRows,
+    required double gridWidth,
+    required double? gridHeight,
+    required bool hasResponsiveSideMargin,
+    double? spacingRatio,
   }){
 
     if (scrollDirection == Axis.vertical){
@@ -1328,10 +1328,10 @@ class FlyerDim {
   // --------------------
   /// TESTED : WORKS PERFECT
   static int flyerGridNumberOfSlots({
-    @required int flyersCount,
-    @required bool addFlyerButtonIsOn,
-    @required bool isLoadingGrid,
-    @required int numberOfColumnsOrRows,
+    required int flyersCount,
+    required bool addFlyerButtonIsOn,
+    required bool isLoadingGrid,
+    required int numberOfColumnsOrRows,
   }){
     int _slotsCount = flyersCount;
 
@@ -1366,10 +1366,10 @@ class FlyerDim {
   // --------------------
   /// TESTED : WORKS PERFECT
   static SliverGridDelegate flyerGridDelegate({
-    @required BuildContext context,
-    @required Axis scrollDirection,
-    @required double flyerBoxWidth,
-    @required int numberOfColumnsOrRows,
+    required BuildContext context,
+    required Axis scrollDirection,
+    required double flyerBoxWidth,
+    required int numberOfColumnsOrRows,
   }){
 
     final double _gridSpacingValue = flyerGridGridSpacingValue(flyerBoxWidth);
@@ -1411,8 +1411,8 @@ class FlyerDim {
   // --------------------
   /// TESTED : WORKS PERFECT
   static double gtaButtonWidth({
-    @required BuildContext context,
-    @required double flyerBoxWidth,
+    required BuildContext context,
+    required double flyerBoxWidth,
   }){
 
     final double _leftEnMargin = gtaButtonMargins(
@@ -1431,8 +1431,8 @@ class FlyerDim {
   // --------------------
   /// TESTED : WORKS PERFECT
   static EdgeInsets gtaButtonMargins({
-    @required BuildContext context,
-    @required double flyerBoxWidth,
+    required BuildContext context,
+    required double flyerBoxWidth,
   }) {
     return EdgeInsets.symmetric(
       horizontal: FlyerDim

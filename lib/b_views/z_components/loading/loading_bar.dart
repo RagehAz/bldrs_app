@@ -1,15 +1,14 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
-import 'package:scale/scale.dart';
-import 'package:bldrs_theme/bldrs_theme.dart';
-
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:flutter/material.dart';
 
 class LoadingBar extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const LoadingBar({
-    @required this.progress,
-    Key key
-  }) : super(key: key);
+    required this.progress,
+    super.key
+  });
   /// --------------------------------------------------------------------------
   final double progress;
   /// --------------------------------------------------------------------------

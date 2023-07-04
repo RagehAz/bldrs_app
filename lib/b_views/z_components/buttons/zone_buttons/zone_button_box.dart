@@ -1,22 +1,23 @@
-import 'package:bldrs_theme/bldrs_theme.dart';
-import 'package:bubbles/bubbles.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:flutter/material.dart';
-import 'package:scale/scale.dart';
 
 class ZoneButtonBox extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const ZoneButtonBox({
-    @required this.columnChildren,
-    @required this.onTap,
-    @required this.isActive,
-    @required this.onDeactivatedTap,
-    Key key
-  }) : super(key: key);
+    required this.columnChildren,
+    required this.onTap,
+    required this.isActive,
+    required this.onDeactivatedTap,
+    super.key
+  });
   // --------------------------------------------------------------------------
   final List<Widget> columnChildren;
-  final Function onTap;
+  final Function? onTap;
   final bool isActive;
-  final Function onDeactivatedTap;
+  final Function? onDeactivatedTap;
   // --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class ZoneButtonBox extends StatelessWidget {
       child: Center(
         child: InkWell(
           borderRadius: Borderers.constantCornersAll12,
-          onTap: isActive == true ? onTap : onDeactivatedTap,
+          onTap: isActive == true ? () => onTap?.call() : () => onDeactivatedTap?.call(),
           highlightColor: Colorz.white10,
           child: Container(
             width: _buttonWidth,

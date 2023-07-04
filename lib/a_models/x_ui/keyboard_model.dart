@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class KeyboardModel {
   // -----------------------------------------------------------------------------
   const KeyboardModel({
-    @required this.titleVerse,
+    required this.titleVerse,
     this.initialText,
     this.hintVerse,
     this.minLines = 1,
@@ -26,26 +26,26 @@ class KeyboardModel {
     this.validator,
   });
   // -----------------------------------------------------------------------------
-  final Verse titleVerse;
-  final Verse hintVerse;
-  final String initialText;
-  final int minLines;
-  final int maxLines;
-  final int maxLength;
-  final TextInputAction textInputAction;
-  final TextInputType textInputType;
-  final FocusNode focusNode;
-  final ValueNotifier<bool> isObscured;
-  final bool counterIsOn;
-  final bool isFormField;
+  final Verse? titleVerse;
+  final Verse? hintVerse;
+  final String? initialText;
+  final int? minLines;
+  final int? maxLines;
+  final int? maxLength;
+  final TextInputAction? textInputAction;
+  final TextInputType? textInputType;
+  final FocusNode? focusNode;
+  final ValueNotifier<bool>? isObscured;
+  final bool? counterIsOn;
+  final bool? isFormField;
 
-  final ValueChanged<String> onChanged;
-  final ValueChanged<String> onSubmitted;
-  final ValueChanged<String> onSavedForForm;
-  final Function onEditingComplete;
-  final bool isFloatingField;
-  final GlobalKey<FormState> globalKey;
-  final String Function(String text) validator;
+  final ValueChanged<String?>? onChanged;
+  final ValueChanged<String?>? onSubmitted;
+  final ValueChanged<String?>? onSavedForForm;
+  final Function? onEditingComplete;
+  final bool? isFloatingField;
+  final GlobalKey<FormState>? globalKey;
+  final String? Function(String? text)? validator;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -53,25 +53,25 @@ class KeyboardModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   KeyboardModel copyWith({
-    Verse titleVerse,
-    Verse hintVerse,
-    String initialText,
-    int minLines,
-    int maxLines,
-    int maxLength,
-    TextInputAction textInputAction,
-    TextInputType textInputType,
-    FocusNode focusNode,
-    ValueNotifier<bool> isObscured,
-    bool counterIsOn,
-    bool isFormField,
-    ValueChanged<String> onChanged,
-    ValueChanged<String> onSubmitted,
-    ValueChanged<String> onSavedForForm,
-    Function onEditingComplete,
-    bool isFloatingField,
-    GlobalKey<FormState> globalKey,
-    String Function(String text) validator,
+    Verse? titleVerse,
+    Verse? hintVerse,
+    String? initialText,
+    int? minLines,
+    int? maxLines,
+    int? maxLength,
+    TextInputAction? textInputAction,
+    TextInputType? textInputType,
+    FocusNode? focusNode,
+    ValueNotifier<bool>? isObscured,
+    bool? counterIsOn,
+    bool? isFormField,
+    ValueChanged<String?>? onChanged,
+    ValueChanged<String?>? onSubmitted,
+    ValueChanged<String?>? onSavedForForm,
+    Function? onEditingComplete,
+    bool? isFloatingField,
+    GlobalKey<FormState>? globalKey,
+    String? Function(String? text)? validator,
   }){
     return KeyboardModel(
       titleVerse: titleVerse ?? this.titleVerse,
@@ -130,16 +130,18 @@ class KeyboardModel {
   // --------------------
   /// TESTED : WORKS PERFECT
   static bool checkKeyboardsAreIdentical({
-    @required KeyboardModel modelA,
-    @required KeyboardModel modelB,
+    required KeyboardModel? modelA,
+    required KeyboardModel? modelB,
   }){
     bool _areIdentical = false;
 
     if (modelA == null && modelB == null){
       _areIdentical = true;
     }
+
     else if (
-    modelA.titleVerse == modelB.titleVerse &&
+        modelA != null && modelB != null &&
+        modelA.titleVerse == modelB.titleVerse &&
         modelA.hintVerse == modelB.hintVerse &&
         modelA.initialText == modelB.initialText &&
         modelA.minLines == modelB.minLines &&

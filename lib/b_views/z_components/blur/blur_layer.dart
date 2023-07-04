@@ -1,6 +1,5 @@
 import 'dart:ui' as ui;
-
-import 'package:bldrs_theme/bldrs_theme.dart';
+import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:flutter/material.dart';
 /// PLAN : TO BE OPTIMIZED AND PACKED
 class BlurLayer extends StatelessWidget {
@@ -12,14 +11,14 @@ class BlurLayer extends StatelessWidget {
     this.height = double.infinity,
     this.color,
     this.blurIsOn = false,
-    Key key,
-  }) : super(key: key);
+    super.key
+  });
   /// --------------------------------------------------------------------------
-  final BorderRadius borders;
+  final BorderRadius? borders;
   final double blur;
   final double width;
   final double height;
-  final Color color;
+  final Color? color;
   final bool blurIsOn;
   /// --------------------------------------------------------------------------
   @override
@@ -69,7 +68,7 @@ class BlurLayer extends StatelessWidget {
 //   final Widget frostBackground;
 //
 //   CachedFrostedBox({
-//     @required this.child,
+//     required this.child,
 //     this.sigmaX = 8,
 //     this.sigmaY = 8,
 //     this.opaqueBackground
