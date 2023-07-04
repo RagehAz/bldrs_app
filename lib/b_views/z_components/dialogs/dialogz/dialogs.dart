@@ -697,15 +697,17 @@ class Dialogs {
     bool invertButtons = false,
   }) async {
 
+    final BuildContext _context = getMainContext();
     final bool _result = await CenterDialog.showCenterDialog(
       titleVerse: titleVerse,
       bodyVerse: bodyVerse,
       boolDialog: boolDialog,
       confirmButtonVerse: confirmButtonVerse,
       invertButtons: invertButtons,
-      height: Scale.screenHeight(getMainContext()) * 0.7,
+      height: Scale.screenHeight(_context) * 0.7,
       child: UserBanner(
         userModel: userModel,
+        width: CenterDialog.clearWidth(_context),
       ),
     );
 

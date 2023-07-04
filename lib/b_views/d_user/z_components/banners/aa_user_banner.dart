@@ -24,10 +24,12 @@ class UserBanner extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const UserBanner({
     required this.userModel,
+    this.width,
     super.key
   });
   /// --------------------------------------------------------------------------
   final UserModel? userModel;
+  final double? width;
   /// --------------------------------------------------------------------------
   static Verse generateTitleCompanyString({
     required UserModel? userModel,
@@ -109,8 +111,20 @@ class UserBanner extends StatelessWidget {
     final bool _itIsMe = UserModel.checkItIsMe(userModel?.id);
 
     final bool _userIsAuthor = UserModel.checkUserIsAuthor(userModel);
+
+    final double _bubbleWidth = Bubble.bubbleWidth(
+      context: context,
+      bubbleWidthOverride: width,
+    );
+
+    final double _clearWidth = Bubble.clearWidth(
+      context: context,
+      bubbleWidthOverride: width,
+    );
+
     // --------------------
     return Bubble(
+      width: _bubbleWidth,
       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
         context: context,
       ),
@@ -141,6 +155,7 @@ class UserBanner extends StatelessWidget {
             id: _userName,
             translate: false,
           ),
+          width: _clearWidth,
           shadow: true,
           size: 4,
           margin: 5,
@@ -152,6 +167,7 @@ class UserBanner extends StatelessWidget {
         /// USER JOB TITLE
         if (canShowTitleCompanyLine(userModel: userModel) == true)
           BldrsText(
+            width: _clearWidth,
             italic: true,
             weight: VerseWeight.thin,
             verse: generateTitleCompanyString(
@@ -161,12 +177,14 @@ class UserBanner extends StatelessWidget {
 
         /// USER LOCALE
         ZoneLine(
+          width: _clearWidth,
           zoneModel: userModel?.zone,
           // centered: true,
         ),
 
         /// JOINED AT
         BldrsText(
+          width: _clearWidth,
           verse: Verse(
             id: BldrsTimers.generateString_in_bldrs_since_month_yyyy(userModel?.createdAt),
             translate: false,
@@ -179,21 +197,22 @@ class UserBanner extends StatelessWidget {
         /// SEPARATOR
         if (_userIsAuthor == true)
         SeparatorLine(
-          width: Bubble.clearWidth(context: context) * 0.5,
+          width: _clearWidth * 0.5,
           withMargins: true,
         ),
 
         /// AUTHOR IN STRING
         if (_userIsAuthor == true)
-          const BldrsText(
-            verse: Verse(
+          BldrsText(
+            width: _clearWidth,
+            verse: const Verse(
               id: 'phid_author_in',
               translate: true,
             ),
             weight: VerseWeight.thin,
             italic: true,
             color: Colorz.grey255,
-            margin: EdgeInsets.only(bottom: 10),
+            margin: const EdgeInsets.only(bottom: 10),
           ),
 
         /// MY BZZ
@@ -219,7 +238,7 @@ class UserBanner extends StatelessWidget {
                     bzModel: _bzModel,
                     height: 50,
                     width: (_bzModel.name?.length ?? 0) > 20 ?
-                    Bubble.clearWidth(context: context) - 20
+                    _clearWidth - 20
                         :
                     null,
                     onTap: () => BldrsNav.jumpToBzPreviewScreen(
