@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 
 class PyramidsPanel extends StatelessWidget {
   // ---------------------------------------------------------------------------
@@ -16,27 +15,23 @@ class PyramidsPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-      return Container(
-        width: Scale.screenWidth(context),
-        height: Scale.screenHeight(context),
-        alignment: Alignment.bottomRight,
-        child: Padding(
-          padding: const EdgeInsets.only(right: 10, bottom: bottomMargin),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
+      return Padding(
+        padding: const EdgeInsets.only(right: 10, bottom: bottomMargin),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: <Widget>[
 
-              /// EXTRA BUTTONS
-              if (Mapper.checkCanLoopList(pyramidButtons) == true)
-                ...List.generate(pyramidButtons!.length, (index){
+            /// EXTRA BUTTONS
+            if (Mapper.checkCanLoopList(pyramidButtons) == true)
+              ...List.generate(pyramidButtons!.length, (index){
 
-                  return pyramidButtons![index];
+                return pyramidButtons![index];
 
-                }),
+              }),
 
 
-            ],
-          ),
+          ],
         ),
       );
 

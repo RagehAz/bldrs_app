@@ -278,8 +278,12 @@ class MainLayout extends StatelessWidget {
                 ),
 
                 if (Mapper.checkCanLoopList(pyramidButtons) == true)
-                PyramidsPanel(
-                  pyramidButtons: pyramidButtons,
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: PyramidsPanel(
+                    pyramidButtons: pyramidButtons,
+                  ),
                 ),
 
               ],
