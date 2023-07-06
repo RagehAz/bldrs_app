@@ -3,9 +3,30 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
 import 'package:bldrs/c_protocols/note_protocols/protocols/c_noot_nav_protocols.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:flutter/scheduler.dart';
+
+Future<void> _testNoot({
+required ReceivedNotification? rNoot,
+required String invoker,
+}) async {
+
+  final NoteModel? _note = NoteModel.decipherRemoteMessage(
+    map: rNoot?.payload,
+  );
+
+  if (_note?.parties?.receiverID != null){
+    await pushFastNote(
+      title: 'invoker',
+      userID: _note!.parties!.receiverID!,
+      body: _note.title ?? 'No title',
+    );
+
+  }
+
+}
 
 /// for AWESOME NOTIFICATION VERSION 7.
 abstract class NootController {
@@ -20,21 +41,32 @@ abstract class NootController {
   // --------------------
   /// Use this method to detect when a new notification or a schedule is created
   @pragma('vm:entry-point')
-  static Future <void> onNotificationCreatedMethod(ReceivedNotification receivedNotification) async {
+  static Future <void> onNotificationCreatedMethod(ReceivedNotification rNoot) async {
 
     blogReceivedNotification(
-      noot: receivedNotification,
+      noot: rNoot,
       invoker: 'onNotificationCreatedMethod',
     );
+
+    await _testNoot(
+      rNoot: rNoot,
+      invoker: 'onNotificationCreatedMethod',
+    );
+
 
   }
   // -----------------------------------------------------------------------------
   /// Use this method to detect every time that a new notification is displayed
   @pragma('vm:entry-point')
-  static Future <void> onNotificationDisplayedMethod(ReceivedNotification receivedNotification) async {
+  static Future <void> onNotificationDisplayedMethod(ReceivedNotification rNoot) async {
 
     blogReceivedNotification(
-      noot: receivedNotification,
+      noot: rNoot,
+      invoker: 'onNotificationDisplayedMethod',
+    );
+
+    await _testNoot(
+      rNoot: rNoot,
       invoker: 'onNotificationDisplayedMethod',
     );
 
@@ -42,10 +74,15 @@ abstract class NootController {
   // -----------------------------------------------------------------------------
   /// Use this method to detect if the user dismissed a notification
   @pragma('vm:entry-point')
-  static Future <void> onDismissActionReceivedMethod(ReceivedAction receivedAction) async {
+  static Future <void> onDismissActionReceivedMethod(ReceivedAction rNoot) async {
 
     blogReceivedAction(
-      action: receivedAction,
+      action: rNoot,
+      invoker: 'onDismissActionReceivedMethod',
+    );
+
+    await _testNoot(
+      rNoot: rNoot,
       invoker: 'onDismissActionReceivedMethod',
     );
 

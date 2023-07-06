@@ -1,13 +1,7 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/layouts/separators/dot_separator.dart';
-import 'package:bldrs/a_models/a_user/user_model.dart';
-import 'package:bldrs/a_models/e_notes/a_note_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
-import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
-import 'package:bldrs/a_models/j_poster/poster_model.dart';
-import 'package:bldrs/a_models/j_poster/poster_type.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/create_new_bz_button.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';
 import 'package:bldrs/b_views/z_components/buttons/settings_wide_button.dart';
@@ -71,52 +65,11 @@ class AppSettingsScreen extends StatelessWidget {
         PyramidFloatingButton(
           icon: Iconz.contNorthAmerica,
           color: Colorz.blue80,
-          onTap: () async {
-
-            final bool _go = await Dialogs.confirmProceed(
-              titleVerse: Verse.plain('Send Global Noot ?'),
-            );
-
-            if (_go == true){
-
-              final UserModel? _rageh = UsersProvider.proGetMyUserModel(
-                context: context,
-                listen: false,
-              );
-
-              /// COMPOSE PROTOCOLS
-              await NoteProtocols.composeToOneReceiver(
-                uploadPoster: false,
-                note: NoteModel(
-                  parties: const NoteParties(
-                    senderID: Standards.bldrsNotificationSenderID,
-                    senderImageURL: Standards.bldrsNotificationIconURL,
-                    senderType: PartyType.bldrs,
-                    receiverID: BldrsKeys.ragehID,
-                    receiverType: PartyType.user,
-                  ),
-                  sentTime: null,
-                  /// variables
-                  id: 'welcomeToBldrs',
-                  title: 'Welcome to Bldrs.net',
-                  body: 'Find thousands of businesses to help you find and build what you want to build',
-                  topic: TopicModel.userGeneralNews,
-                  navTo: null,
-                  // sendFCM: true,
-                  // sendNote: true,
-                  token: _rageh?.device?.token,
-                  poster: PosterModel(
-                    type: PosterType.flyer,
-                    modelID: _rageh?.savedFlyers?.all.first,
-                    path: null,
-                  ),
-                ),
-              );
-
-            }
-
-
-          },
+          onTap: () => pushFastNote(
+            userID: BldrsKeys.ragehID,
+            title: 'Hey you',
+            body: 'How are you ?',
+          ),
         ),
 
       ],

@@ -7,7 +7,6 @@ import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/e_back_end/e_fcm/background_msg_handler.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -41,18 +40,20 @@ class FCMStarter {
 
       if (canInitializeFCM() == true) {
 
+        // /// HANDLE BACKGROUND REMOTE MESSAGE (handles while app in background)
+        // if (channelModel.id == ChannelModel.bldrsChannel.id){
+        //   FirebaseMessaging.onBackgroundMessage(bldrsAppOnBackgroundMessageHandler);
+        // }
+        // if (channelModel.id == ChannelModel.bldrsDashboardChannel.id){
+        //   FirebaseMessaging.onBackgroundMessage(bldrsDashboardOnBackgroundMessageHandler);
+        // }
+
         /// INITIALIZE AWESOME NOTIFICATIONS
         await _initializeAwesomeNootsService(
           channel: channelModel,
         );
 
-        /// HANDLE BACKGROUND REMOTE MESSAGE (handles while app in background)
-        if (channelModel.id == ChannelModel.bldrsChannel.id){
-          FirebaseMessaging.onBackgroundMessage(bldrsAppOnBackgroundMessageHandler);
-        }
-        if (channelModel.id == ChannelModel.bldrsDashboardChannel.id){
-          FirebaseMessaging.onBackgroundMessage(bldrsDashboardOnBackgroundMessageHandler);
-        }
+
 
       }
 
@@ -108,6 +109,21 @@ class FCMStarter {
       /// DEBUG
       debug: true,
     );
+
+    // FCM.getAwesomeNoots()?.(
+    //   onActionReceivedMethod: (ReceivedAction receivedAction){
+    //     NootController.onActionReceivedMethod(receivedAction);
+    //   },
+    //   onNotificationCreatedMethod: (ReceivedNotification receivedNotification){
+    //     NootController.onNotificationCreatedMethod(receivedNotification);
+    //   },
+    //   onNotificationDisplayedMethod: (ReceivedNotification receivedNotification){
+    //     NootController.onNotificationDisplayedMethod(receivedNotification);
+    //   },
+    //   onDismissActionReceivedMethod: (ReceivedAction receivedAction){
+    //     NootController.onDismissActionReceivedMethod(receivedAction);
+    //   },
+    // );
 
   }
   // --------------------

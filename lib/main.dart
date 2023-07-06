@@ -8,6 +8,7 @@ import 'package:bldrs/b_views/a_starters/a_logo_screen/a_static_logo_screen.dart
 import 'package:bldrs/b_views/a_starters/b_home_screen/a_home_screen.dart';
 import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/e_back_end/e_fcm/background_msg_handler.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm_starter.dart';
 import 'package:bldrs/e_back_end/e_fcm/z_noot_controller.dart';
@@ -22,6 +23,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:mediators/sounder/sounder.dart';
 import 'bldrs_keys.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 // ignore: constant_identifier_names
 const String BLDRS_APP_VERSION = '1.0.3'; // yalla
@@ -49,6 +51,8 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform!,
     // nativePersistentStoragePath: ,
   );
+
+  FirebaseMessaging.onBackgroundMessage(bldrsAppOnBackgroundMessageHandler);
   // --------------------
   await Future.wait(<Future>[
 
