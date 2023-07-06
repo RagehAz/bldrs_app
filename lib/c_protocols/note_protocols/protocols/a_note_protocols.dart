@@ -825,35 +825,52 @@ Future<void> pushFastNote({
 
   if (_user != null){
 
-    /// COMPOSE PROTOCOLS
-    await NoteProtocols.composeToOneReceiver(
-      uploadPoster: false,
-      note: NoteModel(
-        parties: NoteParties(
-          senderID: Standards.bldrsNotificationSenderID,
-          senderImageURL: Standards.bldrsNotificationIconURL,
-          senderType: PartyType.bldrs,
-          receiverID: userID,
-          receiverType: PartyType.user,
+      /// COMPOSE PROTOCOLS
+      await NoteProtocols.composeToOneReceiver(
+        uploadPoster: false,
+        note: NoteModel(
+          parties: NoteParties(
+            senderID: Standards.bldrsNotificationSenderID,
+            senderImageURL: Standards.bldrsNotificationIconURL,
+            senderType: PartyType.bldrs,
+            receiverID: userID,
+            receiverType: PartyType.user,
+          ),
+          sentTime: null,
+          /// variables
+          id: 'fastNote',
+          title: title,
+          body: body,
+          topic: TopicModel.userGeneralNews,
+          navTo: null,
+          // sendFCM: true,
+          // sendNote: true,
+          token: _user.device?.token,
+          // poster: PosterModel(
+          //   type: PosterType.flyer,
+          //   modelID: _rageh?.savedFlyers?.all.first,
+          //   path: null,
+          // ),
         ),
-        sentTime: null,
-        /// variables
-        id: 'fastNote',
-        title: title,
-        body: body,
-        topic: TopicModel.userGeneralNews,
-        navTo: null,
-        // sendFCM: true,
-        // sendNote: true,
-        token: _user.device?.token,
-        // poster: PosterModel(
-        //   type: PosterType.flyer,
-        //   modelID: _rageh?.savedFlyers?.all.first,
-        //   path: null,
-        // ),
-      ),
-    );
+      );
 
   }
 
 }
+
+  // Future<void> pushThisLocalNoot() async {
+  //
+  //   await FCM.pushLocalNoot(
+  //     body: 'eh daaa',
+  //     title: 'hell to this',
+  //     payloadString: 'the payload',
+  //     // canBeDismissedWithoutTapping: true,
+  //     // largeIconFile: null,
+  //     // progress: null,
+  //     // progressBarIsLoading:false,
+  //     // showStopWatch: false,
+  //     showTime: false,
+  //     subText: 'Eh el araf dah',
+  //   );
+  //
+  // }
