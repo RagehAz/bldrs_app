@@ -12,6 +12,7 @@ class FloatingLayout extends StatelessWidget {
     this.skyType = SkyType.non,
     this.pyramidType = PyramidType.crystalYellow,
     this.titleVerse,
+    this.pyramidButtons,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -19,6 +20,7 @@ class FloatingLayout extends StatelessWidget {
   final SkyType skyType;
   final PyramidType pyramidType;
   final Verse? titleVerse;
+  final List<Widget>? pyramidButtons;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -29,6 +31,7 @@ class FloatingLayout extends StatelessWidget {
       pyramidType: pyramidType,
       skyType: skyType,
       pyramidsAreOn: true,
+      pyramidButtons: pyramidButtons,
       child: BldrsFloatingList(
         columnChildren: columnChildren,
       ),
