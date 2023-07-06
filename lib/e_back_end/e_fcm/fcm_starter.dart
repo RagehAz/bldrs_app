@@ -180,6 +180,8 @@ class FCMStarter {
 
         blog('APP WAS IN BACKGROUND AND YOU HAVE JUST TAPPED THIS NOTIFICATION : -');
 
+        // await pushThisLocalNoot();
+
         FCM.blogRemoteMessage(
           remoteMessage: remoteMessage,
           invoker: '_initializeNootsListeners.onMessageOpenedApp',
