@@ -7,11 +7,13 @@ import 'package:bldrs/a_models/e_notes/aa_topic_model.dart';
 import 'package:bldrs/a_models/j_poster/poster_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/fire/note_fire_ops.dart';
+import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/f_cloud/cloud_functions.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
@@ -808,4 +810,50 @@ class NoteProtocols {
 
   }
   // -----------------------------------------------------------------------------
+}
+
+Future<void> pushFastNote({
+  required String userID,
+  required String title,
+  required String body,
+}) async {
+
+
+  final UserModel? _user = await UserFireOps.readUser(
+    userID: userID,
+  );
+
+  if (_user != null){
+
+    /// COMPOSE PROTOCOLS
+    await NoteProtocols.composeToOneReceiver(
+      uploadPoster: false,
+      note: NoteModel(
+        parties: NoteParties(
+          senderID: Standards.bldrsNotificationSenderID,
+          senderImageURL: Standards.bldrsNotificationIconURL,
+          senderType: PartyType.bldrs,
+          receiverID: userID,
+          receiverType: PartyType.user,
+        ),
+        sentTime: null,
+        /// variables
+        id: 'fastNote',
+        title: title,
+        body: body,
+        topic: TopicModel.userGeneralNews,
+        navTo: null,
+        // sendFCM: true,
+        // sendNote: true,
+        token: _user.device?.token,
+        // poster: PosterModel(
+        //   type: PosterType.flyer,
+        //   modelID: _rageh?.savedFlyers?.all.first,
+        //   path: null,
+        // ),
+      ),
+    );
+
+  }
+
 }

@@ -1,11 +1,14 @@
+import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
+import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm_starter.dart';
+import 'package:bldrs/firebase_options.dart';
 import 'package:fire/super_fire.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 /// TESTED : WORKS PERFECT
-@pragma('vm:entry-point')
+@pragma('vm:entry-point') // this is used for when this function resides inside a class
 Future<void> bldrsAppOnBackgroundMessageHandler(RemoteMessage remoteMessage) async {
 
   /*
@@ -22,7 +25,12 @@ Future<void> bldrsAppOnBackgroundMessageHandler(RemoteMessage remoteMessage) asy
 
    */
 
-  await Firebase.initializeApp();
+  await FirebaseInitializer.initialize(
+    useOfficialPackages: !DeviceChecker.deviceIsWindows(),
+    socialKeys: BldrsKeys.socialKeys,
+    options: DefaultFirebaseOptions.currentPlatform!,
+    // nativePersistentStoragePath: ,
+  );
 
   FCM.blogRemoteMessage(
     remoteMessage: remoteMessage,
