@@ -31,6 +31,7 @@ class AppSettingsScreen extends StatelessWidget {
 
     final bool _userIsOnline = Authing.userHasID();
 
+
     return FloatingLayout(
       pyramidButtons: UsersProvider.userIsRage7() == false ? null : [
 
@@ -71,6 +72,7 @@ class AppSettingsScreen extends StatelessWidget {
             body: 'How are you ?',
           ),
         ),
+
 
       ],
       columnChildren: <Widget>[

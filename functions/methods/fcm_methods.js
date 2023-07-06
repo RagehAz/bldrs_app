@@ -46,10 +46,10 @@ const createFCMPayload = (noteModel) => {
     token: `${noteModel.token}`,
     // this lets FireBaseMessaging force a notification
     // but we are already handling it by AwesomeNotification package
-    // notification: {
-      // body: body,
-      // title: noteTitle,
-    // },
+//    notification: {
+//      title: `${noteModel.title}`,
+//      body: `${noteModel.body}`,
+//    },
     // the below data map is a <String, String> map 
     // and does not take bools or ints or else ...
     // so values like ('33') or ('null') or ('true') strings
