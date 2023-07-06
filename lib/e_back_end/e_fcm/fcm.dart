@@ -654,10 +654,15 @@ class FCM {
       listen: false,
     );
 
-    if (Authing.userIsSignedUp(_user?.signInMethod) == true){
+    if (Authing.userIsSignedUp(_user?.signInMethod) == true && _user?.device?.token != null){
       blog('User : ${Authing.getUserID()} subscribed to topic : $topicID');
       if (FCMStarter.canInitializeFCM() == true && topicID != null){
-        await FirebaseMessaging.instance.subscribeToTopic(topicID);
+        await tryAndCatch(
+            invoker: 'FCM.subscribeToTopic',
+            functions: () async {
+              await FirebaseMessaging.instance.subscribeToTopic(topicID);
+            },
+        );
       }
     }
 
@@ -673,10 +678,15 @@ class FCM {
       listen: false,
     );
 
-    if (Authing.userIsSignedUp(_user?.signInMethod) == true){
+    if (Authing.userIsSignedUp(_user?.signInMethod) == true && _user?.device?.token != null){
       blog('User : ${Authing.getUserID()} unSubscribed from topic : $topicID');
       if (FCMStarter.canInitializeFCM() == true && topicID != null){
-        await FirebaseMessaging.instance.unsubscribeFromTopic(topicID);
+        await tryAndCatch(
+          invoker: 'FCM.unsubscribeFromTopic',
+          functions: () async {
+            await FirebaseMessaging.instance.unsubscribeFromTopic(topicID);
+            },
+        );
       }
     }
   }

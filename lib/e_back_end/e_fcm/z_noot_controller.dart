@@ -198,6 +198,15 @@ class NootListener {
 
           // blog('listenToNootCreatedStream --- START');
 
+      // SchedulerBinding.instance.addPostFrameCallback((_) async {
+      //
+      //   await FCMStarter.pushGlobalNootFromReceivedNotification(
+      //     rNoot: receivedNotification,
+      //     invoker: 'listenToNootCreatedStream',
+      //   );
+      //
+      // });
+
           // NootController.blogReceivedNotification(
           //   noot: receivedNotification,
           //   invoker: 'listenToNootCreatedStream',
