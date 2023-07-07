@@ -23,6 +23,7 @@ class BackAndSearchButton extends StatelessWidget {
     this.color = Colorz.white10,
     this.icon,
     this.iconSizeFactor,
+    this.loading = false,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -31,6 +32,7 @@ class BackAndSearchButton extends StatelessWidget {
   final BackAndSearchAction backAndSearchAction;
   final String? icon;
   final double? iconSizeFactor;
+  final bool loading;
   /// --------------------------------------------------------------------------
   String? _getIcon(BuildContext context){
 
@@ -72,6 +74,7 @@ class BackAndSearchButton extends StatelessWidget {
     // --------------------
     return BldrsBox(
         height: Ratioz.appBarButtonSize,
+        loading: loading,
         width: Ratioz.appBarButtonSize,
         corners: Ratioz.appBarButtonCorner,
         // margins: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),

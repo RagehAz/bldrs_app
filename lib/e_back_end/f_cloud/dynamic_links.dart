@@ -108,7 +108,7 @@ class DynamicLinks {
   /// TESTED : WORKS PERFECT
   static Future<void> initDynamicLinks() async {
     if (DeviceChecker.deviceIsWindows() == false) {
-      blog('DynamicLinks.initDynamicLinks : starting to listen to onLink');
+      // blog('DynamicLinks.initDynamicLinks : starting to listen to onLink');
 
       getFireDynamicLinks().onLink.listen((PendingDynamicLinkData? dynamicLinkData) async {
         final String? _link = dynamicLinkData?.link.path;
