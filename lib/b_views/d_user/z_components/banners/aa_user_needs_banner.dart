@@ -65,6 +65,7 @@ class UserNeedsBanner extends StatelessWidget {
           size: 4,
           color: Colorz.yellow255,
           italic: true,
+          maxLines: 3,
         ),
 
         /// NEED LOCALE
