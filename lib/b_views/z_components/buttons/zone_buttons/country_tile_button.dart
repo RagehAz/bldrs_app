@@ -61,6 +61,7 @@ class CountryTileButton extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final double _buttonWidth = Bubble.bubbleWidth(context: context);
+    final bool _isPlanetButton = countryID == null;
 
     return ZoneButtonBox(
       onTap: onTap,
@@ -73,6 +74,7 @@ class CountryTileButton extends StatelessWidget {
             isActive: isActive,
             height: height,
             width: width ?? _buttonWidth,
+            /// IF COUNTRY FLAG IS NULL, IT WILL SHOW PLANET ICON
             icon: Flag.getCountryIcon(countryID),
             verse: verse ?? Verse.plain(
                 Flag.translateCountry(
@@ -93,6 +95,7 @@ class CountryTileButton extends StatelessWidget {
             censusModel: censusModel,
             hasFlagSpace: true,
             isActive: isActive,
+            isPlanetButton: _isPlanetButton,
           ),
 
       ],

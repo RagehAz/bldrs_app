@@ -124,11 +124,13 @@ class EmailAuthScreenView extends StatelessWidget {
                     translate: true,
                   ),
                 ),
+
                 appBarType: appBarType,
                 isFormField: true,
                 key: const ValueKey<String>('email'),
                 textController: emailController,
                 textDirection: TextDirection.ltr,
+                hintTextDirection: TextDirection.ltr,
                 keyboardTextInputType: TextInputType.emailAddress,
                 keyboardTextInputAction: TextInputAction.next,
                 hintVerse: const Verse(
@@ -176,7 +178,6 @@ class EmailAuthScreenView extends StatelessWidget {
                         }),
                       ],
                     ),
-
 
                 ],
               ),

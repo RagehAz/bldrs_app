@@ -41,7 +41,7 @@ class MainButton extends StatelessWidget {
   static double getButtonWidth({
     required BuildContext context,
   }) {
-    return  Scale.superWidth(context, 0.7);
+    return  Scale.superWidth(context, 0.75);
   }
   /// --------------------------------------------------------------------------
   @override
@@ -60,7 +60,7 @@ class MainButton extends StatelessWidget {
       iconSizeFactor: iconSizeFactor,
       iconColor: iconColor,
       verse: verse,
-      verseScaleFactor: 0.7 / iconSizeFactor,
+      verseScaleFactor: 0.63 / iconSizeFactor,
       verseCentered: verseCentered,
       verseColor: verseColor,
       verseWeight: verseWeight,

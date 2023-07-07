@@ -7,6 +7,7 @@ class BldrsKeys {
   const BldrsKeys();
 
   static const String ragehID = 'z0Obwze3JLYjoEl6uVeXfo4Luup1';
+  static const String bldrsHoldingCompanyName = 'Rageh ElAzzazy'; // NET.BLDRS.LLC
   // -----------------------------------------------------------------------------
 
   /// APP STANDARDS

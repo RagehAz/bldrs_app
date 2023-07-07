@@ -8,6 +8,7 @@ import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:fire/super_fire.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 
+/// => TAMAM
 class ZonePhidsRealOps {
   // -----------------------------------------------------------------------------
 
@@ -18,7 +19,7 @@ class ZonePhidsRealOps {
   /// READ
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED: WORKS PERFECT
   static Future<ZonePhidsModel?> readZonePhidsOfCurrentZone() async {
     ZonePhidsModel? _output;
 
@@ -26,6 +27,10 @@ class ZonePhidsRealOps {
       context: getMainContext(),
       listen: false,
     );
+
+    if (_currentZone == null){
+      _output = await _readPlanetPhids();
+    }
 
     if (_currentZone != null && _currentZone.countryID != null){
 
@@ -45,10 +50,18 @@ class ZonePhidsRealOps {
 
     }
 
+    // _currentZone?.blogZone(
+    //   invoker: 'readZonePhidsOfCurrentZone',
+    // );
+    //
+    // _output?.blogZonePhidsModel(
+    //   invoker: 'readZonePhidsOfCurrentZone',
+    // );
+
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED: WORKS PERFECT
   static Future<ZonePhidsModel?> _readCityPhids({
     required String? cityID,
   }) async {
@@ -64,7 +77,7 @@ class ZonePhidsRealOps {
       );
 
       if (_map != null){
-        _output = ZonePhidsModel.decipherZonePhids(
+        _output = ZonePhidsModel.decipherCityNodePhids(
           map: _map,
           cityID: _map['id'],
         );
@@ -75,7 +88,7 @@ class ZonePhidsRealOps {
     return _output;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED: WORKS PERFECT
   static Future<ZonePhidsModel?> _readCountryPhids({
     required String? countryID,
   }) async {
@@ -83,72 +96,32 @@ class ZonePhidsRealOps {
 
     if (countryID != null){
 
-      // final List<CityModel> _cities = await ZoneProtocols.fetchCitiesOfCountry(
-      //   countryID: countryID,
-      // );
-      //
-      // if (Mapper.checkCanLoopList(_cities) == true){
-      //
-      //   final List<String> _citiesIDs = CityModel.getCitiesIDs(_cities);
-      //
-      //   await Future.wait(<Future>[
-      //
-      //     ...List.generate(_citiesIDs.length, (index){
-      //
-      //       final String _cityID = _citiesIDs[index];
-      //
-      //       return _readCityPhids(cityID: _cityID).then((ZonePhidsModel model){
-      //
-      //         _output = ZonePhidsModel.combineModels(
-      //           zoneID: countryID,
-      //           base: _output,
-      //           add: model,
-      //         );
-      //
-      //         blog('readCountryPhids : ${_output?.phidsMaps?.length} phids');
-      //
-      //       });
-      //
-      //     }),
-      //
-      //   ]);
-      //
-      // }
-
       final Map<String, dynamic>? _map = await Real.readPathMap(
         path: RealPath.zonesPhids_countryID(
             countryID: countryID,
           ),
       );
 
-      if (_map != null){
+      _output = ZonePhidsModel.decipherCountryNodeMap(map: _map);
 
-        final List<String>? _citiesIDs = _map.keys.toList();
-        _citiesIDs?.remove('id');
+    }
 
-        if (Mapper.checkCanLoopList(_citiesIDs) == true){
+    return _output;
+  }
+  // --------------------
+  /// TESTED: WORKS PERFECT
+  static Future<ZonePhidsModel?> _readPlanetPhids() async {
+    ZonePhidsModel? _output;
 
-          for (final String cityID in _citiesIDs!){
+    final Map<String, dynamic>? _map = await Real.readPathMap(
+      path: RealColl.zonesPhids,
+    );
 
-            final Map<String, dynamic> _cityPhids = _map[cityID];
+    if (_map != null){
 
-            final ZonePhidsModel? _model = ZonePhidsModel.decipherZonePhids(
-              map: _cityPhids,
-              cityID: cityID,
-            );
-
-            _output = ZonePhidsModel.combineModels(
-              zoneID: countryID,
-              base: _output,
-              add: _model,
-            );
-
-          }
-
-        }
-
-
-      }
+      _output = ZonePhidsModel.decipherPlanetNodeMap(
+          map: _map,
+      );
 
     }
 
@@ -159,7 +132,7 @@ class ZonePhidsRealOps {
   /// EDITOR
 
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED: WORKS PERFECT
   static Future<void> incrementFlyerCityPhids({
     required FlyerModel? flyerModel,
     required bool isIncrementing,

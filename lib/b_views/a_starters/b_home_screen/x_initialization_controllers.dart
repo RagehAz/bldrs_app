@@ -70,7 +70,7 @@ Future<void> _checkIfUserIsMissingFields() async {
 
   if (Authing.userIsSignedUp(_userModel?.signInMethod) == true){
 
-    _userModel?.blogUserModel(invoker: 'initializeHomeScreen.checkIfUserIsMissingFields');
+    // _userModel?.blogUserModel(invoker: 'initializeHomeScreen.checkIfUserIsMissingFields');
 
     if (_userModel != null){
 
