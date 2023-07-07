@@ -9,24 +9,34 @@ class LineWithSectionAndSearchButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return const LineBox(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
+    final bool _zoneHasChains = ChainsProvider.proGetThisZoneHasChains(context: context);
+    final bool _loadingChains = ChainsProvider.proGetIsLoadingChains(context: context);
 
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
-          child: SectionsButton(),
-        ),
+    if (_loadingChains == false && _zoneHasChains == false){
+      return const SizedBox();
+    }
 
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
-          child: BackAndSearchButton(
-            backAndSearchAction: BackAndSearchAction.goToSearchScreen,
+    else {
+      return LineBox(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+            child: SectionsButton(),
           ),
-        ),
 
-      ],
-    );
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: Ratioz.appBarPadding),
+            child: BackAndSearchButton(
+              backAndSearchAction: BackAndSearchAction.goToSearchScreen,
+              loading: _loadingChains,
+            ),
+          ),
+
+        ],
+      );
+    }
 
   }
 

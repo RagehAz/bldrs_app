@@ -1,20 +1,22 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/layouts/separators/separator_line.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/b_zone_phids_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
-import 'package:bldrs/b_views/a_starters/a_logo_screen/b_animated_logo_screen.dart';
 import 'package:bldrs/b_views/z_components/blur/blur_layer.dart';
-import 'package:bldrs/b_views/z_components/layouts/main_layout/floating_flyer_type_selector/animated_bar.dart';
+import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
+import 'package:bldrs/b_views/z_components/buttons/main_button.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
-import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
-import 'package:basics/layouts/nav/nav.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 
 class FloatingFlyerTypeSelector extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -29,21 +31,7 @@ class FloatingFlyerTypeSelector extends StatefulWidget {
 
 class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> with TickerProviderStateMixin {
   // -----------------------------------------------------------------------------
-  List<CurvedAnimation> _linesControllers = <CurvedAnimation>[];
-  late AnimationController _animationController;
-  List<Map<String, dynamic>> _linesMaps = <Map<String, dynamic>>[];
-  final Tween<double> _tween = Tween<double>(begin: 0, end: 1);
-  // -----------------------------------------------------------------------------
-  /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false);
-  // --------------------
-  Future<void> _triggerLoading({required bool setTo}) async {
-    setNotifier(
-      notifier: _loading,
-      mounted: mounted,
-      value: setTo,
-    );
-  }
+  List<FlyerType> _types = [];
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -69,35 +57,7 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
 
       // blog('FloatingFlyerTypeSelector init : _flyerTypes : $_flyerTypes : _zonePhidsModel : $_zonePhidsModel');
 
-    _linesMaps = <Map<String, dynamic>>[
-      ...List.generate(_flyerTypes.length, (index){
-
-        final FlyerType _flyerType = _flyerTypes[index];
-
-        // blog('doing flyerType : $_flyerType');
-
-        return AnimatedLogoScreen.createBeat(
-          text: FlyerTyper.cipherFlyerType(_flyerType),
-          start: index * 150.0,
-          duration: 300,
-          color: Colorz.white200,
-        );
-
-      }),
-    ];
-
-    /// LOGO CONTROLLERS
-    _animationController = AnimationController(
-      duration: Duration(milliseconds: FlyerTyper.flyerTypesList.length * 300 + 150),
-      reverseDuration: Duration(milliseconds: FlyerTyper.flyerTypesList.length * 200 + 150),
-      vsync: this,
-      // animationBehavior: AnimationBehavior.preserve,
-      // lowerBound: 0,
-      // upperBound: 1,
-      value: 0,
-    );
-
-    _linesControllers = _initializedLinesAnimations();
+      _types = _flyerTypes;
 
   }
   // --------------------
@@ -106,13 +66,10 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
   void didChangeDependencies() {
     if (_isInit && mounted) {
 
-      _triggerLoading(setTo: true).then((_) async {
+      asyncInSync(() async {
 
         UiProvider.proSetPyramidsAreExpanded(setTo: false, notify: true);
 
-        await _animationController.forward(from: 0);
-
-        await _triggerLoading(setTo: false);
       });
 
       _isInit = false;
@@ -120,36 +77,11 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
     super.didChangeDependencies();
   }
   // --------------------
-  @override
-  void dispose() {
-    _loading.dispose();
-    _animationController.dispose();
-
-    if (Mapper.checkCanLoopList(_linesControllers) == true){
-      for (final CurvedAnimation cont in _linesControllers){
-        cont.dispose();
-      }
-    }
-
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  // }
   // -----------------------------------------------------------------------------
-  /// TESTED : WORKS PERFECT
-  List<CurvedAnimation> _initializedLinesAnimations(){
-
-    final List<CurvedAnimation> _animations = <CurvedAnimation>[];
-    for (final Map<String, dynamic> map in _linesMaps){
-      final CurvedAnimation _curvedAni = CurvedAnimation(
-        parent: _animationController,
-        curve: Interval(map['first'], map['second'], curve: Curves.easeOut,),
-        reverseCurve: Interval(map['first'], map['second'], curve: Curves.easeOut,),
-      );
-      _animations.add(_curvedAni);
-    }
-
-    return _animations;
-  }
-  // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onFlyerTypeTap({
     required BuildContext context,
@@ -158,7 +90,6 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
 
     // blog('Floating flyer type selector : onFlyerTypeTap : TAPPED ON $flyerType');
 
-    await _animationController.reverse();
     await Nav.goBack(
       context: context,
       passedData: flyerType,
@@ -169,9 +100,10 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
   @override
   Widget build(BuildContext context) {
 
-    // Mapper.blogMaps(_linesMaps, invoker: 'FloatingFlyerTypeSelector');
+    Mapper.blogMaps([{}], invoker: 'FloatingFlyerTypeSelector');
 
     final double _screenWidth = Scale.screenWidth(context);
+    final double _buttonWidth = MainButton.getButtonWidth(context: context);
 
     // final double hypotenuse = Numeric.pythagorasHypotenuse(
     //     side:_screenWidth ,
@@ -206,7 +138,7 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
               width: _screenWidth,
               height: Scale.screenHeight(context),
               child: Stack(
-                alignment: BldrsAligners.superCenterAlignment(context),
+                alignment: Alignment.center,
                 children: <Widget>[
 
                   /// BLUR LAYER
@@ -217,60 +149,92 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
                     blurIsOn: true,
                   ),
 
-                  /// WHITE COLUMN
-                  Container(
-                    width:  Scale.superWidth(context, 0.4),
-                    height: Scale.screenHeight(context),
-                    color: Colorz.white20,
-                  ),
-
-                  /// OLD TRIANGLE
-                  // /// OLD TRIANGLE
-                  // Positioned(
-                  //   top: _verticalShift,
-                  //   left: _horizontalShift,
-                  //   child: Transform.rotate(
-                  //     angle: Numeric.degreeToRadian(45),
-                  //     child: Center(
-                  //       child: Container(
-                  //         width:  hypotenuse,
-                  //         height: hypotenuse,
-                  //         color: Colorz.black200,
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-
                   /// SECTIONS
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
+                  Container(
+                    height: Scale.screenHeight(context),
+                    color: Colorz.black80,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
 
-                      ...List.generate(_linesControllers.length, (index) {
+                        if (Mapper.checkCanLoopList(_types) == true)
+                        ...List.generate(_types.length, (index) {
 
-                        final FlyerType? _flyerType = FlyerTyper.decipherFlyerType(_linesMaps[index]['verse']);
-                        final String? _phid = FlyerTyper.getFlyerTypePhid(flyerType: _flyerType);
-                        final String? _translation = Verse.transBake(_phid);
+                          final FlyerType? _flyerType = _types[index];
+                          final String? _phid = FlyerTyper.getFlyerTypePhid(flyerType: _flyerType);
 
-                        return AnimatedBar(
-                          curvedAnimation: _linesControllers[index],
-                          tween: _tween,
-                          text: _translation,
-                          verseColor: _linesMaps[index]['color'],
-                          onTap: () => _onFlyerTypeTap(
-                            context: context,
-                            flyerType: _flyerType,
+                          return BldrsBox(
+                            height: 55,
+                            width: MainButton.getButtonWidth(context: context),
+                            onTap: () => _onFlyerTypeTap(
+                              context: context,
+                              flyerType: _flyerType,
+                            ),
+                            verse: Verse(
+                              id: _phid,
+                              translate: true,
+                              casing: Casing.upperCase,
+                            ),
+                            verseItalic: true,
+                            icon: FlyerTyper.flyerTypeIcon(
+                              flyerType: _flyerType,
+                              isOn: false,
+                            ),
+                            iconSizeFactor: 0.7,
+                            verseScaleFactor: 0.8 / 0.7,
+                            margins: const EdgeInsets.only(
+                              bottom: 10,
+                            ),
+                          );
+
+                          // return AnimatedBar(
+                          //   curvedAnimation: _linesControllers[index],
+                          //   tween: _tween,
+                          //   text: _translation,
+                          //   verseColor: _linesMaps[index]['color'],
+                          // );
+
+                        }),
+
+                        if (Mapper.checkCanLoopList(_types) == false)
+                           BldrsText(
+                             width: _buttonWidth,
+                             verse: const Verse(
+                               id: 'phid_no_sections_available',
+                               translate: true,
+                               casing: Casing.upperCase,
+                             ),
+                              italic: true,
+                             size: 5,
+                             margin: 20,
+                             maxLines: 4,
                           ),
-                          icon: FlyerTyper.flyerTypeIcon(
-                            flyerType: _flyerType,
-                            isOn: false,
+                        
+                        SeparatorLine(
+                          width: _buttonWidth,
+                          withMargins: true,
+                        ),
+                                                
+                        BldrsBox(
+                          height: 50,
+                          onTap: () => Nav.goBack(context: context),
+                          verse: const Verse(
+                            id: 'phid_go_back',
+                            translate: true,
+                            casing: Casing.upperCase,
                           ),
-                        );
+                          verseItalic: true,
+                          icon: Iconizer.superArrowENLeft(context),
+                          iconSizeFactor: 0.4,
+                          verseScaleFactor: 0.7 / 0.4,
+                          margins: 25,
+                          color: Colorz.bloodTest,
+                        ),
 
-                      }),
-                    ],
+                      ],
+                    ),
                   ),
+
                 ],
 
               ),
