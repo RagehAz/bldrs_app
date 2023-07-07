@@ -300,7 +300,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
           );
 
           if (_newZone != null){
-            await ZoneSelection.setCurrentZone(
+            await ZoneSelection.setCurrentZoneProtocol(
               zone: _newZone,
             );
 
@@ -498,7 +498,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
           );
 
           if (_newZone != null){
-            await ZoneSelection.setCurrentZone(
+            await ZoneSelection.setCurrentZoneProtocol(
               zone: _newZone,
             );
 
@@ -682,7 +682,7 @@ class _SuperSearchScreenState extends State<SuperSearchScreen> {
           );
 
           if (_newZone != null){
-            await ZoneSelection.setCurrentZone(
+            await ZoneSelection.setCurrentZoneProtocol(
               zone: _newZone,
             );
 

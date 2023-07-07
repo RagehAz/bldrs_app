@@ -170,6 +170,7 @@ class BldrsBox extends StatelessWidget {
       return getChild(
         context: context,
         theIcon: null,
+        isLoading: loading,
       );
     }
 
@@ -221,6 +222,7 @@ class BldrsBox extends StatelessWidget {
         return getChild(
           context: context,
           theIcon: icon,
+          isLoading: loading,
         );
       }
     }

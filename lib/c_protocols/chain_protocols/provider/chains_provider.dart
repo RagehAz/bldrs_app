@@ -1,4 +1,3 @@
-import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/c_chain/b_zone_phids_model.dart';
@@ -27,7 +26,9 @@ class ChainsProvider extends ChangeNotifier {
   Future<void> initializeAllChains({
     required bool notify,
   }) async {
-    blog('running initializeAllChains');
+    // blog('running initializeAllChains : notify : $notify');
+    // --------------------
+    setLoadingChains(setTo: true, notify: true,);
     // --------------------
     /// NOTE : initialization for fetching setting :-
     /// BIG CHAIN K
@@ -59,12 +60,12 @@ class ChainsProvider extends ChangeNotifier {
     await Future.wait(<Future>[
       /// ZONE CHAIN K
       _refineSetZoneChains(
-        chains: _chains,
+        chains: _bldrsChains,
         notify: false,
       ),
       /// BIG CHAIN K PHRASES
       _generateSetChainsPhrases(
-        chains: _chains,
+        chains: _bldrsChains,
         notify: false,
       ),
     ]);
@@ -75,10 +76,12 @@ class ChainsProvider extends ChangeNotifier {
       notify: false,
     );
     // --------------------
-    /// NOTIFY LISTENERS
-    if (notify == true){
-      notifyListeners();
-    }
+    // /// NOTIFY LISTENERS
+    // if (notify == true){
+    //   blog('running initializeAllChains : NOTIFIED');
+    //   notifyListeners();
+    // }
+    setLoadingChains(setTo: false, notify: true,);
     // --------------------
   }
   // --------------------
@@ -128,6 +131,8 @@ class ChainsProvider extends ChangeNotifier {
     required bool notify,
   }) async {
     // --------------------
+    setLoadingChains(setTo: true, notify: true,);
+    // --------------------
     /// UPDATE : BIG CHAIN K
     /// KEEP : BIG CHAIN S
     /// KEEP : ZONE PHID COUNTERS
@@ -163,12 +168,40 @@ class ChainsProvider extends ChangeNotifier {
     );
     // --------------------
     /// NOTIFY LISTENERS
-    if (notify == true){
-      notifyListeners();
-    }
+    // if (notify == true){
+    //   notifyListeners();
+    // }
+    setLoadingChains(setTo: false, notify: true,);
     // --------------------
   }
   // -----------------------------------------------------------------------------
+
+  /// BLDRS CHAINS
+
+  // --------------------
+  bool _loadingChains = false;
+  bool get loadingChains => _loadingChains;
+  // --------------------
+  void setLoadingChains({
+    required bool setTo,
+    required bool notify,
+  }){
+
+    _loadingChains = setTo;
+
+    if (notify == true){
+      notifyListeners();
+    }
+
+  }
+  // --------------------
+  static bool proGetIsLoadingChains({
+    required BuildContext context,
+  }){
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context);
+    return _chainsProvider.loadingChains;
+  }
+  // --------------------
 
   /// WIPE OUT
 
@@ -179,7 +212,7 @@ class ChainsProvider extends ChangeNotifier {
   }){
 
     /// BLDRS CHAINS
-    _chains = null;
+    _bldrsChains = null;
     /// ALL PICKERS
     _allPickers = {};
     /// ZONE PHID COUNTERS
@@ -215,8 +248,8 @@ class ChainsProvider extends ChangeNotifier {
   /// BLDRS CHAINS
 
   // --------------------
-  List<Chain>? _chains;
-  List<Chain>? get bldrsChains => _chains;
+  List<Chain>? _bldrsChains;
+  List<Chain>? get bldrsChains => _bldrsChains;
   // --------------------
   /// TESTED : WORKS PERFECT
   static List<Chain>? proGetBldrsChains({
@@ -234,6 +267,18 @@ class ChainsProvider extends ChangeNotifier {
       return _chainsProvider.bldrsChains;
     }
 
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static bool proGetThisZoneHasChains({
+    required BuildContext context,
+  }){
+    final List<Chain>? _bldrsChains = ChainsProvider.proGetBldrsChains(
+      context: context,
+      onlyUseZoneChains: true,
+      listen: true,
+    );
+    return Mapper.checkCanLoopList(_bldrsChains);
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -257,16 +302,20 @@ class ChainsProvider extends ChangeNotifier {
     required bool notify,
   }) async {
 
-    List<Chain>? _bldrsChains = await ChainProtocols.fetchBldrsChains();
+    if (Mapper.checkCanLoopList(_bldrsChains) == false){
 
-    _bldrsChains = Chain.sortChainsAlphabetically(
-      chains: _bldrsChains,
-    );
+      List<Chain>? _bldrsChains = await ChainProtocols.fetchBldrsChains();
 
-    _setBldrsChains(
-      chains: _bldrsChains,
-      notify: notify,
-    );
+      _bldrsChains = Chain.sortChainsAlphabetically(
+        chains: _bldrsChains,
+      );
+
+      _setBldrsChains(
+        chains: _bldrsChains,
+        notify: notify,
+      );
+
+    }
 
   }
   // --------------------
@@ -275,7 +324,7 @@ class ChainsProvider extends ChangeNotifier {
     required List<Chain> chains,
     required bool notify,
   }){
-    _chains = chains;
+    _bldrsChains = chains;
     if (notify == true){
       notifyListeners();
     }
@@ -340,7 +389,7 @@ class ChainsProvider extends ChangeNotifier {
   }) async {
 
     final List<Chain> _zoneChains = ZonePhidsModel.removeUnusedPhidsFromBldrsChainsForThisZone(
-      bldrsChains: _chains,
+      bldrsChains: _bldrsChains,
       currentZonePhidsModel: _zonePhidsModel,
     );
 
@@ -375,15 +424,19 @@ class ChainsProvider extends ChangeNotifier {
     required bool notify,
   }) async {
 
-    final List<Phrase> _phrases = await PhraseProtocols.generatePhrasesFromChains(
-      context: getMainContext(),
-      chains: chains,
-    );
+    if (Mapper.checkCanLoopList(_chainsPhrases) == false){
 
-    _setBldrsChainsPhrases(
-      phrases: _phrases,
-      notify: notify,
-    );
+      final List<Phrase> _phrases = await PhraseProtocols.generatePhrasesFromChains(
+        context: getMainContext(),
+        chains: chains,
+      );
+
+      _setBldrsChainsPhrases(
+        phrases: _phrases,
+        notify: notify,
+      );
+
+    }
 
   }
   // --------------------
@@ -684,7 +737,9 @@ class ChainsProvider extends ChangeNotifier {
     required bool notify,
   }) async {
 
-    await Future.wait(<Future>[
+    if (_allPickers.keys.isEmpty == true){
+
+      await Future.wait(<Future>[
 
       ...List.generate(FlyerTyper.flyerTypesList.length, (index) async {
 
@@ -715,6 +770,8 @@ class ChainsProvider extends ChangeNotifier {
       }),
 
     ]);
+
+    }
 
   }
   // --------------------
@@ -757,7 +814,7 @@ class ChainsProvider extends ChangeNotifier {
     final List<Chain>? _chainsToSearch = onlyUseZoneChains == true ?
     _zoneChains
         :
-    _chains;
+    _bldrsChains;
 
     final Chain? _chain = Chain.getChainFromChainsByID(
       chainID: chainID,
