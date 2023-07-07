@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
@@ -25,6 +26,8 @@ class NoteFireOps {
     if (noteModel != null){
 
       if (noteModel.sendNote != null && noteModel.sendNote! == true){
+
+        blog('CREATING NOTE FOR (${noteModel.parties?.receiverID}) ${noteModel.parties?.receiverType}');
 
         final String? docID = await Fire.createDoc(
           coll: FireColl.getPartyCollName(noteModel.parties?.receiverType),
