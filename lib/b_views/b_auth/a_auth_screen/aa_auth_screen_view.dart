@@ -1,14 +1,18 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
-import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/layouts/nav/nav.dart';
+import 'package:basics/layouts/separators/dot_separator.dart';
+import 'package:basics/layouts/separators/separator_line.dart';
 import 'package:basics/layouts/views/floating_list.dart';
 import 'package:basics/legalizer/legalizer.dart';
 import 'package:bldrs/b_views/b_auth/b_email_auth_screen/a_email_auth_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/b_views/z_components/buttons/main_button.dart';
+import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -37,9 +41,7 @@ class AuthScreenView extends StatelessWidget {
           showSlogan: true,
         ),
 
-        const SizedBox(
-          height: Ratioz.appBarMargin,
-        ),
+        const SizedBox(height: 30,),
 
         /// --- CONTINUE WITH EMAIL
         MainButton(
@@ -49,6 +51,7 @@ class AuthScreenView extends StatelessWidget {
           ),
           icon: Iconz.comEmail,
           verseShadow: false,
+          iconSizeFactor: 0.5,
           onTap: () async {
 
               await Nav.goToNewScreen(
@@ -92,6 +95,13 @@ class AuthScreenView extends StatelessWidget {
         //   ),
         // ),
 
+        const SizedBox(height: 30,),
+
+        SeparatorLine(
+          width: MainButton.getButtonWidth(context: context),
+          withMargins: true,
+        ),
+
         /// DISCLAIMER LINE
         LegalDisclaimerLine(
           onPolicyTap: () => onPrivacyTap(),
@@ -101,6 +111,31 @@ class AuthScreenView extends StatelessWidget {
           policyLine: Verse.transBake('phid_privacy_policy')!,
           termsLine: Verse.transBake('phid_terms_of_service')!,
           textDirection: UiProvider.getAppTextDir(),
+        ),
+
+        const DotSeparator(
+          bottomMarginIsOn: false,
+        ),
+
+        CopyrightsLine(
+          isArabic: !UiProvider.checkAppIsLeftToRight(),
+          textHeight: 15,
+          companyName: BldrsKeys.bldrsHoldingCompanyName,
+        ),
+
+        const Padding(
+          padding: EdgeInsets.all(10),
+          child: BldrsImage(
+            height: 15,
+            width: 15,
+            pic: Iconz.dvRagehIcon,
+            iconColor: Colorz.yellow200,
+          ),
+        ),
+
+        SeparatorLine(
+          width: MainButton.getButtonWidth(context: context),
+          withMargins: true,
         ),
 
       ],

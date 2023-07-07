@@ -118,6 +118,7 @@ class WaitDialog extends StatelessWidget {
                     italic: true,
                     weight: VerseWeight.black,
                     margin: 20,
+                    maxLines: 2,
                   ),
 
                   if (loadingVerse != null)
@@ -146,6 +147,7 @@ class WaitDialog extends StatelessWidget {
                         return BldrsText(
                           verse: verse,
                           color: Colorz.yellow200,
+                          maxLines: 3,
                         );
                       }
                     },

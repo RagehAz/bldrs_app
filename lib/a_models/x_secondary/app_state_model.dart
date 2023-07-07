@@ -1,5 +1,7 @@
 import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/app_state_real_ops.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -113,34 +115,8 @@ class AppStateModel {
         globalVersion == detectedVersion &&
         userVersion == detectedVersion;
   }
-   */
-  // --------------------
-  /*
-  /// TESTED : WORKS PERFECTLY
-  static List<int> _getAppVersionDivisions(String version){
-    final List<int> _divisions = <int>[];
 
-    // blog('_getAppVersionDivisions : version : $version');
-
-    if (version != null){
-      final String _removedBuildNumber = TextMod.removeTextAfterLastSpecialCharacter(version, '+');
-
-      final List<String> _strings = _removedBuildNumber.split('.');
-
-      for (final String string in _strings){
-
-        final int _int = Numeric.transformStringToInt(string);
-
-        _divisions.add(_int);
-      }
-    }
-
-    return _fixDivisions(_divisions);
-  }
-   */
-  // --------------------
-  /*
-  static List<int> _fixDivisions(List<int> divs){
+    static List<int> fixVersionDivisions(List<int> divs){
     List<int> _output = <int>[];
 
     if (Mapper.checkCanLoopList(divs) == true){
@@ -166,7 +142,70 @@ class AppStateModel {
 
     return _output;
   }
+
    */
+  // --------------------
+  /// AI TESTED
+  static int? getAppVersionNumbered(String version){
+    int? _output;
+
+    final bool _appVersionIsValid = appVersionIsValid(version);
+
+    if (_appVersionIsValid == true){
+
+
+      final String _removedBuildNumber = TextMod.removeTextAfterLastSpecialCharacter(
+        text: version,
+          specialCharacter: '+',
+      )!;
+
+      final List<String> _strings = _removedBuildNumber.split('.');
+
+      final String _rejoined = '${_strings[0]}${_strings[1]}${_strings[2]}';
+      _output = Numeric.transformStringToInt(_rejoined);
+
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TASK TEST ME
+  static bool userNeedToUpdateApp({
+    required String? globalVersion,
+    required String? localVersion,
+  }){
+
+    /// THEY COME IN THIS FORM 0.0.0
+    /// AND ONLY NEED TO UPDATE IF GLOBAL IS BIGGER THAN THE SMALLER
+
+    bool _shouldUpdate = false;
+
+    final bool _globalVersionIsValid = appVersionIsValid(globalVersion);
+    final bool _localVersionIsValid = appVersionIsValid(localVersion);
+
+    if (_globalVersionIsValid == true && _localVersionIsValid == true){
+
+      final int _global = getAppVersionNumbered(globalVersion!)!;
+      final int _local = getAppVersionNumbered(localVersion!)!;
+
+      _shouldUpdate = _global > _local;
+
+    }
+
+
+    return _shouldUpdate;
+  }
+  // --------------------
+  /// AI TESTED
+static bool appVersionIsValid(String? version) {
+  if (version == null) {
+    return false;
+  } else {
+    const pattern = r'^\d+\.\d+\.\d+(\+\d+)?$';
+    final regex = RegExp(pattern);
+    return regex.hasMatch(version);
+  }
+}
   // -----------------------------------------------------------------------------
 
   /// DUMMIES

@@ -1,13 +1,14 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/colors/colorizer.dart';
+import 'package:basics/helpers/classes/nums/numeric.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/super_text/super_text.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
-import 'package:basics/helpers/classes/colors/colorizer.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/nums/numeric.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 
 enum VerseWeight {
   black,
@@ -40,7 +41,7 @@ class BldrsText extends StatelessWidget {
     this.highlight,
     this.highlightColor = Colorz.bloodTest,
     this.shadowColor,
-    this.textDirection = TextDirection.ltr,
+    this.textDirection,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -518,13 +519,35 @@ class BldrsText extends StatelessWidget {
     return _shadowXOffset;
   }
   // -----------------------------------------------------------------------------
+  static TextDirection detectTextDirection({
+    required String? text,
+    TextDirection? directionOverride,
+  }){
+    TextDirection _textDirection = TextDirection.ltr;
+
+    if (text != null && directionOverride == null){
+
+      if (TextCheck.textIsRTL(text) == true){
+        _textDirection = TextDirection.rtl;
+      }
+      else {
+        _textDirection = TextDirection.ltr;
+      }
+
+    }
+
+    return directionOverride ?? _textDirection;
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     final double _verseSizeValue = superVerseSizeValue(context, size, scaleFactor);
 
+    final String? _text = Verse.bakeVerseToString(verse: verse);
+
     return SuperText(
-      text: Verse.bakeVerseToString(verse: verse),
+      text: _text,
       highlight: highlight,
       boxWidth: width,
       boxHeight: height,
@@ -555,7 +578,10 @@ class BldrsText extends StatelessWidget {
       leadingDot: leadingDot,
       redDot: redDot ?? false,
       centered: centered,
-      textDirection: textDirection ?? UiProvider.getAppTextDir(),
+      textDirection: detectTextDirection(
+        text: _text,
+        directionOverride: textDirection,
+      ),
       appIsLTR: UiProvider.checkAppIsLeftToRight(),
       onTap: onTap,
       // onDoubleTap: onDoubleTap,

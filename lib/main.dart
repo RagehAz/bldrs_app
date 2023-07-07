@@ -21,12 +21,12 @@ import 'package:device_preview/device_preview.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:mediators/sounder/sounder.dart';
+import 'package:basics/mediator/sounder/sounder.dart';
 import 'bldrs_keys.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 // ignore: constant_identifier_names
-const String BLDRS_APP_VERSION = '1.0.3'; // yalla
+const String BLDRS_APP_VERSION = '1.0.4'; // yalla
 
 
 Future<void> main() async {

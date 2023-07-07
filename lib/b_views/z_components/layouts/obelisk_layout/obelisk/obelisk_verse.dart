@@ -1,5 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/layouts/separators/separator_line.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelisk.dart';
@@ -7,7 +8,6 @@ import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_mode
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 
 class ObeliskVerse extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -27,6 +27,8 @@ class ObeliskVerse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    final bool _isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
+
     return ValueListenableBuilder(
       key: const ValueKey<String>('ObeliskVerse'),
       valueListenable: progressBarModel,
@@ -40,7 +42,7 @@ class ObeliskVerse extends StatelessWidget {
             onTap: () => onTap.call(),
             child: Container(
               height: Obelisk.circleWidth,
-              alignment: Alignment.centerLeft,
+              alignment: _isLandscape == true ? Alignment.centerRight : Alignment.centerLeft,
               color: Colorz.nothing,
               child: BldrsText(
                 verse: Verse(
@@ -55,7 +57,6 @@ class ObeliskVerse extends StatelessWidget {
                 color: _isSelected ? Colorz.yellow255 : Colorz.white255,
                 shadow: true,
                 shadowColor: Colorz.black255,
-                // textDirection: TextDirection.rtl,
                 // centered: false,
               ),
             ),
