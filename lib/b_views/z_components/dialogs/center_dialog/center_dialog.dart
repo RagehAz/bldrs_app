@@ -179,6 +179,8 @@ class CenterDialog extends StatelessWidget {
     return _verse;
   }
   // --------------------
+  static double getButtonZoneHeight = DialogButton.height + (2 * Ratioz.appBarPadding);
+  // --------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
@@ -201,9 +203,8 @@ class CenterDialog extends StatelessWidget {
     //   context: context,
     //   dialogWidth: _dialogWidth,
     // );
-    const double _buttonHeight = DialogButton.height;
+    // const double _buttonHeight = DialogButton.height;
     // final double _contentZoneHeight = _dialogHeight - _buttonZoneHeight;
-    const double _buttonZoneHeight = _buttonHeight + (2 * Ratioz.appBarPadding);
     // --------------------
     final bool _keyboardIsOn = Keyboard.keyboardIsOn();
     final double _keyboardHeight = _keyboardIsOn == true ? MediaQuery.of(context).viewInsets.bottom : 0;
@@ -359,7 +360,7 @@ class CenterDialog extends StatelessWidget {
                                 if (boolDialog != null)
                                   SizedBox(
                                     width: _dialogWidth,
-                                    height: _buttonZoneHeight,
+                                    height: getButtonZoneHeight,
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: <Widget>[
