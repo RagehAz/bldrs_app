@@ -42,14 +42,14 @@ dependencies:
   # ------------------------------------
   # FOR PUBLISHING
   basics:
-    path: D:/projects/packages/helpers/basics
-#    git:
-#      url: https://github.com/RagehAz/basics.git
+#    path: D:/projects/packages/helpers/basics
+    git:
+      url: https://github.com/RagehAz/basics.git
   # ------------------------------------
   fire:
-      path: D:/projects/packages/backend/fire
-#    git:
-#      url: https://github.com/RagehAz/fire.git
+#      path: D:/projects/packages/backend/fire
+    git:
+      url: https://github.com/RagehAz/fire.git
   # ------------------------------------
   bldrs_keywords:
     git:
