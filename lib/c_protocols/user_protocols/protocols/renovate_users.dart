@@ -443,22 +443,27 @@ class RenovateUserProtocols {
             userID: _oldUser?.id,
         );
 
-        _newUser = _newUser?.copyWith(
-          device: _thisDevice,
-        );
+        if (_newUser != null){
 
-        /// TAKES TOO LONG AND NOTHING DEPENDS ON IT
-        unawaited(_resubscribeToAllMyTopics(
-          context: context,
-        ));
+          _newUser = _newUser.copyWith(
+            device: _thisDevice,
+          );
 
-        await renovateUser(
-          context: context,
-          newPic: null,
-          newUser: _newUser,
-          oldUser: _oldUser,
-          invoker: 'refreshUserDeviceModel',
-        );
+          /// TAKES TOO LONG AND NOTHING DEPENDS ON IT
+          unawaited(_resubscribeToAllMyTopics(
+            context: context,
+            myUserModel: _newUser,
+          ));
+
+          await renovateUser(
+            context: context,
+            newPic: null,
+            newUser: _newUser,
+            oldUser: _oldUser,
+            invoker: 'refreshUserDeviceModel',
+          );
+
+        }
 
       }
 
@@ -471,16 +476,12 @@ class RenovateUserProtocols {
   /// TASK : TEST ME
   static Future<void> _resubscribeToAllMyTopics({
     required BuildContext context,
+    required UserModel? myUserModel,
   }) async {
 
-    final UserModel? _myUserModel = UsersProvider.proGetMyUserModel(
-      context: context,
-      listen: false,
-    );
+    if (myUserModel != null){
 
-    if (_myUserModel != null){
-
-      final List<String>? _userTopics = _myUserModel.fcmTopics;
+      final List<String>? _userTopics = myUserModel.fcmTopics;
 
       final List<String> _topicsIShouldSubscribeTo = <String>[];
       for (final String topicID in [...?_userTopics]){
