@@ -857,7 +857,7 @@ class Dialogs {
 
     final BuildContext context = getMainContext();
     final double _dialogHeight = Scale.screenHeight(context) - 30;
-    final double _gridHeight = _dialogHeight - 80;
+    final double _gridHeight = _dialogHeight - CenterDialog.getButtonZoneHeight * 5;
 
     await CenterDialog.showCenterDialog(
       titleVerse: titleVerse,
@@ -867,26 +867,28 @@ class Dialogs {
         translate: true,
       ),
       height: _dialogHeight,
-      child: Container(
-        width: CenterDialog.getWidth(context),
-        height: _gridHeight,
-        color: Colorz.white10,
-        alignment: Alignment.center,
-        child: ListView.builder(
-          itemCount: bzModel?.authors?.length ?? 0,
-          physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          itemBuilder: (_, int index){
+      child: Center(
+        child: Container(
+          width: CenterDialog.getWidth(context),
+          height: _gridHeight,
+          color: Colorz.bloodTest,
+          alignment: Alignment.center,
+          child: ListView.builder(
+            itemCount: bzModel?.authors?.length,
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            itemBuilder: (_, int index){
 
-            return AuthorCard(
-              author: bzModel!.authors![index],
-              bzModel: bzModel,
-              onContactTap: onContact,
-              bubbleWidth: CenterDialog.getWidth(context),
-              moreButtonIsOn: false,
-            );
+              return AuthorCard(
+                author: bzModel!.authors![index],
+                bzModel: bzModel,
+                onContactTap: onContact,
+                bubbleWidth: CenterDialog.getWidth(context),
+                moreButtonIsOn: false,
+              );
 
-          },
+            },
+          ),
         ),
       ),
     );
