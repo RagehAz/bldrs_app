@@ -27,6 +27,7 @@ class ChainsProvider extends ChangeNotifier {
   Future<void> initializeAllChains({
     required bool notify,
   }) async {
+    blog('running initializeAllChains');
     // --------------------
     /// NOTE : initialization for fetching setting :-
     /// BIG CHAIN K
@@ -81,6 +82,8 @@ class ChainsProvider extends ChangeNotifier {
     // --------------------
   }
   // --------------------
+  /*
+  /// NO NEED FOR THIS : as setting zone re-routes to home screen which re triggers initializeAllChains
   /// TESTED : WORKS PERFECT
   Future<void> reInitializeZoneChains() async {
     blog('reInitializeZoneChains');
@@ -113,6 +116,7 @@ class ChainsProvider extends ChangeNotifier {
     );
     // --------------------
   }
+   */
   // -----------------------------------------------------------------------------
 
   /// UPDATES
@@ -297,6 +301,8 @@ class ChainsProvider extends ChangeNotifier {
   Future<void> _readSetZonePhidsModel({
     required bool notify,
   }) async {
+
+    // blog('running _readSetZonePhidsModel');
 
     final ZonePhidsModel? _zonePhidsModel = await ZonePhidsRealOps.readZonePhidsOfCurrentZone();
 

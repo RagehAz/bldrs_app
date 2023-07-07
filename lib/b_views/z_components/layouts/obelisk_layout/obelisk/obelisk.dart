@@ -1,4 +1,8 @@
+// ignore_for_file: unused_element
+
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/layouts/handlers/max_bounce_navigator.dart';
 import 'package:basics/layouts/separators/separator_line.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
@@ -7,9 +11,7 @@ import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/obelisk/obelis
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:provider/provider.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 
 class Obelisk extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -162,10 +164,45 @@ class Obelisk extends StatelessWidget {
     final bool _isLandScape = MediaQuery.of(context).orientation == Orientation.landscape;
 
     if (_isLandScape == true){
-      return Positioned(
+      return _LandscapeObelisk(
+          onRowTap: onRowTap,
+          progressBarModel: progressBarModel,
+          navModels: navModels
+      );
+    }
+
+    else {
+      return _PortraitObelisk(
+        progressBarModel: progressBarModel,
+        navModels: navModels,
+        onRowTap: onRowTap,
+      );
+    }
+  }
+  // -----------------------------------------------------------------------------
+}
+
+
+class _LandscapeObelisk extends StatelessWidget {
+  // --------------------------------------------------------------------------
+  const _LandscapeObelisk({
+    required this.onRowTap,
+    required this.progressBarModel,
+    required this.navModels,
+    super.key
+  });
+  // --------------------------------------------------------------------------
+  final ValueChanged<int> onRowTap;
+  final ValueNotifier<ProgressBarModel?> progressBarModel;
+  final List<NavModel?> navModels;
+  // --------------------
+  @override
+  Widget build(BuildContext context) {
+
+    return Positioned(
         key: const ValueKey<String>('Obelisk'),
         right: Ratioz.appBarMargin,
-        bottom: 0,
+        bottom: 15,
         child: Selector<UiProvider, bool>(
           selector: (_, UiProvider uiProvider) => uiProvider.pyramidsAreExpanded,
           builder: (_, bool? expanded, Widget? child) {
@@ -192,6 +229,14 @@ class Obelisk extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
 
+                    /// ICONS
+                    if (UiProvider.checkAppIsLeftToRight() == false)
+                    ObeliskIconsBuilder(
+                      navModels: navModels,
+                      progressBarModel: progressBarModel,
+                      onRowTap: onRowTap,
+                    ),
+
                     /// TEXTS
                     ObeliskVersesBuilder(
                       navModels: navModels,
@@ -200,6 +245,7 @@ class Obelisk extends StatelessWidget {
                     ),
 
                     /// ICONS
+                    if (UiProvider.checkAppIsLeftToRight() == true)
                     ObeliskIconsBuilder(
                       navModels: navModels,
                       progressBarModel: progressBarModel,
@@ -213,10 +259,27 @@ class Obelisk extends StatelessWidget {
           ),
         ),
       );
-    }
 
-    else {
-      return Positioned(
+  }
+  // --------------------------------------------------------------------------
+}
+
+class _PortraitObelisk extends StatelessWidget {
+  // --------------------------------------------------------------------------
+  const _PortraitObelisk({
+    required this.onRowTap,
+    required this.progressBarModel,
+    required this.navModels,
+    super.key
+  });
+  // --------------------------------------------------------------------------
+  final ValueChanged<int> onRowTap;
+  final ValueNotifier<ProgressBarModel?> progressBarModel;
+  final List<NavModel?> navModels;
+  // --------------------
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
         key: const ValueKey<String>('Obelisk'),
         left: Ratioz.appBarMargin,
         bottom: 0,
@@ -232,7 +295,7 @@ class Obelisk extends StatelessWidget {
             );
           },
           child: SizedBox(
-            height: getMaxHeight(context),
+            height: Obelisk.getMaxHeight(context),
             // color: Colorz.bloodTest,
             child: MaxBounceNavigator(
               onNavigate: () => UiProvider.proSetPyramidsAreExpanded(
@@ -244,7 +307,7 @@ class Obelisk extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 30),
                 child: Row(
                   // mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: stuffAlignment(isCross: true),
+                  crossAxisAlignment: Obelisk.stuffAlignment(isCross: true),
                   children: <Widget>[
 
                     /// ICONS
@@ -276,7 +339,6 @@ class Obelisk extends StatelessWidget {
           ),
         ),
       );
-    }
   }
-  // -----------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
 }

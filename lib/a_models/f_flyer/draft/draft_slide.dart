@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/files/floaters.dart';
 import 'package:basics/helpers/classes/space/trinity.dart';
+import 'package:basics/mediator/models/dimension_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/slide_model.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
@@ -13,7 +14,6 @@ import 'package:fire/super_fire.dart';
 import 'package:basics/helpers/classes/colors/colorizer.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:mediators/models/dimension_model.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/super_image/super_image.dart';
 

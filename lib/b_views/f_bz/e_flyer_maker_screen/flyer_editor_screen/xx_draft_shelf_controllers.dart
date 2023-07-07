@@ -21,7 +21,7 @@ import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:mediators/pic_maker/pic_maker.dart';
+import 'package:basics/mediator/pic_maker/pic_maker.dart';
 
 /// => TAMAM
 // -----------------------------------------------------------------------------
