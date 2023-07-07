@@ -28,7 +28,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
-import 'package:mediators/pic_maker/pic_maker.dart';
+import 'package:basics/mediator/pic_maker/pic_maker.dart';
 
 class BzEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------

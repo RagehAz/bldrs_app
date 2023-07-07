@@ -18,7 +18,7 @@ import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mediators/pic_maker/pic_maker.dart';
+import 'package:basics/mediator/pic_maker/pic_maker.dart';
 
 enum BubbleType {
   bzLogo,

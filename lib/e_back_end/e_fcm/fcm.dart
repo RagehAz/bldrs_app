@@ -24,7 +24,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
-import 'package:mediators/sounder/sounder.dart';
+import 'package:basics/mediator/sounder/sounder.dart';
 import 'package:basics/helpers/classes/rest/rest.dart';
 import 'dart:io';
 
