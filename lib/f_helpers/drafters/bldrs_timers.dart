@@ -302,7 +302,9 @@ class BldrsTimers {
       );
 
       if (kIsWeb == false && DeviceChecker.deviceIsWindows() == false){
-          await AppSettings.openDateSettings();
+          await AppSettings.openAppSettings(
+            // type: AppSettingsType.date,
+          );
       }
 
 
