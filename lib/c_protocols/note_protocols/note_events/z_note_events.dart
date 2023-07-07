@@ -121,15 +121,15 @@ class NoteEvent {
 
     if (reviewModel != null && _myUserModel != null && bzID != null){
 
-          final bool _imAuthorOfThisBz = AuthorModel.checkUserIsAuthorInThisBz(
-      bzID: bzID,
-      userModel: _myUserModel,
-    );
+      final bool _imAuthorOfThisBz = AuthorModel.checkUserIsAuthorInThisBz(
+        bzID: bzID,
+        userModel: _myUserModel,
+      );
 
-    final String? _title = await PhraseProtocols.translate(
-      phid: 'phid_you_have_new_flyer_review',
-      langCode: _myUserModel.language,
-    );
+      final String? _title = await PhraseProtocols.translate(
+        phid: 'phid_you_have_new_flyer_review',
+        langCode: _myUserModel.language,
+      );
 
     final NoteModel _note = NoteModel(
       id: null,
