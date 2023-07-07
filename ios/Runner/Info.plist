@@ -148,50 +148,50 @@
 
 	<!-- ===================== -->
 	<key>NSCameraUsageDescription</key>
-	<string>Bldrs.net requires access to device's Camera</string>
+	<string>Bldrs.net requires access to device's Camera to open to be able to take a photo for your profile picture</string>
     <!-- =============================================================== -->
 
 	<!-- PHOTO LIBRARY PERMISSION -->
 
 	<!-- ===================== -->
     <key>NSPhotoLibraryAddUsageDescription</key>
-    <string>Bldrs.net requires access to add Images to your photos</string>
+    <string>Bldrs.net requires access to your photo library to be able to add the downloaded Images to your photos</string>
 	<!-- ===================== -->
     <key>NSPhotoLibraryUsageDescription</key>
-    <string>Bldrs.net requires access to device's photo library</string>
+    <string>Bldrs.net requires access to your device's photo library to be able to pick an image to be used in your personal profile or business account logo or in flyer's images</string>
     <!-- =============================================================== -->
 
 	<!-- CONTACTS PERMISSION -->
 
 	<!-- ===================== -->
 	<key>NSContactsUsageDescription</key>
-	<string>Bldrs.net requires access to your contacts</string>
+	<string>Bldrs.net requires access to your contacts to be able to list them in the app for your to pick who you are going to share the app with one by one to avoid inappropriate spamming</string>
     <!-- =============================================================== -->
 
 	<!-- LOCATION PERMISSION -->
 
 	<!-- ===================== -->
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Bldrs.net requires access to your Location</string>
+	<string>Bldrs.net requires access to your Location in order to find businesses near by you who are able to provide their services for you/string>
 	<!-- ===================== -->
     <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Bldrs.net requires access to your Location</string>
+	<string>Bldrs.net requires access to your Location in order to find businesses near by you who are able to provide their services for you/string>
 	<!-- ===================== -->
     <key>NSLocationUsageDescription</key>
-	<string>Bldrs.net requires access to your Location</string>
+	<string>Bldrs.net requires access to your Location in order to find businesses near by you who are able to provide their services for you/string>
 	<!-- ===================== -->
     <key>NSLocationAlwaysUsageDescription</key>
-	<string>Bldrs.net requires to Always access your Location</string>
+	<string>Bldrs.net requires access to your Location in order to find businesses near by you who are able to provide their services for you/string>
     <!-- =============================================================== -->
 
 	<!-- MEDIA LIBRARY PERMISSION -->
 
 	<!-- ===================== -->
     <key>NSAppleMusicUsageDescription</key>
-    <string>Bldrs.net requires access to your music files</string>
+    <string>Bldrs.net requires access to your music files to be able to pick which audio file to be used in the flyer you are creating</string>
 	<!-- ===================== -->
     <key>kTCCServiceMediaLibrary</key>
-    <string>Bldrs.net requires access to Media Libraries</string>
+    <string>Bldrs.net requires access to Media Libraries to be able to pick which file to be used in the flyer you are creating</string>
     <!-- =============================================================== -->
 
 
@@ -199,7 +199,7 @@
 
 	<!-- ===================== -->
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Bldrs.net requires access to your microphone</string>
+	<string>Bldrs.net requires access to your microphone to be able to record your voice to create the voice note in the app</string>
     <!-- =============================================================== -->
 
 	<!-- UI -->

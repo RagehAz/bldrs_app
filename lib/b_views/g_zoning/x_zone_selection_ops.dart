@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
@@ -189,8 +187,6 @@ class ZoneSelection {
     required ZoneModel? zone,
   }) async {
 
-    if (zone != null && zone.countryID != null){
-
       pushWaitDialog(
         verse: const Verse(
           id: 'phid_loading',
@@ -198,7 +194,7 @@ class ZoneSelection {
         ),
       );
 
-      await setCurrentZone(
+      await setCurrentZoneProtocol(
         zone: zone,
       );
 
@@ -210,15 +206,14 @@ class ZoneSelection {
         homeRoute: Routing.home,
       );
 
-    }
 
   }
   // -----------------------------------------------------------------------------
-  static Future<void> setCurrentZone({
+  static Future<void> setCurrentZoneProtocol({
     required ZoneModel? zone,
   }) async {
 
-    blog('RUNNING setCurrentZone');
+    // blog('RUNNING setCurrentZone');
 
     final BuildContext context = getMainContext();
 
