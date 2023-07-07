@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
@@ -6,7 +7,6 @@ import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/e_back_end/e_fcm/background_msg_handler.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -40,18 +40,20 @@ class FCMStarter {
 
       if (canInitializeFCM() == true) {
 
+        // /// HANDLE BACKGROUND REMOTE MESSAGE (handles while app in background)
+        // if (channelModel.id == ChannelModel.bldrsChannel.id){
+        //   FirebaseMessaging.onBackgroundMessage(bldrsAppOnBackgroundMessageHandler);
+        // }
+        // if (channelModel.id == ChannelModel.bldrsDashboardChannel.id){
+        //   FirebaseMessaging.onBackgroundMessage(bldrsDashboardOnBackgroundMessageHandler);
+        // }
+
         /// INITIALIZE AWESOME NOTIFICATIONS
         await _initializeAwesomeNootsService(
           channel: channelModel,
         );
 
-        /// HANDLE BACKGROUND REMOTE MESSAGE (handles while app in background)
-        if (channelModel.id == ChannelModel.bldrsChannel.id){
-          FirebaseMessaging.onBackgroundMessage(bldrsAppOnBackgroundMessageHandler);
-        }
-        if (channelModel.id == ChannelModel.bldrsDashboardChannel.id){
-          FirebaseMessaging.onBackgroundMessage(bldrsDashboardOnBackgroundMessageHandler);
-        }
+
 
       }
 
@@ -108,6 +110,21 @@ class FCMStarter {
       debug: true,
     );
 
+    // FCM.getAwesomeNoots()?.(
+    //   onActionReceivedMethod: (ReceivedAction receivedAction){
+    //     NootController.onActionReceivedMethod(receivedAction);
+    //   },
+    //   onNotificationCreatedMethod: (ReceivedNotification receivedNotification){
+    //     NootController.onNotificationCreatedMethod(receivedNotification);
+    //   },
+    //   onNotificationDisplayedMethod: (ReceivedNotification receivedNotification){
+    //     NootController.onNotificationDisplayedMethod(receivedNotification);
+    //   },
+    //   onDismissActionReceivedMethod: (ReceivedAction receivedAction){
+    //     NootController.onDismissActionReceivedMethod(receivedAction);
+    //   },
+    // );
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -162,6 +179,8 @@ class FCMStarter {
       FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage? remoteMessage) async {
 
         blog('APP WAS IN BACKGROUND AND YOU HAVE JUST TAPPED THIS NOTIFICATION : -');
+
+        // await pushThisLocalNoot();
 
         FCM.blogRemoteMessage(
           remoteMessage: remoteMessage,
@@ -279,6 +298,83 @@ class FCMStarter {
 
             payloadMap: Mapper.createStringStringMap(
               hashMap: remoteMessage.data,
+              stringifyNonStrings: false,
+            ),
+          ),
+
+        ]);
+
+      }
+
+      else {
+        blog('_pushGlobalNootFromRemoteMessage : remoteMessage.data is null');
+      }
+
+    }
+
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> pushGlobalNootFromReceivedNotification({
+    required ReceivedNotification? rNoot,
+    required String invoker,
+  }) async {
+
+    if (rNoot != null){
+
+      // final String body = remoteMessage?.notification?.body;
+      // final String title = remoteMessage?.notification?.title;
+      // final AndroidNotification android = remoteMessage?.notification?.android;
+      // final AppleNotification apple = remoteMessage?.notification?.apple;
+      // final String analyticsLabel = remoteMessage?.notification?.web?.analyticsLabel;
+      // final String image = remoteMessage?.notification?.web?.image;
+      // final String link = remoteMessage?.notification?.web?.link;
+      // final String bodyLocKey = remoteMessage?.notification?.bodyLocKey;
+      // final List<String> bodyLocArgs = remoteMessage?.notification?.bodyLocArgs;
+      // final String titleLocKey = remoteMessage?.notification?.titleLocKey;
+      // final List<String> titleLocArgs = remoteMessage?.notification?.titleLocArgs;
+      // final String category = remoteMessage?.category;
+      // final String collapseKey = remoteMessage?.collapseKey;
+      // final bool contentAvailable = remoteMessage?.contentAvailable;
+      // final String from = remoteMessage?.from;
+      // final String messageId = remoteMessage?.messageId;
+      // final String messageType = remoteMessage?.messageType;
+      // final bool mutableContent = remoteMessage?.mutableContent;
+      // final String senderId = remoteMessage?.senderId;
+      // final DateTime sentTime = remoteMessage?.sentTime;
+      // final String threadId = remoteMessage?.threadId;
+      // final int ttl = remoteMessage?.ttl;
+      // final Map<String, dynamic> data = remoteMessage?.data;
+
+      final NoteModel? _note = NoteModel.decipherRemoteMessage(
+        map: rNoot.payload,
+      );
+
+      // _note.blogNoteModel(
+      //   invoker: '_pushGlobalNootFromRemoteMessage.$invoker',
+      // );
+
+      if (_note != null){
+
+        // blog('should send a fucking noot title ${_note.title} : body ${_note.body}');
+
+        await Future.wait(<Future>[
+
+          FCM.pushGlobalNoot(
+            channelModel: ChannelModel.bldrsChannel,
+            title: _note.title,
+            body: _note.body,
+            largeIconURL: _note.parties?.senderImageURL,
+            posterURL: _note.poster?.path,
+            progress: Progress.generateModelFromNoteProgress(_note),
+            progressBarIsLoading: _note.progress == -1,
+            canBeDismissedWithoutTapping: _note.dismissible ?? true,
+
+            /// FAKES BUTTONS IN NOOT
+            // buttonsTexts: null, // _note.poll.buttons,
+
+            payloadMap: Mapper.createStringStringMap(
+              hashMap: rNoot.payload,
               stringifyNonStrings: false,
             ),
           ),

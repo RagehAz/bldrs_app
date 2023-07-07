@@ -1,13 +1,21 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/layouts/separators/dot_separator.dart';
+import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/create_new_bz_button.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';
 import 'package:bldrs/b_views/z_components/buttons/settings_wide_button.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/floating_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/pyramids/pyramid_floating_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/bldrs_keys.dart';
+import 'package:bldrs/c_protocols/note_protocols/protocols/a_note_protocols.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
+import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
+import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:bldrs/main.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +31,50 @@ class AppSettingsScreen extends StatelessWidget {
 
     final bool _userIsOnline = Authing.userHasID();
 
+
     return FloatingLayout(
+      pyramidButtons: UsersProvider.userIsRage7() == false ? null : [
+
+        /// LOCAL NOOT
+        PyramidFloatingButton(
+          icon: Iconz.notification,
+          color: Colorz.blue80,
+          onTap: () async {
+
+            final bool _go = await Dialogs.confirmProceed(
+              titleVerse: Verse.plain('Send Local Noot ?'),
+            );
+
+            if (_go == true){
+
+              await FCM.pushGlobalNoot(
+                title: 'This is a Notification',
+                body: 'Test body',
+                channelModel: ChannelModel.bldrsChannel,
+                largeIconURL: Standards.bldrsAppIconURL,
+                posterURL: Standards.bldrsNamePosterPicURL,
+                payloadMap: {},
+              );
+
+            }
+
+
+          },
+        ),
+
+        /// GLOBAL NOOT
+        PyramidFloatingButton(
+          icon: Iconz.contNorthAmerica,
+          color: Colorz.blue80,
+          onTap: () => pushFastNote(
+            userID: BldrsKeys.ragehID,
+            title: 'Hey you',
+            body: 'How are you ?',
+          ),
+        ),
+
+
+      ],
       columnChildren: <Widget>[
 
         const DotSeparator(
