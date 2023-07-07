@@ -1,6 +1,7 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/layouts/separators/dot_separator.dart';
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/create_new_bz_button.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';
@@ -29,8 +30,8 @@ class AppSettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final bool _userIsOnline = Authing.userHasID();
-
+    final UserModel? _userModel = UsersProvider.proGetMyUserModel(context: context, listen: true);
+    final bool _userIsOnline = Authing.userIsSignedUp(_userModel?.signInMethod);
 
     return FloatingLayout(
       pyramidButtons: UsersProvider.userIsRage7() == false ? null : [
@@ -76,6 +77,8 @@ class AppSettingsScreen extends StatelessWidget {
 
       ],
       columnChildren: <Widget>[
+
+        const SettingsToSettingsButtons(),
 
         const DotSeparator(
           color: Colorz.yellow80,
