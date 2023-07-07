@@ -221,6 +221,8 @@ class _LandscapeObelisk extends StatelessWidget {
                 setTo: false,
                 notify: true,
               ),
+              slideLimitRatio: 0.1,
+              boxDistance: 300,
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 padding: const EdgeInsets.only(bottom: 20),

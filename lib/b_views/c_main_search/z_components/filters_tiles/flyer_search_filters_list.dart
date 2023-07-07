@@ -14,6 +14,7 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_head
 import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/components/sections_button.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/super_box/super_box.dart';
@@ -101,6 +102,8 @@ class FlyersSearchFiltersList extends StatelessWidget {
         isDisabled: searchModel?.flyerSearchModel?.flyerType == null,
         child: TileBubble(
           bubbleWidth: _tileWidth,
+          appIsLTR: UiProvider.checkAppIsLeftToRight(),
+          textDirection: UiProvider.getAppTextDir(),
           bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
             context: context,
             leadingIcon: searchModel?.flyerSearchModel?.phid == null ? Iconz.keyword

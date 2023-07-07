@@ -134,6 +134,12 @@ Future<void> onSubmitReview({
     /// CAN POST REVIEW
     else {
 
+      setNotifier(
+        notifier: isUploading,
+        mounted: mounted,
+        value: true,
+      );
+
       Keyboard.closeKeyboard();
 
       final ReviewModel _reviewModel = ReviewModel.createNewReview(
@@ -141,41 +147,29 @@ Future<void> onSubmitReview({
         flyerID: flyerModel?.id,
       );
 
-      setNotifier(
-        notifier: isUploading,
-        mounted: mounted,
-        value: true,
-      );
-
-      await Future.wait(<Future>[
-
-        FlyerLDBOps.deleteReviewSession(
-          reviewID: ReviewModel.createTempReviewID(
+      await FlyerLDBOps.deleteReviewSession(
+        reviewID: ReviewModel.createTempReviewID(
             flyerID: flyerModel?.id,
             userID: Authing.getUserID(),
           ),
-        ),
+      );
 
-        ReviewProtocols.composeReview(
+      final ReviewModel? uploadedReview = await ReviewProtocols.composeReview(
           context: context,
           reviewModel: _reviewModel,
           bzID: flyerModel?.bzID,
-        ).then((ReviewModel? uploadedReview){
+        );
 
-          setNotifier(
-              notifier: paginationController.addMap,
-              mounted: mounted,
-              value: uploadedReview?.toMap(
-                includeID: true,
-                includeDocSnapshot: true,
-              ),
-          );
+      setNotifier(
+        notifier: paginationController.addMap,
+        mounted: mounted,
+        value: uploadedReview?.toMap(
+          includeID: true,
+          includeDocSnapshot: true,
+        ),
+      );
 
-          textController.text = '';
-
-        }),
-
-      ]);
+      textController.text = '';
 
       setNotifier(
         notifier: isUploading,

@@ -9,6 +9,7 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/text_lines_analyzer.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 
@@ -91,6 +92,7 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
   // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
     // blog('B---> ParagraphBubble : edit mode : ${widget.editMode}');
 
     // bool _infoExceededMaxLines = superFlyer.i
@@ -105,9 +107,13 @@ class _ParagraphBubbleState extends State<ParagraphBubble> {
     );
 
     return Bubble(
+        appIsLTR: UiProvider.checkAppIsLeftToRight(),
         bubbleHeaderVM: widget.headerViewModel,
         key: widget.key,
-        width: widget.bubbleWidth,
+        width: Bubble.bubbleWidth(
+          context: context,
+          bubbleWidthOverride: widget.bubbleWidth,
+        ),
         margin: widget.margins,
         corners: widget.corners,
         childrenCentered: widget.centered,

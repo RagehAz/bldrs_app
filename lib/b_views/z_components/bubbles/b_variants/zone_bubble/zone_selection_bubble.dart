@@ -13,6 +13,7 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_head
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/zone_selection_button.dart';
 import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_validator.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
@@ -228,7 +229,7 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
     }
 
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
   String? _validator(){
     if (widget.validator == null){
       return null;
@@ -250,10 +251,12 @@ class _ZoneSelectionBubbleState extends State<ZoneSelectionBubble> {
             builder: (_, ZoneModel? zone, Widget? bulletPoints){
 
               return Bubble(
+                  appIsLTR: UiProvider.checkAppIsLeftToRight(),
                   bubbleColor: Formers.validatorBubbleColor(
                     validator: _validator,
                   ),
                   bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                    headerWidth: Bubble.clearWidth(context: context),
                     context: context,
                     headlineVerse: widget.titleVerse ?? const Verse(
                       id: 'phid_location',
