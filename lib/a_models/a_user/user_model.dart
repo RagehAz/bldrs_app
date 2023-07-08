@@ -135,7 +135,7 @@ class UserModel {
       fcmTopics: TopicModel.getAllPossibleUserTopicsIDs(),
     );
 
-    _userModel.blogUserModel(invoker: 'fromFirebaseUser');
+    // _userModel.blogUserModel(invoker: 'fromFirebaseUser');
 
     return _userModel;
   }

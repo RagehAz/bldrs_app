@@ -314,12 +314,14 @@ class _CountriesScreenState extends State<CountriesScreen> {
                   final bool _isSettingCurrentZone =  widget.zoneViewingEvent == ViewingEvent.homeView;
 
                   if (_isSettingCurrentZone == true){
-                    await ZoneSelection.setCurrentZone(
+                    await ZoneSelection.setCurrentZoneAndNavHome(
                       zone: null,
                     );
                   }
-
+                  else {
                     await Nav.goBack(context: context);
+                  }
+
 
                   },
               );

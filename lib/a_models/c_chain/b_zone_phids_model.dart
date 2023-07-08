@@ -45,7 +45,7 @@ class ZonePhidsModel {
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static ZonePhidsModel? decipherZonePhids({
+  static ZonePhidsModel? decipherCityNodePhids({
     required Map<String, dynamic>? map,
     required String? cityID,
   }){
@@ -59,6 +59,78 @@ class ZonePhidsModel {
     }
 
     return _zonePhids;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static ZonePhidsModel? decipherCountryNodeMap({
+    required Map<String, dynamic>? map,
+  }) {
+    ZonePhidsModel? _output;
+
+    if (map != null) {
+
+      final List<String>? _citiesIDs = map.keys.toList();
+      final String countryID = map['id'];
+      _citiesIDs?.remove('id');
+
+      if (Mapper.checkCanLoopList(_citiesIDs) == true) {
+
+        for (final String cityID in _citiesIDs!) {
+
+          final Map<String, dynamic> _cityPhids = map[cityID];
+
+          final ZonePhidsModel? _model = ZonePhidsModel.decipherCityNodePhids(
+            map: _cityPhids,
+            cityID: cityID,
+          );
+
+          _output = ZonePhidsModel.combineModels(
+            zoneID: countryID,
+            base: _output,
+            add: _model,
+          );
+
+        }
+      }
+    }
+
+    return _output;
+  }
+  // --------------------
+  /// TESTED: WORKS PERFECT
+  static ZonePhidsModel? decipherPlanetNodeMap({
+    required Map<String, dynamic>? map,
+  }){
+    ZonePhidsModel? _output;
+
+    if (map != null) {
+
+      final List<String> _countriesIDs = map.keys.toList();
+      final String planetID = map['id'];
+      _countriesIDs.remove('id');
+
+      if (Mapper.checkCanLoopList(_countriesIDs) == true) {
+
+        for (final String countryID in _countriesIDs){
+
+          final Map<String, dynamic> _countryPhidsMap = map[countryID];
+
+          final ZonePhidsModel? _model = ZonePhidsModel.decipherCountryNodeMap(
+            map: _countryPhidsMap,
+          );
+
+          _output = ZonePhidsModel.combineModels(
+            zoneID: planetID,
+            base: _output,
+            add: _model,
+          );
+
+        }
+
+      }
+    }
+
+    return _output;
   }
   // -----------------------------------------------------------------------------
 
@@ -339,7 +411,9 @@ class ZonePhidsModel {
   /// TESTED : WORKS PERFECT
   static ZonePhidsModel? _cleanZeroValuesPhids(ZonePhidsModel? zonePhids){
 
-    ZonePhidsModel? _output;
+    ZonePhidsModel? _output = zonePhids;
+
+    // blog('_cleanZeroValuesPhids START : ${zonePhids?.phidsMaps?.length} KEYS for (${zonePhids?.zoneID}');
 
     if (zonePhids != null && zonePhids.phidsMaps != null){
 
@@ -363,6 +437,8 @@ class ZonePhidsModel {
 
     }
 
+    // blog('_cleanZeroValuesPhids START : ${_output?.phidsMaps?.length} KEYS for (${zonePhids?.zoneID}');
+
     return _output;
   }
   // --------------------
@@ -384,13 +460,16 @@ class ZonePhidsModel {
     return _refined ?? [];
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static ZonePhidsModel? combineModels({
     required String? zoneID,
     required ZonePhidsModel? base,
     required ZonePhidsModel? add,
   }){
     ZonePhidsModel? _output;
+
+    // blog('combineModels START : base : ${base?.phidsMaps?.length} KEYS for (${base?.zoneID})');
+    // blog('combineModels START : add : ${add?.phidsMaps?.length} KEYS for (${add?.zoneID})');
 
     if (zoneID != null){
 
@@ -401,24 +480,29 @@ class ZonePhidsModel {
 
       if (Mapper.checkCanLoopList(add?.phidsMaps) == true){
 
-        final List<MapModel> _combined = [];
+        List<MapModel> _combined = <MapModel>[...?base?.phidsMaps];
 
         for (final MapModel mapModel in add!.phidsMaps!){
 
           final MapModel? _existing = MapModel.getModelByKey(
-            models: _output.phidsMaps,
+            models: _combined,
             key: mapModel.key,
           );
 
+          /// FOUND
           if (_existing != null){
-            _combined.add(
-              MapModel(
-                key: mapModel.key,
-                value: _existing.value + mapModel.value,
-              )
+            // blog('FOUND => ${mapModel.key}');
+            _combined = MapModel.replaceMapModel(
+                mapModels: _combined,
+                mapModel: MapModel(
+                  key: mapModel.key,
+                  value: _existing.value + mapModel.value,
+                )
             );
+
           }
           else {
+            // blog('NOT FOUND =======> ${mapModel.key}');
             _combined.add(mapModel);
           }
 
@@ -438,6 +522,7 @@ class ZonePhidsModel {
 
     }
 
+    // blog('a77a combineModels END : _output : ${_output?.phidsMaps?.length} KEYS for (${_output?.zoneID}');
 
     return _cleanZeroValuesPhids(_output);
   }

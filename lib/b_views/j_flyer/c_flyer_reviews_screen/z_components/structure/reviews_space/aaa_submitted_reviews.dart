@@ -61,7 +61,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
     super.initState();
 
     _paginationController = PaginationController.initialize(
-      addExtraMapsAtEnd: false,
+      addExtraMapsAtEnd: true,
     );
 
   }
@@ -146,10 +146,10 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
           paginationQuery: reviewsPaginationQuery(
             flyerID: widget.flyerModel?.id,
           ),
-          streamQuery: reviewsStreamQuery(
-            context: context,
-            flyerID: widget.flyerModel?.id,
-          ),
+          // streamQuery: reviewsStreamQuery(
+          //   context: context,
+          //   flyerID: widget.flyerModel?.id,
+          // ),
           paginationController: _paginationController,
           loadingWidget: const Loading(
             loading: true,
@@ -173,7 +173,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
               itemBuilder: (_, int index){
 
                 /// REVIEW CREATOR
-                if (index == 0){
+                if (index == reviews.length){
 
                   /// USER IS NOT SIGNED IN
                   if (Authing.userIsSignedUp(_user?.signInMethod) == false){
@@ -206,7 +206,7 @@ class _SubmittedReviewsState extends State<SubmittedReviews> {
                 /// SUBMITTED REVIEWS
                 else {
 
-                  final ReviewModel _reviewModel = reviews[index - 1];
+                  final ReviewModel _reviewModel = reviews[index];
 
                   return FutureBuilder<bool>(
                       future: ReviewProtocols.readIsAgreed(

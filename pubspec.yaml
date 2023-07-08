@@ -3,7 +3,7 @@ description: The Builder's Network
 publish_to: "none"
 # --------------------------------------------------------------------------------
 # BLDRS_APP_VERSION
-version: 1.0.3
+version: 1.0.4
 # ----------------------
 # app version should be updated in those locations
 # ----------------------
@@ -19,7 +19,7 @@ version: 1.0.3
 # -> bldrs_dashboard/pubspec.yaml (version:)
 # --------------------------------------------------------------------------------
 environment:
-  sdk: '>=2.19.6 <3.0.0' # nour's recommendation ">=3.0.0 < 4.0.0"
+  sdk: '>=2.19.6 <3.0.0' # nour's recommendation >=3.0.0 < 4.0.0
 # --------------------------------------------------------------------------------
 dependencies:
   flutter:
@@ -45,11 +45,6 @@ dependencies:
 #    path: D:/projects/packages/helpers/basics
     git:
       url: https://github.com/RagehAz/basics.git
-  # ------------------------------------
-  mediators:
-#    path: D:/projects/packages/helpers/mediators
-    git:
-      url: https://github.com/RagehAz/mediators.git
   # ------------------------------------
   fire:
 #      path: D:/projects/packages/backend/fire

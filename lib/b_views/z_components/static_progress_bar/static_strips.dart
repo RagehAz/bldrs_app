@@ -1,12 +1,11 @@
 import 'package:basics/animators/helpers/sliders.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/d_progress_bar/d_progress_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_color.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/d_progress_bar/d_progress_box.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/static_strip.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 
 class StaticStrips extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -147,13 +146,7 @@ class StaticStrips extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final bool _tinyMode = FlyerDim.isTinyMode(
-      flyerBoxWidth: flyerBoxWidth,
-      gridWidth: Scale.screenWidth(context),
-      gridHeight: Scale.screenHeight(context),
-    );
-
-    if (_tinyMode == true || barIsOn == false){
+    if (barIsOn == false){
       return const SizedBox();
     }
 
