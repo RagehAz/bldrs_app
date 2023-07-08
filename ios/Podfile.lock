@@ -628,7 +628,7 @@ PODS:
     - abseil/base/base_internal
     - abseil/base/config
     - abseil/meta/type_traits
-  - "app_settings (3.0.0+1)":
+  - app_settings (4.3.0):
     - Flutter
   - AppAuth (1.6.2):
     - AppAuth/Core (= 1.6.2)
@@ -1161,7 +1161,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   abseil: 926fb7a82dc6d2b8e1f2ed7f3a718bce691d1e46
-  app_settings: d103828c9f5d515c4df9ee754dabd443f7cedcf3
+  app_settings: ee4ae4d1c9a907a23b81c40e5c56a5ca8a20a62b
   AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
   audio_session: 4f3e461722055d21515cf3261b64c973c062f345
   awesome_notifications: 04530aafec8dac4635244ed4b4072f4aea6cc938
