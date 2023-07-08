@@ -172,16 +172,16 @@
 
 	<!-- ===================== -->
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Bldrs.net requires access to your Location in order to find businesses near by you who are able to provide their services for you/string>
+	<string>Bldrs.net requires access to your Location in order to find businesses near by you who are able to provide their services for you</string>
 	<!-- ===================== -->
     <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Bldrs.net requires access to your Location in order to find businesses near by you who are able to provide their services for you/string>
+	<string>Bldrs.net requires access to your Location in order to find businesses near by you who are able to provide their services for you</string>
 	<!-- ===================== -->
     <key>NSLocationUsageDescription</key>
-	<string>Bldrs.net requires access to your Location in order to find businesses near by you who are able to provide their services for you/string>
+	<string>Bldrs.net requires access to your Location in order to find businesses near by you who are able to provide their services for you</string>
 	<!-- ===================== -->
     <key>NSLocationAlwaysUsageDescription</key>
-	<string>Bldrs.net requires access to your Location in order to find businesses near by you who are able to provide their services for you/string>
+	<string>Bldrs.net requires access to your Location in order to find businesses near by you who are able to provide their services for you</string>
     <!-- =============================================================== -->
 
 	<!-- MEDIA LIBRARY PERMISSION -->
