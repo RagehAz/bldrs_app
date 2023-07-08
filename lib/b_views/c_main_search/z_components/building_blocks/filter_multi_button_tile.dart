@@ -1,11 +1,12 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bubbles/tile_bubble/tile_bubble.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:bldrs/b_views/c_main_search/super_search_screen.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/b_views/c_main_search/super_search_screen.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 
 class FilterMultiButtonTile extends StatelessWidget {
   // -----------------------------------------------------------------------------
@@ -44,6 +45,8 @@ class FilterMultiButtonTile extends StatelessWidget {
     return TileBubble(
       bubbleWidth: _tileWidth,
       bubbleColor: bubbleColor,
+      appIsLTR: UiProvider.checkAppIsLeftToRight(),
+      textDirection: UiProvider.getAppTextDir(),
       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
         context: context,
         leadingIcon: icon,
@@ -65,7 +68,6 @@ class FilterMultiButtonTile extends StatelessWidget {
 
             return BldrsBox(
               height: 40,
-              // width: 40,
               verse: itemVerse(item),
               verseScaleFactor: 0.7,
               icon: itemIcon == null ? null : itemIcon!.call(item),
@@ -74,6 +76,8 @@ class FilterMultiButtonTile extends StatelessWidget {
               verseColor: _isSelected == true ? Colorz.black255 : Colorz.white255,
               margins: const EdgeInsets.all(5),
               onTap: () => onItemTap(item),
+              textDirection: UiProvider.getAppTextDir(),
+              verseCentered: false,
             );
           }),
         ],

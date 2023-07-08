@@ -65,6 +65,7 @@ class BldrsBubbleHeaderVM {
     Function? onMoreButtonTap,
     bool redDot = false,
     VerseWeight weight = VerseWeight.black,
+    TextDirection? textDirection,
   }){
 
         final double _textSizeValue = BldrsText.superVerseRealHeight(context: context, size: 2, sizeFactor: 1, hasLabelBox: false);
@@ -89,7 +90,7 @@ class BldrsBubbleHeaderVM {
           headlineHighlight: headlineVerse?.notifier,
           headlineHeight: _textSizeValue,
           appIsLTR: UiProvider.checkAppIsLeftToRight(),
-          textDirection: UiProvider.getAppTextDir(),
+          textDirection: textDirection ?? UiProvider.getAppTextDir(),
           // moreButtonIcon: Iconz.more,
           // moreButtonIconSizeFactor: 0.6,
           switchActiveColor: Colorz.yellow255,
@@ -235,6 +236,7 @@ class BldrsBubbleHeader extends StatelessWidget {
               redDot: viewModel.redDot,
               margin: const EdgeInsets.only(bottom: verseBottomMargin),
               highlight: viewModel.headlineVerse?.notifier,
+              textDirection: UiProvider.getAppTextDir(),
             ),
           ),
 

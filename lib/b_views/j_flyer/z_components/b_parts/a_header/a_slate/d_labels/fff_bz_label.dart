@@ -4,6 +4,7 @@ import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
 
 class BzLabel extends StatelessWidget {
@@ -29,6 +30,8 @@ class BzLabel extends StatelessWidget {
       context: context,
       flyerBoxWidth: flyerBoxWidth,
     );
+    // --------------------
+    final TextDirection _textDirection =  UiProvider.getAppTextDir();
     // --------------------
     return SizedBox(
       height: FlyerDim.bzLabelHeight(
@@ -57,6 +60,7 @@ class BzLabel extends StatelessWidget {
             maxLines: FlyerVerses.bzLabelNameMaxLines(
               flyerShowsAuthor: flyerShowsAuthor,
             ),
+            textDirection: _textDirection,
           ),
 
           /// BZ LOCALE
@@ -73,6 +77,7 @@ class BzLabel extends StatelessWidget {
             centered: false,
             italic: true,
             scaleFactor: _versesScaleFactor,
+            textDirection: _textDirection,
           ),
 
         ],

@@ -22,24 +22,29 @@ class ObeliskVersesBuilder extends StatelessWidget {
   final ValueNotifier<ProgressBarModel?> progressBarModel;
   final ValueChanged<int> onRowTap;
   /// --------------------------------------------------------------------------
-  @override
-  Widget build(BuildContext context) {
-
+  CrossAxisAlignment _getCrossAlignment(BuildContext context) {
     CrossAxisAlignment _crossAlignment;
 
     final bool _isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
 
-    if (_isLandscape == true){
+    if (_isLandscape == true) {
       _crossAlignment = CrossAxisAlignment.end;
-    }
-
-    else {
+    } else {
       if (UiProvider.checkAppIsLeftToRight() == true) {
         _crossAlignment = CrossAxisAlignment.start;
       } else {
         _crossAlignment = CrossAxisAlignment.end;
       }
     }
+
+    return _crossAlignment;
+  }
+  /// --------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+
+    final bool _isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
+    final CrossAxisAlignment _crossAlignment = _getCrossAlignment(context);
 
     return Selector<UiProvider, bool>(
       key: const ValueKey<String>('ObeliskVersesBuilder'),
@@ -79,6 +84,7 @@ class ObeliskVersesBuilder extends StatelessWidget {
           context: context,
           navModels: navModels,
         ),
+        width: 200,
         mainAxisAlignment: Obelisk.stuffAlignment(isCross: false),
         crossAxisAlignment: _crossAlignment,
         physics: const NeverScrollableScrollPhysics(),
@@ -90,6 +96,7 @@ class ObeliskVersesBuilder extends StatelessWidget {
               progressBarModel: progressBarModel,
               navModelIndex: index,
               navModel: navModels[index],
+
             );
           }),
 

@@ -10,7 +10,7 @@ import 'package:bldrs/z_grid/z_grid.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
-import 'package:mediators/sounder/sounder.dart';
+import 'package:basics/mediator/sounder/sounder.dart';
 
 class HeroicFlyerBigView extends StatelessWidget {
   /// --------------------------------------------------------------------------

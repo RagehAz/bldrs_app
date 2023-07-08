@@ -22,8 +22,8 @@ import 'package:fire/super_fire.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/layouts/nav/nav.dart';
-import 'package:mediators/models/dimension_model.dart';
-import 'package:mediators/pic_maker/pic_maker.dart';
+import 'package:basics/mediator/models/dimension_model.dart';
+import 'package:basics/mediator/pic_maker/pic_maker.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 
@@ -402,7 +402,7 @@ Future<void> onChangeAuthorRoleOps({
       bodyVerse: Verse(
         id: '${Verse.transBake('phid_this_will_change_the_role_of')}\n'
               '${oldAuthor?.name}\n'
-              '${Verse.transBake('phid_to')}'
+              '${Verse.transBake('phid_to')} '
               '${Verse.transBake(_rolePhid)}',
         translate: false,
       ),

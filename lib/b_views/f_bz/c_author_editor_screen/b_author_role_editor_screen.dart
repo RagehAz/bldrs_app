@@ -97,6 +97,8 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
       listen: true,
     );
 
+    final double _bubbleWidth = Bubble.bubbleWidth(context: context);
+
     return FloatingLayout(
       skyType: SkyType.black,
       columnChildren: <Widget>[
@@ -124,6 +126,7 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
 
             /// USER NAME
             BldrsText(
+              width: _bubbleWidth,
               verse: Verse(
                 id: widget.authorModel?.name,
                 translate: false,
@@ -137,16 +140,19 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
 
             /// JOB TITLE
             BldrsText(
+              width: _bubbleWidth,
               italic: true,
               weight: VerseWeight.thin,
               verse: AuthorCard.getAuthorTitleLine(
                 title: widget.authorModel?.title,
                 companyName: _bzModel?.name,
               ),
+              maxLines: 3,
             ),
 
             /// AUTHOR ROLE
             BldrsText(
+              width: _bubbleWidth,
               italic: true,
               weight: VerseWeight.thin,
               verse: Verse(
@@ -173,9 +179,22 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
               return Column(
                 children: <Widget>[
 
+                  BldrsText(
+                    width: AuthorRoleButton.getWidth(context),
+                    verse: const Verse(
+                      id: 'phid_select_role',
+                      translate: true,
+                      casing: Casing.upperCase
+                    ),
+                    italic: true,
+                    maxLines: 2,
+                    size: 3,
+                    margin: 20,
+                  ),
+
                   AuthorRoleButton(
                     verse: const Verse(
-                      id: 'phid_account_creator',
+                      id: 'phid_creator',
                       translate: true,
                     ),
                     isOn: role == AuthorRole.creator,
@@ -185,7 +204,7 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
 
                   AuthorRoleButton(
                     verse: const Verse(
-                      id: 'phid_team_member',
+                      id: 'phid_teamMember',
                       translate: true
                     ),
                     isOn: role == AuthorRole.teamMember,
@@ -195,7 +214,7 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
 
                   AuthorRoleButton(
                     verse: const Verse(
-                      id: 'phid_account_moderator',
+                      id: 'phid_moderator',
                       translate: true,
                     ),
                     isOn: role == AuthorRole.moderator,

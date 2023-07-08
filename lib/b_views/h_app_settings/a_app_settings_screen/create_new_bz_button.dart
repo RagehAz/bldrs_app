@@ -1,11 +1,13 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/bullet_points/bldrs_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +23,8 @@ class CreateNewBzButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final bool _userIsOnline = Authing.userHasID();
+    final UserModel? _userModel = UsersProvider.proGetMyUserModel(context: context, listen: true);
+    final bool _userIsOnline = Authing.userIsSignedUp(_userModel?.signInMethod);
     final double _buttonWidth = Scale.superWidth(context, 0.7);
 
     return SizedBox(

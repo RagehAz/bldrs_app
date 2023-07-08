@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:mediators/pic_maker/pic_maker.dart';
+import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:photo_manager/photo_manager.dart';
 
 // // -----------------------------------------------------------------------------
