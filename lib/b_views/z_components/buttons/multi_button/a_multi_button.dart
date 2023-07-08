@@ -20,6 +20,9 @@ class MultiButton extends StatelessWidget {
     this.margins,
     this.bubble,
     this.onTap,
+    this.verseScaleFactor = 0.7,
+    this.verseItalic = false,
+    this.verseCentered = false,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -32,6 +35,9 @@ class MultiButton extends StatelessWidget {
   final dynamic margins;
   final bool? bubble;
   final Function? onTap;
+  final bool verseItalic;
+  final double? verseScaleFactor;
+  final bool verseCentered;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -60,14 +66,15 @@ class MultiButton extends StatelessWidget {
                 width: width,
                 height: height,
                 verse: verse,
-                verseScaleFactor: 0.6,
-                verseCentered: false,
+                verseScaleFactor: verseScaleFactor,
+                verseCentered: verseCentered,
                 secondLine: secondLine,
                 icon: pics?.length == 1 ? pics?.first : Iconz.dvBlankSVG,
                 iconColor: pics?.length == 1 ? null : Colorz.nothing,
                 bubble: bubble,
                 color: color,
-                verseMaxLines: 2,
+                verseMaxLines: 3,
+                verseItalic: verseItalic,
               ),
 
               if (pics?.length == 2)

@@ -1,4 +1,3 @@
-import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:fire/super_fire.dart';
@@ -198,51 +197,51 @@ class NoteFunProtocols {
 
     if (trigger != null && TriggerModel.checkIFiredThisTrigger(trigger) == false){
 
-      blog('1--> Switcher : ${trigger.name} : ${trigger.argument} : ${trigger.done}');
+      // blog('1--> Switcher : ${trigger.name} : ${trigger.argument} : ${trigger.done}');
 
       switch(trigger.name){
       // ----------
       /// ADD ME AS NEW AUTHOR TO BZ
         case funAddMeAsAuthorToBz:
-          blog('2--> Switcher : FIRING : ADD ME TO BZ FOR (${trigger.argument}) : START');
+          // blog('2--> Switcher : FIRING : ADD ME TO BZ FOR (${trigger.argument}) : START');
           await AuthorshipProtocols.addMeToBz(
             bzID: trigger.argument,
           );
-          blog('3--> Switcher : FIRING : END');
+          // blog('3--> Switcher : FIRING : END');
           break;
       // ----------
       /// REMOVE BZ TRACES AFTER DELETION
         case funRemoveBzTracesAfterDeletion:
-          blog('2--> Switcher : FIRING : REMOVE BZ TRACES FOR (${trigger.argument}) : START');
+          // blog('2--> Switcher : FIRING : REMOVE BZ TRACES FOR (${trigger.argument}) : START');
           await NewAuthorshipExit.onIGotRemoved(
             bzID: trigger.argument,
             isBzDeleted: true,
           );
-          blog('3--> Switcher : FIRING : END');
+          // blog('3--> Switcher : FIRING : END');
           break;
       // ----------
       /// REFETCH FLYER
         case funRefetchFlyer:
-          blog('2--> Switcher : FIRING : REFETCH FLYER FOR (${trigger.argument}) : START');
+          // blog('2--> Switcher : FIRING : REFETCH FLYER FOR (${trigger.argument}) : START');
           await FlyerProtocols.refetch(
             context: context,
             flyerID: trigger.argument,
           );
-          blog('3--> Switcher : FIRING : END');
+          // blog('3--> Switcher : FIRING : END');
           break;
       // ----------
       /// REFETCH BZ
         case funRefetchBz:
-          blog('2--> Switcher : FIRING : REFETCH BZ (${trigger.argument}) : START');
+          // blog('2--> Switcher : FIRING : REFETCH BZ (${trigger.argument}) : START');
           await BzProtocols.refetch(
             bzID: trigger.argument,
           );
-          blog('3--> Switcher : FIRING : END');
+          // blog('3--> Switcher : FIRING : END');
           break;
       // ----------
       /// REFETCH BZ
         case funWipePendingAuthor:
-          blog('2--> Switcher : FIRING : WIPE PENDING AUTHOR (${trigger.argument}) : START');
+          // blog('2--> Switcher : FIRING : WIPE PENDING AUTHOR (${trigger.argument}) : START');
           // argument: '${userID}_$bzID',
           await BzProtocols.wipePendingAuthor(
             context: context,
@@ -255,33 +254,32 @@ class NoteFunProtocols {
                 specialCharacter: '_',
             ),
           );
-          blog('3--> Switcher : FIRING : END');
+          // blog('3--> Switcher : FIRING : END');
           break;
       // ----------
       /// REFETCH BZ
         case funDeleteAllBzFlyersLocally:
-          blog('2--> Switcher : FIRING : DELETE ALL BZ FLYERS LOCALLY (${trigger.argument}) : START');
+          // blog('2--> Switcher : FIRING : DELETE ALL BZ FLYERS LOCALLY (${trigger.argument}) : START');
           // argument: '${userID}_$bzID',
           await FlyerProtocols.deleteAllBzFlyersLocally(
             bzID: trigger.argument,
           );
-          blog('3--> Switcher : FIRING : END');
+          // blog('3--> Switcher : FIRING : END');
           break;
       // ----------
       /// DEFAULT
         default:
-          blog('2--> Switcher : : FIRING : nothing to fire');
+          // blog('2--> Switcher : : FIRING : nothing to fire');
       // ----------
       }
 
-      blog('X--> Switcher : DONE WITH FIRING');
+      // blog('X--> Switcher : DONE WITH FIRING');
 
     }
 
-    else {
-      blog('X--> Switcher : trigger is null or already fired : END');
-
-    }
+    // else {
+    //   blog('X--> Switcher : trigger is null or already fired : END');
+    // }
 
   }
   // -----------------------------------------------------------------------------

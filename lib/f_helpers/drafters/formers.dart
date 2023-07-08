@@ -25,7 +25,7 @@ import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/nums/numeric.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
-import 'package:mediators/pic_maker/pic_maker.dart';
+import 'package:basics/mediator/pic_maker/pic_maker.dart';
 /// => TAMAM
 class Formers {
   // -----------------------------------------------------------------------------

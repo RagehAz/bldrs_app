@@ -1,6 +1,9 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
@@ -30,8 +33,6 @@ import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/layouts/nav/nav.dart';
-import 'package:basics/helpers/classes/space/scale.dart';
 
 class Dialogs {
   // -----------------------------------------------------------------------------
@@ -794,6 +795,52 @@ class Dialogs {
 
 
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<BzModel?> selectBzBottomDialog({
+    required List<BzModel>? bzzModels,
+  }) async {
+    BzModel? _output;
+
+    if (Mapper.checkCanLoopList(bzzModels) == true){
+
+      final BuildContext context = getMainContext();
+
+      await BottomDialog.showButtonsBottomDialog(
+        numberOfWidgets: bzzModels!.length,
+        builder: (_){
+
+          return <Widget>[
+
+            ...List.generate(bzzModels.length, (index){
+
+              final BzModel _bzModel = bzzModels[index];
+
+              return BottomDialog.wideButton(
+                context: context,
+                verse: Verse.plain(_bzModel.name),
+                icon: _bzModel.logoPath,
+                bigIcon: true,
+                onTap: () async {
+
+                  _output = _bzModel;
+
+                  await Nav.goBack(context: context);
+
+                  },
+              );
+
+            }),
+
+          ];
+
+          },
+      );
+
+    }
+
+    return _output;
+  }
   // -----------------------------------------------------------------------------
 
   /// AUTHORS DIALOGS
@@ -810,7 +857,7 @@ class Dialogs {
 
     final BuildContext context = getMainContext();
     final double _dialogHeight = Scale.screenHeight(context) - 30;
-    final double _gridHeight = _dialogHeight - 80;
+    final double _gridHeight = _dialogHeight - CenterDialog.getButtonZoneHeight * 5;
 
     await CenterDialog.showCenterDialog(
       titleVerse: titleVerse,
@@ -820,26 +867,28 @@ class Dialogs {
         translate: true,
       ),
       height: _dialogHeight,
-      child: Container(
-        width: CenterDialog.getWidth(context),
-        height: _gridHeight,
-        color: Colorz.white10,
-        alignment: Alignment.center,
-        child: ListView.builder(
-          itemCount: bzModel?.authors?.length ?? 0,
-          physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          itemBuilder: (_, int index){
+      child: Center(
+        child: Container(
+          width: CenterDialog.getWidth(context),
+          height: _gridHeight,
+          color: Colorz.bloodTest,
+          alignment: Alignment.center,
+          child: ListView.builder(
+            itemCount: bzModel?.authors?.length,
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            itemBuilder: (_, int index){
 
-            return AuthorCard(
-              author: bzModel!.authors![index],
-              bzModel: bzModel,
-              onContactTap: onContact,
-              bubbleWidth: CenterDialog.getWidth(context),
-              moreButtonIsOn: false,
-            );
+              return AuthorCard(
+                author: bzModel!.authors![index],
+                bzModel: bzModel,
+                onContactTap: onContact,
+                bubbleWidth: CenterDialog.getWidth(context),
+                moreButtonIsOn: false,
+              );
 
-          },
+            },
+          ),
         ),
       ),
     );

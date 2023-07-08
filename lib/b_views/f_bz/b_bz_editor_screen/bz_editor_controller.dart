@@ -27,8 +27,8 @@ import 'package:fire/super_fire.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:mediators/models/dimension_model.dart';
-import 'package:mediators/pic_maker/pic_maker.dart';
+import 'package:basics/mediator/models/dimension_model.dart';
+import 'package:basics/mediator/pic_maker/pic_maker.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 

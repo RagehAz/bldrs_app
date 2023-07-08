@@ -1,6 +1,7 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/b_views/a_starters/b_home_screen/x_home_screen_controllers.dart';
@@ -73,103 +74,117 @@ class SectionsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Builder(
-      builder: (BuildContext context) => GestureDetector(
-        onTap: onTap == null ? () => onSectionButtonTap(context) : () => onTap!(),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
+    final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context);
+    final bool _zoneHasChains = Mapper.checkCanLoopList(_chainsProvider.zoneChains);
+    final bool _loadingChains = _chainsProvider.loadingChains;
 
-            IntrinsicWidth(
-              child: Container(
-                height: 40,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: color,
-                  borderRadius: BorderRadius.circular(Ratioz.boxCorner12),
-                ),
-                child: Consumer<ChainsProvider>(
-                  builder: (_, ChainsProvider chainsPro, Widget? child){
+    if (_loadingChains == false && _zoneHasChains == false){
+      return const SizedBox();
+    }
 
-                    final Verse _titleVerse = getTitle(
-                      context: context,
-                      currentKeywordID: chainsPro.wallPhid,
-                      currentSection: chainsPro.wallFlyerType,
-                    );
+    else {
 
-                    final Verse? _sectionVerse = getBody(
-                        context: context,
-                        currentKeywordID: chainsPro.wallPhid,
-                        currentSection: chainsPro.wallFlyerType
-                    );
+      final String? wallPhid = _chainsProvider.wallPhid;
+      final FlyerType? _wallFlyerType = _chainsProvider.wallFlyerType;
 
-                    final String? _icon = chainsPro.getPhidIcon(
-                      son: chainsPro.wallPhid,
-                    );
+      final Verse _titleVerse = getTitle(
+        context: context,
+        currentKeywordID: wallPhid,
+        currentSection: _wallFlyerType,
+      );
 
-                    return Row(
-                      children: <Widget>[
+      const Verse _loadingVerse = Verse(
+        id: 'phid_loading',
+        translate: true,
+      );
 
-                        BldrsBox(
-                          height: 40,
-                          width: 40,
-                          icon: _icon ?? Iconz.keywords,
-                          bubble: false,
-                        ),
+      final Verse? _sectionVerse = getBody(
+          context: context,
+          currentKeywordID: wallPhid,
+          currentSection: _wallFlyerType
+      );
 
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
+      final String? _icon = _chainsProvider.getPhidIcon(
+        son: wallPhid,
+      );
 
-                            /// 'Section' TITLE
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 10),
-                              child: BldrsText(
-                                verse: _titleVerse,
-                                size: 1,
-                                italic: true,
-                                color: Colorz.grey255,
-                                weight: VerseWeight.thin,
-                                centered: false,
-                              ),
+      return Builder(
+        builder: (BuildContext context) => GestureDetector(
+          onTap: onTap == null ? () => onSectionButtonTap(context) : () => onTap!(),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+
+              IntrinsicWidth(
+                child: Container(
+                  height: 40,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: color,
+                    borderRadius: BorderRadius.circular(Ratioz.boxCorner12),
+                  ),
+                  child: Row(
+                    children: <Widget>[
+
+                      BldrsBox(
+                        height: 40,
+                        width: 40,
+                        icon: _icon ?? Iconz.keywords,
+                        bubble: false,
+                        loading: _loadingChains,
+                      ),
+
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+
+                          /// 'Section' TITLE
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: BldrsText(
+                              verse: _loadingChains == true ? _loadingVerse : _titleVerse,
+                              size: 1,
+                              italic: true,
+                              color: Colorz.grey255,
+                              weight: VerseWeight.thin,
+                              centered: false,
                             ),
+                          ),
 
-                            /// CURRENT SECTION NAME
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 10),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: <Widget>[
-
-                                  BldrsText(
-                                    verse: _sectionVerse,
-                                    size: 1,
-                                    centered: false,
-                                    scaleFactor: 1.26,
-                                  ),
-
-                                ],
-                              ),
+                          /// CURRENT SECTION NAME
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: <Widget>[
+                                BldrsText(
+                                  verse: _sectionVerse,
+                                  size: 1,
+                                  centered: false,
+                                  scaleFactor: 1.26,
+                                ),
+                              ],
                             ),
+                          ),
 
-                          ],
-                        ),
+                        ],
+                      ),
 
-                      ],
-                    );
-
-                  },
+                    ],
+                  ),
                 ),
               ),
-            ),
 
-          ],
+            ],
+          ),
         ),
-      ),
-    );
+      );
+
+    }
+
 
   }
   // -----------------------------------------------------------------------------

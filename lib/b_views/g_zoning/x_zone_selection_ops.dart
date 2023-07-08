@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/c_city/city_model.dart';
@@ -7,7 +6,6 @@ import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dar
 import 'package:bldrs/b_views/g_zoning/b_cities_screen/a_cities_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
-import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
@@ -189,8 +187,6 @@ class ZoneSelection {
     required ZoneModel? zone,
   }) async {
 
-    if (zone != null && zone.countryID != null){
-
       pushWaitDialog(
         verse: const Verse(
           id: 'phid_loading',
@@ -198,7 +194,7 @@ class ZoneSelection {
         ),
       );
 
-      await setCurrentZone(
+      await setCurrentZoneProtocol(
         zone: zone,
       );
 
@@ -210,15 +206,18 @@ class ZoneSelection {
         homeRoute: Routing.home,
       );
 
-    }
 
   }
   // -----------------------------------------------------------------------------
-  static Future<void> setCurrentZone({
+  static Future<void> setCurrentZoneProtocol({
     required ZoneModel? zone,
   }) async {
 
-    final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);
+    // blog('RUNNING setCurrentZone');
+
+    final BuildContext context = getMainContext();
+
+    final ZoneProvider zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
       /// SET ZONE
       zoneProvider.setCurrentZone(
         zone: zone,
@@ -231,9 +230,9 @@ class ZoneSelection {
         notify: true,
       );
 
-      /// SET CHAINS
-      final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(getMainContext(), listen: false);
-      await _chainsProvider.reInitializeZoneChains();
+      // /// SET CHAINS
+      // final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+      // await _chainsProvider.reInitializeZoneChains();
 
   }
   // -----------------------------------------------------------------------------

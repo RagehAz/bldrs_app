@@ -18,7 +18,7 @@ import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
 import 'package:fire/super_fire.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:mediators/models/dimension_model.dart';
+import 'package:basics/mediator/models/dimension_model.dart';
 import 'package:screenshot/screenshot.dart';
 
 class FlyerPosterCreatorBubble extends StatelessWidget {

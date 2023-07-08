@@ -14,6 +14,7 @@ import 'package:bldrs/b_views/z_components/bz_profile/info_page/bz_types_line.da
 import 'package:bldrs/b_views/z_components/texting/customs/zone_line.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 
@@ -61,7 +62,7 @@ class BzLongButton extends StatelessWidget {
     }
 
   }
-
+  // --------------------
   Future<void> onAuthorTap(AuthorModel author) async {
 
     await onCallTap(
@@ -85,9 +86,11 @@ class BzLongButton extends StatelessWidget {
 
     return Bubble(
       width: _bubbleWidth,
+      appIsLTR: UiProvider.checkAppIsLeftToRight(),
       bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
         context: context,
         headerWidth: _bubbleWidth - 20,
+        textDirection: UiProvider.getAppTextDir(),
       ),
       bubbleColor: isSelected == true ? Colorz.green255 : Colorz.white10,
       onBubbleTap: () => _onTap(
@@ -127,6 +130,7 @@ class BzLongButton extends StatelessWidget {
                         margin: const EdgeInsets.symmetric(horizontal: 10),
                         size: 3,
                         maxLines: 2,
+                        textDirection: UiProvider.getAppTextDir(),
                       ),
                     ),
 
@@ -153,7 +157,10 @@ class BzLongButton extends StatelessWidget {
                       BldrsText(
                         width: _textZoneWidth,
                         maxLines: 3,
-                        verse: Verse.plain('${bzModel?.authors?.length} Authors in ${bzModel?.name}'),
+                        verse: const Verse(
+                          id: 'phid_team',
+                          translate: true,
+                        ),
                         margin: 5,
                         italic: true,
                         weight: VerseWeight.black,

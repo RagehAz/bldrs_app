@@ -2,7 +2,7 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
-import 'package:mediators/models/dimension_model.dart';
+import 'package:basics/mediator/models/dimension_model.dart';
 
 class NotePosterBox extends StatelessWidget {
   // -----------------------------------------------------------------------------
