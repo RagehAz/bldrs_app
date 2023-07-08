@@ -25,7 +25,7 @@ import 'package:fire/super_fire.dart';
 import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/strings/stringer.dart';
-import 'package:mediators/models/dimension_model.dart';
+import 'package:basics/mediator/models/dimension_model.dart';
 
 class ComposeFlyerProtocols {
   // -----------------------------------------------------------------------------

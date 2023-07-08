@@ -47,6 +47,8 @@ class AppBarProgressBar extends StatelessWidget {
               builder: (_, ProgressBarModel? progressBarModel, Widget? childB){
 
                 // blog('progressBarModel?.stripsColors : ${progressBarModel?.stripsColors}');
+                // blog('progressBarModel?.index : ${progressBarModel?.index}');
+                // blog('progressBarModel?.numberOfStrips : ${progressBarModel?.numberOfStrips}');
 
                 return StaticProgressBar(
                   index: progressBarModel?.index ?? 0,

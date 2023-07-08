@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
+import 'package:basics/layouts/handlers/max_bounce_navigator.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/d_user/z_components/banners/aa_user_banner.dart';
 import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.dart';
@@ -61,7 +62,12 @@ Future<void> onShowUserDialog({
 }) async {
 
   await BottomDialog.showBottomDialog(
-    child: UserBanner(userModel: userModel),
+    child: MaxBounceNavigator(
+      child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: UserBanner(userModel: userModel),
+      ),
+    ),
   );
 
 }

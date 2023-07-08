@@ -9,7 +9,7 @@ import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:flutter/material.dart';
-import 'package:mediators/models/dimension_model.dart';
+import 'package:basics/mediator/models/dimension_model.dart';
 import 'package:provider/provider.dart';
 // -----------------------------------------------------------------------------
 

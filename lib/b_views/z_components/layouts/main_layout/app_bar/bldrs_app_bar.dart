@@ -20,6 +20,7 @@ import 'package:bldrs/b_views/z_components/static_progress_bar/static_progress_b
 import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_text_field.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';

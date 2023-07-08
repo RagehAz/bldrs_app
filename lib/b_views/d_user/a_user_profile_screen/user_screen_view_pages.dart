@@ -31,7 +31,7 @@ class UserScreenViewPages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // --------------------
-    userModel?.blogUserModel(invoker: 'UserScreenViewPages');
+    // userModel?.blogUserModel(invoker: 'UserScreenViewPages');
     // --------------------
     return TabBarView(
       physics: const BouncingScrollPhysics(),

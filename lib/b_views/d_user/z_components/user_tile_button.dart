@@ -1,6 +1,8 @@
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:flutter/material.dart';
@@ -73,6 +75,8 @@ class UserTileButtonOld extends StatelessWidget {
       boxWidth: boxWidth,
     );
     // --------------------
+    blog('fuck');
+
     return Container(
       width: boxWidth,
       height: buttonHeight,
@@ -88,12 +92,13 @@ class UserTileButtonOld extends StatelessWidget {
             verse: Verse(id: userModel?.name,translate: false),
             verseCentered: false,
             secondLine: UserModel.generateUserJobLine(userModel),
-            secondLineScaleFactor: 1.2,
-            verseScaleFactor: 0.8,
+            secondLineScaleFactor: 0.7,
+            verseScaleFactor: 0.6,
             secondVerseMaxLines: 1,
             bubble: bubble,
             color: color,
             onTap: onUserTap,
+            verseWeight: VerseWeight.thin,
           ),
 
           if (sideButtonVerse != null)

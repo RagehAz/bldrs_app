@@ -116,8 +116,8 @@ class BldrsNav {
       listen: false,
     );
 
-    blog('autoNavigateFromHomeScreen : _afterHomeRoute : ${_afterHomeRoute?.name} : '
-        'arg : ${_afterHomeRoute?.arguments}');
+    // blog('autoNavigateFromHomeScreen : _afterHomeRoute : ${_afterHomeRoute?.name} : '
+    //     'arg : ${_afterHomeRoute?.arguments}');
 
     if (_afterHomeRoute != null){
 

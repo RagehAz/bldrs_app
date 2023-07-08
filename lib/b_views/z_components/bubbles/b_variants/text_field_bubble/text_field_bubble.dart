@@ -33,6 +33,7 @@ class BldrsTextFieldBubble extends StatelessWidget {
     this.leadingIcon,
     this.pasteFunction,
     this.textDirection,
+    this.hintTextDirection,
     this.bubbleColor = Colorz.white10,
     this.onBubbleTap,
     this.isLoading = false,
@@ -70,6 +71,7 @@ class BldrsTextFieldBubble extends StatelessWidget {
   final dynamic leadingIcon;
   final Function? pasteFunction;
   final TextDirection? textDirection;
+  final TextDirection? hintTextDirection;
   final Color bubbleColor;
   final Function? onBubbleTap;
   final bool isLoading;
@@ -141,6 +143,8 @@ class BldrsTextFieldBubble extends StatelessWidget {
 
     final double _verseSizeValue = BldrsText.superVerseSizeValue(context, textSize, 1) * 1.4;
 
+    final TextDirection _textField = textDirection ?? UiProvider.getAppTextDir();
+
     return TextFieldBubble(
       key: const ValueKey<String>('BldrsTextFieldBubble'),
       bubbleHeaderVM: bubbleHeaderVM,
@@ -176,7 +180,6 @@ class BldrsTextFieldBubble extends StatelessWidget {
       fieldScrollPadding: _scrollPadding,
       // fieldTextCentered: false,
       // fieldTextColor: Colorz.white255,
-      fieldTextDirection: textDirection ?? UiProvider.getAppTextDir(),
       fieldTextHeight: BldrsText.superVerseRealHeight(context: context, size: textSize, sizeFactor: 1, hasLabelBox: false),
       // fieldTextItalic: false,
       fieldTextPadding: EdgeInsets.all(_textFieldPadding),
@@ -200,6 +203,10 @@ class BldrsTextFieldBubble extends StatelessWidget {
       fieldTextFont: BldrsText.superVerseFont(VerseWeight.thin),
       // fieldCorners: 0,
       fieldWordSpacing: BldrsText.superVerseWordSpacing(_verseSizeValue),
+
+
+      fieldTextDirection: _textField,
+      hintTextDirection: hintTextDirection ?? _textField,
     );
 
     // --------------------

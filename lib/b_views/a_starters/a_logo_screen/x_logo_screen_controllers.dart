@@ -2,7 +2,6 @@
 import 'dart:async';
 
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
@@ -251,13 +250,13 @@ Future<void> initializeAppState() async {
       }
 
       final String _detectedAppVersion = await AppStateModel.detectAppVersion();
+      final bool _userNeedToUpdateTheApp = AppStateModel.userNeedToUpdateApp(
+        globalVersion: _globalState.appVersion,
+        localVersion: _detectedAppVersion,
+      );
 
       /// DETECTED APP VERSION IS INCORRECT
-      if (
-          TextCheck.isEmpty(_globalState.appVersion) == false &&
-          TextCheck.isEmpty(_detectedAppVersion) == false &&
-          _globalState.appVersion != _detectedAppVersion
-      ){
+      if (_userNeedToUpdateTheApp == true){
         await _showUpdateAppDialog(
           global: _globalState.appVersion,
           detected: _detectedAppVersion,

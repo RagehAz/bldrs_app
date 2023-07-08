@@ -21,6 +21,7 @@ class MainButton extends StatelessWidget {
     this.isDisabled = false,
     this.verseCentered = false,
     this.verseItalic = false,
+    this.verseScaleFactor,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -37,11 +38,12 @@ class MainButton extends StatelessWidget {
   final bool isDisabled;
   final bool verseCentered;
   final bool verseItalic;
+  final double? verseScaleFactor;
   /// --------------------------------------------------------------------------
   static double getButtonWidth({
     required BuildContext context,
   }) {
-    return  Scale.superWidth(context, 0.7);
+    return  Scale.superWidth(context, 0.75);
   }
   /// --------------------------------------------------------------------------
   @override
@@ -60,7 +62,7 @@ class MainButton extends StatelessWidget {
       iconSizeFactor: iconSizeFactor,
       iconColor: iconColor,
       verse: verse,
-      verseScaleFactor: 0.7 / iconSizeFactor,
+      verseScaleFactor: verseScaleFactor == null ? (0.63 / iconSizeFactor) : (verseScaleFactor! / iconSizeFactor),
       verseCentered: verseCentered,
       verseColor: verseColor,
       verseWeight: verseWeight,

@@ -5,7 +5,7 @@ import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/super_image/super_image.dart';
-import 'package:mediators/models/dimension_model.dart';
+import 'package:basics/mediator/models/dimension_model.dart';
 
 class SlideFullScreen extends StatelessWidget {
   /// --------------------------------------------------------------------------
