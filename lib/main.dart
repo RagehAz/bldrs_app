@@ -25,10 +25,6 @@ import 'package:basics/mediator/sounder/sounder.dart';
 import 'bldrs_keys.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
-// ignore: constant_identifier_names
-const String BLDRS_APP_VERSION = '1.0.4'; // yalla
-
-
 Future<void> main() async {
   /// -----------------------------------------------------------------------------
   /*

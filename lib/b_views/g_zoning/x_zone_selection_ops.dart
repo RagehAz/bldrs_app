@@ -6,6 +6,7 @@ import 'package:bldrs/b_views/g_zoning/a_countries_screen/a_countries_screen.dar
 import 'package:bldrs/b_views/g_zoning/b_cities_screen/a_cities_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/chain_protocols/provider/chains_provider.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
@@ -208,7 +209,8 @@ class ZoneSelection {
 
 
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
+  /// TESTED : WORKS PERFECT
   static Future<void> setCurrentZoneProtocol({
     required ZoneModel? zone,
   }) async {
@@ -223,6 +225,7 @@ class ZoneSelection {
         zone: zone,
         setCountryOnly: false,
         notify: false,
+        invoker: 'ZoneSelection.setCurrentZoneProtocol',
       );
       /// SET CURRENCY
       zoneProvider.getSetCurrentCurrency(
@@ -230,8 +233,14 @@ class ZoneSelection {
         notify: true,
       );
 
+
       // /// SET CHAINS
-      // final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+      final ChainsProvider _chainsProvider = Provider.of<ChainsProvider>(context, listen: false);
+      await _chainsProvider.changeHomeWallFlyerType(
+        notify: true,
+        flyerType: null,
+        phid: null,
+      );
       // await _chainsProvider.reInitializeZoneChains();
 
   }

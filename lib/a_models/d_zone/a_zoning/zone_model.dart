@@ -33,6 +33,8 @@ class ZoneModel {
   final CityModel? cityModel;
   final String? icon;
   // -----------------------------------------------------------------------------
+  static const String planetID = 'planet';
+  // -----------------------------------------------------------------------------
 
   /// INITIALIZATION
 
@@ -256,6 +258,12 @@ class ZoneModel {
       cityID: 'egy+cairo',
     );
   }
+  // -----------------------------------------------------------------------------
+  /// static const ZoneModel planetZone = ZoneModel(
+  ///   countryID: planetID,
+  ///   icon: Iconz.planet,
+  ///
+  /// );
   // -----------------------------------------------------------------------------
 
   /// STRING GENERATORS
