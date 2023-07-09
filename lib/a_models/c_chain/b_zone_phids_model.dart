@@ -1,11 +1,12 @@
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
+import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/x_utilities/map_model.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:flutter/material.dart';
 
 @immutable
@@ -70,19 +71,27 @@ class ZonePhidsModel {
     if (map != null) {
 
       final List<String>? _citiesIDs = map.keys.toList();
-      final String countryID = map['id'];
+      final String? countryID = map['id'];
       _citiesIDs?.remove('id');
 
-      if (Mapper.checkCanLoopList(_citiesIDs) == true) {
+      if (countryID != null && Mapper.checkCanLoopList(_citiesIDs) == true) {
 
         for (final String cityID in _citiesIDs!) {
 
-          final Map<String, dynamic> _cityPhids = map[cityID];
+          Map<String, dynamic> _cityPhids = map[cityID];
+          _cityPhids = Mapper.insertPairInMap(
+            map: _cityPhids,
+            key: 'id',
+            value: cityID,
+            overrideExisting: true,
+          );
 
           final ZonePhidsModel? _model = ZonePhidsModel.decipherCityNodePhids(
             map: _cityPhids,
             cityID: cityID,
           );
+
+          // _model?.blogZonePhidsModel(invoker: 'decipherCountryNodeMap : $cityID');
 
           _output = ZonePhidsModel.combineModels(
             zoneID: countryID,
@@ -94,6 +103,8 @@ class ZonePhidsModel {
       }
     }
 
+    _output?.blogZonePhidsModel(invoker: 'decipherCountryNodeMap : countryID');
+
     return _output;
   }
   // --------------------
@@ -103,24 +114,42 @@ class ZonePhidsModel {
   }){
     ZonePhidsModel? _output;
 
+    // blog('decipherPlanetNodeMap : START -------------------------------->');
+
     if (map != null) {
 
       final List<String> _countriesIDs = map.keys.toList();
-      final String planetID = map['id'];
-      _countriesIDs.remove('id');
+      _countriesIDs.remove('id'); // this is the folder name in REAL DB : zonesPhids
+
+      Mapper.blogMap(map, invoker: 'decipherPlanetNodeMap input map');
 
       if (Mapper.checkCanLoopList(_countriesIDs) == true) {
 
+        // blog('decipherPlanetNodeMap here we start : _countriesIDs : $_countriesIDs');
+
         for (final String countryID in _countriesIDs){
 
-          final Map<String, dynamic> _countryPhidsMap = map[countryID];
+          Map<String, dynamic> _countryPhidsMap = map[countryID];
+          _countryPhidsMap = Mapper.insertPairInMap(
+              map: _countryPhidsMap,
+              key: 'id',
+              value: countryID,
+              overrideExisting: true,
+          );
+
+          // Mapper.blogMap(_countryPhidsMap, invoker: '_countryPhidsMap');
+
+          // blog('1. decipherPlanetNodeMap : $countryID : has ${_countryPhidsMap.keys} maps before cipher');
 
           final ZonePhidsModel? _model = ZonePhidsModel.decipherCountryNodeMap(
             map: _countryPhidsMap,
           );
 
+          // blog('2. decipherPlanetNodeMap : $countryID : is null ? : ${_model == null}');
+          // _model?.blogZonePhidsModel(invoker: 'decipherPlanetNodeMap : $countryID');
+
           _output = ZonePhidsModel.combineModels(
-            zoneID: planetID,
+            zoneID: ZoneModel.planetID,
             base: _output,
             add: _model,
           );
@@ -129,6 +158,9 @@ class ZonePhidsModel {
 
       }
     }
+
+    _output?.blogZonePhidsModel(invoker: 'decipherPlanetNodeMap : ALL');
+    // blog('decipherPlanetNodeMap : END -------------------------------->');
 
     return _output;
   }

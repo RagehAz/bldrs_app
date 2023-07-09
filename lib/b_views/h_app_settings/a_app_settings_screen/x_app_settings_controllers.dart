@@ -176,7 +176,7 @@ Future<void> onSignOut() async {
   final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);
 
   // _zoneProvider.clearAllSearchesAndSelections();
-  _zoneProvider.clearCurrentContinent(notify: false);
+  // _zoneProvider.clearCurrentContinent(notify: false);
   _zoneProvider.clearCurrentZone(notify: false);
   _zoneProvider.clearCurrentCurrencyAndAllCurrencies(notify: false);
 
