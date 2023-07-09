@@ -21,14 +21,12 @@ class ZoneButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    zoneOverride?.blogZone(invoker: 'fkjhfkjhf');
-
     if (isPlanetButton == true){
       // --------------------
       return _ZoneButtonTree(
         onTap: onTap,
         isOn: isOn,
-        icon: Iconz.contAfrica,
+        icon: Iconz.planet,
         firstRow: Verse.transBake('phid_the_world'),
         secondRow: null,
         height: height,

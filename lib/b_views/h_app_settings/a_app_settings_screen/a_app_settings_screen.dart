@@ -1,5 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/helpers/widgets/sensors/app_version_builder.dart';
 import 'package:basics/layouts/separators/dot_separator.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
@@ -17,7 +18,6 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/fcm.dart';
 import 'package:bldrs/f_helpers/drafters/iconizers.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
-import 'package:bldrs/main.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 
@@ -158,12 +158,16 @@ class AppSettingsScreen extends StatelessWidget {
           color: Colorz.yellow80,
         ),
 
-        BldrsText(
-          verse: Verse.plain(BLDRS_APP_VERSION),
-          size: 1,
-          italic: true,
-          color: Colorz.white125,
-          weight: VerseWeight.thin,
+        AppVersionBuilder(
+          builder: (context, String version) {
+            return BldrsText(
+              verse: Verse.plain(version),
+              size: 1,
+              italic: true,
+              color: Colorz.white125,
+              weight: VerseWeight.thin,
+            );
+          }
         ),
 
       ],
