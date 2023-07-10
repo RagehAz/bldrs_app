@@ -1,17 +1,15 @@
+import 'dart:ui' as ui;
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/b_heroic_flyer_hero.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_color.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/a_left_spacer/static_slate_spacer.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_header_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/d_labels/ff_header_labels.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/e_follow_and_call/gg_call_button.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/e_follow_and_call/gg_follow_button.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/b_header_box.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_color.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:flutter/material.dart';
-import 'dart:ui' as ui;
-
-import 'package:basics/helpers/classes/space/scale.dart';
 
 class StaticHeader extends StatelessWidget {
   /// --------------------------------------------------------------------------
@@ -22,7 +20,6 @@ class StaticHeader extends StatelessWidget {
     required this.flyerShowsAuthor,
     this.onTap,
     this.showHeaderLabels = false,
-    this.flightDirection = FlightDirection.non,
     this.bzImageLogo,
     this.authorImage,
     super.key
@@ -34,7 +31,6 @@ class StaticHeader extends StatelessWidget {
   final Function? onTap;
   final bool? flyerShowsAuthor;
   final bool showHeaderLabels;
-  final FlightDirection flightDirection;
   final ui.Image? bzImageLogo;
   final ui.Image? authorImage;
   /// --------------------------------------------------------------------------
