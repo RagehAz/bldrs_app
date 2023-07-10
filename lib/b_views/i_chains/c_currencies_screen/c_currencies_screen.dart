@@ -65,7 +65,9 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
   bool _isInit = true;
   @override
   void didChangeDependencies() {
+
     if (_isInit && mounted) {
+      _isInit = false; // good
 
       // _triggerLoading(setTo: true).then((_) async {
       //
@@ -73,7 +75,6 @@ class _CurrenciesScreenState extends State<CurrenciesScreen> {
       //   await _triggerLoading(setTo: false);
       // });
 
-      _isInit = false;
     }
     super.didChangeDependencies();
   }

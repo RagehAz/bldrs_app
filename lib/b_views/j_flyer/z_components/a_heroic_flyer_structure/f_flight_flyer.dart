@@ -1,4 +1,5 @@
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/b_heroic_flyer_hero.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/c_heroic_small_flyer.dart';
@@ -43,7 +44,7 @@ class FlightFlyer extends StatelessWidget {
     final Tween<double> _tween = _flightDirectionName == 'push' ?
     Tween<double>(begin: 0.3, end: 1)
         :
-    Tween<double>(begin: 1.5, end: 1);
+    Tween<double>(begin: 1.3, end: 0.3);
 
     return TweenAnimationBuilder(
         key: const ValueKey<String>('FlyerHero_TweenAnimationBuilder'),
@@ -61,7 +62,7 @@ class FlightFlyer extends StatelessWidget {
           //     tweenValue: value
           // );
           //
-          // blog('FLIGHT FLYER : value : $value : _flightDirection : $_flightDirection');
+          blog('FLIGHT FLYER : value : $value : _flightDirection : $_flightDirection');
 
           return Material(
             type: MaterialType.transparency,

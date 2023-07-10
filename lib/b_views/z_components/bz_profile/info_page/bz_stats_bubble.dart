@@ -56,7 +56,9 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
   bool _isInit = true;
   @override
   void didChangeDependencies() {
+
     if (_isInit && mounted) {
+      _isInit = false; // good
 
       _triggerLoading(setTo: true).then((_) async {
 
@@ -73,7 +75,6 @@ class _BzStatsBubbleState extends State<BzStatsBubble> {
         await _triggerLoading(setTo: false);
       });
 
-      _isInit = false;
     }
     super.didChangeDependencies();
   }

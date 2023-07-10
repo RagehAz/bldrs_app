@@ -63,7 +63,9 @@ class _UserNotesPageState extends State<UserNotesPage> {
   bool _isInit = true;
   @override
   void didChangeDependencies() {
-    if (_isInit) {
+
+    if (_isInit && mounted) {
+      _isInit = false; // good
 
       _triggerLoading(setTo: true).then((_) async {
         // -------------------------------
@@ -77,7 +79,7 @@ class _UserNotesPageState extends State<UserNotesPage> {
       });
 
     }
-    _isInit = false;
+
     super.didChangeDependencies();
   }
   // --------------------

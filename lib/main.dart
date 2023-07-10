@@ -81,7 +81,8 @@ Future<void> main() async {
 class BldrsAppStarter extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const BldrsAppStarter({
-    super.key});
+    super.key
+  });
   /// --------------------------------------------------------------------------
   static void setLocale(BuildContext context, Locale? locale) {
     if (locale == null) {
@@ -118,7 +119,10 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
   bool _isInit = true;
   @override
   void didChangeDependencies() {
-    if (_isInit) {
+
+    if (_isInit && mounted) {
+      _isInit = false; // good
+
       _triggerLoading(setTo: true).then((_) async {
 
         if (DeviceChecker.deviceIsWindows() == true){
@@ -144,7 +148,6 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
       });
     }
 
-    _isInit = false;
     super.didChangeDependencies();
   }
   // --------------------
@@ -299,7 +302,7 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
               ),
 
               /// LOCALE
-              locale: _locale.value,
+              locale: value,
               supportedLocales: Localizer.getSupportedLocales(),
               localizationsDelegates: Localizer.getLocalizationDelegates(),
               localeResolutionCallback: Localizer.localeResolutionCallback,

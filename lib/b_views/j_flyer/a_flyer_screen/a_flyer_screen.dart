@@ -59,7 +59,9 @@ class _FlyerPreviewScreenState extends State<FlyerPreviewScreen> {
   bool _isInit = true;
   @override
   void didChangeDependencies() {
+
     if (_isInit && mounted) {
+      _isInit = false; // good
 
       _triggerLoading(setTo: true).then((_) async {
 
@@ -82,9 +84,7 @@ class _FlyerPreviewScreenState extends State<FlyerPreviewScreen> {
 
           }
 
-
         }
-
 
         /// GO TO REVIEWS SCREEN IF REVIEW ID IS NOT NULL
         if (widget.reviewID != null) {
@@ -102,7 +102,6 @@ class _FlyerPreviewScreenState extends State<FlyerPreviewScreen> {
         await _triggerLoading(setTo: false);
       });
 
-      _isInit = false;
     }
     super.didChangeDependencies();
   }
