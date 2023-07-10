@@ -19,6 +19,7 @@ import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/provider/zone_provider.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:bldrs/f_helpers/drafters/launchers.dart';
+import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
@@ -104,7 +105,22 @@ Future<void> onCreateNewBzTap(BuildContext context) async {
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> onRebootSystem() async {
+Future<void> onRebootBldrsAppSystem() async {
+
+  final bool _result = await rebootLogic();
+
+  if (_result == true) {
+
+    await BldrsNav.goToLogoScreenAndRemoveAllBelow(
+      animatedLogoScreen: true,
+    );
+
+  }
+
+}
+// --------------------
+/// TESTED : WORKS PERFECT
+Future<bool> rebootLogic() async {
 
   final bool _result = await CenterDialog.showCenterDialog(
     titleVerse: const Verse(
@@ -125,6 +141,7 @@ Future<void> onRebootSystem() async {
   );
 
   if (_result == true) {
+
     pushWaitDialog(
       verse: const Verse(
         id: 'phid_restarting',
@@ -140,12 +157,14 @@ Future<void> onRebootSystem() async {
       GeneralProvider.wipeOutAllProviders(),
     ]);
 
-    /// SIGN OUT
-    await AuthProtocols.signOutBldrs(routeToLogoScreen: true);
-
     await WaitDialog.closeWaitDialog();
+
+    /// SIGN OUT
+    await AuthProtocols.signOutBldrs();
+
   }
 
+  return true;
 }
 // -----------------------------------------------------------------------------
 
@@ -185,8 +204,10 @@ Future<void> onSignOut() async {
   await BzLDBOps.wipeOut();
   await FlyerLDBOps.wipeOut();
 
-  await AuthProtocols.signOutBldrs(
-      routeToLogoScreen: true
+  await AuthProtocols.signOutBldrs();
+
+  await BldrsNav.goToLogoScreenAndRemoveAllBelow(
+    animatedLogoScreen: true,
   );
 
 }
