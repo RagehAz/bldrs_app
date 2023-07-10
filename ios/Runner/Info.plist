@@ -24,11 +24,11 @@
     <string>Bldrs.net</string>
     <!-- =============================================================== -->
 
-    <!-- APP VERSION -->
+    <!-- BLDRS_APP_VERSION -->
 
     <!-- ===================== -->
 	<key>CFBundleVersion</key>
-    <string>1.0.4</string>
+    <string>1.0.5</string>
     <!-- ===================== -->
     <key>CFBundleShortVersionString</key>
     <string>1.0</string>

@@ -133,7 +133,9 @@ class _FutureFlyerBuilderState extends State<_FutureFlyerBuilder> {
   bool _isInit = true;
   @override
   void didChangeDependencies() {
+
     if (_isInit && mounted) {
+      _isInit = false; // good
 
       _triggerLoading(setTo: true).then((_) async {
 
@@ -142,7 +144,6 @@ class _FutureFlyerBuilderState extends State<_FutureFlyerBuilder> {
         await _triggerLoading(setTo: false);
       });
 
-      _isInit = false;
     }
     super.didChangeDependencies();
   }

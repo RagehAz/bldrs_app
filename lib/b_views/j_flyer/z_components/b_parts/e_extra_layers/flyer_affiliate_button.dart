@@ -29,22 +29,22 @@ class FlyerAffiliateButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final double _height = FlyerDim.footerBoxHeight(
+    if (flyerModel?.affiliateLink == null){
+      return const SizedBox();
+    }
+    else {
+
+      final double _height = FlyerDim.footerBoxHeight(
         context: context,
         flyerBoxWidth: flyerBoxWidth,
         infoButtonExpanded: false,
         hasLink: false,
       );
 
-    final double _width = FlyerDim.gtaButtonWidth(
+      final double _width = FlyerDim.gtaButtonWidth(
         context: context,
         flyerBoxWidth: flyerBoxWidth,
       );
-
-    if (flyerModel?.affiliateLink == null){
-      return const SizedBox();
-    }
-    else {
 
       final double? _price = Speccer.getSalePrice(flyerModel?.specs);
       final String? _currencyID = Speccer.getCurrencyID(flyerModel?.specs);

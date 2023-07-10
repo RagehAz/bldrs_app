@@ -320,7 +320,7 @@ Future<void> showMissingFieldsDialog({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _goToLogoScreen() async {
-  await BldrsNav.goBackToLogoScreen(
+  await BldrsNav.goToLogoScreenAndRemoveAllBelow(
       animatedLogoScreen: true,
   );
 }

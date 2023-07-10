@@ -1,13 +1,16 @@
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/zone_protocols/modelling_protocols/protocols/a_zone_protocols.dart';
-import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 // final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(context, listen: false);
 class ZoneProvider extends ChangeNotifier {
+  // -----------------------------------------------------------------------------
+  /// CONTINENT DEPRECATED
+  /*
   // -----------------------------------------------------------------------------
 
   /// CONTINENTS
@@ -56,8 +59,6 @@ class ZoneProvider extends ChangeNotifier {
     );
   }
   // --------------------
-  /// DEPRECATED
-  /*
   Future<List<CountryModel>> fetchContinentActivatedCountriesXS() async {
 
     final List<String> _countriesIDs = _currentContinent.activatedCountriesIDs;
@@ -76,6 +77,8 @@ class ZoneProvider extends ChangeNotifier {
   // --------------------
   ZoneModel? _currentZone;
   ZoneModel? get currentZone => _currentZone;
+  bool _isViewingPlanet = false;
+  bool get isViewingPlanet => _isViewingPlanet;
   // --------------------
   /// TESTED : WORKS PERFECT
   static ZoneModel? proGetCurrentZone({
@@ -99,6 +102,7 @@ class ZoneProvider extends ChangeNotifier {
   Future<void> fetchSetCurrentCompleteZone({
     required ZoneModel? zone,
     required bool notify,
+    required String invoker,
   }) async {
 
     final ZoneModel? _completeZone = await ZoneProtocols.completeZoneModel(
@@ -113,11 +117,11 @@ class ZoneProvider extends ChangeNotifier {
         notify: false,
       ),
 
-      /// CONTINENTS
-      fetchSetContinentByCountryID(
-        countryID: zone?.countryID,
-        notify: false,
-      ),
+      // /// CONTINENTS
+      // fetchSetContinentByCountryID(
+      //   countryID: zone?.countryID,
+      //   notify: false,
+      // ),
 
     ]);
 
@@ -125,6 +129,7 @@ class ZoneProvider extends ChangeNotifier {
       zone: _completeZone,
       setCountryOnly: true,
       notify: notify,
+      invoker: invoker,
     );
 
   }
@@ -134,9 +139,10 @@ class ZoneProvider extends ChangeNotifier {
     required ZoneModel? zone,
     required bool setCountryOnly,
     required bool notify,
+    required String invoker,
   }){
 
-    // blog('setCurrentZone START : zone = $zone');
+    blog('setCurrentZone START : zone = $zone : invoker : $invoker : setCountryOnly : $setCountryOnly');
 
     // zone?.blogZone(invoker: 'setCurrentZone');
 
@@ -149,6 +155,13 @@ class ZoneProvider extends ChangeNotifier {
     }
     else {
       _currentZone = zone;
+    }
+
+    if (_currentZone == null){
+      _isViewingPlanet = true;
+    }
+    else {
+      _isViewingPlanet = false;
     }
 
     if (notify == true){
@@ -164,6 +177,7 @@ class ZoneProvider extends ChangeNotifier {
       zone: null,
       setCountryOnly: false,
       notify: notify,
+      invoker: 'clearCurrentZone',
     );
   }
   // -----------------------------------------------------------------------------
@@ -312,8 +326,8 @@ class ZoneProvider extends ChangeNotifier {
 
     final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);
 
-    /// _currentContinent
-    _zoneProvider.clearCurrentContinent(notify: false);
+    // /// _currentContinent
+    // _zoneProvider.clearCurrentContinent(notify: false);
 
     /// _currentZone
     _zoneProvider.clearCurrentZone(

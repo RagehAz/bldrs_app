@@ -56,14 +56,15 @@ class _AuthorRoleEditorScreenState extends State<AuthorRoleEditorScreen> {
   bool _isInit = true;
   @override
   void didChangeDependencies() {
+
     if (_isInit && mounted) {
+      _isInit = false; // good
 
       // _triggerLoading().then((_) async {
       //
       //   await _triggerLoading();
       // });
 
-      _isInit = false;
     }
     super.didChangeDependencies();
   }
