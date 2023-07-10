@@ -41,7 +41,7 @@ class ZoneFilterTile extends StatelessWidget {
   }){
 
     if (zoneModel == null){
-      return Iconz.contAfrica;
+      return Iconz.planet;
     }
 
     else {

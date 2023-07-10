@@ -199,7 +199,7 @@ Future<void> initializeCurrentZone() async {
 
   final ZoneProvider _zoneProvider = Provider.of<ZoneProvider>(getMainContext(), listen: false);
 
-  if (_zoneProvider.currentZone == null){
+  if (_zoneProvider.isViewingPlanet == false && _zoneProvider.currentZone == null){
 
     final UserModel? _myUserModel = UsersProvider.proGetMyUserModel(
       context: getMainContext(),
@@ -212,6 +212,7 @@ Future<void> initializeCurrentZone() async {
       await _zoneProvider.fetchSetCurrentCompleteZone(
         zone: _myUserModel?.zone,
         notify: true,
+        invoker: 'initializeHomeScreen.initializeCurrentZone',
       );
 
     }
@@ -224,6 +225,7 @@ Future<void> initializeCurrentZone() async {
       await _zoneProvider.fetchSetCurrentCompleteZone(
         zone: _zoneByIP,
         notify: true,
+        invoker: 'initializeHomeScreen.initializeCurrentZone',
       );
 
     }

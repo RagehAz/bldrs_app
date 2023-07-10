@@ -106,7 +106,9 @@ class Continent {
         icon == Iconz.contSouthAmerica ||
         icon == Iconz.contNorthAmerica ||
         icon == Iconz.contEurope ||
-        icon == Iconz.contAustralia) {
+        icon == Iconz.contAustralia ||
+        icon == Iconz.planet
+    ) {
       _iconIsContinent = true;
     }
 
@@ -180,7 +182,7 @@ class Continent {
       case 'Europe': return Iconz.contEurope;
       case 'North America': return Iconz.contNorthAmerica;
       case 'South America': return Iconz.contSouthAmerica;
-      default: return null;
+      default: return Iconz.planet;
     }
   }
   // --------------------

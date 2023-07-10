@@ -88,7 +88,7 @@ class NoFlyersView extends StatelessWidget {
         BldrsBox(
           height: 60,
           width: _width * .9,
-          icon: Iconz.contAfrica,
+          icon: Iconz.planet,
           iconSizeFactor: 0.7,
           verse: const Verse(
             id: 'phid_select_another_zone',

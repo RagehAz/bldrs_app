@@ -103,7 +103,9 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
   bool _isInit = true;
   @override
   void didChangeDependencies() {
+
     if (_isInit && mounted) {
+      _isInit = false; // good
 
       _triggerLoading(setTo: true).then((_) async {
 
@@ -112,7 +114,6 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
         await _triggerLoading(setTo: false);
       });
 
-      _isInit = false;
     }
     super.didChangeDependencies();
   }
@@ -413,7 +414,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
 
     /// WHEN AT LAST INDEX
     if (_progressBarModel.value?.index == _lastIndex){
-      await widget.onHorizontalExit();
+      // await widget.onHorizontalExit();
     }
 
     /// WHEN AT ANY OTHER INDEX
@@ -434,7 +435,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
 
     /// WHEN AT FIRST INDEX
     if (_progressBarModel.value?.index == 0){
-      await widget.onHorizontalExit();
+      // await widget.onHorizontalExit();
     }
 
     /// WHEN AT ANY OTHER SLIDE
@@ -599,6 +600,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
               bzCounters: _bzCounters,
             ),
 
+            /// GALLERY HEADER
             GalleryHeader(
               flyerBoxWidth: widget.flyerBoxWidth,
               bzModel: flyerModel?.bzModel,

@@ -8,7 +8,6 @@ import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
-import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 
@@ -169,9 +168,7 @@ class AuthProtocols {
 
   // --------------------
   ///
-  static Future<void> signOutBldrs({
-    required bool routeToLogoScreen,
-  }) async {
+  static Future<bool> signOutBldrs() async {
 
     final bool _success = await Authing.signOut(
         onError: (String? error) async {
@@ -188,12 +185,7 @@ class AuthProtocols {
         }
         );
 
-    if (_success == true && routeToLogoScreen == true) {
-      await BldrsNav.goBackToLogoScreen(
-        animatedLogoScreen: true,
-      );
-    }
-
+    return _success;
   }
   // -----------------------------------------------------------------------------
 

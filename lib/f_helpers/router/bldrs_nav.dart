@@ -37,7 +37,7 @@ class BldrsNav {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> goBackToLogoScreen({
+  static Future<void> goToLogoScreenAndRemoveAllBelow({
     required bool animatedLogoScreen,
   }) async {
 
@@ -365,7 +365,7 @@ class BldrsNav {
       notify: true,
     );
 
-    await goBackToLogoScreen(
+    await goToLogoScreenAndRemoveAllBelow(
       animatedLogoScreen: true,
     );
 

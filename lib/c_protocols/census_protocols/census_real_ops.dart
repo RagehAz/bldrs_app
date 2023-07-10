@@ -34,7 +34,7 @@ class CensusRealOps {
       if (_map != null){
         _output = CensusModel.decipher(
           map: _map,
-          id: 'planet',
+          id: ZoneModel.planetID,
         );
       }
 
@@ -214,7 +214,7 @@ class CensusRealOps {
 
       /// DELETE LDB CENSUSES
       final List<String> _idsToDeleteInLDB = <String>[
-        CensusModel.planetID,
+        ZoneModel.planetID,
       ];
 
       if (zoneModel.countryID != null){

@@ -1,10 +1,8 @@
 import 'dart:async';
 
-
 import 'package:basics/animators/helpers/sliders.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/g_counters/bz_counter_model.dart';
@@ -13,6 +11,7 @@ import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_footer_controller.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/xx_header_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/b_heroic_flyer_hero.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_flyer_header.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/gallery_header/gallery_header.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/a_flyer_footer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/slides_builder.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/d_progress_bar/a_progress_bar.dart';
@@ -109,7 +108,8 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
   @override
   void didChangeDependencies() {
 
-    if (_isInit == true && _flyer.value != null) {
+    if (_isInit == true && _flyer.value != null && mounted == true) {
+      _isInit = false; // good
 
       _triggerLoading(setTo: true).then((_) async {
 
@@ -121,7 +121,6 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
         // ----------
       });
 
-      _isInit = false;
     }
 
     super.didChangeDependencies();
@@ -420,10 +419,10 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
 
     /// WHEN AT LAST INDEX
     if (_progressBarModel.value?.index == _lastIndex){
-      await Nav.goBack(
-        context: context,
-        invoker: '_onSlideNextTap',
-      );
+      // await Nav.goBack(
+      //   context: context,
+      //   invoker: '_onSlideNextTap',
+      // );
     }
 
     /// WHEN AT ANY OTHER INDEX
@@ -444,10 +443,10 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
 
     /// WHEN AT FIRST INDEX
     if (_progressBarModel.value?.index == 0){
-      await Nav.goBack(
-        context: context,
-        invoker: '_onSlideBackTap',
-      );
+      // await Nav.goBack(
+      //   context: context,
+      //   invoker: '_onSlideBackTap',
+      // );
     }
 
     /// WHEN AT ANY OTHER SLIDE
@@ -631,10 +630,10 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
                 showSlidesShadows: true,
                 canAnimateSlides: true,
                 onHorizontalExit: (){
-                  Nav.goBack(
-                      context: context,
-                      invoker: 'HeroicBigFlyer',
-                  );
+                  // Nav.goBack(
+                  //     context: context,
+                  //     invoker: 'HeroicBigFlyer',
+                  // );
                 },
                 canPinch: false,
                 canUseFilter: false,
@@ -655,6 +654,15 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
                 followIsOn: _followIsOn,
                 headerPageOpacity: _headerPageOpacity,
                 bzCounters: _bzCounters,
+              ),
+
+              /// GALLERY HEADER
+              GalleryHeader(
+                flyerBoxWidth: widget.flyerBoxWidth,
+                bzModel: flyerModel?.bzModel,
+                flyerModel: flyerModel,
+                showGallerySlide: widget.showGallerySlide,
+                progressBarModel: _progressBarModel,
               ),
 
               /// FOOTER

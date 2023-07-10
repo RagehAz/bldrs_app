@@ -88,7 +88,9 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
   bool _isInit = true;
   @override
   void didChangeDependencies() {
+
     if (_isInit && mounted) {
+      _isInit = false; // good
 
       // _triggerLoading().then((_) async {
       //
@@ -97,7 +99,6 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
       //   await _triggerLoading();
       // });
 
-      _isInit = false;
     }
     super.didChangeDependencies();
   }

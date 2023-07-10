@@ -29,8 +29,9 @@ class HeroicFlyer extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _HeroicFlyerState createState() => _HeroicFlyerState();
-
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  static const Duration heroDuration = Duration(milliseconds: 500);
+  /// --------------------------------------------------------------------------
 }
 
 class _HeroicFlyerState extends State<HeroicFlyer> {
@@ -40,11 +41,11 @@ class _HeroicFlyerState extends State<HeroicFlyer> {
 
   // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(true);
+  final ValueNotifier<bool> _loadingFlyer = ValueNotifier(true);
   // --------------------
   Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
-      notifier: _loading,
+      notifier: _loadingFlyer,
       mounted: mounted,
       value: setTo,
     );
@@ -59,21 +60,23 @@ class _HeroicFlyerState extends State<HeroicFlyer> {
   bool _isInit = true;
   @override
   void didChangeDependencies() {
+
     if (_isInit && mounted) {
+      _isInit = false; // good
+
       _triggerLoading(setTo: true).then((_) async {
         await _preparations();
 
         await _triggerLoading(setTo: false);
       });
 
-      _isInit = false;
     }
     super.didChangeDependencies();
   }
   // --------------------
   @override
   void dispose() {
-    _loading.dispose();
+    _loadingFlyer.dispose();
 
     //
     // if (mounted == true){
@@ -158,7 +161,7 @@ class _HeroicFlyerState extends State<HeroicFlyer> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-        valueListenable: _loading,
+        valueListenable: _loadingFlyer,
         builder: (_, bool loading, Widget? child) {
 
           if (loading == true) {
