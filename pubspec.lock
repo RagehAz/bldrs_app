@@ -87,7 +87,7 @@ packages:
       path: "D:/projects/packages/helpers/basics"
       relative: false
     source: path
-    version: "3.0.4"
+    version: "3.0.6"
   bldrs_keywords:
     dependency: "direct main"
     description:

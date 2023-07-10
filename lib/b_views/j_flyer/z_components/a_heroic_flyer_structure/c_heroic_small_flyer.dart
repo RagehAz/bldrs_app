@@ -1,7 +1,6 @@
 import 'dart:async';
-import 'package:basics/bldrs_theme/classes/sounds.dart';
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/mediator/sounder/sounder.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/b_heroic_flyer_hero.dart';
@@ -12,13 +11,14 @@ import 'package:bldrs/b_views/j_flyer/z_components/b_parts/e_extra_layers/flyer_
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/static_flyer/b_static_header.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/static_flyer/d_static_footer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:dismissible_page/dismissible_page.dart';
 import 'package:flutter/material.dart';
 
-class HeroicSmallFlyer extends StatelessWidget {
+class HeroicSmallFlyer extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const HeroicSmallFlyer({
     required this.renderedFlyer,
@@ -40,57 +40,99 @@ class HeroicSmallFlyer extends StatelessWidget {
   final bool canBuildBigFlyer;
   final double gridWidth;
   final double gridHeight;
-  // --------------------------------------------------------------------------
+
+  @override
+  State<HeroicSmallFlyer> createState() => _HeroicSmallFlyerState();
+}
+
+class _HeroicSmallFlyerState extends State<HeroicSmallFlyer> {
+  // -----------------------------------------------------------------------------
+  /// --- LOADING
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
+  // --------------------
+  Future<void> _triggerLoading({required bool setTo}) async {
+    setNotifier(
+      notifier: _loading,
+      mounted: mounted,
+      value: setTo,
+    );
+  }
+  // -----------------------------------------------------------------------------
+  @override
+  void initState() {
+    super.initState();
+  }
+  // --------------------
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+
+    if (_isInit && mounted) {
+      _isInit = false; // good
+
+      asyncInSync(() async {
+
+        await _triggerLoading(setTo: true);
+        /// GO BABY GO
+        await _triggerLoading(setTo: false);
+
+      });
+
+    }
+    super.didChangeDependencies();
+  }
+  // --------------------
   /*
-  /// TESTED : WORKS PERFECT
-  double _bakeTweenValue({
-    required BuildContext context,
-  }){
-    double _opacity = 1;
-
-    if (flightDirection == FlightDirection.non){
-      final bool _isFullScreen = flyerBoxWidth == Scale.screenWidth(context);
-      _opacity = _isFullScreen == true ? 1 : 0;
+  @override
+  void didUpdateWidget(TheStatefulScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.thing != widget.thing) {
+      unawaited(_doStuff());
     }
-    else {
-      _opacity = flightTweenValue;
-    }
-
-    return _opacity;
   }
    */
   // --------------------
+  @override
+  void dispose() {
+    _loading.dispose();
+    super.dispose();
+  }
+  // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
   Future<void> _openFullScreenFlyer({
     required BuildContext context,
     required bool flyerIsBigNow,
+    required ValueNotifier<bool> loading,
   }) async {
 
     if (flyerIsBigNow == false){
 
-      unawaited(Sounder.playSound(
-          mp3Asset: BldrsThemeSounds.whip_high,
-          wavAssetForAndroid: BldrsThemeSounds.whip_high_wav,
-      )
-      );
+      await _triggerLoading(setTo: true);
 
       // flyerModel.blogFlyer(invoker: '_openFullScreenFlyer');
 
       unawaited(recordFlyerView(
         index: 0,
-        flyerModel: renderedFlyer,
+        flyerModel: widget.renderedFlyer,
       ));
 
       final FlyerModel? _renderBigFlyer = await FlyerProtocols.renderBigFlyer(
-        flyerModel: renderedFlyer,
+        flyerModel: widget.renderedFlyer,
       );
+
+      await _triggerLoading(setTo: false);
+
+      // unawaited(Sounder.playSound(
+      //     mp3Asset: BldrsThemeSounds.whip_high,
+      //     wavAssetForAndroid: BldrsThemeSounds.whip_high_wav,
+      // ));
 
       await getMainContext().pushTransparentRoute(
           HeroicFlyerBigView(
             key: const ValueKey<String>('Flyer_Full_Screen'),
             renderedFlyer: _renderBigFlyer,
-            flyerBoxWidth: flyerBoxWidth,
-            heroPath: heroTag,
+            flyerBoxWidth: widget.flyerBoxWidth,
+            heroPath: widget.heroTag,
           )
       );
 
@@ -98,36 +140,20 @@ class HeroicSmallFlyer extends StatelessWidget {
 
   }
   // --------------------
-  /*
-  /// TESTED : WORKS PERFECT
-  FadeType _getFadeType({
-    required bool flyerIsBigNow,
-  }){
-    return flyerIsBigNow == true ? FadeType.fadeOut : FadeType.stillAtMax;
-  }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  Duration _getFadeDuration({
-    required bool flyerIsBigNow,
-  }){
-    return flyerIsBigNow == true ? const Duration(milliseconds: 500) : const Duration(milliseconds: 300);
-  }
-   */
-  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     // final double _tweenValue = _bakeTweenValue(context:  context);
 
     final bool _flyerIsFullScreen = FlyerDim.checkFlyerIsFullScreen(
-      gridWidth: gridWidth,
-      gridHeight: gridHeight,
-      flyerBoxWidth: flyerBoxWidth,
+      gridWidth: widget.gridWidth,
+      gridHeight: widget.gridHeight,
+      flyerBoxWidth: widget.flyerBoxWidth,
     );
 
     blog('_flyerIsFullScreen : $_flyerIsFullScreen');
 
-    final bool _flyerIsBigNow = _flyerIsFullScreen == true && flightDirection == FlightDirection.non;
+    final bool _flyerIsBigNow = _flyerIsFullScreen == true && widget.flightDirection == FlightDirection.non;
     // && _tweenValue == 1;
 
     // final FadeType _fadeType = _getFadeType(flyerIsBigNow: _flyerIsBigNow);
@@ -140,22 +166,23 @@ class HeroicSmallFlyer extends StatelessWidget {
 
     return FlyerBox(
       key: const ValueKey<String>('StaticFlyer'),
-      flyerBoxWidth: flyerBoxWidth,
+      flyerBoxWidth: widget.flyerBoxWidth,
       // boxColor: flyerModel.slides[0].midColor,
       onTap: () => _openFullScreenFlyer(
         context: context,
         flyerIsBigNow: _flyerIsBigNow,
+        loading: _loading,
       ),
       stackWidgets: <Widget>[
 
         /// STATIC SINGLE SLIDE
         if (_flyerIsBigNow == false)
         SingleSlide(
-          flyerBoxWidth: flyerBoxWidth,
+          flyerBoxWidth: widget.flyerBoxWidth,
           flyerBoxHeight: FlyerDim.flyerHeightByFlyerWidth(
-            flyerBoxWidth: flyerBoxWidth,
+            flyerBoxWidth: widget.flyerBoxWidth,
           ),
-          slideModel: renderedFlyer?.slides?.first,
+          slideModel: widget.renderedFlyer?.slides?.first,
           tinyMode: false,
           onSlideNextTap: null,
           onSlideBackTap: null,
@@ -171,40 +198,62 @@ class HeroicSmallFlyer extends StatelessWidget {
         /// STATIC HEADER
         if (_flyerIsBigNow == false)
         StaticHeader(
-          flyerBoxWidth: flyerBoxWidth,
-          bzModel: renderedFlyer?.bzModel,
-          bzImageLogo: renderedFlyer?.bzLogoImage,
-          authorID: renderedFlyer?.authorID,
-          flyerShowsAuthor: renderedFlyer?.showsAuthor,
-          flightDirection: flightDirection,
+          flyerBoxWidth: widget.flyerBoxWidth,
+          bzModel: widget.renderedFlyer?.bzModel,
+          bzImageLogo: widget.renderedFlyer?.bzLogoImage,
+          authorID: widget.renderedFlyer?.authorID,
+          flyerShowsAuthor: widget.renderedFlyer?.showsAuthor,
+          flightDirection: widget.flightDirection,
           // onTap: ,
         ),
 
         /// STATIC FOOTER
         if (_flyerIsBigNow == false)
         StaticFooter(
-          flyerBoxWidth: flyerBoxWidth,
-          flyerID: renderedFlyer?.id,
+          flyerBoxWidth: widget.flyerBoxWidth,
+          flyerID: widget.renderedFlyer?.id,
           optionsButtonIsOn: false,
         ),
 
         /// AFFILIATE BUTTON
         FlyerAffiliateButton(
-          flyerBoxWidth: flyerBoxWidth,
-          flyerModel: renderedFlyer,
+          flyerBoxWidth: widget.flyerBoxWidth,
+          flyerModel: widget.renderedFlyer,
           inStack: true,
         ),
 
         /// BIG FLYER
-        if (canBuildBigFlyer == true && _flyerIsBigNow == true)
+        if (widget.canBuildBigFlyer == true && _flyerIsBigNow == true)
         HeroicBigFlyer(
-          heroPath: heroTag,
-          flyerBoxWidth: flyerBoxWidth,
-          renderedFlyer: renderedFlyer,
-          canBuild: canBuildBigFlyer == true && _flyerIsBigNow == true,
+          heroPath: widget.heroTag,
+          flyerBoxWidth: widget.flyerBoxWidth,
+          renderedFlyer: widget.renderedFlyer,
+          canBuild: widget.canBuildBigFlyer == true && _flyerIsBigNow == true,
           showGallerySlide: canShowGalleryPage(
-            bzModel: renderedFlyer?.bzModel,
-            canShowGallerySlide: checkFlyerHeroTagHasGalleryFlyerID(heroTag),
+            bzModel: widget.renderedFlyer?.bzModel,
+            canShowGallerySlide: checkFlyerHeroTagHasGalleryFlyerID(widget.heroTag),
+          ),
+        ),
+
+        /// LOADING LAYER
+        ValueListenableBuilder(
+            valueListenable: _loading,
+            builder: (_, bool loading, Widget? child){
+
+              if (loading == true){
+                return child!;
+              }
+
+              else {
+                return const SizedBox();
+              }
+
+            },
+          child: FlyerLoading(
+            flyerBoxWidth: widget.flyerBoxWidth,
+            animate: true,
+            loadingColor: Colorz.white50,
+            boxColor: Colorz.black50,
           ),
         ),
 
@@ -212,5 +261,5 @@ class HeroicSmallFlyer extends StatelessWidget {
     );
 
   }
-  /// --------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
