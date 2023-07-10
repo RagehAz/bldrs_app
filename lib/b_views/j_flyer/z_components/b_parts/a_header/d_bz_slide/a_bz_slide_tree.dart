@@ -30,20 +30,6 @@ class BzSlideTree extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return ValueListenableBuilder(
-      valueListenable: headerIsExpanded,
-      builder: (_, bool isExpanded, Widget? animatedBzSlide){
-
-      if (isExpanded == true && tinyMode == false){
-      //   if (tinyMode == false){
-          return animatedBzSlide!;
-        }
-
-        else {
-          return const SizedBox();
-        }
-
-      },
-      child: ValueListenableBuilder(
         valueListenable: headerPageOpacity,
         builder: (_, double _headerPageOpacity, Widget? bzSlide){
 
@@ -61,10 +47,7 @@ class BzSlideTree extends StatelessWidget {
           bzCounters: bzCounters,
         ),
 
-      ),
-    );
-
-
+      );
 
   }
   /// --------------------------------------------------------------------------
