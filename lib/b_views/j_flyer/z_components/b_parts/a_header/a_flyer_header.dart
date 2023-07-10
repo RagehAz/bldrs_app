@@ -96,7 +96,10 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
 //   bool _isInit = true;
   @override
   void didChangeDependencies() {
-    // if (_isInit) {
+
+    // if (_isInit && mounted) {
+    //   _isInit = false; // good
+    //
       // final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
       // _uiProvider.startController(
       //         () async {
@@ -104,7 +107,6 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
       //     }
       // );
     // }
-    // _isInit = false;
     super.didChangeDependencies();
   }
    */

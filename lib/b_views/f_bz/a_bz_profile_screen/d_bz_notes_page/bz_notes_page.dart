@@ -66,7 +66,9 @@ class _BzNotesPageState extends State<BzNotesPage>{
   bool _isInit = true;
   @override
   void didChangeDependencies() {
-    if (_isInit) {
+
+    if (_isInit && mounted) {
+      _isInit = false; // good
 
       _triggerLoading(setTo: true).then((_) async {
         // -------------------------------
@@ -79,7 +81,7 @@ class _BzNotesPageState extends State<BzNotesPage>{
       });
 
     }
-    _isInit = false;
+
     super.didChangeDependencies();
   }
   // --------------------

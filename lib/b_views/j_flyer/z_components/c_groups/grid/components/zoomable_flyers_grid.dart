@@ -74,13 +74,14 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
   bool _isInit = true;
   @override
   void didChangeDependencies() {
+
     if (_isInit && mounted) {
+      _isInit = false; // good
 
       asyncInSync(() async {
 
       });
 
-      _isInit = false;
     }
     super.didChangeDependencies();
   }

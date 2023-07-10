@@ -109,7 +109,8 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
   @override
   void didChangeDependencies() {
 
-    if (_isInit == true && _flyer.value != null) {
+    if (_isInit == true && _flyer.value != null && mounted == true) {
+      _isInit = false; // good
 
       _triggerLoading(setTo: true).then((_) async {
 
@@ -121,7 +122,6 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
         // ----------
       });
 
-      _isInit = false;
     }
 
     super.didChangeDependencies();

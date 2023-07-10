@@ -43,7 +43,9 @@ class _BldrsImagePathToUiImageState extends State<BldrsImagePathToUiImage> {
   bool _isInit = true;
   @override
   void didChangeDependencies() {
+
     if (_isInit && mounted) {
+      _isInit = false; // good
 
       _triggerLoading(setTo: true).then((_) async {
 
@@ -61,7 +63,6 @@ class _BldrsImagePathToUiImageState extends State<BldrsImagePathToUiImage> {
         await _triggerLoading(setTo: false);
       });
 
-      _isInit = false;
     }
     super.didChangeDependencies();
   }

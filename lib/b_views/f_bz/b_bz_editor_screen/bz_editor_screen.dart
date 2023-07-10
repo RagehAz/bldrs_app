@@ -85,7 +85,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
   bool _isInit = true;
   @override
   void didChangeDependencies() {
-    if (_isInit) {
+
+    if (_isInit && mounted) {
+      _isInit = false; // good
 
       _triggerLoading(setTo: true).then((_) async {
         // -------------------------------
@@ -135,7 +137,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
       });
 
     }
-    _isInit = false;
     super.didChangeDependencies();
   }
   // --------------------
