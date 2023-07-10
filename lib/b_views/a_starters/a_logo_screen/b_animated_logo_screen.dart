@@ -123,7 +123,10 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
   bool _isInit = true;
   @override
   void didChangeDependencies() {
-    if (_isInit) {
+
+    if (_isInit && mounted) {
+      _isInit = false; // good
+
       _triggerLoading(setTo: true).then((_) async {
         Keyboard.closeKeyboard();
 
@@ -148,7 +151,7 @@ class _AnimatedLogoScreenState extends State<AnimatedLogoScreen> with TickerProv
         await _triggerLoading(setTo: false);
       });
     }
-    _isInit = false;
+
     super.didChangeDependencies();
   }
   // --------------------

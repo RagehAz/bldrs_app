@@ -215,7 +215,7 @@ void _animateHeaderExpansion({
     headerAnimationController.reverse().then<void>((dynamic value) async {
 
       await verticalController.animateTo(0,
-          duration: Ratioz.durationSliding410,
+          duration: Ratioz.durationFading200,
           curve: Curves.easeOut
       );
 

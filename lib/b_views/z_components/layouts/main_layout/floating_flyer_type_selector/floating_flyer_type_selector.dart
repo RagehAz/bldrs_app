@@ -64,7 +64,9 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
   bool _isInit = true;
   @override
   void didChangeDependencies() {
+
     if (_isInit && mounted) {
+      _isInit = false; // good
 
       asyncInSync(() async {
 
@@ -72,7 +74,6 @@ class _FloatingFlyerTypeSelectorState extends State<FloatingFlyerTypeSelector> w
 
       });
 
-      _isInit = false;
     }
     super.didChangeDependencies();
   }
