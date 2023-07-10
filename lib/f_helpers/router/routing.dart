@@ -113,7 +113,7 @@ class Routing {
      */
     // --------------------------
     }
-    return Nav.fadeToScreen(const AnimatedLogoScreen(), settings);
+    return Nav.fadeToScreen(const SizedBox(), settings);
   }
   // -----------------------------------------------------------------------------
 }
