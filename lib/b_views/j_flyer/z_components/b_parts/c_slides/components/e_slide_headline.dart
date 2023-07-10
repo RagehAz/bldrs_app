@@ -21,7 +21,7 @@ class SlideHeadline extends StatelessWidget {
   static const headlineScaleFactor = 0.0032;
   static const headlineSize = 2;
   // --------------------
-  double _getTextSizeFactorByLength(){
+  static double getTextSizeFactorByLength(String? text){
 
     if (TextCheck.isEmpty(text) == true){
       return 1;
@@ -36,7 +36,7 @@ class SlideHeadline extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final double _headlineTopMargin = flyerBoxWidth * 0.3;
-    final double lengthFactor = _getTextSizeFactorByLength();
+    final double lengthFactor = getTextSizeFactorByLength(text);
 
     /// FLYER TITLE
     return IgnorePointer(

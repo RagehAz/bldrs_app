@@ -29,8 +29,9 @@ class HeroicFlyer extends StatefulWidget {
   /// --------------------------------------------------------------------------
   @override
   _HeroicFlyerState createState() => _HeroicFlyerState();
-
-/// --------------------------------------------------------------------------
+  /// --------------------------------------------------------------------------
+  static const Duration heroDuration = Duration(milliseconds: 500);
+  /// --------------------------------------------------------------------------
 }
 
 class _HeroicFlyerState extends State<HeroicFlyer> {
