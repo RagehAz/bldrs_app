@@ -145,7 +145,7 @@ Future<void> _onRestartAppInTimeCorrectionDialog() async {
 
   // await Nav.removeRouteBelow(context, const StaticLogoScreen());
 
-  await BldrsNav.goBackToLogoScreen(
+  await BldrsNav.goToLogoScreenAndRemoveAllBelow(
     animatedLogoScreen: false,
   );
 
