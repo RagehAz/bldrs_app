@@ -181,16 +181,21 @@ class Verse {
   }){
 
     switch (verseCasing){
-      case Casing.non:             return verse;
-      case Casing.lowerCase:       return verse?.toLowerCase();
-      case Casing.upperCase:       return verse?.toUpperCase();
-    // case VerseCasing.Proper:          return properVerse(verse);
+      case Casing.non:                  return verse;
+      case Casing.lowerCase:            return verse?.toLowerCase();
+      case Casing.upperCase:            return verse?.toUpperCase();
+      case Casing.capitalizeFirstChar:  return TextMod.capitalizeFirstLetter(
+        input: verse,
+        lowerCaseTheRest: false,
+      );
     // case VerseCasing.upperCamelCase:  return upperCemelVerse(verse);
     // case VerseCasing.lowerCamelCase:  return lowelCamelVerse(verse);
       default: return verse;
     }
 
   }
+
+
   // -----------------------------------------------------------------------------
 
   /// TRANSLATION

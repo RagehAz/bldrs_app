@@ -36,7 +36,9 @@ class _AuthScreenState extends State<AuthScreen> {
   bool _isInit = true;
   @override
   void didChangeDependencies() {
+
     if (_isInit && mounted) {
+      _isInit = false; // good
 
       // _triggerLoading().then((_) async {
       //
@@ -45,7 +47,6 @@ class _AuthScreenState extends State<AuthScreen> {
       //   await _triggerLoading();
       // });
 
-      _isInit = false;
     }
     super.didChangeDependencies();
   }

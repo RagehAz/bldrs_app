@@ -135,6 +135,8 @@ class CenterDialog extends StatelessWidget {
       ),
     );
 
+    blog('showCenterDialog result : $_result');
+
     return Mapper.boolIsTrue(_result);
   }
   // --------------------
