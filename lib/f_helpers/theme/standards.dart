@@ -20,8 +20,7 @@ class Standards {
   // --------------------
   /// APP LINKS
   // -------
-  /// TASK : bldrs_app_publish_link add android and ios app store link : and do bldrs web as well
-  static const String iosAppStoreURL = 'www.apple.com';
+  static const String iosAppStoreURL = 'https://apps.apple.com/eg/app/bldrs-net/id6447114707?l=en';
   static const String androidAppStoreURL = 'https://play.google.com/store/apps/details?id=net.bldrs.app';
   // --------------------
   /// TESTED : WORKS PERFECT
