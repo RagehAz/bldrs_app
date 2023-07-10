@@ -3,14 +3,15 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/a_heroic_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/b_heroic_flyer_hero.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/d_heroic_flyer_big_view.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/a_heroic_flyer_structure/e_heroic_big_flyer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/c_slides/a_single_slide.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/e_extra_layers/flyer_affiliate_button.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/static_flyer/b_static_header.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/static_flyer/d_static_footer.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/d_variants/a_flyer_box.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/d_variants/b_flyer_loading.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/c_protocols/flyer_protocols/protocols/a_flyer_protocols.dart';
@@ -133,7 +134,10 @@ class _HeroicSmallFlyerState extends State<HeroicSmallFlyer> {
             renderedFlyer: _renderBigFlyer,
             flyerBoxWidth: widget.flyerBoxWidth,
             heroPath: widget.heroTag,
-          )
+          ),
+        transitionDuration: HeroicFlyer.heroDuration,
+        reverseTransitionDuration: HeroicFlyer.heroDuration,
+        backgroundColor: Colorz.black125,
       );
 
     }
@@ -203,7 +207,6 @@ class _HeroicSmallFlyerState extends State<HeroicSmallFlyer> {
           bzImageLogo: widget.renderedFlyer?.bzLogoImage,
           authorID: widget.renderedFlyer?.authorID,
           flyerShowsAuthor: widget.renderedFlyer?.showsAuthor,
-          flightDirection: widget.flightDirection,
           // onTap: ,
         ),
 
