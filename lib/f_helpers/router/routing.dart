@@ -113,7 +113,18 @@ class Routing {
      */
     // --------------------------
     }
-    return Nav.fadeToScreen(const AnimatedLogoScreen(), settings);
+    return Nav.fadeToScreen(const SizedBox(), settings);
   }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Map<String, WidgetBuilder> routesMap = {
+    Routing.staticLogoScreen: (BuildContext ctx) => const StaticLogoScreen(),
+    Routing.animatedLogoScreen: (BuildContext ctx) => const AnimatedLogoScreen(),
+    Routing.auth: (BuildContext ctx) => const AuthScreen(),
+    Routing.home: (BuildContext ctx) => const HomeScreen(),
+    Routing.savedFlyers: (BuildContext ctx) => const SavedFlyersScreen(),
+    Routing.search: (BuildContext ctx) => const SuperSearchScreen(),
+    Routing.appSettings: (BuildContext ctx) => const AppSettingsScreen(),
+  };
   // -----------------------------------------------------------------------------
 }

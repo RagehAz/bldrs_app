@@ -1,5 +1,4 @@
 import 'package:fire/super_fire.dart';
-import 'main.dart';
 
 class BldrsKeys {
   // --------------------------------------------------------------------------
@@ -43,7 +42,6 @@ class BldrsKeys {
     facebookAppID: '427786221866015',
   );
   // --------------------
-  static const String appVersion = BLDRS_APP_VERSION;
   static const String androidPackageName = 'net.bldrs.app';
   static const String iosBundleID = 'net.bldrs.app';
   static const String appStoreID = '161803398875';

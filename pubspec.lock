@@ -84,12 +84,10 @@ packages:
   basics:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "80a44114320c69e142c2149a3b85331f94dddb33"
-      url: "https://github.com/RagehAz/basics.git"
-    source: git
-    version: "3.0.4"
+      path: "D:/projects/packages/helpers/basics"
+      relative: false
+    source: path
+    version: "3.0.8"
   bldrs_keywords:
     dependency: "direct main"
     description:
@@ -422,11 +420,9 @@ packages:
   fire:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "3bfd05d8ad1f70a9cc9fa0f4eed62c6bc687ee38"
-      url: "https://github.com/RagehAz/fire.git"
-    source: git
+      path: "D:/projects/packages/backend/fire"
+      relative: false
+    source: path
     version: "2.0.6"
   firebase_app_check:
     dependency: "direct main"

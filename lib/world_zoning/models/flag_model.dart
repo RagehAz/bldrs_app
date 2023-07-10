@@ -273,7 +273,7 @@ class Flag {
   // --------------------
   /// TESTED : WORKS PERFECT
   static String? getCountryIcon(String? countryID) {
-    String? _output = Iconz.contAfrica;
+    String? _output = Iconz.planet;
 
     if (countryID != null) {
 

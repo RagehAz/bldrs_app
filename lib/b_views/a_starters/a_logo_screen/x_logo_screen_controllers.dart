@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/widgets/sensors/app_version_builder.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
@@ -144,7 +145,7 @@ Future<void> _onRestartAppInTimeCorrectionDialog() async {
 
   // await Nav.removeRouteBelow(context, const StaticLogoScreen());
 
-  await BldrsNav.goBackToLogoScreen(
+  await BldrsNav.goToLogoScreenAndRemoveAllBelow(
     animatedLogoScreen: false,
   );
 
@@ -249,7 +250,7 @@ Future<void> initializeAppState() async {
         );
       }
 
-      final String _detectedAppVersion = await AppStateModel.detectAppVersion();
+      final String _detectedAppVersion = await AppVersionBuilder.detectAppVersion();
       final bool _userNeedToUpdateTheApp = AppStateModel.userNeedToUpdateApp(
         globalVersion: _globalState.appVersion,
         localVersion: _detectedAppVersion,

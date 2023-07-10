@@ -55,7 +55,9 @@ class _BzTeamPageState extends State<BzTeamPage> {
   bool _isInit = true;
   @override
   void didChangeDependencies() {
+
     if (_isInit && mounted) {
+      _isInit = false; // good
 
       // _triggerLoading().then((_) async {
       //
@@ -69,7 +71,6 @@ class _BzTeamPageState extends State<BzTeamPage> {
       //   await _triggerLoading();
       // });
 
-      _isInit = false;
     }
     super.didChangeDependencies();
   }

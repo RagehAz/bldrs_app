@@ -74,13 +74,14 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
   bool _isInit = true;
   @override
   void didChangeDependencies() {
+
     if (_isInit && mounted) {
+      _isInit = false; // good
 
       asyncInSync(() async {
 
       });
 
-      _isInit = false;
     }
     super.didChangeDependencies();
   }
@@ -273,11 +274,15 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
           return LightBigFlyer(
             flyerBoxWidth: _gridScale.bigItemWidth,
             renderedFlyer: flyerModel!,
-            onHorizontalExit: () => zoomOutFlyer(
-              mounted: mounted,
-              controller: _controller,
-              flyerNotifier: _zoomedFlyer,
-          ),
+            onHorizontalExit: () async {
+
+              // await zoomOutFlyer(
+              //   mounted: mounted,
+              //   controller: _controller,
+              //   flyerNotifier: _zoomedFlyer,
+              // );
+
+            },
           );
         },
       ),

@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:basics/animators/helpers/animators.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
@@ -96,7 +98,10 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
 //   bool _isInit = true;
   @override
   void didChangeDependencies() {
-    // if (_isInit) {
+
+    // if (_isInit && mounted) {
+    //   _isInit = false; // good
+    //
       // final UiProvider _uiProvider = Provider.of<UiProvider>(context, listen: false);
       // _uiProvider.startController(
       //         () async {
@@ -104,7 +109,6 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
       //     }
       // );
     // }
-    // _isInit = false;
     super.didChangeDependencies();
   }
    */
@@ -246,7 +250,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
                 blog('Bouncing back : $_canBounce');
                 await widget.onHeaderTap();
                 /// to wait header shrinkage until allowing new shrinkage
-                await Future.delayed(Ratioz.duration750ms, (){
+                await Future.delayed(Ratioz.duration1000ms, (){
                   _canBounce = true;
                 });
               }
@@ -256,8 +260,8 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
             boxDistance: FlyerDim.flyerHeightByFlyerWidth(
               flyerBoxWidth: widget.flyerBoxWidth,
             ),
-            // numberOfScreens: 2,
             slideLimitRatio: 0.1,
+            onlyBack: false,
             child: SingleChildScrollView(
               physics: widget.tinyMode == true || widget.headerIsExpanded.value  == false ?
               const NeverScrollableScrollPhysics()
