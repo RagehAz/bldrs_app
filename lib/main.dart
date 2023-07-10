@@ -1,11 +1,11 @@
 import 'dart:async';
+
 import 'package:basics/animators/helpers/app_scroll_behavior.dart';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/mediator/sounder/sounder.dart';
 import 'package:bldrs/a_models/e_notes/c_channel_model.dart';
-import 'package:bldrs/b_views/a_starters/a_logo_screen/a_static_logo_screen.dart';
-import 'package:bldrs/b_views/a_starters/b_home_screen/a_home_screen.dart';
 import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/e_back_end/e_fcm/background_msg_handler.dart';
@@ -19,11 +19,11 @@ import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/firebase_options.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:fire/super_fire.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:basics/mediator/sounder/sounder.dart';
+
 import 'bldrs_keys.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 
 Future<void> main() async {
   /// -----------------------------------------------------------------------------
@@ -314,18 +314,9 @@ class _BldrsAppStarterState extends State<BldrsAppStarter> {
               // onUnknownRoute: ,
               // home: ,
               navigatorKey: mainNavKey,
-              onGenerateRoute: Routing.allRoutes,
+              // onGenerateRoute: Routing.allRoutes,
               initialRoute: Routing.staticLogoScreen,
-              routes: <String, Widget Function(BuildContext)>{
-
-                /// STARTERS
-                Routing.staticLogoScreen: (BuildContext ctx) => const StaticLogoScreen(key: ValueKey<String>('LogoScreen'),),
-                Routing.home: (BuildContext ctx) => const HomeScreen(),
-
-                // Routing.flyerScreen: (BuildContext ctx) => const FlyerPreviewScreen(),
-                // Routez.Starting: (ctx) => StartingScreen(),
-
-              },
+              routes: Routing.routesMap,
             );
           },
         ),
