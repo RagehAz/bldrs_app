@@ -871,7 +871,6 @@ class Dialogs {
         child: Container(
           width: CenterDialog.getWidth(context),
           height: _gridHeight,
-          color: Colorz.bloodTest,
           alignment: Alignment.center,
           child: ListView.builder(
             itemCount: bzModel?.authors?.length,
