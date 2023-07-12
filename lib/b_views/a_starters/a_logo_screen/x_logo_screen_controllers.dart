@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/widgets/sensors/app_version_builder.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
@@ -9,6 +10,7 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/x_secondary/app_state_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/app_state_protocols/app_state_real_ops.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
@@ -34,114 +36,133 @@ Future<void> initializeLogoScreen({
   required bool mounted,
 }) async {
 
-  // if (kDebugMode == true && DeviceChecker.deviceIsWindows() == true){
-  //   await signInAsRage7();
-  // }
-  
-  // blog('1 - initializeLogoScreen : START');
+  final AppStateModel? _globalState = await AppStateRealOps.readGlobalAppState();
 
-  UiProvider.proSetScreenDimensions(
-    notify: false,
-  );
+  /// APP IS OFFLINE / COULD NOT GET REAL GLOBAL STATE
+  if (_globalState == null) {
 
-  UiProvider.proSetLayoutIsVisible(
-      setTo: true,
-      notify: true,
-  );
+    await Dialogs.somethingWentWrongAppWillRestart();
 
-  /// USER MODEL
-  await initializeUserModel(context);
-
-  UiProvider.proSetLoadingVerse(
-      verse: Verse.plain(Words.pleaseWait()),
-  );
-
-  // blog('2 - initializeLogoScreen : ${Authing.getUserID()}');
-
-  await Future.wait(
-      <Future<void>>[
-
-        /// LOCAL ASSETS PATHS
-        initializeLocalAssetsPaths(),
-        /// APP LANGUAGE
-        initializeAppLanguage(),
-        /// APP STATE
-        initializeAppState(),
-
-      ]
-  );
-
-  // blog('3 - initializeLogoScreen : assetPaths + lang + appState should have ended');
-
-  UiProvider.proSetLoadingVerse(
-    verse: Verse.plain(Words.thisIsBabyApp()),
-  );
-
-  if (_phrasesAreLoaded() == false){
-
-    // blog('4 - initializeLogoScreen : phrases are not loaded and will restart');
-
-    await CenterDialog.showCenterDialog(
-      titleVerse: Verse.plain('Bldrs.net is currently under construction'),
-      bodyVerse: Verse.plain('Sorry for inconvenience'),
-      confirmButtonVerse: Verse.plain('Ok'),
-    );
-
-    await Nav.pushNamedAndRemoveAllBelow(
-        context: context,
-        goToRoute: Routing.staticLogoScreen,
-    );
+    await _onRestartAppAgain();
 
   }
 
+  /// APP IS ONLINE
   else {
 
-    // blog('4 - initializeLogoScreen : phrases found and will check user device');
+    /// bldrsIsOnline AND CAN WORK NORMALLY
+    if (Mapper.boolIsTrue(_globalState.bldrsIsOnline) == true) {
 
-    /// DEVICE ID - TOKEN
-    await _refreshUserDeviceModel();
+      // if (kDebugMode == true && DeviceChecker.deviceIsWindows() == true){
+      //   await signInAsRage7();
+      // }
 
-    // blog('5 - initializeLogoScreen : device is refreshed');
+      // blog('1 - initializeLogoScreen : START');
 
-    /// CHECK DEVICE CLOCK
-    final bool _deviceTimeIsCorrect = await BldrsTimers.checkDeviceTimeIsCorrect(
-      context: context,
-      showIncorrectTimeDialog: true,
-    );
-
-    // blog('6 - initializeLogoScreen : _deviceTimeIsCorrect : $_deviceTimeIsCorrect');
-
-    if (_deviceTimeIsCorrect == false){
-
-      // blog('7 - initializeLogoScreen : will restart app now');
-
-      await _onRestartAppInTimeCorrectionDialog();
-
-    }
-
-    else {
-
-      UiProvider.proSetLoadingVerse(
-        verse: Verse.plain(Words.thankYouForWaiting()),
+      UiProvider.proSetScreenDimensions(
+        notify: false,
       );
 
-      /// DAILY LDB REFRESH
-      await _refreshLDB();
+      UiProvider.proSetLayoutIsVisible(
+        setTo: true,
+        notify: true,
+      );
 
-      // blog('7 - initializeLogoScreen : daily refresh is done');
+      /// USER MODEL
+      await initializeUserModel(context);
+
+      UiProvider.proSetLoadingVerse(
+        verse: Verse.plain(Words.pleaseWait()),
+      );
+
+      // blog('2 - initializeLogoScreen : ${Authing.getUserID()}');
+
+      await Future.wait(<Future<void>>[
+        /// LOCAL ASSETS PATHS
+        initializeLocalAssetsPaths(),
+
+        /// APP LANGUAGE
+        initializeAppLanguage(),
+
+        /// APP STATE
+        initializeAppState(globalState: _globalState),
+      ]);
+
+      // blog('3 - initializeLogoScreen : assetPaths + lang + appState should have ended');
+
+      UiProvider.proSetLoadingVerse(
+        verse: Verse.plain(Words.thisIsBabyApp()),
+      );
+
+      if (_phrasesAreLoaded() == false) {
+        // blog('4 - initializeLogoScreen : phrases are not loaded and will restart');
+
+        await CenterDialog.showCenterDialog(
+          titleVerse: Verse.plain('Bldrs.net is currently under construction'),
+          bodyVerse: Verse.plain('Sorry for inconvenience'),
+          confirmButtonVerse: Verse.plain('Ok'),
+        );
+
+        await Nav.pushNamedAndRemoveAllBelow(
+          context: context,
+          goToRoute: Routing.staticLogoScreen,
+        );
+
+      }
+
+      else {
+        // blog('4 - initializeLogoScreen : phrases found and will check user device');
+
+        /// DEVICE ID - TOKEN
+        await _refreshUserDeviceModel();
+
+        // blog('5 - initializeLogoScreen : device is refreshed');
+
+        /// CHECK DEVICE CLOCK
+        final bool _deviceTimeIsCorrect = await BldrsTimers.checkDeviceTimeIsCorrect(
+          context: context,
+          showIncorrectTimeDialog: true,
+        );
+
+        // blog('6 - initializeLogoScreen : _deviceTimeIsCorrect : $_deviceTimeIsCorrect');
+
+        if (_deviceTimeIsCorrect == false) {
+          // blog('7 - initializeLogoScreen : will restart app now');
+
+          await _onRestartAppAgain();
+        }
+
+        else {
+          UiProvider.proSetLoadingVerse(
+            verse: Verse.plain(Words.thankYouForWaiting()),
+          );
+
+          /// DAILY LDB REFRESH
+          await _refreshLDB();
+
+          // blog('7 - initializeLogoScreen : daily refresh is done');
+        }
+
+        // blog('8 - initializeLogoScreen : END');
+      }
+
+      UiProvider.clearLoadingVerse();
 
     }
 
-    // blog('8 - initializeLogoScreen : END');
+    /// bldrsIsOnline = FALSE, THE APP IS UNDER CONSTRUCTION
+    else {
+
+      await BldrsNav.goToBldrsUnderConstructionScreen();
+
+    }
 
   }
-
-  UiProvider.clearLoadingVerse();
 
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _onRestartAppInTimeCorrectionDialog() async {
+Future<void> _onRestartAppAgain() async {
 
   // await Nav.removeRouteBelow(context, const StaticLogoScreen());
 
@@ -221,77 +242,80 @@ Future<void> setUserModelAndCompleteUserZoneLocally({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> initializeAppState() async {
+Future<void> initializeAppState({
+  required AppStateModel? globalState,
+}) async {
 
-  final UserModel? _userModel = UsersProvider.proGetMyUserModel(
-    context: getMainContext(),
-    listen: false,
-  );
+  if (globalState != null){
 
-  if (Authing.userIsSignedUp(_userModel?.signInMethod) == true){
+    final UserModel? _userModel = UsersProvider.proGetMyUserModel(
+      context: getMainContext(),
+      listen: false,
+    );
 
-    AppStateModel? _userState = _userModel?.appState?.copyWith();
+    if (Authing.userIsSignedUp(_userModel?.signInMethod) == true){
 
-    if (_userModel != null && _userState != null){
+      AppStateModel? _userState = _userModel?.appState?.copyWith();
 
-      final AppStateModel? _globalState = await AppStateRealOps.readGlobalAppState();
-      final bool _statesAreIdentical = AppStateModel.checkAppStatesAreIdentical(
-          state1: _userState,
-          state2: _globalState
-      );
+      if (_userModel != null && _userState != null){
 
-    if (_statesAreIdentical == false && _globalState != null){
-
-      /// LDB CHECK
-      if (_globalState.ldbVersion != _userState.ldbVersion){
-        await LDBDoc.wipeOutEntireLDB();
-        _userState = _userState.copyWith(
-          ldbVersion: _globalState.ldbVersion,
-        );
-      }
-
-      final String _detectedAppVersion = await AppVersionBuilder.detectAppVersion();
-      final bool _userNeedToUpdateTheApp = AppStateModel.userNeedToUpdateApp(
-        globalVersion: _globalState.appVersion,
-        localVersion: _detectedAppVersion,
-      );
-
-      /// DETECTED APP VERSION IS INCORRECT
-      if (_userNeedToUpdateTheApp == true){
-        await _showUpdateAppDialog(
-          global: _globalState.appVersion,
-          detected: _detectedAppVersion,
-        );
-      }
-
-      /// DETECTED APP VERSION IS CORRECT BUT USER VERSION IS NOT
-      else if (_userState.appVersion != _detectedAppVersion){
-        _userState = _userState.copyWith(
-          appVersion: _detectedAppVersion,
-        );
-      }
-
-      /// UPDATE USER STATE
-      final bool _userStateIsUpdated = ! AppStateModel.checkAppStatesAreIdentical(
-          state1: _userState,
-          state2: _userModel.appState,
-      );
-
-      if (_userStateIsUpdated == true){
-
-        await UserProtocols.renovate(
-          context: getMainContext(),
-          oldUser: _userModel,
-          newUser: _userModel.copyWith(
-            appState: _userState,
-          ),
-          newPic: null,
-          invoker: 'initializeAppState',
+        final bool _statesAreIdentical = AppStateModel.checkAppStatesAreIdentical(
+            state1: _userState,
+            state2: globalState
         );
 
-      }
+        if (_statesAreIdentical == false){
 
-    }
+          /// LDB CHECK
+          if (globalState.ldbVersion != _userState.ldbVersion){
+            await LDBDoc.wipeOutEntireLDB();
+            _userState = _userState.copyWith(
+              ldbVersion: globalState.ldbVersion,
+            );
+          }
+
+          final String _detectedAppVersion = await AppVersionBuilder.detectAppVersion();
+          final bool _userNeedToUpdateTheApp = AppStateModel.userNeedToUpdateApp(
+            globalVersion: globalState.appVersion,
+            localVersion: _detectedAppVersion,
+          );
+
+          /// DETECTED APP VERSION IS INCORRECT
+          if (_userNeedToUpdateTheApp == true){
+            await _showUpdateAppDialog(
+              global: globalState.appVersion,
+              detected: _detectedAppVersion,
+            );
+          }
+
+          /// DETECTED APP VERSION IS CORRECT BUT USER VERSION IS NOT
+          else if (_userState.appVersion != _detectedAppVersion){
+            _userState = _userState.copyWith(
+              appVersion: _detectedAppVersion,
+            );
+          }
+
+          /// UPDATE USER STATE
+          final bool _userStateIsUpdated = ! AppStateModel.checkAppStatesAreIdentical(
+            state1: _userState,
+            state2: _userModel.appState,
+          );
+
+          if (_userStateIsUpdated == true){
+            await UserProtocols.renovate(
+              context: getMainContext(),
+              oldUser: _userModel,
+              newUser: _userModel.copyWith(
+                appState: _userState,
+              ),
+              newPic: null,
+              invoker: 'initializeAppState',
+            );
+          }
+
+        }
+
+      }
 
     }
 
