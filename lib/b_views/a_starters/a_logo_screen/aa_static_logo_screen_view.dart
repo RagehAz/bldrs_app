@@ -1,5 +1,6 @@
 import 'package:basics/animators/widgets/widget_fader.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
+import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/b_views/z_components/artworks/bldrs_name_logo_slogan.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -21,6 +22,10 @@ class LogoScreenView extends StatelessWidget {
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
+
+    final double _shortest = Scale.screenShortestSide(context);
+    final double _logoWidth = _shortest * 0.5;//_screenHeight * 22 * 0.016 * sizeFactor;
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -47,7 +52,7 @@ class LogoScreenView extends StatelessWidget {
             ),
 
           SizedBox(
-            width: 300,
+            width: _logoWidth,
             // height: 100,
             child: WidgetFader(
               fadeType: FadeType.repeatAndReverse,
@@ -65,12 +70,13 @@ class LogoScreenView extends StatelessWidget {
                     );
 
                   return BldrsText(
+                    width: _logoWidth,
                     verse: _verse,
-                    size: 5,
-                    margin: 20,
+                    size: 4,
+                    margin: 10,
                     italic: true,
                     shadow: true,
-                    maxLines: 4,
+                    maxLines: 2,
                   );
 
                 },
