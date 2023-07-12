@@ -31,6 +31,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart'
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
+import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
 import 'package:flutter/material.dart';
 
@@ -445,6 +446,16 @@ class Dialogs {
       ),
       bodyVerse: bodyVerse,
       color: Colorz.red255,
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> somethingWentWrongAppWillRestart() async {
+
+    await centerNotice(
+      verse: Verse.plain(Words.somethingWentWrong()),
+      body: Verse.plain(Words.bldrsWillRestart()),
     );
 
   }
@@ -984,7 +995,6 @@ class Dialogs {
     return _result;
 
   }
-
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<bool> slideDialog({
@@ -1035,5 +1045,6 @@ class Dialogs {
     return _result;
 
   }
-// -----------------------------------------------------------------------------
+  // --------------------
+
 }

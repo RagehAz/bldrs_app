@@ -14,10 +14,12 @@ class AppStateModel {
   const AppStateModel({
     required this.appVersion,
     required this.ldbVersion,
+    required this.bldrsIsOnline,
   });
   // -----------------------------------------------------------------------------
   final String? appVersion;
   final int? ldbVersion;
+  final bool bldrsIsOnline;
   // -----------------------------------------------------------------------------
 
   /// CLONING
@@ -27,10 +29,12 @@ class AppStateModel {
   AppStateModel copyWith({
     String? appVersion,
     int? ldbVersion,
+    bool? bldrsIsOnline,
   }){
     return AppStateModel(
       appVersion: appVersion ?? this.appVersion,
       ldbVersion: ldbVersion?? this.ldbVersion,
+      bldrsIsOnline: bldrsIsOnline ?? this.bldrsIsOnline,
     );
   }
   // -----------------------------------------------------------------------------
@@ -47,6 +51,7 @@ class AppStateModel {
     return AppStateModel(
       appVersion : _detectedAppVersion,
       ldbVersion : _globalState?.ldbVersion ?? 0,
+      bldrsIsOnline: true,
     );
 
   }
@@ -60,6 +65,7 @@ class AppStateModel {
     return <String, dynamic>{
       'appVersion' : appVersion,
       'ldbVersion' : ldbVersion,
+      'bldrsIsOnline' : bldrsIsOnline,
     };
   }
   // --------------------
@@ -75,6 +81,7 @@ class AppStateModel {
       return AppStateModel(
         appVersion : map['appVersion'],
         ldbVersion : map['ldbVersion']?.toInt(),
+        bldrsIsOnline : map['bldrsIsOnline'] ?? true,
       );
     }
 
@@ -150,7 +157,7 @@ class AppStateModel {
     return _output;
   }
   // --------------------
-  /// TASK TEST ME
+  /// AI TESTED
   static bool userNeedToUpdateApp({
     required String? globalVersion,
     required String? localVersion,
@@ -178,15 +185,15 @@ class AppStateModel {
   }
   // --------------------
   /// AI TESTED
-static bool appVersionIsValid(String? version) {
-  if (version == null) {
-    return false;
-  } else {
-    const pattern = r'^\d+\.\d+\.\d+(\+\d+)?$';
-    final regex = RegExp(pattern);
-    return regex.hasMatch(version);
+  static bool appVersionIsValid(String? version) {
+    if (version == null) {
+      return false;
+    } else {
+      const pattern = r'^\d+\.\d+\.\d+(\+\d+)?$';
+      final regex = RegExp(pattern);
+      return regex.hasMatch(version);
+    }
   }
-}
   // -----------------------------------------------------------------------------
 
   /// DUMMIES
@@ -197,6 +204,7 @@ static bool appVersionIsValid(String? version) {
     return const AppStateModel(
       appVersion: '0.0.0',
       ldbVersion: 0,
+      bldrsIsOnline: true,
     );
   }
   // -----------------------------------------------------------------------------
@@ -206,7 +214,7 @@ static bool appVersionIsValid(String? version) {
   // --------------------
   /// TESTED : WORKS PERFECT
   void blogAppState({String invoker = ''}){
-    blog('APP STATE : appVersion : $appVersion : ldbVersion : $ldbVersion');
+    blog('APP STATE : appVersion : $appVersion : ldbVersion : $ldbVersion : bldrsIsOnline : $bldrsIsOnline');
   }
   // -----------------------------------------------------------------------------
 
@@ -228,7 +236,8 @@ static bool appVersionIsValid(String? version) {
 
       if (
           state1.appVersion == state2.appVersion &&
-          state1.ldbVersion == state2.ldbVersion
+          state1.ldbVersion == state2.ldbVersion &&
+          state1.bldrsIsOnline == state2.bldrsIsOnline
       ){
         _identical = true;
       }
@@ -243,7 +252,7 @@ static bool appVersionIsValid(String? version) {
 
   // --------------------
    @override
-   String toString() => 'APP STATE : appVersion : $appVersion : ldbVersion : $ldbVersion';
+   String toString() => 'APP STATE : appVersion : $appVersion : ldbVersion : $ldbVersion : bldrsIsOnline : $bldrsIsOnline';
   // --------------------
   @override
   bool operator == (Object other){
@@ -266,6 +275,7 @@ static bool appVersionIsValid(String? version) {
   @override
   int get hashCode =>
       appVersion.hashCode^
+      bldrsIsOnline.hashCode^
       ldbVersion.hashCode;
   // -----------------------------------------------------------------------------
 }

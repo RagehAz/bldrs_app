@@ -1,5 +1,7 @@
 
-
+### 1.2.0
+1. Business page screen Ui fixes
+2. updated app versioning sequence
 
 ### 1.0.5 changelog
 1. Optimized gallery flyer animation
