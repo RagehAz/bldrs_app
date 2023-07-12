@@ -24,6 +24,12 @@ class Words {
   static String newUpdateAvailable () => Localizer.translate('newUpdateAvailable')!;
   static String pleaseUpdateToContinue () => Localizer.translate('pleaseUpdateToContinue')!;
   static String updateApp () => Localizer.translate('updateApp')!;
+  static String bldrsUnderConstruction () => Localizer.translate('bldrsUnderConstruction')!;
+  static String somethingWentWrong () => Localizer.translate('somethingWentWrong')!;
+  static String bldrsWillRestart () => Localizer.translate('bldrsWillRestart')!;
+  static String no() => Localizer.translate('no')!;
+  static String yes() => Localizer.translate('yes')!;
+  static String ok() => Localizer.translate('ok')!;
   // -----------------------------------------------------------------------------
   static String pleaseWait(){
 

@@ -13,6 +13,7 @@ import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
+import 'package:bldrs/f_helpers/theme/words.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 
@@ -30,11 +31,7 @@ class CenterDialog extends StatelessWidget {
     required this.color,
     required this.copyOnTap,
     this.bodyCentered = true,
-    this.noVerse = const Verse(
-      id: 'phid_no',
-      translate: true,
-      casing: Casing.capitalizeFirstChar,
-    ),
+    this.noVerse,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -83,12 +80,6 @@ class CenterDialog extends StatelessWidget {
     final double _height = heightOverride ?? _screenHeight * 0.4;
     return _height;
   }
-  // --------------------
-  static const Verse _noVerse = Verse(
-      id: 'phid_no',
-      translate: true,
-      casing: Casing.capitalizeFirstChar,
-    );
   // -----------------------------------------------------------------------------
 
   /// COLORS
@@ -164,14 +155,14 @@ class CenterDialog extends StatelessWidget {
   Verse? _getConfirmButtonVerse(){
 
     Verse? _verse = Mapper.boolIsTrue(boolDialog) ?
-    const Verse(
-      id: 'phid_yes',
-      translate: true,
+    Verse(
+      id: Words.yes(),
+      translate: false,
     )
         :
-    const Verse(
-      id: 'phid_ok',
-      translate: true,
+    Verse(
+      id: Words.ok(),
+      translate: false,
     );
 
     if (confirmButtonVerse != null){
@@ -210,6 +201,12 @@ class CenterDialog extends StatelessWidget {
     // --------------------
     final bool _keyboardIsOn = Keyboard.keyboardIsOn();
     final double _keyboardHeight = _keyboardIsOn == true ? MediaQuery.of(context).viewInsets.bottom : 0;
+    // --------------------
+    final Verse _noVerse = Verse(
+      id: Words.no(),
+      translate: false,
+      casing: Casing.capitalizeFirstChar,
+    );
     // --------------------
     return SafeArea(
       child: Scaffold(

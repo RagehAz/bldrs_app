@@ -25,16 +25,6 @@ class BzBanner extends StatelessWidget {
   final double? corners;
   final bool bigName;
   /// --------------------------------------------------------------------------
-  /*
-  static double getHeight(){
-
-  }
-
-  static double getWidth(){
-
-  }
-   */
-  /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
@@ -44,7 +34,7 @@ class BzBanner extends StatelessWidget {
 
     return Center(
       child: Container(
-        width: boxWidth,
+        width: _boxWidth,
         height: boxHeight,
         decoration: BoxDecoration(
           color: Colorz.white10,
@@ -91,8 +81,8 @@ class BzBanner extends StatelessWidget {
               /// ZONE
               if (bzModel?.zone != null)
               ZoneLine(
+                width: _boxWidth,
                 zoneModel: bzModel?.zone,
-
               ),
 
 
