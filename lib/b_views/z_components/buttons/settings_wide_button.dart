@@ -156,20 +156,26 @@ class SettingsToSettingsButtons extends StatelessWidget {
                   verseScaleFactor: 0.5,
                   onTap: () async {
 
-                    final BzModel? _bzModel = await Dialogs.selectBzBottomDialog(
-                      bzzModels: _bzz,
-                    );
+                    BzModel? _bzModel;
 
-                    if (_bzModel != null){
+                    if (_bzz?.length == 1){
+                      _bzModel = _bzz?.first;
+                    }
+                    else {
 
+                      _bzModel = await Dialogs.selectBzBottomDialog(
+                        bzzModels: _bzz,
+                      );
+
+                    }
+
+                    if (_bzModel != null) {
                       await BldrsNav.goToMyBzScreen(
                         bzID: _bzModel.id,
                         initialTab: BzTab.settings,
                         replaceCurrentScreen: false,
                       );
-
                     }
-
 
                     },
                 );

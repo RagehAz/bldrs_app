@@ -53,6 +53,7 @@ class SpecsSelectorBubble extends StatelessWidget {
         columnChildren: <Widget>[
 
           const BldrsBulletPoints(
+            showBottomLine: false,
             bulletPoints: <Verse>[
               Verse(
                 pseudo: 'Add technical specification to describe flyer contents and help the search filters find your flyer',

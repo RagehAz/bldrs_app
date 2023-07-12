@@ -3,6 +3,7 @@
 import 'package:basics/animators/helpers/sliders.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
@@ -23,6 +24,7 @@ class ObeliskLayout extends StatefulWidget {
   const ObeliskLayout({
     required this.navModels,
     required this.canGoBack,
+    required this.appBarIcon,
     this.appBarRowWidgets,
     this.initiallyExpanded = false,
     this.initialIndex = 0,
@@ -59,6 +61,7 @@ class ObeliskLayout extends StatefulWidget {
   final Widget? searchView;
   final ValueNotifier<bool>? isSearching;
   final ZGridController? zGridController;
+  final String? appBarIcon;
   /// --------------------------------------------------------------------------
   @override
   _ObeliskLayoutState createState() => _ObeliskLayoutState();
@@ -75,9 +78,9 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
 
     if (Mapper.checkCanLoopList(widget.navModels) == true){
       _pageTitleVerse = Verse(
-        id: widget.navModels![0].titleVerse?.id,
-        translate: widget.navModels![0].titleVerse?.translate,
-        notifier: ValueNotifier(widget.navModels![0].titleVerse?.id),
+        id: widget.navModels![widget.initialIndex].titleVerse?.id,
+        translate: widget.navModels![widget.initialIndex].titleVerse?.translate,
+        notifier: ValueNotifier(widget.navModels![widget.initialIndex].titleVerse?.id),
       );
     }
     else {
@@ -150,7 +153,6 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
         );
 
       });
-
 
   }
   // --------------------
@@ -259,7 +261,20 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
       loading: ValueNotifier(false),
       progressBarModel: _progressBarModel,
       canGoBack: widget.canGoBack,
-      appBarRowWidgets: widget.appBarRowWidgets,
+      appBarRowWidgets: <Widget>[
+
+        AppBarButton(
+          icon: widget.appBarIcon,
+          bigIcon: true,
+          bubble: false,
+          onTap: () async {
+            await onRowTap(0);
+          },
+        ),
+
+        ...?widget.appBarRowWidgets,
+
+      ],
       searchController: widget.searchController,
       searchHintVerse: widget.searchHintVerse,
       onSearchChanged: widget.onSearchChanged,

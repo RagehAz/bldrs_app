@@ -5,6 +5,7 @@ import 'package:basics/layouts/separators/separator_line.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/d_settings_page/user_settings_page_controllers.dart';
+import 'package:bldrs/b_views/d_user/b_user_editor_screen/user_editor_screen.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/a_user_balloon.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/buttons/tile_buttons/bz_tile_button.dart';
@@ -106,7 +107,9 @@ class UserBanner extends StatelessWidget {
     final String _userName = userModel?.name ?? 'phid_unknown_bldr';
     // --------------------
     final Function? _onTap = _thereAreMissingFields == false ?
-    null : () => onEditProfileTap();
+    null : () => onEditProfileTap(
+      initialTab: UserEditorTab.pic,
+    );
     // --------------------
     final bool _itIsMe = UserModel.checkItIsMe(userModel?.id);
 
