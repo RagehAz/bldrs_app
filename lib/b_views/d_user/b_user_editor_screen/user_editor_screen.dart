@@ -1,6 +1,8 @@
 // ignore_for_file: avoid_positional_boolean_parameters
 import 'dart:async';
 
+import 'package:basics/bldrs_theme/classes/colorz.dart';
+import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
@@ -16,6 +18,7 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/co
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/gender_bubble/gender_editor_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/pic_bubble/add_gallery_pic_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
+import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/zone_selection_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/next_button.dart';
@@ -31,9 +34,17 @@ import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 
+enum UserEditorTab{
+  pic,
+  info,
+  location,
+  contacts,
+}
+
 class UserEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
   const UserEditorScreen({
+    required this.initialTab,
     required this.userModel,
     required this.onFinish,
     required this.canGoBack,
@@ -43,6 +54,7 @@ class UserEditorScreen extends StatefulWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
+  final UserEditorTab initialTab;
   final UserModel? userModel;
   final Function onFinish;
   final bool canGoBack;
@@ -58,7 +70,7 @@ class UserEditorScreen extends StatefulWidget {
 class _UserEditorScreenState extends State<UserEditorScreen> {
   // -----------------------------------------------------------------------------
   final ValueNotifier<ProgressBarModel?> _progressBarModel = ValueNotifier(null);
-  final PageController _pageController = PageController();
+  PageController _pageController = PageController();
   ConfirmButtonModel? _confirmButtonModel;
   // -----------------------------------------------------------------------------
   bool _canValidate = true;
@@ -89,11 +101,18 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
   void initState() {
     super.initState();
 
+    final int _initialIndex = _getInitialTabIndex(widget.initialTab);
+
+    _pageController = PageController(
+      initialPage: _initialIndex,
+    );
+
     setNotifier(
         notifier: _progressBarModel,
         mounted: mounted,
         value: ProgressBarModel.initialModel(
-            numberOfStrips: 4,
+          numberOfStrips: 4,
+          index: _initialIndex,
         ),
     );
 
@@ -159,6 +178,21 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
     _progressBarModel.dispose();
 
     super.dispose();
+  }
+  // -----------------------------------------------------------------------------
+  int _getInitialTabIndex(UserEditorTab tab){
+
+    switch(tab){
+      case UserEditorTab.pic:
+        return 0;
+      case UserEditorTab.info:
+        return 1;
+      case UserEditorTab.location:
+        return 2;
+      case UserEditorTab.contacts:
+        return 3;
+    }
+
   }
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
@@ -344,6 +378,8 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
       child: ValueListenableBuilder(
         valueListenable: _draftUser,
         builder: (_, DraftUser? draft, Widget? child){
+
+          final bool _contactsArePublic = Mapper.boolIsTrue(draft?.contactsArePublic);
 
           return Form(
             key: draft?.formKey,
@@ -586,11 +622,44 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                 BldrsFloatingList(
                   columnChildren: <Widget>[
 
+                    /// SHOW / HIDE CONTACTS
+                    if (draft != null)
+                    BldrsTileBubble(
+                      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
+                        context: context,
+                        headlineVerse: Verse(
+                          id: Mapper.boolIsTrue(draft.contactsArePublic) == true ?
+                          'phid_contacts_are_public'
+                          :
+                          'phid_contacts_are_hidden'
+                          ,
+                          translate: true,
+                        ),
+                        switchValue: draft.contactsArePublic,
+                        hasSwitch: true,
+                        leadingIcon: _contactsArePublic == true ? Iconz.viewsIcon : Iconz.hidden,
+                        leadingIconSizeFactor: 0.7,
+                        leadingIconBoxColor: Colorz.nothing,
+                        onSwitchTap: (bool value) {
+
+                            setNotifier(
+                              notifier: _draftUser,
+                              mounted: mounted,
+                              value: draft.copyWith(
+                                contactsArePublic: value,
+                              ),
+                            );
+
+                        },
+                      ),
+                    ),
+
                     /// PHONE
+                    if (draft != null)
                     ContactFieldEditorBubble(
                       key: const ValueKey<String>('phone'),
-                      formKey: draft?.formKey,
-                      focusNode: draft?.phoneNode,
+                      formKey: draft.formKey,
+                      focusNode: draft.phoneNode,
                       appBarType: AppBarType.basic,
                       isFormField: true,
                       headerViewModel: BldrsBubbleHeaderVM.bake(
@@ -600,15 +669,21 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                           translate: true,
                         ),
                         // redDot: false,
+                        leadingIcon: _contactsArePublic == true ? Iconz.comPhone : Iconz.hidden,
+                        leadingIconSizeFactor: 0.7,
+                        leadingIconBoxColor: Colorz.nothing,
                       ),
                       keyboardTextInputType: TextInputType.phone,
+                      bulletPoints: ContactFieldEditorBubble.privacyPoint(
+                        contactsArePublic: _contactsArePublic,
+                      ),
                       keyboardTextInputAction: TextInputAction.next,
                       // initialTextValue: ContactModel.getInitialContactValue(
                       //   type: ContactType.phone,
                       //   countryID: draft?.zone?.countryID,
                       //   existingContacts: draft?.contacts,
                       // ),
-                      textController: draft?.phoneController,
+                      textController: draft.phoneController,
                       textOnChanged: (String? text) => onUserContactChanged(
                         contactType: ContactType.phone,
                         value: text,
@@ -618,8 +693,8 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       canPaste: false,
                       // autoValidate: false,
                       validator: (String? text) => Formers.contactsPhoneValidator(
-                        contacts: draft?.contacts,
-                        zoneModel: draft?.zone,
+                        contacts: draft.contacts,
+                        zoneModel: draft.zone,
                         canValidate: _canValidate,
                         isRequired: false,
                         // focusNode: draft?.phoneNode,
@@ -627,10 +702,11 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                     ),
 
                     /// EMAIL
+                    if (draft != null)
                     ContactFieldEditorBubble(
                       key: const ValueKey<String>('email'),
-                      formKey: draft?.formKey,
-                      focusNode: draft?.emailNode,
+                      formKey: draft.formKey,
+                      focusNode: draft.emailNode,
                       appBarType: AppBarType.basic,
                       isFormField: true,
                       headerViewModel: BldrsBubbleHeaderVM.bake(
@@ -640,6 +716,12 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                           translate: true,
                         ),
                         redDot: true,
+                        leadingIcon: _contactsArePublic == true ? Iconz.comEmail : Iconz.hidden,
+                        leadingIconSizeFactor: 0.7,
+                        leadingIconBoxColor: Colorz.nothing,
+                      ),
+                      bulletPoints: ContactFieldEditorBubble.privacyPoint(
+                        contactsArePublic: _contactsArePublic,
                       ),
                       keyboardTextInputType: TextInputType.emailAddress,
                       keyboardTextInputAction: TextInputAction.done,
@@ -648,7 +730,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       //   countryID: draft?.zone?.countryID,
                       //   existingContacts: draft?.contacts,
                       // ),
-                      textController: draft?.emailController,
+                      textController: draft.emailController,
                       textOnChanged: (String? text) => onUserContactChanged(
                         contactType: ContactType.email,
                         value: text,
@@ -658,11 +740,12 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       canPaste: false,
                       // autoValidate: false,
                       validator: (String? text) => Formers.contactsEmailValidator(
-                        contacts: draft?.contacts,
+                        contacts: draft.contacts,
                         canValidate: _canValidate,
                         // focusNode: draft?.emailNode,
                       ),
                     ),
+
 
                     // /// NEXT
                     // NextButton(

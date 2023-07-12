@@ -41,7 +41,9 @@ Future<void> onInviteBusinessesTap(BuildContext context) async {
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> onEditProfileTap() async {
+Future<void> onEditProfileTap({
+  required UserEditorTab initialTab,
+}) async {
 
   final UserModel? _myUserModel = UsersProvider.proGetMyUserModel(
       context: getMainContext(),
@@ -51,6 +53,7 @@ Future<void> onEditProfileTap() async {
   await Nav.goToNewScreen(
       context: getMainContext(),
       screen: UserEditorScreen(
+        initialTab: initialTab,
         userModel: _myUserModel,
         reAuthBeforeConfirm: true,
         validateOnStartup: true,

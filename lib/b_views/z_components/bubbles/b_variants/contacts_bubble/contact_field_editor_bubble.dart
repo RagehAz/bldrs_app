@@ -3,6 +3,7 @@ import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:basics/bubbles/model/bubble_header_vm.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/text_clip_board.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -69,6 +70,26 @@ class ContactFieldEditorBubble extends StatefulWidget {
   @override
   _ContactFieldEditorBubbleState createState() => _ContactFieldEditorBubbleState();
   /// --------------------------------------------------------------------------
+  static List<Verse> privacyPoint({
+    required bool contactsArePublic,
+  }){
+    return <Verse>[
+
+      if (Mapper.boolIsTrue(contactsArePublic) == true)
+        const Verse(
+          id: 'phid_all_contacts_are_public',
+          translate: true,
+        ),
+
+      if (Mapper.boolIsTrue(contactsArePublic) == false)
+        const Verse(
+          id: 'phid_contact_is_hidden_from_public',
+          translate: true,
+        ),
+
+    ];
+  }
+  /// --------------------------------------------------------------------------
 }
 
 class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
@@ -101,6 +122,11 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
   // --------------------
   @override
   void didUpdateWidget(covariant ContactFieldEditorBubble oldWidget) {
+
+    if (oldWidget.headerViewModel != widget.headerViewModel){
+      setState(() {});
+    }
+
     // if (oldWidget.initialTextValue != widget.initialTextValue){
     //   setState(() {
     //     _textController = widget.textController;
@@ -169,12 +195,13 @@ class _ContactFieldEditorBubbleState extends State<ContactFieldEditorBubble> {
         ),
         bubbleHeaderVM: widget.headerViewModel,
         width: _bubbleWidth,
-
         columnChildren: <Widget>[
+
           /// BULLET POINTS
           if (widget.bulletPoints != null)
             BldrsBulletPoints(
               bulletPoints: widget.bulletPoints,
+              showBottomLine: false,
             ),
 
           /// TEXT FIELD ROW

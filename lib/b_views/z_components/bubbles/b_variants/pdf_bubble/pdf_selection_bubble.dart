@@ -129,6 +129,7 @@ class _PDFSelectionBubbleState extends State<PDFSelectionBubble> {
 
               /// BULLET POINTS
               const BldrsBulletPoints(
+                showBottomLine: false,
                 bulletPoints: <Verse>[
                   Verse(
                     pseudo:'You can attach a PDF File to this flyer.',
