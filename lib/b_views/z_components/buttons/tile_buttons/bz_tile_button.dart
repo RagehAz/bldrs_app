@@ -53,7 +53,7 @@ class BzTileButton extends StatelessWidget {
             width: _height,
             isVerified: bzModel?.isVerified,
             onTap: onTap,
-            zeroCornerIsOn: false,
+            // zeroCornerIsOn: false,
             shadowIsOn: true,
             image: bzModel?.logoPath,
           ),

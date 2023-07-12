@@ -187,6 +187,10 @@ class AboutBzBubbles extends StatelessWidget {
             contacts: bzModel?.contacts,
             location: bzModel?.position,
             canLaunchOnTap: true,
+            showMoreButton: false,
+            showBulletPoints: true,
+            contactsArePublic: true,
+            onMoreTap: null,
           ),
 
         /// SEPARATOR

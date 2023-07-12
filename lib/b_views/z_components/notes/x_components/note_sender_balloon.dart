@@ -93,7 +93,7 @@ class NoteSenderBalloon extends StatelessWidget {
                   width: balloonWidth,
                   image: noteModel?.parties?.senderImageURL ?? _bzModel?.logoPath,
                   isVerified: _bzModel?.isVerified ?? false,
-                  zeroCornerIsOn: false,
+                  // zeroCornerIsOn: false,
                   onTap: onTap,
 
                 );

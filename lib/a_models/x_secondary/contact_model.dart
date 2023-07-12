@@ -1,12 +1,12 @@
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
-import 'package:fire/super_fire.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:collection/collection.dart';
+import 'package:fire/super_fire.dart';
+import 'package:flutter/material.dart';
 
 enum ContactType {
   phone,
@@ -516,20 +516,31 @@ class ContactModel {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static String? concludeContactIcon(ContactType? contactType) {
-    switch (contactType) {
-      case ContactType.phone: return Iconz.comPhone;
-      case ContactType.email: return Iconz.comEmail;
-      case ContactType.website: return Iconz.comWebsite;
-      case ContactType.facebook: return Iconz.comFacebook;
-      case ContactType.linkedIn: return Iconz.comLinkedin;
-      case ContactType.youtube: return Iconz.comYoutube;
-      case ContactType.instagram: return Iconz.comInstagram;
-      case ContactType.pinterest: return Iconz.comPinterest;
-      case ContactType.tiktok: return Iconz.comTikTok;
-      case ContactType.twitter: return Iconz.comTwitter;
-      default: return null;
+  static String? concludeContactIcon({
+    required ContactType? contactType,
+    required bool isPublic,
+  }) {
+
+    if (isPublic == false){
+      return Iconz.hidden;
     }
+
+    else {
+      switch (contactType) {
+        case ContactType.phone: return Iconz.comPhone;
+        case ContactType.email: return Iconz.comEmail;
+        case ContactType.website: return Iconz.comWebsite;
+        case ContactType.facebook: return Iconz.comFacebook;
+        case ContactType.linkedIn: return Iconz.comLinkedin;
+        case ContactType.youtube: return Iconz.comYoutube;
+        case ContactType.instagram: return Iconz.comInstagram;
+        case ContactType.pinterest: return Iconz.comPinterest;
+        case ContactType.tiktok: return Iconz.comTikTok;
+        case ContactType.twitter: return Iconz.comTwitter;
+        default: return null;
+      }
+    }
+
   }
   // --------------------
   /// TESTED : WORKS PERFECT

@@ -10,6 +10,7 @@ class ContactButton extends StatelessWidget {
   const ContactButton({
     required this.contactModel,
     required this.onTap,
+    required this.isPublic,
     this.height,
     this.margins,
     this.width,
@@ -23,6 +24,7 @@ class ContactButton extends StatelessWidget {
   final dynamic margins;
   final Function onTap;
   final bool? forceShowVerse;
+  final bool isPublic;
   // -----------------------------------------------------------------------------
   static const double buttonHeight = 50;
   // -----------------------------------------------------------------------------
@@ -36,7 +38,10 @@ class ContactButton extends StatelessWidget {
       key: const ValueKey<String>('ContactButton'),
       height: height ?? buttonHeight,
       width: width,
-      icon: ContactModel.concludeContactIcon(contactModel?.type),
+      icon: ContactModel.concludeContactIcon(
+        contactType: contactModel?.type,
+        isPublic: isPublic,
+      ),
       margins: margins,
       verse: _showVerse == true ? Verse.plain(contactModel?.value) : null,
       verseWeight: VerseWeight.thin,

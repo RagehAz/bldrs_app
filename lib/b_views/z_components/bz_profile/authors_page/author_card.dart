@@ -258,6 +258,7 @@ class AuthorCard extends StatelessWidget {
                     width: _bubbleWidth - authorPicSize - 40,
                     forceShowVerse: true,
                     margins: const EdgeInsets.only(top: 5),
+                    isPublic: true,
                     onTap: () => _onContactTap(
                       contactModel: _contact,
                     ),

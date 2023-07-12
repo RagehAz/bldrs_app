@@ -1,21 +1,21 @@
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/zoomable_flyers_grid.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:bldrs/f_helpers/router/go_back_widget.dart';
-import 'package:bldrs/z_grid/z_grid.dart';
-import 'package:fire/super_fire.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/x_ui/nav_model.dart';
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/aa_my_bz_screen_pages.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/x0_my_bz_screen_controllers.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/components/zoomable_flyers_grid.dart';
 import 'package:bldrs/b_views/z_components/layouts/obelisk_layout/structure/obelisk_layout.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/e_back_end/b_fire/foundation/fire_paths.dart';
+import 'package:bldrs/f_helpers/router/go_back_widget.dart';
+import 'package:bldrs/z_grid/z_grid.dart';
+import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/layouts/nav/nav.dart';
 import 'package:provider/provider.dart';
 
 class MyBzScreen extends StatefulWidget {
@@ -127,6 +127,7 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
             initiallyExpanded: true,
             zGridController: _zGridController,
             canGoBack: true,
+            appBarIcon: _bzModel.logoPath,
             onBack: () async {
 
               final bool _flyerIsOpen = ! UiProvider.proGetLayoutIsVisible(
@@ -186,6 +187,7 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
             //   ),
             //
             // ],
+
             navModels: <NavModel>[
               ...List.generate(BzTabber.bzTabsList.length, (index) {
                 final BzTab _bzTab = BzTabber.bzTabsList[index];

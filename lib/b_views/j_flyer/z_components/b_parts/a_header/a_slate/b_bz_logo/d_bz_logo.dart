@@ -15,7 +15,7 @@ class BzLogo extends StatelessWidget {
     required this.isVerified,
     this.image,
     this.corners,
-    this.zeroCornerIsOn,
+    this.zeroCornerIsOn = false,
     this.margins,
     this.onTap,
     this.shadowIsOn = false,
