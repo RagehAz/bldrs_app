@@ -333,6 +333,7 @@ Future<void> _goToUserEditorForFirstTime({
   await Nav.goToNewScreen(
       context: getMainContext(),
       screen: UserEditorScreen(
+        initialTab: UserEditorTab.pic,
         userModel: userModel,
         reAuthBeforeConfirm: false,
         canGoBack: false,

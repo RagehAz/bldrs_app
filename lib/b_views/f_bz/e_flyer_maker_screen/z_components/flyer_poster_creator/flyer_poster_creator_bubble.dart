@@ -12,6 +12,7 @@ import 'package:bldrs/b_views/z_components/dialogs/bottom_dialog/bottom_dialog.d
 import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:bldrs/b_views/z_components/poster/poster_display.dart';
 import 'package:bldrs/b_views/z_components/poster/structure/poster_switcher.dart';
+import 'package:bldrs/b_views/z_components/texting/bullet_points/bldrs_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/e_back_end/g_storage/storage_path.dart';
@@ -53,6 +54,23 @@ class FlyerPosterCreatorBubble extends StatelessWidget {
       ),
       width: Bubble.bubbleWidth(context: context),
       columnChildren: <Widget>[
+
+        const BldrsBulletPoints(
+          showBottomLine: false,
+          bulletPoints: <Verse>[
+
+            Verse(
+              id: 'phid_poster_for_url',
+              translate: true,
+            ),
+
+            Verse(
+              id: 'phid_flyer_look_on_social_media',
+              translate: true,
+            ),
+
+          ],
+        ),
 
         if (draft?.posterController != null)
         Screenshot(

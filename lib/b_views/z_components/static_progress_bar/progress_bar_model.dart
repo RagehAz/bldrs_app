@@ -55,11 +55,12 @@ class ProgressBarModel {
   /// TESTED : WORKS PERFECT
   static ProgressBarModel initialModel({
     required int numberOfStrips,
+    int index = 0,
   }){
 
     return ProgressBarModel(
       swipeDirection: SwipeDirection.freeze,
-      index: 0,
+      index: index,
       numberOfStrips: numberOfStrips,
       stripsColors: ProgressBarModel.generateColors(
         colors: null,

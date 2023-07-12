@@ -65,6 +65,7 @@ class MultipleChoiceBubble extends StatelessWidget {
           if (bulletPoints != null)
             BldrsBulletPoints(
               bulletPoints: bulletPoints,
+              showBottomLine: false,
             ),
 
           /// BUTTONS

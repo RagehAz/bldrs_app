@@ -1,5 +1,4 @@
 import 'dart:ui' as ui;
-import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/a_left_spacer/static_slate_spacer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';
@@ -22,6 +21,8 @@ class StaticHeader extends StatelessWidget {
     this.showHeaderLabels = false,
     this.bzImageLogo,
     this.authorImage,
+    this.onFollowTap,
+    this.onCallTap,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -33,17 +34,19 @@ class StaticHeader extends StatelessWidget {
   final bool showHeaderLabels;
   final ui.Image? bzImageLogo;
   final ui.Image? authorImage;
+  final Function? onFollowTap;
+  final Function? onCallTap;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
     final bool _flyerShowsAuthor = flyerShowsAuthor ?? false;
     // --------------------
-    final bool _isTinyMode = FlyerDim.isTinyMode(
-      flyerBoxWidth: flyerBoxWidth,
-      gridWidth: Scale.screenWidth(context),
-      gridHeight: Scale.screenHeight(context),
-    );
+    // final bool _isTinyMode = FlyerDim.isTinyMode(
+    //   flyerBoxWidth: flyerBoxWidth,
+    //   gridWidth: Scale.screenWidth(context),
+    //   gridHeight: Scale.screenHeight(context),
+    // );
     // --------------------
     return HeaderBox(
       key: const ValueKey<String>('StaticHeader'),
@@ -71,7 +74,7 @@ class StaticHeader extends StatelessWidget {
             corners: FlyerDim.logoCornersByFlyerBoxWidth(
               context: context,
               flyerBoxWidth: flyerBoxWidth,
-              zeroCornerIsOn: _flyerShowsAuthor && _isTinyMode == false,
+              zeroCornerIsOn: _flyerShowsAuthor && showHeaderLabels == true,
             ),
             zeroCornerIsOn: _flyerShowsAuthor,
             margins: EdgeInsets.zero,
@@ -106,8 +109,7 @@ class StaticHeader extends StatelessWidget {
                   if (showHeaderLabels == true)
                     FollowButton(
                       flyerBoxWidth: flyerBoxWidth,
-                      onFollowTap: null,
-                      followIsOn: ValueNotifier(false),
+                      onFollowTap: onFollowTap,
                     ),
 
                   /// FAKE SPACE PADDING BETWEEN FOLLOW & GALLERY BUTTONS
@@ -120,7 +122,7 @@ class StaticHeader extends StatelessWidget {
                   if (showHeaderLabels == true)
                     CallButton(
                       flyerBoxWidth: flyerBoxWidth,
-                      onCallTap: null,
+                      onCallTap: onCallTap,
                     ),
 
                 ],

@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:basics/animators/helpers/animators.dart';
@@ -154,7 +153,7 @@ class _FlyerHeaderState extends State<FlyerHeader> with SingleTickerProviderStat
       begin: FlyerDim.logoCornersByFlyerBoxWidth(
         context: context,
         flyerBoxWidth: widget.flyerBoxWidth,
-        zeroCornerIsOn: true,
+        zeroCornerIsOn: widget.flyerModel?.showsAuthor?? false,
       ),
       end: FlyerDim.logoCornersByFlyerBoxWidth(
           context: context,

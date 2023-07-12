@@ -59,6 +59,7 @@ class PhidsSelectorBubble extends StatelessWidget {
         columnChildren: <Widget>[
 
           const BldrsBulletPoints(
+            showBottomLine: false,
             bulletPoints: <Verse>[
               Verse(
                 id: 'phid_add_keywords_to_help_search_filters',

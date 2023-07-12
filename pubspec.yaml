@@ -9,7 +9,7 @@ version: 1.2.0
 # ----------------------
 # IN APP
 # -> bldrs_app/ios/runner/info.pList ( BLDRS_ APP_ VERSION ) -> ACCESSIBLE ON MAC ONLY
-# -> bldrs_app/android/app/build.gradle (BLDRS_ APP_ VERSION)
+# -> bldrs_app/android/app/build.gradle ( BLDRS_ APP_ VERSION )
 
 # -> real/app/appState/appVersion "auto synced on initializing dashboard by _syncGlobalAppStateFromDashboard()"
 # ----------------------

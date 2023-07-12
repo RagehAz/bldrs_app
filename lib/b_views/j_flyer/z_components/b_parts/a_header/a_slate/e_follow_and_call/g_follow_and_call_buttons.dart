@@ -55,7 +55,7 @@ class FollowAndCallButtons extends StatelessWidget {
               FollowButton(
                 flyerBoxWidth: flyerBoxWidth,
                 onFollowTap: onFollowTap,
-                followIsOn: followIsOn,
+                isOn: followIsOn,
               ),
 
               /// FAKE SPACE PADDING BETWEEN FOLLOW & GALLERY BUTTONS
