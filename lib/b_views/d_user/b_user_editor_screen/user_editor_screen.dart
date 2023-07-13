@@ -1,8 +1,8 @@
 // ignore_for_file: avoid_positional_boolean_parameters
 import 'dart:async';
-
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/mediator/pic_maker/pic_maker.dart';
@@ -20,8 +20,8 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/pic_bubble/add_gal
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/tile_bubble/tile_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/zone_selection_bubble.dart';
-import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
-import 'package:bldrs/b_views/z_components/buttons/next_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_confirm_page.dart';
+import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_swiping_buttons.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/bldrs_floating_list.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/pages_layout.dart';
@@ -29,16 +29,17 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/user_protocols/fire/user_fire_ops.dart';
 import 'package:bldrs/c_protocols/user_protocols/ldb/user_ldb_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 
 enum UserEditorTab{
   pic,
   info,
   location,
   contacts,
+  confirm,
 }
 
 class UserEditorScreen extends StatefulWidget {
@@ -71,7 +72,6 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
   // -----------------------------------------------------------------------------
   final ValueNotifier<ProgressBarModel?> _progressBarModel = ValueNotifier(null);
   PageController _pageController = PageController();
-  ConfirmButtonModel? _confirmButtonModel;
   // -----------------------------------------------------------------------------
   bool _canValidate = true;
   void _switchOnValidation(){
@@ -85,6 +85,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
   }
   // --------------------
   final ValueNotifier<DraftUser?> _draftUser = ValueNotifier(null);
+  DraftUser? _originalDraft;
   // -----------------------------------------------------------------------------
   /// --- LOADING
   final ValueNotifier<bool> _loading = ValueNotifier(false);
@@ -111,7 +112,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
         notifier: _progressBarModel,
         mounted: mounted,
         value: ProgressBarModel.initialModel(
-          numberOfStrips: 4,
+          numberOfStrips: 5,
           index: _initialIndex,
         ),
     );
@@ -127,15 +128,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
 
       _triggerLoading(setTo: true).then((_) async {
         // -------------------------------
-        final DraftUser? _newDraft = await DraftUser.createDraftUser(
-          context: context,
-          userModel: widget.userModel,
-        );
-        setNotifier(
-          notifier: _draftUser,
-          mounted: mounted,
-          value: _newDraft,
-        );
+        await _initializeDraft();
         // -------------------------------
         if (widget.checkLastSession == true){
           await loadUserEditorLastSession(
@@ -180,6 +173,10 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+
+  /// INITIALIZATIONS
+
+  // --------------------
   int _getInitialTabIndex(UserEditorTab tab){
 
     switch(tab){
@@ -191,10 +188,29 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
         return 2;
       case UserEditorTab.contacts:
         return 3;
+      case UserEditorTab.confirm:
+        return 4;
     }
 
   }
-  // -----------------------------------------------------------------------------
+  // --------------------
+  Future<void> _initializeDraft() async {
+    final DraftUser? _newDraft = await DraftUser.createDraftUser(
+      context: context,
+      userModel: widget.userModel,
+    );
+    setNotifier(
+      notifier: _draftUser,
+      mounted: mounted,
+      value: _newDraft,
+    );
+    final UserModel? _user = await UserFireOps.readUser(userID: widget.userModel?.id);
+    _originalDraft = await DraftUser.createDraftUser(
+      context: context,
+      userModel: _user,
+    );
+  }
+  // --------------------
   /// TESTED : WORKS PERFECT
   void _addSessionListeners(){
 
@@ -209,25 +225,11 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
     });
 
   }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  Future<void> _onConfirmTap() async {
-
-    blog('CONFIRM TAPPED');
-
-    _switchOnValidation();
-
-    await confirmEdits(
-      draft: _draftUser,
-      mounted: mounted,
-      onFinish: widget.onFinish,
-      oldUser: widget.userModel,
-      loading: _loading,
-      forceReAuthentication: widget.reAuthBeforeConfirm,
-    );
-
-  }
   // -----------------------------------------------------------------------------
+
+  /// STRIPS
+
+  // --------------------
   /// TESTED : WORKS PERFECT
   void _stripsListener(){
 
@@ -296,7 +298,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
       contacts: _draftUser.value?.contacts,
       zoneModel: _draftUser.value?.zone,
       canValidate: true,
-      isRequired: false,
+      isMandatory: false,
       // focusNode: draft?.phoneNode,
     ) == null;
     final bool _emailIsValid = Formers.contactsEmailValidator(
@@ -314,8 +316,6 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
 
     // ------->
 
-    _controlConfirmButton();
-
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -327,32 +327,108 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
       color: isValid == true ? ProgressBarModel.goodStripColor : ProgressBarModel.errorStripColor,
     );
   }
+  // -----------------------------------------------------------------------------
+
+  /// CHECKERS
+
   // --------------------
   /// TESTED : WORKS PERFECT
-  void _controlConfirmButton(){
+  bool _canConfirmEdits(){
+    final bool _hasError = Mapper.boolIsTrue(_progressBarModel.value?.stripsColors?.contains(ProgressBarModel.errorStripColor));
+    return _hasError == false && _userHasChange() == true;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  bool _userHasChange(){
+     return !DraftUser.checkAreIdentical(
+          draft1: _originalDraft,
+          draft2: _draftUser.value,
+      );
+  }
+  // -----------------------------------------------------------------------------
 
-    if (Mapper.boolIsTrue(_progressBarModel.value?.stripsColors?.contains(ProgressBarModel.errorStripColor)) == true){
-      setState(() {
-        _confirmButtonModel = null;
-      });
-    }
+  /// SWIPING
 
-    else {
-      setState(() {
-        _confirmButtonModel = ConfirmButtonModel(
-          firstLine: const Verse(id: 'phid_updateProfile', translate: true),
-          onTap: _onConfirmTap,
-          isWide: true,
-        );
-      });
-    }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  bool _canGoFrom0to1({
+    required DraftUser? draft,
+  }){
+    return Formers.picValidator(pic: draft?.picModel, canValidate: true,) == null
+           &&
+           Formers.genderValidator(gender: draft?.gender, canValidate: true,) == null;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  bool _canGoFrom1To2({
+    required DraftUser? draft,
+  }){
 
+     return Formers.personNameValidator(
+              name: draft?.nameController?.text,
+              canValidate: true,
+              // focusNode: draft?.nameNode,
+            ) == null
+            &&
+            Formers.jobTitleValidator(
+              jobTitle: draft?.titleController?.text,
+              canValidate: true,
+              // focusNode: draft?.titleNode,
+            ) == null
+            &&
+            Formers.companyNameValidator(
+              companyName: draft?.companyController?.text,
+              canValidate: true,
+              // focusNode: draft?.companyNode,
+            ) == null;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  bool _canGoFrom2to3({
+    required DraftUser? draft,
+  }){
+    return Formers.zoneValidator(
+      zoneModel: draft?.zone,
+      selectCountryIDOnly: false,
+      canValidate: true,
+    ) == null;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  bool _canGoFrom3To4({
+    required DraftUser? draft
+  }){
+    return Formers.contactsPhoneValidator(
+            contacts: draft?.contacts,
+            zoneModel: draft?.zone,
+            canValidate: _canValidate,
+            isMandatory: false,
+            // focusNode: draft?.phoneNode,
+          ) == null
+          &&
+          Formers.contactsEmailValidator(
+            contacts: draft?.contacts,
+            canValidate: _canValidate,
+            // focusNode: draft?.emailNode,
+          ) == null;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onNextTap() async {
 
-    await NextButton.onNextTap(
+    await EditorSwipingButtons.onNextTap(
+      context: context,
+      mounted: mounted,
+      pageController: _pageController,
+      progressBarModel: _progressBarModel,
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _onPreviousTap() async {
+
+    await EditorSwipingButtons.onPreviousTap(
       context: context,
       mounted: mounted,
       pageController: _pageController,
@@ -361,10 +437,33 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
 
   }
   // -----------------------------------------------------------------------------
+
+  /// CONFIRMATION
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _onConfirmTap() async {
+
+    blog('CONFIRM TAPPED');
+
+    _switchOnValidation();
+
+    await confirmEdits(
+      draft: _draftUser,
+      mounted: mounted,
+      onFinish: widget.onFinish,
+      oldUser: widget.userModel,
+      loading: _loading,
+      forceReAuthentication: widget.reAuthBeforeConfirm,
+    );
+
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
     return MainLayout(
+
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
       title: const Verse(id: 'phid_updateProfile', translate: true),
@@ -374,7 +473,6 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
       onBack: () => Dialogs.goBackDialog(
         goBackOnConfirm: true,
       ),
-      confirmButtonModel: _confirmButtonModel,
       child: ValueListenableBuilder(
         valueListenable: _draftUser,
         builder: (_, DraftUser? draft, Widget? child){
@@ -388,7 +486,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
               pageController: _pageController,
               pageBubbles: <Widget>[
 
-                /// PIC - GENDER
+                /// 0 - PIC - GENDER
                 BldrsFloatingList(
                   columnChildren: <Widget>[
 
@@ -435,23 +533,16 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       ),
                     ),
 
-                    /// NEXT
-                    NextButton(
-                      onTap: _onNextTap,
-                      canGoNext:  Formers.picValidator(
-                        pic: draft?.picModel,
-                        canValidate: true,
-                      ) == null &&
-                      Formers.genderValidator(
-                          gender: draft?.gender,
-                          canValidate: true,
-                      ) == null,
+                    /// SWIPING BUTTONS
+                    EditorSwipingButtons(
+                      onNext: _onNextTap,
+                      canGoNext: _canGoFrom0to1(draft: draft),
                     ),
 
                   ],
                 ),
 
-                /// NAME - OCCUPATION - COMPANY
+                /// 1 - NAME - OCCUPATION - COMPANY
                 BldrsFloatingList(
                   columnChildren: <Widget>[
 
@@ -555,24 +646,11 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       ),
                     ),
 
-                    /// NEXT
-                    NextButton(
-                      onTap: _onNextTap,
-                      canGoNext: Formers.personNameValidator(
-                        name: draft?.nameController?.text,
-                        canValidate: true,
-                        // focusNode: draft?.nameNode,
-                      ) == null &&
-                      Formers.jobTitleValidator(
-                        jobTitle: draft?.titleController?.text,
-                        canValidate: true,
-                        // focusNode: draft?.titleNode,
-                      ) == null &&
-                      Formers.companyNameValidator(
-                        companyName: draft?.companyController?.text,
-                        canValidate: true,
-                        // focusNode: draft?.companyNode,
-                      ) == null,
+                    /// SWIPING BUTTONS
+                    EditorSwipingButtons(
+                      onNext: _onNextTap,
+                      onPrevious: _onPreviousTap,
+                      canGoNext: _canGoFrom1To2(draft: draft),
                     ),
 
                     const Horizon(
@@ -582,7 +660,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                   ],
                 ),
 
-                /// LOCATION
+                /// 2 - LOCATION
                 BldrsFloatingList(
                   columnChildren: <Widget>[
 
@@ -605,20 +683,17 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       ),
                     ),
 
-                    /// NEXT
-                    NextButton(
-                      onTap: _onNextTap,
-                      canGoNext: Formers.zoneValidator(
-                        zoneModel: draft?.zone,
-                        selectCountryIDOnly: false,
-                        canValidate: true,
-                      ) == null,
+                    /// SWIPING BUTTONS
+                    EditorSwipingButtons(
+                      onNext: _onNextTap,
+                      onPrevious: _onPreviousTap,
+                      canGoNext: _canGoFrom2to3(draft: draft),
                     ),
 
                   ],
                 ),
 
-                /// CONTACTS
+                /// 3 - CONTACTS
                 BldrsFloatingList(
                   columnChildren: <Widget>[
 
@@ -696,7 +771,7 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                         contacts: draft.contacts,
                         zoneModel: draft.zone,
                         canValidate: _canValidate,
-                        isRequired: false,
+                        isMandatory: false,
                         // focusNode: draft?.phoneNode,
                       ),
                     ),
@@ -746,31 +821,28 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                       ),
                     ),
 
-
-                    // /// NEXT
-                    // NextButton(
-                    //   onTap: _onNextTap,
-                    //   canGoNext:  Formers.contactsPhoneValidator(
-                    //     contacts: draft?.contacts,
-                    //     zoneModel: draft?.zone,
-                    //     canValidate: _canValidate,
-                    //     context: context,
-                    //     isRequired: false,
-                    //     // focusNode: draft?.phoneNode,
-                    //   ) == null &&
-                    //               Formers.contactsEmailValidator(
-                    //     context: context,
-                    //     contacts: draft?.contacts,
-                    //     canValidate: _canValidate,
-                    //     // focusNode: draft?.emailNode,
-                    //   ) == null,
-                    // ),
+                    /// SWIPING BUTTONS
+                    EditorSwipingButtons(
+                      onNext: _onNextTap,
+                      onPrevious: _onPreviousTap,
+                      canGoNext: _canGoFrom3To4(draft: draft),
+                    ),
 
                     const Horizon(
                       heightFactor: 0,
                     ),
 
                   ],
+                ),
+
+                /// 4 - CONFIRM
+                EditorConfirmPage(
+                  verse:  const Verse(id: 'phid_updateProfile', translate: true),
+                  onConfirmTap: _onConfirmTap,
+                  canConfirm: _canConfirmEdits(),
+                  modelHasChanged: _userHasChange(),
+                  onPreviousTap: _onPreviousTap,
+                  previewWidget: Container(),
                 ),
 
               ],

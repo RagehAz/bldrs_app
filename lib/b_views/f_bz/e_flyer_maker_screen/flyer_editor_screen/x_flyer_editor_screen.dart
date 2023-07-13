@@ -22,7 +22,7 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/phids_bubble/multi
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/zone_selection_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
-import 'package:bldrs/b_views/z_components/buttons/next_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_swiping_buttons.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/bldrs_floating_list.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/pages_layout.dart';
@@ -305,11 +305,66 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
     widget.onConfirm(draftNotifier.value);
 
   }
+  // -----------------------------------------------------------------------------
+
+  /// SWIPING
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  bool _canGoFrom0to1({
+    required DraftFlyer? draft,
+  }){
+    return Formers.slidesValidator(draftFlyer: draftNotifier.value, canValidate: true,) == null
+           &&
+           Formers.flyerHeadlineValidator(headline: draft?.headline?.text, canValidate: _canValidate,) == null;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  bool _canGoFrom1To2({
+    required DraftFlyer? draft,
+  }){
+    return Formers.flyerTypeValidator(draft: draft, canValidate: true,) == null
+           &&
+           Formers.paragraphValidator(text: draft?.description?.text, canValidate: _canValidate,) == null;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  bool _canGoFrom2to3({
+    required DraftFlyer? draft,
+  }){
+    return Formers.flyerPhidsValidator(phids: draft?.phids, canValidate: true,) == null;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  bool _canGoFrom3To4({
+    required DraftFlyer? draft,
+  }){
+    return Formers.pdfValidator(canValidate: true, pdfModel: draft?.pdfModel,) == null;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  bool _canGoFrom4To5({
+    required DraftFlyer? draft,
+  }){
+    return Formers.zoneValidator(zoneModel: draft?.zone, selectCountryIDOnly: false, canValidate: true,) == null;
+  }
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onNextTap() async {
 
-    await NextButton.onNextTap(
+    await EditorSwipingButtons.onNextTap(
+      context: context,
+      mounted: mounted,
+      pageController: _pageController,
+      progressBarModel: _progressBarModel,
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _onPreviousTap() async {
+
+    await EditorSwipingButtons.onPreviousTap(
       context: context,
       mounted: mounted,
       pageController: _pageController,
@@ -341,16 +396,16 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
       confirmButtonModel: _confirmButtonModel,
       child: ValueListenableBuilder(
         valueListenable: draftNotifier,
-        builder: (_, DraftFlyer? _draft, Widget? child){
+        builder: (_, DraftFlyer? draft, Widget? child){
 
           return Form(
-            key: _draft?.formKey,
+            key: draft?.formKey,
             child: PagerBuilder(
               progressBarModel: _progressBarModel,
               pageController: _pageController,
               pageBubbles: <Widget>[
 
-                /// SLIDES - HEADLINE
+                /// 0 - SLIDES - HEADLINE
                 BldrsFloatingList(
                   columnChildren: <Widget>[
 
@@ -358,7 +413,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                     SlidesShelfBubble(
                       canValidate: _canValidate,
                       draftNotifier: draftNotifier,
-                      bzModel: _draft?.bzModel,
+                      bzModel: draft?.bzModel,
                       focusNode: null, /// TASK : DO ME
                     ),
 
@@ -373,8 +428,8 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                         ),
                         redDot: true,
                       ),
-                      formKey: _draft?.formKey,
-                      focusNode: _draft?.headlineNode,
+                      formKey: draft?.formKey,
+                      focusNode: draft?.headlineNode,
                       appBarType: AppBarType.non,
                       isFormField: true,
                       counterIsOn: true,
@@ -386,24 +441,17 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                         text: text,
                         mounted: mounted,
                       ),
-                      textController: _draft?.headline,
+                      textController: draft?.headline,
                       validator: (String? text) => Formers.flyerHeadlineValidator(
-                        headline: _draft?.headline?.text,
+                        headline: draft?.headline?.text,
                         canValidate: _canValidate,
                       ),
                     ),
 
-                    /// NEXT
-                    NextButton(
-                      onTap: _onNextTap,
-                      canGoNext: Formers.slidesValidator(
-                        draftFlyer: draftNotifier.value,
-                        canValidate: true,
-                      ) == null &&
-                      Formers.flyerHeadlineValidator(
-                        headline: _draft?.headline?.text,
-                        canValidate: _canValidate,
-                      ) == null,
+                    /// SWIPING BUTTONS
+                    EditorSwipingButtons(
+                      onNext: _onNextTap,
+                      canGoNext: _canGoFrom0to1(draft: draft),
                     ),
 
                     const Horizon(heightFactor: 0,),
@@ -411,7 +459,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                   ],
                 ),
 
-                /// TYPE - DESCRIPTION
+                /// 1 - TYPE - DESCRIPTION
                 BldrsFloatingList(
                   columnChildren: <Widget>[
 
@@ -447,7 +495,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                       ),
                       selectedButtonsPhids: FlyerTyper.translateFlyerTypes(
                         context: context,
-                        flyerTypes: _draft?.flyerType == null ? [] : <FlyerType>[_draft!.flyerType!],
+                        flyerTypes: draft?.flyerType == null ? [] : <FlyerType>[draft!.flyerType!],
                         pluralTranslation: false,
                       ),
                       onButtonTap: (int index) => onSelectFlyerType(
@@ -461,7 +509,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                           strings: FlyerTyper.translateFlyerTypes(
                             context: context,
                             flyerTypes: FlyerTyper.concludeInactiveFlyerTypesByBzModel(
-                              bzModel: _draft?.bzModel,
+                              bzModel: draft?.bzModel,
                             ),
                             pluralTranslation: false,
                           ),
@@ -470,7 +518,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                       ],
 
                       validator: () => Formers.flyerTypeValidator(
-                        draft: _draft,
+                        draft: draft,
                         canValidate: _canValidate,
                       ),
                     ),
@@ -494,17 +542,17 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                           translate: true,
                         ),
                       ),
-                      formKey: _draft?.formKey,
-                      focusNode: _draft?.descriptionNode,
+                      formKey: draft?.formKey,
+                      focusNode: draft?.descriptionNode,
                       appBarType: AppBarType.non,
                       isFormField: true,
                       counterIsOn: true,
                       maxLength: 5000,
                       maxLines: 7,
                       keyboardTextInputType: TextInputType.multiline,
-                      textController: _draft?.description,
+                      textController: draft?.description,
                       validator: (String? text) => Formers.paragraphValidator(
-                        text: _draft?.description?.text,
+                        text: draft?.description?.text,
                         canValidate: _canValidate,
                       ),
                       pasteFunction: () async {
@@ -513,7 +561,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
 
                         blog('pasteFunction _text: $_text');
 
-                        _draft?.description?.text = _text ?? '';
+                        draft?.description?.text = _text ?? '';
 
                         // onUpdateFlyerDescription(
                         //   draftNotifier: draftNotifier,
@@ -534,17 +582,11 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                       // ),
                     ),
 
-                    /// NEXT
-                    NextButton(
-                      onTap: _onNextTap,
-                      canGoNext: Formers.flyerTypeValidator(
-                        draft: _draft,
-                        canValidate: true,
-                      ) == null &&
-                      Formers.paragraphValidator(
-                        text: _draft?.description?.text,
-                        canValidate: _canValidate,
-                      ) == null,
+                    /// SWIPING BUTTONS
+                    EditorSwipingButtons(
+                      onNext: _onNextTap,
+                      onPrevious: _onPreviousTap,
+                      canGoNext: _canGoFrom1To2(draft: draft),
                     ),
 
                     const Horizon(heightFactor: 0,),
@@ -552,14 +594,14 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                   ],
                 ),
 
-                /// KEYWORDS
+                /// 2 - KEYWORDS
                 BldrsFloatingList(
                   columnChildren: <Widget>[
 
                     /// PHIDS
                     PhidsSelectorBubble(
-                      bzModel: _draft?.bzModel,
-                      draft: _draft,
+                      bzModel: draft?.bzModel,
+                      draft: draft,
                       draftNotifier: draftNotifier,
                       onPhidTap: (String phid){
                         blog('phidSelectorBubble : onPhidTap : phid: $phid');
@@ -579,9 +621,9 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
 
                     /// SPECS
                     SpecsSelectorBubble(
-                        draft: _draft,
+                        draft: draft,
                         draftNotifier: draftNotifier,
-                        bzModel: _draft?.bzModel,
+                        bzModel: draft?.bzModel,
                         onSpecTap: ({SpecModel? value, SpecModel? unit}){
 
                           blog('on spec Tap');
@@ -603,30 +645,28 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                         ),
                     ),
 
-                    /// NEXT
-                    NextButton(
-                      onTap: _onNextTap,
-                      canGoNext:  Formers.flyerPhidsValidator(
-                        phids: _draft?.phids,
-                        canValidate: true,
-                      ) == null,
+                    /// SWIPING BUTTONS
+                    EditorSwipingButtons(
+                      onNext: _onNextTap,
+                      onPrevious: _onPreviousTap,
+                      canGoNext: _canGoFrom2to3(draft: draft),
                     ),
 
                   ],
                 ),
 
-                /// PDF
+                /// 3 - PDF
                 BldrsFloatingList(
                   columnChildren: <Widget>[
 
                     /// PDF SELECTOR
-                    if (_draft != null && _draft.id != null)
+                    if (draft != null && draft.id != null)
                     PDFSelectionBubble(
-                      flyerID: _draft.id,
-                      bzID: _draft.bzID,
+                      flyerID: draft.id,
+                      bzID: draft.bzID,
                       appBarType: AppBarType.non,
-                      formKey: _draft.formKey,
-                      existingPDF: _draft.pdfModel,
+                      formKey: draft.formKey,
+                      existingPDF: draft.pdfModel,
                       canValidate: _canValidate,
                       onChangePDF: (PDFModel? pdf) => onChangeFlyerPDF(
                         draftNotifier: draftNotifier,
@@ -639,19 +679,17 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                       ),
                     ),
 
-                    /// NEXT
-                    NextButton(
-                      onTap: _onNextTap,
-                      canGoNext: Formers.pdfValidator(
-                        canValidate: true,
-                        pdfModel: _draft?.pdfModel,
-                      ) == null,
+                    /// SWIPING BUTTONS
+                    EditorSwipingButtons(
+                      onNext: _onNextTap,
+                      onPrevious: _onPreviousTap,
+                      canGoNext: _canGoFrom3To4(draft: draft),
                     ),
 
                   ],
                 ),
 
-                /// ZONE
+                /// 4 - ZONE
                 BldrsFloatingList(
                   columnChildren: <Widget>[
 
@@ -673,8 +711,8 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                           translate: true,
                         ),
                       ],
-                      currentZone: _draft?.zone,
-                      viewerCountryID: _draft?.bzModel?.zone?.countryID,
+                      currentZone: draft?.zone,
+                      viewerCountryID: draft?.bzModel?.zone?.countryID,
                       onZoneChanged: (ZoneModel? zone) => onZoneChanged(
                         context: context,
                         draftNotifier: draftNotifier,
@@ -682,33 +720,30 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                         mounted: mounted,
                       ),
                       validator: () => Formers.zoneValidator(
-                        zoneModel: _draft?.zone,
+                        zoneModel: draft?.zone,
                         selectCountryIDOnly: false,
                         canValidate: _canValidate,
                       ),
                     ),
 
-                    /// NEXT
-                    NextButton(
-                      onTap: _onNextTap,
-                      canGoNext: Formers.zoneValidator(
-                        zoneModel: _draft?.zone,
-                        selectCountryIDOnly: false,
-                        canValidate: true,
-                      ) == null,
+                    /// SWIPING BUTTONS
+                    EditorSwipingButtons(
+                      onNext: _onNextTap,
+                      onPrevious: _onPreviousTap,
+                      canGoNext: _canGoFrom4To5(draft: draft),
                     ),
 
                   ],
                 ),
 
-                /// SHOW AUTHOR - POSTER
+                /// 5 - SHOW AUTHOR - POSTER
                 BldrsFloatingList(
                   columnChildren: <Widget>[
 
                     /// SHOW FLYER AUTHOR
                     ShowAuthorSwitchBubble(
-                      draft: _draft,
-                      bzModel: _draft?.bzModel,
+                      draft: draft,
+                      bzModel: draft?.bzModel,
                       onSwitch: (bool value) => onSwitchFlyerShowsAuthor(
                         value: value,
                         draftNotifier: draftNotifier,
@@ -718,11 +753,18 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
 
                     /// FLYER POSTER
                     FlyerPosterCreatorBubble(
-                      draft: _draft,
-                      bzModel: _draft?.bzModel,
+                      draft: draft,
+                      bzModel: draft?.bzModel,
                       onSwitch: (bool value){
                         blog('value of poster blah is : $value');
                       },
+                    ),
+
+                    /// SWIPING BUTTONS
+                    EditorSwipingButtons(
+                      onNext: _onNextTap,
+                      onPrevious: _onPreviousTap,
+                      canGoNext: _canGoFrom4To5(draft: draft),
                     ),
 
                   ],
