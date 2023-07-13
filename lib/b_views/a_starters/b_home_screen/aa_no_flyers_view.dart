@@ -9,6 +9,7 @@ import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
+import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/x_app_settings_controllers.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
 import 'package:bldrs/b_views/z_components/texting/customs/zone_line.dart';
@@ -137,7 +138,7 @@ class NoFlyersView extends StatelessWidget {
           verseScaleFactor: 0.6,
           verseCentered: false,
           verseMaxLines: 2,
-          onTap: () async {},
+          onTap: () => onInviteFriendsTap(),
         ),
 
         /// WE ARE WORKING ON IT
