@@ -344,7 +344,7 @@ class Formers {
     required List<ContactModel>? contacts,
     required ZoneModel? zoneModel,
     required bool? canValidate,
-    required bool isRequired,
+    required bool isMandatory,
     FocusNode? focusNode,
   }){
     String? _message;
@@ -357,7 +357,7 @@ class Formers {
       );
 
       /// EMPTY
-      if (TextCheck.isEmpty(_phone) == true && isRequired == true){
+      if (TextCheck.isEmpty(_phone) == true && isMandatory == true){
         _message = Verse.transBake('phid_phone_number_should_not_be_empty');
       }
 
@@ -441,6 +441,7 @@ class Formers {
   static String? contactsWebsiteValidator({
     required List<ContactModel>? contacts,
     required bool? canValidate,
+    required bool isMandatory,
     FocusNode? focusNode,
   }){
     String? _message;
@@ -454,6 +455,7 @@ class Formers {
 
       _message = webSiteValidator(
         website: _website,
+        isMandatory: isMandatory,
       );
 
       /// FOCUS ON FIELD
@@ -1178,6 +1180,7 @@ class Formers {
   /// TESTED : WORKS PERFECT
   static String? webSiteValidator({
     required String? website,
+    required bool isMandatory,
   }){
     String? _message;
 
@@ -1194,7 +1197,7 @@ class Formers {
     }
 
     /// WEBSITE IS EMPTY
-    else {
+    else if (isMandatory == true){
       _message = Verse.transBake('phid_this_field_can_not_be_empty');
     }
 

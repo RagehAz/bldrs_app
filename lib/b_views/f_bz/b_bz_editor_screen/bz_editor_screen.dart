@@ -1,7 +1,10 @@
 // ignore_for_file: avoid_positional_boolean_parameters
 import 'dart:async';
+
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/draft/draft_bz.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
@@ -16,8 +19,8 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/phids_bubble/multi
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/pic_bubble/add_gallery_pic_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/zone_selection_bubble.dart';
-import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
-import 'package:bldrs/b_views/z_components/buttons/next_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_confirm_page.dart';
+import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_swiping_buttons.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/bldrs_floating_list.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/pages_layout.dart';
@@ -25,10 +28,9 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/bz_protocols/fire/bz_fire_ops.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
-import 'package:basics/mediator/pic_maker/pic_maker.dart';
 
 class BzEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -52,9 +54,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
   // -----------------------------------------------------------------------------
   final ValueNotifier<ProgressBarModel?> _progressBarModel = ValueNotifier(null);
   final PageController _pageController = PageController();
-  ConfirmButtonModel? _confirmButtonModel;
   // --------------------
   final ValueNotifier<DraftBz?> draftNotifier = ValueNotifier(null);
+  DraftBz? _originalDraft;
   final ScrollController scrollController = ScrollController();
   // -----------------------------------------------------------------------------
   /// LOADING
@@ -76,7 +78,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
       notifier: _progressBarModel,
       mounted: mounted,
       value: ProgressBarModel.initialModel(
-        numberOfStrips: 5,
+        numberOfStrips: 6,
       ),
     );
 
@@ -91,14 +93,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
 
       _triggerLoading(setTo: true).then((_) async {
         // -------------------------------
-        /// PREPARE (PIC - ZONE - CONTACTS)
-        setNotifier(
-          notifier: draftNotifier,
-          mounted: mounted,
-          value: await DraftBz.createDraftBz(
-            oldBz: widget.bzModel,
-          ),
-        );
+        await _initializeDraft();
         // -----------------------------
         if (widget.checkLastSession == true) {
           await loadBzEditorLastSession(
@@ -152,10 +147,33 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+
+  /// INITIALIZATIONS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _initializeDraft() async {
+
+    final DraftBz _newDraft = await DraftBz.createDraftBz(
+      oldBz: widget.bzModel,
+    );
+        setNotifier(
+          notifier: draftNotifier,
+          mounted: mounted,
+          value: _newDraft,
+        );
+        _originalDraft = _newDraft;
+
+
+    final BzModel? _bz = await BzFireOps.readBz(bzID: widget.bzModel?.id);
+    _originalDraft = await DraftBz.createDraftBz(
+      oldBz: _bz,
+    );
+
+  }
+  // --------------------
   /// TESTED : WORKS PERFECT
   void _addSessionListeners(){
-
-    blog('adding session listeners');
 
     draftNotifier.addListener(() async {
       await _onDraftChanged();
@@ -163,7 +181,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
 
   }
   // --------------------
-  ///
+  /// TESTED : WORKS PERFECT
   Future<void> _onDraftChanged() async {
     _stripsListener();
     await saveBzEditorSession(
@@ -171,19 +189,11 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
       mounted: mounted,
     );
   }
-  // --------------------
-  /// TESTED : WORKS PERFECT
-  Future<void> _onConfirmTap() async {
-
-    await onConfirmBzEdits(
-      context: context,
-      draftNotifier: draftNotifier,
-      oldBz: widget.bzModel,
-      mounted: mounted,
-    );
-
-  }
   // -----------------------------------------------------------------------------
+
+  /// STRIPS
+
+  // --------------------
   /// TESTED : WORKS PERFECT
   void _stripsListener(){
 
@@ -271,7 +281,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
       contacts: draftNotifier.value?.contacts,
       zoneModel: draftNotifier.value?.zone,
       canValidate: true,
-      isRequired: false,
+      isMandatory: false,
     ) == null;
     final bool _emailIsValid = Formers.contactsEmailValidator(
       contacts: draftNotifier.value?.contacts,
@@ -280,6 +290,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
     final bool _websiteIsValid = Formers.contactsWebsiteValidator(
       contacts: draftNotifier.value?.contacts,
       canValidate: true,
+      isMandatory: false,
     ) == null;
 
     if (_phoneIsValid == false || _emailIsValid == false || _websiteIsValid == false){
@@ -290,9 +301,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
     }
 
     // ------->
-
-    _controlConfirmButton();
-
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -304,36 +312,138 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
       color: isValid == true ? ProgressBarModel.goodStripColor : ProgressBarModel.errorStripColor,
     );
   }
+  // -----------------------------------------------------------------------------
+
+  /// CHECKERS
+
   // --------------------
   /// TESTED : WORKS PERFECT
-  void _controlConfirmButton(){
+  bool _canConfirmEdits(){
+    final bool _hasError = Mapper.boolIsTrue(_progressBarModel.value?.stripsColors?.contains(ProgressBarModel.errorStripColor));
+    return _hasError == false && _bzHasChanged() == true;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  bool _bzHasChanged(){
+    return !DraftBz.checkDraftsAreIdentical(
+      draft1: _originalDraft,
+      draft2: draftNotifier.value,
+      blogDiffs: true,
+    );
+  }
+  // -----------------------------------------------------------------------------
 
-    if (Mapper.boolIsTrue(_progressBarModel.value?.stripsColors?.contains(ProgressBarModel.errorStripColor)) == true){
-      setState(() {
-        _confirmButtonModel = null;
-      });
-    }
+  /// SWIPING
 
-    else {
-      setState(() {
-        _confirmButtonModel = ConfirmButtonModel(
-          firstLine: const Verse(id: 'phid_updateProfile', translate: true),
-          onTap: _onConfirmTap,
-          isWide: true,
-        );
-      });
-    }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  bool _canGoFrom0to1({
+    required DraftBz? draft,
+  }){
+    return Formers.picValidator(pic: draft?.logoPicModel, canValidate: true,) == null
+           &&
+           Formers.companyNameValidator(companyName: draft?.nameController?.text, canValidate: true,) == null
+           &&
+           _isInit == false;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  bool _canGoFrom1To2({
+    required DraftBz? draft,
+  }){
+    return Formers.bzSectionValidator(selectedSection: draft?.bzSection, canValidate: true,) == null
+           &&
+           Formers.bzTypeValidator(selectedTypes: draft?.bzTypes, canValidate: true,) == null
+           &&
+           Formers.bzFormValidator(bzForm: draft?.bzForm, canValidate: true,) == null;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  bool _canGoFrom2to3({
+    required DraftBz? draft,
+  }){
+
+    return Formers.bzAboutValidator(bzAbout: draft?.aboutController?.text, canValidate: true,) == null;
+          // &&
+          // Formers.bzScopeValidator(
+          //   scope: draft?.scope,
+          //   canValidate: true,
+          // ) == null
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  bool _canGoFrom3To4({
+    required DraftBz? draft,
+  }){
+    return Formers.zoneValidator(
+      zoneModel: draft?.zone,
+      selectCountryIDOnly: false,
+      canValidate: true,
+    ) == null;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  bool _canGoFrom4To5({
+    required DraftBz? draft,
+  }){
+
+    return Formers.contactsPhoneValidator(
+           contacts: draft?.contacts,
+           zoneModel: draft?.zone,
+           canValidate: draft?.canValidate,
+           isMandatory: false,
+         ) == null
+         &&
+         Formers.contactsEmailValidator(
+           contacts: draft?.contacts,
+           canValidate: draft?.canValidate,
+         ) == null
+         &&
+         Formers.contactsWebsiteValidator(
+           contacts: draft?.contacts,
+           canValidate: draft?.canValidate,
+           isMandatory: false,
+         ) == null;
 
   }
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onNextTap() async {
 
-    await NextButton.onNextTap(
+    await EditorSwipingButtons.onNextTap(
       context: context,
       mounted: mounted,
       pageController: _pageController,
       progressBarModel: _progressBarModel,
+    );
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _onPreviousTap() async {
+
+    await EditorSwipingButtons.onPreviousTap(
+      context: context,
+      mounted: mounted,
+      pageController: _pageController,
+      progressBarModel: _progressBarModel,
+    );
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// CONFIRMATION
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _onConfirmTap() async {
+
+    await onConfirmBzEdits(
+      context: context,
+      draftNotifier: draftNotifier,
+      oldBz: widget.bzModel,
+      mounted: mounted,
     );
 
   }
@@ -369,7 +479,6 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
       onBack: () => Dialogs.goBackDialog(
         goBackOnConfirm: true,
       ),
-      confirmButtonModel: _confirmButtonModel,
       // appBarRowWidgets: [
       //
       //   AppBarButton(
@@ -423,7 +532,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
               pageController: _pageController,
               pageBubbles: <Widget>[
 
-                /// LOGO - NAME
+                /// 0 - LOGO - NAME
                 BldrsFloatingList(
                   columnChildren: <Widget>[
 
@@ -482,19 +591,12 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       },
                     ),
 
-                    /// NEXT
-                    NextButton(
-                      onTap: _onNextTap,
-                      canGoNext: Formers.picValidator(
-                                pic: draft?.logoPicModel,
-                                canValidate: true,
-                              ) == null
-                          &&
-                          Formers.companyNameValidator(
-                                companyName: draft?.nameController?.text,
-                                canValidate: true,
-                              ) == null &&
-                          _isInit == false,
+                    /// SWIPING BUTTONS
+                    EditorSwipingButtons(
+                      onNext: _onNextTap,
+                      canGoNext: _canGoFrom0to1(
+                        draft: draft,
+                      ),
                     ),
 
                     const Horizon(
@@ -504,7 +606,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                   ],
                 ),
 
-                /// SECTIONS - BZ TYPE - FORM
+                /// 1 - SECTIONS - BZ TYPE - FORM
                 BldrsFloatingList(
                   columnChildren: <Widget>[
                     
@@ -597,28 +699,17 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       ),
                     ),
 
-                    /// NEXT
-                    NextButton(
-                      onTap: _onNextTap,
-                      canGoNext: Formers.bzSectionValidator(
-                                selectedSection: draft?.bzSection,
-                                canValidate: true,
-                              ) == null
-                          &&
-                          Formers.bzTypeValidator(
-                                selectedTypes: draft?.bzTypes,
-                                canValidate: true,
-                              ) == null
-                          &&
-                          Formers.bzFormValidator(
-                                bzForm: draft?.bzForm,
-                                canValidate: true,
-                              ) == null,
+                    /// SWIPING BUTTONS
+                    EditorSwipingButtons(
+                      onNext: _onNextTap,
+                      onPrevious: _onPreviousTap,
+                      canGoNext: _canGoFrom1To2(draft: draft,),
                     ),
+
                   ],
                 ),
 
-                /// ABOUT - SCOPE
+                /// 2 - ABOUT - SCOPE
                 BldrsFloatingList(
                   columnChildren: <Widget>[
 
@@ -679,25 +770,20 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                     //   ),
                     // ),
 
-                    /// NEXT
-                    NextButton(
-                      onTap: _onNextTap,
-                      canGoNext: Formers.bzAboutValidator(
-                                bzAbout: draft?.aboutController?.text,
-                                canValidate: true,
-                              ) == null
-                          // && Formers.bzScopeValidator(
-                          //   scope: draft?.scope,
-                          //   canValidate: true,
-                          // ) == null,
+                    /// SWIPING BUTTONS
+                    EditorSwipingButtons(
+                      onNext: _onNextTap,
+                      onPrevious: _onPreviousTap,
+                      canGoNext: _canGoFrom2to3(draft: draft,),
                     ),
 
                   ],
                 ),
 
-                /// ZONE
+                /// 3 - ZONE
                 BldrsFloatingList(
                   columnChildren: <Widget>[
+
                     /// BZ ZONE
                     ZoneSelectionBubble(
                         zoneViewingEvent: ViewingEvent.bzEditor,
@@ -723,22 +809,20 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                           );
                         }),
 
-                    /// NEXT
-                    NextButton(
-                      onTap: _onNextTap,
-                      canGoNext: Formers.zoneValidator(
-                            zoneModel: draft?.zone,
-                            selectCountryIDOnly: false,
-                            canValidate: true,
-                          ) ==
-                          null,
+                    /// SWIPING BUTTONS
+                    EditorSwipingButtons(
+                      onNext: _onNextTap,
+                      onPrevious: _onPreviousTap,
+                      canGoNext: _canGoFrom3To4(draft: draft),
                     ),
+
                   ],
                 ),
 
-                /// PHONE - EMAIL - WEBSITE
+                /// 4 - PHONE - EMAIL - WEBSITE
                 BldrsFloatingList(
                   columnChildren: <Widget>[
+
                     /// PHONE
                     ContactFieldEditorBubble(
                       key: const ValueKey<String>('phone'),
@@ -766,7 +850,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                         contacts: draft?.contacts,
                         zoneModel: draft?.zone,
                         canValidate: draft?.canValidate,
-                        isRequired: false,
+                        isMandatory: false,
                       ),
                       textOnChanged: (String? text) => onChangeBzContact(
                         contactType: ContactType.phone,
@@ -839,6 +923,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       validator: (String? text) => Formers.contactsWebsiteValidator(
                         contacts: draft?.contacts,
                         canValidate: draft?.canValidate,
+                        isMandatory: false,
                       ),
                       textOnChanged: (String? text) => onChangeBzContact(
                         contactType: ContactType.website,
@@ -848,12 +933,28 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       ),
                     ),
 
-                    // NO NEED FOR NEXT BUTTON HERE
+                    /// SWIPING BUTTONS
+                    EditorSwipingButtons(
+                      onNext: _onNextTap,
+                      canGoNext: _canGoFrom4To5(draft: draft),
+                      onPrevious: _onPreviousTap,
+                    ),
 
+                    // NO NEED FOR NEXT BUTTON HERE
                     const Horizon(
                       heightFactor: 0,
                     ),
                   ],
+                ),
+
+                /// 5 - CONFIRM
+                EditorConfirmPage(
+                  verse:  const Verse(id: 'phid_updateProfile', translate: true),
+                  onConfirmTap: _onConfirmTap,
+                  canConfirm: _canConfirmEdits(),
+                  modelHasChanged: _bzHasChanged(),
+                  onPreviousTap: _onPreviousTap,
+                  previewWidget: Container(),
                 ),
 
               ],
