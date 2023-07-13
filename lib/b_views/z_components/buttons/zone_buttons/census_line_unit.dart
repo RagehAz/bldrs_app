@@ -1,4 +1,3 @@
-import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -26,11 +25,23 @@ class CensusLineUnit extends StatelessWidget {
   final bool isActive;
   final Verse? title;
   // -----------------------------------------------------------------------------
+  static double getTotalHeight({
+    required bool hasTitle,
+    double? stripHeight,
+  }){
+    final double _stripHeight = stripHeight ?? 30;
+    final double _titleHeight = hasTitle == false ? 0 : _stripHeight/2;
+    return _stripHeight + _titleHeight;
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
 
     final double _titleHeight = title == null ? 0 : stripHeight/2;
-    final double _totalHeight = stripHeight + _titleHeight;
+    final double _totalHeight = getTotalHeight(
+      hasTitle: title != null,
+      stripHeight: stripHeight,
+    );
     final double _iconZoneWidth = stripHeight * 1.25;
     final double _numberZoneWidth = width - _iconZoneWidth;
 
@@ -38,7 +49,7 @@ class CensusLineUnit extends StatelessWidget {
       width: width,
       height: _totalHeight,
       decoration: const BoxDecoration(
-        color: Colorz.white10,
+        // color: Colorz.white10,
         borderRadius: Borderers.constantCornersAll12,
       ),
       child: Row(
