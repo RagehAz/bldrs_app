@@ -161,7 +161,7 @@ class FlyerColors {
 
   // --------------------
   static const Color progressStripOffColor = Colorz.white10;
-  static const Color progressStripFadedColor = Colorz.white80;
+  static const Color progressStripFadedColor = Colorz.white125;
   static const Color progressStripOnColor = Colorz.white200;
   static const Color progressStripLoadingColor = Colorz.yellow200;
   // --------------------

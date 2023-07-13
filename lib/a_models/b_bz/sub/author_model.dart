@@ -1290,7 +1290,7 @@ class AuthorModel {
 
       if (
 
-          author1.userID == author2.userID &&
+          author1.userID == author2.userID  &&
           author1.name == author2.name &&
           author1.picPath == author2.picPath &&
           author1.title == author2.title &&
@@ -1307,12 +1307,17 @@ class AuthorModel {
               pic1: author1.picModel,
               pic2: author2.picModel
           ) == true
-
       ){
         _identical = true;
       }
 
     }
+
+    // Mapper.blogMapsDifferences(
+    //     map1: author1?.toMap(),
+    //     map2: author2?.toMap(),
+    //     invoker: 'checkAuthorsAreIdentical',
+    // );
 
     return _identical;
   }

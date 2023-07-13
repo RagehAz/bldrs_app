@@ -31,7 +31,7 @@ import 'package:basics/mediator/pic_maker/pic_maker.dart';
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> prepareAuthorPicForEditing({
+Future<AuthorModel?> prepareAuthorForEditing({
   required BuildContext context,
   required ValueNotifier<AuthorModel?>? draftAuthor,
   required AuthorModel? oldAuthor,
@@ -50,6 +50,7 @@ Future<void> prepareAuthorPicForEditing({
     value: _tempAuthor,
   );
 
+  return _tempAuthor;
 }
 // -----------------------------------------------------------------------------
 
