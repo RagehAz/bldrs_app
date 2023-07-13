@@ -204,11 +204,11 @@ class _CountriesScreenState extends State<CountriesScreen> {
 
       /// SEARCH COUNTRIES FROM LOCAL PHRASES
        final List<Phrase> _byName = await ZoneProtocols.searchCountriesByNameFromLDBFlags(
-        text: val,
+        text: val?.toLowerCase(),
       );
 
        final List<Phrase> _byID = ZoneProtocols.searchCountriesByIDFromAllFlags(
-         text: val,
+         text: val?.toLowerCase(),
        );
 
       setNotifier(
