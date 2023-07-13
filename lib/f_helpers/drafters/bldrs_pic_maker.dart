@@ -41,7 +41,7 @@ class BldrsPicMaker {
       resizeToWidth: resizeToWidth,
       selectedAsset: selectedAsset,
       appIsLTR: UiProvider.checkAppIsLeftToRight(),
-      confirmText: Verse.transBake('phid_crop')!,
+      confirmText: Verse.transBake('phid_continue')!,
     );
 
     return _bytes;
@@ -62,7 +62,7 @@ class BldrsPicMaker {
       aspectRatio: aspectRatio,
       resizeToWidth: resizeToWidth,
       appIsLTR: UiProvider.checkAppIsLeftToRight(),
-      confirmText: Verse.transBake('phid_crop')!,
+      confirmText: Verse.transBake('phid_continue')!,
     );
 
     return _bytes;
@@ -77,7 +77,7 @@ class BldrsPicMaker {
     final Uint8List? _bytes = await PicMaker.cropPic(
       context: getMainContext(),
       bytes: bytes,
-      confirmText: Verse.transBake('phid_crop')!,
+      confirmText: Verse.transBake('phid_continue')!,
       appIsLTR: UiProvider.checkAppIsLeftToRight(),
       aspectRatio: aspectRatio,
     );

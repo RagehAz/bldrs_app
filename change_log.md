@@ -4,7 +4,7 @@
 2. updated app versioning sequence
 3. User can switch the privacy settings of showing or hiding his personal contacts
 4. Added descriptive text in many screens to explain how to use the app
-5. 
+5. Fixed Cropping screen UI
 
 ### 1.0.5 changelog
 1. Optimized gallery flyer animation
