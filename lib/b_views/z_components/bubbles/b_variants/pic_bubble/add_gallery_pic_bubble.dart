@@ -3,6 +3,7 @@ import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
 import 'package:basics/helpers/classes/files/file_size_unit.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';
@@ -12,6 +13,7 @@ import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/b_bal
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_validator.dart';
+import 'package:bldrs/b_views/z_components/texting/bullet_points/bldrs_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
@@ -40,6 +42,7 @@ class AddImagePicBubble extends StatelessWidget {
     this.validator,
     this.autoValidate = true,
     this.onPicLongTap,
+    this.bulletPoints,
     super.key
   });
   // --------------------
@@ -53,6 +56,7 @@ class AddImagePicBubble extends StatelessWidget {
   final GlobalKey<FormState>? formKey;
   final bool autoValidate;
   final Function? onPicLongTap;
+  final List<Verse>? bulletPoints;
   // --------------------
   static BorderRadius getPicBorder ({
     required BuildContext context,
@@ -103,6 +107,12 @@ class AddImagePicBubble extends StatelessWidget {
           redDot: redDot,
         ),
         columnChildren: <Widget>[
+
+          if (Mapper.checkCanLoopList(bulletPoints) == true)
+          BldrsBulletPoints(
+            bulletPoints: bulletPoints,
+            showBottomLine: false,
+          ),
 
           /// GALLERY & DELETE LAYER
           Row(

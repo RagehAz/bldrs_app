@@ -1,5 +1,6 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/shadowers.dart';
+import 'package:basics/super_box/src/f_super_box_tap_layer/x_tap_layer.dart';
 import 'package:bldrs/b_views/z_components/balloons/balloons.dart';
 import 'package:bldrs/b_views/z_components/balloons/clip_shadow_path.dart';
 import 'package:bldrs/b_views/z_components/balloons/user_balloon_structure/c_balloon_components.dart';
@@ -53,16 +54,12 @@ class Balloona extends StatelessWidget {
           ),
 
           /// TAP LAYER
-          SizedBox(
+          TapLayer(
             width: size,
             height: size,
-            child: Material(
-              color: Colors.transparent,
-              child: InkWell(
-                onTap: onTap == null ? null : () => onTap!(),
-                splashColor: Colorz.white10,
-              ),
-            ),
+            boxColor: Colors.transparent,
+            onTap: onTap,
+            splashColor: Colorz.white10,
           ),
 
         ],

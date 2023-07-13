@@ -112,9 +112,9 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
 
         }
 
-        else if (_bzModel == null){
-          return const SizedBox();
-        }
+        // else if (_bzModel == null){
+        //   return const SizedBox();
+        // }
 
         else {
 
@@ -127,7 +127,7 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
             initiallyExpanded: true,
             zGridController: _zGridController,
             canGoBack: true,
-            appBarIcon: _bzModel.logoPath,
+            appBarIcon: _bzModel?.logoPath,
             onBack: () async {
 
               final bool _flyerIsOpen = ! UiProvider.proGetLayoutIsVisible(
@@ -193,12 +193,12 @@ class _MyBzScreenState extends State<MyBzScreen> with SingleTickerProviderStateM
                 final BzTab _bzTab = BzTabber.bzTabsList[index];
 
                 return NavModel(
-                  id: NavModel.getBzTabNavID(bzTab: _bzTab, bzID: _bzModel.id),
+                  id: NavModel.getBzTabNavID(bzTab: _bzTab, bzID: _bzModel?.id),
                   titleVerse: Verse(
                     id: BzTabber.getBzTabPhid(bzTab: _bzTab),
                     translate: true,
                   ),
-                  icon: _bzTab == BzTab.about ? _bzModel.logoPath : BzTabber.getBzTabIcon(_bzTab),
+                  icon: _bzTab == BzTab.about ? _bzModel?.logoPath : BzTabber.getBzTabIcon(_bzTab),
                   iconSizeFactor: _bzTab == BzTab.about ? 1 : null,
                   screen: _pages[index],
                 );
