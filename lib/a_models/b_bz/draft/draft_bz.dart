@@ -316,8 +316,6 @@ class DraftBz {
   /// TESTED : WORKS PERFECT
   Map<String, dynamic> toLDB(){
 
-    blog("map['name'] iss  should be ${nameController?.text}");
-
     return {
       'id': id,
       'createdAt': Timers.cipherTime(time: createdAt, toJSON: true),
@@ -680,8 +678,17 @@ class DraftBz {
   static bool checkDraftsAreIdentical({
     required DraftBz? draft1,
     required DraftBz? draft2,
+    bool blogDiffs = false,
   }){
     bool _areIdentical = false;
+
+    if (blogDiffs == true){
+      Mapper.blogMapsDifferences(
+        map1: draft1?.toLDB(),
+        map2: draft2?.toLDB(),
+        invoker: 'checkDraftsAreIdentical',
+      );
+    }
 
     if (draft1 == null && draft2 == null){
       _areIdentical = true;
@@ -714,8 +721,11 @@ class DraftBz {
           PicModel.checkPicsAreIdentical(pic1: draft1.logoPicModel, pic2: draft2.logoPicModel) == true &&
           draft1.hasNewLogo == draft2.hasNewLogo &&
           draft1.canPickImage == draft2.canPickImage &&
-          draft1.canValidate == draft2.canValidate &&
           draft1.firstTimer == draft2.firstTimer
+
+
+
+      // draft1.canValidate == draft2.canValidate && // no need
       // FocusNode nameNode,
       // FocusNode aboutNode,
       // FocusNode emailNode,

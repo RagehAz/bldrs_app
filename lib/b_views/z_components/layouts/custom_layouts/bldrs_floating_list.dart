@@ -9,6 +9,7 @@ class BldrsFloatingList extends StatelessWidget {
     this.crossAxisAlignment,
     this.mainAxisAlignment,
     this.hasMargins = true,
+    this.boxAlignment,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -16,6 +17,7 @@ class BldrsFloatingList extends StatelessWidget {
   final MainAxisAlignment? mainAxisAlignment;
   final CrossAxisAlignment? crossAxisAlignment;
   final bool hasMargins;
+  final Alignment? boxAlignment;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -29,6 +31,7 @@ class BldrsFloatingList extends StatelessWidget {
       ,
       crossAxisAlignment: crossAxisAlignment,
       mainAxisAlignment: mainAxisAlignment,
+      boxAlignment: boxAlignment,
       // height: ,
       // width: ,
       // scrollDirection: ,
