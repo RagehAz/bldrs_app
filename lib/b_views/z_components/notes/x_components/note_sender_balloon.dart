@@ -9,7 +9,6 @@ import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/world_zoning/world_zoning.dart';
-
 import 'package:flutter/material.dart';
 
 class NoteSenderBalloon extends StatelessWidget {
@@ -44,14 +43,16 @@ class NoteSenderBalloon extends StatelessWidget {
       /// BLDRS
       if (noteModel?.parties?.senderType == PartyType.bldrs){
 
-        return BldrsBox(
+        return const BldrsBox(
           width: balloonWidth,
           height: balloonWidth,
           icon: Iconz.bldrsNameSquare,
           iconSizeFactor: 0.8,
-          onTap: onTap,
-          onDoubleTap: (){
-            noteModel?.blogNoteModel(invoker: 'NoteSenderBalloon bldrs doubleTap');},
+          // onTap: null,
+          bubble: false,
+          // onDoubleTap: (){
+          //   noteModel?.blogNoteModel(invoker: 'NoteSenderBalloon bldrs doubleTap');
+          //   },
         );
 
       }
@@ -71,6 +72,7 @@ class NoteSenderBalloon extends StatelessWidget {
               size: balloonWidth,
               pic: _userModel?.picPath,
               loading: false,
+              // balloonType: BalloonType.circle,
               onTap: onTap,
             );
 

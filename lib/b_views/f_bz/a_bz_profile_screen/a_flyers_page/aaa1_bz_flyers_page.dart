@@ -43,7 +43,7 @@ class BzFlyersPage extends StatelessWidget {
       flyersIDs: bzModel?.flyersIDs?.reversed.toList(),
       gridWidth: width ?? Scale.screenWidth(context),
       gridHeight: height ?? Scale.screenHeight(context),
-      numberOfColumnsOrRows: Scale.isLandScape(context) == true ? 4 : 3,
+      numberOfColumnsOrRows: Scale.isLandScape(context) == true ? 4 : 2,
       showAddFlyerButton: true,
       onFlyerOptionsTap: (FlyerModel flyerModel) => onFlyerBzOptionsTap(
         context: context,

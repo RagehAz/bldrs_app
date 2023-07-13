@@ -338,27 +338,28 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                   columnChildren: <Widget>[
 
                     /// PIC
-                    Center(
-                      child: AddImagePicBubble(
-                        // width: BldrsAppBar.width(context),
-                        picModel: authorModel?.picModel,
-                        titleVerse: const Verse(
-                          id: 'phid_author_picture',
-                          translate: true,
-                        ),
-                        redDot: true,
-                        bubbleType: BubbleType.authorPic,
-                        onAddPicture: (PicMakerType imagePickerType) => takeAuthorImage(
-                          author: _draftAuthor,
-                          bzModel: widget.bzModel,
-                          imagePickerType: imagePickerType,
-                          canPickImage: _canPickImage,
-                          mounted: mounted,
-                        ),
-                        validator: () => Formers.picValidator(
-                          pic: authorModel?.picModel,
-                          canValidate: _canValidate,
-                        ),
+                    AddImagePicBubble(
+                      // width: BldrsAppBar.width(context),
+                      picModel: authorModel?.picModel,
+                      titleVerse: const Verse(
+                        id: 'phid_author_picture',
+                        translate: true,
+                      ),
+                      redDot: true,
+                      bubbleType: BubbleType.authorPic,
+                      onAddPicture: (PicMakerType imagePickerType) => takeAuthorImage(
+                        author: _draftAuthor,
+                        bzModel: widget.bzModel,
+                        imagePickerType: imagePickerType,
+                        canPickImage: _canPickImage,
+                        mounted: mounted,
+                      ),
+                      bulletPoints:const  <Verse>[
+                        Verse(id: 'phid_author_pic_is_not_user_pic', translate: true),
+                      ],
+                      validator: () => Formers.picValidator(
+                        pic: authorModel?.picModel,
+                        canValidate: _canValidate,
                       ),
                     ),
 
