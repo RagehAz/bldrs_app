@@ -11,7 +11,7 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/co
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/pic_bubble/add_gallery_pic_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
-import 'package:bldrs/b_views/z_components/buttons/next_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_swiping_buttons.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/bldrs_floating_list.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/pages_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -240,7 +240,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
       contacts: _draftAuthor.value?.contacts,
       zoneModel: widget.bzModel?.zone,
       canValidate: true,
-      isRequired: false,
+      isMandatory: false,
 
     ) == null;
     final bool _emailIsValid = Formers.contactsEmailValidator(
@@ -291,11 +291,26 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
     }
 
   }
+  // -----------------------------------------------------------------------------
+
+  /// SWIPING
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  bool _canGoNext({
+    required AuthorModel? authorModel,
+  }){
+    return Formers.picValidator(pic: authorModel?.picModel, canValidate: true,) == null
+           &&
+           Formers.personNameValidator(name: authorModel?.name, canValidate: true) == null
+           &&
+           Formers.jobTitleValidator(jobTitle: authorModel?.title, canValidate: true,) == null;
+  }
   // --------------------
   /// TESTED : WORKS PERFECT
   Future<void> _onNextTap() async {
 
-    await NextButton.onNextTap(
+    await EditorSwipingButtons.onNextTap(
       context: context,
       mounted: mounted,
       pageController: _pageController,
@@ -303,6 +318,18 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
     );
 
     _controlConfirmButton();
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _onPreviousTap() async {
+
+    await EditorSwipingButtons.onPreviousTap(
+      context: context,
+      mounted: mounted,
+      pageController: _pageController,
+      progressBarModel: _progressBarModel,
+    );
 
   }
   // -----------------------------------------------------------------------------
@@ -432,21 +459,12 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       ),
                     ),
 
-                    /// NEXT
-                    NextButton(
-                      onTap: _onNextTap,
-                      canGoNext: Formers.picValidator(
-                          pic: authorModel?.picModel,
-                          canValidate: true,
-                        ) == null &&
-                      Formers.personNameValidator(
-                          name: authorModel?.name,
-                          canValidate: true
-                      ) == null &&
-                      Formers.jobTitleValidator(
-                          jobTitle: authorModel?.title,
-                          canValidate: true,
-                      ) == null,
+                    /// SWIPING BUTTONS
+                    EditorSwipingButtons(
+                      onNext: _onNextTap,
+                      canGoNext: _canGoNext(
+                        authorModel: authorModel,
+                      ),
                     ),
 
                     const Horizon(
@@ -492,7 +510,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                         contacts: authorModel?.contacts,
                         zoneModel: widget.bzModel?.zone,
                         canValidate: _canValidate,
-                        isRequired: false,
+                        isMandatory: false,
 
                       ),
                     ),
@@ -530,6 +548,15 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                           contacts: authorModel?.contacts,
                           canValidate: _canValidate
                       ),
+                    ),
+
+                    /// SWIPING BUTTONS
+                    EditorSwipingButtons(
+                      onNext: _onNextTap,
+                      canGoNext: _canGoNext(
+                        authorModel: authorModel,
+                      ),
+                      onPrevious: _onPreviousTap,
                     ),
 
                     const Horizon(
