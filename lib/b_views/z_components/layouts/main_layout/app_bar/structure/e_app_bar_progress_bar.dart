@@ -34,7 +34,6 @@ class AppBarProgressBar extends StatelessWidget {
             numberOfSlides: 1,
             opacity: 0.4,
             swipeDirection: SwipeDirection.freeze,
-            loading: isLoading,
             flyerBoxWidth: _abWidth,
             margins: _margins,
             stripThicknessFactor: 0.4,

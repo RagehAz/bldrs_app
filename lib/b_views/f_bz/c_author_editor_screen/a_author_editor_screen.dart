@@ -10,7 +10,7 @@ import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_head
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/contacts_bubble/contact_field_editor_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/pic_bubble/add_gallery_pic_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
-import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_confirm_page.dart';
 import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_swiping_buttons.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/bldrs_floating_list.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/pages_layout.dart';
@@ -48,7 +48,6 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
   // -----------------------------------------------------------------------------
   final ValueNotifier<ProgressBarModel?> _progressBarModel = ValueNotifier(null);
   final PageController _pageController = PageController();
-  ConfirmButtonModel? _confirmButtonModel;
   // --------------------
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   // --------------------
@@ -66,6 +65,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
   final ValueNotifier<bool> _canPickImage = ValueNotifier(true);
   // --------------------
   final ValueNotifier<AuthorModel?> _draftAuthor = ValueNotifier(null);
+  AuthorModel? _originalDraft;
   // --------------------
   final ScrollController _scrollController = ScrollController();
   // --------------------
@@ -75,7 +75,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
   final FocusNode _emailNode = FocusNode();
   // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false);
+  final ValueNotifier<bool> _loading = ValueNotifier(true);
   // --------------------
   Future<void> _triggerLoading({required bool setTo}) async {
     setNotifier(
@@ -99,7 +99,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
       notifier: _progressBarModel,
       mounted: mounted,
       value: ProgressBarModel.initialModel(
-        numberOfStrips: 2,
+        numberOfStrips: 3,
       ),
     );
 
@@ -114,13 +114,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
 
       _triggerLoading(setTo: true).then((_) async {
         // -------------------------------
-        await prepareAuthorPicForEditing(
-          mounted: mounted,
-          context: context,
-          draftAuthor: _draftAuthor,
-          oldAuthor: widget.author,
-          bzModel: widget.bzModel,
-        );
+        await _initializeDraft();
         // -------------------------------
         if (widget.checkLastSession == true){
           await loadAuthorEditorSession(
@@ -167,6 +161,31 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
     super.dispose();
   }
   // -----------------------------------------------------------------------------
+
+  /// INITIALIZATIONS
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _initializeDraft() async {
+
+    final AuthorModel? _author = await prepareAuthorForEditing(
+      mounted: mounted,
+      context: context,
+      draftAuthor: _draftAuthor,
+      oldAuthor: widget.author,
+      bzModel: widget.bzModel,
+    );
+
+     setNotifier(
+        notifier: _draftAuthor,
+        mounted: mounted,
+        value: _author,
+    );
+
+     _originalDraft = _author;
+
+  }
+  // --------------------
   /// TESTED : WORKS PERFECT
   void _addSessionListeners(){
 
@@ -180,33 +199,18 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
         context: context,
         draftAuthor: _draftAuthor,
         bzModel: widget.bzModel,
-        oldAuthor: widget.author,
+        oldAuthor: _originalDraft,
         mounted: mounted,
       );
 
     });
 
   }
-  // --------------------
-  Future<void> _onConfirmTap() async {
-
-    Keyboard.closeKeyboard();
-
-    await Future.delayed(const Duration(milliseconds: 100), () async {
-
-      _switchOnValidation();
-
-      await onConfirmAuthorUpdates(
-        context: context,
-        draftAuthor: _draftAuthor,
-        oldBz: widget.bzModel,
-        oldAuthor: widget.author,
-      );
-
-    });
-
-  }
   // -----------------------------------------------------------------------------
+
+  /// STRIPS
+
+  // --------------------
   /// TESTED : WORKS PERFECT
   void _stripsListener(){
 
@@ -257,8 +261,6 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
 
     // ------->
 
-    _controlConfirmButton();
-
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -270,26 +272,23 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
       color: isValid == true ? ProgressBarModel.goodStripColor : ProgressBarModel.errorStripColor,
     );
   }
+  // -----------------------------------------------------------------------------
+
+  /// CHECKERS
+
   // --------------------
   /// TESTED : WORKS PERFECT
-  void _controlConfirmButton(){
-
-    if (Mapper.boolIsTrue(_progressBarModel.value?.stripsColors?.contains(ProgressBarModel.errorStripColor)) == true){
-      setState(() {
-        _confirmButtonModel = null;
-      });
-    }
-
-    else {
-      setState(() {
-        _confirmButtonModel = ConfirmButtonModel(
-          firstLine: const Verse(id: 'phid_updateProfile', translate: true),
-          onTap: _onConfirmTap,
-          isWide: true,
-        );
-      });
-    }
-
+  bool _canConfirmEdits(){
+    final bool _hasError = Mapper.boolIsTrue(_progressBarModel.value?.stripsColors?.contains(ProgressBarModel.errorStripColor));
+    return _hasError == false && _authorHasChange() == true;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  bool _authorHasChange(){
+     return !AuthorModel.checkAuthorsAreIdentical(
+          author1: _originalDraft,
+          author2: _draftAuthor.value,
+      );
   }
   // -----------------------------------------------------------------------------
 
@@ -297,7 +296,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  bool _canGoNext({
+  bool _canGoFrom0To1({
     required AuthorModel? authorModel,
   }){
     return Formers.picValidator(pic: authorModel?.picModel, canValidate: true,) == null
@@ -305,6 +304,23 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
            Formers.personNameValidator(name: authorModel?.name, canValidate: true) == null
            &&
            Formers.jobTitleValidator(jobTitle: authorModel?.title, canValidate: true,) == null;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  bool _canGoFrom1To2({
+    required AuthorModel? authorModel,
+  }){
+    return Formers.contactsPhoneValidator(
+             contacts: authorModel?.contacts,
+             zoneModel: widget.bzModel?.zone,
+             canValidate: _canValidate,
+             isMandatory: false,
+           ) == null
+           &&
+           Formers.contactsEmailValidator(
+             contacts: authorModel?.contacts,
+             canValidate: _canValidate,
+           ) == null;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -317,8 +333,6 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
       progressBarModel: _progressBarModel,
     );
 
-    _controlConfirmButton();
-
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -330,6 +344,30 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
       pageController: _pageController,
       progressBarModel: _progressBarModel,
     );
+
+  }
+  // -----------------------------------------------------------------------------
+
+  /// CONFIRMATION
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _onConfirmTap() async {
+
+    Keyboard.closeKeyboard();
+
+    await Future.delayed(const Duration(milliseconds: 100), () async {
+
+      _switchOnValidation();
+
+      await onConfirmAuthorUpdates(
+        context: context,
+        draftAuthor: _draftAuthor,
+        oldBz: widget.bzModel,
+        oldAuthor: _originalDraft,
+      );
+
+    });
 
   }
   // -----------------------------------------------------------------------------
@@ -347,7 +385,6 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
         id: 'phid_edit_author_details',
         translate: true,
       ),
-      confirmButtonModel: _confirmButtonModel,
       progressBarModel: _progressBarModel,
       child: ValueListenableBuilder(
         valueListenable: _draftAuthor,
@@ -360,7 +397,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
               pageController: _pageController,
               pageBubbles: <Widget>[
 
-                /// PIC - NAME - TITLE
+                /// 0. PIC - NAME - TITLE
                 BldrsFloatingList(
                   columnChildren: <Widget>[
 
@@ -453,6 +490,9 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                         mounted: mounted,
                       ),
                       initialText: authorModel?.title,
+                      bulletPoints: const [
+                        Verse(id: 'phid_author_job_title_for_this_bz', translate: true),
+                      ],
                       validator: (String? text) => Formers.jobTitleValidator(
                           jobTitle: authorModel?.title,
                           canValidate: _canValidate
@@ -462,7 +502,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     /// SWIPING BUTTONS
                     EditorSwipingButtons(
                       onNext: _onNextTap,
-                      canGoNext: _canGoNext(
+                      canGoNext: _canGoFrom0To1(
                         authorModel: authorModel,
                       ),
                     ),
@@ -474,7 +514,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                   ],
                 ),
 
-                /// PHONE - EMAIL
+                /// 1. PHONE - EMAIL
                 BldrsFloatingList(
                   columnChildren: <Widget>[
 
@@ -511,7 +551,6 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                         zoneModel: widget.bzModel?.zone,
                         canValidate: _canValidate,
                         isMandatory: false,
-
                       ),
                     ),
 
@@ -553,7 +592,7 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     /// SWIPING BUTTONS
                     EditorSwipingButtons(
                       onNext: _onNextTap,
-                      canGoNext: _canGoNext(
+                      canGoNext: _canGoFrom1To2(
                         authorModel: authorModel,
                       ),
                       onPrevious: _onPreviousTap,
@@ -564,6 +603,16 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                     ),
 
                   ],
+                ),
+
+                /// 2 - CONFIRM
+                EditorConfirmPage(
+                  verse:  const Verse(id: 'phid_updateProfile', translate: true),
+                  onConfirmTap: _onConfirmTap,
+                  canConfirm: _canConfirmEdits(),
+                  modelHasChanged: _authorHasChange(),
+                  onPreviousTap: _onPreviousTap,
+                  previewWidget: Container(),
                 ),
 
               ],

@@ -241,7 +241,7 @@ class _FilePicSplitter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    picModel?.blogPic(invoker: 'what the pic');
+    // picModel?.blogPic(invoker: 'what the pic');
 
     final BorderRadius _picBorders = _getPicBorder(
       context: context,
