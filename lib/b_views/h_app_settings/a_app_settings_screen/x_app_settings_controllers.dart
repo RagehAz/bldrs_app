@@ -5,6 +5,7 @@ import 'package:bldrs/b_views/h_app_settings/b_app_langs_screen/b_app_langs_scre
 import 'package:bldrs/b_views/h_app_settings/c_about_bldrs_screen/c_about_bldrs_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/d_feedback_screen/d_feedback_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/auth_protocols/auth_protocols.dart';
@@ -77,6 +78,11 @@ Future<void> onPrivacyTap() async {
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> onInviteFriendsTap() async {
+
+  await Dialogs.centerNotice(
+    verse: const Verse(id: 'phid_be_selective', translate: true),
+    body: const Verse(id: 'phid_why_be_selective', translate: true),
+  );
 
   await Launcher.shareBldrsWebsiteURL();
 

@@ -1,10 +1,13 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
 import 'package:bldrs/a_models/k_statistics/census_model.dart';
 import 'package:bldrs/b_views/z_components/buttons/tile_buttons/a_tile_button.dart';
 import 'package:bldrs/b_views/z_components/buttons/zone_buttons/census_line_unit.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:flutter/material.dart';
 
 class CensusLine extends StatelessWidget {
@@ -72,48 +75,75 @@ class CensusLine extends StatelessWidget {
         spacing: 0,
       );
 
+      final double _totalHeight = CensusLineUnit.getTotalHeight(
+        hasTitle: isPlanetButton,
+        // stripHeight: ,
+      );
+
+      final Widget _verticalLine = Container(
+        width: 1,
+        height: _totalHeight * 0.6,
+        color: Colorz.white20,
+      );
+
       return SizedBox(
         width: _buttonWidth,
         // height: 30,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
+        child: Container(
+          margin: Scale.superInsets(
+              context: context,
+              appIsLTR: UiProvider.checkAppIsLeftToRight(),
+            enLeft: hasFlagSpace == true ? _flagBoxSize : 0
+          ),
+          decoration: const BoxDecoration(
+            color: Colorz.white10,
+            borderRadius: Borderers.constantCornersAll12,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
 
-            /// FLAG WIDTH
-            if (hasFlagSpace == true)
-            SizedBox(
-              width: _flagBoxSize,
-              height: _flagBoxSize,
-            ),
+              // /// FLAG WIDTH
+              // if (hasFlagSpace == true)
+              // SizedBox(
+              //   width: _flagBoxSize,
+              //   height: _flagBoxSize,
+              // ),
 
-            /// USERS
-            CensusLineUnit(
-              width: _censusUnitBoxWidth,
-              icon: Iconz.normalUser,
-              number: censusModel?.totalUsers,
-              isActive: isActive,
-              title: isPlanetButton == true ? Verse.trans('phid_users') : null,
-            ),
+              /// USERS
+              CensusLineUnit(
+                width: _censusUnitBoxWidth,
+                icon: Iconz.normalUser,
+                number: censusModel?.totalUsers,
+                isActive: isActive,
+                title: isPlanetButton == true ? Verse.trans('phid_users') : null,
+              ),
 
-            /// BZZ
-            CensusLineUnit(
-              width: _censusUnitBoxWidth,
-              icon: Iconz.bz,
-              number: censusModel?.totalBzz,
-              isActive: isActive,
-              title: isPlanetButton == true ? Verse.trans('phid_bzz') : null,
-            ),
+              _verticalLine,
 
-            /// FLYERS
-            CensusLineUnit(
-              width: _censusUnitBoxWidth,
-              icon: Iconz.flyer,
-              number: censusModel?.totalFlyers,
-              isActive: isActive,
-              title: isPlanetButton == true ? Verse.trans('phid_flyers') : null,
-            ),
+              /// BZZ
+              CensusLineUnit(
+                width: _censusUnitBoxWidth - 1,
+                icon: Iconz.bz,
+                number: censusModel?.totalBzz,
+                isActive: isActive,
+                title: isPlanetButton == true ? Verse.trans('phid_bzz') : null,
+              ),
 
-          ],
+              _verticalLine,
+
+              /// FLYERS
+              CensusLineUnit(
+                width: _censusUnitBoxWidth - 1,
+                icon: Iconz.flyer,
+                number: censusModel?.totalFlyers,
+                isActive: isActive,
+                title: isPlanetButton == true ? Verse.trans('phid_flyers') : null,
+              ),
+
+
+            ],
+          ),
         ),
       );
 
