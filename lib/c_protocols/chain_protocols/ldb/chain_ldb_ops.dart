@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
+import 'package:bldrs/c_protocols/chain_protocols/real/chain_real_ops.dart';
 import 'package:bldrs/e_back_end/d_ldb/ldb_doc.dart';
 import 'package:basics/ldb/methods/ldb_ops.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:flutter/services.dart';
 
 /// => TAMAM
 class ChainLDBOps {
@@ -32,19 +35,23 @@ class ChainLDBOps {
   /// TESTED : WORKS PERFECT
   static Future<List<Chain>?> readBldrsChains() async {
 
-    final List<Map<String, dynamic>>? _maps = await LDBOps.readAllMaps(
-      docName: LDBDoc.bldrsChains,
-    );
+    // final List<Map<String, dynamic>>? _maps = await LDBOps.readAllMaps(
+    //   docName: LDBDoc.bldrsChains,
+    // );
 
-    List<Chain>? _chains;
+    final String _jsonStringValues = await rootBundle.loadString(ChainRealOps.bldrsChainsFilePath);
+    final Map<String, dynamic> map = json.decode(_jsonStringValues);
+    final List<Chain>? _chains = Chain.decipherBldrsChains(map: map);
 
-    if (Mapper.checkCanLoopList(_maps) == true) {
-
-      _chains = Chain.decipherBldrsChains(
-        map: _maps![0],
-      );
-
-    }
+    // List<Chain>? _chains;
+    //
+    // if (Mapper.checkCanLoopList(_maps) == true) {
+    //
+    //   _chains = Chain.decipherBldrsChains(
+    //     map: _maps![0],
+    //   );
+    //
+    // }
 
     return _chains;
   }
