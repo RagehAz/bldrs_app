@@ -1,6 +1,7 @@
 import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
+import 'package:bldrs/bldrs_keys.dart';
 
 class Standards {
   // -----------------------------------------------------------------------------
@@ -20,7 +21,7 @@ class Standards {
   // --------------------
   /// APP LINKS
   // -------
-  static const String iosAppStoreURL = 'https://apps.apple.com/eg/app/bldrs-net/id6447114707?l=en';
+  static const String iosAppStoreURL = 'https://apps.apple.com/eg/app/bldrs-net/id${BldrsKeys.appStoreID}?l=en';
   static const String androidAppStoreURL = 'https://play.google.com/store/apps/details?id=net.bldrs.app';
   // --------------------
   /// TESTED : WORKS PERFECT

@@ -42,9 +42,9 @@ class BldrsKeys {
     facebookAppID: '427786221866015',
   );
   // --------------------
-  static const String androidPackageName = 'net.bldrs.app';
+  static const String androidPackageID = 'net.bldrs.app'; // is called as well "android package name"
   static const String iosBundleID = 'net.bldrs.app';
-  static const String appStoreID = '161803398875';
+  static const String appStoreID = '6447114707'; // this old was used for dynamic links : '161803398875'
   // static const String iosTeamID = '6ADZTHNZN9';
   // --------------------
   /// const String fcmSenderID = '439018969330';

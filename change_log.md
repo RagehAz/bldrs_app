@@ -1,12 +1,14 @@
 
 ### 1.2.0
-1. Ui fixes and number of screens
+1. Ui fixes in number of screens
 2. updated app versioning sequence
 3. User can switch the privacy settings of showing or hiding his personal contacts
 4. Added descriptive text in many screens to explain how to use the app
 5. Fixed Cropping screen UI
 6. UX updates to profiles editors
 7. Cropping screen adjusted
+8. Business author image updating bug fixed
+9. app updater jumps directly to the store now bypassing the website
 
 ### 1.0.5 changelog
 1. Optimized gallery flyer animation
