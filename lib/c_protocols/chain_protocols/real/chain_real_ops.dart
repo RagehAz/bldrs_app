@@ -57,7 +57,7 @@ class ChainRealOps {
   /// READ
 
   // --------------------
-  static const String bldrsChainsFilePath = 'assets/bldrs_chains.json';
+  static const String bldrsChainsFilePath = 'packages/bldrs_keywords/lib/assets/bldrs_chains.json';
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Chain>?> readBldrsChains() async {
