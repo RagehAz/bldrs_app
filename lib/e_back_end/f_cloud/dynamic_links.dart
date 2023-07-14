@@ -77,7 +77,7 @@ class DynamicLinks {
   static const String https_ll_bldrs_page_link_l_user_page = '$https_ll_bldrs_page_link/$user_page';
   // --------------------
   static const AndroidParameters androidParameters = AndroidParameters(
-    packageName: BldrsKeys.androidPackageName,
+    packageName: BldrsKeys.androidPackageID,
     minimumVersion: 0,
     // fallbackUrl: ,
   );
