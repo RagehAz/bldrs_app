@@ -32,11 +32,12 @@ class ComposeBzProtocols {
 
   // -----------------------------------------------------------------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> compose({
+  static Future<BzModel?> compose({
     required BuildContext context,
     required DraftBz? newDraft,
     required UserModel? userModel,
   }) async {
+    BzModel? _bzModel;
     blog('ComposeBzProtocol.compose : START');
 
     // assert(newDraft.logoPicModel != null, 'logoPicModel is null');
@@ -65,7 +66,7 @@ class ComposeBzProtocols {
       _draftWithID?.blogDraft();
 
       /// BAKE DRAFT TO INITIAL BZ
-      BzModel? _bzModel = DraftBz.toBzModel(_draftWithID);
+      _bzModel = DraftBz.toBzModel(_draftWithID);
 
       /// UPDATE MY USER MODEL
       await _addBzIdToMyUserModelAndRenovateAndSubscribeToAllBzTopics(
@@ -127,12 +128,13 @@ class ComposeBzProtocols {
 
       /// NAVIGATE
       await BldrsNav.goRebootToInitNewBzScreen(
-        bzID: _bzModel?.id,
+        bzModel: _bzModel,
       );
 
     }
 
     blog('ComposeBzProtocol.compose : END');
+    return _bzModel;
   }
   // -----------------------------------------------------------------------------
 
