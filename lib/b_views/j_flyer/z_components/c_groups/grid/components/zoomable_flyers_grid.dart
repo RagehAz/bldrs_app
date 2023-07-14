@@ -283,6 +283,17 @@ class _FlyersZGridState extends State<FlyersZGrid> with SingleTickerProviderStat
               // );
 
             },
+            onVerticalExit: () async {
+
+              blog('should exit this zoomed flyer now');
+
+              await zoomOutFlyer(
+                mounted: mounted,
+                controller: _controller,
+                flyerNotifier: _zoomedFlyer,
+              );
+
+            },
           );
         },
       ),
