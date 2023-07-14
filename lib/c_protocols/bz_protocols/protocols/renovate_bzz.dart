@@ -219,22 +219,17 @@ class RenovateBzProtocols {
       oldBz: oldBz,
     );
 
-    await Future.wait(<Future>[
+    /// UPDATE AUTHOR PIC
+    await PicProtocols.renovatePic(newAuthor?.picModel);
 
-      /// UPDATE AUTHOR PIC
-      PicProtocols.renovatePic(newAuthor?.picModel),
-
-      /// UPDATE BZ ON FIREBASE
-      renovateBz(
-        context: context,
-        newBz: _newBz,
-        oldBz: oldBz,
-        showWaitDialog: false,
-        newLogo: null,
-      ),
-
-
-    ]);
+    /// UPDATE BZ ON FIREBASE
+    await renovateBz(
+      context: context,
+      newBz: _newBz,
+      oldBz: oldBz,
+      showWaitDialog: false,
+      newLogo: null,
+    );
 
     // blog('RenovateBzProtocols.renovateAuthor : END');
 

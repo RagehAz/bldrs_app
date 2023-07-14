@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -10,12 +9,9 @@ import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/bz_editor_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/fcm_topics_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
-import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 
@@ -68,7 +64,6 @@ Future<void> onGoToBzFCMSettings({
 Future<void> onDeleteBzButtonTap({
   required BuildContext context,
   required BzModel? bzModel,
-  required bool showSuccessDialog,
 }) async {
 
   final bool _canContinue = await _preDeleteBzAccountChecks(
@@ -82,20 +77,8 @@ Future<void> onDeleteBzButtonTap({
       bzModel: bzModel,
       showWaitDialog: true,
       includeMyselfInBzDeletionNote: true,
-      deleteBzLocally: false,
+      deleteBzLocally: true,
     );
-
-    /// NO NEED FOR ROUTING BACK AND SHOWING DIALOGS HERE
-    /// AS BZ DELETION PROTOCOL DOES THE JOB
-
-    /// re-route back
-    // if (routeBackHome == true){
-    await Nav.pushHomeAndRemoveAllBelow(
-        context: getMainContext(),
-        invoker: 'onDeleteBzButtonTap',
-        homeRoute: Routing.home,
-    );
-    // }
 
     /// DELETE BZ LOCALLY
     await BzProtocols.deleteLocally(
@@ -103,20 +86,16 @@ Future<void> onDeleteBzButtonTap({
       invoker: 'onDeleteBzButtonTap',
     );
 
+    await Dialogs.centerNotice(
+      verse: const Verse(
+        id: 'phid_bz_account_deleted_successfully',
+        translate: true,
+      ),
+    );
+
     await BldrsNav.goToLogoScreenAndRemoveAllBelow(
       animatedLogoScreen: true,
     );
-
-    if (showSuccessDialog == true){
-      await TopDialog.showTopDialog(
-        firstVerse: const Verse(
-          id: 'phid_bz_account_deleted_successfully',
-          translate: true,
-        ),
-        color: Colorz.green255,
-        textColor: Colorz.white255,
-      );
-    }
 
   }
 

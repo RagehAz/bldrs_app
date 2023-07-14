@@ -71,7 +71,6 @@ class BzSettingsPage extends StatelessWidget {
             onTap: () => onDeleteBzButtonTap(
               context: context,
               bzModel: _bzModel,
-              showSuccessDialog: true,
             ),
           ),
 

@@ -62,7 +62,7 @@ Future<void> onMyActiveBzStreamChanged({
 
   if (_newBz == null){
 
-    // blog('onMyActiveBzStreamChanged : THE NEW BITCH MAP IS NULL NOW AND WE CAN DO SOME STUFF HEREEEEEEEEEEEEEEEEEE');
+    blog('onMyActiveBzStreamChanged : THE NEW BITCH MAP IS NULL NOW AND WE CAN DO SOME STUFF HEREEEEEEEEEEEEEEEEEE');
     //  await NewAuthorshipExit.onIGotRemoved(
     //    context: context,
     //    bzID: _oldBz?.id,
@@ -80,7 +80,7 @@ Future<void> onMyActiveBzStreamChanged({
       bz2: _newBz,
     );
 
-    // blog('onMyActiveBzStreamChanged : streamBz == proMyActiveBz ? : $_areIdentical');
+    blog('onMyActiveBzStreamChanged : streamBz == proMyActiveBz ? : $_areIdentical');
 
     if (_areIdentical == false){
 

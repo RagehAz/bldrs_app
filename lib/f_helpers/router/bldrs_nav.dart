@@ -371,6 +371,7 @@ class BldrsNav {
           bz: bzModel,
           authorID: Authing.getUserID(),
         ),
+        navAfterDone: false,
       );
 
       UiProvider.proSetAfterHomeRoute(
