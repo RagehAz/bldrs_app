@@ -93,8 +93,10 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
 
       _triggerLoading(setTo: true).then((_) async {
         // -------------------------------
+        /// INITIALIZE DRAFT
         await _initializeDraft();
         // -----------------------------
+        /// LOAD LAST SESSION
         if (widget.checkLastSession == true) {
           await loadBzEditorLastSession(
             context: context,
@@ -108,6 +110,7 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
           );
         }
         // -----------------------------
+        /// VALIDATION SWITCH
         if (widget.validateOnStartup == true){
           triggerCanValidateDraftBz(
             draftNotifier: draftNotifier,
@@ -117,17 +120,11 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
           Formers.validateForm(draftNotifier.value?.formKey);
         }
         // -----------------------------
+        /// ADD SESSION LISTENERS
         if (mounted == true){
           _addSessionListeners();
         }
         // -------------------------------
-
-        draftNotifier.value?.nameController?.addListener(() {
-
-          blog('the fucking name is : ${draftNotifier.value?.nameController?.text}');
-
-        });
-
         await _triggerLoading(setTo: false);
       });
 
@@ -478,6 +475,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
       progressBarModel: _progressBarModel,
       onBack: () => Dialogs.goBackDialog(
         goBackOnConfirm: true,
+        titleVerse: const Verse(id: 'phid_exit_this_editor_page?', translate: true),
+        bodyVerse: const Verse(id: 'phid_draft_is_temp_stored', translate: true),
+        confirmButtonVerse: const Verse(id: 'phid_exit', translate: true),
       ),
       // appBarRowWidgets: [
       //
@@ -731,7 +731,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                       maxLines: 20,
                       keyboardTextInputType: TextInputType.multiline,
                       textController: draft?.aboutController,
-
+                      bulletPoints: const <Verse>[
+                        Verse(id: 'phid_optional_field', translate: true),
+                      ],
                       // autoValidate: true,
                       validator: (String? text) => Formers.bzAboutValidator(
                         bzAbout: text,
@@ -844,6 +846,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                         countryID: draft?.zone?.countryID,
                         existingContacts: draft?.contacts,
                       ),
+                      bulletPoints: const <Verse>[
+                        Verse(id: 'phid_optional_field', translate: true),
+                      ],
                       canPaste: false,
                       // autoValidate: true,
                       validator: (String? text) => Formers.contactsPhoneValidator(
@@ -918,6 +923,9 @@ class _BzEditorScreenState extends State<BzEditorScreen> {
                         countryID: draft?.zone?.countryID,
                         existingContacts: draft?.contacts,
                       ),
+                      bulletPoints: const <Verse>[
+                        Verse(id: 'phid_optional_field', translate: true),
+                      ],
                       // canPaste: true,
                       // autoValidate: true,
                       validator: (String? text) => Formers.contactsWebsiteValidator(

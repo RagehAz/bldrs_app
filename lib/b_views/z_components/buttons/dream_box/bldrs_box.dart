@@ -15,7 +15,7 @@ class BldrsBox extends StatelessWidget {
     this.width,
     this.icon,
     this.iconSizeFactor = 1,
-    this.color,
+    this.color =Colorz.nothing,
     this.corners,
     this.iconColor,
     this.verse,

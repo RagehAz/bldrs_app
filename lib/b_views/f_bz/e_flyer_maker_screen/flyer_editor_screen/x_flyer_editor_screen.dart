@@ -21,7 +21,7 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/pdf_bubble/pdf_sel
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/phids_bubble/multiple_choice_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/zone_selection_bubble.dart';
-import 'package:bldrs/b_views/z_components/buttons/editor_confirm_button.dart';
+import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_confirm_page.dart';
 import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_swiping_buttons.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/bldrs_floating_list.dart';
@@ -55,15 +55,15 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
   // -----------------------------------------------------------------------------
   final ValueNotifier<ProgressBarModel?> _progressBarModel = ValueNotifier(null);
   final PageController _pageController = PageController();
-  ConfirmButtonModel? _confirmButtonModel;
   // -----------------------------------------------------------------------------
   /// to keep out of screen objects alive
   @override
   bool get wantKeepAlive => true;
   // -----------------------------------------------------------------------------
   final ValueNotifier<DraftFlyer?> draftNotifier = ValueNotifier(null);
+  DraftFlyer? _originalFlyer;
   // --------------------
-  bool _canValidate = false;
+  bool _canValidate = true;
   void _switchOnValidation(){
     blog('switching on validation');
     if (mounted == true){
@@ -94,7 +94,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
       notifier: _progressBarModel,
       mounted: mounted,
       value: ProgressBarModel.initialModel(
-        numberOfStrips: 6,
+        numberOfStrips: 7,
       ),
     );
 
@@ -108,23 +108,23 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
       _isInit = false; // good
 
       _triggerLoading(setTo: true).then((_) async {
+        // -------------------------------
+        /// INITIALIZE DRAFT
+        await _initializeDraft();
         // -----------------------------
+        /// ADD SESSION LISTENERS
         if (mounted == true){
           _addSessionListeners();
         }
         // -------------------------------
-        setNotifier(
-          notifier: draftNotifier,
-          mounted: mounted,
-          value: widget.draftFlyer,
-        );
-        // -------------------------------
+        /// LOAD LAST SESSION
         await loadFlyerMakerLastSession(
           context: context,
           draft: draftNotifier,
           mounted: mounted,
         );
         // -----------------------------
+        /// VALIDATION SWITCH
         if (draftNotifier.value?.firstTimer == false){
           _switchOnValidation();
           Formers.validateForm(draftNotifier.value?.formKey);
@@ -151,8 +151,21 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
   }
   // -----------------------------------------------------------------------------
 
-  /// SESSION LISTENERS
+  /// INITIALIZATIONS
 
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _initializeDraft() async {
+
+    setNotifier(
+      notifier: draftNotifier,
+      mounted: mounted,
+      value: widget.draftFlyer,
+    );
+
+    _originalFlyer = widget.draftFlyer;
+
+  }
   // --------------------
   /// TESTED : WORKS PERFECT
   void _addSessionListeners(){
@@ -170,6 +183,10 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
     });
 
   }
+  // -----------------------------------------------------------------------------
+
+  /// STRIPS
+
   // --------------------
   /// TESTED : WORKS PERFECT
   void _stripsListener(){
@@ -217,6 +234,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
 
     final bool _phidsAreValid = Formers.flyerPhidsValidator(
       phids: draftNotifier.value?.phids,
+      flyerType: draftNotifier.value?.flyerType,
       canValidate: true,
     ) == null;
 
@@ -262,8 +280,6 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
     /// STRIP 6 : SHOW AUTHOR - POSTER : NOTHING TO VALIDATE
     // ------->
 
-    _updateConfirmButton();
-
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -275,35 +291,23 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
       color: isValid == true ? ProgressBarModel.goodStripColor : ProgressBarModel.errorStripColor,
     );
   }
+  // -----------------------------------------------------------------------------
+
+  /// CHECKERS
+
   // --------------------
   /// TESTED : WORKS PERFECT
-  void _updateConfirmButton(){
-
-    if (Mapper.boolIsTrue(_progressBarModel.value?.stripsColors?.contains(ProgressBarModel.errorStripColor)) == true){
-      setState(() {
-        _confirmButtonModel = null;
-      });
-    }
-
-    else {
-      setState(() {
-        _confirmButtonModel = ConfirmButtonModel(
-          firstLine: const Verse(id: 'phid_confirm_upload_flyer', translate: true),
-          onTap: _onConfirmTap,
-          isWide: true,
-        );
-      });
-    }
-
+  bool _canConfirmEdits(){
+    final bool _hasError = Mapper.boolIsTrue(_progressBarModel.value?.stripsColors?.contains(ProgressBarModel.errorStripColor));
+    return _hasError == false && _flyerHasChanged() == true;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
-  Future<void> _onConfirmTap() async {
-
-    _switchOnValidation();
-
-    widget.onConfirm(draftNotifier.value);
-
+  bool _flyerHasChanged(){
+    return !DraftFlyer.checkDraftsAreIdentical(
+      draft1: _originalFlyer,
+      draft2: draftNotifier.value,
+    );
   }
   // -----------------------------------------------------------------------------
 
@@ -332,7 +336,11 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
   bool _canGoFrom2to3({
     required DraftFlyer? draft,
   }){
-    return Formers.flyerPhidsValidator(phids: draft?.phids, canValidate: true,) == null;
+    return Formers.flyerPhidsValidator(
+      phids: draft?.phids,
+      flyerType: draft?.flyerType,
+      canValidate: true,
+    ) == null;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -347,6 +355,13 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
     required DraftFlyer? draft,
   }){
     return Formers.zoneValidator(zoneModel: draft?.zone, selectCountryIDOnly: false, canValidate: true,) == null;
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  bool _canGoFrom5To6({
+    required DraftFlyer? draft,
+  }){
+    return true;
   }
   // --------------------
   /// TESTED : WORKS PERFECT
@@ -373,6 +388,19 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
 
   }
   // -----------------------------------------------------------------------------
+
+  /// CONFIRMATION
+
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  Future<void> _onConfirmTap() async {
+
+    _switchOnValidation();
+
+    widget.onConfirm(draftNotifier.value);
+
+  }
+  // -----------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     // --------------------
@@ -392,8 +420,10 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
       progressBarModel: _progressBarModel,
       onBack: () => Dialogs.goBackDialog(
         goBackOnConfirm: true,
+        titleVerse: const Verse(id: 'phid_exit_this_editor_page?', translate: true),
+        bodyVerse: const Verse(id: 'phid_draft_is_temp_stored', translate: true),
+        confirmButtonVerse: const Verse(id: 'phid_exit', translate: true),
       ),
-      confirmButtonModel: _confirmButtonModel,
       child: ValueListenableBuilder(
         valueListenable: draftNotifier,
         builder: (_, DraftFlyer? draft, Widget? child){
@@ -551,6 +581,10 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                       maxLines: 7,
                       keyboardTextInputType: TextInputType.multiline,
                       textController: draft?.description,
+                      bulletPoints: const <Verse>[
+                        Verse(id: 'phid_optional_field', translate: true),
+                        Verse(id: 'phid_its_good_to_add_description', translate: true),
+                      ],
                       validator: (String? text) => Formers.paragraphValidator(
                         text: draft?.description?.text,
                         canValidate: _canValidate,
@@ -764,9 +798,25 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
                     EditorSwipingButtons(
                       onNext: _onNextTap,
                       onPrevious: _onPreviousTap,
-                      canGoNext: _canGoFrom4To5(draft: draft),
+                      canGoNext: _canGoFrom5To6(draft: draft),
                     ),
 
+                  ],
+                ),
+
+                /// 6 - CONFIRM
+                EditorConfirmPage(
+                  verse:  const Verse(id: 'phid_confirm_upload_flyer', translate: true),
+                  onConfirmTap: _onConfirmTap,
+                  canConfirm: _canConfirmEdits(),
+                  modelHasChanged: _flyerHasChanged(),
+                  onPreviousTap: _onPreviousTap,
+                  previewWidget: Container(),
+                  bulletPoints: const <Verse>[
+                    Verse(
+                      id: 'phid_publishing_flyer_makes_it_public',
+                      translate: true,
+                    ),
                   ],
                 ),
 

@@ -10,6 +10,7 @@ import 'package:bldrs/a_models/c_chain/dd_data_creation.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
 import 'package:bldrs/a_models/d_zone/x_money/currency_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
 import 'package:bldrs/a_models/i_pic/pic_model.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
@@ -753,13 +754,18 @@ class Formers {
   /// TESTED : WORKS PERFECT
   static String? flyerPhidsValidator({
     required bool canValidate,
+    required FlyerType? flyerType,
     required List<String>? phids,
     FocusNode? focusNode,
   }){
     String? _message;
 
     if (canValidate == true){
-      if (Mapper.checkCanLoopList(phids) == false){
+
+      if (flyerType == null){
+        _message = Verse.transBake('phid_select_flyer_type_first');
+      }
+      else if (Mapper.checkCanLoopList(phids) == false){
         _message = Verse.transBake('phid_select_flyer_phids_to_filter');
       }
 
