@@ -277,6 +277,7 @@ class NoNotificationsYet extends StatelessWidget {
         color: Colorz.white80,
         weight: VerseWeight.black,
         italic: true,
+        maxLines: 3,
       ),
     );
   }

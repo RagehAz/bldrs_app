@@ -86,9 +86,20 @@ class _BzTeamPageState extends State<BzTeamPage> {
   @override
   Widget build(BuildContext context) {
     // --------------------
+    blog('a77a ba2a');
     return Selector<BzzProvider, BzModel?>(
       selector: (_, BzzProvider bzzProvider) => bzzProvider.myActiveBz,
-      shouldRebuild: (oldModel, newModel) => true,
+      shouldRebuild: (oldModel, newModel){
+
+        blog('THE FUCKING BZ TEAM IS REBUILDING PAGE');
+
+        BzModel.blogBzzDifferences(
+          bz1: oldModel,
+          bz2: newModel,
+        );
+
+        return true;
+      },
       builder: (BuildContext context, BzModel? bzModel, Widget? child){
 
         final List<AuthorModel> _authors = bzModel?.authors ?? [];
@@ -102,7 +113,6 @@ class _BzTeamPageState extends State<BzTeamPage> {
           theDoneWith: null,
         );
 
-        blog('_canSendAuthorships : $_canSendAuthorships');
 
         return ListView(
           physics: const BouncingScrollPhysics(),
@@ -121,13 +131,21 @@ class _BzTeamPageState extends State<BzTeamPage> {
               }
               ),
 
-            /// PENDING SENT AUTHORSHIP REQUESTS
             if (_canSendAuthorships == true)
-              const PendingAuthorsBubble(),
+              child!,
 
-            /// ADD BUTTON
-            if (_canSendAuthorships == true)
-              Column(
+          ],
+        );
+
+      },
+      child: Column(
+        children: <Widget>[
+
+          /// PENDING SENT AUTHORSHIP REQUESTS
+          const PendingAuthorsBubble(),
+
+          /// ADD BUTTON
+          Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
 
@@ -154,10 +172,8 @@ class _BzTeamPageState extends State<BzTeamPage> {
                 ],
               ),
 
-          ],
-        );
-
-      },
+        ],
+      ),
     );
     // --------------------
   }
