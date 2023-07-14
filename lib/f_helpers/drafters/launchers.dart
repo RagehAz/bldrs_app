@@ -3,6 +3,7 @@ import 'package:basics/helpers/classes/checks/device_checker.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:bldrs/a_models/x_secondary/contact_model.dart';
+import 'package:bldrs/bldrs_keys.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/phrase_protocols/protocols/phrase_protocols.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
@@ -210,6 +211,78 @@ class Launcher {
   }
   // -----------------------------------------------------------------------------
 
+  /// LAUNCH APP
+
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> launchStoreApp({
+    required String? iosAppID,
+    required String? androidPackageID,
+    String? webSite,
+  }) async {
+
+    if (DeviceChecker.deviceIsAndroid() == true){
+      await _launchGooglePlay(androidPackageID: androidPackageID);
+    }
+
+    else if (DeviceChecker.deviceIsIOS() == true){
+      await _launchAppleAppStore(iosAppID: iosAppID);
+    }
+    else if (TextCheck.isEmpty(webSite) == false){
+      await launchURL(webSite);
+    }
+
+  }
+  // --------------------
+  /// TESTED : WORKS PERFECT
+  static Future<void> _launchGooglePlay({
+    required String? androidPackageID,
+  }) async {
+
+    if (TextCheck.isEmpty(androidPackageID) == false){
+
+      final Uri uri = Uri.parse('market://details?id=$androidPackageID');
+
+      if (await Launch.canLaunchUrl(uri) == true) {
+        await Launch.launchUrl(
+          uri,
+          mode: Launch.LaunchMode.externalApplication,
+        );
+      }
+
+      else {
+        blog('cant launch google play store');
+      }
+
+    }
+
+  }
+  // --------------------
+  /// TASK : TEST ME
+  static Future<void> _launchAppleAppStore({
+    required String? iosAppID,
+  }) async {
+
+    if (TextCheck.isEmpty(iosAppID) == false){
+
+      final Uri uri = Uri.parse('https://apps.apple.com/app/id$iosAppID');
+
+      if (await Launch.canLaunchUrl(uri) == true) {
+        await Launch.launchUrl(
+          uri,
+          mode: Launch.LaunchMode.externalApplication,
+        );
+      }
+
+      else {
+        blog('cant launch apple app store');
+      }
+
+    }
+
+  }
+  // -----------------------------------------------------------------------------
+
   /// SHARING
 
   // --------------------
@@ -237,6 +310,10 @@ class Launcher {
     }
 
   }
+  // -----------------------------------------------------------------------------
+
+  /// BLDRS SPECIFIC
+
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> shareBldrsWebsiteURL() async {
@@ -249,6 +326,17 @@ class Launcher {
     await shareURL(
       url: Standards.bldrsWebSiteURL,
       subject: _tagLine,
+    );
+
+  }
+  // --------------------
+  /// TESTED: WORKS PERFECT (EXCEPT FOR IOS STILL NOT TESTED)
+  static Future<void> launchBldrsAppLinkOnStore() async {
+
+    await Launcher.launchStoreApp(
+      iosAppID: BldrsKeys.appStoreID,
+      androidPackageID: BldrsKeys.androidPackageID,
+      webSite: Standards.bldrsWebSiteURL,
     );
 
   }
