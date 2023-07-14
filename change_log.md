@@ -9,6 +9,8 @@
 7. Cropping screen adjusted
 8. Business author image updating bug fixed
 9. app updater jumps directly to the store now bypassing the website
+10. flyer gallery slide scrolling and exit bounce fixed
+11. 
 
 ### 1.0.5 changelog
 1. Optimized gallery flyer animation
