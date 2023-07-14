@@ -1,18 +1,11 @@
-import 'dart:async';
-
-import 'package:basics/bldrs_theme/classes/colorz.dart';
-import 'package:basics/bldrs_theme/classes/ratioz.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:basics/layouts/handlers/max_bounce_navigator.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
-import 'package:bldrs/b_views/j_flyer/a_flyer_screen/x_flyer_controllers.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/c_groups/grid/flyers_grid.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:flutter/material.dart';
 
-class GallerySlide extends StatefulWidget {
+class GallerySlide extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const GallerySlide({
     required this.flyerBoxWidth,
@@ -32,11 +25,61 @@ class GallerySlide extends StatefulWidget {
   final Function onMaxBounce;
   /// --------------------------------------------------------------------------
   @override
-  State<GallerySlide> createState() => _GallerySlideState();
+  Widget build(BuildContext context) {
+
+    final double _headerAndProgressHeights = FlyerDim.headerSlateAndProgressHeights(
+      flyerBoxWidth: flyerBoxWidth,
+    );
+
+    return MaxBounceNavigator(
+      onNavigate: onMaxBounce,
+      boxDistance: flyerBoxHeight - _headerAndProgressHeights,
+      slideLimitRatio: 0.1,
+      child: FlyersGrid(
+        gridWidth: flyerBoxWidth,
+        gridHeight: flyerBoxHeight,
+        flyersIDs: bzModel.flyersIDs,
+        gridType: FlyerGridType.heroic,
+        topPadding: _headerAndProgressHeights,
+        // numberOfColumns: 2,
+        screenName: heroTag ?? '',
+        // scrollController: _scrollController,
+        hasResponsiveSideMargin: false,
+      ),
+    );
+
+  }
   /// --------------------------------------------------------------------------
 }
 
-class _GallerySlideState extends State<GallerySlide> {
+/*
+
+
+class OldGallerySlide extends StatefulWidget {
+  /// --------------------------------------------------------------------------
+  const OldGallerySlide({
+    required this.flyerBoxWidth,
+    required this.flyerBoxHeight,
+    required this.flyerModel,
+    required this.bzModel,
+    required this.onMaxBounce,
+    this.heroTag,
+    super.key
+  });
+  /// --------------------------------------------------------------------------
+  final double flyerBoxWidth;
+  final double flyerBoxHeight;
+  final FlyerModel flyerModel;
+  final BzModel bzModel;
+  final String? heroTag;
+  final Function onMaxBounce;
+  /// --------------------------------------------------------------------------
+  @override
+  State<OldGallerySlide> createState() => _OldGallerySlideState();
+  /// --------------------------------------------------------------------------
+}
+
+class _OldGallerySlideState extends State<OldGallerySlide> {
   /// --------------------------------------------------------------------------
   final ScrollController _scrollController = ScrollController();
   bool? _canPaginate;
@@ -195,6 +238,7 @@ class _GallerySlideState extends State<GallerySlide> {
                 gridWidth: widget.flyerBoxWidth,
                 gridHeight: widget.flyerBoxHeight,
                 flyers: flyers,
+                flyersIDs: [],
                 gridType: FlyerGridType.heroic,
                 topPadding: _headerAndProgressHeights,
                 // numberOfColumns: 2,
@@ -211,5 +255,6 @@ class _GallerySlideState extends State<GallerySlide> {
     );
 
   }
-// -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 }
+ */

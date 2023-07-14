@@ -32,6 +32,7 @@ class SlidesBuilder extends StatelessWidget {
     required this.canPinch,
     required this.canUseFilter,
     required this.showGallerySlide,
+    required this.onVerticalExit,
     this.onHorizontalExit,
     super.key
   });
@@ -49,6 +50,7 @@ class SlidesBuilder extends StatelessWidget {
   final String heroTag;
   final FlightDirection flightDirection;
   final Function? onHorizontalExit;
+  final Function? onVerticalExit;
   final bool canTapSlides;
   final bool showSlidesShadows;
   final bool showSlidesBlurLayers;
@@ -135,7 +137,7 @@ class SlidesBuilder extends StatelessWidget {
                 flyerModel: flyerModel!,
                 bzModel: flyerModel!.bzModel!,
                 heroTag: heroTag,
-                onMaxBounce: onHorizontalExit!,
+                onMaxBounce: onVerticalExit!,
               );
             }
 

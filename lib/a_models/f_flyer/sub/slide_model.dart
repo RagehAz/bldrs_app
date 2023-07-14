@@ -4,6 +4,7 @@ import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/files/floaters.dart';
 import 'package:basics/helpers/classes/space/trinity.dart';
+import 'package:basics/helpers/classes/strings/stringer.dart';
 import 'package:basics/helpers/classes/strings/text_mod.dart';
 import 'package:basics/helpers/classes/colors/colorizer.dart';
 import 'package:basics/mediator/models/dimension_model.dart';
@@ -100,10 +101,13 @@ class SlideModel {
   /// TESTED : WORKS PERFECT
   static List<SlideModel> decipherSlides(Map<String, dynamic> maps) {
     final List<SlideModel> _slides = <SlideModel>[];
-    final List<String> ?_keys = maps.keys.toList();
+    final List<String>? _keys = maps.keys.toList();
 
     if (Mapper.checkCanLoopList(_keys) == true) {
-      for (final String key in _keys!) {
+
+      final List<String> _sorted = Stringer.sortAlphabetically(_keys);
+
+      for (final String key in _sorted) {
         final Map<String, dynamic> _slideMap = maps[key];
         final SlideModel _slide = decipherSlide(_slideMap);
         _slides.add(_slide);
