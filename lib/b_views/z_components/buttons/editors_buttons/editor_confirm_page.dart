@@ -1,9 +1,11 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:bldrs/b_views/z_components/buttons/dream_box/bldrs_box.dart';
 import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_swiping_buttons.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/bldrs_floating_list.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
+import 'package:bldrs/b_views/z_components/texting/bullet_points/bldrs_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +19,7 @@ class EditorConfirmPage extends StatelessWidget {
     required this.modelHasChanged,
     required this.onPreviousTap,
     this.previewWidget,
+    this.bulletPoints,
     super.key,
   });
   /// --------------------------------------------------------------------------
@@ -26,6 +29,7 @@ class EditorConfirmPage extends StatelessWidget {
   final bool canConfirm;
   final bool modelHasChanged;
   final Function onPreviousTap;
+  final List<Verse>? bulletPoints;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -72,6 +76,16 @@ class EditorConfirmPage extends StatelessWidget {
           verseWeight: canConfirm == true ? VerseWeight.black : VerseWeight.bold,
           verseScaleFactor: 0.6,
           onTap: onConfirmTap,
+          verseMaxLines: 2,
+        ),
+
+        if (canConfirm == true && Mapper.checkCanLoopList(bulletPoints) == true)
+        Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: BldrsBulletPoints(
+            bulletPoints: bulletPoints,
+            centered: true,
+          ),
         ),
 
         /// SWIPING BUTTONS

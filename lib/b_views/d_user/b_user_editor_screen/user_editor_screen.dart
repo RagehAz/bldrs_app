@@ -472,6 +472,9 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
       progressBarModel: _progressBarModel,
       onBack: () => Dialogs.goBackDialog(
         goBackOnConfirm: true,
+        titleVerse: const Verse(id: 'phid_exit_this_editor_page?', translate: true),
+        bodyVerse: const Verse(id: 'phid_draft_is_temp_stored', translate: true),
+        confirmButtonVerse: const Verse(id: 'phid_exit', translate: true),
       ),
       child: ValueListenableBuilder(
         valueListenable: _draftUser,
@@ -749,9 +752,15 @@ class _UserEditorScreenState extends State<UserEditorScreen> {
                         leadingIconBoxColor: Colorz.nothing,
                       ),
                       keyboardTextInputType: TextInputType.phone,
-                      bulletPoints: ContactFieldEditorBubble.privacyPoint(
-                        contactsArePublic: _contactsArePublic,
-                      ),
+                      bulletPoints: [
+
+                        const Verse(id: 'phid_optional_field', translate: true),
+
+                        ...ContactFieldEditorBubble.privacyPoint(
+                          contactsArePublic: _contactsArePublic,
+                        ),
+
+                      ],
                       keyboardTextInputAction: TextInputAction.next,
                       // initialTextValue: ContactModel.getInitialContactValue(
                       //   type: ContactType.phone,

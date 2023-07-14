@@ -108,7 +108,6 @@ class AddFlyerButton extends StatelessWidget {
               iconColor: Colorz.white200,
               iconSizeFactor: 0.6,
               bubble: false,
-              color: Colorz.nothing,
               // onTap: () async {
               //   await _goToFlyerEditor(context);
               // },

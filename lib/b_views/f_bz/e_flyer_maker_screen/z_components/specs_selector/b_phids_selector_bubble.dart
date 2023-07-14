@@ -54,6 +54,14 @@ class PhidsSelectorBubble extends StatelessWidget {
             id: 'phid_keywords',
             translate: true,
           ),
+          redDot: true,
+        ),
+        bubbleColor: Formers.validatorBubbleColor(
+          validator: () => Formers.flyerPhidsValidator(
+            phids: draft?.phids,
+            flyerType: draft?.flyerType,
+            canValidate: canValidate,
+          ),
         ),
         width: Bubble.bubbleWidth(context: context),
         columnChildren: <Widget>[
@@ -112,6 +120,7 @@ class PhidsSelectorBubble extends StatelessWidget {
             width: _bubbleClearWidth - 20,
             validator: () => Formers.flyerPhidsValidator(
               phids: draft?.phids,
+              flyerType: draft?.flyerType,
               canValidate: canValidate,
             ),
           ),
