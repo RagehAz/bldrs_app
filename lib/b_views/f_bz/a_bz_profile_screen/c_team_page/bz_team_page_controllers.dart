@@ -1,13 +1,14 @@
 import 'dart:async';
+
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:fire/super_fire.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/pending_author_model.dart';
+import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
 import 'package:bldrs/b_views/f_bz/c_author_editor_screen/a_author_editor_screen.dart';
 import 'package:bldrs/b_views/f_bz/c_author_editor_screen/b_author_role_editor_screen.dart';
 import 'package:bldrs/b_views/f_bz/d_author_search_screen/a_author_search_screen.dart';
@@ -19,9 +20,11 @@ import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart'
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/a_authorship_protocols.dart';
 import 'package:bldrs/c_protocols/authorship_protocols/f_new_authorship_exit.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
+import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
+import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/layouts/nav/nav.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 
@@ -132,6 +135,7 @@ Future<void> onAuthorOptionsTap({
         await onGoToAuthorEditorScreen(
           bzModel: oldBz,
           authorModel: authorModel,
+          navAfterDone: true,
         );
 
       },
@@ -236,15 +240,24 @@ Future<void> _onShowCanNotRemoveAuthorDialog({
 Future<void> onGoToAuthorEditorScreen({
   required AuthorModel? authorModel,
   required BzModel? bzModel,
+  required bool navAfterDone,
 }) async {
 
-  await Nav.goToNewScreen(
+  final BzModel? _newBz = await Nav.goToNewScreen(
     context: getMainContext(),
     screen: AuthorEditorScreen(
       author: authorModel,
       bzModel: bzModel,
     ),
   );
+
+  if (_newBz != null && navAfterDone == true){
+    await BldrsNav.goToMyBzScreen(
+      bzID: _newBz.id,
+      replaceCurrentScreen: true,
+      initialTab: BzTab.team,
+    );
+  }
 
 }
 // --------------------

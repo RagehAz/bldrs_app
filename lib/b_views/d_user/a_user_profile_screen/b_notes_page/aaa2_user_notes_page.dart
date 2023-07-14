@@ -4,6 +4,7 @@ import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/layouts/handlers/pull_to_refresh.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/b_notes_page/x2_user_notes_page_controllers.dart';
+import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/d_bz_notes_page/bz_notes_page.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/notes/note_card.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
@@ -207,33 +208,41 @@ class _UserNotesPageState extends State<UserNotesPage> {
           paginationController: _paginationController,
           builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget? child){
 
-            return ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              controller: _paginationController?.scrollController,
-              itemCount: maps.length,
-              padding: Stratosphere.stratosphereSandwich,
-              itemBuilder: (BuildContext ctx, int index) {
 
-                final NoteModel? _note = NoteModel.decipherNote(
-                  map: maps[index],
-                  fromJSON: false,
-                );
+            if (Mapper.checkCanLoopList(maps) == true && isLoading == false){
+              return ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                controller: _paginationController?.scrollController,
+                itemCount: maps.length,
+                padding: Stratosphere.stratosphereSandwich,
+                itemBuilder: (BuildContext ctx, int index) {
 
-                return NoteCard(
-                  key: PageStorageKey<String>('user_note_card_${_note?.id}'),
-                  noteModel: _note,
-                  isDraftNote: false,
-                  onNoteOptionsTap: () => onShowNoteOptions(
-                    context: context,
+                  final NoteModel? _note = NoteModel.decipherNote(
+                    map: maps[index],
+                    fromJSON: false,
+                  );
+
+                  return NoteCard(
+                    key: PageStorageKey<String>('user_note_card_${_note?.id}'),
                     noteModel: _note,
-                    paginationController: _paginationController,
-                    mounted: mounted,
-                  ),
-                  onCardTap: _onNoteTap(_note),
-                );
+                    isDraftNote: false,
+                    onNoteOptionsTap: () => onShowNoteOptions(
+                      context: context,
+                      noteModel: _note,
+                      paginationController: _paginationController,
+                      mounted: mounted,
+                    ),
+                    onCardTap: _onNoteTap(_note),
+                  );
 
-              },
-            );
+                  },
+              );
+            }
+
+            else {
+              return const NoNotificationsYet();
+            }
+
 
           }
       ),

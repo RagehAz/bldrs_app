@@ -359,7 +359,7 @@ Future<void> onConfirmAuthorUpdates({
       draftAuthor: draftAuthor.value,
     );
 
-    await BzProtocols.renovateAuthorProtocol(
+    final BzModel? _newBz = await BzProtocols.renovateAuthorProtocol(
       context: context,
       oldBz: oldBz,
       newAuthor: _newAuthor,
@@ -372,6 +372,7 @@ Future<void> onConfirmAuthorUpdates({
     await Nav.goBack(
       context: context,
       invoker: 'onConfirmAuthorUpdates',
+      passedData: _newBz,
     );
   }
 

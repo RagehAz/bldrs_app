@@ -880,12 +880,12 @@ class BzModel{
 
     }
 
-    // if (_areIdentical == false){
-    //   blogBzzDifferences(
-    //     bz1: bz1,
-    //     bz2: bz2,
-    //   );
-    // }
+    if (_areIdentical == false){
+      blogBzzDifferences(
+        bz1: bz1,
+        bz2: bz2,
+      );
+    }
 
     return _areIdentical;
   }
