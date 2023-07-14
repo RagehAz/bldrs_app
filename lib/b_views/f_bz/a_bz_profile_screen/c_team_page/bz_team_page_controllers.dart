@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
@@ -128,8 +129,7 @@ Future<void> onAuthorOptionsTap({
           invoker: 'onAuthorOptionsTap.Edit $_authorName Author details',
         );
 
-        await _onEditAuthor(
-          context: context,
+        await onGoToAuthorEditorScreen(
           bzModel: oldBz,
           authorModel: authorModel,
         );
@@ -233,14 +233,13 @@ Future<void> _onShowCanNotRemoveAuthorDialog({
 
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _onEditAuthor({
-  required BuildContext context,
+Future<void> onGoToAuthorEditorScreen({
   required AuthorModel? authorModel,
   required BzModel? bzModel,
 }) async {
 
   await Nav.goToNewScreen(
-    context: context,
+    context: getMainContext(),
     screen: AuthorEditorScreen(
       author: authorModel,
       bzModel: bzModel,

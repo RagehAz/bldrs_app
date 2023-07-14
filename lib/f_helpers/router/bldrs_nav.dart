@@ -5,6 +5,7 @@ import 'package:basics/helpers/classes/strings/text_check.dart';
 import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/c_chain/aa_chain_path_converter.dart';
 import 'package:bldrs/a_models/x_ui/tabs/bz_tabber.dart';
 import 'package:bldrs/a_models/x_ui/tabs/user_tabber.dart';
@@ -13,6 +14,7 @@ import 'package:bldrs/b_views/b_auth/a_auth_screen/a_auth_screen.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/user_profile_screen.dart';
 import 'package:bldrs/b_views/d_user/e_user_preview_screen/user_preview_screen.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/a_my_bz_screen.dart';
+import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/c_team_page/bz_team_page_controllers.dart';
 import 'package:bldrs/b_views/f_bz/f_bz_preview_screen/a_bz_preview_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/a_app_settings_screen/a_app_settings_screen.dart';
 import 'package:bldrs/b_views/j_flyer/a_flyer_screen/a_flyer_screen.dart';
@@ -27,6 +29,7 @@ import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart
 import 'package:bldrs/c_protocols/user_protocols/protocols/a_user_protocols.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/z_grid/z_grid.dart';
+import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
 import 'package:provider/provider.dart';
@@ -357,19 +360,30 @@ class BldrsNav {
   // --------------------
   /// TESTED : WORKS PERFECT
   static Future<void> goRebootToInitNewBzScreen({
-    required String? bzID,
+    required BzModel? bzModel,
   }) async {
 
-    UiProvider.proSetAfterHomeRoute(
-      routeName: Routing.myBzTeamPage,
-      arguments: bzID,
-      notify: true,
-    );
+    if (bzModel != null){
 
-    await goToLogoScreenAndRemoveAllBelow(
-      animatedLogoScreen: true,
-    );
+      await onGoToAuthorEditorScreen(
+        bzModel: bzModel,
+        authorModel: AuthorModel.getAuthorFromBzByAuthorID(
+          bz: bzModel,
+          authorID: Authing.getUserID(),
+        ),
+      );
 
+      UiProvider.proSetAfterHomeRoute(
+        routeName: Routing.myBzAboutPage,
+        arguments: bzModel.id,
+        notify: true,
+      );
+
+      await goToLogoScreenAndRemoveAllBelow(
+        animatedLogoScreen: true,
+      );
+
+    }
 
   }
   // --------------------

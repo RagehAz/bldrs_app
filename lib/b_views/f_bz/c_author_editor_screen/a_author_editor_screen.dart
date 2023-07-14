@@ -15,6 +15,7 @@ import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_swipin
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/bldrs_floating_list.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/pages_layout.dart';
+import 'package:bldrs/b_views/z_components/layouts/main_layout/app_bar/bldrs_app_bar.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
 import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
@@ -393,6 +394,14 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
         bodyVerse: const Verse(id: 'phid_draft_is_temp_stored', translate: true),
         confirmButtonVerse: const Verse(id: 'phid_exit', translate: true),
       ),
+      appBarRowWidgets: [
+
+        AppBarButton(
+          icon: widget.bzModel?.logoPath,
+          bigIcon: true,
+          bubble: false,
+        ),
+      ],
       child: ValueListenableBuilder(
         valueListenable: _draftAuthor,
         builder: (_, AuthorModel? authorModel, Widget? child){

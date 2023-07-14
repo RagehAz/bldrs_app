@@ -3,6 +3,10 @@ import 'dart:typed_data';
 
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/files/file_size_unit.dart';
+import 'package:basics/helpers/classes/files/filers.dart';
+import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:basics/mediator/models/dimension_model.dart';
+import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/draft/draft_bz.dart';
 import 'package:bldrs/a_models/b_bz/sub/bz_typer.dart';
@@ -24,11 +28,7 @@ import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:fire/super_fire.dart';
-import 'package:basics/helpers/classes/files/filers.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/mediator/models/dimension_model.dart';
-import 'package:basics/mediator/pic_maker/pic_maker.dart';
 /// => TAMAM
 // -----------------------------------------------------------------------------
 
@@ -139,10 +139,12 @@ Future<void> onConfirmBzEdits({
 
     await BzLDBOps.deleteBzEditorSession(draftNotifier.value?.id);
 
-    await BldrsNav.restartAndRoute(
-      routeName: Routing.myBzAboutPage,
-      arguments: draftNotifier.value?.id,
-    );
+    if (draftNotifier.value?.firstTimer == false){
+      await BldrsNav.restartAndRoute(
+        routeName: Routing.myBzAboutPage,
+        arguments: draftNotifier.value?.id,
+      );
+    }
 
   }
 
@@ -173,15 +175,17 @@ Future<bool> _preUploadCheckups({
 }
 // --------------------
 /// TESTED : WORKS PERFECT
-Future<void> _uploadDraftBz({
+Future<BzModel?> _uploadDraftBz({
   required BuildContext context,
   required ValueNotifier<DraftBz?> draftNotifier,
   required BzModel? oldBz,
 }) async {
 
+  BzModel?_output;
+
   /// CREATING NEW BZ
   if (Mapper.boolIsTrue(draftNotifier.value?.firstTimer) == true){
-    await BzProtocols.composeBz(
+    _output = await BzProtocols.composeBz(
       context: context,
       newDraft: draftNotifier.value,
       userModel: UsersProvider.proGetMyUserModel(
@@ -194,11 +198,11 @@ Future<void> _uploadDraftBz({
   /// EDITING EXISTING BZ
   else {
 
-    blog('draftNotifier.value.hasNewLogo : ${draftNotifier.value?.hasNewLogo}');
+    // blog('draftNotifier.value.hasNewLogo : ${draftNotifier.value?.hasNewLogo}');
     // DraftBz.toBzModel(draftNotifier.value).blogBz(invoker: 'what the bz');
-    blog('draftNotifier.value.logoPicModel.bytes.length : ${draftNotifier.value?.logoPicModel?.bytes?.length}');
+    // blog('draftNotifier.value.logoPicModel.bytes.length : ${draftNotifier.value?.logoPicModel?.bytes?.length}');
 
-    await BzProtocols.renovateBz(
+    _output = await BzProtocols.renovateBz(
       context: context,
       newBz: DraftBz.toBzModel(draftNotifier.value),
       oldBz: oldBz,
@@ -208,9 +212,10 @@ Future<void> _uploadDraftBz({
           :
       null,
     );
+
   }
 
-
+  return _output;
 }
 // -----------------------------------------------------------------------------
 

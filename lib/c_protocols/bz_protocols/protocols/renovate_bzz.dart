@@ -28,7 +28,7 @@ class RenovateBzProtocols {
 
   // --------------------
   /// TESTED : WORKS PERFECT
-  static Future<void> renovateBz({
+  static Future<BzModel?> renovateBz({
     required BuildContext context,
     required BzModel? newBz,
     required BzModel? oldBz,
@@ -36,6 +36,7 @@ class RenovateBzProtocols {
     // required bool navigateToBzInfoPageOnEnd,
     required PicModel? newLogo,
   }) async {
+    BzModel? _bzModel;
     blog('RenovateBzProtocol.renovateBz : START');
 
     final bool _areIdentical = BzModel.checkBzzAreIdentical(
@@ -85,6 +86,8 @@ class RenovateBzProtocols {
         await WaitDialog.closeWaitDialog();
       }
 
+      _bzModel = newBz;
+
       // /// ON FAILURE
       // else {
       //
@@ -98,6 +101,7 @@ class RenovateBzProtocols {
       // }
 
     blog('RenovateBzProtocol.renovateBz : END');
+      return _bzModel;
   }
   // --------------------
   /// TESTED : WORKS PERFECT

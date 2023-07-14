@@ -6,9 +6,11 @@ import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/e_notes/a_note_model.dart';
 import 'package:bldrs/b_views/d_user/a_user_profile_screen/b_notes_page/x2_user_notes_page_controllers.dart';
 import 'package:bldrs/b_views/f_bz/a_bz_profile_screen/d_bz_notes_page/bz_notes_page_controllers.dart';
+import 'package:bldrs/b_views/z_components/buttons/main_button.dart';
 import 'package:bldrs/b_views/z_components/dialogs/wait_dialog/wait_dialog.dart';
 import 'package:bldrs/b_views/z_components/notes/note_card.dart';
 import 'package:bldrs/b_views/z_components/sizing/stratosphere.dart';
+import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/provider/bzz_provider.dart';
 import 'package:bldrs/c_protocols/note_protocols/fire/note_fire_ops.dart';
@@ -220,33 +222,63 @@ class _BzNotesPageState extends State<BzNotesPage>{
           paginationController: _paginationController,
           builder: (_, List<Map<String, dynamic>> maps, bool isLoading, Widget? child){
 
-            return ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              controller: _paginationController?.scrollController,
-              itemCount: maps.length,
-              padding: Stratosphere.stratosphereSandwich,
-              itemBuilder: (BuildContext ctx, int index) {
+            if (Mapper.checkCanLoopList(maps) == true && isLoading == false){
+              return ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                controller: _paginationController?.scrollController,
+                itemCount: maps.length,
+                padding: Stratosphere.stratosphereSandwich,
+                itemBuilder: (BuildContext ctx, int index) {
+                  final NoteModel? _note = NoteModel.decipherNote(
+                    map: maps[index],
+                    fromJSON: false,
+                  );
+                  return NoteCard(
+                    key: PageStorageKey<String>('bz_note_card_${_note?.id}'),
+                    noteModel: _note,
+                    isDraftNote: false,
+                    onCardTap: _onNoteTap(_note),
+                  );
+                  },
+              );
+            }
 
-                final NoteModel? _note = NoteModel.decipherNote(
-                  map: maps[index],
-                  fromJSON: false,
-                );
-
-                return NoteCard(
-                  key: PageStorageKey<String>('bz_note_card_${_note?.id}'),
-                  noteModel: _note,
-                  isDraftNote: false,
-                  onCardTap: _onNoteTap(_note),
-                );
-
-              },
-            );
+            else {
+              return const NoNotificationsYet();
+            }
 
           }
       ),
 
     );
 
+  }
+  // -----------------------------------------------------------------------------
+}
+
+
+class NoNotificationsYet extends StatelessWidget {
+  // -----------------------------------------------------------------------------
+  const NoNotificationsYet({
+    super.key
+  });
+  // -----------------------------------------------------------------------------
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: BldrsText(
+        width: MainButton.getButtonWidth(context: context),
+        verse: const Verse(
+          id: 'phid_no_notes_yet',
+          translate: true,
+          casing: Casing.upperCase,
+        ),
+        size: 4,
+        color: Colorz.white80,
+        weight: VerseWeight.black,
+        italic: true,
+      ),
+    );
   }
   // -----------------------------------------------------------------------------
 }
