@@ -1,6 +1,7 @@
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:basics/helpers/classes/checks/device_checker.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/widgets/sensors/app_version_builder.dart';
 import 'package:basics/layouts/separators/dot_separator.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
@@ -37,6 +38,26 @@ class AppSettingsScreen extends StatelessWidget {
 
     return FloatingLayout(
       pyramidButtons: UsersProvider.userIsRage7() == false ? null : [
+
+        /// TEST
+        PyramidFloatingButton(
+          icon: Iconz.lab,
+          color: Colorz.red255,
+          onTap: () async {
+
+            final Map<String, dynamic> map = await Real.readPath(
+                path: 'bldrsChains',
+            );
+
+            blog('{');
+            for (final String key in map.keys.toList()){
+
+              blog('"$key": "${map[key]}",');
+
+            }
+            blog('}');
+          },
+        ),
 
         /// LAUNCH APP STORE
         PyramidFloatingButton(
