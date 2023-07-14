@@ -66,6 +66,7 @@ class BldrsBubbleHeaderVM {
     bool redDot = false,
     VerseWeight weight = VerseWeight.black,
     TextDirection? textDirection,
+    bool? appIsLTR,
   }){
 
         final double _textSizeValue = BldrsText.superVerseRealHeight(context: context, size: 2, sizeFactor: 1, hasLabelBox: false);
@@ -89,7 +90,7 @@ class BldrsBubbleHeaderVM {
           font: BldrsText.superVerseFont(weight),
           headlineHighlight: headlineVerse?.notifier,
           headlineHeight: _textSizeValue,
-          appIsLTR: UiProvider.checkAppIsLeftToRight(),
+          appIsLTR: appIsLTR ?? UiProvider.checkAppIsLeftToRight(),
           textDirection: textDirection ?? UiProvider.getAppTextDir(),
           // moreButtonIcon: Iconz.more,
           // moreButtonIconSizeFactor: 0.6,

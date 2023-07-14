@@ -42,6 +42,7 @@ class BldrsText extends StatelessWidget {
     this.highlightColor = Colorz.bloodTest,
     this.shadowColor,
     this.textDirection,
+    this.appIsLTR,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -67,6 +68,7 @@ class BldrsText extends StatelessWidget {
   final Color highlightColor;
   final Color? shadowColor;
   final TextDirection? textDirection;
+  final bool? appIsLTR;
   // -----------------------------------------------------------------------------
 
   /// READY VERSES
@@ -582,7 +584,7 @@ class BldrsText extends StatelessWidget {
         text: _text,
         directionOverride: textDirection,
       ),
-      appIsLTR: UiProvider.checkAppIsLeftToRight(),
+      appIsLTR: appIsLTR ?? UiProvider.checkAppIsLeftToRight(),
       onTap: onTap,
       // onDoubleTap: onDoubleTap,
       // package: package,

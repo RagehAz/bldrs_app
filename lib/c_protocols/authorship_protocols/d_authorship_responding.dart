@@ -168,7 +168,7 @@ class AuthorshipRespondingProtocols{
       /// to allow home screen re-init my bzz notes stream to include this bz
       /// and listen to its live notes
       await BldrsNav.goRebootToInitNewBzScreen(
-        bzID: bzModel?.id,
+        bzModel: bzModel,
       );
 
     }

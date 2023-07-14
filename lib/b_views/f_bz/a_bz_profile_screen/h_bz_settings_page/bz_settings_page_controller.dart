@@ -2,12 +2,10 @@ import 'dart:async';
 
 import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
-import 'package:fire/super_fire.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/b_bz/sub/author_model.dart';
 import 'package:bldrs/a_models/e_notes/aa_note_parties_model.dart';
-import 'package:bldrs/b_views/a_starters/b_home_screen/a_home_screen.dart';
 import 'package:bldrs/b_views/f_bz/b_bz_editor_screen/bz_editor_screen.dart';
 import 'package:bldrs/b_views/h_app_settings/fcm_topics_screen.dart';
 import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.dart';
@@ -15,9 +13,11 @@ import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/dialogs/top_dialog/top_dialog.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/bz_protocols/protocols/a_bz_protocols.dart';
+import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/f_helpers/router/bldrs_nav.dart';
 import 'package:bldrs/f_helpers/router/routing.dart';
+import 'package:fire/super_fire.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/layouts/nav/nav.dart';
 
 /// => TAMAM
 // -----------------------------------------------------------------------------
@@ -103,10 +103,8 @@ Future<void> onDeleteBzButtonTap({
       invoker: 'onDeleteBzButtonTap',
     );
 
-    await Nav.replaceScreen(
-      context: getMainContext(),
-      screen: const HomeScreen(),
-      transitionType: PageTransitionType.fade,
+    await BldrsNav.goToLogoScreenAndRemoveAllBelow(
+      animatedLogoScreen: true,
     );
 
     if (showSuccessDialog == true){
