@@ -40,6 +40,8 @@ class AuthorPic extends StatelessWidget {
     );
     // --------------------
 
+    blog('------------>>>> BUILDING THE DAMN AUTHOR PIC');
+
     return Center(
       child: Container(
         height: size,
