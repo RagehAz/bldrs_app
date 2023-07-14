@@ -1,12 +1,13 @@
 import 'package:basics/bubbles/bubble/bubble.dart';
+import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shelf/b_draft_shelf.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_validator.dart';
+import 'package:bldrs/b_views/z_components/texting/bullet_points/bldrs_bullet_points.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-
 import 'package:flutter/material.dart';
 
 class SlidesShelfBubble extends StatelessWidget {
@@ -27,6 +28,8 @@ class SlidesShelfBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    blog('a7a');
+
     return Bubble(
       bubbleColor: Formers.validatorBubbleColor(
         canErrorize: canValidate,
@@ -41,9 +44,16 @@ class SlidesShelfBubble extends StatelessWidget {
           id: 'phid_flyerSlides',
           translate: true,
         ),
+        redDot: true,
       ),
       width: Bubble.bubbleWidth(context: context),
       columnChildren: <Widget>[
+
+        const BldrsBulletPoints(
+            bulletPoints: <Verse>[
+              Verse(id: 'phid_can_remove_slides_or_flyer_only', translate: true),
+            ],
+        ),
 
         /// SLIDES SHELF
         SlidesShelf(

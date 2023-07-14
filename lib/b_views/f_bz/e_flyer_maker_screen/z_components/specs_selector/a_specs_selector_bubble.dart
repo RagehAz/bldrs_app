@@ -55,6 +55,7 @@ class SpecsSelectorBubble extends StatelessWidget {
           const BldrsBulletPoints(
             showBottomLine: false,
             bulletPoints: <Verse>[
+              Verse(id: 'phid_optional_field', translate: true),
               Verse(
                 pseudo: 'Add technical specification to describe flyer contents and help the search filters find your flyer',
                 id: 'phid_add_spec_to_help_search_filters',

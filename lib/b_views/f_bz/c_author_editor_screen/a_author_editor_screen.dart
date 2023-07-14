@@ -12,6 +12,7 @@ import 'package:bldrs/b_views/z_components/bubbles/b_variants/pic_bubble/add_gal
 import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
 import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_confirm_page.dart';
 import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_swiping_buttons.dart';
+import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/bldrs_floating_list.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/pages_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
@@ -386,6 +387,12 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
         translate: true,
       ),
       progressBarModel: _progressBarModel,
+      onBack: () => Dialogs.goBackDialog(
+        goBackOnConfirm: true,
+        titleVerse: const Verse(id: 'phid_exit_this_editor_page?', translate: true),
+        bodyVerse: const Verse(id: 'phid_draft_is_temp_stored', translate: true),
+        confirmButtonVerse: const Verse(id: 'phid_exit', translate: true),
+      ),
       child: ValueListenableBuilder(
         valueListenable: _draftAuthor,
         builder: (_, AuthorModel? authorModel, Widget? child){
@@ -535,6 +542,9 @@ class _AuthorEditorScreenState extends State<AuthorEditorScreen> {
                       canPaste: false,
                       keyboardTextInputType: TextInputType.phone,
                       keyboardTextInputAction: TextInputAction.next,
+                      bulletPoints: const <Verse>[
+                        Verse(id: 'phid_optional_field', translate: true),
+                      ],
                       initialTextValue: ContactModel.getInitialContactValue(
                         type: ContactType.phone,
                         countryID: widget.bzModel?.zone?.countryID,
