@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:bldrs/a_models/c_chain/a_chain.dart';
 import 'package:bldrs/a_models/c_chain/aaa_phider.dart';
 import 'package:fire/super_fire.dart';
 import 'package:bldrs/e_back_end/c_real/foundation/real_paths.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
+import 'package:flutter/services.dart';
 
 /*
 Map looks like this :-
@@ -54,12 +57,17 @@ class ChainRealOps {
   /// READ
 
   // --------------------
+  static const String bldrsChainsFilePath = 'assets/bldrs_chains.json';
+  // --------------------
   /// TESTED : WORKS PERFECT
   static Future<List<Chain>?> readBldrsChains() async {
 
-    final Map<String, dynamic>? map = await Real.readPathMap(
-      path: RealColl.bldrsChains,
-    );
+    // final Map<String, dynamic>? map = await Real.readPathMap(
+    //   path: RealColl.bldrsChains,
+    // );
+
+    final String _jsonStringValues = await rootBundle.loadString(bldrsChainsFilePath);
+    final Map<String, dynamic> map = json.decode(_jsonStringValues);
 
     final List<Chain>? _chains = Chain.decipherBldrsChains(map: map);
 
