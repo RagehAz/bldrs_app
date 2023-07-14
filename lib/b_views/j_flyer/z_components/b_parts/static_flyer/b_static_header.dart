@@ -1,4 +1,5 @@
 import 'dart:ui' as ui;
+import 'package:basics/super_box/super_box.dart';
 import 'package:bldrs/a_models/b_bz/bz_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/a_left_spacer/static_slate_spacer.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/a_header/a_slate/b_bz_logo/d_bz_logo.dart';
@@ -23,6 +24,7 @@ class StaticHeader extends StatelessWidget {
     this.authorImage,
     this.onFollowTap,
     this.onCallTap,
+    this.disabledButtons = false,
     super.key
   });
   /// --------------------------------------------------------------------------
@@ -36,6 +38,7 @@ class StaticHeader extends StatelessWidget {
   final ui.Image? authorImage;
   final Function? onFollowTap;
   final Function? onCallTap;
+  final bool disabledButtons;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -107,9 +110,13 @@ class StaticHeader extends StatelessWidget {
 
                   /// FOLLOW BUTTON
                   if (showHeaderLabels == true)
-                    FollowButton(
-                      flyerBoxWidth: flyerBoxWidth,
-                      onFollowTap: onFollowTap,
+                    Disabler(
+                      isDisabled: disabledButtons,
+                      disabledOpacity: 0.2,
+                      child: FollowButton(
+                        flyerBoxWidth: flyerBoxWidth,
+                        onFollowTap: onFollowTap,
+                      ),
                     ),
 
                   /// FAKE SPACE PADDING BETWEEN FOLLOW & GALLERY BUTTONS
@@ -120,9 +127,13 @@ class StaticHeader extends StatelessWidget {
 
                   /// Call BUTTON
                   if (showHeaderLabels == true)
-                    CallButton(
-                      flyerBoxWidth: flyerBoxWidth,
-                      onCallTap: onCallTap,
+                    Disabler(
+                      isDisabled: disabledButtons,
+                      disabledOpacity: 0.2,
+                      child: CallButton(
+                        flyerBoxWidth: flyerBoxWidth,
+                        onCallTap: onCallTap,
+                      ),
                     ),
 
                 ],

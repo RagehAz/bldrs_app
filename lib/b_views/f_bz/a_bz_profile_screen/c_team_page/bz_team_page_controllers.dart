@@ -278,12 +278,6 @@ Future<void> _onChangeAuthorRole({
   required BzModel? bzModel,
 }) async {
 
-  /// CLOSE BOTTOM DIALOG
-  await Nav.goBack(
-    context: context,
-    invoker: '_onChangeAuthorRole',
-  );
-
   await Nav.goToNewScreen(
     context: context,
     screen: AuthorRoleEditorScreen(

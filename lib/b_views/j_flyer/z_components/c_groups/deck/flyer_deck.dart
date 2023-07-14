@@ -259,13 +259,13 @@ class FlyerDeck extends StatelessWidget {
         final SlideModel _updatedSlide = _slide.copyWith(
           uiImage: _image,
         );
-        blog('UI IMAGE IS MISSING : ${_updatedSlide.uiImage} : ${_updatedSlide.uiImage.runtimeType}');
+        // blog('UI IMAGE IS MISSING : ${_updatedSlide.uiImage} : ${_updatedSlide.uiImage.runtimeType}');
         _flyerSlides.add(_updatedSlide);
       }
 
       /// UI IMAGE IS DEFINED
       else {
-        blog('UI IMAGE IS DEFINED');
+        // blog('UI IMAGE IS DEFINED');
         _flyerSlides.add(_slide);
 
       }

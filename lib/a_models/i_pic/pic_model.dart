@@ -202,7 +202,7 @@ class PicModel {
 
     }
 
-    blog('checkPicsListsAreIdentical : _listsAreIdentical : $_listsAreIdentical');
+    // blog('checkPicsListsAreIdentical : _listsAreIdentical : $_listsAreIdentical');
 
     return _listsAreIdentical;
 
