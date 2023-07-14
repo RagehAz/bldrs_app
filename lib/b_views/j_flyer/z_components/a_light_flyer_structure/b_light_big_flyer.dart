@@ -35,6 +35,7 @@ class LightBigFlyer extends StatefulWidget {
     required this.flyerBoxWidth,
     required this.renderedFlyer,
     required this.onHorizontalExit,
+    required this.onVerticalExit,
     this.showGallerySlide = true,
     super.key
   });
@@ -42,6 +43,7 @@ class LightBigFlyer extends StatefulWidget {
   final double flyerBoxWidth;
   final FlyerModel? renderedFlyer;
   final Function onHorizontalExit;
+  final Function onVerticalExit;
   final bool showGallerySlide;
   /// --------------------------------------------------------------------------
   @override
@@ -582,6 +584,7 @@ class _LightBigFlyerState extends State<LightBigFlyer> with TickerProviderStateM
                 bzModel: flyerModel?.bzModel,
                 canShowGallerySlide: checkFlyerHeroTagHasGalleryFlyerID('flyer/${flyerModel?.id}'),
               ),
+              onVerticalExit: widget.onVerticalExit,
             ),
 
             /// HEADER

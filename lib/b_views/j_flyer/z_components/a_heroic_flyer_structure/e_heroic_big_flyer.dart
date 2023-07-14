@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:basics/animators/helpers/sliders.dart';
 import 'package:basics/bldrs_theme/classes/ratioz.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
+import 'package:basics/layouts/nav/nav.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/a_models/f_flyer/flyer_model.dart';
 import 'package:bldrs/a_models/g_counters/bz_counter_model.dart';
@@ -634,6 +635,12 @@ class _HeroicBigFlyerState extends State<HeroicBigFlyer> with TickerProviderStat
                   //     context: context,
                   //     invoker: 'HeroicBigFlyer',
                   // );
+                },
+                onVerticalExit: (){
+                  Nav.goBack(
+                      context: context,
+                      invoker: 'HeroicBigFlyer',
+                  );
                 },
                 canPinch: false,
                 canUseFilter: false,
