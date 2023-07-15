@@ -1,6 +1,8 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/bldrs_theme/classes/iconz.dart';
 import 'package:bldrs/a_models/a_user/user_model.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/e_footer_button.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/b_parts/b_footer/info_button/info_button_type.dart';
 import 'package:bldrs/b_views/j_flyer/z_components/x_helpers/x_flyer_dim.dart';
 import 'package:bldrs/c_protocols/user_protocols/user/user_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_aligners.dart';
@@ -13,12 +15,14 @@ class StaticFooter extends StatelessWidget {
     required this.flyerBoxWidth,
     required this.flyerID,
     this.optionsButtonIsOn,
+    this.showAllButtons = false,
     super.key
   });
   /// --------------------------------------------------------------------------
   final double flyerBoxWidth;
   final bool? optionsButtonIsOn;
   final String? flyerID;
+  final bool showAllButtons;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
@@ -47,81 +51,83 @@ class StaticFooter extends StatelessWidget {
           alignment: BldrsAligners.superInverseBottomAlignment(context),
           children: <Widget>[
 
-            /// WORKS PERFECT : BUT NO NEED : KEPT FOR REFERENCE
-            // /// INFO BUTTON
-            // Align(
-            //   alignment: Aligners.superBottomAlignment(context),
-            //   child: Container(
-            //     // key: const ValueKey<String>('InfoButtonStarter_animated_container'),
-            //     width: FlyerDim.infoButtonWidth(
-            //       context: context,
-            //       flyerBoxWidth: flyerBoxWidth,
-            //       tinyMode: false,
-            //       isExpanded: false,
-            //       infoButtonType: InfoButtonType.info,
-            //     ),
-            //     height: FlyerDim.infoButtonHeight(
-            //       context: context,
-            //       flyerBoxWidth: flyerBoxWidth,
-            //       tinyMode: false,
-            //       isExpanded: false,
-            //     ),
-            //     decoration: BoxDecoration(
-            //       color: Colorz.black255,
-            //       borderRadius: FlyerDim.infoButtonCorners(
-            //           context: context,
-            //           flyerBoxWidth: flyerBoxWidth,
-            //           tinyMode: false,
-            //           isExpanded: false
-            //       ),
-            //     ),
-            //     margin: FlyerDim.infoButtonMargins(
-            //       context: context,
-            //       flyerBoxWidth: flyerBoxWidth,
-            //       tinyMode: false,
-            //       isExpanded: false,
-            //     ),
-            //     alignment: Alignment.center,
-            //   ),
-            // ),
-            //
-            // /// SHARE
-            // Padding(
-            //   padding: FlyerDim.footerButtonEnRightMargin(
-            //     buttonNumber: 3,
-            //     context: context,
-            //     flyerBoxWidth: flyerBoxWidth,
-            //     flightTweenValue: 1,
-            //   ),
-            //   child: FooterButton(
-            //     flyerBoxWidth: flyerBoxWidth,
-            //     count: null,
-            //     icon: Iconz.share,
-            //     phid: 'phid_share',
-            //     isOn: false,
-            //     canTap: false,
-            //     onTap: null,
-            //   ),
-            // ),
-            //
-            // /// REVIEWS
-            // Padding(
-            //   padding: FlyerDim.footerButtonEnRightMargin(
-            //     buttonNumber: 2,
-            //     context: context,
-            //     flyerBoxWidth: flyerBoxWidth,
-            //     flightTweenValue: 1,
-            //   ),
-            //   child: FooterButton(
-            //     count: null,
-            //     flyerBoxWidth: flyerBoxWidth,
-            //     icon: Iconz.balloonSpeaking,
-            //     phid: 'phid_review',
-            //     isOn: false,
-            //     canTap: false,
-            //     onTap: null,
-            //   ),
-            // ),
+            /// INFO BUTTON
+            if (showAllButtons == true)
+            Align(
+              alignment: BldrsAligners.superBottomAlignment(context),
+              child: Container(
+                // key: const ValueKey<String>('InfoButtonStarter_animated_container'),
+                width: FlyerDim.infoButtonWidth(
+                  context: context,
+                  flyerBoxWidth: flyerBoxWidth,
+                  tinyMode: false,
+                  isExpanded: false,
+                  infoButtonType: InfoButtonType.info,
+                ),
+                height: FlyerDim.infoButtonHeight(
+                  context: context,
+                  flyerBoxWidth: flyerBoxWidth,
+                  tinyMode: false,
+                  isExpanded: false,
+                ),
+                decoration: BoxDecoration(
+                  color: Colorz.black255,
+                  borderRadius: FlyerDim.infoButtonCorners(
+                      context: context,
+                      flyerBoxWidth: flyerBoxWidth,
+                      tinyMode: false,
+                      isExpanded: false
+                  ),
+                ),
+                margin: FlyerDim.infoButtonMargins(
+                  context: context,
+                  flyerBoxWidth: flyerBoxWidth,
+                  tinyMode: false,
+                  isExpanded: false,
+                ),
+                alignment: Alignment.center,
+              ),
+            ),
+
+            /// SHARE
+            if (showAllButtons == true)
+            Padding(
+              padding: FlyerDim.footerButtonEnRightMargin(
+                buttonNumber: 3,
+                context: context,
+                flyerBoxWidth: flyerBoxWidth,
+                flightTweenValue: 1,
+              ),
+              child: FooterButton(
+                flyerBoxWidth: flyerBoxWidth,
+                count: null,
+                icon: Iconz.share,
+                phid: 'phid_share',
+                isOn: false,
+                canTap: false,
+                onTap: null,
+              ),
+            ),
+
+            /// REVIEWS
+            if (showAllButtons == true)
+            Padding(
+              padding: FlyerDim.footerButtonEnRightMargin(
+                buttonNumber: 2,
+                context: context,
+                flyerBoxWidth: flyerBoxWidth,
+                flightTweenValue: 1,
+              ),
+              child: FooterButton(
+                count: null,
+                flyerBoxWidth: flyerBoxWidth,
+                icon: Iconz.balloonSpeaking,
+                phid: 'phid_review',
+                isOn: false,
+                canTap: false,
+                onTap: null,
+              ),
+            ),
 
             /// SAVE BUTTON
             if (optionsButtonIsOn == false)

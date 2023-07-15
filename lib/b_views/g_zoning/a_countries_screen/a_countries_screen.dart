@@ -36,6 +36,70 @@ class CountriesScreen extends StatefulWidget {
   @override
   _CountriesScreenState createState() => _CountriesScreenState();
   /// --------------------------------------------------------------------------
+    /// TESTED : WORKS PERFECT
+  static Future<void> onSearchCountry({
+    required String? val,
+    required ValueNotifier<bool> isSearching,
+    required bool mounted,
+    required ValueNotifier<bool> loading,
+    required ValueNotifier<List<Phrase>?> foundCountries,
+  }) async {
+
+    TextCheck.triggerIsSearchingNotifier(
+      text: val,
+      isSearching: isSearching,
+      mounted: mounted,
+    );
+
+    /// WHILE SEARCHING
+    if (isSearching.value  == true){
+
+      /// START LOADING
+      setNotifier(
+        notifier: loading,
+        mounted: mounted,
+        value: true,
+      );
+
+      /// CLEAR PREVIOUS SEARCH RESULTS
+      setNotifier(
+        notifier: foundCountries,
+        mounted: mounted,
+        value: <Phrase>[],
+      );
+
+      /// SEARCH COUNTRIES FROM LOCAL PHRASES
+      final List<Phrase> _byName = await ZoneProtocols.searchCountriesByNameFromLDBFlags(
+        text: val?.toLowerCase(),
+      );
+
+      final List<Phrase> _byID = ZoneProtocols.searchCountriesByIDFromAllFlags(
+        text: val?.toLowerCase(),
+      );
+
+       setNotifier(
+         notifier: foundCountries,
+         mounted: mounted,
+         value: Phrase.insertPhrases(
+           insertIn: _byName,
+           phrasesToInsert: _byID,
+           overrideDuplicateID: true,
+           allowDuplicateIDs: false,
+         ),
+       );
+
+       /// CLOSE LOADING
+      setNotifier(
+        notifier: loading,
+        mounted: mounted,
+        value: false,
+      );
+
+    }
+
+  }
+  /// --------------------------------------------------------------------------
+
 }
 
 class _CountriesScreenState extends State<CountriesScreen> {
@@ -183,49 +247,13 @@ class _CountriesScreenState extends State<CountriesScreen> {
   /// TESTED : WORKS PERFECT
   Future<void> _onSearchCountry(String? val) async {
 
-    TextCheck.triggerIsSearchingNotifier(
-      text: val,
-      isSearching: _isSearching,
+    await CountriesScreen.onSearchCountry(
       mounted: mounted,
+      foundCountries: _foundCountries,
+      isSearching: _isSearching,
+      loading: _loading,
+      val: val,
     );
-
-    /// WHILE SEARCHING
-    if (_isSearching.value  == true){
-
-      /// START LOADING
-      await _triggerLoading(setTo: true);
-
-      /// CLEAR PREVIOUS SEARCH RESULTS
-      setNotifier(
-          notifier: _foundCountries,
-          mounted: mounted,
-          value: <Phrase>[],
-      );
-
-      /// SEARCH COUNTRIES FROM LOCAL PHRASES
-       final List<Phrase> _byName = await ZoneProtocols.searchCountriesByNameFromLDBFlags(
-        text: val?.toLowerCase(),
-      );
-
-       final List<Phrase> _byID = ZoneProtocols.searchCountriesByIDFromAllFlags(
-         text: val?.toLowerCase(),
-       );
-
-      setNotifier(
-          notifier: _foundCountries,
-          mounted: mounted,
-          value: Phrase.insertPhrases(
-            insertIn: _byName,
-            phrasesToInsert: _byID,
-            overrideDuplicateID: true,
-            allowDuplicateIDs: false,
-          ),
-      );
-
-      /// CLOSE LOADING
-      await _triggerLoading(setTo: false);
-
-    }
 
   }
   // -----------------------------------------------------------------------------

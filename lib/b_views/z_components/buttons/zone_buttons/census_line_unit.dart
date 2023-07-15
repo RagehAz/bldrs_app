@@ -1,3 +1,4 @@
+import 'package:basics/bldrs_theme/classes/colorz.dart';
 import 'package:basics/helpers/classes/space/borderers.dart';
 import 'package:bldrs/b_views/z_components/images/bldrs_image.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/super_verse.dart';
@@ -10,20 +11,24 @@ class CensusLineUnit extends StatelessWidget {
   // -----------------------------------------------------------------------------
   const CensusLineUnit({
     required this.width,
-    required this.number,
     required this.icon,
     required this.isActive,
-    required this.title,
+    this.title,
+    this.text,
+    this.number,
     this.stripHeight = 30,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
     super.key
   });
   // -----------------------------------------------------------------------------
   final double stripHeight;
   final double width;
   final int? number;
-  final String icon;
+  final String? icon;
   final bool isActive;
+  final Verse? text;
   final Verse? title;
+  final CrossAxisAlignment crossAxisAlignment;
   // -----------------------------------------------------------------------------
   static double getTotalHeight({
     required bool hasTitle,
@@ -53,7 +58,7 @@ class CensusLineUnit extends StatelessWidget {
         borderRadius: Borderers.constantCornersAll12,
       ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: crossAxisAlignment,
         children: <Widget>[
 
           /// ICON
@@ -76,13 +81,14 @@ class CensusLineUnit extends StatelessWidget {
                 /// NUMBER
                 BldrsText(
                   width: _numberZoneWidth,
-                  verse: Verse.plain(counterCaliber(number)),
+                  verse: text ?? Verse.plain(counterCaliber(number)),
                   size: 1,
                   centered: false,
                   textDirection: UiProvider.getAppTextDir(),
                 ),
 
                 /// TITLE
+                if (title != null)
                 BldrsText(
                   width: _numberZoneWidth,
                   height: _titleHeight,
@@ -102,4 +108,25 @@ class CensusLineUnit extends StatelessWidget {
 
   }
 // -----------------------------------------------------------------------------
+}
+
+class CensusLineUnitSeparator extends StatelessWidget {
+
+  const CensusLineUnitSeparator({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Center(
+      child: Container(
+        width: 1,
+        height: 25,
+        color: Colorz.white20,
+      ),
+    );
+
+  }
+
 }

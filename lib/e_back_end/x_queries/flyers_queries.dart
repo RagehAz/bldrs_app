@@ -40,11 +40,11 @@ FireQueryModel homeWallFlyersPaginationQuery(BuildContext context){
         text: null,
         time: null,
       ),
-      limit: 9,
+      limit: 12,
       // gtaLink: ,
       // title: ,
-      // descending: ,
-      // orderBy: ,
+      // descending: true,
+      orderBy: 'times.published',
     );
 
 }
