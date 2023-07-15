@@ -16,6 +16,7 @@ import 'package:bldrs/b_views/z_components/dialogs/center_dialog/center_dialog.d
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/c_protocols/main_providers/ui_provider.dart';
+import 'package:bldrs/c_protocols/phrase_protocols/provider/phrase_provider.dart';
 import 'package:bldrs/f_helpers/drafters/bldrs_pic_maker.dart';
 import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:bldrs/f_helpers/theme/standards.dart';
@@ -97,7 +98,7 @@ Future<void> _addImagesForNewFlyer({
 
   List<Uint8List> _picked = <Uint8List>[];
 
-  if(mounted){
+  if(mounted == true){
 
     if (imagePickerType == PicMakerType.galleryImage){
 
@@ -215,17 +216,10 @@ Future<void> addImagesForExistingFlyer({
 /// TESTED : WORKS PERFECT
 Future<void> _showMaxSlidesReachedDialog(BuildContext context, int maxLength) async {
   await CenterDialog.showCenterDialog(
-    titleVerse: const Verse(
-      id: 'phid_max_slides_reached',
-      translate: true,
+    titleVerse: Verse(
+      id: '${xPhrase('phid_max_slides_is')} $maxLength',
+      translate: false,
     ),
-    bodyVerse: Verse(
-      pseudo: 'Can not add more than $maxLength images in one flyer',
-      id: 'phid_max_slides_reached_description',
-      translate: true,
-      variables: maxLength,
-    ),
-
   );
 }
 // --------------------

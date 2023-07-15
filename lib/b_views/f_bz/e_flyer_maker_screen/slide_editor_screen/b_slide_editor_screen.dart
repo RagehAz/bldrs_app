@@ -8,6 +8,7 @@ import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart'
 import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/slide_editor_screen/xxx_slide_editor_controllers.dart';
 import 'package:basics/helpers/classes/space/scale.dart';
+import 'package:bldrs/f_helpers/drafters/keyboarders.dart';
 import 'package:flutter/material.dart';
 
 class SlideEditorScreen extends StatefulWidget {
@@ -99,17 +100,17 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
       }
     });
 
-    _matrix.addListener(() {
-
-      setNotifier(
-          notifier: _draftSlide,
-          mounted: mounted,
-          value: _draftSlide.value?.copyWith(
-            matrix: _matrix.value,
-          ),
-      );
-
-    });
+    // _matrix.addListener(() {
+    //
+    //   setNotifier(
+    //       notifier: _draftSlide,
+    //       mounted: mounted,
+    //       value: _draftSlide.value?.copyWith(
+    //         matrix: _matrix.value,
+    //       ),
+    //   );
+    //
+    // });
 
   }
   // --------------------
@@ -145,11 +146,11 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
             appBarType: AppBarType.non,
             height: _slideZoneHeight,
             draftSlide: _draftSlide,
-            matrix: _matrix,
+            matrixNotifier: _matrix,
             isTransforming: _isTransforming,
             mounted: mounted,
             onSlideTap: (){
-              blog('slide is tapped aho');
+              Keyboard.closeKeyboard();
             },
             isPlayingAnimation: _isPlayingAnimation,
             onSlideDoubleTap: () => onReplayAnimation(

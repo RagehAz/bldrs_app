@@ -301,7 +301,6 @@ Future<void> onConfirmSlideEdits({
   required ValueNotifier<Matrix4?> matrix,
 }) async {
 
-
   final DraftSlide? _slide = draftNotifier.value?.copyWith(
     matrix: matrix.value,
   );
