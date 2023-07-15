@@ -30,7 +30,6 @@ class HashGroup {
     return _output;
   }
   // -----------------------------------------------------------------------------
-  void f(){}
 }
 
 class HashModel {
@@ -47,6 +46,4 @@ class HashModel {
   final int searches;
   final int used;
   // -----------------------------------------------------------------------------
-
-  void f(){}
 }

@@ -75,16 +75,10 @@ class CensusLine extends StatelessWidget {
         spacing: 0,
       );
 
-      final double _totalHeight = CensusLineUnit.getTotalHeight(
-        hasTitle: isPlanetButton,
-        // stripHeight: ,
-      );
-
-      final Widget _verticalLine = Container(
-        width: 1,
-        height: _totalHeight * 0.6,
-        color: Colorz.white20,
-      );
+      // final double _totalHeight = CensusLineUnit.getTotalHeight(
+      //   hasTitle: isPlanetButton,
+      //   // stripHeight: ,
+      // );
 
       return SizedBox(
         width: _buttonWidth,
@@ -119,7 +113,7 @@ class CensusLine extends StatelessWidget {
                 title: isPlanetButton == true ? Verse.trans('phid_users') : null,
               ),
 
-              _verticalLine,
+              const CensusLineUnitSeparator(),
 
               /// BZZ
               CensusLineUnit(
@@ -130,7 +124,7 @@ class CensusLine extends StatelessWidget {
                 title: isPlanetButton == true ? Verse.trans('phid_bzz') : null,
               ),
 
-              _verticalLine,
+              const CensusLineUnitSeparator(),
 
               /// FLYERS
               CensusLineUnit(

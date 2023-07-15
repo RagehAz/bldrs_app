@@ -61,7 +61,6 @@ class SingleSlide extends StatelessWidget {
             width: flyerBoxWidth,
             height: flyerBoxHeight,
             pic: slideModel?.uiImage,
-            filterModel: ImageFilterModel.getFilterByID(slideModel?.filterID),
           ),
 
         /// BLUR LAYER

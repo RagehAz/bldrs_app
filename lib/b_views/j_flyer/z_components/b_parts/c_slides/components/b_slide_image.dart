@@ -59,7 +59,6 @@ class SlideImage extends StatelessWidget {
             width: flyerBoxWidth,
             height: flyerBoxHeight,
             pic: slideModel?.uiImage,
-            filterModel: ImageFilterModel.getFilterByID(slideModel?.filterID),
             boxFit: slideModel?.picFit ?? BoxFit.cover,
             canUseFilter: canUseFilter,
           ),
