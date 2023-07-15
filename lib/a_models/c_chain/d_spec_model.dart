@@ -367,7 +367,7 @@ class SpecModel {
     return _result;
   }
   // --------------------
-  /// TASK : TEST ME
+  /// TESTED : WORKS PERFECT
   static SpecModel? getFirstSpecFromSpecsByPickerChainID({
     required List<SpecModel>? specs,
     required String? pickerChainID,
@@ -375,9 +375,14 @@ class SpecModel {
     SpecModel? _result;
 
     if (Mapper.checkCanLoopList(specs) == true && pickerChainID != null) {
-      _result = specs!.firstWhere(
-            (SpecModel spec) => spec.pickerChainID == pickerChainID,
-      );
+
+      for (final SpecModel spec in specs!){
+        if (spec.pickerChainID == pickerChainID){
+          _result = spec;
+          break;
+        }
+      }
+
     }
 
     return _result;
