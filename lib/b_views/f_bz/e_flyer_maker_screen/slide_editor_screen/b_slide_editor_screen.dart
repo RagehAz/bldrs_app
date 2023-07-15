@@ -30,7 +30,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
   // -----------------------------------------------------------------------------
   final GlobalKey globalKey = GlobalKey();
   // --------------------
-  final ValueNotifier<DraftSlide?> _draftNotifier = ValueNotifier(null);
+  final ValueNotifier<DraftSlide?> _draftSlide = ValueNotifier(null);
   final ValueNotifier<Matrix4?> _matrix = ValueNotifier(null);
   final ValueNotifier<bool> _isTransforming = ValueNotifier(false);
   final ValueNotifier<bool> _canResetMatrix = ValueNotifier(false);
@@ -51,7 +51,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
 
     /// SET DRAFT
     setNotifier(
-        notifier: _draftNotifier,
+        notifier: _draftSlide,
         mounted: mounted,
         value: _initialSlide,
     );
@@ -64,7 +64,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
     );
 
     final bool _initialMatrixIsIdentity = Trinity.checkMatrixesAreIdentical(
-      matrix1: _draftNotifier.value?.matrix,
+      matrix1: _draftSlide.value?.matrix,
       matrixReloaded: Matrix4.identity(),
     );
 
@@ -102,9 +102,9 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
     _matrix.addListener(() {
 
       setNotifier(
-          notifier: _draftNotifier,
+          notifier: _draftSlide,
           mounted: mounted,
-          value: _draftNotifier.value?.copyWith(
+          value: _draftSlide.value?.copyWith(
             matrix: _matrix.value,
           ),
       );
@@ -115,7 +115,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
   // --------------------
   @override
   void dispose() {
-    _draftNotifier.dispose();
+    _draftSlide.dispose();
     _isTransforming.dispose();
     _matrix.dispose();
     _canResetMatrix.dispose();
@@ -144,7 +144,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
             authorID: widget.draftFlyer.value!.authorID!,
             appBarType: AppBarType.non,
             height: _slideZoneHeight,
-            draftSlide: _draftNotifier,
+            draftSlide: _draftSlide,
             matrix: _matrix,
             isTransforming: _isTransforming,
             mounted: mounted,
@@ -155,7 +155,7 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
             onSlideDoubleTap: () => onReplayAnimation(
               isPlayingAnimation: _isPlayingAnimation,
               canResetMatrix: _canResetMatrix,
-              draftNotifier: _draftNotifier,
+              draftNotifier: _draftSlide,
               mounted: mounted,
             ),
           ),
@@ -164,9 +164,9 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
           SlideEditorControlPanel(
             height: _controlPanelHeight,
             canResetMatrix: _canResetMatrix,
-            draftNotifier: _draftNotifier,
+            draftNotifier: _draftSlide,
             onTriggerAnimation: () => onTriggerAnimation(
-              draftNotifier: _draftNotifier,
+              draftNotifier: _draftSlide,
               isPlayingAnimation: _isPlayingAnimation,
               canResetMatrix: _canResetMatrix,
               mounted: mounted,
@@ -176,20 +176,20 @@ class _SlideEditorScreenState extends State<SlideEditorScreen> {
             ),
             onResetMatrix: () => onResetMatrix(
               originalDraft: widget.slide,
-              draftNotifier: _draftNotifier,
+              draftNotifier: _draftSlide,
               canResetMatrix: _canResetMatrix,
               matrix: _matrix,
               mounted: mounted,
             ),
             onCrop: () => onCropSlide(
-              draftNotifier: _draftNotifier,
+              draftNotifier: _draftSlide,
               matrixNotifier: _matrix,
               bzID: widget.draftFlyer.value?.bzID,
               mounted: mounted,
             ),
             onConfirm: () => onConfirmSlideEdits(
               context: context,
-              draftNotifier: _draftNotifier,
+              draftNotifier: _draftSlide,
               matrix: _matrix,
             ),
           ),

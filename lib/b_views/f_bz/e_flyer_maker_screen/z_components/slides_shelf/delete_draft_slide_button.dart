@@ -26,20 +26,14 @@ class DeleteDraftSlideButton extends StatelessWidget {
     );
 
     return SuperPositioned(
-      enAlignment: Alignment.bottomCenter,
+      enAlignment: Alignment.bottomLeft,
       appIsLTR: UiProvider.checkAppIsLeftToRight(),
-      child: Container(
-        width: DraftShelfSlide.flyerBoxWidth,
+      child: BldrsBox(
         height: _boxHeight,
-        // color: Colorz.bloodTest,
-        alignment: Alignment.center,
-        child: BldrsBox(
-          height: _boxHeight,
-          width: _boxHeight,
-          icon: Iconz.xLarge,
-          iconSizeFactor: 0.6,
-          onTap: onTap,
-        ),
+        width: _boxHeight,
+        icon: Iconz.xLarge,
+        iconSizeFactor: 0.6,
+        onTap: onTap,
       ),
     );
 

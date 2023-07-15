@@ -1,39 +1,33 @@
 // ignore_for_file: avoid_positional_boolean_parameters
 import 'dart:async';
+
+import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 import 'package:basics/helpers/classes/checks/tracers.dart';
 import 'package:basics/helpers/classes/maps/mapper.dart';
-import 'package:basics/helpers/classes/strings/text_clip_board.dart';
+import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/c_chain/d_spec_model.dart';
 import 'package:bldrs/a_models/d_zone/a_zoning/zone_model.dart';
-import 'package:bldrs/a_models/d_zone/a_zoning/staging_model.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
-import 'package:bldrs/a_models/f_flyer/sub/flyer_typer.dart';
+import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/a_models/x_utilities/pdf_model.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/flyer_editor_pages/a_flyer_editor_page_slides_headline.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/flyer_editor_pages/b_flyer_editor_page_type_description.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/flyer_editor_pages/c_flyer_editor_page_keywords_specs.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/flyer_editor_pages/d_flyer_editor_page_pdf.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/flyer_editor_pages/e_flyer_editor_page_zone.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/flyer_editor_pages/f_flyer_editor_page_author_poster.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/x_flyer_maker_controllers.dart';
-import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/flyer_poster_creator/flyer_poster_creator_bubble.dart';
-import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/show_author_switcher/show_author_switch_bubble.dart';
-import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shelf/a_slides_shelf_bubble.dart';
-import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/specs_selector/a_specs_selector_bubble.dart';
-import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/specs_selector/b_phids_selector_bubble.dart';
-import 'package:bldrs/b_views/g_zoning/x_zone_selection_ops.dart';
-import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
-import 'package:bldrs/b_views/z_components/bubbles/b_variants/pdf_bubble/pdf_selection_bubble.dart';
-import 'package:bldrs/b_views/z_components/bubbles/b_variants/phids_bubble/multiple_choice_bubble.dart';
-import 'package:bldrs/b_views/z_components/bubbles/b_variants/text_field_bubble/text_field_bubble.dart';
-import 'package:bldrs/b_views/z_components/bubbles/b_variants/zone_bubble/zone_selection_bubble.dart';
+import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/flyer_editor_screen/xx_draft_shelf_controllers.dart';
+import 'package:bldrs/b_views/j_flyer/z_components/c_groups/draft_shelf/e_draft_shelf_slide.dart';
 import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_confirm_page.dart';
 import 'package:bldrs/b_views/z_components/buttons/editors_buttons/editor_swiping_buttons.dart';
 import 'package:bldrs/b_views/z_components/dialogs/dialogz/dialogs.dart';
-import 'package:bldrs/b_views/z_components/layouts/custom_layouts/bldrs_floating_list.dart';
 import 'package:bldrs/b_views/z_components/layouts/custom_layouts/pages_layout.dart';
 import 'package:bldrs/b_views/z_components/layouts/main_layout/main_layout.dart';
-import 'package:bldrs/b_views/z_components/sizing/horizon.dart';
 import 'package:bldrs/b_views/z_components/static_progress_bar/progress_bar_model.dart';
 import 'package:bldrs/b_views/z_components/texting/super_verse/verse_model.dart';
 import 'package:bldrs/f_helpers/drafters/formers.dart';
-import 'package:bldrs/f_helpers/theme/standards.dart';
 import 'package:flutter/material.dart';
-import 'package:basics/bldrs_theme/night_sky/night_sky.dart';
 
 class NewFlyerEditorScreen extends StatefulWidget {
   /// --------------------------------------------------------------------------
@@ -55,12 +49,13 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
   // -----------------------------------------------------------------------------
   final ValueNotifier<ProgressBarModel?> _progressBarModel = ValueNotifier(null);
   final PageController _pageController = PageController();
+  final ScrollController _slidesShelfScrollController = ScrollController();
   // -----------------------------------------------------------------------------
   /// to keep out of screen objects alive
   @override
   bool get wantKeepAlive => true;
   // -----------------------------------------------------------------------------
-  final ValueNotifier<DraftFlyer?> draftNotifier = ValueNotifier(null);
+  final ValueNotifier<DraftFlyer?> _draftNotifier = ValueNotifier(null);
   DraftFlyer? _originalFlyer;
   // --------------------
   bool _canValidate = true;
@@ -76,15 +71,8 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
   }
   // -----------------------------------------------------------------------------
   /// --- LOADING
-  final ValueNotifier<bool> _loading = ValueNotifier(false);
-  // --------------------
-  Future<void> _triggerLoading({required bool setTo}) async {
-    setNotifier(
-      notifier: _loading,
-      mounted: mounted,
-      value: setTo,
-    );
-  }
+  final ValueNotifier<bool> _loadingPage = ValueNotifier(true);
+  final ValueNotifier<bool> _loadingSlides = ValueNotifier(false);
   // -----------------------------------------------------------------------------
   @override
   void initState() {
@@ -107,7 +95,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
     if (_isInit && mounted) {
       _isInit = false; // good
 
-      _triggerLoading(setTo: true).then((_) async {
+      asyncInSync(() async {
         // -------------------------------
         /// INITIALIZE DRAFT
         await _initializeDraft();
@@ -120,17 +108,18 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
         /// LOAD LAST SESSION
         await loadFlyerMakerLastSession(
           context: context,
-          draft: draftNotifier,
+          draft: _draftNotifier,
           mounted: mounted,
         );
         // -----------------------------
         /// VALIDATION SWITCH
-        if (draftNotifier.value?.firstTimer == false){
+        if (_draftNotifier.value?.firstTimer == false){
           _switchOnValidation();
-          Formers.validateForm(draftNotifier.value?.formKey);
+          Formers.validateForm(_draftNotifier.value?.formKey);
         }
         // -------------------------------
-        await _triggerLoading(setTo: false);
+        setNotifier(notifier: _loadingPage, mounted: mounted, value: false);
+        setNotifier(notifier: _loadingSlides, mounted: mounted, value: false);
       });
 
     }
@@ -141,9 +130,11 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
   @override
   void dispose(){
 
-    _loading.dispose();
-    draftNotifier.value?.dispose();
-    draftNotifier.dispose();
+    _slidesShelfScrollController.dispose();
+    _loadingPage.dispose();
+    _loadingSlides.dispose();
+    _draftNotifier.value?.dispose();
+    _draftNotifier.dispose();
     _progressBarModel.dispose();
     _pageController.dispose();
 
@@ -158,7 +149,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
   Future<void> _initializeDraft() async {
 
     setNotifier(
-      notifier: draftNotifier,
+      notifier: _draftNotifier,
       mounted: mounted,
       value: widget.draftFlyer,
     );
@@ -170,14 +161,14 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
   /// TESTED : WORKS PERFECT
   void _addSessionListeners(){
 
-    draftNotifier.addListener(() async {
+    _draftNotifier.addListener(() async {
 
       _stripsListener();
 
       _switchOnValidation();
 
       await saveFlyerMakerSession(
-        draft: draftNotifier,
+        draft: _draftNotifier,
       );
 
     });
@@ -195,11 +186,11 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
     /// STRIP 1 : SLIDES - HEADLINE - TYPE
 
     final bool _slidesAreValid = Formers.slidesValidator(
-      draftFlyer: draftNotifier.value,
+      draftFlyer: _draftNotifier.value,
       canValidate: true,
     ) == null;
     final bool _headlineIsValid = Formers.flyerHeadlineValidator(
-      headline: draftNotifier.value?.headline?.text,
+      headline: _draftNotifier.value?.headline?.text,
       canValidate: true,
     ) == null;
 
@@ -214,11 +205,11 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
     /// STRIP 2 : TYPE - DESCRIPTION
 
     final bool _typeIsValid = Formers.flyerTypeValidator(
-      draft: draftNotifier.value,
+      draft: _draftNotifier.value,
       canValidate: true,
     ) == null;
     final bool _descriptionIsValid = Formers.paragraphValidator(
-      text: draftNotifier.value?.description?.text,
+      text: _draftNotifier.value?.description?.text,
       canValidate: true,
     ) == null;
 
@@ -233,8 +224,8 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
     /// STRIP 3 : KEYWORDS
 
     final bool _phidsAreValid = Formers.flyerPhidsValidator(
-      phids: draftNotifier.value?.phids,
-      flyerType: draftNotifier.value?.flyerType,
+      phids: _draftNotifier.value?.phids,
+      flyerType: _draftNotifier.value?.flyerType,
       canValidate: true,
     ) == null;
 
@@ -249,7 +240,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
     /// STRIP 4 : PDF
 
     final bool _pdfIsValid = Formers.pdfValidator(
-      pdfModel: draftNotifier.value?.pdfModel,
+      pdfModel: _draftNotifier.value?.pdfModel,
       canValidate: true,
     ) == null;
 
@@ -264,7 +255,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
     /// STRIP 5 : ZONE
 
     final bool _zoneIsValid = Formers.zoneValidator(
-      zoneModel: draftNotifier.value?.zone,
+      zoneModel: _draftNotifier.value?.zone,
       selectCountryIDOnly: false,
       canValidate: _canValidate,
     ) == null;
@@ -306,7 +297,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
   bool _flyerHasChanged(){
     return !DraftFlyer.checkDraftsAreIdentical(
       draft1: _originalFlyer,
-      draft2: draftNotifier.value,
+      draft2: _draftNotifier.value,
     );
   }
   // -----------------------------------------------------------------------------
@@ -318,7 +309,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
   bool _canGoFrom0to1({
     required DraftFlyer? draft,
   }){
-    return Formers.slidesValidator(draftFlyer: draftNotifier.value, canValidate: true,) == null
+    return Formers.slidesValidator(draftFlyer: _draftNotifier.value, canValidate: true,) == null
            &&
            Formers.flyerHeadlineValidator(headline: draft?.headline?.text, canValidate: _canValidate,) == null;
   }
@@ -397,7 +388,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
 
     _switchOnValidation();
 
-    widget.onConfirm(draftNotifier.value);
+    widget.onConfirm(_draftNotifier.value);
 
   }
   // -----------------------------------------------------------------------------
@@ -416,7 +407,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
       pyramidsAreOn: true,
       appBarType: AppBarType.basic,
       skyType: SkyType.black,
-      loading: _loading,
+      loading: _loadingPage,
       progressBarModel: _progressBarModel,
       onBack: () => Dialogs.goBackDialog(
         goBackOnConfirm: true,
@@ -425,7 +416,7 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
         confirmButtonVerse: const Verse(id: 'phid_exit', translate: true),
       ),
       child: ValueListenableBuilder(
-        valueListenable: draftNotifier,
+        valueListenable: _draftNotifier,
         builder: (_, DraftFlyer? draft, Widget? child){
 
           return Form(
@@ -436,372 +427,146 @@ class _NewFlyerEditorScreenState extends State<NewFlyerEditorScreen> with Automa
               pageBubbles: <Widget>[
 
                 /// 0 - SLIDES - HEADLINE
-                BldrsFloatingList(
-                  columnChildren: <Widget>[
-
-                    /// SHELVES
-                    SlidesShelfBubble(
-                      canValidate: _canValidate,
-                      draftNotifier: draftNotifier,
-                      bzModel: draft?.bzModel,
-                      focusNode: null, /// TASK : DO ME
-                    ),
-
-                    /// FLYER HEADLINE
-                    BldrsTextFieldBubble(
-                      key: const ValueKey<String>('flyer_headline_text_field'),
-                      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
-                        context: context,
-                        headlineVerse: const Verse(
-                          id: 'phid_flyer_headline',
-                          translate: true,
-                        ),
-                        redDot: true,
-                      ),
-                      formKey: draft?.formKey,
-                      focusNode: draft?.headlineNode,
-                      appBarType: AppBarType.non,
-                      isFormField: true,
-                      counterIsOn: true,
-                      maxLength: Standards.flyerHeadlineMaxLength,
-                      maxLines: 5,
-                      keyboardTextInputType: TextInputType.multiline,
-                      onTextChanged: (String? text) => onUpdateFlyerHeadline(
-                        draftNotifier: draftNotifier,
-                        text: text,
-                        mounted: mounted,
-                      ),
-                      textController: draft?.headline,
-                      validator: (String? text) => Formers.flyerHeadlineValidator(
-                        headline: draft?.headline?.text,
-                        canValidate: _canValidate,
-                      ),
-                    ),
-
-                    /// SWIPING BUTTONS
-                    EditorSwipingButtons(
-                      onNext: _onNextTap,
-                      canGoNext: _canGoFrom0to1(draft: draft),
-                    ),
-
-                    const Horizon(heightFactor: 0,),
-
-                  ],
+                FlyerEditorPage0SlidesHeadlines(
+                  canValidate: _canValidate,
+                  draft: draft,
+                  shelfScrollController: _slidesShelfScrollController,
+                  loadingSlides: _loadingSlides,
+                  onNext: _onNextTap,
+                  canGoNext: _canGoFrom0to1(draft: draft),
+                  onHeadlineTextChanged: (String? text) => onUpdateFlyerHeadline(
+                    draftNotifier: _draftNotifier,
+                    text: text,
+                    mounted: mounted,
+                  ),
+                  onReorderSlide: (int oldIndex, int newIndex) => onReorderSlide(
+                    draftFlyer: _draftNotifier,
+                    mounted: mounted,
+                    oldIndex: oldIndex,
+                    newIndex: newIndex,
+                  ),
+                  onAddSlides: (PicMakerType imagePickerType) => onAddNewSlides(
+                    context: context,
+                    isLoading: _loadingSlides,
+                    draftFlyer: _draftNotifier,
+                    mounted: mounted,
+                    scrollController: _slidesShelfScrollController,
+                    flyerWidth: DraftShelfSlide.flyerBoxWidth,
+                    imagePickerType: imagePickerType,
+                  ),
+                  onSlideTap: (DraftSlide slide) => onSlideTap(
+                    slide: slide,
+                    draftFlyer: _draftNotifier,
+                    mounted: mounted,
+                  ),
+                  onDeleteSlide: (DraftSlide slide)=> onDeleteSlide(
+                    draftSlide: slide,
+                    draftFlyer: _draftNotifier,
+                    mounted: mounted,
+                  ),
                 ),
 
                 /// 1 - TYPE - DESCRIPTION
-                BldrsFloatingList(
-                  columnChildren: <Widget>[
-
-                    /// FLYER TYPE SELECTOR
-                    MultipleChoiceBubble(
-                      titleVerse: const Verse(
-                        id: 'phid_flyer_type',
-                        translate: true,
-                      ),
-                      // bulletPoints: <Verse>[
-
-                      // Verse(
-                      //   text: '#!# Business accounts of types '
-                      //       '${_bzTypeTranslation.toString()} can publish '
-                      //       '${_flyerTypesTranslation.toString()} flyers.',
-                      //   translate: true,
-                      //   variables: [_bzTypeTranslation.toString(), _flyerTypesTranslation.toString()],
-                      // ),
-                      //
-                      // const Verse(
-                      //   text: '#!# Each Flyer Should have one flyer type',
-                      //   translate: true,
-                      // ),
-
-                      // ],
-                      buttonsVerses: Verse.createVerses(
-                        strings: FlyerTyper.translateFlyerTypes(
-                          context: context,
-                          flyerTypes: FlyerTyper.flyerTypesList,
-                          pluralTranslation: false,
-                        ),
-                        translate: false,
-                      ),
-                      selectedButtonsPhids: FlyerTyper.translateFlyerTypes(
-                        context: context,
-                        flyerTypes: draft?.flyerType == null ? [] : <FlyerType>[draft!.flyerType!],
-                        pluralTranslation: false,
-                      ),
-                      onButtonTap: (int index) => onSelectFlyerType(
-                        context: context,
-                        index: index,
-                        draftNotifier: draftNotifier,
-                        mounted: mounted,
-                      ),
-                      inactiveButtons: <Verse>[
-                        ...Verse.createVerses(
-                          strings: FlyerTyper.translateFlyerTypes(
-                            context: context,
-                            flyerTypes: FlyerTyper.concludeInactiveFlyerTypesByBzModel(
-                              bzModel: draft?.bzModel,
-                            ),
-                            pluralTranslation: false,
-                          ),
-                          translate: false,
-                        ),
-                      ],
-
-                      validator: () => Formers.flyerTypeValidator(
-                        draft: draft,
-                        canValidate: _canValidate,
-                      ),
-                    ),
-
-                    /// FLYER DESCRIPTION
-                    BldrsTextFieldBubble(
-                      key: const ValueKey<String>('bz_scope_bubble'),
-                      // pasteFunction: () async {
-                      //   final String _text = await TextMod.paste();
-                      //   _draftNotifier.value  = _draft?.copyWith(
-                      //     description: _text,
-                      //   );
-                      //   setState(() {
-                      //
-                      //   });
-                      // },
-                      bubbleHeaderVM: BldrsBubbleHeaderVM.bake(
-                        context: context,
-                        headlineVerse: const Verse(
-                          id: 'phid_flyer_description',
-                          translate: true,
-                        ),
-                      ),
-                      formKey: draft?.formKey,
-                      focusNode: draft?.descriptionNode,
-                      appBarType: AppBarType.non,
-                      isFormField: true,
-                      counterIsOn: true,
-                      maxLength: 5000,
-                      maxLines: 7,
-                      keyboardTextInputType: TextInputType.multiline,
-                      textController: draft?.description,
-                      bulletPoints: const <Verse>[
-                        Verse(id: 'phid_optional_field', translate: true),
-                        Verse(id: 'phid_its_good_to_add_description', translate: true),
-                      ],
-                      validator: (String? text) => Formers.paragraphValidator(
-                        text: draft?.description?.text,
-                        canValidate: _canValidate,
-                      ),
-                      pasteFunction: () async {
-
-                        final String? _text = await TextClipBoard.paste();
-
-                        blog('pasteFunction _text: $_text');
-
-                        draft?.description?.text = _text ?? '';
-
-                        // onUpdateFlyerDescription(
-                        //   draftNotifier: draftNotifier,
-                        //   text: _text,
-                        //   mounted: mounted,
-                        // );
-                        //
-                        // setState(() {
-                        //
-                        // });
-
-                      },
-
-                      // onTextChanged: (String text) => onUpdateFlyerDescription(
-                      //   draftNotifier: draftNotifier,
-                      //   text: text,
-                      //   mounted: mounted,
-                      // ),
-                    ),
-
-                    /// SWIPING BUTTONS
-                    EditorSwipingButtons(
-                      onNext: _onNextTap,
-                      onPrevious: _onPreviousTap,
-                      canGoNext: _canGoFrom1To2(draft: draft),
-                    ),
-
-                    const Horizon(heightFactor: 0,),
-
-                  ],
+                FlyerEditorPage1TypeDescription(
+                  draft: draft,
+                  canValidate: _canValidate,
+                  canGoNext: _canGoFrom1To2(draft: draft),
+                  onNextTap: _onNextTap,
+                  onPreviousTap: _onPreviousTap,
+                  onSelectFlyerType: (int index) => onSelectFlyerType(
+                    context: context,
+                    index: index,
+                    draftNotifier: _draftNotifier,
+                    mounted: mounted,
+                  ),
                 ),
 
                 /// 2 - KEYWORDS
-                BldrsFloatingList(
-                  columnChildren: <Widget>[
-
-                    /// PHIDS
-                    PhidsSelectorBubble(
-                      bzModel: draft?.bzModel,
-                      draft: draft,
-                      draftNotifier: draftNotifier,
-                      onPhidTap: (String phid){
-                        blog('phidSelectorBubble : onPhidTap : phid: $phid');
-                      },
-                      onPhidLongTap: (String phid) => onFlyerPhidLongTap(
-                        mounted: mounted,
-                        phid: phid,
-                        draftNotifier: draftNotifier,
-                      ),
-                      onAdd: () => onFlyerPhidTap(
+                FlyerEditorPage2KeywordsSpecs(
+                  draft: draft,
+                  onNextTap: _onNextTap,
+                  onPreviousTap: _onPreviousTap,
+                  canValidate: _canValidate,
+                  canGoNext: _canGoFrom2to3(draft: draft),
+                  onAddPhidsTap: () => onFlyerPhidTap(
                         context: context,
                         mounted: mounted,
-                        draftNotifier: draftNotifier,
+                        draftNotifier: _draftNotifier,
                       ),
-                      canValidate: _canValidate,
-                    ),
-
-                    /// SPECS
-                    SpecsSelectorBubble(
-                        draft: draft,
-                        draftNotifier: draftNotifier,
-                        bzModel: draft?.bzModel,
-                        onSpecTap: ({SpecModel? value, SpecModel? unit}){
-
-                          blog('on spec Tap');
-                          value?.blogSpec();
-                          unit?.blogSpec();
-
-                        },
-                        onDeleteSpec: ({SpecModel? value, SpecModel? unit}){
+                  onPhidLongTap: (String phid) => onFlyerPhidLongTap(
+                        mounted: mounted,
+                        phid: phid,
+                        draftNotifier: _draftNotifier,
+                      ),
+                  onPhidTap: (String phid){
+                    blog('phidSelectorBubble : onPhidTap : phid: $phid');
+                    },
+                  onAddSpecsToDraft: () => onAddSpecsToDraftTap(
+                          context: context,
+                          mounted: mounted,
+                          draft: _draftNotifier,
+                        ),
+                  onDeleteSpec: ({SpecModel? value, SpecModel? unit}){
 
                           blog('on Delete spec');
                           value?.blogSpec();
                           unit?.blogSpec();
 
                         },
-                        onAddSpecsToDraft: () => onAddSpecsToDraftTap(
-                          context: context,
-                          mounted: mounted,
-                          draft: draftNotifier,
-                        ),
-                    ),
+                  onSpecTap: ({SpecModel? value, SpecModel? unit}){
 
-                    /// SWIPING BUTTONS
-                    EditorSwipingButtons(
-                      onNext: _onNextTap,
-                      onPrevious: _onPreviousTap,
-                      canGoNext: _canGoFrom2to3(draft: draft),
-                    ),
+                          blog('on spec Tap');
+                          value?.blogSpec();
+                          unit?.blogSpec();
 
-                  ],
+                        },
                 ),
 
                 /// 3 - PDF
-                BldrsFloatingList(
-                  columnChildren: <Widget>[
-
-                    /// PDF SELECTOR
-                    if (draft != null && draft.id != null)
-                    PDFSelectionBubble(
-                      flyerID: draft.id,
-                      bzID: draft.bzID,
-                      appBarType: AppBarType.non,
-                      formKey: draft.formKey,
-                      existingPDF: draft.pdfModel,
-                      canValidate: _canValidate,
-                      onChangePDF: (PDFModel? pdf) => onChangeFlyerPDF(
-                        draftNotifier: draftNotifier,
-                        pdfModel: pdf,
-                        mounted: mounted,
-                      ),
-                      onDeletePDF: () => onRemoveFlyerPDF(
-                        draftNotifier: draftNotifier,
-                        mounted: mounted,
-                      ),
-                    ),
-
-                    /// SWIPING BUTTONS
-                    EditorSwipingButtons(
-                      onNext: _onNextTap,
-                      onPrevious: _onPreviousTap,
-                      canGoNext: _canGoFrom3To4(draft: draft),
-                    ),
-
-                  ],
+                FlyerEditorPage3PDF(
+                  draft: draft,
+                  onNextTap: _onNextTap,
+                  onPreviousTap: _onPreviousTap,
+                    canValidate: _canValidate,
+                  canGoNext: _canGoFrom3To4(draft: draft),
+                  onChangePDF: (PDFModel? pdf) => onChangeFlyerPDF(
+                    draftNotifier: _draftNotifier,
+                    pdfModel: pdf,
+                    mounted: mounted,
+                  ),
+                  onDeletePDF: () => onRemoveFlyerPDF(
+                    draftNotifier: _draftNotifier,
+                    mounted: mounted,
+                  ),
                 ),
 
                 /// 4 - ZONE
-                BldrsFloatingList(
-                  columnChildren: <Widget>[
-
-                    /// ZONE SELECTOR
-                    ZoneSelectionBubble(
-                      zoneViewingEvent: ViewingEvent.flyerEditor,
-                      depth: ZoneDepth.city,
-                      titleVerse: const Verse(
-                        id: 'phid_flyer_target_city',
-                        translate: true,
-                      ),
-                      bulletPoints: const <Verse>[
-                        Verse(
-                          id: 'phid_select_city_you_want_to_target',
-                          translate: true,
-                        ),
-                        Verse(
-                          id: 'phid_each_flyer_target_one_city',
-                          translate: true,
-                        ),
-                      ],
-                      currentZone: draft?.zone,
-                      viewerCountryID: draft?.bzModel?.zone?.countryID,
-                      onZoneChanged: (ZoneModel? zone) => onZoneChanged(
-                        context: context,
-                        draftNotifier: draftNotifier,
-                        zone: zone,
-                        mounted: mounted,
-                      ),
-                      validator: () => Formers.zoneValidator(
-                        zoneModel: draft?.zone,
-                        selectCountryIDOnly: false,
-                        canValidate: _canValidate,
-                      ),
-                    ),
-
-                    /// SWIPING BUTTONS
-                    EditorSwipingButtons(
-                      onNext: _onNextTap,
-                      onPrevious: _onPreviousTap,
-                      canGoNext: _canGoFrom4To5(draft: draft),
-                    ),
-
-                  ],
+                FlyerEditorPage4Zone(
+                  draft: draft,
+                  canValidate: _canValidate,
+                  onPreviousTap: _onPreviousTap,
+                  onNextTap: _onNextTap,
+                  canGoNext: _canGoFrom4To5(draft: draft),
+                  onZoneChanged: (ZoneModel? zone) => onZoneChanged(
+                    context: context,
+                    draftNotifier: _draftNotifier,
+                    zone: zone,
+                    mounted: mounted,
+                  ),
                 ),
 
                 /// 5 - SHOW AUTHOR - POSTER
-                BldrsFloatingList(
-                  columnChildren: <Widget>[
-
-                    /// SHOW FLYER AUTHOR
-                    ShowAuthorSwitchBubble(
-                      draft: draft,
-                      bzModel: draft?.bzModel,
-                      onSwitch: (bool value) => onSwitchFlyerShowsAuthor(
+                FlyerEditorPage5AuthorPoster(
+                    draft: draft,
+                    onSwitchFlyerShowsAuthor: (bool value) => onSwitchFlyerShowsAuthor(
                         value: value,
-                        draftNotifier: draftNotifier,
+                        draftNotifier: _draftNotifier,
                         mounted: mounted,
                       ),
-                    ),
-
-                    /// FLYER POSTER
-                    FlyerPosterCreatorBubble(
-                      draft: draft,
-                      bzModel: draft?.bzModel,
-                      onSwitch: (bool value){
-                        blog('value of poster blah is : $value');
-                      },
-                    ),
-
-                    /// SWIPING BUTTONS
-                    EditorSwipingButtons(
-                      onNext: _onNextTap,
-                      onPrevious: _onPreviousTap,
-                      canGoNext: _canGoFrom5To6(draft: draft),
-                    ),
-
-                  ],
+                    canValidate: _canValidate,
+                    onNextTap: _onNextTap,
+                    onPreviousTap: _onPreviousTap,
+                    canGoNext: _canGoFrom5To6(draft: draft),
                 ),
 
                 /// 6 - CONFIRM
