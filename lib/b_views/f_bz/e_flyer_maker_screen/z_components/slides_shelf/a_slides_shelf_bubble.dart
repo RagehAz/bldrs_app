@@ -1,7 +1,7 @@
 import 'package:basics/bubbles/bubble/bubble.dart';
-import 'package:basics/helpers/classes/checks/tracers.dart';
-import 'package:bldrs/a_models/b_bz/bz_model.dart';
+import 'package:basics/mediator/pic_maker/pic_maker.dart';
 import 'package:bldrs/a_models/f_flyer/draft/draft_flyer_model.dart';
+import 'package:bldrs/a_models/f_flyer/draft/draft_slide.dart';
 import 'package:bldrs/b_views/f_bz/e_flyer_maker_screen/z_components/slides_shelf/b_draft_shelf.dart';
 import 'package:bldrs/b_views/z_components/bubbles/a_structure/bldrs_bubble_header_vm.dart';
 import 'package:bldrs/b_views/z_components/texting/bldrs_text_field/bldrs_validator.dart';
@@ -13,28 +13,34 @@ import 'package:flutter/material.dart';
 class SlidesShelfBubble extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SlidesShelfBubble({
-    required this.bzModel,
-    required this.draftNotifier,
+    required this.draft,
     required this.canValidate,
-    required this.focusNode,
+    required this.scrollController,
+    required this.onAddSlides,
+    required this.onReorderSlide,
+    required this.onDeleteSlide,
+    required this.onSlideTap,
+    required this.loadingSlides,
     super.key
   });
   /// --------------------------------------------------------------------------
-  final BzModel? bzModel;
-  final ValueNotifier<DraftFlyer?> draftNotifier;
+  final DraftFlyer? draft;
   final bool canValidate;
-  final FocusNode? focusNode;
+  final ScrollController scrollController;
+  final Function(DraftSlide draft) onSlideTap;
+  final Function(DraftSlide draft) onDeleteSlide;
+  final Function(PicMakerType picMakerType) onAddSlides;
+  final Function(int oldIndex, int newIndex) onReorderSlide;
+  final ValueNotifier<bool> loadingSlides;
   /// --------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-
-    blog('a7a');
 
     return Bubble(
       bubbleColor: Formers.validatorBubbleColor(
         canErrorize: canValidate,
         validator: () => Formers.slidesValidator(
-          draftFlyer: draftNotifier.value,
+          draftFlyer: draft,
           canValidate: canValidate,
         ),
       ),
@@ -49,27 +55,35 @@ class SlidesShelfBubble extends StatelessWidget {
       width: Bubble.bubbleWidth(context: context),
       columnChildren: <Widget>[
 
+        /// BULLETS
         const BldrsBulletPoints(
-            bulletPoints: <Verse>[
-              Verse(id: 'phid_can_remove_slides_or_flyer_only', translate: true),
-            ],
+          bulletPoints: <Verse>[
+            Verse(id: 'phid_can_remove_slides_or_flyer_only', translate: true),
+            Verse(id: 'phid_drag_header_to_reorder', translate: true),
+          ],
+          showBottomLine: false,
         ),
 
         /// SLIDES SHELF
         SlidesShelf(
           /// PLAN : ADD FLYER LOCATION SLIDE
-          bzModel: bzModel,
           shelfNumber: 1,
-          draftNotifier: draftNotifier,
+          draft: draft,
+          scrollController: scrollController,
+          onReorderSlide: onReorderSlide,
+          loadingSlides: loadingSlides,
+          onAddSlides: onAddSlides,
+          onDeleteSlide: onDeleteSlide,
+          onSlideTap: onSlideTap,
         ),
 
+        /// VALIDATOR
         BldrsValidator(
           width: Bubble.clearWidth(context: context),
           validator: () => Formers.slidesValidator(
-            draftFlyer: draftNotifier.value,
+            draftFlyer: draft,
             canValidate: canValidate,
           ),
-          focusNode: focusNode,
         ),
 
       ],

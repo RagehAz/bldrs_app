@@ -35,7 +35,6 @@ Future<void> onAddNewSlides({
   required PicMakerType imagePickerType,
   required ValueNotifier<bool> isLoading,
   required ValueNotifier<DraftFlyer?> draftFlyer,
-  required BzModel? bzModel,
   required bool mounted,
   required ScrollController scrollController,
   required double flyerWidth,
@@ -44,7 +43,7 @@ Future<void> onAddNewSlides({
   setNotifier(notifier: isLoading, mounted: mounted, value: true);
 
   final int _maxLength = Standards.getMaxSlidesCount(
-    bzAccountType: bzModel?.accountType,
+    bzAccountType: draftFlyer.value?.bzModel?.accountType,
   );
 
   /// A - if max images reached
@@ -58,7 +57,6 @@ Future<void> onAddNewSlides({
     // if (draftFlyer.value.firstTimer == true){
       await _addImagesForNewFlyer(
         mounted: mounted,
-        bzModel: bzModel,
         scrollController: scrollController,
         draftFlyer: draftFlyer,
         flyerWidth: flyerWidth,
@@ -90,7 +88,6 @@ Future<void> onAddNewSlides({
 // --------------------
 /// TESTED : WORKS PERFECT
 Future<void> _addImagesForNewFlyer({
-  required BzModel? bzModel,
   required bool mounted,
   required ValueNotifier<DraftFlyer?> draftFlyer,
   required ScrollController scrollController,
@@ -430,13 +427,18 @@ void onReorderSlide({
   List<DraftSlide>? _oldSlides = draftFlyer.value?.draftSlides;
 
   if (Mapper.checkCanLoopList(_oldSlides) == true) {
+
     final DraftSlide _slide = _oldSlides![oldIndex];
     _oldSlides.removeAt(oldIndex);
     _oldSlides.insert(newIndex, _slide.copyWith(slideIndex: newIndex,));
     _oldSlides = DraftSlide.overrideDraftsSlideIndexes(
       drafts: _oldSlides,
     );
+
+    draftFlyer.value!.headline!.text = _oldSlides[0].headline!;
+
   }
+
 
   setNotifier(
     notifier: draftFlyer,
