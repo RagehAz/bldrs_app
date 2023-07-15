@@ -730,7 +730,7 @@ class DraftFlyer{
     }
   // --------------------
   /// TESTED : WORKS PERFECT
-  static void _blogDraftsDifferences({
+  static void blogDraftsDifferences({
     required DraftFlyer? draft1,
     required DraftFlyer? draft2,
   }){
@@ -978,12 +978,12 @@ class DraftFlyer{
 
     }
 
-    if (_areIdentical == false){
-      _blogDraftsDifferences(
-        draft1: draft1,
-        draft2: draft2,
-      );
-    }
+    // if (_areIdentical == false){
+    //   _blogDraftsDifferences(
+    //     draft1: draft1,
+    //     draft2: draft2,
+    //   );
+    // }
 
     // blog('checkDraftsAreIdentical : _areIdentical = $_areIdentical');
     return _areIdentical;

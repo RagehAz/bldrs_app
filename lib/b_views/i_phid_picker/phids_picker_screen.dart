@@ -44,6 +44,7 @@ class PhidsPickerScreen extends StatefulWidget {
 
   final List<String> chainsIDs;
   final bool onlyUseZoneChains;
+
   // -----------------------------------------------------------------------------
   @override
   _TheStatefulScreenState createState() => _TheStatefulScreenState();
@@ -190,8 +191,10 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
 
       _triggerLoading(setTo: true).then((_) async {
 
-        await Future.delayed(const Duration(milliseconds: 500));
-        UiProvider.proSetPyramidsAreExpanded(setTo: true, notify: true);
+        if (Mapper.superLength(_chains) > 1){
+          await Future.delayed(const Duration(milliseconds: 500));
+          UiProvider.proSetPyramidsAreExpanded(setTo: true, notify: true);
+        }
 
         await _triggerLoading(setTo: false);
       });
@@ -432,7 +435,6 @@ class _TheStatefulScreenState extends State<PhidsPickerScreen> with SingleTicker
       globalKey: _globalKey,
       navModels: _navModels,
       canGoBack: true,
-      initiallyExpanded: true,
       appBarType: AppBarType.search,
       searchController: _searchController,
       onSearchSubmit: _onSearchSubmit,

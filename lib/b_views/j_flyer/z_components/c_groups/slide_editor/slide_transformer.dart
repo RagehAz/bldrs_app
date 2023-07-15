@@ -9,7 +9,7 @@ import 'package:basics/super_image/super_image.dart';
 class SlideTransformer extends StatelessWidget {
   /// --------------------------------------------------------------------------
   const SlideTransformer({
-    required this.matrix,
+    required this.matrixNotifier,
     required this.flyerBoxWidth,
     required this.flyerBoxHeight,
     required this.slide,
@@ -18,7 +18,7 @@ class SlideTransformer extends StatelessWidget {
     super.key
   });
   /// --------------------------------------------------------------------------
-  final ValueNotifier<Matrix4?> matrix;
+  final ValueNotifier<Matrix4?> matrixNotifier;
   final double flyerBoxWidth;
   final double flyerBoxHeight;
   final DraftSlide? slide;
@@ -37,14 +37,14 @@ class SlideTransformer extends StatelessWidget {
         // blog('matrix is : $m');
 
         final bool _areTheSame = Trinity.checkMatrixesAreIdentical(
-          matrix1: matrix.value,
+          matrix1: matrixNotifier.value,
           matrixReloaded: m,
         );
 
         if (_areTheSame == false){
 
           setNotifier(
-              notifier: matrix,
+              notifier: matrixNotifier,
               mounted: mounted,
               value: Trinity.generateSlideMatrix(
                   matrix: m,
@@ -69,7 +69,7 @@ class SlideTransformer extends StatelessWidget {
       // focalPointAlignment: Alignment.center,
       clipChild: false,
       child: ValueListenableBuilder(
-        valueListenable: matrix,
+        valueListenable: matrixNotifier,
         builder: (_, Matrix4? _matrix, Widget? childA){
 
           // blog('rebuilding transforming image');
@@ -82,7 +82,7 @@ class SlideTransformer extends StatelessWidget {
             )!,
             // alignment: Alignment.center,
             // origin: Offset(0,0),
-            filterQuality: FilterQuality.high,
+            filterQuality: FilterQuality.low,
             transformHitTests: false,
             child: childA,
           );

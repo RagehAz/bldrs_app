@@ -26,7 +26,6 @@ class ObeliskLayout extends StatefulWidget {
     required this.canGoBack,
     required this.appBarIcon,
     this.appBarRowWidgets,
-    this.initiallyExpanded = false,
     this.initialIndex = 0,
     this.onBack,
     this.appBarType = AppBarType.basic,
@@ -45,12 +44,10 @@ class ObeliskLayout extends StatefulWidget {
   /// --------------------------------------------------------------------------
   final List<Widget>? appBarRowWidgets;
   final List<NavModel>? navModels;
-  final bool initiallyExpanded;
   final int initialIndex;
   final Function? onBack;
   final bool canGoBack;
   final AppBarType appBarType;
-
   final Function? onSearchCancelled;
   final Verse? searchHintVerse;
   final ValueChanged<String?>? onSearchChanged;
@@ -193,8 +190,8 @@ class _ObeliskLayoutState extends State<ObeliskLayout> with SingleTickerProvider
         value: widget.navModels![index].titleVerse?.id,
     );
 
-    blog('onRowTap index : $index : _pageTitle.value : ${_pageTitleVerse?.notifier?.value}');
-
+    // blog('onRowTap index : $index : _pageTitle.value : ${_pageTitleVerse?.notifier?.value}');
+    //
     ProgressBarModel.onSwipe(
       context: context,
       newIndex: index,
